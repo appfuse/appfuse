@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.6 2004/04/14 06:53:14 mraible Exp $                 -->
+<!-- $Id: build.xml,v 1.7 2004/04/14 18:21:31 mraible Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -477,6 +477,7 @@
                 <path refid="web.compile.classpath"/>
             </classpath>
         </taskdef>
+        <mkdir dir="${webapp.target}/WEB-INF"/>
         <webdoclet destdir="${webapp.target}/WEB-INF"
             force="${xdoclet.force}"
             mergedir="metadata/web"
