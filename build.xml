@@ -810,33 +810,33 @@
             <isset property="tomcat5"/>
             <then>
                 <echo message="Starting Tomcat 5x..."/>
-                <cargo-tomcat5x homeDir="${tomcat.home}"
+                <cargo-tomcat5x homeDir="${tomcat.home}" id="cargo.tomcat5"
                     output="${test.dir}/cargo.log" action="start">
                     <war warFile="${webapp.dist}/${webapp.war}"/>
                     <configuration dir="${test.dir}/tomcat5x">
-                        <property name="cargo.logging" value="medium"/>
+                        <property name="cargo.logging" value="high"/>
                         <property name="cargo.servlet.port" value="${http.port}"/>
                     </configuration>   
                 </cargo-tomcat5x>
         
                 <antcall target="test-canoo"/>
         
-                <cargo-tomcat5x homeDir="${tomcat.home}" action="stop"/>
+                <cargo-tomcat5x refid="cargo.tomcat5" action="stop"/>
             </then>
             <else>
                 <echo message="Starting Tomcat 4x..."/>
-                <cargo-tomcat4x homeDir="${tomcat.home}" 
+                <cargo-tomcat4x homeDir="${tomcat.home}" id="cargo.tomcat4"
                     output="${test.dir}/cargo.log" action="start">
                     <war warFile="${webapp.dist}/${webapp.war}"/>
                     <configuration dir="${test.dir}/tomcat4x">
-                        <property name="cargo.logging" value="medium"/>
+                        <property name="cargo.logging" value="high"/>
                         <property name="cargo.servlet.port" value="${http.port}"/>
                     </configuration>   
                 </cargo-tomcat4x>
         
                 <antcall target="test-canoo"/>
         
-                <cargo-tomcat4x homeDir="${tomcat.home}" action="stop"/>
+                <cargo-tomcat4x refid="cargo.tomcat4" action="stop"/>
             </else>
         </if>
     </target>
