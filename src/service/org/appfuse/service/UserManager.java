@@ -12,7 +12,7 @@ import java.util.List;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.1 $ $Date: 2004/03/01 06:19:10 $
+ * @version $Revision: 1.2 $ $Date: 2004/03/22 15:45:20 $
  */
 public interface UserManager {
     //~ Methods ================================================================
@@ -52,7 +52,7 @@ public interface UserManager {
     public void removeUser(Object user) throws Exception;
     
     /**
-     * Validates a user based on a cookie value.  If successfull, it returns
+     * Validates a user based on a cookie value.  If successful, it returns
      * a new cookie String.  If not, then it returns null.
      * 
      * @param value (in format username|guid)
@@ -64,6 +64,7 @@ public interface UserManager {
     /**
      * Creates a cookie string using a username - designed for use when
      * a user logs in and wants to be remembered.
+     * 
      * @param username
      * @return String to put in a cookie for remembering user
      * @throws Exception
