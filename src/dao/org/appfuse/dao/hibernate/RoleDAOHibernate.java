@@ -2,9 +2,6 @@ package org.appfuse.dao.hibernate;
 
 import java.util.List;
 
-import net.sf.hibernate.Hibernate;
-import net.sf.hibernate.HibernateException;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.model.Role;
