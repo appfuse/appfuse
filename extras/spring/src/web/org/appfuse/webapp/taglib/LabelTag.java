@@ -232,7 +232,7 @@ public class LabelTag extends TagSupport {
      *
      * @return ValidatorResources from a ValidatorFactory.
      */
-	private ValidatorResources getValidatorResources() {
+    private ValidatorResources getValidatorResources() {
         // look in servlet beans definition (i.e. action-servlet.xml)
         WebApplicationContext ctx = (WebApplicationContext) pageContext.getRequest()
             .getAttribute(DispatcherServlet.WEB_APPLICATION_CONTEXT_ATTRIBUTE);
@@ -248,7 +248,7 @@ public class LabelTag extends TagSupport {
                     .beanOfTypeIncludingAncestors(ctx, ValidatorFactory.class, true, true);
         }
         return factory.getValidatorResources();
-	}
+    }
     
 
     /**
