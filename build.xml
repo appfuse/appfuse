@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.36 2004/09/02 03:42:23 mraible Exp $                 -->
+<!-- $Id: build.xml,v 1.37 2004/09/03 05:44:07 mraible Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -13,11 +13,11 @@
     <!-- import application settings for xdoclet -->
     &app-settings;
     
-    <target name="define-tasks" description="defines custom tasks">
+    <target name="init" description="defines custom tasks">
         <!-- Taskdefs -->
         <taskdef resource="net/sf/antcontrib/antcontrib.properties"
             classpath="${ant-contrib.jar}"/>
-    
+            
         <!-- Check that junit.jar is in $ANT_HOME/lib or Cactus tasks fail -->
         <available classname="junit.framework.TestCase"
             property="junit.present"/>
@@ -29,22 +29,23 @@
 
         <taskdef name="dbunit" classname="org.dbunit.ant.DbUnitTask"
             classpathref="dao.test.classpath"/>
-
-        <taskdef name="xdoclet" classname="xdoclet.DocletTask"
-            classpathref="xdoclet.classpath"/>
-        
+            
         <available classname="org.apache.catalina.ant.SessionsTask"
             property="tomcat5">
             <classpath>
                 <pathelement path="${tomcat.home}/server/lib/catalina-ant.jar"/>
             </classpath>
         </available>
-   
+        
+        <!-- Conditionally set property for converting to JSP 2.0 -->
+        <condition property="convert.to.jsp2">
+            <equals arg1="${jsp.2}" arg2="true"/>
+        </condition>
     </target>
     
     <!-- Check timestamp on files -->
-    <target name="init" depends="build.properties.missing,define-tasks" 
-        description="init target directory">
+    <target name="prepare" depends="build.properties.missing,init" 
+        description="create target directories">
         <tstamp/>
         <tstamp>
             <format property="copyright.year" pattern="yyyy"/>
@@ -63,20 +64,20 @@
         </uptodate>
         
         <!-- Make sure webdoclet is necessary -->
-        <uptodate property="webdoclet.unnecessary">
+        <uptodate property="webdoclet.uptodate">
             <srcfiles dir="src/web" includes="**/*.java"/>
             <srcfiles dir="${build.dir}/web/gen" includes="**/*.java"/>
             <mapper type="glob" from="*.java"
                 to="${build.dir}/web/classes/*.class"/>
         </uptodate>
 
-        <property name="web.xml" value="${webapp.target}/WEB-INF/web.xml"/>
-        <available file="${web.xml}" property="webxml.present"/>
-        
-        <!-- Conditionally set property for converting to JSP 2.0 -->
-        <condition property="convert.to.jsp2">
-            <equals arg1="${jsp.2}" arg2="true"/>
+        <condition property="webdoclet.unnecessary">
+            <and>
+                <equals arg1="${webdoclet.uptodate}" arg2="true"/>
+                <available file="${webapp.target}/WEB-INF/web.xml"/>
+            </and>
         </condition>
+        
     </target>
 
     <!-- =================================================================== -->
@@ -191,7 +192,7 @@
     </filterset>
     
     <!-- Copy any resource or configuration files -->
-    <target name="copy-resources" depends="init"
+    <target name="copy-resources" depends="prepare"
         description="Copy .properties and .xml files from source directory">
         <copy todir="${build.dir}/web/classes" includeEmptyDirs="no">
             <fileset dir="web/WEB-INF/classes">
@@ -218,7 +219,7 @@
     <!-- The "copy-web-files" target copies the static web resources portion -->
     <!-- of your web application source into the build target area           -->
     <!-- =================================================================== -->
-    <target name="copy-web-files" depends="init"
+    <target name="copy-web-files" depends="prepare"
         description="Copy static files">
         <echo message="Copying static files"/>
         <copy todir="${webapp.target}" includeEmptyDirs="no">
@@ -314,7 +315,8 @@
     <!-- The "hibernatedoclet" target generates Hibernate mapping files      -->
     <!-- based on XDoclet marked-up Plain Old Java Object (POJO)             -->
     <!-- =================================================================== -->
-    <target name="hibernatedoclet" depends="init" unless="hibernatedoclet.unnecessary"
+    <target name="hibernatedoclet" depends="prepare" 
+        unless="hibernatedoclet.unnecessary"
         description="Generate Hibernate mapping files">
 
         <taskdef name="hibernatedoclet"
@@ -346,7 +348,7 @@
         </antcall>
     </target>
 
-    <target name="package-dao" depends="compile-dao"
+    <target name="package-dao" depends="prepare,compile-dao"
         description="Package DAO JAR">
         <!-- Copy XML files from source -->
         <copy todir="${build.dir}/dao/gen">
@@ -427,29 +429,30 @@
         </antcall>
     </target>
     
-    <!-- Simple alias to compile-web -->
-    <target name="compile" depends="compile-web" 
-        description="alias for compile-web"/>
-    
-    <target name="compile-web" depends="package-service,stage-web"
-        description="Compile web module">
-                
+    <!-- Generate ActionForms from POJOs -->
+    <target name="gen-forms" depends="prepare" unless="webdoclet.uptodate"
+        description="Generates ActionForms from POJOs">
+        <taskdef name="xdoclet" classname="xdoclet.DocletTask"
+            classpathref="xdoclet.classpath"/>
+            
         <!-- generate struts forms -->
         <xdoclet destdir="${build.dir}/web/gen"
             excludedtags="@version,@author"
             addedtags="@xdoclet-generated at ${TODAY}"
             force="${xdoclet.force}">
-            
             <fileset dir="src/dao"/>
 
             <!-- generate struts forms -->
-            <actionform destdir="${build.dir}/web/gen"
-                templateFile="metadata/templates/struts_form.xdt">
+            <actionform templateFile="metadata/templates/struts_form.xdt">
                 <packageSubstitution packages="model"
                     substituteWith="webapp.form"/>
             </actionform>
         </xdoclet>
-        
+    </target>
+            
+    <target name="compile-web" depends="package-service,stage-web,gen-forms"
+        description="Compile web module">
+
         <antcall target="compile-module" inheritAll="true">
             <param name="module" value="web"/>
             <param name="additional.src.dirs"
@@ -460,17 +463,19 @@
                 torefid="test.classpath"/>
         </antcall>
     </target>
+    
+    <!-- Simple alias to compile-web -->
+    <target name="compile" depends="compile-web" 
+        description="alias for compile-web"/>
         
     <!-- =================================================================== -->
     <!-- The "webdoclet" target generates web and struts deployment 		 -->
-    <!-- descriptors. This task depends on compile-web because it generates  --> 
-    <!-- the forms for struts                                                -->
+    <!-- descriptors.                                                        --> 
     <!-- =================================================================== -->
-    <target name="webdoclet" depends="compile-web"
-        unless="webdoclet.unnecessary,webxml.present"
+    <target name="webdoclet" depends="compile-web" 
+        unless="webdoclet.unnecessary"
         description="Generate web and Struts descriptors">
-        <taskdef name="webdoclet"
-            classname="xdoclet.modules.web.WebDocletTask">
+        <taskdef name="webdoclet" classname="xdoclet.modules.web.WebDocletTask">
             <classpath>
                 <path refid="xdoclet.classpath"/>
                 <path refid="web.compile.classpath"/>
@@ -503,7 +508,8 @@
     <!-- Simple alias to package-web -->
     <target name="war" depends="package-web" 
         description="alias for package-web"/>
-    <target name="package-web" depends="webdoclet,jsp-2"
+        
+    <target name="package-web" depends="compile-web,jsp-2"
         description="Package WAR">
         <propertyfile comment="Build Information"
             file="${build.dir}/web/classes/build.properties">
@@ -914,7 +920,7 @@
     <!-- =================================================================== -->
     <!--            Export the data                                          -->
     <!-- =================================================================== -->
-    <target name="db-export" depends="define-tasks"
+    <target name="db-export" depends="prepare"
     	description="Exports the current data in the database">
         <dbunit driver="${database.driver_class}"
             url="${database.url}"
@@ -924,7 +930,7 @@
         </dbunit>
     </target>
 
-    <target name="db-load" depends="define-tasks"
+    <target name="db-load" depends="prepare"
     	description="Loads the database with sample data">
         <property name="operation" value="CLEAN_INSERT"/>
         <property name="file" value="metadata/sql/sample-data.xml"/>
@@ -941,7 +947,7 @@
     <!-- The "db-create" target creates a database based on properties       --> 
     <!-- from the database.properties file                                   -->
     <!-- =================================================================== -->
-    <target name="db-create" depends="define-tasks"
+    <target name="db-create" depends="init"
         description="create database for ${database.type}">
         <echo level="debug">${database.jar}</echo>
         <if>
@@ -970,7 +976,7 @@
                 <echo>You selected a '${database.type}' database which </echo>
                 <echo>does NOT support creating a database via JDBC.  </echo>
                 <echo>Please create a '${database.name}' database manually</echo>
-                <echo>and then run "ant db-init" to create the </echo>
+                <echo>and then run "ant db-prepare" to create the </echo>
                 <echo>database tables.  You might want to check the </echo>
                 <echo>metadata/sql directory to see if the file</echo>
                 <echo>'${database.type}-create.sql' exists.</echo>
@@ -979,10 +985,10 @@
     </target>
     
     <!-- =================================================================== -->
-    <!-- The "db-init" target generates the database schema and creates      --> 
+    <!-- The "db-prepare" target generates the database schema and creates      --> 
     <!-- tables based on the mapping files                                   -->
     <!-- =================================================================== -->
-    <target name="db-init" depends="clean,package-dao"
+    <target name="db-prepare" depends="clean,package-dao"
         description="creates database tables">
         <taskdef name="schemaexport"
             classname="net.sf.hibernate.tool.hbm2ddl.SchemaExportTask">
@@ -1019,15 +1025,15 @@
     <!-- =================================================================== -->
     <!--            Setup Database                                           -->
     <!-- =================================================================== -->
-    <target name="setup-db" depends="db-create,db-init,db-load"
+    <target name="setup-db" depends="db-create,db-prepare,db-load"
         description="creates database and populates by calling other tasks"/>
         
-    <!-- Remove classes directory for clean build -->
-    <target name="clean" description="Removes build artifacts">
-        <echo level="info">Cleaning build and distribution directories</echo>
-        <delete dir="${build.dir}"/>
-        <delete dir="${dist.dir}"/>
-        <delete file="database.properties"/>
+        <!-- Remove classes directory for clean build -->
+        <target name="clean" description="Removes build artifacts">
+            <echo level="info">Cleaning build and distribution directories</echo>
+            <delete dir="${build.dir}"/>
+            <delete dir="${dist.dir}"/>
+            <delete file="database.properties"/>
     </target>
 
     <!-- =================================================================== -->
@@ -1072,10 +1078,10 @@
             <tag name="struts.validator-var" scope="all" description="Validator Var:"/>
             <tag name="web.listener" scope="all" description="Listener:"/>
             <tag name="web.filter" scope="all" description="Filter:"/>
-            <tag name="web.filter-init-param" scope="all" description="Init-Param:"/>
+            <tag name="web.filter-prepare-param" scope="all" description="prepare-Param:"/>
             <tag name="web.filter-mapping" scope="all" description="Mapping:"/>
             <tag name="web.servlet" scope="all" description="Servlet:"/>
-            <tag name="web.servlet-init-param" scope="all" description="Init-Param:"/>
+            <tag name="web.servlet-prepare-param" scope="all" description="prepare-Param:"/>
             <tag name="web.servlet-mapping" scope="all" description="Mapping:"/>
             
             <!-- Application frameworks -->
@@ -1171,7 +1177,7 @@
     <!-- Utilities -->
     <patternset id="java.files.pattern" includes="**/*.java"/>
 
-    <target name="checkstyle" depends="init"
+    <target name="checkstyle" depends="prepare"
         description="Check code style for compliance with coding standards">
         <property name="checkstyle.data.dir"
             location="${build.dir}/docs/checkstyle"
@@ -1205,7 +1211,7 @@
             />
     </target>
 
-    <target name="pmd" if="pmd.jar" depends="init"
+    <target name="pmd" if="pmd.jar" depends="prepare"
         description="Locates unused imports, unused variables, etc.">
         <mkdir dir="${build.dir}/docs/pmd"/>
         <property name="pmd.data.file"
@@ -1226,7 +1232,7 @@
         </pmd>
     </target>
 
-    <target name="todo" depends="init">
+    <target name="todo" description="creates report of todos in code">
 
         <taskdef name="todo"
             classname="xdoclet.modules.doc.DocumentDocletTask"
@@ -1248,7 +1254,7 @@
     <!-- =================================================================== -->
     <!--            Setup Tomcat                                             -->
     <!-- =================================================================== -->
-    <target name="setup-tomcat" depends="define-tasks" if="tomcat.home"
+    <target name="setup-tomcat" depends="init" if="tomcat.home"
         description="copies jdbc driver and context.xml to tomcat">
         <if>
             <isset property="tomcat5"/>

@@ -89,38 +89,39 @@
         </replace>
 
         <echo level="info">Refactoring build.xml</echo>
+
+        <!-- Remove web/gen from uptodate check for webdoclet -->
         <replace file="../../build.xml">
-            <replacetoken><![CDATA[<!-- Make sure webdoclet is necessary -->
-        <uptodate property="webdoclet.unnecessary">
-            <srcfiles dir="src/web" includes="**/*.java"/>
-            <srcfiles dir="${build.dir}/web/gen" includes="**/*.java"/>
-            <mapper type="glob" from="*.java"
-                to="${build.dir}/web/classes/*.class"/>
-        </uptodate>
-]]></replacetoken>
-            <replacevalue></replacevalue>
+            <replacetoken><![CDATA[<srcfiles dir="src/web" includes="**/*.java"/>
+            <srcfiles dir="${build.dir}/web/gen" includes="**/*.java"/>]]></replacetoken>
+            <replacevalue><![CDATA[<srcfiles dir="src/web" includes="**/*.java"/>]]></replacevalue>
         </replace>
         
         <replace file="../../build.xml">
-            <replacetoken><![CDATA[        
+            <replacetoken><![CDATA[
+    <!-- Generate ActionForms from POJOs -->
+    <target name="gen-forms" depends="prepare" unless="webdoclet.uptodate"
+        description="Generates ActionForms from POJOs">
+        <taskdef name="xdoclet" classname="xdoclet.DocletTask"
+            classpathref="xdoclet.classpath"/>
+            
         <!-- generate struts forms -->
         <xdoclet destdir="${build.dir}/web/gen"
             excludedtags="@version,@author"
             addedtags="@xdoclet-generated at ${TODAY}"
             force="${xdoclet.force}">
-            
             <fileset dir="src/dao"/>
 
             <!-- generate struts forms -->
-            <actionform destdir="${build.dir}/web/gen"
-                templateFile="metadata/templates/struts_form.xdt">
+            <actionform templateFile="metadata/templates/struts_form.xdt">
                 <packageSubstitution packages="model"
                     substituteWith="webapp.form"/>
             </actionform>
         </xdoclet>
-        
-]]></replacetoken>
-            <replacevalue></replacevalue>
+    </target>
+            
+    <target name="compile-web" depends="package-service,stage-web,gen-forms"]]></replacetoken>
+            <replacevalue><![CDATA[<target name="compile-web" depends="package-service,stage-web"]]></replacevalue>
         </replace>
         <replace file="../../build.xml">
             <replacetoken><![CDATA[<param name="additional.src.dirs"
@@ -131,14 +132,12 @@
         
         <replace file="../../build.xml">
             <replacetoken><![CDATA[    <!-- The "webdoclet" target generates web and struts deployment 		 -->
-    <!-- descriptors. This task depends on compile-web because it generates  --> 
-    <!-- the forms for struts                                                -->
+    <!-- descriptors.                                                        --> 
     <!-- =================================================================== -->
-    <target name="webdoclet" depends="compile-web"
-        unless="webdoclet.unnecessary,webxml.present"
+    <target name="webdoclet" depends="compile-web" 
+        unless="webdoclet.unnecessary"
         description="Generate web and Struts descriptors">
-        <taskdef name="webdoclet"
-            classname="xdoclet.modules.web.WebDocletTask">
+        <taskdef name="webdoclet" classname="xdoclet.modules.web.WebDocletTask">
             <classpath>
                 <path refid="xdoclet.classpath"/>
                 <path refid="web.compile.classpath"/>
@@ -168,7 +167,8 @@
 ]]></replacetoken>
             <replacevalue><![CDATA[    <!-- The "webdoclet" target generates web deployment descriptors.  	     -->
     <!-- =================================================================== -->
-    <target name="webdoclet" depends="compile-web" unless="webxml.present"
+    <target name="webdoclet" depends="compile-web" 
+        unless="webdoclet.unnecessary"
         description="Generate web deployment descriptors">
         <taskdef name="webdoclet"
             classname="xdoclet.modules.web.WebDocletTask">
@@ -198,11 +198,6 @@
                 shortName="${webapp.name}" filename="${webapp.name}.tld"/>
             <springvalidationxml/>
 ]]></replacevalue>
-        </replace>
-        
-        <replace file="../../build.xml">
-            <replacetoken><![CDATA[<target name="package-web" depends="webdoclet,jsp-2"]]></replacetoken>
-            <replacevalue><![CDATA[<target name="package-web" depends="compile-web,jsp-2"]]></replacevalue>
         </replace>
         
         <replace file="../../build.xml">

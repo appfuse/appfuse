@@ -56,6 +56,11 @@ Features/Changes in 1.6
 - Refactored BaseDAOTestCase and BaseManagerTestCase to use DBUnit and load
   sample data for each test, rather than relying on Ant and the "db-load" 
   target.
+- Refactored build.xml so "actionform" task could run with Ant 1.5.4.  More 
+  details at: http://raibledesigns.com/wiki/Wiki.jsp?page=XDocletActionForms
+- Changed target names in build.xml: define-tasks -> init, init -> prepare. 
+  Reworked build.xml so XDoclet tasks don't execute when they don't need to.
+- Turned on "Remember Me" by default.
 - Dependent packages upgraded:
     * DbUnit 2.1
     * Display Tag 1.0 RC1
@@ -67,6 +72,7 @@ Features/Changes in 1.6
     * Struts 1.2.2
     * Struts Test Case 2.1.2
     * WebTest build474
+    * XDoclet 1.2.2 Snapshot (20040902)
 - Dependent packages added:
     * SiteMesh 2.1 - Seems to be a page-decoration package that will work
       across different MVC frameworks.
