@@ -12,8 +12,8 @@
             <c:if test="${param.error != null}">
             <div class="error" 
                 style="margin-right: 0; margin-bottom: 3px; margin-top: 3px">
-                    <html:img pageKey="icon.warning.img" 
-                        altKey="icon.warning" styleClass="icon"/>
+                    <img src="<c:url value="/images/iconWarning.gif"/>"
+                        alt="<fmt:message key="icon.warning"/>" class="icon" />
                     <fmt:message key="errors.password.mismatch"/>
                 </div>
             </c:if>
@@ -51,10 +51,10 @@
     <tr>
         <td></td>
         <td>
-        	<!-- for Resin -->
-        	<input type="hidden" name="j_uri" id="j_uri" value="" />
-            <input type="submit" class="button" name="login" value="<fmt:message key="button.login"/>" tabindex="4" />
-        	<input type="reset" class="button" name="reset" id="reset" value="<fmt:message key="button.reset"/>" tabindex="5" 
+            <!-- for Resin -->
+            <input type="hidden" name="j_uri" id="j_uri" value="" />
+            <input type="submit" class="button" name="login" id="login" value="<fmt:message key="button.login"/>" tabindex="4" />
+            <input type="reset" class="button" name="reset" id="reset" value="<fmt:message key="button.reset"/>" tabindex="5" 
                 onclick="document.getElementById('j_username').focus()" />
         </td>
     </tr>

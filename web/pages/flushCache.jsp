@@ -3,10 +3,10 @@
 <title><fmt:message key="flushCache.title"/></title>
 <content tag="heading"><fmt:message key="flushCache.heading"/></content>
 
-<cache:flush />
+<cache:flush/>
 <div class="message" style="font-size: 12px">
-    <html:img pageKey="icon.information.img" 
-        altKey="icon.information" styleClass="icon"/>
+    <img src="<c:url value="/images/iconInformation.gif"/>"
+        alt="<fmt:message key="icon.information"/>" class="icon" />
     <fmt:message key="flushCache.message"/>
 </div>
 <script type="text/javascript">

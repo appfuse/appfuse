@@ -19,10 +19,9 @@
 
 <c:out value="${buttons}" escapeXml="false" />
 
-<logic:present name="userList" scope="request">
 <display:table name="${userList}" cellspacing="0" cellpadding="0"
-    requestURI="${request.contextPath}" defaultsort="1"
-    pagesize="25" styleClass="list userList" export="true">
+    requestURI="" defaultsort="1" export="true" id="users"
+    pagesize="25" styleClass="list userList">
   
     <%-- Table columns --%>
     <display:column property="username" sort="true" 
@@ -46,29 +45,11 @@
     <display:setProperty name="export.excel.filename" value="User List.xls"/>
     <display:setProperty name="export.csv.filename" value="User List.csv"/>
 </display:table>
-</logic:present>
-<logic:notPresent name="userList" scope="request">
-    <fmt:message key="userList.nousers"/>
-</logic:notPresent>
 
 <c:out value="${buttons}" escapeXml="false" />
             
 <script type="text/javascript">
 <!--
-    var previousClass = null;
-    var table = document.getElementsByTagName("table")[0];    
-    var tbody = table.getElementsByTagName("tbody")[0];
-    var rows = tbody.getElementsByTagName("tr");
-    // add event handlers so rows light up and are clickable
-    for (i=0; i < rows.length; i++) {
-        rows[i].onmouseover = function() { previousClass=this.className;this.className+=' over' };
-        rows[i].onmouseout = function() { this.className=previousClass };
-        rows[i].onclick = function() {
-            var cell = this.getElementsByTagName("td")[0];
-            var link = cell.getElementsByTagName("a")[0];
-            location.href = link.getAttribute("href");
-            this.style.cursor="wait";
-        }
-    }
+highlightTableRows("users");
 //-->
 </script>

@@ -14,8 +14,7 @@
 </button>
     
 <display:table name="${userNames}" id="user" cellspacing="0" cellpadding="0"
-    defaultsort="1" styleClass="list activeUserList" 
-    pagesize="50" requestURI="${request.contextPath}">
+    defaultsort="1" styleClass="list activeUserList" pagesize="50" requestURI="">
   
     <%-- Table columns --%>
     <display:column property="username" width="30%" headerClass="sortable"
@@ -32,5 +31,4 @@
         
     <display:setProperty name="paging.banner.item_name" value="user" />
     <display:setProperty name="paging.banner.items_name" value="users" />
-    
 </display:table>

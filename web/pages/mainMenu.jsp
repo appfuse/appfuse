@@ -9,13 +9,9 @@
 
 <ul class="glassList">
     <li>
-        <html:link forward="editProfile">
-            <fmt:message key="menu.user"/>
-        </html:link>
+        <a href="<c:url value="/editProfile.html"/>"><fmt:message key="menu.user"/></a>
     </li>
     <li>
-        <html:link forward="selectFile">
-            <fmt:message key="menu.selectFile"/>
-        </html:link>
+        <a href="<c:url value="/selectFile.html"/>"><fmt:message key="menu.selectFile"/></a>
     </li>
 </ul>
