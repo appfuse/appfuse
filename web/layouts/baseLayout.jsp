@@ -5,16 +5,16 @@
 <%@ include file="/common/taglibs.jsp"%>
 
 <html:html xhtml="true" locale="true">
-	<head>
-        <%-- Include common set of meta tags for each layout --%>
-        <%@ include file="/common/meta.jsp" %>
+    <head>
+    <%-- Include common set of meta tags for each layout --%>
+    <%@ include file="/common/meta.jsp" %>
         
-		<%-- Push tiles attributes in page context --%>
-		<tiles:importAttribute />
-		<title>
-            <fmt:message key="webapp.prefix"/>
-            <fmt:message key="${titleKey}"/>
-        </title>
+    <%-- Push tiles attributes in page context --%>
+    <tiles:importAttribute />
+    <title>
+        <fmt:message key="webapp.prefix"/>
+        <fmt:message key="${titleKey}"/>
+    </title>
 		
     <%-- Get Javascript List --%>
     <tiles:useAttribute id="scriptList" name="scripts" 
