@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: properties.xml,v 1.9 2004/04/29 09:54:31 mraible Exp $             -->
+<!-- $Id: properties.xml,v 1.10 2004/04/29 10:03:51 mraible Exp $             -->
 <!-- ======================================================================= -->
 <!-- This file defines properties for build.xml -->
 
@@ -41,7 +41,7 @@
     value="net.sf.hibernate.dialect.MySQLDialect"/>
 <property name="database.driver_class" value="com.mysql.jdbc.Driver"/>
 <property name="database.url" 
-    value="jdbc:${database.type}://${database.host}/${database.name}?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf-8"/>
+    value="jdbc:${database.type}://${database.host}/${database.name}?autoReconnect=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf-8"/>
 <property name="database.show_sql" value="true"/>
 
 <!-- this task is called by tasks that need it in build.xml -->
