@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.8 2004/04/15 04:47:47 RickHigh Exp $                 -->
+<!-- $Id: build.xml,v 1.9 2004/04/15 05:39:59 RickHigh Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -316,8 +316,10 @@
     <!-- The "ejbdoclet" target generates files based on XDoclet marked-up   -->
     <!-- Plain Old Java Object (POJO)                                        -->
     <!-- =================================================================== -->
-    <target name="ejbdoclet" depends="init" unless="ejbdoclet.unnecessary"
-        description="Generate Persistence and form classes">
+    <target name="ejbdoclet" depends="init,ejbdoclet-nomodule,ejbdoclet-with-module" unless="ejbdoclet.unnecessary"
+        description="Generate Persistence and form classes"/>
+    
+    <target name="ejbdoclet-nomodule" unless="dao.modules.additional">
 
         <taskdef name="ejbdoclet"
             classname="xdoclet.modules.ejb.EjbDocletTask"
@@ -362,10 +364,61 @@
         </hibernatedoclet>
     </target>
 
+    <target name="ejbdoclet-with-module" if="dao.modules.additional">
+
+        <taskdef name="ejbdoclet"
+            classname="xdoclet.modules.ejb.EjbDocletTask"
+            classpathref="xdoclet.classpath"/>
+        <taskdef
+            name="hibernatedoclet"
+            classname="xdoclet.modules.hibernate.HibernateDocletTask"
+            classpathref="xdoclet.classpath"/>
+
+        <mkdir dir="${build.dir}/dao/gen"/>
+        
+        <!-- generate struts forms -->
+        <ejbdoclet
+            destdir="${build.dir}/dao/gen"
+            excludedtags="@version,@author"
+            addedtags="@xdoclet-generated at ${TODAY}"
+            ejbspec="2.0"
+            force="${xdoclet.force}"
+            mergedir="metadata/dao">
+            <fileset dir="src/dao"/>
+            <fileset dir="${dao.modules.additional}"/>
+
+            <!-- generate struts forms -->
+            <strutsform destdir="${build.dir}/web/gen"
+                templateFile="metadata/templates/struts_form.xdt">
+                <packageSubstitution packages="model"
+                    substituteWith="webapp.form"/>
+            </strutsform>
+
+        </ejbdoclet>
+
+        <!-- generate hibernate files -->
+        <hibernatedoclet
+            destdir="${build.dir}/dao/gen"
+            mergedir="metadata/dao"
+            excludedtags="@version,@author"
+            addedtags="@xdoclet-generated at ${TODAY}"
+            force="${xdoclet.force}">
+            <fileset dir="src/dao"/>
+            <fileset dir="${dao.modules.additional}"/>
+
+            <hibernate validatexml="true" version="2.0"/>
+
+        </hibernatedoclet>
+    </target>
+
     <target name="compile-dao" depends="ejbdoclet"
         description="Compile dao module">
+         <property name="dao.modules.additional" value=""/>
+        
         <antcall target="compile-module" inheritAll="true">
             <param name="module" value="dao"/>
+            <param name="additional.src.dirs"
+                value="${dao.modules.additional}"/>
             <reference refid="dao.compile.classpath"
                 torefid="compile.classpath"/>
             <reference refid="dao.test.classpath"
@@ -510,7 +563,6 @@
     <target name="compile-web" depends="package-dao,package-service,stage-web"
         description="Compile web module">
         <property name="web.modules.additional" value=""/>
-		<echo>Module ${web.modules.additional}</echo>
         <antcall target="compile-module" inheritAll="true">
             <param name="module" value="web"/>
             <param name="additional.src.dirs"
