@@ -24,9 +24,9 @@
 <p>
   This page is designed to demonstrate how you can use the display tag to create
   editable rows of data.  This particular example uses JSTL's &lt;sql:query&gt;
-  tag to select, insert, update and delete rows from an actual database. 
+  tag to select, insert, update and delete rows from an actual database.
   <br /><br />
-  Sorting is disabled on the column headings.  The reason?  There's 
+  Sorting is disabled on the column headings.  The reason?  There's
   <a href="http://sourceforge.net/tracker/index.php?func=detail&amp;aid=755120&amp;group_id=73068&amp;atid=536616">an issue</a>
   with sorting when your &lt;display:column&gt; tag has a body.  I didn't feel
   like digging in and fixing it.  Sorry. ;-)
@@ -42,7 +42,40 @@
 Using the "View Table Source" link below this table, you can see the JSP/HTML
 code that's used to render this table.
 </p>
-        
+
+<%-- Create temporary table --%>
+<c:if test="${applicationScope.tableCreated != null}">
+<sql:transaction dataSource="jdbc/appfuse">
+
+    <sql:update>
+        DROP TABLE IF EXISTS temp_user
+    </sql:update>
+    <sql:update>
+        CREATE TABLE temp_user (
+           id BIGINT not null AUTO_INCREMENT,
+           username VARCHAR(50),
+           firstName VARCHAR(100),
+           lastName VARCHAR(100),
+           primary key (id)
+        )
+    </sql:update>
+
+    <sql:update var="updateCount">
+        INSERT INTO temp_user
+            (username, firstName, lastName)
+        VALUES
+            ('mraible', 'Matt', 'Raible')
+    </sql:update>
+    <sql:update var="updateCount">
+        INSERT INTO temp_user
+            (username, firstName, lastName)
+        VALUES
+            ('tomcat', 'Tomcat', 'User')
+    </sql:update>
+</sql:transaction>
+<c:set var="tableCreated" scope="application" value="true" />
+</c:if>
+
 <c:if test="${param.method == 'Add'}">
     <%-- This is a hack - if you use an auto-increment on your table,
          you won't have to worry about this kind of logic. --%>
@@ -53,7 +86,7 @@ code that's used to render this table.
     pageContext.setAttribute("id", id);
     %>
     <sql:update dataSource="jdbc/appfuse">
-        insert into app_user (id) values (?)
+        insert into temp_user (id) values (?)
         <sql:param value="${id}"/>
     </sql:update>
     <c:redirect url="/users-edit-sql.jsp">
@@ -64,7 +97,7 @@ code that's used to render this table.
 
 <c:if test="${param.method == 'Save'}">
     <sql:update dataSource="jdbc/appfuse">
-        update app_user set username=?, firstName=?, lastName=? where id=?
+        update temp_user set username=?, firstName=?, lastName=? where id=?
         <sql:param value="${param.username}"/>
         <sql:param value="${param.firstName}"/>
         <sql:param value="${param.lastName}"/>
@@ -77,7 +110,7 @@ code that's used to render this table.
 
 <c:if test="${param.method == 'Delete'}">
     <sql:update dataSource="jdbc/appfuse">
-        delete from app_user where id=?
+        delete from temp_user where id=?
         <sql:param value="${param.id}"/>
     </sql:update>
     <div class="message">Delete succeeded!</div>
@@ -85,7 +118,7 @@ code that's used to render this table.
      
 <sql:query var="users" dataSource="jdbc/appfuse">
     select id, username, firstName, lastName
-    from app_user order by upper(username);
+    from temp_user order by upper(username);
 </sql:query>
 
 <c:set var="checkAll">
@@ -144,6 +177,10 @@ code that's used to render this table.
     View JSP Source</a>
 </p>
 
+<p style="margin-left: 10px; font-style: italic">
+   NOTE: The table (temp_user) for this list will be dropped and re-created
+   whenever this webapp is restarted.
+</p>
 <div id="source" style="display:none; margin-left: 10px; margin-top: 0">
 <pre>
 &lt;c:if test="${param.method == 'Add'}"&gt;
@@ -156,7 +193,7 @@ code that's used to render this table.
     pageContext.setAttribute("id", id);
     %&gt;
     &lt;sql:update dataSource="jdbc/appfuse"&gt;
-        insert into app_user (id) values (?)
+        insert into temp_user (id) values (?)
         &lt;sql:param value="${id}"/&gt;
     &lt;/sql:update&gt;
     &lt;c:redirect url="/users-edit-sql.jsp"&gt;
@@ -167,7 +204,7 @@ code that's used to render this table.
 
 &lt;c:if test="${param.method == 'Save'}"&gt;
     &lt;sql:update dataSource="jdbc/appfuse"&gt;
-        update app_user set username=?, firstName=?, lastName=? where id=?
+        update temp_user set username=?, firstName=?, lastName=? where id=?
         &lt;sql:param value="${param.username}"/&gt;
         &lt;sql:param value="${param.firstName}"/&gt;
         &lt;sql:param value="${param.lastName}"/&gt;
@@ -180,15 +217,15 @@ code that's used to render this table.
 
 &lt;c:if test="${param.method == 'Delete'}"&gt;
     &lt;sql:update dataSource="jdbc/appfuse"&gt;
-        delete from app_user where id=?
+        delete from temp_user where id=?
         &lt;sql:param value="${param.id}"/&gt;
     &lt;/sql:update&gt;
     &lt;div class="message"&gt;Delete succeeded!&lt;/div&gt;
 &lt;/c:if&gt;
-     
+
 &lt;sql:query var="users" dataSource="jdbc/appfuse"&gt;
     select id, username, firstName, lastName
-    from app_user order by upper(username);
+    from temp_user order by upper(username);
 &lt;/sql:query&gt;
 
 &lt;c:set var="checkAll"&gt;
@@ -208,7 +245,7 @@ code that's used to render this table.
 &lt;br /&gt;&lt;br /&gt;
 &lt;display:table name="${users.rows}" id="user" class="list"&gt;
   &lt;display:column width="5" title="${checkAll}"&gt;
-    &lt;input type="checkbox" name="id" value="&lt;c:out value="${user.id}"/&gt;" 
+    &lt;input type="checkbox" name="id" value="&lt;c:out value="${user.id}"/&gt;"
     &lt;c:if test="${param.id == user.id and param.method != 'Save'}"&gt;checked="checked"&lt;/c:if&gt;
         style="margin: 0 0 0 4px" onclick="radio(this)" /&gt;
   &lt;/display:column&gt;
@@ -247,7 +284,7 @@ code that's used to render this table.
 
 <div id="footer">
 Can you think of a better way to do this?
-Suggestions or Questions should be addressed to 
+Suggestions or Questions should be addressed to
 <a href="mailto:displaytag-user@lists.sf.net">displaytag-user@lists.sf.net</a>.
 </div>
 

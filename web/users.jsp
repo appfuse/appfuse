@@ -22,7 +22,7 @@
 <h1>SQL Tags Example</h1>
 
 <p>This page is designed to show how easy it is to list data from a database
-using JSTL's SQL Tags.  The following is the query that is used to expose a 
+using JSTL's SQL Tags.  The following is the query that is used to expose a
 <em style="font-weight: bold">users</em> variable to the pageContext.
 </p>
 <pre>&lt;sql:query var="users" dataSource="jdbc/appfuse"&gt;
