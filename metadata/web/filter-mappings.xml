@@ -3,10 +3,6 @@
         <url-pattern>*.html</url-pattern>
     </filter-mapping>
     <filter-mapping>
-        <filter-name>exportFilter</filter-name>
-        <url-pattern>*.html</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
         <filter-name>loginFilter</filter-name>
         <url-pattern>/login.jsp</url-pattern>
         <!-- These are needed by Tomcat 5 since it does a forward to login.jsp -->
