@@ -75,6 +75,7 @@
             <to-view-id>/login.jsp</to-view-id>
         </navigation-case>
     </navigation-rule>
+    <!-- Add additional rules here -->
     
     <managed-bean>
         <managed-bean-name>basePage</managed-bean-name>
@@ -191,6 +192,8 @@
         <managed-bean-class>org.appfuse.webapp.action.Reload</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
+    
+    <!-- Add additional beans here -->
     
     <render-kit>
       <description>Some replacements for the standard renderers</description>

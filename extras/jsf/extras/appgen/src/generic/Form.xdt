@@ -1,0 +1,59 @@
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>package <XDtForm:parentPackageName/>.webapp.action;
+
+import java.util.List;
+
+import <XDtPackage:packageName/>.<XDtClass:className/>;
+import <XDtForm:parentPackageName/>.service.Manager;
+
+public class <XDtClass:className/>Form extends BasePage implements Serializable {
+    private Manager manager;
+    private <XDtClass:className/> <XDtForm:classNameLower/> = new <XDtClass:className/>();
+    private String id;
+
+    public void setManager(Manager manager) {
+        this.manager = manager;
+    }
+
+    public <XDtClass:className/> get<XDtClass:className/>() {
+        return <XDtForm:classNameLower/>;
+    }
+
+    public void set<XDtClass:className/>(<XDtClass:className/> <XDtForm:classNameLower/>) {
+        this.<XDtForm:classNameLower/> = <XDtForm:classNameLower/>;
+    }
+    
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String delete() {
+        manager.removeObject(<XDtClass:className/>.class, <XDtForm:classNameLower/>.getId());
+        addMessage("<XDtForm:classNameLower/>.deleted");
+
+        return "list";
+    }
+
+    public String edit() {
+        if (id != null) {
+            <XDtForm:classNameLower/> = manager.getObject(<XDtClass:className/>.class, new Long(id));
+        } else {
+            <XDtForm:classNameLower/> = new <XDtClass:className/>();
+        }
+
+        return "edit";
+    }
+
+    public String save() {
+
+        boolean isNew = (<XDtForm:classNameLower/>.getId() == null);
+
+        manager.saveObject(<XDtForm:classNameLower/>);
+
+        String key = (isNew) ? "<XDtForm:classNameLower/>.added" : "<XDtForm:classNameLower/>.updated";
+        addMessage(key);
+
+        if (isNew) {
+            return "list";
+        }
+    }
+}

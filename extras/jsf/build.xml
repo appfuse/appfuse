@@ -104,7 +104,120 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         </delete>
 
         <!-- Modify appgen for JSF -->
-        <!-- TODO: AppGen Replacement -->
+        <!-- Modify appgen for WebWork -->
+        <echo level="info">Modifying appgen for WebWork</echo>
+        <copy todir="../appgen" overwrite="true">
+            <fileset dir="extras/appgen" includes="**"/>
+        </copy>
+        <!-- Add templates to the list appgen/build.xml -->
+        <replace file="../appgen/build.xml">
+            <replacetoken><![CDATA[<!-- Action Test -->
+            <template templateFile="${template.dir}/ActionTest.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/test/web/${app.package}/webapp/action/{0}ActionTest.java"/>
+            <!-- Detailed Action -->
+            <template templateFile="${template.dir}/detailed/Action.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/src/web/${app.package}/webapp/action/{0}Action.java"/>
+            <!-- Generic Action -->
+            <template templateFile="${template.dir}/generic/Action.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/generic/src/web/${app.package}/webapp/action/{0}Action.java"/>]]></replacetoken>
+            <replacevalue><![CDATA[<!-- Form Test -->    
+            <template templateFile="${template.dir}/FormTest.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/test/web/${app.package}/webapp/action/{0}FormTest.java"/>
+            <!-- List Test -->    
+            <template templateFile="${template.dir}/ListTest.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/test/web/${app.package}/webapp/action/{0}ListTest.java"/>
+            <!-- Detailed Beans -->
+            <template templateFile="${template.dir}/detailed/Form.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/src/web/${app.package}/webapp/action/{0}Form.java"/>
+            <template templateFile="${template.dir}/detailed/List.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/src/web/${app.package}/webapp/action/{0}List.java"/>
+            <template templateFile="${template.dir}/detailed/managed-beans.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/web/WEB-INF/managed-beans-{0}.xml"/>
+            <!-- Generic Beans -->    
+            <template templateFile="${template.dir}/generic/Form.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/generic/src/web/${app.package}/webapp/action/{0}Form.java"/>
+            <template templateFile="${template.dir}/generic/List.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/generic/src/web/${app.package}/webapp/action/{0}List.java"/>
+            <template templateFile="${template.dir}/generic/managed-beans.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/generic/web/WEB-INF/managed-beans-{0}.xml"/>
+            <!-- Navigation Rules -->
+            <template templateFile="${template.dir}/navigation-rules.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/web/WEB-INF/navigation-rules-{0}.xml"/>
+        </replace>
+        
+        <!-- Modify web-tests.xdt template to user model.propertyName -->
+        <replace file="../appgen/src/web-tests.xdt">
+            <replacetoken><![CDATA[name="<XDtMethod:propertyName/>" value]]></replacetoken>
+            <replacevalue><![CDATA[name="<XDtForm:classNameLower/>.<XDtMethod:propertyName/>" value]]></replacevalue>
+        </replace>
+        
+        <!-- Modify XML to modify faces-config.xml -->
+        <replace file="../appgen/build.xml">
+            <replacetoken><![CDATA[<echo>Merging sample-data into metadata/sql/sample-data.xml</echo>]]></replacetoken>
+            <replacevalue><![CDATA[
+        <echo>Merging navigation-rules XML into web/WEB-INF/action-servlet.xml</echo>
+        <loadfile property="navigation.rules"
+            srcfile="${generated.dir}/web/WEB-INF/navigation-rules-${model.name}.xml"/>
+        <!-- Replace strategically placed comment -->   
+        <replace file="../../web/WEB-INF/faces-config.xml" 
+            token="&lt;!-- Add additional rules here --&gt;"
+            value="${navigation.rules}"/>
+
+        <echo>Merging sample-data into metadata/sql/sample-data.xml</echo>]]></replacevalue>
+        </replace>
+        
+        <!-- Modify install-src-detailed target -->
+        <replace file="../appgen/build.xml">
+            <replacetoken><![CDATA[<echo file="../../src/service/${app.package}/service/applicationContext-service.xml" append="true" 
+            message="${service.context}"/>]]></replacetoken>
+            <replacevalue><![CDATA[
+        <echo>Merging managed-beans XML into web/WEB-INF/faces-config.xml</echo>
+        <loadfile property="managed.beans"
+            srcfile="${generated.dir}/web/WEB-INF/managed-beans-${model.name}.xml"/>
+        <!-- Replace strategically placed comment -->   
+        <replace file="../../web/WEB-INF/faces-config.xml" 
+            token="&lt;!-- Add additional beans here --&gt;"
+            value="${managed.beans}"/>]]></replacevalue>
+        </replace>
+
+        <!-- Modify install-src-generic target -->
+        <replace file="../appgen/build.xml">
+            <replacetoken><![CDATA[<copy todir="../../test" overwrite="${overwrite}">
+            <fileset dir="${generated.dir}/test" includes="**/action/*Test.java"/>
+        </copy>]]></replacetoken>
+            <replacevalue><![CDATA[
+        <echo>Merging managed-beans XML into web/WEB-INF/faces-config.xml</echo>
+        <loadfile property="managed.beans"
+            srcfile="${generated.dir}/generic/web/WEB-INF/managed-beans-${model.name}.xml"/>
+        <!-- Replace strategically placed comment -->   
+        <replace file="../../web/WEB-INF/faces-config.xml" 
+            token="&lt;!-- Add additional beans here --&gt;"
+            value="${managed.beans}"/>]]></replacevalue>
+        </replace>
         
         <!-- Copy source and tests -->    
         <echo level="info">Replacing source and test files</echo>
@@ -359,10 +472,10 @@ log4j.logger.net.sourceforge.myfaces=FATAL</replacevalue>
     </target>
 
     <!-- =================================================================== -->
-    <!-- Creates new project, installs JSF and tests appgen              -->
+    <!-- Creates new project, installs JSF and tests appgen                  -->
     <!-- =================================================================== -->
-    <target name="test-appgen" description="Creates appfuse-JSF and tests appgen">
-        <property name="app.name" value="appfuse-wwgen"/>
+    <target name="test-appgen" description="Creates appfuse-jsfgen and tests appgen">
+        <property name="app.name" value="appfuse-jsfgen"/>
         <property name="db.name" value="appfuse"/>
         <delete dir="../../../${app.name}"/>
         <ant dir="../.." target="new"/>
