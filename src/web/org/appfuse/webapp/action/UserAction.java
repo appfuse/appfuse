@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -20,7 +21,10 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.util.LabelValueBean;
+import org.apache.struts.util.MessageResources;
+import org.apache.struts.util.RequestUtils;
 import org.appfuse.Constants;
+import org.appfuse.service.MailSender;
 import org.appfuse.service.UserManager;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.form.UserForm;
@@ -39,7 +43,7 @@ import org.appfuse.webapp.util.RequestUtil;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.4 $ $Date: 2004/03/14 22:50:51 $
+ * @version $Revision: 1.5 $ $Date: 2004/03/16 13:51:49 $
  *
  * @struts.action name="userFormEx" path="/editUser" scope="request"
  *  validate="false" parameter="action" input="list" roles="admin"
@@ -280,7 +284,7 @@ public final class UserAction extends BaseAction {
                 messages.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("user.added", userForm.getUsername()));
                 session.setAttribute(Globals.MESSAGE_KEY, messages);
-
+                sendNewUserEmail(request, userForm);
                 return mapping.findForward("addUser");
             } else {
                 messages.add(ActionMessages.GLOBAL_MESSAGE,
@@ -323,5 +327,37 @@ public final class UserAction extends BaseAction {
             roles.add(new LabelValueBean(role.getRoleName(), role.getRoleName()));
         }
         request.setAttribute(Constants.USER_ROLES, roles);   
+    }
+    
+    private void sendNewUserEmail(HttpServletRequest request, UserForm userForm)
+        throws Exception {
+        MessageResources resources = getResources(request);
+        // Send user an e-mail
+        if (log.isDebugEnabled()) {
+            log.debug("Sending user '" + userForm.getUsername()
+                    + "' an account information e-mail");
+        }
+
+        UserForm user = getUserForm(request.getSession());
+        String fullName = user.getFirstName() + " " + user.getLastName();
+        StringBuffer msg = new StringBuffer();
+        msg.append(resources.getMessage("newuser.email.message", fullName));
+        msg.append("\n\n" + resources.getMessage("userFormEx.username"));
+        msg.append(": " + userForm.getUsername() + "\n");
+        msg.append(resources.getMessage("userFormEx.password") + ": ");
+        msg.append(userForm.getPassword());
+        msg.append("\n\nLogin at: " + RequestUtils.serverURL(request) +
+                       request.getContextPath());
+
+        String subject = resources.getMessage("signup.email.subject");
+
+        try {
+            // From,to,cc,subject,content
+            MailSender.sendTextMessage(Constants.DEFAULT_FROM,
+                                       userForm.getEmail(), null,
+                                       subject, msg.toString());
+        } catch (MessagingException me) {
+            log.warn("Failed to send Account Information e-mail");
+        }   
     }
 }
