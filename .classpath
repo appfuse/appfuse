@@ -19,13 +19,7 @@
 	<classpathentry kind="var" path="J2EE_HOME/lib/j2ee.jar"/>
 	<classpathentry kind="var" path="JUNIT_HOME/junit.jar"/>
 	<classpathentry kind="lib" path="lib/ant-contrib-0.5/ant-contrib-0.5.jar"/>
-	<classpathentry kind="lib" path="lib/jakarta-cactus-13-1.6-20040119/lib/httpunit-1.5.3.jar"/>
-	<classpathentry kind="lib" path="lib/jakarta-cactus-13-1.6-20040119/lib/commons-httpclient-2.0-rc2.jar"/>
-	<classpathentry kind="lib" path="lib/jakarta-cactus-13-1.6-20040119/lib/cactus-ant-1.6dev20040119.jar"/>
-	<classpathentry kind="lib" path="lib/jakarta-cactus-13-1.6-20040119/lib/cactus-1.6dev20040119.jar"/>
-	<classpathentry kind="lib" path="lib/jakarta-cactus-13-1.6-20040119/lib/aspectjrt-1.1.1.jar"/>
 	<classpathentry kind="lib" path="lib/clickstream-1.0.1/clickstream-1.0.1.jar"/>
-	<classpathentry kind="lib" path="lib/mysql-connector-java-3.0.11-stable/mysql-connector-java-3.0.11-stable-bin.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-struts-20031202/lib/commons-beanutils.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-struts-20031202/lib/commons-collections.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-struts-20031202/lib/commons-digester.jar"/>
@@ -71,6 +65,12 @@
 	<classpathentry kind="lib" path="lib/javamail-1.3.1/mail.jar"/>
 	<classpathentry kind="lib" path="lib/displaytag-1.0-rc1/displaytag-1.0-rc1.jar"/>
 	<classpathentry kind="lib" path="lib/velocity-1.4/velocity-1.4.jar"/>
-	<classpathentry kind="lib" path="lib/velocity-1.4/velocity-tools-view-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta-cactus-13-1.6.1/lib/httpunit-1.5.4.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta-cactus-13-1.6.1/lib/commons-httpclient-2.0.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta-cactus-13-1.6.1/lib/cactus-ant-1.6.1.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta-cactus-13-1.6.1/lib/cactus-1.6.1.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta-cactus-13-1.6.1/lib/aspectjrt-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/mysql-connector-java-3.0.12-production/mysql-connector-java-3.0.12-production-bin.jar"/>
+	<classpathentry kind="lib" path="lib/velocity-1.4/velocity-tools-view-1.1.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

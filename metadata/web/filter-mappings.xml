@@ -39,10 +39,10 @@
         <url-pattern>*.html</url-pattern>
     </filter-mapping>
 	<filter-mapping>
-        <filter-name>characterEncoding</filter-name>
+        <filter-name>encodingFilter</filter-name>
         <url-pattern>*.html</url-pattern>
     </filter-mapping>
 	<filter-mapping>
-        <filter-name>characterEncoding</filter-name>
+        <filter-name>encodingFilter</filter-name>
         <url-pattern>*.jsp</url-pattern>
     </filter-mapping>

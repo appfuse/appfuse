@@ -106,29 +106,7 @@
     <option name="HIDE_WARNINGS" value="false" />
   </component>
   <component name="FileEditorManager" split-orientation="horizontal" split-proportion="0.5">
-    <first-group selected-file="file://$PROJECT_DIR$/src/web/org/appfuse/webapp/form/UploadForm.java">
-      <entry file="file://$PROJECT_DIR$/src/web/org/appfuse/webapp/action/ReloadAction.java" pinned="false">
-        <provider selected="true" editor-type-id="text-editor">
-          <state line="17" column="0" selection-start="480" selection-end="770" vertical-scroll-proportion="0.040865384">
-            <folding />
-          </state>
-        </provider>
-      </entry>
-      <entry file="file://$PROJECT_DIR$/src/web/org/appfuse/webapp/action/UserAction.java" pinned="false">
-        <provider selected="true" editor-type-id="text-editor">
-          <state line="149" column="75" selection-start="5721" selection-end="5721" vertical-scroll-proportion="0.3846154">
-            <folding />
-          </state>
-        </provider>
-      </entry>
-      <entry file="file://$PROJECT_DIR$/src/web/org/appfuse/webapp/form/UploadForm.java" pinned="false">
-        <provider selected="true" editor-type-id="text-editor">
-          <state line="21" column="13" selection-start="682" selection-end="682" vertical-scroll-proportion="0.020432692">
-            <folding />
-          </state>
-        </provider>
-      </entry>
-    </first-group>
+    <first-group />
     <second-group />
   </component>
   <component name="HierarchyBrowserManager">
@@ -142,17 +120,12 @@
     <profile name="Default" />
   </component>
   <component name="J2EEProjectPane" />
-  <component name="PackagesPane">
-    <expanded_node url="org.appfuse.webapp.form" type="package" />
-    <expanded_node url="org.appfuse.webapp.action" type="package" />
-  </component>
+  <component name="PackagesPane" />
   <component name="ProjectPane">
-    <expanded_node url="file://$PROJECT_DIR$" module="appfuse" type="directory" />
     <expanded_node url="" module="appfuse" type="module" />
-    <expanded_node url="file://$PROJECT_DIR$/web" module="appfuse" type="directory" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="PackagesPane" splitterProportion="0.5">
+    <navigator currentView="ProjectPane" splitterProportion="0.5">
       <flattenPackages PackagesPane="true" />
       <showMembers PackagesPane="true" />
       <showModules PackagesPane="false" />
@@ -290,13 +263,13 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-4" y="-4" width="1288" height="1002" extended-state="6" />
-    <editor active="true" />
+    <frame x="0" y="22" width="1440" height="849" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="CVS" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.33833334" order="8" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.33" order="7" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="docked" type="docked" visible="true" weight="0.26132685" order="0" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.33" order="1" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="docked" type="docked" visible="true" weight="0.24856322" order="0" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.3306011" order="1" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.24959481" order="1" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.3306011" order="8" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.4" order="6" />
@@ -469,57 +442,6 @@
     </buildFile>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/test/applicationContext-database.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/web/org/appfuse/webapp/filter/ActionFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="111" column="75" selection-start="4049" selection-end="4049" vertical-scroll-proportion="0.52148145">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/dao/org/appfuse/model/LabelValue.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="7" selection-start="391" selection-end="391" vertical-scroll-proportion="0.16">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/dao/org/appfuse/model/BaseObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="13" selection-start="606" selection-end="606" vertical-scroll-proportion="0.47727272">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/dao/org/appfuse/persistence/hibernate/applicationContext-hibernate.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="11" selection-start="2257" selection-end="2257" vertical-scroll-proportion="0.9318182">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/dao/org/appfuse/persistence/BaseDAOTestCase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="13" selection-start="564" selection-end="564" vertical-scroll-proportion="0.024621213">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/dao/org/appfuse/persistence/DAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="17" selection-start="392" selection-end="392" vertical-scroll-proportion="0.3181818">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/web/org/appfuse/webapp/action/UserActionTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="7" column="13" selection-start="171" selection-end="171" vertical-scroll-proportion="-0.10795455">
@@ -557,21 +479,63 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/web/org/appfuse/webapp/action/ReloadAction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="0" selection-start="480" selection-end="770" vertical-scroll-proportion="0.040865384">
+        <state line="17" column="0" selection-start="480" selection-end="770" vertical-scroll-proportion="0.028169014">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/web/org/appfuse/webapp/form/UploadForm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="13" selection-start="682" selection-end="682" vertical-scroll-proportion="0.020432692">
+        <state line="60" column="78" selection-start="1588" selection-end="1588" vertical-scroll-proportion="0.6549296">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/web/org/appfuse/webapp/action/UserAction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="149" column="75" selection-start="5721" selection-end="5721" vertical-scroll-proportion="0.3846154">
+        <state line="149" column="75" selection-start="5727" selection-end="5727" vertical-scroll-proportion="0.028169014">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/metadata/web/servlets.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/metadata/web/struts-actions.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/metadata/web/servlet-mappings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/metadata/web/filters.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="29" selection-start="713" selection-end="713" vertical-scroll-proportion="0.47887325">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/appfuse/WEB-INF/web.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="70" column="20" selection-start="2876" selection-end="2876" vertical-scroll-proportion="0.21037038">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/metadata/web/filter-mappings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="45" column="35" selection-start="1796" selection-end="1796" vertical-scroll-proportion="0.8">
           <folding />
         </state>
       </provider>

@@ -217,8 +217,8 @@
   </component>
   <component name="ExportToHTMLSettings">
     <option name="PRINT_LINE_NUMBERS" value="false" />
-    <option name="OPEN_IN_BROWSER" value="false" />
-    <option name="OUTPUT_DIRECTORY" />
+    <option name="OPEN_IN_BROWSER" value="true" />
+    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/exportToHTML" />
   </component>
   <component name="GUI Designer component loader factory" />
   <component name="J2EEManager" />

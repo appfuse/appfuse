@@ -44,24 +44,6 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jakarta-cactus-13-1.6-20040119/lib/cactus-1.6dev20040119.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jakarta-cactus-13-1.6-20040119/lib/httpunit-1.5.3.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/jakarta-struts-20031202/lib/struts-el.jar!/" />
         </CLASSES>
         <JAVADOC />
@@ -172,15 +154,6 @@
       <library>
         <CLASSES>
           <root url="file://$MODULE_DIR$/build/dao/gen" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/mysql-connector-java-3.0.11-stable/mysql-connector-java-3.0.11-stable-bin.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -324,34 +297,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/spring-1.0.2-dev/spring-mock.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/spring-1.0.2-dev/spring.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/spring-1.0.2-dev/commons-fileupload.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/spring-1.0.2-dev/spring-sandbox.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -370,6 +316,60 @@
       <library>
         <CLASSES>
           <root url="file://$MODULE_DIR$/build/web/classes" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jakarta-cactus-13-1.6.1/lib/cactus-ant-1.6.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jakarta-cactus-13-1.6.1/lib/aspectjrt-1.1.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jakarta-cactus-13-1.6.1/lib/commons-httpclient-2.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jakarta-cactus-13-1.6.1/lib/httpunit-1.5.4.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jakarta-cactus-13-1.6.1/lib/cactus-1.6.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/mysql-connector-java-3.0.12-production/mysql-connector-java-3.0.12-production-bin.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
