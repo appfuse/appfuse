@@ -1,4 +1,4 @@
-package org.appfuse.service;
+package org.appfuse.service.impl;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
