@@ -1,5 +1,8 @@
 <%@ include file="/common/taglibs.jsp"%>
 
+<title><fmt:message key="upload.title"/></title>
+<content tag="heading"><fmt:message key="upload.heading"/></content>
+
 <!--
 	The most important part is to declare your form's enctype to be "multipart/form-data",
 	and to have a form:file element that maps to your ActionForm's FormFile property
@@ -13,27 +16,18 @@
 <table class="detail">
     <tr>
         <th>
-            <label for="name" class="required">
-                <bean:message key="uploadForm.name" />*:
-            </label>
-            <%-- LabelTag is not module-compliant yet 
             <appfuse:label key="uploadForm.name"/>
-            --%>
         </th>
         <td>
-            <html:text property="name" size="40"
-                styleId="name" />
+            <html:text property="name" size="40" styleId="name" />
         </td>
     </tr>
     <tr>
         <th>
-            <label for="theFile" class="required">
-                <bean:message key="uploadForm.file" />*:
-            </label>
+            <appfuse:label key="uploadForm.file"/>
         </th>
         <td>
-            <html:file property="file" size="50"
-                styleId="theFile" />
+            <html:file property="file" size="50" styleId="file" />
         </td>
     </tr>
     <tr>

@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: web-tests.xml,v 1.11 2004/08/15 06:20:51 mraible Exp $               -->
+<!-- $Id: web-tests.xml,v 1.12 2004/08/22 05:12:46 mraible Exp $               -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:../../properties.xml">
@@ -178,7 +178,7 @@
         <canoo name="signup">
             &config;
             <steps>
-                <invoke stepid="click signup link" url="/signup.jsp"/>
+                <invoke stepid="click signup link" url="/signup.html"/>
                 <verifytitle stepid="we should signup title" 
                     text="${webapp.prefix}${signup.title}"/>
                 <setinputfield stepid="set username" name="username" 

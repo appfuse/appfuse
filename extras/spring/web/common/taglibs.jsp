@@ -1,7 +1,6 @@
 <%@ page language="java" errorPage="/error.jsp" pageEncoding="UTF-8" contentType="text/html; charset=utf-8" %>
 <%@ taglib uri="http://www.springframework.org/tags/commons-validator" prefix="html" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<%@ taglib uri="http://struts.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib uri="http://jakarta.apache.org/taglibs/request-1.0" prefix="r" %>
 <%@ taglib uri="http://displaytag.sf.net/el" prefix="display" %>
 <%@ taglib uri="http://struts-menu.sf.net/tag-el" prefix="menu" %>
@@ -11,4 +10,6 @@
 <%@ taglib uri="http://www.servletsuite.com/servlets/statetag" prefix="state" %>
 <%@ taglib uri="http://www.servletsuite.com/servlets/cntrtag" prefix="country" %>
 <%@ taglib uri="http://www.opensymphony.com/oscache" prefix="cache" %>
+<%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator" prefix="decorator"%>
+<%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page"%>
 <%@ taglib uri="/WEB-INF/appfuse.tld" prefix="appfuse" %>

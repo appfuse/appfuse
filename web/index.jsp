@@ -10,5 +10,5 @@ and spits up a Server Not Found error
     <appfuse:secure />
 </c:if>
 
-<logic:redirect forward="mainMenu"/>
+<c:redirect url="/mainMenu.html"/>
 

@@ -73,7 +73,7 @@ public final class PasswordHintAction extends BaseAction {
             messages.add(ActionMessages.GLOBAL_MESSAGE,
                          new ActionMessage("login.passwordHint.sent", userId,
                                            user.getEmail()));
-            saveMessages(request.getSession(), messages);
+            saveMessages(request, messages);
         } catch (Exception e) {
             // If exception is expected do not rethrow
             errors.add(ActionMessages.GLOBAL_MESSAGE,

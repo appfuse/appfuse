@@ -1,5 +1,8 @@
 <%@ include file="/common/taglibs.jsp"%>
 
+<title><fmt:message key="display.title"/></title>
+<content tag="heading"><fmt:message key="display.heading"/></content>
+
 Below is a list of attributes that were gathered in FileUploadController.java.
 
 <div class="separator"></div>

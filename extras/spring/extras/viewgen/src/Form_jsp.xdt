@@ -1,5 +1,8 @@
 <XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><%@ include file="/common/taglibs.jsp"%>
 
+<title><fmt:message key="<XDtForm:classNameLower/>.title"/></title>
+<content tag="heading"><fmt:message key="<XDtForm:classNameLower/>.heading"/></content>
+
 <spring:bind path="<XDtForm:classNameLower/>.*">
     <c:if test="${not empty status.errorMessages}">
     <div class="error">	

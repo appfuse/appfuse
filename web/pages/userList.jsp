@@ -1,5 +1,8 @@
 <%@ include file="/common/taglibs.jsp"%>
 
+<title><fmt:message key="userList.title"/></title>
+<content tag="heading"><fmt:message key="userList.heading"/></content>
+
 <%-- For linking to edit screen --%>
 <bean:struts id="editURL" forward="editUser"/>
 
@@ -45,7 +48,7 @@
 </display:table>
 </logic:present>
 <logic:notPresent name="userList" scope="request">
-	<fmt:message key="userList.nousers"/>
+    <fmt:message key="userList.nousers"/>
 </logic:notPresent>
 
 <c:out value="${buttons}" escapeXml="false" />

@@ -46,7 +46,7 @@ public class UserFormControllerTest extends BaseControllerTestCase {
 
         mv = c.handleRequest(request, new MockHttpServletResponse());
 
-        assertEquals("userForm", mv.getViewName());
+        assertEquals("userProfile", mv.getViewName());
     }
 
     public void testSave() throws Exception {

@@ -8,14 +8,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.service.MailSender;
 import org.appfuse.service.UserManager;
 import org.appfuse.webapp.util.RequestUtil;
+
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 import org.springframework.web.servlet.support.RequestContext;
+import org.springframework.web.servlet.view.RedirectView;
 
 
 /**
@@ -26,7 +29,7 @@ import org.springframework.web.servlet.support.RequestContext;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.5 $ $Date: 2004/08/19 00:09:54 $
+ * @version $Revision: 1.6 $ $Date: 2004/08/22 05:12:40 $
  */
 public class PasswordHintController implements Controller {
     private transient final Log log = LogFactory.getLog(PasswordHintController.class);
@@ -83,7 +86,7 @@ public class PasswordHintController implements Controller {
                                new Object[] {userId}));
         }
 
-        return new ModelAndView("login");        
+        return new ModelAndView(new RedirectView(rc.getContextPath()));        
     }
 
     public void saveError(HttpServletRequest request, String error) {

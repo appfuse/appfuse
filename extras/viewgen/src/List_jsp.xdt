@@ -1,5 +1,8 @@
 <XDtTagDef:tagDef namespace="Struts" handler="org.example.antbook.xdoclet.FormTagsHandler"/><%@ include file="/common/taglibs.jsp"%>
 
+<title><fmt:message key="<XDtStruts:simpleNameLower/>List.title"/></title>
+<content tag="heading"><fmt:message key="<XDtStruts:simpleNameLower/>List.heading"/></content>
+
 <%-- For linking to edit screen --%>
 <bean:struts id="editURL" forward="edit<XDtStruts:simpleName/>"/>
 
@@ -31,6 +34,7 @@
   
     <display:setProperty name="paging.banner.item_name" value="<XDtStruts:simpleNameLower/>"/>
     <display:setProperty name="paging.banner.items_name" value="<XDtStruts:simpleNameLower/>s"/>
+    <display:setProperty name="basic.empty.showtable" value="true"/>
 </display:table>
 
 <c:out value="${buttons}" escapeXml="false"/>

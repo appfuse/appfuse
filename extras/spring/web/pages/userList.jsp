@@ -1,5 +1,8 @@
 <%@ include file="/common/taglibs.jsp"%>
 
+<title><fmt:message key="userList.title"/></title>
+<content tag="heading"><fmt:message key="userList.heading"/></content>
+
 <c:set var="buttons">
     <button type="button" name="action" style="margin-right: 5px"
         onclick="location.href='<c:url value="/editUser.html"/>?method=Add&from=list'">
@@ -42,7 +45,7 @@
 </display:table>
 </c:if>
 <c:if test="${empty requestScope.userList}">
-	<fmt:message key="userList.nousers"/>
+    <fmt:message key="userList.nousers"/>
 </c:if>
 
 <c:out value="${buttons}" escapeXml="false" />

@@ -49,8 +49,8 @@ import org.appfuse.webapp.util.RequestUtil;
  * @struts.action name="userFormEx" path="/saveUser" scope="request"
  *  validate="true" parameter="action" input="edit"
  *
- * @struts.action-forward name="list" path=".userList"
- * @struts.action-forward name="edit" path=".userProfile"
+ * @struts.action-forward name="list" path="/WEB-INF/pages/userList.jsp"
+ * @struts.action-forward name="edit" path="/WEB-INF/pages/userProfile.jsp"
  */
 public final class UserAction extends BaseAction {
 
@@ -269,7 +269,7 @@ public final class UserAction extends BaseAction {
             // add success messages
             messages.add(ActionMessages.GLOBAL_MESSAGE,
                          new ActionMessage("user.updated"));
-            saveMessages(request, messages);
+            saveMessages(request.getSession(), messages);
 
             // return a forward to main Menu
             return mapping.findForward("mainMenu");

@@ -30,8 +30,8 @@ import org.appfuse.webapp.util.RequestUtil;
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  * @struts.action name="userFormEx" path="/signup" scope="request"
- *  validate="true" input="failure"
- * @struts.action-forward name="failure" path=".signup"
+ *  validate="false" input="failure"
+ * @struts.action-forward name="failure" path="/WEB-INF/pages/signup.jsp"
  * @struts.action-forward name="success" path="/mainMenu.html" redirect="true"
  */
 public final class SignupAction extends BaseAction {
@@ -40,6 +40,18 @@ public final class SignupAction extends BaseAction {
                                  HttpServletRequest request,
                                  HttpServletResponse response)
             throws Exception {
+        // if it's an HTTP GET, simply forward to jsp
+        if (request.getMethod().equalsIgnoreCase("get")) {
+            return mapping.findForward("failure");
+        } else {
+            // run validation rules on this form
+            ActionMessages errors = form.validate(mapping, request);
+            if (!errors.isEmpty()) {
+                saveErrors(request, errors);
+                return mapping.findForward("failure");
+            }
+        }
+
         if (log.isDebugEnabled()) {
             log.debug("registering user...");
         }

@@ -48,6 +48,9 @@ Features/Changes in 1.6
 - Refactored logging so Base classes contain a "log" variable that children
   don't need to override. More at:
     http://raibledesigns.com/page/rd?anchor=log_debug_vs_logger_debug
+- Refactored to use SiteMesh instead of Tiles.  Proposal and feedback at: 
+    http://raibledesigns.com/page/rd?anchor=should_i_ditch_tiles_in
+  Experience documented at: http://raibledesigns.com/page/rd/20040821
 - Dependent packages upgraded:
     * Spring 1.1 RC1
     * Hibernate 2.1.6
@@ -59,6 +62,8 @@ Features/Changes in 1.6
 - Dependent packages added:
     * SiteMesh 2.1 - Seems to be a page-decoration package that will work
       across different MVC frameworks.
+    * URL Rewrite Filter 1.2 - Added and included in WAR, but disabled by
+      default.  See web/WEB-INF/urlrewrite.xml for more information.
 
 Features/Changes in 1.5
 ============================

@@ -60,6 +60,9 @@ function initializeMenu(menuId, actuatorId) {
 // initializes the menus for them if they have menu classes
 function initializeMenus() {
     var menu = document.getElementById("menuDiv");
+    if (menu == null) {
+        return;
+    }
     var links = menu.getElementsByTagName("a");
     var lists = document.getElementsByTagName("ul");
 
@@ -173,6 +176,3 @@ function deleteCookie(name,path,domain) {
       "; expires=Thu, 01-Jan-70 00:00:01 GMT";
   }
 }
-
-// You can call initializeMenus() manually from your JSP
-window.onload = initializeMenus;

@@ -38,11 +38,25 @@
         <filter-name>clickstreamFilter</filter-name>
         <url-pattern>*.html</url-pattern>
     </filter-mapping>
-	<filter-mapping>
-        <filter-name>encodingFilter</filter-name>
-        <url-pattern>*.html</url-pattern>
+    <filter-mapping>
+          <filter-name>encodingFilter</filter-name>
+          <url-pattern>*.html</url-pattern>
     </filter-mapping>
-	<filter-mapping>
+    <filter-mapping>
         <filter-name>encodingFilter</filter-name>
         <url-pattern>*.jsp</url-pattern>
+    </filter-mapping>
+    <!--filter-mapping>
+        <filter-name>rewriteFilter</filter-name>
+        <url-pattern>/*</url-pattern-->
+        <!-- These are needed by Tomcat 5 for forwards -->
+        <!--dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher-->
+    <!--/filter-mapping-->
+    <filter-mapping>
+        <filter-name>sitemesh</filter-name>
+        <url-pattern>/*</url-pattern>
+        <!-- These are needed by Tomcat 5 for forwards -->
+        <!--dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher-->
     </filter-mapping>

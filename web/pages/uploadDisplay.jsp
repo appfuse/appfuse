@@ -1,5 +1,8 @@
 <%@ include file="/common/taglibs.jsp"%>
 
+<title><fmt:message key="display.title"/></title>
+<content tag="heading"><fmt:message key="display.heading"/></content>
+
 Below is a list of attributes that were gathered in UploadAction.java.
 
 <div class="separator"></div>
@@ -23,8 +26,9 @@ Below is a list of attributes that were gathered in UploadAction.java.
     </tr>
     <tr>
     	<th class="tallCell">File Location:</th>
-    	<td>
-            <c:out value="${location}" escapeXml="false"/>
+    	<td>The file has been written to: <br />
+            <a href="<c:out value="${link}"/>">
+            <c:out value="${location}" escapeXml="false"/></a>
         </td>
     </tr>
     <tr>

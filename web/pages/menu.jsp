@@ -10,3 +10,6 @@
     <menu:displayMenu name="Clickstream"/>
 </menu:useMenuDisplayer>
 </div>
+<script type="text/javascript">
+    initializeMenus();
+</script>

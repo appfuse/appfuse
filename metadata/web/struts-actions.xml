@@ -1,16 +1,16 @@
     <!-- Forwards to the mainMenu tile definition -->
     <action path="/mainMenu" type="org.apache.struts.actions.ForwardAction"
-        parameter=".mainMenu"/>
+        parameter="/WEB-INF/pages/mainMenu.jsp"/>
 
     <!-- Action to flush cache -->
     <action path="/flush" type="org.apache.struts.actions.ForwardAction"
-        parameter=".flushCache" roles="admin"/>
+        parameter="/WEB-INF/pages/flushCache.jsp" roles="admin"/>
 
 	<!-- Forward to page to begin file upload -->
     <action path="/selectFile" type="org.apache.struts.actions.ForwardAction"
-        parameter=".selectFile"/>
+        parameter="/WEB-INF/pages/uploadForm.jsp"/>
         
     <!-- Forward to view Active Users -->
     <action path="/activeUsers" type="org.apache.struts.actions.ForwardAction"
-        parameter=".activeUsers" roles="admin"/>
+        parameter="/WEB-INF/pages/activeUsers.jsp" roles="admin"/>
         

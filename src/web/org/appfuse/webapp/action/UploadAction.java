@@ -31,8 +31,8 @@ import org.appfuse.webapp.form.UploadForm;
  * @struts.action name="uploadForm" path="/uploadFile" scope="request"
  *  validate="true" input="failure"
  *
- * @struts.action-forward name="failure" path=".selectFile"
- * @struts.action-forward name="success" path=".displayFile"
+ * @struts.action-forward name="failure" path="/WEB-INF/pages/uploadForm.jsp"
+ * @struts.action-forward name="success" path="/WEB-INF/pages/uploadDisplay.jsp"
  */
 public class UploadAction extends Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form,

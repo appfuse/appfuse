@@ -1,5 +1,8 @@
 <XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><%@ include file="/common/taglibs.jsp"%>
 
+<title><fmt:message key="<XDtForm:classNameLower/>List.title"/></title>
+<content tag="heading"><fmt:message key="<XDtForm:classNameLower/>List.heading"/></content>
+
 <c:set var="buttons">
     <button type="button" name="action" style="margin-right: 5px"
         onclick="location.href='<c:url value="/edit<XDtClass:className/>.html"/>?method=Add&from=list'">

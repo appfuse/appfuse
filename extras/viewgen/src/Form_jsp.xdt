@@ -1,5 +1,8 @@
 <XDtTagDef:tagDef namespace="Struts" handler="org.example.antbook.xdoclet.FormTagsHandler"/><%@ include file="/common/taglibs.jsp"%>
 
+<title><fmt:message key="<XDtClass:classTagValue tagName="struts.form" paramName="name"/>.title"/></title>
+<content tag="heading"><fmt:message key="<XDtClass:classTagValue tagName="struts.form" paramName="name"/>.heading"/></content>
+
 <html:form action="edit<XDtStruts:simpleName/>" method="post" styleId="<XDtClass:classTagValue tagName="struts.form" paramName="name"/>"
 	focus="" onsubmit="return validate<XDtClass:className/>(this)">
 <table class="detail">

@@ -1,5 +1,9 @@
 <%@ include file="/common/taglibs.jsp"%>
 
+<title><fmt:message key="signup.title"/></title>
+<content tag="heading"><fmt:message key="signup.heading"/></content>
+<body id="signup"/>
+
 <fmt:message key="signup.message"/>
 
 <div class="separator"></div>

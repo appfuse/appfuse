@@ -1,4 +1,3 @@
-<%@ page import="java.util.Enumeration"%>
 <%@ include file="/common/taglibs.jsp"%>
 
 <spring:bind path="user.*">
@@ -44,7 +43,7 @@
             
         <c:if test="${param.from == 'list'}">
             <input type="submit" class="button" name="delete"
-                onclick="bCancel=true;confirmDelete('user')" 
+                onclick="bCancel=true;return confirmDelete('user')" 
                 value="<fmt:message key="button.delete"/>" />
         </c:if>
         

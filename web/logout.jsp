@@ -1,3 +1,3 @@
 <%@ include file="/common/taglibs.jsp"%>
 
-<logic:redirect forward="mainMenu"/>
+<c:redirect url="/mainMenu.html"/>
