@@ -13,17 +13,17 @@ create table app_user (
    id BIGINT not null,
    username VARCHAR(255) not null unique,
    password VARCHAR(255) not null,
-   firstName VARCHAR(255) not null,
-   lastName VARCHAR(255) not null,
+   first_name VARCHAR(255) not null,
+   last_name VARCHAR(255) not null,
    address VARCHAR(255),
    city VARCHAR(255) not null,
    country VARCHAR(100),
    email VARCHAR(255),
-   phoneNumber VARCHAR(255),
-   postalCode VARCHAR(255) not null,
+   phone_number VARCHAR(255),
+   postal_code VARCHAR(255) not null,
    province VARCHAR(100),
    website VARCHAR(255),
-   passwordHint VARCHAR(255),
+   password_hint VARCHAR(255),
    primary key (id)
 );
 create table user_cookie (
