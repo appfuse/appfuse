@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.51 2004/10/09 10:14:22 mraible Exp $                 -->
+<!-- $Id: build.xml,v 1.52 2004/10/09 12:09:40 mraible Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -1324,7 +1324,8 @@
                     <exclude name=".#**"/>
                     <exclude name="anthill.version"/>
                     <exclude name="www/**"/>
-                    <exclude name="*.sh"/>   
+                    <exclude name="*.sh"/>
+                    <exclude name="*.sql"/>   
                 </patternset>
             </zipfileset>
         </zip>
