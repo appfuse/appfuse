@@ -3,6 +3,15 @@
     "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
+    <!-- For mail settings and future properties files -->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:mail.properties</value>
+            </list>
+        </property>
+    </bean>
+    
     <!-- JNDI DataSource for J2EE environments -->
     <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
         <property name="jndiName"><value>java:comp/env/jdbc/appfuse</value></property>

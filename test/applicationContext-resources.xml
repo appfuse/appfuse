@@ -3,9 +3,13 @@
     "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
-
-    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
-        <property name="location"><value>database.properties</value></property>
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:mail.properties</value>
+                <value>database.properties</value>
+            </list>
+        </property>
     </bean>
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
