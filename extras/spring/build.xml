@@ -103,8 +103,7 @@
 
         <echo level="info">Refactoring build.xml</echo>
         <replace file="../../build.xml">
-            <replacetoken><![CDATA[        
-        <!-- Make sure webdoclet is necessary -->
+            <replacetoken><![CDATA[<!-- Make sure webdoclet is necessary -->
         <uptodate property="webdoclet.unnecessary">
             <srcfiles dir="src/web" includes="**/*.java"/>
             <srcfiles dir="${build.dir}/web/gen" includes="**/*.java"/>
