@@ -44,7 +44,8 @@ Features/Changes in 1.6
 - Dependent packages upgraded:
     * Spring 1.0.2
     * Hibernate 2.1.4
-
+    * Display Tag 1.0 RC1
+    * Struts 1.2.1
 
 Features/Changes in 1.5
 ============================
