@@ -29,7 +29,7 @@ public class Person extends BaseObject {
 
     /**
      * @struts.validator type="required"
-     * @hibernate.property column="first_name" length="50"
+     * @hibernate.property column="first_name" length="50" not-null="true"
      */
     public String getFirstName() {
         return firstName;
@@ -41,7 +41,7 @@ public class Person extends BaseObject {
 
     /**
      * @struts.validator type="required"
-     * @hibernate.property column="last_name" length="50"
+     * @hibernate.property column="last_name" length="50" not-null="true"
      */
     public String getLastName() {
         return lastName;

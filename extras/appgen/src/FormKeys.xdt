@@ -2,6 +2,9 @@
 # -- <XDtForm:classNameLower/> form --
 <XDtForm:forAllFields><XDtForm:classNameLower/>Form.<XDtForm:fieldName/>=<XDtForm:fieldDescription/>
 </XDtForm:forAllFields>
+<XDtForm:classNameLower/>.added=<XDtClass:className/> has been added successfully.
+<XDtForm:classNameLower/>.updated=<XDtClass:className/> has been updated successfully.
+<XDtForm:classNameLower/>.deleted=<XDtClass:className/> has been deleted successfully.
 
 # -- <XDtForm:classNameLower/> list page --
 <XDtForm:classNameLower/>List.title=<XDtClass:className/> List

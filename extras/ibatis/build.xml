@@ -458,7 +458,8 @@ hibernate.jar=${hibernate.dir}/hibernate2.jar]]></replacetoken>
     <!-- =================================================================== -->
     <target name="test-with-hibernate"
         description="Creates appfuse-ibatis+hibernate and runs tests">
-        <property name="app.name" value="appfuse-ibatis+hibernate"/>
+        <!-- NOTE: 2 dashes in the app name doesn't work -->   
+        <property name="app.name" value="appfuse-hibatis"/>
         <property name="db.name" value="appfuse"/>
         <delete dir="../../../${app.name}"/>
         <ant dir="../.." target="new"/>

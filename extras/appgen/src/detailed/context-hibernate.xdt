@@ -1,0 +1,2 @@
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>    <bean id="<XDtForm:classNameLower/>DAO" class="<XDtForm:parentPackageName/>.dao.hibernate.<XDtClass:className/>DAOHibernate" autowire="byName"/>
+</beans>

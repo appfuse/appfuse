@@ -6,7 +6,7 @@
 
 <c:set var="buttons">
     <button type="button" style="margin-right: 5px"
-        onclick="location.href='/edit<XDtClass:className/>.html'">
+        onclick="location.href='<c:url value="/edit<XDtClass:className/>.html"/>'">
         <fmt:message key="button.add"/>
     </button>
     
@@ -24,7 +24,7 @@
 <XDtMethod:forAllMethods>
   <XDtMethod:ifHasMethodTag tagName="hibernate.id">
     <display:column property="<XDtMethod:propertyName/>" sort="true" headerClass="sortable"
-        url="/edit<XDtClass:className/>.html?from=list" paramId="id" paramProperty="<XDtMethod:propertyName/>"
+        url="/edit<XDtClass:className/>.html" paramId="id" paramProperty="<XDtMethod:propertyName/>"
         titleKey="<XDtForm:classNameLower/>Form.id"/>
   </XDtMethod:ifHasMethodTag>
   <XDtMethod:ifHasMethodTag tagName="hibernate.property">

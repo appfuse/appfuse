@@ -13,16 +13,25 @@
         <pathelement location="${commons-logging.jar}"/>
         <pathelement location="${commons-collections.jar}"/>
         <fileset dir="${xdoclet.dir}" includes="*.jar"/>
-        
     </path>
 
     <property name="model.src.dir" location="../../src/dao"/>
     <property name="overwrite" value="false"/>
+    <property name="gen.dir" value="gen"/> 
+    <property name="app.package" value="org/appfuse"/>
     
     <target name="init">
         <mkdir dir="${build.dir}"/>  
-        <taskdef resource="net/sf/antcontrib/antcontrib.properties"
-            classpath="${ant-contrib.jar}"/>
+        <!--taskdef resource="net/sf/antcontrib/antcontrib.properties"
+            classpath="${ant-contrib.jar}"/-->
+        <fail unless="model.name">
+            You must specify a POJO using -Dmodel.name=Class and the lowercase
+            name using -Dmodel.name.lowercase=class (for naming JSPs)   
+        </fail>
+        <fail unless="model.name.lowercase">
+            You must specify a POJO lowercase name using 
+            -Dmodel.name.lowercase=class (for naming JSPs)   
+        </fail>
     </target>
         
     <!-- For some reason, XDoclet is only happy if the tag handler
@@ -42,23 +51,18 @@
     </target>
 
     <target name="gen" depends="compile">
-        <property name="model.name" value="User"/>
-        <taskdef name="xdoclet"
-                 classname="xdoclet.DocletTask">
+        <taskdef name="xdoclet" classname="xdoclet.DocletTask">
             <classpath>
                 <path refid="xdoclet.classpath"/>
                 <pathelement location="${build.dir}"/>
             </classpath>
         </taskdef>
-    	<property name="gen.dir" value="gen"/> 
-        <property name="app.package" value="org/appfuse"/>   
         <property name="template.dir" value="src"/>
         
         <xdoclet destdir="${build.dir}"
                  excludedtags="@version,@author"
                  force="${xdoclet.force}">
-            <fileset dir="${model.src.dir}"
-                   includes="**/${model.name}.java"/>
+            <fileset dir="${model.src.dir}" includes="**/${model.name}.java"/>
             <!-- NOTE: You must have {0} in the destinationFile for the class
                        to be available to templates -->   
             
@@ -77,6 +81,11 @@
 		              acceptAbstractClasses="false"
 		              prefixWithPackageStructure="false"
 		              destinationFile="${gen.dir}/src/dao/${app.package}/dao/hibernate/{0}DAOHibernate.java"/>
+            <!-- Spring DAO Configuration -->   
+            <template templateFile="${template.dir}/detailed/context-hibernate.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/src/dao/${app.package}/dao/hibernate/context-hibernate-{0}.xml"/> 
             <!-- Manager Test (uses jMock) -->   
 		    <template templateFile="${template.dir}/detailed/ManagerTest.xdt"
 		              acceptAbstractClasses="false"
@@ -92,6 +101,11 @@
 		              acceptAbstractClasses="false"
 		              prefixWithPackageStructure="false"
 		              destinationFile="${gen.dir}/src/service/${app.package}/service/impl/{0}ManagerImpl.java"/>
+            <!-- Spring Manager Configuration --> 
+		    <template templateFile="${template.dir}/detailed/context-service.xdt"
+		              acceptAbstractClasses="false"
+		              prefixWithPackageStructure="false"
+		              destinationFile="${gen.dir}/src/service/${app.package}/service/context-service-{0}.xml"/>
             <!-- Constant values -->   
 		    <template templateFile="${template.dir}/Constants.xdt"
 		              acceptAbstractClasses="false"
@@ -101,7 +115,7 @@
 		    <template templateFile="${template.dir}/ActionTest.xdt"
 		              acceptAbstractClasses="false"
 		              prefixWithPackageStructure="false"
-		              destinationFile="${gen.dir}/src/web/${app.package}/webapp/action/{0}ActionTest.java"/>
+		              destinationFile="${gen.dir}/test/web/${app.package}/webapp/action/{0}ActionTest.java"/>
             <!-- Detailed Action -->    
 		    <template templateFile="${template.dir}/detailed/Action.xdt"
 		              acceptAbstractClasses="false"
@@ -137,79 +151,131 @@
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
                       destinationFile="${gen.dir}/web/pages/{0}List.jsp"/>
+            <!-- Menu Config -->
+            <template templateFile="${template.dir}/menu-config.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/web/WEB-INF/menu-config-{0}.xml"/>
+            <!-- Menu JSP -->
+            <template templateFile="${template.dir}/menu_jsp.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/web/pages/menu-{0}.jsp"/>
         </xdoclet>
     </target>
    
-    <target name="install-src-detailed" depends="default">
+	<property name="generated.dir" value="${build.dir}/${gen.dir}"/>
+    
+    <target name="install-src-detailed">
+        <antcall target="default"/> 
         <echo>Copying all .java files into main project, overwrite="${overwrite}"</echo>
         <copy todir="../.." overwrite="${overwrite}">
-            <fileset dir="${gen.dir}" includes="**/*.java" 
-                excludes="${gen.dir}/generic/**"/>
+            <fileset dir="${generated.dir}">
+                <include name="**/*.java"/>
+                <exclude name="**/Constants-*.java"/>
+                <exclude name="${generated.dir}/generic/**"/>
+            </fileset>   
         </copy>
+        
+        <echo>Adding beans to Spring config files</echo>
+        <loadfile property="hibernate.context"
+            srcfile="${generated.dir}/src/dao/${app.package}/dao/hibernate/context-hibernate-${model.name}.xml"/>
+        <!-- Add to the bottom of the list of beans -->   
+        <replace file="../../src/dao/${app.package}/dao/hibernate/applicationContext-hibernate.xml">
+            <replacetoken><![CDATA[</beans>]]></replacetoken>
+        </replace>
+        <echo file="../../src/dao/${app.package}/dao/hibernate/applicationContext-hibernate.xml" append="true" 
+            message="${hibernate.context}"/>
+     
+        <loadfile property="service.context"
+            srcfile="${generated.dir}/src/service/${app.package}/service/context-service-${model.name}.xml"/>
+        <!-- Add to the bottom of the list of beans -->   
+        <replace file="../../src/service/${app.package}/service/applicationContext-service.xml">
+            <replacetoken><![CDATA[</beans>]]></replacetoken>
+        </replace>
+        <echo file="../../src/service/${app.package}/service/applicationContext-service.xml" append="true" 
+            message="${service.context}"/>    
     </target>   
  
-    <target name="install-src-generic" depends="default">
+    <target name="install-src-generic">
+        <antcall target="default"/>    
         <echo>Copying Controller and Test into main project, overwrite="${overwrite}"</echo>
         <copy todir="../../" overwrite="${overwrite}">
-            <fileset dir="${gen.dir}" includes="**/*.java"/>
+            <fileset dir="${generated.dir}/generic" includes="**/*.java"/>
         </copy>
         <copy todir="../../test" overwrite="${overwrite}">
-            <fileset dir="${gen.dir}/test" includes="**/action/*Test.java"/>
+            <fileset dir="${generated.dir}/test" includes="**/action/*Test.java"/>
         </copy>
     </target>
             
-    <target name="install-other" depends="default">
+    <target name="install-other">
+        <echo>Merging constant values into Constants.java</echo>
+        <loadfile property="constants"
+            srcfile="${generated.dir}/src/dao/${app.package}/Constants-${model.name}.java"/>
+        <!-- Add to the bottom of the list of tests -->   
+        <replace file="../../src/dao/${app.package}/Constants.java">
+            <replacetoken>}</replacetoken>
+        </replace>
+        <echo file="../../src/dao/${app.package}/Constants.java" append="true" 
+            message="${constants}"/>
+            
         <echo>Merging sample-data into metadata/sql/sample-data.xml</echo>   
         <loadfile property="sample.data"
-            srcfile="${gen.dir}/metadata/sql/sample-data-${model.name}.xml"/>
+            srcfile="${generated.dir}/metadata/sql/sample-data-${model.name}.xml"/>
         <!-- Add to the bottom of the list of tables -->   
         <replace file="../../metadata/sql/sample-data.xml">
             <replacetoken><![CDATA[</dataset>]]></replacetoken>
-            <replacevalue><![CDATA[${sample.data}
-</dataset>]]></replacevalue>
         </replace>   
-
+        <echo file="../../metadata/sql/sample-data.xml" append="true" 
+            message="${sample.data}"/>
+        
         <echo>Merging web-tests into test/web/web-tests.xml</echo>   
         <loadfile property="web.tests"
-            srcfile="${gen.dir}/test/web/web-tests-{model.name}.xml"/>
+            srcfile="${generated.dir}/test/web/web-tests-${model.name}.xml"/>
         <!-- Add to the bottom of the list of tests -->   
         <replace file="../../test/web/web-tests.xml">
             <replacetoken><![CDATA[</project>]]></replacetoken>
-            <replacevalue><![CDATA[${web.tests}
-</project>]]></replacevalue>
-        </replace> 
-        
+        </replace>
+        <echo file="../../test/web/web-tests.xml" append="true" 
+            message="${web.tests}"/>
+        <!-- TODO: Add to run-all-tests target -->
+
         <!-- Append contents of .properties file to application resources -->
         <echo>Adding keys to ApplicationResources_en.properties</echo> 
         <loadfile property="i18n.keys"
-            srcfile="${gen.dir}/web/WEB-INF/classes/${model.name}.properties"/>
+            srcfile="${generated.dir}/web/WEB-INF/classes/${model.name}.properties"/>
         <echo file="../../web/WEB-INF/classes/ApplicationResources_en.properties"
             append="true" message="${i18n.keys}"/>
+        
+         <copy file="${generated.dir}/web/pages/${model.name}Form.jsp" overwrite="${overwrite}"
+            tofile="../../web/pages/${model.name.lowercase}Form.jsp"/>   
+         <copy file="${generated.dir}/web/pages/${model.name}List.jsp" overwrite="${overwrite}"
+            tofile="../../web/pages/${model.name.lowercase}List.jsp"/>
+     
+         <!-- Add links to main menu and side menu -->
+        <echo>Adding links to menu</echo>   
+        <loadfile property="menu.config"
+            srcfile="${generated.dir}/web/WEB-INF/menu-config-${model.name}.xml"/>
+        <!-- Add to the bottom of the list of tests -->   
+        <replace file="../../web/WEB-INF/menu-config.xml">
+            <replacetoken><![CDATA[    </Menus>
+</MenuConfig>]]></replacetoken>  
+        </replace>
+        <echo file="../../web/WEB-INF/menu-config.xml" append="true" 
+            message="${menu.config}"/>
 
-        <!-- Rename JSPs to proper case -->   
-        <echo>Renaming JSPs to LowerCase names</echo>   
-        <scriptdef name="lowercase" language="javascript">
-            <attribute name="property"/>
-            <attribute name="value"/>
-                project.setNewProperty(
-                    attributes.get("property"),
-                    attributes.get("value").substring(0, 1).toLowerCase() +
-                                   attributes.get("value").substring(1,
-                                   attributes.get("value").length()));
-         </scriptdef>
-         
-         <lowercase property="lowerCaseForm.jsp" value="${model.name}Form.jsp"/>
-         
-         <move file="${gen.dir}/web/pages/{model.name}Form.jsp"
-            tofile="${gen.dir}/web/pages/${lowerCaseForm.jsp}" overwrite="true"/>
-            
-         <lowercase property="lowerCaseList.jsp" value="${model.name}List.jsp"/>   
-         <move file="${gen.dir}/web/pages/{model.name}List.jsp" 
-            tofile="${gen.dir}/web/pages/${lowerCaseList.jsp" overwrite="true"/>
-         
-         <!-- Move JSPs -->   
-         <echo>Copying JSPs to main project</echo>
-         <copy todir="../.." dir="${gen.dir}" includes="**/*.jsp"/>
+        <loadfile property="menu.jsp"
+            srcfile="${generated.dir}/web/pages/menu-${model.name}.jsp"/>
+        <!-- Add to the bottom of the list of tests -->   
+        <replace file="../../web/pages/menu.jsp">
+            <replacetoken><![CDATA[</menu:useMenuDisplayer>
+</div>
+<script type="text/javascript">
+    initializeMenus();
+</script>]]></replacetoken>  
+        </replace>
+        <echo file="../../web/pages/menu.jsp" append="true" 
+            message="${menu.jsp}"/>
     </target>
             
     <target name="install" depends="install-src-generic,install-other"
@@ -232,15 +298,29 @@
         <property name="db.name" value="appfuse"/>
         <delete dir="../../../${app.name}"/>
         <ant dir="../.." target="new"/>
-
+ 
         <!-- Copy test model object into new project -->   
-        <copy todir="../../../${app.name}/src" dir="test" includes="**/Person.java"/>
-        <property name="model.name" value="Person"/>
-        
+        <copy todir="../../../${app.name}/src">
+            <fileset dir="test" includes="**/Person.java"/>
+        </copy> 
+        <!-- Add the mapping file for Person to applicationContext-hibernate.xml -->
+        <replace dir="../../../${app.name}/src">
+            <include name="**/applicationContext-hibernate.xml"/>
+            <replacetoken><![CDATA[<value>org/appfuse/model/Role.hbm.xml</value>]]></replacetoken>
+            <replacevalue><![CDATA[<value>org/appfuse/model/Person.hbm.xml</value>
+                <value>org/appfuse/model/Role.hbm.xml</value>]]></replacevalue>
+        </replace>  
+    
         <!-- New project created, gen code and run tests -->
-        <ant dir="../../../${app.name}/extras/appgen" target="install-detailed"/>
-        <ant dir="../../../${app.name}" target="setup"/>   
-        <ant dir="../../../${app.name}" target="test-all"/>
+        <ant dir="../../../${app.name}/extras/appgen" target="install-detailed" inheritAll="false">
+            <property name="model.name" value="Person"/>
+            <property name="model.name.lowercase" value="person"/>   
+        </ant>   
+        <ant dir="../../../${app.name}" target="setup" inheritAll="false"/>   
+        <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
+        <ant dir="../../../${app.name}" target="test-jsp" inheritAll="false">
+            <property name="testcase" value="PersonTests"/>
+        </ant>
     </target>      
 
     <!-- =================================================================== -->
@@ -255,13 +335,31 @@
         <ant dir="../.." target="new"/>
 
         <!-- Copy test model object into new project -->   
-        <copy todir="../../../${app.name}/src" dir="test" includes="**/Person.java"/>
-    	<property name="model.name" value="Person"/>
+        <copy todir="../../../${app.name}/src">
+            <fileset dir="test" includes="**/Person.java"/>
+        </copy>   
+        <!-- Add the mapping file for Person to applicationContext-hibernate.xml -->
+        <replace dir="../../../${app.name}/src">
+            <include name="**/applicationContext-hibernate.xml"/>
+            <replacetoken><![CDATA[<value>org/appfuse/model/Role.hbm.xml</value>]]></replacetoken>
+            <replacevalue><![CDATA[<value>org/appfuse/model/Person.hbm.xml</value>
+                <value>org/appfuse/model/Role.hbm.xml</value>]]></replacevalue>
+        </replace>   
+        
         <!-- New project created, gen code and run tests -->
-        <ant dir="../../../${app.name}/extras/appgen" target="install"/>
-        <ant dir="../../../${app.name}" target="setup"/>   
-        <ant dir="../../../${app.name}" target="test-all"/>
+        <ant dir="../../../${app.name}/extras/appgen" target="install" inheritAll="false">
+            <property name="model.name" value="Person"/>
+            <property name="model.name.lowercase" value="person"/>   
+        </ant>   
+        <ant dir="../../../${app.name}" target="setup" inheritAll="false"/>   
+        <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
+        <ant dir="../../../${app.name}" target="test-jsp" inheritAll="false">
+            <property name="testcase" value="PersonTests"/>
+        </ant>   
     </target>   
+ 
+    <target name="test-all" depends="test,test-detailed"
+        description="Tests generic and detailed code generation technics"/>   
 </project>
 
 

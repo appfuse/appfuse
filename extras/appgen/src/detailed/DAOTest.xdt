@@ -1,7 +1,11 @@
 <XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>package <XDtForm:parentPackageName/>.dao;
 
+import java.util.List;
+
 import <XDtPackage:packageName/>.<XDtClass:className/>;
 import <XDtForm:parentPackageName/>.dao.<XDtClass:className/>DAO;
+
+import org.springframework.orm.ObjectRetrievalFailureException;
 
 public class <XDtClass:className/>DAOTest extends BaseDAOTestCase {
     private Long <XDtForm:classNameLower/>Id = new Long(1);
@@ -72,7 +76,7 @@ public class <XDtClass:className/>DAOTest extends BaseDAOTestCase {
 
     public void testGet<XDtClass:className/>s() throws Exception {
         <XDtForm:classNameLower/> = new <XDtClass:className/>();
-        List results = dao.get<XDtClass:className/>(<XDtForm:classNameLower/>);
+        List results = dao.get<XDtClass:className/>s(<XDtForm:classNameLower/>);
         assertTrue(results.size() > 0);
     }
     
@@ -100,9 +104,10 @@ public class <XDtClass:className/>DAOTest extends BaseDAOTestCase {
     }
 
     public void testRemove<XDtClass:className/>() throws Exception {
-        dao.remove<XDtClass:className/>(<XDtForm:classNameLower/>Id);
+    	Long removeId = new Long(3);
+        dao.remove<XDtClass:className/>(removeId);
         try {
-        	dao.get<XDtClass:className/>(<XDtForm:classNameLower/>Id);
+        	dao.get<XDtClass:className/>(removeId);
         	fail("<XDtForm:classNameLower/> found in database");
         } catch (ObjectRetrievalFailureException e) {
         	assertNotNull(e.getMessage());

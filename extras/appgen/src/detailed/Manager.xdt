@@ -1,8 +1,16 @@
 <XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>package <XDtForm:parentPackageName/>.service;
 
+import java.util.List;
+
 import <XDtPackage:packageName/>.<XDtClass:className/>;
+import <XDtForm:parentPackageName/>.dao.<XDtClass:className/>DAO;
 
 public interface <XDtClass:className/>Manager extends Manager {
+
+    /**
+     * Setter for DAO, convenient for unit testing
+     */
+    public void set<XDtClass:className/>DAO(<XDtClass:className/>DAO <XDtForm:classNameLower/>DAO);
 
     /**
      * Retrieves all of the <XDtForm:classNameLower/>s
@@ -26,7 +34,6 @@ public interface <XDtClass:className/>Manager extends Manager {
      * Removes a <XDtForm:classNameLower/> from the database by id
      * @param id the <XDtForm:classNameLower/>'s id
      */    
-    public void remove<XDtClass:className/>(final Long id);
-
+    public void remove<XDtClass:className/>(final String id);
 }
 

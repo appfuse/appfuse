@@ -1,0 +1,6 @@
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>    <menu:displayMenu name="<XDtClass:className/>Menu"/>
+</menu:useMenuDisplayer>
+</div>
+<script type="text/javascript">
+    initializeMenus();
+</script>

@@ -1,0 +1,6 @@
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>    <bean id="<XDtForm:classNameLower/>Manager" parent="txProxyTemplate">
+        <property name="target">
+            <bean class="<XDtForm:parentPackageName/>.service.impl.<XDtClass:className/>ManagerImpl" autowire="byName"/>
+        </property>
+    </bean>
+</beans>

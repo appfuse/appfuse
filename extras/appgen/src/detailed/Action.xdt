@@ -9,6 +9,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 
+import <XDtForm:parentPackageName/>.Constants;
 import <XDtPackage:packageName/>.<XDtClass:className/>;
 import <XDtForm:parentPackageName/>.service.<XDtClass:className/>Manager;
 import <XDtForm:parentPackageName/>.webapp.form.<XDtClass:className/>Form;
@@ -29,7 +30,7 @@ public final class <XDtClass:className/>Action extends BaseAction {
                                 HttpServletRequest request,
                                 HttpServletResponse response)
     throws Exception {
-        return mapping.findForward("list");
+        return search(mapping, form, request, response);
     }
 
     public ActionForward delete(ActionMapping mapping, ActionForm form,
@@ -53,7 +54,7 @@ public final class <XDtClass:className/>Action extends BaseAction {
         // save messages in session, so they'll survive the redirect
         saveMessages(request.getSession(), messages);
 
-        return mapping.findForward("list");
+        return search(mapping, form, request, response);
     }
 
     public ActionForward edit(ActionMapping mapping, ActionForm form,
@@ -89,7 +90,7 @@ public final class <XDtClass:className/>Action extends BaseAction {
         // Extract attributes and parameters we will need
         ActionMessages messages = new ActionMessages();
         <XDtClass:className/>Form <XDtForm:classNameLower/>Form = (<XDtClass:className/>Form) form;
-        boolean isNew = ("".equals(<XDtForm:classNameLower/>Form.getId()));
+        boolean isNew = ("".equals(<XDtForm:classNameLower/>Form.getId()) || <XDtForm:classNameLower/>Form.getId() == null);
 
         <XDtClass:className/>Manager mgr = (<XDtClass:className/>Manager) getBean("<XDtForm:classNameLower/>Manager");
         <XDtClass:className/> <XDtForm:classNameLower/> = (<XDtClass:className/>) convert(<XDtForm:classNameLower/>Form);
@@ -103,7 +104,7 @@ public final class <XDtClass:className/>Action extends BaseAction {
             // save messages in session to survive a redirect
             saveMessages(request.getSession(), messages);
 
-            return mapping.findForward("list");
+            return search(mapping, form, request, response);
         } else {
             messages.add(ActionMessages.GLOBAL_MESSAGE,
                          new ActionMessage("<XDtForm:classNameLower/>.updated"));

@@ -1,9 +1,11 @@
 <XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>package <XDtForm:parentPackageName/>.dao.hibernate;
 
+import java.util.List;
+
 import <XDtPackage:packageName/>.<XDtClass:className/>;
 import <XDtForm:parentPackageName/>.dao.<XDtClass:className/>DAO;
 
-import java.util.List;
+import org.springframework.orm.ObjectRetrievalFailureException;
 
 public class <XDtClass:className/>DAOHibernate extends BaseDAOHibernate implements <XDtClass:className/>DAO {
 

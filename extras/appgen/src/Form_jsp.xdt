@@ -37,8 +37,7 @@
 </table>
 </html:form>
 
-<%-- Uncomment after you've added validation rules for an object - otherwise an exception is thrown --%>
-<!--html:javascript formName="<XDtForm:classNameLower/>Form" cdata="false"
+<html:javascript formName="<XDtForm:classNameLower/>Form" cdata="false"
     dynamicJavascript="true" staticJavascript="false"/>
 <script type="text/javascript" 
-    src="<html:rewrite page="/scripts/validator.jsp"/>"></script-->
+    src="<html:rewrite page="/scripts/validator.jsp"/>"></script>

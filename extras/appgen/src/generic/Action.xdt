@@ -9,6 +9,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 
+import <XDtForm:parentPackageName/>.Constants;
 import <XDtPackage:packageName/>.<XDtClass:className/>;
 import <XDtForm:parentPackageName/>.service.Manager;
 import <XDtForm:parentPackageName/>.webapp.form.<XDtClass:className/>Form;
@@ -17,7 +18,7 @@ import <XDtForm:parentPackageName/>.webapp.form.<XDtClass:className/>Form;
  * @struts.action name="<XDtForm:classNameLower/>Form" path="/edit<XDtClass:className/>" scope="request"
  *  validate="false" parameter="method" input="list"
  * 
- * @struts.action name="<XDtForm:classNameLower/>Form" path="/saveObject" scope="request"
+ * @struts.action name="<XDtForm:classNameLower/>Form" path="/save<XDtClass:className/>" scope="request"
  *  validate="true" parameter="method" input="edit"
  * 
  * @struts.action-forward name="edit" path="/WEB-INF/pages/<XDtForm:classNameLower/>Form.jsp"
@@ -29,7 +30,7 @@ public final class <XDtClass:className/>Action extends BaseAction {
                                 HttpServletRequest request,
                                 HttpServletResponse response)
     throws Exception {
-        return mapping.findForward("list");
+        return search(mapping, form, request, response);
     }
 
     public ActionForward delete(ActionMapping mapping, ActionForm form,
@@ -45,7 +46,7 @@ public final class <XDtClass:className/>Action extends BaseAction {
 
         // Exceptions are caught by ActionExceptionHandler
         Manager mgr = (Manager) getBean("manager");
-        mgr.removeObject(<XDtClass:className/>.class, <XDtForm:classNameLower/>Form.getId());
+        mgr.removeObject(<XDtClass:className/>.class, new Long(<XDtForm:classNameLower/>Form.getId()));
 
         messages.add(ActionMessages.GLOBAL_MESSAGE,
                      new ActionMessage("<XDtForm:classNameLower/>.deleted"));
@@ -53,7 +54,7 @@ public final class <XDtClass:className/>Action extends BaseAction {
         // save messages in session, so they'll survive the redirect
         saveMessages(request.getSession(), messages);
 
-        return mapping.findForward("list");
+        return search(mapping, form, request, response);
     }
 
     public ActionForward edit(ActionMapping mapping, ActionForm form,
@@ -70,7 +71,8 @@ public final class <XDtClass:className/>Action extends BaseAction {
         // don't do anything - user is doing an add
         if (<XDtForm:classNameLower/>Form.getId() != null) {
             Manager mgr = (Manager) getBean("manager");
-            <XDtClass:className/> <XDtForm:classNameLower/> = mgr.getObject(<XDtClass:className/>.class, <XDtForm:classNameLower/>Form.getId());
+            <XDtClass:className/> <XDtForm:classNameLower/> = 
+                (<XDtClass:className/>) mgr.getObject(<XDtClass:className/>.class, new Long(<XDtForm:classNameLower/>Form.getId()));
             <XDtForm:classNameLower/>Form = (<XDtClass:className/>Form) convert(<XDtForm:classNameLower/>);
             updateFormBean(mapping, request, <XDtForm:classNameLower/>Form);
         }
@@ -89,7 +91,7 @@ public final class <XDtClass:className/>Action extends BaseAction {
         // Extract attributes and parameters we will need
         ActionMessages messages = new ActionMessages();
         <XDtClass:className/>Form <XDtForm:classNameLower/>Form = (<XDtClass:className/>Form) form;
-        boolean isNew = ("".equals(<XDtForm:classNameLower/>Form.getId()));
+        boolean isNew = ("".equals(<XDtForm:classNameLower/>Form.getId()) || <XDtForm:classNameLower/>Form.getId() == null);
 
         Manager mgr = (Manager) getBean("manager");
         <XDtClass:className/> <XDtForm:classNameLower/> = (<XDtClass:className/>) convert(<XDtForm:classNameLower/>Form);
@@ -103,7 +105,7 @@ public final class <XDtClass:className/>Action extends BaseAction {
             // save messages in session to survive a redirect
             saveMessages(request.getSession(), messages);
 
-            return mapping.findForward("list");
+            return search(mapping, form, request, response);
         } else {
             messages.add(ActionMessages.GLOBAL_MESSAGE,
                          new ActionMessage("<XDtForm:classNameLower/>.updated"));
