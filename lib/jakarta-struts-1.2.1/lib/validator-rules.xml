@@ -2,9 +2,9 @@
           "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1//EN"
           "http://jakarta.apache.org/commons/dtds/validator_1_1.dtd">
 <!--
-  $Header: /u1/sourcecast/data/ccvs/repository/appfuse/lib/jakarta-struts-20031202/lib/Attic/validator-rules.xml,v 1.3 2004/05/16 02:15:57 mraible Exp $
-  $Revision: 1.3 $
-  $Date: 2004/05/16 02:15:57 $
+  $Header: /u1/sourcecast/data/ccvs/repository/appfuse/lib/jakarta-struts-1.2.1/lib/Attic/validator-rules.xml,v 1.1 2004/07/12 05:10:10 mraible Exp $
+  $Revision: 1.1 $
+  $Date: 2004/07/12 05:10:10 $
 
    This file contains the default Struts Validator pluggable validator
    definitions.  It should be placed somewhere under /WEB-INF and
@@ -59,99 +59,7 @@
                        org.apache.commons.validator.Field,
                        org.apache.struts.action.ActionMessages,
                        javax.servlet.http.HttpServletRequest"
-                  msg="errors.required">
-
-         <javascript><![CDATA[
-            function validateRequired(form) {
-                var isValid = true;
-                var focusField = null;
-                var i = 0;
-                var fields = new Array();
-                oRequired = new required();
-
-                for (x in oRequired) {
-                    var field = form[oRequired[x][0]];
-
-                    if (field.type == 'text' ||
-                        field.type == 'textarea' ||
-                        field.type == 'file' ||
-                        field.type == 'checkbox' ||
-                        field.type == 'select-one' ||
-                        field.type == 'password') {
-
-                        var value = '';
-                        // get field's value
-                        if (field.type == "select-one") {
-                            var si = field.selectedIndex;
-                            if (si >= 0) {
-                                value = field.options[si].value;
-                            }
-                        } else if (field.type == 'checkbox') {
-			    if (field.checked) {
-			        value = field.value;
-			    }
-                    } else {
-                            value = field.value;
-                        }
-
-                        if (trim(value).length == 0) {
-
-                            if (i == 0) {
-                                focusField = field;
-                            }
-                            fields[i++] = oRequired[x][1];
-                            isValid = false;
-                        }
-                    } else if (field.type == "select-multiple") {
-                        var numOptions = field.options.length;
-                        lastSelected=-1;
-                        for(loop=numOptions-1;loop>=0;loop--) {
-                            if(field.options[loop].selected) {
-                                lastSelected = loop;
-                                value = field.options[loop].value;
-                                break;
-                            }
-                        }
-                        if(lastSelected < 0 || trim(value).length == 0) {
-                            if(i == 0) {
-                                focusField = field;
-                            }
-                            fields[i++] = oRequired[x][1];
-                            isValid=false;
-                        }
-                    } else if ((field.length > 0) && (field[0].type == 'radio' || field[0].type == 'checkbox')) {
-                        isChecked=-1;
-                        for (loop=0;loop < field.length;loop++) {
-                            if (field[loop].checked) {
-                                isChecked=loop;
-                                break; // only one needs to be checked
-                            }
-                        }
-                        if (isChecked < 0) {
-                            if (i == 0) {
-                                focusField = field[0];
-                            }
-                            fields[i++] = oRequired[x][1];
-                            isValid=false;
-                        }
-                    }
-                }
-                if (fields.length > 0) {
-                   focusField.focus();
-                   alert(fields.join('\n'));
-                }
-                return isValid;
-            }
-
-            // Trim whitespace from left and right sides of s.
-            function trim(s) {
-                return s.replace( /^\s*/, "" ).replace( /\s*$/, "" );
-            }
-
-            ]]>
-         </javascript>
-
-      </validator>
+                  msg="errors.required"/>
 
       <validator name="requiredif"
                  classname="org.apache.struts.validator.FieldChecks"
@@ -328,7 +236,6 @@
                   msg="errors.range"/>
 
 
-
       <validator name="creditCard"
             classname="org.apache.struts.validator.FieldChecks"
                method="validateCreditCard"
@@ -352,6 +259,28 @@
               depends=""
                   msg="errors.email"/>
 
+      <validator name="url"
+            classname="org.apache.struts.validator.FieldChecks"
+               method="validateUrl"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.apache.struts.action.ActionMessages,
+                       javax.servlet.http.HttpServletRequest"
+              depends=""
+                  msg="errors.url"/>
+
+     <!--
+       This simply allows struts to include the validateUtilities into a page, it should
+       not be used as a validation rule.
+     -->
+     <validator name="includeJavaScriptUtilities"
+            classname=""
+               method=""
+         methodParams=""
+              depends=""
+                  msg=""
+           jsFunction="org.apache.commons.validator.javascript.validateUtilities"/>
 
    </global>
 
