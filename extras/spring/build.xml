@@ -401,7 +401,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
     <!-- =================================================================== -->
     <!-- Creates new project, installs Spring MVC and tests appgen           -->
     <!-- =================================================================== -->
-    <target name="test-appgen" description="Creates appfuse-spring tests appgen">
+    <target name="test-appgen" description="Creates appfuse-spring and tests appgen">
         <property name="app.name" value="appfuse-spring"/>
         <property name="db.name" value="appfuse"/>
         <delete dir="../../../${app.name}"/>
@@ -410,12 +410,15 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         <!-- New project created, install Spring MVC -->
         <ant dir="../../../${app.name}/extras/spring" target="install" inheritAll="false"/>
         <!-- Gen code and run tests -->
-        <ant dir="../../../${app.name}/extras/appgen" target="test" inheritAll="false">
+        <ant dir="../../../${app.name}/extras/appgen" target="test-all" inheritAll="false">
             <property name="model.name" value="Person"/>
             <property name="model.name.lowercase" value="person"/>   
         </ant>   
     </target>
     
-    <target name="test-all" depends="test,test-ibatis"
-        description="Tests Spring MVC install with Hibernate and iBATIS"/>
+    <target name="test-all" depends="test" 
+        description="Tests Spring MVC install with Hibernate and iBATIS">
+        <antcall target="test-ibatis" inheritAll="false"/>
+        <antcall target="test-appgen" inheritAll="false"/>
+    </target>
 </project>

@@ -1,0 +1,12 @@
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0//EN" 
+	"http://www.opensymphony.com/xwork/xwork-validator-1.0.dtd">
+<validators>
+    // set required fields
+    <XDtMethod:forAllMethods>
+    <XDtMethod:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
+    <field name="<XDtForm:classNameLower/>.<XDtMethod:propertyName/>">
+        <field-validator type="requiredstring">
+            <message key="errors.required"/>
+        </field-validator>
+    </field>
+</validators>

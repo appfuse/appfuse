@@ -107,5 +107,7 @@
             <!-- this should never be used, it's here to prevent warnings -->
             <result name="success">/WEB-INF/pages/mainMenu.jsp</result>
         </action>
+        
+        <!-- Add additional actions here -->
   	</package>
 </xwork>

@@ -105,7 +105,73 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
                 <include name="util/ValidationUtil.java"/>
             </fileset>
         </delete>
+
+        <!-- Modify appgen for WebWork -->
+        <echo level="info">Modifying appgen for WebWork</echo>
+        <copy todir="../appgen" overwrite="true">
+            <fileset dir="extras/appgen" includes="**"/>
+        </copy>
+        <!-- Add templates to the list appgen/build.xml -->
+        <replace file="../appgen/build.xml">
+            <replacetoken><![CDATA[<!-- Generic Action -->
+            <template templateFile="${template.dir}/generic/Action.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/generic/src/web/${app.package}/webapp/action/{0}Action.java"/>]]></replacetoken>
+            <replacevalue><![CDATA[<!-- Generic Action -->
+            <template templateFile="${template.dir}/generic/Action.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/generic/src/web/${app.package}/webapp/action/{0}Action.java"/>
+            <!-- XWork actions -->
+            <template templateFile="${template.dir}/xwork.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/web/WEB-INF/classes/xwork-{0}.xml"/>
+            <!-- Action bean definitions -->
+            <template templateFile="${template.dir}/action-servlet.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/web/WEB-INF/action-servlet-{0}.xml"/>
+            <!-- Action validation -->
+            <template templateFile="${template.dir}/Action-validation.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/src/web/${app.package}/webapp/action/{0}Action-validation.xml"/>
+            <!-- Model validation -->
+            <template templateFile="${template.dir}/validation.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/src/dao/${app.package}/model/{0}-validation.xml"/>]]></replacevalue>
+        </replace>
         
+        <!-- Modify XML to modify action-servlet.xml -->
+        <replace file="../appgen/build.xml">
+            <replacetoken><![CDATA[<echo>Merging sample-data into metadata/sql/sample-data.xml</echo>]]></replacetoken>
+            <replacevalue><![CDATA[
+        <echo>Merging controller configuration XML into web/WEB-INF/action-servlet.xml</echo>
+        <loadfile property="action.beans"
+            srcfile="${generated.dir}/web/WEB-INF/action-servlet-${model.name}.xml"/>
+        <!-- Replace strategically placed comment -->   
+        <replace file="../../web/WEB-INF/action-servlet.xml" 
+            token="&lt;!-- Add additional actions here --&gt;"
+            value="${action.beans}"/>
+
+        <loadfile property="xwork.actions"
+            srcfile="${generated.dir}/web/WEB-INF/xwork-${model.name}.xml"/>
+        <!-- Replace strategically placed comment -->   
+        <replace file="../../web/WEB-INF/classes/xwork.xml" 
+            token="&lt;!-- Add additional actions here --&gt;"
+            value="${xwork.action}"/>
+            
+        <echo>Copying validation XML files to appropriate locations</echo>
+        <copy todir="../.." overwrite="${overwrite}">
+            <fileset dir="${generated.dir}" includes="**/*-validation.xml"/>
+        </copy>
+        
+        <echo>Merging sample-data into metadata/sql/sample-data.xml</echo>]]></replacevalue>
+        </replace>
+        =======================================================
         <!-- Copy source and tests -->    
         <echo level="info">Replacing source and test files</echo>
         <copy todir="../../extras/viewgen" overwrite="true">
@@ -366,6 +432,27 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         <echo>Start Tomcat to view ${app.name} manually.</echo>
     </target>
 
-    <target name="test-all" depends="test,test-ibatis"
-        description="Tests WebWork install with Hibernate and iBATIS"/>
+    <!-- =================================================================== -->
+    <!-- Creates new project, installs WebWork and tests appgen              -->
+    <!-- =================================================================== -->
+    <target name="test-appgen" description="Creates appfuse-spring and tests appgen">
+        <property name="app.name" value="appfuse-spring"/>
+        <property name="db.name" value="appfuse"/>
+        <delete dir="../../../${app.name}"/>
+        <ant dir="../.." target="new"/>
+
+        <!-- New project created, install Spring MVC -->
+        <ant dir="../../../${app.name}/extras/spring" target="install" inheritAll="false"/>
+        <!-- Gen code and run tests -->
+        <ant dir="../../../${app.name}/extras/appgen" target="test" inheritAll="false">
+            <property name="model.name" value="Person"/>
+            <property name="model.name.lowercase" value="person"/>   
+        </ant>   
+    </target>
+    
+    <target name="test-all" depends="test" 
+        description="Tests WebWork install with Hibernate and iBATIS">
+        <antcall target="test-ibatis" inheritAll="false"/>
+        <antcall target="test-appgen" inheritAll="false"/>
+    </target>
 </project>

@@ -1,0 +1,7 @@
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><bean id="<XDtForm:classNameLower/>Action" class="<XDtForm:parentPackageName/>.webapp.action.<XDtClass:className/>Action" singleton="false" autowire="byName"/>
+
+    <action name="<XDtForm:classNameLower/>s" class="<XDtForm:classNameLower/>Action" method="list"> 
+        <result name="success">/WEB-INF/pages/<XDtForm:classNameLower/>List.jsp</result> 
+    </action>
+    
+    <!-- Add additional actions here -->
