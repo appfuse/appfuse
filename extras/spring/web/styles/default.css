@@ -2,17 +2,17 @@
 @import url(displaytag.css);
 
 a {
-	color: red;
+	color: green;
 	font-weight: bold;
 }
 
-a:visited, body#login div#menu a:visited {
-	color: #cc0000;
+a:visited, body#login div#menu a:visited  {
+	color: #006401;
 }
 
 a:hover {
     background-color: transparent;
-    color: green !important; 
+    color: #0000ff !important; 
     text-decoration: underline overline;
 }
 

@@ -41,6 +41,9 @@ steps:
 
 Features/Changes in 1.6
 ============================
+- Changed stylesheet colors for Spring MVC option to be green instead of red.
+  Bug 47 - https://appfuse.dev.java.net/issues/show_bug.cgi?id=47.
+
 - Dependent packages upgraded:
     * Spring 1.0.2
     * Hibernate 2.1.4
