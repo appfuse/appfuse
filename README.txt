@@ -39,12 +39,13 @@ steps:
      Example: log4j.rootCategory=INFO, stdout, mail
 
 
-Features/Changes in 1.5-beta
+Features/Changes in 1.5
 ============================
 - Added Spring MVC as a web framework option. You can install it by navigating
   to "extras/spring" and typing "ant install".  Includes Commons Validator
   and XDoclet support for generating validation.xml.  I also ported the 
-  LabelTag so it works with Spring as well.
+  LabelTag so it works with Spring as well.  Make sure and read the README.txt
+  in extras/spring for issues I encountered while developing.
 - Changed extension for default Controller to be *.html.  We're serving up
   HTML, so it makes sense (to me) to use this instead of .do?  I'm also 
   motivated because I want to be more MVC framework-agnostic.
