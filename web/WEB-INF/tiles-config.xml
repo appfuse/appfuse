@@ -36,7 +36,7 @@
         <put name="body.id" value="login"/>
         <put name="titleKey"  value="login.title"/>
         <put name="headingKey" value="login.heading"/>
-        <put name="menu" value="/menu.html"/>
+        <put name="menu" value="/loginMenu.jsp"/>
         <put name="content" value="/WEB-INF/pages/welcome.jsp"/>
     </definition>
 
