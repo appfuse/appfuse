@@ -1,8 +1,10 @@
 package org.appfuse.dao;
 
 import org.appfuse.Constants;
+import org.appfuse.model.Address;
 import org.appfuse.model.User;
 import org.appfuse.model.UserCookie;
+import org.springframework.dao.DataAccessException;
 
 /**
  * This class tests the current UserDAO implementation class
@@ -26,7 +28,7 @@ public class UserDAOTest extends BaseDAOTestCase {
         try {
             user = dao.getUser("badusername");
             fail("'badusername' found in database, failing test...");
-        } catch (DAOException d) {
+        } catch (DataAccessException d) {
             if (log.isDebugEnabled()) {
                 log.debug(d);
             }
@@ -45,11 +47,24 @@ public class UserDAOTest extends BaseDAOTestCase {
     public void testSaveUser() throws Exception {
         user = dao.getUser("tomcat");
 
-        //log.info(user);
-        user.setAddress("new address");
+        Address address = user.getAddress();
+        address.setAddress("new address");
+        user.setAddress(address);
 
         dao.saveUser(user);
-        assertEquals(user.getAddress(), "new address");
+        assertEquals(user.getAddress(), address);
+        
+        // verify that violation occurs when adding new user
+        // with same username
+        /*
+        user.setId(null);
+        try {
+        	dao.saveUser(user);
+            fail("saveUser didn't throw DataIntegrityViolationException");
+        } catch (DataIntegrityViolationException e) {
+        	assertNotNull(e);
+            log.debug("expected exception: " + e.getMessage());
+        }*/
     }
 
     public void testAddUserRole() throws Exception {
@@ -81,10 +96,12 @@ public class UserDAOTest extends BaseDAOTestCase {
         user.setPassword("testpass");
         user.setFirstName("Test");
         user.setLastName("Last");
-        user.setCity("Denver");
-        user.setProvince("CO");
-        user.setCountry("USA");
-        user.setPostalCode("80210");
+        Address address = new Address();
+        address.setCity("Denver");
+        address.setProvince("CO");
+        address.setCountry("USA");
+        address.setPostalCode("80210");
+        user.setAddress(address);
         user.setEmail("testuser@appfuse.org");
         user.setWebsite("http://raibledesigns.com");
         user.addRole(Constants.USER_ROLE);
@@ -97,8 +114,8 @@ public class UserDAOTest extends BaseDAOTestCase {
 
         try {
             user = dao.getUser("testuser");
-            fail("Expected 'DAOException' not thrown");
-        } catch (DAOException d) {
+            fail("Expected 'ObjectRetrievalFailureException' not thrown");
+        } catch (DataAccessException d) {
             if (log.isDebugEnabled()) {
                 log.debug(d);
             }
@@ -113,12 +130,12 @@ public class UserDAOTest extends BaseDAOTestCase {
         cookie.setUsername("tomcat");
         cookie.setCookieId(cookieId);
         dao.saveUserCookie(cookie);
-        cookie = dao.getUserCookie(cookieId);
+        cookie = dao.getUserCookie(cookie);
         assertEquals(cookieId, cookie.getCookieId());
 
         dao.removeUserCookies(cookie.getUsername());
 
-        cookie = dao.getUserCookie(cookieId);
+        cookie = dao.getUserCookie(cookie);
         assertNull(cookie);
     }
 }
