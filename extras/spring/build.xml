@@ -63,11 +63,11 @@
         <copy todir="../../src" overwrite="true">
             <fileset dir="src" includes="**"/>
         </copy>
+        <delete dir="../../test/web/org/appfuse/webapp/form"/>
         <delete>
             <fileset dir="../../test/web/org/appfuse/webapp/action">
                 <exclude name="LoginServlet*"/>
             </fileset>
-            <fileset dir="../../test/web/org/appfuse/webapp/form"/>
         </delete> 
         <copy todir="../../test" overwrite="true">
             <fileset dir="test" includes="**"/>
