@@ -41,15 +41,6 @@ Hibernate transactions) in your $CATALINA_HOME/common/lib directory.  For your
 convenience, you can download these JARs from SourceForge where you downloaded
 this release.  The file is named tomcat-5-jars.jar.
 
-The Remember Me feature does not work on Tomcat 5.  This is because cookies
-are set on the path "/appfuse/security" and the new FormAuthenticator does
-a forward instead of a redirect.  Adding dispatchers to the filter-mapping for
-the LoginFilter helps, but the "rememberMe" cookies are null since the path
-doesn't have "/appfuse/security" in it.  More information can be found at 
-http://tinyurl.com/ywv4.  You can try setting the cookiePath to "/" - this 
-might work.  Change web/scripts/login.js (for the username cookie) and 
-src/common/**/Constants.java (LOGIN_PATH) to try this.
-
 ** ATTENTION TOMCAT 4 LE USERS **
 To run this application on Tomcat 4.1.x LE, you need to make sure that you have
 commons-collections.jar, commons-dbcp.jar and commons-pool.jar in your 

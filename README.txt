@@ -3,7 +3,7 @@ Quick-Start FAQ
 
 To learn how to develop your J2EE webapps with AppFuse, see 
 http://raibledesigns.com/wiki/Wiki.jsp?page=Articles (or docs/index.html
-if you downloaded AppFuse as a release from SourceForge). 
+if you downloaded the AppFuse source distribution). 
 
 To build this application - you must be using Ant 1.5.1+ and have your 
 $J2EE_HOME set to your J2EE SDK install directory.  You can also copy the
@@ -39,17 +39,8 @@ To run this application, you will need to perform the following tasks:
 To run this application on Tomcat 5.0.4+, you need to make sure that you have
 mail.jar, activation.jar (for the passwordHint feature) and jta.jar (for
 Hibernate transactions) in your $CATALINA_HOME/common/lib directory.  For your
-convenience, you can download these JARs from SourceForge where you downloaded
+convenience, you can download these JARs from the sampe place you downloaded
 this release.  The file is named tomcat-5-jars.jar.
-
-The Remember Me feature does not work on Tomcat 5.  This is because cookies
-are set on the path "/appfuse/security" and the new FormAuthenticator does
-a forward instead of a redirect.  Adding dispatchers to the filter-mapping for
-the LoginFilter helps, but the "rememberMe" cookies are null since the path
-doesn't have "/appfuse/security" in it.  More information can be found at 
-http://tinyurl.com/ywv4.  You can try setting the cookiePath to "/" - this 
-might work.  Change web/scripts/login.js (for the username cookie) and 
-src/common/**/Constants.java (LOGIN_PATH) to try this.
 
 ** ATTENTION TOMCAT 4 LE USERS **
 To run this application on Tomcat 4.1.x LE, you need to make sure that you have
@@ -115,7 +106,6 @@ Features/Changes in 1.4
     * JSTL 1.0.5
     * Patched Canoo's WebTest to work with Ant 1.6
     * Hibernate 2.1.2
-    * Struts 1.0.2
     * MySQL JDBC Driver 3.0.11
 
 
