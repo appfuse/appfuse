@@ -23,12 +23,18 @@
         <props>
             <prop key="hibernate.dialect">@HIBERNATE-DIALECT@</prop>
             <!--prop key="hibernate.show_sql">true</prop-->
+            <!--prop key="hibernate.hbm2ddl.auto">update</prop-->
         </props>
         </property>
     </bean>
 
     <!-- Transaction manager for a single Hibernate SessionFactory (alternative to JTA) -->
     <bean id="transactionManager" class="org.springframework.orm.hibernate.HibernateTransactionManager">
+        <property name="sessionFactory"><ref local="sessionFactory"/></property>
+    </bean>
+
+    <!-- Generic DAO - can be used when doing standard CRUD -->
+    <bean id="dao" class="org.appfuse.dao.hibernate.BaseDAOHibernate">
         <property name="sessionFactory"><ref local="sessionFactory"/></property>
     </bean>
 
