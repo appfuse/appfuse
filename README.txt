@@ -51,6 +51,7 @@ Features/Changes in 1.6
     * Struts 1.2.1
     * Struts Test Case 2.1.2
     * JSTL 1.0.6
+    * iBATIS 2.0.5
 
 Features/Changes in 1.5
 ============================
