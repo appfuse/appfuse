@@ -20,6 +20,7 @@
 
     <bean id="passwordHintController" class="org.appfuse.webapp.action.PasswordHintController">
         <property name="userManager"><ref bean="userManager"/></property>
+        <property name="messageSource"><ref bean="messageSource"/></property>
     </bean>
 
     <bean id="reloadController" class="org.appfuse.webapp.action.ReloadController"/>

@@ -142,11 +142,10 @@ public class LabelTag extends TagSupport {
                 
                 label.append("<img class=\"validationWarning\" alt=\"");
                 label.append(getMessageSource().getMessage("icon.warning", null, locale));
-                label.append("\" );
+                label.append("\"");
 
                 String context =
-                    ((HttpServletRequest) pageContext.getRequest())
-                    .getContextPath();
+                    ((HttpServletRequest) pageContext.getRequest()).getContextPath();
 
                 label.append("src=\"" + context);
                 label.append(getMessageSource().getMessage("icon.warning.img", null, locale));

@@ -1,13 +1,13 @@
 package org.appfuse.webapp.action;
 
 import org.appfuse.Constants;
+import org.appfuse.model.User;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
-
 
 public class UserFormControllerTest extends BaseControllerTestCase {
     private UserFormController c;
@@ -43,6 +43,8 @@ public class UserFormControllerTest extends BaseControllerTestCase {
         mv = c.handleRequest(request, new MockHttpServletResponse());
 
         assertEquals("userProfile", mv.getViewName());
+        User editUser = (User) mv.getModel().get(c.getCommandName());
+        assertEquals("Tomcat User", editUser.getFullName());
     }
 
     public void testSave() throws Exception {
@@ -55,7 +57,6 @@ public class UserFormControllerTest extends BaseControllerTestCase {
         log.debug(mv.getModel());
         Errors errors =
             (Errors) mv.getModel().get(BindException.ERROR_KEY_PREFIX + "user");
-        //log.debug(errors);
         assertNull(errors);
         assertNotNull(request.getSession().getAttribute("messages"));
     }
