@@ -459,8 +459,8 @@ hibernate.jar=${hibernate.dir}/hibernate2.jar]]></replacetoken>
         <!-- New project created, install iBATIS, remove Hibernate and run tests -->
         <ant dir="../../../${app.name}/extras/ibatis" target="install" inheritAll="false"/>
         <ant dir="../../../${app.name}/extras/ibatis" target="uninstall-hibernate" inheritAll="false"/>
-        <ant dir="../../../${app.name}" target="setup" inheritAll="false"/>
-        <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
+        <ant dir="../../../${app.name}" target="setup" inheritAll="false" inheritAll="false"/>
+        <ant dir="../../../${app.name}" target="test-all" inheritAll="false" inheritAll="false"/>
 
         <echo>You can start Tomcat to view ${app.name} manually.</echo>
     </target>
@@ -478,8 +478,8 @@ hibernate.jar=${hibernate.dir}/hibernate2.jar]]></replacetoken>
 
         <!-- New project created, install iBATIS and run tests -->
         <ant dir="../../../${app.name}/extras/ibatis" target="install" inheritAll="false"/>
-        <ant dir="../../../${app.name}" target="setup" inheritAll="false"/>
-        <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
+        <ant dir="../../../${app.name}" target="setup" inheritAll="false" inheritAll="false"/>
+        <ant dir="../../../${app.name}" target="test-all" inheritAll="false" inheritAll="false"/>
 
         <echo>You can start Tomcat to view ${app.name} manually.</echo>
     </target>
