@@ -20,7 +20,7 @@ import org.springframework.web.context.ContextLoader;
  * and populate any application-wide drop-downs.
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.2 $ $Date: 2004/04/14 06:53:10 $
+ * @version $Revision: 1.3 $ $Date: 2004/04/22 20:43:27 $
  *
  * @web.listener
  */
@@ -77,6 +77,7 @@ public class StartupListener implements ServletContextListener {
             ctx.setConfigLocations(files);
             ctx.setServletContext(context);
             ctx.refresh();
+            
             LookupManager mgr =
                 (LookupManager) ctx.getBean("lookupManager");
 

@@ -39,7 +39,7 @@ public class UserActionTest extends BaseStrutsTestCase {
         BeanUtils.copyProperties(ex, user);
         ex.setPassword("tomcat");
         ex.setConfirmPassword(ex.getPassword());
-        request.setAttribute(Constants.USER_EDIT_KEY, ex);
+        getRequest().setAttribute(Constants.USER_EDIT_KEY, ex);
 
         setRequestPathInfo("/saveUser");
         addRequestParameter("encryptPass", "true");

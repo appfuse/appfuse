@@ -3,6 +3,7 @@ package <XDtPackage:packageOf><XDtStrutsForm:strutsFormClass/></XDtPackage:packa
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionErrors;
 
 /**
  * <XDtI18n:getString bundle="xdoclet.modules.apache.struts.ejb.XDocletModulesApacheStrutsEjbMessages" resource="form_generated"/>
@@ -19,7 +20,7 @@ public class <XDtClass:classOf><XDtStrutsForm:strutsFormClass/></XDtClass:classO
     protected boolean <XDtMethod:propertyName/>;
     </XDtType:ifIsOfType>  
     <XDtType:ifIsOfType value="return-type" type="java.util.List,java.util.Set" extent="concrete-type">
-    protected java.util.List <XDtMethod:propertyName/> = new java.util.ArrayList();
+    protected transient java.util.List <XDtMethod:propertyName/> = new java.util.ArrayList();
     </XDtType:ifIsOfType>
     <XDtType:ifIsOfType value="return-type" type="org.appfuse.model.BaseObject">
     protected Object <XDtMethod:propertyName/>;
@@ -81,7 +82,8 @@ public class <XDtClass:classOf><XDtStrutsForm:strutsFormClass/></XDtClass:classO
         this.<XDtMethod:propertyName/> = <XDtMethod:propertyName/>;
     }
 
-    </XDtStrutsForm:forAllFormFields>
+</XDtStrutsForm:forAllFormFields>
+    
 <XDtStrutsForm:forAllFormFields>
     <XDtType:ifIsOfType value="return-type" type="java.util.List,java.util.Set" extent="concrete-type">
     public void <XDtMethod:setterMethod/>(int index, Object o) {
@@ -101,6 +103,7 @@ public class <XDtClass:classOf><XDtStrutsForm:strutsFormClass/></XDtClass:classO
         this.<XDtMethod:propertyName/> = false;
         </XDtType:ifIsOfType>
 </XDtStrutsForm:forAllFormFields>
+<XDtClass:ifHasClassTag tagName="struts.form" paramName="indexedProperties" value="true">
 <XDtStrutsForm:forAllFormFields>
         <XDtType:ifIsOfType value="return-type" type="java.util.List,java.util.Set" extent="concrete-type">
         <XDtVelocity:generator>
@@ -111,8 +114,10 @@ public class <XDtClass:classOf><XDtStrutsForm:strutsFormClass/></XDtClass:classO
         this.<XDtMethod:propertyName/> = org.apache.commons.collections.ListUtils.lazyList(new java.util.ArrayList(), new ObjectFactory("<XDtVelocity:getVariable name="objectName"/>"));
         </XDtType:ifIsOfType>
 </XDtStrutsForm:forAllFormFields>
+</XDtClass:ifHasClassTag>
     }
 
+    <XDtClass:ifHasClassTag tagName="struts.form" paramName="indexedProperties">
     /**
      * <code>ObjectFactory</code> - used if indexed properties exist on this form.
      *
@@ -126,7 +131,7 @@ public class <XDtClass:classOf><XDtStrutsForm:strutsFormClass/></XDtClass:classO
         public Object create() {
 	    	Class c = null;
 	    	try {
-                c = Class.forName("org.appfuse.webapp.form." + name + "Form");
+		    	c = Class.forName("org.appfuse.webapp.form." + name + "Form");
 	            return c.newInstance();
 			} catch (Exception e) {
 	            System.err.println("Error instantiating class: " + c.getName());
@@ -137,4 +142,35 @@ public class <XDtClass:classOf><XDtStrutsForm:strutsFormClass/></XDtClass:classO
         	this.name = name;
         }
     }
+
+    /**
+     * Validation for indexed properties
+     */
+     /*
+    public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
+        ActionErrors errors = new ActionErrors();
+        if (mapping.getValidate()) {
+            <XDtStrutsForm:forAllFormFields>
+            <XDtType:ifIsOfType value="return-type" type="java.util.List,java.util.Set" extent="concrete-type">
+            // loop through all the values and call validate on them
+            <XDtVelocity:generator>
+            #set( $method = $currentMethod.name)
+            ## trim off the 'get'
+            #set( $objectName = $method.substring(3, $method.lastIndexOf('s')))
+            </XDtVelocity:generator>
+            if (<XDtMethod:propertyName/> != null) {
+                for (java.util.Iterator it = <XDtMethod:propertyName/>.iterator(); it.hasNext();) {
+                    <XDtVelocity:getVariable name="objectName"/>Form form
+                        = (<XDtVelocity:getVariable name="objectName"/>Form) it.next();
+                    form.setServlet(this.servlet);
+                    mapping.setName("applicationSkillForm");
+                    errors.add(form.validate(mapping, request));
+                }
+            }
+            </XDtType:ifIsOfType>
+            </XDtStrutsForm:forAllFormFields>
+        }
+        return errors;
+    }    */
+    </XDtClass:ifHasClassTag>
 }
