@@ -33,15 +33,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/struts-menu-2.2/struts-menu-2.2.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
     <orderEntry type="library" name="catalina-ant.jar" level="application" />
     <orderEntry type="module-library">
       <library>
@@ -137,15 +128,6 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/jakarta-cactus-13-1.6.1/lib/cactus-1.6.1.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/mysql-connector-java-3.0.12-production/mysql-connector-java-3.0.12-production-bin.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -309,7 +291,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.2/lib/commons-logging.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.4/lib/antlr.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -318,7 +300,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.2/lib/jakarta-oro.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.4/lib/commons-digester.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -327,7 +309,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.2/lib/commons-validator.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.4/lib/jakarta-oro.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -336,7 +318,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.2/lib/commons-beanutils.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.4/lib/commons-validator.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -345,7 +327,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.2/lib/commons-collections.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.4/lib/commons-lang-2.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -354,7 +336,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.2/lib/struts-el.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.4/lib/struts-el.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -363,7 +345,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.2/lib/commons-digester.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.4/lib/struts.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -372,7 +354,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.2/lib/commons-lang-2.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.4/lib/commons-collections.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -381,7 +363,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.2/lib/commons-fileupload.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.4/lib/commons-beanutils.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -390,7 +372,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.2/lib/struts.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.4/lib/commons-logging.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -399,7 +381,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/spring-1.1/spring.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/spring-1.1.1/aopalliance.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -408,7 +390,25 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/spring-1.1/aopalliance.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/spring-1.1.1/spring.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/struts-menu-2.3/struts-menu-2.3.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/mysql-connector-java-3.0.14-production/mysql-connector-java-3.0.14-production-bin.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
