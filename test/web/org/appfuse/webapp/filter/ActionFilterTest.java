@@ -1,35 +1,50 @@
 package org.appfuse.webapp.filter;
 
-import org.apache.cactus.FilterTestCase;
+import java.util.HashMap;
+import java.util.Map;
 
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
 
-public class ActionFilterTest extends FilterTestCase {
-    //~ Instance fields ========================================================
+import junit.framework.TestCase;
 
-    ActionFilter filter = null;
+import org.appfuse.Constants;
+import org.springframework.mock.web.MockFilterConfig;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.mock.web.MockServletContext;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.ContextLoaderListener;
 
-    //~ Constructors ===========================================================
-
-    // JUnitDoclet end class
-    public ActionFilterTest(String name) {
-        super(name);
-    }
-
-    //~ Methods ================================================================
+public class ActionFilterTest extends TestCase {
+    private ActionFilter filter = null;
+    private MockFilterConfig config = null;
 
     protected void setUp() throws Exception {
         super.setUp();
         filter = new ActionFilter();
 
+        MockServletContext sc = new MockServletContext("");
+        Map appConfig = new HashMap();
+        appConfig.put(Constants.HTTP_PORT, "80");
+        appConfig.put(Constants.HTTPS_PORT, "443");
+        sc.setAttribute(Constants.CONFIG, appConfig);
+        
+        sc.addInitParameter(ContextLoader.CONFIG_LOCATION_PARAM,
+                            "/WEB-INF/applicationContext*.xml");
+        ServletContextListener listener = new ContextLoaderListener();
+        ServletContextEvent event = new ServletContextEvent(sc);
+        listener.contextInitialized(event);
+        
         // set initialization parameters
-        config.setInitParameter("isSecure", "false");
-
+        config = new MockFilterConfig(sc);
+        config.addInitParameter("isSecure", "false");
         filter.init(config);
     }
 
     protected void tearDown() throws Exception {
-        filter = null;
         super.tearDown();
+        filter = null;
     }
 
     public void testInit() throws Exception {
@@ -43,10 +58,11 @@ public class ActionFilterTest extends FilterTestCase {
     }
 
     public void testDoFilter() throws Exception {
-        filter.doFilter(request, response, filterChain);
-    }
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.setRemoteUser("tomcat");
 
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(ActionFilterTest.class);
+        MockHttpServletResponse response = new MockHttpServletResponse();
+        filter.doFilter(request, response, new MockFilterChain());
+        assertNotNull(request.getSession().getAttribute(Constants.USER_KEY));
     }
 }

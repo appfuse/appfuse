@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: properties.xml,v 1.19 2004/10/01 17:55:16 mraible Exp $             -->
+<!-- $Id: properties.xml,v 1.20 2004/10/04 08:10:53 mraible Exp $             -->
 <!-- ======================================================================= -->
 <!-- This file defines properties for build.xml -->
 
@@ -153,12 +153,6 @@
     <pathelement location="${jakarta-oro.jar}"/>
     <pathelement location="${dumbster.jar}"/>
 </path>
-
-<!-- Cactus -->
-<path id="cactus.classpath">
-    <pathelement location="${commons-logging.jar}"/>
-    <fileset dir="${cactus.dir}" includes="*.jar"/>
-</path>
     
 <!-- Web -->
 <path id="web.compile.classpath">
@@ -174,7 +168,6 @@
     <pathelement location="${commons-collections.jar}"/>
     <pathelement location="${commons-fileupload.jar}"/>
     <pathelement location="${commons-lang.jar}"/>
-    <pathelement location="${commons-httpclient.jar}"/>
     <pathelement location="${commons-validator.jar}"/>
     <pathelement location="${servletapi.jar}"/>
     <fileset dir="${javamail.dir}" includes="*.jar"/>
@@ -182,7 +175,6 @@
 </path>
 <path id="web.test.classpath">
     <path refid="web.compile.classpath"/>
-    <path refid="cactus.classpath"/>
     <pathelement location="${dumbster.jar}"/>
     <pathelement location="${junit.jar}"/>
     <pathelement location="${junitdoclet.jar}"/>

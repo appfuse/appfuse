@@ -1,10 +1,14 @@
 package org.appfuse.webapp.listener;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
 
-import org.apache.cactus.ServletTestCase;
+import junit.framework.TestCase;
+
 import org.appfuse.Constants;
+import org.springframework.mock.web.MockServletContext;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.WebApplicationContext;
 
 
@@ -14,35 +18,38 @@ import org.springframework.web.context.WebApplicationContext;
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
-public class StartupListenerTest extends ServletTestCase {
-    StartupListener listener = null;
-    ServletContext context = null;
+public class StartupListenerTest extends TestCase {
+    private MockServletContext sc = null;
+    private ServletContextListener listener = null;
 
     protected void setUp() throws Exception {
         super.setUp();
         listener = new StartupListener();
-        context = config.getServletContext();
+        
+        sc = new MockServletContext("");
+        sc.addInitParameter("daoType", "hibernate");
+        
+        // initialize Spring
+        sc.addInitParameter(ContextLoader.CONFIG_LOCATION_PARAM,
+                            "/WEB-INF/applicationContext*.xml");
+        ServletContextListener contextListener = new ContextLoaderListener();
+        ServletContextEvent event = new ServletContextEvent(sc);
+        contextListener.contextInitialized(event);
     }
 
     protected void tearDown() throws Exception {
         super.tearDown();
         listener = null;
+        sc = null;
     }
 
     public void testContextInitialized() {
-        // setup
-        ServletContextEvent sce = new ServletContextEvent(context);
+        ServletContextEvent event = new ServletContextEvent(sc);
+        listener.contextInitialized(event);
 
-        // test
-        listener.contextInitialized(sce);
-
-        assertTrue(context.getAttribute(Constants.CONFIG) != null);
-        assertTrue(context.getAttribute(WebApplicationContext
+        assertTrue(sc.getAttribute(Constants.CONFIG) != null);
+        assertTrue(sc.getAttribute(WebApplicationContext
                 .ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE) != null);
-        assertTrue(context.getAttribute(Constants.AVAILABLE_ROLES) != null);
-    }
-
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(StartupListenerTest.class);
+        assertTrue(sc.getAttribute(Constants.AVAILABLE_ROLES) != null);
     }
 }

@@ -3,17 +3,21 @@ package org.appfuse.webapp.action;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import org.apache.cactus.WebRequest;
-import org.apache.cactus.client.authentication.FormAuthentication;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
+import org.springframework.mock.web.MockServletContext;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import servletunit.struts.CactusStrutsTestCase;
+import servletunit.struts.MockStrutsTestCase;
 
 
 /**
@@ -25,15 +29,14 @@ import servletunit.struts.CactusStrutsTestCase;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.10 $ $Date: 2004/10/01 17:55:21 $
+ * @version $Revision: 1.11 $ $Date: 2004/10/04 08:10:59 $
  */
-public class BaseStrutsTestCase extends CactusStrutsTestCase {
+public class BaseStrutsTestCase extends MockStrutsTestCase {
     //~ Instance fields ========================================================
 
     protected transient final Log log = LogFactory.getLog(getClass());
     protected User user = null;
     protected ResourceBundle rb = null;
-    protected ResourceBundle login = null;
     protected WebApplicationContext ctx = null;
     
     //~ Constructors ===========================================================
@@ -49,35 +52,37 @@ public class BaseStrutsTestCase extends CactusStrutsTestCase {
         } catch (MissingResourceException mre) {
             //log.warn("No resource bundle found for: " + className);
         }
-        login = ResourceBundle.getBundle(LoginServletTest.class.getName());
     }
 
     //~ Methods ================================================================
 
     protected void setUp() throws Exception {
-        super.setUp();
-        // populate the userForm and place into session
-        String username = login.getString("username");
+        super.setUp();       
+        
+        // initialize Spring
+        MockServletContext sc = new MockServletContext("");
+        sc.addInitParameter(ContextLoader.CONFIG_LOCATION_PARAM,
+                            "/WEB-INF/applicationContext*.xml");
+        ServletContextListener contextListener = new ContextLoaderListener();
+        ServletContextEvent event = new ServletContextEvent(sc);
+        contextListener.contextInitialized(event);
+        
+        // magic bridge to make StrutsTestCase aware of Spring's Context
+        getSession().getServletContext().setAttribute(
+                WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, 
+                sc.getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE));
+        
         ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(
         		    getSession().getServletContext());
+        
+        // populate the userForm and place into session
         UserManager userMgr = (UserManager) ctx.getBean("userManager");
-        user = userMgr.getUser(username);
+        user = userMgr.getUser("tomcat");
         getSession().setAttribute(Constants.USER_KEY, user);
     }
     
     public void tearDown() throws Exception {
         super.tearDown();
         ctx = null;
-    }
-    
-    /**
-     * This method will be called before executing any tests
-     * @param request The current client's request
-     */
-    public void begin(WebRequest request) {
-        request.setRedirectorName("ServletRedirectorSecure");
-        request.setAuthentication(new FormAuthentication(
-                login.getString("admin.username"),
-                login.getString("encryptedPassword")));
     }
 }

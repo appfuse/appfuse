@@ -1,15 +1,11 @@
 package org.appfuse.webapp.action;
 
 import org.appfuse.Constants;
-import org.springframework.context.ApplicationContext;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.web.context.support.WebApplicationContextUtils;
-
-import servletunit.struts.CactusStrutsTestCase;
 
 import com.dumbster.smtp.SimpleSmtpServer;
 
-public class SignupActionTest extends CactusStrutsTestCase {
+public class SignupActionTest extends BaseStrutsTestCase {
     
     public SignupActionTest(String name) {
         super(name);
@@ -19,8 +15,6 @@ public class SignupActionTest extends CactusStrutsTestCase {
         super.setUp();
         // change the port on the mailSender so it doesn't conflict with an 
         // existing SMTP server on localhost
-        ApplicationContext ctx = WebApplicationContextUtils
-            .getRequiredWebApplicationContext(getSession().getServletContext());
         JavaMailSenderImpl mailSender = (JavaMailSenderImpl) ctx.getBean("mailSender");
         mailSender.setPort(2525);
     }

@@ -40,8 +40,8 @@ public class BaseDAOTestCase extends TestCase {
         // in properties.xml
         ResourceBundle db = ResourceBundle.getBundle("database");
         String daoType = db.getString("dao.type");
-        String[] paths = {"/applicationContext-resources.xml",
-                          "/applicationContext-" + daoType + ".xml"};
+        String[] paths = {"/WEB-INF/applicationContext-resources.xml",
+                          "/WEB-INF/applicationContext-" + daoType + ".xml"};
         ctx = new ClassPathXmlApplicationContext(paths);
     }
 

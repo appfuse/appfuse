@@ -42,9 +42,7 @@ public final class SignupAction extends BaseAction {
     throws Exception {
         
         // if it's an HTTP GET, simply forward to jsp
-        // test for Cactus is workaround until I figure how to send a post
-        // with StrutsTestCase: http://sourceforge.net/forum/message.php?msg_id=2726171
-        if (request.getMethod().equals("GET") && request.getParameter("Cactus_TestClass") == null) {
+        if (request.getMethod().equals("GET")) {
             return mapping.findForward("failure");
         // user clicked cancel button
         } else if (isCancelled(request)) {
@@ -113,7 +111,7 @@ public final class SignupAction extends BaseAction {
                     + "' an account information e-mail");
         }
 
-        SimpleMailMessage message = (SimpleMailMessage) getBean("accountMessage");
+        SimpleMailMessage message = (SimpleMailMessage) getBean("mailMessage");
         message.setTo(user.getFullName() + "<" + user.getEmail() + ">");
         
         StringBuffer msg = new StringBuffer();

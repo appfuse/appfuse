@@ -19,30 +19,23 @@ import org.springframework.web.context.support.XmlWebApplicationContext;
 public class BaseControllerTestCase extends TestCase {
     protected transient final Log log = LogFactory.getLog(getClass());
     protected static XmlWebApplicationContext ctx;
-    protected static ResourceBundle login;
     protected User user;
 
     // This static block ensures that Spring's BeanFactory is only loaded
     // once for all tests
     static {
-        ResourceBundle db = ResourceBundle.getBundle("database");
-        String daoType = db.getString("dao.type");
-        String[] paths = {"/applicationContext-resources.xml",
-                          "/applicationContext-" + daoType + ".xml",
-                          "/applicationContext-service.xml",
-                          "/action-servlet.xml"};
+        String[] paths = {"/WEB-INF/applicationContext*.xml",
+                          "/WEB-INF/action-servlet.xml"};
         ctx = new XmlWebApplicationContext();
         ctx.setConfigLocations(paths);
         ctx.setServletContext(new MockServletContext(""));
         ctx.refresh();
-        login = ResourceBundle.getBundle(LoginServletTest.class.getName());
     }
 
     protected void setUp() throws Exception {
         // populate the userForm and place into session
-        String username = login.getString("username");
         UserManager userMgr = (UserManager) ctx.getBean("userManager");
-        user = (User) userMgr.getUser(username);
+        user = (User) userMgr.getUser("tomcat");
     }
     
     /**

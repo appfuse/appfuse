@@ -22,7 +22,7 @@
         <property name="userManager"><ref bean="userManager"/></property>
         <property name="messageSource"><ref bean="messageSource"/></property>
         <property name="mailEngine"><ref bean="mailEngine"/></property>
-        <property name="message"><ref bean="passwordMessage"/></property>
+        <property name="message"><ref bean="mailMessage"/></property>
     </bean>
 
     <bean id="reloadController" class="org.appfuse.webapp.action.ReloadController"/>
@@ -35,7 +35,7 @@
         <property name="successView"><value>editUser.html</value></property>
         <property name="userManager"><ref bean="userManager"/></property>
         <property name="mailEngine"><ref bean="mailEngine"/></property>
-        <property name="message"><ref bean="accountMessage"/></property>
+        <property name="message"><ref bean="mailMessage"/></property>
         <property name="templateName"><value>accountCreated.vm</value></property>
     </bean>
 
@@ -59,7 +59,7 @@
         <property name="successView"><value>mainMenu.html</value></property>
         <property name="userManager"><ref bean="userManager"/></property>
         <property name="mailEngine"><ref bean="mailEngine"/></property>
-        <property name="message"><ref bean="accountMessage"/></property>
+        <property name="message"><ref bean="mailMessage"/></property>
         <property name="templateName"><value>accountCreated.vm</value></property>
     </bean>
 
@@ -125,15 +125,5 @@
 
     <bean id="beanValidator" class="org.springframework.validation.commons.BeanValidator">
         <property name="validatorFactory"><ref bean="validatorFactory"/></property>
-    </bean>
-    
-    <bean id="accountMessage" class="org.springframework.mail.SimpleMailMessage" singleton="false">
-        <property name="from"><value>${mail.default.from}</value></property>
-        <property name="subject"><value>AppFuse Account Information</value></property>
-    </bean>
-    
-    <bean id="passwordMessage" class="org.springframework.mail.SimpleMailMessage" singleton="false">
-        <property name="from"><value>${mail.default.from}</value></property>
-        <property name="subject"><value>AppFuse Password Hint</value></property>
     </bean>
 </beans>

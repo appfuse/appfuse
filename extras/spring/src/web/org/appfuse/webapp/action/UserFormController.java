@@ -130,8 +130,8 @@ public class UserFormController extends BaseFormController {
 
                     // Send an account information e-mail
                     message.setSubject(getText("signup.email.subject"));
-                    sendUserMessage(user,
-                                    getText("newuser.email.message", user.getFullName()),
+                    sendUserMessage(user, getText("newuser.email.message", 
+                                    user.getFullName()),
                                     RequestUtil.getAppURL(request));
 
                     return showNewForm(request, response);

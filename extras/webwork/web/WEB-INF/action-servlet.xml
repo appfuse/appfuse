@@ -2,17 +2,7 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
     "http://www.springframework.org/dtd/spring-beans.dtd">
 
-<beans>
-    <bean id="accountMessage" class="org.springframework.mail.SimpleMailMessage" singleton="false">
-        <property name="from"><value>${mail.default.from}</value></property>
-        <property name="subject"><value>AppFuse Account Information</value></property>
-    </bean>
-    
-    <bean id="passwordMessage" class="org.springframework.mail.SimpleMailMessage" singleton="false">
-        <property name="from"><value>${mail.default.from}</value></property>
-        <property name="subject"><value>AppFuse Password Hint</value></property>
-    </bean>
-    
+<beans>    
     <bean id="adminInterceptor" class="org.appfuse.webapp.interceptor.UserRoleAuthorizationInterceptor">
         <property name="authorizedRoles"><value>admin</value></property>
     </bean>
@@ -30,21 +20,21 @@
     <bean id="signupAction" class="org.appfuse.webapp.action.SignupAction" singleton="false">
         <property name="userManager"><ref bean="userManager"/></property>
         <property name="mailEngine"><ref bean="mailEngine"/></property>
-        <property name="message"><ref bean="accountMessage"/></property>
+        <property name="message"><ref bean="mailMessage"/></property>
         <property name="templateName"><value>accountCreated.vm</value></property>
     </bean>
     
     <bean id="userAction" class="org.appfuse.webapp.action.UserAction" singleton="false">
         <property name="userManager"><ref bean="userManager"/></property>
         <property name="mailEngine"><ref bean="mailEngine"/></property>
-        <property name="message"><ref bean="accountMessage"/></property>
+        <property name="message"><ref bean="mailMessage"/></property>
         <property name="templateName"><value>accountCreated.vm</value></property>
     </bean>
     
     <bean id="passwordHintAction" class="org.appfuse.webapp.action.PasswordHintAction" singleton="false">
         <property name="userManager"><ref bean="userManager"/></property>
         <property name="mailEngine"><ref bean="mailEngine"/></property>
-        <property name="message"><ref bean="passwordMessage"/></property>
+        <property name="message"><ref bean="mailMessage"/></property>
     </bean>
     
     <!-- Add additional actions here -->

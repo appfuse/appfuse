@@ -20,7 +20,6 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  * and populate any application-wide drop-downs.
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.9 $ $Date: 2004/08/19 00:13:57 $
  *
  * @web.listener
  */

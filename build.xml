@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.44 2004/10/03 23:42:14 mraible Exp $                 -->
+<!-- $Id: build.xml,v 1.45 2004/10/04 08:10:53 mraible Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -24,8 +24,7 @@
         <fail unless="junit.present"
             message="Please copy junit.jar into ${env.ANT_HOME}/lib"/>
 
-        <taskdef resource="cactus.tasks"
-            classpathref="cactus.classpath"/>
+        <taskdef resource="cargo.tasks" classpath="${cargo.jar}"/>
         
         <taskdef name="dbunit" classname="org.dbunit.ant.DbUnitTask"
             classpathref="dao.test.classpath"/>
@@ -136,7 +135,7 @@
         <copy file="appfuse.iml" tofile="../${app.name}/${app.name}.iml"/>
         <copy file="appfuse.ipr" tofile="../${app.name}/${app.name}.ipr"/>
         <replace dir="../${app.name}" value="${app.name}" token="appfuse">
-            <include name="${app.name}.i*"/>
+          <include name="${app.name}.i*"/>
         </replace>
         
         <!-- Fix path for packages in build.xml -->
@@ -576,7 +575,6 @@
             <metainf dir="${webapp.dist}" includes="context.xml"/>
 
             <classes dir="${build.dir}/web/classes">
-                <exclude name="**/cactus.properties"/>
                 <exclude name="**/database.properties"/>
             </classes>
 
@@ -621,8 +619,10 @@
         </antcall>
     </target>
 
-    <target name="test-web" depends="compile-web,db-load"
+    <target name="test-web" depends="webdoclet,db-load"
         description="Test web module">
+        <copy todir="${webapp.target}/WEB-INF" 
+            file="${struts.dir}/validator-rules.xml"/>
         <antcall target="test-module" inheritAll="true">
             <param name="module" value="web"/>
             <reference refid="web.test.classpath"
@@ -694,8 +694,8 @@
                 <pathelement location="${build.dir}/${module}/classes"/>
                 <pathelement location="${test.dir}/${module}/classes"/>
                 <pathelement path="${java.class.path}"/>
-                <!-- For Spring configuration files -->
-                <pathelement path="${webapp.target}/WEB-INF"/>
+                <pathelement path="${webapp.target}"/>
+                <pathelement path="${build.dir}/dao/gen"/>   
                 <!-- For properties files -->
                 <pathelement path="${build.dir}/web/classes"/>
             </classpath>
@@ -748,115 +748,7 @@
         <!-- For more info see http://cvs.apache.org/~fhanik/precompile.html -->
         <ant antfile="compile-jsp.xml"/>
     </target>
-            
-    <!-- =================================================================== -->
-    <!--            Make the war ready to be tested by Cactus                -->
-    <!-- =================================================================== -->
-    <target name="cactifywar" depends="copy-resources,package-web"
-        description="Cactifies WAR file by adding cactus-specific needs">
-        <!-- Replace tokens in test properties files -->
-        <copy todir="${test.dir}/web/classes">
-            <fileset dir="test/web" excludes="**/*.java"/>
-            <filterset refid="variables.to.replace"/>
-        </copy>
-        <cactifywar srcfile="${webapp.dist}/${webapp.war}"
-            destfile="${webapp.dist}/${webapp.name}-cactus.war">
-            <classes dir="${test.dir}/web/classes"/>
-            <classes dir="${build.dir}/web/classes" includes="cactus.properties"/>
-            <lib dir="${dumbster.dir}" includes="*.jar"/>
-            <lib dir="${strutstestcase.dir}" includes="*.jar"/>
-            <lib dir="${cactus.dir}" includes="*.jar"/>
-            <servletredirector/>
-            <!-- 
-                Provide a secured servlet redirector in addition to the
-                default servlet redirector to test form-based authentication
-            -->
-            <servletredirector name="ServletRedirectorSecure"
-                mapping="/ServletRedirectorSecure" roles="admin,tomcat"/>
-        </cactifywar>
-    </target>
-    
-    <!-- =================================================================== -->
-    <!--            Deploy the cactified war to Tomcat                       -->
-    <!-- =================================================================== -->
-    <target name="deploy-test-war" depends="cactifywar"
-        description="Deploys cactified war to Tomcat">
-        <unwar src="${webapp.dist}/${webapp.name}-cactus.war"
-            dest="${tomcat.home}/webapps/${webapp.name}"/>
-    </target>
 
-    <!-- =================================================================== -->
-    <!--            Run Cactus tests in Tomcat                               -->
-    <!-- =================================================================== -->
-    <target name="test-cactus" depends="deploy-test-war" if="tomcat.home"
-        description="Runs Cactus tests in Tomcat, starts/stops server">
-
-        <echo>running tests at http://${tomcat.server}:${http.port}/${webapp.name}</echo>
-        <runservertests
-            testURL="http://${tomcat.server}:${http.port}/${webapp.name}"
-            startTarget="start.tomcat"
-            stopTarget="stop.tomcat"
-            testTarget="test-web"/>
-    </target>
-
-    <!-- =================================================================== -->
-    <!--   This Cactus task is designed for testing on multiple			     -->
-    <!--   containers. See the following URL for more details:	             -->
-    <!--   http://jakarta.apache.org/cactus/integration/ant/task_cactus.html -->
-    <!-- =================================================================== -->
-    <target name="cactus" depends="db-load,cactifywar"
-        description="Runs Cactus tests in Tomcat and Resin">
-        <!--mkdir dir="${test.dir}/data/tomcat"/-->
-        <!--mkdir dir="${test.dir}/data/resin3"/-->
-
-        <!-- Remove 'cactus' from WAR file -->
-        <move file="${webapp.dist}/${webapp.name}-cactus.war"
-            tofile="${webapp.dist}/${webapp.name}.war"/>
-
-        <!-- Copy tomcat-context.xml to temp directory and change docBase
-        	 to be a .war file -->
-        <copy tofile="${webapp.dist}/${webapp.name}.xml"
-            file="metadata/conf/tomcat-context.xml" overwrite="true">
-            <filterset refid="db.variables"/>
-        </copy>
-        <!--replace file="${webapp.dist}/${webapp.name}.xml">
-            <replacetoken>docBase="appfuse"</replacetoken>
-            <replacevalue>docBase="appfuse.war"</replacevalue>
-        </replace-->
-
-        <cactus warfile="${webapp.dist}/${webapp.name}.war"
-            printsummary="yes" failureproperty="tests.failed">
-            <classpath>
-                <path refid="web.test.classpath"/>
-                <pathelement path="${webapp.target}/WEB-INF/classes"/>
-                <pathelement location="${build.dir}/web/classes"/>
-                <pathelement location="${test.dir}/web/classes"/>
-                <pathelement path="${java.class.path}"/>
-            </classpath>
-            <containerset>
-                <!--tomcat4x dir="${tomcat.home}" if="tomcat.home"
-                    port="${http.port}" todir="${test.dir}/data/tomcat"
-                    contextxml="${webapp.dist}/${webapp.name}.xml"/-->
-                <tomcat5x dir="${tomcat.home}" if="tomcat.home"
-                    port="${http.port}" todir="${test.dir}/data/tomcat"/>
-                <!--resin3x dir="${env.RESIN_HOME}" port="${http.port}"
-                    resinconf="metadata/conf/resin.conf"
-                    todir="${test.dir}/data/resin3"/-->
-            </containerset>
-            <formatter type="xml"/>
-            <formatter type="brief" usefile="false"/>
-            <batchtest todir="${test.dir}/data" if="testcase">
-                <fileset dir="${test.dir}/web/classes">
-                    <include name="**/*${testcase}*"/>
-                    <exclude name="**/*TestCase.class"/>
-                </fileset>
-            </batchtest>
-            <batchtest todir="${test.dir}/data" unless="testcase">
-                <fileset dir="${test.dir}/web/classes"
-                    includes="**/*Test.class"/>
-            </batchtest>
-        </cactus>
-    </target>
     <!-- =================================================================== -->
     <!--            Run Canoo WebTests in Tomcat                             -->
     <!-- =================================================================== -->
@@ -883,26 +775,28 @@
     </target>
 
     <!-- =================================================================== -->
-    <!--            Run Canoo WebTests using Cactus                          -->
+    <!--            Run Canoo WebTests using Cargo                           -->
     <!-- =================================================================== -->
-    <target name="test-jsp" if="tomcat.home" depends="deploy"
-        description="Runs Canoo WebTests using Cactus">
+    <target name="test-jsp" if="tomcat.home" depends="war"
+        description="Runs Canoo WebTests using Cargo">
+            
         <echo>running canoo tests at:
               http://${tomcat.server}:${http.port}/${webapp.name}</echo>
-        <runservertests
-            testURL="http://${tomcat.server}:${http.port}/${webapp.name}"
-            startTarget="start.tomcat"
-            stopTarget="stop.tomcat"
-            testTarget="test-canoo">
-        </runservertests>
+        <echo>Starting Tomcat...</echo>
+        <cargo-tomcat5x homeDir="${tomcat.home}"
+            output="${test.dir}/cargo.log"
+            workingDir="${test.dir}/tomcat5x" action="start">
+            <war warFile="${webapp.dist}/${webapp.war}"/>
+            <property name="cargo.logging" value="error"/>
+        </cargo-tomcat5x>
+        <antcall target="test-canoo"/>
     </target>
-    
+
     <!-- =================================================================== -->
     <!--            Run all tests (tomcat not running)                       -->
     <!-- =================================================================== -->
-    <target name="test-all"
-        depends="test-dao,test-service,test-cactus,test-jsp"
-        description="runs all tests for dao, service and web">
+    <target name="test-all" depends="test-dao,test-service,test-web,test-jsp"
+        description="runs all tests for dao, service, web and jsp">
         <antcall target="db-load"/>
     </target>
 
@@ -911,12 +805,11 @@
     <!--  should be run before this one.                                     -->
     <!-- =================================================================== -->
     <target name="test-all-running"
-        description="runs all tests for DAOs, Services and MVC Tests">
+        description="runs all tests for DAOs, Services, Controllers and JSPs">
         <antcall target="test-dao"/>
         <antcall target="test-service"/>
-        <antcall target="reload"/>
+        <antcall target="test-web"/>
         <antcall target="test-canoo"/>
-        <antcall target="test-web" inheritAll="false"/>
         <antcall target="db-load"/>
     </target>
         
@@ -1104,7 +997,6 @@
             <link href="http://www.hibernate.org/hib_docs/api"/>
             
             <!-- Testing frameworks -->
-            <link href="http://jakarta.apache.org/cactus/api/framework-13/"/>
             <link href="http://www.junit.org/junit/javadoc/${junit.version}"/>
             <link href="http://strutstestcase.sf.net/api/"/>
             
@@ -1143,7 +1035,7 @@
         <echo message="Deploying web application to ${tomcat.home}/webapps"/>
         <copy todir="${tomcat.home}/webapps/${webapp.name}">
             <fileset dir="${webapp.target}"
-                excludes="**/web-test.xml,**/*database*,**/cactus.properties"/>
+                excludes="**/web-test.xml,**/*database*"/>
         </copy>
 
     </target>
@@ -1151,8 +1043,8 @@
     <!-- =================================================================== -->
     <!--            Refresh - Stops Tomcat, and refreshes everything         -->
     <!-- =================================================================== -->
-    <target name="refresh" depends="stop.tomcat,undeploy,clean,deploy"
-        description="Stops Tomcat, undeploys, cleans, then re-deploys"/>
+    <target name="refresh" depends="undeploy,clean,deploy"
+        description="Undeploys, cleans, then re-deploys"/>
     
     <!-- =================================================================== -->
     <!-- The "deploy" target deploys the web application by packaging it as  -->
@@ -1329,54 +1221,6 @@
         </java>
     </target>
     
-    <!-- =================================================================== -->
-    <!--            Stop Tomcat                                              -->
-    <!-- =================================================================== -->
-    <target name="stop.tomcat" description="stops tomcat">
-        <java classname="org.apache.catalina.startup.Bootstrap" fork="yes">
-            <jvmarg value="-Dcatalina.home=${tomcat.home}"/>
-            <arg value="stop"/>
-            <classpath>
-                <fileset dir="${tomcat.home}">
-                    <include name="bin/bootstrap.jar"/>
-                </fileset>
-            </classpath>
-        </java>
-    </target>
-
-    <!-- =================================================================== -->
-    <!--            Start Resin                                              -->
-    <!-- =================================================================== -->
-    <target name="start.resin" 
-        description="starts resin in current console window">
-
-        <java classname="org.apache.cactus.ant.ResinRun" fork="yes">
-            <arg value="-start"/>
-            <jvmarg value="-Djava.util.logging.manager=com.caucho.log.LogManagerImpl"/>
-
-            <classpath>
-                <path refid="cactus.classpath"/>
-                <fileset dir="${env.RESIN_HOME}/lib" includes="*.jar"/>
-            </classpath>
-        </java>
-    </target>
-
-    <!-- =================================================================== -->
-    <!--            Stop Resin                                               -->
-    <!-- =================================================================== -->
-    <target name="stop.resin" description="stops resin">
-
-        <java classname="org.apache.cactus.ant.ResinRun" fork="yes">
-            <arg value="-stop"/>
-            <jvmarg value="-Djava.util.logging.manager=com.caucho.log.LogManagerImpl"/>
-
-            <classpath>
-                <path refid="cactus.classpath"/>
-                <fileset dir="${env.RESIN_HOME}/lib" includes="*.jar"/>
-            </classpath>
-        </java>
-    </target>
-
     <!-- ============================================================== -->
     <!-- Tomcat tasks - remove these if you don't have Tomcat installed -->
     <!-- ============================================================== -->

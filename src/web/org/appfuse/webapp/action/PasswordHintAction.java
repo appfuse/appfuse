@@ -64,7 +64,7 @@ public final class PasswordHintAction extends BaseAction {
             msg.append("Your password hint is: " + user.getPasswordHint());
             msg.append("\n\nLogin at: " + RequestUtil.getAppURL(request));
 
-            SimpleMailMessage message = (SimpleMailMessage) getBean("passwordMessage");
+            SimpleMailMessage message = (SimpleMailMessage) getBean("mailMessage");
             message.setTo(user.getEmail());
             message.setSubject("Password Hint");
             message.setText(msg.toString());
@@ -77,6 +77,7 @@ public final class PasswordHintAction extends BaseAction {
                                            user.getEmail()));
             saveMessages(request, messages);
         } catch (Exception e) {
+            e.printStackTrace();
             // If exception is expected do not rethrow
             errors.add(ActionMessages.GLOBAL_MESSAGE,
                        new ActionMessage("login.passwordHint.error", username));

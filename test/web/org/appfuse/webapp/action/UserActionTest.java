@@ -6,14 +6,16 @@ import org.appfuse.webapp.form.UserFormEx;
 
 
 public class UserActionTest extends BaseStrutsTestCase {
-    //~ Constructors ===========================================================
 
     public UserActionTest(String name) {
         super(name);
     }
 
-    //~ Methods ================================================================
-
+    protected void setUp() throws Exception {
+        super.setUp();
+        getMockRequest().setUserRole("admin");
+    }
+    
     public void testCancel() throws Exception {
         setRequestPathInfo("/editUser");
         addRequestParameter("method", "Cancel");
@@ -24,6 +26,8 @@ public class UserActionTest extends BaseStrutsTestCase {
     }
     
     public void testEdit() throws Exception {
+        // set fake requestURL so getRequestURL() doesn't fail in UserAction
+        getMockRequest().setRequestURL("http://foo:8080/bar/editUser.html");
         setRequestPathInfo("/editUser");
         addRequestParameter("method", "Edit");
         addRequestParameter("username", "tomcat");

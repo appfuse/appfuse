@@ -34,13 +34,7 @@ public class BaseManagerTestCase extends TestCase {
     // This static block ensures that Spring's BeanFactory is only loaded
     // once for all tests
     static {
-        // the dao.type is written to the database.properties file
-        // in properties.xml
-        ResourceBundle db = ResourceBundle.getBundle("database");
-        String daoType = db.getString("dao.type");
-        String[] paths = {"/applicationContext-resources.xml",
-                          "/applicationContext-" + daoType + ".xml",
-                          "/applicationContext-service.xml"};
+        String[] paths = {"/WEB-INF/applicationContext*.xml"};
         ctx = new ClassPathXmlApplicationContext(paths);
     }
 

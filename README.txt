@@ -43,10 +43,14 @@ Features/Changes in 1.6
 ============================
 - Integrated WebWork as a web framework choice.  To install WebWork (replacing
   Struts) in a fresh AppFuse project, simply run "ant install-webwork".
-- Changed stylesheet colors for Spring MVC option to be green instead of red.
-  Bug 47 - https://appfuse.dev.java.net/issues/show_bug.cgi?id=47.
+- Refactored to use SiteMesh instead of Tiles.  Proposal and feedback at: 
+    http://raibledesigns.com/page/rd?anchor=should_i_ditch_tiles_in
+    Good Article: http://www.onjava.com/pub/a/onjava/2004/09/22/sitemesh.html
+    Experience documented at: http://raibledesigns.com/page/rd/20040821
 - Changed "org.appfuse.persistence" package name to "org.appfuse.dao".  Moved
   "*ManagerImpl" classes to "service.impl" package.
+- Changed stylesheet colors for Spring MVC option to be green instead of red.
+  Bug 47 - https://appfuse.dev.java.net/issues/show_bug.cgi?id=47.
 - Refactored logging so Base classes contain a "log" variable that children
   don't need to override. More at:
     http://raibledesigns.com/page/rd?anchor=log_debug_vs_logger_debug
@@ -55,10 +59,11 @@ Features/Changes in 1.6
     https://appfuse.dev.java.net/issues/show_bug.cgi?id=65.
   Commonclipse (http://commonclipse.sf.net) can generate the methods for you.
   	Learn more at: http://www.leegrey.com/hmm/2004/09/29/1096491256000.html
-- Refactored to use SiteMesh instead of Tiles.  Proposal and feedback at: 
-    http://raibledesigns.com/page/rd?anchor=should_i_ditch_tiles_in
-    Good Article: http://www.onjava.com/pub/a/onjava/2004/09/22/sitemesh.html
-    Experience documented at: http://raibledesigns.com/page/rd/20040821
+- Added Cargo to simplify starting and stopping Tomcat before running Canoo 
+  WebTests.
+- Refactored all web frameworks to allow for testing out-of-container.  This
+  means that "test-web" will now work w/o Cactus or the container running.
+    Learn more at: http://raibledesigns.com/page/rd?anchor=ann_cargo_0_2_released
 - Removed MainMenuTest, which was a demonstration of how to write tests using
   HttpUnit.  This test caused more problems than it solved.
 - Refactored BaseDAOTestCase and BaseManagerTestCase to use DBUnit and load
@@ -121,6 +126,7 @@ Features/Changes in 1.6
                   Running "ant setup" and "ant test-all" is an easy workaround.
                   http://opensource.atlassian.com/projects/xdoclet/browse/XDT-879                  
 - Dependent packages added:
+    * Cargo 0.2 - A set of Ant tasks for starting and stopping Java containers.
     * Dumbster 1.2 - A fake SMTP server used to catch and verify messages in
       unit tests.
     * SiteMesh 2.2 - A page-decoration package that will work across different 
@@ -129,6 +135,8 @@ Features/Changes in 1.6
       default.  See web/WEB-INF/urlrewrite.xml for more information.
 - Dependent packages removed:
 	* State Tag and Country Tag - required a $75 license for production use.
+	* Cactus - no longer needed as all tests can be run out-of-container and Cargo
+	  can be used to start Tomcat for in-container (JSP) tests.
 
 
 Features/Changes in 1.5

@@ -321,7 +321,7 @@ public final class UserAction extends BaseAction {
                     + "' an account information e-mail");
         }
 
-        SimpleMailMessage message = (SimpleMailMessage) getBean("accountMessage");
+        SimpleMailMessage message = (SimpleMailMessage) getBean("mailMessage");
         message.setTo(userForm.getFullName() + "<" + userForm.getEmail() + ">");
         
         StringBuffer msg = new StringBuffer();

@@ -68,5 +68,6 @@
 	<classpathentry kind="lib" path="lib/xdoclet-1.2.2-rc1/lib/xdoclet-xdoclet-module-1.2.2-RC1.jar"/>
 	<classpathentry kind="lib" path="lib/xdoclet-1.2.2-rc1/lib/xjavadoc-1.0.3.jar"/>
 	<classpathentry kind="lib" path="lib/dumbster-1.2/dumbster-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/spring-1.1.1/spring-mock.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

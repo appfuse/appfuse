@@ -54,8 +54,9 @@ public class PasswordHintAction extends BaseAction {
             msg.append("Your password hint is: " + user.getPasswordHint());
             msg.append("\n\nLogin at: " + RequestUtil.getAppURL(getRequest()));
 
-            message.setText(msg.toString());
             message.setTo(user.getEmail());
+            message.setSubject("Password Hint");
+            message.setText(msg.toString());
             mailEngine.send(message);
             
             args.add(username);

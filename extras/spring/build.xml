@@ -63,13 +63,6 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
                 <include name="struts-*.xml"/>
             </fileset>
         </delete>
-     
-        <echo level="info">Removing action-servlet.xml from the list of context files</echo>
-        <replace file="../../metadata/web/web-settings.xml">
-            <replacetoken>/WEB-INF/applicationContext-service.xml,
-                /WEB-INF/action-servlet.xml</replacetoken>
-            <replacevalue>/WEB-INF/applicationContext-service.xml</replacevalue>
-        </replace>
                 
         <echo level="info">Replacing Struts servlet with Spring</echo>
         <copy todir="../../metadata/web" overwrite="true">
@@ -125,6 +118,13 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
             <replacevalue><![CDATA[<srcfiles dir="src/web" includes="**/*.java"/>]]></replacevalue>
         </replace>
         
+        <!-- Remove templates path from new target -->
+        <replace file="../../build.xml">
+            <replacetoken><![CDATA[<include name="metadata/templates/*.xdt"/>]]></replacetoken>
+            <replacevalue></replacevalue>
+        </replace>
+        
+        <!-- Remove gen-forms target -->
         <replace file="../../build.xml">
             <replacetoken><![CDATA[
     <!-- Generate ActionForms from POJOs -->
@@ -240,8 +240,10 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         </replace>
         
         <replace file="../../build.xml">
-            <replacetoken><![CDATA[<target name="test-web" depends="compile-web,db-load"
+            <replacetoken><![CDATA[<target name="test-web" depends="webdoclet,db-load"
         description="Test web module">
+        <copy todir="${webapp.target}/WEB-INF" 
+            file="${struts.dir}/validator-rules.xml"/>
         <antcall target="test-module" inheritAll="true">
             <param name="module" value="web"/>
             <reference refid="web.test.classpath"
@@ -250,13 +252,10 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
     </target>]]></replacetoken>
             <replacevalue><![CDATA[<target name="test-web" depends="webdoclet,db-load"
         description="Test web module">
-        <!-- Copy validator-rules to WEB-INF -->
         <copy todir="${webapp.target}/WEB-INF" 
             file="${spring.dir}/validator-rules.xml"/>
         <antcall target="test-module" inheritAll="true">
             <param name="module" value="web"/>
-            <!-- For validation.xml and validator-rules.xml -->
-            <param name="additional.src.dirs" value="${webapp.target}"/>
             <reference refid="web.test.classpath"
                 torefid="test.classpath"/>
         </antcall>

@@ -63,6 +63,10 @@
         </property>
     </bean>
 
+    <bean id="mailMessage" class="org.springframework.mail.SimpleMailMessage" singleton="false">
+        <property name="from"><value>${mail.default.from}</value></property>
+    </bean>
+    
     <!-- Add new Managers here -->
 	
     <!-- PersonManager example 
