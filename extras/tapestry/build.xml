@@ -191,6 +191,11 @@ tapestry.jar=${tapestry.dir}/tapestry-${tapestry.version}.jar]]></replacevalue>
             <fileset dir="web" includes="**"/>
         </copy>
         <delete file="../../web/WEB-INF/validator-rules-custom.xml"/>
+        <replace file="../../web/WEB-INF/classes/log4j.properties">
+            <replacetoken>log4j.logger.org.apache.struts=WARN</replacetoken>
+            <replacevalue># Have to turn to fatal to avoid warnings/errors that don't matter
+log4j.logger.net.sourceforge.myfaces=FATAL</replacevalue>
+        </replace>
         
         <echo level="info">Modifying Eclipse .classpath file</echo>
         <replace file="../../.classpath">

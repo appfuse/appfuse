@@ -10,10 +10,10 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.appfuse.Constants;
-import org.appfuse.dao.UserExistsException;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
 import org.appfuse.service.RoleManager;
+import org.appfuse.service.UserExistsException;
 import org.appfuse.util.ConvertUtil;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.util.RequestUtil;
