@@ -5,6 +5,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -69,10 +70,11 @@ public class BaseFormController extends SimpleFormController {
      * is not set in unit tests b/c there's no DispatchServlet Request.
      *
      * @param msgKey
+     * @param locale the current locale
      * @return
      */
-    public String getText(String msgKey) {
-        return getMessageSourceAccessor().getMessage(msgKey);
+    public String getText(String msgKey, Locale locale) {
+        return getMessageSourceAccessor().getMessage(msgKey, locale);
     }
 
     /**
@@ -81,10 +83,11 @@ public class BaseFormController extends SimpleFormController {
      *
      * @param msgKey
      * @param arg
+     * @param locale the current locale
      * @return
      */
-    public String getText(String msgKey, String arg) {
-        return getText(msgKey, new Object[] { arg });
+    public String getText(String msgKey, String arg, Locale locale) {
+        return getText(msgKey, new Object[] { arg }, locale);
     }
 
     /**
@@ -92,10 +95,11 @@ public class BaseFormController extends SimpleFormController {
      *
      * @param msgKey
      * @param args
+     * @param locale the current locale
      * @return
      */
-    public String getText(String msgKey, Object[] args) {
-        return getMessageSourceAccessor().getMessage(msgKey, args);
+    public String getText(String msgKey, Object[] args, Locale locale) {
+        return getMessageSourceAccessor().getMessage(msgKey, args, locale);
     }
 
     /**

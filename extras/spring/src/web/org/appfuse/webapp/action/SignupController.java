@@ -1,5 +1,7 @@
 package org.appfuse.webapp.action;
 
+import java.util.Locale;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -43,6 +45,7 @@ public class SignupController extends BaseFormController {
         }
 
         User user = (User) command;
+        Locale locale = request.getLocale();
 
         String algorithm =
         	(String) getConfiguration().get(Constants.ENC_ALGORITHM);
@@ -79,7 +82,7 @@ public class SignupController extends BaseFormController {
         RequestUtil.setCookie(response, Constants.LOGIN_COOKIE, loginCookie,
                               request.getContextPath());
 
-        saveMessage(request, getText("user.registered", user.getUsername()));
+        saveMessage(request, getText("user.registered", user.getUsername(), locale));
 
         request.getSession().setAttribute(Constants.REGISTERED, Boolean.TRUE);
 
@@ -90,8 +93,8 @@ public class SignupController extends BaseFormController {
         }
 
         // Send an account information e-mail
-        message.setSubject(getText("signup.email.subject"));
-        sendUserMessage(user, getText("signup.email.message"), 
+        message.setSubject(getText("signup.email.subject", locale));
+        sendUserMessage(user, getText("signup.email.message", locale), 
                         RequestUtil.getAppURL(request));
         
         return new ModelAndView(new RedirectView(getSuccessView()));

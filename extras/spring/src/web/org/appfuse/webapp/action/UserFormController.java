@@ -1,5 +1,7 @@
 package org.appfuse.webapp.action;
 
+import java.util.Locale;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -60,10 +62,11 @@ public class UserFormController extends BaseFormController {
         }
 
         User user = (User) command;
+        Locale locale = request.getLocale();
 
         if (request.getParameter("delete") != null) {
             mgr.removeUser(user.getUsername());
-            saveMessage(request, getText("user.deleted", user.getFullName()));
+            saveMessage(request, getText("user.deleted", user.getFullName(), locale));
 
             return new ModelAndView(new RedirectView("users.html"));
         } else {
@@ -129,27 +132,27 @@ public class UserFormController extends BaseFormController {
                                           autoLogin, request.getContextPath());
                 }
 
-                saveMessage(request, getText("user.saved", user.getFullName()));
+                saveMessage(request, getText("user.saved", user.getFullName(), locale));
 
                 // return to main Menu
                 return new ModelAndView(new RedirectView("mainMenu.html"));
             } else {
                 if (StringUtils.isBlank(request.getParameter("version"))) {
                     saveMessage(request,
-                                getText("user.added", user.getFullName()));
+                                getText("user.added", user.getFullName(), locale));
 
                     // Send an account information e-mail
-                    message.setSubject(getText("signup.email.subject"));
+                    message.setSubject(getText("signup.email.subject", locale));
                     sendUserMessage(user,
                                     getText("newuser.email.message",
-                                            user.getFullName()),
+                                            user.getFullName(), locale),
                                     RequestUtil.getAppURL(request));
 
                     return showNewForm(request, response);
                 } else {
                     saveMessage(request,
                                 getText("user.updated.byAdmin",
-                                        user.getFullName()));
+                                        user.getFullName(), locale));
                 }
             }
         }
@@ -196,7 +199,7 @@ public class UserFormController extends BaseFormController {
         String username = request.getParameter("username");
 
         if (request.getSession().getAttribute("cookieLogin") != null) {
-            saveMessage(request, getText("userProfile.cookieLogin"));
+            saveMessage(request, getText("userProfile.cookieLogin", request.getLocale()));
         }
 
         User user = null;

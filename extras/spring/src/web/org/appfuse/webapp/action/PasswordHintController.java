@@ -62,7 +62,8 @@ public class PasswordHintController implements Controller {
         }
 
         String username = request.getParameter("username");
-        MessageSourceAccessor text = new MessageSourceAccessor(messageSource);
+        MessageSourceAccessor text = 
+            new MessageSourceAccessor(messageSource, request.getLocale());
 
         // ensure that the username has been sent
         if (username == null) {
@@ -110,7 +111,7 @@ public class PasswordHintController implements Controller {
 
     public void saveError(HttpServletRequest request, String error) {
         List errors = (List) request.getSession().getAttribute("errors");
-    	if (errors == null) {
+        if (errors == null) {
             errors = new ArrayList();
         }
         errors.add(error);
@@ -120,7 +121,7 @@ public class PasswordHintController implements Controller {
     // this method is also in BaseForm Controller
     public void saveMessage(HttpServletRequest request, String msg) {
         List messages = (List) request.getSession().getAttribute("messages");
-    	if (messages == null) {
+        if (messages == null) {
             messages = new ArrayList();
         }
         messages.add(msg);

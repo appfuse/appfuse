@@ -49,9 +49,9 @@ public class FileUploadController extends BaseFormController {
 
         // validate a file was entered
         if (fileUpload.getFile().length == 0) {
-            errors.rejectValue("file", "errors.required",
-                               new Object[] { getText("uploadForm.file") },
-                               "File");
+            Object[] args = 
+                new Object[] { getText("uploadForm.file", request.getLocale()) };
+            errors.rejectValue("file", "errors.required", args, "File");
             
             return showForm(request, response, errors);
         }
