@@ -3,7 +3,8 @@ Quick-Start FAQ
 
 To learn how to develop your J2EE webapps with AppFuse, see 
 http://raibledesigns.com/wiki/Wiki.jsp?page=Articles (or docs/index.html if you 
-downloaded the AppFuse source distribution). 
+downloaded the AppFuse source distribution). You can also download all the 
+latest documentation to the "docs" directory by running "ant wiki".
 
 To build this application - you must be using Ant 1.6.2+.  You will also need 
 to copy junit.jar into your $ANT_HOME/lib directory.
@@ -44,7 +45,7 @@ Features/Changes in 1.6.1
 - Changed Service Tests to use JMock for mocking DAO dependencies.
   https://appfuse.dev.java.net/issues/show_bug.cgi?id=86
 - Re-arranged filters-mappings in metadata/web/filter-mappings.xml to 
-  fix exporting Excel with Display Tag.
+  fix exporting Excel with Display Tag. 
   https://appfuse.dev.java.net/issues/show_bug.cgi?id=74
 - Fixed LabelTag to read JSTL's fallback locale from web.xml.
   https://appfuse.dev.java.net/issues/show_bug.cgi?id=75
@@ -75,12 +76,16 @@ Features/Changes in 1.6.1
 - Patched XDoclet so that running "ant setup test-all" will work again.
   http://opensource.atlassian.com/projects/xdoclet/browse/XDT-879 
 - Added CruiseControl files and documentation to extras/cruisecontrol.  
-- Created tests in the installs like Equinox has. [UNTESTED]
-- Created "appgen" tool that creates everything for CRUDing an object. [UNTESTED]
+- Created tests for the "extras" like Equinox has.
+- Created "appgen" tool that creates everything for CRUDing an object.
+- Fixed Spring MVC implementation so getText() method uses the current
+  request's locale. 
+  https://appfuse.dev.java.net/issues/show_bug.cgi?id=89
 - Dependent packages upgraded:
     * Ant Contrib 1.1b1
     * Canoo WebTest build 543
     * Cargo 0.3 (now supports Tomcat 5.5.x)
+    * DisplayTag 1.0 RC2 Nightly (to fix unicode export)
     * XDoclet 1.2.2
 - Dependent packages added:
     * jMock 1.0.1 - a library for testing Java code using mock objects.
@@ -470,167 +475,5 @@ Features/Changes in 1.0
   http://raibledesigns.com/page/rd?anchor=tiles_tips_o_the_day
 - Added compile-jsp.xml for pre-compiling JSPs in Tomcat. You can run it using
   "ant -f compile-jsp.xml".
-
-
-Features/Changes in 0.9
-=======================
-- Added Password Hint
-- Upgraded MySQL JDBC Drivers to latest stable version (3.0.8)
-- Added CompressionFilter.java for GZip compression.
-- Added "jsp-2" task to deploy a JSP 2.0 version of the application.  
-- Renamed "copy-struts" task to "copy-jars" task.
-- Fixed problem where a change in roles wasn't persisted.
-- Enhancements to JavaDoc comments and output (now links to other API docs).
-- Changed Java2HTML to use Ant Task.
-- Upgraded to Hibernate 2.0.2, PMD 1.2, Checkstyle 3.1, DBUnit 1.5.5 and
-  WebTest build328.
-- Added User Registration and User Add Canoo Tests.
-- Added Cactus Test for form-based authentication in LoginServletTest.
-- Changed "html:rewrite" to JSTL's "c:url".
-- Enhancements to run on Tomcat 5.0.4+ 
-    - Removed privileged="true" from my the "Context" definition.
-    - For more info, see http://tinyurl.com/jga0
-
-
-Features/Changes in 0.8
-=======================
-- Added User Self Registration, complete with auto-login!
-- Added indicator to user list indicating which column/direction is sorted.
-- build.xml - changes to tests:
-    - "test-common" runs utilities tests
-    - "test-ejb" runs db-layer tests
-    - "test-web" for running services tests or action tests 
-      when tomcat is running.
-    - "test-canoo" runs canoo webtests when tomcat is running.
-    - "test-cactus" runs "test-web" and starts/stops tomcat as part 
-       of the test.
-    - "test-jsp" runs "test-canoo" and starts/stops tomcat.
-    - "test-all" runs all tests and starts/stops tomcat as it needs to.
-    - "test-all-running" runs all tests while tomcat is running (for anthill).
-    - As always, you can run individual tests by using -Dtestcase=$testName
-- Removed leftover tables from struts-resume that were in 
-    metadata/sql/sample-data.xml.
-- Added "protocol" property to properties.xml so http:// could be overridden.
-- Upgraded to Hibernate 2.0 Final.
-- Upgraded to Struts 1.1 RC2.
-- Upgraded Canoo WebTest to Build 280.
-- Upgraded Struts Menu to CVS Snapshot with tabs (not used yet).
-- Moved "confirmPassword" property from UserFormEx.java to User.java so 
-    JavaScript validations would occur in the proper order.
-- In web/WEB-INF, changed validator-rules.xml to validator-rules-custom.xml.
-    and only included the twoFields custom validator.
-- In web/pages/loginForm.jsp, moved "Remember Me" to 
-    ApplicationResources.properties and made it into a label.  Also, added 
-    link for self-registration.
-- In BreadCrumbFilter.java, changed auto-login to route to LoginServlet 
-    ("/auth") rather than "j_security_check"
-- In Canoo WebTests (test/web/web-tests.xml), added 
-    ApplicationResources.properties as a property file to compare titles with,
-    rather than hardcoding strings.
-    
-    
-Features in 0.7
-===============
-- Upgraded to Hibernate 2.0 Beta 4.
-- Upgraded to Struts 1.1 nightly build (2003.03.26) to fix Validator issue.
-  (http://tinyurl.com/87xa)
-- Upgraded DBUnit to 1.6-dev to fix batchStatement error in Ant task.
-  (http://tinyurl.com/8ei2)
-- Upgraded Canoo WebTest from build265 to build276.
-- Upgraded XDoclet to nightly build (2003.03.28) for Hibernate 2.0 
-  compatibility.  Apache module is still customized for POJO -> ActionForms.
-- Upgraded Display Tag Library to version 0.8.5.
-- Renamed "test-canoo" task to "test-jsp".  
-- Added "db-load" as a dependency to running unit tests to get a fresh 
-  database each time.
-- In LoginServlet.java and BreadCrumbFilter.java, pre-pended contextPath 
-  to authURL (i.e. "j_security_check") to get absolute path.
-- Added User Administrator to list/edit/delete users.  This feature 
-  includes using indexedProperties on a form - still using XDoclet, but using
-  a subclass of UserForm, called UserFormEx to hold the getter/setters for 
-  the indexedProperties. 
-- Wrote more Cactus and Canoo Tests to verify Resume editing and User 
-  Administration functioned properly.
-- Added icons to success and error messages template (common/messages.jsp).
-- Implemented role-based Permissions on menu by adding 
-  permissions="rolesAdapter" to "menu:useMenuDisplayer" in menu.jsp.
-  
-Features in 0.6
-===============
-- Upgraded to Hibernate 2.0 (http://tinyurl.com/6b00) and 
-  Struts 1.1RC1 (http://tinyurl.com/6cp9).
-- Fixed Validation issues when attempting cancel validation and using
-  LookupDispatchAction (documented in Struts 1.1RC1 link above).
-- Moved opening Hibernate sessions from being at a method level to being passed
-  in to each method on the business/persistence tier.  Sessions are now obtained
-  via the ActionFilter.getSession() method.
-- Added SMTPAppender to log4.properties to e-mail errors that occur in log 
-  files.
-- Added "Remember Me" feature - for details see http://tinyurl.com/6du0.
-- Added "Current User" count as a demonstration of a Tiles Controller.
-
-// TODO for 0.7 
-- Complete tests for all Action classes using StrutsTestCase.
-- Add User Administration.
-- When Tomcat 5 become stable, or I figure out how to install an app on Resin 3,
-  figure out a way (using Ant) to create JSP 2.0-compliant distribution.
-  
-// TODO for 0.8
-- Allow a way for users to register (similar to Roller).
-- Create User Administration interface with sortable/pageable list of users.
-- Complete tests for all JSPs using Canoo WebTest.
-
-// FUTURE
-- Add DateConverter and JavaScript calendar (www.mattkruse.com).
-- Self Registration.
-
-
-Features in 0.5
-===============
-- Uses Ant build file and directory structure recommended by Java Development
-  with Ant Book by Erik Hatcher.
-- Uses XDoclet to generate web.xml and struts-config.xml from custom javadoc
-  tags in POJOs (Plain Old Java Objects) and classes.
-- Uses XDoclet to generate persistence mappings for Hibernate and also 
-  Validator Forms.  The validation.xml config file is also generated.
-- Demonstrates using Struts Advanced Features such as:
-    -- Validator
-    -- Tiles
-    -- Declared Exceptions
-    -- Modules
-    -- File Upload
-- Demonstrates handling Chained Exceptions in ActionFilter.java.
-- Uses Form-based authentication and interacts with a MySQL database for
-  persistence.
-- Can (optionally) be used to encrypt passwords manually and to use SSL for 
-  login.
-- Uses Business Delegate and DAO Patterns for persistence.
-
-Future Plans
-===============
-- Add examples for indexed properties and saving nested forms.
-- Develop better conversion of properties using ConvertUtils from Commons.
-- Create a better way of deployment using Ant, including remote deploy.
-- Develop better test coverage for servlets and JSPs.
-- Integrate build/test/documentation process with Maven.
-- Add Administration section that allows for user management.
-- Finish application so user can build an actual resume and use the application
-  to host their resume.
-- Add token checking to prevent double posting - or use redirects.
-
-What is AppFuse?
-- It's an application that is meant to demonstrate how to use XDoclet with 
-  Struts to generate your Forms, web.xml, struts-config.xml, and validation.xml.  
-  It's also designed to show how you can use the different security packages 
-  (i.e. form-based authentication, SSLExt) and advanced 
-  Struts techniques (i.e. Tiles, Validator) to build your webapps.
-  
-Where do I put my own code?
-- The build file is setup so that you can place your own packages anywhere 
-  under the /src directory. For database access code, it's recommended that
-  you put it under the src/ejb directory. 
-
-What targets does the build file accept?
-- Run "ant -projecthelp" for a complete list of available tasks.
 
 ###
