@@ -140,6 +140,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         <copy todir="../../web" overwrite="true">
             <fileset dir="web" includes="**"/>
         </copy>
+        <delete file="../../web/WEB-INF/validator-rules-custom.xml"/>
         
         <echo level="info">Modifying Eclipse .classpath file</echo>
         <replace file="../../.classpath">
