@@ -1,5 +1,6 @@
 package org.appfuse.dao;
 
+import org.appfuse.Constants;
 import org.appfuse.model.Role;
 
 public class RoleDAOTest extends BaseDAOTestCase {
@@ -22,7 +23,7 @@ public class RoleDAOTest extends BaseDAOTestCase {
     }
 
     public void testGetRole() throws Exception {
-        role = dao.getRole("tomcat");
+        role = dao.getRole(Constants.USER_ROLE);
         assertNotNull(role);
     }
 
