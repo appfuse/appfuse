@@ -9,7 +9,7 @@ import junit.framework.TestCase;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.appfuse.util.ConvertUtils;
+import org.appfuse.util.ConvertUtil;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -52,7 +52,7 @@ public class BaseManagerTestCase extends TestCase {
     protected Object populate(Object obj) throws Exception {
         // loop through all the beans methods and set its properties from
         // its .properties file
-        Map map = ConvertUtils.convertBundleToMap(rb);
+        Map map = ConvertUtil.convertBundleToMap(rb);
 
         BeanUtils.copyProperties(obj, map);
 
