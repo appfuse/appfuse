@@ -21,7 +21,7 @@ import org.appfuse.model.UserRole;
  * for UI specific setters/getters.
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.4 $ $Date: 2004/05/16 02:17:03 $
+ * @version $Revision: 1.5 $ $Date: 2004/08/15 06:04:22 $
  *
  * @struts.form name="userFormEx"
  */
@@ -49,94 +49,5 @@ public class UserFormEx extends UserForm implements Serializable {
             userRole.setRoleName(userRoles[i]);
             this.roles.add(userRole);
         }
-    }
-
-    public ActionErrors validate(ActionMapping mapping,
-                                 HttpServletRequest request) {
-        ActionErrors errors = new ActionErrors();
-        MessageResources resources =
-            (MessageResources) request.getAttribute(Globals.MESSAGES_KEY);
-        UserFormEx userForm =
-            (UserFormEx) request.getAttribute(Constants.USER_EDIT_KEY);
-
-        // Perform validator framework validations
-        if (mapping != null) {
-            errors = super.validate(mapping, request);
-        } else {
-            // Do manual validations
-            if (StringUtils.isEmpty(userForm.getUsername())) {
-                errors.add(ActionMessages.GLOBAL_MESSAGE,
-                           new ActionMessage("errors.required",
-                                           resources.getMessage("userFormEx.username")));
-            }
-
-            if (StringUtils.isEmpty(userForm.getPassword())) {
-                errors.add(ActionMessages.GLOBAL_MESSAGE,
-                           new ActionMessage("errors.required",
-                                           resources.getMessage("userFormEx.password")));
-            }
-
-            if (StringUtils.isEmpty(userForm.getConfirmPassword())) {
-                errors.add(ActionMessages.GLOBAL_MESSAGE,
-                           new ActionMessage("errors.required",
-                                           resources.getMessage("userFormEx.confirmPassword")));
-            }
-
-            if (StringUtils.isEmpty(userForm.getFirstName())) {
-                errors.add(ActionMessages.GLOBAL_MESSAGE,
-                           new ActionMessage("errors.required",
-                                           resources.getMessage("userFormEx.firstName")));
-            }
-
-            if (StringUtils.isEmpty(userForm.getLastName())) {
-                errors.add(ActionMessages.GLOBAL_MESSAGE,
-                           new ActionMessage("errors.required",
-                                           resources.getMessage("userFormEx.lastName")));
-            }
-
-            if (StringUtils.isEmpty(userForm.getCity())) {
-                errors.add(ActionMessages.GLOBAL_MESSAGE,
-                           new ActionMessage("errors.required",
-                                           resources.getMessage("userFormEx.city")));
-            }
-
-            if (StringUtils.isEmpty(userForm.getProvince())) {
-                errors.add(ActionMessages.GLOBAL_MESSAGE,
-                           new ActionMessage("errors.required",
-                                           resources.getMessage("userFormEx.province")));
-            }
-
-            if (StringUtils.isEmpty(userForm.getCountry())) {
-                errors.add(ActionMessages.GLOBAL_MESSAGE,
-                           new ActionMessage("errors.required",
-                                           resources.getMessage("userFormEx.country")));
-            }
-
-            if (StringUtils.isEmpty(userForm.getPostalCode())) {
-                errors.add(ActionMessages.GLOBAL_MESSAGE,
-                           new ActionMessage("errors.required",
-                                           resources.getMessage("userFormEx.postalCode")));
-            }
-
-            if (StringUtils.isEmpty(userForm.getEmail())) {
-                errors.add(ActionMessages.GLOBAL_MESSAGE,
-                           new ActionMessage("errors.required",
-                                           resources.getMessage("userFormEx.email")));
-            }
-
-            if (StringUtils.isEmpty(userForm.getWebsite())) {
-                errors.add(ActionMessages.GLOBAL_MESSAGE,
-                           new ActionMessage("errors.website",
-                                           resources.getMessage("userFormEx.website")));
-            }
-
-            if (StringUtils.isEmpty(userForm.getPasswordHint())) {
-                errors.add(ActionMessages.GLOBAL_MESSAGE,
-                           new ActionMessage("errors.required",
-                                           resources.getMessage("userFormEx.passwordHint")));
-            }
-        }
-
-        return errors;
     }
 }
