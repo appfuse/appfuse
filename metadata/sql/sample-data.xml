@@ -4,17 +4,17 @@
     <column>id</column>
     <column>username</column>
     <column>password</column>
-    <column>firstName</column>
-    <column>lastName</column>
+    <column>first_name</column>
+    <column>last_name</column>
     <column>address</column>
     <column>city</column>
     <column>country</column>
     <column>email</column>
-    <column>phoneNumber</column>
-    <column>postalCode</column>
+    <column>phone_number</column>
+    <column>postal_code</column>
     <column>province</column>
     <column>website</column>
-    <column>passwordHint</column>
+    <column>password_hint</column>
     <row>
       <value>1</value>
       <value>tomcat</value>
