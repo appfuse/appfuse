@@ -115,16 +115,13 @@
             <regexp pattern="appfuse"/>
             <substitution expression="${app.name}"/>
             <fileset dir="../${app.name}">
-                <!-- just in case build has files in it -->
-                <exclude name="${build.dir}/**"/>
+                <include name="**"/>
                 <exclude name="src/**/*.java"/>
                 <exclude name="src/**/*.xml"/>
                 <exclude name="test/**/*.java"/>
                 <exclude name="extras/**/*.java"/>
                 <exclude name="extras/**/*.xml"/>
-                <include name="**"/>
                 <exclude name="metadata/web/global-exceptions.xml"/>
-                <exclude name="metadata/web/listeners.xml"/>
                 <exclude name="web/WEB-INF/*.xml"/>
                 <exclude name="web/WEB-INF/classes/log4j.properties"/>
                 <exclude name="**/*.page"/>

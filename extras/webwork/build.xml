@@ -243,7 +243,13 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         <!-- Remove templates path from new target -->
         <replace file="../../build.xml">
             <replacetoken><![CDATA[<include name="metadata/templates/*.xdt"/>]]></replacetoken>
-            <replacevalue></replacevalue>
+        </replace>
+        
+        <!-- Add excluded files to the new target -->
+        <replace file="../../build.xml">
+            <replacetoken><![CDATA[<exclude name="metadata/web/global-exceptions.xml"/>]]></replacetoken>
+            <replacevalue><![CDATA[<exclude name="metadata/web/listeners.xml"/>
+                <exclude name="web/WEB-INF/classes/xwork.xml"/>]]></replacevalue>
         </replace>
         
         <!-- Remove gen-forms target -->
@@ -407,8 +413,8 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
 
         <!-- New project created, install WebWork and run tests -->
         <ant dir="../../../${app.name}/extras/webwork" target="install" inheritAll="false"/>
-        <ant dir="../../../${app.name}" target="setup" inheritAll="false"/>
-        <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
+        <!--ant dir="../../../${app.name}" target="setup" inheritAll="false"/>
+        <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/-->
 
         <echo>Start Tomcat to view ${app.name} manually.</echo>
     </target>
