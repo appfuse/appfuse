@@ -484,6 +484,8 @@ hibernate.jar=${hibernate.dir}/hibernate2.jar]]></replacetoken>
         <echo>You can start Tomcat to view ${app.name} manually.</echo>
     </target>
 
-    <target name="test-all" depends="test,test-with-hibernate"
-        description="Tests iBATIS install with and without Hibernate"/>
+    <target name="test-all" depends="test"
+        description="Tests iBATIS install with and without Hibernate">
+        <antcall target="test-with-hibernate" inheritAll="false"/>
+    </target>
 </project>
