@@ -6,6 +6,7 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
+import javax.servlet.jsp.jstl.fmt.LocaleSupport;
 import javax.servlet.jsp.tagext.TagSupport;
 
 import org.apache.commons.lang.StringUtils;
@@ -21,7 +22,6 @@ import org.apache.struts.taglib.TagUtils;
 import org.apache.struts.taglib.html.Constants;
 import org.apache.struts.taglib.html.FormTag;
 import org.apache.struts.validator.ValidatorPlugIn;
-
 
 /**
  * <p>This class is designed to render a <label> tag for labeling your forms and
@@ -111,7 +111,8 @@ public class LabelTag extends TagSupport {
         StringBuffer valError = new StringBuffer();
 
         if (message == null) {
-            message = "???" + key + "???";
+            // try using JSTL's fallback locale
+            message = LocaleSupport.getLocalizedMessage(pageContext, key);
         } else if (validationError) {
             valError.append(valMessage);
         }

@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: properties.xml,v 1.22 2004/10/09 09:58:49 mraible Exp $             -->
+<!-- $Id: properties.xml,v 1.23 2004/10/13 05:24:01 mraible Exp $             -->
 <!-- ======================================================================= -->
 <!-- This file defines properties for build.xml -->
 
@@ -172,6 +172,7 @@
     <pathelement location="${servletapi.jar}"/>
     <fileset dir="${javamail.dir}" includes="*.jar"/>
     <fileset dir="${spring.dir}" includes="*.jar"/>
+    <fileset dir="${jstl.dir}/lib" includes="jstl.jar"/>
 </path>
 <path id="web.test.classpath">
     <path refid="web.compile.classpath"/>

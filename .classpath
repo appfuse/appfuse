@@ -66,5 +66,6 @@
 	<classpathentry kind="lib" path="lib/spring-1.1.1/spring-mock.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/antlr.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/commons-fileupload.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta-taglibs/standard-1.0.6/lib/jstl.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
