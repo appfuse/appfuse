@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.9 2004/04/15 05:39:59 RickHigh Exp $                 -->
+<!-- $Id: build.xml,v 1.10 2004/04/16 04:24:12 mraible Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -133,12 +133,6 @@
             </fileset>
         </replaceregexp>
 
-        <!-- Fix path for forms package in build.xml -->
-        <replaceregexp flags="g"
-            file="../${app.name}/build.xml"
-            match="org/${app.name}"
-            replace="org/appfuse"/>
-
         <!-- Copy IDEA project files -->
         <copy file="appfuse.iml" tofile="../${app.name}/${app.name}.iml"/>
         <copy file="appfuse.ipr" tofile="../${app.name}/${app.name}.ipr"/>
@@ -146,6 +140,13 @@
         <replace dir="../${app.name}" value="${app.name}" token="appfuse">
           <include name="${app.name}.i*"/>
         </replace>
+        
+        <!-- Fix path for packages in .iws file -->
+        <replaceregexp flags="g"
+            file="../${app.name}/build.xml"
+            match="org.${app.name}"
+            replace="org.appfuse"/>
+            
 
         <!-- Replace JNDI Name for database -->
         <replaceregexp flags="g">
@@ -316,10 +317,8 @@
     <!-- The "ejbdoclet" target generates files based on XDoclet marked-up   -->
     <!-- Plain Old Java Object (POJO)                                        -->
     <!-- =================================================================== -->
-    <target name="ejbdoclet" depends="init,ejbdoclet-nomodule,ejbdoclet-with-module" unless="ejbdoclet.unnecessary"
-        description="Generate Persistence and form classes"/>
-    
-    <target name="ejbdoclet-nomodule" unless="dao.modules.additional">
+    <target name="ejbdoclet" depends="init" unless="ejbdoclet.unnecessary"
+        description="Generate Persistence and form classes">
 
         <taskdef name="ejbdoclet"
             classname="xdoclet.modules.ejb.EjbDocletTask"
@@ -358,53 +357,6 @@
             addedtags="@xdoclet-generated at ${TODAY}"
             force="${xdoclet.force}">
             <fileset dir="src/dao"/>
-
-            <hibernate validatexml="true" version="2.0"/>
-
-        </hibernatedoclet>
-    </target>
-
-    <target name="ejbdoclet-with-module" if="dao.modules.additional">
-
-        <taskdef name="ejbdoclet"
-            classname="xdoclet.modules.ejb.EjbDocletTask"
-            classpathref="xdoclet.classpath"/>
-        <taskdef
-            name="hibernatedoclet"
-            classname="xdoclet.modules.hibernate.HibernateDocletTask"
-            classpathref="xdoclet.classpath"/>
-
-        <mkdir dir="${build.dir}/dao/gen"/>
-        
-        <!-- generate struts forms -->
-        <ejbdoclet
-            destdir="${build.dir}/dao/gen"
-            excludedtags="@version,@author"
-            addedtags="@xdoclet-generated at ${TODAY}"
-            ejbspec="2.0"
-            force="${xdoclet.force}"
-            mergedir="metadata/dao">
-            <fileset dir="src/dao"/>
-            <fileset dir="${dao.modules.additional}"/>
-
-            <!-- generate struts forms -->
-            <strutsform destdir="${build.dir}/web/gen"
-                templateFile="metadata/templates/struts_form.xdt">
-                <packageSubstitution packages="model"
-                    substituteWith="webapp.form"/>
-            </strutsform>
-
-        </ejbdoclet>
-
-        <!-- generate hibernate files -->
-        <hibernatedoclet
-            destdir="${build.dir}/dao/gen"
-            mergedir="metadata/dao"
-            excludedtags="@version,@author"
-            addedtags="@xdoclet-generated at ${TODAY}"
-            force="${xdoclet.force}">
-            <fileset dir="src/dao"/>
-            <fileset dir="${dao.modules.additional}"/>
 
             <hibernate validatexml="true" version="2.0"/>
 
@@ -413,12 +365,8 @@
 
     <target name="compile-dao" depends="ejbdoclet"
         description="Compile dao module">
-         <property name="dao.modules.additional" value=""/>
-        
         <antcall target="compile-module" inheritAll="true">
             <param name="module" value="dao"/>
-            <param name="additional.src.dirs"
-                value="${dao.modules.additional}"/>
             <reference refid="dao.compile.classpath"
                 torefid="compile.classpath"/>
             <reference refid="dao.test.classpath"
@@ -562,11 +510,10 @@
     
     <target name="compile-web" depends="package-dao,package-service,stage-web"
         description="Compile web module">
-        <property name="web.modules.additional" value=""/>
         <antcall target="compile-module" inheritAll="true">
             <param name="module" value="web"/>
             <param name="additional.src.dirs"
-                value="${build.dir}/web/gen;${web.modules.additional}"/>
+                value="${build.dir}/web/gen"/>
             <reference refid="web.compile.classpath"
                 torefid="compile.classpath"/>
             <reference refid="web.test.classpath"
