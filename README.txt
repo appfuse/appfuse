@@ -51,7 +51,8 @@ Features/Changes in 1.6
   don't need to override. More at:
     http://raibledesigns.com/page/rd?anchor=log_debug_vs_logger_debug
 - Refactored toString(), equals() and hashCode() methods in BaseObject to be 
-  abstract so child classes have to implement custom methods.
+  abstract so child classes have to implement custom methods. Bug at: 
+    https://appfuse.dev.java.net/issues/show_bug.cgi?id=65.
   Commonclipse (http://commonclipse.sf.net) can generate the methods for you.
   	Learn more at: http://www.leegrey.com/hmm/2004/09/29/1096491256000.html
 - Refactored to use SiteMesh instead of Tiles.  Proposal and feedback at: 
@@ -76,9 +77,12 @@ Features/Changes in 1.6
   (thanks Jens Fischer) and made state into a text box since not all countries 
   have "states".
 - Reworked mail support to use Spring's MailSender and changed account 
-  information e-mail to use a Velocity template.  This was partially motivated
-  by all the questions I get on Sending Velocity-based E-Mail with Spring.
+  information e-mail (for Spring and WebWork options) to use a Velocity template.  
+  This was partially motivated by all the questions I get on Sending 
+  Velocity-based E-Mail with Spring.
   http://jroller.com/page/raible/20040406#sending_velocity_based_e_mail
+- Consolidated all mail settings to mail.properties (in web/WEB-INF/classes).
+- Added support for detecting and configuring 5.5.x. http://tinyurl.com/5ebdh
 - Modified struts_form.xdt to support nested objects.  Moved address information
   from org.appfuse.model.User to org.appfuse.model.Address to and created
   NestedFormTest to verify it works.  This template will pick up any nested 
@@ -89,6 +93,8 @@ Features/Changes in 1.6
 - Changed column names in User object from camelCase to normal database_names.
 - Added fallback locale of 'en' in metadata/web/web-settings.xml in case no
   bundle is found for the browser's preferred locale.
+- Added native2ascii task in copy-resources to encoded to ascii with unicode 
+  escapes. 
 - Dependent packages upgraded:
     * DbUnit 2.1
     * Display Tag 1.0 RC1
