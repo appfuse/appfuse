@@ -39,6 +39,12 @@ steps:
      Example: log4j.rootCategory=INFO, stdout, mail
 
 
+Features/Changes in 1.6
+============================
+- Dependent packages upgraded:
+    * Spring 1.0.2
+
+
 Features/Changes in 1.5
 ============================
 - Added Spring MVC as a web framework option. You can install it by navigating
