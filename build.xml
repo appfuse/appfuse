@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.54 2004/10/13 05:19:03 mraible Exp $                 -->
+<!-- $Id: build.xml,v 1.55 2004/10/20 21:06:13 mraible Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -792,19 +792,40 @@
 
         <echo>running canoo tests at:
               http://${tomcat.server}:${http.port}/${webapp.name}</echo>
-        <echo>Starting Tomcat...</echo>
 
-        <cargo-tomcat5x homeDir="${tomcat.home}"
-            output="${test.dir}/cargo.log"
-            workingDir="${test.dir}/tomcat5x" action="start">
-            <war warFile="${webapp.dist}/${webapp.war}"/>
-            <property name="cargo.logging" value="error"/>
-        </cargo-tomcat5x>
-
-        <antcall target="test-canoo"/>
-
-        <cargo-tomcat5x homeDir="${tomcat.home}"
-            workingDir="${test.dir}/tomcat5x" action="stop"/>
+        <if>
+            <isset property="tomcat5"/>
+            <then>
+                <echo message="Starting Tomcat 5x..."/>
+                <cargo-tomcat5x homeDir="${tomcat.home}"
+                    output="${test.dir}/cargo.log"
+                    workingDir="${test.dir}/tomcat5x" action="start">
+                    <war warFile="${webapp.dist}/${webapp.war}"/>
+                    <property name="cargo.logging" value="info"/>
+                    <property name="cargo.servlet.port" value="${http.port}"/>
+                </cargo-tomcat5x>
+        
+                <antcall target="test-canoo"/>
+        
+                <cargo-tomcat5x homeDir="${tomcat.home}"
+                    workingDir="${test.dir}/tomcat5x" action="stop"/>
+            </then>
+            <else>
+                <echo message="Starting Tomcat 4x..."/>
+                <cargo-tomcat4x homeDir="${tomcat.home}"
+                    output="${test.dir}/cargo.log"
+                    workingDir="${test.dir}/tomcat4x" action="start">
+                    <war warFile="${webapp.dist}/${webapp.war}"/>
+                    <property name="cargo.logging" value="info"/>
+                    <property name="cargo.servlet.port" value="${http.port}"/>
+                </cargo-tomcat4x>
+        
+                <antcall target="test-canoo"/>
+        
+                <cargo-tomcat4x homeDir="${tomcat.home}"
+                    workingDir="${test.dir}/tomcat4x" action="stop"/>
+            </else>
+        </if>
     </target>
 
     <!-- =================================================================== -->
