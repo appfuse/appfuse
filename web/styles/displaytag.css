@@ -1,7 +1,7 @@
 div.exportlinks {
 	margin: -5px 0px 10px 10px;
 	padding: 2px 4px 2px 0px;
-	width: 300px;
+	width: 400px;
 }
 
 div.exportlinks a {
@@ -18,6 +18,14 @@ span.csv {
 
 span.excel {
 	background-image: url(../images/ico_file_excel.png);
+}
+
+span.pdf {
+	background-image: url(../images/ico_file_pdf.png);
+}
+
+span.xml {
+	background-image: url(../images/ico_file_xml.png);
 }
 
 span.export {
@@ -42,10 +50,6 @@ span.pagelinks {
 	padding: 2px 0px 2px 0px;
 	text-align: right;
 	width: 80%;
-}
-
-span.xml {
-	background-image: url(../images/ico_file_xml.png);
 }
 
 table.list {

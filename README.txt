@@ -40,6 +40,10 @@ steps:
      Example: log4j.rootCategory=INFO, stdout, mail
 
 
+Features/Changes in 1.7
+============================
+- Added support for exporting PDFs from a displaytag table.
+
 Features/Changes in 1.6.1
 ============================
 - Changed Service Tests to use JMock for mocking DAO dependencies.

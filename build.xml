@@ -611,7 +611,7 @@
             <lib dir="${javamail.dir}" includes="*.jar"/>   
             <lib file="${log4j.jar}"/>
             <lib file="${strutsmenu.jar}"/>
-            <lib file="${displaytag.jar}"/>
+            <lib dir="${displaytag.dir}" includes="*.jar"/>
             <lib file="${hibernate.jar}"/>
             <lib dir="${hibernate.dir}/lib">
                 <include name="odmg*.jar"/>
