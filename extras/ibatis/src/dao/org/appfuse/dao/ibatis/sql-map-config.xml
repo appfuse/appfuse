@@ -6,9 +6,9 @@
     <settings enhancementEnabled="true" maxTransactions="20"
         maxRequests="32" maxSessions="10"/>
 
-	<!-- Identify all SQL Map XML files to be loaded by this SQL map. Relative to classpath -->
-	<sqlMap resource="org/appfuse/dao/ibatis/sql/LookupSQL.xml" />
+    <!-- Identify all SQL Map XML files to be loaded by this SQL map. Relative to classpath -->
+    <sqlMap resource="org/appfuse/dao/ibatis/sql/LookupSQL.xml" />
     <sqlMap resource="org/appfuse/dao/ibatis/sql/RoleSQL.xml" />
-	<sqlMap resource="org/appfuse/dao/ibatis/sql/UserSQL.xml" />
+    <sqlMap resource="org/appfuse/dao/ibatis/sql/UserSQL.xml" />
 
 </sqlMapConfig>
