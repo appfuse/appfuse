@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.24 2004/05/25 07:29:08 mraible Exp $                 -->
+<!-- $Id: build.xml,v 1.25 2004/05/26 17:42:05 mraible Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -243,7 +243,7 @@
         <!-- Copy JSP Pages under WEB-INF/pages -->
         <copy todir="${webapp.target}/WEB-INF">
             <fileset dir="${basedir}/web">
-                <include name="pages/*.jsp"/>
+                <include name="pages/**/*.jsp"/>
             </fileset>
         </copy>
         <!-- Copy *.txt files so they can be included in release notes -->
