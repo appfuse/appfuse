@@ -4,16 +4,14 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.web.servlet.mvc.SimpleFormController;
@@ -30,10 +28,9 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.4 $ $Date: 2004/08/03 04:36:16 $
+ * @version $Revision: 1.5 $ $Date: 2004/08/14 22:32:08 $
  */
 public class BaseFormController extends SimpleFormController {
-    private static Log log = LogFactory.getLog(BaseFormController.class);
     protected UserManager mgr = null;
 
     public void setUserManager(UserManager userManager) {
@@ -43,8 +40,8 @@ public class BaseFormController extends SimpleFormController {
     public UserManager getUserManager() {
         return this.mgr;
     }
-    
-    public void saveMessage(HttpServletRequest request, Object msg) {
+
+    public void saveMessage(HttpServletRequest request, String msg) {
         List messages = (List) request.getSession().getAttribute("messages");
     	if (messages == null) {
     		messages = new ArrayList();
