@@ -24,7 +24,9 @@
     <!-- Generic manager that can be used to do basic CRUD operations on any objects -->
     <bean id="manager" parent="txProxyTemplate">
         <property name="target">
-            <bean class="org.appfuse.service.impl.BaseManager" autowire="byName"/>
+            <bean class="org.appfuse.service.impl.BaseManager">
+                <property name="DAO"><ref bean="dao"/></property>
+            </bean>
         </property>
     </bean>
     
