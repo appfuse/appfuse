@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beansProjectDescription>
 	<configs>
-		<config>web/WEB-INF/applicationContext-database.xml</config>
 		<config>src/dao/org/appfuse/persistence/hibernate/applicationContext-hibernate.xml</config>
 		<config>src/service/org/appfuse/service/applicationContext-service.xml</config>
 	</configs>

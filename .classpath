@@ -49,8 +49,6 @@
 	<classpathentry kind="lib" path="lib/jakarta-cactus-13-1.6.1/lib/aspectjrt-1.1.1.jar"/>
 	<classpathentry kind="lib" path="lib/mysql-connector-java-3.0.12-production/mysql-connector-java-3.0.12-production-bin.jar"/>
 	<classpathentry kind="lib" path="lib/velocity-1.4/velocity-tools-view-1.1.jar"/>
-	<classpathentry kind="lib" path="lib/spring-1.0.2/aopalliance.jar"/>
-	<classpathentry kind="lib" path="lib/spring-1.0.2/spring.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-2.1.4/lib/c3p0-0.8.4.5.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-2.1.4/hibernate2.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-2.1.4/lib/cglib-full-2.0.1.jar"/>
@@ -71,5 +69,7 @@
 	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.1/lib/commons-collections.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.1/lib/commons-beanutils.jar"/>
 	<classpathentry kind="lib" path="lib/strutstest-2.1.2/strutstest-2.1.2.jar"/>
+	<classpathentry kind="lib" path="lib/spring-1.1-RC1/spring.jar"/>
+	<classpathentry kind="lib" path="lib/spring-1.1-RC1/aopalliance.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
