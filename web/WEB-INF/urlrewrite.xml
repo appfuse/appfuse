@@ -6,8 +6,8 @@
 <!-- This filter is disabled by default in metadata/web/filter-mappings.xml -->
 <urlrewrite>
     <rule>
-        <from>/products/([0-9]+)</from>
-        <to>/products/index.jsp?product_id=$1</to>
+        <from>/user/([0-9]+).html</from>
+        <to type="forward">/editUser.html?username=$1</to>
     </rule>
 </urlrewrite>
 
