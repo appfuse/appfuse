@@ -24,18 +24,11 @@ import org.apache.struts.taglib.TagUtils;
  * http://www.javaworld.com/javaworld/jw-02-2002/jw-0215-ssl.html</a>
  */
 public class RequestUtil {
-    private static final String STOWED_REQUEST_ATTRIBS =
-        "ssl.redirect.attrib.stowed";
+    private static final String STOWED_REQUEST_ATTRIBS = "ssl.redirect.attrib.stowed";
     private static Log log = LogFactory.getLog(RequestUtil.class);
-
-    //private static String ALGORITHM;
 
     /**
      * Creates query String from request body parameters
-     *
-     * @param aRequest DOCUMENT ME!
-     *
-     * @return DOCUMENT ME!
      */
     public static String getRequestParameters(HttpServletRequest aRequest) {
         // set the ALGORIGTHM as defined for the application
@@ -222,5 +215,26 @@ public class RequestUtil {
             cookie.setPath(path);
             response.addCookie(cookie);
         }
+    }
+    
+    /**
+     * Convenience method to get the application's URL based on request
+     * variables.
+     */
+    public static String getAppURL(HttpServletRequest request) {
+        StringBuffer url = new StringBuffer();
+    	int port = request.getServerPort();
+        if (port < 0) {
+            port = 80; // Work around java.net.URL bug
+        }
+        String scheme = request.getScheme();
+        url.append(scheme);
+        url.append("://");
+        url.append(request.getServerName());
+        if ((scheme.equals("http") && (port != 80)) || (scheme.equals("https") && (port != 443))) {
+            url.append(':');
+            url.append(port);
+        }
+        return url.toString();
     }
 }
