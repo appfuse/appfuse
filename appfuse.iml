@@ -8,9 +8,9 @@
       <sourceFolder url="file://$MODULE_DIR$/src/dao" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/service" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/web" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/test/dao" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/test/service" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/test/web" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/test/dao" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/test/service" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/test/web" isTestSource="true" />
     </content>
     <orderEntry type="jdk" jdkName="java version &quot;1.4.2_03&quot;" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -271,34 +271,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/build/dao/classes" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
           <root url="file://$MODULE_DIR$/build/dao/gen" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/build/test/dao/classes" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/build/web/classes" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -316,34 +289,25 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file://$MODULE_DIR$/build/test/service/classes" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/build/service/classes" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/build/test/web/classes" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/jakarta-log4j-1.2.8/dist/lib/log4j-1.2.8.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jakarta-taglibs/standard-1.0.5/lib/jstl.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jakarta-taglibs/standard-1.0.5/lib/standard.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
