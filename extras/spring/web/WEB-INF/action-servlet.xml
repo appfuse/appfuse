@@ -115,20 +115,5 @@
         <property name="viewClass"><value>org.springframework.web.servlet.view.JstlView</value></property>
         <property name="prefix"><value>/WEB-INF/pages/</value></property>
         <property name="suffix"><value>.jsp</value></property>
-    </bean>  
-    
-    <bean id="validatorFactory" class="org.springframework.validation.commons.DefaultValidatorFactory"
-        init-method="init">
-        <property name="resources">
-            <list>
-                <value>/WEB-INF/validation.xml</value>
-                <value>/WEB-INF/validator-rules.xml</value>
-                <value>/WEB-INF/validator-rules-custom.xml</value>
-            </list>
-        </property>
-    </bean>
-
-    <bean id="beanValidator" class="org.springframework.validation.commons.BeanValidator">
-        <property name="validatorFactory"><ref bean="validatorFactory"/></property>
     </bean>
 </beans>
