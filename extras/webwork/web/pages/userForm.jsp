@@ -75,7 +75,7 @@
         </th>
         <td>
        	    <ww:set name="country" value="user.address.country" scope="page"/>
-            <appfuse-webwork:country name="user.address.country" prompt="" default="${country}"/>
+            <appfuse:country name="user.address.country" prompt="" default="${country}"/>
         </td>
     </tr>
     <ww:textfield label="getText('user.address.postalCode')" name="'user.address.postalCode'"
