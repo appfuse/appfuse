@@ -1,6 +1,7 @@
 <decorators defaultdir="/decorators">
     <excludes>
         <pattern>/demos/*</pattern>
+        <pattern>/resources/*</pattern>
     </excludes> 
     <decorator name="default" page="default.jsp">
         <pattern>/*</pattern>
