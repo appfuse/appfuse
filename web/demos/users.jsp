@@ -26,7 +26,7 @@ using JSTL's SQL Tags.  The following is the query that is used to expose a
 <em style="font-weight: bold">users</em> variable to the pageContext.
 </p>
 <pre>&lt;sql:query var="users" dataSource="jdbc/appfuse"&gt;
-    select username, firstName, lastName
+    select username, first_name as firstName, last_name as lastName
     from app_user order by upper(username);
 &lt;/sql:query&gt;
 </pre>
@@ -36,7 +36,7 @@ code that's used to render this table.
 </p>
 
 <sql:query var="users" dataSource="jdbc/appfuse">
-    select username, firstName, lastName
+    select username, first_name as firstName, last_name as lastName
     from app_user order by upper(username);
 </sql:query>
 
