@@ -24,9 +24,6 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @hibernate.class table="app_user"
  */
 public class User extends BaseObject implements Serializable {
-    //~ Instance fields
-    // ========================================================
-
     protected String username;
     protected String password;
     protected String confirmPassword;
@@ -326,7 +323,7 @@ public class User extends BaseObject implements Serializable {
                 rhs.address).append(this.confirmPassword, rhs.confirmPassword)
                 .append(this.username, rhs.username).append(this.email,
                         rhs.email).append(this.phoneNumber, rhs.phoneNumber)
-                .append(this.roles, rhs.roles)
+                .append(this.roles, rhs.roles).append(this.enabled, rhs.enabled)
                 .append(this.website, rhs.website).append(this.firstName,
                         rhs.firstName).append(this.lastName, rhs.lastName)
                 .isEquals();
@@ -340,8 +337,8 @@ public class User extends BaseObject implements Serializable {
                 this.password).append(this.passwordHint).append(this.address)
                 .append(this.confirmPassword).append(this.username).append(
                         this.email).append(this.phoneNumber).append(this.roles)
-                .append(this.website).append(this.firstName).append(
-                        this.lastName).toHashCode();
+                .append(this.website).append(this.firstName)
+                .append(this.enabled).append(this.lastName).toHashCode();
     }
 
     /**
@@ -358,7 +355,8 @@ public class User extends BaseObject implements Serializable {
                         this.phoneNumber).append("password", this.password)
                 .append("address", this.address).append("confirmPassword",
                         this.confirmPassword).append("website", this.website)
-                .append("version", this.getVersion()).toString();
+                .append("version", this.getVersion())
+                .append("enabled", this.getEnabled()).toString();
     }
 
 }
