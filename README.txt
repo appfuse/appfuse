@@ -5,10 +5,10 @@ To learn how to develop your J2EE webapps with AppFuse, see
 http://raibledesigns.com/wiki/Wiki.jsp?page=Articles (or docs/index.html if you 
 downloaded the AppFuse source distribution). 
 
-To build this application - you must be using Ant 1.6.0+.  You will also need 
+To build this application - you must be using Ant 1.6.2+.  You will also need 
 to copy junit.jar into your $ANT_HOME/lib directory.
 
-Then setup Tomcat 4.1.x+ and install an smtp server on localhost.  If you don't 
+Then setup Tomcat 4.1.x+ and install an SMTP server on localhost.  If you don't 
 want to install an SMTP server, change web/WEB-INF/classes/mail.properties to 
 point to an existing one.
 
@@ -16,13 +16,13 @@ To run this application, you will need to perform the following tasks:
 
 1.  The default database setup expects a mysql database installed with
     an admin user named "root" and no password.  If your system is different,
-    modify properties.xml or build.properties to override this default.
+    modify properties.xml or build.properties to override the default values.
 2.  Run "ant setup-db".  This creates a mysql database named "appfuse" and
     grants the user "test" (password: test) full rights to this database.
 3.  Test that the db access code works with:
     ant test-dao -Dtestcase=UserDAO
     ant test-service -Dtestcase=UserManager
-4.  Setup Tomcat by running "ant setup-tomcat".  This puts a mysql jdbc 
+4.  Setup Tomcat by running "ant setup-tomcat".  This puts a MySQL JDBC 
     driver (as well as JavaMail and jta.jar) in $CATALINA_HOME/common/lib, and
     also deploys an appfuse.xml file to $CATALINA_HOME/webapps ($CATALINA_HOME/
     conf/Catalina/localhost on Tomcat 5) and deploys the application.
@@ -114,11 +114,14 @@ Features/Changes in 1.6
 - Changed name of generated WAR file to *not* include the version number. 
   Having the version number as part of the name seemed to cause more problems
   than it solved.
+- Added forkmode="true" to junit task in "test-module" target - greatly 
+  increasing the speed of test execution - particularly on my PowerBook.
+    http://raibledesigns.com/page/rd?anchor=aren_t_out_of_container
 - Dependent packages upgraded:
     * DbUnit 2.1
     * Display Tag 1.0 RC1
     * Hibernate 2.1.6
-    * iBATIS 2.0.6
+    * iBATIS 2.0.7
     * JSTL 1.0.6
     * MySQL JDBC Driver 3.0.14
     * Spring 1.1.1

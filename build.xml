@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.46 2004/10/05 07:19:59 mraible Exp $                 -->
+<!-- $Id: build.xml,v 1.47 2004/10/06 23:13:29 mraible Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -18,6 +18,12 @@
         <taskdef resource="net/sf/antcontrib/antcontrib.properties"
             classpath="${ant-contrib.jar}"/>
             
+        <!-- Ensure that Ant 1.6.2+ is being used -->
+        <available classname="org.apache.tools.ant.DynamicAttribute" 
+            property="ant-1.6.2"/>
+        <fail unless="ant-1.6.2"
+            message="AppFuse requires Ant 1.6.2 for faster unit testing"/>
+
         <!-- Check that junit.jar is in $ANT_HOME/lib or Cactus tasks fail -->
         <available classname="junit.framework.TestCase"
             property="junit.present"/>
@@ -681,7 +687,7 @@
             <fileset dir="test" includes="*.xml"/>
         </copy>
         <property name="additional.src.dirs" value=""/>
-        <junit printsummary="no"
+        <junit printsummary="no" forkmode="once"
             errorProperty="test.failed"
             failureProperty="test.failed"
             fork="${junit.fork}">
