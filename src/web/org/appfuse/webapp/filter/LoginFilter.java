@@ -22,6 +22,7 @@ import org.appfuse.service.UserManager;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.util.RequestUtil;
 import org.springframework.web.context.WebApplicationContext;
+import net.sf.acegisecurity.context.ContextHolder;
 
 
 /**
@@ -32,7 +33,7 @@ import org.springframework.web.context.WebApplicationContext;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.11 $ $Date: 2005/01/07 04:57:12 $
+ * @version $Revision: 1.12 $ $Date: 2005/03/11 13:21:48 $
  *
  * @web.filter display-name="Login Filter" name="loginFilter"
  * @web.filter-init-param name="enabled" value="${rememberMe.enabled}"
@@ -74,6 +75,8 @@ public final class LoginFilter implements Filter {
                 mgr.removeLoginCookies(request.getRemoteUser());
                 RequestUtil.deleteCookie(response, c, request.getContextPath());
                 request.getSession().invalidate();
+                // remove if you remove Acegi - as of 0.8.0, this is necessary to logout
+                ContextHolder.setContext(null);
             }
         } else if (c != null && enabled) {
             String loginCookie = mgr.checkLoginCookie(c.getValue());
