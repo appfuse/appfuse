@@ -25,7 +25,7 @@
             
             <c:if test="${param.from == 'list'}">
             <html:submit styleClass="button" property="method"
-                onclick="bCancel=false;return confirmDelete('User')" tabindex="14">
+                onclick="bCancel=false;return confirmDelete('User')">
                 <fmt:message key="button.delete"/>
             </html:submit>
             </c:if>
