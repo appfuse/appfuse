@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: web-tests.xml,v 1.18 2004/11/08 22:33:39 mraible Exp $               -->
+<!-- $Id: web-tests.xml,v 1.19 2004/11/09 00:59:27 mraible Exp $               -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:../../properties.xml">
@@ -86,8 +86,7 @@
             &config;
             <steps>
                 &login;
-                <invoke stepid="click View Users link" 
-                    url="/editUser.html?method=Search"/>
+                <invoke stepid="click View Users link" url="/users.html"/>
                 <verifytitle stepid="we should see the user list title" 
                     text="${webapp.prefix}${userList.title}"/>
             </steps>
@@ -158,13 +157,13 @@
                 <verifytitle stepid="Redisplay add user page" 
                     text="${webapp.prefix}${userProfile.title}"/>
                 <verifytext stepid="verify success message" regex="true"
-                    text='&lt;div class="message"&gt;.*&lt;strong&gt;newuser&lt;/strong&gt;.*&lt;/div&gt;'/>
+                    text='&lt;div class="message"&gt;.*&lt;strong&gt;Test Name&lt;/strong&gt;.*&lt;/div&gt;'/>
                 <!-- Delete user -->
                 <invoke stepid="Click edit user link"
                     url="/editUser.html?username=newuser&amp;from=list"/>
                 <clickbutton label="${button.delete}" stepid="Click button 'Delete'"/>
                 <verifytext stepid="verify success message" regex="true"
-                    text='&lt;div class="message"&gt;.*&lt;strong&gt;newuser&lt;/strong&gt;.*&lt;/div&gt;'/>
+                    text='&lt;div class="message"&gt;.*&lt;strong&gt;Test Name&lt;/strong&gt;.*&lt;/div&gt;'/>
                 <verifytitle stepid="display user list" 
                     text="${webapp.prefix}${userList.title}"/>
             </steps>

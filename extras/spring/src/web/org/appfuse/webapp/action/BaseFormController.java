@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -19,9 +20,12 @@ import org.appfuse.service.UserManager;
 
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
+import org.springframework.web.servlet.view.RedirectView;
 
 /**
  * Implementation of <strong>SimpleFormController</strong> that contains

@@ -15,7 +15,7 @@ public class <XDtClass:className/>FormControllerTest extends BaseControllerTestC
     protected void setUp() throws Exception {
         // needed to initialize a user
         super.setUp();
-        c = (<XDtClass:className/>FormController) ctx.getBean("<XDtClass:className/>FormController");
+        c = (<XDtClass:className/>FormController) ctx.getBean("<XDtForm:classNameLower/>FormController");
     }
 
     protected void tearDown() {

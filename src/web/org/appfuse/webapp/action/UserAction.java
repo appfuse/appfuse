@@ -39,6 +39,8 @@ import org.springframework.mail.SimpleMailMessage;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  *  Modified by <a href="mailto:dan@getrolling.com">Dan Kibler</a>
  *
+ * @struts.action name="userForm" path="/users" scope="request"
+ *  validate="false" input="mainMenu"
  * @struts.action name="userForm" path="/editUser" scope="request"
  *  validate="false" parameter="method" input="list" roles="admin"
  * @struts.action name="userForm" path="/editProfile" scope="request"
@@ -103,7 +105,7 @@ public final class UserAction extends BaseAction {
         mgr.removeUser(userForm.getUsername());
 
         messages.add(ActionMessages.GLOBAL_MESSAGE,
-                     new ActionMessage("user.deleted", userForm.getUsername()));
+                     new ActionMessage("user.deleted", userForm.getFullName()));
 
         saveMessages(request, messages);
 
@@ -247,7 +249,7 @@ public final class UserAction extends BaseAction {
             if ("".equals(request.getParameter("version"))) {
                 messages.add(ActionMessages.GLOBAL_MESSAGE,
                              new ActionMessage("user.added",
-                                               userForm.getUsername()));
+                                               userForm.getFullName()));
                 session.setAttribute(Globals.MESSAGE_KEY, messages);
                 sendNewUserEmail(request, userForm);
 
@@ -255,7 +257,7 @@ public final class UserAction extends BaseAction {
             } else {
                 messages.add(ActionMessages.GLOBAL_MESSAGE,
                              new ActionMessage("user.updated.byAdmin",
-                                               userForm.getUsername()));
+                                               userForm.getFullName()));
                 saveMessages(request, messages);
 
                 return mapping.findForward("edit");
@@ -281,6 +283,14 @@ public final class UserAction extends BaseAction {
 
         // return a forward to the user list definition
         return mapping.findForward("list");
+    }
+    
+    public ActionForward unspecified(ActionMapping mapping, ActionForm form,
+                                     HttpServletRequest request,
+                                     HttpServletResponse response)
+    throws Exception {
+        
+        return search(mapping, form, request, response);
     }
 
     private void sendNewUserEmail(HttpServletRequest request, UserForm userForm)

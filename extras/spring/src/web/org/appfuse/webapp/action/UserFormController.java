@@ -63,7 +63,7 @@ public class UserFormController extends BaseFormController {
 
         if (request.getParameter("delete") != null) {
             mgr.removeUser(user.getUsername());
-            saveMessage(request, getText("user.deleted", user.getUsername()));
+            saveMessage(request, getText("user.deleted", user.getFullName()));
 
             return new ModelAndView(new RedirectView("users.html"));
         } else {

@@ -27,7 +27,7 @@
 <table class="detail">
     <tr>
         <th>
-            <appfuse-spring:label key="uploadForm.name" />
+            <appfuse:label key="uploadForm.name" />
         </th>
         <td>
         	<spring:bind path="fileUpload.name">
@@ -38,7 +38,7 @@
     </tr>
     <tr>
         <th>
-            <appfuse-spring:label key="uploadForm.file"/>
+            <appfuse:label key="uploadForm.file"/>
         </th>
         <td>
         	<spring:bind path="fileUpload.file">

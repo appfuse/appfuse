@@ -105,14 +105,12 @@
                 <exclude name="target/**"/>
                 <exclude name="sandbox/**"/>
                 <exclude name="www/**"/>
-                <exclude name="README*.txt"/>
                 <exclude name="${webapp.name}*"/>
                 <exclude name="*.log"/>
                 <include name="**"/>
                 <exclude name=".#**"/>
             </fileset>
         </copy>
-        <copy file="${basedir}/README-new.txt" tofile="../${app.name}/README.txt"/>
         <replaceregexp flags="g">
             <regexp pattern="appfuse"/>
             <substitution expression="${app.name}"/>

@@ -194,15 +194,14 @@ public class BaseAction extends LookupDispatchAction {
         String keyName = null;
         
         if (parameter != null) {
-        	keyName = request.getParameter(parameter);
+            keyName = request.getParameter(parameter);
         }
         
         if ((keyName == null) || (keyName.length() == 0)) {
             for (int i = 0; i < rules.length; i++) {
                 // apply the rules for automatically appending the method name
                 if (request.getServletPath().indexOf(rules[i]) > -1) {
-                    return dispatchMethod(mapping, form, request, response,
-                            rules[i]);
+                    return dispatchMethod(mapping, form, request, response, rules[i]);
                 }
             }
 

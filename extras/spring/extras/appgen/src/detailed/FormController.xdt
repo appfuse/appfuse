@@ -50,7 +50,7 @@ public class <XDtClass:className/>FormController extends BaseFormController {
         } else {
             <XDtForm:classNameLower/>Manager.save<XDtClass:className/>(<XDtForm:classNameLower/>);
 
-            String key = (isNew) ? "<XDtForm:classNameLower/>.added" : "<XDtForm:classNameLower/>";
+            String key = (isNew) ? "<XDtForm:classNameLower/>.added" : "<XDtForm:classNameLower/>.updated";
             saveMessage(request, getText(key));
 
             if (!isNew) {

@@ -24,7 +24,7 @@ public class <XDtClass:className/>FormController extends BaseFormController {
 
         if (!StringUtils.isEmpty(id)) {
             <XDtForm:classNameLower/> = 
-                (<XDtClass:className/>) manager.getObject(<XDtClass:className/>.class, id);
+                (<XDtClass:className/>) manager.getObject(<XDtClass:className/>.class, new Long(id));
         } else {
             <XDtForm:classNameLower/> = new <XDtClass:className/>();
         }
@@ -45,13 +45,13 @@ public class <XDtClass:className/>FormController extends BaseFormController {
         String success = getSuccessView();
 
         if (request.getParameter("delete") != null) {
-            manager.removeObject(<XDtClass:className/>.class, <XDtForm:classNameLower/>.getId().toString());
+            manager.removeObject(<XDtClass:className/>.class, <XDtForm:classNameLower/>.getId());
 
             saveMessage(request, getText("<XDtForm:classNameLower/>.deleted"));
         } else {
             manager.saveObject(<XDtForm:classNameLower/>);
 
-            String key = (isNew) ? "<XDtForm:classNameLower/>.added" : "<XDtForm:classNameLower/>";
+            String key = (isNew) ? "<XDtForm:classNameLower/>.added" : "<XDtForm:classNameLower/>.updated";
             saveMessage(request, getText(key));
 
             if (!isNew) {

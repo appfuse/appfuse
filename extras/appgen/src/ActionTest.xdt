@@ -42,6 +42,7 @@ public class <XDtClass:className/>ActionTest extends BaseStrutsTestCase {
 
     public void testSearch() {
         setRequestPathInfo("/<XDtForm:classNameLower/>s");
+        addRequestParameter("method", "Search");
         
         actionPerform();
 
@@ -49,11 +50,12 @@ public class <XDtClass:className/>ActionTest extends BaseStrutsTestCase {
         assertNotNull(request.getAttribute(Constants.<XDtForm:classNameUpper/>_LIST));
         verifyNoActionErrors();
     }
-    
+
     public void testEdit() throws Exception {
         setRequestPathInfo("/edit<XDtClass:className/>");
         addRequestParameter("method", "Edit");
         addRequestParameter("id", "1");
+
         actionPerform();
 
         verifyForward("edit");
@@ -71,7 +73,7 @@ public class <XDtClass:className/>ActionTest extends BaseStrutsTestCase {
         <XDtClass:className/>Form <XDtForm:classNameLower/>Form =
             (<XDtClass:className/>Form) request.getAttribute(Constants.<XDtForm:classNameUpper/>_KEY);
         assertNotNull(<XDtForm:classNameLower/>Form);
-        
+
         setRequestPathInfo("/save<XDtClass:className/>");
         addRequestParameter("method", "Save");
 
@@ -98,6 +100,7 @@ public class <XDtClass:className/>ActionTest extends BaseStrutsTestCase {
         setRequestPathInfo("/edit<XDtClass:className/>");
         addRequestParameter("method", "Delete");
         addRequestParameter("id", "2");
+        
         actionPerform();
 
         verifyForward("list");

@@ -17,7 +17,7 @@ import <XDtForm:parentPackageName/>.webapp.form.<XDtClass:className/>Form;
 /**
  * Action class to handle CRUD on a <XDtClass:className/> object
  *
- * @struts.action name="<XDtForm:classNameLower/>" path="/<XDtForm:classNameLower/>s" scope="request"
+ * @struts.action name="<XDtForm:classNameLower/>Form" path="/<XDtForm:classNameLower/>s" scope="request"
  *  validate="false" parameter="method" input="mainMenu"
  * @struts.action name="<XDtForm:classNameLower/>Form" path="/edit<XDtClass:className/>" scope="request"
  *  validate="false" parameter="method" input="list"

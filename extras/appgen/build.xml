@@ -229,12 +229,14 @@
         <loadfile property="web.tests"
             srcfile="${generated.dir}/test/web/web-tests-${model.name}.xml"/>
         <!-- Add to the bottom of the list of tests -->   
-        <replace file="../../test/web/web-tests.xml">
+        <replace file="../../test/web/web-tests.xml" value="${web.tests}">
             <replacetoken><![CDATA[</project>]]></replacetoken>
         </replace>
-        <echo file="../../test/web/web-tests.xml" append="true" 
-            message="${web.tests}"/>
-        <!-- TODO: Add to run-all-tests target -->
+        <!-- Add to run-all-tests target -->
+        <replace file="../../test/web/web-tests.xml" value=",${model.name}Tests&quot;">
+            <replacetoken><![CDATA["
+        description="Call and executes all test cases (targets)"]]></replacetoken>
+        </replace>
 
         <!-- Append contents of .properties file to application resources -->
         <echo>Adding keys to ApplicationResources_en.properties</echo> 
@@ -305,9 +307,6 @@
         </ant>   
         <ant dir="../../../${app.name}" target="setup" inheritAll="false"/>   
         <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
-        <ant dir="../../../${app.name}" target="test-jsp" inheritAll="false">
-            <property name="testcase" value="PersonTests"/>
-        </ant>
     </target>      
 
     <!-- =================================================================== -->
@@ -340,9 +339,6 @@
         </ant>   
         <ant dir="../../../${app.name}" target="setup" inheritAll="false"/>   
         <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
-        <ant dir="../../../${app.name}" target="test-jsp" inheritAll="false">
-            <property name="testcase" value="PersonTests"/>
-        </ant>   
     </target>   
  
     <target name="test-all" depends="test"

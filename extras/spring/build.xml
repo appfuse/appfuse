@@ -71,16 +71,16 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         
         <!-- Modify appgen for Spring -->
         <echo level="info">Modifying appgen for Spring</echo>
-        <copy todir="../../extras/appgen" overwrite="true">
+        <copy todir="../appgen" overwrite="true">
             <fileset dir="extras/appgen" includes="**"/>
         </copy>
         <!-- Delete Struts-specific stuff in appgen -->
         <delete>
-            <fileset dir="../../extras/appgen" includes="**/Action*.xdt"/>
+            <fileset dir="../appgen" includes="**/Action*.xdt"/>
         </delete>
         <!-- Modify templates used in appgen/build.xml -->
-        <replace file="../../extras/appgen/build.xml">
-            <replacetoken><![CDATA[<!-- Action Test -->    
+        <replace file="../appgen/build.xml">
+            <replacetoken><![CDATA[<!-- Action Test -->
 		    <template templateFile="${template.dir}/ActionTest.xdt"
 		              acceptAbstractClasses="false"
 		              prefixWithPackageStructure="false"
@@ -122,7 +122,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
             <template templateFile="${template.dir}/generic/Controller.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/generic/src/web/${app.package}/webapp/action/{0}Controller.java"/>]]></replacevalue>
+                      destinationFile="${gen.dir}/generic/src/web/${app.package}/webapp/action/{0}Controller.java"/>
             <!-- Controller bean definitions -->
             <template templateFile="${template.dir}/action-servlet.xdt"
                       acceptAbstractClasses="false"
@@ -136,7 +136,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         </replace>
         
         <!-- Modify XML to modify action-servlet.xml -->
-        <replace file="../../extras/appgen">
+        <replace file="../appgen/build.xml">
             <replacetoken><![CDATA[<echo>Merging sample-data into metadata/sql/sample-data.xml</echo>]]></replacetoken>
             <replacevalue><![CDATA[
         <echo>Merging controller configuration XML into web/WEB-INF/action-servlet.xml</echo>
@@ -156,16 +156,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
 
         <echo>Merging sample-data into metadata/sql/sample-data.xml</echo>]]></replacevalue>
         </replace>
-        
-        <loadfile property="sample.data"
-            srcfile="${generated.dir}/metadata/sql/sample-data-${model.name}.xml"/>
-        <!-- Add to the bottom of the list of tables -->   
-        <replace file="../../metadata/sql/sample-data.xml" value="${sample.data}">
-            <replacetoken><![CDATA[</dataset>]]></replacetoken>
-        </replace>
-        
-        <echo>Merging sample-data into metadata/sql/sample-data.xml</echo>     
-        
+
         <!-- Copy source and tests -->    
         <echo level="info">Replacing source and test files</echo>
         <delete dir="../../src/web/org/appfuse/webapp/form"/>
@@ -383,9 +374,6 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         <ant dir="../../../${app.name}/extras/spring" target="install" inheritAll="false"/>
         <ant dir="../../../${app.name}" target="setup" inheritAll="false"/>
         <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
-
-        <!-- Test appgen -->
-        <ant dir="../../../${app.name}/extras/appgen" target="test" inheritAll="false"/>
         
         <echo>Start Tomcat to view ${app.name} manually.</echo>
     </target>
@@ -410,6 +398,24 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         <echo>Start Tomcat to view ${app.name} manually.</echo>
     </target>
 
+    <!-- =================================================================== -->
+    <!-- Creates new project, installs Spring MVC and tests appgen           -->
+    <!-- =================================================================== -->
+    <target name="test-appgen" description="Creates appfuse-spring tests appgen">
+        <property name="app.name" value="appfuse-spring"/>
+        <property name="db.name" value="appfuse"/>
+        <delete dir="../../../${app.name}"/>
+        <ant dir="../.." target="new"/>
+
+        <!-- New project created, install Spring MVC -->
+        <ant dir="../../../${app.name}/extras/spring" target="install" inheritAll="false"/>
+        <!-- Gen code and run tests -->
+        <ant dir="../../../${app.name}/extras/appgen" target="test" inheritAll="false">
+            <property name="model.name" value="Person"/>
+            <property name="model.name.lowercase" value="person"/>   
+        </ant>   
+    </target>
+    
     <target name="test-all" depends="test,test-ibatis"
         description="Tests Spring MVC install with Hibernate and iBATIS"/>
 </project>
