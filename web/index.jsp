@@ -7,7 +7,7 @@ and spits up a Server Not Found error
 --%>
 
 <c:if test="${applicationScope.secureLogin == 'true'}">
-    <appfuse:secure />
+    <appfuse:secure/>
 </c:if>
 
 <c:redirect url="/mainMenu.html"/>
