@@ -2,7 +2,6 @@ package org.appfuse.webapp.action;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.mail.MessagingException;
@@ -31,7 +30,6 @@ import org.appfuse.service.UserManager;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.form.UserForm;
 import org.appfuse.webapp.form.UserFormEx;
-import org.appfuse.webapp.form.UserRoleForm;
 import org.appfuse.webapp.util.RequestUtil;
 
 
@@ -45,7 +43,7 @@ import org.appfuse.webapp.util.RequestUtil;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.7 $ $Date: 2004/03/20 06:18:00 $
+ * @version $Revision: 1.8 $ $Date: 2004/03/22 19:36:39 $
  *
  * @struts.action name="userFormEx" path="/editUser" scope="request"
  *  validate="false" parameter="action" input="list" roles="admin"
