@@ -13,7 +13,7 @@
          methodParams="java.lang.Object,
                        org.apache.commons.validator.ValidatorAction,
                        org.apache.commons.validator.Field,
-                       org.apache.struts.action.ActionErrors,
+                       org.apache.struts.action.ActionMessages,
                        javax.servlet.http.HttpServletRequest"
          depends="required"
          msg="errors.twofields">

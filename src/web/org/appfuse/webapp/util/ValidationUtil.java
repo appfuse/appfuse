@@ -6,7 +6,7 @@ import org.apache.commons.validator.Field;
 import org.apache.commons.validator.GenericValidator;
 import org.apache.commons.validator.ValidatorAction;
 import org.apache.commons.validator.util.ValidatorUtils;
-import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionMessages;
 import org.apache.struts.validator.Resources;
 
 
@@ -19,7 +19,7 @@ import org.apache.struts.validator.Resources;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.1 $ $Date: 2004/03/01 06:19:24 $
+ * @version $Revision: 1.2 $ $Date: 2004/03/22 19:37:51 $
  */
 public class ValidationUtil {
     //~ Methods ================================================================
@@ -34,7 +34,7 @@ public class ValidationUtil {
      * @return boolean
      */
     public static boolean validateTwoFields(Object bean, ValidatorAction va,
-                                            Field field, ActionErrors errors,
+                                            Field field, ActionMessages errors,
                                             HttpServletRequest request) {
         String value =
             ValidatorUtils.getValueAsString(bean, field.getProperty());
