@@ -11,13 +11,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockServletContext;
+import org.springframework.web.context.support.XmlWebApplicationContext;
 
 public class BaseControllerTestCase extends TestCase {
-    private static Log log = LogFactory.getLog(BaseControllerTestCase.class);
-    protected static ApplicationContext ctx;
+    protected static XmlWebApplicationContext ctx;
     protected static ResourceBundle login;
     protected User user;
 
@@ -30,8 +29,10 @@ public class BaseControllerTestCase extends TestCase {
                           "/applicationContext-" + daoType + ".xml",
                           "/applicationContext-service.xml",
                           "/action-servlet.xml"};
-
-        ctx = new ClassPathXmlApplicationContext(paths);
+        ctx = new XmlWebApplicationContext();
+        ctx.setConfigLocations(paths);
+        ctx.setServletContext(new MockServletContext(""));
+        ctx.refresh();
         login = ResourceBundle.getBundle(LoginServletTest.class.getName());
     }
 

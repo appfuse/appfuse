@@ -30,7 +30,7 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.3 $ $Date: 2004/05/16 02:15:01 $
+ * @version $Revision: 1.4 $ $Date: 2004/08/03 04:36:16 $
  */
 public class BaseFormController extends SimpleFormController {
     private static Log log = LogFactory.getLog(BaseFormController.class);
@@ -69,14 +69,13 @@ public class BaseFormController extends SimpleFormController {
      *
      * @return the user's populated form from the session
      */
-    public HashMap getConfiguration() {
-        // so unit tests don't puke
-        if (getApplicationContext() instanceof ClassPathXmlApplicationContext) {
-        	return new HashMap();
-        } else {
-        	return (HashMap) getServletContext().getAttribute(Constants.CONFIG);
+    public Map getConfiguration() {
+        Map config = (HashMap) getServletContext().getAttribute(Constants.CONFIG);
+        // so unit tests don't puke when nothing's been set
+        if (config == null) {
+            return new HashMap();
         }
-        
+        return config;
     }
     
     /**

@@ -122,4 +122,15 @@
 		<property name="validatorFactory"><ref bean="validatorFactory"/></property>
 	</bean>
 
+    <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles.TilesConfigurer">
+       <property name="factoryClass">
+           <value>org.apache.struts.tiles.xmlDefinition.I18nFactorySet</value>
+       </property>
+       <property name="definitions">
+           <list>
+               <value>/WEB-INF/tiles-config.xml</value>
+           </list>
+       </property>
+    </bean>
+
 </beans>
