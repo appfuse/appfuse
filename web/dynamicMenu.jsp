@@ -189,12 +189,12 @@ to copy and/or improve.
     </div>
 
     <p>
-        Now let's build a Menu definition with this data.  Below the menu is the
+        Now let's build a Menu definition with this data.  Below is the
         Java scriplet code that is used to build this menu.  In a well-architected
         application, this code would likely go in a ServletFilter, a ContextListener
         or a Login Servlet.  With a Filter, you could create a user's menu
         when they login.  A Listener would handle setting database menus for everyone
-        and a Login Servlet could be used if you're using a Servlet 2.2 container.
+        at startup and a Login Servlet could be used if you're using a Servlet 2.2 container.
     </p>
 
     <%
@@ -312,14 +312,14 @@ to copy and/or improve.
     <p><code style="color: red">---- end scriplet code ----</code></p>
     
     <p>Now that we've built our menu repository, we can easily display it with the following code:</p>
-    <p><pre>&lt;menu:useMenuDisplayer name="ListMenu" key="repository"&gt;
+    <p><pre>&lt;menu:useMenuDisplayer name="ListMenu" repository="repository"&gt;
     &lt;menu:displayMenu name="DatabaseMenu"/&gt;
     &lt;menu:displayMenu name="StandaloneMenu"/&gt;
 &lt;/menu:useMenuDisplayer&gt;</pre></p>
     
     <p>Which results in:</p>
-    <div id="menu" style="position: relative; top: 0; left: 0; margin-bottom: 10px">
-        <menu:useMenuDisplayer name="ListMenu" key="repository">
+    <div id="menu" style="position: relative; top: 0; left: 0; border: 1px solid silver; width: 175px">
+        <menu:useMenuDisplayer name="ListMenu" repository="repository">
             <menu:displayMenu name="DatabaseMenu"/>
             <menu:displayMenu name="StandaloneMenu"/>
         </menu:useMenuDisplayer>
