@@ -4,3 +4,6 @@
     <listener>
         <listener-class>net.sf.navigator.menu.MenuContextListener</listener-class>
     </listener>
+    <listener>
+        <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+    </listener>
