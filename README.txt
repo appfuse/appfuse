@@ -63,6 +63,8 @@ steps:
 
 Features/Changes in 1.5
 =======================
+- Removed Struts dependency from "services" layer.  Actions can use a convert()
+  method to transfer POJOs to Forms and vise versa.
 - Fixed bug where logout didn't work when Remember Me was disabled (issue #3).
 - Fixed bug in struts_form.xdt where invalid code generated for ObjectFactory
   inner class (issue #2).
@@ -74,6 +76,8 @@ Features/Changes in 1.5
 - Added JSTL SQL Tags example (at http://localhost:8080/appfuse/users.jsp).  
   Updated Display Tag Library to support iterating the results from such a 
   query.
+- Added BaseDAOHibernate with convenience methods: getObject(), saveObject,
+  removeObject().
 - TODO: Spring for MVC Layer
 - TODO: Modify Cactus so "runcontainer" task can be used to start/stop Tomcat
   and Resin can be easily used instead of Tomcat.
