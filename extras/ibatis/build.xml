@@ -232,7 +232,7 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
 #
 # Hibernate - http://hibernate.sf.net/
 #
-hibernate.version=2.1.6
+hibernate.version=2.1.7
 hibernate.dir=${lib.dir}/hibernate-${hibernate.version}
 hibernate.jar=${hibernate.dir}/hibernate2.jar]]></replacetoken>
             <replacevalue><![CDATA[dbunit.jar=${dbunit.dir}/dbunit-${dbunit.version}.jar]]></replacevalue>
@@ -269,15 +269,15 @@ hibernate.jar=${hibernate.dir}/hibernate2.jar]]></replacetoken>
 
         <echo level="info">Modifying Eclipse .classpath file</echo>
         <replace file="../../.classpath">
-            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/hibernate-2.1.6/lib/c3p0-0.8.4.5.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-2.1.6/hibernate2.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-2.1.6/lib/cglib-full-2.0.2.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-2.1.6/lib/dom4j-1.4.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-2.1.6/lib/ehcache-0.9.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-2.1.6/lib/jta.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-2.1.6/lib/odmg-3.0.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-2.1.6/lib/oscache-2.0.1.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-2.1.6/lib/swarmcache-1.0rc2.jar"/>]]></replacetoken>
+            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/hibernate-2.1.7/lib/c3p0-0.8.4.5.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-2.1.7/hibernate2.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-2.1.7/lib/cglib-full-2.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-2.1.7/lib/dom4j-1.4.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-2.1.7/lib/ehcache-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-2.1.7/lib/jta.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-2.1.7/lib/odmg-3.0.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-2.1.7/lib/oscache-2.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-2.1.7/lib/swarmcache-1.0rc2.jar"/>]]></replacetoken>
             <replacevalue></replacevalue>
         </replace>
         
