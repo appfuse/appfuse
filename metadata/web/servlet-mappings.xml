@@ -1,5 +1,5 @@
     <!-- Standard Action Servlet Mapping -->
     <servlet-mapping>
         <servlet-name>action</servlet-name>
-        <url-pattern>*.do</url-pattern>
+        <url-pattern>*.html</url-pattern>
     </servlet-mapping>

@@ -257,7 +257,7 @@ hibernate.jar=${hibernate.dir}/hibernate2.jar]]></replacetoken>
         <replace file="../../build.xml">
             <replacetoken><![CDATA[<filter token="HIBERNATE-DIALECT" value="${hibernate.dialect}"/>
         <filter token="DAO-TYPE" value="${dao.type}"/>]]></replacetoken>
-            <replacevalue></replacevalue>
+            <replacevalue><![CDATA[<filter token="DAO-TYPE" value="${dao.type}"/>]]></replacevalue>
         </replace>
 
         <!-- Remove hibernatedoclet taskdef from "ejbdoclet" target -->

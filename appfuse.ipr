@@ -274,7 +274,7 @@
       <module fileurl="file://$PROJECT_DIR$/appfuse.iml" filepath="$PROJECT_DIR$/appfuse.iml" />
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" assert-keyword="false" />
+  <component name="ProjectRootManager" version="2" assert-keyword="false" project-jdk-name="Default" />
   <component name="Regex">
     <option name="pos1" value="218" />
     <option name="pos2" value="218" />

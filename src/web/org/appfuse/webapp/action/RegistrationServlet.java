@@ -37,7 +37,7 @@ import org.springframework.web.context.WebApplicationContext;
  * <p><a href="RegistrationServlet.java.html"><i>View Source</i></a></p>
  *
  * @author Matt Raible
- * @version $Revision: 1.3 $ $Date: 2004/04/12 02:37:09 $
+ * @version $Revision: 1.4 $ $Date: 2004/04/29 23:01:29 $
  * @web.servlet display-name="Registration Servlet"
  * name="register"
  * load-on-startup="4"
@@ -238,7 +238,7 @@ public final class RegistrationServlet extends HttpServlet {
         }
 
         // send to welcome page
-        String route = request.getContextPath() + "/mainMenu.do";
+        String route = request.getContextPath() + "/mainMenu.html";
 
         if (log.isDebugEnabled()) {
             log.debug("routing user to: " + route);

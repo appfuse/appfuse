@@ -25,7 +25,7 @@ import org.appfuse.webapp.util.SslUtil;
  * <p><a href="LoginServlet.java.html"><i>View Source</i></a></p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.2 $ $Date: 2004/04/12 02:37:09 $
+ * @version $Revision: 1.3 $ $Date: 2004/04/29 23:01:29 $
  *
  * @web.servlet
  *     display-name="Login Servlet"
@@ -187,7 +187,7 @@ public final class LoginServlet extends HttpServlet {
                           "' already logged in, routing to mainMenu");
             }
 
-            response.sendRedirect(request.getContextPath() + "/mainMenu.do");
+            response.sendRedirect(request.getContextPath() + "/mainMenu.html");
 
             return;
         }

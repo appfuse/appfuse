@@ -82,7 +82,7 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
         <replace file="../../metadata/web/filter-mappings.xml">
         <replacetoken><![CDATA[<filter-mapping>
         <filter-name>hibernateFilter</filter-name>
-        <url-pattern>*.do</url-pattern>
+        <url-pattern>*.html</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>hibernateFilter</filter-name>
@@ -94,7 +94,7 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
     </filter-mapping>]]></replacetoken>
             <replacevalue><![CDATA[<!--filter-mapping>
         <filter-name>hibernateFilter</filter-name>
-        <url-pattern>*.do</url-pattern>
+        <url-pattern>*.html</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>hibernateFilter</filter-name>
@@ -171,7 +171,7 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
         <replace file="../../metadata/web/filter-mappings.xml">
         <replacetoken><![CDATA[<!--filter-mapping>
         <filter-name>hibernateFilter</filter-name>
-        <url-pattern>*.do</url-pattern>
+        <url-pattern>*.html</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>hibernateFilter</filter-name>
@@ -183,7 +183,7 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
     </filter-mapping-->]]></replacetoken>
             <replacevalue><![CDATA[<filter-mapping>
         <filter-name>hibernateFilter</filter-name>
-        <url-pattern>*.do</url-pattern>
+        <url-pattern>*.html</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>hibernateFilter</filter-name>
@@ -367,7 +367,7 @@ hibernate.jar=${hibernate.dir}/hibernate2.jar]]></replacetoken>
          same if it's enabled or disabled. -->
     <filter-mapping>
         <filter-name>hibernateFilter</filter-name>
-        <url-pattern>*.do</url-pattern>
+        <url-pattern>*.html</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>hibernateFilter</filter-name>
