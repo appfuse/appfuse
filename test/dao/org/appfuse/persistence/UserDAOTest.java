@@ -98,7 +98,7 @@ public class UserDAOTest extends BaseDAOTestCase {
         
         try {
             user = dao.getUser("testuser");
-            fail("Expected 'ObjectNotFoundException' not thrown");
+            fail("Expected 'DAOException' not thrown");
         } catch (DAOException d) {
             if (log.isDebugEnabled()) {
                 log.debug(d);
