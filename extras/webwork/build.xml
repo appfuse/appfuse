@@ -225,12 +225,12 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         </replace>
         <replace file="../../.classpath">
             <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/struts.jar"/>
-    <classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/struts-el.jar"/>]]></replacetoken>
+	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/struts-el.jar"/>]]></replacetoken>
             <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/webwork-2.1.1/ognl.jar"/>
-    <classpathentry kind="lib" path="lib/webwork-2.1.1/oscore.jar"/>
-    <classpathentry kind="lib" path="lib/webwork-2.1.1/spring-xwork-integration.jar"/>
-    <classpathentry kind="lib" path="lib/webwork-2.1.1/webwork-2.1.1.jar"/>
-    <classpathentry kind="lib" path="lib/webwork-2.1.1/xwork-1.0.3.jar"/>]]></replacevalue>
+	<classpathentry kind="lib" path="lib/webwork-2.1.1/oscore.jar"/>
+	<classpathentry kind="lib" path="lib/webwork-2.1.1/spring-xwork-integration.jar"/>
+	<classpathentry kind="lib" path="lib/webwork-2.1.1/webwork-2.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/webwork-2.1.1/xwork-1.0.3.jar"/>]]></replacevalue>
         </replace>
 
         <echo level="info">Refactoring build.xml</echo>

@@ -35,7 +35,7 @@
             <replacevalue><![CDATA[#
 # iBATIS - http://www.ibatis.com/
 #
-ibatis.version 	        = 2.0.7
+ibatis.version=2.0.7
 ibatis.dir=${lib.dir}/ibatis-${ibatis.version}
 ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
 
@@ -132,7 +132,7 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
             <replacetoken><![CDATA[#
 # iBATIS - http://www.ibatis.com/
 #
-ibatis.version 	        = 2.0.7
+ibatis.version=2.0.7
 ibatis.dir=${lib.dir}/ibatis-${ibatis.version}
 ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
 
@@ -232,7 +232,7 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
 #
 # Hibernate - http://hibernate.sf.net/
 #
-hibernate.version       = 2.1.6
+hibernate.version=2.1.6
 hibernate.dir=${lib.dir}/hibernate-${hibernate.version}
 hibernate.jar=${hibernate.dir}/hibernate2.jar]]></replacetoken>
             <replacevalue><![CDATA[dbunit.jar=${dbunit.dir}/dbunit-${dbunit.version}.jar]]></replacevalue>
@@ -333,7 +333,6 @@ hibernate.jar=${hibernate.dir}/hibernate2.jar]]></replacetoken>
         </hibernatedoclet>
     </target>
 ]]></replacetoken>
-            <replacevalue></replacevalue>
         </replace>
 
         <!-- Replace 'hibernatedoclet' dependencies with "init" -->
@@ -344,7 +343,7 @@ hibernate.jar=${hibernate.dir}/hibernate2.jar]]></replacetoken>
 
         <!-- Remove JARs from being includes in WAR -->
         <replace file="../../build.xml">
-            <replacetoken><![CDATA[<lib file="${displaytag.jar}"/>
+            <replacetoken><![CDATA[<lib dir="${displaytag.dir}" includes="*.jar"/>
             <lib file="${hibernate.jar}"/>
             <lib dir="${hibernate.dir}/lib">
                 <include name="odmg*.jar"/>
@@ -353,7 +352,7 @@ hibernate.jar=${hibernate.dir}/hibernate2.jar]]></replacetoken>
                 <include name="ehcache*.jar"/>
                 <include name="oscache*.jar"/>
             </lib>]]></replacetoken>
-            <replacevalue><![CDATA[<lib file="${displaytag.jar}"/>]]></replacevalue>
+            <replacevalue><![CDATA[<lib dir="${displaytag.dir}" includes="*.jar"/>]]></replacevalue>
         </replace>
 
         <echo level="info">Replacing "schemaexport" with "sql"</echo>
