@@ -2,7 +2,7 @@
 <!DOCTYPE page-specification PUBLIC
     "-//Apache Software Foundation//Tapestry Specification 3.0//EN"
     "http://jakarta.apache.org/tapestry/dtd/Tapestry_3_0.dtd">
-    
+
 <page-specification class="org.appfuse.webapp.action.<XDtClass:className/>Form">
     <bean name="delegate" class="org.appfuse.webapp.action.Validator"/>
 
@@ -27,5 +27,4 @@
 
 	</XDtForm:ifIsNotIdField>
     </XDtForm:forAllFields>
-
 </page-specification>

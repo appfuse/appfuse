@@ -19,8 +19,7 @@ public abstract class <XDtClass:className/>List extends BasePage implements Page
         set<XDtClass:className/>s(get<XDtClass:className/>Manager().get<XDtClass:className/>s(null));
     }
 
-    public void edit(IRequestCycle cycle) {
-        <XDtClass:className/>Form nextPage = (<XDtClass:className/>Form) cycle.getPage("<XDtForm:classNameLower/>Form");
+    public void edit(IRequestCycle cycle) {        
         Object[] parameters = cycle.getServiceParameters();
         Long id = (Long) parameters[0];
 
@@ -29,6 +28,8 @@ public abstract class <XDtClass:className/>List extends BasePage implements Page
         }
 
         <XDtClass:className/> <XDtForm:classNameLower/> = get<XDtClass:className/>Manager().get<XDtClass:className/>(id.toString());
+
+        <XDtClass:className/>Form nextPage = (<XDtClass:className/>Form) cycle.getPage("<XDtForm:classNameLower/>Form");
         nextPage.set<XDtClass:className/>(<XDtForm:classNameLower/>);
         cycle.activate(nextPage);
     }

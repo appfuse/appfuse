@@ -3,7 +3,7 @@
     <target name="<XDtClass:className/>Tests"
         depends="Search<XDtClass:className/>s,Edit<XDtClass:className/>,Save<XDtClass:className/>,Add<XDtClass:className/>,Delete<XDtClass:className/>"
         description="Call and executes all person test cases (targets)">
-        <echo>Successfully ran all <XDtClass:className/> JSP tests!</echo>
+        <echo>Successfully ran all <XDtClass:className/> HTML tests!</echo>
     </target>
 
     <!-- Verify the edit person screen displays without errors -->

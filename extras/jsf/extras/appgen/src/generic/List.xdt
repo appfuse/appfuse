@@ -12,7 +12,7 @@ public class <XDtClass:className/>List extends BasePage implements Serializable 
     public void setManager(Manager manager) {
         this.manager = manager;
     }
-    
+
     public List get<XDtClass:className/>s() {
         return manager.getObjects(<XDtClass:className/>.class);
     }

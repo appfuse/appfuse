@@ -3,7 +3,7 @@ JSF Integration Instructions
 
 More information on my integration of JSF can be found at:
 
-http://raibledesigns.com/page/rd?anchor=integrating_jsf_into_appfuse
+http://raibledesigns.com/page/rd?anchor=integrating_jsf_and_tapestry_into_appfuse
 
 To install JSF as your web framework, you need to navigate to this
 directory from the command line.  Then you can execute any of the following

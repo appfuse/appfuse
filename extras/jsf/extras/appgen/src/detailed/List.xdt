@@ -11,7 +11,7 @@ public class <XDtClass:className/>List extends BasePage implements Serializable 
     public void set<XDtClass:className/>Manager(<XDtClass:className/>Manager manager) {
         this.<XDtForm:classNameLower/>Manager = manager;
     }
-    
+
     public List get<XDtClass:className/>s() {
         return <XDtForm:classNameLower/>Manager.get<XDtClass:className/>s(null);
     }

@@ -476,6 +476,9 @@ tapestry.jar=${tapestry.dir}/tapestry-${tapestry.version}.jar]]></replacevalue>
             <replacetoken><![CDATA[<lib dir="${strutstestcase.dir}" includes="*.jar"/>]]></replacetoken>
         </replace>
         
+        <!-- Change test-jsp to test-html -->
+        <replace file="../../build.xml" token="test-jsp" value="test-html"/>
+        
         <echo level="info">Removing other web framework options</echo>
         <delete dir="../../extras/jsf"/>
         <delete dir="../../extras/spring"/>
