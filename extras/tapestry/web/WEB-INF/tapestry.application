@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE application 
+    PUBLIC "-//Apache Software Foundation//Tapestry Specification 3.0//EN"     
+    "http://jakarta.apache.org/tapestry/dtd/Tapestry_3_0.dtd"> 
+    
+<application name="tapestry" engine-class="org.appfuse.webapp.action.BaseEngine"> 
+
+    <property name="org.apache.tapestry.page-url-suffix" value=".html"/>
+    <property name="org.apache.tapestry.service-url-suffix" value=".xml"/>
+    <property name="org.apache.tapestry.global-properties" value="ApplicationResources"/>
+    <property name="org.apache.tapestry.visit-class" value="org.appfuse.webapp.action.Visit"/>
+    
+    <library id="contrib" specification-path="/org/apache/tapestry/contrib/Contrib.library"/> 
+    
+    <page name="Home" specification-path="pages/mainMenu.page"/>
+    <page name="activeUsers" specification-path="pages/activeUsers.page"/>
+    <page name="mainMenu" specification-path="pages/mainMenu.page"/>
+    <page name="passwordHint" specification-path="pages/passwordHint.page"/>
+    <page name="reload" specification-path="pages/reload.page"/>
+    <page name="selectFile" specification-path="pages/selectFile.page"/>
+    <page name="showFile" specification-path="pages/showFile.page"/>
+    <page name="signup" specification-path="pages/signup.page"/>
+    <page name="userForm" specification-path="pages/userForm.page"/>
+    <page name="users" specification-path="pages/users.page"/>
+    
+    <extension name="org.apache.tapestry.multipart-decoder"
+    	class="org.apache.tapestry.multipart.DefaultMultipartDecoder">
+        <!-- Max size (in bytes) for uploaded files -->
+    	<configure property-name="maxSize" type="double" value="2097152"/>
+  	</extension>
+    
+    <service name="home" class="org.appfuse.webapp.tapestry.HomeService"/>
+    <service name="restart" class="org.appfuse.webapp.tapestry.RestartService"/>
+    <service name="reset" class="org.appfuse.webapp.tapestry.ResetService"/>
+    <service name="page" class="org.appfuse.webapp.tapestry.PageService"/>
+    <service name="external" class="org.appfuse.webapp.tapestry.ExternalService"/>
+    <service name="direct" class="org.appfuse.webapp.tapestry.DirectService"/>
+    <service name="action" class="org.appfuse.webapp.tapestry.ActionService"/>
+    <service name="asset" class="org.appfuse.webapp.tapestry.AssetService"/>
+</application>

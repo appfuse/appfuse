@@ -1,0 +1,220 @@
+<head>
+    <title><span key="userProfile.title"/></title>
+    <content tag="heading"><span key="userProfile.heading"/></content>
+</head>
+
+<body jwcid="@Body">
+
+<!-- Error Messages -->
+<span jwcid="@Conditional" condition="ognl:beans.delegate.hasErrors">
+	<div class="error">
+        <img jwcid="@Any" src="ognl:engine.contextPath+'/images/iconWarning.gif'"
+                alt="message:icon.warning" class="icon" />
+	    <span jwcid="@Delegator" delegate="ognl:beans.delegate.firstError" raw="true">
+	        Error Message
+	    </span>
+	</div>
+</span>
+
+<!-- Success Messages -->
+<span jwcid="@Conditional" condition="ognl:message != null">
+    <div class="message">
+        <img jwcid="@Any" src="ognl:engine.contextPath+'/images/iconInformation.gif'"
+                alt="message:icon.information" class="icon" />
+        <span jwcid="@Insert" value="ognl:message" raw="true"/>
+    </div>
+</span>
+
+<div jwcid="@Conditional" condition="ognl:from == 'list'"><span key="userProfile.admin.message">message for admins</span></div>
+<div jwcid="@Conditional" condition="ognl:from != 'list'"><span key="userProfile.message">instructional message</span></div>
+
+<div class="separator"></div>
+  
+<form jwcid="userForm@Form" delegate="ognl:beans.delegate" id="userForm">
+<input jwcid="from@Hidden" type="hidden" id="from" value="ognl:from"/>
+<input jwcid="version@Hidden" type="hidden" value="ognl:user.version"/>
+<input jwcid="originalPassword@Hidden" type="hidden" value="ognl:user.password"/>
+
+<div jwcid="@contrib:FormConditional" condition="ognl:requestCycle.requestContext.session.getAttribute('cookieLogin') == 'true'">
+    <input jwcid="@Hidden" id="password" value="ognl:user.password"/>
+    <input jwcid="@Hidden" id="confirmPassword" value="ognl:user.confirmPassword"/>
+</div>
+
+<span jwcid="@contrib:FormConditional" condition="ognl:user.username == null">
+    <input type="hidden" name="encryptPass" value="true" />
+</span>
+
+<table class="detail">
+    <tr>
+        <th>
+            <label jwcid="@FieldLabel" field="ognl:components.usernameField">Username</label>
+        </th>
+        <td>
+            <div jwcid="@contrib:FormConditional" condition="ognl:user.username == '' || user.username == null">
+                <input jwcid="usernameField" type="text" id="username"/>
+            </div>
+            <div jwcid="@contrib:FormConditional" condition="ognl:user.username != null">
+                <span jwcid="@Insert" value="ognl:user.username"/>
+                <input jwcid="@Hidden" type="hidden" value="ognl:user.username" id="username"/>
+            </div>
+        </td>
+    </tr>
+    <div jwcid="@contrib:FormConditional" condition="ognl:requestCycle.requestContext.session.getAttribute('cookieLogin') != 'true'">
+    <tr>
+        <th>
+            <label jwcid="@FieldLabel" field="ognl:components.passwordField">Password</label>
+        </th>
+        <td>
+            <input jwcid="passwordField" type="password" id="password" size="40"/>
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <label jwcid="@FieldLabel" field="ognl:components.confirmPasswordField">Confirm Password</label>
+        </th>
+        <td>
+            <input jwcid="confirmPasswordField" type="password" id="confirmPassword" size="40"/>
+        </td>
+    </tr>
+    </div>
+    <tr>
+        <th>
+            <label jwcid="@FieldLabel" field="ognl:components.firstNameField">First Name</label>
+        </th>
+        <td><input jwcid="firstNameField" type="text" id="firstName"/></td>
+    </tr>
+    <tr>
+        <th>
+            <label jwcid="@FieldLabel" field="ognl:components.lastNameField">Last Name</label>
+        </th>
+        <td><input jwcid="lastNameField" type="text" id="lastName"/></td>
+    </tr>
+    <tr>
+        <th>
+            <label jwcid="@Label" for="address" key="user.address.address">Address</label>
+        </th>
+        <td><input jwcid="addressField" type="text" id="address" size="50"/></td>
+    </tr>
+    <tr>
+        <th>
+            <label jwcid="@FieldLabel" field="ognl:components.cityField">City</label>
+        </th>
+        <td><input jwcid="cityField" type="text" id="city" size="40"/></td>
+    </tr>
+    <tr>
+        <th>
+            <label jwcid="@FieldLabel" field="ognl:components.stateField">State</label>
+        </th>
+        <td>
+            <input jwcid="stateField" type="text" id="city" size="40"/>
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <!-- Doesn't work label jwcid="@FieldLabel" field="ognl:components.countryField">Country</label-->
+            <label class="required" for="countryField">* <span key="user.address.country">Country</span>:</label>
+        </th>
+        <td>
+            <select jwcid="countryField" size="1">
+                <option></option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <label jwcid="@FieldLabel" field="ognl:components.postalCodeField">Zip</label>
+        </th>
+        <td>
+            <input jwcid="postalCodeField" type="text" id="postalCode" size="10"/>
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <label jwcid="@FieldLabel" field="ognl:components.emailField">E-Mail</label>
+        </th>
+        <td>
+            <input jwcid="emailField" type="text" id="email" size="50"/>
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <label jwcid="@Label" for="phoneNumber" key="user.phoneNumber"/>
+        </th>
+        <td>
+            <input jwcid="phoneNumberField" type="text" id="phoneNumber"/>
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <label jwcid="@FieldLabel" field="ognl:components.websiteField">Website</label>
+        </th>
+        <td>
+            <input jwcid="websiteField" type="text" id="website" size="50"/>
+            <span jwcid="@Conditional" condition="ognl:user.website != null">
+                <a jwcid="@Any" href="ognl:user.website"><span key="user.visitWebsite"/></a>
+            </span>
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <label jwcid="@FieldLabel" field="ognl:components.passwordHintField">Password Hint</label>
+        </th>
+        <td>
+            <input jwcid="passwordHintField" type="text" id="passwordHint" size="50"/>
+        </td>
+    </tr>
+    <div jwcid="@contrib:FormConditional" condition="ognl:from == 'list'">
+    <tr>
+        <td></td>
+        <td>
+            <fieldset class="pickList">
+                <legend>
+                    <span key="userProfile.assignRoles"/>
+                </legend>
+                <table class="pickList">
+                    <tr>
+                        <td>
+                            <input type="checkbox" jwcid="userRoles"/>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+        </td>
+    </tr>
+    </div>
+    <div jwcid="@contrib:FormConditional" condition="ognl:from != 'list'">
+    <tr>
+        <th>
+            <label jwcid="@Label" for="hiddenUserRoles" key="user.roles"/>
+        </th>
+        <td>
+            <input jwcid="hiddenUserRoles" type="hidden"/>
+        </td>
+    </tr>
+    </div>
+    <tr>
+        <td></td>
+        <td class="buttonBar">
+            <input type="submit" class="button" jwcid="@Submit" value="message:button.save" id="save" listener="ognl:listeners.save"/>
+          <span jwcid="@contrib:FormConditional" condition="ognl:user.username != null">
+            <input type="submit" class="button" jwcid="@Submit" value="message:button.delete" id="delete" listener="ognl:listeners.delete"
+                onclick="form.onsubmit = null"/> <!-- Removed confirm since WebTest can't handle it: ;return confirmDelete('User') -->
+          </span>
+            <input type="submit" class="button" jwcid="@Submit" value="message:button.cancel" id="cancel" listener="ognl:listeners.cancel"
+                onclick="form.onsubmit = null"/>
+        </td>
+    </tr>
+</table>
+</form>
+
+<script type="text/javascript">
+<span jwcid="@Conditional" condition="ognl:user.username == null">
+    document.getElementById("username").focus();
+</span>
+<span jwcid="@Conditional" condition="ognl:user.username != null">
+    document.getElementById("password").focus();
+</span>
+    highlightFormElements();
+</script>
+
+</body>

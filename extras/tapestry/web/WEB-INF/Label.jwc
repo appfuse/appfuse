@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE component-specification PUBLIC
+  "-//Apache Software Foundation//Tapestry Specification 3.0//EN"
+  "http://jakarta.apache.org/tapestry/dtd/Tapestry_3_0.dtd">
+
+<component-specification allow-informal-parameters="yes">
+    <parameter name="key" direction="in" required="yes" type="java.lang.String"/>
+    <component id="label" type="Any" inherit-informal-parameters="yes"/>
+</component-specification>

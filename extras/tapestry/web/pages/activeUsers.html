@@ -1,0 +1,18 @@
+<title><span key="activeUsers.title"/></title>
+<content tag="heading"><span key="activeUsers.heading"/></content>
+<body id="activeUsers"/>
+
+<span key="activeUsers.message"/>
+
+<div class="separator"></div>
+
+<button type="button" onclick="location.href='mainMenu.html'">
+    <span key="button.cancel"/>
+</button>
+  
+<table jwcid="table@contrib:Table" class="list activeUserList" id="user"
+    rowsClass="ognl:beans.evenOdd.next" row="ognl:row" 
+    columns="user.username:username, activeUsers.fullName:fullName" 
+    source="ognl:getServletContext().getAttribute('userNames')" initialSortColumn="user.username"
+    arrowUpAsset="ognl:assets.upArrow" arrowDownAsset="ognl:assets.downArrow">
+</table>

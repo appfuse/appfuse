@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE page-specification
+      PUBLIC "-//Apache Software Foundation//Tapestry Specification 3.0//EN"
+      "http://jakarta.apache.org/tapestry/dtd/Tapestry_3_0.dtd">
+
+<page-specification class="org.appfuse.webapp.action.FileDisplay">    
+    <property-specification name="name" type="java.lang.String"/>
+    <property-specification name="file" type="org.apache.tapestry.request.IUploadFile"/>
+    <property-specification name="filePath" type="java.lang.String"/>
+    <property-specification name="url" type="java.lang.String"/>
+</page-specification>

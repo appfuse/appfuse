@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE page-specification
+      PUBLIC "-//Apache Software Foundation//Tapestry Specification 3.0//EN"
+      "http://jakarta.apache.org/tapestry/dtd/Tapestry_3_0.dtd">
+
+<page-specification class="org.appfuse.webapp.action.FileUpload"> 
+    <bean name="delegate" class="org.apache.tapestry.valid.ValidationDelegate"/>
+       
+    <property-specification name="name" type="java.lang.String"/>
+    <property-specification name="file" type="org.apache.tapestry.request.IUploadFile"/>
+
+    <bean name="requiredValidator" class="org.apache.tapestry.valid.StringValidator">
+        <set-property name="required" expression="true"/>
+        <set-property name="clientScriptingEnabled" expression="true"/>
+    </bean>
+    
+    <component id="nameField" type="ValidField">
+        <binding name="value" expression="name"/>
+        <binding name="validator" expression="beans.requiredValidator"/>
+        <message-binding name="displayName" key="uploadForm.name"/>
+    </component>
+</page-specification>
