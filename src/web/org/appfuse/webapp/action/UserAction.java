@@ -8,13 +8,14 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.struts.Globals;
+
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.util.MessageResources;
+
 import org.appfuse.Constants;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
@@ -25,6 +26,7 @@ import org.appfuse.service.UserManager;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.form.UserForm;
 import org.appfuse.webapp.util.RequestUtil;
+
 import org.springframework.mail.SimpleMailMessage;
 
 /**
@@ -105,7 +107,8 @@ public final class UserAction extends BaseAction {
         mgr.removeUser(userForm.getUsername());
 
         messages.add(ActionMessages.GLOBAL_MESSAGE,
-                     new ActionMessage("user.deleted", userForm.getFullName()));
+                     new ActionMessage("user.deleted", userForm.getFirstName()
+                                       + ' ' + userForm.getLastName()));
 
         saveMessages(request, messages);
 
@@ -220,7 +223,7 @@ public final class UserAction extends BaseAction {
         BeanUtils.copyProperties(userForm, convert(user));
         userForm.setConfirmPassword(userForm.getPassword());
         updateFormBean(mapping, request, userForm);
-
+        
         if (!StringUtils.equals(request.getParameter("from"), "list")) {
             session.setAttribute(Constants.USER_KEY, user);
 
@@ -248,16 +251,15 @@ public final class UserAction extends BaseAction {
             // add success messages
             if ("".equals(request.getParameter("version"))) {
                 messages.add(ActionMessages.GLOBAL_MESSAGE,
-                             new ActionMessage("user.added",
-                                               userForm.getFullName()));
-                session.setAttribute(Globals.MESSAGE_KEY, messages);
+                             new ActionMessage("user.added", user.getFullName()));
+                saveMessages(request.getSession(), messages);
                 sendNewUserEmail(request, userForm);
 
                 return mapping.findForward("addUser");
             } else {
                 messages.add(ActionMessages.GLOBAL_MESSAGE,
                              new ActionMessage("user.updated.byAdmin",
-                                               userForm.getFullName()));
+                                               user.getFullName()));
                 saveMessages(request, messages);
 
                 return mapping.findForward("edit");
