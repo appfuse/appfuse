@@ -139,6 +139,10 @@ div#readme {
     width: 600px;
 }
 
+div#readme pre {
+    border: 0;
+}
+
 div#flags {
     position: absolute;
     left: 20px;
