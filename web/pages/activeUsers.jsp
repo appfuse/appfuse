@@ -8,8 +8,7 @@
 
 <div class="separator"></div>
 
-<button type="button" name="action" 
-    onclick="location.href='<html:rewrite forward="mainMenu" />'">
+<button type="button" onclick="location.href='<html:rewrite forward="mainMenu" />'">
     <fmt:message key="button.cancel"/>
 </button>
     

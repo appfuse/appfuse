@@ -5,9 +5,9 @@
             
         <!-- Forwards specified in actions -->        
         <forward name="addUser" 
-            path="/editUser.html?action=Add&amp;from=list" redirect="true" />
-        <forward name="cancelUser" path="/editUser.html?action=Cancel"/>
-        <forward name="deleteUser" path="/editUser.html?action=Delete"/>
+            path="/editUser.html?method=Add&amp;from=list" redirect="true" />
+        <forward name="cancelUser" path="/editUser.html?method=Cancel"/>
+        <forward name="deleteUser" path="/editUser.html?method=Delete"/>
         <forward name="updateUser" path="/userProfile.html"/>
         
         <!-- Forwards for links used in Menu -->
@@ -15,7 +15,7 @@
         
         <!-- The 'editUser' forward is protected so only admins can use it -->
         <forward name="editUser" path="/editUser.html"/>
-        <forward name="viewUsers" path="/editUser.html?action=Search"/>
+        <forward name="viewUsers" path="/editUser.html?method=Search"/>
         
         <forward name="selectFile" path="/selectFile.html" />
 

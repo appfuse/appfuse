@@ -95,6 +95,9 @@ Features/Changes in 1.6
   bundle is found for the browser's preferred locale.
 - Added native2ascii task in copy-resources to encoded to ascii with unicode 
   escapes. 
+- Changed parameter key for indicating methods in Struts Actions from "action" 
+  to "method" in order to alleviate conflicts with the "action" attribute
+  in an HTML form.
 - Dependent packages upgraded:
     * DbUnit 2.1
     * Display Tag 1.0 RC1

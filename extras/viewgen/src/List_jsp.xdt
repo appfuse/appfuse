@@ -7,12 +7,12 @@
 <bean:struts id="editURL" forward="edit<XDtStruts:simpleName/>"/>
 
 <c:set var="buttons">
-    <button type="button" name="action" style="margin-right: 5px"
+    <button type="button" style="margin-right: 5px"
         onclick="location.href='<html:rewrite forward="edit<XDtStruts:simpleName/>"/>'">
         <fmt:message key="button.add"/>
     </button>
     
-    <button type="button" name="action" onclick="cancel()">
+    <button type="button" onclick="location.href='<html:rewrite forward="mainMenu"/>'">
         <fmt:message key="button.cancel"/>
     </button>
 </c:set>
@@ -42,10 +42,6 @@
 <script type="text/javascript">
 <!--
     highlightTableRows("<XDtStruts:simpleNameLower/>List");
-    
-    function cancel() {
-        location.href = '<html:rewrite forward="mainMenu"/>';
-    }
 //-->
 </script>
 

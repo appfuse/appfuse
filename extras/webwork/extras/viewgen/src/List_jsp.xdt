@@ -4,12 +4,12 @@
 <content tag="heading"><fmt:message key="<XDtForm:classNameLower/>List.heading"/></content>
 
 <c:set var="buttons">
-    <button type="button" name="action" style="margin-right: 5px"
+    <button type="button" style="margin-right: 5px"
         onclick="location.href='<c:url value="/edit<XDtClass:className/>.html"/>?method=Add&from=list'">
         <fmt:message key="button.add"/>
     </button>
     
-    <button type="button" name="action" onclick="location.href='<c:url value="/mainMenu.html"/>'">
+    <button type="button" onclick="location.href='<c:url value="/mainMenu.html"/>'">
         <fmt:message key="button.cancel"/>
     </button>
 </c:set>

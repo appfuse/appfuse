@@ -43,11 +43,11 @@ import org.springframework.mail.SimpleMailMessage;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  *
  * @struts.action name="userFormEx" path="/editUser" scope="request"
- *  validate="false" parameter="action" input="list" roles="admin"
+ *  validate="false" parameter="method" input="list" roles="admin"
  * @struts.action name="userFormEx" path="/editProfile" scope="request"
- *  validate="false" parameter="action" input="mainMenu"
+ *  validate="false" parameter="method" input="mainMenu"
  * @struts.action name="userFormEx" path="/saveUser" scope="request"
- *  validate="true" parameter="action" input="edit"
+ *  validate="true" parameter="method" input="edit"
  *
  * @struts.action-forward name="list" path="/WEB-INF/pages/userList.jsp"
  * @struts.action-forward name="edit" path="/WEB-INF/pages/userProfile.jsp"

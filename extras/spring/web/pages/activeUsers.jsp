@@ -8,7 +8,7 @@
 
 <div class="separator"></div>
 
-<button type="button" name="action" onclick="location.href='mainMenu.html'">
+<button type="button" onclick="location.href='mainMenu.html'">
     <fmt:message key="button.cancel"/>
 </button>
     

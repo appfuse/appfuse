@@ -7,12 +7,12 @@
 <bean:struts id="editURL" forward="editUser"/>
 
 <c:set var="buttons">
-    <button type="button" name="action" style="margin-right: 5px"
+    <button type="button" style="margin-right: 5px"
         onclick="location.href='<html:rewrite forward="addUser"/>'">
         <fmt:message key="button.add"/>
     </button>
     
-    <button type="button" name="action" onclick="location.href='<html:rewrite forward="mainMenu" />'">
+    <button type="button" onclick="location.href='<html:rewrite forward="mainMenu" />'">
         <fmt:message key="button.cancel"/>
     </button>
 </c:set>

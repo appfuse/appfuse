@@ -20,17 +20,17 @@
     <tr>
         <td></td>
         <td class="buttonBar">            
-            <html:submit styleClass="button" property="action" onclick="bCancel=false">
-            	<bean:message key="button.save"/>
+            <html:submit styleClass="button" property="method" onclick="bCancel=false">
+                <bean:message key="button.save"/>
             </html:submit>
             
-            <html:submit styleClass="button" property="action" 
+            <html:submit styleClass="button" property="method" 
                 onclick="bCancel=true; return confirmDelete('<XDtStruts:simpleName/>')">
-	            <fmt:message key="button.delete"/>
+                <fmt:message key="button.delete"/>
             </html:submit>
-        
-            <html:cancel styleClass="button" property="action" onclick="bCancel=true">
-            	<bean:message key="button.cancel"/>
+            
+            <html:cancel styleClass="button" property="method" onclick="bCancel=true">
+                <bean:message key="button.cancel"/>
             </html:cancel>
         </td>
     </tr>

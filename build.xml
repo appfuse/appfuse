@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.42 2004/10/01 17:58:06 mraible Exp $                 -->
+<!-- $Id: build.xml,v 1.43 2004/10/02 03:42:38 mraible Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -877,7 +877,7 @@
         <property name="testcase" value="run-all-tests"/>
         <ant antfile="test/web/web-tests.xml" target="${testcase}"/>
     </target>
-    
+
     <!-- =================================================================== -->
     <!--            Run Canoo WebTests using Cactus                          -->
     <!-- =================================================================== -->

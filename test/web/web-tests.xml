@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: web-tests.xml,v 1.14 2004/09/30 04:40:39 mraible Exp $               -->
+<!-- $Id: web-tests.xml,v 1.15 2004/10/02 03:42:41 mraible Exp $               -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:../../properties.xml">
@@ -87,7 +87,7 @@
             <steps>
                 &login;
                 <invoke stepid="click View Users link" 
-                    url="/editUser.html?action=Search"/>
+                    url="/editUser.html?method=Search"/>
                 <verifytitle stepid="we should see the user list title" 
                     text="${webapp.prefix}${userList.title}"/>
             </steps>
@@ -123,7 +123,7 @@
             <steps>
                 &login;
                 <invoke stepid="click Add Button" 
-                    url="/editUser.html?action=Add&amp;from=list"/>
+                    url="/editUser.html?method=Add&amp;from=list"/>
                 <verifytitle stepid="we should see the user profile title" 
                     text="${webapp.prefix}${userProfile.title}"/>
                 <setinputfield stepid="set username" name="username" 

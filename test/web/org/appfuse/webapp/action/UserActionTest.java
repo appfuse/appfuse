@@ -16,7 +16,7 @@ public class UserActionTest extends BaseStrutsTestCase {
 
     public void testCancel() throws Exception {
         setRequestPathInfo("/editUser");
-        addRequestParameter("action", "Cancel");
+        addRequestParameter("method", "Cancel");
         actionPerform();
 
         verifyForward("mainMenu");
@@ -25,7 +25,7 @@ public class UserActionTest extends BaseStrutsTestCase {
     
     public void testEdit() throws Exception {
         setRequestPathInfo("/editUser");
-        addRequestParameter("action", "Edit");
+        addRequestParameter("method", "Edit");
         addRequestParameter("username", "tomcat");
         actionPerform();
 
@@ -43,7 +43,7 @@ public class UserActionTest extends BaseStrutsTestCase {
 
         setRequestPathInfo("/saveUser");
         addRequestParameter("encryptPass", "true");
-        addRequestParameter("action", "Save");
+        addRequestParameter("method", "Save");
         addRequestParameter("from", "list");
         actionPerform();
 
@@ -54,7 +54,7 @@ public class UserActionTest extends BaseStrutsTestCase {
 
     public void testSearch() throws Exception {
         setRequestPathInfo("/editUser");
-        addRequestParameter("action", "Search");
+        addRequestParameter("method", "Search");
         actionPerform();
 
         verifyForward("list");
@@ -64,7 +64,7 @@ public class UserActionTest extends BaseStrutsTestCase {
 
     public void testRemove() throws Exception {
         setRequestPathInfo("/editUser");
-        addRequestParameter("action", "Delete");
+        addRequestParameter("method", "Delete");
         addRequestParameter("username", "mraible");
         actionPerform();
 
