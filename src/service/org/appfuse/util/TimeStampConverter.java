@@ -19,7 +19,8 @@ import org.apache.commons.lang.StringUtils;
  * @author <a href="mailto:dan@getrolling.com">Dan Kibler</a>
  */
 public class TimeStampConverter extends DateConverter {
-    private static DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss.S");
+    public static final String FORMAT = "MM/dd/yyyy HH:mm:ss.S";
+    public static DateFormat df = new SimpleDateFormat(FORMAT);
 
     protected Object convertToDate(Class type, Object value) {
         if (value instanceof String) {
