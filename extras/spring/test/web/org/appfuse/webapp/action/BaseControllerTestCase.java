@@ -3,7 +3,7 @@ package org.appfuse.webapp.action;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
 import java.util.List;
-import java.util.ResourceBundle;
+import java.util.Set;
 
 import junit.framework.TestCase;
 
@@ -62,7 +62,7 @@ public class BaseControllerTestCase extends TestCase {
             Object field = (fields[i].get(o));
             if (field instanceof BaseObject) {
                 objectToRequestParameters(field, request, fields[i].getName());
-            } else if (!(field instanceof List)) {
+            } else if (!(field instanceof List) && !(field instanceof Set)) {
                 String paramName = fields[i].getName();
                 if (prefix != null) {
                     paramName = prefix + "." + paramName;

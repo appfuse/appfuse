@@ -1,31 +1,31 @@
 package org.appfuse.model;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+
 /**
  * User class
  *
  * This class is used to generate Spring Validation rules
  * as well as the Hibernate mapping file.
  *
- * <p>
- * <a href="User.java.html"><i>View Source</i></a>
- * </p>
+ * <p><a href="User.java.html"><i>View Source</i></a></p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
+ *         Updated by Dan Kibler (dan@getrolling.com)
  *
  * @hibernate.class table="app_user"
  */
 public class User extends BaseObject {
-
-    protected Long id;
     protected String username;
     protected String password;
     protected String confirmPassword;
@@ -36,25 +36,16 @@ public class User extends BaseObject {
     protected String email;
     protected String website;
     protected String passwordHint;
-    protected List roles = new ArrayList();
-
-    /**
-     * Returns the id.
-     * @return String
-     *
-     * @hibernate.id column="id"
-     *  generator-class="increment" unsaved-value="null"
-     */
-    public Long getId() {
-        return id;
-    }
+    protected Date updated;
+    protected Set roles = new HashSet();
 
     /**
      * Returns the username.
+     *
      * @return String
      *
-     * @hibernate.property
-     * @hibernate.column name="username" not-null="true" unique="true"
+     * @hibernate.id column="username" length="20" generator-class="assigned"
+     *               unsaved-value="timestamp"
      */
     public String getUsername() {
         return username;
@@ -82,7 +73,7 @@ public class User extends BaseObject {
      * Returns the firstName.
      * @return String
      *
-     * @hibernate.property column="first_name" not-null="true"
+     * @hibernate.property column="first_name" not-null="true" length="50"
      */
     public String getFirstName() {
         return firstName;
@@ -92,20 +83,19 @@ public class User extends BaseObject {
      * Returns the lastName.
      * @return String
      *
-     * @hibernate.property column="last_name" not-null="true"
+     * @hibernate.property column="last_name" not-null="true" length="50"
      */
     public String getLastName() {
         return lastName;
     }
 
     public String getFullName() {
-    	return firstName + ' ' + lastName;
+        return firstName + ' ' + lastName;
     }
+
     /**
-     * Returns the address.  The struts.validator tag is needed on
-     * this method in order for child validation rules to be picked up
-     * when generating validation.xml.
-     * 
+     * Returns the address.
+     *
      * @return Address
      *
      * @hibernate.component
@@ -157,49 +147,24 @@ public class User extends BaseObject {
 
     /**
      * Returns the user's roles.
-     * @return List
+     * @return Set
      *
-     * @hibernate.bag name="roles" inverse="true" lazy="false" cascade="delete"
-     * @hibernate.collection-key column="user_id"
-     * @hibernate.collection-one-to-many class="org.appfuse.model.UserRole"
+     * @hibernate.set table="user_role" cascade="save-update" lazy="false"
+     * @hibernate.collection-key column="username"
+     * @hibernate.collection-many-to-many class="org.appfuse.model.Role"
+     *                                    column="role_name"
      */
-    public List getRoles() {
+    public Set getRoles() {
         return roles;
     }
 
     /**
      * Adds a role for the user
+     *
      * @param rolename
      */
-    public void addRole(String rolename) {
-        boolean exists = false;
-        if (roles == null) {
-            roles = new ArrayList();
-        } else {
-            // loop through and make sure the rolename doesn't already exist
-            for (Iterator it = roles.iterator(); it.hasNext();) {
-                UserRole r = (UserRole) it.next();
-                if (rolename.equals(r.getRoleName())) {
-                    exists = true;
-                    break;
-                }
-            }
-        }
-        if (!exists) {
-            UserRole role = new UserRole();
-            role.setRoleName(rolename);
-            role.setUserId(this.id);
-            role.setUsername(this.username);
-            roles.add(role);
-        }
-    }
-
-    /**
-     * Sets the id.
-     * @param id The id to set
-     */
-    public void setId(Long id) {
-        this.id = id;
+    public void addRole(Role role) {
+        getRoles().add(role);
     }
 
     /**
@@ -210,11 +175,11 @@ public class User extends BaseObject {
     public void setUsername(String username) {
         this.username = username;
     }
-    
+
     /**
      * Sets the password.
      * @param password The password to set
-     * 
+     *
      * @spring.validator type="required"
      * @spring.validator type="twofields" msgkey="errors.twofields"
      * @spring.validator-args arg1resource="user.password"
@@ -233,7 +198,6 @@ public class User extends BaseObject {
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
     }
-	
 
     /**
      * Sets the firstName.
@@ -247,7 +211,7 @@ public class User extends BaseObject {
     /**
      * Sets the lastName.
      * @param lastName The lastName to set
-     * 
+     *
      * @spring.validator type="required"
      */
     public void setLastName(String lastName) {
@@ -257,7 +221,7 @@ public class User extends BaseObject {
     /**
      * Sets the address.
      * @param address The address to set
-     * 
+     *
      * @spring.validator
      */
     public void setAddress(Address address) {
@@ -267,7 +231,7 @@ public class User extends BaseObject {
     /**
      * Sets the email.
      * @param email The email to set
-     * 
+     *
      * @spring.validator type="required"
      * @spring.validator type="email"
      */
@@ -278,7 +242,7 @@ public class User extends BaseObject {
     /**
      * Sets the phoneNumber.
      * @param phoneNumber The phoneNumber to set
-     * 
+     *
      * @spring.validator type="mask" msgkey="errors.phone"
      * @spring.validator-var name="mask" value="${phone}"
      */
@@ -296,7 +260,7 @@ public class User extends BaseObject {
 
     /**
      * @param passwordHint The password hint to set
-     * 
+     *
      * @spring.validator type="required"
      */
     public void setPasswordHint(String passwordHint) {
@@ -307,18 +271,24 @@ public class User extends BaseObject {
      * Sets the roles.
      * @param roles The roles to set
      */
-    public void setRoles(List roles) {
+    public void setRoles(Set roles) {
         this.roles = roles;
     }
 
     /**
-     * Used on the web-tier to set roles from a multibox.
-     * @param userRoles String[] or user roles
+     * @return Returns the updated timestamp.
+     * @hibernate.timestamp
      */
-    public void setUserRoles(String[] userRoles) {
-        for (int i = 0; i < userRoles.length; i++) {
-            addRole(userRoles[i]);
-        }
+    public Date getUpdated() {
+        return updated;
+    }
+
+    /**
+     * @param updated
+     *            The updated timestamp to set.
+     */
+    public void setUpdated(Date updated) {
+        this.updated = updated;
     }
 
     /**
@@ -331,11 +301,11 @@ public class User extends BaseObject {
 
         if (this.roles != null) {
             for (Iterator it = roles.iterator(); it.hasNext();) {
-                UserRole role = (UserRole) it.next();
+                Role role = (Role) it.next();
 
                 // convert the user's roles to LabelValue Objects
-                userRoles.add(new LabelValue(role.getRoleName(),
-                                             role.getRoleName()));
+                userRoles.add(new LabelValue(role.getName(),
+                                             role.getName()));
             }
         }
 
@@ -352,38 +322,27 @@ public class User extends BaseObject {
 
         User rhs = (User) object;
 
-        return new EqualsBuilder().append(this.password, rhs.password)
-                                  .append(this.passwordHint, rhs.passwordHint)
-                                  .append(this.address, rhs.address)
-                                  .append(this.confirmPassword,
-                                          rhs.confirmPassword)
-                                  .append(this.username, rhs.username)
-                                  .append(this.email, rhs.email)
-                                  .append(this.phoneNumber, rhs.phoneNumber)
-                                  .append(this.roles, rhs.roles)
-                                  .append(this.website, rhs.website)
-                                  .append(this.firstName, rhs.firstName)
-                                  .append(this.id, rhs.id)
-                                  .append(this.lastName, rhs.lastName).isEquals();
+        return new EqualsBuilder().append(this.password, rhs.password).append(
+                this.passwordHint, rhs.passwordHint).append(this.address,
+                rhs.address).append(this.confirmPassword, rhs.confirmPassword)
+                .append(this.username, rhs.username).append(this.email,
+                        rhs.email).append(this.phoneNumber, rhs.phoneNumber)
+                .append(this.roles, rhs.roles)
+                .append(this.website, rhs.website).append(this.firstName,
+                        rhs.firstName).append(this.lastName, rhs.lastName)
+                .isEquals();
     }
 
     /**
      * Generated using Commonclipse (http://commonclipse.sf.net)
      */
     public int hashCode() {
-        return new HashCodeBuilder(-2022315247, 1437659757).append(this.password)
-                                                           .append(this.passwordHint)
-                                                           .append(this.address)
-                                                           .append(this.confirmPassword)
-                                                           .append(this.username)
-                                                           .append(this.email)
-                                                           .append(this.phoneNumber)
-                                                           .append(this.roles)
-                                                           .append(this.website)
-                                                           .append(this.firstName)
-                                                           .append(this.id)
-                                                           .append(this.lastName)
-                                                           .toHashCode();
+        return new HashCodeBuilder(-2022315247, 1437659757).append(
+                this.password).append(this.passwordHint).append(this.address)
+                .append(this.confirmPassword).append(this.username).append(
+                        this.email).append(this.phoneNumber).append(this.roles)
+                .append(this.website).append(this.firstName).append(
+                        this.lastName).toHashCode();
     }
 
     /**
@@ -391,8 +350,8 @@ public class User extends BaseObject {
      */
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
-                .append("id", this.id).append("roles", this.roles).append(
-                        "firstName", this.firstName).append("lastName",
+                .append("roles", this.roles)
+                .append("firstName", this.firstName).append("lastName",
                         this.lastName)
                 .append("passwordHint", this.passwordHint).append("username",
                         this.username).append("fullName", this.getFullName())
@@ -400,6 +359,6 @@ public class User extends BaseObject {
                         this.phoneNumber).append("password", this.password)
                 .append("address", this.address).append("confirmPassword",
                         this.confirmPassword).append("website", this.website)
-                .toString();
+                .append("updated", this.getUpdated()).toString();
     }
 }

@@ -1,10 +1,10 @@
 package org.appfuse.webapp.action;
 
-import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.appfuse.Constants;
+import org.appfuse.model.Role;
 import org.appfuse.model.User;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.util.RequestUtil;
@@ -48,7 +48,7 @@ public class SignupController extends BaseFormController {
         user.setPassword(StringUtil.encodePassword(user.getPassword(), algorithm));
 
         // Set the default user role on this new user
-        user.addRole(Constants.USER_ROLE);
+        user.addRole(new Role(Constants.USER_ROLE));
 
         try {
             mgr.saveUser(user);

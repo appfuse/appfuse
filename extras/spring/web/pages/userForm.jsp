@@ -15,8 +15,8 @@
 <form method="post" action="<c:url value="/editUser.html"/>" id="userForm"
     onsubmit="return onFormSubmit(this)">
     
-<spring:bind path="user.id">
-<input type="hidden" name="id" value="<c:out value="${status.value}"/>"/> 
+<spring:bind path="user.updated">
+<input type="hidden" name="updated" value="<c:out value="${status.value}"/>"/> 
 </spring:bind>
 <input type="hidden" name="from" value="<c:out value="${param.from}"/>" />
 
@@ -29,7 +29,7 @@
     </spring:bind>
 </c:if>
 
-<c:if test="${empty user.id}">
+<c:if test="${empty user.username}">
     <input type="hidden" name="encryptPass" value="true" />
 </c:if>
 
@@ -59,7 +59,7 @@
         <td>
         <spring:bind path="user.username">
         <c:choose>
-            <c:when test="${empty user.id}">
+            <c:when test="${empty user.username}">
                 <input type="text" name="username" value="<c:out value="${status.value}"/>" id="username"/>
                 <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
             </c:when>
@@ -230,32 +230,32 @@
                 <legend>
                     <fmt:message key="userProfile.assignRoles"/>
                 </legend>
-            <table class="pickList">
-                <tr>
-                    <th class="pickLabel">
-                        <appfuse:label key="user.availableRoles" 
-                            colon="false" styleClass="required"/>
-                    </th>
-                    <td>
-                    </td>
-                    <th class="pickLabel">
-                        <appfuse:label key="user.roles"
-                            colon="false" styleClass="required"/>
-                    </th>
-                </tr>
-                <c:set var="leftList" value="${availableRoles}" scope="request"/>
-                <c:set var="rightList" value="${user.roleList}" scope="request"/>
-                <c:import url="/WEB-INF/pages/pickList.jsp">
-                    <c:param name="listCount" value="1"/>
-                    <c:param name="leftId" value="availableRoles"/>
-                    <c:param name="rightId" value="userRoles"/>
-                </c:import>
-            </table>
+	            <table class="pickList">
+	                <tr>
+	                    <th class="pickLabel">
+	                        <appfuse:label key="user.availableRoles" 
+	                            colon="false" styleClass="required"/>
+	                    </th>
+	                    <td>
+	                    </td>
+	                    <th class="pickLabel">
+	                        <appfuse:label key="user.roles"
+	                            colon="false" styleClass="required"/>
+	                    </th>
+	                </tr>
+	                <c:set var="leftList" value="${availableRoles}" scope="request"/>
+	                <c:set var="rightList" value="${user.roleList}" scope="request"/>
+	                <c:import url="/WEB-INF/pages/pickList.jsp">
+	                    <c:param name="listCount" value="1"/>
+	                    <c:param name="leftId" value="availableRoles"/>
+	                    <c:param name="rightId" value="userRoles"/>
+	                </c:import>
+	            </table>
             </fieldset>
         </td>
     </tr>
     </c:when>
-    <c:when test="${not empty user.id}">
+    <c:when test="${not empty user.username}">
     <tr>
         <th>
             <appfuse:label key="user.roles"/>
@@ -271,8 +271,19 @@
     </c:when>
 </c:choose>
 
-<%-- Print out buttons - defined at top of form --%>
-<c:out value="${pageButtons}" escapeXml="false" />
+    <c:if test="${not empty user.username}">
+    <tr>
+        <td></td>
+        <td class="updateStatus">
+            <appfuse:label key="user.updated"/>
+            <fmt:formatDate value="${user.updated}" pattern="MM/dd/yyyy HH:mm:ss.S"/>
+        </td>
+    </tr>
+    </c:if>
+    
+    <%-- Print out buttons - defined at top of form --%>
+    <%-- This is so you can put them at the top and the bottom if you like --%>
+	<c:out value="${pageButtons}" escapeXml="false" />
 
 </table>
 </form>
@@ -281,7 +292,7 @@
 <!--
 highlightFormElements();
 <%-- if we're doing an add, change the focus --%>
-<c:choose><c:when test="${user.id == null}"><c:set var="focus" value="username"/></c:when>
+<c:choose><c:when test="${user.username == null}"><c:set var="focus" value="username"/></c:when>
 <c:when test="${cookieLogin == 'true'}"><c:set var="focus" value="firstName"/></c:when>
 <c:otherwise><c:set var="focus" value="password"/></c:otherwise></c:choose>
 
@@ -289,10 +300,6 @@ var focusControl = document.forms["userForm"].elements["<c:out value="${focus}"/
 
 if (focusControl.type != "hidden" && !focusControl.disabled) {
     focusControl.focus();
-}
-
-function cancel() {
-    location.href = 'editUser.html?method=cancel&from=<c:out value="${param.from}"/>';
 }
 
 function passwordChanged(passwordField) {

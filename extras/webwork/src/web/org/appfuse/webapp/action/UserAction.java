@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.appfuse.Constants;
+import org.appfuse.model.Role;
 import org.appfuse.model.User;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.util.RequestUtil;
@@ -21,7 +22,7 @@ public class UserAction extends BaseAction {
     private List users;
     private User user;
     private String username;
-
+    
     /**
      * Override constructor to set ordered HashMap for errors.
      * NOTE: Currently doesn't work.
@@ -58,7 +59,7 @@ public class UserAction extends BaseAction {
     public String edit() throws IOException {
         HttpServletRequest request = getRequest();
         boolean editProfile =
-            (request.getRequestURL().indexOf("editProfile") > -1);
+            (request.getRequestURI().indexOf("editProfile") > -1);
 
         // if URL is "editProfile" - make sure it's the current user
         if (editProfile) {
@@ -84,10 +85,10 @@ public class UserAction extends BaseAction {
             user = userManager.getUser(request.getRemoteUser());
         } else {
             user = new User();
-            user.addRole(Constants.USER_ROLE);
+            user.addRole(new Role(Constants.USER_ROLE));
         }
 
-        if (user.getId() != null) {
+        if (user.getUsername() != null) {
             user.setConfirmPassword(user.getPassword());
 
             // if user logged in with a cookie, display a warning that they
@@ -132,7 +133,15 @@ public class UserAction extends BaseAction {
             user.setPassword(StringUtil.encodePassword(user.getPassword(), algorithm));
         }
         
-        boolean isNew = (user.getId() == null);
+        boolean isNew = ("".equals(getRequest().getParameter("user.updated")));
+        
+        String[] userRoles = getRequest().getParameterValues("user.userRoles");
+
+        for (int i = 0; userRoles != null && i < userRoles.length; i++) {
+            String roleName = userRoles[i];
+            user.addRole(roleManager.getRole(roleName));
+        }
+        
         try {
             userManager.saveUser(user);
         } catch (DataIntegrityViolationException e) {
@@ -167,7 +176,7 @@ public class UserAction extends BaseAction {
             }
 
             // add success messages
-            saveMessage(getText("user.updated"));
+            saveMessage(getText("user.saved"));
 
             return "mainMenu";
         } else {

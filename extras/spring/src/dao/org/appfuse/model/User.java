@@ -1,22 +1,24 @@
 package org.appfuse.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+
 /**
  * User class
  *
  * This class is used to generate Spring Validation rules
  * as well as the Hibernate mapping file.
  *
- * <p>
- * <a href="User.java.html"><i>View Source</i></a>
- * </p>
+ * <p><a href="User.java.html"><i>View Source</i></a></p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  *         Updated by Dan Kibler (dan@getrolling.com)
@@ -24,7 +26,6 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @hibernate.class table="app_user"
  */
 public class User extends BaseObject {
-
     protected String username;
     protected String password;
     protected String confirmPassword;
@@ -40,9 +41,9 @@ public class User extends BaseObject {
 
     /**
      * Returns the username.
-     * 
+     *
      * @return String
-     * 
+     *
      * @hibernate.id column="username" length="20" generator-class="assigned"
      *               unsaved-value="timestamp"
      */
@@ -71,7 +72,7 @@ public class User extends BaseObject {
     /**
      * Returns the firstName.
      * @return String
-     * 
+     *
      * @hibernate.property column="first_name" not-null="true" length="50"
      */
     public String getFirstName() {
@@ -91,9 +92,10 @@ public class User extends BaseObject {
     public String getFullName() {
         return firstName + ' ' + lastName;
     }
+
     /**
-     * Returns the address. 
-     * 
+     * Returns the address.
+     *
      * @return Address
      *
      * @hibernate.component
@@ -146,7 +148,7 @@ public class User extends BaseObject {
     /**
      * Returns the user's roles.
      * @return Set
-     * 
+     *
      * @hibernate.set table="user_role" cascade="save-update" lazy="false"
      * @hibernate.collection-key column="username"
      * @hibernate.collection-many-to-many class="org.appfuse.model.Role"
@@ -158,10 +160,9 @@ public class User extends BaseObject {
 
     /**
      * Adds a role for the user
-     * 
+     *
      * @param rolename
      */
-
     public void addRole(Role role) {
         getRoles().add(role);
     }
@@ -174,11 +175,11 @@ public class User extends BaseObject {
     public void setUsername(String username) {
         this.username = username;
     }
-    
+
     /**
      * Sets the password.
      * @param password The password to set
-     * 
+     *
      * @spring.validator type="required"
      * @spring.validator type="twofields" msgkey="errors.twofields"
      * @spring.validator-args arg1resource="user.password"
@@ -197,7 +198,6 @@ public class User extends BaseObject {
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
     }
-	
 
     /**
      * Sets the firstName.
@@ -211,7 +211,7 @@ public class User extends BaseObject {
     /**
      * Sets the lastName.
      * @param lastName The lastName to set
-     * 
+     *
      * @spring.validator type="required"
      */
     public void setLastName(String lastName) {
@@ -221,7 +221,7 @@ public class User extends BaseObject {
     /**
      * Sets the address.
      * @param address The address to set
-     * 
+     *
      * @spring.validator
      */
     public void setAddress(Address address) {
@@ -231,7 +231,7 @@ public class User extends BaseObject {
     /**
      * Sets the email.
      * @param email The email to set
-     * 
+     *
      * @spring.validator type="required"
      * @spring.validator type="email"
      */
@@ -242,7 +242,7 @@ public class User extends BaseObject {
     /**
      * Sets the phoneNumber.
      * @param phoneNumber The phoneNumber to set
-     * 
+     *
      * @spring.validator type="mask" msgkey="errors.phone"
      * @spring.validator-var name="mask" value="${phone}"
      */
@@ -260,7 +260,7 @@ public class User extends BaseObject {
 
     /**
      * @param passwordHint The password hint to set
-     * 
+     *
      * @spring.validator type="required"
      */
     public void setPasswordHint(String passwordHint) {
@@ -301,11 +301,11 @@ public class User extends BaseObject {
 
         if (this.roles != null) {
             for (Iterator it = roles.iterator(); it.hasNext();) {
-                UserRole role = (UserRole) it.next();
+                Role role = (Role) it.next();
 
                 // convert the user's roles to LabelValue Objects
-                userRoles.add(new LabelValue(role.getRoleName(),
-                                             role.getRoleName()));
+                userRoles.add(new LabelValue(role.getName(),
+                                             role.getName()));
             }
         }
 

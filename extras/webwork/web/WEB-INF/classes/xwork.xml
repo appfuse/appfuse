@@ -69,19 +69,19 @@
         
         <action name="editUser" class="userAction" method="edit">
             <interceptor-ref name="adminCheck"/>
-            <result name="success">/WEB-INF/pages/userForm.jsp</result>
+            <result name="success">/WEB-INF/pages/userProfile.jsp</result>
             <result name="input">/WEB-INF/pages/userList.jsp</result>
         </action>
 
         <action name="editProfile" class="userAction" method="edit"> 
-            <result name="success">/WEB-INF/pages/userForm.jsp</result>
+            <result name="success">/WEB-INF/pages/userProfile.jsp</result>
             <result name="error">/WEB-INF/pages/mainMenu.jsp</result>
         </action>
         
         <action name="saveUser" class="userAction" method="save">
             <interceptor-ref name="validationStack"/>
             <result name="cancel" type="redirect">users.html</result>
-            <result name="input">/WEB-INF/pages/userForm.jsp</result>
+            <result name="input">/WEB-INF/pages/userProfile.jsp</result>
             <result name="success" type="redirect">users.html</result>
             <result name="addAnother" type="redirect">editUser.html?method=Add&amp;from=list</result>
         </action>

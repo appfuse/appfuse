@@ -1,13 +1,13 @@
 <%@ include file="/common/taglibs.jsp"%>
 
-<head>
-    <title><fmt:message key="userProfile.title"/></title>
-    <script type="text/javascript" src="<c:url value='/scripts/selectbox.js'/>"></script> 
-    <content tag="heading"><fmt:message key="userProfile.heading"/></content>
-</head>
 
 <ww:form name="'userForm'" action="'saveUser'" method="'post'" validate="true">
-<ww:hidden name="'user.id'" value="user.id"/>
+<%-- formatting is necessary to get the full seconds --%>
+<ww:set name="updated" value="user.updated" scope="page"/>
+<c:set var="formattedUpdated">
+	<fmt:formatDate value="${updated}" pattern="MM/dd/yyyy HH:mm:ss.S"/>
+</c:set>
+<input type="hidden" name="user.updated" value="<c:out value="${formattedUpdated}"/>" />
 <input type="hidden" name="from" value="<c:out value="${param.from}"/>" />
 
 <c:if test="${cookieLogin == 'true'}">
@@ -15,7 +15,7 @@
 	<ww:hidden name="'user.confirmPassword'" value="user.confirmPassword"/>
 </c:if>
 
-<ww:if test="user.id == null">
+<ww:if test="user.username == null || user.username == ''">
     <input type="hidden" name="encryptPass" value="true" />
 </ww:if>
 
@@ -39,7 +39,7 @@
     </tr>
 </c:set>
 
-	<ww:if test="user.id == null">
+	<ww:if test="user.username == null || user.username == ''">
 	    <ww:textfield label="getText('user.username')" name="'user.username'" 
 	        value="user.username" required="true"/>
 	</ww:if>
@@ -49,8 +49,8 @@
             <label class="required">* <fmt:message key="user.username"/>:</label>
         </th>
         <td>
-    		<ww:property value="user.username"/>
-    		<ww:hidden name="'user.username'" value="user.username"/>
+            <ww:property value="user.username"/>
+            <ww:hidden name="'user.username'" value="user.username"/>
         </td>
     </tr>
 	</ww:else>
@@ -80,7 +80,7 @@
         </th>
         <td>
        	    <ww:set name="country" value="user.address.country" scope="page"/>
-            <appfuse:country name="user.address.country" prompt="" default="${country}"/>
+            <appfuse-webwork:country name="user.address.country" prompt="" default="${country}"/>
         </td>
     </tr>
     <ww:textfield label="getText('user.address.postalCode')" name="'user.address.postalCode'"
@@ -95,7 +95,7 @@
         value="user.passwordHint" required="true" size="50"/>
         
 <c:choose>
-    <c:when test="${param.from == 'list' or param.action == 'Add'}">
+    <c:when test="${param.from == 'list' or param.method == 'Add'}">
     <tr>
         <td></td>
         <td>
@@ -103,29 +103,29 @@
                 <legend>
                     <fmt:message key="userProfile.assignRoles"/>
                 </legend>
-            <table class="pickList">
-                <tr>
-                    <th class="pickLabel">
-                        <label class="required">
-                            <fmt:message key="user.availableRoles"/>
-                        </label>
-                    </th>
-                    <td>
-                    </td>
-                    <th class="pickLabel">
-                        <label class="required">
-                            <fmt:message key="user.roles"/>
-                        </label>
-                    </th>
-                </tr>
-                <c:set var="leftList" value="${availableRoles}" scope="request"/>
-                <ww:set name="rightList" value="user.roleList" scope="request"/>
-                <c:import url="/WEB-INF/pages/pickList.jsp">
-                    <c:param name="listCount" value="1"/>
-                    <c:param name="leftId" value="availableRoles"/>
-                    <c:param name="rightId" value="user.userRoles"/>
-                </c:import>
-            </table>
+	            <table class="pickList">
+	                <tr>
+	                    <th class="pickLabel">
+	                        <label class="required">
+	                            <fmt:message key="user.availableRoles"/>
+	                        </label>
+	                    </th>
+	                    <td>
+	                    </td>
+	                    <th class="pickLabel">
+	                        <label class="required">
+	                            <fmt:message key="user.roles"/>
+	                        </label>
+	                    </th>
+	                </tr>
+	                <c:set var="leftList" value="${availableRoles}" scope="request"/>
+	                <ww:set name="rightList" value="user.roleList" scope="request"/>
+	                <c:import url="/WEB-INF/pages/pickList.jsp">
+	                    <c:param name="listCount" value="1"/>
+	                    <c:param name="leftId" value="availableRoles"/>
+	                    <c:param name="rightId" value="user.userRoles"/>
+	                </c:import>
+	            </table>
             </fieldset>
         </td>
     </tr>
@@ -146,8 +146,20 @@
     </c:otherwise>
 </c:choose>
 
-<%-- Print out buttons - defined at top of form --%>
-<c:out value="${pageButtons}" escapeXml="false" />
+    <ww:if test="user.username != null && user.username != ''">
+    <tr>
+        <td></td>
+        <td class="updateStatus">
+            <label><fmt:message key="user.updated"/>:</label>
+            <%-- The 'formattedUpdated' variable is set at the top of this form --%>
+            <c:out value="${formattedUpdated}"/>
+        </td>
+    </tr>
+    </ww:if>
+
+    <%-- Print out buttons - defined at top of form --%>
+    <%-- This is so you can put them at the top and the bottom if you like --%>
+    <c:out value="${pageButtons}" escapeXml="false" />
 
 </ww:form>
 

@@ -1,12 +1,10 @@
 package org.appfuse.webapp.action;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.text.DateFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 
-import javax.mail.MessagingException;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,15 +13,19 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 
 import org.appfuse.Constants;
-import org.appfuse.model.LabelValue;
+import org.appfuse.model.Role;
 import org.appfuse.model.User;
-import org.appfuse.model.UserRole;
+import org.appfuse.service.RoleManager;
 import org.appfuse.service.UserManager;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.util.RequestUtil;
 
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.validation.BindException;
+import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -36,7 +38,23 @@ import org.springframework.web.servlet.view.RedirectView;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class UserFormController extends BaseFormController {
-    
+    private RoleManager roleManager;
+
+    /**
+     * @param roleManager The roleManager to set.
+     */
+    public void setRoleManager(RoleManager roleManager) {
+        this.roleManager = roleManager;
+    }
+
+    protected void initBinder(HttpServletRequest request,
+                              ServletRequestDataBinder binder) {
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss.S");
+        binder.registerCustomEditor(Date.class, "updated",
+                                    new CustomDateEditor(df, true));
+        super.initBinder(request, binder);
+    }
+
     public ModelAndView processFormSubmission(HttpServletRequest request,
                                               HttpServletResponse response,
                                               Object command,
@@ -86,7 +104,17 @@ public class UserFormController extends BaseFormController {
                                                            algorithm));
             }
 
+            String[] userRoles = request.getParameterValues("userRoles");
+
+            for (int i = 0; userRoles != null && i < userRoles.length; i++) {
+                String roleName = userRoles[i];
+                user.addRole(roleManager.getRole(roleName));
+            }
+
             try {
+                if (user.getUpdated() != null) {
+                    user.setUpdated(new Date());
+                }
                 mgr.saveUser(user);
             } catch (DataIntegrityViolationException e) {
                 log.warn("User already exists: " + e.getMessage());
@@ -119,19 +147,20 @@ public class UserFormController extends BaseFormController {
                                           autoLogin, request.getContextPath());
                 }
 
-                saveMessage(request, getText("user.updated", user.getFullName()));
+                saveMessage(request, getText("user.saved", user.getFullName()));
 
                 // return to main Menu
                 return new ModelAndView(new RedirectView("mainMenu.html"));
             } else {
-                if (StringUtils.isBlank(request.getParameter("id"))) {
+                if (StringUtils.isBlank(request.getParameter("updated"))) {
                     saveMessage(request,
                                 getText("user.added", user.getFullName()));
 
                     // Send an account information e-mail
                     message.setSubject(getText("signup.email.subject"));
-                    sendUserMessage(user, getText("newuser.email.message", 
-                                    user.getFullName()),
+                    sendUserMessage(user,
+                                    getText("newuser.email.message",
+                                            user.getFullName()),
                                     RequestUtil.getAppURL(request));
 
                     return showNewForm(request, response);
@@ -153,7 +182,7 @@ public class UserFormController extends BaseFormController {
                                     HttpServletResponse response,
                                     BindException errors)
     throws Exception {
-        if (request.getRequestURL().indexOf("editProfile") > -1) {
+        if (request.getRequestURI().indexOf("editProfile") > -1) {
             // if URL is "editProfile" - make sure it's the current user
             // reject if username passed in or "list" parameter passed in
             // someone that is trying this probably knows the AppFuse code
@@ -194,11 +223,11 @@ public class UserFormController extends BaseFormController {
         if (request.getRequestURL().indexOf("editProfile") > -1) {
             user = mgr.getUser(getUser(request).getUsername());
         } else if (!StringUtils.isBlank(username) &&
-                       !"".equals(request.getParameter("id"))) {
+                       !"".equals(request.getParameter("updated"))) {
             user = mgr.getUser(username);
         } else {
             user = new User();
-            user.addRole(Constants.USER_ROLE);
+            user.addRole(new Role(Constants.USER_ROLE));
         }
 
         user.setConfirmPassword(user.getPassword());
@@ -208,18 +237,6 @@ public class UserFormController extends BaseFormController {
 
     protected void onBind(HttpServletRequest request, Object command)
     throws Exception {
-        // this method is used to nullify the list of roles on the user.  If you
-        // don't do this, Spring seems to remember the last roles this User had
-        // on it - as if it were a session form or something, but I know its not.
-        User user = (User) command;
-        user.getRoles().clear();
-
-        String[] roles = request.getParameterValues("userRoles");
-
-        if (roles != null) {
-            user.setUserRoles(roles);
-        }
-
         // if the user is being deleted, turn off validation
         if (request.getParameter("delete") != null) {
             super.setValidateOnBinding(false);

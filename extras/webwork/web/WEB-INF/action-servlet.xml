@@ -19,6 +19,7 @@
     
     <bean id="signupAction" class="org.appfuse.webapp.action.SignupAction" singleton="false">
         <property name="userManager"><ref bean="userManager"/></property>
+        <property name="roleManager"><ref bean="roleManager"/></property>
         <property name="mailEngine"><ref bean="mailEngine"/></property>
         <property name="message"><ref bean="mailMessage"/></property>
         <property name="templateName"><value>accountCreated.vm</value></property>
@@ -26,6 +27,7 @@
     
     <bean id="userAction" class="org.appfuse.webapp.action.UserAction" singleton="false">
         <property name="userManager"><ref bean="userManager"/></property>
+        <property name="roleManager"><ref bean="roleManager"/></property>
         <property name="mailEngine"><ref bean="mailEngine"/></property>
         <property name="message"><ref bean="mailMessage"/></property>
         <property name="templateName"><value>accountCreated.vm</value></property>

@@ -13,6 +13,7 @@ import org.apache.commons.logging.LogFactory;
 import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.service.MailEngine;
+import org.appfuse.service.RoleManager;
 import org.appfuse.service.UserManager;
 import org.springframework.mail.SimpleMailMessage;
 
@@ -36,6 +37,7 @@ public class BaseAction extends ActionSupport {
     public static final String CANCEL = "cancel";
     protected transient final Log log = LogFactory.getLog(getClass());
     protected UserManager userManager = null;
+    protected RoleManager roleManager = null;
     protected String from = null;
     protected String cancel = null;
     protected String delete = null;
@@ -114,6 +116,10 @@ public class BaseAction extends ActionSupport {
         this.userManager = userManager;
     }
     
+    public void setRoleManager(RoleManager roleManager) {
+        this.roleManager = roleManager;
+    }
+    
     public void setMailEngine(MailEngine mailEngine) {
         this.mailEngine = mailEngine;
     }
@@ -131,9 +137,9 @@ public class BaseAction extends ActionSupport {
      * page.
      * @param from
      */
-	public void setFrom(String from) {
-		this.from = from;
-	}
+    public void setFrom(String from) {
+        this.from = from;
+    }
     
     public void setCancel(String cancel) {
     	this.cancel = cancel;
