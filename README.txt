@@ -98,7 +98,7 @@ Features/Changes in 1.4
   generating Forms with XDoclet.  This support includes adding Velocity JARs
   to the the list of 3rd party JARs.  Currently, Velocity is only used by 
   XDoclet.
-- Added "Acount Information" e-mail as part of registration process.  This
+- Added "Account Information" e-mail as part of registration process.  This
   e-mail gets sent the e-mail address the user entered on signup.
 - Dependent packages upgraded:
     * Cactus 1.6 Nightly (20030119) to support the "cactus" task and Resin 
