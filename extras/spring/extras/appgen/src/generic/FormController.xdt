@@ -1,5 +1,7 @@
 <XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>package <XDtForm:parentPackageName/>.webapp.action;
 
+import java.util.Locale;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -43,16 +45,17 @@ public class <XDtClass:className/>FormController extends BaseFormController {
         <XDtClass:className/> <XDtForm:classNameLower/> = (<XDtClass:className/>) command;
         boolean isNew = (<XDtForm:classNameLower/>.getId() == null);
         String success = getSuccessView();
+        Locale locale = request.getLocale();
 
         if (request.getParameter("delete") != null) {
             manager.removeObject(<XDtClass:className/>.class, <XDtForm:classNameLower/>.getId());
 
-            saveMessage(request, getText("<XDtForm:classNameLower/>.deleted"));
+            saveMessage(request, getText("<XDtForm:classNameLower/>.deleted", locale));
         } else {
             manager.saveObject(<XDtForm:classNameLower/>);
 
             String key = (isNew) ? "<XDtForm:classNameLower/>.added" : "<XDtForm:classNameLower/>.updated";
-            saveMessage(request, getText(key));
+            saveMessage(request, getText(key, locale));
 
             if (!isNew) {
                 success = "edit<XDtClass:className/>.html?id=" + <XDtForm:classNameLower/>.getId();
