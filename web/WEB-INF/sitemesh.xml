@@ -3,7 +3,7 @@
     <excludes file="${decorators-file}"/> 
     <page-parsers>
         <parser default="true" 
-            class="com.opensymphony.module.sitemesh.parser.DefaultPageParser"/>
+            class="com.opensymphony.module.sitemesh.parser.FastPageParser"/>
         <parser content-type="text/html" 
             class="com.opensymphony.module.sitemesh.parser.FastPageParser"/>
         <parser content-type="text/html;charset=ISO-8859-1"
