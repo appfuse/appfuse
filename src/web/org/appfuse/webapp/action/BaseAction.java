@@ -39,7 +39,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.13 $ $Date: 2004/05/16 02:16:56 $
+ * @version $Revision: 1.14 $ $Date: 2004/07/23 23:16:40 $
  */
 public class BaseAction extends LookupDispatchAction {
 
@@ -189,8 +189,14 @@ public class BaseAction extends LookupDispatchAction {
         // Identify the request parameter containing the method name
         String parameter = mapping.getParameter();
 
-        String keyName = request.getParameter(parameter);
-
+        // don't set keyName unless it's defined on the action-mapping
+        // no keyName -> unspecified will be called
+        String keyName = null;
+        
+        if (parameter != null) {
+        	keyName = request.getParameter(parameter);
+        }
+        
         if ((keyName == null) || (keyName.length() == 0)) {
             for (int i = 0; i < rules.length; i++) {
                 // apply the rules for automatically appending the method name
@@ -385,8 +391,13 @@ public class BaseAction extends LookupDispatchAction {
             // Find the key for the resource
             String key = (String) defaultKeyNameKeyMap.get(keyName);
             if (key == null) {
-                String message = messages.getMessage("dispatch.resource", mapping.getPath(), keyName);
-                throw new ServletException(message);
+                if (log.isDebugEnabled()) {
+                	log.debug("keyName '" + keyName + "' not found in resource bundle with locale "
+                            + request.getLocale());
+                }
+                return keyName;
+                //String message = messages.getMessage("dispatch.resource", mapping.getPath(), keyName);
+                //throw new ServletException(message);
             }
 
             // Find the method name
