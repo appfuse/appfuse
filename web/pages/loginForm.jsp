@@ -15,6 +15,7 @@
                     <img src="<c:url value="/images/iconWarning.gif"/>"
                         alt="<fmt:message key="icon.warning"/>" class="icon" />
                     <fmt:message key="errors.password.mismatch"/>
+                    <%--c:out value="${sessionScope.ACEGI_SECURITY_LAST_EXCEPTION.message}"/--%>
                 </div>
             </c:if>
         </td>
