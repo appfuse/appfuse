@@ -1,7 +1,4 @@
     <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
-    <listener>
         <listener-class>com.opensymphony.clickstream.ClickstreamListener</listener-class>
     </listener>
     <listener>
