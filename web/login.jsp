@@ -6,13 +6,6 @@
 
 <c:import url="/loginMenu.jsp"/>
 
-<logic:notPresent name="org.apache.struts.action.MESSAGE" scope="application">
-  <div class="error">	
-    ERROR:  Application resources not loaded -- check servlet container
-    logs for error messages.
-  </div>
-</logic:notPresent>
-
 <p><fmt:message key="welcome.message"/></p>
 
 <%-- Include the login form --%>
