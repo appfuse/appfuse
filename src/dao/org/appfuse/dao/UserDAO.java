@@ -32,7 +32,6 @@ public interface UserDAO extends DAO {
     /**
      * Saves a user's information
      * @param user the object to be saved
-     * @return User the updated user object
      */
     public void saveUser(User user);
 
