@@ -40,7 +40,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 public class LabelTag extends TagSupport {
    
     protected RequestContext requestContext;
-    protected static Log log = LogFactory.getLog(LabelTag.class);
+    protected transient final Log log = LogFactory.getLog(LabelTag.class);
     protected String key = null;
     protected String styleClass = null;
     protected String errorClass = null;

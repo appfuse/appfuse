@@ -8,8 +8,6 @@ import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.HibernateException;
 import net.sf.hibernate.Session;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.appfuse.dao.DAOException;
 import org.appfuse.dao.UserDAO;
 import org.appfuse.model.User;
@@ -29,7 +27,6 @@ import org.springframework.orm.hibernate.HibernateCallback;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class UserDAOHibernate extends BaseDAOHibernate implements UserDAO {
-    private Log log = LogFactory.getLog(UserDAOHibernate.class);
 
     /**
      * @see org.appfuse.dao.UserDAO#getUser(java.lang.String)

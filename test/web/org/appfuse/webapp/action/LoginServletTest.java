@@ -20,7 +20,7 @@ public class LoginServletTest extends ServletTestCase {
 
     //~ Instance fields ========================================================
 
-    private Log log = LogFactory.getLog(LoginServletTest.class);
+    private final Log log = LogFactory.getLog(LoginServletTest.class);
     private LoginServlet servlet = null;
 
     //~ Constructors ===========================================================

@@ -11,8 +11,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.struts.Globals;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -55,8 +53,6 @@ import org.appfuse.webapp.util.RequestUtil;
  * @struts.action-forward name="edit" path=".userProfile"
  */
 public final class UserAction extends BaseAction {
-    /** The <code>Log</code> instance for this class */
-    private static Log log = LogFactory.getLog(UserAction.class);
 
     public ActionForward add(ActionMapping mapping, ActionForm form,
                              HttpServletRequest request,

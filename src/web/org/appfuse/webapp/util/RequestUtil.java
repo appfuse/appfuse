@@ -25,7 +25,7 @@ import org.apache.struts.taglib.TagUtils;
  */
 public class RequestUtil {
     private static final String STOWED_REQUEST_ATTRIBS = "ssl.redirect.attrib.stowed";
-    private static Log log = LogFactory.getLog(RequestUtil.class);
+    private transient static Log log = LogFactory.getLog(RequestUtil.class);
 
     /**
      * Creates query String from request body parameters

@@ -2,15 +2,11 @@ package org.appfuse.service;
 
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 
 public class LookupManagerTest extends BaseManagerTestCase {
     //~ Instance fields ========================================================
 
     private LookupManager mgr = null;
-    private Log log = LogFactory.getLog(LookupManagerTest.class);
 
     //~ Methods ================================================================
 

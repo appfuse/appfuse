@@ -24,10 +24,9 @@ import org.springframework.web.servlet.view.RedirectView;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.4 $ $Date: 2004/07/20 04:33:06 $
+ * @version $Revision: 1.5 $ $Date: 2004/08/19 00:09:55 $
  */
 public class SignupController extends BaseFormController {
-    private static Log log = LogFactory.getLog(SignupController.class);
 
     public ModelAndView onSubmit(HttpServletRequest request,
                                  HttpServletResponse response, Object command,

@@ -37,11 +37,9 @@ import org.springframework.web.servlet.view.RedirectView;
  * <p/><a href="UserFormController.java.html"><i>View Source</i></a></p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.8 $ $Date: 2004/08/03 05:14:36 $
+ * @version $Revision: 1.9 $ $Date: 2004/08/19 00:09:54 $
  */
 public class UserFormController extends BaseFormController {
-    
-    private static Log log = LogFactory.getLog(UserFormController.class);
 
     public ModelAndView processFormSubmission(HttpServletRequest request,
                                               HttpServletResponse response,

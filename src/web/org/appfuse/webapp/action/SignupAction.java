@@ -1,7 +1,9 @@
 package org.appfuse.webapp.action;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.struts.Globals;
 import org.apache.struts.action.ActionForm;
@@ -11,7 +13,6 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.util.MessageResources;
 import org.apache.struts.util.RequestUtils;
-
 import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.service.MailSender;
@@ -19,11 +20,6 @@ import org.appfuse.service.UserManager;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.form.UserForm;
 import org.appfuse.webapp.util.RequestUtil;
-
-import javax.mail.MessagingException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  * Action class to allow users to self-register.
@@ -39,8 +35,6 @@ import javax.servlet.http.HttpSession;
  * @struts.action-forward name="success" path="/mainMenu.html" redirect="true"
  */
 public final class SignupAction extends BaseAction {
-
-    private static Log log = LogFactory.getLog(SignupAction.class);
 
     public ActionForward execute(ActionMapping mapping, ActionForm form,
                                  HttpServletRequest request,

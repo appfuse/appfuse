@@ -1,37 +1,39 @@
 package org.appfuse.webapp.listener;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.Constants;
 import org.appfuse.service.LookupManager;
 import org.springframework.context.ApplicationContext;
-import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.ContextLoaderListener;
-
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-import java.util.HashMap;
-import java.util.Map;
-
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
  * StartupListener class used to initialize and database settings
  * and populate any application-wide drop-downs.
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.8 $ $Date: 2004/07/13 05:04:21 $
+ * @version $Revision: 1.9 $ $Date: 2004/08/19 00:13:57 $
  *
  * @web.listener
  */
 public class StartupListener extends ContextLoaderListener
-        implements ServletContextListener {
-    private static Log log = LogFactory.getLog(StartupListener.class);
+    implements ServletContextListener {
+    
+    private static final Log log = LogFactory.getLog(StartupListener.class);
 
     public void contextInitialized(ServletContextEvent event) {
         if (log.isDebugEnabled()) {
             log.debug("initializing context...");
         }
+
         // call Spring's context ContextLoaderListener to initialize
         // all the context files specified in web.xml
         super.contextInitialized(event);
@@ -67,25 +69,16 @@ public class StartupListener extends ContextLoaderListener
     }
 
     public static void setupContext(ServletContext context) {
-        // populate drop-downs and stuff in servlet context
-        try {
-            // check to see if ctx has already been set
-            ApplicationContext ctx =
-                (ApplicationContext) context
-                    .getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
+        ApplicationContext ctx = 
+            WebApplicationContextUtils.getRequiredWebApplicationContext(context);
 
-            LookupManager mgr =
-                (LookupManager) ctx.getBean("lookupManager");
+        LookupManager mgr = (LookupManager) ctx.getBean("lookupManager");
 
-            // get list of possible roles
-            context.setAttribute(Constants.AVAILABLE_ROLES, mgr.getAllRoles());
+        // get list of possible roles
+        context.setAttribute(Constants.AVAILABLE_ROLES, mgr.getAllRoles());
 
-            if (log.isDebugEnabled()) {
-                log.debug("drop-down initialization complete [OK]");
-            }
-        } catch (Exception e) {
-            log.error("Error populating drop-downs failed!" + e.getMessage());
-            e.printStackTrace();
-        }   
+        if (log.isDebugEnabled()) {
+            log.debug("drop-down initialization complete [OK]");
+        }
     }
 }

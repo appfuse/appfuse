@@ -26,10 +26,10 @@ import org.springframework.web.servlet.support.RequestContext;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.4 $ $Date: 2004/08/14 22:32:34 $
+ * @version $Revision: 1.5 $ $Date: 2004/08/19 00:09:54 $
  */
 public class PasswordHintController implements Controller {
-    private static Log log = LogFactory.getLog(PasswordHintController.class);
+    private transient final Log log = LogFactory.getLog(PasswordHintController.class);
     private UserManager mgr = null;
 
     public void setUserManager(UserManager userManager) {

@@ -1,7 +1,5 @@
 package org.appfuse.dao;
 
-import org.apache.commons.logging.LogFactory;
-
 import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.model.UserCookie;
@@ -15,7 +13,6 @@ public class UserDAOTest extends BaseDAOTestCase {
     private UserDAO dao = null;
 
     protected void setUp() throws Exception {
-        log = LogFactory.getLog(UserDAOTest.class);
         dao = (UserDAO) ctx.getBean("userDAO");
     }
 

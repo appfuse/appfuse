@@ -35,7 +35,7 @@ import org.apache.struts.config.ExceptionConfig;
 public final class ActionExceptionHandler extends ExceptionHandler {
     //~ Instance fields ========================================================
 
-    private Log log = LogFactory.getLog(ActionExceptionHandler.class);
+    private transient final Log log = LogFactory.getLog(ActionExceptionHandler.class);
 
     //~ Methods ================================================================
 

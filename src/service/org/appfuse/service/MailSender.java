@@ -19,11 +19,9 @@ import org.appfuse.Constants;
 
 
 public class MailSender extends Object {
-    //~ Static fields/initializers =============================================
 
-    private static Log log =
-        LogFactory.getFactory().getInstance(MailSender.class);
-
+    protected static final Log log = LogFactory.getLog(MailSender.class);
+    
     //~ Methods ================================================================
 
     /**

@@ -14,7 +14,6 @@ import org.springframework.web.servlet.view.RedirectView;
 
 
 public class UserFormControllerTest extends BaseControllerTestCase {
-    private static Log log = LogFactory.getLog(UserFormControllerTest.class);
     private UserFormController c;
     private MockHttpServletRequest request;
     private ModelAndView mv;

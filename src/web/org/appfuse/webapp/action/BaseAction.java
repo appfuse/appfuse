@@ -1,6 +1,12 @@
 package org.appfuse.webapp.action;
 
-import java.util.*;
+import java.util.Date;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -42,7 +48,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  */
 public class BaseAction extends LookupDispatchAction {
 
-    protected static Log log = LogFactory.getLog(BaseAction.class);
+    protected transient final Log log = LogFactory.getLog(getClass());
     private static final String SECURE = "secure";
     private static ApplicationContext ctx = null;
     private static Long defaultLong = null;
@@ -59,10 +65,6 @@ public class BaseAction extends LookupDispatchAction {
         ConvertUtils.register(new DateConverter(), Date.class);
         ConvertUtils.register(new DateConverter(), String.class);
         ConvertUtils.register(new LongConverter(defaultLong), Long.class);
-
-        if (log.isDebugEnabled()) {
-            log.debug("Converters registered...");
-        }
     }
 
     /**

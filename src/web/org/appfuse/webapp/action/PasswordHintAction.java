@@ -1,7 +1,7 @@
 package org.appfuse.webapp.action;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -10,14 +10,10 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.util.MessageResources;
 import org.apache.struts.util.RequestUtils;
-
 import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.service.MailSender;
 import org.appfuse.service.UserManager;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -33,8 +29,6 @@ import javax.servlet.http.HttpServletResponse;
  * @struts.action-forward name="previousPage" path="/login.jsp"
  */
 public final class PasswordHintAction extends BaseAction {
-    
-    private static Log log = LogFactory.getLog(PasswordHintAction.class);
 
     public ActionForward execute(ActionMapping mapping, ActionForm form,
                                  HttpServletRequest request,

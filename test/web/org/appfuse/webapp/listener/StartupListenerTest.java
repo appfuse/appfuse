@@ -15,12 +15,12 @@ import org.springframework.web.context.WebApplicationContext;
  * verify that variables are placed into the application context.
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.3 $ $Date: 2004/05/16 02:17:24 $
+ * @version $Revision: 1.4 $ $Date: 2004/08/19 00:14:00 $
  */
 public class StartupListenerTest extends ServletTestCase {
     //~ Instance fields ========================================================
 
-    private Log log = LogFactory.getLog(StartupListenerTest.class);
+    private final Log log = LogFactory.getLog(StartupListenerTest.class);
     StartupListener listener = null;
     ServletContext context = null;
 

@@ -3,9 +3,6 @@ package org.appfuse.webapp.action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -25,11 +22,7 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author Matt Raible
  */
-public final class SwitchLayoutAction extends Action {
-    //~ Instance fields ========================================================
-
-    /** The <code>Log</code> instance for this class */
-    private Log log = LogFactory.getLog(SwitchLayoutAction.class);
+public final class SwitchLayoutAction extends BaseAction {
 
     //~ Methods ================================================================
 

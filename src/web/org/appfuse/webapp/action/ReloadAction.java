@@ -5,9 +5,6 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -26,9 +23,7 @@ import org.appfuse.webapp.listener.StartupListener;
  *
  * @struts.action path="/reload" validate="false" roles="admin"
  */
-public final class ReloadAction extends Action {
-    
-    private static Log log = LogFactory.getLog(ReloadAction.class);
+public final class ReloadAction extends BaseAction {
 
     public ActionForward execute(ActionMapping mapping, ActionForm form,
                                  HttpServletRequest request,

@@ -25,10 +25,12 @@ import servletunit.struts.CactusStrutsTestCase;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.7 $ $Date: 2004/08/15 06:04:23 $
+ * @version $Revision: 1.8 $ $Date: 2004/08/19 00:13:59 $
  */
 public class BaseStrutsTestCase extends CactusStrutsTestCase {
     //~ Instance fields ========================================================
+
+    protected transient final Log log = LogFactory.getLog(getClass());
     protected User user = null;
     protected ResourceBundle rb = null;
     protected ResourceBundle login = null;

@@ -37,7 +37,7 @@ import org.springframework.web.context.WebApplicationContext;
  * <p><a href="ActionFilter.java.html"><i>View Source</i></a></p>
  *
  * @author  Matt Raible
- * @version $Revision: 1.9 $ $Date: 2004/05/25 06:27:23 $
+ * @version $Revision: 1.10 $ $Date: 2004/08/19 00:13:57 $
  *
  * @web.filter display-name="Action Filter" name="actionFilter"
  *
@@ -49,7 +49,7 @@ import org.springframework.web.context.WebApplicationContext;
  */
 public class ActionFilter implements Filter {
     private static Boolean secure = Boolean.FALSE;
-    private static Log log = LogFactory.getLog(ActionFilter.class);
+    private transient final Log log = LogFactory.getLog(ActionFilter.class);
     private FilterConfig config = null;
 
     public void init(FilterConfig config) throws ServletException {

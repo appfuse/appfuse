@@ -19,10 +19,10 @@ import org.appfuse.Constants;
  * tag, identifying the scripting object(s) to be made visible.
  *
  * @author Matt Raible
- * @version $Revision: 1.3 $ $Date: 2004/05/16 02:17:06 $
+ * @version $Revision: 1.4 $ $Date: 2004/08/19 00:13:58 $
  */
 public class ConstantsTei extends TagExtraInfo {
-    private Log log = LogFactory.getLog(ConstantsTei.class);
+    private final Log log = LogFactory.getLog(ConstantsTei.class);
 
     /**
      * Return information about the scripting variables to be created.

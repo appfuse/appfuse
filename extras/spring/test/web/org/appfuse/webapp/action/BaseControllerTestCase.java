@@ -16,6 +16,7 @@ import org.springframework.mock.web.MockServletContext;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 
 public class BaseControllerTestCase extends TestCase {
+    protected transient final Log log = LogFactory.getLog(getClass());
     protected static XmlWebApplicationContext ctx;
     protected static ResourceBundle login;
     protected User user;

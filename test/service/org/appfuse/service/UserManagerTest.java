@@ -1,7 +1,5 @@
 package org.appfuse.service;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.appfuse.Constants;
 import org.appfuse.model.User;
 
@@ -10,7 +8,6 @@ public class UserManagerTest extends BaseManagerTestCase {
     //~ Instance fields ========================================================
 
     private UserManager mgr = null;
-    private Log log = LogFactory.getLog(UserManagerTest.class);
     private User user;
 
     //~ Methods ================================================================

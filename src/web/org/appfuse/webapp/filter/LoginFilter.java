@@ -33,7 +33,7 @@ import org.springframework.web.context.WebApplicationContext;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.8 $ $Date: 2004/05/25 06:27:23 $
+ * @version $Revision: 1.9 $ $Date: 2004/08/19 00:13:57 $
  *
  * @web.filter display-name="Login Filter" name="loginFilter"
  * @web.filter-init-param name="enabled" value="${rememberMe.enabled}"
@@ -41,7 +41,7 @@ import org.springframework.web.context.WebApplicationContext;
 public final class LoginFilter implements Filter {
     //~ Instance fields ========================================================
 
-    private Log log = LogFactory.getLog(LoginFilter.class);
+    private transient final Log log = LogFactory.getLog(LoginFilter.class);
     private FilterConfig config = null;
     private boolean enabled = true;
 

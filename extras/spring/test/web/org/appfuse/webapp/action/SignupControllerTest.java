@@ -13,7 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 public class SignupControllerTest extends BaseControllerTestCase {
-    private static Log log = LogFactory.getLog(SignupControllerTest.class);
     private SignupController c;
 
     protected void setUp() throws Exception {

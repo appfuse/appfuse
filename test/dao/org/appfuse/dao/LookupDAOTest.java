@@ -2,9 +2,6 @@ package org.appfuse.dao;
 
 import java.util.List;
 
-import org.apache.commons.logging.LogFactory;
-import org.appfuse.dao.LookupDAO;
-
 /**
  * This class tests the current LookupDAO implementation class
  * @author mraible
@@ -13,7 +10,6 @@ public class LookupDAOTest extends BaseDAOTestCase {
     private LookupDAO dao = null;
     
     protected void setUp() throws Exception {
-        log = LogFactory.getLog(LookupDAOTest.class);
         dao = (LookupDAO) ctx.getBean("lookupDAO");
     }
 

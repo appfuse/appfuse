@@ -35,7 +35,7 @@ import org.apache.struts.validator.ValidatorPlugIn;
  * @jsp.tag name="label" bodycontent="empty"
  */
 public class LabelTag extends TagSupport {
-    protected Log log = LogFactory.getLog(LabelTag.class);
+    protected final Log log = LogFactory.getLog(LabelTag.class);
     protected String key = null;
     protected String styleClass = null;
     protected String errorClass = null;

@@ -34,17 +34,6 @@
             </fileset>
         </delete>
 
-        <echo level="info">Adding hibernate.classpath for testing controllers</echo>
-        <replace file="../../properties.xml">
-            <replacetoken><![CDATA[<fileset dir="${webtest.dir}/lib" includes="*.jar"/>
-    <pathelement location="${log4j.jar}"/>
-</path>]]></replacetoken>
-            <replacevalue><![CDATA[<fileset dir="${webtest.dir}/lib" includes="*.jar"/>
-    <pathelement location="${log4j.jar}"/>
-    <path refid="hibernate.classpath"/>
-</path>]]></replacevalue>
-        </replace>
-
         <echo level="info">Deleting struts_form.xdt for XDoclet</echo>
         <delete dir="../../metadata/templates"/>
 

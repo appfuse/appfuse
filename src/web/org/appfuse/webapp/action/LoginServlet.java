@@ -61,7 +61,7 @@ public final class LoginServlet extends HttpServlet {
     private static Boolean secure = Boolean.FALSE;
     private static String algorithm = "SHA";
     private static Boolean encrypt = Boolean.FALSE;
-    private Log log = LogFactory.getLog(LoginServlet.class);
+    private transient final Log log = LogFactory.getLog(LoginServlet.class);
 
     /**
      * Initializes the port numbers based on the port init parameters as defined

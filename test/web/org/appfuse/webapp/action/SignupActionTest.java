@@ -1,6 +1,7 @@
 package org.appfuse.webapp.action;
 
 import org.appfuse.Constants;
+
 import servletunit.struts.CactusStrutsTestCase;
 
 

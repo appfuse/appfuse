@@ -16,10 +16,10 @@ import org.apache.commons.logging.LogFactory;
  * Wraps Response for GZipFilter
  *
  * @author  Matt Raible
- * @version $Revision: 1.3 $ $Date: 2004/05/16 02:17:00 $
+ * @version $Revision: 1.4 $ $Date: 2004/08/19 00:13:57 $
  */
 public class GZIPResponseWrapper extends HttpServletResponseWrapper {
-    private static Log log = LogFactory.getLog(GZIPResponseWrapper.class);
+    private transient final Log log = LogFactory.getLog(GZIPResponseWrapper.class);
     protected HttpServletResponse origResponse = null;
     protected ServletOutputStream stream = null;
     protected PrintWriter writer = null;

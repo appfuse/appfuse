@@ -25,7 +25,7 @@ import com.meterware.httpunit.WebResponse;
 public class MainMenuTest extends TestCase {
     //~ Instance fields ========================================================
 
-    private Log log = LogFactory.getLog(MainMenuTest.class);
+    private final Log log = LogFactory.getLog(MainMenuTest.class);
     private ResourceBundle messages = null;
     private ResourceBundle testParams = null;
     private WebConversation conversation = null;

@@ -17,7 +17,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class BaseManagerTestCase extends TestCase {
     //~ Static fields/initializers =============================================
 
-    private static Log log = LogFactory.getLog(BaseManagerTestCase.class);
+    protected transient final Log log = LogFactory.getLog(getClass());
     protected static ResourceBundle rb = null;
     protected static ApplicationContext ctx = null;
 

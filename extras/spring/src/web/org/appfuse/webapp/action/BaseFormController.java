@@ -8,6 +8,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
@@ -28,9 +30,12 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.5 $ $Date: 2004/08/14 22:32:08 $
+ * @version $Revision: 1.6 $ $Date: 2004/08/19 00:09:55 $
  */
 public class BaseFormController extends SimpleFormController {
+    
+    protected transient final Log log = LogFactory.getLog(getClass());
+    
     protected UserManager mgr = null;
 
     public void setUserManager(UserManager userManager) {

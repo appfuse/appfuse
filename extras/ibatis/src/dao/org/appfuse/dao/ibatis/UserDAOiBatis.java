@@ -28,7 +28,6 @@ import org.springframework.orm.ibatis.support.SqlMapDaoSupport;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class UserDAOiBatis extends SqlMapClientDaoSupport implements UserDAO {
-    private Log log = LogFactory.getLog(UserDAOiBatis.class);
 
     /**
      * Get user by username.
@@ -52,7 +51,7 @@ public class UserDAOiBatis extends SqlMapClientDaoSupport implements UserDAO {
         }
 
         if ((users != null) && (users.size() == 0)) {
-            log.warn("uh oh, user not found...");
+            logger.warn("uh oh, user not found...");
             throw new DAOException("User '" + username +
                                    "' not found in database!");
         }
@@ -126,8 +125,8 @@ public class UserDAOiBatis extends SqlMapClientDaoSupport implements UserDAO {
 
             user.setId(new Long(pk.longValue() + 1));
 
-            if (log.isDebugEnabled()) {
-                log.debug("user's id: " + user.getId());
+            if (logger.isDebugEnabled()) {
+                logger.debug("user's id: " + user.getId());
             }
 
             getSqlMapClientTemplate().update("addUser", user);

@@ -19,7 +19,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @author mraible
  */
 public class BaseDAOTestCase extends TestCase {
-    protected static Log log = LogFactory.getLog(BaseDAOTestCase.class);
+    protected transient final Log log = LogFactory.getLog(getClass());
     protected static ApplicationContext ctx = null;
     protected static ResourceBundle rb = null;
 
@@ -30,9 +30,6 @@ public class BaseDAOTestCase extends TestCase {
         // in properties.xml
         ResourceBundle db = ResourceBundle.getBundle("database");
         String daoType = db.getString("dao.type");
-        if (log.isDebugEnabled()) {
-            log.debug("daoType: " + daoType);
-        }
         String[] paths = {"/applicationContext-database.xml",
                           "/applicationContext-" + daoType + ".xml"};
         ctx = new ClassPathXmlApplicationContext(paths);
