@@ -57,13 +57,12 @@ public class UserDAOTest extends BaseDAOTestCase {
 
         assertTrue(user.getRoles().size() == 1);
 
-        UserRole role = new UserRole(Constants.ADMIN_ROLE);
-        user.addRole(role);
+        user.addRole(Constants.ADMIN_ROLE);
         user = dao.saveUser(user);
 
         assertTrue(user.getRoles().size() == 2);
 
-        user.getRoles().remove(role);
+        user.getRoles().remove(1);
         user = dao.saveUser(user);
 
         assertTrue(user.getRoles().size() == 1);
@@ -81,9 +80,7 @@ public class UserDAOTest extends BaseDAOTestCase {
         user.setPostalCode("80210");
         user.setEmail("testuser@appfuse.org");
         user.setWebsite("http://raibledesigns.com");
-
-        UserRole role = new UserRole(Constants.USER_ROLE);
-        user.addRole(role);
+        user.addRole(Constants.USER_ROLE);
 
         user = dao.saveUser(user);
         assertTrue(user.getUsername() != null);

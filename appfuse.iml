@@ -25,15 +25,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/struts-menu-2.1/struts-menu-2.1.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
     <orderEntry type="library" name="j2ee.jar" level="application" />
     <orderEntry type="module-library">
       <library>
@@ -255,6 +246,15 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/spring-1.0-rc2/aopalliance.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/struts-menu-2.2-dev/struts-menu-2.2-dev.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: properties.xml,v 1.1 2004/03/01 05:58:58 mraible Exp $             -->
+<!-- $Id: properties.xml,v 1.2 2004/03/18 20:33:10 mraible Exp $             -->
 <!-- ======================================================================= -->
 <!-- This file defines properties for build.xml -->
 
@@ -153,10 +153,6 @@
     <pathelement location="${commons-beanutils.jar}"/>
     <pathelement location="${commons-collections.jar}"/>
     <fileset dir="${spring.dir}" includes="*.jar"/>
-    <!-- Ideally, these shouldn't be needed in the service layer, but they
-         are in the Struts version since it converts Forms -> POJOs -->
-    <pathelement location="${struts.jar}"/>
-    <pathelement location="${j2ee.jar}"/>
 </path>
 <path id="service.test.classpath">
     <path refid="service.compile.classpath"/>

@@ -7,7 +7,9 @@ import org.apache.cactus.WebRequest;
 import org.apache.cactus.client.authentication.FormAuthentication;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.beanutils.BeanUtils;
 import org.appfuse.Constants;
+import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
 import org.appfuse.webapp.form.UserForm;
 import org.springframework.web.context.WebApplicationContext;
@@ -25,14 +27,14 @@ import servletunit.struts.CactusStrutsTestCase;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.1 $ $Date: 2004/03/01 06:19:35 $
+ * @version $Revision: 1.2 $ $Date: 2004/03/18 20:33:03 $
  */
 public class BaseStrutsTestCase extends CactusStrutsTestCase {
     //~ Instance fields ========================================================
 
-    private Log log = LogFactory.getLog(BaseStrutsTestCase.class);
+    private static Log log = LogFactory.getLog(BaseStrutsTestCase.class);
     protected Object conn = null;
-    protected UserForm userForm = null;
+    protected User user = null;
     protected ResourceBundle rb = null;
     protected ResourceBundle login = null;
     protected WebApplicationContext ctx = null;
@@ -62,8 +64,8 @@ public class BaseStrutsTestCase extends CactusStrutsTestCase {
         ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(
         		this.getSession().getServletContext());
         UserManager userMgr = (UserManager) ctx.getBean("userManager");
-        userForm = (UserForm) userMgr.getUser(username);
-        getSession().setAttribute(Constants.USER_KEY, userForm);
+        user = (User) userMgr.getUser(username);
+        getSession().setAttribute(Constants.USER_KEY, user);
     }
     
     protected void tearDown() throws Exception {

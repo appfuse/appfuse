@@ -1,6 +1,7 @@
 package org.appfuse.webapp.action;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,6 +22,8 @@ import org.apache.struts.action.ActionMessages;
 import org.apache.struts.util.MessageResources;
 import org.apache.struts.util.RequestUtils;
 import org.appfuse.Constants;
+import org.appfuse.model.UserRole;
+import org.appfuse.model.User;
 import org.appfuse.service.MailSender;
 import org.appfuse.service.UserManager;
 import org.appfuse.util.StringUtil;
@@ -37,7 +40,7 @@ import org.springframework.web.context.WebApplicationContext;
  * <p><a href="RegistrationServlet.java.html"><i>View Source</i></a></p>
  *
  * @author Matt Raible
- * @version $Revision: 1.1 $ $Date: 2004/03/01 06:19:15 $
+ * @version $Revision: 1.2 $ $Date: 2004/03/18 20:33:06 $
  * @web.servlet display-name="Registration Servlet"
  * name="register"
  * load-on-startup="4"
@@ -105,13 +108,20 @@ public final class RegistrationServlet extends HttpServlet {
             log.debug("registering user...");
         }
 
+        User user = new User();
+
+        // populate the user object with request parameters
+        RequestUtils.populate(user, request);
         UserFormEx userForm = new UserFormEx();
-
-        // populate the userForm with request parameters
-        RequestUtils.populate(userForm, request);
-        request.setAttribute(Constants.USER_EDIT_KEY, userForm);
-
         ActionErrors errors = new ActionErrors();
+        try {
+            BeanUtils.copyProperties(userForm, user);
+        } catch (Exception e) {
+            log.error("error converting user to userForm: " + e.getMessage());
+            errors.add(ActionMessages.GLOBAL_MESSAGE,
+                           new ActionMessage("errors.conversion"));
+        }
+        request.setAttribute(Constants.USER_EDIT_KEY, userForm);
 
         errors = userForm.validate(null, request);
 
@@ -126,28 +136,26 @@ public final class RegistrationServlet extends HttpServlet {
             (String) getServletContext().getAttribute(Constants.ENC_ALGORITHM);
 
         // Set the default user role on this new user
-        String[] role = { Constants.USER_ROLE };
-        userForm.setUserRoles(role);
+        user.addRole(Constants.USER_ROLE);
 
         try {
-            UserForm newUser = new UserForm();
-            BeanUtils.copyProperties(newUser, userForm);
 
             if (algorithm == null) { // should only happen for test case
                 log.debug("assuming testcase, setting algorigthm to 'SHA'");
                 algorithm = "SHA";
             }
 
-            newUser.setPassword(StringUtil.encodePassword(newUser.getPassword(),
-                                                          algorithm));
+            user.setPassword(StringUtil.encodePassword(user.getPassword(),
+                                                       algorithm));
 
             WebApplicationContext ctx =
-                (WebApplicationContext) getServletContext().getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
+                (WebApplicationContext) getServletContext()
+                    .getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
             UserManager mgr = (UserManager) ctx.getBean("userManager");
-            newUser = (UserForm) mgr.saveUser(newUser);
+            user = (User) mgr.saveUser(user);
 
             // Set cookies for auto-magical login ;-)
-            String loginCookie = mgr.createLoginCookie(newUser.getUsername());
+            String loginCookie = mgr.createLoginCookie(user.getUsername());
             RequestUtil.setCookie(response, Constants.LOGIN_COOKIE,
                     loginCookie, request.getContextPath());
         } catch (Exception e) {
@@ -283,22 +291,21 @@ public final class RegistrationServlet extends HttpServlet {
                 (WebApplicationContext) getServletContext().getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
             UserManager userMgr = (UserManager) ctx.getBean("userManager");
 
-            UserForm userForm = new UserForm();
-            userForm = (UserForm) userMgr.getUser(userId);
+            User user = (User) userMgr.getUser(userId);
 
             StringBuffer msg = new StringBuffer();
-            msg.append("Your password hint is: " + userForm.getPasswordHint());
+            msg.append("Your password hint is: " + user.getPasswordHint());
             msg.append("\n\nLogin at: " + RequestUtils.serverURL(request) +
                        request.getContextPath());
 
             // From,to,cc,subject,content
             MailSender.sendTextMessage(Constants.DEFAULT_FROM,
-                                       userForm.getEmail(), null,
+                                       user.getEmail(), null,
                                        "Password Hint", msg.toString());
 
             messages.add(ActionMessages.GLOBAL_MESSAGE,
                          new ActionMessage("login.passwordHint.sent", userId,
-                                           userForm.getEmail()));
+                                           user.getEmail()));
         } catch (Exception e) {
             //If exception is expected do not rethrow
             ActionErrors errors = new ActionErrors();

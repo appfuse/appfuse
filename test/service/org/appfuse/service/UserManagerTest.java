@@ -4,8 +4,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.Constants;
-import org.appfuse.webapp.form.UserForm;
-import org.appfuse.webapp.form.UserFormEx;
+import org.appfuse.model.User;
 
 
 public class UserManagerTest extends BaseManagerTestCase {
@@ -13,7 +12,7 @@ public class UserManagerTest extends BaseManagerTestCase {
 
     private UserManager mgr = null;
     private Log log = LogFactory.getLog(UserManagerTest.class);
-    private UserForm userForm;
+    private User user;
 
     //~ Methods ================================================================
 
@@ -26,53 +25,50 @@ public class UserManagerTest extends BaseManagerTestCase {
     }
 
     public void testGetUser() throws Exception {
-        userForm = (UserForm) mgr.getUser("tomcat");
+        user = (User) mgr.getUser("tomcat");
 
         if (log.isDebugEnabled()) {
-            log.debug(userForm);
+            log.debug(user);
         }
 
-        assertTrue(userForm != null);
-        assertTrue(userForm.getRoles().size() == 1);
+        assertTrue(user != null);
+        assertTrue(user.getRoles().size() == 1);
     }
 
     public void testSaveUser() throws Exception {
-        userForm = (UserForm) mgr.getUser("tomcat");
-        userForm.setPhoneNumber("303-555-1212");
+        user = (User) mgr.getUser("tomcat");
+        user.setPhoneNumber("303-555-1212");
 
         if (log.isDebugEnabled()) {
-            log.debug("saving user with updated phone number: " + userForm);
+            log.debug("saving user with updated phone number: " + user);
         }
 
-        userForm = (UserForm) mgr.saveUser(userForm);
-        assertTrue(userForm.getPhoneNumber().equals("303-555-1212"));
-        assertTrue(userForm.getRoles().size() == 1);
+        user = (User) mgr.saveUser(user);
+        assertTrue(user.getPhoneNumber().equals("303-555-1212"));
+        assertTrue(user.getRoles().size() == 1);
     }
 
     public void testAddAndRemoveUser() throws Exception {
-        UserFormEx userFormEx = new UserFormEx();
+        user = new User();
 
         // call populate method in super class to populate test data
         // from a properties file matching this class name
-        userFormEx = (UserFormEx) populate(userFormEx);
+        user = (User) populate(user);
 
-        String[] roles = { Constants.USER_ROLE };
-        userFormEx.setUserRoles(roles);
-        userForm = new UserForm();
-        BeanUtils.copyProperties(userForm, userFormEx);
+        user.addRole(Constants.USER_ROLE);
 
-        userForm = (UserForm) mgr.saveUser(userForm);
-        assertTrue(userForm.getUsername().equals("john"));
-        assertTrue(userForm.getRoles().size() == 1);
+        user = (User) mgr.saveUser(user);
+        assertTrue(user.getUsername().equals("john"));
+        assertTrue(user.getRoles().size() == 1);
 
         if (log.isDebugEnabled()) {
             log.debug("removing user...");
         }
 
-        mgr.removeUser(userForm);
+        mgr.removeUser(user);
 
         try {
-            userForm = (UserForm) mgr.getUser("john");
+            user = (User) mgr.getUser("john");
             fail("Expected 'Exception' not thrown");
         } catch (Exception e) {
             if (log.isDebugEnabled()) {

@@ -22,6 +22,7 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 
 import org.appfuse.Constants;
+import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
 import org.appfuse.webapp.form.UserForm;
 import org.appfuse.webapp.util.RequestUtil;
@@ -39,7 +40,7 @@ import org.springframework.web.context.WebApplicationContext;
  * <p><a href="ActionFilter.java.html"><i>View Source</i></a></p>
  *
  * @author  Matt Raible
- * @version $Revision: 1.1 $ $Date: 2004/03/01 06:19:17 $
+ * @version $Revision: 1.2 $ $Date: 2004/03/18 20:33:05 $
  *
  * @web.filter display-name="Action Filter" name="actionFilter"
  *
@@ -95,18 +96,18 @@ public class ActionFilter implements Filter {
             return;
         }
 
-        UserForm userForm = (UserForm) session.getAttribute(Constants.USER_KEY);
+        User user = (User) session.getAttribute(Constants.USER_KEY);
         ServletContext ctx = config.getServletContext();
         String username = request.getRemoteUser();
 
         try {
             // user authenticated, empty user object
-            if ((username != null) && (userForm == null)) {
+            if ((username != null) && (user == null)) {
                 WebApplicationContext context =
-                    (WebApplicationContext) config.getServletContext()
-                                                  .getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
+                    (WebApplicationContext) ctx.getAttribute(
+                            WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
                 UserManager mgr = (UserManager) context.getBean("userManager");
-                UserForm user = (UserForm) mgr.getUser(username);
+                user = (User) mgr.getUser(username);
                 session.setAttribute(Constants.USER_KEY, user);
 
                 // if user wants to be remembered, create a remember me cookie

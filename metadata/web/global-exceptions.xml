@@ -1,6 +1,4 @@
     <global-exceptions>
-        <exception type="org.appfuse.webapp.service.ConversionException"
-            key="errors.conversion"/>
         <exception type="java.lang.Exception"
             key="errors.general"
             handler="org.appfuse.webapp.action.ActionExceptionHandler"/>

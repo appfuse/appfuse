@@ -13,6 +13,7 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.util.MessageResources;
 import org.appfuse.Constants;
+import org.appfuse.model.UserRole;
 
 
 /**
@@ -20,7 +21,7 @@ import org.appfuse.Constants;
  * for UI specific setters/getters.
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.1 $ $Date: 2004/03/01 06:19:19 $
+ * @version $Revision: 1.2 $ $Date: 2004/03/18 20:33:05 $
  *
  * @struts.form name="userFormEx"
  */
@@ -29,25 +30,24 @@ public class UserFormEx extends UserForm implements Serializable {
 
     public String[] getUserRoles() {
         String[] userRoles = new String[roles.size()];
-        UserRoleForm roleForm = null;
 
         for (int i = 0; i < roles.size(); i++) {
-            roleForm = (UserRoleForm) roles.get(i);
-            userRoles[i] = roleForm.getRoleName();
+            UserRole userRole = (UserRole) roles.get(i);
+            userRoles[i] = userRole.getRoleName();
         }
 
         return userRoles;
     }
 
-    public void setUserRoles(String[] roles) {
-        this.roles = new ArrayList();
+    public void setUserRoles(String[] userRoles) {
+        if (this.roles == null) {
+            this.roles = new ArrayList();
+        }
 
-        UserRoleForm role = null;
-
-        for (int i = 0; i < roles.length; i++) {
-            role = new UserRoleForm();
-            role.setRoleName(roles[i]);
-            this.roles.add(role);
+        for (int i = 0; i < userRoles.length; i++) {
+            UserRole userRole = new UserRole();
+            userRole.setRoleName(userRoles[i]);
+            this.roles.add(userRole);
         }
     }
 

@@ -36,7 +36,7 @@ public class UserActionTest extends BaseStrutsTestCase {
 
     public void testSave() throws Exception {
         UserFormEx ex = new UserFormEx();
-        BeanUtils.copyProperties(ex, userForm);
+        BeanUtils.copyProperties(ex, user);
         ex.setPassword("tomcat");
         ex.setConfirmPassword(ex.getPassword());
         request.setAttribute(Constants.USER_EDIT_KEY, ex);

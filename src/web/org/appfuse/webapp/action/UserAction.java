@@ -24,6 +24,8 @@ import org.apache.struts.util.LabelValueBean;
 import org.apache.struts.util.MessageResources;
 import org.apache.struts.util.RequestUtils;
 import org.appfuse.Constants;
+import org.appfuse.model.User;
+import org.appfuse.model.UserRole;
 import org.appfuse.service.MailSender;
 import org.appfuse.service.UserManager;
 import org.appfuse.util.StringUtil;
@@ -43,7 +45,7 @@ import org.appfuse.webapp.util.RequestUtil;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.5 $ $Date: 2004/03/16 13:51:49 $
+ * @version $Revision: 1.6 $ $Date: 2004/03/18 20:33:06 $
  *
  * @struts.action name="userFormEx" path="/editUser" scope="request"
  *  validate="false" parameter="action" input="list" roles="admin"
@@ -57,7 +59,7 @@ import org.appfuse.webapp.util.RequestUtil;
  */
 public final class UserAction extends BaseAction {
     /** The <code>Log</code> instance for this class */
-    private Log log = LogFactory.getLog(UserAction.class);
+    private static Log log = LogFactory.getLog(UserAction.class);
 
     public ActionForward add(ActionMapping mapping, ActionForm form,
                              HttpServletRequest request,
@@ -112,7 +114,7 @@ public final class UserAction extends BaseAction {
 
         // Exceptions are caught by ActionExceptionHandler
         UserManager mgr = (UserManager) getBean("userManager");
-        mgr.removeUser(userForm);
+        mgr.removeUser(convert(userForm));
 
         messages.add(ActionMessages.GLOBAL_MESSAGE,
                      new ActionMessage("user.deleted", userForm.getUsername()));
@@ -152,22 +154,23 @@ public final class UserAction extends BaseAction {
 
         // Exceptions are caught by ActionExceptionHandler
         UserManager mgr = (UserManager) getBean("userManager");
+        User user = null;
 
         // if a user's username is passed in
         if (request.getParameter("username") != null) {
             // lookup the user using that id
-            userForm = (UserForm) mgr.getUser(userForm.getUsername());
+            user = (User) mgr.getUser(userForm.getUsername());
         } else {
             // look it up based on the current user's id
-            userForm =
-                (UserForm) mgr.getUser(getUserForm(session).getUsername());
+            user =
+                (User) mgr.getUser(getUser(session).getUsername());
         }
 
         UserFormEx ex = new UserFormEx();
-        BeanUtils.copyProperties(ex, userForm);
+        BeanUtils.copyProperties(ex, convert(user));
         ex.setConfirmPassword(ex.getPassword());
         request.setAttribute(Constants.USER_EDIT_KEY, ex);
-        setupRoles(userForm, request);
+        setupRoles(user, request);
 
         // if user logged in with a cookie, display a warning that they
         // can't change passwords
@@ -200,14 +203,14 @@ public final class UserAction extends BaseAction {
         ActionMessages errors = new ActionMessages();
         ActionMessages messages = new ActionMessages();
         HttpSession session = request.getSession();
-        UserFormEx theForm = (UserFormEx) form;
+        UserFormEx userForm = (UserFormEx) form;
 
-        String password = theForm.getPassword();
-        UserForm userForm = new UserForm();
+        String password = userForm.getPassword();
+        User user = new User();
 
         // Exceptions are caught by ActionExceptionHandler
         // all we need to persist is the parent object
-        BeanUtils.copyProperties(userForm, theForm);
+        BeanUtils.copyProperties(user, userForm);
 
         if (StringUtils.equals(request.getParameter("encryptPass"), "true")) {
             String algorithm =
@@ -218,14 +221,14 @@ public final class UserAction extends BaseAction {
                 algorithm = "SHA";
             }
 
-            userForm.setPassword(StringUtil.encodePassword(password, algorithm));
+            user.setPassword(StringUtil.encodePassword(password, algorithm));
         }
 
         UserManager mgr = (UserManager) getBean("userManager");
 
         try {
-            userForm = (UserForm) mgr.saveUser(userForm);
-            setupRoles(userForm, request);
+            user = (User) mgr.saveUser(user);
+            setupRoles(user, request);
         } catch (Exception e) {
             if ((e.getMessage() != null) &&
                     (e.getMessage().indexOf("Duplicate entry") != -1)) {
@@ -280,7 +283,7 @@ public final class UserAction extends BaseAction {
             return mapping.findForward("mainMenu");
         } else {
             // add success messages
-            if (StringUtils.isEmpty(theForm.getId())) {
+            if (StringUtils.isEmpty(userForm.getId())) {
                 messages.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("user.added", userForm.getUsername()));
                 session.setAttribute(Globals.MESSAGE_KEY, messages);
@@ -305,9 +308,11 @@ public final class UserAction extends BaseAction {
             log.debug("Entering 'search' method");
         }
 
+        UserForm userForm = (UserForm) form;
+        
         // Exceptions are caught by ActionExceptionHandler
         UserManager mgr = (UserManager) getBean("userManager");
-        List users = mgr.getUsers((UserForm) form);
+        List users = mgr.getUsers(convert(userForm));
         request.setAttribute(Constants.USER_LIST, users);
 
         // return a forward to the user list definition
@@ -316,17 +321,20 @@ public final class UserAction extends BaseAction {
     
     /**
      * Convenience method to put a user's roles in request scope.
-     * @param userForm
+     * @param user
      * @param request
      */
-    private void setupRoles(UserForm userForm, HttpServletRequest request) {
-        List roles = new LinkedList();
-        for (Iterator it = userForm.getRoles().iterator(); it.hasNext();) {
-            UserRoleForm role = (UserRoleForm) it.next();
-            // convert the user's roles to LabelValueBeans
-            roles.add(new LabelValueBean(role.getRoleName(), role.getRoleName()));
+    private void setupRoles(User user, HttpServletRequest request) {
+        List roles = new ArrayList();
+        if (user.getRoles() != null) {
+            for (Iterator it = user.getRoles().iterator(); it.hasNext();) {
+                UserRole role = (UserRole) it.next();
+                // convert the user's roles to LabelValueBeans
+                roles.add(new LabelValueBean(role.getRoleName(),
+                          role.getRoleName()));
+            }
         }
-        request.setAttribute(Constants.USER_ROLES, roles);   
+        request.setAttribute(Constants.USER_ROLES, roles);
     }
     
     private void sendNewUserEmail(HttpServletRequest request, UserForm userForm)
@@ -338,7 +346,7 @@ public final class UserAction extends BaseAction {
                     + "' an account information e-mail");
         }
 
-        UserForm user = getUserForm(request.getSession());
+        User user = getUser(request.getSession());
         String fullName = user.getFirstName() + " " + user.getLastName();
         StringBuffer msg = new StringBuffer();
         msg.append(resources.getMessage("newuser.email.message", fullName));

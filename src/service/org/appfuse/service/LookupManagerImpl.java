@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.struts.util.LabelValueBean;
 import org.appfuse.model.Role;
+import org.appfuse.model.LabelValue;
 import org.appfuse.persistence.LookupDAO;
 
 
@@ -18,7 +18,7 @@ import org.appfuse.persistence.LookupDAO;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.1 $ $Date: 2004/03/01 06:19:09 $
+ * @version $Revision: 1.2 $ $Date: 2004/03/18 20:33:07 $
  */
 public class LookupManagerImpl extends BaseManager implements LookupManager {
     //~ Instance fields ========================================================
@@ -41,7 +41,7 @@ public class LookupManagerImpl extends BaseManager implements LookupManager {
 
         for (int i = 0; i < roles.size(); i++) {
             role = (Role) roles.get(i);
-            list.add(new LabelValueBean(role.getName(), role.getName()));
+            list.add(new LabelValue(role.getName(), role.getName()));
         }
 
         return list;

@@ -1,18 +1,31 @@
 package org.appfuse.webapp.form;
 
-import java.io.Serializable;
-
-import javax.servlet.http.HttpServletRequest;
-
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.ConvertUtils;
+import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.beanutils.converters.LongConverter;
+import org.apache.commons.beanutils.converters.StringConverter;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.struts.Globals;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.util.MessageResources;
 import org.apache.struts.validator.ValidatorForm;
+import org.appfuse.model.BaseObject;
+import org.appfuse.util.CurrencyConverter;
+import org.appfuse.util.DateConverter;
+import org.appfuse.util.DateUtil;
+
+import javax.servlet.http.HttpServletRequest;
+import java.beans.PropertyDescriptor;
+import java.io.Serializable;
+import java.util.Date;
 
 
 /**
@@ -24,9 +37,10 @@ import org.apache.struts.validator.ValidatorForm;
  * <p><a href="BaseForm.java.html"><i>View Source</i></a></p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.1 $ $Date: 2004/03/01 06:19:19 $
+ * @version $Revision: 1.2 $ $Date: 2004/03/18 20:33:05 $
  */
 public class BaseForm extends ValidatorForm implements Serializable {
+
     //~ Methods ================================================================
 
     public String toString() {

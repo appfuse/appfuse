@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.3 2004/03/08 05:15:51 mraible Exp $                 -->
+<!-- $Id: build.xml,v 1.4 2004/03/18 20:33:10 mraible Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -424,15 +424,8 @@
     <!-- Service -->
     <target name="compile-service" depends="package-dao"
     	description="Compile service module">
-    	<!-- Copy forms from src to web/gen so Ant doesn't re-compile -->
-        <copy todir="${build.dir}/web/gen">
-        	<fileset dir="src/web" includes="**/*Form*.java"/>
-        </copy>
         <antcall target="compile-module" inheritAll="true">
             <param name="module" value="service"/>
-            <!-- Needed for generated ActionForms -->
-            <param name="additional.src.dirs"
-                value="${build.dir}/web/gen"/>
             <reference refid="service.compile.classpath"
                 torefid="compile.classpath"/>
             <reference refid="service.test.classpath"
@@ -446,9 +439,7 @@
                 <attribute name="Class-Path"
                     value="${webapp.name}-dao.jar ${webapp.name}-service.jar"/>
             </manifest>
-            <fileset dir="${build.dir}/service/classes">
-            	<exclude name="**/*Form*.class"/>
-            </fileset>
+            <fileset dir="${build.dir}/service/classes" includes="**/*.class"/>
         </jar>
     </target>
 
@@ -494,7 +485,7 @@
             mergedir="metadata/web"
             excludedtags="@version,@author"
             verbose="true">
-            <fileset dir="src/web" excludes="**/*Form*.java"/>
+            <fileset dir="src/web"/>
             <fileset dir="${build.dir}/web/gen"/>
             <deploymentdescriptor validateXML="true"
                 templateFile="metadata/templates/web_xml.xdt"
@@ -524,7 +515,6 @@
             <param name="module" value="web"/>
             <param name="additional.src.dirs"
                 value="${build.dir}/web/gen"/>
-            <param name="excludes" value="**/*Form*.java"/>
             <reference refid="web.compile.classpath"
                 torefid="compile.classpath"/>
             <reference refid="web.test.classpath"
@@ -658,7 +648,7 @@
     </target>
 
     <target name="compile-module">
-        <!-- Inputs: module, excludes, compile.classpath, test.classpath -->
+        <!-- Inputs: module, compile.classpath, test.classpath -->
         <echo level="info">Compiling ${module}...</echo>
         <mkdir dir="${build.dir}/${module}/classes"/>
         <mkdir dir="${test.dir}/${module}/classes"/>
@@ -667,7 +657,6 @@
         <javac srcdir="src/${module};${additional.src.dirs}"
             destdir="${build.dir}/${module}/classes"
             debug="${compile.debug}"
-            excludes="${excludes}"
             deprecation="${compile.deprecation}"
             optimize="${compile.optimize}"
             classpathref="compile.classpath"/>

@@ -15,7 +15,7 @@ import java.util.List;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.1 $ $Date: 2004/03/01 06:19:03 $
+ * @version $Revision: 1.2 $ $Date: 2004/03/18 20:33:08 $
  *
  * @struts.form include-all="true" extends="BaseForm"
  * @hibernate.class table="app_user"
@@ -38,7 +38,7 @@ public class User extends BaseObject {
 	protected String email;
 	protected String website;
 	protected String passwordHint;
-    protected List roles;
+    protected List roles = new ArrayList();
 
     //~ Methods ================================================================
 
@@ -238,9 +238,11 @@ public class User extends BaseObject {
 
     /**
      * Adds a role for the user
-     * @param role
+     * @param rolename
      */
-    public void addRole(UserRole role) {
+    public void addRole(String rolename) {
+        UserRole role = new UserRole();
+        role.setRoleName(rolename);
         role.setUserId(this.id);
         role.setUsername(this.username);
         if (roles == null) {

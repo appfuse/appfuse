@@ -1,9 +1,7 @@
 package org.appfuse.webapp.action;
 
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
+import java.beans.PropertyDescriptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +9,12 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.beanutils.ConvertUtils;
+import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.converters.LongConverter;
+import org.apache.commons.beanutils.converters.StringConverter;
+import org.apache.commons.lang.StringUtils;
 import org.apache.struts.Globals;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -19,7 +23,13 @@ import org.apache.struts.action.ActionMessages;
 import org.apache.struts.actions.LookupDispatchAction;
 import org.apache.struts.util.MessageResources;
 import org.appfuse.Constants;
+import org.appfuse.model.BaseObject;
+import org.appfuse.model.User;
+import org.appfuse.util.CurrencyConverter;
+import org.appfuse.util.DateConverter;
+import org.appfuse.util.DateUtil;
 import org.appfuse.webapp.form.UserForm;
+import org.appfuse.webapp.form.BaseForm;
 import org.appfuse.webapp.util.SslUtil;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -35,14 +45,27 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.1 $ $Date: 2004/03/01 06:19:14 $
+ * @version $Revision: 1.2 $ $Date: 2004/03/18 20:33:06 $
  */
 public class BaseAction extends LookupDispatchAction {
-    public static final String SECURE = "secure";
 
-    // The Log instance for this class. 
-    private Log log = LogFactory.getLog(BaseAction.class);
+    protected static Log log = LogFactory.getLog(BaseAction.class);
+    private static final String SECURE = "secure";
+    private static Long defaultLong = null;
     private WebApplicationContext ctx = null;
+
+    static {
+        ConvertUtils.register(new CurrencyConverter(), Double.class);
+        ConvertUtils.register(new DateConverter(), Date.class);
+        ConvertUtils.register(new LongConverter(defaultLong), Long.TYPE);
+        ConvertUtils.register(new LongConverter(defaultLong), Long.class);
+        ConvertUtils.register(new StringConverter(), String.class);
+
+        if (log.isDebugEnabled()) {
+            log.debug("Converters registered...");
+        }
+    }
+
 
     /**
      * Convenience method to bind objects in Actions
@@ -76,6 +99,95 @@ public class BaseAction extends LookupDispatchAction {
         }
 
         return map;
+    }
+
+    /**
+     * This method loops through all the Date methods and formats them for the
+     * UI.
+     *
+     * @param obj
+     * @param form
+     * @return a Form for the web
+     */
+    protected Object convertDates(Object obj, Object form) {
+        if (obj == null || form == null) {
+            return null;
+        }
+        // loop through all the Date methods and format them for the UI
+        PropertyDescriptor[] origDescriptors =
+                PropertyUtils.getPropertyDescriptors(obj);
+
+        for (int i = 0; i < origDescriptors.length; i++) {
+            String name = origDescriptors[i].getName();
+
+            if (origDescriptors[i].getPropertyType().equals(Date.class)) {
+                if (PropertyUtils.isWriteable(form, name)) {
+                    try {
+                        Date date =
+                                (Date) PropertyUtils.getSimpleProperty(obj, name);
+                        PropertyUtils.setSimpleProperty(form, name,
+                                DateUtil.getDate(date));
+                    } catch (Exception e) {
+                        log.error("Error converting date from object to form");
+                    }
+                }
+            }
+        }
+
+        return form;
+    }
+
+    /**
+     * This method inspects a POJO or Form and figures out its pojo/form
+     * equivalent.
+     *
+     * @param o the object to inspect
+     * @return the Class of the persistable object
+     * @throws ClassNotFoundException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     */
+    protected Object getObject(Object o) throws ClassNotFoundException,
+                                                InstantiationException,
+                                                IllegalAccessException {
+        String name = o.getClass().getName();
+        if (o instanceof BaseObject) {
+            if (log.isDebugEnabled()) {
+                log.debug("getting form equivalent of pojo...");
+            }
+
+            name = StringUtils.replace(name, "model", "webapp.form");
+            name += "Form";
+        } else {
+            if (log.isDebugEnabled()) {
+                log.debug("getting pojo equivalent of form...");
+            }
+            name = StringUtils.replace(name, "webapp.form", "model");
+            name = name.substring(0, name.indexOf("Form"));
+        }
+
+        Class obj = Class.forName(name);
+
+        if (log.isDebugEnabled()) {
+            log.debug("returning className: " + obj.getName());
+        }
+
+        return obj.newInstance();
+    }
+
+    /**
+     * Convenience method to convert a form to a POJO and back again
+     *
+     * @param o the object to tranfer properties from
+     * @return converted object
+     */
+    protected Object convert(Object o) throws Exception {
+        if (o == null) {
+            return null;
+        }
+        Object target = getObject(o);
+        BeanUtils.copyProperties(target, o);
+        return target;
     }
 
     /**
@@ -203,9 +315,9 @@ public class BaseAction extends LookupDispatchAction {
      * @param session the current user's session
      * @return the user's populated form from the session
      */
-    protected UserForm getUserForm(HttpSession session) {
+    protected User getUser(HttpSession session) {
         // get the user form from the session
-        return (UserForm) session.getAttribute(Constants.USER_KEY);
+        return (User) session.getAttribute(Constants.USER_KEY);
     }
 
     /**

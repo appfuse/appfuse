@@ -29,7 +29,7 @@ import org.springframework.orm.hibernate.support.HibernateDaoSupport;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.1 $ $Date: 2004/03/01 06:19:07 $
+ * @version $Revision: 1.2 $ $Date: 2004/03/18 20:33:07 $
  */
 public class UserDAOHibernate extends HibernateDaoSupport implements UserDAO {
     private Log log = LogFactory.getLog(UserDAOHibernate.class);
@@ -110,10 +110,8 @@ public class UserDAOHibernate extends HibernateDaoSupport implements UserDAO {
 
         if (user.getRoles() != null) {
             // if we're adding users, insert their roles
-            UserRole userRole = null;
-
             for (Iterator it = user.getRoles().iterator(); it.hasNext();) {
-                userRole = (UserRole) it.next();
+                UserRole userRole = (UserRole) it.next();
                 userRole.setUserId(user.getId());
                 userRole.setUsername(user.getUsername());
                 getHibernateTemplate().save(userRole);

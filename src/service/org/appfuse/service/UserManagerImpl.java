@@ -22,7 +22,7 @@ import java.util.List;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.2 $ $Date: 2004/03/14 22:50:50 $
+ * @version $Revision: 1.3 $ $Date: 2004/03/18 20:33:07 $
  */
 public class UserManagerImpl extends BaseManager implements UserManager {
     private Log log = LogFactory.getLog(UserManagerImpl.class);
@@ -40,67 +40,28 @@ public class UserManagerImpl extends BaseManager implements UserManager {
      * @see org.appfuse.service.UserManager#getUser(java.lang.String)
      */
     public Object getUser(String username) throws Exception {
-        User user = dao.getUser(username);
-        return convertUser(user);
-    }
-    
-    /**
-     * Convenience method to convert user -> form so save() method can 
-     * use (without calling get).  This is mainly so that transactions
-     * will commit.  If I can getUser from saveUser - the transaction
-     * doesn't commit until I leave saveUser.  Therefore, everything must
-     * happen in the saveUser method.
-     * 
-     * @param user
-     * @return a UserForm object - populated from the user object
-     * @throws Exception
-     */
-    private Object convertUser(User user) throws Exception {
-        // convert all role objects to forms
-        for (int i = 0; i < user.getRoles().size(); i++) {
-            UserRole role = (UserRole) user.getRoles().get(i);
-            user.getRoles().set(i, convert(role));
-        }
-        return convert(user);   
+        return dao.getUser(username);
     }
 
     /**
      * @see org.appfuse.service.UserManager#getUsers(java.lang.Object)
      */
     public List getUsers(Object obj) throws Exception {
-        User user = (User) convert(obj);
-        return dao.getUsers(user);
+        return dao.getUsers((User) obj);
     }
 
     /**
      * @see org.appfuse.service.UserManager#saveUser(java.lang.Object)
      */
     public Object saveUser(Object obj) throws Exception {
-        User user = (User) convert(obj);
-
-        List userRoles = user.getRoles();
-
-        if (userRoles != null) { // removed all roles
-            // convert all role objects to forms
-            for (int j = 0; j < user.getRoles().size(); j++) {
-                Object role = user.getRoles().get(j);
-                if (!(role instanceof UserRole)) {
-                    role = convert(role);
-                }
-                user.getRoles().set(j, role);
-            }
-        }
-
-        user = dao.saveUser(user);
-
-        return convertUser(user);
+        return dao.saveUser((User) obj);
     }
 
     /**
      * @see org.appfuse.service.UserManager#removeUser(java.lang.Object)
      */
     public void removeUser(Object obj) throws Exception {
-        User user = (User) convert(obj);
+        User user = (User) obj;
 
         if (log.isDebugEnabled()) {
             log.debug("removing user: " + user.getUsername());
