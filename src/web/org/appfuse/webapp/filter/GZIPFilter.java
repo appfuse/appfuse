@@ -65,11 +65,11 @@ public class GZIPFilter implements Filter {
      */
     private boolean isGZIPSupported(HttpServletRequest req) {
         
-        // disable gzip filter for exporting excel from displaytag
-        String excelExport =
+        // disable gzip filter for exporting from displaytag
+        String exporting =
             req.getParameter(TableTagParameters.PARAMETER_EXPORTING);
-
-        if ("1".equals(excelExport)) {
+        
+        if (exporting != null) {
             if (log.isDebugEnabled()) {
                 log.debug("detected excel export, disabling filter...");
             }
