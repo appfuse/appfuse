@@ -280,4 +280,21 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         <echo level="info">NOTE: It's recommended you delete extras/spring as you shouldn't need it anymore.</echo>
         <echo>----------------------------------------------</echo>
     </target>
+ 
+    <!-- =================================================================== -->
+    <!-- Creates new project, installs Spring MVC and runs tests             -->
+    <!-- =================================================================== -->
+    <target name="test" description="Creates appfuse-spring and runs tests">
+        <property name="app.name" value="appfuse-spring"/>
+        <property name="db.name" value="appfuse"/>
+        <delete dir="../../../${app.name}"/>
+        <ant dir="../.." target="new"/>
+
+        <!-- New project created, install Spring MVC and run tests -->
+        <ant dir="../../../${app.name}/extras/spring" target="install"/>
+        <ant dir="../../../${app.name}" target="setup"/>   
+        <ant dir="../../../${app.name}" target="test-all"/>
+
+        <echo>Start Tomcat to view ${app.name} manually.</echo>
+    </target>
 </project>

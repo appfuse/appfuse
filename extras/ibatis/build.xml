@@ -16,6 +16,7 @@
                 install: installs iBatis into AppFuse
               uninstall: uninstalls iBatis from AppFuse
     uninstall-hibernate: uninstalls Hibernate from AppFuse
+                   test: creates appfuse-ibatis project and runs tests   
 
                    help: Print this help text...
     </echo>
@@ -428,6 +429,23 @@ hibernate.jar=${hibernate.dir}/hibernate2.jar]]></replacetoken>
 
         <!-- I'm purposely not removing the hibernate stuff from the "javadoc" target,
             it's not causing any harm, so I figured I'd leave it in. -->
-
     </target>
+ 
+    <!-- =================================================================== -->
+    <!-- Creates new project, installs iBATIS and runs tests                 -->
+    <!-- =================================================================== -->
+    <target name="test" description="Creates appfuse-ibatis and runs tests">
+        <property name="app.name" value="appfuse-ibatis"/>
+        <property name="db.name" value="appfuse"/>
+        <delete dir="../../../${app.name}"/>
+        <ant dir="../.." target="new"/>
+
+        <!-- New project created, install iBATIS and run tests -->
+        <ant dir="../../../${app.name}/extras/ibatis" target="install"/>
+        <ant dir="../../../${app.name}/extras/ibatis" target="uninstall-hibernate"/>
+        <ant dir="../../../${app.name}" target="setup"/>   
+        <ant dir="../../../${app.name}" target="test-all"/>
+
+        <echo>You can start Tomcat to view ${app.name} manually.</echo>
+    </target>   
 </project>
