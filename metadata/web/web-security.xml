@@ -1,6 +1,8 @@
     <!-- All anyone to access passwordHint and signup -->
     <security-constraint>
         <web-resource-collection>
+            <web-resource-name>Unrestricted</web-resource-name>
+            <description>All users can view</description>
             <url-pattern>/passwordHint.html</url-pattern>
             <url-pattern>/signup.html</url-pattern>
             <http-method>POST</http-method>
