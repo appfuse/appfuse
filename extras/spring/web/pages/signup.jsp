@@ -203,7 +203,6 @@
 </form>
 
 <script type="text/javascript">
-<!--
 highlightFormElements();
 document.forms["userForm"].username.focus();
 </script>
