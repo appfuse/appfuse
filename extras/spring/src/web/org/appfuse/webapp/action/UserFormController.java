@@ -37,7 +37,7 @@ import org.springframework.web.servlet.view.RedirectView;
  * <p/><a href="UserFormController.java.html"><i>View Source</i></a></p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.4 $ $Date: 2004/05/25 09:06:25 $
+ * @version $Revision: 1.5 $ $Date: 2004/05/27 08:21:42 $
  */
 public class UserFormController extends BaseFormController {
     
@@ -155,7 +155,7 @@ public class UserFormController extends BaseFormController {
                                         user.getFullName()
                                     });
                     saveMessage(request, message);
-                    sendNewUserEmail(user);
+                    sendNewUserEmail(user, request);
                     return showNewForm(request, response);
                     //return new ModelAndView(new RedirectView("editUser.html?method=Add&from=list"));
                 } else {
@@ -267,7 +267,7 @@ public class UserFormController extends BaseFormController {
         return super.referenceData(request);
     }
 
-    private void sendNewUserEmail(User user) throws Exception {
+    private void sendNewUserEmail(User user, HttpServletRequest request) throws Exception {
         // Send user an e-mail
         if (log.isDebugEnabled()) {
             log.debug("Sending user '" + user.getUsername() +
