@@ -1,0 +1,34 @@
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><%@ include file="/common/taglibs.jsp"%>
+
+<title><fmt:message key="<XDtForm:classNameLower/>.title"/></title>
+<content tag="heading"><fmt:message key="<XDtForm:classNameLower/>.heading"/></content>
+
+<ww:form name="'<XDtForm:classNameLower/>'" action="'save<XDtForm:className/>'" method="'post'" validate="true">
+<table class="detail">
+    <XDtForm:forAllFields>
+    <ww:textfield label="getText('<XDtForm:classNameLower/>.<XDtForm:fieldName/>')" name="'<XDtForm:classNameLower/>.<XDtForm:fieldName/>'"
+        value="<XDtForm:classNameLower/>.<XDtForm:fieldName/>" required="true"/>
+    </XDtForm:forAllFields>
+    <tr>
+        <td></td>
+        <td class="buttonBar">            
+            <input type="submit" class="button" name="save" 
+                value="<fmt:message key="button.save"/>" />
+            
+            <input type="submit" class="button" name="delete"
+                onclick="return confirmDelete('<XDtClass:className/>')" 
+                value="<fmt:message key="button.delete"/>" />
+                
+            <input type="submit" class="button" name="cancel" 
+                value="<fmt:message key="button.cancel"/>" />        
+        </td>
+    </tr>
+</table>
+</form>
+
+<html:javascript formName="<XDtForm:classNameLower/>" cdata="false"
+    dynamicJavascript="true" staticJavascript="false"/>
+<script type="text/javascript" 
+    src="<c:url value="/scripts/validator.jsp"/>"></script>
+
+

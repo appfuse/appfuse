@@ -1,0 +1,12 @@
+<tr>
+    #if ($parameters.labelposition == 'top')    <th colspan="2">
+    #else    <th>#end
+#if ($fieldErrors.get($parameters.name))<label class="error" for="$!webwork.htmlEncode($parameters.name)">#elseif ($parameters.required)<label class="required" for="$!webwork.htmlEncode($parameters.name)">* #else<label for="$!webwork.htmlEncode($parameters.name)">#end$!webwork.htmlEncode($parameters.label):</label>
+#if ($fieldErrors.get($parameters.name))<a class="errorLink" href="?" onclick="showHelpTip(event, '#foreach ($error in $fieldErrors.get($parameters.name))$!webwork.htmlEncode($error)<br />#end', false); return false" onmouseover="showHelpTip(event, '#foreach ($error in $fieldErrors.get($parameters.name))$!webwork.htmlEncode($error)<br />#end', false); return false" onmouseout="hideHelpTip(event); return false"><img src="./images/iconWarning.gif" alt="Validation Error" class="icon" />#end
+</th>
+## add the extra row
+#if ($parameters.labelposition == 'top')
+</tr>
+<tr>
+#end
+        <td>

@@ -1,0 +1,2 @@
+#parse("/template/simple/form.vm")
+<table#if($parameters.styleClass) class="$!webwork.htmlEncode($parameters.styleClass)"#else class="detail"#end#if($parameters.cssStyle) style="$!webwork.htmlEncode($parameters.style)"#end>

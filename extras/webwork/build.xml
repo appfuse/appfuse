@@ -1,0 +1,289 @@
+<!-- This file is designed to add WebWork support to AppFuse -->
+<project name="webwork" basedir="." default="help">
+
+    <property name="lib.dir" location="../../lib"/>
+    <property file="${lib.dir}/lib.properties"/>
+    
+    <taskdef resource="net/sf/antcontrib/antcontrib.properties"
+            classpath="${ant-contrib.jar}"/>
+
+    <!-- =================================================================== -->
+    <!-- List options for this build file                                    -->
+    <!-- =================================================================== -->
+    <target name="help" description="Print usage for key targets">
+    <echo>
+    Key Targets:
+                install: Replaces Struts with WebWork
+                   help: Print this help text...
+    </echo>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Replaces Struts with WebWork                                     -->
+    <!-- =================================================================== -->
+    <target name="install"
+        description="replaces Struts with WebWork in the AppFuse base project">
+        <echo level="info">Copying WebWork JARs to ../../lib</echo>
+        <copy todir="${lib.dir}">
+            <fileset dir="lib" includes="**"/>
+            <fileset dir="../spring/lib" includes="**/spring-mock.jar"/>
+        </copy>
+        <echo level="info">Adding WebWork entries to ../../lib.properties</echo>
+        <replace file="${lib.dir}/lib.properties">
+            <replacetoken><![CDATA[velocity.dir=${lib.dir}/velocity-${velocity.version}]]></replacetoken>
+            <replacevalue><![CDATA[velocity.dir=${lib.dir}/velocity-${velocity.version}
+
+#
+# WebWork - http://www.opensymphony.com/webwork
+#
+webwork.version         = 2.1.1
+webwork.dir=${lib.dir}/webwork-${webwork.version}]]></replacevalue>
+        </replace>
+
+        <echo level="info">Adding WebWork classpath entries</echo>
+        <replace file="../../properties.xml">
+            <replacetoken><![CDATA[<fileset dir="${javamail.dir}" includes="*.jar"/>
+    <fileset dir="${spring.dir}" includes="*.jar"/>]]></replacetoken>
+            <replacevalue><![CDATA[<fileset dir="${javamail.dir}" includes="*.jar"/>
+    <fileset dir="${spring.dir}" includes="*.jar"/>
+    <fileset dir="${webwork.dir}" includes="*.jar"/>]]></replacevalue>
+        </replace>
+
+        <echo level="info">Removing Struts-specific JARs</echo>
+        <delete>
+            <fileset dir="${struts.dir}">
+                <include name="*fileupload*"/>
+                <include name="struts*.jar"/>
+            </fileset>
+        </delete>
+        
+        <echo level="info">Deleting struts_form.xdt for XDoclet</echo>
+        <delete dir="../../metadata/templates"/>
+
+        <echo level="info">Deleting Struts merge-files in metadata/web</echo>
+        <delete>
+            <fileset dir="../../metadata/web">
+                <include name="global-*.xml"/>
+                <include name="struts-*.xml"/>
+            </fileset>
+        </delete>
+        <echo level="info">Replacing Struts servlet with WebWork</echo>
+        <copy todir="../../metadata/web" overwrite="true">
+            <fileset dir="metadata/web" includes="*.xml"/>
+        </copy>
+        
+        <echo level="info">Deleting unused Tag Libraries and Utilities</echo>
+        <delete>
+            <fileset dir="../../src/web/org/appfuse/webapp">
+                <include name="taglib/LabelTag.java"/>
+                <include name="util/ValidationUtil.java"/>
+            </fileset>
+        </delete>
+        
+        <!-- Copy source and tests -->    
+        <echo level="info">Replacing source and test files</echo>
+        <copy todir="../../extras/viewgen" overwrite="true">
+            <fileset dir="extras/viewgen" includes="**"/>
+        </copy>
+        <delete dir="../../src/web/org/appfuse/webapp/form"/>
+        <delete>
+            <fileset dir="../../src/web/org/appfuse/webapp/action">
+                <exclude name="LoginServlet.java"/>
+            </fileset>
+        </delete>
+        <copy todir="../../src" overwrite="true">
+            <fileset dir="src" includes="**"/>
+        </copy>
+        <delete dir="../../test/web/org/appfuse/webapp/form"/>
+        <delete>
+            <fileset dir="../../test/web/org/appfuse/webapp/action">
+                <exclude name="LoginServlet*"/>
+            </fileset>
+        </delete> 
+        <copy todir="../../test" overwrite="true">
+            <fileset dir="test" includes="**"/>
+        </copy>
+        
+        <!-- Remove @web.listener from StartupListener since it's in the 
+             listeners.xml file - to ensure it loads before the SpringObjectFactoryListener -->
+        <replace file="../../src/web/org/appfuse/webapp/listener/StartupListener.java">
+            <replacetoken> *
+ * @web.listener</replacetoken>
+            <replacevalue> *</replacevalue>
+        </replace>
+        
+        <!-- Add action-servlet.xml to the list of context files that's loaded -->
+        <replace file="../../metadata/web/web-settings.xml">
+            <replacetoken>/WEB-INF/applicationContext-service.xml</replacetoken>
+            <replacevalue>/WEB-INF/applicationContext-service.xml,
+            /WEB-INF/action-servlet.xml</replacevalue>
+        </replace>
+        
+        <!-- Copy web files (JSPs, images, scripts, stylesheets) -->
+        <echo level="info">Replacing web files (images, scripts, JSPs, etc.)</echo>
+        <copy todir="../../web" overwrite="true">
+            <fileset dir="web" includes="**"/>
+        </copy>
+        
+        <echo level="info">[TODO] Adding WebWork JARs to .classpath for Eclipse</echo>
+        <!-- Might be easier to just replace .classpath -->
+        <!--replace file="../../.classpath">
+            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/spring-1.1.1/spring.jar"/>]]></replacetoken>
+            <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/spring-1.1.1/spring.jar"/>
+	<classpathentry kind="lib" path="lib/spring-1.1.1/spring-mock.jar"/>
+	<classpathentry kind="lib" path="lib/spring-1.1.1/commons-fileupload.jar"/>
+	<classpathentry kind="lib" path="lib/spring-1.1.1/spring-sandbox.jar"/>
+]]></replacevalue>
+        </replace-->
+
+        <echo level="info">Refactoring build.xml</echo>
+
+        <!-- Remove web/gen from uptodate check for webdoclet -->
+        <replace file="../../build.xml">
+            <replacetoken><![CDATA[<srcfiles dir="src/web" includes="**/*.java"/>
+            <srcfiles dir="${build.dir}/web/gen" includes="**/*.java"/>]]></replacetoken>
+            <replacevalue><![CDATA[<srcfiles dir="src/web" includes="**/*.java"/>]]></replacevalue>
+        </replace>
+        
+        <replace file="../../build.xml">
+            <replacetoken><![CDATA[
+    <!-- Generate ActionForms from POJOs -->
+    <target name="gen-forms" depends="prepare" unless="webdoclet.uptodate"
+        description="Generates ActionForms from POJOs">
+        <taskdef name="xdoclet" classname="xdoclet.DocletTask"
+            classpathref="xdoclet.classpath"/>
+
+        <!-- generate struts forms -->
+        <xdoclet destdir="${build.dir}/web/gen"
+            excludedtags="@version,@author"
+            addedtags="@xdoclet-generated at ${TODAY}"
+            force="${xdoclet.force}">
+            <fileset dir="src/dao"/>
+
+            <!-- generate struts forms -->
+            <actionform templateFile="metadata/templates/struts_form.xdt">
+                <packageSubstitution packages="model"
+                    substituteWith="webapp.form"/>
+            </actionform>
+        </xdoclet>
+    </target>
+
+    <target name="compile-web" depends="package-service,stage-web,gen-forms"]]></replacetoken>
+            <replacevalue><![CDATA[<target name="compile-web" depends="package-service,stage-web"]]></replacevalue>
+        </replace>
+        <replace file="../../build.xml">
+            <replacetoken><![CDATA[<param name="additional.src.dirs"
+                value="${build.dir}/web/gen"/>
+]]></replacetoken>
+            <replacevalue></replacevalue>
+        </replace>
+        
+        <replace file="../../build.xml">
+            <replacetoken><![CDATA[    <!-- The "webdoclet" target generates web and struts deployment 		 -->
+    <!-- descriptors.                                                        --> 
+    <!-- =================================================================== -->
+    <target name="webdoclet" depends="compile-web" 
+        unless="webdoclet.unnecessary"
+        description="Generate web and Struts descriptors">
+        <taskdef name="webdoclet" classname="xdoclet.modules.web.WebDocletTask">
+            <classpath>
+                <path refid="xdoclet.classpath"/>
+                <path refid="web.compile.classpath"/>
+            </classpath>
+        </taskdef>
+        <webdoclet destdir="${webapp.target}/WEB-INF"
+            force="${xdoclet.force}"
+            mergedir="metadata/web"
+            excludedtags="@version,@author"
+            verbose="true">
+            <fileset dir="src/web"/>
+            <fileset dir="${build.dir}/web/gen"/>
+            <deploymentdescriptor validateXML="true"
+                servletspec="2.3" sessiontimeout="10"
+                destdir="${webapp.target}/WEB-INF" distributable="false"
+                displayname="${ant.project.name}">
+                <configParam name="httpPort" value="${http.port}"/>
+                <configParam name="httpsPort" value="${https.port}"/>
+                <configParam name="daoType" value="${dao.type}"/>
+                <configParam name="security" value="${security.mode}"/>
+            </deploymentdescriptor>
+            <jsptaglib validateXML="true"
+                description="Custom tag library for this application"
+                shortName="${webapp.name}" filename="${webapp.name}.tld"/>
+            <strutsconfigxml validateXML="true" version="1.2"/>
+            <strutsvalidationxml/>
+]]></replacetoken>
+            <replacevalue><![CDATA[    <!-- The "webdoclet" target generates web deployment descriptors.  	     -->
+    <!-- =================================================================== -->
+    <target name="webdoclet" depends="compile-web" 
+        unless="webdoclet.unnecessary"
+        description="Generate web deployment descriptors">
+        <taskdef name="webdoclet"
+            classname="xdoclet.modules.web.WebDocletTask">
+            <classpath>
+                <path refid="xdoclet.classpath"/>
+                <path refid="web.compile.classpath"/>
+            </classpath>
+        </taskdef>
+        <webdoclet destdir="${webapp.target}/WEB-INF"
+            force="${xdoclet.force}"
+            mergedir="metadata/web"
+            excludedtags="@version,@author"
+            verbose="true">
+            <fileset dir="src/web"/>
+            <deploymentdescriptor validateXML="true"
+                servletspec="2.3" sessiontimeout="10"
+                destdir="${webapp.target}/WEB-INF" distributable="false"
+                displayname="${ant.project.name}">
+                <configParam name="httpPort" value="${http.port}"/>
+                <configParam name="httpsPort" value="${https.port}"/>
+                <configParam name="daoType" value="${dao.type}"/>
+                <configParam name="security" value="${security.mode}"/>
+            </deploymentdescriptor>
+            <jsptaglib validateXML="true"
+                description="Custom tag library for this application"
+                shortName="${webapp.name}" filename="${webapp.name}.tld"/>
+]]></replacevalue>
+        </replace>
+
+        <replace file="../../build.xml">
+            <replacetoken><![CDATA[<webinf dir="${struts.dir}" includes="*.xml"/>]]></replacetoken>
+            <replacevalue></replacevalue>
+        </replace>
+        
+        <replace file="../../build.xml">
+            <replacetoken><![CDATA[<lib dir="${spring.dir}" includes="*.jar"/>]]></replacetoken>
+            <replacevalue><![CDATA[<lib dir="${spring.dir}" includes="*.jar"/>
+            <lib file="${requesttag.jar}"/>
+            <lib dir="${webwork.dir}" includes="*.jar"/>]]></replacevalue>
+        </replace>
+        
+        <replace file="../../build.xml">
+            <replacetoken><![CDATA[<target name="test-web" depends="compile-web,db-load"
+        description="Test web module">
+        <antcall target="test-module" inheritAll="true">
+            <param name="module" value="web"/>
+            <reference refid="web.test.classpath"
+                torefid="test.classpath"/>
+        </antcall>
+    </target>]]></replacetoken>
+            <replacevalue><![CDATA[<target name="test-web" depends="webdoclet,db-load"
+        description="Test web module">
+        <antcall target="test-module" inheritAll="true">
+            <param name="module" value="web"/>
+            <!-- For validation.xml and validator-rules.xml -->
+            <!--param name="additional.src.dirs" value="${webapp.target}"/-->
+            <reference refid="web.test.classpath"
+                torefid="test.classpath"/>
+        </antcall>
+    </target>]]></replacevalue>
+        </replace>
+        
+        <echo level="info">Removing Spring MVC installation option</echo>
+        <delete dir="../../extras/spring"/>
+        
+        <echo>----------------------------------------------</echo>
+        <echo level="info">NOTE: It's recommended you delete extras/webwork as you shouldn't need it anymore.</echo>
+        <echo>----------------------------------------------</echo>
+    </target>
+</project>

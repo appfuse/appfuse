@@ -1,0 +1,111 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" 
+    "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+
+<xwork>
+  	<!-- Include webwork defaults -->
+  	<include file="webwork-default.xml"/>
+  	
+  	<!-- Configuration for the default package. -->
+  	<package name="default" extends="webwork-default">
+        <interceptors>
+            <!-- Interceptor to handle allowing only admins to certain actions -->
+            <interceptor name="adminOnly" class="adminInterceptor"/>
+            <!-- Interceptor to catch exceptions and display mapped exception result -->
+            <interceptor name="exceptionHandler" class="exceptionInterceptor"/>
+            <!-- Custom interceptor that detects cancel and delete -->
+            <interceptor name="smartValidator" class="org.appfuse.webapp.interceptor.ValidationInterceptor"/>
+            <interceptor-stack name="defaultExceptionStack">
+                <interceptor-ref name="defaultStack"/>
+                <interceptor-ref name="exceptionHandler"/>
+            </interceptor-stack>
+            <interceptor-stack name="fileUploadStack">
+                <interceptor-ref name="fileUpload"/>
+                <interceptor-ref name="defaultExceptionStack"/>
+                <interceptor-ref name="smartValidator"/>
+                <interceptor-ref name="workflow"/>
+            </interceptor-stack>
+            <interceptor-stack name="adminCheck">
+                <interceptor-ref name="defaultExceptionStack"/>
+                <interceptor-ref name="adminOnly"/>
+            </interceptor-stack>
+            <interceptor-stack name="validationStack">
+                <interceptor-ref name="defaultExceptionStack"/>
+                <interceptor-ref name="smartValidator"/>
+                <interceptor-ref name="workflow"/>
+            </interceptor-stack>
+        </interceptors>
+        <!-- Default interceptor stack. --> 
+        <default-interceptor-ref name="defaultExceptionStack"/>  
+
+        <global-results> 
+            <result name="mainMenu" type="redirect">mainMenu.html</result>
+            <result name="dataAccessFailure">/WEB-INF/pages/dataAccessFailure.jsp</result>
+        </global-results> 
+        
+        <action name="activeUsers" class="com.opensymphony.xwork.ActionSupport"> 
+            <result name="success">/WEB-INF/pages/activeUsers.jsp</result> 
+        </action> 
+		
+        <action name="mainMenu" class="com.opensymphony.xwork.ActionSupport"> 
+        <result name="success">/WEB-INF/pages/mainMenu.jsp</result> 
+        </action> 
+
+        <action name="signup" class="signupAction">
+            <result name="cancel" type="redirect">/</result>
+            <result name="input">/WEB-INF/pages/signup.jsp</result>
+            <result name="success" type="chain">saveSignup</result>
+        </action> 
+
+        <action name="saveSignup" class="signupAction" method="save">
+            <interceptor-ref name="validationStack"/>
+            <result name="input">/WEB-INF/pages/signup.jsp</result>
+            <result name="success" type="redirect">/mainMenu.html</result>
+        </action> 
+
+        <action name="users" class="userAction" method="list"> 
+            <interceptor-ref name="adminCheck"/>
+            <result name="success">/WEB-INF/pages/userList.jsp</result> 
+        </action>
+        
+        <action name="editUser" class="userAction" method="edit">
+            <interceptor-ref name="adminCheck"/>
+            <result name="success">/WEB-INF/pages/userForm.jsp</result>
+            <result name="input">/WEB-INF/pages/userList.jsp</result>
+        </action>
+
+        <action name="editProfile" class="userAction" method="edit"> 
+            <result name="success">/WEB-INF/pages/userForm.jsp</result>
+            <result name="error">/WEB-INF/pages/mainMenu.jsp</result>
+        </action>
+        
+        <action name="saveUser" class="userAction" method="save">
+            <interceptor-ref name="validationStack"/>
+            <result name="cancel" type="redirect">users.html</result>
+            <result name="input">/WEB-INF/pages/userForm.jsp</result>
+            <result name="success" type="redirect">users.html</result>
+            <result name="addAnother" type="redirect">editUser.html?method=Add&amp;from=list</result>
+        </action>
+        
+        <action name="uploadFile" class="org.appfuse.webapp.action.FileUploadAction">
+            <interceptor-ref name="fileUploadStack"/>
+            <result name="input">/WEB-INF/pages/uploadForm.jsp</result>
+            <result name="success">/WEB-INF/pages/uploadDisplay.jsp</result>
+            <result name="cancel" type="redirect">mainMenu.html</result>
+        </action>
+        
+        <action name="flushCache" class="com.opensymphony.xwork.ActionSupport">
+            <interceptor-ref name="adminCheck"/>
+            <result name="success">/WEB-INF/pages/flushCache.jsp</result> 
+        </action> 
+
+        <action name="passwordHint" class="passwordHintAction"> 
+            <result name="success">/</result> 
+        </action> 
+        
+        <action name="reload" class="org.appfuse.webapp.action.ReloadAction">
+            <interceptor-ref name="adminCheck"/>
+            <!-- this should never be used, it's here to prevent warnings -->
+            <result name="success">/WEB-INF/pages/mainMenu.jsp</result>
+        </action>
+  	</package>
+</xwork>

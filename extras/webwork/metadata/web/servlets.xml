@@ -1,0 +1,6 @@
+    <!-- Standard Servlet Dispatcher Configuration -->
+    <servlet>
+        <servlet-name>action</servlet-name>
+        <servlet-class>com.opensymphony.webwork.dispatcher.ServletDispatcher</servlet-class>
+        <load-on-startup>2</load-on-startup>
+    </servlet>

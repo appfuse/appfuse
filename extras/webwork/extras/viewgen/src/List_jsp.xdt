@@ -1,0 +1,44 @@
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><%@ include file="/common/taglibs.jsp"%>
+
+<title><fmt:message key="<XDtForm:classNameLower/>List.title"/></title>
+<content tag="heading"><fmt:message key="<XDtForm:classNameLower/>List.heading"/></content>
+
+<c:set var="buttons">
+    <button type="button" name="action" style="margin-right: 5px"
+        onclick="location.href='<c:url value="/edit<XDtClass:className/>.html"/>?method=Add&from=list'">
+        <fmt:message key="button.add"/>
+    </button>
+    
+    <button type="button" name="action" onclick="location.href='<c:url value="/mainMenu.html"/>'">
+        <fmt:message key="button.cancel"/>
+    </button>
+</c:set>
+
+<c:out value="${buttons}" escapeXml="false"/>
+
+<display:table name="${<XDtForm:classNameLower/>List}" cellspacing="0" cellpadding="0"
+	id="<XDtForm:classNameLower/>List" pagesize="25" styleClass="list" export="true" requestURI="">
+  
+    <display:column property="id" sort="true" headerClass="sortable"
+        url="/edit<XDtClass:className/>.html?from=list" paramId="id" paramProperty="id"
+        titleKey="<XDtForm:classNameLower/>.id"/>
+        
+  <XDtForm:forAllFields>
+    <display:column property="<XDtForm:fieldName/>" sort="true" headerClass="sortable"
+        titleKey="<XDtForm:classNameLower/>.<XDtForm:fieldName/>"/>
+  </XDtForm:forAllFields>
+  
+    <display:setProperty name="paging.banner.item_name" value="<XDtForm:classNameLower/>"/>
+    <display:setProperty name="paging.banner.items_name" value="<XDtForm:classNameLower/>s"/>
+</display:table>
+
+<c:out value="${buttons}" escapeXml="false"/>
+            
+<script type="text/javascript">
+<!--
+highlightTableRows("<XDtForm:classNameLower/>List");
+//-->
+</script>
+
+
+

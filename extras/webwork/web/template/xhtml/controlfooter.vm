@@ -1,0 +1,9 @@
+## Only show message if errors are available.
+## This will be done if ActionSupport is used.
+#if( $fieldErrors.get($parameters.name) )
+  #set ($hasFieldErrors = $fieldErrors.get($parameters.name))
+  #foreach ($error in $fieldErrors.get($parameters.name))
+    <span class="fieldError">$!webwork.htmlEncode($error)</span><br />
+  #end
+#end</td>
+    </tr>
