@@ -613,6 +613,9 @@
                for (x in oDate) {
                    var value = form[oDate[x][0]].value;
                    var datePattern = oDate[x][2]("datePatternStrict");
+                   // try loose pattern
+                   if (datePattern == null)
+                       datePattern = oDate[x][2]("datePattern");
                    if ((form[oDate[x][0]].type == 'text' ||
                         form[oDate[x][0]].type == 'textarea') &&
                        (value.length > 0) &&
