@@ -1,4 +1,4 @@
 <!-- JNDI DataSource for J2EE environments -->
 <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-    <property name="jndiName"><value>jdbc/appfuse</value></property>
+    <property name="jndiName"><value>java:comp/env/jdbc/appfuse</value></property>
 </bean>

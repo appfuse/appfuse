@@ -155,7 +155,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/spring-1.0-rc1/spring.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-20031202/lib/struts-el.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -164,7 +164,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/spring-1.0-rc1/aopalliance.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-20031202/lib/commons-validator.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -173,7 +173,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.0/lib/commons-validator.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-20031202/lib/commons-lang.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -182,7 +182,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.0/lib/jakarta-oro.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-20031202/lib/jakarta-oro.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -191,7 +191,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.0/lib/struts.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-20031202/lib/struts.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -200,7 +200,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.0/lib/commons-fileupload.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-20031202/lib/commons-collections.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -209,7 +209,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.0/lib/commons-logging.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-20031202/lib/commons-beanutils.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -218,7 +218,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.0/lib/commons-digester.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-20031202/lib/commons-fileupload.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -227,7 +227,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.0/lib/commons-lang.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-20031202/lib/commons-digester.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -236,7 +236,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.0/lib/commons-collections.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-20031202/lib/commons-logging.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -245,7 +245,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.0/lib/struts-el.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/spring-1.0-rc2/spring.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -254,7 +254,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.0/lib/commons-beanutils.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/spring-1.0-rc2/aopalliance.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

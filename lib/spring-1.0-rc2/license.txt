@@ -1,14 +1,16 @@
 /*
  * All source code, binaries, documentation and other files distributed
- * with the Spring Framework - except the third-party libraries in the "lib"
- * directory - are subject to the following license terms, and are held under
- * the following copyright notice.
+ * with the Spring Framework (except the third-party libraries in the "lib"
+ * directory, included in the "-with-dependencies" download) are subject to the
+ * following license terms, and are held under the following copyright notice.
  *
  * ============================================================================
  *                   The Apache Software License, Version 1.1
  * ============================================================================
  * 
- * Copyright (C) 2003 The Spring Framework Project. All rights reserved.
+ * Copyright (C) 2003-2004 The Spring Framework Project. All rights reserved.
+ * The Spring Framework Project is represented by Rod Johnson <rod.johnson@
+ * interface21.com> and Juergen Hoeller <juergen.hoeller@interface21.com>.
  * 
  * Redistribution and use in source and binary forms, with or without modifica-
  * tion, are permitted provided that the following conditions are met:
@@ -29,7 +31,7 @@
  * 4. The names "Spring" and "Spring Framework Project" must not be used to
  *    endorse or promote products derived from this software without prior
  *    written permission. For written permission, please contact
- *    <rod.johnson@interface21.com>.
+ *    <rod.johnson@interface21.com> or <juergen.hoeller@interface21.com>.
  * 
  * 5. Products derived from this software may not be called "Spring", nor may
  *    "Spring" appear in their name, without prior written permission of the
