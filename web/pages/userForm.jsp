@@ -192,6 +192,15 @@
 <c:choose>
     <c:when test="${param.from == 'list' or param.method == 'Add'}">
     <tr>
+        <th>
+            <label for="enabled"><fmt:message key="userForm.enabled"/>?</label>
+        </th>
+        <td>
+            <html:checkbox property="enabled" styleId="enabled" value="true"/>
+            <html:errors property="enabled"/>
+        </td>
+    </tr>
+    <tr>
         <td></td>
         <td>
             <fieldset class="pickList">
@@ -227,6 +236,7 @@
             <input type="hidden" name="userRoles" 
                 value="<c:out value="${role.name}"/>" />
         </c:forEach>
+            <html:hidden property="enabled"/>
         </td>
     </tr>
     </c:when>

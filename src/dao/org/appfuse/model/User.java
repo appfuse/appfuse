@@ -39,6 +39,7 @@ public class User extends BaseObject implements Serializable {
     protected String passwordHint;
     protected Integer version;
     protected Set roles = new HashSet();
+    protected Boolean enabled;
 
     /**
      * Returns the username.
@@ -294,6 +295,22 @@ public class User extends BaseObject implements Serializable {
         this.version = version;
     }
 
+    /**
+     * @return Returns the enabled.
+     * @hibernate.property column="enabled"
+     */
+    public Boolean getEnabled() {
+        // isEnabled doesnt' work for copying properties to Struts ActionForms
+        return enabled;
+    }
+    
+    /**
+     * @param enabled The enabled to set.
+     */
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+    
     /**
      * Generated using Commonclipse (http://commonclipse.sf.net)
      */
