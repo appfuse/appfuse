@@ -7,17 +7,18 @@
 <f:loadBundle var="text" basename="#{<XDtForm:classNameLower/>Form.bundleName}"/>
 
 <h:form id="<XDtForm:classNameLower/>Form" onsubmit="return validate<XDtClass:className/>Form(this)">
-
+<XDtForm:forAllFields>
+<XDtForm:ifIsIdField>
+<h:inputHidden value="#{<XDtForm:classNameLower/>Form.<XDtForm:classNameLower/>.<XDtForm:fieldName/>}" id="<XDtForm:fieldName/>"/>
+</XDtForm:ifIsIdField>
+</XDtForm:forAllFields>
 <h:panelGrid columns="3" styleClass="detail" columnClasses="label">
     <XDtForm:forAllFields>
-	<XDtForm:ifIsIdField>
-    <h:inputHidden value="#{<XDtForm:classNameLower/>Form.<XDtForm:classNameLower/>.<XDtForm:fieldName/>}" id="<XDtForm:fieldName/>"/>
-	</XDtForm:ifIsIdField>
 	<XDtForm:ifIsNotIdField>
 
     <h:outputLabel for="<XDtForm:fieldName/>" value="#{text['<XDtForm:classNameLower/>.<XDtForm:fieldName/>']}"/>
 
-    <h:inputText id="<XDtForm:fieldName/>" value="#{<XDtForm:classNameLower/>Form.<XDtForm:classNameLower/>.<XDtForm:fieldName/>}">
+    <h:inputText id="<XDtForm:fieldName/>" value="#{<XDtForm:classNameLower/>Form.<XDtForm:classNameLower/>.<XDtForm:fieldName/>}" required="true">
         <v:commonsValidator type="required" arg="#{text['<XDtForm:classNameLower/>.<XDtForm:fieldName/>']}"/>
     </h:inputText>
     <x:message for="<XDtForm:fieldName/>" styleClass="fieldError"/>
