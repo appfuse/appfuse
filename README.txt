@@ -41,19 +41,6 @@ steps:
 
 Features/Changes in 1.5-beta
 ============================
-- TODO for 1.5 Final:
-    - Fix formBackingObject method in Spring's UserFormController to throw
-      an exception when a user is trying to edit another user's information.
-      OR Modify UserRoleAuthorizationInterceptor to allow regular expressions
-      for URLs.
-    - Figure out how to mimic ActionExceptionHandler in Spring.
-    - Add Spring MVC "gotchas" to extras/spring/README.txt.
-    - Figure out a way to automate running ibatis and spring installs in 
-      Anthill.
-    - Update Wiki Documentation:
-      - Add tutorials for using Spring instead of Struts for MVC.
-      - Move List screen tutorial to come before form tutorial. This seems
-        to be the more natural way to develop applications.
 - Added Spring MVC as a web framework option. You can install it by navigating
   to "extras/spring" and typing "ant install".  Includes Commons Validator
   and XDoclet support for generating validation.xml.  I also ported the 
