@@ -15,7 +15,7 @@ import java.util.List;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.5 $ $Date: 2004/08/11 05:59:56 $
+ * @version $Revision: 1.6 $ $Date: 2004/09/10 04:38:57 $
  *
  * @struts.form include-all="true" extends="BaseForm"
  * @hibernate.class table="app_user"
@@ -23,21 +23,21 @@ import java.util.List;
 public class User extends BaseObject {
     //~ Instance fields ========================================================
 
-	protected Long id;
-	protected String username;
-	protected String password;
-	protected String confirmPassword;
-	protected String firstName;
-	protected String lastName;
-	protected String address;
-	protected String city;
-	protected String province;
-	protected String country;
-	protected String postalCode;
-	protected String phoneNumber;
-	protected String email;
-	protected String website;
-	protected String passwordHint;
+    protected Long id;
+    protected String username;
+    protected String password;
+    protected String confirmPassword;
+    protected String firstName;
+    protected String lastName;
+    protected String address;
+    protected String city;
+    protected String province;
+    protected String country;
+    protected String postalCode;
+    protected String phoneNumber;
+    protected String email;
+    protected String website;
+    protected String passwordHint;
     protected List roles = new ArrayList();
 
     //~ Methods ================================================================
@@ -59,7 +59,8 @@ public class User extends BaseObject {
      *
      * @struts.validator type="required"
      * @hibernate.property
-     *  column="username" not-null="true" unique="true"
+     * @hibernate.column name="username" not-null="true"
+     *  unique="true" index="app_user_username"
      */
     public String getUsername() {
         return username;

@@ -11,7 +11,7 @@ import java.util.Date;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.3 $ $Date: 2004/05/16 02:16:44 $
+ * @version $Revision: 1.4 $ $Date: 2004/09/10 04:38:57 $
  *
  * @hibernate.class table="user_cookie"
  *
@@ -53,7 +53,10 @@ public class UserCookie extends BaseObject {
      * Returns the username.
      * @return String
      *
-     * @hibernate.property column="username" not-null="true" length="30"
+     * @hibernate.property
+     * @hibernate.property
+     * @hibernate.column name="username" not-null="true"
+     *  length="30" index="user_cookie_username_cookie_id"
      */
     public String getUsername() {
         return username;
@@ -71,7 +74,9 @@ public class UserCookie extends BaseObject {
      * Returns the cookieId (a GUID).
      * @return String
      *
-     * @hibernate.property column="cookie_id" not-null="true" length="100"
+     * @hibernate.property
+     * @hibernate.column name="cookie_id" not-null="true"
+     *  length="100" index="user_cookie_username_cookie_id"
      */
     public String getCookieId() {
         return cookieId;
