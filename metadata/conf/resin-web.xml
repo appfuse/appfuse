@@ -1,0 +1,28 @@
+<web-app id="/appfuse">
+
+    <database>
+        <jndi-name>jdbc/appfuse</jndi-name>
+        <driver type="@DB-DRIVERNAME@">
+            <url>@DB-URL@</url>
+            <user>@DB-USERNAME@</user>
+            <password>@DB-PASSWORD@</password>
+        </driver>
+    </database>
+
+    <!-- Resin-specific JdbcAuthenticator -->
+    <authenticator type="com.caucho.server.security.JdbcAuthenticator">
+        <init>
+            <data-source>jdbc/appfuse</data-source>
+            <password-query>
+              SELECT password FROM app_user WHERE username=?
+            </password-query>
+            <role-query>
+              SELECT role_name FROM user_role r, app_user u
+                WHERE r.username=? and r.username = u.username
+            </role-query>
+            <password-digest>none</password-digest>
+        </init>
+    </authenticator>
+
+</web-app>
+
