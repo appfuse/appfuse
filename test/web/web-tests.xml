@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: web-tests.xml,v 1.17 2004/10/19 15:06:20 mraible Exp $               -->
+<!-- $Id: web-tests.xml,v 1.18 2004/11/08 22:33:39 mraible Exp $               -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:../../properties.xml">
@@ -101,7 +101,7 @@
             &config;
             <steps>
                 &login;
-                <invoke stepid="click Edit Profile link" url="/editUser.html"/>
+                <invoke stepid="click Edit Profile link" url="/editProfile.html"/>
                 <verifytitle stepid="we should see the user profile title" 
                     text="${webapp.prefix}${userProfile.title}"/>
                 <setinputfield stepid="set address" name="addressForm.address" 
@@ -192,8 +192,7 @@
                     value="Name"/>
                 <setinputfield stepid="set city" name="addressForm.city" 
                     value="Denver"/>
-                <setselectfield stepid="Select province" name="addressForm.province"
-                    value="CO"/>
+                <setinputfield name="addressForm.province" value="CO"/>
                 <setselectfield stepid="Select country" name="addressForm.country"
                     value="US"/>
                 <setinputfield stepid="set postalCode" name="addressForm.postalCode" 
