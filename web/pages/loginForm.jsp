@@ -52,9 +52,9 @@
         <td></td>
         <td>
             <!-- for Resin -->
-            <input type="hidden" name="j_uri" id="j_uri" value="" />
-            <input type="submit" class="button" name="login" id="login" value="<fmt:message key="button.login"/>" tabindex="4" />
-            <input type="reset" class="button" name="reset" id="reset" value="<fmt:message key="button.reset"/>" tabindex="5" 
+            <input type="hidden" name="j_uri" value="" />
+            <input type="submit" class="button" name="login" value="<fmt:message key="button.login"/>" tabindex="4" />
+            <input type="reset" class="button" name="reset" value="<fmt:message key="button.reset"/>" tabindex="5" 
                 onclick="document.getElementById('j_username').focus()" />
         </td>
     </tr>
