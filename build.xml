@@ -810,32 +810,32 @@
             <then>
                 <echo message="Starting Tomcat 5x..."/>
                 <cargo-tomcat5x homeDir="${tomcat.home}"
-                    output="${test.dir}/cargo.log"
-                    workingDir="${test.dir}/tomcat5x" action="start">
+                    output="${test.dir}/cargo.log" action="start">
                     <war warFile="${webapp.dist}/${webapp.war}"/>
-                    <property name="cargo.logging" value="medium"/>
-                    <property name="cargo.servlet.port" value="${http.port}"/>
+                    <configuration dir="${test.dir}/tomcat5x">
+                        <property name="cargo.logging" value="medium"/>
+                        <property name="cargo.servlet.port" value="${http.port}"/>
+                    </configuration>   
                 </cargo-tomcat5x>
         
                 <antcall target="test-canoo"/>
         
-                <cargo-tomcat5x homeDir="${tomcat.home}"
-                    workingDir="${test.dir}/tomcat5x" action="stop"/>
+                <cargo-tomcat5x homeDir="${tomcat.home}" action="stop"/>
             </then>
             <else>
                 <echo message="Starting Tomcat 4x..."/>
-                <cargo-tomcat4x homeDir="${tomcat.home}"
-                    output="${test.dir}/cargo.log"
-                    workingDir="${test.dir}/tomcat4x" action="start">
+                <cargo-tomcat4x homeDir="${tomcat.home}" 
+                    output="${test.dir}/cargo.log" action="start">
                     <war warFile="${webapp.dist}/${webapp.war}"/>
-                    <property name="cargo.logging" value="medium"/>
-                    <property name="cargo.servlet.port" value="${http.port}"/>
+                    <configuration dir="${test.dir}/tomcat4x">
+	                    <property name="cargo.logging" value="medium"/>
+	                    <property name="cargo.servlet.port" value="${http.port}"/>
+                    </configuration>   
                 </cargo-tomcat4x>
         
                 <antcall target="test-canoo"/>
         
-                <cargo-tomcat4x homeDir="${tomcat.home}"
-                    workingDir="${test.dir}/tomcat4x" action="stop"/>
+                <cargo-tomcat4x homeDir="${tomcat.home}" action="stop"/>
             </else>
         </if>
     </target>
