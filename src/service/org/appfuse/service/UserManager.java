@@ -26,7 +26,6 @@ public interface UserManager {
      *
      * @param username
      * @return User
-     * @throws ServiceException
      */
     public User getUser(String username);
 
@@ -49,7 +48,6 @@ public interface UserManager {
      * Removes a user from the database by their username
      *
      * @param username the user's username
-     * @throws ServiceException
      */
     public void removeUser(String username);
     
