@@ -32,7 +32,7 @@
             </label>
         </th>
         <td>
-            <html:file property="theFile" size="50"
+            <html:file property="file" size="50"
                 styleId="theFile" />
         </td>
     </tr>

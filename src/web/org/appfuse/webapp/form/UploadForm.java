@@ -15,7 +15,7 @@ import org.apache.struts.upload.MultipartRequestHandler;
  * see that application.
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.1 $ $Date: 2004/03/01 06:19:19 $
+ * @version $Revision: 1.2 $ $Date: 2004/05/04 06:06:16 $
  * 
  * @struts.form name="uploadForm"
  */
@@ -28,7 +28,7 @@ public class UploadForm extends BaseForm {
     protected String name;
 
     /** The file that the user has uploaded */
-    protected FormFile theFile;
+    protected FormFile file;
 
     /**
      * Retrieve the name the user has given the uploaded file
@@ -53,17 +53,17 @@ public class UploadForm extends BaseForm {
      *
      * @return FormFile the uploaded file
      */
-    public FormFile getTheFile() {
-        return theFile;
+    public FormFile getFile() {
+        return file;
     }
 
     /**
      * Set a representation of the file the user has uploaded
      *
-     * @param theFile the file to upload
+     * @param file the file to upload
      */
-    public void setTheFile(FormFile theFile) {
-        this.theFile = theFile;
+    public void setFile(FormFile file) {
+        this.file = file;
     }
 
     /**

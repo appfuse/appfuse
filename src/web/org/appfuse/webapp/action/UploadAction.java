@@ -27,7 +27,7 @@ import org.appfuse.webapp.form.UploadForm;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.1 $ $Date: 2004/03/01 06:19:15 $
+ * @version $Revision: 1.2 $ $Date: 2004/05/04 06:06:16 $
  * 
  * @struts.action name="uploadForm" path="/uploadFile" scope="request"
  *  validate="true" input="failure"
@@ -60,7 +60,7 @@ public class UploadAction extends Action {
         String name = theForm.getName();
 
         //retrieve the file representation
-        FormFile file = theForm.getTheFile();
+        FormFile file = theForm.getFile();
 
         //retrieve the file name
         String fileName = file.getFileName();
