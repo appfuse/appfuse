@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import org.displaytag.tags.TableTagParameters;
 
 /**
  * Filter that compresses output with gzip (assuming that browser supports gzip).
@@ -24,14 +25,14 @@ import org.apache.commons.logging.LogFactory;
  * and non-commercially.
  *
  * @author  Matt Raible
- * @version $Revision: 1.5 $ $Date: 2004/10/06 08:09:19 $
+ * @version $Revision: 1.6 $ $Date: 2004/10/13 05:56:04 $
  *
  * @web.filter
  *     display-name="Compression Filter"
  *     name="compressionFilter"
  */
 public class GZIPFilter implements Filter {
-    private transient final Log log = LogFactory.getLog(GZIPFilter.class);
+    private final transient Log log = LogFactory.getLog(GZIPFilter.class);
 
     public void doFilter(ServletRequest req, ServletResponse res,
                          FilterChain chain)
@@ -64,13 +65,25 @@ public class GZIPFilter implements Filter {
      * @return boolean indicating GZIP support
      */
     private boolean isGZIPSupported(HttpServletRequest req) {
+        
+        // disable gzip filter for exporting excel from displaytag
+        String excelExport =
+            req.getParameter(TableTagParameters.PARAMETER_EXPORTING);
+
+        if ("1".equals(excelExport)) {
+            if (log.isDebugEnabled()) {
+                log.debug("detected excel export, disabling filter...");
+            }
+            return false;
+        }
+
         String browserEncodings = req.getHeader("accept-encoding");
         boolean supported =
             ((browserEncodings != null) &&
             (browserEncodings.indexOf("gzip") != -1));
 
         String userAgent = req.getHeader("user-agent");
-        
+
         if ((userAgent != null) && userAgent.startsWith("httpunit")) {
             if (log.isDebugEnabled()) {
                 log.debug("httpunit detected, disabling filter...");
