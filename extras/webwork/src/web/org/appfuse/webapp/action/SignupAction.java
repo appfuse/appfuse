@@ -57,8 +57,6 @@ public class SignupAction extends BaseAction {
 
         // Set the default user role on this new user
         user.addRole(roleManager.getRole(Constants.USER_ROLE));
-        
-        log.debug("user.updated: " + user.getUpdated());
 
         try {
             userManager.saveUser(user);

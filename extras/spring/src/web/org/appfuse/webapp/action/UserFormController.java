@@ -1,17 +1,10 @@
 package org.appfuse.webapp.action;
 
-import java.text.DateFormat;
-import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
-
-import java.util.Date;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
-
 import org.appfuse.Constants;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
@@ -19,13 +12,8 @@ import org.appfuse.service.RoleManager;
 import org.appfuse.service.UserManager;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.util.RequestUtil;
-
-import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.validation.BindException;
-import org.springframework.web.bind.ServletRequestDataBinder;
-import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -33,7 +21,7 @@ import org.springframework.web.servlet.view.RedirectView;
  * Implementation of <strong>SimpleFormController</strong> that interacts with
  * the {@link UserManager} to retrieve/persist values to the database.
  *
- * <p/><a href="UserFormController.java.html"><i>View Source</i></a></p>
+ * <p><a href="UserFormController.java.html"><i>View Source</i></a></p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
@@ -45,14 +33,6 @@ public class UserFormController extends BaseFormController {
      */
     public void setRoleManager(RoleManager roleManager) {
         this.roleManager = roleManager;
-    }
-
-    protected void initBinder(HttpServletRequest request,
-                              ServletRequestDataBinder binder) {
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss.S");
-        binder.registerCustomEditor(Date.class, "updated",
-                                    new CustomDateEditor(df, true));
-        super.initBinder(request, binder);
     }
 
     public ModelAndView processFormSubmission(HttpServletRequest request,
@@ -106,15 +86,13 @@ public class UserFormController extends BaseFormController {
 
             String[] userRoles = request.getParameterValues("userRoles");
 
-            for (int i = 0; userRoles != null && i < userRoles.length; i++) {
+            for (int i = 0; (userRoles != null) && (i < userRoles.length);
+                     i++) {
                 String roleName = userRoles[i];
                 user.addRole(roleManager.getRole(roleName));
             }
 
             try {
-                if (user.getUpdated() != null) {
-                    user.setUpdated(new Date());
-                }
                 mgr.saveUser(user);
             } catch (DataIntegrityViolationException e) {
                 log.warn("User already exists: " + e.getMessage());
@@ -152,7 +130,7 @@ public class UserFormController extends BaseFormController {
                 // return to main Menu
                 return new ModelAndView(new RedirectView("mainMenu.html"));
             } else {
-                if (StringUtils.isBlank(request.getParameter("updated"))) {
+                if (StringUtils.isBlank(request.getParameter("version"))) {
                     saveMessage(request,
                                 getText("user.added", user.getFullName()));
 
@@ -175,9 +153,6 @@ public class UserFormController extends BaseFormController {
         return showForm(request, response, errors);
     }
 
-    /**
-     * @see org.springframework.web.servlet.mvc.AbstractFormController#showForm(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, org.springframework.validation.BindException)
-     */
     protected ModelAndView showForm(HttpServletRequest request,
                                     HttpServletResponse response,
                                     BindException errors)
@@ -223,7 +198,7 @@ public class UserFormController extends BaseFormController {
         if (request.getRequestURL().indexOf("editProfile") > -1) {
             user = mgr.getUser(getUser(request).getUsername());
         } else if (!StringUtils.isBlank(username) &&
-                       !"".equals(request.getParameter("updated"))) {
+                       !"".equals(request.getParameter("version"))) {
             user = mgr.getUser(username);
         } else {
             user = new User();

@@ -1,7 +1,8 @@
 package org.appfuse.model;
 
+import java.io.Serializable;
+
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -25,7 +26,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  *
  * @hibernate.class table="app_user"
  */
-public class User extends BaseObject {
+public class User extends BaseObject implements Serializable {
     protected String username;
     protected String password;
     protected String confirmPassword;
@@ -36,7 +37,7 @@ public class User extends BaseObject {
     protected String email;
     protected String website;
     protected String passwordHint;
-    protected Date updated;
+    protected Integer version;
     protected Set roles = new HashSet();
 
     /**
@@ -45,7 +46,7 @@ public class User extends BaseObject {
      * @return String
      *
      * @hibernate.id column="username" length="20" generator-class="assigned"
-     *               unsaved-value="timestamp"
+     *               unsaved-value="version"
      */
     public String getUsername() {
         return username;
@@ -277,18 +278,17 @@ public class User extends BaseObject {
 
     /**
      * @return Returns the updated timestamp.
-     * @hibernate.timestamp
+     * @hibernate.version
      */
-    public Date getUpdated() {
-        return updated;
+    public Integer getVersion() {
+        return version;
     }
 
     /**
-     * @param updated
-     *            The updated timestamp to set.
+     * @param updated The updated timestamp to set.
      */
-    public void setUpdated(Date updated) {
-        this.updated = updated;
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 
     /**
@@ -359,6 +359,6 @@ public class User extends BaseObject {
                         this.phoneNumber).append("password", this.password)
                 .append("address", this.address).append("confirmPassword",
                         this.confirmPassword).append("website", this.website)
-                .append("updated", this.getUpdated()).toString();
+                .append("version", this.getVersion()).toString();
     }
 }

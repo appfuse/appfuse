@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+
 /**
  * This class is used to represent an address.</p>
  *
@@ -47,7 +47,7 @@ public class Address extends BaseObject implements Serializable {
      * Returns the province.
      * @return String
      *
-  
+
      * @hibernate.property column="province" length="100"
      */
     public String getProvince() {
@@ -85,7 +85,7 @@ public class Address extends BaseObject implements Serializable {
     /**
      * Sets the city.
      * @param city The city to set
-     * 
+     *
      * @spring.validator type="required"
      */
     public void setCity(String city) {
@@ -95,7 +95,7 @@ public class Address extends BaseObject implements Serializable {
     /**
      * Sets the country.
      * @param country The country to set
-     * 
+     *
      * @spring.validator type="required"
      */
     public void setCountry(String country) {
@@ -105,7 +105,7 @@ public class Address extends BaseObject implements Serializable {
     /**
      * Sets the postalCode.
      * @param postalCode The postalCode to set
-     * 
+     *
      * @spring.validator type="required"
      * @spring.validator type="mask" msgkey="errors.zip"
      * @spring.validator-var name="mask" value="${zip}"
@@ -117,7 +117,7 @@ public class Address extends BaseObject implements Serializable {
     /**
      * Sets the province.
      * @param province The province to set
-     * 
+     *
      * @spring.validator type="required"
      */
     public void setProvince(String province) {
@@ -157,10 +157,16 @@ public class Address extends BaseObject implements Serializable {
      * Generated using Commonclipse (http://commonclipse.sf.net)
      */
     public String toString() {
-        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
-                .append("country", this.country)
-                .append("address", this.address).append("province",
-                        this.province).append("postalCode", this.postalCode)
-                .append("city", this.city).toString();
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).append("country",
+                                                                                this.country)
+                                                                        .append("address",
+                                                                                this.address)
+                                                                        .append("province",
+                                                                                this.province)
+                                                                        .append("postalCode",
+                                                                                this.postalCode)
+                                                                        .append("city",
+                                                                                this.city)
+                                                                        .toString();
     }
 }

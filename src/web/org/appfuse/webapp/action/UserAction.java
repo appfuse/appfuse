@@ -248,7 +248,7 @@ public final class UserAction extends BaseAction {
             return mapping.findForward("mainMenu");
         } else {
             // add success messages
-            if ("".equals(request.getParameter("updated"))) {
+            if ("".equals(request.getParameter("version"))) {
                 messages.add(ActionMessages.GLOBAL_MESSAGE,
                              new ActionMessage("user.added",
                                                userForm.getUsername()));

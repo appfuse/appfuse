@@ -24,7 +24,7 @@ import org.apache.commons.logging.LogFactory;
  * and non-commercially.
  *
  * @author  Matt Raible
- * @version $Revision: 1.4 $ $Date: 2004/08/19 00:13:57 $
+ * @version $Revision: 1.5 $ $Date: 2004/10/06 08:09:19 $
  *
  * @web.filter
  *     display-name="Compression Filter"
@@ -70,8 +70,8 @@ public class GZIPFilter implements Filter {
             (browserEncodings.indexOf("gzip") != -1));
 
         String userAgent = req.getHeader("user-agent");
-
-        if (userAgent.startsWith("httpunit")) {
+        
+        if ((userAgent != null) && userAgent.startsWith("httpunit")) {
             if (log.isDebugEnabled()) {
                 log.debug("httpunit detected, disabling filter...");
             }

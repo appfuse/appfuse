@@ -22,7 +22,7 @@
         <result property="phoneNumber" column="phone_number"/>
         <result property="website" column="website"/>
         <result property="passwordHint" column="password_hint"/>
-        <result property="updated" column="updated"/>
+        <result property="version" column="version"/>
     </resultMap>
     
 	<insert id="addUser" parameterClass="user">
@@ -30,11 +30,11 @@
         insert into 
         app_user (username, password, first_name, last_name, address, 
                   city, province, country, postal_code, email, phone_number, 
-                  website, password_hint, updated)
+                  website, password_hint, version)
         values (#username#, #password#, #firstName#, #lastName#, 
                 #address.address#, #address.city#, #address.province#,
                 #address.country#, #address.postalCode#, #email#, #phoneNumber#,
-                #website#, #passwordHint#, #updated#);
+                #website#, #passwordHint#, #version#);
     ]]>
     </insert>
     
@@ -60,7 +60,7 @@
             phone_number = #phoneNumber#,
             website = #website#,
             password_hint = #passwordHint#,
-            updated = #updated#
+            version = #version#
         where username = #username#;
     ]]>
     </update>
@@ -79,7 +79,7 @@
     
 	<select id="getUserRoles" resultClass="role">
     <![CDATA[
-        select user_role.role_name as name, role.description, role.updated
+        select user_role.role_name as name, role.description, role.version
         from user_role left join role on role.name = user_role.role_name
         where user_role.username=#username#;
     ]]>

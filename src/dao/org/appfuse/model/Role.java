@@ -1,7 +1,6 @@
 package org.appfuse.model;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.Set;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -15,7 +14,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * <p><a href="Role.java.html"><i>View Source</i></a></p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- *  Updated by Dan Kibler dan@getrolling.com
+ *  Version by Dan Kibler dan@getrolling.com
  *
  * @struts.form extends="BaseForm"
  * @hibernate.class table="role"
@@ -25,7 +24,7 @@ public class Role extends BaseObject implements Serializable {
 
     private String name;
     private String description;
-    protected Date updated;
+    private Integer version;
     private Set users;
 
     public Role() {}
@@ -42,7 +41,7 @@ public class Role extends BaseObject implements Serializable {
      *
      * @struts.validator type="required"
      * @hibernate.id column="name" length="20"
-     *   generator-class="assigned" unsaved-value="timestamp"
+     *   generator-class="assigned" unsaved-value="version"
      */
     public String getName() {
         return this.name;
@@ -74,7 +73,7 @@ public class Role extends BaseObject implements Serializable {
      *                lazy="false" inverse="true"
      * hibernate.collection-key column="role_name"
      * hibernate.collection-many-to-many class="org.appfuse.model.User"
-     *                                   column="username"
+     *                                    column="username"
      */
     public Set getUsers() {
         return users;
@@ -88,17 +87,17 @@ public class Role extends BaseObject implements Serializable {
     }
 
     /**
-     * @return Returns the updated timestamp.
-     * @hibernate.timestamp
+     * @return Returns the version.
+     * @hibernate.version
      */
-    public Date getUpdated() {
-        return updated;
+    public Integer getVersion() {
+        return version;
     }
     /**
-     * @param updated The updated timestamp to set.
+     * @param version The version to set.
      */
-    public void setUpdated(Date updated) {
-        this.updated = updated;
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 
     /**

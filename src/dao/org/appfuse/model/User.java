@@ -1,6 +1,5 @@
 package org.appfuse.model;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -39,7 +38,7 @@ public class User extends BaseObject {
     protected String email;
     protected String website;
     protected String passwordHint;
-    protected Date updated;
+    protected Integer version;
     protected Set roles = new HashSet();
 
     /**
@@ -284,19 +283,19 @@ public class User extends BaseObject {
     }
 
     /**
-     * @return Returns the updated timestamp.
-     * @hibernate.timestamp
+     * @return Returns the updated version.
+     * @hibernate.version
      */
-    public Date getUpdated() {
-        return updated;
+    public Integer getVersion() {
+        return version;
     }
 
     /**
-     * @param updated
-     *            The updated timestamp to set.
+     * The updated version to set.
+     * @param version
      */
-    public void setUpdated(Date updated) {
-        this.updated = updated;
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 
     /**
@@ -346,7 +345,7 @@ public class User extends BaseObject {
                         this.phoneNumber).append("password", this.password)
                 .append("address", this.address).append("confirmPassword",
                         this.confirmPassword).append("website", this.website)
-                .append("updated", this.getUpdated()).toString();
+                .append("version", this.getVersion()).toString();
     }
 
 }

@@ -73,7 +73,6 @@ public final class SignupAction extends BaseAction {
         user.addRole(roleMgr.getRole(Constants.USER_ROLE));
 
         try {
-
             if (algorithm == null) { // should only happen for test case
                 log.debug("assuming testcase, setting algorigthm to 'SHA'");
                 algorithm = "SHA";

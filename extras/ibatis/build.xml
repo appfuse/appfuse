@@ -65,6 +65,16 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
     <path refid="ibatis.classpath"/>]]></replacevalue>
         </replace>
 
+        <echo level="info">Modifying Eclipse .classpath file</echo>
+        <replace file="../../.classpath">
+            <replacetoken><![CDATA[<classpathentry kind="output" path="build/classes"/>]]></replacetoken>
+            <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/ibatis-2.0.6/ibatis-common-2.jar"/>
+	<classpathentry kind="lib" path="lib/ibatis-2.0.6/ibatis-sqlmap-2.jar"/>
+	<classpathentry kind="lib" path="lib/ibatis-2.0.6/jta.jar"/>
+	<classpathentry kind="lib" path="lib/ibatis-2.0.6/oscache-2.0.1.jar"/>
+	<classpathentry kind="output" path="build/classes"/>]]></replacevalue>
+        </replace>
+        
         <echo level="info">Changing dao.type to ibatis</echo>
         <replace file="../../properties.xml">
             <replacetoken><![CDATA[<property name="dao.type" value="hibernate"/>]]></replacetoken>
@@ -138,6 +148,15 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
     <path refid="hibernate.classpath"/>]]></replacevalue>
         </replace>
 
+        <echo level="info">Modifying Eclipse .classpath file</echo>
+        <replace file="../../.classpath">
+            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/ibatis-2.0.6/ibatis-common-2.jar"/>
+	<classpathentry kind="lib" path="lib/ibatis-2.0.6/ibatis-sqlmap-2.jar"/>
+	<classpathentry kind="lib" path="lib/ibatis-2.0.6/jta.jar"/>
+	<classpathentry kind="lib" path="lib/ibatis-2.0.6/oscache-2.0.1.jar"/>]]></replacetoken>
+            <replacevalue></replacevalue>
+        </replace>
+        
         <echo level="info">Changing dao.type to hibernate</echo>
         <replace file="../../properties.xml">
             <replacetoken><![CDATA[<property name="dao.type" value="ibatis"/>]]></replacetoken>
@@ -234,6 +253,20 @@ hibernate.jar=${hibernate.dir}/hibernate2.jar]]></replacetoken>
             <replacevalue><![CDATA[<path refid="ibatis.classpath"/>]]></replacevalue>
         </replace>
 
+        <echo level="info">Modifying Eclipse .classpath file</echo>
+        <replace file="../../.classpath">
+            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/hibernate-2.1.6/lib/c3p0-0.8.4.5.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-2.1.6/hibernate2.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-2.1.6/lib/cglib-full-2.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-2.1.6/lib/dom4j-1.4.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-2.1.6/lib/ehcache-0.9.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-2.1.6/lib/jta.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-2.1.6/lib/odmg-3.0.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-2.1.6/lib/oscache-2.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-2.1.6/lib/swarmcache-1.0rc2.jar"/>]]></replacetoken>
+            <replacevalue></replacevalue>
+        </replace>
+        
         <echo level="info">Removing all references to hibernate in build.xml</echo>
         
         <!-- Remove hibernate.unnecessary check -->

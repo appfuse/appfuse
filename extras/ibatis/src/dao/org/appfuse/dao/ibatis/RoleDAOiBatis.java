@@ -1,6 +1,5 @@
 package org.appfuse.dao.ibatis;
 
-import java.util.Date;
 import java.util.List;
 
 import org.appfuse.dao.RoleDAO;
@@ -29,10 +28,11 @@ public class RoleDAOiBatis extends SqlMapClientDaoSupport implements RoleDAO {
     }
 
     public void saveRole(final Role role) {
-        if (role.getUpdated() == null) {
-            role.setUpdated(new Date());
+        if (role.getVersion() == null) {
+            role.setVersion(new Integer(1));
             getSqlMapClientTemplate().update("addRole", role);
         } else {
+            role.setVersion(new Integer(role.getVersion().intValue()+1));
             getSqlMapClientTemplate().update("updateRole", role);
         }
     }

@@ -1,6 +1,5 @@
 package org.appfuse.dao.ibatis;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -18,9 +17,7 @@ import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
  * This class interacts with iBatis's SQL Maps to save and retrieve User
  * related objects.
  *
- * <p>
- * <a href="UserDAOiBatis.java.html"><i>View Source</i></a>
- * </p>
+ * <p><a href="UserDAOiBatis.java.html"><i>View Source</i></a></p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
@@ -97,12 +94,12 @@ public class UserDAOiBatis extends SqlMapClientDaoSupport implements UserDAO {
      * @see org.appfuse.dao.UserDAO#saveUser(org.appfuse.model.User)
      */
     public void saveUser(final User user) {
-        logger.debug("saving user: " + user);
-        if (user.getUpdated() == null) {
-            user.setUpdated(new Date());
+        if (user.getVersion() == null) {
+            user.setVersion(new Integer(1));
             getSqlMapClientTemplate().update("addUser", user);
             addUserRoles(user);
         } else {
+            user.setVersion(new Integer(user.getVersion().intValue()+1));
             getSqlMapClientTemplate().update("updateUser", user);
             deleteUserRoles(user);
             addUserRoles(user);

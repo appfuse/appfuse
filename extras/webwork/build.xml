@@ -142,16 +142,25 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
             <fileset dir="web" includes="**"/>
         </copy>
         
-        <echo level="info">[TODO] Adding WebWork JARs to .classpath for Eclipse</echo>
-        <!-- Might be easier to just replace .classpath -->
-        <!--replace file="../../.classpath">
-            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/spring-1.1.1/spring.jar"/>]]></replacetoken>
-            <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/spring-1.1.1/spring.jar"/>
-	<classpathentry kind="lib" path="lib/spring-1.1.1/spring-mock.jar"/>
-	<classpathentry kind="lib" path="lib/spring-1.1.1/commons-fileupload.jar"/>
-	<classpathentry kind="lib" path="lib/spring-1.1.1/spring-sandbox.jar"/>
-]]></replacevalue>
-        </replace-->
+        <echo level="info">Modifying Eclipse .classpath file</echo>
+        <replace file="../../.classpath">
+            <replacetoken><![CDATA[<classpathentry kind="src" path="build/web/gen"/>]]></replacetoken>
+            <replacevalue></replacevalue>
+        </replace>
+        <replace file="../../.classpath">
+            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/strutstest-2.1.2/strutstest-2.1.2.jar"/>]]></replacetoken>
+            <replacevalue></replacevalue>
+        </replace>
+        <replace file="../../.classpath">
+            <replacetoken><![CDATA[	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/struts.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/struts-el.jar"/>]]></replacetoken>
+            <replacevalue><![CDATA[	<classpathentry kind="lib" path="lib/webwork-2.1.1/commons-fileupload.jar"/>
+	<classpathentry kind="lib" path="lib/webwork-2.1.1/ognl.jar"/>
+	<classpathentry kind="lib" path="lib/webwork-2.1.1/oscore.jar"/>
+	<classpathentry kind="lib" path="lib/webwork-2.1.1/spring-xwork-integration.jar"/>
+	<classpathentry kind="lib" path="lib/webwork-2.1.1/webwork-2.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/webwork-2.1.1/xwork-1.0.3.jar"/>]]></replacevalue>
+        </replace>
 
         <echo level="info">Refactoring build.xml</echo>
 

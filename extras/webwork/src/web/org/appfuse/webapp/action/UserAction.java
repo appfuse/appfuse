@@ -133,7 +133,7 @@ public class UserAction extends BaseAction {
             user.setPassword(StringUtil.encodePassword(user.getPassword(), algorithm));
         }
         
-        boolean isNew = ("".equals(getRequest().getParameter("user.updated")));
+        boolean isNew = ("".equals(getRequest().getParameter("user.version")));
         
         String[] userRoles = getRequest().getParameterValues("user.userRoles");
 
@@ -141,7 +141,7 @@ public class UserAction extends BaseAction {
             String roleName = userRoles[i];
             user.addRole(roleManager.getRole(roleName));
         }
-        
+
         try {
             userManager.saveUser(user);
         } catch (DataIntegrityViolationException e) {

@@ -3,13 +3,13 @@ drop table if exists app_user;
 drop table if exists user_cookie;
 drop table if exists role;
 create table user_role (
-   role_name varchar(255) not null,
-   username varchar(255) not null,
+   username varchar(20) not null,
+   role_name varchar(20) not null,
    primary key (username, role_name)
 );
 create table app_user (
    username varchar(20) not null,
-   updated datetime not null,
+   version integer not null,
    password varchar(255),
    first_name varchar(50),
    last_name varchar(50),
@@ -33,7 +33,7 @@ create table user_cookie (
 );
 create table role (
    name varchar(20) not null,
-   updated datetime not null,
+   version integer not null,
    description varchar(255),
    primary key (name)
 );

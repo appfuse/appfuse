@@ -2,7 +2,7 @@
 
 <html:form action="saveUser" focus="password" styleId="userFormEx" 
     onsubmit="return validateUserFormEx(this)">
-<html:hidden property="updated"/>
+<html:hidden property="version"/>
 <input type="hidden" name="from" value="<c:out value="${param.from}"/>" />
 
 <c:if test="${cookieLogin == 'true'}">
@@ -172,8 +172,7 @@
             <appfuse:label key="userFormEx.website"/>
         </th>
         <td>
-            <html:text property="website" 
-                styleId="website" size="50"/>
+            <html:text property="website" styleId="website" size="50"/>
             <c:if test="${!empty userFormEx.website}">
             <a href="<c:out value="${userFormEx.website}"/>"><fmt:message key="userFormEx.visitWebsite"/></a>
             </c:if>
@@ -232,16 +231,6 @@
     </tr>
     </c:when>
 </c:choose>
-
-    <c:if test="${not empty userFormEx.username}">
-    <tr>
-        <td></td>
-        <td class="updateStatus">
-            <appfuse:label key="userFormEx.updated"/>
-            <c:out value="${userFormEx.updated}"/>
-        </td>
-    </tr>
-    </c:if>
     
     <%-- Print out buttons - defined at top of form --%>
     <%-- This is so you can put them at the top and the bottom if you like --%>
@@ -254,7 +243,7 @@
 <!--
 highlightFormElements();
 <%-- if we're doing an add, change the focus --%>
-<c:if test="${param.action == 'Add'}">document.forms[0].username.focus();</c:if>
+<c:if test="${param.method == 'Add'}">document.forms[0].username.focus();</c:if>
 
 function passwordChanged(passwordField) {
     var origPassword = "<c:out value="${userFormEx.password}"/>";

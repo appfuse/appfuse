@@ -15,8 +15,8 @@
 <form method="post" action="<c:url value="/editUser.html"/>" id="userForm"
     onsubmit="return onFormSubmit(this)">
     
-<spring:bind path="user.updated">
-<input type="hidden" name="updated" value="<c:out value="${status.value}"/>"/> 
+<spring:bind path="user.version">
+<input type="hidden" name="version" value="<c:out value="${status.value}"/>"/> 
 </spring:bind>
 <input type="hidden" name="from" value="<c:out value="${param.from}"/>" />
 
@@ -270,16 +270,6 @@
     </tr>
     </c:when>
 </c:choose>
-
-    <c:if test="${not empty user.username}">
-    <tr>
-        <td></td>
-        <td class="updateStatus">
-            <appfuse:label key="user.updated"/>
-            <fmt:formatDate value="${user.updated}" pattern="MM/dd/yyyy HH:mm:ss.S"/>
-        </td>
-    </tr>
-    </c:if>
     
     <%-- Print out buttons - defined at top of form --%>
     <%-- This is so you can put them at the top and the bottom if you like --%>

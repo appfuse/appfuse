@@ -5,7 +5,6 @@ import java.util.Date;
 import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.util.DateUtil;
-import org.appfuse.util.TimeStampConverter;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.validation.BindException;
@@ -56,10 +55,6 @@ public class UserFormControllerTest extends BaseControllerTestCase {
         super.objectToRequestParameters(user, request);
         request.addParameter("confirmPassword", user.getPassword());
         request.addParameter("lastName", "Updated Last Name");
-        
-        // convert date to UI format
-        request.addParameter("updated", 
-                DateUtil.getDateTime(TimeStampConverter.FORMAT, new Date()));
         
         mv = c.handleRequest(request, new MockHttpServletResponse());
         log.debug(mv.getModel());

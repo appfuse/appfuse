@@ -54,7 +54,7 @@ public class UserDAOTest extends BaseDAOTestCase {
         
         // verify that violation occurs when adding new user
         // with same username
-        user.setUpdated(null);
+        user.setVersion(null);
         
         try {
             dao.saveUser(user);

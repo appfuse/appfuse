@@ -2,12 +2,7 @@
 
 
 <ww:form name="'userForm'" action="'saveUser'" method="'post'" validate="true">
-<%-- formatting is necessary to get the full seconds --%>
-<ww:set name="updated" value="user.updated" scope="page"/>
-<c:set var="formattedUpdated">
-	<fmt:formatDate value="${updated}" pattern="MM/dd/yyyy HH:mm:ss.S"/>
-</c:set>
-<input type="hidden" name="user.updated" value="<c:out value="${formattedUpdated}"/>" />
+<ww:hidden name="'user.version'" value="user.version"/>
 <input type="hidden" name="from" value="<c:out value="${param.from}"/>" />
 
 <c:if test="${cookieLogin == 'true'}">
@@ -80,7 +75,7 @@
         </th>
         <td>
        	    <ww:set name="country" value="user.address.country" scope="page"/>
-            <appfuse-webwork:country name="user.address.country" prompt="" default="${country}"/>
+            <appfuse:country name="user.address.country" prompt="" default="${country}"/>
         </td>
     </tr>
     <ww:textfield label="getText('user.address.postalCode')" name="'user.address.postalCode'"
@@ -145,17 +140,6 @@
     </tr>
     </c:otherwise>
 </c:choose>
-
-    <ww:if test="user.username != null && user.username != ''">
-    <tr>
-        <td></td>
-        <td class="updateStatus">
-            <label><fmt:message key="user.updated"/>:</label>
-            <%-- The 'formattedUpdated' variable is set at the top of this form --%>
-            <c:out value="${formattedUpdated}"/>
-        </td>
-    </tr>
-    </ww:if>
 
     <%-- Print out buttons - defined at top of form --%>
     <%-- This is so you can put them at the top and the bottom if you like --%>

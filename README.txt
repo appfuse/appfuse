@@ -47,6 +47,9 @@ Features/Changes in 1.6
     http://raibledesigns.com/page/rd?anchor=should_i_ditch_tiles_in
     Good Article: http://www.onjava.com/pub/a/onjava/2004/09/22/sitemesh.html
     Experience documented at: http://raibledesigns.com/page/rd/20040821
+- Re-worked User and Roles relationship to take advantage of Hibernate more.
+  Thanks to Daniel Kibler for the patch:
+    https://appfuse.dev.java.net/issues/show_bug.cgi?id=69
 - Changed "org.appfuse.persistence" package name to "org.appfuse.dao".  Moved
   "*ManagerImpl" classes to "service.impl" package.
 - Changed stylesheet colors for Spring MVC option to be green instead of red.

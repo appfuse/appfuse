@@ -15,14 +15,14 @@
 
     <insert id="addRole" parameterClass="role">
     <![CDATA[
-        insert into role (name, description, updated) 
-        values (#name#, #description#, #updated#);
+        insert into role (name, description, version) 
+        values (#name#, #description#, #version#);
     ]]>
     </insert>
     
     <update id="updateRole" parameterClass="role">
     <![CDATA[
-        update role set description=#description#, updated=#updated#
+        update role set description=#description#, version=#version#
         where name=#name#;
     ]]>
     </update>
