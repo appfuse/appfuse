@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.49 2004/10/08 09:00:15 mraible Exp $                 -->
+<!-- $Id: build.xml,v 1.50 2004/10/09 09:58:49 mraible Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -624,7 +624,7 @@
         </antcall>
     </target>
 
-    <target name="test-web" depends="webdoclet,db-load"
+    <target name="test-web" depends="webdoclet"
         description="Test web module">
         <copy todir="${webapp.target}/WEB-INF" 
             file="${struts.dir}/validator-rules.xml"/>
@@ -674,7 +674,7 @@
         </javac>
     </target>
 
-    <target name="test-module">
+    <target name="test-module" depends="db-load">
         <!-- Inputs: module, test.classpath -->
         <echo level="info">Testing ${module}...</echo>
         <mkdir dir="${test.dir}/data"/>
