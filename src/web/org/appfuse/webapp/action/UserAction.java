@@ -29,6 +29,7 @@ import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.form.UserForm;
 import org.appfuse.webapp.form.UserFormEx;
 import org.appfuse.webapp.util.RequestUtil;
+import org.springframework.dao.DataIntegrityViolationException;
 
 
 /**
@@ -221,30 +222,12 @@ public final class UserAction extends BaseAction {
         try {
             user = mgr.saveUser(user);
             setupRoles(user, request);
-        } catch (Exception e) {
-            if ((e.getMessage() != null) &&
-                    (e.getMessage().indexOf("Duplicate entry") != -1)) {
-                // user already exists!
-                log.warn("User already exists: " + e.getMessage());
-                errors.add(ActionMessages.GLOBAL_MESSAGE,
-                           new ActionMessage("errors.existing.user",
-                                             userForm.getUsername(),
-                                             userForm.getEmail()));
-                saveErrors(request, errors);
-
-                return mapping.findForward("edit");
-            }
-
-            e.printStackTrace();
+        } catch (DataIntegrityViolationException e) {
+            log.warn("User already exists: " + e.getMessage());
             errors.add(ActionMessages.GLOBAL_MESSAGE,
-                       new ActionMessage("errors.general"));
-
-            while (e != null) {
-                errors.add(ActionMessages.GLOBAL_MESSAGE,
-                           new ActionMessage("errors.detail", e.getMessage()));
-                e = (Exception) e.getCause();
-            }
-
+                       new ActionMessage("errors.existing.user",
+                                         userForm.getUsername(),
+                                         userForm.getEmail()));
             saveErrors(request, errors);
 
             return mapping.findForward("edit");

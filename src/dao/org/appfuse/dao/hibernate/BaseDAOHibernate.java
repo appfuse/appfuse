@@ -6,7 +6,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import org.appfuse.dao.DAO;
-import org.appfuse.dao.DAOException;
+import org.springframework.orm.ObjectRetrievalFailureException;
 
 import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 
@@ -24,7 +24,7 @@ public class BaseDAOHibernate extends HibernateDaoSupport implements DAO {
     /**
      * @see org.appfuse.dao.DAO#getObject(java.lang.Object)
      */
-    public Object getObject(Object o) throws DAOException {
+    public Object getObject(Object o) {
         Long id = null;
 
         // use reflection to get the id and fetch the object
@@ -33,9 +33,7 @@ public class BaseDAOHibernate extends HibernateDaoSupport implements DAO {
             id = (Long) meth.invoke(o, new Object[0]);
             o = getHibernateTemplate().get(o.getClass(), id);
         } catch (Exception e) {
-            throw new DAOException("exception loading '" +
-                                   o.getClass().getName() + "' with id '" + id +
-                                   "'");
+            throw new ObjectRetrievalFailureException(o.getClass(), id);
         }
 
         return o;
@@ -53,7 +51,7 @@ public class BaseDAOHibernate extends HibernateDaoSupport implements DAO {
     /**
      * @see org.appfuse.dao.DAO#removeObject(java.lang.Object)
      */
-    public void removeObject(Object o) throws DAOException {
+    public void removeObject(Object o) {
         if (log.isDebugEnabled()) {
             log.debug("loading object to delete....");
         }

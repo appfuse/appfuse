@@ -20,10 +20,11 @@ import org.appfuse.service.UserManager;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.form.UserForm;
 import org.appfuse.webapp.util.RequestUtil;
+import org.springframework.dao.DataIntegrityViolationException;
 
 /**
  * Action class to allow users to self-register.
- * <p/>
+ *
  * <p/>
  * <a href="SignupAction.java.html"><i>View Source</i></a>
  * </p>
@@ -88,44 +89,12 @@ public final class SignupAction extends BaseAction {
             String loginCookie = mgr.createLoginCookie(user.getUsername());
             RequestUtil.setCookie(response, Constants.LOGIN_COOKIE,
                     loginCookie, request.getContextPath());
-        } catch (Exception e) {
-            if ((e.getMessage() != null) &&
-                    (e.getMessage().indexOf("Duplicate entry") != -1)) {
-                // user already exists!
-                log.warn("User already exists: " + e.getMessage());
-                errors.add(ActionMessages.GLOBAL_MESSAGE,
-                        new ActionMessage("errors.existing.user",
-                                userForm.getUsername(),
-                                userForm.getEmail()));
-                saveErrors(request, errors);
-                return mapping.getInputForward();
-            }
-
-            e.printStackTrace();
+        } catch (DataIntegrityViolationException e) {
+            log.warn("User already exists: " + e.getMessage());
             errors.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("errors.general"));
-
-            while (e != null) {
-                // catch duplicate entry exceptions
-                String msg = e.getMessage();
-
-                if ((msg.indexOf("Duplicate entry") != -1) ||
-                        (msg.indexOf("could not insert") != -1)) {
-                    log.warn("User already exists: " + e.getMessage());
-                    errors.add(ActionMessages.GLOBAL_MESSAGE,
-                            new ActionMessage("errors.existing.user",
-                                    userForm.getUsername(),
-                                    userForm.getEmail()));
-
-                    break;
-                }
-
-                errors.add(ActionMessages.GLOBAL_MESSAGE,
-                        new ActionMessage("errors.detail", e.getMessage()));
-
-                e = (Exception) e.getCause();
-            }
-
+                    new ActionMessage("errors.existing.user",
+                            userForm.getUsername(),
+                            userForm.getEmail()));
             saveErrors(request, errors);
             return mapping.getInputForward();
         }

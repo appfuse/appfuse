@@ -14,7 +14,6 @@ import org.appfuse.model.User;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.7 $ $Date: 2004/08/03 05:14:36 $
  */
 public interface UserManager {
     //~ Methods ================================================================
@@ -27,7 +26,7 @@ public interface UserManager {
      * @return User
      * @throws ServiceException
      */
-    public User getUser(String username) throws ServiceException;
+    public User getUser(String username);
 
     /**
      * Retrieves a list of users, filtering with parameters on a user object
@@ -43,7 +42,7 @@ public interface UserManager {
      * @return updated user information
      * @throws ServiceException
      */
-    public User saveUser(User user) throws ServiceException;
+    public User saveUser(User user);
 
     /**
      * Removes a user from the database by their username
@@ -51,7 +50,7 @@ public interface UserManager {
      * @param username the user's username
      * @throws ServiceException
      */
-    public void removeUser(String username) throws ServiceException;
+    public void removeUser(String username);
     
     /**
      * Validates a user based on a cookie value.  If successful, it returns

@@ -8,11 +8,11 @@ import net.sf.hibernate.Hibernate;
 import net.sf.hibernate.HibernateException;
 import net.sf.hibernate.Session;
 
-import org.appfuse.dao.DAOException;
 import org.appfuse.dao.UserDAO;
 import org.appfuse.model.User;
 import org.appfuse.model.UserCookie;
 import org.appfuse.model.UserRole;
+import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.orm.hibernate.HibernateCallback;
 
 
@@ -31,7 +31,7 @@ public class UserDAOHibernate extends BaseDAOHibernate implements UserDAO {
     /**
      * @see org.appfuse.dao.UserDAO#getUser(java.lang.String)
      */
-    public User getUser(String username) throws DAOException {
+    public User getUser(String username) {
         User user = null;
 
         List users =
@@ -43,9 +43,8 @@ public class UserDAOHibernate extends BaseDAOHibernate implements UserDAO {
         }
 
         if (user == null) {
-            log.warn("uh oh, user not found...");
-            throw new DAOException("User '" + username +
-                                   "' not found in database!");
+            log.warn("uh oh, user '" + username + "' not found...");
+            throw new ObjectRetrievalFailureException(User.class, username);
         }
 
         return user;
@@ -78,7 +77,7 @@ public class UserDAOHibernate extends BaseDAOHibernate implements UserDAO {
     /**
      * @see org.appfuse.dao.UserDAO#saveUser(org.appfuse.model.User)
      */
-    public User saveUser(final User user) throws DAOException {
+    public User saveUser(final User user) {
         if (log.isDebugEnabled()) {
             log.debug("user's id: " + user.getId());
         }
@@ -125,7 +124,7 @@ public class UserDAOHibernate extends BaseDAOHibernate implements UserDAO {
     /**
      * @see org.appfuse.dao.UserDAO#removeUser(java.lang.String)
      */
-    public void removeUser(String username) throws DAOException {
+    public void removeUser(String username) {
         removeUserCookies(username);
         User user = getUser(username);
         user.getRoles().clear();
@@ -133,12 +132,12 @@ public class UserDAOHibernate extends BaseDAOHibernate implements UserDAO {
     }
 
     /**
-     * @see org.appfuse.dao.UserDAO#getUserCookie(java.lang.String)
+     * @see org.appfuse.dao.UserDAO#getUserCookie(org.appfuse.model.UserCookie)
      */
-    public UserCookie getUserCookie(String cookieId) {
-        List cookies =
-            getHibernateTemplate().find("from UserCookie c where c.cookieId=?",
-                                        cookieId);
+    public UserCookie getUserCookie(final UserCookie cookie) {
+        List cookies = getHibernateTemplate().find(
+                "from UserCookie c where c.username=? and c.cookieId=?", 
+                new Object[]{cookie.getUsername(), cookie.getCookieId()});
 
         if (cookies.size() == 0) {
             return null;

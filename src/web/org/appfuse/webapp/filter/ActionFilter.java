@@ -5,7 +5,6 @@ import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -17,15 +16,13 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.struts.Globals;
-import org.apache.struts.action.ActionErrors;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
 import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
 import org.appfuse.webapp.util.RequestUtil;
 import org.appfuse.webapp.util.SslUtil;
-import org.springframework.web.context.WebApplicationContext;
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 
 /**
@@ -37,7 +34,7 @@ import org.springframework.web.context.WebApplicationContext;
  * <p><a href="ActionFilter.java.html"><i>View Source</i></a></p>
  *
  * @author  Matt Raible
- * @version $Revision: 1.10 $ $Date: 2004/08/19 00:13:57 $
+ * @version $Revision: 1.11 $ $Date: 2004/09/29 10:24:06 $
  *
  * @web.filter display-name="Action Filter" name="actionFilter"
  *
@@ -94,66 +91,34 @@ public class ActionFilter implements Filter {
         }
 
         User user = (User) session.getAttribute(Constants.USER_KEY);
-        ServletContext ctx = config.getServletContext();
+        ServletContext context = config.getServletContext();
         String username = request.getRemoteUser();
 
-        try {
-            // user authenticated, empty user object
-            if ((username != null) && (user == null)) {
-                WebApplicationContext context =
-                    (WebApplicationContext) ctx.getAttribute(
-                            WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
-                UserManager mgr = (UserManager) context.getBean("userManager");
-                user = mgr.getUser(username);
-                session.setAttribute(Constants.USER_KEY, user);
+        // user authenticated, empty user object
+        if ((username != null) && (user == null)) {
+        	ApplicationContext ctx = 
+        		WebApplicationContextUtils.getRequiredWebApplicationContext(context);
+            
+        	UserManager mgr = (UserManager) ctx.getBean("userManager");
+            user = mgr.getUser(username);
+            session.setAttribute(Constants.USER_KEY, user);
 
-                // if user wants to be remembered, create a remember me cookie
-                if (session.getAttribute(Constants.LOGIN_COOKIE) != null) {
-                    session.removeAttribute(Constants.LOGIN_COOKIE);
-                
-                    String loginCookie = mgr.createLoginCookie(username);
-                    RequestUtil.setCookie(response, Constants.LOGIN_COOKIE,
-                                          loginCookie, request.getContextPath());
-                } 
+            // if user wants to be remembered, create a remember me cookie
+            if (session.getAttribute(Constants.LOGIN_COOKIE) != null) {
+                session.removeAttribute(Constants.LOGIN_COOKIE);
+            
+                String loginCookie = mgr.createLoginCookie(username);
+                RequestUtil.setCookie(response, Constants.LOGIN_COOKIE,
+                                      loginCookie, request.getContextPath());
+            } 
 
-                // check to see if the user has just registered
-                if (session.getAttribute(Constants.REGISTERED) != null) {
-                    session.removeAttribute(Constants.REGISTERED);
-                    request.setAttribute(Globals.MESSAGE_KEY,
-                                         session.getAttribute(Globals.MESSAGE_KEY));
-                    session.removeAttribute(Globals.MESSAGE_KEY);
-                }
+            // check to see if the user has just registered
+            if (session.getAttribute(Constants.REGISTERED) != null) {
+                session.removeAttribute(Constants.REGISTERED);
+                request.setAttribute(Globals.MESSAGE_KEY,
+                                     session.getAttribute(Globals.MESSAGE_KEY));
+                session.removeAttribute(Globals.MESSAGE_KEY);
             }
-        } catch (Exception e) {
-            log.error("Error getting user's information " + e);
-            e.printStackTrace();
-
-            ActionErrors errors = new ActionErrors();
-            errors.add(ActionMessages.GLOBAL_MESSAGE,
-                       new ActionMessage("errors.general"));
-
-            StringBuffer sb = new StringBuffer();
-
-            if (e.getCause() == null) {
-                sb.append(e.getMessage());
-            } else {
-                while (e.getCause() != null) {
-                    sb.append(e.getMessage());
-                    sb.append("\n");
-                    e = (Exception) e.getCause();
-                }
-            }
-
-            errors.add(ActionMessages.GLOBAL_MESSAGE,
-                       new ActionMessage("errors.detail", sb.toString()));
-
-            request.setAttribute(Globals.ERROR_KEY, errors);
-
-            RequestDispatcher dispatcher =
-                request.getRequestDispatcher("/error.jsp");
-            dispatcher.forward(request, response);
-
-            return;
         }
 
         chain.doFilter(request, response);

@@ -18,7 +18,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.Constants;
 import org.appfuse.model.User;
-import org.appfuse.service.ServiceException;
 import org.appfuse.service.UserManager;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.util.RequestUtil;
@@ -33,7 +32,7 @@ import org.springframework.web.context.WebApplicationContext;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.9 $ $Date: 2004/08/19 00:13:57 $
+ * @version $Revision: 1.10 $ $Date: 2004/09/29 10:24:38 $
  *
  * @web.filter display-name="Login Filter" name="loginFilter"
  * @web.filter-init-param name="enabled" value="${rememberMe.enabled}"
@@ -77,42 +76,37 @@ public final class LoginFilter implements Filter {
                 request.getSession().invalidate();
             }
         } else if (c != null && enabled) {
-            try {
-                String loginCookie = mgr.checkLoginCookie(c.getValue());
+            String loginCookie = mgr.checkLoginCookie(c.getValue());
 
-                if (loginCookie != null) {
-                    RequestUtil.setCookie(response, Constants.LOGIN_COOKIE,
-                                          loginCookie,
-                                          request.getContextPath());
-                    loginCookie = StringUtil.decodeString(loginCookie);
+            if (loginCookie != null) {
+                RequestUtil.setCookie(response, Constants.LOGIN_COOKIE,
+                                      loginCookie,
+                                      request.getContextPath());
+                loginCookie = StringUtil.decodeString(loginCookie);
 
-                    String[] value = StringUtils.split(loginCookie, '|');
+                String[] value = StringUtils.split(loginCookie, '|');
 
-                    User user = mgr.getUser(value[0]);
+                User user = mgr.getUser(value[0]);
 
-                    // authenticate user without displaying login page
-                    String route = "/authorize?j_username=" +
-                                   user.getUsername() + "&j_password=" +
-                                   user.getPassword();
+                // authenticate user without displaying login page
+                String route = "/authorize?j_username=" +
+                               user.getUsername() + "&j_password=" +
+                               user.getPassword();
 
-                    request.setAttribute("encrypt", "false");
-                    request.getSession(true).setAttribute("cookieLogin",
-                                                          "true");
+                request.setAttribute("encrypt", "false");
+                request.getSession(true).setAttribute("cookieLogin",
+                                                      "true");
 
-                    if (log.isDebugEnabled()) {
-                        log.debug("I remember you '" + user.getUsername() +
-                                  "', attempting to authenticate...");
-                    }
-
-                    RequestDispatcher dispatcher =
-                        request.getRequestDispatcher(route);
-                    dispatcher.forward(request, response);
-
-                    return;
+                if (log.isDebugEnabled()) {
+                    log.debug("I remember you '" + user.getUsername() +
+                              "', attempting to authenticate...");
                 }
-            } catch (ServiceException e) {
-                e.printStackTrace();
-                log.warn(e.getMessage());
+
+                RequestDispatcher dispatcher =
+                    request.getRequestDispatcher(route);
+                dispatcher.forward(request, response);
+
+                return;
             }
         }
 
