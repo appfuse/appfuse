@@ -25,7 +25,6 @@
         <echo level="info">Copying WebWork JARs to ../../lib</echo>
         <copy todir="${lib.dir}">
             <fileset dir="lib" includes="**"/>
-            <fileset dir="../spring/lib" includes="**/spring-mock.jar"/>
         </copy>
         <echo level="info">Adding WebWork entries to ../../lib.properties</echo>
         <replace file="${lib.dir}/lib.properties">
