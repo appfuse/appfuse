@@ -1,6 +1,8 @@
-<%@ include file="/taglibs.jsp" %>
+<%@ include file="/common/taglibs.jsp" %>
 
-<h3>Data Access Failure</h3>
+<title>Data Access Error</title>
+<content tag="heading">Data Access Failure</content>
+
 <p>
     <c:out value="${requestScope.exception.message}"/>
 </p>
