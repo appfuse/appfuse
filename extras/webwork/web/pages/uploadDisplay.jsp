@@ -22,7 +22,7 @@ Below is a list of attributes that were gathered in UploadAction.java.
     </tr>
     <tr>
     	<th>File size:</th>
-    	<td><ww:property value="file.length()"/></td>
+    	<td><ww:property value="file.length()"/> bytes</td>
     </tr>
     <tr>
     	<th class="tallCell">File Location:</th>
