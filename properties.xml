@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: properties.xml,v 1.6 2004/04/26 08:48:31 mraible Exp $             -->
+<!-- $Id: properties.xml,v 1.7 2004/04/28 05:49:20 mraible Exp $             -->
 <!-- ======================================================================= -->
 <!-- This file defines properties for build.xml -->
 
@@ -94,13 +94,6 @@
 <property name="dao.type" value="hibernate"/>
 <property name="jsp.2" value="false"/>
 
-<!-- Use j2ee.jar from J2EE_HOME if its assigned, otherwise assume we have 
-    it under our lib directory -->
-<property name="env.J2EE_HOME" location="${j2ee.lib.dir}"/>
-<property name="j2ee.home" location="${env.J2EE_HOME}"/>
-<property name="j2ee.jar" location="${j2ee.home}/lib/j2ee.jar"/>
-
-
 <!-- ======================================================================= -->
 <!--                        Classpaths                                       -->
 <!-- ======================================================================= -->
@@ -179,8 +172,8 @@
     <pathelement location="${commons-lang.jar}"/>
     <pathelement location="${commons-httpclient.jar}"/>
     <pathelement location="${commons-validator.jar}"/>
+    <pathelement location="${servletapi.jar}"/>
     <fileset dir="${javamail.dir}" includes="*.jar"/>
-    <pathelement location="${j2ee.jar}"/>
     <fileset dir="${spring.dir}" includes="*.jar"/>
 </path>
 <path id="web.test.classpath">
