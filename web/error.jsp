@@ -22,11 +22,13 @@
     <h1><fmt:message key="errorPage.heading"/></h1>
     <%-- Error Messages --%>
     <logic:messagesPresent>
+		<logic:present name="error">    
         <div class="error">	
             <html:messages id="error">
                 <bean:write name="error" filter="false"/><br/>
             </html:messages>
         </div>
+        </logic:present>
     </logic:messagesPresent>
  <% if (exception != null) { %>
     <pre><% exception.printStackTrace(new java.io.PrintWriter(out)); %></pre>
