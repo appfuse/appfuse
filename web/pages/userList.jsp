@@ -16,6 +16,7 @@
 
 <c:out value="${buttons}" escapeXml="false" />
 
+<logic:present name="userList" scope="request">
 <display:table name="${userList}" cellspacing="0" cellpadding="0"
     requestURI="${request.contextPath}" defaultsort="1"
     pagesize="25" styleClass="list userList" export="true">
@@ -42,6 +43,10 @@
     <display:setProperty name="export.excel.filename" value="User List.xls"/>
     <display:setProperty name="export.csv.filename" value="User List.csv"/>
 </display:table>
+</logic:present>
+<logic:notPresent name="userList" scope="request">
+	<fmt:message key="userList.nousers"/>
+</logic:notPresent>
 
 <c:out value="${buttons}" escapeXml="false" />
             
