@@ -23,7 +23,7 @@
             div.standardsNote {background: #FFFFCC; border: 1px solid blue; margin-bottom: 10px; padding: 5px}
         </style>
     </head>
-<body id="<decorator:getProperty property='body.id'/>">
+<body<decorator:getProperty property="body.id" writeEntireProperty="true"/>>
 
     <div class="standardsNote">
         <fmt:message key="errors.browser.warning"/>
