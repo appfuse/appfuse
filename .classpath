@@ -62,7 +62,7 @@
 	<classpathentry kind="lib" path="lib/xdoclet-1.2.2/lib/xdoclet-web-module-1.2.2.jar"/>
 	<classpathentry kind="lib" path="lib/xdoclet-1.2.2/lib/xdoclet-xdoclet-module-1.2.2.jar"/>
 	<classpathentry kind="lib" path="lib/xdoclet-1.2.2/lib/xjavadoc-1.1.jar"/>
-	<classpathentry kind="lib" path="lib/displaytag-1.0-rc2/displaytag-1.0-rc2.jar"/>
+	<classpathentry kind="lib" path="lib/displaytag-1.0/displaytag-1.0.jar"/>
 	<classpathentry kind="lib" path="lib/webtest-build574/lib/commons-httpclient-2.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/webtest-build574/lib/HtmlUnit-2004-11-19.jar"/>
 	<classpathentry kind="lib" path="lib/webtest-build574/lib/HtmlUnit-Patch-1068672.jar"/>
