@@ -1016,6 +1016,7 @@
 
             <classpath refid="web.test.classpath"/>
             <classpath>
+                <pathelement location="${jmock.jar}"/>
                 <pathelement location="${build.dir}/web/gen"/>
             </classpath>
             
