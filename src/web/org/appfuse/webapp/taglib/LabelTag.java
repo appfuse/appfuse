@@ -35,7 +35,7 @@ import org.apache.struts.validator.ValidatorPlugIn;
  * @jsp.tag name="label" bodycontent="empty"
  */
 public class LabelTag extends TagSupport {
-    protected final Log log = LogFactory.getLog(LabelTag.class);
+    protected transient final Log log = LogFactory.getLog(LabelTag.class);
     protected String key = null;
     protected String styleClass = null;
     protected String errorClass = null;
@@ -110,12 +110,8 @@ public class LabelTag extends TagSupport {
 
         StringBuffer valError = new StringBuffer();
 
-        //StringBuffer dbError = new StringBuffer();
         if (message == null) {
-            JspException e =
-                new JspException("Cannot find message for key: " + key);
-            tagUtils.saveException(pageContext, e);
-            throw e;
+            message = "???" + key + "???";
         } else if (validationError) {
             valError.append(valMessage);
         }
