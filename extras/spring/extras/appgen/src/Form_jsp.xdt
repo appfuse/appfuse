@@ -19,6 +19,12 @@
     onsubmit="return validate<XDtClass:className/>(this)">
 <table class="detail">
     <XDtForm:forAllFields>
+	<XDtForm:ifIsIdField>
+    <spring:bind path="<XDtForm:classNameLower/>.<XDtForm:fieldName/>">
+    <input type="hidden" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>"/> 
+    </spring:bind>
+	</XDtForm:ifIsIdField>
+	<XDtForm:ifIsNotIdField>
     <tr>
         <th>
             <appfuse:label key="<XDtForm:classNameLower/>.<XDtForm:fieldName/>"/>
@@ -31,6 +37,7 @@
             </spring:bind>
         </td>
     </tr>
+    </XDtForm:ifIsNotIdField>
     </XDtForm:forAllFields>
     <tr>
         <td></td>
