@@ -22,7 +22,7 @@
     <h1><fmt:message key="errorPage.heading"/></h1>
     <%-- Error Messages --%>
     <logic:messagesPresent>
-		<logic:present name="error">    
+        <logic:present name="error">    
         <div class="error">	
             <html:messages id="error">
                 <bean:write name="error" filter="false"/><br/>
