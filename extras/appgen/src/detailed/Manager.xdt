@@ -1,4 +1,6 @@
-<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>package <XDtForm:parentPackageName/>.service;
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>
+<XDtTagDef:tagDef namespace="MethodEx" handler="org.example.antbook.xdoclet.MethodExTagsHandler"/>
+package <XDtForm:parentPackageName/>.service;
 
 import java.util.List;
 
@@ -27,13 +29,13 @@ public interface <XDtClass:className/>Manager extends Manager {
     /**
      * Saves a <XDtForm:classNameLower/>'s information
      * @param <XDtForm:classNameLower/> the object to be saved
-     */        
+     */
     public void save<XDtClass:className/>(<XDtClass:className/> <XDtForm:classNameLower/>);
 
     /**
      * Removes a <XDtForm:classNameLower/> from the database by id
      * @param id the <XDtForm:classNameLower/>'s id
-     */    
+     */
     public void remove<XDtClass:className/>(final String id);
 }
 

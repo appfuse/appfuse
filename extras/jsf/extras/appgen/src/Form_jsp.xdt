@@ -13,23 +13,28 @@
 </XDtForm:ifIsIdField>
 </XDtForm:forAllFields>
 <h:panelGrid columns="3" styleClass="detail" columnClasses="label">
-    <XDtForm:forAllFields>
-	<XDtForm:ifIsNotIdField>
+<XDtForm:forAllFields>
+<XDtForm:ifIsNotIdField>
 
     <h:outputLabel for="<XDtForm:fieldName/>" value="#{text['<XDtForm:classNameLower/>.<XDtForm:fieldName/>']}"/>
 
+  <XDtForm:ifIsBooleanField>
+    <h:selectBooleanCheckbox id="<XDtForm:fieldName/>" value="#{<XDtForm:classNameLower/>Form.<XDtForm:classNameLower/>.<XDtForm:fieldName/>}"/>
+  </XDtForm:ifIsBooleanField>
+  <XDtForm:ifIsNotBooleanField>
     <h:inputText id="<XDtForm:fieldName/>" value="#{<XDtForm:classNameLower/>Form.<XDtForm:classNameLower/>.<XDtForm:fieldName/>}" required="true">
         <v:commonsValidator type="required" arg="#{text['<XDtForm:classNameLower/>.<XDtForm:fieldName/>']}"/>
     </h:inputText>
+  </XDtForm:ifIsNotBooleanField>
     <x:message for="<XDtForm:fieldName/>" styleClass="fieldError"/>
-    </XDtForm:ifIsNotIdField>
-    </XDtForm:forAllFields>
+</XDtForm:ifIsNotIdField>
+</XDtForm:forAllFields>
 
     <%-- Put in empty <td></td> --%>
     <h:inputHidden value=""/>
 
     <h:panelGroup styleClass="buttonBar">
-    	<h:commandButton value="#{text['button.save']}" action="#{<XDtForm:classNameLower/>Form.save}" 
+        <h:commandButton value="#{text['button.save']}" action="#{<XDtForm:classNameLower/>Form.save}" 
             id="save" styleClass="button"/>
 
         <c:if test="${not empty <XDtForm:classNameLower/>Form.<XDtForm:classNameLower/>.id}">

@@ -20,6 +20,7 @@ public class FormTagsHandler extends AbstractProgramElementTagsHandler {
     private String curFieldName;
     private final static List supportedTypes = new ArrayList();
     private boolean curFieldIsId = false;
+    private boolean curFieldIsBoolean = false;
     
     static {
         supportedTypes.add("java.lang.String");
@@ -34,6 +35,7 @@ public class FormTagsHandler extends AbstractProgramElementTagsHandler {
         supportedTypes.add("java.lang.Boolean");
         supportedTypes.add("boolean");
         supportedTypes.add("java.util.Date");
+        supportedTypes.add("java.sql.Timestamp");
     }
 
     /**
@@ -61,7 +63,6 @@ public class FormTagsHandler extends AbstractProgramElementTagsHandler {
 
             XMethod field = (XMethod) setters.get(curFieldName);
 
-            //setCurrentMethod(field);
             
             XMethod getter = field.getAccessor();
             setCurrentMethod(getter);
@@ -73,12 +74,38 @@ public class FormTagsHandler extends AbstractProgramElementTagsHandler {
             } else {
             	  curFieldIsId = false;
             }
+            String typename = field.getPropertyType().getType()
+                    .getQualifiedName();
+            curFieldIsBoolean = typename.equals("boolean")
+                    || typename.equals("java.lang.Boolean");
+            //setCurrentMethod(field);
             
             setCurrentMethod(field);
             generate(template);
         }
     }
 
+    /**
+     * This method is added so that I can pick up a boolean field. When
+     * generating a form page, checkbox is used for boolean fields.
+     * 
+     * @author hzhang(mb4henry@yahoo.com.au)
+     * @param template
+     * @param attributes
+     * @throws XDocletException
+     */
+    public void ifIsBooleanField(String template, Properties attributes)
+            throws XDocletException {
+        if (curFieldIsBoolean)
+            generate(template);
+    }
+
+    public void ifIsNotBooleanField(String template, Properties attributes)
+            throws XDocletException {
+        if (!curFieldIsBoolean)
+            generate(template);
+    }
+    
     /**
      * This method is used to determine id fields - this is used in the view
      * pages to set the ids as hidden fields.
@@ -180,14 +207,41 @@ public class FormTagsHandler extends AbstractProgramElementTagsHandler {
 
             if (MethodTagsHandler.isSetterMethod(setter)) {
                 String name = MethodTagsHandler.getPropertyNameFor(setter);
-                XParameter param = (XParameter) setter.getParameters().iterator().next();
+                XParameter param = (XParameter) setter.getParameters()
+                        .iterator().next();
                 String type = param.getType().getQualifiedName();
+                XMethod getter = setter.getAccessor();
 
-                if (supportedTypes.contains(type)) {
-                    fields.put(prefix + name, setter);
+                setCurrentClass(setter.getContainingClass());
+                super.setCurrentMethod(getter);
+                Properties pro = new Properties();
+                //iterate over fields in sub-component only, ignore other
+                // BaseObject
+                //to prevent an endless loop
+                pro.setProperty("tagName", "hibernate.component");
+                if (super.hasTag(pro, FOR_METHOD)) {
+                    name += "Form";
+                    //(prefix.length() == 0 ? "" : ".") results in double dot
+                    // error (?..?)
+                    //fields.putAll(getFields(param.getType(), prefix +
+                    // (prefix.length() == 0 ? "" : "") + name + "."));
+                    fields.putAll(getFields(param.getType(), prefix + name
+                            + "."));
+
                 } else {
-                    fields.putAll(getFields(param.getType(), prefix + (prefix.length() == 0 ? "" : ".") + name + "."));
+                    //if (supportedTypes.contains(type))
+                    fields.put(prefix + name, setter);
                 }
+                //the statement below will result in an endless loop if an
+                // containing
+                //BaseObject contains a reference back to this class.
+                //                if (supportedTypes.contains(type)) {
+                //                    fields.put(prefix + name, setter);
+                //                } else {
+                //                //remove the . from (?"" : ".")
+                //                    fields.putAll(getFields(param.getType(), prefix +
+                // (prefix.length() == 0 ? "" : "") + name + "."));
+                //                }
             }
         }
 

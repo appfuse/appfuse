@@ -41,7 +41,7 @@ public class PasswordHintTest extends BasePageTestCase {
 
         // verify an account information e-mail was sent
         server.stop();
-        assertTrue(server.getReceievedEmailSize() == 1);
+        assertTrue(server.getReceivedEmailSize() == 1);
         
         // verify that success messages are in the request
         assertNotNull(page.getSession().getAttribute("message"));

@@ -8,11 +8,11 @@ import <XDtForm:parentPackageName/>.service.Manager;
 public class <XDtClass:className/>Action extends BaseAction {
     private <XDtClass:className/> <XDtForm:classNameLower/>;
     private List <XDtForm:classNameLower/>s;
-    private String id;
+    private String <XDtMethodEx:idField getType="propertyName"/>;
     private Manager manager;
 
-    public void setId(String id) {
-        this.id = id;
+    public void <XDtMethodEx:idField getType="setterName"/>(String <XDtMethodEx:idField getType="propertyName"/>) {
+        this.<XDtMethodEx:idField getType="propertyName"/> = <XDtMethodEx:idField getType="propertyName"/>;
     }
 
     public void setManager(Manager manager) {
@@ -28,15 +28,15 @@ public class <XDtClass:className/>Action extends BaseAction {
     }
 
     public String delete() {
-        manager.removeObject(<XDtClass:className/>.class, <XDtForm:classNameLower/>.getId());
+        manager.removeObject(<XDtClass:className/>.class, <XDtForm:classNameLower/>.<XDtMethodEx:idField getType="getterName"/>());
         saveMessage(getText("<XDtForm:classNameLower/>.deleted"));
 
         return SUCCESS;
     }
 
     public String edit() {
-        if (id != null) {
-            <XDtForm:classNameLower/> = (<XDtClass:className/>) manager.getObject(<XDtClass:className/>.class, new Long(id));
+        if (<XDtMethodEx:idField getType="propertyName"/> != null) {
+            <XDtForm:classNameLower/> = (<XDtClass:className/>) manager.getObject(<XDtClass:className/>.class, new <XDtMethodEx:idField getType="propertyType"/>(<XDtMethodEx:idField getType="propertyName"/>));
         } else {
             <XDtForm:classNameLower/> = new <XDtClass:className/>();
         }
@@ -53,7 +53,7 @@ public class <XDtClass:className/>Action extends BaseAction {
             return delete();
         }
 
-        boolean isNew = (<XDtForm:classNameLower/>.getId() == null);
+        boolean isNew = (<XDtForm:classNameLower/>.<XDtMethodEx:idField getType="getterName"/>() == null);
 
         manager.saveObject(<XDtForm:classNameLower/>);
 

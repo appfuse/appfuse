@@ -1,4 +1,6 @@
-<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>package <XDtForm:parentPackageName/>.dao;
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>
+<XDtTagDef:tagDef namespace="MethodEx" handler="org.example.antbook.xdoclet.MethodExTagsHandler"/>
+package <XDtForm:parentPackageName/>.dao;
 
 import java.util.List;
 
@@ -19,7 +21,7 @@ public interface <XDtClass:className/>DAO extends DAO {
      * @param id the <XDtForm:classNameLower/>'s id
      * @return <XDtForm:classNameLower/> populated <XDtForm:classNameLower/> object
      */
-    public <XDtClass:className/> get<XDtClass:className/>(final Long id);
+    public <XDtClass:className/> get<XDtClass:className/>(final <XDtMethodEx:idField getType="propertyType"/> id);
 
     /**
      * Saves a <XDtForm:classNameLower/>'s information
@@ -32,6 +34,6 @@ public interface <XDtClass:className/>DAO extends DAO {
      * Removes a <XDtForm:classNameLower/> from the database by id
      * @param id the <XDtForm:classNameLower/>'s id
      */
-    public void remove<XDtClass:className/>(final Long id);
+    public void remove<XDtClass:className/>(final <XDtMethodEx:idField getType="propertyType"/> id);
 }
 

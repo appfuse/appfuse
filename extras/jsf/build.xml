@@ -68,7 +68,7 @@ jsf.jar=${jsf.dir}/myfaces.jar]]></replacevalue>
 #
 # StrutsTestCase - http://strutstestcase.sourceforge.net
 #
-strutstestcase.version=2.1.2
+strutstestcase.version=2.1.3
 strutstestcase.dir=${lib.dir}/strutstest-${strutstestcase.version}
 strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.jar]]></replacetoken>
             <replacevalue></replacevalue>
@@ -197,31 +197,33 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         <replace file="../appgen/build.xml">
             <replacetoken><![CDATA[<echo>Merging sample-data into metadata/sql/sample-data.xml</echo>]]></replacetoken>
             <replacevalue><![CDATA[
-        <echo>Merging navigation-rules XML into web/WEB-INF/action-servlet.xml</echo>
+        <echo>Merging navigation-rules XML into web/WEB-INF/faces-config.xml</echo>
         <loadfile property="navigation.rules"
             srcfile="${generated.dir}/web/WEB-INF/navigation-rules-${model.name}.xml"/>
-        <!-- Replace strategically placed comment -->   
-        <replace file="../../web/WEB-INF/faces-config.xml" 
-            token="&lt;!-- Add additional rules here --&gt;"
-            value="${navigation.rules}"/>
+        <property name="facesConfig" location="../../web/WEB-INF/faces-config.xml"/>
+        <replace file="${facesConfig}" token="&lt;!--${model.name}-NAV-START--&gt;" value="REGULAR-START"/>
+        <replace file="${facesConfig}" token="&lt;!--${model.name}-NAV-END--&gt;" value="REGULAR-END"/>
+        <replaceregexp file="${facesConfig}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
+        <!-- Replace strategically placed comment -->
+        <replace file="${facesConfig}" token="&lt;!-- Add additional rules here --&gt;" value="${navigation.rules}"/>
 
         <echo>Merging sample-data into metadata/sql/sample-data.xml</echo>]]></replacevalue>
         </replace>
         
         <!-- Modify install-src-detailed target -->
         <replace file="../appgen/build.xml">
-            <replacetoken><![CDATA[<echo file="../../src/service/${app.package}/service/applicationContext-service.xml" append="true" 
-            message="${service.context}"/>]]></replacetoken>
-            <replacevalue><![CDATA[<echo file="../../src/service/${app.package}/service/applicationContext-service.xml" append="true" 
-            message="${service.context}"/>
+            <replacetoken><![CDATA[<replace file="${serviceConfig}" value="${service.context}" token="&lt;/beans&gt;"/>]]></replacetoken>
+            <replacevalue><![CDATA[<replace file="${serviceConfig}" value="${service.context}" token="&lt;/beans&gt;"/>
 
         <echo>Merging managed-beans XML into web/WEB-INF/faces-config.xml</echo>
         <loadfile property="managed.beans"
             srcfile="${generated.dir}/web/WEB-INF/managed-beans-${model.name}.xml"/>
-        <!-- Replace strategically placed comment -->   
-        <replace file="../../web/WEB-INF/faces-config.xml" 
-            token="&lt;!-- Add additional beans here --&gt;"
-            value="${managed.beans}"/>]]></replacevalue>
+        <property name="facesConfig" location="../../web/WEB-INF/faces-config.xml"/>
+        <replace file="${facesConfig}" token="&lt;!--${model.name}-BEAN-START--&gt;" value="REGULAR-START"/>
+        <replace file="${facesConfig}" token="&lt;!--${model.name}-BEAN-END--&gt;" value="REGULAR-END"/>
+        <replaceregexp file="${facesConfig}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
+        <!-- Replace strategically placed comment -->
+        <replace file="${facesConfig}" token="&lt;!-- Add additional beans here --&gt;" value="${managed.beans}"/>]]></replacevalue>
         </replace>
 
         <!-- Modify install-src-generic target -->
@@ -236,10 +238,12 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         <echo>Merging managed-beans XML into web/WEB-INF/faces-config.xml</echo>
         <loadfile property="managed.beans"
             srcfile="${generated.dir}/generic/web/WEB-INF/managed-beans-${model.name}.xml"/>
-        <!-- Replace strategically placed comment -->   
-        <replace file="../../web/WEB-INF/faces-config.xml" 
-            token="&lt;!-- Add additional beans here --&gt;"
-            value="${managed.beans}"/>]]></replacevalue>
+        <property name="facesConfig" location="../../web/WEB-INF/faces-config.xml"/>
+        <replace file="${facesConfig}" token="&lt;!--${model.name}-BEAN-START--&gt;" value="REGULAR-START"/>
+        <replace file="${facesConfig}" token="&lt;!--${model.name}-BEAN-END--&gt;" value="REGULAR-END"/>
+        <replaceregexp file="${facesConfig}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
+        <!-- Replace strategically placed comment -->
+        <replace file="${facesConfig}" token="&lt;!-- Add additional beans here --&gt;" value="${managed.beans}"/>]]></replacevalue>
         </replace>
         
         <!-- JSPs for JSF are in root directory -->
@@ -297,7 +301,7 @@ log4j.logger.net.sourceforge.myfaces=FATAL</replacevalue>
             <replacetoken><![CDATA[<classpathentry kind="src" path="build/web/gen"/>]]></replacetoken>
         </replace>
         <replace file="../../.classpath">
-            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/strutstest-2.1.2/strutstest-2.1.2.jar"/>]]></replacetoken>
+            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/strutstest-2.1.3/strutstest-2.1.3.jar"/>]]></replacetoken>
         </replace>
         
         <replace file="../../.classpath">

@@ -84,18 +84,30 @@ public class MethodExTagsHandler extends MethodTagsHandler {
     }
 
     /**
-     * In appgen, The action test class need to set required fields. This method
-     * is writen for that reason. This method will iterate through
-     * sub-components to find all methods.
+     * Method to print out an ActionForm, setter and parameter value
      *
      * @return @throws
      *         XDocletException
      */
-    public String nestedMethodName() throws XDocletException {
+    public String formSetterWithValue() throws XDocletException {
         XMethod method = super.getCurrentMethod();
         XMethod setter = method.getMutator();
 
         return rootClassName + "Form." + curprefix + setter.getName() + "(\"" +
+               randomValue() + "\");";
+    }
+
+    /**
+     * Method to print out a class, setter and a parameter value
+     *
+     * @return @throws
+     *         XDocletException
+     */
+    public String setterWithValue() throws XDocletException {
+        XMethod method = super.getCurrentMethod();
+        XMethod setter = method.getMutator();
+
+        return rootClassName + "." + curprefix + setter.getName() + "(\"" +
                randomValue() + "\");";
     }
 

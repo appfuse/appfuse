@@ -178,26 +178,28 @@
         <echo>Adding beans to Spring config files</echo>
         <loadfile property="hibernate.context"
             srcfile="${generated.dir}/src/dao/${app.package}/dao/hibernate/context-hibernate-${model.name}.xml"/>
-        <!-- Add to the bottom of the list of beans -->   
-        <replace file="../../src/dao/${app.package}/dao/hibernate/applicationContext-hibernate.xml">
-            <replacetoken><![CDATA[</beans>]]></replacetoken>
-        </replace>
-        <echo file="../../src/dao/${app.package}/dao/hibernate/applicationContext-hibernate.xml" append="true" 
-            message="${hibernate.context}"/>
+        <property name="hibernateConfig" location="../../src/dao/${app.package}/dao/hibernate/applicationContext-hibernate.xml"/>
+        <replace file="${hibernateConfig}" token="&lt;!--${model.name}-START--&gt;" value="REGULAR-START"/>
+        <replace file="${hibernateConfig}" token="&lt;!--${model.name}-END--&gt;" value="REGULAR-END"/>
+        <replaceregexp file="${hibernateConfig}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
+        
+        <!-- Add to the bottom of the list of beans -->
+        <replace file="${hibernateConfig}" value="${hibernate.context}" token="&lt;/beans&gt;"/>
      
         <loadfile property="service.context"
             srcfile="${generated.dir}/src/service/${app.package}/service/context-service-${model.name}.xml"/>
-        <!-- Add to the bottom of the list of beans -->   
-        <replace file="../../src/service/${app.package}/service/applicationContext-service.xml">
-            <replacetoken><![CDATA[</beans>]]></replacetoken>
-        </replace>
-        <echo file="../../src/service/${app.package}/service/applicationContext-service.xml" append="true" 
-            message="${service.context}"/>
+        <property name="serviceConfig" location="../../src/service/${app.package}/service/applicationContext-service.xml"/>
+        <replace file="${serviceConfig}" token="&lt;!--${model.name}-START--&gt;" value="REGULAR-START"/>
+        <replace file="${serviceConfig}" token="&lt;!--${model.name}-END--&gt;" value="REGULAR-END"/>
+        <replaceregexp file="${serviceConfig}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
+
+        <!-- Add to the bottom of the list of beans -->
+        <replace file="${serviceConfig}" value="${service.context}" token="&lt;/beans&gt;"/>
     </target>   
  
     <target name="install-src-generic">
         <antcall target="default"/>    
-        <echo>Copying Bean and Test into main project, overwrite="${overwrite}"</echo>
+        <echo>Copying Controller and Test into main project, overwrite="${overwrite}"</echo>
         <copy todir="../../" overwrite="${overwrite}">
             <fileset dir="${generated.dir}/generic" includes="**/*.java"/>
         </copy>
@@ -206,34 +208,67 @@
         </copy>
     </target>
             
+    <target name="test-replace">
+        <echo>Merging constant values into Constants.java</echo>
+        <loadfile property="constants"
+            srcfile="${generated.dir}/src/dao/${app.package}/Constants-${model.name}.java"/>
+            
+        <replace file="../../src/dao/${app.package}/Constants.java" 
+            token="//${model.name}-START" value="REGULAR-START"/>
+
+        <replace file="../../src/dao/${app.package}/Constants.java" 
+            token="//${model.name}-END" value="REGULAR-END"/>
+
+        <replaceregexp file="../../src/dao/${app.package}/Constants.java"
+            match="REGULAR-START(?s:.)*REGULAR-END"
+            replace="" flags="g"/>
+
+        <replace file="../../src/dao/${app.package}/Constants.java" token="}"/>
+
+        <echo file="../../src/dao/${app.package}/Constants.java" append="true" 
+            message="${constants}"/>
+    </target>
+
     <target name="install-other">
         <echo>Merging constant values into Constants.java</echo>
         <loadfile property="constants"
             srcfile="${generated.dir}/src/dao/${app.package}/Constants-${model.name}.java"/>
-        <!-- Add to the bottom of the list of tests -->   
-        <replace file="../../src/dao/${app.package}/Constants.java">
-            <replacetoken>}</replacetoken>
-        </replace>
-        <echo file="../../src/dao/${app.package}/Constants.java" append="true" 
-            message="${constants}"/>
+
+        <property name="constantsFile" location="../../src/dao/${app.package}/Constants.java"/>
+        <replace file="${constantsFile}" token="//${model.name}-START" value="REGULAR-START"/>
+        <replace file="${constantsFile}" token="//${model.name}-END" value="REGULAR-END"/>
+        <replaceregexp file="${constantsFile}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
+
+        <replace file="${constantsFile}" token="}"/>
+        <echo file="${constantsFile}" append="true" message="${constants}"/>
 
         <echo>Merging sample-data into metadata/sql/sample-data.xml</echo>   
         <loadfile property="sample.data"
             srcfile="${generated.dir}/metadata/sql/sample-data-${model.name}.xml"/>
-        <!-- Add to the bottom of the list of tables -->   
-        <replace file="../../metadata/sql/sample-data.xml" value="${sample.data}">
+        <property name="sampleData" location="../../metadata/sql/sample-data.xml"/>
+        <replace file="${sampleData}" token="&lt;!--${model.name}-START--&gt;" value="REGULAR-START"/>
+        <replace file="${sampleData}" token="&lt;!--${model.name}-END--&gt;" value="REGULAR-END"/>
+        <replaceregexp file="${sampleData}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
+
+        <!-- Add to the bottom of the list of tables -->
+        <replace file="${sampleData}" value="${sample.data}">
             <replacetoken><![CDATA[</dataset>]]></replacetoken>
         </replace>
 
         <echo>Merging web-tests into test/web/web-tests.xml</echo>   
         <loadfile property="web.tests"
             srcfile="${generated.dir}/test/web/web-tests-${model.name}.xml"/>
+
+        <property name="webTests" location="../../test/web/web-tests.xml"/>
+        <replace file="${webTests}" token="&lt;!--${model.name}-START--&gt;" value="REGULAR-START"/>
+        <replace file="${webTests}" token="&lt;!--${model.name}-END--&gt;" value="REGULAR-END"/>
+        <replaceregexp file="${webTests}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
+
         <!-- Add to the bottom of the list of tests -->   
-        <replace file="../../test/web/web-tests.xml" value="${web.tests}">
-            <replacetoken><![CDATA[</project>]]></replacetoken>
-        </replace>
+        <replace file="${webTests}" value="${web.tests}" token="&lt;/project&gt;"/>
+
         <!-- Add to run-all-tests target -->
-        <replace file="../../test/web/web-tests.xml" value=",${model.name}Tests&quot;">
+        <replace file="${webTests}" value=",${model.name}Tests&quot;">
             <replacetoken><![CDATA["
         description="Call and executes all test cases (targets)"]]></replacetoken>
         </replace>
@@ -242,29 +277,41 @@
         <echo>Adding keys to ApplicationResources_en.properties</echo> 
         <loadfile property="i18n.keys"
             srcfile="${generated.dir}/web/WEB-INF/classes/${model.name}.properties"/>
-        <echo file="../../web/WEB-INF/classes/ApplicationResources_en.properties"
-            append="true" message="${i18n.keys}"/>
+
+        <property name="i18nFile" location="../../web/WEB-INF/classes/ApplicationResources_en.properties"/>
+        <replace file="${i18nFile}" token="# -- ${model.name}-START" value="REGULAR-START"/>
+        <replace file="${i18nFile}" token="# -- ${model.name}-END" value="REGULAR-END"/>
+        <replaceregexp file="${i18nFile}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
+        <echo file="${i18nFile}" append="true" message="${i18n.keys}"/>
         
-         <copy file="${generated.dir}/web/pages/${model.name}Form.jsp" overwrite="${overwrite}"
+        <copy file="${generated.dir}/web/pages/${model.name}Form.jsp" overwrite="${overwrite}"
             tofile="../../web/pages/${model.name.lowercase}Form.jsp"/>   
-         <copy file="${generated.dir}/web/pages/${model.name}List.jsp" overwrite="${overwrite}"
+        <copy file="${generated.dir}/web/pages/${model.name}List.jsp" overwrite="${overwrite}"
             tofile="../../web/pages/${model.name.lowercase}List.jsp"/>
      
          <!-- Add links to main menu and side menu -->
         <echo>Adding links to menu</echo>   
         <loadfile property="menu.config"
             srcfile="${generated.dir}/web/WEB-INF/menu-config-${model.name}.xml"/>
+
+        <property name="menuConfig" location="../../web/WEB-INF/menu-config.xml"/>
+        <replace file="${menuConfig}" token="&lt;!--${model.name}-START--&gt;" value="REGULAR-START"/>
+        <replace file="${menuConfig}" token="&lt;!--${model.name}-END--&gt;" value="REGULAR-END"/>
+        <replaceregexp file="${menuConfig}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
+
         <!-- Add to the bottom of the list of tests -->   
-        <replace file="../../web/WEB-INF/menu-config.xml" value="${menu.config}">
-            <replacetoken><![CDATA[    </Menus>]]></replacetoken>  
-        </replace>
+        <replace file="${menuConfig}" value="${menu.config}" token="    &lt;/Menus&gt;"/>
 
         <loadfile property="menu.jsp"
             srcfile="${generated.dir}/web/pages/menu-${model.name}.jsp"/>
+
+        <property name="menuFile" location="../../web/pages/menu.jsp"/>
+        <replace file="${menuFile}" token="&lt;!--${model.name}-START--&gt;" value="REGULAR-START"/>
+        <replace file="${menuFile}" token="&lt;!--${model.name}-END--&gt;" value="REGULAR-END"/>
+        <replaceregexp file="${menuFile}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
+
         <!-- Add to the bottom of the list of tests -->   
-        <replace file="../../web/pages/menu.jsp" value="${menu.jsp}">
-            <replacetoken><![CDATA[</menu:useMenuDisplayer>]]></replacetoken>  
-        </replace>
+        <replace file="${menuFile}" value="${menu.jsp}" token="&lt;/menu:useMenuDisplayer&gt;"/>
     </target>
             
     <target name="install" depends="install-src-generic,install-other"

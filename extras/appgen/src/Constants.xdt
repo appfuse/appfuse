@@ -1,4 +1,5 @@
-<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>    /**
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>//<XDtForm:className/>-START
+    /**
      * The request scope attribute that holds the <XDtForm:classNameLower/> form.
      */
     public static final String <XDtForm:classNameUpper/>_KEY = "<XDtForm:classNameLower/>Form";
@@ -7,4 +8,6 @@
      * The request scope attribute that holds the <XDtForm:classNameLower/> list
      */
     public static final String <XDtForm:classNameUpper/>_LIST = "<XDtForm:classNameLower/>List";
+//<XDtForm:className/>-END
+
 }

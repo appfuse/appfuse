@@ -19,15 +19,15 @@ public abstract class <XDtClass:className/>List extends BasePage implements Page
         set<XDtClass:className/>s(get<XDtClass:className/>Manager().get<XDtClass:className/>s(null));
     }
 
-    public void edit(IRequestCycle cycle) {        
+    public void edit(IRequestCycle cycle) {
         Object[] parameters = cycle.getServiceParameters();
-        Long id = (Long) parameters[0];
+        <XDtMethodEx:idField getType="propertyType"/> <XDtMethodEx:idField getType="propertyName"/> = (<XDtMethodEx:idField getType="propertyType"/>) parameters[0];
 
         if (log.isDebugEnabled()) {
-            log.debug("fetching <XDtForm:classNameLower/> with id: " + id);
+            log.debug("fetching <XDtForm:classNameLower/> with <XDtMethodEx:idField getType="propertyName"/>: " + <XDtMethodEx:idField getType="propertyName"/>);
         }
 
-        <XDtClass:className/> <XDtForm:classNameLower/> = get<XDtClass:className/>Manager().get<XDtClass:className/>(id.toString());
+        <XDtClass:className/> <XDtForm:classNameLower/> = get<XDtClass:className/>Manager().get<XDtClass:className/>(<XDtMethodEx:idField getType="propertyName"/>.toString());
 
         <XDtClass:className/>Form nextPage = (<XDtClass:className/>Form) cycle.getPage("<XDtForm:classNameLower/>Form");
         nextPage.set<XDtClass:className/>(<XDtForm:classNameLower/>);

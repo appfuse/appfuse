@@ -1,4 +1,5 @@
-<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><action name="<XDtForm:classNameLower/>s" class="<XDtForm:classNameLower/>Action" method="list"> 
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><!--<XDtForm:className/>-START-->
+    <action name="<XDtForm:classNameLower/>s" class="<XDtForm:classNameLower/>Action" method="list">
         <result name="success">/WEB-INF/pages/<XDtForm:classNameLower/>List.jsp</result> 
     </action>
     
@@ -12,5 +13,5 @@
         <result name="input">/WEB-INF/pages/<XDtForm:classNameLower/>Form.jsp</result>
         <result name="success" type="redirect"><XDtForm:classNameLower/>s.html</result>
     </action>
-    
+    <!--<XDtForm:className/>-END-->
     <!-- Add additional actions here -->

@@ -22,22 +22,11 @@ public class <XDtClass:className/>ActionTest extends BaseActionTestCase {
     public void testAdd() throws Exception {
         <XDtClass:className/> <XDtForm:classNameLower/> = new <XDtClass:className/>();
         // set required fields
-        <XDtMethod:forAllMethods>
-        <XDtMethod:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
-        <XDtType:ifIsOfType value="return-type" type="java.lang.Boolean" extent="concrete-type">
-        <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>(Boolean.TRUE);
-        </XDtType:ifIsOfType>
-        <XDtType:ifIsOfType value="return-type" type="java.lang.String" extent="concrete-type">
-        <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>("<XDtMethod:propertyName/>");
-        </XDtType:ifIsOfType>
-        <XDtType:ifIsOfType value="return-type" type="java.lang.Long" extent="concrete-type">
-        <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>(new Long(100));
-        </XDtType:ifIsOfType>
-        <XDtType:ifIsOfType value="return-type" type="java.lang.Integer" extent="concrete-type">
-        <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>(new Integer(100));
-        </XDtType:ifIsOfType>
-        </XDtMethod:ifMethodTagValueEquals>
-        </XDtMethod:forAllMethods>
+        <XDtMethodEx:forAllMethods>
+        <XDtMethodEx:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
+        <XDtMethodEx:setterWithValue/>
+        </XDtMethodEx:ifMethodTagValueEquals>
+        </XDtMethodEx:forAllMethods>
         action.set<XDtClass:className/>(<XDtForm:classNameLower/>);
 
         assertEquals(action.save(), "success");
@@ -54,7 +43,7 @@ public class <XDtClass:className/>ActionTest extends BaseActionTestCase {
 
     public void testEdit() throws Exception {
         log.debug("testing edit...");
-        action.setId("1");
+        action.<XDtMethodEx:idField getType="setterName"/>("1");
         assertNull(action.get<XDtClass:className/>());
 
         assertEquals(action.edit(), "success");
@@ -65,20 +54,18 @@ public class <XDtClass:className/>ActionTest extends BaseActionTestCase {
     public void testSave() throws Exception {
         MockHttpServletRequest request = new MockHttpServletRequest();
         ServletActionContext.setRequest(request);
-        action.setId("1");
+        action.<XDtMethodEx:idField getType="setterName"/>("1");
 
         assertEquals(action.edit(), "success");
         assertNotNull(action.get<XDtClass:className/>());
         <XDtClass:className/> <XDtForm:classNameLower/> = action.get<XDtClass:className/>();
 
         // update fields
-        <XDtMethod:forAllMethods>
-        <XDtMethod:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
-        <XDtType:ifIsOfType value="return-type" type="java.lang.String" extent="concrete-type">
-        <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>("<XDtMethod:propertyName/>");
-        </XDtType:ifIsOfType>
-        </XDtMethod:ifMethodTagValueEquals>
-        </XDtMethod:forAllMethods>
+        <XDtMethodEx:forAllMethods>
+        <XDtMethodEx:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
+        <XDtMethodEx:setterWithValue/>
+        </XDtMethodEx:ifMethodTagValueEquals>
+        </XDtMethodEx:forAllMethods>
         action.set<XDtClass:className/>(<XDtForm:classNameLower/>);
 
         assertEquals(action.save(), "input");
@@ -92,7 +79,7 @@ public class <XDtClass:className/>ActionTest extends BaseActionTestCase {
         ServletActionContext.setRequest(request);
         action.setDelete("");
         <XDtClass:className/> <XDtForm:classNameLower/> = new <XDtClass:className/>();
-        <XDtForm:classNameLower/>.setId(new Long(2));
+        <XDtForm:classNameLower/>.setId(new <XDtMethodEx:idField getType="propertyType"/>("2"));
         action.set<XDtClass:className/>(<XDtForm:classNameLower/>);
 
         assertEquals(action.delete(), "success");

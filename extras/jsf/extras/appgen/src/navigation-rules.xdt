@@ -1,4 +1,4 @@
-<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><!--<XDtForm:className/>-NAV-START-->
     <navigation-rule>
         <from-view-id>/<XDtForm:classNameLower/>s.jsp</from-view-id>
         <navigation-case>
@@ -23,4 +23,5 @@
             <redirect/>
         </navigation-case>
     </navigation-rule>
+    <!--<XDtForm:className/>-NAV-END-->
     <!-- Add additional rules here -->

@@ -1,4 +1,6 @@
-<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>package <XDtForm:parentPackageName/>.dao;
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>
+<XDtTagDef:tagDef namespace="MethodEx" handler="org.example.antbook.xdoclet.MethodExTagsHandler"/>
+package <XDtForm:parentPackageName/>.dao;
 
 import java.util.List;
 
@@ -8,7 +10,7 @@ import <XDtForm:parentPackageName/>.dao.<XDtClass:className/>DAO;
 import org.springframework.orm.ObjectRetrievalFailureException;
 
 public class <XDtClass:className/>DAOTest extends BaseDAOTestCase {
-    private Long <XDtForm:classNameLower/>Id = new Long(1);
+    private <XDtMethodEx:idField getType="propertyType"/> <XDtForm:classNameLower/>Id = new <XDtMethodEx:idField getType="propertyType"/>("1");
     private <XDtClass:className/> <XDtForm:classNameLower/> = null;
     private <XDtClass:className/>DAO dao = null;
 
@@ -27,6 +29,12 @@ public class <XDtClass:className/>DAOTest extends BaseDAOTestCase {
 
         // set required fields
         <XDtMethod:forAllMethods>
+        <XDtMethod:ifMethodTagValueEquals tagName="hibernate.id" paramName="generator-class" value="assigned">
+        <XDtType:ifIsOfType value="return-type" type="java.lang.String" extent="concrete-type">
+        <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>("<XDtMethod:propertyName/>4");
+        </XDtType:ifIsOfType>
+        </XDtMethod:ifMethodTagValueEquals>
+
         <XDtMethod:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
         <XDtType:ifIsOfType value="return-type" type="java.lang.Boolean" extent="concrete-type">
         <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>(Boolean.TRUE);
@@ -46,7 +54,7 @@ public class <XDtClass:className/>DAOTest extends BaseDAOTestCase {
         dao.save<XDtClass:className/>(<XDtForm:classNameLower/>);
 
         // verify a primary key was assigned
-        assertNotNull(<XDtForm:classNameLower/>.getId());
+        assertNotNull(<XDtForm:classNameLower/>.<XDtMethodEx:idField getType="getterName"/>());
 
         // (optional) verify set fields are same after save
         /*
@@ -76,10 +84,19 @@ public class <XDtClass:className/>DAOTest extends BaseDAOTestCase {
 
     public void testGet<XDtClass:className/>s() throws Exception {
         <XDtForm:classNameLower/> = new <XDtClass:className/>();
+        //set value for primary key
+        <XDtMethod:forAllMethods>
+        <XDtMethod:ifMethodTagValueEquals tagName="hibernate.id" paramName="generator-class" value="assigned">
+        <XDtType:ifIsOfType value="return-type" type="java.lang.String" extent="concrete-type">
+        <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>("1");
+        </XDtType:ifIsOfType>
+        </XDtMethod:ifMethodTagValueEquals>
+        </XDtMethod:forAllMethods>
+
         List results = dao.get<XDtClass:className/>s(<XDtForm:classNameLower/>);
         assertTrue(results.size() > 0);
     }
-    
+
     public void testSave<XDtClass:className/>() throws Exception {
         <XDtForm:classNameLower/> = dao.get<XDtClass:className/>(<XDtForm:classNameLower/>Id);
 
@@ -104,13 +121,13 @@ public class <XDtClass:className/>DAOTest extends BaseDAOTestCase {
     }
 
     public void testRemove<XDtClass:className/>() throws Exception {
-    	Long removeId = new Long(3);
+        <XDtMethodEx:idField getType="propertyType"/> removeId = new <XDtMethodEx:idField getType="propertyType"/>("3");
         dao.remove<XDtClass:className/>(removeId);
         try {
-        	dao.get<XDtClass:className/>(removeId);
-        	fail("<XDtForm:classNameLower/> found in database");
+            dao.get<XDtClass:className/>(removeId);
+            fail("<XDtForm:classNameLower/> found in database");
         } catch (ObjectRetrievalFailureException e) {
-        	assertNotNull(e.getMessage());
+            assertNotNull(e.getMessage());
         }
     }
 }

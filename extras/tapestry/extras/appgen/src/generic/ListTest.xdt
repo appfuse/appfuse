@@ -24,7 +24,7 @@ public class <XDtClass:className/>ListTest extends BasePageTestCase {
 
     public void testEdit() throws Exception {
 		MockRequestCycle cycle = (MockRequestCycle) page.getRequestCycle();
-        cycle.addServiceParameter(new Long(1));
+        cycle.addServiceParameter(new <XDtMethodEx:idField getType="propertyType"/>("1"));
 
         page.edit(cycle);
 

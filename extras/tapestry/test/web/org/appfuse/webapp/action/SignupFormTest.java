@@ -67,7 +67,7 @@ public class SignupFormTest extends BasePageTestCase {
         
         // verify an account information e-mail was sent
         server.stop();
-        assertTrue(server.getReceievedEmailSize() == 1);
+        assertTrue(server.getReceivedEmailSize() == 1);
 
         // verify that success messages are in the session
         assertNotNull(page.getSession().getAttribute(Constants.REGISTERED));

@@ -1,4 +1,5 @@
 <XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>
+<!--<XDtForm:className/>-START-->
     <!-- runs person-related tests -->
     <target name="<XDtClass:className/>Tests"
         depends="Search<XDtClass:className/>s,Edit<XDtClass:className/>,Save<XDtClass:className/>,Add<XDtClass:className/>,Delete<XDtClass:className/>"
@@ -38,7 +39,7 @@
                 </XDtType:ifIsOfType>
                 </XDtMethod:ifMethodTagValueEquals>
                 </XDtMethod:forAllMethods>
-                <clickbutton label="Save" stepid="Click Save"/>
+                <clickbutton label="${button.save}" stepid="Click Save"/>
                 <verifytitle stepid="Page re-appears if save successful"
                     text="${webapp.prefix}${<XDtForm:classNameLower/>Detail.title}"/>
             </steps>
@@ -70,7 +71,7 @@
                 </XDtMethod:ifMethodTagValueEquals>
                 </XDtMethod:forAllMethods>
                 <clickbutton label="${button.save}" stepid="Click button 'Save'"/>
-                <verifytitle stepid="<XDtClass:className/> List appears if save successful" 
+                <verifytitle stepid="<XDtClass:className/> List appears if save successful"
                     text="${webapp.prefix}${<XDtForm:classNameLower/>List.title}"/>
                 <verifytext stepid="verify success message" text="${<XDtForm:classNameLower/>.added}"/>
             </steps>
@@ -93,16 +94,17 @@
     </target>
 
     <!-- Verify the people list screen displays without errors -->
-    <target name="Search<XDtClass:className/>s" 
+    <target name="Search<XDtClass:className/>s"
         description="Tests search for and displaying all <XDtForm:classNameLower/>s">
         <canoo name="search<XDtClass:className/>s">
             &config;
             <steps>
                 &login;
                 <invoke stepid="click View <XDtClass:className/>s link" url="/<XDtForm:classNameLower/>s.html"/>
-                <verifytitle stepid="we should see the <XDtForm:classNameLower/>List title" 
+                <verifytitle stepid="we should see the <XDtForm:classNameLower/>List title"
                     text="${webapp.prefix}${<XDtForm:classNameLower/>List.title}"/>
             </steps>
         </canoo>
     </target>
+<!--<XDtForm:className/>-END-->
 </project>

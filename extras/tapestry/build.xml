@@ -31,7 +31,7 @@
             <replacetoken><![CDATA[#
 # StrutsTestCase - http://strutstestcase.sourceforge.net
 #
-strutstestcase.version=2.1.2
+strutstestcase.version=2.1.3
 strutstestcase.dir=${lib.dir}/strutstest-${strutstestcase.version}
 strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.jar]]></replacetoken>
             <replacevalue><![CDATA[#
@@ -200,36 +200,29 @@ tapestry.jar=${tapestry.dir}/tapestry-${tapestry.version}.jar]]></replacevalue>
         <echo>Merging page definitions into web/WEB-INF/tapestry.application</echo>
         <loadfile property="tapestry.application"
             srcfile="${generated.dir}/web/WEB-INF/tapestry-${model.name}.application"/>
-        <!-- Replace strategically placed comment -->   
-        <replace file="../../web/WEB-INF/tapestry.application"
-            token="&lt;!-- Add additional pages here --&gt;"
-            value="${tapestry.application}"/>
+        <property name="tapestryApplication" location="../../web/WEB-INF/tapestry.application"/>
+        <replace file="${tapestryApplication}" token="&lt;!--${model.name}-START--&gt;" value="REGULAR-START"/>
+        <replace file="${tapestryApplication}" token="&lt;!--${model.name}-END--&gt;" value="REGULAR-END"/>
+        <replaceregexp file="${tapestryApplication}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
+        <!-- Replace strategically placed comment -->
+        <replace file="${tapestryApplication}" token="&lt;!-- Add additional pages here --&gt;" value="${tapestry.application}"/>
 
         <echo>Merging sample-data into metadata/sql/sample-data.xml</echo>]]></replacevalue>
         </replace>
 
-        <!-- HTML templates for Tapestry are in the 'pages' directory -->
-        <replace file="../appgen/build.xml">
-            <replacetoken><![CDATA[<copy file="${generated.dir}/web/pages/${model.name}Form.jsp" overwrite="${overwrite}"
-            tofile="../../web/pages/${model.name.lowercase}Form.jsp"/>   
-         <copy file="${generated.dir}/web/pages/${model.name}List.jsp" overwrite="${overwrite}"
-            tofile="../../web/pages/${model.name.lowercase}List.jsp"/>]]></replacetoken>
-            <replacevalue><![CDATA[<copy file="${generated.dir}/web/pages/${model.name}Form.html" overwrite="${overwrite}"
-            tofile="../../web/pages/${model.name.lowercase}Form.html"/>   
-         <copy file="${generated.dir}/web/pages/${model.name}List.html" overwrite="${overwrite}"
-            tofile="../../web/pages/${model.name.lowercase}s.html"/>]]></replacevalue>
-        </replace>
+        <!-- Change files from .jsp to .html -->
+        <replace file="../appgen/build.xml" token="Form.jsp" value="Form.html"/>
+        <replace file="../appgen/build.xml" token="name}List.jsp" value="name}List.html"/>
+        <replace file="../appgen/build.xml" token="lowercase}List.jsp" value="lowercase}s.html"/>
         
         <!-- Modify install-src-detailed target to copy .page files -->
         <replace file="../appgen/build.xml">
-            <replacetoken><![CDATA[<echo file="../../src/service/${app.package}/service/applicationContext-service.xml" append="true" 
-            message="${service.context}"/>]]></replacetoken>
-            <replacevalue><![CDATA[<echo file="../../src/service/${app.package}/service/applicationContext-service.xml" append="true" 
-            message="${service.context}"/>
+            <replacetoken><![CDATA[<replace file="${serviceConfig}" value="${service.context}" token="&lt;/beans&gt;"/>]]></replacetoken>
+            <replacevalue><![CDATA[<replace file="${serviceConfig}" value="${service.context}" token="&lt;/beans&gt;"/>
 
         <copy file="${generated.dir}/web/pages/${model.name}Form.page" overwrite="${overwrite}"
             tofile="../../web/pages/${model.name.lowercase}Form.page"/>   
-         <copy file="${generated.dir}/web/pages/${model.name}List.page" overwrite="${overwrite}"
+        <copy file="${generated.dir}/web/pages/${model.name}List.page" overwrite="${overwrite}"
             tofile="../../web/pages/${model.name.lowercase}s.page"/>]]></replacevalue>
         </replace>
 
@@ -239,12 +232,12 @@ tapestry.jar=${tapestry.dir}/tapestry-${tapestry.version}.jar]]></replacevalue>
             <fileset dir="${generated.dir}/test" includes="**/action/*Test.java"/>
         </copy>]]></replacetoken>
             <replacevalue><![CDATA[<copy todir="../../test" overwrite="${overwrite}">
-            <fileset dir="${generated.dir}/generic/test" includes="**/action/*Test.java"/>
+            <fileset dir="${generated.dir}/test" includes="**/action/*Test.java"/>
         </copy>
 
         <copy file="${generated.dir}/generic/web/pages/${model.name}Form.page" overwrite="${overwrite}"
             tofile="../../web/pages/${model.name.lowercase}Form.page"/>   
-         <copy file="${generated.dir}/generic/web/pages/${model.name}List.page" overwrite="${overwrite}"
+        <copy file="${generated.dir}/generic/web/pages/${model.name}List.page" overwrite="${overwrite}"
             tofile="../../web/pages/${model.name.lowercase}s.page"/>]]></replacevalue>
         </replace>                 
         <!-- End of AppGen modifications -->
@@ -293,7 +286,7 @@ tapestry.jar=${tapestry.dir}/tapestry-${tapestry.version}.jar]]></replacevalue>
             <replacetoken><![CDATA[<classpathentry kind="src" path="build/web/gen"/>]]></replacetoken>
         </replace>
         <replace file="../../.classpath">
-            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/strutstest-2.1.2/strutstest-2.1.2.jar"/>]]></replacetoken>
+            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/strutstest-2.1.3/strutstest-2.1.3.jar"/>]]></replacetoken>
         </replace>
         <replace file="../../.classpath">
             <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/commons-validator.jar"/>]]></replacetoken>

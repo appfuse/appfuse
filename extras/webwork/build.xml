@@ -60,7 +60,7 @@ webwork.dir=${lib.dir}/webwork-${webwork.version}]]></replacevalue>
 #
 # StrutsTestCase - http://strutstestcase.sourceforge.net
 #
-strutstestcase.version=2.1.2
+strutstestcase.version=2.1.3
 strutstestcase.dir=${lib.dir}/strutstest-${strutstestcase.version}
 strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.jar]]></replacetoken>
             <replacevalue></replacevalue>
@@ -153,17 +153,21 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         <echo>Merging controller configuration XML into web/WEB-INF/action-servlet.xml</echo>
         <loadfile property="action.beans"
             srcfile="${generated.dir}/web/WEB-INF/action-servlet-${model.name}.xml"/>
-        <!-- Replace strategically placed comment -->   
-        <replace file="../../web/WEB-INF/action-servlet.xml" 
-            token="&lt;!-- Add additional actions here --&gt;"
-            value="${action.beans}"/>
+        <property name="actionServlet" location="../../web/WEB-INF/action-servlet.xml"/>
+        <replace file="${actionServlet}" token="&lt;!--${model.name}-START--&gt;" value="REGULAR-START"/>
+        <replace file="${actionServlet}" token="&lt;!--${model.name}-END--&gt;" value="REGULAR-END"/>
+        <replaceregexp file="${actionServlet}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
+        <!-- Replace strategically placed comment -->
+        <replace file="${actionServlet}" token="&lt;!-- Add additional actions here --&gt;" value="${action.beans}"/>
 
         <loadfile property="xwork.actions"
             srcfile="${generated.dir}/web/WEB-INF/classes/xwork-${model.name}.xml"/>
-        <!-- Replace strategically placed comment -->   
-        <replace file="../../web/WEB-INF/classes/xwork.xml" 
-            token="&lt;!-- Add additional actions here --&gt;"
-            value="${xwork.actions}"/>
+        <property name="xwork" location="../../web/WEB-INF/classes/xwork.xml"/>
+        <replace file="${xwork}" token="&lt;!--${model.name}-START--&gt;" value="REGULAR-START"/>
+        <replace file="${xwork}" token="&lt;!--${model.name}-END--&gt;" value="REGULAR-END"/>
+        <replaceregexp file="${xwork}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
+        <!-- Replace strategically placed comment -->
+        <replace file="${xwork}" token="&lt;!-- Add additional actions here --&gt;" value="${xwork.actions}"/>
             
         <echo>Copying validation XML files to appropriate locations</echo>
         <copy todir="../.." overwrite="${overwrite}">
@@ -175,9 +179,6 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         
         <!-- Copy source and tests -->    
         <echo level="info">Replacing source and test files</echo>
-        <copy todir="../../extras/viewgen" overwrite="true">
-            <fileset dir="extras/viewgen" includes="**"/>
-        </copy>
         <delete dir="../../src/web/org/appfuse/webapp/form"/>
         <delete>
             <fileset dir="../../src/web/org/appfuse/webapp/action">
@@ -218,7 +219,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
             <replacevalue></replacevalue>
         </replace>
         <replace file="../../.classpath">
-            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/strutstest-2.1.2/strutstest-2.1.2.jar"/>]]></replacetoken>
+            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/strutstest-2.1.3/strutstest-2.1.3.jar"/>]]></replacetoken>
             <replacevalue></replacevalue>
         </replace>
         <replace file="../../.classpath">
@@ -361,8 +362,8 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         </replace>
         
         <replace file="../../build.xml">
-            <replacetoken><![CDATA[<lib dir="${spring.dir}" includes="*.jar"/>]]></replacetoken>
-            <replacevalue><![CDATA[<lib dir="${spring.dir}" includes="*.jar"/>
+            <replacetoken><![CDATA[<lib dir="${spring.dir}" includes="*.jar" excludes="*mock.jar"/>]]></replacetoken>
+            <replacevalue><![CDATA[<lib dir="${spring.dir}" includes="*.jar" excludes="*mock.jar"/>
             <lib file="${commons-fileupload.jar}"/>
             <lib file="${requesttag.jar}"/>
             <lib dir="${webwork.dir}" includes="*.jar"/>]]></replacevalue>

@@ -8,7 +8,7 @@ import <XDtForm:parentPackageName/>.service.<XDtClass:className/>Manager;
 public class <XDtClass:className/>FormTest extends BasePageTestCase {
     private <XDtClass:className/>Form page;
 	private <XDtClass:className/>Manager <XDtForm:classNameLower/>Manager;
-	
+
     protected void setUp() throws Exception {    
         super.setUp();
         page = (<XDtClass:className/>Form) getPage(<XDtClass:className/>Form.class);
@@ -33,23 +33,12 @@ public class <XDtClass:className/>FormTest extends BasePageTestCase {
 
     public void testAdd() throws Exception {
         <XDtClass:className/> <XDtForm:classNameLower/> = new <XDtClass:className/>();
-        // set required fields
-        <XDtMethod:forAllMethods>
-        <XDtMethod:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
-        <XDtType:ifIsOfType value="return-type" type="java.lang.Boolean" extent="concrete-type">
-        <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>(Boolean.TRUE);
-        </XDtType:ifIsOfType>
-        <XDtType:ifIsOfType value="return-type" type="java.lang.String" extent="concrete-type">
-        <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>("<XDtMethod:propertyName/>");
-        </XDtType:ifIsOfType>
-        <XDtType:ifIsOfType value="return-type" type="java.lang.Long" extent="concrete-type">
-        <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>(new Long(100));
-        </XDtType:ifIsOfType>
-        <XDtType:ifIsOfType value="return-type" type="java.lang.Integer" extent="concrete-type">
-        <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>(new Integer(100));
-        </XDtType:ifIsOfType>
-        </XDtMethod:ifMethodTagValueEquals>
-        </XDtMethod:forAllMethods>
+        // update the object's fields
+        <XDtMethodEx:forAllMethods>
+        <XDtMethodEx:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
+        <XDtMethodEx:setterWithValue/>
+        </XDtMethodEx:ifMethodTagValueEquals>
+        </XDtMethodEx:forAllMethods>
         page.set<XDtClass:className/>(<XDtForm:classNameLower/>);
 
         page.save(page.getRequestCycle());
@@ -61,13 +50,11 @@ public class <XDtClass:className/>FormTest extends BasePageTestCase {
         <XDtClass:className/> <XDtForm:classNameLower/> = <XDtForm:classNameLower/>Manager.get<XDtClass:className/>("1");
 
         // update fields
-        <XDtMethod:forAllMethods>
-        <XDtMethod:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
-        <XDtType:ifIsOfType value="return-type" type="java.lang.String" extent="concrete-type">
-        <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>("<XDtMethod:propertyName/>");
-        </XDtType:ifIsOfType>
-        </XDtMethod:ifMethodTagValueEquals>
-        </XDtMethod:forAllMethods>
+        <XDtMethodEx:forAllMethods>
+        <XDtMethodEx:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
+        <XDtMethodEx:setterWithValue/>
+        </XDtMethodEx:ifMethodTagValueEquals>
+        </XDtMethodEx:forAllMethods>
         page.set<XDtClass:className/>(<XDtForm:classNameLower/>);
 
         page.save(page.getRequestCycle());
@@ -76,7 +63,7 @@ public class <XDtClass:className/>FormTest extends BasePageTestCase {
 
     public void testRemove() throws Exception {
         <XDtClass:className/> <XDtForm:classNameLower/> = new <XDtClass:className/>();
-        <XDtForm:classNameLower/>.setId(new Long(2));
+        <XDtForm:classNameLower/>.<XDtMethodEx:idField getType="setterName"/>(new <XDtMethodEx:idField getType="propertyType"/>("2"));
         page.set<XDtClass:className/>(<XDtForm:classNameLower/>);
 
         page.delete(page.getRequestCycle());

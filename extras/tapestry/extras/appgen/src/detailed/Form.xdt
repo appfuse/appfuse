@@ -34,7 +34,7 @@ public abstract class <XDtClass:className/>Form extends BasePage implements Page
             log.debug("entered 'delete' method");
         }
 
-        get<XDtClass:className/>Manager().remove<XDtClass:className/>(get<XDtClass:className/>().getId().toString());
+        get<XDtClass:className/>Manager().remove<XDtClass:className/>(get<XDtClass:className/>().<XDtMethodEx:idField getType="getterName"/>().toString());
 
         <XDtClass:className/>List nextPage = (<XDtClass:className/>List) cycle.getPage("<XDtForm:classNameLower/>s");
         nextPage.setMessage(getMessage("<XDtForm:classNameLower/>.deleted"));

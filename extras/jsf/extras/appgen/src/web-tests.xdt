@@ -1,4 +1,5 @@
 <XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>
+<!--<XDtForm:className/>-START-->
     <!-- runs person-related tests -->
     <target name="<XDtClass:className/>Tests"
         depends="Search<XDtClass:className/>s,Edit<XDtClass:className/>,Save<XDtClass:className/>,Add<XDtClass:className/>,Delete<XDtClass:className/>"
@@ -113,4 +114,5 @@
             </steps>
         </canoo>
     </target>
+<!--<XDtForm:className/>-END-->
 </project>

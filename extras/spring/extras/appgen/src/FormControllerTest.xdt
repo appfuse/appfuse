@@ -25,7 +25,7 @@ public class <XDtClass:className/>FormControllerTest extends BaseControllerTestC
     public void testEdit() throws Exception {
         log.debug("testing edit...");
         request = newGet("/edit<XDtClass:className/>.html");
-        request.addParameter("id", "1");
+        request.addParameter("<XDtMethodEx:idField getType="propertyName"/>", "1");
 
         mv = c.handleRequest(request, new MockHttpServletResponse());
 
@@ -34,7 +34,7 @@ public class <XDtClass:className/>FormControllerTest extends BaseControllerTestC
 
     public void testSave() throws Exception {
         request = newGet("/edit<XDtClass:className/>.html");
-        request.addParameter("id", "1");
+        request.addParameter("<XDtMethodEx:idField getType="propertyName"/>", "1");
 
         mv = c.handleRequest(request, new MockHttpServletResponse());
 
@@ -44,14 +44,12 @@ public class <XDtClass:className/>FormControllerTest extends BaseControllerTestC
         request = newPost("/edit<XDtClass:className/>.html");
         super.objectToRequestParameters(<XDtForm:classNameLower/>, request);
 
-        // update the form's required string fields and add it back to the request
-        <XDtMethod:forAllMethods>
-        <XDtMethod:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
-        <XDtType:ifIsOfType value="return-type" type="java.lang.String" extent="concrete-type">
-        <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>("<XDtMethod:propertyName/>");
-        </XDtType:ifIsOfType>
-        </XDtMethod:ifMethodTagValueEquals>
-        </XDtMethod:forAllMethods>
+        // update the form's fields and add it back to the request
+        <XDtMethodEx:forAllMethods>
+        <XDtMethodEx:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
+        <XDtMethodEx:setterWithValue/>
+        </XDtMethodEx:ifMethodTagValueEquals>
+        </XDtMethodEx:forAllMethods>
         
         mv = c.handleRequest(request, new MockHttpServletResponse());
         
@@ -60,11 +58,11 @@ public class <XDtClass:className/>FormControllerTest extends BaseControllerTestC
         assertNull(errors);
         assertNotNull(request.getSession().getAttribute("messages"));        
     }
-    
+
     public void testRemove() throws Exception {
         request = newPost("/edit<XDtClass:className/>.html");
         request.addParameter("delete", "");
-        request.addParameter("id", "2");
+        request.addParameter("<XDtMethodEx:idField getType="propertyName"/>", "2");
         mv = c.handleRequest(request, new MockHttpServletResponse());
         assertNotNull(request.getSession().getAttribute("messages"));
     }

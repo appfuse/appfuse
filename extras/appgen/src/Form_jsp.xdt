@@ -16,7 +16,12 @@
             <appfuse:label key="<XDtForm:classNameLower/>Form.<XDtForm:fieldName/>"/>
         </th>
         <td>
+        <XDtForm:ifIsBooleanField>
+            <html:checkbox property="<XDtForm:fieldName/>" styleId="<XDtForm:fieldName/>"/>
+        </XDtForm:ifIsBooleanField>
+        <XDtForm:ifIsNotBooleanField>
             <html:text property="<XDtForm:fieldName/>" styleId="<XDtForm:fieldName/>"/>
+        </XDtForm:ifIsNotBooleanField>
             <html:errors property="<XDtForm:fieldName/>"/>
         </td>
     </tr>
@@ -24,16 +29,16 @@
 </XDtForm:forAllFields>
     <tr>
         <td></td>
-        <td class="buttonBar">            
+        <td class="buttonBar">
             <html:submit styleClass="button" property="method" onclick="bCancel=false">
                 <fmt:message key="button.save"/>
             </html:submit>
-            
-            <html:submit styleClass="button" property="method" 
+
+            <html:submit styleClass="button" property="method"
                 onclick="bCancel=true; return confirmDelete('<XDtClass:className/>')">
                 <fmt:message key="button.delete"/>
             </html:submit>
-            
+
             <html:cancel styleClass="button" property="method" onclick="bCancel=true">
                 <fmt:message key="button.cancel"/>
             </html:cancel>
@@ -44,5 +49,5 @@
 
 <html:javascript formName="<XDtForm:classNameLower/>Form" cdata="false"
     dynamicJavascript="true" staticJavascript="false"/>
-<script type="text/javascript" 
+<script type="text/javascript"
     src="<html:rewrite page="/scripts/validator.jsp"/>"></script>

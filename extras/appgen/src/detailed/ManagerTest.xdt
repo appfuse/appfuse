@@ -1,4 +1,6 @@
-<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>package <XDtForm:parentPackageName/>.service;
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>
+<XDtTagDef:tagDef namespace="MethodEx" handler="org.example.antbook.xdoclet.MethodExTagsHandler"/>
+package <XDtForm:parentPackageName/>.service;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -57,7 +59,7 @@ public class <XDtClass:className/>ManagerTest extends BaseManagerTestCase {
 
         <XDtForm:classNameLower/>Manager.save<XDtClass:className/>(<XDtForm:classNameLower/>);
         <XDtForm:classNameLower/>DAO.verify();
-    }    
+    }
 
     public void testAddAndRemove<XDtClass:className/>() throws Exception {
         <XDtForm:classNameLower/> = new <XDtClass:className/>();
@@ -89,14 +91,14 @@ public class <XDtClass:className/>ManagerTest extends BaseManagerTestCase {
         // reset expectations
         <XDtForm:classNameLower/>DAO.reset();
 
-        <XDtForm:classNameLower/>DAO.expects(once()).method("remove<XDtClass:className/>").with(eq(new Long(<XDtForm:classNameLower/>Id)));
+        <XDtForm:classNameLower/>DAO.expects(once()).method("remove<XDtClass:className/>").with(eq(new <XDtMethodEx:idField getType="propertyType"/>(<XDtForm:classNameLower/>Id)));
         <XDtForm:classNameLower/>Manager.remove<XDtClass:className/>(<XDtForm:classNameLower/>Id);
         <XDtForm:classNameLower/>DAO.verify();
 
         // reset expectations
         <XDtForm:classNameLower/>DAO.reset();
         // remove
-        Exception ex = new ObjectRetrievalFailureException(<XDtClass:className/>.class, <XDtForm:classNameLower/>.getId());
+        Exception ex = new ObjectRetrievalFailureException(<XDtClass:className/>.class, <XDtForm:classNameLower/>.<XDtMethodEx:idField getType="getterName"/>());
         <XDtForm:classNameLower/>DAO.expects(once()).method("remove<XDtClass:className/>").isVoid();            
         <XDtForm:classNameLower/>DAO.expects(once()).method("get<XDtClass:className/>").will(throwException(ex));
         <XDtForm:classNameLower/>Manager.remove<XDtClass:className/>(<XDtForm:classNameLower/>Id);

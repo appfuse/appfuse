@@ -49,7 +49,8 @@ public final class <XDtClass:className/>Action extends BaseAction {
 
         // Exceptions are caught by ActionExceptionHandler
         Manager mgr = (Manager) getBean("manager");
-        mgr.removeObject(<XDtClass:className/>.class, new Long(<XDtForm:classNameLower/>Form.getId()));
+        <XDtClass:className/> <XDtForm:classNameLower/> = (<XDtClass:className/>) convert(<XDtForm:classNameLower/>Form);
+        mgr.removeObject(<XDtClass:className/>.class, <XDtForm:classNameLower/>.<XDtMethodEx:idField getType="getterName"/>());
 
         messages.add(ActionMessages.GLOBAL_MESSAGE,
                      new ActionMessage("<XDtForm:classNameLower/>.deleted"));
@@ -72,10 +73,10 @@ public final class <XDtClass:className/>Action extends BaseAction {
 
         // if an id is passed in, look up the user - otherwise
         // don't do anything - user is doing an add
-        if (<XDtForm:classNameLower/>Form.getId() != null) {
+        if (<XDtForm:classNameLower/>Form.<XDtMethodEx:idField getType="getterName"/>() != null) {
             Manager mgr = (Manager) getBean("manager");
-            <XDtClass:className/> <XDtForm:classNameLower/> = 
-                (<XDtClass:className/>) mgr.getObject(<XDtClass:className/>.class, new Long(<XDtForm:classNameLower/>Form.getId()));
+            <XDtClass:className/> <XDtForm:classNameLower/> = (<XDtClass:className/>) convert(<XDtForm:classNameLower/>Form);
+            <XDtForm:classNameLower/> = (<XDtClass:className/>) mgr.getObject(<XDtClass:className/>.class, <XDtForm:classNameLower/>.<XDtMethodEx:idField getType="getterName"/>());
             <XDtForm:classNameLower/>Form = (<XDtClass:className/>Form) convert(<XDtForm:classNameLower/>);
             updateFormBean(mapping, request, <XDtForm:classNameLower/>Form);
         }
@@ -94,7 +95,7 @@ public final class <XDtClass:className/>Action extends BaseAction {
         // Extract attributes and parameters we will need
         ActionMessages messages = new ActionMessages();
         <XDtClass:className/>Form <XDtForm:classNameLower/>Form = (<XDtClass:className/>Form) form;
-        boolean isNew = ("".equals(<XDtForm:classNameLower/>Form.getId()) || <XDtForm:classNameLower/>Form.getId() == null);
+        boolean isNew = ("".equals(<XDtForm:classNameLower/>Form.<XDtMethodEx:idField getType="getterName"/>()) || <XDtForm:classNameLower/>Form.<XDtMethodEx:idField getType="getterName"/>() == null);
 
         Manager mgr = (Manager) getBean("manager");
         <XDtClass:className/> <XDtForm:classNameLower/> = (<XDtClass:className/>) convert(<XDtForm:classNameLower/>Form);
@@ -131,7 +132,7 @@ public final class <XDtClass:className/>Action extends BaseAction {
 
         return mapping.findForward("list");
     }
-    
+
     public ActionForward unspecified(ActionMapping mapping, ActionForm form,
                                      HttpServletRequest request,
                                      HttpServletResponse response)

@@ -25,7 +25,7 @@
 <display:table name="${<XDtForm:classNameLower/>List.<XDtForm:classNameLower/>s}" cellspacing="0" cellpadding="0"
     id="<XDtForm:classNameLower/>s" pagesize="25" styleClass="list" 
     export="true" requestURI="">
-  
+
 <XDtMethod:forAllMethods>
   <XDtMethod:ifHasMethodTag tagName="hibernate.id">
     <display:column sort="true" titleKey="<XDtForm:classNameLower/>.<XDtMethod:propertyName/>" media="html">

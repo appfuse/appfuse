@@ -65,7 +65,7 @@
         <property name="templateName"><value>accountCreated.vm</value></property>
     </bean>
     
-    <!-- Put controller mappings here -->
+    <!-- Add additional controller beans here -->
 
     <!-- Load WEB-INF/classes/ApplicationResources.properties for i18n messages using JSTL's fmt tag -->
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">

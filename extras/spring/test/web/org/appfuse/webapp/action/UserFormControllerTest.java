@@ -52,9 +52,11 @@ public class UserFormControllerTest extends BaseControllerTestCase {
 
     public void testSave() throws Exception {
         request = newPost("/editUser.html");
+        // set updated properties first since adding them later will
+        // result in multiple parameters with the same name getting sent
+        user.setConfirmPassword(user.getPassword());
+        user.setLastName("Updated Last Name");
         super.objectToRequestParameters(user, request);
-        request.addParameter("confirmPassword", user.getPassword());
-        request.addParameter("lastName", "Updated Last Name");
         
         mv = c.handleRequest(request, new MockHttpServletResponse());
         log.debug(mv.getModel());

@@ -1,15 +1,15 @@
-<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>package <XDtForm:parentPackageName/>.webapp.action;
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><XDtTagDef:tagDef namespace="MethodEx" handler="org.example.antbook.xdoclet.MethodExTagsHandler"/>package <XDtForm:parentPackageName/>.webapp.action;
 
 import <XDtPackage:packageName/>.<XDtClass:className/>;
 
 public class <XDtClass:className/>FormTest extends BasePageTestCase {
     private <XDtClass:className/>Form bean;
-    
+
     protected void setUp() throws Exception {    
         super.setUp();
         bean = (<XDtClass:className/>Form) getManagedBean("<XDtForm:classNameLower/>Form");
     }
-    
+
     protected void tearDown() throws Exception {
         super.tearDown();
         bean = null;
@@ -17,23 +17,17 @@ public class <XDtClass:className/>FormTest extends BasePageTestCase {
 
     public void testAdd() throws Exception {
         <XDtClass:className/> <XDtForm:classNameLower/> = new <XDtClass:className/>();
+
         // set required fields
-        <XDtMethod:forAllMethods>
-        <XDtMethod:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
-        <XDtType:ifIsOfType value="return-type" type="java.lang.Boolean" extent="concrete-type">
-        <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>(Boolean.TRUE);
-        </XDtType:ifIsOfType>
-        <XDtType:ifIsOfType value="return-type" type="java.lang.String" extent="concrete-type">
-        <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>("<XDtMethod:propertyName/>");
-        </XDtType:ifIsOfType>
-        <XDtType:ifIsOfType value="return-type" type="java.lang.Long" extent="concrete-type">
-        <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>(new Long(100));
-        </XDtType:ifIsOfType>
-        <XDtType:ifIsOfType value="return-type" type="java.lang.Integer" extent="concrete-type">
-        <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>(new Integer(100));
-        </XDtType:ifIsOfType>
-        </XDtMethod:ifMethodTagValueEquals>
-        </XDtMethod:forAllMethods>
+        <XDtMethodEx:forAllMethods>
+        <XDtMethodEx:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
+        <XDtMethodEx:setterWithValue/>
+        </XDtMethodEx:ifMethodTagValueEquals>
+        <XDtMethodEx:ifMethodTagValueEquals tagName="hibernate.id" paramName="generator-class" value="assigned">
+        <XDtForm:classNameLower/>.<XDtMethodEx:setterMethod/>("4");
+        </XDtMethodEx:ifMethodTagValueEquals>
+        </XDtMethodEx:forAllMethods>
+
         bean.set<XDtClass:className/>(<XDtForm:classNameLower/>);
 
         assertEquals(bean.save(), "list");
@@ -42,7 +36,7 @@ public class <XDtClass:className/>FormTest extends BasePageTestCase {
 
     public void testEdit() throws Exception {
         log.debug("testing edit...");
-        bean.setId("1");
+        bean.<XDtMethodEx:idField getType="setterName"/>("1");
 
         assertEquals(bean.edit(), "edit");
         assertNotNull(bean.get<XDtClass:className/>());
@@ -50,20 +44,19 @@ public class <XDtClass:className/>FormTest extends BasePageTestCase {
     }
 
     public void testSave() {
-        bean.setId("1");
+        bean.<XDtMethodEx:idField getType="setterName"/>("1");
 
         assertEquals(bean.edit(), "edit");
         assertNotNull(bean.get<XDtClass:className/>());
         <XDtClass:className/> <XDtForm:classNameLower/> = bean.get<XDtClass:className/>();
 
-        // update fields
-        <XDtMethod:forAllMethods>
-        <XDtMethod:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
-        <XDtType:ifIsOfType value="return-type" type="java.lang.String" extent="concrete-type">
-        <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>("<XDtMethod:propertyName/>");
-        </XDtType:ifIsOfType>
-        </XDtMethod:ifMethodTagValueEquals>
-        </XDtMethod:forAllMethods>
+        // update required string fields 
+        <XDtMethodEx:forAllMethods>
+        <XDtMethodEx:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
+        <XDtMethodEx:setterWithValue/>
+        </XDtMethodEx:ifMethodTagValueEquals>
+        </XDtMethodEx:forAllMethods>
+
         bean.set<XDtClass:className/>(<XDtForm:classNameLower/>);
 
         assertEquals(bean.save(), "edit");
@@ -72,7 +65,7 @@ public class <XDtClass:className/>FormTest extends BasePageTestCase {
 
     public void testRemove() throws Exception {
         <XDtClass:className/> <XDtForm:classNameLower/> = new <XDtClass:className/>();
-        <XDtForm:classNameLower/>.setId(new Long(2));
+        <XDtForm:classNameLower/>.<XDtMethodEx:idField getType="setterName"/>(new <XDtMethodEx:idField getType="propertyType"/>("2"));
         bean.set<XDtClass:className/>(<XDtForm:classNameLower/>);
 
         assertEquals(bean.delete(), "list");

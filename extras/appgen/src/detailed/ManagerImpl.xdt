@@ -1,4 +1,6 @@
-<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>package <XDtForm:parentPackageName/>.service.impl;
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>
+<XDtTagDef:tagDef namespace="MethodEx" handler="org.example.antbook.xdoclet.MethodExTagsHandler"/>
+package <XDtForm:parentPackageName/>.service.impl;
 
 import java.util.List;
 
@@ -28,20 +30,20 @@ public class <XDtClass:className/>ManagerImpl extends BaseManager implements <XD
      * @see <XDtForm:parentPackageName/>.service.<XDtClass:className/>Manager#get<XDtClass:className/>(final String id)
      */
     public <XDtClass:className/> get<XDtClass:className/>(final String id) {
-        return dao.get<XDtClass:className/>(new Long(id));
+        return dao.get<XDtClass:className/>(new <XDtMethodEx:idField getType="propertyType"/>(id));
     }
 
     /**
      * @see <XDtForm:parentPackageName/>.service.<XDtClass:className/>Manager#save<XDtClass:className/>(<XDtClass:className/> <XDtForm:classNameLower/>)
-     */    
+     */
     public void save<XDtClass:className/>(final <XDtClass:className/> <XDtForm:classNameLower/>) {
         dao.save<XDtClass:className/>(<XDtForm:classNameLower/>);
     }
 
     /**
      * @see <XDtForm:parentPackageName/>.service.<XDtClass:className/>Manager#remove<XDtClass:className/>(final Long id)
-     */    
+     */
     public void remove<XDtClass:className/>(final String id) {
-        dao.remove<XDtClass:className/>(new Long(id));
+        dao.remove<XDtClass:className/>(new <XDtMethodEx:idField getType="propertyType"/>(id));
     }
 }

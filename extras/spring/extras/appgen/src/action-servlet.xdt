@@ -1,4 +1,4 @@
-<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><bean id="<XDtForm:classNameLower/>Controller" class="<XDtForm:parentPackageName/>.webapp.action.<XDtClass:className/>Controller" autowire="byName"/>
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><!--<XDtForm:className/>-BEAN-START--><bean id="<XDtForm:classNameLower/>Controller" class="<XDtForm:parentPackageName/>.webapp.action.<XDtClass:className/>Controller" autowire="byName"/>
 
     <bean id="<XDtForm:classNameLower/>FormController" class="<XDtForm:parentPackageName/>.webapp.action.<XDtClass:className/>FormController" autowire="byName">
         <property name="commandName"><value><XDtForm:classNameLower/></value></property>
@@ -7,5 +7,5 @@
         <property name="formView"><value><XDtForm:classNameLower/>Form</value></property>
         <property name="successView"><value>redirect:<XDtForm:classNameLower/>s.html</value></property>
     </bean>
-    
-    <!-- Put controller mappings here -->
+    <!--<XDtForm:className/>-BEAN-END-->
+    <!-- Add additional controller beans here -->

@@ -20,11 +20,11 @@ public class <XDtClass:className/>FormController extends BaseFormController {
 
     protected Object formBackingObject(HttpServletRequest request)
     throws Exception {
-        String id = request.getParameter("id");
+        String <XDtMethodEx:idField getType="propertyName"/> = request.getParameter("<XDtMethodEx:idField getType="propertyName"/>");
         <XDtClass:className/> <XDtForm:classNameLower/> = null;
 
-        if (!StringUtils.isEmpty(id)) {
-            <XDtForm:classNameLower/> = (<XDtClass:className/>) manager.getObject(<XDtClass:className/>.class, new Long(id));
+        if (!StringUtils.isEmpty(<XDtMethodEx:idField getType="propertyName"/>)) {
+            <XDtForm:classNameLower/> = (<XDtClass:className/>) manager.getObject(<XDtClass:className/>.class, new <XDtMethodEx:idField getType="propertyType"/>(<XDtMethodEx:idField getType="propertyName"/>));
         } else {
             <XDtForm:classNameLower/> = new <XDtClass:className/>();
         }
@@ -41,11 +41,11 @@ public class <XDtClass:className/>FormController extends BaseFormController {
         }
 
         <XDtClass:className/> <XDtForm:classNameLower/> = (<XDtClass:className/>) command;
-        boolean isNew = (<XDtForm:classNameLower/>.getId() == null);
+        boolean isNew = (<XDtForm:classNameLower/>.<XDtMethodEx:idField getType="getterName"/>() == null);
         Locale locale = request.getLocale();
 
         if (request.getParameter("delete") != null) {
-            manager.removeObject(<XDtClass:className/>.class, <XDtForm:classNameLower/>.getId());
+            manager.removeObject(<XDtClass:className/>.class, <XDtForm:classNameLower/>.<XDtMethodEx:idField getType="getterName"/>());
 
             saveMessage(request, getText("<XDtForm:classNameLower/>.deleted", locale));
         } else {
@@ -55,7 +55,7 @@ public class <XDtClass:className/>FormController extends BaseFormController {
             saveMessage(request, getText(key, locale));
 
             if (!isNew) {
-            	return new ModelAndView("redirect:edit<XDtClass:className/>.html", "id", <XDtForm:classNameLower/>.getId());
+            	return new ModelAndView("redirect:edit<XDtClass:className/>.html", "<XDtMethodEx:idField getType="propertyName"/>", <XDtForm:classNameLower/>.<XDtMethodEx:idField getType="getterName"/>());
             }
         }
 

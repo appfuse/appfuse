@@ -40,7 +40,7 @@
 #
 # StrutsTestCase - http://strutstestcase.sourceforge.net
 #
-strutstestcase.version=2.1.2
+strutstestcase.version=2.1.3
 strutstestcase.dir=${lib.dir}/strutstest-${strutstestcase.version}
 strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.jar]]></replacetoken>
         </replace>
@@ -139,17 +139,20 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         <echo>Merging controller configuration XML into web/WEB-INF/action-servlet.xml</echo>
         <loadfile property="controller.beans"
             srcfile="${generated.dir}/web/WEB-INF/action-servlet-${model.name}.xml"/>
-        <!-- Replace strategically placed comment -->   
-        <replace file="../../web/WEB-INF/action-servlet.xml" 
-            token="&lt;!-- Put controller mappings here --&gt;"
-            value="${controller.beans}"/>
+        <property name="actionServlet" location="../../web/WEB-INF/action-servlet.xml"/>
+        <replace file="${actionServlet}" token="&lt;!--${model.name}-BEAN-START--&gt;" value="REGULAR-START"/>
+        <replace file="${actionServlet}" token="&lt;!--${model.name}-BEAN-END--&gt;" value="REGULAR-END"/>
+        <replaceregexp file="${actionServlet}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
+        <!-- Replace strategically placed comment -->
+        <replace file="${actionServlet}" token="&lt;!-- Add additional controller beans here --&gt;" value="${controller.beans}"/>
 
         <loadfile property="controller.mappings"
             srcfile="${generated.dir}/web/WEB-INF/url-mappings-${model.name}.xml"/>
-        <!-- Replace strategically placed comment -->   
-        <replace file="../../web/WEB-INF/action-servlet.xml" 
-            token="&lt;!-- Add additional URL mappings here --&gt;"
-            value="${controller.mappings}"/>
+        <replace file="${actionServlet}" token="&lt;!--${model.name}-URL-START--&gt;" value="REGULAR-START"/>
+        <replace file="${actionServlet}" token="&lt;!--${model.name}-URL-END--&gt;" value="REGULAR-END"/>
+        <replaceregexp file="${actionServlet}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
+        <!-- Replace strategically placed comment -->
+        <replace file="${actionServlet}" token="&lt;!-- Add additional URL mappings here --&gt;" value="${controller.mappings}"/>
 
         <echo>Merging sample-data into metadata/sql/sample-data.xml</echo>]]></replacevalue>
         </replace>
@@ -186,7 +189,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
             <replacetoken><![CDATA[<classpathentry kind="src" path="build/web/gen"/>]]></replacetoken>
         </replace>
         <replace file="../../.classpath">
-            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/strutstest-2.1.2/strutstest-2.1.2.jar"/>]]></replacetoken>
+            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/strutstest-2.1.3/strutstest-2.1.3.jar"/>]]></replacetoken>
         </replace>
         <replace file="../../.classpath">
             <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/spring-1.1.5/spring.jar"/>]]></replacetoken>
@@ -318,8 +321,8 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         </replace>
         
         <replace file="../../build.xml">
-            <replacetoken><![CDATA[<lib dir="${spring.dir}" includes="*.jar"/>]]></replacetoken>
-            <replacevalue><![CDATA[<lib dir="${spring.dir}" includes="*.jar"/>
+            <replacetoken><![CDATA[<lib dir="${spring.dir}" includes="*.jar" excludes="*mock.jar"/>]]></replacetoken>
+            <replacevalue><![CDATA[<lib dir="${spring.dir}" includes="*.jar" excludes="*mock.jar"/>
             <lib file="${commons-fileupload.jar}"/>
             <lib file="${requesttag.jar}"/>]]></replacevalue>
         </replace>
@@ -335,7 +338,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
                 torefid="test.classpath"/>
         </antcall>
     </target>]]></replacetoken>
-            <replacevalue><![CDATA[<target name="test-web" depends="webdoclet"
+            <replacevalue><![CDATA[<target name="test-web" depends="webdoclet,db-load"
         description="Test web module">
         <copy todir="${webapp.target}/WEB-INF" 
             file="${spring.dir}/validator-rules.xml"/>

@@ -8,11 +8,11 @@ import <XDtForm:parentPackageName/>.service.<XDtClass:className/>Manager;
 public class <XDtClass:className/>Action extends BaseAction {
     private <XDtClass:className/> <XDtForm:classNameLower/>;
     private List <XDtForm:classNameLower/>s;
-    private String id;
+    private String <XDtMethodEx:idField getType="propertyName"/>;
     private <XDtClass:className/>Manager <XDtForm:classNameLower/>Manager;
 
-    public void setId(String id) {
-        this.id = id;
+    public void <XDtMethodEx:idField getType="setterName"/>(String <XDtMethodEx:idField getType="propertyName"/>) {
+        this.<XDtMethodEx:idField getType="propertyName"/> = <XDtMethodEx:idField getType="propertyName"/>;
     }
 
     public void set<XDtClass:className/>Manager(<XDtClass:className/>Manager manager) {
@@ -28,15 +28,15 @@ public class <XDtClass:className/>Action extends BaseAction {
     }
 
     public String delete() {
-        <XDtForm:classNameLower/>Manager.remove<XDtClass:className/>(String.valueOf(<XDtForm:classNameLower/>.getId()));
+        <XDtForm:classNameLower/>Manager.remove<XDtClass:className/>(String.valueOf(<XDtForm:classNameLower/>.<XDtMethodEx:idField getType="getterName"/>()));
         saveMessage(getText("<XDtForm:classNameLower/>.deleted"));
 
         return SUCCESS;
     }
 
     public String edit() {
-        if (id != null) {
-            <XDtForm:classNameLower/> = <XDtForm:classNameLower/>Manager.get<XDtClass:className/>(id);
+        if (<XDtMethodEx:idField getType="propertyName"/> != null) {
+            <XDtForm:classNameLower/> = <XDtForm:classNameLower/>Manager.get<XDtClass:className/>(<XDtMethodEx:idField getType="propertyName"/>);
         } else {
             <XDtForm:classNameLower/> = new <XDtClass:className/>();
         }
@@ -53,7 +53,7 @@ public class <XDtClass:className/>Action extends BaseAction {
             return delete();
         }
 
-        boolean isNew = (<XDtForm:classNameLower/>.getId() == null);
+        boolean isNew = (<XDtForm:classNameLower/>.<XDtMethodEx:idField getType="getterName"/>() == null);
 
         <XDtForm:classNameLower/>Manager.save<XDtClass:className/>(<XDtForm:classNameLower/>);
 
@@ -66,7 +66,7 @@ public class <XDtClass:className/>Action extends BaseAction {
             return SUCCESS;
         }
     }
-    
+
     public List get<XDtClass:className/>s() {
         return <XDtForm:classNameLower/>s;
     }

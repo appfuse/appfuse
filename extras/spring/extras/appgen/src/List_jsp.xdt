@@ -8,7 +8,7 @@
         onclick="location.href='<c:url value="/edit<XDtClass:className/>.html"/>'">
         <fmt:message key="button.add"/>
     </button>
-    
+
     <button type="button" onclick="location.href='<c:url value="/mainMenu.html"/>'">
         <fmt:message key="button.cancel"/>
     </button>
@@ -19,7 +19,7 @@
 <display:table name="${<XDtForm:classNameLower/>List}" cellspacing="0" cellpadding="0"
     id="<XDtForm:classNameLower/>List" pagesize="25" styleClass="list" 
     export="true" requestURI="">
-  
+
 <XDtMethod:forAllMethods>
   <XDtMethod:ifHasMethodTag tagName="hibernate.id">
     <display:column property="<XDtMethod:propertyName/>" sort="true" headerClass="sortable"
@@ -36,9 +36,7 @@
 </display:table>
 
 <c:out value="${buttons}" escapeXml="false"/>
-            
+
 <script type="text/javascript">
-<!--
-    highlightTableRows("<XDtForm:classNameLower/>List");
-//-->
+highlightTableRows("<XDtForm:classNameLower/>List");
 </script>
