@@ -22,18 +22,8 @@
 	<classpathentry kind="lib" path="lib/javamail-1.3.1/activation.jar"/>
 	<classpathentry kind="lib" path="lib/javamail-1.3.1/mail.jar"/>
 	<classpathentry kind="lib" path="lib/velocity-1.4/velocity-1.4.jar"/>
-	<classpathentry kind="lib" path="lib/mysql-connector-java-3.0.16-ga/mysql-connector-java-3.0.16-ga-bin.jar"/>
 	<classpathentry kind="lib" path="lib/velocity-1.4/velocity-tools-view-1.1.jar"/>
 	<classpathentry kind="lib" path="lib/strutstest-2.1.2/strutstest-2.1.2.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-2.1.7/lib/c3p0-0.8.4.5.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-2.1.7/hibernate2.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-2.1.7/lib/cglib-full-2.0.2.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-2.1.7/lib/dom4j-1.4.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-2.1.7/lib/ehcache-1.1.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-2.1.7/lib/jta.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-2.1.7/lib/odmg-3.0.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-2.1.7/lib/oscache-2.0.1.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-2.1.7/lib/swarmcache-1.0rc2.jar"/>
 	<classpathentry kind="lib" path="lib/dbunit-2.1/dbunit-2.1.jar"/>
 	<classpathentry kind="lib" path="lib/struts-menu-2.3/struts-menu-2.3.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/commons-collections.jar"/>
@@ -45,10 +35,7 @@
 	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/struts.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/struts-el.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/commons-beanutils.jar"/>
-	<classpathentry kind="lib" path="lib/spring-1.1.3/aopalliance.jar"/>
-	<classpathentry kind="lib" path="lib/spring-1.1.3/spring.jar"/>
 	<classpathentry kind="lib" path="lib/dumbster-1.2/dumbster-1.2.jar"/>
-	<classpathentry kind="lib" path="lib/spring-1.1.3/spring-mock.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/antlr.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/commons-fileupload.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-taglibs/standard-1.0.6/lib/jstl.jar"/>
@@ -66,7 +53,22 @@
 	<classpathentry kind="lib" path="lib/webtest-build574/lib/commons-httpclient-2.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/webtest-build574/lib/HtmlUnit-2004-11-19.jar"/>
 	<classpathentry kind="lib" path="lib/webtest-build574/lib/HtmlUnit-Patch-1068672.jar"/>
-    <classpathentry kind="lib" path="lib/webtest-build574/lib/nekohtml-0.8.1.jar"/>
+	<classpathentry kind="lib" path="lib/webtest-build574/lib/nekohtml-0.8.1.jar"/>
 	<classpathentry kind="lib" path="lib/webtest-build574/lib/webtest.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-2.1.8/lib/c3p0-0.8.4.5.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-2.1.8/hibernate2.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-2.1.8/lib/cglib-full-2.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-2.1.8/lib/dom4j-1.4.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-2.1.8/lib/ehcache-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-2.1.8/lib/jta.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-2.1.8/lib/odmg-3.0.jar"/>
+	<classpathentry kind="lib" path="lib/mysql-connector-java-3.1.7/mysql-connector-java-3.1.7-bin.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-2.1.8/lib/oscache-2.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-2.1.8/lib/swarmcache-1.0rc2.jar"/>
+	<classpathentry kind="lib" path="lib/spring-1.1.5/acegi-security-0.8.1-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="lib/spring-1.1.5/aopalliance.jar"/>
+	<classpathentry kind="lib" path="lib/spring-1.1.5/commons-codec.jar"/>
+	<classpathentry kind="lib" path="lib/spring-1.1.5/spring.jar"/>
+	<classpathentry kind="lib" path="lib/spring-1.1.5/spring-mock.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

@@ -54,10 +54,13 @@ Features/Changes in 1.8
 - Added empty "velocimacro.library" property to "velocityEngine" bean in 
   applicationContext-service.xml to suppress Velocity errors.
 - Dependent packages upgraded:
-	* Spring 1.1.3
     * Display Tag 1.0
+    * Hibernate 2.1.8
+    * MySQL JDBC Driver 3.1.7
+    * PostgreSQL JDBC Driver 8.0-310
+    * Spring 1.1.5
 - Dependent packages added:
-	* Acegi 0.7-dev
+	* Acegi 0.8.1-SNAPSHOT
 - Fixed bug in error.jsp that caused it to throw exceptions under certain 
   conditions.
     https://appfuse.dev.java.net/issues/show_bug.cgi?id=122
