@@ -35,7 +35,7 @@
 	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/struts.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/struts-el.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/commons-beanutils.jar"/>
-	<classpathentry kind="lib" path="lib/dumbster-1.2/dumbster-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/dumbster-1.5/dumbster-1.5.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/antlr.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/commons-fileupload.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-taglibs/standard-1.0.6/lib/jstl.jar"/>
@@ -64,7 +64,7 @@
 	<classpathentry kind="lib" path="lib/mysql-connector-java-3.1.7/mysql-connector-java-3.1.7-bin.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-2.1.8/lib/oscache-2.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-2.1.8/lib/swarmcache-1.0rc2.jar"/>
-	<classpathentry kind="lib" path="lib/spring-1.1.5/acegi-security-0.8.1-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="lib/spring-1.1.5/acegi-security-0.8.1.jar"/>
 	<classpathentry kind="lib" path="lib/spring-1.1.5/aopalliance.jar"/>
 	<classpathentry kind="lib" path="lib/spring-1.1.5/commons-codec.jar"/>
 	<classpathentry kind="lib" path="lib/spring-1.1.5/ehcache-1.1.jar"/>

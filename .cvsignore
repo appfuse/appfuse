@@ -6,6 +6,7 @@ junit*.properties
 *.log
 db-export.xml
 SESSIONS.ser
+.settings
 *.1
 database.properties
 create-tables.sql

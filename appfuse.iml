@@ -254,7 +254,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/dumbster-1.2/dumbster-1.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/dumbster-1.5/dumbster-1.5.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -407,7 +407,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/spring-1.1.5/acegi-security-0.8.1-SNAPSHOT.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/spring-1.1.5/acegi-security-0.8.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -425,7 +425,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/spring-1.1.5/lib/ehcache-1.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/spring-1.1.5/ehcache-1.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -452,7 +452,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/postgres-jdbc-8.0-310/postgresql-jdbc3-8.0-310.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/postgresql-jdbc-8.0-310/postgresql-jdbc3-8.0-310.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
