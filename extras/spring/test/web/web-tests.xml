@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: web-tests.xml,v 1.6 2004/09/30 04:44:36 mraible Exp $               -->
+<!-- $Id: web-tests.xml,v 1.7 2004/09/30 09:37:38 mraible Exp $               -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:../../properties.xml">
@@ -149,10 +149,8 @@
                     value="http://raibledesigns.com"/>
                 <setinputfield stepid="set passwordHint" name="passwordHint" 
                     value="test"/>
-                <setselectfield 
-                    stepid="Select roles in user roles list"
-                    name="userRoles"
-                    value="tomcat" />
+                <setselectfield stepid="Select roles in user roles list"
+                    name="userRoles" value="tomcat"/>
                 <clickbutton label="${button.save}" stepid="Click button 'Save'">
                     <index value="0" />
                 </clickbutton>
@@ -193,8 +191,7 @@
                     value="Name"/>
                 <setinputfield stepid="set city" name="address.city" 
                     value="Denver"/>
-                <setselectfield stepid="Select province" name="address.province"
-                    value="CO"/>
+                <setinputfield name="address.province" value="CO"/>
                 <setselectfield stepid="Select country" name="address.country"
                     value="US"/>
                 <setinputfield stepid="set postalCode" name="address.postalCode" 
