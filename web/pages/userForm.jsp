@@ -31,8 +31,7 @@
         </html:submit>
         </c:if>
         
-            <html:cancel styleClass="button" property="action"  
-                onclick="bCancel=true">
+            <html:cancel styleClass="button" property="action" onclick="bCancel=true">
                 <fmt:message key="button.cancel"/>
             </html:cancel>
         </td>
