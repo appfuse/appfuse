@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.27 2004/06/09 19:26:33 mraible Exp $                 -->
+<!-- $Id: build.xml,v 1.28 2004/06/09 21:37:35 mraible Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -227,12 +227,15 @@
         <copy todir="${webapp.target}" includeEmptyDirs="no">
             <fileset dir="${basedir}/web">
                 <include name="**"/>
+                <exclude name="common/footer.jsp"/>
                 <exclude name="pages/**"/>
-                <!-- exclude images or they'll get hosed by the filterset -->
-                <exclude name="images/**"/>
                 <exclude name="**/classes/**"/>
                 <exclude name="**/*-database.xml"/>
             </fileset>
+        </copy>
+        <!-- Remove the copy block below if you're not displaying 
+             version/copyright in the footer -->
+        <copy todir="${webapp.target}">
             <fileset dir="web" includes="common/footer.jsp"/>
             <filterset>
                 <filter token="APPVERSION" value="${webapp.version}"/>
@@ -550,7 +553,6 @@
             <fileset dir="${webapp.target}" excludes="**/web.xml,**/*-database.xml"/>
             <metainf dir="${webapp.dist}" includes="context.xml"/>
 
-            <zipfileset dir="${basedir}/web/images" prefix="images"/>
             <classes dir="${build.dir}/web/classes">
                 <exclude name="**/cactus.properties"/>
                 <exclude name="**/database.properties"/>
