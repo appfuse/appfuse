@@ -21,7 +21,6 @@
 	<classpathentry kind="lib" path="lib/clickstream-1.0.1/clickstream-1.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/dbunit-2.0/dbunit-2.0.jar"/>
 	<classpathentry kind="lib" path="lib/struts-menu-2.2/struts-menu-2.2.jar"/>
-	<classpathentry kind="lib" path="lib/strutstest-2.1/strutstest-2.1.jar"/>
 	<classpathentry kind="lib" path="lib/webtest-build432/lib/webtest.jar"/>
 	<classpathentry kind="lib" path="lib/webtest-build432/lib/Tidy.jar"/>
 	<classpathentry kind="lib" path="lib/webtest-build432/lib/pdfUnit.jar"/>
@@ -71,5 +70,6 @@
 	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.1/lib/commons-digester.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.1/lib/commons-collections.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.1/lib/commons-beanutils.jar"/>
+	<classpathentry kind="lib" path="lib/strutstest-2.1.2/strutstest-2.1.2.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
