@@ -50,6 +50,7 @@ Features/Changes in 1.6
     * Display Tag 1.0 RC1
     * Struts 1.2.1
     * Struts Test Case 2.1.2
+    * JSTL 1.0.6
 
 Features/Changes in 1.5
 ============================
