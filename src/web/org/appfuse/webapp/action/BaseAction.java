@@ -1,11 +1,6 @@
 package org.appfuse.webapp.action;
 
-import java.util.Date;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -44,7 +39,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.10 $ $Date: 2004/04/29 23:01:28 $
+ * @version $Revision: 1.11 $ $Date: 2004/05/05 14:31:24 $
  */
 public class BaseAction extends LookupDispatchAction {
 
@@ -185,10 +180,10 @@ public class BaseAction extends LookupDispatchAction {
         ActionMessages messages = getMessages(request);
 
         // Identify the localized message for the cancel button
-        String edit = resources.getMessage("button.edit").toLowerCase();
-        String save = resources.getMessage("button.save").toLowerCase();
-        String search = resources.getMessage("button.search").toLowerCase();
-        String view = resources.getMessage("button.view").toLowerCase();
+        String edit = resources.getMessage(Locale.ENGLISH, "button.edit").toLowerCase();
+        String save = resources.getMessage(Locale.ENGLISH, "button.save").toLowerCase();
+        String search = resources.getMessage(Locale.ENGLISH, "button.search").toLowerCase();
+        String view = resources.getMessage(Locale.ENGLISH, "button.view").toLowerCase();
         String[] rules = {edit, save, search, view};
 
         // Identify the request parameter containing the method name
@@ -430,7 +425,7 @@ public class BaseAction extends LookupDispatchAction {
             Iterator iter = this.keyMethodMap.keySet().iterator();
             while (iter.hasNext()) {
                 String key = (String) iter.next();
-                String text = resources.getMessage(key);
+                String text = resources.getMessage(Locale.ENGLISH, key);
 
                 // Found key and haven't added to Map yet, so add the text
                 if ((text != null) && !lookupMap.containsKey(text)) {
