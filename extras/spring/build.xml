@@ -31,7 +31,6 @@
         <echo level="info">Removing Struts-specific JARs</echo>
         <delete>
             <fileset dir="${struts.dir}">
-                <include name="*fileupload*"/>
                 <include name="struts*.jar"/>
             </fileset>
         </delete>
@@ -111,7 +110,6 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         <replace file="../../.classpath">
             <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/spring-1.1.1/spring.jar"/>]]></replacetoken>
             <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/spring-1.1.1/spring.jar"/>
-	<classpathentry kind="lib" path="lib/spring-1.1.1/commons-fileupload.jar"/>
 	<classpathentry kind="lib" path="lib/spring-1.1.1/spring-sandbox.jar"/>]]></replacevalue>
         </replace>
 
@@ -242,6 +240,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         <replace file="../../build.xml">
             <replacetoken><![CDATA[<lib dir="${spring.dir}" includes="*.jar"/>]]></replacetoken>
             <replacevalue><![CDATA[<lib dir="${spring.dir}" includes="*.jar"/>
+            <lib file="${commons-fileupload.jar}"/>
             <lib file="${requesttag.jar}"/>]]></replacevalue>
         </replace>
         
