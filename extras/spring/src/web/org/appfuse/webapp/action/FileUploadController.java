@@ -10,13 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import org.appfuse.Constants;
+
 import org.springframework.validation.BindException;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
-
 
 /**
  * Controller class to upload Files.
@@ -28,16 +29,15 @@ import org.springframework.web.servlet.view.RedirectView;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class FileUploadController extends BaseFormController {
-
     public ModelAndView processFormSubmission(HttpServletRequest request,
                                               HttpServletResponse response,
                                               Object command,
                                               BindException errors)
     throws Exception {
-        
         if (request.getParameter("cancel") != null) {
             return new ModelAndView(new RedirectView("mainMenu.html"));
         }
+
         return super.processFormSubmission(request, response, command, errors);
     }
 
@@ -45,11 +45,22 @@ public class FileUploadController extends BaseFormController {
                                  HttpServletResponse response, Object command,
                                  BindException errors)
     throws Exception {
-        
-    	FileUpload fileUpload = (FileUpload) command;
-        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-        CommonsMultipartFile file = (CommonsMultipartFile) multipartRequest.getFile("file");
-        
+        FileUpload fileUpload = (FileUpload) command;
+
+        // validate a file was entered
+        if (fileUpload.getFile().length == 0) {
+            errors.rejectValue("file", "errors.required",
+                               new Object[] { getText("uploadForm.file") },
+                               "File");
+            
+            return showForm(request, response, errors);
+        }
+
+        MultipartHttpServletRequest multipartRequest =
+            (MultipartHttpServletRequest) request;
+        CommonsMultipartFile file =
+            (CommonsMultipartFile) multipartRequest.getFile("file");
+
         // the directory to upload to
         String uploadDir =
             getServletContext().getRealPath("/resources") + "/" +
@@ -66,7 +77,8 @@ public class FileUploadController extends BaseFormController {
         InputStream stream = file.getInputStream();
 
         //write the file to the file specified
-        OutputStream bos = new FileOutputStream(uploadDir + file.getOriginalFilename());
+        OutputStream bos =
+            new FileOutputStream(uploadDir + file.getOriginalFilename());
         int bytesRead = 0;
         byte[] buffer = new byte[8192];
 
@@ -75,6 +87,7 @@ public class FileUploadController extends BaseFormController {
         }
 
         bos.close();
+
         //close the stream
         stream.close();
 
@@ -83,13 +96,14 @@ public class FileUploadController extends BaseFormController {
         request.setAttribute("fileName", file.getOriginalFilename());
         request.setAttribute("contentType", file.getContentType());
         request.setAttribute("size", file.getSize() + " bytes");
-        request.setAttribute("location", dirPath.getAbsolutePath()
-                + Constants.FILE_SEP + file.getOriginalFilename());
-        
+        request.setAttribute("location",
+                             dirPath.getAbsolutePath() + Constants.FILE_SEP +
+                             file.getOriginalFilename());
+
         String link =
             request.getContextPath() + "/resources" + "/" +
             request.getRemoteUser() + "/";
-        
+
         request.setAttribute("link", link + file.getOriginalFilename());
 
         return new ModelAndView(getSuccessView());

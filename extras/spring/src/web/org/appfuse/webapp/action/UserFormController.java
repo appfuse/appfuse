@@ -178,8 +178,10 @@ public class UserFormController extends BaseFormController {
         }
 
         // prevent ordinary users from calling a GET on editUser.html
-        if ((request.getRequestURL().indexOf("editUser") > -1) &&
+        // unless a bind error exists.
+        if ((request.getRequestURI().indexOf("editUser") > -1) &&
                 (!request.isUserInRole(Constants.ADMIN_ROLE) &&
+                (errors.getErrorCount() == 0) && // be nice to server-side validation for editProfile
                 (request.getRemoteUser() != null))) { // be nice to unit tests
             response.sendError(HttpServletResponse.SC_FORBIDDEN);
 

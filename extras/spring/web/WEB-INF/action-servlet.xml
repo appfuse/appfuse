@@ -41,11 +41,9 @@
     </bean>
 
     <bean id="fileUploadController" class="org.appfuse.webapp.action.FileUploadController">
-        <property name="commandName"><value>uploadForm</value></property>
+        <property name="commandName"><value>fileUpload</value></property>
         <property name="commandClass"><value>org.appfuse.webapp.action.FileUpload</value></property>
-        <!-- Validator does not support command class [org.appfuse.webapp.action.FileUpload] -->
-        <!-- I wish I knew why! -->
-        <!--property name="validator"><ref bean="beanValidator"/></property-->
+        <property name="validator"><ref bean="beanValidator"/></property>
         <property name="formView"><value>uploadForm</value></property>
         <property name="successView"><value>uploadDisplay</value></property>
     </bean>
