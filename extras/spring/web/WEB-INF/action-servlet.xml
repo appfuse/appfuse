@@ -77,7 +77,6 @@
             <props>
                 <prop key="/activeUsers.html">filenameController</prop>
                 <prop key="/users.html">userController</prop>
-                <prop key="/editUser.html?username=*">userFormController</prop>
                 <prop key="/flushCache.html">filenameController</prop>                
                 <prop key="/reload.html">reloadController</prop>
             </props>
