@@ -16,9 +16,8 @@
 
 <c:out value="${buttons}" escapeXml="false" />
 
-<c:if test="${not empty requestScope.userList}">
 <display:table name="${userList}" cellspacing="0" cellpadding="0"
-    requestURI="" defaultsort="1"
+    requestURI="" defaultsort="1" id="users"
     pagesize="25" styleClass="list userList" export="true">
   
     <%-- Table columns --%>
@@ -43,29 +42,11 @@
     <display:setProperty name="export.excel.filename" value="User List.xls"/>
     <display:setProperty name="export.csv.filename" value="User List.csv"/>
 </display:table>
-</c:if>
-<c:if test="${empty requestScope.userList}">
-    <fmt:message key="userList.nousers"/>
-</c:if>
 
 <c:out value="${buttons}" escapeXml="false" />
             
 <script type="text/javascript">
 <!--
-    var previousClass = null;
-    var table = document.getElementsByTagName("table")[0];    
-    var tbody = table.getElementsByTagName("tbody")[0];
-    var rows = tbody.getElementsByTagName("tr");
-    // add event handlers so rows light up and are clickable
-    for (i=0; i < rows.length; i++) {
-        rows[i].onmouseover = function() { previousClass=this.className;this.className+=' over' };
-        rows[i].onmouseout = function() { this.className=previousClass };
-        rows[i].onclick = function() {
-            var cell = this.getElementsByTagName("td")[0];
-            var link = cell.getElementsByTagName("a")[0];
-            location.href = link.getAttribute("href");
-            this.style.cursor="wait";
-        }
-    }
+highlightTableRows("users");
 //-->
 </script>
