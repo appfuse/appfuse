@@ -33,12 +33,16 @@ public class UserCounterListener implements ServletContextListener,
     private int counter;
     private Set users;
 
-    public void contextInitialized(ServletContextEvent sce) {
+    public synchronized void contextInitialized(ServletContextEvent sce) {
         servletContext = sce.getServletContext();
         servletContext.setAttribute((COUNT_KEY), Integer.toString(counter));
     }
 
-    public void contextDestroyed(ServletContextEvent event) {}
+    public synchronized void contextDestroyed(ServletContextEvent event) {
+        servletContext = null;
+        users = null;
+        counter = 0;
+    }
 
     synchronized void incrementUserCounter() {
         counter =
