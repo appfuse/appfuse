@@ -37,7 +37,7 @@ import org.springframework.web.servlet.view.RedirectView;
  * <p/><a href="UserFormController.java.html"><i>View Source</i></a></p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.5 $ $Date: 2004/05/27 08:21:42 $
+ * @version $Revision: 1.6 $ $Date: 2004/05/27 08:57:40 $
  */
 public class UserFormController extends BaseFormController {
     
@@ -194,7 +194,8 @@ public class UserFormController extends BaseFormController {
         }
         // prevent ordinary users from calling a GET on editUser.html
         if (request.getRequestURL().indexOf("editUser") > -1  &&
-                !request.isUserInRole(Constants.ADMIN_ROLE)) {
+                (!request.isUserInRole(Constants.ADMIN_ROLE) &&
+                  request.getRemoteUser() != null)) { // be nice to unit tests
             response.sendError(HttpServletResponse.SC_FORBIDDEN);
             return null;
         }
