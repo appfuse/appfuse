@@ -306,10 +306,10 @@ function createFormElement(element, type, name, id, value, parent) {
 
 function confirmDelete(obj) {   
     var msg = "Are you sure you want to delete this " + obj + "?";
-	ans = confirm(msg);
-	if (ans) {
+    ans = confirm(msg);
+    if (ans) {
         return true;
-	} else {
+    } else {
         return false;
     }
 }

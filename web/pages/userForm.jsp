@@ -26,7 +26,7 @@
             
         <c:if test="${param.from == 'list'}">
         <html:submit styleClass="button" property="action"
-            onclick="bCancel=false;confirmDelete('user');" tabindex="14">
+            onclick="bCancel=false;return confirmDelete('user')" tabindex="14">
           <bean:message key="button.delete"/>
         </html:submit>
         </c:if>
