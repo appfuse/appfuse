@@ -19,7 +19,7 @@ public class UserFormControllerTest extends BaseControllerTestCase {
     private MockHttpServletRequest request;
     private ModelAndView mv;
 
-    protected void setUp() throws Exception {
+    protected void setUp() {
         // needed to initialize a user
         super.setUp();
         c = (UserFormController) ctx.getBean("userFormController");
