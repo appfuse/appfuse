@@ -111,7 +111,9 @@
             
             <fileset dir="src/dao"/>
 
-            <actionform templateFile="metadata/templates/struts_form.xdt">
+            <!-- generate struts forms -->
+            <actionform destdir="${build.dir}/web/gen"
+                templateFile="metadata/templates/struts_form.xdt">
                 <packageSubstitution packages="model"
                     substituteWith="webapp.form"/>
             </actionform>

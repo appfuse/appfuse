@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.35 2004/09/01 12:00:57 mraible Exp $                 -->
+<!-- $Id: build.xml,v 1.36 2004/09/02 03:42:23 mraible Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -12,11 +12,6 @@
     &properties;
     <!-- import application settings for xdoclet -->
     &app-settings;
-
-    <!-- This taskdef must be outside all targets in order for it to work -->
-	<taskdef name="xdoclet"
-	    classname="xdoclet.DocletTask"
-	    classpathref="xdoclet.classpath"/>
     
     <target name="define-tasks" description="defines custom tasks">
         <!-- Taskdefs -->
@@ -35,6 +30,9 @@
         <taskdef name="dbunit" classname="org.dbunit.ant.DbUnitTask"
             classpathref="dao.test.classpath"/>
 
+        <taskdef name="xdoclet" classname="xdoclet.DocletTask"
+            classpathref="xdoclet.classpath"/>
+        
         <available classname="org.apache.catalina.ant.SessionsTask"
             property="tomcat5">
             <classpath>
@@ -444,7 +442,9 @@
             
             <fileset dir="src/dao"/>
 
-            <actionform templateFile="metadata/templates/struts_form.xdt">
+            <!-- generate struts forms -->
+            <actionform destdir="${build.dir}/web/gen"
+                templateFile="metadata/templates/struts_form.xdt">
                 <packageSubstitution packages="model"
                     substituteWith="webapp.form"/>
             </actionform>
