@@ -151,7 +151,6 @@ public class RequestUtil {
      * @param name
      * @param value
      * @param path
-     * @return HttpServletResponse
      */
     public static void setCookie(HttpServletResponse response, String name,
                                  String value, String path) {
@@ -204,8 +203,7 @@ public class RequestUtil {
      *
      * @param response the current web response
      * @param cookie the cookie to delete
-     *
-     * @return the modified response
+     * @param path the path on which the cookie was set (i.e. /appfuse)
      */
     public static void deleteCookie(HttpServletResponse response,
                                     Cookie cookie, String path) {
