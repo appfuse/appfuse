@@ -1,0 +1,66 @@
+<XDtTagDef:tagDef namespace="Struts" handler="org.example.antbook.xdoclet.FormTagsHandler"/><%@ include file="/common/taglibs.jsp"%>
+
+<%-- For linking to edit screen --%>
+<bean:struts id="editURL" forward="edit<XDtStruts:simpleName/>"/>
+
+<c:set var="buttons">
+    <button type="button" name="action" style="margin-right: 5px"
+        onclick="location.href='<html:rewrite forward="edit<XDtStruts:simpleName/>"/>'">
+        <fmt:message key="button.add"/>
+    </button>
+    
+    <button type="button" name="action" onclick="cancel()">
+        <fmt:message key="button.cancel"/>
+    </button>
+</c:set>
+
+<c:out value="${buttons}" escapeXml="false"/>
+
+<display:table name="${<XDtStruts:simpleNameLower/>List}" cellspacing="0" cellpadding="0"
+	id="<XDtStruts:simpleNameLower/>List" pagesize="25" styleClass="list" 
+    export="true" requestURI="${request.contextPath}">
+  
+    <display:column property="id" sort="true" headerClass="sortable"
+        url="${editURL.path}?from=list" paramId="id" paramProperty="id"
+        titleKey="<XDtClass:classTagValue tagName="struts.form" paramName="name"/>.id"/>
+        
+  <XDtStruts:forAllFields>
+    <display:column property="<XDtStruts:fieldName/>" sort="true"
+    	headerClass="sortable"
+        titleKey="<XDtClass:classTagValue tagName="struts.form" paramName="name"/>.<XDtStruts:fieldName/>"/>
+  </XDtStruts:forAllFields>
+  
+    <display:setProperty name="paging.banner.item_name" value="<XDtStruts:simpleNameLower/>"/>
+    <display:setProperty name="paging.banner.items_name" value="<XDtStruts:simpleNameLower/>s"/>
+</display:table>
+
+<c:out value="${buttons}" escapeXml="false"/>
+            
+<script type="text/javascript">
+<!--
+    var previousClass = null;
+    // simple script for highlighting rows
+    var table = document.getElementById("<XDtStruts:simpleNameLower/>List");
+    if (table != null) {
+        var tbody = table.getElementsByTagName("tbody")[0];
+        var rows = tbody.getElementsByTagName("tr");
+        for (i=0; i < rows.length; i++) {
+            rows[i].onmouseover = function() { previousClass=this.className;this.className='over' };
+            rows[i].onmouseout = function() { this.className=previousClass };
+            rows[i].onclick = function() {
+                var cell = this.getElementsByTagName("td")[0];
+                var link = cell.getElementsByTagName("a")[0];                            
+                location.href = link.getAttribute("href");
+                this.style.cursor="wait";
+            }
+        }
+    }
+    
+    function cancel() {
+        location.href = '<html:rewrite forward="mainMenu"/>';
+    }
+//-->
+</script>
+
+
+
