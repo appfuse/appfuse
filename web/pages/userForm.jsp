@@ -1,13 +1,10 @@
 <%@ include file="/common/taglibs.jsp"%>
 
-<title><fmt:message key="userProfile.title"/></title>
-<content tag="heading"><fmt:message key="userProfile.heading"/></content>
-
 <html:form action="saveUser" focus="password" styleId="userFormEx" 
     onsubmit="return validateUserFormEx(this)">
-
-<input type="hidden" name="from" value="<c:out value="${param.from}"/>" />
 <html:hidden property="updated"/>
+<input type="hidden" name="from" value="<c:out value="${param.from}"/>" />
+
 <c:if test="${cookieLogin == 'true'}">
     <html:hidden property="password"/>
     <html:hidden property="confirmPassword"/>
@@ -242,8 +239,6 @@
         <td class="updateStatus">
             <appfuse:label key="userFormEx.updated"/>
             <c:out value="${userFormEx.updated}"/>
-            <html:hidden property="updated" 
-                styleId="updated"/>
         </td>
     </tr>
     </c:if>
