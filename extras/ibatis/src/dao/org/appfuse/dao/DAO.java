@@ -10,7 +10,6 @@ package org.appfuse.dao;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.1 $ $Date: 2004/08/11 06:00:01 $
  */
 public interface DAO {
 }
