@@ -35,7 +35,7 @@ import org.apache.struts.validator.ValidatorPlugIn;
  * @jsp.tag name="label" bodycontent="empty"
  */
 public class LabelTag extends TagSupport {
-    protected transient final Log log = LogFactory.getLog(LabelTag.class);
+    protected final transient Log log = LogFactory.getLog(LabelTag.class);
     protected String key = null;
     protected String styleClass = null;
     protected String errorClass = null;
@@ -167,8 +167,7 @@ public class LabelTag extends TagSupport {
                 label.append("\" ");
 
                 String context =
-                    ((HttpServletRequest) pageContext.getRequest())
-                    .getContextPath();
+                    ((HttpServletRequest) pageContext.getRequest()).getContextPath();
 
                 label.append("src=\"" + context);
                 label.append(tagUtils.message(pageContext,

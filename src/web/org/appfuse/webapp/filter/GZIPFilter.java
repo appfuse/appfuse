@@ -25,7 +25,6 @@ import org.displaytag.tags.TableTagParameters;
  * and non-commercially.
  *
  * @author  Matt Raible
- * @version $Revision: 1.6 $ $Date: 2004/10/13 05:56:04 $
  *
  * @web.filter
  *     display-name="Compression Filter"
