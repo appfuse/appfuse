@@ -103,7 +103,7 @@ if (method == null) {
         map4.put("firstName", "");
         map4.put("lastName", "");
         testData.add(map4);
-        %><c:redirect url="/users-edit.jsp">
+        %><c:redirect url="users-edit.jsp">
             <c:param name="id" value="${id}"/>
             <c:param name="method" value="Edit"/>
           </c:redirect>
@@ -226,7 +226,7 @@ if (method == null) {
         map4.put("firstName", "");
         map4.put("lastName", "");
         testData.add(map4);
-        %&gt;&lt;c:redirect url="/users-edit.jsp"&gt;
+        %&gt;&lt;c:redirect url="users-edit.jsp"&gt;
             &lt;c:param name="id" value="${id}"/&gt;
             &lt;c:param name="method" value="Edit"/&gt;
           &lt;/c:redirect&gt;

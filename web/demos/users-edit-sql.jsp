@@ -89,7 +89,7 @@ code that's used to render this table.
         insert into temp_user (id) values (?)
         <sql:param value="${id}"/>
     </sql:update>
-    <c:redirect url="/users-edit-sql.jsp">
+    <c:redirect url="users-edit-sql.jsp">
         <c:param name="id" value="${id}"/>
         <c:param name="method" value="Edit"/>
     </c:redirect>
@@ -196,7 +196,7 @@ code that's used to render this table.
         insert into temp_user (id) values (?)
         &lt;sql:param value="${id}"/&gt;
     &lt;/sql:update&gt;
-    &lt;c:redirect url="/users-edit-sql.jsp"&gt;
+    &lt;c:redirect url="users-edit-sql.jsp"&gt;
         &lt;c:param name="id" value="${id}"/&gt;
         &lt;c:param name="method" value="Edit"/&gt;
     &lt;/c:redirect&gt;
