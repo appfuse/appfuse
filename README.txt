@@ -44,6 +44,9 @@ Features/Changes in 1.5-beta
 - TODO for 1.5 Final:
     - Fix formBackingObject method in Spring's UserFormController to throw
       an exception when a user is trying to edit another user's information.
+      OR Modify UserRoleAuthorizationInterceptor to allow regular expressions
+      for URLs.
+    - Figure out how to mimic ActionExceptionHandler in Spring.
     - Add Spring MVC "gotchas" to extras/spring/README.txt.
     - Figure out a way to automate running ibatis and spring installs in 
       Anthill.
