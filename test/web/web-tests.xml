@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: web-tests.xml,v 1.13 2004/09/29 10:33:12 mraible Exp $               -->
+<!-- $Id: web-tests.xml,v 1.14 2004/09/30 04:40:39 mraible Exp $               -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:../../properties.xml">
@@ -210,6 +210,7 @@
                     stepid="Click button 'Signup'">
                     <index value="0" />
                 </clickbutton>
+                <verifytitle text="${webapp.prefix}${mainMenu.title}"/>
                 <verifytext stepid="verify success message" 
                     text="You have successfully registered for access to this application."/>
             </steps>
