@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: properties.xml,v 1.4 2004/04/16 04:20:15 mraible Exp $             -->
+<!-- $Id: properties.xml,v 1.5 2004/04/22 22:21:11 mraible Exp $             -->
 <!-- ======================================================================= -->
 <!-- This file defines properties for build.xml -->
 
@@ -190,7 +190,6 @@
     </fileset>
     <pathelement location="${j2ee.jar}"/>
     <fileset dir="${spring.dir}" includes="*.jar"/>
-    <fileset dir="${jstl.dir}/lib" includes="jstl.jar"/>
 </path>
 <path id="web.test.classpath">
     <path refid="web.compile.classpath"/>

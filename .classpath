@@ -52,8 +52,6 @@
 	<classpathentry kind="lib" path="lib/jakarta-struts-20031202/lib/jakarta-oro.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-struts-20031202/lib/struts.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-struts-20031202/lib/struts-el.jar"/>
-	<classpathentry kind="lib" path="lib/spring-1.0/spring.jar"/>
-	<classpathentry kind="lib" path="lib/spring-1.0/aopalliance.jar"/>
 	<classpathentry kind="lib" path="lib/dbunit-2.0/dbunit-2.0.jar"/>
 	<classpathentry kind="lib" path="lib/struts-menu-2.2/struts-menu-2.2.jar"/>
 	<classpathentry kind="lib" path="lib/strutstest-2.1/strutstest-2.1.jar"/>
@@ -65,5 +63,7 @@
 	<classpathentry kind="lib" path="build/web/classes"/>
 	<classpathentry kind="lib" path="build/dao/classes"/>
 	<classpathentry kind="lib" path="build/dao/gen"/>
+	<classpathentry kind="lib" path="lib/spring-1.0.1/aopalliance.jar"/>
+	<classpathentry kind="lib" path="lib/spring-1.0.1/spring.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
