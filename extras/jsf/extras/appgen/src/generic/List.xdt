@@ -3,6 +3,7 @@
 import java.io.Serializable;
 import java.util.List;
 
+import <XDtPackage:packageName/>.<XDtClass:className/>;
 import <XDtForm:parentPackageName/>.service.Manager;
 
 public class <XDtClass:className/>List extends BasePage implements Serializable {

@@ -126,6 +126,7 @@
                 <exclude name="web/WEB-INF/classes/log4j.properties"/>
                 <exclude name="**/*.page"/>
                 <exclude name="**/*.application"/>
+                <exclude name="**/managed-beans.xdt"/>
             </fileset>
         </replaceregexp>
 

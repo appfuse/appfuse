@@ -1,5 +1,6 @@
 <XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>package <XDtForm:parentPackageName/>.webapp.action;
 
+import java.io.Serializable;
 import java.util.List;
 
 import <XDtPackage:packageName/>.<XDtClass:className/>;
@@ -35,7 +36,7 @@ public class <XDtClass:className/>Form extends BasePage implements Serializable 
 
     public String edit() {
         if (id != null) {
-            <XDtForm:classNameLower/> = manager.getObject(<XDtClass:className/>.class, new Long(id));
+            <XDtForm:classNameLower/> = (<XDtClass:className/>) manager.getObject(<XDtClass:className/>.class, new Long(id));
         } else {
             <XDtForm:classNameLower/> = new <XDtClass:className/>();
         }
@@ -54,6 +55,8 @@ public class <XDtClass:className/>Form extends BasePage implements Serializable 
 
         if (isNew) {
             return "list";
+        } else {
+            return "edit";
         }
     }
 }

@@ -1,6 +1,6 @@
 <XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>package <XDtForm:parentPackageName/>.webapp.action;
 
-import java.io.Sserializable;
+import java.io.Serializable;
 
 import <XDtPackage:packageName/>.<XDtClass:className/>;
 import <XDtForm:parentPackageName/>.service.<XDtClass:className/>Manager;
@@ -54,6 +54,8 @@ public class <XDtClass:className/>Form extends BasePage implements Serializable 
 
         if (isNew) {
             return "list";
+        } else {
+            return "edit";
         }
     }
 }

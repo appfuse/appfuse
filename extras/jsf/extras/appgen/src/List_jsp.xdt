@@ -19,9 +19,10 @@
 
 <c:out value="${buttons}" escapeXml="false"/>
 
-<ww:set name="<XDtForm:classNameLower/>List" value="<XDtForm:classNameLower/>s" scope="request"/>
+<%-- Use a non-displayed dataTable to pull <XDtForm:classNameLower/>List into request --%>
+<h:dataTable var="<XDtForm:classNameLower/>" value="#{<XDtForm:classNameLower/>List.<XDtForm:classNameLower/>s}" style="display:none"/>
 
-<display:table name="${<XDtForm:classNameLower/>List}" cellspacing="0" cellpadding="0"
+<display:table name="${<XDtForm:classNameLower/>List.<XDtForm:classNameLower/>s}" cellspacing="0" cellpadding="0"
     id="<XDtForm:classNameLower/>s" pagesize="25" styleClass="list" 
     export="true" requestURI="">
   

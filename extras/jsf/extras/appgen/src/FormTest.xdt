@@ -65,7 +65,7 @@ public class <XDtClass:className/>FormTest extends BasePageTestCase {
         </XDtMethod:forAllMethods>
         bean.set<XDtClass:className/>(<XDtForm:classNameLower/>);
 
-        assertEquals(bean.save(), null);
+        assertEquals(bean.save(), "edit");
         assertFalse(bean.hasErrors());
     }
 

@@ -104,8 +104,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         </delete>
 
         <!-- Modify appgen for JSF -->
-        <!-- Modify appgen for WebWork -->
-        <echo level="info">Modifying appgen for WebWork</echo>
+        <echo level="info">Modifying appgen for JSF</echo>
         <copy todir="../appgen" overwrite="true">
             <fileset dir="extras/appgen" includes="**"/>
         </copy>
@@ -166,7 +165,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
             <template templateFile="${template.dir}/navigation-rules.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/web/WEB-INF/navigation-rules-{0}.xml"/>
+                      destinationFile="${gen.dir}/web/WEB-INF/navigation-rules-{0}.xml"/>]]></replacevalue>
         </replace>
         
         <!-- Modify web-tests.xdt template to user model.propertyName -->
@@ -218,6 +217,21 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
             token="&lt;!-- Add additional beans here --&gt;"
             value="${managed.beans}"/>]]></replacevalue>
         </replace>
+        
+        <!-- JSPs for JSF are in root directory -->
+        <replace file="../appgen/build.xml">
+            <replacetoken><![CDATA[/web/pages/${model.name.lowercase}Form.jsp]]></replacetoken>
+            <replacevalue><![CDATA[/web/${model.name.lowercase}Form.jsp]]></replacevalue>
+        </replace>
+        <replace file="../appgen/build.xml">
+            <replacetoken><![CDATA[/web/pages/${model.name.lowercase}List.jsp]]></replacetoken>
+            <replacevalue><![CDATA[/web/${model.name.lowercase}s.jsp]]></replacevalue>
+        </replace>
+        <replace file="../appgen/build.xml">
+            <replacetoken><![CDATA[/web/pages/menu.jsp]]></replacetoken>
+            <replacevalue><![CDATA[/web/menu.jsp]]></replacevalue>
+        </replace>
+        <!-- End of AppGen modifications -->
         
         <!-- Copy source and tests -->    
         <echo level="info">Replacing source and test files</echo>
@@ -283,7 +297,7 @@ log4j.logger.net.sourceforge.myfaces=FATAL</replacevalue>
             <replacetoken><![CDATA[<include name="metadata/templates/*.xdt"/>]]></replacetoken>
             <replacevalue></replacevalue>
         </replace>
-        
+
         <!-- Remove gen-forms target -->
         <replace file="../../build.xml">
             <replacetoken><![CDATA[
