@@ -1,7 +1,6 @@
 package org.appfuse.service;
 
 import javax.mail.MessagingException;
-import javax.mail.Session;
 
 import junit.framework.TestCase;
 
