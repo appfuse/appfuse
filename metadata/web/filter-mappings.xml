@@ -1,4 +1,8 @@
     <filter-mapping>
+        <filter-name>exportFilter</filter-name>
+        <url-pattern>*.html</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
         <filter-name>compressionFilter</filter-name>
         <url-pattern>*.html</url-pattern>
     </filter-mapping>
@@ -35,8 +39,8 @@
         <url-pattern>*.html</url-pattern>
     </filter-mapping>
     <filter-mapping>
-          <filter-name>encodingFilter</filter-name>
-          <url-pattern>*.html</url-pattern>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>*.html</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>encodingFilter</filter-name>
@@ -49,10 +53,6 @@
         <!--dispatcher>REQUEST</dispatcher>
         <dispatcher>FORWARD</dispatcher-->
     <!--/filter-mapping-->
-    <filter-mapping>
-        <filter-name>exportFilter</filter-name>
-        <url-pattern>*.html</url-pattern>
-    </filter-mapping>
     <filter-mapping>
         <filter-name>sitemesh</filter-name>
         <url-pattern>/*</url-pattern>
