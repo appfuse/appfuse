@@ -16,7 +16,6 @@
 	<classpathentry kind="lib" path="lib/pmd-1.2/lib/jaxen-core-1.0-fcs.jar"/>
 	<classpathentry kind="lib" path="lib/pmd-1.2/lib/pmd-1.2.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="var" path="J2EE_HOME/lib/j2ee.jar"/>
 	<classpathentry kind="var" path="JUNIT_HOME/junit.jar"/>
 	<classpathentry kind="lib" path="lib/ant-contrib-0.5/ant-contrib-0.5.jar"/>
 	<classpathentry kind="lib" path="lib/clickstream-1.0.1/clickstream-1.0.1.jar"/>
