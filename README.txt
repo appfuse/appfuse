@@ -72,6 +72,9 @@ Features/Changes in 1.5
   removeObject().
 - Added documentation on common Ant targets I use:
   http://raibledesigns.com/wiki/Wiki.jsp?page=AppFuseAntTasks
+- Added ReloadAction to reload drop-downs initialized in StartupListener. 
+  Also added "Reload Options" menu item under "Administration" to invoke 
+  this action.
 - TODO: Spring for MVC Layer
     - Installation package.
 - TODO: Modify Cactus so "runcontainer" task can be used to start/stop Tomcat

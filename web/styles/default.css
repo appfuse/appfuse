@@ -115,7 +115,7 @@ div#menu {
 	position: absolute;
 	top: 100px;
 	right: 20px;
-	width: 172px;
+	width: 190px;
     padding: 10px;
 	background-color: #eee;
 	border: 1px solid #c0c0c0;
@@ -123,7 +123,7 @@ div#menu {
 /* Again, the ugly brilliant hack. */
 	voice-family: "\"}\"";
 	voice-family: inherit;
-	width: 150px;
+	width: 166px;
 }
 /* Again, "be nice to Opera 5". */
 body>div#menu {width: 150px;}

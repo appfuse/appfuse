@@ -7,6 +7,7 @@
         <!-- ====================   Administrator Menu   =========================== -->
         <Menu name="AdminMenu" title="menu.admin" description="Admin Menu" roles="admin">
             <Item name="am.viewUsers" title="menu.admin.users" forward="viewUsers"/>
+            <Item name="ReloadContext" title="menu.admin.reload" action="reload"/>
         </Menu>
         <!-- ====================   User Menu   =========================== -->
         <Menu name="UserMenu" title="menu.user" description="User Menu" forward="editProfile"/>
