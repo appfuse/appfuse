@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.28 2004/06/09 21:37:35 mraible Exp $                 -->
+<!-- $Id: build.xml,v 1.29 2004/06/11 15:48:25 mraible Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -888,12 +888,16 @@
     </target>
 
     <!-- =================================================================== -->
-    <!--  Run all tests (tomcat IS running). The cactify-war task should be  -->
-    <!--  run before this one.                                               -->
+    <!--  Run all tests (tomcat IS running). The deploy-test-war task        -->
+    <!--  should be run before this one.                                     -->
     <!-- =================================================================== -->
     <target name="test-all-running"
-        depends="test-dao,test-service,test-canoo,test-web"
-        description="runs all tests for common, ejb and web">
+        description="runs all tests for DAOs, Services and MVC Tests">
+        <antcall target="test-dao"/>
+        <antcall target="test-service"/>
+        <antcall target="reload"/>
+        <antcall target="test-canoo"/>
+        <antcall target="test-web" inheritAll="false"/>
         <antcall target="db-load"/>
     </target>
         
