@@ -318,7 +318,11 @@ function highlightTableRows(tableId) {
     var previousClass = null;
     var table = document.getElementById(tableId); 
     var tbody = table.getElementsByTagName("tbody")[0];
-    var rows = tbody.getElementsByTagName("tr");
+    if (tbody == null) {
+        var rows = table.getElementsByTagName("tr");
+    } else {
+        var rows = tbody.getElementsByTagName("tr");
+    }
     // add event handlers so rows light up and are clickable
     for (i=0; i < rows.length; i++) {
         rows[i].onmouseover = function() { previousClass=this.className;this.className+=' over' };
