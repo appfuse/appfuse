@@ -95,61 +95,55 @@
     </tr>
     <tr>
         <th>
-            <appfuse:label key="user.address"/>
+            <appfuse:label key="user.address.address"/>
         </th>
         <td>
-            <spring:bind path="user.address">
-            <input type="text" name="address" value="<c:out value="${status.value}"/>" id="address" size="50"/>
+            <spring:bind path="user.address.address">
+            <input type="text" name="address.address" value="<c:out value="${status.value}"/>" id="address.address" size="50"/>
             <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
             </spring:bind>
         </td>
     </tr>
     <tr>
         <th>
-            <appfuse:label key="user.city"/>
+            <appfuse:label key="user.address.city"/>
         </th>
         <td>
-            <spring:bind path="user.city">
-            <input type="text" name="city" value="<c:out value="${status.value}"/>" id="city" size="40"/>
+            <spring:bind path="user.address.city">
+            <input type="text" name="address.city" value="<c:out value="${status.value}"/>" id="address.city" size="40"/>
             <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
             </spring:bind>
         </td>
     </tr>
     <tr>
         <th>
-            <appfuse:label key="user.province"/>
+            <appfuse:label key="user.address.province"/>
         </th>
         <td>
-        <c:if test="${user.province != null}">
-            <c:set var="state" value="${user.province}" scope="page"/>
-            <state:state name="province" default="<%=(String)pageContext.getAttribute("state")%>"/>
-        </c:if>
-        <c:if test="${user.province == null}">
-            <state:state name="province" prompt=""/>
-        </c:if>
+            <spring:bind path="user.address.province">
+            <input type="text" name="address.province" value="<c:out value="${status.value}"/>" id="address.province" size="40"/>
+            <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
+            </spring:bind>
         </td>
     </tr>
     <tr>
         <th>
-            <appfuse:label key="user.country"/>
+            <appfuse:label key="user.address.country"/>
         </th>
         <td>
-        <c:if test="${user.country != null}">
-            <c:set var="country" value="${user.country}" scope="page"/>
-            <country:country name="country" default="<%=(String)pageContext.getAttribute("country")%>"/>
-        </c:if>
-        <c:if test="${user.country == null}">
-            <country:country name="country" prompt=""/>
-        </c:if>
+            <spring:bind path="user.address.country">
+            <appfuse:country name="address.countries" prompt="" default="${user.address.country}"/>
+            <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
+            </spring:bind>
         </td>
     </tr>
     <tr>
         <th>
-            <appfuse:label key="user.postalCode"/>
+            <appfuse:label key="user.address.postalCode"/>
         </th>
         <td>
-            <spring:bind path="user.postalCode">
-            <input type="text" name="postalCode" value="<c:out value="${status.value}"/>" id="postalCode" size="10"/>
+            <spring:bind path="user.address.postalCode">
+            <input type="text" name="address.postalCode" value="<c:out value="${status.value}"/>" id="address.postalCode" size="10"/>
             <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
             </spring:bind>
         </td>
@@ -211,11 +205,7 @@
 <script type="text/javascript">
 <!--
 highlightFormElements();
-var focusControl = document.forms["userForm"].elements["username"];
-
-if (focusControl.type != "hidden" && !focusControl.disabled) {
-   focusControl.focus();
-}
+document.forms["userForm"].username.focus();
 </script>
 
 <html:javascript formName="user" staticJavascript="false"/>
