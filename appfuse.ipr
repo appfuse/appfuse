@@ -2,17 +2,6 @@
 <project version="4" relativePaths="false">
   <component name="AntConfiguration">
     <defaultAnt bundledAnt="true" />
-    <buildFile url="file://$PROJECT_DIR$/build.xml">
-      <additionalClassPath>
-        <entry path="file://$PROJECT_DIR$/lib/junit3.8.1/junit.jar" />
-      </additionalClassPath>
-      <antReference projectDefault="true" />
-      <customJdkName value="" />
-      <maximumHeapSize value="128" />
-      <properties>
-        <property name="tomcat.home" value="c:/tools/jakarta-tomcat-5.0.29" />
-      </properties>
-    </buildFile>
   </component>
   <component name="CodeStyleManager">
     <option name="USE_DEFAULT_CODE_STYLE_SCHEME" value="true" />
