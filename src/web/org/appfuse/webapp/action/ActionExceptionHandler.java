@@ -31,7 +31,7 @@ import org.apache.struts.config.ExceptionConfig;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.1 $ $Date: 2004/03/01 06:19:13 $
+ * @version $Revision: 1.2 $ $Date: 2004/05/05 20:36:07 $
  */
 public final class ActionExceptionHandler extends ExceptionHandler {
     //~ Instance fields ========================================================
@@ -108,8 +108,8 @@ public final class ActionExceptionHandler extends ExceptionHandler {
      * @param request - The request we are handling
      * @param property  - The property name to use for this error
      * @param error - The error generated from the exception mapping
-     * @param forward - The forward generated from the input path (from the form or exception mapping)
-     * @param scope - The scope of the exception mapping.
+     * @param forward - The forward generated from the input path
+     *                  (from the form or exception mapping)
      */
     protected void storeException(HttpServletRequest request, String property,
                                   ActionMessage error, ActionForward forward) {
