@@ -6,7 +6,6 @@ import org.apache.commons.lang.StringUtils;
 import org.appfuse.dao.UserDAO;
 import org.appfuse.model.User;
 import org.appfuse.model.UserCookie;
-import org.appfuse.service.BaseManager;
 import org.appfuse.service.UserManager;
 import org.appfuse.util.RandomGUID;
 import org.appfuse.util.StringUtil;

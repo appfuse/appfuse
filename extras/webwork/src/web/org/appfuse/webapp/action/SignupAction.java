@@ -82,6 +82,7 @@ public class SignupAction extends BaseAction {
         getSession().setAttribute(Constants.REGISTERED, Boolean.TRUE);
 
         // Send an account information e-mail
+        message.setSubject(getText("signup.email.subject"));
         sendUserMessage(user, getText("signup.email.message"), 
                         RequestUtil.getAppURL(getRequest()));
         return SUCCESS;

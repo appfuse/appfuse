@@ -12,8 +12,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.Constants;
 import org.appfuse.model.User;
+import org.appfuse.service.MailEngine;
 import org.appfuse.service.UserManager;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.web.servlet.mvc.SimpleFormController;
@@ -32,9 +34,11 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class BaseFormController extends SimpleFormController {
-    
     protected final transient Log log = LogFactory.getLog(getClass());
     protected UserManager mgr = null;
+    protected MailEngine mailEngine = null;
+    protected SimpleMailMessage message = null;
+    protected String templateName = null; 
 
     public void setUserManager(UserManager userManager) {
         this.mgr = userManager;
@@ -126,4 +130,38 @@ public class BaseFormController extends SimpleFormController {
         binder.registerCustomEditor(byte[].class, new ByteArrayMultipartFileEditor());
     }
 
+    /**
+     * Convenience message to send messages to users, includes app URL as footer.
+     * @param user
+     * @param msg
+     * @param url
+     */
+    protected void sendUserMessage(User user, String msg, String url) {
+        if (log.isDebugEnabled()) {
+            log.debug("sending e-mail to user [" + user.getEmail() + "]...");
+        }
+
+        message.setTo(user.getFullName() + "<" + user.getEmail() + ">");
+        Map model = new HashMap();
+        model.put("user", user);
+        // TODO: once you figure out how to get the global resource bundle in
+        // WebWork, then figure it out here too.  In the meantime, the Username
+        // and Password labels are hard-coded into the template. 
+        // model.put("bundle", getTexts());
+        model.put("message", msg);
+        model.put("applicationURL", url);
+        mailEngine.sendMessage(message, templateName, model);   
+    }
+    
+    public void setMailEngine(MailEngine mailEngine) {
+        this.mailEngine = mailEngine;
+    }
+    
+    public void setMessage(SimpleMailMessage message) {
+        this.message = message;
+    }
+    
+    public void setTemplateName(String templateName) {
+        this.templateName = templateName;
+    }
 }

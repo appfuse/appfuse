@@ -1,7 +1,10 @@
 package org.appfuse.webapp.action;
 
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
+
+import com.dumbster.smtp.SimpleSmtpServer;
 
 
 public class PasswordHintControllerTest extends BaseControllerTestCase {
@@ -11,8 +14,12 @@ public class PasswordHintControllerTest extends BaseControllerTestCase {
         // needed to initialize a user
         super.setUp();
         c = (PasswordHintController) ctx.getBean("passwordHintController");
+        // change the port on the mailSender so it doesn't conflict with an 
+        // existing SMTP server on localhost
+        JavaMailSenderImpl mailSender = (JavaMailSenderImpl) ctx.getBean("mailSender");
+        mailSender.setPort(2525);
     }
-
+    
     protected void tearDown() throws Exception {
         super.tearDown();
         c = null;
@@ -22,7 +29,13 @@ public class PasswordHintControllerTest extends BaseControllerTestCase {
         MockHttpServletRequest request = newGet("/passwordHint.html");
         request.addParameter("username", "tomcat");
 
+        SimpleSmtpServer server = SimpleSmtpServer.start(2525);
+        
         c.handleRequest(request, new MockHttpServletResponse());
+        
+        // verify an account information e-mail was sent
+        server.stop();
+        assertTrue(server.getReceievedEmailSize() == 1);
         
         // verify that success messages are in the session
         assertNotNull(request.getSession().getAttribute("messages"));

@@ -3,9 +3,11 @@ package org.appfuse.webapp.action;
 import org.appfuse.Constants;
 import org.appfuse.model.Address;
 import org.appfuse.model.User;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
+import com.dumbster.smtp.SimpleSmtpServer;
 import com.opensymphony.webwork.ServletActionContext;
 
 
@@ -15,6 +17,10 @@ public class SignupActionTest extends BaseActionTestCase {
     protected void setUp() throws Exception {    
         super.setUp();
         action = (SignupAction) ctx.getBean("signupAction");
+        // change the port on the mailSender so it doesn't conflict with an 
+        // existing SMTP server on localhost
+        JavaMailSenderImpl mailSender = (JavaMailSenderImpl) ctx.getBean("mailSender");
+        mailSender.setPort(2525);
     }
     
     protected void tearDown() throws Exception {
@@ -54,21 +60,14 @@ public class SignupActionTest extends BaseActionTestCase {
         ServletActionContext.setResponse(new MockHttpServletResponse());
         
         // start SMTP Server
-        //SimpleSmtpServer server = SimpleSmtpServer.start(2525);
-        // change the port on the mailSender
-        //JavaMailSenderImpl mailSender = (JavaMailSenderImpl) ctx.getBean("mailSender");
-        //mailSender.setPort(2525);
+        SimpleSmtpServer server = SimpleSmtpServer.start(2525);
         
         assertEquals(action.save(), "success");
         assertFalse(action.hasActionErrors());
         
         // verify an account information e-mail was sent
-        //server.stop();
-       // assertTrue(server.getReceievedEmailSize() == 1);
-        //Iterator emailIter = server.getReceivedEmail();
-        //SmtpMessage email = (SmtpMessage) emailIter.next();
-        //assertEquals(email.getHeaderValue("Subject"), "AppFuse Account Information");
-        //log.debug("received e-mail: " + email.getBody()); 
+        server.stop();
+        assertTrue(server.getReceievedEmailSize() == 1);
 
         // verify that success messages are in the session
         assertNotNull(action.getSession().getAttribute(Constants.REGISTERED));

@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.appfuse.Constants;
 import org.appfuse.model.User;
-import org.appfuse.service.MailSender;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.util.RequestUtil;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -81,25 +80,10 @@ public class SignupController extends BaseFormController {
                     + "' an account information e-mail");
         }
 
-        StringBuffer msg = new StringBuffer();
-        msg.append(getMessageSourceAccessor().getMessage("signup.email.message"));
-        msg.append("\n\n" + getMessageSourceAccessor().getMessage("user.username"));
-        msg.append(": " + user.getUsername() + "\n");
-        msg.append(getMessageSourceAccessor().getMessage("user.password") + ": ");
-        msg.append(user.getConfirmPassword());
-        msg.append("\n\nLogin at: " + RequestUtil.getAppURL(request) +
-                       request.getContextPath());
-
-        String subject = getMessageSourceAccessor().getMessage("signup.email.subject");
-
-        try {
-            // From,to,cc,subject,content
-            MailSender.sendTextMessage(Constants.DEFAULT_FROM,
-                                       user.getEmail(), null,
-                                       subject, msg.toString());
-        } catch (MessagingException me) {
-            log.warn("Failed to send Account Information e-mail");
-        }
+        // Send an account information e-mail
+        message.setSubject(getText("signup.email.subject"));
+        sendUserMessage(user, getText("signup.email.message"), 
+                        RequestUtil.getAppURL(request));
         
         return new ModelAndView(new RedirectView(getSuccessView()));
     }

@@ -27,8 +27,4 @@ public class LookupManagerTest extends BaseManagerTestCase {
             log.debug("roles: " + roles);
         }
     }
-
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(LookupManagerTest.class);
-    }
 }

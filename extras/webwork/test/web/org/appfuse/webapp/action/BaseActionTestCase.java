@@ -27,7 +27,7 @@ public class BaseActionTestCase extends TestCase {
     static {
         ResourceBundle db = ResourceBundle.getBundle("database");
         String daoType = db.getString("dao.type");
-        String[] paths = {"/applicationContext-database.xml",
+        String[] paths = {"/applicationContext-resources.xml",
                           "/applicationContext-" + daoType + ".xml",
                           "/applicationContext-service.xml",
                           "/action-servlet.xml"};

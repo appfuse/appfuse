@@ -21,6 +21,8 @@
     <bean id="passwordHintController" class="org.appfuse.webapp.action.PasswordHintController">
         <property name="userManager"><ref bean="userManager"/></property>
         <property name="messageSource"><ref bean="messageSource"/></property>
+        <property name="mailEngine"><ref bean="mailEngine"/></property>
+        <property name="message"><ref bean="passwordMessage"/></property>
     </bean>
 
     <bean id="reloadController" class="org.appfuse.webapp.action.ReloadController"/>
@@ -32,6 +34,9 @@
         <property name="formView"><value>userProfile</value></property>
         <property name="successView"><value>editUser.html</value></property>
         <property name="userManager"><ref bean="userManager"/></property>
+        <property name="mailEngine"><ref bean="mailEngine"/></property>
+        <property name="message"><ref bean="accountMessage"/></property>
+        <property name="templateName"><value>accountCreated.vm</value></property>
     </bean>
 
     <bean id="fileUploadController" class="org.appfuse.webapp.action.FileUploadController">
@@ -44,9 +49,7 @@
         <property name="successView"><value>uploadDisplay</value></property>
     </bean>
 
-    <bean id="multipartResolver"
-        class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-    </bean>
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
     
     <bean id="signupController" class="org.appfuse.webapp.action.SignupController">
         <property name="commandName"><value>user</value></property>
@@ -55,16 +58,17 @@
         <property name="formView"><value>signup</value></property>
         <property name="successView"><value>mainMenu.html</value></property>
         <property name="userManager"><ref bean="userManager"/></property>
+        <property name="mailEngine"><ref bean="mailEngine"/></property>
+        <property name="message"><ref bean="accountMessage"/></property>
+        <property name="templateName"><value>accountCreated.vm</value></property>
     </bean>
 
     <!-- Load WEB-INF/classes/ApplicationResources.properties for i18n messages using JSTL's fmt tag -->
-    <bean id="messageSource" 
-        class="org.springframework.context.support.ResourceBundleMessageSource">
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basename"><value>ApplicationResources</value></property>
     </bean>
 
-    <bean id="urlMapping" 
-        class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+    <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
         <property name="mappings">
             <props>
                 <prop key="/editProfile.html">userFormController</prop>
@@ -94,16 +98,14 @@
         </property>
     </bean>
 
-    <bean id="adminInterceptor" 
-        class="org.springframework.web.servlet.handler.UserRoleAuthorizationInterceptor">
+    <bean id="adminInterceptor" class="org.springframework.web.servlet.handler.UserRoleAuthorizationInterceptor">
         <property name="authorizedRoles"><value>admin</value></property>
     </bean>
     
     <bean id="filenameController" class="org.springframework.web.servlet.mvc.UrlFilenameViewController"/>
 
     <!-- View Resolver for JSPs -->
-    <bean id="viewResolver" 
-        class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="requestContextAttribute"><value>rc</value></property>
         <property name="viewClass"><value>org.springframework.web.servlet.view.JstlView</value></property>
         <property name="prefix"><value>/WEB-INF/pages/</value></property>
@@ -123,5 +125,15 @@
 
     <bean id="beanValidator" class="org.springframework.validation.commons.BeanValidator">
         <property name="validatorFactory"><ref bean="validatorFactory"/></property>
+    </bean>
+    
+    <bean id="accountMessage" class="org.springframework.mail.SimpleMailMessage" singleton="false">
+        <property name="from"><value><![CDATA[AppFuse <appfuse@raibledesigns.com>]]></value></property>
+        <property name="subject"><value>AppFuse Account Information</value></property>
+    </bean>
+    
+    <bean id="passwordMessage" class="org.springframework.mail.SimpleMailMessage" singleton="false">
+        <property name="from"><value><![CDATA[AppFuse <appfuse@raibledesigns.com>]]></value></property>
+        <property name="subject"><value>AppFuse Password Hint</value></property>
     </bean>
 </beans>

@@ -33,8 +33,7 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-            /WEB-INF/applicationContext-database.xml,
-            /WEB-INF/applicationContext-<XDtConfig:configParameterValue paramName="daoType"/>.xml,
-            /WEB-INF/applicationContext-service.xml
+            /WEB-INF/applicationContext-*.xml,
+            /WEB-INF/action-servlet.xml
         </param-value>
     </context-param>

@@ -129,13 +129,6 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
             <replacevalue> *</replacevalue>
         </replace>
         
-        <!-- Add action-servlet.xml to the list of context files that's loaded -->
-        <replace file="../../metadata/web/web-settings.xml">
-            <replacetoken>/WEB-INF/applicationContext-service.xml</replacetoken>
-            <replacevalue>/WEB-INF/applicationContext-service.xml,
-            /WEB-INF/action-servlet.xml</replacevalue>
-        </replace>
-        
         <!-- Copy web files (JSPs, images, scripts, stylesheets) -->
         <echo level="info">Replacing web files (images, scripts, JSPs, etc.)</echo>
         <copy todir="../../web" overwrite="true">

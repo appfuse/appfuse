@@ -63,6 +63,14 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
                 <include name="struts-*.xml"/>
             </fileset>
         </delete>
+     
+        <echo level="info">Removing action-servlet.xml from the list of context files</echo>
+        <replace file="../../metadata/web/web-settings.xml">
+            <replacetoken>/WEB-INF/applicationContext-service.xml,
+                /WEB-INF/action-servlet.xml</replacetoken>
+            <replacevalue>/WEB-INF/applicationContext-service.xml</replacevalue>
+        </replace>
+                
         <echo level="info">Replacing Struts servlet with Spring</echo>
         <copy todir="../../metadata/web" overwrite="true">
             <fileset dir="metadata/web" includes="*.xml"/>

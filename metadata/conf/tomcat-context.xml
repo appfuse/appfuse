@@ -147,12 +147,4 @@
             <value>true</value>
         </parameter>
     </ResourceParams>
-    <!-- This is not used at this time, but may be in the future -->
-    <Resource name="mail/Session" auth="Container" type="javax.mail.Session"/>
-    <ResourceParams name="mail/Session">
-        <parameter>
-            <name>mail.smtp.host</name>
-            <value>localhost</value>
-        </parameter>
-    </ResourceParams>
 </Context>

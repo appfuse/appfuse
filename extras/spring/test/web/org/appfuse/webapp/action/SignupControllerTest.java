@@ -3,11 +3,16 @@ package org.appfuse.webapp.action;
 import javax.servlet.http.HttpServletResponse;
 
 import org.appfuse.Constants;
+import org.springframework.context.ApplicationContext;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.dumbster.smtp.SimpleSmtpServer;
 
 
 public class SignupControllerTest extends BaseControllerTestCase {
@@ -17,6 +22,10 @@ public class SignupControllerTest extends BaseControllerTestCase {
         // needed to initialize a user
         super.setUp();
         c = (SignupController) ctx.getBean("signupController");
+        // change the port on the mailSender so it doesn't conflict with an 
+        // existing SMTP server on localhost
+        JavaMailSenderImpl mailSender = (JavaMailSenderImpl) ctx.getBean("mailSender");
+        mailSender.setPort(2525);
     }
 
     protected void tearDown() throws Exception {
@@ -48,10 +57,17 @@ public class SignupControllerTest extends BaseControllerTestCase {
         request.addParameter("passwordHint", "Password is one with you.");
 
         HttpServletResponse response = new MockHttpServletResponse();
+        
+        SimpleSmtpServer server = SimpleSmtpServer.start(2525);
+        
         ModelAndView mv = c.handleRequest(request, response);
         Errors errors =
             (Errors) mv.getModel().get(BindException.ERROR_KEY_PREFIX + "user");
         assertTrue("no errors returned in model", errors == null);
+        
+        // verify an account information e-mail was sent
+        server.stop();
+        assertTrue(server.getReceievedEmailSize() == 1);
         
         // verify that success messages are in the request
         assertNotNull(request.getSession().getAttribute("messages"));

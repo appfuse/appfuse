@@ -18,7 +18,6 @@ import org.appfuse.Constants;
 import org.appfuse.model.LabelValue;
 import org.appfuse.model.User;
 import org.appfuse.model.UserRole;
-import org.appfuse.service.MailSender;
 import org.appfuse.service.UserManager;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.util.RequestUtil;
@@ -37,7 +36,7 @@ import org.springframework.web.servlet.view.RedirectView;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class UserFormController extends BaseFormController {
-
+    
     public ModelAndView processFormSubmission(HttpServletRequest request,
                                               HttpServletResponse response,
                                               Object command,
@@ -57,13 +56,13 @@ public class UserFormController extends BaseFormController {
     public ModelAndView onSubmit(HttpServletRequest request,
                                  HttpServletResponse response, Object command,
                                  BindException errors)
-            throws Exception {
+    throws Exception {
         if (log.isDebugEnabled()) {
             log.debug("entering 'onSubmit' method...");
         }
 
         User user = (User) command;
-        
+
         if (request.getParameter("delete") != null) {
             mgr.removeUser(user.getUsername());
             saveMessage(request, getText("user.deleted", user.getUsername()));
@@ -103,8 +102,6 @@ public class UserFormController extends BaseFormController {
                 return showForm(request, response, errors);
             }
 
-            String message = null;
-
             if (!StringUtils.equals(request.getParameter("from"), "list")) {
                 HttpSession session = request.getSession();
                 session.setAttribute(Constants.USER_KEY, user);
@@ -127,13 +124,15 @@ public class UserFormController extends BaseFormController {
                 // return to main Menu
                 return new ModelAndView(new RedirectView("mainMenu.html"));
             } else {
-                // add success messages
-                String msg = null;
-
                 if (StringUtils.isEmpty(request.getParameter("id"))) {
                     saveMessage(request,
                                 getText("user.added", user.getFullName()));
-                    sendNewUserEmail(user, request);
+
+                    // Send an account information e-mail
+                    message.setSubject(getText("signup.email.subject"));
+                    sendUserMessage(user,
+                                    getText("newuser.email.message", user.getFullName()),
+                                    RequestUtil.getAppURL(request));
 
                     return showNewForm(request, response);
                 } else {
@@ -151,7 +150,9 @@ public class UserFormController extends BaseFormController {
      * @see org.springframework.web.servlet.mvc.AbstractFormController#showForm(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, org.springframework.validation.BindException)
      */
     protected ModelAndView showForm(HttpServletRequest request,
-            HttpServletResponse response, BindException errors) throws Exception {
+                                    HttpServletResponse response,
+                                    BindException errors)
+    throws Exception {
         if (request.getRequestURL().indexOf("editProfile") > -1) {
             // if URL is "editProfile" - make sure it's the current user
             // reject if username passed in or "list" parameter passed in
@@ -161,24 +162,27 @@ public class UserFormController extends BaseFormController {
                     (request.getParameter("from") != null)) {
                 response.sendError(HttpServletResponse.SC_FORBIDDEN);
                 log.warn("User '" + request.getRemoteUser() +
-                        "' is trying to edit user '" +
-                        request.getParameter("username") + "'");
+                         "' is trying to edit user '" +
+                         request.getParameter("username") + "'");
 
                 return null;
             }
         }
+
         // prevent ordinary users from calling a GET on editUser.html
         if ((request.getRequestURL().indexOf("editUser") > -1) &&
                 (!request.isUserInRole(Constants.ADMIN_ROLE) &&
                 (request.getRemoteUser() != null))) { // be nice to unit tests
             response.sendError(HttpServletResponse.SC_FORBIDDEN);
+
             return null;
         }
+
         return super.showForm(request, response, errors);
     }
-    
+
     protected Object formBackingObject(HttpServletRequest request)
-            throws Exception {
+    throws Exception {
         String username = request.getParameter("username");
 
         if (request.getSession().getAttribute("cookieLogin") != null) {
@@ -190,7 +194,7 @@ public class UserFormController extends BaseFormController {
         if (request.getRequestURL().indexOf("editProfile") > -1) {
             user = mgr.getUser(getUser(request).getUsername());
         } else if (!StringUtils.isEmpty(username) &&
-                !"".equals(request.getParameter("id"))) {
+                       !"".equals(request.getParameter("id"))) {
             user = mgr.getUser(username);
         } else {
             user = new User();
@@ -200,39 +204,6 @@ public class UserFormController extends BaseFormController {
         user.setConfirmPassword(user.getPassword());
 
         return user;
-    }
-
-    private void sendNewUserEmail(User user, HttpServletRequest request) throws Exception {
-        // Send user an e-mail
-        if (log.isDebugEnabled()) {
-            log.debug("Sending user '" + user.getUsername() +
-                    "' an account information e-mail");
-        }
-
-        String fullName = user.getFirstName() + " " + user.getLastName();
-        StringBuffer msg = new StringBuffer();
-        msg.append(getMessageSourceAccessor().getMessage("newuser.email.message",
-                fullName));
-        msg.append("\n\n" +
-                getMessageSourceAccessor().getMessage("user.username"));
-        msg.append(": " + user.getUsername() + "\n");
-        msg.append(getMessageSourceAccessor().getMessage("user.password") +
-                ": ");
-        msg.append(user.getConfirmPassword());
-
-        msg.append("\n\nLogin at: " + RequestUtil.getAppURL(request) +
-        		request.getContextPath());
-        String subject =
-                getMessageSourceAccessor().getMessage("signup.email.subject");
-
-        // TODO: Change to use Spring's Mail Support
-        try {
-            // From,to,cc,subject,content
-            MailSender.sendTextMessage(Constants.DEFAULT_FROM, user.getEmail(),
-                    null, subject, msg.toString());
-        } catch (MessagingException me) {
-            log.warn("Failed to send Account Information e-mail");
-        }
     }
 
     protected void onBind(HttpServletRequest request, Object command)

@@ -1,26 +1,23 @@
 package org.appfuse.webapp.action;
 
-import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import org.apache.struts.Globals;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.util.MessageResources;
-import org.apache.struts.util.RequestUtils;
 import org.appfuse.Constants;
 import org.appfuse.model.User;
-import org.appfuse.service.MailSender;
+import org.appfuse.service.MailEngine;
 import org.appfuse.service.UserManager;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.form.UserForm;
 import org.appfuse.webapp.util.RequestUtil;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.mail.SimpleMailMessage;
 
 /**
  * Action class to allow users to self-register.
@@ -30,8 +27,10 @@ import org.springframework.dao.DataIntegrityViolationException;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
+ * 
  * @struts.action name="userFormEx" path="/signup" scope="request"
  *  validate="false" input="failure"
+ * 
  * @struts.action-forward name="failure" path="/WEB-INF/pages/signup.jsp"
  * @struts.action-forward name="success" path="/mainMenu.html" redirect="true"
  */
@@ -43,8 +42,8 @@ public final class SignupAction extends BaseAction {
     throws Exception {
         
         // if it's an HTTP GET, simply forward to jsp
-    	// test for Cactus is workaround until I figure how to send a post
-    	// with StrutsTestCase: http://sourceforge.net/forum/message.php?msg_id=2726171
+        // test for Cactus is workaround until I figure how to send a post
+        // with StrutsTestCase: http://sourceforge.net/forum/message.php?msg_id=2726171
         if (request.getMethod().equals("GET") && request.getParameter("Cactus_TestClass") == null) {
             return mapping.findForward("failure");
         // user clicked cancel button
@@ -114,25 +113,22 @@ public final class SignupAction extends BaseAction {
                     + "' an account information e-mail");
         }
 
+        SimpleMailMessage message = (SimpleMailMessage) getBean("accountMessage");
+        message.setTo(user.getFullName() + "<" + user.getEmail() + ">");
+        
         StringBuffer msg = new StringBuffer();
         msg.append(resources.getMessage("signup.email.message"));
         msg.append("\n\n" + resources.getMessage("userFormEx.username"));
         msg.append(": " + userForm.getUsername() + "\n");
         msg.append(resources.getMessage("userFormEx.password") + ": ");
         msg.append(userForm.getPassword());
-        msg.append("\n\nLogin at: " + RequestUtils.serverURL(request) +
-                request.getContextPath());
-
-        String subject = resources.getMessage("signup.email.subject");
-
-        try {
-            // From,to,cc,subject,content
-            MailSender.sendTextMessage(Constants.DEFAULT_FROM,
-                    userForm.getEmail(), null,
-                    subject, msg.toString());
-        } catch (MessagingException me) {
-            log.warn("Failed to send Account Information e-mail");
-        }
+        msg.append("\n\nLogin at: " + RequestUtil.getAppURL(request));
+        message.setText(msg.toString());
+        
+        message.setSubject(resources.getMessage("signup.email.subject"));
+        
+        MailEngine engine = (MailEngine) getBean("mailEngine");
+        engine.send(message);
 
         return mapping.findForward("success");
     }

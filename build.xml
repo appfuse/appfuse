@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.40 2004/10/01 05:31:55 mraible Exp $                 -->
+<!-- $Id: build.xml,v 1.41 2004/10/01 17:55:16 mraible Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -26,7 +26,7 @@
 
         <taskdef resource="cactus.tasks"
             classpathref="cactus.classpath"/>
-
+        
         <taskdef name="dbunit" classname="org.dbunit.ant.DbUnitTask"
             classpathref="dao.test.classpath"/>
         
@@ -158,7 +158,7 @@
 
         <!-- Replace JNDI Name in Spring config files -->
         <replaceregexp flags="g"
-            file="../${app.name}/web/WEB-INF/applicationContext-database.xml"
+            file="../${app.name}/web/WEB-INF/applicationContext-resources.xml"
             match="jdbc/appfuse"
             replace="jdbc/${db.name}"/>
             
@@ -207,6 +207,8 @@
             </fileset>
             <filterset refid="variables.to.replace"/>
         </copy>            
+        <native2ascii src="web/WEB-INF/classes" dest="${build.dir}/web/classes" 
+            includes="ApplicationResources*.properties" encoding="UTF-8"/>
         <!-- Copy Spring configuration files -->
         <copy overwrite="true"
             tofile="${webapp.target}/WEB-INF/applicationContext-${dao.type}.xml">
@@ -234,7 +236,7 @@
                 <exclude name="common/footer.jsp"/>
                 <exclude name="pages/**"/>
                 <exclude name="**/classes/**"/>
-                <exclude name="**/*-database.xml"/>
+                <exclude name="**/*-resources.xml"/>
             </fileset>
         </copy>
         <!-- Remove the copy block below if you're not displaying 
@@ -566,20 +568,19 @@
         </copy>
         <war destfile="${webapp.dist}/${webapp.war}"
             webxml="${webapp.target}/WEB-INF/web.xml" compress="true">
-            <fileset dir="${webapp.target}" excludes="**/web.xml,**/*-database.xml"/>
+            <fileset dir="${webapp.target}" excludes="**/web.xml,**/*-resources.xml"/>
             <metainf dir="${webapp.dist}" includes="context.xml"/>
 
             <classes dir="${build.dir}/web/classes">
                 <exclude name="**/cactus.properties"/>
                 <exclude name="**/database.properties"/>
-                <exclude name="**/mail.properties"/>
             </classes>
 
             <lib file="${dist.dir}/${webapp.name}-dao.jar"/>
             <lib file="${dist.dir}/${webapp.name}-service.jar"/>
 
             <webinf dir="${struts.dir}" includes="*.xml"/>
-            <webinf dir="web/WEB-INF" includes="*-database.xml"/>
+            <webinf dir="web/WEB-INF" includes="*-resources.xml"/>
             
             <lib file="${clickstream.jar}"/>
             <lib dir="${struts.dir}" includes="*.jar"/>
@@ -757,12 +758,10 @@
         <cactifywar srcfile="${webapp.dist}/${webapp.war}"
             destfile="${webapp.dist}/${webapp.name}-cactus.war">
             <classes dir="${test.dir}/web/classes"/>
-            <classes dir="${build.dir}/web/classes"
-                includes="cactus.properties"/>
+            <classes dir="${build.dir}/web/classes" includes="cactus.properties"/>
+            <lib dir="${dumbster.dir}" includes="*.jar"/>
             <lib dir="${strutstestcase.dir}" includes="*.jar"/>
-            <lib dir="${cactus.dir}">
-                <include name="*.jar"/>
-            </lib>
+            <lib dir="${cactus.dir}" includes="*.jar"/>
             <servletredirector/>
             <!-- 
                 Provide a secured servlet redirector in addition to the
@@ -771,7 +770,6 @@
             <servletredirector name="ServletRedirectorSecure"
                 mapping="/ServletRedirectorSecure" roles="admin,tomcat"/>
         </cactifywar>
-
     </target>
     
     <!-- =================================================================== -->
@@ -804,7 +802,7 @@
     <!-- =================================================================== -->
     <target name="cactus" depends="db-load,cactifywar"
         description="Runs Cactus tests in Tomcat and Resin">
-        <mkdir dir="${test.dir}/data/tomcat"/>
+        <!--mkdir dir="${test.dir}/data/tomcat"/-->
         <!--mkdir dir="${test.dir}/data/resin3"/-->
 
         <!-- Remove 'cactus' from WAR file -->
@@ -817,10 +815,10 @@
             file="metadata/conf/tomcat-context.xml" overwrite="true">
             <filterset refid="db.variables"/>
         </copy>
-        <replace file="${webapp.dist}/${webapp.name}.xml">
+        <!--replace file="${webapp.dist}/${webapp.name}.xml">
             <replacetoken>docBase="appfuse"</replacetoken>
             <replacevalue>docBase="appfuse.war"</replacevalue>
-        </replace>
+        </replace-->
 
         <cactus warfile="${webapp.dist}/${webapp.name}.war"
             printsummary="yes" failureproperty="tests.failed">
@@ -879,6 +877,24 @@
         <property name="testcase" value="run-all-tests"/>
         <ant antfile="test/web/web-tests.xml" target="${testcase}"/>
     </target>
+    
+    <!-- =================================================================== -->
+    <!--            Run Canoo WebTests using Cargo                           -->
+    <!-- =================================================================== -->
+    <!--target name="test-jsp" if="tomcat.home" depends="war"
+        description="Runs Canoo WebTests using Cargo">
+            
+        <echo>running canoo tests at:
+              http://${tomcat.server}:${http.port}/${webapp.name}</echo>
+        <echo>Starting Tomcat...</echo>
+        <taskdef resource="cargo.tasks" classpath="${cargo.jar}"/>
+        <cargo-tomcat5x homeDir="${tomcat.home}"
+            output="${test.dir}/cargo.log"
+            workingDir="${test.dir}/tomcat5x" action="start">
+            <war warFile="${webapp.dist}/${webapp.war}"/>
+        </cargo-tomcat5x>
+        <antcall target="test-canoo"/>
+    </target-->
     
     <!-- =================================================================== -->
     <!--            Run Canoo WebTests using Cactus                          -->
@@ -1141,8 +1157,7 @@
         <echo message="Deploying web application to ${tomcat.home}/webapps"/>
         <copy todir="${tomcat.home}/webapps/${webapp.name}">
             <fileset dir="${webapp.target}"
-                excludes="**/web-test.xml,**/*database*,
-                          **/mail.properties,**/cactus.properties"/>
+                excludes="**/web-test.xml,**/*database*,**/cactus.properties"/>
         </copy>
 
     </target>

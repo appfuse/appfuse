@@ -25,7 +25,7 @@ import servletunit.struts.CactusStrutsTestCase;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.9 $ $Date: 2004/08/19 05:11:45 $
+ * @version $Revision: 1.10 $ $Date: 2004/10/01 17:55:21 $
  */
 public class BaseStrutsTestCase extends CactusStrutsTestCase {
     //~ Instance fields ========================================================
@@ -54,7 +54,7 @@ public class BaseStrutsTestCase extends CactusStrutsTestCase {
 
     //~ Methods ================================================================
 
-    public void setUp() throws Exception {
+    protected void setUp() throws Exception {
         super.setUp();
         // populate the userForm and place into session
         String username = login.getString("username");

@@ -40,9 +40,9 @@ public class BaseAction extends ActionSupport {
     protected String cancel = null;
     protected String delete = null;
     protected String save = null;
-    protected MailEngine mailEngine;
-    protected SimpleMailMessage message;
-    protected String templateName;    
+    protected MailEngine mailEngine = null;;
+    protected SimpleMailMessage message = null;
+    protected String templateName = null; 
 
     public void saveMessage(String msg) {
         List messages = (List) getRequest().getSession().getAttribute("messages");

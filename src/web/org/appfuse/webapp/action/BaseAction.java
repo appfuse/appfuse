@@ -454,5 +454,4 @@ public class BaseAction extends LookupDispatchAction {
 
         return lookupMap;
     }
-
 }

@@ -177,6 +177,7 @@ public class UserAction extends BaseAction {
             if (isNew) {
                 saveMessage(getText("user.added", args));
                 // Send an account information e-mail
+                message.setSubject(getText("signup.email.subject"));
                 sendUserMessage(user, getText("newuser.email.message", args), 
                                 RequestUtil.getAppURL(getRequest()));
                 return "addAnother";

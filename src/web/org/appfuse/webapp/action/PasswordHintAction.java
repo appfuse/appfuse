@@ -9,11 +9,11 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.util.MessageResources;
-import org.apache.struts.util.RequestUtils;
-import org.appfuse.Constants;
 import org.appfuse.model.User;
-import org.appfuse.service.MailSender;
+import org.appfuse.service.MailEngine;
 import org.appfuse.service.UserManager;
+import org.appfuse.webapp.util.RequestUtil;
+import org.springframework.mail.SimpleMailMessage;
 
 
 /**
@@ -58,18 +58,20 @@ public final class PasswordHintAction extends BaseAction {
         // look up the user's information
         try {
             UserManager userMgr = (UserManager) getBean("userManager");
-
             User user = userMgr.getUser(username);
 
             StringBuffer msg = new StringBuffer();
             msg.append("Your password hint is: " + user.getPasswordHint());
-            msg.append("\n\nLogin at: " + RequestUtils.serverURL(request) +
-                       request.getContextPath());
+            msg.append("\n\nLogin at: " + RequestUtil.getAppURL(request));
 
-            // From,to,cc,subject,content
-            MailSender.sendTextMessage(Constants.DEFAULT_FROM,
-                                       user.getEmail(), null,
-                                       "Password Hint", msg.toString());
+            SimpleMailMessage message = (SimpleMailMessage) getBean("passwordMessage");
+            message.setTo(user.getEmail());
+            message.setSubject("Password Hint");
+            message.setText(msg.toString());
+            
+            MailEngine mailEngine = (MailEngine) getBean("mailEngine");
+            mailEngine.send(message);
+            
             messages.add(ActionMessages.GLOBAL_MESSAGE,
                          new ActionMessage("login.passwordHint.sent", username,
                                            user.getEmail()));

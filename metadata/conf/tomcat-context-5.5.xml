@@ -17,7 +17,4 @@
               url="@DB-URL@"
               defaultAutoCommit="true" removeAbandoned="true" 
               removeAbandonedTimeout="60" logAbandoned="true"/>
-    <Resource name="mail/Session" auth="Container"
-              type="javax.mail.Session"
-              mail.smtp.host="localhost"/>
 </Context>

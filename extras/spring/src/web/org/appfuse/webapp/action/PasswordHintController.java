@@ -11,12 +11,13 @@ import org.apache.commons.logging.LogFactory;
 
 import org.appfuse.Constants;
 import org.appfuse.model.User;
-import org.appfuse.service.MailSender;
+import org.appfuse.service.MailEngine;
 import org.appfuse.service.UserManager;
 import org.appfuse.webapp.util.RequestUtil;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.support.MessageSourceAccessor;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 import org.springframework.web.servlet.view.RedirectView;
@@ -34,7 +35,9 @@ public class PasswordHintController implements Controller {
     private transient final Log log = LogFactory.getLog(PasswordHintController.class);
     private UserManager mgr = null;
     private MessageSource messageSource = null;
-
+    protected MailEngine mailEngine = null;
+    protected SimpleMailMessage message = null;
+    
     public void setUserManager(UserManager userManager) {
         this.mgr = userManager;
     }
@@ -43,6 +46,14 @@ public class PasswordHintController implements Controller {
         this.messageSource = messageSource;
     }
 
+    public void setMailEngine(MailEngine mailEngine) {
+        this.mailEngine = mailEngine;
+    }
+    
+    public void setMessage(SimpleMailMessage message) {
+        this.message = message;
+    }
+    
     public ModelAndView handleRequest(HttpServletRequest request,
                                       HttpServletResponse response)
     throws Exception {
@@ -78,9 +89,9 @@ public class PasswordHintController implements Controller {
             msg.append("Your password hint is: " + user.getPasswordHint());
             msg.append("\n\nLogin at: " + RequestUtil.getAppURL(request));
 
-            // From,to,cc,subject,content
-            MailSender.sendTextMessage(Constants.DEFAULT_FROM, user.getEmail(),
-                                       null, "Password Hint", msg.toString());
+            message.setText(msg.toString());
+            message.setTo(user.getEmail());
+            mailEngine.send(message);
 
             saveMessage(request,
                         text.getMessage("login.passwordHint.sent",

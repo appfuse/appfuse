@@ -6,7 +6,6 @@ import java.util.List;
 import org.appfuse.dao.LookupDAO;
 import org.appfuse.model.LabelValue;
 import org.appfuse.model.Role;
-import org.appfuse.service.BaseManager;
 import org.appfuse.service.LookupManager;
 
 
