@@ -30,8 +30,6 @@ public class BaseDAOTestCase extends TestCase {
     protected final Log log = LogFactory.getLog(getClass());
     protected final static ApplicationContext ctx;
     protected ResourceBundle rb;
-    private IDatabaseConnection conn = null;
-    private IDataSet dataSet = null;
     
     // This static block ensures that Spring's BeanFactory is only loaded
     // once for all tests
@@ -59,19 +57,14 @@ public class BaseDAOTestCase extends TestCase {
     
     protected void setUp() throws Exception {
         DataSource ds = (DataSource) ctx.getBean("dataSource");
-        conn = new DatabaseConnection(ds.getConnection());
-        dataSet = new XmlDataSet(new FileInputStream("metadata/sql/sample-data.xml"));
+        IDatabaseConnection conn = new DatabaseConnection(ds.getConnection());
+        IDataSet dataSet = 
+            new XmlDataSet(new FileInputStream("metadata/sql/sample-data.xml"));
         // clear table and insert only sample data
         DatabaseOperation.CLEAN_INSERT.execute(conn, dataSet);
+        conn.close();
     }
     
-    protected void tearDown() throws Exception {
-        // clear out database
-        DatabaseOperation.DELETE.execute(conn, dataSet);
-        conn.close();
-        conn = null;
-    }
-
     /**
      * Utility method to populate a javabean-style object with values
      * from a Properties file
