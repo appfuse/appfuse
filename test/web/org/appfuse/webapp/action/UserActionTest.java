@@ -26,8 +26,8 @@ public class UserActionTest extends BaseStrutsTestCase {
     }
     
     public void testEdit() throws Exception {
-        // set fake requestURL so getRequestURL() doesn't fail in UserAction
-        getMockRequest().setRequestURL("http://foo:8080/bar/editUser.html");
+        // set requestURI so getRequestURI() doesn't fail in UserAction
+        getMockRequest().setRequestURI("/editUser.html");
         setRequestPathInfo("/editUser");
         addRequestParameter("method", "Edit");
         addRequestParameter("username", "tomcat");

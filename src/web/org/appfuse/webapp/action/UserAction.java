@@ -126,7 +126,7 @@ public final class UserAction extends BaseAction {
         HttpSession session = request.getSession();
 
         // if URL is "editProfile" - make sure it's the current user
-        if (request.getRequestURL().indexOf("editProfile") > -1) {
+        if (request.getRequestURI().indexOf("editProfile") > -1) {
             // reject if username passed in or "list" parameter passed in
             // someone that is trying this probably knows the AppFuse code
             // but it's a legitimate bug, so I'll fix it. ;-)
@@ -241,7 +241,7 @@ public final class UserAction extends BaseAction {
 
             // add success messages
             messages.add(ActionMessages.GLOBAL_MESSAGE,
-                         new ActionMessage("user.updated"));
+                         new ActionMessage("user.saved"));
             saveMessages(request.getSession(), messages);
 
             // return a forward to main Menu
