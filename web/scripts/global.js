@@ -314,6 +314,24 @@ function confirmDelete(obj) {
     }
 }
 
+function highlightTableRows(tableId) {
+    var previousClass = null;
+    var table = document.getElementById(tableId); 
+    var tbody = table.getElementsByTagName("tbody")[0];
+    var rows = tbody.getElementsByTagName("tr");
+    // add event handlers so rows light up and are clickable
+    for (i=0; i < rows.length; i++) {
+        rows[i].onmouseover = function() { previousClass=this.className;this.className+=' over' };
+        rows[i].onmouseout = function() { this.className=previousClass };
+        rows[i].onclick = function() {
+            var cell = this.getElementsByTagName("td")[0];
+            var link = cell.getElementsByTagName("a")[0];
+            location.href = link.getAttribute("href");
+            this.style.cursor="wait";
+        }
+    }
+}
+
 function highlightFormElements() {
     // add input box highlighting 
     addFocusHandlers(document.getElementsByTagName("input"));
