@@ -1,7 +1,7 @@
     <global-forwards>
         <!-- Default forward to "mainMenu" action -->
         <!-- Demonstrates using index.jsp to forward -->
-        <forward name="mainMenu" path="/mainMenu.html"/>
+        <forward name="mainMenu" path="/mainMenu.html" redirect="true"/>
             
         <!-- Forwards specified in actions -->        
         <forward name="addUser" 
