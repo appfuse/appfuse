@@ -43,7 +43,11 @@ Features/Changes in 1.6
 ============================
 - Changed stylesheet colors for Spring MVC option to be green instead of red.
   Bug 47 - https://appfuse.dev.java.net/issues/show_bug.cgi?id=47.
-- Changed "org.appfuse.persistence" package name to "org.appfuse.dao".
+- Changed "org.appfuse.persistence" package name to "org.appfuse.dao".  Moved
+  "*ManagerImpl" classes to "service.impl" package.
+- Refactored logging so Base classes contain a "log" variable that children
+  don't need to override. More at:
+    http://raibledesigns.com/page/rd?anchor=log_debug_vs_logger_debug
 - Dependent packages upgraded:
     * Spring 1.1 RC1
     * Hibernate 2.1.6
@@ -52,6 +56,9 @@ Features/Changes in 1.6
     * Struts Test Case 2.1.2
     * JSTL 1.0.6
     * iBATIS 2.0.5
+- Dependent packages added:
+    * SiteMesh 2.1 - Seems to be a page-decoration package that will work
+      across different MVC frameworks.
 
 Features/Changes in 1.5
 ============================
