@@ -1,6 +1,7 @@
 <!-- For more Realm options - see tomcat-context.xml in this same directory -->
 <!-- AppFuse Application Context -->
-<Context path="/appfuse" docBase="appfuse" debug="99" reloadable="true">
+<Context path="/appfuse" docBase="appfuse" debug="99" reloadable="true"
+    antiJARLocking="true" antiResourceLocking="true">
     <Logger className="org.apache.catalina.logger.FileLogger" 
         prefix="appfuse_log." suffix=".txt" timestamp="true"/>
 
