@@ -244,7 +244,7 @@
                     </th>
                 </tr>
                 <c:set var="leftList" value="${availableRoles}" scope="request"/>
-                <c:set var="rightList" value="${userRoles}" scope="request"/>
+                <c:set var="rightList" value="${user.roleList}" scope="request"/>
                 <c:import url="/WEB-INF/pages/pickList.jsp">
                     <c:param name="listCount" value="1"/>
                     <c:param name="leftId" value="availableRoles"/>
@@ -261,10 +261,10 @@
             <appfuse:label key="user.roles"/>
         </th>
         <td>
-        <c:forEach var="role" items="${user.roles}" varStatus="status">
-            <c:out value="${role.roleName}"/><c:if test="${!status.last}">,</c:if>
+        <c:forEach var="role" items="${user.roleList}" varStatus="status">
+            <c:out value="${role.label}"/><c:if test="${!status.last}">,</c:if>
             <input type="hidden" name="userRoles" 
-                value="<c:out value="${role.roleName}"/>" />
+                value="<c:out value="${role.label}"/>" />
         </c:forEach>
         </td>
     </tr>

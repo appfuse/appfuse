@@ -322,6 +322,27 @@ public class User extends BaseObject {
     }
 
     /**
+     * Convert user roles to LabelValue objects for
+     * convenience.  Then UserAction doesn't have to manually
+     * convert them and validation doesn't puke.
+     */
+    public List getRoleList() {
+        List userRoles = new ArrayList();
+
+        if (this.roles != null) {
+            for (Iterator it = roles.iterator(); it.hasNext();) {
+                UserRole role = (UserRole) it.next();
+
+                // convert the user's roles to LabelValue Objects
+                userRoles.add(new LabelValue(role.getRoleName(),
+                                             role.getRoleName()));
+            }
+        }
+
+        return userRoles;
+    }
+
+    /**
      * Generated using Commonclipse (http://commonclipse.sf.net)
      */
     public boolean equals(Object object) {
