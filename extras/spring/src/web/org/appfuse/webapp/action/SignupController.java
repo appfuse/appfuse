@@ -14,7 +14,6 @@ import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.util.RequestUtil;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 
 /**
@@ -97,7 +96,7 @@ public class SignupController extends BaseFormController {
         sendUserMessage(user, getText("signup.email.message", locale), 
                         RequestUtil.getAppURL(request));
         
-        return new ModelAndView(new RedirectView(getSuccessView()));
+        return new ModelAndView(getSuccessView());
     }
 
     protected Object formBackingObject(HttpServletRequest request)

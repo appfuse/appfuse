@@ -46,7 +46,7 @@ public class UserFormController extends BaseFormController {
             if (!StringUtils.equals(request.getParameter("from"), "list")) {
                 return new ModelAndView(new RedirectView("mainMenu.html"));
             } else {
-                return new ModelAndView(new RedirectView("users.html"));
+                return new ModelAndView(getSuccessView());
             }
         }
 
@@ -68,7 +68,7 @@ public class UserFormController extends BaseFormController {
             mgr.removeUser(user.getUsername());
             saveMessage(request, getText("user.deleted", user.getFullName(), locale));
 
-            return new ModelAndView(new RedirectView("users.html"));
+            return new ModelAndView(getSuccessView());
         } else {
             if ("true".equals(request.getParameter("encryptPass"))) {
                 String algorithm =

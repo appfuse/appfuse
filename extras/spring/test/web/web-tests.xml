@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: web-tests.xml,v 1.10 2004/12/06 00:37:37 mraible Exp $               -->
+<!-- $Id: web-tests.xml,v 1.11 2004/12/07 16:55:51 mraible Exp $               -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:../../properties.xml">
@@ -171,12 +171,12 @@
                 <setinputfield stepid="set lastName" name="lastName" value="Name"/>
                 <setinputfield stepid="set city" name="address.city" value="Denver"/>
                 <setinputfield stepid="set state" name="address.province" value="CO"/>
-                <setselectfield stepid="Select country" name="address.country" value="US"/>
+                <setselectfield stepid="select country" name="address.country" value="US"/>
                 <setinputfield stepid="set postalCode" name="address.postalCode" value="80210"/>
                 <setinputfield stepid="set email" name="email" value="signup-user@raibledesigns.com"/>
                 <setinputfield stepid="set website" name="website" value="http://raibledesigns.com"/>
                 <setinputfield stepid="set passwordHint" name="passwordHint" value="test"/>
-                <clickbutton label="${button.register}"  stepid="Click button 'Signup'"/>
+                <clickbutton label="${button.register}" stepid="Click button 'Signup'"/>
 
                 <verifytitle stepid="view main menu" text="${webapp.prefix}${mainMenu.title}"/>
                 <verifytext stepid="verify success message" text="${user.registered}"/>

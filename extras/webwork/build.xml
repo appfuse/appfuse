@@ -394,8 +394,10 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
             <replacevalue></replacevalue>
         </replace>
         
-        <echo level="info">Removing Spring MVC installation option</echo>
+        <echo level="info">Removing other web framework options</echo>
+        <delete dir="../../extras/jsf"/>
         <delete dir="../../extras/spring"/>
+        <delete dir="../../extras/tapestry"/>
         
         <echo>----------------------------------------------</echo>
         <echo level="info">NOTE: It's recommended you delete extras/webwork as you shouldn't need it anymore.</echo>

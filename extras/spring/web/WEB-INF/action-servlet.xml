@@ -32,7 +32,7 @@
         <property name="commandClass"><value>org.appfuse.model.User</value></property>
         <property name="validator"><ref bean="beanValidator"/></property>
         <property name="formView"><value>userProfile</value></property>
-        <property name="successView"><value>editUser.html</value></property>
+        <property name="successView"><value>redirect:users.html</value></property>
         <property name="userManager"><ref bean="userManager"/></property>
         <property name="roleManager"><ref bean="roleManager"/></property>
         <property name="mailEngine"><ref bean="mailEngine"/></property>
@@ -57,7 +57,7 @@
         <property name="commandClass"><value>org.appfuse.model.User</value></property>
         <property name="validator"><ref bean="beanValidator"/></property>
         <property name="formView"><value>signup</value></property>
-        <property name="successView"><value>mainMenu.html</value></property>
+        <property name="successView"><value>redirect:mainMenu.html</value></property>
         <property name="userManager"><ref bean="userManager"/></property>
         <property name="roleManager"><ref bean="roleManager"/></property>
         <property name="mailEngine"><ref bean="mailEngine"/></property>

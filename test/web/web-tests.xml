@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: web-tests.xml,v 1.21 2004/12/05 18:24:32 mraible Exp $               -->
+<!-- $Id: web-tests.xml,v 1.22 2004/12/07 16:55:55 mraible Exp $               -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:../../properties.xml">
@@ -138,7 +138,7 @@
                 <setinputfield stepid="set email" name="email" value="newuser@raibledesigns.com"/>
                 <setinputfield stepid="set website" name="website" value="http://raibledesigns.com"/>
                 <setinputfield stepid="set passwordHint" name="passwordHint" value="test"/>
-                <setcheckbox stepid="Select roles" name="userRoles" checked="tomcat" />
+                <setcheckbox stepid="select roles" name="userRoles" checked="tomcat" />
                 <clickbutton label="${button.save}" stepid="Click button 'Save'"/>
                 
                 <verifytitle stepid="Redisplay add user page" text="${webapp.prefix}${userProfile.title}"/>
@@ -162,7 +162,7 @@
             &config;
             <steps>
                 <invoke stepid="click signup link" url="/signup.html"/>
-                <verifytitle stepid="we should signup title" text="${webapp.prefix}${signup.title}"/>
+                <verifytitle stepid="view signup title" text="${webapp.prefix}${signup.title}"/>
                 
                 <setinputfield stepid="set username" name="username" value="signup-user"/>
                 <setinputfield stepid="set password" name="password" value="test"/>
@@ -171,13 +171,13 @@
                 <setinputfield stepid="set lastName" name="lastName" value="Name"/>
                 <setinputfield stepid="set city" name="addressForm.city" value="Denver"/>
                 <setinputfield stepid="set state" name="addressForm.province" value="CO"/>
-                <setselectfield stepid="Select country" name="addressForm.country" value="US"/>
+                <setselectfield stepid="select country" name="addressForm.country" value="US"/>
                 <setinputfield stepid="set postalCode" name="addressForm.postalCode" value="80210"/>
                 <setinputfield stepid="set email" name="email" value="signup-user@raibledesigns.com"/>
                 <setinputfield stepid="set website" name="website" value="http://raibledesigns.com"/>
                 <setinputfield stepid="set passwordHint" name="passwordHint" value="test"/>
                 <clickbutton label="${button.register}" stepid="Click button 'Signup'"/>
-                
+
                 <verifytitle stepid="view main menu" text="${webapp.prefix}${mainMenu.title}"/>
                 <verifytext stepid="verify success message" text="${user.registered}"/>
             </steps>

@@ -8,7 +8,7 @@
 
 <div class="separator"></div>
 
-<ww:form name="'signup'" action="'signup'" method="'post'" validate="true">
+<ww:form name="'signupForm'" action="'signup'" method="'post'" validate="true">
 
     <ww:textfield label="getText('user.username')" name="'user.username'" 
         value="user.username" required="true"/>

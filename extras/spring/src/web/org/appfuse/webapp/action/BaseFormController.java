@@ -26,7 +26,6 @@ import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.SimpleFormController;
-import org.springframework.web.servlet.view.RedirectView;
 
 /**
  * Implementation of <strong>SimpleFormController</strong> that contains
@@ -140,7 +139,7 @@ public class BaseFormController extends SimpleFormController {
                                               BindException errors)
     throws Exception {
         if (request.getParameter("cancel") != null) {
-            return new ModelAndView(new RedirectView(getSuccessView()));
+            return new ModelAndView(getSuccessView());
         }
 
         return super.processFormSubmission(request, response, command, errors);

@@ -5,7 +5,7 @@
         <property name="commandClass"><value><XDtPackage:packageName/>.<XDtClass:className/></value></property>
         <property name="validator"><ref bean="beanValidator"/></property>
         <property name="formView"><value><XDtForm:classNameLower/>Form</value></property>
-        <property name="successView"><value><XDtForm:classNameLower/>s.html</value></property>
+        <property name="successView"><value>redirect:<XDtForm:classNameLower/>s.html</value></property>
     </bean>
     
     <!-- Put controller mappings here -->

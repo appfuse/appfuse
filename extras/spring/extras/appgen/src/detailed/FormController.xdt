@@ -10,7 +10,6 @@ import <XDtPackage:packageName/>.<XDtClass:className/>;
 import <XDtForm:parentPackageName/>.service.<XDtClass:className/>Manager;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 public class <XDtClass:className/>FormController extends BaseFormController {
     private <XDtClass:className/>Manager <XDtForm:classNameLower/>Manager = null;
@@ -43,7 +42,6 @@ public class <XDtClass:className/>FormController extends BaseFormController {
 
         <XDtClass:className/> <XDtForm:classNameLower/> = (<XDtClass:className/>) command;
         boolean isNew = (<XDtForm:classNameLower/>.getId() == null);
-        String success = getSuccessView();
         Locale locale = request.getLocale();
 
         if (request.getParameter("delete") != null) {
@@ -57,10 +55,10 @@ public class <XDtClass:className/>FormController extends BaseFormController {
             saveMessage(request, getText(key, locale));
 
             if (!isNew) {
-                success = "edit<XDtClass:className/>.html?id=" + <XDtForm:classNameLower/>.getId();
+            	return new ModelAndView("redirect:edit<XDtClass:className/>.html", "id", <XDtForm:classNameLower/>.getId());
             }
         }
 
-        return new ModelAndView(new RedirectView(success));
+        return new ModelAndView(getSuccessView());
     }
 }

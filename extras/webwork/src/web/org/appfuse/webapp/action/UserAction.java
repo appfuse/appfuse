@@ -50,7 +50,7 @@ public class UserAction extends BaseAction {
     public String delete() {
         userManager.removeUser(user.getUsername());
         List args = new ArrayList();
-        args.add(user.getUsername());
+        args.add(user.getFullName());
         saveMessage(getText("user.deleted", args));
 
         return SUCCESS;

@@ -20,23 +20,8 @@
 
 <div class="separator"></div>
 
-<form method="post" action="<c:url value="/signup.html"/>" id="userForm"
-    onsubmit="return validateUser(this)">
-    
+<form method="post" action="<c:url value="/signup.html"/>" name="signupForm" onsubmit="return validateUser(this)">
 <table class="detail">
-<c:set var="pageButtons">
-    <tr>
-    	<td></td>
-    	<td class="buttonBar">
-            <input type="submit" class="button" name="save" 
-                onclick="bCancel=false" value="<fmt:message key="button.register"/>" />
-                
-            <input type="button" class="button" name="cancel"
-                value="<fmt:message key="button.cancel"/>" 
-                onclick="location.href='<c:url value="/"/>'" />
-        </td>
-    </tr>
-</c:set>
     <tr>
         <th>
             <appfuse:label key="user.username"/>
@@ -195,16 +180,20 @@
             </spring:bind>
         </td>
     </tr>
+    <tr>
+    	<td></td>
+    	<td class="buttonBar">
+            <input type="submit" class="button" name="save" onclick="bCancel=false" value="<fmt:message key="button.register"/>" />
 
-<%-- Print out buttons - defined at top of form --%>
-<c:out value="${pageButtons}" escapeXml="false" />
-
+            <input type="submit" class="button" name="cancel" onclick="bCancel=true" value="<fmt:message key="button.cancel"/>" />
+        </td>
+    </tr>
 </table>
 </form>
 
 <script type="text/javascript">
 highlightFormElements();
-document.forms["userForm"].username.focus();
+document.forms["signupForm"].username.focus();
 </script>
 
 <html:javascript formName="user" staticJavascript="false"/>
