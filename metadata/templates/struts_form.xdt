@@ -22,7 +22,11 @@ public class <XDtClass:classOf><XDtActionForm:actionFormClass/></XDtClass:classO
     protected transient java.util.List <XDtMethod:propertyName/> = new java.util.ArrayList();
     </XDtType:ifIsOfType>
     <XDtType:ifIsOfType value="return-type" type="org.appfuse.model.BaseObject">
-    protected Object <XDtMethod:propertyName/>;
+    <XDtVelocity:generator>
+        #set( $method = $currentMethod.name)
+        #set( $pojoName = $method.substring(3))
+    </XDtVelocity:generator>
+    protected <XDtVelocity:getVariable name="pojoName"/>Form <XDtMethod:propertyName/> = new <XDtVelocity:getVariable name="pojoName"/>Form();
     </XDtType:ifIsOfType>
     <XDtType:ifIsNotOfType value="return-type" 
         type="java.util.List,java.util.Set,org.appfuse.model.BaseObject,java.lang.Boolean,boolean">
@@ -42,7 +46,7 @@ public class <XDtClass:classOf><XDtActionForm:actionFormClass/></XDtClass:classO
     public java.util.List <XDtMethod:getterMethod/>()<XDtMethod:exceptionList/>
     </XDtType:ifIsOfType>
     <XDtType:ifIsOfType value="return-type" type="org.appfuse.model.BaseObject">
-    public Object <XDtMethod:getterMethod/>()<XDtMethod:exceptionList/>
+    public <XDtVelocity:getVariable name="pojoName"/>Form <XDtMethod:getterMethod/>Form()<XDtMethod:exceptionList/>
     </XDtType:ifIsOfType>
     <XDtType:ifIsNotOfType value="return-type" 
         type="java.util.List,java.util.Set,org.appfuse.model.BaseObject,java.lang.Boolean,boolean">
@@ -62,6 +66,9 @@ public class <XDtClass:classOf><XDtActionForm:actionFormClass/></XDtClass:classO
     <XDtMethod:forAllMethodTags tagName="struts.validator-var">
     * @struts.validator-var <XDtMethod:methodTagValue tagName="struts.validator-var"/>
     </XDtMethod:forAllMethodTags>
+    <XDtType:ifIsOfType value="return-type" type="org.appfuse.model.BaseObject">
+    * @struts.validator
+    </XDtType:ifIsOfType>
     */
 
     <XDtType:ifIsOfType value="return-type" type="java.lang.Boolean,boolean" extent="concrete-type">
@@ -71,7 +78,7 @@ public class <XDtClass:classOf><XDtActionForm:actionFormClass/></XDtClass:classO
     public void <XDtMethod:setterMethod/>( java.util.List <XDtMethod:propertyName/> )
     </XDtType:ifIsOfType>
     <XDtType:ifIsOfType value="return-type" type="org.appfuse.model.BaseObject">
-    public void <XDtMethod:setterMethod/>( Object <XDtMethod:propertyName/> )
+    public void <XDtMethod:setterMethod/>Form( <XDtVelocity:getVariable name="pojoName"/>Form <XDtMethod:propertyName/> )
     </XDtType:ifIsOfType>
     <XDtType:ifIsNotOfType value="return-type" 
         type="java.util.List,java.util.Set,org.appfuse.model.BaseObject,java.lang.Boolean,boolean">
@@ -81,6 +88,23 @@ public class <XDtClass:classOf><XDtActionForm:actionFormClass/></XDtClass:classO
         this.<XDtMethod:propertyName/> = <XDtMethod:propertyName/>;
     }
 
+    <XDtType:ifIsOfType value="return-type" type="org.appfuse.model.BaseObject">
+    /** 
+     *  Getter/Setter pair so BeanUtil.copyProperties(dest, orig) will work 
+     *  Any properties modified in the web tier should use the get/set<XDtVelocity:getVariable name="pojoName"/>Form 
+     *  methods.
+     */
+    public org.appfuse.model.<XDtVelocity:getVariable name="pojoName"/> get<XDtVelocity:getVariable name="pojoName"/>() throws Exception
+    {
+        return (org.appfuse.model.<XDtVelocity:getVariable name="pojoName"/>) org.appfuse.util.ConvertUtil.convert(this.<XDtMethod:propertyName/>);
+    }
+
+    public void setAddress(org.appfuse.model.<XDtVelocity:getVariable name="pojoName"/> <XDtMethod:propertyName/>) throws Exception
+    {
+        setAddressForm((<XDtVelocity:getVariable name="pojoName"/>Form) org.appfuse.util.ConvertUtil.convert(<XDtMethod:propertyName/>));
+    }
+    </XDtType:ifIsOfType>
+    
 </XDtActionForm:forAllFormFields>
     
 <XDtActionForm:forAllFormFields>
