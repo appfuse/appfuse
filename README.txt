@@ -43,6 +43,7 @@ Features/Changes in 1.6
 ============================
 - Dependent packages upgraded:
     * Spring 1.0.2
+    * Hibernate 2.1.4
 
 
 Features/Changes in 1.5

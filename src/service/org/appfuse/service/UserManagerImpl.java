@@ -12,8 +12,6 @@ import org.appfuse.persistence.UserDAO;
 import org.appfuse.util.RandomGUID;
 import org.appfuse.util.StringUtil;
 
-import com.sun.rsasign.d;
-
 
 /**
  * Implementation of UserManager interface.  This basically transforms POJOs ->
@@ -24,7 +22,7 @@ import com.sun.rsasign.d;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.8 $ $Date: 2004/05/25 06:27:20 $
+ * @version $Revision: 1.9 $ $Date: 2004/06/03 15:17:55 $
  */
 public class UserManagerImpl extends BaseManager implements UserManager {
     private Log log = LogFactory.getLog(UserManagerImpl.class);
