@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: web-tests.xml,v 1.1 2004/03/01 06:19:34 mraible Exp $               -->
+<!-- $Id: web-tests.xml,v 1.2 2004/03/07 22:06:55 mraible Exp $               -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:../../properties.xml">
@@ -13,7 +13,7 @@
 
     <!-- runs all targets -->
     <target name="run-all-tests" 
-        depends="Login,PasswordHint,Signup,UserTests,FlushCache"
+        depends="Login,Logout,PasswordHint,Signup,UserTests,FlushCache"
         description="Call and executes all test cases (targets)"/>
     
     <!-- runs user-related tests -->
@@ -30,6 +30,20 @@
             &config;
             <steps>
                 &login;
+            </steps>
+        </canoo>
+    </target>
+
+    <!-- Logout of the application -->
+    <target name="Logout"
+        description="Runs logout test and verifies Login's Title">
+        <canoo name="login">
+            &config;
+            <steps>
+                &login;
+                <invoke stepid="get Logout Page" url="/logout.jsp"/>
+                <verifytitle stepid="we should see the login title"
+                    text="${webapp.prefix}${login.title}"/>
             </steps>
         </canoo>
     </target>

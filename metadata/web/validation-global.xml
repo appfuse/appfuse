@@ -7,6 +7,10 @@
         <constant-name>zip</constant-name>
         <constant-value>^\d{5}\d*$</constant-value>
       </constant>
+      <constant>
+        <constant-name>currency</constant-name>
+        <constant-value>^\d{1,3}(,?\d{1,3})*\.?(\d{1,2})?$</constant-value>
+      </constant> 
    </global>
    <formset>
         <form name="uploadForm">

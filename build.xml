@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.1 2004/03/01 05:56:26 mraible Exp $                 -->
+<!-- $Id: build.xml,v 1.2 2004/03/07 22:06:58 mraible Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -406,7 +406,7 @@
         </antcall>
     </target>
 
-    <target name="test-dao" depends="copy-resources,package-dao,db-load"
+    <target name="test-dao" depends="copy-resources,package-dao"
         description="Test dao module">
         <!-- Use test-specific XML files -->
         <copy todir="${webapp.target}/WEB-INF" overwrite="true">
@@ -461,7 +461,7 @@
         </antcall>
     </target>
 
-    <target name="test-service" depends="copy-resources,package-service,db-load"
+    <target name="test-service" depends="copy-resources,package-service"
         description="Test service module">
         <!-- Use test-specific XML files -->
         <copy todir="${webapp.target}/WEB-INF" overwrite="true">
@@ -584,7 +584,7 @@
             basedir="${webapp.target}"
             destfile="${webapp.dist}/${webapp.war}"
             webxml="${build.dir}/web/WEB-INF/web.xml"
-            excludes="**/web.xml,**/web-test.xml,**/*database*,
+            excludes="**/web-test.xml,**/*database*,
                       **/mail.properties,**/cactus.properties"
             compress="true">
             <metainf dir="${webapp.dist}" includes="context.xml"/>
@@ -681,7 +681,7 @@
         </javac>
     </target>
 
-    <target name="test-module">
+    <target name="test-module" depends="db-load">
         <!-- Inputs: module, test.classpath -->
         <echo level="info">Testing ${module}...</echo>
         <mkdir dir="${test.dir}/data"/>
@@ -798,7 +798,7 @@
         <unwar src="${webapp.dist}/${webapp.name}-cactus.war"
             dest="${tomcat.home}/webapps/${webapp.name}"/>
     </target>
-    
+
     <!-- =================================================================== -->
     <!--            Run Cactus tests in Tomcat                               -->
     <!-- =================================================================== -->
@@ -820,13 +820,13 @@
     <!-- =================================================================== -->
     <target name="cactus" depends="db-load,cactifywar"
         description="Runs Cactus tests in Tomcat and Resin">
-        <mkdir dir="${test.dir}/data/tomcat4"/>
-        <mkdir dir="${test.dir}/data/resin3"/>
-        
+        <mkdir dir="${test.dir}/data/tomcat"/>
+        <!--mkdir dir="${test.dir}/data/resin3"/-->
+
         <!-- Remove 'cactus' from WAR file -->
         <move file="${webapp.dist}/${webapp.name}-cactus.war"
             tofile="${webapp.dist}/${webapp.name}.war"/>
-           
+
         <!-- Copy tomcat-context.xml to temp directory and change docBase
         	 to be a .war file -->
         <copy tofile="${webapp.dist}/${webapp.name}.xml"
@@ -848,12 +848,14 @@
                 <pathelement path="${java.class.path}"/>
             </classpath>
             <containerset>
-                <tomcat4x dir="${tomcat.home}" if="tomcat.home"
-                    port="${http.port}" todir="${test.dir}/data/tomcat4"
-                    contextxml="${webapp.dist}/${webapp.name}.xml"/>
-                <resin3x dir="${env.RESIN_HOME}" port="${http.port}"
+                <!--tomcat4x dir="${tomcat.home}" if="tomcat.home"
+                    port="${http.port}" todir="${test.dir}/data/tomcat"
+                    contextxml="${webapp.dist}/${webapp.name}.xml"/-->
+                <tomcat5x dir="${tomcat.home}" if="tomcat.home"
+                    port="${http.port}" todir="${test.dir}/data/tomcat"/>
+                <!--resin3x dir="${env.RESIN_HOME}" port="${http.port}"
                     resinconf="metadata/conf/resin.conf"
-                    todir="${test.dir}/data/resin3"/>
+                    todir="${test.dir}/data/resin3"/-->
             </containerset>
             <formatter type="xml"/>
             <formatter type="brief" usefile="false"/>
@@ -1152,7 +1154,8 @@
         <echo message="Deploying web application to ${tomcat.home}/webapps"/>
         <copy todir="${tomcat.home}/webapps/${webapp.name}">
             <fileset dir="${webapp.target}"
-                excludes="**/web.xml,**/database.properties"/>
+                excludes="**/web-test.xml,**/*database*,
+                          **/mail.properties,**/cactus.properties"/>
         </copy>
 
     </target>

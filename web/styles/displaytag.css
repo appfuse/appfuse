@@ -64,10 +64,8 @@ table.list th {
 	background: #C0C0C0;
 	color: #000000;
 	padding: 3px;
-}
-
-table.list th {
 	border-bottom: 1px solid #000000;
+	text-align: left;
 }
 
 table.list th a, table.list th a:visited {
@@ -110,7 +108,7 @@ table.list th.sorted a, table.list th.sortable a {
 	display: block;
 }
 
-table.list th:hover {
+table.list th.sortable:hover {
 	background: #FFFF40;
 	color: #008000;
 }

@@ -9,11 +9,11 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.model.BaseObject;
+import org.appfuse.util.CurrencyConverter;
+import org.appfuse.util.DateConverter;
 import org.appfuse.util.DateUtil;
-import org.appfuse.util.ListConverter;
 
 import java.beans.PropertyDescriptor;
-import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -26,19 +26,20 @@ import java.util.Date;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.1 $ $Date: 2004/03/01 06:19:08 $
+ * @version $Revision: 1.2 $ $Date: 2004/03/07 22:06:53 $
  */
 public class BaseManager {
     //~ Static fields/initializers =============================================
 
     private static Log log = LogFactory.getLog(BaseManager.class);
-    private static Long defaultLong = new Long(0);
+    private static Long defaultLong = null;
 
     static {
-        ConvertUtils.register(new StringConverter(), String.class);
+        ConvertUtils.register(new CurrencyConverter(), Double.class);
+        ConvertUtils.register(new DateConverter(), Date.class);
         ConvertUtils.register(new LongConverter(defaultLong), Long.TYPE);
         ConvertUtils.register(new LongConverter(defaultLong), Long.class);
-        ConvertUtils.register(new ListConverter(), ArrayList.class);
+        ConvertUtils.register(new StringConverter(), String.class);
 
         if (log.isDebugEnabled()) {
             log.debug("Converters registered...");

@@ -61,6 +61,21 @@ steps:
      Example: log4j.rootCategory=INFO, stdout, mail
 
 
+Features/Changes in 1.5
+=======================
+- Fixed bug where logout didn't work when Remember Me was disabled (issue #3).
+- Fixed bug in struts_form.xdt where invalid code generated for ObjectFactory
+  inner class (issue #2).
+- Fixed deploy-web task so invalid test-only files are not copied to webapps
+  directory.
+- Added CurrencyConverter and DateConverter to BaseManager and ConvertUtils
+  initialization.  Also added currency mask to validation-global.xml. Also
+  changed default Long to be null instead of zero (0).
+- TODO: Spring for MVC Layer
+- TODO: Modify Cactus so "runcontainer" task can be used to start/stop Tomcat
+  and Resin can be easily used instead of Tomcat.
+
+
 Features/Changes in 1.4
 =======================
 - Added "cactus" task for running Cactus tests in Tomcat 4.x and Resin 3.0.5.
