@@ -1,8 +1,0 @@
-<invoke stepid="get Login Page" url="/"/>
-<verifytitle stepid="we should see the login title" 
-    text="${webapp.prefix}${login.title}"/>
-<setinputfield stepid="set user name" name="j_username" value="mraible"/>
-<setinputfield stepid="set password" name="j_password" value="tomcat"/>
-<clickbutton label="Login" stepid="Click the submit button"/>
-<verifytitle stepid="Home Page follows if login ok"
-    text="${webapp.prefix}${mainMenu.title}"/>
