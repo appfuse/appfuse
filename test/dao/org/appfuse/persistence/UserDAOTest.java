@@ -7,7 +7,6 @@ import org.appfuse.model.UserCookie;
 
 
 public class UserDAOTest extends BaseDAOTestCase {
-    private static User savedUser = null;
     private User user = null;
     private UserDAO dao = null;
 
