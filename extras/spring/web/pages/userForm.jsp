@@ -224,6 +224,18 @@
 <c:choose>
     <c:when test="${param.from == 'list' or param.method == 'Add'}">
     <tr>
+        <th>
+            <label for="enabled"><fmt:message key="user.enabled"/>?</label>
+        </th>
+        <td>
+            <spring:bind path="user.enabled">
+                <input type="hidden" name="_<c:out value="${status.expression}"/>"  value="visible" /> 
+                <input type="checkbox" name="<c:out value="${status.expression}"/>" value="true" 
+                    <c:if test="${status.value}">checked="checked"</c:if> /> 
+            </spring:bind>
+        </td>
+    </tr>
+    <tr>
         <td></td>
         <td>
             <fieldset class="pickList">
@@ -266,6 +278,9 @@
             <input type="hidden" name="userRoles" 
                 value="<c:out value="${role.label}"/>" />
         </c:forEach>
+            <spring:bind path="user.enabled">
+            <input type="hidden" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" /> 
+            </spring:bind>
         </td>
     </tr>
     </c:when>

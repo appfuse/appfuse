@@ -140,7 +140,11 @@
 <c:choose>
     <c:when test="${param.from == 'list' or param['editUser:add'] == 'Add'}">
 
-        <h:outputLabel for="passwordHint" value="#{text['userProfile.assignRoles']}"/>
+        <f:verbatim><label for="userForm:enabled"><fmt:message key="user.enabled"/>?</label></f:verbatim>        
+        <h:selectBooleanCheckbox value="#{userForm.user.enabled}" id="enabled" style="margin-left: 7px"/>
+        <x:message for="enabled" styleClass="fieldError"/>
+  
+        <h:outputLabel for="userRoles" value="#{text['userProfile.assignRoles']}"/>
     
         <h:selectManyCheckbox value="#{userForm.userRoles}" id="userRoles">
             <f:selectItems value="#{userForm.availableRoles}"/>
@@ -157,8 +161,7 @@
                 <input type="hidden" name="userForm:userRoles" value="<c:out value="${role}"/>" />
             </c:forEach>
         </f:verbatim>
-        <%-- Put in empty <td></td> --%>
-        <h:inputHidden value=""/>
+        <h:inputHidden value="#{userForm.user.enabled}" id="enabled"/>
     </c:otherwise>
 </c:choose>
     <%-- Put in empty <td></td> --%>

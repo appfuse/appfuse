@@ -165,6 +165,14 @@
     </tr>
     <div jwcid="@contrib:FormConditional" condition="ognl:from == 'list'">
     <tr>
+        <th>
+            <label jwcid="@Label" for="enabled" key="user.enabled"/>
+        </th>
+        <td>
+            <input type="checkbox" jwcid="@Checkbox" selected="ognl:user.enabled" id="enabled"/>
+        </td>
+    </tr>
+    <tr>
         <td></td>
         <td>
             <fieldset class="pickList">
@@ -189,6 +197,7 @@
         </th>
         <td>
             <input jwcid="hiddenUserRoles" type="hidden"/>
+            <input jwcid="@Hidden" type="hidden" value="ognl:user.enabled"/>
         </td>
     </tr>
     </div>

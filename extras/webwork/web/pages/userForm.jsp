@@ -75,7 +75,7 @@
         </th>
         <td>
        	    <ww:set name="country" value="user.address.country" scope="page"/>
-            <appfuse:country name="user.address.country" prompt="" default="${country}"/>
+            <appfuse-webwork:country name="user.address.country" prompt="" default="${country}"/>
         </td>
     </tr>
     <ww:textfield label="getText('user.address.postalCode')" name="'user.address.postalCode'"
@@ -88,9 +88,17 @@
         value="user.website" required="true" size="50"/>
     <ww:textfield label="getText('user.passwordHint')" name="'user.passwordHint'"
         value="user.passwordHint" required="true" size="50"/>
-        
+
 <c:choose>
     <c:when test="${param.from == 'list' or param.method == 'Add'}">
+    <tr>
+        <th>
+            <label for="user.enabled"><fmt:message key="user.enabled"/>?</label>
+        </th>
+        <td>
+            <ww:checkbox name="'user.enabled'" id="user.enabled" 
+                value="user.enabled" fieldValue="'true'" theme="'simple'"/>
+        </td>
     <tr>
         <td></td>
         <td>
@@ -136,6 +144,7 @@
               	<input type="hidden" name="user.userRoles"
               		value="<ww:property value="value"/>" />
             </ww:iterator>
+            <ww:hidden name="'user.enabled'" value="user.enabled"/>
         </td>
     </tr>
     </c:otherwise>
@@ -179,5 +188,3 @@ function onFormSubmit(theForm) {
 }
 // -->
 </script>
-
-
