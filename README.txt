@@ -49,6 +49,7 @@ Features/Changes in 1.6
     * Hibernate 2.1.4
     * Display Tag 1.0 RC1
     * Struts 1.2.1
+    * Struts Test Case 2.1.2
 
 Features/Changes in 1.5
 ============================
