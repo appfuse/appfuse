@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: web-tests.xml,v 1.16 2004/10/05 07:20:16 mraible Exp $               -->
+<!-- $Id: web-tests.xml,v 1.17 2004/10/19 15:06:20 mraible Exp $               -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:../../properties.xml">
@@ -108,7 +108,7 @@
                     value="2255 Lane Avenue"/>
                 <setinputfield stepid="set zipcode" name="addressForm.postalCode" 
                     value="59826"/>
-                <clickbutton label="Save" stepid="Click Save"/>
+                <clickbutton label="${button.save}" stepid="Click Save"/>
                 <verifytitle stepid="display Main Menu if save OK"
                      text="${webapp.prefix}${mainMenu.title}" />
             </steps>
@@ -157,14 +157,14 @@
                 </clickbutton>
                 <verifytitle stepid="Redisplay add user page" 
                     text="${webapp.prefix}${userProfile.title}"/>
-                <verifytext stepid="verify success message" 
-                    text="User information for &lt;strong&gt;newuser&lt;/strong&gt; has been added successfully."/>
+                <verifytext stepid="verify success message" regex="true"
+                    text='&lt;div class="message"&gt;.*&lt;strong&gt;newuser&lt;/strong&gt;.*&lt;/div&gt;'/>
                 <!-- Delete user -->
                 <invoke stepid="Click edit user link"
                     url="/editUser.html?username=newuser&amp;from=list"/>
                 <clickbutton label="${button.delete}" stepid="Click button 'Delete'"/>
-                <verifytext stepid="verify success message" 
-                    text="User Profile for &lt;strong&gt;newuser&lt;/strong&gt; has been deleted successfully."/>
+                <verifytext stepid="verify success message" regex="true"
+                    text='&lt;div class="message"&gt;.*&lt;strong&gt;newuser&lt;/strong&gt;.*&lt;/div&gt;'/>
                 <verifytitle stepid="display user list" 
                     text="${webapp.prefix}${userList.title}"/>
             </steps>
@@ -209,8 +209,7 @@
                     <index value="0" />
                 </clickbutton>
                 <verifytitle text="${webapp.prefix}${mainMenu.title}"/>
-                <verifytext stepid="verify success message" 
-                    text="You have successfully registered for access to this application."/>
+                <verifytext stepid="verify success message" text="${user.registered}"/>
             </steps>
         </canoo>
     </target>
