@@ -23,7 +23,7 @@
         <result property="website" column="website"/>
         <result property="passwordHint" column="password_hint"/>
         <result property="version" column="version"/>
-        <!--result property="roles" column="username" select="getUserRoles"/-->
+        <result property="roles" column="username" select="getUserRoles"/>
     </resultMap>
     
 	<insert id="addUser" parameterClass="user">
