@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.39 2004/10/01 03:07:00 mraible Exp $                 -->
+<!-- $Id: build.xml,v 1.40 2004/10/01 05:31:55 mraible Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -29,13 +29,18 @@
 
         <taskdef name="dbunit" classname="org.dbunit.ant.DbUnitTask"
             classpathref="dao.test.classpath"/>
-            
+        
+        <!-- Test for Tomcat 5.0.x -->
         <available classname="org.apache.catalina.ant.SessionsTask"
             property="tomcat5">
             <classpath>
                 <pathelement path="${tomcat.home}/server/lib/catalina-ant.jar"/>
             </classpath>
         </available>
+        
+        <!-- Test for Tomcat 5.5.x -->
+        <available file="${tomcat.home}/common/lib/jasper-compiler-jdt.jar" 
+            property="tomcat5.5"/>
         
         <!-- Conditionally set property for converting to JSP 2.0 -->
         <condition property="convert.to.jsp2">
@@ -526,7 +531,10 @@
         <!-- If Tomcat 5, uncomment the <dispatcher> elements in 
              filter-mappings -->
         <if>
-            <isset property="tomcat5"/>
+            <or>
+                <isset property="tomcat5"/>
+                <isset property="tomcat5.5"/>
+            </or>
             <then>
                 <replaceregexp flags="g"
                     file="${webapp.target}/WEB-INF/web.xml"
@@ -1260,7 +1268,10 @@
     <target name="setup-tomcat" depends="init" if="tomcat.home"
         description="copies jdbc driver and context.xml to tomcat">
         <if>
-            <isset property="tomcat5"/>
+            <and>
+                <isset property="tomcat5"/>
+                <not><isset property="tomcat5.5"/></not>
+            </and>
             <then>
                 <echo message="Detected Tomcat 5..."/>
                 <echo level="info">Copying ${webapp.name}.xml...</echo>
@@ -1269,6 +1280,17 @@
                     <filterset refid="db.variables"/>
                 </copy>
             </then>
+            <elseif>
+                <isset property="tomcat5.5"/>
+                <then>
+                    <echo message="Detected Tomcat 5.5..."/>
+                    <echo level="info">Copying ${webapp.name}.xml...</echo>
+                    <copy tofile="${tomcat.home}/conf/Catalina/localhost/${webapp.name}.xml"
+                        file="metadata/conf/tomcat-context-5.5.xml" overwrite="true">
+                        <filterset refid="db.variables"/>
+                    </copy>
+                </then>
+            </elseif>
             <else>
                 <echo message="Detected Tomcat 4..."/>
                 <echo level="info">Copying ${webapp.name}.xml...</echo>

@@ -1,0 +1,23 @@
+<!-- For more Realm options - see tomcat-context.xml in this same directory -->
+<!-- AppFuse Application Context -->
+<Context path="/appfuse" docBase="appfuse" debug="99" reloadable="true">
+    <Logger className="org.apache.catalina.logger.FileLogger" 
+        prefix="appfuse_log." suffix=".txt" timestamp="true"/>
+
+    <Realm className="org.apache.catalina.realm.JDBCRealm" debug="99"
+          driverName="@DB-DRIVERNAME@"
+       connectionURL="@DB-URL@"
+      connectionName="@DB-USERNAME@" connectionPassword="@DB-PASSWORD@"
+           userTable="app_user" userNameCol="username" userCredCol="password"
+       userRoleTable="user_role" roleNameCol="role_name" />
+    <Resource name="jdbc/appfuse" auth="Container" type="javax.sql.DataSource"
+              maxActive="100" maxIdle="30" maxWait="10000"
+              driverClassName="@DB-DRIVERNAME@"
+              username="@DB-USERNAME@" password="@DB-PASSWORD@" 
+              url="@DB-URL@"
+              defaultAutoCommit="true" removeAbandoned="true" 
+              removeAbandonedTimeout="60" logAbandoned="true"/>
+    <Resource name="mail/Session" auth="Container"
+              type="javax.mail.Session"
+              mail.smtp.host="localhost"/>
+</Context>

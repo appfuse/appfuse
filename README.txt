@@ -101,10 +101,14 @@ Features/Changes in 1.6
     * Struts Menu 2.3
     * Struts Test Case 2.1.2
     * WebTest build474
-    * XDoclet 1.2.2
+    * XDoclet 1.2.2 RC1
+      ** WARNING: Running "ant setup test-all" will result in the following
+                  with Ant 1.6+: destDir attribute must be present.
+                  Running "ant setup" and "ant test-all" is an easy workaround.
+                  http://opensource.atlassian.com/projects/xdoclet/browse/XDT-879                  
 - Dependent packages added:
-    * SiteMesh 2.2 - Seems to be a page-decoration package that will work
-      across different MVC frameworks.
+    * SiteMesh 2.2 - A page-decoration package that will work across different 
+      web frameworks.
     * URL Rewrite Filter 1.2 - Added and included in WAR, but disabled by
       default.  See web/WEB-INF/urlrewrite.xml for more information.
 - Dependent packages removed:

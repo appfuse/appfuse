@@ -5,4 +5,5 @@ ant install-ibatis install-springmvc
 cd extras/ibatis
 ant uninstall-hibernate
 cd ../..
-ant setup test-all test-reports
+ant setup 
+ant test-all test-reports
