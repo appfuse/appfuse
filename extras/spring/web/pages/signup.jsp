@@ -50,7 +50,7 @@
         <td>
             <spring:bind path="user.password">
             <input type="password" id="password" name="password" size="40" 
-                value="<c:out value="${status.value}"/>" onchange="passwordChanged(this)"/>
+                value="<c:out value="${status.value}"/>"/>
             <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
             </spring:bind>
         </td>
