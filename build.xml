@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.53 2004/10/12 14:48:18 mraible Exp $                 -->
+<!-- $Id: build.xml,v 1.54 2004/10/13 05:19:03 mraible Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -208,8 +208,8 @@
     <target name="copy-resources" depends="prepare"
         description="Copy .properties and .xml files from source directory">
         <copy todir="${build.dir}/web/classes" includeEmptyDirs="no">
-            <fileset dir="web/WEB-INF/classes">
-                <exclude name="ApplicationResources*.properties"/>   
+            <fileset dir="web/WEB-INF/classes">   
+                <exclude name="ApplicationResources_zh_CN.properties"/>
                 <include name="*.properties"/>
                 <include name="*.xml"/>
                 <include name="*.vm"/>   
@@ -217,7 +217,7 @@
             <filterset refid="variables.to.replace"/>
         </copy>            
         <native2ascii src="web/WEB-INF/classes" dest="${build.dir}/web/classes" 
-            includes="ApplicationResources*.properties" encoding="UTF-8"/>
+            includes="ApplicationResources_zh_CN.properties" encoding="UTF-8"/>
         <!-- Copy Spring configuration files -->
         <copy overwrite="true"
             tofile="${webapp.target}/WEB-INF/applicationContext-${dao.type}.xml">
@@ -596,6 +596,7 @@
                 <include name="jstl.jar"/>
                 <include name="standard.jar"/>
             </lib>
+            <lib dir="${javamail.dir}" includes="*.jar"/>   
             <lib file="${log4j.jar}"/>
             <lib file="${strutsmenu.jar}"/>
             <lib file="${displaytag.jar}"/>
@@ -1211,9 +1212,8 @@
         <echo level="info">Copying ${database.type} JDBC Driver...</echo>
         <copy todir="${tomcat.home}/common/lib" file="${database.jar}"
             overwrite="true"/>
-        <echo level="info">Copying JavaMail and jta.jar...</echo>
+        <echo level="info">Copying jta.jar...</echo>
         <copy todir="${tomcat.home}/common/lib">
-            <fileset dir="${javamail.dir}" includes="*.jar"/>
             <fileset dir="${hibernate.dir}/lib" includes="jta.jar"/>
         </copy>
     </target>
