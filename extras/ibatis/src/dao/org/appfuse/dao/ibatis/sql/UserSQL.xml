@@ -5,123 +5,142 @@
 
 <sqlMap namespace="UserSQL">
 
-	<insert id="addUser" parameterClass="org.appfuse.model.User">
+    <typeAlias alias="user" type="org.appfuse.model.User"/>
+    <typeAlias alias="userCookie" type="org.appfuse.model.UserCookie"/>
+    <typeAlias alias="userRole" type="org.appfuse.model.UserRole"/>
+    
+    <resultMap id="userResult" class="user">
+        <result property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="firstName" column="first_name"/>
+        <result property="lastName" column="last_name"/>
+        <result property="address.address" column="address"/>
+        <result property="address.city" column="city"/>
+        <result property="address.province" column="province"/>
+        <result property="address.country" column="country"/>
+        <result property="address.postalCode" column="postal_code"/>
+        <result property="email" column="email"/>
+    </resultMap>
+
+	<insert id="addUser" parameterClass="user">
     <![CDATA[
-      INSERT INTO 
-      app_user (id, username, password, firstName, lastName, address, city,
-                country, email, phoneNumber, postalCode, province, 
-                website, passwordHint)
-      VALUES (#id#, #username#, #password#, #firstName#, #lastName#, #address#, 
-              #city#, #country#, #email#, #phoneNumber#, #postalCode#, 
-              #province#, #website#, #passwordHint#);
+        INSERT INTO 
+        app_user (id, username, password, first_name, last_name, address, 
+                  city, province, country, postal_code, email, phone_number, 
+                  website, passwordHint)
+        VALUES (#id#, #username#, #password#, #firstName#, #lastName#, 
+                #address.address#, #address.city#, #address.province#,
+                #address.country#, #address.postalCode#, #email#, #phoneNumber#,
+                #website#, #passwordHint#);
     ]]>
-  </insert>
+    </insert>
     
 	<select id="getUserId" resultClass="java.lang.Long">
     <![CDATA[
-      SELECT max(id) from app_user;
+        SELECT max(id) from app_user;
     ]]>
-  </select>
+    </select>
     
 	<insert id="addUserRole">
     <![CDATA[
-      INSERT INTO 
-      user_role (id, user_id, username, role_name)
-      VALUES (#id#, #userId#, #username#, #roleName#);
+        INSERT INTO 
+            user_role (id, user_id, username, role_name)
+        VALUES (#id#, #userId#, #username#, #roleName#);
     ]]>
-  </insert>
+    </insert>
     
 	<select id="getRoleId" resultClass="java.lang.Long">
     <![CDATA[
-      SELECT max(id) from user_role;
+        SELECT max(id) from user_role;
     ]]>
-  </select>
+    </select>
     
-	<update id="updateUser" parameterClass="org.appfuse.model.User">
+	<update id="updateUser" parameterClass="user">
     <![CDATA[
-      UPDATE app_user SET
-          username = #username#,
-          password = #password#,
-          firstName = #firstName#,
-          lastName = #lastName#,
-          address = #address#,
-          city = #city#,
-          country = #country#,
-          email = #email#,
-          phoneNumber = #phoneNumber#,
-          postalCode = #postalCode#,
-          province = #province#,
-          website = #website#,
-          passwordHint = #passwordHint#
-      WHERE id = #id#;
+        UPDATE app_user SET
+            username = #username#,
+            password = #password#,
+            first_name = #firstName#,
+            last_name = #lastName#,
+            address = #address.address#,
+            city = #address.city#,
+            province = #address.province#,
+            country = #address.country#,
+            postal_code = #address.postalCode#,
+            email = #email#,
+            phone_number = #phoneNumber#,
+            website = #website#,
+            passwordHint = #passwordHint#
+        WHERE id = #id#;
     ]]>
-  </update>
+    </update>
     
-	<select id="getUser" resultClass="org.appfuse.model.User">
+	<select id="getUser" resultMap="userResult" resultClass="user">
     <![CDATA[
-      SELECT * FROM app_user WHERE username=#username#;
+        SELECT * FROM app_user WHERE username=#username#;
     ]]>
-  </select>
+    </select>
     
-	<select id="getUsers" resultClass="org.appfuse.model.User">
+	<select id="getUsers" resultMap="userResult" resultClass="user">
     <![CDATA[
-      SELECT * FROM app_user ORDER BY UPPER(username);
+        SELECT * FROM app_user ORDER BY UPPER(username);
     ]]>
-  </select>
+    </select>
     
-	<select id="getUserRoles" resultClass="org.appfuse.model.UserRole">
+	<select id="getUserRoles" resultClass="userRole">
     <![CDATA[
-      SELECT id, role_name as roleName, user_id as userId, username
-      FROM user_role WHERE username=#username#;
+        SELECTid, role_name as roleName, user_id as userId, username
+        FROM user_role WHERE username=#username#;
     ]]>
-  </select>
+    </select>
     
 	<delete id="deleteUser">
     <![CDATA[
-      DELETE FROM app_user where username = #username#;
-    ]]>
-  </delete>
-    
-	<delete id="deleteUserRoles">
-    <![CDATA[
-      DELETE FROM user_role WHERE username = #username#;
-    ]]>
-  </delete>
-    
-	<select id="getUserCookies" resultClass="org.appfuse.model.UserCookie">
-    <![CDATA[
-      SELECT id, username, cookie_id as cookieId, date_created as dateCreated
-      FROM user_cookie where cookie_id = #cookieId#;
-    ]]>
-  </select>
-    
-	<delete id="deleteUserCookies">
-    <![CDATA[
-      DELETE FROM user_cookie where username = #username#;
+        DELETE FROM app_user where username = #username#;
     ]]>
     </delete>
     
-	<insert id="addUserCookie" parameterClass="org.appfuse.model.UserCookie">
+	<delete id="deleteUserRoles">
     <![CDATA[
-      INSERT INTO 
-      user_cookie (id, username, cookie_id, date_created)
-      VALUES (#id#, #username#, #cookieId#, #dateCreated#);
+        DELETE FROM user_role WHERE username = #username#;
+    ]]>
+    </delete>
+    
+	<select id="getUserCookies" resultClass="userCookie">
+    <![CDATA[
+        SELECT id, username, cookie_id as cookieId, date_created as dateCreated
+        FROM user_cookie where cookie_id = #cookieId#;
+    ]]>
+    </select>
+    
+	<delete id="deleteUserCookies">
+    <![CDATA[
+        DELETE FROM user_cookie where username = #username#;
+    ]]>
+    </delete>
+    
+	<insert id="addUserCookie" parameterClass="userCookie">
+    <![CDATA[
+        INSERT INTO 
+            user_cookie (id, username, cookie_id, date_created)
+        VALUES (#id#, #username#, #cookieId#, #dateCreated#);
     ]]>
   </insert>
     
 	<select id="getUserCookieId" resultClass="java.lang.Long">
     <![CDATA[
-      SELECT max(id) FROM user_cookie;
+        SELECT max(id) FROM user_cookie;
     ]]>
   </select>
     
-	<update id="updateUserCookie" parameterClass="org.appfuse.model.UserCookie">
+	<update id="updateUserCookie" parameterClass="userCookie">
     <![CDATA[
-      UPDATE user_cookie SET
-          username = #username#,
-          cookie_id = #cookieId#,
-          date_created = #dateCreated#
-      WHERE id = #id#;
+        UPDATE user_cookie SET
+            username = #username#,
+            cookie_id = #cookieId#,
+            date_created = #dateCreated#
+        WHERE id = #id#;
     ]]>
   </update>
 </sqlMap>
