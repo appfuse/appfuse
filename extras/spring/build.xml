@@ -3,9 +3,6 @@
 
     <property name="lib.dir" location="../../lib"/>
     <property file="${lib.dir}/lib.properties"/>
-    
-    <taskdef resource="net/sf/antcontrib/antcontrib.properties"
-            classpath="${ant-contrib.jar}"/>
 
     <!-- =================================================================== -->
     <!-- List options for this build file                                    -->
@@ -24,7 +21,7 @@
     <!-- Replaces Struts with Spring MVC                                     -->
     <!-- =================================================================== -->
     <target name="install"
-        description="replaces Struts with Spring MVC in the AppFuse base project">
+        description="Replaces Struts with Spring MVC in the AppFuse base project">
         <echo level="info">Copying Spring JARs to ../../lib</echo>
         <copy todir="${lib.dir}">
             <fileset dir="lib" includes="**"/>
@@ -381,8 +378,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
     <!-- =================================================================== -->
     <!-- Creates new project, installs Spring+iBATIS and runs tests          -->
     <!-- =================================================================== -->
-    <target name="test-ibatis"
-        description="Creates appfuse-spring-ibatis and runs tests">
+    <target name="test-ibatis" description="Creates appfuse-sibatis and runs tests">
         <property name="app.name" value="appfuse-sibatis"/>
         <property name="db.name" value="appfuse"/>
         <delete dir="../../../${app.name}"/>
@@ -402,7 +398,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
     <!-- Creates new project, installs Spring MVC and tests appgen           -->
     <!-- =================================================================== -->
     <target name="test-appgen" description="Creates appfuse-spring and tests appgen">
-        <property name="app.name" value="appfuse-spring"/>
+        <property name="app.name" value="appfuse-springen"/>
         <property name="db.name" value="appfuse"/>
         <delete dir="../../../${app.name}"/>
         <ant dir="../.." target="new"/>
@@ -417,8 +413,8 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
     </target>
     
     <target name="test-all" depends="test" 
-        description="Tests Spring MVC install with Hibernate and iBATIS">
-        <antcall target="test-ibatis" inheritAll="false"/>
+        description="Tests Spring MVC with Hibernate, iBATIS and AppGen">
+        <antcall target="test-ibatis" inheritAll="test"/>
         <antcall target="test-appgen" inheritAll="false"/>
     </target>
 </project>

@@ -3,9 +3,6 @@
 
     <property name="lib.dir" location="../../lib"/>
     <property file="${lib.dir}/lib.properties"/>
-    
-    <taskdef resource="net/sf/antcontrib/antcontrib.properties"
-            classpath="${ant-contrib.jar}"/>
 
     <!-- =================================================================== -->
     <!-- List options for this build file                                    -->
@@ -423,7 +420,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
     <!-- =================================================================== -->
     <target name="test-ibatis"
         description="Creates appfuse-webwork-ibatis and runs tests">
-        <property name="app.name" value="appfuse-webwork-ibatis"/>
+        <property name="app.name" value="appfuse-wibatis"/>
         <property name="db.name" value="appfuse"/>
         <delete dir="../../../${app.name}"/>
         <ant dir="../.." target="new"/>
@@ -442,7 +439,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
     <!-- Creates new project, installs WebWork and tests appgen              -->
     <!-- =================================================================== -->
     <target name="test-appgen" description="Creates appfuse-webwork and tests appgen">
-        <property name="app.name" value="appfuse-webwork"/>
+        <property name="app.name" value="appfuse-wwgen"/>
         <property name="db.name" value="appfuse"/>
         <delete dir="../../../${app.name}"/>
         <ant dir="../.." target="new"/>
@@ -457,7 +454,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
     </target>
     
     <target name="test-all" depends="test" 
-        description="Tests WebWork install with Hibernate and iBATIS">
+        description="Tests WebWork install with Hibernate, iBATIS and AppGen">
         <antcall target="test-ibatis" inheritAll="false"/>
         <antcall target="test-appgen" inheritAll="false"/>
     </target>

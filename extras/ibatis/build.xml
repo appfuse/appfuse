@@ -3,9 +3,6 @@
 
     <property name="lib.dir" location="../../lib"/>
     <property file="${lib.dir}/lib.properties"/>
-    
-    <taskdef resource="net/sf/antcontrib/antcontrib.properties"
-            classpath="${ant-contrib.jar}"/>
 
     <!-- =================================================================== -->
     <!-- List options for this build file                                    -->
