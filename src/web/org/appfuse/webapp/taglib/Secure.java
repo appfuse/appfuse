@@ -45,9 +45,9 @@ import org.appfuse.webapp.util.SslUtil;
 public class Secure extends BodyTagSupport {
     //~ Static fields/initializers =============================================
 
-    public static String MODE_SECURED = "secured";
-    public static String MODE_UNSECURED = "unsecured";
-    public static String MODE_EITHER = "either";
+    public static final String MODE_SECURED = "secured";
+    public static final String MODE_UNSECURED = "unsecured";
+    public static final String MODE_EITHER = "either";
 
     //~ Instance fields ========================================================
 

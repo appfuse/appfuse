@@ -19,9 +19,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @author mraible
  */
 public class BaseDAOTestCase extends TestCase {
-    protected transient final Log log = LogFactory.getLog(getClass());
-    protected static ApplicationContext ctx = null;
-    protected static ResourceBundle rb = null;
+    protected final Log log = LogFactory.getLog(getClass());
+    protected final static ApplicationContext ctx;
+    protected ResourceBundle rb;
 
     // This static block ensures that Spring's BeanFactory is only loaded
     // once for all tests

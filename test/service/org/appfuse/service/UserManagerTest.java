@@ -7,17 +7,14 @@ import org.appfuse.model.User;
 public class UserManagerTest extends BaseManagerTestCase {
     //~ Instance fields ========================================================
 
-    private UserManager mgr = null;
+    private UserManager mgr;
     private User user;
 
     //~ Methods ================================================================
 
     protected void setUp() throws Exception {
+        super.setUp();
         mgr = (UserManager) ctx.getBean("userManager");
-    }
-
-    protected void tearDown() {
-        mgr = null;
     }
 
     public void testGetUser() throws Exception {
@@ -71,7 +68,7 @@ public class UserManagerTest extends BaseManagerTestCase {
                 log.debug(e);
             }
 
-            assertTrue(e != null);
+            assertNotNull(e);
         }
     }
 

@@ -16,7 +16,6 @@ public class MailSenderTest extends TestCase {
 
     private String to = "junk@raibledesigns.com";
     private String from = Constants.DEFAULT_FROM;
-    private Session mailSes = null;
 
     //~ Constructors ===========================================================
 

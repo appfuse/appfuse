@@ -7,14 +7,11 @@ import java.util.List;
  * @author mraible
  */
 public class LookupDAOTest extends BaseDAOTestCase {
-    private LookupDAO dao = null;
+    private LookupDAO dao;
     
     protected void setUp() throws Exception {
+        super.setUp();
         dao = (LookupDAO) ctx.getBean("lookupDAO");
-    }
-
-    protected void tearDown() {
-        dao = null;
     }
 
     public void testGetRoles() {

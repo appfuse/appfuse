@@ -21,7 +21,6 @@ import org.appfuse.Constants;
  * these users and exposes them in the servlet context.
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.4 $ $Date: 2004/05/16 02:17:04 $
  *
  * @web.listener
  */
@@ -29,8 +28,8 @@ public class UserCounterListener implements ServletContextListener,
                                             HttpSessionAttributeListener {
     public static final String COUNT_KEY = "userCounter";
     public static final String USERS_KEY = "userNames";
-    private Log log = LogFactory.getLog(UserCounterListener.class);
-    private ServletContext servletContext;
+    private final transient Log log = LogFactory.getLog(UserCounterListener.class);
+    private transient ServletContext servletContext;
     private int counter;
     private Set users;
 
@@ -39,10 +38,7 @@ public class UserCounterListener implements ServletContextListener,
         servletContext.setAttribute((COUNT_KEY), Integer.toString(counter));
     }
 
-    public void contextDestroyed(ServletContextEvent sce) {
-        users = null;
-        counter = 0;
-    }
+    public void contextDestroyed(ServletContextEvent event) {}
 
     synchronized void incrementUserCounter() {
         counter =

@@ -16,13 +16,12 @@ import org.apache.commons.logging.LogFactory;
  * </p>
  * 
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.5 $ $Date: 2004/08/03 05:17:31 $
+ * @version $Revision: 1.6 $ $Date: 2004/08/19 05:11:41 $
  */
 public class StringUtil {
     //~ Static fields/initializers =============================================
 
-    /** The <code>Log</code> instance for this class. */
-    private static Log log = LogFactory.getLog(StringUtil.class);
+    private final static Log log = LogFactory.getLog(StringUtil.class);
 
     //~ Methods ================================================================
 
@@ -85,7 +84,7 @@ public class StringUtil {
      */
     public static String encodeString(String str)  {
         sun.misc.BASE64Encoder encoder = new sun.misc.BASE64Encoder();
-        return new String(encoder.encodeBuffer(str.getBytes())).trim();
+        return encoder.encodeBuffer(str.getBytes()).trim();
     }
 
     /**

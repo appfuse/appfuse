@@ -67,6 +67,7 @@ public class MainMenuTest extends TestCase {
      * @throws Exception an exception
      */
     protected void setUp() throws Exception {
+        super.setUp();
         messages = ResourceBundle.getBundle("ApplicationResources");
         testParams = ResourceBundle.getBundle(this.getClass().getName());
         conversation = new WebConversation();

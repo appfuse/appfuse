@@ -15,7 +15,7 @@ import org.springframework.web.context.WebApplicationContext;
  * verify that variables are placed into the application context.
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.4 $ $Date: 2004/08/19 00:14:00 $
+ * @version $Revision: 1.5 $ $Date: 2004/08/19 05:11:45 $
  */
 public class StartupListenerTest extends ServletTestCase {
     //~ Instance fields ========================================================
@@ -27,11 +27,13 @@ public class StartupListenerTest extends ServletTestCase {
     //~ Methods ================================================================
 
     protected void setUp() throws Exception {
+        super.setUp();
         listener = new StartupListener();
         context = config.getServletContext();
     }
 
     protected void tearDown() throws Exception {
+        super.tearDown();
         listener = null;
     }
 

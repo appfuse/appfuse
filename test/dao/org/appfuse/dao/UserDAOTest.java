@@ -13,10 +13,12 @@ public class UserDAOTest extends BaseDAOTestCase {
     private UserDAO dao = null;
 
     protected void setUp() throws Exception {
+        super.setUp();
         dao = (UserDAO) ctx.getBean("userDAO");
     }
 
-    protected void tearDown() {
+    protected void tearDown() throws Exception {
+        super.tearDown();
         dao = null;
     }
 
@@ -29,7 +31,7 @@ public class UserDAOTest extends BaseDAOTestCase {
                 log.debug(d);
             }
 
-            assertTrue(d != null);
+            assertNotNull(d);
         }
     }
 
@@ -103,7 +105,7 @@ public class UserDAOTest extends BaseDAOTestCase {
                 log.debug(d);
             }
 
-            assertTrue(d != null);
+            assertNotNull(d);
         }
     }
 

@@ -24,7 +24,7 @@ import org.apache.struts.validator.ValidatorForm;
  * <p><a href="BaseForm.java.html"><i>View Source</i></a></p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.5 $ $Date: 2004/05/16 02:17:02 $
+ * @version $Revision: 1.6 $ $Date: 2004/08/19 05:11:41 $
  */
 public class BaseForm extends ValidatorForm implements Serializable {
 
@@ -39,7 +39,7 @@ public class BaseForm extends ValidatorForm implements Serializable {
         return EqualsBuilder.reflectionEquals(this, o);
     }
 
-    public int hashCode(Object o) {
+    public int hashCode() {
         return HashCodeBuilder.reflectionHashCode(this);
     }
 

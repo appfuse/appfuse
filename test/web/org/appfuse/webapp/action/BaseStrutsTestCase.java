@@ -25,7 +25,7 @@ import servletunit.struts.CactusStrutsTestCase;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.8 $ $Date: 2004/08/19 00:13:59 $
+ * @version $Revision: 1.9 $ $Date: 2004/08/19 05:11:45 $
  */
 public class BaseStrutsTestCase extends CactusStrutsTestCase {
     //~ Instance fields ========================================================
@@ -65,7 +65,8 @@ public class BaseStrutsTestCase extends CactusStrutsTestCase {
         getSession().setAttribute(Constants.USER_KEY, user);
     }
     
-    public void tearDown() {
+    public void tearDown() throws Exception {
+        super.tearDown();
         ctx = null;
     }
     

@@ -10,23 +10,12 @@ import org.apache.commons.logging.LogFactory;
 public class DateUtilTest extends TestCase {
     //~ Instance fields ========================================================
 
-	private transient final Log log = LogFactory.getLog(DateUtilTest.class);
-    String sampleDate = "10-Jan-2003";
+	private final Log log = LogFactory.getLog(DateUtilTest.class);
 
     //~ Constructors ===========================================================
 
     public DateUtilTest(String name) {
     	super(name);
-    }
-
-    //~ Methods ================================================================
-
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-
-    protected void tearDown() throws Exception {
-        super.tearDown();
     }
 
     public void testGetDatePattern() throws Exception {

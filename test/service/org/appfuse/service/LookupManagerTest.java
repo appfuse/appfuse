@@ -6,16 +6,13 @@ import java.util.List;
 public class LookupManagerTest extends BaseManagerTestCase {
     //~ Instance fields ========================================================
 
-    private LookupManager mgr = null;
+    private LookupManager mgr;
 
     //~ Methods ================================================================
 
     protected void setUp() throws Exception {
+        super.setUp();
         mgr = (LookupManager) ctx.getBean("lookupManager");
-    }
-
-    protected void tearDown() {
-        mgr = null;
     }
 
     public void testGetAllRoles() {

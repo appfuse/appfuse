@@ -18,8 +18,8 @@ public class BaseManagerTestCase extends TestCase {
     //~ Static fields/initializers =============================================
 
     protected transient final Log log = LogFactory.getLog(getClass());
-    protected static ResourceBundle rb = null;
-    protected static ApplicationContext ctx = null;
+    protected final static ApplicationContext ctx;
+    protected ResourceBundle rb;
 
     // This static block ensures that Spring's BeanFactory is only loaded
     // once for all tests

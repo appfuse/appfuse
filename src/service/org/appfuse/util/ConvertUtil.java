@@ -24,7 +24,7 @@ import org.appfuse.model.BaseObject;
  * </p>
  * 
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.6 $ $Date: 2004/08/03 03:19:02 $
+ * @version $Revision: 1.7 $ $Date: 2004/08/19 05:11:41 $
  */
 public final class ConvertUtil {
     //~ Static fields/initializers =============================================
@@ -74,10 +74,6 @@ public final class ConvertUtil {
      */
     public static Object populateObject(Object obj, ResourceBundle rb) {
         try {
-            if (obj == null) {
-                obj = obj.getClass().newInstance();
-            }
-
             Map map = convertBundleToMap(rb);
 
             BeanUtils.copyProperties(obj, map);
