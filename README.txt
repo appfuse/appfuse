@@ -94,6 +94,11 @@ Features/Changes in 1.5
   and Resin can be easily used instead of Tomcat.
 - TODO: Modify XDoclet so "strutsform" task doesn't require j2ee.jar.
 - TODO: Distribute activation.jar, mail.jar and jta.jar so setup is easier.
+- Dependent packages upgraded:
+    * Hibernate 2.1.3
+    * WebTest build 432
+    * XDoclet 1.2.1-dev (generation of validation.xml for Spring and strutsform
+      task that doesn't require ejbdoclet)
 
 
 Features/Changes in 1.4

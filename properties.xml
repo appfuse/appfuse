@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: properties.xml,v 1.5 2004/04/22 22:21:11 mraible Exp $             -->
+<!-- $Id: properties.xml,v 1.6 2004/04/26 08:48:31 mraible Exp $             -->
 <!-- ======================================================================= -->
 <!-- This file defines properties for build.xml -->
 
@@ -109,7 +109,6 @@
     <pathelement location="${log4j.jar}"/>
     <pathelement location="${commons-logging.jar}"/>
     <pathelement location="${commons-collections.jar}"/>
-    <pathelement location="${j2ee.jar}"/>
     <fileset dir="${xdoclet.dir}" includes="*.jar"/>
     <fileset dir="${velocity.dir}" includes="*.jar"/>
 </path>
@@ -144,11 +143,7 @@
 <path id="service.compile.classpath">
     <path refid="dao.compile.classpath"/>
     <pathelement location="${dist.dir}/${webapp.name}-dao.jar"/>
-    <!-- include javamail jars from $J2EE_HOME -->
-    <fileset dir="${env.J2EE_HOME}/lib">
-        <include name="mail.jar"/>
-        <include name="activation.jar"/>
-    </fileset>
+    <fileset dir="${javamail.dir}" includes="*.jar"/>
     <pathelement location="${commons-lang.jar}"/>
     <pathelement location="${commons-logging.jar}"/>
     <pathelement location="${commons-beanutils.jar}"/>
@@ -184,10 +179,7 @@
     <pathelement location="${commons-lang.jar}"/>
     <pathelement location="${commons-httpclient.jar}"/>
     <pathelement location="${commons-validator.jar}"/>
-    <fileset dir="${env.J2EE_HOME}/lib">
-        <include name="mail.jar"/>
-        <include name="activation.jar"/>
-    </fileset>
+    <fileset dir="${javamail.dir}" includes="*.jar"/>
     <pathelement location="${j2ee.jar}"/>
     <fileset dir="${spring.dir}" includes="*.jar"/>
 </path>

@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.10 2004/04/16 04:24:12 mraible Exp $                 -->
+<!-- $Id: build.xml,v 1.11 2004/04/26 08:48:30 mraible Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -62,8 +62,8 @@
         <mkdir dir="${webapp.target}/WEB-INF"/>
         <mkdir dir="${webapp.dist}"/>
         
-        <!-- Make sure ejbdoclet is necessary -->
-        <uptodate property="ejbdoclet.unnecessary">
+        <!-- Make sure hibernatedoclet is necessary -->
+        <uptodate property="hibernatedoclet.unnecessary">
             <srcfiles dir="src/dao" includes="**/*.java"/>
             <srcfiles dir="${build.dir}/dao/gen" includes="**/*.java"/>
             <mapper type="glob" from="*.java"
@@ -314,15 +314,12 @@
         description="Calls other targets to gather static resources"/>
         
     <!-- =================================================================== -->
-    <!-- The "ejbdoclet" target generates files based on XDoclet marked-up   -->
-    <!-- Plain Old Java Object (POJO)                                        -->
+    <!-- The "hibernatedoclet" target generates Hibernate mapping files      -->
+    <!-- based on XDoclet marked-up Plain Old Java Object (POJO)             -->
     <!-- =================================================================== -->
-    <target name="ejbdoclet" depends="init" unless="ejbdoclet.unnecessary"
+    <target name="hibernatedoclet" depends="init" unless="hibernatedoclet.unnecessary"
         description="Generate Persistence and form classes">
 
-        <taskdef name="ejbdoclet"
-            classname="xdoclet.modules.ejb.EjbDocletTask"
-            classpathref="xdoclet.classpath"/>
         <taskdef
             name="hibernatedoclet"
             classname="xdoclet.modules.hibernate.HibernateDocletTask"
@@ -330,25 +327,6 @@
 
         <mkdir dir="${build.dir}/dao/gen"/>
         
-        <!-- generate struts forms -->
-        <ejbdoclet
-            destdir="${build.dir}/dao/gen"
-            excludedtags="@version,@author"
-            addedtags="@xdoclet-generated at ${TODAY}"
-            ejbspec="2.0"
-            force="${xdoclet.force}"
-            mergedir="metadata/dao">
-            <fileset dir="src/dao"/>
-
-            <!-- generate struts forms -->
-            <strutsform destdir="${build.dir}/web/gen"
-                templateFile="metadata/templates/struts_form.xdt">
-                <packageSubstitution packages="model"
-                    substituteWith="webapp.form"/>
-            </strutsform>
-
-        </ejbdoclet>
-
         <!-- generate hibernate files -->
         <hibernatedoclet
             destdir="${build.dir}/dao/gen"
@@ -363,7 +341,7 @@
         </hibernatedoclet>
     </target>
 
-    <target name="compile-dao" depends="ejbdoclet"
+    <target name="compile-dao" depends="hibernatedoclet"
         description="Compile dao module">
         <antcall target="compile-module" inheritAll="true">
             <param name="module" value="dao"/>
@@ -463,12 +441,55 @@
         </antcall>
     </target>
     
+    <!-- Simple alias to compile-web -->
+    <target name="compile" depends="compile-web" 
+        description="alias for compile-web"/>
+    
+    <target name="compile-web" depends="package-dao,package-service,stage-web"
+        description="Compile web module">
+        
+        <taskdef name="strutsdoclet"
+            classname="xdoclet.modules.apache.struts.StrutsDocletTask"
+            classpathref="xdoclet.classpath"/>
+        
+        <!-- generate struts forms -->
+        <strutsdoclet
+            destdir="${build.dir}/web/gen"
+            excludedtags="@version,@author"
+            addedtags="@xdoclet-generated at ${TODAY}"
+            force="${xdoclet.force}">
+            <fileset dir="src/dao"/>
+
+            <!-- generate struts forms -->
+            <strutsform destdir="${build.dir}/web/gen"
+                templateFile="metadata/templates/struts_form.xdt">
+                <packageSubstitution packages="model"
+                    substituteWith="webapp.form"/>
+            </strutsform>
+
+        </strutsdoclet>
+        
+        <antcall target="compile-module" inheritAll="true">
+            <param name="module" value="web"/>
+            <param name="additional.src.dirs"
+                value="${build.dir}/web/gen"/>
+            <reference refid="web.compile.classpath"
+                torefid="compile.classpath"/>
+            <reference refid="web.test.classpath"
+                torefid="test.classpath"/>
+        </antcall>
+    </target>
+
+    <!-- Simple alias to package-web -->
+    <target name="war" depends="package-web" 
+        description="alias for package-web"/>
+        
     <!-- =================================================================== -->
     <!-- The "webdoclet" target generates web and struts deployment 		 -->
-    <!-- descriptors. This task depends on ejbdoclet because it generates    --> 
+    <!-- descriptors. This task depends on hibernatedoclet because it generates    --> 
     <!-- the forms for struts                                                -->
     <!-- =================================================================== -->
-    <target name="webdoclet" depends="ejbdoclet"
+    <target name="webdoclet" depends="compile-web"
         unless="webdoclet.unnecessary,webxml.present"
         description="Generate web and Struts descriptors">
         <taskdef name="webdoclet"
@@ -478,7 +499,6 @@
                 <path refid="web.compile.classpath"/>
             </classpath>
         </taskdef>
-        <mkdir dir="${webapp.target}/WEB-INF"/>
         <webdoclet destdir="${webapp.target}/WEB-INF"
             force="${xdoclet.force}"
             mergedir="metadata/web"
@@ -503,29 +523,8 @@
             <strutsvalidationxml/>
         </webdoclet>
     </target>
-
-    <!-- Simple alias to compile-web -->
-    <target name="compile" depends="compile-web" 
-        description="alias for compile-web"/>
     
-    <target name="compile-web" depends="package-dao,package-service,stage-web"
-        description="Compile web module">
-        <antcall target="compile-module" inheritAll="true">
-            <param name="module" value="web"/>
-            <param name="additional.src.dirs"
-                value="${build.dir}/web/gen"/>
-            <reference refid="web.compile.classpath"
-                torefid="compile.classpath"/>
-            <reference refid="web.test.classpath"
-                torefid="test.classpath"/>
-        </antcall>
-    </target>
-
-    <!-- Simple alias to package-web -->
-    <target name="war" depends="package-web" 
-        description="alias for package-web"/>
-    
-    <target name="package-web" depends="compile-web,jsp-2"
+    <target name="package-web" depends="webdoclet,jsp-2"
         description="Package WAR">
         <propertyfile comment="Build Information"
             file="${build.dir}/web/classes/build.properties">
@@ -897,7 +896,7 @@
     <!-- =================================================================== -->
     <target name="test-all"
         depends="test-dao,test-service,test-jsp,test-cactus"
-        description="runs all tests for common, ejb and web">
+        description="runs all tests for dao, service and web">
         <antcall target="db-load"/>
     </target>
 
@@ -1009,7 +1008,7 @@
         </schemaexport>
     </target>
 
-    <target name="db-drop" depends="ejbdoclet"
+    <target name="db-drop" depends="hibernatedoclet"
         description="drops database tables">
         <taskdef name="schemaexport"
             classname="net.sf.hibernate.tool.hbm2ddl.SchemaExportTask">
@@ -1108,7 +1107,7 @@
     <!-- =================================================================== -->
     <!-- Create HTML versions of the Java code in this project               -->
     <!-- =================================================================== -->
-    <target name="java2html" depends="ejbdoclet"
+    <target name="java2html" depends="hibernatedoclet"
         description="creates HTML pages of code for online viewing">
         <taskdef name="java2html" classname="com.java2html.Java2HTMLTask"
             classpath="${j2h.jar}"/>
@@ -1279,10 +1278,11 @@
         <echo level="info">Copying ${database.type} JDBC Driver...</echo>
         <copy todir="${tomcat.home}/common/lib" file="${database.jar}"
             overwrite="true"/>
-
-        <echo/> <!-- blank line -->
-        <echo level="warning">Make sure you have mail.jar, activation.jar</echo>
-        <echo level="warning">  and jta.jar in ${tomcat.home}/common/lib</echo>
+        <echo level="info">Copying JavaMail and jta.jar...</echo>
+        <copy todir="${tomcat.home}/common/lib">
+            <fileset dir="${javamail.dir}" includes="*.jar"/>
+            <fileset dir="${hibernate.dir}/lib" includes="jta.jar"/>
+        </copy>
     </target>
     
     <!-- =================================================================== -->
