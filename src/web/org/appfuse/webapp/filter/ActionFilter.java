@@ -37,7 +37,7 @@ import org.springframework.web.context.WebApplicationContext;
  * <p><a href="ActionFilter.java.html"><i>View Source</i></a></p>
  *
  * @author  Matt Raible
- * @version $Revision: 1.8 $ $Date: 2004/05/16 02:16:59 $
+ * @version $Revision: 1.9 $ $Date: 2004/05/25 06:27:23 $
  *
  * @web.filter display-name="Action Filter" name="actionFilter"
  *
@@ -104,7 +104,7 @@ public class ActionFilter implements Filter {
                     (WebApplicationContext) ctx.getAttribute(
                             WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
                 UserManager mgr = (UserManager) context.getBean("userManager");
-                user = (User) mgr.getUser(username);
+                user = mgr.getUser(username);
                 session.setAttribute(Constants.USER_KEY, user);
 
                 // if user wants to be remembered, create a remember me cookie

@@ -37,7 +37,7 @@ import org.springframework.web.context.WebApplicationContext;
  * <p><a href="RegistrationServlet.java.html"><i>View Source</i></a></p>
  *
  * @author Matt Raible
- * @version $Revision: 1.6 $ $Date: 2004/05/16 02:16:57 $
+ * @version $Revision: 1.7 $ $Date: 2004/05/25 06:27:22 $
  * @web.servlet display-name="Registration Servlet"
  * name="register"
  * load-on-startup="4"
@@ -149,7 +149,7 @@ public final class RegistrationServlet extends HttpServlet {
                 (WebApplicationContext) getServletContext()
                     .getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
             UserManager mgr = (UserManager) ctx.getBean("userManager");
-            user = (User) mgr.saveUser(user);
+            user = mgr.saveUser(user);
 
             // Set cookies for auto-magical login ;-)
             String loginCookie = mgr.createLoginCookie(user.getUsername());

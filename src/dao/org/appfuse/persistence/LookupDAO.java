@@ -12,10 +12,10 @@ import java.util.List;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.3 $ $Date: 2004/05/16 02:16:46 $
+ * @version $Revision: 1.4 $ $Date: 2004/05/25 06:27:18 $
  */
 public interface LookupDAO extends DAO {
     //~ Methods ================================================================
 
-    public List getRoles() throws DAOException;
+    public List getRoles();
 }

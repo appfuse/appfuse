@@ -17,11 +17,11 @@ public class LookupDAOTest extends BaseDAOTestCase {
         dao = (LookupDAO) ctx.getBean("lookupDAO");
     }
 
-    protected void tearDown() throws Exception {
+    protected void tearDown() {
         dao = null;
     }
 
-    public void testGetRoles() throws Exception {
+    public void testGetRoles() {
         List roles = dao.getRoles();
 
         if (log.isDebugEnabled()) {

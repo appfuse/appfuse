@@ -18,11 +18,11 @@ public class LookupManagerTest extends BaseManagerTestCase {
         mgr = (LookupManager) ctx.getBean("lookupManager");
     }
 
-    protected void tearDown() throws Exception {
+    protected void tearDown() {
         mgr = null;
     }
 
-    public void testGetAllRoles() throws Exception {
+    public void testGetAllRoles() {
         if (log.isDebugEnabled()) {
             log.debug("entered 'testGetAllRoles' method");
         }

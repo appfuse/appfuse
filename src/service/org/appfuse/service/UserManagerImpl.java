@@ -7,9 +7,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.model.User;
 import org.appfuse.model.UserCookie;
+import org.appfuse.persistence.DAOException;
 import org.appfuse.persistence.UserDAO;
 import org.appfuse.util.RandomGUID;
 import org.appfuse.util.StringUtil;
+
+import com.sun.rsasign.d;
 
 
 /**
@@ -21,7 +24,7 @@ import org.appfuse.util.StringUtil;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.7 $ $Date: 2004/05/16 02:16:52 $
+ * @version $Revision: 1.8 $ $Date: 2004/05/25 06:27:20 $
  */
 public class UserManagerImpl extends BaseManager implements UserManager {
     private Log log = LogFactory.getLog(UserManagerImpl.class);
@@ -38,40 +41,52 @@ public class UserManagerImpl extends BaseManager implements UserManager {
     /**
      * @see org.appfuse.service.UserManager#getUser(java.lang.String)
      */
-    public Object getUser(String username) throws Exception {
-        return dao.getUser(username);
+    public User getUser(String username) throws ServiceException {
+        try {
+        	return dao.getUser(username);
+        } catch (DAOException d) {
+        	throw new ServiceException(d.getMessage(), d);
+        }
     }
 
     /**
      * @see org.appfuse.service.UserManager#getUsers(java.lang.Object)
      */
-    public List getUsers(Object obj) throws Exception {
+    public List getUsers(Object obj) {
         return dao.getUsers((User) obj);
     }
 
     /**
      * @see org.appfuse.service.UserManager#saveUser(java.lang.Object)
      */
-    public Object saveUser(Object obj) throws Exception {
-        return dao.saveUser((User) obj);
+    public User saveUser(Object obj) throws ServiceException {
+        try {
+        	return dao.saveUser((User) obj);
+        } catch (DAOException d) {
+        	throw new ServiceException(d.getMessage(), d);
+        }
     }
 
     /**
      * @see org.appfuse.service.UserManager#removeUser(java.lang.String)
      */
-    public void removeUser(String username) throws Exception {
+    public void removeUser(String username) throws ServiceException {
 
         if (log.isDebugEnabled()) {
             log.debug("removing user: " + username);
         }
 
-        dao.removeUser(username);
+        try {
+        	dao.removeUser(username);
+        } catch (DAOException d) {
+            throw new ServiceException(d.getMessage(), d);
+        }
     }
     
     /**
      * @see org.appfuse.service.UserManager#checkLoginCookie(java.lang.String)
      */
-    public String checkLoginCookie(String value) throws Exception {
+    public String checkLoginCookie(String value) {
         value = StringUtil.decodeString(value);
 
         String[] values = StringUtils.split(value, "|");
@@ -100,7 +115,7 @@ public class UserManagerImpl extends BaseManager implements UserManager {
     /**
      * @see org.appfuse.service.UserManager#createLoginCookie(java.lang.String)
      */
-    public String createLoginCookie(String username) throws Exception {
+    public String createLoginCookie(String username) {
         UserCookie cookie = new UserCookie();
         cookie.setUsername(username);
 
@@ -111,9 +126,8 @@ public class UserManagerImpl extends BaseManager implements UserManager {
      * Convenience method to set a unique cookie id and save to database
      * @param cookie
      * @return
-     * @throws Exception
      */
-    private String saveLoginCookie(UserCookie cookie) throws Exception {
+    private String saveLoginCookie(UserCookie cookie) {
         cookie.setCookieId(new RandomGUID().toString());
         dao.saveUserCookie(cookie);
 

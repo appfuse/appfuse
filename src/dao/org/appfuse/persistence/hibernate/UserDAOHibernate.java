@@ -27,7 +27,7 @@ import org.springframework.orm.hibernate.HibernateCallback;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.8 $ $Date: 2004/05/16 02:16:49 $
+ * @version $Revision: 1.9 $ $Date: 2004/05/25 06:27:19 $
  */
 public class UserDAOHibernate extends BaseDAOHibernate implements UserDAO {
     private Log log = LogFactory.getLog(UserDAOHibernate.class);
@@ -58,7 +58,7 @@ public class UserDAOHibernate extends BaseDAOHibernate implements UserDAO {
     /**
      * @see org.appfuse.persistence.UserDAO#getUsers(org.appfuse.model.User)
      */
-    public List getUsers(User user) throws DAOException {
+    public List getUsers(User user) {
         return getHibernateTemplate().find("from User u order by upper(u.username)");
     }
 
@@ -139,7 +139,7 @@ public class UserDAOHibernate extends BaseDAOHibernate implements UserDAO {
     /**
      * @see org.appfuse.persistence.UserDAO#getUserCookie(java.lang.String)
      */
-    public UserCookie getUserCookie(String cookieId) throws DAOException {
+    public UserCookie getUserCookie(String cookieId) {
         List cookies =
             getHibernateTemplate().find("from UserCookie c where c.cookieId=?",
                                         cookieId);
@@ -171,7 +171,7 @@ public class UserDAOHibernate extends BaseDAOHibernate implements UserDAO {
     /**
      * @see org.appfuse.persistence.UserDAO#saveUserCookie(org.appfuse.model.UserCookie)
      */
-    public void saveUserCookie(UserCookie cookie) throws DAOException {
+    public void saveUserCookie(UserCookie cookie) {
         getHibernateTemplate().saveOrUpdate(cookie);
     }
 }

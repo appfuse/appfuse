@@ -16,7 +16,7 @@ import org.apache.commons.logging.LogFactory;
  * </p>
  * 
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.3 $ $Date: 2004/05/16 02:16:55 $
+ * @version $Revision: 1.4 $ $Date: 2004/05/25 06:27:21 $
  */
 public class StringUtil {
     //~ Static fields/initializers =============================================
@@ -82,13 +82,10 @@ public class StringUtil {
      *
      * @param str
      * @return String
-     * @throws IOException
      */
-    public static String encodeString(String str) throws IOException {
+    public static String encodeString(String str)  {
         sun.misc.BASE64Encoder encoder = new sun.misc.BASE64Encoder();
-        String encodedStr = new String(encoder.encodeBuffer(str.getBytes()));
-
-        return (encodedStr.trim());
+        return new String(encoder.encodeBuffer(str.getBytes())).trim();
     }
 
     /**
@@ -96,12 +93,13 @@ public class StringUtil {
      *
      * @param str
      * @return String
-     * @throws IOException
      */
-    public static String decodeString(String str) throws IOException {
+    public static String decodeString(String str) {
         sun.misc.BASE64Decoder dec = new sun.misc.BASE64Decoder();
-        String value = new String(dec.decodeBuffer(str));
-
-        return (value);
+        try {
+            return new String(dec.decodeBuffer(str));
+        } catch (IOException io) {
+        	throw new RuntimeException(io.getMessage(), io.getCause());
+        }
     }
 }

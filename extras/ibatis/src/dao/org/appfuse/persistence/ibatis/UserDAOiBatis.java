@@ -25,7 +25,7 @@ import org.springframework.orm.ibatis.support.SqlMapDaoSupport;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.4 $ $Date: 2004/05/16 02:14:51 $
+ * @version $Revision: 1.5 $ $Date: 2004/05/25 06:27:39 $
  */
 public class UserDAOiBatis extends SqlMapDaoSupport implements UserDAO {
     private Log log = LogFactory.getLog(UserDAOiBatis.class);
@@ -63,7 +63,7 @@ public class UserDAOiBatis extends SqlMapDaoSupport implements UserDAO {
     /**
      * @see org.appfuse.persistence.UserDAO#getUsers(org.appfuse.model.User)
      */
-    public List getUsers(User user) throws DAOException {
+    public List getUsers(User user) {
         List users = getSqlMapTemplate().executeQueryForList("getUsers", null);
 
         // get the roles for each user
@@ -159,7 +159,7 @@ public class UserDAOiBatis extends SqlMapDaoSupport implements UserDAO {
     /**
      * @see org.appfuse.persistence.UserDAO#getUserCookie(java.lang.String)
      */
-    public UserCookie getUserCookie(String cookieId) throws DAOException {
+    public UserCookie getUserCookie(String cookieId) {
         UserCookie c = new UserCookie();
         c.setCookieId(cookieId);
 
@@ -187,7 +187,7 @@ public class UserDAOiBatis extends SqlMapDaoSupport implements UserDAO {
     /**
      * @see org.appfuse.persistence.UserDAO#saveUserCookie(org.appfuse.model.UserCookie)
      */
-    public void saveUserCookie(UserCookie cookie) throws DAOException {
+    public void saveUserCookie(UserCookie cookie) {
         if (cookie.getId() == null) {
             Long pk =
                 (Long) getSqlMapTemplate().executeQueryForObject("getUserCookieId",

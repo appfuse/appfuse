@@ -19,7 +19,7 @@ public class UserManagerTest extends BaseManagerTestCase {
         mgr = (UserManager) ctx.getBean("userManager");
     }
 
-    protected void tearDown() throws Exception {
+    protected void tearDown() {
         mgr = null;
     }
 
@@ -78,7 +78,7 @@ public class UserManagerTest extends BaseManagerTestCase {
         }
     }
 
-    public void testLoginWithCookie() throws Exception {
+    public void testLoginWithCookie() {
         String cookieString = mgr.createLoginCookie("tomcat");
 
         if (log.isDebugEnabled()) {

@@ -43,7 +43,7 @@ import org.appfuse.webapp.util.RequestUtil;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.11 $ $Date: 2004/05/16 02:16:58 $
+ * @version $Revision: 1.12 $ $Date: 2004/05/25 06:27:22 $
  *
  * @struts.action name="userFormEx" path="/editUser" scope="request"
  *  validate="false" parameter="action" input="list" roles="admin"
@@ -71,7 +71,7 @@ public final class UserAction extends BaseAction {
         // in the request
         getMessages(request);
 
-        ArrayList roles = new ArrayList();
+        List roles = new ArrayList();
 
         // create the default user role 
         roles.add(new LabelValueBean(Constants.USER_ROLE, Constants.USER_ROLE));
@@ -157,11 +157,10 @@ public final class UserAction extends BaseAction {
         // if a user's username is passed in
         if (request.getParameter("username") != null) {
             // lookup the user using that id
-            user = (User) mgr.getUser(userForm.getUsername());
+            user = mgr.getUser(userForm.getUsername());
         } else {
             // look it up based on the current user's id
-            user =
-                (User) mgr.getUser(getUser(session).getUsername());
+            user = mgr.getUser(getUser(session).getUsername());
         }
 
         UserFormEx ex = new UserFormEx();
@@ -225,7 +224,7 @@ public final class UserAction extends BaseAction {
         UserManager mgr = (UserManager) getBean("userManager");
 
         try {
-            user = (User) mgr.saveUser(user);
+            user = mgr.saveUser(user);
             setupRoles(user, request);
         } catch (Exception e) {
             if ((e.getMessage() != null) &&

@@ -13,12 +13,10 @@ import org.appfuse.webapp.listener.UserCounterListener;
  * UserCounterController class.  This class is used to display the number of
  * current users on a particular tile (JSP page).
  * 
- * <p>
- * <a href="UserCounterController.java.html"><i>View Source</i></a>
- * </p>
+ * <p><a href="UserCounterController.java.html"><i>View Source</i></a></p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.3 $ $Date: 2004/05/16 02:16:59 $
+ * @version $Revision: 1.4 $ $Date: 2004/05/25 06:27:22 $
  */
 public final class UserCounterController extends ControllerSupport {
     //~ Methods ================================================================

@@ -12,15 +12,14 @@ import java.util.List;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.3 $ $Date: 2004/05/16 02:16:51 $
+ * @version $Revision: 1.4 $ $Date: 2004/05/25 06:27:20 $
  */
 public interface LookupManager {
     //~ Methods ================================================================
 
     /**
      * Retrieves all possible roles from persistence layer
-     * @return ArrayList
-     * @throws Exception
+     * @return List
      */
-    public List getAllRoles() throws Exception;
+    public List getAllRoles();
 }

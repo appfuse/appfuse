@@ -13,12 +13,10 @@ import org.appfuse.persistence.LookupDAO;
 /**
  * Implementation of LookupManager interface to talk to the persistence layer.
  *
- * <p>
- * <a href="LookupManagerImpl.java.html"><i>View Source</i></a>
- * </p>
+ * <p><a href="LookupManagerImpl.java.html"><i>View Source</i></a></p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.5 $ $Date: 2004/05/16 02:16:51 $
+ * @version $Revision: 1.6 $ $Date: 2004/05/25 06:27:20 $
  */
 public class LookupManagerImpl extends BaseManager implements LookupManager {
     //~ Instance fields ========================================================
@@ -34,7 +32,7 @@ public class LookupManagerImpl extends BaseManager implements LookupManager {
     /**
      * @see org.appfuse.service.LookupManager#getAllRoles()
      */
-    public List getAllRoles() throws Exception {
+    public List getAllRoles() {
         List roles = dao.getRoles();
         List list = new ArrayList();
         Role role = null;

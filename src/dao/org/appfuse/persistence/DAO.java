@@ -10,7 +10,7 @@ package org.appfuse.persistence;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.4 $ $Date: 2004/05/16 02:16:45 $
+ * @version $Revision: 1.5 $ $Date: 2004/05/25 06:27:18 $
  */
 public interface DAO {
 
@@ -25,9 +25,8 @@ public interface DAO {
     /**
      * Generic method to save an object - handles both update and insert.
      * @param o the object to save
-     * @throws DAOException
      */
-    public Object saveObject(Object o) throws DAOException;
+    public Object saveObject(Object o);
 
     /**
      * Generic method to delete an object

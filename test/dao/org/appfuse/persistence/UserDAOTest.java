@@ -17,7 +17,7 @@ public class UserDAOTest extends BaseDAOTestCase {
         dao = (UserDAO) ctx.getBean("userDAO");
     }
 
-    protected void tearDown() throws Exception {
+    protected void tearDown() {
         dao = null;
     }
 

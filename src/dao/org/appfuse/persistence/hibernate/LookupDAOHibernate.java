@@ -16,7 +16,7 @@ import org.springframework.dao.DataAccessException;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.6 $ $Date: 2004/05/16 02:16:48 $
+ * @version $Revision: 1.7 $ $Date: 2004/05/25 06:27:19 $
  *
  */
 public class LookupDAOHibernate extends BaseDAOHibernate implements LookupDAO {
@@ -25,7 +25,7 @@ public class LookupDAOHibernate extends BaseDAOHibernate implements LookupDAO {
     /**
      * @see org.appfuse.persistence.LookupDAO#getRoles()
      */
-    public List getRoles() throws DataAccessException {
+    public List getRoles() {
         if (log.isDebugEnabled()) {
             log.debug("retrieving all role names...");
         }

@@ -7,7 +7,6 @@ import org.apache.commons.logging.LogFactory;
 
 import org.appfuse.persistence.LookupDAO;
 
-import org.springframework.dao.DataAccessException;
 import org.springframework.orm.ibatis.support.SqlMapDaoSupport;
 
 
@@ -19,7 +18,7 @@ import org.springframework.orm.ibatis.support.SqlMapDaoSupport;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.3 $ $Date: 2004/05/16 02:14:50 $
+ * @version $Revision: 1.4 $ $Date: 2004/05/25 06:27:39 $
  *
  */
 public class LookupDAOiBatis extends SqlMapDaoSupport implements LookupDAO {
@@ -28,7 +27,7 @@ public class LookupDAOiBatis extends SqlMapDaoSupport implements LookupDAO {
     /**
      * @see org.appfuse.persistence.LookupDAO#getRoles()
      */
-    public List getRoles() throws DataAccessException {
+    public List getRoles() {
         if (log.isDebugEnabled()) {
             log.debug("retrieving all role names...");
         }

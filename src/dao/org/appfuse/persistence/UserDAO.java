@@ -13,7 +13,7 @@ import org.appfuse.model.UserCookie;
  * </p>
  * 
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.4 $ $Date: 2004/05/16 02:16:46 $
+ * @version $Revision: 1.5 $ $Date: 2004/05/25 06:27:18 $
  */
 public interface UserDAO extends DAO {
     //~ Methods ================================================================    
@@ -22,6 +22,7 @@ public interface UserDAO extends DAO {
      * Gets users information based on login name.
      * @param username the current username
      * @return user populated user object
+     * @throws DAOException if no user is found
      */
     public User getUser(String username) throws DAOException;
 
@@ -29,14 +30,14 @@ public interface UserDAO extends DAO {
 	 * Gets a list of users based on parameters passed in.
 	 *
 	 * @return List populated list of users
-	 * @throws DAOException
 	 */
-	public List getUsers(User user) throws DAOException;
+	public List getUsers(User user);
 	
     /**
      * Saves a user's information
      * @param user the object to be saved
-     * @param user the updated user object
+     * @return User the updated user object
+     * @throws DAOException is save fails
      */
     public User saveUser(User user) throws DAOException;
 
@@ -49,16 +50,14 @@ public interface UserDAO extends DAO {
     /**
      * Gets a userCookie object from the database, based on cookieId
      * @param cookieId
-     * @throws DAOException
      */
-    public UserCookie getUserCookie(String cookieId) throws DAOException;
+    public UserCookie getUserCookie(String cookieId);
     
     /**
      * Saves a userCookie object to the database
      * @param cookie
-     * @throws DAOException
      */
-    public void saveUserCookie(UserCookie cookie) throws DAOException;
+    public void saveUserCookie(UserCookie cookie);
     
     /**
      * Removes all cookies for a specified username
