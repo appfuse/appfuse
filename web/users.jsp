@@ -7,6 +7,7 @@
 <html>
 <head>
 	<title>SQL Tags Example</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
     <link rel="stylesheet" type="text/css" media="all" 
         href="<c:url value="/styles/default.css"/>" />
     <script type="text/javascript"
@@ -16,8 +17,10 @@
 <body>
 <div id="header"></div>
 
+<c:import url="/users-menu.jsp"/>
+
 <div id="content">
-<h1>User List with JSTL's SQL Tags</h1>
+<h1>SQL Tags Example</h1>
 
 <p>This page is designed to show how easy it is to list data from a database
 using JSTL's SQL Tags.  The following is the query that is used to expose a 
@@ -124,8 +127,16 @@ If you use <code>&lt;display:table name="${users.rows}" class="list"/&gt;</code>
 
 <display:table name="${users.rows}" class="list"/>
 
+<p>Now that you're into it - checkout the other examples I put together:</p>
+<ul>
+    <li><a href="users-edit.jsp">Editable Display Tag Table</a></li>
+    <li><a href="users-edit-sql.jsp">Editable Table / SQL</a></li>
+</ul>
 </div>
 
-<div id="footer"></div>
+<div id="footer">
+Suggestions or Questions should be addressed to 
+<a href="mailto:displaytag-user@lists.sf.net">displaytag-user@lists.sf.net</a>.
+</div>
 </body>
 </html>

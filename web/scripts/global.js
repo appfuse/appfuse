@@ -324,12 +324,31 @@ function highlightFormElements() {
 function addFocusHandlers(elements) {
     for (i=0; i < elements.length; i++) {
         if (elements[i].type != "button" && elements[i].type != "submit" &&
-            elements[i].type != "reset") {
+            elements[i].type != "reset" && elements[i].type != "checkbox") {
             elements[i].onfocus=function() {this.className='focus';this.select()};
             elements[i].onclick=function() {this.select()};
             elements[i].onblur=function() {this.className=''};
         }
     }
+}
+
+function radio(clicked){
+    var form = clicked.form;
+    var checkboxes = form.elements[clicked.name];
+    if (!clicked.checked || !checkboxes.length) {
+        clicked.parentNode.parentNode.className="";
+        return false;
+    }
+
+    for (i=0; i<checkboxes.length; i++) {
+        if (checkboxes[i] != clicked) {
+            checkboxes[i].checked=false;
+            checkboxes[i].parentNode.parentNode.className="";
+        }
+    }
+
+    // highlight the row    
+    clicked.parentNode.parentNode.className="over";
 }
 
 window.onload = highlightFormElements;
