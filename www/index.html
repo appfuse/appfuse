@@ -61,8 +61,8 @@
       <!-- project info end -->
       AppFuse is an application for "kickstarting" webapp development. <a href="https://appfuse.dev.java.net/servlets/ProjectDocumentList">Download</a>, 
       extract and execute <strong>ant new -Dapp.name=yourApp -Ddb.name=database</strong> to instantly be up and running with a Tomcat/MySQL app. 
-      Uses Ant, XDoclet, Spring, Hibernate (or iBATIS), JUnit, Cactus, StrutsTestCase, Canoo's WebTest, Struts Menu, Display Tag Library, 
-      OSCache, JSTL and Struts (or Spring MVC). To learn more about AppFuse, its history, goals and future, checkout 
+      Uses Ant, XDoclet, Spring, Hibernate (or iBATIS), JUnit, jMock, StrutsTestCase, Canoo's WebTest, Struts Menu, Display Tag Library, 
+      OSCache, JSTL and Struts (Spring MVC, WebWork, Tapestry and JSF are also options). To learn more about AppFuse, its history, goals and future, checkout 
       <a href="http://today.java.net/pub/a/today/2004/07/15/thefuse.html"> AppFuse: Start Your J2EE Web Apps</a> on java.net.
       <br /><br />
       The <a href="http://www.springframework.org">Spring Framework</a> has greatly enhanced AppFuse since February 2004.  
@@ -76,7 +76,7 @@
     </a>
     <blockquote>
       <dl>
-	<dd><a href="#screenshot">Screenshot</a></dd>
+	<dd><a href="#screenshot">Screenshot and Demos</a></dd>
 	<dd><a href="#download">Download and Installation</a></dd>
 	<dd><a href="#features">Features</a></dd>
 	<dd><a href="#building">Building From Source</a></dd>
@@ -88,12 +88,18 @@
     </blockquote>
 
     <a name="screenshot">
-    <h3>Screenshot</h3>
+    <h3>Screenshot and Demos</h3>
     <blockquote>
-      To view a running demo of AppFuse, click on the screenshot below.
+      <img src="images/screenshot.gif" alt="Screenshot" style="border: 1px solid #eee" />
       <br /><br />
-      <a href="http://demo.raibledesigns.com/appfuse">
-      <img src="images/screenshot.gif" alt="Screenshot" style="border: 1px solid #eee" /></a>
+      <strong>Demos:</strong> 
+        <ul class="glassList">
+            <li><a href="http://demo.raibledesigns.com/appfuse">Struts + Spring + Hibernate</a></li>
+            <li><a href="http://demo.raibledesigns.com/appfuse-spring">Spring + iBATIS</a></li>
+            <li><a href="http://demo.raibledesigns.com/appfuse-webwork">WebWork + Spring + Hibernate</a></li>
+            <li><a href="http://demo.raibledesigns.com/appfuse-jsf">JSF + Spring + Hibernate</a></li>
+        <li><a href="http://demo.raibledesigns.com/appfuse-tapestry">Tapestry + Spring + Hibernate</a></li>
+        </ul>
     </blockquote>
     </a>
 
@@ -146,9 +152,10 @@
         <li>Support for SSL throughout, including login only</li>
         <li>i18n, with built-in translations for Dutch, Brazilian Portuguese and Chinese</li>
         <li>Label Tag Library for displaying validation errors next to fields</li>
-        <li>Rich Unit Testing environment using DBUnit, JUnit, Cactus, HttpUnit and Canoo's WebTest</li>
+        <li>Rich Unit Testing environment using DBUnit, JUnit, jMock and Canoo's WebTest</li>
         <li>Easy configuration and rapid development using <a href="http://xdoclet.sf.net">XDoclet</a> 
             and <a href="http://www.springframework.org">Spring</a></li>
+        <li>Web Framework Options: Struts, Spring MVC, WebWork, JSF and Tapestry</li>
       </ul>
     </blockquote>
     
