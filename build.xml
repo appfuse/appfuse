@@ -831,7 +831,7 @@
                     <configuration dir="${test.dir}/tomcat4x">
                         <property name="cargo.logging" value="medium"/>
                         <property name="cargo.servlet.port" value="${http.port}"/>
-:                   </configuration>   
+                    </configuration>   
                 </cargo-tomcat4x>
         
                 <antcall target="test-canoo"/>
