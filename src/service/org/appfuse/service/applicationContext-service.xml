@@ -7,8 +7,8 @@
         <property name="lookupDAO"><ref bean="lookupDAO"/></property>
     </bean>
 	
-	<!-- Transaction template for Managers, from:
-		 http://blog.exis.com/colin/archives/2004/07/31/concise-transaction-definitions-spring-11/ -->
+    <!-- Transaction template for Managers, from:
+         http://blog.exis.com/colin/archives/2004/07/31/concise-transaction-definitions-spring-11/ -->
     <bean id="txProxyTemplate" abstract="true"
         class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
         <property name="transactionManager"><ref bean="transactionManager"/></property>
@@ -38,10 +38,10 @@
                 <property name="userDAO"><ref bean="userDAO"/></property>
             </bean>
         </property>
-		<!-- Override default transaction attributes b/c of LoginCookie methods -->
+        <!-- Override default transaction attributes b/c of LoginCookie methods -->
         <property name="transactionAttributes">
             <props>
-                <prop key="save*">PROPAGATION_REQUIRED</prop>
+                <prop key="save*">PROPAGATION_REQUIRED,-UserExistsException</prop>
                 <prop key="remove*">PROPAGATION_REQUIRED</prop>
                 <prop key="*LoginCookie">PROPAGATION_REQUIRED</prop>
                 <prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
@@ -86,11 +86,4 @@
     </bean>
     
     <!-- Add new Managers here -->
-	
-    <!-- PersonManager example 
-    <bean id="personManager" parent="txProxyTemplate">
-        <property name="target">
-            <bean class="org.appfuse.service.impl.PersonManagerImpl" autowire="byName"/>
-        </property>
-    </bean> -->
 </beans>
