@@ -118,7 +118,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/hibernate-2.1.6/lib/swarmcache-1.0rc2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/hibernate-2.1.7/lib/swarmcache-1.0rc2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -127,7 +127,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/hibernate-2.1.6/lib/dom4j-1.4.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/hibernate-2.1.7/lib/dom4j-1.4.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -136,7 +136,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/hibernate-2.1.6/lib/odmg-3.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/hibernate-2.1.7/lib/odmg-3.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -145,7 +145,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/hibernate-2.1.6/lib/c3p0-0.8.4.5.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/hibernate-2.1.7/lib/c3p0-0.8.4.5.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -154,7 +154,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/hibernate-2.1.6/lib/jta.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/hibernate-2.1.7/lib/jta.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -163,7 +163,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/hibernate-2.1.6/lib/ehcache-0.9.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/hibernate-2.1.7/lib/ehcache-0.9.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -172,7 +172,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/hibernate-2.1.6/lib/oscache-2.0.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/hibernate-2.1.7/lib/oscache-2.0.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -181,7 +181,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/hibernate-2.1.6/hibernate2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/hibernate-2.1.7/hibernate2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -190,7 +190,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/hibernate-2.1.6/lib/cglib-full-2.0.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/hibernate-2.1.7/lib/cglib-full-2.0.2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -300,7 +300,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/spring-1.1.1/aopalliance.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/spring-1.1.3-dev/aopalliance.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -309,7 +309,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/spring-1.1.1/spring.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/spring-1.1.3-dev/spring.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -327,7 +327,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/mysql-connector-java-3.0.14-production/mysql-connector-java-3.0.14-production-bin.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/mysql-connector-java-3.0.16-ga/mysql-connector-java-3.0.16-ga-bin.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -363,7 +363,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/spring-1.1.1/spring-mock.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/spring-1.1.3-dev/spring-mock.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -381,7 +381,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/displaytag-1.0-rc2-SNAPSHOT/displaytag-1.0-rc2-SNAPSHOT.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/displaytag-1.0-rc2/displaytag-1.0-rc2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -390,7 +390,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/webtest-build543/lib/httpunit-patch.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/webtest-build574/lib/commons-httpclient-2.0.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -399,7 +399,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/webtest-build543/lib/jtidy-r7.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/webtest-build574/lib/HtmlUnit-2004-11-19.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -408,7 +408,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/webtest-build543/lib/webtest.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/webtest-build574/lib/HtmlUnit-Patch-1068672.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -417,7 +417,16 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/webtest-build543/lib/httpunit-1.6.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/webtest-build574/lib/nekohtml-0.8.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/webtest-build574/lib/webtest.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
