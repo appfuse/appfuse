@@ -1,0 +1,5 @@
+    <!-- Front Controller Servlet Mapping -->
+    <servlet-mapping>
+        <servlet-name>faces</servlet-name>
+        <url-pattern>*.html</url-pattern>
+    </servlet-mapping>

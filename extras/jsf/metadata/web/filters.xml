@@ -1,0 +1,50 @@
+    <filter>
+        <filter-name>cacheFilter</filter-name>
+        <filter-class>com.opensymphony.oscache.web.filter.CacheFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>clickstreamFilter</filter-name>
+        <filter-class>com.opensymphony.clickstream.ClickstreamFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter>
+        <filter-name>hibernateFilter</filter-name>
+        <filter-class>org.springframework.orm.hibernate.support.OpenSessionInViewFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>rewriteFilter</filter-name>
+        <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>sitemesh</filter-name>
+        <filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>exportFilter</filter-name>
+        <filter-class>org.displaytag.filter.ResponseOverrideFilter</filter-class>
+    </filter>
+    <!-- MultiPart Filter -->
+    <filter>
+        <filter-name>multipartFilter</filter-name>
+        <filter-class>net.sourceforge.myfaces.custom.fileupload.MultipartFilter</filter-class>
+        <init-param>
+            <param-name>maxFileSize</param-name>
+            <param-value>2m</param-value>
+            <description>Set the size limit for uploaded files.
+                Format: 10 - 10 bytes
+                        10k - 10 KB
+                        10m - 10 MB
+            </description>
+        </init-param>
+    </filter>
