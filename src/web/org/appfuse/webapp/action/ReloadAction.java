@@ -38,7 +38,8 @@ public final class ReloadAction extends BaseAction {
         String referer = request.getHeader("Referer");
 
         if (referer != null) {
-            log.debug("reload complete, reloading user back to: " + referer);       
+            log.debug("reload complete, reloading user back to: " + referer); 
+            // TODO: Add message
             response.sendRedirect(response.encodeRedirectURL(referer));
             return null;
         } else {
