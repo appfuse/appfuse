@@ -42,7 +42,7 @@ import org.appfuse.webapp.util.SslUtil;
  * 85737 Ismaning, Germany
  * http://www.xesoft.com
  */
-public class Secure extends BodyTagSupport {
+public class SecureTag extends BodyTagSupport {
     //~ Static fields/initializers =============================================
 
     public static final String MODE_SECURED = "secured";
@@ -51,7 +51,7 @@ public class Secure extends BodyTagSupport {
 
     //~ Instance fields ========================================================
 
-    private Log log = LogFactory.getLog(Secure.class);
+    private final Log log = LogFactory.getLog(SecureTag.class);
     protected String TAG_NAME = "Secure";
     private String mode = MODE_SECURED;
     private String httpPort = null;
