@@ -26,7 +26,7 @@ import org.springframework.orm.hibernate.HibernateCallback;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.4 $ $Date: 2004/04/13 04:03:35 $
+ * @version $Revision: 1.5 $ $Date: 2004/05/04 06:08:55 $
  */
 public class UserDAOHibernate extends BaseDAOHibernate implements UserDAO {
     private Log log = LogFactory.getLog(UserDAOHibernate.class);
@@ -73,7 +73,6 @@ public class UserDAOHibernate extends BaseDAOHibernate implements UserDAO {
                 throws HibernateException {
                     ses.delete(deleteRolesQuery, user.getUsername(),
                                Hibernate.STRING);
-
                     return null;
                 }
             });
@@ -100,17 +99,14 @@ public class UserDAOHibernate extends BaseDAOHibernate implements UserDAO {
             getHibernateTemplate().save(user);
         } else {
             // existing user, delete and re-add their roles
-            // get all the roles from the database, delete them, and then re-add
             getHibernateTemplate().saveOrUpdate(user);
             deleteUserRoles(user);
         }
 
         if (user.getRoles() != null) {
-            // if we're adding users, insert their roles
             for (Iterator it = user.getRoles().iterator(); it.hasNext();) {
                 UserRole userRole = (UserRole) it.next();
                 userRole.setUserId(user.getId());
-                userRole.setUsername(user.getUsername());
                 getHibernateTemplate().save(userRole);
             }
         }
@@ -119,11 +115,12 @@ public class UserDAOHibernate extends BaseDAOHibernate implements UserDAO {
     }
 
     /**
-     * @see org.appfuse.persistence.UserDAO#removeUser(org.appfuse.model.User)
+     * @see org.appfuse.persistence.UserDAO#removeUser(java.lang.String)
      */
-    public void removeUser(User user) throws DAOException {
-        removeUserCookies(user.getUsername());
-        user = getUser(user.getUsername());
+    public void removeUser(String username) throws DAOException {
+        removeUserCookies(username);
+        User user = getUser(username);
+        user.getRoles().clear();
         getHibernateTemplate().delete(user);
     }
 

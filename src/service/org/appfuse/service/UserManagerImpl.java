@@ -21,7 +21,7 @@ import org.appfuse.util.StringUtil;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.4 $ $Date: 2004/04/12 02:37:10 $
+ * @version $Revision: 1.5 $ $Date: 2004/05/04 06:08:56 $
  */
 public class UserManagerImpl extends BaseManager implements UserManager {
     private Log log = LogFactory.getLog(UserManagerImpl.class);
@@ -57,20 +57,15 @@ public class UserManagerImpl extends BaseManager implements UserManager {
     }
 
     /**
-     * @see org.appfuse.service.UserManager#removeUser(java.lang.Object)
+     * @see org.appfuse.service.UserManager#removeUser(java.lang.String)
      */
-    public void removeUser(Object obj) throws Exception {
-        User user = (User) obj;
+    public void removeUser(String username) throws Exception {
 
         if (log.isDebugEnabled()) {
-            log.debug("removing user: " + user.getUsername());
+            log.debug("removing user: " + username);
         }
 
-        if (user.getRoles() != null) {
-            user.getRoles().clear();
-        }
-
-        dao.removeUser(user);
+        dao.removeUser(username);
     }
     
     /**

@@ -13,7 +13,7 @@ import org.appfuse.model.UserCookie;
  * </p>
  * 
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.1 $ $Date: 2004/03/01 06:19:06 $
+ * @version $Revision: 1.2 $ $Date: 2004/05/04 06:08:55 $
  */
 public interface UserDAO extends DAO {
     //~ Methods ================================================================    
@@ -42,9 +42,9 @@ public interface UserDAO extends DAO {
 
     /**
      * Removes a user from the database by id
-     * @param user the object to be removed
+     * @param username the user's username
      */
-    public void removeUser(User user) throws DAOException;
+    public void removeUser(String username) throws DAOException;
     
     /**
      * Gets a userCookie object from the database, based on cookieId

@@ -12,7 +12,7 @@ import java.util.List;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.2 $ $Date: 2004/03/22 15:45:20 $
+ * @version $Revision: 1.3 $ $Date: 2004/05/04 06:08:56 $
  */
 public interface UserManager {
     //~ Methods ================================================================
@@ -44,12 +44,12 @@ public interface UserManager {
     public Object saveUser(Object user) throws Exception;
 
     /**
-     * Removes a user from the database by id
+     * Removes a user from the database by their username
      *
-     * @param user the user's information
+     * @param user the user's username
      * @throws Exception
      */
-    public void removeUser(Object user) throws Exception;
+    public void removeUser(String username) throws Exception;
     
     /**
      * Validates a user based on a cookie value.  If successful, it returns
