@@ -84,14 +84,14 @@ code that's used to render this table.
 </pre>
 </div>
 
-<p>So that's cool, right?  But how about something even better?!  I hacked
-<a href="http://displaytag.sf.net">the display tag</a> to support iterating
-this set of results.  All you need to do is use the new "items" attribute 
-in the EL tag. Now you can render this same data set, but this time you get
-column sorting.
+<p>So that's cool, right?  But how about something even better?!  The 
+<a href="http://displaytag.sf.net">display tag</a> <strong>now supports</strong>
+iterating this set of results.  All you need to do is reference the ${users.row}
+in the <em>name</em> attribute when using the EL tag. Now you can render 
+this same data set, but this time you get column sorting.
 </p>
 
-<display:table items="${users.rows}" id="user" class="list">
+<display:table name="${users.rows}" id="user" class="list">
     <display:column property="username" sort="true"
         titleKey="userFormEx.username" headerClass="sortable"/>
     <display:column property="firstName" sort="true" 
@@ -106,7 +106,7 @@ column sorting.
 </p>
 
 <div id="displaySource" style="display: none; margin-left: 10px; margin-top: 0">
-<pre>&lt;display:table items="${users.rows}" id="user" class="list"&gt;
+<pre>&lt;display:table name="${users.rows}" id="user" class="list"&gt;
     &lt;display:column property="username" sort="true"
         titleKey="userFormEx.username" headerClass="sortable"/&gt;
     &lt;display:column property="firstName" sort="true" 
@@ -117,12 +117,12 @@ column sorting.
 </pre>
 </div>
 
-<p>The one thing I noticed that doesn't work is if you don't specify the columns.
-If you try to use &lt;display:table items="${users.rows}"/&gt; - it'll just render
-the word <em>Empty</em> - as demonstrated below.
+<p>Heck, it even supports displaying all columns returned. 
+If you use <code>&lt;display:table name="${users.rows}" class="list"/&gt;</code> 
+- it'll render what you see below.
 </p>
 
-<display:table items="${users.rows}"/>
+<display:table name="${users.rows}" class="list"/>
 
 </div>
 
