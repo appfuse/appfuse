@@ -31,7 +31,6 @@ import org.apache.struts.config.ExceptionConfig;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.5 $ $Date: 2004/05/25 09:07:06 $
  */
 public final class ActionExceptionHandler extends ExceptionHandler {
     //~ Instance fields ========================================================

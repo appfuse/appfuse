@@ -24,7 +24,6 @@ import org.apache.struts.action.ActionMapping;
  * </p>
  *
  * @author Matt Raible
- * @version $Revision: 1.3 $ $Date: 2004/05/16 02:16:57 $
  */
 public final class SwitchLayoutAction extends Action {
     //~ Instance fields ========================================================

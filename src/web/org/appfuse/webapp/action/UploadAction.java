@@ -27,7 +27,6 @@ import org.appfuse.webapp.form.UploadForm;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.4 $ $Date: 2004/05/16 02:16:58 $
  * 
  * @struts.action name="uploadForm" path="/uploadFile" scope="request"
  *  validate="true" input="failure"

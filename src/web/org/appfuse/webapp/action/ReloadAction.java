@@ -23,7 +23,6 @@ import org.appfuse.webapp.listener.StartupListener;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.6 $ $Date: 2004/05/16 02:16:57 $
  *
  * @struts.action path="/reload" validate="false" roles="admin"
  */

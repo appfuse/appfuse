@@ -25,7 +25,6 @@ import org.appfuse.webapp.util.SslUtil;
  * <p><a href="LoginServlet.java.html"><i>View Source</i></a></p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.5 $ $Date: 2004/05/16 02:16:56 $
  *
  * @web.servlet
  *     display-name="Login Servlet"

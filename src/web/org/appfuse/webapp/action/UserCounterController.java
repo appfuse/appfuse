@@ -16,7 +16,6 @@ import org.appfuse.webapp.listener.UserCounterListener;
  * <p><a href="UserCounterController.java.html"><i>View Source</i></a></p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.4 $ $Date: 2004/05/25 06:27:22 $
  */
 public final class UserCounterController extends ControllerSupport {
     //~ Methods ================================================================

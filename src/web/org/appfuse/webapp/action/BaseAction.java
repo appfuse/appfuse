@@ -39,7 +39,6 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.14 $ $Date: 2004/07/23 23:16:40 $
  */
 public class BaseAction extends LookupDispatchAction {
 
@@ -50,7 +49,7 @@ public class BaseAction extends LookupDispatchAction {
 
     /**
      * NEW: added by Jaap
-     * <p/>
+     *
      * Message (key) name of default locale to message key lookup.
      */
     protected Map defaultKeyNameKeyMap = null;
@@ -177,7 +176,7 @@ public class BaseAction extends LookupDispatchAction {
         MessageResources resources = getResources(request);
         // this call grabs any messages in the session and stuffs them in the
         // request
-        ActionMessages messages = getMessages(request);
+        getMessages(request);
 
         // Identify the localized message for the cancel button
         String edit = resources.getMessage(Locale.ENGLISH, "button.edit").toLowerCase();
@@ -261,8 +260,14 @@ public class BaseAction extends LookupDispatchAction {
      *
      * @return the user's populated form from the session
      */
-    public HashMap getConfiguration() {
-        return (HashMap) this.getServlet().getServletContext().getAttribute(Constants.CONFIG);
+    public Map getConfiguration() {
+        Map config = (HashMap) getServlet().getServletContext()
+                               .getAttribute(Constants.CONFIG);
+        // so unit tests don't puke when nothing's been set
+        if (config == null) {
+            return new HashMap();
+        }
+        return config;
     }
 
     // --------------------------------------------------------- Public Methods
