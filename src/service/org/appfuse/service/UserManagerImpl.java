@@ -22,7 +22,7 @@ import java.util.List;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.1 $ $Date: 2004/03/01 06:19:10 $
+ * @version $Revision: 1.2 $ $Date: 2004/03/14 22:50:50 $
  */
 public class UserManagerImpl extends BaseManager implements UserManager {
     private Log log = LogFactory.getLog(UserManagerImpl.class);
@@ -69,15 +69,7 @@ public class UserManagerImpl extends BaseManager implements UserManager {
      */
     public List getUsers(Object obj) throws Exception {
         User user = (User) convert(obj);
-        List users = dao.getUsers(user);
-
-        // loop through the list and convert all objects to forms
-        for (int i = 0; i < users.size(); i++) {
-            user = (User) users.get(i);
-            users.set(i, convertUser(user));
-        }
-
-        return users;
+        return dao.getUsers(user);
     }
 
     /**

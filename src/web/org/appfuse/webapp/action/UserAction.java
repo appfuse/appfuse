@@ -39,7 +39,7 @@ import org.appfuse.webapp.util.RequestUtil;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.3 $ $Date: 2004/03/14 16:05:27 $
+ * @version $Revision: 1.4 $ $Date: 2004/03/14 22:50:51 $
  *
  * @struts.action name="userFormEx" path="/editUser" scope="request"
  *  validate="false" parameter="action" input="list" roles="admin"
@@ -300,8 +300,6 @@ public final class UserAction extends BaseAction {
         if (log.isDebugEnabled()) {
             log.debug("Entering 'search' method");
         }
-
-        UserForm userForm = (UserForm) form;
 
         // Exceptions are caught by ActionExceptionHandler
         UserManager mgr = (UserManager) getBean("userManager");
