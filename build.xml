@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.37 2004/09/03 05:44:07 mraible Exp $                 -->
+<!-- $Id: build.xml,v 1.38 2004/09/29 10:40:27 mraible Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -585,8 +585,6 @@
                 <include name="ehcache*.jar"/>
                 <include name="oscache*.jar"/>
             </lib>
-            <lib file="${statetag.jar}"/>
-            <lib file="${countrytag.jar}"/>
             <lib file="${clickstream.jar}"/>
             <lib dir="${spring.dir}" includes="*.jar"/>
             <lib file="${sitemesh.jar}"/>
@@ -999,7 +997,7 @@
         </taskdef>
 
         <antcall target="generate.database.properties"/>
-        <schemaexport quiet="no" text="no" drop="no" delimiter=";"
+        <schemaexport quiet="no" text="no" drop="no" delimiter=";" 
             properties="database.properties" output="create-tables.sql">
             <fileset dir="${build.dir}/dao/gen" includes="**/*.hbm.xml"/>
         </schemaexport>
