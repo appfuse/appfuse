@@ -11,7 +11,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.Constants;
 import org.appfuse.service.LookupManager;
-import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.XmlWebApplicationContext;
@@ -22,7 +21,7 @@ import org.springframework.web.context.support.XmlWebApplicationContext;
  * and populate any application-wide drop-downs.
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.4 $ $Date: 2004/04/28 04:45:07 $
+ * @version $Revision: 1.5 $ $Date: 2004/05/04 06:06:36 $
  *
  * @web.listener
  */

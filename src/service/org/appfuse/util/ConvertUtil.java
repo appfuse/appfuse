@@ -1,7 +1,6 @@
 package org.appfuse.util;
 
 import java.beans.PropertyDescriptor;
-import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +24,7 @@ import org.appfuse.model.BaseObject;
  * </p>
  * 
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.2 $ $Date: 2004/04/29 08:13:00 $
+ * @version $Revision: 1.3 $ $Date: 2004/05/04 06:08:27 $
  */
 public final class ConvertUtil {
     //~ Static fields/initializers =============================================
