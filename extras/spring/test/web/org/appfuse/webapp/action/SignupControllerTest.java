@@ -3,13 +3,11 @@ package org.appfuse.webapp.action;
 import javax.servlet.http.HttpServletResponse;
 
 import org.appfuse.Constants;
-import org.springframework.context.ApplicationContext;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dumbster.smtp.SimpleSmtpServer;
