@@ -1,5 +1,8 @@
 package org.appfuse.webapp.action;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -23,7 +26,7 @@ import org.springframework.web.servlet.support.RequestContext;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.3 $ $Date: 2004/05/16 02:15:02 $
+ * @version $Revision: 1.4 $ $Date: 2004/08/14 22:32:34 $
  */
 public class PasswordHintController implements Controller {
     private static Log log = LogFactory.getLog(PasswordHintController.class);
@@ -73,15 +76,32 @@ public class PasswordHintController implements Controller {
                                        user.getEmail(), null,
                                        "Password Hint", msg.toString());
 
-            request.setAttribute("message",
-                    rc.getMessage("login.passwordHint.sent",
-                                  new Object[] {userId, user.getEmail()}));
+            saveMessage(request, rc.getMessage("login.passwordHint.sent",
+                                 new Object[] {userId, user.getEmail()}));
         } catch (Exception e) {
-            request.setAttribute("error",
-                    rc.getMessage("login.passwordHint.error",
-                                  new Object[] {userId}));
+            saveError(request, rc.getMessage("login.passwordHint.error",
+                               new Object[] {userId}));
         }
 
         return new ModelAndView("login");        
+    }
+
+    public void saveError(HttpServletRequest request, String error) {
+        List errors = (List) request.getSession().getAttribute("errors");
+    	if (errors == null) {
+    		errors = new ArrayList();
+        }
+        errors.add(error);
+        request.getSession().setAttribute("errors", errors);
+    }
+
+    // this method is also in BaseForm Controller
+    public void saveMessage(HttpServletRequest request, String msg) {
+        List messages = (List) request.getSession().getAttribute("messages");
+    	if (messages == null) {
+    		messages = new ArrayList();
+        }
+        messages.add(msg);
+        request.getSession().setAttribute("messages", messages);
     }
 }
