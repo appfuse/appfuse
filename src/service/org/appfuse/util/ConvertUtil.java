@@ -24,7 +24,7 @@ import org.appfuse.model.BaseObject;
  * </p>
  * 
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.5 $ $Date: 2004/05/16 02:16:53 $
+ * @version $Revision: 1.6 $ $Date: 2004/08/03 03:19:02 $
  */
 public final class ConvertUtil {
     //~ Static fields/initializers =============================================
@@ -167,7 +167,7 @@ public final class ConvertUtil {
                 List list = (List) PropertyUtils.getProperty(o, name);
                 for (int j=0; j < list.size(); j++) {
                     Object origin = list.get(j);
-                    target = convert(list.get(j));
+                    target = convert(origin);
                     list.set(j, target);
                 }
                 PropertyUtils.setProperty(o, name, list);
