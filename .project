@@ -6,18 +6,18 @@
 	</projects>
 	<buildSpec>
 		<buildCommand>
-			<name>org.springframework.eclipse.core.springvalidator</name>
+			<name>org.eclipse.jdt.core.javabuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>org.eclipse.jdt.core.javabuilder</name>
+			<name>org.springframework.ide.eclipse.beans.core.beansvalidator</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
 	</buildSpec>
 	<natures>
-		<nature>org.springframework.eclipse.core.springnature</nature>
+		<nature>org.springframework.ide.eclipse.beans.core.beansnature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
 </projectDescription>
