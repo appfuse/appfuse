@@ -109,8 +109,4 @@ public class LoginServletTest extends ServletTestCase {
     public void endExecute(WebResponse response) {
         // TODO: get header value, verify Http Status 302
     }
-
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(LoginServletTest.class);
-    }
 }
