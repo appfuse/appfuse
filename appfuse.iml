@@ -381,7 +381,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../pm/lib/velocity-1.4/velocity-1.4.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/velocity-1.4/velocity-tools-view-1.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -390,7 +390,34 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../pm/lib/velocity-1.4/velocity-tools-view-1.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/velocity-1.4/velocity-1.4.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/displaytag-1.0-rc1/displaytag-1.0-rc1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/spring-1.1.1/spring-mock.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/dumbster-1.2/dumbster-1.2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

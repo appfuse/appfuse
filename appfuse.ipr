@@ -10,8 +10,7 @@
       <customJdkName value="" />
       <maximumHeapSize value="128" />
       <properties>
-        <property name="j2ee.jar" value="$J2EE_HOME$/lib/j2ee.jar" />
-        <property name="tomcat.home" value="/opt/dev/tools/tomcat" />
+        <property name="tomcat.home" value="c:/tools/jakarta-tomcat-5.0.28" />
       </properties>
     </buildFile>
   </component>
