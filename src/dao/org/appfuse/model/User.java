@@ -194,9 +194,9 @@ public class User extends BaseObject {
         } else {
             // loop through and make sure the rolename doesn't already exist
             for (Iterator it = roles.iterator(); it.hasNext();) {
-            	UserRole r = (UserRole) it.next();
-                if (StringUtils.equals(r.getRoleName(), rolename)) {
-                	exists = true;
+                UserRole r = (UserRole) it.next();
+                if (rolename.equals(r.getRoleName())) {
+                    exists = true;
                     break;
                 }
             }

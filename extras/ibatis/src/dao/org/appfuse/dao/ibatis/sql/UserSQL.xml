@@ -28,7 +28,7 @@
         INSERT INTO 
         app_user (id, username, password, first_name, last_name, address, 
                   city, province, country, postal_code, email, phone_number, 
-                  website, passwordHint)
+                  website, password_hint)
         VALUES (#id#, #username#, #password#, #firstName#, #lastName#, 
                 #address.address#, #address.city#, #address.province#,
                 #address.country#, #address.postalCode#, #email#, #phoneNumber#,
@@ -71,7 +71,7 @@
             email = #email#,
             phone_number = #phoneNumber#,
             website = #website#,
-            passwordHint = #passwordHint#
+            password_hint = #passwordHint#
         WHERE id = #id#;
     ]]>
     </update>
@@ -90,7 +90,7 @@
     
 	<select id="getUserRoles" resultClass="userRole">
     <![CDATA[
-        SELECTid, role_name as roleName, user_id as userId, username
+        SELECT id, role_name as roleName, user_id as userId, username
         FROM user_role WHERE username=#username#;
     ]]>
     </select>
@@ -107,10 +107,10 @@
     ]]>
     </delete>
     
-	<select id="getUserCookies" resultClass="userCookie">
+	<select id="getUserCookies" parameterClass="userCookie" resultClass="userCookie">
     <![CDATA[
         SELECT id, username, cookie_id as cookieId, date_created as dateCreated
-        FROM user_cookie where cookie_id = #cookieId#;
+        FROM user_cookie where username = #username# and cookie_id = #cookieId#;
     ]]>
     </select>
     

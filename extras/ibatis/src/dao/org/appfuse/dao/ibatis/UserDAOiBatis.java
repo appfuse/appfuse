@@ -10,7 +10,6 @@ import org.apache.commons.logging.LogFactory;
 import org.appfuse.model.User;
 import org.appfuse.model.UserCookie;
 import org.appfuse.model.UserRole;
-import org.appfuse.dao.DAOException;
 import org.appfuse.dao.UserDAO;
 
 import org.springframework.orm.ObjectRetrievalFailureException;
@@ -157,12 +156,10 @@ public class UserDAOiBatis extends SqlMapClientDaoSupport implements UserDAO {
     /**
      * @see org.appfuse.dao.UserDAO#getUserCookie(java.lang.String)
      */
-    public UserCookie getUserCookie(String cookieId) {
-        UserCookie c = new UserCookie();
-        c.setCookieId(cookieId);
+    public UserCookie getUserCookie(UserCookie userCookie) {
 
         List cookies =
-        	getSqlMapClientTemplate().queryForList("getUserCookies", c);
+        	getSqlMapClientTemplate().queryForList("getUserCookies", userCookie);
 
         if (cookies.size() == 0) {
             return null;
