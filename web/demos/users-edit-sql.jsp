@@ -16,7 +16,7 @@
 
 <body>
 <div id="header"></div>
-<c:import url="/users-menu.jsp"/>
+<c:import url="users-menu.jsp"/>
 
 <div id="content">
 <h1>Editable Table / SQL Tag</h1>

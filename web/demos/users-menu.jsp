@@ -8,5 +8,5 @@
     <br /><br />
     <a href="http://displaytag.sf.net">Display Tag Project</a>
     <br /><br />
-    <a href="./">Main Menu</a>
+    <a href=".././">Return to Main Menu</a>
 </div>
