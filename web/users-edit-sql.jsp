@@ -44,7 +44,7 @@ code that's used to render this table.
 </p>
 
 <%-- Create temporary table --%>
-<c:if test="${applicationScope.tableCreated != null}">
+<c:if test="${empty applicationScope.tableCreated}">
 <sql:transaction dataSource="jdbc/appfuse">
 
     <sql:update>

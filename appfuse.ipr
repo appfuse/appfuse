@@ -271,6 +271,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/appfuse.iml" filepath="$PROJECT_DIR$/appfuse.iml" />
+      <module fileurl="file://$PROJECT_DIR$/web/webapp.iml" filepath="$PROJECT_DIR$/web/webapp.iml" />
     </modules>
   </component>
   <component name="ProjectRootManager" version="2" assert-keyword="false" />
