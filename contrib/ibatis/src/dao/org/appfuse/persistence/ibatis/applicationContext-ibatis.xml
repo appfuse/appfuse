@@ -1,0 +1,26 @@
+<!-- Transaction manager for a single JDBC DataSource -->
+<bean id="transactionManager" 
+    class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <property name="dataSource"><ref local="dataSource"/></property>
+</bean>
+
+<!-- SqlMap setup for iBATIS Database Layer -->
+<bean id="sqlMap" class="org.springframework.orm.ibatis.SqlMapFactoryBean">
+    <property name="configLocation">
+        <value>classpath:/org/appfuse/persistence/ibatis/sql-map-config.xml</value>
+    </property>
+</bean>
+
+<!-- LookupDAO: iBatis implementation --> 
+<bean id="lookupDAO" class="org.appfuse.persistence.ibatis.LookupDAOiBatis"> 
+    <property name="dataSource"><ref local="dataSource"/></property>
+    <property name="sqlMap"><ref local="sqlMap"/></property> 
+</bean> 
+
+<!-- UserDAO: iBatis implementation --> 
+<bean id="userDAO" class="org.appfuse.persistence.ibatis.UserDAOiBatis"> 
+    <property name="dataSource"><ref local="dataSource"/></property>
+    <property name="sqlMap"><ref local="sqlMap"/></property>  
+</bean> 
+
+<!-- Add new DAOs here -->

@@ -1,0 +1,38 @@
+/* This class is related to the popup javascript calendar for date selection */
+
+div.calDiv {
+    background-color: #ffffff;
+    color: #000000;
+    color: #000000;
+    padding: 0px;
+    position: absolute;
+    visibility: hidden;
+    z-index: 11000;
+}
+
+div.calDiv a {
+    background-color: transparent;
+    color: #000000;
+    font-weight: normal;
+}
+
+div.calDiv a.cpOtherMonthDate {
+    background: transparent;
+    color: #808080;
+}
+
+div.calDiv a:visited {
+    background-color: transparent;
+    color: #000000;
+}
+
+div.calDiv a:hover {
+    background: transparent;
+    color: #0000ff;
+    text-decoration: underline overline;
+}
+
+img.calIcon {
+    margin-top: 2px;
+    vertical-align: top !important;
+}

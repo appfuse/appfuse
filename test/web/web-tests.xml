@@ -1,0 +1,221 @@
+<!-- ======================================================================= -->
+<!-- $Id: web-tests.xml,v 1.1 2004/03/01 06:19:34 mraible Exp $               -->
+<!-- ======================================================================= -->
+<!DOCTYPE project [
+    <!ENTITY properties SYSTEM "file:../../properties.xml">
+    <!ENTITY config SYSTEM "file:./config.xml">
+    <!ENTITY login SYSTEM "file:./login.xml">
+]>
+<project basedir="." default="run-all-tests"> 
+    <!-- Include ApplicationResources.properties so we can test against 
+         keys, rather than values -->
+    <property file="web/WEB-INF/classes/ApplicationResources.properties"/>
+
+    <!-- runs all targets -->
+    <target name="run-all-tests" 
+        depends="Login,PasswordHint,Signup,UserTests,FlushCache"
+        description="Call and executes all test cases (targets)"/>
+    
+    <!-- runs user-related tests -->
+    <target name="UserTests" 
+        depends="EditUser,SearchUser,SaveUser,AddUser"
+        description="Call and executes all person test cases (targets)">
+        <echo>Successfully ran all User JSP tests!</echo>
+    </target>
+    
+    <!-- Login to the application -->
+    <target name="Login" 
+        description="Runs login test and verifies Main Menu's Title">
+        <canoo name="login">
+            &config;
+            <steps>
+                &login;
+            </steps>
+        </canoo>
+    </target>
+
+    <!-- Retrieve Password Hint -->
+    <target name="PasswordHint" 
+        description="Gets the user's password hint">
+        <canoo name="passwordHint">
+            &config;
+            <steps>
+                <invoke stepid="get Login Page" url="/"/>
+                <verifytitle stepid="we should see the login title" 
+                    text="${webapp.prefix}${login.title}"/>
+                <invoke stepid="click password hint link"
+                    url="/passwordHint?username=mraible"/>
+                <verifytitle stepid="we should see the login title again" 
+                    text="${webapp.prefix}${login.title}"/>
+            </steps>
+        </canoo>
+    </target>
+    
+    <!-- Verify the edit user screen displays without errors -->
+    <target name="EditUser" 
+        description="Tests selecting the 'Edit Profile' forward">
+        <canoo name="editUser">
+            &config;
+            <steps>
+                &login;
+                <invoke stepid="click Edit Profile link" 
+                    url="/editUser.do?action=Edit"/>
+                <verifytitle stepid="we should see the user profile title" 
+                    text="${webapp.prefix}${userProfile.title}"/>
+            </steps>
+        </canoo>
+    </target>
+    
+    <!-- Verify the user list screen displays without errors -->
+    <target name="SearchUser" 
+        description="Tests search for and displaying all users">
+        <canoo name="searchUser">
+            &config;
+            <steps>
+                &login;
+                <invoke stepid="click View Users link" 
+                    url="/editUser.do?action=Search"/>
+                <verifytitle stepid="we should see the user list title" 
+                    text="${webapp.prefix}${userList.title}"/>
+            </steps>
+        </canoo>
+    </target>
+    
+    <!-- Edit a user and then save -->
+    <target name="SaveUser" 
+        description="Tests editing and saving a user">
+        <canoo name="saveUser">
+            &config;
+            <steps>
+                &login;
+                <invoke stepid="click Edit Profile link" 
+                    url="/editUser.do?action=Edit"/>
+                <verifytitle stepid="we should see the user profile title" 
+                    text="${webapp.prefix}${userProfile.title}"/>
+                <setinputfield stepid="set address" name="address" 
+                    value="2255 Lane Avenue"/>
+                <setinputfield stepid="set zipcode" name="postalCode" 
+                    value="59826"/>
+                <clickbutton label="Save" stepid="Click Save"/>
+                <verifytitle stepid="display Main Menu if save OK"
+                     text="${webapp.prefix}${mainMenu.title}" />
+            </steps>
+        </canoo>
+    </target>
+    
+    <!-- Add a new user after logging in -->
+    <target name="AddUser"
+        description="Adds a new user profile">
+        <canoo name="addUser">
+            &config;
+            <steps>
+                &login;
+                <invoke stepid="click Add Button" 
+                    url="/editUser.do?action=Add&amp;from=list"/>
+                <verifytitle stepid="we should see the user profile title" 
+                    text="${webapp.prefix}${userProfile.title}"/>
+                <setinputfield stepid="set username" name="username" 
+                    value="newuser"/>
+                <setinputfield stepid="set password" name="password" 
+                    value="test"/>
+                <setinputfield stepid="set confirmPassword" name="confirmPassword" 
+                    value="test"/>
+                <setinputfield stepid="set firstName" name="firstName" 
+                    value="Test"/>
+                <setinputfield stepid="set lastName" name="lastName" 
+                    value="Name"/>
+                <setinputfield stepid="set city" name="city" 
+                    value="Denver"/>
+                <setselectfield stepid="select province" name="province"
+                    value="CO"/>
+                <setselectfield stepid="select country" name="country"
+                    value="US"/>
+                <setinputfield stepid="set postalCode" name="postalCode" 
+                    value="80210"/>
+                <setinputfield stepid="set email" name="email" 
+                    value="newuser@appfuse.org"/>
+                <setinputfield stepid="set website" name="website" 
+                    value="http://raibledesigns.com"/>
+                <setinputfield stepid="set passwordHint" name="passwordHint" 
+                    value="test"/>
+                <setselectfield 
+                    stepid="Select roles in user roles list"
+                    name="userRoles"
+                    value="tomcat" />
+                <clickbutton label="${button.save}" stepid="Click button 'Save'">
+                    <index value="0" />
+                </clickbutton>
+                <verifytitle stepid="Redisplay add user page" 
+                    text="${webapp.prefix}${userProfile.title}"/>
+                <verifytext stepid="verify success message" 
+                    text="User information for &lt;strong&gt;newuser&lt;/strong&gt; has been added successfully."/>
+                <!-- Delete user -->
+                <invoke stepid="click Delete button"
+                    url="/editUser.do?action=Delete&amp;username=newuser"/>
+                <verifytext stepid="verify success message" 
+                    text="User Profile for &lt;strong&gt;newuser&lt;/strong&gt; has been deleted successfully."/>
+                <verifytitle stepid="display user list" 
+                    text="${webapp.prefix}${userList.title}"/>
+            </steps>
+        </canoo>
+    </target>
+    
+    <!-- Sign up a new user (no login) -->
+    <target name="Signup"
+        description="Signup a new user">
+        <canoo name="signup">
+            &config;
+            <steps>
+                <invoke stepid="click signup link" 
+                    url="/signup.jsp"/>
+                <verifytitle stepid="we should signup title" 
+                    text="${webapp.prefix}${signup.title}"/>
+                <setinputfield stepid="set username" name="username" 
+                    value="signup-user"/>
+                <setinputfield stepid="set password" name="password" 
+                    value="test"/>
+                <setinputfield stepid="set confirmPassword" name="confirmPassword" 
+                    value="test"/>
+                <setinputfield stepid="set firstName" name="firstName" 
+                    value="Test"/>
+                <setinputfield stepid="set lastName" name="lastName" 
+                    value="Name"/>
+                <setinputfield stepid="set city" name="city" 
+                    value="Denver"/>
+                <setselectfield stepid="Select province" name="province"
+                    value="CO"/>
+                <setselectfield stepid="Select country" name="country"
+                    value="US"/>
+                <setinputfield stepid="set postalCode" name="postalCode" 
+                    value="80210"/>
+                <setinputfield stepid="set email" name="email" 
+                    value="signup-user@raibledesigns.com"/>
+                <setinputfield stepid="set website" name="website" 
+                    value="http://raibledesigns.com"/>
+                <setinputfield stepid="set passwordHint" name="passwordHint" 
+                    value="test"/>
+                <clickbutton label="${button.register}" 
+                    stepid="Click button 'Signup'">
+                    <index value="0" />
+                </clickbutton>
+                <verifytext stepid="verify success message" 
+                    text="You have successfully registered for access to this application."/>
+            </steps>
+        </canoo>
+    </target>
+
+    <!-- Flush OSCache -->
+    <target name="FlushCache" 
+        description="opens JSP to Flush Page Cache">
+        <canoo name="flushCache">
+            &config;
+            <steps>
+                &login;
+                <invoke stepid="get flushCache URL" 
+                    url="/flush.do"/>
+                <verifytitle stepid="we should see the flush cache title" 
+                    text="${webapp.prefix}${flushCache.title}"/>
+            </steps>
+        </canoo>
+    </target>
+</project>

@@ -1,0 +1,39 @@
+# Define top-level entry
+dn: dc=raibledesigns,dc=com
+objectClass: dcObject
+objectClass: organization
+o: Raible Designs, Inc.
+dc: raibledesigns
+
+# Define Manager Role to authenticate with
+dn: cn=Manager,dc=raibledesigns,dc=com
+objectclass: organizationalRole
+cn: Manager
+description: Directory Manager
+
+# Define an entry to contain people
+# searches for users are based on this entry
+dn: ou=people,dc=raibledesigns,dc=com
+objectClass: organizationalUnit
+ou: people
+
+# Define a user entry for Tomcat User
+dn: uid=tomcat,ou=people,dc=raibledesigns,dc=com
+objectClass: inetOrgPerson
+uid: tomcat
+sn: user
+cn: tomcat user
+mail: tomcat@raibledesigns.com
+userPassword: tomcat
+
+# Define an entry to contain LDAP groups
+# searches for roles are based on this entry
+dn: ou=groups,dc=raibledesigns,dc=com
+objectClass: organizationalUnit
+ou: groups
+
+# Define an entry for the "developer" role
+dn: cn=developer,ou=groups,dc=raibledesigns,dc=com
+objectClass: groupOfUniqueNames
+cn: developer
+uniqueMember: uid=tomcat,ou=people,dc=raibledesigns,dc=com

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
+    "http://www.springframework.org/dtd/spring-beans.dtd"
+    [<!ENTITY database SYSTEM "WEB-INF/applicationContext-database.xml">
+     <!ENTITY dao SYSTEM "WEB-INF/applicationContext-@DAO-TYPE@.xml">
+     <!ENTITY service SYSTEM "WEB-INF/applicationContext-service.xml">]>
+     
+<beans>
+
+	<!-- import database settings -->
+	&database;
+	
+	<!-- import dao definitions -->
+	&dao;
+    
+	<!-- import service definitions -->
+	&service;
+    
+</beans>

@@ -1,0 +1,8 @@
+# To change a user's password, modify the file below and then run it with the
+# following command
+# ldapmodify -x -D "cn=Manager,dc=raibledesigns,dc=com" -W -f changepass.ldif
+# Change password for Tomcat User
+dn: uid=tomcat,ou=people,dc=raibledesigns,dc=com
+changetype: modify
+replace: userPassword
+userPassword: raible

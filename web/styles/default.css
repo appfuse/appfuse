@@ -1,0 +1,313 @@
+@import url(messages.css);
+@import url(displaytag.css);
+
+a {
+	color: red;
+	font-weight: bold;
+}
+
+a:visited {
+	color: #cc0000;
+}
+
+a:hover {
+    background-color: transparent;
+    color: green !important; 
+    text-decoration: underline overline;
+}
+
+a img { border: 0 }
+
+/* 0 means zero regardless of measurement */
+body {
+	background: #FFFFFF;
+	color: #000000;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	margin: 0;
+	padding: 0;
+}
+
+body#login div#menu a:visited {
+    background: transparent;
+    color: maroon;
+}
+
+div#activeUsers {
+    float: right;
+    margin-right: 5px;
+    font-size: .9em;
+    background: transparent;
+    color: #000;
+}
+
+div#content {
+	margin: 0px 210px 50px 10px;
+	padding: 10px;
+	text-align: left;
+}
+
+div#content>p {margin:10px 0px}
+
+div#footer {
+	background: transparent;
+	border-top: 1px solid #C0C0C0;
+	color: #666666;
+	font-size: 0.9em;
+	margin-top: 30px;
+	padding: 5px 0px 10px 20px;
+	text-align: left;
+}
+
+div#footer a, div#footer a:visited {
+	background: transparent;
+	color: #666666;
+}
+
+div#footer a:hover {
+	background: transparent;
+	border-bottom: 1px dashed #FFA500;
+	color: #000000;
+	text-decoration: none;
+}
+
+div#header {
+	margin: 50px 0px 10px 0px;
+	padding: 17px 0px 5px 20px;
+	/* For IE5/Win's benefit height = [correct height] + [top padding] + [top and bottom border widths] */
+	height: 33px; /* 14px + 17px + 2px = 33px */
+	border-style: solid;
+	border-color: black;
+	border-width: 1px 0px; /* top and bottom borders: 1px; left and right borders: 0px */
+	line-height: 11px;
+	background-color: #eee;
+
+/* Here is the ugly brilliant hack that protects IE5/Win from its own stupidity. 
+Thanks to Tantek Celik for the hack and to Eric Costello for publicizing it. 
+IE5/Win incorrectly parses the "\"}"" value, prematurely closing the style 
+declaration. The incorrect IE5/Win value is above, while the correct value is 
+below. See http://glish.com/css/hacks.asp for details. */
+	voice-family: "\"}\"";
+	voice-family: inherit;
+	height:14px; /* the correct height */
+}
+
+/* I've heard this called the "be nice to Opera 5" rule. Basically, it feeds correct 
+length values to user agents that exhibit the parsing error exploited above yet get 
+the CSS box model right and understand the CSS2 parent-child selector. ALWAYS include
+a "be nice to Opera 5" rule every time you use the Tantek Celik hack (above). */
+body>#header {height: 14px;}
+
+div#loginTable {
+	background: #EEEEEE;
+	border: 1px solid #C0C0C0;
+	color: inherit;
+	margin: 10px 0px;
+	padding: 5px;
+	width: 400px;
+}
+
+div#menu {
+	position: absolute;
+	top: 100px;
+	right: 20px;
+	width: 172px;
+	padding: 10px;
+	background-color: #eee;
+	border: 1px solid #c0c0c0;
+	line-height: 17px;
+/* Again, the ugly brilliant hack. */
+	voice-family: "\"}\"";
+	voice-family: inherit;
+	width: 150px;
+}
+/* Again, "be nice to Opera 5". */
+body>div#menu {width: 150px;}
+
+div#menu a:visited {
+    background: transparent;
+    color: black;
+}
+
+div#readme {
+	background: #ffd;
+	border: 1px solid silver;
+	color: #008000;
+	height: 300px;
+	margin-top: 10px;
+	overflow: auto;
+	padding: 5px;
+	width: 600px;
+}
+
+div#userStatus {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    font-size: .9em;
+    height: 40px;
+    line-height: 1.2;
+    text-align: right;
+}
+
+div#validators {
+	float: right;
+}
+
+div.separator {
+    border-bottom: 1px solid orange; 
+    margin: 10px 0px; 
+    width: 300px;
+}
+
+div.standardsNote {
+	display: none;
+}
+
+form, table {
+	margin: 0;
+	padding: 0;
+}
+
+/* for cool looking "sunken" input boxes, from www.theserverside.com */
+form input, form textarea, form select {
+    padding-left: 4px;
+    color: #666;
+}
+
+input.button {
+    color: #000;
+}
+
+form input.focus, form textarea.focus, form select.focus {
+    border-bottom: #ffdead solid 2px;
+    border-right: #ffdead solid 2px;
+    border-left: #c07300 solid 2px;
+    border-top:  #c07300 solid 2px;
+    color: #000;
+}
+
+form select {
+    padding-left: 0px;
+}
+
+h1 {
+	color: #ccc;
+	font-size: 28px;
+	font-weight: 900;
+	line-height: 28px;
+	margin: 0px 0px 15px 0px;
+	padding: 0px;
+}
+
+img.badge {
+	border: 0px;
+	height: 31px;
+	margin-right: 5px;
+	width: 88px;
+}
+
+p {
+	font: 12px/20px;
+	margin: 0px 0px 16px 0px;
+	padding: 0px;
+}
+
+span.attention {
+	background: transparent;
+	color: #0000ff;
+}
+
+/* Labels for validation and label tag */
+label {
+    font-weight: normal;
+    cursor: pointer;
+    cursor: hand;
+}
+
+label.required {
+    font-weight: bold;
+}
+
+label.error {
+    font-weight: bold;
+    background: transparent;
+    color: red;
+}
+
+/* These are the styles for detail screen tables */
+table.detail {
+    margin-left: 10px;
+    padding: 5px;
+    font-weight: normal;
+}
+
+table.detail th {
+	text-align: right;
+    padding: 0px 3px 0px 0px;
+}
+
+table.detail th.tallCell {
+    vertical-align: top;
+}
+
+table.detail td {
+    text-align: left;
+    padding: 0px;
+}
+
+table.detail td.moveOptions {
+    text-align: center;
+    width: 50px;
+    padding: 5px;
+}
+
+table.detail td.moveOptions button {
+    margin-bottom: 3px;
+    width: 45px;
+    white-space: nowrap;
+}
+
+table.detail td.buttonBar {
+    padding-top: 10px;
+}
+
+fieldset.pickList {
+    margin-top: 5px;
+    padding: 5px;
+    background: transparent;
+    border-color: #eee;
+}
+
+fieldset.pickList legend {
+    font-weight: bold;    
+}
+
+table.pickList {
+    padding: 0;
+    border-spacing: 0;
+}
+
+table.pickList th.pickLabel {
+    text-align: center;
+    background: transparent;
+    color: #666;
+}
+
+table.pickList td {
+    text-align: center;
+}
+
+table.pickList td select {
+    width: 150px;
+}
+
+th, td, pre, code {
+	font-size: 12px;
+}
+
+ul.glassList {
+    list-style: url(../images/aquadot.jpg) disc outside;
+    vertical-align: top;
+    line-height: 1.5;
+}

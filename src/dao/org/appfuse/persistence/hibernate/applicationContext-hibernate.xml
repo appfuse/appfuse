@@ -1,0 +1,34 @@
+<!-- Hibernate SessionFactory --> 
+<bean id="sessionFactory" class="org.springframework.orm.hibernate.LocalSessionFactoryBean"> 
+    <property name="dataSource"><ref local="dataSource"/></property> 
+    <property name="mappingResources"> 
+        <list> 
+            <value>org/appfuse/model/Role.hbm.xml</value> 
+            <value>org/appfuse/model/User.hbm.xml</value> 
+            <value>org/appfuse/model/UserCookie.hbm.xml</value> 
+            <value>org/appfuse/model/UserRole.hbm.xml</value> 
+        </list> 
+    </property> 
+    <property name="hibernateProperties"> 
+    <props> 
+        <prop key="hibernate.dialect">@HIBERNATE-DIALECT@</prop> 
+    </props> 
+    </property> 
+</bean> 
+
+<!-- Transaction manager for a single Hibernate SessionFactory (alternative to JTA) --> 
+<bean id="transactionManager" class="org.springframework.orm.hibernate.HibernateTransactionManager"> 
+    <property name="sessionFactory"><ref local="sessionFactory"/></property> 
+</bean>
+
+<!-- LookupDAO: Hibernate implementation --> 
+<bean id="lookupDAO" class="org.appfuse.persistence.hibernate.LookupDAOHibernate"> 
+    <property name="sessionFactory"><ref local="sessionFactory"/></property> 
+</bean> 
+
+<!-- UserDAO: Hibernate implementation --> 
+<bean id="userDAO" class="org.appfuse.persistence.hibernate.UserDAOHibernate"> 
+    <property name="sessionFactory"><ref local="sessionFactory"/></property> 
+</bean> 
+
+<!-- Add new DAOs here -->

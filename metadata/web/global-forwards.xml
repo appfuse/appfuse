@@ -1,0 +1,27 @@
+    <global-forwards>
+        <!-- Default forward to "mainMenu" action -->
+        <!-- Demonstrates using index.jsp to forward -->
+        <forward name="mainMenu" path="/mainMenu.do"/>
+            
+        <!-- Forwards specified in actions -->        
+        <forward name="addUser" 
+            path="/editUser.do?action=Add&amp;from=list" redirect="true" />
+        <forward name="cancelUser" path="/editUser.do?action=Cancel"/>
+        <forward name="deleteUser" path="/editUser.do?action=Delete"/>
+        <forward name="updateUser" path="/userProfile.do"/>
+        
+        <!-- Forwards for links used in Menu -->
+        <forward name="editProfile" path="/editProfile.do"/>
+        
+        <!-- The 'editUser' forward is protected so only admins can use it -->
+        <forward name="editUser" path="/editUser.do"/>
+        <forward name="viewUsers" path="/editUser.do?action=Search"/>
+        
+        <forward name="selectFile" path="/selectFile.do" />
+
+        <!-- Logout by forward to a JSP, I do this b/c if I forward to an 
+             an action, and the users session is expired - they'll be prompted
+             to login - just to logout!  Seems silly to me.
+        -->
+        <forward name="logout" path="/logout.jsp" />
+    </global-forwards>

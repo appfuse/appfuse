@@ -1,0 +1,28 @@
+<!-- Manager bindings. This file is included in applicationContext.xml at build time --> 
+
+<!-- LookupManager: Struts implementation -->
+<bean id="lookupManager" class="org.appfuse.service.LookupManagerImpl" singleton="false">
+    <property name="lookupDAO"><ref local="lookupDAO"/></property>
+</bean>
+
+<!-- User Manager: Struts implementation -->
+<bean id="userManagerTarget" class="org.appfuse.service.UserManagerImpl" singleton="false">
+    <property name="userDAO"><ref local="userDAO"/></property>
+</bean>
+
+<!-- Transaction declarations for business services.  To apply a generic transaction proxy to
+     all managers, you might look into using the BeanNameAutoProxyCreator -->
+<bean id="userManager" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+    <property name="transactionManager"><ref local="transactionManager"/></property>
+    <property name="target"><ref local="userManagerTarget"/></property>
+    <property name="transactionAttributes">
+    <props>
+        <prop key="save*">PROPAGATION_REQUIRED</prop>
+        <prop key="remove*">PROPAGATION_REQUIRED</prop>
+        <prop key="*LoginCookie">PROPAGATION_REQUIRED</prop>
+        <prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
+    </props>
+    </property>
+</bean>
+
+<!-- Add new Managers here -->

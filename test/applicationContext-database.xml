@@ -1,0 +1,20 @@
+<!-- This file is included in applicationContext.xml when running tests -->
+
+<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> 
+	<property name="location"><value>database.properties</value></property> 
+</bean> 
+
+<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> 
+	<property name="driverClassName"> 
+		<value>${hibernate.connection.driver_class}</value> 
+	</property> 
+	<property name="url"> 
+		<value>${hibernate.connection.url}</value> 
+	</property> 
+	<property name="username"> 
+		<value>${hibernate.connection.username}</value> 
+	</property> 
+	<property name="password"> 
+		<value>${hibernate.connection.password}</value> 
+	</property> 
+</bean> 
