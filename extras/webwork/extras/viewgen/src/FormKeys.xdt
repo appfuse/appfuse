@@ -1,2 +1,0 @@
-<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><XDtForm:forAllFields><XDtForm:classNameLower/>.<XDtForm:fieldName/>=<XDtForm:fieldDescription/>
-</XDtForm:forAllFields>
