@@ -40,6 +40,18 @@ steps:
      Example: log4j.rootCategory=INFO, stdout, mail
 
 
+Features/Changes in 1.8
+============================
+- Replaced Container-Managed Authentication with Acegi Security Framework for
+  Spring.  Minimal changes were necessary - meaning that you could easily 
+  switch back if you wanted to.  Howto documented at:
+  	http://raibledesigns.com/wiki/Wiki.jsp?page=AppFuseSecurity
+- Dependent packages upgraded:
+	* Spring 1.1.3
+- Dependent packages added:
+	* Acegi 0.7-dev
+
+
 Features/Changes in 1.7
 ============================
 - Added support for JSF (MyFaces) and Tapestry as web framework options.
