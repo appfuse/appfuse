@@ -1,5 +1,7 @@
 <web-app id="/appfuse">
 
+    <jsp fast-jstl="false"/>
+    
     <database>
         <jndi-name>jdbc/appfuse</jndi-name>
         <driver type="@DB-DRIVERNAME@">
