@@ -15,7 +15,7 @@ import java.util.List;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.6 $ $Date: 2004/09/10 04:38:57 $
+ * @version $Revision: 1.7 $ $Date: 2004/09/21 06:00:58 $
  *
  * @struts.form include-all="true" extends="BaseForm"
  * @hibernate.class table="app_user"
@@ -75,8 +75,7 @@ public class User extends BaseObject {
      * @struts.validator-args arg1resource="userFormEx.password"
      * @struts.validator-args arg1resource="userFormEx.confirmPassword"
      * @struts.validator-var name="secondProperty" value="confirmPassword"
-     * @hibernate.property
-     *  column="password" not-null="true"
+     * @hibernate.property column="password" not-null="true"
      */
     public String getPassword() {
         return password;
@@ -97,8 +96,7 @@ public class User extends BaseObject {
      * @return String
      *
      * @struts.validator type="required"
-     * @hibernate.property
-     *  column="firstName" not-null="true"
+     * @hibernate.property column="firstName" not-null="true"
      */
     public String getFirstName() {
         return firstName;
@@ -109,8 +107,7 @@ public class User extends BaseObject {
      * @return String
      *
      * @struts.validator type="required"
-     * @hibernate.property
-     *  column="lastName" not-null="true"
+     * @hibernate.property column="lastName" not-null="true"
      */
     public String getLastName() {
         return lastName;
@@ -120,8 +117,7 @@ public class User extends BaseObject {
      * Returns the address.
      * @return String
      *
-     * @hibernate.property
-     *  column="address" not-null="false"
+     * @hibernate.property column="address" not-null="false"
      */
     public String getAddress() {
         return address;
@@ -132,8 +128,7 @@ public class User extends BaseObject {
      * @return String
      *
      * @struts.validator type="required"
-     * @hibernate.property
-     *  column="city" not-null="true"
+     * @hibernate.property column="city" not-null="true"
      */
     public String getCity() {
         return city;
@@ -157,7 +152,7 @@ public class User extends BaseObject {
      *
      * @struts.validator type="required"
      * @struts.validator type="email"
-     * @hibernate.property column="email" not-null="false"
+     * @hibernate.property column="email" not-null="false" unique="true"
      */
     public String getEmail() {
         return email;
@@ -169,8 +164,7 @@ public class User extends BaseObject {
      *
      * @struts.validator type="mask" msgkey="errors.phone"
      * @struts.validator-var name="mask" value="${phone}"
-     * @hibernate.property
-     *  column="phoneNumber" not-null="false"
+     * @hibernate.property column="phoneNumber" not-null="false"
      */
     public String getPhoneNumber() {
         return phoneNumber;
@@ -183,8 +177,7 @@ public class User extends BaseObject {
      * @struts.validator type="required"
      * @struts.validator type="mask" msgkey="errors.zip"
      * @struts.validator-var name="mask" value="${zip}"
-     * @hibernate.property
-     *  column="postalCode" not-null="true"
+     * @hibernate.property column="postalCode" not-null="true"
      */
     public String getPostalCode() {
         return postalCode;
@@ -206,8 +199,7 @@ public class User extends BaseObject {
      * @return String
      *
      * @struts.validator type="required"
-     * @hibernate.property
-     *  column="website" not-null="false"
+     * @hibernate.property column="website" not-null="false"
      */
     public String getWebsite() {
         return website;
@@ -218,8 +210,7 @@ public class User extends BaseObject {
      * @return String
      *
      * @struts.validator type="required"
-     * @hibernate.property
-     *  column="passwordHint" not-null="false"
+     * @hibernate.property column="passwordHint" not-null="false"
      */
 	public String getPasswordHint() {
 		return passwordHint;
@@ -268,13 +259,13 @@ public class User extends BaseObject {
         this.password = password;
     }
 
-	/**
-	 * Sets the confirmedPassword.
-	 * @param confirmPassword The confirmed password to set
-	 */
-	public void setConfirmPassword(String confirmPassword) {
-		this.confirmPassword = confirmPassword;
-	}
+    /**
+     * Sets the confirmedPassword.
+     * @param confirmPassword The confirmed password to set
+     */
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
 	
     /**
      * Sets the address.
