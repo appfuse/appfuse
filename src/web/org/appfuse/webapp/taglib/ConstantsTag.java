@@ -2,6 +2,8 @@ package org.appfuse.webapp.taglib;
 
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
@@ -9,7 +11,6 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.struts.taglib.TagUtils;
 import org.appfuse.Constants;
 
 
@@ -29,14 +30,14 @@ import org.appfuse.Constants;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.4 $ $Date: 2004/08/19 00:13:57 $
+ * @version $Revision: 1.5 $ $Date: 2004/09/30 04:41:19 $
  *
  * @jsp.tag name="constants" bodycontent="empty"
  *  tei-class="org.appfuse.webapp.taglib.ConstantsTei"
  */
 public class ConstantsTag extends TagSupport {
     private final Log log = LogFactory.getLog(ConstantsTag.class);
-
+    
     /**
      * The class to expose the variables from.
      */
@@ -58,8 +59,7 @@ public class ConstantsTag extends TagSupport {
         int toScope = PageContext.PAGE_SCOPE;
 
         if (scope != null) {
-            // default to pageScope
-            toScope = TagUtils.getInstance().getScope(scope);
+            toScope = getScope(scope);
         }
 
         try {
@@ -144,5 +144,41 @@ public class ConstantsTag extends TagSupport {
         super.release();
         clazz = null;
         scope = Constants.class.getName();
+    }
+    
+    // ~========== From Struts' TagUtils class =====================
+
+    /**
+     * Maps lowercase JSP scope names to their PageContext integer constant
+     * values.
+     */
+    private static final Map scopes = new HashMap();
+
+    /**
+     * Initialize the scope names map and the encode variable with the 
+     * Java 1.4 method if available.
+     */
+    static {
+        scopes.put("page", new Integer(PageContext.PAGE_SCOPE));
+        scopes.put("request", new Integer(PageContext.REQUEST_SCOPE));
+        scopes.put("session", new Integer(PageContext.SESSION_SCOPE));
+        scopes.put("application", new Integer(PageContext.APPLICATION_SCOPE));
+    }
+    
+    /**
+     * Converts the scope name into its corresponding PageContext constant value.
+     * @param scopeName Can be "page", "request", "session", or "application" in any
+     * case.
+     * @return The constant representing the scope (ie. PageContext.REQUEST_SCOPE).
+     * @throws JspException if the scopeName is not a valid name.
+     */
+    public int getScope(String scopeName) throws JspException {
+        Integer scope = (Integer) scopes.get(scopeName.toLowerCase());
+
+        if (scope == null) {
+            throw new JspException("Scope '" + scopeName + "' not a valid option");
+        }
+
+        return scope.intValue();
     }
 }

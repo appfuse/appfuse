@@ -15,15 +15,15 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.struts.Globals;
+
 import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
 import org.appfuse.webapp.util.RequestUtil;
 import org.appfuse.webapp.util.SslUtil;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
-
 
 /**
  * This class is used to filter all requests to the <code>Action</code>
@@ -34,7 +34,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  * <p><a href="ActionFilter.java.html"><i>View Source</i></a></p>
  *
  * @author  Matt Raible
- * @version $Revision: 1.11 $ $Date: 2004/09/29 10:24:06 $
+ * @version $Revision: 1.12 $ $Date: 2004/09/30 04:41:19 $
  *
  * @web.filter display-name="Action Filter" name="actionFilter"
  *
@@ -46,7 +46,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  */
 public class ActionFilter implements Filter {
     private static Boolean secure = Boolean.FALSE;
-    private transient final Log log = LogFactory.getLog(ActionFilter.class);
+    private final transient Log log = LogFactory.getLog(ActionFilter.class);
     private FilterConfig config = null;
 
     public void init(FilterConfig config) throws ServletException {
@@ -96,28 +96,20 @@ public class ActionFilter implements Filter {
 
         // user authenticated, empty user object
         if ((username != null) && (user == null)) {
-        	ApplicationContext ctx = 
-        		WebApplicationContextUtils.getRequiredWebApplicationContext(context);
-            
-        	UserManager mgr = (UserManager) ctx.getBean("userManager");
+            ApplicationContext ctx =
+                WebApplicationContextUtils.getRequiredWebApplicationContext(context);
+
+            UserManager mgr = (UserManager) ctx.getBean("userManager");
             user = mgr.getUser(username);
             session.setAttribute(Constants.USER_KEY, user);
 
             // if user wants to be remembered, create a remember me cookie
             if (session.getAttribute(Constants.LOGIN_COOKIE) != null) {
                 session.removeAttribute(Constants.LOGIN_COOKIE);
-            
+
                 String loginCookie = mgr.createLoginCookie(username);
                 RequestUtil.setCookie(response, Constants.LOGIN_COOKIE,
                                       loginCookie, request.getContextPath());
-            } 
-
-            // check to see if the user has just registered
-            if (session.getAttribute(Constants.REGISTERED) != null) {
-                session.removeAttribute(Constants.REGISTERED);
-                request.setAttribute(Globals.MESSAGE_KEY,
-                                     session.getAttribute(Globals.MESSAGE_KEY));
-                session.removeAttribute(Globals.MESSAGE_KEY);
             }
         }
 

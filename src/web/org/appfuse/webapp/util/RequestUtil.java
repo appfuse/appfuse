@@ -1,5 +1,7 @@
 package org.appfuse.webapp.util;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -12,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.struts.taglib.TagUtils;
 
 
 /**
@@ -90,13 +91,13 @@ public class RequestUtil {
             queryString.append(ampersand);
         }
 
-        TagUtils tagUtils = TagUtils.getInstance();
-
-        // Use encodeURL from Struts' RequestUtils class - it's JDK 1.3 and 1.4 compliant
-        queryString.append(tagUtils.encodeURL(key.toString()));
-        queryString.append("=");
-        queryString.append(tagUtils.encodeURL(value.toString()));
-
+        try {
+            queryString.append(URLEncoder.encode(key.toString(), "UTF-8"));
+            queryString.append("=");
+            queryString.append(URLEncoder.encode(value.toString(), "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+        	// won't happen since we're hard-coding UTF-8
+        }
         return queryString;
     }
 
@@ -233,6 +234,7 @@ public class RequestUtil {
             url.append(':');
             url.append(port);
         }
+        url.append(request.getContextPath());
         return url.toString();
     }
 }
