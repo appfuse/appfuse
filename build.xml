@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.56 2004/10/25 23:34:46 mraible Exp $                 -->
+<!-- $Id: build.xml,v 1.57 2004/11/03 05:31:12 mraible Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -801,7 +801,7 @@
                     output="${test.dir}/cargo.log"
                     workingDir="${test.dir}/tomcat5x" action="start">
                     <war warFile="${webapp.dist}/${webapp.war}"/>
-                    <property name="cargo.logging" value="info"/>
+                    <property name="cargo.logging" value="medium"/>
                     <property name="cargo.servlet.port" value="${http.port}"/>
                 </cargo-tomcat5x>
         
