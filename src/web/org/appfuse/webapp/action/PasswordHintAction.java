@@ -66,7 +66,9 @@ public final class PasswordHintAction extends BaseAction {
 
             SimpleMailMessage message = (SimpleMailMessage) getBean("mailMessage");
             message.setTo(user.getEmail());
-            message.setSubject("Password Hint");
+            String subject = resources.getMessage("webapp.prefix") + 
+                             resources.getMessage("userFormEx.passwordHint");
+            message.setSubject(subject);
             message.setText(msg.toString());
             
             MailEngine mailEngine = (MailEngine) getBean("mailEngine");

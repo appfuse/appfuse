@@ -90,7 +90,9 @@ public class PasswordHintController implements Controller {
             msg.append("\n\nLogin at: " + RequestUtil.getAppURL(request));
 
             message.setTo(user.getEmail());
-            message.setSubject("Password Hint");
+            String subject = text.getMessage("webapp.prefix") + 
+                             text.getMessage("user.passwordHint");
+            message.setSubject(subject);
             message.setText(msg.toString());
             mailEngine.send(message);
 
