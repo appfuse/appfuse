@@ -40,7 +40,7 @@
 #
 # StrutsTestCase - http://strutstestcase.sourceforge.net
 #
-strutstestcase.version  = 2.1.2
+strutstestcase.version=2.1.2
 strutstestcase.dir=${lib.dir}/strutstest-${strutstestcase.version}
 strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.jar]]></replacetoken>
         </replace>

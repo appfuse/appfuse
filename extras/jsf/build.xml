@@ -58,7 +58,6 @@ jsf.jar=${jsf.dir}/myfaces.jar]]></replacevalue>
         <delete>
             <fileset dir="${struts.dir}">
                 <include name="struts*.jar"/>
-                <include name="commons-validator*.jar"/>
                 <include name="*.xml"/>
             </fileset>
         </delete>
@@ -69,7 +68,7 @@ jsf.jar=${jsf.dir}/myfaces.jar]]></replacevalue>
 #
 # StrutsTestCase - http://strutstestcase.sourceforge.net
 #
-strutstestcase.version  = 2.1.2
+strutstestcase.version=2.1.2
 strutstestcase.dir=${lib.dir}/strutstest-${strutstestcase.version}
 strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.jar]]></replacetoken>
             <replacevalue></replacevalue>
@@ -147,9 +146,6 @@ log4j.logger.net.sourceforge.myfaces=FATAL</replacevalue>
         </replace>
         <replace file="../../.classpath">
             <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/strutstest-2.1.2/strutstest-2.1.2.jar"/>]]></replacetoken>
-        </replace>
-        <replace file="../../.classpath">
-            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/commons-validator.jar"/>]]></replacetoken>
         </replace>
         
         <replace file="../../.classpath">
@@ -285,7 +281,8 @@ log4j.logger.net.sourceforge.myfaces=FATAL</replacevalue>
         
         <replace file="../../build.xml">
             <replacetoken><![CDATA[<lib dir="${struts.dir}" includes="*.jar"/>]]></replacetoken>
-            <replacevalue><![CDATA[<lib dir="${jsf.dir}" includes="*.jar"/>
+            <replacevalue><![CDATA[<lib dir="${struts.dir}" includes="*.jar"/>
+            <lib dir="${jsf.dir}" includes="*.jar"/>
             <lib file="${requesttag.jar}"/>]]></replacevalue>
         </replace>
         

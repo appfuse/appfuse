@@ -3,6 +3,8 @@ package org.appfuse.util;
 import java.beans.PropertyDescriptor;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -14,6 +16,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.model.BaseObject;
+import org.appfuse.model.LabelValue;
 
 
 /**
@@ -45,6 +48,17 @@ public final class ConvertUtil {
             map.put(key, rb.getString(key));
         }
 
+        return map;
+    }
+    
+    public static Map convertListToMap(List list) {
+        Map map = new LinkedHashMap();
+        
+        for (Iterator it = list.iterator(); it.hasNext();) {
+            LabelValue option = (LabelValue) it.next();
+            map.put(option.getLabel(), option.getValue());
+        }
+        
         return map;
     }
 

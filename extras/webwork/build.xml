@@ -34,7 +34,7 @@
 #
 # WebWork - http://www.opensymphony.com/webwork
 #
-webwork.version         = 2.1.1
+webwork.version=2.1.1
 webwork.dir=${lib.dir}/webwork-${webwork.version}]]></replacevalue>
         </replace>
 
@@ -60,7 +60,7 @@ webwork.dir=${lib.dir}/webwork-${webwork.version}]]></replacevalue>
 #
 # StrutsTestCase - http://strutstestcase.sourceforge.net
 #
-strutstestcase.version  = 2.1.2
+strutstestcase.version=2.1.2
 strutstestcase.dir=${lib.dir}/strutstest-${strutstestcase.version}
 strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.jar]]></replacetoken>
             <replacevalue></replacevalue>
