@@ -1,10 +1,33 @@
     <filter-mapping>
-        <filter-name>loginFilter</filter-name>
-        <url-pattern>/login.jsp</url-pattern>
-        <!-- These are needed by Tomcat 5 since it does a forward to login.jsp -->
+        <filter-name>Acegi Authentication Processing Filter</filter-name>
+        <url-pattern>/j_security_check</url-pattern>
         <!--dispatcher>REQUEST</dispatcher>
         <dispatcher>FORWARD</dispatcher-->
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>acegiSessionFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+        <!--dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher-->
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>Acegi HTTP Request Security Filter</filter-name>
+        <url-pattern>*.html</url-pattern>
+        <!--dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher-->
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>acegiRemoteUserFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>loginFilter</filter-name>
+        <url-pattern>/login.jsp</url-pattern>
+        <!-- These are needed in case a request is forwarded to login.jsp -->
+        <!--dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher-->
+    </filter-mapping>
+    <!-- Must be after acegiRemoteUserFilter so request.getRemoteUser() works -->
     <filter-mapping>
         <filter-name>loginFilter</filter-name>
         <url-pattern>/logout.jsp</url-pattern>
