@@ -3,7 +3,7 @@
     "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
-    <bean id="lookupManager" class="org.appfuse.service.impl.LookupManagerImpl" singleton="false">
+    <bean id="lookupManager" class="org.appfuse.service.impl.LookupManagerImpl">
         <property name="lookupDAO"><ref bean="lookupDAO"/></property>
     </bean>
 	
