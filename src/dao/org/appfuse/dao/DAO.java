@@ -10,7 +10,6 @@ package org.appfuse.dao;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.1 $ $Date: 2004/08/11 05:59:48 $
  */
 public interface DAO {
 
@@ -18,9 +17,8 @@ public interface DAO {
      * Generic method to get an object - id must be populated
      * @param o
      * @return a populated object (or null if id doesn't exist)
-     * @throws DAOException
      */
-    public Object getObject(Object o) throws DAOException;
+    public Object getObject(Object o);
 
     /**
      * Generic method to save an object - handles both update and insert.
@@ -31,7 +29,6 @@ public interface DAO {
     /**
      * Generic method to delete an object
      * @param o the object to delete
-     * @throws DAOException
      */
-    public void removeObject(Object o) throws DAOException;
+    public void removeObject(Object o);
 }

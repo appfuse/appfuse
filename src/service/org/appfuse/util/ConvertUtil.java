@@ -24,7 +24,6 @@ import org.appfuse.model.BaseObject;
  * </p>
  * 
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.7 $ $Date: 2004/08/19 05:11:41 $
  */
 public final class ConvertUtil {
     //~ Static fields/initializers =============================================

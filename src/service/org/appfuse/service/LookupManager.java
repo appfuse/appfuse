@@ -12,7 +12,6 @@ import java.util.List;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.4 $ $Date: 2004/05/25 06:27:20 $
  */
 public interface LookupManager {
     //~ Methods ================================================================

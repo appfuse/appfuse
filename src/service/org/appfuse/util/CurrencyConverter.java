@@ -9,7 +9,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
 /**
  * This class is converts a Double to a double-digit String
  * (and vise-versa) by BeanUtils when copying properties.
@@ -20,15 +19,10 @@ import org.apache.commons.logging.LogFactory;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.4 $ $Date: 2004/05/16 02:16:53 $
  */
 public class CurrencyConverter implements Converter {
-    //~ Instance fields ========================================================
-
     protected final Log log = LogFactory.getLog(CurrencyConverter.class);
     protected final DecimalFormat formatter = new DecimalFormat("###,###.00");
-
-    //~ Methods ================================================================
 
     /**
      * Convert a String to a Double and a Double to a String
@@ -43,9 +37,9 @@ public class CurrencyConverter implements Converter {
             return null;
         } else {
             if (value instanceof String) {
-				if (log.isDebugEnabled()) {
-                	log.debug("value (" + value + ") instance of String");
-				}
+                if (log.isDebugEnabled()) {
+                    log.debug("value (" + value + ") instance of String");
+                }
 
                 try {
                     if (StringUtils.isEmpty(String.valueOf(value))) {
@@ -55,24 +49,25 @@ public class CurrencyConverter implements Converter {
                     if (log.isDebugEnabled()) {
                         log.debug("converting '" + value + "' to a decimal");
                     }
+
                     //formatter.setDecimalSeparatorAlwaysShown(true);
                     Number num = formatter.parse(String.valueOf(value));
+
                     return new Double(num.doubleValue());
                 } catch (ParseException pe) {
                     pe.printStackTrace();
                 }
             } else if (value instanceof Double) {
-				if (log.isDebugEnabled()) {
-                	log.debug("value (" + value + ") instance of Double");
-				}
-				log.debug("returning double: " + formatter.format(value));
+                if (log.isDebugEnabled()) {
+                    log.debug("value (" + value + ") instance of Double");
+                    log.debug("returning double: " + formatter.format(value));
+                }
+
                 return formatter.format(value);
             }
         }
 
-        throw new ConversionException("Could not convert " +
-                                      value + " to " +
+        throw new ConversionException("Could not convert " + value + " to " +
                                       type.getName() + "!");
     }
 }
-

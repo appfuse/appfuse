@@ -19,7 +19,6 @@ import org.apache.commons.logging.LogFactory;
  * </p>
  * 
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.3 $ $Date: 2004/05/16 02:16:54 $
  */
 public class DateUtil {
     //~ Static fields/initializers =============================================

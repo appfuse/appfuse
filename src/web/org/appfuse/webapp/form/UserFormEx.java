@@ -11,7 +11,6 @@ import org.appfuse.model.UserRole;
  * for UI specific setters/getters.
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.6 $ $Date: 2004/08/22 03:27:26 $
  *
  * @struts.form name="userFormEx"
  */

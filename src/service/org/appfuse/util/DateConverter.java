@@ -21,7 +21,6 @@ import org.apache.commons.lang.StringUtils;
  * </p>
  * 
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.5 $ $Date: 2004/08/22 03:27:25 $
  */
 public class DateConverter implements Converter {
     private static DateFormat df =

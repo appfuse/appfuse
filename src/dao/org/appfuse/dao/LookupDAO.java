@@ -12,7 +12,6 @@ import java.util.List;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.1 $ $Date: 2004/08/11 05:59:47 $
  */
 public interface LookupDAO extends DAO {
     //~ Methods ================================================================
