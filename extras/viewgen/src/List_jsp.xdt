@@ -34,7 +34,6 @@
   
     <display:setProperty name="paging.banner.item_name" value="<XDtStruts:simpleNameLower/>"/>
     <display:setProperty name="paging.banner.items_name" value="<XDtStruts:simpleNameLower/>s"/>
-    <display:setProperty name="basic.empty.showtable" value="true"/>
 </display:table>
 
 <c:out value="${buttons}" escapeXml="false"/>

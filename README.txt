@@ -42,7 +42,7 @@ steps:
 Features/Changes in 1.6
 ============================
 - Integrated WebWork as a web framework choice.  To install WebWork (replacing
-  Struts) in a fresh AppFuse project, just type "ant install-webwork".
+  Struts) in a fresh AppFuse project, simply run "ant install-webwork".
 - Changed stylesheet colors for Spring MVC option to be green instead of red.
   Bug 47 - https://appfuse.dev.java.net/issues/show_bug.cgi?id=47.
 - Changed "org.appfuse.persistence" package name to "org.appfuse.dao".  Moved
@@ -95,9 +95,14 @@ Features/Changes in 1.6
   bundle is found for the browser's preferred locale.
 - Added native2ascii task in copy-resources to encoded to ascii with unicode 
   escapes. 
+- Added Dumbster (http://quintanasoft.com/dumbster/) to catch and verify 
+  e-mail messages sent during test execution.
 - Changed parameter key for indicating methods in Struts Actions from "action" 
   to "method" in order to alleviate conflicts with the "action" attribute
   in an HTML form.
+- Changed name of generated WAR file to *not* include the version number. 
+  Having the version number as part of the name seemed to cause more problems
+  than it solved.
 - Dependent packages upgraded:
     * DbUnit 2.1
     * Display Tag 1.0 RC1
@@ -116,6 +121,8 @@ Features/Changes in 1.6
                   Running "ant setup" and "ant test-all" is an easy workaround.
                   http://opensource.atlassian.com/projects/xdoclet/browse/XDT-879                  
 - Dependent packages added:
+    * Dumbster 1.2 - A fake SMTP server used to catch and verify messages in
+      unit tests.
     * SiteMesh 2.2 - A page-decoration package that will work across different 
       web frameworks.
     * URL Rewrite Filter 1.2 - Added and included in WAR, but disabled by

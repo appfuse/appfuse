@@ -1,10 +1,10 @@
 <XDtTagDef:tagDef namespace="Struts" handler="org.example.antbook.xdoclet.FormTagsHandler"/><%@ include file="/common/taglibs.jsp"%>
 
-<title><fmt:message key="<XDtClass:classTagValue tagName="struts.form" paramName="name"/>.title"/></title>
-<content tag="heading"><fmt:message key="<XDtClass:classTagValue tagName="struts.form" paramName="name"/>.heading"/></content>
+<title><fmt:message key="<XDtStruts:simpleNameLower/>Detail.title"/></title>
+<content tag="heading"><fmt:message key="<XDtStruts:simpleNameLower/>Detail.heading"/></content>
 
 <html:form action="edit<XDtStruts:simpleName/>" method="post" styleId="<XDtClass:classTagValue tagName="struts.form" paramName="name"/>"
-	focus="" onsubmit="return validate<XDtClass:className/>(this)">
+    focus="" onsubmit="return validate<XDtClass:className/>(this)">
 <table class="detail">
     <XDtStruts:forAllFields>
     <tr>
@@ -21,7 +21,7 @@
         <td></td>
         <td class="buttonBar">            
             <html:submit styleClass="button" property="method" onclick="bCancel=false">
-                <bean:message key="button.save"/>
+                <fmt:message key="button.save"/>
             </html:submit>
             
             <html:submit styleClass="button" property="method" 
@@ -30,16 +30,15 @@
             </html:submit>
             
             <html:cancel styleClass="button" property="method" onclick="bCancel=true">
-                <bean:message key="button.cancel"/>
+                <fmt:message key="button.cancel"/>
             </html:cancel>
         </td>
     </tr>
 </table>
 </html:form>
 
-<html:javascript formName="<XDtClass:classTagValue tagName="struts.form" paramName="name"/>" cdata="false"
+<%-- Uncomment after you've added validation rules for an object - otherwise an exception is thrown --%>
+<!--html:javascript formName="<XDtClass:classTagValue tagName="struts.form" paramName="name"/>" cdata="false"
     dynamicJavascript="true" staticJavascript="false"/>
 <script type="text/javascript" 
-    src="<html:rewrite page="/scripts/validator.jsp"/>"></script>
-
-
+    src="<html:rewrite page="/scripts/validator.jsp"/>"></script-->

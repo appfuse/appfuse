@@ -10,7 +10,7 @@
 <!-- I do not integrate this page as a tile, but rather as a standalone-page -->
 <html>
 <head>
-	<title><bean:message key="errorPage.title"/></title>
+	<title><fmt:message key="errorPage.title"/></title>
     <link rel="stylesheet" type="text/css" media="all" 
         href="<c:url value="/styles/default.css"/>" /> 
 </head>
@@ -18,7 +18,7 @@
 <body>
 <div id="screen">
     <div id="content">
-    <h1><bean:message key="errorPage.heading"/></h1>
+    <h1><fmt:message key="errorPage.heading"/></h1>
     <%-- Error Messages --%>
     <logic:messagesPresent>
         <div class="error">	
