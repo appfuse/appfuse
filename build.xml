@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.20 2004/05/16 02:18:06 mraible Exp $                 -->
+<!-- $Id: build.xml,v 1.21 2004/05/18 22:39:27 mraible Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -199,6 +199,7 @@
         <copy todir="${build.dir}/web/classes" includeEmptyDirs="no">
             <fileset dir="web/WEB-INF/classes">
                 <include name="*.properties"/>
+                <include name="*.xml"/>
             </fileset>
             <filterset refid="variables.to.replace"/>
         </copy>            
