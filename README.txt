@@ -48,6 +48,7 @@ Features/Changes in 1.8
   	http://raibledesigns.com/wiki/Wiki.jsp?page=AppFuseSecurity
 - Dependent packages upgraded:
 	* Spring 1.1.3
+    * Display Tag 1.0
 - Dependent packages added:
 	* Acegi 0.7-dev
 
@@ -63,13 +64,18 @@ Features/Changes in 1.7
     https://appfuse.dev.java.net/issues/show_bug.cgi?id=101
 - Added "fixcrlf" target for Unix machines to run when they're having issues 
     installing packages in the "extras" folder.
+- Fixed bug in struts_form.xdt where nested objects types where named based 
+    on the variable name rather than the type.
+    https://appfuse.dev.java.net/issues/show_bug.cgi?id=105
 - Dependent packages upgraded:
+    * Cargo 0.4
     * DisplayTag 1.0 RC2
     * Hibernate 2.1.7
     * iBATIS 2.0.8
     * Spring 1.1.3-dev 
         ** Would have done 1.1.2, except the following bug exists:
            http://forum.springframework.org/viewtopic.php?t=2118
+    * WebTest build 574
     * WebWork 2.1.6
     
 
