@@ -5,16 +5,16 @@
 
 <ww:form name="'<XDtForm:classNameLower/>'" action="'save<XDtClass:className/>'" method="'post'" validate="true">
 <table class="detail">
-    <XDtForm:forAllFields>
-	<XDtForm:ifIsIdField>
-    <ww:hidden name="'<XDtForm:classNameLower/>.<XDtForm:fieldName/>'" value="<XDtForm:classNameLower/>.<XDtForm:fieldName/>"/>
-	</XDtForm:ifIsIdField>
-	<XDtForm:ifIsNotIdField>
+<XDtForm:forAllFields>
+<XDtForm:ifIsIdField>
+<ww:hidden name="'<XDtForm:classNameLower/>.<XDtForm:fieldName/>'" value="<XDtForm:classNameLower/>.<XDtForm:fieldName/>"/>
+</XDtForm:ifIsIdField>
+<XDtForm:ifIsNotIdField>
 
     <ww:textfield label="getText('<XDtForm:classNameLower/>.<XDtForm:fieldName/>')" name="'<XDtForm:classNameLower/>.<XDtForm:fieldName/>'"
         value="<XDtForm:classNameLower/>.<XDtForm:fieldName/>" required="true"/>
-    </XDtForm:ifIsNotIdField>
-    </XDtForm:forAllFields>
+</XDtForm:ifIsNotIdField>
+</XDtForm:forAllFields>
     <tr>
         <td></td>
         <td class="buttonBar">            

@@ -24,13 +24,12 @@
 </span>
 
 <form jwcid="<XDtForm:classNameLower/>Form@Form" delegate="ognl:beans.delegate" id="<XDtForm:classNameLower/>Form">
-
 <table class="detail">
-	<XDtForm:forAllFields>
-	<XDtForm:ifIsIdField>
-	<input type="hidden" jwcid="@Hidden" value="ognl:<XDtForm:classNameLower/>.<XDtForm:fieldName/>"/>
-	</XDtForm:ifIsIdField>
-	<XDtForm:ifIsNotIdField>
+<XDtForm:forAllFields>
+<XDtForm:ifIsIdField>
+<input type="hidden" jwcid="@Hidden" value="ognl:<XDtForm:classNameLower/>.<XDtForm:fieldName/>"/>
+</XDtForm:ifIsIdField>
+<XDtForm:ifIsNotIdField>
     <tr>
         <th>
             <label jwcid="@FieldLabel" field="ognl:components.<XDtForm:fieldName/>Field"/>
@@ -39,8 +38,8 @@
             <input jwcid="<XDtForm:fieldName/>Field" type="text" id="<XDtForm:fieldName/>"/>
         </td>
     </tr>
-    </XDtForm:ifIsNotIdField>
-    </XDtForm:forAllFields>
+</XDtForm:ifIsNotIdField>
+</XDtForm:forAllFields>
     <tr>
         <td></td>
         <td class="buttonBar">
