@@ -27,7 +27,7 @@ To run this application, you will need to perform the following tasks:
     database.
 2.  Run "ant setup-db".
 3.  Test that the db access code works with:
-    ant test-ejb -Dtestcase=UserDAOTest
+    ant test-dao -Dtestcase=UserDAOTest
     ant test-web -Dtestcase=UserManagerTest
 4.  Setup Tomcat running "ant setup-tomcat deploy".  This puts a mysql jdbc 
     driver in $CATALINA_HOME/common/lib, puts a appfuse.xml file in 
