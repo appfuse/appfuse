@@ -105,9 +105,8 @@ public final class SignupAction extends BaseAction {
         messages.add(ActionMessages.GLOBAL_MESSAGE,
                 new ActionMessage("user.registered", userForm.getUsername()));
 
-        HttpSession session = request.getSession();
-        session.setAttribute(Globals.MESSAGE_KEY, messages);
-        session.setAttribute(Constants.REGISTERED, Boolean.TRUE);
+        saveMessages(request.getSession(), messages);
+        request.getSession().setAttribute(Constants.REGISTERED, Boolean.TRUE);
 
         // Send user an e-mail
         if (log.isDebugEnabled()) {
