@@ -34,7 +34,7 @@
 #
 # WebWork - http://www.opensymphony.com/webwork
 #
-webwork.version=2.1.1
+webwork.version=2.1.6
 webwork.dir=${lib.dir}/webwork-${webwork.version}]]></replacevalue>
         </replace>
 
@@ -224,11 +224,11 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         <replace file="../../.classpath">
             <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/struts.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/struts-el.jar"/>]]></replacetoken>
-            <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/webwork-2.1.1/ognl.jar"/>
-	<classpathentry kind="lib" path="lib/webwork-2.1.1/oscore.jar"/>
-	<classpathentry kind="lib" path="lib/webwork-2.1.1/spring-xwork-integration.jar"/>
-	<classpathentry kind="lib" path="lib/webwork-2.1.1/webwork-2.1.1.jar"/>
-	<classpathentry kind="lib" path="lib/webwork-2.1.1/xwork-1.0.3.jar"/>]]></replacevalue>
+            <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/webwork-2.1.6/ognl.jar"/>
+	<classpathentry kind="lib" path="lib/webwork-2.1.6/oscore.jar"/>
+	<classpathentry kind="lib" path="lib/webwork-2.1.6/spring-xwork-integration.jar"/>
+	<classpathentry kind="lib" path="lib/webwork-2.1.6/webwork-2.1.6.jar"/>
+	<classpathentry kind="lib" path="lib/webwork-2.1.6/xwork-1.0.4.jar"/>]]></replacevalue>
         </replace>
 
         <echo level="info">Refactoring build.xml</echo>
