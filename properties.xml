@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: properties.xml,v 1.14 2004/08/03 04:31:37 mraible Exp $             -->
+<!-- $Id: properties.xml,v 1.15 2004/08/19 00:16:58 mraible Exp $             -->
 <!-- ======================================================================= -->
 <!-- This file defines properties for build.xml -->
 
@@ -185,7 +185,7 @@
     <fileset dir="${webtest.dir}/lib" includes="*.jar"/>
     <pathelement location="${log4j.jar}"/>
     <!-- Needed for testing out-of-container -->
-    <path refid="hibernate.classpath"/>
+    <path refid="dao.compile.classpath"/>
 </path>
     
 <property name="inheritAll" value="true"/>
