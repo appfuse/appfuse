@@ -36,7 +36,7 @@ applicationContext-hibatis.xml file I used.
 <!-- Hibernate SessionFactory -->
 <bean id="sessionFactory"
   class="org.springframework.orm.hibernate.LocalSessionFactoryBean">
-  <property name="dataSource"><ref local="dataSource"/></property>
+  <property name="dataSource"><ref bean="dataSource"/></property>
   <property name="mappingResources">
     <list>
       <value>org/appfuse/model/Role.hbm.xml</value>
@@ -62,18 +62,18 @@ applicationContext-hibatis.xml file I used.
 <!-- Transaction manager for a single JDBC DataSource -->
 <bean id="transactionManager"
   class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-  <property name="dataSource"><ref local="dataSource"/></property>
+  <property name="dataSource"><ref bean="dataSource"/></property>
 </bean>
 
 <!-- LookupDAO: iBatis implementation -->
 <bean id="lookupDAO" class="org.appfuse.persistence.ibatis.LookupDAOiBatis">
-  <property name="dataSource"><ref local="dataSource"/></property>
+  <property name="dataSource"><ref bean="dataSource"/></property>
   <property name="sqlMap"><ref local="sqlMap"/></property>
 </bean>
 
 <!-- UserDAO: Hibernate implementation -->
 <bean id="userDAO" class="org.appfuse.persistence.hibernate.UserDAOHibernate">
-  <property name="sessionFactory"><ref local="sessionFactory"/></property>
+  <property name="sessionFactory"><ref bean="sessionFactory"/></property>
 </bean>
 
 ================================================================================
