@@ -7,7 +7,6 @@ import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
  * @hibernate.class table="person"
- * @struts.form include-all="true" extends="BaseForm"
  */
 public class Person extends BaseObject {
     private Long id;
@@ -34,9 +33,6 @@ public class Person extends BaseObject {
         return firstName;
     }
 
-    /**
-     * @spring.validator type="required"
-     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -48,9 +44,6 @@ public class Person extends BaseObject {
         return lastName;
     }
 
-    /**
-     * @spring.validator type="required"
-     */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
