@@ -40,7 +40,7 @@ public class SignupActionTest extends BaseStrutsTestCase {
 
         // verify an account information e-mail was sent
         server.stop();
-        assertTrue(server.getReceievedEmailSize() == 1);
+        assertTrue(server.getReceivedEmailSize() == 1);
         
         verifyForward("mainMenu");
         verifyNoActionErrors();
