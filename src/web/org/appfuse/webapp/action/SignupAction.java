@@ -39,10 +39,15 @@ public final class SignupAction extends BaseAction {
     public ActionForward execute(ActionMapping mapping, ActionForm form,
                                  HttpServletRequest request,
                                  HttpServletResponse response)
-            throws Exception {
+    throws Exception {
+        
         // if it's an HTTP GET, simply forward to jsp
         if (request.getMethod().equalsIgnoreCase("get")) {
             return mapping.findForward("failure");
+        // user clicked cancel button
+        } else if (isCancelled(request)) {
+            return new ActionForward("/");
+        // run validation
         } else {
             // run validation rules on this form
             ActionMessages errors = form.validate(mapping, request);
@@ -54,10 +59,6 @@ public final class SignupAction extends BaseAction {
 
         if (log.isDebugEnabled()) {
             log.debug("registering user...");
-        }
-
-        if (isCancelled(request)) {
-            return new ActionForward("/");
         }
 
         ActionMessages errors = new ActionMessages();
