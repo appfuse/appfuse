@@ -22,7 +22,7 @@ import org.apache.struts.config.ExceptionConfig;
 
 /**
  * Implementation of <strong>ExceptionHandler</strong> that
- * handles any Exceptions that are bundles up to the Action
+ * handles any Exceptions that are bubbled up to the Action
  * layer.  This allows us to remove generic try/catch statements
  * from our Action Classes.
  *
@@ -31,7 +31,7 @@ import org.apache.struts.config.ExceptionConfig;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.4 $ $Date: 2004/05/16 02:16:55 $
+ * @version $Revision: 1.5 $ $Date: 2004/05/25 09:07:06 $
  */
 public final class ActionExceptionHandler extends ExceptionHandler {
     //~ Instance fields ========================================================
