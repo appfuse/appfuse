@@ -3,9 +3,11 @@ package org.appfuse.webapp.action;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,6 +23,8 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.actions.LookupDispatchAction;
+import org.apache.struts.config.MessageResourcesConfig;
+import org.apache.struts.config.ModuleConfig;
 import org.apache.struts.util.MessageResources;
 import org.appfuse.Constants;
 import org.appfuse.model.User;
@@ -42,7 +46,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.5 $ $Date: 2004/04/14 06:53:11 $
+ * @version $Revision: 1.6 $ $Date: 2004/04/14 16:11:51 $
  */
 public class BaseAction extends LookupDispatchAction {
 
@@ -50,6 +54,13 @@ public class BaseAction extends LookupDispatchAction {
     private static final String SECURE = "secure";
     private static WebApplicationContext ctx = null;
     private static Long defaultLong = null;
+
+	/**
+	 * NEW: added by Jaap
+	 * 
+	 * Message (key) name of default locale to message key lookup.
+	 */
+	protected Map defaultKeyNameKeyMap = null;
 
     static {
         ConvertUtils.register(new CurrencyConverter(), Double.class);
@@ -338,5 +349,106 @@ public class BaseAction extends LookupDispatchAction {
             }
         }
     }
+
+	/**
+	 * NEW: added by Jaap
+	 * 
+	 * Lookup the key name corresponding to the client request's locale.
+	 * This method is overwritten here because the key names are hardcoded
+	 * in the global forwards of the struts-config.xml file. This in turn is required
+	 * to make the StrutsMenu tags work (amongst others).
+	 * 
+	 * Whatever the reason, this hard-coding is breaking the default i18n-mechanism used by the 
+	 * LookupDispatchAction finds the Action-method name.
+	 * 
+	 * What I am doing now is to first call the LookupDispatchAction.getLookupMapName method, catching
+	 * any ServletException that might arise. There are two reasons why <code>getLookupMapName</code> would throw an
+	 *  exception: first because the keyName cannot be found in the resourcebundle associated with the User's Localea and
+	 * second because no method name is specified for the corresponding key. We're only interested in the first exception, 
+	 * but catching the second doesn't do any harm, it will just get re-thrown.
+	 * 
+	 * @see org.apache.struts.actions.LookupDispatchAction#getLookupMapName(HttpServletRequest,String,ActionMapping)
+	 */ 
+	protected String getLookupMapName(
+		HttpServletRequest request,
+		String keyName,
+		ActionMapping mapping)
+		throws ServletException {
+
+	System.out.println("BaseAction: getLookupMapName( keyName = "+keyName+" )");
+
+		String methodName = null;
+
+		try
+		{
+			methodName = super.getLookupMapName(request, keyName, mapping);
+		}
+		catch (ServletException ex)
+		{
+			System.out.println("BaseAction: keyName not found in resource bundle with locale "+this.getLocale(request));
+
+			// the keyname is not available in the resource bundle associated with the user's locale
+			// --> get find the key name in the default locale's resource bundle
+			if (defaultKeyNameKeyMap == null)
+			{
+				defaultKeyNameKeyMap = this.initDefaultLookupMap(request);
+			}
+
+			// Find the key for the resource
+			String key = (String) defaultKeyNameKeyMap.get(keyName);
+			if (key == null) {
+				String message = messages.getMessage(
+						"dispatch.resource", mapping.getPath(), keyName);
+				throw new ServletException(message);
+			}
+
+			// Find the method name
+			methodName = (String) keyMethodMap.get(key);
+			if (methodName == null) {
+				String message = messages.getMessage(
+						"dispatch.lookup", mapping.getPath(), key);
+				throw new ServletException(message);
+			}
+
+		}
+
+		return methodName;
+	}
+
+	/**
+	 * NEW: added by Jaap
+	 * 
+	 * This is the first time the default Locale is used so build the reverse lookup Map.
+	 * Search for message keys in all configured MessageResources for
+	 * the current module.
+	 */
+	protected Map initDefaultLookupMap(HttpServletRequest request) {
+		Map lookupMap = new HashMap();
+		this.keyMethodMap = this.getKeyMethodMap();
+
+		ModuleConfig moduleConfig =
+				(ModuleConfig) request.getAttribute(Globals.MODULE_KEY);
+
+		MessageResourcesConfig[] mrc = moduleConfig.findMessageResourcesConfigs();
+
+		// Look through all module's MessageResources
+		for (int i = 0; i < mrc.length; i++) {
+			MessageResources resources = this.getResources(request, mrc[i].getKey());
+
+			// Look for key in MessageResources
+			Iterator iter = this.keyMethodMap.keySet().iterator();
+			while (iter.hasNext()) {
+				String key = (String) iter.next();
+				String text = resources.getMessage(key);
+
+				// Found key and haven't added to Map yet, so add the text
+				if ((text != null) && !lookupMap.containsKey(text)) {
+					lookupMap.put(text, key);
+				}
+			}
+		}
+
+		return lookupMap;
+	}
 
 }
