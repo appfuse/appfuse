@@ -53,6 +53,10 @@ Features/Changes in 1.6
 - Removed UserFormEx and replaced with ability to "merge" methods into an 
   ActionForm using XDoclet.  See metadata/web for xdoclet-UserForm.java
   which now contains methods merged into the generated UserForm.java.
+- Modified struts_form.xdt to support nested objects.  Moved address information
+  from org.appfuse.model.User to org.appfuse.model.Address to and created
+  NestedFormTest to verify it works.  This template will pick up any nested 
+  object validations rules.
 - Changed "org.appfuse.persistence" package name to "org.appfuse.dao".  Moved
   "*ManagerImpl" classes to "service.impl" package.
 - Changed stylesheet colors for Spring MVC option to be green instead of red.
@@ -72,9 +76,6 @@ Features/Changes in 1.6
     Learn more at: http://raibledesigns.com/page/rd?anchor=ann_cargo_0_2_released
 - Removed MainMenuTest, which was a demonstration of how to write tests using
   HttpUnit.  This test caused more problems than it solved.
-- Refactored BaseDAOTestCase and BaseManagerTestCase to use DBUnit and load
-  sample data for each test, rather than relying on Ant and the "db-load" 
-  target.
 - Changed target names in build.xml: define-tasks -> init, init -> prepare. 
   Reworked build.xml so XDoclet tasks don't execute when they don't need to.
 - Added translations for French and Spanish.
@@ -94,11 +95,8 @@ Features/Changes in 1.6
   Velocity-based E-Mail with Spring.
   http://jroller.com/page/raible/20040406#sending_velocity_based_e_mail
 - Consolidated all mail settings to mail.properties (in web/WEB-INF/classes).
-- Added support for detecting and configuring 5.5.x. http://tinyurl.com/5ebdh
-- Modified struts_form.xdt to support nested objects.  Moved address information
-  from org.appfuse.model.User to org.appfuse.model.Address to and created
-  NestedFormTest to verify it works.  This template will pick up any nested 
-  object validations rules.
+- Added support for detecting and configuring Tomcat 5.5.x. 
+    http://tinyurl.com/5ebdh
 - Renamed "Secure" tag library to "SecureTag" for consistency.
 - Added field-level errors (using html:errors) to Struts JSPs and viewgen for 
   Struts.
@@ -131,9 +129,9 @@ Features/Changes in 1.6
     * Struts Test Case 2.1.2
     * WebTest build474
     * XDoclet 1.2.2 RC1
-      ** WARNING: Running "ant setup test-all" will result in the following
-                  with Ant 1.6+: destDir attribute must be present.
-                  Running "ant setup" and "ant test-all" is an easy workaround.
+      ** WARNING: Running "ant setup test-all" will result in the error:
+                  "destDir attribute must be present." Running "ant setup" 
+                  and then "ant test-all" is an easy workaround.
                   http://opensource.atlassian.com/projects/xdoclet/browse/XDT-879                  
 - Dependent packages added:
     * Cargo 0.2 - A set of Ant tasks for starting and stopping Java containers.
@@ -145,8 +143,8 @@ Features/Changes in 1.6
       default.  See web/WEB-INF/urlrewrite.xml for more information.
 - Dependent packages removed:
 	* State Tag and Country Tag - required a $75 license for production use.
-	* Cactus - no longer needed as all tests can be run out-of-container and Cargo
-	  can be used to start Tomcat for in-container (JSP) tests.
+	* Cactus - no longer needed as all tests can be run out-of-container and 
+	  Cargo can be used to start Tomcat for in-container (JSP) tests.
 
 
 Features/Changes in 1.5
