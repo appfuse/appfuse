@@ -18,7 +18,5 @@
     
 <div id="readme" style="display: none">
     <%-- Include the README.txt --%>
-    <pre>
-    <%@ include file="/README.txt"%>
-    </pre>
+    <pre><%@ include file="/README.txt"%></pre>
 </div>
