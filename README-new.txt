@@ -4,7 +4,7 @@ Quick-Start FAQ
 Use this file to specify features and important developer-related information
 in your application.
 
-To build this application - you must be using Ant 1.5.1+.  You will also need 
+To build this application - you must be using Ant 1.6.0+.  You will also need 
 to copy junit.jar into your $ANT_HOME/lib directory.
 
 Then setup Tomcat 4.1.x+ and install an smtp server on localhost.  If you don't 
