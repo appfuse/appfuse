@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: properties.xml,v 1.23 2004/10/13 05:24:01 mraible Exp $             -->
+<!-- $Id: properties.xml,v 1.24 2004/10/25 23:34:46 mraible Exp $             -->
 <!-- ======================================================================= -->
 <!-- This file defines properties for build.xml -->
 
@@ -152,6 +152,7 @@
     <pathelement location="${log4j.jar}"/>
     <pathelement location="${jakarta-oro.jar}"/>
     <pathelement location="${dumbster.jar}"/>
+    <pathelement location="${jmock.jar}"/>
 </path>
     
 <!-- Web -->

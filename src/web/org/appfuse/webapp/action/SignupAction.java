@@ -13,11 +13,11 @@ import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.service.MailEngine;
 import org.appfuse.service.RoleManager;
+import org.appfuse.service.UserExistsException;
 import org.appfuse.service.UserManager;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.form.UserForm;
 import org.appfuse.webapp.util.RequestUtil;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.mail.SimpleMailMessage;
 
 /**
@@ -87,8 +87,8 @@ public final class SignupAction extends BaseAction {
             String loginCookie = mgr.createLoginCookie(user.getUsername());
             RequestUtil.setCookie(response, Constants.LOGIN_COOKIE,
                     loginCookie, request.getContextPath());
-        } catch (DataIntegrityViolationException e) {
-            log.warn("User already exists: " + e.getMessage());
+        } catch (UserExistsException e) {
+            log.warn(e.getMessage());
             errors.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("errors.existing.user",
                             userForm.getUsername(),

@@ -39,6 +39,47 @@ steps:
      Example: log4j.rootCategory=INFO, stdout, mail
 
 
+Features/Changes in 1.6.1
+============================
+- Changed Service Tests to use JMock for mocking DAO dependencies.
+  https://appfuse.dev.java.net/issues/show_bug.cgi?id=86
+- Re-arranged filters-mappings in metadata/web/filter-mappings.xml to 
+  fix exporting Excel with Display Tag.
+  https://appfuse.dev.java.net/issues/show_bug.cgi?id=74
+- Fixed LabelTag to read JSTL's fallback locale from web.xml.
+  https://appfuse.dev.java.net/issues/show_bug.cgi?id=75
+- Changed copy-resources task to only run "native2ascii" task on 
+  Chinese properties files. 
+  https://appfuse.dev.java.net/issues/show_bug.cgi?id=76
+- Fixed XDoclet form-generation template (struts_form.xdt) for generating
+  nested forms.
+  https://appfuse.dev.java.net/issues/show_bug.cgi?id=77
+- Moved exportFilter and compressionFilter filter-mappings to come after
+  encodingFilter to solve NoSuchMethodException when using zh_CN locale.
+  https://appfuse.dev.java.net/issues/show_bug.cgi?id=79
+- [Spring MVC] Fixed JavaScript bug on signup page.
+  https://appfuse.dev.java.net/issues/show_bug.cgi?id=80
+- Enhancements to test/web-tests.xml to be more i18n friendly.
+  https://appfuse.dev.java.net/issues/show_bug.cgi?id=81
+- Fixed bug in Commons Validator support for Spring. An alternative
+  solution is to put the validator beans in applicationContext-service.xml.
+  https://appfuse.dev.java.net/issues/show_bug.cgi?id=82
+- [Spring MVC] Fixed server-side validation for Edit Profile when logged
+  in as "tomcat" user.
+  https://appfuse.dev.java.net/issues/show_bug.cgi?id=83
+- Fixed applicationContext-*.xml path to load each file individually so
+  deploying AppFuse as a WAR works.  Will revert back after next release
+  of Spring. https://appfuse.dev.java.net/issues/show_bug.cgi?id=85
+- Changed UserManager.saveUser to throw checked UserExistsException when 
+  DataIntegrityViolationException occurs.
+- Patched XDoclet so that running "ant setup test-all" will work again.
+  http://opensource.atlassian.com/projects/xdoclet/browse/XDT-879 
+- Dependent packages upgraded:
+    * XDoclet 1.2.2
+- Dependent packages added:
+    * jMock 1.0.1 - a library for testing Java code using mock objects.
+    
+
 Features/Changes in 1.6
 ============================
 - Integrated WebWork as a web framework choice.  To install WebWork (replacing

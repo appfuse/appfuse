@@ -1,21 +1,21 @@
 /**
- * Business Delegate (Proxy) Interface to handle communication between web and
+ * Business Service Interface to handle communication between web and
  * persistence layer.
- * 
- * <p>
- * <a href="RoleManager.java.html"> <i>View Source </i> </a>
- * </p>
- * 
+ *
+ * <p><a href="RoleManager.java.html"><i>View Source</i></a></p>
+ *
  * @author <a href="mailto:dan@getrolling.com">Dan Kibler </a>
- * @version $Revision: 1.1 $ $Date: 2004/10/05 07:20:12 $
  */
 package org.appfuse.service;
 
 import java.util.List;
 
+import org.appfuse.dao.RoleDAO;
 import org.appfuse.model.Role;
 
 public interface RoleManager {
+
+    public void setRoleDAO(RoleDAO dao);
 
     public List getRoles(Role role);
 

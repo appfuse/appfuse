@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.55 2004/10/20 21:06:13 mraible Exp $                 -->
+<!-- $Id: build.xml,v 1.56 2004/10/25 23:34:46 mraible Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -395,7 +395,7 @@
         </antcall>
     </target>
 
-    <target name="test-dao" depends="copy-resources,package-dao"
+    <target name="test-dao" depends="copy-resources,package-dao,db-load"
         description="Test dao module">
         <antcall target="test-module" inheritAll="true">
             <param name="module" value="dao"/>
@@ -437,7 +437,7 @@
         </antcall>
     </target>
 
-    <target name="test-service" depends="copy-resources,package-service"
+    <target name="test-service" depends="compile-service"
         description="Test service module">
         <antcall target="test-module" inheritAll="true">
             <param name="module" value="service"/>
@@ -626,7 +626,7 @@
         </antcall>
     </target>
 
-    <target name="test-web" depends="webdoclet"
+    <target name="test-web" depends="webdoclet,db-load"
         description="Test web module">
         <copy todir="${webapp.target}/WEB-INF" 
             file="${struts.dir}/validator-rules.xml"/>
@@ -676,7 +676,7 @@
         </javac>
     </target>
 
-    <target name="test-module" depends="db-load">
+    <target name="test-module">
         <!-- Inputs: module, test.classpath -->
         <echo level="info">Testing ${module}...</echo>
         <mkdir dir="${test.dir}/data"/>

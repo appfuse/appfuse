@@ -11,5 +11,5 @@ import org.apache.commons.logging.LogFactory;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class BaseManager {
-    protected transient final Log log = LogFactory.getLog(getClass());
+    protected final Log log = LogFactory.getLog(getClass());
 }

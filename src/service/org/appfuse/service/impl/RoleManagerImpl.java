@@ -1,32 +1,19 @@
-/*
- * Created on Aug 12, 2004
- *
- */
 package org.appfuse.service.impl;
 
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.appfuse.dao.RoleDAO;
 import org.appfuse.model.Role;
 import org.appfuse.service.RoleManager;
 
 /**
- * Implementation of RoleManager interface. This basically transforms POJOs ->
- * Forms and back again.
- * </p>
+ * Implementation of RoleManager interface.</p>
  * 
- * <p>
- * <a href="RoleManagerImpl.java.html"> <i>View Source </i> </a>
- * </p>
+ * <p><a href="RoleManagerImpl.java.html"><i>View Source</i></a></p>
  * 
- * @author <a href="mailto:dan@getrolling.com">Dan Kibler </a>
- * @version $Revision: 1.1 $ $Date: 2004/10/05 07:20:13 $
+ * @author <a href="mailto:dan@getrolling.com">Dan Kibler</a>
  */
-public class RoleManagerImpl implements RoleManager {
-    private static Log log = LogFactory.getLog(RoleManagerImpl.class);
-
+public class RoleManagerImpl extends BaseManager implements RoleManager {
     private RoleDAO dao;
 
     public void setRoleDAO(RoleDAO dao) {
@@ -42,7 +29,6 @@ public class RoleManagerImpl implements RoleManager {
     }
 
     public void saveRole(Role role) {
-
         dao.saveRole(role);
     }
 

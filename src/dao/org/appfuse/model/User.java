@@ -1,5 +1,6 @@
 package org.appfuse.model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,7 +23,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @struts.form include-all="true" extends="BaseForm"
  * @hibernate.class table="app_user"
  */
-public class User extends BaseObject {
+public class User extends BaseObject implements Serializable {
     //~ Instance fields
     // ========================================================
 
@@ -104,9 +105,7 @@ public class User extends BaseObject {
     }
 
     /**
-     * Returns the address. The struts.validator tag is needed on this method in
-     * order for child validation rules to be picked up when generating
-     * validation.xml.
+     * Returns the address.
      * 
      * @return Address
      * 
@@ -124,8 +123,7 @@ public class User extends BaseObject {
      * 
      * @struts.validator type="required"
      * @struts.validator type="email"
-     * @hibernate.property 
-     * @hibernate.column name="email" not-null="true" unique="true"
+     * @hibernate.property name="email" not-null="true" unique="true"
      */
     public String getEmail() {
         return email;
@@ -184,10 +182,9 @@ public class User extends BaseObject {
 
     /**
      * Adds a role for the user
-     * 
+     *
      * @param rolename
      */
-
     public void addRole(Role role) {
         getRoles().add(role);
     }

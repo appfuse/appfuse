@@ -20,11 +20,11 @@ import org.appfuse.model.Role;
 import org.appfuse.model.User;
 import org.appfuse.service.MailEngine;
 import org.appfuse.service.RoleManager;
+import org.appfuse.service.UserExistsException;
 import org.appfuse.service.UserManager;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.form.UserForm;
 import org.appfuse.webapp.util.RequestUtil;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.mail.SimpleMailMessage;
 
 /**
@@ -204,8 +204,8 @@ public final class UserAction extends BaseAction {
 
         try {
             mgr.saveUser(user);
-        } catch (DataIntegrityViolationException e) {
-            log.warn("User already exists: " + e.getMessage());
+        } catch (UserExistsException e) {
+            log.warn(e.getMessage());
             errors.add(ActionMessages.GLOBAL_MESSAGE,
                        new ActionMessage("errors.existing.user",
                                          userForm.getUsername(),

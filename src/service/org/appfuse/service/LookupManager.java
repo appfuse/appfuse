@@ -2,9 +2,11 @@ package org.appfuse.service;
 
 import java.util.List;
 
+import org.appfuse.dao.LookupDAO;
+
 
 /**
- * Business Delegate (Proxy) Interface to talk to persistence layer and
+ * Business Service Interface to talk to persistence layer and
  * retrieve values for drop-down choice lists.
  *
  * <p>
@@ -16,6 +18,8 @@ import java.util.List;
 public interface LookupManager {
     //~ Methods ================================================================
 
+    public void setLookupDAO(LookupDAO dao);
+    
     /**
      * Retrieves all possible roles from persistence layer
      * @return List

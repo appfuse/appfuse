@@ -111,8 +111,7 @@ public class User extends BaseObject implements Serializable {
      * 
      * @return String
      *
-     * @hibernate.property 
-     * @hibernate.column name="email" not-null="true" unique="true"
+     * @hibernate.property name="email" not-null="true" unique="true"
      */
     public String getEmail() {
         return email;

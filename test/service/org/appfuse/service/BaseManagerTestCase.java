@@ -4,29 +4,18 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import junit.framework.TestCase;
-
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.util.ConvertUtil;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.jmock.MockObjectTestCase;
 
 
-public class BaseManagerTestCase extends TestCase {
+public class BaseManagerTestCase extends MockObjectTestCase {
     //~ Static fields/initializers =============================================
 
-    protected transient final Log log = LogFactory.getLog(getClass());
-    protected final static ApplicationContext ctx;
+    protected final Log log = LogFactory.getLog(getClass());
     protected ResourceBundle rb;
-
-    // This static block ensures that Spring's BeanFactory is only loaded
-    // once for all tests
-    static {
-        String[] paths = {"/WEB-INF/applicationContext*.xml"};
-        ctx = new ClassPathXmlApplicationContext(paths);
-    }
 
     //~ Constructors ===========================================================
 
