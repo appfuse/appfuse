@@ -7,6 +7,7 @@ import org.apache.commons.logging.LogFactory;
 
 import org.appfuse.persistence.LookupDAO;
 
+import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import org.springframework.orm.ibatis.support.SqlMapDaoSupport;
 
 
@@ -18,10 +19,10 @@ import org.springframework.orm.ibatis.support.SqlMapDaoSupport;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.4 $ $Date: 2004/05/25 06:27:39 $
+ * @version $Revision: 1.5 $ $Date: 2004/07/29 00:27:03 $
  *
  */
-public class LookupDAOiBatis extends SqlMapDaoSupport implements LookupDAO {
+public class LookupDAOiBatis extends SqlMapClientDaoSupport implements LookupDAO {
     private Log log = LogFactory.getLog(LookupDAOiBatis.class);
 
     /**
@@ -32,6 +33,6 @@ public class LookupDAOiBatis extends SqlMapDaoSupport implements LookupDAO {
             log.debug("retrieving all role names...");
         }
 
-        return getSqlMapTemplate().executeQueryForList("getRoles", null);
+        return getSqlMapClientTemplate().queryForList("getRoles", null);
     }
 }

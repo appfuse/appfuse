@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE sql-map PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
-    "http://www.ibatis.com/dtd/sql-map.dtd">
+<!DOCTYPE sqlMap
+    PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+    "http://www.ibatis.com/dtd/sql-map-2.dtd">
 
-<sql-map name="UserSQL">
+<sqlMap namespace="UserSQL">
 
-	<mapped-statement name="addUser" result-class="java.lang.Integer">
+	<insert id="addUser" parameterClass="org.appfuse.model.User">
     <![CDATA[
       INSERT INTO 
       app_user (id, username, password, firstName, lastName, address, city,
@@ -14,29 +15,29 @@
               #city#, #country#, #email#, #phoneNumber#, #postalCode#, 
               #province#, #website#, #passwordHint#);
     ]]>
-    </mapped-statement>
+  </insert>
     
-	<mapped-statement name="getUserId" result-class="java.lang.Long">
+	<select id="getUserId" resultClass="java.lang.Long">
     <![CDATA[
       SELECT max(id) from app_user;
     ]]>
-    </mapped-statement>
+  </select>
     
-	<mapped-statement name="addUserRole">
+	<insert id="addUserRole">
     <![CDATA[
       INSERT INTO 
       user_role (id, user_id, username, role_name)
       VALUES (#id#, #userId#, #username#, #roleName#);
     ]]>
-    </mapped-statement>
+  </insert>
     
-	<mapped-statement name="getRoleId" result-class="java.lang.Long">
+	<select id="getRoleId" resultClass="java.lang.Long">
     <![CDATA[
       SELECT max(id) from user_role;
     ]]>
-    </mapped-statement>
+  </select>
     
-	<mapped-statement name="updateUser" result-class="org.appfuse.model.User">
+	<update id="updateUser" parameterClass="org.appfuse.model.User">
     <![CDATA[
       UPDATE app_user SET
           username = #username#,
@@ -54,67 +55,67 @@
           passwordHint = #passwordHint#
       WHERE id = #id#;
     ]]>
-    </mapped-statement>
+  </update>
     
-	<mapped-statement name="getUser" result-class="org.appfuse.model.User">
+	<select id="getUser" resultClass="org.appfuse.model.User">
     <![CDATA[
       SELECT * FROM app_user WHERE username=#username#;
     ]]>
-    </mapped-statement>
+  </select>
     
-	<mapped-statement name="getUsers" result-class="org.appfuse.model.User">
+	<select id="getUsers" resultClass="org.appfuse.model.User">
     <![CDATA[
       SELECT * FROM app_user ORDER BY UPPER(username);
     ]]>
-    </mapped-statement>
+  </select>
     
-	<mapped-statement name="getUserRoles" result-class="org.appfuse.model.UserRole">
+	<select id="getUserRoles" resultClass="org.appfuse.model.UserRole">
     <![CDATA[
       SELECT id, role_name as roleName, user_id as userId, username
       FROM user_role WHERE username=#username#;
     ]]>
-    </mapped-statement>
+  </select>
     
-	<mapped-statement name="deleteUser">
+	<delete id="deleteUser">
     <![CDATA[
       DELETE FROM app_user where username = #username#;
     ]]>
-    </mapped-statement>
+  </delete>
     
-	<mapped-statement name="deleteUserRoles">
+	<delete id="deleteUserRoles">
     <![CDATA[
       DELETE FROM user_role WHERE username = #username#;
     ]]>
-    </mapped-statement>
+  </delete>
     
-	<mapped-statement name="getUserCookies" result-class="org.appfuse.model.UserCookie">
+	<select id="getUserCookies" resultClass="org.appfuse.model.UserCookie">
     <![CDATA[
       SELECT id, username, cookie_id as cookieId, date_created as dateCreated
       FROM user_cookie where cookie_id = #cookieId#;
     ]]>
-    </mapped-statement>
+  </select>
     
-	<mapped-statement name="deleteUserCookies">
+	<delete id="deleteUserCookies">
     <![CDATA[
       DELETE FROM user_cookie where username = #username#;
     ]]>
-    </mapped-statement>
+    </delete>
     
-	<mapped-statement name="addUserCookie">
+	<insert id="addUserCookie" parameterClass="org.appfuse.model.UserCookie">
     <![CDATA[
       INSERT INTO 
       user_cookie (id, username, cookie_id, date_created)
       VALUES (#id#, #username#, #cookieId#, #dateCreated#);
     ]]>
-    </mapped-statement>
+  </insert>
     
-	<mapped-statement name="getUserCookieId" result-class="java.lang.Long">
+	<select id="getUserCookieId" resultClass="java.lang.Long">
     <![CDATA[
       SELECT max(id) FROM user_cookie;
     ]]>
-    </mapped-statement>
+  </select>
     
-	<mapped-statement name="updateUserCookie" result-class="org.appfuse.model.UserCookie">
+	<update id="updateUserCookie" parameterClass="org.appfuse.model.UserCookie">
     <![CDATA[
       UPDATE user_cookie SET
           username = #username#,
@@ -122,5 +123,5 @@
           date_created = #dateCreated#
       WHERE id = #id#;
     ]]>
-    </mapped-statement>
-</sql-map>
+  </update>
+</sqlMap>

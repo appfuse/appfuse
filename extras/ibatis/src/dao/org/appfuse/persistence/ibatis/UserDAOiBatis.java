@@ -13,6 +13,7 @@ import org.appfuse.model.UserRole;
 import org.appfuse.persistence.DAOException;
 import org.appfuse.persistence.UserDAO;
 
+import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import org.springframework.orm.ibatis.support.SqlMapDaoSupport;
 
 
@@ -25,9 +26,9 @@ import org.springframework.orm.ibatis.support.SqlMapDaoSupport;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.5 $ $Date: 2004/05/25 06:27:39 $
+ * @version $Revision: 1.6 $ $Date: 2004/07/29 00:27:04 $
  */
-public class UserDAOiBatis extends SqlMapDaoSupport implements UserDAO {
+public class UserDAOiBatis extends SqlMapClientDaoSupport implements UserDAO {
     private Log log = LogFactory.getLog(UserDAOiBatis.class);
 
     /**
@@ -41,13 +42,13 @@ public class UserDAOiBatis extends SqlMapDaoSupport implements UserDAO {
         User user = new User();
         user.setUsername(username);
 
-        List users = getSqlMapTemplate().executeQueryForList("getUser", user);
+        List users = getSqlMapClientTemplate().queryForList("getUser", user);
 
         if ((users != null) && (users.size() > 0)) {
             user = (User) users.get(0);
 
             List roles =
-                getSqlMapTemplate().executeQueryForList("getUserRoles", user);
+            	getSqlMapClientTemplate().queryForList("getUserRoles", user);
             user.setRoles(roles);
         }
 
@@ -64,14 +65,14 @@ public class UserDAOiBatis extends SqlMapDaoSupport implements UserDAO {
      * @see org.appfuse.persistence.UserDAO#getUsers(org.appfuse.model.User)
      */
     public List getUsers(User user) {
-        List users = getSqlMapTemplate().executeQueryForList("getUsers", null);
+        List users = getSqlMapClientTemplate().queryForList("getUsers", null);
 
         // get the roles for each user
         for (int i = 0; i < users.size(); i++) {
             user = (User) users.get(i);
 
             List roles =
-                getSqlMapTemplate().executeQueryForList("getUserRoles", user);
+            	getSqlMapClientTemplate().queryForList("getUserRoles", user);
             user.setRoles(roles);
             users.set(i, user);
         }
@@ -84,7 +85,7 @@ public class UserDAOiBatis extends SqlMapDaoSupport implements UserDAO {
      * @param user
      */
     private void deleteUserRoles(final User user) {
-        getSqlMapTemplate().executeUpdate("deleteUserRoles", user);
+    	getSqlMapClientTemplate().update("deleteUserRoles", user);
     }
 
     private void addUserRoles(final User user) {
@@ -94,8 +95,7 @@ public class UserDAOiBatis extends SqlMapDaoSupport implements UserDAO {
             for (Iterator it = user.getRoles().iterator(); it.hasNext();) {
                 userRole = (UserRole) it.next();
                 if (!preventDups.contains(userRole.getRoleName())) {
-                    Long pk = (Long) getSqlMapTemplate()
-                                  .executeQueryForObject("getRoleId", null);
+                    Long pk = (Long) getSqlMapClientTemplate().queryForObject("getRoleId", null);
     
                     if (pk == null) {
                         pk = new Long(0);
@@ -105,7 +105,7 @@ public class UserDAOiBatis extends SqlMapDaoSupport implements UserDAO {
     
                     userRole.setUserId(user.getId());
                     userRole.setUsername(user.getUsername());
-                    getSqlMapTemplate().executeUpdate("addUserRole", userRole);
+                    getSqlMapClientTemplate().update("addUserRole", userRole);
                     preventDups.add(userRole.getRoleName());
                 }                    
             }
@@ -118,7 +118,7 @@ public class UserDAOiBatis extends SqlMapDaoSupport implements UserDAO {
     public User saveUser(final User user) throws DAOException {
         if (user.getId() == null) {
             Long pk =
-                (Long) getSqlMapTemplate().executeQueryForObject("getUserId",
+                (Long) getSqlMapClientTemplate().queryForObject("getUserId",
                                                                  null);
 
             if (pk == null) {
@@ -131,10 +131,10 @@ public class UserDAOiBatis extends SqlMapDaoSupport implements UserDAO {
                 log.debug("user's id: " + user.getId());
             }
 
-            getSqlMapTemplate().executeUpdate("addUser", user);
+            getSqlMapClientTemplate().update("addUser", user);
             addUserRoles(user);
         } else {
-            getSqlMapTemplate().executeUpdate("updateUser", user);
+            getSqlMapClientTemplate().update("updateUser", user);
             deleteUserRoles(user);
             addUserRoles(user);
         }
@@ -153,7 +153,7 @@ public class UserDAOiBatis extends SqlMapDaoSupport implements UserDAO {
         User user = getUser(username);
         removeUserCookies(user.getUsername());
         deleteUserRoles(user);
-        getSqlMapTemplate().executeUpdate("deleteUser", user);
+        getSqlMapClientTemplate().update("deleteUser", user);
     }
 
     /**
@@ -164,7 +164,7 @@ public class UserDAOiBatis extends SqlMapDaoSupport implements UserDAO {
         c.setCookieId(cookieId);
 
         List cookies =
-            getSqlMapTemplate().executeQueryForList("getUserCookies", c);
+        	getSqlMapClientTemplate().queryForList("getUserCookies", c);
 
         if (cookies.size() == 0) {
             return null;
@@ -181,7 +181,7 @@ public class UserDAOiBatis extends SqlMapDaoSupport implements UserDAO {
         UserCookie c = new UserCookie();
         c.setUsername(username);
 
-        getSqlMapTemplate().executeUpdate("deleteUserCookies", c);
+        getSqlMapClientTemplate().update("deleteUserCookies", c);
     }
 
     /**
@@ -190,7 +190,7 @@ public class UserDAOiBatis extends SqlMapDaoSupport implements UserDAO {
     public void saveUserCookie(UserCookie cookie) {
         if (cookie.getId() == null) {
             Long pk =
-                (Long) getSqlMapTemplate().executeQueryForObject("getUserCookieId",
+                (Long) getSqlMapClientTemplate().queryForObject("getUserCookieId",
                                                                  null);
 
             if (pk == null) {
@@ -198,9 +198,9 @@ public class UserDAOiBatis extends SqlMapDaoSupport implements UserDAO {
             }
 
             cookie.setId(new Long(pk.longValue() + 1));
-            getSqlMapTemplate().executeUpdate("addUserCookie", cookie);
+            getSqlMapClientTemplate().update("addUserCookie", cookie);
         } else {
-            getSqlMapTemplate().executeUpdate("updateUserCookie", cookie);
+            getSqlMapClientTemplate().update("updateUserCookie", cookie);
         }
     }
 }

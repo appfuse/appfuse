@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE sql-map
-    PUBLIC "-//iBATIS.com//DTD SQL Map 1.0//EN"
-    "http://www.ibatis.com/dtd/sql-map.dtd">
+<!DOCTYPE sqlMap
+    PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+    "http://www.ibatis.com/dtd/sql-map-2.dtd">
 
-<sql-map name="LookupSQL"> 
+<sqlMap namespace="LookupSQL">
 
-  <mapped-statement name="getRoles" result-class="org.appfuse.model.Role">
+  <select id="getRoles" resultClass="org.appfuse.model.Role">
     <![CDATA[
       SELECT name, description FROM role;
     ]]>
-  </mapped-statement>
+  </select>
 
-</sql-map>
+</sqlMap>
