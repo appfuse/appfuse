@@ -53,6 +53,8 @@ Features/Changes in 1.8
     https://appfuse.dev.java.net/issues/show_bug.cgi?id=121
 - Added empty "velocimacro.library" property to "velocityEngine" bean in 
   applicationContext-service.xml to suppress Velocity errors.
+- Changed Transaction Attributes on UserManager so save* rolls back when 
+  the checked UserExistsException is thrown.
 - Dependent packages upgraded:
     * Display Tag 1.0
     * Hibernate 2.1.8
