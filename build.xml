@@ -1341,7 +1341,8 @@
     <!-- =================================================================== -->
     <target name="dist" depends="clean,wiki"
         description="create zip and tar.gz of entire directory for distribution">
-        <property name="archive.name" value="${webapp.name}-${webapp.version}-src"/>
+        <property name="archive.prefix" value="${webapp.name}"/>
+        <property name="archive.name" value="${archive.prefix}-${webapp.version}-src"/>
         <property name="archive.target" value="../${archive.name}"/>
         <zip zipfile="${archive.target}.zip">
             <zipfileset prefix="${webapp.name}" dir="${basedir}">
