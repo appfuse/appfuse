@@ -4,8 +4,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 
 import org.apache.cactus.ServletTestCase;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.appfuse.Constants;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -15,16 +13,10 @@ import org.springframework.web.context.WebApplicationContext;
  * verify that variables are placed into the application context.
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.5 $ $Date: 2004/08/19 05:11:45 $
  */
 public class StartupListenerTest extends ServletTestCase {
-    //~ Instance fields ========================================================
-
-    private final Log log = LogFactory.getLog(StartupListenerTest.class);
     StartupListener listener = null;
     ServletContext context = null;
-
-    //~ Methods ================================================================
 
     protected void setUp() throws Exception {
         super.setUp();
