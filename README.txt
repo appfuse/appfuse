@@ -45,8 +45,8 @@ Features/Changes in 1.6
   Bug 47 - https://appfuse.dev.java.net/issues/show_bug.cgi?id=47.
 
 - Dependent packages upgraded:
-    * Spring 1.0.2
-    * Hibernate 2.1.4
+    * Spring 1.1 RC1
+    * Hibernate 2.1.5
     * Display Tag 1.0 RC1
     * Struts 1.2.1
     * Struts Test Case 2.1.2
