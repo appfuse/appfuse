@@ -1,0 +1,34 @@
+  <XDtConfig:ifConfigParamNotEquals paramName="Displayname" value="">
+   <display-name><XDtConfig:configParameterValue paramName="Displayname"/></display-name>
+  </XDtConfig:ifConfigParamNotEquals>
+    <!-- You may experience issues in Mozilla < version 1.2 if you use  -->
+    <!-- ports other than 80 and 443, it seems to work fine with v1.2.  -->
+    <!-- For further information see the following article:             -->
+    <!-- http://www.javaworld.com/javaworld/jw-02-2002/jw-0215-ssl.html -->
+    <context-param>
+        <param-name>listenPort_http</param-name>
+        <param-value><XDtConfig:configParameterValue paramName="httpPort"/></param-value>
+    </context-param>
+    <context-param>
+        <param-name>listenPort_https</param-name>
+        <param-value><XDtConfig:configParameterValue paramName="httpsPort"/></param-value>
+    </context-param>
+    <!-- Possible values: hibernate (might be more in the future) -->
+    <context-param>
+        <param-name>daoType</param-name>
+        <param-value><XDtConfig:configParameterValue paramName="daoType"/></param-value>
+    </context-param>
+     <!-- Define the basename for a resource bundle for I18N -->
+    <context-param>
+        <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
+        <param-value>ApplicationResources</param-value>
+    </context-param>
+    <!-- Context Configuration locations for Spring XML files -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            /WEB-INF/applicationContext-database.xml,
+            /WEB-INF/applicationContext-<XDtConfig:configParameterValue paramName="daoType"/>.xml,
+            /WEB-INF/applicationContext-service.xml
+        </param-value>
+    </context-param>

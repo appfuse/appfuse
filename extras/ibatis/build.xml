@@ -1,0 +1,399 @@
+<!-- This file is designed to add iBatis support to AppFuse -->
+<project name="ibatis" basedir="." default="help">
+
+    <property name="lib.dir" location="../../lib"/>
+    <property file="${lib.dir}/lib.properties"/>
+    
+    <taskdef resource="net/sf/antcontrib/antcontrib.properties"
+            classpath="${ant-contrib.jar}"/>
+
+    <!-- =================================================================== -->
+    <!-- List options for this build file                                    -->
+    <!-- =================================================================== -->
+    <target name="help" description="Print usage for key targets">
+    <echo>
+    Key Targets:
+                install: installs iBatis into AppFuse
+              uninstall: uninstalls iBatis from AppFuse
+    uninstall-hibernate: uninstalls Hibernate from AppFuse
+
+                   help: Print this help text...
+    </echo>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Install iBatis as part of AppFuse                                   -->
+    <!-- =================================================================== -->
+    <target name="install"
+        description="installs iBatis into the AppFuse base project">
+        <echo level="info">Copying iBatis JARs to ../../lib</echo>
+        <copy todir="${lib.dir}">
+            <fileset dir="lib" includes="**"/>
+        </copy>
+        <echo level="info">Adding iBatis entries to ../../lib.properties</echo>
+        <replace file="${lib.dir}/lib.properties">
+            <replacetoken><![CDATA[#
+# Java2HTML - http://www.java2html.com]]></replacetoken>
+            <replacevalue><![CDATA[#
+# iBATIS - http://www.ibatis.com/
+#
+ibatis.version 	        = 1.3.1
+ibatis.dir=${lib.dir}/ibatis-${ibatis.version}
+ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
+
+#
+# Java2HTML - http://www.java2html.com]]></replacevalue>
+        </replace>
+
+        <echo level="info">Adding iBatis classpath entries</echo>
+        <replace file="../../properties.xml">
+            <replacetoken><![CDATA[<!-- DAO -->
+<path id="dao.compile.classpath">
+    <path refid="hibernate.classpath"/>]]></replacetoken>
+            <replacevalue><![CDATA[<!-- iBatis -->
+<path id="ibatis.classpath">
+    <fileset dir="${ibatis.dir}" includes="*.jar"/>
+    <pathelement location="${database.jar}"/>
+    <pathelement location="${commons-beanutils.jar}"/>
+    <pathelement location="${commons-lang.jar}"/>
+    <path location="${build.dir}/dao/classes"/>
+</path>
+
+<!-- DAO -->
+<path id="dao.compile.classpath">
+    <path refid="hibernate.classpath"/>
+    <path refid="ibatis.classpath"/>]]></replacevalue>
+        </replace>
+
+        <echo level="info">Changing dao.type to ibatis</echo>
+        <replace file="../../properties.xml">
+            <replacetoken><![CDATA[<property name="dao.type" value="hibernate"/>]]></replacetoken>
+            <replacevalue><![CDATA[<property name="dao.type" value="ibatis"/>]]></replacevalue>
+        </replace>
+
+        <echo level="info">Adding iBatis JARs to WAR build</echo>
+        <replace file="../../build.xml">
+            <replacetoken><![CDATA[<lib file="${statetag.jar}"/>]]></replacetoken>
+            <replacevalue><![CDATA[<lib dir="${ibatis.dir}" includes="*.jar"/>
+            <lib file="${statetag.jar}"/>]]></replacevalue>
+        </replace>
+        
+        <echo level="info">Commenting out Hibernate OSIV Filter</echo>
+        <replace file="../../metadata/web/filter-mappings.xml">
+        <replacetoken><![CDATA[<filter-mapping>
+        <filter-name>hibernateFilter</filter-name>
+        <url-pattern>*.html</url-pattern>
+    </filter-mapping>]]></replacetoken>
+            <replacevalue><![CDATA[<!--filter-mapping>
+        <filter-name>hibernateFilter</filter-name>
+        <url-pattern>*.html</url-pattern>
+    </filter-mapping-->]]></replacevalue>
+        </replace>
+
+        <echo level="info">Copying src files to ../../src</echo>
+        <copy todir="../../src" overwrite="true">
+            <fileset dir="src"/>
+        </copy>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Uninstall iBatis from AppFuse                                       -->
+    <!-- =================================================================== -->
+    <target name="uninstall" description="uninstalls iBatis from AppFuse">
+        <echo level="info">Deleting iBatis JARs from ../../lib</echo>
+        <delete dir="${ibatis.dir}"/>
+
+        <echo level="info">Removing iBatis entries from ../../lib.properties</echo>
+        <replace file="${lib.dir}/lib.properties">
+            <replacetoken><![CDATA[#
+# iBATIS - http://www.ibatis.com/
+#
+ibatis.version 	        = 1.3.1
+ibatis.dir=${lib.dir}/ibatis-${ibatis.version}
+ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
+
+#
+# Java2HTML - http://www.java2html.com]]></replacetoken>
+            <replacevalue><![CDATA[#
+# Java2HTML - http://www.java2html.com]]></replacevalue>
+        </replace>
+
+        <echo level="info">Removing iBatis classpath entries</echo>
+        <replace file="../../properties.xml">
+            <replacetoken><![CDATA[<!-- iBatis -->
+<path id="ibatis.classpath">
+    <fileset dir="${ibatis.dir}" includes="*.jar"/>
+    <pathelement location="${database.jar}"/>
+    <pathelement location="${commons-beanutils.jar}"/>
+    <pathelement location="${commons-lang.jar}"/>
+    <path location="${build.dir}/dao/classes"/>
+</path>
+
+<!-- DAO -->
+<path id="dao.compile.classpath">
+    <path refid="hibernate.classpath"/>
+    <path refid="ibatis.classpath"/>]]></replacetoken>
+            <replacevalue><![CDATA[<!-- DAO -->
+<path id="dao.compile.classpath">
+    <path refid="hibernate.classpath"/>]]></replacevalue>
+        </replace>
+
+        <echo level="info">Changing dao.type to hibernate</echo>
+        <replace file="../../properties.xml">
+            <replacetoken><![CDATA[<property name="dao.type" value="ibatis"/>]]></replacetoken>
+            <replacevalue><![CDATA[<property name="dao.type" value="hibernate"/>]]></replacevalue>
+        </replace>
+
+        <echo level="info">Removing iBatis JARs from WAR build</echo>
+        <replace file="../../build.xml">
+            <replacetoken><![CDATA[<lib dir="${ibatis.dir}" includes="*.jar"/>
+            <lib file="${statetag.jar}"/>]]></replacetoken>
+            <replacevalue><![CDATA[<lib file="${statetag.jar}"/>]]></replacevalue>
+        </replace>
+
+        <echo level="info">Enabling Hibernate OSIV Filter</echo>
+        <replace file="../../metadata/web/filter-mappings.xml">
+        <replacetoken><![CDATA[<!--filter-mapping>
+        <filter-name>hibernateFilter</filter-name>
+        <url-pattern>*.html</url-pattern>
+    </filter-mapping-->]]></replacetoken>
+            <replacevalue><![CDATA[<filter-mapping>
+        <filter-name>hibernateFilter</filter-name>
+        <url-pattern>*.html</url-pattern>
+    </filter-mapping>]]></replacevalue>
+        </replace>
+
+        <echo level="info">Removing src files from ../../src</echo>
+        <delete dir="../../src/dao/org/appfuse/persistence/ibatis"/>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Uninstall Hibernate from AppFuse                                    -->
+    <!-- =================================================================== -->
+    <target name="uninstall-hibernate" 
+        description="uninstalls Hibernate from AppFuse">
+        <echo level="info">NOTE: This target assumes you will use </echo>
+        <echo level="info">  iBatis for database persistence.
+        </echo>
+        <echo level="info">Copying database creation scripts</echo>
+        <copy todir="../../metadata/sql">
+            <fileset dir="metadata/sql" includes="*.sql"/>
+        </copy>
+
+        <echo level="info">Copying jta.jar from Hibernate to iBATIS</echo>
+        <copy todir="../../lib/ibatis-1.3.1">
+            <fileset dir="${hibernate.dir}/lib" includes="jta.jar"/>
+        </copy>
+        <replace file="../../build.xml">
+            <replacetoken><![CDATA[<fileset dir="${hibernate.dir}/lib" includes="jta.jar"/>]]></replacetoken>
+            <replacevalue><![CDATA[<fileset dir="${ibatis.dir}" includes="jta.jar"/>]]></replacevalue>
+        </replace>
+
+        <echo level="info">Deleting Hibernate JARs from ../../lib</echo>
+        <delete dir="${hibernate.dir}"/>
+
+        <echo level="info">Removing Hibernate entries from ../../lib.properties</echo>
+        <replace file="${lib.dir}/lib.properties">
+            <replacetoken><![CDATA[dbunit.jar=${dbunit.dir}/dbunit-${dbunit.version}.jar
+
+#
+# Hibernate - http://hibernate.sf.net/
+#
+hibernate.version       = 2.1.3
+hibernate.dir=${lib.dir}/hibernate-${hibernate.version}
+hibernate.jar=${hibernate.dir}/hibernate2.jar]]></replacetoken>
+            <replacevalue><![CDATA[dbunit.jar=${dbunit.dir}/dbunit-${dbunit.version}.jar]]></replacevalue>
+        </replace>
+
+        <echo level="info">Removing Hibernate classpath entries</echo>
+        <replace file="../../properties.xml">
+            <replacetoken><![CDATA[
+<!-- Hibernate -->
+<path id="hibernate.classpath">
+    <pathelement location="${hibernate.jar}"/> 
+    <fileset dir="${hibernate.dir}/lib" includes="*.jar"/>
+    <pathelement location="${database.jar}"/> 
+    <pathelement location="${commons-beanutils.jar}"/>
+    <pathelement location="${commons-lang.jar}"/>
+    <path location="${build.dir}/dao/classes"/>
+</path>
+]]></replacetoken>
+            <replacevalue></replacevalue>
+        </replace>
+
+        <replace file="../../properties.xml">
+            <replacetoken><![CDATA[<!-- DAO -->
+<path id="dao.compile.classpath">
+    <path refid="hibernate.classpath"/>]]></replacetoken>
+            <replacevalue><![CDATA[<!-- DAO -->
+<path id="dao.compile.classpath">]]></replacevalue>
+        </replace>
+        
+        <replace file="../../properties.xml">
+            <replacetoken><![CDATA[<path refid="hibernate.classpath"/>]]></replacetoken>
+            <replacevalue><![CDATA[<path refid="ibatis.classpath"/>]]></replacevalue>
+        </replace>
+
+        <echo level="info">Removing all references to hibernate in build.xml</echo>
+        
+        <!-- Remove hibernate.unnecessary check -->
+        <replace file="../../build.xml">
+            <replacetoken><![CDATA[        
+        <!-- Make sure hibernatedoclet is necessary -->
+        <uptodate property="hibernatedoclet.unnecessary">
+            <srcfiles dir="src/dao" includes="**/*.java"/>
+            <srcfiles dir="${build.dir}/dao/gen" includes="**/*.java"/>
+            <mapper type="glob" from="*.java"
+                to="${build.dir}/dao/classes/*.class"/>
+        </uptodate>
+        ]]></replacetoken>
+            <replacevalue></replacevalue>
+        </replace>
+
+        <!-- Remove Hibernate dialect entry -->
+        <replace file="../../build.xml">
+            <replacetoken><![CDATA[<filter token="HIBERNATE-DIALECT" value="${hibernate.dialect}"/>
+        <filter token="DAO-TYPE" value="${dao.type}"/>]]></replacetoken>
+            <replacevalue></replacevalue>
+        </replace>
+
+        <!-- Remove hibernatedoclet target -->
+        <replace file="../../build.xml">
+            <replacetoken><![CDATA[        
+    <!-- =================================================================== -->
+    <!-- The "hibernatedoclet" target generates Hibernate mapping files      -->
+    <!-- based on XDoclet marked-up Plain Old Java Object (POJO)             -->
+    <!-- =================================================================== -->
+    <target name="hibernatedoclet" depends="init" unless="hibernatedoclet.unnecessary"
+        description="Generate Persistence and form classes">
+
+        <taskdef name="hibernatedoclet"
+            classname="xdoclet.modules.hibernate.HibernateDocletTask"
+            classpathref="xdoclet.classpath"/>
+        
+        <!-- generate hibernate files -->
+        <hibernatedoclet
+            destdir="${build.dir}/dao/gen"
+            mergedir="metadata/dao"
+            excludedtags="@version,@author"
+            addedtags="@xdoclet-generated at ${TODAY}"
+            force="${xdoclet.force}">
+            <fileset dir="src/dao"/>
+
+            <hibernate validatexml="true" version="2.0"/>
+
+        </hibernatedoclet>
+    </target>
+]]></replacetoken>
+            <replacevalue></replacevalue>
+        </replace>
+
+        <!-- Replace 'hibernatedoclet' dependencies with "init" -->
+        <replace file="../../build.xml">
+            <replacetoken>hibernatedoclet</replacetoken>
+            <replacevalue>init</replacevalue>
+        </replace>
+
+        <!-- Remove JARs from being includes in WAR -->
+        <replace file="../../build.xml">
+            <replacetoken><![CDATA[<lib file="${displaytag.jar}"/>
+            <lib file="${hibernate.jar}"/>
+            <lib dir="${hibernate.dir}/lib">
+                <include name="odmg*.jar"/>
+                <include name="dom4j*.jar"/>
+                <include name="cglib*.jar"/>
+                <include name="ehcache*.jar"/>
+                <include name="oscache*.jar"/>
+            </lib>]]></replacetoken>
+            <replacevalue><![CDATA[<lib file="${displaytag.jar}"/>]]></replacevalue>
+        </replace>
+
+        <echo level="info">Replacing "schemaexport" with "sql"</echo>
+        <replace file="../../build.xml">
+            <replacetoken><![CDATA[<target name="db-init" depends="clean,package-dao"
+        description="creates database tables">
+        <taskdef name="schemaexport"
+            classname="net.sf.hibernate.tool.hbm2ddl.SchemaExportTask">
+            <classpath>
+                <path refid="xdoclet.classpath"/>
+                <path refid="hibernate.classpath"/>
+            </classpath>
+        </taskdef>
+
+        <antcall target="generate.database.properties"/>
+        <schemaexport quiet="no" text="no" drop="no" delimiter=";"
+            properties="database.properties" output="create-tables.sql">
+            <fileset dir="${build.dir}/dao/gen" includes="**/*.hbm.xml"/>
+        </schemaexport>]]></replacetoken>
+            <replacevalue><![CDATA[<target name="db-init" description="creates database tables">
+        <sql driver="${database.driver_class}" url="${database.url}"
+             userid="${database.username}" password="${database.password}">
+
+            <classpath>
+                <pathelement location="${database.jar}"/>
+            </classpath>
+
+            <fileset dir="metadata/sql">
+                <include name="${database.type}-create-tables.sql"/>
+            </fileset>
+         </sql>]]></replacevalue>
+        </replace>
+        <replace file="../../build.xml">
+            <replacetoken><![CDATA[<target name="db-drop" depends="hibernatedoclet"
+        description="drops database tables">
+        <taskdef name="schemaexport"
+            classname="net.sf.hibernate.tool.hbm2ddl.SchemaExportTask">
+            <classpath>
+                <path refid="xdoclet.classpath"/>
+                <path refid="hibernate.classpath"/>
+            </classpath>
+        </taskdef>
+
+        <antcall target="generate.database.properties"/>
+        <schemaexport quiet="no" text="no" drop="yes" delimiter=";"
+            properties="database.properties" output="drop-tables.sql">
+            <fileset dir="${build.dir}/dao/gen" includes="**/*.hbm.xml"/>
+        </schemaexport>]]></replacetoken>
+            <replacevalue><![CDATA[<target name="db-drop" description="drops database tables">
+        <sql driver="${database.driver_class}" url="${database.url}"
+             userid="${database.username}" password="${database.password}">
+
+            <classpath>
+                <pathelement location="${database.jar}"/>
+            </classpath>
+
+            <fileset dir="metadata/sql">
+                <include name="${database.type}-drop-tables.sql"/>
+            </fileset>
+         </sql>]]></replacevalue>
+        </replace>
+
+        <echo level="info">Removing Hibernate OSIV Filter</echo>
+        <replace file="../../metadata/web/filter-mappings.xml">
+        <replacetoken><![CDATA[<!-- The 'hibernateFilter', a.k.a. Spring's OpenSessionInViewFilter
+         guarantees one session per request.  Performance seems to be the
+         same if it's enabled or disabled. -->
+    <filter-mapping>
+        <filter-name>hibernateFilter</filter-name>
+        <url-pattern>*.html</url-pattern>
+    </filter-mapping>]]></replacetoken>
+            <replacevalue></replacevalue>
+        </replace>
+
+        <!-- Remove Hibernate OSIV Filter from filter.xml -->
+        <replace file="../../metadata/web/filters.xml">
+        <replacetoken><![CDATA[<filter>
+        <filter-name>hibernateFilter</filter-name>
+        <filter-class>org.springframework.orm.hibernate.support.OpenSessionInViewFilter</filter-class>
+    </filter>]]></replacetoken>
+            <replacevalue></replacevalue>
+        </replace>
+        
+        <echo level="info">Removing src files from ../../src</echo>
+        <delete dir="../../src/dao/org/appfuse/persistence/hibernate"/>
+
+        <!-- I'm purposely not removing the hibernate stuff from the "javadoc" target,
+            it's not causing any harm, so I figured I'd leave it in. -->
+
+    </target>
+</project>

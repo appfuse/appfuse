@@ -1,0 +1,101 @@
+<!-- More information on this script at 
+     http://cvs.apache.org/~fhanik/precompile.html -->
+<project name="precompile-jsps" default="dist" basedir=".">
+    <!-- Load user overrides -->
+    <property file="${user.home}/.${webapp.name}-build.properties"/>
+    <property file="${user.home}/.build.properties"/>
+    <property file="build.properties"/>
+
+    <property name="lib.dir" location="lib"/>
+    <property file="${lib.dir}/lib.properties"/>
+        
+    <property environment="env" />
+    <property name="tomcat.home" value="${env.CATALINA_HOME}"/>
+
+    <property name="webapp.path" 
+        location="${tomcat.home}/webapps/${webapp.name}"/>
+
+    <target name="jspc">
+        <taskdef classname="org.apache.jasper.JspC" name="jasper2" >
+            <classpath id="jspc.classpath">
+                <pathelement location="${java.home}/../lib/tools.jar"/>
+                <fileset dir="${tomcat.home}/server/lib">
+                    <include name="*.jar"/>
+                </fileset>
+                <fileset dir="${tomcat.home}/common/lib">
+                    <include name="*.jar"/>
+                </fileset>
+                <fileset dir="${webapp.path}/WEB-INF/lib">
+        			<include name="*.jar"/>
+    			</fileset>
+            </classpath>
+        </taskdef>
+        
+        <taskdef name="foreach"
+                classname="net.sf.antcontrib.logic.ForEach"
+                classpath="${ant-contrib.jar}" />
+
+        <jasper2
+             validateXml="false"
+             uriroot="${webapp.path}"
+             webXmlFragment="${webapp.path}/WEB-INF/generated_web.xml"
+             outputDir="${webapp.path}/WEB-INF/src"
+             package="some.unique.string.asd34sad">
+        </jasper2>
+
+        <replaceregexp match="^package some.unique.string.asd34sad.*;"
+                       replace="package org.apache.jsp;"
+                       byline="true">
+            <fileset dir="${webapp.path}/WEB-INF/src">
+                <include name="**/*.*"/>
+            </fileset>
+        </replaceregexp>
+
+        <echo>Compiling generated classes from JSPC</echo>
+        <foreach target="do-jsp-compile" param="dir-path">
+            <path>
+                <dirset dir="${webapp.path}/WEB-INF/src"/>
+            </path>
+        </foreach>
+        <move todir="${tomcat.home}/work/Standalone/localhost/${webapp.name}">
+            <fileset dir="${webapp.path}/WEB-INF/src">
+                <include name="**/*.*"/>
+            </fileset>
+        </move>
+    </target>
+
+    <target name="do-jsp-compile">
+        <echo>Compile JSP in: ${dir-path}</echo>
+        <javac destdir="${dir-path}"
+               optimize="off"
+               debug="on"
+               failonerror="false"
+               srcdir="${dir-path}">
+            <classpath>
+                <pathelement location="${webapp.path}/WEB-INF/classes"/>
+                <fileset dir="${webapp.path}/WEB-INF/lib">
+                    <include name="*.jar"/>
+                </fileset>
+                <pathelement location="${tomcat.home}/common/classes"/>
+                <fileset dir="${tomcat.home}/common/lib">
+                    <include name="*.jar"/>
+                </fileset>
+                <pathelement location="${tomcat.home}/shared/classes"/>
+                <fileset dir="${tomcat.home}/server/lib">
+                    <include name="*.jar"/>
+                </fileset>
+            </classpath>
+            <include name="*.java" />
+        </javac>
+        <mkdir dir="${dir-path}/org/apache/jsp"/>
+        <move todir="${dir-path}" failonerror="false">
+            <fileset dir="${dir-path}/org/apache/jsp">
+                <include name="*.*"/>
+            </fileset>
+        </move>
+        <delete dir="${dir-path}/org" failonerror="false"/>
+    </target>
+
+    <target name="dist" depends="jspc"/>
+
+</project>

@@ -1,0 +1,25 @@
+   <global>
+      <constant>
+        <constant-name>phone</constant-name>
+        <constant-value>^\(?(\d{3})\)?[-| ]?(\d{3})[-| ]?(\d{4})$</constant-value>
+      </constant>
+      <constant>
+        <constant-name>zip</constant-name>
+        <constant-value>^\d{5}\d*$</constant-value>
+      </constant>
+      <constant>
+        <constant-name>currency</constant-name>
+        <constant-value>^\d{1,3}(,?\d{1,3})*\.?(\d{1,2})?$</constant-value>
+      </constant> 
+   </global>
+   <formset>
+        <form name="uploadForm">
+            <field property="name" depends="required">
+                <arg0 key="uploadForm.name"/>
+            </field>
+            <!-- Client-side Javascript won't catch this, but server-side will -->
+            <field property="file" depends="required">
+                <arg0 key="uploadForm.file"/>
+            </field>
+        </form>
+    </formset>

@@ -1,0 +1,44 @@
+@import url(messages.css);
+@import url(displaytag.css);
+
+a {
+	color: blue;
+	font-weight: normal;
+    text-underline: true;
+}
+
+/* from http://diveintomark.org/archives/2002/04/26/printfriendly_links */
+a:after {
+  content: " (" attr(href) ")";
+}
+
+a:visited {
+	color: blue;
+}
+
+div#activeUsers, div#header, div#menu, div#validators {
+    display:none;
+}
+
+div#content {
+	margin: 10px !important;
+}
+
+div#footer {
+    text-align: center;
+}
+
+div.separator {
+    border-bottom: 1px solid silver; 
+}
+
+h1 {
+	color: black;
+    text-align: center;
+}
+
+ul.glassList {
+    list-style: url(../images/aquadot.jpg) disc outside;
+    vertical-align: top;
+    line-height: 1.5;
+}

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dataset>
+  <table name='app_user'>
+    <column>id</column>
+    <column>username</column>
+    <column>password</column>
+    <column>firstName</column>
+    <column>lastName</column>
+    <column>address</column>
+    <column>city</column>
+    <column>country</column>
+    <column>email</column>
+    <column>phoneNumber</column>
+    <column>postalCode</column>
+    <column>province</column>
+    <column>website</column>
+    <column>passwordHint</column>
+    <row>
+      <value>1</value>
+      <value>tomcat</value>
+      <value>536c0b339345616c1b33caf454454d8b8a190d6c</value>
+      <value>Tomcat</value>
+      <value>User</value>
+      <value></value>
+      <value>Denver</value>
+      <value>US</value>
+      <value>matt_raible@yahoo.com</value>
+      <value></value>
+      <value>80210</value>
+      <value>CO</value>
+      <value>http://jakarta.apache.org/tomcat</value>
+      <value><![CDATA[A male kitty.]]></value>
+    </row>
+    <row>
+      <value>2</value>
+      <value>mraible</value>
+      <value>536c0b339345616c1b33caf454454d8b8a190d6c</value>
+      <value>Matt</value>
+      <value>Raible</value>
+      <value></value>
+      <value>Denver</value>
+      <value>US</value>
+      <value>matt@raibledesigns.com</value>
+      <value></value>
+      <value>80210</value>
+      <value>CO</value>
+      <value>http://raibledesigns.com</value>
+      <value><![CDATA[Not a female kitty.]]></value>
+    </row>
+  </table>
+  <table name='role'>
+    <column>name</column>
+    <column>description</column>
+    <row>
+      <value>admin</value>
+      <value><![CDATA[Administrator role (can edit Users)]]></value>
+    </row>
+    <row>
+      <value>tomcat</value>
+      <value><![CDATA[Default role for all Users]]></value>
+    </row>
+  </table>
+  <table name='user_role'>
+    <column>id</column>
+    <column>user_id</column>
+    <column>username</column>
+    <column>role_name</column>
+    <row>
+      <value>1</value>
+      <value>1</value>
+      <value>tomcat</value>
+      <value>tomcat</value>
+    </row>
+    <row>
+      <value>2</value>
+      <value>2</value>
+      <value>mraible</value>
+      <value>admin</value>
+    </row>
+  </table>
+</dataset>

@@ -1,0 +1,55 @@
+    <!-- Restrict all users from accessing *.html -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>My Application</web-resource-name>
+            <description>Require users to authenticate</description>    
+            <url-pattern>*.html</url-pattern>                    
+            <http-method>POST</http-method>
+            <http-method>GET</http-method>
+        </web-resource-collection>
+    
+        <auth-constraint>
+            <description>Define who can access this url-pattern</description>
+            <role-name>admin</role-name>
+            <role-name>tomcat</role-name>
+        </auth-constraint>
+        
+        <user-data-constraint>
+            <!-- Doesn't work on Resin 
+            <description>
+                Encryption is not required for the application in general.
+			</description>
+            -->
+            <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+    
+    <!-- Login Configuration --> 
+<XDtConfig:ifConfigParamEquals paramName="security" value="basic">
+    <login-config>
+        <auth-method>BASIC</auth-method>
+        <realm-name>My Friendly App</realm-name>
+    </login-config>
+</XDtConfig:ifConfigParamEquals>
+
+<XDtConfig:ifConfigParamEquals paramName="security" value="form">
+	<login-config>
+        <auth-method>FORM</auth-method>
+        <form-login-config>
+            <form-login-page>/login.jsp</form-login-page>
+            <form-error-page>/loginError.jsp</form-error-page>
+        </form-login-config>
+    </login-config>
+</XDtConfig:ifConfigParamEquals>
+    
+    <!-- The admin role -->
+    <security-role>
+        <description>Administrator role (can edit Users)</description>
+        <role-name>admin</role-name>
+    </security-role>
+    
+    <!-- The tomcat role -->
+    <security-role>
+        <description>Default Role for All Users</description>
+        <role-name>tomcat</role-name>
+    </security-role>

@@ -1,0 +1,191 @@
+<!-- ======================================================================= -->
+<!-- $Id: properties.xml,v 1.13 2004/05/16 02:18:08 mraible Exp $             -->
+<!-- ======================================================================= -->
+<!-- This file defines properties for build.xml -->
+
+<!-- ======================================================================= -->
+<!--              Load local and user build preferences                      -->
+<!-- ======================================================================= -->
+<!-- General Configuration -->
+<property name="lib.dir" location="lib"/>
+<property file="${lib.dir}/lib.properties"/>
+
+<!-- Load user overrides -->
+<property file="${user.home}/.${ant.project.name}-build.properties"/>
+<property file="${user.home}/.build.properties"/>
+<property file="build.properties"/>
+
+<!-- Properties for running unit tests with tomcat -->
+<property file="tomcat.properties"/>
+
+<!-- webapp.name is supplied in build.properties, so we check to see if it
+    has been defined -->
+<target name="build.properties.missing" unless="webapp.name">
+    <fail message="missing build.properties file in current directory or in ${user.home}"/>
+</target>
+
+<!-- Defaults for database.properties in case build.properties doesn't have -->
+<property name="database.jar" location="${mysql.jar}"/>
+<property name="database.type" value="mysql"/>
+<property name="database.name" value="appfuse"/>
+<property name="database.host" value="localhost"/>
+<property name="database.username" value="test"/>
+<property name="database.password" value="test"/>
+
+<!-- database URL for creating other databases - used in db-create target -->
+<property name="database.admin.url" 
+    value="jdbc:${database.type}://${database.host}/mysql"/>
+<property name="database.admin.username" value="root"/>
+<property name="database.admin.password" value=""/>
+<property name="hibernate.dialect" 
+    value="net.sf.hibernate.dialect.MySQLDialect"/>
+<property name="database.driver_class" value="com.mysql.jdbc.Driver"/>
+<property name="database.url" 
+    value="jdbc:${database.type}://${database.host}/${database.name}?autoReconnect=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf-8"/>
+<property name="database.show_sql" value="true"/>
+
+<!-- this task is called by tasks that need it in build.xml -->
+<target name="generate.database.properties">
+    <echo>generating database.properties from build.properties</echo>
+    <propertyfile comment="Hibernate Configuration for JUnit tests" 
+        file="${basedir}/database.properties">
+    	<entry key="hibernate.dialect" value="${hibernate.dialect}"/>
+    	<entry key="hibernate.connection.driver_class" value="${database.driver_class}"/>
+    	<entry key="hibernate.connection.url" value="${database.url}"/>
+    	<entry key="hibernate.connection.username" value="${database.username}"/>
+    	<entry key="hibernate.connection.password" value="${database.password}"/>
+    	<entry key="hibernate.connection.show_sql" value="${database.show_sql}"/>
+        <entry key="dao.type" value="${dao.type}"/>
+     </propertyfile>
+     <property file="database.properties"/>
+</target>
+
+<!-- ======================================================================= -->
+<!--              Initialization Properties                                  -->
+<!-- ======================================================================= -->
+<!-- These property values may optionally be overridden with property        -->
+<!-- settings from an "ant" command line, a "build.properties" file in your  -->
+<!-- home directory (or current directory).                                  -->
+<!-- ======================================================================= -->
+<property environment="env"/>
+<property name="env.COMPUTERNAME" value="${env.HOSTNAME}"/>
+<!-- These values are only used if not specified in build.properties -->
+<property name="tomcat.home" value="${env.CATALINA_HOME}"/>    
+<!-- The target directory for building the packed web application -->
+<property name="webapp.dist" value="${dist.dir}/webapps"/>    
+<!-- The target directory for building the unpacked web application -->
+<property name="webapp.target" value="${build.dir}/${webapp.name}"/>    
+<!-- Should Java compilations set the debug compiler option? -->
+<property name="compile.debug" value="true"/>
+<!-- Should Java compilations set the deprecation compiler option? -->
+<property name="compile.deprecation" value="false"/>
+<!-- Should Java compilations set the optimize compiler option? -->
+<property name="compile.optimize" value="false"/>
+<!-- The source directory for the whole project -->
+<property name="src" value="${basedir}/src"/>
+<property name="tar.user" value="ant"/>
+<property name="tar.group" value="ant"/>
+<property name="tar.mode" value="644"/>
+
+<!-- Override these values from the command line using -Dname=value -->
+<property name="security.mode" value="form"/>
+<property name="http.port" value="8080"/>
+<property name="https.port" value="8443"/>
+<property name="dao.type" value="hibernate"/>
+<property name="jsp.2" value="false"/>
+
+<!-- ======================================================================= -->
+<!--                        Classpaths                                       -->
+<!-- ======================================================================= -->
+
+<path id="xdoclet.classpath">
+    <pathelement location="${log4j.jar}"/>
+    <pathelement location="${commons-logging.jar}"/>
+    <pathelement location="${commons-collections.jar}"/>
+    <fileset dir="${xdoclet.dir}" includes="*.jar"/>
+    <fileset dir="${velocity.dir}" includes="*.jar"/>
+</path>
+
+<!-- Hibernate -->
+<path id="hibernate.classpath">
+    <pathelement location="${hibernate.jar}"/> 
+    <fileset dir="${hibernate.dir}/lib" includes="*.jar"/>
+    <pathelement location="${database.jar}"/> 
+    <pathelement location="${commons-beanutils.jar}"/>
+    <pathelement location="${commons-lang.jar}"/>
+    <path location="${build.dir}/dao/classes"/>
+</path>
+
+<!-- DAO -->
+<path id="dao.compile.classpath">
+    <path refid="hibernate.classpath"/>
+    <pathelement location="${commons-lang.jar}"/>
+    <pathelement location="${commons-logging.jar}"/>
+    <fileset dir="${spring.dir}" includes="*.jar"/>
+</path>
+<path id="dao.test.classpath">
+    <path refid="dao.compile.classpath"/>
+    <pathelement location="${dbunit.jar}"/>
+	<pathelement location="${junit.jar}"/>
+    <pathelement location="${junitdoclet.jar}"/>  
+    <pathelement location="${commons-collections.jar}"/>
+    <pathelement location="${log4j.jar}"/>
+</path>
+
+<!-- Service -->
+<path id="service.compile.classpath">
+    <path refid="dao.compile.classpath"/>
+    <pathelement location="${dist.dir}/${webapp.name}-dao.jar"/>
+    <fileset dir="${javamail.dir}" includes="*.jar"/>
+    <pathelement location="${commons-lang.jar}"/>
+    <pathelement location="${commons-logging.jar}"/>
+    <pathelement location="${commons-beanutils.jar}"/>
+    <pathelement location="${commons-collections.jar}"/>
+    <fileset dir="${spring.dir}" includes="*.jar"/>
+</path>
+<path id="service.test.classpath">
+    <path refid="service.compile.classpath"/>
+    <pathelement location="${junit.jar}"/>
+    <pathelement location="${junitdoclet.jar}"/>
+    <pathelement location="${log4j.jar}"/>
+</path>
+
+<!-- Cactus -->
+<path id="cactus.classpath">
+    <pathelement location="${commons-logging.jar}"/>
+    <fileset dir="${cactus.dir}" includes="*.jar"/>
+</path>
+    
+<!-- Web -->
+<path id="web.compile.classpath">
+    <pathelement location="${dist.dir}/${webapp.name}-dao.jar"/>
+    <pathelement location="${dist.dir}/${webapp.name}-service.jar"/>
+    <pathelement location="${struts.jar}"/>
+    <pathelement location="${strutsmenu.jar}"/>
+    <pathelement location="${displaytag.jar}"/>
+    <pathelement location="${jakarta-oro.jar}"/>
+    <pathelement location="${commons-digester.jar}"/>
+    <pathelement location="${commons-logging.jar}"/>
+    <pathelement location="${commons-beanutils.jar}"/>
+    <pathelement location="${commons-collections.jar}"/>
+    <pathelement location="${commons-fileupload.jar}"/>
+    <pathelement location="${commons-lang.jar}"/>
+    <pathelement location="${commons-httpclient.jar}"/>
+    <pathelement location="${commons-validator.jar}"/>
+    <pathelement location="${servletapi.jar}"/>
+    <fileset dir="${javamail.dir}" includes="*.jar"/>
+    <fileset dir="${spring.dir}" includes="*.jar"/>
+</path>
+<path id="web.test.classpath">
+    <path refid="web.compile.classpath"/>
+    <path refid="cactus.classpath"/>
+    <pathelement location="${junit.jar}"/>
+    <pathelement location="${junitdoclet.jar}"/>
+    <pathelement location="${strutstestcase.jar}"/>
+    <fileset dir="${webtest.dir}/lib" includes="*.jar"/>
+    <pathelement location="${log4j.jar}"/>
+    <!-- Needed for testing out-of-container -->
+    <path refid="hibernate.classpath"/>
+</path>
+    
+<property name="inheritAll" value="true"/>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+    <!-- LookupManager: Struts implementation -->
+    <bean id="lookupManager" class="org.appfuse.service.LookupManagerImpl" singleton="false">
+        <property name="lookupDAO"><ref bean="lookupDAO"/></property>
+    </bean>
+
+    <!-- User Manager: Struts implementation -->
+    <bean id="userManagerTarget" class="org.appfuse.service.UserManagerImpl" singleton="false">
+        <property name="userDAO"><ref bean="userDAO"/></property>
+    </bean>
+
+    <!-- Transaction declarations for business services.  To apply a generic transaction proxy to
+         all managers, you might look into using the BeanNameAutoProxyCreator -->
+    <bean id="userManager" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager"><ref bean="transactionManager"/></property>
+        <property name="target"><ref local="userManagerTarget"/></property>
+        <property name="transactionAttributes">
+        <props>
+            <prop key="save*">PROPAGATION_REQUIRED</prop>
+            <prop key="remove*">PROPAGATION_REQUIRED</prop>
+            <prop key="*LoginCookie">PROPAGATION_REQUIRED</prop>
+            <prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
+        </props>
+        </property>
+    </bean>
+
+    <!-- Tip from Chris Winters: http://www.cwinters.com/News/show/?news_id=3149 -->
+    <!-- To configure a Manager with these defaults, add the following to its definition:
+        <property name="transactionAttributeSource"><ref local="defaultTxAttributes"/></property> -->
+
+    <bean id="defaultTxAttributes"
+        class="org.springframework.transaction.interceptor.NameMatchTransactionAttributeSource">
+        <property name="properties">
+          <props>
+            <prop key="save*">PROPAGATION_REQUIRED</prop>
+            <prop key="remove*">PROPAGATION_REQUIRED</prop>
+            <prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
+          </props>
+        </property>
+    </bean>
+
+    <!-- Add new Managers here -->
+</beans>

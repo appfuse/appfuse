@@ -1,0 +1,1498 @@
+<!-- ======================================================================= -->
+<!-- $Id: build.xml,v 1.20 2004/05/16 02:18:06 mraible Exp $                 -->
+<!-- ======================================================================= -->
+<!DOCTYPE project [
+    <!ENTITY properties SYSTEM "file:./properties.xml">
+    <!ENTITY app-settings SYSTEM "file:./app-settings.xml">
+]>
+
+<project name="appfuse" basedir="." default="package-web">
+
+    <!-- import project-wide properties (classpath, jar file locations) -->
+    &properties;
+    <!-- import application settings for xdoclet -->
+    &app-settings;
+
+    <target name="define-tasks" description="defines custom tasks">
+        <!-- Taskdefs -->
+        <taskdef resource="net/sf/antcontrib/antcontrib.properties"
+            classpath="${ant-contrib.jar}"/>
+
+        <taskdef name="xdoclet"
+            classname="xdoclet.DocletTask"
+            classpathref="xdoclet.classpath"/>
+
+        <taskdef name="todo"
+            classname="xdoclet.modules.doc.DocumentDocletTask"
+            classpathref="xdoclet.classpath"/>
+    
+        <!-- Check that junit.jar is in $ANT_HOME/lib or Cactus tasks fail -->
+        <available classname="junit.framework.TestCase"
+            property="junit.present"/>
+        <fail unless="junit.present"
+            message="Please copy junit.jar into ${env.ANT_HOME}/lib"/>
+
+        <taskdef resource="cactus.tasks"
+            classpathref="cactus.classpath"/>
+
+        <taskdef name="dbunit" classname="org.dbunit.ant.DbUnitTask"
+            classpathref="dao.test.classpath"/>
+
+        <available classname="org.apache.catalina.ant.SessionsTask"
+            property="tomcat5">
+            <classpath>
+                <pathelement path="${tomcat.home}/server/lib/catalina-ant.jar"/>
+            </classpath>
+        </available>
+    </target>
+    
+    <!-- Check timestamp on files -->
+    <target name="init" depends="build.properties.missing,define-tasks" 
+        description="init target directory">
+        <tstamp/>
+        <tstamp>
+            <format property="copyright.year" pattern="yyyy"/>
+        </tstamp>
+        <echo message="Preparing target directory '${webapp.target}'"/>
+        <mkdir dir="${webapp.target}"/>
+        <mkdir dir="${webapp.target}/WEB-INF"/>
+        <mkdir dir="${webapp.dist}"/>
+        
+        <!-- Make sure hibernatedoclet is necessary -->
+        <uptodate property="hibernatedoclet.unnecessary">
+            <srcfiles dir="src/dao" includes="**/*.java"/>
+            <srcfiles dir="${build.dir}/dao/gen" includes="**/*.java"/>
+            <mapper type="glob" from="*.java"
+                to="${build.dir}/dao/classes/*.class"/>
+        </uptodate>
+        
+        <!-- Make sure webdoclet is necessary -->
+        <uptodate property="webdoclet.unnecessary">
+            <srcfiles dir="src/web" includes="**/*.java"/>
+            <srcfiles dir="${build.dir}/web/gen" includes="**/*.java"/>
+            <mapper type="glob" from="*.java"
+                to="${build.dir}/web/classes/*.class"/>
+        </uptodate>
+
+        <property name="web.xml" value="${webapp.target}/WEB-INF/web.xml"/>
+        <available file="${web.xml}" property="webxml.present"/>
+        
+        <!-- Conditionally set property for converting to JSP 2.0 -->
+        <condition property="convert.to.jsp2">
+            <equals arg1="${jsp.2}" arg2="true"/>
+        </condition>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- The "new" target is used to create a new project by duplicating 	 -->
+    <!-- this project and replacing "appfuse" instances with the new name.   -->
+    <!-- =================================================================== -->
+    <target name="new" depends="clean"
+        description="creates a new project with the specified name">
+        <fail unless="app.name">
+            You must specify an app.name using -Dapp.name=NAME and a database
+            name using -Ddb.name=NAME
+        </fail>
+        <fail unless="db.name">
+            You must specify an db.name using -Ddb.name=NAME.  Please do 
+            not use dashes (-) in your database's name.
+        </fail>
+        <echo level="info">Creating new application named '${app.name}'...</echo>
+        <copy todir="../${app.name}">
+            <fileset dir="${basedir}">
+                <exclude name="target"/>
+                <exclude name="sandbox"/>
+                <exclude name="README*.txt"/>
+                <exclude name="${webapp.name}*"/>
+                <exclude name="*.log"/>
+                <include name="**"/>
+                <exclude name=".#**"/>
+            </fileset>
+        </copy>
+        <copy file="${basedir}/README-new.txt" tofile="../${app.name}/README.txt"/>
+        <replaceregexp flags="g">
+            <regexp pattern="appfuse"/>
+            <substitution expression="${app.name}"/>
+            <fileset dir="../${app.name}">
+                <!-- just in case build has files in it -->
+                <exclude name="${build.dir}/**"/>
+                <exclude name="src/**/*.java"/>
+                <exclude name="src/**/*.xml"/>
+                <exclude name="test/**/*.java"/>
+                <exclude name="extras/**/*.java"/>
+                <exclude name="extras/**/*.xml"/>
+                <include name="**"/>
+                <exclude name="metadata/web/global-exceptions.xml"/>
+                <exclude name="web/WEB-INF/*.xml"/>
+                <exclude name="web/WEB-INF/classes/log4j.properties"/>
+                <exclude name="extras/jsp/build/**"/>
+            </fileset>
+        </replaceregexp>
+
+        <!-- Copy IDEA project files -->
+        <copy file="appfuse.iml" tofile="../${app.name}/${app.name}.iml"/>
+        <copy file="appfuse.ipr" tofile="../${app.name}/${app.name}.ipr"/>
+        <copy file="appfuse.iws" tofile="../${app.name}/${app.name}.iws"/>
+        <replace dir="../${app.name}" value="${app.name}" token="appfuse">
+          <include name="${app.name}.i*"/>
+        </replace>
+        
+        <!-- Fix path for packages in .iws file -->
+        <replaceregexp flags="g"
+            file="../${app.name}/build.xml"
+            match="org.${app.name}"
+            replace="org.appfuse"/>
+
+        <!-- Replace JNDI Name for database -->
+        <replaceregexp flags="g">
+            <regexp pattern="jdbc/${app.name}"/>
+            <substitution expression="jdbc/${db.name}"/>
+            <fileset dir="../${app.name}/metadata/web">
+                <include name="web-resource-env-refs.xml"/>
+            </fileset>
+            <fileset dir="../${app.name}/metadata/conf" includes="**"/>
+        </replaceregexp>
+
+        <!-- Replace JNDI Name in Spring config files -->
+        <replaceregexp flags="g"
+            file="../${app.name}/web/WEB-INF/applicationContext-database.xml"
+            match="jdbc/appfuse"
+            replace="jdbc/${db.name}"/>
+            
+        <!-- Replace database name in properties.xml and -->
+        <!-- in database creation script -->
+        <replaceregexp flags="g">
+            <regexp pattern="${app.name}"/>
+            <substitution expression="${db.name}"/>
+            <fileset dir="../${app.name}/metadata/sql" includes="*.sql"/>
+            <fileset dir="../${app.name}" includes="properties.xml"/> 
+        </replaceregexp>
+    </target>
+
+    <!-- List of variables in .properties files that will be replaced at
+    	 build time -->
+    <filterset id="variables.to.replace">
+        <filter token="APPNAME" value="${webapp.name}"/>
+        <filter token="ENCRYPT-ALGORITHM" value="${encrypt.algorithm}"/>
+        <filter token="ERROR-MAILTO" value="${error.mailTo}"/>
+        <filter token="ERROR-MAILHOST" value="${error.mailHost}"/>
+        <filter token="ERROR-SERVER" value="${error.server}"/>
+        <filter token="FORM-AUTH-ACTION" value="${form.auth.action}"/>
+        <filter token="HTTP-PORT" value="${http.port}"/>
+        <filter token="HTTPS-PORT" value="${https.port}"/>
+        <filter token="TOMCAT-SERVER" value="${tomcat.server}"/>
+        <filter token="SECURE-LOGIN" value="${secure.login}"/>
+        <filter token="HIBERNATE-DIALECT" value="${hibernate.dialect}"/>
+    </filterset>
+            
+    <!-- List of variables to replace when configuring Tomcat -->
+    <filterset id="db.variables">
+        <filter token="DB-DRIVERNAME" value="${database.driver_class}"/>
+        <filter token="DB-URL" value="${database.url}"/>
+        <filter token="DB-USERNAME" value="${database.username}"/>
+        <filter token="DB-PASSWORD" value="${database.password}"/>
+    </filterset>
+    
+    <!-- Copy any resource or configuration files -->
+    <target name="copy-resources" depends="init"
+        description="Copy .properties and .xml files from source directory">
+        <copy todir="${build.dir}/web/classes" includeEmptyDirs="no">
+            <fileset dir="web/WEB-INF/classes">
+                <include name="*.properties"/>
+            </fileset>
+            <filterset refid="variables.to.replace"/>
+        </copy>            
+        <!-- Copy Spring configuration files -->
+        <copy overwrite="true"
+            tofile="${webapp.target}/WEB-INF/applicationContext-${dao.type}.xml">
+            <fileset dir="src/dao" includes="**/*-${dao.type}.xml"/>
+            <filterset refid="variables.to.replace"/>
+        </copy>
+        <copy 
+            tofile="${webapp.target}/WEB-INF/applicationContext-service.xml">
+            <fileset dir="src/service" includes="**/*-service.xml"/>
+        </copy>
+        <antcall target="generate.database.properties"/>
+        <copy todir="${build.dir}/web/classes" file="database.properties"/>
+    </target>
+    
+    <!-- =================================================================== -->
+    <!-- The "copy-web-files" target copies the static web resources portion -->
+    <!-- of your web application source into the build target area           -->
+    <!-- =================================================================== -->
+    <target name="copy-web-files" depends="init"
+        description="Copy static files">
+        <echo message="Copying static files"/>
+        <copy todir="${webapp.target}" includeEmptyDirs="no">
+            <fileset dir="${basedir}/web">
+                <include name="**"/>
+                <exclude name="pages/**"/>
+                <!-- exclude images or they'll get hosed by the filterset -->
+                <exclude name="images/**"/>
+                <exclude name="**/classes/**"/>
+                <exclude name="**/*-database.xml"/>
+            </fileset>
+            <fileset dir="web" includes="common/footer.jsp"/>
+            <filterset>
+                <filter token="APPVERSION" value="${webapp.version}"/>
+                <filter token="COPYRIGHT-YEAR" value="${copyright.year}"/>
+            </filterset>
+        </copy>
+        <!-- Copy JSP Pages under WEB-INF/pages -->
+        <copy todir="${webapp.target}/WEB-INF">
+            <fileset dir="${basedir}/web">
+                <include name="pages/*.jsp"/>
+            </fileset>
+        </copy>
+        <!-- Copy *.txt files so they can be included in release notes -->
+        <copy todir="${webapp.target}">
+            <fileset dir="${basedir}">
+                <include name="*.txt"/>
+                <exclude name="README-new.txt"/>
+            </fileset>
+        </copy>
+    </target>
+    
+    <!-- =================================================================== -->
+    <!-- The "jsp-2" replaces JSTL's <c:out> tags with what's in "value" and -->
+    <!-- removes JSTL's 1.0 JARS                                             -->
+    <!-- =================================================================== -->
+    <target name="jsp-2" depends="webdoclet" if="convert.to.jsp2"
+        description="Convert JSP 1.2 tags (i.e. JSTL) to JSP 2.0">
+        <echo level="info">Change JSTL Tags to Run-Time</echo>
+        <replaceregexp flags="g">
+            <regexp
+                pattern='uri="http://java.sun.com/jstl/core"'/>
+            <substitution
+                expression='uri="http://java.sun.com/jstl/core_rt"'/>
+            <fileset dir="${webapp.target}">
+                <include name="**/*.jsp"/>
+            </fileset>
+        </replaceregexp>
+        <replaceregexp flags="g">
+            <regexp
+                pattern='uri="http://java.sun.com/jstl/fmt"'/>
+            <substitution
+                expression='uri="http://java.sun.com/jstl/fmt_rt"'/>
+            <fileset dir="${webapp.target}">
+                <include name="**/*.jsp"/>
+            </fileset>
+        </replaceregexp>
+
+        <echo level="info">Removing JSTL's c:out tags</echo>
+        <replaceregexp flags="g">
+            <regexp pattern='&lt;c:out value="([^"]*)"/&gt;'/>
+            <substitution expression="\1"/>
+            <fileset dir="${webapp.target}">
+                <include name="**/*.jsp"/>
+            </fileset>
+        </replaceregexp>
+
+        <echo level="info">Replacing 2.3 DTD with 2.4 XSD in web.xml</echo>
+        <replaceregexp flags="g"
+            file="${webapp.target}/WEB-INF/web.xml"
+            match='&lt;!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd"&gt;'
+            replace=""/>
+
+        <replaceregexp flags="g"
+            file="${webapp.target}/WEB-INF/web.xml"
+            match='&lt;web-app &gt;'
+            replace='&lt;web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee web-app_2_4.xsd"&gt;'/>
+
+    </target>
+    
+    <!-- =================================================================== -->
+    <!-- The "stage-web" is used to gather all static web recourses in the   -->
+    <!-- build directory.                                                    -->
+    <!-- =================================================================== -->
+    <target name="stage-web"
+        depends="copy-resources,copy-web-files"
+        description="Calls other targets to gather static resources"/>
+        
+    <!-- =================================================================== -->
+    <!-- The "hibernatedoclet" target generates Hibernate mapping files      -->
+    <!-- based on XDoclet marked-up Plain Old Java Object (POJO)             -->
+    <!-- =================================================================== -->
+    <target name="hibernatedoclet" depends="init" unless="hibernatedoclet.unnecessary"
+        description="Generate Persistence and form classes">
+
+        <taskdef name="hibernatedoclet"
+            classname="xdoclet.modules.hibernate.HibernateDocletTask"
+            classpathref="xdoclet.classpath"/>
+        
+        <!-- generate hibernate files -->
+        <hibernatedoclet
+            destdir="${build.dir}/dao/gen"
+            mergedir="metadata/dao"
+            excludedtags="@version,@author"
+            addedtags="@xdoclet-generated at ${TODAY}"
+            force="${xdoclet.force}">
+            <fileset dir="src/dao"/>
+
+            <hibernate validatexml="true" version="2.0"/>
+
+        </hibernatedoclet>
+    </target>
+
+    <target name="compile-dao" depends="hibernatedoclet"
+        description="Compile dao module">
+        <antcall target="compile-module" inheritAll="true">
+            <param name="module" value="dao"/>
+            <reference refid="dao.compile.classpath"
+                torefid="compile.classpath"/>
+            <reference refid="dao.test.classpath"
+                torefid="test.classpath"/>
+        </antcall>
+    </target>
+
+    <target name="package-dao" depends="compile-dao"
+        description="Package DAO JAR">
+        <!-- Copy XML files from source -->
+        <copy todir="${build.dir}/dao/gen">
+            <fileset dir="src/dao">
+                <include name="**/*.xml"/>
+            </fileset>
+        </copy>
+        <jar destfile="${dist.dir}/${webapp.name}-dao.jar">
+            <manifest>
+                <attribute name="Class-Path"
+                    value="${webapp.name}-dao.jar"/>
+            </manifest>
+            <fileset dir="${build.dir}/dao/classes"/>
+            <fileset dir="${build.dir}/dao/gen">
+                <include name="**/*.xml"/>
+            </fileset>
+            <metainf dir="${build.dir}/dao/gen" includes="*.xml"/>
+        </jar>
+    </target>
+
+    <target name="gen-tests-dao"
+        description="Generate tests for dao module">
+        <antcall target="junitdoclet-module" inheritAll="true">
+            <param name="module" value="dao"/>
+            <reference refid="dao.test.classpath"
+                torefid="test.classpath"/>
+        </antcall>
+    </target>
+
+    <target name="test-dao" depends="copy-resources,package-dao"
+        description="Test dao module">
+        <antcall target="test-module" inheritAll="true">
+            <param name="module" value="dao"/>
+            <param name="additional.src.dirs"
+                value="${build.dir}/dao/gen"/>
+            <reference refid="dao.test.classpath"
+                torefid="test.classpath"/>
+        </antcall>
+    </target>
+  
+    <!-- Service -->
+    <target name="compile-service" depends="package-dao"
+    	description="Compile service module">
+        <antcall target="compile-module" inheritAll="true">
+            <param name="module" value="service"/>
+            <reference refid="service.compile.classpath"
+                torefid="compile.classpath"/>
+            <reference refid="service.test.classpath"
+                torefid="test.classpath"/>
+        </antcall>
+    </target>
+
+    <target name="package-service" depends="compile-service">
+        <jar destfile="${dist.dir}/${webapp.name}-service.jar">
+            <manifest>
+                <attribute name="Class-Path"
+                    value="${webapp.name}-dao.jar ${webapp.name}-service.jar"/>
+            </manifest>
+            <fileset dir="${build.dir}/service/classes" includes="**/*.class"/>
+        </jar>
+    </target>
+
+    <target name="gen-tests-service"
+        description="Generate tests for service module">
+        <antcall target="junitdoclet-module" inheritAll="true">
+            <param name="module" value="service"/>
+            <reference refid="common.test.classpath"
+                torefid="test.classpath"/>
+        </antcall>
+    </target>
+
+    <target name="test-service" depends="copy-resources,package-service"
+        description="Test service module">
+        <antcall target="test-module" inheritAll="true">
+            <param name="module" value="service"/>
+            <reference refid="service.test.classpath"
+                torefid="test.classpath"/>
+        </antcall>
+    </target>
+    
+    <!-- Simple alias to compile-web -->
+    <target name="compile" depends="compile-web" 
+        description="alias for compile-web"/>
+    
+    <target name="compile-web" depends="package-dao,package-service,stage-web"
+        description="Compile web module">
+        
+        <!-- generate struts forms -->
+        <xdoclet destdir="${build.dir}/web/gen"
+            excludedtags="@version,@author"
+            addedtags="@xdoclet-generated at ${TODAY}"
+            force="${xdoclet.force}">
+            <fileset dir="src/dao"/>
+
+            <!-- generate struts forms -->
+            <actionform destdir="${build.dir}/web/gen"
+                templateFile="metadata/templates/struts_form.xdt">
+                <packageSubstitution packages="model"
+                    substituteWith="webapp.form"/>
+            </actionform>
+        </xdoclet>
+        
+        <antcall target="compile-module" inheritAll="true">
+            <param name="module" value="web"/>
+            <param name="additional.src.dirs"
+                value="${build.dir}/web/gen"/>
+            <reference refid="web.compile.classpath"
+                torefid="compile.classpath"/>
+            <reference refid="web.test.classpath"
+                torefid="test.classpath"/>
+        </antcall>
+    </target>
+        
+    <!-- =================================================================== -->
+    <!-- The "webdoclet" target generates web and struts deployment 		 -->
+    <!-- descriptors. This task depends on compile-web because it generates  --> 
+    <!-- the forms for struts                                                -->
+    <!-- =================================================================== -->
+    <target name="webdoclet" depends="compile-web"
+        unless="webdoclet.unnecessary,webxml.present"
+        description="Generate web and Struts descriptors">
+        <taskdef name="webdoclet"
+            classname="xdoclet.modules.web.WebDocletTask">
+            <classpath>
+                <path refid="xdoclet.classpath"/>
+                <path refid="web.compile.classpath"/>
+            </classpath>
+        </taskdef>
+        <webdoclet destdir="${webapp.target}/WEB-INF"
+            force="${xdoclet.force}"
+            mergedir="metadata/web"
+            excludedtags="@version,@author"
+            verbose="true">
+            <fileset dir="src/web"/>
+            <fileset dir="${build.dir}/web/gen"/>
+            <deploymentdescriptor validateXML="true"
+                servletspec="2.3" sessiontimeout="10"
+                destdir="${webapp.target}/WEB-INF" distributable="false"
+                displayname="${ant.project.name}">
+                <configParam name="httpPort" value="${http.port}"/>
+                <configParam name="httpsPort" value="${https.port}"/>
+                <configParam name="daoType" value="${dao.type}"/>
+                <configParam name="security" value="${security.mode}"/>
+            </deploymentdescriptor>
+            <jsptaglib validateXML="true"
+                description="Custom tag library for this application"
+                shortName="${webapp.name}" filename="${webapp.name}.tld"/>
+            <strutsconfigxml validateXML="true" version="1.1"/>
+            <strutsvalidationxml/>
+        </webdoclet>
+    </target>
+    
+    <!-- Simple alias to package-web -->
+    <target name="war" depends="package-web" 
+        description="alias for package-web"/>
+    <target name="package-web" depends="webdoclet,jsp-2"
+        description="Package WAR">
+        <propertyfile comment="Build Information"
+            file="${build.dir}/web/classes/build.properties">
+            <entry key="build.date" type="date" pattern="EEEE MMM dd, yyyy" 
+                value="now"/>
+            <entry key="build.time" type="date" pattern="hh:mm:ss a zz" 
+                value="now"/>
+            <entry key="build.username" value="${user.name}"/>
+            <entry key="build.computer" value="${env.COMPUTERNAME}"/>
+            <entry key="build.dao.type" value="${dao.type}"/>
+            <entry key="webapp.version" value="${webapp.version}"/>
+        </propertyfile>
+        <!-- If Tomcat 5, uncomment the <dispatcher> elements in 
+             filter-mappings -->
+        <if>
+            <isset property="tomcat5"/>
+            <then>
+                <replaceregexp flags="g"
+                    file="${webapp.target}/WEB-INF/web.xml"
+                    match='&lt;!--dispatcher&gt;'
+                    replace='&lt;dispatcher&gt;'/>
+                <replaceregexp flags="g"
+                    file="${webapp.target}/WEB-INF/web.xml"
+                    match='&lt;/dispatcher--&gt;'
+                    replace='&lt;/dispatcher&gt;'/>
+            </then>
+        </if>
+        <echo>Preparing tomcat-context.xml for inclusion in war</echo>
+        <!-- Copy tomcat-context.xml file to context.xml -->
+        <copy tofile="${webapp.dist}/context.xml"
+            file="metadata/conf/tomcat-context.xml" overwrite="true">
+            <filterset refid="db.variables"/>
+        </copy>
+        <!-- Change the path so webapp can find .hbm in appfuse-dao.jar -->
+        <replace file="${webapp.target}/WEB-INF/applicationContext-${dao.type}.xml">
+            <replacetoken>file:dist</replacetoken>
+            <replacevalue>WEB-INF/lib</replacevalue>
+        </replace>
+        <!-- Copy .properties files in src tree to build/web/classes -->
+        <copy todir="${build.dir}/web/classes">
+            <fileset dir="src/web" includes="**/*.properties"/>
+        </copy>
+        <war destfile="${webapp.dist}/${webapp.war}"
+            webxml="${webapp.target}/WEB-INF/web.xml" compress="true">
+            <fileset dir="${webapp.target}" excludes="**/web.xml,**/*-database.xml"/>
+            <metainf dir="${webapp.dist}" includes="context.xml"/>
+
+            <zipfileset dir="${basedir}/web/images" prefix="images"/>
+            <classes dir="${build.dir}/web/classes">
+                <exclude name="**/cactus.properties"/>
+                <exclude name="**/database.properties"/>
+                <exclude name="**/mail.properties"/>
+            </classes>
+
+            <lib file="${dist.dir}/${webapp.name}-dao.jar"/>
+            <lib file="${dist.dir}/${webapp.name}-service.jar"/>
+
+            <webinf dir="${struts.dir}" includes="*.xml"/>
+            <webinf dir="web/WEB-INF" includes="*-database.xml"/>
+            
+            <lib dir="${struts.dir}" includes="*.jar"/>
+            <lib dir="${jstl.dir}/lib">
+                <include name="jstl.jar"/>
+                <include name="standard.jar"/>
+            </lib>
+            <lib file="${log4j.jar}"/>
+            <lib file="${strutsmenu.jar}"/>
+            <lib file="${displaytag.jar}"/>
+            <lib file="${hibernate.jar}"/>
+            <lib dir="${hibernate.dir}/lib">
+                <include name="odmg*.jar"/>
+                <include name="dom4j*.jar"/>
+                <include name="cglib*.jar"/>
+                <include name="ehcache*.jar"/>
+                <include name="oscache*.jar"/>
+            </lib>
+            <lib file="${statetag.jar}"/>
+            <lib file="${countrytag.jar}"/>
+            <lib file="${clickstream.jar}"/>
+            <lib dir="${spring.dir}" includes="*.jar"/>
+        </war>
+    </target>
+
+    <target name="gen-tests-web" depends="compile-web"
+        description="Generate tests for web module">
+        <antcall target="junitdoclet-module" inheritAll="true">
+            <param name="module" value="web"/>
+            <param name="additional.src.dirs"
+                value="${build.dir}/web/gen"/>
+            <reference refid="web.test.classpath"
+                torefid="test.classpath"/>
+        </antcall>
+    </target>
+
+    <target name="test-web" depends="compile-web"
+        description="Test web module">
+        <antcall target="test-module" inheritAll="true">
+            <param name="module" value="web"/>
+            <reference refid="web.test.classpath"
+                torefid="test.classpath"/>
+        </antcall>
+    </target>
+    
+    <!-- Reusable targets invoked using antcall -->
+    <target name="junitdoclet-module">
+        <!-- Inputs: module, compile.classpath, test.classpath -->
+        <echo level="info">Generating tests for ${module}...</echo>
+        <property name="additional.src.dirs" value=""/>
+        <javadoc
+            packagenames="org.*"
+            sourcepath="src/${module};${additional.src.dirs}"
+            defaultexcludes="yes"
+            doclet="com.objectfab.tools.junitdoclet.JUnitDoclet"
+            docletpathref="test.classpath"
+            additionalparam="-d test/${module} -buildall -source 1.4">
+            <classpath refid="test.classpath"/>
+        </javadoc>
+    </target>
+
+    <target name="compile-module">
+        <!-- Inputs: module, compile.classpath, test.classpath -->
+        <echo level="info">Compiling ${module}...</echo>
+        <mkdir dir="${build.dir}/${module}/classes"/>
+        <mkdir dir="${test.dir}/${module}/classes"/>
+        <property name="excludes" value=""/>
+        <property name="additional.src.dirs" value=""/>
+        <javac srcdir="src/${module};${additional.src.dirs}"
+            destdir="${build.dir}/${module}/classes"
+            debug="${compile.debug}"
+            deprecation="${compile.deprecation}"
+            optimize="${compile.optimize}"
+            classpathref="compile.classpath"/>
+        <javac srcdir="test/${module}"
+            destdir="${test.dir}/${module}/classes"
+            debug="true">
+            <classpath>
+                <path refid="test.classpath"/>
+                <path location="${build.dir}/${module}/classes"/>
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="test-module" depends="db-load">
+        <!-- Inputs: module, test.classpath -->
+        <echo level="info">Testing ${module}...</echo>
+        <mkdir dir="${test.dir}/data"/>
+        <propertycopy name="testcase" from="${module}-testcase" silent="true"/>
+        <!-- Replace tokens in test properties files -->
+        <copy todir="${test.dir}/${module}/classes">
+            <fileset dir="test/${module}" excludes="**/*.java"/>
+            <filterset refid="variables.to.replace"/>
+        </copy>     
+        <!-- Use test-specific XML files -->
+        <copy todir="${webapp.target}/WEB-INF" overwrite="true">
+        	<fileset dir="test" includes="*.xml"/>
+        </copy>
+        <property name="additional.src.dirs" value=""/>
+        <junit printsummary="no"
+            errorProperty="test.failed"
+            failureProperty="test.failed"
+            fork="${junit.fork}">
+            <classpath>
+                <pathelement path="${additional.src.dirs}"/>
+                <path refid="test.classpath"/>
+                <pathelement location="${build.dir}/${module}/classes"/>
+                <pathelement location="${test.dir}/${module}/classes"/>
+                <pathelement path="${java.class.path}"/>
+                <!-- For Spring configuration files -->
+                <pathelement path="${webapp.target}/WEB-INF"/>
+                <!-- For properties files -->
+                <pathelement path="${build.dir}/web/classes"/>
+            </classpath>
+            <formatter type="xml"/>
+            <formatter type="brief" usefile="false"/>
+            <batchtest todir="${test.dir}/data" if="testcase">
+                <fileset dir="${test.dir}/${module}/classes">
+                    <include name="**/*${testcase}*"/>
+                    <exclude name="**/*TestCase.class"/>
+                </fileset>
+            </batchtest>
+            <batchtest todir="${test.dir}/data" unless="testcase">
+                <fileset dir="${test.dir}/${module}/classes">
+                	<include name="**/*Test.class*"/>
+                </fileset>
+            </batchtest>
+        </junit>
+
+        <fail if="test.failed">
+          Unit tests failed. For error messages, check the log files in
+          ${test.dir}/data or run "ant test-reports"
+          to generate reports at ${test.dir}/reports.</fail>
+    </target>
+
+    <target name="test-reports" description="Generate test reports">
+        <mkdir dir="${test.dir}/reports"/>
+        <junitreport todir="${test.dir}">
+            <fileset dir="${test.dir}/data">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${test.dir}/reports"/>
+        </junitreport>
+    </target>
+
+    <target name="deploy-test-reports" depends="test-reports"
+        description="Deploys Generated JUnit test reports to server">
+        <mkdir dir="${test.dir}/reports"/>
+        <copy todir="${tomcat.home}/webapps/${webapp.name}/test-reports">
+            <fileset dir="${test.dir}/reports"/>
+        </copy>
+    </target>
+
+    <!-- =================================================================== -->
+    <!--            Compile JSPs using jspc                                  -->
+    <!-- =================================================================== -->
+    <target name="compile-jsp" depends="deploy-web">
+        <!-- For more info see http://cvs.apache.org/~fhanik/precompile.html -->
+        <ant antfile="compile-jsp.xml"/>
+    </target>
+            
+    <!-- =================================================================== -->
+    <!--            Make the war ready to be tested by Cactus                -->
+    <!-- =================================================================== -->
+    <target name="cactifywar" depends="copy-resources,package-web"
+        description="Cactifies WAR file by adding cactus-specific needs">
+        <!-- Replace tokens in test properties files -->
+        <copy todir="${test.dir}/web/classes">
+            <fileset dir="test/web" excludes="**/*.java"/>
+            <filterset refid="variables.to.replace"/>
+        </copy>
+        <cactifywar srcfile="${webapp.dist}/${webapp.war}"
+            destfile="${webapp.dist}/${webapp.name}-cactus.war">
+            <classes dir="${test.dir}/web/classes"/>
+            <classes dir="${build.dir}/web/classes"
+                includes="cactus.properties"/>
+            <lib dir="${strutstestcase.dir}" includes="*.jar"/>
+            <lib dir="${cactus.dir}">
+                <include name="*.jar"/>
+            </lib>
+            <servletredirector/>
+            <!-- 
+                Provide a secured servlet redirector in addition to the
+                default servlet redirector to test form-based authentication
+            -->
+            <servletredirector name="ServletRedirectorSecure"
+                mapping="/ServletRedirectorSecure" roles="admin,tomcat"/>
+        </cactifywar>
+
+    </target>
+    
+    <!-- =================================================================== -->
+    <!--            Deploy the cactified war to Tomcat                       -->
+    <!-- =================================================================== -->
+    <target name="deploy-test-war" depends="cactifywar"
+        description="Deploys cactified war to Tomcat">
+        <unwar src="${webapp.dist}/${webapp.name}-cactus.war"
+            dest="${tomcat.home}/webapps/${webapp.name}"/>
+    </target>
+
+    <!-- =================================================================== -->
+    <!--            Run Cactus tests in Tomcat                               -->
+    <!-- =================================================================== -->
+    <target name="test-cactus" depends="deploy-test-war" if="tomcat.home"
+        description="Runs Cactus tests in Tomcat, starts/stops server">
+
+        <echo>running tests at http://${tomcat.server}:${http.port}/${webapp.name}</echo>
+        <runservertests
+            testURL="http://${tomcat.server}:${http.port}/${webapp.name}"
+            startTarget="start.tomcat"
+            stopTarget="stop.tomcat"
+            testTarget="test-web"/>
+    </target>
+
+    <!-- =================================================================== -->
+    <!--   This Cactus task is designed for testing on multiple			     -->
+    <!--   containers. See the following URL for more details:	             -->
+    <!--   http://jakarta.apache.org/cactus/integration/ant/task_cactus.html -->
+    <!-- =================================================================== -->
+    <target name="cactus" depends="db-load,cactifywar"
+        description="Runs Cactus tests in Tomcat and Resin">
+        <mkdir dir="${test.dir}/data/tomcat"/>
+        <!--mkdir dir="${test.dir}/data/resin3"/-->
+
+        <!-- Remove 'cactus' from WAR file -->
+        <move file="${webapp.dist}/${webapp.name}-cactus.war"
+            tofile="${webapp.dist}/${webapp.name}.war"/>
+
+        <!-- Copy tomcat-context.xml to temp directory and change docBase
+        	 to be a .war file -->
+        <copy tofile="${webapp.dist}/${webapp.name}.xml"
+            file="metadata/conf/tomcat-context.xml" overwrite="true">
+            <filterset refid="db.variables"/>
+        </copy>
+        <replace file="${webapp.dist}/${webapp.name}.xml">
+            <replacetoken>docBase="appfuse"</replacetoken>
+            <replacevalue>docBase="appfuse.war"</replacevalue>
+        </replace>
+
+        <cactus warfile="${webapp.dist}/${webapp.name}.war"
+            printsummary="yes" failureproperty="tests.failed">
+            <classpath>
+                <path refid="web.test.classpath"/>
+                <pathelement path="${webapp.target}/WEB-INF/classes"/>
+                <pathelement location="${build.dir}/web/classes"/>
+                <pathelement location="${test.dir}/web/classes"/>
+                <pathelement path="${java.class.path}"/>
+            </classpath>
+            <containerset>
+                <tomcat4x dir="${tomcat.home}" if="tomcat.home"
+                    port="${http.port}" todir="${test.dir}/data/tomcat"
+                    contextxml="${webapp.dist}/${webapp.name}.xml"/>
+                <!--tomcat5x dir="${tomcat.home}" if="tomcat.home"
+                    port="${http.port}" todir="${test.dir}/data/tomcat"/-->
+                <!--resin3x dir="${env.RESIN_HOME}" port="${http.port}"
+                    resinconf="metadata/conf/resin.conf"
+                    todir="${test.dir}/data/resin3"/-->
+            </containerset>
+            <formatter type="xml"/>
+            <formatter type="brief" usefile="false"/>
+            <batchtest todir="${test.dir}/data" if="testcase">
+                <fileset dir="${test.dir}/web/classes">
+                    <include name="**/*${testcase}*"/>
+                    <exclude name="**/*TestCase.class"/>
+                </fileset>
+            </batchtest>
+            <batchtest todir="${test.dir}/data" unless="testcase">
+                <fileset dir="${test.dir}/web/classes"
+                    includes="**/*Test.class"/>
+            </batchtest>
+        </cactus>
+    </target>
+    <!-- =================================================================== -->
+    <!--            Run Canoo WebTests in Tomcat                             -->
+    <!-- =================================================================== -->
+    <target name="test-canoo" if="tomcat.home"
+        depends="ping-tomcat,db-load"
+        description="Runs Canoo WebTests in Tomcat to test JSPs">
+
+        <taskdef file="${webtest.dir}/webtestTaskdefs.properties">
+            <classpath>
+                <path refid="web.test.classpath"/>
+                <!-- for log4j.properties -->
+                <path location="${webapp.target}/WEB-INF/classes"/>
+            </classpath>
+        </taskdef>
+
+        <mkdir dir="${test.dir}/data"/>
+        
+        <!-- Delete old results file if it exists -->
+        <delete file="${test.dir}/data/web-tests-result.xml"/>
+        
+        <!-- This is so the default will be used if no test case is specified -->
+        <property name="testcase" value="run-all-tests"/>
+        <ant antfile="test/web/web-tests.xml" target="${testcase}"/>
+    </target>
+    
+    <!-- =================================================================== -->
+    <!--            Run Canoo WebTests using Cactus                          -->
+    <!-- =================================================================== -->
+    <target name="test-jsp" if="tomcat.home" depends="deploy"
+        description="Runs Canoo WebTests using Cactus">
+        <echo>running canoo tests at:
+              http://${tomcat.server}:${http.port}/${webapp.name}</echo>
+        <runservertests
+            testURL="http://${tomcat.server}:${http.port}/${webapp.name}"
+            startTarget="start.tomcat"
+            stopTarget="stop.tomcat"
+            testTarget="test-canoo">
+        </runservertests>
+    </target>
+    
+    <!-- =================================================================== -->
+    <!--            Run all tests (tomcat not running)                       -->
+    <!-- =================================================================== -->
+    <target name="test-all"
+        depends="test-dao,test-service,test-jsp,test-cactus"
+        description="runs all tests for dao, service and web">
+        <antcall target="db-load"/>
+    </target>
+
+    <!-- =================================================================== -->
+    <!--  Run all tests (tomcat IS running). The cactify-war task should be  -->
+    <!--  run before this one.                                               -->
+    <!-- =================================================================== -->
+    <target name="test-all-running"
+        depends="test-dao,test-service,test-canoo,test-web"
+        description="runs all tests for common, ejb and web">
+        <antcall target="db-load"/>
+    </target>
+        
+    <!-- =================================================================== -->
+    <!--            Simple task to ping tomcat and make sure it's running    -->
+    <!-- =================================================================== -->
+    <target name="ping-tomcat"
+        description="pings tomcat to make sure it's running">
+        <echo level="info">Verifying that tomcat is running...</echo>
+        <get src="http://${tomcat.server}:${http.port}/${webapp.name}"
+            dest="../ping-${tomcat.server}.html"/>
+    </target>
+    
+    <!-- =================================================================== -->
+    <!--            Export the data                                          -->
+    <!-- =================================================================== -->
+    <target name="db-export" depends="define-tasks"
+    	description="Exports the current data in the database">
+        <dbunit driver="${database.driver_class}"
+            url="${database.url}"
+            userid="${database.username}"
+            password="${database.password}">
+            <export dest="db-export.xml" format="xml"/>
+        </dbunit>
+    </target>
+
+    <target name="db-load" depends="define-tasks"
+    	description="Loads the database with sample data">
+        <property name="operation" value="CLEAN_INSERT"/>
+        <property name="file" value="metadata/sql/sample-data.xml"/>
+        <dbunit driver="${database.driver_class}"
+            supportBatchStatement="false"
+            url="${database.url}"
+            userid="${database.username}"
+            password="${database.password}">
+            <operation type="${operation}" src="${file}" format="xml"/>
+        </dbunit>
+    </target>
+    
+    <!-- =================================================================== -->
+    <!-- The "db-create" target creates a database based on properties       --> 
+    <!-- from the database.properties file                                   -->
+    <!-- =================================================================== -->
+    <target name="db-create" depends="define-tasks"
+        description="create database for ${database.type}">
+        <echo level="debug">${database.jar}</echo>
+        <if>
+            <equals arg1="${database.type}" arg2="mysql"/>
+            <then>
+                <echo message="Detected MySQL, creating database..."/>
+                <echo>Creating database with: ${database.type}-create.sql</echo>
+                <echo>URL: ${database.admin.url}</echo>
+                <sql
+                    driver="${database.driver_class}"
+                    url="${database.admin.url}"
+                    userid="${database.admin.username}"
+                    password="${database.admin.password}">
+
+                    <classpath>
+                        <pathelement location="${database.jar}"/>
+                    </classpath>
+
+                    <fileset dir="metadata/sql">
+                        <include name="${database.type}-create.sql"/>
+                    </fileset>
+                </sql>
+            </then>
+            <else>
+                <echo level="warning">WARNING:</echo>
+                <echo>You selected a '${database.type}' database which </echo>
+                <echo>does NOT support creating a database via JDBC.  </echo>
+                <echo>Please create a '${database.name}' database manually</echo>
+                <echo>and then run "ant db-init" to create the </echo>
+                <echo>database tables.  You might want to check the </echo>
+                <echo>metadata/sql directory to see if the file</echo>
+                <echo>'${database.type}-create.sql' exists.</echo>
+            </else>
+        </if>
+    </target>
+    
+    <!-- =================================================================== -->
+    <!-- The "db-init" target generates the database schema and creates      --> 
+    <!-- tables based on the mapping files                                   -->
+    <!-- =================================================================== -->
+    <target name="db-init" depends="clean,package-dao"
+        description="creates database tables">
+        <taskdef name="schemaexport"
+            classname="net.sf.hibernate.tool.hbm2ddl.SchemaExportTask">
+            <classpath>
+                <path refid="xdoclet.classpath"/>
+                <path refid="hibernate.classpath"/>
+            </classpath>
+        </taskdef>
+
+        <antcall target="generate.database.properties"/>
+        <schemaexport quiet="no" text="no" drop="no" delimiter=";"
+            properties="database.properties" output="create-tables.sql">
+            <fileset dir="${build.dir}/dao/gen" includes="**/*.hbm.xml"/>
+        </schemaexport>
+    </target>
+
+    <target name="db-drop" depends="hibernatedoclet"
+        description="drops database tables">
+        <taskdef name="schemaexport"
+            classname="net.sf.hibernate.tool.hbm2ddl.SchemaExportTask">
+            <classpath>
+                <path refid="xdoclet.classpath"/>
+                <path refid="hibernate.classpath"/>
+            </classpath>
+        </taskdef>
+
+        <antcall target="generate.database.properties"/>
+        <schemaexport quiet="no" text="no" drop="yes" delimiter=";"
+            properties="database.properties" output="drop-tables.sql">
+            <fileset dir="${build.dir}/dao/gen" includes="**/*.hbm.xml"/>
+        </schemaexport>
+    </target>
+
+    <!-- =================================================================== -->
+    <!--            Setup Database                                           -->
+    <!-- =================================================================== -->
+    <target name="setup-db" depends="db-create,db-init,db-load"
+        description="creates database and populates by calling other tasks"/>
+        
+    <!-- Remove classes directory for clean build -->
+    <target name="clean" description="Removes build artifacts">
+        <echo level="info">Cleaning build and distribution directories</echo>
+        <delete dir="${build.dir}"/>
+        <delete dir="${dist.dir}"/>
+        <delete file="database.properties"/>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Create JavaDoc Documentation                                        -->
+    <!-- =================================================================== -->
+    <target name="javadoc" depends="java2html"
+        description="Generate JavaDoc API docs">
+        <javadoc
+            destdir="${build.dir}/docs/api"
+            packagenames="org.*"
+            author="true"
+            version="true"
+            windowtitle="${webapp.name} api"
+            doctitle="&lt;h1&gt;${webapp.name} javadocs for
+                version ${webapp.version}&lt;/h1&gt;"
+            bottom="Copyright &#169; 2002-${copyright.year}"
+            stylesheetfile="${build.dir}/docs/api/stylesheet.css">
+
+            <fileset dir="${src}">
+                <patternset refid="java.files.pattern"/>
+            </fileset>
+            <fileset dir="test">
+                <patternset refid="java.files.pattern"/>
+            </fileset>
+
+            <classpath refid="web.test.classpath"/>
+            <classpath>
+                <pathelement location="${build.dir}/web/gen"/>
+            </classpath>
+            
+            <!-- XDoclet Tags -->
+            <tag name="hibernate.class" scope="all" description="Class:"/>
+            <tag name="hibernate.id" scope="all" description="Id:"/>
+            <tag name="hibernate.property" scope="all" description="Property:"/>
+            <tag name="jsp.tag" scope="all" description="JSP Tag:"/>
+            <tag name="jsp.attribute" scope="all" description="JSP Attribute:"/>
+            <tag name="struts.action" scope="all" description="Mapping:"/>
+            <tag name="struts.action-forward" scope="all" description="ActionForward:"/>
+            <tag name="struts.form" scope="all" description="Form Name:"/>
+            <tag name="struts.validator" scope="all" description="Validator:"/>
+            <tag name="struts.validator-args" scope="all" description="Validator Args:"/>
+            <tag name="struts.validator-var" scope="all" description="Validator Var:"/>
+            <tag name="web.listener" scope="all" description="Listener:"/>
+            <tag name="web.filter" scope="all" description="Filter:"/>
+            <tag name="web.filter-init-param" scope="all" description="Init-Param:"/>
+            <tag name="web.filter-mapping" scope="all" description="Mapping:"/>
+            <tag name="web.servlet" scope="all" description="Servlet:"/>
+            <tag name="web.servlet-init-param" scope="all" description="Init-Param:"/>
+            <tag name="web.servlet-mapping" scope="all" description="Mapping:"/>
+            
+            <!-- Application frameworks -->
+            <link href="http://jakarta.apache.org/commons/lang/api"/>
+            <link href="http://jakarta.apache.org/struts/api"/>
+            <link href="http://www.springframework.org/docs/api"/>
+            <link href="http://www.hibernate.org/hib_docs/api"/>
+            
+            <!-- Testing frameworks -->
+            <link href="http://jakarta.apache.org/cactus/api/framework-13/"/>
+            <link href="http://www.junit.org/junit/javadoc/${junit.version}"/>
+            <link href="http://strutstestcase.sf.net/api/"/>
+            
+            <!-- SDKs -->
+            <link href="http://java.sun.com/j2se/1.4/docs/api/"/>
+            <link href="http://java.sun.com/j2ee/sdk_1.3/techdocs/api/"/>
+        </javadoc>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Create HTML versions of the Java code in this project               -->
+    <!-- =================================================================== -->
+    <target name="java2html" depends="hibernatedoclet"
+        description="creates HTML pages of code for online viewing">
+        <taskdef name="java2html" classname="com.java2html.Java2HTMLTask"
+            classpath="${j2h.jar}"/>
+
+        <java2html
+            destination="${build.dir}/docs/api">
+            <fileset dir="${src}">
+                <patternset refid="java.files.pattern"/>
+            </fileset>
+            <fileset dir="test">
+                <patternset refid="java.files.pattern"/>
+            </fileset>
+        </java2html>
+    </target>
+
+
+    <!-- =================================================================== -->
+    <!-- The "deploy-web" target deploys the web application in the in the   -->
+    <!-- non-war format.                                                     -->
+    <!-- =================================================================== -->
+    <target name="deploy-web" depends="stage-web" if="tomcat.home"
+        description="deploy only web classes to servlet container's deploy directory">
+
+        <echo message="Deploying web application to ${tomcat.home}/webapps"/>
+        <copy todir="${tomcat.home}/webapps/${webapp.name}">
+            <fileset dir="${webapp.target}"
+                excludes="**/web-test.xml,**/*database*,
+                          **/mail.properties,**/cactus.properties"/>
+        </copy>
+
+    </target>
+    
+    <!-- =================================================================== -->
+    <!--            Refresh - Stops Tomcat, and refreshes everything         -->
+    <!-- =================================================================== -->
+    <target name="refresh" depends="stop.tomcat,undeploy,clean,deploy"
+        description="Stops Tomcat, undeploys, cleans, then re-deploys"/>
+    
+    <!-- =================================================================== -->
+    <!-- The "deploy" target deploys the web application by packaging it as  -->
+    <!-- a WAR and then unpackaging it into Tomcat's webapps directory       -->
+    <!-- =================================================================== -->
+    <target name="deploy" depends="package-web" if="tomcat.home"
+        description="unwar into the servlet container's deployment directory">
+
+        <unwar src="${webapp.dist}/${webapp.war}"
+            dest="${tomcat.home}/webapps/${webapp.name}"/>
+
+    </target>
+    
+    <!-- =================================================================== -->
+    <!-- The "undeploy" target deletes the web application archive and the   -->
+    <!-- web application directory in the compatible servlet container.      -->
+    <!-- =================================================================== -->
+    <target name="undeploy" if="tomcat.home"
+        description="undeploy war file to servlet container's deployment dir">
+        <echo message="Undeploying webapp from Tomcat"/>
+        <delete file="${tomcat.home}/webapps/${webapp.war}"/>
+        <delete dir="${tomcat.home}/webapps/${webapp.name}"/>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- The "deploy-war" deploys the web application in the in a war format -->
+    <!-- =================================================================== -->
+    <target name="deploy-war" depends="package-web" if="tomcat.home"
+        description="Deploy '${webapp.name}.war' to local Tomcat">
+        <copy file="${webapp.dist}/${webapp.war}"
+            todir="${tomcat.home}/webapps"/>
+    </target>
+    
+    <!-- Utilities -->
+    <patternset id="java.files.pattern" includes="**/*.java"/>
+
+    <target name="checkstyle" depends="init"
+        description="Check code style for compliance with coding standards">
+        <property name="checkstyle.data.dir"
+            location="${build.dir}/docs/checkstyle"
+            />
+        <property name="checkstyle.data.file"
+            location="${checkstyle.data.dir}/checkstyle.xml"
+            />
+        <property name="checkstyle.report.file"
+            location="${checkstyle.data.dir}/checkstyle.html"
+            />
+        <property name="checkstyle.xsl.file"
+            location="${checkstyle.dir}/contrib/checkstyle-noframes.xsl"
+            />
+        <mkdir dir="${checkstyle.data.dir}"/>
+        <taskdef resource="checkstyletask.properties"
+            classpath="${checkstyle.jar}"
+            />
+        <checkstyle config="${checkstyle.dir}/sun_checks.xml"
+            failOnViolation="false"
+            failureProperty="checkstyle.failure">
+            <fileset dir="src">
+                <patternset refid="java.files.pattern"/>
+            </fileset>
+            <!-- uncomment to print to console as well -->
+            <!--formatter type="plain"/-->
+            <formatter type="xml" toFile="${checkstyle.data.file}"/>
+        </checkstyle>
+        <xslt in="${checkstyle.data.file}"
+            out="${checkstyle.report.file}"
+            style="${checkstyle.xsl.file}"
+            />
+    </target>
+
+    <target name="pmd" if="pmd.jar" depends="init"
+        description="Locates unused imports, unused variables, etc.">
+        <mkdir dir="${build.dir}/docs/pmd"/>
+        <property name="pmd.data.file"
+            value="${build.dir}/docs/pmd/pmdreport.html"
+            />
+        <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask">
+            <classpath location="${pmd.jar}"/>
+            <classpath location="${pmd.dir}/lib/jaxen-core-1.0-fcs.jar"/>
+            <classpath location="${pmd.dir}/lib/saxpath-1.0-fcs.jar"/>
+        </taskdef>
+
+        <pmd rulesetfiles="rulesets/unusedcode.xml,rulesets/imports.xml"
+            failonerror="no" shortFilenames="true">
+            <formatter type="html" toFile="${pmd.data.file}"/>
+            <fileset dir="src">
+                <patternset refid="java.files.pattern"/>
+            </fileset>
+        </pmd>
+    </target>
+
+    <target name="todo" depends="init">
+        <mkdir dir="${build.dir}/docs/todo"/>
+        <todo destdir="${build.dir}/docs/todo">
+            <fileset dir="${src}">
+                <patternset refid="java.files.pattern"/>
+            </fileset>
+        </todo>
+    </target>
+
+    <target name="docs" depends="javadoc, todo, checkstyle, pmd"
+        description="runs javadoc, todo, checkstyle and pmd tasks">
+        <echo level="info">API and Reports generated successfully...</echo>
+    </target>
+        
+    <!-- =================================================================== -->
+    <!--            Setup Tomcat                                             -->
+    <!-- =================================================================== -->
+    <target name="setup-tomcat" depends="define-tasks" if="tomcat.home"
+        description="copies jdbc driver and context.xml to tomcat">
+        <if>
+            <isset property="tomcat5"/>
+            <then>
+                <echo message="Detected Tomcat 5..."/>
+                <echo level="info">Copying ${webapp.name}.xml...</echo>
+                <copy tofile="${tomcat.home}/conf/Catalina/localhost/${webapp.name}.xml"
+                    file="metadata/conf/tomcat-context.xml" overwrite="true">
+                    <filterset refid="db.variables"/>
+                </copy>
+            </then>
+            <else>
+                <echo message="Detected Tomcat 4..."/>
+                <echo level="info">Copying ${webapp.name}.xml...</echo>
+                <copy tofile="${tomcat.home}/webapps/${webapp.name}.xml"
+                    file="metadata/conf/tomcat-context.xml" overwrite="true">
+                    <filterset refid="db.variables"/>
+                </copy>
+            </else>
+        </if>
+
+        <echo level="info">Copying ${database.type} JDBC Driver...</echo>
+        <copy todir="${tomcat.home}/common/lib" file="${database.jar}"
+            overwrite="true"/>
+        <echo level="info">Copying JavaMail and jta.jar...</echo>
+        <copy todir="${tomcat.home}/common/lib">
+            <fileset dir="${javamail.dir}" includes="*.jar"/>
+            <fileset dir="${hibernate.dir}/lib" includes="jta.jar"/>
+        </copy>
+    </target>
+    
+    <!-- =================================================================== -->
+    <!--            Start Tomcat                                             -->
+    <!-- =================================================================== -->
+    <target name="start.tomcat"
+        description="starts tomcat in the current console window">
+        <java classname="org.apache.catalina.startup.Bootstrap" fork="yes">
+            <jvmarg value="-Dcatalina.home=${tomcat.home}"/>
+            <arg value="start"/>
+            <classpath>
+                <pathelement path="${java.home}/../lib/tools.jar"/>
+                <fileset dir="${tomcat.home}">
+                    <include name="bin/bootstrap.jar"/>
+                </fileset>
+            </classpath>
+        </java>
+    </target>
+    
+    <!-- =================================================================== -->
+    <!--            Stop Tomcat                                              -->
+    <!-- =================================================================== -->
+    <target name="stop.tomcat" description="stops tomcat">
+        <java classname="org.apache.catalina.startup.Bootstrap" fork="yes">
+            <jvmarg value="-Dcatalina.home=${tomcat.home}"/>
+            <arg value="stop"/>
+            <classpath>
+                <fileset dir="${tomcat.home}">
+                    <include name="bin/bootstrap.jar"/>
+                </fileset>
+            </classpath>
+        </java>
+    </target>
+
+    <!-- =================================================================== -->
+    <!--            Start Resin                                              -->
+    <!-- =================================================================== -->
+    <target name="start.resin" 
+        description="starts resin in current console window">
+
+        <java classname="org.apache.cactus.ant.ResinRun" fork="yes">
+            <arg value="-start"/>
+            <jvmarg value="-Djava.util.logging.manager=com.caucho.log.LogManagerImpl"/>
+
+            <classpath>
+                <path refid="cactus.classpath"/>
+                <fileset dir="${env.RESIN_HOME}/lib" includes="*.jar"/>
+            </classpath>
+        </java>
+    </target>
+
+    <!-- =================================================================== -->
+    <!--            Stop Resin                                               -->
+    <!-- =================================================================== -->
+    <target name="stop.resin" description="stops resin">
+
+        <java classname="org.apache.cactus.ant.ResinRun" fork="yes">
+            <arg value="-stop"/>
+            <jvmarg value="-Djava.util.logging.manager=com.caucho.log.LogManagerImpl"/>
+
+            <classpath>
+                <path refid="cactus.classpath"/>
+                <fileset dir="${env.RESIN_HOME}/lib" includes="*.jar"/>
+            </classpath>
+        </java>
+    </target>
+
+    <!-- ============================================================== -->
+    <!-- Tomcat tasks - remove these if you don't have Tomcat installed -->
+    <!-- ============================================================== -->
+    <taskdef file="${ant-contrib.dir}/tomcatTasks.properties">
+        <classpath>
+            <pathelement path="${tomcat.home}/server/lib/catalina-ant.jar"/>
+        </classpath>
+    </taskdef>
+    <target name="install" description="Install application in Tomcat"
+        depends="package-web">
+        <deploy url="${tomcat.manager.url}"
+            username="${tomcat.username}"
+            password="${tomcat.password}"
+            path="/${webapp.name}"
+            war="file:${webapp.dist}/${webapp.war}"/>
+    </target>
+
+    <target name="remove" description="Remove application in Tomcat">
+        <undeploy url="${tomcat.manager.url}"
+            username="${tomcat.username}"
+            password="${tomcat.password}"
+            path="/${webapp.name}"/>
+    </target>
+
+    <target name="reload" description="Reload application in Tomcat">
+        <reload url="${tomcat.manager.url}"
+            username="${tomcat.username}"
+            password="${tomcat.password}"
+            path="/${webapp.name}"/>
+    </target>
+
+    <target name="start" description="Start Tomcat application">
+        <start url="${tomcat.manager.url}"
+            username="${tomcat.username}"
+            password="${tomcat.password}"
+            path="/${webapp.name}"/>
+    </target>
+
+    <target name="stop" description="Stop Tomcat application">
+        <stop url="${tomcat.manager.url}"
+            username="${tomcat.username}"
+            password="${tomcat.password}"
+            path="/${webapp.name}"/>
+    </target>
+
+    <target name="list" description="List Tomcat applications">
+        <list url="${tomcat.manager.url}"
+            username="${tomcat.username}"
+            password="${tomcat.password}"/>
+    </target>
+
+    <!-- =================================================================== -->
+    <!--            Creates documentation from wiki                          -->
+    <!-- =================================================================== -->
+    <target name="wiki" description="downloads files from wiki for doco">
+        <!-- Get latest stylesheet -->
+        <get src="http://raibledesigns.com/wiki/templates/redman/jspwiki.css"
+            dest="docs/style.css"/>
+        <!-- Get wiki pages -->
+        <get src="http://raibledesigns.com/wiki/printwikishow.jsp?${wiki.pages}"
+            dest="docs/wiki.html"/>
+        <!-- Add some style -->
+        <replaceregexp flags="g"
+            file="docs/wiki.html"
+            match='&lt;/HEAD&gt;'
+            replace='&lt;/HEAD&gt; &lt;link rel="stylesheet" type="text/css" href="style.css" /&gt; &lt;style type="text/css"&gt;body {margin: 20px}&lt;/style&gt;'/>
+    </target>
+    
+    <!-- =================================================================== -->
+    <!--            Creates release (source) distribution                    -->
+    <!-- =================================================================== -->
+    <target name="dist" depends="clean,wiki"
+        description="create zip and tar.gz of entire directory for distribution">
+        <property name="archive.name" value="${webapp.name}-${webapp.version}-src"/>
+        <property name="archive.target" value="../${archive.name}"/>
+        <zip zipfile="${archive.target}.zip">
+            <zipfileset prefix="${webapp.name}" dir="${basedir}">
+                <patternset id="srcfiles">
+                    <include name="**"/>
+                    <exclude name="*.log"/>
+                    <exclude name="junit*.properties"/>
+                    <exclude name="**/*~"/>
+                    <exclude name="**/*.bak"/>
+                    <exclude name="*/**.java.txt"/>
+                    <exclude name="${dist.dir}"/>
+                    <exclude name="${build.dir}"/>
+                    <exclude name="bin/**"/>
+                    <exclude name=".#**"/>
+                    <exclude name="anthill.version"/>
+                </patternset>
+            </zipfileset>
+        </zip>
+        <tar tarfile="${archive.target}.tar">
+            <tarfileset dir="${basedir}" mode="${tar.mode}"
+                prefix="${webapp.name}"
+                username="${tar.user}" group="${tar.group}">
+                <patternset refid="srcfiles"/>
+            </tarfileset>
+        </tar>
+        <gzip zipfile="${archive.target}.tar.gz" src="${archive.target}.tar"/>
+        <delete file="${archive.target}.tar"/>
+    </target>
+    
+    <!-- =================================================================== -->
+    <!--            Creates release (binary) distribution                    -->
+    <!-- =================================================================== -->
+    <target name="bin" depends="clean,package-web"
+        description="creates zip file with war, jdbc drivers, and XML file">
+    	
+        <!-- Copy tomcat-context.xml file to webapp.name.xml so it's friendlier -->
+        <copy tofile="${webapp.dist}/${webapp.name}.xml"
+            file="metadata/conf/tomcat-context.xml">
+            <filterset refid="db.variables"/>
+        </copy>
+        
+        <!-- Remove version number from WAR file -->
+        <move file="${webapp.dist}/${webapp.war}"
+            tofile="${webapp.dist}/${webapp.name}.war"/>
+        
+        <!-- Copy JDBC Driver -->
+        <copy todir="${webapp.dist}" file="${database.jar}"/>
+
+        <!-- Create the zip and tar.gz files -->
+        <property name="archive.name" value="${webapp.name}-${webapp.version}-bin"/>
+        <property name="archive.target" value="${dist.dir}/${archive.name}"/>
+        <zip zipfile="${archive.target}.zip">
+            <zipfileset prefix="${webapp.name}-${webapp.version}"
+                dir="${webapp.dist}">
+                <patternset id="binfiles">
+                    <include name="**"/>
+                </patternset>
+            </zipfileset>
+        </zip>
+        <tar tarfile="${archive.target}.tar">
+            <tarfileset dir="${webapp.dist}" mode="${tar.mode}"
+                prefix="${webapp.name}-${webapp.version}"
+                username="${tar.user}" group="${tar.group}">
+                <patternset refid="binfiles"/>
+            </tarfileset>
+        </tar>
+        <gzip zipfile="${archive.target}.tar.gz" src="${archive.target}.tar"/>
+        <delete file="${archive.target}.tar"/>
+    </target>
+    
+    <!-- =================================================================== -->
+    <!--            FTPs archive files to specified server                   -->
+    <!-- =================================================================== -->
+    <target name="ftp" depends="dist"
+        description="FTPs archive files to specified server">
+        <input message="Enter password to connect to server:" addproperty="ftp.password"/>
+        <ftp server="${ftp.server}" remotedir="${ftp.remoteDir}" userid="${ftp.user}"
+            password="${ftp.password}" depends="yes" verbose="yes">
+            <fileset dir="..">
+                <include name="${archive.name}.zip"/>
+                <include name="${archive.name}.tar.gz"/>
+            </fileset>
+        </ftp>
+    </target>
+    
+    <!-- =================================================================== -->
+    <!--            Convenience target to setup everything                   -->
+    <!-- =================================================================== -->
+    <target name="setup" depends="setup-db,setup-tomcat,deploy"
+        description="Sets up database, tomcat and deploys expanded war"/>
+</project>

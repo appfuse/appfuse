@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+ <!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 1.1//EN"
+       "http://jakarta.apache.org/struts/dtds/tiles-config_1_1.dtd">
+
+<tiles-definitions>
+
+    <!-- Base layout definition -->
+	<definition name="baseLayout" path="/layouts/baseLayout.jsp">
+		<put name="titleKey"/>
+		<put name="headingKey"/>
+        <!-- header links to another definition (header.userCount) that
+             demonstrates the use of a Tiles Controller, you could just
+             as easily use "/common/header.jsp" for a value. -->
+		<put name="header" value="header.userCount"/>
+		<put name="footer" value="/common/footer.jsp"/>
+        <!-- Default Javascript File -->
+        <putList name="scripts">
+            <add value="/scripts/global.js"/>
+            <add value="/scripts/helptip.js"/>
+        </putList>
+        <!-- Default Stylesheet File -->
+        <putList name="styles">
+            <add value="/styles/default.css"/>
+            <add value="/styles/helptip.css"/>
+        </putList>
+        <!-- Default Stylesheet for Printing -->
+        <putList name="printStyles">
+            <add value="/styles/print.css"/>
+        </putList>
+	</definition>
+    
+    <!-- Login Page definition -->
+    <definition name="login" extends="baseLayout">
+        <put name="body.id" value="login"/>
+        <put name="titleKey"  value="login.title"/>
+        <put name="headingKey" value="login.heading"/>
+        <put name="menu" value="/loginMenu.jsp"/>
+        <put name="content" value="/WEB-INF/pages/welcome.jsp"/>
+    </definition>
+
+    <!-- Self Registration definition -->
+    <definition name="signup" extends="baseLayout">
+        <put name="body.id" value="signup"/>
+        <put name="titleKey"  value="signup.title"/>
+        <put name="headingKey" value="signup.heading"/>
+        <put name="content" value="/WEB-INF/pages/signup.jsp"/>
+    </definition>
+    
+    <!-- Main Menu definition -->
+    <definition name="mainMenu" extends="baseLayout">
+        <put name="titleKey"  value="mainMenu.title" />
+        <put name="headingKey" value="mainMenu.heading" />
+        <put name="menu" value="/WEB-INF/pages/menu.jsp"/>
+        <put name="content" value="/WEB-INF/pages/mainMenu.jsp"/>
+        <putList name="scripts">
+            <add value="/scripts/global.js"/>
+            <add value="/scripts/menuExpandable.js"/>
+            <add value="/scripts/helptip.js"/>
+            <add value="/scripts/sortTable.js"/>
+		</putList>
+        <putList name="styles">
+            <add value="/styles/default.css"/>
+            <add value="/styles/menuExpandable.css"/>
+            <add value="/styles/helptip.css"/>
+		</putList>
+    </definition>
+    
+    <!-- Header definition - shows user Count using a Controller -->
+    <definition name="header.userCount" path="/common/header.jsp"
+        controllerClass="org.appfuse.webapp.action.UserCounterController" />
+
+    <!-- User List definition -->
+    <definition name="userList" extends="mainMenu">
+        <put name="titleKey"  value="userList.title" />
+        <put name="headingKey" value="userList.heading" />
+        <put name="content" value="/WEB-INF/pages/userList.jsp"/>
+    </definition>
+    
+    <!-- User Profile definition -->
+    <definition name="userForm" extends="mainMenu">
+        <put name="titleKey"  value="userProfile.title" />
+        <put name="headingKey" value="userProfile.heading" />
+        <put name="content" value="/WEB-INF/pages/userProfile.jsp"/>
+        <putList name="scripts">
+            <add value="/scripts/global.js"/>
+            <add value="/scripts/menuExpandable.js"/>
+            <add value="/scripts/helptip.js"/>
+            <add value="/scripts/selectbox.js"/>
+		</putList>
+    </definition>
+    
+    <!-- Upload Page definition -->
+    <definition name="selectFile" extends="mainMenu">
+        <put name="titleKey"  value="upload.title"/>
+        <put name="headingKey" value="upload.heading"/>
+        <put name="content" value="/WEB-INF/pages/uploadForm.jsp"/>
+    </definition>
+
+    <!-- Display Upload definition -->
+    <definition name="displayFile" extends="mainMenu">
+        <put name="titleKey"  value="display.title" />
+        <put name="headingKey" value="display.heading" />
+        <put name="content" value="/WEB-INF/pages/uploadDisplay.jsp"/>
+    </definition>
+    
+    <!-- 404 (page not found) definition -->
+    <definition name="404" extends="mainMenu">
+        <put name="titleKey"  value="404.title" />
+        <put name="headingKey" value="404.title" />
+        <put name="content" value="/WEB-INF/pages/404.jsp"/>
+    </definition>
+    
+    <!-- 403 (access denied) definition -->
+    <definition name="403" extends="mainMenu">
+        <put name="titleKey"  value="403.title" />
+        <put name="headingKey" value="403.title" />
+        <put name="content" value="/WEB-INF/pages/403.jsp"/>
+    </definition>
+    
+    <!-- Flush Cache definition -->
+    <definition name="flushCache" extends="mainMenu">
+        <put name="titleKey" value="flushCache.title"/>
+        <put name="headingKey" value="flushCache.heading"/>
+        <put name="content" value="/WEB-INF/pages/flushCache.jsp"/>
+    </definition>
+    
+    <!-- Clickstreams definition -->
+    <definition name="clickstreams" extends="mainMenu">
+        <put name="titleKey" value="clickstreams.title"/>
+        <put name="headingKey" value="clickstreams.heading"/>
+        <put name="content" value="/WEB-INF/pages/clickstreams.jsp"/>
+    </definition>
+
+    <!-- Viewstream definition -->
+    <definition name="viewstream" extends="mainMenu">
+        <put name="titleKey" value="viewstream.title"/>
+        <put name="headingKey" value="viewstream.heading"/>
+        <put name="content" value="/WEB-INF/pages/viewstream.jsp"/>
+    </definition>
+    
+    <!-- Active Users definition -->
+    <definition name="activeUsers" extends="mainMenu">
+        <put name="body.id" value="activeUsers"/>
+        <put name="titleKey"  value="activeUsers.title" />
+        <put name="headingKey" value="activeUsers.heading" />
+        <put name="content" value="/WEB-INF/pages/activeUsers.jsp"/>
+    </definition>
+    
+</tiles-definitions>

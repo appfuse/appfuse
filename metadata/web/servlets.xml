@@ -1,0 +1,6 @@
+    <!-- Standard Action Servlet Configuration -->
+    <servlet>
+        <servlet-name>action</servlet-name>
+        <servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
+        <load-on-startup>2</load-on-startup>
+    </servlet>

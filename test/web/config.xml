@@ -1,0 +1,5 @@
+
+<config host="${tomcat.server}" port="${http.port}" 
+    protocol="http" basepath="${webapp.name}" verbose="true" 
+    resultpath="${test.dir}/data" resultfile="web-tests-result.xml" summary="true" 
+    saveresponse="true"/>
