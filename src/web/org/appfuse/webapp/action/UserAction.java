@@ -39,7 +39,7 @@ import org.appfuse.webapp.util.RequestUtil;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.1 $ $Date: 2004/03/01 06:19:16 $
+ * @version $Revision: 1.2 $ $Date: 2004/03/10 05:01:09 $
  *
  * @struts.action name="userFormEx" path="/editUser" scope="request"
  *  validate="false" parameter="action" input="list" roles="admin"
@@ -89,7 +89,8 @@ public final class UserAction extends BaseAction {
         if (!StringUtils.equals(request.getParameter("from"), "list")) {
             return mapping.findForward("mainMenu");
         } else {
-            return mapping.findForward("viewUsers");
+            String next = mapping.findForward("viewUsers").getPath();
+            return new ActionForward(next, true);
         }
     }
 
