@@ -66,12 +66,6 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
             <fileset dir="metadata/web" includes="*.xml"/>
         </copy>
         
-        <echo level="info">Fixing files that don't have local OS line breaks</echo>
-        <!-- Workaround Ant issue #961 replace task requires OS local line breaks -->
-        <!-- http://issues.apache.org/bugzilla/show_bug.cgi?id=961                -->
-        <!-- https://appfuse.dev.java.net/issues/show_bug.cgi?id=91               -->
-        <fixcrlf srcdir="../.." includes="**/*.xml,**/*.properties,**/*.classpath"/>
-
         <!-- Modify appgen for Spring -->
         <echo level="info">Modifying appgen for Spring</echo>
         <copy todir="../appgen" overwrite="true">
@@ -84,39 +78,39 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         <!-- Modify templates used in appgen/build.xml -->
         <replace file="../appgen/build.xml">
             <replacetoken><![CDATA[<!-- Action Test -->
-		    <template templateFile="${template.dir}/ActionTest.xdt"
-		              acceptAbstractClasses="false"
-		              prefixWithPackageStructure="false"
-		              destinationFile="${gen.dir}/test/web/${app.package}/webapp/action/{0}ActionTest.java"/>
+            <template templateFile="${template.dir}/ActionTest.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/test/web/${app.package}/webapp/action/{0}ActionTest.java"/>
             <!-- Detailed Action -->
-		    <template templateFile="${template.dir}/detailed/Action.xdt"
-		              acceptAbstractClasses="false"
-		              prefixWithPackageStructure="false"
-		              destinationFile="${gen.dir}/src/web/${app.package}/webapp/action/{0}Action.java"/>
+            <template templateFile="${template.dir}/detailed/Action.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/src/web/${app.package}/webapp/action/{0}Action.java"/>
             <!-- Generic Action -->
             <template templateFile="${template.dir}/generic/Action.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
                       destinationFile="${gen.dir}/generic/src/web/${app.package}/webapp/action/{0}Action.java"/>]]></replacetoken>
             <replacevalue><![CDATA[<!-- FormController Test -->    
-		    <template templateFile="${template.dir}/FormControllerTest.xdt"
-		              acceptAbstractClasses="false"
-		              prefixWithPackageStructure="false"
-		              destinationFile="${gen.dir}/test/web/${app.package}/webapp/action/{0}FormControllerTest.java"/>
+            <template templateFile="${template.dir}/FormControllerTest.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/test/web/${app.package}/webapp/action/{0}FormControllerTest.java"/>
             <!-- FormController Test -->    
-		    <template templateFile="${template.dir}/ControllerTest.xdt"
-		              acceptAbstractClasses="false"
-		              prefixWithPackageStructure="false"
-		              destinationFile="${gen.dir}/test/web/${app.package}/webapp/action/{0}ControllerTest.java"/>
+            <template templateFile="${template.dir}/ControllerTest.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/test/web/${app.package}/webapp/action/{0}ControllerTest.java"/>
             <!-- Detailed Controllers -->
-		    <template templateFile="${template.dir}/detailed/FormController.xdt"
-		              acceptAbstractClasses="false"
-		              prefixWithPackageStructure="false"
-		              destinationFile="${gen.dir}/src/web/${app.package}/webapp/action/{0}FormController.java"/>
-		    <template templateFile="${template.dir}/detailed/Controller.xdt"
-		              acceptAbstractClasses="false"
-		              prefixWithPackageStructure="false"
-		              destinationFile="${gen.dir}/src/web/${app.package}/webapp/action/{0}Controller.java"/>
+            <template templateFile="${template.dir}/detailed/FormController.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/src/web/${app.package}/webapp/action/{0}FormController.java"/>
+            <template templateFile="${template.dir}/detailed/Controller.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/src/web/${app.package}/webapp/action/{0}Controller.java"/>
             <!-- Generic Controllers -->    
             <template templateFile="${template.dir}/generic/FormController.xdt"
                       acceptAbstractClasses="false"
@@ -197,7 +191,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         <replace file="../../.classpath">
             <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/spring-1.1.1/spring.jar"/>]]></replacetoken>
             <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/spring-1.1.1/spring.jar"/>
-	<classpathentry kind="lib" path="lib/spring-1.1.1/spring-sandbox.jar"/>]]></replacevalue>
+    <classpathentry kind="lib" path="lib/spring-1.1.1/spring-sandbox.jar"/>]]></replacevalue>
         </replace>
 
         <echo level="info">Refactoring build.xml</echo>
@@ -249,7 +243,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         </replace>
         
         <replace file="../../build.xml">
-            <replacetoken><![CDATA[    <!-- The "webdoclet" target generates web and struts deployment 		 -->
+            <replacetoken><![CDATA[    <!-- The "webdoclet" target generates web and struts deployment          -->
     <!-- descriptors.                                                        --> 
     <!-- =================================================================== -->
     <target name="webdoclet" depends="compile-web" 
@@ -283,7 +277,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
             <strutsconfigxml validateXML="true" version="1.2"/>
             <strutsvalidationxml/>
 ]]></replacetoken>
-            <replacevalue><![CDATA[    <!-- The "webdoclet" target generates web deployment descriptors.  	     -->
+            <replacevalue><![CDATA[    <!-- The "webdoclet" target generates web deployment descriptors.           -->
     <!-- =================================================================== -->
     <target name="webdoclet" depends="compile-web" 
         unless="webdoclet.unnecessary"

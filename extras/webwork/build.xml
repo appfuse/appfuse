@@ -103,12 +103,6 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
             </fileset>
         </delete>
 
-        <echo level="info">Fixing files that don't have local OS line breaks</echo>
-        <!-- Workaround Ant issue #961 replace task requires OS local line breaks -->
-        <!-- http://issues.apache.org/bugzilla/show_bug.cgi?id=961                -->
-        <!-- https://appfuse.dev.java.net/issues/show_bug.cgi?id=91               -->
-        <fixcrlf srcdir="../.." includes="**/*.xml,**/*.properties,**/*.classpath"/>
-        
         <!-- Modify appgen for WebWork -->
         <echo level="info">Modifying appgen for WebWork</echo>
         <copy todir="../appgen" overwrite="true">
@@ -231,12 +225,12 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         </replace>
         <replace file="../../.classpath">
             <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/struts.jar"/>
-	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/struts-el.jar"/>]]></replacetoken>
+    <classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/struts-el.jar"/>]]></replacetoken>
             <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/webwork-2.1.1/ognl.jar"/>
-	<classpathentry kind="lib" path="lib/webwork-2.1.1/oscore.jar"/>
-	<classpathentry kind="lib" path="lib/webwork-2.1.1/spring-xwork-integration.jar"/>
-	<classpathentry kind="lib" path="lib/webwork-2.1.1/webwork-2.1.1.jar"/>
-	<classpathentry kind="lib" path="lib/webwork-2.1.1/xwork-1.0.3.jar"/>]]></replacevalue>
+    <classpathentry kind="lib" path="lib/webwork-2.1.1/oscore.jar"/>
+    <classpathentry kind="lib" path="lib/webwork-2.1.1/spring-xwork-integration.jar"/>
+    <classpathentry kind="lib" path="lib/webwork-2.1.1/webwork-2.1.1.jar"/>
+    <classpathentry kind="lib" path="lib/webwork-2.1.1/xwork-1.0.3.jar"/>]]></replacevalue>
         </replace>
 
         <echo level="info">Refactoring build.xml</echo>
@@ -290,7 +284,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         </replace>
         
         <replace file="../../build.xml">
-            <replacetoken><![CDATA[    <!-- The "webdoclet" target generates web and struts deployment 		 -->
+            <replacetoken><![CDATA[    <!-- The "webdoclet" target generates web and struts deployment          -->
     <!-- descriptors.                                                        --> 
     <!-- =================================================================== -->
     <target name="webdoclet" depends="compile-web" 
@@ -324,7 +318,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
             <strutsconfigxml validateXML="true" version="1.2"/>
             <strutsvalidationxml/>
 ]]></replacetoken>
-            <replacevalue><![CDATA[    <!-- The "webdoclet" target generates web deployment descriptors.  	     -->
+            <replacevalue><![CDATA[    <!-- The "webdoclet" target generates web deployment descriptors.           -->
     <!-- =================================================================== -->
     <target name="webdoclet" depends="compile-web" 
         unless="webdoclet.unnecessary"
