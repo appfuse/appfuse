@@ -40,7 +40,7 @@ public class BaseAction extends ActionSupport {
     protected String cancel = null;
     protected String delete = null;
     protected String save = null;
-    protected MailEngine mailEngine = null;;
+    protected MailEngine mailEngine = null;
     protected SimpleMailMessage message = null;
     protected String templateName = null; 
 
