@@ -16,7 +16,7 @@ import org.apache.commons.logging.LogFactory;
  * </p>
  * 
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.4 $ $Date: 2004/05/25 06:27:21 $
+ * @version $Revision: 1.5 $ $Date: 2004/08/03 05:17:31 $
  */
 public class StringUtil {
     //~ Static fields/initializers =============================================
@@ -63,11 +63,11 @@ public class StringUtil {
         StringBuffer buf = new StringBuffer();
 
         for (int i = 0; i < encodedPassword.length; i++) {
-            if (((int) encodedPassword[i] & 0xff) < 0x10) {
+            if ((encodedPassword[i] & 0xff) < 0x10) {
                 buf.append("0");
             }
 
-            buf.append(Long.toString((int) encodedPassword[i] & 0xff, 16));
+            buf.append(Long.toString(encodedPassword[i] & 0xff, 16));
         }
 
         return buf.toString();
