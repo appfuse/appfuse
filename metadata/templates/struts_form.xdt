@@ -52,6 +52,10 @@ public class <XDtClass:classOf><XDtActionForm:actionFormClass/></XDtClass:classO
     public java.util.Set <XDtMethod:getterMethod/>()<XDtMethod:exceptionList/>
     </XDtType:ifIsOfType>
     <XDtType:ifIsOfType value="return-type" type="org.appfuse.model.BaseObject">
+    <XDtVelocity:generator>
+        #set( $method = $currentMethod.name)
+        #set( $pojoName = $method.substring(3))
+    </XDtVelocity:generator>
     public <XDtVelocity:getVariable name="pojoName"/>Form <XDtMethod:getterMethod/>Form()<XDtMethod:exceptionList/>
     </XDtType:ifIsOfType>
     <XDtType:ifIsNotOfType value="return-type" 
@@ -108,9 +112,9 @@ public class <XDtClass:classOf><XDtActionForm:actionFormClass/></XDtClass:classO
         return (org.appfuse.model.<XDtVelocity:getVariable name="pojoName"/>) org.appfuse.util.ConvertUtil.convert(this.<XDtMethod:propertyName/>);
     }
 
-    public void setAddress(org.appfuse.model.<XDtVelocity:getVariable name="pojoName"/> <XDtMethod:propertyName/>) throws Exception
+    public void set<XDtVelocity:getVariable name="pojoName"/>(org.appfuse.model.<XDtVelocity:getVariable name="pojoName"/> <XDtMethod:propertyName/>) throws Exception
     {
-        setAddressForm((<XDtVelocity:getVariable name="pojoName"/>Form) org.appfuse.util.ConvertUtil.convert(<XDtMethod:propertyName/>));
+        set<XDtVelocity:getVariable name="pojoName"/>Form((<XDtVelocity:getVariable name="pojoName"/>Form) org.appfuse.util.ConvertUtil.convert(<XDtMethod:propertyName/>));
     }
     </XDtType:ifIsOfType>
     
