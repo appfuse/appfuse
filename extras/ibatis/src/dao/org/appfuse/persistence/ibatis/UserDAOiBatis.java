@@ -2,6 +2,7 @@ package org.appfuse.persistence.ibatis;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.ArrayList;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -24,7 +25,7 @@ import org.springframework.orm.ibatis.support.SqlMapDaoSupport;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.1 $ $Date: 2004/04/29 22:22:52 $
+ * @version $Revision: 1.2 $ $Date: 2004/05/04 09:25:00 $
  */
 public class UserDAOiBatis extends SqlMapDaoSupport implements UserDAO {
     private Log log = LogFactory.getLog(UserDAOiBatis.class);
@@ -89,23 +90,24 @@ public class UserDAOiBatis extends SqlMapDaoSupport implements UserDAO {
     private void addUserRoles(final User user) {
         if (user.getRoles() != null) {
             UserRole userRole = null;
-
+            List preventDups = new ArrayList();
             for (Iterator it = user.getRoles().iterator(); it.hasNext();) {
                 userRole = (UserRole) it.next();
-
-                Long pk =
-                    (Long) getSqlMapTemplate().executeQueryForObject("getRoleId",
-                                                                     null);
-
-                if (pk == null) {
-                    pk = new Long(0);
-                }
-
-                userRole.setId(new Long(pk.longValue() + 1));
-
-                userRole.setUserId(user.getId());
-                userRole.setUsername(user.getUsername());
-                getSqlMapTemplate().executeUpdate("addUserRole", userRole);
+                if (!preventDups.contains(userRole.getRoleName())) {
+                    Long pk = (Long) getSqlMapTemplate()
+                                  .executeQueryForObject("getRoleId", null);
+    
+                    if (pk == null) {
+                        pk = new Long(0);
+                    }
+    
+                    userRole.setId(new Long(pk.longValue() + 1));
+    
+                    userRole.setUserId(user.getId());
+                    userRole.setUsername(user.getUsername());
+                    getSqlMapTemplate().executeUpdate("addUserRole", userRole);
+                    preventDups.add(userRole.getRoleName());
+                }                    
             }
         }
     }
@@ -137,13 +139,18 @@ public class UserDAOiBatis extends SqlMapDaoSupport implements UserDAO {
             addUserRoles(user);
         }
 
-        return user;
+        // Have to call getUser here b/c the user might still have duplicate
+        // roles.  The preventDups logic can't remove items b/c it'll throw
+        // a java.util.ConcurrentModificationException.  Cleaner solutions
+        // welcome. ;-)
+        return getUser(user.getUsername());
     }
 
     /**
-     * @see org.appfuse.persistence.UserDAO#removeUser(org.appfuse.model.User)
+     * @see org.appfuse.persistence.UserDAO#removeUser(java.lang.String)
      */
-    public void removeUser(User user) throws DAOException {
+    public void removeUser(String username) throws DAOException {
+        User user = getUser(username);
         removeUserCookies(user.getUsername());
         deleteUserRoles(user);
         getSqlMapTemplate().executeUpdate("deleteUser", user);

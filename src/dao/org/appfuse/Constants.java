@@ -9,9 +9,9 @@ package org.appfuse;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.1 $ $Date: 2004/03/01 06:19:01 $
+ * @version $Revision: 1.2 $ $Date: 2004/05/04 09:25:02 $
  */
-public final class Constants {
+public class Constants {
     //~ Static fields/initializers =============================================
 
     /**

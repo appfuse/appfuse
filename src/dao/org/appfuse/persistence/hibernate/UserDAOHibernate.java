@@ -1,5 +1,6 @@
 package org.appfuse.persistence.hibernate;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -18,7 +19,7 @@ import org.springframework.orm.hibernate.HibernateCallback;
 
 
 /**
- * This class interacts with Hibernate's Session object to save and
+ * This class interacts with Spring's HibernateTemplate to save/delete and
  * retrieve User objects.
  *
  * <p>
@@ -26,7 +27,7 @@ import org.springframework.orm.hibernate.HibernateCallback;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.5 $ $Date: 2004/05/04 06:08:55 $
+ * @version $Revision: 1.6 $ $Date: 2004/05/04 09:25:03 $
  */
 public class UserDAOHibernate extends BaseDAOHibernate implements UserDAO {
     private Log log = LogFactory.getLog(UserDAOHibernate.class);
@@ -102,16 +103,27 @@ public class UserDAOHibernate extends BaseDAOHibernate implements UserDAO {
             getHibernateTemplate().saveOrUpdate(user);
             deleteUserRoles(user);
         }
-
+        
         if (user.getRoles() != null) {
+            // prevent duplicates
+            List preventDups = new ArrayList();
             for (Iterator it = user.getRoles().iterator(); it.hasNext();) {
                 UserRole userRole = (UserRole) it.next();
-                userRole.setUserId(user.getId());
-                getHibernateTemplate().save(userRole);
+                // make sure the role hasn't already been added
+                if (!preventDups.contains(userRole.getRoleName())) {
+                    userRole.setUserId(user.getId());
+                    userRole.setUsername(user.getUsername());
+                    getHibernateTemplate().save(userRole);
+                    preventDups.add(userRole.getRoleName());
+                } 
             }
         }
 
-        return user;
+        // Have to call getUser here b/c the user might still have duplicate
+        // roles.  The preventDups logic can't remove items b/c it'll throw
+        // a java.util.ConcurrentModificationException.  Cleaner solutions
+        // welcome. ;-)
+        return getUser(user.getUsername());
     }
 
     /**

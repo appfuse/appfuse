@@ -30,7 +30,6 @@
         <delete>
             <fileset dir="${struts.dir}">
                 <include name="*fileupload*"/>
-                <include name="*validator*"/>
                 <include name="struts-el.jar"/>
             </fileset>
         </delete>
@@ -57,29 +56,31 @@
             </fileset>
         </delete>
         <echo level="info">Replacing Struts servlets and settings with Spring</echo>
-        <copy todir="../../metadata/web" includes="metadata/web/*.xml" overwrite="true"/>
+        <copy todir="../../metadata/web" overwrite="true">
+            <fileset dir="metadata/web" includes="*.xml"/>
+        </copy>
         
         <!-- Copy source and tests -->    
         <echo level="info">Replacing source and test files</echo>
-        <copy todir="../../src" overwrite="true">
-            <fileset dir="src" includes="**"/>
-        </copy>
-        <delete dir="../../src/web/**/form"/>
+        <delete dir="../../src/web/org/appfuse/webapp/form"/>
         <delete>
-            <fileset dir="../../src/web/**/action">
+            <fileset dir="../../src/web/org/appfuse/webapp/action">
                 <exclude name="LoginServlet.java"/>
                 <exclude name="UserCounterController.java"/>
             </fileset>
         </delete>
-        <copy todir="../../test" overwrite="true">
-            <fileset dir="test" includes="**"/>
+        <copy todir="../../src" overwrite="true">
+            <fileset dir="src" includes="**"/>
         </copy>
         <delete>
-            <fileset dir="../../test/web/**/action">
+            <fileset dir="../../test/web/org/appfuse/webapp/action">
                 <exclude name="LoginServlet*"/>
                 <exclude name="MainMenu*"/>
             </fileset>
         </delete> 
+        <copy todir="../../test" overwrite="true">
+            <fileset dir="test" includes="**"/>
+        </copy>
         
         <!-- Copy web files (JSPs, images, scripts, stylesheets) -->
         <echo level="info">Replacing web files (images, scripts, JSPs, etc.)</echo>
@@ -109,6 +110,9 @@
         </uptodate>
 ]]></replacetoken>
             <replacevalue></replacevalue>
+        </replace>
+        
+        <replace file="../../build.xml">
             <replacetoken><![CDATA[        
         <!-- generate struts forms -->
         <xdoclet destdir="${build.dir}/web/gen"
@@ -127,10 +131,15 @@
         
 ]]></replacetoken>
             <replacevalue></replacevalue>
+        </replace>
+        <replace file="../../build.xml">
             <replacetoken><![CDATA[<param name="additional.src.dirs"
                 value="${build.dir}/web/gen"/>
 ]]></replacetoken>
             <replacevalue></replacevalue>
+        </replace>
+        
+        <replace file="../../build.xml">
             <replacetoken><![CDATA[    <!-- The "webdoclet" target generates web and struts deployment 		 -->
     <!-- descriptors. This task depends on compile-web because it generates  --> 
     <!-- the forms for struts                                                -->
@@ -199,13 +208,25 @@
                 shortName="appfuse" filename="appfuse.tld"/>
             <springvalidationxml/>
 ]]></replacevalue>
+        </replace>
+        
+        <replace file="../../build.xml">
             <replacetoken><![CDATA[<target name="package-web" depends="webdoclet,jsp-2"]]></replacetoken>
             <replacevalue><![CDATA[<target name="package-web" depends="compile-web,jsp-2"]]></replacevalue>
+        </replace>
+        
+        <replace file="../../build.xml">
             <replacetoken><![CDATA[<webinf dir="${struts.dir}" includes="*.xml"/>]]></replacetoken>
             <replacevalue><![CDATA[<webinf dir="${spring.dir}" includes="*.xml"/>]]></replacevalue>
+        </replace>
+        
+        <replace file="../../build.xml">
             <replacetoken><![CDATA[<lib dir="${spring.dir}" includes="*.jar"/>]]></replacetoken>
             <replacevalue><![CDATA[<lib dir="${spring.dir}" includes="*.jar"/>
             <lib file="${requesttag.jar}"/>]]></replacevalue>
+        </replace>
+        
+        <replace file="../../build.xml">
             <replacetoken><![CDATA[<target name="test-web" depends="compile-web"
         description="Test web module">
         <antcall target="test-module" inheritAll="true">
@@ -228,4 +249,5 @@
         </antcall>
     </target>]]></replacevalue>
         </replace>
+    </target>
 </project>
