@@ -126,8 +126,7 @@ public class <XDtClass:classOf><XDtStrutsForm:strutsFormClass/></XDtClass:classO
         public Object create() {
 	    	Class c = null;
 	    	try {
-		    	String pkg = this.getClass().getPackage().toString();
-                c = Class.forName(pkg + name + "Form");
+                c = Class.forName("org.appfuse.webapp.form." + name + "Form");
 	            return c.newInstance();
 			} catch (Exception e) {
 	            System.err.println("Error instantiating class: " + c.getName());
