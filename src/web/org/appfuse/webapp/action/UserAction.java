@@ -40,7 +40,7 @@ import org.springframework.mail.SimpleMailMessage;
  *  Modified by <a href="mailto:dan@getrolling.com">Dan Kibler</a>
  *
  * @struts.action name="userForm" path="/users" scope="request"
- *  validate="false" input="mainMenu"
+ *  validate="false" parameter="method" input="mainMenu"
  * @struts.action name="userForm" path="/editUser" scope="request"
  *  validate="false" parameter="method" input="list" roles="admin"
  * @struts.action name="userForm" path="/editProfile" scope="request"

@@ -57,7 +57,7 @@ public class UserActionTest extends BaseStrutsTestCase {
     }
 
     public void testSearch() throws Exception {
-        setRequestPathInfo("/editUser");
+        setRequestPathInfo("/users");
         addRequestParameter("method", "Search");
         actionPerform();
 
