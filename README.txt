@@ -39,15 +39,20 @@ steps:
      Example: log4j.rootCategory=INFO, stdout, mail
 
 
-Features/Changes in 1.5
-=======================
+Features/Changes in 1.5-beta
+============================
+- Added Spring MVC as a web framework option. You can install it by navigating
+  to "extras/spring" and typing "ant install".  Includes Commons Validator
+  and XDoclet support for generating validation.xml.  I also ported the 
+  LabelTag so it works with Spring as well.
 - Changed extension for default Controller to be *.html.  We're serving up
-  HTML, why not use this instead of .do?  I'm also motivated because I want
-  to be more MVC framework-agnostic.
+  HTML, so it makes sense (to me) to use this instead of .do?  I'm also 
+  motivated because I want to be more MVC framework-agnostic.
 - Removed Struts dependency from "services" layer.  Actions can use a convert()
   method to transfer POJOs to Forms and vise versa.
 - Fixed i18n (thanks Jaap!) - now reads from the user's browser's settings.
-  Available languages are English and Dutch.
+  Available languages are English, Dutch (Jaap van der Molen), Brazilian 
+  (Gilberto Caetano de Andrade) and Chinese (Paul Wang).
 - Fixed bug where logout didn't work when Remember Me was disabled (issue #3).
 - Fixed bug in struts_form.xdt where invalid code generated for ObjectFactory
   inner class (issue #2).  Also added "indexedProperties" attribute to 
@@ -80,25 +85,24 @@ Features/Changes in 1.5
 - Changed Tomcat 5 detection to use a class from 5.0.x rather than parsing
   the folder name of the installed server.
 - Added encoding options for UTF-8 so AppFuse can handle languages such as
-  Chinese.
+  Chinese. (Thanks Paul Wang)
 - Moved StrutsGen Tool and iBatis install to a common "extras" folder.
 - Renamed StrutsGen Tool to JSPGen so it can be used to generate default
   master/detail screens for other frameworks.
 - Changed Struts Menu to use MenuContextListener for initialization since its
   framework-agnostic.
-- TODO: Spring for MVC Layer
-    - Installation package.
-- TODO: Modify Cactus so "runcontainer" task can be used to start/stop Tomcat
-  and Resin can be easily used instead of Tomcat.
 - Dependent packages upgraded:
     * Hibernate 2.1.3
     * WebTest build 432
     * XDoclet 1.2.1-dev (generation of validation.xml for Spring and ActionForm
       generation that doesn't require j2ee.jar in classpath)
+    * Velocity 1.4
 - Dependent packages added:
-    * Request Taglib 1.0.1 (use instead of "logic:present role='...'" since
-      it can be used across JSP-based MVC frameworks)
+    * Request Taglib 1.0.1 (can be used instead of "logic:present role='...'" 
+      since it can be used across JSP-based MVC frameworks)
+        ** Not used in Struts MVC, *is* used in Spring MVC
         ** Needs to be modified to support a comma-delimited list of roles.
+
 
 Features/Changes in 1.4
 =======================
