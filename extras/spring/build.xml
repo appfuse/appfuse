@@ -14,6 +14,8 @@
     <echo>
     Key Targets:
                 install: Replaces Struts with Spring MVC
+                   test: Creates appfuse-spring project and runs tests 
+                     
                    help: Print this help text...
     </echo>
     </target>

@@ -1,4 +1,4 @@
-﻿<!-- This tool is originally based on StrutsGen, created by Erik Hatcher -->
+<!-- This tool is originally based on StrutsGen, created by Erik Hatcher -->
 <project name="appgen" default="default">
 
     <property file="${user.home}/${ant.project.name}-build.properties"/>
@@ -21,9 +21,7 @@
     <property name="app.package" value="org/appfuse"/>
     
     <target name="init">
-        <mkdir dir="${build.dir}"/>  
-        <!--taskdef resource="net/sf/antcontrib/antcontrib.properties"
-            classpath="${ant-contrib.jar}"/-->
+        <mkdir dir="${build.dir}"/>
         <fail unless="model.name">
             You must specify a POJO using -Dmodel.name=Class and the lowercase
             name using -Dmodel.name.lowercase=class (for naming JSPs)   
@@ -294,7 +292,7 @@
     <!-- =================================================================== -->
     <target name="test-detailed" 
         description="Creates new project and generates detailed code">
-        <property name="app.name" value="appfuse-appgen"/>
+        <property name="app.name" value="appfuse-appgen2"/>
         <property name="db.name" value="appfuse"/>
         <delete dir="../../../${app.name}"/>
         <ant dir="../.." target="new"/>
@@ -358,8 +356,10 @@
         </ant>   
     </target>   
  
-    <target name="test-all" depends="test,test-detailed"
-        description="Tests generic and detailed code generation technics"/>   
+    <target name="test-all" depends="test"
+        description="Tests generic and detailed code generation methods">  
+        <antcall target="test-detailed" inheritAll="false"/>
+    </target>
 </project>
 
 
