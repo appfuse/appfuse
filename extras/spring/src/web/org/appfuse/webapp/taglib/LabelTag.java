@@ -128,8 +128,9 @@ public class LabelTag extends TagSupport {
             }
 
             label.append(">" + ((requiredField) ? "* " : "") + message);
-            label.append(((colon) ? ":" : "") + "</label>");
-
+            String marker = (locale.equals(Locale.FRENCH)) ? " :" : ":";
+            label.append(((colon) ? marker : "") + "</label>");
+            
             if (fes != null && fes.size() > 0) {
                 
                 if (helpTip) {
