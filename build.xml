@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.23 2004/05/25 06:21:04 mraible Exp $                 -->
+<!-- $Id: build.xml,v 1.24 2004/05/25 07:29:08 mraible Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -102,6 +102,7 @@
             <fileset dir="${basedir}">
                 <exclude name="target"/>
                 <exclude name="sandbox"/>
+                <exclude name="www"/>
                 <exclude name="README*.txt"/>
                 <exclude name="${webapp.name}*"/>
                 <exclude name="*.log"/>
@@ -1500,4 +1501,24 @@
     <!-- =================================================================== -->
     <target name="setup" depends="setup-db,setup-tomcat,deploy"
         description="Sets up database, tomcat and deploys expanded war"/>
+        
+    <!-- =================================================================== -->
+    <!--            Targets to install optional packages for testing         -->
+    <!--            NOTE: These will screw up code, so only use with Anthill -->
+    <!-- =================================================================== -->
+    <property name="extras.dir" value="extras"/>
+    <target name="install-ibatis" description="Installs iBATIS">
+        <ant dir="${extras.dir}/ibatis" target="install"/>
+    </target>
+    
+    <target name="install-springmvc" 
+        description="Installs Spring's MVC, removes Struts">
+        <ant dir="${extras.dir}/spring" target="install"/>
+    </target>
+    
+    <target name="remove-options" 
+        description="Removes unneeded files in 'extras' folder">
+        <delete dir="${extras.dir}/ibatis"/>
+        <delete dir="${extras.dir}/spring"/>
+    </target>
 </project>
