@@ -9,7 +9,7 @@
 	
 	<!-- Transaction template for Managers, from:
 		 http://blog.exis.com/colin/archives/2004/07/31/concise-transaction-definitions-spring-11/ -->
-    <bean id="txProxyTemplate" lazy-init="true"
+    <bean id="txProxyTemplate" abstract="true"
         class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
         <property name="transactionManager"><ref bean="transactionManager"/></property>
         <property name="transactionAttributes">
