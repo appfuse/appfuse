@@ -103,6 +103,12 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
             </fileset>
         </delete>
 
+        <echo level="info">Fixing files that don't have local OS line breaks</echo>
+        <!-- Workaround Ant issue #961 replace task requires OS local line breaks -->
+        <!-- http://issues.apache.org/bugzilla/show_bug.cgi?id=961                -->
+        <!-- https://appfuse.dev.java.net/issues/show_bug.cgi?id=91               -->
+        <fixcrlf srcdir="../.." includes="**/*.xml,**/*.properties,**/*.classpath"/>
+        
         <!-- Modify appgen for WebWork -->
         <echo level="info">Modifying appgen for WebWork</echo>
         <copy todir="../appgen" overwrite="true">
