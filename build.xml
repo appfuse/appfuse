@@ -21,7 +21,7 @@
         <fail unless="ant-1.6.2"
             message="AppFuse requires Ant 1.6.2 for faster unit testing"/>
 
-        <!-- Check that junit.jar is in $ANT_HOME/lib or Cactus tasks fail -->
+        <!-- Check that junit.jar is in $ANT_HOME/lib or junit task fails -->
         <available classname="junit.framework.TestCase"
             property="junit.present"/>
         <fail unless="junit.present"
