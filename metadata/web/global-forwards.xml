@@ -5,7 +5,7 @@
             
         <!-- Forwards specified in actions -->        
         <forward name="addUser" 
-            path="/editUser.html?method=Add&amp;from=list" redirect="true" />
+            path="/editUser.html?method=Add&amp;from=list" redirect="true"/>
         <forward name="cancelUser" path="/editUser.html?method=Cancel"/>
         <forward name="deleteUser" path="/editUser.html?method=Delete"/>
         <forward name="updateUser" path="/userProfile.html"/>
@@ -17,11 +17,11 @@
         <forward name="editUser" path="/editUser.html"/>
         <forward name="viewUsers" path="/editUser.html?method=Search"/>
         
-        <forward name="selectFile" path="/selectFile.html" />
+        <forward name="selectFile" path="/selectFile.html"/>
 
         <!-- Logout by forward to a JSP, I do this b/c if I forward to an 
              an action, and the users session is expired - they'll be prompted
              to login - just to logout!  Seems silly to me.
         -->
-        <forward name="logout" path="/logout.jsp" />
+        <forward name="logout" path="/logout.jsp"/>
     </global-forwards>
