@@ -59,7 +59,8 @@ function initializeMenu(menuId, actuatorId) {
 // This function loops through all the <ul>'s in the document and
 // initializes the menus for them if they have menu classes
 function initializeMenus() {
-    var links = document.getElementsByTagName("a");
+    var menu = document.getElementById("menuDiv");
+    var links = menu.getElementsByTagName("a");
     var lists = document.getElementsByTagName("ul");
 
     var actuators = new Array();

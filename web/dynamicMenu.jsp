@@ -108,12 +108,12 @@ to copy and/or improve.
         <display:column property="location"/>
     </display:table>
     <p>
-        If you <a href="?" onclick="toggleDisplay('sqlSource'); return false">
+        If you <a href="#" onclick="toggleDisplay('sqlSource'); return false">
         view the source</a> of the code above - you can see
         that it just creates a table and inserts some data.  This table will
         be dropped, re-created and populated every time this page is loaded.
     </p>
-    <div id="sqlSource" style="display: none; margin-left: 10px; margin-top: 0">
+    <div id="sqlSource" style="display:none; margin-left: 10px; margin-top: 0">
 <pre>&lt;sql:transaction dataSource="jdbc/appfuse"&gt;
 
     &lt;sql:update&gt;
@@ -240,22 +240,13 @@ to copy and/or improve.
         pageContext.setAttribute("repository", repository);
     %>
 
-    <div id="menu" style="position: relative; top: 0; left: 0">
-        <menu:useMenuDisplayer name="ListMenu" key="repository"
-            bundle="org.apache.struts.action.MESSAGE">
-            <menu:displayMenu name="DatabaseMenu"/>
-            <menu:displayMenu name="StandaloneMenu"/>
-        </menu:useMenuDisplayer>
-    </div>
-
-    <p style="margin-bottom: -10px"><code>---- begin scriplet code ----</code></p>
-    <table border="0" cellpadding="3" cellspacing="0" bgcolor="#ffffff">
+    <p style="margin-top: 10px; color: red"><code>---- begin scriplet code ----</code></p>
+    <table style="margin-top: 0; margin-bottom: 10px" cellpadding="3" cellspacing="0" bgcolor="#ffffff">
        <tr>
     
       <!-- start source code -->
        <td nowrap valign="top" align="left">
         <code>
-    <font color="#ffffff"></font><br>
     <font color="#3f7f5f">//&nbsp;I&nbsp;had&nbsp;issues&nbsp;using&nbsp;the&nbsp;existing&nbsp;repository&nbsp;-&nbsp;creating&nbsp;a&nbsp;new&nbsp;one</font><br>
     
     <font color="#3f7f5f">//&nbsp;seems&nbsp;to&nbsp;solve&nbsp;the&nbsp;problem.&nbsp;&nbsp;If&nbsp;you&nbsp;figure&nbsp;out&nbsp;how&nbsp;to&nbsp;use&nbsp;the&nbsp;default</font><br>
@@ -318,7 +309,22 @@ to copy and/or improve.
        </tr>
      </table>
  
-    <p><code>---- end scriplet code ----</code></p>
+    <p><code style="color: red">---- end scriplet code ----</code></p>
+    
+    <p>Now that we've built our menu repository, we can easily display it with the following code:</p>
+    <p><pre>&lt;menu:useMenuDisplayer name="ListMenu" key="repository"&gt;
+    &lt;menu:displayMenu name="DatabaseMenu"/&gt;
+    &lt;menu:displayMenu name="StandaloneMenu"/&gt;
+&lt;/menu:useMenuDisplayer&gt;</pre></p>
+    
+    <p>Which results in:</p>
+    <div id="menu" style="position: relative; top: 0; left: 0; margin-bottom: 10px">
+        <menu:useMenuDisplayer name="ListMenu" key="repository">
+            <menu:displayMenu name="DatabaseMenu"/>
+            <menu:displayMenu name="StandaloneMenu"/>
+        </menu:useMenuDisplayer>
+    </div>
+    
 </div>
 
 <div id="footer">

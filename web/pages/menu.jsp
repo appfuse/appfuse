@@ -1,4 +1,4 @@
-<%@ taglib uri="http://struts-menu.sf.net/tag" prefix="menu"%>
+<%@ include file="/common/taglibs.jsp"%>
 
 <div id="menu">
 <menu:useMenuDisplayer name="ListMenu" 

@@ -1,3 +1,14 @@
+/* These id's are static, so keep the same names */
+div#menu {
+    padding: 0px;
+}
+
+#menuDiv {
+  background-color: #EEE;
+  color: #000;
+  width: 172px;
+}
+
 #menuList {
   margin: 0px;
   padding: 10px 0px 10px 15px;
@@ -16,13 +27,18 @@ li.menubar {
   padding: 0px;
 }
 
-.menu li, .submenu li {
+.menu li, .submenu li  {
   background: url(../images/square.gif) no-repeat 0em 0.3em;
   list-style: none outside;
 }
 
 li.menubar a.standalone {
     background: url(../images/square.gif) no-repeat 0em 0.2em !important;
+}
+
+/* adjust for mozilla, ie doesn't recognize this */
+li.menubar> a.standalone {
+  background: url(../images/square.gif) no-repeat 0em 0.25em !important;
 }
 
 a.actuator, a.standalone {
@@ -42,7 +58,7 @@ a.actuator, a.standalone {
 }
 
 a.actuator:hover, .menu li a:hover, submenu li a:hover, li a.standalone:hover {
-  text-decoration: underline overline;
+  text-decoration: underline;
 }
 
 span.key {
@@ -53,6 +69,3 @@ a.highlight {
     color: red !important;
     font-weight: bold;
 }
-
-
-

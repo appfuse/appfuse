@@ -3,7 +3,6 @@
 
 <%@ include file="/common/taglibs.jsp" %>
 <%@ page import="java.util.*" %>
-<%@ taglib prefix="sql" uri="http://java.sun.com/jstl/sql" %>
 
 <html>
 <head>
