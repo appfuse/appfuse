@@ -1,4 +1,4 @@
-package org.appfuse.persistence;
+package org.appfuse.dao;
 
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -13,7 +13,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 
 /**
  * Base class for running DAO tests.

@@ -1,4 +1,4 @@
-package org.appfuse.persistence;
+package org.appfuse.dao;
 
 
 /**
@@ -10,7 +10,7 @@ package org.appfuse.persistence;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.5 $ $Date: 2004/05/25 06:27:18 $
+ * @version $Revision: 1.1 $ $Date: 2004/08/11 05:59:48 $
  */
 public interface DAO {
 

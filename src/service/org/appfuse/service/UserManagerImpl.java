@@ -5,10 +5,10 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.appfuse.dao.DAOException;
+import org.appfuse.dao.UserDAO;
 import org.appfuse.model.User;
 import org.appfuse.model.UserCookie;
-import org.appfuse.persistence.DAOException;
-import org.appfuse.persistence.UserDAO;
 import org.appfuse.util.RandomGUID;
 import org.appfuse.util.StringUtil;
 
@@ -22,7 +22,7 @@ import org.appfuse.util.StringUtil;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.10 $ $Date: 2004/08/03 05:14:36 $
+ * @version $Revision: 1.11 $ $Date: 2004/08/11 05:59:54 $
  */
 public class UserManagerImpl extends BaseManager implements UserManager {
     private Log log = LogFactory.getLog(UserManagerImpl.class);

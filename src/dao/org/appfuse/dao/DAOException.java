@@ -1,4 +1,4 @@
-package org.appfuse.persistence;
+package org.appfuse.dao;
 
 
 /**

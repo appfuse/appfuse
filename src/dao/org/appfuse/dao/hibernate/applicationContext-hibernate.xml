@@ -23,6 +23,7 @@
         <property name="hibernateProperties">
         <props>
             <prop key="hibernate.dialect">@HIBERNATE-DIALECT@</prop>
+            <!--prop key="hibernate.show_sql">true</prop-->
         </props>
         </property>
     </bean>
@@ -33,12 +34,12 @@
     </bean>
 
     <!-- LookupDAO: Hibernate implementation -->
-    <bean id="lookupDAO" class="org.appfuse.persistence.hibernate.LookupDAOHibernate">
+    <bean id="lookupDAO" class="org.appfuse.dao.hibernate.LookupDAOHibernate">
         <property name="sessionFactory"><ref local="sessionFactory"/></property>
     </bean>
 
     <!-- UserDAO: Hibernate implementation -->
-    <bean id="userDAO" class="org.appfuse.persistence.hibernate.UserDAOHibernate">
+    <bean id="userDAO" class="org.appfuse.dao.hibernate.UserDAOHibernate">
         <property name="sessionFactory"><ref local="sessionFactory"/></property>
     </bean>
 

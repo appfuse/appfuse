@@ -1,11 +1,11 @@
-package org.appfuse.persistence.ibatis;
+package org.appfuse.dao.ibatis;
 
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import org.appfuse.persistence.LookupDAO;
+import org.appfuse.dao.LookupDAO;
 
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import org.springframework.orm.ibatis.support.SqlMapDaoSupport;
@@ -19,14 +19,12 @@ import org.springframework.orm.ibatis.support.SqlMapDaoSupport;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.5 $ $Date: 2004/07/29 00:27:03 $
- *
  */
 public class LookupDAOiBatis extends SqlMapClientDaoSupport implements LookupDAO {
     private Log log = LogFactory.getLog(LookupDAOiBatis.class);
 
     /**
-     * @see org.appfuse.persistence.LookupDAO#getRoles()
+     * @see org.appfuse.dao.LookupDAO#getRoles()
      */
     public List getRoles() {
         if (log.isDebugEnabled()) {

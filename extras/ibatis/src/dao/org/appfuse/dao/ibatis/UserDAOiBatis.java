@@ -1,4 +1,4 @@
-package org.appfuse.persistence.ibatis;
+package org.appfuse.dao.ibatis;
 
 import java.util.Iterator;
 import java.util.List;
@@ -10,8 +10,8 @@ import org.apache.commons.logging.LogFactory;
 import org.appfuse.model.User;
 import org.appfuse.model.UserCookie;
 import org.appfuse.model.UserRole;
-import org.appfuse.persistence.DAOException;
-import org.appfuse.persistence.UserDAO;
+import org.appfuse.dao.DAOException;
+import org.appfuse.dao.UserDAO;
 
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import org.springframework.orm.ibatis.support.SqlMapDaoSupport;
@@ -26,7 +26,6 @@ import org.springframework.orm.ibatis.support.SqlMapDaoSupport;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.6 $ $Date: 2004/07/29 00:27:04 $
  */
 public class UserDAOiBatis extends SqlMapClientDaoSupport implements UserDAO {
     private Log log = LogFactory.getLog(UserDAOiBatis.class);
@@ -62,7 +61,7 @@ public class UserDAOiBatis extends SqlMapClientDaoSupport implements UserDAO {
     }
 
     /**
-     * @see org.appfuse.persistence.UserDAO#getUsers(org.appfuse.model.User)
+     * @see org.appfuse.dao.UserDAO#getUsers(org.appfuse.model.User)
      */
     public List getUsers(User user) {
         List users = getSqlMapClientTemplate().queryForList("getUsers", null);
@@ -113,7 +112,7 @@ public class UserDAOiBatis extends SqlMapClientDaoSupport implements UserDAO {
     }
 
     /**
-     * @see org.appfuse.persistence.UserDAO#saveUser(org.appfuse.model.User)
+     * @see org.appfuse.dao.UserDAO#saveUser(org.appfuse.model.User)
      */
     public User saveUser(final User user) throws DAOException {
         if (user.getId() == null) {
@@ -147,7 +146,7 @@ public class UserDAOiBatis extends SqlMapClientDaoSupport implements UserDAO {
     }
 
     /**
-     * @see org.appfuse.persistence.UserDAO#removeUser(java.lang.String)
+     * @see org.appfuse.dao.UserDAO#removeUser(java.lang.String)
      */
     public void removeUser(String username) throws DAOException {
         User user = getUser(username);
@@ -157,7 +156,7 @@ public class UserDAOiBatis extends SqlMapClientDaoSupport implements UserDAO {
     }
 
     /**
-     * @see org.appfuse.persistence.UserDAO#getUserCookie(java.lang.String)
+     * @see org.appfuse.dao.UserDAO#getUserCookie(java.lang.String)
      */
     public UserCookie getUserCookie(String cookieId) {
         UserCookie c = new UserCookie();
@@ -174,7 +173,7 @@ public class UserDAOiBatis extends SqlMapClientDaoSupport implements UserDAO {
     }
 
     /**
-     * @see org.appfuse.persistence.UserDAO#removeUserCookies(java.lang.String)
+     * @see org.appfuse.dao.UserDAO#removeUserCookies(java.lang.String)
      */
     public void removeUserCookies(String username) {
         // delete any cookies associated with this user
@@ -185,7 +184,7 @@ public class UserDAOiBatis extends SqlMapClientDaoSupport implements UserDAO {
     }
 
     /**
-     * @see org.appfuse.persistence.UserDAO#saveUserCookie(org.appfuse.model.UserCookie)
+     * @see org.appfuse.dao.UserDAO#saveUserCookie(org.appfuse.model.UserCookie)
      */
     public void saveUserCookie(UserCookie cookie) {
         if (cookie.getId() == null) {

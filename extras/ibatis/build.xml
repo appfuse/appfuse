@@ -164,7 +164,7 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
         </replace>
 
         <echo level="info">Removing src files from ../../src</echo>
-        <delete dir="../../src/dao/org/appfuse/persistence/ibatis"/>
+        <delete dir="../../src/dao/org/appfuse/dao/ibatis"/>
     </target>
 
     <!-- =================================================================== -->
@@ -265,7 +265,7 @@ hibernate.jar=${hibernate.dir}/hibernate2.jar]]></replacetoken>
     <!-- based on XDoclet marked-up Plain Old Java Object (POJO)             -->
     <!-- =================================================================== -->
     <target name="hibernatedoclet" depends="init" unless="hibernatedoclet.unnecessary"
-        description="Generate Persistence and form classes">
+        description="Generate Hibernate mapping files">
 
         <taskdef name="hibernatedoclet"
             classname="xdoclet.modules.hibernate.HibernateDocletTask"
@@ -390,7 +390,7 @@ hibernate.jar=${hibernate.dir}/hibernate2.jar]]></replacetoken>
         </replace>
         
         <echo level="info">Removing src files from ../../src</echo>
-        <delete dir="../../src/dao/org/appfuse/persistence/hibernate"/>
+        <delete dir="../../src/dao/org/appfuse/dao/hibernate"/>
 
         <!-- I'm purposely not removing the hibernate stuff from the "javadoc" target,
             it's not causing any harm, so I figured I'd leave it in. -->

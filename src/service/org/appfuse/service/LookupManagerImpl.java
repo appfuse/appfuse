@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.appfuse.dao.LookupDAO;
 import org.appfuse.model.LabelValue;
 import org.appfuse.model.Role;
-import org.appfuse.persistence.LookupDAO;
 
 
 /**
@@ -16,7 +16,7 @@ import org.appfuse.persistence.LookupDAO;
  * <p><a href="LookupManagerImpl.java.html"><i>View Source</i></a></p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.6 $ $Date: 2004/05/25 06:27:20 $
+ * @version $Revision: 1.7 $ $Date: 2004/08/11 05:59:54 $
  */
 public class LookupManagerImpl extends BaseManager implements LookupManager {
     //~ Instance fields ========================================================

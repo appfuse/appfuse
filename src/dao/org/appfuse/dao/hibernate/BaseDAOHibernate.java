@@ -1,11 +1,11 @@
-package org.appfuse.persistence.hibernate;
+package org.appfuse.dao.hibernate;
 
 import java.lang.reflect.Method;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.appfuse.persistence.DAO;
-import org.appfuse.persistence.DAOException;
+import org.appfuse.dao.DAO;
+import org.appfuse.dao.DAOException;
 import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 
 
@@ -16,14 +16,13 @@ import org.springframework.orm.hibernate.support.HibernateDaoSupport;
  * <p><a href="BaseDAOHibernate.java.html"><i>View Source</i></a></p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.5 $ $Date: 2004/05/25 06:27:19 $
  */
 public class BaseDAOHibernate extends HibernateDaoSupport
         implements DAO {
     private Log log = LogFactory.getLog(BaseDAOHibernate.class);
 
     /**
-     * @see org.appfuse.persistence.DAO#getObject(java.lang.Object)
+     * @see org.appfuse.dao.DAO#getObject(java.lang.Object)
      */
     public Object getObject(Object o) throws DAOException {
         Long id = null;
@@ -40,7 +39,7 @@ public class BaseDAOHibernate extends HibernateDaoSupport
     }
 
     /**
-     * @see org.appfuse.persistence.DAO#saveObject(java.lang.Object)
+     * @see org.appfuse.dao.DAO#saveObject(java.lang.Object)
      */
     public Object saveObject(Object o) {
         getHibernateTemplate().saveOrUpdateCopy(o);
@@ -48,7 +47,7 @@ public class BaseDAOHibernate extends HibernateDaoSupport
     }
 
     /**
-     * @see org.appfuse.persistence.DAO#removeObject(java.lang.Object)
+     * @see org.appfuse.dao.DAO#removeObject(java.lang.Object)
      */
     public void removeObject(Object o) throws DAOException {
         if (log.isDebugEnabled()) {

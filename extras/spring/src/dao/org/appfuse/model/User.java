@@ -11,14 +11,14 @@ import org.apache.commons.lang.StringUtils;
  * User class
  *
  * This class is used to generate Spring Validation rules
- * as well as the Hibernate persistence later.
+ * as well as the Hibernate mapping file.
  *
  * <p>
  * <a href="User.java.html"><i>View Source</i></a>
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.3 $ $Date: 2004/05/16 02:15:00 $
+ * @version $Revision: 1.4 $ $Date: 2004/08/11 06:00:03 $
  *
  * @hibernate.class table="app_user"
  */

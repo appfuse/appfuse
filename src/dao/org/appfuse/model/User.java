@@ -8,14 +8,14 @@ import java.util.List;
  * User class
  *
  * This class is used to generate the Struts Validator Form
- * as well as the Hibernate persistence later.
+ * as well as the Hibernate mapping file.
  *
  * <p>
  * <a href="User.java.html"><i>View Source</i></a>
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.4 $ $Date: 2004/05/16 02:16:44 $
+ * @version $Revision: 1.5 $ $Date: 2004/08/11 05:59:56 $
  *
  * @struts.form include-all="true" extends="BaseForm"
  * @hibernate.class table="app_user"

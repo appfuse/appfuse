@@ -62,14 +62,14 @@
 	<classpathentry kind="lib" path="lib/strutstest-2.1.2/strutstest-2.1.2.jar"/>
 	<classpathentry kind="lib" path="lib/spring-1.1-RC1/spring.jar"/>
 	<classpathentry kind="lib" path="lib/spring-1.1-RC1/aopalliance.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-2.1.5/hibernate2.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-2.1.5/lib/swarmcache-1.0rc2.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-2.1.5/lib/oscache-2.0.1.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-2.1.5/lib/odmg-3.0.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-2.1.5/lib/jta.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-2.1.5/lib/ehcache-0.9.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-2.1.5/lib/dom4j-1.4.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-2.1.5/lib/cglib-full-2.0.2.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-2.1.5/lib/c3p0-0.8.4.5.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-2.1.6/lib/c3p0-0.8.4.5.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-2.1.6/hibernate2.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-2.1.6/lib/cglib-full-2.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-2.1.6/lib/dom4j-1.4.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-2.1.6/lib/ehcache-0.9.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-2.1.6/lib/jta.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-2.1.6/lib/odmg-3.0.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-2.1.6/lib/oscache-2.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-2.1.6/lib/swarmcache-1.0rc2.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

@@ -43,10 +43,10 @@ Features/Changes in 1.6
 ============================
 - Changed stylesheet colors for Spring MVC option to be green instead of red.
   Bug 47 - https://appfuse.dev.java.net/issues/show_bug.cgi?id=47.
-
+- Changed "org.appfuse.persistence" package name to "org.appfuse.dao".
 - Dependent packages upgraded:
     * Spring 1.1 RC1
-    * Hibernate 2.1.5
+    * Hibernate 2.1.6
     * Display Tag 1.0 RC1
     * Struts 1.2.1
     * Struts Test Case 2.1.2

@@ -1,9 +1,9 @@
-package org.appfuse.persistence;
+package org.appfuse.dao;
 
 import java.util.List;
 
 import org.apache.commons.logging.LogFactory;
-
+import org.appfuse.dao.LookupDAO;
 
 /**
  * This class tests the current LookupDAO implementation class

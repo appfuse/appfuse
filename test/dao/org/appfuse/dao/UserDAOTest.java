@@ -1,15 +1,18 @@
-package org.appfuse.persistence;
+package org.appfuse.dao;
 
 import org.apache.commons.logging.LogFactory;
+
 import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.model.UserCookie;
 
-
+/**
+ * This class tests the current UserDAO implementation class
+ * @author mraible
+ */
 public class UserDAOTest extends BaseDAOTestCase {
     private User user = null;
     private UserDAO dao = null;
-
 
     protected void setUp() throws Exception {
         log = LogFactory.getLog(UserDAOTest.class);
@@ -59,13 +62,13 @@ public class UserDAOTest extends BaseDAOTestCase {
         user = dao.saveUser(user);
 
         assertTrue(user.getRoles().size() == 2);
-        
+
         // add the same role twice - should result in no additional role
         user.addRole(Constants.ADMIN_ROLE);
         user = dao.saveUser(user);
-        
-        assertTrue("more than 2 roles [" + user.getRoles().size() + "]", 
-                user.getRoles().size() == 2);
+
+        assertTrue("more than 2 roles [" + user.getRoles().size() + "]",
+                   user.getRoles().size() == 2);
 
         user.getRoles().remove(1);
         user = dao.saveUser(user);
@@ -94,7 +97,7 @@ public class UserDAOTest extends BaseDAOTestCase {
 
     public void testRemoveUser() throws Exception {
         dao.removeUser("testuser");
-        
+
         try {
             user = dao.getUser("testuser");
             fail("Expected 'DAOException' not thrown");
@@ -106,7 +109,7 @@ public class UserDAOTest extends BaseDAOTestCase {
             assertTrue(d != null);
         }
     }
-    
+
     public void testSaveAndDeleteUserCookie() throws Exception {
         String cookieId = "BA67E786-C031-EA40-2769-863BB30B31EC";
         UserCookie cookie = new UserCookie();
@@ -115,13 +118,12 @@ public class UserDAOTest extends BaseDAOTestCase {
         dao.saveUserCookie(cookie);
         cookie = dao.getUserCookie(cookieId);
         assertEquals(cookieId, cookie.getCookieId());
-        
+
         dao.removeUserCookies(cookie.getUsername());
-        
+
         cookie = dao.getUserCookie(cookieId);
         assertNull(cookie);
     }
- 
 
     public static void main(String[] args) {
         junit.textui.TestRunner.run(UserDAOTest.class);

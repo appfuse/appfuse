@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.31 2004/07/20 03:29:45 mraible Exp $                 -->
+<!-- $Id: build.xml,v 1.32 2004/08/11 05:59:49 mraible Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -318,7 +318,7 @@
     <!-- based on XDoclet marked-up Plain Old Java Object (POJO)             -->
     <!-- =================================================================== -->
     <target name="hibernatedoclet" depends="init" unless="hibernatedoclet.unnecessary"
-        description="Generate Persistence and form classes">
+        description="Generate Hibernate mapping files">
 
         <taskdef name="hibernatedoclet"
             classname="xdoclet.modules.hibernate.HibernateDocletTask"
