@@ -4,12 +4,12 @@
 
 <beans>
     <bean id="accountMessage" class="org.springframework.mail.SimpleMailMessage" singleton="false">
-        <property name="from"><value><![CDATA[AppFuse <appfuse@raibledesigns.com>]]></value></property>
+        <property name="from"><value>${mail.default.from}</value></property>
         <property name="subject"><value>AppFuse Account Information</value></property>
     </bean>
     
     <bean id="passwordMessage" class="org.springframework.mail.SimpleMailMessage" singleton="false">
-        <property name="from"><value><![CDATA[AppFuse <appfuse@raibledesigns.com>]]></value></property>
+        <property name="from"><value>${mail.default.from}</value></property>
         <property name="subject"><value>AppFuse Password Hint</value></property>
     </bean>
     

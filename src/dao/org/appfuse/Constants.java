@@ -20,17 +20,6 @@ public class Constants {
     public static final String DAO_TYPE = "daoType";
     public static final String DAO_TYPE_HIBERNATE = "hibernate";
 
-    /**
-     * JNDI Name of Mail Session.  As configured in the appserver.
-     */
-    public static final String JNDI_MAIL = "mail/Session";
-
-    /**
-     * Default from address for e-mail messages. You should change
-     * this to an e-mail address that your users can reply to.
-     */
-    public static final String DEFAULT_FROM = "appfuse@raibledesigns.com";
-
     /** Application scoped attribute for authentication url */
     public static final String AUTH_URL = "authURL";
 
