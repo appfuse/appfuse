@@ -75,7 +75,7 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
 	<classpathentry kind="lib" path="lib/ibatis-2.0.7/oscache-2.0.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>]]></replacevalue>
         </replace>
-        
+
         <echo level="info">Changing dao.type to ibatis</echo>
         <replace file="../../properties.xml">
             <replacetoken><![CDATA[<property name="dao.type" value="hibernate"/>]]></replacetoken>
@@ -88,7 +88,7 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
             <replacevalue><![CDATA[<lib dir="${ibatis.dir}" includes="*.jar"/>
                 <lib dir="${spring.dir}" includes="*.jar"/>]]></replacevalue>
         </replace>
-        
+
         <echo level="info">Commenting out Hibernate OSIV Filter</echo>
         <replace file="../../metadata/web/filter-mappings.xml">
         <replacetoken><![CDATA[<filter-mapping>
@@ -105,6 +105,10 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
         <copy todir="../../src" overwrite="true">
             <fileset dir="src"/>
         </copy>
+        <echo level="info">Removing Hibernate-specific tests</echo>
+        <delete>
+            <fileset dir="../../test" includes="**/Generic*Test.java"/>
+        </delete>
     </target>
 
     <!-- =================================================================== -->
@@ -432,7 +436,7 @@ hibernate.jar=${hibernate.dir}/hibernate2.jar]]></replacetoken>
     </target>
  
     <!-- =================================================================== -->
-    <!-- Creates new project, installs iBATIS and runs tests                 -->
+    <!-- Creates new project, installs iBATIS, removes Hibernate and tests   -->
     <!-- =================================================================== -->
     <target name="test" description="Creates appfuse-ibatis and runs tests">
         <property name="app.name" value="appfuse-ibatis"/>
@@ -440,12 +444,33 @@ hibernate.jar=${hibernate.dir}/hibernate2.jar]]></replacetoken>
         <delete dir="../../../${app.name}"/>
         <ant dir="../.." target="new"/>
 
-        <!-- New project created, install iBATIS and run tests -->
-        <ant dir="../../../${app.name}/extras/ibatis" target="install"/>
-        <ant dir="../../../${app.name}/extras/ibatis" target="uninstall-hibernate"/>
-        <ant dir="../../../${app.name}" target="setup"/>   
-        <ant dir="../../../${app.name}" target="test-all"/>
+        <!-- New project created, install iBATIS, remove Hibernate and run tests -->
+        <ant dir="../../../${app.name}/extras/ibatis" target="install" inheritAll="false"/>
+        <ant dir="../../../${app.name}/extras/ibatis" target="uninstall-hibernate" inheritAll="false"/>
+        <ant dir="../../../${app.name}" target="setup" inheritAll="false"/>
+        <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
 
         <echo>You can start Tomcat to view ${app.name} manually.</echo>
-    </target>   
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Creates new project, installs iBATIS with Hibernate and tests       -->
+    <!-- =================================================================== -->
+    <target name="test-with-hibernate"
+        description="Creates appfuse-ibatis+hibernate and runs tests">
+        <property name="app.name" value="appfuse-ibatis+hibernate"/>
+        <property name="db.name" value="appfuse"/>
+        <delete dir="../../../${app.name}"/>
+        <ant dir="../.." target="new"/>
+
+        <!-- New project created, install iBATIS and run tests -->
+        <ant dir="../../../${app.name}/extras/ibatis" target="install" inheritAll="false"/>
+        <ant dir="../../../${app.name}" target="setup" inheritAll="false"/>
+        <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
+
+        <echo>You can start Tomcat to view ${app.name} manually.</echo>
+    </target>
+
+    <target name="test-all" depends="test,test-with-hibernate"
+        description="Tests iBATIS install with and without Hibernate"/>
 </project>

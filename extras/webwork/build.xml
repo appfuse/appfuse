@@ -337,10 +337,33 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         <ant dir="../.." target="new"/>
 
         <!-- New project created, install WebWork and run tests -->
-        <ant dir="../../../${app.name}/extras/spring" target="install"/>
-        <ant dir="../../../${app.name}" target="setup"/>   
-        <ant dir="../../../${app.name}" target="test-all"/>
+        <ant dir="../../../${app.name}/extras/webwork" target="install" inheritAll="false"/>
+        <ant dir="../../../${app.name}" target="setup" inheritAll="false"/>
+        <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
 
         <echo>Start Tomcat to view ${app.name} manually.</echo>
-    </target>   
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Creates new project, installs WebWork+iBATIS and runs tests         -->
+    <!-- =================================================================== -->
+    <target name="test-ibatis"
+        description="Creates appfuse-webwork-ibatis and runs tests">
+        <property name="app.name" value="appfuse-webwork-ibatis"/>
+        <property name="db.name" value="appfuse"/>
+        <delete dir="../../../${app.name}"/>
+        <ant dir="../.." target="new"/>
+
+        <!-- New project created, install Spring MVC and run tests -->
+        <ant dir="../../../${app.name}/extras/ibatis" target="install" inheritAll="false"/>
+        <ant dir="../../../${app.name}/extras/ibatis" target="uninstall-hibernate" inheritAll="false"/>
+        <ant dir="../../../${app.name}/extras/webwork" target="install" inheritAll="false"/>
+        <ant dir="../../../${app.name}" target="setup" inheritAll="false"/>
+        <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
+
+        <echo>Start Tomcat to view ${app.name} manually.</echo>
+    </target>
+
+    <target name="test-all" depends="test,test-ibatis"
+        description="Tests WebWork install with Hibernate and iBATIS"/>
 </project>
