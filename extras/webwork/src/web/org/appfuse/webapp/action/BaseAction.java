@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
@@ -87,6 +88,14 @@ public class BaseAction extends ActionSupport {
      */
     public HttpServletRequest getRequest() {
         return ServletActionContext.getRequest();  
+    }
+    
+    /**
+     * Convenience method to get the response
+     * @return current response
+     */
+    public HttpServletResponse getResponse() {
+        return ServletActionContext.getResponse();
     }
     
     /**

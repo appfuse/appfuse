@@ -47,7 +47,14 @@ public class UserAction extends BaseAction {
         this.user = user;
     }
 
-    public String delete() {
+    public String delete() throws IOException {
+        // only allow administrators to delete
+        if (getRequest().getRemoteUser() != null && // be nice to unit tests
+            !getRequest().isUserInRole(Constants.ADMIN_ROLE)) {
+            getResponse().sendError(HttpServletResponse.SC_FORBIDDEN);
+            return null;
+        }
+        
         userManager.removeUser(user.getUsername());
         List args = new ArrayList();
         args.add(user.getFullName());

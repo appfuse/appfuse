@@ -42,7 +42,7 @@ import org.springframework.mail.SimpleMailMessage;
  *  Modified by <a href="mailto:dan@getrolling.com">Dan Kibler</a>
  *
  * @struts.action name="userForm" path="/users" scope="request"
- *  validate="false" parameter="method" input="mainMenu"
+ *  validate="false" parameter="method" input="mainMenu" roles="admin"
  * @struts.action name="userForm" path="/editUser" scope="request"
  *  validate="false" parameter="method" input="list" roles="admin"
  * @struts.action name="userForm" path="/editProfile" scope="request"
@@ -98,6 +98,12 @@ public final class UserAction extends BaseAction {
             log.debug("Entering 'delete' method");
         }
 
+        // only allow administrators to delete
+        if (!request.isUserInRole(Constants.ADMIN_ROLE)) {
+            response.sendError(HttpServletResponse.SC_FORBIDDEN);
+            return null;
+        }
+        
         // Extract attributes and parameters we will need
         ActionMessages messages = new ActionMessages();
         UserForm userForm = (UserForm) form;

@@ -46,6 +46,11 @@ Features/Changes in 1.8
   Spring.  Minimal changes were necessary - meaning that you could easily 
   switch back if you wanted to.  Howto documented at:
   	http://raibledesigns.com/wiki/Wiki.jsp?page=AppFuseSecurity
+- Fixed bugs in Tapestry UserForm.java and UserList.java classes - now role
+  choices are shown when editing a user or adding a new user.
+- Fixed bug where uses could hack the URL in Struts and WebWork versions to 
+  delete users when they don't have the "admin" role.
+    https://appfuse.dev.java.net/issues/show_bug.cgi?id=121
 - Dependent packages upgraded:
 	* Spring 1.1.3
     * Display Tag 1.0
