@@ -161,7 +161,7 @@ div#validators {
 }
 
 div.separator {
-    border-bottom: 1px solid orange; 
+    border-bottom: 1px solid green;
     margin: 10px 0px; 
     width: 300px;
 }
@@ -185,11 +185,8 @@ input.button {
     color: #000;
 }
 
-form input.focus, form textarea.focus, form select.focus {
-    border-bottom: #ffdead solid 2px;
-    border-right: #ffdead solid 2px;
-    border-left: #c07300 solid 2px;
-    border-top:  #c07300 solid 2px;
+form input.focus, form textarea.focus {
+    border-color: orange;
     color: #000;
 }
 
