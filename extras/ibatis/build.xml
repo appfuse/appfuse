@@ -37,7 +37,7 @@
             <replacevalue><![CDATA[#
 # iBATIS - http://www.ibatis.com/
 #
-ibatis.version 	        = 2.0.5
+ibatis.version 	        = 2.0.6
 ibatis.dir=${lib.dir}/ibatis-${ibatis.version}
 ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
 
@@ -108,7 +108,7 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
             <replacetoken><![CDATA[#
 # iBATIS - http://www.ibatis.com/
 #
-ibatis.version 	        = 2.0.5
+ibatis.version 	        = 2.0.6
 ibatis.dir=${lib.dir}/ibatis-${ibatis.version}
 ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
 
@@ -181,7 +181,7 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
         </copy>
 
         <echo level="info">Copying jta.jar from Hibernate to iBATIS</echo>
-        <copy todir="../../lib/ibatis-2.0.5">
+        <copy todir="../../lib/ibatis-2.0.6">
             <fileset dir="${hibernate.dir}/lib" includes="jta.jar"/>
         </copy>
         <replace file="../../build.xml">
