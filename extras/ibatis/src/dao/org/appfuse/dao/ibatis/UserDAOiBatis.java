@@ -13,6 +13,7 @@ import org.appfuse.model.UserRole;
 import org.appfuse.dao.DAOException;
 import org.appfuse.dao.UserDAO;
 
+import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import org.springframework.orm.ibatis.support.SqlMapDaoSupport;
 
@@ -36,7 +37,7 @@ public class UserDAOiBatis extends SqlMapClientDaoSupport implements UserDAO {
      * @return a populated user object
      * @throws DAOException if anything goes wrong
      */
-    public User getUser(String username) throws DAOException {
+    public User getUser(String username) {
         User user = new User();
         user.setUsername(username);
 
@@ -52,8 +53,7 @@ public class UserDAOiBatis extends SqlMapClientDaoSupport implements UserDAO {
 
         if ((users != null) && (users.size() == 0)) {
             logger.warn("uh oh, user not found...");
-            throw new DAOException("User '" + username +
-                                   "' not found in database!");
+            throw new ObjectRetrievalFailureException(User.class, username);
         }
 
         return user;
@@ -113,7 +113,7 @@ public class UserDAOiBatis extends SqlMapClientDaoSupport implements UserDAO {
     /**
      * @see org.appfuse.dao.UserDAO#saveUser(org.appfuse.model.User)
      */
-    public User saveUser(final User user) throws DAOException {
+    public User saveUser(final User user) {
         if (user.getId() == null) {
             Long pk =
                 (Long) getSqlMapClientTemplate().queryForObject("getUserId",
@@ -147,7 +147,7 @@ public class UserDAOiBatis extends SqlMapClientDaoSupport implements UserDAO {
     /**
      * @see org.appfuse.dao.UserDAO#removeUser(java.lang.String)
      */
-    public void removeUser(String username) throws DAOException {
+    public void removeUser(String username) {
         User user = getUser(username);
         removeUserCookies(user.getUsername());
         deleteUserRoles(user);
