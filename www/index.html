@@ -1,36 +1,340 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	<title>AppFuse Homepage</title> 
-</head>
-<body>
-<p>
-	An application for starting your web applications. Checkout from CVS and execute <strong>ant new -Dapp.name=yourApp -Ddb.name=database</strong> to instantly be up and running with a Tomcat/MySQL app. Uses Ant, XDoclet, Hibernate, Spring, JUnit, Cactus, StrutsTestCase, Canoo's WebTest, Struts Menu, Display Tag Library, JSTL and Struts (including Validator and Tiles). Features include CMA, Remember Me, Self Registration, Password Hint. <em>The fuse to start your apps.</em> 
-</p>
-<h3>Releases</h3> 
-<p>
-    <strong><a href="https://appfuse.dev.java.net/servlets/ProjectDocumentList?folderID=1328">AppFuse 1.5</a> is now available</strong>
-    for download.  More information about this release can be <a href="http://raibledesigns.com/page/rd?anchor=ann_appfuse_1_5_released">found on my weblog</a>. You can always find a list of the latest downloads at <a href="http://raibledesigns.com/downloads">http://raibledesigns.com/downloads</a>.
-</p>
-<h3>Tutorials</h3>
-<p>
-The best place to start is the <a href="http://raibledesigns.com/wiki/Wiki.jsp?page=AppFuseQuickStart">QuickStart Guide</a>.
-After you've got your app up and running, <a href="http://raibledesigns.com/wiki/Wiki.jsp?page=Articles">these tutorials</a>
-can help you get going from there.
-</p>
-<h3>Examples</h3> 
-<p>
-	A demo can be found at <a href="http://demo.raibledesigns.com/appfuse">http://demo.raibledesigns.com/appfuse</a>.
-</p>
-<h3>Feedback</h3>
-<p>
-    To get help with AppFuse, you can use the 
-    <a href="https://appfuse.dev.java.net/servlets/ProjectForumView">Discussion Forums</a>, 
-    <a href="https://appfuse.dev.java.net/servlets/ProjectMailingListList">Mailing Lists</a> or 
-    checkout the <a href="http://raibledesigns.com/wiki/Wiki.jsp?page=AppFuseSupport">AppFuse Support Wiki</a>.
-</p>
-<p>&nbsp;</p>
+<!--
+  - The code that you create using these templates is your code and no 
+  - attribution to Sun is required.  The following license applies to the
+  - template package itself.
+  - 
+  - Copyright 1994-2004 Sun Microsystems, Inc. All Rights Reserved.
+  -
+  - Redistribution and use in source and binary forms, with or without
+  - modification, are permitted provided that the following conditions are met:
+  -
+  - * Redistribution of source code must retain the above copyright notice, 
+  -   this list of conditions and the following disclaimer.
+  -
+  - * Redistribution in binary form must reproduce the above copyright 
+  -   notice, this list of conditions and the following disclaimer in 
+  -   the documentation and/or other materials provided with the distribution.
+  -
+  - Neither the name of Sun Microsystems, Inc. or the names of contributors 
+  - may be used to endorse or promote products derived from this software
+  - without specific prior written permission.
+  -
+  - This software is provided "AS IS," without a warranty of any kind. 
+  - ALL EXPRESS OR IMPLIED CONDITIONS, REPRESENTATIONS AND WARRANTIES, 
+  - INCLUDING ANY IMPLIED WARRANTY OF MERCHANTABILITY, FITNESS FOR A 
+  - PARTICULAR PURPOSE OR NON-INFRINGEMENT, ARE HEREBY EXCLUDED. SUN 
+  - MICROSYSTEMS, INC. ("SUN") AND ITS LICENSORS SHALL NOT BE LIABLE FOR ANY 
+  - DAMAGES SUFFERED BY LICENSEE AS A RESULT OF USING, MODIFYING OR 
+  - DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES. IN NO EVENT WILL SUN OR 
+  - ITS LICENSORS BE LIABLE FOR ANY LOST REVENUE, PROFIT OR DATA, OR FOR 
+  - DIRECT, INDIRECT, SPECIAL, CONSEQUENTIAL, INCIDENTAL OR PUNITIVE 
+  - DAMAGES, HOWEVER CAUSED AND REGARDLESS OF THE THEORY OF LIABILITY,
+  - ARISING OUT OF THE USE OF OR INABILITY TO USE THIS SOFTWARE, EVEN IF 
+  - SUN HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+  -
+  - You acknowledge that this software is not designed, licensed or intended 
+  - for use in the design, construction, operation or maintenance of any 
+  - nuclear facility. 
+  -->
+<!--
+  - Standard template index.html for Enterprise Foundry projects
+  -
+  - To customize this template to your application:
+  -   1. Fill in the Project Info section at the top
+  -   2. Replace all occurrences of 'AppFuse' with the name of your application
+  -   3. Create a 64x64 icon for your application and save it in 
+  -      images/icon.gif (or use the default icon provided)
+  -   4. Capture a 320x240 screenshot of your application and save it in 
+  -      images/screenshot.gif (or use the default "No Screenshot" image
+  -      provided).
+  -   5. Customize the "Download and Installation" instructions for your
+  -      application.
+  -   6. Fill in the feature list
+  -   7. Fill in the usage instructions
+  -   8. Fill in the participation section
+  -   9. Feel free to update the nav bar and/or add additional sections.
+  -->
+<html>
+  <head>
+    <title>
+      AppFuse
+    </title>
+  </head>
+  <body>
+    <table>
+      <tr>
+	<td valign="top"><img src="images/icon.gif"></td>
+	<td valign="top">
+  <h1>AppFuse</h1>
+  <!-- Navbar begin -->
+  <table border="0" cellpadding="0" cellspacing="0" summary="Navigation bar">
+    <tr> 
+      <td width="16" style="padding-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px;"><img src="images/buttonbar_left.gif" alt="" width="16" height="34" /></td>
+      <td background="images/buttonbar_bg.gif" valign="top" style="padding-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px;"> 
+        <table border="0" cellpadding="0" cellspacing="0" 
+               style="margin-top: 6px" summary="Options">
+          <tr> 
+            <!-- java.net -->
+            <td><img src="images/bullet.gif" alt="*" border="0" hspace="4" /></td>
+            <td><a href="http://www.java.net" style="color: white; text-decoration:none; font-family:Arial,sans-serif; font-size:11px; font-weight:bold; white-space:nowrap">java.net</a></td>
+            <!-- community home -->
+            <td><img src="images/bullet.gif" alt="*" border="0" hspace="4" /></td>
+            <td><a href="http://community.java.net/java-enterprise" style="color: white; text-decoration:none; font-family:Arial,sans-serif; font-size:11px; font-weight:bold; white-space:nowrap">community home</a></td>
+            <!-- foundry home -->
+            <td><img src="images/bullet.gif" alt="*" border="0" hspace="4" /></td>
+            <td><a href="http://java-enterprise.dev.java.net/" style="color: white; text-decoration:none; font-family:Arial,sans-serif; font-size:11px; font-weight:bold;white-space:nowrap">projects</a></td>
+            <!-- incubator -->
+            <td><img src="images/bullet.gif" alt="*" border="0" hspace="4" /></td>
+            <td><a href="http://enterprise-incubator.dev.java.net/" style="color: white; text-decoration:none; font-family:Arial,sans-serif; font-size:11px; font-weight:bold;white-space:nowrap">incubator</a></td>
+            <!-- download j2ee 1.4 sdk -->
+            <td><img src="images/bullet.gif" alt="*" border="0" hspace="4" /></td>
+            <td><a href="http://java.sun.com/j2ee/1.4/download.html" style="color: white; text-decoration:none; font-family:Arial,sans-serif; font-size:11px; font-weight:bold;white-space:nowrap">download j2ee 1.4 sdk</a></td>
+          </tr>
+        </table>
+      </td>
+      <td width="22" style="padding-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px;"><img src="images/buttonbar_right.gif" alt="" width="22" height="34" /></td>
+    </tr>
+  </table>
+  <!-- Navbar end -->
+	</td>
+      </tr>
+    </table>
+    <hr>
 
-</body>
+    <a name="info">
+    <h3>Project Info</h3>
+    </a>
+    <blockquote>
+      <!-- project info start -->
+      <ul>
+        <li><b>Project Name:</b> AppFuse</li>
+        <!-- Latest Release: e.g. 1.0 -->
+        <li><b>Latest Release:</b> 1.5</li>
+        <!-- Status of best release: Planning, Pre-Alpha, Alpha, Beta, Production -->
+        <li><b>Latest Release Status:</b> Production</li>
+        <!-- Project Type: Web Service, Tool, Component, or add your own -->
+        <li><b>Project Type:</b> Starter Web Application</li>
+      </ul>
+      <!-- project info end -->
+      AppFuse is an application for "kickstarting" webapp development. <a href="https://appfuse.dev.java.net/servlets/ProjectDocumentList">Download</a>, 
+      extract and execute <strong>ant new -Dapp.name=yourApp -Ddb.name=database</strong> to instantly be up and running with a Tomcat/MySQL app. 
+      Uses Ant, XDoclet, Spring, Hibernate (or iBATIS), JUnit, Cactus, StrutsTestCase, Canoo's WebTest, Struts Menu, Display Tag Library, 
+      OSCache, JSTL and Struts (or Spring MVC). The Spring Framework has greatly enhanced AppFuse since February 2004.  
+      It's used throughout for its Hibernate/iBATIS support, declarative transactions, dependency binding and layer decoupling.  
+      This clean and simple framework has greatly reduced the complexity of AppFuse, and also eliminated
+      many lines of code.  In short, for J2EE - it's the best thing since sliced bread.
+    </blockquote>
+
+    <a name="contents">
+    <h3>Contents</h3>
+    </a>
+    <blockquote>
+      <dl>
+	<dd><a href="#screenshot">Screenshot</a></dd>
+	<dd><a href="#download">Download and Installation</a></dd>
+	<dd><a href="#features">Features</a></dd>
+	<dd><a href="#building">Building From Source</a></dd>
+	<dd><a href="#usage">Usage Instructions</a></dd>
+	<dd><a href="#support">Support</a></dd>
+	<dd><a href="#participate">Participation</a></dd>
+	<dd><a href="#revision">Revision History</a></dd>
+      </dl>
+    </blockquote>
+
+    <a name="screenshot">
+    <h3>Screenshot</h3>
+      To view a running demo of AppFuse, click on the screenshot below.
+    <blockquote>
+      <img src="images/screenshot.gif" alt="Screenshot" />
+    </blockquote>
+    </a>
+
+    <a name="download">
+    <h3>Download and Installation</h3>
+    </a>
+    <blockquote>
+      To download and install AppFuse, follow these simple steps:
+      <ol>
+        <li><a href="servlets/ProjectDocumentList">
+        Download</a> the source version or checkout the <em>appfuse</em> module
+        from CVS (:pserver:guest@cvs.dev.java.net:/cvs).</li>
+        <li>Install J2SE 1.4+, set a JAVA_HOME environment variable, install Ant 1.6.1+, 
+            set an ANT_HOME environment variable.</li>
+        <li>Install MySQL 3.23.x+ (recommend 4.0.18) and Tomcat 4.1.x+ 
+            (recommend 5.0.19).  Set a CATALINA_HOME environment variable to point to 
+            your Tomcat installation.  Optionally, you can see my <a 
+            href="http://raibledesigns.com/wiki/Wiki.jsp?page=DevelopmentEnvironment">development 
+            environment setup</a> and get links to download the above packages.</li>
+        <li>Setup a local SMTP server or change mail.properties (in the web/WEB-INF/classes 
+	        directory) and build.properties (in the root -- for log4j messages) to point 
+	        to an existing one - they default to <em>localhost</em>.</li>
+	    <li>Copy lib/junit3.8.1/junit.jar to $ANT_HOME/lib.</li>
+	    <li>Run <strong>ant new -Dapp.name=YOURAPPNAME -Ddb.name=YOURDBNAME</strong>. This will 
+	        create a directory named YOURAPPNAME in the same directory as appfuse.</li>
+	    <li>Navigate to the new directory and run <strong>ant setup</strong> to create the database  
+	        and setup your app on Tomcat. The database setup will only work if your root user has 
+	        no password. You can change this in build.properties if necessary. If you want to 
+	        test and make sure everything works, run <strong>ant test-all</strong> - make sure 
+	        Tomcat is stopped when you do this.</li>
+	    <li>Run <strong>ant test-reports</strong> - there will be a message after it runs 
+	        telling you how you can view the generated reports.</li>
+        <li>See the <a href="http://raibledesigns.com/wiki/Wiki.jsp?page=AppFuseQuickStart">QuickStart 
+            Guide</a> for optional installs (i.e. iBATIS and Spring MVC) and how to change your
+            package names.</li>
+      </ol>
+    </blockquote>
+
+    <a name="features">
+    <h3>Features</h3>
+    </a>
+    <blockquote>
+      AppFuse has the following features:
+      <ul>
+        <li>Cross-platform, implemented using Java<sup><small>TM</small></sup>
+                technology.</li>
+        <li>Should run on all <a href="http://java.sun.com/j2ee/compatibility.html">
+                J2EE 1.3 compatible application servers that support J2SE 1.4.</a></li>
+        <li>Container Managed Authentication, Remember Me, Self Registration, Password Hint, GZip Compression</li>
+        <li>Support for SSL throughout, including login only</li>
+        <li>i18n, with built-in translations for Dutch, Brazilian Portuguese and Chinese</li>
+        <li>Label Tag Library for displaying validation errors next to fields</li>
+        <li>Rich Unit Testing environment using DBUnit, JUnit, Cactus, HttpUnit and Canoo's WebTest</li>
+        <li>Easy configuration and rapid development using <a href="http://xdoclet.sf.net">XDoclet</a> 
+            and <a href="http://www.springframework.org">Spring</a></li>
+      </ul>
+    </blockquote>
+    
+    <a name="building">
+    <h3>Build Instructions</h3>
+    </a>
+    <blockquote>
+    To build AppFuse, follow these steps:
+    <ol>
+      <li>
+        Download and install <code>ant</code> 1.6.1 or greater from
+        <a href="http://ant.apache.org" target="_blank">
+        http://ant.apache.org/</a>, or use the command <code>asant</code> 
+        provided with the J2EE 1.4 SDK.
+      </li>
+      <li>
+        Download and install MySQL 3.23.53 or greater from
+        <a href="http://www.mysql.com/downloads/mysql-4.0.html" target="_blank">
+        http://www.mysql.com/downloads/mysql-4.0.html</a>.  By default, AppFuse
+        expects a "root" user with no password (mysql defaults to this).
+      </li>
+      <li>
+        Download and install Tomcat 4.1.x or greater from
+        <a href="http://jakarta.apache.org/site/binindex.cgi" target="_blank">
+        http://jakarta.apache.org/site/binindex.cgi</a>.  As part of the
+        installation, make sure an admin/admin user exists with a "manager" 
+        role in $CATALINA_HOME/conf/tomcat-users.xml.
+      </li>
+      <li>
+        Check out the <code>appfuse</code> source code from java.net.  You
+        can find instructions for doing so here:
+        <a href="http://appfuse.dev.java.net/source/browse/appfuse/"
+           target="_blank">
+        http://appfuse.dev.java.net/source/browse/appfuse/</a>
+      </li>
+      <li>
+        Run '<code>ant setup</code>'.  An <code>appfuse</code> database will be 
+        created in MySQL and a WAR will be expananded into $CATALINA_HOME/webapps. 
+      </li>
+      <li>Login to the application at http://localhost:8080/appfuse.</li>
+    </ol>
+    </blockquote>
+
+    <a name="usage">
+    <h3>Usage Instructions</h3>
+    </a>
+    <blockquote>
+    To use AppFuse, first, <a href="#download">download it</a> and then 
+    follow the instructions below.
+
+    <h4>Creating Objects and DAOs</h4>
+    A HowTo for creating Java Objects (that represent tables) and creating 
+    Java classes to persist those objects in the database. 
+    <a href="http://raibledesigns.com/wiki/Wiki.jsp?page=CreateDAO">View Tutorial &#187</a>
+
+    <h4>Creating Managers</h4>
+    A HowTo for creating Business Delegates that talk to the database tier (DAOs) and 
+    the web tier (Struts Actions). 
+    <a href="http://raibledesigns.com/wiki/Wiki.jsp?page=CreateManager">View Tutorial &#187</a>
+    
+    <h4>Creating Actions and JSPs</h4>
+    A HowTo for creating Actions and JSPs in the AppFuse architecture.
+    <a href="http://raibledesigns.com/wiki/Wiki.jsp?page=CreateActions">View Struts Tutorial</a>
+    or the <a href="http://raibledesigns.com/wiki/Wiki.jsp?page=SpringControllers">Spring MVC 
+    Tutorial &#187</a>
+
+    <h4>Configuring Tiles and Action CRUD methods</h4>
+    Integrating personForm.jsp with Tiles, replacing execute with different CRUD methods 
+    (add, edit, delete), customizing the JSP so it looks good and finally - writing a WebTest 
+    to test the JSPs functionality.
+    <a href="http://raibledesigns.com/wiki/Wiki.jsp?page=ConfiguringTiles">View Struts Tutorial</a>
+    or the <a href="http://raibledesigns.com/wiki/Wiki.jsp?page=ConfiguringTilesSpring">Spring MVC 
+    Tutorial &#187</a>
+    
+    <h4>Adding Validation and List Screen</h4>
+    Adding validation logic to the personForm so that firstName and lastName are required fields 
+    and adding a list screen to display all person records in the database.
+    <a href="http://raibledesigns.com/wiki/Wiki.jsp?page=ValidationAndList">View Struts Tutorial</a>
+    or the <a href="http://raibledesigns.com/wiki/Wiki.jsp?page=ValidationAndListSpring">Spring MVC 
+    Tutorial &#187</a>
+    
+    </blockquote>
+
+    <a name="support">
+    <h3>Support</h3>
+    </a>
+    <blockquote>
+      AppFuse is a community-supported open-source product.  You can find
+      support by subscribing to the various 
+      <a href="servlets/ProjectMailingListList">mailing lists</a> offered
+      in this java.net project.  You can also use the <a 
+      href="servlets/ProjectForumView">Discussion Forums</a> or 
+      checkout the <a href="http://raibledesigns.com/wiki/Wiki.jsp?page=AppFuseSupport">
+      AppFuse FAQ</a>.
+    </blockquote>
+
+    <a name="participate">
+    <h3>Participation</h3>
+    </a>
+    <blockquote>
+      At this point, the best way to participate in this project is to use AppFuse.  By using it,
+      you will likely find some things that you'd like to improve.  Talk to us on the mailing list
+      and let us know what you'd like to see improved.
+      <br /><br />
+      Goals for the next release include improved useability with IDEs and better appserver support 
+      (reducing coupling with Tomcat).
+    </blockquote>
+
+    <a name="revision">
+    <h3>Revision History</h3>
+    </a>
+    <blockquote>
+      <ul>
+        <li>Version 1.5 - [May 27, 2004]
+          <ul>
+            <li>Removed j2ee.jar dependency, removed Struts from services layer and added Spring MVC as an option.</li>
+            <li><a href="https://appfuse.dev.java.net/servlets/NewsItemView?newsItemID=886">Read Announcement</a></li>
+            <li><a href="https://appfuse.dev.java.net/servlets/ProjectDocumentView?documentID=4697&noNav=true">Release Notes</a></li>
+          </ul>
+        </li>
+        <li>Version 1.4 - [March 1, 2004]
+          <ul>
+            <li>Open source release to java.net.</li>
+            <li><a href="https://appfuse.dev.java.net/servlets/NewsItemView?newsItemID=711">Read Announcement</a></li>
+            <li><a href="http://raibledesigns.com/wiki/Wiki.jsp?page=Downloads#2004.03.01">Release Notes</a></li>
+          </ul>
+        </li>
+      </ul>
+    </blockquote>
+    <hr>
+    <small>
+    <a href="http://java-enterprise.dev.java.net/">
+    <img src="images/foundry-small.gif" border="0" alt="foundry"></a>
+    <i>Part of the <a href="http://java-enterprise.dev.java.net/">
+    Java Enterprise Community</a>.</i></small>
+  </body>
 </html>
