@@ -29,7 +29,7 @@ import org.springframework.mail.SimpleMailMessage;
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  * 
- * @struts.action name="userFormEx" path="/signup" scope="request"
+ * @struts.action name="userForm" path="/signup" scope="request"
  *  validate="false" input="failure"
  * 
  * @struts.action-forward name="failure" path="/WEB-INF/pages/signup.jsp"
@@ -117,9 +117,9 @@ public final class SignupAction extends BaseAction {
         
         StringBuffer msg = new StringBuffer();
         msg.append(resources.getMessage("signup.email.message"));
-        msg.append("\n\n" + resources.getMessage("userFormEx.username"));
+        msg.append("\n\n" + resources.getMessage("userForm.username"));
         msg.append(": " + userForm.getUsername() + "\n");
-        msg.append(resources.getMessage("userFormEx.password") + ": ");
+        msg.append(resources.getMessage("userForm.password") + ": ");
         msg.append(userForm.getPassword());
         msg.append("\n\nLogin at: " + RequestUtil.getAppURL(request));
         message.setText(msg.toString());

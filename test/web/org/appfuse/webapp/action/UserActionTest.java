@@ -2,7 +2,7 @@ package org.appfuse.webapp.action;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.appfuse.Constants;
-import org.appfuse.webapp.form.UserFormEx;
+import org.appfuse.webapp.form.UserForm;
 
 
 public class UserActionTest extends BaseStrutsTestCase {
@@ -39,11 +39,11 @@ public class UserActionTest extends BaseStrutsTestCase {
     }
 
     public void testSave() throws Exception {
-        UserFormEx ex = new UserFormEx();
-        BeanUtils.copyProperties(ex, user);
-        ex.setPassword("tomcat");
-        ex.setConfirmPassword(ex.getPassword());
-        getRequest().setAttribute(Constants.USER_EDIT_KEY, ex);
+        UserForm userForm = new UserForm();
+        BeanUtils.copyProperties(userForm, user);
+        userForm.setPassword("tomcat");
+        userForm.setConfirmPassword(userForm.getPassword());
+        getRequest().setAttribute(Constants.USER_EDIT_KEY, userForm);
 
         setRequestPathInfo("/saveUser");
         addRequestParameter("encryptPass", "true");

@@ -58,7 +58,7 @@ public class Constants {
     /**
      * The request scope attribute under which an editable user form is stored
      */
-    public static final String USER_EDIT_KEY = "userFormEx";
+    public static final String USER_EDIT_KEY = "userForm";
 
     /**
      * The request scope attribute that holds the user list

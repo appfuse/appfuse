@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.47 2004/10/06 23:13:29 mraible Exp $                 -->
+<!-- $Id: build.xml,v 1.48 2004/10/08 03:13:59 mraible Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -348,7 +348,7 @@
             <fileset dir="src/dao"/>
 
             <hibernate validatexml="true" version="2.0"/>
-
+            
         </hibernatedoclet>
     </target>
 
@@ -454,7 +454,8 @@
         <xdoclet destdir="${build.dir}/web/gen"
             excludedtags="@version,@author"
             addedtags="@xdoclet-generated at ${TODAY}"
-            force="${xdoclet.force}">
+            force="${xdoclet.force}"
+            mergedir="metadata/web">
             <fileset dir="src/dao"/>
 
             <!-- generate struts forms -->

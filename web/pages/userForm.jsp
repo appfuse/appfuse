@@ -1,7 +1,7 @@
 <%@ include file="/common/taglibs.jsp"%>
 
-<html:form action="saveUser" focus="password" styleId="userFormEx" 
-    onsubmit="return validateUserFormEx(this)">
+<html:form action="saveUser" focus="password" styleId="userForm" 
+    onsubmit="return validateUserForm(this)">
 <html:hidden property="version"/>
 <input type="hidden" name="from" value="<c:out value="${param.from}"/>" />
 
@@ -10,7 +10,7 @@
     <html:hidden property="confirmPassword"/>
 </c:if>
 
-<c:if test="${empty userFormEx.username}">
+<c:if test="${empty userForm.username}">
     <input type="hidden" name="encryptPass" value="true" />
 </c:if>
 
@@ -38,16 +38,16 @@
 </c:set>
     <tr>
         <th>
-            <appfuse:label key="userFormEx.username"/>
+            <appfuse:label key="userForm.username"/>
         </th>
         <td>
         <c:choose>
-            <c:when test="${empty userFormEx.username}">
+            <c:when test="${empty userForm.username}">
                 <html:text property="username" styleId="username" />
                 <html:errors property="username"/>
             </c:when>
             <c:otherwise>
-                <c:out value="${userFormEx.username}"/>
+                <c:out value="${userForm.username}"/>
                 <html:hidden property="username" 
                     styleId="username"/>
             </c:otherwise>
@@ -57,7 +57,7 @@
     <c:if test="${cookieLogin != 'true'}">
     <tr>
         <th>
-            <appfuse:label key="userFormEx.password"/>
+            <appfuse:label key="userForm.password"/>
         </th>
         <td>
             <html:password property="password" size="40"
@@ -68,7 +68,7 @@
     </tr>
     <tr>
         <th>
-            <appfuse:label key="userFormEx.confirmPassword"/>
+            <appfuse:label key="userForm.confirmPassword"/>
         </th>
         <td>
             <html:password property="confirmPassword" size="40"
@@ -79,7 +79,7 @@
     </c:if>
     <tr>
         <th>
-            <appfuse:label key="userFormEx.firstName"/>
+            <appfuse:label key="userForm.firstName"/>
         </th>
         <td>
             <html:text property="firstName" styleId="firstName" maxlength="50"/>
@@ -88,7 +88,7 @@
     </tr>
     <tr>
         <th>
-            <appfuse:label key="userFormEx.lastName"/>
+            <appfuse:label key="userForm.lastName"/>
         </th>
         <td>
             <html:text property="lastName" styleId="lastName" maxlength="50"/>
@@ -97,7 +97,7 @@
     </tr>
     <tr>
         <th>
-            <appfuse:label key="userFormEx.addressForm.address"/>
+            <appfuse:label key="userForm.addressForm.address"/>
         </th>
         <td>
             <html:text property="addressForm.address" 
@@ -107,7 +107,7 @@
     </tr>
     <tr>
         <th>
-            <appfuse:label key="userFormEx.addressForm.city"/>
+            <appfuse:label key="userForm.addressForm.city"/>
         </th>
         <td>
             <html:text property="addressForm.city" 
@@ -117,7 +117,7 @@
     </tr>
     <tr>
         <th>
-            <appfuse:label key="userFormEx.addressForm.province"/>
+            <appfuse:label key="userForm.addressForm.province"/>
         </th>
         <td>
             <html:text property="addressForm.province" 
@@ -127,7 +127,7 @@
     </tr>
     <tr>
         <th>
-            <appfuse:label key="userFormEx.addressForm.country"/>
+            <appfuse:label key="userForm.addressForm.country"/>
         </th>
         <td>
             <appfuse:country name="countries" toScope="page"/>
@@ -141,7 +141,7 @@
     </tr>
     <tr>
         <th>
-            <appfuse:label key="userFormEx.addressForm.postalCode"/>
+            <appfuse:label key="userForm.addressForm.postalCode"/>
         </th>
         <td>
             <html:text property="addressForm.postalCode" 
@@ -151,7 +151,7 @@
     </tr>
     <tr>
         <th>
-            <appfuse:label key="userFormEx.email"/>
+            <appfuse:label key="userForm.email"/>
         </th>
         <td>
             <html:text property="email" styleId="email" size="50"/>
@@ -160,7 +160,7 @@
     </tr>
     <tr>
         <th>
-            <appfuse:label key="userFormEx.phoneNumber"/>
+            <appfuse:label key="userForm.phoneNumber"/>
         </th>
         <td>
             <html:text property="phoneNumber" styleId="phoneNumber"/>
@@ -169,19 +169,19 @@
     </tr>
     <tr>
         <th>
-            <appfuse:label key="userFormEx.website"/>
+            <appfuse:label key="userForm.website"/>
         </th>
         <td>
             <html:text property="website" styleId="website" size="50"/>
-            <c:if test="${!empty userFormEx.website}">
-            <a href="<c:out value="${userFormEx.website}"/>"><fmt:message key="userFormEx.visitWebsite"/></a>
+            <c:if test="${!empty userForm.website}">
+            <a href="<c:out value="${userForm.website}"/>"><fmt:message key="userForm.visitWebsite"/></a>
             </c:if>
             <html:errors property="website"/>
         </td>
     </tr>
     <tr>
         <th>
-            <appfuse:label key="userFormEx.passwordHint"/>
+            <appfuse:label key="userForm.passwordHint"/>
         </th>
         <td>
             <html:text property="passwordHint" 
@@ -216,13 +216,13 @@
         </td>
     </tr>
     </c:when>
-    <c:when test="${not empty userFormEx.username}">
+    <c:when test="${not empty userForm.username}">
     <tr>
         <th>
-            <appfuse:label key="userFormEx.roles"/>
+            <appfuse:label key="userForm.roles"/>
         </th>
         <td>
-        <c:forEach var="role" items="${userFormEx.roles}" varStatus="status">
+        <c:forEach var="role" items="${userForm.roles}" varStatus="status">
             <c:out value="${role.name}"/><c:if test="${!status.last}">,</c:if>
             <input type="hidden" name="userRoles" 
                 value="<c:out value="${role.name}"/>" />
@@ -246,7 +246,7 @@ highlightFormElements();
 <c:if test="${param.method == 'Add'}">document.forms[0].username.focus();</c:if>
 
 function passwordChanged(passwordField) {
-    var origPassword = "<c:out value="${userFormEx.password}"/>";
+    var origPassword = "<c:out value="${userForm.password}"/>";
     if (passwordField.value != origPassword) {
         createFormElement("input", "hidden", 
                           "encryptPass", "encryptPass", 
@@ -256,7 +256,7 @@ function passwordChanged(passwordField) {
 // -->
 </script>
 
-<html:javascript formName="userFormEx" cdata="false"
+<html:javascript formName="userForm" cdata="false"
       dynamicJavascript="true" staticJavascript="false"/>
 <script type="text/javascript"
       src="<c:url value="/scripts/validator.jsp"/>"></script>

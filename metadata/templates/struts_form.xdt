@@ -126,12 +126,11 @@ public class <XDtClass:classOf><XDtActionForm:actionFormClass/></XDtClass:classO
 </XDtActionForm:forAllFormFields>
 </XDtClass:ifHasClassTag>
 
-    <XDtMerge:merge file="actionform-methods-<XDtClass:classOf><XDtActionForm:actionFormClass/></XDtClass:classOf>.java">
-        <!--
-            To add non XDoclet-generated methods, create a file named
-                actionform-methods-<XDtClass:classOf><XDtActionForm:actionFormClass/></XDtClass:classOf>.java
-            containing the additional code and place it in your merge dir.
-        -->
+    <XDtMerge:merge file="xdoclet-<XDtClass:classOf><XDtActionForm:actionFormClass/></XDtClass:classOf>.java">
+        /* To add non XDoclet-generated methods, create a file named
+           actionform-methods-<XDtClass:classOf><XDtActionForm:actionFormClass/></XDtClass:classOf>.java
+           containing the additional code and place it in your merge dir.
+        */
     </XDtMerge:merge>
     
     /**

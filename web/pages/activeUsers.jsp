@@ -17,7 +17,7 @@
   
     <%-- Table columns --%>
     <display:column property="username" width="30%" headerClass="sortable"
-        titleKey="userFormEx.username" sort="true"/>
+        titleKey="userForm.username" sort="true"/>
     <display:column titleKey="activeUsers.fullName" headerClass="sortable"
         sort="true">
         <c:out value="${user.firstName} ${user.lastName}"/>

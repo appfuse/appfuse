@@ -163,7 +163,7 @@ if (focusControl.type != "hidden" && !focusControl.disabled) {
 }
   
 function passwordChanged(passwordField) {
-    var origPassword = "<c:out value="${userFormEx.password}"/>";
+    var origPassword = "<ww:property value="user.password"/>";
     if (passwordField.value != origPassword) {
         createFormElement("input", "hidden", 
                           "encryptPass", "encryptPass", 
@@ -176,7 +176,6 @@ function onFormSubmit(theForm) {
 <c:if test="${param.from == 'list'}">
     selectAll('user.userRoles');
 </c:if>
-    //return validateUserFormEx(theForm);
 }
 // -->
 </script>

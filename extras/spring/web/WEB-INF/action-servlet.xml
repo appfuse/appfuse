@@ -50,7 +50,9 @@
         <property name="successView"><value>uploadDisplay</value></property>
     </bean>
 
-    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize"><value>2097152</value></property>
+    </bean>
     
     <bean id="signupController" class="org.appfuse.webapp.action.SignupController">
         <property name="commandName"><value>user</value></property>

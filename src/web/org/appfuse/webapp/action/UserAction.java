@@ -23,7 +23,6 @@ import org.appfuse.service.RoleManager;
 import org.appfuse.service.UserManager;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.form.UserForm;
-import org.appfuse.webapp.form.UserFormEx;
 import org.appfuse.webapp.util.RequestUtil;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.mail.SimpleMailMessage;
@@ -40,11 +39,11 @@ import org.springframework.mail.SimpleMailMessage;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  *  Modified by <a href="mailto:dan@getrolling.com">Dan Kibler</a>
  *
- * @struts.action name="userFormEx" path="/editUser" scope="request"
+ * @struts.action name="userForm" path="/editUser" scope="request"
  *  validate="false" parameter="method" input="list" roles="admin"
- * @struts.action name="userFormEx" path="/editProfile" scope="request"
+ * @struts.action name="userForm" path="/editProfile" scope="request"
  *  validate="false" parameter="method" input="mainMenu"
- * @struts.action name="userFormEx" path="/saveUser" scope="request"
+ * @struts.action name="userForm" path="/saveUser" scope="request"
  *  validate="true" parameter="method" input="edit"
  *
  * @struts.action-forward name="list" path="/WEB-INF/pages/userList.jsp"
@@ -63,9 +62,7 @@ public final class UserAction extends BaseAction {
         User user = new User();
         user.addRole(new Role(Constants.USER_ROLE));
         UserForm userForm = (UserForm) convert(user);
-        UserFormEx ex = new UserFormEx();
-        BeanUtils.copyProperties(ex, userForm);
-        updateFormBean(mapping, request, ex);
+        updateFormBean(mapping, request, userForm);
 
         checkForCookieLogin(request);
 
@@ -154,10 +151,9 @@ public final class UserAction extends BaseAction {
             user = mgr.getUser(getUser(session).getUsername());
         }
 
-        UserFormEx ex = new UserFormEx();
-        BeanUtils.copyProperties(ex, convert(user));
-        ex.setConfirmPassword(ex.getPassword());
-        request.setAttribute(Constants.USER_EDIT_KEY, ex);
+        BeanUtils.copyProperties(userForm, convert(user));
+        userForm.setConfirmPassword(userForm.getPassword());
+        updateFormBean(mapping, request, userForm);
 
         checkForCookieLogin(request);
 
@@ -177,7 +173,7 @@ public final class UserAction extends BaseAction {
         ActionMessages errors = new ActionMessages();
         ActionMessages messages = new ActionMessages();
         HttpSession session = request.getSession();
-        UserFormEx userForm = (UserFormEx) form;
+        UserForm userForm = (UserForm) form;
         String password = userForm.getPassword();
         User user = new User();
 
@@ -303,9 +299,9 @@ public final class UserAction extends BaseAction {
         StringBuffer msg = new StringBuffer();
         msg.append(resources.getMessage("newuser.email.message",
                                         userForm.getFullName()));
-        msg.append("\n\n" + resources.getMessage("userFormEx.username"));
+        msg.append("\n\n" + resources.getMessage("userForm.username"));
         msg.append(": " + userForm.getUsername() + "\n");
-        msg.append(resources.getMessage("userFormEx.password") + ": ");
+        msg.append(resources.getMessage("userForm.password") + ": ");
         msg.append(userForm.getPassword());
         msg.append("\n\nLogin at: " + RequestUtil.getAppURL(request));
         message.setText(msg.toString());

@@ -28,16 +28,16 @@
     	headerClass="sortable" width="17%"
         url="${editURL.path}?from=list" 
         paramId="username" paramProperty="username"
-        titleKey="userFormEx.username"/>
+        titleKey="userForm.username"/>
     <display:column property="firstName" sort="true" 
     	headerClass="sortable" width="20%"
-        titleKey="userFormEx.firstName" />
+        titleKey="userForm.firstName" />
     <display:column property="lastName" sort="true" 
     	headerClass="sortable" width="13%"
-        titleKey="userFormEx.lastName"/>
+        titleKey="userForm.lastName"/>
     <display:column property="email" sort="true" headerClass="sortable" 
     	width="26%" autolink="true"
-        titleKey="userFormEx.email" />
+        titleKey="userForm.email" />
         
     <display:setProperty name="paging.banner.item_name" value="user"/>
     <display:setProperty name="paging.banner.items_name" value="users"/>

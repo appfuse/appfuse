@@ -42,9 +42,9 @@ code that's used to render this table.
 
 <table class="list">
 <tr>
-    <th><bean:message key="userFormEx.username"/></th>
-    <th><bean:message key="userFormEx.firstName"/></th>
-    <th><bean:message key="userFormEx.lastName"/></th>
+    <th><bean:message key="userForm.username"/></th>
+    <th><bean:message key="userForm.firstName"/></th>
+    <th><bean:message key="userForm.lastName"/></th>
 </tr>
 
 <c:forEach var="row" items="${users.rows}" varStatus="status">
@@ -67,9 +67,9 @@ code that's used to render this table.
 <div id="sqlSource" style="display:none; margin-left: 10px; margin-top: 0">
 <pre>&lt;table class="list"&gt;
 &lt;tr&gt;
-    &lt;th&gt;&lt;bean:message key="userFormEx.username"/&gt;&lt;/th&gt;
-    &lt;th&gt;&lt;bean:message key="userFormEx.firstName"/&gt;&lt;/th&gt;
-    &lt;th&gt;&lt;bean:message key="userFormEx.lastName"/&gt;&lt;/th&gt;
+    &lt;th&gt;&lt;bean:message key="userForm.username"/&gt;&lt;/th&gt;
+    &lt;th&gt;&lt;bean:message key="userForm.firstName"/&gt;&lt;/th&gt;
+    &lt;th&gt;&lt;bean:message key="userForm.lastName"/&gt;&lt;/th&gt;
 &lt;/tr&gt;
 
 &lt;c:forEach var="row" items="${users.rows}" varStatus="status"&gt;
@@ -95,11 +95,11 @@ this same data set, but this time you get column sorting.
 
 <display:table name="${users.rows}" id="user" class="list">
     <display:column property="username" sort="true"
-        titleKey="userFormEx.username" headerClass="sortable"/>
+        titleKey="userForm.username" headerClass="sortable"/>
     <display:column property="firstName" sort="true" 
-        titleKey="userFormEx.firstName" headerClass="sortable"/>
+        titleKey="userForm.firstName" headerClass="sortable"/>
     <display:column property="lastName" sort="true" 
-        titleKey="userFormEx.lastName" headerClass="sortable"/>
+        titleKey="userForm.lastName" headerClass="sortable"/>
 </display:table>
 
 <p style="margin-left: 10px">
@@ -110,11 +110,11 @@ this same data set, but this time you get column sorting.
 <div id="displaySource" style="display: none; margin-left: 10px; margin-top: 0">
 <pre>&lt;display:table name="${users.rows}" id="user" class="list"&gt;
     &lt;display:column property="username" sort="true"
-        titleKey="userFormEx.username" headerClass="sortable"/&gt;
+        titleKey="userForm.username" headerClass="sortable"/&gt;
     &lt;display:column property="firstName" sort="true" 
-        titleKey="userFormEx.firstName" headerClass="sortable"/&gt;
+        titleKey="userForm.firstName" headerClass="sortable"/&gt;
     &lt;display:column property="lastName" sort="true" 
-        titleKey="userFormEx.lastName" headerClass="sortable"/&gt;
+        titleKey="userForm.lastName" headerClass="sortable"/&gt;
 &lt;/display:table&gt;
 </pre>
 </div>

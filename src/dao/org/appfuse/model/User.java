@@ -60,8 +60,8 @@ public class User extends BaseObject {
      * 
      * @struts.validator type="required"
      * @struts.validator type="twofields" msgkey="errors.twofields"
-     * @struts.validator-args arg1resource="userFormEx.password"
-     * @struts.validator-args arg1resource="userFormEx.confirmPassword"
+     * @struts.validator-args arg1resource="userForm.password"
+     * @struts.validator-args arg1resource="userForm.confirmPassword"
      * @struts.validator-var name="secondProperty" value="confirmPassword"
      * @hibernate.property column="password" not-null="true"
      */

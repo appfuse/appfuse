@@ -60,6 +60,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
             <fileset dir="../../metadata/web">
                 <include name="global-*.xml"/>
                 <include name="struts-*.xml"/>
+                <include name="xdoclet-*.java"/>
             </fileset>
         </delete>
                 
@@ -141,7 +142,8 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         <xdoclet destdir="${build.dir}/web/gen"
             excludedtags="@version,@author"
             addedtags="@xdoclet-generated at ${TODAY}"
-            force="${xdoclet.force}">
+            force="${xdoclet.force}"
+            mergedir="metadata/web">
             <fileset dir="src/dao"/>
 
             <!-- generate struts forms -->

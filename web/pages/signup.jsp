@@ -8,13 +8,13 @@
 
 <div class="separator"></div>
 
-<html:form action="/signup" focus="username" styleId="userFormEx"
-    onsubmit="return validateUserFormEx(this)">
+<html:form action="/signup" focus="username" styleId="userForm"
+    onsubmit="return validateUserForm(this)">
 
 <table class="detail">
     <tr>
         <th>
-            <appfuse:label key="userFormEx.username"/>
+            <appfuse:label key="userForm.username"/>
         </th>
         <td>
             <html:text property="username" styleId="username"/>
@@ -23,7 +23,7 @@
     </tr>
     <tr>
         <th>
-            <appfuse:label key="userFormEx.password"/>
+            <appfuse:label key="userForm.password"/>
         </th>
         <td>
             <html:password property="password" size="40"
@@ -33,7 +33,7 @@
     </tr>
     <tr>
         <th>
-            <appfuse:label key="userFormEx.confirmPassword"/>
+            <appfuse:label key="userForm.confirmPassword"/>
         </th>
         <td>
             <html:password property="confirmPassword" size="40"
@@ -43,7 +43,7 @@
     </tr>
     <tr>
         <th>
-            <appfuse:label key="userFormEx.firstName"/>
+            <appfuse:label key="userForm.firstName"/>
         </th>
         <td>
             <html:text property="firstName" styleId="firstName"/>
@@ -52,7 +52,7 @@
     </tr>
     <tr>
         <th>
-            <appfuse:label key="userFormEx.lastName"/>
+            <appfuse:label key="userForm.lastName"/>
         </th>
         <td>
             <html:text property="lastName" styleId="lastName"/>
@@ -61,7 +61,7 @@
     </tr>
     <tr>
         <th>
-            <appfuse:label key="userFormEx.addressForm.address"/>
+            <appfuse:label key="userForm.addressForm.address"/>
         </th>
         <td>
             <html:text property="addressForm.address"
@@ -71,7 +71,7 @@
     </tr>
     <tr>
         <th>
-            <appfuse:label key="userFormEx.addressForm.city"/>
+            <appfuse:label key="userForm.addressForm.city"/>
         </th>
         <td>
             <html:text property="addressForm.city"
@@ -81,7 +81,7 @@
     </tr>
     <tr>
         <th>
-            <appfuse:label key="userFormEx.addressForm.province"/>
+            <appfuse:label key="userForm.addressForm.province"/>
         </th>
         <td>
         	  <html:text property="addressForm.province"
@@ -91,7 +91,7 @@
     </tr>
     <tr>
         <th>
-            <appfuse:label key="userFormEx.addressForm.country"/>
+            <appfuse:label key="userForm.addressForm.country"/>
         </th>
         <td>
             <appfuse:country name="countries" toScope="page"/>
@@ -105,7 +105,7 @@
     </tr>
     <tr>
         <th>
-            <appfuse:label key="userFormEx.addressForm.postalCode"/>
+            <appfuse:label key="userForm.addressForm.postalCode"/>
         </th>
         <td>
             <html:text property="addressForm.postalCode"
@@ -115,7 +115,7 @@
     </tr>
     <tr>
         <th>
-            <appfuse:label key="userFormEx.email"/>
+            <appfuse:label key="userForm.email"/>
         </th>
         <td>
             <html:text property="email" styleId="email" size="50"/>
@@ -124,7 +124,7 @@
     </tr>
     <tr>
         <th>
-            <appfuse:label key="userFormEx.phoneNumber"/>
+            <appfuse:label key="userForm.phoneNumber"/>
         </th>
         <td>
             <html:text property="phoneNumber" styleId="phoneNumber"/>
@@ -133,19 +133,19 @@
     </tr>
     <tr>
         <th>
-            <appfuse:label key="userFormEx.website"/>
+            <appfuse:label key="userForm.website"/>
         </th>
         <td>
             <html:text property="website" styleId="website" size="50"/>
-            <c:if test="${!empty userFormEx.website}">
-            <a href="<c:out value="${userFormEx.website}"/>"><fmt:message key="userFormEx.visitWebsite"/></a>
+            <c:if test="${!empty userForm.website}">
+            <a href="<c:out value="${userForm.website}"/>"><fmt:message key="userForm.visitWebsite"/></a>
             </c:if>
             <html:errors property="website"/>
         </td>
     </tr>
     <tr>
         <th>
-            <appfuse:label key="userFormEx.passwordHint"/>
+            <appfuse:label key="userForm.passwordHint"/>
         </th>
         <td>
             <html:text property="passwordHint"
@@ -168,7 +168,7 @@
 </table>
 </html:form>
 
-<html:javascript formName="userFormEx" cdata="false"
+<html:javascript formName="userForm" cdata="false"
       dynamicJavascript="true" staticJavascript="false"/>
 <script type="text/javascript"
       src="<c:url value="/scripts/validator.jsp"/>"></script>

@@ -50,6 +50,9 @@ Features/Changes in 1.6
 - Re-worked User and Roles relationship to take advantage of Hibernate more.
   Thanks to Daniel Kibler for the patch:
     https://appfuse.dev.java.net/issues/show_bug.cgi?id=69
+- Removed UserFormEx and replaced with ability to "merge" methods into an 
+  ActionForm using XDoclet.  See metadata/web for xdoclet-UserForm.java
+  which now contains methods merged into the generated UserForm.java.
 - Changed "org.appfuse.persistence" package name to "org.appfuse.dao".  Moved
   "*ManagerImpl" classes to "service.impl" package.
 - Changed stylesheet colors for Spring MVC option to be green instead of red.
@@ -63,7 +66,7 @@ Features/Changes in 1.6
   Commonclipse (http://commonclipse.sf.net) can generate the methods for you.
   	Learn more at: http://www.leegrey.com/hmm/2004/09/29/1096491256000.html
 - Added Cargo to simplify starting and stopping Tomcat before running Canoo 
-  WebTests.
+  WebTests.  Unfortunately, the 0.2 release doesn't work with Tomcat 5.5.x.
 - Refactored all web frameworks to allow for testing out-of-container.  This
   means that "test-web" will now work w/o Cactus or the container running.
     Learn more at: http://raibledesigns.com/page/rd?anchor=ann_cargo_0_2_released
@@ -72,8 +75,6 @@ Features/Changes in 1.6
 - Refactored BaseDAOTestCase and BaseManagerTestCase to use DBUnit and load
   sample data for each test, rather than relying on Ant and the "db-load" 
   target.
-- Refactored build.xml so "actionform" task could run with Ant 1.5.4.  More 
-  details at: http://raibledesigns.com/wiki/Wiki.jsp?page=XDocletActionForms
 - Changed target names in build.xml: define-tasks -> init, init -> prepare. 
   Reworked build.xml so XDoclet tasks don't execute when they don't need to.
 - Added translations for French and Spanish.
