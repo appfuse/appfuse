@@ -15,8 +15,7 @@ import org.apache.commons.logging.LogFactory;
 /**
  * Wraps Response for GZipFilter
  *
- * @author  Matt Raible
- * @version $Revision: 1.4 $ $Date: 2004/08/19 00:13:57 $
+ * @author  Matt Raible, cmurphy@intechtual.com
  */
 public class GZIPResponseWrapper extends HttpServletResponseWrapper {
     private transient final Log log = LogFactory.getLog(GZIPResponseWrapper.class);
@@ -64,9 +63,9 @@ public class GZIPResponseWrapper extends HttpServletResponseWrapper {
     }
 
     public PrintWriter getWriter() throws IOException {
-        // If access denied, don't create new stream or write because
-        // it causes the web.xml's 403 page to not render
-        if (this.error == HttpServletResponse.SC_FORBIDDEN) {
+        // From cmurphy@intechtual.com to fix:
+        // https://appfuse.dev.java.net/issues/show_bug.cgi?id=59
+        if (this.origResponse != null && this.origResponse.isCommitted()) {
             return super.getWriter();
         }
 
