@@ -66,73 +66,73 @@
             
             <!-- DAO Test -->   
             <template templateFile="${template.dir}/detailed/DAOTest.xdt"
-		              acceptAbstractClasses="false"
-		              prefixWithPackageStructure="false"
-		              destinationFile="${gen.dir}/test/dao/${app.package}/dao/{0}DAOTest.java"/>
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/test/dao/${app.package}/dao/{0}DAOTest.java"/>
             <!-- DAO Interface -->   
             <template templateFile="${template.dir}/detailed/DAO.xdt"
-		              acceptAbstractClasses="false"
-		              prefixWithPackageStructure="false"
-		              destinationFile="${gen.dir}/src/dao/${app.package}/dao/{0}DAO.java"/>
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/src/dao/${app.package}/dao/{0}DAO.java"/>
             <!-- Hibernate DAO Implementation -->   
-		    <template templateFile="${template.dir}/detailed/DAOHibernate.xdt"
-		              acceptAbstractClasses="false"
-		              prefixWithPackageStructure="false"
-		              destinationFile="${gen.dir}/src/dao/${app.package}/dao/hibernate/{0}DAOHibernate.java"/>
+            <template templateFile="${template.dir}/detailed/DAOHibernate.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/src/dao/${app.package}/dao/hibernate/{0}DAOHibernate.java"/>
             <!-- Spring DAO Configuration -->   
             <template templateFile="${template.dir}/detailed/context-hibernate.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
                       destinationFile="${gen.dir}/src/dao/${app.package}/dao/hibernate/context-hibernate-{0}.xml"/> 
             <!-- Manager Test (uses jMock) -->   
-		    <template templateFile="${template.dir}/detailed/ManagerTest.xdt"
-		              acceptAbstractClasses="false"
-		              prefixWithPackageStructure="false"
-		              destinationFile="${gen.dir}/test/service/${app.package}/service/{0}ManagerTest.java"/>
+            <template templateFile="${template.dir}/detailed/ManagerTest.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/test/service/${app.package}/service/{0}ManagerTest.java"/>
             <!-- Manager Interface --> 
-		    <template templateFile="${template.dir}/detailed/Manager.xdt"
-		              acceptAbstractClasses="false"
-		              prefixWithPackageStructure="false"
-		              destinationFile="${gen.dir}/src/service/${app.package}/service/{0}Manager.java"/>
+            <template templateFile="${template.dir}/detailed/Manager.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/src/service/${app.package}/service/{0}Manager.java"/>
             <!-- Manager Implementation -->    
-		    <template templateFile="${template.dir}/detailed/ManagerImpl.xdt"
-		              acceptAbstractClasses="false"
-		              prefixWithPackageStructure="false"
-		              destinationFile="${gen.dir}/src/service/${app.package}/service/impl/{0}ManagerImpl.java"/>
+            <template templateFile="${template.dir}/detailed/ManagerImpl.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/src/service/${app.package}/service/impl/{0}ManagerImpl.java"/>
             <!-- Spring Manager Configuration --> 
-		    <template templateFile="${template.dir}/detailed/context-service.xdt"
-		              acceptAbstractClasses="false"
-		              prefixWithPackageStructure="false"
-		              destinationFile="${gen.dir}/src/service/${app.package}/service/context-service-{0}.xml"/>
+            <template templateFile="${template.dir}/detailed/context-service.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/src/service/${app.package}/service/context-service-{0}.xml"/>
             <!-- Constant values -->   
-		    <template templateFile="${template.dir}/Constants.xdt"
-		              acceptAbstractClasses="false"
-		              prefixWithPackageStructure="false"
-		              destinationFile="${gen.dir}/src/dao/${app.package}/Constants-{0}.java"/>
+            <template templateFile="${template.dir}/Constants.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/src/dao/${app.package}/Constants-{0}.java"/>
             <!-- Action Test -->
-		    <template templateFile="${template.dir}/ActionTest.xdt"
-		              acceptAbstractClasses="false"
-		              prefixWithPackageStructure="false"
-		              destinationFile="${gen.dir}/test/web/${app.package}/webapp/action/{0}ActionTest.java"/>
+            <template templateFile="${template.dir}/ActionTest.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/test/web/${app.package}/webapp/action/{0}ActionTest.java"/>
             <!-- Detailed Action -->
-		    <template templateFile="${template.dir}/detailed/Action.xdt"
-		              acceptAbstractClasses="false"
-		              prefixWithPackageStructure="false"
-		              destinationFile="${gen.dir}/src/web/${app.package}/webapp/action/{0}Action.java"/>
+            <template templateFile="${template.dir}/detailed/Action.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/src/web/${app.package}/webapp/action/{0}Action.java"/>
             <!-- Generic Action -->
             <template templateFile="${template.dir}/generic/Action.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
                       destinationFile="${gen.dir}/generic/src/web/${app.package}/webapp/action/{0}Action.java"/>
             <!-- Sample data for DBUnit -->    
-		    <template templateFile="${template.dir}/sample-data.xdt"
-		              acceptAbstractClasses="false"
-		              prefixWithPackageStructure="false"
-		              destinationFile="${gen.dir}/metadata/sql/sample-data-{0}.xml"/>
+            <template templateFile="${template.dir}/sample-data.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/metadata/sql/sample-data-{0}.xml"/>
             <!-- Tests for Canoo -->    
-		    <template templateFile="${template.dir}/web-tests.xdt"
-		              acceptAbstractClasses="false"
-		              prefixWithPackageStructure="false"
+            <template templateFile="${template.dir}/web-tests.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
                       destinationFile="${gen.dir}/test/web/web-tests-{0}.xml"/>    
             <!-- i18n entries -->
             <template templateFile="${template.dir}/FormKeys.xdt"
@@ -162,7 +162,7 @@
         </xdoclet>
     </target>
    
-	<property name="generated.dir" value="${build.dir}/${gen.dir}"/>
+    <property name="generated.dir" value="${build.dir}/${gen.dir}"/>
     
     <target name="install-src-detailed">
         <antcall target="default"/> 

@@ -86,7 +86,7 @@
     </target>
 
     <!-- =================================================================== -->
-    <!-- The "new" target is used to create a new project by duplicating 	 -->
+    <!-- The "new" target is used to create a new project by duplicating      -->
     <!-- this project and replacing "appfuse" instances with the new name.   -->
     <!-- =================================================================== -->
     <target name="new" depends="clean"
@@ -176,7 +176,7 @@
     </target>
 
     <!-- List of variables in .properties files that will be replaced at
-    	 build time -->
+         build time -->
     <filterset id="variables.to.replace">
         <filter token="APPNAME" value="${webapp.name}"/>
         <filter token="ENCRYPT-ALGORITHM" value="${encrypt.algorithm}"/>
@@ -403,7 +403,7 @@
   
     <!-- Service -->
     <target name="compile-service" depends="package-dao"
-    	description="Compile service module">
+        description="Compile service module">
         <antcall target="compile-module" inheritAll="true">
             <param name="module" value="service"/>
             <reference refid="service.compile.classpath"
@@ -481,7 +481,7 @@
         description="alias for compile-web"/>
         
     <!-- =================================================================== -->
-    <!-- The "webdoclet" target generates web and struts deployment 		 -->
+    <!-- The "webdoclet" target generates web and struts deployment          -->
     <!-- descriptors.                                                        --> 
     <!-- =================================================================== -->
     <target name="webdoclet" depends="compile-web" 
@@ -729,7 +729,7 @@
             </batchtest>
             <batchtest todir="${test.dir}/data" unless="testcase">
                 <fileset dir="${test.dir}/${module}/classes">
-                	<include name="**/*Test.class*"/>
+                    <include name="**/*Test.class*"/>
                 </fileset>
             </batchtest>
         </junit>
@@ -875,7 +875,7 @@
     <!--            Export the data                                          -->
     <!-- =================================================================== -->
     <target name="db-export" depends="prepare"
-    	description="Exports the current data in the database">
+        description="Exports the current data in the database">
         <dbunit driver="${database.driver_class}"
             url="${database.url}"
             userid="${database.username}"
@@ -885,7 +885,7 @@
     </target>
 
     <target name="db-load" depends="prepare"
-    	description="Loads the database with sample data">
+        description="Loads the database with sample data">
         <property name="operation" value="CLEAN_INSERT"/>
         <property name="file" value="metadata/sql/sample-data.xml"/>
         <dbunit driver="${database.driver_class}"
@@ -1380,7 +1380,7 @@
     <!-- =================================================================== -->
     <target name="bin" depends="clean,package-web"
         description="creates zip file with war, jdbc drivers, and XML file">
-    	
+        
         <!-- Copy tomcat-context.xml file to webapp.name.xml so it's friendlier -->
         <copy tofile="${webapp.dist}/${webapp.name}.xml"
             file="metadata/conf/tomcat-context.xml">
