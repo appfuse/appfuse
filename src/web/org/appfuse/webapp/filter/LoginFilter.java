@@ -17,9 +17,9 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.Constants;
+import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
 import org.appfuse.util.StringUtil;
-import org.appfuse.webapp.form.UserForm;
 import org.appfuse.webapp.util.RequestUtil;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -32,7 +32,7 @@ import org.springframework.web.context.WebApplicationContext;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.2 $ $Date: 2004/03/06 15:52:04 $
+ * @version $Revision: 1.3 $ $Date: 2004/03/22 19:37:08 $
  *
  * @web.filter display-name="Login Filter" name="loginFilter"
  * @web.filter-init-param name="enabled" value="${rememberMe.enabled}"
@@ -83,7 +83,7 @@ public final class LoginFilter implements Filter {
 
                     String[] value = StringUtils.split(loginCookie, '|');
 
-                    UserForm user = (UserForm) mgr.getUser(value[0]);
+                    User user = (User) mgr.getUser(value[0]);
 
                     // authenticate user without displaying login page
                     String route = "/authorize?j_username=" +
@@ -106,6 +106,7 @@ public final class LoginFilter implements Filter {
                     return;
                 }
             } catch (Exception e) {
+                e.printStackTrace();
                 log.warn(e.getMessage());
             }
         }
