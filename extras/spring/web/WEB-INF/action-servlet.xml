@@ -3,6 +3,17 @@
     "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
+    <bean id="exceptionResolver" 
+        class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="org.springframework.dao.DataAccessException">        
+                    dataAccessFailure
+                </prop>
+            </props>
+        </property>
+    </bean>
+    
     <bean id="userController" class="org.appfuse.webapp.action.UserController">
         <property name="userManager"><ref bean="userManager"/></property>
     </bean>
