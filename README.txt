@@ -75,6 +75,8 @@ Features/Changes in 1.5
 - Added ReloadAction to reload drop-downs initialized in StartupListener. 
   Also added "Reload Options" menu item under "Administration" to invoke 
   this action.
+- Changed Tomcat 5 detection to use a class from 5.0.x rather than parsing
+  the folder name of the installed server.
 - TODO: Spring for MVC Layer
     - Installation package.
 - TODO: Modify Cactus so "runcontainer" task can be used to start/stop Tomcat

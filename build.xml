@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.13 2004/04/28 05:49:19 mraible Exp $                 -->
+<!-- $Id: build.xml,v 1.14 2004/04/28 06:53:40 mraible Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -38,11 +38,12 @@
         <taskdef name="dbunit" classname="org.dbunit.ant.DbUnitTask"
             classpathref="dao.test.classpath"/>
 
-        <propertyregex property="tomcat.version"
-            input="${tomcat.home}"
-            regexp="tomcat-([^\.]*)"
-            select="\1"
-            casesensitive="false"/>
+        <available classname="org.apache.catalina.ant.SessionsTask"
+            property="tomcat5">
+            <classpath>
+                <pathelement path="${tomcat.home}/server/lib/catalina-ant.jar"/>
+            </classpath>
+        </available>
     </target>
     
     <!-- Check timestamp on files -->
@@ -526,7 +527,7 @@
         <!-- If Tomcat 5, uncomment the <dispatcher> elements in 
              filter-mappings -->
         <if>
-            <equals arg1="${tomcat.version}" arg2="5"/>
+            <isset property="tomcat5"/>
             <then>
                 <replaceregexp flags="g"
                     file="${webapp.target}/WEB-INF/web.xml"
@@ -1242,7 +1243,7 @@
     <target name="setup-tomcat" depends="define-tasks" if="tomcat.home"
         description="copies jdbc driver and context.xml to tomcat">
         <if>
-            <equals arg1="${tomcat.version}" arg2="5"/>
+            <isset property="tomcat5"/>
             <then>
                 <echo message="Detected Tomcat 5..."/>
                 <echo level="info">Copying ${webapp.name}.xml...</echo>
