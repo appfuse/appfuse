@@ -13,8 +13,8 @@ import org.appfuse.Constants;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
 import org.appfuse.util.StringUtil;
+import org.appfuse.service.UserExistsException;
 import org.appfuse.webapp.util.RequestUtil;
-import org.springframework.dao.DataIntegrityViolationException;
 
 import com.opensymphony.webwork.ServletActionContext;
 
@@ -144,8 +144,8 @@ public class UserAction extends BaseAction {
 
         try {
             userManager.saveUser(user);
-        } catch (DataIntegrityViolationException e) {
-            log.warn("User already exists: " + e.getMessage());
+        } catch (UserExistsException e) {
+            log.warn(e.getMessage());
             List args = new ArrayList();
             args.add(user.getUsername());
             args.add(user.getEmail());

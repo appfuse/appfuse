@@ -6,14 +6,15 @@ import org.apache.commons.lang.StringUtils;
 import org.appfuse.dao.UserDAO;
 import org.appfuse.model.User;
 import org.appfuse.model.UserCookie;
+import org.appfuse.service.UserExistsException;
 import org.appfuse.service.UserManager;
 import org.appfuse.util.RandomGUID;
 import org.appfuse.util.StringUtil;
+import org.springframework.dao.DataIntegrityViolationException;
 
 
 /**
- * Implementation of UserManager interface.  This basically transforms POJOs ->
- * Forms and back again.</p>
+ * Implementation of UserManager interface.</p>
  * 
  * <p>
  * <a href="UserManagerImpl.java.html"><i>View Source</i></a>
@@ -49,8 +50,13 @@ public class UserManagerImpl extends BaseManager implements UserManager {
     /**
      * @see org.appfuse.service.UserManager#saveUser(org.appfuse.model.User)
      */
-    public void saveUser(User user) {
-        dao.saveUser(user);
+    public void saveUser(User user) throws UserExistsException {
+        try {
+            dao.saveUser(user);
+        } catch (DataIntegrityViolationException e) {
+            throw new UserExistsException("User '" + user.getUsername() + 
+                                          "' already exists!");
+        }
     }
 
     /**

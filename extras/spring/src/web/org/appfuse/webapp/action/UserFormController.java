@@ -10,9 +10,9 @@ import org.appfuse.model.Role;
 import org.appfuse.model.User;
 import org.appfuse.service.RoleManager;
 import org.appfuse.service.UserManager;
+import org.appfuse.service.UserExistsException;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.util.RequestUtil;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -98,8 +98,8 @@ public class UserFormController extends BaseFormController {
 
             try {
                 mgr.saveUser(user);
-            } catch (DataIntegrityViolationException e) {
-                log.warn("User already exists: " + e.getMessage());
+            } catch (UserExistsException e) {
+                log.warn(e.getMessage());
 
                 errors.rejectValue("username", "errors.existing.user",
                                    new Object[] {
