@@ -1,3 +1,0 @@
-<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><bean id="<XDtForm:classNameLower/>Action" class="<XDtForm:parentPackageName/>.webapp.action.<XDtClass:className/>Action" singleton="false" autowire="byName"/>
-    
-    <!-- Add additional actions here -->

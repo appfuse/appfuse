@@ -1,3 +1,0 @@
-<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><page name="<XDtForm:classNameLower/>Form" specification-path="pages/<XDtForm:classNameLower/>Form.page"/>
-    <page name="<XDtForm:classNameLower/>s" specification-path="pages/<XDtForm:classNameLower/>s.page"/>
-    <!-- Add additional pages here -->

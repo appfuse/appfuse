@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<beansProjectDescription>
-	<configs>
-		<config>src/dao/org/appfuse/persistence/hibernate/applicationContext-hibernate.xml</config>
-		<config>src/service/org/appfuse/service/applicationContext-service.xml</config>
-	</configs>
-	<configSets>
-	</configSets>
-</beansProjectDescription>

@@ -1,9 +1,0 @@
-<form jwcid="reloadForm@Form" listener="ognl:listeners.execute" id="reloadForm">
-    <input type="hidden" name="referrer"/>
-</form>
-
-<script type="text/javascript">
-    var f = document.getElementById('reloadForm');
-    f.referrer.value = document.referrer;
-    f.submit();
-</script>
