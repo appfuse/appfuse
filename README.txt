@@ -42,47 +42,23 @@ steps:
 
 Features/Changes in 1.7
 ============================
-- Added support for exporting PDFs from a displaytag table.
-- Tapestry Notes:
-    - The Tapestry JAR contains patches for the popup calendar (http://nagoya.apache.org/jira/browse/TAPESTRY-222),  
-      global properties file (http://nagoya.apache.org/jira/browse/TAPESTRY-229)
-      and friendly URLs (http://wiki.apache.org/jakarta-tapestry/FriendlyUrls)
-    - Pure HTML is sooooo much nicer to work with.  The syntax highlighting in Homesite is fully functional again.
-    - ValidationDelegate - ease of use.  @FieldLabel and <label>
-      http://nagoya.apache.org/eyebrowse/BrowseList?listName=tapestry-user@jakarta.apache.org&by=date&from=2004-11-01&to=2004-11-30&first=1&count=674
-    - Allows using periods in column headings (for i18n) - http://nagoya.apache.org/jira/browse/TAPESTRY-234
-    - Adding a new user doesn't allow you to pick from the roles.  The userForm.setFrom("list") doesn't seem to be working in UserList
-    - Reload Options always returns to the Main Menu.  This is mainly to show success messages, but also b/c redirecting to the referrer caused
-      JSF to puke with a "response already committed" and Tapestry to not display messages.
-    - JSF is more XHTML compliant.    
-    - <span key> with Tapestry
-- MyFaces Notes:
-    - For some reason, MyFaces seems to be incapable of catching a checked exception in a managed-bean.
-    - There's no check when editing a user for the current user since it seems a lot harder w/ JSF
-      to hack the URL.
-    - I like how you don't have to create mappings - just link to the .jsp with a .html extension
-    - Messages show up too late. FIXME
-    - Saving user form w/ validation errors results in the username and roles disappearing.
-    - LabelRenderer
-    - Password/Remember Me warning before displaying form (currently after save)
-    - AppGen doesn't mark any fields as required
-- MyFaces/JSF Wishlist:
-    - Commons Validator is merely a configuration step - rather than necessary on each field.
-    - Why do I have to specify the supported locales - why can't it just lookup the available bundles
-      like JSTL with Spring/WebWork/Struts does?
-- JSF TODO:
-    - Page Tests
-    - Canoo WebTests
-    - Struts Menu or JSF Menu?
-- Tapestry TODO:
-    - Page Tests
-    - Canoo Tests
+- Added support for JSF (MyFaces) and Tapestry as web framework options.
+    http://raibledesigns.com/page/rd?anchor=integrating_jsf_and_tapestry_into_appfuse
+- Added support for exporting PDFs from a displaytag-rendered table.
+- Changed URIs for imported XML files in build.xml to use relative paths.
+    https://appfuse.dev.java.net/issues/show_bug.cgi?id=102
+- Fixed package-name bug when generating a new WebWork projects.
+    https://appfuse.dev.java.net/issues/show_bug.cgi?id=101
+- Added "fixcrlf" target for Unix machines to run when they're having issues 
+    installing packages in the "extras" folder.
 - Dependent packages upgraded:
     * DisplayTag 1.0 RC2
     * Hibernate 2.1.7
+    * iBATIS 2.0.8
     * Spring 1.1.3-dev 
         ** Would have done 1.1.2, except the following bug exists:
            http://forum.springframework.org/viewtopic.php?t=2118
+    * WebWork 2.1.6
     
 
 Features/Changes in 1.6.1

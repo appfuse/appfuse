@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: properties.xml,v 1.24 2004/10/25 23:34:46 mraible Exp $             -->
+<!-- $Id: properties.xml,v 1.25 2004/12/08 11:20:57 mraible Exp $             -->
 <!-- ======================================================================= -->
 <!-- This file defines properties for build.xml -->
 
@@ -107,7 +107,7 @@
     <fileset dir="${velocity.dir}" includes="*.jar"/>
 </path>
 
-<!-- iBatis -->
+<!-- Hibernate -->
 <path id="hibernate.classpath">
     <pathelement location="${hibernate.jar}"/> 
     <fileset dir="${hibernate.dir}/lib" includes="*.jar"/>

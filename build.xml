@@ -1,6 +1,6 @@
 <!DOCTYPE project [
-    <!ENTITY properties SYSTEM "file:./properties.xml">
-    <!ENTITY app-settings SYSTEM "file:./app-settings.xml">
+    <!ENTITY properties SYSTEM "properties.xml">
+    <!ENTITY app-settings SYSTEM "app-settings.xml">
 ]>
 
 <project name="appfuse" basedir="." default="package-web">
@@ -1084,7 +1084,7 @@
         <echo message="Deploying web application to ${tomcat.home}/webapps"/>
         <copy todir="${tomcat.home}/webapps/${webapp.name}">
             <fileset dir="${webapp.target}"
-                excludes="**/web-test.xml,**/*database*"/>
+                excludes="**/web-test.xml,**/web.xml,**/*-resources.xml"/>
         </copy>
 
     </target>
@@ -1418,18 +1418,31 @@
     </target>
     
     <!-- =================================================================== -->
-    <!--            FTPs archive files to specified server                   -->
+    <!--            Fix CRLF for Unix Machines                               -->
     <!-- =================================================================== -->
-    <target name="ftp" depends="dist"
-        description="FTPs archive files to specified server">
-        <input message="Enter password to connect to server:" addproperty="ftp.password"/>
-        <ftp server="${ftp.server}" remotedir="${ftp.remoteDir}" userid="${ftp.user}"
-            password="${ftp.password}" depends="yes" verbose="yes">
-            <fileset dir="..">
-                <include name="${archive.name}.zip"/>
-                <include name="${archive.name}.tar.gz"/>
-            </fileset>
-        </ftp>
+    <target name="fixcrlf" depends="init">
+        <condition property="notWindows">
+            <not><os family="windows"/></not>
+        </condition>
+        <if>
+            <isset property="notWindows"/>
+            <then>
+                <echo>Running fixcrlf....</echo>
+                <fixcrlf eol="lf" srcdir="${basedir}" 
+                    includes="**/*.txt,
+                              **/*.properties,
+                              **/*.sql,
+                              **/*.java,
+                              **/*.jsp,
+                              **/*.xdt,
+                              **/*.xml,
+                              **/*.page,
+                              **/*.html"/>
+            </then>
+            <else>
+                <echo>You shouldn't need to run this task on Windows</echo>
+            </else>
+        </if>
     </target>
     
     <!-- =================================================================== -->
@@ -1456,11 +1469,23 @@
         description="Installs WebWork, removes Struts">
         <ant dir="${extras.dir}/webwork" target="install"/>
     </target>
+
+    <target name="install-jsf" depends="clean" 
+        description="Installs JSF, removes Struts">
+        <ant dir="${extras.dir}/jsf" target="install"/>
+    </target>
+
+    <target name="install-tapestry" depends="clean" 
+        description="Installs Tapestry, removes Struts">
+        <ant dir="${extras.dir}/tapestry" target="install"/>
+    </target>
     
     <!--target name="remove-options" 
         description="Removes unneeded files in 'extras' folder">
         <delete dir="${extras.dir}/ibatis"/>
+        <delete dir="${extras.dir}/jsf"/>
         <delete dir="${extras.dir}/spring"/>
+        <delete dir="${extras.dir}/tapestry"/>
         <delete dir="${extras.dir}/webwork"/>
     </target-->
 </project>
