@@ -37,7 +37,7 @@ import org.springframework.web.servlet.view.RedirectView;
  * <p/><a href="UserFormController.java.html"><i>View Source</i></a></p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.6 $ $Date: 2004/05/27 08:57:40 $
+ * @version $Revision: 1.7 $ $Date: 2004/05/29 04:44:46 $
  */
 public class UserFormController extends BaseFormController {
     
@@ -284,7 +284,7 @@ public class UserFormController extends BaseFormController {
         msg.append(": " + user.getUsername() + "\n");
         msg.append(getMessageSourceAccessor().getMessage("user.password") +
                 ": ");
-        msg.append(user.getPassword());
+        msg.append(user.getConfirmPassword());
 
         msg.append("\n\nLogin at: " + RequestUtil.getAppURL(request) +
         		request.getContextPath());

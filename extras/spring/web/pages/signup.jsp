@@ -27,7 +27,7 @@
             <input type="submit" class="button" name="save" 
                 onclick="bCancel=false" value="<fmt:message key="button.register"/>" />
                 
-            <input type="button" class="button" name="cancel" onclick="bCancel=true"
+            <input type="button" class="button" name="cancel"
                 value="<fmt:message key="button.cancel"/>" 
                 onclick="location.href='<c:url value="/"/>'" />
         </td>
