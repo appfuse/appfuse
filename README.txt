@@ -51,14 +51,22 @@ Features/Changes in 1.6
 - Refactored to use SiteMesh instead of Tiles.  Proposal and feedback at: 
     http://raibledesigns.com/page/rd?anchor=should_i_ditch_tiles_in
   Experience documented at: http://raibledesigns.com/page/rd/20040821
+- Removed MainMenuTest, which was a demonstration of how to write tests using
+  HttpUnit.  This test caused more problems than it solved.
+- Refactored BaseDAOTestCase and BaseManagerTestCase to use DBUnit and load
+  sample data for each test, rather than relying on Ant and the "db-load" 
+  target.
 - Dependent packages upgraded:
-    * Spring 1.1 RC1
-    * Hibernate 2.1.6
+    * DbUnit 2.1
     * Display Tag 1.0 RC1
-    * Struts 1.2.1
-    * Struts Test Case 2.1.2
-    * JSTL 1.0.6
+    * Hibernate 2.1.6
     * iBATIS 2.0.5
+    * JSTL 1.0.6
+    * MySQL JDBC Driver 3.0.14
+    * Spring 1.1
+    * Struts 1.2.2
+    * Struts Test Case 2.1.2
+    * WebTest build474
 - Dependent packages added:
     * SiteMesh 2.1 - Seems to be a page-decoration package that will work
       across different MVC frameworks.

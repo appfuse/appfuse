@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: properties.xml,v 1.15 2004/08/19 00:16:58 mraible Exp $             -->
+<!-- $Id: properties.xml,v 1.16 2004/09/01 12:04:41 mraible Exp $             -->
 <!-- ======================================================================= -->
 <!-- This file defines properties for build.xml -->
 
@@ -145,6 +145,7 @@
 </path>
 <path id="service.test.classpath">
     <path refid="service.compile.classpath"/>
+    <pathelement location="${dbunit.jar}"/>
     <pathelement location="${junit.jar}"/>
     <pathelement location="${junitdoclet.jar}"/>
     <pathelement location="${log4j.jar}"/>
