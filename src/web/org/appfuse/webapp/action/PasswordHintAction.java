@@ -26,7 +26,7 @@ import org.appfuse.service.UserManager;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  *
  * @struts.action path="/passwordHint" validate="false"
- * @struts.action-forward name="previousPage" path="/login.jsp"
+ * @struts.action-forward name="previousPage" path="/"
  */
 public final class PasswordHintAction extends BaseAction {
 
@@ -36,15 +36,15 @@ public final class PasswordHintAction extends BaseAction {
     throws Exception {
         MessageResources resources = getResources(request);
         ActionMessages errors = new ActionMessages();
-        String userId = request.getParameter("username");
+        String username = request.getParameter("username");
 
         // ensure that the username has been sent
-        if (userId == null) {
+        if (username == null) {
             log.warn("Username not specified, notifying user that it's a required field.");
 
             errors.add(ActionMessages.GLOBAL_MESSAGE,
                        new ActionMessage("errors.required",
-                                         resources.getMessage("userFormEx.username")));
+                                         resources.getMessage("userForm.username")));
             saveErrors(request, errors);
             return mapping.findForward("previousPage");
         }
@@ -59,7 +59,7 @@ public final class PasswordHintAction extends BaseAction {
         try {
             UserManager userMgr = (UserManager) getBean("userManager");
 
-            User user = userMgr.getUser(userId);
+            User user = userMgr.getUser(username);
 
             StringBuffer msg = new StringBuffer();
             msg.append("Your password hint is: " + user.getPasswordHint());
@@ -71,13 +71,13 @@ public final class PasswordHintAction extends BaseAction {
                                        user.getEmail(), null,
                                        "Password Hint", msg.toString());
             messages.add(ActionMessages.GLOBAL_MESSAGE,
-                         new ActionMessage("login.passwordHint.sent", userId,
+                         new ActionMessage("login.passwordHint.sent", username,
                                            user.getEmail()));
             saveMessages(request, messages);
         } catch (Exception e) {
             // If exception is expected do not rethrow
             errors.add(ActionMessages.GLOBAL_MESSAGE,
-                       new ActionMessage("login.passwordHint.error", userId));
+                       new ActionMessage("login.passwordHint.error", username));
             saveErrors(request, errors);
         }
 
