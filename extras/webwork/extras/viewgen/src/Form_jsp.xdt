@@ -23,12 +23,6 @@
                 value="<fmt:message key="button.cancel"/>" />        
         </td>
     </tr>
-</table>
-</form>
-
-<html:javascript formName="<XDtForm:classNameLower/>" cdata="false"
-    dynamicJavascript="true" staticJavascript="false"/>
-<script type="text/javascript" 
-    src="<c:url value="/scripts/validator.jsp"/>"></script>
+</ww:form>
 
 

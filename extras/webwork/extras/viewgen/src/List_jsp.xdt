@@ -16,6 +16,8 @@
 
 <c:out value="${buttons}" escapeXml="false"/>
 
+<ww:set name="<XDtForm:classNameLower/>List" value="<XDtForm:classNameLower/>s" scope="request"/>
+
 <display:table name="${<XDtForm:classNameLower/>List}" cellspacing="0" cellpadding="0"
 	id="<XDtForm:classNameLower/>List" pagesize="25" styleClass="list" export="true" requestURI="">
   
