@@ -34,8 +34,8 @@
 </html:form>
 
 <html:javascript formName="<XDtClass:classTagValue tagName="struts.form" paramName="name"/>" cdata="false"
-      dynamicJavascript="true" staticJavascript="false"/>
+    dynamicJavascript="true" staticJavascript="false"/>
 <script type="text/javascript" 
-      src="<html:rewrite page="/scripts/validator.jsp"/>"></script>
+    src="<html:rewrite page="/scripts/validator.jsp"/>"></script>
 
 
