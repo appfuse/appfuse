@@ -16,7 +16,7 @@ public class UserManagerTest extends BaseManagerTestCase {
         super.setUp();
         mgr = (UserManager) ctx.getBean("userManager");
     }
-
+    
     public void testGetUser() throws Exception {
         user = mgr.getUser("tomcat");
 
@@ -53,7 +53,7 @@ public class UserManagerTest extends BaseManagerTestCase {
         user = mgr.saveUser(user);
         assertTrue(user.getUsername().equals("john"));
         assertTrue(user.getRoles().size() == 1);
-
+        
         if (log.isDebugEnabled()) {
             log.debug("removing user...");
         }
@@ -89,9 +89,5 @@ public class UserManagerTest extends BaseManagerTestCase {
         assertNull(newCookie);
 
         // Delete all user cookies for tomcat?  Nahhh, what's the point?
-    }
-
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(UserManagerTest.class);
     }
 }
