@@ -32,7 +32,7 @@ import org.springframework.web.context.WebApplicationContext;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.10 $ $Date: 2004/09/29 10:24:38 $
+ * @version $Revision: 1.11 $ $Date: 2005/01/07 04:57:12 $
  *
  * @web.filter display-name="Login Filter" name="loginFilter"
  * @web.filter-init-param name="enabled" value="${rememberMe.enabled}"
@@ -63,7 +63,7 @@ public final class LoginFilter implements Filter {
 
         // Check to see if the user is logging out, if so, remove all
         // login cookies
-        if (request.getRequestURL().indexOf("logout") != -1 &&
+        if (request.getRequestURI().indexOf("logout") != -1 &&
                 request.getRemoteUser() != null) {
             // make sure user's session hasn't timed out
             if (request.getRemoteUser() != null) {
