@@ -41,16 +41,18 @@
     var previousClass = null;
     // simple script for highlighting rows
     var table = document.getElementById("<XDtStruts:simpleNameLower/>List");
-    var tbody = table.getElementsByTagName("tbody")[0];
-    var rows = tbody.getElementsByTagName("tr");
-    for (i=0; i < rows.length; i++) {
-        rows[i].onmouseover = function() { previousClass=this.className;this.className='over' };
-        rows[i].onmouseout = function() { this.className=previousClass };
-        rows[i].onclick = function() {
-            var cell = this.getElementsByTagName("td")[0];
-            var link = cell.getElementsByTagName("a")[0];                            
-            location.href = link.getAttribute("href");
-            this.style.cursor="wait";
+    if (table != null) {
+        var tbody = table.getElementsByTagName("tbody")[0];
+        var rows = tbody.getElementsByTagName("tr");
+        for (i=0; i < rows.length; i++) {
+            rows[i].onmouseover = function() { previousClass=this.className;this.className='over' };
+            rows[i].onmouseout = function() { this.className=previousClass };
+            rows[i].onclick = function() {
+                var cell = this.getElementsByTagName("td")[0];
+                var link = cell.getElementsByTagName("a")[0];                            
+                location.href = link.getAttribute("href");
+                this.style.cursor="wait";
+            }
         }
     }
     
