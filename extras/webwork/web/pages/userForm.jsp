@@ -63,9 +63,9 @@
  	</c:if>
 
     <ww:textfield label="getText('user.firstName')" name="'user.firstName'"
-        value="user.firstName" required="true"/>
+        value="user.firstName" required="true" maxlength="50"/>
     <ww:textfield label="getText('user.lastName')" name="'user.lastName'"
-        value="user.lastName" required="true"/>
+        value="user.lastName" required="true" maxlength="50"/>
     <ww:textfield label="getText('user.address.address')" name="'user.address.address'"
         value="user.address.address" size="50"/>
     <ww:textfield label="getText('user.address.city')" name="'user.address.city'"

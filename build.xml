@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.45 2004/10/04 08:10:53 mraible Exp $                 -->
+<!-- $Id: build.xml,v 1.46 2004/10/05 07:19:59 mraible Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -24,8 +24,6 @@
         <fail unless="junit.present"
             message="Please copy junit.jar into ${env.ANT_HOME}/lib"/>
 
-        <taskdef resource="cargo.tasks" classpath="${cargo.jar}"/>
-        
         <taskdef name="dbunit" classname="org.dbunit.ant.DbUnitTask"
             classpathref="dao.test.classpath"/>
         
@@ -463,7 +461,6 @@
 
     <target name="compile-web" depends="package-service,stage-web,gen-forms"
         description="Compile web module">
-
         <antcall target="compile-module" inheritAll="true">
             <param name="module" value="web"/>
             <param name="additional.src.dirs"
@@ -681,7 +678,7 @@
         </copy>     
         <!-- Use test-specific XML files -->
         <copy todir="${webapp.target}/WEB-INF" overwrite="true">
-        	<fileset dir="test" includes="*.xml"/>
+            <fileset dir="test" includes="*.xml"/>
         </copy>
         <property name="additional.src.dirs" value=""/>
         <junit printsummary="no"
@@ -696,8 +693,9 @@
                 <pathelement path="${java.class.path}"/>
                 <pathelement path="${webapp.target}"/>
                 <pathelement path="${build.dir}/dao/gen"/>   
-                <!-- For properties files -->
+                <!-- For .properties and .xml files -->
                 <pathelement path="${build.dir}/web/classes"/>
+                <pathelement path="src/${module}"/>
             </classpath>
             <formatter type="xml"/>
             <formatter type="brief" usefile="false"/>
@@ -779,17 +777,24 @@
     <!-- =================================================================== -->
     <target name="test-jsp" if="tomcat.home" depends="war"
         description="Runs Canoo WebTests using Cargo">
-            
+         
+        <taskdef resource="cargo.tasks" classpath="${cargo.jar}"/>   
+
         <echo>running canoo tests at:
               http://${tomcat.server}:${http.port}/${webapp.name}</echo>
         <echo>Starting Tomcat...</echo>
+
         <cargo-tomcat5x homeDir="${tomcat.home}"
             output="${test.dir}/cargo.log"
             workingDir="${test.dir}/tomcat5x" action="start">
             <war warFile="${webapp.dist}/${webapp.war}"/>
             <property name="cargo.logging" value="error"/>
         </cargo-tomcat5x>
+
         <antcall target="test-canoo"/>
+
+        <cargo-tomcat5x homeDir="${tomcat.home}"
+            workingDir="${test.dir}/tomcat5x" action="stop"/>
     </target>
 
     <!-- =================================================================== -->

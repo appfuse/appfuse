@@ -18,4 +18,4 @@
 
 <div class="separator"></div>
 
-<c:import url="/WEB-INF/pages/userForm.jsp"/>
+<jsp:include page="/WEB-INF/pages/userForm.jsp"/>

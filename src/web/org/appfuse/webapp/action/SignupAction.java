@@ -12,6 +12,7 @@ import org.apache.struts.util.MessageResources;
 import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.service.MailEngine;
+import org.appfuse.service.RoleManager;
 import org.appfuse.service.UserManager;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.form.UserForm;
@@ -68,7 +69,8 @@ public final class SignupAction extends BaseAction {
                 (String) getConfiguration().get(Constants.ENC_ALGORITHM);
 
         // Set the default user role on this new user
-        user.addRole(Constants.USER_ROLE);
+        RoleManager roleMgr = (RoleManager) getBean("roleManager");
+        user.addRole(roleMgr.getRole(Constants.USER_ROLE));
 
         try {
 
@@ -80,7 +82,7 @@ public final class SignupAction extends BaseAction {
             user.setPassword(StringUtil.encodePassword(user.getPassword(),
                     algorithm));
             UserManager mgr = (UserManager) getBean("userManager");
-            user = mgr.saveUser(user);
+            mgr.saveUser(user);
 
             // Set cookies for auto-magical login ;-)
             String loginCookie = mgr.createLoginCookie(user.getUsername());

@@ -31,6 +31,7 @@ import org.appfuse.model.User;
 import org.appfuse.util.ConvertUtil;
 import org.appfuse.util.CurrencyConverter;
 import org.appfuse.util.DateConverter;
+import org.appfuse.util.TimeStampConverter;
 import org.appfuse.webapp.util.SslUtil;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -65,6 +66,8 @@ public class BaseAction extends LookupDispatchAction {
         ConvertUtils.register(new DateConverter(), Date.class);
         ConvertUtils.register(new DateConverter(), String.class);
         ConvertUtils.register(new LongConverter(defaultLong), Long.class);
+        ConvertUtils.register(new TimeStampConverter(), Date.class);
+        ConvertUtils.register(new TimeStampConverter(), String.class);
     }
 
     /**

@@ -1,7 +1,5 @@
 package org.appfuse.webapp.action;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,12 +14,12 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
-import org.apache.struts.util.LabelValueBean;
 import org.apache.struts.util.MessageResources;
 import org.appfuse.Constants;
+import org.appfuse.model.Role;
 import org.appfuse.model.User;
-import org.appfuse.model.UserRole;
 import org.appfuse.service.MailEngine;
+import org.appfuse.service.RoleManager;
 import org.appfuse.service.UserManager;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.form.UserForm;
@@ -29,7 +27,6 @@ import org.appfuse.webapp.form.UserFormEx;
 import org.appfuse.webapp.util.RequestUtil;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.mail.SimpleMailMessage;
-
 
 /**
  * Implementation of <strong>Action</strong> that interacts with the {@link
@@ -41,6 +38,7 @@ import org.springframework.mail.SimpleMailMessage;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
+ *  Modified by <a href="mailto:dan@getrolling.com">Dan Kibler</a>
  *
  * @struts.action name="userFormEx" path="/editUser" scope="request"
  *  validate="false" parameter="method" input="list" roles="admin"
@@ -53,7 +51,7 @@ import org.springframework.mail.SimpleMailMessage;
  * @struts.action-forward name="edit" path="/WEB-INF/pages/userProfile.jsp"
  */
 public final class UserAction extends BaseAction {
-
+    
     public ActionForward add(ActionMapping mapping, ActionForm form,
                              HttpServletRequest request,
                              HttpServletResponse response)
@@ -62,17 +60,14 @@ public final class UserAction extends BaseAction {
             log.debug("Entering 'add' method");
         }
 
-        // get messages from the session and put them 
-        // in the request
-        getMessages(request);
+        User user = new User();
+        user.addRole(new Role(Constants.USER_ROLE));
+        UserForm userForm = (UserForm) convert(user);
+        UserFormEx ex = new UserFormEx();
+        BeanUtils.copyProperties(ex, userForm);
+        updateFormBean(mapping, request, ex);
 
-        List roles = new ArrayList();
-
-        // create the default user role 
-        roles.add(new LabelValueBean(Constants.USER_ROLE, Constants.USER_ROLE));
-
-        // and stuff it into the request
-        request.setAttribute(Constants.USER_ROLES, roles);
+        checkForCookieLogin(request);
 
         return mapping.findForward("edit");
     }
@@ -89,6 +84,7 @@ public final class UserAction extends BaseAction {
             return mapping.findForward("mainMenu");
         } else {
             String next = mapping.findForward("viewUsers").getPath();
+
             return new ActionForward(next, true);
         }
     }
@@ -162,22 +158,8 @@ public final class UserAction extends BaseAction {
         BeanUtils.copyProperties(ex, convert(user));
         ex.setConfirmPassword(ex.getPassword());
         request.setAttribute(Constants.USER_EDIT_KEY, ex);
-        setupRoles(user, request);
 
-        // if user logged in with a cookie, display a warning that they
-        // can't change passwords
-        if (log.isDebugEnabled()) {
-            log.debug("checking for cookieLogin...");
-        }
-
-        if (session.getAttribute("cookieLogin") != null) {
-            ActionMessages messages = new ActionMessages();
-
-            // add warning messages
-            messages.add(ActionMessages.GLOBAL_MESSAGE,
-                         new ActionMessage("userProfile.cookieLogin"));
-            saveMessages(request, messages);
-        }
+        checkForCookieLogin(request);
 
         // return a forward to edit forward
         return mapping.findForward("edit");
@@ -190,13 +172,12 @@ public final class UserAction extends BaseAction {
         if (log.isDebugEnabled()) {
             log.debug("Entering 'save' method");
         }
-
+        
         // Extract attributes and parameters we will need
         ActionMessages errors = new ActionMessages();
         ActionMessages messages = new ActionMessages();
         HttpSession session = request.getSession();
         UserFormEx userForm = (UserFormEx) form;
-
         String password = userForm.getPassword();
         User user = new User();
 
@@ -217,10 +198,16 @@ public final class UserAction extends BaseAction {
         }
 
         UserManager mgr = (UserManager) getBean("userManager");
+        RoleManager roleMgr = (RoleManager) getBean("roleManager");
+        String[] userRoles = request.getParameterValues("userRoles");
+
+        for (int i = 0; userRoles != null &&  i < userRoles.length; i++) {
+            String roleName = userRoles[i];
+            user.addRole(roleMgr.getRole(roleName));
+        }
 
         try {
-            user = mgr.saveUser(user);
-            setupRoles(user, request);
+            mgr.saveUser(user);
         } catch (DataIntegrityViolationException e) {
             log.warn("User already exists: " + e.getMessage());
             errors.add(ActionMessages.GLOBAL_MESSAGE,
@@ -231,6 +218,10 @@ public final class UserAction extends BaseAction {
 
             return mapping.findForward("edit");
         }
+
+        BeanUtils.copyProperties(userForm, convert(user));
+        userForm.setConfirmPassword(userForm.getPassword());
+        updateFormBean(mapping, request, userForm);
 
         if (!StringUtils.equals(request.getParameter("from"), "list")) {
             session.setAttribute(Constants.USER_KEY, user);
@@ -257,16 +248,18 @@ public final class UserAction extends BaseAction {
             return mapping.findForward("mainMenu");
         } else {
             // add success messages
-            if (StringUtils.isEmpty(userForm.getId())) {
+            if ("".equals(request.getParameter("updated"))) {
                 messages.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("user.added", userForm.getUsername()));
+                             new ActionMessage("user.added",
+                                               userForm.getUsername()));
                 session.setAttribute(Globals.MESSAGE_KEY, messages);
                 sendNewUserEmail(request, userForm);
+
                 return mapping.findForward("addUser");
             } else {
                 messages.add(ActionMessages.GLOBAL_MESSAGE,
                              new ActionMessage("user.updated.byAdmin",
-                        userForm.getUsername()));
+                                               userForm.getUsername()));
                 saveMessages(request, messages);
 
                 return mapping.findForward("edit");
@@ -283,7 +276,7 @@ public final class UserAction extends BaseAction {
         }
 
         UserForm userForm = (UserForm) form;
-        
+
         // Exceptions are caught by ActionExceptionHandler
         UserManager mgr = (UserManager) getBean("userManager");
         User user = (User) convert(userForm);
@@ -293,49 +286,50 @@ public final class UserAction extends BaseAction {
         // return a forward to the user list definition
         return mapping.findForward("list");
     }
-    
-    /**
-     * Convenience method to put a user's roles in request scope.
-     * @param user
-     * @param request
-     */
-    private void setupRoles(User user, HttpServletRequest request) {
-        List roles = new ArrayList();
-        if (user.getRoles() != null) {
-            for (Iterator it = user.getRoles().iterator(); it.hasNext();) {
-                UserRole role = (UserRole) it.next();
-                // convert the user's roles to LabelValueBeans
-                roles.add(new LabelValueBean(role.getRoleName(),
-                          role.getRoleName()));
-            }
-        }
-        request.setAttribute(Constants.USER_ROLES, roles);
-    }
-    
+
     private void sendNewUserEmail(HttpServletRequest request, UserForm userForm)
-        throws Exception {
+    throws Exception {
         MessageResources resources = getResources(request);
+
         // Send user an e-mail
         if (log.isDebugEnabled()) {
-            log.debug("Sending user '" + userForm.getUsername()
-                    + "' an account information e-mail");
+            log.debug("Sending user '" + userForm.getUsername() +
+                      "' an account information e-mail");
         }
 
         SimpleMailMessage message = (SimpleMailMessage) getBean("mailMessage");
         message.setTo(userForm.getFullName() + "<" + userForm.getEmail() + ">");
-        
+
         StringBuffer msg = new StringBuffer();
-        msg.append(resources.getMessage("newuser.email.message", userForm.getFullName()));
+        msg.append(resources.getMessage("newuser.email.message",
+                                        userForm.getFullName()));
         msg.append("\n\n" + resources.getMessage("userFormEx.username"));
         msg.append(": " + userForm.getUsername() + "\n");
         msg.append(resources.getMessage("userFormEx.password") + ": ");
         msg.append(userForm.getPassword());
         msg.append("\n\nLogin at: " + RequestUtil.getAppURL(request));
         message.setText(msg.toString());
-        
+
         message.setSubject(resources.getMessage("signup.email.subject"));
-        
+
         MailEngine engine = (MailEngine) getBean("mailEngine");
         engine.send(message);
+    }
+
+    private void checkForCookieLogin(HttpServletRequest request) {
+        // if user logged in with a cookie, display a warning that they
+        // can't change passwords
+        if (log.isDebugEnabled()) {
+            log.debug("checking for cookieLogin...");
+        }
+
+        if (request.getSession().getAttribute("cookieLogin") != null) {
+            ActionMessages messages = new ActionMessages();
+
+            // add warning messages
+            messages.add(ActionMessages.GLOBAL_MESSAGE,
+                         new ActionMessage("userProfile.cookieLogin"));
+            saveMessages(request, messages);
+        }
     }
 }

@@ -1,19 +1,13 @@
 package org.appfuse.dao.hibernate;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-
-import net.sf.hibernate.Hibernate;
-import net.sf.hibernate.HibernateException;
-import net.sf.hibernate.Session;
 
 import org.appfuse.dao.UserDAO;
 import org.appfuse.model.User;
 import org.appfuse.model.UserCookie;
-import org.appfuse.model.UserRole;
 import org.springframework.orm.ObjectRetrievalFailureException;
-import org.springframework.orm.hibernate.HibernateCallback;
+
+
 
 
 /**
@@ -25,23 +19,17 @@ import org.springframework.orm.hibernate.HibernateCallback;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- */
+  *  Modified by <a href="mailto:dan@getrolling.com">Dan Kibler </a> 
+*/
 public class UserDAOHibernate extends BaseDAOHibernate implements UserDAO {
 
     /**
      * @see org.appfuse.dao.UserDAO#getUser(java.lang.String)
      */
+
     public User getUser(String username) {
-        User user = null;
-
-        List users =
-            getHibernateTemplate().find("from User u where u.username=?",
-                                        username);
-
-        if ((users != null) && (users.size() > 0)) {
-            user = (User) users.get(0);
-        }
-
+        User user = (User) getHibernateTemplate().get(User.class, username);
+        
         if (user == null) {
             log.warn("uh oh, user '" + username + "' not found...");
             throw new ObjectRetrievalFailureException(User.class, username);
@@ -49,6 +37,7 @@ public class UserDAOHibernate extends BaseDAOHibernate implements UserDAO {
 
         return user;
     }
+
 
     /**
      * @see org.appfuse.dao.UserDAO#getUsers(org.appfuse.model.User)
@@ -58,67 +47,13 @@ public class UserDAOHibernate extends BaseDAOHibernate implements UserDAO {
     }
 
     /**
-     * Convenience method to delete roles
-     * @param user
-     */
-    private void deleteUserRoles(final User user) {
-        getHibernateTemplate().execute(new HibernateCallback() {
-                String deleteRolesQuery = "from UserRole r where r.username=?";
-
-                public Object doInHibernate(Session ses)
-                throws HibernateException {
-                    ses.delete(deleteRolesQuery, user.getUsername(),
-                               Hibernate.STRING);
-                    return null;
-                }
-            });
-    }
-
-    /**
      * @see org.appfuse.dao.UserDAO#saveUser(org.appfuse.model.User)
      */
-    public User saveUser(final User user) {
+    public void saveUser(final User user) {
         if (log.isDebugEnabled()) {
-            log.debug("user's id: " + user.getId());
+            log.debug("user's id: " + user.getUsername());
         }
-
-        String countUserQuery =
-            "select count(*) from User u where u.username=?";
-
-        int count =
-            ((Integer) getHibernateTemplate()
-                           .find(countUserQuery, user.getUsername()).iterator()
-                           .next()).intValue();
-
-        if (count == 0) {
-            user.setId(null);
-            getHibernateTemplate().save(user);
-        } else {
-            // existing user, delete and re-add their roles
-            getHibernateTemplate().saveOrUpdate(user);
-            deleteUserRoles(user);
-        }
-        
-        if (user.getRoles() != null) {
-            // prevent duplicates
-            List preventDups = new ArrayList();
-            for (Iterator it = user.getRoles().iterator(); it.hasNext();) {
-                UserRole userRole = (UserRole) it.next();
-                // make sure the role hasn't already been added
-                if (!preventDups.contains(userRole.getRoleName())) {
-                    userRole.setUserId(user.getId());
-                    userRole.setUsername(user.getUsername());
-                    getHibernateTemplate().save(userRole);
-                    preventDups.add(userRole.getRoleName());
-                } 
-            }
-        }
-
-        // Have to call getUser here b/c the user might still have duplicate
-        // roles.  The preventDups logic can't remove items b/c it'll throw
-        // a java.util.ConcurrentModificationException.  Cleaner solutions
-        // welcome. ;-)
-        return getUser(user.getUsername());
+        getHibernateTemplate().saveOrUpdate(user);
     }
 
     /**
@@ -127,7 +62,6 @@ public class UserDAOHibernate extends BaseDAOHibernate implements UserDAO {
     public void removeUser(String username) {
         removeUserCookies(username);
         User user = getUser(username);
-        user.getRoles().clear();
         getHibernateTemplate().delete(user);
     }
 

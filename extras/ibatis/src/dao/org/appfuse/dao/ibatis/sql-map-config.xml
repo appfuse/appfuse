@@ -8,6 +8,7 @@
 
 	<!-- Identify all SQL Map XML files to be loaded by this SQL map. Relative to classpath -->
 	<sqlMap resource="org/appfuse/dao/ibatis/sql/LookupSQL.xml" />
+    <sqlMap resource="org/appfuse/dao/ibatis/sql/RoleSQL.xml" />
 	<sqlMap resource="org/appfuse/dao/ibatis/sql/UserSQL.xml" />
 
 </sqlMapConfig>

@@ -14,6 +14,7 @@ import org.appfuse.model.User;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
+ *  Modified by <a href="mailto:dan@getrolling.com">Dan Kibler </a> 
  */
 public interface UserManager {
     //~ Methods ================================================================
@@ -39,10 +40,9 @@ public interface UserManager {
      * Saves a user's information
      *
      * @param user the user's information
-     * @return updated user information
      * @throws ServiceException
      */
-    public User saveUser(User user);
+    public void saveUser(User user);
 
     /**
      * Removes a user from the database by their username

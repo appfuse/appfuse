@@ -49,8 +49,8 @@ public class UserManagerImpl extends BaseManager implements UserManager {
     /**
      * @see org.appfuse.service.UserManager#saveUser(org.appfuse.model.User)
      */
-    public User saveUser(User user) {
-        return dao.saveUser(user);
+    public void saveUser(User user) {
+        dao.saveUser(user);
     }
 
     /**

@@ -76,6 +76,9 @@ Features/Changes in 1.6
 - Added translations for French and Spanish.
 - Added PasswordHintTest for those controllers and actions that implement this
   feature.
+- Added SimpleMappingExceptionResolver for Spring version to catch 
+  DataAccessExceptions and forward the user to dataAccessFailure.jsp.  Added
+  this same functionality to the WebWork version.
 - Added message to the Reload Action so users will see a message when reloading
   options.  Message is currently hard-coded to English in Actions/Controllers.
 - Removed proprietary State and Country Tags.  Implemented custom CountryTag

@@ -124,7 +124,7 @@ public class UserFormController extends BaseFormController {
                 // return to main Menu
                 return new ModelAndView(new RedirectView("mainMenu.html"));
             } else {
-                if (StringUtils.isEmpty(request.getParameter("id"))) {
+                if (StringUtils.isBlank(request.getParameter("id"))) {
                     saveMessage(request,
                                 getText("user.added", user.getFullName()));
 
@@ -193,7 +193,7 @@ public class UserFormController extends BaseFormController {
 
         if (request.getRequestURL().indexOf("editProfile") > -1) {
             user = mgr.getUser(getUser(request).getUsername());
-        } else if (!StringUtils.isEmpty(username) &&
+        } else if (!StringUtils.isBlank(username) &&
                        !"".equals(request.getParameter("id"))) {
             user = mgr.getUser(username);
         } else {

@@ -1,32 +1,34 @@
 package org.appfuse.model;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+
 /**
  * User class
- *
- * This class is used to generate the Struts Validator Form
- * as well as the Hibernate mapping file.
- *
+ * 
+ * This class is used to generate the Struts Validator Form as well as the
+ * Hibernate mapping file.
+ * 
  * <p>
- * <a href="User.java.html"><i>View Source</i></a>
+ * <a href="User.java.html"> <i>View Source </i> </a>
  * </p>
- *
+ * 
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- *
+ *         Updated by Dan Kibler (dan@getrolling.com)
+ * 
  * @struts.form include-all="true" extends="BaseForm"
  * @hibernate.class table="app_user"
  */
 public class User extends BaseObject {
-    
-    protected Long id;
+    //~ Instance fields
+    // ========================================================
+
     protected String username;
     protected String password;
     protected String confirmPassword;
@@ -37,26 +39,17 @@ public class User extends BaseObject {
     protected String email;
     protected String website;
     protected String passwordHint;
-    protected List roles = new ArrayList();
-
-    /**
-     * Returns the id.
-     * @return String
-     *
-     * @hibernate.id column="id"
-     *  generator-class="increment" unsaved-value="null"
-     */
-    public Long getId() {
-        return id;
-    }
+    protected Date updated;
+    protected Set roles = new HashSet();
 
     /**
      * Returns the username.
+     * 
      * @return String
-     *
+     * 
      * @struts.validator type="required"
-     * @hibernate.property
-     * @hibernate.column name="username" not-null="true" unique="true"
+     * @hibernate.id column="username" length="20" generator-class="assigned"
+     *               unsaved-value="timestamp"
      */
     public String getUsername() {
         return username;
@@ -65,7 +58,7 @@ public class User extends BaseObject {
     /**
      * Returns the password.
      * @return String
-     *
+     * 
      * @struts.validator type="required"
      * @struts.validator type="twofields" msgkey="errors.twofields"
      * @struts.validator-args arg1resource="userFormEx.password"
@@ -80,7 +73,7 @@ public class User extends BaseObject {
     /**
      * Returns the confirmedPassword.
      * @return String
-     *
+     * 
      * @struts.validator type="required"
      */
     public String getConfirmPassword() {
@@ -90,9 +83,9 @@ public class User extends BaseObject {
     /**
      * Returns the firstName.
      * @return String
-     *
+     * 
      * @struts.validator type="required"
-     * @hibernate.property column="first_name" not-null="true"
+     * @hibernate.property column="first_name" not-null="true" length="50"
      */
     public String getFirstName() {
         return firstName;
@@ -101,9 +94,9 @@ public class User extends BaseObject {
     /**
      * Returns the lastName.
      * @return String
-     *
+     * 
      * @struts.validator type="required"
-     * @hibernate.property column="last_name" not-null="true"
+     * @hibernate.property column="last_name" not-null="true" length="50"
      */
     public String getLastName() {
         return lastName;
@@ -114,12 +107,12 @@ public class User extends BaseObject {
     }
 
     /**
-     * Returns the address.  The struts.validator tag is needed on
-     * this method in order for child validation rules to be picked up
-     * when generating validation.xml.
-     *
+     * Returns the address. The struts.validator tag is needed on this method in
+     * order for child validation rules to be picked up when generating
+     * validation.xml.
+     * 
      * @return Address
-     *
+     * 
      * @hibernate.component
      */
     public Address getAddress() {
@@ -129,8 +122,9 @@ public class User extends BaseObject {
     /**
      * Returns the email.  This is an optional field for specifying a
      * different e-mail than the username.
+     * 
      * @return String
-     *
+     * 
      * @struts.validator type="required"
      * @struts.validator type="email"
      * @hibernate.property column="email" not-null="false" unique="true"
@@ -141,8 +135,9 @@ public class User extends BaseObject {
 
     /**
      * Returns the phoneNumber.
+     * 
      * @return String
-     *
+     * 
      * @struts.validator type="mask" msgkey="errors.phone"
      * @struts.validator-var name="mask" value="${phone}"
      * @hibernate.property column="phone_number" not-null="false"
@@ -153,8 +148,9 @@ public class User extends BaseObject {
 
     /**
      * Returns the website.
+     * 
      * @return String
-     *
+     * 
      * @struts.validator type="required"
      * @hibernate.property column="website" not-null="false"
      */
@@ -164,8 +160,9 @@ public class User extends BaseObject {
 
     /**
      * Returns the passwordHint.
+     * 
      * @return String
-     *
+     * 
      * @struts.validator type="required"
      * @hibernate.property column="password_hint" not-null="false"
      */
@@ -175,49 +172,26 @@ public class User extends BaseObject {
 
     /**
      * Returns the user's roles.
-     * @return List
-     *
-     * @hibernate.bag name="roles" inverse="true" lazy="false" cascade="delete"
-     * @hibernate.collection-key column="user_id"
-     * @hibernate.collection-one-to-many class="org.appfuse.model.UserRole"
+     * 
+     * @return Set
+     * 
+     * @hibernate.set table="user_role" cascade="save-update" lazy="false"
+     * @hibernate.collection-key column="username"
+     * @hibernate.collection-many-to-many class="org.appfuse.model.Role"
+     *                                    column="role_name"
      */
-    public List getRoles() {
+    public Set getRoles() {
         return roles;
     }
 
     /**
      * Adds a role for the user
+     * 
      * @param rolename
      */
-    public void addRole(String rolename) {
-        boolean exists = false;
-        if (roles == null) {
-            roles = new ArrayList();
-        } else {
-            // loop through and make sure the rolename doesn't already exist
-            for (Iterator it = roles.iterator(); it.hasNext();) {
-                UserRole r = (UserRole) it.next();
-                if (rolename.equals(r.getRoleName())) {
-                    exists = true;
-                    break;
-                }
-            }
-        }
-        if (!exists) {
-            UserRole role = new UserRole();
-            role.setRoleName(rolename);
-            role.setUserId(this.id);
-            role.setUsername(this.username);
-            roles.add(role);
-        }
-    }
 
-    /**
-     * Sets the id.
-     * @param id The id to set
-     */
-    public void setId(Long id) {
-        this.id = id;
+    public void addRole(Role role) {
+        getRoles().add(role);
     }
 
     /**
@@ -246,6 +220,7 @@ public class User extends BaseObject {
 
     /**
      * Sets the firstName.
+     * 
      * @param firstName The firstName to set
      */
     public void setFirstName(String firstName) {
@@ -301,10 +276,27 @@ public class User extends BaseObject {
 
     /**
      * Sets the roles.
+     * 
      * @param roles The roles to set
      */
-    public void setRoles(List roles) {
+    public void setRoles(Set roles) {
         this.roles = roles;
+    }
+
+    /**
+     * @return Returns the updated timestamp.
+     * @hibernate.timestamp
+     */
+    public Date getUpdated() {
+        return updated;
+    }
+
+    /**
+     * @param updated
+     *            The updated timestamp to set.
+     */
+    public void setUpdated(Date updated) {
+        this.updated = updated;
     }
 
     /**
@@ -317,47 +309,36 @@ public class User extends BaseObject {
 
         User rhs = (User) object;
 
-        return new EqualsBuilder().append(this.password, rhs.password)
-                                  .append(this.passwordHint, rhs.passwordHint)
-                                  .append(this.address, rhs.address)
-                                  .append(this.confirmPassword,
-                                          rhs.confirmPassword)
-                                  .append(this.username, rhs.username)
-                                  .append(this.email, rhs.email)
-                                  .append(this.phoneNumber, rhs.phoneNumber)
-                                  .append(this.roles, rhs.roles)
-                                  .append(this.website, rhs.website)
-                                  .append(this.firstName, rhs.firstName)
-                                  .append(this.id, rhs.id)
-                                  .append(this.lastName, rhs.lastName).isEquals();
+        return new EqualsBuilder().append(this.password, rhs.password).append(
+                this.passwordHint, rhs.passwordHint).append(this.address,
+                rhs.address).append(this.confirmPassword, rhs.confirmPassword)
+                .append(this.username, rhs.username).append(this.email,
+                        rhs.email).append(this.phoneNumber, rhs.phoneNumber)
+                .append(this.roles, rhs.roles)
+                .append(this.website, rhs.website).append(this.firstName,
+                        rhs.firstName).append(this.lastName, rhs.lastName)
+                .isEquals();
     }
 
     /**
      * Generated using Commonclipse (http://commonclipse.sf.net)
      */
     public int hashCode() {
-        return new HashCodeBuilder(-2022315247, 1437659757).append(this.password)
-                                                           .append(this.passwordHint)
-                                                           .append(this.address)
-                                                           .append(this.confirmPassword)
-                                                           .append(this.username)
-                                                           .append(this.email)
-                                                           .append(this.phoneNumber)
-                                                           .append(this.roles)
-                                                           .append(this.website)
-                                                           .append(this.firstName)
-                                                           .append(this.id)
-                                                           .append(this.lastName)
-                                                           .toHashCode();
+        return new HashCodeBuilder(-2022315247, 1437659757).append(
+                this.password).append(this.passwordHint).append(this.address)
+                .append(this.confirmPassword).append(this.username).append(
+                        this.email).append(this.phoneNumber).append(this.roles)
+                .append(this.website).append(this.firstName).append(
+                        this.lastName).toHashCode();
     }
-    
+
     /**
      * Generated using Commonclipse (http://commonclipse.sf.net)
      */
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
-                .append("id", this.id).append("roles", this.roles).append(
-                        "firstName", this.firstName).append("lastName",
+                .append("roles", this.roles)
+                .append("firstName", this.firstName).append("lastName",
                         this.lastName)
                 .append("passwordHint", this.passwordHint).append("username",
                         this.username).append("fullName", this.getFullName())
@@ -365,6 +346,7 @@ public class User extends BaseObject {
                         this.phoneNumber).append("password", this.password)
                 .append("address", this.address).append("confirmPassword",
                         this.confirmPassword).append("website", this.website)
-                .toString();
+                .append("updated", this.getUpdated()).toString();
     }
+
 }

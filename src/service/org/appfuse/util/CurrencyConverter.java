@@ -42,7 +42,7 @@ public class CurrencyConverter implements Converter {
                 }
 
                 try {
-                    if (StringUtils.isEmpty(String.valueOf(value))) {
+                    if (StringUtils.isBlank(String.valueOf(value))) {
                         return null;
                     }
 

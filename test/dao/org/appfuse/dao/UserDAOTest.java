@@ -2,21 +2,22 @@ package org.appfuse.dao;
 
 import org.appfuse.Constants;
 import org.appfuse.model.Address;
+import org.appfuse.model.Role;
 import org.appfuse.model.User;
 import org.appfuse.model.UserCookie;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 
-/**
- * This class tests the current UserDAO implementation class
- * @author mraible
- */
 public class UserDAOTest extends BaseDAOTestCase {
-    private User user = null;
     private UserDAO dao = null;
+    private User user = null;
+    private RoleDAO rdao = null;
+    private Role role = null;
 
     protected void setUp() throws Exception {
         super.setUp();
         dao = (UserDAO) ctx.getBean("userDAO");
+        rdao = (RoleDAO) ctx.getBean("roleDAO");
     }
 
     protected void tearDown() throws Exception {
@@ -29,65 +30,63 @@ public class UserDAOTest extends BaseDAOTestCase {
             user = dao.getUser("badusername");
             fail("'badusername' found in database, failing test...");
         } catch (DataAccessException d) {
-            if (log.isDebugEnabled()) {
-                log.debug(d);
-            }
-
-            assertNotNull(d);
+            assertTrue(d != null);
         }
     }
 
     public void testGetUser() throws Exception {
         user = dao.getUser("tomcat");
 
-        assertTrue(user != null);
-        assertTrue(user.getRoles().size() == 1);
+        assertNotNull(user);
+        assertEquals(1, user.getRoles().size());
     }
 
-    public void testSaveUser() throws Exception {
+    public void testUpdateUser() throws Exception {
         user = dao.getUser("tomcat");
 
         Address address = user.getAddress();
         address.setAddress("new address");
-        user.setAddress(address);
 
         dao.saveUser(user);
+
         assertEquals(user.getAddress(), address);
+        assertEquals("new address", user.getAddress().getAddress());
         
         // verify that violation occurs when adding new user
         // with same username
-        /*
-        user.setId(null);
+        user.setUpdated(null);
+        
         try {
-        	dao.saveUser(user);
+            dao.saveUser(user);
             fail("saveUser didn't throw DataIntegrityViolationException");
         } catch (DataIntegrityViolationException e) {
-        	assertNotNull(e);
+            assertNotNull(e);
             log.debug("expected exception: " + e.getMessage());
-        }*/
+        }
+
     }
 
     public void testAddUserRole() throws Exception {
         user = dao.getUser("tomcat");
 
-        assertTrue(user.getRoles().size() == 1);
+        assertEquals(1, user.getRoles().size());
 
-        user.addRole(Constants.ADMIN_ROLE);
-        user = dao.saveUser(user);
+        role = rdao.getRole(Constants.ADMIN_ROLE);
+        user.addRole(role);
+        dao.saveUser(user);
 
-        assertTrue(user.getRoles().size() == 2);
+        assertEquals(2, user.getRoles().size());
 
-        // add the same role twice - should result in no additional role
-        user.addRole(Constants.ADMIN_ROLE);
-        user = dao.saveUser(user);
+        //add the same role twice - should result in no additional role
+        user.addRole(role);
+        dao.saveUser(user);
 
-        assertTrue("more than 2 roles [" + user.getRoles().size() + "]",
-                   user.getRoles().size() == 2);
+        assertEquals("more than 2 roles", 2, user.getRoles().size());
 
-        user.getRoles().remove(1);
-        user = dao.saveUser(user);
+        user.getRoles().remove(role);
+        dao.saveUser(user);
 
-        assertTrue(user.getRoles().size() == 1);
+        assertEquals(1, user.getRoles().size());
     }
 
     public void testAddAndRemoveUser() throws Exception {
@@ -104,22 +103,19 @@ public class UserDAOTest extends BaseDAOTestCase {
         user.setAddress(address);
         user.setEmail("testuser@appfuse.org");
         user.setWebsite("http://raibledesigns.com");
-        user.addRole(Constants.USER_ROLE);
+        user.addRole(rdao.getRole(Constants.USER_ROLE));
 
-        user = dao.saveUser(user);
-        assertTrue(user.getUsername() != null);
-        assertTrue(user.getPassword().equals("testpass"));
+        dao.saveUser(user);
+
+        assertNotNull(user.getUsername());
+        assertEquals("testpass", user.getPassword());
 
         dao.removeUser("testuser");
 
         try {
             user = dao.getUser("testuser");
-            fail("Expected 'ObjectRetrievalFailureException' not thrown");
+            fail("saveUser didn't throw DataAccessException");
         } catch (DataAccessException d) {
-            if (log.isDebugEnabled()) {
-                log.debug(d);
-            }
-
             assertNotNull(d);
         }
     }
@@ -136,6 +132,7 @@ public class UserDAOTest extends BaseDAOTestCase {
         dao.removeUserCookies(cookie.getUsername());
 
         cookie = dao.getUserCookie(cookie);
+
         assertNull(cookie);
     }
 }

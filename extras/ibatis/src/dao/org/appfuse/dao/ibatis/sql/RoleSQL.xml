@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+    PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+    "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="RoleSQL">
+    
+    <typeAlias alias="role" type="org.appfuse.model.Role"/>
+
+    <select id="getRole" resultClass="role">
+    <![CDATA[
+        select * from role where name=#name#;
+    ]]>
+    </select>
+
+    <insert id="addRole" parameterClass="role">
+    <![CDATA[
+        insert into role (name, description, updated) 
+        values (#name#, #description#, #updated#);
+    ]]>
+    </insert>
+    
+    <update id="updateRole" parameterClass="role">
+    <![CDATA[
+        update role set description=#description#, updated=#updated#
+        where name=#name#;
+    ]]>
+    </update>
+    
+    <delete id="deleteRole">
+    <![CDATA[
+        delete from role where name=#name#;
+    ]]>
+    </delete>
+</sqlMap>

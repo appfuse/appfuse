@@ -41,7 +41,7 @@ public class ReloadAction extends BaseAction {
         
         if (referer != null) {
             log.info("reload complete, reloading user back to: " + referer);     
-            saveMessage("Reloading options completed successfully.");
+            saveMessage(getText("reload.succeeded"));
             response.sendRedirect(response.encodeRedirectURL(referer));
             return SUCCESS;
         } else {

@@ -7,10 +7,8 @@
 
     <typeAlias alias="user" type="org.appfuse.model.User"/>
     <typeAlias alias="userCookie" type="org.appfuse.model.UserCookie"/>
-    <typeAlias alias="userRole" type="org.appfuse.model.UserRole"/>
     
     <resultMap id="userResult" class="user">
-        <result property="id" column="id"/>
         <result property="username" column="username"/>
         <result property="password" column="password"/>
         <result property="firstName" column="first_name"/>
@@ -24,45 +22,32 @@
         <result property="phoneNumber" column="phone_number"/>
         <result property="website" column="website"/>
         <result property="passwordHint" column="password_hint"/>
+        <result property="updated" column="updated"/>
     </resultMap>
-
+    
 	<insert id="addUser" parameterClass="user">
     <![CDATA[
-        INSERT INTO 
-        app_user (id, username, password, first_name, last_name, address, 
+        insert into 
+        app_user (username, password, first_name, last_name, address, 
                   city, province, country, postal_code, email, phone_number, 
-                  website, password_hint)
-        VALUES (#id#, #username#, #password#, #firstName#, #lastName#, 
+                  website, password_hint, updated)
+        values (#username#, #password#, #firstName#, #lastName#, 
                 #address.address#, #address.city#, #address.province#,
                 #address.country#, #address.postalCode#, #email#, #phoneNumber#,
-                #website#, #passwordHint#);
+                #website#, #passwordHint#, #updated#);
     ]]>
     </insert>
     
-	<select id="getUserId" resultClass="java.lang.Long">
+	<insert id="addUserRole" parameterClass="map">
     <![CDATA[
-        SELECT max(id) from app_user;
-    ]]>
-    </select>
-    
-	<insert id="addUserRole">
-    <![CDATA[
-        INSERT INTO 
-            user_role (id, user_id, username, role_name)
-        VALUES (#id#, #userId#, #username#, #roleName#);
+        insert into user_role (username, role_name)
+        values (#username#, #roleName#);
     ]]>
     </insert>
-    
-	<select id="getRoleId" resultClass="java.lang.Long">
-    <![CDATA[
-        SELECT max(id) from user_role;
-    ]]>
-    </select>
     
 	<update id="updateUser" parameterClass="user">
     <![CDATA[
-        UPDATE app_user SET
-            username = #username#,
+        update app_user SET
             password = #password#,
             first_name = #firstName#,
             last_name = #lastName#,
@@ -74,76 +59,78 @@
             email = #email#,
             phone_number = #phoneNumber#,
             website = #website#,
-            password_hint = #passwordHint#
-        WHERE id = #id#;
+            password_hint = #passwordHint#,
+            updated = #updated#
+        where username = #username#;
     ]]>
     </update>
     
-	<select id="getUser" resultMap="userResult" resultClass="user">
+	<select id="getUser" resultMap="userResult">
     <![CDATA[
-        SELECT * FROM app_user WHERE username=#username#;
+        select * from app_user where username=#username#;
     ]]>
     </select>
     
-	<select id="getUsers" resultMap="userResult" resultClass="user">
+	<select id="getUsers" resultMap="userResult">
     <![CDATA[
-        SELECT * FROM app_user ORDER BY UPPER(username);
+        select * from app_user ORDER BY UPPER(username);
     ]]>
     </select>
     
-	<select id="getUserRoles" resultClass="userRole">
+	<select id="getUserRoles" resultClass="role">
     <![CDATA[
-        SELECT id, role_name as roleName, user_id as userId, username
-        FROM user_role WHERE username=#username#;
+        select user_role.role_name as name, role.description, role.updated
+        from user_role left join role on role.name = user_role.role_name
+        where user_role.username=#username#;
     ]]>
     </select>
     
-	<delete id="deleteUser">
+	<delete id="deleteUser" parameterClass="user">
     <![CDATA[
-        DELETE FROM app_user where username = #username#;
+        delete from app_user where username = #username#;
     ]]>
     </delete>
     
-	<delete id="deleteUserRoles">
+    <delete id="deleteUserRoles" parameterClass="user">
     <![CDATA[
-        DELETE FROM user_role WHERE username = #username#;
+        delete from user_role where username = #username#;
     ]]>
     </delete>
     
 	<select id="getUserCookies" parameterClass="userCookie" resultClass="userCookie">
     <![CDATA[
-        SELECT id, username, cookie_id as cookieId, date_created as dateCreated
-        FROM user_cookie where username = #username# and cookie_id = #cookieId#;
+        select id, username, cookie_id as cookieId, date_created as dateCreated
+        from user_cookie where username = #username# and cookie_id = #cookieId#;
     ]]>
     </select>
     
-	<delete id="deleteUserCookies">
+	<delete id="deleteUserCookies" parameterClass="userCookie">
     <![CDATA[
-        DELETE FROM user_cookie where username = #username#;
+        delete from user_cookie where username = #username#;
     ]]>
     </delete>
     
 	<insert id="addUserCookie" parameterClass="userCookie">
     <![CDATA[
-        INSERT INTO 
+        insert into 
             user_cookie (id, username, cookie_id, date_created)
-        VALUES (#id#, #username#, #cookieId#, #dateCreated#);
+        values (#id#, #username#, #cookieId#, #dateCreated#);
     ]]>
-  </insert>
+    </insert>
     
-	<select id="getUserCookieId" resultClass="java.lang.Long">
+	<select id="getUserCookieId" resultClass="long">
     <![CDATA[
-        SELECT max(id) FROM user_cookie;
+        select max(id) from user_cookie;
     ]]>
-  </select>
+    </select>
     
 	<update id="updateUserCookie" parameterClass="userCookie">
     <![CDATA[
-        UPDATE user_cookie SET
+        update user_cookie SET
             username = #username#,
             cookie_id = #cookieId#,
             date_created = #dateCreated#
-        WHERE id = #id#;
+        where id = #id#;
     ]]>
-  </update>
+    </update>
 </sqlMap>

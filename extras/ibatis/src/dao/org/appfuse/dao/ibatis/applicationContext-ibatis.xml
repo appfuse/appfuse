@@ -28,6 +28,12 @@
         <property name="sqlMapClient"><ref local="sqlMapClient"/></property>  
     </bean> 
 
+    <!-- RoleDAO: Hibernate implementation -->
+    <bean id="roleDAO" class="org.appfuse.dao.ibatis.RoleDAOiBatis">
+        <property name="dataSource"><ref bean="dataSource"/></property>
+        <property name="sqlMapClient"><ref local="sqlMapClient"/></property>  
+    </bean>
+    
     <!-- Add new DAOs here -->
 
 </beans>

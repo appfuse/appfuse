@@ -40,6 +40,14 @@
         </property>
     </bean>
         
+    <bean id="roleManager" parent="txProxyTemplate">
+        <property name="target">
+            <bean class="org.appfuse.service.impl.RoleManagerImpl">
+                <property name="roleDAO"><ref bean="roleDAO"/></property>
+            </bean>
+        </property>
+    </bean>
+     
     <bean id="mailEngine" class="org.appfuse.service.MailEngine">
         <property name="mailSender"><ref bean="mailSender"/></property>
         <property name="velocityEngine"><ref bean="velocityEngine"/></property>

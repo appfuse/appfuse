@@ -30,7 +30,6 @@ public class NestedFormTest extends TestCase {
     public void testCopyPOJOToFormAndBack() throws Exception {
         // pojo -> form
         user = new User();
-        user.setId(new Long(1));
         user.setUsername("testuser");
         Address address = new Address();
         address.setCity("Denver");

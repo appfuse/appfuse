@@ -19,13 +19,17 @@ import org.apache.commons.logging.LogFactory;
  * </p>
  * 
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
+ *  Modified by <a href="mailto:dan@getrolling.com">Dan Kibler </a> 
+ *   to correct time pattern. Minutes should be mm not MM
+ * 	(MM is month). 
+ * @version $Revision: 1.5 $ $Date: 2004/10/05 07:20:13 $
  */
 public class DateUtil {
     //~ Static fields/initializers =============================================
 
     private static Log log = LogFactory.getLog(DateUtil.class);
     private static String datePattern = "MM/dd/yyyy";
-    private static String timePattern = datePattern + " HH:MM a";
+    private static String timePattern = "HH:mm";
 
     //~ Methods ================================================================
 

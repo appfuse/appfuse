@@ -3,10 +3,7 @@ package org.appfuse.dao.ibatis;
 import java.util.List;
 
 import org.appfuse.dao.LookupDAO;
-
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
-import org.springframework.orm.ibatis.support.SqlMapDaoSupport;
-
 
 /**
  * iBatis implementation of LookupDAO.

@@ -18,8 +18,11 @@ public class <XDtClass:classOf><XDtActionForm:actionFormClass/></XDtClass:classO
     <XDtType:ifIsOfType value="return-type" type="java.lang.Boolean,boolean" extent="concrete-type">
     protected boolean <XDtMethod:propertyName/>;
     </XDtType:ifIsOfType>  
-    <XDtType:ifIsOfType value="return-type" type="java.util.List,java.util.Set" extent="concrete-type">
+    <XDtType:ifIsOfType value="return-type" type="java.util.List" extent="concrete-type">
     protected transient java.util.List <XDtMethod:propertyName/> = new java.util.ArrayList();
+    </XDtType:ifIsOfType>
+    <XDtType:ifIsOfType value="return-type" type="java.util.Set" extent="concrete-type">
+    protected transient java.util.Set <XDtMethod:propertyName/> = new java.util.HashSet();
     </XDtType:ifIsOfType>
     <XDtType:ifIsOfType value="return-type" type="org.appfuse.model.BaseObject">
     <XDtVelocity:generator>
@@ -42,8 +45,11 @@ public class <XDtClass:classOf><XDtActionForm:actionFormClass/></XDtClass:classO
     <XDtType:ifIsOfType value="return-type" type="java.lang.Boolean,boolean" extent="concrete-type">
     public boolean <XDtMethod:getterMethod/>()<XDtMethod:exceptionList/>
     </XDtType:ifIsOfType>
-    <XDtType:ifIsOfType value="return-type" type="java.util.List,java.util.Set" extent="concrete-type">
+    <XDtType:ifIsOfType value="return-type" type="java.util.List" extent="concrete-type">
     public java.util.List <XDtMethod:getterMethod/>()<XDtMethod:exceptionList/>
+    </XDtType:ifIsOfType>
+    <XDtType:ifIsOfType value="return-type" type="java.util.Set" extent="concrete-type">
+    public java.util.Set <XDtMethod:getterMethod/>()<XDtMethod:exceptionList/>
     </XDtType:ifIsOfType>
     <XDtType:ifIsOfType value="return-type" type="org.appfuse.model.BaseObject">
     public <XDtVelocity:getVariable name="pojoName"/>Form <XDtMethod:getterMethod/>Form()<XDtMethod:exceptionList/>
@@ -74,8 +80,11 @@ public class <XDtClass:classOf><XDtActionForm:actionFormClass/></XDtClass:classO
     <XDtType:ifIsOfType value="return-type" type="java.lang.Boolean,boolean" extent="concrete-type">
     public void <XDtMethod:setterMethod/>( boolean <XDtMethod:propertyName/> )
     </XDtType:ifIsOfType>
-    <XDtType:ifIsOfType value="return-type" type="java.util.List,java.util.Set" extent="concrete-type">
+    <XDtType:ifIsOfType value="return-type" type="java.util.List" extent="concrete-type">
     public void <XDtMethod:setterMethod/>( java.util.List <XDtMethod:propertyName/> )
+    </XDtType:ifIsOfType>
+    <XDtType:ifIsOfType value="return-type" type="java.util.Set" extent="concrete-type">
+    public void <XDtMethod:setterMethod/>( java.util.Set <XDtMethod:propertyName/> )
     </XDtType:ifIsOfType>
     <XDtType:ifIsOfType value="return-type" type="org.appfuse.model.BaseObject">
     public void <XDtMethod:setterMethod/>Form( <XDtVelocity:getVariable name="pojoName"/>Form <XDtMethod:propertyName/> )
@@ -107,6 +116,7 @@ public class <XDtClass:classOf><XDtActionForm:actionFormClass/></XDtClass:classO
     
 </XDtActionForm:forAllFormFields>
     
+<XDtClass:ifHasClassTag tagName="struts.form" paramName="indexedProperties" value="true">
 <XDtActionForm:forAllFormFields>
     <XDtType:ifIsOfType value="return-type" type="java.util.List,java.util.Set" extent="concrete-type">
     public void <XDtMethod:setterMethod/>(int index, Object o) {
@@ -114,7 +124,8 @@ public class <XDtClass:classOf><XDtActionForm:actionFormClass/></XDtClass:classO
     }
     </XDtType:ifIsOfType>
 </XDtActionForm:forAllFormFields>
-    
+</XDtClass:ifHasClassTag>
+
     /**
      * @see org.apache.struts.action.ActionForm#reset(org.apache.struts.action.ActionMapping,
      *                                                javax.servlet.http.HttpServletRequest)

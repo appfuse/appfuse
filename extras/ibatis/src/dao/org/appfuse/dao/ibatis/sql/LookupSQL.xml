@@ -5,10 +5,10 @@
 
 <sqlMap namespace="LookupSQL">
 
-  <select id="getRoles" resultClass="org.appfuse.model.Role">
-    <![CDATA[
-      SELECT name, description FROM role;
-    ]]>
-  </select>
+    <select id="getRoles" resultClass="org.appfuse.model.Role">
+      <![CDATA[
+        select name, description from role;
+      ]]>
+    </select>
 
 </sqlMap>

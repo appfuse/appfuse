@@ -279,6 +279,11 @@ table.detail td.buttonBar {
     padding-top: 10px;
 }
 
+table.detail td.updateStatus {
+    font-size: 11px;
+    color: #c0c0c0;
+}
+
 fieldset.pickList {
     margin-top: 5px;
     padding: 5px;

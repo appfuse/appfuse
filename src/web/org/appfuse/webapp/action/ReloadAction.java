@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
 import org.appfuse.webapp.listener.StartupListener;
 
 
@@ -39,7 +41,12 @@ public final class ReloadAction extends BaseAction {
 
         if (referer != null) {
             log.debug("reload complete, reloading user back to: " + referer); 
-            // TODO: Add message
+            
+            ActionMessages messages = new ActionMessages();
+            messages.add(ActionMessages.GLOBAL_MESSAGE,
+                         new ActionMessage("reload.succeeded"));
+            saveMessages(request.getSession(), messages);
+            
             response.sendRedirect(response.encodeRedirectURL(referer));
             return null;
         } else {

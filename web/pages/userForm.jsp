@@ -1,22 +1,19 @@
 <%@ include file="/common/taglibs.jsp"%>
 
-<head>
-    <title><fmt:message key="userProfile.title"/></title>
-    <script type="text/javascript" src="<c:url value='/scripts/selectbox.js'/>"></script> 
-    <content tag="heading"><fmt:message key="userProfile.heading"/></content>
-</head>
+<title><fmt:message key="userProfile.title"/></title>
+<content tag="heading"><fmt:message key="userProfile.heading"/></content>
 
 <html:form action="saveUser" focus="password" styleId="userFormEx" 
-    onsubmit="return onFormSubmit(this)">
-<html:hidden property="id"/>
-<input type="hidden" name="from" value="<c:out value="${param.from}"/>" />
+    onsubmit="return validateUserFormEx(this)">
 
+<input type="hidden" name="from" value="<c:out value="${param.from}"/>" />
+<html:hidden property="updated"/>
 <c:if test="${cookieLogin == 'true'}">
     <html:hidden property="password"/>
     <html:hidden property="confirmPassword"/>
 </c:if>
 
-<c:if test="${empty userFormEx.id}">
+<c:if test="${empty userFormEx.username}">
     <input type="hidden" name="encryptPass" value="true" />
 </c:if>
 
@@ -31,8 +28,8 @@
             
             <c:if test="${param.from == 'list'}">
             <html:submit styleClass="button" property="method"
-                onclick="bCancel=false;return confirmDelete('user')" tabindex="14">
-                <bean:message key="button.delete"/>
+                onclick="bCancel=false;return confirmDelete('User')" tabindex="14">
+                <fmt:message key="button.delete"/>
             </html:submit>
             </c:if>
         
@@ -48,7 +45,7 @@
         </th>
         <td>
         <c:choose>
-            <c:when test="${empty userFormEx.id}">
+            <c:when test="${empty userFormEx.username}">
                 <html:text property="username" styleId="username" />
                 <html:errors property="username"/>
             </c:when>
@@ -88,7 +85,7 @@
             <appfuse:label key="userFormEx.firstName"/>
         </th>
         <td>
-            <html:text property="firstName" styleId="firstName"/>
+            <html:text property="firstName" styleId="firstName" maxlength="50"/>
             <html:errors property="firstName"/>
         </td>
     </tr>
@@ -97,7 +94,7 @@
             <appfuse:label key="userFormEx.lastName"/>
         </th>
         <td>
-            <html:text property="lastName" styleId="lastName"/>
+            <html:text property="lastName" styleId="lastName" maxlength="50"/>
             <html:errors property="lastName"/>
         </td>
     </tr>
@@ -197,7 +194,7 @@
         </td>
     </tr>
 <c:choose>
-    <c:when test="${param.from == 'list' or param.action == 'Add'}">
+    <c:when test="${param.from == 'list' or param.method == 'Add'}">
     <tr>
         <td></td>
         <td>
@@ -205,50 +202,56 @@
                 <legend>
                     <fmt:message key="userProfile.assignRoles"/>
                 </legend>
-            <table class="pickList">
-                <tr>
-                    <th class="pickLabel">
-                        <appfuse:label key="userFormEx.availableRoles" 
-                            colon="false" styleClass="required"/>
-                    </th>
-                    <td>
-                    </td>
-                    <th class="pickLabel">
-                        <appfuse:label key="userFormEx.roles"
-                            colon="false" styleClass="required"/>
-                    </th>
-                </tr>
-                <c:set var="leftList" value="${availableRoles}" scope="request"/>
-                <c:set var="rightList" value="${userRoles}" scope="request"/>
-                <c:import url="/WEB-INF/pages/pickList.jsp">
-                    <c:param name="listCount" value="1"/>
-                    <c:param name="leftId" value="availableRoles"/>
-                    <c:param name="rightId" value="userRoles"/>
-                </c:import>
-            </table>
+                <table class="pickList">
+                    <tr>
+                        <td>
+                        <c:forEach var="role" items="${availableRoles}">
+                            <html-el:multibox property="userRoles" styleId="${role.label}"> 
+                                <c:out value="${role.value}"/>
+                            </html-el:multibox> 
+                            <label for="<c:out value="${role.label}"/>">
+                                <c:out value="${role.label}"/>
+                            </label>
+                        </c:forEach>
+                        </td>
+                    </tr>
+                </table>
             </fieldset>
         </td>
     </tr>
     </c:when>
-    <c:when test="${not empty userFormEx.id}">
+    <c:when test="${not empty userFormEx.username}">
     <tr>
         <th>
             <appfuse:label key="userFormEx.roles"/>
         </th>
         <td>
         <c:forEach var="role" items="${userFormEx.roles}" varStatus="status">
-            <c:out value="${role.roleName}"/><c:if test="${!status.last}">,</c:if>
+            <c:out value="${role.name}"/><c:if test="${!status.last}">,</c:if>
             <input type="hidden" name="userRoles" 
-                value="<c:out value="${role.roleName}"/>" />
+                value="<c:out value="${role.name}"/>" />
         </c:forEach>
         </td>
     </tr>
     </c:when>
 </c:choose>
 
-<%-- Print out buttons - defined at top of form --%>
-<c:out value="${pageButtons}" escapeXml="false" />
-
+    <c:if test="${not empty userFormEx.username}">
+    <tr>
+        <td></td>
+        <td class="updateStatus">
+            <appfuse:label key="userFormEx.updated"/>
+            <c:out value="${userFormEx.updated}"/>
+            <html:hidden property="updated" 
+                styleId="updated"/>
+        </td>
+    </tr>
+    </c:if>
+    
+    <%-- Print out buttons - defined at top of form --%>
+    <%-- This is so you can put them at the top and the bottom if you like --%>
+    <c:out value="${pageButtons}" escapeXml="false" />
+        
 </table>
 </html:form>
 
@@ -258,16 +261,6 @@ highlightFormElements();
 <%-- if we're doing an add, change the focus --%>
 <c:if test="${param.action == 'Add'}">document.forms[0].username.focus();</c:if>
 
-// This function is a workaround for the Validator not working 
-// with LookupDispatchAction.
-function cancel() {
-    location.href = '<html:rewrite forward="cancelUser"/>&from=<c:out value="${param.from}"/>';
-}
-
-function deleteUser() {
-    location.href = '<html:rewrite forward="deleteUser"/>&username=<c:out value="${userFormEx.username}"/>';
-}
-
 function passwordChanged(passwordField) {
     var origPassword = "<c:out value="${userFormEx.password}"/>";
     if (passwordField.value != origPassword) {
@@ -275,14 +268,6 @@ function passwordChanged(passwordField) {
                           "encryptPass", "encryptPass", 
                           "true", passwordField.form);
     }
-}
-
-<!-- This is here so we can exclude the selectAll call when roles is hidden -->
-function onFormSubmit(theForm) {
-<c:if test="${param.from == 'list'}">
-    selectAll('userRoles');
-</c:if>
-    return validateUserFormEx(theForm);
 }
 // -->
 </script>
