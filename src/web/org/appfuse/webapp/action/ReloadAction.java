@@ -1,7 +1,6 @@
 package org.appfuse.webapp.action;
 
 import java.io.PrintWriter;
-import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,7 +23,7 @@ import org.appfuse.webapp.listener.StartupListener;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.3 $ $Date: 2004/04/29 23:01:35 $
+ * @version $Revision: 1.4 $ $Date: 2004/04/30 02:42:29 $
  *
  * @struts.action path="/reload" validate="false" roles="admin"
  */
