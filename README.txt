@@ -75,6 +75,9 @@ Features/Changes in 1.6.1
 - Patched XDoclet so that running "ant setup test-all" will work again.
   http://opensource.atlassian.com/projects/xdoclet/browse/XDT-879 
 - Dependent packages upgraded:
+    * Ant Contrib 1.1b1
+    * Canoo WebTest build 543
+    * Cargo 0.3 (now supports Tomcat 5.5.x)
     * XDoclet 1.2.2
 - Dependent packages added:
     * jMock 1.0.1 - a library for testing Java code using mock objects.
