@@ -40,7 +40,7 @@
                 onclick="bCancel=false" value="<fmt:message key="button.save"/>" />
             
             <input type="submit" class="button" name="delete"
-                onclick="bCancel=true;confirmDelete('<XDtClass:className/>')" 
+                onclick="bCancel=true;return confirmDelete('<XDtClass:className/>')" 
                 value="<fmt:message key="button.delete"/>" />
                 
             <input type="submit" class="button" name="cancel" onclick="bCancel=true"

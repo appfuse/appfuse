@@ -25,7 +25,7 @@
             </html:submit>
             
             <html:submit styleClass="button" property="action" 
-                onclick="return confirmDelete('<XDtStruts:simpleName/>')">
+                onclick="bCancel=true; return confirmDelete('<XDtStruts:simpleName/>')">
 	            <fmt:message key="button.delete"/>
             </html:submit>
         
