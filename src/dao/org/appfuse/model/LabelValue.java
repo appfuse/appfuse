@@ -13,7 +13,6 @@ import java.util.Comparator;
  * Note: this class has a natural ordering that is inconsistent with equals.
  * </p>
  *
- * @version $Revision: 1.3 $ $Date: 2004/05/16 02:16:43 $
  * @see org.apache.struts.util.LabelValueBean
  */
 public class LabelValue implements Comparable, Serializable {

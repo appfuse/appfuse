@@ -1,5 +1,7 @@
 package org.appfuse.model;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * Role class used to determine roles for a user
@@ -9,15 +11,12 @@ package org.appfuse.model;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.3 $ $Date: 2004/05/16 02:16:45 $
  *
  * @struts.form include-all="true" extends="BaseForm"
  * @hibernate.class table="user_role"
  *
  */
 public class UserRole extends BaseObject {
-    //~ Instance fields ========================================================
-
     // XDoclet's Hibernate module does not generate composite keys 
     // yet, so we have to add an id to this table - it's never used.
     private Long id;
@@ -32,16 +31,12 @@ public class UserRole extends BaseObject {
     private String username;
     private String roleName;
 
-    //~ Constructors ===========================================================
-
     public UserRole() {
     }
 
     public UserRole(String roleName) {
         this.roleName = roleName;
     }
-
-    //~ Methods ================================================================
 
     /**
      * @return a users Id
@@ -82,7 +77,7 @@ public class UserRole extends BaseObject {
      * @return String
      *
      * @struts.validator type="required"
-     * @struts.validator type="email" 
+     * @struts.validator type="email"
      * @hibernate.property column="username" not-null="true"
      */
     public String getUsername() {
@@ -114,5 +109,32 @@ public class UserRole extends BaseObject {
      */
     public void setRoleName(String rolename) {
         this.roleName = rolename;
+    }
+
+    /**
+     * Generated using Commonclipse (http://commonclipse.sf.net)
+     */
+    public boolean equals(Object object) {
+        if (!(object instanceof UserRole)) {
+            return false;
+        }
+
+        UserRole rhs = (UserRole) object;
+
+        return new EqualsBuilder().append(this.roleName, rhs.roleName)
+                                  .append(this.userId, rhs.userId)
+                                  .append(this.username, rhs.username)
+                                  .append(this.id, rhs.id).isEquals();
+    }
+
+    /**
+     * Generated using Commonclipse (http://commonclipse.sf.net)
+     */
+    public int hashCode() {
+        return new HashCodeBuilder(77184073, -512683995).append(this.roleName)
+                                                        .append(this.userId)
+                                                        .append(this.username)
+                                                        .append(this.id)
+                                                        .toHashCode();
     }
 }

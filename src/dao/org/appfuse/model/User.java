@@ -1,8 +1,11 @@
 package org.appfuse.model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * User class
@@ -15,32 +18,24 @@ import java.util.List;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.7 $ $Date: 2004/09/21 06:00:58 $
  *
  * @struts.form include-all="true" extends="BaseForm"
  * @hibernate.class table="app_user"
  */
 public class User extends BaseObject {
-    //~ Instance fields ========================================================
-
+    
     protected Long id;
     protected String username;
     protected String password;
     protected String confirmPassword;
     protected String firstName;
     protected String lastName;
-    protected String address;
-    protected String city;
-    protected String province;
-    protected String country;
-    protected String postalCode;
+    protected Address address = new Address();
     protected String phoneNumber;
     protected String email;
     protected String website;
     protected String passwordHint;
     protected List roles = new ArrayList();
-
-    //~ Methods ================================================================
 
     /**
      * Returns the id.
@@ -59,8 +54,7 @@ public class User extends BaseObject {
      *
      * @struts.validator type="required"
      * @hibernate.property
-     * @hibernate.column name="username" not-null="true"
-     *  unique="true" index="app_user_username"
+     * @hibernate.column name="username" not-null="true" unique="true"
      */
     public String getUsername() {
         return username;
@@ -81,22 +75,22 @@ public class User extends BaseObject {
         return password;
     }
 
-	/**
-	 * Returns the confirmedPassword.
-	 * @return String
-	 *
-	 * @struts.validator type="required"
-	 */
-	public String getConfirmPassword() {
-		return confirmPassword;
-	}
-	
+    /**
+     * Returns the confirmedPassword.
+     * @return String
+     *
+     * @struts.validator type="required"
+     */
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
     /**
      * Returns the firstName.
      * @return String
      *
      * @struts.validator type="required"
-     * @hibernate.property column="firstName" not-null="true"
+     * @hibernate.property column="first_name" not-null="true"
      */
     public String getFirstName() {
         return firstName;
@@ -107,42 +101,27 @@ public class User extends BaseObject {
      * @return String
      *
      * @struts.validator type="required"
-     * @hibernate.property column="lastName" not-null="true"
+     * @hibernate.property column="last_name" not-null="true"
      */
     public String getLastName() {
         return lastName;
     }
 
+    public String getFullName() {
+        return firstName + ' ' + lastName;
+    }
+
     /**
-     * Returns the address.
-     * @return String
+     * Returns the address.  The struts.validator tag is needed on
+     * this method in order for child validation rules to be picked up
+     * when generating validation.xml.
      *
-     * @hibernate.property column="address" not-null="false"
+     * @return Address
+     *
+     * @hibernate.component
      */
-    public String getAddress() {
+    public Address getAddress() {
         return address;
-    }
-
-    /**
-     * Returns the city.
-     * @return String
-     *
-     * @struts.validator type="required"
-     * @hibernate.property column="city" not-null="true"
-     */
-    public String getCity() {
-        return city;
-    }
-
-    /**
-     * Returns the country.
-     * @return String
-     *
-     * @struts.validator type="required"
-     * @hibernate.property column="country" length="100"
-     */
-    public String getCountry() {
-        return country;
     }
 
     /**
@@ -164,34 +143,10 @@ public class User extends BaseObject {
      *
      * @struts.validator type="mask" msgkey="errors.phone"
      * @struts.validator-var name="mask" value="${phone}"
-     * @hibernate.property column="phoneNumber" not-null="false"
+     * @hibernate.property column="phone_number" not-null="false"
      */
     public String getPhoneNumber() {
         return phoneNumber;
-    }
-
-    /**
-     * Returns the postalCode.
-     * @return String
-     *
-     * @struts.validator type="required"
-     * @struts.validator type="mask" msgkey="errors.zip"
-     * @struts.validator-var name="mask" value="${zip}"
-     * @hibernate.property column="postalCode" not-null="true"
-     */
-    public String getPostalCode() {
-        return postalCode;
-    }
-
-    /**
-     * Returns the province.
-     * @return String
-     *
-     * @struts.validator type="required"
-     * @hibernate.property column="province" length="100"
-     */
-    public String getProvince() {
-        return province;
     }
 
     /**
@@ -205,17 +160,17 @@ public class User extends BaseObject {
         return website;
     }
 
-	/**
+    /**
      * Returns the passwordHint.
      * @return String
      *
      * @struts.validator type="required"
-     * @hibernate.property column="passwordHint" not-null="false"
+     * @hibernate.property column="password_hint" not-null="false"
      */
-	public String getPasswordHint() {
-		return passwordHint;
-	}
-	
+    public String getPasswordHint() {
+        return passwordHint;
+    }
+
     /**
      * Returns the user's roles.
      * @return List
@@ -233,14 +188,26 @@ public class User extends BaseObject {
      * @param rolename
      */
     public void addRole(String rolename) {
-        UserRole role = new UserRole();
-        role.setRoleName(rolename);
-        role.setUserId(this.id);
-        role.setUsername(this.username);
+        boolean exists = false;
         if (roles == null) {
             roles = new ArrayList();
+        } else {
+            // loop through and make sure the rolename doesn't already exist
+            for (Iterator it = roles.iterator(); it.hasNext();) {
+            	UserRole r = (UserRole) it.next();
+                if (StringUtils.equals(r.getRoleName(), rolename)) {
+                	exists = true;
+                    break;
+                }
+            }
         }
-        roles.add(role);
+        if (!exists) {
+            UserRole role = new UserRole();
+            role.setRoleName(rolename);
+            role.setUserId(this.id);
+            role.setUsername(this.username);
+            roles.add(role);
+        }
     }
 
     /**
@@ -249,6 +216,14 @@ public class User extends BaseObject {
      */
     public void setId(Long id) {
         this.id = id;
+    }
+
+    /**
+     * Sets the username.
+     * @param username The username to set
+     */
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     /**
@@ -265,38 +240,6 @@ public class User extends BaseObject {
      */
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
-    }
-	
-    /**
-     * Sets the address.
-     * @param address The address to set
-     */
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    /**
-     * Sets the city.
-     * @param city The city to set
-     */
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    /**
-     * Sets the country.
-     * @param country The country to set
-     */
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    /**
-     * Sets the email.
-     * @param email The email to set
-     */
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     /**
@@ -316,35 +259,27 @@ public class User extends BaseObject {
     }
 
     /**
+     * Sets the address.
+     * @param address The address to set
+     */
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    /**
+     * Sets the email.
+     * @param email The email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    /**
      * Sets the phoneNumber.
      * @param phoneNumber The phoneNumber to set
      */
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    /**
-     * Sets the postalCode.
-     * @param postalCode The postalCode to set
-     */
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
-    }
-
-    /**
-     * Sets the province.
-     * @param province The province to set
-     */
-    public void setProvince(String province) {
-        this.province = province;
-    }
-
-    /**
-     * Sets the username.
-     * @param username The username to set
-     */
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     /**
@@ -354,7 +289,7 @@ public class User extends BaseObject {
     public void setWebsite(String website) {
         this.website = website;
     }
-    
+
     /**
      * @param passwordHint The password hint to set
      */
@@ -370,4 +305,47 @@ public class User extends BaseObject {
         this.roles = roles;
     }
 
+    /**
+     * Generated using Commonclipse (http://commonclipse.sf.net)
+     */
+    public boolean equals(Object object) {
+        if (!(object instanceof User)) {
+            return false;
+        }
+
+        User rhs = (User) object;
+
+        return new EqualsBuilder().append(this.password, rhs.password)
+                                  .append(this.passwordHint, rhs.passwordHint)
+                                  .append(this.address, rhs.address)
+                                  .append(this.confirmPassword,
+                                          rhs.confirmPassword)
+                                  .append(this.username, rhs.username)
+                                  .append(this.email, rhs.email)
+                                  .append(this.phoneNumber, rhs.phoneNumber)
+                                  .append(this.roles, rhs.roles)
+                                  .append(this.website, rhs.website)
+                                  .append(this.firstName, rhs.firstName)
+                                  .append(this.id, rhs.id)
+                                  .append(this.lastName, rhs.lastName).isEquals();
+    }
+
+    /**
+     * Generated using Commonclipse (http://commonclipse.sf.net)
+     */
+    public int hashCode() {
+        return new HashCodeBuilder(-2022315247, 1437659757).append(this.password)
+                                                           .append(this.passwordHint)
+                                                           .append(this.address)
+                                                           .append(this.confirmPassword)
+                                                           .append(this.username)
+                                                           .append(this.email)
+                                                           .append(this.phoneNumber)
+                                                           .append(this.roles)
+                                                           .append(this.website)
+                                                           .append(this.firstName)
+                                                           .append(this.id)
+                                                           .append(this.lastName)
+                                                           .toHashCode();
+    }
 }

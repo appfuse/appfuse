@@ -3,15 +3,16 @@ package org.appfuse.model;
 import java.io.Serializable;
 
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 /**
  * This class is used to represent available roles in the database.</p>
  *
  * <p><a href="Role.java.html"><i>View Source</i></a></p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.3 $ $Date: 2004/05/16 02:16:44 $
  *
- * @struts.form include-all="true" extends="BaseForm"
+ * @struts.form extends="BaseForm"
  * @hibernate.class table="role"
  */
 public class Role extends BaseObject implements Serializable {
@@ -51,5 +52,25 @@ public class Role extends BaseObject implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * Generated using Commonclipse (http://commonclipse.sf.net)
+     */
+    public boolean equals(Object object) {
+        if (!(object instanceof Role)) {
+            return false;
+        }
+        Role rhs = (Role) object;
+        return new EqualsBuilder().append(this.description, rhs.description)
+                .append(this.name, rhs.name).isEquals();
+    }
+
+    /**
+     * Generated using Commonclipse (http://commonclipse.sf.net)
+     */
+    public int hashCode() {
+        return new HashCodeBuilder(1156335803, 987569255).append(
+                this.description).append(this.name).toHashCode();
     }
 }

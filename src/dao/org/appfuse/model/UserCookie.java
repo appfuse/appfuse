@@ -2,6 +2,8 @@ package org.appfuse.model;
 
 import java.util.Date;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * This class is used to manage cookie-based authentication.
@@ -11,25 +13,20 @@ import java.util.Date;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.4 $ $Date: 2004/09/10 04:38:57 $
  *
  * @hibernate.class table="user_cookie"
  *
  */
 public class UserCookie extends BaseObject {
-    //~ Instance fields ========================================================
-
     private Long id;
     private String username;
     private String cookieId;
     private Date dateCreated;
 
-    //~ Methods ================================================================
-
-    public UserCookie(){
-    	this.dateCreated = new Date();
+    public UserCookie() {
+        this.dateCreated = new Date();
     }
-    
+
     /**
      * Returns the id.
      * @return String
@@ -89,20 +86,46 @@ public class UserCookie extends BaseObject {
     public void setCookieId(String rolename) {
         this.cookieId = rolename;
     }
-    
-	/**
-	 * @return Returns the dateCreated.
-     * @hibernate.property column="date_created" not-null="true"
-	 */
-	public Date getDateCreated() {
-		return dateCreated;
-	}
 
-	/**
-	 * @param dateCreated The dateCreated to set.
-	 */
-	public void setDateCreated(Date dateCreated) {
-		this.dateCreated = dateCreated;
-	}
+    /**
+     * @return Returns the dateCreated.
+    * @hibernate.property column="date_created" not-null="true"
+     */
+    public Date getDateCreated() {
+        return dateCreated;
+    }
 
+    /**
+     * @param dateCreated The dateCreated to set.
+     */
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    /**
+     * Generated using Commonclipse (http://commonclipse.sf.net)
+     */
+    public boolean equals(Object object) {
+        if (!(object instanceof UserCookie)) {
+            return false;
+        }
+
+        UserCookie rhs = (UserCookie) object;
+
+        return new EqualsBuilder().append(this.username, rhs.username)
+                                  .append(this.dateCreated, rhs.dateCreated)
+                                  .append(this.id, rhs.id)
+                                  .append(this.cookieId, rhs.cookieId).isEquals();
+    }
+
+    /**
+     * Generated using Commonclipse (http://commonclipse.sf.net)
+     */
+    public int hashCode() {
+        return new HashCodeBuilder(1954972321, -113979947).append(this.username)
+                                                          .append(this.dateCreated)
+                                                          .append(this.id)
+                                                          .append(this.cookieId)
+                                                          .toHashCode();
+    }
 }
