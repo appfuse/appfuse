@@ -77,7 +77,7 @@ public class LabelTag extends TagSupport {
             Form form = resources.getForm(locale, formName);
 
             if (form != null) {
-                Field field = (Field) form.getField(fieldName);
+                Field field = form.getField(fieldName);
 
                 if (field != null) {
                     if (field.isDependency("required")) {
@@ -232,13 +232,23 @@ public class LabelTag extends TagSupport {
      *
      * @return ValidatorResources from a ValidatorFactory.
      */
-    private ValidatorResources getValidatorResources() {
-        ListableBeanFactory lbf = WebApplicationContextUtils
-            .getRequiredWebApplicationContext(pageContext.getServletContext());
-        ValidatorFactory factory = (ValidatorFactory) BeanFactoryUtils
-                .beanOfTypeIncludingAncestors(lbf, ValidatorFactory.class, true, true);
+	private ValidatorResources getValidatorResources() {
+        // look in servlet beans definition (i.e. action-servlet.xml)
+        WebApplicationContext ctx = (WebApplicationContext) pageContext.getRequest()
+            .getAttribute(DispatcherServlet.WEB_APPLICATION_CONTEXT_ATTRIBUTE);
+        ValidatorFactory factory = null;
+        try {
+            factory = (ValidatorFactory) BeanFactoryUtils
+                    .beanOfTypeIncludingAncestors(ctx, ValidatorFactory.class, true, true);
+        } catch (NoSuchBeanDefinitionException e) {
+            // look in main application context (i.e. applicationContext.xml)
+            ctx = WebApplicationContextUtils
+                    .getRequiredWebApplicationContext(pageContext.getServletContext());
+            factory = (ValidatorFactory) BeanFactoryUtils
+                    .beanOfTypeIncludingAncestors(ctx, ValidatorFactory.class, true, true);
+        }
         return factory.getValidatorResources();
-    }
+	}
     
 
     /**
