@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: web-tests.xml,v 1.22 2004/12/07 16:55:55 mraible Exp $               -->
+<!-- $Id: web-tests.xml,v 1.23 2005/03/18 23:03:51 mraible Exp $               -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:../../properties.xml">
@@ -19,7 +19,7 @@
     <!-- runs user-related tests -->
     <target name="UserTests" 
         depends="EditUser,SearchUser,SaveUser,AddUser,ActiveUsers"
-        description="Call and executes all person test cases (targets)">
+        description="Call and executes all user test cases (targets)">
         <echo>Successfully ran all User JSP tests!</echo>
     </target>
     
