@@ -16,9 +16,9 @@
 
 <c:out value="${buttons}" escapeXml="false" />
 
-<display:table name="userList" cellspacing="0" cellpadding="0"
+<display:table name="${userList}" cellspacing="0" cellpadding="0"
     requestURI="${request.contextPath}" defaultsort="1"
-    scope="request" pagesize="25" styleClass="list userList" export="true">
+    pagesize="25" styleClass="list userList" export="true">
   
     <%-- Table columns --%>
     <display:column property="username" sort="true" 
