@@ -55,10 +55,6 @@ public class FileUploadController extends BaseFormController {
             getServletContext().getRealPath("/resources") + "/" +
             request.getRemoteUser() + "/";
 
-        String link =
-            request.getContextPath() + "/resources" + "/" +
-            request.getRemoteUser() + "/";
-
         // Create the directory if it doesn't exist
         File dirPath = new File(uploadDir);
 
@@ -89,6 +85,11 @@ public class FileUploadController extends BaseFormController {
         request.setAttribute("size", file.getSize() + " bytes");
         request.setAttribute("location", dirPath.getAbsolutePath()
                 + Constants.FILE_SEP + file.getOriginalFilename());
+        
+        String link =
+            request.getContextPath() + "/resources" + "/" +
+            request.getRemoteUser() + "/";
+        
         request.setAttribute("link", link + file.getOriginalFilename());
 
         return new ModelAndView(getSuccessView());

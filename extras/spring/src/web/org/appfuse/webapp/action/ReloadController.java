@@ -21,7 +21,6 @@ import org.springframework.web.servlet.mvc.Controller;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.4 $ $Date: 2004/08/19 00:09:55 $
  */
 public class ReloadController implements Controller {
     private transient final Log log = LogFactory.getLog(UserController.class);
@@ -38,7 +37,8 @@ public class ReloadController implements Controller {
         String referer = request.getHeader("Referer");
 
         if (referer != null) {
-            log.debug("reload complete, reloading user back to: " + referer);
+            log.info("reload complete, reloading user back to: " + referer);
+            saveMessage("Reloading options completed successfully.");
             response.sendRedirect(response.encodeRedirectURL(referer));
             return null;
         } else {

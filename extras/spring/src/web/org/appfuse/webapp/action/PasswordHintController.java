@@ -29,7 +29,6 @@ import org.springframework.web.servlet.view.RedirectView;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.6 $ $Date: 2004/08/22 05:12:40 $
  */
 public class PasswordHintController implements Controller {
     private transient final Log log = LogFactory.getLog(PasswordHintController.class);

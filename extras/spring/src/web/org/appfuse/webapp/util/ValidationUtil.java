@@ -17,7 +17,6 @@ import org.springframework.validation.commons.Resources;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.3 $ $Date: 2004/05/16 02:15:06 $
  */
 public class ValidationUtil {
     //~ Methods ================================================================
