@@ -1,0 +1,54 @@
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><%@ include file="/common/taglibs.jsp"%>
+
+<spring:bind path="<XDtForm:classNameLower/>.*">
+    <c:if test="${not empty status.errorMessages}">
+    <div class="error">	
+        <c:forEach var="error" items="${status.errorMessages}">
+            <img src="<c:url value="/images/iconWarning.gif"/>"
+                alt="<fmt:message key="icon.warning"/>" class="icon" />
+            <c:out value="${error}" escapeXml="false"/><br />
+        </c:forEach>
+    </div>
+    </c:if>
+</spring:bind>
+
+<form method="post" action="<c:url value="/edit<XDtClass:className/>.html"/>" id="<XDtForm:classNameLower/>"
+    onsubmit="return validate<XDtClass:className/>(this)" focus="">
+<table class="detail">
+    <XDtForm:forAllFields>
+    <tr>
+        <th>
+            <appfuse:label key="<XDtForm:classNameLower/>.<XDtForm:fieldName/>"/>
+        </th>
+        <td>
+        	<spring:bind path="<XDtForm:classNameLower/>.<XDtForm:fieldName/>">
+            	<input type="text" id="<XDtForm:fieldName/>" name="<XDtForm:fieldName/>" 
+                	value="<c:out value="${status.value}"/>" />
+            	<span class="fieldError"><c:out value="${status.errorMessage}"/></span>
+            </spring:bind>
+        </td>
+    </tr>
+    </XDtForm:forAllFields>
+    <tr>
+        <td></td>
+        <td class="buttonBar">            
+            <input type="submit" class="button" name="save" 
+                onclick="bCancel=false" value="<fmt:message key="button.save"/>" />
+            
+            <input type="submit" class="button" name="delete"
+                onclick="bCancel=true;confirmDelete('<XDtForm:classNameLower/>')" 
+                value="<fmt:message key="button.delete"/>" />
+                
+            <input type="submit" class="button" name="cancel" onclick="bCancel=true"
+                value="<fmt:message key="button.cancel"/>" />        
+        </td>
+    </tr>
+</table>
+</html:form>
+
+<html:javascript formName="<XDtForm:classNameLower/>" cdata="false"
+      dynamicJavascript="true" staticJavascript="false"/>
+<script type="text/javascript" 
+      src="<html:rewrite page="/scripts/validator.jsp"/>"></script>
+
+

@@ -1,0 +1,57 @@
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><%@ include file="/common/taglibs.jsp"%>
+
+<c:set var="buttons">
+    <button type="button" name="action" style="margin-right: 5px"
+        onclick="location.href='<c:url value="/edit<XDtClass:className/>.html"/>?method=Add&from=list'">
+        <fmt:message key="button.add"/>
+    </button>
+    
+    <button type="button" name="action" onclick="location.href='<c:url value="/mainMenu.html"/>'">
+        <fmt:message key="button.cancel"/>
+    </button>
+</c:set>
+
+<c:out value="${buttons}" escapeXml="false"/>
+
+<display:table name="${<XDtForm:classNameLower/>List}" cellspacing="0" cellpadding="0"
+	id="<XDtForm:classNameLower/>List" pagesize="25" styleClass="list" export="true" requestURI="">
+  
+    <display:column property="id" sort="true" headerClass="sortable"
+        url="/edit<XDtClass:className/>?from=list" paramId="id" paramProperty="id"
+        titleKey="<XDtClass:className/>.id"/>
+        
+  <XDtForm:forAllFields>
+    <display:column property="<XDtForm:fieldName/>" sort="true" headerClass="sortable"
+        titleKey="<XDtForm:classNameLower/>.<XDtForm:fieldName/>"/>
+  </XDtForm:forAllFields>
+  
+    <display:setProperty name="paging.banner.item_name" value="<XDtForm:classNameLower/>"/>
+    <display:setProperty name="paging.banner.items_name" value="<XDtForm:classNameLower/>s"/>
+</display:table>
+
+<c:out value="${buttons}" escapeXml="false"/>
+            
+<script type="text/javascript">
+<!--
+    var previousClass = null;
+    // simple script for highlighting rows
+    var table = document.getElementById("<XDtForm:classNameLower/>List");
+    if (table != null) {
+        var tbody = table.getElementsByTagName("tbody")[0];
+        var rows = tbody.getElementsByTagName("tr");
+        for (i=0; i < rows.length; i++) {
+            rows[i].onmouseover = function() { previousClass=this.className;this.className='over' };
+            rows[i].onmouseout = function() { this.className=previousClass };
+            rows[i].onclick = function() {
+                var cell = this.getElementsByTagName("td")[0];
+                var link = cell.getElementsByTagName("a")[0];                            
+                location.href = link.getAttribute("href");
+                this.style.cursor="wait";
+            }
+        }
+    }
+//-->
+</script>
+
+
+
