@@ -51,6 +51,9 @@ Features/Changes in 1.8
     * Display Tag 1.0
 - Dependent packages added:
 	* Acegi 0.7-dev
+- Fixed bug in error.jsp that caused it to throw exceptions under certain 
+  conditions.
+    https://appfuse.dev.java.net/issues/show_bug.cgi?id=122
 
 
 Features/Changes in 1.7
