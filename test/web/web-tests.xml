@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: web-tests.xml,v 1.7 2004/04/29 23:01:37 mraible Exp $               -->
+<!-- $Id: web-tests.xml,v 1.8 2004/05/04 06:19:14 mraible Exp $               -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:../../properties.xml">
@@ -13,7 +13,7 @@
 
     <!-- runs all targets -->
     <target name="run-all-tests" 
-        depends="Login,Logout,PasswordHint,Signup,UserTests,FlushCache"
+        depends="Login,Logout,PasswordHint,Signup,UserTests,FlushCache,FileUpload"
         description="Call and executes all test cases (targets)"/>
     
     <!-- runs user-related tests -->
@@ -178,8 +178,7 @@
         <canoo name="signup">
             &config;
             <steps>
-                <invoke stepid="click signup link" 
-                    url="/signup.jsp"/>
+                <invoke stepid="click signup link" url="/signup.jsp"/>
                 <verifytitle stepid="we should signup title" 
                     text="${webapp.prefix}${signup.title}"/>
                 <setinputfield stepid="set username" name="username" 
@@ -223,8 +222,7 @@
             &config;
             <steps>
                 &login;
-                <invoke stepid="get activeUsers URL" 
-                    url="/activeUsers.html"/>
+                <invoke stepid="get activeUsers URL" url="/activeUsers.html"/>
                 <verifytitle stepid="we should see the activeUsers title" 
                     text="${webapp.prefix}${activeUsers.title}"/>
             </steps>
@@ -238,10 +236,32 @@
             &config;
             <steps>
                 &login;
-                <invoke stepid="get flushCache URL" 
-                    url="/flush.html"/>
+                <invoke stepid="get flushCache URL" url="/flush.html"/>
                 <verifytitle stepid="we should see the flush cache title" 
                     text="${webapp.prefix}${flushCache.title}"/>
+            </steps>
+        </canoo>
+    </target>
+    
+    <!-- File Upload -->
+    <target name="FileUpload" 
+        description="Tests uploading a file">
+        <canoo name="fileUpload">
+            &config;
+            <steps>
+                &login;
+                <invoke stepid="click Upload a File link" url="/selectFile.html"/>
+                <verifytitle stepid="we should see file upload form" 
+                    text="${webapp.prefix}${upload.title}"/>
+                <!--setinputfield stepid="set name" name="name" 
+                    value="Canoo Test File"/>
+                <setinputfield stepid="set file" name="file" 
+                    value="${basedir}/build.properties"/>
+                <clickbutton label="${button.upload}" stepid="Click Upload"/>
+                <verifytitle stepid="show file data if upload OK"
+                     text="${webapp.prefix}${display.title}" />
+                <verifytext stepid="verify original file name displayed on page"
+                     text="build.properties" /-->
             </steps>
         </canoo>
     </target>

@@ -81,7 +81,11 @@ Features/Changes in 1.5
   the folder name of the installed server.
 - Added encoding options for UTF-8 so AppFuse can handle languages such as
   Chinese.
-- Moved StrutsGen tool and iBatis install to a common "extras" folder.
+- Moved StrutsGen Tool and iBatis install to a common "extras" folder.
+- Renamed StrutsGen Tool to JSPGen so it can be used to generate default
+  master/detail screens for other frameworks.
+- Changed Struts Menu to use MenuContextListener for initialization since its
+  framework-agnostic.
 - TODO: Spring for MVC Layer
     - Installation package.
 - TODO: Modify Cactus so "runcontainer" task can be used to start/stop Tomcat
@@ -91,7 +95,10 @@ Features/Changes in 1.5
     * WebTest build 432
     * XDoclet 1.2.1-dev (generation of validation.xml for Spring and ActionForm
       generation that doesn't require j2ee.jar in classpath)
-
+- Dependent packages added:
+    * Request Taglib 1.0.1 (use instead of "logic:present role='...'" since
+      it can be used across JSP-based MVC frameworks)
+        ** Needs to be modified to support a comma-delimited list of roles.
 
 Features/Changes in 1.4
 =======================

@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.15 2004/04/29 22:14:21 mraible Exp $                 -->
+<!-- $Id: build.xml,v 1.16 2004/05/04 06:19:08 mraible Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -74,8 +74,8 @@
                 to="${build.dir}/web/classes/*.class"/>
         </uptodate>
 
-        <available file="${webapp.target}/WEB-INF/web.xml" type="file"
-            property="webxml.present"/>
+        <property name="web.xml" value="${webapp.target}/WEB-INF/web.xml"/>
+        <available file="${web.xml}" property="webxml.present"/>
         
         <!-- Conditionally set property for converting to JSP 2.0 -->
         <condition property="convert.to.jsp2">
@@ -142,7 +142,6 @@
             file="../${app.name}/build.xml"
             match="org.${app.name}"
             replace="org.appfuse"/>
-            
 
         <!-- Replace JNDI Name for database -->
         <replaceregexp flags="g">
@@ -231,6 +230,7 @@
                 <!-- exclude images or they'll get hosed by the filterset -->
                 <exclude name="images/**"/>
                 <exclude name="**/classes/**"/>
+                <exclude name="**/*-database.xml"/>
             </fileset>
             <fileset dir="web" includes="common/footer.jsp"/>
             <filterset>
@@ -377,10 +377,6 @@
 
     <target name="test-dao" depends="copy-resources,package-dao"
         description="Test dao module">
-        <!-- Use test-specific XML files -->
-        <copy todir="${webapp.target}/WEB-INF" overwrite="true">
-        	<fileset dir="test" includes="*.xml"/>
-        </copy>
         <antcall target="test-module" inheritAll="true">
             <param name="module" value="dao"/>
             <param name="additional.src.dirs"
@@ -423,10 +419,6 @@
 
     <target name="test-service" depends="copy-resources,package-service"
         description="Test service module">
-        <!-- Use test-specific XML files -->
-        <copy todir="${webapp.target}/WEB-INF" overwrite="true">
-        	<fileset dir="test" includes="*.xml"/>
-        </copy>
         <antcall target="test-module" inheritAll="true">
             <param name="module" value="service"/>
             <reference refid="service.test.classpath"
@@ -466,10 +458,6 @@
                 torefid="test.classpath"/>
         </antcall>
     </target>
-
-    <!-- Simple alias to package-web -->
-    <target name="war" depends="package-web" 
-        description="alias for package-web"/>
         
     <!-- =================================================================== -->
     <!-- The "webdoclet" target generates web and struts deployment 		 -->
@@ -510,6 +498,9 @@
         </webdoclet>
     </target>
     
+    <!-- Simple alias to package-web -->
+    <target name="war" depends="package-web" 
+        description="alias for package-web"/>
     <target name="package-web" depends="webdoclet,jsp-2"
         description="Package WAR">
         <propertyfile comment="Build Information"
@@ -663,6 +654,10 @@
             <fileset dir="test/${module}" excludes="**/*.java"/>
             <filterset refid="variables.to.replace"/>
         </copy>     
+        <!-- Use test-specific XML files -->
+        <copy todir="${webapp.target}/WEB-INF" overwrite="true">
+        	<fileset dir="test" includes="*.xml"/>
+        </copy>
         <property name="additional.src.dirs" value=""/>
         <junit printsummary="no"
             errorProperty="test.failed"

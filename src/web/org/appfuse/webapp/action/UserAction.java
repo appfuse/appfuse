@@ -43,7 +43,7 @@ import org.appfuse.webapp.util.RequestUtil;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.8 $ $Date: 2004/03/22 19:36:39 $
+ * @version $Revision: 1.9 $ $Date: 2004/05/04 06:19:11 $
  *
  * @struts.action name="userFormEx" path="/editUser" scope="request"
  *  validate="false" parameter="action" input="list" roles="admin"
@@ -112,7 +112,7 @@ public final class UserAction extends BaseAction {
 
         // Exceptions are caught by ActionExceptionHandler
         UserManager mgr = (UserManager) getBean("userManager");
-        mgr.removeUser(convert(userForm));
+        mgr.removeUser(userForm.getUsername());
 
         messages.add(ActionMessages.GLOBAL_MESSAGE,
                      new ActionMessage("user.deleted", userForm.getUsername()));

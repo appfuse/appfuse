@@ -18,7 +18,7 @@
                 <arg0 key="uploadForm.name"/>
             </field>
             <!-- Client-side Javascript won't catch this, but server-side will -->
-            <field property="theFile" depends="required">
+            <field property="file" depends="required">
                 <arg0 key="uploadForm.file"/>
             </field>
         </form>

@@ -60,6 +60,13 @@ public class UserDAOTest extends BaseDAOTestCase {
         user = dao.saveUser(user);
 
         assertTrue(user.getRoles().size() == 2);
+        
+        // add the same role twice - should result in no additional role
+        user.addRole(Constants.ADMIN_ROLE);
+        user = dao.saveUser(user);
+        
+        assertTrue("more than 2 roles [" + user.getRoles().size() + "]", 
+                user.getRoles().size() == 2);
 
         user.getRoles().remove(1);
         user = dao.saveUser(user);
@@ -87,9 +94,8 @@ public class UserDAOTest extends BaseDAOTestCase {
     }
 
     public void testRemoveUser() throws Exception {
-        user = dao.getUser("testuser");
-        dao.removeUser(user);
-
+        dao.removeUser("testuser");
+        
         try {
             user = dao.getUser("testuser");
             fail("Expected 'ObjectNotFoundException' not thrown");

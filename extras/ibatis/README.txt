@@ -76,19 +76,21 @@ applicationContext-hibatis.xml file I used.
   <property name="sessionFactory"><ref local="sessionFactory"/></property>
 </bean>
 
-
-
-
-
-
+================================================================================
 
 Some things I noticed in the process of developing this:
 
+Running "ant clean test-dao" with iBATIS (28 seconds) is a bit faster than 
+Hibernate (33 seconds). I'm sure if I optimized Hibernate, I could make these 
+numbers equal.
 
-Running "ant clean test-dao" with iBATIS (28 seconds) is a bit faster than Hibernate (33 seconds). I'm sure if I optimized Hibernate, I could make these numbers equal.
+The iBATIS install is about 500K, whereas Hibernate's JARs are around 2 MB. So 
+using iBATIS will get you a slightly faster and smaller AppFuse application, 
+but it's a bit harder to manipulate the database on the fly. There's no way of 
+generating the tables/columns with iBATIS. Instead it uses a table creation 
+script - so if you add new persistent objects, you'll have to manually edit 
+the table creation SQL.
 
-The iBATIS install is about 500K, whereas Hibernate's JARs are around 2 MB. So using iBATIS will get you a slightly faster and smaller AppFuse application, but it's a bit harder to manipulate the database on the fly. There's no way of generating the tables/columns with iBATIS. Instead it uses a table creation script - so if you add new persistent objects, you'll have to manually edit the table creation SQL.
-
-
-
-Hibernate is still the right decision for me, but it's cool that iBATIS is an option. Even cooler is the fact that you can mix and match Hibernate and iBATIS DAOs.
+Hibernate is still the right decision for me, but it's cool that iBATIS is an 
+option. Even cooler is the fact that you can mix and match Hibernate and 
+iBATIS DAOs.

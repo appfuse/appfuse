@@ -64,7 +64,7 @@ public class UserManagerTest extends BaseManagerTestCase {
             log.debug("removing user...");
         }
 
-        mgr.removeUser(user);
+        mgr.removeUser(user.getUsername());
 
         try {
             user = (User) mgr.getUser("john");

@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: properties.xml,v 1.10 2004/04/29 10:03:51 mraible Exp $             -->
+<!-- $Id: properties.xml,v 1.11 2004/05/04 06:19:08 mraible Exp $             -->
 <!-- ======================================================================= -->
 <!-- This file defines properties for build.xml -->
 
@@ -46,7 +46,7 @@
 
 <!-- this task is called by tasks that need it in build.xml -->
 <target name="generate.database.properties">
-    <echo>detected missing database.properties file, building from build.properties</echo>
+    <echo>generating database.properties from build.properties</echo>
     <propertyfile comment="Hibernate Configuration for JUnit tests" 
         file="${basedir}/database.properties">
     	<entry key="hibernate.dialect" value="${hibernate.dialect}"/>
@@ -184,6 +184,8 @@
     <pathelement location="${strutstestcase.jar}"/>
     <fileset dir="${webtest.dir}/lib" includes="*.jar"/>
     <pathelement location="${log4j.jar}"/>
+    <!-- Needed for testing out-of-container -->
+    <path refid="hibernate.classpath"/>
 </path>
     
 <property name="inheritAll" value="true"/>
