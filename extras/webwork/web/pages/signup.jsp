@@ -34,7 +34,7 @@
         </th>
         <td>
         	  <ww:set name="country" value="user.address.country" scope="page"/>
-            <appfuse:country name="user.address.country" prompt="" default="${country}"/>
+            <appfuse-webwork:country name="user.address.country" prompt="" default="${country}"/>
         </td>
     </tr>
     <ww:textfield label="getText('user.address.postalCode')" name="'user.address.postalCode'"
@@ -58,3 +58,7 @@
         </td>
     </tr>
 </ww:form>
+
+<script type="text/javascript">
+    document.getElementById("user.username").focus();
+</script>

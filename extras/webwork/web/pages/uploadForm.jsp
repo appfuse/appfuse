@@ -23,3 +23,7 @@
     </tr>
 </ww:form>
 
+<script type="text/javascript">
+    document.getElementById("name").focus();
+</script>
+

@@ -80,7 +80,7 @@
         </th>
         <td>
         	  <ww:set name="country" value="user.address.country" scope="page"/>
-            <appfuse:country name="user.address.country" prompt="" default="${country}"/>
+            <appfuse-webwork:country name="user.address.country" prompt="" default="${country}"/>
         </td>
     </tr>
     <ww:textfield label="getText('user.address.postalCode')" name="'user.address.postalCode'"
@@ -154,10 +154,18 @@
 <script type="text/javascript">
 <!--
 highlightFormElements();
-<%-- if we're doing an add, change the focus --%>
-<c:if test="${param.action == 'Add'}">document.forms[0].username.focus();</c:if>
-<c:if test="${param.action != 'Add'}">document.forms[0].password.focus();</c:if>
 
+<c:if test="${param.method == 'Add'}">
+var focusControl = document.forms["userForm"].elements["user.username"];
+</c:if>
+<c:if test="${param.method != 'Add'}">
+var focusControl = document.forms["userForm"].elements["user.password"];
+</c:if>
+
+if (focusControl.type != "hidden" && !focusControl.disabled) {
+    focusControl.focus();
+}
+  
 function passwordChanged(passwordField) {
     var origPassword = "<c:out value="${userFormEx.password}"/>";
     if (passwordField.value != origPassword) {
