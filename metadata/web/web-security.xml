@@ -1,9 +1,9 @@
-    <!-- Restrict all users from accessing *.do -->
+    <!-- Restrict all users from accessing *.html -->
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>My Application</web-resource-name>
             <description>Require users to authenticate</description>    
-            <url-pattern>*.do</url-pattern>                    
+            <url-pattern>*.html</url-pattern>                    
             <http-method>POST</http-method>
             <http-method>GET</http-method>
         </web-resource-collection>

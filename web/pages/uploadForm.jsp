@@ -1,6 +1,4 @@
 <%@ include file="/common/taglibs.jsp"%>
-<%@ page contentType="text/html; charset=utf-8" %>
-
 
 <!--
 	The most important part is to declare your form's enctype to be "multipart/form-data",

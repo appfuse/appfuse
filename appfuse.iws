@@ -106,7 +106,15 @@
     <option name="HIDE_WARNINGS" value="false" />
   </component>
   <component name="FileEditorManager" split-orientation="horizontal" split-proportion="0.5">
-    <first-group />
+    <first-group selected-file="file://$PROJECT_DIR$/src/web/org/appfuse/webapp/action/ReloadAction.java">
+      <entry file="file://$PROJECT_DIR$/src/web/org/appfuse/webapp/action/ReloadAction.java" pinned="false">
+        <provider selected="true" editor-type-id="text-editor">
+          <state line="46" column="63" selection-start="1538" selection-end="1538" vertical-scroll-proportion="0.5988024">
+            <folding />
+          </state>
+        </provider>
+      </entry>
+    </first-group>
     <second-group />
   </component>
   <component name="HierarchyBrowserManager">
@@ -120,13 +128,16 @@
     <profile name="Default" />
   </component>
   <component name="J2EEProjectPane" />
-  <component name="PackagesPane" />
+  <component name="PackagesPane">
+    <expanded_node url="org.appfuse.webapp.action" type="package" />
+  </component>
   <component name="ProjectPane">
-    <expanded_node url="file://$PROJECT_DIR$" module="appfuse" type="directory" />
+    <expanded_node url="file://$PROJECT_DIR$/web" module="appfuse" type="directory" />
     <expanded_node url="" module="appfuse" type="module" />
+    <expanded_node url="file://$PROJECT_DIR$" module="appfuse" type="directory" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" splitterProportion="0.5">
+    <navigator currentView="PackagesPane" splitterProportion="0.5">
       <flattenPackages PackagesPane="true" />
       <showMembers PackagesPane="true" />
       <showModules PackagesPane="false" />
@@ -264,12 +275,12 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1024" height="717" extended-state="6" />
-    <editor active="false" />
+    <frame x="-4" y="-4" width="1288" height="1002" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="CVS" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.33833334" order="8" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.33" order="7" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="docked" type="docked" visible="true" weight="0.27663934" order="0" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="docked" type="docked" visible="true" weight="0.27147487" order="0" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.33" order="1" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.24959481" order="1" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.3306011" order="8" />
@@ -525,6 +536,13 @@
     <entry file="file://$PROJECT_DIR$/src/dao/org/appfuse/Constants.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="13" column="19" selection-start="304" selection-end="304" vertical-scroll-proportion="0.29545453">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/web/org/appfuse/webapp/action/ReloadAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="63" selection-start="1538" selection-end="1538" vertical-scroll-proportion="0.5988024">
           <folding />
         </state>
       </provider>

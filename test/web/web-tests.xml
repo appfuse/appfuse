@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: web-tests.xml,v 1.6 2004/04/22 22:21:12 mraible Exp $               -->
+<!-- $Id: web-tests.xml,v 1.7 2004/04/29 23:01:37 mraible Exp $               -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:../../properties.xml">
@@ -72,7 +72,7 @@
             &config;
             <steps>
                 &login;
-                <invoke stepid="click Edit Profile link" url="/editProfile.do"/>
+                <invoke stepid="click Edit Profile link" url="/editProfile.html"/>
                 <verifytitle stepid="we should see the user profile title" 
                     text="${webapp.prefix}${userProfile.title}"/>
             </steps>
@@ -87,7 +87,7 @@
             <steps>
                 &login;
                 <invoke stepid="click View Users link" 
-                    url="/editUser.do?action=Search"/>
+                    url="/editUser.html?action=Search"/>
                 <verifytitle stepid="we should see the user list title" 
                     text="${webapp.prefix}${userList.title}"/>
             </steps>
@@ -101,7 +101,7 @@
             &config;
             <steps>
                 &login;
-                <invoke stepid="click Edit Profile link" url="/editUser.do"/>
+                <invoke stepid="click Edit Profile link" url="/editUser.html"/>
                 <verifytitle stepid="we should see the user profile title" 
                     text="${webapp.prefix}${userProfile.title}"/>
                 <setinputfield stepid="set address" name="address" 
@@ -123,7 +123,7 @@
             <steps>
                 &login;
                 <invoke stepid="click Add Button" 
-                    url="/editUser.do?action=Add&amp;from=list"/>
+                    url="/editUser.html?action=Add&amp;from=list"/>
                 <verifytitle stepid="we should see the user profile title" 
                     text="${webapp.prefix}${userProfile.title}"/>
                 <setinputfield stepid="set username" name="username" 
@@ -163,7 +163,7 @@
                     text="User information for &lt;strong&gt;newuser&lt;/strong&gt; has been added successfully."/>
                 <!-- Delete user -->
                 <invoke stepid="click Delete button"
-                    url="/editUser.do?action=Delete&amp;username=newuser"/>
+                    url="/editUser.html?action=Delete&amp;username=newuser"/>
                 <verifytext stepid="verify success message" 
                     text="User Profile for &lt;strong&gt;newuser&lt;/strong&gt; has been deleted successfully."/>
                 <verifytitle stepid="display user list" 
@@ -224,7 +224,7 @@
             <steps>
                 &login;
                 <invoke stepid="get activeUsers URL" 
-                    url="/activeUsers.do"/>
+                    url="/activeUsers.html"/>
                 <verifytitle stepid="we should see the activeUsers title" 
                     text="${webapp.prefix}${activeUsers.title}"/>
             </steps>
@@ -239,7 +239,7 @@
             <steps>
                 &login;
                 <invoke stepid="get flushCache URL" 
-                    url="/flush.do"/>
+                    url="/flush.html"/>
                 <verifytitle stepid="we should see the flush cache title" 
                     text="${webapp.prefix}${flushCache.title}"/>
             </steps>

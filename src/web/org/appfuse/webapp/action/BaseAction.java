@@ -44,7 +44,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.9 $ $Date: 2004/04/29 08:13:01 $
+ * @version $Revision: 1.10 $ $Date: 2004/04/29 23:01:28 $
  */
 public class BaseAction extends LookupDispatchAction {
 
@@ -155,9 +155,9 @@ public class BaseAction extends LookupDispatchAction {
      * This is based on the following system:
      * <p/>
      * <ul>
-     * <li>edit*.do -> edit method</li>
-     * <li>save*.do -> save method</li>
-     * <li>view*.do -> search method</li>
+     * <li>edit*.html -> edit method</li>
+     * <li>save*.html -> save method</li>
+     * <li>view*.html -> search method</li>
      * </ul>
      *
      * @param mapping  The ActionMapping used to select this instance
