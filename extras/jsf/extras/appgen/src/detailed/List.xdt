@@ -13,6 +13,6 @@ public class <XDtClass:className/>List extends BasePage implements Serializable 
     }
     
     public List get<XDtClass:className/>s() {
-        return <XDtClass:className/>Manager.get<XDtClass:className/>s(null);
+        return <XDtForm:classNameLower/>Manager.get<XDtClass:className/>s(null);
     }
 }

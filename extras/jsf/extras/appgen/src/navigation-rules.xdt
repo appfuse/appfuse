@@ -18,7 +18,7 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
-            <from-outcome>success</from-outcome>
+            <from-outcome>list</from-outcome>
             <to-view-id>/<XDtForm:classNameLower/>s.jsp</to-view-id>
             <redirect/>
         </navigation-case>

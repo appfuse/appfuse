@@ -43,7 +43,7 @@
 
 <c:out value="${buttons}" escapeXml="false"/>
 
-<h:commandLink action="#{<XDtForm:classNameLower/>Form.edit}" id="<XDtForm:classNameLower/>UserLink">
+<h:commandLink action="#{<XDtForm:classNameLower/>Form.edit}" id="edit<XDtClass:className/>Link">
     <f:param name="id"/>
 </h:commandLink>
 
@@ -54,7 +54,7 @@ function view<XDtClass:className/>(id) {
     f.elements['id'].value=id;
     f.submit();
 }
-highlightTableRows("<XDtForm:classNameLower/>List");
+highlightTableRows("<XDtForm:classNameLower/>s");
 </script>
 </h:form>
 

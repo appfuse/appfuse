@@ -193,7 +193,9 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         <replace file="../appgen/build.xml">
             <replacetoken><![CDATA[<echo file="../../src/service/${app.package}/service/applicationContext-service.xml" append="true" 
             message="${service.context}"/>]]></replacetoken>
-            <replacevalue><![CDATA[
+            <replacevalue><![CDATA[<echo file="../../src/service/${app.package}/service/applicationContext-service.xml" append="true" 
+            message="${service.context}"/>
+
         <echo>Merging managed-beans XML into web/WEB-INF/faces-config.xml</echo>
         <loadfile property="managed.beans"
             srcfile="${generated.dir}/web/WEB-INF/managed-beans-${model.name}.xml"/>
@@ -208,7 +210,10 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
             <replacetoken><![CDATA[<copy todir="../../test" overwrite="${overwrite}">
             <fileset dir="${generated.dir}/test" includes="**/action/*Test.java"/>
         </copy>]]></replacetoken>
-            <replacevalue><![CDATA[
+            <replacevalue><![CDATA[<copy todir="../../test" overwrite="${overwrite}">
+            <fileset dir="${generated.dir}/test" includes="**/action/*Test.java"/>
+        </copy>
+
         <echo>Merging managed-beans XML into web/WEB-INF/faces-config.xml</echo>
         <loadfile property="managed.beans"
             srcfile="${generated.dir}/generic/web/WEB-INF/managed-beans-${model.name}.xml"/>
@@ -257,6 +262,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
 
         <!-- Copy web files (JSPs, images, scripts, stylesheets) -->
         <echo level="info">Replacing web files (images, scripts, JSPs, etc.)</echo>
+        <delete dir="../../web/pages"/>
         <copy todir="../../web" overwrite="true">
             <fileset dir="web" includes="**"/>
         </copy>

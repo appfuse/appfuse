@@ -1,5 +1,7 @@
 <XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>package <XDtForm:parentPackageName/>.webapp.action;
 
+import <XDtPackage:packageName/>.<XDtClass:className/>;
+
 public class <XDtClass:className/>FormTest extends BasePageTestCase {
     private <XDtClass:className/>Form bean;
     
@@ -35,13 +37,12 @@ public class <XDtClass:className/>FormTest extends BasePageTestCase {
         bean.set<XDtClass:className/>(<XDtForm:classNameLower/>);
 
         assertEquals(bean.save(), "list");
-        assertFalse(bean.hasFieldErrors());
+        assertFalse(bean.hasErrors());
     }
 
     public void testEdit() throws Exception {
         log.debug("testing edit...");
         bean.setId("1");
-        assertNull(bean.get<XDtClass:className/>());
 
         assertEquals(bean.edit(), "edit");
         assertNotNull(bean.get<XDtClass:className/>());

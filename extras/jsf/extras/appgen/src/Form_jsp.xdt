@@ -12,10 +12,11 @@
     <XDtForm:forAllFields>
     <h:outputLabel for="<XDtForm:fieldName/>" value="#{text['<XDtForm:classNameLower/>.<XDtForm:fieldName/>']}"/>
 
-    <h:inputText id="<XDtForm:fieldName/>" value="#{<XDtForm:classNameLower/>Form.<XDtForm:classNameLower/>.<XDtForm:fieldName/>}" required="true">
-        <v:commonsValidator type="required" arg="#{text['<XDtForm:classNameLower/>.<XDtForm:fieldName/>']}"/>
-    </h:inputText>
+    <h:inputText id="<XDtForm:fieldName/>" value="#{<XDtForm:classNameLower/>Form.<XDtForm:classNameLower/>.<XDtForm:fieldName/>}"/>
+        <%--v:commonsValidator type="required" arg="#{text['<XDtForm:classNameLower/>.<XDtForm:fieldName/>']}"/>
+    </h:inputText--%>
     <x:message for="<XDtForm:fieldName/>" styleClass="fieldError"/>
+
     </XDtForm:forAllFields>
     <%-- Put in empty <td></td> --%>
     <h:inputHidden value=""/>
@@ -29,7 +30,7 @@
             id="delete" styleClass="button" onclick="bCancel=false"/>
         </c:if> <%-- Removed confirm since WebTest can't handle it: ;return confirmDelete('<XDtClass:className/>') --%>
     
-        <h:commandButton value="#{text['button.cancel']}" action="#{<XDtForm:classNameLower/>Form.cancel}" immediate="true"  
+        <h:commandButton value="#{text['button.cancel']}" action="cancel" immediate="true"  
             id="cancel" styleClass="button" onclick="bCancel=true"/>
     </h:panelGroup>
     

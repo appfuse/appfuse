@@ -91,7 +91,8 @@
             &config;
             <steps>
                 &login;
-                <invoke stepid="click Edit <XDtClass:className/> link" url="/edit<XDtClass:className/>.html?id=1"/>
+                <invoke stepid="View <XDtClass:className/> List" url="/<XDtForm:classNameLower/>s.html"/>
+                <clicklink stepid="delete first record in list" label="1"/>
                 <clickbutton label="${button.delete}" stepid="Click button 'Delete'"/>
                 <verifytitle stepid="display <XDtClass:className/> List" text="${webapp.prefix}${<XDtForm:classNameLower/>List.title}"/>
                 <verifytext stepid="verify success message" text="${<XDtForm:classNameLower/>.deleted}"/>

@@ -64,6 +64,7 @@ Features/Changes in 1.7
     - Saving user form w/ validation errors results in the username and roles disappearing.
     - LabelRenderer
     - Password/Remember Me warning before displaying form (currently after save)
+    - AppGen doesn't mark any fields as required
 - MyFaces/JSF Wishlist:
     - Commons Validator is merely a configuration step - rather than necessary on each field.
     - Why do I have to specify the supported locales - why can't it just lookup the available bundles

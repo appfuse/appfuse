@@ -192,12 +192,12 @@
             <replacetoken><![CDATA[</beans>]]></replacetoken>
         </replace>
         <echo file="../../src/service/${app.package}/service/applicationContext-service.xml" append="true" 
-            message="${service.context}"/>    
+            message="${service.context}"/>
     </target>   
  
     <target name="install-src-generic">
         <antcall target="default"/>    
-        <echo>Copying Controller and Test into main project, overwrite="${overwrite}"</echo>
+        <echo>Copying Bean and Test into main project, overwrite="${overwrite}"</echo>
         <copy todir="../../" overwrite="${overwrite}">
             <fileset dir="${generated.dir}/generic" includes="**/*.java"/>
         </copy>

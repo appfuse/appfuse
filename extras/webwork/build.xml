@@ -413,8 +413,8 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
 
         <!-- New project created, install WebWork and run tests -->
         <ant dir="../../../${app.name}/extras/webwork" target="install" inheritAll="false"/>
-        <!--ant dir="../../../${app.name}" target="setup" inheritAll="false"/>
-        <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/-->
+        <ant dir="../../../${app.name}" target="setup" inheritAll="false"/>
+        <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
 
         <echo>Start Tomcat to view ${app.name} manually.</echo>
     </target>
