@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.34 2004/08/22 05:12:33 mraible Exp $                 -->
+<!-- $Id: build.xml,v 1.35 2004/09/01 12:00:57 mraible Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -13,18 +13,15 @@
     <!-- import application settings for xdoclet -->
     &app-settings;
 
+    <!-- This taskdef must be outside all targets in order for it to work -->
+	<taskdef name="xdoclet"
+	    classname="xdoclet.DocletTask"
+	    classpathref="xdoclet.classpath"/>
+    
     <target name="define-tasks" description="defines custom tasks">
         <!-- Taskdefs -->
         <taskdef resource="net/sf/antcontrib/antcontrib.properties"
             classpath="${ant-contrib.jar}"/>
-
-        <taskdef name="xdoclet"
-            classname="xdoclet.DocletTask"
-            classpathref="xdoclet.classpath"/>
-
-        <taskdef name="todo"
-            classname="xdoclet.modules.doc.DocumentDocletTask"
-            classpathref="xdoclet.classpath"/>
     
         <!-- Check that junit.jar is in $ANT_HOME/lib or Cactus tasks fail -->
         <available classname="junit.framework.TestCase"
@@ -44,6 +41,7 @@
                 <pathelement path="${tomcat.home}/server/lib/catalina-ant.jar"/>
             </classpath>
         </available>
+   
     </target>
     
     <!-- Check timestamp on files -->
@@ -435,19 +433,18 @@
     <target name="compile" depends="compile-web" 
         description="alias for compile-web"/>
     
-    <target name="compile-web" depends="package-dao,package-service,stage-web"
+    <target name="compile-web" depends="package-service,stage-web"
         description="Compile web module">
-        
+                
         <!-- generate struts forms -->
         <xdoclet destdir="${build.dir}/web/gen"
             excludedtags="@version,@author"
             addedtags="@xdoclet-generated at ${TODAY}"
             force="${xdoclet.force}">
+            
             <fileset dir="src/dao"/>
 
-            <!-- generate struts forms -->
-            <actionform destdir="${build.dir}/web/gen"
-                templateFile="metadata/templates/struts_form.xdt">
+            <actionform templateFile="metadata/templates/struts_form.xdt">
                 <packageSubstitution packages="model"
                     substituteWith="webapp.form"/>
             </actionform>
@@ -498,7 +495,7 @@
             <jsptaglib validateXML="true"
                 description="Custom tag library for this application"
                 shortName="${webapp.name}" filename="${webapp.name}.tld"/>
-            <strutsconfigxml validateXML="true" version="1.1"/>
+            <strutsconfigxml validateXML="true" version="1.2"/>
             <strutsvalidationxml/>
         </webdoclet>
     </target>
@@ -602,7 +599,7 @@
         </antcall>
     </target>
 
-    <target name="test-web" depends="compile-web"
+    <target name="test-web" depends="compile-web,db-load"
         description="Test web module">
         <antcall target="test-module" inheritAll="true">
             <param name="module" value="web"/>
@@ -650,7 +647,7 @@
         </javac>
     </target>
 
-    <target name="test-module" depends="db-load">
+    <target name="test-module">
         <!-- Inputs: module, test.classpath -->
         <echo level="info">Testing ${module}...</echo>
         <mkdir dir="${test.dir}/data"/>
@@ -818,11 +815,11 @@
                 <pathelement path="${java.class.path}"/>
             </classpath>
             <containerset>
-                <tomcat4x dir="${tomcat.home}" if="tomcat.home"
+                <!--tomcat4x dir="${tomcat.home}" if="tomcat.home"
                     port="${http.port}" todir="${test.dir}/data/tomcat"
-                    contextxml="${webapp.dist}/${webapp.name}.xml"/>
-                <!--tomcat5x dir="${tomcat.home}" if="tomcat.home"
-                    port="${http.port}" todir="${test.dir}/data/tomcat"/-->
+                    contextxml="${webapp.dist}/${webapp.name}.xml"/-->
+                <tomcat5x dir="${tomcat.home}" if="tomcat.home"
+                    port="${http.port}" todir="${test.dir}/data/tomcat"/>
                 <!--resin3x dir="${env.RESIN_HOME}" port="${http.port}"
                     resinconf="metadata/conf/resin.conf"
                     todir="${test.dir}/data/resin3"/-->
@@ -1230,6 +1227,11 @@
     </target>
 
     <target name="todo" depends="init">
+
+        <taskdef name="todo"
+            classname="xdoclet.modules.doc.DocumentDocletTask"
+            classpathref="xdoclet.classpath"/>
+            
         <mkdir dir="${build.dir}/docs/todo"/>
         <todo destdir="${build.dir}/docs/todo">
             <fileset dir="${src}">

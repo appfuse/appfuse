@@ -58,7 +58,6 @@
         <delete>
             <fileset dir="../../src/web/org/appfuse/webapp/action">
                 <exclude name="LoginServlet.java"/>
-                <exclude name="UserCounterController.java"/>
             </fileset>
         </delete>
         <copy todir="../../src" overwrite="true">
@@ -67,7 +66,6 @@
         <delete>
             <fileset dir="../../test/web/org/appfuse/webapp/action">
                 <exclude name="LoginServlet*"/>
-                <exclude name="MainMenu*"/>
             </fileset>
         </delete> 
         <copy todir="../../test" overwrite="true">
@@ -82,11 +80,11 @@
         
         <echo level="info">Adding Spring JARs to .classpath for Eclipse</echo>
         <replace file="../../.classpath">
-            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/spring-1.1-RC1/spring.jar"/>]]></replacetoken>
-            <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/spring-1.1-RC1/spring.jar"/>
-<classpathentry kind="lib" path="lib/spring-1.1-RC1/spring-mock.jar"/>
-<classpathentry kind="lib" path="lib/spring-1.1-RC1/commons-fileupload.jar"/>
-<classpathentry kind="lib" path="lib/spring-1.1-RC1/spring-sandbox.jar"/>
+            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/spring-1.1/spring.jar"/>]]></replacetoken>
+            <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/spring-1.1/spring.jar"/>
+<classpathentry kind="lib" path="lib/spring-1.1/spring-mock.jar"/>
+<classpathentry kind="lib" path="lib/spring-1.1/commons-fileupload.jar"/>
+<classpathentry kind="lib" path="lib/spring-1.1/spring-sandbox.jar"/>
 ]]></replacevalue>
         </replace>
 
@@ -110,11 +108,10 @@
             excludedtags="@version,@author"
             addedtags="@xdoclet-generated at ${TODAY}"
             force="${xdoclet.force}">
+            
             <fileset dir="src/dao"/>
 
-            <!-- generate struts forms -->
-            <actionform destdir="${build.dir}/web/gen"
-                templateFile="metadata/templates/struts_form.xdt">
+            <actionform templateFile="metadata/templates/struts_form.xdt">
                 <packageSubstitution packages="model"
                     substituteWith="webapp.form"/>
             </actionform>
@@ -164,7 +161,7 @@
             <jsptaglib validateXML="true"
                 description="Custom tag library for this application"
                 shortName="${webapp.name}" filename="${webapp.name}.tld"/>
-            <strutsconfigxml validateXML="true" version="1.1"/>
+            <strutsconfigxml validateXML="true" version="1.2"/>
             <strutsvalidationxml/>
 ]]></replacetoken>
             <replacevalue><![CDATA[    <!-- The "webdoclet" target generates web deployment descriptors.  	     -->
@@ -218,7 +215,7 @@
         </replace>
         
         <replace file="../../build.xml">
-            <replacetoken><![CDATA[<target name="test-web" depends="compile-web"
+            <replacetoken><![CDATA[<target name="test-web" depends="compile-web,db-load"
         description="Test web module">
         <antcall target="test-module" inheritAll="true">
             <param name="module" value="web"/>
@@ -226,7 +223,7 @@
                 torefid="test.classpath"/>
         </antcall>
     </target>]]></replacetoken>
-            <replacevalue><![CDATA[<target name="test-web" depends="webdoclet"
+            <replacevalue><![CDATA[<target name="test-web" depends="webdoclet,db-load"
         description="Test web module">
         <!-- Copy validator-rules to WEB-INF -->
         <copy todir="${webapp.target}/WEB-INF" 
