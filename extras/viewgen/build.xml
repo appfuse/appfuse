@@ -1,4 +1,6 @@
-<project name="strutsgen" default="default">
+<!-- This project is largely based on StrutsGen, originally created by Erik Hatcher -->
+<project name="viewgen" default="default">
+
     <property file="${user.home}/${ant.project.name}-build.properties"/>
     <property file="${user.home}/build.properties"/>
     <property file="../../build.properties"/>
@@ -10,12 +12,10 @@
         <pathelement location="${log4j.jar}"/>
         <pathelement location="${commons-logging.jar}"/>
         <pathelement location="${commons-collections.jar}"/>
-        <pathelement location="${struts.jar}"/>
-        <pathelement location="${j2ee.jar}"/>
         <fileset dir="${xdoclet.dir}" includes="*.jar"/>
     </path>
 
-    <property name="struts.src.dir" location="../../build/web/gen"/>
+    <property name="model.src.dir" location="../../build/web/gen"/>
 
     <target name="init">
         <mkdir dir="${build.dir}"/>
@@ -46,7 +46,7 @@
         <xdoclet destdir="${build.dir}"
                    excludedtags="@version,@author"
                    force="${xdoclet.force}">
-          <fileset dir="${struts.src.dir}"
+          <fileset dir="${model.src.dir}"
                    includes="**/${form.name}.java"
           />
           <template templateFile="src/FormKeys.xdt"

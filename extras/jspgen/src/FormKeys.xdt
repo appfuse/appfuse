@@ -1,4 +1,0 @@
-<XDtTagDef:tagDef namespace="Struts" handler="org.example.antbook.xdoclet.FormTagsHandler"/>
-<XDtStruts:forAllFields>
-<XDtClass:classTagValue tagName="struts.form" paramName="name"/>.<XDtStruts:fieldName/>=<XDtStruts:fieldDescription/>
-</XDtStruts:forAllFields>
