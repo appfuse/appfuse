@@ -19,7 +19,6 @@
 	<classpathentry kind="var" path="J2EE_HOME/lib/j2ee.jar"/>
 	<classpathentry kind="var" path="JUNIT_HOME/junit.jar"/>
 	<classpathentry kind="lib" path="lib/ant-contrib-0.5/ant-contrib-0.5.jar"/>
-	<classpathentry kind="lib" path="lib/struts-menu-2.1/struts-menu-2.1.jar"/>
 	<classpathentry kind="lib" path="lib/webtest-build379/lib/dom4j-full.jar"/>
 	<classpathentry kind="lib" path="lib/webtest-build379/lib/Tidy.jar"/>
 	<classpathentry kind="lib" path="lib/webtest-build379/lib/webtest.jar"/>
@@ -49,8 +48,6 @@
 	<classpathentry kind="lib" path="lib/hibernate-2.1.2/lib/odmg-3.0.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-2.1.2/lib/oscache-2.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-2.1.2/lib/swarmcache-1.0rc2.jar"/>
-	<classpathentry kind="lib" path="lib/spring-1.0-rc1/aopalliance.jar"/>
-	<classpathentry kind="lib" path="lib/spring-1.0-rc1/spring.jar"/>
 	<classpathentry kind="lib" path="lib/mysql-connector-java-3.0.11-stable/mysql-connector-java-3.0.11-stable-bin.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-struts-20031202/lib/commons-beanutils.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-struts-20031202/lib/commons-collections.jar"/>
@@ -62,5 +59,8 @@
 	<classpathentry kind="lib" path="lib/jakarta-struts-20031202/lib/jakarta-oro.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-struts-20031202/lib/struts.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-struts-20031202/lib/struts-el.jar"/>
+	<classpathentry kind="lib" path="lib/spring-1.0-rc2/aopalliance.jar"/>
+	<classpathentry kind="lib" path="lib/struts-menu-2.2-dev/struts-menu-2.2-dev.jar"/>
+	<classpathentry kind="lib" path="lib/spring-1.0-rc2/spring.jar"/>
 	<classpathentry kind="output" path="target"/>
 </classpath>
