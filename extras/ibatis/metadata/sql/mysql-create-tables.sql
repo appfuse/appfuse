@@ -22,6 +22,7 @@ create table app_user (
    phone_number varchar(255),
    website varchar(255),
    password_hint varchar(255),
+   enabled bit,
    primary key (username)
 );
 create table user_cookie (

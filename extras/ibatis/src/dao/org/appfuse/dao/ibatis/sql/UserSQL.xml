@@ -23,6 +23,7 @@
         <result property="website" column="website"/>
         <result property="passwordHint" column="password_hint"/>
         <result property="version" column="version"/>
+        <result property="enabled" column="enabled"/>
         <!--result property="roles" column="username" select="getUserRoles"/-->
     </resultMap>
     
@@ -31,11 +32,11 @@
         insert into 
         app_user (username, password, first_name, last_name, address, 
                   city, province, country, postal_code, email, phone_number, 
-                  website, password_hint, version)
+                  website, password_hint, version, enabled)
         values (#username#, #password#, #firstName#, #lastName#, 
                 #address.address#, #address.city#, #address.province#,
                 #address.country#, #address.postalCode#, #email#, #phoneNumber#,
-                #website#, #passwordHint#, #version#);
+                #website#, #passwordHint#, #version#, #enabled#);
     ]]>
     </insert>
     
@@ -61,7 +62,8 @@
             phone_number = #phoneNumber#,
             website = #website#,
             password_hint = #passwordHint#,
-            version = #version#
+            version = #version#,
+            enabled = #enabled#
         where username = #username#;
     ]]>
     </update>
