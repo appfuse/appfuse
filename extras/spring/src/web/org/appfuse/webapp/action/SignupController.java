@@ -24,7 +24,7 @@ import org.springframework.web.servlet.view.RedirectView;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.3 $ $Date: 2004/05/16 02:15:03 $
+ * @version $Revision: 1.4 $ $Date: 2004/07/20 04:33:06 $
  */
 public class SignupController extends BaseFormController {
     private static Log log = LogFactory.getLog(SignupController.class);
@@ -94,7 +94,7 @@ public class SignupController extends BaseFormController {
         msg.append("\n\n" + getMessageSourceAccessor().getMessage("user.username"));
         msg.append(": " + user.getUsername() + "\n");
         msg.append(getMessageSourceAccessor().getMessage("user.password") + ": ");
-        msg.append(user.getPassword());
+        msg.append(user.getConfirmPassword());
         msg.append("\n\nLogin at: " + RequestUtil.getAppURL(request) +
                        request.getContextPath());
 
