@@ -1,0 +1,75 @@
+<web-app xmlns="http://geronimo.apache.org/xml/ns/web/jetty"
+         xmlns:naming="http://geronimo.apache.org/xml/ns/naming">
+    <resource>
+    <connector
+        xmlns="http://geronimo.apache.org/xml/ns/j2ee/connector"
+        version="1.5"
+        configId="appfuse-db">
+      <dependency>
+        <uri>mysql/jars/mysql-connector-java-3.0.14-production-bin.jar</uri>
+      </dependency>
+    
+      <resourceadapter>
+        <outbound-resourceadapter>
+          <connection-definition>
+            <connectionfactory-interface>
+              javax.sql.DataSource
+            </connectionfactory-interface>
+            <connectiondefinition-instance>
+              <name>MySQLDataSource</name>
+              <config-property-setting name="UserName">
+                test
+              </config-property-setting>
+              <config-property-setting name="Password">
+                test
+              </config-property-setting>
+              <config-property-setting name="Driver">
+                com.mysql.jdbc.Driver
+              </config-property-setting>
+              <config-property-setting name="ConnectionURL">
+                jdbc:mysql://localhost/appfuse
+              </config-property-setting>
+              <config-property-setting name="autoReconnect">
+                true
+              </config-property-setting>
+              <connectionmanager>
+                <local-transaction/>
+                <single-pool>
+                  <max-size>10</max-size>
+                  <min-size>0</min-size>
+                  <blocking-timeout-milliseconds>5000</blocking-timeout-milliseconds>
+                  <idle-timeout-minutes>30</idle-timeout-minutes>
+                  <match-one/>
+                </single-pool>
+              </connectionmanager>
+              <global-jndi-name>appfuse</global-jndi-name>
+            </connectiondefinition-instance>
+          </connection-definition>
+        </outbound-resourceadapter>
+      </resourceadapter>
+    </connector>
+    </resource>
+  
+    <configuration
+        xmlns="http://geronimo.apache.org/xml/ns/deployment"
+        configId="JDBCRealm"
+        parentId="org/apache/geronimo/Server">
+    
+      <!-- standard realm GBean configuration -->
+      <gbean name="geronimo.security:type=SecurityRealm,realm=SQLRealm"
+           class="org.apache.geronimo.security.realm.providers.SQLSecurityRealm">
+        <attribute name="realmName" type="java.lang.String">SQLRealm</attribute>
+        <attribute name="maxLoginModuleAge" type="long">3600000</attribute>
+        <attribute name="connectionURL">jdbc:mysql://localhost/appfuse</attribute>
+        <attribute name="user">test</attribute>
+        <attribute name="password">test</attribute>
+        <attribute name="userSelect">
+          select username, password from app_user;
+        </attribute>
+        <attribute name="groupSelect">
+          select role_name, username from user_role;
+        </attribute>
+      </gbean>
+    
+    </configuration>
+</web-app>

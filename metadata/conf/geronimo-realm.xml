@@ -1,0 +1,23 @@
+<configuration
+    xmlns="http://geronimo.apache.org/xml/ns/deployment"
+    configId="JDBCRealm"
+    parentId="org/apache/geronimo/Server">
+
+  <!-- standard realm GBean configuration -->
+  <gbean 
+       name="geronimo.security:type=SecurityRealm,realm=SQLRealm"
+       class="org.apache.geronimo.security.realm.providers.SQLSecurityRealm">
+    <attribute name="realmName" type="java.lang.String">SQLRealm</attribute>
+    <attribute name="maxLoginModuleAge" type="long">3600000</attribute>
+    <attribute name="connectionURL">jdbc:mysql://localhost/appfuse</attribute>
+    <attribute name="user">test</attribute>
+    <attribute name="password">test</attribute>
+    <attribute name="userSelect">
+      select username, password from app_user;
+    </attribute>
+    <attribute name="groupSelect">
+      select role_name, username from user_role;
+    </attribute>
+  </gbean>
+
+</configuration>
