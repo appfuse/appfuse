@@ -829,9 +829,9 @@
                     output="${test.dir}/cargo.log" action="start">
                     <war warFile="${webapp.dist}/${webapp.war}"/>
                     <configuration dir="${test.dir}/tomcat4x">
-	                    <property name="cargo.logging" value="medium"/>
-	                    <property name="cargo.servlet.port" value="${http.port}"/>
-                    </configuration>   
+                        <property name="cargo.logging" value="medium"/>
+                        <property name="cargo.servlet.port" value="${http.port}"/>
+:                   </configuration>   
                 </cargo-tomcat4x>
         
                 <antcall target="test-canoo"/>
