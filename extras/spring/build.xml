@@ -93,11 +93,11 @@
         
         <echo level="info">Adding Spring JARs to .classpath for Eclipse</echo>
         <replace file="../../.classpath">
-            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/spring-1.0.2-dev/spring.jar"/>]]></replacetoken>
-            <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/spring-1.0.2-dev/spring.jar"/>
-<classpathentry kind="lib" path="lib/spring-1.0.2-dev/spring-mock.jar"/>
-<classpathentry kind="lib" path="lib/spring-1.0.2-dev/commons-fileupload.jar"/>
-<classpathentry kind="lib" path="lib/spring-1.0.2-dev/spring-sandbox.jar"/>
+            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/spring-1.1-20040727/spring.jar"/>]]></replacetoken>
+            <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/spring-1.1-20040727/spring.jar"/>
+<classpathentry kind="lib" path="lib/spring-1.1-20040727/spring-mock.jar"/>
+<classpathentry kind="lib" path="lib/spring-1.1-20040727/commons-fileupload.jar"/>
+<classpathentry kind="lib" path="lib/spring-1.1-20040727/spring-sandbox.jar"/>
 ]]></replacevalue>
         </replace>
 

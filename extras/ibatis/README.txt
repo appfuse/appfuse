@@ -53,7 +53,7 @@ applicationContext-hibatis.xml file I used.
 </bean>
 
 <!-- SqlMap setup for iBATIS Database Layer -->
-<bean id="sqlMap" class="org.springframework.orm.ibatis.SqlMapFactoryBean">
+<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
   <property name="configLocation">
     <value>classpath:/org/appfuse/persistence/ibatis/sql-map-config.xml</value>
   </property>
@@ -68,7 +68,7 @@ applicationContext-hibatis.xml file I used.
 <!-- LookupDAO: iBatis implementation -->
 <bean id="lookupDAO" class="org.appfuse.persistence.ibatis.LookupDAOiBatis">
   <property name="dataSource"><ref bean="dataSource"/></property>
-  <property name="sqlMap"><ref local="sqlMap"/></property>
+  <property name="sqlMapClient"><ref local="sqlMapClient"/></property>
 </bean>
 
 <!-- UserDAO: Hibernate implementation -->

@@ -37,7 +37,7 @@
             <replacevalue><![CDATA[#
 # iBATIS - http://www.ibatis.com/
 #
-ibatis.version 	        = 1.3.1
+ibatis.version 	        = 2.0
 ibatis.dir=${lib.dir}/ibatis-${ibatis.version}
 ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
 
@@ -108,7 +108,7 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
             <replacetoken><![CDATA[#
 # iBATIS - http://www.ibatis.com/
 #
-ibatis.version 	        = 1.3.1
+ibatis.version 	        = 2.0
 ibatis.dir=${lib.dir}/ibatis-${ibatis.version}
 ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
 
