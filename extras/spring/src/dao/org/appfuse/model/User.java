@@ -108,9 +108,11 @@ public class User extends BaseObject implements Serializable {
     /**
      * Returns the email.  This is an optional field for specifying a
      * different e-mail than the username.
+     * 
      * @return String
      *
-     * @hibernate.property column="email" not-null="false" unique="true"
+     * @hibernate.property 
+     * @hibernate.column name="email" not-null="true" unique="true"
      */
     public String getEmail() {
         return email;

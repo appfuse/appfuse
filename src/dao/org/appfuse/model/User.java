@@ -14,9 +14,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * This class is used to generate the Struts Validator Form as well as the
  * Hibernate mapping file.
  * 
- * <p>
- * <a href="User.java.html"> <i>View Source </i> </a>
- * </p>
+ * <p><a href="User.java.html"><i>View Source</i></a></p>
  * 
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  *         Updated by Dan Kibler (dan@getrolling.com)
@@ -126,7 +124,8 @@ public class User extends BaseObject {
      * 
      * @struts.validator type="required"
      * @struts.validator type="email"
-     * @hibernate.property column="email" not-null="false" unique="true"
+     * @hibernate.property 
+     * @hibernate.column name="email" not-null="true" unique="true"
      */
     public String getEmail() {
         return email;
