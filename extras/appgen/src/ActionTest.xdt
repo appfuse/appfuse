@@ -15,21 +15,21 @@ public class <XDtClass:className/>ActionTest extends BaseStrutsTestCase {
         
         <XDtClass:className/>Form <XDtForm:classNameLower/>Form = new <XDtClass:className/>Form();
         // set required fields
-		<XDtMethod:forAllMethods>
-		<XDtMethod:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
-		<XDtType:ifIsOfType value="return-type" type="java.lang.Boolean" extent="concrete-type">
+        <XDtMethod:forAllMethods>
+        <XDtMethod:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
+        <XDtType:ifIsOfType value="return-type" type="java.lang.Boolean" extent="concrete-type">
         <XDtForm:classNameLower/>Form.<XDtMethod:setterMethod/>(Boolean.TRUE);
-		</XDtType:ifIsOfType>
-		<XDtType:ifIsOfType value="return-type" type="java.lang.String" extent="concrete-type">
+        </XDtType:ifIsOfType>
+        <XDtType:ifIsOfType value="return-type" type="java.lang.String" extent="concrete-type">
         <XDtForm:classNameLower/>Form.<XDtMethod:setterMethod/>("<XDtMethod:propertyName/>");
-		</XDtType:ifIsOfType>
-		<XDtType:ifIsOfType value="return-type" type="java.lang.Long" extent="concrete-type">
+        </XDtType:ifIsOfType>
+        <XDtType:ifIsOfType value="return-type" type="java.lang.Long" extent="concrete-type">
         <XDtForm:classNameLower/>Form.<XDtMethod:setterMethod/>(new Long(100));
-		</XDtType:ifIsOfType>
-		<XDtType:ifIsOfType value="return-type" type="java.lang.Integer" extent="concrete-type">
+        </XDtType:ifIsOfType>
+        <XDtType:ifIsOfType value="return-type" type="java.lang.Integer" extent="concrete-type">
         <XDtForm:classNameLower/>Form.<XDtMethod:setterMethod/>(new Integer(100));
-		</XDtType:ifIsOfType>
-		</XDtMethod:ifMethodTagValueEquals>
+        </XDtType:ifIsOfType>
+        </XDtMethod:ifMethodTagValueEquals>
         </XDtMethod:forAllMethods>
         
         request.setAttribute(Constants.<XDtForm:classNameUpper/>_KEY, <XDtForm:classNameLower/>Form);
@@ -78,12 +78,12 @@ public class <XDtClass:className/>ActionTest extends BaseStrutsTestCase {
         addRequestParameter("method", "Save");
 
         // update the form's required string fields and add it back to the request
-		<XDtMethod:forAllMethods>
-		<XDtMethod:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
-		<XDtType:ifIsOfType value="return-type" type="java.lang.String" extent="concrete-type">
-		<XDtForm:classNameLower/>Form.<XDtMethod:setterMethod/>("<XDtMethod:propertyName/>");
-		</XDtType:ifIsOfType>
-		</XDtMethod:ifMethodTagValueEquals>
+        <XDtMethod:forAllMethods>
+        <XDtMethod:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
+        <XDtType:ifIsOfType value="return-type" type="java.lang.String" extent="concrete-type">
+        <XDtForm:classNameLower/>Form.<XDtMethod:setterMethod/>("<XDtMethod:propertyName/>");
+        </XDtType:ifIsOfType>
+        </XDtMethod:ifMethodTagValueEquals>
         </XDtMethod:forAllMethods>
 
         request.setAttribute(Constants.<XDtForm:classNameUpper/>_KEY, <XDtForm:classNameLower/>Form);
