@@ -78,7 +78,7 @@ if (method == null) {
                 break;
             }
         }
-    } else if (method.equals("Save")) {
+    } else if (useMe != null && method.equals("Save")) {
         // figure out which object it is and update it
         for (int i=0; i < testData.size(); i++) {
             Map m = (TreeMap) testData.get(i);

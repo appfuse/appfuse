@@ -106,31 +106,24 @@
     <option name="HIDE_WARNINGS" value="false" />
   </component>
   <component name="FileEditorManager" split-orientation="horizontal" split-proportion="0.5">
-    <first-group selected-file="file://$PROJECT_DIR$/web/pages/userList.jsp">
-      <entry file="file://$PROJECT_DIR$/src/web/org/appfuse/webapp/action/UserAction.java" pinned="false">
+    <first-group selected-file="file://$PROJECT_DIR$/web/users-edit-sql.jsp">
+      <entry file="file://$PROJECT_DIR$/web/users.jsp" pinned="false">
         <provider selected="true" editor-type-id="text-editor">
-          <state line="301" column="9" selection-start="11672" selection-end="11672" vertical-scroll-proportion="0.4181818">
+          <state line="77" column="19" selection-start="2525" selection-end="2525" vertical-scroll-proportion="1.3155556">
             <folding />
           </state>
         </provider>
       </entry>
-      <entry file="file://$PROJECT_DIR$/src/service/org/appfuse/service/UserManagerImpl.java" pinned="false">
+      <entry file="file://$PROJECT_DIR$/web/users-edit.jsp" pinned="false">
         <provider selected="true" editor-type-id="text-editor">
-          <state line="71" column="34" selection-start="2298" selection-end="2298" vertical-scroll-proportion="0.53939396">
+          <state line="80" column="32" selection-start="2566" selection-end="2566" vertical-scroll-proportion="-0.4939394">
             <folding />
           </state>
         </provider>
       </entry>
-      <entry file="file://$PROJECT_DIR$/web/pages/userList.jsp" pinned="false">
+      <entry file="file://$PROJECT_DIR$/web/users-edit-sql.jsp" pinned="false">
         <provider selected="true" editor-type-id="text-editor">
-          <state line="42" column="41" selection-start="1690" selection-end="1690" vertical-scroll-proportion="0.76363635">
-            <folding />
-          </state>
-        </provider>
-      </entry>
-      <entry file="file://$PROJECT_DIR$/src/dao/org/appfuse/persistence/hibernate/UserDAOHibernate.java" pinned="false">
-        <provider selected="true" editor-type-id="text-editor">
-          <state line="33" column="13" selection-start="939" selection-end="939" vertical-scroll-proportion="0.29090908">
+          <state line="64" column="36" selection-start="2327" selection-end="2327" vertical-scroll-proportion="-1.4242424">
             <folding />
           </state>
         </provider>
@@ -155,20 +148,20 @@
     <expanded_node url="org.appfuse.webapp.action" type="package" />
   </component>
   <component name="ProjectPane">
-    <expanded_node url="file://$PROJECT_DIR$/metadata/web" module="appfuse" type="directory" />
-    <expanded_node url="file://$PROJECT_DIR$" module="appfuse" type="directory" />
-    <expanded_node url="file://$PROJECT_DIR$/test" module="appfuse" type="directory" />
-    <expanded_node url="file://$PROJECT_DIR$/web/WEB-INF" module="appfuse" type="directory" />
-    <expanded_node url="file://$PROJECT_DIR$/web" module="appfuse" type="directory" />
     <expanded_node url="file://$PROJECT_DIR$/web/pages" module="appfuse" type="directory" />
-    <expanded_node url="file://$PROJECT_DIR$/tools/strutsgen" module="appfuse" type="directory" />
-    <expanded_node url="" module="appfuse" type="module" />
-    <expanded_node url="file://$PROJECT_DIR$/tools" module="appfuse" type="directory" />
-    <expanded_node url="file://$PROJECT_DIR$/web/scripts" module="appfuse" type="directory" />
-    <expanded_node url="file://$PROJECT_DIR$/web/styles" module="appfuse" type="directory" />
-    <expanded_node url="file://$PROJECT_DIR$/metadata/templates" module="appfuse" type="directory" />
+    <expanded_node url="file://$PROJECT_DIR$/metadata/web" module="appfuse" type="directory" />
+    <expanded_node url="file://$PROJECT_DIR$/web/WEB-INF" module="appfuse" type="directory" />
     <expanded_node url="file://$PROJECT_DIR$/metadata" module="appfuse" type="directory" />
+    <expanded_node url="file://$PROJECT_DIR$/test" module="appfuse" type="directory" />
+    <expanded_node url="file://$PROJECT_DIR$/web/scripts" module="appfuse" type="directory" />
+    <expanded_node url="file://$PROJECT_DIR$/web" module="appfuse" type="directory" />
+    <expanded_node url="" module="appfuse" type="module" />
     <expanded_node url="file://$PROJECT_DIR$/test/web" module="appfuse" type="directory" />
+    <expanded_node url="file://$PROJECT_DIR$/metadata/templates" module="appfuse" type="directory" />
+    <expanded_node url="file://$PROJECT_DIR$/tools" module="appfuse" type="directory" />
+    <expanded_node url="file://$PROJECT_DIR$/web/styles" module="appfuse" type="directory" />
+    <expanded_node url="file://$PROJECT_DIR$/tools/strutsgen" module="appfuse" type="directory" />
+    <expanded_node url="file://$PROJECT_DIR$" module="appfuse" type="directory" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" splitterProportion="0.5">
@@ -288,12 +281,12 @@
     <layout>
       <window_info id="CVS" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.34016395" order="8" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.33" order="7" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="docked" type="docked" visible="true" weight="0.27546296" order="0" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="docked" type="docked" visible="true" weight="0.17438272" order="0" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.32943925" order="1" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.24959481" order="1" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.3306011" order="8" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.4" order="6" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="docked" type="docked" visible="true" weight="0.19135803" order="1" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="docked" type="docked" visible="true" weight="0.17746913" order="1" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.33" order="2" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.25" order="2" />
       <window_info id="CVS File View" active="false" anchor="right" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.3409742" order="3" />
@@ -448,22 +441,6 @@
     </buildFile>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/README.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="72" column="54" selection-start="3528" selection-end="3528" vertical-scroll-proportion="0.2888889">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/service/org/appfuse/service/BaseManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="68" column="45" selection-start="2366" selection-end="2377" vertical-scroll-proportion="1.2088889">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/service/org/appfuse/service/LookupManagerImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="22" column="13" selection-start="598" selection-end="598" vertical-scroll-proportion="0.26666668">
@@ -513,13 +490,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/users.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="77" column="19" selection-start="2525" selection-end="2525" vertical-scroll-proportion="0.017777778">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/styles/default.css">
       <provider selected="true" editor-type-id="text-editor">
         <state line="319" column="1" selection-start="5787" selection-end="5787" vertical-scroll-proportion="0.8909091">
@@ -534,13 +504,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/service/org/appfuse/service/UserManagerImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="71" column="34" selection-start="2298" selection-end="2298" vertical-scroll-proportion="0.53939396">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/dao/org/appfuse/persistence/hibernate/UserDAOHibernate.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="33" column="13" selection-start="939" selection-end="939" vertical-scroll-proportion="0.29090908">
@@ -551,6 +514,34 @@
     <entry file="file://$PROJECT_DIR$/web/pages/userList.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state line="42" column="41" selection-start="1690" selection-end="1690" vertical-scroll-proportion="0.76363635">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/service/org/appfuse/service/UserManagerImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="66" column="0" selection-start="2080" selection-end="2304" vertical-scroll-proportion="0.44848484">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/users.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="77" column="19" selection-start="2525" selection-end="2525" vertical-scroll-proportion="1.3155556">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/users-edit-sql.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="64" column="36" selection-start="2327" selection-end="2327" vertical-scroll-proportion="-1.4242424">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/users-edit.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="80" column="32" selection-start="2566" selection-end="2566" vertical-scroll-proportion="-0.4939394">
           <folding />
         </state>
       </provider>
