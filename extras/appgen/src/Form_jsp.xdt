@@ -3,7 +3,7 @@
 <title><fmt:message key="<XDtForm:classNameLower/>Detail.title"/></title>
 <content tag="heading"><fmt:message key="<XDtForm:classNameLower/>Detail.heading"/></content>
 
-<html:form action="edit<XDtClass:className/>" method="post" styleId="<XDtForm:classNameLower/>Form"
+<html:form action="save<XDtClass:className/>" method="post" styleId="<XDtForm:classNameLower/>Form"
     focus="" onsubmit="return validate<XDtClass:className/>Form(this)">
 <table class="detail">
 <XDtForm:forAllFields>
