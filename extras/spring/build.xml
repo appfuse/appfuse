@@ -247,7 +247,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         </replace>
         
         <replace file="../../build.xml">
-            <replacetoken><![CDATA[<target name="test-web" depends="webdoclet,db-load"
+            <replacetoken><![CDATA[<target name="test-web" depends="webdoclet"
         description="Test web module">
         <copy todir="${webapp.target}/WEB-INF" 
             file="${struts.dir}/validator-rules.xml"/>
@@ -257,7 +257,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
                 torefid="test.classpath"/>
         </antcall>
     </target>]]></replacetoken>
-            <replacevalue><![CDATA[<target name="test-web" depends="webdoclet,db-load"
+            <replacevalue><![CDATA[<target name="test-web" depends="webdoclet"
         description="Test web module">
         <copy todir="${webapp.target}/WEB-INF" 
             file="${spring.dir}/validator-rules.xml"/>
