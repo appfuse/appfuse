@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.7 2004/04/14 18:21:31 mraible Exp $                 -->
+<!-- $Id: build.xml,v 1.8 2004/04/15 04:47:47 RickHigh Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -509,10 +509,12 @@
     
     <target name="compile-web" depends="package-dao,package-service,stage-web"
         description="Compile web module">
+        <property name="web.modules.additional" value=""/>
+		<echo>Module ${web.modules.additional}</echo>
         <antcall target="compile-module" inheritAll="true">
             <param name="module" value="web"/>
             <param name="additional.src.dirs"
-                value="${build.dir}/web/gen"/>
+                value="${build.dir}/web/gen;${web.modules.additional}"/>
             <reference refid="web.compile.classpath"
                 torefid="compile.classpath"/>
             <reference refid="web.test.classpath"
