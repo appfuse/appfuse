@@ -194,53 +194,12 @@ public class UserFormController extends BaseFormController {
             user = mgr.getUser(username);
         } else {
             user = new User();
+            user.addRole(Constants.USER_ROLE);
         }
 
         user.setConfirmPassword(user.getPassword());
 
         return user;
-    }
-
-    
-    /**
-     * This method is used to load up data for the roles pick list
-     */
-    protected Map referenceData(HttpServletRequest request)
-    throws Exception {
-            
-        if (!isFormSubmission(request)) {
-            List roles = new ArrayList();
-
-            if ("Add".equals(request.getParameter("method"))) {
-                // create the default user role
-                roles.add(new LabelValue(Constants.USER_ROLE,
-                                         Constants.USER_ROLE));
-            } else {
-                String username = request.getParameter("username");
-
-                if (StringUtils.isEmpty(username)) {
-                    username = getUser(request).getUsername();
-                }
-
-                User user = (User) mgr.getUser(username);
-
-                if (user.getRoles() != null) {
-                    for (Iterator it = user.getRoles().iterator(); it.hasNext();) {
-                        UserRole role = (UserRole) it.next();
-
-                        // convert the user's roles to LabelValue objects
-                        roles.add(new LabelValue(role.getRoleName(),
-                                                 role.getRoleName()));
-                    }
-                }
-            }
-
-            Map model = new HashMap();
-            model.put(Constants.USER_ROLES, roles);
-            return model;
-        }
-
-        return super.referenceData(request);
     }
 
     private void sendNewUserEmail(User user, HttpServletRequest request) throws Exception {
