@@ -62,8 +62,8 @@
         
         <!-- Copy source and tests -->    
         <echo level="info">Replacing source and test files</echo>
-        <copy todir="../../extras" overwrite="true">
-            <fileset dir="extras" includes="**"/>
+        <copy todir="../../extras/viewgen" overwrite="true">
+            <fileset dir="extras/viewgen" includes="**"/>
         </copy>
         <delete dir="../../src/web/org/appfuse/webapp/form"/>
         <delete>

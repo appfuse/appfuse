@@ -17,8 +17,8 @@
 	id="<XDtForm:classNameLower/>List" pagesize="25" styleClass="list" export="true" requestURI="">
   
     <display:column property="id" sort="true" headerClass="sortable"
-        url="/edit<XDtClass:className/>?from=list" paramId="id" paramProperty="id"
-        titleKey="<XDtClass:className/>.id"/>
+        url="/edit<XDtClass:className/>.html?from=list" paramId="id" paramProperty="id"
+        titleKey="<XDtForm:classNameLower/>.id"/>
         
   <XDtForm:forAllFields>
     <display:column property="<XDtForm:fieldName/>" sort="true" headerClass="sortable"

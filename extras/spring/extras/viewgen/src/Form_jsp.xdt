@@ -13,7 +13,7 @@
 </spring:bind>
 
 <form method="post" action="<c:url value="/edit<XDtClass:className/>.html"/>" id="<XDtForm:classNameLower/>"
-    onsubmit="return validate<XDtClass:className/>(this)" focus="">
+    onsubmit="return validate<XDtClass:className/>(this)">
 <table class="detail">
     <XDtForm:forAllFields>
     <tr>
@@ -36,7 +36,7 @@
                 onclick="bCancel=false" value="<fmt:message key="button.save"/>" />
             
             <input type="submit" class="button" name="delete"
-                onclick="bCancel=true;confirmDelete('<XDtForm:classNameLower/>')" 
+                onclick="bCancel=true;confirmDelete('<XDtClass:className/>')" 
                 value="<fmt:message key="button.delete"/>" />
                 
             <input type="submit" class="button" name="cancel" onclick="bCancel=true"
@@ -44,11 +44,11 @@
         </td>
     </tr>
 </table>
-</html:form>
+</form>
 
 <html:javascript formName="<XDtForm:classNameLower/>" cdata="false"
-      dynamicJavascript="true" staticJavascript="false"/>
+    dynamicJavascript="true" staticJavascript="false"/>
 <script type="text/javascript" 
-      src="<html:rewrite page="/scripts/validator.jsp"/>"></script>
+    src="<c:url page="/scripts/validator.jsp"/>"></script>
 
 
