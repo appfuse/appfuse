@@ -48,9 +48,13 @@ Features/Changes in 1.6
 - Refactored logging so Base classes contain a "log" variable that children
   don't need to override. More at:
     http://raibledesigns.com/page/rd?anchor=log_debug_vs_logger_debug
+- Refactored equals() and hashCode() methods in BaseObject to be abstract so
+  child classes have to implement custom equals() and hashCode() methods.
+  Commonclipse (http://commonclipse.sf.net) can generate the methods for you.
 - Refactored to use SiteMesh instead of Tiles.  Proposal and feedback at: 
     http://raibledesigns.com/page/rd?anchor=should_i_ditch_tiles_in
-  Experience documented at: http://raibledesigns.com/page/rd/20040821
+    Good Article: http://www.onjava.com/pub/a/onjava/2004/09/22/sitemesh.html
+    Experience documented at: http://raibledesigns.com/page/rd/20040821
 - Removed MainMenuTest, which was a demonstration of how to write tests using
   HttpUnit.  This test caused more problems than it solved.
 - Refactored BaseDAOTestCase and BaseManagerTestCase to use DBUnit and load
@@ -61,23 +65,46 @@ Features/Changes in 1.6
 - Changed target names in build.xml: define-tasks -> init, init -> prepare. 
   Reworked build.xml so XDoclet tasks don't execute when they don't need to.
 - Added translations for French and Spanish.
+- Added PasswordHintTest for those controllers and actions that implement this
+  feature.
+- Added message to the Reload Action so users will see a message when reloading
+  options.  Message is currently hard-coded to English in Actions/Controllers.
+- Removed proprietary State and Country Tags.  Implemented custom CountryTag
+  (thanks Jens Fischer) and made state into a text box since not all countries 
+  have "states".
+- Reworked mail support to use Spring's MailSender and changed account 
+  information e-mail to use a Velocity template.  This was partially motivated
+  by all the questions I get on Sending Velocity-based E-Mail with Spring.
+  http://jroller.com/page/raible/20040406#sending_velocity_based_e_mail
+- Modified struts_form.xdt to support nested objects.  Moved address information
+  from org.appfuse.model.User to org.appfuse.model.Address to and created
+  NestedFormTest to verify it works.  This template will pick up any nested 
+  object validations rules.
+- Renamed "Secure" tag library to "SecureTag" for consistency.
+- Added field-level errors (using html:errors) to Struts JSPs and viewgen for 
+  Struts.
+- Changed column names in User object from camelCase to normal database_names.
 - Dependent packages upgraded:
     * DbUnit 2.1
     * Display Tag 1.0 RC1
     * Hibernate 2.1.6
-    * iBATIS 2.0.5
+    * iBATIS 2.0.6
     * JSTL 1.0.6
     * MySQL JDBC Driver 3.0.14
-    * Spring 1.1
-    * Struts 1.2.2
+    * Spring 1.1.1
+    * Struts 1.2.4
+    * Struts Menu 2.3
     * Struts Test Case 2.1.2
     * WebTest build474
-    * XDoclet 1.2.2 Snapshot (20040902)
+    * XDoclet 1.2.2
 - Dependent packages added:
     * SiteMesh 2.1 - Seems to be a page-decoration package that will work
       across different MVC frameworks.
     * URL Rewrite Filter 1.2 - Added and included in WAR, but disabled by
       default.  See web/WEB-INF/urlrewrite.xml for more information.
+- Dependent packages removed:
+	* State Tag and Country Tag - required a $75 license for production use.
+
 
 Features/Changes in 1.5
 ============================
