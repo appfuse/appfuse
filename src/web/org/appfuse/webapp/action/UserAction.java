@@ -43,7 +43,7 @@ import org.appfuse.webapp.util.RequestUtil;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.12 $ $Date: 2004/05/25 06:27:22 $
+ * @version $Revision: 1.13 $ $Date: 2004/08/03 05:14:37 $
  *
  * @struts.action name="userFormEx" path="/editUser" scope="request"
  *  validate="false" parameter="action" input="list" roles="admin"
@@ -309,7 +309,8 @@ public final class UserAction extends BaseAction {
         
         // Exceptions are caught by ActionExceptionHandler
         UserManager mgr = (UserManager) getBean("userManager");
-        List users = mgr.getUsers(convert(userForm));
+        User user = (User) convert(userForm);
+        List users = mgr.getUsers(user);
         request.setAttribute(Constants.USER_LIST, users);
 
         // return a forward to the user list definition

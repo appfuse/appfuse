@@ -15,14 +15,14 @@ import org.appfuse.util.StringUtil;
 
 /**
  * Implementation of UserManager interface.  This basically transforms POJOs ->
- * Forms and back again.
- * <p/>
- * <p/>
+ * Forms and back again.</p>
+ * 
+ * <p>
  * <a href="UserManagerImpl.java.html"><i>View Source</i></a>
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.9 $ $Date: 2004/06/03 15:17:55 $
+ * @version $Revision: 1.10 $ $Date: 2004/08/03 05:14:36 $
  */
 public class UserManagerImpl extends BaseManager implements UserManager {
     private Log log = LogFactory.getLog(UserManagerImpl.class);
@@ -48,18 +48,18 @@ public class UserManagerImpl extends BaseManager implements UserManager {
     }
 
     /**
-     * @see org.appfuse.service.UserManager#getUsers(java.lang.Object)
+     * @see org.appfuse.service.UserManager#getUsers(org.appfuse.model.User)
      */
-    public List getUsers(Object obj) {
-        return dao.getUsers((User) obj);
+    public List getUsers(User user) {
+        return dao.getUsers(user);
     }
 
     /**
-     * @see org.appfuse.service.UserManager#saveUser(java.lang.Object)
+     * @see org.appfuse.service.UserManager#saveUser(org.appfuse.model.User)
      */
-    public User saveUser(Object obj) throws ServiceException {
+    public User saveUser(User user) throws ServiceException {
         try {
-        	return dao.saveUser((User) obj);
+        	return dao.saveUser(user);
         } catch (DAOException d) {
         	throw new ServiceException(d.getMessage(), d);
         }

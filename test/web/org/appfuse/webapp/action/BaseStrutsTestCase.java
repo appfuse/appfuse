@@ -25,7 +25,7 @@ import servletunit.struts.CactusStrutsTestCase;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.5 $ $Date: 2004/05/16 02:17:20 $
+ * @version $Revision: 1.6 $ $Date: 2004/08/03 05:14:37 $
  */
 public class BaseStrutsTestCase extends CactusStrutsTestCase {
     //~ Instance fields ========================================================
@@ -61,7 +61,7 @@ public class BaseStrutsTestCase extends CactusStrutsTestCase {
         ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(
         		    getSession().getServletContext());
         UserManager userMgr = (UserManager) ctx.getBean("userManager");
-        user = (User) userMgr.getUser(username);
+        user = userMgr.getUser(username);
         getSession().setAttribute(Constants.USER_KEY, user);
     }
     

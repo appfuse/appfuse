@@ -37,7 +37,7 @@ import org.springframework.web.servlet.view.RedirectView;
  * <p/><a href="UserFormController.java.html"><i>View Source</i></a></p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.7 $ $Date: 2004/05/29 04:44:46 $
+ * @version $Revision: 1.8 $ $Date: 2004/08/03 05:14:36 $
  */
 public class UserFormController extends BaseFormController {
     
@@ -214,10 +214,10 @@ public class UserFormController extends BaseFormController {
         User user = null;
 
         if (request.getRequestURL().indexOf("editProfile") > -1) {
-            user = (User) mgr.getUser(getUser(request).getUsername());
+            user = mgr.getUser(getUser(request).getUsername());
         } else if (!StringUtils.isEmpty(username) &&
                 !"".equals(request.getParameter("id"))) {
-            user = (User) mgr.getUser(username);
+            user = mgr.getUser(username);
         } else {
             user = new User();
         }
@@ -316,7 +316,6 @@ public class UserFormController extends BaseFormController {
         }
         
         // if the user is being deleted, turn off validation
-        // doh - seems to kill validation on save as well
         if (request.getParameter("delete") != null) {
         	super.setValidateOnBinding(false);
         } else {

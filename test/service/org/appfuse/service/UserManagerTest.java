@@ -24,7 +24,7 @@ public class UserManagerTest extends BaseManagerTestCase {
     }
 
     public void testGetUser() throws Exception {
-        user = (User) mgr.getUser("tomcat");
+        user = mgr.getUser("tomcat");
 
         if (log.isDebugEnabled()) {
             log.debug(user);
@@ -42,7 +42,7 @@ public class UserManagerTest extends BaseManagerTestCase {
             log.debug("saving user with updated phone number: " + user);
         }
 
-        user = (User) mgr.saveUser(user);
+        user = mgr.saveUser(user);
         assertTrue(user.getPhoneNumber().equals("303-555-1212"));
         assertTrue(user.getRoles().size() == 1);
     }
@@ -56,7 +56,7 @@ public class UserManagerTest extends BaseManagerTestCase {
 
         user.addRole(Constants.USER_ROLE);
 
-        user = (User) mgr.saveUser(user);
+        user = mgr.saveUser(user);
         assertTrue(user.getUsername().equals("john"));
         assertTrue(user.getRoles().size() == 1);
 
@@ -67,7 +67,7 @@ public class UserManagerTest extends BaseManagerTestCase {
         mgr.removeUser(user.getUsername());
 
         try {
-            user = (User) mgr.getUser("john");
+            user = mgr.getUser("john");
             fail("Expected 'Exception' not thrown");
         } catch (Exception e) {
             if (log.isDebugEnabled()) {

@@ -37,7 +37,7 @@ import org.springframework.web.context.WebApplicationContext;
  * <p><a href="RegistrationServlet.java.html"><i>View Source</i></a></p>
  *
  * @author Matt Raible
- * @version $Revision: 1.7 $ $Date: 2004/05/25 06:27:22 $
+ * @version $Revision: 1.8 $ $Date: 2004/08/03 05:14:37 $
  * @web.servlet display-name="Registration Servlet"
  * name="register"
  * load-on-startup="4"
@@ -288,7 +288,7 @@ public final class RegistrationServlet extends HttpServlet {
                 (WebApplicationContext) getServletContext().getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
             UserManager userMgr = (UserManager) ctx.getBean("userManager");
 
-            User user = (User) userMgr.getUser(userId);
+            User user = userMgr.getUser(userId);
 
             StringBuffer msg = new StringBuffer();
             msg.append("Your password hint is: " + user.getPasswordHint());
