@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: web-tests.xml,v 1.12 2004/08/22 05:12:46 mraible Exp $               -->
+<!-- $Id: web-tests.xml,v 1.13 2004/09/29 10:33:12 mraible Exp $               -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:../../properties.xml">
@@ -104,9 +104,9 @@
                 <invoke stepid="click Edit Profile link" url="/editUser.html"/>
                 <verifytitle stepid="we should see the user profile title" 
                     text="${webapp.prefix}${userProfile.title}"/>
-                <setinputfield stepid="set address" name="address" 
+                <setinputfield stepid="set address" name="addressForm.address" 
                     value="2255 Lane Avenue"/>
-                <setinputfield stepid="set zipcode" name="postalCode" 
+                <setinputfield stepid="set zipcode" name="addressForm.postalCode" 
                     value="59826"/>
                 <clickbutton label="Save" stepid="Click Save"/>
                 <verifytitle stepid="display Main Menu if save OK"
@@ -136,13 +136,13 @@
                     value="Test"/>
                 <setinputfield stepid="set lastName" name="lastName" 
                     value="Name"/>
-                <setinputfield stepid="set city" name="city" 
+                <setinputfield stepid="set city" name="addressForm.city" 
                     value="Denver"/>
-                <setselectfield stepid="select province" name="province"
+                <setselectfield stepid="select province" name="addressForm.province"
                     value="CO"/>
-                <setselectfield stepid="select country" name="country"
+                <setselectfield stepid="select country" name="addressForm.country"
                     value="US"/>
-                <setinputfield stepid="set postalCode" name="postalCode" 
+                <setinputfield stepid="set postalCode" name="addressForm.postalCode" 
                     value="80210"/>
                 <setinputfield stepid="set email" name="email" 
                     value="newuser@raibledesigns.com"/>
@@ -162,8 +162,9 @@
                 <verifytext stepid="verify success message" 
                     text="User information for &lt;strong&gt;newuser&lt;/strong&gt; has been added successfully."/>
                 <!-- Delete user -->
-                <invoke stepid="click Delete button"
-                    url="/editUser.html?action=Delete&amp;username=newuser"/>
+                <invoke stepid="Click edit user link"
+                    url="/editUser.html?username=newuser&amp;from=list"/>
+                <clickbutton label="${button.delete}" stepid="Click button 'Delete'"/>
                 <verifytext stepid="verify success message" 
                     text="User Profile for &lt;strong&gt;newuser&lt;/strong&gt; has been deleted successfully."/>
                 <verifytitle stepid="display user list" 
@@ -191,13 +192,13 @@
                     value="Test"/>
                 <setinputfield stepid="set lastName" name="lastName" 
                     value="Name"/>
-                <setinputfield stepid="set city" name="city" 
+                <setinputfield stepid="set city" name="addressForm.city" 
                     value="Denver"/>
-                <setselectfield stepid="Select province" name="province"
+                <setselectfield stepid="Select province" name="addressForm.province"
                     value="CO"/>
-                <setselectfield stepid="Select country" name="country"
+                <setselectfield stepid="Select country" name="addressForm.country"
                     value="US"/>
-                <setinputfield stepid="set postalCode" name="postalCode" 
+                <setinputfield stepid="set postalCode" name="addressForm.postalCode" 
                     value="80210"/>
                 <setinputfield stepid="set email" name="email" 
                     value="signup-user@raibledesigns.com"/>

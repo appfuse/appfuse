@@ -1,5 +1,11 @@
 <%@ include file="/common/taglibs.jsp"%>
 
+<head>
+    <title><fmt:message key="userProfile.title"/></title>
+    <script type="text/javascript" src="<c:url value='/scripts/selectbox.js'/>"></script> 
+    <content tag="heading"><fmt:message key="userProfile.heading"/></content>
+</head>
+
 <html:form action="saveUser" focus="password" styleId="userFormEx" 
     onsubmit="return onFormSubmit(this)">
 <html:hidden property="id"/>
@@ -21,15 +27,15 @@
     	<td class="buttonBar">
             <html:submit styleClass="button" property="action" 
                 onclick="bCancel=false">
-            	<fmt:message key="button.save"/>
+            	  <fmt:message key="button.save"/>
             </html:submit>
             
-        <c:if test="${param.from == 'list'}">
-        <html:submit styleClass="button" property="action"
-            onclick="bCancel=false;return confirmDelete('user')" tabindex="14">
-          <bean:message key="button.delete"/>
-        </html:submit>
-        </c:if>
+            <c:if test="${param.from == 'list'}">
+            <html:submit styleClass="button" property="action"
+                onclick="bCancel=false;return confirmDelete('user')" tabindex="14">
+                <bean:message key="button.delete"/>
+            </html:submit>
+            </c:if>
         
             <html:cancel styleClass="button" property="action" onclick="bCancel=true">
                 <fmt:message key="button.cancel"/>
@@ -45,6 +51,7 @@
         <c:choose>
             <c:when test="${empty userFormEx.id}">
                 <html:text property="username" styleId="username" />
+                <html:errors property="username"/>
             </c:when>
             <c:otherwise>
                 <c:out value="${userFormEx.username}"/>
@@ -63,6 +70,7 @@
             <html:password property="password" size="40"
                 onchange="passwordChanged(this)"
                 styleId="password" redisplay="true"/>
+            <html:errors property="password"/>
         </td>
     </tr>
     <tr>
@@ -72,6 +80,7 @@
         <td>
             <html:password property="confirmPassword" size="40"
                 styleId="confirmPassword" redisplay="true"/>
+            <html:errors property="confirmPassword"/>
         </td>
     </tr>
     </c:if>
@@ -80,8 +89,8 @@
             <appfuse:label key="userFormEx.firstName"/>
         </th>
         <td>
-            <html:text property="firstName" 
-                styleId="firstName"/>
+            <html:text property="firstName" styleId="firstName"/>
+            <html:errors property="firstName"/>
         </td>
     </tr>
     <tr>
@@ -89,65 +98,62 @@
             <appfuse:label key="userFormEx.lastName"/>
         </th>
         <td>
-            <html:text property="lastName" 
-                styleId="lastName"/>
+            <html:text property="lastName" styleId="lastName"/>
+            <html:errors property="lastName"/>
         </td>
     </tr>
     <tr>
         <th>
-            <appfuse:label key="userFormEx.address"/>
+            <appfuse:label key="userFormEx.addressForm.address"/>
         </th>
         <td>
-            <html:text property="address" 
-                styleId="address" size="50"/>
+            <html:text property="addressForm.address" 
+                styleId="addressForm.address" size="50"/>
+            <html:errors property="addressForm.address"/>
         </td>
     </tr>
     <tr>
         <th>
-            <appfuse:label key="userFormEx.city"/>
+            <appfuse:label key="userFormEx.addressForm.city"/>
         </th>
         <td>
-            <html:text property="city" 
-                styleId="city" size="40"/>
+            <html:text property="addressForm.city" 
+                styleId="addressForm.city" size="40"/>
+            <html:errors property="addressForm.city"/>
         </td>
     </tr>
     <tr>
         <th>
-            <appfuse:label key="userFormEx.province"/>
+            <appfuse:label key="userFormEx.addressForm.province"/>
         </th>
         <td>
-        <c:if test="${userFormEx.province != null}">
-            <bean:define id="state" name="userFormEx" 
-                property="province" type="java.lang.String" />
-            <state:state name="province" default="<%=state%>"/>
-        </c:if>
-        <c:if test="${userFormEx.province == null}">
-            <state:state name="province" prompt=""/>
-        </c:if>
+            <html:text property="addressForm.province" 
+                styleId="addressForm.province" size="40"/>
+            <html:errors property="addressForm.province"/>
         </td>
     </tr>
     <tr>
         <th>
-            <appfuse:label key="userFormEx.country"/>
+            <appfuse:label key="userFormEx.addressForm.country"/>
         </th>
         <td>
-        <c:if test="${userFormEx.country != null}">
-            <bean:define id="country" name="userFormEx" 
-                property="country" type="java.lang.String" />
-            <country:country name="country" default="<%=country%>"/>
-        </c:if>
-        <c:if test="${userFormEx.country == null}">
-            <country:country name="country" prompt=""/>
-        </c:if>
+            <appfuse:country name="countries" toScope="page"/>
+            <html:select property="addressForm.country">
+                <html:option value=""/>
+                <html:options collection="countries" 
+                    property="value" labelProperty="label"/>
+            </html:select>
+            <html:errors property="addressForm.country"/>
         </td>
     </tr>
     <tr>
         <th>
-            <appfuse:label key="userFormEx.postalCode"/>
+            <appfuse:label key="userFormEx.addressForm.postalCode"/>
         </th>
         <td>
-            <html:text property="postalCode" 
-                styleId="postalCode" size="10"/>
+            <html:text property="addressForm.postalCode" 
+                styleId="addressForm.postalCode" size="10"/>
+            <html:errors property="addressForm.postalCode"/>
         </td>
     </tr>
     <tr>
@@ -155,8 +161,8 @@
             <appfuse:label key="userFormEx.email"/>
         </th>
         <td>
-            <html:text property="email" 
-                styleId="email" size="50"/>
+            <html:text property="email" styleId="email" size="50"/>
+            <html:errors property="email"/>
         </td>
     </tr>
     <tr>
@@ -164,8 +170,8 @@
             <appfuse:label key="userFormEx.phoneNumber"/>
         </th>
         <td>
-            <html:text property="phoneNumber" 
-                styleId="phoneNumber"/>
+            <html:text property="phoneNumber" styleId="phoneNumber"/>
+            <html:errors property="phoneNumber"/>
         </td>
     </tr>
     <tr>
@@ -178,6 +184,7 @@
             <c:if test="${!empty userFormEx.website}">
             <a href="<c:out value="${userFormEx.website}"/>"><fmt:message key="userFormEx.visitWebsite"/></a>
             </c:if>
+            <html:errors property="website"/>
         </td>
     </tr>
     <tr>
@@ -187,6 +194,7 @@
         <td>
             <html:text property="passwordHint" 
                 styleId="passwordHint" size="50"/>
+            <html:errors property="passwordHint"/>
         </td>
     </tr>
 <c:choose>
