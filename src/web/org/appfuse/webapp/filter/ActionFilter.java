@@ -39,7 +39,7 @@ import org.springframework.web.context.WebApplicationContext;
  * <p><a href="ActionFilter.java.html"><i>View Source</i></a></p>
  *
  * @author  Matt Raible
- * @version $Revision: 1.4 $ $Date: 2004/04/16 04:22:28 $
+ * @version $Revision: 1.5 $ $Date: 2004/04/22 21:37:21 $
  *
  * @web.filter display-name="Action Filter" name="actionFilter"
  *
@@ -96,6 +96,7 @@ public class ActionFilter implements Filter {
         }
 
         // keep JSTL and Struts Locale's in synch
+        /*
         Locale locale = (Locale) session.getAttribute(Globals.LOCALE_KEY);
         if (locale == null) {
             locale = request.getLocale();
@@ -105,7 +106,8 @@ public class ActionFilter implements Filter {
         }
         session.setAttribute(Globals.LOCALE_KEY, locale);
         Config.set(session, Config.FMT_LOCALE, locale);
-
+        */
+        
         User user = (User) session.getAttribute(Constants.USER_KEY);
         ServletContext ctx = config.getServletContext();
         String username = request.getRemoteUser();

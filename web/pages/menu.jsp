@@ -2,7 +2,6 @@
 
 <div id="menu">
 <menu:useMenuDisplayer name="ListMenu" 
-    bundle="org.apache.struts.action.MESSAGE"
     permissions="rolesAdapter">
     <menu:displayMenu name="AdminMenu"/>
     <menu:displayMenu name="UserMenu"/>

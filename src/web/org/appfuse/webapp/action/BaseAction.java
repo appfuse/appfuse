@@ -45,7 +45,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.7 $ $Date: 2004/04/14 17:47:43 $
+ * @version $Revision: 1.8 $ $Date: 2004/04/22 21:37:21 $
  */
 public class BaseAction extends LookupDispatchAction {
 
@@ -380,11 +380,12 @@ public class BaseAction extends LookupDispatchAction {
         String methodName = null;
 
         try {
+            this.setLocale(request, request.getLocale());  // MR - added to default to JSTL
             methodName = super.getLookupMapName(request, keyName, mapping);
         } catch (ServletException ex) {
             if (log.isDebugEnabled()) {
                 log.debug("BaseAction: keyName not found in resource bundle with locale "
-                        + this.getLocale(request));
+                        + request.getLocale());
             }
 
             // the keyname is not available in the resource bundle associated with the user's locale

@@ -48,15 +48,16 @@ public class LabelTag extends TagSupport {
         TagUtils tagUtils = TagUtils.getInstance();
 
         ValidatorResources resources =
-            (ValidatorResources) pageContext.getServletContext().getAttribute(ValidatorPlugIn.VALIDATOR_KEY);
-        Locale locale =
-            (Locale) pageContext.getAttribute(Globals.LOCALE_KEY,
-                                              PageContext.SESSION_SCOPE);
+            (ValidatorResources) pageContext.getServletContext()
+                .getAttribute(ValidatorPlugIn.VALIDATOR_KEY);
+        
+        Locale locale = 
+            (Locale) pageContext.findAttribute(Globals.LOCALE_KEY);
 
         if (locale == null) {
             locale = Locale.getDefault();
         }
-
+        
         FormTag formTag =
             (FormTag) pageContext.getAttribute(Constants.FORM_KEY,
                                                PageContext.REQUEST_SCOPE);
@@ -95,7 +96,7 @@ public class LabelTag extends TagSupport {
                 // Retrieve the message string we are looking for
                 valMessage.append(tagUtils.message(pageContext,
                                                    Globals.MESSAGES_KEY,
-                                                   Globals.LOCALE_KEY,
+                                                   locale.getDisplayName(),
                                                    error.getKey(),
                                                    error.getValues()));
             }
@@ -104,7 +105,7 @@ public class LabelTag extends TagSupport {
         // Retrieve the message string we are looking for
         String message =
             tagUtils.message(pageContext, Globals.MESSAGES_KEY,
-                             Globals.LOCALE_KEY, key);
+                             locale.getDisplayName(), key);
 
         StringBuffer valError = new StringBuffer();
 
@@ -164,7 +165,7 @@ public class LabelTag extends TagSupport {
                 label.append("src=\"" + context);
                 label.append(tagUtils.message(pageContext,
                                               Globals.MESSAGES_KEY,
-                                              Globals.LOCALE_KEY,
+                                              locale.getDisplayName(),
                                               "icon.warning.img"));
                 label.append("\" />");
                 label.append("</a>");
