@@ -24,10 +24,10 @@
             <appfuse:label key="<XDtForm:classNameLower/>.<XDtForm:fieldName/>"/>
         </th>
         <td>
-        	<spring:bind path="<XDtForm:classNameLower/>.<XDtForm:fieldName/>">
-            	<input type="text" name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" 
-                	value="<c:out value="${status.value}"/>" />
-            	<span class="fieldError"><c:out value="${status.errorMessage}"/></span>
+            <spring:bind path="<XDtForm:classNameLower/>.<XDtForm:fieldName/>">
+                <input type="text" name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" 
+                    value="<c:out value="${status.value}"/>" />
+                <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
             </spring:bind>
         </td>
     </tr>

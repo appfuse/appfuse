@@ -45,12 +45,12 @@ public class <XDtClass:className/>FormControllerTest extends BaseControllerTestC
         super.objectToRequestParameters(<XDtForm:classNameLower/>, request);
 
         // update the form's required string fields and add it back to the request
-		<XDtMethod:forAllMethods>
-		<XDtMethod:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
-		<XDtType:ifIsOfType value="return-type" type="java.lang.String" extent="concrete-type">
-		<XDtForm:classNameLower/>.<XDtMethod:setterMethod/>("<XDtMethod:propertyName/>");
-		</XDtType:ifIsOfType>
-		</XDtMethod:ifMethodTagValueEquals>
+        <XDtMethod:forAllMethods>
+        <XDtMethod:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
+        <XDtType:ifIsOfType value="return-type" type="java.lang.String" extent="concrete-type">
+        <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>("<XDtMethod:propertyName/>");
+        </XDtType:ifIsOfType>
+        </XDtMethod:ifMethodTagValueEquals>
         </XDtMethod:forAllMethods>
         
         mv = c.handleRequest(request, new MockHttpServletResponse());
