@@ -10,7 +10,9 @@
             <value>
                 CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
                 PATTERN_TYPE_APACHE_ANT
-                /**=httpSessionContextIntegrationFilter,authenticationProcessingFilter,remoteUserFilter,anonymousProcessingFilter,securityEnforcementFilter 
+                /j_security_check*=httpSessionContextIntegrationFilter,authenticationProcessingFilter
+                /*.html*=httpSessionContextIntegrationFilter,remoteUserFilter,anonymousProcessingFilter,securityEnforcementFilter
+                /logout.jsp=httpSessionContextIntegrationFilter,remoteUserFilter
             </value>
         </property>
     </bean>
