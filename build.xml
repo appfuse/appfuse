@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.16 2004/05/04 06:19:08 mraible Exp $                 -->
+<!-- $Id: build.xml,v 1.17 2004/05/04 16:23:13 mraible Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -119,13 +119,13 @@
                 <exclude name="src/**/*.java"/>
                 <exclude name="src/**/*.xml"/>
                 <exclude name="test/**/*.java"/>
-                <exclude name="contrib/**/*.java"/>
-                <exclude name="contrib/**/*.xml"/>
+                <exclude name="extras/**/*.java"/>
+                <exclude name="extras/**/*.xml"/>
                 <include name="**"/>
                 <exclude name="metadata/web/global-exceptions.xml"/>
                 <exclude name="web/WEB-INF/*.xml"/>
                 <exclude name="web/WEB-INF/classes/log4j.properties"/>
-                <exclude name="tools/strutsgen/build/**"/>
+                <exclude name="extras/jsp/build/**"/>
             </fileset>
         </replaceregexp>
 
