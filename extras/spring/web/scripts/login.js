@@ -22,7 +22,7 @@
             alert("The <fmt:message key="label.username"/> field must be filled in to get a password hint sent to you.");
             document.getElementById("j_username").focus();
         } else {
-            location.href="<c:url value="/passwordHint.xml"/>?username=" + document.getElementById("j_username").value;     
+            location.href="<c:url value="/passwordHint.html"/>?username=" + document.getElementById("j_username").value;     
         }
     }
     

@@ -16,7 +16,7 @@
 
 <div class="separator"></div>
 
-<form method="post" action="<c:url value="/signup.xml"/>" id="userForm"
+<form method="post" action="<c:url value="/signup.html"/>" id="userForm"
     onsubmit="return validateUser(this)">
     
 <table class="detail">

@@ -1,11 +1,5 @@
-    <!-- Secure Dispatch Servlet Mapping -->
+    <!-- Dispatch Servlet Mapping -->
     <servlet-mapping>
         <servlet-name>action</servlet-name>
         <url-pattern>*.html</url-pattern>
-    </servlet-mapping>
-    
-    <!-- Unsecure Dispatch Servlet Mapping -->
-    <servlet-mapping>
-        <servlet-name>action</servlet-name>
-        <url-pattern>*.xml</url-pattern>
     </servlet-mapping>

@@ -62,7 +62,7 @@
 		<td></td>
 		<td><br />
             <fmt:message key="login.signup">
-                <fmt:param><c:url value="/signup.xml"/></fmt:param>
+                <fmt:param><c:url value="/signup.html"/></fmt:param>
             </fmt:message>
         </td>
 	</tr>

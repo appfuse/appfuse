@@ -1,7 +1,21 @@
+    <!-- All anyone to access passwordHint and signup -->
+    <security-constraint>
+        <web-resource-collection>
+            <url-pattern>/passwordHint.html</url-pattern>
+            <url-pattern>/signup.html</url-pattern>
+            <http-method>POST</http-method>
+            <http-method>GET</http-method>
+        </web-resource-collection>
+
+        <user-data-constraint>
+            <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+
     <!-- Restrict all users from accessing *.html -->
     <security-constraint>
         <web-resource-collection>
-            <web-resource-name>My Application</web-resource-name>
+            <web-resource-name>AppFuse</web-resource-name>
             <description>Require users to authenticate</description>    
             <url-pattern>*.html</url-pattern>                    
             <http-method>POST</http-method>

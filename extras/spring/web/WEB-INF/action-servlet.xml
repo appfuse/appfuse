@@ -60,8 +60,8 @@
                 <prop key="/editUser.html">userFormController</prop> 
                 <prop key="/selectFile.html">filenameController</prop>
                 <prop key="/uploadFile.html">fileUploadController</prop>
-                <prop key="/passwordHint.xml">passwordHintController</prop>
-                <prop key="/signup.xml">signupController</prop>
+                <prop key="/passwordHint.html">passwordHintController</prop>
+                <prop key="/signup.html">signupController</prop>
             </props>
         </property>
     </bean>
@@ -87,18 +87,6 @@
         class="org.springframework.web.servlet.handler.UserRoleAuthorizationInterceptor">
         <property name="authorizedRoles"><value>admin</value></property>
     </bean>
-    
-    <!-- Had to move to applicationContext-tiles.xml to use a ClasspathXmlContext in Unit tests -->
-    <!--bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles.TilesConfigurer">
-       <property name="factoryClass">
-           <value>org.apache.struts.tiles.xmlDefinition.I18nFactorySet</value>
-       </property>
-       <property name="definitions">
-           <list>
-               <value>/WEB-INF/tiles-config.xml</value>
-           </list>
-       </property>
-    </bean-->
     
     <bean id="filenameController" class="org.springframework.web.servlet.mvc.UrlFilenameViewController"/>
 
