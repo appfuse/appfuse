@@ -30,7 +30,7 @@
 
     <!-- Tip from Chris Winters: http://www.cwinters.com/News/show/?news_id=3149 -->
     <!-- To configure a Manager with these defaults, add the following to its definition:
-        <property name="transactionAttributeSource"><ref bean="defaultTxAttributes"/></property> -->
+        <property name="transactionAttributeSource"><ref local="defaultTxAttributes"/></property> -->
 
     <bean name="defaultTxAttributes"
         class="org.springframework.transaction.interceptor.NameMatchTransactionAttributeSource">
