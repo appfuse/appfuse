@@ -13,11 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.struts.util.LabelValueBean;
 
 import org.appfuse.Constants;
+import org.appfuse.model.LabelValue;
 import org.appfuse.model.User;
 import org.appfuse.model.UserRole;
 import org.appfuse.service.MailSender;
@@ -25,19 +23,18 @@ import org.appfuse.service.UserManager;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.util.RequestUtil;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-
 /**
  * Implementation of <strong>SimpleFormController</strong> that interacts with
  * the {@link UserManager} to retrieve/persist values to the database.
- * 
+ *
  * <p/><a href="UserFormController.java.html"><i>View Source</i></a></p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.9 $ $Date: 2004/08/19 00:09:54 $
  */
 public class UserFormController extends BaseFormController {
 
@@ -45,7 +42,7 @@ public class UserFormController extends BaseFormController {
                                               HttpServletResponse response,
                                               Object command,
                                               BindException errors)
-            throws Exception {
+    throws Exception {
         if (request.getParameter("cancel") != null) {
             if (!StringUtils.equals(request.getParameter("from"), "list")) {
                 return new ModelAndView(new RedirectView("mainMenu.html"));
@@ -69,49 +66,41 @@ public class UserFormController extends BaseFormController {
         
         if (request.getParameter("delete") != null) {
             mgr.removeUser(user.getUsername());
-
-            String message =
-                    getMessageSourceAccessor().getMessage("user.deleted",
-                            new Object[]{
-                                user.getUsername()
-                            });
-            saveMessage(request, message);
+            saveMessage(request, getText("user.deleted", user.getUsername()));
 
             return new ModelAndView(new RedirectView("users.html"));
         } else {
             if ("true".equals(request.getParameter("encryptPass"))) {
                 String algorithm =
-                        (String) getConfiguration().get(Constants.ENC_ALGORITHM);
+                    (String) getConfiguration().get(Constants.ENC_ALGORITHM);
 
                 if (algorithm == null) { // should only happen for test case
+
                     if (log.isDebugEnabled()) {
-                    	log.debug("assuming testcase, setting algorithm to 'SHA'");
+                        log.debug("assuming testcase, setting algorithm to 'SHA'");
                     }
+
                     algorithm = "SHA";
                 }
 
                 user.setPassword(StringUtil.encodePassword(user.getPassword(),
-                        algorithm));
+                                                           algorithm));
             }
 
             try {
                 mgr.saveUser(user);
-            } catch (Exception e) {
-                if ((e.getMessage() != null) &&
-                        (e.getMessage().indexOf("Duplicate entry") != -1)) {
-                    // user already exists!
-                    log.warn("User already exists: " + e.getMessage());
+            } catch (DataIntegrityViolationException e) {
+                log.warn("User already exists: " + e.getMessage());
 
-                    errors.rejectValue("username", "errors.existing.user",
-                            new Object[]{
-                                user.getUsername(), user.getEmail()
-                            }, "duplicate user");
+                errors.rejectValue("username", "errors.existing.user",
+                                   new Object[] {
+                                       user.getUsername(), user.getEmail()
+                                   }, "duplicate user");
 
-                    // redisplay the unencrypted passwords
-                    user.setPassword(user.getConfirmPassword());
+                // redisplay the unencrypted passwords
+                user.setPassword(user.getConfirmPassword());
 
-                    return showForm(request, response, errors);
-                }
+                return showForm(request, response, errors);
             }
 
             String message = null;
@@ -128,17 +117,12 @@ public class UserFormController extends BaseFormController {
                     mgr.removeLoginCookies(user.getUsername());
 
                     String autoLogin =
-                            mgr.createLoginCookie(user.getUsername());
+                        mgr.createLoginCookie(user.getUsername());
                     RequestUtil.setCookie(response, Constants.LOGIN_COOKIE,
-                            autoLogin, request.getContextPath());
+                                          autoLogin, request.getContextPath());
                 }
 
-                message =
-                        getMessageSourceAccessor().getMessage("user.updated",
-                                new Object[]{
-                                    user.getFullName()
-                                });
-                saveMessage(request, message);
+                saveMessage(request, getText("user.updated", user.getFullName()));
 
                 // return to main Menu
                 return new ModelAndView(new RedirectView("mainMenu.html"));
@@ -147,22 +131,15 @@ public class UserFormController extends BaseFormController {
                 String msg = null;
 
                 if (StringUtils.isEmpty(request.getParameter("id"))) {
-                    message =
-                            getMessageSourceAccessor().getMessage("user.added",
-                                    new Object[]{
-                                        user.getFullName()
-                                    });
-                    saveMessage(request, message);
+                    saveMessage(request,
+                                getText("user.added", user.getFullName()));
                     sendNewUserEmail(user, request);
+
                     return showNewForm(request, response);
-                    //return new ModelAndView(new RedirectView("editUser.html?method=Add&from=list"));
                 } else {
-                    message =
-                            getMessageSourceAccessor().getMessage("user.updated.byAdmin",
-                                    new Object[]{
-                                        user.getFullName()
-                                    });
-                    saveMessage(request, message);
+                    saveMessage(request,
+                                getText("user.updated.byAdmin",
+                                        user.getFullName()));
                 }
             }
         }
@@ -191,9 +168,9 @@ public class UserFormController extends BaseFormController {
             }
         }
         // prevent ordinary users from calling a GET on editUser.html
-        if (request.getRequestURL().indexOf("editUser") > -1  &&
+        if ((request.getRequestURL().indexOf("editUser") > -1) &&
                 (!request.isUserInRole(Constants.ADMIN_ROLE) &&
-                  request.getRemoteUser() != null)) { // be nice to unit tests
+                (request.getRemoteUser() != null))) { // be nice to unit tests
             response.sendError(HttpServletResponse.SC_FORBIDDEN);
             return null;
         }
@@ -205,8 +182,7 @@ public class UserFormController extends BaseFormController {
         String username = request.getParameter("username");
 
         if (request.getSession().getAttribute("cookieLogin") != null) {
-            request.setAttribute("message",
-                    getMessageSourceAccessor().getMessage("userProfile.cookieLogin"));
+            saveMessage(request, getText("userProfile.cookieLogin"));
         }
 
         User user = null;
@@ -230,39 +206,40 @@ public class UserFormController extends BaseFormController {
      * This method is used to load up data for the roles pick list
      */
     protected Map referenceData(HttpServletRequest request)
-            throws Exception {
+    throws Exception {
             
         if (!isFormSubmission(request)) {
             List roles = new ArrayList();
-    
+
             if ("Add".equals(request.getParameter("method"))) {
                 // create the default user role
-                roles.add(new LabelValueBean(Constants.USER_ROLE,
-                        Constants.USER_ROLE));
+                roles.add(new LabelValue(Constants.USER_ROLE,
+                                         Constants.USER_ROLE));
             } else {
                 String username = request.getParameter("username");
-    
+
                 if (StringUtils.isEmpty(username)) {
                     username = getUser(request).getUsername();
                 }
-    
+
                 User user = (User) mgr.getUser(username);
-    
+
                 if (user.getRoles() != null) {
                     for (Iterator it = user.getRoles().iterator(); it.hasNext();) {
                         UserRole role = (UserRole) it.next();
-    
-                        // convert the user's roles to LabelValueBeans
-                        roles.add(new LabelValueBean(role.getRoleName(),
-                                role.getRoleName()));
+
+                        // convert the user's roles to LabelValue objects
+                        roles.add(new LabelValue(role.getRoleName(),
+                                                 role.getRoleName()));
                     }
                 }
             }
-    
+
             Map model = new HashMap();
             model.put(Constants.USER_ROLES, roles);
             return model;
         }
+
         return super.referenceData(request);
     }
 
@@ -300,7 +277,7 @@ public class UserFormController extends BaseFormController {
     }
 
     protected void onBind(HttpServletRequest request, Object command)
-            throws Exception {
+    throws Exception {
         // this method is used to nullify the list of roles on the user.  If you
         // don't do this, Spring seems to remember the last roles this User had
         // on it - as if it were a session form or something, but I know its not.
@@ -312,12 +289,12 @@ public class UserFormController extends BaseFormController {
         if (roles != null) {
             user.setUserRoles(roles);
         }
-        
+
         // if the user is being deleted, turn off validation
         if (request.getParameter("delete") != null) {
-        	super.setValidateOnBinding(false);
+            super.setValidateOnBinding(false);
         } else {
-        	super.setValidateOnBinding(true);
+            super.setValidateOnBinding(true);
         }
     }
 }

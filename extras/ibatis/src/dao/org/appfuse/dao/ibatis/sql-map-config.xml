@@ -3,9 +3,8 @@
     "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
 
 <sqlMapConfig>
-    <!-- may want to turn on enhancementEnabled! -->
-    <settings maxRequests="0" maxSessions="0" cacheModelsEnabled="true" 
-        enhancementEnabled="false"/>
+    <settings enhancementEnabled="true" maxTransactions="20"
+        maxRequests="32" maxSessions="10"/>
 
 	<!-- Identify all SQL Map XML files to be loaded by this SQL map. Relative to classpath -->
 	<sqlMap resource="org/appfuse/dao/ibatis/sql/LookupSQL.xml" />

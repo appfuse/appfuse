@@ -21,6 +21,9 @@
         <result property="address.country" column="country"/>
         <result property="address.postalCode" column="postal_code"/>
         <result property="email" column="email"/>
+        <result property="phoneNumber" column="phone_number"/>
+        <result property="website" column="website"/>
+        <result property="passwordHint" column="password_hint"/>
     </resultMap>
 
 	<insert id="addUser" parameterClass="user">

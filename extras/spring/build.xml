@@ -83,9 +83,9 @@
         <replace file="../../.classpath">
             <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/spring-1.1/spring.jar"/>]]></replacetoken>
             <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/spring-1.1/spring.jar"/>
-<classpathentry kind="lib" path="lib/spring-1.1/spring-mock.jar"/>
-<classpathentry kind="lib" path="lib/spring-1.1/commons-fileupload.jar"/>
-<classpathentry kind="lib" path="lib/spring-1.1/spring-sandbox.jar"/>
+	<classpathentry kind="lib" path="lib/spring-1.1/spring-mock.jar"/>
+	<classpathentry kind="lib" path="lib/spring-1.1/commons-fileupload.jar"/>
+	<classpathentry kind="lib" path="lib/spring-1.1/spring-sandbox.jar"/>
 ]]></replacevalue>
         </replace>
 

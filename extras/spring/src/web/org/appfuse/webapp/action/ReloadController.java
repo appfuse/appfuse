@@ -1,6 +1,8 @@
 package org.appfuse.webapp.action;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,7 +40,9 @@ public class ReloadController implements Controller {
 
         if (referer != null) {
             log.info("reload complete, reloading user back to: " + referer);
-            saveMessage("Reloading options completed successfully.");
+            List messages = new ArrayList();
+            messages.add("Reloading options completed successfully.");
+            request.getSession().setAttribute("messages", messages);
             response.sendRedirect(response.encodeRedirectURL(referer));
             return null;
         } else {

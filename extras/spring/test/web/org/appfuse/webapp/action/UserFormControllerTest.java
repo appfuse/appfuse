@@ -1,9 +1,5 @@
 package org.appfuse.webapp.action;
 
-import java.util.Enumeration;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.appfuse.Constants;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -56,8 +52,10 @@ public class UserFormControllerTest extends BaseControllerTestCase {
         request.addParameter("lastName", "Updated Last Name");
         request.getSession().setAttribute(Constants.USER_KEY, user);
         mv = c.handleRequest(request, new MockHttpServletResponse());
+        log.debug(mv.getModel());
         Errors errors =
             (Errors) mv.getModel().get(BindException.ERROR_KEY_PREFIX + "user");
+        //log.debug(errors);
         assertNull(errors);
         assertNotNull(request.getSession().getAttribute("messages"));
     }

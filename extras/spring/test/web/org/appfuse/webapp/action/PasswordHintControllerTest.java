@@ -1,16 +1,7 @@
 package org.appfuse.webapp.action;
 
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.struts.Globals;
-import org.appfuse.Constants;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.validation.BindException;
-import org.springframework.validation.Errors;
-import org.springframework.web.servlet.ModelAndView;
 
 
 public class PasswordHintControllerTest extends BaseControllerTestCase {
@@ -33,7 +24,7 @@ public class PasswordHintControllerTest extends BaseControllerTestCase {
 
         c.handleRequest(request, new MockHttpServletResponse());
         
-        // verify that success messages are in the request
-        assertNotNull(request.getAttribute("messages"));
+        // verify that success messages are in the session
+        assertNotNull(request.getSession().getAttribute("messages"));
     }
 }

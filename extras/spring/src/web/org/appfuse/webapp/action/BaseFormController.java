@@ -26,15 +26,14 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
  * be a base class for all Form controllers.
  *
  * <p>
- * <a href="BaseAction.java.html"><i>View Source</i></a>
+ * <a href="BaseFormController.java.html"><i>View Source</i></a>
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class BaseFormController extends SimpleFormController {
     
-    protected transient final Log log = LogFactory.getLog(getClass());
-    
+    protected final transient Log log = LogFactory.getLog(getClass());
     protected UserManager mgr = null;
 
     public void setUserManager(UserManager userManager) {
@@ -47,11 +46,48 @@ public class BaseFormController extends SimpleFormController {
 
     public void saveMessage(HttpServletRequest request, String msg) {
         List messages = (List) request.getSession().getAttribute("messages");
-    	if (messages == null) {
-    		messages = new ArrayList();
+
+        if (messages == null) {
+            messages = new ArrayList();
         }
+
         messages.add(msg);
         request.getSession().setAttribute("messages", messages);
+    }
+
+    /**
+     * Convenience method for getting a i18n key's value.  Calling 
+     * getMessageSourceAccessor() is used because the RequestContext variable
+     * is not set in unit tests b/c there's no DispatchServlet Request.
+     * 
+     * @param msgKey
+     * @return
+     */
+    public String getText(String msgKey) {
+        return getMessageSourceAccessor().getMessage(msgKey);
+    }
+    
+    /**
+     * Convenient method for getting a i18n key's value with a single 
+     * string argument.
+     * 
+     * @param msgKey
+     * @param arg
+     * @return
+     */
+    public String getText(String msgKey, String arg) {
+        return getText(msgKey, new Object[] { arg });
+    }
+    
+    /**
+     * Convenience method for getting a i18n key's value with arguments.
+     * 
+     * @param msgKey
+     * @param args
+     * @return
+     */
+    public String getText(String msgKey, Object[] args) {
+        return getMessageSourceAccessor().getMessage(msgKey, args);
     }
     
     /**

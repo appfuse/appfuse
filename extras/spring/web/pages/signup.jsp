@@ -132,7 +132,7 @@
         </th>
         <td>
             <spring:bind path="user.address.country">
-            <appfuse:country name="address.countries" prompt="" default="${user.address.country}"/>
+            <appfuse:country name="address.country" prompt="" default="${user.address.country}"/>
             <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
             </spring:bind>
         </td>

@@ -4,13 +4,12 @@ import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.service.MailSender;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.util.RequestUtil;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -54,20 +53,17 @@ public class SignupController extends BaseFormController {
 
         try {
             mgr.saveUser(user);
-        } catch (Exception e) {
-            if ((e.getMessage() != null) &&
-                    (e.getMessage().indexOf("Duplicate entry") != -1)) {
-                log.warn("User already exists: " + e.getMessage());
+        } catch (DataIntegrityViolationException e) {
+            log.warn("User already exists: " + e.getMessage());
 
-                errors.rejectValue("username", "errors.existing.user",
-                                   new Object[] {
-                                       user.getUsername(), user.getEmail()
-                                   }, "duplicate user");
+            errors.rejectValue("username", "errors.existing.user",
+                               new Object[] {
+                                   user.getUsername(), user.getEmail()
+                               }, "duplicate user");
 
-                // redisplay the unencrypted passwords
-                user.setPassword(user.getConfirmPassword());
-                return showForm(request, response, errors);
-            }
+            // redisplay the unencrypted passwords
+            user.setPassword(user.getConfirmPassword());
+            return showForm(request, response, errors);
         }
 
         // Set cookies for auto-magical login ;-)
@@ -75,9 +71,7 @@ public class SignupController extends BaseFormController {
         RequestUtil.setCookie(response, Constants.LOGIN_COOKIE, loginCookie,
                               request.getContextPath());
 
-        String message =
-            getMessageSourceAccessor().getMessage("user.registered", new Object[] { user.getUsername() });
-        saveMessage(request, message);
+        saveMessage(request, getText("user.registered", user.getUsername()));
 
         request.getSession().setAttribute(Constants.REGISTERED, Boolean.TRUE);
 

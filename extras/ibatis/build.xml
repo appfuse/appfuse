@@ -73,9 +73,9 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
 
         <echo level="info">Adding iBatis JARs to WAR build</echo>
         <replace file="../../build.xml">
-            <replacetoken><![CDATA[<lib file="${statetag.jar}"/>]]></replacetoken>
+            <replacetoken><![CDATA[<lib dir="${spring.dir}" includes="*.jar"/>]]></replacetoken>
             <replacevalue><![CDATA[<lib dir="${ibatis.dir}" includes="*.jar"/>
-            <lib file="${statetag.jar}"/>]]></replacevalue>
+                <lib dir="${spring.dir}" includes="*.jar"/>]]></replacevalue>
         </replace>
         
         <echo level="info">Commenting out Hibernate OSIV Filter</echo>
@@ -147,8 +147,8 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
         <echo level="info">Removing iBatis JARs from WAR build</echo>
         <replace file="../../build.xml">
             <replacetoken><![CDATA[<lib dir="${ibatis.dir}" includes="*.jar"/>
-            <lib file="${statetag.jar}"/>]]></replacetoken>
-            <replacevalue><![CDATA[<lib file="${statetag.jar}"/>]]></replacevalue>
+                <lib dir="${spring.dir}" includes="*.jar"/>]]></replacetoken>
+            <replacevalue><![CDATA[<lib dir="${spring.dir}" includes="*.jar"/>]]></replacevalue>
         </replace>
 
         <echo level="info">Enabling Hibernate OSIV Filter</echo>

@@ -2,8 +2,6 @@ package org.appfuse.webapp.action;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.appfuse.Constants;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -41,10 +39,10 @@ public class SignupControllerTest extends BaseControllerTestCase {
         request.addParameter("confirmPassword", "Password1");
         request.addParameter("firstName", "First");
         request.addParameter("lastName", "Last");
-        request.addParameter("city", "Denver");
-        request.addParameter("province", "Colorado");
-        request.addParameter("country", "USA");
-        request.addParameter("postalCode", "80210");
+        request.addParameter("address.city", "Denver");
+        request.addParameter("address.province", "Colorado");
+        request.addParameter("address.country", "USA");
+        request.addParameter("address.postalCode", "80210");
         request.addParameter("email", "self-registered@raibledesigns.com");
         request.addParameter("website", "http://raibledesigns.com");
         request.addParameter("passwordHint", "Password is one with you.");

@@ -9,6 +9,7 @@ import junit.framework.TestCase;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.appfuse.model.BaseObject;
 import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -43,10 +44,6 @@ public class BaseControllerTestCase extends TestCase {
         UserManager userMgr = (UserManager) ctx.getBean("userManager");
         user = (User) userMgr.getUser(username);
     }
-
-    protected void tearDown() {
-        ctx = null;
-    }
     
     /**
      * Convenience methods to make tests simpler
@@ -58,23 +55,28 @@ public class BaseControllerTestCase extends TestCase {
     public MockHttpServletRequest newGet(String url) {
         return new MockHttpServletRequest("GET", url);   
     }
+   
+    public void objectToRequestParameters(Object o, MockHttpServletRequest request) throws Exception {
+        objectToRequestParameters(o, request, null);
+    }
     
-    public void objectToRequestParameters(Object o, MockHttpServletRequest request) {
+    public void objectToRequestParameters(Object o, MockHttpServletRequest request, String prefix) throws Exception {
         Class clazz = o.getClass();
-
         Field[] fields = clazz.getDeclaredFields();
+        AccessibleObject.setAccessible(fields, true);
 
-        try {
-            AccessibleObject.setAccessible(fields, true);
-
-            for (int i = 0; i < fields.length; i++) {
-                if (!(fields[i].get(o) instanceof List)) {
-                    request.addParameter(fields[i].getName(), 
-                            String.valueOf(fields[i].get(o)));
+        for (int i = 0; i < fields.length; i++) {
+            Object field = (fields[i].get(o));
+            if (field instanceof BaseObject) {
+                objectToRequestParameters(field, request, fields[i].getName());
+            } else if (!(field instanceof List)) {
+                String paramName = fields[i].getName();
+                if (prefix != null) {
+                    paramName = prefix + "." + paramName;
                 }
+                request.addParameter(paramName, 
+                        String.valueOf(fields[i].get(o)));
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 }
