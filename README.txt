@@ -51,6 +51,8 @@ Features/Changes in 1.8
 - Fixed bug where uses could hack the URL in Struts and WebWork versions to 
   delete users when they don't have the "admin" role.
     https://appfuse.dev.java.net/issues/show_bug.cgi?id=121
+- Added empty "velocimacro.library" property to "velocityEngine" bean in 
+  applicationContext-service.xml to suppress Velocity errors.
 - Dependent packages upgraded:
 	* Spring 1.1.3
     * Display Tag 1.0

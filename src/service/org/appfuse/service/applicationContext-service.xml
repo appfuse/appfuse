@@ -76,6 +76,7 @@
                 <prop key="class.resource.loader.class">
                     org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
                 </prop>
+                <prop key="velocimacro.library"></prop>
             </props>
         </property>
     </bean>
