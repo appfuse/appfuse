@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.appfuse.Constants;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
+import org.appfuse.service.RoleManager;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.util.RequestUtil;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -24,7 +25,15 @@ import org.springframework.web.servlet.view.RedirectView;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class SignupController extends BaseFormController {
+    private RoleManager roleManager;
 
+    /**
+     * @param roleManager The roleManager to set.
+     */
+    public void setRoleManager(RoleManager roleManager) {
+        this.roleManager = roleManager;
+    }
+    
     public ModelAndView onSubmit(HttpServletRequest request,
                                  HttpServletResponse response, Object command,
                                  BindException errors)
@@ -48,7 +57,7 @@ public class SignupController extends BaseFormController {
         user.setPassword(StringUtil.encodePassword(user.getPassword(), algorithm));
 
         // Set the default user role on this new user
-        user.addRole(new Role(Constants.USER_ROLE));
+        user.addRole(roleManager.getRole(Constants.USER_ROLE));
 
         try {
             mgr.saveUser(user);

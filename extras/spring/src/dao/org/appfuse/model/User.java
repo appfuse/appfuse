@@ -285,16 +285,14 @@ public class User extends BaseObject implements Serializable {
     }
 
     /**
-     * @param updated The updated timestamp to set.
+     * @param updated The updated version to set.
      */
     public void setVersion(Integer version) {
         this.version = version;
     }
 
     /**
-     * Convert user roles to LabelValue objects for
-     * convenience.  Then UserAction doesn't have to manually
-     * convert them and validation doesn't puke.
+     * Convert user roles to LabelValue objects for convenience.  
      */
     public List getRoleList() {
         List userRoles = new ArrayList();

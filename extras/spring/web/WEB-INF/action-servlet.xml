@@ -59,6 +59,7 @@
         <property name="formView"><value>signup</value></property>
         <property name="successView"><value>mainMenu.html</value></property>
         <property name="userManager"><ref bean="userManager"/></property>
+        <property name="roleManager"><ref bean="roleManager"/></property>
         <property name="mailEngine"><ref bean="mailEngine"/></property>
         <property name="message"><ref bean="mailMessage"/></property>
         <property name="templateName"><value>accountCreated.vm</value></property>

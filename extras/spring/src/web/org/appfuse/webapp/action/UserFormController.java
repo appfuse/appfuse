@@ -86,10 +86,14 @@ public class UserFormController extends BaseFormController {
 
             String[] userRoles = request.getParameterValues("userRoles");
 
-            for (int i = 0; (userRoles != null) && (i < userRoles.length);
-                     i++) {
-                String roleName = userRoles[i];
-                user.addRole(roleManager.getRole(roleName));
+            if (userRoles != null) {
+                // for some reason, Spring seems to hang on to the roles in
+                // the User object, even though isSessionForm() == false
+                user.getRoles().clear();
+                for (int i = 0; i < userRoles.length; i++) {
+                    String roleName = userRoles[i];
+                    user.addRole(roleManager.getRole(roleName));
+                }
             }
 
             try {
@@ -195,7 +199,7 @@ public class UserFormController extends BaseFormController {
 
         User user = null;
 
-        if (request.getRequestURL().indexOf("editProfile") > -1) {
+        if (request.getRequestURI().indexOf("editProfile") > -1) {
             user = mgr.getUser(getUser(request).getUsername());
         } else if (!StringUtils.isBlank(username) &&
                        !"".equals(request.getParameter("version"))) {
