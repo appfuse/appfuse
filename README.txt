@@ -1,0 +1,447 @@
+Quick-Start FAQ
+===============
+
+To learn how to develop your J2EE webapps with AppFuse, see 
+http://raibledesigns.com/wiki/Wiki.jsp?page=Articles (or docs/index.html
+if you downloaded AppFuse as a release from SourceForge). 
+
+To build this application - you must be using Ant 1.5.1+ and have your 
+$J2EE_HOME set to your J2EE SDK install directory.  You can also copy the
+j2ee.jar file to lib/j2sdkee1.4/lib.  J2EE 1.4 is not required yet, so 
+using a 1.3 lib is fine.  You can also pass in the parameter such as 
+ant -Dj2ee.jar=/path/to/jar.  Make sure mail.jar and activation.jar are in
+$J2EE_HOME/lib.
+
+You will also need to copy junit.jar into your $ANT_HOME/lib directory.
+
+Then setup Tomcat 4.1.x+ and install an smtp server on localhost.  If you
+don't want to install an SMTP server, change mail.properties to point to an
+existing one.
+
+To run this application, you will need to perform the following tasks:
+
+1.  Adjust the database.properties file to fit your system - the username
+    and password for the database must have database/table create rights.
+    It currently creates a mysql "appfuse" database using the user: root/admin.
+    It also grants the user "test" (password: test) full rights to this 
+    database.
+2.  Run "ant setup-db".
+3.  Test that the db access code works with:
+    ant test-ejb -Dtestcase=UserDAOTest
+    ant test-web -Dtestcase=UserManagerTest
+4.  Setup Tomcat running "ant setup-tomcat deploy".  This puts a mysql jdbc 
+    driver in $CATALINA_HOME/common/lib, puts a appfuse.xml file in 
+    $CATALINA_HOME/webapps/ and deploys the application.
+5.  Start Tomcat and test the web login using:
+    ant test-canoo -Dtestcase=Login
+
+** ATTENTION TOMCAT 5 USERS **
+To run this application on Tomcat 5.0.4+, you need to make sure that you have
+mail.jar, activation.jar (for the passwordHint feature) and jta.jar (for
+Hibernate transactions) in your $CATALINA_HOME/common/lib directory.  For your
+convenience, you can download these JARs from SourceForge where you downloaded
+this release.  The file is named tomcat-5-jars.jar.
+
+The Remember Me feature does not work on Tomcat 5.  This is because cookies
+are set on the path "/appfuse/security" and the new FormAuthenticator does
+a forward instead of a redirect.  Adding dispatchers to the filter-mapping for
+the LoginFilter helps, but the "rememberMe" cookies are null since the path
+doesn't have "/appfuse/security" in it.  More information can be found at 
+http://tinyurl.com/ywv4.  You can try setting the cookiePath to "/" - this 
+might work.  Change web/scripts/login.js (for the username cookie) and 
+src/common/**/Constants.java (LOGIN_PATH) to try this.
+
+** ATTENTION TOMCAT 4 LE USERS **
+To run this application on Tomcat 4.1.x LE, you need to make sure that you have
+commons-collections.jar, commons-dbcp.jar and commons-pool.jar in your 
+$CATALINA_HOME/common/lib directory.  For your convenience, you can download 
+these JARs from SourceForge where you downloaded this release. The file is 
+named tomcat-4-LE-jars.jar.  You will also need mail.jar and activation.jar
+in the same directory.
+        
+** TO SETUP E-MAIL NOTIFICATION OF ERRORS **
+Log4j has a pretty slick feature where you can have e-mail messages sent
+to you when an ERROR is logged.  To set this up, perform the following
+steps:
+  1. Make sure mail.jar and activation.jar are in $CATALINA_HOME/common/lib.
+  2. Change the property "error.mailTo" in build.properties to be your
+     e-mail address.
+  3. Edit WEB-INF/classes/log4j.properties to add "mail" to the rootCategory.
+     Example: log4j.rootCategory=INFO, stdout, mail
+
+
+Features/Changes in 1.4
+=======================
+- Added "cactus" task for running Cactus tests in Tomcat 4.x and Resin 3.0.5.
+- Added Tomcat Ant tasks for managing tomcat with the Manager app and Ant.
+  - Currently supports: install, remove, start, stop, reload and list.
+  - I recommend using "ant setup-tomcat deploy" and then using "ant reload"
+    after running "ant deploy" when you change .java or config files.
+- Removed "upload" module and integrated file-upload into the core. Removed 
+  unnecessary scriplets from uploadForm.jsp.
+- UI Enhancements: 
+  - Changed CSS for error messages to have a red border around them - making
+    it easier to distinguish errors from messages.
+  - Added onclick and onfocus event handler to form inputs to select the 
+    text when an input type="text" is clicked or focuses on.
+- Changed directory structure from common/ejb/web to dao/service/web. 
+  More information on this change at:
+  http://raibledesigns.com/page/rd?anchor=appfuse_refactorings_part_i_changing
+- Added Spring to configure Hibernate, DAOs and Managers.  Configured 
+  declarative transactions at the service and dao layers.  Configured 
+  OpenSessionInViewFilter for guaranteeing one transaction per request.
+  More information on this change at:
+  http://raibledesigns.com/page/rd?anchor=appfuse_refactorings_part_ii_spring
+- Changed UserCounterListener to only record users that have logged in 
+  successfully.  Also added a screen to show currently logged in users.
+- Changed default session timeout to 10 minutes instead of 60.
+- Implemented persistent login cookie strategy (for Remember Me) as 
+  recommended by Charles: http://tinyurl.com/2wyqr
+  More information on this change at:
+  http://raibledesigns.com/page/rd?anchor=appfuse_refactorings_part_iii_remember
+- Added iBATIS as a persistence framework option.  More information on this
+  feature can be found at:
+  http://raibledesigns.com/page/rd?anchor=appfuse_refactorings_part_iv_replacing
+- Added custom web.xml XDoclet template for ordering filters and listeners.
+- Added support for generating indexed property setters in ActionForms when
+  generating Forms with XDoclet.  This support includes adding Velocity JARs
+  to the the list of 3rd party JARs.  Currently, Velocity is only used by 
+  XDoclet.
+- Added "Acount Information" e-mail as part of registration process.  This
+  e-mail gets sent the e-mail address the user entered on signup.
+- Dependent packages upgraded:
+    * Cactus 1.6 Nightly (20030119) to support the "cactus" task and Resin 
+      3.0.5
+    * JSTL 1.0.5
+    * Patched Canoo's WebTest to work with Ant 1.6
+    * Hibernate 2.1.2
+    * Struts 1.0.2
+    * MySQL JDBC Driver 3.0.11
+
+
+Features/Changes in 1.3
+=======================
+- Many changes to database settings so that database.properties is generated
+  at run-time from properties in build.properties (defaults to MySQL).  This
+  makes it easy for users to run a MySQL database in development and have a
+  DB2 database (or any other) in production.  Just customize your database 
+  settings and put them in ~/.build.properties or ~/.appname- build.properties
+  and these settings will be used instead of the default.
+  - As part of this process, I tested AppFuse on DB2 8.1 (on Windows) 
+    and PostgreSQL 7.4 (on OS X).  
+  - Testing on other servers caused me to change from generator-class="native"
+    to generator-class="increment" - which still works fine on MySQL.
+  - I also changed tomcat-context.xml to dynamically substitute database
+    properties and defaultAutoCommit is now "true" by default.
+- Added error pages for 404 (page not found) and 403 (access denied), both 
+  with pretty pictures. ;0) Protected /editUser.do for admin role only.
+- Moved filter-mappings from Filter's JavaDocs (XDoclet) to 
+  metadata/web/filter-mappings.xml in order to control the order of execution.
+- Made RememberMe feature configurable via a "rememberMe.enabled" property in
+  app-settings.xml. This won't kick on resin until the filter is invoked at
+  least once.  Tomcat initializes filters on startup.
+- Upgraded oscache.jar in Hibernate 2.1.1 to OSCache 2.0.1 and configured
+  OSCache to cache JSP changes.  Also modified the oscache-2.0.1.jar to have
+  a URI for the tag library.  Turned off caching of JSP pages - to enable, 
+  uncomment filter-mapping in metadata/web/filter-mappings.xml.
+- Made changes to be Resin 3.0.4 friendly.  More info at:
+  http://raibledesigns.com/wiki/Wiki.jsp?page=AppFuseOnResin
+- Refactored BaseDAOHibernate to consolidate retrieveObject and removeObject
+  methods.  Also changed saveObject to do ses.saveOrUpdate and removed 
+  storeObject method. 
+- Replaced CompressionFilter with GZipFilter that works on Resin.
+  http://www.onjava.com/pub/a/onjava/2003/11/19/filters.html
+- Added print stylesheet support.
+- Added Clickstream (http://www.opensymphony.com/clickstream) and menu/JSPs to
+  view user paths.
+- Dependent packages upgraded:
+    * XDoclet 1.2.0
+    * Cactus 1.6 Nightly (20030116) to support "cactus" task for supporting
+      a "contextxml" attribute for testing in Tomcat.
+  
+
+Features/Changes in 1.2
+=======================
+- Backed out Http Post for Remember Me.  It was not redirecting user to the page
+  they originally requested.  Using reponse.sendRedirect does send the user
+  to the proper location.  Turned on password encryption (SHA) to protect any
+  passwords that end up in log files.  Turned off encryption in Tomcat.
+- Changed configuration parameters in servlet context to be in a hashmap.
+- Improvements to StrutsGen tool to generate list screen as well and to fill
+  in more missing elements.
+- Changed to close Hibernate session when object not found in BaseDAOHibernate.
+- Dependent packages upgraded:
+    * Hibernate 2.1.1
+    * Struts Menu 2.1
+    * WebTest Build 379
+- Fixed bug in UserAction.save: when creating a new user, role defaults to 
+  "tomcat" regardless of what the user chooses.
+  
+  
+Features/Changes in 1.1
+=======================
+- Documentation!  Now includes tutorials (in docs/index.html) for doing a full
+  master-detail lifecycle (database to JSP).  HowTos are pulled from my wiki
+  (http://raibledesigns.com/wiki) using "ant wiki".  Please update the wiki
+  if you find any errors in the documentation.
+- Now requires J2EE 1.4 - if you're not there yet, simply change the paths
+  for activation.jar and mail.jar in properties.xml (look for 
+  common.compile.classpath). You can use j2ee.jar instead of mail.jar and
+  activation.jar for 1.3 and 1.4 B2.
+- Dependent packages upgraded:
+    * Hibernate 2.1
+    * Struts Nightly Build 20031202
+    * Display Tag Library 1.0 Beta 2
+- Fixed bugs in build.xml "new" target to copy Eclipse files (.project and
+  .classpath) into new project.
+- Fixed issues in error.jsp, ActionExceptionHandler, UserDAOHibernate and 
+  RegistrationServlet where exceptions weren't being reported accurately.
+- Modified template for creating JSPs from ActionForms to more closely match
+  current design.
+- Renamed targets in test/web-tests.xml to be CamelCase.  I changed these 
+  because when you're typing -Dtestcase=Name, I've found that I'm used to 
+  doing CamelCase for my JUnit Tests.
+- Fixed bug on signup.jsp where State and Country didn't retain values
+  when an error occurred.
+- Removed "copy-jars" target in build.xml - moved the process of including 
+  jars into the war task of the package-web target.
+- Fixed "setup-tomcat" target to detect Tomcat 5 and deploy appfuse.xml
+  to $CATALINA_HOME/conf/Catalina/localhost instead of $CATALINA_HOME/webapps.
+- Changed "test-common" task to work with J2EE 1.4 Final.  This involved
+  removing ${j2ee.jar} from the classpath and adding mail.jar and 
+  activation.jar explicitly.  You can change this in properties.xml.
+  
+  
+Features/Changes in 1.0
+=======================
+- Dependent packages upgraded: 
+    * Cactus 1.5
+    * DBUnit 1.5.6
+    * Hibernate 2.0.3
+    * Struts Menu 2.0
+    * JSTL 1.0.4
+    * MySQL Driver 3.0.9
+- Refactored "Remember Me" to be more secure by setting cookies only under
+  the "/security/*" path and only retrieving them from there.
+    - Renamed BreadCrumbFilter to LoginFilter and removed Breadcrumb 
+      functionality (wasn't used anyway).
+- Improved security of "Remember Me" to do an HTTP POST (instead of a GET)
+  using commons HttpClient.  This way usernames and password will not show
+  up in the user's browser address bar, their browser's history, or server
+  log files.
+- Removed Hibernate's Session from DAO and Manager method signatures - now
+  it an object is passed into the implementation constructors.
+- Refactored DAOFactory to return DAOs based on types of objects in the
+  constructors (Bear Giles).
+    - Example from LookupDAOTest.java:
+        dao = (LookupDAO) DAOFactory.getInstance(conn, LookupDAO.class);
+- Decoupled Manager interfaces from Struts - now only objects are passed, then
+  cast to ActionForms in the ManagerImpl classes.
+    - Currently there is no factory for creating Managers, should there be one?
+    - Possibly use Spring to give ManagerImpl's to Actions.
+- Refactored Actions to pass Objects for Open-Session-In-View Pattern and
+  removed daoType variable from Manager's contructors and it's clients (Actions
+  and Tests).
+- Upgraded to nightly build (November 11th) of Struts.  Details available at:
+  http://raibledesigns.com/page/rd?anchor=upgrading_from_struts_1_1
+- Added BaseManagerTestCase and BaseDAOTestCase for common methods and 
+  populating objects (i.e. Forms and POJOs) from .properties files.  If you
+  put a .properties file in the same directory as a *Test.java, it will
+  be loaded and available as a ResourceBundle - assigned to variable "rb".
+    - Example from UserManagerTest.java:
+        userForm = new UserForm();
+        // call populate method in super class to populate test data
+        // from a properties file matching this class name
+        userForm = (UserForm) populate(userForm);
+- Removed JUnitDoclet comments from existing tests.  I did this because
+  I found they were confusing when trying to explain JUnit and the testcases
+  to peers.
+- Removed JUnit TestSuites - not needed since junit task and batchtest handle 
+  this.
+- Added DateUtil.java and DateUtilTest.java, as well as calendar.js for popup
+  calendars (from http://www.mattkruse.com/javascript/calendarpopup/).
+- Added enhancements to error handling and logging in ActionExceptionHandler
+  and error.jsp.  Details available at: 
+  http://jroller.com/page/prpatel?anchor=handling_the_three_kinds_of
+- Changed User Profile to retain password since it's encrypted anyway.
+- UNTESTED: Removed mysql values from being hardcoded in build.xml. Should work 
+  with PostgreSQL by changing mysql properties to postgresql properties in 
+  properties.xml.  
+    - Look for "database.jar" to begin changing to postgresql - 
+      there are commented out versions for postgresql.  
+    - You will also need to change metadata/web/tomcat-context.xml for 
+      PostgreSQL.
+    - You will need to download the database driver for postgresql and put it
+      in the lib directory and adjust lib.properties appropriately.
+- Added auto-generation of "reset" method (for booleans) in generated 
+  ActionForms - accomplished by modifying struts_form.xdt.
+- Removed Parent and Child Objects and any accompanying sample data. Get the
+  tag 0_9_9 if you want to play with them.
+- Added SwitchLayoutAction (not used) - more details available at:
+  http://raibledesigns.com/page/rd?anchor=tiles_tips_o_the_day
+- Added compile-jsp.xml for pre-compiling JSPs in Tomcat. You can run it using
+  "ant -f compile-jsp.xml".
+
+
+Features/Changes in 0.9
+=======================
+- Added Password Hint
+- Upgraded MySQL JDBC Drivers to latest stable version (3.0.8)
+- Added CompressionFilter.java for GZip compression.
+- Added "jsp-2" task to deploy a JSP 2.0 version of the application.  
+- Renamed "copy-struts" task to "copy-jars" task.
+- Fixed problem where a change in roles wasn't persisted.
+- Enhancements to JavaDoc comments and output (now links to other API docs).
+- Changed Java2HTML to use Ant Task.
+- Upgraded to Hibernate 2.0.2, PMD 1.2, Checkstyle 3.1, DBUnit 1.5.5 and
+  WebTest build328.
+- Added User Registration and User Add Canoo Tests.
+- Added Cactus Test for form-based authentication in LoginServletTest.
+- Changed "html:rewrite" to JSTL's "c:url".
+- Enhancements to run on Tomcat 5.0.4+ 
+    - Removed privileged="true" from my the "Context" definition.
+    - For more info, see http://tinyurl.com/jga0
+
+
+Features/Changes in 0.8
+=======================
+- Added User Self Registration, complete with auto-login!
+- Added indicator to user list indicating which column/direction is sorted.
+- build.xml - changes to tests:
+    - "test-common" runs utilities tests
+    - "test-ejb" runs db-layer tests
+    - "test-web" for running services tests or action tests 
+      when tomcat is running.
+    - "test-canoo" runs canoo webtests when tomcat is running.
+    - "test-cactus" runs "test-web" and starts/stops tomcat as part 
+       of the test.
+    - "test-jsp" runs "test-canoo" and starts/stops tomcat.
+    - "test-all" runs all tests and starts/stops tomcat as it needs to.
+    - "test-all-running" runs all tests while tomcat is running (for anthill).
+    - As always, you can run individual tests by using -Dtestcase=$testName
+- Removed leftover tables from struts-resume that were in 
+    metadata/sql/sample-data.xml.
+- Added "protocol" property to properties.xml so http:// could be overridden.
+- Upgraded to Hibernate 2.0 Final.
+- Upgraded to Struts 1.1 RC2.
+- Upgraded Canoo WebTest to Build 280.
+- Upgraded Struts Menu to CVS Snapshot with tabs (not used yet).
+- Moved "confirmPassword" property from UserFormEx.java to User.java so 
+    JavaScript validations would occur in the proper order.
+- In web/WEB-INF, changed validator-rules.xml to validator-rules-custom.xml.
+    and only included the twoFields custom validator.
+- In web/pages/loginForm.jsp, moved "Remember Me" to 
+    ApplicationResources.properties and made it into a label.  Also, added 
+    link for self-registration.
+- In BreadCrumbFilter.java, changed auto-login to route to LoginServlet 
+    ("/auth") rather than "j_security_check"
+- In Canoo WebTests (test/web/web-tests.xml), added 
+    ApplicationResources.properties as a property file to compare titles with,
+    rather than hardcoding strings.
+    
+    
+Features in 0.7
+===============
+- Upgraded to Hibernate 2.0 Beta 4.
+- Upgraded to Struts 1.1 nightly build (2003.03.26) to fix Validator issue.
+  (http://tinyurl.com/87xa)
+- Upgraded DBUnit to 1.6-dev to fix batchStatement error in Ant task.
+  (http://tinyurl.com/8ei2)
+- Upgraded Canoo WebTest from build265 to build276.
+- Upgraded XDoclet to nightly build (2003.03.28) for Hibernate 2.0 
+  compatibility.  Apache module is still customized for POJO -> ActionForms.
+- Upgraded Display Tag Library to version 0.8.5.
+- Renamed "test-canoo" task to "test-jsp".  
+- Added "db-load" as a dependency to running unit tests to get a fresh 
+  database each time.
+- In LoginServlet.java and BreadCrumbFilter.java, pre-pended contextPath 
+  to authURL (i.e. "j_security_check") to get absolute path.
+- Added User Administrator to list/edit/delete users.  This feature 
+  includes using indexedProperties on a form - still using XDoclet, but using
+  a subclass of UserForm, called UserFormEx to hold the getter/setters for 
+  the indexedProperties. 
+- Wrote more Cactus and Canoo Tests to verify Resume editing and User 
+  Administration functioned properly.
+- Added icons to success and error messages template (common/messages.jsp).
+- Implemented role-based Permissions on menu by adding 
+  permissions="rolesAdapter" to "menu:useMenuDisplayer" in menu.jsp.
+  
+Features in 0.6
+===============
+- Upgraded to Hibernate 2.0 (http://tinyurl.com/6b00) and 
+  Struts 1.1RC1 (http://tinyurl.com/6cp9).
+- Fixed Validation issues when attempting cancel validation and using
+  LookupDispatchAction (documented in Struts 1.1RC1 link above).
+- Moved opening Hibernate sessions from being at a method level to being passed
+  in to each method on the business/persistence tier.  Sessions are now obtained
+  via the ActionFilter.getSession() method.
+- Added SMTPAppender to log4.properties to e-mail errors that occur in log 
+  files.
+- Added "Remember Me" feature - for details see http://tinyurl.com/6du0.
+- Added "Current User" count as a demonstration of a Tiles Controller.
+
+// TODO for 0.7 
+- Complete tests for all Action classes using StrutsTestCase.
+- Add User Administration.
+- When Tomcat 5 become stable, or I figure out how to install an app on Resin 3,
+  figure out a way (using Ant) to create JSP 2.0-compliant distribution.
+  
+// TODO for 0.8
+- Allow a way for users to register (similar to Roller).
+- Create User Administration interface with sortable/pageable list of users.
+- Complete tests for all JSPs using Canoo WebTest.
+
+// FUTURE
+- Add DateConverter and JavaScript calendar (www.mattkruse.com).
+- Self Registration.
+
+
+Features in 0.5
+===============
+- Uses Ant build file and directory structure recommended by Java Development
+  with Ant Book by Erik Hatcher.
+- Uses XDoclet to generate web.xml and struts-config.xml from custom javadoc
+  tags in POJOs (Plain Old Java Objects) and classes.
+- Uses XDoclet to generate persistence mappings for Hibernate and also 
+  Validator Forms.  The validation.xml config file is also generated.
+- Demonstrates using Struts Advanced Features such as:
+    -- Validator
+    -- Tiles
+    -- Declared Exceptions
+    -- Modules
+    -- File Upload
+- Demonstrates handling Chained Exceptions in ActionFilter.java.
+- Uses Form-based authentication and interacts with a MySQL database for
+  persistence.
+- Can (optionally) be used to encrypt passwords manually and to use SSL for 
+  login.
+- Uses Business Delegate and DAO Patterns for persistence.
+
+Future Plans
+===============
+- Add examples for indexed properties and saving nested forms.
+- Develop better conversion of properties using ConvertUtils from Commons.
+- Create a better way of deployment using Ant, including remote deploy.
+- Develop better test coverage for servlets and JSPs.
+- Integrate build/test/documentation process with Maven.
+- Add Administration section that allows for user management.
+- Finish application so user can build an actual resume and use the application
+  to host their resume.
+- Add token checking to prevent double posting - or use redirects.
+
+What is AppFuse?
+- It's an application that is meant to demonstrate how to use XDoclet with 
+  Struts to generate your Forms, web.xml, struts-config.xml, and validation.xml.  
+  It's also designed to show how you can use the different security packages 
+  (i.e. form-based authentication, SSLExt) and advanced 
+  Struts techniques (i.e. Tiles, Validator) to build your webapps.
+  
+Where do I put my own code?
+- The build file is setup so that you can place your own packages anywhere 
+  under the /src directory. For database access code, it's recommended that
+  you put it under the src/ejb directory. 
+
+What targets does the build file accept?
+- Run "ant -projecthelp" for a complete list of available tasks.
+
+###

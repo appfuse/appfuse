@@ -1,0 +1,266 @@
+<?xml version="1.0"?>
+<project>
+    <pomVersion>3</pomVersion>
+    <id>appfuse</id>
+    <name>AppFuse Project</name>
+    <currentVersion>1.0</currentVersion>
+    <organization>
+        <name>Raible Designs</name>
+        <url>http://raibledesigns.com/downloads/</url>
+        <logo>/images/logo.gif</logo>
+    </organization>
+    <inceptionYear>2002</inceptionYear>
+    <package>org.appfuse</package>
+
+    <shortDescription>AppFuse Project</shortDescription>
+
+    <description>
+        Project description goes here.
+    </description>
+
+	<url>http://struts.sf.net/</url>
+
+	<issueTrackingUrl>http://sourceforge.net/tracker/?group_id=49385</issueTrackingUrl>
+	<siteAddress>shell.sourceforge.net</siteAddress>
+	<siteDirectory>/home/groups/s/st/struts/htdocs/appfuse</siteDirectory>
+	<distributionDirectory>/home/groups/s/st/struts/htdocs/builds/</distributionDirectory>
+
+	<repository>
+		<connection>scm:cvs:pserver:mraible@cvs.sf.net:/home/cvsroot:appfuse</connection>
+		<url>http://cvs.sf.net/cgi-bin/viewcvs.cgi/struts/appfuse/</url>
+	</repository>
+
+    <versions>
+        <version>
+            <id>.1</id>
+            <name>0.1</name>
+            <tag>HEAD</tag>
+        </version>
+    </versions>
+
+    <mailingLists>
+        <mailingList>
+            <name>AppFuse User List</name>
+            <subscribe>
+                do I really need this?
+            </subscribe>
+            <unsubscribe>
+                not yet...
+            </unsubscribe>
+            <archive>
+                at least, I don't think so!
+            </archive>
+        </mailingList>
+        <mailingList>
+            <name>AppFuse Developer List</name>
+            <subscribe>
+                not yet
+            </subscribe>
+            <unsubscribe>
+                no project as of yet
+            </unsubscribe>
+            <archive>
+                but hopefully soon!
+            </archive>
+        </mailingList>
+    </mailingLists>
+
+    <developers>
+
+        <developer>
+            <name>Matt Raible</name>
+            <id>mraible</id>
+            <email>matt@raibledesigns.com</email>
+            <organization>Raible Designs</organization>
+        </developer>
+
+    </developers>
+
+    <dependencies>
+
+        <dependency>
+            <id>ant-contrib</id>
+            <version>20020829</version>
+            <url>http://sourceforge.net/projects/ant-contrib/</url>
+        </dependency>
+
+        <dependency>
+            <id>commons-beanutils</id>
+            <version>1.6.1</version>
+            <url>http://jakarta.apache.org/commons/beanutils</url>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+
+        <dependency>
+            <id>commons-digester</id>
+            <version>1.5</version>
+            <url>http://jakarta.apache.org/commons/digester.html</url>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+
+        <dependency>
+            <id>commons-lang</id>
+            <version>2.0</version>
+            <url>http://jakarta.apache.org/commons/lang.html</url>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+
+        <dependency>
+            <id>commons-logging</id>
+            <version>1.0.1</version>
+            <url>http://jakarta.apache.org/commons/logging.html</url>
+			<properties>
+				<war.bundle>true</war.bundle>
+			</properties>
+        </dependency>
+
+        <dependency>
+            <id>hibernate</id>
+            <version>2.0.3</version>
+            <url>http://hibernate.sourceforge.net/</url>
+            <properties>
+				<war.bundle>true</war.bundle>
+			</properties>
+        </dependency>
+
+        <dependency>
+            <id>servletapi</id>
+            <version>2.3</version>
+        </dependency>
+
+        <dependency>
+            <id>struts</id>
+            <version>1.1</version>
+            <url>http://jakarta.apache.org/struts</url>
+			<properties>
+				<war.bundle>true</war.bundle>
+			</properties>
+        </dependency>
+
+        <dependency>
+            <id>struts-menu</id>
+            <version>1.2-dev</version>
+            <url>http://sf.net/project/struts-menu</url>
+            <properties>
+				<war.bundle>true</war.bundle>
+			</properties>
+        </dependency>
+
+        <dependency>
+            <id>jstl</id>
+            <version>1.0.4</version>
+            <url>http://java.sun.com/products/jstl</url>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+
+        <dependency>
+            <id>webtest</id>
+            <version>277</version>
+            <url>http://webtest.canoo.com</url>
+        </dependency>
+
+		<dependency>
+			<id>log4j</id>
+			<version>1.2.8</version>
+			<url>http://jakarta.apache.org/log4j/</url>
+			<properties>
+				<war.bundle>true</war.bundle>
+			</properties>
+		</dependency>
+        
+		<dependency>
+			<groupId>xdoclet</groupId>
+			<artifactId>xdoclet</artifactId>
+			<version>1.2b4</version>
+			<url>http://xdoclet.sourceforge.net/</url>
+		</dependency>
+		<dependency>
+			<groupId>xdoclet</groupId>
+			<artifactId>xdoclet-xdoclet-module</artifactId>
+			<version>1.2b4</version>
+			<url>http://xdoclet.sourceforge.net/</url>
+		</dependency>
+		<dependency>
+			<groupId>xdoclet</groupId>
+			<artifactId>xdoclet-web-module</artifactId>
+			<version>1.2b4</version>
+			<url>http://xdoclet.sourceforge.net/</url>
+		</dependency>
+		<dependency>
+			<groupId>xdoclet</groupId>
+			<artifactId>xdoclet-hibernate-module</artifactId>
+			<version>1.2b4</version>
+			<url>http://xdoclet.sourceforge.net/</url>
+		</dependency>
+		<dependency>
+			<groupId>xdoclet</groupId>
+			<artifactId>xdoclet-apache-module</artifactId>
+			<version>1.2b4</version>
+			<url>http://xdoclet.sourceforge.net/</url>
+		</dependency>
+		<dependency>
+			<groupId>xdoclet</groupId>
+			<artifactId>xjavadoc</artifactId>
+			<version>1.0</version>
+			<url>http://xdoclet.sourceforge.net/</url>
+			<jar>xjavadoc-1.0.jar</jar>
+		</dependency>
+		<dependency>
+			<id>j2ee</id>
+			<version>1.3.1</version>
+			<url>http://java.sun.com/products/j2ee/</url>
+		</dependency>
+
+    </dependencies>
+
+    <build>
+
+        <nagEmailAddress>
+            matt@raibledesigns.com
+        </nagEmailAddress>
+
+        <sourceDirectory>src/common</sourceDirectory>
+        <sourceDirectory>src/ejb</sourceDirectory>
+        <sourceDirectory>src/web</sourceDirectory>
+
+        <unitTestSourceDirectory>test/common</unitTestSourceDirectory>
+        <unitTestSourceDirectory>test/ejb</unitTestSourceDirectory>
+        <unitTestSourceDirectory>test/web</unitTestSourceDirectory>
+        <integrationUnitTestSourceDirectory>test/web</integrationUnitTestSourceDirectory>
+
+        <aspectSourceDirectory/>
+
+        <!-- Unit test cases -->
+        <unitTest>
+            <includes>
+                <include>**/*Test.java</include>
+            </includes>
+        </unitTest>
+
+        <!-- J A R  R E S O U R C E S -->
+        <!-- Resources that are packaged up inside the JAR file -->
+        <resources>
+            <includes>
+                <include>*.xml</include>
+                <include>*.properties</include>
+            </includes>
+        </resources>
+
+        <!-- Integration unit test cases -->
+        <integrationUnitTest>
+            <includes>
+                <include>**/*Test.java</include>
+            </includes>
+        </integrationUnitTest>
+        <jars>
+        </jars>
+    </build>
+</project>
