@@ -1,0 +1,15 @@
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>
+# -- <XDtForm:classNameLower/> form --
+<XDtForm:forAllFields><XDtForm:classNameLower/>.<XDtForm:fieldName/>=<XDtForm:fieldDescription/>
+</XDtForm:forAllFields>
+<XDtForm:classNameLower/>.added=<XDtClass:className/> has been added successfully.
+<XDtForm:classNameLower/>.updated=<XDtClass:className/> has been updated successfully.
+<XDtForm:classNameLower/>.deleted=<XDtClass:className/> has been deleted successfully.
+
+# -- <XDtForm:classNameLower/> list page --
+<XDtForm:classNameLower/>List.title=<XDtClass:className/> List
+<XDtForm:classNameLower/>List.heading=<XDtClass:className/>s
+
+# -- <XDtForm:classNameLower/> detail page --
+<XDtForm:classNameLower/>Detail.title=<XDtClass:className/> Detail
+<XDtForm:classNameLower/>Detail.heading=<XDtClass:className/> Information

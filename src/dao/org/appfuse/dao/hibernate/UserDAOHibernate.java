@@ -5,8 +5,8 @@ import java.util.List;
 import org.appfuse.dao.UserDAO;
 import org.appfuse.model.User;
 import org.appfuse.model.UserCookie;
-
 import org.springframework.orm.ObjectRetrievalFailureException;
+import org.springframework.orm.hibernate.HibernateTemplate;
 
 /**
  * This class interacts with Spring's HibernateTemplate to save/delete and
@@ -48,8 +48,10 @@ public class UserDAOHibernate extends BaseDAOHibernate implements UserDAO {
         if (log.isDebugEnabled()) {
             log.debug("user's id: " + user.getUsername());
         }
-
-        getHibernateTemplate().saveOrUpdate(user);
+        
+        HibernateTemplate ht = getHibernateTemplate();
+        ht.saveOrUpdate(user);
+        ht.flush();
     }
 
     /**

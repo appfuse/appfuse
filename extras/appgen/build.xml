@@ -172,7 +172,7 @@
                 <include name="**/*.java"/>
                 <exclude name="**/Constants-*.java"/>
                 <exclude name="${generated.dir}/generic/**"/>
-            </fileset>   
+            </fileset>
         </copy>
         
         <echo>Adding beans to Spring config files</echo>
@@ -216,7 +216,7 @@
         </replace>
         <echo file="../../src/dao/${app.package}/Constants.java" append="true" 
             message="${constants}"/>
-            
+
         <echo>Merging sample-data into metadata/sql/sample-data.xml</echo>   
         <loadfile property="sample.data"
             srcfile="${generated.dir}/metadata/sql/sample-data-${model.name}.xml"/>
@@ -224,7 +224,7 @@
         <replace file="../../metadata/sql/sample-data.xml" value="${sample.data}">
             <replacetoken><![CDATA[</dataset>]]></replacetoken>
         </replace>
-        
+
         <echo>Merging web-tests into test/web/web-tests.xml</echo>   
         <loadfile property="web.tests"
             srcfile="${generated.dir}/test/web/web-tests-${model.name}.xml"/>

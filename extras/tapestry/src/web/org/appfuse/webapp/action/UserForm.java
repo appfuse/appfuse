@@ -62,7 +62,7 @@ public abstract class UserForm extends BasePage implements PageRenderListener {
         if ((getUser() == null) && !event.getRequestCycle().isRewinding()) {
             setUser(new User());
             getUser().addRole(new Role(Constants.USER_ROLE));
-        } else if (event.getRequestCycle().isRewinding()) {
+        } else if (event.getRequestCycle().isRewinding()) { // add
             setUser(new User());
             getUser().addRole(new Role(Constants.USER_ROLE));
         }
@@ -201,13 +201,7 @@ public abstract class UserForm extends BasePage implements PageRenderListener {
 
         getUserManager().removeUser(getUser().getUsername());
 
-        UserList nextPage = null;
-        if ("test".equals(getFrom())) {
-            nextPage = (UserList) cycle.getPage("userList");
-        } else {
-            nextPage = (UserList) cycle.getPage("users");
-        }
-
+        UserList nextPage = (UserList) cycle.getPage("users");
         nextPage.setMessage(format("user.deleted", getUser().getFullName()));
         cycle.activate(nextPage);
     }

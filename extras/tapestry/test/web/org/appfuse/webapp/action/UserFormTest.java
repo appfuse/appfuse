@@ -2,7 +2,6 @@ package org.appfuse.webapp.action;
 
 import java.util.ResourceBundle;
 
-import org.apache.tapestry.event.PageEvent;
 import org.appfuse.service.RoleManager;
 import org.appfuse.service.UserManager;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -30,17 +29,6 @@ public class UserFormTest extends BasePageTestCase {
         page = null;
     }
     
-    public void testEdit() throws Exception {
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        page.setUser(user);
-        
-        PageEvent event = new PageEvent(page, page.getRequestCycle());
-        page.pageBeginRender(event);
-        
-        assertNotNull(page.getUser().getUsername());
-        assertFalse(page.hasErrors());
-    }
-
     public void testSave() throws Exception {
         user.setPassword("tomcat");
         user.setConfirmPassword("tomcat");
@@ -54,11 +42,6 @@ public class UserFormTest extends BasePageTestCase {
     public void testRemove() throws Exception {
         user.setUsername("mraible");
         page.setUser(user);
-        // this is necessary because the MockRequestCycle instantiates pages
-        // by uppercasing the first letter and then loading the class.  Since
-        // I don't want the page/URL to be "userList", so that's why this hack
-        // exists.
-        page.setFrom("test");
         page.delete(getCycle(request, response));
         assertFalse(page.hasErrors());
     }

@@ -168,12 +168,6 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
                       destinationFile="${gen.dir}/web/WEB-INF/navigation-rules-{0}.xml"/>]]></replacevalue>
         </replace>
         
-        <!-- Modify web-tests.xdt template to user model.propertyName -->
-        <replace file="../appgen/src/web-tests.xdt">
-            <replacetoken><![CDATA[name="<XDtMethod:propertyName/>" value]]></replacetoken>
-            <replacevalue><![CDATA[name="<XDtForm:classNameLower/>.<XDtMethod:propertyName/>" value]]></replacevalue>
-        </replace>
-        
         <!-- Modify XML to modify faces-config.xml -->
         <replace file="../appgen/build.xml">
             <replacetoken><![CDATA[<echo>Merging sample-data into metadata/sql/sample-data.xml</echo>]]></replacetoken>

@@ -7,6 +7,10 @@
     focus="" onsubmit="return validate<XDtClass:className/>Form(this)">
 <table class="detail">
     <XDtForm:forAllFields>
+	<XDtForm:ifIsIdField>
+	<html:hidden property="<XDtForm:fieldName/>"/>
+	</XDtForm:ifIsIdField>
+	<XDtForm:ifIsNotIdField>    
     <tr>
         <th>
             <appfuse:label key="<XDtForm:classNameLower/>Form.<XDtForm:fieldName/>"/>
@@ -16,6 +20,7 @@
             <html:errors property="<XDtForm:fieldName/>"/>
         </td>
     </tr>
+    </XDtForm:ifIsNotIdField>
     </XDtForm:forAllFields>
     <tr>
         <td></td>

@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.TreeMap;
+import java.util.LinkedHashMap;
 
 import xdoclet.XDocletException;
 import xdoclet.tagshandler.AbstractProgramElementTagsHandler;
@@ -19,6 +19,7 @@ import xjavadoc.XParameter;
 public class FormTagsHandler extends AbstractProgramElementTagsHandler {
     private String curFieldName;
     private final static List supportedTypes = new ArrayList();
+    private boolean curFieldIsId = false;
     
     static {
         supportedTypes.add("java.lang.String");
@@ -53,18 +54,53 @@ public class FormTagsHandler extends AbstractProgramElementTagsHandler {
      */
     public void forAllFields(String template, Properties attributes) throws XDocletException {
         XClass clazz = getCurrentClass();
-        TreeMap setters = new TreeMap(getFields(clazz));
+        Map setters = new LinkedHashMap(getFields(clazz));
 
         for (Iterator iterator = setters.keySet().iterator(); iterator.hasNext();) {
             curFieldName = (String) iterator.next();
 
             XMethod field = (XMethod) setters.get(curFieldName);
 
+            //setCurrentMethod(field);
+            
+            XMethod getter = field.getAccessor();
+            setCurrentMethod(getter);
+            Properties pro = new Properties();
+            pro.setProperty("tagName", "hibernate.id");
+
+            if (hasTag(pro, FOR_METHOD)) {
+                curFieldIsId = true;
+            } else {
+            	  curFieldIsId = false;
+            }
+            
             setCurrentMethod(field);
             generate(template);
         }
     }
 
+    /**
+     * This method is used to determine id fields - this is used in the view
+     * pages to set the ids as hidden fields.
+     *
+     * @param template
+     * @param attributes
+     * @throws XDocletException
+     */
+    public void ifIsIdField(String template, Properties attributes)
+    throws XDocletException {
+        if (curFieldIsId) {
+            generate(template);
+        }
+    }
+
+    public void ifIsNotIdField(String template, Properties attributes)
+    throws XDocletException {
+        if (!curFieldIsId) {
+            generate(template);
+        }
+    }
+    
     /**
      * Returns the current fields name.
      *

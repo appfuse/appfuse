@@ -126,6 +126,7 @@
                 <exclude name="web/WEB-INF/classes/log4j.properties"/>
                 <exclude name="**/*.page"/>
                 <exclude name="**/*.application"/>
+                <exclude name="**/*_page.xdt"/>
                 <exclude name="**/managed-beans.xdt"/>
             </fileset>
         </replaceregexp>
@@ -432,7 +433,7 @@
         </antcall>
     </target>
 
-    <target name="test-service" depends="compile-service"
+    <target name="test-service" depends="copy-resources,compile-service"
         description="Test service module">
         <antcall target="test-module" inheritAll="true">
             <param name="module" value="service"/>

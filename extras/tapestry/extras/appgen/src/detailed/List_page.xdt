@@ -1,0 +1,18 @@
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><?xml version="1.0"?>
+<!DOCTYPE page-specification PUBLIC
+    "-//Apache Software Foundation//Tapestry Specification 3.0//EN"
+    "http://jakarta.apache.org/tapestry/dtd/Tapestry_3_0.dtd">
+    
+<page-specification class="org.appfuse.webapp.action.<XDtClass:className/>List">
+    <property-specification name="<XDtForm:classNameLower/>Manager" type="org.appfuse.service.<XDtClass:className/>Manager">
+        global.appContext.getBean("<XDtForm:classNameLower/>Manager")
+    </property-specification>
+
+    <property-specification name="<XDtForm:classNameLower/>s" type="java.util.List"/>
+    <property-specification name="message" type="java.lang.String"/>
+    <property-specification name="row"/>
+
+    <bean name="evenOdd" class="org.apache.tapestry.bean.EvenOdd"/>
+    <context-asset name="upArrow" path="/images/arrow_up.png"/>
+    <context-asset name="downArrow" path="/images/arrow_down.png"/>
+</page-specification>

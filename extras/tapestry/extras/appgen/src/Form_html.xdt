@@ -1,0 +1,60 @@
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><title><span key="<XDtForm:classNameLower/>Detail.title"/></title>
+<content tag="heading"><span key="<XDtForm:classNameLower/>Detail.heading"/></content>
+
+<body jwcid="@Body">
+
+<!-- Error Messages -->
+<span jwcid="@Conditional" condition="ognl:beans.delegate.hasErrors">
+	<div class="error">
+        <img jwcid="@Any" src="ognl:engine.contextPath+'/images/iconWarning.gif'"
+                alt="message:icon.warning" class="icon" />
+	    <span jwcid="@Delegator" delegate="ognl:beans.delegate.firstError" raw="true">
+	        Error Message
+	    </span>
+	</div>
+</span>
+
+<!-- Success Messages -->
+<span jwcid="@Conditional" condition="ognl:message != null">
+    <div class="message">
+        <img jwcid="@Any" src="ognl:engine.contextPath+'/images/iconInformation.gif'"
+                alt="message:icon.information" class="icon" />
+        <span jwcid="@Insert" value="ognl:message" raw="true"/>
+    </div>
+</span>
+
+<form jwcid="<XDtForm:classNameLower/>Form@Form" delegate="ognl:beans.delegate" id="<XDtForm:classNameLower/>Form">
+
+<table class="detail">
+	<XDtForm:forAllFields>
+	<XDtForm:ifIsIdField>
+	<input type="hidden" jwcid="@Hidden" value="ognl:<XDtForm:classNameLower/>.<XDtForm:fieldName/>"/>
+	</XDtForm:ifIsIdField>
+	<XDtForm:ifIsNotIdField>
+    <tr>
+        <th>
+            <label jwcid="@FieldLabel" field="ognl:components.<XDtForm:fieldName/>Field"/>
+        </th>
+        <td>
+            <input jwcid="<XDtForm:fieldName/>Field" type="text" id="<XDtForm:fieldName/>"/>
+        </td>
+    </tr>
+    </XDtForm:ifIsNotIdField>
+    </XDtForm:forAllFields>
+    <tr>
+        <td></td>
+        <td class="buttonBar">
+            <input type="submit" class="button" jwcid="@Submit" value="message:button.save" id="save" listener="ognl:listeners.save"/>
+          <span jwcid="@contrib:FormConditional" condition="ognl:<XDtForm:classNameLower/>.id != null">
+            <input type="submit" class="button" jwcid="@Submit" value="message:button.delete" id="delete" listener="ognl:listeners.delete"
+                onclick="form.onsubmit = null"/> <!-- Removed confirm since WebTest can't handle it: ;return confirmDelete('<XDtClass:className/>') -->
+          </span>
+            <input type="submit" class="button" jwcid="@Submit" value="message:button.cancel" id="cancel" listener="ognl:listeners.cancel"
+                onclick="form.onsubmit = null"/>
+        </td>
+    </tr>
+</table>
+</form>
+
+</body>
+

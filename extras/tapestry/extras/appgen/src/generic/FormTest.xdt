@@ -1,0 +1,85 @@
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>package <XDtForm:parentPackageName/>.webapp.action;
+
+import java.util.ResourceBundle;
+
+import <XDtPackage:packageName/>.<XDtClass:className/>;
+import <XDtForm:parentPackageName/>.service.Manager;
+
+public class <XDtClass:className/>FormTest extends BasePageTestCase {
+    private <XDtClass:className/>Form page;
+    private Manager manager;
+
+    protected void setUp() throws Exception {    
+        super.setUp();
+        page = (<XDtClass:className/>Form) getPage(<XDtClass:className/>Form.class);
+        
+        // unfortunately this is a required step if you're calling 
+        // getMessage in the page class
+        page.setBundle(ResourceBundle.getBundle(MESSAGES));
+        page.setValidationDelegate(new Validator());
+
+        // this manager can be mocked if you want a more "pure" unit test
+        manager = (Manager) ctx.getBean("manager");
+        page.setManager(manager);
+        
+        // default request cycle
+        page.setRequestCycle(getCycle(request, response));
+    }
+
+    protected void tearDown() throws Exception {
+        super.tearDown();
+        page = null;
+    }
+
+    public void testAdd() throws Exception {
+        <XDtClass:className/> <XDtForm:classNameLower/> = new <XDtClass:className/>();
+        // set required fields
+        <XDtMethod:forAllMethods>
+        <XDtMethod:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
+        <XDtType:ifIsOfType value="return-type" type="java.lang.Boolean" extent="concrete-type">
+        <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>(Boolean.TRUE);
+        </XDtType:ifIsOfType>
+        <XDtType:ifIsOfType value="return-type" type="java.lang.String" extent="concrete-type">
+        <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>("<XDtMethod:propertyName/>");
+        </XDtType:ifIsOfType>
+        <XDtType:ifIsOfType value="return-type" type="java.lang.Long" extent="concrete-type">
+        <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>(new Long(100));
+        </XDtType:ifIsOfType>
+        <XDtType:ifIsOfType value="return-type" type="java.lang.Integer" extent="concrete-type">
+        <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>(new Integer(100));
+        </XDtType:ifIsOfType>
+        </XDtMethod:ifMethodTagValueEquals>
+        </XDtMethod:forAllMethods>
+        page.set<XDtClass:className/>(<XDtForm:classNameLower/>);
+
+        page.save(page.getRequestCycle());
+        assertFalse(page.hasErrors());
+    }
+
+    public void testSave() {
+    	assertNotNull(manager);
+        <XDtClass:className/> <XDtForm:classNameLower/> = (<XDtClass:className/>) manager.getObject(<XDtClass:className/>.class, new Long(1));
+
+        // update fields
+        <XDtMethod:forAllMethods>
+        <XDtMethod:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
+        <XDtType:ifIsOfType value="return-type" type="java.lang.String" extent="concrete-type">
+        <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>("<XDtMethod:propertyName/>");
+        </XDtType:ifIsOfType>
+        </XDtMethod:ifMethodTagValueEquals>
+        </XDtMethod:forAllMethods>
+        page.set<XDtClass:className/>(<XDtForm:classNameLower/>);
+
+        page.save(page.getRequestCycle());
+        assertFalse(page.hasErrors());
+    }
+
+    public void testRemove() throws Exception {
+        <XDtClass:className/> <XDtForm:classNameLower/> = new <XDtClass:className/>();
+        <XDtForm:classNameLower/>.setId(new Long(2));
+        page.set<XDtClass:className/>(<XDtForm:classNameLower/>);
+
+        page.delete(page.getRequestCycle());
+        assertFalse(page.hasErrors());
+    }
+}

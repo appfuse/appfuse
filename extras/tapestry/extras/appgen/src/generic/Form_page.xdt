@@ -1,0 +1,31 @@
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><?xml version="1.0"?>
+<!DOCTYPE page-specification PUBLIC
+    "-//Apache Software Foundation//Tapestry Specification 3.0//EN"
+    "http://jakarta.apache.org/tapestry/dtd/Tapestry_3_0.dtd">
+    
+<page-specification class="org.appfuse.webapp.action.<XDtClass:className/>Form">
+    <bean name="delegate" class="org.appfuse.webapp.action.Validator"/>
+
+    <bean name="requiredValidator" class="org.apache.tapestry.valid.StringValidator">
+        <set-property name="required" expression="true"/>
+        <set-property name="clientScriptingEnabled" expression="true"/>
+    </bean>
+
+    <property-specification name="<XDtForm:classNameLower/>"  type="org.appfuse.model.<XDtClass:className/>"/>
+    <property-specification name="manager" type="org.appfuse.service.Manager">
+        global.appContext.getBean("manager")
+    </property-specification>
+    <property-specification name="message" type="java.lang.String"/>
+
+	<XDtForm:forAllFields>
+	<XDtForm:ifIsNotIdField>
+    <component id="<XDtForm:fieldName/>Field" type="ValidField">
+        <binding name="value" expression="<XDtForm:classNameLower/>.<XDtForm:fieldName/>"/>
+        <binding name="validator" expression="beans.requiredValidator"/>
+        <message-binding name="displayName" key="<XDtForm:classNameLower/>.<XDtForm:fieldName/>"/>
+    </component>
+
+	</XDtForm:ifIsNotIdField>
+    </XDtForm:forAllFields>
+
+</page-specification>

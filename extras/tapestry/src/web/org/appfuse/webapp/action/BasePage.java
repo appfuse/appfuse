@@ -194,6 +194,4 @@ public abstract class BasePage extends org.apache.tapestry.html.BasePage {
             return "";
         }
     }
-
-    
 }

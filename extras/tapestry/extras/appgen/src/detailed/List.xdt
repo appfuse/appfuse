@@ -1,0 +1,35 @@
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>package <XDtForm:parentPackageName/>.webapp.action;
+
+import java.util.List;
+
+import org.apache.tapestry.IRequestCycle;
+import org.apache.tapestry.event.PageEvent;
+import org.apache.tapestry.event.PageRenderListener;
+
+import <XDtPackage:packageName/>.<XDtClass:className/>;
+import <XDtForm:parentPackageName/>.service.<XDtClass:className/>Manager;
+
+public abstract class <XDtClass:className/>List extends BasePage implements PageRenderListener {
+    public abstract <XDtClass:className/>Manager get<XDtClass:className/>Manager();
+    public abstract void set<XDtClass:className/>Manager(<XDtClass:className/>Manager manager);
+    public abstract List get<XDtClass:className/>s();
+    public abstract void set<XDtClass:className/>s(List <XDtForm:classNameLower/>s);
+
+    public void pageBeginRender(PageEvent event) {
+        set<XDtClass:className/>s(get<XDtClass:className/>Manager().get<XDtClass:className/>s(null));
+    }
+
+    public void edit(IRequestCycle cycle) {
+        <XDtClass:className/>Form nextPage = (<XDtClass:className/>Form) cycle.getPage("<XDtForm:classNameLower/>Form");
+        Object[] parameters = cycle.getServiceParameters();
+        Long id = (Long) parameters[0];
+
+        if (log.isDebugEnabled()) {
+            log.debug("fetching <XDtForm:classNameLower/> with id: " + id);
+        }
+
+        <XDtClass:className/> <XDtForm:classNameLower/> = get<XDtClass:className/>Manager().get<XDtClass:className/>(id.toString());
+        nextPage.set<XDtClass:className/>(<XDtForm:classNameLower/>);
+        cycle.activate(nextPage);
+    }
+}

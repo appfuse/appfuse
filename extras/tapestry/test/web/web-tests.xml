@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: web-tests.xml,v 1.1 2004/12/05 21:39:58 mraible Exp $               -->
+<!-- $Id: web-tests.xml,v 1.2 2004/12/07 00:42:07 mraible Exp $               -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:../../properties.xml">
@@ -120,9 +120,9 @@
             <steps>
                 &login;
                 <invoke stepid="Click 'Add' button" url="/userForm.html"/>
-                
+
                 <verifytitle text="${webapp.prefix}${userProfile.title}"/>
-                
+
                 <setinputfield name="usernameField" value="newuser"/>
                 <setinputfield name="passwordField" value="test"/>
                 <setinputfield name="confirmPasswordField" value="test"/>
@@ -136,16 +136,16 @@
                 <setinputfield name="websiteField" value="http://raibledesigns.com"/>
                 <setinputfield name="passwordHintField" value="test"/>
                 <!--setcheckbox stepid="Select roles" name="userRoles" checked="tomcat"/-->
-                
+
                 <clickbutton label="${button.save}" stepid="Click button 'Save'"/>
-                
+
                 <verifytitle text="${webapp.prefix}${userList.title}"/>
                 <verifytext stepid="verify add success message" regex="true"
                     text='&lt;div class="message"&gt;.*&lt;strong&gt;Test Name&lt;/strong&gt;.*&lt;/div&gt;'/>
-                    
+
                 <!-- Delete user -->
                 <clicklink stepid="Click edit user link" label="newuser"/>
-                    
+
                 <clickbutton label="${button.delete}" stepid="Click button 'Delete'"/>
                 <verifytext stepid="verify delete success message" regex="true"
                     text='&lt;div class="message"&gt;.*&lt;strong&gt;Test Name&lt;/strong&gt;.*&lt;/div&gt;'/>
@@ -161,9 +161,9 @@
             &config;
             <steps>
                 <invoke stepid="click signup link" url="/signup.html"/>
-                
+
                 <verifytitle text="${webapp.prefix}${signup.title}"/>
-                
+
                 <setinputfield name="usernameField" value="signup-user"/>
                 <setinputfield name="passwordField" value="test"/>
                 <setinputfield name="confirmPasswordField" value="test"/>
@@ -176,9 +176,9 @@
                 <setinputfield name="emailField" value="signup-user@raibledesigns.com"/>
                 <setinputfield name="websiteField" value="http://raibledesigns.com"/>
                 <setinputfield name="passwordHintField" value="test"/>
-                
+
                 <clickbutton label="${button.register}" stepid="Click button 'Signup'"/>
-                
+
                 <verifytitle text="${webapp.prefix}${mainMenu.title}"/>
                 <verifytext stepid="verify success message" text="${user.registered}"/>
             </steps>

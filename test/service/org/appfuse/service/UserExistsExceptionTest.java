@@ -1,6 +1,8 @@
 package org.appfuse.service;
 
+import org.appfuse.model.User;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
 public class UserExistsExceptionTest extends BaseManagerTestCase {
@@ -8,7 +10,7 @@ public class UserExistsExceptionTest extends BaseManagerTestCase {
     private ApplicationContext ctx = null;
 
     public void testOne() {}
-    /*
+    
     protected void setUp() throws Exception {
         super.setUp();
         ctx = new ClassPathXmlApplicationContext("/WEB-INF/applicationContext-*.xml");
@@ -24,6 +26,7 @@ public class UserExistsExceptionTest extends BaseManagerTestCase {
         // change unique keys
         user.setUsername("foo");
         user.setEmail("bar");
+        user.setRoles(null);
         user.setVersion(null);
         
         // first save should succeed
@@ -39,5 +42,5 @@ public class UserExistsExceptionTest extends BaseManagerTestCase {
         } catch (UserExistsException uee) {
             assertNotNull(uee);
         }
-    }*/
+    }
 }

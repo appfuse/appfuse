@@ -55,6 +55,7 @@ Features/Changes in 1.7
     - Reload Options always returns to the Main Menu.  This is mainly to show success messages, but also b/c redirecting to the referrer caused
       JSF to puke with a "response already committed" and Tapestry to not display messages.
     - JSF is more XHTML compliant.    
+    - <span key> with Tapestry
 - MyFaces Notes:
     - For some reason, MyFaces seems to be incapable of catching a checked exception in a managed-bean.
     - There's no check when editing a user for the current user since it seems a lot harder w/ JSF

@@ -91,7 +91,163 @@ tapestry.jar=${tapestry.dir}/tapestry-${tapestry.version}.jar]]></replacevalue>
         </delete>
 
         <!-- Modify appgen for Tapestry -->
-        <!-- TODO: AppGen Replacement -->
+        <echo level="info">Modifying appgen for Tapestry</echo>
+        <copy todir="../appgen" overwrite="true">
+            <fileset dir="extras/appgen" includes="**"/>
+        </copy>
+        <!-- Add templates to the list appgen/build.xml -->
+        <replace file="../appgen/build.xml">
+            <replacetoken><![CDATA[<!-- Action Test -->
+            <template templateFile="${template.dir}/ActionTest.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/test/web/${app.package}/webapp/action/{0}ActionTest.java"/>
+            <!-- Detailed Action -->
+            <template templateFile="${template.dir}/detailed/Action.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/src/web/${app.package}/webapp/action/{0}Action.java"/>
+            <!-- Generic Action -->
+            <template templateFile="${template.dir}/generic/Action.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/generic/src/web/${app.package}/webapp/action/{0}Action.java"/>]]></replacetoken>
+            <replacevalue><![CDATA[<!-- Detailed Beans -->
+            <template templateFile="${template.dir}/detailed/FormTest.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/test/web/${app.package}/webapp/action/{0}FormTest.java"/>  
+            <template templateFile="${template.dir}/detailed/ListTest.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/test/web/${app.package}/webapp/action/{0}ListTest.java"/>
+            <template templateFile="${template.dir}/detailed/Form.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/src/web/${app.package}/webapp/action/{0}Form.java"/>
+            <template templateFile="${template.dir}/detailed/List.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/src/web/${app.package}/webapp/action/{0}List.java"/>
+            <template templateFile="${template.dir}/detailed/Form_page.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/web/pages/{0}Form.page"/>
+            <template templateFile="${template.dir}/detailed/List_page.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/web/pages/{0}List.page"/>
+            <!-- Generic Beans -->
+            <template templateFile="${template.dir}/generic/FormTest.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/generic/test/web/${app.package}/webapp/action/{0}FormTest.java"/>
+            <template templateFile="${template.dir}/generic/ListTest.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/generic/test/web/${app.package}/webapp/action/{0}ListTest.java"/>
+            <template templateFile="${template.dir}/generic/Form.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/generic/src/web/${app.package}/webapp/action/{0}Form.java"/>
+            <template templateFile="${template.dir}/generic/List.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/generic/src/web/${app.package}/webapp/action/{0}List.java"/>
+            <template templateFile="${template.dir}/generic/Form_page.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/generic/web/pages/{0}Form.page"/>
+            <template templateFile="${template.dir}/generic/List_page.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/generic/web/pages/{0}List.page"/>]]></replacevalue>
+        </replace>
+        
+        <!-- Replace JSP templates with HTML templates -->
+        <replace file="../appgen/build.xml">
+            <replacetoken><![CDATA[<!-- Form JSP -->
+            <template templateFile="${template.dir}/Form_jsp.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/web/pages/{0}Form.jsp"/>
+            <!-- List JSP -->
+            <template templateFile="${template.dir}/List_jsp.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/web/pages/{0}List.jsp"/>]]></replacetoken>
+            <replacevalue><![CDATA[<!-- Form HTML -->
+            <template templateFile="${template.dir}/Form_html.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/web/pages/{0}Form.html"/>
+            <!-- List HTML -->
+            <template templateFile="${template.dir}/List_html.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/web/pages/{0}List.html"/>
+           <!-- Page definitions -->
+           <template templateFile="${template.dir}/tapestry.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/web/WEB-INF/tapestry-{0}.application"/>]]></replacevalue>
+        </replace>
+
+        <!-- Modify XML to modify tapestry.application -->
+        <replace file="../appgen/build.xml">
+            <replacetoken><![CDATA[<echo>Merging sample-data into metadata/sql/sample-data.xml</echo>]]></replacetoken>
+            <replacevalue><![CDATA[
+        <echo>Merging page definitions into web/WEB-INF/tapestry.application</echo>
+        <loadfile property="tapestry.application"
+            srcfile="${generated.dir}/web/WEB-INF/tapestry-${model.name}.application"/>
+        <!-- Replace strategically placed comment -->   
+        <replace file="../../web/WEB-INF/tapestry.application"
+            token="&lt;!-- Add additional pages here --&gt;"
+            value="${tapestry.application}"/>
+
+        <echo>Merging sample-data into metadata/sql/sample-data.xml</echo>]]></replacevalue>
+        </replace>
+
+        <!-- HTML templates for Tapestry are in the 'pages' directory -->
+        <replace file="../appgen/build.xml">
+            <replacetoken><![CDATA[<copy file="${generated.dir}/web/pages/${model.name}Form.jsp" overwrite="${overwrite}"
+            tofile="../../web/pages/${model.name.lowercase}Form.jsp"/>   
+         <copy file="${generated.dir}/web/pages/${model.name}List.jsp" overwrite="${overwrite}"
+            tofile="../../web/pages/${model.name.lowercase}List.jsp"/>]]></replacetoken>
+            <replacevalue><![CDATA[<copy file="${generated.dir}/web/pages/${model.name}Form.html" overwrite="${overwrite}"
+            tofile="../../web/pages/${model.name.lowercase}Form.html"/>   
+         <copy file="${generated.dir}/web/pages/${model.name}List.html" overwrite="${overwrite}"
+            tofile="../../web/pages/${model.name.lowercase}s.html"/>]]></replacevalue>
+        </replace>
+        
+        <!-- Modify install-src-detailed target to copy .page files -->
+        <replace file="../appgen/build.xml">
+            <replacetoken><![CDATA[<echo file="../../src/service/${app.package}/service/applicationContext-service.xml" append="true" 
+            message="${service.context}"/>]]></replacetoken>
+            <replacevalue><![CDATA[<echo file="../../src/service/${app.package}/service/applicationContext-service.xml" append="true" 
+            message="${service.context}"/>
+
+        <copy file="${generated.dir}/web/pages/${model.name}Form.page" overwrite="${overwrite}"
+            tofile="../../web/pages/${model.name.lowercase}Form.page"/>   
+         <copy file="${generated.dir}/web/pages/${model.name}List.page" overwrite="${overwrite}"
+            tofile="../../web/pages/${model.name.lowercase}s.page"/>]]></replacevalue>
+        </replace>
+
+        <!-- Modify install-src-generic target to copy .page files -->
+        <replace file="../appgen/build.xml">
+            <replacetoken><![CDATA[<copy todir="../../test" overwrite="${overwrite}">
+            <fileset dir="${generated.dir}/test" includes="**/action/*Test.java"/>
+        </copy>]]></replacetoken>
+            <replacevalue><![CDATA[<copy todir="../../test" overwrite="${overwrite}">
+            <fileset dir="${generated.dir}/generic/test" includes="**/action/*Test.java"/>
+        </copy>
+
+        <copy file="${generated.dir}/generic/web/pages/${model.name}Form.page" overwrite="${overwrite}"
+            tofile="../../web/pages/${model.name.lowercase}Form.page"/>   
+         <copy file="${generated.dir}/generic/web/pages/${model.name}List.page" overwrite="${overwrite}"
+            tofile="../../web/pages/${model.name.lowercase}s.page"/>]]></replacevalue>
+        </replace>                 
+        <!-- End of AppGen modifications -->
         
         <!-- Copy source and tests -->    
         <echo level="info">Replacing source and test files</echo>
@@ -117,14 +273,19 @@ tapestry.jar=${tapestry.dir}/tapestry-${tapestry.version}.jar]]></replacevalue>
 
         <!-- Copy web files (JSPs, images, scripts, stylesheets) -->
         <echo level="info">Replacing web files (images, scripts, JSPs, etc.)</echo>
+        <delete>
+            <fileset dir="../../web/pages">
+                <exclude name="loginForm.jsp"/>
+                <exclude name="menu.jsp"/>
+            </fileset>
+        </delete>
         <copy todir="../../web" overwrite="true">
             <fileset dir="web" includes="**"/>
         </copy>
         <delete file="../../web/WEB-INF/validator-rules-custom.xml"/>
         <replace file="../../web/WEB-INF/classes/log4j.properties">
             <replacetoken>log4j.logger.org.apache.struts=WARN</replacetoken>
-            <replacevalue># Have to turn to fatal to avoid warnings/errors that don't matter
-log4j.logger.net.sourceforge.myfaces=FATAL</replacevalue>
+            <replacevalue>log4j.logger.org.apache.tapestry=WARN</replacevalue>
         </replace>
         
         <echo level="info">Modifying Eclipse .classpath file</echo>
@@ -365,8 +526,8 @@ log4j.logger.net.sourceforge.myfaces=FATAL</replacevalue>
     <!-- =================================================================== -->
     <!-- Creates new project, installs Tapestry and tests appgen              -->
     <!-- =================================================================== -->
-    <target name="test-appgen" description="Creates appfuse-Tapestry and tests appgen">
-        <property name="app.name" value="appfuse-wwgen"/>
+    <target name="test-appgen" description="Creates appfuse-tapgen and tests appgen">
+        <property name="app.name" value="appfuse-tapgen"/>
         <property name="db.name" value="appfuse"/>
         <delete dir="../../../${app.name}"/>
         <ant dir="../.." target="new"/>

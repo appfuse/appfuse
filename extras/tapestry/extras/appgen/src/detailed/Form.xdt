@@ -1,0 +1,65 @@
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>package <XDtForm:parentPackageName/>.webapp.action;
+
+import org.apache.tapestry.IRequestCycle;
+import org.apache.tapestry.event.PageEvent;
+import org.apache.tapestry.event.PageRenderListener;
+
+import <XDtPackage:packageName/>.<XDtClass:className/>;
+import <XDtForm:parentPackageName/>.service.<XDtClass:className/>Manager;
+
+public abstract class <XDtClass:className/>Form extends BasePage implements PageRenderListener {
+    public abstract <XDtClass:className/>Manager get<XDtClass:className/>Manager();
+    public abstract void set<XDtClass:className/>Manager(<XDtClass:className/>Manager mgr);
+    public abstract void set<XDtClass:className/>(<XDtClass:className/> <XDtForm:classNameLower/>);
+    public abstract <XDtClass:className/> get<XDtClass:className/>();
+
+    public void pageBeginRender(PageEvent event) {
+        if ((get<XDtClass:className/>() == null) && !event.getRequestCycle().isRewinding()) {
+            set<XDtClass:className/>(new <XDtClass:className/>());
+        } else if (event.getRequestCycle().isRewinding()) { // add
+            set<XDtClass:className/>(new <XDtClass:className/>());
+        }
+    }
+
+    public void cancel(IRequestCycle cycle) {
+        if (log.isDebugEnabled()) {
+            log.debug("Entering 'cancel' method");
+        }
+
+        cycle.activate("<XDtForm:classNameLower/>s");
+    }
+
+    public void delete(IRequestCycle cycle) {
+        if (log.isDebugEnabled()) {
+            log.debug("entered 'delete' method");
+        }
+
+        get<XDtClass:className/>Manager().remove<XDtClass:className/>(get<XDtClass:className/>().getId().toString());
+
+        <XDtClass:className/>List nextPage = (<XDtClass:className/>List) cycle.getPage("<XDtForm:classNameLower/>s");
+        nextPage.setMessage(getMessage("<XDtForm:classNameLower/>.deleted"));
+        cycle.activate(nextPage);
+    }
+
+    public void save(IRequestCycle cycle) {
+        if (getValidationDelegate().getHasErrors()) {
+            return;
+        }
+
+        boolean isNew = (get<XDtClass:className/>().getId() == null);
+
+        get<XDtClass:className/>Manager().save<XDtClass:className/>(get<XDtClass:className/>());
+
+        String key = (isNew) ? "<XDtForm:classNameLower/>.added" : "<XDtForm:classNameLower/>.updated";
+
+        if (isNew) {
+            <XDtClass:className/>List nextPage = (<XDtClass:className/>List) cycle.getPage("<XDtForm:classNameLower/>s");
+            nextPage.setMessage(getMessage(key));
+            cycle.activate(nextPage);
+        } else {
+            <XDtClass:className/>Form nextPage = (<XDtClass:className/>Form) cycle.getPage("<XDtForm:classNameLower/>Form");
+            nextPage.setMessage(getMessage(key));
+            cycle.activate("<XDtForm:classNameLower/>Form"); // return to current page
+        }
+    }
+}

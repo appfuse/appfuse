@@ -1,0 +1,32 @@
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><title><span jwcid="@Insert" value="message:<XDtForm:classNameLower/>List.title"/></title>
+<content tag="heading"><span key="<XDtForm:classNameLower/>List.heading"/></content>
+
+<!-- Success Messages -->
+<span jwcid="@Conditional" condition="ognl:message != null">
+    <div class="message">
+        <img jwcid="@Any" src="ognl:engine.contextPath+'/images/iconInformation.gif'"
+                alt="message:icon.information" class="icon" />
+        <span jwcid="@Insert" value="ognl:message" raw="true"/>
+    </div>
+</span>
+
+<button class="button" onclick="location.href='<XDtForm:classNameLower/>Form.html'"><span key="button.add"/></button>
+<button class="button" onclick="location.href='mainMenu.html'"><span key="button.cancel"/></button>
+
+<table jwcid="table@contrib:Table" class="list <XDtForm:classNameLower/>List" id="<XDtForm:classNameLower/>List"
+    rowsClass="ognl:beans.evenOdd.next" row="ognl:row" source="ognl:<XDtForm:classNameLower/>s"
+    columns="<XDtForm:forAllFields><XDtForm:classNameLower/>.<XDtForm:fieldName/>:<XDtForm:fieldName/>,</XDtForm:forAllFields>"
+    arrowUpAsset="ognl:assets.upArrow" arrowDownAsset="ognl:assets.downArrow">
+    <tr jwcid="<XDtForm:classNameLower/>_idColumnValue@Block">
+        <a jwcid="@DirectLink" listener="ognl:listeners.edit" parameters="ognl:row.id">
+            <span jwcid="@Insert" value="ognl:row.id"/>
+        </a>
+    </tr>
+</table>
+
+<button class="button" onclick="location.href='<XDtForm:classNameLower/>Form.html'"><span key="button.add"/></button>
+<button class="button" onclick="location.href='mainMenu.html'"><span key="button.cancel"/></button>
+
+<script type="text/javascript">
+highlightTableRows("<XDtForm:classNameLower/>List");
+</script>

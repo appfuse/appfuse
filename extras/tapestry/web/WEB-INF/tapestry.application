@@ -22,6 +22,7 @@
     <page name="signup" specification-path="pages/signup.page"/>
     <page name="userForm" specification-path="pages/userForm.page"/>
     <page name="users" specification-path="pages/users.page"/>
+    <!-- Add additional pages here -->
     
     <extension name="org.apache.tapestry.multipart-decoder"
     	class="org.apache.tapestry.multipart.DefaultMultipartDecoder">
