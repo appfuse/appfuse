@@ -40,6 +40,7 @@ public class LabelTag extends TagSupport {
     protected String styleClass = null;
     protected String errorClass = null;
     protected boolean colon = true;
+    protected boolean helpTip = false;
 
     public int doStartTag() throws JspException {
         // Look up this key to see if its a field of the current form
@@ -146,17 +147,26 @@ public class LabelTag extends TagSupport {
             if (valError.length() > 0) {
                 String error = valError.toString();
 
-                // strip out any single or double quotes
-                String htmlFriendly = StringUtils.replace(error, "'", "\\\'");
-                htmlFriendly =
-                    StringUtils.replace(htmlFriendly, "\"", "\\\"");
-                label.append(" <a class=\"errorLink\" href=\"?\" onclick=\"showHelpTip(event, '");
-
-                label.append(htmlFriendly + "', false); return false\" ");
-                label.append("onmouseover=\"showHelpTip(event, '");
-                label.append(htmlFriendly + "', false); return false\" ");
-                label.append("onmouseout=\"hideHelpTip(event); return false\">");
-                label.append("<img class=\"validationWarning\" alt=\"\" ");
+                if (helpTip) {
+                    // strip out any single or double quotes
+                    String htmlFriendly = StringUtils.replace(error, "'", "\\\'");
+                    htmlFriendly =
+                        StringUtils.replace(htmlFriendly, "\"", "\\\"");
+                    label.append(" <a class=\"errorLink\" href=\"?\" onclick=\"showHelpTip(event, '");
+    
+                    label.append(htmlFriendly + "', false); return false\" ");
+                    label.append("onmouseover=\"showHelpTip(event, '");
+                    label.append(htmlFriendly + "', false); return false\" ");
+                    label.append("onmouseout=\"hideHelpTip(event); return false\">");
+                }
+                
+                
+                label.append("<img class=\"validationWarning\" alt=\"");
+                label.append(tagUtils.message(pageContext,
+                                              Globals.MESSAGES_KEY,
+                                              locale.getDisplayName(),
+                                              "icon.warning"));
+                label.append("\" ");
 
                 String context =
                     ((HttpServletRequest) pageContext.getRequest())
@@ -168,7 +178,9 @@ public class LabelTag extends TagSupport {
                                               locale.getDisplayName(),
                                               "icon.warning.img"));
                 label.append("\" />");
-                label.append("</a>");
+                if (helpTip) {
+                    label.append("</a>");
+                }
             }
         }
 
@@ -180,7 +192,7 @@ public class LabelTag extends TagSupport {
     }
 
     /**
-     * @jsp.attribute required="true"
+     * @jsp.attribute required="true" rtexprvalue="true"
      */
     public void setKey(String key) {
         this.key = key;
@@ -188,7 +200,8 @@ public class LabelTag extends TagSupport {
 
     /**
      * Setter for specifying whether to include colon
-     * @jsp.attribute required="false"
+     * 
+     * @jsp.attribute required="false" rtexprvalue="true"
      */
     public void setColon(boolean colon) {
         this.colon = colon;
@@ -197,7 +210,7 @@ public class LabelTag extends TagSupport {
     /**
      * Setter for assigning a CSS class, default is label.
      *
-     * @jsp.attribute required="false"
+     * @jsp.attribute required="false" rtexprvalue="true"
      */
     public void setStyleClass(String styleClass) {
         this.styleClass = styleClass;
@@ -207,12 +220,22 @@ public class LabelTag extends TagSupport {
      * Setter for assigning a CSS class when errors occur,
      * defaults to labelError.
      *
-     * @jsp.attribute required="false"
+     * @jsp.attribute required="false" rtexprvalue="true"
      */
     public void setErrorClass(String errorClass) {
         this.errorClass = errorClass;
     }
 
+    /**
+     * Setter for displaying a JavaScript popup helptip.  Default
+     * is false because error text is shown next to field.
+     *
+     * @jsp.attribute required="false" rtexprvalue="true"
+     */
+    public void setHelpTip(boolean helpTip) {
+        this.helpTip = helpTip;
+    }
+    
     /**
      * Release all allocated resources.
      */
@@ -222,5 +245,6 @@ public class LabelTag extends TagSupport {
         colon = true;
         styleClass = null;
         errorClass = null;
+        helpTip = false;
     }
 }
