@@ -26,7 +26,6 @@ import org.springframework.web.servlet.view.RedirectView;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.4 $ $Date: 2004/08/19 00:09:54 $
  */
 public class FileUploadController extends BaseFormController {
 
