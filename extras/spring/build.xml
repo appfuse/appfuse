@@ -97,7 +97,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
                       destinationFile="${gen.dir}/test/web/${app.package}/webapp/action/{0}FormControllerTest.java"/>
-            <!-- FormController Test -->    
+            <!-- Controller Test -->    
             <template templateFile="${template.dir}/ControllerTest.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
