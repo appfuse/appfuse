@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: properties.xml,v 1.13 2004/05/16 02:18:08 mraible Exp $             -->
+<!-- $Id: properties.xml,v 1.14 2004/08/03 04:31:37 mraible Exp $             -->
 <!-- ======================================================================= -->
 <!-- This file defines properties for build.xml -->
 
@@ -126,7 +126,7 @@
 <path id="dao.test.classpath">
     <path refid="dao.compile.classpath"/>
     <pathelement location="${dbunit.jar}"/>
-	<pathelement location="${junit.jar}"/>
+    <pathelement location="${junit.jar}"/>
     <pathelement location="${junitdoclet.jar}"/>  
     <pathelement location="${commons-collections.jar}"/>
     <pathelement location="${log4j.jar}"/>
