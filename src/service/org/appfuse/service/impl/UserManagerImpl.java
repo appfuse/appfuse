@@ -1,14 +1,15 @@
-package org.appfuse.service;
+package org.appfuse.service.impl;
 
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.appfuse.dao.DAOException;
 import org.appfuse.dao.UserDAO;
 import org.appfuse.model.User;
 import org.appfuse.model.UserCookie;
+import org.appfuse.service.BaseManager;
+import org.appfuse.service.ServiceException;
+import org.appfuse.service.UserManager;
 import org.appfuse.util.RandomGUID;
 import org.appfuse.util.StringUtil;
 
@@ -22,10 +23,9 @@ import org.appfuse.util.StringUtil;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.11 $ $Date: 2004/08/11 05:59:54 $
+ * @version $Revision: 1.1 $ $Date: 2004/08/19 00:10:41 $
  */
 public class UserManagerImpl extends BaseManager implements UserManager {
-    private Log log = LogFactory.getLog(UserManagerImpl.class);
     private UserDAO dao;
 
     /**

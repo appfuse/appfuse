@@ -1,13 +1,13 @@
-package org.appfuse.service;
+package org.appfuse.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.appfuse.dao.LookupDAO;
 import org.appfuse.model.LabelValue;
 import org.appfuse.model.Role;
+import org.appfuse.service.BaseManager;
+import org.appfuse.service.LookupManager;
 
 
 /**
@@ -16,12 +16,11 @@ import org.appfuse.model.Role;
  * <p><a href="LookupManagerImpl.java.html"><i>View Source</i></a></p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.7 $ $Date: 2004/08/11 05:59:54 $
+ * @version $Revision: 1.1 $ $Date: 2004/08/19 00:10:41 $
  */
 public class LookupManagerImpl extends BaseManager implements LookupManager {
     //~ Instance fields ========================================================
 
-    private Log log = LogFactory.getLog(LookupManagerImpl.class);
     private LookupDAO dao;
 
     //~ Methods ================================================================
