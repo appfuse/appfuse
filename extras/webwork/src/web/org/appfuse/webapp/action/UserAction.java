@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.appfuse.Constants;
-import org.appfuse.model.LabelValue;
 import org.appfuse.model.User;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.util.RequestUtil;
@@ -25,6 +24,7 @@ public class UserAction extends BaseAction {
 
     /**
      * Override constructor to set ordered HashMap for errors.
+     * NOTE: Currently doesn't work.
      */
     public UserAction() {
         super.setFieldErrors(new LinkedHashMap());
