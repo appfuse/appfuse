@@ -17,7 +17,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.1 $ $Date: 2004/03/01 06:19:02 $
+ * @version $Revision: 1.2 $ $Date: 2004/05/05 14:17:11 $
  */
 public class BaseObject implements Serializable {
 
@@ -30,7 +30,7 @@ public class BaseObject implements Serializable {
         return EqualsBuilder.reflectionEquals(this, o);
     }
 
-    public int hashCode(Object o) {
+    public int hashCode() {
         return HashCodeBuilder.reflectionHashCode(this);
     }
 }
