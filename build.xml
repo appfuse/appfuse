@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.32 2004/08/11 05:59:49 mraible Exp $                 -->
+<!-- $Id: build.xml,v 1.33 2004/08/19 00:17:40 mraible Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -1511,11 +1511,11 @@
     <!--            NOTE: These will screw up code, so only use with Anthill -->
     <!-- =================================================================== -->
     <property name="extras.dir" value="extras"/>
-    <target name="install-ibatis" description="Installs iBATIS">
+    <target name="install-ibatis" depends="clean" description="Installs iBATIS">
         <ant dir="${extras.dir}/ibatis" target="install"/>
     </target>
     
-    <target name="install-springmvc" 
+    <target name="install-springmvc" depends="clean" 
         description="Installs Spring's MVC, removes Struts">
         <ant dir="${extras.dir}/spring" target="install"/>
     </target>
