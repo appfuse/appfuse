@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.11 2004/04/26 08:48:30 mraible Exp $                 -->
+<!-- $Id: build.xml,v 1.12 2004/04/28 04:45:00 mraible Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -320,12 +320,9 @@
     <target name="hibernatedoclet" depends="init" unless="hibernatedoclet.unnecessary"
         description="Generate Persistence and form classes">
 
-        <taskdef
-            name="hibernatedoclet"
+        <taskdef name="hibernatedoclet"
             classname="xdoclet.modules.hibernate.HibernateDocletTask"
             classpathref="xdoclet.classpath"/>
-
-        <mkdir dir="${build.dir}/dao/gen"/>
         
         <!-- generate hibernate files -->
         <hibernatedoclet
@@ -448,26 +445,20 @@
     <target name="compile-web" depends="package-dao,package-service,stage-web"
         description="Compile web module">
         
-        <taskdef name="strutsdoclet"
-            classname="xdoclet.modules.apache.struts.StrutsDocletTask"
-            classpathref="xdoclet.classpath"/>
-        
         <!-- generate struts forms -->
-        <strutsdoclet
-            destdir="${build.dir}/web/gen"
+        <xdoclet destdir="${build.dir}/web/gen"
             excludedtags="@version,@author"
             addedtags="@xdoclet-generated at ${TODAY}"
             force="${xdoclet.force}">
             <fileset dir="src/dao"/>
 
             <!-- generate struts forms -->
-            <strutsform destdir="${build.dir}/web/gen"
+            <actionform destdir="${build.dir}/web/gen"
                 templateFile="metadata/templates/struts_form.xdt">
                 <packageSubstitution packages="model"
                     substituteWith="webapp.form"/>
-            </strutsform>
-
-        </strutsdoclet>
+            </actionform>
+        </xdoclet>
         
         <antcall target="compile-module" inheritAll="true">
             <param name="module" value="web"/>
@@ -486,7 +477,7 @@
         
     <!-- =================================================================== -->
     <!-- The "webdoclet" target generates web and struts deployment 		 -->
-    <!-- descriptors. This task depends on hibernatedoclet because it generates    --> 
+    <!-- descriptors. This task depends on compile-web because it generates  --> 
     <!-- the forms for struts                                                -->
     <!-- =================================================================== -->
     <target name="webdoclet" depends="compile-web"

@@ -11,8 +11,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.Constants;
 import org.appfuse.service.LookupManager;
-import org.springframework.web.context.support.XmlWebApplicationContext;
+import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.XmlWebApplicationContext;
 
 
 /**
@@ -20,13 +22,13 @@ import org.springframework.web.context.ContextLoader;
  * and populate any application-wide drop-downs.
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.3 $ $Date: 2004/04/22 20:43:27 $
+ * @version $Revision: 1.4 $ $Date: 2004/04/28 04:45:07 $
  *
  * @web.listener
  */
 public class StartupListener implements ServletContextListener {
-    private Log log = LogFactory.getLog(StartupListener.class);
-    ServletContext context;
+    private static Log log = LogFactory.getLog(StartupListener.class);
+    private ServletContext context;
 
     public void contextInitialized(ServletContextEvent sce) {
         context = sce.getServletContext();
@@ -61,33 +63,8 @@ public class StartupListener implements ServletContextListener {
             log.debug("populating drop-downs...");
         }
 
-        // populate drop-downs and stuff in servlet context
-        try {
-            // use this one instead of the WebApplicationContext b/c the
-            // ContextListener doesn't run first on Tomcat 5 - although I
-            // think it should!
-            XmlWebApplicationContext ctx = new XmlWebApplicationContext();
-            // get the config locations from context parameters
-            String configLocations =
-                    context.getInitParameter(ContextLoader.CONFIG_LOCATION_PARAM);
-            String[] files = configLocations.split(",");
-            for (int i=0; i < files.length; i++) {
-                files[i] = files[i].trim();
-            }
-            ctx.setConfigLocations(files);
-            ctx.setServletContext(context);
-            ctx.refresh();
-            
-            LookupManager mgr =
-                (LookupManager) ctx.getBean("lookupManager");
-
-            // get list of possible roles
-            context.setAttribute(Constants.AVAILABLE_ROLES, mgr.getAllRoles());
-        } catch (Exception e) {
-            log.error("Error populating drop-downs failed!" + e.getMessage());
-            e.printStackTrace();
-        }
-
+        setupContext(context);
+        
         // output the retrieved values for the Init and Context Parameters
         if (log.isDebugEnabled()) {
             log.debug("Initialization complete [OK]");
@@ -100,5 +77,40 @@ public class StartupListener implements ServletContextListener {
         }
 
         context = null;
+    }
+    
+    public static void setupContext(ServletContext context) {
+        // populate drop-downs and stuff in servlet context
+        try {
+            // check to see if ctx has already been set
+            XmlWebApplicationContext ctx =
+                (XmlWebApplicationContext) context
+                    .getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
+            if (ctx == null) {
+                // if the context is null, it's likely because the listeners
+                // aren't initialized in the same order they're specified in
+                // web.xml.  This happens in Tomcat 5.
+                ctx = new XmlWebApplicationContext();
+                // get the config locations from context parameters
+                String configLocations =
+                        context.getInitParameter(ContextLoader.CONFIG_LOCATION_PARAM);
+                String[] files = configLocations.split(",");
+                for (int i=0; i < files.length; i++) {
+                    files[i] = files[i].trim();
+                }
+                ctx.setConfigLocations(files);
+                ctx.setServletContext(context);
+                ctx.refresh();
+            }
+            
+            LookupManager mgr =
+                (LookupManager) ctx.getBean("lookupManager");
+
+            // get list of possible roles
+            context.setAttribute(Constants.AVAILABLE_ROLES, mgr.getAllRoles());
+        } catch (Exception e) {
+            log.error("Error populating drop-downs failed!" + e.getMessage());
+            e.printStackTrace();
+        }   
     }
 }

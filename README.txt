@@ -2,15 +2,15 @@ Quick-Start FAQ
 ===============
 
 To learn how to develop your J2EE webapps with AppFuse, see 
-http://raibledesigns.com/wiki/Wiki.jsp?page=Articles (or docs/index.html
-if you downloaded the AppFuse source distribution). 
+http://raibledesigns.com/wiki/Wiki.jsp?page=Articles (or docs/index.html if you 
+downloaded the AppFuse source distribution). 
 
-To build this application - you must be using Ant 1.5.1+.  You will also 
-need to copy junit.jar into your $ANT_HOME/lib directory.
+To build this application - you must be using Ant 1.5.1+.  You will also need 
+to copy junit.jar into your $ANT_HOME/lib directory.
 
-Then setup Tomcat 4.1.x+ and install an smtp server on localhost.  If you
-don't want to install an SMTP server, change web/WEB-INF/classes/
-mail.properties to point to an existing one.
+Then setup Tomcat 4.1.x+ and install an smtp server on localhost.  If you don't 
+want to install an SMTP server, change web/WEB-INF/classes/mail.properties to 
+point to an existing one.
 
 To run this application, you will need to perform the following tasks:
 
