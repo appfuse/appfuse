@@ -12,6 +12,7 @@ import org.apache.commons.logging.LogFactory;
 import org.appfuse.Constants;
 import org.appfuse.service.LookupManager;
 import org.springframework.web.context.support.XmlWebApplicationContext;
+import org.springframework.web.context.ContextLoader;
 
 
 /**
@@ -19,22 +20,22 @@ import org.springframework.web.context.support.XmlWebApplicationContext;
  * and populate any application-wide drop-downs.
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.1 $ $Date: 2004/03/01 06:19:20 $
+ * @version $Revision: 1.2 $ $Date: 2004/04/14 06:53:10 $
  *
  * @web.listener
  */
 public class StartupListener implements ServletContextListener {
     private Log log = LogFactory.getLog(StartupListener.class);
-    ServletContext ctx;
+    ServletContext context;
 
     public void contextInitialized(ServletContextEvent sce) {
-        ctx = sce.getServletContext();
+        context = sce.getServletContext();
 
         if (log.isDebugEnabled()) {
             log.debug("contextInitialized...");
         }
 
-        String daoType = ctx.getInitParameter(Constants.DAO_TYPE);
+        String daoType = context.getInitParameter(Constants.DAO_TYPE);
 
         // if daoType is not specified, use DAO as default
         if (daoType == null) {
@@ -44,7 +45,7 @@ public class StartupListener implements ServletContextListener {
 
         // Orion starts Servlets before Listeners, so check if the config
         // object already exists
-        Map config = (HashMap) ctx.getAttribute(Constants.CONFIG);
+        Map config = (HashMap) context.getAttribute(Constants.CONFIG);
 
         if (config == null) {
             config = new HashMap();
@@ -52,29 +53,35 @@ public class StartupListener implements ServletContextListener {
 
         // Create a config object to hold all the app config values
         config.put(Constants.DAO_TYPE, daoType);
-        ctx.setAttribute(Constants.CONFIG, config);
+        context.setAttribute(Constants.CONFIG, config);
 
         // output the retrieved values for the Init and Context Parameters
         if (log.isDebugEnabled()) {
             log.debug("daoType: " + daoType);
-        }
-
-        if (log.isDebugEnabled()) {
             log.debug("populating drop-downs...");
         }
 
         // populate drop-downs and stuff in servlet context
         try {
             // use this one instead of the WebApplicationContext b/c the
-            // ContextListener might not run first.
-            XmlWebApplicationContext context = new XmlWebApplicationContext();
-            context.setServletContext(ctx);
-            context.refresh();
+            // ContextListener doesn't run first on Tomcat 5 - although I
+            // think it should!
+            XmlWebApplicationContext ctx = new XmlWebApplicationContext();
+            // get the config locations from context parameters
+            String configLocations =
+                    context.getInitParameter(ContextLoader.CONFIG_LOCATION_PARAM);
+            String[] files = configLocations.split(",");
+            for (int i=0; i < files.length; i++) {
+                files[i] = files[i].trim();
+            }
+            ctx.setConfigLocations(files);
+            ctx.setServletContext(context);
+            ctx.refresh();
             LookupManager mgr =
-                (LookupManager) context.getBean("lookupManager");
+                (LookupManager) ctx.getBean("lookupManager");
 
             // get list of possible roles
-            ctx.setAttribute(Constants.AVAILABLE_ROLES, mgr.getAllRoles());
+            context.setAttribute(Constants.AVAILABLE_ROLES, mgr.getAllRoles());
         } catch (Exception e) {
             log.error("Error populating drop-downs failed!" + e.getMessage());
             e.printStackTrace();
@@ -91,6 +98,6 @@ public class StartupListener implements ServletContextListener {
             log.debug("contextDestroyed...");
         }
 
-        ctx = null;
+        context = null;
     }
 }

@@ -64,6 +64,7 @@ public class LoginServletTest extends ServletTestCase {
     public void testInit() throws Exception {
         // check all parameters from web.xml
         String authURL = config.getInitParameter(Constants.AUTH_URL);
+        log.debug("authURL: " + authURL);
         assertTrue((authURL != null) &&
                    authURL.equals(rb.getString("authURL")));
 

@@ -11,7 +11,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class LookupDAOTest extends BaseDAOTestCase {
     private LookupDAO dao = null;
-
+    
     protected void setUp() throws Exception {
         log = LogFactory.getLog(LookupDAOTest.class);
         dao = (LookupDAO) ctx.getBean("lookupDAO");

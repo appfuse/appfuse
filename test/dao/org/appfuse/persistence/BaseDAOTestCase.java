@@ -20,10 +20,24 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @author mraible
  */
 public class BaseDAOTestCase extends TestCase {
-    protected Log log = LogFactory.getLog(BaseDAOTestCase.class);
-    protected ApplicationContext ctx = 
-        new ClassPathXmlApplicationContext("/applicationContext.xml");;
-    protected ResourceBundle rb = null;
+    protected static Log log = LogFactory.getLog(BaseDAOTestCase.class);
+    protected static ApplicationContext ctx = null;
+    protected static ResourceBundle rb = null;
+
+    // This static block ensures that Spring's BeanFactory is only loaded
+    // once for all tests
+    static {
+        // the dao.type is written to the database.properties file
+        // in properties.xml
+        ResourceBundle db = ResourceBundle.getBundle("database");
+        String daoType = db.getString("dao.type");
+        if (log.isDebugEnabled()) {
+            log.debug("daoType: " + daoType);
+        }
+        String[] paths = {"/applicationContext-database.xml",
+                          "/applicationContext-" + daoType + ".xml"};
+        ctx = new ClassPathXmlApplicationContext(paths);
+    }
 
     public BaseDAOTestCase() {
         // Since a ResourceBundle is not required for each class, just

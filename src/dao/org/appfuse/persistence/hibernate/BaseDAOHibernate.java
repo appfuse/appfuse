@@ -1,12 +1,12 @@
 package org.appfuse.persistence.hibernate;
 
+import java.lang.reflect.Method;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.persistence.DAO;
 import org.appfuse.persistence.DAOException;
 import org.springframework.orm.hibernate.support.HibernateDaoSupport;
-
-import java.lang.reflect.Method;
 
 
 /**
@@ -16,7 +16,7 @@ import java.lang.reflect.Method;
  * <p><a href="BaseDAOHibernate.java.html"><i>View Source</i></a></p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.1 $ $Date: 2004/04/13 04:03:35 $
+ * @version $Revision: 1.2 $ $Date: 2004/04/14 06:53:12 $
  */
 public class BaseDAOHibernate extends HibernateDaoSupport
         implements DAO {

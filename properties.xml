@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: properties.xml,v 1.2 2004/03/18 20:33:10 mraible Exp $             -->
+<!-- $Id: properties.xml,v 1.3 2004/04/14 06:53:14 mraible Exp $             -->
 <!-- ======================================================================= -->
 <!-- This file defines properties for build.xml -->
 
@@ -55,6 +55,7 @@
     	<entry key="hibernate.connection.username" value="${database.username}"/>
     	<entry key="hibernate.connection.password" value="${database.password}"/>
     	<entry key="hibernate.connection.show_sql" value="${database.show_sql}"/>
+        <entry key="dao.type" value="${dao.type}"/>
      </propertyfile>
      <property file="database.properties"/>
 </target>

@@ -66,7 +66,7 @@
     <option name="PUT_FOCUS_INTO_COMMENT" value="false" />
     <option name="SHOW_CHECKIN_OPTIONS" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed invalid package name for loading ActionForms in ObjectFactory inner class.&#10;Issue number:  2&#10;Submitted by:  mraible&#10;CVS: ----------------------------------------------------------------------&#10;CVS: Issue number:&#10;CVS:   If this change addresses one or more issues,&#10;CVS:   then enter the issue number(s) here.&#10;CVS: Obtained from:&#10;CVS:   If this change has been taken from another system,&#10;CVS:   then name the system in this line, otherwise delete it.&#10;CVS: Submitted by:&#10;CVS:   If this code has been contributed to the project by someone else; i.e.,&#10;CVS:   they sent us a patch or a set of diffs, then include their name/email&#10;CVS:   address here. If this is your work then delete this line.&#10;CVS: Reviewed by:&#10;CVS:   If we are doing pre-commit code reviews and someone else has&#10;CVS:   reviewed your changes, include their name(s) here.&#10;CVS:   If you have not had it reviewed then delete this line." />
+    <option name="LAST_COMMIT_MESSAGE" value="Enhancements to copying properties - learnings from the real world" />
     <option name="SAVE_LAST_COMMIT_MESSAGE" value="true" />
     <option name="CHECKIN_DIALOG_SPLITTER_PROPORTION" value="0.8" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
@@ -107,41 +107,9 @@
   </component>
   <component name="FileEditorManager" split-orientation="horizontal" split-proportion="0.5">
     <first-group selected-file="file://$PROJECT_DIR$/src/dao/org/appfuse/persistence/hibernate/applicationContext-hibernate.xml">
-      <entry file="file://$PROJECT_DIR$/src/dao/org/appfuse/persistence/DAO.java" pinned="false">
-        <provider selected="true" editor-type-id="text-editor">
-          <state line="37" column="1" selection-start="1043" selection-end="1043" vertical-scroll-proportion="1.0596659">
-            <folding />
-          </state>
-        </provider>
-      </entry>
-      <entry file="file://$PROJECT_DIR$/src/dao/org/appfuse/persistence/hibernate/BaseDAOHibernate.java" pinned="false">
-        <provider selected="true" editor-type-id="text-editor">
-          <state line="13" column="45" selection-start="440" selection-end="440" vertical-scroll-proportion="0.37231505">
-            <folding>
-              <element signature="imports" expanded="true" />
-            </folding>
-          </state>
-        </provider>
-      </entry>
-      <entry file="file://$PROJECT_DIR$/src/dao/org/appfuse/persistence/hibernate/LookupDAOHibernate.java" pinned="false">
-        <provider selected="true" editor-type-id="text-editor">
-          <state line="22" column="56" selection-start="639" selection-end="639" vertical-scroll-proportion="0.4582339">
-            <folding />
-          </state>
-        </provider>
-      </entry>
-      <entry file="file://$PROJECT_DIR$/src/dao/org/appfuse/persistence/hibernate/UserDAOHibernate.java" pinned="false">
-        <provider selected="true" editor-type-id="text-editor">
-          <state line="16" column="59" selection-start="540" selection-end="540" vertical-scroll-proportion="0.4582339">
-            <folding>
-              <element signature="imports" expanded="true" />
-            </folding>
-          </state>
-        </provider>
-      </entry>
       <entry file="file://$PROJECT_DIR$/src/dao/org/appfuse/persistence/hibernate/applicationContext-hibernate.xml" pinned="false">
         <provider selected="true" editor-type-id="text-editor">
-          <state line="33" column="0" selection-start="1406" selection-end="1406" vertical-scroll-proportion="0.9451074">
+          <state line="18" column="43" selection-start="915" selection-end="934" vertical-scroll-proportion="0.32">
             <folding />
           </state>
         </provider>
@@ -159,30 +127,13 @@
     <option name="SPLITTER_PROPORTION" value="0.5" />
     <profile name="Default" />
   </component>
-  <component name="J2EEProjectPane">
-    <expanded_node url="" module="webapp" type="J2EEModule" />
-    <expanded_node url="file://$PROJECT_DIR$/web" module="webapp" type="webRootDir" />
-  </component>
+  <component name="J2EEProjectPane" />
   <component name="PackagesPane">
-    <expanded_node url="org.appfuse.webapp.filter" type="package" />
     <expanded_node url="org.appfuse.persistence.hibernate" type="package" />
-    <expanded_node url="org.appfuse.persistence" type="package" />
-    <expanded_node url="org.appfuse.service" type="package" />
-    <expanded_node url="org.appfuse.webapp.action" type="package" />
-    <expanded_node url="org.appfuse.model" type="package" />
-    <expanded_node url="org.appfuse.webapp.form" type="package" />
   </component>
   <component name="ProjectPane">
-    <expanded_node url="file://$PROJECT_DIR$/src/dao/org/appfuse" module="appfuse" type="directory" />
-    <expanded_node url="" module="webapp" type="module" />
-    <expanded_node url="file://$PROJECT_DIR$/src/dao/org" module="appfuse" type="directory" />
-    <expanded_node url="" module="appfuse" type="module" />
-    <expanded_node url="file://$PROJECT_DIR$/src/dao/org/appfuse/persistence/hibernate" module="appfuse" type="directory" />
-    <expanded_node url="file://$PROJECT_DIR$/src" module="appfuse" type="directory" />
-    <expanded_node url="file://$PROJECT_DIR$/src/dao/org/appfuse/persistence" module="appfuse" type="directory" />
-    <expanded_node url="file://$PROJECT_DIR$/src/dao" module="appfuse" type="directory" />
     <expanded_node url="file://$PROJECT_DIR$" module="appfuse" type="directory" />
-    <expanded_node url="file://$PROJECT_DIR$/src/dao/org/appfuse/model" module="appfuse" type="directory" />
+    <expanded_node url="" module="appfuse" type="module" />
   </component>
   <component name="ProjectView">
     <navigator currentView="PackagesPane" splitterProportion="0.5">
@@ -205,7 +156,22 @@
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
   </component>
   <component name="RunManager">
-    <activeType name="Application" />
+    <activeType name="JUnit" />
+    <tempConfiguration name="LookupDAOTest" type="JUnit" default="false" selected="true">
+      <module name="appfuse" />
+      <option name="PACKAGE_NAME" value="org.appfuse.persistence" />
+      <option name="MAIN_CLASS_NAME" value="org.appfuse.persistence.LookupDAOTest" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ADDITIONAL_CLASS_PATH">
+        <value>
+          <Item type="Marker" value="" />
+        </value>
+      </option>
+    </tempConfiguration>
     <configuration name="&lt;template&gt;" type="Application" default="true" selected="false">
       <option name="MAIN_CLASS_NAME" />
       <option name="VM_PARAMETERS" />
@@ -250,6 +216,17 @@
     </configuration>
     <configuration name="&lt;template&gt;" type="WebLogic Instance" default="true" selected="false">
       <setting name="WEBLOGIC_INSTANCE_CONFIGURATION_NAME" value="" />
+    </configuration>
+    <configuration name="test-dao" type="JUnit" default="false" selected="false">
+      <module name="appfuse" />
+      <option name="PACKAGE_NAME" value="org.appfuse.persistence" />
+      <option name="MAIN_CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ADDITIONAL_CLASS_PATH" />
     </configuration>
   </component>
   <component name="SelectInManager" />
@@ -297,18 +274,18 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1440" height="849" extended-state="6" />
-    <editor active="false" />
+    <frame x="0" y="22" width="1440" height="849" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="CVS" active="true" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="true" weight="0.34016395" order="8" />
+      <window_info id="CVS" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.34016395" order="8" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.33" order="7" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="docked" type="docked" visible="true" weight="0.22557472" order="0" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="docked" type="docked" visible="true" weight="0.25431034" order="0" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.329235" order="1" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.24959481" order="1" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.3306011" order="8" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.4" order="6" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.16522989" order="1" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.33" order="2" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.15948276" order="1" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.35519126" order="2" x="24" y="325" width="1392" height="242" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.25" order="2" />
       <window_info id="CVS File View" active="false" anchor="right" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.3409742" order="3" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.4" order="3" />
@@ -395,36 +372,40 @@
     <buildFile url="file://$PROJECT_DIR$/build.xml">
       <targetFilters>
         <filter targetName="build.properties.missing" isVisible="false" />
-        <filter targetName="database.properties.missing" isVisible="false" />
+        <filter targetName="generate.database.properties" isVisible="false" />
         <filter targetName="define-tasks" isVisible="true" />
         <filter targetName="init" isVisible="true" />
         <filter targetName="new" isVisible="true" />
-        <filter targetName="compile-common" isVisible="true" />
-        <filter targetName="package-common" isVisible="false" />
-        <filter targetName="gen-tests-common" isVisible="true" />
-        <filter targetName="test-common" isVisible="true" />
         <filter targetName="copy-resources" isVisible="true" />
         <filter targetName="copy-web-files" isVisible="true" />
         <filter targetName="jsp-2" isVisible="true" />
         <filter targetName="stage-web" isVisible="true" />
         <filter targetName="ejbdoclet" isVisible="true" />
+        <filter targetName="compile-dao" isVisible="true" />
+        <filter targetName="package-dao" isVisible="true" />
+        <filter targetName="gen-tests-dao" isVisible="true" />
+        <filter targetName="test-dao" isVisible="true" />
+        <filter targetName="compile-service" isVisible="true" />
+        <filter targetName="package-service" isVisible="false" />
+        <filter targetName="gen-tests-service" isVisible="true" />
+        <filter targetName="test-service" isVisible="true" />
         <filter targetName="webdoclet" isVisible="true" />
+        <filter targetName="compile" isVisible="true" />
         <filter targetName="compile-web" isVisible="true" />
+        <filter targetName="war" isVisible="true" />
         <filter targetName="package-web" isVisible="true" />
         <filter targetName="gen-tests-web" isVisible="true" />
         <filter targetName="test-web" isVisible="true" />
-        <filter targetName="compile-ejb" isVisible="true" />
-        <filter targetName="package-ejb" isVisible="true" />
-        <filter targetName="gen-tests-ejb" isVisible="true" />
-        <filter targetName="test-ejb" isVisible="true" />
         <filter targetName="junitdoclet-module" isVisible="false" />
         <filter targetName="compile-module" isVisible="false" />
         <filter targetName="test-module" isVisible="false" />
         <filter targetName="test-reports" isVisible="true" />
         <filter targetName="deploy-test-reports" isVisible="true" />
         <filter targetName="compile-jsp" isVisible="false" />
+        <filter targetName="cactifywar" isVisible="true" />
         <filter targetName="deploy-test-war" isVisible="true" />
         <filter targetName="test-cactus" isVisible="true" />
+        <filter targetName="cactus" isVisible="true" />
         <filter targetName="test-canoo" isVisible="true" />
         <filter targetName="test-jsp" isVisible="true" />
         <filter targetName="test-all" isVisible="true" />
@@ -435,11 +416,12 @@
         <filter targetName="db-create" isVisible="true" />
         <filter targetName="db-init" isVisible="true" />
         <filter targetName="db-drop" isVisible="true" />
+        <filter targetName="setup-db" isVisible="true" />
         <filter targetName="clean" isVisible="true" />
         <filter targetName="javadoc" isVisible="true" />
         <filter targetName="java2html" isVisible="true" />
         <filter targetName="deploy-web" isVisible="true" />
-        <filter targetName="reload" isVisible="true" />
+        <filter targetName="refresh" isVisible="true" />
         <filter targetName="deploy" isVisible="true" />
         <filter targetName="undeploy" isVisible="true" />
         <filter targetName="deploy-war" isVisible="true" />
@@ -447,13 +429,22 @@
         <filter targetName="pmd" isVisible="true" />
         <filter targetName="todo" isVisible="false" />
         <filter targetName="docs" isVisible="true" />
-        <filter targetName="setup-db" isVisible="true" />
         <filter targetName="setup-tomcat" isVisible="true" />
         <filter targetName="start.tomcat" isVisible="true" />
         <filter targetName="stop.tomcat" isVisible="true" />
+        <filter targetName="start.resin" isVisible="true" />
+        <filter targetName="stop.resin" isVisible="true" />
+        <filter targetName="install" isVisible="true" />
+        <filter targetName="remove" isVisible="true" />
+        <filter targetName="reload" isVisible="true" />
+        <filter targetName="start" isVisible="true" />
+        <filter targetName="stop" isVisible="true" />
+        <filter targetName="list" isVisible="true" />
         <filter targetName="wiki" isVisible="true" />
         <filter targetName="dist" isVisible="true" />
+        <filter targetName="bin" isVisible="true" />
         <filter targetName="ftp" isVisible="true" />
+        <filter targetName="setup" isVisible="true" />
       </targetFilters>
       <runInBackground value="false" />
       <viewClosedWhenNoErrors value="false" />
@@ -462,83 +453,107 @@
     </buildFile>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/web/org/appfuse/webapp/action/BaseAction.java">
+    <entry file="file://$PROJECT_DIR$/test/web/org/appfuse/webapp/listener/StartupListenerTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="319" column="20" selection-start="11273" selection-end="11273" vertical-scroll-proportion="0.5096296">
+        <state line="19" column="13" selection-start="603" selection-end="603" vertical-scroll-proportion="0.3529412">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/web/org/appfuse/webapp/action/BaseStrutsTestCase.java">
+    <entry file="file://$PROJECT_DIR$/src/web/org/appfuse/webapp/listener/UserCounterListener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="19" selection-start="1278" selection-end="1278" vertical-scroll-proportion="0.0637037">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/service/org/appfuse/service/UserManagerImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="34" selection-start="1426" selection-end="1426" vertical-scroll-proportion="0.6933333">
+        <state line="27" column="13" selection-start="857" selection-end="857" vertical-scroll-proportion="0.48854962">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/users.jsp">
+    <entry file="file://$PROJECT_DIR$/src/web/org/appfuse/webapp/listener/StartupListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="76" column="40" selection-start="2823" selection-end="2823" vertical-scroll-proportion="1.1004902">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/classes/log4j.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="47" column="34" selection-start="1847" selection-end="1847" vertical-scroll-proportion="1.122549">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/web/org/appfuse/webapp/action/RegistrationServlet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="147" column="12" selection-start="5369" selection-end="5553" vertical-scroll-proportion="0.57251906">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/service/org/appfuse/service/applicationContext-service.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="8" selection-start="1602" selection-end="1690" vertical-scroll-proportion="0.97709924">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/applicationContext-database.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="7" selection-start="395" selection-end="395" vertical-scroll-proportion="0.2647059">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/metadata/web/web-settings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="21" selection-start="1509" selection-end="1509" vertical-scroll-proportion="0.8235294">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/service/org/appfuse/service/BaseManagerTestCase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="63" column="0" selection-start="2283" selection-end="2283" vertical-scroll-proportion="1.2720588">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/service/org/appfuse/service/UserManagerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="24" selection-start="318" selection-end="318" vertical-scroll-proportion="0.20588236">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/service/org/appfuse/util/ConvertUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="38" column="0" selection-start="1123" selection-end="1123" vertical-scroll-proportion="0.33333334">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/service/org/appfuse/service/UserManagerTest.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="dummy://J2EEElement://webapp/J2EE_WEB_MODULE">
-      <provider selected="true" editor-type-id="J2EE">
-        <state proportions="0.5" />
-      </provider>
-    </entry>
-    <entry file="file:///Users/mraible/dev/myusers/myusers.iml">
+    <entry file="file://$PROJECT_DIR$/build.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="209" column="30" selection-start="9251" selection-end="9251" vertical-scroll-proportion="0.2086514">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/dao/org/appfuse/persistence/DAO.java">
+    <entry file="file://$PROJECT_DIR$/contrib/ibatis/build.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="1" selection-start="1043" selection-end="1043" vertical-scroll-proportion="1.0596659">
+        <state line="74" column="8" selection-start="3070" selection-end="3343" vertical-scroll-proportion="0.3053435">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/dao/org/appfuse/persistence/hibernate/LookupDAOHibernate.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="56" selection-start="639" selection-end="639" vertical-scroll-proportion="0.4582339">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/dao/org/appfuse/persistence/hibernate/BaseDAOHibernate.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="45" selection-start="440" selection-end="440" vertical-scroll-proportion="0.37231505">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/dao/org/appfuse/persistence/hibernate/UserDAOHibernate.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="59" selection-start="540" selection-end="540" vertical-scroll-proportion="0.4582339">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/dao/org/appfuse/persistence/hibernate/applicationContext-hibernate.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="0" selection-start="1406" selection-end="1406" vertical-scroll-proportion="0.9451074">
+        <state line="18" column="43" selection-start="915" selection-end="934" vertical-scroll-proportion="0.32">
           <folding />
         </state>
       </provider>

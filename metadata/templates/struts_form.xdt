@@ -116,7 +116,7 @@ public class <XDtClass:classOf><XDtStrutsForm:strutsFormClass/></XDtClass:classO
     /**
      * <code>ObjectFactory</code> - used if indexed properties exist on this form.
      *
-     * @see org.apache.commons.ListUtils
+     * @see org.apache.commons.collections.ListUtils
      */
     class ObjectFactory implements org.apache.commons.collections.Factory {
         private String name;

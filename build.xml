@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.5 2004/04/13 04:28:11 mraible Exp $                 -->
+<!-- $Id: build.xml,v 1.6 2004/04/14 06:53:14 mraible Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -60,7 +60,6 @@
         <echo message="Preparing target directory '${webapp.target}'"/>
         <mkdir dir="${webapp.target}"/>
         <mkdir dir="${webapp.target}/WEB-INF"/>
-        <mkdir dir="${webapp.target}/WEB-INF/classes"/>
         <mkdir dir="${webapp.dist}"/>
         
         <!-- Make sure ejbdoclet is necessary -->
@@ -79,7 +78,7 @@
                 to="${build.dir}/web/classes/*.class"/>
         </uptodate>
 
-        <available file="${build.dir}/web/WEB-INF/web.xml" type="file"
+        <available file="${webapp.target}/WEB-INF/web.xml" type="file"
             property="webxml.present"/>
         
         <!-- Conditionally set property for converting to JSP 2.0 -->
@@ -188,7 +187,6 @@
         <filter token="TOMCAT-SERVER" value="${tomcat.server}"/>
         <filter token="SECURE-LOGIN" value="${secure.login}"/>
         <filter token="HIBERNATE-DIALECT" value="${hibernate.dialect}"/>
-        <filter token="DAO-TYPE" value="${dao.type}"/>
     </filterset>
             
     <!-- List of variables to replace when configuring Tomcat -->
@@ -202,26 +200,24 @@
     <!-- Copy any resource or configuration files -->
     <target name="copy-resources" depends="init"
         description="Copy .properties and .xml files from source directory">
-        <copy todir="${webapp.target}/WEB-INF" includeEmptyDirs="no">
-            <fileset dir="web/WEB-INF">
-                <include name="**/*.properties"/>
-                <include name="**/*.xml"/>
-                <include name="**/*.ccf"/>
+        <copy todir="${build.dir}/web/classes" includeEmptyDirs="no">
+            <fileset dir="web/WEB-INF/classes">
+                <include name="*.properties"/>
             </fileset>
             <filterset refid="variables.to.replace"/>
         </copy>            
         <!-- Copy Spring configuration files -->
-        <copy 
+        <copy overwrite="true"
             tofile="${webapp.target}/WEB-INF/applicationContext-${dao.type}.xml">
             <fileset dir="src/dao" includes="**/*-${dao.type}.xml"/>
             <filterset refid="variables.to.replace"/>
         </copy>
-        <copy overwrite="true"
+        <copy 
             tofile="${webapp.target}/WEB-INF/applicationContext-service.xml">
             <fileset dir="src/service" includes="**/*-service.xml"/>
         </copy>
         <antcall target="generate.database.properties"/>
-        <copy todir="${webapp.target}/WEB-INF/classes" file="database.properties"/>
+        <copy todir="${build.dir}/web/classes" file="database.properties"/>
     </target>
     
     <!-- =================================================================== -->
@@ -237,6 +233,7 @@
                 <exclude name="pages/**"/>
                 <!-- exclude images or they'll get hosed by the filterset -->
                 <exclude name="images/**"/>
+                <exclude name="**/classes/**"/>
             </fileset>
             <fileset dir="web" includes="common/footer.jsp"/>
             <filterset>
@@ -296,12 +293,12 @@
 
         <echo level="info">Replacing 2.3 DTD with 2.4 XSD in web.xml</echo>
         <replaceregexp flags="g"
-            file="${build.dir}/web/WEB-INF/web.xml"
+            file="${webapp.target}/WEB-INF/web.xml"
             match='&lt;!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd"&gt;'
             replace=""/>
 
         <replaceregexp flags="g"
-            file="${build.dir}/web/WEB-INF/web.xml"
+            file="${webapp.target}/WEB-INF/web.xml"
             match='&lt;web-app &gt;'
             replace='&lt;web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee web-app_2_4.xsd"&gt;'/>
 
@@ -490,7 +487,7 @@
             <deploymentdescriptor validateXML="true"
                 templateFile="metadata/templates/web_xml.xdt"
                 servletspec="2.3" sessiontimeout="10"
-                destdir="${build.dir}/web/WEB-INF" distributable="false"
+                destdir="${webapp.target}/WEB-INF" distributable="false"
                 displayname="${ant.project.name}">
                 <configParam name="httpPort" value="${http.port}"/>
                 <configParam name="httpsPort" value="${https.port}"/>
@@ -529,7 +526,7 @@
     <target name="package-web" depends="compile-web,jsp-2"
         description="Package WAR">
         <propertyfile comment="Build Information"
-            file="${webapp.target}/WEB-INF/classes/build.properties">
+            file="${build.dir}/web/classes/build.properties">
             <entry key="build.date" type="date" pattern="EEEE MMM dd, yyyy" 
                 value="now"/>
             <entry key="build.time" type="date" pattern="hh:mm:ss a zz" 
@@ -545,11 +542,11 @@
             <equals arg1="${tomcat.version}" arg2="5"/>
             <then>
                 <replaceregexp flags="g"
-                    file="${build.dir}/web/WEB-INF/web.xml"
+                    file="${webapp.target}/WEB-INF/web.xml"
                     match='&lt;!--dispatcher&gt;'
                     replace='&lt;dispatcher&gt;'/>
                 <replaceregexp flags="g"
-                    file="${build.dir}/web/WEB-INF/web.xml"
+                    file="${webapp.target}/WEB-INF/web.xml"
                     match='&lt;/dispatcher--&gt;'
                     replace='&lt;/dispatcher&gt;'/>
             </then>
@@ -560,27 +557,26 @@
             file="metadata/conf/tomcat-context.xml" overwrite="true">
             <filterset refid="db.variables"/>
         </copy>
-        <!-- Copy applicationContext.xml to build area to overwrite
-             any custom one created for tests -->
-        <copy todir="${webapp.target}/WEB-INF" overwrite="true">
-            <fileset dir="web/WEB-INF" includes="applicationContext.xml"/>
-            <filterset refid="variables.to.replace"/>
-        </copy>
+        <!-- Change the path so webapp can find .hbm in appfuse-dao.jar -->
+        <replace file="${webapp.target}/WEB-INF/applicationContext-${dao.type}.xml">
+            <replacetoken>file:dist</replacetoken>
+            <replacevalue>WEB-INF/lib</replacevalue>
+        </replace>
         <!-- Copy .properties files in src tree to build/web/classes -->
         <copy todir="${build.dir}/web/classes">
             <fileset dir="src/web" includes="**/*.properties"/>
         </copy>
-        <war
-            basedir="${webapp.target}"
-            destfile="${webapp.dist}/${webapp.war}"
-            webxml="${build.dir}/web/WEB-INF/web.xml"
-            excludes="**/web-test.xml,**/*database*,
-                      **/mail.properties,**/cactus.properties"
-            compress="true">
+        <war destfile="${webapp.dist}/${webapp.war}"
+            webxml="${webapp.target}/WEB-INF/web.xml" compress="true">
+            <fileset dir="${webapp.target}" excludes="**/web.xml,**/*-database.xml"/>
             <metainf dir="${webapp.dist}" includes="context.xml"/>
 
             <zipfileset dir="${basedir}/web/images" prefix="images"/>
-            <classes dir="${build.dir}/web/classes"/>
+            <classes dir="${build.dir}/web/classes">
+                <exclude name="**/cactus.properties"/>
+                <exclude name="**/database.properties"/>
+                <exclude name="**/mail.properties"/>
+            </classes>
 
             <lib file="${dist.dir}/${webapp.name}-dao.jar"/>
             <lib file="${dist.dir}/${webapp.name}-service.jar"/>
@@ -680,12 +676,6 @@
             <fileset dir="test/${module}" excludes="**/*.java"/>
             <filterset refid="variables.to.replace"/>
         </copy>     
-        <!-- For Spring to work when testing,
-             remove WEB-INF/ from entity includes -->
-        <replace file="${webapp.target}/WEB-INF/applicationContext.xml">
-            <replacetoken>SYSTEM "WEB-INF/</replacetoken> 
-            <replacevalue>SYSTEM "</replacevalue>
-        </replace>
         <property name="additional.src.dirs" value=""/>
         <junit printsummary="no"
             errorProperty="test.failed"
@@ -700,7 +690,7 @@
                 <!-- For Spring configuration files -->
                 <pathelement path="${webapp.target}/WEB-INF"/>
                 <!-- For properties files -->
-                <pathelement path="${webapp.target}/WEB-INF/classes"/>
+                <pathelement path="${build.dir}/web/classes"/>
             </classpath>
             <formatter type="xml"/>
             <formatter type="brief" usefile="false"/>
@@ -762,7 +752,7 @@
         <cactifywar srcfile="${webapp.dist}/${webapp.war}"
             destfile="${webapp.dist}/${webapp.name}-cactus.war">
             <classes dir="${test.dir}/web/classes"/>
-            <classes dir="${webapp.target}/WEB-INF/classes"
+            <classes dir="${build.dir}/web/classes"
                 includes="cactus.properties"/>
             <lib dir="${strutstestcase.dir}" includes="*.jar"/>
             <lib dir="${cactus.dir}">

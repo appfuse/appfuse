@@ -6,7 +6,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.persistence.LookupDAO;
 import org.springframework.dao.DataAccessException;
-import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 
 
 /**
@@ -17,7 +16,7 @@ import org.springframework.orm.hibernate.support.HibernateDaoSupport;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.3 $ $Date: 2004/04/13 04:03:35 $
+ * @version $Revision: 1.4 $ $Date: 2004/04/14 06:53:12 $
  *
  */
 public class LookupDAOHibernate extends BaseDAOHibernate implements LookupDAO {

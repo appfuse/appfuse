@@ -1,6 +1,5 @@
 package org.appfuse.webapp.action;
 
-import java.beans.PropertyDescriptor;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -11,12 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
-import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.beanutils.converters.LongConverter;
 import org.apache.commons.beanutils.converters.StringConverter;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.struts.Globals;
@@ -27,12 +23,10 @@ import org.apache.struts.action.ActionMessages;
 import org.apache.struts.actions.LookupDispatchAction;
 import org.apache.struts.util.MessageResources;
 import org.appfuse.Constants;
-import org.appfuse.model.BaseObject;
 import org.appfuse.model.User;
+import org.appfuse.util.ConvertUtil;
 import org.appfuse.util.CurrencyConverter;
 import org.appfuse.util.DateConverter;
-import org.appfuse.util.DateUtil;
-import org.appfuse.util.ConvertUtil;
 import org.appfuse.webapp.util.SslUtil;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -48,7 +42,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.4 $ $Date: 2004/04/13 04:28:11 $
+ * @version $Revision: 1.5 $ $Date: 2004/04/14 06:53:11 $
  */
 public class BaseAction extends LookupDispatchAction {
 

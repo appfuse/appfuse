@@ -9,10 +9,11 @@
       <includeProjectClasspath value="false" />
       <includeParser value="true" />
       <additionalClassPath>
-        <entry path="file://file://file://file://C:/Tools/apache-ant-1.5.4/lib/junit.jar" />
+        <entry path="file://$PROJECT_DIR$/lib/junit3.8.1/junit.jar" />
       </additionalClassPath>
       <properties>
-        <property name="j2ee.jar" value="c:\sdks\j2sdkee-1.4\lib\j2ee.jar" />
+        <property name="j2ee.jar" value="$J2EE_HOME$/lib/j2ee.jar" />
+        <property name="tomcat.home" value="/opt/dev/tools/tomcat" />
       </properties>
     </buildFile>
   </component>
@@ -271,7 +272,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/appfuse.iml" filepath="$PROJECT_DIR$/appfuse.iml" />
-      <module fileurl="file://$PROJECT_DIR$/web/webapp.iml" filepath="$PROJECT_DIR$/web/webapp.iml" />
     </modules>
   </component>
   <component name="ProjectRootManager" version="2" assert-keyword="false" />

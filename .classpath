@@ -32,9 +32,6 @@
 	<classpathentry kind="lib" path="lib/jakarta-cactus-13-1.6-20040119/lib/cactus-1.6dev20040119.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-cactus-13-1.6-20040119/lib/aspectjrt-1.1.1.jar"/>
 	<classpathentry kind="lib" path="lib/clickstream-1.0.1/clickstream-1.0.1.jar"/>
-	<classpathentry kind="src" path="build/web/gen"/>
-	<classpathentry kind="src" path="tools/strutsgen/src"/>
-	<classpathentry kind="lib" path="build/appfuse/WEB-INF/classes"/>
 	<classpathentry kind="lib" path="lib/hibernate-2.1.2/hibernate2.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-2.1.2/lib/c3p0-0.8.3.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-2.1.2/lib/cglib-2.0-rc2.jar"/>
@@ -64,5 +61,9 @@
 	<classpathentry kind="lib" path="lib/webtest-build432/lib/Tidy.jar"/>
 	<classpathentry kind="lib" path="lib/webtest-build432/lib/pdfUnit.jar"/>
 	<classpathentry kind="lib" path="lib/webtest-build432/lib/dom4j-full.jar"/>
-	<classpathentry kind="output" path="target"/>
+	<classpathentry kind="lib" path="build/appfuse/WEB-INF"/>
+	<classpathentry kind="lib" path="build/web/classes"/>
+	<classpathentry kind="lib" path="build/dao/classes"/>
+	<classpathentry kind="lib" path="build/dao/gen"/>
+	<classpathentry kind="output" path="target/classes"/>
 </classpath>

@@ -18,12 +18,21 @@ public class BaseManagerTestCase extends TestCase {
     //~ Static fields/initializers =============================================
 
     private static Log log = LogFactory.getLog(BaseManagerTestCase.class);
+    protected static ResourceBundle rb = null;
+    protected static ApplicationContext ctx = null;
 
-    //~ Instance fields ========================================================
-
-    protected ResourceBundle rb = null;
-    protected static ApplicationContext ctx = 
-        new ClassPathXmlApplicationContext("/applicationContext.xml");
+    // This static block ensures that Spring's BeanFactory is only loaded
+    // once for all tests
+    static {
+        // the dao.type is written to the database.properties file
+        // in properties.xml
+        ResourceBundle db = ResourceBundle.getBundle("database");
+        String daoType = db.getString("dao.type");
+        String[] paths = {"/applicationContext-database.xml",
+                          "/applicationContext-" + daoType + ".xml",
+                          "/applicationContext-service.xml"};
+        ctx = new ClassPathXmlApplicationContext(paths);
+    }
 
     //~ Constructors ===========================================================
 

@@ -23,3 +23,12 @@
         <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
         <param-value>ApplicationResources</param-value>
     </context-param>
+    <!-- Context Configuration locations for Spring XML files -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            /WEB-INF/applicationContext-database.xml,
+            /WEB-INF/applicationContext-<XDtConfig:configParameterValue paramName="daoType"/>.xml,
+            /WEB-INF/applicationContext-service.xml
+        </param-value>
+    </context-param>
