@@ -45,7 +45,7 @@ import org.appfuse.webapp.util.RequestUtil;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.6 $ $Date: 2004/03/18 20:33:06 $
+ * @version $Revision: 1.7 $ $Date: 2004/03/20 06:18:00 $
  *
  * @struts.action name="userFormEx" path="/editUser" scope="request"
  *  validate="false" parameter="action" input="list" roles="admin"
@@ -259,7 +259,7 @@ public final class UserAction extends BaseAction {
         }
 
         if (!StringUtils.equals(request.getParameter("from"), "list")) {
-            session.setAttribute(Constants.USER_KEY, userForm);
+            session.setAttribute(Constants.USER_KEY, user);
 
             // update the user's remember me cookie if they didn't login
             // with a cookie
