@@ -39,14 +39,14 @@ import org.appfuse.webapp.util.RequestUtil;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.2 $ $Date: 2004/03/10 05:01:09 $
+ * @version $Revision: 1.3 $ $Date: 2004/03/14 16:05:27 $
  *
  * @struts.action name="userFormEx" path="/editUser" scope="request"
  *  validate="false" parameter="action" input="list" roles="admin"
  * @struts.action name="userFormEx" path="/editProfile" scope="request"
  *  validate="false" parameter="action" input="mainMenu"
  * @struts.action name="userFormEx" path="/saveUser" scope="request"
- *  validate="true" parameter="action" input="editProfile"
+ *  validate="true" parameter="action" input="edit"
  *
  * @struts.action-forward name="list" path=".userList"
  * @struts.action-forward name="edit" path=".userProfile"
