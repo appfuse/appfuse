@@ -1,0 +1,231 @@
+<!-- This file is designed to add Spring MVC support to AppFuse -->
+<project name="springmvc" basedir="." default="help">
+
+    <property name="lib.dir" location="../../lib"/>
+    <property file="${lib.dir}/lib.properties"/>
+    
+    <taskdef resource="net/sf/antcontrib/antcontrib.properties"
+            classpath="${ant-contrib.jar}"/>
+
+    <!-- =================================================================== -->
+    <!-- List options for this build file                                    -->
+    <!-- =================================================================== -->
+    <target name="help" description="Print usage for key targets">
+    <echo>
+    Key Targets:
+                install: Replaces Struts with Spring MVC
+                   help: Print this help text...
+    </echo>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Replaces Struts with Spring MVC                                     -->
+    <!-- =================================================================== -->
+    <target name="install"
+        description="replaces Struts with Spring MVC in the AppFuse base project">
+        <echo level="info">Copying Spring JARs to ../../lib</echo>
+        <copy todir="${lib.dir}">
+            <fileset dir="lib" includes="**"/>
+        </copy>
+        <delete>
+            <fileset dir="${struts.dir}">
+                <include name="*fileupload*"/>
+                <include name="*validator*"/>
+                <include name="struts-el.jar"/>
+            </fileset>
+        </delete>
+
+        <echo level="info">Adding hibernate.classpath for testing controllers</echo>
+        <replace file="../../properties.xml">
+            <replacetoken><![CDATA[<fileset dir="${webtest.dir}/lib" includes="*.jar"/>
+    <pathelement location="${log4j.jar}"/>
+</path>]]></replacetoken>
+            <replacevalue><![CDATA[<fileset dir="${webtest.dir}/lib" includes="*.jar"/>
+    <pathelement location="${log4j.jar}"/>
+    <path refid="hibernate.classpath"/>
+</path>]]></replacevalue>
+        </replace>
+
+        <echo level="info">Deleting struts_form.xdt for XDoclet</echo>
+        <delete dir="../../metadata/templates"/>
+
+        <echo level="info">Deleting Struts merge-files in metadata/web</echo>
+        <delete>
+            <fileset dir="../../metadata/web">
+                <include name="global-*.xml"/>
+                <include name="struts-*.xml"/>
+            </fileset>
+        </delete>
+        <echo level="info">Replacing Struts servlets and settings with Spring</echo>
+        <copy todir="../../metadata/web" includes="metadata/web/*.xml" overwrite="true"/>
+        
+        <!-- Copy source and tests -->    
+        <echo level="info">Replacing source and test files</echo>
+        <copy todir="../../src" overwrite="true">
+            <fileset dir="src" includes="**"/>
+        </copy>
+        <delete dir="../../src/web/**/form"/>
+        <delete>
+            <fileset dir="../../src/web/**/action">
+                <exclude name="LoginServlet.java"/>
+                <exclude name="UserCounterController.java"/>
+            </fileset>
+        </delete>
+        <copy todir="../../test" overwrite="true">
+            <fileset dir="test" includes="**"/>
+        </copy>
+        <delete>
+            <fileset dir="../../test/web/**/action">
+                <exclude name="LoginServlet*"/>
+                <exclude name="MainMenu*"/>
+            </fileset>
+        </delete> 
+        
+        <!-- Copy web files (JSPs, images, scripts, stylesheets) -->
+        <echo level="info">Replacing web files (images, scripts, JSPs, etc.)</echo>
+        <copy todir="../../web" overwrite="true">
+            <fileset dir="web" includes="**"/>
+        </copy>
+        
+        <echo level="info">Adding Spring JARs to .classpath for Eclipse</echo>
+        <replace file="../../.classpath">
+            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/spring-1.0.2-dev/spring.jar"/>]]></replacetoken>
+            <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/spring-1.0.2-dev/spring.jar"/>
+<classpathentry kind="lib" path="lib/spring-1.0.2-dev/spring-mock.jar"/>
+<classpathentry kind="lib" path="lib/spring-1.0.2-dev/commons-fileupload.jar"/>
+<classpathentry kind="lib" path="lib/spring-1.0.2-dev/spring-sandbox.jar"/>
+]]></replacevalue>
+        </replace>
+
+        <echo level="info">Refactoring build.xml</echo>
+        <replace file="../../build.xml">
+            <replacetoken><![CDATA[        
+        <!-- Make sure webdoclet is necessary -->
+        <uptodate property="webdoclet.unnecessary">
+            <srcfiles dir="src/web" includes="**/*.java"/>
+            <srcfiles dir="${build.dir}/web/gen" includes="**/*.java"/>
+            <mapper type="glob" from="*.java"
+                to="${build.dir}/web/classes/*.class"/>
+        </uptodate>
+]]></replacetoken>
+            <replacevalue></replacevalue>
+            <replacetoken><![CDATA[        
+        <!-- generate struts forms -->
+        <xdoclet destdir="${build.dir}/web/gen"
+            excludedtags="@version,@author"
+            addedtags="@xdoclet-generated at ${TODAY}"
+            force="${xdoclet.force}">
+            <fileset dir="src/dao"/>
+
+            <!-- generate struts forms -->
+            <actionform destdir="${build.dir}/web/gen"
+                templateFile="metadata/templates/struts_form.xdt">
+                <packageSubstitution packages="model"
+                    substituteWith="webapp.form"/>
+            </actionform>
+        </xdoclet>
+        
+]]></replacetoken>
+            <replacevalue></replacevalue>
+            <replacetoken><![CDATA[<param name="additional.src.dirs"
+                value="${build.dir}/web/gen"/>
+]]></replacetoken>
+            <replacevalue></replacevalue>
+            <replacetoken><![CDATA[    <!-- The "webdoclet" target generates web and struts deployment 		 -->
+    <!-- descriptors. This task depends on compile-web because it generates  --> 
+    <!-- the forms for struts                                                -->
+    <!-- =================================================================== -->
+    <target name="webdoclet" depends="compile-web"
+        unless="webdoclet.unnecessary,webxml.present"
+        description="Generate web and Struts descriptors">
+        <taskdef name="webdoclet"
+            classname="xdoclet.modules.web.WebDocletTask">
+            <classpath>
+                <path refid="xdoclet.classpath"/>
+                <path refid="web.compile.classpath"/>
+            </classpath>
+        </taskdef>
+        <webdoclet destdir="${webapp.target}/WEB-INF"
+            force="${xdoclet.force}"
+            mergedir="metadata/web"
+            excludedtags="@version,@author"
+            verbose="true">
+            <fileset dir="src/web"/>
+            <fileset dir="${build.dir}/web/gen"/>
+            <deploymentdescriptor validateXML="true"
+                servletspec="2.3" sessiontimeout="10"
+                destdir="${webapp.target}/WEB-INF" distributable="false"
+                displayname="${ant.project.name}">
+                <configParam name="httpPort" value="${http.port}"/>
+                <configParam name="httpsPort" value="${https.port}"/>
+                <configParam name="daoType" value="${dao.type}"/>
+                <configParam name="security" value="${security.mode}"/>
+            </deploymentdescriptor>
+            <jsptaglib validateXML="true"
+                description="Custom tag library for this application"
+                shortName="appfuse" filename="appfuse.tld"/>
+            <strutsconfigxml validateXML="true" version="1.1"/>
+            <strutsvalidationxml/>
+]]></replacetoken>
+            <replacevalue><![CDATA[    <!-- The "webdoclet" target generates web deployment descriptors.  	     -->
+    <!-- =================================================================== -->
+    <target name="webdoclet" depends="compile-web" unless="webxml.present"
+        description="Generate web deployment descriptors">
+        <taskdef name="webdoclet"
+            classname="xdoclet.modules.web.WebDocletTask">
+            <classpath>
+                <path refid="xdoclet.classpath"/>
+                <path refid="web.compile.classpath"/>
+            </classpath>
+        </taskdef>
+        <webdoclet destdir="${webapp.target}/WEB-INF"
+            force="${xdoclet.force}"
+            mergedir="metadata/web"
+            excludedtags="@version,@author"
+            verbose="true">
+            <fileset dir="src/web"/>
+            <fileset dir="src/dao"/>
+            <deploymentdescriptor validateXML="true"
+                servletspec="2.3" sessiontimeout="10"
+                destdir="${webapp.target}/WEB-INF" distributable="false"
+                displayname="${ant.project.name}">
+                <configParam name="httpPort" value="${http.port}"/>
+                <configParam name="httpsPort" value="${https.port}"/>
+                <configParam name="daoType" value="${dao.type}"/>
+                <configParam name="security" value="${security.mode}"/>
+            </deploymentdescriptor>
+            <jsptaglib validateXML="true"
+                description="Custom tag library for this application"
+                shortName="appfuse" filename="appfuse.tld"/>
+            <springvalidationxml/>
+]]></replacevalue>
+            <replacetoken><![CDATA[<target name="package-web" depends="webdoclet,jsp-2"]]></replacetoken>
+            <replacevalue><![CDATA[<target name="package-web" depends="compile-web,jsp-2"]]></replacevalue>
+            <replacetoken><![CDATA[<webinf dir="${struts.dir}" includes="*.xml"/>]]></replacetoken>
+            <replacevalue><![CDATA[<webinf dir="${spring.dir}" includes="*.xml"/>]]></replacevalue>
+            <replacetoken><![CDATA[<lib dir="${spring.dir}" includes="*.jar"/>]]></replacetoken>
+            <replacevalue><![CDATA[<lib dir="${spring.dir}" includes="*.jar"/>
+            <lib file="${requesttag.jar}"/>]]></replacevalue>
+            <replacetoken><![CDATA[<target name="test-web" depends="compile-web"
+        description="Test web module">
+        <antcall target="test-module" inheritAll="true">
+            <param name="module" value="web"/>
+            <reference refid="web.test.classpath"
+                torefid="test.classpath"/>
+        </antcall>
+    </target>]]></replacetoken>
+            <replacevalue><![CDATA[<target name="test-web" depends="webdoclet"
+        description="Test web module">
+        <!-- Copy validator-rules to WEB-INF -->
+        <copy todir="${webapp.target}/WEB-INF" 
+            file="${spring.dir}/validator-rules.xml"/>
+        <antcall target="test-module" inheritAll="true">
+            <param name="module" value="web"/>
+            <!-- For validation.xml and validator-rules.xml -->
+            <param name="additional.src.dirs" value="${webapp.target}"/>
+            <reference refid="web.test.classpath"
+                torefid="test.classpath"/>
+        </antcall>
+    </target>]]></replacevalue>
+        </replace>
+</project>
