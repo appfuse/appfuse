@@ -21,13 +21,13 @@ public class SignupControllerTest extends BaseControllerTestCase {
         c = (SignupController) ctx.getBean("signupController");
     }
 
-    protected void tearDown() {
+    protected void tearDown() throws Exception {
+        super.tearDown();
         c = null;
     }
     
     public void testDisplayForm() throws Exception {
-        MockHttpServletRequest request =
-            new MockHttpServletRequest(null, "GET", "/signup.xml");
+        MockHttpServletRequest request = newGet("/signup.html");
         HttpServletResponse response = new MockHttpServletResponse();
         ModelAndView mv = c.handleRequest(request, response);
         assertTrue("returned correct view name",
@@ -35,8 +35,7 @@ public class SignupControllerTest extends BaseControllerTestCase {
     }
 
     public void testSignupUser() throws Exception {
-        MockHttpServletRequest request =
-            new MockHttpServletRequest(null, "POST", "/signup.xml");
+        MockHttpServletRequest request = newPost("/signup.html");
         request.addParameter("username", "self-registered");
         request.addParameter("password", "Password1");
         request.addParameter("confirmPassword", "Password1");
@@ -58,6 +57,6 @@ public class SignupControllerTest extends BaseControllerTestCase {
         
         // verify that success messages are in the request
         assertNotNull(request.getSession().getAttribute("messages"));
-        assertTrue(request.getSession().getAttribute(Constants.REGISTERED) != null);
+        assertNotNull(request.getSession().getAttribute(Constants.REGISTERED));
     }
 }
