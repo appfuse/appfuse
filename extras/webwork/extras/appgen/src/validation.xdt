@@ -9,4 +9,6 @@
             <message key="errors.required"/>
         </field-validator>
     </field>
+    </XDtMethod:ifMethodTagValueEquals>
+    </XDtMethod:forAllMethods>
 </validators>

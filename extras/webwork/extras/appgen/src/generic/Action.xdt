@@ -1,11 +1,13 @@
 <XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>package <XDtForm:parentPackageName/>.webapp.action;
 
-import <XDtForm:packageName/>.<XDtClass:className/>;
+import java.util.List;
+
+import <XDtPackage:packageName/>.<XDtClass:className/>;
 import <XDtForm:parentPackageName/>.service.Manager;
 
 public class <XDtClass:className/>Action extends BaseAction {
     private <XDtClass:className/> <XDtForm:classNameLower/>;
-    private List <XDtForm:classNameLower/>;
+    private List <XDtForm:classNameLower/>s;
     private String id;
     private Manager manager;
 
@@ -34,7 +36,7 @@ public class <XDtClass:className/>Action extends BaseAction {
 
     public String edit() {
         if (id != null) {
-            <XDtForm:classNameLower/> = manager.getObject(<XDtClass:className/>.class, new Long(id));
+            <XDtForm:classNameLower/> = (<XDtClass:className/>) manager.getObject(<XDtClass:className/>.class, new Long(id));
         } else {
             <XDtForm:classNameLower/> = new <XDtClass:className/>();
         }
@@ -65,12 +67,12 @@ public class <XDtClass:className/>Action extends BaseAction {
         }
     }
 
-    public List get<XDtForm:classNameLower/>s() {
-        return <XDtForm:classNameLower/>;
+    public List get<XDtClass:className/>s() {
+        return <XDtForm:classNameLower/>s;
     }
 
     public String list() {
-        <XDtForm:classNameLower/> = <XDtForm:classNameLower/>Manager.get<XDtClass:className/>(new <XDtClass:className/>());
+        <XDtForm:classNameLower/>s = manager.getObjects(<XDtClass:className/>.class);
 
         return SUCCESS;
     }

@@ -145,6 +145,12 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
                       destinationFile="${gen.dir}/src/dao/${app.package}/model/{0}-validation.xml"/>]]></replacevalue>
         </replace>
         
+        <!-- Modify web-tests.xdt template to user model.propertyName -->
+        <replace file="../appgen/src/web-tests.xdt">
+            <replacetoken><![CDATA[name="<XDtMethod:propertyName/>" value]]></replacetoken>
+            <replacevalue><![CDATA[name="<XDtForm:classNameLower/>.<XDtMethod:propertyName/>" value]]></replacevalue>
+        </replace>
+        
         <!-- Modify XML to modify action-servlet.xml -->
         <replace file="../appgen/build.xml">
             <replacetoken><![CDATA[<echo>Merging sample-data into metadata/sql/sample-data.xml</echo>]]></replacetoken>
@@ -158,11 +164,11 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
             value="${action.beans}"/>
 
         <loadfile property="xwork.actions"
-            srcfile="${generated.dir}/web/WEB-INF/xwork-${model.name}.xml"/>
+            srcfile="${generated.dir}/web/WEB-INF/classes/xwork-${model.name}.xml"/>
         <!-- Replace strategically placed comment -->   
         <replace file="../../web/WEB-INF/classes/xwork.xml" 
             token="&lt;!-- Add additional actions here --&gt;"
-            value="${xwork.action}"/>
+            value="${xwork.actions}"/>
             
         <echo>Copying validation XML files to appropriate locations</echo>
         <copy todir="../.." overwrite="${overwrite}">
@@ -171,7 +177,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         
         <echo>Merging sample-data into metadata/sql/sample-data.xml</echo>]]></replacevalue>
         </replace>
-        =======================================================
+        
         <!-- Copy source and tests -->    
         <echo level="info">Replacing source and test files</echo>
         <copy todir="../../extras/viewgen" overwrite="true">
@@ -372,7 +378,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
                 torefid="test.classpath"/>
         </antcall>
     </target>]]></replacetoken>
-            <replacevalue><![CDATA[<target name="test-web" depends="webdoclet"
+            <replacevalue><![CDATA[<target name="test-web" depends="webdoclet,db-load"
         description="Test web module">
         <antcall target="test-module" inheritAll="true">
             <param name="module" value="web"/>
@@ -435,16 +441,16 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
     <!-- =================================================================== -->
     <!-- Creates new project, installs WebWork and tests appgen              -->
     <!-- =================================================================== -->
-    <target name="test-appgen" description="Creates appfuse-spring and tests appgen">
-        <property name="app.name" value="appfuse-spring"/>
+    <target name="test-appgen" description="Creates appfuse-webwork and tests appgen">
+        <property name="app.name" value="appfuse-webwork"/>
         <property name="db.name" value="appfuse"/>
         <delete dir="../../../${app.name}"/>
         <ant dir="../.." target="new"/>
 
-        <!-- New project created, install Spring MVC -->
-        <ant dir="../../../${app.name}/extras/spring" target="install" inheritAll="false"/>
+        <!-- New project created, install WebWork -->
+        <ant dir="../../../${app.name}/extras/webwork" target="install" inheritAll="false"/>
         <!-- Gen code and run tests -->
-        <ant dir="../../../${app.name}/extras/appgen" target="test" inheritAll="false">
+        <ant dir="../../../${app.name}/extras/appgen" target="test-all" inheritAll="false">
             <property name="model.name" value="Person"/>
             <property name="model.name.lowercase" value="person"/>   
         </ant>   

@@ -4,6 +4,8 @@ import org.springframework.mock.web.MockHttpServletRequest;
 
 import com.opensymphony.webwork.ServletActionContext;
 
+import <XDtPackage:packageName/>.<XDtClass:className/>;
+
 public class <XDtClass:className/>ActionTest extends BaseActionTestCase {
     private <XDtClass:className/>Action action;
     
@@ -20,22 +22,23 @@ public class <XDtClass:className/>ActionTest extends BaseActionTestCase {
     public void testAdd() throws Exception {
         <XDtClass:className/> <XDtForm:classNameLower/> = new <XDtClass:className/>();
         // set required fields
-		<XDtMethod:forAllMethods>
-		<XDtMethod:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
-		<XDtType:ifIsOfType value="return-type" type="java.lang.Boolean" extent="concrete-type">
+        <XDtMethod:forAllMethods>
+        <XDtMethod:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
+        <XDtType:ifIsOfType value="return-type" type="java.lang.Boolean" extent="concrete-type">
         <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>(Boolean.TRUE);
-		</XDtType:ifIsOfType>
-		<XDtType:ifIsOfType value="return-type" type="java.lang.String" extent="concrete-type">
+        </XDtType:ifIsOfType>
+        <XDtType:ifIsOfType value="return-type" type="java.lang.String" extent="concrete-type">
         <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>("<XDtMethod:propertyName/>");
-		</XDtType:ifIsOfType>
-		<XDtType:ifIsOfType value="return-type" type="java.lang.Long" extent="concrete-type">
+        </XDtType:ifIsOfType>
+        <XDtType:ifIsOfType value="return-type" type="java.lang.Long" extent="concrete-type">
         <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>(new Long(100));
-		</XDtType:ifIsOfType>
-		<XDtType:ifIsOfType value="return-type" type="java.lang.Integer" extent="concrete-type">
+        </XDtType:ifIsOfType>
+        <XDtType:ifIsOfType value="return-type" type="java.lang.Integer" extent="concrete-type">
         <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>(new Integer(100));
-		</XDtType:ifIsOfType>
-		</XDtMethod:ifMethodTagValueEquals>
+        </XDtType:ifIsOfType>
+        </XDtMethod:ifMethodTagValueEquals>
         </XDtMethod:forAllMethods>
+        action.set<XDtClass:className/>(<XDtForm:classNameLower/>);
 
         assertEquals(action.save(), "success");
         assertFalse(action.hasFieldErrors());
@@ -43,6 +46,7 @@ public class <XDtClass:className/>ActionTest extends BaseActionTestCase {
 
     public void testList() throws Exception {
         assertNull(action.get<XDtClass:className/>s());
+
         assertEquals(action.list(), "success");
         assertNotNull(action.get<XDtClass:className/>s());
         assertFalse(action.hasActionErrors());
@@ -52,6 +56,7 @@ public class <XDtClass:className/>ActionTest extends BaseActionTestCase {
         log.debug("testing edit...");
         action.setId("1");
         assertNull(action.get<XDtClass:className/>());
+
         assertEquals(action.edit(), "success");
         assertNotNull(action.get<XDtClass:className/>());
         assertFalse(action.hasActionErrors());
@@ -61,17 +66,20 @@ public class <XDtClass:className/>ActionTest extends BaseActionTestCase {
         MockHttpServletRequest request = new MockHttpServletRequest();
         ServletActionContext.setRequest(request);
         action.setId("1");
+
         assertEquals(action.edit(), "success");
         assertNotNull(action.get<XDtClass:className/>());
-        
+        <XDtClass:className/> <XDtForm:classNameLower/> = action.get<XDtClass:className/>();
+
         // update fields
-		<XDtMethod:forAllMethods>
-		<XDtMethod:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
-		<XDtType:ifIsOfType value="return-type" type="java.lang.String" extent="concrete-type">
+        <XDtMethod:forAllMethods>
+        <XDtMethod:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
+        <XDtType:ifIsOfType value="return-type" type="java.lang.String" extent="concrete-type">
         <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>("<XDtMethod:propertyName/>");
-		</XDtType:ifIsOfType>
-		</XDtMethod:ifMethodTagValueEquals>
+        </XDtType:ifIsOfType>
+        </XDtMethod:ifMethodTagValueEquals>
         </XDtMethod:forAllMethods>
+        action.set<XDtClass:className/>(<XDtForm:classNameLower/>);
 
         assertEquals(action.save(), "input");
         assertFalse(action.hasActionErrors());
@@ -86,6 +94,7 @@ public class <XDtClass:className/>ActionTest extends BaseActionTestCase {
         <XDtClass:className/> <XDtForm:classNameLower/> = new <XDtClass:className/>();
         <XDtForm:classNameLower/>.setId(new Long(2));
         action.set<XDtClass:className/>(<XDtForm:classNameLower/>);
+
         assertEquals(action.delete(), "success");
         assertNotNull(request.getSession().getAttribute("messages"));
     }

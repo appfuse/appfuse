@@ -32,7 +32,7 @@
     <display:column property="<XDtMethod:propertyName/>" sort="true" headerClass="sortable"
          titleKey="<XDtForm:classNameLower/>.<XDtMethod:propertyName/>"/>
   </XDtMethod:ifHasMethodTag>
-</XDtMethod:forAllMethods>
+  </XDtMethod:forAllMethods>
     <display:setProperty name="paging.banner.item_name" value="<XDtForm:classNameLower/>"/>
     <display:setProperty name="paging.banner.items_name" value="<XDtForm:classNameLower/>s"/>
 </display:table>

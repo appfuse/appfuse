@@ -1,4 +1,8 @@
-<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><action name="edit<XDtClass:className/>" class="<XDtForm:classNameLower/>Action" method="edit">
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><action name="<XDtForm:classNameLower/>s" class="<XDtForm:classNameLower/>Action" method="list"> 
+        <result name="success">/WEB-INF/pages/<XDtForm:classNameLower/>List.jsp</result> 
+    </action>
+    
+    <action name="edit<XDtClass:className/>" class="<XDtForm:classNameLower/>Action" method="edit">
         <result name="success">/WEB-INF/pages/<XDtForm:classNameLower/>Form.jsp</result>
     </action>
     
