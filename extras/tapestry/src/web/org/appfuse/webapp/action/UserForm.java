@@ -25,7 +25,6 @@ import org.appfuse.service.UserManager;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.util.RequestUtil;
 import org.springframework.context.ApplicationContext;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.mail.SimpleMailMessage;
 
 public abstract class UserForm extends BasePage implements PageRenderListener {
@@ -149,7 +148,7 @@ public abstract class UserForm extends BasePage implements PageRenderListener {
 
         try {
             userManager.saveUser(user);
-        } catch (DataIntegrityViolationException e) {
+        } catch (UserExistsException e) {
             log.warn(e.getMessage());
             addError(delegate, "emailField",
                      format("errors.existing.user", user.getUsername(),

@@ -5,9 +5,9 @@ import java.io.Serializable;
 import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.service.RoleManager;
+import org.appfuse.service.UserExistsException;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.util.RequestUtil;
-import org.springframework.dao.DataIntegrityViolationException;
 
 /**
  * JSF Page class to handle signing up a new user.
@@ -49,7 +49,7 @@ public class SignupForm extends BasePage implements Serializable {
 
         try {
             userManager.saveUser(user);
-        } catch (DataIntegrityViolationException e) {
+        } catch (UserExistsException e) {
             log.warn(e.getMessage());
             addMessage("errors.existing.user", 
                     new Object[] { user.getUsername(), user.getEmail() });
