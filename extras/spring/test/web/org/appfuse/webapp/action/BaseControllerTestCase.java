@@ -50,11 +50,11 @@ public class BaseControllerTestCase extends TestCase {
      * Convenience methods to make tests simpler
      */
     public MockHttpServletRequest newPost(String url) {
-        return new MockHttpServletRequest(null, "POST", url);   
+        return new MockHttpServletRequest("POST", url);   
     }
 
     public MockHttpServletRequest newGet(String url) {
-        return new MockHttpServletRequest(null, "GET", url);   
+        return new MockHttpServletRequest("GET", url);   
     }
     
     public void objectToRequestParameters(Object o, MockHttpServletRequest request) {
