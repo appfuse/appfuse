@@ -42,9 +42,9 @@
             <appfuse:label key="user.username"/>
         </th>
         <td>
-        <spring:bind path="user.username">
-            <input type="text" name="username" value="<c:out value="${status.value}"/>" id="username"/>
-        </spring:bind>
+            <spring:bind path="user.username">
+                <input type="text" name="username" value="<c:out value="${status.value}"/>" id="username"/>
+            </spring:bind>
         </td>
     </tr>
     <tr>

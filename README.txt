@@ -60,6 +60,7 @@ Features/Changes in 1.6
   details at: http://raibledesigns.com/wiki/Wiki.jsp?page=XDocletActionForms
 - Changed target names in build.xml: define-tasks -> init, init -> prepare. 
   Reworked build.xml so XDoclet tasks don't execute when they don't need to.
+- Added translations for French and Spanish.
 - Dependent packages upgraded:
     * DbUnit 2.1
     * Display Tag 1.0 RC1
