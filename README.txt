@@ -65,7 +65,7 @@ Features/Changes in 1.8
     * Spring 1.1.5
     * StrutsTestCase 2.1.3
 - Dependent packages added:
-    * Acegi 0.8.1-SNAPSHOT
+    * Acegi Security 0.8.1
 - Fixed bug in error.jsp that caused it to throw exceptions under certain 
   conditions.
     https://appfuse.dev.java.net/issues/show_bug.cgi?id=122
