@@ -1,6 +1,6 @@
 <XDtTagDef:tagDef namespace="Struts" handler="org.example.antbook.xdoclet.FormTagsHandler"/><%@ include file="/common/taglibs.jsp"%>
 
-<html:form action="save<XDtStruts:simpleName/>" method="post" styleId="<XDtClass:classTagValue tagName="struts.form" paramName="name"/>"
+<html:form action="edit<XDtStruts:simpleName/>" method="post" styleId="<XDtClass:classTagValue tagName="struts.form" paramName="name"/>"
 	focus="" onsubmit="return validate<XDtClass:className/>(this)">
 <table class="detail">
     <XDtStruts:forAllFields>
@@ -9,8 +9,7 @@
             <appfuse:label key="<XDtClass:classTagValue tagName="struts.form" paramName="name"/>.<XDtStruts:fieldName/>"/>
         </th>
         <td>
-            <html:text property="<XDtStruts:fieldName/>" 
-                styleId="<XDtStruts:fieldName/>"/>
+            <html:text property="<XDtStruts:fieldName/>" styleId="<XDtStruts:fieldName/>"/>
         </td>
     </tr>
     </XDtStruts:forAllFields>

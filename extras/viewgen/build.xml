@@ -54,12 +54,12 @@
                     prefixWithPackageStructure="false"
                     destinationFile="{0}.properties"
           />
-          <template templateFile="src/StrutsForm_jsp.xdt"
+          <template templateFile="src/Form_jsp.xdt"
                     acceptAbstractClasses="false"
                     prefixWithPackageStructure="false"
                     destinationFile="{0}.jsp"
           />
-          <template templateFile="src/DisplayTagList_jsp.xdt"
+          <template templateFile="src/List_jsp.xdt"
                     acceptAbstractClasses="false"
                     prefixWithPackageStructure="false"
                     destinationFile="{0}List.jsp"

@@ -17,16 +17,15 @@
 <c:out value="${buttons}" escapeXml="false"/>
 
 <display:table name="${<XDtStruts:simpleNameLower/>List}" cellspacing="0" cellpadding="0"
-	id="<XDtStruts:simpleNameLower/>List" pagesize="25" styleClass="list" 
-    export="true" requestURI="${request.contextPath}">
+    id="<XDtStruts:simpleNameLower/>List" pagesize="25" styleClass="list" 
+    export="true" requestURI="">
   
     <display:column property="id" sort="true" headerClass="sortable"
         url="${editURL.path}?from=list" paramId="id" paramProperty="id"
         titleKey="<XDtClass:classTagValue tagName="struts.form" paramName="name"/>.id"/>
         
   <XDtStruts:forAllFields>
-    <display:column property="<XDtStruts:fieldName/>" sort="true"
-    	headerClass="sortable"
+    <display:column property="<XDtStruts:fieldName/>" sort="true" headerClass="sortable"
         titleKey="<XDtClass:classTagValue tagName="struts.form" paramName="name"/>.<XDtStruts:fieldName/>"/>
   </XDtStruts:forAllFields>
   
