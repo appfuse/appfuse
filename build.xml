@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.17 2004/05/04 16:23:13 mraible Exp $                 -->
+<!-- $Id: build.xml,v 1.18 2004/05/04 18:24:34 mraible Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -492,7 +492,7 @@
             </deploymentdescriptor>
             <jsptaglib validateXML="true"
                 description="Custom tag library for this application"
-                shortName="appfuse" filename="appfuse.tld"/>
+                shortName="${webapp.name}" filename="${webapp.name}.tld"/>
             <strutsconfigxml validateXML="true" version="1.1"/>
             <strutsvalidationxml/>
         </webdoclet>
