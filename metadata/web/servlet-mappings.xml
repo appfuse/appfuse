@@ -1,4 +1,4 @@
-    <!-- Standard Action Servlet Mapping -->
+    <!-- Front Controller Servlet Mapping -->
     <servlet-mapping>
         <servlet-name>action</servlet-name>
         <url-pattern>*.html</url-pattern>

@@ -27,12 +27,26 @@
         <copy todir="${lib.dir}">
             <fileset dir="lib" includes="**"/>
         </copy>
+        
+        <echo level="info">Removing Struts-specific JARs</echo>
         <delete>
             <fileset dir="${struts.dir}">
                 <include name="*fileupload*"/>
                 <include name="struts*.jar"/>
             </fileset>
         </delete>
+        <delete dir="${strutstestcase.dir}"/>
+
+        <replace file="${lib.dir}/lib.properties">
+            <replacetoken><![CDATA[
+#
+# StrutsTestCase - http://strutstestcase.sourceforge.net
+#
+strutstestcase.version  = 2.1.2
+strutstestcase.dir=${lib.dir}/strutstest-${strutstestcase.version}
+strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.jar<replacetoken>
+            <replacevalue></replacevalue>
+        </replace>
 
         <echo level="info">Deleting struts_form.xdt for XDoclet</echo>
         <delete dir="../../metadata/templates"/>
@@ -44,7 +58,7 @@
                 <include name="struts-*.xml"/>
             </fileset>
         </delete>
-        <echo level="info">Replacing Struts servlets and settings with Spring</echo>
+        <echo level="info">Replacing Struts servlet with Spring</echo>
         <copy todir="../../metadata/web" overwrite="true">
             <fileset dir="metadata/web" includes="*.xml"/>
         </copy>
@@ -105,7 +119,7 @@
         description="Generates ActionForms from POJOs">
         <taskdef name="xdoclet" classname="xdoclet.DocletTask"
             classpathref="xdoclet.classpath"/>
-            
+
         <!-- generate struts forms -->
         <xdoclet destdir="${build.dir}/web/gen"
             excludedtags="@version,@author"
@@ -120,7 +134,7 @@
             </actionform>
         </xdoclet>
     </target>
-            
+
     <target name="compile-web" depends="package-service,stage-web,gen-forms"]]></replacetoken>
             <replacevalue><![CDATA[<target name="compile-web" depends="package-service,stage-web"]]></replacevalue>
         </replace>
@@ -235,5 +249,11 @@
         </antcall>
     </target>]]></replacevalue>
         </replace>
+        
+        <echo level="info">Removing WebWork installation option</echo>
+        <delete dir="../../extras/webwork"/>
+        <echo>----------------------------------------------</echo>
+        <echo level="info">NOTE: It's recommended you delete extras/spring as you shouldn't need it anymore.</echo>
+        <echo>----------------------------------------------</echo>
     </target>
 </project>

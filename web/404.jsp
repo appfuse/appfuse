@@ -8,7 +8,7 @@
 
     <p>
         <fmt:message key="404.message">
-            <fmt:param><html:rewrite forward="mainMenu"/></fmt:param>
+            <fmt:param><c:url value="/mainMenu.html"/></fmt:param>
         </fmt:message>
     </p>
     <p style="text-align: center; margin-top: 20px">

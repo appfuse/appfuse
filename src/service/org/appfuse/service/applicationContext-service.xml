@@ -39,6 +39,27 @@
 			</props>
         </property>
     </bean>
+        
+    <bean id="mailEngine" class="org.appfuse.service.MailEngine">
+        <property name="mailSender"><ref bean="mailSender"/></property>
+        <property name="velocityEngine"><ref bean="velocityEngine"/></property>
+    </bean>
+
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host"><value>localhost</value></property>
+    </bean>
+
+    <!-- Configure Velocity for sending e-mail -->
+    <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+        <property name="velocityProperties">
+            <props>
+                <prop key="resource.loader">class</prop>
+                <prop key="class.resource.loader.class">
+                    org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+                </prop>
+            </props>
+        </property>
+    </bean>
 
     <!-- Add new Managers here -->
 	

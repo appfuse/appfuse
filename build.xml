@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.38 2004/09/29 10:40:27 mraible Exp $                 -->
+<!-- $Id: build.xml,v 1.39 2004/10/01 03:07:00 mraible Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -198,6 +198,7 @@
             <fileset dir="web/WEB-INF/classes">
                 <include name="*.properties"/>
                 <include name="*.xml"/>
+                <include name="*.vm"/>   
             </fileset>
             <filterset refid="variables.to.replace"/>
         </copy>            
@@ -428,13 +429,13 @@
                 torefid="test.classpath"/>
         </antcall>
     </target>
-    
+
     <!-- Generate ActionForms from POJOs -->
     <target name="gen-forms" depends="prepare" unless="webdoclet.uptodate"
         description="Generates ActionForms from POJOs">
         <taskdef name="xdoclet" classname="xdoclet.DocletTask"
             classpathref="xdoclet.classpath"/>
-            
+
         <!-- generate struts forms -->
         <xdoclet destdir="${build.dir}/web/gen"
             excludedtags="@version,@author"
@@ -449,7 +450,7 @@
             </actionform>
         </xdoclet>
     </target>
-            
+
     <target name="compile-web" depends="package-service,stage-web,gen-forms"
         description="Compile web module">
 
@@ -550,7 +551,10 @@
         </replace>
         <!-- Copy .properties files in src tree to build/web/classes -->
         <copy todir="${build.dir}/web/classes">
-            <fileset dir="src/web" includes="**/*.properties"/>
+            <fileset dir="src/web">
+                <include name="**/*.properties"/>
+                <include name="**/*.xml"/>
+            </fileset>   
         </copy>
         <war destfile="${webapp.dist}/${webapp.war}"
             webxml="${webapp.target}/WEB-INF/web.xml" compress="true">
@@ -569,6 +573,7 @@
             <webinf dir="${struts.dir}" includes="*.xml"/>
             <webinf dir="web/WEB-INF" includes="*-database.xml"/>
             
+            <lib file="${clickstream.jar}"/>
             <lib dir="${struts.dir}" includes="*.jar"/>
             <lib dir="${jstl.dir}/lib">
                 <include name="jstl.jar"/>
@@ -585,9 +590,9 @@
                 <include name="ehcache*.jar"/>
                 <include name="oscache*.jar"/>
             </lib>
-            <lib file="${clickstream.jar}"/>
             <lib dir="${spring.dir}" includes="*.jar"/>
             <lib file="${sitemesh.jar}"/>
+            <lib dir="${velocity.dir}" includes="*.jar"/>   
             <lib file="${urlrewrite.jar}"/>
         </war>
     </target>
@@ -1529,9 +1534,15 @@
         <ant dir="${extras.dir}/spring" target="install"/>
     </target>
     
-    <target name="remove-options" 
+    <target name="install-webwork" depends="clean" 
+        description="Installs WebWork, removes Struts">
+        <ant dir="${extras.dir}/webwork" target="install"/>
+    </target>
+    
+    <!--target name="remove-options" 
         description="Removes unneeded files in 'extras' folder">
         <delete dir="${extras.dir}/ibatis"/>
         <delete dir="${extras.dir}/spring"/>
-    </target>
+        <delete dir="${extras.dir}/webwork"/>
+    </target-->
 </project>

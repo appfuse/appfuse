@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: properties.xml,v 1.17 2004/09/29 10:40:48 mraible Exp $             -->
+<!-- $Id: properties.xml,v 1.18 2004/10/01 03:07:00 mraible Exp $             -->
 <!-- ======================================================================= -->
 <!-- This file defines properties for build.xml -->
 
@@ -188,6 +188,7 @@
     <pathelement location="${strutstestcase.jar}"/>
     <fileset dir="${webtest.dir}/lib" includes="*.jar"/>
     <pathelement location="${log4j.jar}"/>
+    <fileset dir="${velocity.dir}" includes="*.jar"/>
     <!-- Needed for testing out-of-container -->
     <path refid="dao.compile.classpath"/>
 </path>

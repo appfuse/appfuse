@@ -22,7 +22,7 @@ To run this application, you will need to perform the following tasks:
 3.  Test that the db access code works with:
     ant test-dao -Dtestcase=UserDAO
     ant test-service -Dtestcase=UserManager
-4.  Setup Tomcat by running "ant setup".  This puts a mysql jdbc 
+4.  Setup Tomcat by running "ant setup-tomcat".  This puts a mysql jdbc 
     driver (as well as JavaMail and jta.jar) in $CATALINA_HOME/common/lib, and
     also deploys an appfuse.xml file to $CATALINA_HOME/webapps ($CATALINA_HOME/
     conf/Catalina/localhost on Tomcat 5) and deploys the application.
@@ -41,6 +41,8 @@ steps:
 
 Features/Changes in 1.6
 ============================
+- Integrated WebWork as a web framework choice.  To install WebWork (replacing
+  Struts) in a fresh AppFuse project, just type "ant install-webwork".
 - Changed stylesheet colors for Spring MVC option to be green instead of red.
   Bug 47 - https://appfuse.dev.java.net/issues/show_bug.cgi?id=47.
 - Changed "org.appfuse.persistence" package name to "org.appfuse.dao".  Moved
@@ -48,9 +50,10 @@ Features/Changes in 1.6
 - Refactored logging so Base classes contain a "log" variable that children
   don't need to override. More at:
     http://raibledesigns.com/page/rd?anchor=log_debug_vs_logger_debug
-- Refactored equals() and hashCode() methods in BaseObject to be abstract so
-  child classes have to implement custom equals() and hashCode() methods.
+- Refactored toString(), equals() and hashCode() methods in BaseObject to be 
+  abstract so child classes have to implement custom methods.
   Commonclipse (http://commonclipse.sf.net) can generate the methods for you.
+  	Learn more at: http://www.leegrey.com/hmm/2004/09/29/1096491256000.html
 - Refactored to use SiteMesh instead of Tiles.  Proposal and feedback at: 
     http://raibledesigns.com/page/rd?anchor=should_i_ditch_tiles_in
     Good Article: http://www.onjava.com/pub/a/onjava/2004/09/22/sitemesh.html
@@ -84,6 +87,8 @@ Features/Changes in 1.6
 - Added field-level errors (using html:errors) to Struts JSPs and viewgen for 
   Struts.
 - Changed column names in User object from camelCase to normal database_names.
+- Added fallback locale of 'en' in metadata/web/web-settings.xml in case no
+  bundle is found for the browser's preferred locale.
 - Dependent packages upgraded:
     * DbUnit 2.1
     * Display Tag 1.0 RC1
@@ -98,7 +103,7 @@ Features/Changes in 1.6
     * WebTest build474
     * XDoclet 1.2.2
 - Dependent packages added:
-    * SiteMesh 2.1 - Seems to be a page-decoration package that will work
+    * SiteMesh 2.2 - Seems to be a page-decoration package that will work
       across different MVC frameworks.
     * URL Rewrite Filter 1.2 - Added and included in WAR, but disabled by
       default.  See web/WEB-INF/urlrewrite.xml for more information.

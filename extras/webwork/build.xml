@@ -56,6 +56,18 @@ webwork.dir=${lib.dir}/webwork-${webwork.version}]]></replacevalue>
                 <include name="struts*.jar"/>
             </fileset>
         </delete>
+        <delete dir="${strutstestcase.dir}"/>
+
+        <replace file="${lib.dir}/lib.properties">
+            <replacetoken><![CDATA[
+#
+# StrutsTestCase - http://strutstestcase.sourceforge.net
+#
+strutstestcase.version  = 2.1.2
+strutstestcase.dir=${lib.dir}/strutstest-${strutstestcase.version}
+strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.jar<replacetoken>
+            <replacevalue></replacevalue>
+        </replace>
         
         <echo level="info">Deleting struts_form.xdt for XDoclet</echo>
         <delete dir="../../metadata/templates"/>
