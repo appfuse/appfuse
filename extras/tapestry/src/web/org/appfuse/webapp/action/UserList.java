@@ -19,7 +19,9 @@ public abstract class UserList extends BasePage {
         }
 
         User user = getUserManager().getUser(username);
+        user.setConfirmPassword(user.getPassword());
         nextPage.setUser(user);
+        nextPage.setFrom("list");
         cycle.activate(nextPage);
     }
 }

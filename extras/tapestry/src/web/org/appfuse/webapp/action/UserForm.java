@@ -58,12 +58,13 @@ public abstract class UserForm extends BasePage implements PageRenderListener {
     }
 
     public void pageBeginRender(PageEvent event) {
+        // if user doing an add, create an empty user with default settings
         if ((getUser() == null) && !event.getRequestCycle().isRewinding()) {
-            setUser(new User());
+            setUser(new User()); 
+            setFrom("list"); // shows role selection
             getUser().addRole(new Role(Constants.USER_ROLE));
-        } else if (event.getRequestCycle().isRewinding()) { // add
+        } else if (event.getRequestCycle().isRewinding()) { // before population
             setUser(new User());
-            getUser().addRole(new Role(Constants.USER_ROLE));
         }
 
         // if user logged in with a cookie, display a warning that they
