@@ -61,13 +61,9 @@
     <tr>
 		<td></td>
 		<td><br />
-            <%-- Doesn't work on Resin
             <fmt:message key="login.signup">
                 <fmt:param><c:url value="/signup.jsp"/></fmt:param>
             </fmt:message>
-            --%>
-            <bean-el:message key="login.signup" 
-                arg0="${pageContext.request.contextPath}/signup.jsp"/>
         </td>
 	</tr>
 </table>

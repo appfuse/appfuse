@@ -144,6 +144,12 @@ div#readme {
 	width: 600px;
 }
 
+div#flags {
+    position: absolute;
+    left: 20px;
+    top: 10px;
+}
+
 div#userStatus {
     position: absolute;
     right: 5px;
@@ -153,6 +159,7 @@ div#userStatus {
     line-height: 1.2;
     text-align: right;
 }
+
 
 div#validators {
 	float: right;

@@ -13,7 +13,7 @@
 		<tiles:importAttribute />
 		<title>
             <fmt:message key="webapp.prefix"/>
-            <bean:message name="titleKey"/>
+            <fmt:message key="${titleKey}"/>
         </title>
 		
     <%-- Get Javascript List --%>
@@ -57,12 +57,18 @@
     <div class="standardsNote">
         <fmt:message key="errors.browser.warning"/>
     </div>
-    
+
     <div id="screen">
-        
+
         <div id="header">
             <% if (request.getRequestURL().indexOf("login.jsp") == -1) { %>
             <c:if test="${sessionScope.currentUserForm != null}">
+                <div id="flags">
+                    <a href="?locale=en" title="English">
+                        <img src="<c:url value="/images/flag-en.gif"/>" alt="English" class="flag" /></a>
+                    <a href="?locale=nl" title="Dutch">
+                        <img src="<c:url value="/images/flag-nl.gif"/>" alt="Dutch" class="flag" /></a>
+                </div>
                 <div id="userStatus">
                     <fmt:message key="user.status"/>
                     <strong><c:out value="${currentUserForm.firstName}"/> 
@@ -79,7 +85,7 @@
         <tiles:insert attribute="menu" ignore="true"/>
         
         <div id="content">
-            <h1><bean:message name="headingKey"/></h1>
+            <h1><fmt:message key="${headingKey}"/></h1>
             <%@ include file="/common/messages.jsp" %>
             <tiles:insert attribute="content"/>
         </div>
