@@ -176,9 +176,6 @@ public class BaseAction extends LookupDispatchAction {
         }
 
         MessageResources resources = getResources(request);
-        // this call grabs any messages in the session and stuffs them in the
-        // request
-        getMessages(request);
 
         // Identify the localized message for the cancel button
         String edit = resources.getMessage(Locale.ENGLISH, "button.edit").toLowerCase();
