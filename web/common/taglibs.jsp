@@ -7,7 +7,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic-el" prefix="logic-el" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-tiles" prefix="tiles" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-nested" prefix="nested" %>
-<%@ taglib uri="http://jakarta.apache.org/taglibs/display-el" prefix="display" %>
+<%@ taglib uri="http://displaytag.sf.net/el" prefix="display" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.servletsuite.com/servlets/statetag" prefix="state" %>

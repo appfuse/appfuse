@@ -71,6 +71,9 @@ Features/Changes in 1.5
 - Added CurrencyConverter and DateConverter to BaseManager and ConvertUtils
   initialization.  Also added currency mask to validation-global.xml. Also
   changed default Long to be null instead of zero (0).
+- Added JSTL SQL Tags example (at http://localhost:8080/appfuse/users.jsp).  
+  Updated Display Tag Library to support iterating the results from such a 
+  query.
 - TODO: Spring for MVC Layer
 - TODO: Modify Cactus so "runcontainer" task can be used to start/stop Tomcat
   and Resin can be easily used instead of Tomcat.
