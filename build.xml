@@ -618,10 +618,9 @@
                 <include name="odmg*.jar"/>
                 <include name="dom4j*.jar"/>
                 <include name="cglib*.jar"/>
-                <include name="ehcache*.jar"/>
                 <include name="oscache*.jar"/>
             </lib>
-            <lib dir="${spring.dir}" includes="*.jar"/>
+            <lib dir="${spring.dir}" includes="*.jar" excludes="*mock.jar"/>
             <lib file="${sitemesh.jar}"/>
             <lib dir="${velocity.dir}" includes="*.jar"/>   
             <lib file="${urlrewrite.jar}"/>
