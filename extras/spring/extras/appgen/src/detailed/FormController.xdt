@@ -1,0 +1,63 @@
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>package <XDtForm:parentPackageName/>.webapp.action;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang.StringUtils;
+import <XDtPackage:packageName/>.<XDtClass:className/>;
+import <XDtForm:parentPackageName/>.service.<XDtClass:className/>Manager;
+import org.springframework.validation.BindException;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
+
+public class <XDtClass:className/>FormController extends BaseFormController {
+    private <XDtClass:className/>Manager <XDtForm:classNameLower/>Manager = null;
+
+    public void set<XDtClass:className/>Manager(<XDtClass:className/>Manager <XDtForm:classNameLower/>Manager) {
+        this.<XDtForm:classNameLower/>Manager = <XDtForm:classNameLower/>Manager;
+    }
+
+    protected Object formBackingObject(HttpServletRequest request)
+    throws Exception {
+        String id = request.getParameter("id");
+        <XDtClass:className/> <XDtForm:classNameLower/> = null;
+
+        if (!StringUtils.isEmpty(id)) {
+            <XDtForm:classNameLower/> = <XDtForm:classNameLower/>Manager.get<XDtClass:className/>(id);
+        } else {
+            <XDtForm:classNameLower/> = new <XDtClass:className/>();
+        }
+
+        return <XDtForm:classNameLower/>;
+    }
+
+    public ModelAndView onSubmit(HttpServletRequest request,
+                                 HttpServletResponse response, Object command,
+                                 BindException errors)
+    throws Exception {
+        if (log.isDebugEnabled()) {
+            log.debug("entering 'onSubmit' method...");
+        }
+
+        <XDtClass:className/> <XDtForm:classNameLower/> = (<XDtClass:className/>) command;
+        boolean isNew = (<XDtForm:classNameLower/>.getId() == null);
+        String success = getSuccessView();
+
+        if (request.getParameter("delete") != null) {
+            <XDtForm:classNameLower/>Manager.remove<XDtClass:className/>(<XDtForm:classNameLower/>.getId().toString());
+
+            saveMessage(request, getText("<XDtForm:classNameLower/>.deleted"));
+        } else {
+            <XDtForm:classNameLower/>Manager.save<XDtClass:className/>(<XDtForm:classNameLower/>);
+
+            String key = (isNew) ? "<XDtForm:classNameLower/>.added" : "<XDtForm:classNameLower/>";
+            saveMessage(request, getText(key));
+
+            if (!isNew) {
+                success = "edit<XDtClass:className/>.html?id=" + <XDtForm:classNameLower/>.getId();
+            }
+        }
+
+        return new ModelAndView(new RedirectView(success));
+    }
+}

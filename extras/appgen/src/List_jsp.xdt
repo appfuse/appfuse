@@ -3,7 +3,6 @@
 <title><fmt:message key="<XDtForm:classNameLower/>List.title"/></title>
 <content tag="heading"><fmt:message key="<XDtForm:classNameLower/>List.heading"/></content>
 
-
 <c:set var="buttons">
     <button type="button" style="margin-right: 5px"
         onclick="location.href='<c:url value="/edit<XDtClass:className/>.html"/>'">
@@ -43,6 +42,3 @@
     highlightTableRows("<XDtForm:classNameLower/>List");
 //-->
 </script>
-
-
-

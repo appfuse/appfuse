@@ -1,0 +1,3 @@
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>                <prop key="/<XDtForm:classNameLower/>s.html"><XDtForm:classNameLower/>Controller</prop>
+                <prop key="/edit<XDtClass:className/>.html"><XDtForm:classNameLower/>FormController</prop>
+                <!-- Add additional URL mappings here -->

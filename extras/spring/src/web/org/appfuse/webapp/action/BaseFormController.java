@@ -123,6 +123,22 @@ public class BaseFormController extends SimpleFormController {
     }
 
     /**
+     * Default behavior for FormControllers - redirect to the successView
+     * when the cancel button has been pressed.
+     */
+    public ModelAndView processFormSubmission(HttpServletRequest request,
+                                              HttpServletResponse response,
+                                              Object command,
+                                              BindException errors)
+    throws Exception {
+        if (request.getParameter("cancel") != null) {
+            return new ModelAndView(new RedirectView(getSuccessView()));
+        }
+
+        return super.processFormSubmission(request, response, command, errors);
+    }
+    
+    /**
      * Set up a custom property editor for converting form inputs to real objects
      */
     protected void initBinder(HttpServletRequest request,

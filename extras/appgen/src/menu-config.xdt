@@ -1,3 +1,2 @@
 <XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>        <Menu name="<XDtClass:className/>Menu" title="<XDtForm:classNameLower/>List.title" page="/edit<XDtClass:className/>.html?method=Search"/>
     </Menus>
-</MenuConfig>

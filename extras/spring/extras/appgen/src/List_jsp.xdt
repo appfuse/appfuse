@@ -1,0 +1,44 @@
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><%@ include file="/common/taglibs.jsp"%>
+
+<title><fmt:message key="<XDtForm:classNameLower/>List.title"/></title>
+<content tag="heading"><fmt:message key="<XDtForm:classNameLower/>List.heading"/></content>
+
+<c:set var="buttons">
+    <button type="button" style="margin-right: 5px"
+        onclick="location.href='<c:url value="/edit<XDtClass:className/>.html"/>'">
+        <fmt:message key="button.add"/>
+    </button>
+    
+    <button type="button" onclick="location.href='<c:url value="/mainMenu.html"/>'">
+        <fmt:message key="button.cancel"/>
+    </button>
+</c:set>
+
+<c:out value="${buttons}" escapeXml="false"/>
+
+<display:table name="${<XDtForm:classNameLower/>List}" cellspacing="0" cellpadding="0"
+    id="<XDtForm:classNameLower/>List" pagesize="25" styleClass="list" 
+    export="true" requestURI="">
+  
+<XDtMethod:forAllMethods>
+  <XDtMethod:ifHasMethodTag tagName="hibernate.id">
+    <display:column property="<XDtMethod:propertyName/>" sort="true" headerClass="sortable"
+        url="/edit<XDtClass:className/>.html" paramId="id" paramProperty="<XDtMethod:propertyName/>"
+        titleKey="<XDtForm:classNameLower/>.id"/>
+  </XDtMethod:ifHasMethodTag>
+  <XDtMethod:ifHasMethodTag tagName="hibernate.property">
+    <display:column property="<XDtMethod:propertyName/>" sort="true" headerClass="sortable"
+         titleKey="<XDtForm:classNameLower/>.<XDtMethod:propertyName/>"/>
+  </XDtMethod:ifHasMethodTag>
+</XDtMethod:forAllMethods>
+    <display:setProperty name="paging.banner.item_name" value="<XDtForm:classNameLower/>"/>
+    <display:setProperty name="paging.banner.items_name" value="<XDtForm:classNameLower/>s"/>
+</display:table>
+
+<c:out value="${buttons}" escapeXml="false"/>
+            
+<script type="text/javascript">
+<!--
+    highlightTableRows("<XDtForm:classNameLower/>List");
+//-->
+</script>

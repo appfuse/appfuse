@@ -1,0 +1,34 @@
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>package <XDtForm:parentPackageName/>.webapp.action;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import <XDtForm:parentPackageName/>.Constants;
+import <XDtForm:parentPackageName/>.model.<XDtClass:className/>;
+import <XDtForm:parentPackageName/>.service.Manager;
+
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.Controller;
+
+public class <XDtClass:className/>Controller implements Controller {
+    private final Log log = LogFactory.getLog(<XDtClass:className/>Controller.class);
+    private Manager manager = null;
+
+    public void setManager(Manager manager) {
+        this.manager = manager;
+    }
+
+    public ModelAndView handleRequest(HttpServletRequest request,
+                                      HttpServletResponse response)
+    throws Exception {
+        if (log.isDebugEnabled()) {
+            log.debug("entering 'handleRequest' method...");
+        }
+
+        return new ModelAndView("<XDtForm:classNameLower/>List", Constants.<XDtForm:classNameUpper/>_LIST,
+                                manager.getObjects(<XDtClass:className/>.class));
+    }
+}

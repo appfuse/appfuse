@@ -41,8 +41,7 @@ public class <XDtClass:className/>ActionTest extends BaseStrutsTestCase {
     }
 
     public void testSearch() {
-        setRequestPathInfo("/edit<XDtClass:className/>");
-        addRequestParameter("method", "Search");
+        setRequestPathInfo("/<XDtForm:classNameLower/>s");
         
         actionPerform();
 

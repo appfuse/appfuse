@@ -109,17 +109,17 @@
 		              acceptAbstractClasses="false"
 		              prefixWithPackageStructure="false"
 		              destinationFile="${gen.dir}/src/dao/${app.package}/Constants-{0}.java"/>
-            <!-- Action Test -->    
+            <!-- Action Test -->
 		    <template templateFile="${template.dir}/ActionTest.xdt"
 		              acceptAbstractClasses="false"
 		              prefixWithPackageStructure="false"
 		              destinationFile="${gen.dir}/test/web/${app.package}/webapp/action/{0}ActionTest.java"/>
-            <!-- Detailed Action -->    
+            <!-- Detailed Action -->
 		    <template templateFile="${template.dir}/detailed/Action.xdt"
 		              acceptAbstractClasses="false"
 		              prefixWithPackageStructure="false"
 		              destinationFile="${gen.dir}/src/web/${app.package}/webapp/action/{0}Action.java"/>
-            <!-- Generic Action -->    
+            <!-- Generic Action -->
             <template templateFile="${template.dir}/generic/Action.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
@@ -221,11 +221,9 @@
         <loadfile property="sample.data"
             srcfile="${generated.dir}/metadata/sql/sample-data-${model.name}.xml"/>
         <!-- Add to the bottom of the list of tables -->   
-        <replace file="../../metadata/sql/sample-data.xml">
+        <replace file="../../metadata/sql/sample-data.xml" value="${sample.data}">
             <replacetoken><![CDATA[</dataset>]]></replacetoken>
-        </replace>   
-        <echo file="../../metadata/sql/sample-data.xml" append="true" 
-            message="${sample.data}"/>
+        </replace>
         
         <echo>Merging web-tests into test/web/web-tests.xml</echo>   
         <loadfile property="web.tests"
@@ -255,25 +253,16 @@
         <loadfile property="menu.config"
             srcfile="${generated.dir}/web/WEB-INF/menu-config-${model.name}.xml"/>
         <!-- Add to the bottom of the list of tests -->   
-        <replace file="../../web/WEB-INF/menu-config.xml">
-            <replacetoken><![CDATA[    </Menus>
-</MenuConfig>]]></replacetoken>  
+        <replace file="../../web/WEB-INF/menu-config.xml" value="${menu.config}">
+            <replacetoken><![CDATA[    </Menus>]]></replacetoken>  
         </replace>
-        <echo file="../../web/WEB-INF/menu-config.xml" append="true" 
-            message="${menu.config}"/>
 
         <loadfile property="menu.jsp"
             srcfile="${generated.dir}/web/pages/menu-${model.name}.jsp"/>
         <!-- Add to the bottom of the list of tests -->   
-        <replace file="../../web/pages/menu.jsp">
-            <replacetoken><![CDATA[</menu:useMenuDisplayer>
-</div>
-<script type="text/javascript">
-    initializeMenus();
-</script>]]></replacetoken>  
+        <replace file="../../web/pages/menu.jsp" value="${menu.jsp}">
+            <replacetoken><![CDATA[</menu:useMenuDisplayer>]]></replacetoken>  
         </replace>
-        <echo file="../../web/pages/menu.jsp" append="true" 
-            message="${menu.jsp}"/>
     </target>
             
     <target name="install" depends="install-src-generic,install-other"

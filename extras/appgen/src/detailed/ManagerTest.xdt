@@ -31,7 +31,7 @@ public class <XDtClass:className/>ManagerTest extends BaseManagerTestCase {
         List results = new ArrayList();
         <XDtForm:classNameLower/> = new <XDtClass:className/>();
         results.add(<XDtForm:classNameLower/>);
-        
+
         // set expected behavior on dao
         <XDtForm:classNameLower/>DAO.expects(once()).method("get<XDtClass:className/>s")
             .will(returnValue(results));

@@ -46,12 +46,10 @@
 strutstestcase.version  = 2.1.2
 strutstestcase.dir=${lib.dir}/strutstest-${strutstestcase.version}
 strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.jar]]></replacetoken>
-            <replacevalue></replacevalue>
         </replace>
 
         <replace file="${lib.dir}/lib.properties">
             <replacetoken><![CDATA[struts.jar=${struts.dir}/struts.jar]]></replacetoken>
-            <replacevalue></replacevalue>
         </replace>
 
         <echo level="info">Deleting struts_form.xdt for XDoclet</echo>
@@ -71,11 +69,105 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
             <fileset dir="metadata/web" includes="*.xml"/>
         </copy>
         
+        <!-- Modify appgen for Spring -->
+        <echo level="info">Modifying appgen for Spring</echo>
+        <copy todir="../../extras/appgen" overwrite="true">
+            <fileset dir="extras/appgen" includes="**"/>
+        </copy>
+        <!-- Delete Struts-specific stuff in appgen -->
+        <delete>
+            <fileset dir="../../extras/appgen" includes="**/Action*.xdt"/>
+        </delete>
+        <!-- Modify templates used in appgen/build.xml -->
+        <replace file="../../extras/appgen/build.xml">
+            <replacetoken><![CDATA[<!-- Action Test -->    
+		    <template templateFile="${template.dir}/ActionTest.xdt"
+		              acceptAbstractClasses="false"
+		              prefixWithPackageStructure="false"
+		              destinationFile="${gen.dir}/test/web/${app.package}/webapp/action/{0}ActionTest.java"/>
+            <!-- Detailed Action -->
+		    <template templateFile="${template.dir}/detailed/Action.xdt"
+		              acceptAbstractClasses="false"
+		              prefixWithPackageStructure="false"
+		              destinationFile="${gen.dir}/src/web/${app.package}/webapp/action/{0}Action.java"/>
+            <!-- Generic Action -->
+            <template templateFile="${template.dir}/generic/Action.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/generic/src/web/${app.package}/webapp/action/{0}Action.java"/>]]></replacetoken>
+            <replacevalue><![CDATA[<!-- FormController Test -->    
+		    <template templateFile="${template.dir}/FormControllerTest.xdt"
+		              acceptAbstractClasses="false"
+		              prefixWithPackageStructure="false"
+		              destinationFile="${gen.dir}/test/web/${app.package}/webapp/action/{0}FormControllerTest.java"/>
+            <!-- FormController Test -->    
+		    <template templateFile="${template.dir}/ControllerTest.xdt"
+		              acceptAbstractClasses="false"
+		              prefixWithPackageStructure="false"
+		              destinationFile="${gen.dir}/test/web/${app.package}/webapp/action/{0}ControllerTest.java"/>
+            <!-- Detailed Controllers -->
+		    <template templateFile="${template.dir}/detailed/FormController.xdt"
+		              acceptAbstractClasses="false"
+		              prefixWithPackageStructure="false"
+		              destinationFile="${gen.dir}/src/web/${app.package}/webapp/action/{0}FormController.java"/>
+		    <template templateFile="${template.dir}/detailed/Controller.xdt"
+		              acceptAbstractClasses="false"
+		              prefixWithPackageStructure="false"
+		              destinationFile="${gen.dir}/src/web/${app.package}/webapp/action/{0}Controller.java"/>
+            <!-- Generic Controllers -->    
+            <template templateFile="${template.dir}/generic/FormController.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/generic/src/web/${app.package}/webapp/action/{0}FormController.java"/>
+            <template templateFile="${template.dir}/generic/Controller.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/generic/src/web/${app.package}/webapp/action/{0}Controller.java"/>]]></replacevalue>
+            <!-- Controller bean definitions -->
+            <template templateFile="${template.dir}/action-servlet.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/web/WEB-INF/action-servlet-{0}.xml"/>
+            <!-- Controller URL Mappings -->
+            <template templateFile="${template.dir}/url-mappings.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/web/WEB-INF/url-mappings-{0}.xml"/>]]></replacevalue>
+        </replace>
+        
+        <!-- Modify XML to modify action-servlet.xml -->
+        <replace file="../../extras/appgen">
+            <replacetoken><![CDATA[<echo>Merging sample-data into metadata/sql/sample-data.xml</echo>]]></replacetoken>
+            <replacevalue><![CDATA[
+        <echo>Merging controller configuration XML into web/WEB-INF/action-servlet.xml</echo>
+        <loadfile property="controller.beans"
+            srcfile="${generated.dir}/web/WEB-INF/action-servlet-${model.name}.xml"/>
+        <!-- Replace strategically placed comment -->   
+        <replace file="../../web/WEB-INF/action-servlet.xml" 
+            token="&lt;!-- Put controller mappings here --&gt;"
+            value="${controller.beans}"/>
+
+        <loadfile property="controller.mappings"
+            srcfile="${generated.dir}/web/WEB-INF/url-mappings-${model.name}.xml"/>
+        <!-- Replace strategically placed comment -->   
+        <replace file="../../web/WEB-INF/action-servlet.xml" 
+            token="&lt;!-- Add additional URL mappings here --&gt;"
+            value="${controller.mappings}"/>
+
+        <echo>Merging sample-data into metadata/sql/sample-data.xml</echo>]]></replacevalue>
+        </replace>
+        
+        <loadfile property="sample.data"
+            srcfile="${generated.dir}/metadata/sql/sample-data-${model.name}.xml"/>
+        <!-- Add to the bottom of the list of tables -->   
+        <replace file="../../metadata/sql/sample-data.xml" value="${sample.data}">
+            <replacetoken><![CDATA[</dataset>]]></replacetoken>
+        </replace>
+        
+        <echo>Merging sample-data into metadata/sql/sample-data.xml</echo>     
+        
         <!-- Copy source and tests -->    
         <echo level="info">Replacing source and test files</echo>
-        <copy todir="../../extras/viewgen" overwrite="true">
-            <fileset dir="extras/viewgen" includes="**"/>
-        </copy>
         <delete dir="../../src/web/org/appfuse/webapp/form"/>
         <delete>
             <fileset dir="../../src/web/org/appfuse/webapp/action">
@@ -104,11 +196,9 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         <echo level="info">Modifying Eclipse .classpath file</echo>
         <replace file="../../.classpath">
             <replacetoken><![CDATA[<classpathentry kind="src" path="build/web/gen"/>]]></replacetoken>
-            <replacevalue></replacevalue>
         </replace>
         <replace file="../../.classpath">
             <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/strutstest-2.1.2/strutstest-2.1.2.jar"/>]]></replacetoken>
-            <replacevalue></replacevalue>
         </replace>
         <replace file="../../.classpath">
             <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/spring-1.1.1/spring.jar"/>]]></replacetoken>
@@ -128,7 +218,6 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         <!-- Remove templates path from new target -->
         <replace file="../../build.xml">
             <replacetoken><![CDATA[<include name="metadata/templates/*.xdt"/>]]></replacetoken>
-            <replacevalue></replacevalue>
         </replace>
         
         <!-- Remove gen-forms target -->
@@ -163,7 +252,6 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
             <replacetoken><![CDATA[<param name="additional.src.dirs"
                 value="${build.dir}/web/gen"/>
 ]]></replacetoken>
-            <replacevalue></replacevalue>
         </replace>
         
         <replace file="../../build.xml">
@@ -273,7 +361,6 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
 
         <replace file="../../build.xml">
             <replacetoken><![CDATA[<lib dir="${strutstestcase.dir}" includes="*.jar"/>]]></replacetoken>
-            <replacevalue></replacevalue>
         </replace>
 
         <echo level="info">Removing WebWork installation option</echo>
@@ -297,6 +384,9 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         <ant dir="../../../${app.name}" target="setup" inheritAll="false"/>
         <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
 
+        <!-- Test appgen -->
+        <ant dir="../../../${app.name}/extras/appgen" target="test" inheritAll="false"/>
+        
         <echo>Start Tomcat to view ${app.name} manually.</echo>
     </target>
 
@@ -305,7 +395,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
     <!-- =================================================================== -->
     <target name="test-ibatis"
         description="Creates appfuse-spring-ibatis and runs tests">
-        <property name="app.name" value="appfuse-spring-ibatis"/>
+        <property name="app.name" value="appfuse-sibatis"/>
         <property name="db.name" value="appfuse"/>
         <delete dir="../../../${app.name}"/>
         <ant dir="../.." target="new"/>
