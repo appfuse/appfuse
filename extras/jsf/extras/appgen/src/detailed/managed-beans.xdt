@@ -8,7 +8,7 @@
             <value>#{<XDtForm:classNameLower/>Manager}</value>
         </managed-property>
     </managed-bean>
-    
+
     <managed-bean>
         <managed-bean-name><XDtForm:classNameLower/>Form</managed-bean-name>
         <managed-bean-class>org.appfuse.webapp.action.<XDtClass:className/>Form</managed-bean-class>
@@ -22,3 +22,5 @@
             <value>#{<XDtForm:classNameLower/>Manager}</value>
         </managed-property>
     </managed-bean>
+
+    <!-- Add additional beans here -->
