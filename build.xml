@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.48 2004/10/08 03:13:59 mraible Exp $                 -->
+<!-- $Id: build.xml,v 1.49 2004/10/08 09:00:15 mraible Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -149,6 +149,7 @@
             <fileset dir="../${app.name}">
                 <include name="build.xml"/>
                 <include name="metadata/templates/*.xdt"/>
+                <include name="metadata/web/*.java"/>
             </fileset>
         </replaceregexp>
 
