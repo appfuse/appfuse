@@ -5,10 +5,8 @@ import java.util.List;
 import org.appfuse.dao.UserDAO;
 import org.appfuse.model.User;
 import org.appfuse.model.UserCookie;
+
 import org.springframework.orm.ObjectRetrievalFailureException;
-
-
-
 
 /**
  * This class interacts with Spring's HibernateTemplate to save/delete and
@@ -19,17 +17,15 @@ import org.springframework.orm.ObjectRetrievalFailureException;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
-  *  Modified by <a href="mailto:dan@getrolling.com">Dan Kibler </a> 
+  *  Modified by <a href="mailto:dan@getrolling.com">Dan Kibler </a>
 */
 public class UserDAOHibernate extends BaseDAOHibernate implements UserDAO {
-
     /**
      * @see org.appfuse.dao.UserDAO#getUser(java.lang.String)
      */
-
     public User getUser(String username) {
         User user = (User) getHibernateTemplate().get(User.class, username);
-        
+
         if (user == null) {
             log.warn("uh oh, user '" + username + "' not found...");
             throw new ObjectRetrievalFailureException(User.class, username);
@@ -37,7 +33,6 @@ public class UserDAOHibernate extends BaseDAOHibernate implements UserDAO {
 
         return user;
     }
-
 
     /**
      * @see org.appfuse.dao.UserDAO#getUsers(org.appfuse.model.User)
@@ -53,6 +48,7 @@ public class UserDAOHibernate extends BaseDAOHibernate implements UserDAO {
         if (log.isDebugEnabled()) {
             log.debug("user's id: " + user.getUsername());
         }
+
         getHibernateTemplate().saveOrUpdate(user);
     }
 
@@ -61,6 +57,7 @@ public class UserDAOHibernate extends BaseDAOHibernate implements UserDAO {
      */
     public void removeUser(String username) {
         removeUserCookies(username);
+
         User user = getUser(username);
         getHibernateTemplate().delete(user);
     }
