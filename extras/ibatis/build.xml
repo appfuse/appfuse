@@ -69,7 +69,7 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
             <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/ibatis-2.0.8/ibatis-common-2.jar"/>
 	<classpathentry kind="lib" path="lib/ibatis-2.0.8/ibatis-sqlmap-2.jar"/>
 	<classpathentry kind="lib" path="lib/ibatis-2.0.8/jta.jar"/>
-	<classpathentry kind="lib" path="lib/ibatis-2.0.8/oscache-2.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/ibatis-2.0.8/oscache-2.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>]]></replacevalue>
         </replace>
 
@@ -167,7 +167,7 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
             <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/ibatis-2.0.8/ibatis-common-2.jar"/>
 	<classpathentry kind="lib" path="lib/ibatis-2.0.8/ibatis-sqlmap-2.jar"/>
 	<classpathentry kind="lib" path="lib/ibatis-2.0.8/jta.jar"/>
-	<classpathentry kind="lib" path="lib/ibatis-2.0.8/oscache-2.0.1.jar"/>]]></replacetoken>
+	<classpathentry kind="lib" path="lib/ibatis-2.0.8/oscache-2.1.jar"/>]]></replacetoken>
             <replacevalue></replacevalue>
         </replace>
         
@@ -230,11 +230,11 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
             <replacetoken><![CDATA[dbunit.jar=${dbunit.dir}/dbunit-${dbunit.version}.jar
 
 #
-# Hibernate - http://hibernate.sf.net/
+# Hibernate - http://hibernate.org
 #
-hibernate.version=2.1.8
+hibernate.version=3.0
 hibernate.dir=${lib.dir}/hibernate-${hibernate.version}
-hibernate.jar=${hibernate.dir}/hibernate2.jar]]></replacetoken>
+hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
             <replacevalue><![CDATA[dbunit.jar=${dbunit.dir}/dbunit-${dbunit.version}.jar]]></replacevalue>
         </replace>
 
@@ -269,14 +269,16 @@ hibernate.jar=${hibernate.dir}/hibernate2.jar]]></replacetoken>
 
         <echo level="info">Modifying Eclipse .classpath file</echo>
         <replace file="../../.classpath">
-            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/hibernate-2.1.8/lib/c3p0-0.8.4.5.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-2.1.8/hibernate2.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-2.1.8/lib/cglib-full-2.0.2.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-2.1.8/lib/dom4j-1.4.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-2.1.8/lib/jta.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-2.1.8/lib/odmg-3.0.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-2.1.8/lib/oscache-2.0.1.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-2.1.8/lib/swarmcache-1.0rc2.jar"/>]]></replacetoken>
+            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/hibernate-3.0/hibernate3.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-3.0/lib/antlr-2.7.5H3.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-3.0/lib/asm.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-3.0/lib/c3p0-0.8.5.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-3.0/lib/cglib-2.1.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-3.0/lib/dom4j-1.5.2.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-3.0/lib/ehcache-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-3.0/lib/jta.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-3.0/lib/oscache-2.1.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-3.0/lib/swarmcache-1.0rc2.jar"/>]]></replacetoken>
             <replacevalue></replacevalue>
         </replace>
         
@@ -343,12 +345,7 @@ hibernate.jar=${hibernate.dir}/hibernate2.jar]]></replacetoken>
         <replace file="../../build.xml">
             <replacetoken><![CDATA[<lib dir="${displaytag.dir}" includes="*.jar"/>
             <lib file="${hibernate.jar}"/>
-            <lib dir="${hibernate.dir}/lib">
-                <include name="odmg*.jar"/>
-                <include name="dom4j*.jar"/>
-                <include name="cglib*.jar"/>
-                <include name="oscache*.jar"/>
-            </lib>]]></replacetoken>
+            <lib dir="${hibernate.dir}/lib" includes="*.jar" excludes="jta.jar"/>]]></replacetoken>
             <replacevalue><![CDATA[<lib dir="${displaytag.dir}" includes="*.jar"/>]]></replacevalue>
         </replace>
 
@@ -357,7 +354,7 @@ hibernate.jar=${hibernate.dir}/hibernate2.jar]]></replacetoken>
             <replacetoken><![CDATA[<target name="db-prepare" depends="clean,package-dao"
         description="creates database tables">
         <taskdef name="schemaexport"
-            classname="net.sf.hibernate.tool.hbm2ddl.SchemaExportTask">
+            classname="org.hibernate.tool.hbm2ddl.SchemaExportTask">
             <classpath>
                 <path refid="xdoclet.classpath"/>
                 <path refid="hibernate.classpath"/>
@@ -386,7 +383,7 @@ hibernate.jar=${hibernate.dir}/hibernate2.jar]]></replacetoken>
             <replacetoken><![CDATA[<target name="db-drop" depends="hibernatedoclet"
         description="drops database tables">
         <taskdef name="schemaexport"
-            classname="net.sf.hibernate.tool.hbm2ddl.SchemaExportTask">
+            classname="org.hibernate.tool.hbm2ddl.SchemaExportTask">
             <classpath>
                 <path refid="xdoclet.classpath"/>
                 <path refid="hibernate.classpath"/>
@@ -428,7 +425,7 @@ hibernate.jar=${hibernate.dir}/hibernate2.jar]]></replacetoken>
         <replace file="../../metadata/web/filters.xml">
         <replacetoken><![CDATA[<filter>
         <filter-name>hibernateFilter</filter-name>
-        <filter-class>org.springframework.orm.hibernate.support.OpenSessionInViewFilter</filter-class>
+        <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
     </filter>]]></replacetoken>
             <replacevalue></replacevalue>
         </replace>

@@ -614,12 +614,7 @@
             <lib file="${strutsmenu.jar}"/>
             <lib dir="${displaytag.dir}" includes="*.jar"/>
             <lib file="${hibernate.jar}"/>
-            <lib dir="${hibernate.dir}/lib">
-                <include name="odmg*.jar"/>
-                <include name="dom4j*.jar"/>
-                <include name="cglib*.jar"/>
-                <include name="oscache*.jar"/>
-            </lib>
+            <lib dir="${hibernate.dir}/lib" includes="*.jar" excludes="jta.jar"/>
             <lib dir="${spring.dir}" includes="*.jar" excludes="*mock.jar"/>
             <lib file="${sitemesh.jar}"/>
             <lib dir="${velocity.dir}" includes="*.jar"/>   
@@ -945,7 +940,7 @@
     <target name="db-prepare" depends="clean,package-dao"
         description="creates database tables">
         <taskdef name="schemaexport"
-            classname="net.sf.hibernate.tool.hbm2ddl.SchemaExportTask">
+            classname="org.hibernate.tool.hbm2ddl.SchemaExportTask">
             <classpath>
                 <path refid="xdoclet.classpath"/>
                 <path refid="hibernate.classpath"/>
@@ -962,7 +957,7 @@
     <target name="db-drop" depends="hibernatedoclet"
         description="drops database tables">
         <taskdef name="schemaexport"
-            classname="net.sf.hibernate.tool.hbm2ddl.SchemaExportTask">
+            classname="org.hibernate.tool.hbm2ddl.SchemaExportTask">
             <classpath>
                 <path refid="xdoclet.classpath"/>
                 <path refid="hibernate.classpath"/>

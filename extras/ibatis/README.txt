@@ -35,7 +35,7 @@ applicationContext-hibatis.xml file I used.
 ================================================================================
 <!-- Hibernate SessionFactory -->
 <bean id="sessionFactory"
-  class="org.springframework.orm.hibernate.LocalSessionFactoryBean">
+  class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
   <property name="dataSource"><ref bean="dataSource"/></property>
   <property name="mappingResources">
     <list>
