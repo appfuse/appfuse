@@ -11,6 +11,7 @@ import junit.framework.TestCase;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
@@ -20,13 +21,11 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class BaseDAOTestCase extends TestCase {
     protected Log log = LogFactory.getLog(BaseDAOTestCase.class);
-    ClassPathXmlApplicationContext ctx = null;
-    protected Object conn = null;
+    protected ApplicationContext ctx = 
+        new ClassPathXmlApplicationContext("/applicationContext.xml");;
     protected ResourceBundle rb = null;
 
     public BaseDAOTestCase() {
-        ctx = new ClassPathXmlApplicationContext("/applicationContext.xml");
-
         // Since a ResourceBundle is not required for each class, just
         // do a simple check to see if one exists
         String className = this.getClass().getName();

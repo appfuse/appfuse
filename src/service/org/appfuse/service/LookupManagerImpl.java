@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.appfuse.model.Role;
 import org.appfuse.model.LabelValue;
+import org.appfuse.model.Role;
 import org.appfuse.persistence.LookupDAO;
 
 
@@ -18,7 +18,7 @@ import org.appfuse.persistence.LookupDAO;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.2 $ $Date: 2004/03/18 20:33:07 $
+ * @version $Revision: 1.3 $ $Date: 2004/04/12 02:37:10 $
  */
 public class LookupManagerImpl extends BaseManager implements LookupManager {
     //~ Instance fields ========================================================

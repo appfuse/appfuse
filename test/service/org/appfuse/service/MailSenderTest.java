@@ -3,9 +3,7 @@ package org.appfuse.service;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 import org.appfuse.Constants;
 

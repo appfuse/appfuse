@@ -10,6 +10,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.util.ConvertUtils;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
@@ -21,14 +22,12 @@ public class BaseManagerTestCase extends TestCase {
     //~ Instance fields ========================================================
 
     protected ResourceBundle rb = null;
-    protected Object conn = null;
-    protected ClassPathXmlApplicationContext ctx = null;
+    protected static ApplicationContext ctx = 
+        new ClassPathXmlApplicationContext("/applicationContext.xml");
 
     //~ Constructors ===========================================================
 
     public BaseManagerTestCase() {
-        ctx = new ClassPathXmlApplicationContext("/applicationContext.xml");
-
         // Since a ResourceBundle is not required for each class, just
         // do a simple check to see if one exists
         String className = this.getClass().getName();

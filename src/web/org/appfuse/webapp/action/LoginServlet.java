@@ -1,7 +1,6 @@
 package org.appfuse.webapp.action;
 
 import java.io.IOException;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.appfuse.Constants;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.util.SslUtil;
@@ -27,7 +25,7 @@ import org.appfuse.webapp.util.SslUtil;
  * <p><a href="LoginServlet.java.html"><i>View Source</i></a></p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.1 $ $Date: 2004/03/01 06:19:14 $
+ * @version $Revision: 1.2 $ $Date: 2004/04/12 02:37:09 $
  *
  * @web.servlet
  *     display-name="Login Servlet"

@@ -9,13 +9,11 @@ import net.sf.hibernate.Session;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.appfuse.model.User;
 import org.appfuse.model.UserCookie;
 import org.appfuse.model.UserRole;
 import org.appfuse.persistence.DAOException;
 import org.appfuse.persistence.UserDAO;
-
 import org.springframework.orm.hibernate.HibernateCallback;
 import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 
@@ -29,7 +27,7 @@ import org.springframework.orm.hibernate.support.HibernateDaoSupport;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.2 $ $Date: 2004/03/18 20:33:07 $
+ * @version $Revision: 1.3 $ $Date: 2004/04/12 02:37:11 $
  */
 public class UserDAOHibernate extends HibernateDaoSupport implements UserDAO {
     private Log log = LogFactory.getLog(UserDAOHibernate.class);

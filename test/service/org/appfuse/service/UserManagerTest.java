@@ -1,6 +1,5 @@
 package org.appfuse.service;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.Constants;

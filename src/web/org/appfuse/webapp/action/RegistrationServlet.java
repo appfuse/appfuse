@@ -1,15 +1,14 @@
 package org.appfuse.webapp.action;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
+import javax.mail.MessagingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.mail.MessagingException;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
@@ -22,12 +21,10 @@ import org.apache.struts.action.ActionMessages;
 import org.apache.struts.util.MessageResources;
 import org.apache.struts.util.RequestUtils;
 import org.appfuse.Constants;
-import org.appfuse.model.UserRole;
 import org.appfuse.model.User;
 import org.appfuse.service.MailSender;
 import org.appfuse.service.UserManager;
 import org.appfuse.util.StringUtil;
-import org.appfuse.webapp.form.UserForm;
 import org.appfuse.webapp.form.UserFormEx;
 import org.appfuse.webapp.util.RequestUtil;
 import org.springframework.web.context.WebApplicationContext;
@@ -40,7 +37,7 @@ import org.springframework.web.context.WebApplicationContext;
  * <p><a href="RegistrationServlet.java.html"><i>View Source</i></a></p>
  *
  * @author Matt Raible
- * @version $Revision: 1.2 $ $Date: 2004/03/18 20:33:06 $
+ * @version $Revision: 1.3 $ $Date: 2004/04/12 02:37:09 $
  * @web.servlet display-name="Registration Servlet"
  * name="register"
  * load-on-startup="4"

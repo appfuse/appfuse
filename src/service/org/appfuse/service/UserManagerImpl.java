@@ -1,16 +1,15 @@
 package org.appfuse.service;
 
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.model.User;
 import org.appfuse.model.UserCookie;
-import org.appfuse.model.UserRole;
 import org.appfuse.persistence.UserDAO;
 import org.appfuse.util.RandomGUID;
 import org.appfuse.util.StringUtil;
-
-import java.util.List;
 
 
 /**
@@ -22,7 +21,7 @@ import java.util.List;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.3 $ $Date: 2004/03/18 20:33:07 $
+ * @version $Revision: 1.4 $ $Date: 2004/04/12 02:37:10 $
  */
 public class UserManagerImpl extends BaseManager implements UserManager {
     private Log log = LogFactory.getLog(UserManagerImpl.class);

@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSessionBindingEvent;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.appfuse.Constants;
 
 
@@ -22,7 +21,7 @@ import org.appfuse.Constants;
  * these users and exposes them in the servlet context.
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.1 $ $Date: 2004/03/01 06:19:20 $
+ * @version $Revision: 1.2 $ $Date: 2004/04/12 02:37:08 $
  *
  * @web.listener
  */

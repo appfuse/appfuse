@@ -20,14 +20,11 @@ import org.apache.struts.Globals;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
-
 import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
-import org.appfuse.webapp.form.UserForm;
 import org.appfuse.webapp.util.RequestUtil;
 import org.appfuse.webapp.util.SslUtil;
-
 import org.springframework.web.context.WebApplicationContext;
 
 
@@ -40,7 +37,7 @@ import org.springframework.web.context.WebApplicationContext;
  * <p><a href="ActionFilter.java.html"><i>View Source</i></a></p>
  *
  * @author  Matt Raible
- * @version $Revision: 1.2 $ $Date: 2004/03/18 20:33:05 $
+ * @version $Revision: 1.3 $ $Date: 2004/04/12 02:37:09 $
  *
  * @web.filter display-name="Action Filter" name="actionFilter"
  *

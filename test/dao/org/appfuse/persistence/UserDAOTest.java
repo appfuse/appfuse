@@ -4,7 +4,6 @@ import org.apache.commons.logging.LogFactory;
 import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.model.UserCookie;
-import org.appfuse.model.UserRole;
 
 
 public class UserDAOTest extends BaseDAOTestCase {
