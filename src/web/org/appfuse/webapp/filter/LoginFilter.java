@@ -32,7 +32,7 @@ import org.springframework.web.context.WebApplicationContext;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.1 $ $Date: 2004/03/01 06:19:18 $
+ * @version $Revision: 1.2 $ $Date: 2004/03/06 15:52:04 $
  *
  * @web.filter display-name="Login Filter" name="loginFilter"
  * @web.filter-init-param name="enabled" value="${rememberMe.enabled}"
@@ -49,65 +49,64 @@ public final class LoginFilter implements Filter {
     public void doFilter(ServletRequest req, ServletResponse resp,
                          FilterChain chain)
                   throws IOException, ServletException {
-        if (enabled) {
-            HttpServletRequest request = (HttpServletRequest) req;
-            HttpServletResponse response = (HttpServletResponse) resp;
 
-            // See if the user has a remember me cookie
-            Cookie c = RequestUtil.getCookie(request, Constants.LOGIN_COOKIE);
+        HttpServletRequest request = (HttpServletRequest) req;
+        HttpServletResponse response = (HttpServletResponse) resp;
 
-            WebApplicationContext context = 
-                (WebApplicationContext) config.getServletContext().getAttribute
-                (WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
-            UserManager mgr = (UserManager) context.getBean("userManager");
+        // See if the user has a remember me cookie
+        Cookie c = RequestUtil.getCookie(request, Constants.LOGIN_COOKIE);
 
-            // Check to see if the user is logging out, if so, remove all
-            // login cookies
-            if (request.getRequestURL().indexOf("logout") != -1) {
-                if (log.isDebugEnabled()) {
-                    log.debug("logging out '" + request.getRemoteUser() + "'");
-                }
+        WebApplicationContext context =
+            (WebApplicationContext) config.getServletContext().getAttribute
+            (WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
+        UserManager mgr = (UserManager) context.getBean("userManager");
 
-                mgr.removeLoginCookies(request.getRemoteUser());
-                RequestUtil.deleteCookie(response, c, request.getContextPath());
-                request.getSession().invalidate();
-            } else if (c != null) {
-                try {
-                    String loginCookie = mgr.checkLoginCookie(c.getValue());
+        // Check to see if the user is logging out, if so, remove all
+        // login cookies
+        if (request.getRequestURL().indexOf("logout") != -1) {
+            if (log.isDebugEnabled()) {
+                log.debug("logging out '" + request.getRemoteUser() + "'");
+            }
 
-                    if (loginCookie != null) {
-                        RequestUtil.setCookie(response, Constants.LOGIN_COOKIE,
-                                              loginCookie,
-                                              request.getContextPath());
-                        loginCookie = StringUtil.decodeString(loginCookie);
+            mgr.removeLoginCookies(request.getRemoteUser());
+            RequestUtil.deleteCookie(response, c, request.getContextPath());
+            request.getSession().invalidate();
+        } else if (c != null && enabled) {
+            try {
+                String loginCookie = mgr.checkLoginCookie(c.getValue());
 
-                        String[] value = StringUtils.split(loginCookie, '|');
+                if (loginCookie != null) {
+                    RequestUtil.setCookie(response, Constants.LOGIN_COOKIE,
+                                          loginCookie,
+                                          request.getContextPath());
+                    loginCookie = StringUtil.decodeString(loginCookie);
 
-                        UserForm user = (UserForm) mgr.getUser(value[0]);
+                    String[] value = StringUtils.split(loginCookie, '|');
 
-                        // authenticate user without displaying login page
-                        String route = "/authorize?j_username=" +
-                                       user.getUsername() + "&j_password=" +
-                                       user.getPassword();
+                    UserForm user = (UserForm) mgr.getUser(value[0]);
 
-                        request.setAttribute("encrypt", "false");
-                        request.getSession(true).setAttribute("cookieLogin",
-                                                              "true");
+                    // authenticate user without displaying login page
+                    String route = "/authorize?j_username=" +
+                                   user.getUsername() + "&j_password=" +
+                                   user.getPassword();
 
-                        if (log.isDebugEnabled()) {
-                            log.debug("I remember you '" + user.getUsername() +
-                                      "', attempting to authenticate...");
-                        }
+                    request.setAttribute("encrypt", "false");
+                    request.getSession(true).setAttribute("cookieLogin",
+                                                          "true");
 
-                        RequestDispatcher dispatcher = 
-                            request.getRequestDispatcher(route);
-                        dispatcher.forward(request, response);
-
-                        return;
+                    if (log.isDebugEnabled()) {
+                        log.debug("I remember you '" + user.getUsername() +
+                                  "', attempting to authenticate...");
                     }
-                } catch (Exception e) {
-                    log.warn(e.getMessage());
+
+                    RequestDispatcher dispatcher =
+                        request.getRequestDispatcher(route);
+                    dispatcher.forward(request, response);
+
+                    return;
                 }
+            } catch (Exception e) {
+                log.warn(e.getMessage());
             }
         }
 
