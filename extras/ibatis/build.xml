@@ -109,6 +109,18 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
         <delete>
             <fileset dir="../../test" includes="**/Generic*Test.java"/>
         </delete>
+        <echo level="info">Removing generic "manager" bean definition</echo>
+        <replace file="../../src/service/org/appfuse/service/applicationContext-service.xml">
+        <replacetoken><![CDATA[
+    <!-- Generic manager that can be used to do basic CRUD operations on any objects -->
+    <bean id="manager" parent="txProxyTemplate">
+        <property name="target">
+            <bean class="org.appfuse.service.impl.BaseManager">
+                <property name="DAO"><ref bean="dao"/></property>
+            </bean>
+        </property>
+    </bean>]]></replacetoken>
+        </replace>
     </target>
 
     <!-- =================================================================== -->
