@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: web-tests.xml,v 1.4 2004/08/14 22:36:19 mraible Exp $               -->
+<!-- $Id: web-tests.xml,v 1.5 2004/09/29 10:04:50 mraible Exp $               -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:../../properties.xml">
@@ -103,9 +103,9 @@
                 <invoke stepid="click Edit Profile link" url="/editProfile.html"/>
                 <verifytitle stepid="we should see the user profile title" 
                     text="${webapp.prefix}${userProfile.title}"/>
-                <setinputfield stepid="set address" name="address" 
+                <setinputfield stepid="set address" name="address.address" 
                     value="2255 Lane Avenue"/>
-                <setinputfield stepid="set zipcode" name="postalCode" 
+                <setinputfield stepid="set zipcode" name="address.postalCode" 
                     value="59826"/>
                 <clickbutton label="Save" stepid="Click Save"/>
                 <verifytitle stepid="display Main Menu if save OK"
@@ -135,13 +135,13 @@
                     value="Test"/>
                 <setinputfield stepid="set lastName" name="lastName" 
                     value="Name"/>
-                <setinputfield stepid="set city" name="city" 
+                <setinputfield stepid="set city" name="address.city" 
                     value="Denver"/>
-                <setselectfield stepid="select province" name="province"
+                <setselectfield stepid="select province" name="address.province"
                     value="CO"/>
-                <setselectfield stepid="select country" name="country"
+                <setselectfield stepid="select country" name="address.country"
                     value="US"/>
-                <setinputfield stepid="set postalCode" name="postalCode" 
+                <setinputfield stepid="set postalCode" name="address.postalCode" 
                     value="80210"/>
                 <setinputfield stepid="set email" name="email" 
                     value="newuser@raibledesigns.com"/>
@@ -191,13 +191,13 @@
                     value="Test"/>
                 <setinputfield stepid="set lastName" name="lastName" 
                     value="Name"/>
-                <setinputfield stepid="set city" name="city" 
+                <setinputfield stepid="set city" name="address.city" 
                     value="Denver"/>
-                <setselectfield stepid="Select province" name="province"
+                <setselectfield stepid="Select province" name="address.province"
                     value="CO"/>
-                <setselectfield stepid="Select country" name="country"
+                <setselectfield stepid="Select country" name="address.country"
                     value="US"/>
-                <setinputfield stepid="set postalCode" name="postalCode" 
+                <setinputfield stepid="set postalCode" name="address.postalCode" 
                     value="80210"/>
                 <setinputfield stepid="set email" name="email" 
                     value="signup-user@raibledesigns.com"/>
