@@ -1,0 +1,49 @@
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><table name='<XDtClass:classTagValue tagName="hibernate.class" paramName="table"/>'>
+<XDtMethod:forAllMethods>
+  <XDtMethod:ifHasMethodTag tagName="hibernate.id">
+  <column><XDtMethod:ifHasMethodTag tagName="hibernate.id" paramName="column"><XDtMethod:methodTagValue tagName="hibernate.id" paramName="column"/></XDtMethod:ifHasMethodTag><XDtMethod:ifDoesntHaveMethodTag tagName="hibernate.id" paramName="column"><XDtMethod:propertyName/></XDtMethod:ifDoesntHaveMethodTag></column></XDtMethod:ifHasMethodTag>
+  <XDtMethod:ifHasMethodTag tagName="hibernate.property"><column><XDtMethod:ifHasMethodTag tagName="hibernate.property" paramName="column"><XDtMethod:methodTagValue tagName="hibernate.property" paramName="column"/></XDtMethod:ifHasMethodTag><XDtMethod:ifDoesntHaveMethodTag tagName="hibernate.property" paramName="column"><XDtMethod:propertyName/></XDtMethod:ifDoesntHaveMethodTag></column></XDtMethod:ifHasMethodTag>
+</XDtMethod:forAllMethods>
+  <row>
+    <XDtMethod:forAllMethods>
+    <XDtMethod:ifHasMethodTag tagName="hibernate.id">
+    <value>1</value>
+    </XDtMethod:ifHasMethodTag>
+    <XDtMethod:ifHasMethodTag tagName="hibernate.property">
+    <XDtType:ifIsOfType value="return-type" type="java.lang.Boolean" extent="concrete-type">
+    <value>1</value>
+    </XDtType:ifIsOfType>
+    <XDtType:ifIsOfType value="return-type" type="java.lang.String" extent="concrete-type">
+    <value><XDtMethod:propertyName/></value>
+    </XDtType:ifIsOfType>
+    <XDtType:ifIsOfType value="return-type" type="java.lang.Long" extent="concrete-type">
+    <value>50</value>
+    </XDtType:ifIsOfType>
+    <XDtType:ifIsOfType value="return-type" type="java.lang.Integer" extent="concrete-type">
+    <value>50</value>
+    </XDtType:ifIsOfType>
+    </XDtMethod:ifHasMethodTag>
+    </XDtMethod:forAllMethods>
+  </row>
+  <row>
+    <XDtMethod:forAllMethods>
+    <XDtMethod:ifHasMethodTag tagName="hibernate.id">
+    <value>2</value>
+    </XDtMethod:ifHasMethodTag>
+    <XDtMethod:ifHasMethodTag tagName="hibernate.property">
+    <XDtType:ifIsOfType value="return-type" type="java.lang.Boolean" extent="concrete-type">
+    <value>1</value>
+    </XDtType:ifIsOfType>
+    <XDtType:ifIsOfType value="return-type" type="java.lang.String" extent="concrete-type">
+    <value><XDtMethod:propertyName/></value>
+    </XDtType:ifIsOfType>
+    <XDtType:ifIsOfType value="return-type" type="java.lang.Long" extent="concrete-type">
+    <value>50</value>
+    </XDtType:ifIsOfType>
+    <XDtType:ifIsOfType value="return-type" type="java.lang.Integer" extent="concrete-type">
+    <value>50</value>
+    </XDtType:ifIsOfType>
+    </XDtMethod:ifHasMethodTag>
+    </XDtMethod:forAllMethods>
+  </row>
+  </table>

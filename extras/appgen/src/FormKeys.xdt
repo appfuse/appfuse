@@ -1,0 +1,12 @@
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>
+# -- <XDtForm:classNameLower/> form --
+<XDtForm:forAllFields><XDtForm:classNameLower/>Form.<XDtForm:fieldName/>=<XDtForm:fieldDescription/>
+</XDtForm:forAllFields>
+
+# -- <XDtForm:classNameLower/> list page --
+<XDtForm:classNameLower/>List.title=<XDtClass:className/> List
+<XDtForm:classNameLower/>List.heading=<XDtClass:className/>s
+
+# -- <XDtForm:classNameLower/> detail page --
+<XDtForm:classNameLower/>Detail.title=<XDtClass:className/> Detail
+<XDtForm:classNameLower/>Detail.heading=<XDtClass:className/> Information

@@ -1,0 +1,269 @@
+﻿<!-- This tool is originally based on StrutsGen, created by Erik Hatcher -->
+<project name="appgen" default="default">
+
+    <property file="${user.home}/${ant.project.name}-build.properties"/>
+    <property file="${user.home}/build.properties"/>
+    <property file="../../build.properties"/>
+
+    <property name="lib.dir" location="../../lib"/>
+    <property file="${lib.dir}/lib.properties"/>
+
+    <path id="xdoclet.classpath">
+        <pathelement location="${log4j.jar}"/>
+        <pathelement location="${commons-logging.jar}"/>
+        <pathelement location="${commons-collections.jar}"/>
+        <fileset dir="${xdoclet.dir}" includes="*.jar"/>
+        
+    </path>
+
+    <property name="model.src.dir" location="../../src/dao"/>
+    <property name="overwrite" value="false"/>
+    
+    <target name="init">
+        <mkdir dir="${build.dir}"/>  
+        <taskdef resource="net/sf/antcontrib/antcontrib.properties"
+            classpath="${ant-contrib.jar}"/>
+    </target>
+        
+    <!-- For some reason, XDoclet is only happy if the tag handler
+         is recompiled, hence the clean dependency *shrug* -->
+    <target name="default" depends="clean,gen"/>
+        
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <target name="compile" depends="init">
+        <mkdir dir="${build.dir}"/>
+        <javac srcdir="src"
+               destdir="${build.dir}"
+               debug="${javac.debug}"
+               classpathref="xdoclet.classpath"/>
+    </target>
+
+    <target name="gen" depends="compile">
+        <property name="model.name" value="User"/>
+        <taskdef name="xdoclet"
+                 classname="xdoclet.DocletTask">
+            <classpath>
+                <path refid="xdoclet.classpath"/>
+                <pathelement location="${build.dir}"/>
+            </classpath>
+        </taskdef>
+    	<property name="gen.dir" value="gen"/> 
+        <property name="app.package" value="org/appfuse"/>   
+        <property name="template.dir" value="src"/>
+        
+        <xdoclet destdir="${build.dir}"
+                 excludedtags="@version,@author"
+                 force="${xdoclet.force}">
+            <fileset dir="${model.src.dir}"
+                   includes="**/${model.name}.java"/>
+            <!-- NOTE: You must have {0} in the destinationFile for the class
+                       to be available to templates -->   
+            
+            <!-- DAO Test -->   
+            <template templateFile="${template.dir}/detailed/DAOTest.xdt"
+		              acceptAbstractClasses="false"
+		              prefixWithPackageStructure="false"
+		              destinationFile="${gen.dir}/test/dao/${app.package}/dao/{0}DAOTest.java"/>
+            <!-- DAO Interface -->   
+            <template templateFile="${template.dir}/detailed/DAO.xdt"
+		              acceptAbstractClasses="false"
+		              prefixWithPackageStructure="false"
+		              destinationFile="${gen.dir}/src/dao/${app.package}/dao/{0}DAO.java"/>
+            <!-- Hibernate DAO Implementation -->   
+		    <template templateFile="${template.dir}/detailed/DAOHibernate.xdt"
+		              acceptAbstractClasses="false"
+		              prefixWithPackageStructure="false"
+		              destinationFile="${gen.dir}/src/dao/${app.package}/dao/hibernate/{0}DAOHibernate.java"/>
+            <!-- Manager Test (uses jMock) -->   
+		    <template templateFile="${template.dir}/detailed/ManagerTest.xdt"
+		              acceptAbstractClasses="false"
+		              prefixWithPackageStructure="false"
+		              destinationFile="${gen.dir}/test/service/${app.package}/service/{0}ManagerTest.java"/>
+            <!-- Manager Interface --> 
+		    <template templateFile="${template.dir}/detailed/Manager.xdt"
+		              acceptAbstractClasses="false"
+		              prefixWithPackageStructure="false"
+		              destinationFile="${gen.dir}/src/service/${app.package}/service/{0}Manager.java"/>
+            <!-- Manager Implementation -->    
+		    <template templateFile="${template.dir}/detailed/ManagerImpl.xdt"
+		              acceptAbstractClasses="false"
+		              prefixWithPackageStructure="false"
+		              destinationFile="${gen.dir}/src/service/${app.package}/service/impl/{0}ManagerImpl.java"/>
+            <!-- Constant values -->   
+		    <template templateFile="${template.dir}/Constants.xdt"
+		              acceptAbstractClasses="false"
+		              prefixWithPackageStructure="false"
+		              destinationFile="${gen.dir}/src/dao/${app.package}/Constants-{0}.java"/>
+            <!-- Action Test -->    
+		    <template templateFile="${template.dir}/ActionTest.xdt"
+		              acceptAbstractClasses="false"
+		              prefixWithPackageStructure="false"
+		              destinationFile="${gen.dir}/src/web/${app.package}/webapp/action/{0}ActionTest.java"/>
+            <!-- Detailed Action -->    
+		    <template templateFile="${template.dir}/detailed/Action.xdt"
+		              acceptAbstractClasses="false"
+		              prefixWithPackageStructure="false"
+		              destinationFile="${gen.dir}/src/web/${app.package}/webapp/action/{0}Action.java"/>
+            <!-- Generic Action -->    
+            <template templateFile="${template.dir}/generic/Action.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/generic/src/web/${app.package}/webapp/action/{0}Action.java"/>
+            <!-- Sample data for DBUnit -->    
+		    <template templateFile="${template.dir}/sample-data.xdt"
+		              acceptAbstractClasses="false"
+		              prefixWithPackageStructure="false"
+		              destinationFile="${gen.dir}/metadata/sql/sample-data-{0}.xml"/>
+            <!-- Tests for Canoo -->    
+		    <template templateFile="${template.dir}/web-tests.xdt"
+		              acceptAbstractClasses="false"
+		              prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/test/web/web-tests-{0}.xml"/>    
+            <!-- i18n entries -->
+            <template templateFile="${template.dir}/FormKeys.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/web/WEB-INF/classes/{0}.properties"/>
+            <!-- Form JSP -->
+            <template templateFile="${template.dir}/Form_jsp.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/web/pages/{0}Form.jsp"/>
+            <!-- List JSP -->
+            <template templateFile="${template.dir}/List_jsp.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/web/pages/{0}List.jsp"/>
+        </xdoclet>
+    </target>
+   
+    <target name="install-src-detailed" depends="default">
+        <echo>Copying all .java files into main project, overwrite="${overwrite}"</echo>
+        <copy todir="../.." overwrite="${overwrite}">
+            <fileset dir="${gen.dir}" includes="**/*.java" 
+                excludes="${gen.dir}/generic/**"/>
+        </copy>
+    </target>   
+ 
+    <target name="install-src-generic" depends="default">
+        <echo>Copying Controller and Test into main project, overwrite="${overwrite}"</echo>
+        <copy todir="../../" overwrite="${overwrite}">
+            <fileset dir="${gen.dir}" includes="**/*.java"/>
+        </copy>
+        <copy todir="../../test" overwrite="${overwrite}">
+            <fileset dir="${gen.dir}/test" includes="**/action/*Test.java"/>
+        </copy>
+    </target>
+            
+    <target name="install-other" depends="default">
+        <echo>Merging sample-data into metadata/sql/sample-data.xml</echo>   
+        <loadfile property="sample.data"
+            srcfile="${gen.dir}/metadata/sql/sample-data-${model.name}.xml"/>
+        <!-- Add to the bottom of the list of tables -->   
+        <replace file="../../metadata/sql/sample-data.xml">
+            <replacetoken><![CDATA[</dataset>]]></replacetoken>
+            <replacevalue><![CDATA[${sample.data}
+</dataset>]]></replacevalue>
+        </replace>   
+
+        <echo>Merging web-tests into test/web/web-tests.xml</echo>   
+        <loadfile property="web.tests"
+            srcfile="${gen.dir}/test/web/web-tests-{model.name}.xml"/>
+        <!-- Add to the bottom of the list of tests -->   
+        <replace file="../../test/web/web-tests.xml">
+            <replacetoken><![CDATA[</project>]]></replacetoken>
+            <replacevalue><![CDATA[${web.tests}
+</project>]]></replacevalue>
+        </replace> 
+        
+        <!-- Append contents of .properties file to application resources -->
+        <echo>Adding keys to ApplicationResources_en.properties</echo> 
+        <loadfile property="i18n.keys"
+            srcfile="${gen.dir}/web/WEB-INF/classes/${model.name}.properties"/>
+        <echo file="../../web/WEB-INF/classes/ApplicationResources_en.properties"
+            append="true" message="${i18n.keys}"/>
+
+        <!-- Rename JSPs to proper case -->   
+        <echo>Renaming JSPs to LowerCase names</echo>   
+        <scriptdef name="lowercase" language="javascript">
+            <attribute name="property"/>
+            <attribute name="value"/>
+                project.setNewProperty(
+                    attributes.get("property"),
+                    attributes.get("value").substring(0, 1).toLowerCase() +
+                                   attributes.get("value").substring(1,
+                                   attributes.get("value").length()));
+         </scriptdef>
+         
+         <lowercase property="lowerCaseForm.jsp" value="${model.name}Form.jsp"/>
+         
+         <move file="${gen.dir}/web/pages/{model.name}Form.jsp"
+            tofile="${gen.dir}/web/pages/${lowerCaseForm.jsp}" overwrite="true"/>
+            
+         <lowercase property="lowerCaseList.jsp" value="${model.name}List.jsp"/>   
+         <move file="${gen.dir}/web/pages/{model.name}List.jsp" 
+            tofile="${gen.dir}/web/pages/${lowerCaseList.jsp" overwrite="true"/>
+         
+         <!-- Move JSPs -->   
+         <echo>Copying JSPs to main project</echo>
+         <copy todir="../.." dir="${gen.dir}" includes="**/*.jsp"/>
+    </target>
+            
+    <target name="install" depends="install-src-generic,install-other"
+        description="Generates generic code and copies into main project">
+        <echo>Installation completed successfully!</echo>
+    </target>   
+          
+    <target name="install-detailed" depends="install-src-detailed,install-other"
+        description="Generates detailed source code and copies into main project">
+        <echo>Installation completed successfully!</echo>
+    </target>  
+        
+    <!-- =================================================================== -->
+    <!-- Creates new project, copies Person.java to model directory,         -->
+    <!-- generates generic persistence code and runs tests.                  -->
+    <!-- =================================================================== -->
+    <target name="test-detailed" 
+        description="Creates new project and generates detailed code">
+        <property name="app.name" value="appfuse-appgen"/>
+        <property name="db.name" value="appfuse"/>
+        <delete dir="../../../${app.name}"/>
+        <ant dir="../.." target="new"/>
+
+        <!-- Copy test model object into new project -->   
+        <copy todir="../../../${app.name}/src" dir="test" includes="**/Person.java"/>
+        <property name="model.name" value="Person"/>
+        
+        <!-- New project created, gen code and run tests -->
+        <ant dir="../../../${app.name}/extras/appgen" target="install-detailed"/>
+        <ant dir="../../../${app.name}" target="setup"/>   
+        <ant dir="../../../${app.name}" target="test-all"/>
+    </target>      
+
+    <!-- =================================================================== -->
+    <!-- Creates new project, copies Person.java to model directory,         -->
+    <!-- generates generic persistence code and runs tests.                  -->
+    <!-- =================================================================== -->
+    <target name="test" 
+        description="Creates new project and generates generic persistence code">
+        <property name="app.name" value="appfuse-appgen"/>
+        <property name="db.name" value="appfuse"/>
+        <delete dir="../../../${app.name}"/>
+        <ant dir="../.." target="new"/>
+
+        <!-- Copy test model object into new project -->   
+        <copy todir="../../../${app.name}/src" dir="test" includes="**/Person.java"/>
+    	<property name="model.name" value="Person"/>
+        <!-- New project created, gen code and run tests -->
+        <ant dir="../../../${app.name}/extras/appgen" target="install"/>
+        <ant dir="../../../${app.name}" target="setup"/>   
+        <ant dir="../../../${app.name}" target="test-all"/>
+    </target>   
+</project>
+
+
+
+

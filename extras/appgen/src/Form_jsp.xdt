@@ -1,0 +1,44 @@
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><%@ include file="/common/taglibs.jsp"%>
+
+<title><fmt:message key="<XDtForm:classNameLower/>Detail.title"/></title>
+<content tag="heading"><fmt:message key="<XDtForm:classNameLower/>Detail.heading"/></content>
+
+<html:form action="edit<XDtClass:className/>" method="post" styleId="<XDtForm:classNameLower/>Form"
+    focus="" onsubmit="return validate<XDtClass:className/>Form(this)">
+<table class="detail">
+    <XDtForm:forAllFields>
+    <tr>
+        <th>
+            <appfuse:label key="<XDtForm:classNameLower/>Form.<XDtForm:fieldName/>"/>
+        </th>
+        <td>
+            <html:text property="<XDtForm:fieldName/>" styleId="<XDtForm:fieldName/>"/>
+            <html:errors property="<XDtForm:fieldName/>"/>
+        </td>
+    </tr>
+    </XDtForm:forAllFields>
+    <tr>
+        <td></td>
+        <td class="buttonBar">            
+            <html:submit styleClass="button" property="method" onclick="bCancel=false">
+                <fmt:message key="button.save"/>
+            </html:submit>
+            
+            <html:submit styleClass="button" property="method" 
+                onclick="bCancel=true; return confirmDelete('<XDtClass:className/>')">
+                <fmt:message key="button.delete"/>
+            </html:submit>
+            
+            <html:cancel styleClass="button" property="method" onclick="bCancel=true">
+                <fmt:message key="button.cancel"/>
+            </html:cancel>
+        </td>
+    </tr>
+</table>
+</html:form>
+
+<%-- Uncomment after you've added validation rules for an object - otherwise an exception is thrown --%>
+<!--html:javascript formName="<XDtForm:classNameLower/>Form" cdata="false"
+    dynamicJavascript="true" staticJavascript="false"/>
+<script type="text/javascript" 
+    src="<html:rewrite page="/scripts/validator.jsp"/>"></script-->

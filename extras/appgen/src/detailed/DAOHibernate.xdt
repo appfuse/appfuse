@@ -1,0 +1,45 @@
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>package <XDtForm:parentPackageName/>.dao.hibernate;
+
+import <XDtPackage:packageName/>.<XDtClass:className/>;
+import <XDtForm:parentPackageName/>.dao.<XDtClass:className/>DAO;
+
+import java.util.List;
+
+public class <XDtClass:className/>DAOHibernate extends BaseDAOHibernate implements <XDtClass:className/>DAO {
+
+    /**
+     * @see <XDtForm:parentPackageName/>.dao.<XDtClass:className/>DAO#get<XDtClass:className/>s(<XDtPackage:packageName/>.<XDtClass:className/>)
+     */
+    public List get<XDtClass:className/>s(<XDtClass:className/> <XDtForm:classNameLower/>) {
+        // use the <XDtForm:classNameLower/> parameter to do futher filtering if you need to
+        return getHibernateTemplate().find("from <XDtClass:className/>");
+    }
+
+    /**
+     * @see <XDtForm:parentPackageName/>.dao.<XDtClass:className/>DAO#get<XDtClass:className/>(final Long id)
+     */
+    public <XDtClass:className/> get<XDtClass:className/>(final Long id) {
+        <XDtClass:className/> <XDtForm:classNameLower/> = (<XDtClass:className/>) getHibernateTemplate().get(<XDtClass:className/>.class, id);
+        
+        if (<XDtForm:classNameLower/> == null) {
+            log.warn("uh oh, <XDtForm:classNameLower/> with id '" + id + "' not found...");
+            throw new ObjectRetrievalFailureException(<XDtClass:className/>.class, id);
+        }
+
+        return <XDtForm:classNameLower/>;
+    }
+
+    /**
+     * @see <XDtForm:parentPackageName/>.dao.<XDtClass:className/>DAO#save<XDtClass:className/>(<XDtClass:className/> <XDtForm:classNameLower/>)
+     */    
+    public void save<XDtClass:className/>(final <XDtClass:className/> <XDtForm:classNameLower/>) {
+        getHibernateTemplate().saveOrUpdate(<XDtForm:classNameLower/>);
+    }
+
+    /**
+     * @see <XDtForm:parentPackageName/>.dao.<XDtClass:className/>DAO#remove<XDtClass:className/>(final Long id)
+     */
+    public void remove<XDtClass:className/>(final Long id) {
+        getHibernateTemplate().delete(get<XDtClass:className/>(id));
+    }
+}

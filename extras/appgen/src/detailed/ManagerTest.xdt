@@ -1,0 +1,110 @@
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>package <XDtForm:parentPackageName/>.service;
+
+import java.util.List;
+import java.util.ArrayList;
+
+import <XDtPackage:packageName/>.dao.<XDtClass:className/>DAO;
+import <XDtPackage:packageName/>.<XDtClass:className/>;
+import <XDtForm:parentPackageName/>.service.impl.<XDtClass:className/>ManagerImpl;
+
+import org.jmock.Mock;
+import org.springframework.orm.ObjectRetrievalFailureException;
+
+public class <XDtClass:className/>ManagerTest extends BaseManagerTestCase {
+    private final String <XDtForm:classNameLower/>Id = "1";
+    private <XDtClass:className/>Manager <XDtForm:classNameLower/>Manager = new <XDtClass:className/>ManagerImpl();
+    private Mock <XDtForm:classNameLower/>DAO = null;
+    private <XDtClass:className/> <XDtForm:classNameLower/> = null;
+    
+    protected void setUp() throws Exception {
+        super.setUp();
+        <XDtForm:classNameLower/>DAO = new Mock(<XDtClass:className/>DAO.class);
+        <XDtForm:classNameLower/>Manager.set<XDtClass:className/>DAO((<XDtClass:className/>DAO) <XDtForm:classNameLower/>DAO.proxy());
+    }
+
+    protected void tearDown() throws Exception {
+        super.tearDown();
+        mgr = null;
+    }
+    
+    public void testGet<XDtClass:className/>s() throws Exception {
+        List results = new ArrayList();
+        <XDtForm:classNameLower/> = new <XDtClass:className/>();
+        results.add(<XDtForm:classNameLower/>);
+        
+        // set expected behavior on dao
+        <XDtForm:classNameLower/>DAO.expects(once()).method("get<XDtClass:className/>s")
+            .will(returnValue(results);
+            
+        List <XDtForm:classNameLower/>s = dao.get<XDtClass:className/>s(null);
+        assertTrue(<XDtForm:classNameLower/>s.size() == 1);
+        <XDtForm:classNameLower/>DAO.verify();
+    }
+
+    public void testGet<XDtClass:className/>() throws Exception {
+        // set expected behavior on dao
+        <XDtForm:classNameLower/>DAO.expects(once()).method("get<XDtClass:className/>")
+            .will(returnValue(new <XDtClass:className/>());
+        <XDtForm:classNameLower/> = mgr.get<XDtClass:className/>(<XDtForm:classNameLower/>);
+        assertTrue(<XDtForm:classNameLower/> != null);
+        <XDtForm:classNameLower/>DAO.verify();
+    }
+
+    public void testSave<XDtClass:className/>() throws Exception {
+        // set expected behavior on dao
+        <XDtForm:classNameLower/>DAO.expects(once()).method("save<XDtClass:className/>")
+            .with(new <XDtClass:className/>()).isVoid();
+
+        mgr.save<XDtClass:className/>(<XDtForm:classNameLower/>);
+        <XDtForm:classNameLower/>DAO.verify();
+    }    
+
+    public void testAddAndRemove<XDtClass:className/>() throws Exception {
+        <XDtForm:classNameLower/> = new <XDtClass:className/>();
+
+        // set required fields
+        <XDtMethod:forAllMethods>
+        <XDtMethod:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
+        <XDtType:ifIsOfType value="return-type" type="java.lang.Boolean" extent="concrete-type">
+        <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>(Boolean.TRUE);
+        </XDtType:ifIsOfType>
+        <XDtType:ifIsOfType value="return-type" type="java.lang.String" extent="concrete-type">
+        <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>("<XDtMethod:propertyName/>");
+        </XDtType:ifIsOfType>
+        <XDtType:ifIsOfType value="return-type" type="java.lang.Long" extent="concrete-type">
+        <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>(new Long(100));
+        </XDtType:ifIsOfType>
+        <XDtType:ifIsOfType value="return-type" type="java.lang.Integer" extent="concrete-type">
+        <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>(new Integer(100));
+        </XDtType:ifIsOfType>
+        </XDtMethod:ifMethodTagValueEquals>
+        </XDtMethod:forAllMethods>
+        
+        // set expected behavior on dao
+        <XDtForm:classNameLower/>DAO.expects(once()).method("save<XDtClass:className/>")
+            .with(same(<XDtForm:classNameLower/>)).isVoid();
+        <XDtForm:classNameLower/>DAO.verify();
+        
+        // reset expectations
+        <XDtForm:classNameLower/>DAO.reset();
+        
+        <XDtForm:classNameLower/>DAO.expects(once()).method("remove<XDtClass:className/>").with(eq(<XDtForm:classNameLower/>.getId()));
+        <XDtForm:classNameLower/>Manager.remove<XDtClass:className/>(<XDtForm:classNameLower/>.getId());
+        <XDtForm:classNameLower/>DAO.verify();
+
+        // reset expectations
+        <XDtForm:classNameLower/>DAO.reset();
+        // remove
+        Exception ex = new ObjectRetrievalFailureException(<XDtClass:className/>.class, <XDtForm:classNameLower/>.getId());
+        <XDtForm:classNameLower/>DAO.expects(once()).method("remove<XDtClass:className/>").isVoid();            
+        <XDtForm:classNameLower/>DAO.expects(once()).method("get<XDtClass:className/>").will(throwException(ex));
+        <XDtForm:classNameLower/>Manager.remove<XDtClass:className/>(<XDtClass:className/>.class, <XDtForm:classNameLower/>.getId());
+        try {
+            manager.get<XDtClass:className/>(<XDtClass:className/>.class, <XDtForm:classNameLower/>.getId());
+            fail("<XDtClass:className/> with identifier '" + <XDtForm:classNameLower/>.getId() + "' found in database");
+        } catch (ObjectRetrievalFailureException e) {
+            assertNotNull(e.getMessage());
+        }
+        <XDtForm:classNameLower/>DAO.verify();
+    }
+}
