@@ -91,7 +91,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/strutstest-2.1.2/strutstest-2.1.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/strutstest-2.1.3/strutstest-2.1.3.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -344,15 +344,6 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/hibernate-2.1.8/lib/ehcache-1.1.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/hibernate-2.1.8/lib/dom4j-1.4.jar!/" />
         </CLASSES>
         <JAVADOC />
@@ -426,6 +417,15 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/spring-1.1.5/commons-codec.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/spring-1.1.5/lib/ehcache-1.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

@@ -45,7 +45,7 @@ Features/Changes in 1.8
 - Replaced Container-Managed Authentication with Acegi Security Framework for
   Spring.  Minimal changes were necessary - meaning that you could easily 
   switch back if you wanted to.  Howto documented at:
-  	http://raibledesigns.com/wiki/Wiki.jsp?page=AppFuseSecurity
+    http://raibledesigns.com/wiki/Wiki.jsp?page=AppFuseSecurity
 - Fixed bugs in Tapestry UserForm.java and UserList.java classes - now role
   choices are shown when editing a user or adding a new user.
 - Fixed bug where uses could hack the URL in Struts and WebWork versions to 
@@ -57,12 +57,15 @@ Features/Changes in 1.8
   the checked UserExistsException is thrown.
 - Dependent packages upgraded:
     * Display Tag 1.0
+    * Dumbster 1.5
     * Hibernate 2.1.8
     * MySQL JDBC Driver 3.1.7
     * PostgreSQL JDBC Driver 8.0-310
+    * SiteMesh 2.2.1
     * Spring 1.1.5
+    * StrutsTestCase 2.1.3
 - Dependent packages added:
-	* Acegi 0.8.1-SNAPSHOT
+    * Acegi 0.8.1-SNAPSHOT
 - Fixed bug in error.jsp that caused it to throw exceptions under certain 
   conditions.
     https://appfuse.dev.java.net/issues/show_bug.cgi?id=122
