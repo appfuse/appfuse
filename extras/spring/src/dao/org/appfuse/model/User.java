@@ -38,6 +38,7 @@ public class User extends BaseObject implements Serializable {
     protected String website;
     protected String passwordHint;
     protected Integer version;
+    protected Boolean enabled;
     protected Set roles = new HashSet();
 
     /**
@@ -293,6 +294,21 @@ public class User extends BaseObject implements Serializable {
     }
 
     /**
+     * @return Returns the enabled.
+     * @hibernate.property column="enabled"
+     */
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    /**
+     * @param enabled The enabled to set.
+     */
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+    
+    /**
      * Convert user roles to LabelValue objects for convenience.  
      */
     public List getRoleList() {
@@ -326,7 +342,7 @@ public class User extends BaseObject implements Serializable {
                 rhs.address).append(this.confirmPassword, rhs.confirmPassword)
                 .append(this.username, rhs.username).append(this.email,
                         rhs.email).append(this.phoneNumber, rhs.phoneNumber)
-                .append(this.roles, rhs.roles)
+                .append(this.roles, rhs.roles).append(this.enabled, rhs.enabled)
                 .append(this.website, rhs.website).append(this.firstName,
                         rhs.firstName).append(this.lastName, rhs.lastName)
                 .isEquals();
@@ -340,8 +356,8 @@ public class User extends BaseObject implements Serializable {
                 this.password).append(this.passwordHint).append(this.address)
                 .append(this.confirmPassword).append(this.username).append(
                         this.email).append(this.phoneNumber).append(this.roles)
-                .append(this.website).append(this.firstName).append(
-                        this.lastName).toHashCode();
+                .append(this.website).append(this.firstName)
+                .append(this.enabled).append(this.lastName).toHashCode();
     }
 
     /**
@@ -358,6 +374,7 @@ public class User extends BaseObject implements Serializable {
                         this.phoneNumber).append("password", this.password)
                 .append("address", this.address).append("confirmPassword",
                         this.confirmPassword).append("website", this.website)
-                .append("version", this.getVersion()).toString();
+                .append("version", this.getVersion())
+                .append("enabled", this.getEnabled()).toString();
     }
 }
