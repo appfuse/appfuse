@@ -13,6 +13,7 @@
         </th>
         <td>
             <html:text property="<XDtStruts:fieldName/>" styleId="<XDtStruts:fieldName/>"/>
+            <html:errors property="<XDtStruts:fieldName/>"/>
         </td>
     </tr>
     </XDtStruts:forAllFields>
