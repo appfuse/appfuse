@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.43 2004/10/02 03:42:38 mraible Exp $                 -->
+<!-- $Id: build.xml,v 1.44 2004/10/03 23:42:14 mraible Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -136,14 +136,18 @@
         <copy file="appfuse.iml" tofile="../${app.name}/${app.name}.iml"/>
         <copy file="appfuse.ipr" tofile="../${app.name}/${app.name}.ipr"/>
         <replace dir="../${app.name}" value="${app.name}" token="appfuse">
-          <include name="${app.name}.i*"/>
+            <include name="${app.name}.i*"/>
         </replace>
         
         <!-- Fix path for packages in build.xml -->
         <replaceregexp flags="g"
-            file="../${app.name}/build.xml"
             match="org.${app.name}"
-            replace="org.appfuse"/>
+            replace="org.appfuse">
+            <fileset dir="../${app.name}">
+                <include name="build.xml"/>
+                <include name="metadata/templates/*.xdt"/>
+            </fileset>
+        </replaceregexp>
 
         <!-- Replace JNDI Name for database -->
         <replaceregexp flags="g">
