@@ -1,14 +1,20 @@
 package org.appfuse.util;
 
+import java.beans.PropertyDescriptor;
+import java.util.Date;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.ResourceBundle;
+
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.model.BaseObject;
-
-import java.beans.PropertyDescriptor;
-import java.util.*;
 
 
 /**
@@ -19,9 +25,9 @@ import java.util.*;
  * </p>
  * 
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.1 $ $Date: 2004/04/13 04:28:13 $
+ * @version $Revision: 1.2 $ $Date: 2004/04/29 08:13:00 $
  */
-public class ConvertUtil {
+public final class ConvertUtil {
     //~ Static fields/initializers =============================================
 
     private static Log log = LogFactory.getLog(ConvertUtil.class);
@@ -82,42 +88,6 @@ public class ConvertUtil {
         }
 
         return obj;
-    }
-
-        /**
-     * This method loops through all the Date methods and formats them for the
-     * UI.
-     *
-     * @param obj
-     * @param form
-     * @return a Form for the web
-     */
-    public static Object convertDates(Object obj, Object form) {
-        if (obj == null || form == null) {
-        	return null;
-        }
-        // loop through all the Date methods and format them for the UI
-        PropertyDescriptor[] origDescriptors =
-                PropertyUtils.getPropertyDescriptors(obj);
-
-        for (int i = 0; i < origDescriptors.length; i++) {
-            String name = origDescriptors[i].getName();
-
-            if (origDescriptors[i].getPropertyType().equals(Date.class)) {
-                if (PropertyUtils.isWriteable(form, name)) {
-                    try {
-                        Date date =
-                                (Date) PropertyUtils.getSimpleProperty(obj, name);
-                        PropertyUtils.setSimpleProperty(form, name,
-                                DateUtil.getDate(date));
-                    } catch (Exception e) {
-                        log.error("Error converting date from object to form");
-                    }
-                }
-            }
-        }
-
-        return form;
     }
 
     /**
@@ -199,9 +169,6 @@ public class ConvertUtil {
                 for (int j=0; j < list.size(); j++) {
                     Object origin = list.get(j);
                     target = convert(list.get(j));
-                    if (!(target instanceof BaseObject)) {
-                        target = convertDates(origin, target);
-                    }
                     list.set(j, target);
                 }
                 PropertyUtils.setProperty(o, name, list);

@@ -14,7 +14,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.converters.LongConverter;
-import org.apache.commons.beanutils.converters.StringConverter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.struts.Globals;
@@ -32,7 +31,7 @@ import org.appfuse.util.ConvertUtil;
 import org.appfuse.util.CurrencyConverter;
 import org.appfuse.util.DateConverter;
 import org.appfuse.webapp.util.SslUtil;
-import org.springframework.web.context.WebApplicationContext;
+import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 
@@ -45,13 +44,13 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.8 $ $Date: 2004/04/22 21:37:21 $
+ * @version $Revision: 1.9 $ $Date: 2004/04/29 08:13:01 $
  */
 public class BaseAction extends LookupDispatchAction {
 
     protected static Log log = LogFactory.getLog(BaseAction.class);
     private static final String SECURE = "secure";
-    private static WebApplicationContext ctx = null;
+    private static ApplicationContext ctx = null;
     private static Long defaultLong = null;
 
     /**
@@ -64,15 +63,13 @@ public class BaseAction extends LookupDispatchAction {
     static {
         ConvertUtils.register(new CurrencyConverter(), Double.class);
         ConvertUtils.register(new DateConverter(), Date.class);
-        ConvertUtils.register(new LongConverter(defaultLong), Long.TYPE);
+        ConvertUtils.register(new DateConverter(), String.class);
         ConvertUtils.register(new LongConverter(defaultLong), Long.class);
-        ConvertUtils.register(new StringConverter(), String.class);
 
         if (log.isDebugEnabled()) {
             log.debug("Converters registered...");
         }
     }
-
 
     /**
      * Convenience method to bind objects in Actions
@@ -108,13 +105,6 @@ public class BaseAction extends LookupDispatchAction {
         }
 
         return map;
-    }
-
-    /**
-     * @see org.appfuse.util.ConvertUtil#convertDates(java.lang.Object, java.lang.Object)
-     */
-    protected Object convertDates(Object obj, Object form) {
-        return ConvertUtil.convertDates(obj, form);
     }
 
     /**
@@ -190,6 +180,9 @@ public class BaseAction extends LookupDispatchAction {
         }
 
         MessageResources resources = getResources(request);
+        // this call grabs any messages in the session and stuffs them in the
+        // request
+        ActionMessages messages = getMessages(request);
 
         // Identify the localized message for the cancel button
         String edit = resources.getMessage("button.edit").toLowerCase();

@@ -13,14 +13,14 @@ import org.apache.commons.logging.LogFactory;
 /**
  * This class is converts a Double to a double-digit String
  * (and vise-versa) by BeanUtils when copying properties.
- * Registered for use in BaseManager.
+ * Registered for use in BaseAction.
  *
  * <p>
  * <a href="CurrencyConverter.java.html"><i>View Source</i></a>
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.1 $ $Date: 2004/03/07 22:06:54 $
+ * @version $Revision: 1.2 $ $Date: 2004/04/29 08:13:00 $
  */
 public class CurrencyConverter implements Converter {
     //~ Instance fields ========================================================

@@ -1,4 +1,4 @@
-<%@ page language="java" errorPage="/error.jsp" %>
+<%@ page language="java" errorPage="/error.jsp" pageEncoding="UTF-8" contentType="text/html; charset=utf-8" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean-el" prefix="bean-el" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>

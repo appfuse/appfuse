@@ -23,7 +23,7 @@ import org.appfuse.webapp.listener.StartupListener;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.1 $ $Date: 2004/04/28 06:18:52 $
+ * @version $Revision: 1.2 $ $Date: 2004/04/29 08:13:02 $
  *
  * @struts.action path="/reload" validate="false" roles="admin"
  */
@@ -46,6 +46,7 @@ public final class ReloadAction extends Action {
         if (referer != null) {
             log.debug("reload complete, reloading user back to: " + referer);
             response.sendRedirect(response.encodeRedirectURL(referer));
+            return null;
         } else {
             response.setContentType("text/html");
 
