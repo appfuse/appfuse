@@ -14,8 +14,8 @@
         <managed-bean-class>org.appfuse.webapp.action.<XDtClass:className/>Form</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
         <managed-property>
-          <property-name>id</property-name>
-          <value>#{param.id}</value>
+            <property-name>id</property-name>
+            <value>#{param.id}</value>
         </managed-property>
         <managed-property>
             <property-name>manager</property-name>
