@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.25 2004/05/26 17:42:05 mraible Exp $                 -->
+<!-- $Id: build.xml,v 1.26 2004/06/09 18:34:25 mraible Exp $                 -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
@@ -133,7 +133,6 @@
         <!-- Copy IDEA project files -->
         <copy file="appfuse.iml" tofile="../${app.name}/${app.name}.iml"/>
         <copy file="appfuse.ipr" tofile="../${app.name}/${app.name}.ipr"/>
-        <copy file="appfuse.iws" tofile="../${app.name}/${app.name}.iws"/>
         <replace dir="../${app.name}" value="${app.name}" token="appfuse">
           <include name="${app.name}.i*"/>
         </replace>
