@@ -1,6 +1,3 @@
-<!-- ======================================================================= -->
-<!-- $Id: build.xml,v 1.57 2004/11/03 05:31:12 mraible Exp $                 -->
-<!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:./properties.xml">
     <!ENTITY app-settings SYSTEM "file:./app-settings.xml">
@@ -559,10 +556,27 @@
         </if>
         <echo>Preparing tomcat-context.xml for inclusion in war</echo>
         <!-- Copy tomcat-context.xml file to context.xml -->
-        <copy tofile="${webapp.dist}/context.xml"
-            file="metadata/conf/tomcat-context.xml" overwrite="true">
-            <filterset refid="db.variables"/>
-        </copy>
+        <if>
+            <and>
+                <isset property="tomcat5"/>
+                <not><isset property="tomcat5.5"/></not>
+            </and>
+            <then>
+                <copy tofile="${webapp.dist}/context.xml"
+                    file="metadata/conf/tomcat-context.xml" overwrite="true">
+                    <filterset refid="db.variables"/>
+                </copy>
+            </then>
+            <elseif>
+                <isset property="tomcat5.5"/>
+                <then>
+                    <copy tofile="${webapp.dist}/context.xml"
+                        file="metadata/conf/tomcat-context-5.5.xml" overwrite="true">
+                        <filterset refid="db.variables"/>
+                    </copy>
+                </then>
+            </elseif>
+        </if>
         <!-- Change the path so webapp can find .hbm in appfuse-dao.jar -->
         <replace file="${webapp.target}/WEB-INF/applicationContext-${dao.type}.xml">
             <replacetoken>file:dist</replacetoken>
@@ -768,7 +782,7 @@
             <classpath>
                 <path refid="web.test.classpath"/>
                 <!-- for log4j.properties -->
-                <path location="${webapp.target}/WEB-INF/classes"/>
+                <path location="${build.dir}/web/classes"/>
             </classpath>
         </taskdef>
 
@@ -816,7 +830,7 @@
                     output="${test.dir}/cargo.log"
                     workingDir="${test.dir}/tomcat4x" action="start">
                     <war warFile="${webapp.dist}/${webapp.war}"/>
-                    <property name="cargo.logging" value="info"/>
+                    <property name="cargo.logging" value="medium"/>
                     <property name="cargo.servlet.port" value="${http.port}"/>
                 </cargo-tomcat4x>
         
@@ -970,12 +984,12 @@
     <target name="setup-db" depends="db-create,db-prepare,db-load"
         description="creates database and populates by calling other tasks"/>
         
-        <!-- Remove classes directory for clean build -->
-        <target name="clean" description="Removes build artifacts">
-            <echo level="info">Cleaning build and distribution directories</echo>
-            <delete dir="${build.dir}"/>
-            <delete dir="${dist.dir}"/>
-            <delete file="database.properties"/>
+    <!-- Remove classes directory for clean build -->
+    <target name="clean" description="Removes build artifacts">
+        <echo level="info">Cleaning build and distribution directories</echo>
+        <delete dir="${build.dir}"/>
+        <delete dir="${dist.dir}"/>
+        <delete file="database.properties"/>
     </target>
 
     <!-- =================================================================== -->
