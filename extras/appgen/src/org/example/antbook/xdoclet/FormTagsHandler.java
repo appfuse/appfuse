@@ -171,7 +171,7 @@ public class FormTagsHandler extends AbstractProgramElementTagsHandler {
     }
 
     private Map getFields(XClass clazz, String prefix) throws XDocletException {
-        Map fields = new HashMap();
+        Map fields = new LinkedHashMap();
 
         Collection curFields = clazz.getMethods();
 
