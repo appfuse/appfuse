@@ -14,7 +14,7 @@
     <option name="AUTO_SHOW_ERRORS_IN_EDITOR" value="true" />
   </component>
   <component name="Cvs2Configuration">
-    <option name="ON_FILE_ADDING" value="0" />
+    <option name="ON_FILE_ADDING" value="2" />
     <option name="ON_FILE_REMOVING" value="0" />
     <option name="PRUNE_EMPTY_DIRECTORIES" value="true" />
     <option name="SHOW_UPDATE_OPTIONS" value="true" />
@@ -106,10 +106,42 @@
     <option name="HIDE_WARNINGS" value="false" />
   </component>
   <component name="FileEditorManager" split-orientation="horizontal" split-proportion="0.5">
-    <first-group selected-file="file://$PROJECT_DIR$/web/users.jsp">
-      <entry file="file://$PROJECT_DIR$/web/users.jsp" pinned="false">
+    <first-group selected-file="file://$PROJECT_DIR$/src/dao/org/appfuse/persistence/hibernate/applicationContext-hibernate.xml">
+      <entry file="file://$PROJECT_DIR$/src/dao/org/appfuse/persistence/DAO.java" pinned="false">
         <provider selected="true" editor-type-id="text-editor">
-          <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <state line="37" column="1" selection-start="1043" selection-end="1043" vertical-scroll-proportion="1.0596659">
+            <folding />
+          </state>
+        </provider>
+      </entry>
+      <entry file="file://$PROJECT_DIR$/src/dao/org/appfuse/persistence/hibernate/BaseDAOHibernate.java" pinned="false">
+        <provider selected="true" editor-type-id="text-editor">
+          <state line="13" column="45" selection-start="440" selection-end="440" vertical-scroll-proportion="0.37231505">
+            <folding>
+              <element signature="imports" expanded="true" />
+            </folding>
+          </state>
+        </provider>
+      </entry>
+      <entry file="file://$PROJECT_DIR$/src/dao/org/appfuse/persistence/hibernate/LookupDAOHibernate.java" pinned="false">
+        <provider selected="true" editor-type-id="text-editor">
+          <state line="22" column="56" selection-start="639" selection-end="639" vertical-scroll-proportion="0.4582339">
+            <folding />
+          </state>
+        </provider>
+      </entry>
+      <entry file="file://$PROJECT_DIR$/src/dao/org/appfuse/persistence/hibernate/UserDAOHibernate.java" pinned="false">
+        <provider selected="true" editor-type-id="text-editor">
+          <state line="16" column="59" selection-start="540" selection-end="540" vertical-scroll-proportion="0.4582339">
+            <folding>
+              <element signature="imports" expanded="true" />
+            </folding>
+          </state>
+        </provider>
+      </entry>
+      <entry file="file://$PROJECT_DIR$/src/dao/org/appfuse/persistence/hibernate/applicationContext-hibernate.xml" pinned="false">
+        <provider selected="true" editor-type-id="text-editor">
+          <state line="33" column="0" selection-start="1406" selection-end="1406" vertical-scroll-proportion="0.9451074">
             <folding />
           </state>
         </provider>
@@ -127,27 +159,39 @@
     <option name="SPLITTER_PROPORTION" value="0.5" />
     <profile name="Default" />
   </component>
-  <component name="J2EEProjectPane" />
+  <component name="J2EEProjectPane">
+    <expanded_node url="" module="webapp" type="J2EEModule" />
+    <expanded_node url="file://$PROJECT_DIR$/web" module="webapp" type="webRootDir" />
+  </component>
   <component name="PackagesPane">
-    <expanded_node url="org.appfuse.webapp.form" type="package" />
+    <expanded_node url="org.appfuse.webapp.filter" type="package" />
     <expanded_node url="org.appfuse.persistence.hibernate" type="package" />
     <expanded_node url="org.appfuse.persistence" type="package" />
     <expanded_node url="org.appfuse.service" type="package" />
-    <expanded_node url="org.appfuse.model" type="package" />
-    <expanded_node url="org.appfuse.webapp.filter" type="package" />
     <expanded_node url="org.appfuse.webapp.action" type="package" />
+    <expanded_node url="org.appfuse.model" type="package" />
+    <expanded_node url="org.appfuse.webapp.form" type="package" />
   </component>
   <component name="ProjectPane">
+    <expanded_node url="file://$PROJECT_DIR$/src/dao/org/appfuse" module="appfuse" type="directory" />
     <expanded_node url="" module="webapp" type="module" />
+    <expanded_node url="file://$PROJECT_DIR$/src/dao/org" module="appfuse" type="directory" />
+    <expanded_node url="" module="appfuse" type="module" />
+    <expanded_node url="file://$PROJECT_DIR$/src/dao/org/appfuse/persistence/hibernate" module="appfuse" type="directory" />
+    <expanded_node url="file://$PROJECT_DIR$/src" module="appfuse" type="directory" />
+    <expanded_node url="file://$PROJECT_DIR$/src/dao/org/appfuse/persistence" module="appfuse" type="directory" />
+    <expanded_node url="file://$PROJECT_DIR$/src/dao" module="appfuse" type="directory" />
+    <expanded_node url="file://$PROJECT_DIR$" module="appfuse" type="directory" />
+    <expanded_node url="file://$PROJECT_DIR$/src/dao/org/appfuse/model" module="appfuse" type="directory" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" splitterProportion="0.5">
+    <navigator currentView="PackagesPane" splitterProportion="0.5">
       <flattenPackages PackagesPane="true" />
       <showMembers PackagesPane="true" />
       <showModules PackagesPane="false" />
       <showLibraryContents PackagesPane="false" />
       <hideEmptyPackages PackagesPane="true" />
-      <showStructure PackagesPane="false" ProjectPane="false" />
+      <showStructure PackagesPane="false" ProjectPane="false" J2EEPane="false" />
       <autoscrollToSource PackagesPane="false" />
     </navigator>
   </component>
@@ -157,7 +201,7 @@
     <property name="MemberChooser.showClasses" value="true" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="GoToFile.includeJavaFiles" value="false" />
-    <property name="last_opened_file_path" value="C:\Source\apptracker" />
+    <property name="last_opened_file_path" value="/Users/mraible/dev/apptracker" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
   </component>
   <component name="RunManager">
@@ -256,9 +300,9 @@
     <frame x="0" y="22" width="1440" height="849" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="CVS" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.34016395" order="8" />
+      <window_info id="CVS" active="true" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="true" weight="0.34016395" order="8" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.33" order="7" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="docked" type="docked" visible="true" weight="0.24281609" order="0" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="docked" type="docked" visible="true" weight="0.22557472" order="0" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.329235" order="1" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.24959481" order="1" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.3306011" order="8" />
@@ -418,76 +462,6 @@
     </buildFile>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/test/dao/org/appfuse/persistence/UserDAOTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="81" column="52" selection-start="2237" selection-end="2237" vertical-scroll-proportion="0.7051852">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/metadata/web/global-exceptions.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="23" selection-start="23" selection-end="23" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/web/org/appfuse/webapp/action/BaseActionTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="13" selection-start="327" selection-end="327" vertical-scroll-proportion="0.2488889">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/service/org/appfuse/service/UserManagerTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="57" column="42" selection-start="1738" selection-end="1738" vertical-scroll-proportion="0.49925926">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/web/org/appfuse/webapp/action/UserActionTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="41" selection-start="1180" selection-end="1180" vertical-scroll-proportion="0.64">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/web/org/appfuse/webapp/action/UserAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="311" column="8" selection-start="11995" selection-end="11995" vertical-scroll-proportion="0.37777779">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/web/org/appfuse/webapp/form/UserFormEx.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="42" selection-start="1512" selection-end="1512" vertical-scroll-proportion="0.62222224">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="487" column="34" selection-start="21163" selection-end="21163" vertical-scroll-proportion="0.52878785">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/web/web-tests.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="74" column="74" selection-start="2930" selection-end="2930" vertical-scroll-proportion="0.05037037">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/web/org/appfuse/webapp/filter/ActionFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="109" column="16" selection-start="3994" selection-end="3994" vertical-scroll-proportion="0.30962962">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/web/org/appfuse/webapp/action/BaseAction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="319" column="20" selection-start="11273" selection-end="11273" vertical-scroll-proportion="0.5096296">
@@ -511,16 +485,60 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/dao/org/appfuse/persistence/hibernate/UserDAOHibernate.java">
+    <entry file="file://$PROJECT_DIR$/web/users.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="69" selection-start="1070" selection-end="1070" vertical-scroll-proportion="0.32">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/users.jsp">
+    <entry file="dummy://J2EEElement://webapp/J2EE_WEB_MODULE">
+      <provider selected="true" editor-type-id="J2EE">
+        <state proportions="0.5" />
+      </provider>
+    </entry>
+    <entry file="file:///Users/mraible/dev/myusers/myusers.iml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dao/org/appfuse/persistence/DAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="37" column="1" selection-start="1043" selection-end="1043" vertical-scroll-proportion="1.0596659">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dao/org/appfuse/persistence/hibernate/LookupDAOHibernate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="56" selection-start="639" selection-end="639" vertical-scroll-proportion="0.4582339">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dao/org/appfuse/persistence/hibernate/BaseDAOHibernate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="45" selection-start="440" selection-end="440" vertical-scroll-proportion="0.37231505">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dao/org/appfuse/persistence/hibernate/UserDAOHibernate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="59" selection-start="540" selection-end="540" vertical-scroll-proportion="0.4582339">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dao/org/appfuse/persistence/hibernate/applicationContext-hibernate.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="33" column="0" selection-start="1406" selection-end="1406" vertical-scroll-proportion="0.9451074">
           <folding />
         </state>
       </provider>

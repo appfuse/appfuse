@@ -15,7 +15,6 @@ import org.appfuse.model.UserRole;
 import org.appfuse.persistence.DAOException;
 import org.appfuse.persistence.UserDAO;
 import org.springframework.orm.hibernate.HibernateCallback;
-import org.springframework.orm.hibernate.support.HibernateDaoSupport;
 
 
 /**
@@ -27,9 +26,9 @@ import org.springframework.orm.hibernate.support.HibernateDaoSupport;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.3 $ $Date: 2004/04/12 02:37:11 $
+ * @version $Revision: 1.4 $ $Date: 2004/04/13 04:03:35 $
  */
-public class UserDAOHibernate extends HibernateDaoSupport implements UserDAO {
+public class UserDAOHibernate extends BaseDAOHibernate implements UserDAO {
     private Log log = LogFactory.getLog(UserDAOHibernate.class);
 
     /**

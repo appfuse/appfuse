@@ -17,10 +17,10 @@ import org.springframework.orm.hibernate.support.HibernateDaoSupport;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.2 $ $Date: 2004/04/12 02:37:11 $
+ * @version $Revision: 1.3 $ $Date: 2004/04/13 04:03:35 $
  *
  */
-public class LookupDAOHibernate extends HibernateDaoSupport implements LookupDAO {
+public class LookupDAOHibernate extends BaseDAOHibernate implements LookupDAO {
     private Log log = LogFactory.getLog(LookupDAOHibernate.class);
 
     /**
