@@ -30,7 +30,7 @@
         <delete>
             <fileset dir="${struts.dir}">
                 <include name="*fileupload*"/>
-                <include name="struts-el.jar"/>
+                <include name="struts*.jar"/>
             </fileset>
         </delete>
 
@@ -67,6 +67,7 @@
             <fileset dir="../../test/web/org/appfuse/webapp/action">
                 <exclude name="LoginServlet*"/>
             </fileset>
+            <fileset dir="../../test/web/org/appfuse/webapp/form"/>
         </delete> 
         <copy todir="../../test" overwrite="true">
             <fileset dir="test" includes="**"/>
