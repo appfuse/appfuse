@@ -74,6 +74,9 @@ Features/Changes in 1.6.1
   DataIntegrityViolationException occurs.
 - Patched XDoclet so that running "ant setup test-all" will work again.
   http://opensource.atlassian.com/projects/xdoclet/browse/XDT-879 
+- Added CruiseControl files and documentation to extras/cruisecontrol.  
+- Created tests in the installs like Equinox has. [UNTESTED]
+- Created "appgen" tool that creates everything for CRUDing an object. [UNTESTED]
 - Dependent packages upgraded:
     * Ant Contrib 1.1b1
     * Canoo WebTest build 543
