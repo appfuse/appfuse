@@ -54,7 +54,7 @@ public abstract class PasswordHint extends BasePage {
             message.setTo(user.getEmail());
             
             String subject = getMessage("webapp.prefix") + getMessage("user.passwordHint");
-            message.setSubject("foo");
+            message.setSubject(subject);
             message.setText(msg.toString());
             getMailEngine().send(message);
             
