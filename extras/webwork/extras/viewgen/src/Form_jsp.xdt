@@ -1,9 +1,9 @@
 <XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><%@ include file="/common/taglibs.jsp"%>
 
-<title><fmt:message key="<XDtForm:classNameLower/>.title"/></title>
-<content tag="heading"><fmt:message key="<XDtForm:classNameLower/>.heading"/></content>
+<title><fmt:message key="<XDtForm:classNameLower/>Detail.title"/></title>
+<content tag="heading"><fmt:message key="<XDtForm:classNameLower/>Detail.heading"/></content>
 
-<ww:form name="'<XDtForm:classNameLower/>'" action="'save<XDtForm:className/>'" method="'post'" validate="true">
+<ww:form name="'<XDtForm:classNameLower/>'" action="'save<XDtClass:className/>'" method="'post'" validate="true">
 <table class="detail">
     <XDtForm:forAllFields>
     <ww:textfield label="getText('<XDtForm:classNameLower/>.<XDtForm:fieldName/>')" name="'<XDtForm:classNameLower/>.<XDtForm:fieldName/>'"
