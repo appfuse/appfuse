@@ -70,13 +70,13 @@ public class LoginServletTest extends ServletTestCase {
 
         Map config =
             (HashMap) servlet.getServletContext().getAttribute(Constants.CONFIG);
-        assertEquals((String) config.get(Constants.HTTP_PORT),
+        assertEquals(config.get(Constants.HTTP_PORT),
                      rb.getString("httpPort"));
-        assertEquals((String) config.get(Constants.HTTPS_PORT),
+        assertEquals(config.get(Constants.HTTPS_PORT),
                      rb.getString("httpsPort"));
-        assertEquals((Boolean) config.get(Constants.SECURE_LOGIN),
+        assertEquals(config.get(Constants.SECURE_LOGIN),
                      Boolean.valueOf(rb.getString("isSecure")));
-        assertEquals((String) config.get(Constants.ENC_ALGORITHM),
+        assertEquals(config.get(Constants.ENC_ALGORITHM),
                      rb.getString("algorithm"));
     }
 
