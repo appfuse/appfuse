@@ -145,23 +145,23 @@ to copy and/or improve.
     &lt;/sql:update&gt;
 
     &lt;sql:update var="updateCount"&gt;
-        INSERT INTO menu_item 
+        INSERT INTO menu_item
             (id, name, title)
-        VALUES 
+        VALUES
             (1,'DatabaseMenu','Database Menu')
     &lt;/sql:update&gt;
     &lt;sql:update var="updateCount"&gt;
-        INSERT INTO menu_item 
+        INSERT INTO menu_item
             (id, parent_name, name, title, location)
-        VALUES 
+        VALUES
             (2,'DatabaseMenu','Yahoo','Yahoo Mail','http://mail.yahoo.com')
-    &lt;/sql:update&gt;   
+    &lt;/sql:update&gt;
     &lt;sql:update var="updateCount"&gt;
         INSERT INTO menu_item
             (id, parent_name, name, title, location)
         VALUES
             (3,'DatabaseMenu','JavaBlogs','JavaBlogs','http://javablogs.com')
-    &lt;/sql:update&gt;    
+    &lt;/sql:update&gt;
     &lt;sql:update var="updateCount"&gt;
         INSERT INTO menu_item
             (id, name, title, location)
@@ -190,11 +190,13 @@ to copy and/or improve.
 
     <p>
         Now let's build a Menu definition with this data.  Below is the
-        Java scriplet code that is used to build this menu.  In a well-architected
-        application, this code would likely go in a ServletFilter, a ContextListener
-        or a Login Servlet.  With a Filter, you could create a user's menu
-        when they login.  A Listener would handle setting database menus for everyone
-        at startup and a Login Servlet could be used if you're using a Servlet 2.2 container.
+        Java scriplet code that is used to build this menu.
+    </p>
+    <p style="margin-left: 30px; font-style: italic">
+        In a <b>well-architected</b> application, you might pull the data
+        from the database using Hibernate, iBATIS, or JDBC.  You could then
+        use a Business Delegate for your who-sees-what logic and call the Delegate
+        from a ServletFilter, a ServletContextListener or a Login Servlet.
     </p>
 
     <%
