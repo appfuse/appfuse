@@ -75,7 +75,7 @@ public class UserDAOTest extends BaseDAOTestCase {
         assertTrue(user.getRoles().size() == 1);
     }
 
-    public void testAddUser() throws Exception {
+    public void testAddAndRemoveUser() throws Exception {
         user = new User();
         user.setUsername("testuser");
         user.setPassword("testpass");
@@ -92,9 +92,7 @@ public class UserDAOTest extends BaseDAOTestCase {
         user = dao.saveUser(user);
         assertTrue(user.getUsername() != null);
         assertTrue(user.getPassword().equals("testpass"));
-    }
 
-    public void testRemoveUser() throws Exception {
         dao.removeUser("testuser");
 
         try {
@@ -122,9 +120,5 @@ public class UserDAOTest extends BaseDAOTestCase {
 
         cookie = dao.getUserCookie(cookieId);
         assertNull(cookie);
-    }
-
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(UserDAOTest.class);
     }
 }

@@ -1,16 +1,24 @@
 package org.appfuse.dao;
 
+import java.io.FileInputStream;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import javax.sql.DataSource;
+
 import junit.framework.TestCase;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.dbunit.database.DatabaseConnection;
+import org.dbunit.database.IDatabaseConnection;
+import org.dbunit.dataset.IDataSet;
+import org.dbunit.dataset.xml.XmlDataSet;
+import org.dbunit.operation.DatabaseOperation;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -22,7 +30,9 @@ public class BaseDAOTestCase extends TestCase {
     protected final Log log = LogFactory.getLog(getClass());
     protected final static ApplicationContext ctx;
     protected ResourceBundle rb;
-
+    private IDatabaseConnection conn = null;
+    private IDataSet dataSet = null;
+    
     // This static block ensures that Spring's BeanFactory is only loaded
     // once for all tests
     static {
@@ -45,6 +55,21 @@ public class BaseDAOTestCase extends TestCase {
         } catch (MissingResourceException mre) {
             //log.warn("No resource bundle found for: " + className);
         }
+    }
+    
+    protected void setUp() throws Exception {
+        DataSource ds = (DataSource) ctx.getBean("dataSource");
+        conn = new DatabaseConnection(ds.getConnection());
+        dataSet = new XmlDataSet(new FileInputStream("metadata/sql/sample-data.xml"));
+        // clear table and insert only sample data
+        DatabaseOperation.CLEAN_INSERT.execute(conn, dataSet);
+    }
+    
+    protected void tearDown() throws Exception {
+        // clear out database
+        DatabaseOperation.DELETE.execute(conn, dataSet);
+        conn.close();
+        conn = null;
     }
 
     /**

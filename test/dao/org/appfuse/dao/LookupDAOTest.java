@@ -23,8 +23,4 @@ public class LookupDAOTest extends BaseDAOTestCase {
 
         assertTrue(roles.size() == 2);
     }
-
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(LookupDAOTest.class);
-    }
 }
