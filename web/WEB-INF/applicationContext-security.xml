@@ -3,8 +3,54 @@
     "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
-    <!-- =================== SECURITY BEANS YOU SHOULD CHANGE ================== -->
 
+    <!-- ======================== FILTER CHAIN ======================= -->
+    <bean id="filterChainProxy" class="net.sf.acegisecurity.util.FilterChainProxy">
+        <property name="filterInvocationDefinitionSource">
+            <value>
+                CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+                PATTERN_TYPE_APACHE_ANT
+                /**=httpSessionContextIntegrationFilter,authenticationProcessingFilter,remoteUserFilter,anonymousProcessingFilter,securityEnforcementFilter 
+            </value>
+        </property>
+    </bean>
+
+    <!-- ======================== AUTHENTICATION ======================= -->
+    
+    <!-- Note the order that entries are placed against the objectDefinitionSource is critical.
+         The FilterSecurityInterceptor will work from the top of the list down to the FIRST pattern that matches the request URL.
+         Accordingly, you should place MOST SPECIFIC (ie a/b/c/d.*) expressions first, with LEAST SPECIFIC (ie a/.*) expressions last -->
+    <bean id="filterInvocationInterceptor" class="net.sf.acegisecurity.intercept.web.FilterSecurityInterceptor">
+        <property name="authenticationManager"><ref local="authenticationManager"/></property>
+        <property name="accessDecisionManager"><ref local="accessDecisionManager"/></property>
+         <property name="objectDefinitionSource">
+            <value>
+                CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+                PATTERN_TYPE_APACHE_ANT
+                /signup.html=ROLE_ANONYMOUS,admin,tomcat
+                /passwordhint.html*=ROLE_ANONYMOUS,admin,tomcat
+                /*.html*=admin,tomcat
+            </value>
+        </property>
+    </bean>
+
+    <bean id="authenticationManager" class="net.sf.acegisecurity.providers.ProviderManager">
+        <property name="providers">
+            <list>
+                <ref local="daoAuthenticationProvider"/>
+                <ref local="anonymousAuthenticationProvider"/>
+            </list>
+        </property>
+    </bean>
+   
+    <!-- Automatically receives AuthenticationEvent messages from DaoAuthenticationProvider -->
+    <bean id="loggerListener" class="net.sf.acegisecurity.providers.dao.event.LoggerListener"/>
+    
+    <bean id="daoAuthenticationProvider" class="net.sf.acegisecurity.providers.dao.DaoAuthenticationProvider">
+         <property name="authenticationDao"><ref local="jdbcAuthenticationDao"/></property>
+         <property name="userCache"><ref local="userCache"/></property>
+    </bean>
+    
     <!-- Read users from database -->
     <bean id="jdbcAuthenticationDao" class="net.sf.acegisecurity.providers.dao.jdbc.JdbcDaoImpl">
         <property name="dataSource"><ref bean="dataSource"/></property>
@@ -15,45 +61,22 @@
             <value>SELECT username,role_name FROM user_role WHERE username = ?</value>
         </property>
     </bean>
-    
-    <!-- Note the order that entries are placed against the objectDefinitionSource is critical.
-         The FilterSecurityInterceptor will work from the top of the list down to the FIRST pattern that matches the request URL.
-         Accordingly, you should place MOST SPECIFIC (ie a/b/c/d.*) expressions first, with LEAST SPECIFIC (ie a/.*) expressions last -->
-    <bean id="filterInvocationInterceptor" class="net.sf.acegisecurity.intercept.web.FilterSecurityInterceptor">
-        <property name="authenticationManager"><ref local="authenticationManager"/></property>
-        <property name="accessDecisionManager"><ref local="accessDecisionManager"/></property>
-        <!-- TODO: Create own objectDefinitionSource instead of patching Acegi -->
-        <!-- Patch to exclude URLs at: http://forum.springframework.org/viewtopic.php?t=2528 -->
-         <property name="objectDefinitionSource">
-            <value>
-                CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
-                PATTERN_TYPE_APACHE_ANT
-                !/signup.html=Foo
-                !/passwordhint.html*=Foo
-                /*.html*=admin,tomcat
-            </value>
+
+    <bean id="userCache" class="net.sf.acegisecurity.providers.dao.cache.EhCacheBasedUserCache">
+        <property name="cache">
+            <bean class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+                <property name="cacheManager">
+                    <bean class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"/>
+                </property>
+                <property name="cacheName"><value>userCache</value></property>
+            </bean>
         </property>
     </bean>
-
-    <!-- =================== SECURITY BEANS YOU WILL RARELY (IF EVER) CHANGE ================== -->
+   
+    <bean id="anonymousAuthenticationProvider" class="net.sf.acegisecurity.providers.anonymous.AnonymousAuthenticationProvider">
+        <property name="key"><value>anonymous</value></property>
+    </bean>
     
-    <bean id="jdbcAuthenticationProvider" class="net.sf.acegisecurity.providers.dao.DaoAuthenticationProvider">
-         <property name="authenticationDao"><ref local="jdbcAuthenticationDao"/></property>
-         <!--property name="userCache"><ref local="userCache"/></property-->
-    </bean>
-
-    <!--bean id="userCache" class="net.sf.acegisecurity.providers.dao.cache.EhCacheBasedUserCache">
-        <property name="minutesToIdle"><value>5</value></property>
-    </bean-->
-
-    <bean id="authenticationManager" class="net.sf.acegisecurity.providers.ProviderManager">
-        <property name="providers"> 
-            <list>
-                <ref local="jdbcAuthenticationProvider"/>
-            </list>
-        </property>
-    </bean>
-
     <bean id="roleVoter" class="net.sf.acegisecurity.vote.RoleVoter">
         <property name="rolePrefix"><value/></property>
     </bean>
@@ -66,18 +89,30 @@
             </list>
         </property>
     </bean>
-
+    
+    <!-- ===================== HTTP REQUEST SECURITY ==================== -->
+    <bean id="httpSessionContextIntegrationFilter" class="net.sf.acegisecurity.context.HttpSessionContextIntegrationFilter">
+        <property name="context"><value>net.sf.acegisecurity.context.security.SecureContextImpl</value></property>
+    </bean>
+    
     <bean id="authenticationProcessingFilter" class="net.sf.acegisecurity.ui.webapp.AuthenticationProcessingFilter">
         <property name="authenticationManager"><ref local="authenticationManager"/></property>
         <property name="authenticationFailureUrl"><value>/login.jsp?error=true</value></property>
         <property name="defaultTargetUrl"><value>/</value></property>
         <property name="filterProcessesUrl"><value>/j_security_check</value></property>
     </bean>
-
+    
+    <bean id="anonymousProcessingFilter" class="net.sf.acegisecurity.providers.anonymous.AnonymousProcessingFilter">
+        <property name="key"><value>anonymous</value></property>
+        <property name="userAttribute"><value>anonymous,ROLE_ANONYMOUS</value></property>
+    </bean>
+    
     <bean id="securityEnforcementFilter" class="net.sf.acegisecurity.intercept.web.SecurityEnforcementFilter">
         <property name="filterSecurityInterceptor"><ref local="filterInvocationInterceptor"/></property>
         <property name="authenticationEntryPoint"><ref local="authenticationProcessingFilterEntryPoint"/></property>
     </bean>
+    
+    <bean id="remoteUserFilter" class="net.sf.acegisecurity.wrapper.ContextHolderAwareRequestFilter"/>
 
     <bean id="authenticationProcessingFilterEntryPoint" class="net.sf.acegisecurity.ui.webapp.AuthenticationProcessingFilterEntryPoint">
         <property name="loginFormUrl"><value>/login.jsp</value></property>
