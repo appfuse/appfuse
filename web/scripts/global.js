@@ -317,7 +317,6 @@ function confirmDelete(obj) {
 function highlightFormElements() {
     // add input box highlighting 
     addFocusHandlers(document.getElementsByTagName("input"));
-    addFocusHandlers(document.getElementsByTagName("select"));
     addFocusHandlers(document.getElementsByTagName("textarea"));
 }
 
