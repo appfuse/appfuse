@@ -16,7 +16,6 @@ import org.appfuse.service.LookupManager;
  * <p><a href="LookupManagerImpl.java.html"><i>View Source</i></a></p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.1 $ $Date: 2004/08/19 00:10:41 $
  */
 public class LookupManagerImpl extends BaseManager implements LookupManager {
     //~ Instance fields ========================================================

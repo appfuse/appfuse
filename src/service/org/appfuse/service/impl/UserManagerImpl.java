@@ -3,12 +3,10 @@ package org.appfuse.service.impl;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.appfuse.dao.DAOException;
 import org.appfuse.dao.UserDAO;
 import org.appfuse.model.User;
 import org.appfuse.model.UserCookie;
 import org.appfuse.service.BaseManager;
-import org.appfuse.service.ServiceException;
 import org.appfuse.service.UserManager;
 import org.appfuse.util.RandomGUID;
 import org.appfuse.util.StringUtil;
@@ -23,7 +21,6 @@ import org.appfuse.util.StringUtil;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.1 $ $Date: 2004/08/19 00:10:41 $
  */
 public class UserManagerImpl extends BaseManager implements UserManager {
     private UserDAO dao;
@@ -39,12 +36,8 @@ public class UserManagerImpl extends BaseManager implements UserManager {
     /**
      * @see org.appfuse.service.UserManager#getUser(java.lang.String)
      */
-    public User getUser(String username) throws ServiceException {
-        try {
-        	return dao.getUser(username);
-        } catch (DAOException d) {
-        	throw new ServiceException(d.getMessage(), d);
-        }
+    public User getUser(String username) {
+        return dao.getUser(username);
     }
 
     /**
@@ -57,28 +50,19 @@ public class UserManagerImpl extends BaseManager implements UserManager {
     /**
      * @see org.appfuse.service.UserManager#saveUser(org.appfuse.model.User)
      */
-    public User saveUser(User user) throws ServiceException {
-        try {
-        	return dao.saveUser(user);
-        } catch (DAOException d) {
-        	throw new ServiceException(d.getMessage(), d);
-        }
+    public User saveUser(User user) {
+        return dao.saveUser(user);
     }
 
     /**
      * @see org.appfuse.service.UserManager#removeUser(java.lang.String)
      */
-    public void removeUser(String username) throws ServiceException {
-
+    public void removeUser(String username) {
         if (log.isDebugEnabled()) {
             log.debug("removing user: " + username);
         }
 
-        try {
-        	dao.removeUser(username);
-        } catch (DAOException d) {
-            throw new ServiceException(d.getMessage(), d);
-        }
+        dao.removeUser(username);
     }
     
     /**
@@ -89,11 +73,19 @@ public class UserManagerImpl extends BaseManager implements UserManager {
 
         String[] values = StringUtils.split(value, "|");
 
+        // in case of empty username in cookie, return null
+        if (values.length == 1) {
+            return null;   
+        }
+        
         if (log.isDebugEnabled()) {
             log.debug("looking up cookieId: " + values[1]);
         }
 
-        UserCookie cookie = dao.getUserCookie(values[1]);
+        UserCookie cookie = new UserCookie();
+        cookie.setUsername(values[0]);
+        cookie.setCookieId(values[1]);
+        cookie = dao.getUserCookie(cookie);
 
         if (cookie != null) {
             if (log.isDebugEnabled()) {
