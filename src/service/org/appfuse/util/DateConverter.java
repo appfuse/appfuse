@@ -8,8 +8,6 @@ import java.util.Date;
 import org.apache.commons.beanutils.ConversionException;
 import org.apache.commons.beanutils.Converter;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 
 /**
@@ -23,10 +21,9 @@ import org.apache.commons.logging.LogFactory;
  * </p>
  * 
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.4 $ $Date: 2004/05/16 02:16:54 $
+ * @version $Revision: 1.5 $ $Date: 2004/08/22 03:27:25 $
  */
 public class DateConverter implements Converter {
-    private static Log log = LogFactory.getLog(DateConverter.class);
     private static DateFormat df =
         new SimpleDateFormat(DateUtil.getDatePattern());
 
