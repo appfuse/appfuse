@@ -186,10 +186,10 @@
 
 <v:validatorScript functionName="validateUserForm"/>
 <script type="text/javascript">
-<c:if test="${empty userForm.username}">
+<c:if test="${empty userForm.user.username}">
     document.forms["userForm"].elements["userForm:username"].focus();
 </c:if>
-<c:if test="${not empty userForm.username}">
+<c:if test="${not empty userForm.user.username}">
     document.forms["userForm"].elements["userForm:password"].focus();
 </c:if>
     highlightFormElements();
