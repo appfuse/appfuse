@@ -19,7 +19,7 @@ public class UserFormControllerTest extends BaseControllerTestCase {
     private MockHttpServletRequest request;
     private ModelAndView mv;
 
-    protected void setUp() {
+    protected void setUp() throws Exception {
         // needed to initialize a user
         super.setUp();
         c = (UserFormController) ctx.getBean("userFormController");
@@ -75,13 +75,6 @@ public class UserFormControllerTest extends BaseControllerTestCase {
     }
     
     public void testRemove() throws Exception {
-        // get the user first so their information is in the request
-        // TODO: Fix UserFormController so validation is off for delete
-        //request = newGet("/editUser.html");
-        //request.addParameter("username", "mraible");
-
-        //mv = c.handleRequest(request, new MockHttpServletResponse());
-        
         request = newPost("/editUser.html");
         request.addParameter("delete", "");
         request.addParameter("username", "mraible");
