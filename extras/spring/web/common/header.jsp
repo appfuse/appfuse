@@ -3,8 +3,7 @@
 <%-- Put constants into request scope --%>
 <appfuse:constants scope="request"/>
 
-<%-- Check to ensure "userCounter" is in request, if not, don't display --%>
-<c:if test="${requestScope.userCounter != null}">
+<c:if test="${applicationScope.userCounter != null}">
 <div id="activeUsers">
   <r:isUserInRole role="admin">
     <a href="<c:url value="/activeUsers.html"/>"><fmt:message key="mainMenu.activeUsers"/></a>:
