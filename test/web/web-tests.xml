@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: web-tests.xml,v 1.2 2004/03/07 22:06:55 mraible Exp $               -->
+<!-- $Id: web-tests.xml,v 1.3 2004/03/15 13:05:51 mraible Exp $               -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY properties SYSTEM "file:../../properties.xml">
@@ -18,7 +18,7 @@
     
     <!-- runs user-related tests -->
     <target name="UserTests" 
-        depends="EditUser,SearchUser,SaveUser,AddUser"
+        depends="EditUser,SearchUser,SaveUser,AddUser,ActiveUsers"
         description="Call and executes all person test cases (targets)">
         <echo>Successfully ran all User JSP tests!</echo>
     </target>
@@ -218,6 +218,21 @@
         </canoo>
     </target>
 
+    <!-- View Active Users -->
+    <target name="ActiveUsers" 
+        description="View Active Users List">
+        <canoo name="activeUsers">
+            &config;
+            <steps>
+                &login;
+                <invoke stepid="get activeUsers URL" 
+                    url="/activeUsers.do"/>
+                <verifytitle stepid="we should see the activeUsers title" 
+                    text="${webapp.prefix}${activeUsers.title}"/>
+            </steps>
+        </canoo>
+    </target>
+    
     <!-- Flush OSCache -->
     <target name="FlushCache" 
         description="opens JSP to Flush Page Cache">

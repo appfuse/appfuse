@@ -9,8 +9,8 @@
     <fmt:message key="button.cancel"/>
 </button>
     
-<display:table name="userNames" id="user" cellspacing="0" cellpadding="0"
-    defaultsort="1" scope="application" styleClass="list activeUserList" 
+<display:table name="${userNames}" id="user" cellspacing="0" cellpadding="0"
+    defaultsort="1" styleClass="list activeUserList" 
     pagesize="50" requestURI="${request.contextPath}">
   
     <%-- Table columns --%>

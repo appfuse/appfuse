@@ -17,7 +17,7 @@
 <c:out value="${buttons}" escapeXml="false"/>
 
 <display:table name="${<XDtStruts:simpleNameLower/>List}" cellspacing="0" cellpadding="0"
-	id="<XDtStruts:simpleNameLower/>List" scope="request" pagesize="25" styleClass="list" 
+	id="<XDtStruts:simpleNameLower/>List" pagesize="25" styleClass="list" 
     export="true" requestURI="${request.contextPath}">
   
     <display:column property="id" sort="true" headerClass="sortable"
