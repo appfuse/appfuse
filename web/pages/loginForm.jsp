@@ -43,12 +43,7 @@
     <tr>
         <td></td>
         <td>
-            <%-- Remember Me on by default, unless user has unchecked it and failed to login --%>
-            <input type="checkbox" name="rememberMe" id="rememberMe" tabindex="3" 
-                <c:if test="${param.error == null and param.rememberMe == null}">
-                    checked="checked"
-                </c:if>
-            />
+            <input type="checkbox" name="rememberMe" id="rememberMe" tabindex="3"/>
             <label for="rememberMe"><fmt:message key="login.rememberMe"/></label>
         </td>
     </tr>
