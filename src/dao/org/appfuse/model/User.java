@@ -48,7 +48,7 @@ public class User extends BaseObject {
      * 
      * @struts.validator type="required"
      * @hibernate.id column="username" length="20" generator-class="assigned"
-     *               unsaved-value="timestamp"
+     *               unsaved-value="version"
      */
     public String getUsername() {
         return username;
