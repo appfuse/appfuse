@@ -31,14 +31,6 @@
         <url-pattern>*.html</url-pattern>
     </filter-mapping>
     <filter-mapping>
-        <filter-name>hibernateFilter</filter-name>
-        <url-pattern>/passwordHint/*</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>hibernateFilter</filter-name>
-        <url-pattern>/register/*</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
         <filter-name>actionFilter</filter-name>
         <url-pattern>*.html</url-pattern>
     </filter-mapping>
