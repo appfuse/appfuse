@@ -1,0 +1,453 @@
+<!-- This file is designed to add Tapestry support to AppFuse -->
+<project name="tapestry" basedir="." default="help">
+
+    <property name="lib.dir" location="../../lib"/>
+    <property file="${lib.dir}/lib.properties"/>
+
+    <!-- =================================================================== -->
+    <!-- List options for this build file                                    -->
+    <!-- =================================================================== -->
+    <target name="help" description="Print usage for key targets">
+    <echo>
+    Key Targets:
+                install: Replaces Struts with Tapestry
+                   test: Creates appfuse-tapestry project and runs tests 
+                   
+                   help: Print this help text...
+    </echo>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Replaces Struts with Tapestry                                     -->
+    <!-- =================================================================== -->
+    <target name="install"
+        description="replaces Struts with Tapestry in the AppFuse base project">
+        <echo level="info">Copying JARs to ../../lib</echo>
+        <copy todir="${lib.dir}">
+            <fileset dir="lib" includes="**"/>
+        </copy>
+        <echo level="info">Adding entries to ../../lib.properties</echo>
+        <replace file="${lib.dir}/lib.properties">
+            <replacetoken><![CDATA[
+#
+# StrutsTestCase - http://strutstestcase.sourceforge.net
+#
+strutstestcase.version  = 2.1.2
+strutstestcase.dir=${lib.dir}/strutstest-${strutstestcase.version}
+strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.jar]]></replacetoken>
+            <replacevalue><![CDATA[#
+# Tapestry - http://jakarta.apache.org/tapestry
+#
+tapestry.version=3.0
+tapestry.dir=${lib.dir}/tapestry-${tapestry.version}/lib
+tapestry.jar=${tapestry.dir}/tapestry-${tapestry.version}.jar]]></replacevalue>
+        </replace>
+
+        <echo level="info">Adding classpath entries</echo>
+        <replace file="../../properties.xml">
+            <replacetoken><![CDATA[<pathelement location="${struts.jar}"/>]]></replacetoken>
+            <replacevalue><![CDATA[<fileset dir="${tapestry.dir}" includes="*.jar"/>]]></replacevalue>
+        </replace>
+        <replace file="../../properties.xml">
+            <replacetoken><![CDATA[<pathelement location="${strutstestcase.jar}"/>]]></replacetoken>
+        </replace>
+        
+        <echo level="info">Removing Struts-specific JARs</echo>
+        <delete>
+            <fileset dir="${struts.dir}">
+                <include name="struts*.jar"/>
+                <include name="commons-validator*.jar"/>
+                <include name="*.xml"/>
+            </fileset>
+        </delete>
+        <delete dir="${strutstestcase.dir}"/>
+
+        <replace file="${lib.dir}/lib.properties">
+            <replacetoken><![CDATA[struts.jar=${struts.dir}/struts.jar]]></replacetoken>
+            <replacevalue></replacevalue>
+        </replace>
+        
+        <echo level="info">Deleting struts_form.xdt for XDoclet</echo>
+        <delete dir="../../metadata/templates"/>
+
+        <echo level="info">Deleting Struts merge-files in metadata/web</echo>
+        <delete>
+            <fileset dir="../../metadata/web">
+                <include name="global-*.xml"/>
+                <include name="struts-*.xml"/>
+                <include name="xdoclet-*.java"/>
+            </fileset>
+        </delete>
+        <echo level="info">Replacing Struts servlet</echo>
+        <copy todir="../../metadata/web" overwrite="true">
+            <fileset dir="metadata/web" includes="*.xml"/>
+        </copy>
+        <echo level="info">Deleting unused Tag Libraries and Utilities</echo>
+        <delete>
+            <fileset dir="../../src/web/org/appfuse/webapp">
+                <include name="taglib/LabelTag.java"/>
+                <include name="taglib/CountryTag.java"/>
+                <include name="util/ValidationUtil.java"/>
+            </fileset>
+        </delete>
+
+        <!-- Modify appgen for Tapestry -->
+        <echo level="info">Modifying appgen for Tapestry</echo>
+        <copy todir="../appgen" overwrite="true">
+            <fileset dir="extras/appgen" includes="**"/>
+        </copy>
+        <!-- Add templates to the list appgen/build.xml -->
+        <replace file="../appgen/build.xml">
+            <replacetoken><![CDATA[<!-- Generic Action -->
+            <template templateFile="${template.dir}/generic/Action.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/generic/src/web/${app.package}/webapp/action/{0}Action.java"/>]]></replacetoken>
+            <replacevalue><![CDATA[<!-- Generic Action -->
+            <template templateFile="${template.dir}/generic/Action.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/generic/src/web/${app.package}/webapp/action/{0}Action.java"/>
+            <!-- XWork actions -->
+            <template templateFile="${template.dir}/xwork.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/web/WEB-INF/classes/xwork-{0}.xml"/>
+            <!-- Action bean definitions -->
+            <template templateFile="${template.dir}/action-servlet.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/web/WEB-INF/action-servlet-{0}.xml"/>
+            <!-- Action validation -->
+            <template templateFile="${template.dir}/Action-validation.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/src/web/${app.package}/webapp/action/{0}Action-validation.xml"/>
+            <!-- Model validation -->
+            <template templateFile="${template.dir}/validation.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/src/dao/${app.package}/model/{0}-validation.xml"/>]]></replacevalue>
+        </replace>
+        
+        <!-- Modify web-tests.xdt template to user model.propertyName -->
+        <replace file="../appgen/src/web-tests.xdt">
+            <replacetoken><![CDATA[name="<XDtMethod:propertyName/>" value]]></replacetoken>
+            <replacevalue><![CDATA[name="<XDtForm:classNameLower/>.<XDtMethod:propertyName/>" value]]></replacevalue>
+        </replace>
+        
+        <!-- Modify XML to modify action-servlet.xml -->
+        <replace file="../appgen/build.xml">
+            <replacetoken><![CDATA[<echo>Merging sample-data into metadata/sql/sample-data.xml</echo>]]></replacetoken>
+            <replacevalue><![CDATA[
+        <echo>Merging controller configuration XML into web/WEB-INF/action-servlet.xml</echo>
+        <loadfile property="action.beans"
+            srcfile="${generated.dir}/web/WEB-INF/action-servlet-${model.name}.xml"/>
+        <!-- Replace strategically placed comment -->   
+        <replace file="../../web/WEB-INF/action-servlet.xml" 
+            token="&lt;!-- Add additional actions here --&gt;"
+            value="${action.beans}"/>
+
+        <loadfile property="xwork.actions"
+            srcfile="${generated.dir}/web/WEB-INF/classes/xwork-${model.name}.xml"/>
+        <!-- Replace strategically placed comment -->   
+        <replace file="../../web/WEB-INF/classes/xwork.xml" 
+            token="&lt;!-- Add additional actions here --&gt;"
+            value="${xwork.actions}"/>
+            
+        <echo>Copying validation XML files to appropriate locations</echo>
+        <copy todir="../.." overwrite="${overwrite}">
+            <fileset dir="${generated.dir}" includes="**/*-validation.xml"/>
+        </copy>
+        
+        <echo>Merging sample-data into metadata/sql/sample-data.xml</echo>]]></replacevalue>
+        </replace>
+        
+        <!-- Copy source and tests -->    
+        <echo level="info">Replacing source and test files</echo>
+        <delete dir="../../src/web/org/appfuse/webapp/form"/>
+        <delete>
+            <fileset dir="../../src/web/org/appfuse/webapp/action">
+                <exclude name="LoginServlet.java"/>
+            </fileset>
+        </delete>
+        <copy todir="../../src" overwrite="true">
+            <fileset dir="src" includes="**"/>
+        </copy>
+        <!-- Copy tests -->
+        <delete dir="../../test/web/org/appfuse/webapp/form"/>
+        <delete>
+            <fileset dir="../../test/web/org/appfuse/webapp/action">
+                <exclude name="LoginServlet*"/>
+            </fileset>
+        </delete> 
+        <copy todir="../../test" overwrite="true">
+            <fileset dir="test" includes="**"/>
+        </copy>
+
+        <!-- Copy web files (JSPs, images, scripts, stylesheets) -->
+        <echo level="info">Replacing web files (images, scripts, JSPs, etc.)</echo>
+        <copy todir="../../web" overwrite="true">
+            <fileset dir="web" includes="**"/>
+        </copy>
+        <delete file="../../web/WEB-INF/validator-rules-custom.xml"/>
+        
+        <echo level="info">Modifying Eclipse .classpath file</echo>
+        <replace file="../../.classpath">
+            <replacetoken><![CDATA[<classpathentry kind="src" path="build/web/gen"/>]]></replacetoken>
+        </replace>
+        <replace file="../../.classpath">
+            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/strutstest-2.1.2/strutstest-2.1.2.jar"/>]]></replacetoken>
+        </replace>
+        <replace file="../../.classpath">
+            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/commons-validator.jar"/>]]></replacetoken>
+        </replace>
+        
+        <replace file="../../.classpath">
+            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/struts.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/struts-el.jar"/>]]></replacetoken>
+            <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/tapestry-3.0/lib/bsf-2.3.0.jar"/>
+	<classpathentry kind="lib" path="lib/tapestry-3.0/lib/commons-codec-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/tapestry-3.0/lib/javassist.jar"/>
+	<classpathentry kind="lib" path="lib/tapestry-3.0/lib/ognl-2.6.3.jar"/>
+	<classpathentry kind="lib" path="lib/tapestry-3.0/lib/tapestry-3.0.jar"/>
+	<classpathentry kind="lib" path="lib/tapestry-3.0/lib/tapestry-contrib-3.0.jar"/>
+	<classpathentry kind="lib" path="lib/tapestry-3.0/lib/tapestry-mock-3.0.jar"/>]]></replacevalue>
+        </replace>
+
+        <echo level="info">Refactoring build.xml</echo>
+
+        <!-- Remove web/gen from uptodate check for webdoclet -->
+        <replace file="../../build.xml">
+            <replacetoken><![CDATA[<srcfiles dir="src/web" includes="**/*.java"/>
+            <srcfiles dir="${build.dir}/web/gen" includes="**/*.java"/>]]></replacetoken>
+            <replacevalue><![CDATA[<srcfiles dir="src/web" includes="**/*.java"/>]]></replacevalue>
+        </replace>
+        
+        <!-- Remove templates path from new target -->
+        <replace file="../../build.xml">
+            <replacetoken><![CDATA[<include name="metadata/templates/*.xdt"/>]]></replacetoken>
+            <replacevalue></replacevalue>
+        </replace>
+
+        <!-- Change JSP syntax to Tapestry Page syntax -->
+        <replace file="../../build.xml">
+            <replacetoken><![CDATA[<!-- Copy JSP Pages under WEB-INF/pages -->
+        <copy todir="${webapp.target}/WEB-INF">
+            <fileset dir="${basedir}/web">
+                <include name="pages/**/*.jsp"/>]]></replacetoken>
+            <replacevalue><![CDATA[<!-- Copy HTML Pages under WEB-INF/pages -->
+        <copy todir="${webapp.target}/WEB-INF">
+            <fileset dir="${basedir}/web">
+                <include name="pages/**"/>]]></replacevalue>
+        </replace>
+
+        <!-- Remove gen-forms target -->
+        <replace file="../../build.xml">
+            <replacetoken><![CDATA[
+    <!-- Generate ActionForms from POJOs -->
+    <target name="gen-forms" depends="prepare" unless="webdoclet.uptodate"
+        description="Generates ActionForms from POJOs">
+        <taskdef name="xdoclet" classname="xdoclet.DocletTask"
+            classpathref="xdoclet.classpath"/>
+
+        <!-- generate struts forms -->
+        <xdoclet destdir="${build.dir}/web/gen"
+            excludedtags="@version,@author"
+            addedtags="@xdoclet-generated at ${TODAY}"
+            force="${xdoclet.force}"
+            mergedir="metadata/web">
+            <fileset dir="src/dao"/>
+
+            <!-- generate struts forms -->
+            <actionform templateFile="metadata/templates/struts_form.xdt">
+                <packageSubstitution packages="model"
+                    substituteWith="webapp.form"/>
+            </actionform>
+        </xdoclet>
+    </target>
+
+    <target name="compile-web" depends="package-service,stage-web,gen-forms"]]></replacetoken>
+            <replacevalue><![CDATA[<target name="compile-web" depends="package-service,stage-web"]]></replacevalue>
+        </replace>
+        <replace file="../../build.xml">
+            <replacetoken><![CDATA[<param name="additional.src.dirs"
+                value="${build.dir}/web/gen"/>
+]]></replacetoken>
+            <replacevalue></replacevalue>
+        </replace>
+        
+        <replace file="../../build.xml">
+            <replacetoken><![CDATA[    <!-- The "webdoclet" target generates web and struts deployment          -->
+    <!-- descriptors.                                                        --> 
+    <!-- =================================================================== -->
+    <target name="webdoclet" depends="compile-web" 
+        unless="webdoclet.unnecessary"
+        description="Generate web and Struts descriptors">
+        <taskdef name="webdoclet" classname="xdoclet.modules.web.WebDocletTask">
+            <classpath>
+                <path refid="xdoclet.classpath"/>
+                <path refid="web.compile.classpath"/>
+            </classpath>
+        </taskdef>
+        <webdoclet destdir="${webapp.target}/WEB-INF"
+            force="${xdoclet.force}"
+            mergedir="metadata/web"
+            excludedtags="@version,@author"
+            verbose="true">
+            <fileset dir="src/web"/>
+            <fileset dir="${build.dir}/web/gen"/>
+            <deploymentdescriptor validateXML="true"
+                servletspec="2.3" sessiontimeout="10"
+                destdir="${webapp.target}/WEB-INF" distributable="false"
+                displayname="${ant.project.name}">
+                <configParam name="httpPort" value="${http.port}"/>
+                <configParam name="httpsPort" value="${https.port}"/>
+                <configParam name="daoType" value="${dao.type}"/>
+                <configParam name="security" value="${security.mode}"/>
+            </deploymentdescriptor>
+            <jsptaglib validateXML="true"
+                description="Custom tag library for this application"
+                shortName="${webapp.name}" filename="${webapp.name}.tld"/>
+            <strutsconfigxml validateXML="true" version="1.2"/>
+            <strutsvalidationxml/>
+]]></replacetoken>
+            <replacevalue><![CDATA[    <!-- The "webdoclet" target generates web deployment descriptors.           -->
+    <!-- =================================================================== -->
+    <target name="webdoclet" depends="compile-web" 
+        unless="webdoclet.unnecessary"
+        description="Generate web deployment descriptors">
+        <taskdef name="webdoclet"
+            classname="xdoclet.modules.web.WebDocletTask">
+            <classpath>
+                <path refid="xdoclet.classpath"/>
+                <path refid="web.compile.classpath"/>
+            </classpath>
+        </taskdef>
+        <webdoclet destdir="${webapp.target}/WEB-INF"
+            force="${xdoclet.force}"
+            mergedir="metadata/web"
+            excludedtags="@version,@author"
+            verbose="true">
+            <fileset dir="src/web"/>
+            <deploymentdescriptor validateXML="true"
+                servletspec="2.3" sessiontimeout="10"
+                destdir="${webapp.target}/WEB-INF" distributable="false"
+                displayname="${ant.project.name}">
+                <configParam name="httpPort" value="${http.port}"/>
+                <configParam name="httpsPort" value="${https.port}"/>
+                <configParam name="daoType" value="${dao.type}"/>
+                <configParam name="security" value="${security.mode}"/>
+            </deploymentdescriptor>
+            <jsptaglib validateXML="true"
+                description="Custom tag library for this application"
+                shortName="${webapp.name}" filename="${webapp.name}.tld"/>
+]]></replacevalue>
+        </replace>
+
+        <replace file="../../build.xml">
+            <replacetoken><![CDATA[<webinf dir="${struts.dir}" includes="*.xml"/>]]></replacetoken>
+        </replace>
+        
+        <replace file="../../build.xml">
+            <replacetoken><![CDATA[<lib dir="${struts.dir}" includes="*.jar"/>]]></replacetoken>
+            <replacevalue><![CDATA[<lib dir="${tapestry.dir}" includes="*.jar"/>
+            <lib file="${requesttag.jar}"/>]]></replacevalue>
+        </replace>
+        
+        <replace file="../../build.xml">
+            <replacetoken><![CDATA[<target name="test-web" depends="webdoclet,db-load"
+        description="Test web module">
+        <copy todir="${webapp.target}/WEB-INF" 
+            file="${struts.dir}/validator-rules.xml"/>
+        <antcall target="test-module" inheritAll="true">
+            <param name="module" value="web"/>
+            <reference refid="web.test.classpath"
+                torefid="test.classpath"/>
+        </antcall>
+    </target>]]></replacetoken>
+            <replacevalue><![CDATA[<target name="test-web" depends="webdoclet,db-load"
+        description="Test web module">
+        <antcall target="test-module" inheritAll="true">
+            <param name="module" value="web"/>
+            <reference refid="web.test.classpath"
+                torefid="test.classpath"/>
+        </antcall>
+    </target>]]></replacevalue>
+        </replace>
+        
+        <replace file="../../build.xml">
+            <replacetoken><![CDATA[<lib dir="${strutstestcase.dir}" includes="*.jar"/>]]></replacetoken>
+        </replace>
+        
+        <echo level="info">Removing other web framework options</echo>
+        <delete dir="../../extras/jsf"/>
+        <delete dir="../../extras/spring"/>
+        <delete dir="../../extras/webwork"/>
+        
+        <echo>----------------------------------------------</echo>
+        <echo level="info">NOTE: It's recommended you delete extras/tapestry as you shouldn't need it anymore.</echo>
+        <echo>----------------------------------------------</echo>
+    </target>
+ 
+    <!-- =================================================================== -->
+    <!-- Creates new project, installs Tapestry and runs tests                -->
+    <!-- =================================================================== -->
+    <target name="test" description="Creates appfuse-tapestry and runs tests">
+        <property name="app.name" value="appfuse-tapestry"/>
+        <property name="db.name" value="appfuse"/>   
+        <delete dir="../../../${app.name}"/>
+        <ant dir="../.." target="new"/>
+
+        <!-- New project created, install Tapestry and run tests -->
+        <ant dir="../../../${app.name}/extras/tapestry" target="install" inheritAll="false"/>
+        <ant dir="../../../${app.name}" target="setup" inheritAll="false"/>
+        <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
+
+        <echo>Start Tomcat to view ${app.name} manually.</echo>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Creates new project, installs Tapestry+iBATIS and runs tests         -->
+    <!-- =================================================================== -->
+    <target name="test-ibatis"
+        description="Creates appfuse-tapestry-ibatis and runs tests">
+        <property name="app.name" value="appfuse-tibatis"/>
+        <property name="db.name" value="appfuse"/>
+        <delete dir="../../../${app.name}"/>
+        <ant dir="../.." target="new"/>
+
+        <!-- New project created, install Tapestry and run tests -->
+        <ant dir="../../../${app.name}/extras/ibatis" target="install" inheritAll="false"/>
+        <ant dir="../../../${app.name}/extras/ibatis" target="uninstall-hibernate" inheritAll="false"/>
+        <ant dir="../../../${app.name}/extras/tapestry" target="install" inheritAll="false"/>
+        <ant dir="../../../${app.name}" target="setup" inheritAll="false"/>
+        <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
+
+        <echo>Start Tomcat to view ${app.name} manually.</echo>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Creates new project, installs Tapestry and tests appgen              -->
+    <!-- =================================================================== -->
+    <target name="test-appgen" description="Creates appfuse-Tapestry and tests appgen">
+        <property name="app.name" value="appfuse-wwgen"/>
+        <property name="db.name" value="appfuse"/>
+        <delete dir="../../../${app.name}"/>
+        <ant dir="../.." target="new"/>
+
+        <!-- New project created, install Tapestry -->
+        <ant dir="../../../${app.name}/extras/tapestry" target="install" inheritAll="false"/>
+        <!-- Gen code and run tests -->
+        <ant dir="../../../${app.name}/extras/appgen" target="test-all" inheritAll="false">
+            <property name="model.name" value="Person"/>
+            <property name="model.name.lowercase" value="person"/>   
+        </ant>   
+    </target>
+    
+    <target name="test-all" depends="test" 
+        description="Tests Tapestry install with Hibernate, iBATIS and AppGen">
+        <antcall target="test-ibatis" inheritAll="false"/>
+        <antcall target="test-appgen" inheritAll="false"/>
+    </target>
+</project>

@@ -1,0 +1,6 @@
+    <!-- Standard Tapestry Servlet Configuration -->
+    <servlet>
+        <servlet-name>tapestry</servlet-name>
+        <servlet-class>org.apache.tapestry.ApplicationServlet</servlet-class>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
