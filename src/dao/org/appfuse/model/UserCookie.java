@@ -5,6 +5,8 @@ import java.util.Date;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 /**
  * This class is used to manage cookie-based authentication.
  *
@@ -127,5 +129,15 @@ public class UserCookie extends BaseObject {
                                                           .append(this.id)
                                                           .append(this.cookieId)
                                                           .toHashCode();
+    }
+    
+    /**
+     * Generated using Commonclipse (http://commonclipse.sf.net)
+     */
+    public String toString() {
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
+                .append("id", this.id).append("username", this.username)
+                .append("cookieId", this.cookieId).append("dateCreated",
+                        this.dateCreated).toString();
     }
 }

@@ -5,6 +5,8 @@ import java.io.Serializable;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 /**
  * This class is used to represent an address.</p>
  *
@@ -144,5 +146,16 @@ public class Address extends BaseObject implements Serializable {
                                                          .append(this.province)
                                                          .append(this.city)
                                                          .toHashCode();
+    }
+
+    /**
+     * Generated using Commonclipse (http://commonclipse.sf.net)
+     */
+    public String toString() {
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
+                .append("country", this.country)
+                .append("address", this.address).append("province",
+                        this.province).append("postalCode", this.postalCode)
+                .append("city", this.city).toString();
     }
 }

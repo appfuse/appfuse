@@ -2,13 +2,10 @@ package org.appfuse.model;
 
 import java.io.Serializable;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
-
 
 /**
- * Base class for Model objects.  Child objects should implement equals()
- * and hashCode();
+ * Base class for Model objects.  Child objects should implement toString(), 
+ * equals() and hashCode();
  *
  * <p>
  * <a href="BaseObject.java.html"><i>View Source</i></a>
@@ -16,13 +13,8 @@ import org.apache.commons.lang.builder.ToStringStyle;
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
-public abstract class BaseObject implements Serializable {
-
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this,
-                ToStringStyle.MULTI_LINE_STYLE);
-    }
-    
-    public abstract int hashCode();
+public abstract class BaseObject implements Serializable {    
+    public abstract String toString();
     public abstract boolean equals(Object o);
+    public abstract int hashCode();
 }

@@ -3,6 +3,8 @@ package org.appfuse.model;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 /**
  * Role class used to determine roles for a user
  *
@@ -136,5 +138,15 @@ public class UserRole extends BaseObject {
                                                         .append(this.username)
                                                         .append(this.id)
                                                         .toHashCode();
+    }
+
+    /**
+     * Generated using Commonclipse (http://commonclipse.sf.net)
+     */
+    public String toString() {
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
+                .append("id", this.id).append("username", this.username)
+                .append("roleName", this.roleName)
+                .append("userId", this.userId).toString();
     }
 }

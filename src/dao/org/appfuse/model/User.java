@@ -7,6 +7,8 @@ import java.util.List;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 /**
  * User class
  *
@@ -347,5 +349,22 @@ public class User extends BaseObject {
                                                            .append(this.id)
                                                            .append(this.lastName)
                                                            .toHashCode();
+    }
+    
+    /**
+     * Generated using Commonclipse (http://commonclipse.sf.net)
+     */
+    public String toString() {
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
+                .append("id", this.id).append("roles", this.roles).append(
+                        "firstName", this.firstName).append("lastName",
+                        this.lastName)
+                .append("passwordHint", this.passwordHint).append("username",
+                        this.username).append("fullName", this.getFullName())
+                .append("email", this.email).append("phoneNumber",
+                        this.phoneNumber).append("password", this.password)
+                .append("address", this.address).append("confirmPassword",
+                        this.confirmPassword).append("website", this.website)
+                .toString();
     }
 }

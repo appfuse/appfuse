@@ -5,6 +5,8 @@ import java.io.Serializable;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 /**
  * This class is used to represent available roles in the database.</p>
  *
@@ -72,5 +74,14 @@ public class Role extends BaseObject implements Serializable {
     public int hashCode() {
         return new HashCodeBuilder(1156335803, 987569255).append(
                 this.description).append(this.name).toHashCode();
+    }
+    
+    /**
+     * Generated using Commonclipse (http://commonclipse.sf.net)
+     */
+    public String toString() {
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
+                .append("name", this.name).append("description",
+                        this.description).toString();
     }
 }
