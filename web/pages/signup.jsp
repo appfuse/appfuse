@@ -11,7 +11,7 @@
     <tr>
         <th>
             <label class="required" for="username">
-                <fmt:message key="userFormEx.username"/>*:
+                * <fmt:message key="userFormEx.username"/>:
             </label>
         </th>
         <td>
@@ -22,7 +22,7 @@
     <tr>
         <th>
             <label class="required" for="password">
-                <fmt:message key="userFormEx.password"/>*:
+                * <fmt:message key="userFormEx.password"/>:
             </label>
         </th>
         <td>
@@ -33,7 +33,7 @@
     <tr>
         <th>
             <label class="required" for="confirmPassword">
-                <fmt:message key="userFormEx.confirmPassword"/>*:
+                * <fmt:message key="userFormEx.confirmPassword"/>:
             </label>
         </th>
         <td>
@@ -44,7 +44,7 @@
     <tr>
         <th>
             <label class="required" for="firstName">
-                <fmt:message key="userFormEx.firstName"/>*:
+                * <fmt:message key="userFormEx.firstName"/>:
             </label>
         </th>
         <td>
@@ -55,7 +55,7 @@
     <tr>
         <th>
             <label class="required" for="lastName">
-                <fmt:message key="userFormEx.lastName"/>*:
+                * <fmt:message key="userFormEx.lastName"/>:
             </label>
         </th>
         <td>
@@ -77,7 +77,7 @@
     <tr>
         <th>
             <label class="required" for="city">
-                <fmt:message key="userFormEx.city"/>*:
+                * <fmt:message key="userFormEx.city"/>:
             </label>
         </th>
         <td>
@@ -88,7 +88,7 @@
     <tr>
         <th>
             <label class="required">
-                <fmt:message key="userFormEx.province"/>*:
+                * <fmt:message key="userFormEx.province"/>:
             </label>
         </th>
         <td>
@@ -105,7 +105,7 @@
     <tr>
         <th>
             <label class="required">
-                <fmt:message key="userFormEx.country"/>*:
+                * <fmt:message key="userFormEx.country"/>:
             </label>
         </th>
         <td>
@@ -115,14 +115,14 @@
             <country:country name="country" default="<%=country%>"/>
         </c:if>
         <c:if test="${userFormEx.country == null}">
-            <country:country name="country" prompt=""/>
+            <country:country name="country" default="US"/>
         </c:if>
         </td>
     </tr>
     <tr>
         <th>
             <label class="required" for="postalCode">
-                <fmt:message key="userFormEx.postalCode"/>*:
+                * <fmt:message key="userFormEx.postalCode"/>:
             </label>
         </th>
         <td>
@@ -133,7 +133,7 @@
     <tr>
         <th>
             <label class="required" for="email">
-                <fmt:message key="userFormEx.email"/>*:
+                * <fmt:message key="userFormEx.email"/>:
             </label>
         </th>
         <td>
@@ -155,7 +155,7 @@
     <tr>
         <th>
             <label class="required" for="website">
-                <fmt:message key="userFormEx.website"/>*:
+                * <fmt:message key="userFormEx.website"/>:
             </label>
         </th>
         <td>
@@ -166,7 +166,7 @@
     <tr>
         <th>
             <label class="required" for="passwordHint">
-                <fmt:message key="userFormEx.passwordHint"/>*:
+                * <fmt:message key="userFormEx.passwordHint"/>:
             </label>
         </th>
         <td>

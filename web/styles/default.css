@@ -107,6 +107,10 @@ div#loginTable {
 	width: 400px;
 }
 
+div#loginTable th {
+    text-align: right;
+}
+
 div#menu {
 	position: absolute;
 	top: 100px;

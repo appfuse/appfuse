@@ -139,7 +139,7 @@ public class LabelTag extends TagSupport {
                 label.append(" class=\"" + cssClass + "\"");
             }
 
-            label.append(">" + message + ((requiredField) ? "*" : ""));
+            label.append(">" + ((requiredField) ? "* " : "") + message);
             label.append(((colon) ? ":" : "") + "</label>");
 
             if (valError.length() > 0) {

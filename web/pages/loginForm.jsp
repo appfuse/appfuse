@@ -22,7 +22,7 @@
     <tr>
         <th>
             <label for="j_username" class="required">
-                <fmt:message key="label.username"/>*:
+                * <fmt:message key="label.username"/>:
             </label>
         </th>
         <td>
@@ -32,7 +32,7 @@
     <tr>
         <th>
             <label for="j_password" class="required">
-                <fmt:message key="label.password"/>*:
+                * <fmt:message key="label.password"/>:
             </label>
         </th>
         <td>
