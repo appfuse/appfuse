@@ -9,7 +9,7 @@
 <p><fmt:message key="welcome.message"/></p>
 
 <%-- Include the login form --%>
-<jsp:include page="/WEB-INF/pages/loginForm.jsp" flush="true"/>
+<c:import url="/WEB-INF/pages/loginForm.jsp"/>
 
 <p><fmt:message key="login.passwordHint"/></p>
 

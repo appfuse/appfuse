@@ -18,4 +18,4 @@
 
 <div class="separator"></div>
 
-<jsp:include page="/WEB-INF/pages/userForm.jsp" flush="true"/>
+<c:import url="/WEB-INF/pages/userForm.jsp"/>
