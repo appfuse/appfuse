@@ -58,11 +58,12 @@ Features/Changes in 1.8
 - Dependent packages upgraded:
     * Display Tag 1.0
     * Dumbster 1.5
-    * Hibernate 2.1.8
+    * Hibernate 3.0
     * MySQL JDBC Driver 3.1.7
+    * PMD 3.0
     * PostgreSQL JDBC Driver 8.0-310
     * SiteMesh 2.2.1
-    * Spring 1.1.5
+    * Spring 1.2 RC1
     * StrutsTestCase 2.1.3
 - Dependent packages added:
     * Acegi Security 0.8.1
