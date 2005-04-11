@@ -20,7 +20,8 @@ import org.apache.commons.lang.builder.ToStringStyle;
  *
  */
 public class UserCookie extends BaseObject {
-    private Long id;
+	private static final long serialVersionUID = 4050479002315731765L;
+	private Long id;
     private String username;
     private String cookieId;
     private Date dateCreated;

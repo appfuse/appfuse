@@ -16,8 +16,9 @@ import java.util.Comparator;
  * @see org.apache.struts.util.LabelValueBean
  */
 public class LabelValue implements Comparable, Serializable {
-
-    /**
+	private static final long serialVersionUID = 3689355407466181430L;
+	
+	/**
      * Comparator that can be used for a case insensitive sort of
      * <code>LabelValue</code> objects.
      */

@@ -24,13 +24,12 @@ import org.apache.struts.validator.ValidatorForm;
  * <p><a href="BaseForm.java.html"><i>View Source</i></a></p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.6 $ $Date: 2004/08/19 05:11:41 $
+ * @version $Revision: 1.7 $ $Date: 2005/04/11 21:09:48 $
  */
 public class BaseForm extends ValidatorForm implements Serializable {
+	private static final long serialVersionUID = 3257005453799404851L;
 
-    //~ Methods ================================================================
-
-    public String toString() {
+	public String toString() {
         return ToStringBuilder.reflectionToString(this,
                 ToStringStyle.MULTI_LINE_STYLE);
     }

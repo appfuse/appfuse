@@ -30,13 +30,14 @@ import org.appfuse.Constants;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.5 $ $Date: 2004/09/30 04:41:19 $
+ * @version $Revision: 1.6 $ $Date: 2005/04/11 21:09:47 $
  *
  * @jsp.tag name="constants" bodycontent="empty"
  *  tei-class="org.appfuse.webapp.taglib.ConstantsTei"
  */
 public class ConstantsTag extends TagSupport {
-    private final Log log = LogFactory.getLog(ConstantsTag.class);
+	private static final long serialVersionUID = 3258417209566116146L;
+	private final Log log = LogFactory.getLog(ConstantsTag.class);
     
     /**
      * The class to expose the variables from.

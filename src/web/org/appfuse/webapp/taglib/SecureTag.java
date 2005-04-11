@@ -43,9 +43,8 @@ import org.appfuse.webapp.util.SslUtil;
  * http://www.xesoft.com
  */
 public class SecureTag extends BodyTagSupport {
-    //~ Static fields/initializers =============================================
-
-    public static final String MODE_SECURED = "secured";
+	private static final long serialVersionUID = 3618697483291867440L;
+	public static final String MODE_SECURED = "secured";
     public static final String MODE_UNSECURED = "unsecured";
     public static final String MODE_EITHER = "either";
 

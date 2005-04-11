@@ -27,19 +27,16 @@ import org.displaytag.tags.el.ExpressionEvaluator;
  * </p>
  *
  * @author Jens Fischer, Matt Raible
- * @version $Revision: 1.1 $ $Date: 2004/09/29 10:31:35 $
+ * @version $Revision: 1.2 $ $Date: 2005/04/11 21:09:47 $
  *
  * @jsp.tag name="country" bodycontent="empty"
  */
 public class CountryTag extends TagSupport {
-    private static final String COUNTRIES =
-        CountryTag.class.getName() + ".COUNTRIES";
+	private static final long serialVersionUID = 3905528206810167095L;
     private String name;
     private String prompt;
     private String scope;
     private String selected;
-    private String style;
-    private String styleClass;
 
     /**
      * @param name The name to set.

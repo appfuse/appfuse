@@ -55,7 +55,8 @@ import org.appfuse.webapp.util.SslUtil;
  *     url-pattern="/authorize/*"
  */
 public final class LoginServlet extends HttpServlet {
-    private static String authURL = "j_security_check";
+	private static final long serialVersionUID = 3906934490856239409L;
+	private static String authURL = "j_security_check";
     private static String httpsPort = null;
     private static String httpPort = null;
     private static Boolean secure = Boolean.FALSE;

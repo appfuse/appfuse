@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry output="build/web/classes" kind="src" path="src/web"/>
 	<classpathentry kind="src" path="build/dao/gen"/>
-	<classpathentry output="build/test/web/classes" kind="src" path="test/web"/>
-	<classpathentry output="build/service/classes" kind="src" path="src/service"/>
-	<classpathentry output="build/test/service/classes" kind="src" path="test/service"/>
-	<classpathentry output="build/dao/classes" kind="src" path="src/dao"/>
-	<classpathentry output="build/test/dao/classes" kind="src" path="test/dao"/>
 	<classpathentry kind="src" path="build/web/gen"/>
+	<classpathentry kind="src" path="src/dao"/>
+	<classpathentry kind="src" path="src/service"/>
+	<classpathentry kind="src" path="src/web"/>
+	<classpathentry kind="src" path="test/dao"/>
+	<classpathentry kind="src" path="test/service"/>
+	<classpathentry kind="src" path="test/web"/>
 	<classpathentry kind="lib" path="lib/checkstyle-3.1/checkstyle-all-3.1.jar"/>
 	<classpathentry kind="lib" path="lib/junit3.8.1/junit.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-log4j-1.2.8/dist/lib/log4j-1.2.8.jar"/>
-	<classpathentry kind="lib" path="lib/JUnitDoclet.1.0.2/JUnitDoclet.jar"/>
-	<classpathentry kind="lib" path="lib/pmd-1.2/lib/saxpath-1.0-fcs.jar"/>
-	<classpathentry kind="lib" path="lib/java2html-1.3.1/j2h.jar"/>
-	<classpathentry kind="lib" path="lib/pmd-1.2/lib/jaxen-core-1.0-fcs.jar"/>
-	<classpathentry kind="lib" path="lib/pmd-1.2/lib/pmd-1.2.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="var" path="JUNIT_HOME/junit.jar"/>
 	<classpathentry kind="lib" path="lib/servletapi-2.3/servletapi-2.3.jar"/>

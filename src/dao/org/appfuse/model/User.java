@@ -24,7 +24,8 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @hibernate.class table="app_user"
  */
 public class User extends BaseObject implements Serializable {
-    protected String username;
+	private static final long serialVersionUID = 3832626162173359411L;
+	protected String username;
     protected String password;
     protected String confirmPassword;
     protected String firstName;

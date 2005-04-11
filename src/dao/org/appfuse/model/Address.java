@@ -17,7 +17,8 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @struts.form include-all="true" extends="BaseForm"
  */
 public class Address extends BaseObject implements Serializable {
-    protected String address;
+	private static final long serialVersionUID = 3617859655330969141L;
+	protected String address;
     protected String city;
     protected String province;
     protected String country;
