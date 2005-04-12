@@ -49,8 +49,7 @@
     </target>
     
     <!-- Check timestamp on files -->
-    <target name="prepare" depends="build.properties.missing,init" 
-        description="create target directories">
+    <target name="prepare" depends="init" description="create target directories">
         <tstamp/>
         <tstamp>
             <format property="copyright.year" pattern="yyyy"/>
@@ -381,16 +380,7 @@
             <metainf dir="${build.dir}/dao/gen" includes="*.xml"/>
         </jar>
     </target>
-
-    <target name="gen-tests-dao"
-        description="Generate tests for dao module">
-        <antcall target="junitdoclet-module" inheritAll="true">
-            <param name="module" value="dao"/>
-            <reference refid="dao.test.classpath"
-                torefid="test.classpath"/>
-        </antcall>
-    </target>
-
+   
     <target name="test-dao" depends="copy-resources,package-dao,db-load"
         description="Test dao module">
         <antcall target="test-module" inheritAll="true">
@@ -422,15 +412,6 @@
             </manifest>
             <fileset dir="${build.dir}/service/classes" includes="**/*.class"/>
         </jar>
-    </target>
-
-    <target name="gen-tests-service"
-        description="Generate tests for service module">
-        <antcall target="junitdoclet-module" inheritAll="true">
-            <param name="module" value="service"/>
-            <reference refid="common.test.classpath"
-                torefid="test.classpath"/>
-        </antcall>
     </target>
 
     <target name="test-service" depends="copy-resources,compile-service"
@@ -622,17 +603,6 @@
         </war>
     </target>
 
-    <target name="gen-tests-web" depends="compile-web"
-        description="Generate tests for web module">
-        <antcall target="junitdoclet-module" inheritAll="true">
-            <param name="module" value="web"/>
-            <param name="additional.src.dirs"
-                value="${build.dir}/web/gen"/>
-            <reference refid="web.test.classpath"
-                torefid="test.classpath"/>
-        </antcall>
-    </target>
-
     <target name="test-web" depends="webdoclet,db-load"
         description="Test web module">
         <copy todir="${webapp.target}/WEB-INF" 
@@ -642,22 +612,6 @@
             <reference refid="web.test.classpath"
                 torefid="test.classpath"/>
         </antcall>
-    </target>
-    
-    <!-- Reusable targets invoked using antcall -->
-    <target name="junitdoclet-module">
-        <!-- Inputs: module, compile.classpath, test.classpath -->
-        <echo level="info">Generating tests for ${module}...</echo>
-        <property name="additional.src.dirs" value=""/>
-        <javadoc
-            packagenames="org.*"
-            sourcepath="src/${module};${additional.src.dirs}"
-            defaultexcludes="yes"
-            doclet="com.objectfab.tools.junitdoclet.JUnitDoclet"
-            docletpathref="test.classpath"
-            additionalparam="-d test/${module} -buildall -source 1.4">
-            <classpath refid="test.classpath"/>
-        </javadoc>
     </target>
 
     <target name="compile-module">
