@@ -27,7 +27,7 @@ import org.displaytag.tags.el.ExpressionEvaluator;
  * </p>
  *
  * @author Jens Fischer, Matt Raible
- * @version $Revision: 1.2 $ $Date: 2005/04/11 21:09:47 $
+ * @version $Revision: 1.3 $ $Date: 2005/04/12 15:51:33 $
  *
  * @jsp.tag name="country" bodycontent="empty"
  */
@@ -73,28 +73,6 @@ public class CountryTag extends TagSupport {
      */
     public void setToScope(String scope) {
         this.scope = scope;
-    }
-
-    /**
-     * Setter included for XDoclet TLD generation.
-     *
-     * @param style
-     *
-     * @jsp.attribute required="false" rtexprvalue="true"
-     */
-    public void setStyle(String style) {
-        this.style = style;
-    }
-
-    /**
-     * Setter included for XDoclet TLD generation.
-     *
-     * @param styleClass
-     *
-     * @jsp.attribute required="false" rtexprvalue="true"
-     */
-    public void setStyleClass(String styleClass) {
-        this.styleClass = styleClass;
     }
 
     /**
