@@ -10,12 +10,6 @@
 <!-- Properties for running unit tests with tomcat -->
 <property file="tomcat.properties"/>
 
-<!-- webapp.name is supplied in build.properties, so we check to see if it
-    has been defined -->
-<target name="build.properties.missing" unless="webapp.name">
-    <fail message="missing build.properties file in current directory or in ${user.home}"/>
-</target>
-
 <!-- Defaults for database.properties in case build.properties doesn't have -->
 <property name="database.jar" location="${mysql.jar}"/>
 <property name="database.type" value="mysql"/>
