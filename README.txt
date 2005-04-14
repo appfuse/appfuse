@@ -59,6 +59,8 @@ Features/Changes in 1.8
 - Fixed bug in error.jsp that caused it to throw exceptions under certain 
   conditions: https://appfuse.dev.java.net/issues/show_bug.cgi?id=122.
 - Added serialVersionUID variables to all serializable classes.
+- Changed IDEA project files so project is loaded as a web module. This 
+  allows Tomcat debugging and taglib resolution in JSPs.
 - Dependent packages upgraded:
     * Display Tag 1.0
     * Dumbster 1.5
