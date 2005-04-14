@@ -17,6 +17,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.model.BaseObject;
 import org.appfuse.model.LabelValue;
+import org.springframework.aop.support.AopUtils;
 
 
 /**
@@ -112,12 +113,16 @@ public final class ConvertUtil {
                                                 InstantiationException,
                                                 IllegalAccessException {
         String name = o.getClass().getName();
+
         if (o instanceof BaseObject) {
             if (log.isDebugEnabled()) {
                 log.debug("getting form equivalent of pojo...");
             }
 
             name = StringUtils.replace(name, "model", "webapp.form");
+            if (AopUtils.isCglibProxy(o))  {
+                name = name.substring(0, name.indexOf("$$"));
+            }
             name += "Form";
         } else {
             if (log.isDebugEnabled()) {
@@ -126,7 +131,7 @@ public final class ConvertUtil {
             name = StringUtils.replace(name, "webapp.form", "model");
             name = name.substring(0, name.lastIndexOf("Form"));
         }
-
+		
         Class obj = Class.forName(name);
 
         if (log.isDebugEnabled()) {
