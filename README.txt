@@ -66,6 +66,7 @@ Features/Changes in 1.8
     * "fixcrlf" target updated to repair more file types on *nix systems
     * placeholders replaced in applicationContext-hibernate.xml within the 
       DAO .jar file created by "package-dao" target 
+    * Simplified token replacement when deploying static web files
 - Tests using Dumbster updated to always use "localhost" in case the normal
   mail.host is different
 - Struts UserAction updated to validate the form within the save() action

@@ -234,15 +234,6 @@
     <target name="copy-web-files" depends="prepare"
         description="Copy static files">
         <echo message="Copying static files"/>
-        <copy todir="${webapp.target}" includeEmptyDirs="no">
-            <fileset dir="${basedir}/web">
-                <include name="**"/>
-                <exclude name="common/footer.jsp"/>
-                <exclude name="pages/**"/>
-                <exclude name="**/classes/**"/>
-                <exclude name="**/*-resources.xml"/>
-            </fileset>
-        </copy>
         <!-- Remove the copy block below if you're not displaying 
              version/copyright in the footer -->
         <copy todir="${webapp.target}">
@@ -251,6 +242,14 @@
                 <filter token="APPVERSION" value="${webapp.version}"/>
                 <filter token="COPYRIGHT-YEAR" value="${copyright.year}"/>
             </filterset>
+        </copy>
+        <copy todir="${webapp.target}" includeEmptyDirs="no">
+            <fileset dir="${basedir}/web">
+                <include name="**"/>
+                <exclude name="pages/**"/>
+                <exclude name="**/classes/**"/>
+                <exclude name="**/*-resources.xml"/>
+            </fileset>
         </copy>
         <!-- Copy JSP Pages under WEB-INF/pages -->
         <copy todir="${webapp.target}/WEB-INF">
