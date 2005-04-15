@@ -61,6 +61,15 @@ Features/Changes in 1.8
 - Added serialVersionUID variables to all serializable classes.
 - Changed IDEA project files so project is loaded as a web module. This 
   allows Tomcat debugging and taglib resolution in JSPs.
+- Improved build.xml file:
+    * create-tables.sql now deleted when running "clean" target
+    * "fixcrlf" target updated to repair more file types on *nix systems
+    * placeholders replaced in applicationContext-hibernate.xml within the 
+      DAO .jar file created by "package-dao" target 
+- Tests using Dumbster updated to always use "localhost" in case the normal
+  mail.host is different
+- Struts UserAction updated to validate the form within the save() action
+  to better support i18n.
 - Dependent packages upgraded:
     * Display Tag 1.0
     * Dumbster 1.5

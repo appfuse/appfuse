@@ -20,6 +20,7 @@ public class PasswordHintTest extends BasePageTestCase {
         // existing SMTP server on localhost
         JavaMailSenderImpl mailSender = (JavaMailSenderImpl) ctx.getBean("mailSender");
         mailSender.setPort(2525);
+        mailSender.setHost("localhost");
         
         // these can be mocked if you want a more "pure" unit test
         page.setUserManager((UserManager) ctx.getBean("userManager"));

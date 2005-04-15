@@ -18,6 +18,7 @@ public class PasswordHintControllerTest extends BaseControllerTestCase {
         // existing SMTP server on localhost
         JavaMailSenderImpl mailSender = (JavaMailSenderImpl) ctx.getBean("mailSender");
         mailSender.setPort(2525);
+        mailSender.setHost("localhost");
     }
     
     protected void tearDown() throws Exception {

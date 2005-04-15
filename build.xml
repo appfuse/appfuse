@@ -367,6 +367,7 @@
             <fileset dir="src/dao">
                 <include name="**/*.xml"/>
             </fileset>
+        	<filterset refid="variables.to.replace"/>
         </copy>
         <jar destfile="${dist.dir}/${webapp.name}-dao.jar">
             <manifest>
@@ -937,6 +938,7 @@
         <delete dir="${build.dir}"/>
         <delete dir="${dist.dir}"/>
         <delete file="database.properties"/>
+        <delete file="create-tables.sql"/>
     </target>
 
     <!-- =================================================================== -->
@@ -1386,7 +1388,12 @@
                               **/*.xdt,
                               **/*.xml,
                               **/*.page,
-                              **/*.html"/>
+                              **/*.html,
+                	          **/*.js,
+                              **/*.css, 
+                              **/*.reference,
+                              **/*.ldif,
+                              **/*.conf"/>
             </then>
             <else>
                 <echo>You shouldn't need to run this task on Windows</echo>

@@ -23,6 +23,7 @@ public class SignupFormTest extends BasePageTestCase {
         // existing SMTP server on localhost
         JavaMailSenderImpl mailSender = (JavaMailSenderImpl) ctx.getBean("mailSender");
         mailSender.setPort(2525);
+        mailSender.setHost("localhost");
         
         // unfortunately this is a required step if you're calling getMessage
         page.setBundle(ResourceBundle.getBundle(MESSAGES));

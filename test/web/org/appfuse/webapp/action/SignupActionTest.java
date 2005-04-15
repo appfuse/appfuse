@@ -17,6 +17,7 @@ public class SignupActionTest extends BaseStrutsTestCase {
         // existing SMTP server on localhost
         JavaMailSenderImpl mailSender = (JavaMailSenderImpl) ctx.getBean("mailSender");
         mailSender.setPort(2525);
+        mailSender.setHost("localhost");
     }
     
     public void testExecute() throws Exception {

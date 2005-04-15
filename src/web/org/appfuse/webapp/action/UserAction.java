@@ -48,7 +48,7 @@ import org.springframework.mail.SimpleMailMessage;
  * @struts.action name="userForm" path="/editProfile" scope="request"
  *  validate="false" parameter="method" input="mainMenu"
  * @struts.action name="userForm" path="/saveUser" scope="request"
- *  validate="true" parameter="method" input="edit"
+ *  validate="false" parameter="method" input="edit"
  *
  * @struts.action-forward name="list" path="/WEB-INF/pages/userList.jsp"
  * @struts.action-forward name="edit" path="/WEB-INF/pages/userProfile.jsp"
@@ -180,8 +180,16 @@ public final class UserAction extends BaseAction {
             log.debug("Entering 'save' method");
         }
         
+        // run validation rules on this form
+        // See https://appfuse.dev.java.net/issues/show_bug.cgi?id=128
+        ActionMessages errors = form.validate(mapping, request);
+
+        if (!errors.isEmpty()) {
+            saveErrors(request, errors);
+            return mapping.findForward("edit");
+        }
+
         // Extract attributes and parameters we will need
-        ActionMessages errors = new ActionMessages();
         ActionMessages messages = new ActionMessages();
         HttpSession session = request.getSession();
         UserForm userForm = (UserForm) form;
