@@ -187,6 +187,17 @@ form input, form textarea, form select {
 
 input.button {
     color: #000;
+    padding-left: 1px;
+}
+
+input.button {
+    /* fix button size in IE */
+    line-height: 17px;
+}
+
+/* make buttons looks the same in Mozilla */
+td>input.button {
+    padding: 1px 3px !important;
 }
 
 form input.focus, form textarea.focus {
@@ -255,7 +266,7 @@ table.detail {
 }
 
 table.detail th {
-	  text-align: right;
+    text-align: right;
     padding: 0px 3px 0px 0px;
 }
 
