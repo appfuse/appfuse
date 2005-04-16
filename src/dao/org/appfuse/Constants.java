@@ -18,6 +18,7 @@ public class Constants {
     
     /** The application scoped attribute for persistence engine used */
     public static final String DAO_TYPE = "daoType";
+    public static final String DAO_TYPE_HIBERNATE = "hibernate";
 
     /** Application scoped attribute for authentication url */
     public static final String AUTH_URL = "authURL";
