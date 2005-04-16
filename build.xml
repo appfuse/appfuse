@@ -110,6 +110,7 @@
                 <exclude name=".#**"/>
             </fileset>
         </copy>
+        <!-- replace app name -->
         <replaceregexp flags="g">
             <regexp pattern="appfuse"/>
             <substitution expression="${app.name}"/>
@@ -123,10 +124,15 @@
                 <exclude name="metadata/web/global-exceptions.xml"/>
                 <exclude name="web/WEB-INF/*.xml"/>
                 <exclude name="web/WEB-INF/classes/log4j.properties"/>
+                <exclude name="web/WEB-INF/classes/mail.properties"/>
                 <exclude name="**/*.page"/>
                 <exclude name="**/*.application"/>
                 <exclude name="**/*_page.xdt"/>
                 <exclude name="**/managed-beans.xdt"/>
+                <exclude name="docs/**"/>
+                <exclude name="**/loginMenu.jsp"/>
+                <exclude name="**/README.txt"/>
+                <exclude name=".springBeansProject"/>
             </fileset>
         </replaceregexp>
 
@@ -150,13 +156,13 @@
 
         <!-- Replace JNDI Name for database -->
         <replaceregexp flags="g">
-            <regexp pattern="jdbc/${app.name}"/>
-            <substitution expression="jdbc/${db.name}"/>
-            <fileset dir="../${app.name}/metadata/web">
-                <include name="web-resource-env-refs.xml"/>
-            </fileset>
+            <regexp pattern="jdbc(.*)${app.name}"/>
+            <substitution expression="jdbc\1${db.name}"/>
+            <fileset dir="../${app.name}/metadata/web" includes="*web-resource-env-refs.xml"/>
             <fileset dir="../${app.name}/metadata/conf" includes="**"/>
             <fileset dir="../${app.name}/web" includes="**/*.jsp"/>
+            <fileset dir="../${app.name}/extras" includes="**/demos/users.jsp"/>
+            <fileset dir="../${app.name}" includes="database.properties.reference"/>
         </replaceregexp>
 
         <!-- Replace JNDI Name in Spring config files -->

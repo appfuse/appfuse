@@ -119,7 +119,7 @@ public final class ConvertUtil {
                 log.debug("getting form equivalent of pojo...");
             }
 
-            name = StringUtils.replace(name, "model", "webapp.form");
+            name = StringUtils.replace(name, ".model.", ".webapp.form.");
             if (AopUtils.isCglibProxy(o))  {
                 name = name.substring(0, name.indexOf("$$"));
             }

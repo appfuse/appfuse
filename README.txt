@@ -67,10 +67,14 @@ Features/Changes in 1.8
     * placeholders replaced in applicationContext-hibernate.xml within the 
       DAO .jar file created by "package-dao" target 
     * Simplified token replacement when deploying static web files
+    * Improved name replacement when running "new" target
 - Tests using Dumbster updated to always use "localhost" in case the normal
   mail.host is different
 - Struts UserAction updated to validate the form within the save() action
   to better support i18n.
+- Removed unnecessary "database.name" property from PostgreSQL configuration
+  in build.properties
+- Improved sensitivity for package name replacemet in ConvertUtil.getOpposingObject()
 - Dependent packages upgraded:
     * Display Tag 1.0
     * Dumbster 1.5
