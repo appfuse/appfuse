@@ -21,8 +21,6 @@ import org.apache.commons.lang.StringUtils;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class DateConverter implements Converter {
-    private static DateFormat df =
-        new SimpleDateFormat(DateUtil.getDatePattern());
 
     public Object convert(Class type, Object value) {
         if (value == null) {
@@ -39,6 +37,7 @@ public class DateConverter implements Converter {
     }
 
     protected Object convertToDate(Class type, Object value) {
+        DateFormat df = new SimpleDateFormat(DateUtil.getDatePattern());
         if (value instanceof String) {
             try {
                 if (StringUtils.isEmpty(value.toString())) {
@@ -57,6 +56,7 @@ public class DateConverter implements Converter {
     }
 
     protected Object convertToString(Class type, Object value) {
+        DateFormat df = new SimpleDateFormat(DateUtil.getDatePattern());
         if (value instanceof Date) {
             try {
                 return df.format(value);
