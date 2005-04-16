@@ -62,19 +62,21 @@ Features/Changes in 1.8
 - Changed IDEA project files so project is loaded as a web module. This 
   allows Tomcat debugging and taglib resolution in JSPs.
 - Improved build.xml file:
-    * create-tables.sql now deleted when running "clean" target
-    * "fixcrlf" target updated to repair more file types on *nix systems
-    * placeholders replaced in applicationContext-hibernate.xml within the 
-      DAO .jar file created by "package-dao" target 
-    * Simplified token replacement when deploying static web files
-    * Improved name replacement when running "new" target
+    * create-tables.sql now deleted when running "clean" target.
+    * "fixcrlf" target updated to repair more file types on *nix systems.
+    * Placeholders replaced in applicationContext-hibernate.xml within the 
+      DAO .jar file created by "package-dao" target.
+    * Simplified token replacement when deploying static web files.
+    * Improved name replacement when running "new" target.
 - Tests using Dumbster updated to always use "localhost" in case the normal
-  mail.host is different
+  mail.host is different.
 - Struts UserAction updated to validate the form within the save() action
   to better support i18n.
 - Removed unnecessary "database.name" property from PostgreSQL configuration
-  in build.properties
-- Improved sensitivity for package name replacemet in ConvertUtil.getOpposingObject()
+  in build.properties.
+- Improved sensitivity for package name replacement in 
+  ConvertUtil.getOpposingObject().
+- Fixed hard-coded date format in DateUtil using Spring's LocaleContextHolder.
 - Dependent packages upgraded:
     * Display Tag 1.0
     * Dumbster 1.5
