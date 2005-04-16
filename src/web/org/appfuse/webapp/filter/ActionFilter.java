@@ -15,14 +15,13 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
 import org.appfuse.webapp.util.RequestUtil;
 import org.appfuse.webapp.util.SslUtil;
-
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
@@ -34,7 +33,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  * <p><a href="ActionFilter.java.html"><i>View Source</i></a></p>
  *
  * @author  Matt Raible
- * @version $Revision: 1.12 $ $Date: 2004/09/30 04:41:19 $
+ * @version $Revision: 1.13 $ $Date: 2005/04/16 22:17:21 $
  *
  * @web.filter display-name="Action Filter" name="actionFilter"
  *
@@ -70,6 +69,10 @@ public class ActionFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) resp;
         HttpSession session = request.getSession(true);
+        
+        // notify the LocaleContextHolder what locale is being used so
+        // service and data layer classes can get the locale
+        LocaleContextHolder.setLocale(request.getLocale());
 
         // do pre filter work here
         // If using https, switch to http

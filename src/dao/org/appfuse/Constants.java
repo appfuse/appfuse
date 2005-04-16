@@ -12,13 +12,12 @@ package org.appfuse;
  */
 public class Constants {
     //~ Static fields/initializers =============================================
-
-    /**
-     * The application scoped attribute for persistence engine and class that
-     * implements it
-     */
+   
+    /** The name of the ResourceBundle used in this application */
+    public static final String BUNDLE_KEY = "ApplicationResources";
+    
+    /** The application scoped attribute for persistence engine used */
     public static final String DAO_TYPE = "daoType";
-    public static final String DAO_TYPE_HIBERNATE = "hibernate";
 
     /** Application scoped attribute for authentication url */
     public static final String AUTH_URL = "authURL";

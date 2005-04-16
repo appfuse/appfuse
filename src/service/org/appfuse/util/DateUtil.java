@@ -5,9 +5,13 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.appfuse.Constants;
+import org.springframework.context.i18n.LocaleContextHolder;
 
 
 /**
@@ -22,13 +26,13 @@ import org.apache.commons.logging.LogFactory;
  *  Modified by <a href="mailto:dan@getrolling.com">Dan Kibler </a> 
  *   to correct time pattern. Minutes should be mm not MM
  * 	(MM is month). 
- * @version $Revision: 1.5 $ $Date: 2004/10/05 07:20:13 $
+ * @version $Revision: 1.6 $ $Date: 2005/04/16 22:17:20 $
  */
 public class DateUtil {
     //~ Static fields/initializers =============================================
 
     private static Log log = LogFactory.getLog(DateUtil.class);
-    private static String datePattern = "MM/dd/yyyy";
+    private static String defaultDatePattern = null;
     private static String timePattern = "HH:mm";
 
     //~ Methods ================================================================
@@ -38,7 +42,12 @@ public class DateUtil {
      * @return a string representing the date pattern on the UI
      */
     public static String getDatePattern() {
-        return datePattern;
+        if (defaultDatePattern == null) {
+            Locale locale = LocaleContextHolder.getLocale();
+            defaultDatePattern = ResourceBundle.getBundle(Constants.BUNDLE_KEY)
+                                               .getString("date.format");
+        }
+        return defaultDatePattern;
     }
 
     /**
@@ -53,7 +62,7 @@ public class DateUtil {
         String returnValue = "";
 
         if (aDate != null) {
-            df = new SimpleDateFormat(datePattern);
+            df = new SimpleDateFormat(getDatePattern());
             returnValue = df.format(aDate);
         }
 
@@ -110,7 +119,7 @@ public class DateUtil {
      */
     public static Calendar getToday() throws ParseException {
         Date today = new Date();
-        SimpleDateFormat df = new SimpleDateFormat(datePattern);
+        SimpleDateFormat df = new SimpleDateFormat(getDatePattern());
 
         // This seems like quite a hack (date -> string -> date),
         // but it works ;-)
@@ -154,7 +163,7 @@ public class DateUtil {
      * @return a string representation of the date
      */
     public static final String convertDateToString(Date aDate) {
-        return getDateTime(datePattern, aDate);
+        return getDateTime(getDatePattern(), aDate);
     }
 
     /**
@@ -171,10 +180,10 @@ public class DateUtil {
 
         try {
             if (log.isDebugEnabled()) {
-                log.debug("converting date with pattern: " + datePattern);
+                log.debug("converting date with pattern: " + getDatePattern());
             }
 
-            aDate = convertStringToDate(datePattern, strDate);
+            aDate = convertStringToDate(getDatePattern(), strDate);
         } catch (ParseException pe) {
             log.error("Could not convert '" + strDate
                       + "' to a date, throwing exception");
