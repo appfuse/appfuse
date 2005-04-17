@@ -1,46 +1,32 @@
-<!DOCTYPE project [
-    <!ENTITY properties SYSTEM "properties.xml">
-    <!ENTITY app-settings SYSTEM "app-settings.xml">
-]>
-
+<?xml version="1.0" encoding="UTF-8"?>
 <project name="appfuse" basedir="." default="package-web">
 
-    <!-- import project-wide properties (classpath, jar file locations) -->
-    &properties;
-    <!-- import application settings for xdoclet -->
-    &app-settings;
+    <!-- import properties (app settings, classpath, jar file locations) -->
+    <import file="properties.xml"/>
     
     <target name="init" description="defines custom tasks">
         <!-- Taskdefs -->
-        <taskdef resource="net/sf/antcontrib/antcontrib.properties"
-            classpath="${ant-contrib.jar}"/>
+        <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="${ant-contrib.jar}"/>
             
         <!-- Ensure that Ant 1.6.2+ is being used -->
-        <available classname="org.apache.tools.ant.DynamicAttribute" 
-            property="ant-1.6.2"/>
-        <fail unless="ant-1.6.2"
-            message="AppFuse requires Ant 1.6.2 for faster unit testing"/>
+        <available classname="org.apache.tools.ant.DynamicAttribute" property="ant-1.6.2"/>
+        <fail unless="ant-1.6.2" message="AppFuse requires Ant 1.6.2 for faster unit testing"/>
 
         <!-- Check that junit.jar is in $ANT_HOME/lib or junit task fails -->
-        <available classname="junit.framework.TestCase"
-            property="junit.present"/>
-        <fail unless="junit.present"
-            message="Please copy junit.jar into ${env.ANT_HOME}/lib"/>
+        <available classname="junit.framework.TestCase" property="junit.present"/>
+        <fail unless="junit.present" message="Please copy junit.jar into ${env.ANT_HOME}/lib"/>
 
-        <taskdef name="dbunit" classname="org.dbunit.ant.DbUnitTask"
-            classpathref="dao.test.classpath"/>
+        <taskdef name="dbunit" classname="org.dbunit.ant.DbUnitTask" classpathref="dao.test.classpath"/>
         
         <!-- Test for Tomcat 5.0.x -->
-        <available classname="org.apache.catalina.ant.SessionsTask"
-            property="tomcat5">
+        <available classname="org.apache.catalina.ant.SessionsTask" property="tomcat5">
             <classpath>
                 <pathelement path="${tomcat.home}/server/lib/catalina-ant.jar"/>
             </classpath>
         </available>
         
         <!-- Test for Tomcat 5.5.x -->
-        <available file="${tomcat.home}/common/lib/jasper-compiler-jdt.jar" 
-            property="tomcat5.5"/>
+        <available file="${tomcat.home}/common/lib/jasper-compiler-jdt.jar" property="tomcat5.5"/>
         
         <!-- Conditionally set property for converting to JSP 2.0 -->
         <condition property="convert.to.jsp2">
@@ -51,9 +37,7 @@
     <!-- Check timestamp on files -->
     <target name="prepare" depends="init" description="create target directories">
         <tstamp/>
-        <tstamp>
-            <format property="copyright.year" pattern="yyyy"/>
-        </tstamp>
+        <tstamp><format property="copyright.year" pattern="yyyy"/></tstamp>
         <echo message="Preparing target directory '${webapp.target}'"/>
         <mkdir dir="${webapp.target}"/>
         <mkdir dir="${webapp.target}/WEB-INF"/>
@@ -63,16 +47,14 @@
         <uptodate property="hibernatedoclet.unnecessary">
             <srcfiles dir="src/dao" includes="**/*.java"/>
             <srcfiles dir="${build.dir}/dao/gen" includes="**/*.java"/>
-            <mapper type="glob" from="*.java"
-                to="${build.dir}/dao/classes/*.class"/>
+            <mapper type="glob" from="*.java" to="${build.dir}/dao/classes/*.class"/>
         </uptodate>
         
         <!-- Make sure webdoclet is necessary -->
         <uptodate property="webdoclet.uptodate">
             <srcfiles dir="src/web" includes="**/*.java"/>
             <srcfiles dir="${build.dir}/web/gen" includes="**/*.java"/>
-            <mapper type="glob" from="*.java"
-                to="${build.dir}/web/classes/*.class"/>
+            <mapper type="glob" from="*.java" to="${build.dir}/web/classes/*.class"/>
         </uptodate>
 
         <condition property="webdoclet.unnecessary">
@@ -140,13 +122,11 @@
         <copy file="appfuse.iml" tofile="../${app.name}/${app.name}.iml"/>
         <copy file="appfuse.ipr" tofile="../${app.name}/${app.name}.ipr"/>
         <replace dir="../${app.name}" value="${app.name}" token="appfuse">
-          <include name="${app.name}.i*"/>
+            <include name="${app.name}.i*"/>
         </replace>
         
         <!-- Fix path for packages in build.xml -->
-        <replaceregexp flags="g"
-            match="org.${app.name}"
-            replace="org.appfuse">
+        <replaceregexp flags="g" match="org.${app.name}" replace="org.appfuse">
             <fileset dir="../${app.name}">
                 <include name="build.xml"/>
                 <include name="metadata/templates/*.xdt"/>
@@ -166,10 +146,8 @@
         </replaceregexp>
 
         <!-- Replace JNDI Name in Spring config files -->
-        <replaceregexp flags="g"
-            file="../${app.name}/web/WEB-INF/applicationContext-resources.xml"
-            match="jdbc/appfuse"
-            replace="jdbc/${db.name}"/>
+        <replaceregexp flags="g" match="jdbc/appfuse" replace="jdbc/${db.name}"
+            file="../${app.name}/web/WEB-INF/applicationContext-resources.xml"/>
             
         <!-- Replace database name in properties.xml and -->
         <!-- in database creation script -->
@@ -237,8 +215,7 @@
     <!-- The "copy-web-files" target copies the static web resources portion -->
     <!-- of your web application source into the build target area           -->
     <!-- =================================================================== -->
-    <target name="copy-web-files" depends="prepare"
-        description="Copy static files">
+    <target name="copy-web-files" depends="prepare" description="Copy static files">
         <echo message="Copying static files"/>
         <!-- Remove the copy block below if you're not displaying 
              version/copyright in the footer -->
@@ -317,23 +294,20 @@
             file="${webapp.target}/WEB-INF/web.xml"
             match='&lt;web-app &gt;'
             replace='&lt;web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee web-app_2_4.xsd"&gt;'/>
-
     </target>
     
     <!-- =================================================================== -->
     <!-- The "stage-web" is used to gather all static web recourses in the   -->
     <!-- build directory.                                                    -->
     <!-- =================================================================== -->
-    <target name="stage-web"
-        depends="copy-resources,copy-web-files"
+    <target name="stage-web" depends="copy-resources,copy-web-files"
         description="Calls other targets to gather static resources"/>
         
     <!-- =================================================================== -->
     <!-- The "hibernatedoclet" target generates Hibernate mapping files      -->
     <!-- based on XDoclet marked-up Plain Old Java Object (POJO)             -->
     <!-- =================================================================== -->
-    <target name="hibernatedoclet" depends="prepare" 
-        unless="hibernatedoclet.unnecessary"
+    <target name="hibernatedoclet" depends="prepare" unless="hibernatedoclet.unnecessary"
         description="Generate Hibernate mapping files">
 
         <taskdef name="hibernatedoclet"
@@ -341,73 +315,41 @@
             classpathref="xdoclet.classpath"/>
         
         <!-- generate hibernate files -->
-        <hibernatedoclet
-            destdir="${build.dir}/dao/gen"
-            mergedir="metadata/dao"
-            excludedtags="@version,@author"
-            addedtags="@xdoclet-generated at ${TODAY}"
+        <hibernatedoclet destdir="${build.dir}/dao/gen" mergedir="metadata/dao"
+            excludedtags="@version,@author" addedtags="@xdoclet-generated at ${TODAY}"
             force="${xdoclet.force}">
             <fileset dir="src/dao"/>
-
-            <hibernate validatexml="true" version="2.0"/>
-            
+            <hibernate validatexml="true" version="3.0"/>
         </hibernatedoclet>
     </target>
 
-    <target name="compile-dao" depends="hibernatedoclet"
-        description="Compile dao module">
-        <antcall target="compile-module" inheritAll="true">
-            <param name="module" value="dao"/>
-            <reference refid="dao.compile.classpath"
-                torefid="compile.classpath"/>
-            <reference refid="dao.test.classpath"
-                torefid="test.classpath"/>
-        </antcall>
+    <target name="compile-dao" depends="hibernatedoclet" description="Compile dao module">
+        <compile module="dao"/>
     </target>
 
-    <target name="package-dao" depends="prepare,compile-dao"
-        description="Package DAO JAR">
+    <target name="package-dao" depends="prepare,compile-dao" description="Package DAO JAR">
         <!-- Copy XML files from source -->
         <copy todir="${build.dir}/dao/gen">
-            <fileset dir="src/dao">
-                <include name="**/*.xml"/>
-            </fileset>
+            <fileset dir="src/dao" includes="**/*.xml"/>
         	<filterset refid="variables.to.replace"/>
         </copy>
         <jar destfile="${dist.dir}/${webapp.name}-dao.jar">
             <manifest>
-                <attribute name="Class-Path"
-                    value="${webapp.name}-dao.jar"/>
+                <attribute name="Class-Path" value="${webapp.name}-dao.jar"/>
             </manifest>
             <fileset dir="${build.dir}/dao/classes"/>
-            <fileset dir="${build.dir}/dao/gen">
-                <include name="**/*.xml"/>
-            </fileset>
+            <fileset dir="${build.dir}/dao/gen" includes="**/*.xml"/>
             <metainf dir="${build.dir}/dao/gen" includes="*.xml"/>
         </jar>
     </target>
    
-    <target name="test-dao" depends="copy-resources,package-dao,db-load"
-        description="Test dao module">
-        <antcall target="test-module" inheritAll="true">
-            <param name="module" value="dao"/>
-            <param name="additional.src.dirs"
-                value="${build.dir}/dao/gen"/>
-            <reference refid="dao.test.classpath"
-                torefid="test.classpath"/>
-        </antcall>
+    <target name="test-dao" depends="copy-resources,package-dao,db-load" description="Test dao module">
+        <test-module module="dao" additional.src.dirs="${build.dir}/dao/gen"/>
     </target>
   
     <!-- Service -->
-    <target name="compile-service" depends="package-dao"
-        description="Compile service module">
-        <antcall target="compile-module" inheritAll="true">
-            <param name="module" value="service"/>
-            <reference refid="service.compile.classpath"
-                torefid="compile.classpath"/>
-            <reference refid="service.test.classpath"
-                torefid="test.classpath"/>
-        </antcall>
+    <target name="compile-service" depends="package-dao" description="Compile service module">
+        <compile module="service"/>
     </target>
 
     <target name="package-service" depends="compile-service">
@@ -420,13 +362,8 @@
         </jar>
     </target>
 
-    <target name="test-service" depends="copy-resources,compile-service"
-        description="Test service module">
-        <antcall target="test-module" inheritAll="true">
-            <param name="module" value="service"/>
-            <reference refid="service.test.classpath"
-                torefid="test.classpath"/>
-        </antcall>
+    <target name="test-service" depends="copy-resources,compile-service" description="Test service module">
+        <test-module module="service"/>
     </target>
 
     <!-- Generate ActionForms from POJOs -->
@@ -451,29 +388,19 @@
         </xdoclet>
     </target>
 
-    <target name="compile-web" depends="package-service,stage-web,gen-forms"
-        description="Compile web module">
-        <antcall target="compile-module" inheritAll="true">
-            <param name="module" value="web"/>
-            <param name="additional.src.dirs"
-                value="${build.dir}/web/gen"/>
-            <reference refid="web.compile.classpath"
-                torefid="compile.classpath"/>
-            <reference refid="web.test.classpath"
-                torefid="test.classpath"/>
-        </antcall>
+    <target name="compile-web" depends="package-service,stage-web,gen-forms" description="Compile web module">
+        <compile module="web" additional.src.dirs="${build.dir}/web/gen"/>
     </target>
-    
+
     <!-- Simple alias to compile-web -->
     <target name="compile" depends="compile-web" 
         description="alias for compile-web"/>
-        
+
     <!-- =================================================================== -->
     <!-- The "webdoclet" target generates web and struts deployment          -->
     <!-- descriptors.                                                        --> 
     <!-- =================================================================== -->
-    <target name="webdoclet" depends="compile-web" 
-        unless="webdoclet.unnecessary"
+    <target name="webdoclet" depends="compile-web" unless="webdoclet.unnecessary"
         description="Generate web and Struts descriptors">
         <taskdef name="webdoclet" classname="xdoclet.modules.web.WebDocletTask">
             <classpath>
@@ -495,7 +422,6 @@
                 <configParam name="httpPort" value="${http.port}"/>
                 <configParam name="httpsPort" value="${https.port}"/>
                 <configParam name="daoType" value="${dao.type}"/>
-                <configParam name="security" value="${security.mode}"/>
             </deploymentdescriptor>
             <jsptaglib validateXML="true"
                 description="Custom tag library for this application"
@@ -504,19 +430,16 @@
             <strutsvalidationxml/>
         </webdoclet>
     </target>
-    
+
     <!-- Simple alias to package-web -->
     <target name="war" depends="package-web" 
         description="alias for package-web"/>
-        
-    <target name="package-web" depends="compile-web,jsp-2"
-        description="Package WAR">
+
+    <target name="package-web" depends="compile-web,jsp-2" description="Package WAR">
         <propertyfile comment="Build Information"
             file="${build.dir}/web/classes/build.properties">
-            <entry key="build.date" type="date" pattern="EEEE MMM dd, yyyy" 
-                value="now"/>
-            <entry key="build.time" type="date" pattern="hh:mm:ss a zz" 
-                value="now"/>
+            <entry key="build.date" type="date" pattern="EEEE MMM dd, yyyy" value="now"/>
+            <entry key="build.time" type="date" pattern="hh:mm:ss a zz" value="now"/>
             <entry key="build.username" value="${user.name}"/>
             <entry key="build.computer" value="${env.COMPUTERNAME}"/>
             <entry key="build.dao.type" value="${dao.type}"/>
@@ -609,91 +532,94 @@
         </war>
     </target>
 
-    <target name="test-web" depends="webdoclet,db-load"
-        description="Test web module">
-        <copy todir="${webapp.target}/WEB-INF" 
-            file="${struts.dir}/validator-rules.xml"/>
-        <antcall target="test-module" inheritAll="true">
-            <param name="module" value="web"/>
-            <reference refid="web.test.classpath"
-                torefid="test.classpath"/>
-        </antcall>
+    <target name="test-web" depends="webdoclet,db-load" description="Test web module">
+        <copy todir="${webapp.target}/WEB-INF" file="${struts.dir}/validator-rules.xml"/>
+        <test-module module="web"/>
     </target>
 
-    <target name="compile-module">
-        <!-- Inputs: module, compile.classpath, test.classpath -->
-        <echo level="info">Compiling ${module}...</echo>
-        <mkdir dir="${build.dir}/${module}/classes"/>
-        <mkdir dir="${test.dir}/${module}/classes"/>
-        <property name="excludes" value=""/>
-        <property name="additional.src.dirs" value=""/>
-        <javac srcdir="src/${module};${additional.src.dirs}"
-            destdir="${build.dir}/${module}/classes"
-            debug="${compile.debug}"
-            deprecation="${compile.deprecation}"
-            optimize="${compile.optimize}"
-            classpathref="compile.classpath"/>
-        <javac srcdir="test/${module}"
-            destdir="${test.dir}/${module}/classes"
-            debug="true">
-            <classpath>
-                <path refid="test.classpath"/>
-                <path location="${build.dir}/${module}/classes"/>
-            </classpath>
-        </javac>
-    </target>
+    <macrodef name="compile">
+        <attribute name="module"/>
+        <attribute name="additional.src.dirs" default=""/>
+        <element name="options" optional="yes"/>
 
-    <target name="test-module">
-        <!-- Inputs: module, test.classpath -->
-        <echo level="info">Testing ${module}...</echo>
-        <mkdir dir="${test.dir}/data"/>
-        <propertycopy name="testcase" from="${module}-testcase" silent="true"/>
-        <!-- Replace tokens in test properties files -->
-        <copy todir="${test.dir}/${module}/classes">
-            <fileset dir="test/${module}" excludes="**/*.java"/>
-            <filterset refid="variables.to.replace"/>
-        </copy>     
-        <!-- Use test-specific XML files -->
-        <copy todir="${webapp.target}/WEB-INF" overwrite="true">
-            <fileset dir="test" includes="*.xml"/>
-        </copy>
-        <property name="additional.src.dirs" value=""/>
-        <junit printsummary="no" forkmode="once"
-            errorProperty="test.failed"
-            failureProperty="test.failed"
-            fork="${junit.fork}">
-            <classpath>
-                <pathelement path="${additional.src.dirs}"/>
-                <path refid="test.classpath"/>
-                <pathelement location="${build.dir}/${module}/classes"/>
-                <pathelement location="${test.dir}/${module}/classes"/>
-                <pathelement path="${java.class.path}"/>
-                <pathelement path="${webapp.target}"/>
-                <pathelement path="${build.dir}/dao/gen"/>   
-                <!-- For .properties and .xml files -->
-                <pathelement path="${build.dir}/web/classes"/>
-                <pathelement path="src/${module}"/>
-            </classpath>
-            <formatter type="xml"/>
-            <formatter type="brief" usefile="false"/>
-            <batchtest todir="${test.dir}/data" if="testcase">
-                <fileset dir="${test.dir}/${module}/classes">
-                    <include name="**/*${testcase}*"/>
-                    <exclude name="**/*TestCase.class"/>
-                </fileset>
-            </batchtest>
-            <batchtest todir="${test.dir}/data" unless="testcase">
-                <fileset dir="${test.dir}/${module}/classes">
-                    <include name="**/*Test.class*"/>
-                </fileset>
-            </batchtest>
-        </junit>
+        <sequential>
+            <echo>Compiling @{module}...</echo>
+            <mkdir dir="${build.dir}/@{module}/classes"/>
+            <mkdir dir="${test.dir}/@{module}/classes"/>
+            <javac srcdir="src/@{module};@{additional.src.dirs}"
+                destdir="${build.dir}/@{module}/classes"
+                debug="${compile.debug}"
+                deprecation="${compile.deprecation}"
+                optimize="${compile.optimize}"
+                classpathref="@{module}.compile.classpath">
+                <options/>
+            </javac>
+            <javac srcdir="test/@{module}"
+                destdir="${test.dir}/@{module}/classes"
+                debug="true">
+                <classpath>
+                    <path refid="@{module}.test.classpath"/>
+                    <path location="${build.dir}/@{module}/classes"/>
+                </classpath>
+                <options/>
+            </javac>
+        </sequential>
+    </macrodef>
 
-        <fail if="test.failed">
-          Unit tests failed. For error messages, check the log files in
-          ${test.dir}/data or run "ant test-reports"
-          to generate reports at ${test.dir}/reports.</fail>
-    </target>
+    <macrodef name="test-module">
+        <attribute name="module"/>
+        <attribute name="additional.src.dirs" default=""/>
+        <element name="options" optional="yes"/>
+
+        <sequential>
+            <echo level="info">Testing @{module}...</echo>
+            <mkdir dir="${test.dir}/data"/>
+            <propertycopy name="testcase" from="@{module}-testcase" silent="true"/>
+            <!-- Replace tokens in test properties files -->
+            <copy todir="${test.dir}/@{module}/classes">
+                <fileset dir="test/@{module}" excludes="**/*.java"/>
+                <filterset refid="variables.to.replace"/>
+            </copy>
+            <!-- Use test-specific XML files -->
+            <!-- TODO: Eliminate applicationContext-resources.xml for test -->
+            <copy todir="${webapp.target}/WEB-INF" overwrite="true">
+                <fileset dir="test" includes="*.xml"/>
+            </copy>
+            <junit printsummary="no" forkmode="once" errorProperty="test.failed"
+                failureProperty="test.failed" fork="${junit.fork}">
+                <classpath>
+                    <pathelement path="@{additional.src.dirs}"/>
+                    <path refid="@{module}.test.classpath"/>
+                    <pathelement location="${build.dir}/@{module}/classes"/>
+                    <pathelement location="${test.dir}/@{module}/classes"/>
+                    <pathelement path="${java.class.path}"/>
+                    <pathelement path="${webapp.target}"/>
+                    <pathelement path="${build.dir}/dao/gen"/>
+                    <!-- For .properties and .xml files -->
+                    <pathelement path="${build.dir}/web/classes"/>
+                    <pathelement path="src/@{module}"/>
+                </classpath>
+                <formatter type="xml"/>
+                <formatter type="brief" usefile="false"/>
+                <batchtest todir="${test.dir}/data" if="testcase">
+                    <fileset dir="${test.dir}/@{module}/classes">
+                        <include name="**/*${testcase}*"/>
+                        <exclude name="**/*TestCase.class"/>
+                    </fileset>
+                </batchtest>
+                <batchtest todir="${test.dir}/data" unless="testcase">
+                    <fileset dir="${test.dir}/@{module}/classes">
+                        <include name="**/*Test.class*"/>
+                    </fileset>
+                </batchtest>
+            </junit>
+
+            <fail if="test.failed">
+              Unit tests failed. For error messages, check the log files in
+              ${test.dir}/data or run "ant test-reports"
+              to generate reports at ${test.dir}/reports.</fail>
+        </sequential>
+    </macrodef>
 
     <target name="test-reports" description="Generate test reports">
         <mkdir dir="${test.dir}/reports"/>
@@ -1089,24 +1015,17 @@
     <target name="checkstyle" depends="prepare"
         description="Check code style for compliance with coding standards">
         <property name="checkstyle.data.dir"
-            location="${build.dir}/docs/checkstyle"
-            />
+            location="${build.dir}/docs/checkstyle"/>
         <property name="checkstyle.data.file"
-            location="${checkstyle.data.dir}/checkstyle.xml"
-            />
+            location="${checkstyle.data.dir}/checkstyle.xml"/>
         <property name="checkstyle.report.file"
-            location="${checkstyle.data.dir}/checkstyle.html"
-            />
+            location="${checkstyle.data.dir}/checkstyle.html"/>
         <property name="checkstyle.xsl.file"
-            location="${checkstyle.dir}/contrib/checkstyle-noframes.xsl"
-            />
+            location="${checkstyle.dir}/contrib/checkstyle-noframes.xsl"/>
         <mkdir dir="${checkstyle.data.dir}"/>
-        <taskdef resource="checkstyletask.properties"
-            classpath="${checkstyle.jar}"
-            />
+        <taskdef resource="checkstyletask.properties" classpath="${checkstyle.jar}"/>
         <checkstyle config="${checkstyle.dir}/sun_checks.xml"
-            failOnViolation="false"
-            failureProperty="checkstyle.failure">
+            failOnViolation="false" failureProperty="checkstyle.failure">
             <fileset dir="src">
                 <patternset refid="java.files.pattern"/>
             </fileset>
@@ -1114,18 +1033,14 @@
             <!--formatter type="plain"/-->
             <formatter type="xml" toFile="${checkstyle.data.file}"/>
         </checkstyle>
-        <xslt in="${checkstyle.data.file}"
-            out="${checkstyle.report.file}"
-            style="${checkstyle.xsl.file}"
-            />
+        <xslt in="${checkstyle.data.file}" out="${checkstyle.report.file}"
+            style="${checkstyle.xsl.file}"/>
     </target>
 
     <target name="pmd" if="pmd.jar" depends="prepare"
         description="Locates unused imports, unused variables, etc.">
         <mkdir dir="${build.dir}/docs/pmd"/>
-        <property name="pmd.data.file"
-            value="${build.dir}/docs/pmd/pmdreport.html"
-            />
+        <property name="pmd.data.file"  value="${build.dir}/docs/pmd/pmdreport.html"/>
         <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask">
             <classpath location="${pmd.jar}"/>
             <classpath location="${pmd.dir}/lib/jaxen-core-1.0-fcs.jar"/>
@@ -1322,8 +1237,7 @@
             </zipfileset>
         </zip>
         <tar tarfile="${archive.target}.tar">
-            <tarfileset dir="${basedir}" mode="${tar.mode}"
-                prefix="${webapp.name}"
+            <tarfileset dir="${basedir}" mode="${tar.mode}" prefix="${webapp.name}"
                 username="${tar.user}" group="${tar.group}">
                 <patternset refid="srcfiles"/>
             </tarfileset>

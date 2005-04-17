@@ -1,8 +1,7 @@
 <!-- ======================================================================= -->
-<!-- $Id: web-tests.xml,v 1.3 2004/12/07 16:55:54 mraible Exp $               -->
+<!-- $Id: web-tests.xml,v 1.4 2005/04/17 21:43:12 mraible Exp $               -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
-    <!ENTITY properties SYSTEM "file:../../properties.xml">
     <!ENTITY config SYSTEM "file:./config.xml">
     <!ENTITY login SYSTEM "file:./login.xml">
 ]>

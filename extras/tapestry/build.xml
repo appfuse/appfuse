@@ -359,18 +359,15 @@ tapestry.jar=${tapestry.dir}/tapestry-${tapestry.version}.jar]]></replacevalue>
             <replacevalue><![CDATA[<target name="compile-web" depends="package-service,stage-web"]]></replacevalue>
         </replace>
         <replace file="../../build.xml">
-            <replacetoken><![CDATA[<param name="additional.src.dirs"
-                value="${build.dir}/web/gen"/>
-]]></replacetoken>
-            <replacevalue></replacevalue>
+            <replacetoken><![CDATA[<compile module="web" additional.src.dirs="${build.dir}/web/gen"/>]]></replacetoken>
+            <replacevalue><![CDATA[<compile module="web"/>]]></replacevalue>
         </replace>
         
         <replace file="../../build.xml">
             <replacetoken><![CDATA[    <!-- The "webdoclet" target generates web and struts deployment          -->
     <!-- descriptors.                                                        --> 
     <!-- =================================================================== -->
-    <target name="webdoclet" depends="compile-web" 
-        unless="webdoclet.unnecessary"
+    <target name="webdoclet" depends="compile-web" unless="webdoclet.unnecessary"
         description="Generate web and Struts descriptors">
         <taskdef name="webdoclet" classname="xdoclet.modules.web.WebDocletTask">
             <classpath>
@@ -392,7 +389,6 @@ tapestry.jar=${tapestry.dir}/tapestry-${tapestry.version}.jar]]></replacevalue>
                 <configParam name="httpPort" value="${http.port}"/>
                 <configParam name="httpsPort" value="${https.port}"/>
                 <configParam name="daoType" value="${dao.type}"/>
-                <configParam name="security" value="${security.mode}"/>
             </deploymentdescriptor>
             <jsptaglib validateXML="true"
                 description="Custom tag library for this application"
@@ -402,11 +398,9 @@ tapestry.jar=${tapestry.dir}/tapestry-${tapestry.version}.jar]]></replacevalue>
 ]]></replacetoken>
             <replacevalue><![CDATA[    <!-- The "webdoclet" target generates web deployment descriptors.           -->
     <!-- =================================================================== -->
-    <target name="webdoclet" depends="compile-web" 
-        unless="webdoclet.unnecessary"
+    <target name="webdoclet" depends="compile-web" unless="webdoclet.unnecessary"
         description="Generate web deployment descriptors">
-        <taskdef name="webdoclet"
-            classname="xdoclet.modules.web.WebDocletTask">
+        <taskdef name="webdoclet" classname="xdoclet.modules.web.WebDocletTask">
             <classpath>
                 <path refid="xdoclet.classpath"/>
                 <path refid="web.compile.classpath"/>
@@ -425,7 +419,6 @@ tapestry.jar=${tapestry.dir}/tapestry-${tapestry.version}.jar]]></replacevalue>
                 <configParam name="httpPort" value="${http.port}"/>
                 <configParam name="httpsPort" value="${https.port}"/>
                 <configParam name="daoType" value="${dao.type}"/>
-                <configParam name="security" value="${security.mode}"/>
             </deploymentdescriptor>
             <jsptaglib validateXML="true"
                 description="Custom tag library for this application"
@@ -444,25 +437,9 @@ tapestry.jar=${tapestry.dir}/tapestry-${tapestry.version}.jar]]></replacevalue>
             <lib file="${requesttag.jar}"/>]]></replacevalue>
         </replace>
         
+        <!-- Fix test-web target -->
         <replace file="../../build.xml">
-            <replacetoken><![CDATA[<target name="test-web" depends="webdoclet,db-load"
-        description="Test web module">
-        <copy todir="${webapp.target}/WEB-INF" 
-            file="${struts.dir}/validator-rules.xml"/>
-        <antcall target="test-module" inheritAll="true">
-            <param name="module" value="web"/>
-            <reference refid="web.test.classpath"
-                torefid="test.classpath"/>
-        </antcall>
-    </target>]]></replacetoken>
-            <replacevalue><![CDATA[<target name="test-web" depends="webdoclet,db-load"
-        description="Test web module">
-        <antcall target="test-module" inheritAll="true">
-            <param name="module" value="web"/>
-            <reference refid="web.test.classpath"
-                torefid="test.classpath"/>
-        </antcall>
-    </target>]]></replacevalue>
+            <replacetoken><![CDATA[<copy todir="${webapp.target}/WEB-INF" file="${struts.dir}/validator-rules.xml"/>]]></replacetoken>
         </replace>
         
         <replace file="../../build.xml">

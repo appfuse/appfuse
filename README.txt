@@ -47,7 +47,7 @@ Features/Changes in 1.8
   Spring.  Minimal changes were necessary - meaning that you could easily 
   switch back if you wanted to.  HowTo documented at:
     http://raibledesigns.com/wiki/Wiki.jsp?page=AppFuseSecurity
-- Fixed bugs in Tapestry UserForm.java and UserList.java classes - now role
+- [Tapestry] Fixed bugs in UserForm.java and UserList.java classes - now role
   choices are shown when editing a user or adding a new user.
 - Fixed bug where uses could hack the URL in Struts and WebWork versions to 
   delete users when they don't have the "admin" role.
@@ -56,8 +56,8 @@ Features/Changes in 1.8
   applicationContext-service.xml to suppress Velocity errors.
 - Changed Transaction Attributes on UserManager so save* rolls back when 
   the checked UserExistsException is thrown.
-- Fixed bug in error.jsp that caused it to throw exceptions under certain 
-  conditions: https://appfuse.dev.java.net/issues/show_bug.cgi?id=122.
+- [Struts] Fixed bug in error.jsp that caused it to throw exceptions under  
+  certain conditions: https://appfuse.dev.java.net/issues/show_bug.cgi?id=122.
 - Added serialVersionUID variables to all serializable classes.
 - Changed IDEA project files so project is loaded as a web module. This 
   allows Tomcat debugging and taglib resolution in JSPs.
@@ -65,33 +65,38 @@ Features/Changes in 1.8
     * create-tables.sql now deleted when running "clean" target.
     * "fixcrlf" target updated to repair more file types on *nix systems.
     * Placeholders replaced in applicationContext-hibernate.xml within the 
-      DAO .jar file created by "package-dao" target.
+      DAO JAR file created by "package-dao" target.
     * Simplified token replacement when deploying static web files.
     * Improved name replacement when running "new" target.
+    * Replaced "compile-module" and "test-module" with macrodefs.
+    * Changed entity include for properties.xml to be an import.
+    * Moved app-settings.xml properties into properties.xml.
+    * Changed from 80 characters per line to 120.
 - Tests using Dumbster updated to always use "localhost" in case the normal
   mail.host is different.
-- Struts UserAction updated to validate the form within the save() action
+- [Struts] UserAction updated to validate the form within the save() action
   to better support i18n.
 - Removed unnecessary "database.name" property from PostgreSQL configuration
   in build.properties.
 - Improved sensitivity for package name replacement in 
   ConvertUtil.getOpposingObject().
 - Fixed hard-coded date format in DateUtil using Spring's LocaleContextHolder.
-- Changed all "bean:write" tags to "c:out" to prevent errors from Struts when
+- [Struts] Changed all "bean:write" tags to "c:out" to prevent errors when
   using an unsupported locale.
-- Added TimestampConverter to converting Timestamps with Struts.
-- SpringMVC BaseFormController updated to make the userManager availble to
+- [Struts] Added TimestampConverter to converting Timestamps.
+- [Spring MVC] BaseFormController updated to make the userManager available to
   all subclassed objects.
 - Dependent packages upgraded:
     * Display Tag 1.0
-    * Dumbster 1.5
+    * Dumbster 1.6
     * Hibernate 3.0
     * MySQL JDBC Driver 3.1.7
     * PMD 3.0
     * PostgreSQL JDBC Driver 8.0-310
     * SiteMesh 2.2.1
-    * Spring 1.2 RC1
+    * Spring 1.2 RC1 (w/ LocaleContextHolder from RC2)
     * StrutsTestCase 2.1.3
+    * XDoclet 1.2.3
 - Dependent packages added:
     * Acegi Security 0.8.1
 - Dependent packaged removed:

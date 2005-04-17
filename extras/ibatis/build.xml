@@ -46,21 +46,21 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
         <echo level="info">Adding iBatis classpath entries</echo>
         <replace file="../../properties.xml">
             <replacetoken><![CDATA[<!-- DAO -->
-<path id="dao.compile.classpath">
-    <path refid="hibernate.classpath"/>]]></replacetoken>
+    <path id="dao.compile.classpath">
+        <path refid="hibernate.classpath"/>]]></replacetoken>
             <replacevalue><![CDATA[<!-- iBatis -->
-<path id="ibatis.classpath">
-    <fileset dir="${ibatis.dir}" includes="*.jar"/>
-    <pathelement location="${database.jar}"/>
-    <pathelement location="${commons-beanutils.jar}"/>
-    <pathelement location="${commons-lang.jar}"/>
-    <path location="${build.dir}/dao/classes"/>
-</path>
+    <path id="ibatis.classpath">
+        <fileset dir="${ibatis.dir}" includes="*.jar"/>
+        <pathelement location="${database.jar}"/>
+        <pathelement location="${commons-beanutils.jar}"/>
+        <pathelement location="${commons-lang.jar}"/>
+        <path location="${build.dir}/dao/classes"/>
+    </path>
 
-<!-- DAO -->
-<path id="dao.compile.classpath">
-    <path refid="hibernate.classpath"/>
-    <path refid="ibatis.classpath"/>]]></replacevalue>
+    <!-- DAO -->
+    <path id="dao.compile.classpath">
+        <path refid="hibernate.classpath"/>
+        <path refid="ibatis.classpath"/>]]></replacevalue>
         </replace>
 
         <echo level="info">Modifying Eclipse .classpath file</echo>
@@ -145,21 +145,21 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
         <echo level="info">Removing iBatis classpath entries</echo>
         <replace file="../../properties.xml">
             <replacetoken><![CDATA[<!-- iBatis -->
-<path id="ibatis.classpath">
-    <fileset dir="${ibatis.dir}" includes="*.jar"/>
-    <pathelement location="${database.jar}"/>
-    <pathelement location="${commons-beanutils.jar}"/>
-    <pathelement location="${commons-lang.jar}"/>
-    <path location="${build.dir}/dao/classes"/>
-</path>
+    <path id="ibatis.classpath">
+        <fileset dir="${ibatis.dir}" includes="*.jar"/>
+        <pathelement location="${database.jar}"/>
+        <pathelement location="${commons-beanutils.jar}"/>
+        <pathelement location="${commons-lang.jar}"/>
+        <path location="${build.dir}/dao/classes"/>
+    </path>
 
-<!-- DAO -->
-<path id="dao.compile.classpath">
-    <path refid="hibernate.classpath"/>
-    <path refid="ibatis.classpath"/>]]></replacetoken>
+    <!-- DAO -->
+    <path id="dao.compile.classpath">
+        <path refid="hibernate.classpath"/>
+        <path refid="ibatis.classpath"/>]]></replacetoken>
             <replacevalue><![CDATA[<!-- DAO -->
-<path id="dao.compile.classpath">
-    <path refid="hibernate.classpath"/>]]></replacevalue>
+    <path id="dao.compile.classpath">
+        <path refid="hibernate.classpath"/>]]></replacevalue>
         </replace>
 
         <echo level="info">Modifying Eclipse .classpath file</echo>
@@ -241,25 +241,25 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
         <echo level="info">Removing Hibernate classpath entries</echo>
         <replace file="../../properties.xml">
             <replacetoken><![CDATA[
-<!-- Hibernate -->
-<path id="hibernate.classpath">
-    <pathelement location="${hibernate.jar}"/> 
-    <fileset dir="${hibernate.dir}/lib" includes="*.jar"/>
-    <pathelement location="${database.jar}"/> 
-    <pathelement location="${commons-beanutils.jar}"/>
-    <pathelement location="${commons-lang.jar}"/>
-    <path location="${build.dir}/dao/classes"/>
-</path>
+    <!-- Hibernate -->
+    <path id="hibernate.classpath">
+        <pathelement location="${hibernate.jar}"/>
+        <fileset dir="${hibernate.dir}/lib" includes="*.jar"/>
+        <pathelement location="${database.jar}"/>
+        <pathelement location="${commons-beanutils.jar}"/>
+        <pathelement location="${commons-lang.jar}"/>
+        <path location="${build.dir}/dao/classes"/>
+    </path>
 ]]></replacetoken>
             <replacevalue></replacevalue>
         </replace>
 
         <replace file="../../properties.xml">
             <replacetoken><![CDATA[<!-- DAO -->
-<path id="dao.compile.classpath">
-    <path refid="hibernate.classpath"/>]]></replacetoken>
+    <path id="dao.compile.classpath">
+        <path refid="hibernate.classpath"/>]]></replacetoken>
             <replacevalue><![CDATA[<!-- DAO -->
-<path id="dao.compile.classpath">]]></replacevalue>
+    <path id="dao.compile.classpath">]]></replacevalue>
         </replace>
         
         <replace file="../../properties.xml">
@@ -301,7 +301,6 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
         <replace file="../../build.xml">
             <replacetoken><![CDATA[<filter token="HIBERNATE-DIALECT" value="${hibernate.dialect}"/>
         <filter token="DAO-TYPE" value="${dao.type}"/>]]></replacetoken>
-            <replacevalue></replacevalue>
         </replace>
 
         <!-- Remove hibernatedoclet target -->
@@ -311,25 +310,19 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
     <!-- The "hibernatedoclet" target generates Hibernate mapping files      -->
     <!-- based on XDoclet marked-up Plain Old Java Object (POJO)             -->
     <!-- =================================================================== -->
-    <target name="hibernatedoclet" depends="prepare" 
-        unless="hibernatedoclet.unnecessary"
+    <target name="hibernatedoclet" depends="prepare" unless="hibernatedoclet.unnecessary"
         description="Generate Hibernate mapping files">
 
         <taskdef name="hibernatedoclet"
             classname="xdoclet.modules.hibernate.HibernateDocletTask"
             classpathref="xdoclet.classpath"/>
-        
+
         <!-- generate hibernate files -->
-        <hibernatedoclet
-            destdir="${build.dir}/dao/gen"
-            mergedir="metadata/dao"
-            excludedtags="@version,@author"
-            addedtags="@xdoclet-generated at ${TODAY}"
+        <hibernatedoclet destdir="${build.dir}/dao/gen" mergedir="metadata/dao"
+            excludedtags="@version,@author" addedtags="@xdoclet-generated at ${TODAY}"
             force="${xdoclet.force}">
             <fileset dir="src/dao"/>
-
             <hibernate validatexml="true" version="2.0"/>
-
         </hibernatedoclet>
     </target>
 ]]></replacetoken>
