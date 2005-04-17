@@ -80,6 +80,8 @@ Features/Changes in 1.8
 - Changed all "bean:write" tags to "c:out" to prevent errors from Struts when
   using an unsupported locale.
 - Added TimestampConverter to converting Timestamps with Struts.
+- SpringMVC BaseFormController updated to make the userManager availble to
+  all subclassed objects.
 - Dependent packages upgraded:
     * Display Tag 1.0
     * Dumbster 1.5

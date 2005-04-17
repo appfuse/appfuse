@@ -12,3 +12,4 @@ database.properties
 create-tables.sql
 db
 appfuse.iws
+test-spring.bat

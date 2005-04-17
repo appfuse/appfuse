@@ -39,17 +39,17 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
  */
 public class BaseFormController extends SimpleFormController {
     protected final transient Log log = LogFactory.getLog(getClass());
-    protected UserManager mgr = null;
+    private UserManager userManager = null;
     protected MailEngine mailEngine = null;
     protected SimpleMailMessage message = null;
     protected String templateName = null;
 
     public void setUserManager(UserManager userManager) {
-        this.mgr = userManager;
+        this.userManager = userManager;
     }
 
     public UserManager getUserManager() {
-        return this.mgr;
+        return this.userManager;
     }
 
     public void saveMessage(HttpServletRequest request, String msg) {

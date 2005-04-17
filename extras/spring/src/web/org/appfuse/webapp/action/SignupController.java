@@ -63,7 +63,7 @@ public class SignupController extends BaseFormController {
         user.addRole(roleManager.getRole(Constants.USER_ROLE));
 
         try {
-            mgr.saveUser(user);
+            this.getUserManager().saveUser(user);
         } catch (UserExistsException e) {
             log.warn(e.getMessage());
 
@@ -78,7 +78,7 @@ public class SignupController extends BaseFormController {
         }
 
         // Set cookies for auto-magical login ;-)
-        String loginCookie = mgr.createLoginCookie(user.getUsername());
+        String loginCookie = this.getUserManager().createLoginCookie(user.getUsername());
         RequestUtil.setCookie(response, Constants.LOGIN_COOKIE, loginCookie,
                               request.getContextPath());
 

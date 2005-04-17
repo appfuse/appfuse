@@ -65,7 +65,7 @@ public class UserFormController extends BaseFormController {
         Locale locale = request.getLocale();
 
         if (request.getParameter("delete") != null) {
-            mgr.removeUser(user.getUsername());
+            this.getUserManager().removeUser(user.getUsername());
             saveMessage(request, getText("user.deleted", user.getFullName(), locale));
 
             return new ModelAndView(getSuccessView());
@@ -100,7 +100,7 @@ public class UserFormController extends BaseFormController {
             }
 
             try {
-                mgr.saveUser(user);
+                this.getUserManager().saveUser(user);
             } catch (UserExistsException e) {
                 log.warn(e.getMessage());
 
@@ -124,10 +124,10 @@ public class UserFormController extends BaseFormController {
                 if ((RequestUtil.getCookie(request, Constants.LOGIN_COOKIE) != null) &&
                         (session.getAttribute("cookieLogin") == null)) {
                     // delete all user cookies and add a new one
-                    mgr.removeLoginCookies(user.getUsername());
+                    this.getUserManager().removeLoginCookies(user.getUsername());
 
                     String autoLogin =
-                        mgr.createLoginCookie(user.getUsername());
+                        this.getUserManager().createLoginCookie(user.getUsername());
                     RequestUtil.setCookie(response, Constants.LOGIN_COOKIE,
                                           autoLogin, request.getContextPath());
                 }
@@ -205,10 +205,10 @@ public class UserFormController extends BaseFormController {
         User user = null;
 
         if (request.getRequestURI().indexOf("editProfile") > -1) {
-            user = mgr.getUser(getUser(request).getUsername());
+            user = this.getUserManager().getUser(getUser(request).getUsername());
         } else if (!StringUtils.isBlank(username) &&
                        !"".equals(request.getParameter("version"))) {
-            user = mgr.getUser(username);
+            user = this.getUserManager().getUser(username);
         } else {
             user = new User();
             user.addRole(new Role(Constants.USER_ROLE));
