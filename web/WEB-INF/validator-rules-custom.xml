@@ -39,9 +39,10 @@
                         
                         // get field's value
                         if (field.type == "select-one") {
-                            var si = field.selectedIndex;
-                            value = field.options[si].value;
-                            secondValue = secondField.options[si].value;
+                            var s1i = field.selectedIndex;
+                            value = field.options[s1i].value;
+                            var s2i = secondField.selectedIndex;
+                            secondValue = secondField.options[s2i].value;
                         } else {
                             value = field.value;
                             secondValue = secondField.value;
