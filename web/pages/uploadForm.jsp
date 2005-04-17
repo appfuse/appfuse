@@ -34,10 +34,10 @@
         <td></td>
         <td class="buttonBar">
             <html:submit styleClass="button" onclick="bCancel=false">
-            	<bean:message key="button.upload"/>
+            	<fmt:message key="button.upload"/>
             </html:submit>
             <html:cancel styleClass="button" onclick="bCancel=true">
-            	<bean:message key="button.cancel"/>
+            	<fmt:message key="button.cancel"/>
             </html:cancel>
         </td>
     </tr>

@@ -4,7 +4,7 @@
         <html:messages id="error">
             <html:img pageKey="icon.warning.img" 
                 altKey="icon.warning" styleClass="icon"/>
-            <bean:write name="error" filter="false"/><br/>
+            <c:out value="${error}" escapeXml="false"/><br/>
         </html:messages>
     </div>
 </logic:messagesPresent>
@@ -15,7 +15,7 @@
         <html:messages id="message" message="true">
             <html:img pageKey="icon.information.img" 
                 altKey="icon.information" styleClass="icon"/>
-            <bean:write name="message" filter="false"/><br/>
+            <c:out value="${message}" escapeXml="false"/><br/>
         </html:messages>
     </div>
 </logic:messagesPresent>

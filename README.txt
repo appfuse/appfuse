@@ -77,6 +77,9 @@ Features/Changes in 1.8
 - Improved sensitivity for package name replacement in 
   ConvertUtil.getOpposingObject().
 - Fixed hard-coded date format in DateUtil using Spring's LocaleContextHolder.
+- Changed all "bean:write" tags to "c:out" to prevent errors from Struts when
+  using an unsupported locale.
+- Added TimestampConverter to converting Timestamps with Struts.
 - Dependent packages upgraded:
     * Display Tag 1.0
     * Dumbster 1.5

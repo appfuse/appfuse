@@ -25,7 +25,7 @@
         <logic:present name="error">    
         <div class="error">	
             <html:messages id="error">
-                <bean:write name="error" filter="false"/><br/>
+                <c:out value="${error}" escapeXml="false"/><br/>
             </html:messages>
         </div>
         </logic:present>
@@ -43,7 +43,7 @@
     </c:if>
     <%-- only show this if no error messages present --%>
     <c:if test="${exception2 == null}">
-        <bean:message key="errors.none"/>
+        <fmt:message key="errors.none"/>
     </c:if>
  <% } %>
     </div>

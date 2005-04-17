@@ -42,9 +42,9 @@ code that's used to render this table.
 
 <table class="list">
 <tr>
-    <th><bean:message key="userForm.username"/></th>
-    <th><bean:message key="userForm.firstName"/></th>
-    <th><bean:message key="userForm.lastName"/></th>
+    <th><fmt:message key="userForm.username"/></th>
+    <th><fmt:message key="userForm.firstName"/></th>
+    <th><fmt:message key="userForm.lastName"/></th>
 </tr>
 
 <c:forEach var="row" items="${users.rows}" varStatus="status">
@@ -67,9 +67,9 @@ code that's used to render this table.
 <div id="sqlSource" style="display:none; margin-left: 10px; margin-top: 0">
 <pre>&lt;table class="list"&gt;
 &lt;tr&gt;
-    &lt;th&gt;&lt;bean:message key="userForm.username"/&gt;&lt;/th&gt;
-    &lt;th&gt;&lt;bean:message key="userForm.firstName"/&gt;&lt;/th&gt;
-    &lt;th&gt;&lt;bean:message key="userForm.lastName"/&gt;&lt;/th&gt;
+    &lt;th&gt;&lt;fmt:message key="userForm.username"/&gt;&lt;/th&gt;
+    &lt;th&gt;&lt;fmt:message key="userForm.firstName"/&gt;&lt;/th&gt;
+    &lt;th&gt;&lt;fmt:message key="userForm.lastName"/&gt;&lt;/th&gt;
 &lt;/tr&gt;
 
 &lt;c:forEach var="row" items="${users.rows}" varStatus="status"&gt;
