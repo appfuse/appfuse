@@ -35,14 +35,14 @@
 	<classpathentry kind="lib" path="lib/jakarta-taglibs/standard-1.0.6/lib/jstl.jar"/>
 	<classpathentry kind="lib" path="lib/jmock-1.0.1/jmock-1.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/ant-contrib-1.0b1/ant-contrib-1.0b1.jar"/>
-	<classpathentry kind="lib" path="lib/xdoclet-1.2.2/lib/xdoclet-1.2.2.jar"/>
-	<classpathentry kind="lib" path="lib/xdoclet-1.2.2/lib/xdoclet-apache-module-1.2.2.jar"/>
-	<classpathentry kind="lib" path="lib/xdoclet-1.2.2/lib/xdoclet-ejb-module-1.2.2.jar"/>
-	<classpathentry kind="lib" path="lib/xdoclet-1.2.2/lib/xdoclet-hibernate-module-1.2.2.jar"/>
-	<classpathentry kind="lib" path="lib/xdoclet-1.2.2/lib/xdoclet-spring-module-1.2.2.jar"/>
-	<classpathentry kind="lib" path="lib/xdoclet-1.2.2/lib/xdoclet-web-module-1.2.2.jar"/>
-	<classpathentry kind="lib" path="lib/xdoclet-1.2.2/lib/xdoclet-xdoclet-module-1.2.2.jar"/>
-	<classpathentry kind="lib" path="lib/xdoclet-1.2.2/lib/xjavadoc-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/xdoclet-1.2.3/lib/xdoclet-1.2.3.jar"/>
+	<classpathentry kind="lib" path="lib/xdoclet-1.2.3/lib/xdoclet-apache-module-1.2.3.jar"/>
+	<classpathentry kind="lib" path="lib/xdoclet-1.2.3/lib/xdoclet-ejb-module-1.2.3.jar"/>
+	<classpathentry kind="lib" path="lib/xdoclet-1.2.3/lib/xdoclet-hibernate-module-1.2.3.jar"/>
+	<classpathentry kind="lib" path="lib/xdoclet-1.2.3/lib/xdoclet-spring-module-1.2.3.jar"/>
+	<classpathentry kind="lib" path="lib/xdoclet-1.2.3/lib/xdoclet-web-module-1.2.3.jar"/>
+	<classpathentry kind="lib" path="lib/xdoclet-1.2.3/lib/xdoclet-xdoclet-module-1.2.3.jar"/>
+	<classpathentry kind="lib" path="lib/xdoclet-1.2.3/lib/xjavadoc-1.1.jar"/>
 	<classpathentry kind="lib" path="lib/displaytag-1.0/displaytag-1.0.jar"/>
 	<classpathentry kind="lib" path="lib/webtest-build574/lib/commons-httpclient-2.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/webtest-build574/lib/HtmlUnit-2004-11-19.jar"/>
@@ -50,7 +50,7 @@
 	<classpathentry kind="lib" path="lib/webtest-build574/lib/nekohtml-0.8.1.jar"/>
 	<classpathentry kind="lib" path="lib/webtest-build574/lib/webtest.jar"/>
 	<classpathentry kind="lib" path="lib/mysql-connector-java-3.1.7/mysql-connector-java-3.1.7-bin.jar"/>
-	<classpathentry kind="lib" path="lib/dumbster-1.5/dumbster-1.5.jar"/>
+	<classpathentry kind="lib" path="lib/dumbster-1.6/dumbster-1.6.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-3.0/hibernate3.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-3.0/lib/antlr-2.7.5H3.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-3.0/lib/asm.jar"/>

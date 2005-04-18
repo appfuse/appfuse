@@ -48,7 +48,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/dumbster-1.5/dumbster-1.5.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/dumbster-1.6/dumbster-1.6.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -525,7 +525,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/xdoclet-1.2.2/lib/xdoclet-apache-module-1.2.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/xdoclet-1.2.3/lib/xdoclet-apache-module-1.2.3.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -534,7 +534,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/xdoclet-1.2.2/lib/xdoclet-1.2.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/xdoclet-1.2.3/lib/xdoclet-1.2.3.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -543,7 +543,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/xdoclet-1.2.2/lib/xdoclet-web-module-1.2.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/xdoclet-1.2.3/lib/xdoclet-web-module-1.2.3.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -552,7 +552,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/xdoclet-1.2.2/lib/xdoclet-ejb-module-1.2.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/xdoclet-1.2.3/lib/xdoclet-ejb-module-1.2.3.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -561,7 +561,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/xdoclet-1.2.2/lib/xdoclet-xdoclet-module-1.2.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/xdoclet-1.2.3/lib/xdoclet-xdoclet-module-1.2.3.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -570,7 +570,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/xdoclet-1.2.2/lib/xdoclet-hibernate-module-1.2.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/xdoclet-1.2.3/lib/xdoclet-hibernate-module-1.2.3.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -579,7 +579,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/xdoclet-1.2.2/lib/xdoclet-spring-module-1.2.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/xdoclet-1.2.3/lib/xdoclet-spring-module-1.2.3.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -588,7 +588,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/xdoclet-1.2.2/lib/xjavadoc-1.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/xdoclet-1.2.3/lib/xjavadoc-1.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -624,8 +624,8 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/dumbster-1.5.jar" />
-      <url>jar://$MODULE_DIR$/lib/dumbster-1.5/dumbster-1.5.jar!/</url>
+      <attribute name="URI" value="/WEB-INF/lib/dumbster-1.6.jar" />
+      <url>jar://$MODULE_DIR$/lib/dumbster-1.6/dumbster-1.6.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
@@ -884,43 +884,43 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/xdoclet-1.2.2.jar" />
-      <url>jar://$MODULE_DIR$/lib/xdoclet-1.2.2/lib/xdoclet-1.2.2.jar!/</url>
+      <attribute name="URI" value="/WEB-INF/lib/xdoclet-1.2.3.jar" />
+      <url>jar://$MODULE_DIR$/lib/xdoclet-1.2.3/lib/xdoclet-1.2.3.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/xdoclet-apache-module-1.2.2.jar" />
-      <url>jar://$MODULE_DIR$/lib/xdoclet-1.2.2/lib/xdoclet-apache-module-1.2.2.jar!/</url>
+      <attribute name="URI" value="/WEB-INF/lib/xdoclet-apache-module-1.2.3.jar" />
+      <url>jar://$MODULE_DIR$/lib/xdoclet-1.2.3/lib/xdoclet-apache-module-1.2.3.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/xdoclet-ejb-module-1.2.2.jar" />
-      <url>jar://$MODULE_DIR$/lib/xdoclet-1.2.2/lib/xdoclet-ejb-module-1.2.2.jar!/</url>
+      <attribute name="URI" value="/WEB-INF/lib/xdoclet-ejb-module-1.2.3.jar" />
+      <url>jar://$MODULE_DIR$/lib/xdoclet-1.2.3/lib/xdoclet-ejb-module-1.2.3.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/xdoclet-hibernate-module-1.2.2.jar" />
-      <url>jar://$MODULE_DIR$/lib/xdoclet-1.2.2/lib/xdoclet-hibernate-module-1.2.2.jar!/</url>
+      <attribute name="URI" value="/WEB-INF/lib/xdoclet-hibernate-module-1.2.3.jar" />
+      <url>jar://$MODULE_DIR$/lib/xdoclet-1.2.3/lib/xdoclet-hibernate-module-1.2.3.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/xdoclet-spring-module-1.2.2.jar" />
-      <url>jar://$MODULE_DIR$/lib/xdoclet-1.2.2/lib/xdoclet-spring-module-1.2.2.jar!/</url>
+      <attribute name="URI" value="/WEB-INF/lib/xdoclet-spring-module-1.2.3.jar" />
+      <url>jar://$MODULE_DIR$/lib/xdoclet-1.2.3/lib/xdoclet-spring-module-1.2.3.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/xdoclet-web-module-1.2.2.jar" />
-      <url>jar://$MODULE_DIR$/lib/xdoclet-1.2.2/lib/xdoclet-web-module-1.2.2.jar!/</url>
+      <attribute name="URI" value="/WEB-INF/lib/xdoclet-web-module-1.2.3.jar" />
+      <url>jar://$MODULE_DIR$/lib/xdoclet-1.2.3/lib/xdoclet-web-module-1.2.3.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/xdoclet-xdoclet-module-1.2.2.jar" />
-      <url>jar://$MODULE_DIR$/lib/xdoclet-1.2.2/lib/xdoclet-xdoclet-module-1.2.2.jar!/</url>
+      <attribute name="URI" value="/WEB-INF/lib/xdoclet-xdoclet-module-1.2.3.jar" />
+      <url>jar://$MODULE_DIR$/lib/xdoclet-1.2.3/lib/xdoclet-xdoclet-module-1.2.3.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/xjavadoc-1.1.jar" />
-      <url>jar://$MODULE_DIR$/lib/xdoclet-1.2.2/lib/xjavadoc-1.1.jar!/</url>
+      <url>jar://$MODULE_DIR$/lib/xdoclet-1.2.3/lib/xjavadoc-1.1.jar!/</url>
     </containerElement>
     <containerElement type="library" level="application" name="catalina-ant.jar">
       <attribute name="method" value="1" />
