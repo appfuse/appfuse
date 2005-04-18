@@ -72,14 +72,15 @@ public final class LoginServlet extends HttpServlet {
         if (httpPort == null) {
             String portNumber =
                 servletContext.getInitParameter(SslUtil.HTTP_PORT_PARAM);
-            httpPort = ((portNumber == null) ? SslUtil.STD_HTTP_PORT : portNumber);
+            httpPort = ((portNumber == null || portNumber.length()==0) 
+                    ? SslUtil.STD_HTTP_PORT : portNumber);
         }
 
         if (httpsPort == null) {
             String portNumber =
                 servletContext.getInitParameter(SslUtil.HTTPS_PORT_PARAM);
-            httpsPort = ((portNumber == null) ? SslUtil.STD_HTTPS_PORT
-                                              : portNumber);
+            httpsPort = ((portNumber == null || portNumber.length()==0) 
+                    ? SslUtil.STD_HTTPS_PORT : portNumber);
         }
     }
 

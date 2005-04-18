@@ -86,6 +86,7 @@ Features/Changes in 1.8
 - [Struts] Added TimestampConverter to converting Timestamps.
 - [Spring MVC] BaseFormController updated to make the userManager available to
   all subclassed objects.
+- Updated LoginServlet to properly handle empty port configurations.
 - Dependent packages upgraded:
     * Display Tag 1.0
     * Dumbster 1.6
