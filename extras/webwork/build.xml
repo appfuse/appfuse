@@ -41,17 +41,15 @@ webwork.dir=${lib.dir}/webwork-${webwork.version}]]></replacevalue>
         <echo level="info">Adding WebWork classpath entries</echo>
         <replace file="../../properties.xml">
             <replacetoken><![CDATA[<fileset dir="${javamail.dir}" includes="*.jar"/>
-    <fileset dir="${spring.dir}" includes="*.jar"/>]]></replacetoken>
+        <fileset dir="${spring.dir}" includes="*.jar"/>]]></replacetoken>
             <replacevalue><![CDATA[<fileset dir="${javamail.dir}" includes="*.jar"/>
-    <fileset dir="${spring.dir}" includes="*.jar"/>
-    <fileset dir="${webwork.dir}" includes="*.jar"/>]]></replacevalue>
+        <fileset dir="${spring.dir}" includes="*.jar"/>
+        <fileset dir="${webwork.dir}" includes="*.jar"/>]]></replacevalue>
         </replace>
 
         <echo level="info">Removing Struts-specific JARs</echo>
         <delete>
-            <fileset dir="${struts.dir}">
-                <include name="struts*.jar"/>
-            </fileset>
+            <fileset dir="${struts.dir}" includes="struts*.jar"/>
         </delete>
         <delete dir="${strutstestcase.dir}"/>
 
@@ -68,7 +66,6 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
 
         <replace file="${lib.dir}/lib.properties">
             <replacetoken><![CDATA[struts.jar=${struts.dir}/struts.jar]]></replacetoken>
-            <replacevalue></replacevalue>
         </replace>
         
         <echo level="info">Deleting struts_form.xdt for XDoclet</echo>
