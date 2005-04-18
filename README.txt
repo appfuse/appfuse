@@ -89,7 +89,7 @@ Features/Changes in 1.8
 - Updated LoginServlet to properly handle empty port configurations.
 - Dependent packages upgraded:
     * Display Tag 1.0
-    * Dumbster 1.6
+    * Dumbster 1.5
     * Hibernate 3.0.1
     * Log4j 1.2.9
     * MySQL JDBC Driver 3.1.7
