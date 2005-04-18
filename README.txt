@@ -74,7 +74,7 @@ Features/Changes in 1.8
     * Changed from 80 characters per line to 120.
 - Tests using Dumbster updated to always use "localhost" in case the normal
   mail.host is different.
-- [Struts] UserAction updated to validate the form within the save() action
+- [Struts] UserAction updated to validate the form within the save() method
   to better support i18n.
 - Removed unnecessary "database.name" property from PostgreSQL configuration
   in build.properties.
@@ -85,12 +85,13 @@ Features/Changes in 1.8
   using an unsupported locale.
 - [Struts] Added TimestampConverter to converting Timestamps.
 - [Spring MVC] BaseFormController updated to make the userManager available to
-  all subclassed objects.
+  subclasses.
 - Updated LoginServlet to properly handle empty port configurations.
 - Dependent packages upgraded:
     * Display Tag 1.0
     * Dumbster 1.6
-    * Hibernate 3.0
+    * Hibernate 3.0.1
+    * Log4j 1.2.9
     * MySQL JDBC Driver 3.1.7
     * PMD 3.0
     * PostgreSQL JDBC Driver 8.0-310

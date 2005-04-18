@@ -88,6 +88,7 @@
                 <exclude name="www/**"/>
                 <exclude name="${webapp.name}*"/>
                 <exclude name="*.log"/>
+                <exclude name="*.sh"/>
                 <include name="**"/>
                 <exclude name=".#**"/>
             </fileset>
@@ -1308,7 +1309,7 @@
                               **/*.xml,
                               **/*.page,
                               **/*.html,
-                	          **/*.js,
+                              **/*.js,
                               **/*.css, 
                               **/*.reference,
                               **/*.ldif,

@@ -10,7 +10,7 @@
 	<classpathentry kind="src" path="test/web"/>
 	<classpathentry kind="lib" path="lib/checkstyle-3.1/checkstyle-all-3.1.jar"/>
 	<classpathentry kind="lib" path="lib/junit3.8.1/junit.jar"/>
-	<classpathentry kind="lib" path="lib/jakarta-log4j-1.2.8/dist/lib/log4j-1.2.8.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta-log4j-1.2.9/dist/lib/log4j-1.2.9.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="var" path="JUNIT_HOME/junit.jar"/>
 	<classpathentry kind="lib" path="lib/servletapi-2.3/servletapi-2.3.jar"/>
@@ -51,19 +51,20 @@
 	<classpathentry kind="lib" path="lib/webtest-build574/lib/webtest.jar"/>
 	<classpathentry kind="lib" path="lib/mysql-connector-java-3.1.7/mysql-connector-java-3.1.7-bin.jar"/>
 	<classpathentry kind="lib" path="lib/dumbster-1.6/dumbster-1.6.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-3.0/hibernate3.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-3.0/lib/antlr-2.7.5H3.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-3.0/lib/asm.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-3.0/lib/c3p0-0.8.5.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-3.0/lib/cglib-2.1.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-3.0/lib/dom4j-1.5.2.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-3.0/lib/jta.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-3.0/lib/oscache-2.1.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-3.0/lib/swarmcache-1.0rc2.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-3.0.1/hibernate3.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-3.0.1/lib/antlr-2.7.5H3.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-3.0.1/lib/asm.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-3.0.1/lib/c3p0-0.8.5.2.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-3.0.1/lib/cglib-2.1.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-3.0.1/lib/dom4j-1.6.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-3.0.1/lib/jta.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-3.0.1/lib/oscache-2.1.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-3.0.1/lib/swarmcache-1.0rc2.jar"/>
 	<classpathentry kind="lib" path="lib/spring-1.2-rc1/acegi-security-0.8.1.jar"/>
 	<classpathentry kind="lib" path="lib/spring-1.2-rc1/commons-codec.jar"/>
 	<classpathentry kind="lib" path="lib/spring-1.2-rc1/ehcache-1.1.jar"/>
 	<classpathentry kind="lib" path="lib/spring-1.2-rc1/spring.jar"/>
 	<classpathentry kind="lib" path="lib/spring-1.2-rc1/spring-mock.jar"/>
+	<classpathentry kind="lib" path="lib/urlrewrite-1.2/urlrewrite-1.2.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
