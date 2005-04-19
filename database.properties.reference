@@ -9,7 +9,7 @@
 
 
 ## PostgreSQL
-hibernate.dialect=net.sf.hibernate.dialect.PostgreSQLDialect
+hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
 hibernate.connection.driver_class=org.postgresql.Driver
 hibernate.connection.url=jdbc:postgresql://localhost/appfuse
 hibernate.connection.username=root
@@ -18,7 +18,7 @@ hibernate.query.substitutions=yes 'Y', no 'N'
 
 
 ## DB2
-hibernate.dialect = net.sf.hibernate.dialect.DB2Dialect
+hibernate.dialect = org.hibernate.dialect.DB2Dialect
 hibernate.connection.driver_class = COM.ibm.db2.jdbc.app.DB2Driver
 hibernate.connection.url = jdbc:db2:apptrack
 hibernate.connection.username = admin
@@ -29,7 +29,7 @@ hibernate.show_sql = true
 
 
 ## MySQL
-hibernate.dialect = net.sf.hibernate.dialect.MySQLDialect
+hibernate.dialect = org.hibernate.dialect.MySQLDialect
 hibernate.connection.driver_class = com.mysql.jdbc.Driver
 hibernate.connection.url = jdbc:mysql://localhost:3306/appfuse?autoReconnect=true
 hibernate.connection.username = root
@@ -40,7 +40,7 @@ hibernate.show_sql = false
 
 
 ## Oracle
-hibernate.dialect = net.sf.hibernate.dialect.OracleDialect
+hibernate.dialect = org.hibernate.dialect.OracleDialect
 hibernate.connection.driver_class = oracle.jdbc.driver.OracleDriver
 hibernate.connection.username = ora
 hibernate.connection.password = ora
@@ -48,7 +48,7 @@ hibernate.connection.url = jdbc:oracle:thin:@localhost:1521:test
 
 
 ## Sybase
-hibernate.dialect = net.sf.hibernate.dialect.SybaseDialect
+hibernate.dialect = org.hibernate.dialect.SybaseDialect
 hibernate.connection.driver_class = com.sybase.jdbc2.jdbc.SybDriver
 hibernate.connection.username = sa
 hibernate.connection.password = sasasa
@@ -56,7 +56,7 @@ hibernate.connection.url = jdbc:sybase:Tds:co3061835-a:5000/tempdb
 
 
 ## HypersonicSQL
-hibernate.dialect = net.sf.hibernate.dialect.HSQLDialect
+hibernate.dialect = org.hibernate.dialect.HSQLDialect
 hibernate.connection.driver_class org.hsqldb.jdbcDriver
 hibernate.connection.username = sa
 hibernate.connection.password = 
@@ -66,7 +66,7 @@ hibernate.connection.url = jdbc:hsqldb:test
 
 ## Mckoi SQL
 
-hibernate.dialect = net.sf.hibernate.dialect.MckoiDialect
+hibernate.dialect = org.hibernate.dialect.MckoiDialect
 hibernate.connection.driver_class = com.mckoi.JDBCDriver
 hibernate.connection.url = jdbc:mckoi:///
 hibernate.connection.url = jdbc:mckoi:local://C:/mckoi0.94h/db.conf
@@ -76,7 +76,7 @@ hibernate.connection.password = nimda
 
 ## SAP DB
 
-hibernate.dialect = net.sf.hibernate.dialect.SAPDBDialect
+hibernate.dialect = org.hibernate.dialect.SAPDBDialect
 hibernate.connection.driver_class = com.sap.dbtech.jdbc.DriverSapDB
 hibernate.connection.url = jdbc:sapdb://localhost/TST
 hibernate.connection.username = TEST
@@ -85,7 +85,7 @@ hibernate.query.substitutions yes 'Y', no 'N'
 
 
 ## MS SQL Server
-hibernate.dialect = net.sf.hibernate.dialect.SybaseDialect
+hibernate.dialect = org.hibernate.dialect.SybaseDialect
 hibernate.connection.username = sa
 hibernate.connection.password
 
@@ -111,7 +111,7 @@ hibernate.connection.url = jdbc:microsoft:sqlserver://CO3061835-A:1433;SelectMet
 
 
 ## Interbase
-hibernate.dialect = net.sf.hibernate.dialect.InterbaseDialect
+hibernate.dialect = org.hibernate.dialect.InterbaseDialect
 hibernate.connection.username = sysdba
 hibernate.connection.password = masterkey
 
@@ -129,7 +129,7 @@ hibernate.connection.url = jdbc:firebirdsql:localhost/3050:/firebird/test.gdb
 
 
 ## Pointbase
-hibernate.dialect = net.sf.hibernate.dialect.PointbaseDialect
+hibernate.dialect = org.hibernate.dialect.PointbaseDialect
 hibernate.connection.driver_class = com.pointbase.jdbc.jdbcUniversalDriver
 hibernate.connection.url = jdbc:pointbase:embedded:sample
 hibernate.connection.username = PBPUBLIC
