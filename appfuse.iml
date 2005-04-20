@@ -776,8 +776,8 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/acegi-security-0.8.1.jar" />
-      <url>jar://$MODULE_DIR$/lib/spring-1.2-rc2/acegi-security-0.8.1.jar!/</url>
+      <attribute name="URI" value="/WEB-INF/lib/acegi-security-0.8.2.jar" />
+      <url>jar://$MODULE_DIR$/lib/spring-1.2-rc2/acegi-security-0.8.2.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
