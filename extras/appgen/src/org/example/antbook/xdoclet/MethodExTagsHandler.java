@@ -163,7 +163,7 @@ public class MethodExTagsHandler extends MethodTagsHandler {
         } else if ("setterName".equals(type)) {
             result = getter.getMutator().getName();
         } else if ("propertyType".equals(type)) {
-            result = getter.getPropertyType().getType().getQualifiedName();
+            result = getter.getPropertyType().getType().getTransformedName();
         } else {
             result = getter.getPropertyName();
         }
