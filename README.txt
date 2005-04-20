@@ -105,11 +105,11 @@ Features/Changes in 1.8
     * PMD 3.0
     * PostgreSQL JDBC Driver 8.0-310
     * SiteMesh 2.2.1
-    * Spring 1.2 RC1 (w/ LocaleContextHolder from RC2)
+    * Spring 1.2 RC2
     * StrutsTestCase 2.1.3
     * XDoclet 1.2.3
 - Dependent packages added:
-    * Acegi Security 0.8.1
+    * Acegi Security 0.8.2
 - Dependent packaged removed:
     * JUnitDoclet 1.0.2
 
