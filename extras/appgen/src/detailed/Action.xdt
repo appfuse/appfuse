@@ -126,8 +126,11 @@ public final class <XDtClass:className/>Action extends BaseAction {
             log.debug("Entering 'search' method");
         }
 
+        <XDtClass:className/>Form <XDtForm:classNameLower/>Form = (<XDtClass:className/>Form) form;
+        <XDtClass:className/> <XDtForm:classNameLower/> = (<XDtClass:className/>) convert(<XDtForm:classNameLower/>Form);
+
         <XDtClass:className/>Manager mgr = (<XDtClass:className/>Manager) getBean("<XDtForm:classNameLower/>Manager");
-        request.setAttribute(Constants.<XDtForm:classNameUpper/>_LIST, mgr.get<XDtClass:className/>s(null));
+        request.setAttribute(Constants.<XDtForm:classNameUpper/>_LIST, mgr.get<XDtClass:className/>s(<XDtForm:classNameLower/>));
 
         return mapping.findForward("list");
     }

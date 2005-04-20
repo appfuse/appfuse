@@ -14,26 +14,25 @@ public interface <XDtClass:className/>DAO extends DAO {
     public List get<XDtClass:className/>s(<XDtClass:className/> <XDtForm:classNameLower/>);
 
     /**
-     * Gets <XDtForm:classNameLower/>'s information based on id. An 
+     * Gets <XDtForm:classNameLower/>'s information based on primary key. An
      * ObjectRetrievalFailureException Runtime Exception is thrown if 
      * nothing is found.
      * 
-     * @param id the <XDtForm:classNameLower/>'s id
+     * @param <XDtMethodEx:idField getType="propertyName"/> the <XDtForm:classNameLower/>'s <XDtMethodEx:idField getType="propertyName"/>
      * @return <XDtForm:classNameLower/> populated <XDtForm:classNameLower/> object
      */
-    public <XDtClass:className/> get<XDtClass:className/>(final <XDtMethodEx:idField getType="propertyType"/> id);
+    public <XDtClass:className/> get<XDtClass:className/>(final <XDtMethodEx:idField getType="propertyType"/> <XDtMethodEx:idField getType="propertyName"/>);
 
     /**
      * Saves a <XDtForm:classNameLower/>'s information
      * @param <XDtForm:classNameLower/> the object to be saved
-     * @return <XDtClass:className/> the persisted <XDtForm:classNameLower/> object
      */	
     public void save<XDtClass:className/>(<XDtClass:className/> <XDtForm:classNameLower/>);
 
 	/**
-     * Removes a <XDtForm:classNameLower/> from the database by id
-     * @param id the <XDtForm:classNameLower/>'s id
+     * Removes a <XDtForm:classNameLower/> from the database by <XDtMethodEx:idField getType="propertyName"/>
+     * @param <XDtMethodEx:idField getType="propertyName"/> the <XDtForm:classNameLower/>'s <XDtMethodEx:idField getType="propertyName"/>
      */
-    public void remove<XDtClass:className/>(final <XDtMethodEx:idField getType="propertyType"/> id);
+    public void remove<XDtClass:className/>(final <XDtMethodEx:idField getType="propertyType"/> <XDtMethodEx:idField getType="propertyName"/>);
 }
 

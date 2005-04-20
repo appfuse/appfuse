@@ -136,7 +136,7 @@ public final class <XDtClass:className/>Action extends BaseAction {
     public ActionForward unspecified(ActionMapping mapping, ActionForm form,
                                      HttpServletRequest request,
                                      HttpServletResponse response)
-            throws Exception {
+    throws Exception {
         return search(mapping, form, request, response);
     }
 }

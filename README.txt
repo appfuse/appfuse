@@ -47,6 +47,15 @@ Features/Changes in 1.8
   Spring.  Minimal changes were necessary - meaning that you could easily 
   switch back if you wanted to.  HowTo documented at:
     http://raibledesigns.com/wiki/Wiki.jsp?page=AppFuseSecurity
+- Massive amount of bug fixes applied to AppGen to allow it to be run multiple
+  times. Also fixed "id" problems so the POJOs id property is actually looked
+  up instead of just assuming it's a Long and named "id".
+- [AppGen] Added Query by Example code to the getXXXs(XXX) method of detailed
+  Hibernate DAOs. Added code to Struts and Spring versions to allow searching
+  on the list screen by manually passing in name/value pairs of a POJO's 
+  properties on the URL. Doesn't seem to work for filtering by primary key,
+  which seems reasonable since you'll likely hide the primary key column when
+  modifying your list screen.
 - [Tapestry] Fixed bugs in UserForm.java and UserList.java classes - now role
   choices are shown when editing a user or adding a new user.
 - Fixed bug where uses could hack the URL in Struts and WebWork versions to 

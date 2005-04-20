@@ -10,21 +10,21 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @struts.form include-all="true" extends="BaseForm"
  */
 public class Person extends BaseObject {
-    private Long id;
+    private Long personId;
     private String firstName;
     private String lastName;
 
     /**
      * @return Returns the id.
-     * @hibernate.id column="id"
+     * @hibernate.id column="person_id"
      *  generator-class="increment" unsaved-value="null"
      */
-    public Long getId() {
-        return id;
+    public Long getPersonId() {
+        return personId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPersonId(Long personId) {
+        this.personId = personId;
     }
 
     /**
@@ -61,19 +61,20 @@ public class Person extends BaseObject {
         }
         Person rhs = (Person) object;
         return new EqualsBuilder().append(this.firstName, rhs.firstName)
-                .append(this.id, rhs.id).append(this.lastName, rhs.lastName)
+                .append(this.personId, rhs.personId)
+                .append(this.lastName, rhs.lastName)
                 .isEquals();
     }
 
     public int hashCode() {
         return new HashCodeBuilder(1923026325, -1034774675).append(
-                this.firstName).append(this.id).append(this.lastName)
+                this.firstName).append(this.personId).append(this.lastName)
                 .toHashCode();
     }
 
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
-                .append("lastName", this.lastName).append("id", this.id)
+                .append("lastName", this.lastName).append("personId", this.personId)
                 .append("firstName", this.firstName).toString();
     }
 }

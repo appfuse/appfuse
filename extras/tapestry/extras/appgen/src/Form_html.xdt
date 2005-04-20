@@ -44,7 +44,7 @@
         <td></td>
         <td class="buttonBar">
             <input type="submit" class="button" jwcid="@Submit" value="message:button.save" id="save" listener="ognl:listeners.save"/>
-          <span jwcid="@contrib:FormConditional" condition="ognl:<XDtForm:classNameLower/>.id != null">
+          <span jwcid="@contrib:FormConditional" condition="ognl:<XDtForm:classNameLower/>.<XDtMethodEx:idField getType="propertyName"/> != null">
             <input type="submit" class="button" jwcid="@Submit" value="message:button.delete" id="delete" listener="ognl:listeners.delete"
                 onclick="form.onsubmit = null"/> <!-- Removed confirm since WebTest can't handle it: ;return confirmDelete('<XDtClass:className/>') -->
           </span>

@@ -44,14 +44,14 @@
 <c:out value="${buttons}" escapeXml="false"/>
 
 <h:commandLink action="#{<XDtForm:classNameLower/>Form.edit}" id="edit<XDtClass:className/>Link">
-    <f:param name="id"/>
+    <f:param name="<XDtMethodEx:idField getType="propertyName"/>"/>
 </h:commandLink>
 
 <script type="text/javascript">
-function view<XDtClass:className/>(id) {
+function view<XDtClass:className/>(<XDtMethodEx:idField getType="propertyName"/>) {
     var f = document.forms['edit<XDtClass:className/>'];
     f.elements['edit<XDtClass:className/>:_link_hidden_'].value='edit<XDtClass:className/>:edit<XDtClass:className/>Link';
-    f.elements['id'].value=id;
+    f.elements['<XDtMethodEx:idField getType="propertyName"/>'].value=<XDtMethodEx:idField getType="propertyName"/>;
     f.submit();
 }
 highlightTableRows("<XDtForm:classNameLower/>s");

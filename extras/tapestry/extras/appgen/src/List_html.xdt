@@ -17,9 +17,9 @@
     rowsClass="ognl:beans.evenOdd.next" row="ognl:row" source="ognl:<XDtForm:classNameLower/>s"
     columns="<XDtForm:forAllFields><XDtForm:classNameLower/>.<XDtForm:fieldName/>:<XDtForm:fieldName/>,</XDtForm:forAllFields>"
     arrowUpAsset="ognl:assets.upArrow" arrowDownAsset="ognl:assets.downArrow">
-    <tr jwcid="<XDtForm:classNameLower/>_idColumnValue@Block">
-        <a jwcid="@DirectLink" listener="ognl:listeners.edit" parameters="ognl:row.id">
-            <span jwcid="@Insert" value="ognl:row.id"/>
+    <tr jwcid="<XDtForm:classNameLower/>_<XDtMethodEx:idField getType="propertyName"/>ColumnValue@Block">
+        <a jwcid="@DirectLink" listener="ognl:listeners.edit" parameters="ognl:row.<XDtMethodEx:idField getType="propertyName"/>">
+            <span jwcid="@Insert" value="ognl:row.<XDtMethodEx:idField getType="propertyName"/>"/>
         </a>
     </tr>
 </table>

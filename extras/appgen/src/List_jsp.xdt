@@ -23,7 +23,7 @@
 <XDtMethod:forAllMethods>
   <XDtMethod:ifHasMethodTag tagName="hibernate.id">
     <display:column property="<XDtMethod:propertyName/>" sort="true" headerClass="sortable"
-        url="/edit<XDtClass:className/>.html" paramId="id" paramProperty="<XDtMethod:propertyName/>"
+        url="/edit<XDtClass:className/>.html" paramId="<XDtMethodEx:idField getType="propertyName"/>" paramProperty="<XDtMethod:propertyName/>"
         titleKey="<XDtForm:classNameLower/>Form.<XDtMethod:propertyName/>"/>
   </XDtMethod:ifHasMethodTag>
   <XDtMethod:ifHasMethodTag tagName="hibernate.property">

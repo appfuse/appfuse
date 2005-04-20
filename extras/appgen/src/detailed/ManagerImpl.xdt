@@ -27,23 +27,23 @@ public class <XDtClass:className/>ManagerImpl extends BaseManager implements <XD
     }
 
     /**
-     * @see <XDtForm:parentPackageName/>.service.<XDtClass:className/>Manager#get<XDtClass:className/>(final String id)
+     * @see <XDtForm:parentPackageName/>.service.<XDtClass:className/>Manager#get<XDtClass:className/>(String <XDtMethodEx:idField getType="propertyName"/>)
      */
-    public <XDtClass:className/> get<XDtClass:className/>(final String id) {
-        return dao.get<XDtClass:className/>(new <XDtMethodEx:idField getType="propertyType"/>(id));
+    public <XDtClass:className/> get<XDtClass:className/>(final String <XDtMethodEx:idField getType="propertyName"/>) {
+        return dao.get<XDtClass:className/>(new <XDtMethodEx:idField getType="propertyType"/>(<XDtMethodEx:idField getType="propertyName"/>));
     }
 
     /**
      * @see <XDtForm:parentPackageName/>.service.<XDtClass:className/>Manager#save<XDtClass:className/>(<XDtClass:className/> <XDtForm:classNameLower/>)
      */
-    public void save<XDtClass:className/>(final <XDtClass:className/> <XDtForm:classNameLower/>) {
+    public void save<XDtClass:className/>(<XDtClass:className/> <XDtForm:classNameLower/>) {
         dao.save<XDtClass:className/>(<XDtForm:classNameLower/>);
     }
 
     /**
-     * @see <XDtForm:parentPackageName/>.service.<XDtClass:className/>Manager#remove<XDtClass:className/>(final Long id)
+     * @see <XDtForm:parentPackageName/>.service.<XDtClass:className/>Manager#remove<XDtClass:className/>(String <XDtMethodEx:idField getType="propertyName"/>)
      */
-    public void remove<XDtClass:className/>(final String id) {
-        dao.remove<XDtClass:className/>(new <XDtMethodEx:idField getType="propertyType"/>(id));
+    public void remove<XDtClass:className/>(final String <XDtMethodEx:idField getType="propertyName"/>) {
+        dao.remove<XDtClass:className/>(new <XDtMethodEx:idField getType="propertyType"/>(<XDtMethodEx:idField getType="propertyName"/>));
     }
 }

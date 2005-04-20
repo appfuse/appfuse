@@ -2,18 +2,18 @@
 
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import <XDtForm:parentPackageName/>.Constants;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.mock.web.MockHttpServletRequest;
 
 public class <XDtClass:className/>ControllerTest extends BaseControllerTestCase {
-    
+
     public void testHandleRequest() throws Exception {
         <XDtClass:className/>Controller c = 
             (<XDtClass:className/>Controller) ctx.getBean("<XDtForm:classNameLower/>Controller");
-        ModelAndView mav = c.handleRequest((HttpServletRequest) null,
+        ModelAndView mav = c.handleRequest(new MockHttpServletRequest(),
                                            (HttpServletResponse) null);
         Map m = mav.getModel();
         assertNotNull(m.get(Constants.<XDtForm:classNameUpper/>_LIST));

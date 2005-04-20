@@ -5,7 +5,6 @@ package <XDtForm:parentPackageName/>.dao;
 import java.util.List;
 
 import <XDtPackage:packageName/>.<XDtClass:className/>;
-import <XDtForm:parentPackageName/>.dao.<XDtClass:className/>DAO;
 
 import org.springframework.orm.ObjectRetrievalFailureException;
 

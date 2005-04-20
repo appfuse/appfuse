@@ -37,7 +37,7 @@
         <h:commandButton value="#{text['button.save']}" action="#{<XDtForm:classNameLower/>Form.save}" 
             id="save" styleClass="button"/>
 
-        <c:if test="${not empty <XDtForm:classNameLower/>Form.<XDtForm:classNameLower/>.id}">
+        <c:if test="${not empty <XDtForm:classNameLower/>Form.<XDtForm:classNameLower/>.<XDtMethodEx:idField getType="propertyName"/>}">
         <h:commandButton value="#{text['button.delete']}" action="#{<XDtForm:classNameLower/>Form.delete}" 
             id="delete" styleClass="button" onclick="bCancel=false"/>
         </c:if> <%-- Removed confirm since WebTest can't handle it: ;return confirmDelete('<XDtClass:className/>') --%>
@@ -53,5 +53,3 @@
 <v:validatorScript functionName="validate<XDtClass:className/>Form"/>
 
 </f:view>
-
-

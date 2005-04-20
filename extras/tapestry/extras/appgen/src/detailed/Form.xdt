@@ -46,7 +46,7 @@ public abstract class <XDtClass:className/>Form extends BasePage implements Page
             return;
         }
 
-        boolean isNew = (get<XDtClass:className/>().getId() == null);
+        boolean isNew = (get<XDtClass:className/>().<XDtMethodEx:idField getType="getterName"/>() == null);
 
         get<XDtClass:className/>Manager().save<XDtClass:className/>(get<XDtClass:className/>());
 
