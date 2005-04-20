@@ -3,9 +3,8 @@
     "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
-    <bean id="validatorFactory" class="org.springframework.validation.commons.DefaultValidatorFactory"
-        init-method="init">
-        <property name="resources">
+    <bean id="validatorFactory" class="org.springmodules.commons.validator.DefaultValidatorFactory">
+        <property name="validationConfigLocations">
             <list>
                 <value>/WEB-INF/validation.xml</value>
                 <value>/WEB-INF/validator-rules.xml</value>
@@ -14,7 +13,7 @@
         </property>
     </bean>
 
-    <bean id="beanValidator" class="org.springframework.validation.commons.BeanValidator">
+    <bean id="beanValidator" class="org.springmodules.commons.validator.DefaultBeanValidator">
         <property name="validatorFactory"><ref bean="validatorFactory"/></property>
     </bean>
 </beans>

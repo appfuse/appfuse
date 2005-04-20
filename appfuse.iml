@@ -577,7 +577,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="catalina-ant.jar" level="application" />
-    <orderEntry type="library" name="Tomcat" level="application_server_libraries" />
     <orderEntryProperties />
   </component>
   <component name="WebModuleBuildComponent">

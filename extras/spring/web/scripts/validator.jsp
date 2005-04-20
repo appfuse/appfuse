@@ -1,4 +1,4 @@
 <%@ page language="java" contentType="javascript/x-javascript" %>
-<%@ taglib uri="http://www.springframework.org/tags/commons-validator" prefix="html" %>
+<%@ taglib uri="http://www.springmodules.org/tags/commons-validator" prefix="v" %>
 
-<html:javascript dynamicJavascript="false" staticJavascript="true"/>
+<v:javascript dynamicJavascript="false" staticJavascript="true"/>
