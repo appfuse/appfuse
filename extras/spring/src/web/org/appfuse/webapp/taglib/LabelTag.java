@@ -19,11 +19,11 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
-import org.springframework.validation.commons.ValidatorFactory;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.support.RequestContext;
 import org.springframework.web.servlet.DispatcherServlet;
+import org.springmodules.commons.validator.ValidatorFactory;
 
 
 /**

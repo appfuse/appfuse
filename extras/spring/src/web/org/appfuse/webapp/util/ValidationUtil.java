@@ -5,7 +5,7 @@ import org.apache.commons.validator.GenericValidator;
 import org.apache.commons.validator.ValidatorAction;
 import org.apache.commons.validator.util.ValidatorUtils;
 import org.springframework.validation.Errors;
-import org.springframework.validation.commons.Resources;
+import org.springmodules.commons.validator.Resources;
 
 
 /**
