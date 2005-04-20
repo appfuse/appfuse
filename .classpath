@@ -47,7 +47,7 @@
 	<classpathentry kind="lib" path="lib/webtest-build574/lib/commons-httpclient-2.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/webtest-build574/lib/HtmlUnit-2004-11-19.jar"/>
 	<classpathentry kind="lib" path="lib/webtest-build574/lib/HtmlUnit-Patch-1068672.jar"/>
-	<classpathentry kind="lib" path="lib/webtest-build574/lib/nekohtml-0.8.2.jar"/>
+	<classpathentry kind="lib" path="lib/webtest-build574/lib/nekohtml-0.8.1.jar"/>
 	<classpathentry kind="lib" path="lib/webtest-build574/lib/webtest.jar"/>
 	<classpathentry kind="lib" path="lib/mysql-connector-java-3.1.7/mysql-connector-java-3.1.7-bin.jar"/>
         <classpathentry kind="lib" path="lib/dumbster-1.5/dumbster-1.5.jar"/>
