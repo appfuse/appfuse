@@ -151,7 +151,6 @@
         <copy todir="${webapp.target}">
             <fileset dir="${basedir}">
                 <include name="*.txt"/>
-                <exclude name="README-new.txt"/>
             </fileset>
         </copy>
     </target>
@@ -1276,10 +1275,20 @@
     <!-- =================================================================== -->
     <target name="new" depends="clean,init"
         description="creates a new project with the specified name">
+<echo level="info">
++---------------------------------------------------------------------+
+|       -- Welcome to the AppFuse New Application Wizard! --          |
+|                                                                     |
+| To create a new application, please answer the following questions. |
++---------------------------------------------------------------------+
+</echo>
+        <echo/>
+
         <!-- Prompt user for input -->
-        <input message="Please enter application name:" addproperty="app.name"/>
-        <input message="Database name (no dashes allowed):" addproperty="db.name"/>
-        <input message="Package name (default is org.appfuse):" addproperty="new.pkg.name"
+        <input message="What would you like to name your application [myapp]?" addproperty="app.name"
+            defaultvalue="myapp"/>
+        <input message="And your database [mydb]?" addproperty="db.name" defaultvalue="mydb"/>
+        <input message="What about a package name [org.appfuse]?" addproperty="new.pkg.name"
             defaultvalue="org.appfuse"/>
 
         <echo level="info">Creating new application named '${app.name}'...</echo>
@@ -1366,6 +1375,14 @@
             <then><rename-packages newPkgName="${new.pkg.name}"/></then>
         </if>
 
+<echo level="info">
++--------------------------------------------------------------------+
+|              -- Application created successfully! --               |
+|                                                                    |
+| Now you should be able to cd to your new application and run:      |
+| > ant setup test-all                                               |
++--------------------------------------------------------------------+
+</echo>
     </target>
 
     <macrodef name="rename-packages">
