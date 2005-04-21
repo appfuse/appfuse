@@ -96,6 +96,9 @@ Features/Changes in 1.8
 - [Spring MVC] BaseFormController updated to make the userManager available to
   subclasses.
 - Updated LoginServlet to properly handle empty port configurations.
+- [Spring MVC] cancelView property added to BaseFormController.
+- Added property to userList DisplayTag to improve browser support for PDF 
+  export.
 - Dependent packages upgraded:
     * Display Tag 1.0
     * Dumbster 1.5

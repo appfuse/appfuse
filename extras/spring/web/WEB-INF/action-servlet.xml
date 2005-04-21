@@ -33,6 +33,7 @@
         <property name="validator"><ref bean="beanValidator"/></property>
         <property name="formView"><value>userProfile</value></property>
         <property name="successView"><value>redirect:users.html</value></property>
+        <property name="cancelView"><value>redirect:mainMenu.html</value></property>
         <property name="userManager"><ref bean="userManager"/></property>
         <property name="roleManager"><ref bean="roleManager"/></property>
         <property name="mailEngine"><ref bean="mailEngine"/></property>

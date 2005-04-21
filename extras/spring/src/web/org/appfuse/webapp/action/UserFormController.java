@@ -44,7 +44,7 @@ public class UserFormController extends BaseFormController {
     throws Exception {
         if (request.getParameter("cancel") != null) {
             if (!StringUtils.equals(request.getParameter("from"), "list")) {
-                return new ModelAndView(new RedirectView("mainMenu.html"));
+                return new ModelAndView(getCancelView());
             } else {
                 return new ModelAndView(getSuccessView());
             }

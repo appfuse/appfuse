@@ -128,7 +128,7 @@ public final class ConvertUtil {
             if (log.isDebugEnabled()) {
                 log.debug("getting pojo equivalent of form...");
             }
-            name = StringUtils.replace(name, "webapp.form", "model");
+            name = StringUtils.replace(name, ".webapp.form.", ".model.");
             name = name.substring(0, name.lastIndexOf("Form"));
         }
 		

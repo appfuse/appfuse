@@ -8,16 +8,11 @@ import java.io.OutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import org.appfuse.Constants;
-
 import org.springframework.validation.BindException;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 /**
  * Controller class to upload Files.
@@ -35,7 +30,7 @@ public class FileUploadController extends BaseFormController {
                                               BindException errors)
     throws Exception {
         if (request.getParameter("cancel") != null) {
-            return new ModelAndView(new RedirectView("mainMenu.html"));
+            return new ModelAndView(getCancelView());
         }
 
         return super.processFormSubmission(request, response, command, errors);

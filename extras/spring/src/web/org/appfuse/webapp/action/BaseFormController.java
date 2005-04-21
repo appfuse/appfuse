@@ -43,6 +43,7 @@ public class BaseFormController extends SimpleFormController {
     protected MailEngine mailEngine = null;
     protected SimpleMailMessage message = null;
     protected String templateName = null;
+    protected String cancelView;
 
     public void setUserManager(UserManager userManager) {
         this.userManager = userManager;
@@ -139,7 +140,7 @@ public class BaseFormController extends SimpleFormController {
                                               BindException errors)
     throws Exception {
         if (request.getParameter("cancel") != null) {
-            return new ModelAndView(getSuccessView());
+            return new ModelAndView(getCancelView());
         }
 
         return super.processFormSubmission(request, response, command, errors);
@@ -195,4 +196,19 @@ public class BaseFormController extends SimpleFormController {
     public void setTemplateName(String templateName) {
         this.templateName = templateName;
     }
+    /**
+     * Indicates what view to use when the cancel button has been pressed.
+     */
+    public final void setCancelView(String cancelView) {  
+        this.cancelView = cancelView;  
+    }
+
+    public final String getCancelView() {
+        // Default to successView if cancelView is invalid
+        if (this.cancelView == null || this.cancelView.length()==0) {
+            return getSuccessView();
+        }
+        return this.cancelView;   
+    }
+
 }

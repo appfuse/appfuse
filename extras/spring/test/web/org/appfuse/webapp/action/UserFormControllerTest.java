@@ -1,16 +1,12 @@
 package org.appfuse.webapp.action;
 
-import java.util.Date;
-
 import org.appfuse.Constants;
 import org.appfuse.model.User;
-import org.appfuse.util.DateUtil;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 public class UserFormControllerTest extends BaseControllerTestCase {
     private UserFormController c;
@@ -35,7 +31,7 @@ public class UserFormControllerTest extends BaseControllerTestCase {
 
         mv = c.handleRequest(request, new MockHttpServletResponse());
 
-        assertEquals("mainMenu.html", ((RedirectView) mv.getView()).getUrl());
+        assertEquals("redirect:mainMenu.html", mv.getViewName());
     }
 
     public void testEdit() throws Exception {
