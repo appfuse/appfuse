@@ -3,11 +3,11 @@
 
     <!-- import properties (app settings, classpath, jar file locations) -->
     <import file="properties.xml"/>
-    
+
     <target name="init" description="defines custom tasks">
         <!-- Taskdefs -->
         <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="${ant-contrib.jar}"/>
-            
+
         <!-- Ensure that Ant 1.6.2+ is being used -->
         <available classname="org.apache.tools.ant.DynamicAttribute" property="ant-1.6.2"/>
         <fail unless="ant-1.6.2" message="AppFuse requires Ant 1.6.2 for faster unit testing"/>
@@ -64,100 +64,6 @@
             </and>
         </condition>
         
-    </target>
-
-    <!-- =================================================================== -->
-    <!-- The "new" target is used to create a new project by duplicating      -->
-    <!-- this project and replacing "appfuse" instances with the new name.   -->
-    <!-- =================================================================== -->
-    <target name="new" depends="clean"
-        description="creates a new project with the specified name">
-        <fail unless="app.name">
-            You must specify an app.name using -Dapp.name=NAME and a database
-            name using -Ddb.name=NAME
-        </fail>
-        <fail unless="db.name">
-            You must specify an db.name using -Ddb.name=NAME.  Please do 
-            not use dashes (-) in your database's name.
-        </fail>
-        <echo level="info">Creating new application named '${app.name}'...</echo>
-        <copy todir="../${app.name}">
-            <fileset dir="${basedir}">
-                <exclude name="target/**"/>
-                <exclude name="sandbox/**"/>
-                <exclude name="www/**"/>
-                <exclude name="${webapp.name}*"/>
-                <exclude name="*.log"/>
-                <exclude name="*.sh"/>
-                <include name="**"/>
-                <exclude name=".#**"/>
-            </fileset>
-        </copy>
-        <!-- replace app name -->
-        <replaceregexp flags="g">
-            <regexp pattern="appfuse"/>
-            <substitution expression="${app.name}"/>
-            <fileset dir="../${app.name}">
-                <include name="**"/>
-                <exclude name="src/**/*.java"/>
-                <exclude name="src/**/*.xml"/>
-                <exclude name="test/**/*.java"/>
-                <exclude name="extras/**/*.java"/>
-                <exclude name="extras/**/*.xml"/>
-                <exclude name="metadata/web/global-exceptions.xml"/>
-                <exclude name="web/WEB-INF/*.xml"/>
-                <exclude name="web/WEB-INF/classes/log4j.properties"/>
-                <exclude name="web/WEB-INF/classes/mail.properties"/>
-                <exclude name="**/*.page"/>
-                <exclude name="**/*.application"/>
-                <exclude name="**/*_page.xdt"/>
-                <exclude name="**/managed-beans.xdt"/>
-                <exclude name="docs/**"/>
-                <exclude name="**/loginMenu.jsp"/>
-                <exclude name="**/README.txt"/>
-                <exclude name=".springBeansProject"/>
-            </fileset>
-        </replaceregexp>
-
-        <!-- Copy IDEA project files -->
-        <copy file="appfuse.iml" tofile="../${app.name}/${app.name}.iml"/>
-        <copy file="appfuse.ipr" tofile="../${app.name}/${app.name}.ipr"/>
-        <replace dir="../${app.name}" value="${app.name}" token="appfuse">
-            <include name="${app.name}.i*"/>
-        </replace>
-        
-        <!-- Fix path for packages in build.xml -->
-        <replaceregexp flags="g" match="org.${app.name}" replace="org.appfuse">
-            <fileset dir="../${app.name}">
-                <include name="build.xml"/>
-                <include name="metadata/templates/*.xdt"/>
-                <include name="metadata/web/*.java"/>
-            </fileset>
-        </replaceregexp>
-
-        <!-- Replace JNDI Name for database -->
-        <replaceregexp flags="g">
-            <regexp pattern="jdbc(.*)${app.name}"/>
-            <substitution expression="jdbc\1${db.name}"/>
-            <fileset dir="../${app.name}/metadata/web" includes="*web-resource-env-refs.xml"/>
-            <fileset dir="../${app.name}/metadata/conf" includes="**"/>
-            <fileset dir="../${app.name}/web" includes="**/*.jsp"/>
-            <fileset dir="../${app.name}/extras" includes="**/demos/users.jsp"/>
-            <fileset dir="../${app.name}" includes="database.properties.reference"/>
-        </replaceregexp>
-
-        <!-- Replace JNDI Name in Spring config files -->
-        <replaceregexp flags="g" match="jdbc/appfuse" replace="jdbc/${db.name}"
-            file="../${app.name}/web/WEB-INF/applicationContext-resources.xml"/>
-            
-        <!-- Replace database name in properties.xml and -->
-        <!-- in database creation script -->
-        <replaceregexp flags="g">
-            <regexp pattern="${app.name}"/>
-            <substitution expression="${db.name}"/>
-            <fileset dir="../${app.name}/metadata/sql" includes="*.sql"/>
-            <fileset dir="../${app.name}" includes="properties.xml"/> 
-        </replaceregexp>
     </target>
 
     <!-- List of variables in .properties files that will be replaced at
@@ -1116,8 +1022,7 @@
         </if>
 
         <echo level="info">Copying ${database.type} JDBC Driver...</echo>
-        <copy todir="${tomcat.home}/common/lib" file="${database.jar}"
-            overwrite="true"/>
+        <copy todir="${tomcat.home}/common/lib" file="${database.jar}" overwrite="true"/>
         <echo level="info">Copying jta.jar...</echo>
         <copy todir="${tomcat.home}/common/lib">
             <fileset dir="${hibernate.dir}/lib" includes="jta.jar"/>
@@ -1364,4 +1269,135 @@
         <delete dir="${extras.dir}/tapestry"/>
         <delete dir="${extras.dir}/webwork"/>
     </target-->
+
+    <!-- =================================================================== -->
+    <!-- The "new" target is used to create a new project by duplicating     -->
+    <!-- this project and replacing "appfuse" instances with the new name.   -->
+    <!-- =================================================================== -->
+    <target name="new" depends="clean,init"
+        description="creates a new project with the specified name">
+        <!-- Prompt user for input -->
+        <input message="Please enter application name:" addproperty="app.name"/>
+        <input message="Database name (no dashes allowed):" addproperty="db.name"/>
+        <input message="Package name (default is org.appfuse):" addproperty="new.pkg.name"
+            defaultvalue="org.appfuse"/>
+
+        <echo level="info">Creating new application named '${app.name}'...</echo>
+        <copy todir="../${app.name}">
+            <fileset dir="${basedir}">
+                <exclude name="target/**"/>
+                <exclude name="sandbox/**"/>
+                <exclude name="www/**"/>
+                <exclude name="${webapp.name}*"/>
+                <exclude name="*.log"/>
+                <exclude name="*.sh"/>
+                <include name="**"/>
+                <exclude name=".#**"/>
+            </fileset>
+        </copy>
+        <!-- replace app name -->
+        <replaceregexp flags="g">
+            <regexp pattern="appfuse"/>
+            <substitution expression="${app.name}"/>
+            <fileset dir="../${app.name}">
+                <include name="**"/>
+                <exclude name="src/**/*.java"/>
+                <exclude name="src/**/*.xml"/>
+                <exclude name="test/**/*.java"/>
+                <exclude name="extras/**/*.java"/>
+                <exclude name="extras/**/*.xml"/>
+                <exclude name="metadata/web/global-exceptions.xml"/>
+                <exclude name="web/WEB-INF/*.xml"/>
+                <exclude name="web/WEB-INF/classes/log4j.properties"/>
+                <exclude name="web/WEB-INF/classes/mail.properties"/>
+                <exclude name="**/*.page"/>
+                <exclude name="**/*.application"/>
+                <exclude name="**/*_page.xdt"/>
+                <exclude name="**/managed-beans.xdt"/>
+                <exclude name="docs/**"/>
+                <exclude name="**/loginMenu.jsp"/>
+                <exclude name="**/README.txt"/>
+                <exclude name=".springBeansProject"/>
+            </fileset>
+        </replaceregexp>
+
+        <!-- Copy IDEA project files -->
+        <copy file="appfuse.iml" tofile="../${app.name}/${app.name}.iml"/>
+        <copy file="appfuse.ipr" tofile="../${app.name}/${app.name}.ipr"/>
+        <replace dir="../${app.name}" value="${app.name}" token="appfuse">
+            <include name="${app.name}.i*"/>
+        </replace>
+
+        <!-- Fix path for packages in build.xml -->
+        <replaceregexp flags="g" match="org.${app.name}" replace="org.appfuse">
+            <fileset dir="../${app.name}">
+                <include name="build.xml"/>
+                <include name="metadata/templates/*.xdt"/>
+                <include name="metadata/web/*.java"/>
+            </fileset>
+        </replaceregexp>
+
+        <!-- Replace JNDI Name for database -->
+        <replaceregexp flags="g">
+            <regexp pattern="jdbc(.*)${app.name}"/>
+            <substitution expression="jdbc\1${db.name}"/>
+            <fileset dir="../${app.name}/metadata/web" includes="*web-resource-env-refs.xml"/>
+            <fileset dir="../${app.name}/metadata/conf" includes="**"/>
+            <fileset dir="../${app.name}/web" includes="**/*.jsp"/>
+            <fileset dir="../${app.name}/extras" includes="**/demos/users.jsp"/>
+            <fileset dir="../${app.name}" includes="database.properties.reference"/>
+        </replaceregexp>
+
+        <!-- Replace JNDI Name in Spring config files -->
+        <replaceregexp flags="g" match="jdbc/appfuse" replace="jdbc/${db.name}"
+            file="../${app.name}/web/WEB-INF/applicationContext-resources.xml"/>
+
+        <!-- Replace database name in properties.xml and -->
+        <!-- in database creation script -->
+        <replaceregexp flags="g">
+            <regexp pattern="${app.name}"/>
+            <substitution expression="${db.name}"/>
+            <fileset dir="../${app.name}/metadata/sql" includes="*.sql"/>
+            <fileset dir="../${app.name}" includes="properties.xml"/>
+        </replaceregexp>
+
+        <if>
+            <not><equals arg1="${new.pkg.name}" arg2="org.appfuse"/></not>
+            <then><rename-packages newPkgName="${new.pkg.name}"/></then>
+        </if>
+
+    </target>
+
+    <macrodef name="rename-packages">
+        <attribute name="src.base.dir" default="../${app.name}"/>
+        <attribute name="newPkgName"/>
+
+        <sequential>
+            <input message="Please enter the first part of new package name (i.e. com, org, net)"
+                addproperty="new.base.pkg.name"/>
+
+            <typedef resource="org/appfuse/ant/appfuse-contrib.xml"
+                classpath="${rename-packages.jar}" uri="appfuse:/org.appfuse.ant"/>
+
+            <appfuse:renamepackages xmlns:appfuse="appfuse:/org.appfuse.ant"
+                newPkgName="@{newPkgName}" baseDir="@{src.base.dir}"
+                otherFilesPath="${rename-packages.dir}/rename-packages.otherfiles"/>
+
+           <replaceregexp flags="g" match='packagenames="org.*"'
+               replace='packagenames="${new.base.pkg.name}.*"'>
+               <fileset dir="@{src.base.dir}">
+                   <include name="build.xml"/>
+               </fileset>
+           </replaceregexp>
+
+           <replaceregexp flags="g" match="org.appfuse" replace="@{newPkgName}">
+               <fileset dir="@{src.base.dir}">
+                   <include name="build.xml"/>
+               </fileset>
+           </replaceregexp>
+
+           <echo message="Repackaging info written to rename.log"/>
+       </sequential>
+   </macrodef>
+
 </project>
