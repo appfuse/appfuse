@@ -269,16 +269,16 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
 
         <echo level="info">Modifying Eclipse .classpath file</echo>
         <replace file="../../.classpath">
-            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/hibernate-3.0.1/hibernate3.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-3.0.1/lib/antlr-2.7.5H3.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-3.0.1/lib/asm.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-3.0.1/lib/c3p0-0.8.5.2.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-3.0.1/lib/cglib-2.1.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-3.0.1/lib/dom4j-1.6.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-3.0.1/lib/ehcache-1.1.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-3.0.1/lib/jta.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-3.0.1/lib/oscache-2.1.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-3.0.1/lib/swarmcache-1.0rc2.jar"/>]]></replacetoken>
+            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/hibernate-3.0.2/hibernate3.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-3.0.2/lib/antlr-2.7.5H3.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-3.0.2/lib/asm.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-3.0.2/lib/c3p0-0.8.5.2.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-3.0.2/lib/cglib-2.1.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-3.0.2/lib/dom4j-1.6.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-3.0.2/lib/ehcache-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-3.0.2/lib/jta.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-3.0.2/lib/oscache-2.1.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-3.0.2/lib/swarmcache-1.0rc2.jar"/>]]></replacetoken>
             <replacevalue></replacevalue>
         </replace>
         

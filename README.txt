@@ -102,7 +102,7 @@ Features/Changes in 1.8
 - Dependent packages upgraded:
     * Display Tag 1.0
     * Dumbster 1.5
-    * Hibernate 3.0.1
+    * Hibernate 3.0.2
     * Log4j 1.2.9
     * MySQL JDBC Driver 3.1.7
     * PMD 3.0
