@@ -153,7 +153,7 @@
     </c:when>
     <c:otherwise>
 
-        <h:outputLabel for="phoneNumber" value="#{text['user.roles']}"/>
+        <h:outputLabel for="userRoles" value="#{text['user.roles']}"/>
  
         <f:verbatim>
             <c:forEach var="role" items="${userForm.userRoles}" varStatus="status">
