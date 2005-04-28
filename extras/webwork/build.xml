@@ -347,8 +347,13 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         </replace>
 
         <replace file="../../build.xml">
-            <replacetoken><![CDATA[<webinf dir="${struts.dir}" includes="*.xml"/>]]></replacetoken>
-            <replacevalue></replacevalue>
+            <replacetoken><![CDATA[
+            <fileset dir="${struts.dir}" includes="*.xml"/>]]></replacetoken>
+        </replace>
+        
+        <replace file="../../build.xml">
+            <replacetoken><![CDATA[
+            <webinf dir="${struts.dir}" includes="*.xml"/>]]></replacetoken>
         </replace>
         
         <replace file="../../build.xml">
@@ -373,9 +378,10 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         <delete dir="../../extras/jsf"/>
         <delete dir="../../extras/spring"/>
         <delete dir="../../extras/tapestry"/>
+        <delete dir="../../extras/webwork"/>
         
         <echo>----------------------------------------------</echo>
-        <echo level="info">NOTE: It's recommended you delete extras/webwork as you shouldn't need it anymore.</echo>
+        <echo level="info">Installation completed successfully.</echo>
         <echo>----------------------------------------------</echo>
     </target>
  
@@ -385,6 +391,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
     <target name="test" description="Creates appfuse-webwork and runs tests">
         <property name="app.name" value="appfuse-webwork"/>
         <property name="db.name" value="appfuse"/>   
+        <property name="new.pkg.name" value="org.appfuse"/>
         <delete dir="../../../${app.name}"/>
         <ant dir="../.." target="new"/>
 
@@ -403,6 +410,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         description="Creates appfuse-webwork-ibatis and runs tests">
         <property name="app.name" value="appfuse-wibatis"/>
         <property name="db.name" value="appfuse"/>
+        <property name="new.pkg.name" value="org.appfuse"/>
         <delete dir="../../../${app.name}"/>
         <ant dir="../.." target="new"/>
 
@@ -422,6 +430,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
     <target name="test-appgen" description="Creates appfuse-webwork and tests appgen">
         <property name="app.name" value="appfuse-wwgen"/>
         <property name="db.name" value="appfuse"/>
+        <property name="new.pkg.name" value="org.appfuse"/>
         <delete dir="../../../${app.name}"/>
         <ant dir="../.." target="new"/>
 

@@ -30,17 +30,17 @@
         </copy>
         <echo level="info">Adding iBatis entries to ../../lib.properties</echo>
         <replace file="${lib.dir}/lib.properties">
-            <replacetoken><![CDATA[#
-# Java2HTML - http://www.java2html.com]]></replacetoken>
-            <replacevalue><![CDATA[#
+            <replacetoken>hibernate.jar=${hibernate.dir}/hibernate3.jar</replacetoken>
+            <replacevalue>hibernate.jar=${hibernate.dir}/hibernate3.jar
+
+#
 # iBATIS - http://www.ibatis.com/
 #
 ibatis.version=2.0.8
 ibatis.dir=${lib.dir}/ibatis-${ibatis.version}
 ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
 
-#
-# Java2HTML - http://www.java2html.com]]></replacevalue>
+</replacevalue>
         </replace>
 
         <echo level="info">Adding iBatis classpath entries</echo>
@@ -129,17 +129,14 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
 
         <echo level="info">Removing iBatis entries from ../../lib.properties</echo>
         <replace file="${lib.dir}/lib.properties">
-            <replacetoken><![CDATA[#
+            <replacetoken>#
 # iBATIS - http://www.ibatis.com/
 #
 ibatis.version=2.0.8
 ibatis.dir=${lib.dir}/ibatis-${ibatis.version}
 ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
 
-#
-# Java2HTML - http://www.java2html.com]]></replacetoken>
-            <replacevalue><![CDATA[#
-# Java2HTML - http://www.java2html.com]]></replacevalue>
+</replacetoken>
         </replace>
 
         <echo level="info">Removing iBatis classpath entries</echo>
@@ -227,15 +224,14 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
 
         <echo level="info">Removing Hibernate entries from ../../lib.properties</echo>
         <replace file="${lib.dir}/lib.properties">
-            <replacetoken><![CDATA[dbunit.jar=${dbunit.dir}/dbunit-${dbunit.version}.jar
+            <replacetoken><![CDATA[
 
 #
 # Hibernate - http://hibernate.org
 #
-hibernate.version=3.0
+hibernate.version=3.0.2
 hibernate.dir=${lib.dir}/hibernate-${hibernate.version}
 hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
-            <replacevalue><![CDATA[dbunit.jar=${dbunit.dir}/dbunit-${dbunit.version}.jar]]></replacevalue>
         </replace>
 
         <echo level="info">Removing Hibernate classpath entries</echo>
@@ -282,7 +278,7 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
             <replacevalue></replacevalue>
         </replace>
         
-        <echo level="info">Removing all references to hibernate in build.xml</echo>
+        <echo level="info">Removing all references to Hibernate in build.xml</echo>
         
         <!-- Remove hibernate.unnecessary check -->
         <replace file="../../build.xml">
@@ -322,7 +318,7 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
             excludedtags="@version,@author" addedtags="@xdoclet-generated at ${TODAY}"
             force="${xdoclet.force}">
             <fileset dir="src/dao"/>
-            <hibernate validatexml="true" version="2.0"/>
+            <hibernate validatexml="true" version="3.0"/>
         </hibernatedoclet>
     </target>
 ]]></replacetoken>
@@ -354,7 +350,7 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
             </classpath>
         </taskdef>
 
-        <antcall target="generate.database.properties"/>
+        <generate-database-properties/>
         <schemaexport quiet="no" text="no" drop="no" delimiter=";" 
             properties="database.properties" output="create-tables.sql">
             <fileset dir="${build.dir}/dao/gen" includes="**/*.hbm.xml"/>
@@ -383,7 +379,7 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
             </classpath>
         </taskdef>
 
-        <antcall target="generate.database.properties"/>
+        <generate-database-properties/>
         <schemaexport quiet="no" text="no" drop="yes" delimiter=";"
             properties="database.properties" output="drop-tables.sql">
             <fileset dir="${build.dir}/dao/gen" includes="**/*.hbm.xml"/>
@@ -436,6 +432,7 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
     <target name="test" description="Creates appfuse-ibatis and runs tests">
         <property name="app.name" value="appfuse-ibatis"/>
         <property name="db.name" value="appfuse"/>
+        <property name="new.pkg.name" value="org.appfuse"/>
         <delete dir="../../../${app.name}"/>
         <ant dir="../.." target="new"/>
 
@@ -456,6 +453,7 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
         <!-- NOTE: 2 dashes in the app name doesn't work -->   
         <property name="app.name" value="appfuse-hibatis"/>
         <property name="db.name" value="appfuse"/>
+        <property name="new.pkg.name" value="org.appfuse"/>
         <delete dir="../../../${app.name}"/>
         <ant dir="../.." target="new"/>
 

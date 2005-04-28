@@ -5,9 +5,11 @@
     <output url="file://$MODULE_DIR$/build/appfuse/WEB-INF/classes" />
     <exclude-output />
     <exploded url="file://$MODULE_DIR$/build/appfuse" />
-    <exclude-exploded />
     <output-test url="file://$MODULE_DIR$/build/test/classes" />
     <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/build/appfuse" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/build/dao/gen" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/build/web/classes" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/web/gen" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/dao" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/service" isTestSource="false" />
@@ -603,11 +605,6 @@
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/itext-1.1.jar" />
       <url>jar://$MODULE_DIR$/lib/displaytag-1.0/itext-1.1.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/dumbster-1.6.jar" />
-      <url>jar://$MODULE_DIR$/lib/dumbster-1.6/dumbster-1.6.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />

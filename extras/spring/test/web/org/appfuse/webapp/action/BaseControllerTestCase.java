@@ -9,14 +9,18 @@ import junit.framework.TestCase;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.appfuse.Constants;
 import org.appfuse.model.BaseObject;
 import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockServletContext;
+import org.springframework.util.ClassUtils;
+import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 
-public class BaseControllerTestCase extends TestCase {
+public abstract class BaseControllerTestCase extends TestCase {
     protected transient final Log log = LogFactory.getLog(getClass());
     protected static XmlWebApplicationContext ctx;
     protected User user;
@@ -24,8 +28,14 @@ public class BaseControllerTestCase extends TestCase {
     // This static block ensures that Spring's BeanFactory is only loaded
     // once for all tests
     static {
-        String[] paths = {"/WEB-INF/applicationContext*.xml",
-                          "/WEB-INF/action-servlet.xml"};
+        String pkg = ClassUtils.classPackageAsResourcePath(Constants.class);
+        String[] paths = {
+                "classpath*:/" + pkg + "/dao/applicationContext-*.xml",
+                "classpath*:META-INF/applicationContext-*.xml",
+                "/WEB-INF/applicationContext-*.xml",
+                "/WEB-INF/action-servlet.xml"
+            };
+        
         ctx = new XmlWebApplicationContext();
         ctx.setConfigLocations(paths);
         ctx.setServletContext(new MockServletContext(""));
@@ -36,6 +46,12 @@ public class BaseControllerTestCase extends TestCase {
         // populate the userForm and place into session
         UserManager userMgr = (UserManager) ctx.getBean("userManager");
         user = (User) userMgr.getUser("tomcat");
+        
+        // change the port on the mailSender so it doesn't conflict with an 
+        // existing SMTP server on localhost
+        JavaMailSenderImpl mailSender = (JavaMailSenderImpl) ctx.getBean("mailSender");
+        mailSender.setPort(2525);
+        mailSender.setHost("localhost");
     }
     
     /**

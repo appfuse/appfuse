@@ -124,11 +124,18 @@ public class <XDtClass:classOf><XDtActionForm:actionFormClass/></XDtClass:classO
     
 <XDtClass:ifHasClassTag tagName="struts.form" paramName="indexedProperties" value="true">
 <XDtActionForm:forAllFormFields>
-    <XDtType:ifIsOfType value="return-type" type="java.util.List,java.util.Set" extent="concrete-type">
+    <XDtType:ifIsOfType value="return-type" type="java.util.List" extent="concrete-type">
     public void <XDtMethod:setterMethod/>(int index, Object o) {
-		this.<XDtMethod:propertyName/>.set(index, o);
+        this.<XDtMethod:propertyName/>.set(index, o);
     }
     </XDtType:ifIsOfType>
+    
+    <XDtType:ifIsOfType value="return-type" type="java.util.Set" extent="concrete-type">
+    public void <XDtMethod:setterMethod/>(Object o) {
+        this.<XDtMethod:propertyName/>.add(o);
+    }
+    </XDtType:ifIsOfType>
+    
 </XDtActionForm:forAllFormFields>
 </XDtClass:ifHasClassTag>
 
@@ -152,7 +159,7 @@ public class <XDtClass:classOf><XDtActionForm:actionFormClass/></XDtClass:classO
 </XDtActionForm:forAllFormFields>
 <XDtClass:ifHasClassTag tagName="struts.form" paramName="indexedProperties" value="true">
 <XDtActionForm:forAllFormFields>
-        <XDtType:ifIsOfType value="return-type" type="java.util.List,java.util.Set" extent="concrete-type">
+        <XDtType:ifIsOfType value="return-type" type="java.util.List" extent="concrete-type">
         <XDtVelocity:generator>
         #set( $method = $currentMethod.name)
         ## trim off the 'get'
@@ -160,6 +167,16 @@ public class <XDtClass:classOf><XDtActionForm:actionFormClass/></XDtClass:classO
         </XDtVelocity:generator>
         this.<XDtMethod:propertyName/> = org.apache.commons.collections.ListUtils.lazyList(new java.util.ArrayList(), new ObjectFactory("<XDtVelocity:getVariable name="objectName"/>"));
         </XDtType:ifIsOfType>
+        
+        <XDtType:ifIsOfType value="return-type" type="java.util.Set" extent="concrete-type">
+        <XDtVelocity:generator>
+        #set( $method = $currentMethod.name)
+        ## trim off the 'get'
+        #set( $objectName = $method.substring(3, $method.lastIndexOf('s')))
+        </XDtVelocity:generator>
+        this.<XDtMethod:propertyName/> = new java.util.HashSet();
+        </XDtType:ifIsOfType>
+
 </XDtActionForm:forAllFormFields>
 </XDtClass:ifHasClassTag>
     }
@@ -176,17 +193,17 @@ public class <XDtClass:classOf><XDtActionForm:actionFormClass/></XDtClass:classO
          * Create a new instance of the specified object
          */
         public Object create() {
-	    	Class c = null;
-	    	try {
-		    	c = Class.forName("org.appfuse.webapp.form." + name + "Form");
-	            return c.newInstance();
-			} catch (Exception e) {
-	            System.err.println("Error instantiating class: " + c.getName());
-	            throw new RuntimeException(e);
-			}
+            Class c = null;
+            try {
+                c = Class.forName("org.appfuse.webapp.form." + name + "Form");
+                return c.newInstance();
+            } catch (Exception e) {
+                System.err.println("Error instantiating class: " + c.getName());
+                throw new RuntimeException(e);
+            }
         }
         public ObjectFactory(String name) {
-        	this.name = name;
+            this.name = name;
         }
     }
     </XDtClass:ifHasClassTag>

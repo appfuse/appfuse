@@ -14,19 +14,24 @@ import org.apache.tapestry.junit.TapestryTestCase;
 import org.apache.tapestry.junit.mock.MockContext;
 import org.apache.tapestry.junit.mock.MockServletConfig;
 import org.apache.tapestry.request.RequestContext;
+
+import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
+
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockServletContext;
+import org.springframework.util.ClassUtils;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-public class BasePageTestCase extends TapestryTestCase {
+public abstract class BasePageTestCase extends TapestryTestCase {
     protected final transient Log log = LogFactory.getLog(getClass());
-    protected static final String MESSAGES = "ApplicationResources";
+    protected static final String MESSAGES = Constants.BUNDLE_KEY;
     protected static WebApplicationContext ctx;
     protected User user;
     protected MockEngine engine;
@@ -36,9 +41,11 @@ public class BasePageTestCase extends TapestryTestCase {
     // This static block ensures that Spring's BeanFactory is only loaded
     // once for all tests
     static {
+        String pkg = ClassUtils.classPackageAsResourcePath(Constants.class);
         MockServletContext servletContext = new MockServletContext("");
         servletContext.addInitParameter(ContextLoader.CONFIG_LOCATION_PARAM,
-                                        "/WEB-INF/applicationContext*.xml");
+                "classpath*:/" + pkg + "/dao/applicationContext-*.xml," +
+                "classpath*:META-INF/applicationContext-*.xml");
 
         ServletContextListener contextListener = new ContextLoaderListener();
         ServletContextEvent event = new ServletContextEvent(servletContext);
@@ -51,6 +58,12 @@ public class BasePageTestCase extends TapestryTestCase {
         // populate the userForm and place into session
         UserManager userMgr = (UserManager) ctx.getBean("userManager");
         user = (User) userMgr.getUser("tomcat");
+        
+        // change the port on the mailSender so it doesn't conflict with an 
+        // existing SMTP server on localhost
+        JavaMailSenderImpl mailSender = (JavaMailSenderImpl) ctx.getBean("mailSender");
+        mailSender.setPort(2525);
+        mailSender.setHost("localhost");
     }
 
     protected Object getPage(Class clazz) {

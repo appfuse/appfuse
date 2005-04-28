@@ -79,7 +79,7 @@ public class <XDtClass:className/>ActionTest extends BaseActionTestCase {
         ServletActionContext.setRequest(request);
         action.setDelete("");
         <XDtClass:className/> <XDtForm:classNameLower/> = new <XDtClass:className/>();
-        <XDtForm:classNameLower/>.setId(new <XDtMethodEx:idField getType="propertyType"/>("2"));
+        <XDtForm:classNameLower/>.<XDtMethodEx:idField getType="setterName"/>(new <XDtMethodEx:idField getType="propertyType"/>("2"));
         action.set<XDtClass:className/>(<XDtForm:classNameLower/>);
 
         assertEquals(action.delete(), "success");

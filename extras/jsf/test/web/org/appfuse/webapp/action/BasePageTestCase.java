@@ -18,16 +18,18 @@ import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
 import org.appfuse.webapp.util.FacesUtils;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockServletConfig;
 import org.springframework.mock.web.MockServletContext;
+import org.springframework.util.ClassUtils;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-public class BasePageTestCase extends TestCase {
+public abstract class BasePageTestCase extends TestCase {
     protected final transient Log log = LogFactory.getLog(getClass());
     protected static final String MESSAGES = "ApplicationResources";
     protected static FacesContext facesContext;
@@ -40,10 +42,12 @@ public class BasePageTestCase extends TestCase {
     // FacesContext is only loaded once for all tests. If there's something
     // wrong with this approach - please let me know!
     static {
+        String pkg = ClassUtils.classPackageAsResourcePath(Constants.class);
         servletContext = new MockServletContext("");
         servletContext.addInitParameter(BasePage.jstlBundleParam, MESSAGES);
         servletContext.addInitParameter(ContextLoader.CONFIG_LOCATION_PARAM,
-                                        "/WEB-INF/applicationContext*.xml");
+                "classpath*:/" + pkg + "/dao/applicationContext-*.xml," +
+                "classpath*:META-INF/applicationContext-*.xml");
 
         ServletContextListener contextListener = new ContextLoaderListener();
         ServletContextEvent event = new ServletContextEvent(servletContext);
@@ -58,6 +62,12 @@ public class BasePageTestCase extends TestCase {
         // populate the userForm and place into session
         UserManager userMgr = (UserManager) ctx.getBean("userManager");
         user = userMgr.getUser("tomcat");
+        
+        // change the port on the mailSender so it doesn't conflict with an 
+        // existing SMTP server on localhost
+        JavaMailSenderImpl mailSender = (JavaMailSenderImpl) ctx.getBean("mailSender");
+        mailSender.setPort(2525);
+        mailSender.setHost("localhost");
     }
 
     protected static FacesContext performFacesContextConfig() {

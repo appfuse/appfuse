@@ -13,6 +13,7 @@ import org.springframework.mock.web.MockFilterConfig;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockServletContext;
+import org.springframework.util.ClassUtils;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.ContextLoaderListener;
 
@@ -30,8 +31,11 @@ public class ActionFilterTest extends TestCase {
         appConfig.put(Constants.HTTPS_PORT, "443");
         sc.setAttribute(Constants.CONFIG, appConfig);
         
+        String pkg = ClassUtils.classPackageAsResourcePath(Constants.class);
         sc.addInitParameter(ContextLoader.CONFIG_LOCATION_PARAM,
-                            "/WEB-INF/applicationContext*.xml");
+                "classpath*:/" + pkg + "/dao/applicationContext-*.xml," +
+                "classpath*:META-INF/applicationContext-*.xml");
+        
         ServletContextListener listener = new ContextLoaderListener();
         ServletContextEvent event = new ServletContextEvent(sc);
         listener.contextInitialized(event);

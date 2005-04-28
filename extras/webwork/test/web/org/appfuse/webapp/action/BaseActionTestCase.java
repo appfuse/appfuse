@@ -11,12 +11,14 @@ import org.apache.commons.logging.LogFactory;
 import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mock.web.MockServletContext;
+import org.springframework.util.ClassUtils;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 
 import com.opensymphony.xwork.ActionContext;
 
-public class BaseActionTestCase extends TestCase {
+public abstract class BaseActionTestCase extends TestCase {
     protected transient final Log log = LogFactory.getLog(getClass());
     protected static XmlWebApplicationContext ctx;
     protected User user;
@@ -24,10 +26,13 @@ public class BaseActionTestCase extends TestCase {
     // This static block ensures that Spring's BeanFactory is only loaded
     // once for all tests
     static {
-        ResourceBundle db = ResourceBundle.getBundle("database");
-        String daoType = db.getString("dao.type");
-        String[] paths = {"/WEB-INF/applicationContext*",
-                          "/WEB-INF/action-servlet.xml"};
+        String pkg = ClassUtils.classPackageAsResourcePath(Constants.class);
+        String[] paths = {
+                "classpath*:/" + pkg + "/dao/applicationContext-*.xml",
+                "classpath*:META-INF/applicationContext-*.xml",
+                "/WEB-INF/action-servlet.xml"
+            };
+        
         ctx = new XmlWebApplicationContext();
         ctx.setConfigLocations(paths);
         ctx.setServletContext(new MockServletContext(""));
@@ -41,6 +46,12 @@ public class BaseActionTestCase extends TestCase {
         Map attributes = new HashMap();
         attributes.put(Constants.USER_KEY, user);
         ActionContext.getContext().setSession(attributes);
+        
+        // change the port on the mailSender so it doesn't conflict with an 
+        // existing SMTP server on localhost
+        JavaMailSenderImpl mailSender = (JavaMailSenderImpl) ctx.getBean("mailSender");
+        mailSender.setPort(2525);
+        mailSender.setHost("localhost");
     }
     
     protected void tearDown() throws Exception {

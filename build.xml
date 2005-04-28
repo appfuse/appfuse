@@ -104,17 +104,7 @@
         </copy>            
         <native2ascii src="web/WEB-INF/classes" dest="${build.dir}/web/classes" 
             includes="ApplicationResources_zh_CN.properties" encoding="UTF-8"/>
-        <!-- Copy Spring configuration files -->
-        <copy overwrite="true"
-            tofile="${webapp.target}/WEB-INF/applicationContext-${dao.type}.xml">
-            <fileset dir="src/dao" includes="**/*-${dao.type}.xml"/>
-            <filterset refid="variables.to.replace"/>
-        </copy>
-        <copy 
-            tofile="${webapp.target}/WEB-INF/applicationContext-service.xml">
-            <fileset dir="src/service" includes="**/*-service.xml"/>
-        </copy>
-        <antcall target="generate.database.properties"/>
+        <generate-database-properties/>
         <copy todir="${build.dir}/web/classes" file="database.properties"/>
     </target>
     
@@ -237,15 +227,22 @@
         <!-- Copy XML files from source -->
         <copy todir="${build.dir}/dao/gen">
             <fileset dir="src/dao" includes="**/*.xml"/>
-        	<filterset refid="variables.to.replace"/>
+            <filterset refid="variables.to.replace"/>
+        </copy>
+        <!-- Copy Spring configuration files -->
+        <mkdir dir="${build.dir}/dao/gen/META-INF"/>
+        <copy overwrite="true" tofile="${build.dir}/dao/gen/META-INF/applicationContext-${dao.type}.xml">
+            <fileset dir="src/dao" includes="**/*-${dao.type}.xml"/>
+            <filterset refid="variables.to.replace"/>
         </copy>
         <jar destfile="${dist.dir}/${webapp.name}-dao.jar">
             <manifest>
                 <attribute name="Class-Path" value="${webapp.name}-dao.jar"/>
             </manifest>
             <fileset dir="${build.dir}/dao/classes"/>
-            <fileset dir="${build.dir}/dao/gen" includes="**/*.xml"/>
-            <metainf dir="${build.dir}/dao/gen" includes="*.xml"/>
+            <fileset dir="${build.dir}/dao/gen" includes="**/*.xml" 
+                excludes="**/applicationContext-*.xml"/>
+            <metainf dir="${build.dir}/dao/gen/META-INF" excludes="*-service.xml"/>
         </jar>
     </target>
    
@@ -259,12 +256,20 @@
     </target>
 
     <target name="package-service" depends="compile-service">
+        <mkdir dir="${build.dir}/service/META-INF"/>
+        <copy tofile="${build.dir}/service/META-INF/applicationContext-service.xml">
+            <fileset dir="src/service" includes="**/*-service.xml"/>
+        </copy>
+        <!-- keep IDEs happy by putting context file in existing classpath -->
+        <copy file="${build.dir}/service/META-INF/applicationContext-service.xml" 
+            todir="${build.dir}/dao/gen/META-INF"/>
         <jar destfile="${dist.dir}/${webapp.name}-service.jar">
             <manifest>
                 <attribute name="Class-Path"
                     value="${webapp.name}-dao.jar ${webapp.name}-service.jar"/>
             </manifest>
             <fileset dir="${build.dir}/service/classes" includes="**/*.class"/>
+            <metainf dir="${build.dir}/service/META-INF"/>
         </jar>
     </target>
 
@@ -342,8 +347,7 @@
         description="alias for package-web"/>
 
     <target name="package-web" depends="compile-web,jsp-2" description="Package WAR">
-        <propertyfile comment="Build Information"
-            file="${build.dir}/web/classes/build.properties">
+        <propertyfile comment="Build Information" file="${build.dir}/web/classes/build.properties">
             <entry key="build.date" type="date" pattern="EEEE MMM dd, yyyy" value="now"/>
             <entry key="build.time" type="date" pattern="hh:mm:ss a zz" value="now"/>
             <entry key="build.username" value="${user.name}"/>
@@ -351,8 +355,7 @@
             <entry key="build.dao.type" value="${dao.type}"/>
             <entry key="webapp.version" value="${webapp.version}"/>
         </propertyfile>
-        <!-- If Tomcat 5, uncomment the <dispatcher> elements in 
-             filter-mappings -->
+        <!-- If Tomcat 5, uncomment the <dispatcher> elements in filter-mappings -->
         <if>
             <or>
                 <isset property="tomcat5"/>
@@ -392,17 +395,13 @@
                 </then>
             </elseif>
         </if>
-        <!-- Change the path so webapp can find .hbm in appfuse-dao.jar -->
-        <replace file="${webapp.target}/WEB-INF/applicationContext-${dao.type}.xml">
-            <replacetoken>file:dist</replacetoken>
-            <replacevalue>WEB-INF/lib</replacevalue>
-        </replace>
         <!-- Copy .properties files in src tree to build/web/classes -->
         <copy todir="${build.dir}/web/classes">
             <fileset dir="src/web">
                 <include name="**/*.properties"/>
                 <include name="**/*.xml"/>
-            </fileset>   
+            </fileset>
+            <fileset dir="${struts.dir}" includes="*.xml"/>
         </copy>
         <war destfile="${webapp.dist}/${webapp.war}"
             webxml="${webapp.target}/WEB-INF/web.xml" compress="true">
@@ -416,8 +415,8 @@
             <lib file="${dist.dir}/${webapp.name}-dao.jar"/>
             <lib file="${dist.dir}/${webapp.name}-service.jar"/>
 
-            <webinf dir="${struts.dir}" includes="*.xml"/>
             <webinf dir="web/WEB-INF" includes="*-resources.xml"/>
+            <webinf dir="${struts.dir}" includes="*.xml"/>
             
             <lib file="${clickstream.jar}"/>
             <lib dir="${struts.dir}" includes="*.jar"/>
@@ -452,7 +451,7 @@
             <echo>Compiling @{module}...</echo>
             <mkdir dir="${build.dir}/@{module}/classes"/>
             <mkdir dir="${test.dir}/@{module}/classes"/>
-            <javac srcdir="src/@{module};@{additional.src.dirs}"
+            <javac srcdir="${src}/@{module};@{additional.src.dirs}"
                 destdir="${build.dir}/@{module}/classes"
                 debug="${compile.debug}"
                 deprecation="${compile.deprecation}"
@@ -485,11 +484,6 @@
             <copy todir="${test.dir}/@{module}/classes">
                 <fileset dir="test/@{module}" excludes="**/*.java"/>
                 <filterset refid="variables.to.replace"/>
-            </copy>
-            <!-- Use test-specific XML files -->
-            <!-- TODO: Eliminate applicationContext-resources.xml for test -->
-            <copy todir="${webapp.target}/WEB-INF" overwrite="true">
-                <fileset dir="test" includes="*.xml"/>
             </copy>
             <junit printsummary="no" forkmode="once" errorProperty="test.failed"
                 failureProperty="test.failed" fork="${junit.fork}">
@@ -726,7 +720,7 @@
     </target>
     
     <!-- =================================================================== -->
-    <!-- The "db-prepare" target generates the database schema and creates      --> 
+    <!-- The "db-prepare" target generates the database schema and creates   --> 
     <!-- tables based on the mapping files                                   -->
     <!-- =================================================================== -->
     <target name="db-prepare" depends="clean,package-dao"
@@ -739,7 +733,7 @@
             </classpath>
         </taskdef>
 
-        <antcall target="generate.database.properties"/>
+        <generate-database-properties/>
         <schemaexport quiet="no" text="no" drop="no" delimiter=";" 
             properties="database.properties" output="create-tables.sql">
             <fileset dir="${build.dir}/dao/gen" includes="**/*.hbm.xml"/>
@@ -756,7 +750,7 @@
             </classpath>
         </taskdef>
 
-        <antcall target="generate.database.properties"/>
+        <generate-database-properties/>
         <schemaexport quiet="no" text="no" drop="yes" delimiter=";"
             properties="database.properties" output="drop-tables.sql">
             <fileset dir="${build.dir}/dao/gen" includes="**/*.hbm.xml"/>
@@ -1276,11 +1270,12 @@
     <target name="new" depends="clean,init"
         description="creates a new project with the specified name">
 <echo level="info">
-+---------------------------------------------------------------------+
-|       -- Welcome to the AppFuse New Application Wizard! --          |
-|                                                                     |
-| To create a new application, please answer the following questions. |
-+---------------------------------------------------------------------+
++-------------------------------------------------------------+
+|    -- Welcome to the AppFuse New Application Wizard! --     |
+|                                                             |
+| To create a new application, please answer the following    |
+| questions.                                                  |
++-------------------------------------------------------------+
 </echo>
         <echo/>
 
@@ -1376,12 +1371,12 @@
         </if>
 
 <echo level="info">
-+--------------------------------------------------------------------+
-|              -- Application created successfully! --               |
-|                                                                    |
-| Now you should be able to cd to your new application and run:      |
-| > ant setup test-all                                               |
-+--------------------------------------------------------------------+
++-------------------------------------------------------------+
+|           -- Application created successfully! --           |
+|                                                             |
+| Now you should be able to cd to your application and run:   |
+| > ant setup test-all                                        |
++-------------------------------------------------------------+
 </echo>
     </target>
 
@@ -1390,8 +1385,8 @@
         <attribute name="newPkgName"/>
 
         <sequential>
-            <input message="Please enter the first part of new package name (i.e. com, org, net)"
-                addproperty="new.base.pkg.name"/>
+            <input message="Please enter the first part of your new package name (i.e. com, org, net) [org]"
+                addproperty="new.base.pkg.name" defaultvalue="org"/>
 
             <typedef resource="org/appfuse/ant/appfuse-contrib.xml"
                 classpath="${rename-packages.jar}" uri="appfuse:/org.appfuse.ant"/>

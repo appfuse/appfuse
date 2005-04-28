@@ -1,6 +1,5 @@
 package org.appfuse.webapp.action;
 
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
@@ -14,11 +13,6 @@ public class PasswordHintControllerTest extends BaseControllerTestCase {
         // needed to initialize a user
         super.setUp();
         c = (PasswordHintController) ctx.getBean("passwordHintController");
-        // change the port on the mailSender so it doesn't conflict with an 
-        // existing SMTP server on localhost
-        JavaMailSenderImpl mailSender = (JavaMailSenderImpl) ctx.getBean("mailSender");
-        mailSender.setPort(2525);
-        mailSender.setHost("localhost");
     }
     
     protected void tearDown() throws Exception {

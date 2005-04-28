@@ -121,6 +121,7 @@
         <pathelement location="${jakarta-oro.jar}"/>
         <pathelement location="${dumbster.jar}"/>
         <pathelement location="${jmock.jar}"/>
+        <path location="test/dao"/>
     </path>
         
     <!-- Web -->
@@ -153,25 +154,28 @@
         <fileset dir="${velocity.dir}" includes="*.jar"/>
         <!-- Needed for testing out-of-container -->
         <path refid="dao.compile.classpath"/>
+        <path location="test/dao"/>
     </path>
         
     <property name="inheritAll" value="true"/>
     
-    <!-- this task is called by tasks that depend on a database.properties -->
-    <target name="generate.database.properties">
-        <echo>generating database.properties from build.properties</echo>
-        <propertyfile comment="Hibernate Configuration for JUnit tests" 
-            file="${basedir}/database.properties">
-        	<entry key="hibernate.dialect" value="${hibernate.dialect}"/>
-        	<entry key="hibernate.connection.driver_class" value="${database.driver_class}"/>
-        	<entry key="hibernate.connection.url" value="${database.url}"/>
-        	<entry key="hibernate.connection.username" value="${database.username}"/>
-        	<entry key="hibernate.connection.password" value="${database.password}"/>
-        	<entry key="hibernate.connection.show_sql" value="${database.show_sql}"/>
-            <entry key="dao.type" value="${dao.type}"/>
-         </propertyfile>
-         <replace file="database.properties" token="amp;" value=""/>
-         <property file="database.properties"/>
-    </target>
+    <!-- this macro is called by tasks that depend on a database.properties -->
+    <macrodef name="generate-database-properties">
+        <sequential>
+            <echo>generating database.properties from build.properties</echo>
+            <propertyfile comment="Hibernate Configuration for JUnit tests" 
+                file="${basedir}/database.properties">
+                <entry key="hibernate.dialect" value="${hibernate.dialect}"/>
+                <entry key="hibernate.connection.driver_class" value="${database.driver_class}"/>
+                <entry key="hibernate.connection.url" value="${database.url}"/>
+                <entry key="hibernate.connection.username" value="${database.username}"/>
+                <entry key="hibernate.connection.password" value="${database.password}"/>
+                <entry key="hibernate.connection.show_sql" value="${database.show_sql}"/>
+                <entry key="dao.type" value="${dao.type}"/>
+             </propertyfile>
+             <replace file="database.properties" token="amp;" value=""/>
+             <property file="database.properties"/>
+         </sequential>
+    </macrodef>
     
 </project>

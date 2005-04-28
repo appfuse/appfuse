@@ -22,10 +22,22 @@
     
     <target name="init">
         <mkdir dir="${build.dir}"/>
+<echo level="info">
++-------------------------------------------------------+
+|             -- Welcome to the AppGen! --              |
+|                                                       |
+| Use the "install" target to use the generic DAO and   |
+| Manager, or use "install-detailed" to general a DAO   |
+| and Manager specifically for your model object.       |
++-------------------------------------------------------+
+</echo>
+        <echo/>
+        <input message="What is the name of your POJO (i.e. Person)?" addproperty="model.name"/>
         <fail unless="model.name">
             You must specify a POJO using -Dmodel.name=Class and the lowercase
             name using -Dmodel.name.lowercase=class (for naming JSPs)   
         </fail>
+        <input message="What is the lowercase version (i.e. person)?" addproperty="model.name.lowercase"/>
         <fail unless="model.name.lowercase">
             You must specify a POJO lowercase name using 
             -Dmodel.name.lowercase=class (for naming JSPs)   
@@ -332,6 +344,7 @@
         description="Creates new project and generates detailed code">
         <property name="app.name" value="appfuse-appgen2"/>
         <property name="db.name" value="appfuse"/>
+        <property name="new.pkg.name" value="org.appfuse"/>
         <delete dir="../../../${app.name}"/>
         <ant dir="../.." target="new"/>
  
@@ -364,6 +377,7 @@
         description="Creates new project and generates generic persistence code">
         <property name="app.name" value="appfuse-appgen"/>
         <property name="db.name" value="appfuse"/>
+        <property name="new.pkg.name" value="org.appfuse"/>
         <delete dir="../../../${app.name}"/>
         <ant dir="../.." target="new"/>
 

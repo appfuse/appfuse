@@ -41,11 +41,6 @@ public class LoginServletTest extends TestCase {
         servlet = null;
     }
 
-    /**
-     * Test that initialization parameters were set
-     *
-     * @throws Exception
-     */
     public void testInit() throws Exception {
         // check all parameters from web.xml
         String authURL = config.getInitParameter(Constants.AUTH_URL);

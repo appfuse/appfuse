@@ -9,7 +9,6 @@ import org.appfuse.model.Address;
 import org.appfuse.model.User;
 import org.appfuse.service.RoleManager;
 import org.appfuse.service.UserManager;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import com.dumbster.smtp.SimpleSmtpServer;
 
@@ -19,11 +18,6 @@ public class SignupFormTest extends BasePageTestCase {
     public void setUp() throws Exception {
         super.setUp();        
         page = (SignupForm) getPage(SignupForm.class);
-        // change the port on the mailSender so it doesn't conflict with an 
-        // existing SMTP server on localhost
-        JavaMailSenderImpl mailSender = (JavaMailSenderImpl) ctx.getBean("mailSender");
-        mailSender.setPort(2525);
-        mailSender.setHost("localhost");
         
         // unfortunately this is a required step if you're calling getMessage
         page.setBundle(ResourceBundle.getBundle(MESSAGES));

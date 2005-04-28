@@ -7,6 +7,7 @@ import junit.framework.TestCase;
 
 import org.appfuse.Constants;
 import org.springframework.mock.web.MockServletContext;
+import org.springframework.util.ClassUtils;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.WebApplicationContext;
@@ -30,8 +31,11 @@ public class StartupListenerTest extends TestCase {
         sc.addInitParameter("daoType", "hibernate");
         
         // initialize Spring
+        String pkg = ClassUtils.classPackageAsResourcePath(Constants.class);
         sc.addInitParameter(ContextLoader.CONFIG_LOCATION_PARAM,
-                            "/WEB-INF/applicationContext*.xml");
+                "classpath*:/" + pkg + "/dao/applicationContext-*.xml," +
+                "classpath*:META-INF/applicationContext-*.xml");
+        
         ServletContextListener contextListener = new ContextLoaderListener();
         ServletContextEvent event = new ServletContextEvent(sc);
         contextListener.contextInitialized(event);

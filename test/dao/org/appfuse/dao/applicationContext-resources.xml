@@ -7,23 +7,15 @@
         <property name="locations">
             <list>
                 <value>classpath:mail.properties</value>
-                <value>database.properties</value>
+                <value>classpath:database.properties</value>
             </list>
         </property>
     </bean>
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName">
-            <value>${hibernate.connection.driver_class}</value>
-        </property>
-        <property name="url">
-            <value>${hibernate.connection.url}</value>
-        </property>
-        <property name="username">
-            <value>${hibernate.connection.username}</value>
-        </property>
-        <property name="password">
-            <value>${hibernate.connection.password}</value>
-        </property>
+        <property name="driverClassName" value="${hibernate.connection.driver_class}"/>
+        <property name="url" value="${hibernate.connection.url}"/>
+        <property name="username" value="${hibernate.connection.username}"/>
+        <property name="password" value="${hibernate.connection.password}"/>
     </bean>
 </beans>

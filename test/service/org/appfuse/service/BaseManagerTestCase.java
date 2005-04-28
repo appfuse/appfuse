@@ -11,7 +11,7 @@ import org.appfuse.util.ConvertUtil;
 import org.jmock.MockObjectTestCase;
 
 
-public class BaseManagerTestCase extends MockObjectTestCase {
+public abstract class BaseManagerTestCase extends MockObjectTestCase {
     //~ Static fields/initializers =============================================
 
     protected final Log log = LogFactory.getLog(getClass());

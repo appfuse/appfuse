@@ -5,7 +5,6 @@ import java.util.ResourceBundle;
 import org.appfuse.service.MailEngine;
 import org.appfuse.service.UserManager;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import com.dumbster.smtp.SimpleSmtpServer;
 
@@ -16,11 +15,6 @@ public class PasswordHintTest extends BasePageTestCase {
     public void setUp() throws Exception {
         super.setUp();        
         page = (PasswordHint) getPage(PasswordHint.class);
-        // change the port on the mailSender so it doesn't conflict with an 
-        // existing SMTP server on localhost
-        JavaMailSenderImpl mailSender = (JavaMailSenderImpl) ctx.getBean("mailSender");
-        mailSender.setPort(2525);
-        mailSender.setHost("localhost");
         
         // these can be mocked if you want a more "pure" unit test
         page.setUserManager((UserManager) ctx.getBean("userManager"));

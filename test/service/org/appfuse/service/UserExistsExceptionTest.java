@@ -2,11 +2,12 @@ package org.appfuse.service;
 
 import java.util.ResourceBundle;
 
+import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.orm.ObjectRetrievalFailureException;
-
+import org.springframework.util.ClassUtils;
 
 public class UserExistsExceptionTest extends BaseManagerTestCase {
     private static ApplicationContext ctx = null;
@@ -16,13 +17,10 @@ public class UserExistsExceptionTest extends BaseManagerTestCase {
     // This static block ensures that Spring's BeanFactory is only loaded
     // once for all tests
     static {
-        // the dao.type is written to the database.properties file
-        // in properties.xml
-        ResourceBundle db = ResourceBundle.getBundle("database");
-        String daoType = db.getString("dao.type");
-        String[] paths = {"/WEB-INF/applicationContext-resources.xml",
-                          "/WEB-INF/applicationContext-" + daoType + ".xml",
-                          "/WEB-INF/applicationContext-service.xml"};
+        String pkg = ClassUtils.classPackageAsResourcePath(Constants.class);
+        String[] paths = {"classpath*:/" + pkg + "/dao/applicationContext-*.xml",
+                          "classpath*:/" + pkg + "/service/applicationContext-*.xml",
+                          "classpath*:META-INF/applicationContext-*.xml"};
         ctx = new ClassPathXmlApplicationContext(paths);
     }
     

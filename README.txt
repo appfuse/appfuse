@@ -50,6 +50,9 @@ Features/Changes in 1.8
 - Massive amount of bug fixes applied to AppGen to allow it to be run multiple
   times. Also fixed "id" problems so the POJOs id property is actually looked
   up instead of just assuming it's a Long and named "id".
+- Fixed project files for Eclipse and IDEA so you can easily run unit tests
+  from within your IDE. Just run the "compile" task with Ant, refresh your
+  project and test away!
 - [AppGen] Added Query by Example code to the getXXXs(XXX) method of detailed
   Hibernate DAOs. Added code to Struts and Spring versions to allow searching
   on the list screen by manually passing in name/value pairs of a POJO's 
@@ -67,9 +70,15 @@ Features/Changes in 1.8
   the checked UserExistsException is thrown.
 - [Struts] Fixed bug in error.jsp that caused it to throw exceptions under  
   certain conditions: https://appfuse.dev.java.net/issues/show_bug.cgi?id=122.
+- [Struts] Modified struts_form.xdt to properly handle Sets when used for
+  indexed properties.
 - Added serialVersionUID variables to all serializable classes.
 - Changed IDEA project files so project is loaded as a web module. This 
   allows Tomcat debugging and taglib resolution in JSPs.
+- Increased the default font size of success/error messages since all my 
+  clients have asked me to it when developing a project with AppFuse.
+- Added fade.js for using the Fade Anything Technique as documented at
+  http://www.axentric.com/posts/default/7.  Applied fading to messages.
 - Improved build.xml file:
     * create-tables.sql now deleted when running "clean" target.
     * "fixcrlf" target updated to repair more file types on *nix systems.

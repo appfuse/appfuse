@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="build/dao/gen"/>
+	<classpathentry output="build/dao/classes" kind="src" path="build/dao/gen"/>
+	<classpathentry kind="src" path="build/appfuse"/>
+	<classpathentry including="*.properties|*.xml" kind="src" path="build/web/classes"/>
 	<classpathentry kind="src" path="build/web/gen"/>
-	<classpathentry kind="src" path="src/dao"/>
-	<classpathentry kind="src" path="src/service"/>
+	<classpathentry output="build/dao/classes" kind="src" path="src/dao"/>
+	<classpathentry output="build/service/classes" kind="src" path="src/service"/>
 	<classpathentry kind="src" path="src/web"/>
-	<classpathentry kind="src" path="test/dao"/>
-	<classpathentry kind="src" path="test/service"/>
-	<classpathentry kind="src" path="test/web"/>
+	<classpathentry output="build/test/dao/classes" kind="src" path="test/dao"/>
+	<classpathentry output="build/test/service/classes" kind="src" path="test/service"/>
+	<classpathentry output="build/test/web/classes" kind="src" path="test/web"/>
 	<classpathentry kind="lib" path="lib/checkstyle-3.1/checkstyle-all-3.1.jar"/>
 	<classpathentry kind="lib" path="lib/junit3.8.1/junit.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-log4j-1.2.9/dist/lib/log4j-1.2.9.jar"/>
@@ -50,7 +52,7 @@
 	<classpathentry kind="lib" path="lib/webtest-build574/lib/nekohtml-0.8.1.jar"/>
 	<classpathentry kind="lib" path="lib/webtest-build574/lib/webtest.jar"/>
 	<classpathentry kind="lib" path="lib/mysql-connector-java-3.1.7/mysql-connector-java-3.1.7-bin.jar"/>
-        <classpathentry kind="lib" path="lib/dumbster-1.5/dumbster-1.5.jar"/>
+	<classpathentry kind="lib" path="lib/dumbster-1.5/dumbster-1.5.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-3.0.2/hibernate3.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-3.0.2/lib/antlr-2.7.5H3.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-3.0.2/lib/asm.jar"/>
@@ -60,11 +62,13 @@
 	<classpathentry kind="lib" path="lib/hibernate-3.0.2/lib/jta.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-3.0.2/lib/oscache-2.1.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-3.0.2/lib/swarmcache-1.0rc2.jar"/>
-	<classpathentry kind="lib" path="lib/spring-1.2-rc2/acegi-security-0.8.1.jar"/>
+	<classpathentry kind="lib" path="lib/spring-1.2-rc2/acegi-security-0.8.2.jar"/>
 	<classpathentry kind="lib" path="lib/spring-1.2-rc2/commons-codec.jar"/>
 	<classpathentry kind="lib" path="lib/spring-1.2-rc2/ehcache-1.1.jar"/>
 	<classpathentry kind="lib" path="lib/spring-1.2-rc2/spring.jar"/>
 	<classpathentry kind="lib" path="lib/spring-1.2-rc2/spring-mock.jar"/>
 	<classpathentry kind="lib" path="lib/urlrewrite-1.2/urlrewrite-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/java2html-1.3.1/j2h.jar"/>
+	<classpathentry kind="lib" path="lib/postgresql-jdbc-8.0-310/postgresql-jdbc3-8.0-310.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

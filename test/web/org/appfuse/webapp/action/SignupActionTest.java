@@ -1,7 +1,6 @@
 package org.appfuse.webapp.action;
 
 import org.appfuse.Constants;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import com.dumbster.smtp.SimpleSmtpServer;
 
@@ -11,15 +10,6 @@ public class SignupActionTest extends BaseStrutsTestCase {
         super(name);
     }
 
-    protected void setUp() throws Exception {
-        super.setUp();
-        // change the port on the mailSender so it doesn't conflict with an 
-        // existing SMTP server on localhost
-        JavaMailSenderImpl mailSender = (JavaMailSenderImpl) ctx.getBean("mailSender");
-        mailSender.setPort(2525);
-        mailSender.setHost("localhost");
-    }
-    
     public void testExecute() throws Exception {
         setRequestPathInfo("/signup");
 

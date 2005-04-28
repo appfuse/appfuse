@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: web-tests.xml,v 1.2 2005/04/17 21:43:16 mraible Exp $               -->
+<!-- $Id: web-tests.xml,v 1.3 2005/04/28 09:47:00 mraible Exp $               -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY config SYSTEM "file:./config.xml">
@@ -140,7 +140,7 @@
                 <clickbutton label="${button.save}" stepid="Click button 'Save'"/>
                 <verifytitle stepid="view user list screen" text="${webapp.prefix}${userList.title}"/>
                 <verifytext stepid="verify success message" regex="true"
-                    text='&lt;div class="message"&gt;.*&lt;strong&gt;Test Name&lt;/strong&gt;.*&lt;/div&gt;'/>
+                    text='&lt;div class="message.*&gt;.*&lt;strong&gt;Test Name&lt;/strong&gt;.*&lt;/div&gt;'/>
                     
                 <!-- Delete user -->
                 <clicklink stepid="Click edit user link" label="newuser"/>
@@ -148,7 +148,7 @@
                 <!--verifyDialogText stepid="check alert" type="confirm" regex="true" text=".*"/>
                 <setConfirmDialogDefaults stepid="click OK" keeptext="true" response="true"/-->
                 <verifytext stepid="verify success message" regex="true"
-                    text='&lt;div class="message"&gt;.*&lt;strong&gt;Test Name&lt;/strong&gt;.*&lt;/div&gt;'/>
+                    text='&lt;div class="message.*&gt;.*&lt;strong&gt;Test Name&lt;/strong&gt;.*&lt;/div&gt;'/>
                 <verifytitle stepid="display user list" 
                     text="${webapp.prefix}${userList.title}"/>
             </steps>

@@ -11,7 +11,9 @@ import org.apache.commons.logging.LogFactory;
 import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mock.web.MockServletContext;
+import org.springframework.util.ClassUtils;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.WebApplicationContext;
@@ -29,9 +31,9 @@ import servletunit.struts.MockStrutsTestCase;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.11 $ $Date: 2004/10/04 08:10:59 $
+ * @version $Revision: 1.12 $ $Date: 2005/04/28 09:47:14 $
  */
-public class BaseStrutsTestCase extends MockStrutsTestCase {
+public abstract class BaseStrutsTestCase extends MockStrutsTestCase {
     //~ Instance fields ========================================================
 
     protected transient final Log log = LogFactory.getLog(getClass());
@@ -60,9 +62,12 @@ public class BaseStrutsTestCase extends MockStrutsTestCase {
         super.setUp();       
         
         // initialize Spring
+        String pkg = ClassUtils.classPackageAsResourcePath(Constants.class);
         MockServletContext sc = new MockServletContext("");
         sc.addInitParameter(ContextLoader.CONFIG_LOCATION_PARAM,
-                            "/WEB-INF/applicationContext*.xml");
+                "classpath*:/" + pkg + "/dao/applicationContext-*.xml," + 
+                "classpath*:META-INF/applicationContext-*.xml");
+        
         ServletContextListener contextListener = new ContextLoaderListener();
         ServletContextEvent event = new ServletContextEvent(sc);
         contextListener.contextInitialized(event);
@@ -79,6 +84,12 @@ public class BaseStrutsTestCase extends MockStrutsTestCase {
         UserManager userMgr = (UserManager) ctx.getBean("userManager");
         user = userMgr.getUser("tomcat");
         getSession().setAttribute(Constants.USER_KEY, user);
+
+        // change the port on the mailSender so it doesn't conflict with an 
+        // existing SMTP server on localhost
+        JavaMailSenderImpl mailSender = (JavaMailSenderImpl) ctx.getBean("mailSender");
+        mailSender.setPort(2525);
+        mailSender.setHost("localhost");
     }
     
     public void tearDown() throws Exception {

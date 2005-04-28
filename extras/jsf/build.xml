@@ -424,8 +424,8 @@ log4j.logger.net.sourceforge.myfaces=FATAL</replacevalue>
         </replace>
 
         <replace file="../../build.xml">
-            <replacetoken><![CDATA[<webinf dir="${struts.dir}" includes="*.xml"/>]]></replacetoken>
-            <replacevalue><![CDATA[<webinf dir="${jsf.dir}" includes="*.xml"/>]]></replacevalue>
+            <replacetoken><![CDATA[dir="${struts.dir}" includes="*.xml"/>]]></replacetoken>
+            <replacevalue><![CDATA[dir="${jsf.dir}" includes="*.xml"/>]]></replacevalue>
         </replace>
         
         <replace file="../../build.xml">
@@ -438,6 +438,7 @@ log4j.logger.net.sourceforge.myfaces=FATAL</replacevalue>
         <!-- Fix test-web target -->
         <replace file="../../build.xml">
             <replacetoken><![CDATA[<copy todir="${webapp.target}/WEB-INF" file="${struts.dir}/validator-rules.xml"/>]]></replacetoken>
+            <replacevalue><![CDATA[<copy todir="${webapp.target}/WEB-INF" file="${jsf.dir}/validator-rules.xml"/>]]></replacevalue> 
         </replace>
         
         <replace file="../../build.xml">
@@ -448,9 +449,10 @@ log4j.logger.net.sourceforge.myfaces=FATAL</replacevalue>
         <delete dir="../../extras/spring"/>
         <delete dir="../../extras/tapestry"/>
         <delete dir="../../extras/webwork"/>
+        <delete dir="../../extras/jsf"/>   
         
         <echo>----------------------------------------------</echo>
-        <echo level="info">NOTE: It's recommended you delete extras/jsf as you shouldn't need it anymore.</echo>
+        <echo level="info">Installation completed successfully.</echo>
         <echo>----------------------------------------------</echo>
     </target>
  
@@ -459,7 +461,8 @@ log4j.logger.net.sourceforge.myfaces=FATAL</replacevalue>
     <!-- =================================================================== -->
     <target name="test" description="Creates appfuse-jsf and runs tests">
         <property name="app.name" value="appfuse-jsf"/>
-        <property name="db.name" value="appfuse"/>   
+        <property name="db.name" value="appfuse"/>
+        <property name="new.pkg.name" value="org.appfuse"/>   
         <delete dir="../../../${app.name}"/>
         <ant dir="../.." target="new"/>
 
@@ -478,6 +481,7 @@ log4j.logger.net.sourceforge.myfaces=FATAL</replacevalue>
         description="Creates appfuse-jsf-ibatis and runs tests">
         <property name="app.name" value="appfuse-jibatis"/>
         <property name="db.name" value="appfuse"/>
+        <property name="new.pkg.name" value="org.appfuse"/>
         <delete dir="../../../${app.name}"/>
         <ant dir="../.." target="new"/>
 
@@ -497,6 +501,7 @@ log4j.logger.net.sourceforge.myfaces=FATAL</replacevalue>
     <target name="test-appgen" description="Creates appfuse-jsfgen and tests appgen">
         <property name="app.name" value="appfuse-jsfgen"/>
         <property name="db.name" value="appfuse"/>
+        <property name="new.pkg.name" value="org.appfuse"/>
         <delete dir="../../../${app.name}"/>
         <ant dir="../.." target="new"/>
 

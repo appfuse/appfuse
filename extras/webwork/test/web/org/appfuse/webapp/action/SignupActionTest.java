@@ -3,7 +3,6 @@ package org.appfuse.webapp.action;
 import org.appfuse.Constants;
 import org.appfuse.model.Address;
 import org.appfuse.model.User;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
@@ -17,11 +16,6 @@ public class SignupActionTest extends BaseActionTestCase {
     protected void setUp() throws Exception {    
         super.setUp();
         action = (SignupAction) ctx.getBean("signupAction");
-        // change the port on the mailSender so it doesn't conflict with an 
-        // existing SMTP server on localhost
-        JavaMailSenderImpl mailSender = (JavaMailSenderImpl) ctx.getBean("mailSender");
-        mailSender.setPort(2525);
-        mailSender.setHost("localhost");
     }
     
     protected void tearDown() throws Exception {

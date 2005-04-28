@@ -1,6 +1,5 @@
 package org.appfuse.webapp.action;
 
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mock.web.MockHttpServletRequest;
 
 import com.dumbster.smtp.SimpleSmtpServer;
@@ -14,11 +13,6 @@ public class PasswordHintActionTest extends BaseActionTestCase {
         super.setUp();
         action = (PasswordHintAction) ctx.getBean("passwordHintAction");
         ServletActionContext.setRequest(new MockHttpServletRequest());
-        // change the port on the mailSender so it doesn't conflict with an 
-        // existing SMTP server on localhost
-        JavaMailSenderImpl mailSender = (JavaMailSenderImpl) ctx.getBean("mailSender");
-        mailSender.setPort(2525);
-        mailSender.setHost("localhost");
     }
     
     protected void tearDown() throws Exception {

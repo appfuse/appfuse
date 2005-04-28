@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: web-tests.xml,v 1.24 2005/04/17 21:43:18 mraible Exp $               -->
+<!-- $Id: web-tests.xml,v 1.25 2005/04/28 09:47:13 mraible Exp $               -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY config SYSTEM "file:./config.xml">
@@ -142,13 +142,13 @@
                 
                 <verifytitle stepid="Redisplay add user page" text="${webapp.prefix}${userProfile.title}"/>
                 <verifytext stepid="verify success message" regex="true"
-                    text='&lt;div class="message"&gt;.*&lt;strong&gt;Test Name&lt;/strong&gt;.*&lt;/div&gt;'/>
+                    text='&lt;div class="message.*&gt;.*&lt;strong&gt;Test Name&lt;/strong&gt;.*&lt;/div&gt;'/>
                     
                 <!-- Delete user -->
                 <invoke stepid="Click edit user link" url="/editUser.html?username=newuser&amp;from=list"/>
                 <clickbutton label="${button.delete}" stepid="Click button 'Delete'"/>
                 <verifytext stepid="verify success message" regex="true"
-                    text='&lt;div class="message"&gt;.*&lt;strong&gt;Test Name&lt;/strong&gt;.*&lt;/div&gt;'/>
+                    text='&lt;div class="message.*&gt;.*&lt;strong&gt;Test Name&lt;/strong&gt;.*&lt;/div&gt;'/>
                 <verifytitle stepid="display user list" text="${webapp.prefix}${userList.title}"/>
             </steps>
         </canoo>

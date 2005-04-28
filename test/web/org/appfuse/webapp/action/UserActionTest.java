@@ -75,8 +75,4 @@ public class UserActionTest extends BaseStrutsTestCase {
         verifyForward("viewUsers");
         verifyNoActionErrors();
     }
-
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(UserActionTest.class);
-    }
 }

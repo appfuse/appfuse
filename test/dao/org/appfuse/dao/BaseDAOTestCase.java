@@ -11,14 +11,16 @@ import junit.framework.TestCase;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.appfuse.Constants;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.util.ClassUtils;
 
 /**
  * Base class for running DAO tests.
  * @author mraible
  */
-public class BaseDAOTestCase extends TestCase {
+public abstract class BaseDAOTestCase extends TestCase {
     protected final Log log = LogFactory.getLog(getClass());
     protected final static ApplicationContext ctx;
     protected ResourceBundle rb;
@@ -26,12 +28,9 @@ public class BaseDAOTestCase extends TestCase {
     // This static block ensures that Spring's BeanFactory is only loaded
     // once for all tests
     static {
-        // the dao.type is written to the database.properties file
-        // in properties.xml
-        ResourceBundle db = ResourceBundle.getBundle("database");
-        String daoType = db.getString("dao.type");
-        String[] paths = {"/WEB-INF/applicationContext-resources.xml",
-                          "/WEB-INF/applicationContext-" + daoType + ".xml"};
+        String pkg = ClassUtils.classPackageAsResourcePath(Constants.class);
+        String[] paths = {"classpath*:/" + pkg + "/dao/applicationContext-*.xml",
+                          "classpath*:META-INF/applicationContext-*.xml"};
         ctx = new ClassPathXmlApplicationContext(paths);
     }
 
