@@ -257,8 +257,8 @@
     </target>
 
     <target name="package-service" depends="compile-service">
-        <mkdir dir="${build.dir}/service/META-INF"/>
-        <copy tofile="${build.dir}/service/META-INF/applicationContext-service.xml">
+        <mkdir dir="${build.dir}/service/classes/META-INF"/>
+        <copy tofile="${build.dir}/service/classes/META-INF/applicationContext-service.xml">
             <fileset dir="src/service" includes="**/*-service.xml"/>
         </copy>
         <jar destfile="${dist.dir}/${webapp.name}-service.jar">
@@ -267,7 +267,7 @@
                     value="${webapp.name}-dao.jar ${webapp.name}-service.jar"/>
             </manifest>
             <fileset dir="${build.dir}/service/classes" includes="**/*.class"/>
-            <metainf dir="${build.dir}/service/META-INF"/>
+            <metainf dir="${build.dir}/service/classes/META-INF"/>
         </jar>
     </target>
 

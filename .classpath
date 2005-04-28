@@ -4,9 +4,9 @@
 	<classpathentry kind="src" path="build/appfuse"/>
 	<classpathentry including="*.properties|*.xml" kind="src" path="build/web/classes"/>
 	<classpathentry kind="src" path="build/web/gen"/>
-	<classpathentry output="build/dao/classes" kind="src" path="src/dao"/>
+	<classpathentry excluding="**/applicationContext-*.xml" output="build/dao/classes" kind="src" path="src/dao"/>
 	<classpathentry output="build/service/classes" kind="src" path="src/service"/>
-	<classpathentry kind="src" path="src/web"/>
+	<classpathentry excluding="**/action/*.properties|**/action/*.xml" kind="src" path="src/web"/>
 	<classpathentry output="build/test/dao/classes" kind="src" path="test/dao"/>
 	<classpathentry output="build/test/service/classes" kind="src" path="test/service"/>
 	<classpathentry output="build/test/web/classes" kind="src" path="test/web"/>

@@ -9,6 +9,7 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/build/appfuse" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/dao/gen" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/build/service/classes" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/web/classes" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/web/gen" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/dao" isTestSource="false" />
@@ -17,6 +18,16 @@
       <sourceFolder url="file://$MODULE_DIR$/test/dao" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/test/service" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/test/web" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/build/appfuse/WEB-INF/lib" />
+      <excludeFolder url="file://$MODULE_DIR$/build/appfuse/WEB-INF/pages" />
+      <excludeFolder url="file://$MODULE_DIR$/build/appfuse/common" />
+      <excludeFolder url="file://$MODULE_DIR$/build/appfuse/decorators" />
+      <excludeFolder url="file://$MODULE_DIR$/build/appfuse/demos" />
+      <excludeFolder url="file://$MODULE_DIR$/build/appfuse/images" />
+      <excludeFolder url="file://$MODULE_DIR$/build/appfuse/pages" />
+      <excludeFolder url="file://$MODULE_DIR$/build/appfuse/scripts" />
+      <excludeFolder url="file://$MODULE_DIR$/build/appfuse/styles" />
+      <excludeFolder url="file://$MODULE_DIR$/build/web/classes/org" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -890,10 +901,6 @@
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/xjavadoc-1.1.jar" />
       <url>jar://$MODULE_DIR$/lib/xdoclet-1.2.3/lib/xjavadoc-1.1.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="application" name="catalina-ant.jar">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib" />
     </containerElement>
     <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/build/appfuse/WEB-INF/web.xml" version="2.3" />
     <webroots>
