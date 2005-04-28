@@ -136,6 +136,7 @@
             <fileset dir="${basedir}/web">
                 <include name="pages/**/*.jsp"/>
             </fileset>
+            <fileset dir="${struts.dir}" includes="*.xml"/>   
         </copy>
         <!-- Copy *.txt files so they can be included in release notes -->
         <copy todir="${webapp.target}">
@@ -242,7 +243,7 @@
             <fileset dir="${build.dir}/dao/classes"/>
             <fileset dir="${build.dir}/dao/gen" includes="**/*.xml" 
                 excludes="**/applicationContext-*.xml"/>
-            <metainf dir="${build.dir}/dao/gen/META-INF" excludes="*-service.xml"/>
+            <metainf dir="${build.dir}/dao/gen/META-INF"/>
         </jar>
     </target>
    
@@ -260,9 +261,6 @@
         <copy tofile="${build.dir}/service/META-INF/applicationContext-service.xml">
             <fileset dir="src/service" includes="**/*-service.xml"/>
         </copy>
-        <!-- keep IDEs happy by putting context file in existing classpath -->
-        <copy file="${build.dir}/service/META-INF/applicationContext-service.xml" 
-            todir="${build.dir}/dao/gen/META-INF"/>
         <jar destfile="${dist.dir}/${webapp.name}-service.jar">
             <manifest>
                 <attribute name="Class-Path"
@@ -401,7 +399,6 @@
                 <include name="**/*.properties"/>
                 <include name="**/*.xml"/>
             </fileset>
-            <fileset dir="${struts.dir}" includes="*.xml"/>
         </copy>
         <war destfile="${webapp.dist}/${webapp.war}"
             webxml="${webapp.target}/WEB-INF/web.xml" compress="true">
