@@ -154,32 +154,28 @@
         description="Convert JSP 1.2 tags (i.e. JSTL) to JSP 2.0">
         <echo level="info">Change JSTL Tags to Run-Time</echo>
         <replaceregexp flags="g">
-            <regexp
-                pattern='uri="http://java.sun.com/jstl/core"'/>
-            <substitution
-                expression='uri="http://java.sun.com/jstl/core_rt"'/>
-            <fileset dir="${webapp.target}">
-                <include name="**/*.jsp"/>
-            </fileset>
+            <regexp pattern='uri="http://java.sun.com/jstl/core"'/>
+            <substitution expression='uri="http://java.sun.com/jstl/core_rt"'/>
+            <fileset dir="${webapp.target}" includes="**/*.jsp"/>
         </replaceregexp>
         <replaceregexp flags="g">
-            <regexp
-                pattern='uri="http://java.sun.com/jstl/fmt"'/>
-            <substitution
-                expression='uri="http://java.sun.com/jstl/fmt_rt"'/>
-            <fileset dir="${webapp.target}">
-                <include name="**/*.jsp"/>
-            </fileset>
+            <regexp pattern='uri="http://java.sun.com/jstl/fmt"'/>
+            <substitution expression='uri="http://java.sun.com/jstl/fmt_rt"'/>
+            <fileset dir="${webapp.target}" includes="**/*.jsp"/>
         </replaceregexp>
 
         <echo level="info">Removing JSTL's c:out tags</echo>
         <replaceregexp flags="g">
             <regexp pattern='&lt;c:out value="([^"]*)"/&gt;'/>
             <substitution expression="\1"/>
-            <fileset dir="${webapp.target}">
-                <include name="**/*.jsp"/>
-            </fileset>
+            <fileset dir="${webapp.target}" includes="**/*.jsp"/>
         </replaceregexp>
+
+        <echo level="info">Changing EL tags to non-EL since JSP 2.0 has EL built-in</echo>
+        <replace file="${webapp.target}/common/taglibs.jsp">
+            <replacetoken>http://displaytag.sf.net/el</replacetoken>
+            <replacevalue>http://displaytag.sf.net</replacevalue>
+        </replace>
 
         <echo level="info">Replacing 2.3 DTD with 2.4 XSD in web.xml</echo>
         <replaceregexp flags="g"
