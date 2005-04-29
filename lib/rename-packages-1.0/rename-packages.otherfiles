@@ -5,6 +5,7 @@ metadata/web/listeners.xml
 web/WEB-INF/classes/log4j.properties
 web/WEB-INF/validator-rules-custom.xml
 metadata/templates/struts_form.xdt
+extras/appgen/build.xml
 extras/ibatis/build.xml
 extras/spring/build.xml
 extras/spring/web/WEB-INF/action-servlet.xml
