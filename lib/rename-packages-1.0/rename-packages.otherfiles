@@ -26,22 +26,23 @@ web/WEB-INF/classes/xwork.xml
 # -- tapestry installed --
 web/WEB-INF/tapestry.application
 extras/tapestry/web/WEB-INF/tapestry.application
-extras/tapestry/web/pages/selectFile.page
-extras/tapestry/web/pages/userForm.page
-extras/tapestry/web/pages/users.page
-extras/tapestry/web/pages/signup.page
-extras/tapestry/web/pages/passwordHint.page
-extras/tapestry/web/pages/activeUsers.page
-extras/tapestry/web/pages/showFile.page
 extras/tapestry/web/pages/mainMenu.page
+extras/tapestry/web/pages/showFile.page
 extras/tapestry/web/pages/reload.page
+extras/tapestry/web/pages/activeUsers.page
+extras/tapestry/web/pages/passwordHint.page
+extras/tapestry/web/pages/signup.page
+extras/tapestry/web/pages/selectFile.page
+extras/tapestry/web/pages/users.page
+extras/tapestry/web/pages/userForm.page
+
 web/pages/mainMenu.page
 web/pages/showFile.page
 web/pages/reload.page
 web/pages/activeUsers.page
 web/pages/passwordHint.page
-web/pages/passwordHint.page
 web/pages/signup.page
+web/pages/selectFile.page
 web/pages/users.page
 web/pages/userForm.page
 
