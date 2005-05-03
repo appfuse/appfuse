@@ -50,7 +50,7 @@
     
     <!-- appfuse -->
     <target name="appfuse-1.8" depends="init">
-        <myget mirrorSuffix="sourceforge/struts/appfuse-1.8-src.zip" mirrorPrefixList="${sourceforge.mirrors}" md5sum="110142c2940f2606b20ef10f73a1f4f3" packType="framework"/>
+        <myget mirrorSuffix="sourceforge/struts/appfuse-1.8-src.zip" mirrorPrefixList="${sourceforge.mirrors}" md5sum="6f9e93ea8115aeaa21388871e513172a" packType="framework"/>
     </target>
     
     <!-- mysql-windows -->
