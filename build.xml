@@ -546,8 +546,7 @@
     <!-- =================================================================== -->
     <!--            Run Canoo WebTests in Tomcat                             -->
     <!-- =================================================================== -->
-    <target name="test-canoo" if="tomcat.home"
-        depends="ping-tomcat,db-load"
+    <target name="test-canoo" if="tomcat.home" depends="ping-tomcat,db-load"
         description="Runs Canoo WebTests in Tomcat to test JSPs">
 
         <taskdef file="${webtest.dir}/webtestTaskdefs.properties">
@@ -638,8 +637,7 @@
     <!-- =================================================================== -->
     <!--            Simple task to ping tomcat and make sure it's running    -->
     <!-- =================================================================== -->
-    <target name="ping-tomcat"
-        description="pings tomcat to make sure it's running">
+    <target name="ping-tomcat" description="pings tomcat to make sure it's running">
         <echo level="info">Verifying that tomcat is running...</echo>
         <get src="http://${tomcat.server}:${http.port}/${webapp.name}"
             dest="../ping-${tomcat.server}.html"/>
