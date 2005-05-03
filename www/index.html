@@ -47,18 +47,15 @@
     <a href="news"></a>
     <h3>Latest News</h3>
     <blockquote>
-        This project has been actively developed since December 2002. To stay informed about AppFuse
-        and its development, you can follow my weblog at <a href="http://raibledesigns.com">
-        http://raibledesigns.com</a>. If you're interested in Spring, checkout my 
-        <a href="http://jroller.com/page/raible">Spring Live</a> weblog. A list of all releases can 
-        be found on the <a href="http://raibledesigns.com/wiki/Wiki.jsp?page=AppFuse">AppFuse Support 
-        Wiki</a>. This project has an <a href="http://www.apache.org/licenses/LICENSE-2.0.html/">
-        Apache Software License</a>. 
-        <br /><br /> 
         If you know nothing about AppFuse, the best thing 
-        to do is read the <a href="http://today.java.net/pub/a/today/2004/07/15/thefuse.html">article 
-        I wrote for java.net</a>. 
+        to do is read the <a href="http://today.java.net/pub/a/today/2004/07/15/thefuse.html">AppFuse: Start Your J2EE Web Apps</a>. 
         <br /><br /> 
+        <strong style="color: blue;">April 29, 2005:</strong> <a href="http://raibledesigns.com/page/rd?anchor=ann_appfuse_1_8_released">
+            AppFuse 1.8 Released</a>.  Acegi Security integration + many improvements to build.xml and AppGen.
+        <br />
+        <strong style="color: blue;">February 27, 2005:</strong> <a href="http://raibledesigns.com/page/rd?anchor=ann_equinox_1_3_released">
+            Equinox 1.3 Released</a>.  Primarily a bug fix release, but also adds support for Maven.
+        <br />
         <strong style="color: blue">December 29, 2004:</strong> 
             <a href="http://raibledesigns.com/page/rd?anchor=ann_equinox_1_2_released">Equinox 1.2 
             Released</a>. Now has implementations for 5 persistence frameworks: Hibernate, iBATIS, 
@@ -67,11 +64,8 @@
         <strong style="color: blue">December 8, 2004:</strong> 
             <a href="http://raibledesigns.com/page/rd/20041208#ann_appfuse_1_7_released ">AppFuse 1.7 
             Released</a>. Added support for using JSF or Tapestry as web framework options.
-        <br />
-        <strong style="color: blue;">November 3, 2004:</strong> 
-            <a href="http://raibledesigns.com/page/rd?anchor=ann_equinox_1_1_released">Equinox 1.1 
-            Released</a>. Now has implementations for 5 web frameworks: Struts, Spring, WebWork, 
-            Tapestry and JSF.
+        <br /><br />
+        <strong>Developer Weblogs:</strong> <a href="http://raibledesigns.com">Raible Designs</a> and <a href="http://jroller.com/page/raible">Spring Live</a>.
     </blockquote>
     
     <a name="info"></a>
@@ -80,7 +74,7 @@
       <!-- project info start -->
       <ul>
         <li><b>Project Name:</b> AppFuse</li>
-        <li><b>Latest Release:</b> 1.7</li>
+        <li><b>Latest Release:</b> 1.8</li>
         <!-- Status of best release: Planning, Pre-Alpha, Alpha, Beta, Production -->
         <li><b>Latest Release Status:</b> Production</li>
         <!-- Project Type: Web Service, Tool, Component, or add your own -->
@@ -88,10 +82,10 @@
       </ul>
       <!-- project info end -->
       AppFuse is an application for "kickstarting" webapp development. <a href="https://appfuse.dev.java.net/servlets/ProjectDocumentList">Download</a>, 
-      extract and execute <strong>ant new -Dapp.name=yourApp -Ddb.name=database</strong> to instantly be up and running with a Tomcat/MySQL app. 
+      extract and execute <strong>ant new</strong> to instantly be up and running with a Struts+Spring+Hibernate app running on Tomcat/MySQL app. 
       Uses Ant, XDoclet, Spring, Hibernate (or iBATIS), JUnit, jMock, StrutsTestCase, Canoo's WebTest, Struts Menu, Display Tag Library, 
       OSCache, JSTL and Struts (Spring MVC, WebWork, Tapestry and JSF are also options). To learn more about AppFuse, its history, goals and future, checkout 
-      <a href="http://today.java.net/pub/a/today/2004/07/15/thefuse.html"> AppFuse: Start Your J2EE Web Apps</a> on java.net.
+      <a href="http://today.java.net/pub/a/today/2004/07/15/thefuse.html">AppFuse: Start Your J2EE Web Apps</a> on java.net.
       <br /><br />
       The <a href="http://www.springframework.org">Spring Framework</a> has greatly enhanced AppFuse since February 2004.  
       It's used throughout for its Hibernate/iBATIS support, declarative transactions, dependency binding and layer decoupling.  
@@ -121,11 +115,11 @@
       <br /><br />
       <strong>Demos:</strong> 
         <ul class="glassList">
-            <li><a href="http://demo.raibledesigns.com/appfuse">Struts + Spring + Hibernate</a></li>
-            <li><a href="http://demo.raibledesigns.com/appfuse-spring">Spring + iBATIS</a></li>
-            <li><a href="http://demo.raibledesigns.com/appfuse-webwork">WebWork + Spring + Hibernate</a></li>
-            <li><a href="http://demo.raibledesigns.com/appfuse-jsf">JSF + Spring + Hibernate</a></li>
-        <li><a href="http://demo.raibledesigns.com/appfuse-tapestry">Tapestry + Spring + Hibernate</a></li>
+            <li><a href="http://demo.appfuse.org/appfuse">Struts + Spring + Hibernate</a></li>
+            <li><a href="http://demo.appfuse.org/appfuse-spring">Spring + iBATIS</a></li>
+            <li><a href="http://demo.appfuse.org/appfuse-webwork">WebWork + Spring + Hibernate</a></li>
+            <li><a href="http://demo.appfuse.org/appfuse-jsf">JSF + Spring + Hibernate</a></li>
+            <li><a href="http://demo.appfuse.org/appfuse-tapestry">Tapestry + Spring + Hibernate</a></li>
         </ul>
     </blockquote>
     </a>
@@ -133,35 +127,7 @@
     <a name="download"></a>
     <h3>Download and Installation</h3>
     <blockquote>
-      To download and install AppFuse, follow these simple steps:
-      <ol>
-        <li><a href="servlets/ProjectDocumentList">
-        Download</a> the source version or checkout the <em>appfuse</em> module
-        from CVS (:pserver:guest@cvs.dev.java.net:/cvs).</li>
-        <li>Install J2SE 1.4+, set a JAVA_HOME environment variable, install Ant 1.6.2+, 
-            set an ANT_HOME environment variable.</li>
-        <li>Install MySQL 3.23.x+ (recommend 4.0.21) and Tomcat 4.1.x+ 
-            (recommend 5.0.28).  Set a CATALINA_HOME environment variable to point to 
-            your Tomcat installation.  Optionally, you can see my <a 
-            href="http://raibledesigns.com/wiki/Wiki.jsp?page=DevelopmentEnvironment">development 
-            environment setup</a> and get links to download the above packages.</li>
-        <li>Setup a local SMTP server or change mail.properties (in the web/WEB-INF/classes 
-	        directory) and build.properties (in the root -- for log4j messages) to point 
-	        to an existing one - they default to <em>localhost</em>.</li>
-	    <li>Copy lib/junit3.8.1/junit.jar to $ANT_HOME/lib.</li>
-	    <li>Run <strong>ant new -Dapp.name=YOURAPPNAME -Ddb.name=YOURDBNAME</strong>. This will 
-	        create a directory named YOURAPPNAME in the same directory as appfuse.</li>
-	    <li>Navigate to the new directory and run <strong>ant setup</strong> to create the database  
-	        and setup your app on Tomcat. The database setup will only work if your root user has 
-	        no password. You can change this in build.properties if necessary. If you want to 
-	        test and make sure everything works, run <strong>ant test-all</strong> - make sure 
-	        Tomcat is stopped when you do this.</li>
-	    <li>Run <strong>ant test-reports</strong> - there will be a message after it runs 
-	        telling you how you can view the generated reports.</li>
-        <li>See the <a href="http://raibledesigns.com/wiki/Wiki.jsp?page=AppFuseQuickStart">QuickStart 
-            Guide</a> for optional installs (i.e. iBATIS, Spring MVC and WebWork) and how to change your
-            package names.</li>
-      </ol>
+      To download and install AppFuse, see the <a href="http://raibledesigns.com/wiki/Wiki.jsp?page=AppFuseQuickStart">QuickStart Guide</a>.
     </blockquote>
 
     <a name="features"></a>
@@ -173,14 +139,16 @@
                 technology.</li>
         <li>Should run on all <a href="http://java.sun.com/j2ee/compatibility.html">
                 J2EE 1.3+ compatible application servers that support J2SE 1.4.</a></li>
-        <li>Container Managed Authentication, Remember Me, Self Registration, Password Hint, GZip Compression</li>
+        <li>Authentication (using Acegi Security), Remember Me, Self Registration, Password Hint, GZip Compression</li>
         <li>Support for SSL throughout, including login only</li>
-        <li>i18n, with built-in translations for Dutch, Brazilian Portuguese and Chinese</li>
+        <li>i18n, with built-in translations for Dutch, Spanish, Brazilian Portuguese and Chinese</li>
         <li>Label Tag Library for displaying validation errors next to fields</li>
         <li>Rich Unit Testing environment using DBUnit, JUnit, jMock and Canoo's WebTest</li>
-        <li>Easy configuration and rapid development using <a href="http://xdoclet.sf.net">XDoclet</a> 
-            and <a href="http://www.springframework.org">Spring</a></li>
+        <li>Easy configuration and rapid development using <a href="http://xdoclet.sf.net">XDoclet</a>, 
+            <a href="http://www.springframework.org">Spring</a> and 
+            <a href="http://raibledesigns.com/wiki/Wiki.jsp?page=AppGen">AppGen</a>.</li>
         <li>Web Framework Options: Struts, Spring MVC, WebWork, JSF and Tapestry</li>
+        <li>Persistent Framework Options: Hibernate or iBATIS</li>
       </ul>
     </blockquote>
     
@@ -226,28 +194,28 @@
     <a name="usage"></a>
     <h3>Usage Instructions</h3>
     <blockquote>
-    To use AppFuse, first, <a href="#download">download it</a> and then complete the
-    tutorials below.
-
-    <h4>Creating Objects and DAOs</h4>
-    A HowTo for creating Java Objects (that represent tables) and creating 
-    Java classes to persist those objects in the database. 
-    <a href="http://raibledesigns.com/wiki/Wiki.jsp?page=CreateDAO">View Tutorial &#187</a>
-
-    <h4>Creating Managers</h4>
-    A HowTo for creating Business Delegates that talk to the database tier (DAOs) and 
-    the web tier (Struts Actions). 
-    <a href="http://raibledesigns.com/wiki/Wiki.jsp?page=CreateManager">View Tutorial &#187</a>
+        To use AppFuse, first, <a href="#download">download it</a> and then complete the
+        tutorials below.
     
-    <h4>Creating Actions and JSPs</h4>
-    A HowTo for creating Actions and JSPs in the AppFuse architecture.
-    <a href="http://raibledesigns.com/wiki/Wiki.jsp?page=CreateActions">View Tutorial &#187</a>
+        <h4>Creating Objects and DAOs</h4>
+        A HowTo for creating Java Objects (that represent tables) and creating 
+        Java classes to persist those objects in the database. 
+        <a href="http://raibledesigns.com/wiki/Wiki.jsp?page=CreateDAO">View Tutorial &#187</a>
     
-    <h4>Adding Validation and List Screen</h4>
-    Adding validation logic to the personForm so that firstName and lastName are required fields 
-    and adding a list screen to display all person records in the database.
-    <a href="http://raibledesigns.com/wiki/Wiki.jsp?page=ValidationAndList">View Tutorial &#187</a>
-    
+        <h4>Creating Managers</h4>
+        A HowTo for creating Business Delegates that talk to the database tier (DAOs) and 
+        the web tier (Struts Actions). 
+        <a href="http://raibledesigns.com/wiki/Wiki.jsp?page=CreateManager">View Tutorial &#187</a>
+        
+        <h4>Creating Actions and JSPs</h4>
+        A HowTo for creating Actions and JSPs in the AppFuse architecture.
+        <a href="http://raibledesigns.com/wiki/Wiki.jsp?page=CreateActions">View Tutorial &#187</a>
+        
+        <h4>Adding Validation and List Screen</h4>
+        Adding validation logic to the personForm so that firstName and lastName are required fields 
+        and adding a list screen to display all person records in the database.
+        <a href="http://raibledesigns.com/wiki/Wiki.jsp?page=ValidationAndList">View Tutorial &#187</a>
+        
     </blockquote>
 
     <a name="support"></a>
@@ -256,9 +224,8 @@
       AppFuse is a community-supported open-source product.  You can find
       support by subscribing to the various 
       <a href="servlets/ProjectMailingListList">mailing lists</a> offered
-      in this java.net project.  You can also use the <a 
-      href="servlets/ProjectForumView">Discussion Forums</a> or 
-      checkout the <a href="http://raibledesigns.com/wiki/Wiki.jsp?page=AppFuseSupport">
+      in this java.net project.  You can also checkout the 
+      <a href="http://raibledesigns.com/wiki/Wiki.jsp?page=AppFuseSupport">
       AppFuse FAQ</a>.
     </blockquote>
 
@@ -269,14 +236,20 @@
       you will likely find some things that you'd like to improve.  Talk to us on the mailing list
       and let us know what you'd like to see improved.
       <br /><br />
-      Goals for the next release include improved useability with IDEs and better appserver support 
-      (reducing coupling with Tomcat).
+      Goals for the 2005 include improved useability with IDEs and other tools.
     </blockquote>
 
     <a name="revision"></a>
     <h3>Revision History</h3>
     <blockquote>
       <ul>
+        <li>Version 1.8 - [April 29, 2005]
+          <ul>
+            <li>Integrated Acegi Security and lots of bug fixes.</li>
+            <li><a href="http://raibledesigns.com/page/rd?anchor=ann_appfuse_1_8_released">Read Announcement</a></li>
+            <li><a href="https://appfuse.dev.java.net/servlets/ProjectDocumentView?documentID=13896">Release Notes</a></li>
+          </ul>
+        </li>
         <li>Version 1.7 - [December 8, 2004]
           <ul>
             <li>Added JSF and Tapestry as web framework options.</li>
