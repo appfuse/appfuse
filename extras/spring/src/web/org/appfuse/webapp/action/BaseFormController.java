@@ -1,6 +1,8 @@
 package org.appfuse.webapp.action;
 
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,6 +21,7 @@ import org.appfuse.model.User;
 import org.appfuse.service.MailEngine;
 import org.appfuse.service.UserManager;
 
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.validation.BindException;
@@ -158,6 +161,11 @@ public class BaseFormController extends SimpleFormController {
                                     new CustomNumberEditor(Long.class, nf, true));
         binder.registerCustomEditor(byte[].class,
                                     new ByteArrayMultipartFileEditor());
+        SimpleDateFormat dateFormat = 
+            new SimpleDateFormat(getText("date.format", request.getLocale()));
+        dateFormat.setLenient(false);
+        binder.registerCustomEditor(Date.class, null, 
+                                    new CustomDateEditor(dateFormat, true));
     }
 
     /**
