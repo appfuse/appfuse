@@ -45,6 +45,7 @@
         <property name="commandName"><value>fileUpload</value></property>
         <property name="commandClass"><value>org.appfuse.webapp.action.FileUpload</value></property>
         <property name="validator"><ref bean="beanValidator"/></property>
+        <property name="cancelView"><value>redirect:mainMenu.html</value></property>
         <property name="formView"><value>uploadForm</value></property>
         <property name="successView"><value>uploadDisplay</value></property>
     </bean>

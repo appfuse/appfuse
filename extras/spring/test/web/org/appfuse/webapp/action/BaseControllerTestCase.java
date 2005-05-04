@@ -17,7 +17,6 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockServletContext;
 import org.springframework.util.ClassUtils;
-import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 
 public abstract class BaseControllerTestCase extends TestCase {
@@ -35,7 +34,7 @@ public abstract class BaseControllerTestCase extends TestCase {
                 "/WEB-INF/applicationContext-*.xml",
                 "/WEB-INF/action-servlet.xml"
             };
-        
+
         ctx = new XmlWebApplicationContext();
         ctx.setConfigLocations(paths);
         ctx.setServletContext(new MockServletContext(""));
@@ -46,29 +45,29 @@ public abstract class BaseControllerTestCase extends TestCase {
         // populate the userForm and place into session
         UserManager userMgr = (UserManager) ctx.getBean("userManager");
         user = (User) userMgr.getUser("tomcat");
-        
-        // change the port on the mailSender so it doesn't conflict with an 
+
+        // change the port on the mailSender so it doesn't conflict with an
         // existing SMTP server on localhost
         JavaMailSenderImpl mailSender = (JavaMailSenderImpl) ctx.getBean("mailSender");
         mailSender.setPort(2525);
         mailSender.setHost("localhost");
     }
-    
+
     /**
      * Convenience methods to make tests simpler
      */
     public MockHttpServletRequest newPost(String url) {
-        return new MockHttpServletRequest("POST", url);   
+        return new MockHttpServletRequest("POST", url);
     }
 
     public MockHttpServletRequest newGet(String url) {
-        return new MockHttpServletRequest("GET", url);   
+        return new MockHttpServletRequest("GET", url);
     }
-   
+
     public void objectToRequestParameters(Object o, MockHttpServletRequest request) throws Exception {
         objectToRequestParameters(o, request, null);
     }
-    
+
     public void objectToRequestParameters(Object o, MockHttpServletRequest request, String prefix) throws Exception {
         Class clazz = o.getClass();
         Field[] fields = clazz.getDeclaredFields();
@@ -83,7 +82,7 @@ public abstract class BaseControllerTestCase extends TestCase {
                 if (prefix != null) {
                     paramName = prefix + "." + paramName;
                 }
-                request.addParameter(paramName, 
+                request.addParameter(paramName,
                         String.valueOf(fields[i].get(o)));
             }
         }
