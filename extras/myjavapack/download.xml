@@ -22,14 +22,12 @@
             <arg value="-k"/>
             <arg value="standard"/>
             <arg value="-o"/>
-            <arg value="dist/${webapp.name}-installer.jar"/>
+            <arg value="dist/software.jar"/>
         </java>
         
         <copy tofile="dist/README.txt" file="README-dist.txt"/>
         <zip destfile="dist/${webapp.name}-installer-${webapp.version}.zip">
-            <zipfileset prefix="${webapp.name}-installer-${webapp.version}" dir="dist">
-                <exclude name="software.jar"/>
-            </zipfileset>
+            <zipfileset prefix="${webapp.name}-installer-${webapp.version}" dir="dist"/>
         </zip>
     </target>
     
