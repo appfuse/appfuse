@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import org.apache.commons.logging.Log;
@@ -26,7 +27,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
  *  Modified by <a href="mailto:dan@getrolling.com">Dan Kibler </a> 
  *   to correct time pattern. Minutes should be mm not MM
  * 	(MM is month). 
- * @version $Revision: 1.6 $ $Date: 2005/04/16 22:17:20 $
+ * @version $Revision: 1.7 $ $Date: 2005/05/04 04:57:41 $
  */
 public class DateUtil {
     //~ Static fields/initializers =============================================
@@ -41,12 +42,15 @@ public class DateUtil {
      * Return default datePattern (MM/dd/yyyy)
      * @return a string representing the date pattern on the UI
      */
-    public static String getDatePattern() {
-        if (defaultDatePattern == null) {
-            Locale locale = LocaleContextHolder.getLocale();
-            defaultDatePattern = ResourceBundle.getBundle(Constants.BUNDLE_KEY)
-                                               .getString("date.format");
+    public static synchronized String getDatePattern() {
+        Locale locale = LocaleContextHolder.getLocale();
+        try {
+            defaultDatePattern = ResourceBundle.getBundle(Constants.BUNDLE_KEY, locale)
+                .getString("date.format");
+        } catch (MissingResourceException mse) {
+            defaultDatePattern = "MM/dd/yyyy";
         }
+        
         return defaultDatePattern;
     }
 
