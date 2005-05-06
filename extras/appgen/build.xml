@@ -286,11 +286,11 @@
         </replace>
 
         <!-- Append contents of .properties file to application resources -->
-        <echo>Adding keys to ApplicationResources_en.properties</echo> 
+        <echo>Adding keys to ApplicationResources.properties</echo>
         <loadfile property="i18n.keys"
             srcfile="${generated.dir}/web/WEB-INF/classes/${model.name}.properties"/>
 
-        <property name="i18nFile" location="../../web/WEB-INF/classes/ApplicationResources_en.properties"/>
+        <property name="i18nFile" location="../../web/WEB-INF/classes/ApplicationResources.properties"/>
         <replace file="${i18nFile}" token="# -- ${model.name}-START" value="REGULAR-START"/>
         <replace file="${i18nFile}" token="# -- ${model.name}-END" value="REGULAR-END"/>
         <replaceregexp file="${i18nFile}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>

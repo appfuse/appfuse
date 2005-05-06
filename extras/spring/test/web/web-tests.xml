@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: web-tests.xml,v 1.13 2005/04/28 09:47:03 mraible Exp $               -->
+<!-- $Id: web-tests.xml,v 1.14 2005/05/06 21:18:44 mraible Exp $               -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY config SYSTEM "file:./config.xml">
@@ -8,7 +8,7 @@
 <project basedir="." default="run-all-tests"> 
     <!-- Include ApplicationResources.properties so we can test against 
          keys, rather than values -->
-    <property file="web/WEB-INF/classes/ApplicationResources_en.properties"/>
+    <property file="web/WEB-INF/classes/ApplicationResources.properties"/>
 
     <!-- runs all targets -->
     <target name="run-all-tests" 
