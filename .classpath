@@ -53,20 +53,20 @@
 	<classpathentry kind="lib" path="lib/webtest-build574/lib/webtest.jar"/>
 	<classpathentry kind="lib" path="lib/mysql-connector-java-3.1.7/mysql-connector-java-3.1.7-bin.jar"/>
 	<classpathentry kind="lib" path="lib/dumbster-1.5/dumbster-1.5.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-3.0.2/hibernate3.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-3.0.2/lib/antlr-2.7.5H3.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-3.0.2/lib/asm.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-3.0.2/lib/c3p0-0.8.5.2.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-3.0.2/lib/cglib-2.1.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-3.0.2/lib/dom4j-1.6.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-3.0.2/lib/jta.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-3.0.2/lib/oscache-2.1.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-3.0.2/lib/swarmcache-1.0rc2.jar"/>
-	<classpathentry kind="lib" path="lib/spring-1.2-rc2/acegi-security-0.8.2.jar"/>
-	<classpathentry kind="lib" path="lib/spring-1.2-rc2/commons-codec.jar"/>
-	<classpathentry kind="lib" path="lib/spring-1.2-rc2/ehcache-1.1.jar"/>
-	<classpathentry kind="lib" path="lib/spring-1.2-rc2/spring.jar"/>
-	<classpathentry kind="lib" path="lib/spring-1.2-rc2/spring-mock.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-3.0.3/hibernate3.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-3.0.3/lib/antlr-2.7.5H3.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-3.0.3/lib/asm.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-3.0.3/lib/c3p0-0.8.5.2.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-3.0.3/lib/cglib-2.1.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-3.0.3/lib/dom4j-1.6.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-3.0.3/lib/jta.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-3.0.3/lib/oscache-2.1.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-3.0.3/lib/swarmcache-1.0rc2.jar"/>
+	<classpathentry kind="lib" path="lib/spring-1.2/acegi-security-0.8.2.jar"/>
+	<classpathentry kind="lib" path="lib/spring-1.2/commons-codec.jar"/>
+	<classpathentry kind="lib" path="lib/spring-1.2/ehcache-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/spring-1.2/spring.jar"/>
+	<classpathentry kind="lib" path="lib/spring-1.2/spring-mock.jar"/>
 	<classpathentry kind="lib" path="lib/urlrewrite-1.2/urlrewrite-1.2.jar"/>
 	<classpathentry kind="lib" path="lib/java2html-1.3.1/j2h.jar"/>
 	<classpathentry kind="lib" path="lib/postgresql-jdbc-8.0-310/postgresql-jdbc3-8.0-310.jar"/>

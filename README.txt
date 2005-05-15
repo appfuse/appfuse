@@ -41,6 +41,13 @@ steps:
      Example: log4j.rootCategory=INFO, stdout, mail
 
 
+Features/Changes in 1.8.1
+============================
+- Dependent packages upgraded:
+    * Hibernate 3.0.3
+    * Spring 1.2
+
+
 Features/Changes in 1.8
 ============================
 - Replaced Container-Managed Authentication with Acegi Security Framework for
