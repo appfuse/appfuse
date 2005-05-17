@@ -43,8 +43,12 @@ steps:
 
 Features/Changes in 1.8.1
 ============================
+- DateUtil fix for i18n.
+- Moved tomcat.properties key/value pairs into properties.xml.
 - Dependent packages upgraded:
+    * Cargo 0.5
     * Hibernate 3.0.3
+    * iBATIS 2.1.0
     * Spring 1.2
 
 
