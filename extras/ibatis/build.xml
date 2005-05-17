@@ -36,7 +36,7 @@
 #
 # iBATIS - http://www.ibatis.com/
 #
-ibatis.version=2.0.8
+ibatis.version=2.1.0
 ibatis.dir=${lib.dir}/ibatis-${ibatis.version}
 ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
 
@@ -66,10 +66,10 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
         <echo level="info">Modifying Eclipse .classpath file</echo>
         <replace file="../../.classpath">
             <replacetoken><![CDATA[<classpathentry kind="output" path="build/classes"/>]]></replacetoken>
-            <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/ibatis-2.0.8/ibatis-common-2.jar"/>
-	<classpathentry kind="lib" path="lib/ibatis-2.0.8/ibatis-sqlmap-2.jar"/>
-	<classpathentry kind="lib" path="lib/ibatis-2.0.8/jta.jar"/>
-	<classpathentry kind="lib" path="lib/ibatis-2.0.8/oscache-2.1.jar"/>
+            <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/ibatis-2.1.0/ibatis-common-2.jar"/>
+	<classpathentry kind="lib" path="lib/ibatis-2.1.0/ibatis-sqlmap-2.jar"/>
+	<classpathentry kind="lib" path="lib/ibatis-2.1.0/jta.jar"/>
+	<classpathentry kind="lib" path="lib/ibatis-2.1.0/oscache-2.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>]]></replacevalue>
         </replace>
 
@@ -132,7 +132,7 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
             <replacetoken>#
 # iBATIS - http://www.ibatis.com/
 #
-ibatis.version=2.0.8
+ibatis.version=2.1.0
 ibatis.dir=${lib.dir}/ibatis-${ibatis.version}
 ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
 
@@ -161,10 +161,10 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
 
         <echo level="info">Modifying Eclipse .classpath file</echo>
         <replace file="../../.classpath">
-            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/ibatis-2.0.8/ibatis-common-2.jar"/>
-	<classpathentry kind="lib" path="lib/ibatis-2.0.8/ibatis-sqlmap-2.jar"/>
-	<classpathentry kind="lib" path="lib/ibatis-2.0.8/jta.jar"/>
-	<classpathentry kind="lib" path="lib/ibatis-2.0.8/oscache-2.1.jar"/>]]></replacetoken>
+            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/ibatis-2.1.0/ibatis-common-2.jar"/>
+	<classpathentry kind="lib" path="lib/ibatis-2.1.0/ibatis-sqlmap-2.jar"/>
+	<classpathentry kind="lib" path="lib/ibatis-2.1.0/jta.jar"/>
+	<classpathentry kind="lib" path="lib/ibatis-2.1.0/oscache-2.1.jar"/>]]></replacetoken>
             <replacevalue></replacevalue>
         </replace>
         
@@ -211,7 +211,7 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
         </copy>
 
         <echo level="info">Copying jta.jar from Hibernate to iBATIS</echo>
-        <copy todir="../../lib/ibatis-2.0.8">
+        <copy todir="../../lib/ibatis-2.1.0">
             <fileset dir="${hibernate.dir}/lib" includes="jta.jar"/>
         </copy>
         <replace file="../../build.xml">
