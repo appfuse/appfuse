@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="properties" default="generate.database.properties">
+<project name="properties">
     <!-- Library versions and JARs -->
     <property name="lib.dir" location="lib"/>
     <property file="${lib.dir}/lib.properties"/>
