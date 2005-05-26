@@ -223,7 +223,7 @@
     <target name="package-dao" depends="prepare,compile-dao" description="Package DAO JAR">
         <!-- Copy XML files from source -->
         <copy todir="${build.dir}/dao/gen">
-            <fileset dir="src/dao" includes="**/*.xml"/>
+            <fileset dir="src/dao" includes="**/*.xml" excludes="**/*-${dao.type}.xml"/>
             <filterset refid="variables.to.replace"/>
         </copy>
         <!-- Copy Spring configuration files -->
