@@ -176,8 +176,7 @@
    
     <property name="generated.dir" value="${build.dir}/${gen.dir}"/>
     
-    <target name="install-src-detailed">
-        <antcall target="default"/> 
+    <target name="install-src-detailed" depends="default">
         <echo>Copying all .java files into main project, overwrite="${overwrite}"</echo>
         <copy todir="../.." overwrite="${overwrite}">
             <fileset dir="${generated.dir}">
@@ -209,8 +208,7 @@
         <replace file="${serviceConfig}" value="${service.context}" token="&lt;/beans&gt;"/>
     </target>   
  
-    <target name="install-src-generic">
-        <antcall target="default"/>    
+    <target name="install-src-generic" depends="default">   
         <echo>Copying Controller and Test into main project, overwrite="${overwrite}"</echo>
         <copy todir="../../" overwrite="${overwrite}">
             <fileset dir="${generated.dir}/generic" includes="**/*.java"/>
