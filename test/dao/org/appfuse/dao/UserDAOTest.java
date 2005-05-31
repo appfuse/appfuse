@@ -114,7 +114,7 @@ public class UserDAOTest extends BaseDAOTestCase {
 
         try {
             user = dao.getUser("testuser");
-            fail("saveUser didn't throw DataAccessException");
+            fail("getUser didn't throw DataAccessException");
         } catch (DataAccessException d) {
             assertNotNull(d);
         }
