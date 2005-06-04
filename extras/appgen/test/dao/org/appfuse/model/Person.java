@@ -57,20 +57,20 @@ public class Person extends BaseObject {
         }
         Person rhs = (Person) object;
         return new EqualsBuilder().append(this.firstName, rhs.firstName)
-                .append(this.personId, rhs.personId)
                 .append(this.lastName, rhs.lastName)
                 .isEquals();
     }
 
     public int hashCode() {
-        return new HashCodeBuilder(1923026325, -1034774675).append(
-                this.firstName).append(this.personId).append(this.lastName)
+        return new HashCodeBuilder(1923026325, -1034774675)
+                .append(this.firstName).append(this.lastName)
                 .toHashCode();
     }
 
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
-                .append("lastName", this.lastName).append("personId", this.personId)
+                .append("personId", this.personId)
+                .append("lastName", this.lastName)
                 .append("firstName", this.firstName).toString();
     }
 }
