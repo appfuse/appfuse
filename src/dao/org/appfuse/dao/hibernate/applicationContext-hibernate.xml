@@ -22,9 +22,6 @@
         <property name="hibernateProperties">
         <props>
             <prop key="hibernate.dialect">@HIBERNATE-DIALECT@</prop>
-            <!-- As recommended on Spring mailing list for 1.2: 
-                 http://article.gmane.org/gmane.comp.java.springframework.user/6266 -->
-            <prop key="hibernate.connection.release_mode">on_close</prop>
             <!-- Create/update the database tables automatically when the JVM starts up
             <prop key="hibernate.hbm2ddl.auto">update</prop> -->
             <!-- Turn batching off for better error messages under PostgreSQL 

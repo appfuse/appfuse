@@ -47,9 +47,9 @@ Features/Changes in 1.8.1
 - Moved tomcat.properties key/value pairs into properties.xml.
 - Dependent packages upgraded:
     * Cargo 0.5
-    * Hibernate 3.0.3
+    * Hibernate 3.0.5
     * iBATIS 2.1.0
-    * Spring 1.2
+    * Spring 1.2.1
 
 
 Features/Changes in 1.8
