@@ -84,9 +84,7 @@ public final class UserAction extends BaseAction {
         if (!StringUtils.equals(request.getParameter("from"), "list")) {
             return mapping.findForward("mainMenu");
         } else {
-            String next = mapping.findForward("viewUsers").getPath();
-
-            return new ActionForward(next, true);
+            return mapping.findForward("viewUsers");
         }
     }
 
@@ -116,7 +114,7 @@ public final class UserAction extends BaseAction {
                      new ActionMessage("user.deleted", userForm.getFirstName()
                                        + ' ' + userForm.getLastName()));
 
-        saveMessages(request, messages);
+        saveMessages(request.getSession(), messages);
 
         // return a forward to searching users
         return mapping.findForward("viewUsers");
