@@ -11,8 +11,8 @@
                 CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
                 PATTERN_TYPE_APACHE_ANT
                 /j_security_check*=httpSessionContextIntegrationFilter,authenticationProcessingFilter
-                /*.html*=httpSessionContextIntegrationFilter,remoteUserFilter,anonymousProcessingFilter,securityEnforcementFilter
-                /*.jsp=httpSessionContextIntegrationFilter,remoteUserFilter
+                /**/*.html*=httpSessionContextIntegrationFilter,remoteUserFilter,anonymousProcessingFilter,securityEnforcementFilter
+                /**/*.jsp*=httpSessionContextIntegrationFilter,remoteUserFilter,securityEnforcementFilter
             </value>
         </property>
     </bean>
@@ -31,7 +31,8 @@
                 PATTERN_TYPE_APACHE_ANT
                 /signup.html=ROLE_ANONYMOUS,admin,tomcat
                 /passwordhint.html*=ROLE_ANONYMOUS,admin,tomcat
-                /*.html*=admin,tomcat
+                /**/*.html*=admin,tomcat
+                /clickstreams.jsp=admin
             </value>
         </property>
     </bean>
