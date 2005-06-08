@@ -19,18 +19,18 @@
     <tr>
     	<td></td>
     	<td class="buttonBar">
-            <html:submit styleClass="button" property="method" onclick="bCancel=false">
+            <html:submit styleClass="button" property="method.save" onclick="bCancel=false">
             	  <fmt:message key="button.save"/>
             </html:submit>
             
             <c:if test="${param.from == 'list'}">
-            <html:submit styleClass="button" property="method"
-                onclick="bCancel=false;return confirmDelete('User')">
+            <html:submit styleClass="button" property="method.delete"
+                onclick="bCancel=true; return confirmDelete('User')">
                 <fmt:message key="button.delete"/>
             </html:submit>
             </c:if>
         
-            <html:cancel styleClass="button" property="method" onclick="bCancel=true">
+            <html:cancel styleClass="button" onclick="bCancel=true">
                 <fmt:message key="button.cancel"/>
             </html:cancel>
         </td>

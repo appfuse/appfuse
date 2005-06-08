@@ -1,15 +1,12 @@
 package org.appfuse.webapp.action;
 
 import java.sql.Timestamp;
+
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Locale;
 import java.util.Map;
-import java.util.ResourceBundle;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -17,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.converters.IntegerConverter;
 import org.apache.commons.beanutils.converters.LongConverter;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.struts.Globals;
@@ -24,10 +22,8 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessages;
-import org.apache.struts.actions.LookupDispatchAction;
-import org.apache.struts.config.MessageResourcesConfig;
-import org.apache.struts.config.ModuleConfig;
-import org.apache.struts.util.MessageResources;
+import org.apache.struts.actions.DispatchAction;
+
 import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.util.ConvertUtil;
@@ -35,33 +31,59 @@ import org.appfuse.util.CurrencyConverter;
 import org.appfuse.util.DateConverter;
 import org.appfuse.util.TimestampConverter;
 import org.appfuse.webapp.util.SslUtil;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-
 /**
  * Implementation of <strong>Action</strong> that contains base methods for
- * logging and conducting pre/post perform actions. This class is intended to
- * be a base class for all Struts actions.
- * <p/>
+ * Actions as well as determines with methods to call in subclasses. This class
+ * uses the name of the button to determine which method to execute on the
+ * Action.</p>
+ *
+ * <p>For example look at the following two buttons:</p>
+ *
+ *   <pre>
+ *    &lt;html:submit property="method.findName"&gt;
+ *       &lt;bean:message key="email.find"/&gt;
+ *    &lt;/html:submit&gt;
+ *
+ *    &lt;html:submit property="method.findEmail"&gt;
+ *       &lt;bean:message key="email.find"/&gt;
+ *    &lt;/html:submit&gt;
+ *   </pre>
+ *
+ * <p>The name of the button is set with the property parameter, i.e., the
+ * name of the first button is method.findName. The name of the second button
+ * is method.findEmail.</p>
+ *
+ * <p>As per HTML/HTTP, whatever submit button that is pushed causes only that
+ * submit button's name to be sent as a request parameter to the action.</p>
+ *
+ * <p>This action looks for the name by removing the prepender string "method.".
+ * The remaining part of the string is the name of the method to execute, e.g.,
+ * pushing the first button will execute the findName method and the second
+ * button will execute the findEmail method.</p>
+ *
+ * <p>This class extends DispatchAction and allows methods to be sent as
+ * regular GETs as well, i.e., &lt;a href="emailAction.do?method=findEmail"/&gt;
+ * would cause the findEmail method to be executed just as it would in a
+ * DispatchAction. Thus, you configure a ButtonNameDispatchAction exactly
+ * the way you configure a DispatchAction, i.e., set the mapping parameter
+ * to the name of the request parameter that holds the mehtod name.</p>
+ *
+ * <p>
  * <a href="BaseAction.java.html"><i>View Source</i></a>
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
+ * @author Rick Hightower (based on his ButtonNameDispatchAction)
  */
-public class BaseAction extends LookupDispatchAction {
-
-    protected transient final Log log = LogFactory.getLog(getClass());
-    private static final String SECURE = "secure";
+public class BaseAction extends DispatchAction {
+    protected final Log log = LogFactory.getLog(getClass());
+    public static final String SECURE = "secure";
     private static ApplicationContext ctx = null;
     private static Long defaultLong = null;
-
-    /**
-     * NEW: added by Jaap
-     *
-     * Message (key) name of default locale to message key lookup.
-     */
-    protected Map defaultKeyNameKeyMap = null;
 
     static {
         ConvertUtils.register(new CurrencyConverter(), Double.class);
@@ -80,32 +102,10 @@ public class BaseAction extends LookupDispatchAction {
      */
     public Object getBean(String name) {
         if (ctx == null) {
-            ctx = WebApplicationContextUtils
-                    .getRequiredWebApplicationContext(servlet.getServletContext());
+            ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(servlet.getServletContext());
         }
+
         return ctx.getBean(name);
-    }
-
-    /**
-     * Provides the mapping from resource key to method name
-     *
-     * @return Resource key / method name map
-     */
-    public Map getKeyMethodMap() {
-        Map map = new HashMap();
-
-        String pkg = this.getClass().getPackage().getName();
-        ResourceBundle methods =
-                ResourceBundle.getBundle(pkg + ".LookupMethods");
-
-        Enumeration keys = methods.getKeys();
-
-        while (keys.hasMoreElements()) {
-            String key = (String) keys.nextElement();
-            map.put(key, methods.getString(key));
-        }
-
-        return map;
     }
 
     /**
@@ -133,12 +133,10 @@ public class BaseAction extends LookupDispatchAction {
         HttpSession session = request.getSession();
 
         if (request.getAttribute(Globals.MESSAGE_KEY) != null) {
-            messages =
-                    (ActionMessages) request.getAttribute(Globals.MESSAGE_KEY);
+            messages = (ActionMessages) request.getAttribute(Globals.MESSAGE_KEY);
             saveMessages(request, messages);
         } else if (session.getAttribute(Globals.MESSAGE_KEY) != null) {
-            messages =
-                    (ActionMessages) session.getAttribute(Globals.MESSAGE_KEY);
+            messages = (ActionMessages) session.getAttribute(Globals.MESSAGE_KEY);
             saveMessages(request, messages);
             session.removeAttribute(Globals.MESSAGE_KEY);
         } else {
@@ -149,10 +147,51 @@ public class BaseAction extends LookupDispatchAction {
     }
 
     /**
-     * Override the execute method in LookupDispatchAction to parse
-     * URLs and forward to methods without parameters.  Also will
-     * forward to unspecified method when no parameter is present.
-     * <p/>
+     * Gets the method name based on the mapping passed to it 
+     */
+    private String getActionMethodWithMapping(HttpServletRequest request,
+                                              ActionMapping mapping) {
+        return getActionMethod(request, mapping.getParameter());
+    }
+
+    /** 
+     * Gets the method name based on the prepender passed to it.
+     */
+    protected String getActionMethod(HttpServletRequest request, String prepend) {
+        String name = null;
+        
+        // for backwards compatibility, try with no prepend first
+        name = request.getParameter(prepend);
+        if (name != null) {
+            // trim any whitespace around - this might happen on buttons
+            name = name.trim();
+            // lowercase first letter
+            return name.replace(name.charAt(0), Character.toLowerCase(name.charAt(0)));
+        }
+        
+        Enumeration enum = request.getParameterNames();
+
+        while (enum.hasMoreElements()) {
+            String currentName = (String) enum.nextElement();
+
+            if (currentName.startsWith(prepend + ".")) {
+                if (log.isDebugEnabled()) {
+                    log.debug("calling method: " + currentName);
+                }
+
+                String[] parameterMethodNameAndArgs = StringUtils.split(currentName, ".");
+                name = parameterMethodNameAndArgs[1];
+                break;
+            }
+        }
+        
+        return name;
+    }
+
+    /** 
+     * Override the execute method in DispatchAction to parse
+     * URLs and forward to methods without parameters.</p>
+     * <p>
      * This is based on the following system:
      * <p/>
      * <ul>
@@ -160,62 +199,38 @@ public class BaseAction extends LookupDispatchAction {
      * <li>save*.html -> save method</li>
      * <li>view*.html -> search method</li>
      * </ul>
-     *
-     * @param mapping  The ActionMapping used to select this instance
-     * @param request  The HTTP request we are processing
-     * @param response The HTTP response we are creating
-     * @param form     The optional ActionForm bean for this request (if any)
-     * @return Describes where and how control should be forwarded.
-     * @throws Exception if an error occurs
      */
     public ActionForward execute(ActionMapping mapping, ActionForm form,
                                  HttpServletRequest request,
                                  HttpServletResponse response)
-            throws Exception {
+    throws Exception {
+        
         if (isCancelled(request)) {
-            ActionForward af = cancelled(mapping, form, request, response);
-
-            if (af != null) {
-                return af;
+            try {
+                getMethod("cancel");
+                return dispatchMethod(mapping, form, request, response, "cancel");
+            } catch (NoSuchMethodException n) {
+                log.warn("No 'cancel' method found, returning null");
+                return cancelled(mapping, form, request, response);
             }
         }
 
-        MessageResources resources = getResources(request);
-
-        // Identify the localized message for the cancel button
-        String edit = resources.getMessage(Locale.ENGLISH, "button.edit").toLowerCase();
-        String save = resources.getMessage(Locale.ENGLISH, "button.save").toLowerCase();
-        String search = resources.getMessage(Locale.ENGLISH, "button.search").toLowerCase();
-        String view = resources.getMessage(Locale.ENGLISH, "button.view").toLowerCase();
-        String[] rules = {edit, save, search, view};
-
-        // Identify the request parameter containing the method name
-        String parameter = mapping.getParameter();
-
-        // don't set keyName unless it's defined on the action-mapping
-        // no keyName -> unspecified will be called
-        String keyName = null;
+        // Check to see if methodName indicated by request parameter
+        String actionMethod = getActionMethodWithMapping(request, mapping);
         
-        if (parameter != null) {
-            keyName = request.getParameter(parameter);
-        }
-        
-        if ((keyName == null) || (keyName.length() == 0)) {
+        if (actionMethod != null) {
+            return dispatchMethod(mapping, form, request, response, actionMethod);
+        } else {
+            String[] rules = {"edit", "save", "search", "view"};
             for (int i = 0; i < rules.length; i++) {
                 // apply the rules for automatically appending the method name
                 if (request.getServletPath().indexOf(rules[i]) > -1) {
                     return dispatchMethod(mapping, form, request, response, rules[i]);
                 }
             }
-
-            return this.unspecified(mapping, form, request, response);
         }
-
-        // Identify the string to lookup
-        String methodName =
-                getMethodName(mapping, form, request, response, parameter);
-
-        return dispatchMethod(mapping, form, request, response, methodName);
+        
+        return super.execute(mapping, form, request, response);
     }
 
     /**
@@ -233,13 +248,10 @@ public class BaseAction extends LookupDispatchAction {
         // Remove the obsolete form bean
         if (mapping.getAttribute() != null) {
             if ("request".equals(mapping.getScope())) {
-                actionForm =
-                        (ActionForm) request.getAttribute(mapping.getAttribute());
+                actionForm = (ActionForm) request.getAttribute(mapping.getAttribute());
             } else {
                 HttpSession session = request.getSession();
-
-                actionForm =
-                        (ActionForm) session.getAttribute(mapping.getAttribute());
+                actionForm = (ActionForm) session.getAttribute(mapping.getAttribute());
             }
         }
 
@@ -253,7 +265,6 @@ public class BaseAction extends LookupDispatchAction {
      * @return the user's populated form from the session
      */
     protected User getUser(HttpSession session) {
-        // get the user form from the session
         return (User) session.getAttribute(Constants.USER_KEY);
     }
 
@@ -264,17 +275,15 @@ public class BaseAction extends LookupDispatchAction {
      * @return the user's populated form from the session
      */
     public Map getConfiguration() {
-        Map config = (HashMap) getServlet().getServletContext()
-                               .getAttribute(Constants.CONFIG);
+        Map config = (HashMap) getServlet().getServletContext().getAttribute(Constants.CONFIG);
+
         // so unit tests don't puke when nothing's been set
         if (config == null) {
             return new HashMap();
         }
+
         return config;
     }
-
-    // --------------------------------------------------------- Public Methods
-    // Don't use class variables in Action objects.  These are not session safe.
 
     /**
      * Method to check and see if https is required for this resource
@@ -288,9 +297,8 @@ public class BaseAction extends LookupDispatchAction {
                                HttpServletRequest request,
                                HttpServletResponse response) {
         String redirectString =
-                SslUtil.getRedirectString(request,
-                        getServlet().getServletContext(),
-                        SECURE.equals(mapping.getParameter()));
+            SslUtil.getRedirectString(request, getServlet().getServletContext(),
+                                      SECURE.equals(mapping.getParameter()));
 
         if (redirectString != null) {
             log.debug("protocol switch needed, redirecting...");
@@ -302,8 +310,6 @@ public class BaseAction extends LookupDispatchAction {
                 return true;
             } catch (Exception ioe) {
                 log.error("redirect to new protocol failed...");
-
-                // Handle appropriately
             }
         }
 
@@ -324,7 +330,6 @@ public class BaseAction extends LookupDispatchAction {
                 request.removeAttribute(mapping.getAttribute());
             } else {
                 HttpSession session = request.getSession();
-
                 session.removeAttribute(mapping.getAttribute());
             }
         }
@@ -345,114 +350,8 @@ public class BaseAction extends LookupDispatchAction {
                 request.setAttribute(mapping.getAttribute(), form);
             } else {
                 HttpSession session = request.getSession();
-
                 session.setAttribute(mapping.getAttribute(), form);
             }
         }
-    }
-
-    /**
-     * NEW: added by Jaap
-     * <p/>
-     * Lookup the key name corresponding to the client request's locale.
-     * This method is overwritten here because the key names are hardcoded
-     * in the global forwards of the struts-config.xml file. This in turn is required
-     * to make the StrutsMenu tags work (amongst others).
-     * <p/>
-     * Whatever the reason, this hard-coding is breaking the default i18n-mechanism used by the
-     * LookupDispatchAction finds the Action-method name.
-     * <p/>
-     * What I am doing now is to first call the LookupDispatchAction.getLookupMapName method, catching
-     * any ServletException that might arise. There are two reasons why <code>getLookupMapName</code> would throw an
-     * exception: first because the keyName cannot be found in the resourcebundle associated with the User's Localea and
-     * second because no method name is specified for the corresponding key. We're only interested in the first exception,
-     * but catching the second doesn't do any harm, it will just get re-thrown.
-     *
-     * @see org.apache.struts.actions.LookupDispatchAction#getLookupMapName(HttpServletRequest,String,ActionMapping)
-     */
-    protected String getLookupMapName(HttpServletRequest request,
-                                      String keyName,
-                                      ActionMapping mapping)
-            throws ServletException {
-
-        if (log.isDebugEnabled()) {
-            log.debug("BaseAction: getLookupMapName( keyName = " + keyName + " )");
-        }
-
-        String methodName = null;
-
-        try {
-            this.setLocale(request, request.getLocale());  // MR - added to default to JSTL
-            methodName = super.getLookupMapName(request, keyName, mapping);
-        } catch (ServletException ex) {
-            if (log.isDebugEnabled()) {
-                log.debug("BaseAction: keyName not found in resource bundle with locale "
-                        + request.getLocale());
-            }
-
-            // the keyname is not available in the resource bundle associated with the user's locale
-            // --> get find the key name in the default locale's resource bundle
-            if (defaultKeyNameKeyMap == null) {
-                defaultKeyNameKeyMap = this.initDefaultLookupMap(request);
-            }
-
-            // Find the key for the resource
-            String key = (String) defaultKeyNameKeyMap.get(keyName);
-            if (key == null) {
-                if (log.isDebugEnabled()) {
-                	log.debug("keyName '" + keyName + "' not found in resource bundle with locale "
-                            + request.getLocale());
-                }
-                return keyName;
-                //String message = messages.getMessage("dispatch.resource", mapping.getPath(), keyName);
-                //throw new ServletException(message);
-            }
-
-            // Find the method name
-            methodName = (String) keyMethodMap.get(key);
-            if (methodName == null) {
-                String message = messages.getMessage("dispatch.lookup", mapping.getPath(), key);
-                throw new ServletException(message);
-            }
-
-        }
-
-        return methodName;
-    }
-
-    /**
-     * NEW: added by Jaap
-     *
-     * This is the first time the default Locale is used so build the reverse lookup Map.
-     * Search for message keys in all configured MessageResources for
-     * the current module.
-     */
-    protected Map initDefaultLookupMap(HttpServletRequest request) {
-        Map lookupMap = new HashMap();
-        this.keyMethodMap = this.getKeyMethodMap();
-
-        ModuleConfig moduleConfig =
-                (ModuleConfig) request.getAttribute(Globals.MODULE_KEY);
-
-        MessageResourcesConfig[] mrc = moduleConfig.findMessageResourcesConfigs();
-
-        // Look through all module's MessageResources
-        for (int i = 0; i < mrc.length; i++) {
-            MessageResources resources = this.getResources(request, mrc[i].getKey());
-
-            // Look for key in MessageResources
-            Iterator iter = this.keyMethodMap.keySet().iterator();
-            while (iter.hasNext()) {
-                String key = (String) iter.next();
-                String text = resources.getMessage(Locale.ENGLISH, key);
-
-                // Found key and haven't added to Map yet, so add the text
-                if ((text != null) && !lookupMap.containsKey(text)) {
-                    lookupMap.put(text, key);
-                }
-            }
-        }
-
-        return lookupMap;
     }
 }
