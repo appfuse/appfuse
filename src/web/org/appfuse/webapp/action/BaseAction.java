@@ -169,10 +169,10 @@ public class BaseAction extends DispatchAction {
             return name.replace(name.charAt(0), Character.toLowerCase(name.charAt(0)));
         }
         
-        Enumeration enum = request.getParameterNames();
+        Enumeration e = request.getParameterNames();
 
-        while (enum.hasMoreElements()) {
-            String currentName = (String) enum.nextElement();
+        while (e.hasMoreElements()) {
+            String currentName = (String) e.nextElement();
 
             if (currentName.startsWith(prepend + ".")) {
                 if (log.isDebugEnabled()) {
