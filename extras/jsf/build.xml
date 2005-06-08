@@ -248,16 +248,12 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         
         <!-- JSPs for JSF are in root directory -->
         <replace file="../appgen/build.xml">
-            <replacetoken><![CDATA[/web/pages/${model.name.lowercase}Form.jsp]]></replacetoken>
-            <replacevalue><![CDATA[/web/${model.name.lowercase}Form.jsp]]></replacevalue>
+            <replacetoken><![CDATA[/web/pages/]]></replacetoken>
+            <replacevalue><![CDATA[/web/]]></replacevalue>
         </replace>
         <replace file="../appgen/build.xml">
-            <replacetoken><![CDATA[/web/pages/${model.name.lowercase}List.jsp]]></replacetoken>
-            <replacevalue><![CDATA[/web/${model.name.lowercase}s.jsp]]></replacevalue>
-        </replace>
-        <replace file="../appgen/build.xml">
-            <replacetoken><![CDATA[/web/pages/menu.jsp]]></replacetoken>
-            <replacevalue><![CDATA[/web/menu.jsp]]></replacevalue>
+            <replacetoken><![CDATA[tofile="../../web/${model.name.lowercase}List.jsp"]]></replacetoken>
+            <replacevalue><![CDATA[tofile="../../web/${model.name.lowercase}s.jsp"]]></replacevalue>
         </replace>
         <!-- End of AppGen modifications -->
         
