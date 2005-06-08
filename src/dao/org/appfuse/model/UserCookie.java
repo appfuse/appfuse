@@ -15,13 +15,11 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- *
  * @hibernate.class table="user_cookie"
- *
  */
 public class UserCookie extends BaseObject {
-	private static final long serialVersionUID = 4050479002315731765L;
-	private Long id;
+    private static final long serialVersionUID = 4050479002315731765L;
+    private Long id;
     private String username;
     private String cookieId;
     private Date dateCreated;
@@ -117,7 +115,6 @@ public class UserCookie extends BaseObject {
 
         return new EqualsBuilder().append(this.username, rhs.username)
                                   .append(this.dateCreated, rhs.dateCreated)
-                                  .append(this.id, rhs.id)
                                   .append(this.cookieId, rhs.cookieId).isEquals();
     }
 
@@ -127,7 +124,6 @@ public class UserCookie extends BaseObject {
     public int hashCode() {
         return new HashCodeBuilder(1954972321, -113979947).append(this.username)
                                                           .append(this.dateCreated)
-                                                          .append(this.id)
                                                           .append(this.cookieId)
                                                           .toHashCode();
     }
