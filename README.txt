@@ -47,6 +47,7 @@ Features/Changes in 1.8.1
 - Moved tomcat.properties key/value pairs into properties.xml.
 - [Struts] Changed "viewUsers" forward to be a redirect to prevent the 
   duplicate post problem when deleting a user.
+- Added page for sponsors at http://appfuse.dev.java.net/sponsors.html
 - Dependent packages upgraded:
     * Cargo 0.5
     * Hibernate 3.0.5
