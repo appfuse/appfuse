@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: web-tests.xml,v 1.4 2005/05/06 21:18:43 mraible Exp $               -->
+<!-- $Id: web-tests.xml,v 1.5 2005/06/15 15:37:38 mraible Exp $               -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY config SYSTEM "file:./config.xml">
@@ -103,8 +103,8 @@
                 <invoke stepid="click Edit Profile link" url="/editProfile.html"/>
                 <verifytitle stepid="we should see the user profile title" 
                     text="${webapp.prefix}${userProfile.title}"/>
-                <setinputfield stepid="set address" name="userForm:address.address" value="2255 Lane Avenue"/>
-                <setinputfield stepid="set zipcode" name="userForm:address.postalCode" value="59826"/>
+                <setinputfield stepid="set address" name="userForm:address" value="2255 Lane Avenue"/>
+                <setinputfield stepid="set zipcode" name="userForm:postalCode" value="59826"/>
                 <clickbutton label="${button.save}" stepid="Click Save"/>
                 <verifytitle stepid="display Main Menu if save OK"
                      text="${webapp.prefix}${mainMenu.title}" />
@@ -128,10 +128,10 @@
                 <setinputfield stepid="set confirmPassword" name="userForm:confirmPassword" value="test"/>
                 <setinputfield stepid="set firstName" name="userForm:firstName" value="Test"/>
                 <setinputfield stepid="set lastName" name="userForm:lastName" value="Name"/>
-                <setinputfield stepid="set city" name="userForm:address.city" value="Denver"/>
-                <setinputfield stepid="select province" name="userForm:address.province" value="CO"/>
-                <setselectfield stepid="select country" name="userForm:address.country" value="US"/>
-                <setinputfield stepid="set postalCode" name="userForm:address.postalCode" value="80210"/>
+                <setinputfield stepid="set city" name="userForm:city" value="Denver"/>
+                <setinputfield stepid="select province" name="userForm:province" value="CO"/>
+                <setselectfield stepid="select country" name="userForm:country" value="US"/>
+                <setinputfield stepid="set postalCode" name="userForm:postalCode" value="80210"/>
                 <setinputfield stepid="set email" name="userForm:email" value="newuser@raibledesigns.com"/>
                 <setinputfield stepid="set website" name="userForm:website" value="http://raibledesigns.com"/>
                 <setinputfield stepid="set passwordHint" name="userForm:passwordHint" value="test"/>
@@ -169,10 +169,10 @@
                 <setinputfield stepid="set confirmPassword" name="signupForm:confirmPassword" value="test"/>
                 <setinputfield stepid="set firstName" name="signupForm:firstName" value="Test"/>
                 <setinputfield stepid="set lastName" name="signupForm:lastName" value="Name"/>
-                <setinputfield stepid="set city" name="signupForm:address.city" value="Denver"/>
-                <setinputfield stepid="set state" name="signupForm:address.province" value="CO"/>
-                <setselectfield stepid="Select country" name="signupForm:address.country" value="US"/>
-                <setinputfield stepid="set postalCode" name="signupForm:address.postalCode" value="80210"/>
+                <setinputfield stepid="set city" name="signupForm:city" value="Denver"/>
+                <setinputfield stepid="set state" name="signupForm:province" value="CO"/>
+                <setselectfield stepid="Select country" name="signupForm:country" value="US"/>
+                <setinputfield stepid="set postalCode" name="signupForm:postalCode" value="80210"/>
                 <setinputfield stepid="set email" name="signupForm:email" value="signup-user@raibledesigns.com"/>
                 <setinputfield stepid="set website" name="signupForm:website" value="http://raibledesigns.com"/>
                 <setinputfield stepid="set passwordHint" name="signupForm:passwordHint" value="test"/>

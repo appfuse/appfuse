@@ -10,7 +10,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import junit.framework.TestCase;
-import net.sourceforge.myfaces.webapp.StartupServletContextListener;
+import org.apache.myfaces.webapp.StartupServletContextListener;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

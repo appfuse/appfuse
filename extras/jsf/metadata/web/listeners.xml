@@ -5,7 +5,7 @@
         <listener-class>net.sf.navigator.menu.MenuContextListener</listener-class>
     </listener>
     <listener>
-        <listener-class>net.sourceforge.myfaces.webapp.StartupServletContextListener</listener-class>
+        <listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
     </listener>
     <listener>
         <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>

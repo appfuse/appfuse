@@ -53,45 +53,45 @@
     </h:inputText>
     <x:message for="lastName" styleClass="fieldError"/>
 
-    <h:outputLabel for="address.address" value="#{text['user.address.address']}"/>
+    <h:outputLabel for="address" value="#{text['user.address.address']}"/>
 
-    <h:inputText value="#{signupForm.user.address.address}" id="address.address" size="50"/>
-    <x:message for="address.address" styleClass="fieldError"/>
+    <h:inputText value="#{signupForm.user.address.address}" id="address" size="50"/>
+    <x:message for="address" styleClass="fieldError"/>
 
-    <h:outputLabel for="address.city" value="#{text['user.address.city']}"/>
+    <h:outputLabel for="city" value="#{text['user.address.city']}"/>
 
-    <h:inputText value="#{signupForm.user.address.city}" id="address.city" size="40" required="true">
+    <h:inputText value="#{signupForm.user.address.city}" id="city" size="40" required="true">
         <v:commonsValidator type="required" arg="#{text['user.address.city']}"/>
     </h:inputText>
-    <x:message for="address.city" styleClass="fieldError"/>
+    <x:message for="city" styleClass="fieldError"/>
 
-    <h:outputLabel for="address.province" value="#{text['user.address.province']}"/>
+    <h:outputLabel for="province" value="#{text['user.address.province']}"/>
 
-    <h:inputText value="#{signupForm.user.address.province}" id="address.province" size="40" required="true">
+    <h:inputText value="#{signupForm.user.address.province}" id="province" size="40" required="true">
         <v:commonsValidator type="required" arg="#{text['user.address.province']}"/>
     </h:inputText>
-    <x:message for="address.province" styleClass="fieldError"/>
+    <x:message for="province" styleClass="fieldError"/>
 
-    <h:outputLabel for="address.country" value="#{text['user.address.country']}"/>
+    <h:outputLabel for="country" value="#{text['user.address.country']}"/>
 
-    <h:selectOneMenu value="#{signupForm.country}" id="address.country" required="true">
+    <h:selectOneMenu value="#{signupForm.country}" id="country" required="true">
         <f:selectItems value="#{signupForm.countries}"/>
         <v:commonsValidator type="required" arg="#{text['user.address.country']}"/>
     </h:selectOneMenu>
-    <x:message for="address.country" styleClass="fieldError"/>
+    <x:message for="country" styleClass="fieldError"/>
 
-    <h:outputLabel for="address.postalCode" value="#{text['user.address.postalCode']}"/>
+    <h:outputLabel for="postalCode" value="#{text['user.address.postalCode']}"/>
 
-    <h:inputText value="#{signupForm.user.address.postalCode}" id="address.postalCode" size="10" required="true">
+    <h:inputText value="#{signupForm.user.address.postalCode}" id="postalCode" size="10" required="true">
         <v:commonsValidator type="required" arg="#{text['user.address.postalCode']}"/>
         <x:validateRegExpr pattern="^\d{5}\d*$"/>
     </h:inputText>
-    <x:message for="address.postalCode" styleClass="fieldError"/>
+    <x:message for="postalCode" styleClass="fieldError"/>
 
     <h:outputLabel for="email" value="#{text['user.email']}"/>
 
     <h:inputText value="#{signupForm.user.email}" id="email" size="50" required="true">
-        <f:validator validatorId="net.sourceforge.myfaces.validator.Email"/>
+        <f:validator validatorId="org.apache.myfaces.validator.Email"/>
         <v:commonsValidator type="required" arg="#{text['user.email']}"/>
     </h:inputText>
     <x:message for="email" styleClass="fieldError"/>

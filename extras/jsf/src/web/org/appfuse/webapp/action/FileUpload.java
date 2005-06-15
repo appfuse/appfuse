@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 import javax.servlet.http.HttpServletRequest;
 
-import net.sourceforge.myfaces.custom.fileupload.UploadedFile;
+import org.apache.myfaces.custom.fileupload.UploadedFile;
 
 import org.appfuse.Constants;
 

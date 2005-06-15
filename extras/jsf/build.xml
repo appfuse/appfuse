@@ -34,7 +34,7 @@
 #
 # MyFaces (JSF 1.1) - http://www.myfaces.org
 #
-jsf.version=1.0.7-beta
+jsf.version=1.0.9
 jsf.dir=${lib.dir}/myfaces-${jsf.version}/lib
 jsf.jar=${jsf.dir}/myfaces.jar]]></replacevalue>
         </replace>
@@ -110,13 +110,13 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         <dispatcher>FORWARD</dispatcher-->
     </filter-mapping>
     <filter-mapping>
-        <filter-name>multipartFilter</filter-name>
+        <filter-name>extensionsFilter</filter-name>
         <url-pattern>*.html</url-pattern>
     </filter-mapping>]]></echo>
         <echo file="../../metadata/web/filters.xml" append="true"><![CDATA[    <!-- MultiPart Filter -->
     <filter>
-        <filter-name>multipartFilter</filter-name>
-        <filter-class>net.sourceforge.myfaces.custom.fileupload.MultipartFilter</filter-class>
+        <filter-name>extensionsFilter</filter-name>
+        <filter-class>org.apache.myfaces.component.html.util.ExtensionsFilter</filter-class>
         <init-param>
             <param-name>maxFileSize</param-name>
             <param-value>2m</param-value>
@@ -288,8 +288,8 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         <delete file="../../web/WEB-INF/validator-rules-custom.xml"/>
         <replace file="../../web/WEB-INF/classes/log4j.properties">
             <replacetoken>log4j.logger.org.apache.struts=WARN</replacetoken>
-            <replacevalue># Have to turn to fatal to avoid warnings/errors that don't matter
-log4j.logger.net.sourceforge.myfaces=FATAL</replacevalue>
+            <replacevalue># Suppress warnings from VariableResolverImpl.resolveVariable
+log4j.logger.org.apache.myfaces=ERROR</replacevalue>
         </replace>
         
         <echo level="info">Modifying Eclipse .classpath file</echo>
@@ -302,9 +302,9 @@ log4j.logger.net.sourceforge.myfaces=FATAL</replacevalue>
         <replace file="../../.classpath">
             <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/struts.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/struts-el.jar"/>]]></replacetoken>
-            <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/myfaces-1.0.7-beta/lib/myfaces.jar"/>
-	<classpathentry kind="lib" path="lib/myfaces-1.0.7-beta/lib/myfaces-components.jar"/>
-	<classpathentry kind="lib" path="lib/myfaces-1.0.7-beta/lib/myfaces-jsf-api.jar"/>]]></replacevalue>
+            <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/myfaces-1.0.9/lib/myfaces.jar"/>
+	<classpathentry kind="lib" path="lib/myfaces-1.0.9/lib/myfaces-components.jar"/>
+	<classpathentry kind="lib" path="lib/myfaces-1.0.9/lib/myfaces-jsf-api.jar"/>]]></replacevalue>
         </replace>
 
         <echo level="info">Refactoring build.xml</echo>
@@ -444,10 +444,9 @@ log4j.logger.net.sourceforge.myfaces=FATAL</replacevalue>
         <delete dir="../../extras/spring"/>
         <delete dir="../../extras/tapestry"/>
         <delete dir="../../extras/webwork"/>
-        <delete dir="../../extras/jsf"/>   
         
         <echo>----------------------------------------------</echo>
-        <echo level="info">Installation completed successfully.</echo>
+        <echo level="info">NOTE: It's recommended you delete extras/jsf as you shouldn't need it anymore.</echo>
         <echo>----------------------------------------------</echo>
     </target>
  
