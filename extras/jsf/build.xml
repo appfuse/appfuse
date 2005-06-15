@@ -302,9 +302,7 @@ log4j.logger.org.apache.myfaces=ERROR</replacevalue>
         <replace file="../../.classpath">
             <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/struts.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/struts-el.jar"/>]]></replacetoken>
-            <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/myfaces-1.0.9/lib/myfaces.jar"/>
-	<classpathentry kind="lib" path="lib/myfaces-1.0.9/lib/myfaces-components.jar"/>
-	<classpathentry kind="lib" path="lib/myfaces-1.0.9/lib/myfaces-jsf-api.jar"/>]]></replacevalue>
+            <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/myfaces-1.0.9/lib/myfaces.jar"/>]]></replacevalue>
         </replace>
 
         <echo level="info">Refactoring build.xml</echo>
