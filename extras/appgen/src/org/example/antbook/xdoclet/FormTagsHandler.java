@@ -144,7 +144,7 @@ public class FormTagsHandler extends AbstractProgramElementTagsHandler {
      */
     public String classNameLower() {
         String name = getCurrentClass().getName();
-        return name.replace(name.charAt(0), Character.toLowerCase(name.charAt(0)));
+        return Character.toLowerCase(name.charAt(0)) + name.substring(1);   
     }
     
     public String className() {
@@ -156,9 +156,7 @@ public class FormTagsHandler extends AbstractProgramElementTagsHandler {
      * @return
      */
     public String classNameUpper() {
-        String name = getCurrentClass().getName();
-        name.replace(name.charAt(0), Character.toLowerCase(name.charAt(0)));
-        return name.toUpperCase();
+        return getCurrentClass().getName().toUpperCase();
     }
     
     public String fieldDescription(Properties props) {

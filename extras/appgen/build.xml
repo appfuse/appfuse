@@ -398,7 +398,40 @@
         </ant>   
         <ant dir="../../../${app.name}" target="setup" inheritAll="false"/>   
         <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
-    </target>   
+    </target> 
+    
+    <!-- =================================================================== -->
+    <!-- Creates new project, copies PersonExtended.java to model directory, -->
+    <!-- generates generic persistence code and runs tests.                  -->
+    <!-- =================================================================== -->
+    <target name="test-2wordpojo" 
+        description="Creates new project and generates detailed persistence code">
+        <property name="app.name" value="appfuse-appgenx"/>
+        <property name="db.name" value="appfusex"/>
+        <property name="new.pkg.name" value="org.appfuse"/>
+        <delete dir="../../../${app.name}"/>
+        <ant dir="../.." target="new"/>
+
+        <!-- Copy test model object into new project -->   
+        <copy todir="../../../${app.name}/src">
+            <fileset dir="test" includes="**/PersonPlus.java"/>
+        </copy>   
+        <!-- Add the mapping file for Person to applicationContext-hibernate.xml -->
+        <replace dir="../../../${app.name}/src">
+            <include name="**/applicationContext-hibernate.xml"/>
+            <replacetoken><![CDATA[<value>org/appfuse/model/Role.hbm.xml</value>]]></replacetoken>
+            <replacevalue><![CDATA[<value>org/appfuse/model/PersonPlus.hbm.xml</value>
+                <value>org/appfuse/model/Role.hbm.xml</value>]]></replacevalue>
+        </replace>   
+        
+        <!-- New project created, gen code and run tests -->
+        <ant dir="../../../${app.name}/extras/appgen" target="install-detailed" inheritAll="false">
+            <property name="model.name" value="PersonPlus"/>
+            <property name="model.name.lowercase" value="personPlus"/>   
+        </ant>   
+        <ant dir="../../../${app.name}" target="setup" inheritAll="false"/>   
+        <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
+    </target>     
  
     <target name="test-all" depends="test"
         description="Tests generic and detailed code generation methods">  
