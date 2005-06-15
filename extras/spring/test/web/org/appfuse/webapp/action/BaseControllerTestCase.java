@@ -2,6 +2,9 @@ package org.appfuse.webapp.action;
 
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -70,7 +73,7 @@ public abstract class BaseControllerTestCase extends TestCase {
 
     public void objectToRequestParameters(Object o, MockHttpServletRequest request, String prefix) throws Exception {
         Class clazz = o.getClass();
-        Field[] fields = clazz.getDeclaredFields();
+        Field[] fields = getDeclaredFields(clazz);
         AccessibleObject.setAccessible(fields, true);
 
         for (int i = 0; i < fields.length; i++) {
@@ -86,5 +89,18 @@ public abstract class BaseControllerTestCase extends TestCase {
                         String.valueOf(fields[i].get(o)));
             }
         }
+    }
+    
+    private Field[] getDeclaredFields(Class clazz) {
+        Field[] f = new Field[0];
+        Class superClazz = clazz.getSuperclass();
+        Collection rval = new ArrayList();
+        
+        if (superClazz != null) {
+            rval.addAll(Arrays.asList(getDeclaredFields(superClazz)));
+        }
+        
+        rval.addAll(Arrays.asList(clazz.getDeclaredFields()));
+        return (Field[]) rval.toArray(f);
     }
 }
