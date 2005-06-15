@@ -459,10 +459,9 @@ tapestry.jar=${tapestry.dir}/tapestry-${tapestry.version}.jar]]></replacevalue>
         <delete dir="../../extras/jsf"/>
         <delete dir="../../extras/spring"/>
         <delete dir="../../extras/webwork"/>
-        <delete dir="../../extras/tapestry"/>
         
         <echo>----------------------------------------------</echo>
-        <echo level="info">Installation completed successfully.</echo>
+        <echo level="info">NOTE: It's recommended you delete extras/tapestry as you shouldn't need it anymore.</echo>
         <echo>----------------------------------------------</echo>
     </target>
  
