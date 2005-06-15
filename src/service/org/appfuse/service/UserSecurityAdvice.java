@@ -38,7 +38,7 @@ public class UserSecurityAdvice implements MethodBeforeAdvice {
 
             if (auth.isAuthenticated() && (!username.equals(currentUser))) {
                 AuthenticationTrustResolver resolver = new AuthenticationTrustResolverImpl();
-//              allow new users to signup - this is OK b/c Signup doesn't allow setting of roles
+                // allow new users to signup - this is OK b/c Signup doesn't allow setting of roles
                 boolean signupUser = resolver.isAnonymous(auth);
                 if (!signupUser || removeUser) {
                     if (log.isDebugEnabled()) {
