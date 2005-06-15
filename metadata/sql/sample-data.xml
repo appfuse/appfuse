@@ -15,7 +15,7 @@
     <column>website</column>
     <column>password_hint</column>
     <column>version</column>
-	<column>enabled</column>
+    <column>enabled</column>
     <row>
       <value>tomcat</value>
       <value>536c0b339345616c1b33caf454454d8b8a190d6c</value>
@@ -31,7 +31,7 @@
       <value>http://jakarta.apache.org/tomcat</value>
       <value><![CDATA[A male kitty.]]></value>
       <value>1</value>
-	  <value>1</value>
+      <value>1</value>
     </row>
     <row>
       <value>mraible</value>
@@ -48,7 +48,7 @@
       <value>http://raibledesigns.com</value>
       <value><![CDATA[Not a female kitty.]]></value>
       <value>1</value>
-	  <value>1</value>
+      <value>1</value>
     </row>
   </table>
   <table name='role'>
