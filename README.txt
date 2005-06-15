@@ -43,15 +43,25 @@ steps:
 
 Features/Changes in 1.8.1
 ============================
+- A complete list of issues fixed is at http://tinyurl.com/8v2z9.
 - DateUtil fix for i18n.
 - Moved tomcat.properties key/value pairs into properties.xml.
 - [Struts] Changed "viewUsers" forward to be a redirect to prevent the 
   duplicate post problem when deleting a user.
+- [MyFaces] Changed all "id" attributes with a period (i.e. address.address)
+  to use only the later half since MyFaces 1.0.9 does support periods in ids.
 - Added page for sponsors at http://appfuse.dev.java.net/sponsors.html
+- Added UserSecurityAdvice and interceptor to ensure that only admins
+  can modify user records. Regular users can still modify their own record.
+- Fixed BaseControllerTestCase.objectToRequestParameters() so POJOs that
+  use inheritance are supported.
+- Added "Accept-Language" header to Canoo WebTests so locale in webtests
+  matches the operating system locale (uses ${user.language} as default).
 - Dependent packages upgraded:
     * Cargo 0.5
     * Hibernate 3.0.5
     * iBATIS 2.1.0
+    * MyFaces 1.0.9
     * Spring 1.2.1
 
 
