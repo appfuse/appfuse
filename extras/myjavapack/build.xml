@@ -19,7 +19,7 @@
     <target name="fetch" description="downloads dependencies for this project">
         <ant target="apache-ant-1.6.2"/>
         <ant target="jakarta-tomcat-5.0.28"/>
-        <ant target="appfuse-1.8"/>
+        <ant target="appfuse-1.8.1"/>
     </target>
     
     <target name="fetch-windows" depends="fetch">
@@ -49,8 +49,8 @@
     </target>
     
     <!-- appfuse -->
-    <target name="appfuse-1.8" depends="init">
-        <myget mirrorSuffix="sourceforge/struts/appfuse-1.8-src.zip" mirrorPrefixList="${sourceforge.mirrors}" md5sum="6f9e93ea8115aeaa21388871e513172a" packType="framework"/>
+    <target name="appfuse-1.8.1" depends="init">
+        <myget mirrorSuffix="sourceforge/struts/appfuse-1.8.1-src.zip" mirrorPrefixList="${sourceforge.mirrors}" md5sum="887fa6d08c0524a7cc84cb2e765b141b" packType="framework"/>
     </target>
     
     <!-- mysql-windows -->
