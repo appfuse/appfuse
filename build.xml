@@ -1299,6 +1299,7 @@
                 <exclude name="src/**/*.java"/>
                 <exclude name="src/**/*.xml"/>
                 <exclude name="test/**/*.java"/>
+                <exclude name="test/**/*.xml"/>   
                 <exclude name="extras/**/*.java"/>
                 <exclude name="extras/**/*.xml"/>
                 <exclude name="metadata/web/global-exceptions.xml"/>

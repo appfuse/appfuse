@@ -47,8 +47,26 @@
                 <prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
             </props>
         </property>
+        <property name="preInterceptors">
+            <list>
+                <ref bean="userSecurityInterceptor"/>
+            </list>
+        </property>
     </bean>
-        
+
+    <!-- This interceptor insures that that users can only update themselves, not other users -->
+    <bean id="userSecurityInterceptor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+        <property name="advice" ref="userSecurityAdvice"/>
+        <property name="patterns">
+            <list>
+                <value>.*saveUser</value>
+                <value>.*removeUser</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="userSecurityAdvice" class="org.appfuse.service.UserSecurityAdvice"/>
+
     <bean id="roleManager" parent="txProxyTemplate">
         <property name="target">
             <bean class="org.appfuse.service.impl.RoleManagerImpl">

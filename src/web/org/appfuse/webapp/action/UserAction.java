@@ -95,12 +95,6 @@ public final class UserAction extends BaseAction {
         if (log.isDebugEnabled()) {
             log.debug("Entering 'delete' method");
         }
-
-        // only allow administrators to delete
-        if (!request.isUserInRole(Constants.ADMIN_ROLE)) {
-            response.sendError(HttpServletResponse.SC_FORBIDDEN);
-            return null;
-        }
         
         // Extract attributes and parameters we will need
         ActionMessages messages = new ActionMessages();

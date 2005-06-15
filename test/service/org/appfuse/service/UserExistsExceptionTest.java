@@ -19,7 +19,7 @@ public class UserExistsExceptionTest extends BaseManagerTestCase {
     static {
         String pkg = ClassUtils.classPackageAsResourcePath(Constants.class);
         String[] paths = {"classpath*:/" + pkg + "/dao/applicationContext-*.xml",
-                          "classpath*:/" + pkg + "/service/applicationContext-*.xml",
+                          "classpath*:/" + pkg + "/service/applicationContext-service.xml",
                           "classpath*:META-INF/applicationContext-*.xml"};
         ctx = new ClassPathXmlApplicationContext(paths);
     }
