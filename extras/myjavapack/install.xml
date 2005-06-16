@@ -3,7 +3,7 @@
     <!-- Installer Info. Will be displayed on splash screen -->
     <info>
         <appname>AppFuse</appname>
-        <appversion>1.8</appversion>
+        <appversion>1.8.1</appversion>
         <authors>
             <author name="Matt Raible" email="matt@raibledesigns.com"/>
         </authors>
@@ -66,7 +66,7 @@
         </pack>
 
         <!-- ant -->
-        <pack name="apache-ant-1.6.2-bin" required="no" bytes="9934848" preselected="yes" packType="devtool">
+        <pack name="apache-ant-1.6.5-bin" required="no" bytes="9934848" preselected="yes" packType="devtool">
             <description>Java Build Tool. ANT integrates with many IDEs and Java Frameworks. It is highly configurable, can be used to automate the most complicated builds. Can be used to automate software installations.</description>
             <executable keep="true" failure="abort" stage="install" type="jar" targetfile="$INSTALL_PATH/bin/ant-launcher.jar">
                 <args>
@@ -77,10 +77,10 @@
                     
                     <!-- You probably want to specify an install details log -->
                     <arg value="-logfile"/>
-                    <arg value="$INSTALL_PATH/bin/logs/apache-ant-1.6.2-bin.log"/>
+                    <arg value="$INSTALL_PATH/bin/logs/apache-ant-1.6.5-bin.log"/>
                     
                     <!-- Ant task that this pack calls -->
-                    <arg value="apache-ant-1.6.2-bin"/>
+                    <arg value="apache-ant-1.6.5-bin"/>
                 </args>
             </executable>
         </pack>
@@ -107,7 +107,7 @@
         
         <!-- mysql-windows -->
         <pack name="mysql-4.1.11-win-noinstall" os="windows" required="no" bytes="37958451" preselected="no" packType="server">
-            <description>The MySQL database server is the world's most popular open source database. This barebones install doesn't add windows registry entries</description>
+            <description>The MySQL database server is the world's most popular open source database.</description>
             <executable keep="true" failure="abort" stage="install" type="jar" targetfile="$INSTALL_PATH/bin/ant-launcher.jar">
                 <args>
                     <arg value="-logfile"/>
