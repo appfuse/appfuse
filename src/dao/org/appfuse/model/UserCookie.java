@@ -103,31 +103,27 @@ public class UserCookie extends BaseObject {
         this.dateCreated = dateCreated;
     }
 
-    /**
-     * Generated using Commonclipse (http://commonclipse.sf.net)
-     */
-    public boolean equals(Object object) {
-        if (!(object instanceof UserCookie)) {
-            return false;
-        }
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UserCookie)) return false;
 
-        UserCookie rhs = (UserCookie) object;
+        final UserCookie userCookie = (UserCookie) o;
 
-        return new EqualsBuilder().append(this.username, rhs.username)
-                                  .append(this.dateCreated, rhs.dateCreated)
-                                  .append(this.cookieId, rhs.cookieId).isEquals();
+        if (cookieId != null ? !cookieId.equals(userCookie.cookieId) : userCookie.cookieId != null) return false;
+        if (dateCreated != null ? !dateCreated.equals(userCookie.dateCreated) : userCookie.dateCreated != null) return false;
+        if (username != null ? !username.equals(userCookie.username) : userCookie.username != null) return false;
+
+        return true;
     }
 
-    /**
-     * Generated using Commonclipse (http://commonclipse.sf.net)
-     */
     public int hashCode() {
-        return new HashCodeBuilder(1954972321, -113979947).append(this.username)
-                                                          .append(this.dateCreated)
-                                                          .append(this.cookieId)
-                                                          .toHashCode();
+        int result;
+        result = (username != null ? username.hashCode() : 0);
+        result = 29 * result + (cookieId != null ? cookieId.hashCode() : 0);
+        result = 29 * result + (dateCreated != null ? dateCreated.hashCode() : 0);
+        return result;
     }
-    
+
     /**
      * Generated using Commonclipse (http://commonclipse.sf.net)
      */

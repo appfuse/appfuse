@@ -2,8 +2,6 @@ package org.appfuse.model;
 
 import java.io.Serializable;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
@@ -120,33 +118,29 @@ public class Address extends BaseObject implements Serializable {
         this.province = province;
     }
 
-    /**
-     * Generated using Commonclipse (http://commonclipse.sf.net)
-     */
-    public boolean equals(Object object) {
-        if (!(object instanceof Address)) {
-            return false;
-        }
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Address)) return false;
 
-        Address rhs = (Address) object;
+        final Address address1 = (Address) o;
 
-        return new EqualsBuilder().append(this.postalCode, rhs.postalCode)
-                                  .append(this.country, rhs.country)
-                                  .append(this.address, rhs.address)
-                                  .append(this.province, rhs.province)
-                                  .append(this.city, rhs.city).isEquals();
+        if (address != null ? !address.equals(address1.address) : address1.address != null) return false;
+        if (city != null ? !city.equals(address1.city) : address1.city != null) return false;
+        if (country != null ? !country.equals(address1.country) : address1.country != null) return false;
+        if (postalCode != null ? !postalCode.equals(address1.postalCode) : address1.postalCode != null) return false;
+        if (province != null ? !province.equals(address1.province) : address1.province != null) return false;
+
+        return true;
     }
 
-    /**
-     * Generated using Commonclipse (http://commonclipse.sf.net)
-     */
     public int hashCode() {
-        return new HashCodeBuilder(-426830461, 631494429).append(this.postalCode)
-                                                         .append(this.country)
-                                                         .append(this.address)
-                                                         .append(this.province)
-                                                         .append(this.city)
-                                                         .toHashCode();
+        int result;
+        result = (address != null ? address.hashCode() : 0);
+        result = 29 * result + (city != null ? city.hashCode() : 0);
+        result = 29 * result + (province != null ? province.hashCode() : 0);
+        result = 29 * result + (country != null ? country.hashCode() : 0);
+        result = 29 * result + (postalCode != null ? postalCode.hashCode() : 0);
+        return result;
     }
 
     /**
