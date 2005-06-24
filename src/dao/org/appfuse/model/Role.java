@@ -3,8 +3,6 @@ package org.appfuse.model;
 import java.io.Serializable;
 import java.util.Set;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
@@ -99,26 +97,21 @@ public class Role extends BaseObject implements Serializable {
         this.version = version;
     }
 
-    /**
-     * Generated using Commonclipse (http://commonclipse.sf.net)
-     */
-    public boolean equals(Object object) {
-        if (!(object instanceof Role)) {
-            return false;
-        }
-        Role rhs = (Role) object;
-        return new EqualsBuilder().append(this.description, rhs.description)
-                .append(this.name, rhs.name).isEquals();
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Role)) return false;
+
+        final Role role = (Role) o;
+
+        if (name != null ? !name.equals(role.name) : role.name != null) return false;
+
+        return true;
     }
 
-    /**
-     * Generated using Commonclipse (http://commonclipse.sf.net)
-     */
     public int hashCode() {
-        return new HashCodeBuilder(1156335803, 987569255).append(
-                this.description).append(this.name).toHashCode();
+        return (name != null ? name.hashCode() : 0);
     }
-    
+
     /**
      * Generated using Commonclipse (http://commonclipse.sf.net)
      */

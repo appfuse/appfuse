@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
@@ -24,8 +22,9 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @hibernate.class table="app_user"
  */
 public class User extends BaseObject implements Serializable {
-	private static final long serialVersionUID = 3832626162173359411L;
-	protected String username;
+    private static final long serialVersionUID = 3832626162173359411L;
+
+    protected String username;
     protected String password;
     protected String confirmPassword;
     protected String firstName;
@@ -38,6 +37,13 @@ public class User extends BaseObject implements Serializable {
     protected Integer version;
     protected Set roles = new HashSet();
     protected Boolean enabled;
+
+	public User() {
+	}
+
+	public User(String username) {
+		this.username = username;
+	}
 
     /**
      * Returns the username.
@@ -182,7 +188,7 @@ public class User extends BaseObject implements Serializable {
     /**
      * Adds a role for the user
      *
-     * @param rolename
+     * @param role
      */
     public void addRole(Role role) {
         getRoles().add(role);
@@ -308,39 +314,21 @@ public class User extends BaseObject implements Serializable {
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
-    
-    /**
-     * Generated using Commonclipse (http://commonclipse.sf.net)
-     */
-    public boolean equals(Object object) {
-        if (!(object instanceof User)) {
-            return false;
-        }
 
-        User rhs = (User) object;
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof User)) return false;
 
-        return new EqualsBuilder().append(this.password, rhs.password).append(
-                this.passwordHint, rhs.passwordHint).append(this.address,
-                rhs.address).append(this.confirmPassword, rhs.confirmPassword)
-                .append(this.username, rhs.username).append(this.email,
-                        rhs.email).append(this.phoneNumber, rhs.phoneNumber)
-                .append(this.roles, rhs.roles).append(this.enabled, rhs.enabled)
-                .append(this.website, rhs.website).append(this.firstName,
-                        rhs.firstName).append(this.lastName, rhs.lastName)
-                .isEquals();
-    }
+		final User user = (User) o;
 
-    /**
-     * Generated using Commonclipse (http://commonclipse.sf.net)
-     */
-    public int hashCode() {
-        return new HashCodeBuilder(-2022315247, 1437659757).append(
-                this.password).append(this.passwordHint).append(this.address)
-                .append(this.confirmPassword).append(this.username).append(
-                        this.email).append(this.phoneNumber).append(this.roles)
-                .append(this.website).append(this.firstName)
-                .append(this.enabled).append(this.lastName).toHashCode();
-    }
+		if (username != null ? !username.equals(user.getUsername()) : user.getUsername() != null) return false;
+
+		return true;
+	}
+
+	public int hashCode() {
+		return (username != null ? username.hashCode() : 0);
+	}
 
     /**
      * Generated using Commonclipse (http://commonclipse.sf.net)
@@ -359,5 +347,4 @@ public class User extends BaseObject implements Serializable {
                 .append("version", this.getVersion())
                 .append("enabled", this.getEnabled()).toString();
     }
-
 }

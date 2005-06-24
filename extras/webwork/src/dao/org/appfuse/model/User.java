@@ -8,8 +8,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
@@ -24,6 +22,8 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @hibernate.class table="app_user"
  */
 public class User extends BaseObject implements Serializable {
+    private static final long serialVersionUID = 3832626162173359411L;
+
     protected String username;
     protected String password;
     protected String confirmPassword;
@@ -35,8 +35,15 @@ public class User extends BaseObject implements Serializable {
     protected String website;
     protected String passwordHint;
     protected Integer version;
-    protected Boolean enabled;
     protected Set roles = new HashSet();
+    protected Boolean enabled;
+
+	public User() {
+	}
+
+	public User(String username) {
+		this.username = username;
+	}
 
     /**
      * Returns the username.
@@ -161,7 +168,7 @@ public class User extends BaseObject implements Serializable {
     /**
      * Adds a role for the user
      *
-     * @param rolename
+     * @param role
      */
     public void addRole(Role role) {
         getRoles().add(role);
@@ -276,7 +283,7 @@ public class User extends BaseObject implements Serializable {
     }
 
     /**
-     * @return Returns the updated timestamp.
+     * @return Returns the updated version.
      * @hibernate.version
      */
     public Integer getVersion() {
@@ -284,7 +291,7 @@ public class User extends BaseObject implements Serializable {
     }
 
     /**
-     * @param updated The updated version to set.
+     * @param version The updated version to set.
      */
     public void setVersion(Integer version) {
         this.version = version;
@@ -325,38 +332,20 @@ public class User extends BaseObject implements Serializable {
         return userRoles;
     }
 
-    /**
-     * Generated using Commonclipse (http://commonclipse.sf.net)
-     */
-    public boolean equals(Object object) {
-        if (!(object instanceof User)) {
-            return false;
-        }
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof User)) return false;
 
-        User rhs = (User) object;
+		final User user = (User) o;
 
-        return new EqualsBuilder().append(this.password, rhs.password).append(
-                this.passwordHint, rhs.passwordHint).append(this.address,
-                rhs.address).append(this.confirmPassword, rhs.confirmPassword)
-                .append(this.username, rhs.username).append(this.email,
-                        rhs.email).append(this.phoneNumber, rhs.phoneNumber)
-                .append(this.roles, rhs.roles).append(this.enabled, rhs.enabled)
-                .append(this.website, rhs.website).append(this.firstName,
-                        rhs.firstName).append(this.lastName, rhs.lastName)
-                .isEquals();
-    }
+		if (username != null ? !username.equals(user.getUsername()) : user.getUsername() != null) return false;
 
-    /**
-     * Generated using Commonclipse (http://commonclipse.sf.net)
-     */
-    public int hashCode() {
-        return new HashCodeBuilder(-2022315247, 1437659757).append(
-                this.password).append(this.passwordHint).append(this.address)
-                .append(this.confirmPassword).append(this.username).append(
-                        this.email).append(this.phoneNumber).append(this.roles)
-                .append(this.website).append(this.firstName)
-                .append(this.lastName).append(this.enabled).toHashCode();
-    }
+		return true;
+	}
+
+	public int hashCode() {
+		return (username != null ? username.hashCode() : 0);
+	}
 
     /**
      * Generated using Commonclipse (http://commonclipse.sf.net)
