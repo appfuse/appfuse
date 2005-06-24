@@ -34,8 +34,7 @@ public class UserSecurityAdviceTest extends BaseManagerTestCase {
         Authentication auth = ((SecureContext) ContextHolder.getContext()).getAuthentication();
         assertTrue(auth.isAuthenticated());
         UserManager userManager = (UserManager) makeInterceptedTarget();
-        User user = new User();
-        user.setUsername("admin");
+        User user = new User("admin");
 
         try {
             userManager.saveUser(user);
@@ -56,8 +55,7 @@ public class UserSecurityAdviceTest extends BaseManagerTestCase {
         ContextHolder.setContext(context);
 
         UserManager userManager = (UserManager) makeInterceptedTarget();
-        User user = new User();
-        user.setUsername("admin");
+        User user = new User("admin");
 
         userDAO.expects(once()).method("saveUser");
         userManager.saveUser(user);
@@ -66,8 +64,7 @@ public class UserSecurityAdviceTest extends BaseManagerTestCase {
 
     public void testUpdateUserProfile() throws Exception {
         UserManager userManager = (UserManager) makeInterceptedTarget();
-        User user = new User();
-        user.setUsername("user");
+        User user = new User("user");
 
         userDAO.expects(once()).method("saveUser");
         userManager.saveUser(user);

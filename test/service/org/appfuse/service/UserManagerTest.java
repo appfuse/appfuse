@@ -36,8 +36,7 @@ public class UserManagerTest extends BaseManagerTestCase {
     }
     
     public void testGetUser() throws Exception {
-        User testData = new User();
-        testData.setUsername("tomcat");
+        User testData = new User("tomcat");
         testData.getRoles().add(new Role("user"));
         // set expected behavior on dao
         userDAO.expects(once()).method("getUser")
@@ -50,8 +49,7 @@ public class UserManagerTest extends BaseManagerTestCase {
     }
 
     public void testSaveUser() throws Exception {
-        User testData = new User();
-        testData.setUsername("tomcat");
+        User testData = new User("tomcat");
         testData.getRoles().add(new Role("user"));
         // set expected behavior on dao
         userDAO.expects(once()).method("getUser")
@@ -135,8 +133,7 @@ public class UserManagerTest extends BaseManagerTestCase {
     
     public void testUserExistsException() {
         // set expectations
-        user = new User();
-        user.setUsername("admin");
+        user = new User("admin");
         user.setEmail("matt@raibledesigns.com");
         List users = new ArrayList();
         

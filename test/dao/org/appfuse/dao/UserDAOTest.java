@@ -90,8 +90,7 @@ public class UserDAOTest extends BaseDAOTestCase {
     }
 
     public void testAddAndRemoveUser() throws Exception {
-        user = new User();
-        user.setUsername("testuser");
+        user = new User("testuser");
         user.setPassword("testpass");
         user.setFirstName("Test");
         user.setLastName("Last");

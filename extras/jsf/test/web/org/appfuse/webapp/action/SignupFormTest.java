@@ -15,8 +15,7 @@ public class SignupFormTest extends BasePageTestCase {
     }
     
     public void testExecute() throws Exception {
-        User user = new User();
-        user.setUsername("self-registered");
+        User user = new User("self-registered");
         user.setPassword("Password1");
         user.setConfirmPassword("Password1");
         user.setFirstName("First");
