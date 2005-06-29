@@ -243,7 +243,7 @@
         </jar>
     </target>
    
-    <target name="test-dao" depends="copy-resources,package-dao,db-load" description="Test dao module">
+    <target name="test-dao" depends="copy-resources,package-dao,db-load,check-debug" description="Test dao module">
         <test-module module="dao" additional.src.dirs="${build.dir}/dao/gen"/>
     </target>
   
@@ -267,7 +267,7 @@
         </jar>
     </target>
 
-    <target name="test-service" depends="copy-resources,compile-service" description="Test service module">
+    <target name="test-service" depends="copy-resources,compile-service,check-debug" description="Test service module">
         <test-module module="service"/>
     </target>
 
@@ -430,7 +430,7 @@
         </war>
     </target>
 
-    <target name="test-web" depends="webdoclet,db-load" description="Test web module">
+    <target name="test-web" depends="webdoclet,db-load,check-debug" description="Test web module">
         <copy todir="${webapp.target}/WEB-INF" file="${struts.dir}/validator-rules.xml"/>
         <test-module module="web"/>
     </target>
@@ -492,6 +492,7 @@
                     <pathelement path="${build.dir}/web/classes"/>
                     <pathelement path="src/@{module}"/>
                 </classpath>
+                <jvmarg line="${run.appfuse.test.debugargline}"/>
                 <formatter type="xml"/>
                 <formatter type="brief" usefile="false"/>
                 <batchtest todir="${test.dir}/data" if="testcase">
@@ -571,7 +572,7 @@
     <!-- =================================================================== -->
     <!--            Run Canoo WebTests using Cargo                           -->
     <!-- =================================================================== -->
-    <target name="test-jsp" if="tomcat.home" depends="war"
+    <target name="test-jsp" if="tomcat.home" depends="war,check-debug"
         description="Runs Canoo WebTests using Cargo">
          
         <taskdef resource="cargo.tasks" classpath="${cargo.jar}"/>   
@@ -588,6 +589,7 @@
                     <configuration dir="${test.dir}/tomcat5x">
                         <property name="cargo.logging" value="high"/>
                         <property name="cargo.servlet.port" value="${http.port}"/>
+                        <!--<property name="cargo.jvmargs" value="${run.appfuse.test.debugargline}"/>-->
                         <war warFile="${webapp.dist}/${webapp.war}"/>
                     </configuration>   
                 </cargo-tomcat5x>
@@ -603,6 +605,7 @@
                     <configuration dir="${test.dir}/tomcat4x">
                         <property name="cargo.logging" value="high"/>
                         <property name="cargo.servlet.port" value="${http.port}"/>
+                        <!--<property name="cargo.jvmargs" value="${run.appfuse.test.debugargline}"/>-->
                         <war warFile="${webapp.dist}/${webapp.war}"/>
                     </configuration>   
                 </cargo-tomcat4x>
@@ -1015,12 +1018,27 @@
     </target>
     
     <!-- =================================================================== -->
+    <!--            Internal targets to enable running in debug mode         -->
+    <!-- =================================================================== -->
+    <target name="check-debug" depends="with-debug,no-debug" />
+
+    <target name="with-debug" if="appfuse-debug">
+       	<property name="run.appfuse.test.debugargline" value="-Xdebug -Xnoagent -Xrunjdwp:transport=dt_shmem,address=appfuse-debug,server=y,suspend=y"/>
+        <echo>Running in debug mode with shared memory address 'appfuse-debug'</echo>
+    </target>
+
+    <target name="no-debug" unless="appfuse-debug">
+       <property name="run.appfuse.test.debugargline" value=""/>
+    </target>
+
+    <!-- =================================================================== -->
     <!--            Start Tomcat                                             -->
     <!-- =================================================================== -->
     <target name="start.tomcat"
-        description="starts tomcat in the current console window">
+        description="starts tomcat in the current console window" depends="check-debug">
         <java classname="org.apache.catalina.startup.Bootstrap" fork="yes">
             <jvmarg value="-Dcatalina.home=${tomcat.home}"/>
+            <jvmarg line="${run.appfuse.test.debugargline}"/>
             <arg value="start"/>
             <classpath>
                 <pathelement path="${java.home}/../lib/tools.jar"/>
