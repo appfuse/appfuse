@@ -41,6 +41,14 @@ steps:
      Example: log4j.rootCategory=INFO, stdout, mail
 
 
+Features/Changes in 1.8.2
+============================
+- Dependent packages upgraded:
+    * Acegi Security 0.8.3
+    * Spring 1.2.3
+    * Spring Modules Validator Nightly (20050727)
+
+
 Features/Changes in 1.8.1
 ============================
 - A complete list of issues fixed is at http://tinyurl.com/8v2z9.

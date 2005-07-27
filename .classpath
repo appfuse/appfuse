@@ -62,11 +62,11 @@
 	<classpathentry kind="lib" path="lib/hibernate-3.0.5/lib/jta.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-3.0.5/lib/oscache-2.1.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-3.0.5/lib/swarmcache-1.0rc2.jar"/>
-	<classpathentry kind="lib" path="lib/spring-1.2.2/acegi-security-0.8.3.jar"/>
-	<classpathentry kind="lib" path="lib/spring-1.2.2/commons-codec-1.3.jar"/>
-	<classpathentry kind="lib" path="lib/spring-1.2.2/ehcache-1.1.jar"/>
-	<classpathentry kind="lib" path="lib/spring-1.2.2/spring.jar"/>
-	<classpathentry kind="lib" path="lib/spring-1.2.2/spring-mock.jar"/>
+	<classpathentry kind="lib" path="lib/spring-1.2.3/acegi-security-0.8.3.jar"/>
+	<classpathentry kind="lib" path="lib/spring-1.2.3/commons-codec-1.3.jar"/>
+	<classpathentry kind="lib" path="lib/spring-1.2.3/ehcache-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/spring-1.2.3/spring.jar"/>
+	<classpathentry kind="lib" path="lib/spring-1.2.3/spring-mock.jar"/>
 	<classpathentry kind="lib" path="lib/urlrewrite-1.2/urlrewrite-1.2.jar"/>
 	<classpathentry kind="lib" path="lib/java2html-1.3.1/j2h.jar"/>
 	<classpathentry kind="lib" path="lib/postgresql-jdbc-8.0-310/postgresql-jdbc3-8.0-310.jar"/>

@@ -376,7 +376,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/spring-1.2.2/spring-mock.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/spring-1.2.3/spring-mock.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -385,7 +385,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/spring-1.2.2/commons-codec-1.3.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/spring-1.2.3/commons-codec-1.3.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -394,7 +394,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/spring-1.2.2/acegi-security-0.8.3.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/spring-1.2.3/acegi-security-0.8.3.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -403,7 +403,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/spring-1.2.2/ehcache-1.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/spring-1.2.3/ehcache-1.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -412,7 +412,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/spring-1.2.2/spring.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/spring-1.2.3/spring.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -785,27 +785,27 @@
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/acegi-security-0.8.3.jar" />
-      <url>jar://$MODULE_DIR$/lib/spring-1.2.2/acegi-security-0.8.3.jar!/</url>
+      <url>jar://$MODULE_DIR$/lib/spring-1.2.3/acegi-security-0.8.3.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/commons-codec-1.3.jar" />
-      <url>jar://$MODULE_DIR$/lib/spring-1.2.2/commons-codec-1.3.jar!/</url>
+      <url>jar://$MODULE_DIR$/lib/spring-1.2.3/commons-codec-1.3.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/ehcache-1.1.jar" />
-      <url>jar://$MODULE_DIR$/lib/spring-1.2.2/ehcache-1.1.jar!/</url>
+      <url>jar://$MODULE_DIR$/lib/spring-1.2.3/ehcache-1.1.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/spring-mock.jar" />
-      <url>jar://$MODULE_DIR$/lib/spring-1.2.2/spring-mock.jar!/</url>
+      <url>jar://$MODULE_DIR$/lib/spring-1.2.3/spring-mock.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/spring.jar" />
-      <url>jar://$MODULE_DIR$/lib/spring-1.2.2/spring.jar!/</url>
+      <url>jar://$MODULE_DIR$/lib/spring-1.2.3/spring.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
