@@ -5,7 +5,7 @@ import org.apache.commons.validator.GenericValidator;
 import org.apache.commons.validator.ValidatorAction;
 import org.apache.commons.validator.util.ValidatorUtils;
 import org.springframework.validation.Errors;
-import org.springmodules.commons.validator.Resources;
+import org.springmodules.commons.validator.FieldChecks;
 
 
 /**
@@ -27,8 +27,6 @@ public class ValidationUtil {
      * @param va
      * @param field
      * @param errors
-     * @param request
-     * @return boolean
      */
     public static boolean validateTwoFields(Object bean, ValidatorAction va,
                                             Field field, Errors errors) {
@@ -40,11 +38,11 @@ public class ValidationUtil {
         if (!GenericValidator.isBlankOrNull(value)) {
             try {
                 if (!value.equals(value2)) {
-                    Resources.rejectValue(errors, field, va);
+                    FieldChecks.rejectValue(errors, field, va);
                     return false;
                 }
             } catch (Exception e) {
-                Resources.rejectValue(errors, field, va);
+                FieldChecks.rejectValue(errors, field, va);
                 return false;
             }
         }
