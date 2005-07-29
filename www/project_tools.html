@@ -24,7 +24,7 @@ function replaceLinks() {
     var links = tools.getElementsByTagName("a");
     for (i=0; i < links.length; i++) {
         if (links[i].getAttribute("href") == "https://appfuse.dev.java.net/servlets/ProjectIssues") {
-            links[i].setAttribute("href") = "http://issues.appfuse.org";
+            links[i].setAttribute("href", "http://issues.appfuse.org");
         }
     } 
 }
