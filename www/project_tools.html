@@ -25,7 +25,7 @@ function replaceLinks() {
         var links = tools.getElementsByTagName("a");
         for (i=0; i < links.length; i++) {
             if (links[i].getAttribute("href").indexOf("ProjectIssues") > -1) {
-                links[i].setAttribute("href", "http://issues.appfuse.org");
+                links[i].setAttribute("href", "http://issues.appfuse.org/browse/APF");
                 links[i].innerHTML="JIRA Issue Tracker";
             }
 
