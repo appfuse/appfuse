@@ -8,10 +8,10 @@
 <div><a href="mailto:users-subscribe@appfuse.dev.java.net">Subscribe</a></div>
 <div><a href="http://news.gmane.org/gmane.comp.java.appfuse.user">Archives</a></div>
 </div>
-<div class="label"><strong>Issue Tracking</strong></div>
+<!--div class="label"><strong>Issue Tracking</strong></div>
 <div class="body" style="border-bottom: 0">
 <div><a href="http://issues.appfuse.org">JIRA Issue Tracker</a></div>
-</div>
+</div-->
 <div class="label"><strong>Developer Blogs</strong></div>
 <div class="body">
 <div><a href="http://raibledesigns.com">Raible Designs</a></div>
@@ -24,12 +24,12 @@ function replaceLinks() {
         var tools = document.getElementById("projecttools");
         var links = tools.getElementsByTagName("a");
         for (i=0; i < links.length; i++) {
-            if (links[i].getAttribute("href").indexOf("ProjectIssues") {
+            if (links[i].getAttribute("href").indexOf("ProjectIssues") > -1) {
                 links[i].setAttribute("href", "http://issues.appfuse.org");
                 links[i].innerHTML="JIRA Issue Tracker";
             }
 
-            if (links[i].getAttribute("href").indexOf("ProjectForumView") {
+            if (links[i].getAttribute("href").indexOf("ProjectForumView") > -1) {
                 links[i].parentNode.style.display = "none";
             }
         } 
