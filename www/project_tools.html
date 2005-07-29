@@ -17,3 +17,12 @@
 <div><a href="http://raibledesigns.com">Raible Designs</a></div>
 <div><a href="http://jroller.com/page/raible">Spring Live</a></div>
 
+<script type="text/javascript">
+var tools = document.getElementById("projecttools");
+var links = tools.getElementsByTagName("a");
+for (i=0; i < links.length; i++) {
+    if (links[i].getAttribute("href") == "https://appfuse.dev.java.net/servlets/ProjectIssues") {
+        links[i].setAttribute("href") = "http://issues.appfuse.org";
+    }
+} 
+</script>
