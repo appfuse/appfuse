@@ -20,13 +20,20 @@
 <script type="text/javascript">
 
 function replaceLinks() {
-    var tools = document.getElementById("projecttools");
-    var links = tools.getElementsByTagName("a");
-    for (i=0; i < links.length; i++) {
-        if (links[i].getAttribute("href") == "https://appfuse.dev.java.net/servlets/ProjectIssues") {
-            links[i].setAttribute("href", "http://issues.appfuse.org");
-        }
-    } 
+    try {
+        var tools = document.getElementById("projecttools");
+        var links = tools.getElementsByTagName("a");
+        for (i=0; i < links.length; i++) {
+            if (links[i].getAttribute("href").indexOf("ProjectIssues") {
+                links[i].setAttribute("href", "http://issues.appfuse.org");
+                links[i].innerHTML="JIRA Issue Tracker";
+            }
+
+            if (links[i].getAttribute("href").indexOf("ProjectForumView") {
+                links[i].parentNode.style.display = "none";
+            }
+        } 
+    } catch (e) {}
 }
 
 window.onload=replaceLinks;
