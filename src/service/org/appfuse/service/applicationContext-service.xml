@@ -35,7 +35,7 @@
     <bean id="userManager" parent="txProxyTemplate">
         <property name="target">
             <bean class="org.appfuse.service.impl.UserManagerImpl">
-                <property name="userDAO"><ref bean="userDAO"/></property>
+                <property name="userDAO" ref="userDAO"/>
             </bean>
         </property>
         <!-- Override default transaction attributes b/c of LoginCookie methods -->
@@ -47,6 +47,8 @@
                 <prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
             </props>
         </property>
+        <!-- This property is overriden in applicationContext-security.xml to add
+             method-level role security -->
         <property name="preInterceptors">
             <list>
                 <ref bean="userSecurityInterceptor"/>
@@ -57,12 +59,7 @@
     <!-- This interceptor insures that that users can only update themselves, not other users -->
     <bean id="userSecurityInterceptor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
         <property name="advice" ref="userSecurityAdvice"/>
-        <property name="patterns">
-            <list>
-                <value>.*saveUser</value>
-                <value>.*removeUser</value>
-            </list>
-        </property>
+        <property name="patterns" value=".*saveUser"/>
     </bean>
 
     <bean id="userSecurityAdvice" class="org.appfuse.service.UserSecurityAdvice"/>

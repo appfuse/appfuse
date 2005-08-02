@@ -12,6 +12,7 @@ import net.sf.acegisecurity.providers.UsernamePasswordAuthenticationToken;
 import org.appfuse.Constants;
 import org.appfuse.dao.UserDAO;
 import org.appfuse.model.User;
+import org.appfuse.model.Role;
 import org.jmock.Mock;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -64,25 +65,74 @@ public class UserSecurityAdviceTest extends BaseManagerTestCase {
 
     public void testUpdateUserProfile() throws Exception {
         UserManager userManager = (UserManager) makeInterceptedTarget();
-        User user = new User("user");
+        User user = new User("user");;
+        user.getRoles().add(new Role(Constants.USER_ROLE));
 
         userDAO.expects(once()).method("saveUser");
         userManager.saveUser(user);
         userDAO.verify();
     }
-    
-    public void testRemoveUserWithoutAdminRole() throws Exception {
-        Authentication auth = ((SecureContext) ContextHolder.getContext()).getAuthentication();
-        assertTrue(auth.isAuthenticated());
+
+    // Test fix to http://issues.appfuse.org/browse/APF-96
+    public void testChangeToAdminRoleFromUserRole() throws Exception {
         UserManager userManager = (UserManager) makeInterceptedTarget();
+        User user = new User("user");
+        user.getRoles().add(new Role(Constants.ADMIN_ROLE));
 
         try {
-            userManager.removeUser("admin");
+            userManager.saveUser(user);
             fail("AccessDeniedException not thrown");
         } catch (AccessDeniedException expected) {
             assertNotNull(expected);
             assertEquals(expected.getMessage(), UserSecurityAdvice.ACCESS_DENIED);
         }
+    }
+
+    // Test fix to http://issues.appfuse.org/browse/APF-96
+    public void testAddAdminRoleWhenAlreadyHasUserRole() throws Exception {
+        UserManager userManager = (UserManager) makeInterceptedTarget();
+        User user = new User("user");
+        user.getRoles().add(new Role(Constants.ADMIN_ROLE));
+        user.getRoles().add(new Role(Constants.USER_ROLE));
+
+        try {
+            userManager.saveUser(user);
+            fail("AccessDeniedException not thrown");
+        } catch (AccessDeniedException expected) {
+            assertNotNull(expected);
+            assertEquals(expected.getMessage(), UserSecurityAdvice.ACCESS_DENIED);
+        }
+    }
+
+        // Test fix to http://issues.appfuse.org/browse/APF-96
+    public void testAddUserRoleWhenHasAdminRole() throws Exception {
+        SecureContext context = new SecureContextImpl();
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("user",
+                "password",
+                new GrantedAuthority[] {new GrantedAuthorityImpl(Constants.ADMIN_ROLE)});
+        token.setAuthenticated(true);
+        context.setAuthentication(token);
+        ContextHolder.setContext(context);
+
+        UserManager userManager = (UserManager) makeInterceptedTarget();
+        User user = new User("user");
+        user.getRoles().add(new Role(Constants.ADMIN_ROLE));
+        user.getRoles().add(new Role(Constants.USER_ROLE));
+
+        userDAO.expects(once()).method("saveUser");
+        userManager.saveUser(user);
+        userDAO.verify();
+    }
+
+    // Test fix to http://issues.appfuse.org/browse/APF-96
+    public void testUpdateUserWithUserRole() throws Exception {
+        UserManager userManager = (UserManager) makeInterceptedTarget();
+        User user = new User("user");
+        user.getRoles().add(new Role(Constants.USER_ROLE));
+
+        userDAO.expects(once()).method("saveUser");
+        userManager.saveUser(user);
+        userDAO.verify();
     }
 
     private UserManager makeInterceptedTarget() {
