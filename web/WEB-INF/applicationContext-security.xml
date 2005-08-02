@@ -121,4 +121,38 @@
         <property name="loginFormUrl"><value>/login.jsp</value></property>
         <property name="forceHttps"><value>false</value></property>
     </bean>
+
+    <!-- Override 'userManager' bean definition to add userManagerSecurity interceptor -->
+    <bean id="userManager" parent="txProxyTemplate">
+        <property name="target">
+            <bean class="org.appfuse.service.impl.UserManagerImpl">
+                <property name="userDAO" ref="userDAO"/>
+            </bean>
+        </property>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="save*">PROPAGATION_REQUIRED,-UserExistsException</prop>
+                <prop key="remove*">PROPAGATION_REQUIRED</prop>
+                <prop key="*LoginCookie">PROPAGATION_REQUIRED</prop>
+                <prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
+            </props>
+        </property>
+        <property name="preInterceptors">
+            <list>
+                <ref bean="userSecurityInterceptor"/>
+                <ref bean="userManagerSecurity"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="userManagerSecurity" class="net.sf.acegisecurity.intercept.method.aopalliance.MethodSecurityInterceptor">
+        <property name="authenticationManager" ref="authenticationManager"/>
+        <property name="accessDecisionManager" ref="accessDecisionManager"/>
+        <property name="objectDefinitionSource">
+             <value>
+                 org.appfuse.service.UserManager.getUsers=admin
+                 org.appfuse.service.UserManager.removeUser=admin
+             </value>
+        </property>
+    </bean>
 </beans>
