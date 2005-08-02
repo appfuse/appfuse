@@ -1,11 +1,14 @@
 package org.appfuse.webapp.action;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import net.sf.acegisecurity.AccessDeniedException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -78,6 +81,17 @@ public final class ActionExceptionHandler extends ExceptionHandler {
         // log the exception to the default logger
         logException(ex);
 
+        if (ex instanceof AccessDeniedException && forward == null) {
+            storeException(request, "", new ActionMessage("errors.detail", ex.getMessage()), forward);
+            try {
+                response.sendError(HttpServletResponse.SC_FORBIDDEN);
+                return null;
+            } catch (IOException io) {
+                io.printStackTrace();
+                log.error(io.getMessage());
+            }
+        }
+        
         // Get the chained exceptions (causes) and add them to the
         // list of errors as well
         while (ex != null) {
