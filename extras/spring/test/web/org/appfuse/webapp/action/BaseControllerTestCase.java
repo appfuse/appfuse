@@ -34,7 +34,7 @@ public abstract class BaseControllerTestCase extends TestCase {
         String[] paths = {
                 "classpath*:/" + pkg + "/dao/applicationContext-*.xml",
                 "classpath*:META-INF/applicationContext-*.xml",
-                "/WEB-INF/applicationContext-*.xml",
+                "/WEB-INF/applicationContext-validation.xml",
                 "/WEB-INF/action-servlet.xml"
             };
 
