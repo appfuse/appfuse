@@ -1,4 +1,3 @@
-
     <filter-mapping>
         <filter-name>securityFilter</filter-name>
         <url-pattern>/j_security_check</url-pattern>
