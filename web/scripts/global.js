@@ -372,7 +372,11 @@ function radio(clicked){
     clicked.parentNode.parentNode.className="over";
 }
 
-window.onload = highlightFormElements;
+window.onload = function() {
+    highlightFormElements();
+    new Effect.Highlight('successMessages', {startcolor: '#ffff00', endcolor: '#ffffcc'});
+    new Effect.Highlight('errorMessages', {startcolor: '#ffff00', endcolor: '#ffffcc'});
+}
 
 // Show the document's title on the status bar
 window.defaultStatus=document.title;

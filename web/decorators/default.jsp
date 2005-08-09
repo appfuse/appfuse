@@ -9,12 +9,16 @@
         <%-- Include common set of meta tags for each layout --%>
         <%@ include file="/common/meta.jsp" %>
         <title><fmt:message key="webapp.prefix"/><decorator:title/></title>
-        <script type="text/javascript" src="<c:url value='/scripts/helptip.js'/>"></script>
+        
         <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/default.css'/>" /> 
         <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/helptip.css'/>" />
-        <link rel="stylesheet" type="text/css" media="print" href="<c:url value='/styles/print.css'/>" />     
+        <link rel="stylesheet" type="text/css" media="print" href="<c:url value='/styles/print.css'/>" />    
+
+        <script type="text/javascript" src="<c:url value='/scripts/prototype.js'/>"></script> 
+        <script type="text/javascript" src="<c:url value='/scripts/effects.js'/>"></script>
+        <script type="text/javascript" src="<c:url value='/scripts/helptip.js'/>"></script>
         <script type="text/javascript" src="<c:url value='/scripts/global.js'/>"></script>
-        <script type="text/javascript" src="<c:url value='/scripts/fade.js'/>"></script> 
+
       <c:if test="${sessionScope.currentUserForm != null}">
         <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/menuExpandable.css'/>" /> 
         <script type="text/javascript" src="<c:url value='/scripts/menuExpandable.js'/>"></script>
