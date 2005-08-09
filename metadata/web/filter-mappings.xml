@@ -1,7 +1,16 @@
+
     <filter-mapping>
         <filter-name>securityFilter</filter-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/j_security_check</url-pattern>
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>securityFilter</filter-name>
+        <url-pattern>*.html</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>securityFilter</filter-name>
+        <url-pattern>*.jsp</url-pattern>
+    </filter-mapping>    
     <filter-mapping>
         <filter-name>loginFilter</filter-name>
         <url-pattern>/login.jsp</url-pattern>
