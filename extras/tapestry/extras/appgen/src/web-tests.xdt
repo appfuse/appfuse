@@ -1,20 +1,20 @@
 <XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>
 <!--<XDtForm:className/>-START-->
     <!-- runs person-related tests -->
-    <target name="<XDtClass:className/>Tests"
-        depends="Search<XDtClass:className/>s,Edit<XDtClass:className/>,Save<XDtClass:className/>,Add<XDtClass:className/>,Delete<XDtClass:className/>"
+    <target name="<XDtForm:className/>Tests"
+        depends="Search<XDtForm:className/>s,Edit<XDtForm:className/>,Save<XDtForm:className/>,Add<XDtForm:className/>,Delete<XDtForm:className/>"
         description="Call and executes all person test cases (targets)">
-        <echo>Successfully ran all <XDtClass:className/> HTML tests!</echo>
+        <echo>Successfully ran all <XDtForm:className/> HTML tests!</echo>
     </target>
 
     <!-- Verify the edit person screen displays without errors -->
-    <target name="Edit<XDtClass:className/>"
-        description="Tests editing an existing <XDtClass:className/>'s information">
-        <canoo name="edit<XDtClass:className/>">
+    <target name="Edit<XDtForm:className/>"
+        description="Tests editing an existing <XDtForm:className/>'s information">
+        <canoo name="edit<XDtForm:className/>">
             &config;
             <steps>
                 &login;
-                <invoke stepid="View <XDtClass:className/> List" url="/<XDtForm:classNameLower/>s.html"/>
+                <invoke stepid="View <XDtForm:className/> List" url="/<XDtForm:classNameLower/>s.html"/>
                 <clicklink stepid="edit first record in list" label="1"/>
                 <verifytitle stepid="we should see the <XDtForm:classNameLower/>Detail title"
                     text="${webapp.prefix}${<XDtForm:classNameLower/>Detail.title}"/>
@@ -23,13 +23,13 @@
     </target>
 
     <!-- Edit a <XDtForm:classNameLower/> and then save -->
-    <target name="Save<XDtClass:className/>"
+    <target name="Save<XDtForm:className/>"
         description="Tests editing and saving a user">
-        <canoo name="save<XDtClass:className/>">
+        <canoo name="save<XDtForm:className/>">
             &config;
             <steps>
                 &login;
-                <invoke stepid="View <XDtClass:className/> List" url="/<XDtForm:classNameLower/>s.html"/>
+                <invoke stepid="View <XDtForm:className/> List" url="/<XDtForm:classNameLower/>s.html"/>
                 <clicklink stepid="edit first record in list" label="1"/>
                 <verifytitle stepid="we should see the <XDtForm:classNameLower/>Detail title"
                     text="${webapp.prefix}${<XDtForm:classNameLower/>Detail.title}"/>
@@ -50,10 +50,10 @@
         </canoo>
     </target>
 
-    <!-- Add a new <XDtClass:className/> -->
-    <target name="Add<XDtClass:className/>"
-        description="Adds a new <XDtClass:className/>">
-        <canoo name="add<XDtClass:className/>">
+    <!-- Add a new <XDtForm:className/> -->
+    <target name="Add<XDtForm:className/>"
+        description="Adds a new <XDtForm:className/>">
+        <canoo name="add<XDtForm:className/>">
             &config;
             <steps>
                 &login;
@@ -77,7 +77,7 @@
                 </XDtMethod:forAllMethods>
                 <clickbutton label="${button.save}" stepid="Click button 'Save'"/>
 
-                <verifytitle stepid="<XDtClass:className/> List appears if save successful" 
+                <verifytitle stepid="<XDtForm:className/> List appears if save successful" 
                     text="${webapp.prefix}${<XDtForm:classNameLower/>List.title}"/>
                 <verifytext stepid="verify success message" text="${<XDtForm:classNameLower/>.added}"/>
             </steps>
@@ -85,29 +85,29 @@
     </target>
 
     <!-- Delete existing <XDtForm:classNameLower/> -->
-    <target name="Delete<XDtClass:className/>"
-        description="Deletes existing <XDtClass:className/>">
-        <canoo name="delete<XDtClass:className/>">
+    <target name="Delete<XDtForm:className/>"
+        description="Deletes existing <XDtForm:className/>">
+        <canoo name="delete<XDtForm:className/>">
             &config;
             <steps>
                 &login;
-                <invoke stepid="View <XDtClass:className/> List" url="/<XDtForm:classNameLower/>s.html"/>
+                <invoke stepid="View <XDtForm:className/> List" url="/<XDtForm:classNameLower/>s.html"/>
                 <clicklink stepid="delete first record in list" label="1"/>
                 <clickbutton label="${button.delete}" stepid="Click button 'Delete'"/>
-                <verifytitle stepid="display <XDtClass:className/> List" text="${webapp.prefix}${<XDtForm:classNameLower/>List.title}"/>
+                <verifytitle stepid="display <XDtForm:className/> List" text="${webapp.prefix}${<XDtForm:classNameLower/>List.title}"/>
                 <verifytext stepid="verify success message" text="${<XDtForm:classNameLower/>.deleted}"/>
             </steps>
         </canoo>
     </target>
 
     <!-- Verify the people list screen displays without errors -->
-    <target name="Search<XDtClass:className/>s" 
+    <target name="Search<XDtForm:className/>s" 
         description="Tests search for and displaying all <XDtForm:classNameLower/>s">
-        <canoo name="search<XDtClass:className/>s">
+        <canoo name="search<XDtForm:className/>s">
             &config;
             <steps>
                 &login;
-                <invoke stepid="click View <XDtClass:className/>s link" url="/<XDtForm:classNameLower/>s.html"/>
+                <invoke stepid="click View <XDtForm:className/>s link" url="/<XDtForm:classNameLower/>s.html"/>
                 <verifytitle stepid="we should see the <XDtForm:classNameLower/>List title" 
                     text="${webapp.prefix}${<XDtForm:classNameLower/>List.title}"/>
             </steps>

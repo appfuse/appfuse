@@ -4,38 +4,38 @@ package <XDtForm:parentPackageName/>.service;
 
 import java.util.List;
 
-import <XDtPackage:packageName/>.<XDtClass:className/>;
-import <XDtForm:parentPackageName/>.dao.<XDtClass:className/>DAO;
+import <XDtPackage:packageName/>.<XDtForm:className/>;
+import <XDtForm:parentPackageName/>.dao.<XDtForm:className/>DAO;
 
-public interface <XDtClass:className/>Manager extends Manager {
+public interface <XDtForm:className/>Manager extends Manager {
 
     /**
      * Setter for DAO, convenient for unit testing
      */
-    public void set<XDtClass:className/>DAO(<XDtClass:className/>DAO <XDtForm:classNameLower/>DAO);
+    public void set<XDtForm:className/>DAO(<XDtForm:className/>DAO <XDtForm:classNameLower/>DAO);
 
     /**
      * Retrieves all of the <XDtForm:classNameLower/>s
      */
-    public List get<XDtClass:className/>s(<XDtClass:className/> <XDtForm:classNameLower/>);
+    public List get<XDtForm:className/>s(<XDtForm:className/> <XDtForm:classNameLower/>);
 
     /**
      * Gets <XDtForm:classNameLower/>'s information based on <XDtMethodEx:idField getType="propertyName"/>.
      * @param <XDtMethodEx:idField getType="propertyName"/> the <XDtForm:classNameLower/>'s <XDtMethodEx:idField getType="propertyName"/>
      * @return <XDtForm:classNameLower/> populated <XDtForm:classNameLower/> object
      */
-    public <XDtClass:className/> get<XDtClass:className/>(final String <XDtMethodEx:idField getType="propertyName"/>);
+    public <XDtForm:className/> get<XDtForm:className/>(final String <XDtMethodEx:idField getType="propertyName"/>);
 
     /**
      * Saves a <XDtForm:classNameLower/>'s information
      * @param <XDtForm:classNameLower/> the object to be saved
      */
-    public void save<XDtClass:className/>(<XDtClass:className/> <XDtForm:classNameLower/>);
+    public void save<XDtForm:className/>(<XDtForm:className/> <XDtForm:classNameLower/>);
 
     /**
      * Removes a <XDtForm:classNameLower/> from the database by <XDtMethodEx:idField getType="propertyName"/>
      * @param <XDtMethodEx:idField getType="propertyName"/> the <XDtForm:classNameLower/>'s <XDtMethodEx:idField getType="propertyName"/>
      */
-    public void remove<XDtClass:className/>(final String <XDtMethodEx:idField getType="propertyName"/>);
+    public void remove<XDtForm:className/>(final String <XDtMethodEx:idField getType="propertyName"/>);
 }
 

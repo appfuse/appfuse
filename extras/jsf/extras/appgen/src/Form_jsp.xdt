@@ -6,15 +6,15 @@
 <f:view>
 <f:loadBundle var="text" basename="#{<XDtForm:classNameLower/>Form.bundleName}"/>
 
-<h:form id="<XDtForm:classNameLower/>Form" onsubmit="return validate<XDtClass:className/>Form(this)">
+<h:form id="<XDtForm:classNameLower/>Form" onsubmit="return validate<XDtForm:className/>Form(this)">
 <XDtForm:forAllFields>
-<XDtForm:ifIsIdField>
+<XDtForm:ifIsIdOrVersionField>
 <h:inputHidden value="#{<XDtForm:classNameLower/>Form.<XDtForm:classNameLower/>.<XDtForm:fieldName/>}" id="<XDtForm:fieldName/>"/>
-</XDtForm:ifIsIdField>
+</XDtForm:ifIsIdOrVersionField>
 </XDtForm:forAllFields>
 <h:panelGrid columns="3" styleClass="detail" columnClasses="label">
 <XDtForm:forAllFields>
-<XDtForm:ifIsNotIdField>
+<XDtForm:ifIsNotIdOrVersionField>
 
     <h:outputLabel for="<XDtForm:fieldName/>" value="#{text['<XDtForm:classNameLower/>.<XDtForm:fieldName/>']}"/>
 
@@ -27,7 +27,7 @@
     </h:inputText>
   </XDtForm:ifIsNotBooleanField>
     <x:message for="<XDtForm:fieldName/>" styleClass="fieldError"/>
-</XDtForm:ifIsNotIdField>
+</XDtForm:ifIsNotIdOrVersionField>
 </XDtForm:forAllFields>
 
     <%-- Put in empty <td></td> --%>
@@ -40,7 +40,7 @@
         <c:if test="${not empty <XDtForm:classNameLower/>Form.<XDtForm:classNameLower/>.<XDtMethodEx:idField getType="propertyName"/>}">
         <h:commandButton value="#{text['button.delete']}" action="#{<XDtForm:classNameLower/>Form.delete}" 
             id="delete" styleClass="button" onclick="bCancel=false"/>
-        </c:if> <%-- Removed confirm since WebTest can't handle it: ;return confirmDelete('<XDtClass:className/>') --%>
+        </c:if> <%-- Removed confirm since WebTest can't handle it: ;return confirmDelete('<XDtForm:className/>') --%>
 
         <h:commandButton value="#{text['button.cancel']}" action="cancel" immediate="true"  
             id="cancel" styleClass="button" onclick="bCancel=true"/>
@@ -50,6 +50,6 @@
 </h:panelGrid>
 </h:form>
 
-<v:validatorScript functionName="validate<XDtClass:className/>Form"/>
+<v:validatorScript functionName="validate<XDtForm:className/>Form"/>
 
 </f:view>

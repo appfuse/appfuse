@@ -3,17 +3,17 @@
 <title><fmt:message key="<XDtForm:classNameLower/>Detail.title"/></title>
 <content tag="heading"><fmt:message key="<XDtForm:classNameLower/>Detail.heading"/></content>
 
-<ww:form name="'<XDtForm:classNameLower/>'" action="'save<XDtClass:className/>'" method="'post'" validate="true">
+<ww:form name="'<XDtForm:classNameLower/>'" action="'save<XDtForm:className/>'" method="'post'" validate="true">
 <table class="detail">
 <XDtForm:forAllFields>
-<XDtForm:ifIsIdField>
+<XDtForm:ifIsIdOrVersionField>
 <ww:hidden name="'<XDtForm:classNameLower/>.<XDtForm:fieldName/>'" value="<XDtForm:classNameLower/>.<XDtForm:fieldName/>"/>
-</XDtForm:ifIsIdField>
-<XDtForm:ifIsNotIdField>
+</XDtForm:ifIsIdOrVersionField>
+<XDtForm:ifIsNotIdOrVersionField>
 
     <ww:textfield label="getText('<XDtForm:classNameLower/>.<XDtForm:fieldName/>')" name="'<XDtForm:classNameLower/>.<XDtForm:fieldName/>'"
         value="<XDtForm:classNameLower/>.<XDtForm:fieldName/>" required="true"/>
-</XDtForm:ifIsNotIdField>
+</XDtForm:ifIsNotIdOrVersionField>
 </XDtForm:forAllFields>
     <tr>
         <td></td>
@@ -22,7 +22,7 @@
                 value="<fmt:message key="button.save"/>" />
             
             <input type="submit" class="button" name="delete"
-                onclick="return confirmDelete('<XDtClass:className/>')" 
+                onclick="return confirmDelete('<XDtForm:className/>')" 
                 value="<fmt:message key="button.delete"/>" />
                 
             <input type="submit" class="button" name="cancel" 

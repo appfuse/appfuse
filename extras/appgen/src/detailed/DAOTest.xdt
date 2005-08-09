@@ -4,18 +4,18 @@ package <XDtForm:parentPackageName/>.dao;
 
 import java.util.List;
 
-import <XDtPackage:packageName/>.<XDtClass:className/>;
+import <XDtPackage:packageName/>.<XDtForm:className/>;
 
 import org.springframework.orm.ObjectRetrievalFailureException;
 
-public class <XDtClass:className/>DAOTest extends BaseDAOTestCase {
+public class <XDtForm:className/>DAOTest extends BaseDAOTestCase {
     private <XDtMethodEx:idField getType="propertyType"/> <XDtForm:classNameLower/>Id = new <XDtMethodEx:idField getType="propertyType"/>("1");
-    private <XDtClass:className/> <XDtForm:classNameLower/> = null;
-    private <XDtClass:className/>DAO dao = null;
+    private <XDtForm:className/> <XDtForm:classNameLower/> = null;
+    private <XDtForm:className/>DAO dao = null;
 
     protected void setUp() throws Exception {
         super.setUp();
-        dao = (<XDtClass:className/>DAO) ctx.getBean("<XDtForm:classNameLower/>DAO");
+        dao = (<XDtForm:className/>DAO) ctx.getBean("<XDtForm:classNameLower/>DAO");
     }
 
     protected void tearDown() throws Exception {
@@ -23,107 +23,80 @@ public class <XDtClass:className/>DAOTest extends BaseDAOTestCase {
         dao = null;
     }
 
-    public void testAdd<XDtClass:className/>() throws Exception {
-        <XDtForm:classNameLower/> = new <XDtClass:className/>();
+    public void testAdd<XDtForm:className/>() throws Exception {
+        <XDtForm:classNameLower/> = new <XDtForm:className/>();
 
         // set required fields
         <XDtMethod:forAllMethods>
         <XDtMethod:ifMethodTagValueEquals tagName="hibernate.id" paramName="generator-class" value="assigned">
-        <XDtType:ifIsOfType value="return-type" type="java.lang.String" extent="concrete-type">
-        <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>("<XDtMethod:propertyName/>4");
-        </XDtType:ifIsOfType>
+        Object <XDtMethod:name/> = <XDtMethodEx:randomValueForSetter/>;
+        <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>(XDtMethod:name/>);
         </XDtMethod:ifMethodTagValueEquals>
 
         <XDtMethod:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
-        <XDtType:ifIsOfType value="return-type" type="java.lang.Boolean" extent="concrete-type">
-        <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>(Boolean.TRUE);
-        </XDtType:ifIsOfType>
-        <XDtType:ifIsOfType value="return-type" type="java.lang.String" extent="concrete-type">
-        <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>("<XDtMethod:propertyName/>");
-        </XDtType:ifIsOfType>
-        <XDtType:ifIsOfType value="return-type" type="java.lang.Long" extent="concrete-type">
-        <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>(new Long(100));
-        </XDtType:ifIsOfType>
-        <XDtType:ifIsOfType value="return-type" type="java.lang.Integer" extent="concrete-type">
-        <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>(new Integer(100));
-        </XDtType:ifIsOfType>
+        <XDtMethod:transformedMethodType/> <XDtMethod:propertyName/> = <XDtMethodEx:randomValueForSetter/>;
+        <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>(<XDtMethod:propertyName/>);        
         </XDtMethod:ifMethodTagValueEquals>
         </XDtMethod:forAllMethods>
 
-        dao.save<XDtClass:className/>(<XDtForm:classNameLower/>);
+        dao.save<XDtForm:className/>(<XDtForm:classNameLower/>);
 
         // verify a primary key was assigned
         assertNotNull(<XDtForm:classNameLower/>.<XDtMethodEx:idField getType="getterName"/>());
 
-        // (optional) verify set fields are same after save
-        /*
+        // verify set fields are same after save
         <XDtMethod:forAllMethods>
         <XDtMethod:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
-        <XDtType:ifIsOfType value="return-type" type="java.lang.Boolean" extent="concrete-type">
-        assertEquals(<XDtForm:classNameLower/>.<XDtMethod:getterMethod/>(), Boolean.TRUE);
-        </XDtType:ifIsOfType>
-        <XDtType:ifIsOfType value="return-type" type="java.lang.String" extent="concrete-type">
-        assertEquals(<XDtForm:classNameLower/>.<XDtMethod:getterMethod/>(), "<XDtMethod:propertyName/>");
-        </XDtType:ifIsOfType>
-        <XDtType:ifIsOfType value="return-type" type="java.lang.Long" extent="concrete-type">
-        assertEquals(<XDtForm:classNameLower/>.<XDtMethod:getterMethod/>(), new Long(100));
-        </XDtType:ifIsOfType>
-        <XDtType:ifIsOfType value="return-type" type="java.lang.Integer" extent="concrete-type">
-        assertEquals(<XDtForm:classNameLower/>.<XDtMethod:getterMethod/>(), new Integer(100));
-        </XDtType:ifIsOfType>
+        assertEquals(<XDtMethod:propertyName/>, <XDtForm:classNameLower/>.<XDtMethod:getterMethod/>());
         </XDtMethod:ifMethodTagValueEquals>
         </XDtMethod:forAllMethods>
-        */
     }
 
-    public void testGet<XDtClass:className/>() throws Exception {
-        <XDtForm:classNameLower/> = dao.get<XDtClass:className/>(<XDtForm:classNameLower/>Id);
+    public void testGet<XDtForm:className/>() throws Exception {
+        <XDtForm:classNameLower/> = dao.get<XDtForm:className/>(<XDtForm:classNameLower/>Id);
         assertNotNull(<XDtForm:classNameLower/>);
     }
 
-    public void testGet<XDtClass:className/>s() throws Exception {
-        <XDtForm:classNameLower/> = new <XDtClass:className/>();
-        //set value for primary key
+    public void testGet<XDtForm:className/>s() throws Exception {
+        <XDtForm:classNameLower/> = new <XDtForm:className/>();
         <XDtMethod:forAllMethods>
         <XDtMethod:ifMethodTagValueEquals tagName="hibernate.id" paramName="generator-class" value="assigned">
         <XDtType:ifIsOfType value="return-type" type="java.lang.String" extent="concrete-type">
+        //set value for primary key
         <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>("1");
         </XDtType:ifIsOfType>
         </XDtMethod:ifMethodTagValueEquals>
         </XDtMethod:forAllMethods>
 
-        List results = dao.get<XDtClass:className/>s(<XDtForm:classNameLower/>);
+        List results = dao.get<XDtForm:className/>s(<XDtForm:classNameLower/>);
         assertTrue(results.size() > 0);
     }
 
-    public void testSave<XDtClass:className/>() throws Exception {
-        <XDtForm:classNameLower/> = dao.get<XDtClass:className/>(<XDtForm:classNameLower/>Id);
+    public void testSave<XDtForm:className/>() throws Exception {
+        <XDtForm:classNameLower/> = dao.get<XDtForm:className/>(<XDtForm:classNameLower/>Id);
 
-        // update required string fields
+        // update required fields
         <XDtMethod:forAllMethods>
         <XDtMethod:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
-        <XDtType:ifIsOfType value="return-type" type="java.lang.String" extent="concrete-type">
-        <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>("<XDtMethod:propertyName/>");
-        </XDtType:ifIsOfType>
+        <XDtMethod:transformedMethodType/> <XDtMethod:propertyName/> = <XDtMethodEx:randomValueForSetter/>;
+        <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>(<XDtMethod:propertyName/>);        
         </XDtMethod:ifMethodTagValueEquals>
         </XDtMethod:forAllMethods>
 
-        dao.save<XDtClass:className/>(<XDtForm:classNameLower/>);
+        dao.save<XDtForm:className/>(<XDtForm:classNameLower/>);
 
         <XDtMethod:forAllMethods>
         <XDtMethod:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
-        <XDtType:ifIsOfType value="return-type" type="java.lang.String" extent="concrete-type">
-        assertEquals(<XDtForm:classNameLower/>.<XDtMethod:getterMethod/>(), "<XDtMethod:propertyName/>");
-        </XDtType:ifIsOfType>
+        assertEquals(<XDtMethod:propertyName/>, <XDtForm:classNameLower/>.<XDtMethod:getterMethod/>());
         </XDtMethod:ifMethodTagValueEquals>
         </XDtMethod:forAllMethods>
     }
 
-    public void testRemove<XDtClass:className/>() throws Exception {
+    public void testRemove<XDtForm:className/>() throws Exception {
         <XDtMethodEx:idField getType="propertyType"/> removeId = new <XDtMethodEx:idField getType="propertyType"/>("3");
-        dao.remove<XDtClass:className/>(removeId);
+        dao.remove<XDtForm:className/>(removeId);
         try {
-            dao.get<XDtClass:className/>(removeId);
+            dao.get<XDtForm:className/>(removeId);
             fail("<XDtForm:classNameLower/> found in database");
         } catch (ObjectRetrievalFailureException e) {
             assertNotNull(e.getMessage());

@@ -4,46 +4,46 @@ package <XDtForm:parentPackageName/>.service.impl;
 
 import java.util.List;
 
-import <XDtPackage:packageName/>.<XDtClass:className/>;
-import <XDtForm:parentPackageName/>.dao.<XDtClass:className/>DAO;
-import <XDtForm:parentPackageName/>.service.<XDtClass:className/>Manager;
+import <XDtPackage:packageName/>.<XDtForm:className/>;
+import <XDtForm:parentPackageName/>.dao.<XDtForm:className/>DAO;
+import <XDtForm:parentPackageName/>.service.<XDtForm:className/>Manager;
 
-public class <XDtClass:className/>ManagerImpl extends BaseManager implements <XDtClass:className/>Manager {
-    private <XDtClass:className/>DAO dao;
+public class <XDtForm:className/>ManagerImpl extends BaseManager implements <XDtForm:className/>Manager {
+    private <XDtForm:className/>DAO dao;
 
     /**
      * Set the DAO for communication with the data layer.
      * @param dao
      */
-    public void set<XDtClass:className/>DAO(<XDtClass:className/>DAO dao) {
+    public void set<XDtForm:className/>DAO(<XDtForm:className/>DAO dao) {
         this.dao = dao;
     }
 
     /**
-     * @see <XDtForm:parentPackageName/>.service.<XDtClass:className/>Manager#get<XDtClass:className/>s(<XDtPackage:packageName/>.<XDtClass:className/>)
+     * @see <XDtForm:parentPackageName/>.service.<XDtForm:className/>Manager#get<XDtForm:className/>s(<XDtPackage:packageName/>.<XDtForm:className/>)
      */
-    public List get<XDtClass:className/>s(final <XDtClass:className/> <XDtForm:classNameLower/>) {
-        return dao.get<XDtClass:className/>s(<XDtForm:classNameLower/>);
+    public List get<XDtForm:className/>s(final <XDtForm:className/> <XDtForm:classNameLower/>) {
+        return dao.get<XDtForm:className/>s(<XDtForm:classNameLower/>);
     }
 
     /**
-     * @see <XDtForm:parentPackageName/>.service.<XDtClass:className/>Manager#get<XDtClass:className/>(String <XDtMethodEx:idField getType="propertyName"/>)
+     * @see <XDtForm:parentPackageName/>.service.<XDtForm:className/>Manager#get<XDtForm:className/>(String <XDtMethodEx:idField getType="propertyName"/>)
      */
-    public <XDtClass:className/> get<XDtClass:className/>(final String <XDtMethodEx:idField getType="propertyName"/>) {
-        return dao.get<XDtClass:className/>(new <XDtMethodEx:idField getType="propertyType"/>(<XDtMethodEx:idField getType="propertyName"/>));
+    public <XDtForm:className/> get<XDtForm:className/>(final String <XDtMethodEx:idField getType="propertyName"/>) {
+        return dao.get<XDtForm:className/>(new <XDtMethodEx:idField getType="propertyType"/>(<XDtMethodEx:idField getType="propertyName"/>));
     }
 
     /**
-     * @see <XDtForm:parentPackageName/>.service.<XDtClass:className/>Manager#save<XDtClass:className/>(<XDtClass:className/> <XDtForm:classNameLower/>)
+     * @see <XDtForm:parentPackageName/>.service.<XDtForm:className/>Manager#save<XDtForm:className/>(<XDtForm:className/> <XDtForm:classNameLower/>)
      */
-    public void save<XDtClass:className/>(<XDtClass:className/> <XDtForm:classNameLower/>) {
-        dao.save<XDtClass:className/>(<XDtForm:classNameLower/>);
+    public void save<XDtForm:className/>(<XDtForm:className/> <XDtForm:classNameLower/>) {
+        dao.save<XDtForm:className/>(<XDtForm:classNameLower/>);
     }
 
     /**
-     * @see <XDtForm:parentPackageName/>.service.<XDtClass:className/>Manager#remove<XDtClass:className/>(String <XDtMethodEx:idField getType="propertyName"/>)
+     * @see <XDtForm:parentPackageName/>.service.<XDtForm:className/>Manager#remove<XDtForm:className/>(String <XDtMethodEx:idField getType="propertyName"/>)
      */
-    public void remove<XDtClass:className/>(final String <XDtMethodEx:idField getType="propertyName"/>) {
-        dao.remove<XDtClass:className/>(new <XDtMethodEx:idField getType="propertyType"/>(<XDtMethodEx:idField getType="propertyName"/>));
+    public void remove<XDtForm:className/>(final String <XDtMethodEx:idField getType="propertyName"/>) {
+        dao.remove<XDtForm:className/>(new <XDtMethodEx:idField getType="propertyType"/>(<XDtMethodEx:idField getType="propertyName"/>));
     }
 }

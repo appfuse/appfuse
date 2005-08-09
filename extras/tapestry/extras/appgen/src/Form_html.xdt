@@ -26,10 +26,10 @@
 <form jwcid="<XDtForm:classNameLower/>Form@Form" delegate="ognl:beans.delegate" id="<XDtForm:classNameLower/>Form">
 <table class="detail">
 <XDtForm:forAllFields>
-<XDtForm:ifIsIdField>
+<XDtForm:ifIsIdOrVersionField>
 <input type="hidden" jwcid="@Hidden" value="ognl:<XDtForm:classNameLower/>.<XDtForm:fieldName/>"/>
-</XDtForm:ifIsIdField>
-<XDtForm:ifIsNotIdField>
+</XDtForm:ifIsIdOrVersionField>
+<XDtForm:ifIsNotIdOrVersionField>
     <tr>
         <th>
             <label jwcid="@FieldLabel" field="ognl:components.<XDtForm:fieldName/>Field"/>
@@ -38,7 +38,7 @@
             <input jwcid="<XDtForm:fieldName/>Field" type="text" id="<XDtForm:fieldName/>"/>
         </td>
     </tr>
-</XDtForm:ifIsNotIdField>
+</XDtForm:ifIsNotIdOrVersionField>
 </XDtForm:forAllFields>
     <tr>
         <td></td>
@@ -46,7 +46,7 @@
             <input type="submit" class="button" jwcid="@Submit" value="message:button.save" id="save" listener="ognl:listeners.save"/>
           <span jwcid="@contrib:FormConditional" condition="ognl:<XDtForm:classNameLower/>.<XDtMethodEx:idField getType="propertyName"/> != null">
             <input type="submit" class="button" jwcid="@Submit" value="message:button.delete" id="delete" listener="ognl:listeners.delete"
-                onclick="form.onsubmit = null"/> <!-- Removed confirm since WebTest can't handle it: ;return confirmDelete('<XDtClass:className/>') -->
+                onclick="form.onsubmit = null"/> <!-- Removed confirm since WebTest can't handle it: ;return confirmDelete('<XDtForm:className/>') -->
           </span>
             <input type="submit" class="button" jwcid="@Submit" value="message:button.cancel" id="cancel" listener="ognl:listeners.cancel"
                 onclick="form.onsubmit = null"/>

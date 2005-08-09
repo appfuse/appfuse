@@ -6,7 +6,7 @@
 <title><fmt:message key="<XDtForm:classNameLower/>List.title"/></title>
 <content tag="heading"><fmt:message key="<XDtForm:classNameLower/>List.heading"/></content>
 
-<h:form id="edit<XDtClass:className/>">
+<h:form id="edit<XDtForm:className/>">
 
 <c:set var="buttons">
     <h:commandButton value="#{text['button.add']}" action="add" id="add" 
@@ -29,7 +29,7 @@
 <XDtMethod:forAllMethods>
   <XDtMethod:ifHasMethodTag tagName="hibernate.id">
     <display:column sort="true" titleKey="<XDtForm:classNameLower/>.<XDtMethod:propertyName/>" media="html">
-        <a href="javascript:view<XDtClass:className/>('<c:out value="${<XDtForm:classNameLower/>s.<XDtMethod:propertyName/>}"/>')"><c:out value="${<XDtForm:classNameLower/>s.<XDtMethod:propertyName/>}"/></a>
+        <a href="javascript:view<XDtForm:className/>('<c:out value="${<XDtForm:classNameLower/>s.<XDtMethod:propertyName/>}"/>')"><c:out value="${<XDtForm:classNameLower/>s.<XDtMethod:propertyName/>}"/></a>
     </display:column>
     <display:column property="<XDtMethod:propertyName/>" media="csv excel xml pdf" titleKey="<XDtForm:classNameLower/>.<XDtMethod:propertyName/>"/>
   </XDtMethod:ifHasMethodTag>
@@ -43,14 +43,14 @@
 
 <c:out value="${buttons}" escapeXml="false"/>
 
-<h:commandLink action="#{<XDtForm:classNameLower/>Form.edit}" id="edit<XDtClass:className/>Link">
+<h:commandLink action="#{<XDtForm:classNameLower/>Form.edit}" id="edit<XDtForm:className/>Link">
     <f:param name="<XDtMethodEx:idField getType="propertyName"/>"/>
 </h:commandLink>
 
 <script type="text/javascript">
-function view<XDtClass:className/>(<XDtMethodEx:idField getType="propertyName"/>) {
-    var f = document.forms['edit<XDtClass:className/>'];
-    f.elements['edit<XDtClass:className/>:_link_hidden_'].value='edit<XDtClass:className/>:edit<XDtClass:className/>Link';
+function view<XDtForm:className/>(<XDtMethodEx:idField getType="propertyName"/>) {
+    var f = document.forms['edit<XDtForm:className/>'];
+    f.elements['edit<XDtForm:className/>:_link_hidden_'].value='edit<XDtForm:className/>:edit<XDtForm:className/>Link';
     f.elements['<XDtMethodEx:idField getType="propertyName"/>'].value=<XDtMethodEx:idField getType="propertyName"/>;
     f.submit();
 }

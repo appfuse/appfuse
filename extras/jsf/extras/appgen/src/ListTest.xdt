@@ -1,11 +1,11 @@
 <XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>package <XDtForm:parentPackageName/>.webapp.action;
 
-public class <XDtClass:className/>ListTest extends BasePageTestCase {
-    private <XDtClass:className/>List bean;
+public class <XDtForm:className/>ListTest extends BasePageTestCase {
+    private <XDtForm:className/>List bean;
     
     protected void setUp() throws Exception {    
         super.setUp();
-        bean = (<XDtClass:className/>List) getManagedBean("<XDtForm:classNameLower/>List");
+        bean = (<XDtForm:className/>List) getManagedBean("<XDtForm:classNameLower/>List");
     }
 
     protected void tearDown() throws Exception {
@@ -14,7 +14,7 @@ public class <XDtClass:className/>ListTest extends BasePageTestCase {
     }
     
     public void testSearch() throws Exception {
-        assertTrue(bean.get<XDtClass:className/>s().size() >= 1);
+        assertTrue(bean.get<XDtForm:className/>s().size() >= 1);
         assertFalse(bean.hasErrors());
     }
 }

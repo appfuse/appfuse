@@ -1,6 +1,6 @@
 <%-- Error Messages --%>
 <c:if test="${not empty error}">
-    <div class="error fade-ffff00" id="errorMessages">	
+    <div class="error" id="errorMessages">	
         <c:forEach var="err" items="${error}">
             <img src="<c:url value="/images/iconWarning.gif"/>"
                 alt="<fmt:message key="icon.warning"/>" class="icon" />
@@ -11,7 +11,7 @@
 
 <%-- Success Messages --%>
 <c:if test="${not empty message}">
-    <div class="message fade-ffff00" id="successMessages">		
+    <div class="message" id="successMessages">		
         <c:forEach var="msg" items="${message}">
             <img src="<c:url value="/images/iconInformation.gif"/>"
                 alt="<fmt:message key="icon.information"/>" class="icon" />

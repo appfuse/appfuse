@@ -6,12 +6,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
-import <XDtPackage:packageName/>.<XDtClass:className/>;
+import <XDtPackage:packageName/>.<XDtForm:className/>;
 import <XDtForm:parentPackageName/>.service.Manager;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 
-public class <XDtClass:className/>FormController extends BaseFormController {
+public class <XDtForm:className/>FormController extends BaseFormController {
     private Manager manager = null;
 
     public void setManager(Manager manager) {
@@ -21,12 +21,12 @@ public class <XDtClass:className/>FormController extends BaseFormController {
     protected Object formBackingObject(HttpServletRequest request)
     throws Exception {
         String <XDtMethodEx:idField getType="propertyName"/> = request.getParameter("<XDtMethodEx:idField getType="propertyName"/>");
-        <XDtClass:className/> <XDtForm:classNameLower/> = null;
+        <XDtForm:className/> <XDtForm:classNameLower/> = null;
 
         if (!StringUtils.isEmpty(<XDtMethodEx:idField getType="propertyName"/>)) {
-            <XDtForm:classNameLower/> = (<XDtClass:className/>) manager.getObject(<XDtClass:className/>.class, new <XDtMethodEx:idField getType="propertyType"/>(<XDtMethodEx:idField getType="propertyName"/>));
+            <XDtForm:classNameLower/> = (<XDtForm:className/>) manager.getObject(<XDtForm:className/>.class, new <XDtMethodEx:idField getType="propertyType"/>(<XDtMethodEx:idField getType="propertyName"/>));
         } else {
-            <XDtForm:classNameLower/> = new <XDtClass:className/>();
+            <XDtForm:classNameLower/> = new <XDtForm:className/>();
         }
 
         return <XDtForm:classNameLower/>;
@@ -40,12 +40,12 @@ public class <XDtClass:className/>FormController extends BaseFormController {
             log.debug("entering 'onSubmit' method...");
         }
 
-        <XDtClass:className/> <XDtForm:classNameLower/> = (<XDtClass:className/>) command;
+        <XDtForm:className/> <XDtForm:classNameLower/> = (<XDtForm:className/>) command;
         boolean isNew = (<XDtForm:classNameLower/>.<XDtMethodEx:idField getType="getterName"/>() == null);
         Locale locale = request.getLocale();
 
         if (request.getParameter("delete") != null) {
-            manager.removeObject(<XDtClass:className/>.class, <XDtForm:classNameLower/>.<XDtMethodEx:idField getType="getterName"/>());
+            manager.removeObject(<XDtForm:className/>.class, <XDtForm:classNameLower/>.<XDtMethodEx:idField getType="getterName"/>());
 
             saveMessage(request, getText("<XDtForm:classNameLower/>.deleted", locale));
         } else {
@@ -55,7 +55,7 @@ public class <XDtClass:className/>FormController extends BaseFormController {
             saveMessage(request, getText(key, locale));
 
             if (!isNew) {
-            	return new ModelAndView("redirect:edit<XDtClass:className/>.html", "<XDtMethodEx:idField getType="propertyName"/>", <XDtForm:classNameLower/>.<XDtMethodEx:idField getType="getterName"/>());
+            	return new ModelAndView("redirect:edit<XDtForm:className/>.html", "<XDtMethodEx:idField getType="propertyName"/>", <XDtForm:classNameLower/>.<XDtMethodEx:idField getType="getterName"/>());
             }
         }
 

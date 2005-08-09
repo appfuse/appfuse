@@ -3,11 +3,11 @@
         <result name="success">/WEB-INF/pages/<XDtForm:classNameLower/>List.jsp</result> 
     </action>
     
-    <action name="edit<XDtClass:className/>" class="<XDtForm:classNameLower/>Action" method="edit">
+    <action name="edit<XDtForm:className/>" class="<XDtForm:classNameLower/>Action" method="edit">
         <result name="success">/WEB-INF/pages/<XDtForm:classNameLower/>Form.jsp</result>
     </action>
     
-    <action name="save<XDtClass:className/>" class="<XDtForm:classNameLower/>Action" method="save">
+    <action name="save<XDtForm:className/>" class="<XDtForm:classNameLower/>Action" method="save">
         <interceptor-ref name="validationStack"/>
         <result name="cancel" type="redirect"><XDtForm:classNameLower/>s.html</result>
         <result name="input">/WEB-INF/pages/<XDtForm:classNameLower/>Form.jsp</result>

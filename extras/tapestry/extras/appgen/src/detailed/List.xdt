@@ -6,17 +6,17 @@ import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.event.PageEvent;
 import org.apache.tapestry.event.PageRenderListener;
 
-import <XDtPackage:packageName/>.<XDtClass:className/>;
-import <XDtForm:parentPackageName/>.service.<XDtClass:className/>Manager;
+import <XDtPackage:packageName/>.<XDtForm:className/>;
+import <XDtForm:parentPackageName/>.service.<XDtForm:className/>Manager;
 
-public abstract class <XDtClass:className/>List extends BasePage implements PageRenderListener {
-    public abstract <XDtClass:className/>Manager get<XDtClass:className/>Manager();
-    public abstract void set<XDtClass:className/>Manager(<XDtClass:className/>Manager manager);
-    public abstract List get<XDtClass:className/>s();
-    public abstract void set<XDtClass:className/>s(List <XDtForm:classNameLower/>s);
+public abstract class <XDtForm:className/>List extends BasePage implements PageRenderListener {
+    public abstract <XDtForm:className/>Manager get<XDtForm:className/>Manager();
+    public abstract void set<XDtForm:className/>Manager(<XDtForm:className/>Manager manager);
+    public abstract List get<XDtForm:className/>s();
+    public abstract void set<XDtForm:className/>s(List <XDtForm:classNameLower/>s);
 
     public void pageBeginRender(PageEvent event) {
-        set<XDtClass:className/>s(get<XDtClass:className/>Manager().get<XDtClass:className/>s(null));
+        set<XDtForm:className/>s(get<XDtForm:className/>Manager().get<XDtForm:className/>s(null));
     }
 
     public void edit(IRequestCycle cycle) {
@@ -27,10 +27,10 @@ public abstract class <XDtClass:className/>List extends BasePage implements Page
             log.debug("fetching <XDtForm:classNameLower/> with <XDtMethodEx:idField getType="propertyName"/>: " + <XDtMethodEx:idField getType="propertyName"/>);
         }
 
-        <XDtClass:className/> <XDtForm:classNameLower/> = get<XDtClass:className/>Manager().get<XDtClass:className/>(<XDtMethodEx:idField getType="propertyName"/>.toString());
+        <XDtForm:className/> <XDtForm:classNameLower/> = get<XDtForm:className/>Manager().get<XDtForm:className/>(<XDtMethodEx:idField getType="propertyName"/>.toString());
 
-        <XDtClass:className/>Form nextPage = (<XDtClass:className/>Form) cycle.getPage("<XDtForm:classNameLower/>Form");
-        nextPage.set<XDtClass:className/>(<XDtForm:classNameLower/>);
+        <XDtForm:className/>Form nextPage = (<XDtForm:className/>Form) cycle.getPage("<XDtForm:classNameLower/>Form");
+        nextPage.set<XDtForm:className/>(<XDtForm:classNameLower/>);
         cycle.activate(nextPage);
     }
 }

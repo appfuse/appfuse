@@ -1,21 +1,21 @@
 <XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>package <XDtForm:parentPackageName/>.webapp.action;
 
-import <XDtPackage:packageName/>.<XDtClass:className/>;
+import <XDtPackage:packageName/>.<XDtForm:className/>;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
-public class <XDtClass:className/>FormControllerTest extends BaseControllerTestCase {
-    private <XDtClass:className/>FormController c;
+public class <XDtForm:className/>FormControllerTest extends BaseControllerTestCase {
+    private <XDtForm:className/>FormController c;
     private MockHttpServletRequest request;
     private ModelAndView mv;
 
     protected void setUp() throws Exception {
         // needed to initialize a user
         super.setUp();
-        c = (<XDtClass:className/>FormController) ctx.getBean("<XDtForm:classNameLower/>FormController");
+        c = (<XDtForm:className/>FormController) ctx.getBean("<XDtForm:classNameLower/>FormController");
     }
 
     protected void tearDown() {
@@ -24,7 +24,7 @@ public class <XDtClass:className/>FormControllerTest extends BaseControllerTestC
 
     public void testEdit() throws Exception {
         log.debug("testing edit...");
-        request = newGet("/edit<XDtClass:className/>.html");
+        request = newGet("/edit<XDtForm:className/>.html");
         request.addParameter("<XDtMethodEx:idField getType="propertyName"/>", "1");
 
         mv = c.handleRequest(request, new MockHttpServletResponse());
@@ -33,15 +33,15 @@ public class <XDtClass:className/>FormControllerTest extends BaseControllerTestC
     }
 
     public void testSave() throws Exception {
-        request = newGet("/edit<XDtClass:className/>.html");
+        request = newGet("/edit<XDtForm:className/>.html");
         request.addParameter("<XDtMethodEx:idField getType="propertyName"/>", "1");
 
         mv = c.handleRequest(request, new MockHttpServletResponse());
 
-        <XDtClass:className/> <XDtForm:classNameLower/> = (<XDtClass:className/>) mv.getModel().get(c.getCommandName());
+        <XDtForm:className/> <XDtForm:classNameLower/> = (<XDtForm:className/>) mv.getModel().get(c.getCommandName());
         assertNotNull(<XDtForm:classNameLower/>);
         
-        request = newPost("/edit<XDtClass:className/>.html");
+        request = newPost("/edit<XDtForm:className/>.html");
         super.objectToRequestParameters(<XDtForm:classNameLower/>, request);
 
         // update the form's fields and add it back to the request
@@ -60,7 +60,7 @@ public class <XDtClass:className/>FormControllerTest extends BaseControllerTestC
     }
 
     public void testRemove() throws Exception {
-        request = newPost("/edit<XDtClass:className/>.html");
+        request = newPost("/edit<XDtForm:className/>.html");
         request.addParameter("delete", "");
         request.addParameter("<XDtMethodEx:idField getType="propertyName"/>", "2");
         mv = c.handleRequest(request, new MockHttpServletResponse());

@@ -3,23 +3,23 @@ package <XDtForm:parentPackageName/>.webapp.action;
 
 import java.io.Serializable;
 
-import <XDtPackage:packageName/>.<XDtClass:className/>;
-import <XDtForm:parentPackageName/>.service.<XDtClass:className/>Manager;
+import <XDtPackage:packageName/>.<XDtForm:className/>;
+import <XDtForm:parentPackageName/>.service.<XDtForm:className/>Manager;
 
-public class <XDtClass:className/>Form extends BasePage implements Serializable {
-    private <XDtClass:className/>Manager <XDtForm:classNameLower/>Manager;
-    private <XDtClass:className/> <XDtForm:classNameLower/> = new <XDtClass:className/>();
+public class <XDtForm:className/>Form extends BasePage implements Serializable {
+    private <XDtForm:className/>Manager <XDtForm:classNameLower/>Manager;
+    private <XDtForm:className/> <XDtForm:classNameLower/> = new <XDtForm:className/>();
     private String <XDtMethodEx:idField getType="propertyName"/>;
 
-    public void set<XDtClass:className/>Manager(<XDtClass:className/>Manager manager) {
+    public void set<XDtForm:className/>Manager(<XDtForm:className/>Manager manager) {
         this.<XDtForm:classNameLower/>Manager = manager;
     }
 
-    public <XDtClass:className/> get<XDtClass:className/>() {
+    public <XDtForm:className/> get<XDtForm:className/>() {
         return <XDtForm:classNameLower/>;
     }
 
-    public void set<XDtClass:className/>(<XDtClass:className/> <XDtForm:classNameLower/>) {
+    public void set<XDtForm:className/>(<XDtForm:className/> <XDtForm:classNameLower/>) {
         this.<XDtForm:classNameLower/> = <XDtForm:classNameLower/>;
     }
     
@@ -28,7 +28,7 @@ public class <XDtClass:className/>Form extends BasePage implements Serializable 
     }
 
     public String delete() {
-        <XDtForm:classNameLower/>Manager.remove<XDtClass:className/>(String.valueOf(<XDtForm:classNameLower/>.<XDtMethodEx:idField getType="getterName"/>()));
+        <XDtForm:classNameLower/>Manager.remove<XDtForm:className/>(String.valueOf(<XDtForm:classNameLower/>.<XDtMethodEx:idField getType="getterName"/>()));
         addMessage("<XDtForm:classNameLower/>.deleted");
 
         return "list";
@@ -36,9 +36,9 @@ public class <XDtClass:className/>Form extends BasePage implements Serializable 
 
     public String edit() {
         if (<XDtMethodEx:idField getType="propertyName"/> != null) {
-            <XDtForm:classNameLower/> = <XDtForm:classNameLower/>Manager.get<XDtClass:className/>(<XDtMethodEx:idField getType="propertyName"/>);
+            <XDtForm:classNameLower/> = <XDtForm:classNameLower/>Manager.get<XDtForm:className/>(<XDtMethodEx:idField getType="propertyName"/>);
         } else {
-            <XDtForm:classNameLower/> = new <XDtClass:className/>();
+            <XDtForm:classNameLower/> = new <XDtForm:className/>();
         }
 
         return "edit";
@@ -47,7 +47,7 @@ public class <XDtClass:className/>Form extends BasePage implements Serializable 
     public String save() {
         boolean isNew = (<XDtForm:classNameLower/>.<XDtMethodEx:idField getType="getterName"/>() == null);
 
-        <XDtForm:classNameLower/>Manager.save<XDtClass:className/>(<XDtForm:classNameLower/>);
+        <XDtForm:classNameLower/>Manager.save<XDtForm:className/>(<XDtForm:classNameLower/>);
 
         String key = (isNew) ? "<XDtForm:classNameLower/>.added" : "<XDtForm:classNameLower/>.updated";
         addMessage(key);

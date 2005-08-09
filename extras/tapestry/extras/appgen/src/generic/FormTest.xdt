@@ -2,16 +2,16 @@
 
 import java.util.ResourceBundle;
 
-import <XDtPackage:packageName/>.<XDtClass:className/>;
+import <XDtPackage:packageName/>.<XDtForm:className/>;
 import <XDtForm:parentPackageName/>.service.Manager;
 
-public class <XDtClass:className/>FormTest extends BasePageTestCase {
-    private <XDtClass:className/>Form page;
+public class <XDtForm:className/>FormTest extends BasePageTestCase {
+    private <XDtForm:className/>Form page;
     private Manager manager;
 
     protected void setUp() throws Exception {    
         super.setUp();
-        page = (<XDtClass:className/>Form) getPage(<XDtClass:className/>Form.class);
+        page = (<XDtForm:className/>Form) getPage(<XDtForm:className/>Form.class);
         
         // unfortunately this is a required step if you're calling 
         // getMessage in the page class
@@ -32,14 +32,14 @@ public class <XDtClass:className/>FormTest extends BasePageTestCase {
     }
 
     public void testAdd() throws Exception {
-        <XDtClass:className/> <XDtForm:classNameLower/> = new <XDtClass:className/>();
+        <XDtForm:className/> <XDtForm:classNameLower/> = new <XDtForm:className/>();
         // update the object's fields
         <XDtMethodEx:forAllMethods>
         <XDtMethodEx:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
         <XDtMethodEx:setterWithValue/>
         </XDtMethodEx:ifMethodTagValueEquals>
         </XDtMethodEx:forAllMethods>
-        page.set<XDtClass:className/>(<XDtForm:classNameLower/>);
+        page.set<XDtForm:className/>(<XDtForm:classNameLower/>);
 
         page.save(page.getRequestCycle());
         assertFalse(page.hasErrors());
@@ -47,7 +47,7 @@ public class <XDtClass:className/>FormTest extends BasePageTestCase {
 
     public void testSave() {
     	assertNotNull(manager);
-        <XDtClass:className/> <XDtForm:classNameLower/> = (<XDtClass:className/>) manager.getObject(<XDtClass:className/>.class, new Long(1));
+        <XDtForm:className/> <XDtForm:classNameLower/> = (<XDtForm:className/>) manager.getObject(<XDtForm:className/>.class, new Long(1));
 
         // update fields
         <XDtMethodEx:forAllMethods>
@@ -55,16 +55,16 @@ public class <XDtClass:className/>FormTest extends BasePageTestCase {
         <XDtMethodEx:setterWithValue/>
         </XDtMethodEx:ifMethodTagValueEquals>
         </XDtMethodEx:forAllMethods>
-        page.set<XDtClass:className/>(<XDtForm:classNameLower/>);
+        page.set<XDtForm:className/>(<XDtForm:classNameLower/>);
 
         page.save(page.getRequestCycle());
         assertFalse(page.hasErrors());
     }
 
     public void testRemove() throws Exception {
-        <XDtClass:className/> <XDtForm:classNameLower/> = new <XDtClass:className/>();
+        <XDtForm:className/> <XDtForm:classNameLower/> = new <XDtForm:className/>();
         <XDtForm:classNameLower/>.<XDtMethodEx:idField getType="setterName"/>(new <XDtMethodEx:idField getType="propertyType"/>("2"));
-        page.set<XDtClass:className/>(<XDtForm:classNameLower/>);
+        page.set<XDtForm:className/>(<XDtForm:classNameLower/>);
 
         page.delete(page.getRequestCycle());
         assertFalse(page.hasErrors());

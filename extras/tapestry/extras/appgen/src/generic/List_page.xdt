@@ -3,7 +3,7 @@
     "-//Apache Software Foundation//Tapestry Specification 3.0//EN"
     "http://jakarta.apache.org/tapestry/dtd/Tapestry_3_0.dtd">
 
-<page-specification class="org.appfuse.webapp.action.<XDtClass:className/>List">
+<page-specification class="org.appfuse.webapp.action.<XDtForm:className/>List">
     <property-specification name="manager" type="org.appfuse.service.Manager">
         global.appContext.getBean("manager")
     </property-specification>

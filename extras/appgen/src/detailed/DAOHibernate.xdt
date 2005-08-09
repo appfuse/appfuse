@@ -4,8 +4,8 @@ package <XDtForm:parentPackageName/>.dao.hibernate;
 
 import java.util.List;
 
-import <XDtPackage:packageName/>.<XDtClass:className/>;
-import <XDtForm:parentPackageName/>.dao.<XDtClass:className/>DAO;
+import <XDtPackage:packageName/>.<XDtForm:className/>;
+import <XDtForm:parentPackageName/>.dao.<XDtForm:className/>DAO;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -15,20 +15,20 @@ import org.hibernate.criterion.MatchMode;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
-public class <XDtClass:className/>DAOHibernate extends BaseDAOHibernate implements <XDtClass:className/>DAO {
+public class <XDtForm:className/>DAOHibernate extends BaseDAOHibernate implements <XDtForm:className/>DAO {
 
     /**
-     * @see <XDtForm:parentPackageName/>.dao.<XDtClass:className/>DAO#get<XDtClass:className/>s(<XDtPackage:packageName/>.<XDtClass:className/>)
+     * @see <XDtForm:parentPackageName/>.dao.<XDtForm:className/>DAO#get<XDtForm:className/>s(<XDtPackage:packageName/>.<XDtForm:className/>)
      */
-    public List get<XDtClass:className/>s(final <XDtClass:className/> <XDtForm:classNameLower/>) {
+    public List get<XDtForm:className/>s(final <XDtForm:className/> <XDtForm:classNameLower/>) {
         if (<XDtForm:classNameLower/> == null) {
-            return getHibernateTemplate().find("from <XDtClass:className/>");
+            return getHibernateTemplate().find("from <XDtForm:className/>");
         } else {
             // filter on properties set in the <XDtForm:classNameLower/>
             HibernateCallback callback = new HibernateCallback() {
                 public Object doInHibernate(Session session) throws HibernateException {
                     Example ex = Example.create(<XDtForm:classNameLower/>).ignoreCase().enableLike(MatchMode.ANYWHERE);
-                    return session.createCriteria(<XDtClass:className/>.class).add(ex).list();
+                    return session.createCriteria(<XDtForm:className/>.class).add(ex).list();
                 }
             };
             return (List) getHibernateTemplate().execute(callback);
@@ -36,30 +36,30 @@ public class <XDtClass:className/>DAOHibernate extends BaseDAOHibernate implemen
     }
 
     /**
-     * @see <XDtForm:parentPackageName/>.dao.<XDtClass:className/>DAO#get<XDtClass:className/>(<XDtMethodEx:idField getType="propertyType"/> <XDtMethodEx:idField getType="propertyName"/>)
+     * @see <XDtForm:parentPackageName/>.dao.<XDtForm:className/>DAO#get<XDtForm:className/>(<XDtMethodEx:idField getType="propertyType"/> <XDtMethodEx:idField getType="propertyName"/>)
      */
-    public <XDtClass:className/> get<XDtClass:className/>(final <XDtMethodEx:idField getType="propertyType"/> <XDtMethodEx:idField getType="propertyName"/>) {
-        <XDtClass:className/> <XDtForm:classNameLower/> = (<XDtClass:className/>) getHibernateTemplate().get(<XDtClass:className/>.class, <XDtMethodEx:idField getType="propertyName"/>);
+    public <XDtForm:className/> get<XDtForm:className/>(final <XDtMethodEx:idField getType="propertyType"/> <XDtMethodEx:idField getType="propertyName"/>) {
+        <XDtForm:className/> <XDtForm:classNameLower/> = (<XDtForm:className/>) getHibernateTemplate().get(<XDtForm:className/>.class, <XDtMethodEx:idField getType="propertyName"/>);
         
         if (<XDtForm:classNameLower/> == null) {
             log.warn("uh oh, <XDtForm:classNameLower/> with <XDtMethodEx:idField getType="propertyName"/> '" + <XDtMethodEx:idField getType="propertyName"/> + "' not found...");
-            throw new ObjectRetrievalFailureException(<XDtClass:className/>.class, <XDtMethodEx:idField getType="propertyName"/>);
+            throw new ObjectRetrievalFailureException(<XDtForm:className/>.class, <XDtMethodEx:idField getType="propertyName"/>);
         }
 
         return <XDtForm:classNameLower/>;
     }
 
     /**
-     * @see <XDtForm:parentPackageName/>.dao.<XDtClass:className/>DAO#save<XDtClass:className/>(<XDtClass:className/> <XDtForm:classNameLower/>)
+     * @see <XDtForm:parentPackageName/>.dao.<XDtForm:className/>DAO#save<XDtForm:className/>(<XDtForm:className/> <XDtForm:classNameLower/>)
      */    
-    public void save<XDtClass:className/>(final <XDtClass:className/> <XDtForm:classNameLower/>) {
+    public void save<XDtForm:className/>(final <XDtForm:className/> <XDtForm:classNameLower/>) {
         getHibernateTemplate().saveOrUpdate(<XDtForm:classNameLower/>);
     }
 
     /**
-     * @see <XDtForm:parentPackageName/>.dao.<XDtClass:className/>DAO#remove<XDtClass:className/>(<XDtMethodEx:idField getType="propertyType"/> <XDtMethodEx:idField getType="propertyName"/>)
+     * @see <XDtForm:parentPackageName/>.dao.<XDtForm:className/>DAO#remove<XDtForm:className/>(<XDtMethodEx:idField getType="propertyType"/> <XDtMethodEx:idField getType="propertyName"/>)
      */
-    public void remove<XDtClass:className/>(final <XDtMethodEx:idField getType="propertyType"/> <XDtMethodEx:idField getType="propertyName"/>) {
-        getHibernateTemplate().delete(get<XDtClass:className/>(<XDtMethodEx:idField getType="propertyName"/>));
+    public void remove<XDtForm:className/>(final <XDtMethodEx:idField getType="propertyType"/> <XDtMethodEx:idField getType="propertyName"/>) {
+        getHibernateTemplate().delete(get<XDtForm:className/>(<XDtMethodEx:idField getType="propertyName"/>));
     }
 }

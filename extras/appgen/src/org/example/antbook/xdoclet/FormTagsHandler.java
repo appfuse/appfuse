@@ -17,9 +17,10 @@ import xjavadoc.XMethod;
 import xjavadoc.XParameter;
 
 public class FormTagsHandler extends AbstractProgramElementTagsHandler {
+    XClass clazz = getCurrentClass();
     private String curFieldName;
     private final static List supportedTypes = new ArrayList();
-    private boolean curFieldIsId = false;
+    private boolean curFieldIsIdorVersion = false;
     private boolean curFieldIsBoolean = false;
     
     static {
@@ -55,7 +56,6 @@ public class FormTagsHandler extends AbstractProgramElementTagsHandler {
      * @throws XDocletException
      */
     public void forAllFields(String template, Properties attributes) throws XDocletException {
-        XClass clazz = getCurrentClass();
         Map setters = new LinkedHashMap(getFields(clazz));
 
         for (Iterator iterator = setters.keySet().iterator(); iterator.hasNext();) {
@@ -66,20 +66,22 @@ public class FormTagsHandler extends AbstractProgramElementTagsHandler {
             
             XMethod getter = field.getAccessor();
             setCurrentMethod(getter);
+       	    curFieldIsIdorVersion = false;
             Properties pro = new Properties();
             pro.setProperty("tagName", "hibernate.id");
 
             if (hasTag(pro, FOR_METHOD)) {
-                curFieldIsId = true;
-            } else {
-            	  curFieldIsId = false;
+                curFieldIsIdorVersion = true;
+            }
+            pro.setProperty("tagName", "hibernate.version");
+            if (hasTag(pro, FOR_METHOD)) {
+                curFieldIsIdorVersion = true;
             }
             String typename = field.getPropertyType().getType()
                     .getQualifiedName();
             curFieldIsBoolean = typename.equals("boolean")
                     || typename.equals("java.lang.Boolean");
-            //setCurrentMethod(field);
-            
+
             setCurrentMethod(field);
             generate(template);
         }
@@ -88,7 +90,7 @@ public class FormTagsHandler extends AbstractProgramElementTagsHandler {
     /**
      * This method is added so that I can pick up a boolean field. When
      * generating a form page, checkbox is used for boolean fields.
-     * 
+     *
      * @author hzhang(mb4henry@yahoo.com.au)
      * @param template
      * @param attributes
@@ -105,7 +107,7 @@ public class FormTagsHandler extends AbstractProgramElementTagsHandler {
         if (!curFieldIsBoolean)
             generate(template);
     }
-    
+
     /**
      * This method is used to determine id fields - this is used in the view
      * pages to set the ids as hidden fields.
@@ -114,16 +116,16 @@ public class FormTagsHandler extends AbstractProgramElementTagsHandler {
      * @param attributes
      * @throws XDocletException
      */
-    public void ifIsIdField(String template, Properties attributes)
+    public void ifIsIdOrVersionField(String template, Properties attributes)
     throws XDocletException {
-        if (curFieldIsId) {
+        if (curFieldIsIdorVersion) {
             generate(template);
         }
     }
 
-    public void ifIsNotIdField(String template, Properties attributes)
+    public void ifIsNotIdOrVersionField(String template, Properties attributes)
     throws XDocletException {
-        if (!curFieldIsId) {
+        if (!curFieldIsIdorVersion) {
             generate(template);
         }
     }
@@ -139,16 +141,15 @@ public class FormTagsHandler extends AbstractProgramElementTagsHandler {
     }
 
     /**
-     * Name of the POJO in LowerCase.
-     * @return
+     * @return Classname of the POJO with first letter in lowercase
      */
     public String classNameLower() {
-        String name = getCurrentClass().getName();
+        String name = clazz.getName();
         return Character.toLowerCase(name.charAt(0)) + name.substring(1);   
     }
     
     public String className() {
-        return getCurrentClass().getName();
+        return clazz.getName();
     }
 
     /**
@@ -156,9 +157,10 @@ public class FormTagsHandler extends AbstractProgramElementTagsHandler {
      * @return
      */
     public String classNameUpper() {
-        return getCurrentClass().getName().toUpperCase();
+        String name = clazz.getName();
+        return name.toUpperCase();
     }
-    
+
     public String fieldDescription(Properties props) {
         StringBuffer buffer = new StringBuffer();
         boolean nextUpper = false;
@@ -177,7 +179,6 @@ public class FormTagsHandler extends AbstractProgramElementTagsHandler {
             }
 
             if (c == '.') {
-                //buffer.append(" - ");
                 buffer.delete(0, buffer.length());
                 nextUpper = true;
                 continue;
@@ -198,52 +199,31 @@ public class FormTagsHandler extends AbstractProgramElementTagsHandler {
     private Map getFields(XClass clazz, String prefix) throws XDocletException {
         Map fields = new LinkedHashMap();
 
-        Collection curFields = clazz.getMethods();
+        Collection curFields = clazz.getMethods(true);
 
         for (Iterator iterator = curFields.iterator(); iterator.hasNext();) {
             XMethod setter = (XMethod) iterator.next();
 
             if (MethodTagsHandler.isSetterMethod(setter)) {
                 String name = MethodTagsHandler.getPropertyNameFor(setter);
-                XParameter param = (XParameter) setter.getParameters()
-                        .iterator().next();
+                XParameter param = (XParameter) setter.getParameters().iterator().next();
                 String type = param.getType().getQualifiedName();
                 XMethod getter = setter.getAccessor();
 
                 setCurrentClass(setter.getContainingClass());
                 super.setCurrentMethod(getter);
                 Properties pro = new Properties();
-                //iterate over fields in sub-component only, ignore other
-                // BaseObject
-                //to prevent an endless loop
                 pro.setProperty("tagName", "hibernate.component");
+                
                 if (super.hasTag(pro, FOR_METHOD)) {
                     name += "Form";
-                    //(prefix.length() == 0 ? "" : ".") results in double dot
-                    // error (?..?)
-                    //fields.putAll(getFields(param.getType(), prefix +
-                    // (prefix.length() == 0 ? "" : "") + name + "."));
-                    fields.putAll(getFields(param.getType(), prefix + name
-                            + "."));
-
+                    fields.putAll(getFields(param.getType(), prefix + name + "."));
                 } else {
-                    //if (supportedTypes.contains(type))
                     fields.put(prefix + name, setter);
                 }
-                //the statement below will result in an endless loop if an
-                // containing
-                //BaseObject contains a reference back to this class.
-                //                if (supportedTypes.contains(type)) {
-                //                    fields.put(prefix + name, setter);
-                //                } else {
-                //                //remove the . from (?"" : ".")
-                //                    fields.putAll(getFields(param.getType(), prefix +
-                // (prefix.length() == 0 ? "" : "") + name + "."));
-                //                }
             }
         }
 
         return fields;
     }
-
 }

@@ -1,5 +1,7 @@
 package org.appfuse.model;
 
+import java.util.Date;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -13,6 +15,7 @@ public class Person extends BaseObject {
     private Long personId;
     private String firstName;
     private String lastName;
+    private Date dateOfBirth;
 
     /**
      * @return Returns the id.
@@ -50,7 +53,18 @@ public class Person extends BaseObject {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
+    
+    /**
+     * @hibernate.property column="date_of_birth" length="20"
+     */
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+    
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+    
     public boolean equals(Object object) {
         if (!(object instanceof Person)) {
             return false;

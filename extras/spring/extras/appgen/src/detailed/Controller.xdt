@@ -10,17 +10,17 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.commons.beanutils.BeanUtils;
 
 import <XDtForm:parentPackageName/>.Constants;
-import <XDtForm:parentPackageName/>.model.<XDtClass:className/>;
-import <XDtForm:parentPackageName/>.service.<XDtClass:className/>Manager;
+import <XDtForm:parentPackageName/>.model.<XDtForm:className/>;
+import <XDtForm:parentPackageName/>.service.<XDtForm:className/>Manager;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
-public class <XDtClass:className/>Controller implements Controller {
-    private final Log log = LogFactory.getLog(<XDtClass:className/>Controller.class);
-    private <XDtClass:className/>Manager <XDtForm:classNameLower/>Manager = null;
+public class <XDtForm:className/>Controller implements Controller {
+    private final Log log = LogFactory.getLog(<XDtForm:className/>Controller.class);
+    private <XDtForm:className/>Manager <XDtForm:classNameLower/>Manager = null;
 
-    public void set<XDtClass:className/>Manager(<XDtClass:className/>Manager <XDtForm:classNameLower/>Manager) {
+    public void set<XDtForm:className/>Manager(<XDtForm:className/>Manager <XDtForm:classNameLower/>Manager) {
         this.<XDtForm:classNameLower/>Manager = <XDtForm:classNameLower/>Manager;
     }
 
@@ -31,11 +31,11 @@ public class <XDtClass:className/>Controller implements Controller {
             log.debug("entering 'handleRequest' method...");
         }
 
-        <XDtClass:className/> <XDtForm:classNameLower/> = new <XDtClass:className/>();
+        <XDtForm:className/> <XDtForm:classNameLower/> = new <XDtForm:className/>();
         // populate object with request parameters
         BeanUtils.populate(<XDtForm:classNameLower/>, request.getParameterMap());
 
-        List <XDtForm:classNameLower/>s = <XDtForm:classNameLower/>Manager.get<XDtClass:className/>s(<XDtForm:classNameLower/>);
+        List <XDtForm:classNameLower/>s = <XDtForm:classNameLower/>Manager.get<XDtForm:className/>s(<XDtForm:classNameLower/>);
 
         return new ModelAndView("<XDtForm:classNameLower/>List", Constants.<XDtForm:classNameUpper/>_LIST, <XDtForm:classNameLower/>s);
     }

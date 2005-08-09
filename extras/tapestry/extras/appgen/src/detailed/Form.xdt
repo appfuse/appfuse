@@ -4,20 +4,20 @@ import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.event.PageEvent;
 import org.apache.tapestry.event.PageRenderListener;
 
-import <XDtPackage:packageName/>.<XDtClass:className/>;
-import <XDtForm:parentPackageName/>.service.<XDtClass:className/>Manager;
+import <XDtPackage:packageName/>.<XDtForm:className/>;
+import <XDtForm:parentPackageName/>.service.<XDtForm:className/>Manager;
 
-public abstract class <XDtClass:className/>Form extends BasePage implements PageRenderListener {
-    public abstract <XDtClass:className/>Manager get<XDtClass:className/>Manager();
-    public abstract void set<XDtClass:className/>Manager(<XDtClass:className/>Manager mgr);
-    public abstract void set<XDtClass:className/>(<XDtClass:className/> <XDtForm:classNameLower/>);
-    public abstract <XDtClass:className/> get<XDtClass:className/>();
+public abstract class <XDtForm:className/>Form extends BasePage implements PageRenderListener {
+    public abstract <XDtForm:className/>Manager get<XDtForm:className/>Manager();
+    public abstract void set<XDtForm:className/>Manager(<XDtForm:className/>Manager mgr);
+    public abstract void set<XDtForm:className/>(<XDtForm:className/> <XDtForm:classNameLower/>);
+    public abstract <XDtForm:className/> get<XDtForm:className/>();
 
     public void pageBeginRender(PageEvent event) {
-        if ((get<XDtClass:className/>() == null) && !event.getRequestCycle().isRewinding()) {
-            set<XDtClass:className/>(new <XDtClass:className/>());
+        if ((get<XDtForm:className/>() == null) && !event.getRequestCycle().isRewinding()) {
+            set<XDtForm:className/>(new <XDtForm:className/>());
         } else if (event.getRequestCycle().isRewinding()) { // add
-            set<XDtClass:className/>(new <XDtClass:className/>());
+            set<XDtForm:className/>(new <XDtForm:className/>());
         }
     }
 
@@ -34,9 +34,9 @@ public abstract class <XDtClass:className/>Form extends BasePage implements Page
             log.debug("entered 'delete' method");
         }
 
-        get<XDtClass:className/>Manager().remove<XDtClass:className/>(get<XDtClass:className/>().<XDtMethodEx:idField getType="getterName"/>().toString());
+        get<XDtForm:className/>Manager().remove<XDtForm:className/>(get<XDtForm:className/>().<XDtMethodEx:idField getType="getterName"/>().toString());
 
-        <XDtClass:className/>List nextPage = (<XDtClass:className/>List) cycle.getPage("<XDtForm:classNameLower/>s");
+        <XDtForm:className/>List nextPage = (<XDtForm:className/>List) cycle.getPage("<XDtForm:classNameLower/>s");
         nextPage.setMessage(getMessage("<XDtForm:classNameLower/>.deleted"));
         cycle.activate(nextPage);
     }
@@ -46,18 +46,18 @@ public abstract class <XDtClass:className/>Form extends BasePage implements Page
             return;
         }
 
-        boolean isNew = (get<XDtClass:className/>().<XDtMethodEx:idField getType="getterName"/>() == null);
+        boolean isNew = (get<XDtForm:className/>().<XDtMethodEx:idField getType="getterName"/>() == null);
 
-        get<XDtClass:className/>Manager().save<XDtClass:className/>(get<XDtClass:className/>());
+        get<XDtForm:className/>Manager().save<XDtForm:className/>(get<XDtForm:className/>());
 
         String key = (isNew) ? "<XDtForm:classNameLower/>.added" : "<XDtForm:classNameLower/>.updated";
 
         if (isNew) {
-            <XDtClass:className/>List nextPage = (<XDtClass:className/>List) cycle.getPage("<XDtForm:classNameLower/>s");
+            <XDtForm:className/>List nextPage = (<XDtForm:className/>List) cycle.getPage("<XDtForm:classNameLower/>s");
             nextPage.setMessage(getMessage(key));
             cycle.activate(nextPage);
         } else {
-            <XDtClass:className/>Form nextPage = (<XDtClass:className/>Form) cycle.getPage("<XDtForm:classNameLower/>Form");
+            <XDtForm:className/>Form nextPage = (<XDtForm:className/>Form) cycle.getPage("<XDtForm:classNameLower/>Form");
             nextPage.setMessage(getMessage(key));
             cycle.activate("<XDtForm:classNameLower/>Form"); // return to current page
         }

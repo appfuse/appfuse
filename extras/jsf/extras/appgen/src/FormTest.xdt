@@ -1,13 +1,13 @@
 <XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><XDtTagDef:tagDef namespace="MethodEx" handler="org.example.antbook.xdoclet.MethodExTagsHandler"/>package <XDtForm:parentPackageName/>.webapp.action;
 
-import <XDtPackage:packageName/>.<XDtClass:className/>;
+import <XDtPackage:packageName/>.<XDtForm:className/>;
 
-public class <XDtClass:className/>FormTest extends BasePageTestCase {
-    private <XDtClass:className/>Form bean;
+public class <XDtForm:className/>FormTest extends BasePageTestCase {
+    private <XDtForm:className/>Form bean;
 
     protected void setUp() throws Exception {    
         super.setUp();
-        bean = (<XDtClass:className/>Form) getManagedBean("<XDtForm:classNameLower/>Form");
+        bean = (<XDtForm:className/>Form) getManagedBean("<XDtForm:classNameLower/>Form");
     }
 
     protected void tearDown() throws Exception {
@@ -16,7 +16,7 @@ public class <XDtClass:className/>FormTest extends BasePageTestCase {
     }
 
     public void testAdd() throws Exception {
-        <XDtClass:className/> <XDtForm:classNameLower/> = new <XDtClass:className/>();
+        <XDtForm:className/> <XDtForm:classNameLower/> = new <XDtForm:className/>();
 
         // set required fields
         <XDtMethodEx:forAllMethods>
@@ -28,7 +28,7 @@ public class <XDtClass:className/>FormTest extends BasePageTestCase {
         </XDtMethodEx:ifMethodTagValueEquals>
         </XDtMethodEx:forAllMethods>
 
-        bean.set<XDtClass:className/>(<XDtForm:classNameLower/>);
+        bean.set<XDtForm:className/>(<XDtForm:classNameLower/>);
 
         assertEquals(bean.save(), "list");
         assertFalse(bean.hasErrors());
@@ -39,7 +39,7 @@ public class <XDtClass:className/>FormTest extends BasePageTestCase {
         bean.<XDtMethodEx:idField getType="setterName"/>("1");
 
         assertEquals(bean.edit(), "edit");
-        assertNotNull(bean.get<XDtClass:className/>());
+        assertNotNull(bean.get<XDtForm:className/>());
         assertFalse(bean.hasErrors());
     }
 
@@ -47,8 +47,8 @@ public class <XDtClass:className/>FormTest extends BasePageTestCase {
         bean.<XDtMethodEx:idField getType="setterName"/>("1");
 
         assertEquals(bean.edit(), "edit");
-        assertNotNull(bean.get<XDtClass:className/>());
-        <XDtClass:className/> <XDtForm:classNameLower/> = bean.get<XDtClass:className/>();
+        assertNotNull(bean.get<XDtForm:className/>());
+        <XDtForm:className/> <XDtForm:classNameLower/> = bean.get<XDtForm:className/>();
 
         // update required string fields 
         <XDtMethodEx:forAllMethods>
@@ -57,16 +57,16 @@ public class <XDtClass:className/>FormTest extends BasePageTestCase {
         </XDtMethodEx:ifMethodTagValueEquals>
         </XDtMethodEx:forAllMethods>
 
-        bean.set<XDtClass:className/>(<XDtForm:classNameLower/>);
+        bean.set<XDtForm:className/>(<XDtForm:classNameLower/>);
 
         assertEquals(bean.save(), "edit");
         assertFalse(bean.hasErrors());
     }
 
     public void testRemove() throws Exception {
-        <XDtClass:className/> <XDtForm:classNameLower/> = new <XDtClass:className/>();
+        <XDtForm:className/> <XDtForm:classNameLower/> = new <XDtForm:className/>();
         <XDtForm:classNameLower/>.<XDtMethodEx:idField getType="setterName"/>(new <XDtMethodEx:idField getType="propertyType"/>("2"));
-        bean.set<XDtClass:className/>(<XDtForm:classNameLower/>);
+        bean.set<XDtForm:className/>(<XDtForm:classNameLower/>);
 
         assertEquals(bean.delete(), "list");
         assertFalse(bean.hasErrors());

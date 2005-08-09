@@ -1,7 +1,7 @@
 <XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><!--<XDtForm:className/>-BEAN-START-->
     <managed-bean>
         <managed-bean-name><XDtForm:classNameLower/>List</managed-bean-name>
-        <managed-bean-class><XDtForm:parentPackageName/>.webapp.action.<XDtClass:className/>List</managed-bean-class>
+        <managed-bean-class><XDtForm:parentPackageName/>.webapp.action.<XDtForm:className/>List</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
         <managed-property>
             <property-name>manager</property-name>
@@ -11,7 +11,7 @@
 
     <managed-bean>
         <managed-bean-name><XDtForm:classNameLower/>Form</managed-bean-name>
-        <managed-bean-class><XDtForm:parentPackageName/>.webapp.action.<XDtClass:className/>Form</managed-bean-class>
+        <managed-bean-class><XDtForm:parentPackageName/>.webapp.action.<XDtForm:className/>Form</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
         <managed-property>
             <property-name><XDtMethodEx:idField getType="propertyName"/></property-name>

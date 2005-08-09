@@ -4,14 +4,14 @@ import org.springframework.mock.web.MockHttpServletRequest;
 
 import com.opensymphony.webwork.ServletActionContext;
 
-import <XDtPackage:packageName/>.<XDtClass:className/>;
+import <XDtPackage:packageName/>.<XDtForm:className/>;
 
-public class <XDtClass:className/>ActionTest extends BaseActionTestCase {
-    private <XDtClass:className/>Action action;
+public class <XDtForm:className/>ActionTest extends BaseActionTestCase {
+    private <XDtForm:className/>Action action;
     
     protected void setUp() throws Exception {    
         super.setUp();
-        action = (<XDtClass:className/>Action) ctx.getBean("<XDtForm:classNameLower/>Action");
+        action = (<XDtForm:className/>Action) ctx.getBean("<XDtForm:classNameLower/>Action");
     }
 
     protected void tearDown() throws Exception {
@@ -20,34 +20,34 @@ public class <XDtClass:className/>ActionTest extends BaseActionTestCase {
     }
 
     public void testAdd() throws Exception {
-        <XDtClass:className/> <XDtForm:classNameLower/> = new <XDtClass:className/>();
+        <XDtForm:className/> <XDtForm:classNameLower/> = new <XDtForm:className/>();
         // set required fields
         <XDtMethodEx:forAllMethods>
         <XDtMethodEx:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
         <XDtMethodEx:setterWithValue/>
         </XDtMethodEx:ifMethodTagValueEquals>
         </XDtMethodEx:forAllMethods>
-        action.set<XDtClass:className/>(<XDtForm:classNameLower/>);
+        action.set<XDtForm:className/>(<XDtForm:classNameLower/>);
 
         assertEquals(action.save(), "success");
         assertFalse(action.hasFieldErrors());
     }
 
     public void testList() throws Exception {
-        assertNull(action.get<XDtClass:className/>s());
+        assertNull(action.get<XDtForm:className/>s());
 
         assertEquals(action.list(), "success");
-        assertNotNull(action.get<XDtClass:className/>s());
+        assertNotNull(action.get<XDtForm:className/>s());
         assertFalse(action.hasActionErrors());
     }
 
     public void testEdit() throws Exception {
         log.debug("testing edit...");
         action.<XDtMethodEx:idField getType="setterName"/>("1");
-        assertNull(action.get<XDtClass:className/>());
+        assertNull(action.get<XDtForm:className/>());
 
         assertEquals(action.edit(), "success");
-        assertNotNull(action.get<XDtClass:className/>());
+        assertNotNull(action.get<XDtForm:className/>());
         assertFalse(action.hasActionErrors());
     }
 
@@ -57,8 +57,8 @@ public class <XDtClass:className/>ActionTest extends BaseActionTestCase {
         action.<XDtMethodEx:idField getType="setterName"/>("1");
 
         assertEquals(action.edit(), "success");
-        assertNotNull(action.get<XDtClass:className/>());
-        <XDtClass:className/> <XDtForm:classNameLower/> = action.get<XDtClass:className/>();
+        assertNotNull(action.get<XDtForm:className/>());
+        <XDtForm:className/> <XDtForm:classNameLower/> = action.get<XDtForm:className/>();
 
         // update fields
         <XDtMethodEx:forAllMethods>
@@ -66,7 +66,7 @@ public class <XDtClass:className/>ActionTest extends BaseActionTestCase {
         <XDtMethodEx:setterWithValue/>
         </XDtMethodEx:ifMethodTagValueEquals>
         </XDtMethodEx:forAllMethods>
-        action.set<XDtClass:className/>(<XDtForm:classNameLower/>);
+        action.set<XDtForm:className/>(<XDtForm:classNameLower/>);
 
         assertEquals(action.save(), "input");
         assertFalse(action.hasActionErrors());
@@ -78,9 +78,9 @@ public class <XDtClass:className/>ActionTest extends BaseActionTestCase {
         MockHttpServletRequest request = new MockHttpServletRequest();
         ServletActionContext.setRequest(request);
         action.setDelete("");
-        <XDtClass:className/> <XDtForm:classNameLower/> = new <XDtClass:className/>();
+        <XDtForm:className/> <XDtForm:classNameLower/> = new <XDtForm:className/>();
         <XDtForm:classNameLower/>.<XDtMethodEx:idField getType="setterName"/>(new <XDtMethodEx:idField getType="propertyType"/>("2"));
-        action.set<XDtClass:className/>(<XDtForm:classNameLower/>);
+        action.set<XDtForm:className/>(<XDtForm:classNameLower/>);
 
         assertEquals(action.delete(), "success");
         assertNotNull(request.getSession().getAttribute("messages"));

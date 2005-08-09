@@ -3,16 +3,16 @@
 import java.io.Serializable;
 import java.util.List;
 
-import <XDtForm:parentPackageName/>.service.<XDtClass:className/>Manager;
+import <XDtForm:parentPackageName/>.service.<XDtForm:className/>Manager;
 
-public class <XDtClass:className/>List extends BasePage implements Serializable {
-    private <XDtClass:className/>Manager <XDtForm:classNameLower/>Manager;
+public class <XDtForm:className/>List extends BasePage implements Serializable {
+    private <XDtForm:className/>Manager <XDtForm:classNameLower/>Manager;
 
-    public void set<XDtClass:className/>Manager(<XDtClass:className/>Manager manager) {
+    public void set<XDtForm:className/>Manager(<XDtForm:className/>Manager manager) {
         this.<XDtForm:classNameLower/>Manager = manager;
     }
 
-    public List get<XDtClass:className/>s() {
-        return <XDtForm:classNameLower/>Manager.get<XDtClass:className/>s(null);
+    public List get<XDtForm:className/>s() {
+        return <XDtForm:classNameLower/>Manager.get<XDtForm:className/>s(null);
     }
 }

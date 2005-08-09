@@ -1,19 +1,19 @@
 <XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><XDtTagDef:tagDef namespace="MethodEx" handler="org.example.antbook.xdoclet.MethodExTagsHandler"/>package <XDtForm:parentPackageName/>.webapp.action;
 
 import <XDtForm:parentPackageName/>.Constants;
-import <XDtForm:parentPackageName/>.webapp.form.<XDtClass:className/>Form;
+import <XDtForm:parentPackageName/>.webapp.form.<XDtForm:className/>Form;
 
-public class <XDtClass:className/>ActionTest extends BaseStrutsTestCase {
+public class <XDtForm:className/>ActionTest extends BaseStrutsTestCase {
 
-    public <XDtClass:className/>ActionTest(String name) {
+    public <XDtForm:className/>ActionTest(String name) {
         super(name);
     }
 
     public void testAdd() throws Exception {
-        setRequestPathInfo("/save<XDtClass:className/>");
+        setRequestPathInfo("/save<XDtForm:className/>");
         addRequestParameter("method", "Save");
 
-        <XDtClass:className/>Form <XDtForm:classNameLower/>Form = new <XDtClass:className/>Form();
+        <XDtForm:className/>Form <XDtForm:classNameLower/>Form = new <XDtForm:className/>Form();
         // set required fields
         <XDtMethodEx:forAllMethods>
         <XDtMethodEx:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
@@ -44,7 +44,7 @@ public class <XDtClass:className/>ActionTest extends BaseStrutsTestCase {
     }
 
     public void testEdit() throws Exception {
-        setRequestPathInfo("/edit<XDtClass:className/>");
+        setRequestPathInfo("/edit<XDtForm:className/>");
         addRequestParameter("method", "Edit");
         addRequestParameter("<XDtMethodEx:idField getType="propertyName"/>", "1");
 
@@ -57,17 +57,17 @@ public class <XDtClass:className/>ActionTest extends BaseStrutsTestCase {
     }
 
     public void testSave() throws Exception {
-        setRequestPathInfo("/edit<XDtClass:className/>");
+        setRequestPathInfo("/edit<XDtForm:className/>");
         addRequestParameter("method", "Edit");
         addRequestParameter("<XDtMethodEx:idField getType="propertyName"/>", "1");
 
         actionPerform();
 
-        <XDtClass:className/>Form <XDtForm:classNameLower/>Form =
-            (<XDtClass:className/>Form) request.getAttribute(Constants.<XDtForm:classNameUpper/>_KEY);
+        <XDtForm:className/>Form <XDtForm:classNameLower/>Form =
+            (<XDtForm:className/>Form) request.getAttribute(Constants.<XDtForm:classNameUpper/>_KEY);
         assertNotNull(<XDtForm:classNameLower/>Form);
 
-        setRequestPathInfo("/save<XDtClass:className/>");
+        setRequestPathInfo("/save<XDtForm:className/>");
         addRequestParameter("method", "Save");
 
         // update the form's required string fields and add it back to the request
@@ -90,7 +90,7 @@ public class <XDtClass:className/>ActionTest extends BaseStrutsTestCase {
     }
 
     public void testRemove() throws Exception {
-        setRequestPathInfo("/edit<XDtClass:className/>");
+        setRequestPathInfo("/edit<XDtForm:className/>");
         addRequestParameter("method", "Delete");
         addRequestParameter("<XDtMethodEx:idField getType="propertyName"/>", "2");
 
