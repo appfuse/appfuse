@@ -23,6 +23,7 @@
 	<classpathentry kind="lib" path="lib/strutstest-2.1.3/strutstest-2.1.3.jar"/>
 	<classpathentry kind="lib" path="lib/dbunit-2.1/dbunit-2.1.jar"/>
 	<classpathentry kind="lib" path="lib/struts-menu-2.3/struts-menu-2.3.jar"/>
+	<classpathentry kind="lib" path="lib/struts-1.2.7/lib/commons-collections.jar"/>
 	<classpathentry kind="lib" path="lib/struts-1.2.7/lib/commons-digester.jar"/>
 	<classpathentry kind="lib" path="lib/struts-1.2.7/lib/commons-lang.jar"/>
 	<classpathentry kind="lib" path="lib/struts-1.2.7/lib/commons-logging.jar"/>
@@ -57,7 +58,6 @@
 	<classpathentry kind="lib" path="lib/hibernate-3.0.5/lib/asm.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-3.0.5/lib/c3p0-0.8.5.2.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-3.0.5/lib/cglib-2.1.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-3.0.5/lib/commons-collections-2.1.1.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-3.0.5/lib/dom4j-1.6.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-3.0.5/lib/jta.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-3.0.5/lib/oscache-2.1.jar"/>

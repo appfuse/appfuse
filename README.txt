@@ -43,9 +43,20 @@ steps:
 
 Features/Changes in 1.8.2
 ============================
+- Moved commons-collections.jar from lib/jarkarta-struts to lib/hibernate
+  since Struts no longer depends on it.
+- Added support for running tests and webapp in debug mode.
+- Security fix: prevent regular users from upgrading to admin role
+- Security fix: don't allow regular users to view list of users.
+- Changed Acegi Security Filter mapping so JavaScript, CSS and image files
+  are not processed.
+- Enhanced AppGen to support inheritance and better default data for DBUnit.
+- Added Prototype and script.aculo.us JavaScript libraries, replacing fade.js
+  for the "yellow fade technique".
 - Dependent packages upgraded:
     * Acegi Security 0.8.3
-    * Spring 1.2.3
+    * Spring 1.2.4
+    * Struts 1.2.7
     * Spring Modules Validator Nightly (20050727)
 
 

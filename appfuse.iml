@@ -151,15 +151,6 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/hibernate-3.0.5/lib/commons-collections-2.1.1.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/jakarta-log4j-1.2.9/dist/lib/log4j-1.2.9.jar!/" />
         </CLASSES>
         <JAVADOC />
@@ -251,6 +242,15 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/struts-1.2.7/lib/commons-beanutils.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.4/lib/commons-collections.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -644,11 +644,6 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/commons-collections-2.1.1.jar" />
-      <url>jar://$MODULE_DIR$/lib/hibernate-3.0.5/lib/commons-collections-2.1.1.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/dom4j-1.6.jar" />
       <url>jar://$MODULE_DIR$/lib/hibernate-3.0.5/lib/dom4j-1.6.jar!/</url>
     </containerElement>
@@ -681,6 +676,11 @@
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/commons-beanutils.jar" />
       <url>jar://$MODULE_DIR$/lib/struts-1.2.7/lib/commons-beanutils.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/commons-collections.jar" />
+      <url>jar://$MODULE_DIR$/lib/struts-1.2.7/lib/commons-collections.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
