@@ -38,7 +38,7 @@ information about each project, google it or view its URL in lib.properties.
 - logging framework for java applications
 - not required, but controls logging when included
 
-* jakarta-struts
+* struts
 - default web framework
 - required for running web tests and application
 
