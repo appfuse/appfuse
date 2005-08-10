@@ -374,7 +374,9 @@ function radio(clicked){
 
 window.onload = function() {
     highlightFormElements();
-    new Effect.Highlight('successMessages', {startcolor: '#ffff00', endcolor: '#ffffcc'});
+    if ($('successMessages'))
+        new Effect.Highlight('successMessages', {startcolor: '#ffff00', endcolor: '#ffffcc'});
+    if ($('errorMessages'))
     new Effect.Highlight('errorMessages', {startcolor: '#ffff00', endcolor: '#ffffcc'});
 }
 
