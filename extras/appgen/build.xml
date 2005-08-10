@@ -182,7 +182,7 @@
             <fileset dir="${generated.dir}">
                 <include name="**/*.java"/>
                 <exclude name="**/Constants-*.java"/>
-                <exclude name="${generated.dir}/generic/**"/>
+                <exclude name="generic/**"/>
             </fileset>
         </copy>
         

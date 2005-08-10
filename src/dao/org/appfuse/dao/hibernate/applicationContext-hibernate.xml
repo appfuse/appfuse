@@ -32,27 +32,27 @@
 
     <!-- Transaction manager for a single Hibernate SessionFactory (alternative to JTA) -->
     <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-        <property name="sessionFactory"><ref local="sessionFactory"/></property>
+        <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
     <!-- Generic DAO - can be used when doing standard CRUD -->
     <bean id="dao" class="org.appfuse.dao.hibernate.BaseDAOHibernate">
-        <property name="sessionFactory"><ref local="sessionFactory"/></property>
+        <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
     <!-- LookupDAO: Hibernate implementation -->
     <bean id="lookupDAO" class="org.appfuse.dao.hibernate.LookupDAOHibernate">
-        <property name="sessionFactory"><ref local="sessionFactory"/></property>
+        <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
     <!-- UserDAO: Hibernate implementation -->
     <bean id="userDAO" class="org.appfuse.dao.hibernate.UserDAOHibernate">
-        <property name="sessionFactory"><ref local="sessionFactory"/></property>
+        <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
     <!-- RoleDAO: Hibernate implementation -->
     <bean id="roleDAO" class="org.appfuse.dao.hibernate.RoleDAOHibernate">
-        <property name="sessionFactory"><ref local="sessionFactory"/></property>
+        <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
     <!-- Add new DAOs here -->
