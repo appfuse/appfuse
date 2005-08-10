@@ -44,6 +44,23 @@ public class MethodExTagsHandler extends MethodTagsHandler {
         return rootClassName;
     }
 
+
+    /**
+     * Returns the transformed return type of the current method, without java.lang.
+     *
+     * @param attributes
+     * @return                      Description of the Returned Value
+     * @exception XDocletException  Description of Exception
+     * @doc.tag                     type="content"
+     */
+    public String methodType(Properties attributes) throws XDocletException {
+        String name = transformedMethodType(attributes);
+        if (name.startsWith("java.lang.")) {
+            name = name.substring(10);
+        }
+        return name;
+    }
+
     /**
      * Iterates over all methods of current class and evaluates the body of the
      * tag for each method. <br>

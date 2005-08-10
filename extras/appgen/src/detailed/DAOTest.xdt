@@ -29,12 +29,12 @@ public class <XDtForm:className/>DAOTest extends BaseDAOTestCase {
         // set required fields
         <XDtMethod:forAllMethods>
         <XDtMethod:ifMethodTagValueEquals tagName="hibernate.id" paramName="generator-class" value="assigned">
-        Object <XDtMethod:name/> = <XDtMethodEx:randomValueForSetter/>;
-        <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>(XDtMethod:name/>);
+        <XDtMethodEx:methodType/> <XDtMethod:propertyName/> = <XDtMethodEx:randomValueForSetter/>;
+        <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>(<XDtMethod:propertyName/>);
         </XDtMethod:ifMethodTagValueEquals>
 
         <XDtMethod:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
-        <XDtMethod:transformedMethodType/> <XDtMethod:propertyName/> = <XDtMethodEx:randomValueForSetter/>;
+        <XDtMethodEx:methodType/> <XDtMethod:propertyName/> = <XDtMethodEx:randomValueForSetter/>;
         <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>(<XDtMethod:propertyName/>);        
         </XDtMethod:ifMethodTagValueEquals>
         </XDtMethod:forAllMethods>
@@ -78,7 +78,7 @@ public class <XDtForm:className/>DAOTest extends BaseDAOTestCase {
         // update required fields
         <XDtMethod:forAllMethods>
         <XDtMethod:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
-        <XDtMethod:transformedMethodType/> <XDtMethod:propertyName/> = <XDtMethodEx:randomValueForSetter/>;
+        <XDtMethodEx:methodType/> <XDtMethod:propertyName/> = <XDtMethodEx:randomValueForSetter/>;
         <XDtForm:classNameLower/>.<XDtMethod:setterMethod/>(<XDtMethod:propertyName/>);        
         </XDtMethod:ifMethodTagValueEquals>
         </XDtMethod:forAllMethods>
