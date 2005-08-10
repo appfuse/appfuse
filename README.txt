@@ -56,7 +56,6 @@ Features/Changes in 1.8.2
 - Dependent packages upgraded:
     * Acegi Security 0.8.3
     * Spring 1.2.4
-    * Struts 1.2.7
     * Spring Modules Validator Nightly (20050727)
 
 

@@ -23,17 +23,17 @@
 	<classpathentry kind="lib" path="lib/strutstest-2.1.3/strutstest-2.1.3.jar"/>
 	<classpathentry kind="lib" path="lib/dbunit-2.1/dbunit-2.1.jar"/>
 	<classpathentry kind="lib" path="lib/struts-menu-2.3/struts-menu-2.3.jar"/>
-	<classpathentry kind="lib" path="lib/struts-1.2.7/lib/commons-collections.jar"/>
-	<classpathentry kind="lib" path="lib/struts-1.2.7/lib/commons-digester.jar"/>
-	<classpathentry kind="lib" path="lib/struts-1.2.7/lib/commons-lang.jar"/>
-	<classpathentry kind="lib" path="lib/struts-1.2.7/lib/commons-logging.jar"/>
-	<classpathentry kind="lib" path="lib/struts-1.2.7/lib/commons-validator.jar"/>
-	<classpathentry kind="lib" path="lib/struts-1.2.7/lib/jakarta-oro.jar"/>
-	<classpathentry kind="lib" path="lib/struts-1.2.7/lib/struts.jar"/>
-	<classpathentry kind="lib" path="lib/struts-1.2.7/lib/struts-el.jar"/>
-	<classpathentry kind="lib" path="lib/struts-1.2.7/lib/commons-beanutils.jar"/>
-	<classpathentry kind="lib" path="lib/struts-1.2.7/lib/antlr.jar"/>
-	<classpathentry kind="lib" path="lib/struts-1.2.7/lib/commons-fileupload.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/commons-collections.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/commons-digester.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/commons-lang.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/commons-logging.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/commons-validator.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/jakarta-oro.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/struts.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/struts-el.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/commons-beanutils.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/antlr.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/commons-fileupload.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-taglibs/standard-1.0.6/lib/jstl.jar"/>
 	<classpathentry kind="lib" path="lib/jmock-1.0.1/jmock-1.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/ant-contrib-1.0b1/ant-contrib-1.0b1.jar"/>
