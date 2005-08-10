@@ -18,4 +18,5 @@
             <c:out value="${msg}" escapeXml="false"/><br />
         </c:forEach>
     </div>
+    <c:remove var="message" scope="session"/>
 </c:if>
