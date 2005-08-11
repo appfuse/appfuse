@@ -374,10 +374,13 @@ function radio(clicked){
 
 window.onload = function() {
     highlightFormElements();
+    /* Commented out b/c causes stack trace with Canoo WebTest
+       http://lists.canoo.com/pipermail/webtest/2005q3/004493.html
     if ($('successMessages'))
         new Effect.Highlight('successMessages', {startcolor: '#ffff00', endcolor: '#ffffcc'});
     if ($('errorMessages'))
-    new Effect.Highlight('errorMessages', {startcolor: '#ffff00', endcolor: '#ffffcc'});
+        new Effect.Highlight('errorMessages', {startcolor: '#ffff00', endcolor: '#ffffcc'});
+    */
 }
 
 // Show the document's title on the status bar
