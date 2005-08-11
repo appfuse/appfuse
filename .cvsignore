@@ -13,3 +13,4 @@ create-tables.sql
 db
 appfuse.iws
 test-spring.bat
+test-all-*.txt
