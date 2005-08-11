@@ -7,13 +7,13 @@
 
 <!-- Error Messages -->
 <span jwcid="@Conditional" condition="ognl:beans.delegate.hasErrors">
-	<div class="error">
+    <div class="error">
         <img jwcid="@Any" src="ognl:engine.contextPath+'/images/iconWarning.gif'"
                 alt="message:icon.warning" class="icon" />
-	    <span jwcid="@Delegator" delegate="ognl:beans.delegate.firstError" raw="true">
-	        Error Message
-	    </span>
-	</div>
+        <span jwcid="@Delegator" delegate="ognl:beans.delegate.firstError" raw="true">
+            Error Message
+        </span>
+    </div>
 </span>
 
 <!-- Success Messages -->
@@ -29,7 +29,7 @@
 <div jwcid="@Conditional" condition="ognl:from != 'list'"><span key="userProfile.message">instructional message</span></div>
 
 <div class="separator"></div>
-  
+
 <form jwcid="userForm@Form" delegate="ognl:beans.delegate" id="userForm">
 <input jwcid="from@Hidden" type="hidden" id="from" value="ognl:from"/>
 <input jwcid="version@Hidden" type="hidden" value="ognl:user.version"/>
