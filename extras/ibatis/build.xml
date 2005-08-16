@@ -113,7 +113,7 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
     <bean id="manager" parent="txProxyTemplate">
         <property name="target">
             <bean class="org.appfuse.service.impl.BaseManager">
-                <property name="DAO"><ref bean="dao"/></property>
+                <property name="DAO" ref="dao"/>
             </bean>
         </property>
     </bean>]]></replacetoken>

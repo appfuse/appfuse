@@ -23,8 +23,8 @@
          The FilterSecurityInterceptor will work from the top of the list down to the FIRST pattern that matches the request URL.
          Accordingly, you should place MOST SPECIFIC (ie a/b/c/d.*) expressions first, with LEAST SPECIFIC (ie a/.*) expressions last -->
     <bean id="filterInvocationInterceptor" class="net.sf.acegisecurity.intercept.web.FilterSecurityInterceptor">
-        <property name="authenticationManager"><ref local="authenticationManager"/></property>
-        <property name="accessDecisionManager"><ref local="accessDecisionManager"/></property>
+        <property name="authenticationManager" ref="authenticationManager"/>
+        <property name="accessDecisionManager" ref="accessDecisionManager"/>
          <property name="objectDefinitionSource">
             <value>
                 CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
@@ -50,13 +50,13 @@
     <bean id="loggerListener" class="net.sf.acegisecurity.providers.dao.event.LoggerListener"/>
     
     <bean id="daoAuthenticationProvider" class="net.sf.acegisecurity.providers.dao.DaoAuthenticationProvider">
-         <property name="authenticationDao"><ref local="jdbcAuthenticationDao"/></property>
-         <property name="userCache"><ref local="userCache"/></property>
+         <property name="authenticationDao" ref="jdbcAuthenticationDao"/>
+         <property name="userCache" ref="userCache"/>
     </bean>
     
     <!-- Read users from database -->
     <bean id="jdbcAuthenticationDao" class="net.sf.acegisecurity.providers.dao.jdbc.JdbcDaoImpl">
-        <property name="dataSource"><ref bean="dataSource"/></property>
+        <property name="dataSource" ref="dataSource"/>
         <property name="usersByUsernameQuery">
             <value>SELECT username,password,enabled FROM app_user WHERE username = ?</value>
         </property>
@@ -71,21 +71,21 @@
                 <property name="cacheManager">
                     <bean class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"/>
                 </property>
-                <property name="cacheName"><value>userCache</value></property>
+                <property name="cacheName" value="userCache"/>
             </bean>
         </property>
     </bean>
    
     <bean id="anonymousAuthenticationProvider" class="net.sf.acegisecurity.providers.anonymous.AnonymousAuthenticationProvider">
-        <property name="key"><value>anonymous</value></property>
+        <property name="key" value="anonymous"/>
     </bean>
     
     <bean id="roleVoter" class="net.sf.acegisecurity.vote.RoleVoter">
-        <property name="rolePrefix"><value/></property>
+        <property name="rolePrefix" value=""/>
     </bean>
 
     <bean id="accessDecisionManager" class="net.sf.acegisecurity.vote.AffirmativeBased">
-        <property name="allowIfAllAbstainDecisions"><value>false</value></property>
+        <property name="allowIfAllAbstainDecisions" value="false"/>
         <property name="decisionVoters">
             <list>
                 <ref local="roleVoter"/>
@@ -95,31 +95,31 @@
     
     <!-- ===================== HTTP REQUEST SECURITY ==================== -->
     <bean id="httpSessionContextIntegrationFilter" class="net.sf.acegisecurity.context.HttpSessionContextIntegrationFilter">
-        <property name="context"><value>net.sf.acegisecurity.context.security.SecureContextImpl</value></property>
+        <property name="context" value="net.sf.acegisecurity.context.security.SecureContextImpl"/>
     </bean>
     
     <bean id="authenticationProcessingFilter" class="net.sf.acegisecurity.ui.webapp.AuthenticationProcessingFilter">
-        <property name="authenticationManager"><ref local="authenticationManager"/></property>
-        <property name="authenticationFailureUrl"><value>/login.jsp?error=true</value></property>
-        <property name="defaultTargetUrl"><value>/</value></property>
-        <property name="filterProcessesUrl"><value>/j_security_check</value></property>
+        <property name="authenticationManager" ref="authenticationManager"/>
+        <property name="authenticationFailureUrl" value="/login.jsp?error=true"/>
+        <property name="defaultTargetUrl" value="/"/>
+        <property name="filterProcessesUrl" value="/j_security_check"/>
     </bean>
     
     <bean id="anonymousProcessingFilter" class="net.sf.acegisecurity.providers.anonymous.AnonymousProcessingFilter">
-        <property name="key"><value>anonymous</value></property>
-        <property name="userAttribute"><value>anonymous,ROLE_ANONYMOUS</value></property>
+        <property name="key" value="anonymous"/>
+        <property name="userAttribute" value="anonymous,ROLE_ANONYMOUS"/>
     </bean>
     
     <bean id="securityEnforcementFilter" class="net.sf.acegisecurity.intercept.web.SecurityEnforcementFilter">
-        <property name="filterSecurityInterceptor"><ref local="filterInvocationInterceptor"/></property>
-        <property name="authenticationEntryPoint"><ref local="authenticationProcessingFilterEntryPoint"/></property>
+        <property name="filterSecurityInterceptor" ref="filterInvocationInterceptor"/>
+        <property name="authenticationEntryPoint" ref="authenticationProcessingFilterEntryPoint"/>
     </bean>
     
     <bean id="remoteUserFilter" class="net.sf.acegisecurity.wrapper.ContextHolderAwareRequestFilter"/>
 
     <bean id="authenticationProcessingFilterEntryPoint" class="net.sf.acegisecurity.ui.webapp.AuthenticationProcessingFilterEntryPoint">
-        <property name="loginFormUrl"><value>/login.jsp</value></property>
-        <property name="forceHttps"><value>false</value></property>
+        <property name="loginFormUrl" value="/login.jsp"/>
+        <property name="forceHttps" value="false"/>
     </bean>
 
     <!-- Override 'userManager' bean definition to add userManagerSecurity interceptor -->

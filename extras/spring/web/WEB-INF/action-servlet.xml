@@ -15,63 +15,63 @@
     </bean>
     
     <bean id="userController" class="org.appfuse.webapp.action.UserController">
-        <property name="userManager"><ref bean="userManager"/></property>
+        <property name="userManager" ref="userManager"/>
     </bean>
 
     <bean id="passwordHintController" class="org.appfuse.webapp.action.PasswordHintController">
-        <property name="userManager"><ref bean="userManager"/></property>
-        <property name="messageSource"><ref bean="messageSource"/></property>
-        <property name="mailEngine"><ref bean="mailEngine"/></property>
-        <property name="message"><ref bean="mailMessage"/></property>
+        <property name="userManager" ref="userManager"/>
+        <property name="messageSource" ref="messageSource"/>
+        <property name="mailEngine" ref="mailEngine"/>
+        <property name="message" ref="mailMessage"/>
     </bean>
 
     <bean id="reloadController" class="org.appfuse.webapp.action.ReloadController"/>
 
     <bean id="userFormController" class="org.appfuse.webapp.action.UserFormController">
-        <property name="commandName"><value>user</value></property>
-        <property name="commandClass"><value>org.appfuse.model.User</value></property>
-        <property name="validator"><ref bean="beanValidator"/></property>
-        <property name="formView"><value>userProfile</value></property>
-        <property name="successView"><value>redirect:users.html</value></property>
-        <property name="cancelView"><value>redirect:mainMenu.html</value></property>
-        <property name="userManager"><ref bean="userManager"/></property>
-        <property name="roleManager"><ref bean="roleManager"/></property>
-        <property name="mailEngine"><ref bean="mailEngine"/></property>
-        <property name="message"><ref bean="mailMessage"/></property>
-        <property name="templateName"><value>accountCreated.vm</value></property>
+        <property name="commandName" value="user"/>
+        <property name="commandClass" value="org.appfuse.model.User"/>
+        <property name="validator" ref="beanValidator"/>
+        <property name="formView" value="userProfile"/>
+        <property name="successView" value="redirect:users.html"/>
+        <property name="cancelView" value="redirect:mainMenu.html"/>
+        <property name="userManager" ref="userManager"/>
+        <property name="roleManager" ref="roleManager"/>
+        <property name="mailEngine" ref="mailEngine"/>
+        <property name="message" ref="mailMessage"/>
+        <property name="templateName" value="accountCreated.vm"/>
     </bean>
 
     <bean id="fileUploadController" class="org.appfuse.webapp.action.FileUploadController">
-        <property name="commandName"><value>fileUpload</value></property>
-        <property name="commandClass"><value>org.appfuse.webapp.action.FileUpload</value></property>
-        <property name="validator"><ref bean="beanValidator"/></property>
-        <property name="cancelView"><value>redirect:mainMenu.html</value></property>
-        <property name="formView"><value>uploadForm</value></property>
-        <property name="successView"><value>uploadDisplay</value></property>
+        <property name="commandName" value="fileUpload"/>
+        <property name="commandClass" value="org.appfuse.webapp.action.FileUpload"/>
+        <property name="validator" ref="beanValidator"/>
+        <property name="cancelView" value="redirect:mainMenu.html"/>
+        <property name="formView" value="uploadForm"/>
+        <property name="successView" value="uploadDisplay"/>
     </bean>
 
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <property name="maxUploadSize"><value>2097152</value></property>
+        <property name="maxUploadSize" value="2097152"/>
     </bean>
     
     <bean id="signupController" class="org.appfuse.webapp.action.SignupController">
-        <property name="commandName"><value>user</value></property>
-        <property name="commandClass"><value>org.appfuse.model.User</value></property>
-        <property name="validator"><ref bean="beanValidator"/></property>
-        <property name="formView"><value>signup</value></property>
-        <property name="successView"><value>redirect:mainMenu.html</value></property>
-        <property name="userManager"><ref bean="userManager"/></property>
-        <property name="roleManager"><ref bean="roleManager"/></property>
-        <property name="mailEngine"><ref bean="mailEngine"/></property>
-        <property name="message"><ref bean="mailMessage"/></property>
-        <property name="templateName"><value>accountCreated.vm</value></property>
+        <property name="commandName" value="user"/>
+        <property name="commandClass" value="org.appfuse.model.User"/>
+        <property name="validator" ref="beanValidator"/>
+        <property name="formView" value="signup"/>
+        <property name="successView" value="redirect:mainMenu.html"/>
+        <property name="userManager" ref="userManager"/>
+        <property name="roleManager" ref="roleManager"/>
+        <property name="mailEngine" ref="mailEngine"/>
+        <property name="message" ref="mailMessage"/>
+        <property name="templateName" value="accountCreated.vm"/>
     </bean>
     
     <!-- Add additional controller beans here -->
 
     <!-- Load WEB-INF/classes/ApplicationResources.properties for i18n messages using JSTL's fmt tag -->
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-        <property name="basename"><value>ApplicationResources</value></property>
+        <property name="basename" value="ApplicationResources"/>
     </bean>
 
     <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
@@ -106,16 +106,16 @@
     </bean>
 
     <bean id="adminInterceptor" class="org.springframework.web.servlet.handler.UserRoleAuthorizationInterceptor">
-        <property name="authorizedRoles"><value>admin</value></property>
+        <property name="authorizedRoles" value="admin"/>
     </bean>
     
     <bean id="filenameController" class="org.springframework.web.servlet.mvc.UrlFilenameViewController"/>
 
     <!-- View Resolver for JSPs -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="requestContextAttribute"><value>rc</value></property>
-        <property name="viewClass"><value>org.springframework.web.servlet.view.JstlView</value></property>
-        <property name="prefix"><value>/WEB-INF/pages/</value></property>
-        <property name="suffix"><value>.jsp</value></property>
+        <property name="requestContextAttribute" value="rc"/>
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/pages/"/>
+        <property name="suffix" value=".jsp"/>
     </bean>
 </beans>

@@ -14,6 +14,6 @@
     </bean>
 
     <bean id="beanValidator" class="org.springmodules.commons.validator.DefaultBeanValidator">
-        <property name="validatorFactory"><ref bean="validatorFactory"/></property>
+        <property name="validatorFactory" ref="validatorFactory"/>
     </bean>
 </beans>

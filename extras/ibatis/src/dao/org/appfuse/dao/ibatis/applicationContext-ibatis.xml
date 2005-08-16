@@ -6,7 +6,7 @@
     <!-- Transaction manager for a single JDBC DataSource -->
     <bean id="transactionManager" 
         class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource"><ref bean="dataSource"/></property>
+        <property name="dataSource" ref="dataSource"/>
     </bean>
     
     <!-- SqlMap setup for iBATIS Database Layer -->
@@ -19,20 +19,20 @@
     
     <!-- LookupDAO: iBatis implementation --> 
     <bean id="lookupDAO" class="org.appfuse.dao.ibatis.LookupDAOiBatis"> 
-        <property name="dataSource"><ref bean="dataSource"/></property>
-        <property name="sqlMapClient"><ref local="sqlMapClient"/></property> 
+        <property name="dataSource" ref="dataSource"/>
+        <property name="sqlMapClient" ref="sqlMapClient"/> 
     </bean> 
     
     <!-- UserDAO: iBatis implementation --> 
     <bean id="userDAO" class="org.appfuse.dao.ibatis.UserDAOiBatis"> 
-        <property name="dataSource"><ref bean="dataSource"/></property>
-        <property name="sqlMapClient"><ref local="sqlMapClient"/></property>  
+        <property name="dataSource" ref="dataSource"/>
+        <property name="sqlMapClient" ref="sqlMapClient"/>  
     </bean> 
 
     <!-- RoleDAO: Hibernate implementation -->
     <bean id="roleDAO" class="org.appfuse.dao.ibatis.RoleDAOiBatis">
-        <property name="dataSource"><ref bean="dataSource"/></property>
-        <property name="sqlMapClient"><ref local="sqlMapClient"/></property>  
+        <property name="dataSource" ref="dataSource"/>
+        <property name="sqlMapClient" ref="sqlMapClient"/>  
     </bean>
     
     <!-- Add new DAOs here -->

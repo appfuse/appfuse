@@ -5,7 +5,7 @@
 <beans>
     <!-- Hibernate SessionFactory -->
     <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
-        <property name="dataSource"><ref bean="dataSource"/></property>
+        <property name="dataSource" ref="dataSource"/>
         <property name="mappingResources">
             <list>
                 <value>org/appfuse/model/Role.hbm.xml</value>

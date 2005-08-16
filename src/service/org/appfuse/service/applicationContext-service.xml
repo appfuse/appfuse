@@ -4,14 +4,14 @@
 
 <beans>
     <bean id="lookupManager" class="org.appfuse.service.impl.LookupManagerImpl">
-        <property name="lookupDAO"><ref bean="lookupDAO"/></property>
+        <property name="lookupDAO" ref="lookupDAO"/>
     </bean>
 	
     <!-- Transaction template for Managers, from:
          http://blog.exis.com/colin/archives/2004/07/31/concise-transaction-definitions-spring-11/ -->
     <bean id="txProxyTemplate" abstract="true"
         class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
-        <property name="transactionManager"><ref bean="transactionManager"/></property>
+        <property name="transactionManager" ref="transactionManager"/>
         <property name="transactionAttributes">
             <props>
                 <prop key="save*">PROPAGATION_REQUIRED</prop>
@@ -25,7 +25,7 @@
     <bean id="manager" parent="txProxyTemplate">
         <property name="target">
             <bean class="org.appfuse.service.impl.BaseManager">
-                <property name="DAO"><ref bean="dao"/></property>
+                <property name="DAO" ref="dao"/>
             </bean>
         </property>
     </bean>
@@ -67,20 +67,20 @@
     <bean id="roleManager" parent="txProxyTemplate">
         <property name="target">
             <bean class="org.appfuse.service.impl.RoleManagerImpl">
-                <property name="roleDAO"><ref bean="roleDAO"/></property>
+                <property name="roleDAO" ref="roleDAO"/>
             </bean>
         </property>
     </bean>
      
     <bean id="mailEngine" class="org.appfuse.service.MailEngine">
-        <property name="mailSender"><ref bean="mailSender"/></property>
-        <property name="velocityEngine"><ref bean="velocityEngine"/></property>
+        <property name="mailSender" ref="mailSender"/>
+        <property name="velocityEngine" ref="velocityEngine"/>
     </bean>
 
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-        <property name="host"><value>${mail.host}</value></property>
-        <property name="username"><value>${mail.username}</value></property>
-        <property name="password"><value>${mail.password}</value></property>
+        <property name="host" value="${mail.host}"/>
+        <property name="username" value="${mail.username}"/>
+        <property name="password" value="${mail.password}"/>
     </bean>
 
     <!-- Configure Velocity for sending e-mail -->
@@ -97,7 +97,7 @@
     </bean>
 
     <bean id="mailMessage" class="org.springframework.mail.SimpleMailMessage" singleton="false">
-        <property name="from"><value>${mail.default.from}</value></property>
+        <property name="from" value="${mail.default.from}"/>
     </bean>
     
     <!-- Add new Managers here -->
