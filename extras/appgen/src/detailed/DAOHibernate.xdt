@@ -7,13 +7,7 @@ import java.util.List;
 import <XDtPackage:packageName/>.<XDtForm:className/>;
 import <XDtForm:parentPackageName/>.dao.<XDtForm:className/>DAO;
 
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.criterion.Example;
-import org.hibernate.criterion.MatchMode;
-
 import org.springframework.orm.ObjectRetrievalFailureException;
-import org.springframework.orm.hibernate3.HibernateCallback;
 
 public class <XDtForm:className/>DAOHibernate extends BaseDAOHibernate implements <XDtForm:className/>DAO {
 
@@ -21,6 +15,10 @@ public class <XDtForm:className/>DAOHibernate extends BaseDAOHibernate implement
      * @see <XDtForm:parentPackageName/>.dao.<XDtForm:className/>DAO#get<XDtForm:className/>s(<XDtPackage:packageName/>.<XDtForm:className/>)
      */
     public List get<XDtForm:className/>s(final <XDtForm:className/> <XDtForm:classNameLower/>) {
+        return getHibernateTemplate().find("from <XDtForm:className/>");
+
+        /* Remove the line above and uncomment this code block if you want 
+           to use Hibernate's Query by Example API.
         if (<XDtForm:classNameLower/> == null) {
             return getHibernateTemplate().find("from <XDtForm:className/>");
         } else {
@@ -32,7 +30,7 @@ public class <XDtForm:className/>DAOHibernate extends BaseDAOHibernate implement
                 }
             };
             return (List) getHibernateTemplate().execute(callback);
-        }
+        }*/
     }
 
     /**
