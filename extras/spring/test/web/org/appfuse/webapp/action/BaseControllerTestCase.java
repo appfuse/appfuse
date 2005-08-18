@@ -2,17 +2,14 @@ package org.appfuse.webapp.action;
 
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import junit.framework.TestCase;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.Constants;
+import org.appfuse.util.DateUtil;
 import org.appfuse.model.BaseObject;
 import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
@@ -82,11 +79,19 @@ public abstract class BaseControllerTestCase extends TestCase {
                 objectToRequestParameters(field, request, fields[i].getName());
             } else if (!(field instanceof List) && !(field instanceof Set)) {
                 String paramName = fields[i].getName();
+
                 if (prefix != null) {
                     paramName = prefix + "." + paramName;
                 }
-                request.addParameter(paramName,
-                        String.valueOf(fields[i].get(o)));
+
+                String paramValue = String.valueOf(fields[i].get(o));
+
+                // handle Dates
+                if (field instanceof java.util.Date) {
+                    paramValue = DateUtil.convertDateToString((Date)fields[i].get(o));
+                }
+
+                request.addParameter(paramName, paramValue);
             }
         }
     }

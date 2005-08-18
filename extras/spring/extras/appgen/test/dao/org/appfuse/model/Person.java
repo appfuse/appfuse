@@ -11,6 +11,7 @@ public class Person extends BaseObject {
     private Long personId;
     private String firstName;
     private String lastName;
+    private Date birthDate;
 
     /**
      * @return Returns the id.
@@ -53,6 +54,17 @@ public class Person extends BaseObject {
         this.lastName = lastName;
     }
 
+    /**
+     * @hibernate.property column="birth_date" length="20"
+     */
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Person)) return false;
@@ -61,6 +73,7 @@ public class Person extends BaseObject {
 
         if (firstName != null ? !firstName.equals(person.firstName) : person.firstName != null) return false;
         if (lastName != null ? !lastName.equals(person.lastName) : person.lastName != null) return false;
+        if (birthDate != null ? !birthDate.equals(person.birthDate) : person.birthDate != null) return false;
 
         return true;
     }
@@ -69,12 +82,13 @@ public class Person extends BaseObject {
         int result;
         result = (firstName != null ? firstName.hashCode() : 0);
         result = 29 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 29 * result + (birthDate != null ? birthDate.hashCode() : 0);
         return result;
     }
 
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
                 .append("lastName", this.lastName).append("personId", this.personId)
-                .append("firstName", this.firstName).toString();
+                .append("firstName", this.firstName).append("birthDate", this.birthDate).toString();
     }
 }
