@@ -73,14 +73,15 @@ public class FormTagsHandler extends AbstractProgramElementTagsHandler {
             if (hasTag(pro, FOR_METHOD)) {
                 curFieldIsIdorVersion = true;
             }
+
             pro.setProperty("tagName", "hibernate.version");
+
             if (hasTag(pro, FOR_METHOD)) {
                 curFieldIsIdorVersion = true;
             }
-            String typename = field.getPropertyType().getType()
-                    .getQualifiedName();
-            curFieldIsBoolean = typename.equals("boolean")
-                    || typename.equals("java.lang.Boolean");
+
+            String typename = field.getPropertyType().getType().getQualifiedName();
+            curFieldIsBoolean = typename.equals("boolean") || typename.equals("java.lang.Boolean");
 
             setCurrentMethod(field);
             generate(template);
@@ -96,14 +97,12 @@ public class FormTagsHandler extends AbstractProgramElementTagsHandler {
      * @param attributes
      * @throws XDocletException
      */
-    public void ifIsBooleanField(String template, Properties attributes)
-            throws XDocletException {
+    public void ifIsBooleanField(String template, Properties attributes) throws XDocletException {
         if (curFieldIsBoolean)
             generate(template);
     }
 
-    public void ifIsNotBooleanField(String template, Properties attributes)
-            throws XDocletException {
+    public void ifIsNotBooleanField(String template, Properties attributes) throws XDocletException {
         if (!curFieldIsBoolean)
             generate(template);
     }
@@ -116,15 +115,13 @@ public class FormTagsHandler extends AbstractProgramElementTagsHandler {
      * @param attributes
      * @throws XDocletException
      */
-    public void ifIsIdOrVersionField(String template, Properties attributes)
-    throws XDocletException {
+    public void ifIsIdOrVersionField(String template, Properties attributes) throws XDocletException {
         if (curFieldIsIdorVersion) {
             generate(template);
         }
     }
 
-    public void ifIsNotIdOrVersionField(String template, Properties attributes)
-    throws XDocletException {
+    public void ifIsNotIdOrVersionField(String template, Properties attributes) throws XDocletException {
         if (!curFieldIsIdorVersion) {
             generate(template);
         }
