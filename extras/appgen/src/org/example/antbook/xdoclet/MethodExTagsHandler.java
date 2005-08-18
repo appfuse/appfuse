@@ -15,6 +15,8 @@ import xjavadoc.*;
  * extra features designed for appgen.
  *
  * @author hzhang(mb4henry@yahoo.com.au)
+ * @author Matt Raible
+ * @author David Carter
  *
  */
 public class MethodExTagsHandler extends MethodTagsHandler {
@@ -91,8 +93,7 @@ public class MethodExTagsHandler extends MethodTagsHandler {
         XMethod method = super.getCurrentMethod();
         XMethod setter = method.getMutator();
 
-        return rootClassNameLower + "Form." + curprefix + setter.getName() + "(" +
-               randomValueForSetter() + ");";
+        return rootClassNameLower + "Form." + curprefix + setter.getName() + "(" + randomValueForSetter() + ");";
     }
 
     /**
@@ -105,8 +106,7 @@ public class MethodExTagsHandler extends MethodTagsHandler {
         XMethod method = super.getCurrentMethod();
         XMethod setter = method.getMutator();
 
-        return rootClassNameLower + "." + curprefix + setter.getName() + "(" +
-               randomValueForSetter() + ");";
+        return rootClassNameLower + "." + curprefix + setter.getName() + "(" + randomValueForSetter() + ");";
     }
 
     /**
@@ -181,19 +181,14 @@ public class MethodExTagsHandler extends MethodTagsHandler {
     protected void forAllMembersEx(XClass currentClass, String template,
                                    Properties attributes, int forType,
                                    String prefix) throws XDocletException {
-        boolean superclasses =
-            TypeConversionUtil.stringToBoolean(attributes.getProperty("superclasses"),
-                                               false);
-        boolean sort =
-            TypeConversionUtil.stringToBoolean(attributes.getProperty("sort"),
-                                               true);
+        boolean superclasses = TypeConversionUtil.stringToBoolean(attributes.getProperty("superclasses"), false);
+        boolean sort = TypeConversionUtil.stringToBoolean(attributes.getProperty("sort"), true);
 
         Collection members = null;
 
         switch (forType) {
             case FOR_METHOD:
                 members = currentClass.getMethods(superclasses);
-
                 break;
 
             default:
@@ -214,7 +209,6 @@ public class MethodExTagsHandler extends MethodTagsHandler {
             switch (forType) {
                 case FOR_METHOD:
                     setCurrentMethod((XMethod) member);
-
                     break;
 
                 default:
@@ -226,16 +220,13 @@ public class MethodExTagsHandler extends MethodTagsHandler {
             if (super.isGetterMethod(getter)) {
                 Properties pro = new Properties();
 
-                //iterate through sub-components only
+                // iterate through sub-components only
                 pro.setProperty("tagName", "hibernate.component");
 
                 if (super.hasTag(pro, FOR_METHOD)) {
                     Type type = getter.getReturnType();
-                    String temp =
-                        prefix +
-                        ("get" + type.getType().getName() + "Form().");
-                    forAllMembersEx(type.getType(), template, attributes,
-                                    forType, temp);
+                    String temp = prefix + ("get" + type.getType().getName() + "Form().");
+                    forAllMembersEx(type.getType(), template, attributes, forType, temp);
                 }
 
                 setCurrentClass(member.getContainingClass());
@@ -282,11 +273,9 @@ public class MethodExTagsHandler extends MethodTagsHandler {
             result.append(new Timestamp(new Date().getTime()).toString());
         } else if ("email".equalsIgnoreCase(super.propertyName())) {
             result.append(super.propertyName() + (int) ((Math.random() * Integer.MAX_VALUE)) + "@dev.java.net");
-        } else if ("java.lang.String".equals(mtype)) {
+        } else { // default to String for everything else
             String stringWithQuotes = generateStringValue();
             result.append(stringWithQuotes.substring(1, stringWithQuotes.length()-1));
-        } else {
-            throw new XDocletException("<XDtMethodEx:randomValueForDbUnit/> called on unsupported type: " + mtype);
         }
 
         //System.out.println("propertyType: " + mtype + " | dbUnit value: " + result.toString());
@@ -323,11 +312,11 @@ public class MethodExTagsHandler extends MethodTagsHandler {
         } else if ("long".equals(mtype)) {
             // not sure why, but Long.MAX_VALUE results in too large a number
             result.append((long) ((Math.random() * Integer.MAX_VALUE)));
-        } else if ("java.lang.Double".equals(mtype) ) {
+        } else if ("java.lang.Double".equals(mtype)) {
             result.append("new Double(" + (double) ((Math.random() * Double.MAX_VALUE)) + ")");
         } else if ("double".equals(mtype)) {
             result.append((double) ((Math.random() * Double.MAX_VALUE)));
-        } else if ("java.lang.Short".equals(mtype) ) {
+        } else if ("java.lang.Short".equals(mtype)) {
             result.append("new Short(\"" + (short) ((Math.random() * Short.MAX_VALUE)) + "\")");
         } else if ("short".equals(mtype)) {
             result.append("(short)" + (short) ((Math.random() * Short.MAX_VALUE)));
@@ -343,15 +332,13 @@ public class MethodExTagsHandler extends MethodTagsHandler {
             result.append("new Date(" + getDate(new Date()) + ")");
         } else if ("java.sql.Timestamp".equals(mtype)) {
             result.append("Timestamp.valueOf(\"" + new Timestamp(new Date().getTime()).toString() + "\")");
-            //result.append("\"" + new Timestamp(new Date().getTime()).toString() + "\"";
         } else if ("email".equalsIgnoreCase(super.propertyName())) {
             result.append("\"" + super.propertyName() + (int) ((Math.random() * Integer.MAX_VALUE)) +
                    "@dev.java.net\"");
-        } else if ("java.lang.String".equals(mtype)) {
+        } else { // default to String for everything else
             result.append(generateStringValue());
-        } else {
-            throw new XDocletException("<XDtMethodEx:randomValueForSetter/> called on unsupported type: " + mtype);
         }
+
         //System.out.println("propertyType: " + mtype + " | setter value: " + result.toString());
         return result.toString();
     }
@@ -390,7 +377,7 @@ public class MethodExTagsHandler extends MethodTagsHandler {
 
         if (super.hasTag(props, FOR_METHOD)) {
             String tagVal = super.getTagValue(props, FOR_METHOD);
-            System.out.println("property has hibernate.property length= " + tagVal);
+            //System.out.println("property has hibernate.property length= " + tagVal);
             length = Integer.valueOf(tagVal).intValue();
         }
         return length;
