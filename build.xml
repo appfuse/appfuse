@@ -1142,6 +1142,8 @@
                     <exclude name="www/**"/>
                     <exclude name="*.sh"/>
                     <exclude name="*.sql"/>   
+                    <exclude name="test-all-*"/>
+                    <exclude name="extras/myjavapack"/>
                 </patternset>
             </zipfileset>
         </zip>
