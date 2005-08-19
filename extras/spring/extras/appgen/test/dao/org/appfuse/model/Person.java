@@ -1,5 +1,7 @@
 package org.appfuse.model;
 
+import java.util.Date;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
