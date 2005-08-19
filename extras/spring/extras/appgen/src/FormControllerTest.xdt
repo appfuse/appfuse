@@ -55,6 +55,11 @@ public class <XDtForm:className/>FormControllerTest extends BaseControllerTestCa
         
         Errors errors =
             (Errors) mv.getModel().get(BindException.ERROR_KEY_PREFIX + "<XDtForm:classNameLower/>");
+
+        if (errors != null) {
+            log.debug(errors);
+        }
+        
         assertNull(errors);
         assertNotNull(request.getSession().getAttribute("messages"));        
     }
