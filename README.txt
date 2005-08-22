@@ -1,6 +1,9 @@
 Quick-Start FAQ
 ===============
 
+To install and configure AppFuse for development, see the QuickStart Guide at:
+http://raibledesigns.com/wiki/Wiki.jsp?page=AppFuseQuickStart. 
+
 To learn how to develop your J2EE webapps with AppFuse, see 
 http://raibledesigns.com/wiki/Wiki.jsp?page=Articles (or docs/index.html if you 
 downloaded the AppFuse source distribution). You can also download all the 
@@ -9,9 +12,9 @@ latest documentation to the "docs" directory by running "ant wiki".
 To build this application - you must be using Ant 1.6.2+.  You will also need 
 to copy junit.jar into your $ANT_HOME/lib directory.
 
-Then setup Tomcat 4.1.x+ and install an SMTP server on localhost.  If you don't 
-want to install an SMTP server, change web/WEB-INF/classes/mail.properties to 
-point to an existing one.
+You are expected to have Tomcat 5.0.x+ installed, as well as an SMTP server on 
+localhost.  If you don't want to install an SMTP server, change 
+web/WEB-INF/classes/mail.properties to point to an existing one.
 
 To run this application, you will need to perform the following tasks:
 
@@ -43,16 +46,24 @@ steps:
 
 Features/Changes in 1.8.2
 ============================
-- Moved commons-collections.jar from lib/jarkarta-struts to lib/hibernate
-  since Struts no longer depends on it.
+- A complete list of issues can be read from JIRA at http://tinyurl.com/aumf5.
 - Added support for running tests and webapp in debug mode.
-- Security fix: prevent regular users from upgrading to admin role
+    http://issues.appfuse.org/browse/APF-87
+- Security fix: prevent regular users from upgrading to admin role.
+    http://issues.appfuse.org/browse/APF-96
 - Security fix: don't allow regular users to view list of users.
+    http://issues.appfuse.org/browse/APF-88
 - Changed Acegi Security Filter mapping so JavaScript, CSS and image files
   are not processed.
 - Enhanced AppGen to support inheritance and better default data for DBUnit.
-- Added Prototype and script.aculo.us JavaScript libraries, replacing fade.js
-  for the "yellow fade technique".
+- Added Prototype and script.aculo.us JavaScript libraries, removed "yellow
+  fade technique" because of problems with Canoo WebTest. Removed fade.js b/c
+  of issues with IE and displaytag.
+- Updated all existing and generated Spring XML for Spring 1.2's syntax.
+- [Spring MVC] Fixed issue with Dates in objectToRequestParameters() method.
+    http://issues.appfuse.org/browse/APF-127
+- Commented out generated Query by Example code in generated Hibernate DAOs b/c
+  it caused more problems than it solved.
 - Dependent packages upgraded:
     * Acegi Security 0.8.3
     * Spring 1.2.4
