@@ -68,7 +68,7 @@ Features/Changes in 1.8.2
     * Acegi Security 0.8.3
     * Spring 1.2.4
     * Spring Modules Validator Nightly (20050727)
-
+    * URL Rewrite Filter 2.5.1
 
 Features/Changes in 1.8.1
 ============================
