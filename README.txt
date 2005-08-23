@@ -64,6 +64,9 @@ Features/Changes in 1.8.2
     http://issues.appfuse.org/browse/APF-127
 - Commented out generated Query by Example code in generated Hibernate DAOs b/c
   it caused more problems than it solved.
+- Changed BaseDAOTestCase to extends Spring's 
+  AbstractDependencyInjectionSpringContextTests.
+    http://issues.appfuse.org/browse/APF-129
 - Dependent packages upgraded:
     * Acegi Security 0.8.3
     * Spring 1.2.4

@@ -13,16 +13,13 @@ public class UserDAOTest extends BaseDAOTestCase {
     private User user = null;
     private RoleDAO rdao = null;
     private Role role = null;
-
-    protected void setUp() throws Exception {
-        super.setUp();
-        dao = (UserDAO) ctx.getBean("userDAO");
-        rdao = (RoleDAO) ctx.getBean("roleDAO");
+    
+    public void setUserDAO(UserDAO dao) {
+        this.dao = dao;
     }
-
-    protected void tearDown() throws Exception {
-        super.tearDown();
-        dao = null;
+    
+    public void setRoleDAO(RoleDAO rdao) {
+        this.rdao = rdao;
     }
 
     public void testGetUserInvalid() throws Exception {

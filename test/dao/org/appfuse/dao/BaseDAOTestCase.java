@@ -6,34 +6,25 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import junit.framework.TestCase;
-
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.appfuse.Constants;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.util.ClassUtils;
+import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
 
 /**
  * Base class for running DAO tests.
  * @author mraible
  */
-public abstract class BaseDAOTestCase extends TestCase {
+public abstract class BaseDAOTestCase extends AbstractDependencyInjectionSpringContextTests {
     protected final Log log = LogFactory.getLog(getClass());
-    protected final static ApplicationContext ctx;
     protected ResourceBundle rb;
+    protected static final String[] configLocations = {"classpath*:/**/dao/applicationContext-*.xml",
+                                                       "classpath*:META-INF/applicationContext-*.xml"};
     
-    // This static block ensures that Spring's BeanFactory is only loaded
-    // once for all tests
-    static {
-        String pkg = ClassUtils.classPackageAsResourcePath(Constants.class);
-        String[] paths = {"classpath*:/" + pkg + "/dao/applicationContext-*.xml",
-                          "classpath*:META-INF/applicationContext-*.xml"};
-        ctx = new ClassPathXmlApplicationContext(paths);
+    protected String[] getConfigLocations() {
+        return configLocations;
     }
-
+    
     public BaseDAOTestCase() {
         // Since a ResourceBundle is not required for each class, just
         // do a simple check to see if one exists

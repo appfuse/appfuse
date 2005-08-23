@@ -11,8 +11,8 @@ import net.sf.acegisecurity.providers.UsernamePasswordAuthenticationToken;
 
 import org.appfuse.Constants;
 import org.appfuse.dao.UserDAO;
-import org.appfuse.model.User;
 import org.appfuse.model.Role;
+import org.appfuse.model.User;
 import org.jmock.Mock;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

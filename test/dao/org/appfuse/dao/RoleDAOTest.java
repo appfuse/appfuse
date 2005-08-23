@@ -7,14 +7,8 @@ public class RoleDAOTest extends BaseDAOTestCase {
     private Role role = null;
     private RoleDAO dao = null;
 
-    protected void setUp() throws Exception {
-        super.setUp();
-        dao = (RoleDAO) ctx.getBean("roleDAO");
-    }
-
-    protected void tearDown() throws Exception {
-        super.tearDown();
-        dao = null;
+    public void setRoleDAO(RoleDAO dao) {
+        this.dao = dao;
     }
 
     public void testGetRoleInvalid() throws Exception {

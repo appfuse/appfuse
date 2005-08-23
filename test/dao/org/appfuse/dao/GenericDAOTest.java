@@ -7,16 +7,16 @@ import org.springframework.orm.ObjectRetrievalFailureException;
  * This class tests the generic DAO and BaseDAO implementation.
  */
 public class GenericDAOTest extends BaseDAOTestCase {
-    private DAO dao;
     private Class clazz;
+    private DAO dao;
     
-    protected void setUp() throws Exception {
-        super.setUp();
-        dao = (DAO) ctx.getBean("dao");
-    }
-    
-    protected void tearDown() throws Exception {
-        dao = null;
+    /**
+     * This method is used instead of setDAO b/c setDAO uses autowire byType
+     * <code>setPopulateProtectedVariables(true)</code> can also be used, but it's
+     * a little bit slower.
+     */
+    public void onSetUp() throws Exception {
+        dao = (DAO) applicationContext.getBean("dao");
     }
     
     /**

@@ -9,9 +9,8 @@ import java.util.List;
 public class LookupDAOTest extends BaseDAOTestCase {
     private LookupDAO dao;
     
-    protected void setUp() throws Exception {
-        super.setUp();
-        dao = (LookupDAO) ctx.getBean("lookupDAO");
+    public void setLookupDAO(LookupDAO dao) {
+        this.dao = dao;
     }
 
     public void testGetRoles() {
