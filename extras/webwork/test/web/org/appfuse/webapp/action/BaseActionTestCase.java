@@ -2,7 +2,6 @@ package org.appfuse.webapp.action;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.ResourceBundle;
 
 import junit.framework.TestCase;
 
@@ -13,15 +12,18 @@ import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mock.web.MockServletContext;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.util.ClassUtils;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 
 import com.opensymphony.xwork.ActionContext;
+import com.opensymphony.webwork.ServletActionContext;
 
 public abstract class BaseActionTestCase extends TestCase {
     protected transient final Log log = LogFactory.getLog(getClass());
     protected static XmlWebApplicationContext ctx;
     protected User user;
+    protected MockHttpServletRequest request = new MockHttpServletRequest();
 
     // This static block ensures that Spring's BeanFactory is only loaded
     // once for all tests
@@ -52,6 +54,9 @@ public abstract class BaseActionTestCase extends TestCase {
         JavaMailSenderImpl mailSender = (JavaMailSenderImpl) ctx.getBean("mailSender");
         mailSender.setPort(2525);
         mailSender.setHost("localhost");
+
+        // populate the request so getRequest().getSession() doesn't fail in BaseAction.java
+        ServletActionContext.setRequest(request);
     }
     
     protected void tearDown() throws Exception {

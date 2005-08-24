@@ -8,7 +8,7 @@ import <XDtPackage:packageName/>.<XDtForm:className/>;
 
 public class <XDtForm:className/>ActionTest extends BaseActionTestCase {
     private <XDtForm:className/>Action action;
-    
+
     protected void setUp() throws Exception {    
         super.setUp();
         action = (<XDtForm:className/>Action) ctx.getBean("<XDtForm:classNameLower/>Action");
@@ -52,8 +52,6 @@ public class <XDtForm:className/>ActionTest extends BaseActionTestCase {
     }
 
     public void testSave() throws Exception {
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        ServletActionContext.setRequest(request);
         action.<XDtMethodEx:idField getType="setterName"/>("1");
 
         assertEquals(action.edit(), "success");
@@ -75,8 +73,6 @@ public class <XDtForm:className/>ActionTest extends BaseActionTestCase {
     }
 
     public void testRemove() throws Exception {
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        ServletActionContext.setRequest(request);
         action.setDelete("");
         <XDtForm:className/> <XDtForm:classNameLower/> = new <XDtForm:className/>();
         <XDtForm:classNameLower/>.<XDtMethodEx:idField getType="setterName"/>(new <XDtMethodEx:idField getType="propertyType"/>("2"));

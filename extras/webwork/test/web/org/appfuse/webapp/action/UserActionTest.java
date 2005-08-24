@@ -29,8 +29,7 @@ public class UserActionTest extends BaseActionTestCase {
     
     public void testEdit() throws Exception {
         // so request.getRequestURL() doesn't fail
-        MockHttpServletRequest request = 
-            new MockHttpServletRequest("GET", "/editUser.html");
+        request = new MockHttpServletRequest("GET", "/editUser.html");
         ServletActionContext.setRequest(request);
         
         action.setUsername("tomcat");
@@ -46,7 +45,6 @@ public class UserActionTest extends BaseActionTestCase {
         action.setUser(user);
         action.setFrom("list");
         
-        MockHttpServletRequest request = new MockHttpServletRequest();
         request.addParameter("encryptPass", "true");
         ServletActionContext.setRequest(request);
 

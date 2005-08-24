@@ -12,7 +12,6 @@ public class PasswordHintActionTest extends BaseActionTestCase {
     protected void setUp() throws Exception {    
         super.setUp();
         action = (PasswordHintAction) ctx.getBean("passwordHintAction");
-        ServletActionContext.setRequest(new MockHttpServletRequest());
     }
     
     protected void tearDown() throws Exception {

@@ -24,8 +24,7 @@ public class SignupActionTest extends BaseActionTestCase {
     }
     
     public void testDisplayForm() throws Exception {
-        MockHttpServletRequest request =
-            new MockHttpServletRequest(null, "GET", "/signup.html");
+        request = new MockHttpServletRequest(null, "GET", "/signup.html");
         ServletActionContext.setRequest(request);
         assertEquals(action.execute(), "input");
     }  
@@ -50,8 +49,7 @@ public class SignupActionTest extends BaseActionTestCase {
         user.setPasswordHint("Password is one with you.");
         action.setUser(user);
 
-        // set mock requests and responses so setting cookies doesn't fail
-        ServletActionContext.setRequest(new MockHttpServletRequest());
+        // set mock response so setting cookies doesn't fail
         ServletActionContext.setResponse(new MockHttpServletResponse());
         
         // start SMTP Server
