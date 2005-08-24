@@ -18,11 +18,10 @@ import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
 public abstract class BaseDAOTestCase extends AbstractDependencyInjectionSpringContextTests {
     protected final Log log = LogFactory.getLog(getClass());
     protected ResourceBundle rb;
-    protected static final String[] configLocations = {"classpath*:/**/dao/applicationContext-*.xml",
-                                                       "classpath*:META-INF/applicationContext-*.xml"};
     
     protected String[] getConfigLocations() {
-        return configLocations;
+        return new String [] {"classpath*:/**/dao/applicationContext-*.xml",
+                              "classpath*:META-INF/applicationContext-*.xml"};
     }
     
     public BaseDAOTestCase() {
