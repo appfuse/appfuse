@@ -16,14 +16,14 @@
         <modificationset quietperiod="60">
             <cvs localworkingcopy="/home/cc/work/checkout/appfuse"/>
             <!--svn LocalWorkingCopy="/home/cc/work/checkout/appfuse"/-->
-            <!--filesystem folder="checkout/sbwebsite"/-->
+            <!--filesystem folder="/home/cc/work/checkout/appfuse"/-->
         </modificationset>
         
         <schedule interval="120">
             <ant antscript="/opt/dev/tools/ant/bin/ant"/>
         </schedule>
         
-        <log dir="logs/appfuse">
+        <log dir="/home/cc/work/logs/appfuse">
             <merge dir="/home/cc/work/checkout/appfuse/build/test/data"/>
         </log>
         

@@ -15,10 +15,10 @@
     <taskdef resource="svntask.properties" classpathref="svn.classpath"/>
     
     <target name="svn">
-        <delete dir="checkout/sbwebsite"/>
+        <delete dir="checkout/appfuse"/>
         <svn>
-            <checkout url="https://svn.sourcebeat.com/svn/sourcebeat/trunk/website" 
-                revision="HEAD" destPath="checkout/sbwebsite" />
+            <checkout url="https://svn.java.net/svn/appfuse/trunk" 
+                revision="HEAD" destPath="checkout/appfuse" />
         </svn>
     </target>
     -->
