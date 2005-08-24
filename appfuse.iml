@@ -439,7 +439,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/urlrewrite-1.2/urlrewrite-1.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/urlrewrite-2.5.1/urlrewrite-2.5.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -819,8 +819,8 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/urlrewrite-1.2.jar" />
-      <url>jar://$MODULE_DIR$/lib/urlrewrite-1.2/urlrewrite-1.2.jar!/</url>
+      <attribute name="URI" value="/WEB-INF/lib/urlrewrite-2.5.1.jar" />
+      <url>jar://$MODULE_DIR$/lib/urlrewrite-2.5.1/urlrewrite-2.5.1.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />

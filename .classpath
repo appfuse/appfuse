@@ -67,7 +67,7 @@
 	<classpathentry kind="lib" path="lib/spring-1.2.4/ehcache-1.1.jar"/>
 	<classpathentry kind="lib" path="lib/spring-1.2.4/spring.jar"/>
 	<classpathentry kind="lib" path="lib/spring-1.2.4/spring-mock.jar"/>
-	<classpathentry kind="lib" path="lib/urlrewrite-1.2/urlrewrite-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/urlrewrite-2.5.1/urlrewrite-2.5.1.jar"/>
 	<classpathentry kind="lib" path="lib/java2html-1.3.1/j2h.jar"/>
 	<classpathentry kind="lib" path="lib/postgresql-jdbc-8.0-310/postgresql-jdbc3-8.0-310.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
