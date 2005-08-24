@@ -1,1 +1,1 @@
-/opt/dev/tools/cruisecontrol-2.2/main/bin/cruisecontrol.sh  
+/opt/dev/tools/cruisecontrol/main/bin/cruisecontrol.sh  

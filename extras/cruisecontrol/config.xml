@@ -10,42 +10,40 @@
     
         <bootstrappers>
             <currentbuildstatusbootstrapper 
-                file="logs/appfuse/currentbuildstatus.txt"/>
+                file="/home/cc/logs/appfuse/currentbuildstatus.txt"/>
         </bootstrappers>
         
         <modificationset quietperiod="60">
-            <cvs localworkingcopy="checkout/appfuse"/>
+            <cvs localworkingcopy="/home/cc/work/checkout/appfuse"/>
+            <!--svn LocalWorkingCopy="/home/cc/work/checkout/appfuse"/-->
+            <!--filesystem folder="checkout/sbwebsite"/-->
         </modificationset>
         
         <schedule interval="120">
-            <ant antscript="/opt/dev/tools/apache-ant-1.6.2/bin/ant"/>
+            <ant antscript="/opt/dev/tools/ant/bin/ant"/>
         </schedule>
         
         <log dir="logs/appfuse">
-            <merge dir="checkout/appfuse/build/test/data"/>
+            <merge dir="/home/cc/work/checkout/appfuse/build/test/data"/>
         </log>
         
         <publishers>
             <currentbuildstatuspublisher 
-                file="logs/appfuse/currentbuildstatus.txt"/>
+                file="/home/cc/work/logs/appfuse/currentbuildstatus.txt"/>
                
             <htmlemail mailhost="localhost" 
                 returnaddress="cruisecontrol@raibledesigns.com" 
                 defaultsuffix="@raibledesigns.com" 
                 buildresultsurl="http://foxxy:8080/cruisecontrol/buildresults/appfuse" 
-                css="/opt/dev/tools/cruisecontrol-2.2/reporting/jsp/css/cruisecontrol.css" 
-                xsldir="/opt/dev/tools/cruisecontrol-2.2/reporting/jsp/xsl" 
-                logdir="logs/appfuse" 
+                css="/opt/tools/cruisecontrol/reporting/jsp/webcontent/css/cruisecontrol.css" 
+                xsldir="/opt/tools/cruisecontrol/reporting/jsp/webcontent/xsl" 
+                logdir="/home/mraible/work/logs/appfuse" 
                 subjectprefix="[CruiseControl] ">
                 
                 <map alias="matt" address="matt@raibledesigns.com"/>
                 <always address="matt"/>
                 <failure address="matt" reportWhenFixed="true"/>
             </htmlemail>
-            
-            <XSLTLogPublisher 
-                directory="/opt/dev/tools/jakarta-tomcat-5.0.29/webapps/cruisecontrol" 
-                outfilename="appfuse.rss" xsltfile="buildstatus.xsl"/>
         </publishers>
     
     </project>

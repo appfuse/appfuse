@@ -7,6 +7,22 @@
 
 <project name="cc-build" default="test">
 
+    <!-- 
+    <path id="svn.classpath">
+        <fileset dir="svnant-1.0.0-rc1/lib" includes="*.jar"/>
+    </path>
+        
+    <taskdef resource="svntask.properties" classpathref="svn.classpath"/>
+    
+    <target name="svn">
+        <delete dir="checkout/sbwebsite"/>
+        <svn>
+            <checkout url="https://svn.sourcebeat.com/svn/sourcebeat/trunk/website" 
+                revision="HEAD" destPath="checkout/sbwebsite" />
+        </svn>
+    </target>
+    -->
+
     <target name="cvs">
         <delete dir="checkout/appfuse"/>
         <cvs command="co appfuse" dest="checkout"
