@@ -31,12 +31,12 @@ import servletunit.struts.MockStrutsTestCase;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.12 $ $Date: 2005/04/28 09:47:14 $
+ * @version $Revision: 1.13 $ $Date: 2005/08/28 21:13:23 $
  */
 public abstract class BaseStrutsTestCase extends MockStrutsTestCase {
     //~ Instance fields ========================================================
 
-    protected transient final Log log = LogFactory.getLog(getClass());
+    protected final Log log = LogFactory.getLog(getClass());
     protected User user = null;
     protected ResourceBundle rb = null;
     protected WebApplicationContext ctx = null;
