@@ -3,7 +3,7 @@
     <!-- Installer Info. Will be displayed on splash screen -->
     <info>
         <appname>AppFuse</appname>
-        <appversion>1.8.1</appversion>
+        <appversion>1.8.2</appversion>
         <authors>
             <author name="Matt Raible" email="matt@raibledesigns.com"/>
         </authors>
@@ -86,7 +86,7 @@
         </pack>
         
         <!-- appfuse -->
-        <pack name="appfuse-1.8.1" required="no" bytes="2125638" preselected="yes" packType="framework">
+        <pack name="appfuse-1.8.2" required="no" bytes="2125638" preselected="yes" packType="framework">
             <description>AppFuse is a "kickstarter" application to help you get started developing Java web applications quickly and efficiently.</description>
             <executable keep="true" failure="abort" stage="install" type="jar" targetfile="$INSTALL_PATH/bin/ant-launcher.jar">
                 <args>
@@ -97,10 +97,10 @@
                     
                     <!-- You probably want to specify an install details log -->
                     <arg value="-logfile"/>
-                    <arg value="$INSTALL_PATH/bin/logs/appfuse-1.8.1.log"/>
+                    <arg value="$INSTALL_PATH/bin/logs/appfuse-1.8.2.log"/>
                     
                     <!-- Ant task that this pack calls -->
-                    <arg value="appfuse-1.8.1"/>
+                    <arg value="appfuse-1.8.2"/>
                 </args>
             </executable>
         </pack>

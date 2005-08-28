@@ -1,6 +1,6 @@
 =============== Welcome to the AppFuse Development Environment ===============
 
-This is a MyJavaPack installer for AppFuse 1.8.1.  It will prompt you for the 
+This is a MyJavaPack installer for AppFuse 1.8.2.  It will prompt you for the 
 packages you want to install, and then it will download and extract them to 
 the directory you specify.  From there, you will need to specify ANT_HOME and 
 CATALINA_HOME environment variables.  I encourage you to move the downloaded 
@@ -17,7 +17,7 @@ or run:
 
 Optional packages in this installer:
 
-	AppFuse 1.8.1
+	AppFuse 1.8.2
 	Ant 1.6.2
 	Tomcat 5.0.28
 	MySQL (Windows) 4.1.11
