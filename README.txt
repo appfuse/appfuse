@@ -44,6 +44,13 @@ steps:
      Example: log4j.rootCategory=INFO, stdout, mail
 
 
+Features/Changes in 1.9
+============================
+- Dependent packages upgraded:
+    * Log4j 1.2.11
+    * MySQL JDBC Driver 3.1.10  
+    * PostgreSQL JDBC Driver 8.0-312
+
 Features/Changes in 1.8.2
 ============================
 - A complete list of issues can be read from JIRA at http://tinyurl.com/aumf5.

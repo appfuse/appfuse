@@ -62,6 +62,10 @@ information about each project, google it or view its URL in lib.properties.
 - testing framework for unit and integration tests
 - required for building and running tests
 
+* log4j
+- logging framework
+- required for running tests and web application
+
 * mysql-jdbc-driver
 - mysql jdbc driver to allow talking to a mysql database
 - required for running application with mysql
