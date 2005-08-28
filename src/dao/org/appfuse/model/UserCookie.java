@@ -49,7 +49,6 @@ public class UserCookie extends BaseObject {
      * @return String
      *
      * @hibernate.property
-     * @hibernate.property
      * @hibernate.column name="username" not-null="true"
      *  length="30" index="user_cookie_username_cookie_id"
      */
@@ -87,7 +86,7 @@ public class UserCookie extends BaseObject {
 
     /**
      * @return Returns the dateCreated.
-    * @hibernate.property column="date_created" not-null="true"
+     * @hibernate.property column="date_created" not-null="true"
      */
     public Date getDateCreated() {
         return dateCreated;
