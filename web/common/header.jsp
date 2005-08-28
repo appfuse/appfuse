@@ -15,7 +15,7 @@
 </div>
 </c:if>
 
-<logic:present role="tomcat,admin">
+<logic:present role="user,admin">
     <html:link forward="mainMenu">
         <fmt:message key="mainMenu.title"/>
     </html:link>

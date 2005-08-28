@@ -29,9 +29,9 @@
             <value>
                 CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
                 PATTERN_TYPE_APACHE_ANT
-                /signup.html=ROLE_ANONYMOUS,admin,tomcat
-                /passwordhint.html*=ROLE_ANONYMOUS,admin,tomcat
-                /**/*.html*=admin,tomcat
+                /signup.html=ROLE_ANONYMOUS,admin,user
+                /passwordhint.html*=ROLE_ANONYMOUS,admin,user
+                /**/*.html*=admin,user
                 /clickstreams.jsp=admin
             </value>
         </property>

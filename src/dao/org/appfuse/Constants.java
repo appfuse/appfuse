@@ -10,7 +10,7 @@ package org.appfuse;
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
-public class Constants {
+public final class Constants {
     //~ Static fields/initializers =============================================
    
     /** The name of the ResourceBundle used in this application */
@@ -78,7 +78,7 @@ public class Constants {
     /**
      * The name of the User role, as specified in web.xml
      */
-    public static final String USER_ROLE = "tomcat";
+    public static final String USER_ROLE = "user";
 
     /**
      * The name of the user's role list, a request-scoped attribute

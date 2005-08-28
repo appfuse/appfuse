@@ -61,7 +61,7 @@
       <value>1</value>
     </row>
     <row>
-      <value>tomcat</value>
+      <value>user</value>
       <value><![CDATA[Default role for all Users]]></value>
       <value>1</value>
     </row>
@@ -71,7 +71,7 @@
     <column>role_name</column>
     <row>
       <value>tomcat</value>
-      <value>tomcat</value>
+      <value>user</value>
     </row>
     <row>
       <value>mraible</value>

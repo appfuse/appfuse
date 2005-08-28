@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: web-tests.xml,v 1.14 2005/05/06 21:18:44 mraible Exp $               -->
+<!-- $Id: web-tests.xml,v 1.15 2005/08/28 21:15:53 mraible Exp $               -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY config SYSTEM "file:./config.xml">
@@ -40,8 +40,8 @@
             &config;
             <steps>
                 &login;
-                <invoke stepid="get Logout Page" url="/logout.jsp"/>
-                <verifytitle stepid="we should see the login title"
+                <invoke description="get Logout Page" url="/logout.jsp"/>
+                <verifytitle description="we should see the login title"
                     text="${webapp.prefix}${login.title}"/>
             </steps>
         </canoo>
@@ -53,12 +53,12 @@
         <canoo name="passwordHint">
             &config;
             <steps>
-                <invoke stepid="get Login Page" url="/"/>
-                <verifytitle stepid="we should see the login title" 
+                <invoke description="get Login Page" url="/"/>
+                <verifytitle description="we should see the login title" 
                     text="${webapp.prefix}${login.title}"/>
-                <invoke stepid="click password hint link"
+                <invoke description="click password hint link"
                     url="/passwordHint.html?username=mraible"/>
-                <verifytitle stepid="we should see the login title again"
+                <verifytitle description="we should see the login title again"
                     text="${webapp.prefix}${login.title}"/>
             </steps>
         </canoo>
@@ -71,8 +71,8 @@
             &config;
             <steps>
                 &login;
-                <invoke stepid="click Edit Profile link" url="/editProfile.html"/>
-                <verifytitle stepid="we should see the user profile title" 
+                <invoke description="click Edit Profile link" url="/editProfile.html"/>
+                <verifytitle description="we should see the user profile title" 
                     text="${webapp.prefix}${userProfile.title}"/>
             </steps>
         </canoo>
@@ -85,8 +85,8 @@
             &config;
             <steps>
                 &login;
-                <invoke stepid="click View Users link" url="/users.html"/>
-                <verifytitle stepid="we should see the user list title" 
+                <invoke description="click View Users link" url="/users.html"/>
+                <verifytitle description="we should see the user list title" 
                     text="${webapp.prefix}${userList.title}"/>
             </steps>
         </canoo>
@@ -99,15 +99,15 @@
             &config;
             <steps>
                 &login;
-                <invoke stepid="click Edit Profile link" url="/editProfile.html"/>
-                <verifytitle stepid="we should see the user profile title" 
+                <invoke description="click Edit Profile link" url="/editProfile.html"/>
+                <verifytitle description="we should see the user profile title" 
                     text="${webapp.prefix}${userProfile.title}"/>
-                <setinputfield stepid="set address" name="address.address" 
+                <setinputfield description="set address" name="address.address" 
                     value="2255 Lane Avenue"/>
-                <setinputfield stepid="set zipcode" name="address.postalCode" 
+                <setinputfield description="set zipcode" name="address.postalCode" 
                     value="59826"/>
-                <clickbutton label="${button.save}" stepid="Click Save"/>
-                <verifytitle stepid="display Main Menu if save OK"
+                <clickbutton label="${button.save}" description="Click Save"/>
+                <verifytitle description="display Main Menu if save OK"
                      text="${webapp.prefix}${mainMenu.title}" />
             </steps>
         </canoo>
@@ -120,36 +120,36 @@
             &config;
             <steps>
                 &login;
-                <invoke stepid="click Add Button" 
+                <invoke description="click Add Button" 
                     url="/editUser.html?method=Add&amp;from=list"/>
-                <verifytitle stepid="we should see the user profile title" 
+                <verifytitle description="we should see the user profile title" 
                     text="${webapp.prefix}${userProfile.title}"/>
                     
-                <setinputfield stepid="set username" name="username" value="newuser"/>
-                <setinputfield stepid="set password" name="password" value="test"/>
-                <setinputfield stepid="set confirmPassword" name="confirmPassword" value="test"/>
-                <setinputfield stepid="set firstName" name="firstName" value="Test"/>
-                <setinputfield stepid="set lastName" name="lastName" value="Name"/>
-                <setinputfield stepid="set city" name="address.city" value="Denver"/>
-                <setinputfield stepid="select province" name="address.province" value="CO"/>
-                <setselectfield stepid="select country" name="address.country" value="US"/>
-                <setinputfield stepid="set postalCode" name="address.postalCode" value="80210"/>
-                <setinputfield stepid="set email" name="email" value="newuser@raibledesigns.com"/>
-                <setinputfield stepid="set website" name="website" value="http://raibledesigns.com"/>
-                <setinputfield stepid="set passwordHint" name="passwordHint" value="test"/>
-                <setselectfield stepid="select roles in user roles list" name="userRoles" value="tomcat"/>
-                <clickbutton label="${button.save}" stepid="Click button 'Save'"/>
+                <setinputfield description="set username" name="username" value="newuser"/>
+                <setinputfield description="set password" name="password" value="test"/>
+                <setinputfield description="set confirmPassword" name="confirmPassword" value="test"/>
+                <setinputfield description="set firstName" name="firstName" value="Test"/>
+                <setinputfield description="set lastName" name="lastName" value="Name"/>
+                <setinputfield description="set city" name="address.city" value="Denver"/>
+                <setinputfield description="select province" name="address.province" value="CO"/>
+                <setselectfield description="select country" name="address.country" value="US"/>
+                <setinputfield description="set postalCode" name="address.postalCode" value="80210"/>
+                <setinputfield description="set email" name="email" value="newuser@raibledesigns.com"/>
+                <setinputfield description="set website" name="website" value="http://raibledesigns.com"/>
+                <setinputfield description="set passwordHint" name="passwordHint" value="test"/>
+                <setselectfield description="select roles in user roles list" name="userRoles" value="user"/>
+                <clickbutton label="${button.save}" description="Click button 'Save'"/>
                 
-                <verifytitle stepid="Redisplay add user page" text="${webapp.prefix}${userProfile.title}"/>
-                <verifytext stepid="verify success message" regex="true"
+                <verifytitle description="Redisplay add user page" text="${webapp.prefix}${userProfile.title}"/>
+                <verifytext description="verify success message" regex="true"
                     text='&lt;div class="message.*&gt;.*&lt;strong&gt;Test Name&lt;/strong&gt;.*&lt;/div&gt;'/>
                     
                 <!-- Delete user -->
-                <invoke stepid="Click edit user link" url="/editUser.html?username=newuser&amp;from=list"/>
-                <clickbutton label="${button.delete}" stepid="Click button 'Delete'"/>
-                <verifytext stepid="verify success message" regex="true"
+                <invoke description="Click edit user link" url="/editUser.html?username=newuser&amp;from=list"/>
+                <clickbutton label="${button.delete}" description="Click button 'Delete'"/>
+                <verifytext description="verify success message" regex="true"
                     text='&lt;div class="message.*&gt;.*&lt;strong&gt;Test Name&lt;/strong&gt;.*&lt;/div&gt;'/>
-                <verifytitle stepid="display user list" text="${webapp.prefix}${userList.title}"/>
+                <verifytitle description="display user list" text="${webapp.prefix}${userList.title}"/>
             </steps>
         </canoo>
     </target>
@@ -160,25 +160,25 @@
         <canoo name="signup">
             &config;
             <steps>
-                <invoke stepid="click signup link" url="/signup.html"/>
-                <verifytitle stepid="view signup title" text="${webapp.prefix}${signup.title}"/>
+                <invoke description="click signup link" url="/signup.html"/>
+                <verifytitle description="view signup title" text="${webapp.prefix}${signup.title}"/>
                 
-                <setinputfield stepid="set username" name="username" value="signup-user"/>
-                <setinputfield stepid="set password" name="password" value="test"/>
-                <setinputfield stepid="set confirmPassword" name="confirmPassword" value="test"/>
-                <setinputfield stepid="set firstName" name="firstName" value="Test"/>
-                <setinputfield stepid="set lastName" name="lastName" value="Name"/>
-                <setinputfield stepid="set city" name="address.city" value="Denver"/>
-                <setinputfield stepid="set state" name="address.province" value="CO"/>
-                <setselectfield stepid="select country" name="address.country" value="US"/>
-                <setinputfield stepid="set postalCode" name="address.postalCode" value="80210"/>
-                <setinputfield stepid="set email" name="email" value="signup-user@raibledesigns.com"/>
-                <setinputfield stepid="set website" name="website" value="http://raibledesigns.com"/>
-                <setinputfield stepid="set passwordHint" name="passwordHint" value="test"/>
-                <clickbutton label="${button.register}" stepid="Click button 'Signup'"/>
+                <setinputfield description="set username" name="username" value="signup-user"/>
+                <setinputfield description="set password" name="password" value="test"/>
+                <setinputfield description="set confirmPassword" name="confirmPassword" value="test"/>
+                <setinputfield description="set firstName" name="firstName" value="Test"/>
+                <setinputfield description="set lastName" name="lastName" value="Name"/>
+                <setinputfield description="set city" name="address.city" value="Denver"/>
+                <setinputfield description="set state" name="address.province" value="CO"/>
+                <setselectfield description="select country" name="address.country" value="US"/>
+                <setinputfield description="set postalCode" name="address.postalCode" value="80210"/>
+                <setinputfield description="set email" name="email" value="signup-user@raibledesigns.com"/>
+                <setinputfield description="set website" name="website" value="http://raibledesigns.com"/>
+                <setinputfield description="set passwordHint" name="passwordHint" value="test"/>
+                <clickbutton label="${button.register}" description="Click button 'Signup'"/>
 
-                <verifytitle stepid="view main menu" text="${webapp.prefix}${mainMenu.title}"/>
-                <verifytext stepid="verify success message" text="${user.registered}"/>
+                <verifytitle description="view main menu" text="${webapp.prefix}${mainMenu.title}"/>
+                <verifytext description="verify success message" text="${user.registered}"/>
             </steps>
         </canoo>
     </target>
@@ -190,8 +190,8 @@
             &config;
             <steps>
                 &login;
-                <invoke stepid="get activeUsers URL" url="/activeUsers.html"/>
-                <verifytitle stepid="we should see the activeUsers title" 
+                <invoke description="get activeUsers URL" url="/activeUsers.html"/>
+                <verifytitle description="we should see the activeUsers title" 
                     text="${webapp.prefix}${activeUsers.title}"/>
             </steps>
         </canoo>
@@ -204,8 +204,8 @@
             &config;
             <steps>
                 &login;
-                <invoke stepid="get flushCache URL" url="/flushCache.html"/>
-                <verifytitle stepid="we should see the flush cache title" 
+                <invoke description="get flushCache URL" url="/flushCache.html"/>
+                <verifytitle description="we should see the flush cache title" 
                     text="${webapp.prefix}${flushCache.title}"/>
             </steps>
         </canoo>
@@ -218,17 +218,17 @@
             &config;
             <steps>
                 &login;
-                <invoke stepid="click Upload a File link" url="/selectFile.html"/>
-                <verifytitle stepid="we should see file upload form" 
+                <invoke description="click Upload a File link" url="/selectFile.html"/>
+                <verifytitle description="we should see file upload form" 
                     text="${webapp.prefix}${upload.title}"/>
-                <!--setinputfield stepid="set name" name="name" 
+                <!--setinputfield description="set name" name="name" 
                     value="Canoo Test File"/>
-                <setinputfield stepid="set file" name="file" 
+                <setinputfield description="set file" name="file" 
                     value="${basedir}/build.properties"/>
-                <clickbutton label="${button.upload}" stepid="Click Upload"/>
-                <verifytitle stepid="show file data if upload OK"
+                <clickbutton label="${button.upload}" description="Click Upload"/>
+                <verifytitle description="show file data if upload OK"
                      text="${webapp.prefix}${display.title}" />
-                <verifytext stepid="verify original file name displayed on page"
+                <verifytext description="verify original file name displayed on page"
                      text="build.properties" /-->
             </steps>
         </canoo>

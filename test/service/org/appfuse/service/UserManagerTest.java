@@ -78,7 +78,7 @@ public class UserManagerTest extends BaseManagerTestCase {
         
         // set expected behavior on role dao
         roleDAO.expects(once()).method("getRole")
-               .with(eq("tomcat")).will(returnValue(new Role("tomcat")));
+               .with(eq("user")).will(returnValue(new Role("user")));
         
         role = roleManager.getRole(Constants.USER_ROLE);
         roleDAO.verify();
