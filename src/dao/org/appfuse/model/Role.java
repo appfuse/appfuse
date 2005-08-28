@@ -18,8 +18,8 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @hibernate.class table="role"
  */
 public class Role extends BaseObject implements Serializable {
-	private static final long serialVersionUID = 3690197650654049848L;
-	private String name;
+    private static final long serialVersionUID = 3690197650654049848L;
+    private String name;
     private String description;
     private Integer version;
     private Set users;
