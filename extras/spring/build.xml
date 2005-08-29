@@ -271,8 +271,6 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
                 servletspec="2.3" sessiontimeout="10"
                 destdir="${webapp.target}/WEB-INF" distributable="false"
                 displayname="${ant.project.name}">
-                <configParam name="httpPort" value="${http.port}"/>
-                <configParam name="httpsPort" value="${https.port}"/>
                 <configParam name="daoType" value="${dao.type}"/>
             </deploymentdescriptor>
             <jsptaglib validateXML="true"
@@ -302,8 +300,6 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
                 servletspec="2.3" sessiontimeout="10"
                 destdir="${webapp.target}/WEB-INF" distributable="false"
                 displayname="${ant.project.name}">
-                <configParam name="httpPort" value="${http.port}"/>
-                <configParam name="httpsPort" value="${https.port}"/>
                 <configParam name="daoType" value="${dao.type}"/>
             </deploymentdescriptor>
             <jsptaglib validateXML="true"

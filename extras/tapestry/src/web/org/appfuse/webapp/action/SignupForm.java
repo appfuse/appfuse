@@ -53,7 +53,7 @@ public abstract class SignupForm extends BasePage implements PageRenderListener 
         getResponse().sendRedirect(getRequest().getContextPath());
     }
     
-    public void save(IRequestCycle cycle) throws UserExistsException {
+    public void save(IRequestCycle cycle) throws UserExistsException, IOException {
         if (log.isDebugEnabled()) {
             log.debug("entered save method");
         }
@@ -70,20 +70,23 @@ public abstract class SignupForm extends BasePage implements PageRenderListener 
         if (delegate.getHasErrors()) { 
             return; 
         }
-        
-        String algorithm =
-            (String) getConfiguration().get(Constants.ENC_ALGORITHM);
 
-        if (algorithm == null) { // should only happen for test case
-            if (log.isDebugEnabled()) {
-                log.debug("assuming testcase, setting algorithm to 'SHA'");
-            }
-            algorithm = "SHA";
-        }
-        
         User user = getUser();
         
-        user.setPassword(StringUtil.encodePassword(user.getPassword(), algorithm));
+        Boolean encrypt = (Boolean) getConfiguration().get(Constants.ENCRYPT_PASSWORD);
+        
+        if (encrypt != null && encrypt.booleanValue()) {
+            String algorithm = (String) getConfiguration().get(Constants.ENC_ALGORITHM);
+    
+            if (algorithm == null) { // should only happen for test case
+                if (log.isDebugEnabled()) {
+                    log.debug("assuming testcase, setting algorithm to 'SHA'");
+                }
+                algorithm = "SHA";
+            }
+            user.setPassword(StringUtil.encodePassword(user.getPassword(), algorithm));
+        }        
+        
         user.setEnabled(Boolean.TRUE);
 
         // Set the default user role on this new user
@@ -103,23 +106,15 @@ public abstract class SignupForm extends BasePage implements PageRenderListener 
             return;
         }
 
-        // Set cookies for auto-magical login ;-)
-        String loginCookie = getUserManager().createLoginCookie(user.getUsername());
-        RequestUtil.setCookie(getResponse(), 
-                              Constants.LOGIN_COOKIE, loginCookie,
-                              getRequest().getContextPath());
-
         getSession().setAttribute(Constants.REGISTERED, Boolean.TRUE);
 
         // Send user an e-mail
         if (log.isDebugEnabled()) {
-            log.debug("Sending user '" + user.getUsername()
-                    + "' an account information e-mail");
+            log.debug("Sending user '" + user.getUsername() + "' an account information e-mail");
         }
 
         Map global = (Map) getGlobal();
-        ApplicationContext ctx =
-            (ApplicationContext) global.get(BaseEngine.APPLICATION_CONTEXT_KEY);
+        ApplicationContext ctx = (ApplicationContext) global.get(BaseEngine.APPLICATION_CONTEXT_KEY);
         
         SimpleMailMessage message = (SimpleMailMessage) ctx.getBean("mailMessage");
         message.setTo(user.getFullName() + "<" + user.getEmail() + ">");
@@ -137,10 +132,9 @@ public abstract class SignupForm extends BasePage implements PageRenderListener 
         
         MailEngine engine = (MailEngine) ctx.getBean("mailEngine");
         engine.send(message);
-        
-        MainMenu nextPage = (MainMenu) cycle.getPage("mainMenu");
-        nextPage.setMessage(getMessage("user.registered"));
-        cycle.activate(nextPage);
+
+        getSession().setAttribute("message", getMessage("user.registered"));
+        getResponse().sendRedirect(getRequest().getContextPath());
     }
 }
 

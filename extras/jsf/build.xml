@@ -376,8 +376,6 @@ log4j.logger.org.apache.myfaces=ERROR</replacevalue>
                 servletspec="2.3" sessiontimeout="10"
                 destdir="${webapp.target}/WEB-INF" distributable="false"
                 displayname="${ant.project.name}">
-                <configParam name="httpPort" value="${http.port}"/>
-                <configParam name="httpsPort" value="${https.port}"/>
                 <configParam name="daoType" value="${dao.type}"/>
             </deploymentdescriptor>
             <jsptaglib validateXML="true"
@@ -406,8 +404,6 @@ log4j.logger.org.apache.myfaces=ERROR</replacevalue>
                 servletspec="2.3" sessiontimeout="10"
                 destdir="${webapp.target}/WEB-INF" distributable="false"
                 displayname="${ant.project.name}">
-                <configParam name="httpPort" value="${http.port}"/>
-                <configParam name="httpsPort" value="${https.port}"/>
                 <configParam name="daoType" value="${dao.type}"/>
             </deploymentdescriptor>
             <jsptaglib validateXML="true"

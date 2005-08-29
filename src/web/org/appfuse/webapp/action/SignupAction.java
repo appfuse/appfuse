@@ -65,29 +65,27 @@ public final class SignupAction extends BaseAction {
         ActionMessages errors = new ActionMessages();
         UserForm userForm = (UserForm) form;
         User user = (User) convert(form);
-        String algorithm =
-                (String) getConfiguration().get(Constants.ENC_ALGORITHM);
 
         // Set the default user role on this new user
         RoleManager roleMgr = (RoleManager) getBean("roleManager");
         user.addRole(roleMgr.getRole(Constants.USER_ROLE));
 
         try {
-            if (algorithm == null) { // should only happen for test case
-                log.debug("assuming testcase, setting algorigthm to 'SHA'");
-                algorithm = "SHA";
-            }
+            Boolean encrypt = (Boolean) getConfiguration().get(Constants.ENCRYPT_PASSWORD);
+            
+            if (encrypt != null && encrypt.booleanValue()) {
+                String algorithm = (String) getConfiguration().get(Constants.ENC_ALGORITHM);
+                if (algorithm == null) { // should only happen for test case
+                    log.debug("assuming testcase, setting algorigthm to 'SHA'");
+                    algorithm = "SHA";
+                }
 
-            user.setPassword(StringUtil.encodePassword(user.getPassword(),
-                    algorithm));
+                user.setPassword(StringUtil.encodePassword(user.getPassword(), algorithm));
+            }
+            
             user.setEnabled(Boolean.TRUE);
             UserManager mgr = (UserManager) getBean("userManager");
             mgr.saveUser(user);
-
-            // Set cookies for auto-magical login ;-)
-            String loginCookie = mgr.createLoginCookie(user.getUsername());
-            RequestUtil.setCookie(response, Constants.LOGIN_COOKIE,
-                    loginCookie, request.getContextPath());
         } catch (UserExistsException e) {
             log.warn(e.getMessage());
             errors.add(ActionMessages.GLOBAL_MESSAGE,

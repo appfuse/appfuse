@@ -30,7 +30,6 @@ import org.appfuse.util.ConvertUtil;
 import org.appfuse.util.CurrencyConverter;
 import org.appfuse.util.DateConverter;
 import org.appfuse.util.TimestampConverter;
-import org.appfuse.webapp.util.SslUtil;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -81,9 +80,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  */
 public class BaseAction extends DispatchAction {
     protected final Log log = LogFactory.getLog(getClass());
-    public static final String SECURE = "secure";
-    private static ApplicationContext ctx = null;
-    private static Long defaultLong = null;
+    private static final Long defaultLong = null;
 
     static {
         ConvertUtils.register(new CurrencyConverter(), Double.class);
@@ -101,10 +98,8 @@ public class BaseAction extends DispatchAction {
      * @return
      */
     public Object getBean(String name) {
-        if (ctx == null) {
-            ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(servlet.getServletContext());
-        }
-
+        ApplicationContext ctx = 
+            WebApplicationContextUtils.getRequiredWebApplicationContext(servlet.getServletContext());
         return ctx.getBean(name);
     }
 
@@ -149,8 +144,7 @@ public class BaseAction extends DispatchAction {
     /**
      * Gets the method name based on the mapping passed to it 
      */
-    private String getActionMethodWithMapping(HttpServletRequest request,
-                                              ActionMapping mapping) {
+    private String getActionMethodWithMapping(HttpServletRequest request, ActionMapping mapping) {
         return getActionMethod(request, mapping.getParameter());
     }
 
@@ -241,8 +235,7 @@ public class BaseAction extends DispatchAction {
      * @return ActionForm the form from the specifies scope, or null if nothing
      *         found
      */
-    protected ActionForm getActionForm(ActionMapping mapping,
-                                       HttpServletRequest request) {
+    protected ActionForm getActionForm(ActionMapping mapping, HttpServletRequest request) {
         ActionForm actionForm = null;
 
         // Remove the obsolete form bean
@@ -286,44 +279,12 @@ public class BaseAction extends DispatchAction {
     }
 
     /**
-     * Method to check and see if https is required for this resource
-     *
-     * @param mapping  The ActionMapping used to select this instance
-     * @param request  The HTTP request we are processing
-     * @param response The HTTP response we are creating
-     * @return boolean true if redirection to SSL is needed
-     */
-    protected boolean checkSsl(ActionMapping mapping,
-                               HttpServletRequest request,
-                               HttpServletResponse response) {
-        String redirectString =
-            SslUtil.getRedirectString(request, getServlet().getServletContext(),
-                                      SECURE.equals(mapping.getParameter()));
-
-        if (redirectString != null) {
-            log.debug("protocol switch needed, redirecting...");
-
-            try {
-                // Redirect the page to the desired URL
-                response.sendRedirect(response.encodeRedirectURL(redirectString));
-
-                return true;
-            } catch (Exception ioe) {
-                log.error("redirect to new protocol failed...");
-            }
-        }
-
-        return false;
-    }
-
-    /**
      * Convenience method for removing the obsolete form bean.
      *
      * @param mapping The ActionMapping used to select this instance
      * @param request The HTTP request we are processing
      */
-    protected void removeFormBean(ActionMapping mapping,
-                                  HttpServletRequest request) {
+    protected void removeFormBean(ActionMapping mapping, HttpServletRequest request) {
         // Remove the obsolete form bean
         if (mapping.getAttribute() != null) {
             if ("request".equals(mapping.getScope())) {
@@ -342,8 +303,7 @@ public class BaseAction extends DispatchAction {
      * @param request The HTTP request we are processing
      * @param form    The ActionForm
      */
-    protected void updateFormBean(ActionMapping mapping,
-                                  HttpServletRequest request, ActionForm form) {
+    protected void updateFormBean(ActionMapping mapping, HttpServletRequest request, ActionForm form) {
         // Remove the obsolete form bean
         if (mapping.getAttribute() != null) {
             if ("request".equals(mapping.getScope())) {

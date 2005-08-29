@@ -10,10 +10,10 @@
             <value>
                 CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
                 PATTERN_TYPE_APACHE_ANT
-                /j_security_check*=httpSessionContextIntegrationFilter,authenticationProcessingFilter
-                /**/*.html*=httpSessionContextIntegrationFilter,remoteUserFilter,anonymousProcessingFilter,securityEnforcementFilter
-                /**/*.jsp*=httpSessionContextIntegrationFilter,remoteUserFilter,securityEnforcementFilter
+                /**=httpSessionContextIntegrationFilter,authenticationProcessingFilter,remoteUserFilter,authenticationProcessingFilter,rememberMeProcessingFilter,anonymousProcessingFilter,securityEnforcementFilter
             </value>
+            <!-- Put channelProcessingFilter before remoteUserFilter to turn on SSL switching -->
+            <!-- It's off by default b/c Canoo WebTest doesn't support SSL out-of-the-box -->
         </property>
     </bean>
 
@@ -42,6 +42,7 @@
             <list>
                 <ref local="daoAuthenticationProvider"/>
                 <ref local="anonymousAuthenticationProvider"/>
+                <ref local="rememberMeAuthenticationProvider"/>
             </list>
         </property>
     </bean>
@@ -52,8 +53,13 @@
     <bean id="daoAuthenticationProvider" class="net.sf.acegisecurity.providers.dao.DaoAuthenticationProvider">
          <property name="authenticationDao" ref="jdbcAuthenticationDao"/>
          <property name="userCache" ref="userCache"/>
+         <property name="passwordEncoder" ref="passwordEncoder"/>
     </bean>
-    
+
+    <!-- This bean definition must be available to ApplicationContext.getBean() so StartupListener
+         can look for it and detect if password encryption is turned on or not -->
+    <bean id="passwordEncoder" class="net.sf.acegisecurity.providers.encoding.ShaPasswordEncoder"/>
+
     <!-- Read users from database -->
     <bean id="jdbcAuthenticationDao" class="net.sf.acegisecurity.providers.dao.jdbc.JdbcDaoImpl">
         <property name="dataSource" ref="dataSource"/>
@@ -103,6 +109,7 @@
         <property name="authenticationFailureUrl" value="/login.jsp?error=true"/>
         <property name="defaultTargetUrl" value="/"/>
         <property name="filterProcessesUrl" value="/j_security_check"/>
+        <property name="rememberMeServices" ref="rememberMeServices"/>
     </bean>
     
     <bean id="anonymousProcessingFilter" class="net.sf.acegisecurity.providers.anonymous.AnonymousProcessingFilter">
@@ -129,14 +136,6 @@
                 <property name="userDAO" ref="userDAO"/>
             </bean>
         </property>
-        <property name="transactionAttributes">
-            <props>
-                <prop key="save*">PROPAGATION_REQUIRED,-UserExistsException</prop>
-                <prop key="remove*">PROPAGATION_REQUIRED</prop>
-                <prop key="*LoginCookie">PROPAGATION_REQUIRED</prop>
-                <prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
-            </props>
-        </property>
         <property name="preInterceptors">
             <list>
                 <ref bean="userSecurityInterceptor"/>
@@ -153,6 +152,47 @@
                  org.appfuse.service.UserManager.getUsers=admin
                  org.appfuse.service.UserManager.removeUser=admin
              </value>
+        </property>
+    </bean>
+    
+    <!-- ===================== REMEMBER ME ==================== -->
+    <bean id="rememberMeProcessingFilter" class="net.sf.acegisecurity.ui.rememberme.RememberMeProcessingFilter"> 
+        <property name="rememberMeServices" ref="rememberMeServices"/>
+    </bean>
+ 
+    <bean id="rememberMeServices" class="net.sf.acegisecurity.ui.rememberme.TokenBasedRememberMeServices"> 
+        <property name="authenticationDao" ref="jdbcAuthenticationDao"/>
+        <property name="key" value="sourcebeatRocks"/> 
+        <property name="parameter" value="rememberMe"/>
+    </bean> 
+  
+    <bean id="rememberMeAuthenticationProvider" class="net.sf.acegisecurity.providers.rememberme.RememberMeAuthenticationProvider"> 
+        <property name="key" value="sourcebeatRocks"/>
+    </bean>
+    
+    <!-- ===================== SSL SWITCHING ==================== -->
+    <bean id="channelProcessingFilter" class="net.sf.acegisecurity.securechannel.ChannelProcessingFilter">
+        <property name="channelDecisionManager" ref="channelDecisionManager"/>
+        <property name="filterInvocationDefinitionSource">
+            <value>
+                CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+                PATTERN_TYPE_APACHE_ANT
+                /admin/**=REQUIRES_SECURE_CHANNEL
+                /login*=REQUIRES_SECURE_CHANNEL
+                /j_security_check*=REQUIRES_SECURE_CHANNEL     
+                /editprofile.html*=REQUIRES_SECURE_CHANNEL
+            	/saveuser.html*=REQUIRES_SECURE_CHANNEL
+                /**=REQUIRES_INSECURE_CHANNEL
+            </value>
+        </property>
+    </bean>
+
+    <bean id="channelDecisionManager" class="net.sf.acegisecurity.securechannel.ChannelDecisionManagerImpl">
+        <property name="channelProcessors">
+            <list>
+                <bean class="net.sf.acegisecurity.securechannel.SecureChannelProcessor"/>
+                <bean class="net.sf.acegisecurity.securechannel.InsecureChannelProcessor"/>
+            </list>
         </property>
     </bean>
 </beans>

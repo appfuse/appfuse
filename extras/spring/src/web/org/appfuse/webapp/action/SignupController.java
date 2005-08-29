@@ -45,17 +45,19 @@ public class SignupController extends BaseFormController {
         User user = (User) command;
         Locale locale = request.getLocale();
 
-        String algorithm =
-        	(String) getConfiguration().get(Constants.ENC_ALGORITHM);
-
-        if (algorithm == null) { // should only happen for test case
-            if (log.isDebugEnabled()) {
+        Boolean encrypt = (Boolean) getConfiguration().get(Constants.ENCRYPT_PASSWORD);
+        
+        if (encrypt != null && encrypt.booleanValue()) {
+            String algorithm = (String) getConfiguration().get(Constants.ENC_ALGORITHM);
+    
+            if (algorithm == null) { // should only happen for test case
                 log.debug("assuming testcase, setting algorithm to 'SHA'");
+                algorithm = "SHA";
             }
-            algorithm = "SHA";
+            
+            user.setPassword(StringUtil.encodePassword(user.getPassword(), algorithm));
         }
         
-        user.setPassword(StringUtil.encodePassword(user.getPassword(), algorithm));
         user.setEnabled(Boolean.TRUE);
         
         // Set the default user role on this new user
@@ -76,19 +78,12 @@ public class SignupController extends BaseFormController {
             return showForm(request, response, errors);
         }
 
-        // Set cookies for auto-magical login ;-)
-        String loginCookie = this.getUserManager().createLoginCookie(user.getUsername());
-        RequestUtil.setCookie(response, Constants.LOGIN_COOKIE, loginCookie,
-                              request.getContextPath());
-
         saveMessage(request, getText("user.registered", user.getUsername(), locale));
-
         request.getSession().setAttribute(Constants.REGISTERED, Boolean.TRUE);
 
         // Send user an e-mail
         if (log.isDebugEnabled()) {
-            log.debug("Sending user '" + user.getUsername()
-                    + "' an account information e-mail");
+            log.debug("Sending user '" + user.getUsername() + "' an account information e-mail");
         }
 
         // Send an account information e-mail

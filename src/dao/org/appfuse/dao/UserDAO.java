@@ -3,7 +3,6 @@ package org.appfuse.dao;
 import java.util.List;
 
 import org.appfuse.model.User;
-import org.appfuse.model.UserCookie;
 
 /**
  * User Data Access Object (DAO) interface.
@@ -40,23 +39,4 @@ public interface UserDAO extends DAO {
      * @param username the user's username
      */
     public void removeUser(String username);
-
-    /**
-     * Gets a userCookie object from the database,
-     * based on username and password
-     * @param cookie with username and password
-     */
-    public UserCookie getUserCookie(UserCookie cookie);
-
-    /**
-     * Saves a userCookie object to the database
-     * @param cookie
-     */
-    public void saveUserCookie(UserCookie cookie);
-
-    /**
-     * Removes all cookies for a specified username
-     * @param username
-     */
-    public void removeUserCookies(String username);
 }

@@ -4,7 +4,6 @@ import org.appfuse.Constants;
 import org.appfuse.model.Address;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
-import org.appfuse.model.UserCookie;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 
@@ -60,7 +59,6 @@ public class UserDAOTest extends BaseDAOTestCase {
             assertNotNull(e);
             log.debug("expected exception: " + e.getMessage());
         }
-
     }
 
     public void testAddUserRole() throws Exception {
@@ -114,21 +112,5 @@ public class UserDAOTest extends BaseDAOTestCase {
         } catch (DataAccessException d) {
             assertNotNull(d);
         }
-    }
-
-    public void testSaveAndDeleteUserCookie() throws Exception {
-        String cookieId = "BA67E786-C031-EA40-2769-863BB30B31EC";
-        UserCookie cookie = new UserCookie();
-        cookie.setUsername("tomcat");
-        cookie.setCookieId(cookieId);
-        dao.saveUserCookie(cookie);
-        cookie = dao.getUserCookie(cookie);
-        assertEquals(cookieId, cookie.getCookieId());
-
-        dao.removeUserCookies(cookie.getUsername());
-
-        cookie = dao.getUserCookie(cookie);
-
-        assertNull(cookie);
     }
 }

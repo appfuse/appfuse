@@ -2,14 +2,10 @@ package org.appfuse.service.impl;
 
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.appfuse.dao.UserDAO;
 import org.appfuse.model.User;
-import org.appfuse.model.UserCookie;
 import org.appfuse.service.UserExistsException;
 import org.appfuse.service.UserManager;
-import org.appfuse.util.RandomGUID;
-import org.appfuse.util.StringUtil;
 import org.springframework.dao.DataIntegrityViolationException;
 
 
@@ -54,8 +50,7 @@ public class UserManagerImpl extends BaseManager implements UserManager {
         try {
             dao.saveUser(user);
         } catch (DataIntegrityViolationException e) {
-            throw new UserExistsException("User '" + user.getUsername() + 
-                                          "' already exists!");
+            throw new UserExistsException("User '" + user.getUsername() + "' already exists!");
         }
     }
 
@@ -68,72 +63,5 @@ public class UserManagerImpl extends BaseManager implements UserManager {
         }
 
         dao.removeUser(username);
-    }
-    
-    /**
-     * @see org.appfuse.service.UserManager#checkLoginCookie(java.lang.String)
-     */
-    public String checkLoginCookie(String value) {
-        value = StringUtil.decodeString(value);
-
-        String[] values = StringUtils.split(value, "|");
-
-        // in case of empty username in cookie, return null
-        if (values.length == 1) {
-            return null;   
-        }
-        
-        if (log.isDebugEnabled()) {
-            log.debug("looking up cookieId: " + values[1]);
-        }
-
-        UserCookie cookie = new UserCookie();
-        cookie.setUsername(values[0]);
-        cookie.setCookieId(values[1]);
-        cookie = dao.getUserCookie(cookie);
-
-        if (cookie != null) {
-            if (log.isDebugEnabled()) {
-                log.debug("cookieId lookup succeeded, generating new cookieId");
-            }
-
-            return saveLoginCookie(cookie);
-        } else {
-            if (log.isDebugEnabled()) {
-                log.debug("cookieId lookup failed, returning null");
-            }
-
-            return null;
-        }
-    }
-
-    /**
-     * @see org.appfuse.service.UserManager#createLoginCookie(java.lang.String)
-     */
-    public String createLoginCookie(String username) {
-        UserCookie cookie = new UserCookie();
-        cookie.setUsername(username);
-
-        return saveLoginCookie(cookie);
-    }
-
-    /**
-     * Convenience method to set a unique cookie id and save to database
-     * @param cookie
-     * @return
-     */
-    private String saveLoginCookie(UserCookie cookie) {
-        cookie.setCookieId(new RandomGUID().toString());
-        dao.saveUserCookie(cookie);
-
-        return StringUtil.encodeString(cookie.getUsername() + "|" +
-                                       cookie.getCookieId());
-    }
-
-    /**
-     * @see org.appfuse.service.UserManager#removeLoginCookies(java.lang.String)
-     */
-    public void removeLoginCookies(String username) {
-        dao.removeUserCookies(username);
     }
 }

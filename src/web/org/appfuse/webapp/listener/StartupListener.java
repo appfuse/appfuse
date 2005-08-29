@@ -1,16 +1,23 @@
 package org.appfuse.webapp.listener;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+import net.sf.acegisecurity.providers.AuthenticationProvider;
+import net.sf.acegisecurity.providers.ProviderManager;
+import net.sf.acegisecurity.providers.encoding.Md5PasswordEncoder;
+import net.sf.acegisecurity.providers.rememberme.RememberMeAuthenticationProvider;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.Constants;
 import org.appfuse.service.LookupManager;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -42,7 +49,7 @@ public class StartupListener extends ContextLoaderListener
 
         // if daoType is not specified, use DAO as default
         if (daoType == null) {
-            log.warn("No 'daoType' context carameter, using hibernate");
+            log.warn("No 'daoType' context parameter, using Hibernate");
             daoType = Constants.DAO_TYPE_HIBERNATE;
         }
 
@@ -56,12 +63,44 @@ public class StartupListener extends ContextLoaderListener
 
         // Create a config object to hold all the app config values
         config.put(Constants.DAO_TYPE, daoType);
+
+        ApplicationContext ctx =
+            WebApplicationContextUtils.getRequiredWebApplicationContext(context);
+
+        boolean encryptPassword = false;
+        try {
+            ProviderManager provider = (ProviderManager) ctx.getBean("authenticationManager");
+            for (Iterator it = provider.getProviders().iterator(); it.hasNext();) {
+                AuthenticationProvider p = (AuthenticationProvider) it.next();
+                if (p instanceof RememberMeAuthenticationProvider) {
+                    config.put("rememberMeEnabled", Boolean.TRUE);
+                }
+            }
+
+            if (ctx.containsBean("passwordEncoder")) {
+                encryptPassword = true;
+                config.put(Constants.ENCRYPT_PASSWORD, Boolean.TRUE);
+                String algorithm = "SHA";
+                if (ctx.getBean("passwordEncoder") instanceof Md5PasswordEncoder) {
+                    algorithm = "MD5";
+                }
+                config.put(Constants.ENC_ALGORITHM, algorithm);
+            }
+        } catch (NoSuchBeanDefinitionException n) {
+            // ignore, should only happen when testing
+        }
+
         context.setAttribute(Constants.CONFIG, config);
 
         // output the retrieved values for the Init and Context Parameters
         if (log.isDebugEnabled()) {
-            log.debug("daoType: " + daoType);
-            log.debug("populating drop-downs...");
+            log.debug("Persistence Framework: " + daoType);
+            log.debug("Remember Me Enabled? " + config.get("rememberMeEnabled"));
+            log.debug("Encrypt Passwords? " + encryptPassword);
+            if (encryptPassword) {
+                log.debug("Encryption Algorithm: " + config.get(Constants.ENC_ALGORITHM));
+            }
+            log.debug("Populating drop-downs...");
         }
 
         setupContext(context);
@@ -77,7 +116,7 @@ public class StartupListener extends ContextLoaderListener
         context.setAttribute(Constants.AVAILABLE_ROLES, mgr.getAllRoles());
 
         if (log.isDebugEnabled()) {
-            log.debug("drop-down initialization complete [OK]");
+            log.debug("Drop-down initialization complete [OK]");
         }
     }
 }

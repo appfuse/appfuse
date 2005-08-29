@@ -8,6 +8,12 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import net.sf.acegisecurity.Authentication;
+import net.sf.acegisecurity.AuthenticationTrustResolver;
+import net.sf.acegisecurity.AuthenticationTrustResolverImpl;
+import net.sf.acegisecurity.context.ContextHolder;
+import net.sf.acegisecurity.context.security.SecureContext;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.event.PageEvent;
@@ -67,14 +73,21 @@ public abstract class UserForm extends BasePage implements PageRenderListener {
             setUser(new User());
         }
 
-        // if user logged in with a cookie, display a warning that they
-        // can't change passwords
-        if (log.isDebugEnabled()) {
-            log.debug("checking for cookieLogin...");
-        }
+        // if user logged in with remember me, display a warning that they can't change passwords
+        log.debug("checking for remember me login...");
 
-        if (getSession().getAttribute("cookieLogin") != null) {
-            setMessage(getMessage("userProfile.cookieLogin"));
+        AuthenticationTrustResolver resolver = new AuthenticationTrustResolverImpl();
+        SecureContext ctx = (SecureContext) ContextHolder.getContext();
+
+        if (ctx != null) {
+            Authentication auth = ctx.getAuthentication();
+
+            if (resolver.isRememberMe(auth)) {
+                getSession().setAttribute("cookieLogin", "true");
+                
+                // add warning message
+                setMessage(getMessage("userProfile.cookieLogin"));
+            }
         }
     }
 
@@ -98,8 +111,7 @@ public abstract class UserForm extends BasePage implements PageRenderListener {
         // make sure the password fields match
         IValidationDelegate delegate = getValidationDelegate();
 
-        if (!StringUtils.equals(getUser().getPassword(),
-                                    getUser().getConfirmPassword())) {
+        if (!StringUtils.equals(getUser().getPassword(), getUser().getConfirmPassword())) {
             addError(delegate, "confirmPasswordField",
                      format("errors.twofields",
                             getMessage("user.confirmPassword"),
@@ -114,10 +126,12 @@ public abstract class UserForm extends BasePage implements PageRenderListener {
         String password = getUser().getPassword();
         String originalPassword = getRequest().getParameter("originalPassword");
         
-        if (StringUtils.equals(getRequest().getParameter("encryptPass"), "true") ||
-                !StringUtils.equals("S"+password, originalPassword)) {
-            String algorithm =
-                (String) getConfiguration().get(Constants.ENC_ALGORITHM);
+        Boolean encrypt = (Boolean) getConfiguration().get(Constants.ENCRYPT_PASSWORD);
+        boolean doEncrypt = (encrypt != null) ? encrypt.booleanValue() : false;
+                
+        if (doEncrypt && (StringUtils.equals(getRequest().getParameter("encryptPass"), "true") ||
+                !StringUtils.equals("S"+password, originalPassword))) {
+            String algorithm = (String) getConfiguration().get(Constants.ENC_ALGORITHM);
 
             if (algorithm == null) { // should only happen for test case
                 log.debug("assuming testcase, setting algorigthm to 'SHA'");
@@ -128,8 +142,7 @@ public abstract class UserForm extends BasePage implements PageRenderListener {
         }
 
         // workaround for input tags that don't aren't set by Tapestry (who knows why)
-        boolean fromList =
-            StringUtils.equals(getRequest().getParameter("from"), "Slist");
+        boolean fromList = StringUtils.equals(getRequest().getParameter("from"), "Slist");
         String[] userRoles = null;
 
         if (fromList) {
@@ -162,19 +175,6 @@ public abstract class UserForm extends BasePage implements PageRenderListener {
 
         if (!fromList && user.getUsername().equals(getRequest().getRemoteUser())) {
             session.setAttribute(Constants.USER_KEY, user);
-
-            // update the user's remember me cookie if they didn't login
-            // with a cookie
-            if ((RequestUtil.getCookie(request, Constants.LOGIN_COOKIE) != null) &&
-                    (session.getAttribute("cookieLogin") == null)) {
-                // delete all user cookies and add a new one
-                userManager.removeLoginCookies(user.getUsername());
-
-                String autoLogin =
-                    userManager.createLoginCookie(user.getUsername());
-                RequestUtil.setCookie(getResponse(), Constants.LOGIN_COOKIE,
-                                      autoLogin, request.getContextPath());
-            }
 
             // add success messages
             MainMenu nextPage = (MainMenu) cycle.getPage("mainMenu");
@@ -222,13 +222,11 @@ public abstract class UserForm extends BasePage implements PageRenderListener {
     private void sendNewUserEmail(HttpServletRequest request, User user) {
         // Send user an e-mail
         if (log.isDebugEnabled()) {
-            log.debug("Sending user '" + user.getUsername() +
-                      "' an account information e-mail");
+            log.debug("Sending user '" + user.getUsername() + "' an account information e-mail");
         }
 
         Map global = (Map) getGlobal();
-        ApplicationContext ctx =
-            (ApplicationContext) global.get(BaseEngine.APPLICATION_CONTEXT_KEY);
+        ApplicationContext ctx = (ApplicationContext) global.get(BaseEngine.APPLICATION_CONTEXT_KEY);
 
         SimpleMailMessage message =
             (SimpleMailMessage) ctx.getBean("mailMessage");

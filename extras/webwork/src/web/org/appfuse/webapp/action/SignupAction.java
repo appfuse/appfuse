@@ -43,17 +43,21 @@ public class SignupAction extends BaseAction {
     }
     
     public String save() throws Exception {
-        String algorithm =
-            (String) getConfiguration().get(Constants.ENC_ALGORITHM);
-
-        if (algorithm == null) { // should only happen for test case
-            if (log.isDebugEnabled()) {
-                log.debug("assuming testcase, setting algorithm to 'SHA'");
+        Boolean encrypt = (Boolean) getConfiguration().get(Constants.ENCRYPT_PASSWORD);
+        
+        if (encrypt != null && encrypt.booleanValue()) {
+            String algorithm = (String) getConfiguration().get(Constants.ENC_ALGORITHM);
+    
+            if (algorithm == null) { // should only happen for test case
+                if (log.isDebugEnabled()) {
+                    log.debug("assuming testcase, setting algorithm to 'SHA'");
+                }
+                algorithm = "SHA";
             }
-            algorithm = "SHA";
+        
+            user.setPassword(StringUtil.encodePassword(user.getPassword(), algorithm));
         }
         
-        user.setPassword(StringUtil.encodePassword(user.getPassword(), algorithm));
         user.setEnabled(Boolean.TRUE);
         
         // Set the default user role on this new user
@@ -73,12 +77,6 @@ public class SignupAction extends BaseAction {
             return INPUT;
         }
 
-        // Set cookies for auto-magical login ;-)
-        String loginCookie = userManager.createLoginCookie(user.getUsername());
-        RequestUtil.setCookie(ServletActionContext.getResponse(), 
-                              Constants.LOGIN_COOKIE, loginCookie,
-                              ServletActionContext.getRequest().getContextPath());
-
         saveMessage(getText("user.registered"));
         getSession().setAttribute(Constants.REGISTERED, Boolean.TRUE);
 
@@ -86,6 +84,7 @@ public class SignupAction extends BaseAction {
         message.setSubject(getText("signup.email.subject"));
         sendUserMessage(user, getText("signup.email.message"), 
                         RequestUtil.getAppURL(getRequest()));
+
         return SUCCESS;
     }
 }

@@ -1,10 +1,7 @@
 <%@ include file="/common/taglibs.jsp"%>
 
 <div id="loginTable">
-<%-- If you don't want to encrypt passwords programmatically, or you don't
-     care about using SSL for the login, you can change this form's action
-     to "j_security_check" --%>
-<form method="post" id="loginForm" action="<c:url value="/authorize"/>" 
+<form method="post" id="loginForm" action="<c:url value="/j_security_check"/>" 
     onsubmit="saveUsername(this);return validateForm(this)">
 <table width="100%">
     <tr>
@@ -39,20 +36,18 @@
             <input type="password" name="j_password" id="j_password" size="20" tabindex="2" />
         </td>
     </tr>
-    <c:if test="${rememberMeEnabled}">
+    <c:if test="${appConfig['rememberMeEnabled']}">
     <tr>
         <td></td>
         <td>
             <input type="checkbox" name="rememberMe" id="rememberMe" tabindex="3"/>
-            <label for="rememberMe"><fmt:message key="login.rememberMe"/></label>
+            <label for="rememberMe" style="vertical-align: bottom"><fmt:message key="login.rememberMe"/></label>
         </td>
     </tr>
     </c:if>
     <tr>
         <td></td>
         <td>
-            <!-- for Resin -->
-            <input type="hidden" name="j_uri" value="" />
             <input type="submit" class="button" name="login" value="<fmt:message key="button.login"/>" tabindex="4" />
             <input type="reset" class="button" name="reset" value="<fmt:message key="button.reset"/>" tabindex="5" 
                 onclick="document.getElementById('j_username').focus()" />

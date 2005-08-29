@@ -8,6 +8,12 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import net.sf.acegisecurity.Authentication;
+import net.sf.acegisecurity.AuthenticationTrustResolver;
+import net.sf.acegisecurity.AuthenticationTrustResolverImpl;
+import net.sf.acegisecurity.context.ContextHolder;
+import net.sf.acegisecurity.context.security.SecureContext;
+
 import org.apache.commons.lang.StringUtils;
 import org.appfuse.Constants;
 import org.appfuse.model.Role;
@@ -80,15 +86,20 @@ public class UserForm extends BasePage implements Serializable {
         if (user.getUsername() != null) {
             user.setConfirmPassword(user.getPassword());
 
-            // if user logged in with a cookie, display a warning that they
-            // can't change passwords
-            if (log.isDebugEnabled()) {
-                log.debug("checking for cookieLogin...");
-            }
+            // if user logged in with remember me, display a warning that they can't change passwords
+            log.debug("checking for remember me login...");
 
-            if (getSession().getAttribute("cookieLogin") != null) {
-                log.trace("User '" + user.getUsername() + "' logged in with cookie");
-                addMessage("userProfile.cookieLogin");
+            AuthenticationTrustResolver resolver = new AuthenticationTrustResolverImpl();
+            SecureContext ctx = (SecureContext) ContextHolder.getContext();
+
+            if (ctx != null) {
+                Authentication auth = ctx.getAuthentication();
+
+                if (resolver.isRememberMe(auth)) {
+                    getSession().setAttribute("cookieLogin", "true");
+                    log.trace("User '" + user.getUsername() + "' logged in with cookie");
+                    addMessage("userProfile.cookieLogin");
+                }
             }
         }
 
@@ -99,10 +110,12 @@ public class UserForm extends BasePage implements Serializable {
         String password = user.getPassword();
         String originalPassword = getParameter("userForm:originalPassword");
 
-        if (StringUtils.equals(getParameter("encryptPass"), "true") ||
-                !StringUtils.equals(password, originalPassword)) {
-            String algorithm =
-                (String) getConfiguration().get(Constants.ENC_ALGORITHM);
+        Boolean encrypt = (Boolean) getConfiguration().get(Constants.ENCRYPT_PASSWORD);
+        boolean doEncrypt = (encrypt != null) ? encrypt.booleanValue() : false;
+        
+        if (doEncrypt && (StringUtils.equals(getParameter("encryptPass"), "true") ||
+                !StringUtils.equals(password, originalPassword))) {
+            String algorithm = (String) getConfiguration().get(Constants.ENC_ALGORITHM);
 
             if (algorithm == null) { // should only happen for test case
                 log.debug("assuming testcase, setting algorigthm to 'SHA'");
@@ -136,20 +149,6 @@ public class UserForm extends BasePage implements Serializable {
             HttpServletRequest request = getRequest();
 
             session.setAttribute(Constants.USER_KEY, user);
-
-            // update the user's remember me cookie if they didn't login
-            // with a cookie
-            if ((RequestUtil.getCookie(request, Constants.LOGIN_COOKIE) != null) &&
-                    (session.getAttribute("cookieLogin") == null)) {
-                // delete all user cookies and add a new one
-                userManager.removeLoginCookies(user.getUsername());
-
-                String autoLogin =
-                    userManager.createLoginCookie(user.getUsername());
-                RequestUtil.setCookie(getResponse(),
-                                      Constants.LOGIN_COOKIE, autoLogin,
-                                      request.getContextPath());
-            }
 
             // add success messages
             addMessage("user.saved");

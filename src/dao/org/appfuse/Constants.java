@@ -10,7 +10,7 @@ package org.appfuse;
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
-public final class Constants {
+public class Constants {
     //~ Static fields/initializers =============================================
    
     /** The name of the ResourceBundle used in this application */

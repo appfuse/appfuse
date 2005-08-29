@@ -31,18 +31,21 @@ public class SignupForm extends BasePage implements Serializable {
     }
 
     public String save() throws Exception {
+        Boolean encrypt = (Boolean) getConfiguration().get(Constants.ENCRYPT_PASSWORD);
         
-        String algorithm =
-            (String) getConfiguration().get(Constants.ENC_ALGORITHM);
-
-        if (algorithm == null) { // should only happen for test case
-            if (log.isDebugEnabled()) {
-                log.debug("assuming testcase, setting algorithm to 'SHA'");
+        if (encrypt != null && encrypt.booleanValue()) {
+            String algorithm = (String) getConfiguration().get(Constants.ENC_ALGORITHM);
+    
+            if (algorithm == null) { // should only happen for test case
+                if (log.isDebugEnabled()) {
+                    log.debug("assuming testcase, setting algorithm to 'SHA'");
+                }
+                algorithm = "SHA";
             }
-            algorithm = "SHA";
+            
+            user.setPassword(StringUtil.encodePassword(user.getPassword(), algorithm));
         }
         
-        user.setPassword(StringUtil.encodePassword(user.getPassword(), algorithm));
         user.setEnabled(Boolean.TRUE);
         
         // Set the default user role on this new user
@@ -59,11 +62,6 @@ public class SignupForm extends BasePage implements Serializable {
             user.setPassword(user.getConfirmPassword());
             return null;
         }
-
-        // Set cookies for auto-magical login ;-)
-        String loginCookie = userManager.createLoginCookie(user.getUsername());
-        RequestUtil.setCookie(getResponse(), Constants.LOGIN_COOKIE, loginCookie,
-                              getRequest().getContextPath());
 
         addMessage("user.registered");
         getSession().setAttribute(Constants.REGISTERED, Boolean.TRUE);

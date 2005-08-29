@@ -10,18 +10,6 @@
         <filter-name>securityFilter</filter-name>
         <url-pattern>*.jsp</url-pattern>
     </filter-mapping>    
-    <filter-mapping>
-        <filter-name>loginFilter</filter-name>
-        <url-pattern>/login.jsp</url-pattern>
-        <!-- These are needed in case a request is forwarded to login.jsp -->
-        <!--dispatcher>REQUEST</dispatcher>
-        <dispatcher>FORWARD</dispatcher-->
-    </filter-mapping>
-    <!-- Must be after securityFilter so request.getRemoteUser() works -->
-    <filter-mapping>
-        <filter-name>loginFilter</filter-name>
-        <url-pattern>/logout.jsp</url-pattern>
-    </filter-mapping>
     <!-- Commented out for 2 reasons: 1) it's a pain when developing JSPs, and
                                       2) it causes the Signup webtest to fail -->
     <!--filter-mapping>

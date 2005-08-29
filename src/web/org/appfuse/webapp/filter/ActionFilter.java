@@ -18,8 +18,6 @@ import org.apache.commons.logging.LogFactory;
 import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
-import org.appfuse.webapp.util.RequestUtil;
-import org.appfuse.webapp.util.SslUtil;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -33,26 +31,16 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  * <p><a href="ActionFilter.java.html"><i>View Source</i></a></p>
  *
  * @author  Matt Raible
- * @version $Revision: 1.13 $ $Date: 2005/04/16 22:17:21 $
+ * @version $Revision: 1.14 $ $Date: 2005/08/29 14:11:37 $
  *
  * @web.filter display-name="Action Filter" name="actionFilter"
- *
- * <p>Change this value to true if you want to secure your entire application.
- * This can also be done in web-security.xml by setting <transport-guarantee>
- * to CONFIDENTIAL.</p>
- *
- * @web.filter-init-param name="isSecure" value="${secure.application}"
  */
 public class ActionFilter implements Filter {
-    private static Boolean secure = Boolean.FALSE;
-    private final transient Log log = LogFactory.getLog(ActionFilter.class);
+    private final Log log = LogFactory.getLog(ActionFilter.class);
     private FilterConfig config = null;
 
     public void init(FilterConfig config) throws ServletException {
         this.config = config;
-
-        /* This determines if the application uconn SSL or not */
-        secure = Boolean.valueOf(config.getInitParameter("isSecure"));
     }
 
     /**
@@ -68,30 +56,11 @@ public class ActionFilter implements Filter {
         // cast to the types I want to use
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) resp;
-        HttpSession session = request.getSession(true);
+        HttpSession session = request.getSession();
         
         // notify the LocaleContextHolder what locale is being used so
         // service and data layer classes can get the locale
         LocaleContextHolder.setLocale(request.getLocale());
-
-        // do pre filter work here
-        // If using https, switch to http
-        String redirectString =
-            SslUtil.getRedirectString(request, config.getServletContext(),
-                                      secure.booleanValue());
-
-        if (redirectString != null) {
-            if (log.isDebugEnabled()) {
-                log.debug("protocol switch needed, redirecting to '" +
-                          redirectString + "'");
-            }
-
-            // Redirect the page to the desired URL
-            response.sendRedirect(response.encodeRedirectURL(redirectString));
-
-            // ensure we don't chain to requested resource
-            return;
-        }
 
         User user = (User) session.getAttribute(Constants.USER_KEY);
         ServletContext context = config.getServletContext();
@@ -105,15 +74,6 @@ public class ActionFilter implements Filter {
             UserManager mgr = (UserManager) ctx.getBean("userManager");
             user = mgr.getUser(username);
             session.setAttribute(Constants.USER_KEY, user);
-
-            // if user wants to be remembered, create a remember me cookie
-            if (session.getAttribute(Constants.LOGIN_COOKIE) != null) {
-                session.removeAttribute(Constants.LOGIN_COOKIE);
-
-                String loginCookie = mgr.createLoginCookie(username);
-                RequestUtil.setCookie(response, Constants.LOGIN_COOKIE,
-                                      loginCookie, request.getContextPath());
-            }
         }
 
         chain.doFilter(request, response);

@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.appfuse.dao.UserDAO;
 import org.appfuse.model.User;
-import org.appfuse.model.UserCookie;
 import org.springframework.orm.ObjectRetrievalFailureException;
 
 /**
@@ -57,48 +56,6 @@ public class UserDAOHibernate extends BaseDAOHibernate implements UserDAO {
      * @see org.appfuse.dao.UserDAO#removeUser(java.lang.String)
      */
     public void removeUser(String username) {
-        removeUserCookies(username);
-
-        User user = getUser(username);
-        getHibernateTemplate().delete(user);
-    }
-
-    /**
-     * @see org.appfuse.dao.UserDAO#getUserCookie(org.appfuse.model.UserCookie)
-     */
-    public UserCookie getUserCookie(final UserCookie cookie) {
-        List cookies = getHibernateTemplate().find(
-                "from UserCookie c where c.username=? and c.cookieId=?", 
-                new Object[]{cookie.getUsername(), cookie.getCookieId()});
-
-        if (cookies.size() == 0) {
-            return null;
-        }
-
-        return (UserCookie) cookies.get(0);
-    }
-
-    /**
-     * @see org.appfuse.dao.UserDAO#removeUserCookies(java.lang.String)
-     */
-    public void removeUserCookies(String username) {
-        // delete any cookies associated with this user
-        List cookies =
-            getHibernateTemplate().find("from UserCookie c where c.username=?",
-                                        username);
-
-        if ((cookies.size() > 0) && log.isDebugEnabled()) {
-            log.debug("deleting " + cookies.size() + " cookies for user '" +
-                      username + "'");
-        }
-
-        getHibernateTemplate().deleteAll(cookies);
-    }
-
-    /**
-     * @see org.appfuse.dao.UserDAO#saveUserCookie(org.appfuse.model.UserCookie)
-     */
-    public void saveUserCookie(UserCookie cookie) {
-        getHibernateTemplate().saveOrUpdate(cookie);
+        getHibernateTemplate().delete(getUser(username));
     }
 }

@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: web-tests.xml,v 1.15 2005/08/28 21:15:53 mraible Exp $               -->
+<!-- $Id: web-tests.xml,v 1.16 2005/08/29 14:11:31 mraible Exp $               -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY config SYSTEM "file:./config.xml">
@@ -102,10 +102,8 @@
                 <invoke description="click Edit Profile link" url="/editProfile.html"/>
                 <verifytitle description="we should see the user profile title" 
                     text="${webapp.prefix}${userProfile.title}"/>
-                <setinputfield description="set address" name="address.address" 
-                    value="2255 Lane Avenue"/>
-                <setinputfield description="set zipcode" name="address.postalCode" 
-                    value="59826"/>
+                <setinputfield description="set address" name="address.address" value="2255 Lane Avenue"/>
+                <setinputfield description="set zipcode" name="address.postalCode" value="59826"/>
                 <clickbutton label="${button.save}" description="Click Save"/>
                 <verifytitle description="display Main Menu if save OK"
                      text="${webapp.prefix}${mainMenu.title}" />
@@ -177,7 +175,7 @@
                 <setinputfield description="set passwordHint" name="passwordHint" value="test"/>
                 <clickbutton label="${button.register}" description="Click button 'Signup'"/>
 
-                <verifytitle description="view main menu" text="${webapp.prefix}${mainMenu.title}"/>
+                <verifytitle description="view login screen" text="${webapp.prefix}${login.title}"/>
                 <verifytext description="verify success message" text="${user.registered}"/>
             </steps>
         </canoo>

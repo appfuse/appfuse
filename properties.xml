@@ -10,20 +10,13 @@
     <property file="build.properties"/>
     
     <!-- Application options that will likely vary between applications -->
-    <property name="form.auth.action" value="j_security_check"/>
-    <property name="encrypt.password" value="true"/>
-    <property name="encrypt.algorithm" value="SHA"/>
-    <property name="secure.login" value="false"/> <!-- SSL for login -->
-    <property name="secure.application" value="false"/> <!-- SSL for all -->
-    <property name="rememberMe.enabled" value="true"/>
     <property name="http.port" value="8080"/>
-    <property name="https.port" value="8443"/>
     <property name="dao.type" value="hibernate"/>
     <property name="jsp.2" value="false"/>
     
     <!-- Properties for running unit tests with tomcat -->
     <property name="tomcat.server" value="localhost"/>
-    <property name="tomcat.manager.url" value="http://${tomcat.server}:8080/manager"/>
+    <property name="tomcat.manager.url" value="http://${tomcat.server}:${http.port}/manager"/>
     <property name="tomcat.username" value="admin"/>
     <property name="tomcat.password" value="admin"/>
 

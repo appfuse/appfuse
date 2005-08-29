@@ -6,6 +6,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import net.sf.acegisecurity.Authentication;
+import net.sf.acegisecurity.AuthenticationTrustResolver;
+import net.sf.acegisecurity.AuthenticationTrustResolverImpl;
+import net.sf.acegisecurity.context.ContextHolder;
+import net.sf.acegisecurity.context.security.SecureContext;
+
 import org.apache.commons.lang.StringUtils;
 import org.appfuse.Constants;
 import org.appfuse.model.Role;
@@ -70,9 +76,12 @@ public class UserFormController extends BaseFormController {
 
             return new ModelAndView(getSuccessView());
         } else {
-            if ("true".equals(request.getParameter("encryptPass"))) {
-                String algorithm =
-                    (String) getConfiguration().get(Constants.ENC_ALGORITHM);
+            Boolean encrypt = (Boolean) getConfiguration().get(Constants.ENCRYPT_PASSWORD);
+
+            if (StringUtils.equals(request.getParameter("encryptPass"), "true") 
+                    && (encrypt != null && encrypt.booleanValue())) {
+
+                String algorithm = (String) getConfiguration().get(Constants.ENC_ALGORITHM);
 
                 if (algorithm == null) { // should only happen for test case
 
@@ -83,8 +92,7 @@ public class UserFormController extends BaseFormController {
                     algorithm = "SHA";
                 }
 
-                user.setPassword(StringUtil.encodePassword(user.getPassword(),
-                                                           algorithm));
+                user.setPassword(StringUtil.encodePassword(user.getPassword(), algorithm));
             }
 
             String[] userRoles = request.getParameterValues("userRoles");
@@ -119,19 +127,6 @@ public class UserFormController extends BaseFormController {
                 HttpSession session = request.getSession();
                 session.setAttribute(Constants.USER_KEY, user);
 
-                // update the user's remember me cookie if they didn't login
-                // with a cookie
-                if ((RequestUtil.getCookie(request, Constants.LOGIN_COOKIE) != null) &&
-                        (session.getAttribute("cookieLogin") == null)) {
-                    // delete all user cookies and add a new one
-                    this.getUserManager().removeLoginCookies(user.getUsername());
-
-                    String autoLogin =
-                        this.getUserManager().createLoginCookie(user.getUsername());
-                    RequestUtil.setCookie(response, Constants.LOGIN_COOKIE,
-                                          autoLogin, request.getContextPath());
-                }
-
                 saveMessage(request, getText("user.saved", user.getFullName(), locale));
 
                 // return to main Menu
@@ -143,16 +138,12 @@ public class UserFormController extends BaseFormController {
 
                     // Send an account information e-mail
                     message.setSubject(getText("signup.email.subject", locale));
-                    sendUserMessage(user,
-                                    getText("newuser.email.message",
-                                            user.getFullName(), locale),
+                    sendUserMessage(user, getText("newuser.email.message", user.getFullName(), locale),
                                     RequestUtil.getAppURL(request));
 
                     return showNewForm(request, response);
                 } else {
-                    saveMessage(request,
-                                getText("user.updated.byAdmin",
-                                        user.getFullName(), locale));
+                    saveMessage(request, getText("user.updated.byAdmin", user.getFullName(), locale));
                 }
             }
         }
@@ -169,11 +160,9 @@ public class UserFormController extends BaseFormController {
             // reject if username passed in or "list" parameter passed in
             // someone that is trying this probably knows the AppFuse code
             // but it's a legitimate bug, so I'll fix it. ;-)
-            if ((request.getParameter("username") != null) ||
-                    (request.getParameter("from") != null)) {
+            if ((request.getParameter("username") != null) || (request.getParameter("from") != null)) {
                 response.sendError(HttpServletResponse.SC_FORBIDDEN);
-                log.warn("User '" + request.getRemoteUser() +
-                         "' is trying to edit user '" +
+                log.warn("User '" + request.getRemoteUser() + "' is trying to edit user '" +
                          request.getParameter("username") + "'");
 
                 return null;
@@ -182,8 +171,7 @@ public class UserFormController extends BaseFormController {
 
         // prevent ordinary users from calling a GET on editUser.html
         // unless a bind error exists.
-        if ((request.getRequestURI().indexOf("editUser") > -1) &&
-                (!request.isUserInRole(Constants.ADMIN_ROLE) &&
+        if ((request.getRequestURI().indexOf("editUser") > -1) && (!request.isUserInRole(Constants.ADMIN_ROLE) &&
                 (errors.getErrorCount() == 0) && // be nice to server-side validation for editProfile
                 (request.getRemoteUser() != null))) { // be nice to unit tests
             response.sendError(HttpServletResponse.SC_FORBIDDEN);
@@ -198,16 +186,28 @@ public class UserFormController extends BaseFormController {
     throws Exception {
         String username = request.getParameter("username");
 
-        if (request.getSession().getAttribute("cookieLogin") != null) {
-            saveMessage(request, getText("userProfile.cookieLogin", request.getLocale()));
+        // if user logged in with remember me, display a warning that they can't change passwords
+        log.debug("checking for remember me login...");
+
+        AuthenticationTrustResolver resolver = new AuthenticationTrustResolverImpl();
+        SecureContext ctx = (SecureContext) ContextHolder.getContext();
+
+        if (ctx != null) {
+            Authentication auth = ctx.getAuthentication();
+
+            if (resolver.isRememberMe(auth)) {
+                request.getSession().setAttribute("cookieLogin", "true");
+                
+                // add warning message
+                saveMessage(request, getText("userProfile.cookieLogin", request.getLocale()));
+            }
         }
 
         User user = null;
 
         if (request.getRequestURI().indexOf("editProfile") > -1) {
             user = this.getUserManager().getUser(getUser(request).getUsername());
-        } else if (!StringUtils.isBlank(username) &&
-                       !"".equals(request.getParameter("version"))) {
+        } else if (!StringUtils.isBlank(username) && !"".equals(request.getParameter("version"))) {
             user = this.getUserManager().getUser(username);
         } else {
             user = new User();

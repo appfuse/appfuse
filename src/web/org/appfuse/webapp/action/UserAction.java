@@ -6,16 +6,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import net.sf.acegisecurity.Authentication;
+import net.sf.acegisecurity.AuthenticationTrustResolver;
+import net.sf.acegisecurity.AuthenticationTrustResolverImpl;
+import net.sf.acegisecurity.context.ContextHolder;
+import net.sf.acegisecurity.context.security.SecureContext;
+
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.util.MessageResources;
-
 import org.appfuse.Constants;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
@@ -26,7 +30,6 @@ import org.appfuse.service.UserManager;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.form.UserForm;
 import org.appfuse.webapp.util.RequestUtil;
-
 import org.springframework.mail.SimpleMailMessage;
 
 /**
@@ -68,7 +71,7 @@ public final class UserAction extends BaseAction {
         UserForm userForm = (UserForm) convert(user);
         updateFormBean(mapping, request, userForm);
 
-        checkForCookieLogin(request);
+        checkForRememberMeLogin(request);
 
         return mapping.findForward("edit");
     }
@@ -158,7 +161,7 @@ public final class UserAction extends BaseAction {
         userForm.setConfirmPassword(userForm.getPassword());
         updateFormBean(mapping, request, userForm);
 
-        checkForCookieLogin(request);
+        checkForRememberMeLogin(request);
 
         // return a forward to edit forward
         return mapping.findForward("edit");
@@ -192,16 +195,18 @@ public final class UserAction extends BaseAction {
         // all we need to persist is the parent object
         BeanUtils.copyProperties(user, userForm);
 
-        if (StringUtils.equals(request.getParameter("encryptPass"), "true")) {
-            String algorithm =
-                (String) getConfiguration().get(Constants.ENC_ALGORITHM);
+        Boolean encrypt = (Boolean) getConfiguration().get(Constants.ENCRYPT_PASSWORD);
+
+        if (StringUtils.equals(request.getParameter("encryptPass"), "true") 
+                && (encrypt != null && encrypt.booleanValue())) {
+            String algorithm = (String) getConfiguration().get(Constants.ENC_ALGORITHM);
 
             if (algorithm == null) { // should only happen for test case
-                log.debug("assuming testcase, setting algorigthm to 'SHA'");
+                log.debug("assuming testcase, setting algorithm to 'SHA'");
                 algorithm = "SHA";
             }
 
-            user.setPassword(StringUtil.encodePassword(password, algorithm));
+            user.setPassword(StringUtil.encodePassword(user.getPassword(), algorithm));
         }
 
         UserManager mgr = (UserManager) getBean("userManager");
@@ -232,19 +237,6 @@ public final class UserAction extends BaseAction {
         
         if (!StringUtils.equals(request.getParameter("from"), "list")) {
             session.setAttribute(Constants.USER_KEY, user);
-
-            // update the user's remember me cookie if they didn't login
-            // with a cookie
-            if ((RequestUtil.getCookie(request, Constants.LOGIN_COOKIE) != null) &&
-                    (session.getAttribute("cookieLogin") == null)) {
-                // delete all user cookies and add a new one
-                mgr.removeLoginCookies(userForm.getUsername());
-
-                String autoLogin =
-                    mgr.createLoginCookie(userForm.getUsername());
-                RequestUtil.setCookie(response, Constants.LOGIN_COOKIE,
-                                      autoLogin, request.getContextPath());
-            }
 
             // add success messages
             messages.add(ActionMessages.GLOBAL_MESSAGE,
@@ -330,20 +322,24 @@ public final class UserAction extends BaseAction {
         engine.send(message);
     }
 
-    private void checkForCookieLogin(HttpServletRequest request) {
-        // if user logged in with a cookie, display a warning that they
-        // can't change passwords
-        if (log.isDebugEnabled()) {
-            log.debug("checking for cookieLogin...");
-        }
+    private void checkForRememberMeLogin(HttpServletRequest request) {
+        // if user logged in with remember me, display a warning that they can't change passwords
+        log.debug("checking for remember me login...");
 
-        if (request.getSession().getAttribute("cookieLogin") != null) {
-            ActionMessages messages = new ActionMessages();
+        AuthenticationTrustResolver resolver = new AuthenticationTrustResolverImpl();
+        SecureContext ctx = (SecureContext) ContextHolder.getContext();
 
-            // add warning messages
-            messages.add(ActionMessages.GLOBAL_MESSAGE,
-                         new ActionMessage("userProfile.cookieLogin"));
-            saveMessages(request, messages);
+        if (ctx != null) {
+            Authentication auth = ctx.getAuthentication();
+
+            if (resolver.isRememberMe(auth)) {
+                request.getSession().setAttribute("cookieLogin", "true");
+                
+                // add warning message
+                ActionMessages messages = new ActionMessages();
+                messages.add(ActionMessages.GLOBAL_MESSAGE,  new ActionMessage("userProfile.cookieLogin"));
+                saveMessages(request, messages);
+            }
         }
     }
 }

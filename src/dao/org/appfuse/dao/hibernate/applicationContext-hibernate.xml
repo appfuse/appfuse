@@ -10,7 +10,6 @@
             <list>
                 <value>org/appfuse/model/Role.hbm.xml</value>
                 <value>org/appfuse/model/User.hbm.xml</value>
-                <value>org/appfuse/model/UserCookie.hbm.xml</value>
             </list>
         </property>
         <!-- The property below is commented out b/c it doesn't work when run via

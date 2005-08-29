@@ -8,7 +8,6 @@ import org.appfuse.dao.RoleDAO;
 import org.appfuse.dao.UserDAO;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
-import org.appfuse.model.UserCookie;
 import org.appfuse.service.impl.RoleManagerImpl;
 import org.appfuse.service.impl.UserManagerImpl;
 import org.jmock.Mock;
@@ -104,30 +103,6 @@ public class UserManagerTest extends BaseManagerTestCase {
         userDAO.expects(once()).method("getUser").will(returnValue(null));
         user = userManager.getUser("john");
         assertNull(user);
-        userDAO.verify();
-    }
-
-    public void testLoginWithCookie() {
-        // set expectations
-        userDAO.expects(once()).method("saveUserCookie");
-        
-        String cookieString = userManager.createLoginCookie("tomcat");
-
-        assertNotNull(cookieString);
-        userDAO.verify();
-        
-        // reset expectations
-        userDAO.expects(once()).method("getUserCookie").will(returnValue(new UserCookie()));
-        // lookup succeeds, save will be called to generate a new one
-        userDAO.expects(once()).method("saveUserCookie");
-        String newCookie = userManager.checkLoginCookie(cookieString);
-        assertNotNull(newCookie);
-        userDAO.verify();
-        
-        // reset expectations
-        userDAO.expects(once()).method("getUserCookie").will(returnValue(null));        
-        newCookie = userManager.checkLoginCookie(cookieString);
-        assertNull(newCookie);
         userDAO.verify();
     }
     

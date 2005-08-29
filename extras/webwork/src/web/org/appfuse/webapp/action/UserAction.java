@@ -8,6 +8,12 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.acegisecurity.AuthenticationTrustResolver;
+import net.sf.acegisecurity.AuthenticationTrustResolverImpl;
+import net.sf.acegisecurity.Authentication;
+import net.sf.acegisecurity.context.ContextHolder;
+import net.sf.acegisecurity.context.security.SecureContext;
+
 import org.apache.commons.lang.StringUtils;
 import org.appfuse.Constants;
 import org.appfuse.model.Role;
@@ -91,14 +97,19 @@ public class UserAction extends BaseAction {
         if (user.getUsername() != null) {
             user.setConfirmPassword(user.getPassword());
 
-            // if user logged in with a cookie, display a warning that they
-            // can't change passwords
-            if (log.isDebugEnabled()) {
-                log.debug("checking for cookieLogin...");
-            }
+            // if user logged in with remember me, display a warning that they can't change passwords
+            log.debug("checking for remember me login...");
 
-            if (getSession().getAttribute("cookieLogin") != null) {
-                saveMessage(getText("userProfile.cookieLogin"));
+            AuthenticationTrustResolver resolver = new AuthenticationTrustResolverImpl();
+            SecureContext ctx = (SecureContext) ContextHolder.getContext();
+
+            if (ctx != null) {
+                Authentication auth = ctx.getAuthentication();
+
+                if (resolver.isRememberMe(auth)) {
+                    getSession().setAttribute("cookieLogin", "true");
+                    saveMessage(getText("userProfile.cookieLogin"));
+                }
             }
         }
        
@@ -121,20 +132,22 @@ public class UserAction extends BaseAction {
             return delete();
         }
 
-        if (StringUtils.equals(getRequest().getParameter("encryptPass"), "true")) {
-            String algorithm =
-                (String) getConfiguration().get(Constants.ENC_ALGORITHM);
+        Boolean encrypt = (Boolean) getConfiguration().get(Constants.ENCRYPT_PASSWORD);
+
+        if (StringUtils.equals(getRequest().getParameter("encryptPass"), "true") 
+                && (encrypt != null && encrypt.booleanValue())) {
+            String algorithm = (String) getConfiguration().get(Constants.ENC_ALGORITHM);
 
             if (algorithm == null) { // should only happen for test case
-                log.debug("assuming testcase, setting algorigthm to 'SHA'");
+                log.debug("assuming testcase, setting algorithm to 'SHA'");
                 algorithm = "SHA";
             }
 
             user.setPassword(StringUtil.encodePassword(user.getPassword(), algorithm));
         }
-        
+
         boolean isNew = ("".equals(getRequest().getParameter("user.version")));
-        
+
         String[] userRoles = getRequest().getParameterValues("user.userRoles");
 
         for (int i = 0; userRoles != null && i < userRoles.length; i++) {
@@ -156,24 +169,8 @@ public class UserAction extends BaseAction {
             return INPUT;
         }
 
-        HttpServletRequest request = getRequest();
-
         if (!"list".equals(from)) {
             getSession().setAttribute(Constants.USER_KEY, user);
-
-            // update the user's remember me cookie if they didn't login
-            // with a cookie
-            if ((RequestUtil.getCookie(request, Constants.LOGIN_COOKIE) != null) &&
-                    (request.getSession().getAttribute("cookieLogin") == null)) {
-                // delete all user cookies and add a new one
-                userManager.removeLoginCookies(user.getUsername());
-
-                String autoLogin =
-                    userManager.createLoginCookie(user.getUsername());
-                RequestUtil.setCookie(ServletActionContext.getResponse(),
-                                      Constants.LOGIN_COOKIE, autoLogin,
-                                      request.getContextPath());
-            }
 
             // add success messages
             saveMessage(getText("user.saved"));
@@ -187,7 +184,7 @@ public class UserAction extends BaseAction {
                 saveMessage(getText("user.added", args));
                 // Send an account information e-mail
                 message.setSubject(getText("signup.email.subject"));
-                sendUserMessage(user, getText("newuser.email.message", args), 
+                sendUserMessage(user, getText("newuser.email.message", args),
                                 RequestUtil.getAppURL(getRequest()));
                 return "addAnother";
             } else {

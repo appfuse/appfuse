@@ -50,28 +50,4 @@ public interface UserManager {
      * @param username the user's username
      */
     public void removeUser(String username);
-    
-    /**
-     * Validates a user based on a cookie value.  If successful, it returns
-     * a new cookie String.  If not, then it returns null.
-     * 
-     * @param value (in format username|guid)
-     * @return indicator that this is a valid login (null == invalid)
-     */
-    public String checkLoginCookie(String value);
- 
-    /**
-     * Creates a cookie string using a username - designed for use when
-     * a user logs in and wants to be remembered.
-     * 
-     * @param username
-     * @return String to put in a cookie for remembering user
-     */
-    public String createLoginCookie(String username);
-    
-    /**
-     * Deletes all cookies for user.
-     * @param username
-     */
-    public void removeLoginCookies(String username);
 }
