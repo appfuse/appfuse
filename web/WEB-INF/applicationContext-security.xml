@@ -162,12 +162,12 @@
  
     <bean id="rememberMeServices" class="net.sf.acegisecurity.ui.rememberme.TokenBasedRememberMeServices"> 
         <property name="authenticationDao" ref="jdbcAuthenticationDao"/>
-        <property name="key" value="sourcebeatRocks"/> 
+        <property name="key" value="appfuseRocks"/> 
         <property name="parameter" value="rememberMe"/>
     </bean> 
   
     <bean id="rememberMeAuthenticationProvider" class="net.sf.acegisecurity.providers.rememberme.RememberMeAuthenticationProvider"> 
-        <property name="key" value="sourcebeatRocks"/>
+        <property name="key" value="appfuseRocks"/>
     </bean>
     
     <!-- ===================== SSL SWITCHING ==================== -->
