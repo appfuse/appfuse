@@ -46,6 +46,13 @@ steps:
 
 Features/Changes in 1.9
 ============================
+- Changed Remember Me and SSL Switching to use Acegi Security instead of 
+  homegrown solution. All users are encouraged to change the "key" property
+  in applicationContext-security.xml (in the rememberMeServices and 
+  rememberMeAuthenticationProvider bean definitions) to a unique key for
+  their application.  More information on this change at:
+    http://raibledesigns.com/page/rd?entry=using_acegi_security_for_remember
+- Changed default user role from "tomcat" to "user".
 - Dependent packages upgraded:
     * Log4j 1.2.11
     * MySQL JDBC Driver 3.1.10  
