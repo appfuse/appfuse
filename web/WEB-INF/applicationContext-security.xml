@@ -10,7 +10,7 @@
             <value>
                 CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
                 PATTERN_TYPE_APACHE_ANT
-                /**=httpSessionContextIntegrationFilter,authenticationProcessingFilter,remoteUserFilter,authenticationProcessingFilter,rememberMeProcessingFilter,anonymousProcessingFilter,securityEnforcementFilter
+                /**=httpSessionContextIntegrationFilter,authenticationProcessingFilter,remoteUserFilter,rememberMeProcessingFilter,anonymousProcessingFilter,securityEnforcementFilter
             </value>
             <!-- Put channelProcessingFilter before remoteUserFilter to turn on SSL switching -->
             <!-- It's off by default b/c Canoo WebTest doesn't support SSL out-of-the-box -->
