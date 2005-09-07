@@ -4,7 +4,6 @@
 <content tag="heading"><fmt:message key="<XDtForm:classNameLower/>Detail.heading"/></content>
 
 <ww:form name="'<XDtForm:classNameLower/>'" action="'save<XDtForm:className/>'" method="'post'" validate="true">
-<table class="detail">
 <XDtForm:forAllFields>
 <XDtForm:ifIsIdOrVersionField>
 <ww:hidden name="'<XDtForm:classNameLower/>.<XDtForm:fieldName/>'" value="<XDtForm:classNameLower/>.<XDtForm:fieldName/>"/>
