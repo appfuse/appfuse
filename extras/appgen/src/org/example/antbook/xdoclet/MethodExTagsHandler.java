@@ -22,6 +22,7 @@ import xjavadoc.*;
 public class MethodExTagsHandler extends MethodTagsHandler {
     //
     private static String datePattern = "yyyy-MM-dd";
+    private static String uiDatePattern = "MM/dd/yyyy";
     private static final List numericTypes = new ArrayList();
     private static final String rootClassName = getCurrentClass().getName();
     private static final String rootClassNameLower = Character.toLowerCase(rootClassName.charAt(0)) + rootClassName.substring(1);
@@ -92,8 +93,13 @@ public class MethodExTagsHandler extends MethodTagsHandler {
     public String formSetterWithValue() throws XDocletException {
         XMethod method = super.getCurrentMethod();
         XMethod setter = method.getMutator();
+        
+        String value = randomValueForSetter();
+        if (setter.getPropertyType().getType().isA("java.util.Date")) {
+            value = "\"" + getDate(new Date(), uiDatePattern) + "\"";
+        }
 
-        return rootClassNameLower + "Form." + curprefix + setter.getName() + "(" + randomValueForSetter() + ");";
+        return rootClassNameLower + "Form." + curprefix + setter.getName() + "(" + value + ");";
     }
 
     /**
@@ -329,12 +335,12 @@ public class MethodExTagsHandler extends MethodTagsHandler {
         } else if ("boolean".equals(mtype)) {
             result.append("false");
         } else if ("java.util.Date".equals(mtype)) {
-            result.append("new Date(" + getDate(new Date()) + ")");
+            result.append("new java.util.Date()");
         } else if ("java.sql.Timestamp".equals(mtype)) {
-            result.append("Timestamp.valueOf(\"" + new Timestamp(new Date().getTime()).toString() + "\")");
+            result.append("java.sql.Timestamp.valueOf(\"" + new Timestamp(new Date().getTime()).toString() + "\")");
         } else if ("email".equalsIgnoreCase(super.propertyName())) {
             result.append("\"" + super.propertyName() + (int) ((Math.random() * Integer.MAX_VALUE)) +
-                   "@dev.java.net\"");
+                "@dev.java.net\"");
         } else { // default to String for everything else
             result.append(generateStringValue());
         }
@@ -390,14 +396,18 @@ public class MethodExTagsHandler extends MethodTagsHandler {
      * @return
      */
     private static final String getDate(Date aDate) {
+        return getDate(aDate, datePattern);
+    }
+    
+    private static final String getDate(Date aDate, String pattern) {
         SimpleDateFormat df = null;
         String returnValue = "";
 
         if (aDate != null) {
-            df = new SimpleDateFormat(datePattern);
+            df = new SimpleDateFormat(pattern);
             returnValue = df.format(aDate);
         }
 
-        return (returnValue);
+        return returnValue;
     }
 }

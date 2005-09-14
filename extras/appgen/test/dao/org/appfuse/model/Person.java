@@ -55,7 +55,8 @@ public class Person extends BaseObject {
     }
     
     /**
-     * @hibernate.property column="date_of_birth" length="20"
+     * @struts.validator type="required"
+     * @hibernate.property column="date_of_birth" length="20" not-null="true"
      */
     public Date getDateOfBirth() {
         return dateOfBirth;

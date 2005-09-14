@@ -63,8 +63,7 @@ public class <XDtForm:className/>ActionTest extends BaseStrutsTestCase {
 
         actionPerform();
 
-        <XDtForm:className/>Form <XDtForm:classNameLower/>Form =
-            (<XDtForm:className/>Form) request.getAttribute(Constants.<XDtForm:classNameUpper/>_KEY);
+        <XDtForm:className/>Form <XDtForm:classNameLower/>Form = (<XDtForm:className/>Form) request.getAttribute(Constants.<XDtForm:classNameUpper/>_KEY);
         assertNotNull(<XDtForm:classNameLower/>Form);
 
         setRequestPathInfo("/save<XDtForm:className/>");
@@ -73,7 +72,7 @@ public class <XDtForm:className/>ActionTest extends BaseStrutsTestCase {
         // update the form's required string fields and add it back to the request
         <XDtMethodEx:forAllMethods>
         <XDtMethodEx:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
-        <XDtMethodEx:formSetterWithValue />
+        <XDtMethodEx:formSetterWithValue/>
         </XDtMethodEx:ifMethodTagValueEquals>
         </XDtMethodEx:forAllMethods>
 
