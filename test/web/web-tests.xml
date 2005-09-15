@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: web-tests.xml,v 1.31 2005/08/29 14:11:40 mraible Exp $               -->
+<!-- $Id: web-tests.xml,v 1.32 2005/09/15 04:22:24 mraible Exp $               -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY config SYSTEM "file:./config.xml">
@@ -175,7 +175,7 @@
                 <setinputfield description="set passwordHint" name="passwordHint" value="test"/>
                 <clickbutton label="${button.register}" description="Click button 'Signup'"/>
 
-                <verifytitle description="view login screen" text="${webapp.prefix}${login.title}"/>
+                <verifytitle description="view main menu" text="${webapp.prefix}${mainMenu.title}"/>
                 <verifytext description="verify success message" text="${user.registered}"/>
             </steps>
         </canoo>

@@ -19,6 +19,13 @@ import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.form.UserForm;
 import org.appfuse.webapp.util.RequestUtil;
 import org.springframework.mail.SimpleMailMessage;
+import net.sf.acegisecurity.context.security.SecureContext;
+import net.sf.acegisecurity.context.ContextHolder;
+import net.sf.acegisecurity.Authentication;
+import net.sf.acegisecurity.GrantedAuthority;
+import net.sf.acegisecurity.GrantedAuthorityImpl;
+import net.sf.acegisecurity.providers.UsernamePasswordAuthenticationToken;
+import net.sf.acegisecurity.providers.ProviderManager;
 
 /**
  * Action class to allow users to self-register.
@@ -104,6 +111,11 @@ public final class SignupAction extends BaseAction {
 
         saveMessages(request.getSession(), messages);
         request.getSession().setAttribute(Constants.REGISTERED, Boolean.TRUE);
+
+        // log user in automatically
+        Authentication auth = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getConfirmPassword());
+        ProviderManager authenticationManager = (ProviderManager) getBean("authenticationManager");
+        ((SecureContext) ContextHolder.getContext()).setAuthentication(authenticationManager.doAuthentication(auth));
 
         // Send user an e-mail
         if (log.isDebugEnabled()) {
