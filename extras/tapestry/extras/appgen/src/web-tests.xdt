@@ -64,7 +64,7 @@
                 <!-- enter required fields -->
                 <XDtMethod:forAllMethods>
                 <XDtMethod:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
-                <setinputfield stepid="set <XDtMethod:propertyName/>" name="<XDtMethod:propertyName/>" value="<XDtMethodEx:randomValueForWebTest/>"/>
+                <setinputfield stepid="set <XDtMethod:propertyName/>" name="<XDtMethod:propertyName/>Field" value="<XDtMethodEx:randomValueForWebTest/>"/>
                 </XDtMethod:ifMethodTagValueEquals>
                 </XDtMethod:forAllMethods>
                 <clickbutton label="${button.save}" stepid="Click button 'Save'"/>
