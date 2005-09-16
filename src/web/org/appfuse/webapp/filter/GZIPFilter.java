@@ -26,9 +26,7 @@ import org.displaytag.tags.TableTagParameters;
  *
  * @author  Matt Raible
  *
- * @web.filter
- *     display-name="Compression Filter"
- *     name="compressionFilter"
+ * @web.filter name="compressionFilter"
  */
 public class GZIPFilter implements Filter {
     private final transient Log log = LogFactory.getLog(GZIPFilter.class);

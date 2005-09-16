@@ -35,7 +35,7 @@
     <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
     <property name="database.driver_class" value="com.mysql.jdbc.Driver"/>
     <property name="database.url" 
-        value="jdbc:${database.type}://${database.host}/${database.name}?autoReconnect=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf-8"/>
+        value="jdbc:${database.type}://${database.host}/${database.name}?useUnicode=true&amp;amp;characterEncoding=utf-8"/>
     <property name="database.show_sql" value="true"/>
     
     <!-- Build and deploy properties -->

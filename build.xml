@@ -137,6 +137,8 @@
                 <include name="pages/**/*.jsp"/>
             </fileset>
             <fileset dir="${struts.dir}" includes="*.xml"/>   
+            <fileset dir="${basedir}/web/WEB-INF" includes="**/*-resources.xml"/>
+            <filterset refid="db.variables"/>
         </copy>
         <!-- Copy *.txt files so they can be included in release notes -->
         <copy todir="${webapp.target}">
@@ -373,17 +375,13 @@
             </and>
             <then>
                 <copy tofile="${webapp.dist}/context.xml"
-                    file="metadata/conf/tomcat-context.xml" overwrite="true">
-                    <filterset refid="db.variables"/>
-                </copy>
+                    file="metadata/conf/tomcat-context.xml" overwrite="true"/>
             </then>
             <elseif>
                 <isset property="tomcat5.5"/>
                 <then>
                     <copy tofile="${webapp.dist}/context.xml"
-                        file="metadata/conf/tomcat-context-5.5.xml" overwrite="true">
-                        <filterset refid="db.variables"/>
-                    </copy>
+                        file="metadata/conf/tomcat-context-5.5.xml" overwrite="true"/>
                 </then>
             </elseif>
         </if>
@@ -396,7 +394,7 @@
         </copy>
         <war destfile="${webapp.dist}/${webapp.war}"
             webxml="${webapp.target}/WEB-INF/web.xml" compress="true">
-            <fileset dir="${webapp.target}" excludes="**/web.xml,**/*-resources.xml"/>
+            <fileset dir="${webapp.target}" excludes="**/web.xml"/>
             <metainf dir="${webapp.dist}" includes="context.xml"/>
 
             <classes dir="${build.dir}/web/classes">
@@ -405,8 +403,7 @@
 
             <lib file="${dist.dir}/${webapp.name}-dao.jar"/>
             <lib file="${dist.dir}/${webapp.name}-service.jar"/>
-
-            <webinf dir="web/WEB-INF" includes="*-resources.xml"/>
+            
             <webinf dir="${struts.dir}" includes="*.xml"/>
             
             <lib file="${clickstream.jar}"/>
@@ -418,9 +415,10 @@
             <lib dir="${javamail.dir}" includes="*.jar"/>   
             <lib file="${log4j.jar}"/>
             <lib file="${strutsmenu.jar}"/>
+            <lib file="${database.jar}"/>
             <lib dir="${displaytag.dir}" includes="*.jar"/>
             <lib file="${hibernate.jar}"/>
-            <lib dir="${hibernate.dir}/lib" includes="*.jar" excludes="jta.jar"/>
+            <lib dir="${hibernate.dir}/lib" includes="*.jar"/>
             <lib dir="${spring.dir}" includes="*.jar" excludes="*mock.jar"/>
             <lib file="${sitemesh.jar}"/>
             <lib dir="${velocity.dir}" includes="*.jar"/>   
@@ -982,9 +980,7 @@
                 <echo message="Detected Tomcat 5..."/>
                 <echo level="info">Copying ${webapp.name}.xml...</echo>
                 <copy tofile="${tomcat.home}/conf/Catalina/localhost/${webapp.name}.xml"
-                    file="metadata/conf/tomcat-context.xml" overwrite="true">
-                    <filterset refid="db.variables"/>
-                </copy>
+                    file="metadata/conf/tomcat-context.xml" overwrite="true"/>
             </then>
             <elseif>
                 <isset property="tomcat5.5"/>
@@ -992,27 +988,16 @@
                     <echo message="Detected Tomcat 5.5..."/>
                     <echo level="info">Copying ${webapp.name}.xml...</echo>
                     <copy tofile="${tomcat.home}/conf/Catalina/localhost/${webapp.name}.xml"
-                        file="metadata/conf/tomcat-context-5.5.xml" overwrite="true">
-                        <filterset refid="db.variables"/>
-                    </copy>
+                        file="metadata/conf/tomcat-context-5.5.xml" overwrite="true"/>
                 </then>
             </elseif>
             <else>
                 <echo message="Detected Tomcat 4..."/>
                 <echo level="info">Copying ${webapp.name}.xml...</echo>
                 <copy tofile="${tomcat.home}/webapps/${webapp.name}.xml"
-                    file="metadata/conf/tomcat-context.xml" overwrite="true">
-                    <filterset refid="db.variables"/>
-                </copy>
+                    file="metadata/conf/tomcat-context.xml" overwrite="true"/>
             </else>
         </if>
-
-        <echo level="info">Copying ${database.type} JDBC Driver...</echo>
-        <copy todir="${tomcat.home}/common/lib" file="${database.jar}" overwrite="true"/>
-        <echo level="info">Copying jta.jar...</echo>
-        <copy todir="${tomcat.home}/common/lib">
-            <fileset dir="${hibernate.dir}/lib" includes="jta.jar"/>
-        </copy>
     </target>
     
     <!-- =================================================================== -->

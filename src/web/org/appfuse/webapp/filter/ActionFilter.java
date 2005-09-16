@@ -31,9 +31,9 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  * <p><a href="ActionFilter.java.html"><i>View Source</i></a></p>
  *
  * @author  Matt Raible
- * @version $Revision: 1.14 $ $Date: 2005/08/29 14:11:37 $
+ * @version $Revision: 1.15 $ $Date: 2005/09/16 00:58:05 $
  *
- * @web.filter display-name="Action Filter" name="actionFilter"
+ * @web.filter name="actionFilter"
  */
 public class ActionFilter implements Filter {
     private final Log log = LogFactory.getLog(ActionFilter.class);

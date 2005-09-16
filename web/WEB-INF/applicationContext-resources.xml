@@ -13,7 +13,32 @@
     </bean>
     
     <!-- JNDI DataSource for J2EE environments -->
-    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+    <!--bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
         <property name="jndiName"><value>java:comp/env/jdbc/appfuse</value></property>
+    </bean-->
+    
+    <!--bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="@DB-DRIVERNAME@"/>
+        <property name="url" value="@DB-URL@"/>
+        <property name="username" value="@DB-USERNAME@"/>
+        <property name="password" value="@DB-PASSWORD@"/>
+        <property name="maxActive" value="100"/>
+        <property name="maxIdle" value="30"/>
+        <property name="maxWait" value="1000"/>
+        <property name="defaultAutoCommit" value="true"/>
+        <property name="removeAbandoned" value="true"/>
+        <property name="removeAbandonedTimeout" value="60"/>
+        <property name="logAbandoned" value="true"/>
+    </bean-->
+    
+    <!-- Available Properties at http://tom.tharrisx.homedns.org/javalib/c3p0-0.8.4.5/doc/#appendix_a -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass" value="@DB-DRIVERNAME@"/>
+        <property name="jdbcUrl" value="@DB-URL@"/>
+        <property name="user" value="@DB-USERNAME@"/>
+        <property name="password" value="@DB-PASSWORD@"/>
+        <property name="minPoolSize" value="5"/>
+        <property name="acquireIncrement" value="5"/>
+        <property name="maxPoolSize" value="15"/>
     </bean>
 </beans>
