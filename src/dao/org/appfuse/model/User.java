@@ -301,7 +301,7 @@ public class User extends BaseObject implements Serializable {
 
     /**
      * @return Returns the enabled.
-     * @hibernate.property column="enabled"
+     * @hibernate.property column="enabled" type="boolean"
      */
     public Boolean getEnabled() {
         // isEnabled doesnt' work for copying properties to Struts ActionForms
