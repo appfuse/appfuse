@@ -114,6 +114,24 @@ public class MethodExTagsHandler extends MethodTagsHandler {
 
         return rootClassNameLower + "." + curprefix + setter.getName() + "(" + randomValueForSetter() + ");";
     }
+    
+    /**
+     * Method to print out a random value for use in setting WebTest parameters
+     *
+     * @return 
+     * @throws XDocletException
+     */
+    public String randomValueForWebTest() throws XDocletException {
+        XMethod method = super.getCurrentMethod();
+        XMethod setter = method.getMutator();
+        
+        String value = randomValueForDbUnit();
+        if (setter.getPropertyType().getType().isA("java.util.Date")) {
+            value = getDate(new Date(), uiDatePattern);
+        }
+
+        return value;
+    }
 
     /**
      * A convenient way to get information of an id field. You can get the

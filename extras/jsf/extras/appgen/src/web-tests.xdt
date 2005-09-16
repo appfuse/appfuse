@@ -1,13 +1,13 @@
 <XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>
 <!--<XDtForm:className/>-START-->
-    <!-- runs person-related tests -->
+    <!-- runs <XDtForm:classNameLower/>-related tests -->
     <target name="<XDtForm:className/>Tests"
         depends="Search<XDtForm:className/>s,Edit<XDtForm:className/>,Save<XDtForm:className/>,Add<XDtForm:className/>,Delete<XDtForm:className/>"
-        description="Call and executes all person test cases (targets)">
+        description="Call and executes all <XDtForm:classNameLower/> test cases (targets)">
         <echo>Successfully ran all <XDtForm:className/> JSP tests!</echo>
     </target>
 
-    <!-- Verify the edit person screen displays without errors -->
+    <!-- Verify the edit <XDtForm:classNameLower/> screen displays without errors -->
     <target name="Edit<XDtForm:className/>"
         description="Tests editing an existing <XDtForm:className/>'s information">
         <canoo name="edit<XDtForm:className/>">
@@ -24,7 +24,7 @@
 
     <!-- Edit a <XDtForm:classNameLower/> and then save -->
     <target name="Save<XDtForm:className/>"
-        description="Tests editing and saving a user">
+        description="Tests editing and saving a <XDtForm:classNameLower/>">
         <canoo name="save<XDtForm:className/>">
             &config;
             <steps>
@@ -33,7 +33,7 @@
                 <clicklink stepid="edit first record in list" label="1"/>
                 <verifytitle stepid="we should see the <XDtForm:classNameLower/>Detail title"
                     text="${webapp.prefix}${<XDtForm:classNameLower/>Detail.title}"/>
-                    
+
                 <!-- update some of the required fields -->
                 <XDtMethod:forAllMethods>
                 <XDtMethod:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
@@ -43,7 +43,7 @@
                 </XDtMethod:ifMethodTagValueEquals>
                 </XDtMethod:forAllMethods>
                 <clickbutton label="${button.save}" stepid="Click Save"/>
-                
+
                 <verifytitle stepid="Page re-appears if save successful"
                     text="${webapp.prefix}${<XDtForm:classNameLower/>Detail.title}"/>
             </steps>
@@ -61,24 +61,16 @@
                 <clickbutton stepid="Click 'Add' button'" label="${button.add}"/>
                 <verifytitle stepid="we should see the <XDtForm:classNameLower/>Detail title"
                     text="${webapp.prefix}${<XDtForm:classNameLower/>Detail.title}"/>
-                    
+
                 <!-- enter required fields -->
                 <XDtMethod:forAllMethods>
                 <XDtMethod:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
-                <XDtType:ifIsOfType value="return-type" type="java.lang.Boolean" extent="concrete-type">
-                <setinputfield stepid="set <XDtMethod:propertyName/>" name="<XDtForm:classNameLower/>Form:<XDtMethod:propertyName/>" value="true"/>
-                </XDtType:ifIsOfType>
-                <XDtType:ifIsOfType value="return-type" type="java.lang.String" extent="concrete-type">
-                <setinputfield stepid="set <XDtMethod:propertyName/>" name="<XDtForm:classNameLower/>Form:<XDtMethod:propertyName/>" value="<XDtMethod:propertyName/>"/>
-                </XDtType:ifIsOfType>
-                <XDtType:ifIsOfType value="return-type" type="java.lang.Long,java.lang.Integer" extent="concrete-type">
-                <setinputfield stepid="set <XDtMethod:propertyName/>" name="<XDtForm:classNameLower/>Form:<XDtMethod:propertyName/>" value="150"/>
-                </XDtType:ifIsOfType>
+                <setinputfield stepid="set <XDtMethod:propertyName/>" name="<XDtMethod:propertyName/>" value="<XDtMethodEx:randomValueForWebTest/>"/>
                 </XDtMethod:ifMethodTagValueEquals>
                 </XDtMethod:forAllMethods>
                 <clickbutton label="${button.save}" stepid="Click button 'Save'"/>
-                
-                <verifytitle stepid="<XDtForm:className/> List appears if save successful" 
+
+                <verifytitle stepid="<XDtForm:className/> List appears if save successful"
                     text="${webapp.prefix}${<XDtForm:classNameLower/>List.title}"/>
                 <verifytext stepid="verify success message" text="${<XDtForm:classNameLower/>.added}"/>
             </steps>
@@ -102,14 +94,14 @@
     </target>
 
     <!-- Verify the people list screen displays without errors -->
-    <target name="Search<XDtForm:className/>s" 
+    <target name="Search<XDtForm:className/>s"
         description="Tests search for and displaying all <XDtForm:classNameLower/>s">
         <canoo name="search<XDtForm:className/>s">
             &config;
             <steps>
                 &login;
                 <invoke stepid="click View <XDtForm:className/>s link" url="/<XDtForm:classNameLower/>s.html"/>
-                <verifytitle stepid="we should see the <XDtForm:classNameLower/>List title" 
+                <verifytitle stepid="we should see the <XDtForm:classNameLower/>List title"
                     text="${webapp.prefix}${<XDtForm:classNameLower/>List.title}"/>
             </steps>
         </canoo>

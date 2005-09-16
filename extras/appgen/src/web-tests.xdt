@@ -31,6 +31,7 @@
                 <invoke stepid="click Edit <XDtForm:className/> link" url="/edit<XDtForm:className/>.html?<XDtMethodEx:idField getType="propertyName"/>=1"/>
                 <verifytitle stepid="we should see the <XDtForm:classNameLower/>Detail title"
                     text="${webapp.prefix}${<XDtForm:classNameLower/>Detail.title}"/>
+
                 <!-- update some of the required fields -->
                 <XDtMethod:forAllMethods>
                 <XDtMethod:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
@@ -40,6 +41,7 @@
                 </XDtMethod:ifMethodTagValueEquals>
                 </XDtMethod:forAllMethods>
                 <clickbutton label="${button.save}" stepid="Click Save"/>
+
                 <verifytitle stepid="Page re-appears if save successful"
                     text="${webapp.prefix}${<XDtForm:classNameLower/>Detail.title}"/>
             </steps>
@@ -56,21 +58,15 @@
                 <invoke stepid="click Add Button" url="/edit<XDtForm:className/>.html"/>
                 <verifytitle stepid="we should see the <XDtForm:classNameLower/>Detail title"
                     text="${webapp.prefix}${<XDtForm:classNameLower/>Detail.title}"/>
+
                 <!-- enter required fields -->
                 <XDtMethod:forAllMethods>
                 <XDtMethod:ifMethodTagValueEquals tagName="hibernate.property" paramName="not-null" value="true">
-                <XDtType:ifIsOfType value="return-type" type="java.lang.Boolean" extent="concrete-type">
-                <setinputfield stepid="set <XDtMethod:propertyName/>" name="<XDtMethod:propertyName/>" value="true"/>
-                </XDtType:ifIsOfType>
-                <XDtType:ifIsOfType value="return-type" type="java.lang.String" extent="concrete-type">
-                <setinputfield stepid="set <XDtMethod:propertyName/>" name="<XDtMethod:propertyName/>" value="<XDtMethod:propertyName/>"/>
-                </XDtType:ifIsOfType>
-                <XDtType:ifIsOfType value="return-type" type="java.lang.Long,java.lang.Integer" extent="concrete-type">
-                <setinputfield stepid="set <XDtMethod:propertyName/>" name="<XDtMethod:propertyName/>" value="150"/>
-                </XDtType:ifIsOfType>
+                <setinputfield stepid="set <XDtMethod:propertyName/>" name="<XDtMethod:propertyName/>" value="<XDtMethodEx:randomValueForWebTest/>"/>
                 </XDtMethod:ifMethodTagValueEquals>
                 </XDtMethod:forAllMethods>
                 <clickbutton label="${button.save}" stepid="Click button 'Save'"/>
+
                 <verifytitle stepid="<XDtForm:className/> List appears if save successful"
                     text="${webapp.prefix}${<XDtForm:classNameLower/>List.title}"/>
                 <verifytext stepid="verify success message" text="${<XDtForm:classNameLower/>.added}"/>
