@@ -9,6 +9,18 @@ import org.appfuse.service.UserExistsException;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.util.RequestUtil;
 
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
+import net.sf.acegisecurity.context.security.SecureContext;
+import net.sf.acegisecurity.context.ContextHolder;
+import net.sf.acegisecurity.Authentication;
+import net.sf.acegisecurity.GrantedAuthority;
+import net.sf.acegisecurity.GrantedAuthorityImpl;
+import net.sf.acegisecurity.providers.UsernamePasswordAuthenticationToken;
+import net.sf.acegisecurity.providers.ProviderManager;
+
 /**
  * JSF Page class to handle signing up a new user.
  *
@@ -29,7 +41,7 @@ public class SignupForm extends BasePage implements Serializable {
     public void setRoleManager(RoleManager roleManager) {
         this.roleManager = roleManager;
     }
-
+    
     public String save() throws Exception {
         Boolean encrypt = (Boolean) getConfiguration().get(Constants.ENCRYPT_PASSWORD);
         
@@ -66,6 +78,20 @@ public class SignupForm extends BasePage implements Serializable {
         addMessage("user.registered");
         getSession().setAttribute(Constants.REGISTERED, Boolean.TRUE);
 
+        // log user in automatically
+        Authentication auth = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getConfirmPassword());
+        try {
+            ApplicationContext ctx = 
+                WebApplicationContextUtils.getWebApplicationContext(getSession().getServletContext());
+            if (ctx != null) {
+                ProviderManager authenticationManager = (ProviderManager) ctx.getBean("authenticationManager");
+                SecureContext secureCtx = (SecureContext) ContextHolder.getContext();
+                secureCtx.setAuthentication(authenticationManager.doAuthentication(auth));
+            }
+        } catch (NoSuchBeanDefinitionException n) {
+            // ignore, should only happen when testing
+        }
+        
         // Send an account information e-mail
         message.setSubject(getText("signup.email.subject"));
         sendUserMessage(user, getText("signup.email.message"), 

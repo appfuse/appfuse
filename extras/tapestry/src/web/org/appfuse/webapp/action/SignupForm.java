@@ -18,8 +18,19 @@ import org.appfuse.service.UserExistsException;
 import org.appfuse.service.UserManager;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.util.RequestUtil;
+
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
+import net.sf.acegisecurity.context.security.SecureContext;
+import net.sf.acegisecurity.context.ContextHolder;
+import net.sf.acegisecurity.Authentication;
+import net.sf.acegisecurity.GrantedAuthority;
+import net.sf.acegisecurity.GrantedAuthorityImpl;
+import net.sf.acegisecurity.providers.UsernamePasswordAuthenticationToken;
+import net.sf.acegisecurity.providers.ProviderManager;
 
 public abstract class SignupForm extends BasePage implements PageRenderListener {
     private IPropertySelectionModel countries;  
@@ -108,6 +119,20 @@ public abstract class SignupForm extends BasePage implements PageRenderListener 
 
         getSession().setAttribute(Constants.REGISTERED, Boolean.TRUE);
 
+        // log user in automatically
+        Authentication auth = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getConfirmPassword());
+        try {
+            ApplicationContext ctx = 
+                WebApplicationContextUtils.getWebApplicationContext(getSession().getServletContext());
+            if (ctx != null) {
+                ProviderManager authenticationManager = (ProviderManager) ctx.getBean("authenticationManager");
+                SecureContext secureCtx = (SecureContext) ContextHolder.getContext();
+                secureCtx.setAuthentication(authenticationManager.doAuthentication(auth));
+            }
+        } catch (NoSuchBeanDefinitionException n) {
+            // ignore, should only happen when testing
+        }        
+        
         // Send user an e-mail
         if (log.isDebugEnabled()) {
             log.debug("Sending user '" + user.getUsername() + "' an account information e-mail");

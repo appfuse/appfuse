@@ -11,9 +11,20 @@ import org.appfuse.service.RoleManager;
 import org.appfuse.service.UserExistsException;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.util.RequestUtil;
+
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
+import org.springframework.context.ApplicationContext;
 import org.springframework.validation.BindException;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.servlet.ModelAndView;
 
+import net.sf.acegisecurity.context.security.SecureContext;
+import net.sf.acegisecurity.context.ContextHolder;
+import net.sf.acegisecurity.Authentication;
+import net.sf.acegisecurity.GrantedAuthority;
+import net.sf.acegisecurity.GrantedAuthorityImpl;
+import net.sf.acegisecurity.providers.UsernamePasswordAuthenticationToken;
+import net.sf.acegisecurity.providers.ProviderManager;
 
 /**
  * Controller to signup new users.
@@ -34,9 +45,8 @@ public class SignupController extends BaseFormController {
         this.roleManager = roleManager;
     }
     
-    public ModelAndView onSubmit(HttpServletRequest request,
-                                 HttpServletResponse response, Object command,
-                                 BindException errors)
+    public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, 
+                                 Object command, BindException errors)
     throws Exception {
         if (log.isDebugEnabled()) {
             log.debug("entering 'onSubmit' method...");
@@ -81,6 +91,20 @@ public class SignupController extends BaseFormController {
         saveMessage(request, getText("user.registered", user.getUsername(), locale));
         request.getSession().setAttribute(Constants.REGISTERED, Boolean.TRUE);
 
+        // log user in automatically
+        Authentication auth = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getConfirmPassword());
+        try {
+            ApplicationContext ctx = 
+                WebApplicationContextUtils.getWebApplicationContext(request.getSession().getServletContext());
+            if (ctx != null) {
+                ProviderManager authenticationManager = (ProviderManager) ctx.getBean("authenticationManager");
+                SecureContext secureCtx = (SecureContext) ContextHolder.getContext();
+                secureCtx.setAuthentication(authenticationManager.doAuthentication(auth));
+            }
+        } catch (NoSuchBeanDefinitionException n) {
+            // ignore, should only happen when testing
+        }
+        
         // Send user an e-mail
         if (log.isDebugEnabled()) {
             log.debug("Sending user '" + user.getUsername() + "' an account information e-mail");
@@ -88,14 +112,8 @@ public class SignupController extends BaseFormController {
 
         // Send an account information e-mail
         message.setSubject(getText("signup.email.subject", locale));
-        sendUserMessage(user, getText("signup.email.message", locale), 
-                        RequestUtil.getAppURL(request));
+        sendUserMessage(user, getText("signup.email.message", locale), RequestUtil.getAppURL(request));
         
         return new ModelAndView(getSuccessView());
-    }
-
-    protected Object formBackingObject(HttpServletRequest request)
-    throws Exception {
-        return new User();
     }
 }
