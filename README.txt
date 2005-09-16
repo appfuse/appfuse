@@ -53,9 +53,15 @@ Features/Changes in 1.9
   their application.  More information on this change at:
     http://raibledesigns.com/page/rd?entry=using_acegi_security_for_remember
 - Changed default user role from "tomcat" to "user".
+- Changed "dataSource" bean to be a connection pool configured by Spring 
+  rather than one looked up from JNDI (increases portability and ease of
+  deployment).
 - Dependent packages upgraded:
-    * Log4j 1.2.11
+    * C3P0 0.9.0
+    * Log4j 1.2.12
+    * iBATIS 2.1.5
     * MySQL JDBC Driver 3.1.10  
+    * OSCache 2.1.1
     * PostgreSQL JDBC Driver 8.0-312
 
 Features/Changes in 1.8.2

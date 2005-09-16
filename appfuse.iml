@@ -70,7 +70,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/hibernate-3.0.5/lib/oscache-2.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/hibernate-3.0.5/lib/oscache-2.1.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -133,7 +133,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/hibernate-3.0.5/lib/swarmcache-1.0rc2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/hibernate-3.0.5/lib/c3p0-0.9.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -142,16 +142,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/hibernate-3.0.5/lib/c3p0-0.8.5.2.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jakarta-log4j-1.2.9/dist/lib/log4j-1.2.9.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/logging-log4j-1.2.11/dist/lib/log4j-1.2.11.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -634,8 +625,8 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/c3p0-0.8.5.2.jar" />
-      <url>jar://$MODULE_DIR$/lib/hibernate-3.0.5/lib/c3p0-0.8.5.2.jar!/</url>
+      <attribute name="URI" value="/WEB-INF/lib/c3p0-0.9.0.jar" />
+      <url>jar://$MODULE_DIR$/lib/hibernate-3.0.5/lib/c3p0-0.9.0.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
@@ -654,18 +645,13 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/oscache-2.1.jar" />
-      <url>jar://$MODULE_DIR$/lib/hibernate-3.0.5/lib/oscache-2.1.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/swarmcache-1.0rc2.jar" />
-      <url>jar://$MODULE_DIR$/lib/hibernate-3.0.5/lib/swarmcache-1.0rc2.jar!/</url>
+      <attribute name="URI" value="/WEB-INF/lib/oscache-2.1.1.jar" />
+      <url>jar://$MODULE_DIR$/lib/hibernate-3.0.5/lib/oscache-2.1.1.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/log4j-1.2.9.jar" />
-      <url>jar://$MODULE_DIR$/lib/jakarta-log4j-1.2.9/dist/lib/log4j-1.2.9.jar!/</url>
+      <url>jar://$MODULE_DIR$/lib/logging-log4j-1.2.11/dist/lib/log4j-1.2.11.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
