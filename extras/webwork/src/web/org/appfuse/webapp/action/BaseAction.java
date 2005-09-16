@@ -73,8 +73,7 @@ public class BaseAction extends ActionSupport {
      * @return the user's populated form from the session
      */
     public Map getConfiguration() {
-        Map config = (HashMap) getRequest().getSession().getServletContext()
-                               .getAttribute(Constants.CONFIG);
+        Map config = (HashMap) getSession().getServletContext().getAttribute(Constants.CONFIG);
         // so unit tests don't puke when nothing's been set
         if (config == null) {
             return new HashMap();

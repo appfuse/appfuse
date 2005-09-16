@@ -89,6 +89,7 @@ public abstract class BaseControllerTestCase extends TestCase {
                 // handle Dates
                 if (field instanceof java.util.Date) {
                     paramValue = DateUtil.convertDateToString((Date)fields[i].get(o));
+                    if ("null".equals(paramValue)) paramValue = "";
                 }
 
                 request.addParameter(paramName, paramValue);
