@@ -182,7 +182,7 @@
                 /j_security_check*=REQUIRES_SECURE_CHANNEL     
                 /editprofile.html*=REQUIRES_SECURE_CHANNEL
                 /signup.html*=REQUIRES_SECURE_CHANNEL
-            	/saveuser.html*=REQUIRES_SECURE_CHANNEL
+            	   /saveuser.html*=REQUIRES_SECURE_CHANNEL
                 /**=REQUIRES_INSECURE_CHANNEL
             </value>
         </property>
