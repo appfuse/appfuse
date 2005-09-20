@@ -34,9 +34,9 @@
 #
 # MyFaces (JSF 1.1) - http://www.myfaces.org
 #
-jsf.version=1.0.9
+jsf.version=1.1.0
 jsf.dir=${lib.dir}/myfaces-${jsf.version}/lib
-jsf.jar=${jsf.dir}/myfaces.jar]]></replacevalue>
+jsf.jar=${jsf.dir}/myfaces-all.jar]]></replacevalue>
         </replace>
 
         <echo level="info">Adding classpath entries</echo>
@@ -289,7 +289,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         <replace file="../../web/WEB-INF/classes/log4j.properties">
             <replacetoken>log4j.logger.org.apache.struts=WARN</replacetoken>
             <replacevalue># Suppress warnings from VariableResolverImpl.resolveVariable
-log4j.logger.org.apache.myfaces=ERROR</replacevalue>
+log4j.logger.org.apache.myfaces=WARN</replacevalue>
         </replace>
         
         <echo level="info">Modifying Eclipse .classpath file</echo>
@@ -302,7 +302,7 @@ log4j.logger.org.apache.myfaces=ERROR</replacevalue>
         <replace file="../../.classpath">
             <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/struts.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/struts-el.jar"/>]]></replacetoken>
-            <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/myfaces-1.0.9/lib/myfaces.jar"/>]]></replacevalue>
+            <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/myfaces-1.1.0/lib/myfaces-all.jar"/>]]></replacevalue>
         </replace>
 
         <echo level="info">Refactoring build.xml</echo>

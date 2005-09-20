@@ -60,6 +60,7 @@ Features/Changes in 1.9
     * C3P0 0.9.0
     * Log4j 1.2.12
     * iBATIS 2.1.5
+    * MyFaces 1.1.0
     * MySQL JDBC Driver 3.1.10  
     * OSCache 2.1.1
     * PostgreSQL JDBC Driver 8.0-312

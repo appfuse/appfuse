@@ -21,14 +21,14 @@
     <h:inputText value="#{fileUpload.name}" id="name" size="40" required="true">
         <v:commonsValidator type="required" arg="#{text['uploadForm.name']}"/>
     </h:inputText>
-    <x:message for="name" styleClass="fieldError"/>
+    <t:message for="name" styleClass="fieldError"/>
     
     <h:outputLabel for="uploadForm:file" value="#{text['uploadForm.file']}"/>
     
-    <x:inputFileUpload id="file" value="#{fileUpload.file}" storage="file" required="true" size="50">
+    <t:inputFileUpload id="file" value="#{fileUpload.file}" storage="file" required="true" size="50">
         <v:commonsValidator type="required" arg="#{text['uploadForm.file']}"/>
-    </x:inputFileUpload>
-    <x:message for="uploadForm:file" styleClass="fieldError"/>
+    </t:inputFileUpload>
+    <t:message for="uploadForm:file" styleClass="fieldError"/>
     
     <h:inputHidden value=""/>
     

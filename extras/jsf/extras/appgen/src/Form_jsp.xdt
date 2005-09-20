@@ -26,7 +26,7 @@
         <v:commonsValidator type="required" arg="#{text['<XDtForm:classNameLower/>.<XDtForm:fieldName/>']}"/>
     </h:inputText>
   </XDtForm:ifIsNotBooleanField>
-    <x:message for="<XDtForm:fieldName/>" styleClass="fieldError"/>
+    <t:message for="<XDtForm:fieldName/>" styleClass="fieldError"/>
 </XDtForm:ifIsNotIdOrVersionField>
 </XDtForm:forAllFields>
 
