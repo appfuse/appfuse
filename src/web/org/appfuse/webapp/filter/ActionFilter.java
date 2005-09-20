@@ -31,7 +31,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  * <p><a href="ActionFilter.java.html"><i>View Source</i></a></p>
  *
  * @author  Matt Raible
- * @version $Revision: 1.15 $ $Date: 2005/09/16 00:58:05 $
+ * @version $Revision: 1.16 $ $Date: 2005/09/20 13:26:32 $
  *
  * @web.filter name="actionFilter"
  */
@@ -57,7 +57,7 @@ public class ActionFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) resp;
         HttpSession session = request.getSession();
-        
+
         // notify the LocaleContextHolder what locale is being used so
         // service and data layer classes can get the locale
         LocaleContextHolder.setLocale(request.getLocale());
@@ -77,5 +77,8 @@ public class ActionFilter implements Filter {
         }
 
         chain.doFilter(request, response);
+
+        // Reset thread-bound LocaleContext.
+        LocaleContextHolder.setLocaleContext(null);
     }
 }
