@@ -163,7 +163,12 @@ public class <XDtClass:classOf><XDtActionForm:actionFormClass/></XDtClass:classO
         <XDtVelocity:generator>
         #set( $method = $currentMethod.name)
         ## trim off the 'get'
-        #set( $objectName = $method.substring(3, $method.lastIndexOf('s')))
+        #if ( $method.endsWith("ies"))
+            #set( $objectName = $method.substring(3, $method.lastIndexOf("ies")))
+            #set( $objectName = "${objectName}y")
+        #else
+            #set( $objectName = $method.substring(3, $method.lastIndexOf('s')))
+        #end
         </XDtVelocity:generator>
         this.<XDtMethod:propertyName/> = org.apache.commons.collections.ListUtils.lazyList(new java.util.ArrayList(), new ObjectFactory("<XDtVelocity:getVariable name="objectName"/>"));
         </XDtType:ifIsOfType>
@@ -172,7 +177,12 @@ public class <XDtClass:classOf><XDtActionForm:actionFormClass/></XDtClass:classO
         <XDtVelocity:generator>
         #set( $method = $currentMethod.name)
         ## trim off the 'get'
-        #set( $objectName = $method.substring(3, $method.lastIndexOf('s')))
+        #if ( $method.endsWith("ies"))
+            #set( $objectName = $method.substring(3, $method.lastIndexOf("ies")))
+            #set( $objectName = $objectName + "y")
+        #else
+            #set( $objectName = $method.substring(3, $method.lastIndexOf('s')))
+        #end
         </XDtVelocity:generator>
         this.<XDtMethod:propertyName/> = new java.util.HashSet();
         </XDtType:ifIsOfType>
