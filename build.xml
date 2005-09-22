@@ -401,11 +401,14 @@
                 <exclude name="**/database.properties"/>
             </classes>
 
+            <webinf dir="${build.dir}/dao/gen/META-INF" includes="*.xml"/>
+            <webinf dir="${build.dir}/service/classes/META-INF" includes="*.xml"/>
+
             <lib file="${dist.dir}/${webapp.name}-dao.jar"/>
             <lib file="${dist.dir}/${webapp.name}-service.jar"/>
             
             <webinf dir="${struts.dir}" includes="*.xml"/>
-            
+
             <lib file="${clickstream.jar}"/>
             <lib dir="${struts.dir}" includes="*.jar"/>
             <lib dir="${jstl.dir}/lib">
