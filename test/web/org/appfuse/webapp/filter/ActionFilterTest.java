@@ -1,8 +1,5 @@
 package org.appfuse.webapp.filter;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
@@ -26,10 +23,6 @@ public class ActionFilterTest extends TestCase {
         filter = new ActionFilter();
 
         MockServletContext sc = new MockServletContext("");
-        Map appConfig = new HashMap();
-        appConfig.put(Constants.HTTP_PORT, "80");
-        appConfig.put(Constants.HTTPS_PORT, "443");
-        sc.setAttribute(Constants.CONFIG, appConfig);
         
         String pkg = ClassUtils.classPackageAsResourcePath(Constants.class);
         sc.addInitParameter(ContextLoader.CONFIG_LOCATION_PARAM,
