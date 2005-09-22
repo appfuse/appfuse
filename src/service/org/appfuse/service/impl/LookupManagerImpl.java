@@ -24,6 +24,7 @@ public class LookupManagerImpl extends BaseManager implements LookupManager {
     //~ Methods ================================================================
 
     public void setLookupDAO(LookupDAO dao) {
+        super.dao = dao;
         this.dao = dao;
     }
     /**

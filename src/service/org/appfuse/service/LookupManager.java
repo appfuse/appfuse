@@ -15,7 +15,7 @@ import org.appfuse.dao.LookupDAO;
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
-public interface LookupManager {
+public interface LookupManager extends Manager {
     //~ Methods ================================================================
 
     public void setLookupDAO(LookupDAO dao);
