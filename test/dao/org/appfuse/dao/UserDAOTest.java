@@ -4,6 +4,7 @@ import org.appfuse.Constants;
 import org.appfuse.model.Address;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
+import org.appfuse.model.Weblog;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 
@@ -45,13 +46,19 @@ public class UserDAOTest extends BaseDAOTestCase {
 
         dao.saveUser(user);
 
+        Weblog blog = (Weblog) user.getWeblogs().get(0);
+        blog.setBlogTitle("New Blog");
+        user.getWeblogs().set(0, blog);
+
         assertEquals(user.getAddress(), address);
         assertEquals("new address", user.getAddress().getAddress());
         
         // verify that violation occurs when adding new user
         // with same username
         user.setVersion(null);
-        
+
+        endTransaction();
+
         try {
             dao.saveUser(user);
             fail("saveUser didn't throw DataIntegrityViolationException");

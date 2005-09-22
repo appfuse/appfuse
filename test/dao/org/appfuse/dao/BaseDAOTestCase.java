@@ -9,16 +9,18 @@ import java.util.ResourceBundle;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
+import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
+import org.hibernate.SessionFactory;
 
 /**
  * Base class for running DAO tests.
  * @author mraible
  */
-public abstract class BaseDAOTestCase extends AbstractDependencyInjectionSpringContextTests {
+public abstract class BaseDAOTestCase extends AbstractTransactionalDataSourceSpringContextTests {
     protected final Log log = LogFactory.getLog(getClass());
     protected ResourceBundle rb;
-    
+    protected SessionFactory sessionFactory;
+
     protected String[] getConfigLocations() {
         return new String [] {"classpath*:/**/dao/applicationContext-*.xml",
                               "classpath*:META-INF/applicationContext-*.xml"};
@@ -35,7 +37,7 @@ public abstract class BaseDAOTestCase extends AbstractDependencyInjectionSpringC
             //log.warn("No resource bundle found for: " + className);
         }
     }
-    
+
     /**
      * Utility method to populate a javabean-style object with values
      * from a Properties file

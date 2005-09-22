@@ -15,7 +15,7 @@ public class GenericDAOTest extends BaseDAOTestCase {
      * <code>setPopulateProtectedVariables(true)</code> can also be used, but it's
      * a little bit slower.
      */
-    public void onSetUp() throws Exception {
+    public void onSetUpBeforeTransaction() throws Exception {
         dao = (DAO) applicationContext.getBean("dao");
     }
     
