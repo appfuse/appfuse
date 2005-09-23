@@ -346,9 +346,10 @@ function addFocusHandlers(elements) {
     for (i=0; i < elements.length; i++) {
         if (elements[i].type != "button" && elements[i].type != "submit" &&
             elements[i].type != "reset" && elements[i].type != "checkbox") {
-            elements[i].onfocus=function() {this.className='focus';this.select()};
-            elements[i].onclick=function() {this.select()};
-            elements[i].onblur=function() {this.className=''};
+            if (elements[i].getAttribute('readonly') != "readonly" && elements[i].getAttribute('readonly') != "disabled") {
+                elements[i].onfocus=function() {this.className='focus';this.select()};
+                elements[i].onblur=function() {this.className=''};
+            }
         }
     }
 }
