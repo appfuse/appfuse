@@ -10,7 +10,6 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
-import org.hibernate.SessionFactory;
 
 /**
  * Base class for running DAO tests.
@@ -19,7 +18,6 @@ import org.hibernate.SessionFactory;
 public abstract class BaseDAOTestCase extends AbstractTransactionalDataSourceSpringContextTests {
     protected final Log log = LogFactory.getLog(getClass());
     protected ResourceBundle rb;
-    protected SessionFactory sessionFactory;
 
     protected String[] getConfigLocations() {
         return new String [] {"classpath*:/**/dao/applicationContext-*.xml",
