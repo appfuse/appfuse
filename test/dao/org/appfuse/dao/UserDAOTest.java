@@ -35,7 +35,6 @@ public class UserDAOTest extends BaseDAOTestCase {
 
         assertNotNull(user);
         assertEquals(1, user.getRoles().size());
-        log.debug(user.getWeblogs());
     }
 
     public void testUpdateUser() throws Exception {
