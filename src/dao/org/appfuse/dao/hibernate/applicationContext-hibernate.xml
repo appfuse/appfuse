@@ -19,13 +19,13 @@
         </property>
         -->
         <property name="hibernateProperties">
-        <props>
-            <prop key="hibernate.dialect">@HIBERNATE-DIALECT@</prop>
-            <!-- Create/update the database tables automatically when the JVM starts up
-            <prop key="hibernate.hbm2ddl.auto">update</prop> -->
-            <!-- Turn batching off for better error messages under PostgreSQL 
-            <prop key="hibernate.jdbc.batch_size">0</prop> -->
-        </props>
+            <props>
+                <prop key="hibernate.dialect">@HIBERNATE-DIALECT@</prop>
+                <!-- Create/update the database tables automatically when the JVM starts up
+                <prop key="hibernate.hbm2ddl.auto">update</prop> -->
+                <!-- Turn batching off for better error messages under PostgreSQL 
+                <prop key="hibernate.jdbc.batch_size">0</prop> -->
+            </props>
         </property>
     </bean>
 
