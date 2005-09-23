@@ -7,8 +7,7 @@ import org.springframework.orm.ObjectRetrievalFailureException;
  * This class tests the generic DAO and BaseDAO implementation.
  */
 public class GenericDAOTest extends BaseDAOTestCase {
-    private Class clazz;
-    private DAO dao;
+    protected DAO dao;
     
     /**
      * This method is used instead of setDAO b/c setDAO uses autowire byType
@@ -18,21 +17,11 @@ public class GenericDAOTest extends BaseDAOTestCase {
     public void onSetUpBeforeTransaction() throws Exception {
         dao = (DAO) applicationContext.getBean("dao");
     }
-    
-    /**
-     * Convenience method so this class can be subclassed to test CRUDing
-     * other entities.
-     * @param clazz
-     */
-    protected void setClass(Class clazz) {
-        this.clazz = clazz;
-    }
 
     /**
      * Simple test to verify BaseDAO works.
      */
     public void testCRUD() {
-        setClass(User.class);
         User user = new User();
         // set required fields
         user.setUsername("foo");
