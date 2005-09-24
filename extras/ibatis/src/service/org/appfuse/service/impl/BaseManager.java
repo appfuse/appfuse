@@ -1,12 +1,9 @@
 package org.appfuse.service.impl;
 
-import java.io.Serializable;
-import java.util.List;
+import org.appfuse.service.Manager;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.appfuse.dao.DAO;
-import org.appfuse.service.Manager;
 
 /**
  * Base class for Business Services - use this class for utility methods and
