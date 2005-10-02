@@ -38,12 +38,12 @@ public class User extends BaseObject implements Serializable {
     protected Set roles = new HashSet();
     protected Boolean enabled;
 
-	public User() {
-	}
+    public User() {
+    }
 
-	public User(String username) {
-		this.username = username;
-	}
+    public User(String username) {
+        this.username = username;
+    }
 
     /**
      * Returns the username.
@@ -299,7 +299,7 @@ public class User extends BaseObject implements Serializable {
     
     /**
      * @return Returns if the user is enabled
-     * @hibernate.property column="enabled"
+     * @hibernate.property column="enabled" type="yes_no"
      */
     public Boolean getEnabled() {
         return enabled;
@@ -332,20 +332,20 @@ public class User extends BaseObject implements Serializable {
         return userRoles;
     }
 
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof User)) return false;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
 
-		final User user = (User) o;
+        final User user = (User) o;
 
-		if (username != null ? !username.equals(user.getUsername()) : user.getUsername() != null) return false;
+        if (username != null ? !username.equals(user.getUsername()) : user.getUsername() != null) return false;
 
-		return true;
-	}
+        return true;
+    }
 
-	public int hashCode() {
-		return (username != null ? username.hashCode() : 0);
-	}
+    public int hashCode() {
+        return (username != null ? username.hashCode() : 0);
+    }
 
     /**
      * Generated using Commonclipse (http://commonclipse.sf.net)
