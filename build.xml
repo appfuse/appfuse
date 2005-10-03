@@ -180,15 +180,15 @@
         </replace>
 
         <echo level="info">Replacing 2.3 DTD with 2.4 XSD in web.xml</echo>
-        <replaceregexp flags="g"
-            file="${webapp.target}/WEB-INF/web.xml"
-            match='&lt;!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd"&gt;'
-            replace=""/>
+        <replace file="${webapp.target}/WEB-INF/web.xml">
+            <replacetoken><![CDATA[<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" 
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
 
-        <replaceregexp flags="g"
-            file="${webapp.target}/WEB-INF/web.xml"
-            match='&lt;web-app &gt;'
-            replace='&lt;web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee web-app_2_4.xsd"&gt;'/>
+<web-app>]]></replacetoken>
+            <replacevalue><![CDATA[<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">]]></replacevalue>
+        </replace>
     </target>
     
     <!-- =================================================================== -->
@@ -280,17 +280,14 @@
             classpathref="xdoclet.classpath"/>
 
         <!-- generate struts forms -->
-        <xdoclet destdir="${build.dir}/web/gen"
-            excludedtags="@version,@author"
-            addedtags="@xdoclet-generated at ${TODAY}"
-            force="${xdoclet.force}"
+        <xdoclet destdir="${build.dir}/web/gen" excludedtags="@version,@author"
+            addedtags="@xdoclet-generated at ${TODAY}" force="${xdoclet.force}" 
             mergedir="metadata/web">
             <fileset dir="src/dao"/>
 
             <!-- generate struts forms -->
             <actionform templateFile="metadata/templates/struts_form.xdt">
-                <packageSubstitution packages="model"
-                    substituteWith="webapp.form"/>
+                <packageSubstitution packages="model" substituteWith="webapp.form"/>
             </actionform>
         </xdoclet>
     </target>
@@ -303,31 +300,18 @@
     <target name="compile" depends="compile-web" 
         description="alias for compile-web"/>
 
-    <!-- =================================================================== -->
-    <!-- The "webdoclet" target generates web and struts deployment          -->
-    <!-- descriptors.                                                        --> 
-    <!-- =================================================================== -->
     <target name="webdoclet" depends="compile-web" unless="webdoclet.unnecessary"
-        description="Generate web and Struts descriptors">
+        description="Generate JSP TLD and Struts descriptors">
         <taskdef name="webdoclet" classname="xdoclet.modules.web.WebDocletTask">
             <classpath>
                 <path refid="xdoclet.classpath"/>
                 <path refid="web.compile.classpath"/>
             </classpath>
         </taskdef>
-        <webdoclet destdir="${webapp.target}/WEB-INF"
-            force="${xdoclet.force}"
-            mergedir="metadata/web"
-            excludedtags="@version,@author"
-            verbose="true">
+        <webdoclet destdir="${webapp.target}/WEB-INF" force="${xdoclet.force}"
+            mergedir="metadata/web" excludedtags="@version,@author" verbose="true">
             <fileset dir="src/web"/>
             <fileset dir="${build.dir}/web/gen"/>
-            <deploymentdescriptor validateXML="true"
-                servletspec="2.3" sessiontimeout="10"
-                destdir="${webapp.target}/WEB-INF" distributable="false"
-                displayname="${ant.project.name}">
-                <configParam name="daoType" value="${dao.type}"/>
-            </deploymentdescriptor>
             <jsptaglib validateXML="true"
                 description="Custom tag library for this application"
                 shortName="${webapp.name}" filename="${webapp.name}.tld"/>
@@ -337,8 +321,7 @@
     </target>
 
     <!-- Simple alias to package-web -->
-    <target name="war" depends="package-web" 
-        description="alias for package-web"/>
+    <target name="war" depends="package-web" description="alias for package-web"/>
 
     <target name="package-web" depends="compile-web,jsp-2" description="Package WAR">
         <propertyfile comment="Build Information" file="${build.dir}/web/classes/build.properties">
@@ -346,14 +329,12 @@
             <entry key="build.time" type="date" pattern="hh:mm:ss a zz" value="now"/>
             <entry key="build.username" value="${user.name}"/>
             <entry key="build.computer" value="${env.COMPUTERNAME}"/>
-            <entry key="build.dao.type" value="${dao.type}"/>
             <entry key="webapp.version" value="${webapp.version}"/>
         </propertyfile>
-        <!-- If Tomcat 5, uncomment the <dispatcher> elements in filter-mappings -->
+        <!-- If Servlet 2.4, uncomment the <dispatcher> elements in filter-mappings -->
         <if>
             <or>
-                <isset property="tomcat5"/>
-                <isset property="tomcat5.5"/>
+                <isset property="convert.to.jsp2"/>
             </or>
             <then>
                 <replaceregexp flags="g"
@@ -1224,19 +1205,18 @@
         description="Sets up database, tomcat and deploys expanded war"/>
         
     <!-- =================================================================== -->
-    <!--            Targets to install optional packages for testing         -->
-    <!--            NOTE: These will screw up code, so only use with Anthill -->
+    <!--     Targets to install optional packages for testing                -->
     <!-- =================================================================== -->
     <property name="extras.dir" value="extras"/>
     <target name="install-ibatis" depends="clean" description="Installs iBATIS">
         <ant dir="${extras.dir}/ibatis" target="install"/>
     </target>
-    
+
     <target name="install-springmvc" depends="clean" 
         description="Installs Spring's MVC, removes Struts">
         <ant dir="${extras.dir}/spring" target="install"/>
     </target>
-    
+
     <target name="install-webwork" depends="clean" 
         description="Installs WebWork, removes Struts">
         <ant dir="${extras.dir}/webwork" target="install"/>
@@ -1251,15 +1231,6 @@
         description="Installs Tapestry, removes Struts">
         <ant dir="${extras.dir}/tapestry" target="install"/>
     </target>
-    
-    <!--target name="remove-options" 
-        description="Removes unneeded files in 'extras' folder">
-        <delete dir="${extras.dir}/ibatis"/>
-        <delete dir="${extras.dir}/jsf"/>
-        <delete dir="${extras.dir}/spring"/>
-        <delete dir="${extras.dir}/tapestry"/>
-        <delete dir="${extras.dir}/webwork"/>
-    </target-->
 
     <!-- =================================================================== -->
     <!-- The "new" target is used to create a new project by duplicating     -->

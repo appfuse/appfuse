@@ -1,6 +1,0 @@
-    <!-- Dispatch Servlet Configuration -->
-    <servlet>
-        <servlet-name>action</servlet-name>
-        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <load-on-startup>2</load-on-startup>
-    </servlet>

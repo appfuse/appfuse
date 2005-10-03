@@ -88,7 +88,7 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
         </replace>
 
         <echo level="info">Commenting out Hibernate OSIV Filter</echo>
-        <replace file="../../metadata/web/filter-mappings.xml">
+        <replace file="../../web/WEB-INF/web.xml">
         <replacetoken><![CDATA[<filter-mapping>
         <filter-name>hibernateFilter</filter-name>
         <url-pattern>*.html</url-pattern>
@@ -167,7 +167,6 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
 	<classpathentry kind="lib" path="lib/ibatis-2.1.5/jta.jar"/>
 	<classpathentry kind="lib" path="lib/ibatis-2.1.5/c3p0-0.9.0.jar"/>
 	<classpathentry kind="lib" path="lib/ibatis-2.1.5/oscache-2.1.1.jar"/>]]></replacetoken>
-            <replacevalue></replacevalue>
         </replace>
         
         <echo level="info">Changing dao.type to hibernate</echo>
@@ -184,7 +183,7 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
         </replace>
 
         <echo level="info">Enabling Hibernate OSIV Filter</echo>
-        <replace file="../../metadata/web/filter-mappings.xml">
+        <replace file="../../web/WEB-INF/web.xml.xml">
         <replacetoken><![CDATA[<!--filter-mapping>
         <filter-name>hibernateFilter</filter-name>
         <url-pattern>*.html</url-pattern>
@@ -252,7 +251,6 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
         <path location="${build.dir}/dao/classes"/>
     </path>
 ]]></replacetoken>
-            <replacevalue></replacevalue>
         </replace>
 
         <replace file="../../properties.xml">
@@ -278,7 +276,6 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
 	<classpathentry kind="lib" path="lib/hibernate-3.0.5/lib/dom4j-1.6.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-3.0.5/lib/jta.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-3.0.5/lib/oscache-2.1.1.jar"/>]]></replacetoken>
-            <replacevalue></replacevalue>
         </replace>
         
         <echo level="info">Removing all references to Hibernate in build.xml</echo>
@@ -293,7 +290,6 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
             <mapper type="glob" from="*.java"
         </uptodate>
         ]]></replacetoken>
-            <replacevalue></replacevalue>
         </replace>
 
         <!-- Remove Hibernate dialect entry -->
@@ -400,9 +396,16 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
             </fileset>
          </sql>]]></replacevalue>
         </replace>
+        
+        <replace file="../../build.xml">
+        <replacetoken><![CDATA[    <target name="install-ibatis" depends="clean" description="Installs iBATIS">
+        <ant dir="${extras.dir}/ibatis" target="install"/>
+    </target>
+]]></replacetoken>
+        </replace>
 
         <echo level="info">Removing Hibernate OSIV Filter</echo>
-        <replace file="../../metadata/web/filter-mappings.xml">
+        <replace file="../../web/WEB-INF/web.xml">
         <replacetoken><![CDATA[<!-- The 'hibernateFilter', a.k.a. Spring's OpenSessionInViewFilter
          guarantees one session per request.  Performance seems to be the
          same if it's enabled or disabled. -->
@@ -410,16 +413,14 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
         <filter-name>hibernateFilter</filter-name>
         <url-pattern>*.html</url-pattern>
     </filter-mapping>]]></replacetoken>
-            <replacevalue></replacevalue>
         </replace>
 
         <!-- Remove Hibernate OSIV Filter from filter.xml -->
-        <replace file="../../metadata/web/filters.xml">
+        <replace file="../../web/WEB-INF/web.xml">
         <replacetoken><![CDATA[<filter>
         <filter-name>hibernateFilter</filter-name>
         <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
     </filter>]]></replacetoken>
-            <replacevalue></replacevalue>
         </replace>
         
         <echo level="info">Removing src files from ../../src</echo>

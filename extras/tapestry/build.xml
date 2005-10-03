@@ -63,7 +63,6 @@ tapestry.jar=${tapestry.dir}/tapestry-${tapestry.version}.jar]]></replacevalue>
 
         <replace file="${lib.dir}/lib.properties">
             <replacetoken><![CDATA[struts.jar=${struts.dir}/struts.jar]]></replacetoken>
-            <replacevalue></replacevalue>
         </replace>
         
         <echo level="info">Deleting struts_form.xdt for XDoclet</echo>
@@ -77,10 +76,6 @@ tapestry.jar=${tapestry.dir}/tapestry-${tapestry.version}.jar]]></replacevalue>
                 <include name="xdoclet-*.java"/>
             </fileset>
         </delete>
-        <echo level="info">Replacing Struts servlet</echo>
-        <copy todir="../../metadata/web" overwrite="true">
-            <fileset dir="metadata/web" includes="*.xml"/>
-        </copy>
         <echo level="info">Deleting unused Tag Libraries and Utilities</echo>
         <delete>
             <fileset dir="../../src/web/org/appfuse/webapp">
@@ -245,21 +240,13 @@ tapestry.jar=${tapestry.dir}/tapestry-${tapestry.version}.jar]]></replacevalue>
         <!-- Copy source and tests -->    
         <echo level="info">Replacing source and test files</echo>
         <delete dir="../../src/web/org/appfuse/webapp/form"/>
-        <delete>
-            <fileset dir="../../src/web/org/appfuse/webapp/action">
-                <exclude name="LoginServlet.java"/>
-            </fileset>
-        </delete>
+        <delete dir="../../src/web/org/appfuse/webapp/action"/>
         <copy todir="../../src" overwrite="true">
             <fileset dir="src" includes="**"/>
         </copy>
         <!-- Copy tests -->
         <delete dir="../../test/web/org/appfuse/webapp/form"/>
-        <delete>
-            <fileset dir="../../test/web/org/appfuse/webapp/action">
-                <exclude name="LoginServlet*"/>
-            </fileset>
-        </delete> 
+        <delete dir="../../test/web/org/appfuse/webapp/action"/>
         <copy todir="../../test" overwrite="true">
             <fileset dir="test" includes="**"/>
         </copy>
@@ -340,17 +327,14 @@ tapestry.jar=${tapestry.dir}/tapestry-${tapestry.version}.jar]]></replacevalue>
             classpathref="xdoclet.classpath"/>
 
         <!-- generate struts forms -->
-        <xdoclet destdir="${build.dir}/web/gen"
-            excludedtags="@version,@author"
-            addedtags="@xdoclet-generated at ${TODAY}"
-            force="${xdoclet.force}"
+        <xdoclet destdir="${build.dir}/web/gen" excludedtags="@version,@author"
+            addedtags="@xdoclet-generated at ${TODAY}" force="${xdoclet.force}" 
             mergedir="metadata/web">
             <fileset dir="src/dao"/>
 
             <!-- generate struts forms -->
             <actionform templateFile="metadata/templates/struts_form.xdt">
-                <packageSubstitution packages="model"
-                    substituteWith="webapp.form"/>
+                <packageSubstitution packages="model" substituteWith="webapp.form"/>
             </actionform>
         </xdoclet>
     </target>
@@ -363,63 +347,17 @@ tapestry.jar=${tapestry.dir}/tapestry-${tapestry.version}.jar]]></replacevalue>
             <replacevalue><![CDATA[<compile module="web"/>]]></replacevalue>
         </replace>
         
+        <!-- Remove generated sources from webdoclet target -->
         <replace file="../../build.xml">
-            <replacetoken><![CDATA[    <!-- The "webdoclet" target generates web and struts deployment          -->
-    <!-- descriptors.                                                        --> 
-    <!-- =================================================================== -->
-    <target name="webdoclet" depends="compile-web" unless="webdoclet.unnecessary"
-        description="Generate web and Struts descriptors">
-        <taskdef name="webdoclet" classname="xdoclet.modules.web.WebDocletTask">
-            <classpath>
-                <path refid="xdoclet.classpath"/>
-                <path refid="web.compile.classpath"/>
-            </classpath>
-        </taskdef>
-        <webdoclet destdir="${webapp.target}/WEB-INF"
-            force="${xdoclet.force}"
-            mergedir="metadata/web"
-            excludedtags="@version,@author"
-            verbose="true">
-            <fileset dir="src/web"/>
-            <fileset dir="${build.dir}/web/gen"/>
-            <deploymentdescriptor validateXML="true"
-                servletspec="2.3" sessiontimeout="10"
-                destdir="${webapp.target}/WEB-INF" distributable="false"
-                displayname="${ant.project.name}">
-                <configParam name="daoType" value="${dao.type}"/>
-            </deploymentdescriptor>
-            <jsptaglib validateXML="true"
-                description="Custom tag library for this application"
-                shortName="${webapp.name}" filename="${webapp.name}.tld"/>
-            <strutsconfigxml validateXML="true" version="1.2"/>
-            <strutsvalidationxml/>
-]]></replacetoken>
-            <replacevalue><![CDATA[    <!-- The "webdoclet" target generates web deployment descriptors.           -->
-    <!-- =================================================================== -->
-    <target name="webdoclet" depends="compile-web" unless="webdoclet.unnecessary"
-        description="Generate web deployment descriptors">
-        <taskdef name="webdoclet" classname="xdoclet.modules.web.WebDocletTask">
-            <classpath>
-                <path refid="xdoclet.classpath"/>
-                <path refid="web.compile.classpath"/>
-            </classpath>
-        </taskdef>
-        <webdoclet destdir="${webapp.target}/WEB-INF"
-            force="${xdoclet.force}"
-            mergedir="metadata/web"
-            excludedtags="@version,@author"
-            verbose="true">
-            <fileset dir="src/web"/>
-            <deploymentdescriptor validateXML="true"
-                servletspec="2.3" sessiontimeout="10"
-                destdir="${webapp.target}/WEB-INF" distributable="false"
-                displayname="${ant.project.name}">
-                <configParam name="daoType" value="${dao.type}"/>
-            </deploymentdescriptor>
-            <jsptaglib validateXML="true"
-                description="Custom tag library for this application"
-                shortName="${webapp.name}" filename="${webapp.name}.tld"/>
-]]></replacevalue>
+            <replacetoken><![CDATA[<fileset dir="src/web"/>
+            <fileset dir="${build.dir}/web/gen"/>]]></replacetoken>
+            <replacevalue><![CDATA[<fileset dir="src/web"/>]]></replacevalue>
+        </replace>
+
+        <!-- Remove Struts XDoclet tasks -->
+        <replace file="../../build.xml">
+            <replacetoken><![CDATA[<strutsconfigxml validateXML="true" version="1.2"/>
+            <strutsvalidationxml/>]]></replacetoken>
         </replace>
 
         <replace file="../../build.xml">
@@ -450,6 +388,14 @@ tapestry.jar=${tapestry.dir}/tapestry-${tapestry.version}.jar]]></replacevalue>
         
         <!-- Change test-jsp to test-html -->
         <replace file="../../build.xml" token="test-jsp" value="test-html"/>
+        
+        <replace file="../../build.xml">
+        <replacetoken><![CDATA[    <target name="install-tapestry" depends="clean" 
+        description="Installs Tapestry, removes Struts">
+        <ant dir="${extras.dir}/tapestry" target="install"/>
+    </target>
+]]></replacetoken>
+        </replace>
         
         <echo level="info">Removing other web framework options</echo>
         <delete dir="../../extras/jsf"/>

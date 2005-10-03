@@ -45,13 +45,6 @@ public class StartupListener extends ContextLoaderListener
         super.contextInitialized(event);
 
         ServletContext context = event.getServletContext();
-        String daoType = context.getInitParameter(Constants.DAO_TYPE);
-
-        // if daoType is not specified, use DAO as default
-        if (daoType == null) {
-            log.warn("No 'daoType' context parameter, using Hibernate");
-            daoType = Constants.DAO_TYPE_HIBERNATE;
-        }
 
         // Orion starts Servlets before Listeners, so check if the config
         // object already exists
@@ -60,9 +53,6 @@ public class StartupListener extends ContextLoaderListener
         if (config == null) {
             config = new HashMap();
         }
-
-        // Create a config object to hold all the app config values
-        config.put(Constants.DAO_TYPE, daoType);
 
         ApplicationContext ctx =
             WebApplicationContextUtils.getRequiredWebApplicationContext(context);
@@ -94,7 +84,6 @@ public class StartupListener extends ContextLoaderListener
 
         // output the retrieved values for the Init and Context Parameters
         if (log.isDebugEnabled()) {
-            log.debug("Persistence Framework: " + daoType);
             log.debug("Remember Me Enabled? " + config.get("rememberMeEnabled"));
             log.debug("Encrypt Passwords? " + encryptPassword);
             if (encryptPassword) {

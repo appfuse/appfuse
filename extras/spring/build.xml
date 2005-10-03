@@ -160,20 +160,12 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         <!-- Copy source and tests -->    
         <echo level="info">Replacing source and test files</echo>
         <delete dir="../../src/web/org/appfuse/webapp/form"/>
-        <delete>
-            <fileset dir="../../src/web/org/appfuse/webapp/action">
-                <exclude name="LoginServlet.java"/>
-            </fileset>
-        </delete>
+        <delete dir="../../src/web/org/appfuse/webapp/action"/>
         <copy todir="../../src" overwrite="true">
             <fileset dir="src" includes="**"/>
         </copy>
         <delete dir="../../test/web/org/appfuse/webapp/form"/>
-        <delete>
-            <fileset dir="../../test/web/org/appfuse/webapp/action">
-                <exclude name="LoginServlet*"/>
-            </fileset>
-        </delete> 
+        <delete dir="../../test/web/org/appfuse/webapp/action"/>
         <copy todir="../../test" overwrite="true">
             <fileset dir="test" includes="**"/>
         </copy>
@@ -225,88 +217,37 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
             classpathref="xdoclet.classpath"/>
 
         <!-- generate struts forms -->
-        <xdoclet destdir="${build.dir}/web/gen"
-            excludedtags="@version,@author"
-            addedtags="@xdoclet-generated at ${TODAY}"
-            force="${xdoclet.force}"
+        <xdoclet destdir="${build.dir}/web/gen" excludedtags="@version,@author"
+            addedtags="@xdoclet-generated at ${TODAY}" force="${xdoclet.force}" 
             mergedir="metadata/web">
             <fileset dir="src/dao"/>
 
             <!-- generate struts forms -->
             <actionform templateFile="metadata/templates/struts_form.xdt">
-                <packageSubstitution packages="model"
-                    substituteWith="webapp.form"/>
+                <packageSubstitution packages="model" substituteWith="webapp.form"/>
             </actionform>
         </xdoclet>
     </target>
 
     <target name="compile-web" depends="package-service,stage-web,gen-forms"]]></replacetoken>
-            <replacevalue><![CDATA[<target name="compile-web" depends="package-service,stage-web"]]></replacevalue>
+            <replacevalue><![CDATA[    <target name="compile-web" depends="package-service,stage-web"]]></replacevalue>
         </replace>
         <replace file="../../build.xml">
             <replacetoken><![CDATA[<compile module="web" additional.src.dirs="${build.dir}/web/gen"/>]]></replacetoken>
             <replacevalue><![CDATA[<compile module="web"/>]]></replacevalue>
         </replace>
         
+        <!-- Remove generated sources from webdoclet target -->
         <replace file="../../build.xml">
-            <replacetoken><![CDATA[    <!-- The "webdoclet" target generates web and struts deployment          -->
-    <!-- descriptors.                                                        --> 
-    <!-- =================================================================== -->
-    <target name="webdoclet" depends="compile-web" unless="webdoclet.unnecessary"
-        description="Generate web and Struts descriptors">
-        <taskdef name="webdoclet" classname="xdoclet.modules.web.WebDocletTask">
-            <classpath>
-                <path refid="xdoclet.classpath"/>
-                <path refid="web.compile.classpath"/>
-            </classpath>
-        </taskdef>
-        <webdoclet destdir="${webapp.target}/WEB-INF"
-            force="${xdoclet.force}"
-            mergedir="metadata/web"
-            excludedtags="@version,@author"
-            verbose="true">
-            <fileset dir="src/web"/>
-            <fileset dir="${build.dir}/web/gen"/>
-            <deploymentdescriptor validateXML="true"
-                servletspec="2.3" sessiontimeout="10"
-                destdir="${webapp.target}/WEB-INF" distributable="false"
-                displayname="${ant.project.name}">
-                <configParam name="daoType" value="${dao.type}"/>
-            </deploymentdescriptor>
-            <jsptaglib validateXML="true"
-                description="Custom tag library for this application"
-                shortName="${webapp.name}" filename="${webapp.name}.tld"/>
-            <strutsconfigxml validateXML="true" version="1.2"/>
-            <strutsvalidationxml/>
-]]></replacetoken>
-            <replacevalue><![CDATA[    <!-- The "webdoclet" target generates web deployment descriptors.           -->
-    <!-- =================================================================== -->
-    <target name="webdoclet" depends="compile-web" unless="webdoclet.unnecessary"
-        description="Generate web deployment descriptors">
-        <taskdef name="webdoclet" classname="xdoclet.modules.web.WebDocletTask">
-            <classpath>
-                <path refid="xdoclet.classpath"/>
-                <path refid="web.compile.classpath"/>
-            </classpath>
-        </taskdef>
-        <webdoclet destdir="${webapp.target}/WEB-INF"
-            force="${xdoclet.force}"
-            mergedir="metadata/web"
-            excludedtags="@version,@author"
-            verbose="true">
-            <fileset dir="src/web"/>
-            <fileset dir="src/dao"/>
-            <deploymentdescriptor validateXML="true"
-                servletspec="2.3" sessiontimeout="10"
-                destdir="${webapp.target}/WEB-INF" distributable="false"
-                displayname="${ant.project.name}">
-                <configParam name="daoType" value="${dao.type}"/>
-            </deploymentdescriptor>
-            <jsptaglib validateXML="true"
-                description="Custom tag library for this application"
-                shortName="${webapp.name}" filename="${webapp.name}.tld"/>
-            <springvalidationxml/>
-]]></replacevalue>
+            <replacetoken><![CDATA[<fileset dir="${build.dir}/web/gen"/>]]></replacetoken>
+            <replacevalue><![CDATA[<fileset dir="src/dao"/>]]></replacevalue>
+        </replace>
+
+        <!-- Replace Struts XDoclet tasks with Spring one -->
+        <replace file="../../build.xml">
+            <replacetoken><![CDATA[<strutsconfigxml validateXML="true" version="1.2"/>
+            <strutsvalidationxml/>]]></replacetoken>
+            <replacevalue><![CDATA[<springvalidationxml/>]]></replacevalue>
         </replace>
         
         <replace file="../../build.xml">
@@ -331,6 +272,14 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
             <replacetoken><![CDATA[<lib dir="${strutstestcase.dir}" includes="*.jar"/>]]></replacetoken>
         </replace>
 
+        <replace file="../../build.xml">
+        <replacetoken><![CDATA[    <target name="install-springmvc" depends="clean" 
+        description="Installs Spring's MVC, removes Struts">
+        <ant dir="${extras.dir}/spring" target="install"/>
+    </target>
+]]></replacetoken>
+        </replace>
+        
         <echo level="info">Removing other web framework options</echo>
         <delete dir="../../extras/jsf"/>
         <delete dir="../../extras/tapestry"/>
