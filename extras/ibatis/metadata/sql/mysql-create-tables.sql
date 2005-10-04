@@ -1,6 +1,5 @@
 drop table if exists user_role;
 drop table if exists app_user;
-drop table if exists user_cookie;
 drop table if exists role;
 create table user_role (
    username varchar(20) not null,
@@ -22,15 +21,8 @@ create table app_user (
    phone_number varchar(255),
    website varchar(255),
    password_hint varchar(255),
-   enabled bit,
+   enabled char(1),
    primary key (username)
-);
-create table user_cookie (
-   id bigint not null,
-   username varchar(30) not null,
-   cookie_id varchar(100) not null,
-   date_created datetime,
-   primary key (id)
 );
 create table role (
    name varchar(20) not null,
@@ -40,4 +32,3 @@ create table role (
 );
 alter table user_role add index FK143BF46A14048CB4 (role_name), add constraint FK143BF46A14048CB4 foreign key (role_name) references role (name);
 alter table user_role add index FK143BF46AF02988D6 (username), add constraint FK143BF46AF02988D6 foreign key (username) references app_user (username);
-create index user_cookie_username_cookie_id on user_cookie (username, cookie_id);
