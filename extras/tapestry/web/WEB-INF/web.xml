@@ -71,7 +71,6 @@
         <filter-class>org.displaytag.filter.ResponseOverrideFilter</filter-class>
     </filter>
     <filter>
-    <filter>
         <filter-name>actionFilter</filter-name>
         <filter-class>org.appfuse.webapp.filter.ActionFilter</filter-class>
     </filter>
@@ -138,7 +137,7 @@
         <!--dispatcher>REQUEST</dispatcher>
         <dispatcher>FORWARD</dispatcher-->
     </filter-mapping>
-    
+
     <listener>
         <listener-class>com.opensymphony.clickstream.ClickstreamListener</listener-class>
     </listener>
