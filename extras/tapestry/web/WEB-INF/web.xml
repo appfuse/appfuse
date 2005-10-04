@@ -4,7 +4,7 @@
 
 <web-app>
     <display-name>appfuse</display-name>
-    
+
     <!-- Define the basename for a resource bundle for I18N -->
     <context-param>
         <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
@@ -21,7 +21,7 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>/WEB-INF/applicationContext-*.xml</param-value>
     </context-param>
-    
+
     <filter>
         <filter-name>securityFilter</filter-name>
         <filter-class>net.sf.acegisecurity.util.FilterToBeanProxy</filter-class>
@@ -71,12 +71,13 @@
         <filter-class>org.displaytag.filter.ResponseOverrideFilter</filter-class>
     </filter>
     <filter>
-        <filter-name>compressionFilter</filter-name>
-        <filter-class>org.appfuse.webapp.filter.GZIPFilter</filter-class>
-    </filter>
     <filter>
         <filter-name>actionFilter</filter-name>
         <filter-class>org.appfuse.webapp.filter.ActionFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>compressionFilter</filter-name>
+        <filter-class>org.appfuse.webapp.filter.GZIPFilter</filter-class>
     </filter>
 
     <filter-mapping>
@@ -97,9 +98,6 @@
         <filter-name>cacheFilter</filter-name>
         <url-pattern>*.jsp</url-pattern>
     </filter-mapping-->
-    <!-- The 'hibernateFilter', a.k.a. Spring's OpenSessionInViewFilter
-         guarantees one session per request.  Performance seems to be the
-         same if it's enabled or disabled. -->
     <filter-mapping>
         <filter-name>hibernateFilter</filter-name>
         <url-pattern>*.html</url-pattern>
@@ -163,7 +161,6 @@
         <load-on-startup>2</load-on-startup>
     </servlet>
 
-      <!-- Front Controller Servlet Mapping -->
     <servlet-mapping>
         <servlet-name>tapestry</servlet-name>
         <url-pattern>*.html</url-pattern>

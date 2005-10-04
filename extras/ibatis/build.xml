@@ -88,12 +88,13 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
         </replace>
 
         <echo level="info">Commenting out Hibernate OSIV Filter</echo>
-        <replace file="../../web/WEB-INF/web.xml">
-        <replacetoken><![CDATA[<filter-mapping>
+        <replace dir="../..">
+			<include name="**/web.xml"/>
+            <replacetoken><![CDATA[<filter-mapping>
         <filter-name>hibernateFilter</filter-name>
         <url-pattern>*.html</url-pattern>
     </filter-mapping>]]></replacetoken>
-            <replacevalue><![CDATA[<!--filter-mapping>
+                <replacevalue><![CDATA[<!--filter-mapping>
         <filter-name>hibernateFilter</filter-name>
         <url-pattern>*.html</url-pattern>
     </filter-mapping-->]]></replacevalue>
@@ -183,12 +184,13 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
         </replace>
 
         <echo level="info">Enabling Hibernate OSIV Filter</echo>
-        <replace file="../../web/WEB-INF/web.xml.xml">
-        <replacetoken><![CDATA[<!--filter-mapping>
+        <replace dir="../..">
+			<include name="**/web.xml"/>
+            <replacetoken><![CDATA[<!--filter-mapping>
         <filter-name>hibernateFilter</filter-name>
         <url-pattern>*.html</url-pattern>
     </filter-mapping-->]]></replacetoken>
-            <replacevalue><![CDATA[<filter-mapping>
+                <replacevalue><![CDATA[<filter-mapping>
         <filter-name>hibernateFilter</filter-name>
         <url-pattern>*.html</url-pattern>
     </filter-mapping>]]></replacevalue>
@@ -405,19 +407,27 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
         </replace>
 
         <echo level="info">Removing Hibernate OSIV Filter</echo>
-        <replace file="../../web/WEB-INF/web.xml">
-        <replacetoken><![CDATA[<!-- The 'hibernateFilter', a.k.a. Spring's OpenSessionInViewFilter
-         guarantees one session per request.  Performance seems to be the
-         same if it's enabled or disabled. -->
-    <filter-mapping>
+        <replace dir="../..">
+            <include name="**/web.xml"/>
+            <replacetoken><![CDATA[<filter-mapping>
         <filter-name>hibernateFilter</filter-name>
         <url-pattern>*.html</url-pattern>
     </filter-mapping>]]></replacetoken>
         </replace>
 
+        <!-- In case it's commented out -->
+        <replace dir="../..">
+            <include name="**/web.xml"/>
+            <replacetoken><![CDATA[<!--filter-mapping>
+        <filter-name>hibernateFilter</filter-name>
+        <url-pattern>*.html</url-pattern>
+    </filter-mapping-->]]></replacetoken>
+        </replace>
+        
         <!-- Remove Hibernate OSIV Filter from filter.xml -->
-        <replace file="../../web/WEB-INF/web.xml">
-        <replacetoken><![CDATA[<filter>
+        <replace dir="../..">
+            <include name="**/web.xml"/>
+            <replacetoken><![CDATA[<filter>
         <filter-name>hibernateFilter</filter-name>
         <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
     </filter>]]></replacetoken>
