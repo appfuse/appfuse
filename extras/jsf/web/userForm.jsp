@@ -110,7 +110,7 @@
     <h:outputLabel for="email" value="#{text['user.email']}"/>
 
     <h:inputText value="#{userForm.user.email}" id="email" size="50" required="true">
-        <f:validator validatorId="org.apache.myfaces.validator.Email"/>>
+        <f:validator validatorId="org.apache.myfaces.validator.Email"/>
         <v:commonsValidator type="required" arg="#{text['user.email']}"/>
         <v:commonsValidator type="email" arg="#{text['user.email']}"/>
     </h:inputText>
