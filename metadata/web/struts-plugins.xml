@@ -5,6 +5,3 @@
                              /WEB-INF/validator-rules-custom.xml,
                              /WEB-INF/validation.xml"/>
     </plug-in>
-    
-    <!-- ========== Menu plugin ======================== -->
-    <plug-in className="net.sf.navigator.menu.MenuPlugIn"/>
