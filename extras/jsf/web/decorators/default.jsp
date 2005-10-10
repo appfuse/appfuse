@@ -15,7 +15,7 @@
         <link rel="stylesheet" type="text/css" media="print" href="<c:url value='/styles/print.css'/>" />    
 
         <script type="text/javascript" src="<c:url value='/scripts/prototype.js'/>"></script> 
-        <script type="text/javascript" src="<c:url value='/scripts/effects.js'/>"></script>
+        <script type="text/javascript" src="<c:url value='/scripts/scriptaculous.js'/>"></script>
         <script type="text/javascript" src="<c:url value='/scripts/helptip.js'/>"></script>
         <script type="text/javascript" src="<c:url value='/scripts/global.js'/>"></script>
 
@@ -24,15 +24,8 @@
         <script type="text/javascript" src="<c:url value='/scripts/menuExpandable.js'/>"></script>
       </c:if>
         <decorator:head/>
-        <style type="text/css" media="all">
-            div.standardsNote {background: #FFFFCC; border: 1px solid blue; margin-bottom: 10px; padding: 5px}
-        </style>
     </head>
 <body<decorator:getProperty property="body.id" writeEntireProperty="true"/>>
-
-    <div class="standardsNote">
-        <fmt:message key="errors.browser.warning"/>
-    </div>
 
     <div id="screen">
 
