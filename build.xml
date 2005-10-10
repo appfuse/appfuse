@@ -391,6 +391,7 @@
             <webinf dir="${struts.dir}" includes="*.xml"/>
 
             <lib file="${clickstream.jar}"/>
+            <lib file="${dwr.jar}"/>
             <lib dir="${struts.dir}" includes="*.jar"/>
             <lib dir="${jstl.dir}/lib">
                 <include name="jstl.jar"/>
@@ -405,7 +406,7 @@
             <lib dir="${hibernate.dir}/lib" includes="*.jar"/>
             <lib dir="${spring.dir}" includes="*.jar" excludes="*mock.jar"/>
             <lib file="${sitemesh.jar}"/>
-            <lib dir="${velocity.dir}" includes="*.jar"/>   
+            <lib dir="${velocity.dir}" includes="*.jar"/>  
             <lib file="${urlrewrite.jar}"/>
         </war>
     </target>

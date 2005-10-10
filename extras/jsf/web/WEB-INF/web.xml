@@ -70,7 +70,6 @@
         <filter-name>exportFilter</filter-name>
         <filter-class>org.displaytag.filter.ResponseOverrideFilter</filter-class>
     </filter>
-    <!-- MultiPart Filter -->
     <filter>
         <filter-name>extensionsFilter</filter-name>
         <filter-class>org.apache.myfaces.component.html.util.ExtensionsFilter</filter-class>
@@ -191,9 +190,23 @@
         <load-on-startup>2</load-on-startup>
     </servlet>
 
+    <servlet>
+        <servlet-name>dwr-invoker</servlet-name>
+        <servlet-class>uk.ltd.getahead.dwr.DWRServlet</servlet-class>
+        <init-param>
+            <param-name>debug</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </servlet>
+
     <servlet-mapping>
         <servlet-name>faces</servlet-name>
         <url-pattern>*.html</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>dwr-invoker</servlet-name>
+        <url-pattern>/dwr/*</url-pattern>
     </servlet-mapping>
 
     <session-config>
