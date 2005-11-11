@@ -27,10 +27,9 @@
         <property name="accessDecisionManager" ref="accessDecisionManager"/>
          <property name="objectDefinitionSource">
             <value>
-                CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
                 PATTERN_TYPE_APACHE_ANT
                 /signup.html=ROLE_ANONYMOUS,admin,user
-                /passwordhint.html*=ROLE_ANONYMOUS,admin,user
+                /passwordHint.html*=ROLE_ANONYMOUS,admin,user
                 /**/*.html*=admin,user
                 /clickstreams.jsp=admin
             </value>
@@ -47,8 +46,8 @@
         </property>
     </bean>
    
-    <!-- Automatically receives AuthenticationEvent messages from DaoAuthenticationProvider -->
-    <bean id="loggerListener" class="net.sf.acegisecurity.providers.dao.event.LoggerListener"/>
+    <!-- Log failed authentication attempts to commons-logging -->
+    <bean id="loggerListener" class="net.sf.acegisecurity.event.authentication.LoggerListener"/>
     
     <bean id="daoAuthenticationProvider" class="net.sf.acegisecurity.providers.dao.DaoAuthenticationProvider">
          <property name="authenticationDao" ref="jdbcAuthenticationDao"/>
@@ -100,9 +99,7 @@
     </bean>
     
     <!-- ===================== HTTP REQUEST SECURITY ==================== -->
-    <bean id="httpSessionContextIntegrationFilter" class="net.sf.acegisecurity.context.HttpSessionContextIntegrationFilter">
-        <property name="context" value="net.sf.acegisecurity.context.security.SecureContextImpl"/>
-    </bean>
+    <bean id="httpSessionContextIntegrationFilter" class="net.sf.acegisecurity.context.HttpSessionContextIntegrationFilter"/>
     
     <bean id="authenticationProcessingFilter" class="net.sf.acegisecurity.ui.webapp.AuthenticationProcessingFilter">
         <property name="authenticationManager" ref="authenticationManager"/>
@@ -122,7 +119,7 @@
         <property name="authenticationEntryPoint" ref="authenticationProcessingFilterEntryPoint"/>
     </bean>
     
-    <bean id="remoteUserFilter" class="net.sf.acegisecurity.wrapper.ContextHolderAwareRequestFilter"/>
+    <bean id="remoteUserFilter" class="net.sf.acegisecurity.wrapper.SecurityContextHolderAwareRequestFilter"/>
 
     <bean id="authenticationProcessingFilterEntryPoint" class="net.sf.acegisecurity.ui.webapp.AuthenticationProcessingFilterEntryPoint">
         <property name="loginFormUrl" value="/login.jsp"/>
@@ -182,7 +179,7 @@
                 /j_security_check*=REQUIRES_SECURE_CHANNEL     
                 /editprofile.html*=REQUIRES_SECURE_CHANNEL
                 /signup.html*=REQUIRES_SECURE_CHANNEL
-            	   /saveuser.html*=REQUIRES_SECURE_CHANNEL
+                /saveuser.html*=REQUIRES_SECURE_CHANNEL
                 /**=REQUIRES_INSECURE_CHANNEL
             </value>
         </property>

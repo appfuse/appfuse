@@ -3,6 +3,11 @@ package org.appfuse.webapp.action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.acegisecurity.Authentication;
+import net.sf.acegisecurity.context.SecurityContextHolder;
+import net.sf.acegisecurity.providers.ProviderManager;
+import net.sf.acegisecurity.providers.UsernamePasswordAuthenticationToken;
+
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -18,19 +23,8 @@ import org.appfuse.service.UserManager;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.form.UserForm;
 import org.appfuse.webapp.util.RequestUtil;
-
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
-import org.springframework.context.ApplicationContext;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.web.context.support.WebApplicationContextUtils;
-
-import net.sf.acegisecurity.context.security.SecureContext;
-import net.sf.acegisecurity.context.ContextHolder;
-import net.sf.acegisecurity.Authentication;
-import net.sf.acegisecurity.GrantedAuthority;
-import net.sf.acegisecurity.GrantedAuthorityImpl;
-import net.sf.acegisecurity.providers.UsernamePasswordAuthenticationToken;
-import net.sf.acegisecurity.providers.ProviderManager;
 
 /**
  * Action class to allow users to self-register.
@@ -48,7 +42,7 @@ import net.sf.acegisecurity.providers.ProviderManager;
  * @struts.action-forward name="success" path="/mainMenu.html" redirect="true"
  */
 public final class SignupAction extends BaseAction {
-
+    
     public ActionForward execute(ActionMapping mapping, ActionForm form,
                                  HttpServletRequest request,
                                  HttpServletResponse response)
@@ -121,8 +115,7 @@ public final class SignupAction extends BaseAction {
         Authentication auth = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getConfirmPassword());
         try {
             ProviderManager authenticationManager = (ProviderManager) getBean("authenticationManager");
-            SecureContext ctx = (SecureContext) ContextHolder.getContext();
-            ctx.setAuthentication(authenticationManager.doAuthentication(auth));
+            SecurityContextHolder.getContext().setAuthentication(authenticationManager.doAuthentication(auth));
         } catch (NoSuchBeanDefinitionException n) {
             // ignore, should only happen when testing
         }

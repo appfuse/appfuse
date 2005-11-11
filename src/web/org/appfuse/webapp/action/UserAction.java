@@ -9,8 +9,8 @@ import javax.servlet.http.HttpSession;
 import net.sf.acegisecurity.Authentication;
 import net.sf.acegisecurity.AuthenticationTrustResolver;
 import net.sf.acegisecurity.AuthenticationTrustResolverImpl;
-import net.sf.acegisecurity.context.ContextHolder;
-import net.sf.acegisecurity.context.security.SecureContext;
+import net.sf.acegisecurity.context.SecurityContextHolder;
+import net.sf.acegisecurity.context.SecurityContext;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
@@ -327,7 +327,7 @@ public final class UserAction extends BaseAction {
         log.debug("checking for remember me login...");
 
         AuthenticationTrustResolver resolver = new AuthenticationTrustResolverImpl();
-        SecureContext ctx = (SecureContext) ContextHolder.getContext();
+        SecurityContext ctx = SecurityContextHolder.getContext();
 
         if (ctx != null) {
             Authentication auth = ctx.getAuthentication();

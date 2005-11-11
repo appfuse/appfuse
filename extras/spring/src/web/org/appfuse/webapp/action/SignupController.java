@@ -18,8 +18,7 @@ import org.springframework.validation.BindException;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.servlet.ModelAndView;
 
-import net.sf.acegisecurity.context.security.SecureContext;
-import net.sf.acegisecurity.context.ContextHolder;
+import net.sf.acegisecurity.context.SecurityContextHolder;
 import net.sf.acegisecurity.Authentication;
 import net.sf.acegisecurity.GrantedAuthority;
 import net.sf.acegisecurity.GrantedAuthorityImpl;
@@ -98,8 +97,7 @@ public class SignupController extends BaseFormController {
                 WebApplicationContextUtils.getWebApplicationContext(request.getSession().getServletContext());
             if (ctx != null) {
                 ProviderManager authenticationManager = (ProviderManager) ctx.getBean("authenticationManager");
-                SecureContext secureCtx = (SecureContext) ContextHolder.getContext();
-                secureCtx.setAuthentication(authenticationManager.doAuthentication(auth));
+                SecurityContextHolder.getContext().setAuthentication(authenticationManager.doAuthentication(auth));
             }
         } catch (NoSuchBeanDefinitionException n) {
             // ignore, should only happen when testing

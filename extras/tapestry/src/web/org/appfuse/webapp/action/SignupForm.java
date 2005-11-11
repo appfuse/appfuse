@@ -24,8 +24,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import net.sf.acegisecurity.context.security.SecureContext;
-import net.sf.acegisecurity.context.ContextHolder;
+import net.sf.acegisecurity.context.SecurityContextHolder;
 import net.sf.acegisecurity.Authentication;
 import net.sf.acegisecurity.GrantedAuthority;
 import net.sf.acegisecurity.GrantedAuthorityImpl;
@@ -126,8 +125,7 @@ public abstract class SignupForm extends BasePage implements PageRenderListener 
                 WebApplicationContextUtils.getWebApplicationContext(getSession().getServletContext());
             if (ctx != null) {
                 ProviderManager authenticationManager = (ProviderManager) ctx.getBean("authenticationManager");
-                SecureContext secureCtx = (SecureContext) ContextHolder.getContext();
-                secureCtx.setAuthentication(authenticationManager.doAuthentication(auth));
+                SecurityContextHolder.getContext().setAuthentication(authenticationManager.doAuthentication(auth));
             }
         } catch (NoSuchBeanDefinitionException n) {
             // ignore, should only happen when testing

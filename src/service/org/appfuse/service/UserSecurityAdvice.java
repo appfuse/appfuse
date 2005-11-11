@@ -1,30 +1,35 @@
 package org.appfuse.service;
 
-import org.springframework.aop.MethodBeforeAdvice;
-import org.appfuse.model.User;
-import org.appfuse.model.Role;
-import org.appfuse.Constants;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.commons.collections.CollectionUtils;
-
 import java.lang.reflect.Method;
-import java.util.Set;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
-import net.sf.acegisecurity.context.security.SecureContext;
-import net.sf.acegisecurity.context.ContextHolder;
-import net.sf.acegisecurity.*;
+import net.sf.acegisecurity.AccessDeniedException;
+import net.sf.acegisecurity.Authentication;
+import net.sf.acegisecurity.AuthenticationTrustResolver;
+import net.sf.acegisecurity.AuthenticationTrustResolverImpl;
+import net.sf.acegisecurity.GrantedAuthority;
+import net.sf.acegisecurity.UserDetails;
+import net.sf.acegisecurity.context.SecurityContext;
+import net.sf.acegisecurity.context.SecurityContextHolder;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.appfuse.Constants;
+import org.appfuse.model.Role;
+import org.appfuse.model.User;
+import org.springframework.aop.MethodBeforeAdvice;
 
 public class UserSecurityAdvice implements MethodBeforeAdvice {
     public final static String ACCESS_DENIED = "Access Denied: Only administrators are allowed to modify other users.";
     protected final Log log = LogFactory.getLog(UserSecurityAdvice.class);
 
     public void before(Method method, Object[] args, Object target) throws Throwable {
-        SecureContext ctx = (SecureContext) ContextHolder.getContext();
+        SecurityContext ctx = SecurityContextHolder.getContext();
 
-        if (ctx != null) {
+        if (ctx.getAuthentication() != null) {
             Authentication auth = ctx.getAuthentication();
             boolean administrator = false;
             GrantedAuthority[] roles = auth.getAuthorities();

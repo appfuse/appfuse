@@ -4,9 +4,9 @@ import net.sf.acegisecurity.AccessDeniedException;
 import net.sf.acegisecurity.Authentication;
 import net.sf.acegisecurity.GrantedAuthority;
 import net.sf.acegisecurity.GrantedAuthorityImpl;
-import net.sf.acegisecurity.context.ContextHolder;
-import net.sf.acegisecurity.context.security.SecureContext;
-import net.sf.acegisecurity.context.security.SecureContextImpl;
+import net.sf.acegisecurity.context.SecurityContext;
+import net.sf.acegisecurity.context.SecurityContextHolder;
+import net.sf.acegisecurity.context.SecurityContextImpl;
 import net.sf.acegisecurity.providers.UsernamePasswordAuthenticationToken;
 
 import org.appfuse.Constants;
@@ -22,17 +22,16 @@ public class UserSecurityAdviceTest extends BaseManagerTestCase {
 
     protected void setUp() throws Exception {
         super.setUp();
-        SecureContext context = new SecureContextImpl();
+        SecurityContext context = new SecurityContextImpl();
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("user",
                 "password",
                 new GrantedAuthority[] {new GrantedAuthorityImpl(Constants.USER_ROLE)});
-        token.setAuthenticated(true);
         context.setAuthentication(token);
-        ContextHolder.setContext(context);
+        SecurityContextHolder.setContext(context);
     }
 
     public void testAddUserWithoutAdminRole() throws Exception {
-        Authentication auth = ((SecureContext) ContextHolder.getContext()).getAuthentication();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         assertTrue(auth.isAuthenticated());
         UserManager userManager = (UserManager) makeInterceptedTarget();
         User user = new User("admin");
@@ -47,13 +46,12 @@ public class UserSecurityAdviceTest extends BaseManagerTestCase {
     }
 
     public void testAddUserAsAdmin() throws Exception {
-        SecureContext context = new SecureContextImpl();
+        SecurityContext context = new SecurityContextImpl();
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("admin",
                 "password",
                 new GrantedAuthority[] {new GrantedAuthorityImpl(Constants.ADMIN_ROLE)});
-        token.setAuthenticated(true);
         context.setAuthentication(token);
-        ContextHolder.setContext(context);
+        SecurityContextHolder.setContext(context);
 
         UserManager userManager = (UserManager) makeInterceptedTarget();
         User user = new User("admin");
@@ -106,13 +104,12 @@ public class UserSecurityAdviceTest extends BaseManagerTestCase {
 
         // Test fix to http://issues.appfuse.org/browse/APF-96
     public void testAddUserRoleWhenHasAdminRole() throws Exception {
-        SecureContext context = new SecureContextImpl();
+        SecurityContext context = new SecurityContextImpl();
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("user",
                 "password",
                 new GrantedAuthority[] {new GrantedAuthorityImpl(Constants.ADMIN_ROLE)});
-        token.setAuthenticated(true);
         context.setAuthentication(token);
-        ContextHolder.setContext(context);
+        SecurityContextHolder.setContext(context);
 
         UserManager userManager = (UserManager) makeInterceptedTarget();
         User user = new User("user");
