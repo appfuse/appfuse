@@ -32,7 +32,7 @@
     <property name="database.admin.url" value="jdbc:${database.type}://${database.host}/mysql"/>
     <property name="database.admin.username" value="root"/>
     <property name="database.admin.password" value=""/>
-    <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+    <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLInnoDBDialect"/>
     <property name="database.driver_class" value="com.mysql.jdbc.Driver"/>
     <property name="database.url" 
         value="jdbc:${database.type}://${database.host}/${database.name}?useUnicode=true&amp;amp;characterEncoding=utf-8"/>
