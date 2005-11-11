@@ -70,7 +70,7 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
 	<classpathentry kind="lib" path="lib/ibatis-2.1.5/ibatis-sqlmap-2.jar"/>
 	<classpathentry kind="lib" path="lib/ibatis-2.1.5/jta.jar"/>
 	<classpathentry kind="lib" path="lib/ibatis-2.1.5/c3p0-0.9.0.2.jar"/>
-	<classpathentry kind="lib" path="lib/ibatis-2.1.5/oscache-2.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/ibatis-2.1.5/oscache-2.2.jar"/>
 	<classpathentry kind="output" path="build/classes"/>]]></replacevalue>
         </replace>
 
@@ -167,7 +167,7 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
 	<classpathentry kind="lib" path="lib/ibatis-2.1.5/ibatis-sqlmap-2.jar"/>
 	<classpathentry kind="lib" path="lib/ibatis-2.1.5/jta.jar"/>
 	<classpathentry kind="lib" path="lib/ibatis-2.1.5/c3p0-0.9.0.2.jar"/>
-	<classpathentry kind="lib" path="lib/ibatis-2.1.5/oscache-2.1.1.jar"/>]]></replacetoken>
+	<classpathentry kind="lib" path="lib/ibatis-2.1.5/oscache-2.2.jar"/>]]></replacetoken>
         </replace>
         
         <echo level="info">Changing dao.type to hibernate</echo>
@@ -277,7 +277,7 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
 	<classpathentry kind="lib" path="lib/hibernate-3.0.5/lib/cglib-2.1.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-3.0.5/lib/dom4j-1.6.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-3.0.5/lib/jta.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-3.0.5/lib/oscache-2.1.1.jar"/>]]></replacetoken>
+	<classpathentry kind="lib" path="lib/hibernate-3.0.5/lib/oscache-2.2.jar"/>]]></replacetoken>
         </replace>
         
         <echo level="info">Removing all references to Hibernate in build.xml</echo>
