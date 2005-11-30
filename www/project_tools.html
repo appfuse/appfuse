@@ -6,12 +6,8 @@
 <div class="label"><strong>User Mailing List</strong></div>
 <div class="body">
 <div><a href="mailto:users-subscribe@appfuse.dev.java.net">Subscribe</a></div>
-<div><a href="http://news.gmane.org/gmane.comp.java.appfuse.user">Archives</a></div>
+<div>Archives: <a href="http://news.gmane.org/gmane.comp.java.appfuse.user">Gmane</a> &middot; <a href="http://appfuse.org/forum">Nabble</a></div>
 </div>
-<!--div class="label"><strong>Issue Tracking</strong></div>
-<div class="body" style="border-bottom: 0">
-<div><a href="http://issues.appfuse.org">JIRA Issue Tracker</a></div>
-</div-->
 <div class="label"><strong>Developer Blogs</strong></div>
 <div class="body">
 <div><a href="http://raibledesigns.com">Raible Designs</a></div>
@@ -30,7 +26,7 @@ function replaceLinks() {
             }
 
             if (links[i].getAttribute("href").indexOf("ProjectForumView") > -1) {
-                links[i].parentNode.style.display = "none";
+                links[i].setAttribute("href", "http://appfuse.org/forums");
             }
         } 
     } catch (e) {}
