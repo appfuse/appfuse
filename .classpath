@@ -74,6 +74,6 @@
 	<classpathentry kind="lib" path="lib/jakarta-taglibs/standard-1.0.6/lib/standard.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-taglibs/request-1.0.1/taglibs-request.jar"/>
 	<classpathentry kind="lib" path="lib/mysql-connector-java-3.1.11/mysql-connector-java-3.1.11-bin.jar"/>
-	<classpathentry kind="lib" path="lib/postgresql-jdbc-8.0-312/postgresql-jdbc3-8.0-312.jar"/>
+	<classpathentry kind="lib" path="lib/postgresql-jdbc-8.1-404/postgresql-jdbc3-8.1-404.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
