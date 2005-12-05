@@ -1,6 +1,6 @@
 <%@ include file="/common/taglibs.jsp"%>
 <%@ page import="javax.servlet.http.Cookie" %>
-<%@ page import="net.sf.acegisecurity.ui.rememberme.TokenBasedRememberMeServices" %>
+<%@ page import="org.acegisecurity.ui.rememberme.TokenBasedRememberMeServices" %>
 
 <%
 session.invalidate();

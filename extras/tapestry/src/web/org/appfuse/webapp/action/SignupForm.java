@@ -24,12 +24,12 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import net.sf.acegisecurity.context.SecurityContextHolder;
-import net.sf.acegisecurity.Authentication;
-import net.sf.acegisecurity.GrantedAuthority;
-import net.sf.acegisecurity.GrantedAuthorityImpl;
-import net.sf.acegisecurity.providers.UsernamePasswordAuthenticationToken;
-import net.sf.acegisecurity.providers.ProviderManager;
+import org.acegisecurity.context.SecurityContextHolder;
+import org.acegisecurity.Authentication;
+import org.acegisecurity.GrantedAuthority;
+import org.acegisecurity.GrantedAuthorityImpl;
+import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
+import org.acegisecurity.providers.ProviderManager;
 
 public abstract class SignupForm extends BasePage implements PageRenderListener {
     private IPropertySelectionModel countries;  

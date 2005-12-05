@@ -8,10 +8,10 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import net.sf.acegisecurity.providers.AuthenticationProvider;
-import net.sf.acegisecurity.providers.ProviderManager;
-import net.sf.acegisecurity.providers.encoding.Md5PasswordEncoder;
-import net.sf.acegisecurity.providers.rememberme.RememberMeAuthenticationProvider;
+import org.acegisecurity.providers.AuthenticationProvider;
+import org.acegisecurity.providers.ProviderManager;
+import org.acegisecurity.providers.encoding.Md5PasswordEncoder;
+import org.acegisecurity.providers.rememberme.RememberMeAuthenticationProvider;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
