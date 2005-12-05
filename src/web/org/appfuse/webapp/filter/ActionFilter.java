@@ -13,8 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
@@ -31,12 +29,11 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  * <p><a href="ActionFilter.java.html"><i>View Source</i></a></p>
  *
  * @author  Matt Raible
- * @version $Revision: 1.16 $ $Date: 2005/09/20 13:26:32 $
+ * @version $Revision: 1.17 $ $Date: 2005/12/05 05:01:15 $
  *
  * @web.filter name="actionFilter"
  */
 public class ActionFilter implements Filter {
-    private final Log log = LogFactory.getLog(ActionFilter.class);
     private FilterConfig config = null;
 
     public void init(FilterConfig config) throws ServletException {

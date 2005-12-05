@@ -1,7 +1,5 @@
 package org.appfuse.webapp.action;
 
-import java.sql.Timestamp;
-
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;

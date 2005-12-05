@@ -1,7 +1,5 @@
 package org.appfuse.service;
 
-import java.util.ResourceBundle;
-
 import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.springframework.context.ApplicationContext;
@@ -12,7 +10,6 @@ import org.springframework.util.ClassUtils;
 public class UserExistsExceptionTest extends BaseManagerTestCase {
     private static ApplicationContext ctx = null;
     private UserManager manager = null;
-    private ResourceBundle rb;
     
     // This static block ensures that Spring's BeanFactory is only loaded
     // once for all tests

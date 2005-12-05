@@ -2,8 +2,6 @@ package org.appfuse.dao.hibernate;
 
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.appfuse.model.Role;
 import org.appfuse.dao.RoleDAO;
 
@@ -19,7 +17,6 @@ import org.appfuse.dao.RoleDAO;
  * @author <a href="mailto:dan@getrolling.com">Dan Kibler</a> 
  */
 public class RoleDAOHibernate extends BaseDAOHibernate implements RoleDAO {
-    private Log log = LogFactory.getLog(RoleDAOHibernate.class);
 
     public List getRoles(Role role) {
         return getHibernateTemplate().find("from Role");

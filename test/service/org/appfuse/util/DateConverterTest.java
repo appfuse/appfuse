@@ -1,20 +1,13 @@
 package org.appfuse.util;
 
 import java.util.Date;
-import java.util.Locale;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.sql.Timestamp;
 
 import junit.framework.TestCase;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.springframework.context.i18n.LocaleContextHolder;
-
 public class DateConverterTest extends TestCase {
-    //~ Instance fields ========================================================
-    private final Log log = LogFactory.getLog(DateConverterTest.class);
     private DateConverter converter = new DateConverter();
 
     public void testConvertStringToDate() throws Exception {

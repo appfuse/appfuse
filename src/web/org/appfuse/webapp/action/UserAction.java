@@ -188,7 +188,6 @@ public final class UserAction extends BaseAction {
         ActionMessages messages = new ActionMessages();
         HttpSession session = request.getSession();
         UserForm userForm = (UserForm) form;
-        String password = userForm.getPassword();
         User user = new User();
 
         // Exceptions are caught by ActionExceptionHandler
