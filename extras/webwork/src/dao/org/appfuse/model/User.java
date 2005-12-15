@@ -299,7 +299,7 @@ public class User extends BaseObject implements Serializable {
     
     /**
      * @return Returns if the user is enabled
-     * @hibernate.property column="enabled" type="yes_no"
+     * @hibernate.property column="enabled" type="true_false"
      */
     public Boolean getEnabled() {
         return enabled;
