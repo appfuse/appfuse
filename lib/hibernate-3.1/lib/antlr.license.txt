@@ -1,6 +1,6 @@
 
 SOFTWARE RIGHTS
-$Id: antlr.license.txt,v 1.1 2005/06/06 02:02:15 mraible Exp $
+$Id: antlr.license.txt,v 1.1 2005/12/15 06:14:47 mraible Exp $
 
 ANTLR 1989-2003 Developed by jGuru.com, 
 http://www.ANTLR.org  and http://www.jGuru.com
