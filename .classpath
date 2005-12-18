@@ -4,12 +4,12 @@
 	<classpathentry kind="src" path="build/appfuse"/>
 	<classpathentry including="*.properties|*.xml" kind="src" path="build/web/classes"/>
 	<classpathentry kind="src" path="build/web/gen"/>
-	<classpathentry excluding="**/applicationContext-*.xml" output="build/dao/classes" kind="src" path="src/dao"/>
-	<classpathentry output="build/service/classes" kind="src" path="src/service"/>
+	<classpathentry excluding="**/applicationContext-*.xml" kind="src" path="src/dao"/>
+	<classpathentry kind="src" path="src/service"/>
 	<classpathentry excluding="**/action/*.properties|**/action/*.xml" kind="src" path="src/web"/>
-	<classpathentry output="build/test/dao/classes" kind="src" path="test/dao"/>
-	<classpathentry output="build/test/service/classes" kind="src" path="test/service"/>
-	<classpathentry output="build/test/web/classes" kind="src" path="test/web"/>
+	<classpathentry kind="src" path="test/dao"/>
+	<classpathentry kind="src" path="test/service"/>
+	<classpathentry kind="src" path="test/web"/>
 	<classpathentry kind="lib" path="lib/checkstyle-3.1/checkstyle-all-3.1.jar"/>
 	<classpathentry kind="lib" path="lib/junit3.8.1/junit.jar"/>
 	<classpathentry kind="lib" path="lib/logging-log4j-1.2.11/dist/lib/log4j-1.2.11.jar"/>
@@ -23,17 +23,17 @@
 	<classpathentry kind="lib" path="lib/strutstest-2.1.3/strutstest-2.1.3.jar"/>
 	<classpathentry kind="lib" path="lib/dbunit-2.1/dbunit-2.1.jar"/>
 	<classpathentry kind="lib" path="lib/struts-menu-2.3/struts-menu-2.3.jar"/>
-	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/commons-collections.jar"/>
-	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/commons-digester.jar"/>
-	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/commons-lang.jar"/>
-	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/commons-logging.jar"/>
-	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/commons-validator.jar"/>
-	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/jakarta-oro.jar"/>
-	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/struts.jar"/>
-	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/struts-el.jar"/>
-	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/commons-beanutils.jar"/>
-	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/antlr.jar"/>
-	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.4/lib/commons-fileupload.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.8/lib/commons-collections.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.8/lib/commons-digester.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.8/lib/commons-lang.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.8/lib/commons-logging.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.8/lib/commons-validator.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.8/lib/jakarta-oro.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.8/lib/struts.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.8/lib/struts-el.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.8/lib/commons-beanutils.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.8/lib/antlr.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.8/lib/commons-fileupload.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-taglibs/standard-1.0.6/lib/jstl.jar"/>
 	<classpathentry kind="lib" path="lib/jmock-1.0.1/jmock-1.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/ant-contrib-1.0b1/ant-contrib-1.0b1.jar"/>

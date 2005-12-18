@@ -1,43 +1,6 @@
 <!DOCTYPE form-validation PUBLIC
-    "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.0//EN"
-    "http://jakarta.apache.org/commons/dtds/validator_1_0.dtd">
-<!--
-
-   This file contains the default Struts Validator pluggable validator
-   definitions.  It should be placed somewhere under /WEB-INF and
-   referenced in the struts-config.xml under the plug-in element
-   for the ValidatorPlugIn.
-
-      <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
-        <set-property property="pathnames" value="/WEB-INF/validator-rules.xml,
-                                                  /WEB-INF/validation.xml"/>
-      </plug-in>
-
-   These are the default error messages associated with
-   each validator defined in this file.  They should be
-   added to your projects ApplicationResources.properties
-   file or you can associate new ones by modifying the
-   pluggable validators msg attributes in this file.
-
-   # Struts Validator Error Messages
-   errors.required={0} is required.
-   errors.minlength={0} can not be less than {1} characters.
-   errors.maxlength={0} can not be greater than {1} characters.
-   errors.invalid={0} is invalid.
-
-   errors.byte={0} must be a byte.
-   errors.short={0} must be a short.
-   errors.integer={0} must be an integer.
-   errors.long={0} must be a long.
-   errors.float={0} must be a float.
-   errors.double={0} must be a double.
-
-   errors.date={0} is not a date.
-   errors.range={0} is not in the range {1} through {2}.
-   errors.creditcard={0} is an invalid credit card number.
-   errors.email={0} is an invalid e-mail address.
-
--->
+     "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.2.0//EN"
+     "http://jakarta.apache.org/commons/dtds/validator_1_2_0.dtd">
 
 <form-validation>
 

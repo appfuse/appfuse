@@ -151,7 +151,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.4/lib/commons-logging.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.8/lib/commons-logging.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -160,7 +160,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.4/lib/commons-lang.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.8/lib/commons-lang.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -169,7 +169,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.4/lib/struts.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.8/lib/struts.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -178,7 +178,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.4/lib/commons-validator.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.8/lib/commons-validator.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -187,7 +187,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.4/lib/commons-fileupload.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.8/lib/commons-fileupload.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -196,7 +196,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.4/lib/jakarta-oro.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.8/lib/jakarta-oro.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -205,7 +205,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.4/lib/antlr.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.8/lib/antlr.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -214,7 +214,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.4/lib/struts-el.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.8/lib/struts-el.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -223,7 +223,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.4/lib/commons-digester.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.8/lib/commons-digester.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -232,7 +232,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.4/lib/commons-beanutils.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.8/lib/commons-beanutils.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -241,7 +241,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.4/lib/commons-collections.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jakarta-struts-1.2.8/lib/commons-collections.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -651,57 +651,57 @@
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/antlr.jar" />
-      <url>jar://$MODULE_DIR$/lib/jakarta-struts-1.2.4/lib/antlr.jar!/</url>
+      <url>jar://$MODULE_DIR$/lib/jakarta-struts-1.2.8/lib/antlr.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/commons-beanutils.jar" />
-      <url>jar://$MODULE_DIR$/lib/jakarta-struts-1.2.4/lib/commons-beanutils.jar!/</url>
+      <url>jar://$MODULE_DIR$/lib/jakarta-struts-1.2.8/lib/commons-beanutils.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/commons-collections.jar" />
-      <url>jar://$MODULE_DIR$/lib/jakarta-struts-1.2.4/lib/commons-collections.jar!/</url>
+      <url>jar://$MODULE_DIR$/lib/jakarta-struts-1.2.8/lib/commons-collections.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/commons-digester.jar" />
-      <url>jar://$MODULE_DIR$/lib/jakarta-struts-1.2.4/lib/commons-digester.jar!/</url>
+      <url>jar://$MODULE_DIR$/lib/jakarta-struts-1.2.8/lib/commons-digester.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/commons-fileupload.jar" />
-      <url>jar://$MODULE_DIR$/lib/jakarta-struts-1.2.4/lib/commons-fileupload.jar!/</url>
+      <url>jar://$MODULE_DIR$/lib/jakarta-struts-1.2.8/lib/commons-fileupload.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/commons-lang.jar" />
-      <url>jar://$MODULE_DIR$/lib/jakarta-struts-1.2.4/lib/commons-lang.jar!/</url>
+      <url>jar://$MODULE_DIR$/lib/jakarta-struts-1.2.8/lib/commons-lang.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/commons-logging.jar" />
-      <url>jar://$MODULE_DIR$/lib/jakarta-struts-1.2.4/lib/commons-logging.jar!/</url>
+      <url>jar://$MODULE_DIR$/lib/jakarta-struts-1.2.8/lib/commons-logging.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/commons-validator.jar" />
-      <url>jar://$MODULE_DIR$/lib/jakarta-struts-1.2.4/lib/commons-validator.jar!/</url>
+      <url>jar://$MODULE_DIR$/lib/jakarta-struts-1.2.8/lib/commons-validator.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/jakarta-oro.jar" />
-      <url>jar://$MODULE_DIR$/lib/jakarta-struts-1.2.4/lib/jakarta-oro.jar!/</url>
+      <url>jar://$MODULE_DIR$/lib/jakarta-struts-1.2.8/lib/jakarta-oro.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/struts-el.jar" />
-      <url>jar://$MODULE_DIR$/lib/jakarta-struts-1.2.4/lib/struts-el.jar!/</url>
+      <url>jar://$MODULE_DIR$/lib/jakarta-struts-1.2.8/lib/struts-el.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/struts.jar" />
-      <url>jar://$MODULE_DIR$/lib/jakarta-struts-1.2.4/lib/struts.jar!/</url>
+      <url>jar://$MODULE_DIR$/lib/jakarta-struts-1.2.8/lib/struts.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
