@@ -1,6 +1,5 @@
 package org.appfuse.webapp.action;
 
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -154,11 +153,10 @@ public class BaseFormController extends SimpleFormController {
      */
     protected void initBinder(HttpServletRequest request,
                               ServletRequestDataBinder binder) {
-        NumberFormat nf = NumberFormat.getNumberInstance();
         binder.registerCustomEditor(Integer.class, null,
-                                    new CustomNumberEditor(Integer.class, nf, true));
+                                    new CustomNumberEditor(Integer.class, null, true));
         binder.registerCustomEditor(Long.class, null,
-                                    new CustomNumberEditor(Long.class, nf, true));
+                                    new CustomNumberEditor(Long.class, null, true));
         binder.registerCustomEditor(byte[].class,
                                     new ByteArrayMultipartFileEditor());
         SimpleDateFormat dateFormat = 
