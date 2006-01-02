@@ -356,13 +356,17 @@
             </and>
             <then>
                 <copy tofile="${webapp.dist}/context.xml"
-                    file="metadata/conf/tomcat-context.xml" overwrite="true"/>
+                    file="metadata/conf/tomcat-context.xml" overwrite="true">
+                    <filterset refid="db.variables"/>
+                </copy>
             </then>
             <elseif>
                 <isset property="tomcat5.5"/>
                 <then>
                     <copy tofile="${webapp.dist}/context.xml"
-                        file="metadata/conf/tomcat-context-5.5.xml" overwrite="true"/>
+                        file="metadata/conf/tomcat-context-5.5.xml" overwrite="true">
+                        <filterset refid="db.variables"/>
+                    </copy>
                 </then>
             </elseif>
         </if>
@@ -1071,7 +1075,7 @@
     <!-- =================================================================== -->
     <!--            Creates documentation from wiki                          -->
     <!-- =================================================================== -->
-    <target name="wiki" description="downloads files from wiki for doco">
+    <target name="wiki" description="downloads files from wiki for doco" unless="nodocs">
         <!-- Get latest stylesheet -->
         <get src="http://raibledesigns.com/wiki/templates/redman/jspwiki.css"
             dest="docs/style.css"/>
@@ -1097,21 +1101,21 @@
             <zipfileset prefix="${webapp.name}" dir="${basedir}">
                 <patternset id="srcfiles">
                     <include name="**"/>
-                    <exclude name="*.log"/>
-                    <exclude name="junit*.properties"/>
+                	<exclude name=".settings/**"/>
+                	<exclude name="${build.dir}"/>
+                    <exclude name="${dist.dir}"/>
+                    <exclude name="extras/myjavapack/**"/>
                     <exclude name="**/*~"/>
                     <exclude name="**/*.bak"/>
-                    <exclude name="*/**.java.txt"/>
-                    <exclude name="${dist.dir}"/>
-                    <exclude name="${build.dir}"/>
-                    <exclude name="bin/**"/>
                     <exclude name=".#**"/>
-                    <exclude name="anthill.version"/>
+                	<exclude name="web/demos/**"/>
                     <exclude name="www/**"/>
                     <exclude name="*.sh"/>
-                    <exclude name="*.sql"/>   
-                    <exclude name="test-all-*"/>
-                    <exclude name="extras/myjavapack"/>
+                    <exclude name="*.sql"/>
+                	<exclude name="*.iws"/>
+                    <exclude name="*.log"/>
+                	<exclude name="velocity.*"/>
+                    <exclude name="junit*.properties"/>
                 </patternset>
             </zipfileset>
         </zip>
@@ -1204,34 +1208,6 @@
     <!-- =================================================================== -->
     <target name="setup" depends="setup-db,setup-tomcat,deploy"
         description="Sets up database, tomcat and deploys expanded war"/>
-        
-    <!-- =================================================================== -->
-    <!--     Targets to install optional packages for testing                -->
-    <!-- =================================================================== -->
-    <property name="extras.dir" value="extras"/>
-    <target name="install-ibatis" depends="clean" description="Installs iBATIS">
-        <ant dir="${extras.dir}/ibatis" target="install"/>
-    </target>
-
-    <target name="install-springmvc" depends="clean" 
-        description="Installs Spring's MVC, removes Struts">
-        <ant dir="${extras.dir}/spring" target="install"/>
-    </target>
-
-    <target name="install-webwork" depends="clean" 
-        description="Installs WebWork, removes Struts">
-        <ant dir="${extras.dir}/webwork" target="install"/>
-    </target>
-
-    <target name="install-jsf" depends="clean" 
-        description="Installs JSF, removes Struts">
-        <ant dir="${extras.dir}/jsf" target="install"/>
-    </target>
-
-    <target name="install-tapestry" depends="clean" 
-        description="Installs Tapestry, removes Struts">
-        <ant dir="${extras.dir}/tapestry" target="install"/>
-    </target>
 
     <!-- =================================================================== -->
     <!-- The "new" target is used to create a new project by duplicating     -->
