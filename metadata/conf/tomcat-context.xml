@@ -1,4 +1,56 @@
 <Context path="/appfuse" docBase="appfuse" debug="99" reloadable="true">
     <Logger className="org.apache.catalina.logger.FileLogger" 
         prefix="appfuse_log." suffix=".txt" timestamp="true"/>
+
+    <!--Resource name="jdbc/appfuse" auth="Container" type="javax.sql.DataSource"/>
+    <ResourceParams name="jdbc/appfuse">
+        <parameter>
+            <name>factory</name>
+            <value>org.apache.commons.dbcp.BasicDataSourceFactory</value>
+        </parameter>
+        <parameter>
+            <name>maxActive</name>
+            <value>100</value>
+        </parameter>
+        <parameter>
+            <name>maxIdle</name>
+            <value>30</value>
+        </parameter>
+        <parameter>
+            <name>maxWait</name>
+            <value>10000</value>
+        </parameter>
+        <parameter>
+            <name>username</name>
+            <value>@DB-USERNAME@</value>
+        </parameter>
+        <parameter>
+            <name>password</name>
+            <value>@DB-PASSWORD@</value>
+        </parameter>
+        <parameter>
+            <name>driverClassName</name>
+            <value>@DB-DRIVERNAME@</value>
+        </parameter>
+        <parameter>
+            <name>defaultAutoCommit</name>
+            <value>true</value>
+        </parameter>
+        <parameter>
+            <name>url</name>
+            <value>@DB-URL@</value>
+        </parameter>
+        <parameter>
+            <name>removeAbandoned</name>
+            <value>true</value>
+        </parameter>
+        <parameter>
+            <name>removeAbandonedTimeout</name>
+            <value>60</value>
+        </parameter>
+        <parameter>
+            <name>logAbandoned</name>
+            <value>true</value>
+        </parameter>
+    </ResourceParams-->
 </Context>
