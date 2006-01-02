@@ -70,7 +70,6 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  *
  * <p>
  * <a href="BaseAction.java.html"><i>View Source</i></a>
- * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  * @author Rick Hightower (based on his ButtonNameDispatchAction)
