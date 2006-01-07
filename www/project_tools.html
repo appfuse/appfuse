@@ -47,10 +47,11 @@ function fisheye() {
         fisheyeDiv.appendChild(header);
         var fisheye = document.createElement("iframe");
         fisheye.setAttribute("src", "http://fisheye5.cenqua.com/viewrep/appfuse");
-        fisheye.style.width="100%";
+        fisheye.style.width="99%";
         fisheye.style.height="500px";
+        fisheye.style.border="0";
         fisheyeDiv.appendChild(fisheye);
-        document.getElementById("dirlist").insertBefore(fisheyeDiv, document.getElementById("projectsource"));
+        document.getElementById("dirlist").insertBefore(fisheyeDiv, document.getElementById("browsesource"));
     }
 }
 window.onload=function() { replaceLinks(); fisheye(); }
