@@ -37,5 +37,14 @@ function replaceLinks() {
     } catch (e) {}
 }
 
-window.onload=replaceLinks;
+function fisheye() {
+    if (document.getElementById('browsesource') != null) {
+        var fisheye = document.createElement('iframe');
+        fisheye.setAttribute("src", "http://fisheye5.cenqua.com/viewrep/appfuse");
+        fisheye.style.width="100%";
+        fisheye.style.height="500px";
+        document.getElementById('browsesource').append(fisheye);
+    }
+}
+window.onload=function() { replaceLinks(); fisheye(); }
 </script>
