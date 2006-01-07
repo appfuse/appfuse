@@ -38,12 +38,19 @@ function replaceLinks() {
 }
 
 function fisheye() {
-    if (document.getElementById('browsesource') != null) {
-        var fisheye = document.createElement('iframe');
+    if (document.getElementById("projectsource") != null) {
+        var fisheyeDiv = document.createElement("div");
+        fisheyeDiv.className="app";
+        var header = document.createElement("div");
+        header.className="h3";
+        header.innerHTML = "<h3>Browse source code with FishEye</h3>";
+        fisheyeDiv.appendChild("header");
+        var fisheye = document.createElement("iframe");
         fisheye.setAttribute("src", "http://fisheye5.cenqua.com/viewrep/appfuse");
         fisheye.style.width="100%";
         fisheye.style.height="500px";
-        document.getElementById('browsesource').appendChild(fisheye);
+        fisheyeDiv.appendChild(fisheye);
+        document.getElementById("dirlist").insertBefore(fisheyeDiv, document.getElementById("projectsource"));
     }
 }
 window.onload=function() { replaceLinks(); fisheye(); }
