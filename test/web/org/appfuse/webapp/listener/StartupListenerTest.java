@@ -34,7 +34,7 @@ public class StartupListenerTest extends TestCase {
         String pkg = ClassUtils.classPackageAsResourcePath(Constants.class);
         sc.addInitParameter(ContextLoader.CONFIG_LOCATION_PARAM,
                 "classpath*:/" + pkg + "/dao/applicationContext-*.xml," +
-                "file:**/*-service.xml, " + "classpath*:**/applicationContext-*.xml");
+                "classpath*:META-INF/applicationContext-*.xml");
         
         ServletContextListener contextListener = new ContextLoaderListener();
         ServletContextEvent event = new ServletContextEvent(sc);
@@ -47,7 +47,7 @@ public class StartupListenerTest extends TestCase {
         sc = null;
     }
 
-    public void testContextInitialized() throws Exception {
+    public void testContextInitialized() {
         ServletContextEvent event = new ServletContextEvent(sc);
         listener.contextInitialized(event);
 

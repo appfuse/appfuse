@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry output="build/dao/classes" kind="src" path="build/dao/gen"/>
+	<classpathentry kind="src" path="build/web/classes"/>
+	<classpathentry kind="src" path="build/service/classes"/>
 	<classpathentry kind="src" path="build/appfuse"/>
-	<classpathentry including="*.properties|*.xml" kind="src" path="build/web/classes"/>
 	<classpathentry kind="src" path="build/web/gen"/>
 	<classpathentry excluding="**/applicationContext-*.xml" kind="src" path="src/dao"/>
 	<classpathentry kind="src" path="src/service"/>
