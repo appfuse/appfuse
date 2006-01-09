@@ -95,7 +95,7 @@
         description="Copy .properties and .xml files from source directory">
         <copy todir="${build.dir}/web/classes" includeEmptyDirs="no">
             <fileset dir="web/WEB-INF/classes">   
-                <exclude name="ApplicationResources_zh_CN.properties"/>
+                <exclude name="ApplicationResources_zh*.properties"/>
                 <include name="*.properties"/>
                 <include name="*.xml"/>
                 <include name="*.vm"/>   
@@ -103,7 +103,7 @@
             <filterset refid="variables.to.replace"/>
         </copy>            
         <native2ascii src="web/WEB-INF/classes" dest="${build.dir}/web/classes" 
-            includes="ApplicationResources_zh_CN.properties" encoding="UTF-8"/>
+            includes="ApplicationResources_zh*.properties" encoding="UTF-8"/>
         <generate-database-properties/>
         <copy todir="${build.dir}/web/classes" file="database.properties"/>
     </target>
