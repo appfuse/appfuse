@@ -1,0 +1,6 @@
+<web-app xmlns="http://geronimo.apache.org/xml/ns/j2ee/web-1.0" configId="appfuse">
+    <hidden-classes><filter>org.springframework</filter></hidden-classes>
+    <hidden-classes><filter>antlr</filter></hidden-classes>
+    <context-root>/appfuse</context-root>
+    <context-priority-classloader>false</context-priority-classloader>
+</web-app>
