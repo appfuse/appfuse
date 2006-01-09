@@ -1,6 +1,7 @@
 package org.appfuse.webapp.action;
 
 import org.appfuse.Constants;
+import org.appfuse.service.UserManager;
 
 import com.dumbster.smtp.SimpleSmtpServer;
 
@@ -38,5 +39,8 @@ public class SignupActionTest extends BaseStrutsTestCase {
 
         // verify that success messages are in the request
         assertTrue(getSession().getAttribute(Constants.REGISTERED) != null);
+        
+        UserManager userMgr = (UserManager) ctx.getBean("userManager");
+        userMgr.removeUser("self-registered");
     }
 }

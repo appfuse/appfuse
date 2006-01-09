@@ -31,7 +31,7 @@ import servletunit.struts.MockStrutsTestCase;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.13 $ $Date: 2005/08/28 21:13:23 $
+ * @version $Revision: 1.14 $ $Date: 2006/01/09 14:56:54 $
  */
 public abstract class BaseStrutsTestCase extends MockStrutsTestCase {
     //~ Instance fields ========================================================
@@ -66,6 +66,7 @@ public abstract class BaseStrutsTestCase extends MockStrutsTestCase {
         MockServletContext sc = new MockServletContext("");
         sc.addInitParameter(ContextLoader.CONFIG_LOCATION_PARAM,
                 "classpath*:/" + pkg + "/dao/applicationContext-*.xml," + 
+                "classpath*:/" + pkg + "/service/applicationContext-service.xml," + 
                 "classpath*:META-INF/applicationContext-*.xml");
         
         ServletContextListener contextListener = new ContextLoaderListener();
