@@ -161,7 +161,7 @@ public final class ConvertUtil {
      * Also checks for and formats dates.
      *
      * @param o
-     * @return
+     * @return Object with converted lists
      * @throws Exception
      */
     public static Object convertLists(Object o) throws Exception {

@@ -27,7 +27,7 @@ import org.displaytag.tags.el.ExpressionEvaluator;
  * </p>
  *
  * @author Jens Fischer, Matt Raible
- * @version $Revision: 1.3 $ $Date: 2005/04/12 15:51:33 $
+ * @version $Revision: 1.4 $ $Date: 2006/01/10 06:52:46 $
  *
  * @jsp.tag name="country" bodycontent="empty"
  */
@@ -78,7 +78,7 @@ public class CountryTag extends TagSupport {
     /**
      * Process the start of this tag.
      *
-     * @return
+     * @return int status
      *
      * @exception JspException if a JSP exception has occurred
      *

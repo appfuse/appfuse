@@ -40,7 +40,7 @@ public abstract class BaseDAOTestCase extends AbstractTransactionalDataSourceSpr
      * Utility method to populate a javabean-style object with values
      * from a Properties file
      * @param obj
-     * @return
+     * @return Object populated object
      * @throws Exception
      */
     protected Object populate(Object obj) throws Exception {

@@ -87,10 +87,10 @@ public class BaseAction extends DispatchAction {
     }
 
     /**
-     * Convenience method to bind objects in Actions
+     * Convenience method to get Spring-initialized beans
      *
      * @param name
-     * @return
+     * @return Object bean from ApplicationContext
      */
     public Object getBean(String name) {
         ApplicationContext ctx = 

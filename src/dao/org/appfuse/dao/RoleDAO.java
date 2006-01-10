@@ -31,7 +31,6 @@ public interface RoleDAO extends DAO {
     /**
      * Saves a role's information
      * @param role the object to be saved
-     * @return Role the updated role object
      */
     public void saveRole(Role role);
 
