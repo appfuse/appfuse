@@ -20,6 +20,9 @@
 <input type="hidden" name="encryptPass" value="true" />
 </c:if>
 
+<%-- Must be set outside of panelGrid, or gets output as a cell --%>
+<c:set var="addText"><h:outputText value="#{text['button.add']}"/></c:set>
+
 <h:panelGrid columns="3" styleClass="detail" columnClasses="label">
 
     <h:outputLabel for="username" value="#{text['user.username']}"/>
@@ -138,7 +141,7 @@
     <t:message for="passwordHint" styleClass="fieldError"/>
 
 <c:choose>
-    <c:when test="${param.from == 'list' or param['editUser:add'] == 'Add'}">
+    <c:when test="${param.from == 'list' or param['editUser:add'] == addText}">
 
         <f:verbatim><label for="userForm:enabled"><fmt:message key="user.enabled"/>?</label></f:verbatim>        
         <h:selectBooleanCheckbox value="#{userForm.user.enabled}" id="enabled" style="margin-left: 7px"/>
