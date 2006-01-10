@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: web-tests.xml,v 1.32 2005/09/15 04:22:24 mraible Exp $               -->
+<!-- $Id: web-tests.xml,v 1.33 2006/01/10 19:27:59 mraible Exp $               -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY config SYSTEM "file:./config.xml">
@@ -7,7 +7,7 @@
 ]>
 <project basedir="." default="run-all-tests"> 
     <!-- Use i18n bundle, 2nd one listed is the default -->
-    <property file="web/WEB-INF/classes/ApplicationResources_${user.language}.properties"/>
+    <property file="${build.dir}/web/classes/ApplicationResources_${user.language}.properties"/>
     <property file="web/WEB-INF/classes/ApplicationResources.properties"/>
 
     <!-- runs all targets -->
