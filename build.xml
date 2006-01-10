@@ -560,7 +560,11 @@
     <target name="test-jsp" if="tomcat.home" depends="war,check-debug"
         description="Runs Canoo WebTests using Cargo">
          
-        <taskdef resource="cargo.tasks" classpath="${cargo.jar}"/>   
+        <taskdef resource="cargo.tasks">
+            <classpath>
+                <fileset dir="${cargo.dir}" includes="*.jar"/>
+            </classpath>
+        </taskdef> 
 
         <echo>running canoo tests at:
               http://${tomcat.server}:${http.port}/${webapp.name}</echo>
@@ -568,38 +572,27 @@
         <if>
             <isset property="tomcat5"/>
             <then>
-                <echo message="Starting Tomcat 5x..."/>
-                <cargo-tomcat5x homeDir="${tomcat.home}" id="cargo.tomcat5"
-                    output="${test.dir}/cargo.log" action="start">
-                    <configuration dir="${test.dir}/tomcat5x">
-                        <property name="cargo.logging" value="high"/>
-                        <property name="cargo.servlet.port" value="${http.port}"/>
-                        <!--<property name="cargo.jvmargs" value="${run.appfuse.test.debugargline}"/>-->
-                        <war warFile="${webapp.dist}/${webapp.war}"/>
-                    </configuration>   
-                </cargo-tomcat5x>
-        
-                <antcall target="test-canoo"/>
-        
-                <cargo-tomcat5x refid="cargo.tomcat5" action="stop"/>
+                <property name="cargoId" value="tomcat5x"/>
             </then>
             <else>
-                <echo message="Starting Tomcat 4x..."/>
-                <cargo-tomcat4x homeDir="${tomcat.home}" id="cargo.tomcat4"
-                    output="${test.dir}/cargo.log" action="start">
-                    <configuration dir="${test.dir}/tomcat4x">
-                        <property name="cargo.logging" value="high"/>
-                        <property name="cargo.servlet.port" value="${http.port}"/>
-                        <!--<property name="cargo.jvmargs" value="${run.appfuse.test.debugargline}"/>-->
-                        <war warFile="${webapp.dist}/${webapp.war}"/>
-                    </configuration>   
-                </cargo-tomcat4x>
-        
-                <antcall target="test-canoo"/>
-        
-                <cargo-tomcat4x refid="cargo.tomcat4" action="stop"/>
+                <property name="cargoId" value="tomcat4x"/>
             </else>
         </if>
+        
+        <echo message="Starting ${cargoId}..."/>
+        <cargo containerId="${cargoId}" id="${cargoId}" home="${tomcat.home}" 
+            output="${test.dir}/output.log" log="${test.dir}/cargo.log" action="start">
+            <configuration dir="${test.dir}/${cargoId}">
+                <property name="cargo.logging" value="high"/>
+                <property name="cargo.servlet.port" value="${http.port}"/>
+                <!--<property name="cargo.jvmargs" value="${run.appfuse.test.debugargline}"/>-->
+                <deployable type="war" file="${webapp.dist}/${webapp.war}"/>
+            </configuration>   
+        </cargo>
+
+        <antcall target="test-canoo"/>
+
+        <cargo refid="${cargoId}" action="stop"/>
     </target>
 
     <!-- =================================================================== -->
@@ -995,7 +988,7 @@
     <target name="check-debug" depends="with-debug,no-debug" />
 
     <target name="with-debug" if="appfuse-debug">
-       	<property name="run.appfuse.test.debugargline" value="-Xdebug -Xnoagent -Xrunjdwp:transport=dt_shmem,address=appfuse-debug,server=y,suspend=y"/>
+           <property name="run.appfuse.test.debugargline" value="-Xdebug -Xnoagent -Xrunjdwp:transport=dt_shmem,address=appfuse-debug,server=y,suspend=y"/>
         <echo>Running in debug mode with shared memory address 'appfuse-debug'</echo>
     </target>
 
@@ -1101,20 +1094,20 @@
             <zipfileset prefix="${webapp.name}" dir="${basedir}">
                 <patternset id="srcfiles">
                     <include name="**"/>
-                	<exclude name=".settings/**"/>
-                	<exclude name="${build.dir}"/>
+                    <exclude name=".settings/**"/>
+                    <exclude name="${build.dir}"/>
                     <exclude name="${dist.dir}"/>
                     <exclude name="extras/myjavapack/**"/>
                     <exclude name="**/*~"/>
                     <exclude name="**/*.bak"/>
                     <exclude name=".#**"/>
-                	<exclude name="web/demos/**"/>
+                    <exclude name="web/demos/**"/>
                     <exclude name="www/**"/>
                     <exclude name="*.sh"/>
                     <exclude name="*.sql"/>
-                	<exclude name="*.iws"/>
+                    <exclude name="*.iws"/>
                     <exclude name="*.log"/>
-                	<exclude name="velocity.*"/>
+                    <exclude name="velocity.*"/>
                     <exclude name="junit*.properties"/>
                 </patternset>
             </zipfileset>
