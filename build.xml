@@ -759,7 +759,7 @@
         description="Generate JavaDoc API docs">
         <javadoc
             destdir="${build.dir}/docs/api"
-            packagenames="org.*"
+            packagenames="org.appfuse.*"
             author="true"
             version="true"
             windowtitle="${webapp.name} api"
@@ -803,7 +803,7 @@
             
             <!-- Application frameworks -->
             <link href="http://jakarta.apache.org/commons/lang/api"/>
-            <link href="http://jakarta.apache.org/struts/api"/>
+            <link href="http://struts.apache.org/struts-doc-1.2.8/api"/>
             <link href="http://www.springframework.org/docs/api"/>
             <link href="http://www.hibernate.org/hib_docs/api"/>
             
@@ -1228,8 +1228,8 @@
         <!-- Prompt user for input -->
         <input message="What would you like to name your application [myapp]?" addproperty="app.name"
             defaultvalue="myapp"/>
-        <input message="And your database [mydb]?" addproperty="db.name" defaultvalue="mydb"/>
-        <input message="What about a package name [org.appfuse]?" addproperty="new.pkg.name"
+        <input message="What would you like to name your database [mydb]?" addproperty="db.name" defaultvalue="mydb"/>
+        <input message="What package name would you like to use [org.appfuse]?" addproperty="new.pkg.name"
             defaultvalue="org.appfuse"/>
 
         <echo level="info">Creating new application named '${app.name}'...</echo>
@@ -1332,9 +1332,6 @@
         <attribute name="newPkgName"/>
 
         <sequential>
-            <input message="Please enter the first part of your new package name (i.e. com, org, net) [org]"
-                addproperty="new.base.pkg.name" defaultvalue="org"/>
-
             <typedef resource="org/appfuse/ant/appfuse-contrib.xml"
                 classpath="${rename-packages.jar}" uri="appfuse:/org.appfuse.ant"/>
 
@@ -1353,13 +1350,6 @@
                 <fileset includes="**/*.application" />
                 <fileset includes=".springBeansProject" />
             </appfuse:renamepackages>
-
-            <replaceregexp flags="g" match='packagenames="org.*"'
-                replace='packagenames="${new.base.pkg.name}.*"'>
-                <fileset dir="@{src.base.dir}">
-                    <include name="build.xml"/>
-                </fileset>
-            </replaceregexp>
 
             <replaceregexp flags="g" match="org.appfuse" replace="@{newPkgName}">
                 <fileset dir="@{src.base.dir}">
