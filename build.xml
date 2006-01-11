@@ -21,7 +21,7 @@
         <!-- Test for Tomcat 5.0.x -->
         <available classname="org.apache.catalina.ant.SessionsTask" property="tomcat5">
             <classpath>
-                <pathelement path="${tomcat.home}/server/lib/catalina-ant.jar"/>
+                <fileset dir="${tomcat.home}/server/lib" includes="catalina-ant*.jar"/>
             </classpath>
         </available>
         
@@ -1019,7 +1019,7 @@
     <!-- ============================================================== -->
     <taskdef file="${ant-contrib.dir}/tomcatTasks.properties">
         <classpath>
-            <pathelement path="${tomcat.home}/server/lib/catalina-ant.jar"/>
+            <fileset dir="${tomcat.home}/server/lib" includes="catalina-ant*.jar"/>
         </classpath>
     </taskdef>
     <target name="install" description="Install application in Tomcat"
