@@ -89,7 +89,7 @@ public final class SignupAction extends BaseAction {
                 user.setPassword(StringUtil.encodePassword(user.getPassword(), algorithm));
             }
             
-            user.setEnabled(Boolean.TRUE);
+            user.setEnabled(true);
             UserManager mgr = (UserManager) getBean("userManager");
             mgr.saveUser(user);
         } catch (UserExistsException e) {

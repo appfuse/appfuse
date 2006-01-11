@@ -18,7 +18,7 @@
     </bean>
 
     <!-- ======================== AUTHENTICATION ======================= -->
-    
+
     <!-- Note the order that entries are placed against the objectDefinitionSource is critical.
          The FilterSecurityInterceptor will work from the top of the list down to the FIRST pattern that matches the request URL.
          Accordingly, you should place MOST SPECIFIC (ie a/b/c/d.*) expressions first, with LEAST SPECIFIC (ie a/.*) expressions last -->
@@ -50,7 +50,7 @@
     <bean id="loggerListener" class="org.acegisecurity.event.authentication.LoggerListener"/>
     
     <bean id="daoAuthenticationProvider" class="org.acegisecurity.providers.dao.DaoAuthenticationProvider">
-         <property name="userDetailsService" ref="jdbcAuthenticationDao"/>
+         <property name="userDetailsService" ref="userDAO"/>
          <property name="userCache" ref="userCache"/>
          <property name="passwordEncoder" ref="passwordEncoder"/>
     </bean>
@@ -58,17 +58,6 @@
     <!-- This bean definition must be available to ApplicationContext.getBean() so StartupListener
          can look for it and detect if password encryption is turned on or not -->
     <bean id="passwordEncoder" class="org.acegisecurity.providers.encoding.ShaPasswordEncoder"/>
-
-    <!-- Read users from database -->
-    <bean id="jdbcAuthenticationDao" class="org.acegisecurity.userdetails.jdbc.JdbcDaoImpl">
-        <property name="dataSource" ref="dataSource"/>
-        <property name="usersByUsernameQuery">
-            <value>SELECT username,password,enabled FROM app_user WHERE username = ?</value>
-        </property>
-        <property name="authoritiesByUsernameQuery">
-            <value>SELECT username,role_name FROM user_role WHERE username = ?</value>
-        </property>
-    </bean>
 
     <bean id="userCache" class="org.acegisecurity.providers.dao.cache.EhCacheBasedUserCache">
         <property name="cache">
@@ -80,11 +69,11 @@
             </bean>
         </property>
     </bean>
-   
+
     <bean id="anonymousAuthenticationProvider" class="org.acegisecurity.providers.anonymous.AnonymousAuthenticationProvider">
         <property name="key" value="anonymous"/>
     </bean>
-    
+
     <bean id="roleVoter" class="org.acegisecurity.vote.RoleVoter">
         <property name="rolePrefix" value=""/>
     </bean>
@@ -158,7 +147,7 @@
     </bean>
  
     <bean id="rememberMeServices" class="org.acegisecurity.ui.rememberme.TokenBasedRememberMeServices"> 
-        <property name="userDetailsService" ref="jdbcAuthenticationDao"/>
+        <property name="userDetailsService" ref="userDAO"/>
         <property name="key" value="appfuseRocks"/> 
         <property name="parameter" value="rememberMe"/>
     </bean> 
@@ -172,14 +161,13 @@
         <property name="channelDecisionManager" ref="channelDecisionManager"/>
         <property name="filterInvocationDefinitionSource">
             <value>
-                CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
                 PATTERN_TYPE_APACHE_ANT
                 /admin/**=REQUIRES_SECURE_CHANNEL
                 /login*=REQUIRES_SECURE_CHANNEL
-                /j_security_check*=REQUIRES_SECURE_CHANNEL     
-                /editprofile.html*=REQUIRES_SECURE_CHANNEL
+                /j_security_check*=REQUIRES_SECURE_CHANNEL
+                /editProfile.html*=REQUIRES_SECURE_CHANNEL
                 /signup.html*=REQUIRES_SECURE_CHANNEL
-                /saveuser.html*=REQUIRES_SECURE_CHANNEL
+                /saveUser.html*=REQUIRES_SECURE_CHANNEL
                 /**=REQUIRES_INSECURE_CHANNEL
             </value>
         </property>

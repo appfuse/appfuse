@@ -8,7 +8,7 @@
         onclick="location.href='<c:url value="/editUser.html"/>?method=Add&from=list'">
         <fmt:message key="button.add"/>
     </button>
-    
+
     <button type="button" onclick="location.href='<c:url value="/mainMenu.html" />'">
         <fmt:message key="button.cancel"/>
     </button>
@@ -16,26 +16,18 @@
 
 <c:out value="${buttons}" escapeXml="false" />
 
-<display:table name="${userList}" cellspacing="0" cellpadding="0"
-    requestURI="" defaultsort="1" id="users"
-    pagesize="25" styleClass="list userList" export="true">
-  
-    <%-- Table columns --%>
-    <display:column property="username" sort="true" 
-    	headerClass="sortable" width="17%"
-        url="/editUser.html?from=list" 
-        paramId="username" paramProperty="username"
-        titleKey="user.username"/>
-    <display:column property="firstName" sort="true" 
-    	headerClass="sortable" width="20%"
-        titleKey="user.firstName" />
-    <display:column property="lastName" sort="true" 
-    	headerClass="sortable" width="13%"
-        titleKey="user.lastName"/>
-    <display:column property="email" sort="true" headerClass="sortable" 
-    	width="26%" autolink="true"
-        titleKey="user.email" />
-        
+<display:table name="userList" cellspacing="0" cellpadding="0"
+    requestURI="" defaultsort="1" id="users" pagesize="25" 
+    styleClass="list userList" export="true">
+
+    <display:column property="username" sort="true" titleKey="user.username" width="17%"
+        url="/editUser.html?from=list" paramId="username" paramProperty="username"/>
+
+    <display:column property="firstName" sort="true" titleKey="user.firstName" width="20%"/>
+    <display:column property="lastName" sort="true" titleKey="user.lastName" width="23%"/>
+    <display:column property="email" sort="true" titleKey="user.email" width="40%" autolink="true"/>
+    <display:column property="enabled" sort="true" titleKey="user.enabled" width="10%"/>
+
     <display:setProperty name="paging.banner.item_name" value="user"/>
     <display:setProperty name="paging.banner.items_name" value="users"/>
 
@@ -45,9 +37,7 @@
 </display:table>
 
 <c:out value="${buttons}" escapeXml="false" />
-            
+
 <script type="text/javascript">
-<!--
 highlightTableRows("users");
-//-->
 </script>

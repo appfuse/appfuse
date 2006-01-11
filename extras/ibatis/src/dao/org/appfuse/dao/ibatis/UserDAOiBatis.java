@@ -6,6 +6,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.acegisecurity.userdetails.UserDetails;
+import org.acegisecurity.userdetails.UserDetailsService;
+import org.acegisecurity.userdetails.UsernameNotFoundException;
 import org.appfuse.dao.UserDAO;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
@@ -20,7 +23,7 @@ import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
-public class UserDAOiBatis extends SqlMapClientDaoSupport implements UserDAO {
+public class UserDAOiBatis extends SqlMapClientDaoSupport implements UserDAO, UserDetailsService {
     /**
      * Get user by username.
      *
@@ -108,4 +111,15 @@ public class UserDAOiBatis extends SqlMapClientDaoSupport implements UserDAO {
         deleteUserRoles(user);
         getSqlMapClientTemplate().update("deleteUser", user);
     }
+    
+    /** 
+     * @see org.acegisecurity.userdetails.UserDetailsService#loadUserByUsername(java.lang.String)
+     */
+     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+         try {
+             return getUser(username);
+         } catch (ObjectRetrievalFailureException e) {
+             throw new UsernameNotFoundException("user '" + username + "' not found...");
+         }
+     }
 }

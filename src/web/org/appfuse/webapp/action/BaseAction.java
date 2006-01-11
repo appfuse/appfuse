@@ -23,7 +23,6 @@ import org.apache.struts.action.ActionMessages;
 import org.apache.struts.actions.DispatchAction;
 
 import org.appfuse.Constants;
-import org.appfuse.model.User;
 import org.appfuse.util.ConvertUtil;
 import org.appfuse.util.CurrencyConverter;
 import org.appfuse.util.DateConverter;
@@ -244,16 +243,6 @@ public class BaseAction extends DispatchAction {
         }
 
         return actionForm;
-    }
-
-    /**
-     * Convenience method to get the userForm from the session
-     *
-     * @param session the current user's session
-     * @return the user's populated form from the session
-     */
-    protected User getUser(HttpSession session) {
-        return (User) session.getAttribute(Constants.USER_KEY);
     }
 
     /**

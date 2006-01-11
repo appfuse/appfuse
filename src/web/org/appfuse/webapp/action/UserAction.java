@@ -126,7 +126,6 @@ public final class UserAction extends BaseAction {
         }
 
         UserForm userForm = (UserForm) form;
-        HttpSession session = request.getSession();
 
         // if URL is "editProfile" - make sure it's the current user
         if (request.getRequestURI().indexOf("editProfile") > -1) {
@@ -136,8 +135,7 @@ public final class UserAction extends BaseAction {
             if ((request.getParameter("username") != null) ||
                     (request.getParameter("from") != null)) {
                 response.sendError(HttpServletResponse.SC_FORBIDDEN);
-                log.warn("User '" + request.getRemoteUser() +
-                         "' is trying to edit user '" +
+                log.warn("User '" + request.getRemoteUser() + "' is trying to edit user '" +
                          request.getParameter("username") + "'");
 
                 return null;
@@ -154,7 +152,7 @@ public final class UserAction extends BaseAction {
             user = mgr.getUser(userForm.getUsername());
         } else {
             // look it up based on the current user's id
-            user = mgr.getUser(getUser(session).getUsername());
+            user = mgr.getUser(request.getRemoteUser());
         }
 
         BeanUtils.copyProperties(userForm, convert(user));

@@ -94,12 +94,9 @@ this same data set, but this time you get column sorting.
 </p>
 
 <display:table name="${users.rows}" id="user" class="list">
-    <display:column property="username" sort="true"
-        titleKey="userForm.username" headerClass="sortable"/>
-    <display:column property="firstName" sort="true" 
-        titleKey="userForm.firstName" headerClass="sortable"/>
-    <display:column property="lastName" sort="true" 
-        titleKey="userForm.lastName" headerClass="sortable"/>
+    <display:column property="username" sort="true" titleKey="userForm.username"/>
+    <display:column property="firstName" sort="true" titleKey="userForm.firstName"/>
+    <display:column property="lastName" sort="true" titleKey="userForm.lastName"/>
 </display:table>
 
 <p style="margin-left: 10px">
@@ -109,12 +106,9 @@ this same data set, but this time you get column sorting.
 
 <div id="displaySource" style="display: none; margin-left: 10px; margin-top: 0">
 <pre>&lt;display:table name="${users.rows}" id="user" class="list"&gt;
-    &lt;display:column property="username" sort="true"
-        titleKey="userForm.username" headerClass="sortable"/&gt;
-    &lt;display:column property="firstName" sort="true" 
-        titleKey="userForm.firstName" headerClass="sortable"/&gt;
-    &lt;display:column property="lastName" sort="true" 
-        titleKey="userForm.lastName" headerClass="sortable"/&gt;
+    &lt;display:column property="username" sort="true" titleKey="userForm.username"/&gt;
+    &lt;display:column property="firstName" sort="true" titleKey="userForm.firstName"/&gt;
+    &lt;display:column property="lastName" sort="true" titleKey="userForm.lastName"/&gt;
 &lt;/display:table&gt;
 </pre>
 </div>

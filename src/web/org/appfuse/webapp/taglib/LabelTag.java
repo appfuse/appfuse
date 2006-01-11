@@ -26,17 +26,16 @@ import org.apache.struts.validator.ValidatorPlugIn;
 /**
  * <p>This class is designed to render a <label> tag for labeling your forms and
  * adds an asterik (*) for required fields.  It was originally written by Erik
- * Hatcher (http://www.ehatchersolutions.com/JavaDevWithAnt/).</p>
+ * Hatcher (http://www.ehatchersolutions.com/JavaDevWithAnt/).
  *
  * <p>It is designed to be used as follows:
- * <pre>&lt;tag:label key="userForm.username" /&gt;</pre>
- * </p>
+ * <pre>&lt;tag:label key="user.username" /&gt;</pre>
  *
  * @jsp.tag name="label" bodycontent="empty"
  */
 public class LabelTag extends TagSupport {
-	private static final long serialVersionUID = 3256442512435721011L;
-	protected final transient Log log = LogFactory.getLog(LabelTag.class);
+    private static final long serialVersionUID = 3256442512435721011L;
+    protected final transient Log log = LogFactory.getLog(LabelTag.class);
     protected String key = null;
     protected String styleClass = null;
     protected String errorClass = null;
@@ -65,7 +64,7 @@ public class LabelTag extends TagSupport {
                                                PageContext.REQUEST_SCOPE);
 
         String formName = formTag.getBeanName();
-        String fieldName = key.substring(formName.length() + 1);
+        String fieldName = key.substring(key.indexOf('.') + 1);
 
         if (resources != null) {
             Form form = resources.getForm(locale, formName);

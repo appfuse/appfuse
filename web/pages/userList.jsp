@@ -19,26 +19,17 @@
 
 <c:out value="${buttons}" escapeXml="false" />
 
-<display:table name="${userList}" cellspacing="0" cellpadding="0"
-    requestURI="" defaultsort="1" export="true" id="users"
-    pagesize="25" styleClass="list userList">
-  
-    <%-- Table columns --%>
-    <display:column property="username" sort="true" 
-    	headerClass="sortable" width="17%"
-        url="${editURL.path}?from=list" 
-        paramId="username" paramProperty="username"
-        titleKey="userForm.username"/>
-    <display:column property="firstName" sort="true" 
-    	headerClass="sortable" width="20%"
-        titleKey="userForm.firstName" />
-    <display:column property="lastName" sort="true" 
-    	headerClass="sortable" width="13%"
-        titleKey="userForm.lastName"/>
-    <display:column property="email" sort="true" headerClass="sortable" 
-    	width="26%" autolink="true"
-        titleKey="userForm.email" />
-        
+<display:table name="userList" cellspacing="0" cellpadding="0"
+    requestURI="" defaultsort="1" id="users" pagesize="25" 
+    styleClass="list userList" export="true">
+
+    <display:column property="username" sort="true" titleKey="userForm.username" width="17%"
+        url="${editURL.path}?from=list" paramId="username" paramProperty="username"/>
+    <display:column property="firstName" sort="true" titleKey="userForm.firstName" width="20%"/>
+    <display:column property="lastName" sort="true" titleKey="userForm.lastName" width="23%"/>
+    <display:column property="email" sort="true" titleKey="userForm.email" width="40%" autolink="true"/>
+    <display:column property="enabled" sort="true" titleKey="userForm.enabled" width="10%"/>
+
     <display:setProperty name="paging.banner.item_name" value="user"/>
     <display:setProperty name="paging.banner.items_name" value="users"/>
 
@@ -48,9 +39,7 @@
 </display:table>
 
 <c:out value="${buttons}" escapeXml="false" />
-            
+
 <script type="text/javascript">
-<!--
 highlightTableRows("users");
-//-->
 </script>

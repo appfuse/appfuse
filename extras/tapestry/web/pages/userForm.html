@@ -165,11 +165,38 @@
     </tr>
     <div jwcid="@contrib:FormConditional" condition="ognl:from == 'list'">
     <tr>
-        <th>
-            <label jwcid="@Label" for="enabled" key="user.enabled"/>
-        </th>
+        <td></td>
         <td>
-            <input type="checkbox" jwcid="@Checkbox" selected="ognl:user.enabled" id="enabled"/>
+            <fieldset class="pickList">
+                <legend>
+                    <span key="userProfile.accountSettings"/>
+                </legend>
+                <table class="pickList">
+                    <tr>
+                        <td>
+                            <label>
+                                <input type="checkbox" jwcid="@Checkbox" selected="ognl:user.enabled" id="enabled"/>
+                                <span key="user.enabled"/>
+                            </label>
+                            
+                            <label>
+                                <input type="checkbox" jwcid="@Checkbox" selected="ognl:user.accountExpired" id="accountExpired"/>
+                                <span key="user.accountExpired"/>
+                            </label>
+                            
+                            <label>
+                                <input type="checkbox" jwcid="@Checkbox" selected="ognl:user.accountLocked" id="accountLocked"/>
+                                <span key="user.accountLocked"/>
+                            </label>
+                            
+                            <label>
+                                <input type="checkbox" jwcid="@Checkbox" selected="ognl:user.credentialsExpired" id="credentialsExpired"/>
+                                <span key="user.credentialsExpired"/>
+                            </label>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
         </td>
     </tr>
     <tr>
@@ -198,6 +225,9 @@
         <td>
             <input jwcid="hiddenUserRoles" type="hidden"/>
             <input jwcid="@Hidden" type="hidden" value="ognl:user.enabled"/>
+            <input jwcid="@Hidden" type="hidden" value="ognl:user.accountExpired"/>
+            <input jwcid="@Hidden" type="hidden" value="ognl:user.accountLocked"/>
+            <input jwcid="@Hidden" type="hidden" value="ognl:user.credentialsExpired"/>
         </td>
     </tr>
     </div>

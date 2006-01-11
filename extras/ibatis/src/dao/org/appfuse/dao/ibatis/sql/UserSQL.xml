@@ -6,7 +6,7 @@
 
     <typeAlias alias="user" type="org.appfuse.model.User"/>
     <typeAlias alias="userCookie" type="org.appfuse.model.UserCookie"/>
-    
+
     <resultMap id="userResult" class="user">
         <result property="username" column="username"/>
         <result property="password" column="password"/>
@@ -22,31 +22,36 @@
         <result property="website" column="website"/>
         <result property="passwordHint" column="password_hint"/>
         <result property="version" column="version"/>
-        <result property="enabled" column="enabled"/>
+        <result property="enabled" column="account_enabled"/>
+        <result property="accountExpired" column="account_expired"/>
+        <result property="accountLocked" column="account_locked"/>
+        <result property="credentialsExpired" column="credentials_expired"/>
         <!--result property="roles" column="username" select="getUserRoles"/-->
     </resultMap>
-    
-	<insert id="addUser" parameterClass="user">
+
+    <insert id="addUser" parameterClass="user">
     <![CDATA[
-        insert into 
-        app_user (username, password, first_name, last_name, address, 
-                  city, province, country, postal_code, email, phone_number, 
-                  website, password_hint, version, enabled)
-        values (#username#, #password#, #firstName#, #lastName#, 
+        insert into
+        app_user (username, password, first_name, last_name, address,
+                  city, province, country, postal_code, email, phone_number,
+                  website, password_hint, version, account_enabled, account_expired,
+                  account_locked, credentials_expired)
+        values (#username#, #password#, #firstName#, #lastName#,
                 #address.address#, #address.city#, #address.province#,
                 #address.country#, #address.postalCode#, #email#, #phoneNumber#,
-                #website#, #passwordHint#, #version#, #enabled#);
+                #website#, #passwordHint#, #version#, #enabled#, #accountExpired#,
+                #accountLocked#, #credentialsExpired#);
     ]]>
     </insert>
-    
-	<insert id="addUserRole" parameterClass="map">
+
+    <insert id="addUserRole" parameterClass="map">
     <![CDATA[
         insert into user_role (username, role_name)
         values (#username#, #roleName#);
     ]]>
     </insert>
-    
-	<update id="updateUser" parameterClass="user">
+
+    <update id="updateUser" parameterClass="user">
     <![CDATA[
         update app_user SET
             password = #password#,
@@ -62,37 +67,40 @@
             website = #website#,
             password_hint = #passwordHint#,
             version = #version#,
-            enabled = #enabled#
+            account_enabled = #enabled#,
+            account_expired = #accountExpired#,
+            account_locked = #accountLocked#,
+            credentials_expired = #credentialsExpired#
         where username = #username#;
     ]]>
     </update>
-    
-	<select id="getUser" resultMap="userResult">
+
+    <select id="getUser" resultMap="userResult">
     <![CDATA[
         select * from app_user where username=#username#;
     ]]>
     </select>
-    
-	<select id="getUsers" resultMap="userResult">
+
+    <select id="getUsers" resultMap="userResult">
     <![CDATA[
         select * from app_user ORDER BY UPPER(username);
     ]]>
     </select>
-    
-	<select id="getUserRoles" resultClass="role">
+
+    <select id="getUserRoles" resultClass="role">
     <![CDATA[
         select user_role.role_name as name, role.description, role.version
         from user_role left join role on role.name = user_role.role_name
         where user_role.username=#username#;
     ]]>
     </select>
-    
-	<delete id="deleteUser" parameterClass="user">
+
+    <delete id="deleteUser" parameterClass="user">
     <![CDATA[
         delete from app_user where username = #username#;
     ]]>
     </delete>
-    
+
     <delete id="deleteUserRoles" parameterClass="user">
     <![CDATA[
         delete from user_role where username = #username#;

@@ -29,15 +29,9 @@ public class Constants {
     public static final String USER_HOME = System.getProperty("user.home") + FILE_SEP;
 
     /**
-     * The session scope attribute under which the User object for the
-     * currently logged in user is stored.
-     */
-    public static final String USER_KEY = "currentUserForm";
-
-    /**
      * The request scope attribute under which an editable user form is stored
      */
-    public static final String USER_EDIT_KEY = "userForm";
+    public static final String USER_KEY = "userForm";
 
     /**
      * The request scope attribute that holds the user list

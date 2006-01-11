@@ -60,5 +60,5 @@
 </ww:form>
 
 <script type="text/javascript">
-    document.getElementById("user.username").focus();
+    Form.focusFirstElement(document.forms["signupForm"]);
 </script>

@@ -56,13 +56,13 @@ public class CheckBoxMultiplePropertySelectionRenderer
 
         writer.println();
 
-        writer.printRaw("&nbsp;");
+        //writer.printRaw("&nbsp;");
         writer.begin("label");
         writer.attribute("for", id);
         writer.print(model.getLabel(index));
         writer.end(); // <label>
 
-        writer.printRaw("&nbsp;");
+        //writer.printRaw("&nbsp;");
 
         writer.println();
     }

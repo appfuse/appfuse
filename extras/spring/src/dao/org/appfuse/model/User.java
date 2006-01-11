@@ -8,80 +8,69 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.acegisecurity.GrantedAuthority;
+import org.acegisecurity.userdetails.UserDetails;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
- * User class
- *
  * This class is used to generate Spring Validation rules
  * as well as the Hibernate mapping file.
  *
- * <p><a href="User.java.html"><i>View Source</i></a></p>
+ * <p><a href="User.java.html"><i>View Source</i></a>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  *         Updated by Dan Kibler (dan@getrolling.com)
+ *  Extended to implement Acegi UserDetails interface
+ *      by David Carter david@carter.net
  *
  * @hibernate.class table="app_user"
  */
-public class User extends BaseObject implements Serializable {
+public class User extends BaseObject implements Serializable, UserDetails {
     private static final long serialVersionUID = 3832626162173359411L;
 
-    protected String username;
-    protected String password;
+    protected String username;                    // assigned primary key
+    protected String password;                    // required
     protected String confirmPassword;
-    protected String firstName;
-    protected String lastName;
+    protected String firstName;                    // required
+    protected String lastName;                    // required
     protected Address address = new Address();
     protected String phoneNumber;
-    protected String email;
+    protected String email;                        // required; unique
     protected String website;
     protected String passwordHint;
     protected Integer version;
     protected Set roles = new HashSet();
-    protected Boolean enabled;
+    protected boolean enabled;
+    protected boolean accountExpired;
+    protected boolean accountLocked;
+    protected boolean credentialsExpired;
 
-    public User() {
-    }
+    public User() {}
 
     public User(String username) {
         this.username = username;
     }
 
     /**
-     * Returns the username.
-     *
-     * @return String
-     *
-     * @hibernate.id column="username" length="20" generator-class="assigned"
-     *               unsaved-value="version"
+     * @hibernate.id length="20" generator-class="assigned" unsaved-value="version"
      */
     public String getUsername() {
         return username;
     }
 
     /**
-     * Returns the password.
-     * @return String
-     *
      * @hibernate.property column="password" not-null="true"
      */
     public String getPassword() {
         return password;
     }
 
-    /**
-     * Returns the confirmedPassword.
-     * @return String
-     */
     public String getConfirmPassword() {
         return confirmPassword;
     }
 
     /**
-     * Returns the firstName.
-     * @return String
-     *
      * @hibernate.property column="first_name" not-null="true" length="50"
      */
     public String getFirstName() {
@@ -89,24 +78,20 @@ public class User extends BaseObject implements Serializable {
     }
 
     /**
-     * Returns the lastName.
-     * @return String
-     *
      * @hibernate.property column="last_name" not-null="true" length="50"
      */
     public String getLastName() {
         return lastName;
     }
 
+    /**
+     * Returns the full name.
+     */
     public String getFullName() {
         return firstName + ' ' + lastName;
     }
 
     /**
-     * Returns the address.
-     *
-     * @return Address
-     *
      * @hibernate.component
      */
     public Address getAddress() {
@@ -114,11 +99,6 @@ public class User extends BaseObject implements Serializable {
     }
 
     /**
-     * Returns the email.  This is an optional field for specifying a
-     * different e-mail than the username.
-     * 
-     * @return String
-     *
      * @hibernate.property name="email" not-null="true" unique="true"
      */
     public String getEmail() {
@@ -126,9 +106,6 @@ public class User extends BaseObject implements Serializable {
     }
 
     /**
-     * Returns the phoneNumber.
-     * @return String
-     *
      * @hibernate.property column="phone_number" not-null="false"
      */
     public String getPhoneNumber() {
@@ -136,9 +113,6 @@ public class User extends BaseObject implements Serializable {
     }
 
     /**
-     * Returns the website.
-     * @return String
-     *
      * @hibernate.property column="website" not-null="false"
      */
     public String getWebsite() {
@@ -146,9 +120,6 @@ public class User extends BaseObject implements Serializable {
     }
 
     /**
-     * Returns the passwordHint.
-     * @return String
-     *
      * @hibernate.property column="password_hint" not-null="false"
      */
     public String getPasswordHint() {
@@ -156,13 +127,9 @@ public class User extends BaseObject implements Serializable {
     }
 
     /**
-     * Returns the user's roles.
-     * @return Set
-     *
      * @hibernate.set table="user_role" cascade="save-update" lazy="false"
      * @hibernate.collection-key column="username"
-     * @hibernate.collection-many-to-many class="org.appfuse.model.Role"
-     *                                    column="role_name"
+     * @hibernate.collection-many-to-many class="org.appfuse.model.Role" column="role_name"
      */
     public Set getRoles() {
         return roles;
@@ -170,7 +137,6 @@ public class User extends BaseObject implements Serializable {
 
     /**
      * Adds a role for the user
-     *
      * @param role
      */
     public void addRole(Role role) {
@@ -178,8 +144,69 @@ public class User extends BaseObject implements Serializable {
     }
 
     /**
-     * Sets the username.
-     * @param username The username to set
+     * @see org.acegisecurity.userdetails.UserDetails#getAuthorities()
+     */
+    public GrantedAuthority[] getAuthorities() {
+        return (GrantedAuthority[]) roles.toArray(new GrantedAuthority[0]);
+    }
+
+    /**
+     * @hibernate.version
+     */
+    public Integer getVersion() {
+        return version;
+    }
+    
+    /**
+     * @hibernate.property column="account_enabled" type="yes_no"
+     */
+    public boolean isEnabled() {
+        return enabled;
+    }
+    
+    /**
+     * @hibernate.property column="account_expired" not-null="true" type="yes_no"
+     */
+    public boolean isAccountExpired() {
+        return accountExpired;
+    }
+    
+    /**
+     * @see org.acegisecurity.userdetails.UserDetails#isAccountNonExpired()
+     */
+    public boolean isAccountNonExpired() {
+        return !isAccountExpired();
+    }
+
+    /**
+     * @hibernate.property column="account_locked" not-null="true" type="yes_no"
+     */
+    public boolean isAccountLocked() {
+        return accountLocked;
+    }
+    
+    /**
+     * @see org.acegisecurity.userdetails.UserDetails#isAccountNonLocked()
+     */
+    public boolean isAccountNonLocked() {
+        return !isAccountLocked();
+    }
+
+    /**
+     * @hibernate.property column="credentials_expired" not-null="true"  type="yes_no"
+     */
+    public boolean isCredentialsExpired() {
+        return credentialsExpired;
+    }
+    
+    /**
+     * @see org.acegisecurity.userdetails.UserDetails#isCredentialsNonExpired()
+     */
+    public boolean isCredentialsNonExpired() {
+        return !credentialsExpired;
+    }
+
+    /**
      * @spring.validator type="required"
      */
     public void setUsername(String username) {
@@ -187,9 +214,6 @@ public class User extends BaseObject implements Serializable {
     }
 
     /**
-     * Sets the password.
-     * @param password The password to set
-     *
      * @spring.validator type="required"
      * @spring.validator type="twofields" msgkey="errors.twofields"
      * @spring.validator-args arg1resource="user.password"
@@ -201,8 +225,6 @@ public class User extends BaseObject implements Serializable {
     }
 
     /**
-     * Sets the confirmedPassword.
-     * @param confirmPassword The confirmed password to set
      * @spring.validator type="required"
      */
     public void setConfirmPassword(String confirmPassword) {
@@ -210,18 +232,13 @@ public class User extends BaseObject implements Serializable {
     }
 
     /**
-     * Sets the firstName.
      * @spring.validator type="required"
-     * @param firstName The firstName to set
      */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
     /**
-     * Sets the lastName.
-     * @param lastName The lastName to set
-     *
      * @spring.validator type="required"
      */
     public void setLastName(String lastName) {
@@ -229,9 +246,6 @@ public class User extends BaseObject implements Serializable {
     }
 
     /**
-     * Sets the address.
-     * @param address The address to set
-     *
      * @spring.validator
      */
     public void setAddress(Address address) {
@@ -239,9 +253,6 @@ public class User extends BaseObject implements Serializable {
     }
 
     /**
-     * Sets the email.
-     * @param email The email to set
-     *
      * @spring.validator type="required"
      * @spring.validator type="email"
      */
@@ -250,9 +261,6 @@ public class User extends BaseObject implements Serializable {
     }
 
     /**
-     * Sets the phoneNumber.
-     * @param phoneNumber The phoneNumber to set
-     *
      * @spring.validator type="mask" msgkey="errors.phone"
      * @spring.validator-var name="mask" value="${phone}"
      */
@@ -260,58 +268,26 @@ public class User extends BaseObject implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    /**
-     * Sets the website.
-     * @param website The website to set
-     */
     public void setWebsite(String website) {
         this.website = website;
     }
 
     /**
-     * @param passwordHint The password hint to set
-     *
      * @spring.validator type="required"
      */
     public void setPasswordHint(String passwordHint) {
         this.passwordHint = passwordHint;
     }
 
-    /**
-     * Sets the roles.
-     * @param roles The roles to set
-     */
     public void setRoles(Set roles) {
         this.roles = roles;
     }
 
-    /**
-     * @return Returns the updated timestamp.
-     * @hibernate.version
-     */
-    public Integer getVersion() {
-        return version;
-    }
-
-    /**
-     * @param version The updated version to set.
-     */
     public void setVersion(Integer version) {
         this.version = version;
     }
-
-    /**
-     * @return Returns the enabled.
-     * @hibernate.property column="enabled" type="true_false"
-     */
-    public Boolean getEnabled() {
-        return enabled;
-    }
-
-    /**
-     * @param enabled The enabled to set.
-     */
-    public void setEnabled(Boolean enabled) {
+    
+    public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
     
@@ -334,6 +310,18 @@ public class User extends BaseObject implements Serializable {
         return userRoles;
     }
 
+    public void setAccountExpired(boolean accountExpired) {
+        this.accountExpired = accountExpired;
+    }
+    
+    public void setAccountLocked(boolean accountLocked) {
+        this.accountLocked = accountLocked;
+    }
+
+    public void setCredentialsExpired(boolean credentialsExpired) {
+        this.credentialsExpired = credentialsExpired;
+    }
+
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof User)) return false;
@@ -349,21 +337,27 @@ public class User extends BaseObject implements Serializable {
         return (username != null ? username.hashCode() : 0);
     }
 
-    /**
-     * Generated using Commonclipse (http://commonclipse.sf.net)
-     */
     public String toString() {
-        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
-                .append("roles", this.roles)
-                .append("firstName", this.firstName).append("lastName",
-                        this.lastName)
-                .append("passwordHint", this.passwordHint).append("username",
-                        this.username).append("fullName", this.getFullName())
-                .append("email", this.email).append("phoneNumber",
-                        this.phoneNumber).append("password", this.password)
-                .append("address", this.address).append("confirmPassword",
-                        this.confirmPassword).append("website", this.website)
-                .append("version", this.getVersion())
-                .append("enabled", this.getEnabled()).toString();
+        ToStringBuilder sb = new ToStringBuilder(this,
+                ToStringStyle.DEFAULT_STYLE).append("username", this.username)
+                .append("enabled", this.enabled)
+                .append("accountExpired",this.accountExpired)
+                .append("credentialsExpired",this.credentialsExpired)
+                .append("accountLocked",this.accountLocked);
+
+        GrantedAuthority[] auths = this.getAuthorities();
+        if (auths != null) {
+            sb.append("Granted Authorities: ");
+
+            for (int i = 0; i < auths.length; i++) {
+                if (i > 0) {
+                    sb.append(", ");
+                }
+                sb.append(auths[i].toString());
+            }
+        } else {
+            sb.append("No Granted Authorities");
+        }
+        return sb.toString();
     }
 }

@@ -15,17 +15,14 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @struts.form include-all="true" extends="BaseForm"
  */
 public class Address extends BaseObject implements Serializable {
-	private static final long serialVersionUID = 3617859655330969141L;
-	protected String address;
+    private static final long serialVersionUID = 3617859655330969141L;
+    protected String address;
     protected String city;
     protected String province;
     protected String country;
     protected String postalCode;
 
     /**
-     * Returns the address.
-     * @return String
-     *
      * @hibernate.property column="address" not-null="false" length="150"
      */
     public String getAddress() {
@@ -33,9 +30,6 @@ public class Address extends BaseObject implements Serializable {
     }
 
     /**
-     * Returns the city.
-     * @return String
-     *
      * @struts.validator type="required"
      * @hibernate.property column="city" not-null="true" length="50"
      */
@@ -44,9 +38,6 @@ public class Address extends BaseObject implements Serializable {
     }
 
     /**
-     * Returns the province.
-     * @return String
-     *
      * @struts.validator type="required"
      * @hibernate.property column="province" length="100"
      */
@@ -55,9 +46,6 @@ public class Address extends BaseObject implements Serializable {
     }
 
     /**
-     * Returns the country.
-     * @return String
-     *
      * @struts.validator type="required"
      * @hibernate.property column="country" length="100"
      */
@@ -66,9 +54,6 @@ public class Address extends BaseObject implements Serializable {
     }
 
     /**
-     * Returns the postalCode.
-     * @return String
-     *
      * @struts.validator type="required"
      * @struts.validator type="mask" msgkey="errors.zip"
      * @struts.validator-var name="mask" value="${zip}"
@@ -78,42 +63,22 @@ public class Address extends BaseObject implements Serializable {
         return postalCode;
     }
 
-    /**
-     * Sets the address.
-     * @param address The address to set
-     */
     public void setAddress(String address) {
         this.address = address;
     }
 
-    /**
-     * Sets the city.
-     * @param city The city to set
-     */
     public void setCity(String city) {
         this.city = city;
     }
 
-    /**
-     * Sets the country.
-     * @param country The country to set
-     */
     public void setCountry(String country) {
         this.country = country;
     }
 
-    /**
-     * Sets the postalCode.
-     * @param postalCode The postalCode to set
-     */
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
 
-    /**
-     * Sets the province.
-     * @param province The province to set
-     */
     public void setProvince(String province) {
         this.province = province;
     }
@@ -143,9 +108,6 @@ public class Address extends BaseObject implements Serializable {
         return result;
     }
 
-    /**
-     * Generated using Commonclipse (http://commonclipse.sf.net)
-     */
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
                 .append("country", this.country)

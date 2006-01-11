@@ -75,8 +75,7 @@ public class UserAction extends BaseAction {
             if ((request.getParameter("username") != null) ||
                     (request.getParameter("from") != null)) {
                 ServletActionContext.getResponse().sendError(HttpServletResponse.SC_FORBIDDEN);
-                log.warn("User '" + request.getRemoteUser() +
-                         "' is trying to edit user '" +
+                log.warn("User '" + request.getRemoteUser() + "' is trying to edit user '" +
                          request.getParameter("username") + "'");
 
                 return null;

@@ -5,19 +5,19 @@
 
 <c:if test="${applicationScope.userCounter != null}">
 <div id="activeUsers">
-    <logic-el:present role="${ADMIN_ROLE}">
+    <authz:authorize ifAllGranted="admin">
         <html:link action="activeUsers"><fmt:message key="mainMenu.activeUsers"/></html:link>:
-    </logic-el:present>
-    <logic-el:notPresent role="${ADMIN_ROLE}">
+    </authz:authorize>
+    <authz:authorize ifNotGranted="admin">
         <fmt:message key="mainMenu.activeUsers"/>:
-    </logic-el:notPresent>
+    </authz:authorize>
     <c:if test="${userCounter >= 0}"><c:out value="${userCounter}"/></c:if>
 </div>
 </c:if>
 
-<logic:present role="user,admin">
+<c:if test="${pageContext.request.remoteUser != null}">
     <html:link forward="mainMenu">
         <fmt:message key="mainMenu.title"/>
     </html:link>
-</logic:present>
+</c:if>
 

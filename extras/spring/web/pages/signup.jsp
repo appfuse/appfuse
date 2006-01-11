@@ -192,12 +192,11 @@
 </form>
 
 <script type="text/javascript">
-highlightFormElements();
-document.forms["signupForm"].username.focus();
+    Form.focusFirstElement(document.forms["signupForm"]);
+    highlightFormElements();
 </script>
 
 <v:javascript formName="user" staticJavascript="false"/>
-<script type="text/javascript"
-      src="<c:url value="/scripts/validator.jsp"/>"></script>
+<script type="text/javascript" src="<c:url value="/scripts/validator.jsp"/>"></script>
 
 

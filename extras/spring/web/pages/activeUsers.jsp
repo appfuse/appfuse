@@ -12,14 +12,12 @@
     <fmt:message key="button.cancel"/>
 </button>
     
-<display:table name="${userNames}" id="user" cellspacing="0" cellpadding="0"
+<display:table name="applicationScope.userNames" id="user" cellspacing="0" cellpadding="0"
     defaultsort="1" styleClass="list activeUserList" pagesize="50" requestURI="">
   
     <%-- Table columns --%>
-    <display:column property="username" width="30%" headerClass="sortable"
-        titleKey="user.username" sort="true"/>
-    <display:column titleKey="activeUsers.fullName" headerClass="sortable"
-        sort="true">
+    <display:column property="username" width="30%" titleKey="user.username" sort="true"/>
+    <display:column titleKey="activeUsers.fullName" sort="true">
         <c:out value="${user.firstName} ${user.lastName}"/>
         <c:if test="${not empty user.email}">
         <a href="mailto:<c:out value="${user.email}"/>">

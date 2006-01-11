@@ -38,7 +38,6 @@ public class UserController implements Controller {
             log.debug("entering 'handleRequest' method...");
         }
 
-        return new ModelAndView("userList", Constants.USER_LIST,
-                                mgr.getUsers(new User()));
+        return new ModelAndView("userList", Constants.USER_LIST, mgr.getUsers(new User()));
     }
 }

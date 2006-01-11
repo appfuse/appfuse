@@ -324,6 +324,15 @@ table.pickList th.pickLabel {
 
 table.pickList td {
     text-align: center;
+    vertical-align: middle;
+}
+
+table.pickList td label {
+    vertical-align: middle;
+}
+
+table.pickList td input {
+    vertical-align: middle;
 }
 
 table.pickList td select {

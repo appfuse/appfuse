@@ -57,16 +57,6 @@ public class BaseAction extends ActionSupport {
     }
     
     /**
-     * Convenience method to get the user object from the session
-     *
-     * @param request the current request
-     * @return the user's populated object from the session
-     */
-    protected User getUser(HttpServletRequest request) {
-        return (User) request.getSession().getAttribute(Constants.USER_KEY);
-    }
-    
-    /**
      * Convenience method to get the Configuration HashMap
      * from the servlet context.
      *

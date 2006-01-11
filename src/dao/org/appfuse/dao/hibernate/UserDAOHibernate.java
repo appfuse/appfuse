@@ -2,6 +2,9 @@ package org.appfuse.dao.hibernate;
 
 import java.util.List;
 
+import org.acegisecurity.userdetails.UserDetails;
+import org.acegisecurity.userdetails.UserDetailsService;
+import org.acegisecurity.userdetails.UsernameNotFoundException;
 import org.appfuse.dao.UserDAO;
 import org.appfuse.model.User;
 import org.springframework.orm.ObjectRetrievalFailureException;
@@ -15,9 +18,10 @@ import org.springframework.orm.ObjectRetrievalFailureException;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
-  *  Modified by <a href="mailto:dan@getrolling.com">Dan Kibler </a>
+ *   Modified by <a href="mailto:dan@getrolling.com">Dan Kibler</a>
+ *   Extended to implement Acegi UserDetailsService interface by David Carter david@carter.net
 */
-public class UserDAOHibernate extends BaseDAOHibernate implements UserDAO {
+public class UserDAOHibernate extends BaseDAOHibernate implements UserDAO, UserDetailsService {
     /**
      * @see org.appfuse.dao.UserDAO#getUser(java.lang.String)
      */
@@ -57,5 +61,16 @@ public class UserDAOHibernate extends BaseDAOHibernate implements UserDAO {
      */
     public void removeUser(String username) {
         getHibernateTemplate().delete(getUser(username));
+    }
+
+    /** 
+    * @see org.acegisecurity.userdetails.UserDetailsService#loadUserByUsername(java.lang.String)
+    */
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        try {
+            return getUser(username);
+        } catch (ObjectRetrievalFailureException e) {
+            throw new UsernameNotFoundException("user '" + username + "' not found...");
+        }
     }
 }

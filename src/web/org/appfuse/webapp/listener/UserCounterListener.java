@@ -9,9 +9,12 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionBindingEvent;
 
+import org.acegisecurity.context.HttpSessionContextIntegrationFilter;
+import org.acegisecurity.context.SecurityContext;
+import org.acegisecurity.userdetails.UserDetails;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.appfuse.Constants;
+import org.appfuse.model.User;
 
 
 /**
@@ -28,6 +31,7 @@ public class UserCounterListener implements ServletContextListener,
                                             HttpSessionAttributeListener {
     public static final String COUNT_KEY = "userCounter";
     public static final String USERS_KEY = "userNames";
+    public static final String EVENT_KEY = HttpSessionContextIntegrationFilter.ACEGI_SECURITY_CONTEXT_KEY;
     private final transient Log log = LogFactory.getLog(UserCounterListener.class);
     private transient ServletContext servletContext;
     private int counter;
@@ -105,8 +109,11 @@ public class UserCounterListener implements ServletContextListener,
      * @see javax.servlet.http.HttpSessionAttributeListener#attributeAdded(javax.servlet.http.HttpSessionBindingEvent)
      */
     public void attributeAdded(HttpSessionBindingEvent event) {
-        if (event.getName().equals(Constants.USER_KEY)) {
-            addUsername(event.getValue());
+        log.debug("event.name: " + event.getName());
+        if (event.getName().equals(EVENT_KEY)) {
+            SecurityContext securityContext = (SecurityContext) event.getValue();
+            User user = (User) securityContext.getAuthentication().getPrincipal();
+            addUsername(user);
         }
     }
 
@@ -115,8 +122,10 @@ public class UserCounterListener implements ServletContextListener,
      * @see javax.servlet.http.HttpSessionAttributeListener#attributeRemoved(javax.servlet.http.HttpSessionBindingEvent)
      */
     public void attributeRemoved(HttpSessionBindingEvent event) {
-        if (event.getName().equals(Constants.USER_KEY)) {
-            removeUsername(event.getValue());
+        if (event.getName().equals(EVENT_KEY)) {
+            SecurityContext securityContext = (SecurityContext) event.getValue();
+            User user = (User) securityContext.getAuthentication().getPrincipal();
+            removeUsername(user);
         }
     }
 

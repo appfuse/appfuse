@@ -20,8 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import org.acegisecurity.context.SecurityContextHolder;
 import org.acegisecurity.Authentication;
-import org.acegisecurity.GrantedAuthority;
-import org.acegisecurity.GrantedAuthorityImpl;
 import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
 import org.acegisecurity.providers.ProviderManager;
 
@@ -67,7 +65,7 @@ public class SignupController extends BaseFormController {
             user.setPassword(StringUtil.encodePassword(user.getPassword(), algorithm));
         }
         
-        user.setEnabled(Boolean.TRUE);
+        user.setEnabled(true);
         
         // Set the default user role on this new user
         user.addRole(roleManager.getRole(Constants.USER_ROLE));

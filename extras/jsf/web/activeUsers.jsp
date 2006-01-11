@@ -16,10 +16,8 @@
     defaultsort="1" styleClass="list activeUserList" pagesize="50" requestURI="">
   
     <%-- Table columns --%>
-    <display:column property="username" width="30%" headerClass="sortable"
-        titleKey="user.username" sort="true"/>
-    <display:column property="fullName" headerClass="sortable"
-        titleKey="activeUsers.fullName" sort="true"/>
+    <display:column property="username" width="30%" titleKey="user.username" sort="true"/>
+    <display:column property="fullName" titleKey="activeUsers.fullName" sort="true"/>
         
     <display:setProperty name="paging.banner.item_name" value="user" />
     <display:setProperty name="paging.banner.items_name" value="users" />

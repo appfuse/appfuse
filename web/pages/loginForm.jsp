@@ -1,7 +1,7 @@
 <%@ include file="/common/taglibs.jsp"%>
 
 <div id="loginTable">
-<form method="post" id="loginForm" action="<c:url value="/j_security_check"/>" 
+<form method="post" id="loginForm" action="<c:url value="/j_security_check"/>"
     onsubmit="saveUsername(this);return validateForm(this)">
 <table width="100%">
     <tr>
@@ -12,7 +12,7 @@
                     <img src="<c:url value="/images/iconWarning.gif"/>"
                         alt="<fmt:message key="icon.warning"/>" class="icon" />
                     <fmt:message key="errors.password.mismatch"/>
-                    <%--c:out value="${sessionScope.ACEGI_SECURITY_LAST_EXCEPTION.message}"/--%>
+                    <!--<c:out value="${sessionScope.ACEGI_SECURITY_LAST_EXCEPTION.message}"/>-->
                 </div>
             </c:if>
         </td>
@@ -50,8 +50,8 @@
         <td></td>
         <td>
             <input type="submit" class="button" name="login" value="<fmt:message key="button.login"/>" tabindex="4" />
-            <input type="reset" class="button" name="reset" value="<fmt:message key="button.reset"/>" tabindex="5" 
-                onclick="document.getElementById('j_username').focus()" />
+            <input type="reset" class="button" name="reset" value="<fmt:message key="button.reset"/>" tabindex="5"
+                onclick="$('j_username').focus()" />
         </td>
     </tr>
     <tr>
@@ -61,7 +61,7 @@
                 <fmt:param><c:url value="/signup.html"/></fmt:param>
             </fmt:message>
         </td>
-	</tr>
+    </tr>
 </table>
 </form>
 </div>

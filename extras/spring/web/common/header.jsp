@@ -5,16 +5,16 @@
 
 <c:if test="${applicationScope.userCounter != null}">
 <div id="activeUsers">
-    <r:isUserInRole role="admin">
+    <authz:authorize ifAllGranted="admin">
         <a href="<c:url value="/activeUsers.html"/>"><fmt:message key="mainMenu.activeUsers"/></a>:
-    </r:isUserInRole>
-    <r:isUserInRole role="admin" value="false">
+    </authz:authorize>
+    <authz:authorize ifNotGranted="admin">
         <fmt:message key="mainMenu.activeUsers"/>:
-    </r:isUserInRole>
+    </authz:authorize>
     <c:if test="${userCounter >= 0}"><c:out value="${userCounter}"/></c:if>
 </div>
 </c:if>
 
-<c:if test="${sessionScope.currentUserForm != null}">
+<c:if test="${pageContext.request.remoteUser != null}">
     <a href="<c:url value="/mainMenu.html"/>"><fmt:message key="mainMenu.title"/></a>
 </c:if>

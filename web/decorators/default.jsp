@@ -19,7 +19,7 @@
         <script type="text/javascript" src="<c:url value='/scripts/helptip.js'/>"></script>
         <script type="text/javascript" src="<c:url value='/scripts/global.js'/>"></script>
 
-      <c:if test="${sessionScope.currentUserForm != null}">
+      <c:if test="${pageContext.request.remoteUser != null}">
         <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/menuExpandable.css'/>" /> 
         <script type="text/javascript" src="<c:url value='/scripts/menuExpandable.js'/>"></script>
       </c:if>
@@ -31,20 +31,19 @@
 
         <div id="header">
             <% if (request.getRequestURL().indexOf("login.jsp") == -1) { %>
-            <c:if test="${sessionScope.currentUserForm != null}">
+            <c:if test="${pageContext.request.remoteUser != null}">
                 <div id="userStatus">
                     <fmt:message key="user.status"/>
-                    <strong><c:out value="${currentUserForm.firstName}"/> 
-                        <c:out value="${currentUserForm.lastName}"/></strong><br />
+                    <strong><authz:authentication operation="fullName"/></strong><br />
                     <a href="<c:url value="/logout.jsp"/>"><fmt:message key="user.logout"/></a>
                 </div>
             </c:if>
             <% } %>
-            <c:import url="/common/header.jsp"/>
+            <jsp:include page="/common/header.jsp"/>
         </div>
 
-        <c:if test="${sessionScope.currentUserForm != null}">
-            <c:import url="/WEB-INF/pages/menu.jsp"/>
+        <c:if test="${pageContext.request.remoteUser != null}">
+            <jsp:include page="/WEB-INF/pages/menu.jsp"/>
         </c:if>
 
         <div id="content">
@@ -54,10 +53,8 @@
         </div>
         
         <div id="footer">
-            <c:import url="/common/footer.jsp"/>
+            <jsp:include page="/common/footer.jsp"/>
         </div>
-        
     </div>
-
 </body>
 </html>

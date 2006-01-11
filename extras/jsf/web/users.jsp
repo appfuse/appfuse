@@ -29,9 +29,10 @@
     </display:column>
     <display:column property="username" media="csv excel xml pdf" titleKey="user.username"/>
     <display:column property="firstName" sort="true" titleKey="user.firstName" width="20%"/>
-    <display:column property="lastName" sort="true" titleKey="user.lastName" width="13%"/>
-    <display:column property="email" sort="true" titleKey="user.email" width="26%" autolink="true"/>
-
+    <display:column property="lastName" sort="true" titleKey="user.lastName" width="23%"/>
+    <display:column property="email" sort="true" titleKey="user.email" width="40%" autolink="true"/>
+    <display:column property="enabled" sort="true" titleKey="user.enabled" width="10%"/>
+        
     <display:setProperty name="paging.banner.item_name" value="user"/>
     <display:setProperty name="paging.banner.items_name" value="users"/>
 

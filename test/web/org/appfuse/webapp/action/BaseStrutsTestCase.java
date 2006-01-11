@@ -23,15 +23,13 @@ import servletunit.struts.MockStrutsTestCase;
 
 
 /**
- * This class is extended by all ActionTests.  It basically
+ * This class is extended by all ActionTests. It basically
  * contains common methods that they might use.
  *
  * <p>
  * <a href="BaseStrutsTestCase.java.html"><i>View Source</i></a>
- * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.14 $ $Date: 2006/01/09 14:56:54 $
  */
 public abstract class BaseStrutsTestCase extends MockStrutsTestCase {
     //~ Instance fields ========================================================
@@ -84,7 +82,6 @@ public abstract class BaseStrutsTestCase extends MockStrutsTestCase {
         // populate the userForm and place into session
         UserManager userMgr = (UserManager) ctx.getBean("userManager");
         user = userMgr.getUser("tomcat");
-        getSession().setAttribute(Constants.USER_KEY, user);
 
         // change the port on the mailSender so it doesn't conflict with an 
         // existing SMTP server on localhost

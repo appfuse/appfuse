@@ -3,6 +3,8 @@ package org.appfuse.model;
 import java.io.Serializable;
 import java.util.Set;
 
+import org.acegisecurity.GrantedAuthority;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
@@ -13,11 +15,13 @@ import org.apache.commons.lang.builder.ToStringStyle;
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  *  Version by Dan Kibler dan@getrolling.com
+ *  Extended to implement Acegi GrantedAuthority interface 
+ *  	by David Carter david@carter.net
  *
  * @struts.form extends="BaseForm"
  * @hibernate.class table="role"
  */
-public class Role extends BaseObject implements Serializable {
+public class Role extends BaseObject implements Serializable, GrantedAuthority {
     private static final long serialVersionUID = 3690197650654049848L;
     private String name;
     private String description;
@@ -30,12 +34,7 @@ public class Role extends BaseObject implements Serializable {
         this.name = name;
     }
     
-    //~ Methods ================================================================
-
     /**
-     * Returns the name.
-     * @return String
-     *
      * @struts.validator type="required"
      * @hibernate.id column="name" length="20"
      *   generator-class="assigned" unsaved-value="version"
@@ -43,11 +42,15 @@ public class Role extends BaseObject implements Serializable {
     public String getName() {
         return this.name;
     }
-
+    
     /**
-     * Returns the description.
-     * @return String
-     *
+     * @see org.acegisecurity.GrantedAuthority#getAuthority()
+     */
+    public String getAuthority() {
+        return getName();
+    }
+    
+    /**
      * @struts.validator type="required"
      * @hibernate.property column="description"
      */
@@ -76,23 +79,17 @@ public class Role extends BaseObject implements Serializable {
         return users;
     }
     
-    /**
-     * @param users The users to set.
-     */
     public void setUsers(Set users) {
         this.users = users;
     }
 
     /**
-     * @return Returns the version.
      * @hibernate.version
      */
     public Integer getVersion() {
         return version;
     }
-    /**
-     * @param version The version to set.
-     */
+
     public void setVersion(Integer version) {
         this.version = version;
     }
@@ -112,13 +109,10 @@ public class Role extends BaseObject implements Serializable {
         return (name != null ? name.hashCode() : 0);
     }
 
-    /**
-     * Generated using Commonclipse (http://commonclipse.sf.net)
-     */
     public String toString() {
-        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
-                .append("name", this.name).append("description",
-                        this.description).toString();
+        return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE)
+                .append(this.name.toString())
+                .toString();
     }
 
 }

@@ -274,6 +274,10 @@ table.detail td {
     padding: 0px;
 }
 
+table.detail td label, table.detail td input {
+    vertical-align: middle;
+}
+
 table.detail td.moveOptions {
     text-align: center;
     width: 50px;

@@ -7,10 +7,8 @@
 <head>
 	<title>SQL Tags Example</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-    <link rel="stylesheet" type="text/css" media="all" 
-        href="<c:url value="/styles/default.css"/>" />
-    <script type="text/javascript"
-        src="<c:url value="/scripts/global.js"/>"></script>
+    <link rel="stylesheet" type="text/css" media="all" href="<c:url value="/styles/default.css"/>" />
+    <script type="text/javascript" src="<c:url value="/scripts/global.js"/>"></script>
 </head>
 
 <body>
@@ -94,12 +92,9 @@ this same data set, but this time you get column sorting.
 </p>
 
 <display:table name="${users.rows}" id="user" class="list">
-    <display:column property="username" sort="true"
-        titleKey="user.username" headerClass="sortable"/>
-    <display:column property="firstName" sort="true" 
-        titleKey="user.firstName" headerClass="sortable"/>
-    <display:column property="lastName" sort="true" 
-        titleKey="user.lastName" headerClass="sortable"/>
+    <display:column property="username" sort="true" titleKey="user.username"/>
+    <display:column property="firstName" sort="true" titleKey="user.firstName"/>
+    <display:column property="lastName" sort="true" titleKey="user.lastName"/>
 </display:table>
 
 <p style="margin-left: 10px">
@@ -109,12 +104,9 @@ this same data set, but this time you get column sorting.
 
 <div id="displaySource" style="display: none; margin-left: 10px; margin-top: 0">
 <pre>&lt;display:table name="${users.rows}" id="user" class="list"&gt;
-    &lt;display:column property="username" sort="true"
-        titleKey="user.username" headerClass="sortable"/&gt;
-    &lt;display:column property="firstName" sort="true" 
-        titleKey="user.firstName" headerClass="sortable"/&gt;
-    &lt;display:column property="lastName" sort="true" 
-        titleKey="user.lastName" headerClass="sortable"/&gt;
+    &lt;display:column property="username" sort="true" titleKey="user.username"/&gt;
+    &lt;display:column property="firstName" sort="true" titleKey="user.firstName"/&gt;
+    &lt;display:column property="lastName" sort="true" titleKey="user.lastName"/&gt;
 &lt;/display:table&gt;
 </pre>
 </div>

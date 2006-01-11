@@ -24,6 +24,6 @@
 </ww:form>
 
 <script type="text/javascript">
-    document.getElementById("name").focus();
+    Form.focusFirstElement(document.forms["upload"]);
 </script>
 

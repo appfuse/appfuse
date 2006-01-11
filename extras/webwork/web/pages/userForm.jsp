@@ -92,13 +92,36 @@
 <c:choose>
     <c:when test="${param.from == 'list' or param.method == 'Add'}">
     <tr>
-        <th>
-            <label for="user.enabled"><fmt:message key="user.enabled"/>?</label>
-        </th>
+        <td></td>
         <td>
-            <ww:checkbox name="'user.enabled'" id="user.enabled" 
-                value="user.enabled" fieldValue="'true'" theme="'simple'"/>
+            <fieldset class="pickList">
+                <legend>
+                    <fmt:message key="userProfile.accountSettings"/>
+                </legend>
+                <table class="pickList">
+                    <tr>
+                        <td>
+                            <ww:checkbox name="'user.enabled'" id="user.enabled" 
+                                value="user.enabled" fieldValue="'true'" theme="'simple'"/>
+                            <label for="user.enabled"><fmt:message key="user.enabled"/></label>
+                        
+                            <ww:checkbox name="'user.accountExpired'" id="user.accountExpired" 
+                                value="user.accountExpired" fieldValue="'true'" theme="'simple'"/>
+                            <label for="user.accountExpired"><fmt:message key="user.accountExpired"/></label>
+
+                            <ww:checkbox name="'user.accountLocked'" id="user.accountLocked" 
+                                value="user.accountLocked" fieldValue="'true'" theme="'simple'"/>
+                            <label for="user.accountLocked"><fmt:message key="user.accountLocked"/></label>
+
+                            <ww:checkbox name="'user.credentialsExpired'" id="user.credentialsExpired" 
+                                value="user.credentialsExpired" fieldValue="'true'" theme="'simple'"/>
+                            <label for="user.credentialsExpired"><fmt:message key="user.credentialsExpired"/></label>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
         </td>
+    </tr>
     <tr>
         <td></td>
         <td>
@@ -145,6 +168,9 @@
               		value="<ww:property value="value"/>" />
             </ww:iterator>
             <ww:hidden name="'user.enabled'" value="user.enabled"/>
+            <ww:hidden name="'user.accountExpired'" value="user.accountExpired"/>
+            <ww:hidden name="'user.accountLocked'" value="user.accountLocked"/>
+            <ww:hidden name="'user.credentialsExpired'" value="user.credentialsExpired"/> 
         </td>
     </tr>
     </c:otherwise>
@@ -157,28 +183,17 @@
 </ww:form>
 
 <script type="text/javascript">
-<!--
-highlightFormElements();
+    Form.focusFirstElement(document.forms["userForm"]);
+    highlightFormElements();
 
-<c:if test="${param.method == 'Add'}">
-var focusControl = document.forms["userForm"].elements["user.username"];
-</c:if>
-<c:if test="${param.method != 'Add'}">
-var focusControl = document.forms["userForm"].elements["user.password"];
-</c:if>
-
-if (focusControl.type != "hidden" && !focusControl.disabled) {
-    focusControl.focus();
-}
-  
-function passwordChanged(passwordField) {
-    var origPassword = "<ww:property value="user.password"/>";
-    if (passwordField.value != origPassword) {
-        createFormElement("input", "hidden", 
-                          "encryptPass", "encryptPass", 
-                          "true", passwordField.form);
+    function passwordChanged(passwordField) {
+        var origPassword = "<ww:property value="user.password"/>";
+        if (passwordField.value != origPassword) {
+            createFormElement("input", "hidden", 
+                              "encryptPass", "encryptPass", 
+                              "true", passwordField.form);
+        }
     }
-}
 
 <!-- This is here so we can exclude the selectAll call when roles is hidden -->
 function onFormSubmit(theForm) {
@@ -186,5 +201,4 @@ function onFormSubmit(theForm) {
     selectAll('user.userRoles');
 </c:if>
 }
-// -->
 </script>

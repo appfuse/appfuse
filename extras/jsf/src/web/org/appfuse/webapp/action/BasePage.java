@@ -153,8 +153,7 @@ public class BasePage {
      * @return
      */
     protected HttpServletRequest getRequest() {
-        return (HttpServletRequest) facesContext.getExternalContext()
-                                                .getRequest();
+        return (HttpServletRequest) facesContext.getExternalContext().getRequest();
     }
 
     /**
@@ -170,8 +169,7 @@ public class BasePage {
      * @return
      */
     protected HttpServletResponse getResponse() {
-        return (HttpServletResponse) facesContext.getExternalContext()
-                                                 .getResponse();
+        return (HttpServletResponse) facesContext.getExternalContext().getResponse();
     }
 
     /**
@@ -189,8 +187,7 @@ public class BasePage {
      * @return the user's populated form from the session
      */
     protected Map getConfiguration() {
-        Map config =
-            (HashMap) getServletContext().getAttribute(Constants.CONFIG);
+        Map config = (HashMap) getServletContext().getAttribute(Constants.CONFIG);
 
         // so unit tests don't puke when nothing's been set
         if (config == null) {

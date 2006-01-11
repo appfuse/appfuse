@@ -26,7 +26,7 @@
 <h:panelGrid columns="3" styleClass="detail" columnClasses="label">
 
     <h:outputLabel for="username" value="#{text['user.username']}"/>
-    
+
     <c:choose>
     <c:when test="${empty userForm.user.username}">
         <h:inputText value="#{userForm.user.username}" id="username" required="true">
@@ -39,7 +39,7 @@
         <h:inputHidden value="#{userForm.user.username}" id="username" required="true"/>
     </c:otherwise>
     </c:choose>
-    
+
 <c:if test="${cookieLogin != 'true'}">
 
     <h:outputLabel for="password" value="#{text['user.password']}"/>
@@ -143,10 +143,23 @@
 <c:choose>
     <c:when test="${param.from == 'list' or param['editUser:add'] == addText}">
 
-        <f:verbatim><label for="userForm:enabled"><fmt:message key="user.enabled"/>?</label></f:verbatim>        
-        <h:selectBooleanCheckbox value="#{userForm.user.enabled}" id="enabled" style="margin-left: 7px"/>
-        <t:message for="enabled" styleClass="fieldError"/>
-  
+        <f:verbatim><fmt:message key="userProfile.accountSettings"/>:</f:verbatim> 
+        
+        <h:panelGroup>
+            <h:selectBooleanCheckbox value="#{userForm.user.enabled}" id="enabled"/>
+            <f:verbatim> <label for="userForm:enabled"><fmt:message key="user.enabled"/></label> </f:verbatim> 
+            
+            <h:selectBooleanCheckbox value="#{userForm.user.accountExpired}" id="accountExpired"/>
+            <f:verbatim> <label for="userForm:accountExpired"><fmt:message key="user.accountExpired"/></label> </f:verbatim>
+            
+            <h:selectBooleanCheckbox value="#{userForm.user.accountLocked}" id="accountLocked"/>
+            <f:verbatim> <label for="userForm:accountLocked"><fmt:message key="user.accountLocked"/></label> </f:verbatim> 
+            
+            <h:selectBooleanCheckbox value="#{userForm.user.credentialsExpired}" id="credentialsExpired"/>
+            <f:verbatim> <label for="userForm:credentialsExpired"><fmt:message key="user.credentialsExpired"/></label> </f:verbatim> 
+        </h:panelGroup>
+        <h:outputText value=""/>
+        
         <h:outputLabel for="userRoles" value="#{text['userProfile.assignRoles']}"/>
     
         <h:selectManyCheckbox value="#{userForm.userRoles}" id="userRoles">
@@ -157,23 +170,26 @@
     <c:otherwise>
 
         <h:outputLabel for="userRoles" value="#{text['user.roles']}"/>
- 
+
         <f:verbatim>
             <c:forEach var="role" items="${userForm.userRoles}" varStatus="status">
                 <c:out value="${role}"/><c:if test="${!status.last}">,</c:if>
                 <input type="hidden" name="userForm:userRoles" value="<c:out value="${role}"/>" />
             </c:forEach>
         </f:verbatim>
-        <h:inputHidden value="#{userForm.user.enabled}" id="enabled"/>
+        <h:inputHidden value="#{userForm.user.enabled}"/>
+        <h:inputHidden value="#{userForm.user.accountExpired}"/>
+        <h:inputHidden value="#{userForm.user.accountLocked}"/>
+        <h:inputHidden value="#{userForm.user.credentialsExpired}"/> 
     </c:otherwise>
 </c:choose>
     <%-- Put in empty <td></td> --%>
     <h:inputHidden value=""/>
-    
+
     <h:panelGroup styleClass="buttonBar">
-    	<h:commandButton value="#{text['button.save']}" action="#{userForm.save}" 
+        <h:commandButton value="#{text['button.save']}" action="#{userForm.save}"
             id="save" styleClass="button"/>
-    
+
         <c:if test="${param.from == 'list'}">
         <h:commandButton value="#{text['button.delete']}" action="#{userForm.delete}" 
             id="delete" styleClass="button" onclick="bCancel=false; return confirmDelete('User')"/>
@@ -182,19 +198,14 @@
         <h:commandButton value="#{text['button.cancel']}" action="#{userForm.cancel}" immediate="true"  
             id="cancel" styleClass="button" onclick="bCancel=true"/>
     </h:panelGroup>
-    
+
     <h:inputHidden value=""/>
 </h:panelGrid>
 </h:form>
 
 <v:validatorScript functionName="validateUserForm"/>
 <script type="text/javascript">
-<c:if test="${empty userForm.user.username}">
-    document.forms["userForm"].elements["userForm:username"].focus();
-</c:if>
-<c:if test="${not empty userForm.user.username}">
-    document.forms["userForm"].elements["userForm:password"].focus();
-</c:if>
+    Form.focusFirstElement(document.forms["userForm"]);
     highlightFormElements();
 </script>
 

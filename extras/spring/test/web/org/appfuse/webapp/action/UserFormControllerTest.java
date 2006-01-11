@@ -64,9 +64,8 @@ public class UserFormControllerTest extends BaseControllerTestCase {
     
     public void testAddWithMissingFields() throws Exception {
         request = newPost("/editUser.html");
-        // an empty updated parameter is the trigger for a new user
-        request.addParameter("updated", "");
         request.addParameter("firstName", "Julie");
+        request.setRemoteUser("tomcat");
         mv = c.handleRequest(request, new MockHttpServletResponse());
         Errors errors =
             (Errors) mv.getModel().get(BindException.ERROR_KEY_PREFIX + "user");

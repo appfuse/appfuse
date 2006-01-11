@@ -206,7 +206,7 @@ public class UserFormController extends BaseFormController {
         User user = null;
 
         if (request.getRequestURI().indexOf("editProfile") > -1) {
-            user = this.getUserManager().getUser(getUser(request).getUsername());
+            user = this.getUserManager().getUser(request.getRemoteUser());
         } else if (!StringUtils.isBlank(username) && !"".equals(request.getParameter("version"))) {
             user = this.getUserManager().getUser(username);
         } else {

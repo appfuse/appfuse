@@ -135,7 +135,7 @@
 <v:validatorScript functionName="validateSignupForm"/>
 
 <script type="text/javascript">
-    document.forms["signupForm"].elements["signupForm:username"].focus();
+    Form.focusFirstElement(document.forms["signupForm"]);
 </script>
 
 </f:view>

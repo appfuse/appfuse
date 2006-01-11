@@ -34,7 +34,7 @@ public class UserActionTest extends BaseStrutsTestCase {
         actionPerform();
 
         verifyForward("edit");
-        assertTrue(getRequest().getAttribute(Constants.USER_EDIT_KEY) != null);
+        assertTrue(getRequest().getAttribute(Constants.USER_KEY) != null);
         verifyNoActionErrors();
     }
 
@@ -43,7 +43,7 @@ public class UserActionTest extends BaseStrutsTestCase {
         BeanUtils.copyProperties(userForm, user);
         userForm.setPassword("tomcat");
         userForm.setConfirmPassword(userForm.getPassword());
-        getRequest().setAttribute(Constants.USER_EDIT_KEY, userForm);
+        getRequest().setAttribute(Constants.USER_KEY, userForm);
 
         setRequestPathInfo("/saveUser");
         addRequestParameter("encryptPass", "true");
@@ -52,7 +52,7 @@ public class UserActionTest extends BaseStrutsTestCase {
         actionPerform();
 
         verifyForward("edit");
-        assertTrue(getRequest().getAttribute(Constants.USER_EDIT_KEY) != null);
+        assertTrue(getRequest().getAttribute(Constants.USER_KEY) != null);
         verifyNoActionErrors();
     }
 
