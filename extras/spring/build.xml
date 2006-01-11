@@ -38,7 +38,7 @@
 #
 struts.version=1.2.8
 struts.dir=${lib.dir}/struts-${struts.version}
-struts.jar=${struts.dir}/lib/struts.jar]]></replacetoken>
+struts.jar=${struts.dir}/struts.jar]]></replacetoken>
         </replace>
         <replace file="${lib.dir}/lib.properties">
             <replacetoken><![CDATA[

@@ -62,7 +62,7 @@ tapestry.jar=${tapestry.dir}/tapestry-${tapestry.version}.jar]]></replacevalue>
 #
 struts.version=1.2.8
 struts.dir=${lib.dir}/struts-${struts.version}
-struts.jar=${struts.dir}/lib/struts.jar]]></replacetoken>
+struts.jar=${struts.dir}/struts.jar]]></replacetoken>
         </replace>
         
         <echo level="info">Deleting struts_form.xdt for XDoclet</echo>
