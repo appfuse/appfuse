@@ -157,15 +157,20 @@
         <echo level="info">Change JSTL Tags to Run-Time</echo>
         <replaceregexp flags="g">
             <regexp pattern='uri="http://java.sun.com/jstl/core"'/>
-            <substitution expression='uri="http://java.sun.com/jstl/core_rt"'/>
+            <substitution expression='uri="http://java.sun.com/jsp/jstl/core"'/>
             <fileset dir="${webapp.target}" includes="**/*.jsp"/>
         </replaceregexp>
         <replaceregexp flags="g">
             <regexp pattern='uri="http://java.sun.com/jstl/fmt"'/>
-            <substitution expression='uri="http://java.sun.com/jstl/fmt_rt"'/>
+            <substitution expression='uri="http://java.sun.com/jsp/jstl/fmt"'/>
             <fileset dir="${webapp.target}" includes="**/*.jsp"/>
         </replaceregexp>
-
+       <replaceregexp flags="g">
+            <regexp pattern='uri="http://java.sun.com/jstl/sql"'/>
+            <substitution expression='uri="http://java.sun.com/jsp/jstl/sql"'/>
+            <fileset dir="${webapp.target}" includes="**/*.jsp"/>
+        </replaceregexp> 
+        
         <echo level="info">Removing JSTL's c:out tags</echo>
         <replaceregexp flags="g">
             <regexp pattern='&lt;c:out value="([^"]*)"/&gt;'/>
@@ -187,7 +192,8 @@
 <web-app>]]></replacetoken>
             <replacevalue><![CDATA[<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">]]></replacevalue>
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+]]></replacevalue>
         </replace>
     </target>
     
@@ -345,7 +351,11 @@
                     file="${webapp.target}/WEB-INF/web.xml"
                     match='&lt;/dispatcher--&gt;'
                     replace='&lt;/dispatcher&gt;'/>
+                <property name="jstl.final.dir" value="${jsp2.jstl.dir}"/> 
             </then>
+            <else>
+                <property name="jstl.final.dir" value="${jstl.dir}"/>
+            </else> 
         </if>
         <echo>Preparing tomcat-context.xml for inclusion in war</echo>
         <!-- Copy tomcat-context.xml file to context.xml -->
@@ -398,7 +408,7 @@
             <lib file="${dwr.jar}"/>
             <lib dir="${commons.dir}" includes="*.jar"/>
             <lib dir="${struts.dir}" includes="*.jar"/>
-            <lib dir="${jstl.dir}/lib">
+            <lib dir="${jstl.final.dir}/lib">
                 <include name="jstl.jar"/>
                 <include name="standard.jar"/>
             </lib>
