@@ -176,9 +176,9 @@
     
         <c:if test="${param.from == 'list'}">
         <h:commandButton value="#{text['button.delete']}" action="#{userForm.delete}" 
-            id="delete" styleClass="button" onclick="bCancel=false"/>
-        </c:if> <%-- Removed confirm since WebTest can't handle it: ;return confirmDelete('User') --%>
-    
+            id="delete" styleClass="button" onclick="bCancel=false; return confirmDelete('User')"/>
+        </c:if>
+ 
         <h:commandButton value="#{text['button.cancel']}" action="#{userForm.cancel}" immediate="true"  
             id="cancel" styleClass="button" onclick="bCancel=true"/>
     </h:panelGroup>

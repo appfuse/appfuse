@@ -207,7 +207,7 @@
             <input type="submit" class="button" jwcid="@Submit" value="message:button.save" id="save" listener="ognl:listeners.save"/>
           <span jwcid="@contrib:FormConditional" condition="ognl:user.username != null">
             <input type="submit" class="button" jwcid="@Submit" value="message:button.delete" id="delete" listener="ognl:listeners.delete"
-                onclick="form.onsubmit = null"/> <!-- Removed confirm since WebTest can't handle it: ;return confirmDelete('User') -->
+                onclick="form.onsubmit = null; return confirmDelete('User')"/> 
           </span>
             <input type="submit" class="button" jwcid="@Submit" value="message:button.cancel" id="cancel" listener="ognl:listeners.cancel"
                 onclick="form.onsubmit = null"/>

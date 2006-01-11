@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: web-tests.xml,v 1.9 2005/11/22 17:06:57 mraible Exp $               -->
+<!-- $Id: web-tests.xml,v 1.10 2006/01/11 10:54:09 mraible Exp $               -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY config SYSTEM "file:./config.xml">
@@ -7,8 +7,8 @@
 ]>
 <project basedir="." default="run-all-tests"> 
     <!-- Use i18n bundle, 2nd one listed is the default -->
-    <property file="web/WEB-INF/classes/ApplicationResources_${user.language}.properties"/>
-    <property file="web/WEB-INF/classes/ApplicationResources.properties"/> 
+    <property file="${build.dir}/web/classes/ApplicationResources_${user.language}.properties"/>
+    <property file="web/WEB-INF/classes/ApplicationResources.properties"/>
 
     <!-- runs all targets -->
     <target name="run-all-tests" 
@@ -16,28 +16,27 @@
         description="Call and executes all test cases (targets)"/>
     
     <!-- runs user-related tests -->
-    <!-- depends="EditUser,SearchUser,SaveUser,AddUser,ActiveUsers" -->
     <target name="UserTests" 
-        depends="SearchUser,SaveUser,AddUser,ActiveUsers"
-        description="Call and executes all person test cases (targets)">
+        depends="EditUser,SearchUser,SaveUser,AddUser,ActiveUsers"
+        description="Call and executes all user test cases (targets)">
         <echo>Successfully ran all User JSP tests!</echo>
     </target>
     
     <!-- Login to the application -->
     <target name="Login" 
         description="Runs login test and verifies Main Menu's Title">
-        <canoo name="login">
+        <webtest name="login">
             &config;
             <steps>
                 &login;
             </steps>
-        </canoo>
+        </webtest>
     </target>
 
     <!-- Logout of the application -->
     <target name="Logout"
         description="Runs logout test and verifies Login's Title">
-        <canoo name="login">
+        <webtest name="login">
             &config;
             <steps>
                 &login;
@@ -45,13 +44,13 @@
                 <verifytitle description="we should see the login title"
                     text="${webapp.prefix}${login.title}"/>
             </steps>
-        </canoo>
+        </webtest>
     </target>
 
     <!-- Retrieve Password Hint -->
     <target name="PasswordHint" 
         description="Gets the user's password hint">
-        <canoo name="passwordHint">
+        <webtest name="passwordHint">
             &config;
             <steps>
                 <invoke description="get Login Page" url="/"/>
@@ -62,13 +61,13 @@
                 <verifytitle description="we should see the login title again"
                     text="${webapp.prefix}${login.title}"/>
             </steps>
-        </canoo>
+        </webtest>
     </target>
     
     <!-- Verify the edit user screen displays without errors -->
     <target name="EditUser" 
         description="Tests selecting the 'Edit Profile' forward">
-        <canoo name="editUser">
+        <webtest name="editUser">
             &config;
             <steps>
                 &login;
@@ -76,13 +75,13 @@
                 <verifytitle description="we should see the user profile title" 
                     text="${webapp.prefix}${userProfile.title}"/>
             </steps>
-        </canoo>
+        </webtest>
     </target>
     
     <!-- Verify the user list screen displays without errors -->
     <target name="SearchUser" 
         description="Tests search for and displaying all users">
-        <canoo name="searchUser">
+        <webtest name="searchUser">
             &config;
             <steps>
                 &login;
@@ -90,13 +89,13 @@
                 <verifytitle description="we should see the user list title" 
                     text="${webapp.prefix}${userList.title}"/>
             </steps>
-        </canoo>
+        </webtest>
     </target>
     
     <!-- Edit a user and then save -->
     <target name="SaveUser" 
         description="Tests editing and saving a user">
-        <canoo name="saveUser">
+        <webtest name="saveUser">
             &config;
             <steps>
                 &login;
@@ -109,13 +108,13 @@
                 <verifytitle description="display Main Menu if save OK"
                      text="${webapp.prefix}${mainMenu.title}" />
             </steps>
-        </canoo>
+        </webtest>
     </target>
     
     <!-- Add a new user after logging in -->
     <target name="AddUser"
         description="Adds a new user profile">
-        <canoo name="addUser">
+        <webtest name="addUser">
             &config;
             <steps>
                 &login;
@@ -136,7 +135,6 @@
                 <setinputfield description="set website" name="userForm:website" value="http://raibledesigns.com"/>
                 <setinputfield description="set passwordHint" name="userForm:passwordHint" value="test"/>
                 <setcheckbox description="select roles" name="userForm:userRoles" checked="user"/>
-                
                 <clickbutton label="${button.save}" description="Click button 'Save'"/>
                 <verifytitle description="view user list screen" text="${webapp.prefix}${userList.title}"/>
                 <verifytext description="verify success message" regex="true"
@@ -144,25 +142,24 @@
                     
                 <!-- Delete user -->
                 <clicklink description="Click edit user link" label="newuser"/>
+                <prepareDialogResponse description="Confirm delete" dialogType="confirm" response="true"/>
                 <clickbutton label="${button.delete}" description="Click button 'Delete'"/>
-                <!--verifyDialogText description="check alert" type="confirm" regex="true" text=".*"/>
-                <setConfirmDialogDefaults description="click OK" keeptext="true" response="true"/-->
+                <verifyNoDialogResponses/>
                 <verifytext description="verify success message" regex="true"
                     text='&lt;div class="message.*&gt;.*&lt;strong&gt;Test Name&lt;/strong&gt;.*&lt;/div&gt;'/>
-                <verifytitle description="display user list" 
-                    text="${webapp.prefix}${userList.title}"/>
+                <verifytitle description="display user list" text="${webapp.prefix}${userList.title}"/>
             </steps>
-        </canoo>
+        </webtest>
     </target>
     
     <!-- Sign up a new user (no login) -->
     <target name="Signup"
         description="Signup a new user">
-        <canoo name="signup">
+        <webtest name="signup">
             &config;
             <steps>
                 <invoke description="click signup link" url="/signup.html"/>
-                <verifytitle description="we should signup title" text="${webapp.prefix}${signup.title}"/>
+                <verifytitle description="view signup title" text="${webapp.prefix}${signup.title}"/>
                 
                 <setinputfield description="set username" name="signupForm:username" value="signup-user"/>
                 <setinputfield description="set password" name="signupForm:password" value="test"/>
@@ -181,13 +178,13 @@
                 <verifytitle description="view main menu" text="${webapp.prefix}${mainMenu.title}"/>
                 <verifytext description="verify success message" text="${user.registered}"/>
             </steps>
-        </canoo>
+        </webtest>
     </target>
 
     <!-- View Active Users -->
     <target name="ActiveUsers" 
         description="View Active Users List">
-        <canoo name="activeUsers">
+        <webtest name="activeUsers">
             &config;
             <steps>
                 &login;
@@ -195,13 +192,13 @@
                 <verifytitle description="we should see the activeUsers title" 
                     text="${webapp.prefix}${activeUsers.title}"/>
             </steps>
-        </canoo>
+        </webtest>
     </target>
     
     <!-- Flush OSCache -->
     <target name="FlushCache" 
         description="opens JSP to Flush Page Cache">
-        <canoo name="flushCache">
+        <webtest name="flushCache">
             &config;
             <steps>
                 &login;
@@ -209,13 +206,13 @@
                 <verifytitle description="we should see the flush cache title" 
                     text="${webapp.prefix}${flushCache.title}"/>
             </steps>
-        </canoo>
+        </webtest>
     </target>
     
     <!-- File Upload -->
     <target name="FileUpload" 
         description="Tests uploading a file">
-        <canoo name="fileUpload">
+        <webtest name="fileUpload">
             &config;
             <steps>
                 &login;
@@ -232,6 +229,6 @@
                 <verifytext description="verify original file name displayed on page"
                      text="build.properties" /-->
             </steps>
-        </canoo>
+        </webtest>
     </target>
 </project>
