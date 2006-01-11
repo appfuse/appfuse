@@ -29,7 +29,7 @@ import org.springframework.web.servlet.view.RedirectView;
  * Implementation of <strong>SimpleFormController</strong> that interacts with
  * the {@link UserManager} to retrieve/persist values to the database.
  *
- * <p><a href="UserFormController.java.html"><i>View Source</i></a></p>
+ * <p><a href="UserFormController.java.html"><i>View Source</i></a>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
@@ -192,7 +192,7 @@ public class UserFormController extends BaseFormController {
         AuthenticationTrustResolver resolver = new AuthenticationTrustResolverImpl();
         SecurityContext ctx = SecurityContextHolder.getContext();
 
-        if (ctx != null) {
+        if (ctx.getAuthentication() != null) {
             Authentication auth = ctx.getAuthentication();
 
             if (resolver.isRememberMe(auth)) {
