@@ -39,8 +39,8 @@
 
         <c:if test="${not empty <XDtForm:classNameLower/>Form.<XDtForm:classNameLower/>.<XDtMethodEx:idField getType="propertyName"/>}">
         <h:commandButton value="#{text['button.delete']}" action="#{<XDtForm:classNameLower/>Form.delete}" 
-            id="delete" styleClass="button" onclick="bCancel=false"/>
-        </c:if> <%-- Removed confirm since WebTest can't handle it: ;return confirmDelete('<XDtForm:className/>') --%>
+            id="delete" styleClass="button" onclick="bCancel=false; return confirmDelete('<XDtForm:className/>')"/>
+        </c:if>
 
         <h:commandButton value="#{text['button.cancel']}" action="cancel" immediate="true"  
             id="cancel" styleClass="button" onclick="bCancel=true"/>

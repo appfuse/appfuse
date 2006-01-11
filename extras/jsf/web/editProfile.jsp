@@ -11,9 +11,12 @@
 </h:form>
 
 <script type="text/javascript">
-    var f = document.forms['userProfile'];
-    f.elements['userProfile:_link_hidden_'].value='userProfile:edit';
-    f.submit();
+    function submitForm() {
+        var f = document.forms['userProfile'];
+        f.elements['userProfile:_link_hidden_'].value='userProfile:edit';
+        f.submit();
+    }
+    window.onload=submitForm;
 </script>
 
 </f:view>
