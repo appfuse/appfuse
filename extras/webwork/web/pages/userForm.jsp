@@ -52,7 +52,7 @@
 	
 	<c:if test="${cookieLogin != 'true'}">
 	    <ww:password label="getText('user.password')" name="'user.password'" show="true"
-	        value="user.password" required="true" size="40" onchange="passwordChanged(this)"/>
+	        value="user.password" required="true" size="40" onchange="'passwordChanged(this)'"/>
 	    <ww:password label="getText('user.confirmPassword')" name="'user.confirmPassword'" 
 	        value="user.confirmPassword" required="true" show="true" size="40"/>
  	</c:if>
