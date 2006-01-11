@@ -247,12 +247,7 @@
 </form>
 
 <script type="text/javascript">
-<span jwcid="@Conditional" condition="ognl:user.username == null">
-    document.getElementById("username").focus();
-</span>
-<span jwcid="@Conditional" condition="ognl:user.username != null">
-    document.getElementById("password").focus();
-</span>
+    Form.focusFirstElement(document.forms["userForm"]);
     highlightFormElements();
 </script>
 

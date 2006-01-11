@@ -3,7 +3,7 @@
     <td>
         <select name="<c:out value="${param.leftId}"/>" 
             multiple="multiple"
-            onDblClick="moveSelectedOptions(this,document.getElementById('<c:out value="${param.rightId}"/>'),true)"
+            onDblClick="moveSelectedOptions(this,$('<c:out value="${param.rightId}"/>'),true)"
             id="<c:out value="${param.leftId}"/>" size="5">
     <c:if test="${leftList != null}">
         <c:forEach var="list" items="${leftList}" varStatus="status">
@@ -16,16 +16,16 @@
     </td>
     <td class="moveOptions">
         <button name="moveRight" id="moveRight<c:out value="${param.listCount}"/>" type="button" 
-            onclick="moveSelectedOptions(document.getElementById('<c:out value="${param.leftId}"/>'),document.getElementById('<c:out value="${param.rightId}"/>'),true)">
+            onclick="moveSelectedOptions($('<c:out value="${param.leftId}"/>'),$('<c:out value="${param.rightId}"/>'),true)">
             &gt;&gt;</button><br />
         <button name="moveAllRight" id="moveAllRight<c:out value="${param.listCount}"/>" type="button"
-            onclick="moveAllOptions(document.getElementById('<c:out value="${param.leftId}"/>'),document.getElementById('<c:out value="${param.rightId}"/>'),true)">
+            onclick="moveAllOptions($('<c:out value="${param.leftId}"/>'),$('<c:out value="${param.rightId}"/>'),true)">
             All &gt;&gt;</button><br />
         <button name="moveLeft" id="moveLeft<c:out value="${param.listCount}"/>" type="button"
-            onclick="moveSelectedOptions(document.getElementById('<c:out value="${param.rightId}"/>'),document.getElementById('<c:out value="${param.leftId}"/>'),true)">
+            onclick="moveSelectedOptions($('<c:out value="${param.rightId}"/>'),$('<c:out value="${param.leftId}"/>'),true)">
             &lt;&lt;</button><br />
         <button name="moveAllLeft" id="moveAllLeft<c:out value="${param.listCount}"/>" type="button"
-            onclick="moveAllOptions(document.getElementById('<c:out value="${param.rightId}"/>'),document.getElementById('<c:out value="${param.leftId}"/>'),true)">
+            onclick="moveAllOptions($('<c:out value="${param.rightId}"/>'),$('<c:out value="${param.leftId}"/>'),true)">
             All &lt;&lt;</button>
     </td>
     <td>

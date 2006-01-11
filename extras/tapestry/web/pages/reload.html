@@ -3,7 +3,10 @@
 </form>
 
 <script type="text/javascript">
-    var f = document.getElementById('reloadForm');
-    f.referrer.value = document.referrer;
-    f.submit();
+    function submitForm() {
+        var f = $('reloadForm');
+        f.referrer.value = document.referrer;
+        f.submit();
+    }
+    window.onload=submitForm;
 </script>

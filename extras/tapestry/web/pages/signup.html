@@ -17,7 +17,7 @@
 
 <div class="separator"></div>
   
-<form jwcid="signupForm@Form" delegate="ognl:beans.delegate">
+<form jwcid="signupForm@Form" delegate="ognl:beans.delegate" id="signupForm">
 <table class="detail">
     <tr>
         <th>
@@ -141,7 +141,7 @@
 </form>
 
 <script type="text/javascript">
-    document.getElementById('username').focus();
+    Form.focusFirstElement(document.forms["signupForm"]);
     highlightFormElements();
 </script>
 
