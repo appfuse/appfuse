@@ -122,6 +122,14 @@
                 <property name="userDAO" ref="userDAO"/>
             </bean>
         </property>
+        <!-- Override default transaction attributes b/c of UserExistsException -->
+        <property name="transactionAttributes">
+            <props>
+                <prop key="save*">PROPAGATION_REQUIRED,-UserExistsException</prop>
+                <prop key="remove*">PROPAGATION_REQUIRED</prop>
+                <prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
+            </props>
+        </property>
         <property name="preInterceptors">
             <list>
                 <ref bean="userSecurityInterceptor"/>
