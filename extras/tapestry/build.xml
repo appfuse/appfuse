@@ -52,17 +52,17 @@ tapestry.jar=${tapestry.dir}/tapestry-${tapestry.version}.jar]]></replacevalue>
         </replace>
         
         <echo level="info">Removing Struts-specific JARs</echo>
-        <delete>
-            <fileset dir="${struts.dir}">
-                <include name="struts*.jar"/>
-                <include name="commons-validator*.jar"/>
-                <include name="*.xml"/>
-            </fileset>
-        </delete>
+        <delete dir="${struts.dir}"/>
         <delete dir="${strutstestcase.dir}"/>
 
         <replace file="${lib.dir}/lib.properties">
-            <replacetoken><![CDATA[struts.jar=${struts.dir}/struts.jar]]></replacetoken>
+            <replacetoken><![CDATA[
+#
+# Struts - http://struts.apache.org
+#
+struts.version=1.2.8
+struts.dir=${lib.dir}/struts-${struts.version}
+struts.jar=${struts.dir}/lib/struts.jar]]></replacetoken>
         </replace>
         
         <echo level="info">Deleting struts_form.xdt for XDoclet</echo>
@@ -276,12 +276,12 @@ tapestry.jar=${tapestry.dir}/tapestry-${tapestry.version}.jar]]></replacevalue>
             <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/strutstest-2.1.3/strutstest-2.1.3.jar"/>]]></replacetoken>
         </replace>
         <replace file="../../.classpath">
-            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/jakarta-struts-1.2.8/lib/commons-validator.jar"/>]]></replacetoken>
+            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/jakarta-commons/commons-validator.jar"/>]]></replacetoken>
         </replace>
         
         <replace file="../../.classpath">
-            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/jakarta-struts-1.2.8/lib/struts.jar"/>
-	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.8/lib/struts-el.jar"/>]]></replacetoken>
+            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/struts-1.2.8/struts.jar"/>
+	<classpathentry kind="lib" path="lib/struts-1.2.8/struts-el.jar"/>]]></replacetoken>
             <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/tapestry-3.0/lib/bsf-2.3.0.jar"/>
 	<classpathentry kind="lib" path="lib/tapestry-3.0/lib/commons-codec-1.2.jar"/>
 	<classpathentry kind="lib" path="lib/tapestry-3.0/lib/javassist.jar"/>
@@ -371,10 +371,8 @@ tapestry.jar=${tapestry.dir}/tapestry-${tapestry.version}.jar]]></replacevalue>
         </replace>
         
         <replace file="../../build.xml">
-            <replacetoken><![CDATA[<lib dir="${struts.dir}" includes="*.jar"/>]]></replacetoken>
-            <replacevalue><![CDATA[<lib dir="${struts.dir}" includes="*.jar"/>
-            <lib dir="${tapestry.dir}" includes="*.jar"/>
-            <lib file="${requesttag.jar}"/>]]></replacevalue>
+            <replacetoken>dir="${struts.dir}"</replacetoken>
+            <replacevalue>dir="${tapestry.dir}"</replacevalue>
         </replace>
         
         <!-- Fix test-web target -->

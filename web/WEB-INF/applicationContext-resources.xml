@@ -17,17 +17,17 @@
         <property name="jndiName"><value>java:comp/env/jdbc/appfuse</value></property>
     </bean-->
     
-    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
-        <property name="driverClass" value="@DB-DRIVERNAME@"/>
-        <property name="jdbcUrl" value="@DB-URL@"/>
-        <property name="user" value="@DB-USERNAME@"/>
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="@DB-DRIVERNAME@"/>
+        <property name="url" value="@DB-URL@"/>
+        <property name="username" value="@DB-USERNAME@"/>
         <property name="password" value="@DB-PASSWORD@"/>
-        <property name="minPoolSize" value="5"/>
-        <property name="acquireIncrement" value="5"/>
-        <property name="maxPoolSize" value="15"/>
-        <property name="idleConnectionTestPeriod" value="20"/>
-        <property name="maxIdleTime" value="60"/>
-        <!-- Use 'SELECT 1 from DUAL' for Oracle -->
-        <property name="preferredTestQuery" value="SELECT 1"/>
+        <property name="maxActive" value="100"/>
+        <property name="maxIdle" value="30"/>
+        <property name="maxWait" value="1000"/>
+        <property name="defaultAutoCommit" value="true"/>
+        <property name="removeAbandoned" value="true"/>
+        <property name="removeAbandonedTimeout" value="60"/>
+        <property name="logAbandoned" value="true"/>
     </bean>
 </beans>

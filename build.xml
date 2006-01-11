@@ -136,7 +136,7 @@
             <fileset dir="${basedir}/web">
                 <include name="pages/**/*.jsp"/>
             </fileset>
-            <fileset dir="${struts.dir}" includes="*.xml"/>   
+            <fileset dir="${struts.dir}" includes="*.xml"/>
             <fileset dir="${basedir}/web/WEB-INF" includes="**/*-resources.xml"/>
             <filterset refid="db.variables"/>
         </copy>
@@ -301,7 +301,7 @@
         description="alias for compile-web"/>
 
     <target name="webdoclet" depends="compile-web" unless="webdoclet.unnecessary"
-        description="Generate JSP TLD and Struts descriptors">
+        description="Generate JSP TLD and other web artifacts">
         <taskdef name="webdoclet" classname="xdoclet.modules.web.WebDocletTask">
             <classpath>
                 <path refid="xdoclet.classpath"/>
@@ -396,6 +396,7 @@
 
             <lib file="${clickstream.jar}"/>
             <lib file="${dwr.jar}"/>
+            <lib dir="${commons.dir}" includes="*.jar"/>
             <lib dir="${struts.dir}" includes="*.jar"/>
             <lib dir="${jstl.dir}/lib">
                 <include name="jstl.jar"/>

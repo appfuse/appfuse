@@ -69,7 +69,6 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
             <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/ibatis-2.1.6/ibatis-common-2.jar"/>
 	<classpathentry kind="lib" path="lib/ibatis-2.1.6/ibatis-sqlmap-2.jar"/>
 	<classpathentry kind="lib" path="lib/ibatis-2.1.6/jta.jar"/>
-	<classpathentry kind="lib" path="lib/ibatis-2.1.6/c3p0-0.9.0.2.jar"/>
 	<classpathentry kind="lib" path="lib/ibatis-2.1.6/oscache-2.2.jar"/>
 	<classpathentry kind="output" path="build/classes"/>]]></replacevalue>
         </replace>
@@ -166,7 +165,6 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
             <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/ibatis-2.1.6/ibatis-common-2.jar"/>
 	<classpathentry kind="lib" path="lib/ibatis-2.1.6/ibatis-sqlmap-2.jar"/>
 	<classpathentry kind="lib" path="lib/ibatis-2.1.6/jta.jar"/>
-	<classpathentry kind="lib" path="lib/ibatis-2.1.6/c3p0-0.9.0.2.jar"/>
 	<classpathentry kind="lib" path="lib/ibatis-2.1.6/oscache-2.2.jar"/>]]></replacetoken>
         </replace>
         
@@ -213,11 +211,10 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
             <fileset dir="metadata/sql" includes="*.sql"/>
         </copy>
 
-        <echo level="info">Copying jta.jar and c3p0.jar from Hibernate to iBATIS</echo>
+        <echo level="info">Copying jta.jar from Hibernate to iBATIS</echo>
         <copy todir="../../lib/ibatis-2.1.6">
             <fileset dir="${hibernate.dir}/lib">
                 <include name="jta.jar"/>
-                <include name="c3p0-0.9.0.2.jar"/>
             </fileset>
         </copy>
         <replace file="../../build.xml">
@@ -273,7 +270,6 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
             <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/hibernate-3.1/hibernate3.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-3.1/lib/antlr-2.7.6rc1.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-3.1/lib/asm.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-3.1/lib/c3p0-0.9.0.2.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-3.1/lib/cglib-2.1.3.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-3.1/lib/dom4j-1.6.1.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-3.1/lib/jta.jar"/>

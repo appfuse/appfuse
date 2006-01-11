@@ -55,14 +55,18 @@ jsf.jar=${jsf.dir}/myfaces-all.jar]]></replacevalue>
         </replace>
         
         <echo level="info">Removing Struts-specific JARs</echo>
-        <delete>
-            <fileset dir="${struts.dir}">
-                <include name="struts*.jar"/>
-                <include name="*.xml"/>
-            </fileset>
-        </delete>
+        <delete dir="${struts.dir}"/>
         <delete dir="${strutstestcase.dir}"/>
 
+        <replace file="${lib.dir}/lib.properties">
+            <replacetoken><![CDATA[
+#
+# Struts - http://struts.apache.org
+#
+struts.version=1.2.8
+struts.dir=${lib.dir}/struts-${struts.version}
+struts.jar=${struts.dir}/lib/struts.jar]]></replacetoken>
+        </replace>
         <replace file="${lib.dir}/lib.properties">
             <replacetoken><![CDATA[
 #
@@ -71,10 +75,6 @@ jsf.jar=${jsf.dir}/myfaces-all.jar]]></replacevalue>
 strutstestcase.version=2.1.3
 strutstestcase.dir=${lib.dir}/strutstest-${strutstestcase.version}
 strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.jar]]></replacetoken>
-        </replace>
-
-        <replace file="${lib.dir}/lib.properties">
-            <replacetoken><![CDATA[struts.jar=${struts.dir}/struts.jar]]></replacetoken>
         </replace>
         
         <echo level="info">Deleting struts_form.xdt for XDoclet</echo>
@@ -261,8 +261,8 @@ log4j.logger.org.apache.myfaces=WARN</replacevalue>
             <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/strutstest-2.1.3/strutstest-2.1.3.jar"/>]]></replacetoken>
         </replace>
         <replace file="../../.classpath">
-            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/jakarta-struts-1.2.8/lib/struts.jar"/>
-	<classpathentry kind="lib" path="lib/jakarta-struts-1.2.8/lib/struts-el.jar"/>]]></replacetoken>
+            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/struts-1.2.8/struts.jar"/>
+	<classpathentry kind="lib" path="lib/struts-1.2.8/struts-el.jar"/>]]></replacetoken>
             <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/myfaces-1.1.0/lib/myfaces-all.jar"/>]]></replacevalue>
         </replace>
 
@@ -324,17 +324,10 @@ log4j.logger.org.apache.myfaces=WARN</replacevalue>
         </replace>
 
         <replace file="../../build.xml">
-            <replacetoken><![CDATA[dir="${struts.dir}" includes="*.xml"/>]]></replacetoken>
-            <replacevalue><![CDATA[dir="${jsf.dir}" includes="*.xml"/>]]></replacevalue>
+            <replacetoken>dir="${struts.dir}"</replacetoken>
+            <replacevalue>dir="${jsf.dir}"</replacevalue>
         </replace>
-        
-        <replace file="../../build.xml">
-            <replacetoken><![CDATA[<lib dir="${struts.dir}" includes="*.jar"/>]]></replacetoken>
-            <replacevalue><![CDATA[<lib dir="${struts.dir}" includes="*.jar"/>
-            <lib dir="${jsf.dir}" includes="*.jar"/>
-            <lib file="${requesttag.jar}"/>]]></replacevalue>
-        </replace>
-        
+
         <!-- Fix test-web target -->
         <replace file="../../build.xml">
             <replacetoken><![CDATA[<copy todir="${webapp.target}/WEB-INF" file="${struts.dir}/validator-rules.xml"/>]]></replacetoken>
