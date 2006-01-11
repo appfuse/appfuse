@@ -1164,36 +1164,25 @@
     </target>
     
     <!-- =================================================================== -->
-    <!--            Fix CRLF for Unix Machines                               -->
+    <!--            Fix CRLF so installers will work                         -->
     <!-- =================================================================== -->
     <target name="fixcrlf" depends="init">
-        <condition property="notWindows">
-            <not><os family="windows"/></not>
-        </condition>
-        <if>
-            <isset property="notWindows"/>
-            <then>
-                <echo>Running fixcrlf....</echo>
-                <fixcrlf eol="lf" srcdir="${basedir}" 
-                    includes="**/*.txt,
-                              **/*.properties,
-                              **/*.sql,
-                              **/*.java,
-                              **/*.jsp,
-                              **/*.xdt,
-                              **/*.xml,
-                              **/*.page,
-                              **/*.html,
-                              **/*.js,
-                              **/*.css, 
-                              **/*.reference,
-                              **/*.ldif,
-                              **/*.conf"/>
-            </then>
-            <else>
-                <echo>You shouldn't need to run this task on Windows</echo>
-            </else>
-        </if>
+        <echo>Running fixcrlf....</echo>
+        <fixcrlf srcdir="${basedir}" 
+            includes="**/*.txt,
+                      **/*.properties,
+                      **/*.sql,
+                      **/*.java,
+                      **/*.jsp,
+                      **/*.xdt,
+                      **/*.xml,
+                      **/*.page,
+                      **/*.html,
+                      **/*.js,
+                      **/*.css, 
+                      **/*.reference,
+                      **/*.ldif,
+                      **/*.conf"/>
     </target>
     
     <!-- =================================================================== -->
@@ -1296,8 +1285,7 @@
         <replaceregexp flags="g" match="jdbc/appfuse" replace="jdbc/${db.name}"
             file="../${app.name}/web/WEB-INF/applicationContext-resources.xml"/>
 
-        <!-- Replace database name in properties.xml and -->
-        <!-- in database creation script -->
+        <!-- Replace database name in properties.xml in database creation script -->
         <replaceregexp flags="g">
             <regexp pattern="${app.name}"/>
             <substitution expression="${db.name}"/>
@@ -1309,6 +1297,8 @@
             <not><equals arg1="${new.pkg.name}" arg2="org.appfuse"/></not>
             <then><rename-packages newPkgName="${new.pkg.name}"/></then>
         </if>
+        
+        <ant dir="../${app.name}" target="fixcrlf"/>
 
 <echo level="info">
 +-------------------------------------------------------------+
