@@ -47,7 +47,7 @@ public class BaseAction extends ActionSupport {
     protected SimpleMailMessage message = null;
     protected String templateName = null; 
 
-    public void saveMessage(String msg) {
+    protected void saveMessage(String msg) {
         List messages = (List) getRequest().getSession().getAttribute("messages");
         if (messages == null) {
             messages = new ArrayList();
@@ -62,7 +62,7 @@ public class BaseAction extends ActionSupport {
      *
      * @return the user's populated form from the session
      */
-    public Map getConfiguration() {
+    protected Map getConfiguration() {
         Map config = (HashMap) getSession().getServletContext().getAttribute(Constants.CONFIG);
         // so unit tests don't puke when nothing's been set
         if (config == null) {
@@ -75,7 +75,7 @@ public class BaseAction extends ActionSupport {
      * Convenience method to get the request
      * @return current request
      */
-    public HttpServletRequest getRequest() {
+    protected HttpServletRequest getRequest() {
         return ServletActionContext.getRequest();  
     }
     
@@ -83,14 +83,14 @@ public class BaseAction extends ActionSupport {
      * Convenience method to get the response
      * @return current response
      */
-    public HttpServletResponse getResponse() {
+    protected HttpServletResponse getResponse() {
         return ServletActionContext.getResponse();
     }
     
     /**
      * Convenience method to get the session
      */
-    public HttpSession getSession() {
+    protected HttpSession getSession() {
     	return getRequest().getSession();
     }
     
@@ -131,8 +131,7 @@ public class BaseAction extends ActionSupport {
     }
     
     /**
-     * Convenience method for setting a "from" parameter to indicate the last
-     * page.
+     * Convenience method for setting a "from" parameter to indicate the previous page.
      * @param from
      */
     public void setFrom(String from) {
