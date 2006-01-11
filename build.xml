@@ -1298,7 +1298,13 @@
             <then><rename-packages newPkgName="${new.pkg.name}"/></then>
         </if>
         
-        <ant dir="../${app.name}" target="fixcrlf"/>
+        <condition property="isWindows"><os family="windows"/></condition> 
+        <if> 
+            <isset property="isWindows"/> 
+            <then> 
+                <ant dir="../${app.name}" target="fixcrlf"/>
+            </then>
+        </if>
 
 <echo level="info">
 +-------------------------------------------------------------+
