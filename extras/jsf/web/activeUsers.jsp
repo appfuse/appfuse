@@ -17,7 +17,14 @@
   
     <%-- Table columns --%>
     <display:column property="username" escapeXml="true" style="width: 30%" titleKey="user.username" sortable="true"/>
-    <display:column property="fullName" escapeXml="true" titleKey="activeUsers.fullName" sortable="true"/>
+    <display:column titleKey="activeUsers.fullName" sortable="true">
+        <c:out value="${user.firstName} ${user.lastName}" escapeXml="true"/>
+        <c:if test="${not empty user.email}">
+        <a href="mailto:<c:out value="${user.email}"/>">
+            <html:img pageKey="icon.email.img"
+                altKey="icon.email" styleClass="icon"/></a>
+        </c:if>
+    </display:column>
         
     <display:setProperty name="paging.banner.item_name" value="user" />
     <display:setProperty name="paging.banner.items_name" value="users" />
