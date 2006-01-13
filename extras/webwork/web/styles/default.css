@@ -128,21 +128,6 @@ div#menu a:visited {
     color: black;
 }
 
-div#readme {
-    background: #ffd;
-    border: 1px solid silver;
-    color: #008000;
-    height: 300px;
-    margin-top: 10px;
-    overflow: auto;
-    padding: 5px;
-    width: 600px;
-}
-
-div#readme pre {
-    border: 0;
-}
-
 div#flags {
     position: absolute;
     left: 20px;
@@ -159,6 +144,13 @@ div#userStatus {
     text-align: right;
 }
 
+div#switchLocale {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    font-size: .9em;
+    line-height: 1.2;
+}
 
 div#validators {
     float: right;

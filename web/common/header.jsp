@@ -1,12 +1,16 @@
 <%@ include file="/common/taglibs.jsp"%>
 
+<c:if test="${pageContext.request.locale.language != 'en'}">
+    <div id="switchLocale"><a href="<c:url value='/mainMenu.html?locale=en'/>"><fmt:message key="webapp.name"/> in English</a></div>
+</c:if>
+
 <%-- Put constants into request scope --%>
 <appfuse:constants scope="request"/>
 
 <c:if test="${applicationScope.userCounter != null}">
 <div id="activeUsers">
     <authz:authorize ifAllGranted="admin">
-        <html:link action="activeUsers"><fmt:message key="mainMenu.activeUsers"/></html:link>:
+        <a href="<c:url value="/activeUsers.html"/>"><fmt:message key="mainMenu.activeUsers"/></a>:
     </authz:authorize>
     <authz:authorize ifNotGranted="admin">
         <fmt:message key="mainMenu.activeUsers"/>:
@@ -16,8 +20,6 @@
 </c:if>
 
 <c:if test="${pageContext.request.remoteUser != null}">
-    <html:link forward="mainMenu">
-        <fmt:message key="mainMenu.title"/>
-    </html:link>
+    <a href="<c:url value="/mainMenu.html"/>"><fmt:message key="mainMenu.title"/></a>
 </c:if>
 

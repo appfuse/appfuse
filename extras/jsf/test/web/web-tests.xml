@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: web-tests.xml,v 1.10 2006/01/11 10:54:09 mraible Exp $               -->
+<!-- $Id: web-tests.xml,v 1.11 2006/01/13 07:21:07 mraible Exp $               -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY config SYSTEM "file:./config.xml">
@@ -42,7 +42,7 @@
                 &login;
                 <invoke description="get Logout Page" url="/logout.jsp"/>
                 <verifytitle description="we should see the login title"
-                    text="${webapp.prefix}${login.title}"/>
+                    text=".*${login.title}.*" regex="true"/>
             </steps>
         </webtest>
     </target>
@@ -55,11 +55,11 @@
             <steps>
                 <invoke description="get Login Page" url="/"/>
                 <verifytitle description="we should see the login title" 
-                    text="${webapp.prefix}${login.title}"/>
+                    text=".*${login.title}.*" regex="true"/>
                 <invoke description="click password hint link"
                     url="/passwordHint.html?username=mraible"/>
                 <verifytitle description="we should see the login title again"
-                    text="${webapp.prefix}${login.title}"/>
+                    text=".*${login.title}.*" regex="true"/>
             </steps>
         </webtest>
     </target>
@@ -73,7 +73,7 @@
                 &login;
                 <clicklink description="click Edit Profile link" label="${menu.user}"/>
                 <verifytitle description="we should see the user profile title" 
-                    text="${webapp.prefix}${userProfile.title}"/>
+                    text=".*${userProfile.title}.*" regex="true"/>
             </steps>
         </webtest>
     </target>
@@ -87,7 +87,7 @@
                 &login;
                 <invoke description="click View Users link" url="/users.html"/>
                 <verifytitle description="we should see the user list title" 
-                    text="${webapp.prefix}${userList.title}"/>
+                    text=".*${userList.title}.*" regex="true"/>
             </steps>
         </webtest>
     </target>
@@ -101,12 +101,12 @@
                 &login;
                 <invoke description="click Edit Profile link" url="/editProfile.html"/>
                 <verifytitle description="we should see the user profile title" 
-                    text="${webapp.prefix}${userProfile.title}"/>
+                    text=".*${userProfile.title}.*" regex="true"/>
                 <setinputfield description="set address" name="userForm:address" value="2255 Lane Avenue"/>
                 <setinputfield description="set zipcode" name="userForm:postalCode" value="59826"/>
                 <clickbutton label="${button.save}" description="Click Save"/>
                 <verifytitle description="display Main Menu if save OK"
-                     text="${webapp.prefix}${mainMenu.title}" />
+                     text=".*${mainMenu.title}.*" regex="true"/>
             </steps>
         </webtest>
     </target>
@@ -121,7 +121,7 @@
                 <invoke description="View User List" url="/users.html"/>
                 <clickbutton description="Click 'Add' button'" label="${button.add}"/>
                 
-                <verifytitle description="view user profile title" text="${webapp.prefix}${userProfile.title}"/>
+                <verifytitle description="view user profile title" text=".*${userProfile.title}.*" regex="true"/>
                 <setinputfield description="set username" name="userForm:username" value="newuser"/>
                 <setinputfield description="set password" name="userForm:password" value="test"/>
                 <setinputfield description="set confirmPassword" name="userForm:confirmPassword" value="test"/>
@@ -136,7 +136,7 @@
                 <setinputfield description="set passwordHint" name="userForm:passwordHint" value="test"/>
                 <setcheckbox description="select roles" name="userForm:userRoles" checked="user"/>
                 <clickbutton label="${button.save}" description="Click button 'Save'"/>
-                <verifytitle description="view user list screen" text="${webapp.prefix}${userList.title}"/>
+                <verifytitle description="view user list screen" text=".*${userList.title}.*" regex="true"/>
                 <verifytext description="verify success message" regex="true"
                     text='&lt;div class="message.*&gt;.*&lt;strong&gt;Test Name&lt;/strong&gt;.*&lt;/div&gt;'/>
                     
@@ -147,7 +147,7 @@
                 <verifyNoDialogResponses/>
                 <verifytext description="verify success message" regex="true"
                     text='&lt;div class="message.*&gt;.*&lt;strong&gt;Test Name&lt;/strong&gt;.*&lt;/div&gt;'/>
-                <verifytitle description="display user list" text="${webapp.prefix}${userList.title}"/>
+                <verifytitle description="display user list" text=".*${userList.title}.*" regex="true"/>
             </steps>
         </webtest>
     </target>
@@ -159,7 +159,7 @@
             &config;
             <steps>
                 <invoke description="click signup link" url="/signup.html"/>
-                <verifytitle description="view signup title" text="${webapp.prefix}${signup.title}"/>
+                <verifytitle description="view signup title" text=".*${signup.title}.*" regex="true"/>
                 
                 <setinputfield description="set username" name="signupForm:username" value="signup-user"/>
                 <setinputfield description="set password" name="signupForm:password" value="test"/>
@@ -175,7 +175,7 @@
                 <setinputfield description="set passwordHint" name="signupForm:passwordHint" value="test"/>
                 
                 <clickbutton label="${button.register}" description="Click button 'Signup'"/>
-                <verifytitle description="view main menu" text="${webapp.prefix}${mainMenu.title}"/>
+                <verifytitle description="view main menu" text=".*${mainMenu.title}.*" regex="true"/>
                 <verifytext description="verify success message" text="${user.registered}"/>
             </steps>
         </webtest>
@@ -190,7 +190,7 @@
                 &login;
                 <invoke description="get activeUsers URL" url="/activeUsers.html"/>
                 <verifytitle description="we should see the activeUsers title" 
-                    text="${webapp.prefix}${activeUsers.title}"/>
+                    text=".*${activeUsers.title}.*" regex="true"/>
             </steps>
         </webtest>
     </target>
@@ -204,7 +204,7 @@
                 &login;
                 <invoke description="get flushCache URL" url="/flushCache.html"/>
                 <verifytitle description="we should see the flush cache title" 
-                    text="${webapp.prefix}${flushCache.title}"/>
+                    text=".*${flushCache.title}.*" regex="true"/>
             </steps>
         </webtest>
     </target>
@@ -218,14 +218,14 @@
                 &login;
                 <invoke description="click Upload a File link" url="/selectFile.html"/>
                 <verifytitle description="we should see file upload form" 
-                    text="${webapp.prefix}${upload.title}"/>
+                    text=".*${upload.title}.*" regex="true"/>
                 <!--setinputfield description="set name" name="name" 
                     value="Canoo Test File"/>
                 <setinputfield description="set file" name="file" 
                     value="${basedir}/build.properties"/>
                 <clickbutton label="${button.upload}" description="Click Upload"/>
                 <verifytitle description="show file data if upload OK"
-                     text="${webapp.prefix}${display.title}" />
+                     text=".*${display.title}.*" regex="true"/>
                 <verifytext description="verify original file name displayed on page"
                      text="build.properties" /-->
             </steps>

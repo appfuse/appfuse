@@ -14,7 +14,7 @@
 <body>
 <div id="header"></div>
 
-<c:import url="users-menu.jsp"/>
+<jsp:include page="users-menu.jsp"/>
 
 <div id="content">
 <h1>SQL Tags Example</h1>

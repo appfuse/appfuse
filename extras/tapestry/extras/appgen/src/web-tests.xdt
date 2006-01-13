@@ -17,7 +17,7 @@
                 <invoke description="View <XDtForm:className/> List" url="/<XDtForm:classNameLower/>s.html"/>
                 <clicklink description="edit first record in list" label="1"/>
                 <verifytitle description="we should see the <XDtForm:classNameLower/>Detail title"
-                    text="${webapp.prefix}${<XDtForm:classNameLower/>Detail.title}"/>
+                    text=".*${<XDtForm:classNameLower/>Detail.title}.*" regex="true"/>
             </steps>
         </webtest>
     </target>
@@ -32,7 +32,7 @@
                 <invoke description="View <XDtForm:className/> List" url="/<XDtForm:classNameLower/>s.html"/>
                 <clicklink description="edit first record in list" label="1"/>
                 <verifytitle description="we should see the <XDtForm:classNameLower/>Detail title"
-                    text="${webapp.prefix}${<XDtForm:classNameLower/>Detail.title}"/>
+                    text=".*${<XDtForm:classNameLower/>Detail.title}.*" regex="true"/>
 
                 <!-- update some of the required fields -->
                 <XDtMethod:forAllMethods>
@@ -45,7 +45,7 @@
                 <clickbutton label="${button.save}" description="Click Save"/>
 
                 <verifytitle description="Page re-appears if save successful"
-                    text="${webapp.prefix}${<XDtForm:classNameLower/>Detail.title}"/>
+                    text=".*${<XDtForm:classNameLower/>Detail.title}.*" regex="true"/>
             </steps>
         </webtest>
     </target>
@@ -59,7 +59,7 @@
                 &login;
                 <invoke description="Click Add button" url="/<XDtForm:classNameLower/>Form.html"/>
                 <verifytitle description="we should see the <XDtForm:classNameLower/>Detail title"
-                    text="${webapp.prefix}${<XDtForm:classNameLower/>Detail.title}"/>
+                    text=".*${<XDtForm:classNameLower/>Detail.title}.*" regex="true"/>
 
                 <!-- enter required fields -->
                 <XDtMethod:forAllMethods>
@@ -70,7 +70,7 @@
                 <clickbutton label="${button.save}" description="Click button 'Save'"/>
 
                 <verifytitle description="<XDtForm:className/> List appears if save successful"
-                    text="${webapp.prefix}${<XDtForm:classNameLower/>List.title}"/>
+                    text=".*${<XDtForm:classNameLower/>List.title}.*" regex="true"/>
                 <verifytext description="verify success message" text="${<XDtForm:classNameLower/>.added}"/>
             </steps>
         </webtest>
@@ -88,7 +88,7 @@
                 <prepareDialogResponse description="Confirm delete" dialogType="confirm" response="true"/>
                 <clickbutton label="${button.delete}" description="Click button 'Delete'"/>
                 <verifyNoDialogResponses/>
-                <verifytitle description="display <XDtForm:className/> List" text="${webapp.prefix}${<XDtForm:classNameLower/>List.title}"/>
+                <verifytitle description="display <XDtForm:className/> List" text=".*${<XDtForm:classNameLower/>List.title}.*" regex="true"/>
                 <verifytext description="verify success message" text="${<XDtForm:classNameLower/>.deleted}"/>
             </steps>
         </webtest>
@@ -103,7 +103,7 @@
                 &login;
                 <invoke description="click View <XDtForm:className/>s link" url="/<XDtForm:classNameLower/>s.html"/>
                 <verifytitle description="we should see the <XDtForm:classNameLower/>List title"
-                    text="${webapp.prefix}${<XDtForm:classNameLower/>List.title}"/>
+                    text=".*${<XDtForm:classNameLower/>List.title}.*" regex="true"/>
             </steps>
         </webtest>
     </target>

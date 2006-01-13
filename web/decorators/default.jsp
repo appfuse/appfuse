@@ -8,7 +8,7 @@
     <head>
         <%-- Include common set of meta tags for each layout --%>
         <%@ include file="/common/meta.jsp" %>
-        <title><fmt:message key="webapp.prefix"/><decorator:title/></title>
+        <title><decorator:title/> | <fmt:message key="webapp.name"/></title>
         
         <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/default.css'/>" /> 
         <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/helptip.css'/>" />

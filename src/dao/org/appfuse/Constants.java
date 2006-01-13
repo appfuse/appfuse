@@ -28,6 +28,12 @@ public class Constants {
     /** User home from System properties */
     public static final String USER_HOME = System.getProperty("user.home") + FILE_SEP;
 
+    /** The name of the configuration hashmap stored in application scope. */
+    public static final String CONFIG = "appConfig";
+
+    /** Session scope attribute that holds the locale set by the user. */ 
+    public static final String PREFERRED_LOCALE_KEY = "preferredLocaleKey";
+    
     /**
      * The request scope attribute under which an editable user form is stored
      */
@@ -64,14 +70,4 @@ public class Constants {
      * when adding/editing a user.
      */
     public static final String AVAILABLE_ROLES = "availableRoles";
-
-    /**
-     * Name of cookie for "Remember Me" functionality.
-     */
-    public static final String LOGIN_COOKIE = "sessionId";
-
-    /**
-     * The name of the configuration hashmap stored in application scope.
-     */
-    public static final String CONFIG = "appConfig";
 }

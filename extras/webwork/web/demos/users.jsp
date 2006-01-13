@@ -7,16 +7,14 @@
 <head>
 	<title>SQL Tags Example</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-    <link rel="stylesheet" type="text/css" media="all" 
-        href="<c:url value="/styles/default.css"/>" />
-    <script type="text/javascript"
-        src="<c:url value="/scripts/global.js"/>"></script>
+    <link rel="stylesheet" type="text/css" media="all" href="<c:url value="/styles/default.css"/>" />
+    <script type="text/javascript" src="<c:url value="/scripts/global.js"/>"></script>
 </head>
 
 <body>
 <div id="header"></div>
 
-<c:import url="users-menu.jsp"/>
+<jsp:include page="users-menu.jsp"/>
 
 <div id="content">
 <h1>SQL Tags Example</h1>
