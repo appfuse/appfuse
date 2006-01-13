@@ -42,6 +42,11 @@ public class UserFormController extends BaseFormController {
     public void setRoleManager(RoleManager roleManager) {
         this.roleManager = roleManager;
     }
+    
+    public UserFormController() {
+        setCommandName("user");
+        setCommandClass(User.class);
+    }
 
     public ModelAndView processFormSubmission(HttpServletRequest request,
                                               HttpServletResponse response,

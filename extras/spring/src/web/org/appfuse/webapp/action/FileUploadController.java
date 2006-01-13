@@ -24,6 +24,12 @@ import org.springframework.web.servlet.ModelAndView;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class FileUploadController extends BaseFormController {
+
+    public FileUploadController() {
+        setCommandName("fileUpload");
+        setCommandClass(FileUpload.class);
+    }
+    
     public ModelAndView processFormSubmission(HttpServletRequest request,
                                               HttpServletResponse response,
                                               Object command,

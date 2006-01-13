@@ -17,6 +17,11 @@ public class <XDtForm:className/>FormController extends BaseFormController {
     public void setManager(Manager manager) {
         this.manager = manager;
     }
+    
+    public <XDtForm:className/>FormController() {
+        setCommandName("<XDtForm:classNameLower/>");
+        setCommandClass(<XDtForm:className/>.class);
+    }
 
     protected Object formBackingObject(HttpServletRequest request)
     throws Exception {

@@ -35,11 +35,13 @@ import org.acegisecurity.providers.ProviderManager;
 public class SignupController extends BaseFormController {
     private RoleManager roleManager;
 
-    /**
-     * @param roleManager The roleManager to set.
-     */
     public void setRoleManager(RoleManager roleManager) {
         this.roleManager = roleManager;
+    }
+    
+    public SignupController() {
+        setCommandName("user");
+        setCommandClass(User.class);
     }
     
     public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, 

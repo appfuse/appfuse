@@ -28,8 +28,6 @@
     <bean id="reloadController" class="org.appfuse.webapp.action.ReloadController"/>
 
     <bean id="userFormController" class="org.appfuse.webapp.action.UserFormController">
-        <property name="commandName" value="user"/>
-        <property name="commandClass" value="org.appfuse.model.User"/>
         <property name="validator" ref="beanValidator"/>
         <property name="formView" value="userProfile"/>
         <property name="successView" value="redirect:users.html"/>
@@ -42,8 +40,6 @@
     </bean>
 
     <bean id="fileUploadController" class="org.appfuse.webapp.action.FileUploadController">
-        <property name="commandName" value="fileUpload"/>
-        <property name="commandClass" value="org.appfuse.webapp.action.FileUpload"/>
         <property name="validator" ref="beanValidator"/>
         <property name="cancelView" value="redirect:mainMenu.html"/>
         <property name="formView" value="uploadForm"/>
@@ -55,8 +51,6 @@
     </bean>
     
     <bean id="signupController" class="org.appfuse.webapp.action.SignupController">
-        <property name="commandName" value="user"/>
-        <property name="commandClass" value="org.appfuse.model.User"/>
         <property name="validator" ref="beanValidator"/>
         <property name="formView" value="signup"/>
         <property name="successView" value="redirect:mainMenu.html"/>
