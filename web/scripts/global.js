@@ -377,7 +377,8 @@ window.onload = function() {
     highlightFormElements();
     if ($('successMessages')) {
         new Effect.Highlight('successMessages');
-        window.setTimeout("Effect.DropOut('successMessages')", 3000);
+        // causes webtest exception on OS X : http://lists.canoo.com/pipermail/webtest/2006q1/005214.html
+        // window.setTimeout("Effect.DropOut('successMessages')", 3000);
     }
     if ($('errorMessages')) {
         new Effect.Highlight('errorMessages');
