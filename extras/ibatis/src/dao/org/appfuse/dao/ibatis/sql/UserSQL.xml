@@ -5,7 +5,6 @@
 <sqlMap namespace="UserSQL">
 
     <typeAlias alias="user" type="org.appfuse.model.User"/>
-    <typeAlias alias="userCookie" type="org.appfuse.model.UserCookie"/>
 
     <resultMap id="userResult" class="user">
         <result property="username" column="username"/>
