@@ -108,6 +108,8 @@ public abstract class UserForm extends BasePage implements PageRenderListener {
             log.debug("entered save method");
         }
 
+        HttpServletRequest request = getRequest();
+        
         // make sure the password fields match
         IValidationDelegate delegate = getValidationDelegate();
 
@@ -130,7 +132,8 @@ public abstract class UserForm extends BasePage implements PageRenderListener {
         boolean doEncrypt = (encrypt != null) ? encrypt.booleanValue() : false;
                 
         if (doEncrypt && (StringUtils.equals(getRequest().getParameter("encryptPass"), "true") ||
-                !StringUtils.equals("S"+password, originalPassword))) {
+                !StringUtils.equals("S"+password, originalPassword)) || 
+                ("X".equals(request.getParameter(("version"))))) {
             String algorithm = (String) getConfiguration().get(Constants.ENC_ALGORITHM);
 
             if (algorithm == null) { // should only happen for test case
@@ -167,11 +170,12 @@ public abstract class UserForm extends BasePage implements PageRenderListener {
             addError(delegate, "emailField",
                      format("errors.existing.user", user.getUsername(),
                             user.getEmail()), ValidationConstraint.CONSISTENCY);
+            getUser().setPassword(user.getConfirmPassword());
+            getUser().setVersion(null);
             return;
         }
 
         HttpSession session = getSession();
-        HttpServletRequest request = getRequest();
 
         if (!fromList && user.getUsername().equals(getRequest().getRemoteUser())) {
             session.setAttribute(Constants.USER_KEY, user);

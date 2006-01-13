@@ -49,11 +49,11 @@
         <th>
             <label jwcid="@FieldLabel" field="ognl:components.usernameField">Username</label>
         </th>
-        <td>
-            <div jwcid="@contrib:FormConditional" condition="ognl:user.username == '' || user.username == null">
+        <td style="height: 20px">
+            <div jwcid="@contrib:FormConditional" condition="ognl:user.version == null">
                 <input jwcid="usernameField" type="text" id="username"/>
             </div>
-            <div jwcid="@contrib:FormConditional" condition="ognl:user.username != null">
+            <div jwcid="@contrib:FormConditional" condition="ognl:user.version != null">
                 <span jwcid="@Insert" value="ognl:user.username"/>
                 <input jwcid="@Hidden" type="hidden" value="ognl:user.username" id="username"/>
             </div>
