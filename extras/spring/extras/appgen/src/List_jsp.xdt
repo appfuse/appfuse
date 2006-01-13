@@ -21,12 +21,12 @@
 
 <XDtMethod:forAllMethods>
   <XDtMethod:ifHasMethodTag tagName="hibernate.id">
-    <display:column property="<XDtMethod:propertyName/>" sortable="true"
+    <display:column property="<XDtMethod:propertyName/>" escapeXml="true" sortable="true"
         url="/edit<XDtForm:className/>.html" paramId="<XDtMethodEx:idField getType="propertyName"/>" paramProperty="<XDtMethod:propertyName/>"
         titleKey="<XDtForm:classNameLower/>.<XDtMethodEx:idField getType="propertyName"/>"/>
   </XDtMethod:ifHasMethodTag>
   <XDtMethod:ifHasMethodTag tagName="hibernate.property">
-    <display:column property="<XDtMethod:propertyName/>" sortable="true"
+    <display:column property="<XDtMethod:propertyName/>" escapeXml="true" sortable="true"
          titleKey="<XDtForm:classNameLower/>.<XDtMethod:propertyName/>"/>
   </XDtMethod:ifHasMethodTag>
   </XDtMethod:forAllMethods>

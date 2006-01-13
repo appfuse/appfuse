@@ -19,11 +19,11 @@
 <display:table name="userList" cellspacing="0" cellpadding="0" requestURI="" 
     defaultsort="1" id="users" pagesize="25" class="list userList" export="true">
 
-    <display:column property="username" sortable="true" titleKey="user.username" style="width: 17%"
+    <display:column property="username" escapeXml="true" sortable="true" titleKey="user.username" style="width: 17%"
         url="/editUser.html?from=list" paramId="username" paramProperty="username"/>
 
-    <display:column property="firstName" sortable="true" titleKey="user.firstName" style="width: 20%"/>
-    <display:column property="lastName" sortable="true" titleKey="user.lastName" style="width: 23%"/>
+    <display:column property="firstName" escapeXml="true" sortable="true" titleKey="user.firstName" style="width: 20%"/>
+    <display:column property="lastName" escapeXml="true" sortable="true" titleKey="user.lastName" style="width: 23%"/>
     <display:column property="email" sortable="true" titleKey="user.email" style="width: 40%" autolink="true"/>
     <display:column property="enabled" sortable="true" titleKey="user.enabled" style="width: 10%"/>
 

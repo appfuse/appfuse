@@ -27,13 +27,13 @@
 
 <XDtMethod:forAllMethods>
   <XDtMethod:ifHasMethodTag tagName="hibernate.id">
-    <display:column sortable="true" titleKey="<XDtForm:classNameLower/>.<XDtMethod:propertyName/>" media="html">
+    <display:column sortable="true" titleKey="<XDtForm:classNameLower/>.<XDtMethod:propertyName/>" escapeXml="true" media="html">
         <a href="javascript:view<XDtForm:className/>('<c:out value="${<XDtForm:classNameLower/>s.<XDtMethod:propertyName/>}"/>')"><c:out value="${<XDtForm:classNameLower/>s.<XDtMethod:propertyName/>}"/></a>
     </display:column>
     <display:column property="<XDtMethod:propertyName/>" media="csv excel xml pdf" titleKey="<XDtForm:classNameLower/>.<XDtMethod:propertyName/>"/>
   </XDtMethod:ifHasMethodTag>
   <XDtMethod:ifHasMethodTag tagName="hibernate.property">
-    <display:column property="<XDtMethod:propertyName/>" titleKey="<XDtForm:classNameLower/>.<XDtMethod:propertyName/>" sortable="true"/>
+    <display:column property="<XDtMethod:propertyName/>" escapeXml="true" titleKey="<XDtForm:classNameLower/>.<XDtMethod:propertyName/>" sortable="true"/>
   </XDtMethod:ifHasMethodTag>
   </XDtMethod:forAllMethods>
     <display:setProperty name="paging.banner.item_name" value="<XDtForm:classNameLower/>"/>
