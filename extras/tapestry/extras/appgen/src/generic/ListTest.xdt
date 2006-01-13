@@ -1,7 +1,5 @@
 <XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>package <XDtForm:parentPackageName/>.webapp.action;
 
-import org.apache.tapestry.event.PageEvent;
-
 import <XDtPackage:packageName/>.<XDtForm:className/>;
 import <XDtForm:parentPackageName/>.service.Manager;
 
@@ -34,8 +32,6 @@ public class <XDtForm:className/>ListTest extends BasePageTestCase {
     }
 
     public void testSearch() throws Exception {
-        PageEvent event = new PageEvent(page, page.getRequestCycle());
-        page.pageBeginRender(event); 
         assertTrue(page.get<XDtForm:className/>s().size() >= 1);
     }
 }

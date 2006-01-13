@@ -3,22 +3,18 @@
 import java.util.List;
 
 import org.apache.tapestry.IRequestCycle;
-import org.apache.tapestry.event.PageEvent;
-import org.apache.tapestry.event.PageRenderListener;
 
 import <XDtPackage:packageName/>.<XDtForm:className/>;
 import <XDtForm:parentPackageName/>.service.<XDtForm:className/>Manager;
 
-public abstract class <XDtForm:className/>List extends BasePage implements PageRenderListener {
+public abstract class <XDtForm:className/>List extends BasePage {
     public abstract <XDtForm:className/>Manager get<XDtForm:className/>Manager();
     public abstract void set<XDtForm:className/>Manager(<XDtForm:className/>Manager manager);
-    public abstract List get<XDtForm:className/>s();
-    public abstract void set<XDtForm:className/>s(List <XDtForm:classNameLower/>s);
 
-    public void pageBeginRender(PageEvent event) {
-        set<XDtForm:className/>s(get<XDtForm:className/>Manager().get<XDtForm:className/>s(null));
+    public List get<XDtForm:className/>s() {
+        return get<XDtForm:className/>Manager().get<XDtForm:className/>s(null);
     }
-
+    
     public void edit(IRequestCycle cycle) {
         Object[] parameters = cycle.getServiceParameters();
         <XDtMethodEx:idField getType="propertyType"/> <XDtMethodEx:idField getType="propertyName"/> = (<XDtMethodEx:idField getType="propertyType"/>) parameters[0];

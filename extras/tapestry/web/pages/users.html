@@ -16,7 +16,7 @@
 <table jwcid="table@contrib:Table" class="list userList" id="userList"
     rowsClass="ognl:beans.evenOdd.next" row="ognl:row" 
     columns="user.username:username, user.firstName:firstName, user.lastName:lastName, user.email:email, user.enabled:enabled" 
-    source="ognl:userManager.getUsers(null)" initialSortColumn="username"
+    source="ognl:users" initialSortColumn="username"
     arrowUpAsset="ognl:assets.upArrow" arrowDownAsset="ognl:assets.downArrow">
     <tr jwcid="user_usernameColumnValue@Block">
         <a jwcid="@DirectLink" listener="ognl:listeners.edit" parameters="ognl:row.username">

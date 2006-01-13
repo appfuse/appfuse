@@ -1,7 +1,5 @@
 <XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>package <XDtForm:parentPackageName/>.webapp.action;
 
-import org.apache.tapestry.event.PageEvent;
-
 import <XDtForm:parentPackageName/>.service.<XDtForm:className/>Manager;
 import org.springframework.mock.web.MockHttpServletRequest;
 
@@ -33,9 +31,7 @@ public class <XDtForm:className/>ListTest extends BasePageTestCase {
         assertFalse(page.hasErrors());
     }
 
-    public void testSearch() throws Exception {
-        PageEvent event = new PageEvent(page, page.getRequestCycle());
-        page.pageBeginRender(event); 
+    public void testSearch() throws Exception { 
         assertTrue(page.get<XDtForm:className/>s().size() >= 1);
     }
 }
