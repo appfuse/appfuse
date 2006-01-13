@@ -165,6 +165,7 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
             <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/ibatis-2.1.6/ibatis-common-2.jar"/>
 	<classpathentry kind="lib" path="lib/ibatis-2.1.6/ibatis-sqlmap-2.jar"/>
 	<classpathentry kind="lib" path="lib/ibatis-2.1.6/jta.jar"/>
+    <classpathentry kind="lib" path="lib/ibatis-2.1.6/dom4j-1.6.1.jar"/>
 	<classpathentry kind="lib" path="lib/ibatis-2.1.6/oscache-2.2.jar"/>]]></replacetoken>
         </replace>
         
@@ -211,10 +212,11 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
             <fileset dir="metadata/sql" includes="*.sql"/>
         </copy>
 
-        <echo level="info">Copying jta.jar from Hibernate to iBATIS</echo>
+        <echo level="info">Copying jta.jar and dom4j from Hibernate to iBATIS</echo>
         <copy todir="../../lib/ibatis-2.1.6">
             <fileset dir="${hibernate.dir}/lib">
                 <include name="jta.jar"/>
+                <include name="dom4j*.jar"/>
             </fileset>
         </copy>
         <replace file="../../build.xml">
@@ -292,8 +294,8 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
 
         <!-- Remove Hibernate dialect entry -->
         <replace file="../../build.xml">
-            <replacetoken><![CDATA[<filter token="HIBERNATE-DIALECT" value="${hibernate.dialect}"/>
-        <filter token="DAO-TYPE" value="${dao.type}"/>]]></replacetoken>
+            <replacetoken><![CDATA[
+                <filter token="HIBERNATE-DIALECT" value="${hibernate.dialect}"/>]]></replacetoken>
         </replace>
 
         <!-- Remove hibernatedoclet target -->
@@ -331,7 +333,7 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
         <replace file="../../build.xml">
             <replacetoken><![CDATA[<lib dir="${displaytag.dir}" includes="*.jar"/>
             <lib file="${hibernate.jar}"/>
-            <lib dir="${hibernate.dir}/lib" includes="*.jar" excludes="jta.jar"/>]]></replacetoken>
+            <lib dir="${hibernate.dir}/lib" includes="*.jar"/>]]></replacetoken>
             <replacevalue><![CDATA[<lib dir="${displaytag.dir}" includes="*.jar"/>]]></replacevalue>
         </replace>
 
