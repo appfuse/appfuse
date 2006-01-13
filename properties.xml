@@ -65,7 +65,6 @@
     <!-- =================================================================== -->
     
     <path id="xdoclet.classpath">
-        <path refid="dao.compile.classpath"/>
         <pathelement location="${log4j.jar}"/>
         <pathelement location="${commons-logging.jar}"/>
         <pathelement location="${commons-collections.jar}"/>
