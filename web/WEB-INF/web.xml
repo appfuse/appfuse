@@ -78,7 +78,6 @@
     </filter>
     <filter>
 	    <filter-name>localeFilter</filter-name>
-	    <display-name>Locale Filter</display-name>
 	    <filter-class>org.appfuse.webapp.filter.LocaleFilter</filter-class>
 	</filter>
 
