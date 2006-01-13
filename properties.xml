@@ -65,6 +65,7 @@
     <!-- =================================================================== -->
     
     <path id="xdoclet.classpath">
+        <path refid="dao.compile.classpath"/>
         <pathelement location="${log4j.jar}"/>
         <pathelement location="${commons-logging.jar}"/>
         <pathelement location="${commons-collections.jar}"/>
@@ -75,9 +76,9 @@
     
     <!-- Hibernate -->
     <path id="hibernate.classpath">
-        <pathelement location="${hibernate.jar}"/> 
+        <pathelement location="${hibernate.jar}"/>
         <fileset dir="${hibernate.dir}/lib" includes="*.jar"/>
-        <pathelement location="${database.jar}"/> 
+        <pathelement location="${database.jar}"/>
         <pathelement location="${commons-beanutils.jar}"/>
         <pathelement location="${commons-lang.jar}"/>
         <path location="${build.dir}/dao/classes"/>
