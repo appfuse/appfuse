@@ -19,16 +19,15 @@
 
 <c:out value="${buttons}" escapeXml="false" />
 
-<display:table name="userList" cellspacing="0" cellpadding="0"
-    requestURI="" defaultsort="1" id="users" pagesize="25" 
-    styleClass="list userList" export="true">
+<display:table name="userList" cellspacing="0" cellpadding="0" requestURI="" 
+    defaultsort="1" id="users" pagesize="25" class="list userList" export="true">
 
-    <display:column property="username" sort="true" titleKey="userForm.username" width="17%"
+    <display:column property="username" sortable="true" titleKey="userForm.username" style="width: 17%"
         url="${editURL.path}?from=list" paramId="username" paramProperty="username"/>
-    <display:column property="firstName" sort="true" titleKey="userForm.firstName" width="20%"/>
-    <display:column property="lastName" sort="true" titleKey="userForm.lastName" width="23%"/>
-    <display:column property="email" sort="true" titleKey="userForm.email" width="40%" autolink="true"/>
-    <display:column property="enabled" sort="true" titleKey="userForm.enabled" width="10%"/>
+    <display:column property="firstName" sortable="true" titleKey="userForm.firstName" style="width: 20%"/>
+    <display:column property="lastName" sortable="true" titleKey="userForm.lastName" style="width: 23%"/>
+    <display:column property="email" sortable="true" titleKey="userForm.email" style="width: 40%" autolink="true"/>
+    <display:column property="enabled" sortable="true" titleKey="userForm.enabled" style="width: 10%"/>
 
     <display:setProperty name="paging.banner.item_name" value="user"/>
     <display:setProperty name="paging.banner.items_name" value="users"/>

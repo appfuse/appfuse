@@ -13,10 +13,10 @@
 </button>
     
 <display:table name="applicationScope.userNames" id="user" cellspacing="0" cellpadding="0"
-    defaultsort="1" styleClass="list activeUserList" pagesize="50" requestURI="">
+    defaultsort="1" class="list activeUserList" pagesize="50" requestURI="">
   
-    <display:column property="username" width="30%" titleKey="userForm.username" sort="true"/>
-    <display:column titleKey="activeUsers.fullName" sort="true">
+    <display:column property="username" style="width: 30%" titleKey="userForm.username" sortable="true"/>
+    <display:column titleKey="activeUsers.fullName" sortable="true">
         <c:out value="${user.firstName} ${user.lastName}"/>
         <c:if test="${not empty user.email}">
         <a href="mailto:<c:out value="${user.email}"/>">

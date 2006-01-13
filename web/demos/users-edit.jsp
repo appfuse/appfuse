@@ -129,7 +129,7 @@ if (method == null) {
 <input type="submit" name="method" value="Delete" class="button" />
 <br /><br />
 <display:table name="${test}" id="test" class="list">
-  <display:column width="5" title="${checkAll}">
+  <display:column style="width: 5%" title="${checkAll}">
     <input type="checkbox" name="id" value="<c:out value="${test.id}"/>" 
     <c:if test="${param.id == test.id and param.method != 'Save'}">checked="checked"</c:if>
         style="margin: 0 0 0 4px" onclick="radio(this)" />
@@ -252,7 +252,7 @@ if (method == null) {
 &lt;input type="submit" name="method" value="Delete" class="button" /&gt;
 &lt;br /&gt;&lt;br /&gt;
 &lt;display:table name="${test}" id="test" class="list"&gt;
-  &lt;display:column width="5" title="${checkAll}"&gt;
+  &lt;display:column style="width: 5%" title="${checkAll}"&gt;
     &lt;input type="checkbox" name="id" value="&lt;c:out value="${test.id}"/&gt;" 
     &lt;c:if test="${param.id == test.id and param.method != 'Save'}"&gt;checked="checked"&lt;/c:if&gt;
         style="margin: 0 0 0 4px" onclick="radio(this)" /&gt;

@@ -13,11 +13,11 @@
 </button>
     
 <display:table name="applicationScope.userNames" id="user" cellspacing="0" cellpadding="0"
-    defaultsort="1" styleClass="list activeUserList" pagesize="50" requestURI="">
+    defaultsort="1" class="list activeUserList" pagesize="50" requestURI="">
   
     <%-- Table columns --%>
-    <display:column property="username" width="30%" titleKey="user.username" sort="true"/>
-    <display:column property="fullName" titleKey="activeUsers.fullName" sort="true"/>
+    <display:column property="username" style="width: 30%" titleKey="user.username" sortable="true"/>
+    <display:column property="fullName" titleKey="activeUsers.fullName" sortable="true"/>
         
     <display:setProperty name="paging.banner.item_name" value="user" />
     <display:setProperty name="paging.banner.items_name" value="users" />
