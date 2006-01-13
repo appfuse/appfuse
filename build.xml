@@ -21,7 +21,7 @@
         <!-- Test for Tomcat 5.0.x -->
         <available classname="org.apache.catalina.ant.SessionsTask" property="tomcat5">
             <classpath>
-                <fileset dir="${tomcat.home}/server/lib" includes="catalina-ant*.jar"/>
+                <pathelement path="${tomcat.home}/server/lib/catalina-ant.jar"/>
             </classpath>
         </available>
         
@@ -31,6 +31,11 @@
         <!-- Conditionally set property for converting to JSP 2.0 -->
         <condition property="convert.to.jsp2">
             <equals arg1="${jsp.2}" arg2="true"/>
+        </condition>
+
+        <!-- Conditionally set property for pre-compiling JSPs -->
+        <condition property="precompile.jsp">
+            <equals arg1="${jsp.precompile}" arg2="true"/>
         </condition>
     </target>
     
@@ -74,10 +79,6 @@
         <filter token="ERROR-MAILTO" value="${error.mailTo}"/>
         <filter token="ERROR-MAILHOST" value="${error.mailHost}"/>
         <filter token="ERROR-SERVER" value="${error.server}"/>
-        <filter token="FORM-AUTH-ACTION" value="${form.auth.action}"/>
-        <filter token="HTTP-PORT" value="${http.port}"/>
-        <filter token="HTTPS-PORT" value="${https.port}"/>
-        <filter token="TOMCAT-SERVER" value="${tomcat.server}"/>
         <filter token="SECURE-LOGIN" value="${secure.login}"/>
         <filter token="HIBERNATE-DIALECT" value="${hibernate.dialect}"/>
     </filterset>
@@ -114,13 +115,14 @@
     <!-- =================================================================== -->
     <target name="copy-web-files" depends="prepare" description="Copy static files">
         <echo message="Copying static files"/>
-        <!-- Remove the copy block below if you're not displaying 
-             version/copyright in the footer -->
+        <!-- Remove the copy block below if you're not displaying version/copyright in the footer -->
+        <tstamp><format property="build.timestamp" pattern="EEEE MMM dd, yyyy 'at' hh:mm a zz"/></tstamp>
         <copy todir="${webapp.target}">
             <fileset dir="web" includes="common/footer.jsp"/>
             <filterset>
                 <filter token="APPVERSION" value="${webapp.version}"/>
                 <filter token="COPYRIGHT-YEAR" value="${copyright.year}"/>
+                <filter token="BUILD-TIME" value="${build.timestamp} by ${user.name}"/>
             </filterset>
         </copy>
         <copy todir="${webapp.target}" includeEmptyDirs="no">
@@ -322,21 +324,14 @@
                 description="Custom tag library for this application"
                 shortName="${webapp.name}" filename="${webapp.name}.tld"/>
             <strutsconfigxml validateXML="true" version="1.2"/>
-            <strutsvalidationxml/>
+            <strutsvalidationxml version="1.1.3"/>
         </webdoclet>
     </target>
 
     <!-- Simple alias to package-web -->
     <target name="war" depends="package-web" description="alias for package-web"/>
 
-    <target name="package-web" depends="compile-web,jsp-2" description="Package WAR">
-        <propertyfile comment="Build Information" file="${build.dir}/web/classes/build.properties">
-            <entry key="build.date" type="date" pattern="EEEE MMM dd, yyyy" value="now"/>
-            <entry key="build.time" type="date" pattern="hh:mm:ss a zz" value="now"/>
-            <entry key="build.username" value="${user.name}"/>
-            <entry key="build.computer" value="${env.COMPUTERNAME}"/>
-            <entry key="webapp.version" value="${webapp.version}"/>
-        </propertyfile>
+    <target name="package-web" depends="compile-web,compile-jsp" description="Package WAR">
         <!-- If Servlet 2.4, uncomment the <dispatcher> elements in filter-mappings -->
         <if>
             <or>
@@ -408,10 +403,7 @@
             <lib file="${dwr.jar}"/>
             <lib dir="${commons.dir}" includes="*.jar"/>
             <lib dir="${struts.dir}" includes="*.jar"/>
-            <lib dir="${jstl.final.dir}/lib">
-                <include name="jstl.jar"/>
-                <include name="standard.jar"/>
-            </lib>
+            <lib dir="${jstl.final.dir}/lib" includes="*.jar"/>
             <lib dir="${javamail.dir}" includes="*.jar"/>   
             <lib file="${log4j.jar}"/>
             <lib file="${strutsmenu.jar}"/>
@@ -441,16 +433,13 @@
             <mkdir dir="${build.dir}/@{module}/classes"/>
             <mkdir dir="${test.dir}/@{module}/classes"/>
             <javac srcdir="${src}/@{module};@{additional.src.dirs}"
-                destdir="${build.dir}/@{module}/classes"
-                debug="${compile.debug}"
-                deprecation="${compile.deprecation}"
-                optimize="${compile.optimize}"
+                destdir="${build.dir}/@{module}/classes" debug="${compile.debug}"
+                deprecation="${compile.deprecation}" optimize="${compile.optimize}"
                 classpathref="@{module}.compile.classpath">
                 <options/>
             </javac>
-            <javac srcdir="test/@{module}"
-                destdir="${test.dir}/@{module}/classes"
-                debug="true">
+            <javac srcdir="test/@{module}" debug="true"
+                destdir="${test.dir}/@{module}/classes">
                 <classpath>
                     <path refid="@{module}.test.classpath"/>
                     <path location="${build.dir}/@{module}/classes"/>
@@ -535,9 +524,22 @@
     <!-- =================================================================== -->
     <!--            Compile JSPs using jspc                                  -->
     <!-- =================================================================== -->
-    <target name="compile-jsp" depends="deploy-web">
-        <!-- For more info see http://cvs.apache.org/~fhanik/precompile.html -->
-        <ant antfile="compile-jsp.xml"/>
+    <target name="compile-jsp" depends="jsp-2" if="precompile.jsp">
+        <property name="jsp.src" value="${build.dir}/web/jsp/src"/>
+        <mkdir dir="${jsp.src}"/>
+
+        <taskdef classname="org.apache.jasper.JspC" name="jasper" classpathref="jspc.classpath"/>
+
+        <jasper verbose="0" package="org.appfuse.jsp" uriroot="${webapp.target}" 
+            webXmlFragment="${jsp.src}/jsp-servlets.xml" outputDir="${jsp.src}" />
+        
+        <javac srcdir="${jsp.src}" destdir="${build.dir}/web/classes"
+            debug="${compile.debug}" deprecation="${compile.deprecation}"
+            optimize="${compile.optimize}" classpathref="jspc.classpath"/>
+
+        <loadfile property="jsp.mappings" srcfile="${jsp.src}/jsp-servlets.xml"/>
+        <replace file="${webapp.target}/WEB-INF/web.xml" value="${jsp.mappings}"
+            token="&lt;!-- precompiled jsp mappings --&gt;"/>
     </target>
 
     <!-- =================================================================== -->
@@ -615,7 +617,7 @@
     </target>
 
     <!-- =================================================================== -->
-    <!--  Run all tests (tomcat IS running). The deploy-test-war task        -->
+    <!--  Run all tests (tomcat IS running). The deploy task                 -->
     <!--  should be run before this one.                                     -->
     <!-- =================================================================== -->
     <target name="test-all-running"
@@ -641,10 +643,8 @@
     <!-- =================================================================== -->
     <target name="db-export" depends="prepare"
         description="Exports the current data in the database">
-        <dbunit driver="${database.driver_class}"
-            url="${database.url}"
-            userid="${database.username}"
-            password="${database.password}">
+        <dbunit driver="${database.driver_class}" url="${database.url}"
+            userid="${database.username}" password="${database.password}">
             <export dest="db-export.xml" format="xml"/>
         </dbunit>
     </target>
@@ -654,10 +654,8 @@
         <property name="operation" value="CLEAN_INSERT"/>
         <property name="file" value="metadata/sql/sample-data.xml"/>
         <dbunit driver="${database.driver_class}"
-            supportBatchStatement="false"
-            url="${database.url}"
-            userid="${database.username}"
-            password="${database.password}">
+            supportBatchStatement="false" url="${database.url}"
+            userid="${database.username}" password="${database.password}">
             <operation type="${operation}" src="${file}" format="xml"/>
         </dbunit>
     </target>

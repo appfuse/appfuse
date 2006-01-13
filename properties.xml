@@ -13,6 +13,7 @@
     <property name="http.port" value="8080"/>
     <property name="dao.type" value="hibernate"/>
     <property name="jsp.2" value="false"/>
+    <property name="jsp.precompile" value="false"/>
     
     <!-- Properties for running unit tests with tomcat -->
     <property name="tomcat.server" value="localhost"/>
@@ -41,7 +42,7 @@
     <!-- Build and deploy properties -->
     <property environment="env"/>
     <property name="env.COMPUTERNAME" value="${env.HOSTNAME}"/>
-    <!-- These values are only used if not specified in build.properties -->
+
     <property name="tomcat.home" value="${env.CATALINA_HOME}"/>    
     <!-- The target directory for building the packed web application -->
     <property name="webapp.dist" value="${dist.dir}/webapps"/>    
@@ -67,6 +68,7 @@
         <pathelement location="${log4j.jar}"/>
         <pathelement location="${commons-logging.jar}"/>
         <pathelement location="${commons-collections.jar}"/>
+        <fileset dir="${spring.dir}" includes="acegi*.jar"/>
         <fileset dir="${xdoclet.dir}" includes="*.jar"/>
         <fileset dir="${velocity.dir}" includes="*.jar"/>
     </path>
@@ -101,8 +103,6 @@
         <path refid="dao.compile.classpath"/>
         <pathelement location="${dist.dir}/${webapp.name}-dao.jar"/>
         <fileset dir="${javamail.dir}" includes="*.jar"/>
-        <pathelement location="${commons-lang.jar}"/>
-        <pathelement location="${commons-logging.jar}"/>
         <pathelement location="${commons-beanutils.jar}"/>
         <pathelement location="${commons-collections.jar}"/>
         <fileset dir="${spring.dir}" includes="*.jar"/>
@@ -149,6 +149,21 @@
         <!-- Needed for testing out-of-container -->
         <path refid="dao.compile.classpath"/>
         <path location="test/dao"/>
+    </path>
+    
+    <path id="jspc.classpath">
+        <path refid="dao.compile.classpath"/>
+        <pathelement location="${commons-logging.jar}"/>
+        <pathelement location="${commons-validator.jar}"/>
+        <pathelement location="${clickstream.jar}"/>
+        <pathelement location="${displaytag.jar}"/>
+        <pathelement location="${sitemesh.jar}"/>
+        <pathelement location="${strutsmenu.jar}"/>
+        <fileset dir="${jstl.dir}/lib" includes="*.jar"/>
+        <fileset dir="${struts.dir}" includes="*.jar"/>
+        <fileset dir="${spring.dir}" includes="*.jar"/>
+        <fileset dir="${tomcat.home}/common/lib" includes="*.jar"/>
+        <path location="${build.dir}/web/classes"/>
     </path>
         
     <property name="inheritAll" value="true"/>

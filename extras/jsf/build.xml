@@ -53,6 +53,10 @@ jsf.jar=${jsf.dir}/myfaces-all.jar]]></replacevalue>
             <replacevalue><![CDATA[<pathelement location="${log4j.jar}"/>
     <fileset dir="${servletapi.dir}" includes="*.jar"/>]]></replacevalue>
         </replace>
+        <replace file="../../properties.xml">
+            <replacetoken><![CDATA[<fileset dir="${struts.dir}" includes="*.jar"/>]]></replacetoken>
+            <replacevalue><![CDATA[<fileset dir="${jsf.dir}" includes="*.jar"/>]]></replacevalue>
+        </replace>
         
         <echo level="info">Removing Struts-specific JARs</echo>
         <delete dir="${struts.dir}"/>
@@ -243,6 +247,10 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         <!-- Copy web files (JSPs, images, scripts, stylesheets) -->
         <echo level="info">Replacing web files (images, scripts, JSPs, etc.)</echo>
         <delete dir="../../web/pages"/>
+        <delete>
+            <fileset dir="../../web/scripts" includes="*.jsp"/>
+        </delete>
+
         <copy todir="../../web" overwrite="true">
             <fileset dir="web" includes="**"/>
         </copy>
@@ -320,7 +328,7 @@ log4j.logger.org.apache.myfaces=WARN</replacevalue>
         <!-- Remove Struts XDoclet tasks -->
         <replace file="../../build.xml">
             <replacetoken><![CDATA[<strutsconfigxml validateXML="true" version="1.2"/>
-            <strutsvalidationxml/>]]></replacetoken>
+            <strutsvalidationxml version="1.1.3"/>]]></replacetoken>
         </replace>
 
         <replace file="../../build.xml">

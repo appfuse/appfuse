@@ -5,6 +5,8 @@
 <web-app>
     <display-name>appfuse</display-name>
 
+    <!-- precompiled jsp mappings -->
+    
     <!-- Define the basename for a resource bundle for I18N -->
     <context-param>
         <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>

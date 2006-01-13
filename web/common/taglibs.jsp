@@ -17,5 +17,5 @@
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page"%>
 <%@ taglib uri="/WEB-INF/appfuse.tld" prefix="appfuse" %>
 
-<%-- Set all pages that include this page (particularly tiles) to use XHTML --%>
+<%-- Set all pages that include this page to use XHTML --%>
 <html:xhtml />
