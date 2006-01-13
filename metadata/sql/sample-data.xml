@@ -59,86 +59,6 @@
       <value>N</value>
       <value>N</value>
     </row>
-    <row>
-      <value>acct_expired</value>
-      <value>536c0b339345616c1b33caf454454d8b8a190d6c</value>
-      <value>Expired</value>
-      <value>Account</value>
-      <value></value>
-      <value>Denver</value>
-      <value>US</value>
-      <value>acct_expired@raibledesigns.com</value>
-      <value></value>
-      <value>80210</value>
-      <value>CO</value>
-      <value>http://jakarta.apache.org/tomcat</value>
-      <value><![CDATA[A male kitty.]]></value>
-      <value>1</value>
-      <value>Y</value>
-      <value>Y</value>
-      <value>N</value>
-      <value>N</value>
-    </row>
-    <row>
-      <value>acct_locked</value>
-      <value>536c0b339345616c1b33caf454454d8b8a190d6c</value>
-      <value>Locked</value>
-      <value>Account</value>
-      <value></value>
-      <value>Denver</value>
-      <value>US</value>
-      <value>acct_locked@raibledesigns.com</value>
-      <value></value>
-      <value>80210</value>
-      <value>CO</value>
-      <value>http://jakarta.apache.org/tomcat</value>
-      <value><![CDATA[A male kitty.]]></value>
-      <value>1</value>
-      <value>Y</value>
-      <value>N</value>
-      <value>Y</value>
-      <value>N</value>
-    </row>
-    <row>
-      <value>pswd_expired</value>
-      <value>536c0b339345616c1b33caf454454d8b8a190d6c</value>
-      <value>Expired</value>
-      <value>Password</value>
-      <value></value>
-      <value>Denver</value>
-      <value>US</value>
-      <value>pswd_expired@raibledesigns.com</value>
-      <value></value>
-      <value>80210</value>
-      <value>CO</value>
-      <value>http://jakarta.apache.org/tomcat</value>
-      <value><![CDATA[A male kitty.]]></value>
-      <value>1</value>
-      <value>Y</value>
-      <value>N</value>
-      <value>N</value>
-      <value>Y</value>
-    </row>
-    <row>
-      <value>acct_disabled</value>
-      <value>536c0b339345616c1b33caf454454d8b8a190d6c</value>
-      <value>Disabled</value>
-      <value>Account</value>
-      <value></value>
-      <value>Denver</value>
-      <value>US</value>
-      <value>acct_disabled@raibledesigns.com</value>
-      <value></value>
-      <value>80210</value>
-      <value>CO</value>
-      <value>http://jakarta.apache.org/tomcat</value>
-      <value><![CDATA[A male kitty.]]></value>
-      <value>1</value>
-      <value>N</value>
-      <value>N</value>
-      <value>N</value>
-      <value>N</value>
-    </row>
   </table>
   <table name='role'>
     <column>name</column>
@@ -165,18 +85,6 @@
     <row>
       <value>mraible</value>
       <value>admin</value>
-    </row>
-    <row>
-      <value>acct_expired</value>
-      <value>user</value>
-    </row>
-    <row>
-      <value>acct_locked</value>
-      <value>user</value>
-    </row>
-    <row>
-      <value>pswd_expired</value>
-      <value>user</value>
     </row>
   </table>
 </dataset>
