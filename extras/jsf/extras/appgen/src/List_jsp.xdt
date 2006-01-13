@@ -1,7 +1,7 @@
 <XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><%@ include file="/common/taglibs.jsp"%>
 
 <f:view>
-<f:loadBundle var="text" basename="#{userList.bundleName}"/>
+<f:loadBundle var="text" basename="#{<XDtForm:classNameLower/>List.bundleName}"/>
 
 <title><fmt:message key="<XDtForm:classNameLower/>List.title"/></title>
 <content tag="heading"><fmt:message key="<XDtForm:classNameLower/>List.heading"/></content>
