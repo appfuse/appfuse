@@ -253,14 +253,6 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
         </replace>
 
         <replace file="../../properties.xml">
-            <replacetoken><![CDATA[<!-- DAO -->
-    <path id="dao.compile.classpath">
-        <path refid="hibernate.classpath"/>]]></replacetoken>
-            <replacevalue><![CDATA[<!-- DAO -->
-    <path id="dao.compile.classpath">]]></replacevalue>
-        </replace>
-        
-        <replace file="../../properties.xml">
             <replacetoken><![CDATA[<path refid="hibernate.classpath"/>]]></replacetoken>
             <replacevalue><![CDATA[<path refid="ibatis.classpath"/>]]></replacevalue>
         </replace>
