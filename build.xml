@@ -997,7 +997,7 @@
     <target name="check-debug" depends="with-debug,no-debug" />
 
     <target name="with-debug" if="appfuse-debug">
-           <property name="run.appfuse.test.debugargline" value="-Xdebug -Xnoagent -Xrunjdwp:transport=dt_shmem,address=appfuse-debug,server=y,suspend=y"/>
+        <property name="run.appfuse.test.debugargline" value="-Xdebug -Xnoagent -Xrunjdwp:transport=dt_shmem,address=appfuse-debug,server=y,suspend=y"/>
         <echo>Running in debug mode with shared memory address 'appfuse-debug'</echo>
     </target>
 
