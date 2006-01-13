@@ -40,7 +40,7 @@
         <th>
             <appfuse:label key="userForm.username"/>
         </th>
-        <td>
+        <td style="height: 20px">
         <c:choose>
             <c:when test="${empty userForm.username}">
                 <html:text property="username" styleId="username"/>

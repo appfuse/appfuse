@@ -56,7 +56,7 @@
         <th>
             <appfuse:label key="user.username"/>
         </th>
-        <td>
+        <td style="height: 20px">
         <spring:bind path="user.username">
         <c:choose>
             <c:when test="${empty user.username}">

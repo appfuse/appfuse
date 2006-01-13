@@ -43,7 +43,7 @@
         <th>
             <label class="required">* <fmt:message key="user.username"/>:</label>
         </th>
-        <td>
+        <td style="height: 20px">
             <ww:property value="user.username"/>
             <ww:hidden name="'user.username'" value="user.username"/>
         </td>
