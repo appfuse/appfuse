@@ -18,7 +18,6 @@ import org.apache.commons.logging.LogFactory;
 public class LocaleRequestWrapper extends HttpServletRequestWrapper {
     private final transient Log log = LogFactory.getLog(LocaleRequestWrapper.class);
     private final Locale preferredLocale;
-    private Enumeration locales;
 
     public LocaleRequestWrapper(HttpServletRequest decorated, Locale userLocale) {
         super(decorated);
@@ -44,19 +43,16 @@ public class LocaleRequestWrapper extends HttpServletRequestWrapper {
      */
     public Enumeration getLocales() {
         if (null != preferredLocale) {
-            return setLocales();
+            List l = Collections.list(super.getLocales());
+            if(l.contains(preferredLocale))
+            {
+                l.remove(preferredLocale);
+            }
+            l.add(0, preferredLocale);
+            return Collections.enumeration(l);
         } else {
             return super.getLocales();
         }
-    }
-
-    private Enumeration setLocales() {
-        if (null == locales) {
-            List l = Collections.list(super.getLocales());
-            l.add(0, preferredLocale);
-            locales = Collections.enumeration(l);
-        }
-        return locales;
     }
 
 }
