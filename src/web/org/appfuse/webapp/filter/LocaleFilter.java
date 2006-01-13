@@ -24,13 +24,14 @@ public class LocaleFilter extends OncePerRequestFilter {
             throws IOException, ServletException {
 
         String locale = request.getParameter("locale");
-        Locale preferredLocale = null;
+        Locale preferredLocale = request.getLocale();
 
         if (locale != null) {
             preferredLocale = new Locale(locale);
-            LocaleContextHolder.setLocale(preferredLocale);
         }
-
+        
+        LocaleContextHolder.setLocale(preferredLocale);
+        
         HttpSession session = request.getSession(false);
 
         if (session != null) {
