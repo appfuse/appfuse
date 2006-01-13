@@ -225,6 +225,10 @@ public final class UserAction extends BaseAction {
                                          userForm.getEmail()));
             saveErrors(request, errors);
 
+            BeanUtils.copyProperties(userForm, convert(user));
+            userForm.setConfirmPassword(userForm.getPassword());
+            updateFormBean(mapping, request, userForm); 
+            
             return mapping.findForward("edit");
         }
 
