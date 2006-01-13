@@ -484,11 +484,13 @@
                     <fileset dir="${test.dir}/@{module}/classes">
                         <include name="**/*${testcase}*"/>
                         <exclude name="**/*TestCase.class"/>
+                        <exclude name="**/*$*.class" />
                     </fileset>
                 </batchtest>
                 <batchtest todir="${test.dir}/data" unless="testcase">
                     <fileset dir="${test.dir}/@{module}/classes">
                         <include name="**/*Test.class*"/>
+                        <exclude name="**/*$*.class" />
                     </fileset>
                 </batchtest>
             </junit>
