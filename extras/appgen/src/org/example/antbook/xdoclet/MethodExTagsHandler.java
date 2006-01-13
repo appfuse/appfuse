@@ -290,8 +290,8 @@ public class MethodExTagsHandler extends MethodTagsHandler {
         } else if ("java.lang.Byte".equals(mtype) || "byte".equals(mtype)) {
             result.append((byte) ((Math.random() * Byte.MAX_VALUE)));
         } else if ("java.lang.Boolean".equals(mtype) || "boolean".equals(mtype)) {
-            result.append("0");
-        } else if ("java.util.Date".equals(mtype)) {
+            result.append("N");
+        } else if ("java.util.Date".equals(mtype) || "java.sql.Date".equals(mtype)) {
             result.append(getDate(new Date()));
         } else if ("java.sql.Timestamp".equals(mtype)) {
             result.append(new Timestamp(new Date().getTime()).toString());
@@ -354,6 +354,8 @@ public class MethodExTagsHandler extends MethodTagsHandler {
             result.append("false");
         } else if ("java.util.Date".equals(mtype)) {
             result.append("new java.util.Date()");
+        } else if ("java.sql.Date".equals(mtype)) {
+            result.append("new java.sql.Date()");
         } else if ("java.sql.Timestamp".equals(mtype)) {
             result.append("java.sql.Timestamp.valueOf(\"" + new Timestamp(new Date().getTime()).toString() + "\")");
         } else if ("email".equalsIgnoreCase(super.propertyName())) {
