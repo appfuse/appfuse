@@ -23,8 +23,13 @@ import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
- * StartupListener class used to initialize and database settings
+ * <p>StartupListener class used to initialize and database settings
  * and populate any application-wide drop-downs.
+ * 
+ * <p>Keep in mind that this listener is executed outside of OpenSessionInViewFilter,
+ * so if you're using Hibernate you'll have to explicitly initialize all loaded data at the 
+ * DAO or service level to avoid LazyInitializationException. Hibernate.initialize() works
+ * well for doing this.
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  *
