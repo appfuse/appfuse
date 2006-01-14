@@ -79,7 +79,7 @@ function cm_page(frame){ //Changed v4.05
 /***check positions**/
 function cm_cp(num,w,minus){
 	if(num){if(num.toString().indexOf("%")!=-1){var t = w?cmpage.x2:cmpage.y2; num=parseInt((t*parseFloat(num)/100))
-  if(minus) num-=minus }else num=eval(num);} else num=0; return num
+  if(minus) num-=minus }else num=eval(num.toString());} else num=0; return num
 }
 /**Level object**/
 function cm_makeLevel(){//changed 4.06

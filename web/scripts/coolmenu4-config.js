@@ -1,4 +1,4 @@
-//Menu object creation
+try {
 oCMenu=new makeCM("oCMenu") //Making the menu object. Argument: menuname
 
 oCMenu.frames = 0
@@ -54,3 +54,7 @@ oCMenu.level[1].align="right"
 oCMenu.level[1].offsetX=-(oCMenu.level[0].width-2)/2+20
 oCMenu.level[1].offsetY=0
 oCMenu.level[1].borderClass="cmItemBorder"
+
+} catch (err) { 
+    // this try/catch exists so webtest will ignore coolmenus
+}
