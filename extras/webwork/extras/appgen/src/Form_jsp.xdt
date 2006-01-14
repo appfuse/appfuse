@@ -3,7 +3,7 @@
 <title><fmt:message key="<XDtForm:classNameLower/>Detail.title"/></title>
 <content tag="heading"><fmt:message key="<XDtForm:classNameLower/>Detail.heading"/></content>
 
-<ww:form name="'<XDtForm:classNameLower/>'" action="'save<XDtForm:className/>'" method="'post'" validate="true">
+<ww:form name="'<XDtForm:classNameLower/>Form'" action="'save<XDtForm:className/>'" method="'post'" validate="true">
 <XDtForm:forAllFields>
 <XDtForm:ifIsIdOrVersionField>
 <ww:hidden name="'<XDtForm:classNameLower/>.<XDtForm:fieldName/>'" value="<XDtForm:classNameLower/>.<XDtForm:fieldName/>"/>
@@ -30,4 +30,6 @@
     </tr>
 </ww:form>
 
-
+<script type="text/javascript">
+	Form.focusFirstElement(document.forms["<XDtForm:classNameLower/>Form"]);
+</script>

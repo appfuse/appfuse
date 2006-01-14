@@ -46,11 +46,8 @@
 </html:form>
 
 <script type="text/javascript">
-<!--
-highlightFormElements();
-// -->
+    Form.focusFirstElement(document.forms['uploadForm']);
+    highlightFormElements();
 </script>
-<html:javascript formName="uploadForm" cdata="false"
-    dynamicJavascript="true" staticJavascript="false"/>
-<script type="text/javascript" 
-    src="<c:url value="/scripts/validator.jsp"/>"></script>
+<html:javascript formName="uploadForm" cdata="false" dynamicJavascript="true" staticJavascript="false"/>
+<script type="text/javascript" src="<c:url value="/scripts/validator.jsp"/>"></script>

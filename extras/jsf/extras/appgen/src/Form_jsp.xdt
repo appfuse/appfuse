@@ -52,4 +52,8 @@
 
 <v:validatorScript functionName="validate<XDtForm:className/>Form"/>
 
+<script type="text/javascript">
+	Form.focusFirstElement(document.forms["<XDtForm:classNameLower/>Form"]);
+</script>
+
 </f:view>

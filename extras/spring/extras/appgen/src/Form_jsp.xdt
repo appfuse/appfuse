@@ -56,9 +56,9 @@
 </table>
 </form>
 
-<v:javascript formName="<XDtForm:classNameLower/>" cdata="false"
-    dynamicJavascript="true" staticJavascript="false"/>
-<script type="text/javascript" 
-    src="<c:url value="/scripts/validator.jsp"/>"></script>
+<script type="text/javascript">
+	Form.focusFirstElement(document.forms["<XDtForm:classNameLower/>Form"]);
+</script>
 
-
+<v:javascript formName="<XDtForm:classNameLower/>" cdata="false" dynamicJavascript="true" staticJavascript="false"/>
+<script type="text/javascript"  src="<c:url value="/scripts/validator.jsp"/>"></script>

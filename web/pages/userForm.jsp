@@ -1,7 +1,6 @@
 <%@ include file="/common/taglibs.jsp"%>
 
-<html:form action="saveUser" focus="password" styleId="userForm"
-    onsubmit="return validateUserForm(this)">
+<html:form action="saveUser" styleId="userForm" onsubmit="return validateUserForm(this)">
 <html:hidden property="version"/>
 <input type="hidden" name="from" value="<c:out value="${param.from}"/>"/>
 

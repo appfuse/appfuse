@@ -8,9 +8,7 @@
 
 <div class="separator"></div>
 
-<html:form action="/signup" focus="username" styleId="userForm"
-    onsubmit="return validateUserForm(this)">
-
+<html:form action="/signup" styleId="userForm" onsubmit="return validateUserForm(this)">
 <table class="detail">
     <tr>
         <th>
@@ -168,5 +166,8 @@
 </table>
 </html:form>
 
+<script type="text/javascript">
+    Form.focusFirstElement(document.forms['userForm']);
+</script>
 <html:javascript formName="userForm" cdata="false" dynamicJavascript="true" staticJavascript="false"/>
 <script type="text/javascript" src="<c:url value="/scripts/validator.jsp"/>"></script>

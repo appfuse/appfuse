@@ -45,6 +45,9 @@
 
 <v:validatorScript functionName="validateUploadForm"/>
 
-<script type="text/javascript">highlightFormElements();</script>
+<script type="text/javascript">
+    Form.focusFirstElement(document.forms["uploadForm"]);
+    highlightFormElements();
+</script>
 
 </f:view>
