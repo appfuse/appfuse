@@ -73,7 +73,7 @@ public class LabelTag extends TagSupport {
                 Field field = form.getField(fieldName);
 
                 if (field != null) {
-                    if (field.isDependency("required")) {
+                    if (field.isDependency("required") || field.isDependency("validwhen")) {
                         requiredField = true;
                     }
                 }
