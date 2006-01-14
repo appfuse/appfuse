@@ -26,22 +26,12 @@ To run this application, you will need to perform the following tasks:
  3  Test that the db access code works with:
     ant test-dao -Dtestcase=UserDAO
     ant test-service -Dtestcase=UserManager
- 4. Setup Tomcat by running "ant setup-tomcat deploy". This puts a MySQL JDBC 
-    driver (and jta.jar) in $CATALINA_HOME/common/lib, and also deploys an 
+ 4. Setup Tomcat by running "ant setup-tomcat deploy". This deploys an 
     appfuse.xml file to $CATALINA_HOME/webapps ($CATALINA_HOME/conf/Catalina/
     localhost on Tomcat 5). It also deploys the application to 
     $CATALINA_HOME/webapps.
  5. Start Tomcat and test the web login using "ant test-canoo -Dtestcase=Login".
     If you experience issues with Tomcat, check your build/test/cargo.log file.
-        
-** TO SETUP E-MAIL NOTIFICATION OF ERRORS **
-Log4j has a pretty slick feature where you can have e-mail messages sent
-to you when an ERROR is logged.  To set this up, perform the following
-steps:
-  1. Change the property "error.mailTo" in build.properties to be your
-     e-mail address.
-  2. Edit WEB-INF/classes/log4j.properties to add "mail" to the rootCategory.
-     Example: log4j.rootCategory=INFO, stdout, mail
 
 
 Features/Changes in 1.9
@@ -52,19 +42,56 @@ Features/Changes in 1.9
   rememberMeAuthenticationProvider bean definitions) to a unique key for
   their application.  More information on this change at:
     http://raibledesigns.com/page/rd?entry=using_acegi_security_for_remember
-- Changed default user role from "tomcat" to "user".
+- Modified Acegi configuration to use UserDAO instead of Acegi classes for
+  looking up the user's information. This change includes the ability
+  to set a number of new account-related settings for the user.
 - Changed "dataSource" bean to be a connection pool configured by Spring 
-  rather than one looked up from JNDI (increases portability and ease of
-  deployment).
+  and DBCP rather than one looked up from JNDI (increases portability and ease 
+  of deployment). How to switch back to JNDI is documented at:
+    http://tinyurl.com/7fzxo
+- Added DWR, Prototype and Scriptaculous to allow easy development of 
+  Ajax-enabled applications.
+- Enhancements to Canoo WebTest tests so JavaScript is enabled when testing
+  all web frameworks - not just JSF and Tapestry.
+- Added LocaleFilter to allow users to set the locale with a parameter or
+  programmatically.
+- UI Enhancements: replaced expandable menu with Cool Menus 4, re-worked Login
+  screen to be more professional, added JavaScript to focus on the first
+  field in any screen that has forms.
+- Added ability to pre-compile JSPs as part of build process.
+- Created Hibernate Relationships tutorial showing how to setup the different
+  types of relationships with XDoclet and Struts.
+- Changed Boolean types in User.java to boolean as this seems to be more
+  portable between databases - as well as easier to use when writing code.
+- Fixed issue where Tapestry contrib:Table would through exceptions when 
+  clicking on the column headers (to sort) in rapid succession.
+- Removed XDoclet generation of web.xml.
+- Added Italian Translation of messages.
+- Changed default user role from "tomcat" to "user".
 - Dependent packages upgraded:
-    * C3P0 0.9.0
-    * Log4j 1.2.12
-    * iBATIS 2.1.5
+    * Acegi Security 1.0 RC1
+    * Cargo 0.7
+    * Commons Validator 1.2.0
+    * Log4j 1.2.11
+    * Hibernate 3.1
+    * iBATIS 2.1.6
+    * JSTL 1.1.2 (only used when jsp.2=true)
     * MyFaces 1.1.0
-    * MySQL JDBC Driver 3.1.10  
-    * OSCache 2.1.1
-    * PostgreSQL JDBC Driver 8.0-312
+    * MySQL JDBC Driver 3.1.11
+    * OSCache 2.2
+    * PostgreSQL JDBC Driver 8.0-404
+    * Spring 1.2.6
+    * Struts 1.2.8
+    * URL Rewrite Filter 2.6.0
+    * WebTest Build 1108
+    * XDoclet 1.3 Nightly
+- Dependent packages added:
+    * DWR 1.0
+    * Prototype 1.4.0
+    * Scriptaculous 1.5.1
+    * CoolMenus 4
 
+    
 Features/Changes in 1.8.2
 ============================
 - A complete list of issues can be read from JIRA at http://tinyurl.com/aumf5.
