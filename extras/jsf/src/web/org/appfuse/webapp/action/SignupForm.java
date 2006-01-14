@@ -57,7 +57,7 @@ public class SignupForm extends BasePage implements Serializable {
             user.setPassword(StringUtil.encodePassword(user.getPassword(), algorithm));
         }
         
-        user.setEnabled(Boolean.TRUE);
+        user.setEnabled(true);
         
         // Set the default user role on this new user
         user.addRole(roleManager.getRole(Constants.USER_ROLE));

@@ -97,7 +97,7 @@ public abstract class SignupForm extends BasePage implements PageRenderListener 
             user.setPassword(StringUtil.encodePassword(user.getPassword(), algorithm));
         }        
         
-        user.setEnabled(Boolean.TRUE);
+        user.setEnabled(true);
 
         // Set the default user role on this new user
         user.addRole(getRoleManager().getRole(Constants.USER_ROLE));
