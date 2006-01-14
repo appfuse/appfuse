@@ -13,7 +13,7 @@ rm -rf appfuse-webwork-dist
 mkdir appfuse-webwork-dist
 cp -r appfuse appfuse-webwork-dist/.
 cd appfuse-webwork-dist/appfuse
-cd extras/webwork;ant install;cd ../..;;rm -r extras/webwork
+cd extras/webwork;ant install;cd ../..;rm -r extras/webwork
 ant dist -Darchive.prefix=appfuse-webwork
 
 cd ../..
