@@ -277,24 +277,6 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jakarta-taglibs/standard-1.0.6/lib/jaxen-full.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jakarta-taglibs/standard-1.0.6/lib/saxpath.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/javamail-1.3.1/activation.jar!/" />
         </CLASSES>
         <JAVADOC />
@@ -705,18 +687,8 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/jaxen-full.jar" />
-      <url>jar://$MODULE_DIR$/lib/jakarta-taglibs/standard-1.0.6/lib/jaxen-full.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/jstl.jar" />
       <url>jar://$MODULE_DIR$/lib/jakarta-taglibs/standard-1.0.6/lib/jstl.jar!/</url>
-    </containerElement>
-    <containerElement type="library" level="module">
-      <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/saxpath.jar" />
-      <url>jar://$MODULE_DIR$/lib/jakarta-taglibs/standard-1.0.6/lib/saxpath.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
