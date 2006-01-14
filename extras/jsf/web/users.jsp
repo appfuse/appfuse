@@ -24,7 +24,7 @@
     
 <display:table name="userList.users" cellspacing="0" cellpadding="0" class="list userList" 
     requestURI="/users.html" id="users" export="true" defaultsort="1" pagesize="25">
-    <display:column sortable="true" escapeXml="true" titleKey="user.username" media="html" style="width: 17%">
+    <display:column sortable="true" titleKey="user.username" media="html" style="width: 17%">
         <a href="javascript:viewUser('<c:out value="${users.username}"/>')"><c:out value="${users.username}"/></a>
     </display:column>
     <display:column property="username" escapeXml="true" media="csv excel xml pdf" titleKey="user.username"/>
