@@ -1,7 +1,7 @@
 @import url(messages.css);
 @import url(displaytag.css);
 
-a {
+a, .cmMenu, .cmItem {
     color: green;
     font-weight: bold;
 }
@@ -10,7 +10,7 @@ a:visited, body#login div#menu a:visited  {
     color: #006401;
 }
 
-a:hover {
+a:hover, .cmMenuOver, .cmItemOver {
     background-color: transparent;
     color: #0000ff !important; 
     text-decoration: underline overline;
@@ -20,7 +20,7 @@ a img { border: 0 }
 
 /* 0 means zero regardless of measurement */
 body {
-    background: #FFFFFF;
+    background: #ffffff;
     color: #000000;
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size: 12px;
@@ -34,6 +34,7 @@ div#activeUsers {
     font-size: .9em;
     background: transparent;
     color: #000;
+    margin-top: -5px;
 }
 
 div#content {
@@ -93,13 +94,19 @@ the CSS box model right and understand the CSS2 parent-child selector. ALWAYS in
 a "be nice to Opera 5" rule every time you use the Tantek Celik hack (above). */
 body>#header {height: 14px;}
 
+body#login #content, body#signup #content {
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 div#loginTable {
     background: #EEEEEE;
     border: 1px solid #C0C0C0;
     color: inherit;
     margin: 10px 0px;
-    padding: 5px;
-    width: 400px;
+    padding: 10px 5px 5px 5px;
+    width: 425px;
 }
 
 div#loginTable th {

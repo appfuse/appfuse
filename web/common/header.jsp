@@ -18,8 +18,3 @@
     <c:if test="${userCounter >= 0}"><c:out value="${userCounter}"/></c:if>
 </div>
 </c:if>
-
-<c:if test="${pageContext.request.remoteUser != null}">
-    <a href="<c:url value="/mainMenu.html"/>"><fmt:message key="mainMenu.title"/></a>
-</c:if>
-

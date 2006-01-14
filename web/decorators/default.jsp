@@ -20,12 +20,16 @@
         <script type="text/javascript" src="<c:url value='/scripts/global.js'/>"></script>
 
       <c:if test="${pageContext.request.remoteUser != null}">
-        <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/menuExpandable.css'/>" /> 
-        <script type="text/javascript" src="<c:url value='/scripts/menuExpandable.js'/>"></script>
+        <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/coolmenu.css'/>" /> 
+        <script type="text/javascript" src="<c:url value='/scripts/coolmenu4.js'/>"></script>
+        <script type="text/javascript" src="<c:url value='/scripts/cm_addins.js'/>"></script>
       </c:if>
         <decorator:head/>
     </head>
 <body<decorator:getProperty property="body.id" writeEntireProperty="true"/>>
+
+    <%-- Must come after body to work in IE --%>    
+    <script type="text/javascript" src="<c:url value='/scripts/coolmenu4-config.js'/>"></script>
 
     <div id="screen">
 

@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <MenuConfig>
     <Displayers>
+        <Displayer name="CoolMenu" type="net.sf.navigator.displayer.CoolMenuDisplayer4"/>
         <Displayer name="ListMenu" type="net.sf.navigator.displayer.ListMenuDisplayer"/>
     </Displayers>
     <Menus>
-        <!-- ====================   Administrator Menu   =========================== -->
-        <Menu name="AdminMenu" title="menu.admin" description="Admin Menu" roles="admin">
-            <Item name="am.viewUsers" title="menu.admin.users" page="/users.html"/>
-            <Item name="ReloadContext" title="menu.admin.reload" page="/reload.html"/>
-        </Menu>
-        <!-- ====================   User Menu   =========================== -->
+        <Menu name="MainMenu" title="mainMenu.title" page="/mainMenu.html" width="90"/>
         <Menu name="UserMenu" title="menu.user" description="User Menu" page="/editProfile.html"/>
-        <!-- ====================   Upload File Menu   =========================== -->
         <Menu name="FileUpload" title="menu.selectFile" description="File Upload" page="/uploadFile!default.html"/>
-        <!-- ====================   Flush Cache   =========================== -->
-        <Menu name="FlushCache" title="menu.flushCache" page="/flushCache.html" roles="admin"/>
-        <!-- ====================   Clickstream   =========================== -->
-        <Menu name="Clickstream" title="menu.clickstream" page="/clickstreams.jsp" roles="admin"/>
+
+        <Menu name="AdminMenu" title="menu.admin" description="Admin Menu" roles="admin" width="120">
+            <Item name="ViewUsers" title="menu.admin.users" page="/users.html"/>
+            <Item name="ReloadContext" title="menu.admin.reload" page="/reload.html"/>
+            <Item name="FlushCache" title="menu.flushCache" page="/flushCache.html" roles="admin"/>
+            <Item name="Clickstream" title="menu.clickstream" page="/clickstreams.jsp" roles="admin"/>
+        </Menu>
     </Menus>
 </MenuConfig>

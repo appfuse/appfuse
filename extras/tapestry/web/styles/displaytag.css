@@ -96,11 +96,6 @@ table.list tr.over {
 	cursor: hand; /* IE 5.5 non-compliant workaround */
 }
 
-/* override width for user list */
-table.userList {
-	width: 80% !important;
-}
-
 table.activeUserList, body#activeUsers span.pagelinks {
     width: 450px !important;
 }

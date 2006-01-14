@@ -24,7 +24,7 @@
             </label>
         </th>
         <td>
-            <input type="text" name="j_username" id="j_username" size="25" tabindex="1" />
+            <input type="text" name="j_username" id="j_username" size="35" tabindex="1" />
         </td>
     </tr>
     <tr>
@@ -34,7 +34,7 @@
             </label>
         </th>
         <td>
-            <input type="password" name="j_password" id="j_password" size="20" tabindex="2" />
+            <input type="password" name="j_password" id="j_password" size="35" tabindex="2" />
         </td>
     </tr>
     <c:if test="${appConfig['rememberMeEnabled']}">
