@@ -26,7 +26,7 @@
     }
     
     function required () { 
-        this.aa = new Array("j_username", "<fmt:message key="label.username"/> is a required field.", new Function ("varName", " return this[varName];"));
-        this.ab = new Array("j_password", "<fmt:message key="label.password"/> is a required field.", new Function ("varName", " return this[varName];"));
+        this.aa = new Array("j_username", "<fmt:message key="errors.required"><fmt:param><fmt:message key="label.username"/></fmt:param></fmt:message>", new Function ("varName", " return this[varName];"));
+        this.ab = new Array("j_password", "<fmt:message key="errors.required"><fmt:param><fmt:message key="label.username"/></fmt:param></fmt:message>", new Function ("varName", " return this[varName];"));
     } 
 </script>
