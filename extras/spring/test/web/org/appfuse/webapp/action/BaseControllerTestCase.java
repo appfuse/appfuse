@@ -75,24 +75,26 @@ public abstract class BaseControllerTestCase extends TestCase {
 
         for (int i = 0; i < fields.length; i++) {
             Object field = (fields[i].get(o));
-            if (field instanceof BaseObject) {
-                objectToRequestParameters(field, request, fields[i].getName());
-            } else if (!(field instanceof List) && !(field instanceof Set)) {
-                String paramName = fields[i].getName();
-
-                if (prefix != null) {
-                    paramName = prefix + "." + paramName;
+            if (field != null) {
+                if (field instanceof BaseObject) {
+                    objectToRequestParameters(field, request, fields[i].getName());
+                } else if (!(field instanceof List) && !(field instanceof Set)) {
+                    String paramName = fields[i].getName();
+    
+                    if (prefix != null) {
+                        paramName = prefix + "." + paramName;
+                    }
+    
+                    String paramValue = String.valueOf(fields[i].get(o));
+    
+                    // handle Dates
+                    if (field instanceof java.util.Date) {
+                        paramValue = DateUtil.convertDateToString((Date)fields[i].get(o));
+                        if ("null".equals(paramValue)) paramValue = "";
+                    }
+    
+                    request.addParameter(paramName, paramValue);
                 }
-
-                String paramValue = String.valueOf(fields[i].get(o));
-
-                // handle Dates
-                if (field instanceof java.util.Date) {
-                    paramValue = DateUtil.convertDateToString((Date)fields[i].get(o));
-                    if ("null".equals(paramValue)) paramValue = "";
-                }
-
-                request.addParameter(paramName, paramValue);
             }
         }
     }
