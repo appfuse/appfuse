@@ -199,6 +199,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
             <fileset dir="web" includes="**"/>
         </copy>
         <delete file="../../web/WEB-INF/validator-rules-custom.xml"/>
+        <replace file="../../web/scripts/login.js" token="errors.required" value="errors.requiredField"/>
         
         <echo level="info">Modifying Eclipse .classpath file</echo>
         <replace file="../../.classpath">
