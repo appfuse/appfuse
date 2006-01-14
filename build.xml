@@ -1179,7 +1179,8 @@
     <!-- =================================================================== -->
     <target name="fixcrlf" depends="init">
         <echo>Running fixcrlf....</echo>
-        <fixcrlf srcdir="${basedir}" 
+        <fixcrlf srcdir="${basedir}"
+            excludes="**/ApplicationResources_zh*.properties"
             includes="**/*.txt,
                       **/*.properties,
                       **/*.sql,
