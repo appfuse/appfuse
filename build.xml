@@ -1112,7 +1112,6 @@
                     <exclude name="**/*~"/>
                     <exclude name="**/*.bak"/>
                     <exclude name=".#**"/>
-                    <exclude name="web/demos/**"/>
                     <exclude name="www/**"/>
                     <exclude name="*.sh"/>
                     <exclude name="*.sql"/>
@@ -1289,7 +1288,6 @@
             <fileset dir="../${app.name}/metadata/web" includes="*web-resource-env-refs.xml"/>
             <fileset dir="../${app.name}/metadata/conf" includes="**"/>
             <fileset dir="../${app.name}/web" includes="**/*.jsp"/>
-            <fileset dir="../${app.name}/extras" includes="**/demos/users.jsp"/>
             <fileset dir="../${app.name}" includes="database.properties.reference"/>
         </replaceregexp>
 
