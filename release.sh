@@ -1,4 +1,6 @@
 ant dist
+mkdir dist;mkdir dist/release
+cp ../appfuse*.zip dist/release
 
 cd ..
 rm -rf appfuse-spring-dist
@@ -7,6 +9,7 @@ cp -r appfuse appfuse-spring-dist/.
 cd appfuse-spring-dist/appfuse
 cd extras/spring;ant install;cd ../..;rm -r extras/spring
 ant dist -Darchive.prefix=appfuse-springmvc
+cp ../*.zip ../../appfuse/dist/release
 
 cd ../..
 rm -rf appfuse-webwork-dist
@@ -15,6 +18,7 @@ cp -r appfuse appfuse-webwork-dist/.
 cd appfuse-webwork-dist/appfuse
 cd extras/webwork;ant install;cd ../..;rm -r extras/webwork
 ant dist -Darchive.prefix=appfuse-webwork
+cp ../*.zip ../../appfuse/dist/release
 
 cd ../..
 rm -rf appfuse-jsf-dist
@@ -23,6 +27,7 @@ cp -r appfuse appfuse-jsf-dist/.
 cd appfuse-jsf-dist/appfuse
 cd extras/jsf;ant install;cd ../..;rm -r extras/jsf
 ant dist -Darchive.prefix=appfuse-jsf
+cp ../*.zip ../../appfuse/dist/release
 
 cd ../..
 rm -rf appfuse-tapestry-dist
@@ -31,3 +36,5 @@ cp -r appfuse appfuse-tapestry-dist/.
 cd appfuse-tapestry-dist/appfuse
 cd extras/tapestry;ant install;cd ../..;rm -r extras/tapestry
 ant dist -Darchive.prefix=appfuse-tapestry
+cp ../*.zip ../../appfuse/dist/release
+
