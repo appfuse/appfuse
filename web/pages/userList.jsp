@@ -3,9 +3,6 @@
 <title><fmt:message key="userList.title"/></title>
 <content tag="heading"><fmt:message key="userList.heading"/></content>
 
-<%-- For linking to edit screen --%>
-<bean:struts id="editURL" forward="editUser"/>
-
 <c:set var="buttons">
     <button type="button" style="margin-right: 5px"
         onclick="location.href='<html:rewrite forward="addUser"/>'">
@@ -23,7 +20,8 @@
     defaultsort="1" id="users" pagesize="25" class="list userList" export="true">
 
     <display:column property="username" escapeXml="true" sortable="true" titleKey="userForm.username" style="width: 17%"
-        url="${editURL.path}?from=list" paramId="username" paramProperty="username"/>
+        url="/editUser.html?from=list" paramId="username" paramProperty="username"/>
+        
     <display:column property="firstName" escapeXml="true" sortable="true" titleKey="userForm.firstName" style="width: 20%"/>
     <display:column property="lastName" escapeXml="true" sortable="true" titleKey="userForm.lastName" style="width: 23%"/>
     <display:column property="email" sortable="true" titleKey="userForm.email" style="width: 40%" autolink="true"/>
