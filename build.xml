@@ -465,7 +465,8 @@
             </copy>
             <junit printsummary="no" forkmode="once" errorProperty="test.failed"
                 failureProperty="test.failed" fork="${junit.fork}">
-                <classpath>
+            	<jvmarg value="-Duser.language=en" />
+            	<classpath>
                     <pathelement path="@{additional.src.dirs}"/>
                     <path refid="@{module}.test.classpath"/>
                     <pathelement location="${build.dir}/@{module}/classes"/>
