@@ -8,7 +8,7 @@ import org.acegisecurity.context.SecurityContext;
 import org.acegisecurity.context.SecurityContextHolder;
 import org.acegisecurity.context.SecurityContextImpl;
 import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
-
+import org.acegisecurity.providers.dao.UserCache;
 import org.appfuse.Constants;
 import org.appfuse.dao.UserDAO;
 import org.appfuse.model.Role;
@@ -19,6 +19,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class UserSecurityAdviceTest extends BaseManagerTestCase {
     Mock userDAO = null;
+    ApplicationContext ctx = null;
 
     protected void setUp() throws Exception {
         super.setUp();
@@ -131,12 +132,35 @@ public class UserSecurityAdviceTest extends BaseManagerTestCase {
         userManager.saveUser(user);
         userDAO.verify();
     }
+    
+    // Test removing user from cache after update 
+    public void testRemoveUserFromCache() throws Exception {
+        SecurityContext context = new SecurityContextImpl();
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("user",
+                "password",
+                new GrantedAuthority[] {new GrantedAuthorityImpl(Constants.ADMIN_ROLE)});
+        context.setAuthentication(token);
+        SecurityContextHolder.setContext(context);
+        
+        UserManager userManager = (UserManager) makeInterceptedTarget();
+        
+        UserCache cache = (UserCache) ctx.getBean("userCache");
+        User user = new User("cacheduser");
+        user.setVersion(new Integer(1));
+        user.getRoles().add(new Role(Constants.USER_ROLE));
+        cache.putUserInCache(user);
+        
+        assertNotNull(cache.getUserFromCache(user.getUsername().toLowerCase()));
+        
+        userDAO.expects(once()).method("saveUser");
+        userManager.saveUser(user);
+        assertNull(cache.getUserFromCache(user.getUsername()));
+    }
 
     private UserManager makeInterceptedTarget() {
-        ApplicationContext context = new ClassPathXmlApplicationContext(
-                "org/appfuse/service/applicationContext-test.xml");
+        ctx = new ClassPathXmlApplicationContext("org/appfuse/service/applicationContext-test.xml");
 
-        UserManager userManager = (UserManager) context.getBean("target");
+        UserManager userManager = (UserManager) ctx.getBean("target");
 
         // Mock the userDAO
         userDAO = new Mock(UserDAO.class);

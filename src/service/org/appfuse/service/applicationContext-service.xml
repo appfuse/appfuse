@@ -61,8 +61,21 @@
         <property name="patterns" value=".*saveUser"/>
     </bean>
 
-    <bean id="userSecurityAdvice" class="org.appfuse.service.UserSecurityAdvice"/>
+    <bean id="userSecurityAdvice" class="org.appfuse.service.UserSecurityAdvice">
+        <property name="userCache" ref="userCache"/>
+    </bean>
 
+    <bean id="userCache" class="org.acegisecurity.providers.dao.cache.EhCacheBasedUserCache">
+        <property name="cache">
+            <bean class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+                <property name="cacheManager">
+                    <bean class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"/>
+                </property>
+                <property name="cacheName" value="userCache"/>
+            </bean>
+        </property>
+    </bean>
+    
     <bean id="roleManager" parent="txProxyTemplate">
         <property name="target">
             <bean class="org.appfuse.service.impl.RoleManagerImpl">

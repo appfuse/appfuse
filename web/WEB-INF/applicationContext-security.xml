@@ -59,17 +59,6 @@
          can look for it and detect if password encryption is turned on or not -->
     <bean id="passwordEncoder" class="org.acegisecurity.providers.encoding.ShaPasswordEncoder"/>
 
-    <bean id="userCache" class="org.acegisecurity.providers.dao.cache.EhCacheBasedUserCache">
-        <property name="cache">
-            <bean class="org.springframework.cache.ehcache.EhCacheFactoryBean">
-                <property name="cacheManager">
-                    <bean class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"/>
-                </property>
-                <property name="cacheName" value="userCache"/>
-            </bean>
-        </property>
-    </bean>
-
     <bean id="anonymousAuthenticationProvider" class="org.acegisecurity.providers.anonymous.AnonymousAuthenticationProvider">
         <property name="key" value="anonymous"/>
     </bean>

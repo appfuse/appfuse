@@ -237,8 +237,6 @@ public final class UserAction extends BaseAction {
         updateFormBean(mapping, request, userForm);
         
         if (!StringUtils.equals(request.getParameter("from"), "list")) {
-            session.setAttribute(Constants.USER_KEY, user);
-
             // add success messages
             messages.add(ActionMessages.GLOBAL_MESSAGE,
                          new ActionMessage("user.saved"));
