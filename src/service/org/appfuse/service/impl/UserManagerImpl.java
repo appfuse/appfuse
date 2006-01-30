@@ -48,8 +48,8 @@ public class UserManagerImpl extends BaseManager implements UserManager {
      */
     public void saveUser(User user) throws UserExistsException {
     	// if new user, lowercase username
-    	if (user.getVersion() == null) { 
-    		user.setUsername(user.getUsername().toLowerCase());
+    	if (user.getVersion() == null) {
+            user.setUsername(user.getUsername().toLowerCase());
     	}
         try {
             dao.saveUser(user);
