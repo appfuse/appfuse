@@ -19,7 +19,7 @@ import org.appfuse.Constants;
  * tag, identifying the scripting object(s) to be made visible.
  *
  * @author Matt Raible
- * @version $Revision: 1.4 $ $Date: 2004/08/19 00:13:58 $
+ * @version $Revision: 1.5 $ $Date: 2006/01/30 05:00:13 $
  */
 public class ConstantsTei extends TagExtraInfo {
     private final Log log = LogFactory.getLog(ConstantsTei.class);
@@ -47,15 +47,17 @@ public class ConstantsTei extends TagExtraInfo {
                 AccessibleObject.setAccessible(fields, true);
 
                 for (int i = 0; i < fields.length; i++) {
+                    String type = fields[i].getType().getName();
                     vars.add(new VariableInfo(fields[i].getName(),
-                                              "java.lang.String", true,
-                                              VariableInfo.AT_END));
+                             ((fields[i].getType().isArray()) ? type.substring(2, type.length()-1) + "[]" : type),
+                             true, VariableInfo.AT_END));
                 }
             } else {
                 String var = data.getAttributeString("var");
+                String type = c.getField(var).getType().getName();
                 vars.add(new VariableInfo(c.getField(var).getName(),
-                                          "java.lang.String", true,
-                                          VariableInfo.AT_END));
+                         ((c.getField(var).getType().isArray()) ? type.substring(2, type.length()-1) + "[]" : type),
+                         true, VariableInfo.AT_END));
             }
         } catch (Exception cnf) {
             log.error(cnf.getMessage());

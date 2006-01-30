@@ -30,14 +30,14 @@ import org.appfuse.Constants;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.6 $ $Date: 2005/04/11 21:09:47 $
+ * @version $Revision: 1.7 $ $Date: 2006/01/30 05:00:08 $
  *
  * @jsp.tag name="constants" bodycontent="empty"
  *  tei-class="org.appfuse.webapp.taglib.ConstantsTei"
  */
 public class ConstantsTag extends TagSupport {
-	private static final long serialVersionUID = 3258417209566116146L;
-	private final Log log = LogFactory.getLog(ConstantsTag.class);
+    private static final long serialVersionUID = 3258417209566116146L;
+    private final Log log = LogFactory.getLog(ConstantsTag.class);
     
     /**
      * The class to expose the variables from.
@@ -88,7 +88,7 @@ public class ConstantsTag extends TagSupport {
                 }
             } else {
                 try {
-                    String value = (String) c.getField(var).get(this);
+                    Object value = c.getField(var).get(this);
                     pageContext.setAttribute(c.getField(var).getName(), value,
                                              toScope);
                 } catch (NoSuchFieldException nsf) {
