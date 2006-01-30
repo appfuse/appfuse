@@ -22,7 +22,7 @@
 <%-- Use a non-displayed dataTable to pull <XDtForm:classNameLower/>List into request --%>
 <h:dataTable var="<XDtForm:classNameLower/>" value="#{<XDtForm:classNameLower/>List.<XDtForm:classNameLower/>s}" style="display:none"/>
 
-<display:table name="${<XDtForm:classNameLower/>List.<XDtForm:classNameLower/>s}" cellspacing="0" cellpadding="0" requestURI=""
+<display:table name="<XDtForm:classNameLower/>List.<XDtForm:classNameLower/>s" cellspacing="0" cellpadding="0" requestURI=""
     id="<XDtForm:classNameLower/>s" pagesize="25" class="list" export="true">
 
 <XDtMethod:forAllMethods>
