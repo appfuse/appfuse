@@ -169,8 +169,6 @@ public class UserAction extends BaseAction {
         }
 
         if (!"list".equals(from)) {
-            getSession().setAttribute(Constants.USER_KEY, user);
-
             // add success messages
             saveMessage(getText("user.saved"));
 

@@ -22,7 +22,6 @@ import com.opensymphony.webwork.ServletActionContext;
 public abstract class BaseActionTestCase extends TestCase {
     protected transient final Log log = LogFactory.getLog(getClass());
     protected static XmlWebApplicationContext ctx;
-    protected User user;
     protected MockHttpServletRequest request = new MockHttpServletRequest();
 
     // This static block ensures that Spring's BeanFactory is only loaded
@@ -42,12 +41,7 @@ public abstract class BaseActionTestCase extends TestCase {
     }
 
     protected void setUp() throws Exception {
-        // populate the userForm and place into session
-        UserManager userMgr = (UserManager) ctx.getBean("userManager");
-        user = (User) userMgr.getUser("tomcat");
-        Map attributes = new HashMap();
-        attributes.put(Constants.USER_KEY, user);
-        ActionContext.getContext().setSession(attributes);
+        ActionContext.getContext().setSession(new HashMap());
         
         // change the port on the mailSender so it doesn't conflict with an 
         // existing SMTP server on localhost

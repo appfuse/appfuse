@@ -26,7 +26,6 @@ public class UserFormControllerTest extends BaseControllerTestCase {
     public void testCancel() throws Exception {
         log.debug("testing cancel...");
         request = newPost("/editUser.html");
-        request.getSession().setAttribute(Constants.USER_KEY, user);
         request.addParameter("cancel", "");
 
         mv = c.handleRequest(request, new MockHttpServletResponse());

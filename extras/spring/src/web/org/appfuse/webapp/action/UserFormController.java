@@ -129,17 +129,13 @@ public class UserFormController extends BaseFormController {
             }
 
             if (!StringUtils.equals(request.getParameter("from"), "list")) {
-                HttpSession session = request.getSession();
-                session.setAttribute(Constants.USER_KEY, user);
-
                 saveMessage(request, getText("user.saved", user.getFullName(), locale));
 
                 // return to main Menu
                 return new ModelAndView(new RedirectView("mainMenu.html"));
             } else {
                 if (StringUtils.isBlank(request.getParameter("version"))) {
-                    saveMessage(request,
-                                getText("user.added", user.getFullName(), locale));
+                    saveMessage(request, getText("user.added", user.getFullName(), locale));
 
                     // Send an account information e-mail
                     message.setSubject(getText("signup.email.subject", locale));

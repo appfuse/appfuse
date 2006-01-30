@@ -178,8 +178,6 @@ public abstract class UserForm extends BasePage implements PageRenderListener {
         HttpSession session = getSession();
 
         if (!fromList && user.getUsername().equals(getRequest().getRemoteUser())) {
-            session.setAttribute(Constants.USER_KEY, user);
-
             // add success messages
             MainMenu nextPage = (MainMenu) cycle.getPage("mainMenu");
             nextPage.setMessage(format("user.saved", user.getFullName()));

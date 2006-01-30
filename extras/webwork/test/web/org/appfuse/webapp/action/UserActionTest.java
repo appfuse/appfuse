@@ -1,5 +1,7 @@
 package org.appfuse.webapp.action;
 
+import org.appfuse.model.User;
+import org.appfuse.service.UserManager;
 import org.springframework.mock.web.MockHttpServletRequest;
 
 import com.opensymphony.webwork.ServletActionContext;
@@ -40,6 +42,8 @@ public class UserActionTest extends BaseActionTestCase {
     }
 
     public void testSave() throws Exception {
+        UserManager userManager = (UserManager) ctx.getBean("userManager");
+        User user = userManager.getUser("tomcat");
         user.setPassword("tomcat");
         user.setConfirmPassword("tomcat");
         action.setUser(user);
@@ -61,7 +65,7 @@ public class UserActionTest extends BaseActionTestCase {
     }
 
     public void testRemove() throws Exception {
-        user.setUsername("mraible");
+        User user = new User("mraible");
         action.setUser(user);
         assertEquals(action.delete(), "success");
         assertFalse(action.hasActionErrors());
