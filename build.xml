@@ -974,7 +974,9 @@
                 <echo message="Detected Tomcat 5..."/>
                 <echo level="info">Copying ${webapp.name}.xml...</echo>
                 <copy tofile="${tomcat.home}/conf/Catalina/localhost/${webapp.name}.xml"
-                    file="metadata/conf/tomcat-context.xml" overwrite="true"/>
+                    file="metadata/conf/tomcat-context.xml" overwrite="true">
+                    <filterset refid="db.variables"/>
+                </copy>
             </then>
             <elseif>
                 <isset property="tomcat5.5"/>
@@ -982,14 +984,18 @@
                     <echo message="Detected Tomcat 5.5..."/>
                     <echo level="info">Copying ${webapp.name}.xml...</echo>
                     <copy tofile="${tomcat.home}/conf/Catalina/localhost/${webapp.name}.xml"
-                        file="metadata/conf/tomcat-context-5.5.xml" overwrite="true"/>
+                        file="metadata/conf/tomcat-context-5.5.xml" overwrite="true">
+                        <filterset refid="db.variables"/>
+                    </copy>
                 </then>
             </elseif>
             <else>
                 <echo message="Detected Tomcat 4..."/>
                 <echo level="info">Copying ${webapp.name}.xml...</echo>
                 <copy tofile="${tomcat.home}/webapps/${webapp.name}.xml"
-                    file="metadata/conf/tomcat-context.xml" overwrite="true"/>
+                    file="metadata/conf/tomcat-context.xml" overwrite="true">
+                    <filterset refid="db.variables"/>
+                </copy>
             </else>
         </if>
     </target>
