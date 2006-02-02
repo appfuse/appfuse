@@ -20,6 +20,7 @@ public abstract class BaseDAOTestCase extends AbstractTransactionalDataSourceSpr
     protected ResourceBundle rb;
 
     protected String[] getConfigLocations() {
+        setAutowireMode(AUTOWIRE_BY_NAME);
         return new String [] {"classpath*:/**/dao/applicationContext-*.xml",
                               "classpath*:META-INF/applicationContext-*.xml"};
     }
