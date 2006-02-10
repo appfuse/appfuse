@@ -349,7 +349,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/spring-1.2.6/acegi-security-1.0.0-RC1.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/spring-1.2.6/acegi-security-1.0.0-RC2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -737,8 +737,8 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/acegi-security-1.0.0-RC1.jar" />
-      <url>jar://$MODULE_DIR$/lib/spring-1.2.6/acegi-security-1.0.0-RC1.jar!/</url>
+      <attribute name="URI" value="/WEB-INF/lib/acegi-security-1.0.0-RC2.jar" />
+      <url>jar://$MODULE_DIR$/lib/spring-1.2.6/acegi-security-1.0.0-RC2.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
