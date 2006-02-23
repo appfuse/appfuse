@@ -28,6 +28,5 @@
         <property name="defaultAutoCommit" value="true"/>
         <property name="removeAbandoned" value="true"/>
         <property name="removeAbandonedTimeout" value="60"/>
-        <property name="logAbandoned" value="true"/>
     </bean>
 </beans>
