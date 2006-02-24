@@ -27,6 +27,9 @@
         <decorator:head/>
     </head>
 <body<decorator:getProperty property="body.id" writeEntireProperty="true"/>>
+    <a href="<c:out value="${pageContext.request.contextPath}"/>">
+        <img src="<c:url value="/images/logo.gif"/>" class="logo" alt="<fmt:message key="webapp.name"/>"/>
+    </a>
 
     <%-- Must come after body to work in IE --%>    
     <script type="text/javascript" src="<c:url value='/scripts/coolmenu4-config.js'/>"></script>

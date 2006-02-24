@@ -28,6 +28,14 @@ body {
     padding: 0;
 }
 
+img.logo {
+    width: 203px;
+    height: 75px;
+    position: absolute;
+    left: 0px;
+    top: 5px;
+}
+
 div#activeUsers {
     float: right;
     margin-right: 5px;
