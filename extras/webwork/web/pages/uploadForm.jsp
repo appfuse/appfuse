@@ -6,11 +6,11 @@
 <fmt:message key="upload.message"/>
 <div class="separator"></div>
 
-<ww:form action="'uploadFile'" enctype="'multipart/form-data'" method="'post'"
-    validate="true" name="'upload'">
-    <ww:textfield label="getText('uploadForm.name')" name="'name'"
+<ww:form action="uploadFile" enctype="multipart/form-data" method="post"
+    validate="true" name="upload">
+    <ww:textfield label="%{getText('uploadForm.name')}" name="name"
         value="name" size="40" required="true"/>
-    <ww:file label="getText('uploadForm.file')" name="'file'" id="file" 
+    <ww:file label="%{getText('uploadForm.file')}" name="file" id="file" 
         size="50" required="true"/>
     <tr>
         <td></td>

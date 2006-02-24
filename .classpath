@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry output="build/dao/classes" kind="src" path="build/dao/gen"/>
+	<classpathentry kind="src" path="build/dao/gen"/>
 	<classpathentry kind="src" path="build/web/classes"/>
 	<classpathentry kind="src" path="build/service/classes"/>
 	<classpathentry kind="src" path="build/appfuse"/>

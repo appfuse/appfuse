@@ -1,0 +1,26 @@
+<project name="java-net" basedir="." default="release">
+
+    <import file="build.xml"/> 
+    <property name="project.name" value="${webapp.name}"/>
+
+    <!-- Check that javanettasks.jar is in $ANT_HOME/lib -->
+    <available classname="org.kohsuke.jnt.FileStatus" property="jar.present"/>
+    <fail unless="jar.present"
+          message="Please download javanettasks.jar (and its dependencies) into ${env.ANT_HOME}/lib"/>
+
+    <taskdef resource="org/kohsuke/javanettasks.properties"/>
+
+    <target name="release" depends="dist" description="Creates distributions for release">
+        <upload fromFile="${archive.target}.zip" toFile="${webapp.version}/${archive.name}.zip"/>
+        <upload fromFile="${archive.target}.tar.gz" toFile="${webapp.version}/${archive.name}.tar.gz"/>
+    </target>
+
+    <presetdef name="upload">
+        <javaNetUpload projectName="${project.name}"
+            fromFile="${fromFile}" toFile="${toFile}"
+            fileDescription="Source Distribution - view README.txt for instructions"
+            overwrite="yes" fileStatus="Stable"/>
+    </presetdef>
+
+    
+</project> 

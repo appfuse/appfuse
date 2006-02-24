@@ -34,7 +34,7 @@
 #
 # WebWork - http://www.opensymphony.com/webwork
 #
-webwork.version=2.1.6
+webwork.version=2.2.1
 webwork.dir=${lib.dir}/webwork-${webwork.version}]]></replacevalue>
         </replace>
 
@@ -200,6 +200,11 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         </copy>
         <delete file="../../web/WEB-INF/validator-rules-custom.xml"/>
         <replace file="../../web/scripts/login.js" token="errors.required" value="errors.requiredField"/>
+        <!-- Turn off WebTest's warnings. This is a bug in WebWork: http://jira.opensymphony.com/browse/WW-1209 -->
+        <replace file="../../web/WEB-INF/classes/log4j.properties">
+            <replacetoken>log4j.logger.org.apache.struts=WARN</replacetoken>
+            <replacevalue>log4j.logger.com.opensymphony.webwork=WARN</replacevalue>
+        </replace>
         
         <echo level="info">Modifying Eclipse .classpath file</echo>
         <replace file="../../.classpath">
@@ -211,11 +216,12 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         <replace file="../../.classpath">
             <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/struts-1.2.8/struts.jar"/>
 	<classpathentry kind="lib" path="lib/struts-1.2.8/struts-el.jar"/>]]></replacetoken>
-            <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/webwork-2.1.6/ognl.jar"/>
-	<classpathentry kind="lib" path="lib/webwork-2.1.6/oscore.jar"/>
-	<classpathentry kind="lib" path="lib/webwork-2.1.6/spring-xwork-integration.jar"/>
-	<classpathentry kind="lib" path="lib/webwork-2.1.6/webwork-2.1.6.jar"/>
-	<classpathentry kind="lib" path="lib/webwork-2.1.6/xwork-1.0.4.jar"/>]]></replacevalue>
+            <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/webwork-2.2.1/freemarker-2.3.4"/>
+	<classpathentry kind="lib" path="lib/webwork-2.2.1/ognl-2.6.7.jar"/>
+	<classpathentry kind="lib" path="lib/webwork-2.2.1/oscore-2.2.4.jar"/>
+	<classpathentry kind="lib" path="lib/webwork-2.2.1/rife-continuations-0.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/webwork-2.2.1/webwork-2.2.1.jar"/>
+	<classpathentry kind="lib" path="lib/webwork-2.2.1/xwork-1.1.1.jar"/>]]></replacevalue>
         </replace>
 
         <echo level="info">Refactoring build.xml</echo>

@@ -1,13 +1,12 @@
 <%@ include file="/common/taglibs.jsp"%>
 
-
-<ww:form name="'userForm'" action="'saveUser'" method="'post'" validate="true">
-<ww:hidden name="'user.version'" value="user.version"/>
+<ww:form name="userForm" action="saveUser" method="post" validate="true">
+<ww:hidden name="user.version" value="%{user.version}"/>
 <input type="hidden" name="from" value="<c:out value="${param.from}"/>" />
 
 <c:if test="${cookieLogin == 'true'}">
-	<ww:hidden name="'user.password'" value="user.password"/>
-	<ww:hidden name="'user.confirmPassword'" value="user.confirmPassword"/>
+	<ww:hidden name="user.password" value="%{user.password}"/>
+	<ww:hidden name="user.confirmPassword" value="%{user.confirmPassword}"/>
 </c:if>
 
 <ww:if test="user.username == null || user.username == ''">
@@ -24,7 +23,7 @@
             
         <c:if test="${param.from == 'list'}">
             <input type="submit" class="button" name="delete"
-                onclick="return confirmDelete('user')" 
+                onclick="return confirmDelete('user')}" 
                 value="<fmt:message key="button.delete"/>" />
         </c:if>
         
@@ -35,8 +34,8 @@
 </c:set>
 
 	<ww:if test="user.username == null || user.username == ''">
-	    <ww:textfield label="getText('user.username')" name="'user.username'" 
-	        value="user.username" required="true"/>
+	    <ww:textfield label="%{getText('user.username')}" name="user.username" 
+	        value="%{user.username}" required="true"/>
 	</ww:if>
 	<ww:else>
     <tr>
@@ -44,29 +43,29 @@
             <label class="required">* <fmt:message key="user.username"/>:</label>
         </th>
         <td style="height: 20px">
-            <ww:property value="user.username"/>
-            <ww:hidden name="'user.username'" value="user.username"/>
+            <ww:property value="%{user.username}"/>
+            <ww:hidden name="user.username" value="%{user.username}"/>
         </td>
     </tr>
 	</ww:else>
 	
 	<c:if test="${cookieLogin != 'true'}">
-	    <ww:password label="getText('user.password')" name="'user.password'" show="true"
-	        value="user.password" required="true" size="40" onchange="'passwordChanged(this)'"/>
-	    <ww:password label="getText('user.confirmPassword')" name="'user.confirmPassword'" 
-	        value="user.confirmPassword" required="true" show="true" size="40"/>
+	    <ww:password label="%{getText('user.password')}" name="user.password" show="true"
+	        value="%{user.password}" required="true" size="40" onchange="passwordChanged(this)"/>
+	    <ww:password label="%{getText('user.confirmPassword')}" name="user.confirmPassword" 
+	        value="%{user.confirmPassword}" required="true" show="true" size="40"/>
  	</c:if>
 
-    <ww:textfield label="getText('user.firstName')" name="'user.firstName'"
-        value="user.firstName" required="true" maxlength="50"/>
-    <ww:textfield label="getText('user.lastName')" name="'user.lastName'"
-        value="user.lastName" required="true" maxlength="50"/>
-    <ww:textfield label="getText('user.address.address')" name="'user.address.address'"
-        value="user.address.address" size="50"/>
-    <ww:textfield label="getText('user.address.city')" name="'user.address.city'"
-        value="user.address.city" size="40" required="true"/>
-    <ww:textfield label="getText('user.address.province')" name="'user.address.province'"
-        value="user.address.province" required="true"/>
+    <ww:textfield label="%{getText('user.firstName')}" name="user.firstName"
+        value="%{user.firstName}" required="true" maxlength="50"/>
+    <ww:textfield label="%{getText('user.lastName')}" name="user.lastName"
+        value="%{user.lastName}" required="true" maxlength="50"/>
+    <ww:textfield label="%{getText('user.address.address')}" name="user.address.address"
+        value="%{user.address.address}" size="50"/>
+    <ww:textfield label="%{getText('user.address.city')}" name="user.address.city"
+        value="%{user.address.city}" size="40" required="true"/>
+    <ww:textfield label="%{getText('user.address.province')}" name="user.address.province"
+        value="%{user.address.province}" required="true" size="40"/>
     <tr>
         <th>
             <label for="user.address.country" class="required">
@@ -78,16 +77,16 @@
             <appfuse:country name="user.address.country" prompt="" default="${country}"/>
         </td>
     </tr>
-    <ww:textfield label="getText('user.address.postalCode')" name="'user.address.postalCode'"
-        value="user.address.postalCode" required="true" size="10"/>
-    <ww:textfield label="getText('user.email')" name="'user.email'"
-        value="user.email" required="true" size="50"/>
-    <ww:textfield label="getText('user.phoneNumber')" name="'user.phoneNumber'"
-        value="user.phoneNumber"/>
-    <ww:textfield label="getText('user.website')" name="'user.website'"
-        value="user.website" required="true" size="50"/>
-    <ww:textfield label="getText('user.passwordHint')" name="'user.passwordHint'"
-        value="user.passwordHint" required="true" size="50"/>
+    <ww:textfield label="%{getText('user.address.postalCode')}" name="user.address.postalCode"
+        value="%{user.address.postalCode}" required="true" size="10"/>
+    <ww:textfield label="%{getText('user.email')}" name="user.email"
+        value="%{user.email}" required="true" size="50"/>
+    <ww:textfield label="%{getText('user.phoneNumber')}" name="user.phoneNumber"
+        value="%{user.phoneNumber}"/>
+    <ww:textfield label="%{getText('user.website')}" name="user.website"
+        value="%{user.website}" required="true" size="50"/>
+    <ww:textfield label="%{getText('user.passwordHint')}" name="user.passwordHint"
+        value="%{user.passwordHint}" required="true" size="50"/>
 
 <c:choose>
     <c:when test="${param.from == 'list' or param.method == 'Add'}">
@@ -101,20 +100,20 @@
                 <table class="pickList">
                     <tr>
                         <td>
-                            <ww:checkbox name="'user.enabled'" id="user.enabled" 
-                                value="user.enabled" fieldValue="'true'" theme="'simple'"/>
+                            <ww:checkbox name="user.enabled" id="user.enabled" 
+                                value="${user.enabled}" fieldValue="true" theme="simple"/>
                             <label for="user.enabled"><fmt:message key="user.enabled"/></label>
                         
-                            <ww:checkbox name="'user.accountExpired'" id="user.accountExpired" 
-                                value="user.accountExpired" fieldValue="'true'" theme="'simple'"/>
+                            <ww:checkbox name="user.accountExpired" id="user.accountExpired" 
+                                value="%{user.accountExpired}" fieldValue="true" theme="simple"/>
                             <label for="user.accountExpired"><fmt:message key="user.accountExpired"/></label>
 
-                            <ww:checkbox name="'user.accountLocked'" id="user.accountLocked" 
-                                value="user.accountLocked" fieldValue="'true'" theme="'simple'"/>
+                            <ww:checkbox name="user.accountLocked" id="user.accountLocked" 
+                                value="%{user.accountLocked}" fieldValue="true" theme="simple"/>
                             <label for="user.accountLocked"><fmt:message key="user.accountLocked"/></label>
 
-                            <ww:checkbox name="'user.credentialsExpired'" id="user.credentialsExpired" 
-                                value="user.credentialsExpired" fieldValue="'true'" theme="'simple'"/>
+                            <ww:checkbox name="user.credentialsExpired" id="user.credentialsExpired" 
+                                value="%{user.credentialsExpired}" fieldValue="true" theme="simple"/>
                             <label for="user.credentialsExpired"><fmt:message key="user.credentialsExpired"/></label>
                         </td>
                     </tr>
@@ -167,10 +166,10 @@
               	<input type="hidden" name="user.userRoles"
               		value="<ww:property value="value"/>" />
             </ww:iterator>
-            <ww:hidden name="'user.enabled'" value="user.enabled"/>
-            <ww:hidden name="'user.accountExpired'" value="user.accountExpired"/>
-            <ww:hidden name="'user.accountLocked'" value="user.accountLocked"/>
-            <ww:hidden name="'user.credentialsExpired'" value="user.credentialsExpired"/> 
+            <ww:hidden name="user.enabled" value="%{user.enabled}"/>
+            <ww:hidden name="user.accountExpired" value="%{user.accountExpired}"/>
+            <ww:hidden name="user.accountLocked" value="%{user.accountLocked}"/>
+            <ww:hidden name="user.credentialsExpired" value="%{user.credentialsExpired}"/> 
         </td>
     </tr>
     </c:otherwise>

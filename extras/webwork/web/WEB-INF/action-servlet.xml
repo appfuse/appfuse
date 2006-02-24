@@ -7,16 +7,6 @@
         <property name="authorizedRoles" value="admin"/>
     </bean>
     
-    <bean id="exceptionInterceptor" class="org.appfuse.webapp.interceptor.ExceptionHandlerInterceptor">
-        <property name="exceptionMappings">
-            <props>
-                <prop key="org.springframework.dao.DataAccessException">        
-                    dataAccessFailure
-                </prop>
-            </props>
-        </property>
-    </bean>
-    
     <bean id="signupAction" class="org.appfuse.webapp.action.SignupAction" singleton="false">
         <property name="userManager" ref="userManager"/>
         <property name="roleManager" ref="roleManager"/>

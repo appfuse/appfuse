@@ -1,5 +1,5 @@
-<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" 
-    "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.1.1//EN"
+	"http://www.opensymphony.com/xwork/xwork-1.1.1.dtd">
 
 <xwork>
   	<!-- Include webwork defaults -->
@@ -10,37 +10,45 @@
         <interceptors>
             <!-- Interceptor to handle allowing only admins to certain actions -->
             <interceptor name="adminOnly" class="adminInterceptor"/>
-            <!-- Interceptor to catch exceptions and display mapped exception result -->
-            <interceptor name="exceptionHandler" class="exceptionInterceptor"/>
-            <!-- Custom interceptor that detects cancel and delete -->
-            <interceptor name="smartValidator" class="org.appfuse.webapp.interceptor.ValidationInterceptor"/>
-            <interceptor-stack name="defaultExceptionStack">
-                <interceptor-ref name="defaultStack"/>
-                <interceptor-ref name="exceptionHandler"/>
+            <!-- Verbose way to turn off validation for certain methods -->
+            <interceptor-stack name="defaultStack">
+                <interceptor-ref name="exception" />
+                <interceptor-ref name="alias" />
+                <interceptor-ref name="servlet-config" />
+                <interceptor-ref name="prepare" />
+                <interceptor-ref name="i18n" />
+                <interceptor-ref name="chain" />
+                <interceptor-ref name="model-driven" />
+                <interceptor-ref name="fileUpload" />
+                <interceptor-ref name="static-params" />
+                <interceptor-ref name="params" />
+                <interceptor-ref name="conversionError" />
+                <interceptor-ref name="validation">
+                    <param name="excludeMethods">cancel,execute,delete,edit,list</param>
+                </interceptor-ref>
+                <interceptor-ref name="workflow">
+                    <param name="excludeMethods">input,back,cancel</param>
+                </interceptor-ref>
             </interceptor-stack>
             <interceptor-stack name="fileUploadStack">
                 <interceptor-ref name="fileUpload"/>
-                <interceptor-ref name="defaultExceptionStack"/>
-                <interceptor-ref name="smartValidator"/>
-                <interceptor-ref name="workflow"/>
+                <interceptor-ref name="defaultStack"/>
             </interceptor-stack>
             <interceptor-stack name="adminCheck">
-                <interceptor-ref name="defaultExceptionStack"/>
+                <interceptor-ref name="defaultStack"/>
                 <interceptor-ref name="adminOnly"/>
             </interceptor-stack>
-            <interceptor-stack name="validationStack">
-                <interceptor-ref name="defaultExceptionStack"/>
-                <interceptor-ref name="smartValidator"/>
-                <interceptor-ref name="workflow"/>
-            </interceptor-stack>
         </interceptors>
-        <!-- Default interceptor stack. --> 
-        <default-interceptor-ref name="defaultExceptionStack"/>  
 
-        <global-results> 
+        <global-results>
             <result name="mainMenu" type="redirect">mainMenu.html</result>
             <result name="dataAccessFailure">/WEB-INF/pages/dataAccessFailure.jsp</result>
-        </global-results> 
+        </global-results>
+
+        <global-exception-mappings>
+            <exception-mapping exception="org.springframework.dao.DataAccessException"
+                result="dataAccessFailure"/>
+        </global-exception-mappings> 
         
         <action name="activeUsers" class="com.opensymphony.xwork.ActionSupport"> 
             <result name="success">/WEB-INF/pages/activeUsers.jsp</result> 
@@ -57,7 +65,6 @@
         </action> 
 
         <action name="saveSignup" class="signupAction" method="save">
-            <interceptor-ref name="validationStack"/>
             <result name="input">/WEB-INF/pages/signup.jsp</result>
             <result name="success" type="redirect">/mainMenu.html</result>
         </action> 
@@ -79,7 +86,6 @@
         </action>
         
         <action name="saveUser" class="userAction" method="save">
-            <interceptor-ref name="validationStack"/>
             <result name="cancel" type="redirect">users.html</result>
             <result name="input">/WEB-INF/pages/userProfile.jsp</result>
             <result name="success" type="redirect">users.html</result>
