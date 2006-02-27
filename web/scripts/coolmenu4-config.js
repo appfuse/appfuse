@@ -5,7 +5,7 @@ oCMenu.frames = 0
 
 //Menu properties   
 oCMenu.pxBetween=5
-oCMenu.fromLeft=10
+oCMenu.fromLeft=65
 oCMenu.fromTop=60  
 oCMenu.rows=1 
 oCMenu.menuPlacement="left"
