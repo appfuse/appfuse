@@ -66,6 +66,7 @@
         <navigation-case>
             <from-outcome>cancel</from-outcome>
             <to-view-id>/login.jsp</to-view-id>
+            <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -73,6 +74,7 @@
         <navigation-case>
             <from-outcome>success</from-outcome>
             <to-view-id>/login.jsp</to-view-id>
+            <redirect/>
         </navigation-case>
     </navigation-rule>
     <!-- Add additional rules here -->
