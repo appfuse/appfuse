@@ -37,16 +37,20 @@ public class BasePage {
     
     private HttpServletRequest request = null;
 
-    public BasePage() {
-        this.facesContext = FacesContext.getCurrentInstance();
-    }
-
     /**
      * Allow overriding of facesContext for unit tests
      * @param userManager
      */
     public void setFacesContext(FacesContext facesContext) {
         this.facesContext = facesContext;
+    }
+    
+    public FacesContext getFacesContext() {
+        if (facesContext != null){
+            // for unit tests
+            return facesContext;
+        }
+        return FacesContext.getCurrentInstance();
     }
 
     public void setUserManager(UserManager userManager) {
@@ -153,7 +157,7 @@ public class BasePage {
      * @return
      */
     protected HttpServletRequest getRequest() {
-        return (HttpServletRequest) facesContext.getExternalContext().getRequest();
+        return (HttpServletRequest) getFacesContext().getExternalContext().getRequest();
     }
 
     /**
@@ -169,7 +173,7 @@ public class BasePage {
      * @return
      */
     protected HttpServletResponse getResponse() {
-        return (HttpServletResponse) facesContext.getExternalContext().getResponse();
+        return (HttpServletResponse) getFacesContext().getExternalContext().getResponse();
     }
 
     /**
@@ -177,7 +181,7 @@ public class BasePage {
      * @return
      */
     protected ServletContext getServletContext() {
-        return (ServletContext) facesContext.getExternalContext().getContext();
+        return (ServletContext) getFacesContext().getExternalContext().getContext();
     }
 
     /**
