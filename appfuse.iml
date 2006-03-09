@@ -421,7 +421,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/webtest-build1108/lib/webtest.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/webtest-build1200/lib/webtest.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -521,7 +521,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/webtest-build1108/lib/jaxen-1.1-beta-8.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/webtest-build1200/lib/jaxen-1.1-beta-8.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -530,7 +530,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/webtest-build1108/lib/nekohtml-0.9.5.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/webtest-build1200/lib/nekohtml-0.9.5.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -539,7 +539,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/webtest-build1108/lib/htmlunit-1.7.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/webtest-build1200/lib/htmlunit-1.7.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -548,7 +548,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/webtest-build1108/lib/commons-httpclient-3.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/webtest-build1200/lib/commons-httpclient-3.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -557,7 +557,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/webtest-build1108/lib/js-1.6R2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/webtest-build1200/lib/js-1.6R2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -566,7 +566,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/webtest-build1108/lib/commons-io-1.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/webtest-build1200/lib/commons-io-1.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -803,37 +803,37 @@
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/commons-httpclient-3.0.jar" />
-      <url>jar://$MODULE_DIR$/lib/webtest-build1108/lib/commons-httpclient-3.0.jar!/</url>
+      <url>jar://$MODULE_DIR$/lib/webtest-build1200/lib/commons-httpclient-3.0.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/commons-io-1.1.jar" />
-      <url>jar://$MODULE_DIR$/lib/webtest-build1108/lib/commons-io-1.1.jar!/</url>
+      <url>jar://$MODULE_DIR$/lib/webtest-build1200/lib/commons-io-1.1.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/htmlunit-1.7.jar" />
-      <url>jar://$MODULE_DIR$/lib/webtest-build1108/lib/htmlunit-1.7.jar!/</url>
+      <url>jar://$MODULE_DIR$/lib/webtest-build1200/lib/htmlunit-1.7.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/jaxen-1.1-beta-8.jar" />
-      <url>jar://$MODULE_DIR$/lib/webtest-build1108/lib/jaxen-1.1-beta-8.jar!/</url>
+      <url>jar://$MODULE_DIR$/lib/webtest-build1200/lib/jaxen-1.1-beta-8.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/js-1.6R2.jar" />
-      <url>jar://$MODULE_DIR$/lib/webtest-build1108/lib/js-1.6R2.jar!/</url>
+      <url>jar://$MODULE_DIR$/lib/webtest-build1200/lib/js-1.6R2.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/nekohtml-0.9.5.jar" />
-      <url>jar://$MODULE_DIR$/lib/webtest-build1108/lib/nekohtml-0.9.5.jar!/</url>
+      <url>jar://$MODULE_DIR$/lib/webtest-build1200/lib/nekohtml-0.9.5.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/webtest.jar" />
-      <url>jar://$MODULE_DIR$/lib/webtest-build1108/lib/webtest.jar!/</url>
+      <url>jar://$MODULE_DIR$/lib/webtest-build1200/lib/webtest.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
