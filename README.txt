@@ -76,7 +76,7 @@ Features/Changes in 1.9
     * Hibernate 3.1
     * iBATIS 2.1.6
     * JSTL 1.1.2 (only used when jsp.2=true)
-    * MyFaces 1.1.0
+    * MyFaces 1.1.1
     * MySQL JDBC Driver 3.1.11
     * OSCache 2.2
     * PostgreSQL JDBC Driver 8.0-404

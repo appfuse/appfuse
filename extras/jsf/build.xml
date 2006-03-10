@@ -34,7 +34,7 @@
 #
 # MyFaces (JSF 1.1) - http://www.myfaces.org
 #
-jsf.version=1.1.0
+jsf.version=1.1.1
 jsf.dir=${lib.dir}/myfaces-${jsf.version}/lib
 jsf.jar=${jsf.dir}/myfaces-all.jar]]></replacevalue>
         </replace>
