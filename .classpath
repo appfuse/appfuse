@@ -74,7 +74,7 @@
 	<classpathentry kind="lib" path="lib/postgresql-jdbc-8.1-404/postgresql-jdbc3-8.1-404.jar"/>
 	<classpathentry kind="lib" path="lib/webtest-build1200/lib/commons-httpclient-3.0.jar"/>
 	<classpathentry kind="lib" path="lib/webtest-build1200/lib/commons-io-1.1.jar"/>
-	<classpathentry kind="lib" path="lib/webtest-build1200/lib/htmlunit-1.7.jar"/>
+	<classpathentry kind="lib" path="lib/webtest-build1200/lib/htmlunit-1.8.jar"/>
 	<classpathentry kind="lib" path="lib/webtest-build1200/lib/jaxen-1.1-beta-8.jar"/>
 	<classpathentry kind="lib" path="lib/webtest-build1200/lib/js-1.6R2.jar"/>
 	<classpathentry kind="lib" path="lib/webtest-build1200/lib/nekohtml-0.9.5.jar"/>

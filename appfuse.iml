@@ -539,7 +539,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/webtest-build1200/lib/htmlunit-1.7.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/webtest-build1200/lib/htmlunit-1.8.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -812,8 +812,8 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/htmlunit-1.7.jar" />
-      <url>jar://$MODULE_DIR$/lib/webtest-build1200/lib/htmlunit-1.7.jar!/</url>
+      <attribute name="URI" value="/WEB-INF/lib/htmlunit-1.8.jar" />
+      <url>jar://$MODULE_DIR$/lib/webtest-build1200/lib/htmlunit-1.8.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
