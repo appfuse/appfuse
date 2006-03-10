@@ -22,25 +22,25 @@
 <t:dataTable id="activeUsers" var="user" value="#{activeUserList.users}"
      rows="20"
      sortColumn="#{activeUserList.sort}"
-	 sortAscending="#{activeUserList.ascending}"
+     sortAscending="#{activeUserList.ascending}"
      styleClass="activeUserList list"
      rowClasses="standardTable_Row1,standardTable_Row2"
      columnClasses="standardTable_Column,standardTable_Column">
     <t:column width="135px" 
-    	headerstyleClass="#{activeUserList.sort == 'username' ? 'standardTable_SortHeader' : 'standardTable_Header'}">
+        headerstyleClass="#{activeUserList.sort == 'username' ? 'standardTable_SortHeader' : 'standardTable_Header'}">
         <f:facet name="header">
-        	<t:commandSortHeader columnName="username" arrow="false">
+            <t:commandSortHeader columnName="username" arrow="false">
                 <f:facet name="ascending">
                     <t:graphicImage value="/images/arrow_up.png" rendered="true"
-                    	border="0" style="position: relative; left: -7px"/>
+                        border="0" style="position: relative; left: -7px"/>
                 </f:facet>
                 <f:facet name="descending">
                     <t:graphicImage value="/images/arrow_down.png" rendered="true" 
-                    	border="0" style="position: relative; left: -7px"/>
+                        border="0" style="position: relative; left: -7px"/>
                 </f:facet>
                 <h:outputText value="#{text['user.username']}" /> 
                 <t:graphicImage value="/images/arrow_off.png" rendered="true" 
-                	border="0" style="padding-left: 5px;"/>                
+                    border="0" style="padding-left: 5px;"/>                
             </t:commandSortHeader>
         </f:facet>
         <h:outputText value="#{user.username}" />
@@ -48,24 +48,24 @@
     <t:column
         headerstyleClass="#{activeUserList.sort == 'fullName' ? 'standardTable_SortHeader' : 'standardTable_Header'}">
         <f:facet name="header">
-        	<t:commandSortHeader columnName="fullName" arrow="false">
+            <t:commandSortHeader columnName="fullName" arrow="false">
                 <f:facet name="ascending">
                     <t:graphicImage value="/images/arrow_up.png" rendered="true"
-                    	border="0" style="position: relative; left: -7px"/>
+                        border="0" style="position: relative; left: -7px"/>
                 </f:facet>
                 <f:facet name="descending">
                     <t:graphicImage value="/images/arrow_down.png" rendered="true" 
-                    	border="0" style="position: relative; left: -7px"/>
+                        border="0" style="position: relative; left: -7px"/>
                 </f:facet>
                 <h:outputText value="#{text['activeUsers.fullName']}" />
                 <t:graphicImage value="/images/arrow_off.png" rendered="true" 
-                	border="0" style="padding-left: 5px;"/>              
+                    border="0" style="padding-left: 5px;"/>              
             </t:commandSortHeader>
         </f:facet>
         <h:outputText value="#{user.fullName}" />
         <h:outputLink value="mailto:#{user.email}" rendered="#{not empty user.email}">
         <h:graphicImage style="padding-left: 10px;" alt="#{text['icon.email']}" 
-        	url="/images/iconEmail.gif" />
+            url="/images/iconEmail.gif" />
         </h:outputLink> 
     </t:column>
 </t:dataTable>
@@ -73,11 +73,11 @@
 
 <t:buffer into="#{scroller}"> 
 <h:panelGrid columns="1" styleClass="scroller" columnClasses="standardTable_ColumnCentered" >
-<t:dataScroller id="scroll"	for="activeUsers"
-	fastStep="10" pageCountVar="pageCount"
-	pageIndexVar="pageIndex" styleClass="scroller"
-	paginator="true" paginatorMaxPages="9"
-	paginatorTableClass="paginator"	paginatorActiveColumnClass="currentPage">
+<t:dataScroller id="scroll"    for="activeUsers"
+    fastStep="10" pageCountVar="pageCount"
+    pageIndexVar="pageIndex" styleClass="scroller"
+    paginator="true" paginatorMaxPages="9"
+    paginatorTableClass="paginator"    paginatorActiveColumnClass="currentPage">
     <f:facet name="first" >
         <t:graphicImage url="/images/arrow-first.gif"/>
     </f:facet>
@@ -127,4 +127,4 @@
 <h:outputText value="#{scroller}" escape="false"/>
 
 </h:form>
-</f:view>	
+</f:view>    

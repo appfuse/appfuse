@@ -270,7 +270,7 @@ log4j.logger.org.apache.myfaces=WARN</replacevalue>
         </replace>
         <replace file="../../.classpath">
             <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/struts-1.2.8/struts.jar"/>
-	<classpathentry kind="lib" path="lib/struts-1.2.8/struts-el.jar"/>]]></replacetoken>
+    <classpathentry kind="lib" path="lib/struts-1.2.8/struts-el.jar"/>]]></replacetoken>
             <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/myfaces-1.1.0/lib/myfaces-all.jar"/>]]></replacevalue>
         </replace>
 
