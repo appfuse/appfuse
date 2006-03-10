@@ -79,22 +79,22 @@
 	paginator="true" paginatorMaxPages="9"
 	paginatorTableClass="paginator"	paginatorActiveColumnClass="currentPage">
     <f:facet name="first" >
-        <t:graphicImage url="/images/myfaces/arrow-first.gif"/>
+        <t:graphicImage url="/images/arrow-first.gif"/>
     </f:facet>
     <f:facet name="last">
-        <t:graphicImage url="/images/myfaces/arrow-last.gif"/>
+        <t:graphicImage url="/images/arrow-last.gif"/>
     </f:facet>
     <f:facet name="previous">
-        <t:graphicImage url="/images/myfaces/arrow-previous.gif"/>
+        <t:graphicImage url="/images/arrow-previous.gif"/>
     </f:facet>
     <f:facet name="next">
-        <t:graphicImage url="/images/myfaces/arrow-next.gif"/>
+        <t:graphicImage url="/images/arrow-next.gif"/>
     </f:facet>
     <f:facet name="fastforward">
-        <t:graphicImage url="/images/myfaces/arrow-ff.gif"/>
+        <t:graphicImage url="/images/arrow-ff.gif"/>
     </f:facet>
     <f:facet name="fastrewind">
-        <t:graphicImage url="/images/myfaces/arrow-fr.gif"/>
+        <t:graphicImage url="/images/arrow-fr.gif"/>
     </f:facet>
 </t:dataScroller>
 </h:panelGrid>
