@@ -1,0 +1,186 @@
+<project name="axis-webservice" basedir="." default="help">
+
+    <property name="lib.dir" location="../../lib"/>
+    <property file="${lib.dir}/lib.properties"/>
+
+    <!-- =================================================================== -->
+    <!-- List options for this build file                                    -->
+    <!-- =================================================================== -->
+    <target name="help" description="Print usage for key targets">
+    <echo>
+    	This file is designed to add XFire support support to AppFuse 
+    	There are three targets for installation:
+    	install    - which installs everything necessary to use the Spring native way of integration
+    	help       - which just displays this message
+    	install-demo - which installs the aegis-annotated src files into the src-folder
+    </echo>
+    </target>
+
+    <!-- =================================================================== -->
+    <!-- Integrates XFire into AppFuse                                       -->
+    <!-- =================================================================== -->
+    <target name="install"
+        description="Integrates XFire into AppFuse base project.">
+
+		<echo level="info">Copying xfire to ../../lib</echo>
+        <copy todir="${lib.dir}">
+            <fileset dir="lib" includes="**"/>
+        </copy>
+    	
+    	<concat destfile="${lib.dir}/lib.properties" append="true">
+			<fileset dir="base" includes="lib.properties"/>
+    	</concat>
+
+    	<echo level="info">Adding xfire to war libs</echo>
+    	<replace file="../../build.xml">
+            <replacetoken><![CDATA[</war>]]></replacetoken>
+    		<replacevalue><![CDATA[    <lib dir="${xfire.dir}" includes="*.jar"/>
+        </war>]]></replacevalue>
+		</replace>
+    			
+    	<echo level="info">Adding applicationContext-webservice to service.jar</echo>
+    	<replace file="../../build.xml">
+            <replacetoken><![CDATA[<mkdir dir="${build.dir}/service/classes/META-INF"/>]]></replacetoken>
+    		<replacevalue><![CDATA[<mkdir dir="${build.dir}/service/classes/META-INF"/>
+        <copy tofile="${build.dir}/service/classes/META-INF/applicationContext-webservice.xml">
+            <fileset dir="src/service" includes="**/*-webservice.xml"/>
+        </copy>]]></replacevalue>
+		</replace>
+    	<replace file="../../build.xml">
+            <replacetoken><![CDATA[<fileset dir="${build.dir}/service/classes" includes="**/*.class"/>]]></replacetoken>
+    		<replacevalue><![CDATA[<fileset dir="${build.dir}/service/classes">
+            <include name="**/*.class"/>
+            <include name="**/*.aegis.xml"/>
+        </fileset>]]></replacevalue>
+		</replace>
+    			
+    	<echo level="info">Adding xfire to build path</echo>
+    	<replace file="../../properties.xml">
+            <replacetoken><![CDATA[<path id="service.compile.classpath">]]></replacetoken>
+    		<replacevalue><![CDATA[<path id="service.compile.classpath">
+    	<fileset dir="${xfire.dir}" includes="*.jar"/>]]></replacevalue>
+		</replace>
+    	<replace file="../../properties.xml">
+            <replacetoken><![CDATA[<path id="service.test.classpath">]]></replacetoken>
+    		<replacevalue><![CDATA[<path id="service.test.classpath">
+    	<fileset dir="${xfire.test.dir}" includes="*.jar"/>
+        <pathelement location="${servletapi.jar}"/>]]></replacevalue>
+		</replace>
+    			
+    	<echo level="info">Adding servlet and servlet-mapping to web/WEB-INF/web.xml</echo>
+    	<replace file="../../web/WEB-INF/web.xml">
+           <replacetoken><![CDATA[<servlet-mapping>
+        <servlet-name>action</servlet-name>]]></replacetoken>
+           <replacevalue><![CDATA[<servlet>
+        <servlet-name>XFireServlet</servlet-name>
+        <display-name>XFire Servlet</display-name>
+        <servlet-class>org.codehaus.xfire.spring.XFireSpringServlet</servlet-class>
+    </servlet>
+           	
+    <servlet-mapping>
+        <servlet-name>XFireServlet</servlet-name>
+        <url-pattern>/services/*</url-pattern>
+    </servlet-mapping>
+           	
+    <servlet-mapping>
+        <servlet-name>action</servlet-name>]]></replacevalue>
+        </replace>
+
+    	<replace file="../../web/WEB-INF/web.xml">
+           <replacetoken><![CDATA[</web-app>]]></replacetoken>
+           <replacevalue><![CDATA[    <!-- currently the W3C havent settled on a media type for WSDL;
+         http://www.w3.org/TR/2003/WD-wsdl12-20030303/#ietf-draft
+         for now we go with the basic 'it's XML' response -->
+    <mime-mapping>
+        <extension>wsdl</extension>
+        <mime-type>text/xml</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>xsd</extension>
+        <mime-type>text/xml</mime-type>
+    </mime-mapping>
+           	
+</web-app>]]></replacevalue>
+        </replace>
+    	
+		<echo level="info">Copying xdoclet-template to ../../metadata/templates</echo>
+        <copy todir="../../metadata/templates">
+            <fileset dir="metadata/templates" includes="**"/>
+        </copy>
+    	
+    	<echo level="info">Adding xfire gen-aegis-mapping target to build.xml</echo>
+    	<replace file="../../build.xml">
+            <replacetoken><![CDATA[<!-- Service -->]]></replacetoken>
+    		<replacevalue><![CDATA[<!-- Service -->
+    <target name="gen-aegis-mapping" depends="prepare"
+        description="Generates Aegis Mapping XML descriptors from POJOs">
+        <taskdef name="xdoclet" classname="xdoclet.DocletTask"
+            classpathref="xdoclet.classpath"/>
+
+        <xdoclet excludedtags="@version,@author"
+            addedtags="@xdoclet-generated at ${TODAY}"
+            force="${xdoclet.force}"
+            destdir="${build.dir}/service/classes"
+            mergedir="metadata/webservice">
+            <fileset dir="src/service" includes="**/*.java"/>
+
+            <template templateFile="metadata/templates/aegis-mapping.xdt"
+                acceptAbstractClasses="false"
+                prefixWithPackageStructure="true"
+                destinationFile="{0}.aegis.xml"
+                havingClassTag="aegis.mapping"/>
+        </xdoclet>
+	  	
+        <xdoclet excludedtags="@version,@author"
+            addedtags="@xdoclet-generated at ${TODAY}"
+            force="${xdoclet.force}"
+            destdir="${build.dir}/dao/classes"
+            mergedir="metadata/webservice">
+            <fileset dir="src/dao" includes="**/*.java"/>
+
+            <template templateFile="metadata/templates/aegis-mapping.xdt"
+                acceptAbstractClasses="false"
+                prefixWithPackageStructure="true"
+                destinationFile="{0}.aegis.xml"
+                havingClassTag="aegis.mapping"/>
+        </xdoclet>
+    </target>
+]]></replacevalue>
+		</replace>
+    	
+		<echo level="info">Copying applicationContext-webservice.xml to ../../src/service/org/appfuse/service</echo>
+        <copy todir="../../src/service/org/appfuse/service">
+            <fileset dir="base" includes="applicationContext-webservice.xml"/>
+        </copy>
+
+		<echo level="info">Adjusting .classpath for eclipse</echo>
+    	<replace file="../../.classpath">
+           <replacetoken><![CDATA[</classpath>]]></replacetoken>
+           <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/xfire-1.0/runtime/xbean-spring-2.2.jar"/>
+    <classpathentry kind="lib" path="lib/xfire-1.0/runtime/xfire-aegis-1.0.jar"/>
+    <classpathentry kind="lib" path="lib/xfire-1.0/runtime/jdom-1.0.jar"/>
+    <classpathentry kind="lib" path="lib/xfire-1.0/runtime/stax-api-1.0.jar"/>
+    <classpathentry kind="lib" path="lib/xfire-1.0/runtime/wstx-asl-2.9.jar"/>
+    <classpathentry kind="lib" path="lib/xfire-1.0/test/httpunit-1.6.1.jar"/>
+    <classpathentry kind="lib" path="lib/xfire-1.0/runtime/wsdl4j-1.5.2.jar"/>
+    <classpathentry kind="lib" path="build/dao/classes"/>
+</classpath>]]></replacevalue>
+        </replace>
+    </target>
+	
+	<target name="install-demo">
+		<copy todir="../../src" overwrite="true">
+			<fileset dir="src" includes="**/*"/>
+		</copy>
+    	<replace file="../../src/service/org/appfuse/service/impl/UserManagerImpl.java">
+           <replacetoken><![CDATA[implements UserManager]]></replacetoken>
+           <replacevalue><![CDATA[implements UserManager, UserWebService]]></replacevalue>
+        </replace>
+    	<replace file="../../src/service/org/appfuse/service/impl/UserManagerImpl.java">
+           <replacetoken><![CDATA[import org.appfuse.service.UserManager;]]></replacetoken>
+           <replacevalue><![CDATA[import org.appfuse.service.UserManager;
+import org.appfuse.service.UserWebService;]]></replacevalue>
+        </replace>
+	</target>
+	
+</project>

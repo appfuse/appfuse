@@ -1,0 +1,353 @@
+__Part I:__ [Integrating Axis into AppFuse|AppFuseAxis] - A HowTo for providing Webservices from within AppFuse.
+
+!!About this Tutorial
+This tutorial will show you how to create a Webservice Endpoint and what you can do to automate the creation of artifacts necessary to provide Webservices to others.
+
+!Table of Contents
+* [0] Preface
+* [1] Download the prerequisite packages
+* [2] Add the packages to AppFuse's lib structure
+* [3] Modify the build script to include the packages
+* [4] Add the AxisServlet definition
+* [5] Create an xdoclet-task in build.xml to generate the server-config.wsdd
+* [6] Create an example Service-Endpoint
+* [7] Build and test
+
+!!Preface [#0]
+This howto is based on a [howto from RanHow Chen|http://spaces.msn.com/members/chenztw/PersonalSpace.aspx?_c01_blogpart=blogmgmt&_c=blogpart] and my own work (which was done somewhat in parallel). A big difference is the way, the Webservice is integrated with Spring. RanHow's approach is following a [proposal of Tom Czarniecki|http://opensource2.atlassian.com/projects/spring/browse/SPR-371] which is still reported to produce occasional NPEs. That was a reason for me not to follow that way. I chose the more classical approach to extend Spring's ServletEndpointSupport.
+
+There's work in progress to automate the process of plugging in Axis into AppFuse (via an extras package), you'll find the first shot version attached to this page as [zip|http://raibledesigns.com/wiki/attach/AppFuseAxis/extras-axis.zip].
+
+All that's described on this page is performed by an ant-task in this package. Expand it in the extras folder of your project, go into the folder axis-webservice with a shell and do an 
+{{{
+   ant install
+}}}
+there. It will install the necessary files and do the changes described below.
+
+!!Download the prerequistie packages [#1]
+All you need is Axis. It is available from the [Apache Webservices Project|http://ws.apache.org/axis]. The [latest release|http://www.apache.org/dyn/closer.cgi/ws/axis/1_3] as of the time of this writing is 1.3
+
+!!Add the packages to AppFuse's lib structure [#2]
+The main distribution comes with all sorts of other things, including sample applications, that we don't need, but are valuable if you like to dig deeper into axis.
+
+#Create the following folder structure in your project directory:
+{{{
+lib/
+   axis-1_3/
+      lib/
+}}}
+
+Copy the following files into the axis-1_3/lib folder (they are in the axis distribution under lib):
+
+*axis.jar
+*axis-ant.jar
+*axis-schema.jar
+*commons-discovery-0.2.jar
+*commons-logging-1.0.4.jar
+*jaxrpc.jar
+*saaj.jar
+*wsdl4j-1.5.1.jar
+
+Now add the following to lib.properties
+{{{
+#
+# Axis - http://ws.apache.org/axis
+#
+axis.version=1_3
+axis.dir=${lib.dir}/axis-${axis.version}/lib
+}}}
+
+We need to create a path in properties as well:
+Open properties.xml and add the following path definition:
+{{{
+    <!-- Axis Classpath -->
+    <path id="axis.classpath">
+        <path refid="xdoclet.classpath"/>
+        <fileset dir="${axis.dir}" includes="*.jar"/>
+        <fileset dir="${javamail.dir}" includes="*.jar"/>
+    </path>
+}}}
+
+!!Modify the build script to include these packages [#3]
+Now that AppFuse is aware of the new libraries, we need to include them in the build process.
+
+We must modify the package-web target, to add the following to the lib directives for the war task:
+{{{
+   ...
+   <lib dir="${axis.dir}" includes="*.jar"/>
+</war>
+}}} 
+
+Additinally we need to put the axis.classpath into the compile-service target (just below &lt;path id="service.compile.classpath"&gt;):
+{{{
+   <path refid="axis.classpath"/>
+}}}
+
+!!Add the AxisServlet definition [#4]
+We now need to make webdoclet generate the appropriate entries for the AxisServlet in web.xml.
+
+Open metadata/web/servlets.xml and add the following:
+{{{
+    <!-- axis -->
+    <servlet>
+      <servlet-name>AxisServlet</servlet-name>
+      <display-name>Apache-Axis Servlet</display-name>
+      <servlet-class>
+          org.apache.axis.transport.http.AxisServlet
+      </servlet-class>
+    </servlet>
+}}}
+
+Now we must setup the mappings:
+Open metadata/web/servlet-mappings.xml and add:
+{{{
+    <!-- axis -->
+    <servlet-mapping>
+       <servlet-name>AxisServlet</servlet-name>
+       <url-pattern>*.jws</url-pattern>
+    </servlet-mapping>
+ 
+    <servlet-mapping>
+       <servlet-name>AxisServlet</servlet-name>
+       <url-pattern>/services/*</url-pattern>
+    </servlet-mapping>
+}}}
+
+Additionally it makes sense to create a file mime-mappings.xml in the metadata/web directory:
+{{{
+    <!-- axis -->
+    <!-- currently the W3C havent settled on a media type for WSDL;
+         http://www.w3.org/TR/2003/WD-wsdl12-20030303/#ietf-draft
+         for now we go with the basic 'it's XML' response -->
+    <mime-mapping>
+       <extension>wsdl</extension>
+       <mime-type>text/xml</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+       <extension>xsd</extension>
+       <mime-type>text/xml</mime-type>
+    </mime-mapping>
+}}}
+
+!!Create an xdoclet-task in build.xml to generate the server-config.wsdd [#5]
+
+Create a file named axis-server-config.xdt in metadata/templates:
+{{{
+<?xml version="1.0" encoding="utf-8"?>
+
+<deployment name="defaultClientConfig"
+            xmlns="http://xml.apache.org/axis/wsdd/"
+            xmlns:java="http://xml.apache.org/axis/wsdd/providers/java"
+            xmlns:handler="http://xml.apache.org/axis/wsdd/providers/handler">
+            
+<XDtClass:forAllClasses>
+	<XDtClass:ifHasClassTag tagName="axisfuse.beanMapping" paramName="xmlns">
+	   <beanMapping <XDtClass:ifHasClassTag tagName="axisfuse.beanMapping" paramName="xmlns">qname="ns:<XDtClass:className/>"</XDtClass:ifHasClassTag> 
+	   <XDtClass:ifHasClassTag tagName="axisfuse.beanMapping" paramName="xmlns">xmlns:ns="<XDtClass:classTagValue tagName="axisfuse.beanMapping" 
+	   paramName="xmlns"/>"</XDtClass:ifHasClassTag> languageSpecificType="java:<XDtClass:fullClassName/>"/></XDtClass:ifHasClassTag></XDtClass:forAllClasses>
+
+	<globalConfiguration>
+	   <parameter name="disablePrettyXML" value="true"/>
+	   <parameter name="dotNetSoapEncFix" value="true"/>
+	   <requestFlow>
+	     <handler type="java:org.apache.axis.handlers.JWSHandler">
+	        <parameter name="scope" value="session"/>
+	     </handler>
+	     <handler type="java:org.apache.axis.handlers.JWSHandler">
+	        <parameter name="scope" value="request"/>
+	        <parameter name="extension" value=".jwr"/>
+	     </handler>
+	   </requestFlow>
+	</globalConfiguration>
+
+	<handler type="java:org.apache.axis.handlers.http.URLMapper" name="URLMapper"/>
+	<handler type="java:org.apache.axis.transport.local.LocalResponder" name="LocalResponder"/>
+	<handler type="java:org.apache.axis.handlers.SimpleAuthenticationHandler" name="Authenticate"/>
+
+<XDtClass:forAllClasses>
+	<XDtClass:ifHasClassTag tagName="axisfuse.handler" paramName="name">
+	<handler name="<XDtClass:classTagValue tagName="axisfuse.handler paramName="name"/>" type="java:<XDtClass:fullClassName/>" >
+		<XDtClass:ifHasClassTag tagName="axisfuse.parameter" paramName="name">
+		<parameter name="<XDtClass:classTagValue tagName="axisfuse.parameter" paramName="name"/>" value="<XDtClass:classTagValue 
+		tagName="axisfuse.parameter" paramName="value"/>" />
+		</XDtClass:ifHasClassTag>
+	</handler>
+	</XDtClass:ifHasClassTag>
+</XDtClass:forAllClasses>
+
+<XDtClass:forAllClasses>
+<XDtClass:ifHasClassTag tagName="axisfuse.service" paramName="name">
+	<service name="<XDtClass:classTagValue tagName="axisfuse.service" paramName="name"/>" <XDtClass:ifHasClassTag tagName="axisfuse.service" 
+	  paramName="provider">provider="<XDtClass:classTagValue tagName="axisfuse.service" paramName="provider" values="java:RPC,java:MSG,java:EJB" 
+	  default="java:RPC"/>"</XDtClass:ifHasClassTag><XDtClass:ifDoesntHaveClassTag tagName="axisfuse.service" 
+	  paramName="provider">provider="java:RPC"</XDtClass:ifDoesntHaveClassTag> <XDtClass:ifHasClassTag tagName="axisfuse.service" 
+	  paramName="style">style="<XDtClass:classTagValue tagName="axisfuse.service" 
+	  paramName="style" values="rpc,document,wrapped,message"/>"</XDtClass:ifHasClassTag> 
+	  <XDtClass:ifHasClassTag tagName="axisfuse.service" paramName="use">use="<XDtClass:classTagValue tagName="axisfuse.service" 
+	  paramName="use" values="literal,encoded"/>"</XDtClass:ifHasClassTag>> 
+    <XDtClass:ifHasClassTag tagName="axisfuse.service" paramName="namespace">
+    	<namespace><XDtClass:classTagValue tagName="axisfuse.service" paramName="namespace"/></namespace>
+    </XDtClass:ifHasClassTag>
+    <XDtClass:ifHasClassTag tagName="axisfuse.useHandler" paramName="name">
+		<requestFlow>
+			<handler type="<XDtClass:classTagValue tagName="axisfuse.useHandler" paramName="name"/>"/>
+		</requestFlow>
+    </XDtClass:ifHasClassTag>
+    <XDtClass:ifHasClassTag tagName="axisfuse.service">
+		<parameter name="className" value="<XDtClass:fullClassName/>" />
+    </XDtClass:ifHasClassTag>
+    <XDtClass:ifHasClassTag tagName="axisfuse.service" paramName="bean-Name">
+		<parameter name="beanName" value="<XDtClass:classTagValue tagName="axisfuse.service" paramName="bean-Name"/>" />
+    </XDtClass:ifHasClassTag>
+		<parameter name="allowedMethods" <XDtClass:ifDoesntHaveClassTag tagName="axisfuse.service" 
+		   paramName="include-all">value="<XDtMethod:forAllMethods><XDtMethod:ifHasMethodTag tagName="axisfuse.method"><XDtMethod:methodName/> 
+		   </XDtMethod:ifHasMethodTag></XDtMethod:forAllMethods>"</XDtClass:ifDoesntHaveClassTag> 
+		   <XDtClass:ifHasClassTag tagName="axisfuse.service" paramName="include-all">value="*"</XDtClass:ifHasClassTag>/>
+		<parameter name="scope" value="<XDtClass:classTagValue tagName='axisfuse.service' paramName='scope' value='request,session,application' 
+		default='request'/>"/>
+	<XDtMerge:merge file="axis-mappings.xml">
+		<!--
+			To add type mappings to the deployment descriptor, add a file to your
+			XDoclet merge directory called axis-mappings-{0}.xml that contains the
+			<beanMapping/> and <typeMapping/> markup. 
+		-->
+    </XDtMerge:merge>
+	</service>
+
+</XDtClass:ifHasClassTag>
+
+</XDtClass:forAllClasses>
+
+	<transport name="http">
+		<parameter name="qs:list" value="org.apache.axis.transport.http.QSListHandler"/>
+		<parameter name="qs:method" value="org.apache.axis.transport.http.QSMethodHandler"/>
+		<parameter name="qs:wsdl" value="org.apache.axis.transport.http.QSWSDLHandler"/>
+		<requestFlow>
+			<handler type="URLMapper"/>
+			<handler type="java:org.apache.axis.handlers.http.HTTPAuthHandler"/>
+		</requestFlow>
+	</transport>
+
+	<transport name="local">
+		<responseFlow>
+			<handler type="LocalResponder"/>
+		</responseFlow>
+	</transport>
+
+</deployment>
+}}}
+
+This template creates a new class level tag for xdoclet: @axisfuse.beanMapping. For Axis to know how to deal with your model object's, you need to tell the generate-wsdd target what objects to include in the wsdd bean mapping. This is done by adding the aforementioned tag in every model class you need (Not only the classes that are passed in the service's parameters or return types, but all connected classes in the tree that you pass).
+
+For User.java this looks like
+{{{
+...
+ * <p><a href="User.java.html"><i>View Source</i></a></p>
+ * 
+ * @axisfuse.beanMapping
+ * xmlns="http://model.appfuse.org"
+ *
+ * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
+ *         Updated by Dan Kibler (dan@getrolling.com)
+...
+}}}
+
+Open build.xml and add the following target definition (I personally put it directly before the compile-web target):
+{{{
+<target name="generate-wsdd" description="generate-wsdd">
+    <taskdef classpathref="xdoclet.classpath" classname="xdoclet.DocletTask" name="xdoclet"/>
+    <xdoclet destDir="${webapp.target}/WEB-INF" mergedir="metadata/web">
+
+       <template destinationFile="server-config.wsdd" 
+          templateFile="metadata/templates/axis-server-config.xdt" 
+          destDir="${webapp.target}/WEB-INF" >
+          <ConfigParam name="xmlEncoding" value="utf-8" />
+       </template>
+
+       <fileset dir="${src}/service" includes="**/*.java"/>
+       <fileset dir="${src}/dao" includes="**/*.java"/>
+    </xdoclet>
+</target>
+}}}
+
+!!Create an example Service-Endpoint [#6]
+Create a class named org.appfuse.webservice.UserEndPoint in the src/service directory:
+{{{
+package org.appfuse.webservice;
+
+import java.util.List;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.appfuse.model.User;
+import org.appfuse.service.UserExistsException;
+import org.appfuse.service.UserManager;
+import org.springframework.remoting.jaxrpc.ServletEndpointSupport;
+
+/**
+ * Example Webservice Proxy-Facade for UserService
+ * @author Mika Göckel <mika at cybercon dot de>
+ * @author RanHow Chen
+ * 
+ * @axisfuse.service
+ * 		name="UserService" 
+ * 		scope="Request"
+ * 		enable-remote-admin="false"
+ * 		namespace="http://service.appfuse.org/"
+ * 		provider="java:RPC"
+ * 		style="rpc"
+ * 		use="encoded"
+ * 		include-all="true"
+ */
+public class UserEndpoint extends ServletEndpointSupport {
+	
+    protected final Log log = LogFactory.getLog(getClass());
+	
+	private UserManager userManager;
+
+	protected void onInit() {
+		log.debug("onInit()");
+        this.userManager = (UserManager) getWebApplicationContext().getBean("userManager");
+    }
+	
+	public User getUser(String username) {
+		log.debug("getUser("+username+")");
+		return userManager.getUser(username);
+	}
+
+	public User [] getUsers(User user) {
+		List users = userManager.getUsers(user); 
+		return users == null ? null : users.toArray(new User[users.size()]);
+	}
+
+	public void removeUser(String username) {
+		userManager.removeUser(username);
+	}
+
+	public void saveUser(User user) throws UserExistsException {
+		userManager.saveUser(user);
+	}
+
+}
+}}}
+
+The idea is to wrap mhe Manager in a sort of storefront facade class. This is because you might want to do conversion like the one from List to Array (getUsers()), or do additional validation etc. here that you don't need in the manager itself.
+
+!!Build and test [#7]
+
+Do a 
+{{{
+   ant generate-wsdd war
+}}}
+deploy your app and have a look under http://your.server/your.project/services it should look like
+{{{
+And now... Some Services
+
+    * UserService (wsdl)
+          o getUsers
+          o removeUser
+          o getUser
+          o saveUser 
+}}}
+
+That's it. You might want to test what you did. I like the webservice browser that comes with [eclipse wst|http://www.eclipse.org/webtools/index.html].
