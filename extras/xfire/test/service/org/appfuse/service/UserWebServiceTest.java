@@ -23,7 +23,7 @@ public class UserWebServiceTest extends AbstractXFireSpringTest {
     
     public void testGetWsdl() throws Exception {
         Document doc = getWSDLDocument("UserWebService");
-        printNode(doc);
+        //printNode(doc);
         
         assertValid("//xsd:complexType[@name=\"User\"]", doc);
         assertValid("//xsd:complexType[@name=\"Role\"]", doc);
@@ -48,7 +48,7 @@ public class UserWebServiceTest extends AbstractXFireSpringTest {
         Document response =
             invokeService("UserWebService", "/org/appfuse/service/getUser.xml");
 
-        printNode(response);
+        //printNode(response);
         // verify result
         userDAO.verify();
         addNamespace("service","http://service.appfuse.org");

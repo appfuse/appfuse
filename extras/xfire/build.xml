@@ -158,6 +158,8 @@
            <replacetoken><![CDATA[</classpath>]]></replacetoken>
            <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/xfire-1.0/runtime/xbean-spring-2.2.jar"/>
     <classpathentry kind="lib" path="lib/xfire-1.0/runtime/xfire-aegis-1.0.jar"/>
+    <classpathentry kind="lib" path="lib/xfire-1.0/runtime/xfire-core-1.0.jar"/>
+    <classpathentry kind="lib" path="lib/xfire-1.0/runtime/xfire-spring-1.0.jar"/>
     <classpathentry kind="lib" path="lib/xfire-1.0/runtime/jdom-1.0.jar"/>
     <classpathentry kind="lib" path="lib/xfire-1.0/runtime/stax-api-1.0.jar"/>
     <classpathentry kind="lib" path="lib/xfire-1.0/runtime/wstx-asl-2.9.jar"/>
@@ -169,18 +171,71 @@
     </target>
 	
 	<target name="install-demo">
-		<copy todir="../../src" overwrite="true">
-			<fileset dir="src" includes="**/*"/>
-		</copy>
-    	<replace file="../../src/service/org/appfuse/service/impl/UserManagerImpl.java">
-           <replacetoken><![CDATA[implements UserManager]]></replacetoken>
-           <replacevalue><![CDATA[implements UserManager, UserWebService]]></replacevalue>
+		<echo level="info">Annotating model with aegis xdoclet tags</echo>
+    	<replace file="../../src/dao/org/appfuse/model/User.java">
+           <replacetoken><![CDATA[ */
+public class User extends BaseObject]]></replacetoken>
+           <replacevalue><![CDATA[ * 
+ * @author Decorated for use with xfire webservice by <a href="mailto:mikagoeckel@codehaus.org">Mika Goeckel</a>
+ * @aegis.mapping 
+ */
+public class User extends BaseObject]]></replacevalue>
         </replace>
+    	<replace file="../../src/dao/org/appfuse/model/User.java">
+           <replacetoken><![CDATA[     */
+    public String getFullName()]]></replacetoken>
+           <replacevalue><![CDATA[     * @aegis.property ignore="true"
+     */
+    public String getFullName()]]></replacevalue>
+        </replace>
+    	<replace file="../../src/dao/org/appfuse/model/User.java">
+           <replacetoken><![CDATA[     */
+    public Set getRoles()]]></replacetoken>
+           <replacevalue><![CDATA[     * @aegis.property componentType="org.appfuse.model.Role"
+     */
+    public Set getRoles()]]></replacevalue>
+        </replace>
+
+    	<replace file="../../src/dao/org/appfuse/model/Role.java">
+           <replacetoken><![CDATA[ */
+public class Role extends BaseObject]]></replacetoken>
+           <replacevalue><![CDATA[ * 
+ * @author Decorated for use with xfire webservice by <a href="mailto:mikagoeckel@codehaus.org">Mika Goeckel</a>
+ * @aegis.mapping 
+ */
+public class Role extends BaseObject]]></replacevalue>
+        </replace>
+    	<replace file="../../src/dao/org/appfuse/model/Role.java">
+           <replacetoken><![CDATA[     */
+    public Set getUsers()]]></replacetoken>
+           <replacevalue><![CDATA[     * @aegis.property ignore="true"
+     */
+    public Set getUsers()]]></replacevalue>
+        </replace>
+		
+		<echo level="info">Annotating UserManagerImpl with aegis xdoclet tags</echo>
     	<replace file="../../src/service/org/appfuse/service/impl/UserManagerImpl.java">
            <replacetoken><![CDATA[import org.appfuse.service.UserManager;]]></replacetoken>
            <replacevalue><![CDATA[import org.appfuse.service.UserManager;
 import org.appfuse.service.UserWebService;]]></replacevalue>
         </replace>
+    	<replace file="../../src/service/org/appfuse/service/impl/UserManagerImpl.java">
+           <replacetoken><![CDATA[public class UserManagerImpl extends BaseManager implements UserManager {]]></replacetoken>
+           <replacevalue><![CDATA[public class UserManagerImpl extends BaseManager implements UserManager, UserWebService {]]></replacevalue>
+        </replace>
+
+		<copy todir="../../src" overwrite="true">
+			<fileset dir="src" includes="**/*"/>
+		</copy>
+		<copy todir="../../test" overwrite="true">
+			<fileset dir="test" includes="**/*"/>
+		</copy>
+		
+    	<replace file="../../build.xml">
+            <replacetoken><![CDATA[name="compile-service" depends="package-dao"]]></replacetoken>
+    		<replacevalue><![CDATA[name="compile-service" depends="gen-aegis-mapping,package-dao"]]></replacevalue>
+		</replace>
+
 	</target>
 	
 </project>

@@ -1,0 +1,8 @@
+<env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/">
+ <env:Header/>
+ <env:Body>
+  <getUser xmlns="http://service.appfuse.org">
+    <in0>tomcat</in0>
+  </getUser>
+ </env:Body>
+</env:Envelope>
