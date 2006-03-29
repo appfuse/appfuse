@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: web-tests.xml,v 1.12 2006/02/24 08:35:40 mraible Exp $               -->
+<!-- $Id: web-tests.xml,v 1.13 2006/03/29 00:40:48 mraible Exp $               -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY config SYSTEM "file:./config.xml">
@@ -144,7 +144,7 @@
                     
                 <!-- Delete user -->
                 <invoke description="Click edit user link"  url="/editUser.html?username=newuser&amp;from=list"/>
-				<enableJavaScript enable="false"/>
+                <enableJavaScript enable="false"/>
                 <!--prepareDialogResponse description="Confirm delete" dialogType="confirm" response="true"/-->
                 <clickbutton label="${button.delete}" description="Click button 'Delete'"/>
                 <!--verifyNoDialogResponses/-->
@@ -176,8 +176,8 @@
                 <setinputfield description="set email" name="user.email" value="signup-user@raibledesigns.com"/>
                 <setinputfield description="set website" name="user.website" value="http://raibledesigns.com"/>
                 <setinputfield description="set passwordHint" name="user.passwordHint" value="test"/>
-				
-				<enableJavaScript enable="false"/> <!-- HtmlUnit doesn't understand table.rows.length -->
+                
+                <enableJavaScript enable="false"/> <!-- HtmlUnit doesn't understand table.rows.length -->
                 <clickbutton label="${button.register}" description="Click button 'Signup'"/>
                 
                 <verifytitle description="view main menu" text=".*${mainMenu.title}.*" regex="true"/>

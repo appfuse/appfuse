@@ -34,7 +34,7 @@
 #
 # WebWork - http://www.opensymphony.com/webwork
 #
-webwork.version=2.2.1
+webwork.version=2.2.2
 webwork.dir=${lib.dir}/webwork-${webwork.version}]]></replacevalue>
         </replace>
 
@@ -219,9 +219,9 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
             <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/webwork-2.2.1/freemarker-2.3.4"/>
 	<classpathentry kind="lib" path="lib/webwork-2.2.1/ognl-2.6.7.jar"/>
 	<classpathentry kind="lib" path="lib/webwork-2.2.1/oscore-2.2.4.jar"/>
-	<classpathentry kind="lib" path="lib/webwork-2.2.1/rife-continuations-0.0.1.jar"/>
-	<classpathentry kind="lib" path="lib/webwork-2.2.1/webwork-2.2.1.jar"/>
-	<classpathentry kind="lib" path="lib/webwork-2.2.1/xwork-1.1.1.jar"/>]]></replacevalue>
+	<classpathentry kind="lib" path="lib/webwork-2.2.1/rife-continuations-0.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/webwork-2.2.1/webwork-2.2.3.jar"/>
+	<classpathentry kind="lib" path="lib/webwork-2.2.1/xwork-1.1.3.jar"/>]]></replacevalue>
         </replace>
 
         <echo level="info">Refactoring build.xml</echo>
