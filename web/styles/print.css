@@ -2,18 +2,18 @@
 @import url(displaytag.css);
 
 a {
-	color: blue;
-	font-weight: normal;
-    text-underline: true;
+    color: blue;
+    font-weight: normal;
+    text-decoration: underline;
 }
 
 /* from http://diveintomark.org/archives/2002/04/26/printfriendly_links */
-a:after {
+/* a:after {
   content: " (" attr(href) ")";
-}
+} */
 
 a:visited {
-	color: blue;
+    color: blue;
 }
 
 div#activeUsers, div#header, div#menu, div#validators {
@@ -21,7 +21,7 @@ div#activeUsers, div#header, div#menu, div#validators {
 }
 
 div#content {
-	margin: 10px !important;
+    margin: 10px !important;
 }
 
 div#footer {
@@ -33,7 +33,7 @@ div.separator {
 }
 
 h1 {
-	color: black;
+    color: black;
     text-align: center;
 }
 
