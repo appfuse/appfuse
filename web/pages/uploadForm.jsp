@@ -8,7 +8,7 @@
 	and to have a form:file element that maps to your ActionForm's FormFile property
 -->
 
-<fmt:message key="upload.message"/>
+<p><fmt:message key="upload.message"/></p>
 <div class="separator"></div>
 
 <html:form action="uploadFile" method="post" styleId="uploadForm"

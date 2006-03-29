@@ -1,15 +1,11 @@
 <%@ include file="/common/taglibs.jsp" %>
 
-<div id="validators">
-    <a href="http://jigsaw.w3.org/css-validator/check/referer">
-        <img src="<c:url value="/images/vcss.png"/>" alt="Valid CSS!" class="badge" /></a> 
-    <a href="http://validator.w3.org/check/referer">
-        <img src="<c:url value="/images/valid-xhtml10.png"/>" alt="Valid XHTML 1.0!" class="badge" /></a>
-</div>
-
-Version @APPVERSION@
-&middot; Copyright &copy; @COPYRIGHT-YEAR@ 
-&middot; <a href="http://www.raibledesigns.com">Your Company Here</a><br />
-Style respectfully borrowed from Blue Robot's
-<a href="http://www.bluerobot.com/web/layouts/">Layout Reservoir</a><br />
+<p>
+    Version @APPVERSION@ | 
+    <span id="validators">
+        <a href="http://validator.w3.org/check?uri=referer">XHTML Valid</a> | 
+        <a href="http://jigsaw.w3.org/css-validator/validator-uri.html">CSS Valid</a> | 
+    </span> 
+    &copy; @COPYRIGHT-YEAR@ <a href="http://www.raibledesigns.com">Your Company Here</a>
+</p>
 <!-- Built on @BUILD-TIME@ -->

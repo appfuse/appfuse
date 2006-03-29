@@ -10,7 +10,7 @@
 <f:view>
 <f:loadBundle var="text" basename="#{fileUpload.bundleName}"/>
 
-<fmt:message key="upload.message"/>
+<p><fmt:message key="upload.message"/></p>
 <div class="separator"></div>
 
 <h:form id="uploadForm" enctype="multipart/form-data" onsubmit="return validateUploadForm(this)">               

@@ -7,7 +7,7 @@
 <f:loadBundle var="text" basename="#{basePage.bundleName}"/>
 <h:form id="editUser">
 
-<fmt:message key="mainMenu.message"/>
+<p><fmt:message key="mainMenu.message"/></p>
 
 <div class="separator"></div>
 

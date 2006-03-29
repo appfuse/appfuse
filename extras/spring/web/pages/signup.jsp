@@ -16,7 +16,7 @@
     </c:if>
 </spring:bind>
 
-<fmt:message key="signup.message"/>
+<p><fmt:message key="signup.message"/></p>
 
 <div class="separator"></div>
 

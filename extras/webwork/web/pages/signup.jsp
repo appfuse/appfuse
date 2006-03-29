@@ -4,7 +4,7 @@
 <content tag="heading"><fmt:message key="signup.heading"/></content>
 <body id="signup"/>
 
-<fmt:message key="signup.message"/>
+<p><fmt:message key="signup.message"/></p>
 
 <div class="separator"></div>
 

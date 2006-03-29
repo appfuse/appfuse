@@ -3,7 +3,7 @@
 <title><fmt:message key="upload.title"/></title>
 <content tag="heading"><fmt:message key="upload.heading"/></content>
 
-<fmt:message key="upload.message"/>
+<p><fmt:message key="upload.message"/></p>
 <div class="separator"></div>
 
 <ww:form action="uploadFile" enctype="multipart/form-data" method="post"

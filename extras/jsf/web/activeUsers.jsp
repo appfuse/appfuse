@@ -4,7 +4,7 @@
 <content tag="heading"><fmt:message key="activeUsers.heading"/></content>
 <body id="activeUsers"/>
 
-<fmt:message key="activeUsers.message"/>
+<p><fmt:message key="activeUsers.message"/></p>
 
 <div class="separator"></div>
 

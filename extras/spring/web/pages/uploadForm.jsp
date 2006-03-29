@@ -19,7 +19,7 @@
     </c:if>
 </spring:bind>
 
-<fmt:message key="upload.message"/>
+<p><fmt:message key="upload.message"/></p>
 <div class="separator"></div>
 
 <form method="post" id="uploadForm" action="<c:url value="/uploadFile.html"/>"

@@ -7,10 +7,10 @@
 
 <c:choose>
     <c:when test="${param.from == 'list'}">
-        <fmt:message key="userProfile.admin.message"/>
+        <p><fmt:message key="userProfile.admin.message"/></p>
     </c:when>
     <c:otherwise>
-        <fmt:message key="userProfile.message"/>
+        <p><fmt:message key="userProfile.message"/></p>
     </c:otherwise>
 </c:choose>
 

@@ -3,7 +3,7 @@
 <title><fmt:message key="display.title"/></title>
 <content tag="heading"><fmt:message key="display.heading"/></content>
 
-Below is a list of attributes that were gathered in FileUploadController.java.
+<p>Below is a list of attributes that were gathered in FileUploadController.java.</p>
 
 <div class="separator"></div>
 

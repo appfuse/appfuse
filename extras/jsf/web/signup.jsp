@@ -7,7 +7,7 @@
 <f:view>
 <f:loadBundle var="text" basename="#{signupForm.bundleName}"/>
 
-<fmt:message key="signup.message"/>
+<p><fmt:message key="signup.message"/></p>
 
 <div class="separator"></div>
 
