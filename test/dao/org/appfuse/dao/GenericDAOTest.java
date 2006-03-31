@@ -17,6 +17,10 @@ public class GenericDAOTest extends BaseDAOTestCase {
     public void onSetUpBeforeTransaction() throws Exception {
         dao = (DAO) applicationContext.getBean("dao");
     }
+    
+    public void onTearDownAfterTransaction() throws Exception {
+        dao = null;
+    }
 
     /**
      * Simple test to verify BaseDAO works.

@@ -15,11 +15,7 @@ public class LookupDAOTest extends BaseDAOTestCase {
 
     public void testGetRoles() {
         List roles = dao.getRoles();
-
-        if (log.isDebugEnabled()) {
-            log.debug(roles);
-        }
-
+        log.debug(roles);
         assertTrue(roles.size() > 0);
     }
 }

@@ -9,9 +9,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 
 public class UserDAOTest extends BaseDAOTestCase {
     private UserDAO dao = null;
-    private User user = null;
     private RoleDAO rdao = null;
-    private Role role = null;
     
     public void setUserDAO(UserDAO dao) {
         this.dao = dao;
@@ -23,7 +21,7 @@ public class UserDAOTest extends BaseDAOTestCase {
 
     public void testGetUserInvalid() throws Exception {
         try {
-            user = dao.getUser("badusername");
+            User user = dao.getUser("badusername");
             fail("'badusername' found in database, failing test...");
         } catch (DataAccessException d) {
             assertTrue(d != null);
@@ -31,7 +29,7 @@ public class UserDAOTest extends BaseDAOTestCase {
     }
 
     public void testGetUser() throws Exception {
-        user = dao.getUser("tomcat");
+        User user = dao.getUser("tomcat");
 
         assertNotNull(user);
         assertEquals(1, user.getRoles().size());
@@ -39,7 +37,7 @@ public class UserDAOTest extends BaseDAOTestCase {
     }
 
     public void testUpdateUser() throws Exception {
-        user = dao.getUser("tomcat");
+        User user = dao.getUser("tomcat");
 
         Address address = user.getAddress();
         address.setAddress("new address");
@@ -65,11 +63,11 @@ public class UserDAOTest extends BaseDAOTestCase {
     }
 
     public void testAddUserRole() throws Exception {
-        user = dao.getUser("tomcat");
+        User user = dao.getUser("tomcat");
 
         assertEquals(1, user.getRoles().size());
 
-        role = rdao.getRole(Constants.ADMIN_ROLE);
+        Role role = rdao.getRole(Constants.ADMIN_ROLE);
         user.addRole(role);
         dao.saveUser(user);
 
@@ -88,7 +86,7 @@ public class UserDAOTest extends BaseDAOTestCase {
     }
 
     public void testAddAndRemoveUser() throws Exception {
-        user = new User("testuser");
+        User user = new User("testuser");
         user.setPassword("testpass");
         user.setFirstName("Test");
         user.setLastName("Last");
