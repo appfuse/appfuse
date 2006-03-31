@@ -2,7 +2,8 @@ package org.appfuse.webapp.action;
 
 import java.io.IOException;
 
-import org.apache.tapestry.IRequestCycle;
+import org.apache.tapestry.event.PageBeginRenderListener;
+import org.apache.tapestry.event.PageEvent;
 import org.appfuse.model.User;
 import org.appfuse.service.MailEngine;
 import org.appfuse.service.UserManager;
@@ -18,22 +19,24 @@ import org.springframework.mail.SimpleMailMessage;
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
-public abstract class PasswordHint extends BasePage {
-    
+public abstract class PasswordHint extends BasePage implements PageBeginRenderListener {
     public abstract UserManager getUserManager();
-    public abstract void setUserManager(UserManager userManager);
     public abstract MailEngine getMailEngine();
-    public abstract void setMailEngine(MailEngine mailEngine);
     public abstract SimpleMailMessage getMailMessage();
-    public abstract void setMailMessage(SimpleMailMessage message);
     
-    public void execute(IRequestCycle cycle) throws IOException {
-        String username = getRequest().getParameter("username");
-        
+    public void pageBeginRender(PageEvent event) {
+        try {
+            execute(getRequest().getParameter("username"));
+        } catch (IOException io) {
+            throw new RuntimeException(io.getMessage(), io);
+        }
+    }
+    
+    public void execute(String username) throws IOException {        
         // ensure that the username has been sent
         if (username == null || "".equals(username)) {
             log.warn("Username not specified, notifying user that it's a required field.");
-            getSession().setAttribute("error", format("errors.required", getMessage("user.username")));
+            getSession().setAttribute("error", getText("errors.required", getText("user.username")));
             getResponse().sendRedirect(getRequest().getContextPath());
             return;
         }
@@ -42,7 +45,7 @@ public abstract class PasswordHint extends BasePage {
             log.debug("Processing Password Hint for username: " + username);
         }
         
-        // look up the user's information
+        // look up the user's ingetTextion
         try {
             User user = getUserManager().getUser(username);
 
@@ -53,16 +56,16 @@ public abstract class PasswordHint extends BasePage {
             SimpleMailMessage message = getMailMessage();
             message.setTo(user.getEmail());
             
-            String subject = '[' + getMessage("webapp.name") + "] " + getMessage("user.passwordHint");
+            String subject = '[' + getText("webapp.name") + "] " + getText("user.passwordHint");
             message.setSubject(subject);
             message.setText(msg.toString());
             getMailEngine().send(message);
             
-            getSession().setAttribute("message", format("login.passwordHint.sent", username, user.getEmail()));
+            getSession().setAttribute("message", getText("login.passwordHint.sent", new Object[] {username, user.getEmail()}));
         } catch (Exception e) {
             e.printStackTrace();
             // If exception is expected do not rethrow
-            getSession().setAttribute("error", format("login.passwordHint.error", username));
+            getSession().setAttribute("error", getText("login.passwordHint.error", username));
         }
         
         getResponse().sendRedirect(getRequest().getContextPath());

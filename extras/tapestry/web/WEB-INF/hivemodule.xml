@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module id="org.appfuse.tapestry" version="1.0.0">
+    <contribution configuration-id="tapestry.url.ServiceEncoders">
+        <page-service-encoder id="page" extension="html" service="page"/>
+        <direct-service-encoder id="direct" stateless-extension="direct" stateful-extension="sdirect"/>
+        <asset-encoder id="asset" path="/assets"/>
+        <extension-encoder id="extension" extension="svc" after="*"/>
+    </contribution>
+
+    <!-- Uncomment before going to production as it displays nicer error messages to users -->
+    <!--contribution configuration-id="tapestry.InfrastructureOverrides">
+        <property name="exceptionPageName" value="error"/>
+    </contribution>-->
+</module>

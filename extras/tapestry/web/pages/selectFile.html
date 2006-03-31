@@ -3,22 +3,14 @@
 
 <body jwcid="@Body">
 
-<!-- Error Messages -->
-<span jwcid="@Conditional" condition="ognl:beans.delegate.hasErrors">
-	<div class="error">
-        <img jwcid="@Any" src="ognl:engine.contextPath+'/images/iconWarning.gif'"
-                alt="message:icon.warning" class="icon" />
-	    <span jwcid="@Delegator" delegate="ognl:beans.delegate.firstError">
-	        Error Message
-	    </span>
-	</div>
-</span>
+<span jwcid="@ShowValidationError" delegate="ognl:beans.delegate"/>
+<span jwcid="@ShowMessage"/>
 
-<p><span key="upload.message"/></p>
+<span key="upload.message"/>
 
 <div class="separator"></div>
 
-<form jwcid="@Form" delegate="ognl:beans.delegate">              
+<form jwcid="form">              
 <table class="detail">
     <tr>
         <th>
@@ -33,7 +25,7 @@
             <label class="required" for="name">* <span key="uploadForm.file">File</span>:</label>
         </th>
         <td>
-            <input type="file" jwcid="@Upload" file="ognl:file" size="50"/>
+            <input type="file" jwcid="@Upload" file="ognl:file" size="50" displayName="message:uploadForm.file" validators="validators:required"/>
         </td>
     </tr>
     <tr>

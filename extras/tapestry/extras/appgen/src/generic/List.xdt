@@ -9,14 +9,13 @@ import <XDtForm:parentPackageName/>.service.Manager;
 
 public abstract class <XDtForm:className/>List extends BasePage {
     public abstract Manager getManager();
-    public abstract void setManager(Manager manager);
 
     public List get<XDtForm:className/>s() {
         return getManager().getObjects(<XDtForm:className/>.class);
     }
     
     public void edit(IRequestCycle cycle) {
-        Object[] parameters = cycle.getServiceParameters();
+        Object[] parameters = cycle.getListenerParameters();
         <XDtMethodEx:idField getType="propertyType"/> <XDtMethodEx:idField getType="propertyName"/> = (<XDtMethodEx:idField getType="propertyType"/>) parameters[0];
 
         if (log.isDebugEnabled()) {

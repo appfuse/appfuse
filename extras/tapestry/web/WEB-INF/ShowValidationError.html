@@ -1,0 +1,10 @@
+<span jwcid="$content$">
+<span jwcid="@If" condition="ognl:delegate.hasErrors">
+    <div class="error">
+        <img jwcid="@Any" src="ognl:assets.icon" alt="message:icon.warning" class="icon" />
+        <span jwcid="@Delegator" delegate="ognl:delegate.firstError">
+            Error Message
+        </span>
+    </div>
+</span>
+</span>

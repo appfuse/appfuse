@@ -7,6 +7,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
 import org.appfuse.model.User;
 
 public class Visit implements Serializable {
+    private static final long serialVersionUID = 1932462707656603990L;
     private User currentUser;
     private boolean cookieLogin;
     

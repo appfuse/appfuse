@@ -69,17 +69,13 @@
         <filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class>
     </filter>
     <filter>
-        <filter-name>exportFilter</filter-name>
-        <filter-class>org.displaytag.filter.ResponseOverrideFilter</filter-class>
-    </filter>
-    <filter>
         <filter-name>compressionFilter</filter-name>
         <filter-class>org.appfuse.webapp.filter.GZIPFilter</filter-class>
     </filter>
     <filter>
-	    <filter-name>localeFilter</filter-name>
-	    <filter-class>org.appfuse.webapp.filter.LocaleFilter</filter-class>
-	</filter>
+        <filter-name>localeFilter</filter-name>
+        <filter-class>org.appfuse.webapp.filter.LocaleFilter</filter-class>
+      </filter>
 
     <filter-mapping>
         <filter-name>securityFilter</filter-name>
@@ -92,7 +88,19 @@
     <filter-mapping>
         <filter-name>securityFilter</filter-name>
         <url-pattern>*.jsp</url-pattern>
-    </filter-mapping>    
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>securityFilter</filter-name>
+        <url-pattern>*.direct</url-pattern>
+    </filter-mapping>  
+    <filter-mapping>
+        <filter-name>securityFilter</filter-name>
+        <url-pattern>*.sdirect</url-pattern>
+    </filter-mapping>  
+    <filter-mapping>
+        <filter-name>securityFilter</filter-name>
+        <url-pattern>*.svc</url-pattern>
+    </filter-mapping>  
     <!-- Commented out for 2 reasons: 1) it's a pain when developing JSPs, and
                                       2) it causes the Signup webtest to fail -->
     <!--filter-mapping>
@@ -116,6 +124,14 @@
         <url-pattern>*.jsp</url-pattern>
     </filter-mapping>
     <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>*.direct</url-pattern>
+    </filter-mapping>  
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>*.sdirect</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
         <filter-name>localeFilter</filter-name>
         <url-pattern>*.html</url-pattern>
     </filter-mapping>
@@ -124,12 +140,24 @@
         <url-pattern>*.jsp</url-pattern>
     </filter-mapping>
     <filter-mapping>
-        <filter-name>exportFilter</filter-name>
-        <url-pattern>*.html</url-pattern>
+        <filter-name>localeFilter</filter-name>
+        <url-pattern>*.direct</url-pattern>
+    </filter-mapping>  
+    <filter-mapping>
+        <filter-name>localeFilter</filter-name>
+        <url-pattern>*.sdirect</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>compressionFilter</filter-name>
         <url-pattern>*.html</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>compressionFilter</filter-name>
+        <url-pattern>*.direct</url-pattern>
+    </filter-mapping>  
+    <filter-mapping>
+        <filter-name>compressionFilter</filter-name>
+        <url-pattern>*.sdirect</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>rewriteFilter</filter-name>
@@ -182,12 +210,32 @@
 
     <servlet-mapping>
         <servlet-name>tapestry</servlet-name>
-        <url-pattern>*.html</url-pattern>
+        <url-pattern>/app</url-pattern>
     </servlet-mapping>
-
+    
     <servlet-mapping>
         <servlet-name>tapestry</servlet-name>
-        <url-pattern>*.xml</url-pattern>
+        <url-pattern>*.html</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>tapestry</servlet-name>
+        <url-pattern>*.direct</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>tapestry</servlet-name>
+        <url-pattern>*.sdirect</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>tapestry</servlet-name>
+        <url-pattern>/assets/*</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>tapestry</servlet-name>
+        <url-pattern>*.svc</url-pattern>
     </servlet-mapping>
 
     <session-config>

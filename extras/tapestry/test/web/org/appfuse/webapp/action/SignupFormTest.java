@@ -2,37 +2,37 @@ package org.appfuse.webapp.action;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.ResourceBundle;
 
 import org.appfuse.Constants;
 import org.appfuse.model.Address;
 import org.appfuse.model.User;
+import org.appfuse.service.MailEngine;
 import org.appfuse.service.RoleManager;
 import org.appfuse.service.UserManager;
+import org.springframework.mail.SimpleMailMessage;
 
 import com.dumbster.smtp.SimpleSmtpServer;
 
 public class SignupFormTest extends BasePageTestCase {
     private SignupForm page;
     
-    public void setUp() throws Exception {
-        super.setUp();        
-        page = (SignupForm) getPage(SignupForm.class);
-        
-        // unfortunately this is a required step if you're calling getMessage
-        page.setBundle(ResourceBundle.getBundle(MESSAGES));
-        page.setValidationDelegate(new Validator());
-        Map global = new HashMap();
-        global.put(BaseEngine.APPLICATION_CONTEXT_KEY, ctx);
-        page.setGlobal(global);
-        
+    protected void onSetUp() throws Exception {
+        super.onSetUp();        
         // these can be mocked if you want a more "pure" unit test
-        page.setUserManager((UserManager) ctx.getBean("userManager"));
-        page.setRoleManager((RoleManager) ctx.getBean("roleManager"));
+        Map map = new HashMap();
+        map.put("userManager", (UserManager) applicationContext.getBean("userManager"));
+        map.put("roleManager", (RoleManager) applicationContext.getBean("roleManager"));
+        map.put("mailMessage", (SimpleMailMessage) applicationContext.getBean("mailMessage"));
+        map.put("mailEngine", (MailEngine) applicationContext.getBean("mailEngine"));
+        page = (SignupForm) getPage(SignupForm.class, map);
+    }
+    
+    protected void onTearDown() throws Exception {
+        super.onTearDown();
+        page = null;
     }
     
     public void testExecute() throws Exception {
-        page.setRequestCycle(getCycle(request, response));
         User user = new User();
         user.setUsername("self-registered");
         user.setPassword("Password1");
@@ -55,8 +55,7 @@ public class SignupFormTest extends BasePageTestCase {
         // start SMTP Server
         SimpleSmtpServer server = SimpleSmtpServer.start(2525);
         
-        page.setRequestCycle(getCycle(request, response));
-        page.save(page.getRequestCycle());
+        page.save(new MockRequestCycle());
         
         assertFalse(page.hasErrors());
         

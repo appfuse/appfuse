@@ -7,6 +7,7 @@
             <c:out value="${err}" escapeXml="false"/><br />
         </c:forEach>
     </div>
+    <c:remove var="error" scope="session"/>
 </c:if>
 
 <%-- Success Messages --%>

@@ -1,7 +1,5 @@
 package org.appfuse.webapp.action;
 
-import java.util.Locale;
-
 import org.apache.tapestry.IMarkupWriter;
 import org.apache.tapestry.IRender;
 import org.apache.tapestry.IRequestCycle;
@@ -11,31 +9,30 @@ import org.apache.tapestry.valid.IValidator;
 import org.apache.tapestry.valid.RenderString;
 import org.apache.tapestry.valid.ValidationDelegate;
 
+import java.util.Locale;
+
 /**
  * Custom Validation Delegate - based on one found in Tapestry in Action.
  *
  * @author Matt Raible
  */
 public class Validator extends ValidationDelegate {
-    public void writeLabelPrefix(IFormComponent component,
-                                 IMarkupWriter writer, IRequestCycle cycle) {
-        writer.begin("label");
+    private static final long serialVersionUID = 6658594142293597652L;
 
+    public void writeLabelAttributes(IMarkupWriter writer, IRequestCycle cycle, IFormComponent component) {
         if (isInError(component)) {
             writer.attribute("class", "error");
         } else {
             writer.attribute("class", "required");
         }
-
-        writer.print(" * ");
+        writer.printRaw("* ");
     }
-
+    
     public void writeLabelSuffix(IFormComponent component,
                                  IMarkupWriter writer, IRequestCycle cycle) {
-        Locale locale = cycle.getRequestContext().getRequest().getLocale();
+        Locale locale = cycle.getEngine().getLocale();
         String marker = (locale.equals(Locale.FRENCH)) ? " :" : ":";
         writer.print(marker);
-        writer.end();
     }
 
     public void writeAttributes(IMarkupWriter writer, IRequestCycle cycle,
@@ -51,11 +48,10 @@ public class Validator extends ValidationDelegate {
             writer.printRaw("&nbsp;");
             writer.begin("img");
 
-            String ctxPath =
-                cycle.getRequestContext().getRequest().getContextPath();
+            String ctxPath = cycle.getInfrastructure().getContextPath();
             writer.attribute("src", ctxPath + "/images/iconWarning.gif");
             writer.attribute("class", "validationWarning");
-            writer.attribute("alt", cycle.getPage().getMessage("icon.warning"));
+            writer.attribute("alt", cycle.getPage().getMessages().getMessage("icon.warning"));
             writer.end();
 
             writer.printRaw("&nbsp;");

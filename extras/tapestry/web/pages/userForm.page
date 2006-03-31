@@ -1,143 +1,131 @@
 <?xml version="1.0"?>
-<!DOCTYPE page-specification PUBLIC
-    "-//Apache Software Foundation//Tapestry Specification 3.0//EN"
-    "http://jakarta.apache.org/tapestry/dtd/Tapestry_3_0.dtd">
+<!DOCTYPE page-specification PUBLIC 
+    "-//Apache Software Foundation//Tapestry Specification 4.0//EN" 
+    "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
     
 <page-specification class="org.appfuse.webapp.action.UserForm">
+    <inject property="engineService" object="engine-service:page"/>
+    <inject property="mailMessage" type="spring" object="mailMessage"/>
+    <inject property="mailEngine" type="spring" object="mailEngine"/>
+    <inject property="request" object="service:tapestry.globals.HttpServletRequest"/>
+    <inject property="response" object="service:tapestry.globals.HttpServletResponse"/>
+    <inject property="roleManager" type="spring" object="roleManager"/>
+    <inject property="userManager" type="spring" object="userManager"/>
+    
     <bean name="delegate" class="org.appfuse.webapp.action.Validator"/>
     <bean name="multipleCheckboxRenderer" class="org.appfuse.webapp.tapestry.CheckBoxMultiplePropertySelectionRenderer"/>
     <bean name="hiddenCheckboxRenderer" class="org.appfuse.webapp.tapestry.HiddenMultiplePropertySelectionRenderer"/>
     
-    <bean name="requiredValidator" class="org.apache.tapestry.valid.StringValidator">
-        <set-property name="required" expression="true"/>
-        <set-property name="clientScriptingEnabled" expression="true"/>
-    </bean>
+    <property name="user"/>
+    <property name="from"/>
+    <property name="userRoles"/>
+    <property name="message" persist="flash"/>
+
+    <component id="userForm" type="Form">
+        <binding name="delegate" value="ognl:beans.delegate"/>
+        <binding name="clientValidationEnabled" value="true"/>
+    </component>
     
-    <bean name="zipValidator" class="org.apache.tapestry.valid.PatternValidator">
-        <set-property name="patternString">"\\d{5}(-\\d{4})?"</set-property>
-        <set-property name="required" expression="true"/>
-        <!-- TODO: Read this message from i18n -->
-        <set-property name="patternNotMatchedMessage">"Invalid zip code."</set-property>
-        <set-property name="clientScriptingEnabled" expression="true"/>
+    <bean name="zipValidator" class="org.apache.tapestry.form.validator.Pattern">
+        <set name="pattern" value="literal:^\d{5}\d*$"/>
+        <set name="message" value="message:errors.zip"/>
     </bean>
 
-    <bean name="phoneValidator" class="org.apache.tapestry.valid.StringValidator">
-        <set-property name="required" expression="true"/>
-        <set-property name="minimumLength" expression="11"/>
-        <set-property name="clientScriptingEnabled" expression="true"/>
-    </bean>
-    
-    <bean name="emailValidator" class="org.apache.tapestry.valid.EmailValidator">
-        <set-property name="clientScriptingEnabled" expression="true"/>
-        <set-property name="minimumLength" expression="8"/>
-        <set-property name="required" expression="true"/>
-        <set-property name="clientScriptingEnabled" expression="true"/>
-    </bean>
-    
-    <property-specification name="user"  type="org.appfuse.model.User"/>
-    <property-specification name="userManager" type="org.appfuse.service.UserManager">
-        global.appContext.getBean("userManager")
-    </property-specification> 
-    <property-specification name="roleManager" type="org.appfuse.service.RoleManager">
-        global.appContext.getBean("roleManager")
-    </property-specification> 
-    <property-specification name="from" type="java.lang.String"/>
-    <property-specification name="message" type="java.lang.String"/>
-
-    <component id="usernameField" type="ValidField">
-        <binding name="value" expression="user.username"/>
-        <binding name="validator" expression="beans.requiredValidator"/>
-        <message-binding name="displayName" key="user.username"/>
+    <component id="usernameField" type="TextField">
+        <binding name="value" value="user.username"/>
+        <binding name="validators" value="validators:required"/>
+        <binding name="displayName" value="message:user.username"/>
     </component>
     
-    <component id="passwordField" type="ValidField">
-        <binding name="hidden" expression="true"/>
-        <binding name="value" expression="user.password"/>
-        <binding name="validator" expression="beans.requiredValidator"/>
-        <message-binding name="displayName" key="user.password"/>
+    <component id="passwordField" type="TextField">
+        <binding name="hidden" value="true"/>
+        <binding name="value" value="user.password"/>
+        <binding name="validators" value="validators:required"/>
+        <binding name="displayName" value="message:user.password"/>
     </component>
     
-    <component id="confirmPasswordField" type="ValidField">
-        <binding name="hidden" expression="true"/>
-        <binding name="value" expression="user.confirmPassword"/>
-        <binding name="validator" expression="beans.requiredValidator"/>
-        <message-binding name="displayName" key="user.confirmPassword"/>
+    <component id="confirmPasswordField" type="TextField">
+        <binding name="hidden" value="true"/>
+        <binding name="value" value="user.confirmPassword"/>
+        <binding name="validators" value="validators:required"/>
+        <binding name="displayName" value="message:user.confirmPassword"/>
     </component>
     
-    <component id="firstNameField" type="ValidField">
-        <binding name="value" expression="user.firstName"/>
-        <binding name="validator" expression="beans.requiredValidator"/>
-        <message-binding name="displayName" key="user.firstName"/>
+    <component id="firstNameField" type="TextField">
+        <binding name="value" value="user.firstName"/>
+        <binding name="validators" value="validators:required"/>
+        <binding name="displayName" value="message:user.firstName"/>
     </component>
     
-    <component id="lastNameField" type="ValidField">
-        <binding name="value" expression="user.lastName"/>
-        <binding name="validator" expression="beans.requiredValidator"/>
-        <message-binding name="displayName" key="user.lastName"/>
+    <component id="lastNameField" type="TextField">
+        <binding name="value" value="user.lastName"/>
+        <binding name="validators" value="validators:required"/>
+        <binding name="displayName" value="message:user.lastName"/>
     </component>
     
-    <component id="cityField" type="ValidField">
-        <binding name="value" expression="user.address.city"/>
-        <binding name="validator" expression="beans.requiredValidator"/>
-        <message-binding name="displayName" key="user.address.city"/>
+    <component id="cityField" type="TextField">
+        <binding name="value" value="user.address.city"/>
+        <binding name="validators" value="validators:required"/>
+        <binding name="displayName" value="message:user.address.city"/>
     </component>
     
-    <component id="stateField" type="ValidField">
-        <binding name="value" expression="user.address.province"/>
-        <binding name="validator" expression="beans.requiredValidator"/>
-        <message-binding name="displayName" key="user.address.province"/>
+    <component id="stateField" type="TextField">
+        <binding name="value" value="user.address.province"/>
+        <binding name="validators" value="validators:required"/>
+        <binding name="displayName" value="message:user.address.province"/>
     </component>
     
     <!-- TODO: Validate this field -->
     <component id="countryField" type="PropertySelection">
-        <binding name="model" expression="countries"/>
-        <binding name="value" expression="user.address.country"/>
+        <binding name="model" value="countries"/>
+        <binding name="value" value="user.address.country"/>
         <!-- Doesn't work -->
         <!--message-binding name="displayName" key="user.address.country"/-->
     </component>
     
     <component id="addressField" type="TextField">
-        <binding name="value" expression="user.address.address"/>
+        <binding name="value" value="user.address.address"/>
     </component>
     
-    <component id="postalCodeField" type="ValidField">
-        <binding name="value" expression="user.address.postalCode"/>
-        <binding name="validator" expression="beans.zipValidator"/>
-        <message-binding name="displayName" key="user.address.postalCode"/>
+    <component id="postalCodeField" type="TextField">
+        <binding name="value" value="user.address.postalCode"/>
+        <binding name="validators" value="validators:required,$zipValidator"/>
+        <binding name="displayName" value="message:user.address.postalCode"/>
     </component>
     
-    <component id="emailField" type="ValidField">
-        <binding name="value" expression="user.email"/>
-        <binding name="validator" expression="beans.emailValidator"/>
-        <message-binding name="displayName" key="user.email"/>
+    <component id="emailField" type="TextField">
+        <binding name="value" value="user.email"/>
+        <binding name="validators" value="validators:required,email"/>
+        <binding name="displayName" value="message:user.email"/>
     </component>
     
     <component id="phoneNumberField" type="TextField">
-        <binding name="value" expression="user.phoneNumber"/>
-        <binding name="validator" expression="beans.phoneValidator"/>
+        <binding name="value" value="user.phoneNumber"/>
+        <binding name="validators" value="validators:minLength=11"/>
+        <binding name="displayName" value="message:user.phoneNumber"/>
     </component>
     
-    <component id="websiteField" type="ValidField">
-        <binding name="value" expression="user.website"/>
-        <binding name="validator" expression="beans.requiredValidator"/>
-        <message-binding name="displayName" key="user.website"/>
+    <component id="websiteField" type="TextField">
+        <binding name="value" value="user.website"/>
+        <binding name="validators" value="validators:required"/>
+        <binding name="displayName" value="message:user.website"/>
     </component>
     
-    <component id="passwordHintField" type="ValidField">
-        <binding name="value" expression="user.passwordHint"/>
-        <binding name="validator" expression="beans.requiredValidator"/>
-        <message-binding name="displayName" key="user.passwordHint"/>
+    <component id="passwordHintField" type="TextField">
+        <binding name="value" value="user.passwordHint"/>
+        <binding name="validators" value="validators:required"/>
+        <binding name="displayName" value="message:user.passwordHint"/>
     </component>
     
     <component id="userRoles" type="contrib:MultiplePropertySelection">
-       <binding name="model" expression="availableRoles"/>
-       <binding name="selectedList" expression="userRoles"/>
-       <binding name="renderer" expression="beans.multipleCheckboxRenderer"/>
+       <binding name="model" value="availableRoles"/>
+       <binding name="selectedList" value="userRoles"/>
+       <binding name="renderer" value="beans.multipleCheckboxRenderer"/>
     </component>
     
     <component id="hiddenUserRoles" type="contrib:MultiplePropertySelection">
-       <binding name="model" expression="availableRoles"/>
-       <binding name="selectedList" expression="userRoles"/>
-       <binding name="renderer" expression="beans.hiddenCheckboxRenderer"/>
+       <binding name="model" value="availableRoles"/>
+       <binding name="selectedList" value="userRoles"/>
+       <binding name="renderer" value="beans.hiddenCheckboxRenderer"/>
     </component>
 </page-specification>

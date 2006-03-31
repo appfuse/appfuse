@@ -3,18 +3,22 @@ package org.appfuse.webapp.action;
 import java.io.IOException;
 
 import org.apache.tapestry.IRequestCycle;
+import org.apache.tapestry.engine.IEngineService;
+import org.apache.tapestry.engine.ILink;
+import org.apache.tapestry.event.PageBeginRenderListener;
 import org.appfuse.webapp.listener.StartupListener;
 
-public class Reload extends BasePage {
+public abstract class Reload extends BasePage implements PageBeginRenderListener {
+    public abstract IEngineService getEngineService();
 
-    public void execute(IRequestCycle cycle) throws IOException {
+    public ILink execute(IRequestCycle cycle) throws IOException {
         if (log.isDebugEnabled()) {
             log.debug("Entering 'execute' method");
         }
 
         StartupListener.setupContext(getServletContext());
         MainMenu nextPage = (MainMenu) cycle.getPage("mainMenu");
-        nextPage.setMessage(getMessage("reload.succeeded"));            
-        cycle.activate(nextPage);
+        nextPage.setMessage(getText("reload.succeeded"));            
+        return getEngineService().getLink(false, nextPage.getPageName());
     }
 }

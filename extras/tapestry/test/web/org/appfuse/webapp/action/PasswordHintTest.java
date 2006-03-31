@@ -1,10 +1,11 @@
 package org.appfuse.webapp.action;
 
-import java.util.ResourceBundle;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.appfuse.service.MailEngine;
 import org.appfuse.service.UserManager;
-import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.MailMessage;
 
 import com.dumbster.smtp.SimpleSmtpServer;
 
@@ -12,25 +13,24 @@ import com.dumbster.smtp.SimpleSmtpServer;
 public class PasswordHintTest extends BasePageTestCase {
     private PasswordHint page;
     
-    public void setUp() throws Exception {
-        super.setUp();        
-        page = (PasswordHint) getPage(PasswordHint.class);
-        
+    protected void onSetUp() throws Exception {
+        super.onSetUp();        
         // these can be mocked if you want a more "pure" unit test
-        page.setUserManager((UserManager) ctx.getBean("userManager"));
-        page.setMailEngine((MailEngine) ctx.getBean("mailEngine"));
-        page.setMailMessage((SimpleMailMessage) ctx.getBean("mailMessage"));
-        
-        // unfortunately this is a required step if you're calling getMessage
-        page.setBundle(ResourceBundle.getBundle(MESSAGES));
+        Map map = new HashMap();
+        map.put("userManager", (UserManager) applicationContext.getBean("userManager"));
+        map.put("mailEngine", (MailEngine) applicationContext.getBean("mailEngine"));
+        map.put("mailMessage", (MailMessage) applicationContext.getBean("mailMessage"));
+        page = (PasswordHint) getPage(PasswordHint.class, map);
+    }
+    
+    protected void onTearDown() throws Exception {
+        super.onTearDown();
+        page = null;
     }
     
     public void testExecute() throws Exception {
-        request.addParameter("username", "tomcat");
-        page.setRequestCycle(getCycle(request, response));
         SimpleSmtpServer server = SimpleSmtpServer.start(2525);
-        
-        page.execute(page.getRequestCycle());
+        page.execute("tomcat");
         
         assertFalse(page.hasErrors());
 
@@ -41,4 +41,5 @@ public class PasswordHintTest extends BasePageTestCase {
         // verify that success messages are in the request
         assertNotNull(page.getSession().getAttribute("message"));
     }
+
 }

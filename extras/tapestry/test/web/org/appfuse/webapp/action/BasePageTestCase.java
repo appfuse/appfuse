@@ -1,92 +1,71 @@
 package org.appfuse.webapp.action;
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.tapestry.ApplicationServlet;
-import org.apache.tapestry.IRequestCycle;
-import org.apache.tapestry.junit.MockEngine;
-import org.apache.tapestry.junit.TapestryTestCase;
-import org.apache.tapestry.junit.mock.MockContext;
-import org.apache.tapestry.junit.mock.MockServletConfig;
-import org.apache.tapestry.request.RequestContext;
-
+import org.apache.hivemind.Messages;
+import org.apache.hivemind.impl.MessageFormatter;
+import org.apache.tapestry.IPage;
+import org.apache.tapestry.test.Creator;
 import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
-
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.mock.web.MockServletContext;
+import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
 import org.springframework.util.ClassUtils;
-import org.springframework.web.context.ContextLoader;
-import org.springframework.web.context.ContextLoaderListener;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
-public abstract class BasePageTestCase extends TapestryTestCase {
-    protected final transient Log log = LogFactory.getLog(getClass());
+public class BasePageTestCase extends AbstractDependencyInjectionSpringContextTests {
+    protected final Log log = LogFactory.getLog(getClass());
+    protected final static String EXTENSION = ".html";
     protected static final String MESSAGES = Constants.BUNDLE_KEY;
-    protected static WebApplicationContext ctx;
     protected User user;
-    protected MockEngine engine;
-    protected MockHttpServletRequest request = new MockHttpServletRequest();
-    protected MockHttpServletResponse response = new MockHttpServletResponse();
 
-    // This static block ensures that Spring's BeanFactory is only loaded
-    // once for all tests
-    static {
+    protected String[] getConfigLocations() {
         String pkg = ClassUtils.classPackageAsResourcePath(Constants.class);
-        MockServletContext servletContext = new MockServletContext("");
-        servletContext.addInitParameter(ContextLoader.CONFIG_LOCATION_PARAM,
-                "classpath*:/" + pkg + "/dao/applicationContext-*.xml," +
-                "classpath*:META-INF/applicationContext-*.xml");
-
-        ServletContextListener contextListener = new ContextLoaderListener();
-        ServletContextEvent event = new ServletContextEvent(servletContext);
-        contextListener.contextInitialized(event);
-
-        ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext);
+        return new String[] {"classpath*:/" + pkg + "/dao/applicationContext-*.xml",
+                             "classpath*:/" + pkg + "/service/applicationContext-service.xml",
+                             "classpath*:META-INF/applicationContext-*.xml"};
     }
-
-    protected void setUp() throws Exception {
+    
+    protected void onSetUp() throws Exception {
         // populate the userForm and place into session
-        UserManager userMgr = (UserManager) ctx.getBean("userManager");
+        UserManager userMgr = (UserManager) applicationContext.getBean("userManager");
         user = (User) userMgr.getUser("tomcat");
         
         // change the port on the mailSender so it doesn't conflict with an 
         // existing SMTP server on localhost
-        JavaMailSenderImpl mailSender = (JavaMailSenderImpl) ctx.getBean("mailSender");
+        JavaMailSenderImpl mailSender = (JavaMailSenderImpl) applicationContext.getBean("mailSender");
         mailSender.setPort(2525);
         mailSender.setHost("localhost");
     }
-
-    protected Object getPage(Class clazz) {
-        AbstractInstantiator i = new AbstractInstantiator();
-
-        return i.getInstance(clazz);
+    
+    protected void onTearDown() throws Exception {
+        user = null;
     }
 
-    protected IRequestCycle getCycle(HttpServletRequest request, HttpServletResponse response)
-    throws Exception {
-        MockContext servletContext = new MockContext();
-        MockServletConfig config =
-            new MockServletConfig("servlet", servletContext);
-        ApplicationServlet servlet = new ApplicationServlet();
-
-        servlet.init(config);
-
-        engine = new MockEngine();
-        //engine.setComponentStringsSource(new MockComponentMessageSource("ApplicationResources"));
-        //engine.setServletPath(servletPath);
-
-        RequestContext context = new RequestContext(servlet, request, response);
-
-        return new org.appfuse.webapp.action.MockRequestCycle(engine, context);
+    protected IPage getPage(Class clazz) {
+        return getPage(clazz, null);
+    }
+    
+    protected IPage getPage(Class clazz, Map properties) {
+        Creator creator = new Creator();
+        if (properties == null) {
+            properties = new HashMap();
+        }
+        
+        Messages messages = new MessageFormatter(log, MESSAGES);
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.setRemoteUser(user.getUsername());
+        
+        properties.put("engineService", new MockPageService());
+        properties.put("messages", messages);
+        properties.put("request", request);
+        properties.put("response", new MockHttpServletResponse());
+        
+        return (IPage) creator.newInstance(clazz, properties);
     }
 }

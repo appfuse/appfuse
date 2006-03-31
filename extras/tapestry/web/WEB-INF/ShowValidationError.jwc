@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE component-specification PUBLIC 
+  "-//Apache Software Foundation//Tapestry Specification 4.0//EN" 
+  "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
+	
+<component-specification allow-informal-parameters="false" allow-body="false">
+
+  <parameter name="delegate" default-value="ognl:beans.delegate"/>
+  <asset name="icon" path="/images/iconWarning.gif"/>
+  
+</component-specification>

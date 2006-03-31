@@ -5,42 +5,25 @@
 
 <body jwcid="@Body">
 
-<!-- Error Messages -->
-<span jwcid="@Conditional" condition="ognl:beans.delegate.hasErrors">
-    <div class="error">
-        <img jwcid="@Any" src="ognl:engine.contextPath+'/images/iconWarning.gif'"
-                alt="message:icon.warning" class="icon" />
-        <span jwcid="@Delegator" delegate="ognl:beans.delegate.firstError" raw="true">
-            Error Message
-        </span>
-    </div>
-</span>
+<span jwcid="@ShowValidationError" delegate="ognl:beans.delegate"/>
+<span jwcid="@ShowMessage"/>
 
-<!-- Success Messages -->
-<span jwcid="@Conditional" condition="ognl:message != null">
-    <div class="message">
-        <img jwcid="@Any" src="ognl:engine.contextPath+'/images/iconInformation.gif'"
-                alt="message:icon.information" class="icon" />
-        <span jwcid="@Insert" value="ognl:message" raw="true"/>
-    </div>
-</span>
-
-<div jwcid="@Conditional" condition="ognl:from == 'list'"><span key="userProfile.admin.message">message for admins</span></div>
-<div jwcid="@Conditional" condition="ognl:from != 'list'"><span key="userProfile.message">instructional message</span></div>
+<div jwcid="@If" condition="ognl:from == 'list'"><span key="userProfile.admin.message">message for admins</span></div>
+<div jwcid="@If" condition="ognl:from != 'list'"><span key="userProfile.message">instructional message</span></div>
 
 <div class="separator"></div>
 
-<form jwcid="userForm@Form" delegate="ognl:beans.delegate" id="userForm">
+<form jwcid="userForm">
 <input jwcid="from@Hidden" type="hidden" id="from" value="ognl:from"/>
 <input jwcid="version@Hidden" type="hidden" value="ognl:user.version"/>
 <input jwcid="originalPassword@Hidden" type="hidden" value="ognl:user.password"/>
 
-<div jwcid="@contrib:FormConditional" condition="ognl:requestCycle.requestContext.session.getAttribute('cookieLogin') == 'true'">
+<div jwcid="@If" condition="ognl:request.session.getAttribute('cookieLogin') == 'true'">
     <input jwcid="@Hidden" id="password" value="ognl:user.password"/>
     <input jwcid="@Hidden" id="confirmPassword" value="ognl:user.confirmPassword"/>
 </div>
 
-<span jwcid="@contrib:FormConditional" condition="ognl:user.username == null">
+<span jwcid="@If" condition="ognl:user.username == null">
     <input type="hidden" name="encryptPass" value="true" />
 </span>
 
@@ -50,16 +33,17 @@
             <label jwcid="@FieldLabel" field="ognl:components.usernameField">Username</label>
         </th>
         <td style="height: 20px">
-            <div jwcid="@contrib:FormConditional" condition="ognl:user.version == null">
+            <input jwcid="usernameField" type="text" id="username"/>
+            <!--div jwcid="@If" condition="ognl:user.version == null">
                 <input jwcid="usernameField" type="text" id="username"/>
             </div>
-            <div jwcid="@contrib:FormConditional" condition="ognl:user.version != null">
+            <div jwcid="@Else" condition="ognl:user.version != null">
                 <span jwcid="@Insert" value="ognl:user.username"/>
                 <input jwcid="@Hidden" type="hidden" value="ognl:user.username" id="username"/>
-            </div>
+            </div-->
         </td>
     </tr>
-    <div jwcid="@contrib:FormConditional" condition="ognl:requestCycle.requestContext.session.getAttribute('cookieLogin') != 'true'">
+    <div jwcid="@If" condition="ognl:requestCycle.requestContext.session.getAttribute('cookieLogin') != 'true'">
     <tr>
         <th>
             <label jwcid="@FieldLabel" field="ognl:components.passwordField">Password</label>
@@ -150,7 +134,7 @@
         </th>
         <td>
             <input jwcid="websiteField" type="text" id="website" size="50"/>
-            <span jwcid="@Conditional" condition="ognl:user.website != null">
+            <span jwcid="@If" condition="ognl:user.website != null">
                 <a jwcid="@Any" href="ognl:user.website"><span key="user.visitWebsite"/></a>
             </span>
         </td>
@@ -163,7 +147,7 @@
             <input jwcid="passwordHintField" type="text" id="passwordHint" size="50"/>
         </td>
     </tr>
-    <div jwcid="@contrib:FormConditional" condition="ognl:from == 'list'">
+    <div jwcid="@If" condition="ognl:from == 'list'">
     <tr>
         <td></td>
         <td>
@@ -175,22 +159,22 @@
                     <tr>
                         <td>
                             <label>
-                                <input type="checkbox" jwcid="@Checkbox" selected="ognl:user.enabled" id="enabled"/>
+                                <input type="checkbox" jwcid="@Checkbox" value="ognl:user.enabled" id="enabled"/>
                                 <span key="user.enabled"/>
                             </label>
                             
                             <label>
-                                <input type="checkbox" jwcid="@Checkbox" selected="ognl:user.accountExpired" id="accountExpired"/>
+                                <input type="checkbox" jwcid="@Checkbox" value="ognl:user.accountExpired" id="accountExpired"/>
                                 <span key="user.accountExpired"/>
                             </label>
                             
                             <label>
-                                <input type="checkbox" jwcid="@Checkbox" selected="ognl:user.accountLocked" id="accountLocked"/>
+                                <input type="checkbox" jwcid="@Checkbox" value="ognl:user.accountLocked" id="accountLocked"/>
                                 <span key="user.accountLocked"/>
                             </label>
                             
                             <label>
-                                <input type="checkbox" jwcid="@Checkbox" selected="ognl:user.credentialsExpired" id="credentialsExpired"/>
+                                <input type="checkbox" jwcid="@Checkbox" value="ognl:user.credentialsExpired" id="credentialsExpired"/>
                                 <span key="user.credentialsExpired"/>
                             </label>
                         </td>
@@ -217,7 +201,7 @@
         </td>
     </tr>
     </div>
-    <div jwcid="@contrib:FormConditional" condition="ognl:from != 'list'">
+    <div jwcid="@If" condition="ognl:from != 'list'">
     <tr>
         <th>
             <label jwcid="@Label" for="hiddenUserRoles" key="user.roles"/>
@@ -235,7 +219,7 @@
         <td></td>
         <td class="buttonBar">
             <input type="submit" class="button" jwcid="@Submit" value="message:button.save" id="save" listener="ognl:listeners.save"/>
-          <span jwcid="@contrib:FormConditional" condition="ognl:user.username != null">
+          <span jwcid="@If" condition="ognl:user.username != null">
             <input type="submit" class="button" jwcid="@Submit" value="message:button.delete" id="delete" listener="ognl:listeners.delete"
                 onclick="form.onsubmit = null; return confirmDelete('User')"/> 
           </span>

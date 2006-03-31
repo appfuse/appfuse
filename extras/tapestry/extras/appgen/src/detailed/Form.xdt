@@ -1,15 +1,15 @@
 <XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>package <XDtForm:parentPackageName/>.webapp.action;
 
 import org.apache.tapestry.IRequestCycle;
+import org.apache.tapestry.engine.ILink;
 import org.apache.tapestry.event.PageEvent;
-import org.apache.tapestry.event.PageRenderListener;
+import org.apache.tapestry.event.PageBeginRenderListener;
 
 import <XDtPackage:packageName/>.<XDtForm:className/>;
 import <XDtForm:parentPackageName/>.service.<XDtForm:className/>Manager;
 
-public abstract class <XDtForm:className/>Form extends BasePage implements PageRenderListener {
+public abstract class <XDtForm:className/>Form extends BasePage implements PageBeginRenderListener {
     public abstract <XDtForm:className/>Manager get<XDtForm:className/>Manager();
-    public abstract void set<XDtForm:className/>Manager(<XDtForm:className/>Manager mgr);
     public abstract void set<XDtForm:className/>(<XDtForm:className/> <XDtForm:classNameLower/>);
     public abstract <XDtForm:className/> get<XDtForm:className/>();
 
@@ -21,29 +21,24 @@ public abstract class <XDtForm:className/>Form extends BasePage implements PageR
         }
     }
 
-    public void cancel(IRequestCycle cycle) {
-        if (log.isDebugEnabled()) {
-            log.debug("Entering 'cancel' method");
-        }
-
-        cycle.activate("<XDtForm:classNameLower/>s");
+    public ILink cancel(IRequestCycle cycle) {
+        log.debug("Entering 'cancel' method");
+        return getEngineService().getLink(false, "<XDtForm:classNameLower/>s");
     }
 
-    public void delete(IRequestCycle cycle) {
-        if (log.isDebugEnabled()) {
-            log.debug("entered 'delete' method");
-        }
+    public ILink delete(IRequestCycle cycle) {
+        log.debug("entered 'delete' method");
 
         get<XDtForm:className/>Manager().remove<XDtForm:className/>(get<XDtForm:className/>().<XDtMethodEx:idField getType="getterName"/>().toString());
 
         <XDtForm:className/>List nextPage = (<XDtForm:className/>List) cycle.getPage("<XDtForm:classNameLower/>s");
-        nextPage.setMessage(getMessage("<XDtForm:classNameLower/>.deleted"));
-        cycle.activate(nextPage);
+        nextPage.setMessage(getText("<XDtForm:classNameLower/>.deleted"));
+        return getEngineService().getLink(false, nextPage.getPageName());
     }
 
-    public void save(IRequestCycle cycle) {
-        if (getValidationDelegate().getHasErrors()) {
-            return;
+    public ILink save(IRequestCycle cycle) {
+        if (getDelegate().getHasErrors()) {
+            return null;
         }
 
         boolean isNew = (get<XDtForm:className/>().<XDtMethodEx:idField getType="getterName"/>() == null);
@@ -54,12 +49,11 @@ public abstract class <XDtForm:className/>Form extends BasePage implements PageR
 
         if (isNew) {
             <XDtForm:className/>List nextPage = (<XDtForm:className/>List) cycle.getPage("<XDtForm:classNameLower/>s");
-            nextPage.setMessage(getMessage(key));
-            cycle.activate(nextPage);
+            nextPage.setMessage(getText(key));
+            return getEngineService().getLink(false, nextPage.getPageName());
         } else {
-            <XDtForm:className/>Form nextPage = (<XDtForm:className/>Form) cycle.getPage("<XDtForm:classNameLower/>Form");
-            nextPage.setMessage(getMessage(key));
-            cycle.activate("<XDtForm:classNameLower/>Form"); // return to current page
+            setMessage(getText(key));
+            return null; // return to current page
         }
     }
 }

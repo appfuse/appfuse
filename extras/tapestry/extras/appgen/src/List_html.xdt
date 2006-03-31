@@ -1,14 +1,7 @@
 <XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><title><span jwcid="@Insert" value="message:<XDtForm:classNameLower/>List.title"/></title>
 <content tag="heading"><span key="<XDtForm:classNameLower/>List.heading"/></content>
 
-<!-- Success Messages -->
-<span jwcid="@Conditional" condition="ognl:message != null">
-    <div class="message">
-        <img jwcid="@Any" src="ognl:engine.contextPath+'/images/iconInformation.gif'"
-                alt="message:icon.information" class="icon" />
-        <span jwcid="@Insert" value="ognl:message" raw="true"/>
-    </div>
-</span>
+<span jwcid="@ShowMessage"/>
 
 <button class="button" onclick="location.href='<XDtForm:classNameLower/>Form.html'"><span key="button.add"/></button>
 <button class="button" onclick="location.href='mainMenu.html'"><span key="button.cancel"/></button>

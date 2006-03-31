@@ -1,12 +1,13 @@
 package org.appfuse.webapp.action;
 
-import java.io.IOException;
-import java.util.Map;
-
+import org.acegisecurity.Authentication;
+import org.acegisecurity.context.SecurityContextHolder;
+import org.acegisecurity.providers.ProviderManager;
+import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry.IRequestCycle;
+import org.apache.tapestry.event.PageBeginRenderListener;
 import org.apache.tapestry.event.PageEvent;
-import org.apache.tapestry.event.PageRenderListener;
 import org.apache.tapestry.form.IPropertySelectionModel;
 import org.apache.tapestry.valid.IValidationDelegate;
 import org.apache.tapestry.valid.ValidationConstraint;
@@ -18,26 +19,20 @@ import org.appfuse.service.UserExistsException;
 import org.appfuse.service.UserManager;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.util.RequestUtil;
-
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import org.acegisecurity.context.SecurityContextHolder;
-import org.acegisecurity.Authentication;
-import org.acegisecurity.GrantedAuthority;
-import org.acegisecurity.GrantedAuthorityImpl;
-import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
-import org.acegisecurity.providers.ProviderManager;
+import java.io.IOException;
 
-public abstract class SignupForm extends BasePage implements PageRenderListener {
+public abstract class SignupForm extends BasePage implements PageBeginRenderListener {
     private IPropertySelectionModel countries;  
 
     public abstract UserManager getUserManager();
-    public abstract void setUserManager(UserManager manager);
     public abstract RoleManager getRoleManager();
-    public abstract void setRoleManager(RoleManager manager);
+    public abstract MailEngine getMailEngine();
+    public abstract SimpleMailMessage getMailMessage();
     public abstract void setUser(User user);
     public abstract User getUser();
     
@@ -54,7 +49,7 @@ public abstract class SignupForm extends BasePage implements PageRenderListener 
         } else if (event.getRequestCycle().isRewinding()) {
             setUser(new User());
         }
-     }
+    }
     
     public void cancel(IRequestCycle cycle) throws IOException {
         if (log.isDebugEnabled()) {
@@ -69,11 +64,11 @@ public abstract class SignupForm extends BasePage implements PageRenderListener 
         }
         
         // make sure the password fields match
-        IValidationDelegate delegate = getValidationDelegate();
+        IValidationDelegate delegate = getDelegate();
         if (!StringUtils.equals(getUser().getPassword(), getUser().getConfirmPassword())) {
             addError(delegate, "confirmPasswordField", 
-                     format("errors.twofields", getMessage("user.confirmPassword"), 
-                             getMessage("user.password")),
+                     getText("errors.twofields", new Object[] {getText("user.confirmPassword"), 
+                                                                getText("user.password")}),
                      ValidationConstraint.CONSISTENCY);
         }
         
@@ -109,7 +104,7 @@ public abstract class SignupForm extends BasePage implements PageRenderListener 
         } catch (UserExistsException e) {
             log.warn(e.getMessage());
             addError(delegate, "usernameField",
-                     format("errors.existing.user", user.getUsername(),
+                     getMessages().format("errors.existing.user", user.getUsername(),
                             user.getEmail()), ValidationConstraint.CONSISTENCY);
             // redisplay the unencrypted passwords
             user.setPassword(user.getConfirmPassword());
@@ -135,28 +130,23 @@ public abstract class SignupForm extends BasePage implements PageRenderListener 
         if (log.isDebugEnabled()) {
             log.debug("Sending user '" + user.getUsername() + "' an account information e-mail");
         }
-
-        Map global = (Map) getGlobal();
-        ApplicationContext ctx = (ApplicationContext) global.get(BaseEngine.APPLICATION_CONTEXT_KEY);
         
-        SimpleMailMessage message = (SimpleMailMessage) ctx.getBean("mailMessage");
+        SimpleMailMessage message = getMailMessage();
         message.setTo(user.getFullName() + "<" + user.getEmail() + ">");
         
         StringBuffer msg = new StringBuffer();
-        msg.append(getMessage("signup.email.message"));
-        msg.append("\n\n" + getMessage("user.username"));
+        msg.append(getText("signup.email.message"));
+        msg.append("\n\n" + getText("user.username"));
         msg.append(": " + user.getUsername() + "\n");
-        msg.append(getMessage("user.password") + ": ");
+        msg.append(getText("user.password") + ": ");
         msg.append(user.getPassword());
         msg.append("\n\nLogin at: " + RequestUtil.getAppURL(getRequest()));
         message.setText(msg.toString());
+        message.setSubject(getText("signup.email.subject"));
         
-        message.setSubject(getMessage("signup.email.subject"));
-        
-        MailEngine engine = (MailEngine) ctx.getBean("mailEngine");
-        engine.send(message);
+        getMailEngine().send(message);
 
-        getSession().setAttribute("message", getMessage("user.registered"));
+        getSession().setAttribute("message", getText("user.registered"));
         getResponse().sendRedirect(getRequest().getContextPath());
     }
 }

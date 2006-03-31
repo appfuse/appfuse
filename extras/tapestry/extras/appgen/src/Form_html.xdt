@@ -3,27 +3,10 @@
 
 <body jwcid="@Body">
 
-<!-- Error Messages -->
-<span jwcid="@Conditional" condition="ognl:beans.delegate.hasErrors">
-	<div class="error">
-        <img jwcid="@Any" src="ognl:engine.contextPath+'/images/iconWarning.gif'"
-                alt="message:icon.warning" class="icon" />
-	    <span jwcid="@Delegator" delegate="ognl:beans.delegate.firstError" raw="true">
-	        Error Message
-	    </span>
-	</div>
-</span>
+<span jwcid="@ShowValidationError" delegate="ognl:beans.delegate"/>
+<span jwcid="@ShowMessage"/>
 
-<!-- Success Messages -->
-<span jwcid="@Conditional" condition="ognl:message != null">
-    <div class="message">
-        <img jwcid="@Any" src="ognl:engine.contextPath+'/images/iconInformation.gif'"
-                alt="message:icon.information" class="icon" />
-        <span jwcid="@Insert" value="ognl:message" raw="true"/>
-    </div>
-</span>
-
-<form jwcid="<XDtForm:classNameLower/>Form@Form" delegate="ognl:beans.delegate" id="<XDtForm:classNameLower/>Form">
+<form jwcid="<XDtForm:classNameLower/>Form">
 <table class="detail">
 <XDtForm:forAllFields>
 <XDtForm:ifIsIdOrVersionField>
@@ -44,7 +27,7 @@
         <td></td>
         <td class="buttonBar">
             <input type="submit" class="button" jwcid="@Submit" value="message:button.save" id="save" listener="ognl:listeners.save"/>
-          <span jwcid="@contrib:FormConditional" condition="ognl:<XDtForm:classNameLower/>.<XDtMethodEx:idField getType="propertyName"/> != null">
+          <span jwcid="@If" condition="ognl:<XDtForm:classNameLower/>.<XDtMethodEx:idField getType="propertyName"/> != null">
             <input type="submit" class="button" jwcid="@Submit" value="message:button.delete" id="delete" listener="ognl:listeners.delete"
                 onclick="form.onsubmit = null; return confirmDelete('<XDtForm:className/>')"/>
           </span>

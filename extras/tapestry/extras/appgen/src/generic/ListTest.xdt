@@ -1,33 +1,32 @@
 <XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>package <XDtForm:parentPackageName/>.webapp.action;
 
-import <XDtPackage:packageName/>.<XDtForm:className/>;
+import org.apache.tapestry.engine.RequestCycle;
 import <XDtForm:parentPackageName/>.service.Manager;
+import <XDtPackage:packageName/>.<XDtForm:className/>;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class <XDtForm:className/>ListTest extends BasePageTestCase {
     private <XDtForm:className/>List page;
 
-    protected void setUp() throws Exception {
-        super.setUp();
-        page = (<XDtForm:className/>List) getPage(<XDtForm:className/>List.class);
-
+    protected void onSetUp() throws Exception {
+        super.onSetUp();
         // these can be mocked if you want a more "pure" unit test
-        page.setManager((Manager) ctx.getBean("manager"));
-        page.setRequestCycle(getCycle(request, response));
+        Map map = new HashMap();
+        map.put("manager", (Manager) applicationContext.getBean("manager"));
+        page = (<XDtForm:className/>List) getPage(<XDtForm:className/>List.class, map);
     }
 
-    protected void tearDown() throws Exception {
-        super.tearDown();
+    protected void onTearDownAfterTransaction() throws Exception {
+        super.onTearDown();
         page = null;
     }
 
     public void testEdit() throws Exception {
-		MockRequestCycle cycle = (MockRequestCycle) page.getRequestCycle();
-        cycle.addServiceParameter(new <XDtMethodEx:idField getType="propertyType"/>("1"));
-
+        RequestCycle cycle = new MockRequestCycle();
+        cycle.setServiceParameters(new Object[] {new <XDtMethodEx:idField getType="propertyType"/>("1")});
         page.edit(cycle);
-
-        // TODO: Figure out how to verify the next page has been activated
-        // and the <XDtForm:classNameLower/> object is not null
         assertFalse(page.hasErrors());
     }
 

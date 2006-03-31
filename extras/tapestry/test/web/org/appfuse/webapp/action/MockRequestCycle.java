@@ -1,63 +1,38 @@
 package org.appfuse.webapp.action;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.tapestry.IEngine;
 import org.apache.tapestry.IPage;
-import org.apache.tapestry.request.RequestContext;
+import org.apache.tapestry.engine.RequestCycle;
+import org.apache.tapestry.html.BasePage;
+import org.apache.tapestry.test.Creator;
 
-public class MockRequestCycle extends org.apache.tapestry.junit.MockRequestCycle {
-    private List parameters = new ArrayList();
+public class MockRequestCycle extends RequestCycle {
 
-    public MockRequestCycle(IEngine engine, RequestContext context) {
-        super(engine, context);
-    }
-
-    public IPage getPage(String name) {
+    public IPage getPage(final String name) {
         // convert the first character to uppercase
         char first = Character.toUpperCase(name.charAt(0));
-        name = first + name.substring(1);
+        String className = first + name.substring(1);
 
         // if it ends in an "s", replace "s" with "List"
-        if (name.endsWith("s")) {
-            name = name.substring(0, name.length() - 1) + "List";
+        if (className.endsWith("s")) {
+            className = className.substring(0, className.length() - 1) + "List";
         }
-
-        name = MockRequestCycle.class.getPackage().getName() + "." + name;
-
+        
+        className = MockRequestCycle.class.getPackage().getName() + "." + className;
+        IPage page = null;
+        
         try {
-            //log.debug("Instantiating page with class: " + name);
-            Class clazz = Class.forName(name);
-
-            return (IPage) new AbstractInstantiator().getInstance(clazz);
+            page = (IPage) new Creator().newInstance(Class.forName(className));
         } catch (Exception e) {
             // Instantiate a BasePage and hope that works
             try {
-                return (IPage) new AbstractInstantiator().getInstance(BasePage.class);
+                page = (IPage) new Creator().newInstance(BasePage.class);
             } catch (Exception e2) {
                 e.printStackTrace();
-                throw new RuntimeException("Nope, can't instantiate '" + name +
-                                           "'");
+                throw new RuntimeException("Unable to instantiate '" + className + "'");
             }
         }
-    }
-
-    // Added to prevent NPE in MockRequestCycle
-    public boolean isRewinding() {
-        return false;
-    }
-
-    // Allow for setting and retrieving service parameters easier
-    public void addServiceParameter(Object value) {
-        parameters.add(value);
-    }
-
-    public void setServiceParameters(Object[] parameters) {
-        throw new UnsupportedOperationException("Not supported, use addServiceParameter instead");
-    }
-
-    public Object[] getServiceParameters() {
-        return parameters.toArray();
+        
+        page.setPageName(name);
+        return page;
     }
 }
