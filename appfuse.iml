@@ -394,7 +394,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/urlrewrite-2.6.0/urlrewrite-2.6.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/urlrewrite-3.0-beta/urlrewrite-3.0-beta.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -573,6 +573,24 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="catalina-ant.jar" level="application" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/clickstream-1.0.2/clickstream-1.0.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/dwr-1.1/dwr.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
     <orderEntryProperties />
   </component>
   <component name="WebModuleBuildComponent">
@@ -587,6 +605,11 @@
   <component name="WebModuleProperties">
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/clickstream-1.0.2.jar" />
+      <url>jar://$MODULE_DIR$/lib/clickstream-1.0.2/clickstream-1.0.2.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/dbunit-2.1.jar" />
       <url>jar://$MODULE_DIR$/lib/dbunit-2.1/dbunit-2.1.jar!/</url>
     </containerElement>
@@ -599,6 +622,11 @@
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/itext-1.4.jar" />
       <url>jar://$MODULE_DIR$/lib/displaytag-1.1/itext-1.4.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/dwr.jar" />
+      <url>jar://$MODULE_DIR$/lib/dwr-1.1/dwr.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
@@ -788,7 +816,7 @@
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/urlrewrite-2.5.1.jar" />
-      <url>jar://$MODULE_DIR$/lib/urlrewrite-2.6.0/urlrewrite-2.6.0.jar!/</url>
+      <url>jar://$MODULE_DIR$/lib/urlrewrite-3.0-beta/urlrewrite-3.0-beta.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
