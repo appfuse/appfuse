@@ -4,9 +4,8 @@
 <f:loadBundle var="text" basename="#{userForm.bundleName}"/>
 
 <h:form id="userForm" onsubmit="return validateUserForm(this)">
-<h:inputHidden value="#{userForm.user.version}" id="version">
-    <f:convertNumber/>
-</h:inputHidden>
+<h:inputHidden value="#{userForm.user.version}" id="version"/>
+
 <%-- Original password as hidden field so we can compare and encrypt --%>
 <h:inputHidden value="#{userForm.user.password}" id="originalPassword"/>
 <input type="hidden" name="from" value="<h:outputText value="#{userForm.from}"/>" />
