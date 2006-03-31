@@ -8,12 +8,6 @@ import <XDtPackage:packageName/>.<XDtForm:className/>;
 import <XDtForm:parentPackageName/>.dao.<XDtForm:className/>DAO;
 
 public interface <XDtForm:className/>Manager extends Manager {
-
-    /**
-     * Setter for DAO, convenient for unit testing
-     */
-    public void set<XDtForm:className/>DAO(<XDtForm:className/>DAO <XDtForm:classNameLower/>DAO);
-
     /**
      * Retrieves all of the <XDtForm:classNameLower/>s
      */

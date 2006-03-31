@@ -14,9 +14,8 @@ import org.springframework.orm.ObjectRetrievalFailureException;
 
 public class <XDtForm:className/>ManagerTest extends BaseManagerTestCase {
     private final String <XDtForm:classNameLower/>Id = "1";
-    private <XDtForm:className/>Manager <XDtForm:classNameLower/>Manager = new <XDtForm:className/>ManagerImpl();
+    private <XDtForm:className/>ManagerImpl <XDtForm:classNameLower/>Manager = new <XDtForm:className/>ManagerImpl();
     private Mock <XDtForm:classNameLower/>DAO = null;
-    private <XDtForm:className/> <XDtForm:classNameLower/> = null;
 
     protected void setUp() throws Exception {
         super.setUp();
@@ -31,7 +30,7 @@ public class <XDtForm:className/>ManagerTest extends BaseManagerTestCase {
 
     public void testGet<XDtForm:className/>s() throws Exception {
         List results = new ArrayList();
-        <XDtForm:classNameLower/> = new <XDtForm:className/>();
+        <XDtForm:className/> <XDtForm:classNameLower/> = new <XDtForm:className/>();
         results.add(<XDtForm:classNameLower/>);
 
         // set expected behavior on dao
@@ -47,12 +46,14 @@ public class <XDtForm:className/>ManagerTest extends BaseManagerTestCase {
         // set expected behavior on dao
         <XDtForm:classNameLower/>DAO.expects(once()).method("get<XDtForm:className/>")
             .will(returnValue(new <XDtForm:className/>()));
-        <XDtForm:classNameLower/> = <XDtForm:classNameLower/>Manager.get<XDtForm:className/>(<XDtForm:classNameLower/>Id);
+        <XDtForm:className/> <XDtForm:classNameLower/> = <XDtForm:classNameLower/>Manager.get<XDtForm:className/>(<XDtForm:classNameLower/>Id);
         assertTrue(<XDtForm:classNameLower/> != null);
         <XDtForm:classNameLower/>DAO.verify();
     }
 
     public void testSave<XDtForm:className/>() throws Exception {
+        <XDtForm:className/> <XDtForm:classNameLower/> = new <XDtForm:className/>();
+
         // set expected behavior on dao
         <XDtForm:classNameLower/>DAO.expects(once()).method("save<XDtForm:className/>")
             .with(same(<XDtForm:classNameLower/>)).isVoid();
@@ -62,7 +63,7 @@ public class <XDtForm:className/>ManagerTest extends BaseManagerTestCase {
     }
 
     public void testAddAndRemove<XDtForm:className/>() throws Exception {
-        <XDtForm:classNameLower/> = new <XDtForm:className/>();
+        <XDtForm:className/> <XDtForm:classNameLower/> = new <XDtForm:className/>();
 
         // set required fields
         <XDtMethod:forAllMethods>

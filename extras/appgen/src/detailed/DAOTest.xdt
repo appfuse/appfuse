@@ -10,7 +10,6 @@ import org.springframework.orm.ObjectRetrievalFailureException;
 
 public class <XDtForm:className/>DAOTest extends BaseDAOTestCase {
     private <XDtMethodEx:idField getType="propertyType"/> <XDtForm:classNameLower/>Id = new <XDtMethodEx:idField getType="propertyType"/>("1");
-    private <XDtForm:className/> <XDtForm:classNameLower/> = null;
     private <XDtForm:className/>DAO dao = null;
 
     public void set<XDtForm:className/>DAO(<XDtForm:className/>DAO dao) {
@@ -18,7 +17,7 @@ public class <XDtForm:className/>DAOTest extends BaseDAOTestCase {
     }
 
     public void testAdd<XDtForm:className/>() throws Exception {
-        <XDtForm:classNameLower/> = new <XDtForm:className/>();
+        <XDtForm:className/> <XDtForm:classNameLower/> = new <XDtForm:className/>();
 
         // set required fields
         <XDtMethod:forAllMethods>
@@ -47,12 +46,12 @@ public class <XDtForm:className/>DAOTest extends BaseDAOTestCase {
     }
 
     public void testGet<XDtForm:className/>() throws Exception {
-        <XDtForm:classNameLower/> = dao.get<XDtForm:className/>(<XDtForm:classNameLower/>Id);
+        <XDtForm:className/> <XDtForm:classNameLower/> = dao.get<XDtForm:className/>(<XDtForm:classNameLower/>Id);
         assertNotNull(<XDtForm:classNameLower/>);
     }
 
     public void testGet<XDtForm:className/>s() throws Exception {
-        <XDtForm:classNameLower/> = new <XDtForm:className/>();
+        <XDtForm:className/> <XDtForm:classNameLower/> = new <XDtForm:className/>();
         <XDtMethod:forAllMethods>
         <XDtMethod:ifMethodTagValueEquals tagName="hibernate.id" paramName="generator-class" value="assigned">
         <XDtType:ifIsOfType value="return-type" type="java.lang.String" extent="concrete-type">
@@ -67,7 +66,7 @@ public class <XDtForm:className/>DAOTest extends BaseDAOTestCase {
     }
 
     public void testSave<XDtForm:className/>() throws Exception {
-        <XDtForm:classNameLower/> = dao.get<XDtForm:className/>(<XDtForm:classNameLower/>Id);
+        <XDtForm:className/> <XDtForm:classNameLower/> = dao.get<XDtForm:className/>(<XDtForm:classNameLower/>Id);
 
         // update required fields
         <XDtMethod:forAllMethods>
