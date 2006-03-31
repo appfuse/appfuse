@@ -292,7 +292,7 @@ struts.jar=${struts.dir}/struts.jar]]></replacetoken>
         <replace file="../../.classpath">
             <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/struts-1.2.8/struts.jar"/>
     <classpathentry kind="lib" path="lib/struts-1.2.8/struts-el.jar"/>]]></replacetoken>
-            <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/hivemind-1.1.1jar"/>
+            <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/hivemind-1.1.1.jar"/>
     <classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/hivemind-lib-1.1.1.jar"/>
     <classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/javassist-3.0.jar"/>
     <classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/ognl-2.6.7.jar"/>
