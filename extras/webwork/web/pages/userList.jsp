@@ -27,8 +27,10 @@
 
     <display:column property="firstName" escapeXml="true" sortable="true" titleKey="user.firstName" style="width: 20%"/>
     <display:column property="lastName" escapeXml="true" sortable="true" titleKey="user.lastName" style="width: 23%"/>
-    <display:column property="email" sortable="true" titleKey="user.email" style="width: 40%" autolink="true"/>
-    <display:column property="enabled" sortable="true" titleKey="user.enabled" style="width: 10%"/>
+    <display:column property="email" sortable="true" titleKey="user.email" style="width: 25%" autolink="true"/>
+    <display:column sortProperty="enabled" sortable="true" titleKey="user.enabled" style="width: 10%; padding-left: 15px">
+        <input type="checkbox" disabled="disabled" <c:if test="${users.enabled}">checked="checked"</c:if>/>
+    </display:column> 
 
     <display:setProperty name="paging.banner.item_name" value="user"/>
     <display:setProperty name="paging.banner.items_name" value="users"/>

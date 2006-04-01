@@ -21,6 +21,10 @@
             <span jwcid="@Insert" value="ognl:row.email"/>
         </a>
     </tr>
+    <tr jwcid="user_enabledColumnValue@Block">
+        <span jwcid="@If" condition="ognl:row.enabled == true"><input type="checkbox" disabled="disabled" checked="checked" style="margin-left: 15px"/></span>
+        <span jwcid="@Else"><input type="checkbox" disabled="disabled" style="margin-left: 15px"/></span>
+    </tr>
 </table>
 
 <button class="button" onclick="location.href='userForm.html'"><span key="button.add"/></button>
