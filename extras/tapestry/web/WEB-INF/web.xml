@@ -210,11 +210,6 @@
 
     <servlet-mapping>
         <servlet-name>tapestry</servlet-name>
-        <url-pattern>/app</url-pattern>
-    </servlet-mapping>
-    
-    <servlet-mapping>
-        <servlet-name>tapestry</servlet-name>
         <url-pattern>*.html</url-pattern>
     </servlet-mapping>
     
