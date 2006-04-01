@@ -8,7 +8,7 @@
     </contribution>
 
     <!-- Uncomment before going to production as it displays nicer error messages to users -->
-    <!--contribution configuration-id="tapestry.InfrastructureOverrides">
+    <!--<contribution configuration-id="tapestry.InfrastructureOverrides">
         <property name="exceptionPageName" value="error"/>
     </contribution>-->
 </module>
