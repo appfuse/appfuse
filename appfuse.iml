@@ -142,7 +142,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jakarta-commons/commons-logging.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jakarta-commons/commons-logging-1.1-RC6.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -695,8 +695,8 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/commons-logging.jar" />
-      <url>jar://$MODULE_DIR$/lib/jakarta-commons/commons-logging.jar!/</url>
+      <attribute name="URI" value="/WEB-INF/lib/commons-logging-1.1-RC6.jar" />
+      <url>jar://$MODULE_DIR$/lib/jakarta-commons/commons-logging-1.1-RC6.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />

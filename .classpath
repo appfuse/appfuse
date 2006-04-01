@@ -30,7 +30,7 @@
 	<classpathentry kind="lib" path="lib/jakarta-commons/commons-digester.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-commons/commons-fileupload.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-commons/commons-lang.jar"/>
-	<classpathentry kind="lib" path="lib/jakarta-commons/commons-logging.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta-commons/commons-logging-1.1-RC6.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-commons/commons-pool.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-commons/commons-validator.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-commons/jakarta-oro.jar"/>

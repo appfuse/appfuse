@@ -2,6 +2,18 @@
 <project version="4" relativePaths="false">
   <component name="AntConfiguration">
     <defaultAnt bundledAnt="true" />
+    <buildFile url="file://$PROJECT_DIR$/extras/jsf/build.xml">
+      <additionalClassPath>
+        <entry path="file:///opt/dev/Tools/apache-ant-1.6.5/lib/xercesImpl.jar" />
+        <entry path="file:///opt/dev/Tools/apache-ant-1.6.5/lib/xml-apis.jar" />
+      </additionalClassPath>
+      <antReference name="Apache Ant version 1.6.5" />
+      <customJdkName value="1.5" />
+      <maximumHeapSize value="128" />
+      <properties>
+        <property name="tomcat.home" value="/opt/dev/tools/tomcat" />
+      </properties>
+    </buildFile>
   </component>
   <component name="CodeStyleManager">
     <option name="USE_DEFAULT_CODE_STYLE_SCHEME" value="true" />
@@ -378,7 +390,7 @@
       <module fileurl="file://$PROJECT_DIR$/appfuse.iml" filepath="$PROJECT_DIR$/appfuse.iml" />
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" assert-keyword="true" jdk-15="false" project-jdk-name="Default" />
+  <component name="ProjectRootManager" version="2" assert-keyword="true" jdk-15="true" project-jdk-name="1.4" />
   <component name="Regex">
     <option name="pos1" value="218" />
     <option name="pos2" value="218" />
