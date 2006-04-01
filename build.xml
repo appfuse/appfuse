@@ -463,7 +463,7 @@
                 <fileset dir="test/@{module}" excludes="**/*.java"/>
                 <filterset refid="variables.to.replace"/>
             </copy>
-            <junit printsummary="false" forkmode="once" errorProperty="test.failed"
+            <junit printsummary="false" forkmode="perBatch" errorProperty="test.failed"
                 failureProperty="test.failed" fork="${junit.fork}" showoutput="false">
             	<jvmarg value="-Duser.language=en" />
             	<classpath>
