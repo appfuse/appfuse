@@ -1,1 +1,1 @@
-<label jwcid="label"><span jwcid="@Insert" value="ognl:getMessages().getMessage(key)"/>:</label>
+<label jwcid="label"><span jwcid="@If" condition="class == 'required'">* </span><span jwcid="@Insert" value="ognl:getMessages().getMessage(key)"/>:</label>

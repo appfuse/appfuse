@@ -28,21 +28,17 @@
 </span>
 
 <table class="detail">
-    <tr>
-        <th>
-            <label jwcid="@FieldLabel" field="ognl:components.usernameField">Username</label>
-        </th>
-        <td style="height: 20px">
-            <input jwcid="usernameField" type="text" id="username"/>
-            <!--div jwcid="@If" condition="ognl:user.version == null">
-                <input jwcid="usernameField" type="text" id="username"/>
-            </div>
-            <div jwcid="@Else" condition="ognl:user.version != null">
-                <span jwcid="@Insert" value="ognl:user.username"/>
-                <input jwcid="@Hidden" type="hidden" value="ognl:user.username" id="username"/>
-            </div-->
-        </td>
+    <tr jwcid="@If" condition="ognl:user.version == null" element="tr">
+        <th><label jwcid="@FieldLabel" field="ognl:components.usernameField">Username</label></th>
+        <td style="height: 20px"><input jwcid="usernameField" type="text" id="username"/></td>
     </tr>
+    <tr jwcid="@Else" element="tr">
+        <th><label jwcid="@Label" class="required" key="user.username">Username</label></th>
+        <td style="height: 20px">
+            <span jwcid="@Insert" value="ognl:user.username"/>
+            <input jwcid="@Hidden" type="hidden" value="ognl:user.username" id="username"/>
+        </td>
+    </tr> 
     <div jwcid="@If" condition="ognl:requestCycle.requestContext.session.getAttribute('cookieLogin') != 'true'">
     <tr>
         <th>
