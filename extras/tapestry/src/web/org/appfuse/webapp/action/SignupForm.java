@@ -68,7 +68,7 @@ public abstract class SignupForm extends BasePage implements PageBeginRenderList
         if (!StringUtils.equals(getUser().getPassword(), getUser().getConfirmPassword())) {
             addError(delegate, "confirmPasswordField", 
                      getText("errors.twofields", new Object[] {getText("user.confirmPassword"), 
-                                                                getText("user.password")}),
+                                                               getText("user.password")}),
                      ValidationConstraint.CONSISTENCY);
         }
         

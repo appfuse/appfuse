@@ -27,9 +27,7 @@ public abstract class FileUpload extends BasePage {
     public abstract String getName();
     
     public void cancel(IRequestCycle cycle) {
-        if (log.isDebugEnabled()) {
-            log.debug("entered 'cancel' method");
-        }
+        log.debug("entered 'cancel' method");
         cycle.activate("mainMenu");
     }
     
@@ -40,8 +38,7 @@ public abstract class FileUpload extends BasePage {
             return;
         }
 
-        // write the file to the filesystem
-        // the directory to upload to
+        // write the file to the filesystem the directory to upload to
         String uploadDir =
             getServletContext().getRealPath("/resources") + "/" +
             getRequest().getRemoteUser() + "/";
@@ -53,12 +50,11 @@ public abstract class FileUpload extends BasePage {
             dirPath.mkdirs();
         }
 
-        //retrieve the file data
+        // retrieve the file data
         InputStream stream = file.getStream();
 
-        //write the file to the file specified
-        OutputStream bos =
-            new FileOutputStream(uploadDir + file.getFileName());
+        // write the file to the file specified
+        OutputStream bos = new FileOutputStream(uploadDir + file.getFileName());
         int bytesRead = 0;
         byte[] buffer = new byte[8192];
 
@@ -68,7 +64,7 @@ public abstract class FileUpload extends BasePage {
 
         bos.close();
 
-        //close the stream
+        // close the stream
         stream.close();
 
         // set the data for retrieval on next page

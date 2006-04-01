@@ -115,9 +115,8 @@ public abstract class UserForm extends BasePage implements PageBeginRenderListen
         IValidationDelegate delegate = getDelegate();
 
         if (!StringUtils.equals(getUser().getPassword(), getUser().getConfirmPassword())) {
-            addError(delegate, "confirmPasswordField",
-                     getMessages().format("errors.twofields",
-                            getText("user.confirmPassword"), getText("user.password")),
+            addError(delegate, "confirmPasswordField", getMessages().format("errors.twofields",
+                     getText("user.confirmPassword"), getText("user.password")),
                      ValidationConstraint.CONSISTENCY);
         }
 
@@ -210,7 +209,7 @@ public abstract class UserForm extends BasePage implements PageBeginRenderListen
     private void sendNewUserEmail(HttpServletRequest request, User user) {
         // Send user an e-mail
         if (log.isDebugEnabled()) {
-            log.debug("Sending user '" + user.getUsername() + "' an account ingetTextion e-mail");
+            log.debug("Sending user '" + user.getUsername() + "' an account information e-mail");
         }
         
         SimpleMailMessage message = getMailMessage();

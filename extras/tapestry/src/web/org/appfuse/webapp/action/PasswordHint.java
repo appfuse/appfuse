@@ -45,7 +45,7 @@ public abstract class PasswordHint extends BasePage implements PageBeginRenderLi
             log.debug("Processing Password Hint for username: " + username);
         }
         
-        // look up the user's ingetTextion
+        // look up the user's information
         try {
             User user = getUserManager().getUser(username);
 
