@@ -11,3 +11,5 @@ cd ../tapestry
 ant test-all
 cd ../webwork
 ant test-all
+cd ../xfire
+ant test

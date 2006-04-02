@@ -9,3 +9,5 @@ cd ../tapestry
 ant test
 cd ../webwork
 ant test
+cd ../xfire
+ant test
