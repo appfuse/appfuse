@@ -153,6 +153,14 @@
             <fileset dir="base" includes="applicationContext-webservice.xml"/>
         </copy>
 
+		<echo level="info">Copying EchoWebServiceTest to ../../test/service/org/appfuse/service</echo>
+        <copy todir="../../test/service/org/appfuse/service">
+            <fileset dir="test/service/org/appfuse/service">
+            	<include name="EchoWebServiceTest.java"/>
+            	<include name="echo.xml"/>
+            </fileset>
+        </copy>
+    	
 		<echo level="info">Adjusting .classpath for eclipse</echo>
     	<replace file="../../.classpath">
            <replacetoken><![CDATA[</classpath>]]></replacetoken>
@@ -170,6 +178,9 @@
         </replace>
     </target>
 	
+    <!-- =================================================================== -->
+    <!-- Creates a demo service UserWebService by annotating UserManager     -->
+    <!-- =================================================================== -->
 	<target name="install-demo">
 		<echo level="info">Annotating model with aegis xdoclet tags</echo>
     	<replace file="../../src/dao/org/appfuse/model/User.java">
@@ -236,6 +247,15 @@ import org.appfuse.service.UserWebService;]]></replacevalue>
     		<replacevalue><![CDATA[name="compile-service" depends="gen-aegis-mapping,package-dao"]]></replacevalue>
 		</replace>
 
+	</target>
+	
+    <!-- =================================================================== -->
+    <!-- Tests installation by calling EchoWebService                        -->
+    <!-- =================================================================== -->
+	<target name="test">
+		<ant dir="../.." target="test-service" inheritAll="false">
+			<property name="testcase" value="EchoWebServiceTest"/>
+		</ant>
 	</target>
 	
 </project>
