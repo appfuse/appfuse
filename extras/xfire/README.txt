@@ -13,6 +13,5 @@ fail if run twice), but it seems to work good enough.
     	install    - which installs everything necessary to use the Spring native way of integration
 
 Please notice that the lib directory of xfire contains only minimal filesets. 
-You are encouraged to get the full release with docs and examples. 
-See the README files in the directory.
+You are encouraged to get the full release with docs and examples.
 ================================================================================
