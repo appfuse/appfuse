@@ -8,11 +8,11 @@
     <!-- =================================================================== -->
     <target name="help" description="Print usage for key targets">
     <echo>
-    	This file is designed to add XFire support support to AppFuse 
-    	There are three targets for installation:
-    	install    - which installs everything necessary to use the Spring native way of integration
-    	help       - which just displays this message
-    	install-demo - which installs the aegis-annotated src files into the src-folder
+        This file is designed to add XFire support support to AppFuse 
+        There are three targets for installation:
+        install    - which installs everything necessary to use the Spring native way of integration
+        help       - which just displays this message
+        install-demo - which installs the aegis-annotated src files into the src-folder
     </echo>
     </target>
 
@@ -22,53 +22,53 @@
     <target name="install"
         description="Integrates XFire into AppFuse base project.">
 
-		<echo level="info">Copying xfire to ../../lib</echo>
+        <echo level="info">Copying xfire to ../../lib</echo>
         <copy todir="${lib.dir}">
             <fileset dir="lib" includes="**"/>
         </copy>
-    	
-    	<concat destfile="${lib.dir}/lib.properties" append="true">
-			<fileset dir="base" includes="lib.properties"/>
-    	</concat>
+        
+        <concat destfile="${lib.dir}/lib.properties" append="true">
+            <fileset dir="base" includes="lib.properties"/>
+        </concat>
 
-    	<echo level="info">Adding xfire to war libs</echo>
-    	<replace file="../../build.xml">
+        <echo level="info">Adding xfire to war libs</echo>
+        <replace file="../../build.xml">
             <replacetoken><![CDATA[</war>]]></replacetoken>
-    		<replacevalue><![CDATA[    <lib dir="${xfire.dir}" includes="*.jar"/>
+            <replacevalue><![CDATA[    <lib dir="${xfire.dir}" includes="*.jar"/>
         </war>]]></replacevalue>
-		</replace>
-    			
-    	<echo level="info">Adding applicationContext-webservice to service.jar</echo>
-    	<replace file="../../build.xml">
+        </replace>
+                
+        <echo level="info">Adding applicationContext-webservice to service.jar</echo>
+        <replace file="../../build.xml">
             <replacetoken><![CDATA[<mkdir dir="${build.dir}/service/classes/META-INF"/>]]></replacetoken>
-    		<replacevalue><![CDATA[<mkdir dir="${build.dir}/service/classes/META-INF"/>
+            <replacevalue><![CDATA[<mkdir dir="${build.dir}/service/classes/META-INF"/>
         <copy tofile="${build.dir}/service/classes/META-INF/applicationContext-webservice.xml">
             <fileset dir="src/service" includes="**/*-webservice.xml"/>
         </copy>]]></replacevalue>
-		</replace>
-    	<replace file="../../build.xml">
+        </replace>
+        <replace file="../../build.xml">
             <replacetoken><![CDATA[<fileset dir="${build.dir}/service/classes" includes="**/*.class"/>]]></replacetoken>
-    		<replacevalue><![CDATA[<fileset dir="${build.dir}/service/classes">
+            <replacevalue><![CDATA[<fileset dir="${build.dir}/service/classes">
             <include name="**/*.class"/>
             <include name="**/*.aegis.xml"/>
         </fileset>]]></replacevalue>
-		</replace>
-    			
-    	<echo level="info">Adding xfire to build path</echo>
-    	<replace file="../../properties.xml">
+        </replace>
+                
+        <echo level="info">Adding xfire to build path</echo>
+        <replace file="../../properties.xml">
             <replacetoken><![CDATA[<path id="service.compile.classpath">]]></replacetoken>
-    		<replacevalue><![CDATA[<path id="service.compile.classpath">
-    	<fileset dir="${xfire.dir}" includes="*.jar"/>]]></replacevalue>
-		</replace>
-    	<replace file="../../properties.xml">
+            <replacevalue><![CDATA[<path id="service.compile.classpath">
+        <fileset dir="${xfire.dir}" includes="*.jar"/>]]></replacevalue>
+        </replace>
+        <replace file="../../properties.xml">
             <replacetoken><![CDATA[<path id="service.test.classpath">]]></replacetoken>
-    		<replacevalue><![CDATA[<path id="service.test.classpath">
-    	<fileset dir="${xfire.test.dir}" includes="*.jar"/>
+            <replacevalue><![CDATA[<path id="service.test.classpath">
+        <fileset dir="${xfire.test.dir}" includes="*.jar"/>
         <pathelement location="${servletapi.jar}"/>]]></replacevalue>
-		</replace>
-    			
-    	<echo level="info">Adding servlet and servlet-mapping to web/WEB-INF/web.xml</echo>
-    	<replace file="../../web/WEB-INF/web.xml">
+        </replace>
+                
+        <echo level="info">Adding servlet and servlet-mapping to web/WEB-INF/web.xml</echo>
+        <replace file="../../web/WEB-INF/web.xml">
            <replacetoken><![CDATA[<servlet-mapping>
         <servlet-name>action</servlet-name>]]></replacetoken>
            <replacevalue><![CDATA[<servlet>
@@ -76,17 +76,17 @@
         <display-name>XFire Servlet</display-name>
         <servlet-class>org.codehaus.xfire.spring.XFireSpringServlet</servlet-class>
     </servlet>
-           	
+               
     <servlet-mapping>
         <servlet-name>XFireServlet</servlet-name>
         <url-pattern>/services/*</url-pattern>
     </servlet-mapping>
-           	
+               
     <servlet-mapping>
         <servlet-name>action</servlet-name>]]></replacevalue>
         </replace>
 
-    	<replace file="../../web/WEB-INF/web.xml">
+        <replace file="../../web/WEB-INF/web.xml">
            <replacetoken><![CDATA[</web-app>]]></replacetoken>
            <replacevalue><![CDATA[    <!-- currently the W3C havent settled on a media type for WSDL;
          http://www.w3.org/TR/2003/WD-wsdl12-20030303/#ietf-draft
@@ -99,19 +99,19 @@
         <extension>xsd</extension>
         <mime-type>text/xml</mime-type>
     </mime-mapping>
-           	
+               
 </web-app>]]></replacevalue>
         </replace>
-    	
-		<echo level="info">Copying xdoclet-template to ../../metadata/templates</echo>
+        
+        <echo level="info">Copying xdoclet-template to ../../metadata/templates</echo>
         <copy todir="../../metadata/templates">
             <fileset dir="metadata/templates" includes="**"/>
         </copy>
-    	
-    	<echo level="info">Adding xfire gen-aegis-mapping target to build.xml</echo>
-    	<replace file="../../build.xml">
+        
+        <echo level="info">Adding xfire gen-aegis-mapping target to build.xml</echo>
+        <replace file="../../build.xml">
             <replacetoken><![CDATA[<!-- Service -->]]></replacetoken>
-    		<replacevalue><![CDATA[<!-- Service -->
+            <replacevalue><![CDATA[<!-- Service -->
     <target name="gen-aegis-mapping" depends="prepare"
         description="Generates Aegis Mapping XML descriptors from POJOs">
         <taskdef name="xdoclet" classname="xdoclet.DocletTask"
@@ -130,7 +130,7 @@
                 destinationFile="{0}.aegis.xml"
                 havingClassTag="aegis.mapping"/>
         </xdoclet>
-	  	
+          
         <xdoclet excludedtags="@version,@author"
             addedtags="@xdoclet-generated at ${TODAY}"
             force="${xdoclet.force}"
@@ -146,23 +146,23 @@
         </xdoclet>
     </target>
 ]]></replacevalue>
-		</replace>
-    	
-		<echo level="info">Copying applicationContext-webservice.xml to ../../src/service/org/appfuse/service</echo>
+        </replace>
+        
+        <echo level="info">Copying applicationContext-webservice.xml to ../../src/service/org/appfuse/service</echo>
         <copy todir="../../src/service/org/appfuse/service">
             <fileset dir="base" includes="applicationContext-webservice.xml"/>
         </copy>
 
-		<echo level="info">Copying EchoWebServiceTest to ../../test/service/org/appfuse/service</echo>
+        <echo level="info">Copying EchoWebServiceTest to ../../test/service/org/appfuse/service</echo>
         <copy todir="../../test/service/org/appfuse/service">
             <fileset dir="test/service/org/appfuse/service">
-            	<include name="EchoWebServiceTest.java"/>
-            	<include name="echo.xml"/>
+                <include name="EchoWebServiceTest.java"/>
+                <include name="echo.xml"/>
             </fileset>
         </copy>
-    	
-		<echo level="info">Adjusting .classpath for eclipse</echo>
-    	<replace file="../../.classpath">
+        
+        <echo level="info">Adjusting .classpath for eclipse</echo>
+        <replace file="../../.classpath">
            <replacetoken><![CDATA[</classpath>]]></replacetoken>
            <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/xfire-1.0/runtime/xbean-spring-2.2.jar"/>
     <classpathentry kind="lib" path="lib/xfire-1.0/runtime/xfire-aegis-1.0.jar"/>
@@ -177,13 +177,13 @@
 </classpath>]]></replacevalue>
         </replace>
     </target>
-	
+    
     <!-- =================================================================== -->
     <!-- Creates a demo service UserWebService by annotating UserManager     -->
     <!-- =================================================================== -->
-	<target name="install-demo">
-		<echo level="info">Annotating model with aegis xdoclet tags</echo>
-    	<replace file="../../src/dao/org/appfuse/model/User.java">
+    <target name="install-demo">
+        <echo level="info">Annotating model with aegis xdoclet tags</echo>
+        <replace file="../../src/dao/org/appfuse/model/User.java">
            <replacetoken><![CDATA[ */
 public class User extends BaseObject]]></replacetoken>
            <replacevalue><![CDATA[ * 
@@ -192,14 +192,14 @@ public class User extends BaseObject]]></replacetoken>
  */
 public class User extends BaseObject]]></replacevalue>
         </replace>
-    	<replace file="../../src/dao/org/appfuse/model/User.java">
+        <replace file="../../src/dao/org/appfuse/model/User.java">
            <replacetoken><![CDATA[     */
     public String getFullName()]]></replacetoken>
            <replacevalue><![CDATA[     * @aegis.property ignore="true"
      */
     public String getFullName()]]></replacevalue>
         </replace>
-    	<replace file="../../src/dao/org/appfuse/model/User.java">
+        <replace file="../../src/dao/org/appfuse/model/User.java">
            <replacetoken><![CDATA[     */
     public Set getRoles()]]></replacetoken>
            <replacevalue><![CDATA[     * @aegis.property componentType="org.appfuse.model.Role"
@@ -207,7 +207,7 @@ public class User extends BaseObject]]></replacevalue>
     public Set getRoles()]]></replacevalue>
         </replace>
 
-    	<replace file="../../src/dao/org/appfuse/model/Role.java">
+        <replace file="../../src/dao/org/appfuse/model/Role.java">
            <replacetoken><![CDATA[ */
 public class Role extends BaseObject]]></replacetoken>
            <replacevalue><![CDATA[ * 
@@ -216,46 +216,54 @@ public class Role extends BaseObject]]></replacetoken>
  */
 public class Role extends BaseObject]]></replacevalue>
         </replace>
-    	<replace file="../../src/dao/org/appfuse/model/Role.java">
+        <replace file="../../src/dao/org/appfuse/model/Role.java">
            <replacetoken><![CDATA[     */
     public Set getUsers()]]></replacetoken>
            <replacevalue><![CDATA[     * @aegis.property ignore="true"
      */
     public Set getUsers()]]></replacevalue>
         </replace>
-		
-		<echo level="info">Annotating UserManagerImpl with aegis xdoclet tags</echo>
-    	<replace file="../../src/service/org/appfuse/service/impl/UserManagerImpl.java">
+        
+        <echo level="info">Annotating UserManagerImpl with aegis xdoclet tags</echo>
+        <replace file="../../src/service/org/appfuse/service/impl/UserManagerImpl.java">
            <replacetoken><![CDATA[import org.appfuse.service.UserManager;]]></replacetoken>
            <replacevalue><![CDATA[import org.appfuse.service.UserManager;
 import org.appfuse.service.UserWebService;]]></replacevalue>
         </replace>
-    	<replace file="../../src/service/org/appfuse/service/impl/UserManagerImpl.java">
+        <replace file="../../src/service/org/appfuse/service/impl/UserManagerImpl.java">
            <replacetoken><![CDATA[public class UserManagerImpl extends BaseManager implements UserManager {]]></replacetoken>
            <replacevalue><![CDATA[public class UserManagerImpl extends BaseManager implements UserManager, UserWebService {]]></replacevalue>
         </replace>
 
-		<copy todir="../../src" overwrite="true">
-			<fileset dir="src" includes="**/*"/>
-		</copy>
-		<copy todir="../../test" overwrite="true">
-			<fileset dir="test" includes="**/*"/>
-		</copy>
-		
-    	<replace file="../../build.xml">
+        <copy todir="../../src" overwrite="true">
+            <fileset dir="src" includes="**/*"/>
+        </copy>
+        <copy todir="../../test" overwrite="true">
+            <fileset dir="test" includes="**/*"/>
+        </copy>
+        
+        <replace file="../../build.xml">
             <replacetoken><![CDATA[name="compile-service" depends="package-dao"]]></replacetoken>
-    		<replacevalue><![CDATA[name="compile-service" depends="gen-aegis-mapping,package-dao"]]></replacevalue>
-		</replace>
+            <replacevalue><![CDATA[name="compile-service" depends="gen-aegis-mapping,package-dao"]]></replacevalue>
+        </replace>
 
-	</target>
-	
+    </target>
+
     <!-- =================================================================== -->
-    <!-- Tests installation by calling EchoWebService                        -->
+    <!-- Creates new project, installs XFire and runs test to verify success -->
     <!-- =================================================================== -->
-	<target name="test">
-		<ant dir="../.." target="test-service" inheritAll="false">
-			<property name="testcase" value="EchoWebServiceTest"/>
-		</ant>
-	</target>
-	
+    <target name="test" description="Creates appfuse-xfire and verifies installation">
+        <property name="app.name" value="appfuse-xfire"/>
+        <property name="db.name" value="appfuse"/>
+        <property name="new.pkg.name" value="org.appfuse"/>
+        <delete dir="../../../${app.name}"/>
+        <ant dir="../.." target="new"/>
+
+        <!-- New project created, install XFire -->
+        <ant dir="../../../${app.name}/extras/xfire" target="install" inheritAll="false"/>
+        <!-- Test installation -->
+        <ant dir="../../../${app.name}" target="test-service" inheritAll="false">
+            <property name="testcase" value="EchoWebServiceTest"/>
+        </ant> 
+    </target>
 </project>
