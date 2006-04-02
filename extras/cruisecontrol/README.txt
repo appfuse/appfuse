@@ -7,7 +7,7 @@ the following steps:
 3. Modify config.xml for your e-mail address and project name.
 4. Modify build.xml so it points to your CVS server and project.
 5. Run "ant" in the current directory or checkout your project into the 
-   "projects". 
+   "projects" directory. 
 6. Run cruisecontrol.bat (Windows) or cruisecontrol.sh (Unix).
 
 Copy cruisecontrol-init.d to /etc/init.d/cruisecontrol on Linux if you'd like to
