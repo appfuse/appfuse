@@ -70,8 +70,8 @@
 	<classpathentry kind="lib" path="lib/displaytag-1.1/itext-1.4.jar"/>
 	<classpathentry kind="lib" path="lib/clickstream-1.0.2/clickstream-1.0.2.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-taglibs/standard-1.0.6/lib/standard.jar"/>
-	<classpathentry kind="lib" path="lib/mysql-connector-java-3.1.11/mysql-connector-java-3.1.11-bin.jar"/>
-	<classpathentry kind="lib" path="lib/postgresql-jdbc-8.1-404/postgresql-jdbc3-8.1-404.jar"/>
+	<classpathentry kind="lib" path="lib/mysql-connector-java-3.1.12/mysql-connector-java-3.1.12-bin.jar"/>
+	<classpathentry kind="lib" path="lib/postgresql-jdbc-8.1-405/postgresql-jdbc3-8.1-405.jar"/>
 	<classpathentry kind="lib" path="lib/webtest-build1200/lib/commons-httpclient-3.0.jar"/>
 	<classpathentry kind="lib" path="lib/webtest-build1200/lib/commons-io-1.1.jar"/>
 	<classpathentry kind="lib" path="lib/webtest-build1200/lib/htmlunit-1.8.jar"/>

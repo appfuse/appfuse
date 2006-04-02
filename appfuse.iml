@@ -503,7 +503,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/mysql-connector-java-3.1.11/mysql-connector-java-3.1.11-bin.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/mysql-connector-java-3.1.12/mysql-connector-java-3.1.12-bin.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -512,7 +512,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/postgresql-jdbc-8.1-404/postgresql-jdbc3-8.1-404.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/postgresql-jdbc-8.1-405/postgresql-jdbc3-8.1-405.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -750,13 +750,13 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/mysql-connector-java-3.1.11-bin.jar" />
-      <url>jar://$MODULE_DIR$/lib/mysql-connector-java-3.1.11/mysql-connector-java-3.1.11-bin.jar!/</url>
+      <attribute name="URI" value="/WEB-INF/lib/mysql-connector-java-3.1.12-bin.jar" />
+      <url>jar://$MODULE_DIR$/lib/mysql-connector-java-3.1.12/mysql-connector-java-3.1.12-bin.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/postgresql-jdbc3-8.1-404.jar" />
-      <url>jar://$MODULE_DIR$/lib/postgresql-jdbc-8.1-404/postgresql-jdbc3-8.1-404.jar!/</url>
+      <attribute name="URI" value="/WEB-INF/lib/postgresql-jdbc3-8.1-405.jar" />
+      <url>jar://$MODULE_DIR$/lib/postgresql-jdbc-8.1-405/postgresql-jdbc3-8.1-405.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
