@@ -17,7 +17,7 @@ public class EchoWebServiceTest extends AbstractXFireSpringTest {
     
     public void testGetWsdl() throws Exception {
         Document doc = getWSDLDocument("Echo");
-        printNode(doc);
+        //printNode(doc);
         
         assertValid("//xsd:element[@name=\"echo\"]", doc);
         assertValid("//xsd:element[@name=\"echoResponse\"]", doc);
@@ -26,7 +26,7 @@ public class EchoWebServiceTest extends AbstractXFireSpringTest {
     public void testCallEcho() throws Exception {
         Document response =
             invokeService("Echo", "/org/appfuse/service/echo.xml");
-        printNode(response);
+        //printNode(response);
         
         addNamespace("service","http://test.xfire.codehaus.org");
         assertValid("//service:echoResponse/service:out[text()=\"Hello world!\"]",response);
