@@ -1,42 +1,33 @@
-<!--
-  Excerpted from the book, "Pragmatic Project Automation"
-  ISBN 0-9745140-3-9
-  Copyright 2004 The Pragmatic Programmers, LLC.  All Rights Reserved.
-  Visit www.PragmaticProgrammer.com
- -->
+<project name="appfuse" default="test" basedir=".">
 
-<project name="cc-build" default="test">
-
-    <!-- 
-    <path id="svn.classpath">
+    <!-- Uncomment if you're using Subversion - you'll need to download svnant into the same directory -->
+    <!--path id="svn.classpath">
         <fileset dir="svnant-1.0.0-rc1/lib" includes="*.jar"/>
     </path>
-        
-    <taskdef resource="svntask.properties" classpathref="svn.classpath"/>
     
-    <target name="svn">
-        <delete dir="checkout/appfuse"/>
-        <svn>
-            <checkout url="https://svn.java.net/svn/appfuse/trunk" 
-                revision="HEAD" destPath="checkout/appfuse" />
-        </svn>
-    </target>
-    -->
+    <taskdef resource="svntask.properties" classpathref="svn.classpath"/>
 
+    <target name="svn">
+        <delete dir="projects/${ant.project.name}"/>
+        <svn>
+            <checkout url="https://appfuse.dev.java.net/svn/appfuse/trunk/appfuse" 
+                  revision="HEAD" destPath="projects/${ant.project.name}" />
+        </svn>
+    </target-->
     <target name="cvs">
-        <delete dir="checkout/appfuse"/>
-        <cvs command="co appfuse" dest="checkout"
+        <delete dir="projects/${ant.project.name}"/>
+        <cvs command="co ${ant.project.name}" dest="projects"
             cvsRoot=":pserver:guest@cvs.dev.java.net:/cvs"/> 
     </target>
-
+    
     <target name="test" depends="cvs">
         <!-- Test on a port that's not being used --> 
         <property name="http.port" value="8180"/>
-        <ant antfile="build.xml" dir="checkout/appfuse" target="setup"/>
-        <ant antfile="build.xml" dir="checkout/appfuse" target="test-all"/>
+        <ant dir="projects/${ant.project.name}" target="setup"/>
+        <ant dir="projects/${ant.project.name}" target="test-all"/>
     </target>
 
     <target name="clean">
-        <delete dir="checkout"/>
+        <delete dir="projects/${ant.project.name}"/>
     </target>
 </project>

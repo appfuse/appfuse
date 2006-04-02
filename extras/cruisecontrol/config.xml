@@ -1,50 +1,44 @@
-<!--
-  Excerpted from the book, "Pragmatic Project Automation"
-  ISBN 0-9745140-3-9
-  Copyright 2004 The Pragmatic Programmers, LLC.  All Rights Reserved.
-  Visit www.PragmaticProgrammer.com
- -->
-
 <cruisecontrol>
-    <project name="appfuse" buildafterfailed="false">
-    
+    <project name="appfuse">
+
+        <listeners>
+            <currentbuildstatuslistener file="logs/${project.name}/status.txt"/>
+        </listeners>
+
         <bootstrappers>
-            <currentbuildstatusbootstrapper 
-                file="/home/cc/logs/appfuse/currentbuildstatus.txt"/>
+            <cvsbootstrapper localWorkingCopy="projects/${project.name}" />
         </bootstrappers>
         
-        <modificationset quietperiod="60">
-            <cvs localworkingcopy="/home/cc/work/checkout/appfuse"/>
-            <!--svn LocalWorkingCopy="/home/cc/work/checkout/appfuse"/-->
-            <!--filesystem folder="/home/cc/work/checkout/appfuse"/-->
+        <modificationset quietperiod="30">
+            <!--svn LocalWorkingCopy="projects/${project.name}"/-->
+            <cvs localWorkingCopy="projects/${project.name}"/>
+            <!--filesystem folder="projects/${project.name}"/-->
         </modificationset>
         
-        <schedule interval="120">
-            <ant antscript="/opt/dev/tools/ant/bin/ant"/>
+        <schedule interval="600">
+            <ant anthome="apache-ant-1.6.5" buildfile="build.xml"/>
         </schedule>
         
-        <log dir="/home/cc/work/logs/appfuse">
-            <merge dir="/home/cc/work/checkout/appfuse/build/test/data"/>
+        <log>
+            <merge dir="projects/${project.name}/build/test/data"/>
         </log>
         
         <publishers>
-            <currentbuildstatuspublisher 
-                file="/home/cc/work/logs/appfuse/currentbuildstatus.txt"/>
+            <onsuccess>
+                <artifactspublisher dest="artifacts/${project.name}" file="projects/${project.name}/dist/webapps/${project.name}.war"/>
+            </onsuccess>
                
             <htmlemail mailhost="localhost" 
-                returnaddress="cruisecontrol@raibledesigns.com" 
-                defaultsuffix="@raibledesigns.com" 
-                buildresultsurl="http://foxxy:8080/cruisecontrol/buildresults/appfuse" 
-                css="/opt/tools/cruisecontrol/reporting/jsp/webcontent/css/cruisecontrol.css" 
-                xsldir="/opt/tools/cruisecontrol/reporting/jsp/webcontent/xsl" 
-                logdir="/home/mraible/work/logs/appfuse" 
+                returnaddress="no-reply@appfuse.dev.java.net" 
+                buildresultsurl="http://home.raibledesigns.com:8888/buildresults/${project.name}" 
+                css="webapps/cruisecontrol/css/cruisecontrol.css"
+                xsldir="webapps/cruisecontrol/xsl"
+                logdir="logs/${project.name}" 
                 subjectprefix="[CruiseControl] ">
                 
-                <map alias="matt" address="matt@raibledesigns.com"/>
-                <always address="matt"/>
-                <failure address="matt" reportWhenFixed="true"/>
+                <map alias="mraible" address="mraible@dev.java.net"/>
+                <failure address="mraible" reportWhenFixed="true"/>
             </htmlemail>
         </publishers>
-    
     </project>
 </cruisecontrol>
