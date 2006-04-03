@@ -162,7 +162,7 @@ div#userStatus {
 div#switchLocale {
     position: absolute;
     top: 5px;
-    left: 5px;
+    left: 80px;
     font-size: .9em;
     line-height: 1.2;
 }
