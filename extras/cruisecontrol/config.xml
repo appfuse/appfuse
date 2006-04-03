@@ -27,6 +27,8 @@
             <onsuccess>
                 <artifactspublisher dest="artifacts/${project.name}" dir="projects/${project.name}/dist"/>
             </onsuccess>
+            
+            <currentbuildstatuspublisher file="projects/${project.name}/status.txt"/>
                
             <htmlemail mailhost="localhost" 
                 returnaddress="no-reply@appfuse.dev.java.net" 
