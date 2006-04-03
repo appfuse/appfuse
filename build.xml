@@ -180,12 +180,6 @@
             <fileset dir="${webapp.target}" includes="**/*.jsp"/>
         </replaceregexp>
 
-        <echo level="info">Changing EL tags to non-EL since JSP 2.0 has EL built-in</echo>
-        <replace file="${webapp.target}/common/taglibs.jsp">
-            <replacetoken>http://displaytag.sf.net/el</replacetoken>
-            <replacevalue>http://displaytag.sf.net</replacevalue>
-        </replace>
-
         <echo level="info">Replacing 2.3 DTD with 2.4 XSD in web.xml</echo>
         <replace file="${webapp.target}/WEB-INF/web.xml">
             <replacetoken><![CDATA[<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" 
