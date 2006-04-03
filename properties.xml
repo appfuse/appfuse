@@ -72,7 +72,7 @@
         <fileset dir="${xdoclet.dir}" includes="*.jar"/>
         <fileset dir="${velocity.dir}" includes="*.jar"/>
     </path>
-    
+
     <!-- Hibernate -->
     <path id="hibernate.classpath">
         <pathelement location="${hibernate.jar}"/>

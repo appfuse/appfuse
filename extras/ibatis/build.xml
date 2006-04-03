@@ -218,7 +218,8 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
             </fileset>
         </copy>
         <replace file="../../build.xml">
-            <replacetoken><![CDATA[<lib dir="${hibernate.dir}/lib" includes="*.jar"/>]]></replacetoken>
+            <replacetoken><![CDATA[<lib file="${hibernate.jar}"/>
+                <lib dir="${hibernate.dir}/lib" includes="*.jar"/>]]></replacetoken>
             <replacevalue><![CDATA[<lib dir="${ibatis.dir}" includes="*.jar"/>]]></replacevalue>
         </replace>
 
@@ -277,7 +278,7 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
         <uptodate property="hibernatedoclet.unnecessary">
             <srcfiles dir="src/dao" includes="**/*.java"/>
             <srcfiles dir="${build.dir}/dao/gen" includes="**/*.java"/>
-            <mapper type="glob" from="*.java"
+            <mapper type="glob" from="*.java" to="${build.dir}/dao/classes/*.class"/>
         </uptodate>
         ]]></replacetoken>
         </replace>
@@ -285,7 +286,7 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
         <!-- Remove Hibernate dialect entry -->
         <replace file="../../build.xml">
             <replacetoken><![CDATA[
-                <filter token="HIBERNATE-DIALECT" value="${hibernate.dialect}"/>]]></replacetoken>
+        <filter token="HIBERNATE-DIALECT" value="${hibernate.dialect}"/>]]></replacetoken>
         </replace>
 
         <!-- Remove hibernatedoclet target -->
@@ -301,7 +302,7 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
         <taskdef name="hibernatedoclet"
             classname="xdoclet.modules.hibernate.HibernateDocletTask"
             classpathref="xdoclet.classpath"/>
-
+        
         <!-- generate hibernate files -->
         <hibernatedoclet destdir="${build.dir}/dao/gen" mergedir="metadata/dao"
             excludedtags="@version,@author" addedtags="@xdoclet-generated at ${TODAY}"
@@ -358,7 +359,7 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
          </sql>]]></replacevalue>
         </replace>
         <replace file="../../build.xml">
-            <replacetoken><![CDATA[<target name="db-drop" depends="hibernatedoclet"
+            <replacetoken><![CDATA[<target name="db-drop" depends="prepare"
         description="drops database tables">
         <taskdef name="schemaexport"
             classname="org.hibernate.tool.hbm2ddl.SchemaExportTask">
@@ -385,13 +386,6 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
                 <include name="${database.type}-drop-tables.sql"/>
             </fileset>
          </sql>]]></replacevalue>
-        </replace>
-        
-        <replace file="../../build.xml">
-        <replacetoken><![CDATA[    <target name="install-ibatis" depends="clean" description="Installs iBATIS">
-        <ant dir="${extras.dir}/ibatis" target="install"/>
-    </target>
-]]></replacetoken>
         </replace>
 
         <echo level="info">Removing Hibernate OSIV Filter</echo>
