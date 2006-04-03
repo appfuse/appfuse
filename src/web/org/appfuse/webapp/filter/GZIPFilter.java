@@ -59,9 +59,7 @@ public class GZIPFilter extends OncePerRequestFilter {
         String exporting = req.getParameter(TableTagParameters.PARAMETER_EXPORTING);
         
         if (exporting != null) {
-            if (log.isDebugEnabled()) {
-                log.debug("detected excel export, disabling filter...");
-            }
+            log.debug("detected excel export, disabling filter...");
             return false;
         }
 
@@ -72,9 +70,7 @@ public class GZIPFilter extends OncePerRequestFilter {
         String userAgent = req.getHeader("user-agent");
 
         if ((userAgent != null) && userAgent.startsWith("httpunit")) {
-            if (log.isDebugEnabled()) {
-                log.debug("httpunit detected, disabling filter...");
-            }
+            log.debug("httpunit detected, disabling filter...");
 
             return false;
         } else {

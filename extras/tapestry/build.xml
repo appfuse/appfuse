@@ -80,6 +80,27 @@ struts.jar=${struts.dir}/struts.jar]]></replacetoken>
                 <include name="xdoclet-*.java"/>
             </fileset>
         </delete>
+        <echo level="info">Deleting DisplayTag</echo>
+        <replace file="${lib.dir}/lib.properties">
+            <replacetoken><![CDATA[#
+# Display Tag Library - http://displaytag.sf.net/
+#
+displaytag.version=1.1
+displaytag.dir=${lib.dir}/displaytag-${displaytag.version}
+displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
+
+]]></replacetoken>
+        </replace>
+        <replace file="../../build.xml">
+        	<replacetoken><![CDATA[<lib dir="${displaytag.dir}" includes="*.jar"/>
+            ]]></replacetoken>
+        </replace>
+        <delete>
+            <fileset dir="../..">
+                <include name="lib/displaytag*"/>
+                <include name="web/WEB-INF/classes/displaytag*.properties"/>
+            </fileset>
+        </delete>
         <echo level="info">Deleting unused Tag Libraries and Utilities</echo>
         <delete>
             <fileset dir="../../src/web/org/appfuse/webapp">
