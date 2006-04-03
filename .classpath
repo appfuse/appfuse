@@ -58,11 +58,11 @@
 	<classpathentry kind="lib" path="lib/hibernate-3.1.3/lib/dom4j-1.6.1.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-3.1.3/lib/jta.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-3.1.3/lib/oscache-2.3.jar"/>
-	<classpathentry kind="lib" path="lib/spring-1.2.6/acegi-security-1.0.0-RC2.jar"/>
-	<classpathentry kind="lib" path="lib/spring-1.2.6/commons-codec-1.3.jar"/>
-	<classpathentry kind="lib" path="lib/spring-1.2.6/ehcache-1.1.jar"/>
-	<classpathentry kind="lib" path="lib/spring-1.2.6/spring.jar"/>
-	<classpathentry kind="lib" path="lib/spring-1.2.6/spring-mock.jar"/>
+	<classpathentry kind="lib" path="lib/spring-1.2.7/acegi-security-1.0.0-RC2.jar"/>
+	<classpathentry kind="lib" path="lib/spring-1.2.7/commons-codec-1.3.jar"/>
+	<classpathentry kind="lib" path="lib/spring-1.2.7/ehcache-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/spring-1.2.7/spring.jar"/>
+	<classpathentry kind="lib" path="lib/spring-1.2.7/spring-mock.jar"/>
 	<classpathentry kind="lib" path="lib/urlrewrite-3.0-beta/urlrewrite-3.0-beta.jar"/>
 	<classpathentry kind="lib" path="lib/java2html-1.3.1/j2h.jar"/>
 	<classpathentry kind="lib" path="lib/sitemesh-2.2.1/sitemesh-2.2.1.jar"/>
