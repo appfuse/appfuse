@@ -16,7 +16,7 @@
     </target-->
     <target name="cvs">
         <delete dir="projects/${ant.project.name}"/>
-        <cvs command="co ${ant.project.name}" dest="projects"
+        <cvs command="co ${ant.project.name}" dest="projects" quiet="true"
             cvsRoot=":pserver:guest@cvs.dev.java.net:/cvs"/> 
     </target>
     
