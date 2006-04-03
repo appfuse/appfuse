@@ -208,11 +208,12 @@ Draggable.prototype = {
     this.element = $(element);
     
     if(options.handle && (typeof options.handle == 'string'))
-      this.handle = Element.childrenWithClassName(this.element, options.handle)[0];  
+      this.handle = Element.childrenWithClassName(this.element, options.handle, true)[0];  
     if(!this.handle) this.handle = $(options.handle);
     if(!this.handle) this.handle = this.element;
     
-    if(options.scroll) options.scroll = $(options.scroll);
+    if(options.scroll && !options.scroll.scrollTo && !options.scroll.outerHTML)
+      options.scroll = $(options.scroll);
 
     Element.makePositioned(this.element); // fix IE    
 
@@ -277,8 +278,14 @@ Draggable.prototype = {
     }
     
     if(this.options.scroll) {
-      this.originalScrollLeft = this.options.scroll.scrollLeft;
-      this.originalScrollTop = this.options.scroll.scrollTop;
+      if (this.options.scroll == window) {
+        var where = this._getWindowScroll(this.options.scroll);
+        this.originalScrollLeft = where.left;
+        this.originalScrollTop = where.top;
+      } else {
+        this.originalScrollLeft = this.options.scroll.scrollLeft;
+        this.originalScrollTop = this.options.scroll.scrollTop;
+      }
     }
     
     Draggables.notify('onStart', this, event);
@@ -294,13 +301,18 @@ Draggable.prototype = {
     if(this.options.change) this.options.change(this);
     
     if(this.options.scroll) {
-      //if(this.scrollInterval) this.scroll();
       this.stopScrolling();
-      var p = Position.page(this.options.scroll);
-      p[0] += this.options.scroll.scrollLeft;
-      p[1] += this.options.scroll.scrollTop;
-      p.push(p[0]+this.options.scroll.offsetWidth);
-      p.push(p[1]+this.options.scroll.offsetHeight);
+      
+      var p;
+      if (this.options.scroll == window) {
+        with(this._getWindowScroll(this.options.scroll)) { p = [ left, top, left+width, top+height ]; }
+      } else {
+        p = Position.page(this.options.scroll);
+        p[0] += this.options.scroll.scrollLeft;
+        p[1] += this.options.scroll.scrollTop;
+        p.push(p[0]+this.options.scroll.offsetWidth);
+        p.push(p[1]+this.options.scroll.offsetHeight);
+      }
       var speed = [0,0];
       if(pointer[0] < (p[0]+this.options.scrollSensitivity)) speed[0] = pointer[0]-(p[0]+this.options.scrollSensitivity);
       if(pointer[1] < (p[1]+this.options.scrollSensitivity)) speed[1] = pointer[1]-(p[1]+this.options.scrollSensitivity);
@@ -349,7 +361,7 @@ Draggable.prototype = {
   },
   
   keyPress: function(event) {
-    if(!event.keyCode==Event.KEY_ESC) return;
+    if(event.keyCode!=Event.KEY_ESC) return;
     this.finishDrag(event, false);
     Event.stop(event);
   },
@@ -366,7 +378,7 @@ Draggable.prototype = {
     var d = this.currentDelta();
     pos[0] -= d[0]; pos[1] -= d[1];
     
-    if(this.options.scroll) {
+    if(this.options.scroll && (this.options.scroll != window)) {
       pos[0] -= this.options.scroll.scrollLeft-this.originalScrollLeft;
       pos[1] -= this.options.scroll.scrollTop-this.originalScrollTop;
     }
@@ -413,8 +425,17 @@ Draggable.prototype = {
     var current = new Date();
     var delta = current - this.lastScrolled;
     this.lastScrolled = current;
-    this.options.scroll.scrollLeft += this.scrollSpeed[0] * delta / 1000;
-    this.options.scroll.scrollTop  += this.scrollSpeed[1] * delta / 1000;
+    if(this.options.scroll == window) {
+      with (this._getWindowScroll(this.options.scroll)) {
+        if (this.scrollSpeed[0] || this.scrollSpeed[1]) {
+          var d = delta / 1000;
+          this.options.scroll.scrollTo( left + d*this.scrollSpeed[0], top + d*this.scrollSpeed[1] );
+        }
+      }
+    } else {
+      this.options.scroll.scrollLeft += this.scrollSpeed[0] * delta / 1000;
+      this.options.scroll.scrollTop  += this.scrollSpeed[1] * delta / 1000;
+    }
     
     Position.prepare();
     Droppables.show(Draggables._lastPointer, this.element);
@@ -422,6 +443,30 @@ Draggable.prototype = {
     this.draw(Draggables._lastPointer);    
     
     if(this.options.change) this.options.change(this);
+  },
+  
+  _getWindowScroll: function(w) {
+    var T, L, W, H;
+    with (w.document) {
+      if (w.document.documentElement && documentElement.scrollTop) {
+        T = documentElement.scrollTop;
+        L = documentElement.scrollLeft;
+      } else if (w.document.body) {
+        T = body.scrollTop;
+        L = body.scrollLeft;
+      }
+      if (w.innerWidth) {
+        W = w.innerWidth;
+        H = w.innerHeight;
+      } else if (w.document.documentElement && documentElement.clientWidth) {
+        W = documentElement.clientWidth;
+        H = documentElement.clientHeight;
+      } else {
+        W = body.offsetWidth;
+        H = body.offsetHeight
+      }
+    }
+    return { top: T, left: L, width: W, height: H };
   }
 }
 
@@ -479,7 +524,9 @@ var Sortable = {
       hoverclass:  null,
       ghosting:    false,
       scroll:      false,
-      format:      null,
+      scrollSensitivity: 20,
+      scrollSpeed: 15,
+      format:      /^[^_]*_(.*)$/,
       onChange:    Prototype.emptyFunction,
       onUpdate:    Prototype.emptyFunction
     }, arguments[1] || {});
@@ -491,6 +538,8 @@ var Sortable = {
     var options_for_draggable = {
       revert:      true,
       scroll:      options.scroll,
+      scrollSpeed: options.scrollSpeed,
+      scrollSensitivity: options.scrollSensitivity,
       ghosting:    options.ghosting,
       constraint:  options.constraint,
       handle:      options.handle };
@@ -558,9 +607,10 @@ var Sortable = {
   findElements: function(element, options) {
     if(!element.hasChildNodes()) return null;
     var elements = [];
+    var only = options.only ? [options.only].flatten() : null;
     $A(element.childNodes).each( function(e) {
       if(e.tagName && e.tagName.toUpperCase()==options.tag.toUpperCase() &&
-        (!options.only || (Element.hasClassName(e, options.only))))
+        (!only || (Element.classNames(e).detect(function(v) { return only.include(v) }))))
           elements.push(e);
       if(options.tree) {
         var grandchildren = this.findElements(e, options);
@@ -636,22 +686,39 @@ var Sortable = {
 
   sequence: function(element) {
     element = $(element);
-    var sortableOptions = this.options(element);
-    var options = Object.extend({
-      tag:  sortableOptions.tag,
-      only: sortableOptions.only,
-      name: element.id,
-      format: sortableOptions.format || /^[^_]*_(.*)$/
-    }, arguments[1] || {});
+    var options = Object.extend(this.options(element), arguments[1] || {});
+    
     return $(this.findElements(element, options) || []).map( function(item) {
       return item.id.match(options.format) ? item.id.match(options.format)[1] : '';
     });
   },
 
+  setSequence: function(element, new_sequence) {
+    element = $(element);
+    var options = Object.extend(this.options(element), arguments[2] || {});
+    
+    var nodeMap = {};
+    this.findElements(element, options).each( function(n) {
+        if (n.id.match(options.format))
+            nodeMap[n.id.match(options.format)[1]] = [n, n.parentNode];
+        n.parentNode.removeChild(n);
+    });
+   
+    new_sequence.each(function(ident) {
+        var n = nodeMap[ident];
+        if (n) {
+            n[1].appendChild(n[0]);
+            delete nodeMap[ident];
+        }
+    });
+  },
+
   serialize: function(element) {
     element = $(element);
+    var name = encodeURIComponent(
+      (arguments[1] && arguments[1].name) ? arguments[1].name : element.id);
     return Sortable.sequence(element, arguments[1]).map( function(item) {
-      return encodeURIComponent(element.id) + "[]=" + encodeURIComponent(item);
+      return name + "[]=" + encodeURIComponent(item);
     }).join('&');
   }
 }

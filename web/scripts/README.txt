@@ -2,8 +2,8 @@ The majority of files in this directory come from Prototype
 and Scriptaculous - two JavaScript libraries that make Ajax
 easier.
 
-http://prototype.conio.net (version 1.4.0)
-http://script.aculo.us (version 1.5.1)
+http://prototype.conio.net (version 1.5.0_pre1)
+http://script.aculo.us (version 1.6.0)
 
 The Prototype framework consists of a single file: prototype.js.
 
