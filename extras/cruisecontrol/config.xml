@@ -25,7 +25,7 @@
         
         <publishers>
             <onsuccess>
-                <artifactspublisher dest="artifacts/${project.name}" file="projects/${project.name}/dist/webapps/${project.name}.war"/>
+                <artifactspublisher dest="artifacts/${project.name}" dir="projects/${project.name}/dist"/>
             </onsuccess>
                
             <htmlemail mailhost="localhost" 
