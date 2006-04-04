@@ -33,7 +33,7 @@ public class DateUtilTest extends TestCase {
         assertEquals("dd/MM/yyyy", DateUtil.getDatePattern());
         
         // non-existant bundle should default to MM/dd/yyyy
-        LocaleContextHolder.setLocale(new Locale("de"));
+        LocaleContextHolder.setLocale(new Locale("fi"));
         assertTrue(!"dd/MM/yyyy".equals(DateUtil.getDatePattern()));
         assertEquals("MM/dd/yyyy", DateUtil.getDatePattern());
     }
