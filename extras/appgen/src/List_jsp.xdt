@@ -16,7 +16,7 @@
 
 <c:out value="${buttons}" escapeXml="false"/>
 
-<display:table name="${<XDtForm:classNameLower/>List}" cellspacing="0" cellpadding="0" requestURI=""
+<display:table name="<XDtForm:classNameLower/>List" cellspacing="0" cellpadding="0" requestURI=""
     id="<XDtForm:classNameLower/>List" pagesize="25" class="list" export="true">
 
 <XDtMethod:forAllMethods>
