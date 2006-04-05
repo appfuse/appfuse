@@ -38,9 +38,7 @@
 #
 ibatis.version=2.1.7
 ibatis.dir=${lib.dir}/ibatis-${ibatis.version}
-ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
-
-</replacevalue>
+ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar</replacevalue>
         </replace>
 
         <echo level="info">Adding iBatis classpath entries</echo>
