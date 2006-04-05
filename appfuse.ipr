@@ -3,10 +3,6 @@
   <component name="AntConfiguration">
     <defaultAnt bundledAnt="true" />
     <buildFile url="file://$PROJECT_DIR$/extras/jsf/build.xml">
-      <additionalClassPath>
-        <entry path="file:///opt/dev/Tools/apache-ant-1.6.5/lib/xercesImpl.jar" />
-        <entry path="file:///opt/dev/Tools/apache-ant-1.6.5/lib/xml-apis.jar" />
-      </additionalClassPath>
       <antReference name="Apache Ant version 1.6.5" />
       <customJdkName value="1.5" />
       <maximumHeapSize value="128" />
