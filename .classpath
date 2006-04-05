@@ -66,7 +66,7 @@
 	<classpathentry kind="lib" path="lib/urlrewrite-3.0-beta/urlrewrite-3.0-beta.jar"/>
 	<classpathentry kind="lib" path="lib/java2html-1.3.1/j2h.jar"/>
 	<classpathentry kind="lib" path="lib/sitemesh-2.2.1/sitemesh-2.2.1.jar"/>
-	<classpathentry kind="lib" path="lib/dwr-1.1/dwr.jar"/>
+	<classpathentry kind="lib" path="lib/dwr-1.1.1/dwr.jar"/>
 	<classpathentry kind="lib" path="lib/displaytag-1.1/itext-1.4.jar"/>
 	<classpathentry kind="lib" path="lib/clickstream-1.0.2/clickstream-1.0.2.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-taglibs/standard-1.0.6/lib/standard.jar"/>
