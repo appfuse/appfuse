@@ -168,6 +168,10 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         <echo>Merging sample-data into metadata/sql/sample-data.xml</echo>]]></replacevalue>
         </replace>
 
+        <!-- Replace Struts specific stuff from Middlegen -->
+        <replace file="../middlegen/build.xml" token="@struts.validator" value="@spring.validator"/>
+        <!-- End of AppGen modifications -->
+
         <!-- Copy source and tests -->    
         <echo level="info">Replacing source and test files</echo>
         <delete dir="../../src/web/org/appfuse/webapp/form"/>
@@ -346,8 +350,8 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         <ant dir="../../../${app.name}/extras/spring" target="install" inheritAll="false"/>
         <!-- Gen code and run tests -->
         <ant dir="../../../${app.name}/extras/appgen" target="test-all" inheritAll="false">
+            <property name="appgen.type" value="pojo"/>
             <property name="model.name" value="Person"/>
-            <property name="model.name.lowercase" value="person"/>   
         </ant>   
     </target>
     

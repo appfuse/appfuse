@@ -264,7 +264,18 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
             tofile="../../web/pages/${model.name.lowercase}Form.page"/>   
         <copy file="${generated.dir}/generic/web/pages/${model.name}List.page" overwrite="${overwrite}"
             tofile="../../web/pages/${model.name.lowercase}s.page"/>]]></replacevalue>
-        </replace>                 
+        </replace>
+
+        <!-- Remove Struts specific stuff from Middlegen -->
+        <replace file="../middlegen/build.xml">
+            <replacetoken><![CDATA[
+        <replace dir="../../../${app.name}/src">
+            <include name="**/Cat.java"/>
+            <replacetoken>*            @hibernate.property</replacetoken>
+            <replacevalue>* @struts.validator type="required"
+    * @hibernate.property</replacevalue>
+        </replace>]]></replacetoken>
+        </replace>
         <!-- End of AppGen modifications -->
         
         <!-- Copy source and tests -->    
@@ -491,8 +502,8 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
         <ant dir="../../../${app.name}/extras/tapestry" target="install" inheritAll="false"/>
         <!-- Gen code and run tests -->
         <ant dir="../../../${app.name}/extras/appgen" target="test-all" inheritAll="false">
-            <property name="model.name" value="Person"/>
-            <property name="model.name.lowercase" value="person"/>   
+            <property name="appgen.type" value="pojo"/>
+            <property name="model.name" value="Person"/>   
         </ant>   
     </target>
     

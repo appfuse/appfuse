@@ -168,6 +168,18 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         
         <echo>Merging sample-data into metadata/sql/sample-data.xml</echo>]]></replacevalue>
         </replace>
+
+        <!-- Remove Struts specific stuff from Middlegen -->
+        <replace file="../middlegen/build.xml">
+            <replacetoken><![CDATA[
+        <replace dir="../../../${app.name}/src">
+            <include name="**/Cat.java"/>
+            <replacetoken>*            @hibernate.property</replacetoken>
+            <replacevalue>* @struts.validator type="required"
+    * @hibernate.property</replacevalue>
+        </replace>]]></replacetoken>
+        </replace>
+        <!-- End of AppGen modifications -->
         
         <!-- Copy source and tests -->    
         <echo level="info">Replacing source and test files</echo>
@@ -383,8 +395,8 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         <ant dir="../../../${app.name}/extras/webwork" target="install" inheritAll="false"/>
         <!-- Gen code and run tests -->
         <ant dir="../../../${app.name}/extras/appgen" target="test-all" inheritAll="false">
-            <property name="model.name" value="Person"/>
-            <property name="model.name.lowercase" value="person"/>   
+            <property name="appgen.type" value="pojo"/>
+            <property name="model.name" value="Person"/>   
         </ant>   
     </target>
     

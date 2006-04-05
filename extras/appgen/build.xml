@@ -8,19 +8,21 @@
     <property name="lib.dir" location="../../lib"/>
     <property file="${lib.dir}/lib.properties"/>
 
-    <path id="xdoclet.classpath">
-        <pathelement location="${log4j.jar}"/>
-        <pathelement location="${commons-logging.jar}"/>
-        <pathelement location="${commons-collections.jar}"/>
-        <fileset dir="${xdoclet.dir}" includes="*.jar"/>
-    </path>
+    <import file="../../properties.xml"/>
 
     <property name="model.src.dir" location="../../src/dao"/>
     <property name="overwrite" value="false"/>
     <property name="gen.dir" value="gen"/> 
     <property name="app.package" value="org/appfuse"/>
-    
+
     <target name="init">
+
+        <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="${ant-contrib.jar}"/>
+    	<taskdef name="stringutil" classname="ise.antelope.tasks.StringUtilTask">
+            <classpath>
+                <fileset dir="${ant-contrib.dir}" includes="*.jar"/>
+            </classpath>
+        </taskdef>
         <mkdir dir="${build.dir}"/>
 <echo level="info">
 +-------------------------------------------------------+
@@ -32,16 +34,39 @@
 +-------------------------------------------------------+
 </echo>
         <echo/>
-        <input message="What is the name of your POJO (i.e. Person)?" addproperty="model.name"/>
-        <fail unless="model.name">
-            You must specify a POJO using -Dmodel.name=Class and the lowercase
-            name using -Dmodel.name.lowercase=class (for naming JSPs)   
+        <input message="Would you like to generate code from a table or POJO? "
+        	validargs="table,pojo" addproperty="appgen.type"/>
+        <input message="What is the name of your ${appgen.type} (i.e. person)?" addproperty="object.name"/>
+        <fail unless="object.name">
+            You must specify a name for your ${appgen.type}.
         </fail>
-        <input message="What is the lowercase version (i.e. person)?" addproperty="model.name.lowercase"/>
-        <fail unless="model.name.lowercase">
-            You must specify a POJO lowercase name using 
-            -Dmodel.name.lowercase=class (for naming JSPs)   
-        </fail>
+        <if>
+        	<equals arg1="${appgen.type}" arg2="table"/>
+        	<then>
+        		<echo>Running Middlegen to generate POJO...</echo>
+        		<ant dir="../middlegen" inheritAll="true">
+        			<property name="table.name" value="${object.name}"/>
+        		</ant>
+        	</then>
+        </if>
+
+        <stringutil string="${object.name}" property="remainder">
+            <substring beginindex="1"/>
+        </stringutil>
+        <stringutil string="${object.name}" property="char1">
+            <substring endindex="1"/>
+        </stringutil>
+        <stringutil string="${char1}" property="upperChar1">
+            <uppercase/>
+        </stringutil>
+        <stringutil string="${char1}" property="lowerChar1">
+            <lowercase/>
+        </stringutil>
+        <property name="model.name" value="${upperChar1}${remainder}"/>
+        <property name="model.name.lowercase" value="${lowerChar1}${remainder}"/>
+
+        <!--<echo>model.name=${model.name}</echo>
+        <echo>model.name.lowercase=${model.name.lowercase}</echo>-->
     </target>
         
     <!-- For some reason, XDoclet is only happy if the tag handler
@@ -360,8 +385,8 @@
     
         <!-- New project created, gen code and run tests -->
         <ant dir="../../../${app.name}/extras/appgen" target="install-detailed" inheritAll="false">
-            <property name="model.name" value="Person"/>
-            <property name="model.name.lowercase" value="person"/>   
+            <property name="appgen.type" value="pojo"/>
+            <property name="model.name" value="Person"/>   
         </ant>   
         <ant dir="../../../${app.name}" target="setup" inheritAll="false"/>   
         <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
@@ -393,8 +418,8 @@
         
         <!-- New project created, gen code and run tests -->
         <ant dir="../../../${app.name}/extras/appgen" target="install" inheritAll="false">
-            <property name="model.name" value="Person"/>
-            <property name="model.name.lowercase" value="person"/>   
+            <property name="appgen.type" value="pojo"/>
+            <property name="model.name" value="Person"/>   
         </ant>   
         <ant dir="../../../${app.name}" target="setup" inheritAll="false"/>   
         <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>

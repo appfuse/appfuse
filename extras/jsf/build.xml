@@ -228,6 +228,18 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
             <replacetoken><![CDATA[tofile="../../web/${model.name.lowercase}List.jsp"]]></replacetoken>
             <replacevalue><![CDATA[tofile="../../web/${model.name.lowercase}s.jsp"]]></replacevalue>
         </replace>
+
+        <!-- Remove Struts specific stuff from Middlegen -->
+        <replace file="../middlegen/build.xml">
+            <replacetoken><![CDATA[
+
+        <replace dir="../../../${app.name}/src">
+            <include name="**/Cat.java"/>
+            <replacetoken>*            @hibernate.property</replacetoken>
+            <replacevalue>* @struts.validator type="required"
+    * @hibernate.property</replacevalue>
+        </replace>]]></replacetoken>
+        </replace>
         <!-- End of AppGen modifications -->
         
         <!-- Copy source and tests -->    
@@ -418,8 +430,8 @@ log4j.logger.org.apache.myfaces=WARN</replacevalue>
         <ant dir="../../../${app.name}/extras/jsf" target="install" inheritAll="false"/>
         <!-- Gen code and run tests -->
         <ant dir="../../../${app.name}/extras/appgen" target="test-all" inheritAll="false">
+            <property name="appgen.type" value="pojo"/>
             <property name="model.name" value="Person"/>
-            <property name="model.name.lowercase" value="person"/>   
         </ant>   
     </target>
     
