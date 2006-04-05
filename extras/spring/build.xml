@@ -169,6 +169,15 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         </replace>
 
         <!-- Replace Struts specific stuff from Middlegen -->
+        <replace file="../middlegen/build.xml">
+            <replacetoken><![CDATA[
+        <replace dir="${middlegen.dest.dir}">
+            <replacetoken> *        @hibernate.class
+ *         table</replacetoken>
+            <replacevalue> * @struts.form include-all="true" extends="BaseForm"
+ * @hibernate.class table</replacevalue>
+        </replace>]]></replacetoken>
+        </replace>
         <replace file="../middlegen/build.xml" token="@struts.validator" value="@spring.validator"/>
         <!-- End of AppGen modifications -->
 

@@ -24,119 +24,119 @@
     <property name="middlegen.lib.dir" value="lib/middlegen-2.1"/>
     <property name="middlegen.dest.dir" value="src"/>
 
-	<path id="lib.class.path">
-		<path refid="hibernate.classpath"/>
-		<path refid="xdoclet.classpath"/>
-		<fileset dir="${middlegen.lib.dir}" includes="*.jar"/>
-	</path>
+    <path id="lib.class.path">
+        <path refid="hibernate.classpath"/>
+        <path refid="xdoclet.classpath"/>
+        <fileset dir="${middlegen.lib.dir}" includes="*.jar"/>
+    </path>
 
-	<target name="init">
-		<available property="xdoclet1.2+" classname="xdoclet.modules.hibernate.HibernateDocletTask" classpathref="lib.class.path"/>
-	</target>
+    <target name="init">
+        <available property="xdoclet1.2+" classname="xdoclet.modules.hibernate.HibernateDocletTask" classpathref="lib.class.path"/>
+    </target>
 
-	<!-- =================================================================== -->
-	<!-- Fails if XDoclet 1.2.x is not on classpath                          -->
-	<!-- =================================================================== -->
-	<target name="fail-if-no-xdoclet-1.2" unless="xdoclet1.2+">
-		<fail>You must download several jar files before you can build Middlegen.</fail>
-	</target>
+    <!-- =================================================================== -->
+    <!-- Fails if XDoclet 1.2.x is not on classpath                          -->
+    <!-- =================================================================== -->
+    <target name="fail-if-no-xdoclet-1.2" unless="xdoclet1.2+">
+        <fail>You must download several jar files before you can build Middlegen.</fail>
+    </target>
 
-	<!-- =================================================================== -->
-	<!-- Fails if no table name is set                                       -->
-	<!-- =================================================================== -->
+    <!-- =================================================================== -->
+    <!-- Fails if no table name is set                                       -->
+    <!-- =================================================================== -->
     <target name="fail-if-no-table-name" unless="table.name">
         <input message="Database table?" addproperty="table.name"/>
         <fail unless="table.name">
             Table name not set. Please specify table.name property.
         </fail>
     </target>
-	<!-- =================================================================== -->
-	<!-- Run Middlegen                                                       -->
-	<!-- =================================================================== -->
-	<target name="middlegen" description="Run Middlegen" unless="middlegen.skip"
-		depends="init,fail-if-no-xdoclet-1.2,fail-if-no-table-name">
-		<mkdir dir="${middlegen.dest.dir}"/>
+    <!-- =================================================================== -->
+    <!-- Run Middlegen                                                       -->
+    <!-- =================================================================== -->
+    <target name="middlegen" description="Run Middlegen" unless="middlegen.skip"
+        depends="init,fail-if-no-xdoclet-1.2,fail-if-no-table-name">
+        <mkdir dir="${middlegen.dest.dir}"/>
 
-		<taskdef name="middlegen" classname="middlegen.MiddlegenTask" classpathref="lib.class.path"/>
+        <taskdef name="middlegen" classname="middlegen.MiddlegenTask" classpathref="lib.class.path"/>
 
-		<middlegen
-			appname="org.appfuse.model"
-			prefsdir="."
-			gui="${middlegen.gui}"
-			databaseurl="${database.url}"
-			driver="${database.driver_class}"
-			username="${database.username}"
-			password="${database.password}"
-			schema="${database.schema}">
+        <middlegen
+            appname="org.appfuse.model"
+            prefsdir="."
+            gui="${middlegen.gui}"
+            databaseurl="${database.url}"
+            driver="${database.driver_class}"
+            username="${database.username}"
+            password="${database.password}"
+            schema="${database.schema}">
 
-			<!--
-			We can specify what tables we want Data generated for.
-			If none are specified, Data will be generated for all tables.
-			Comment out the <table> elements if you want to generate for all tables.
-			Also note that table names are CASE SENSITIVE for certain databases,
-			so on e.g. Oracle you should specify table names in upper case.
-			-->
-			<!--table generate="true" name="flights" pktable="flights_pk"/>
-			<table name="reservations"/-->
+            <!--
+            We can specify what tables we want Data generated for.
+            If none are specified, Data will be generated for all tables.
+            Comment out the <table> elements if you want to generate for all tables.
+            Also note that table names are CASE SENSITIVE for certain databases,
+            so on e.g. Oracle you should specify table names in upper case.
+            -->
+            <!--table generate="true" name="flights" pktable="flights_pk"/>
+            <table name="reservations"/-->
 
-			<!--
-			If you want m:n relations, they must be specified like this.
-			Note that tables declare in multiple locations must all have
-			the same value of the generate attribute.
-			-->
-			<!--many2many>
-				<tablea generate="true" name="persons"/>
-				<jointable name="reservations" generate="false"/>
-				<tableb generate="true" name="flights"/>
-			</many2many-->
+            <!--
+            If you want m:n relations, they must be specified like this.
+            Note that tables declare in multiple locations must all have
+            the same value of the generate attribute.
+            -->
+            <!--many2many>
+                <tablea generate="true" name="persons"/>
+                <jointable name="reservations" generate="false"/>
+                <tableb generate="true" name="flights"/>
+            </many2many-->
 
 
-			<!-- Plugins - Only Hibernate Plugin has been included with this special distribution  -->
+            <!-- Plugins - Only Hibernate Plugin has been included with this special distribution  -->
 
-			<!--
-			If you want to generate XDoclet markup for hbm2java to include in the POJOs then
-			set genXDocletTags to true. Also, composite keys are generated as external classes which is
-			recommended. If you wish to keep them internal then set genIntergratedCompositeKeys to true.
-			Since r4 the ability to customise the selection of JavaTypes is now provided. The is a
-			recommended type mapper provided as shown. It is optional - if not provided then Middlegen
-			itself will select the Java mapping (as it did previously).
-			These settings are optional thus if they are not define here values default to false.
-			-->
-			<hibernate
-				destination="${middlegen.dest.dir}"
-				package="${class.package}"
-				extends="${class.extends}"
-				equalsHashcode="${gen.base.methods}"
-				columnsIncToString="${gen.base.methods}"
-				columnsIncEquals="${gen.base.methods}"
-				genXDocletTags="${gen.xdoclet-tag}"
-				standardCascade="${hibernate.cascade}"
-				standardGeneratorScheme="native"
-				javaTypeMapper="middlegen.plugins.hibernate.HibernateJavaTypeMapper"/>
-			<table name="${table.name}"/>
-		</middlegen>
-	</target>
+            <!--
+            If you want to generate XDoclet markup for hbm2java to include in the POJOs then
+            set genXDocletTags to true. Also, composite keys are generated as external classes which is
+            recommended. If you wish to keep them internal then set genIntergratedCompositeKeys to true.
+            Since r4 the ability to customise the selection of JavaTypes is now provided. The is a
+            recommended type mapper provided as shown. It is optional - if not provided then Middlegen
+            itself will select the Java mapping (as it did previously).
+            These settings are optional thus if they are not define here values default to false.
+            -->
+            <hibernate
+                destination="${middlegen.dest.dir}"
+                package="${class.package}"
+                extends="${class.extends}"
+                equalsHashcode="${gen.base.methods}"
+                columnsIncToString="${gen.base.methods}"
+                columnsIncEquals="${gen.base.methods}"
+                genXDocletTags="${gen.xdoclet-tag}"
+                standardCascade="${hibernate.cascade}"
+                standardGeneratorScheme="native"
+                javaTypeMapper="middlegen.plugins.hibernate.HibernateJavaTypeMapper"/>
+            <table name="${table.name}"/>
+        </middlegen>
+    </target>
 
-	<!-- =================================================================== -->
-	<!-- Run hbm2java    depends="middlegen"                                 -->
-	<!-- =================================================================== -->
-	<target name="hbm2java" depends="middlegen" description="Generate .java from .hbm files">
+    <!-- =================================================================== -->
+    <!-- Run hbm2java    depends="middlegen"                                 -->
+    <!-- =================================================================== -->
+    <target name="hbm2java" depends="middlegen" description="Generate .java from .hbm files">
 
-		<taskdef name="hibernatetool" classname="org.hibernate.tool.ant.HibernateToolTask"
-			classpathref="lib.class.path"/>
+        <taskdef name="hibernatetool" classname="org.hibernate.tool.ant.HibernateToolTask"
+            classpathref="lib.class.path"/>
 
-		<hibernatetool destdir="${middlegen.dest.dir}">
-			<configuration>
-				<fileset dir="${middlegen.dest.dir}" includes="**/*.hbm.xml"/>
-			</configuration>
-			<hbm2java jdk5="false" ejb3="false"/>
-		</hibernatetool>
-	</target>
+        <hibernatetool destdir="${middlegen.dest.dir}">
+            <configuration>
+                <fileset dir="${middlegen.dest.dir}" includes="**/*.hbm.xml"/>
+            </configuration>
+            <hbm2java jdk5="false" ejb3="false"/>
+        </hibernatetool>
+    </target>
 
-	<!-- =================================================================== -->
-	<!-- Deploys to target package in ApFuse                                 -->
-	<!-- =================================================================== -->
-	<target name="install" depends="hbm2java" description="Installs .java files in AppFuse">
+    <!-- =================================================================== -->
+    <!-- Deploys to target package in ApFuse                                 -->
+    <!-- =================================================================== -->
+    <target name="install" depends="hbm2java" description="Installs .java files in AppFuse">
         <replace dir="${middlegen.dest.dir}">
             <replacetoken> *        @hibernate.class
  *         table</replacetoken>
@@ -144,19 +144,19 @@
  * @hibernate.class table</replacevalue>
         </replace>
         <copy todir="../../src/dao">
-			<fileset dir="${middlegen.dest.dir}" includes="**/*.java"/>
-		</copy>
-	</target>
+            <fileset dir="${middlegen.dest.dir}" includes="**/*.java"/>
+        </copy>
+    </target>
 
-	<!-- =================================================================== -->
-	<!-- Build everything                                                    -->
-	<!-- =================================================================== -->
-	<target name="all" description="Build and install everything" depends="install"/>
+    <!-- =================================================================== -->
+    <!-- Build everything                                                    -->
+    <!-- =================================================================== -->
+    <target name="all" description="Build and install everything" depends="install"/>
 
-	<!-- =================================================================== -->
-	<!-- Clean everything                                                    -->
-	<!-- =================================================================== -->
-	<target name="clean" description="Clean all generated stuff">
+    <!-- =================================================================== -->
+    <!-- Clean everything                                                    -->
+    <!-- =================================================================== -->
+    <target name="clean" description="Clean all generated stuff">
         <delete dir="build.dir"/>
         <delete dir="${middlegen.dest.dir}"/>
         <delete>
@@ -164,14 +164,14 @@
         </delete>
     </target>
 
-	<!-- ==================================================================== -->
-	<!-- Validate the generated xml mapping documents                         -->
-	<!-- ==================================================================== -->
-	<target name="validate" description="Validate the generated xml mapping documents">
-		<xmlvalidate failonerror="no" lenient="no" warn="yes">
-			<fileset dir="${middlegen.dest.dir}" includes="*.xml" />
-		</xmlvalidate>
-	</target>
+    <!-- ==================================================================== -->
+    <!-- Validate the generated xml mapping documents                         -->
+    <!-- ==================================================================== -->
+    <target name="validate" description="Validate the generated xml mapping documents">
+        <xmlvalidate failonerror="no" lenient="no" warn="yes">
+            <fileset dir="${middlegen.dest.dir}" includes="*.xml" />
+        </xmlvalidate>
+    </target>
 
     <!-- =================================================================== -->
     <!-- Creates new project, and tests middlegen                            -->

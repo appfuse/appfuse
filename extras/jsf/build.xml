@@ -232,13 +232,22 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         <!-- Remove Struts specific stuff from Middlegen -->
         <replace file="../middlegen/build.xml">
             <replacetoken><![CDATA[
-
+        <replace dir="${middlegen.dest.dir}">
+            <replacetoken> *        @hibernate.class
+ *         table</replacetoken>
+            <replacevalue> * @struts.form include-all="true" extends="BaseForm"
+ * @hibernate.class table</replacevalue>
+        </replace>]]></replacetoken>
+        </replace>
+        <replace file="../middlegen/build.xml">
+        	<replacetoken><![CDATA[
         <replace dir="../../../${app.name}/src">
             <include name="**/Cat.java"/>
             <replacetoken>*            @hibernate.property</replacetoken>
             <replacevalue>* @struts.validator type="required"
     * @hibernate.property</replacevalue>
-        </replace>]]></replacetoken>
+        </replace>
+]]></replacetoken>
         </replace>
         <!-- End of AppGen modifications -->
         
