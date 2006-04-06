@@ -25,7 +25,7 @@
                 value="<fmt:message key="button.delete"/>" />
                 
             <input type="submit" class="button" name="cancel" 
-                value="<fmt:message key="button.cancel"/>" />        
+                value="method:<fmt:message key="button.cancel"/>" />        
         </td>
     </tr>
 </ww:form>

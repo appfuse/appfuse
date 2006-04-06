@@ -76,18 +76,24 @@ public class FormTagsHandler extends AbstractProgramElementTagsHandler {
             XMethod getter = field.getAccessor();
             setCurrentMethod(getter);
        	    curFieldIsIdorVersion = false;
-            Properties pro = new Properties();
-            pro.setProperty("tagName", "hibernate.id");
+            Properties prop = new Properties();
+            prop.setProperty("tagName", "hibernate.id");
 
-            if (hasTag(pro, FOR_METHOD)) {
-                curFieldIsIdorVersion = true;
+            if (hasTag(prop, FOR_METHOD)) {
+                prop.setProperty("paramName", "generator-class");
+                String generatorClass = methodTagValue(prop);
+                if (generatorClass == null || generatorClass.equals("assigned")) {
+                    curFieldIsIdorVersion = false;
+                } else {
+                    curFieldIsIdorVersion = true;
+                }
             } else {
                 curFieldIsIdorVersion = false;
             }
 
-            pro.setProperty("tagName", "hibernate.version");
+            prop.setProperty("tagName", "hibernate.version");
 
-            if (hasTag(pro, FOR_METHOD)) {
+            if (hasTag(prop, FOR_METHOD)) {
                 curFieldIsIdorVersion = true;
             } 
 
