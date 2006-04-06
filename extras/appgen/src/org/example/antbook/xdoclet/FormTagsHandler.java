@@ -23,6 +23,7 @@ public class FormTagsHandler extends AbstractProgramElementTagsHandler {
     private String curType;
     private boolean curFieldIsIdorVersion = false;
     private boolean curFieldIsBoolean = false;
+    private boolean lastField = false;
     
     static {
         supportedTypes.add("java.lang.String");
@@ -65,7 +66,7 @@ public class FormTagsHandler extends AbstractProgramElementTagsHandler {
      * @throws XDocletException
      */
     public void forAllFields(String template, Properties attributes) throws XDocletException {
-        XClass clazz   = getCurrentClass();
+        XClass clazz = getCurrentClass();
         Map setters = new LinkedHashMap(getFields(clazz));
 
         for (Iterator iterator = setters.keySet().iterator(); iterator.hasNext();) {
@@ -82,7 +83,8 @@ public class FormTagsHandler extends AbstractProgramElementTagsHandler {
             if (hasTag(prop, FOR_METHOD)) {
                 prop.setProperty("paramName", "generator-class");
                 String generatorClass = methodTagValue(prop);
-                if (generatorClass == null || generatorClass.equals("assigned")) {
+                System.out.println("generatorClass: " + generatorClass);
+                if (generatorClass != null && generatorClass.equals("assigned")) {
                     curFieldIsIdorVersion = false;
                 } else {
                     curFieldIsIdorVersion = true;
@@ -102,6 +104,13 @@ public class FormTagsHandler extends AbstractProgramElementTagsHandler {
 
             curType = typename;
             setCurrentMethod(field);
+
+            if (!iterator.hasNext()) {
+                lastField = true;
+            } else {
+                lastField = false;
+            }
+
             generate(template);
         }
     }
@@ -145,6 +154,12 @@ public class FormTagsHandler extends AbstractProgramElementTagsHandler {
     public void ifIsIdOrVersionField(String template, Properties attributes) throws XDocletException {
         if (curFieldIsIdorVersion) {
             generate(template);
+        }
+    }
+
+    public void ifIsNotLastField(String template, Properties attributes) throws XDocletException {
+        if (lastField == false) {
+           generate(template);
         }
     }
 
