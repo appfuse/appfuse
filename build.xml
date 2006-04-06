@@ -1220,12 +1220,11 @@
         <echo/>
 
         <!-- Prompt user for input -->
-        <input message="What would you like to name your application [myapp]?" addproperty="app.name"
-            defaultvalue="myapp"/>
+        <input message="What would you like to name your application [myapp]?" addproperty="app.name" defaultvalue="myapp"/>
         <input message="What would you like to name your database [mydb]?" addproperty="db.name" defaultvalue="mydb"/>
-        <input message="What package name would you like to use [org.appfuse]?" addproperty="new.pkg.name"
-            defaultvalue="org.appfuse"/>
-
+        <input message="What package name would you like to use [org.appfuse]?" addproperty="new.pkg.name" defaultvalue="org.appfuse"/>
+        <input message="What web framework would you like to use [webwork,tapestry,spring,jsf,struts]?" addproperty="web.framework" defaultvalue="struts"/>
+        
         <echo level="info">Creating new application named '${app.name}'...</echo>
         <copy todir="../${app.name}">
             <fileset dir="${basedir}">
@@ -1235,8 +1234,21 @@
                 <exclude name="${webapp.name}*"/>
                 <exclude name="*.log"/>
                 <exclude name="*.sh"/>
-                <include name="**"/>
                 <exclude name=".#**"/>
+                <exclude name="extras/**"/>
+                <include name="**"/>
+            </fileset>
+        </copy>
+        
+        <copy todir="../${app.name}/extras">
+            <fileset dir="${basedir}/extras">
+                <include name="appgen/**"/>
+                <include name="cruisecontrol/**"/>
+                <include name="ibatis/**"/>
+                <include name="middlegen/**"/>
+                <include name="${web.framework}/**"/>
+                <include name="xfire/**"/>
+                <exclude name="**/*.log*"/>
             </fileset>
         </copy>
         <!-- replace app name -->
