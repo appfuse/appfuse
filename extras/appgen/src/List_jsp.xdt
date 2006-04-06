@@ -10,7 +10,7 @@
     </button>
 
     <button type="button" onclick="location.href='<html:rewrite forward="mainMenu"/>'">
-        <fmt:message key="button.cancel"/>
+        <fmt:message key="button.done"/>
     </button>
 </c:set>
 

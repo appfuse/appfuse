@@ -4,7 +4,7 @@
 <span jwcid="@ShowMessage"/>
 
 <button class="button" onclick="location.href='<XDtForm:classNameLower/>Form.html'"><span key="button.add"/></button>
-<button class="button" onclick="location.href='mainMenu.html'"><span key="button.cancel"/></button>
+<button class="button" onclick="location.href='mainMenu.html'"><span key="button.done"/></button>
 
 <table jwcid="table@contrib:Table" class="list <XDtForm:classNameLower/>List" id="<XDtForm:classNameLower/>List"
     rowsClass="ognl:beans.evenOdd.next" row="ognl:row" source="ognl:<XDtForm:classNameLower/>s"
@@ -18,7 +18,7 @@
 </table>
 
 <button class="button" onclick="location.href='<XDtForm:classNameLower/>Form.html'"><span key="button.add"/></button>
-<button class="button" onclick="location.href='mainMenu.html'"><span key="button.cancel"/></button>
+<button class="button" onclick="location.href='mainMenu.html'"><span key="button.done"/></button>
 
 <script type="text/javascript">
 highlightTableRows("<XDtForm:classNameLower/>List");

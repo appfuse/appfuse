@@ -9,7 +9,7 @@
 <div class="separator"></div>
 
 <button type="button" onclick="location.href='<html:rewrite forward="mainMenu" />'">
-    <fmt:message key="button.cancel"/>
+    <fmt:message key="button.done"/>
 </button>
     
 <display:table name="applicationScope.userNames" id="user" cellspacing="0" cellpadding="0"

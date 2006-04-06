@@ -3,6 +3,7 @@
   <component name="AntConfiguration">
     <defaultAnt bundledAnt="true" />
     <buildFile url="file://$PROJECT_DIR$/extras/jsf/build.xml">
+      <additionalClassPath />
       <antReference name="Apache Ant version 1.6.5" />
       <customJdkName value="1.5" />
       <maximumHeapSize value="128" />
