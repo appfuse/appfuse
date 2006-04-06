@@ -47,6 +47,10 @@ public class BaseAction extends ActionSupport {
     protected SimpleMailMessage message = null;
     protected String templateName = null; 
 
+    public String cancel() {
+        return CANCEL;
+    }
+    
     protected void saveMessage(String msg) {
         List messages = (List) getRequest().getSession().getAttribute("messages");
         if (messages == null) {
@@ -136,10 +140,6 @@ public class BaseAction extends ActionSupport {
      */
     public void setFrom(String from) {
         this.from = from;
-    }
-    
-    public void setCancel(String cancel) {
-    	this.cancel = cancel;
     }
     
     public void setDelete(String delete) {
