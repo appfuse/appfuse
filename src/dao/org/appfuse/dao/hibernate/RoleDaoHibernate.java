@@ -2,8 +2,8 @@ package org.appfuse.dao.hibernate;
 
 import java.util.List;
 
-import org.appfuse.model.Role;
 import org.appfuse.dao.RoleDao;
+import org.appfuse.model.Role;
 
 
 /**
@@ -21,17 +21,18 @@ public class RoleDaoHibernate extends BaseDaoHibernate implements RoleDao {
     public List getRoles(Role role) {
         return getHibernateTemplate().find("from Role");
     }
+    
+    public Role getRole(Long roleId) {
+        return (Role) getHibernateTemplate().get(Role.class, roleId);
+    }
 
-    public Role getRole(String rolename) {
-        return (Role) getHibernateTemplate().get(Role.class, rolename);
-        /*
-        try {
-            Hibernate.initialize(role);
-        } catch (HibernateException e) {
-            log.error(e);
+    public Role getRoleByName(String rolename) {
+        List roles = getHibernateTemplate().find("from Role where name=?", rolename);
+        if (roles.isEmpty()) {
+            return null;
+        } else {
+            return (Role) roles.get(0);
         }
-        return role;
-        */
     }
 
     public void saveRole(Role role) {
@@ -39,7 +40,7 @@ public class RoleDaoHibernate extends BaseDaoHibernate implements RoleDao {
     }
 
     public void removeRole(String rolename) {
-        Object role = getHibernateTemplate().load(Role.class, rolename);
+        Object role = getRoleByName(rolename);
         getHibernateTemplate().delete(role);
     }
 

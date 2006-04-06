@@ -38,10 +38,10 @@ public class GenericDaoTest extends BaseDaoTestCase {
         
         // create
         dao.saveObject(user);
-        assertNotNull(user.getVersion());
+        assertNotNull(user.getId());
         
         // retrieve
-        user = (User) dao.getObject(User.class, user.getUsername());
+        user = (User) dao.getObject(User.class, user.getId());
         assertNotNull(user);
         assertEquals(user.getLastName(), "last");
         
@@ -51,9 +51,9 @@ public class GenericDaoTest extends BaseDaoTestCase {
         assertEquals(user.getAddress().getCountry(), "USA");
         
         // delete
-        dao.removeObject(User.class, user.getUsername());
+        dao.removeObject(User.class, user.getId());
         try {
-            dao.getObject(User.class, "foo");
+            dao.getObject(User.class, user.getId());
             fail("User 'foo' found in database");
         } catch (ObjectRetrievalFailureException e) {
             assertNotNull(e.getMessage());

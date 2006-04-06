@@ -2,6 +2,7 @@ package org.appfuse.service.impl;
 
 import java.util.List;
 
+import org.acegisecurity.userdetails.UsernameNotFoundException;
 import org.appfuse.dao.UserDao;
 import org.appfuse.model.User;
 import org.appfuse.service.UserExistsException;
@@ -32,8 +33,8 @@ public class UserManagerImpl extends BaseManager implements UserManager {
     /**
      * @see org.appfuse.service.UserManager#getUser(java.lang.String)
      */
-    public User getUser(String username) {
-        return dao.getUser(username);
+    public User getUser(String userId) {
+        return dao.getUser(new Long(userId));
     }
 
     /**
@@ -47,7 +48,7 @@ public class UserManagerImpl extends BaseManager implements UserManager {
      * @see org.appfuse.service.UserManager#saveUser(org.appfuse.model.User)
      */
     public void saveUser(User user) throws UserExistsException {
-    	// if new user, lowercase username
+    	// if new user, lowercase userId
     	if (user.getVersion() == null) {
             user.setUsername(user.getUsername().toLowerCase());
     	}
@@ -61,11 +62,15 @@ public class UserManagerImpl extends BaseManager implements UserManager {
     /**
      * @see org.appfuse.service.UserManager#removeUser(java.lang.String)
      */
-    public void removeUser(String username) {
+    public void removeUser(String userId) {
         if (log.isDebugEnabled()) {
-            log.debug("removing user: " + username);
+            log.debug("removing user: " + userId);
         }
 
-        dao.removeUser(username);
+        dao.removeUser(new Long(userId));
+    }
+
+    public User getUserByUsername(String username) throws UsernameNotFoundException {
+        return (User) dao.loadUserByUsername(username);
     }
 }

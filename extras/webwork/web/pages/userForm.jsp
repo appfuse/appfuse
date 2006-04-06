@@ -1,6 +1,7 @@
 <%@ include file="/common/taglibs.jsp"%>
 
 <ww:form name="userForm" action="saveUser" method="post" validate="true">
+<ww:hidden name="user.id" value="%{user.id}"/>
 <ww:hidden name="user.version" value="%{user.version}"/>
 <input type="hidden" name="from" value="<c:out value="${param.from}"/>" />
 
@@ -33,22 +34,9 @@
     </tr>
 </c:set>
 
-	<ww:if test="user.username == null || user.username == ''">
-	    <ww:textfield label="%{getText('user.username')}" name="user.username" 
+	<ww:textfield label="%{getText('user.username')}" name="user.username" 
 	        value="%{user.username}" required="true"/>
-	</ww:if>
-	<ww:else>
-    <tr>
-        <th>
-            <label class="required">* <fmt:message key="user.username"/>:</label>
-        </th>
-        <td style="height: 20px">
-            <ww:property value="%{user.username}"/>
-            <ww:hidden name="user.username" value="%{user.username}"/>
-        </td>
-    </tr>
-	</ww:else>
-	
+
 	<c:if test="${cookieLogin != 'true'}">
 	    <ww:password label="%{getText('user.password')}" name="user.password" show="true"
 	        value="%{user.password}" required="true" size="40" onchange="passwordChanged(this)"/>

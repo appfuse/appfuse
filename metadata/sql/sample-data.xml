@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <dataset>
   <table name='app_user'>
+    <column>id</column>
     <column>username</column>
     <column>password</column>
     <column>first_name</column>
@@ -20,6 +21,7 @@
     <column>account_locked</column>
     <column>credentials_expired</column>
     <row>
+      <value>1</value>
       <value>tomcat</value>
       <value>536c0b339345616c1b33caf454454d8b8a190d6c</value>
       <value>Tomcat</value>
@@ -40,6 +42,7 @@
       <value>N</value>
     </row>
     <row>
+      <value>2</value>
       <value>mraible</value>
       <value>536c0b339345616c1b33caf454454d8b8a190d6c</value>
       <value>Matt</value>
@@ -61,30 +64,30 @@
     </row>
   </table>
   <table name='role'>
+    <column>id</column>
     <column>name</column>
     <column>description</column>
-    <column>version</column>
     <row>
+      <value>1</value>
       <value>admin</value>
       <value><![CDATA[Administrator role (can edit Users)]]></value>
-      <value>1</value>
     </row>
     <row>
+      <value>2</value>
       <value>user</value>
       <value><![CDATA[Default role for all Users]]></value>
-      <value>1</value>
     </row>
   </table>
   <table name='user_role'>
-    <column>username</column>
-    <column>role_name</column>
+    <column>user_id</column>
+    <column>role_id</column>
     <row>
-      <value>tomcat</value>
-      <value>user</value>
+      <value>1</value>
+      <value>2</value>
     </row>
     <row>
-      <value>mraible</value>
-      <value>admin</value>
+      <value>2</value>
+      <value>1</value>
     </row>
   </table>
 </dataset>

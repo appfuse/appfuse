@@ -41,7 +41,7 @@ public class UserActionTest extends BaseActionTestCase {
 
     public void testSave() throws Exception {
         UserManager userManager = (UserManager) ctx.getBean("userManager");
-        User user = userManager.getUser("tomcat");
+        User user = userManager.getUserByUsername("tomcat");
         user.setPassword("tomcat");
         user.setConfirmPassword("tomcat");
         action.setUser(user);

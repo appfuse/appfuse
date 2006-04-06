@@ -4,6 +4,7 @@
 <f:loadBundle var="text" basename="#{userForm.bundleName}"/>
 
 <h:form id="userForm" onsubmit="return validateUserForm(this)">
+<h:inputHidden value="#{userForm.user.id}" id="id"/>
 <h:inputHidden value="#{userForm.user.version}" id="version"/>
 
 <%-- Original password as hidden field so we can compare and encrypt --%>
@@ -25,19 +26,9 @@
 <h:panelGrid columns="3" styleClass="detail" columnClasses="label">
 
     <h:outputLabel for="username" value="#{text['user.username']}"/>
-
-    <c:choose>
-    <c:when test="${empty userForm.user.username}">
-        <h:inputText value="#{userForm.user.username}" id="username" required="true">
-            <v:commonsValidator type="required" arg="#{text['user.username']}"/>
-        </h:inputText>
-        <t:message for="username" styleClass="fieldError"/>
-    </c:when>
-    <c:otherwise>
-        <h:outputText value="#{userForm.user.username}"/>
-        <h:inputHidden value="#{userForm.user.username}" id="username" required="true"/>
-    </c:otherwise>
-    </c:choose>
+    <h:inputText value="#{userForm.user.username}" id="username" required="true">
+        <v:commonsValidator type="required" arg="#{text['user.username']}"/>
+    </h:inputText>
 
 <c:if test="${cookieLogin != 'true'}">
 

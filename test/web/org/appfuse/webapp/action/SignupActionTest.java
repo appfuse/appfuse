@@ -1,6 +1,7 @@
 package org.appfuse.webapp.action;
 
 import org.appfuse.Constants;
+import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
 
 import com.dumbster.smtp.SimpleSmtpServer;
@@ -41,6 +42,7 @@ public class SignupActionTest extends BaseStrutsTestCase {
         assertTrue(getSession().getAttribute(Constants.REGISTERED) != null);
         
         UserManager userMgr = (UserManager) ctx.getBean("userManager");
-        userMgr.removeUser("self-registered");
+        User user = userMgr.getUserByUsername("self-registered");
+        userMgr.removeUser(user.getId().toString());
     }
 }

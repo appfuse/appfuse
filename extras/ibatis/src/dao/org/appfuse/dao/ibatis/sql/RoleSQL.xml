@@ -6,7 +6,7 @@
     
     <typeAlias alias="role" type="org.appfuse.model.Role"/>
 
-    <select id="getRole" resultClass="role">
+    <select id="getRoleByName" resultClass="role">
     <![CDATA[
         select * from role where name=#name#;
     ]]>
@@ -14,15 +14,15 @@
 
     <insert id="addRole" parameterClass="role">
     <![CDATA[
-        insert into role (name, description, version) 
-        values (#name#, #description#, #version#);
+        insert into role (name, description) 
+        values (#name#, #description#);
     ]]>
     </insert>
     
     <update id="updateRole" parameterClass="role">
     <![CDATA[
-        update role set description=#description#, version=#version#
-        where name=#name#;
+        update role set name=#name#, description=#description#
+        where id=#id#;
     ]]>
     </update>
     

@@ -7,6 +7,7 @@
     <typeAlias alias="user" type="org.appfuse.model.User"/>
 
     <resultMap id="userResult" class="user">
+        <result property="id" column="id"/>
         <result property="username" column="username"/>
         <result property="password" column="password"/>
         <result property="firstName" column="first_name"/>
@@ -41,18 +42,22 @@
                 #website#, #passwordHint#, #version#, #enabled#, #accountExpired#,
                 #accountLocked#, #credentialsExpired#);
     ]]>
+        <selectKey resultClass="java.lang.Long" keyProperty="id" >
+            select last_insert_id();
+        </selectKey>
     </insert>
 
     <insert id="addUserRole" parameterClass="map">
     <![CDATA[
-        insert into user_role (username, role_name)
-        values (#username#, #roleName#);
+        insert into user_role (user_id, role_id)
+        values (#userId#, #roleId#);
     ]]>
     </insert>
 
     <update id="updateUser" parameterClass="user">
     <![CDATA[
         update app_user SET
+            username = #username#,
             password = #password#,
             first_name = #firstName#,
             last_name = #lastName#,
@@ -70,11 +75,17 @@
             account_expired = #accountExpired#,
             account_locked = #accountLocked#,
             credentials_expired = #credentialsExpired#
-        where username = #username#;
+        where id = #id#;
     ]]>
     </update>
 
     <select id="getUser" resultMap="userResult">
+    <![CDATA[
+        select * from app_user where id=#id#;
+    ]]>
+    </select>
+    
+    <select id="getUserByUsername" resultMap="userResult">
     <![CDATA[
         select * from app_user where username=#username#;
     ]]>
@@ -88,21 +99,20 @@
 
     <select id="getUserRoles" resultClass="role">
     <![CDATA[
-        select user_role.role_name as name, role.description, role.version
-        from user_role left join role on role.name = user_role.role_name
-        where user_role.username=#username#;
+        select r.id, r.name, r.description from role r, user_role ur
+        where (ur.role_id = r.id) and ur.user_id=#id#;
     ]]>
     </select>
 
-    <delete id="deleteUser" parameterClass="java.lang.String">
+    <delete id="deleteUser" parameterClass="java.lang.Long">
     <![CDATA[
-        delete from app_user where username = #username#;
+        delete from app_user where id = #id#;
     ]]>
     </delete>
 
-    <delete id="deleteUserRoles" parameterClass="java.lang.String">
+    <delete id="deleteUserRoles" parameterClass="java.lang.Long">
     <![CDATA[
-        delete from user_role where username = #username#;
+        delete from user_role where user_id = #id#;
     ]]>
     </delete>
 </sqlMap>

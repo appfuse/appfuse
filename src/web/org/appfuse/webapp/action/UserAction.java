@@ -105,7 +105,7 @@ public final class UserAction extends BaseAction {
 
         // Exceptions are caught by ActionExceptionHandler
         UserManager mgr = (UserManager) getBean("userManager");
-        mgr.removeUser(userForm.getUsername());
+        mgr.removeUser(userForm.getId());
 
         messages.add(ActionMessages.GLOBAL_MESSAGE,
                      new ActionMessage("user.deleted", userForm.getFirstName()
@@ -149,10 +149,10 @@ public final class UserAction extends BaseAction {
         // if a user's username is passed in
         if (request.getParameter("username") != null) {
             // lookup the user using that id
-            user = mgr.getUser(userForm.getUsername());
+            user = mgr.getUserByUsername(userForm.getUsername());
         } else {
             // look it up based on the current user's id
-            user = mgr.getUser(request.getRemoteUser());
+            user = mgr.getUserByUsername(request.getRemoteUser());
         }
 
         BeanUtils.copyProperties(userForm, convert(user));

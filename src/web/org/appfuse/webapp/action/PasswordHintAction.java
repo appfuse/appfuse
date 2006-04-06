@@ -58,7 +58,7 @@ public final class PasswordHintAction extends BaseAction {
         // look up the user's information
         try {
             UserManager userMgr = (UserManager) getBean("userManager");
-            User user = userMgr.getUser(username);
+            User user = userMgr.getUserByUsername(username);
 
             StringBuffer msg = new StringBuffer();
             msg.append("Your password hint is: " + user.getPasswordHint());

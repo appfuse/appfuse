@@ -1,10 +1,8 @@
 package org.appfuse.model;
 
 import java.io.Serializable;
-import java.util.Set;
 
 import org.acegisecurity.GrantedAuthority;
-
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
@@ -23,10 +21,9 @@ import org.apache.commons.lang.builder.ToStringStyle;
  */
 public class Role extends BaseObject implements Serializable, GrantedAuthority {
     private static final long serialVersionUID = 3690197650654049848L;
+    private Long id;
     private String name;
     private String description;
-    private Integer version;
-    private Set users;
 
     public Role() {}
     
@@ -35,14 +32,12 @@ public class Role extends BaseObject implements Serializable, GrantedAuthority {
     }
     
     /**
-     * @struts.validator type="required"
-     * @hibernate.id column="name" length="20"
-     *   generator-class="assigned" unsaved-value="version"
+     * @hibernate.id column="id" generator-class="native" unsaved-value="null"
      */
-    public String getName() {
-        return this.name;
+    public Long getId() {
+        return id;
     }
-    
+
     /**
      * @see org.acegisecurity.GrantedAuthority#getAuthority()
      */
@@ -51,11 +46,21 @@ public class Role extends BaseObject implements Serializable, GrantedAuthority {
     }
     
     /**
-     * @struts.validator type="required"
-     * @hibernate.property column="description"
+     * @hibernate.property column="name" length="20"
+     */
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * @hibernate.property column="description" length="30"
      */
     public String getDescription() {
         return this.description;
+    }
+    
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setName(String name) {
@@ -64,34 +69,6 @@ public class Role extends BaseObject implements Serializable, GrantedAuthority {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    /**
-     * @return Returns the users.
-     * This inverse relation causes exceptions :-( drk
-     * hibernate.set table="user_role" cascade="save-update"
-     *                lazy="false" inverse="true"
-     * hibernate.collection-key column="role_name"
-     * hibernate.collection-many-to-many class="org.appfuse.model.User"
-     *                                    column="username"
-     */
-    public Set getUsers() {
-        return users;
-    }
-    
-    public void setUsers(Set users) {
-        this.users = users;
-    }
-
-    /**
-     * @hibernate.version
-     */
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
     }
 
     public boolean equals(Object o) {

@@ -2,6 +2,7 @@ package org.appfuse.service;
 
 import java.util.List;
 
+import org.acegisecurity.userdetails.UsernameNotFoundException;
 import org.appfuse.dao.UserDao;
 import org.appfuse.model.User;
 
@@ -16,18 +17,23 @@ import org.appfuse.model.User;
  *  Modified by <a href="mailto:dan@getrolling.com">Dan Kibler </a> 
  */
 public interface UserManager {
-    //~ Methods ================================================================
-
-    public void setUserDao(UserDao dao);
     
+    public void setUserDao(UserDao userDao);
+
     /**
-     * Retrieves a user by username.  An exception is thrown if now user 
-     * is found.
+     * Retrieves a user by userId.  An exception is thrown if user not found
      *
-     * @param username
+     * @param userId
      * @return User
      */
-    public User getUser(String username);
+    public User getUser(String userId);
+    
+    /**
+     * Finds a user by their username.
+     * @param username
+     * @return User a populated user object
+     */
+    public User getUserByUsername(String username) throws UsernameNotFoundException;
 
     /**
      * Retrieves a list of users, filtering with parameters on a user object
@@ -45,9 +51,9 @@ public interface UserManager {
     public void saveUser(User user) throws UserExistsException;
 
     /**
-     * Removes a user from the database by their username
+     * Removes a user from the database by their userId
      *
-     * @param username the user's username
+     * @param userId the user's id
      */
-    public void removeUser(String username);
+    public void removeUser(String userId);
 }

@@ -77,9 +77,9 @@ public class UserAction extends BaseAction {
         // if a user's username is passed in
         if (username != null) {
             // lookup the user using that id
-            user = userManager.getUser(username);
+            user = userManager.getUserByUsername(username);
         } else if (editProfile) {
-            user = userManager.getUser(request.getRemoteUser());
+            user = userManager.getUserByUsername(request.getRemoteUser());
         } else {
             user = new User();
             user.addRole(new Role(Constants.USER_ROLE));

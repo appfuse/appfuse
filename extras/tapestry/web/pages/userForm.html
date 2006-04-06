@@ -15,6 +15,7 @@
 
 <form jwcid="userForm">
 <input jwcid="from@Hidden" type="hidden" id="from" value="ognl:from"/>
+<input jwcid="id@Hidden" type="hidden" value="ognl:user.id"/>
 <input jwcid="version@Hidden" type="hidden" value="ognl:user.version"/>
 <input jwcid="originalPassword@Hidden" type="hidden" value="ognl:user.password"/>
 
@@ -28,17 +29,13 @@
 </span>
 
 <table class="detail">
-    <tr jwcid="@If" condition="ognl:user.version == null" element="tr">
+    <tr>
         <th><label jwcid="@FieldLabel" field="ognl:components.usernameField">Username</label></th>
-        <td style="height: 20px"><input jwcid="usernameField" type="text" id="username"/></td>
-    </tr>
-    <tr jwcid="@Else" element="tr">
-        <th><label jwcid="@Label" class="required" key="user.username">Username</label></th>
-        <td style="height: 20px">
+        <td>
             <span jwcid="@Insert" value="ognl:user.username"/>
             <input jwcid="@Hidden" type="hidden" value="ognl:user.username" id="username"/>
         </td>
-    </tr> 
+    </tr>
     <div jwcid="@If" condition="ognl:requestCycle.requestContext.session.getAttribute('cookieLogin') != 'true'">
     <tr>
         <th>

@@ -13,9 +13,7 @@ import org.springframework.orm.ObjectRetrievalFailureException;
  * This class interacts with Spring's HibernateTemplate to save/delete and
  * retrieve User objects.
  *
- * <p>
- * <a href="UserDaoHibernate.java.html"><i>View Source</i></a>
- * </p>
+ * <p><a href="UserDaoHibernate.java.html"><i>View Source</i></a></p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  *   Modified by <a href="mailto:dan@getrolling.com">Dan Kibler</a>
@@ -23,14 +21,14 @@ import org.springframework.orm.ObjectRetrievalFailureException;
 */
 public class UserDaoHibernate extends BaseDaoHibernate implements UserDao, UserDetailsService {
     /**
-     * @see org.appfuse.dao.UserDao#getUser(java.lang.String)
+     * @see org.appfuse.dao.UserDao#getUser(Long)
      */
-    public User getUser(String username) {
-        User user = (User) getHibernateTemplate().get(User.class, username);
+    public User getUser(Long userId) {
+        User user = (User) getHibernateTemplate().get(User.class, userId);
 
         if (user == null) {
-            log.warn("uh oh, user '" + username + "' not found...");
-            throw new ObjectRetrievalFailureException(User.class, username);
+            log.warn("uh oh, user '" + userId + "' not found...");
+            throw new ObjectRetrievalFailureException(User.class, userId);
         }
 
         return user;
@@ -48,7 +46,7 @@ public class UserDaoHibernate extends BaseDaoHibernate implements UserDao, UserD
      */
     public void saveUser(final User user) {
         if (log.isDebugEnabled()) {
-            log.debug("user's id: " + user.getUsername());
+            log.debug("user's id: " + user.getId());
         }
         
         getHibernateTemplate().saveOrUpdate(user);
@@ -57,20 +55,21 @@ public class UserDaoHibernate extends BaseDaoHibernate implements UserDao, UserD
     }
 
     /**
-     * @see org.appfuse.dao.UserDao#removeUser(java.lang.String)
+     * @see org.appfuse.dao.UserDao#removeUser(Long)
      */
-    public void removeUser(String username) {
-        getHibernateTemplate().delete(getUser(username));
+    public void removeUser(Long userId) {
+        getHibernateTemplate().delete(getUser(userId));
     }
 
     /** 
     * @see org.acegisecurity.userdetails.UserDetailsService#loadUserByUsername(java.lang.String)
     */
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        try {
-            return getUser(username);
-        } catch (ObjectRetrievalFailureException e) {
+        List users = getHibernateTemplate().find("from User where username=?", username);
+        if (users == null || users.isEmpty()) {
             throw new UsernameNotFoundException("user '" + username + "' not found...");
+        } else {
+            return (UserDetails) users.get(0);
         }
     }
 }

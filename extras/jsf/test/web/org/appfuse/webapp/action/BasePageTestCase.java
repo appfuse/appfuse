@@ -61,7 +61,7 @@ public abstract class BasePageTestCase extends TestCase {
     protected void setUp() throws Exception {
         // populate the userForm and place into session
         UserManager userMgr = (UserManager) ctx.getBean("userManager");
-        user = userMgr.getUser("tomcat");
+        user = userMgr.getUserByUsername("tomcat");
         
         // change the port on the mailSender so it doesn't conflict with an 
         // existing SMTP server on localhost

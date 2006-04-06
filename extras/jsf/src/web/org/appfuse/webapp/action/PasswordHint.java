@@ -39,7 +39,7 @@ public class PasswordHint extends BasePage {
         
         // look up the user's information
         try {
-            User user = userManager.getUser(username);
+            User user = userManager.getUserByUsername(username);
 
             StringBuffer msg = new StringBuffer();
             msg.append("Your password hint is: " + user.getPasswordHint());

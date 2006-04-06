@@ -21,7 +21,7 @@ public class UserDaoTest extends BaseDaoTestCase {
 
     public void testGetUserInvalid() throws Exception {
         try {
-            dao.getUser("badusername");
+            dao.getUser(new Long(1000));
             fail("'badusername' found in database, failing test...");
         } catch (DataAccessException d) {
             assertTrue(d != null);
@@ -29,7 +29,7 @@ public class UserDaoTest extends BaseDaoTestCase {
     }
 
     public void testGetUser() throws Exception {
-        User user = dao.getUser("tomcat");
+        User user = dao.getUser(new Long(1));
 
         assertNotNull(user);
         assertEquals(1, user.getRoles().size());
@@ -37,7 +37,7 @@ public class UserDaoTest extends BaseDaoTestCase {
     }
 
     public void testUpdateUser() throws Exception {
-        User user = dao.getUser("tomcat");
+        User user = dao.getUser(new Long(1));
 
         Address address = user.getAddress();
         address.setAddress("new address");
@@ -47,9 +47,8 @@ public class UserDaoTest extends BaseDaoTestCase {
         assertEquals(user.getAddress(), address);
         assertEquals("new address", user.getAddress().getAddress());
         
-        // verify that violation occurs when adding new user
-        // with same username
-        user.setVersion(null);
+        // verify that violation occurs when adding new user with same username
+        user.setId(null);
 
         endTransaction();
 
@@ -63,11 +62,10 @@ public class UserDaoTest extends BaseDaoTestCase {
     }
 
     public void testAddUserRole() throws Exception {
-        User user = dao.getUser("tomcat");
-
+        User user = dao.getUser(new Long(1));
         assertEquals(1, user.getRoles().size());
 
-        Role role = rdao.getRole(Constants.ADMIN_ROLE);
+        Role role = rdao.getRoleByName(Constants.ADMIN_ROLE);
         user.addRole(role);
         dao.saveUser(user);
 
@@ -98,17 +96,17 @@ public class UserDaoTest extends BaseDaoTestCase {
         user.setAddress(address);
         user.setEmail("testuser@appfuse.org");
         user.setWebsite("http://raibledesigns.com");
-        user.addRole(rdao.getRole(Constants.USER_ROLE));
+        user.addRole(rdao.getRoleByName(Constants.USER_ROLE));
 
         dao.saveUser(user);
 
         assertNotNull(user.getUsername());
         assertEquals("testpass", user.getPassword());
 
-        dao.removeUser("testuser");
+        dao.removeUser(user.getId());
 
         try {
-            user = dao.getUser("testuser");
+            user = dao.getUser(user.getId());
             fail("getUser didn't throw DataAccessException");
         } catch (DataAccessException d) {
             assertNotNull(d);

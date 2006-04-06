@@ -20,23 +20,21 @@ public class RoleDaoiBatis extends BaseDaoiBATIS implements RoleDao {
     public List getRoles(Role role) {
         return getSqlMapClientTemplate().queryForList("getRoles", null);
     }
-
-    public Role getRole(String name) {
-        return (Role) getSqlMapClientTemplate().queryForObject("getRole", name);
+    
+    public Role getRoleByName(String name) {
+        return (Role) getSqlMapClientTemplate().queryForObject("getRoleByName", name);
     }
 
     public void saveRole(final Role role) {
-        if (role.getVersion() == null) {
-            role.setVersion(new Integer(1));
+        if (role.getId() == null) {
             getSqlMapClientTemplate().update("addRole", role);
         } else {
-            role.setVersion(new Integer(role.getVersion().intValue()+1));
             getSqlMapClientTemplate().update("updateRole", role);
         }
     }
 
-    public void removeRole(String name) {
-        getSqlMapClientTemplate().update("deleteRole", name);
+    public void removeRole(String rolename) {
+        getSqlMapClientTemplate().update("deleteRole", rolename);
     }
 
 }

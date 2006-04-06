@@ -2,6 +2,8 @@ package org.appfuse.dao;
 
 import java.util.List;
 
+import org.acegisecurity.userdetails.UserDetails;
+import org.acegisecurity.userdetails.UsernameNotFoundException;
 import org.appfuse.model.User;
 
 /**
@@ -15,12 +17,19 @@ import org.appfuse.model.User;
  */
 public interface UserDao extends Dao {
     /**
-     * Gets users information based on login name.
-     * @param username the current username
+     * Gets users information based on user id.
+     * @param userId the user's id
      * @return user populated user object
      */
-    public User getUser(String username);
+    public User getUser(Long userId);
 
+    /**
+     * Gets users information based on login name.
+     * @param username the user's username
+     * @return userDetails populated userDetails object
+     */
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
+    
     /**
      * Gets a list of users based on parameters passed in.
      *
@@ -36,7 +45,7 @@ public interface UserDao extends Dao {
 
     /**
      * Removes a user from the database by id
-     * @param username the user's username
+     * @param userId the user's id
      */
-    public void removeUser(String username);
+    public void removeUser(Long userId);
 }

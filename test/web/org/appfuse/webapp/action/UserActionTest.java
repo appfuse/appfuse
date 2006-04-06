@@ -69,7 +69,7 @@ public class UserActionTest extends BaseStrutsTestCase {
     public void testRemove() throws Exception {
         setRequestPathInfo("/editUser");
         addRequestParameter("method", "Delete");
-        addRequestParameter("username", "mraible");
+        addRequestParameter("id", "2");
         actionPerform();
 
         verifyForward("viewUsers");

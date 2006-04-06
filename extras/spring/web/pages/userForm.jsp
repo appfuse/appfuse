@@ -14,7 +14,9 @@
 
 <form method="post" action="<c:url value="/editUser.html"/>" id="userForm"
     onsubmit="return onFormSubmit(this)">
-
+<spring:bind path="user.id">
+<input type="hidden" name="id" value="<c:out value="${status.value}"/>"/>
+</spring:bind>
 <spring:bind path="user.version">
 <input type="hidden" name="version" value="<c:out value="${status.value}"/>"/>
 </spring:bind>
@@ -56,18 +58,10 @@
         <th>
             <appfuse:label key="user.username"/>
         </th>
-        <td style="height: 20px">
+        <td>
         <spring:bind path="user.username">
-        <c:choose>
-            <c:when test="${empty user.username}">
-                <input type="text" name="username" value="<c:out value="${status.value}"/>" id="username"/>
-                <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
-            </c:when>
-            <c:otherwise>
-                <c:out value="${user.username}"/>
-                <input type="hidden" name="username" value="<c:out value="${status.value}"/>" id="username"/>
-            </c:otherwise>
-        </c:choose>
+        	<input type="text" name="username" value="<c:out value="${status.value}"/>" id="username"/>
+            <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
         </spring:bind>
         </td>
     </tr>

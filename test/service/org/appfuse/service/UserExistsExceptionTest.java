@@ -2,42 +2,27 @@ package org.appfuse.service;
 
 import org.appfuse.Constants;
 import org.appfuse.model.User;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.orm.ObjectRetrievalFailureException;
+import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
 import org.springframework.util.ClassUtils;
 
-public class UserExistsExceptionTest extends BaseManagerTestCase {
-    private static ApplicationContext ctx = null;
+public class UserExistsExceptionTest extends AbstractTransactionalDataSourceSpringContextTests {
     private UserManager manager = null;
-    
-    // This static block ensures that Spring's BeanFactory is only loaded
-    // once for all tests
-    static {
-        String pkg = ClassUtils.classPackageAsResourcePath(Constants.class);
-        String[] paths = {"classpath*:/" + pkg + "/dao/applicationContext-*.xml",
-                          "classpath*:/" + pkg + "/service/applicationContext-service.xml",
-                          "classpath*:META-INF/applicationContext-*.xml"};
-        ctx = new ClassPathXmlApplicationContext(paths);
+
+    public void setUserManager(UserManager userManager) {
+        this.manager = userManager;
     }
     
-    public void setUp() throws Exception {
-        manager = (UserManager) ctx.getBean("userManager");
-
-        // delete 'foo' in case it exists
-        try {
-            manager.removeUser("foo");
-        } catch (ObjectRetrievalFailureException fe) {
-            // ignore
-        }
+    protected String[] getConfigLocations() {
+        String pkg = ClassUtils.classPackageAsResourcePath(Constants.class);
+        return new String[] {"classpath*:/" + pkg + "/dao/applicationContext-*.xml",
+                             "classpath*:/" + pkg + "/service/applicationContext-service.xml",
+                             "classpath*:META-INF/applicationContext-*.xml"};
     }
 
     public void testAddExistingUser() throws Exception {
-        if (log.isDebugEnabled()) {
-            log.debug("entered 'testAddExistingUser' method");
-        }
+        logger.debug("entered 'testAddExistingUser' method");
 
-        User user = manager.getUser("tomcat");
+        User user = manager.getUser("1");
         // change unique keys
         user.setUsername("foo");
         user.setEmail("bar");
@@ -47,8 +32,8 @@ public class UserExistsExceptionTest extends BaseManagerTestCase {
         // first save should succeed
         manager.saveUser(user);
         
-        // set the version to null - this is the new record indicator
-        user.setVersion(null);
+        // set the id to null - this is the new record indicator
+        user.setId(null);
         
         // try saving as new user, this should fail
         try {

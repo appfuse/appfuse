@@ -29,14 +29,15 @@ import org.apache.commons.lang.builder.ToStringStyle;
 public class User extends BaseObject implements Serializable, UserDetails {
     private static final long serialVersionUID = 3832626162173359411L;
 
-    protected String username;                    // assigned primary key
+    protected Long id;
+    protected String username;                    // required
     protected String password;                    // required
     protected String confirmPassword;
-    protected String firstName;                    // required
+    protected String firstName;                   // required
     protected String lastName;                    // required
     protected Address address = new Address();
     protected String phoneNumber;
-    protected String email;                        // required; unique
+    protected String email;                       // required; unique
     protected String website;
     protected String passwordHint;
     protected Integer version;
@@ -53,7 +54,14 @@ public class User extends BaseObject implements Serializable, UserDetails {
     }
 
     /**
-     * @hibernate.id length="20" generator-class="assigned" unsaved-value="version"
+     * @hibernate.id column="id" generator-class="native" unsaved-value="null"
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * @hibernate.property length="50" not-null="true" unique="true"
      */
     public String getUsername() {
         return username;
@@ -128,8 +136,8 @@ public class User extends BaseObject implements Serializable, UserDetails {
 
     /**
      * @hibernate.set table="user_role" cascade="save-update" lazy="false"
-     * @hibernate.collection-key column="username"
-     * @hibernate.collection-many-to-many class="org.appfuse.model.Role" column="role_name"
+     * @hibernate.collection-key column="user_id"
+     * @hibernate.collection-many-to-many class="org.appfuse.model.Role" column="role_id"
      */
     public Set getRoles() {
         return roles;
@@ -204,6 +212,10 @@ public class User extends BaseObject implements Serializable, UserDetails {
      */
     public boolean isCredentialsNonExpired() {
         return !credentialsExpired;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     /**

@@ -96,15 +96,18 @@ public class BaseDaoiBATIS extends SqlMapClientDaoSupport implements Dao {
     
     protected void prepareObjectForSaveOrUpdate(Object o) {
         try {
-            String fieldName = getPrimaryKeyFieldName(o);
-            if (fieldName.equals("version")) {
-                String setterMethod = "set" + Character.toUpperCase(fieldName.charAt(0)) + fieldName.substring(1);
-                Method setMethod = o.getClass().getMethod(setterMethod, new Class[]{Integer.class});
-                Object value = getPrimaryKeyValue(o);
-                if (value == null) {
-                    setMethod.invoke(o, new Object[]{new Integer(1)});
-                } else {
-                    setMethod.invoke(o, new Object[]{new Integer(((Integer) value).intValue()+1)});
+            Field fieldlist[] = o.getClass().getDeclaredFields();
+            for (int i = 0; i < fieldlist.length; i++) {
+                Field fld = fieldlist[i];
+                String fieldName = fld.getName();
+                if (fieldName.equals("version")) {
+                    Method setMethod = o.getClass().getMethod("setVersion", new Class[]{Integer.class});
+                    Object value = o.getClass().getMethod("getVersion", null).invoke(o, null);
+                    if (value == null) {
+                        setMethod.invoke(o, new Object[]{new Integer(1)});
+                    } else {
+                        setMethod.invoke(o, new Object[]{new Integer(((Integer) value).intValue()+1)});
+                    }
                 }
             }
         } catch (Exception e) {

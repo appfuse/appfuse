@@ -24,17 +24,17 @@ import org.springframework.orm.ObjectRetrievalFailureException;
  */
 public class UserDaoiBatis extends BaseDaoiBATIS implements UserDao, UserDetailsService {
     /**
-     * Get user by username.
+     * Get user by id.
      *
-     * @param username the user's username
+     * @param userId the user's id
      * @return a populated user object
      */
-    public User getUser(String username) {
-        User user = (User) getSqlMapClientTemplate().queryForObject("getUser", username);
+    public User getUser(Long userId) {
+        User user = (User) getSqlMapClientTemplate().queryForObject("getUser", userId);
 
         if (user == null) {
             logger.warn("uh oh, user not found...");
-            throw new ObjectRetrievalFailureException(User.class, username);
+            throw new ObjectRetrievalFailureException(User.class, userId);
         } else {
             List roles = getSqlMapClientTemplate().queryForList("getUserRoles", user);
             user.setRoles(new HashSet(roles));
@@ -65,8 +65,8 @@ public class UserDaoiBatis extends BaseDaoiBATIS implements UserDao, UserDetails
      * Convenience method to delete roles
      * @param user
      */
-    private void deleteUserRoles(final String username) {
-        getSqlMapClientTemplate().update("deleteUserRoles", username);
+    private void deleteUserRoles(final Long userId) {
+        getSqlMapClientTemplate().update("deleteUserRoles", userId);
     }
 
     private void addUserRoles(final User user) {
@@ -74,8 +74,8 @@ public class UserDaoiBatis extends BaseDaoiBATIS implements UserDao, UserDetails
             for (Iterator it = user.getRoles().iterator(); it.hasNext();) {
                 Role role = (Role) it.next();
                 Map newRole = new HashMap();
-                newRole.put("username", user.getUsername());
-                newRole.put("roleName", role.getName());
+                newRole.put("userId", user.getId());
+                newRole.put("roleId", role.getId());
 
                 List userRoles = getSqlMapClientTemplate().queryForList("getUserRoles", user.getUsername());
 
@@ -90,34 +90,41 @@ public class UserDaoiBatis extends BaseDaoiBATIS implements UserDao, UserDetails
      * @see org.appfuse.dao.UserDao#saveUser(org.appfuse.model.User)
      */
     public void saveUser(final User user) {
-        if (user.getVersion() == null) {
-            user.setVersion(new Integer(1));
-            getSqlMapClientTemplate().update("addUser", user);
+        prepareObjectForSaveOrUpdate(user);
+        
+        if (user.getId() == null) {
+            Long id = (Long) getSqlMapClientTemplate().insert("addUser", user);
+            user.setId(id);
             addUserRoles(user);
         } else {
-            user.setVersion(new Integer(user.getVersion().intValue()+1));
             getSqlMapClientTemplate().update("updateUser", user);
-            deleteUserRoles(user.getUsername());
+            deleteUserRoles(user.getId());
             addUserRoles(user);
         }
     }
 
     /**
-     * @see org.appfuse.dao.UserDao#removeUser(java.lang.String)
+     * @see org.appfuse.dao.UserDao#removeUser(java.lang.Long)
      */
-    public void removeUser(String username) {
-        deleteUserRoles(username);
-        getSqlMapClientTemplate().update("deleteUser", username);
+    public void removeUser(Long userId) {
+        deleteUserRoles(userId);
+        getSqlMapClientTemplate().update("deleteUser", userId);
     }
     
     /** 
      * @see org.acegisecurity.userdetails.UserDetailsService#loadUserByUsername(java.lang.String)
      */
      public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-         try {
-             return getUser(username);
-         } catch (ObjectRetrievalFailureException e) {
+         User user = (User) getSqlMapClientTemplate().queryForObject("getUserByUsername", username);
+
+         if (user == null) {
+             logger.warn("uh oh, user not found...");
              throw new UsernameNotFoundException("user '" + username + "' not found...");
+         } else {
+             List roles = getSqlMapClientTemplate().queryForList("getUserRoles", user);
+             user.setRoles(new HashSet(roles));
          }
+
+         return user;
      }
 }

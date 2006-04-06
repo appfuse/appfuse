@@ -12,17 +12,17 @@ public class RoleDaoTest extends BaseDaoTestCase {
     }
 
     public void testGetRoleInvalid() throws Exception {
-        role = dao.getRole("badrolename");
+        role = dao.getRoleByName("badrolename");
         assertNull(role);
     }
 
     public void testGetRole() throws Exception {
-        role = dao.getRole(Constants.USER_ROLE);
+        role = dao.getRoleByName(Constants.USER_ROLE);
         assertNotNull(role);
     }
 
     public void testUpdateRole() throws Exception {
-        role = dao.getRole("user");
+        role = dao.getRoleByName("user");
         log.debug(role);
         role.setDescription("test descr");
 
@@ -41,7 +41,7 @@ public class RoleDaoTest extends BaseDaoTestCase {
 
         endTransaction();
 
-        role = dao.getRole("testrole");
+        role = dao.getRoleByName("testrole");
         assertNull(role);
     }
 }

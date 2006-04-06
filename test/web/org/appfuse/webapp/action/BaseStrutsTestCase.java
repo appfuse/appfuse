@@ -81,7 +81,7 @@ public abstract class BaseStrutsTestCase extends MockStrutsTestCase {
         
         // populate the userForm and place into session
         UserManager userMgr = (UserManager) ctx.getBean("userManager");
-        user = userMgr.getUser("tomcat");
+        user = userMgr.getUserByUsername("tomcat");
 
         // change the port on the mailSender so it doesn't conflict with an 
         // existing SMTP server on localhost

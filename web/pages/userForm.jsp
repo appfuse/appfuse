@@ -1,6 +1,7 @@
 <%@ include file="/common/taglibs.jsp"%>
 
 <html:form action="saveUser" styleId="userForm" onsubmit="return validateUserForm(this)">
+<html:hidden property="id"/>
 <html:hidden property="version"/>
 <input type="hidden" name="from" value="<c:out value="${param.from}"/>"/>
 
@@ -39,17 +40,9 @@
         <th>
             <appfuse:label key="userForm.username"/>
         </th>
-        <td style="height: 20px">
-        <c:choose>
-            <c:when test="${empty userForm.username}">
-                <html:text property="username" styleId="username"/>
-                <html:errors property="username"/>
-            </c:when>
-            <c:otherwise>
-                <c:out value="${userForm.username}"/>
-                <html:hidden property="username" styleId="username"/>
-            </c:otherwise>
-        </c:choose>
+        <td>
+            <html:text property="username" styleId="username"/>
+            <html:errors property="username"/>
         </td>
     </tr>
     <c:if test="${cookieLogin != 'true'}">
