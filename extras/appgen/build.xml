@@ -266,12 +266,11 @@
     </target>
 
     <target name="merge-detailed" depends="merge-common">
-        <delete dir="generic"/>
+        <delete dir="${generated.dir}/generic"/>
         <echo>Copying all .java files into main project, overwrite="${overwrite}"</echo>
         <copy todir="../.." overwrite="${overwrite}" includeEmptyDirs="false">
             <fileset dir="${generated.dir}">
                 <include name="**/*.java"/>
-                <include name="**/*SQL.xml"/>
                 <include name="**/dao/**/${model.name}Dao.java"/>
                 <exclude name="**/Constants-*.java"/>
                 <exclude name="generic/**"/>
@@ -424,6 +423,7 @@
         <echo>Copying iBATIS DAOs...</echo>
         <copy todir="../.." overwrite="${overwrite}">
             <fileset dir="${generated.dir}">
+                <include name="**/*SQL.xml"/>
                 <include name="**/dao/ibatis/**/*.java"/>
             </fileset>
         </copy>
