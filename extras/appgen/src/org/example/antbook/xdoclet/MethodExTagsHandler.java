@@ -78,7 +78,7 @@ public class MethodExTagsHandler extends MethodTagsHandler {
         XMethod method = super.getCurrentMethod();
         XMethod setter = method.getMutator();
 
-        String value = randomValueForSetter();
+        String value = "\"" + randomValueForDbUnit() + "\"";
         if (setter.getPropertyType().getType().isA("java.util.Date")) {
             value = "\"" + getDate(new Date(), uiDatePattern) + "\"";
         }
