@@ -354,13 +354,15 @@
         <replace file="${webTests}" token="&lt;!--${model.name}-END--&gt;" value="REGULAR-END"/>
         <replaceregexp file="${webTests}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
 
-        <!-- Add to the bottom of the list of tests -->   
+        <!-- Add to the bottom of the list of tests -->
         <replace file="${webTests}" value="${web.tests}" token="&lt;/project&gt;"/>
 
         <!-- Add to run-all-tests target -->
-        <replace file="${webTests}" value=",${model.name}Tests&quot;">
+        <replace file="${webTests}">
             <replacetoken><![CDATA["
         description="Call and executes all test cases (targets)"]]></replacetoken>
+            <replacevalue><![CDATA[,${model.name}Tests"
+        description="Call and executes all test cases (targets)""]]></replacevalue>
         </replace>
     </target>
         
