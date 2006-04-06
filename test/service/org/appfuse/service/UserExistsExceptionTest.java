@@ -2,6 +2,7 @@ package org.appfuse.service;
 
 import org.appfuse.Constants;
 import org.appfuse.model.User;
+import org.springframework.beans.BeanUtils;
 import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
 import org.springframework.util.ClassUtils;
 
@@ -32,12 +33,14 @@ public class UserExistsExceptionTest extends AbstractTransactionalDataSourceSpri
         // first save should succeed
         manager.saveUser(user);
         
-        // set the id to null - this is the new record indicator
-        user.setId(null);
+        // create new object with null id - Hibernate doesn't like setId(null)
+        User user2 = new User();
+        BeanUtils.copyProperties(user, user2);
+        user2.setId(null);
         
         // try saving as new user, this should fail
         try {
-            manager.saveUser(user);
+            manager.saveUser(user2);
             fail("Duplicate user didn't throw UserExistsException");
         } catch (UserExistsException uee) {
             assertNotNull(uee);
