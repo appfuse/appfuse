@@ -668,8 +668,12 @@
             <equals arg1="${database.type}" arg2="mysql"/>
             <then>
                 <echo message="Detected MySQL, creating database..."/>
-                <echo>Creating database with: ${database.type}-create.sql</echo>
+                <echo>Creating '${database.name}' database with: ${database.type}-create.sql</echo>
                 <echo>URL: ${database.admin.url}</echo>
+                <filter token="dbname" value="${database.name}"/>
+                <copy tofile="${build.dir}/dao/gen/${database.type}-create.sql" overwrite="true" filtering="true">
+                    <fileset file="metadata/sql/${database.type}-create.sql"/>
+                </copy>
                 <sql
                     driver="${database.driver_class}"
                     url="${database.admin.url}"
@@ -680,7 +684,7 @@
                         <pathelement location="${database.jar}"/>
                     </classpath>
 
-                    <fileset dir="metadata/sql">
+                    <fileset dir="${build.dir}/dao/gen">
                         <include name="${database.type}-create.sql"/>
                     </fileset>
                 </sql>
