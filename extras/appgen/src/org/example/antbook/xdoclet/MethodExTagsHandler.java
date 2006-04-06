@@ -20,12 +20,12 @@ import xjavadoc.*;
  *
  */
 public class MethodExTagsHandler extends MethodTagsHandler {
-    //
+
+    XClass currentClass = getCurrentClass();
     private static String datePattern = "yyyy-MM-dd";
     private static String uiDatePattern = "MM/dd/yyyy";
     private static final List numericTypes = new ArrayList();
-    private static final String rootClassName = getCurrentClass().getName();
-    private static final String rootClassNameLower = Character.toLowerCase(rootClassName.charAt(0)) + rootClassName.substring(1);
+    private String rootClassName = "";
     private String curprefix = "";
 
     static {
@@ -43,27 +43,6 @@ public class MethodExTagsHandler extends MethodTagsHandler {
         numericTypes.add("byte");
     }
 
-    public String className() {
-        return rootClassName;
-    }
-
-
-    /**
-     * Returns the transformed return type of the current method, without java.lang.
-     *
-     * @param attributes
-     * @return                      Description of the Returned Value
-     * @exception XDocletException  Description of Exception
-     * @doc.tag                     type="content"
-     */
-    public String methodType(Properties attributes) throws XDocletException {
-        String name = transformedMethodType(attributes);
-        if (name.startsWith("java.lang.")) {
-            name = name.substring(10);
-        }
-        return name;
-    }
-
     /**
      * Iterates over all methods of current class and evaluates the body of the
      * tag for each method. <br>
@@ -72,59 +51,65 @@ public class MethodExTagsHandler extends MethodTagsHandler {
      *
      * @see xdoclet.tagshandler.MethodTagsHandler#forAllMethods(java.lang.String,
      *      java.util.Properties)
+     *
+     * @param template
+     * @param attributes
+     *
+     * @throws XDocletException
      */
-    public void forAllMethods(String template, Properties attributes)
-    throws XDocletException {
+    public void forAllMethods(String template, Properties attributes) throws XDocletException {
+        XClass currentClass = getCurrentClass();
 
-
-        if (getCurrentClass() == null) {
+        if (currentClass == null) {
             throw new XDocletException("currentClass == null!!!");
         }
 
-        forAllMembersEx(getCurrentClass(), template, attributes, FOR_METHOD, "");
+        rootClassName = classNameLower();
+        forAllMembersEx(currentClass, template, attributes, FOR_METHOD, "");
     }
 
     /**
      * Method to print out an ActionForm, setter and parameter value
      *
-     * @return @throws
-     *         XDocletException
+     * @return
+     * @throws XDocletException
      */
     public String formSetterWithValue() throws XDocletException {
         XMethod method = super.getCurrentMethod();
         XMethod setter = method.getMutator();
-        
+
         String value = randomValueForSetter();
         if (setter.getPropertyType().getType().isA("java.util.Date")) {
             value = "\"" + getDate(new Date(), uiDatePattern) + "\"";
         }
 
-        return rootClassNameLower + "Form." + curprefix + setter.getName() + "(" + value + ");";
+        rootClassName = classNameLower();
+        return rootClassName + "Form." + curprefix + setter.getName() + "(" + value + ");";
     }
 
     /**
      * Method to print out a class, setter and a parameter value
      *
-     * @return @throws
-     *         XDocletException
+     * @return
+     * @throws XDocletException
      */
     public String setterWithValue() throws XDocletException {
         XMethod method = super.getCurrentMethod();
         XMethod setter = method.getMutator();
 
-        return rootClassNameLower + "." + curprefix + setter.getName() + "(" + randomValueForSetter() + ");";
+        return classNameLower() + "." + curprefix + setter.getName() + "(" + randomValueForSetter() + ");";
     }
-    
+
     /**
      * Method to print out a random value for use in setting WebTest parameters
      *
-     * @return 
+     * @return
      * @throws XDocletException
      */
     public String randomValueForWebTest() throws XDocletException {
         XMethod method = super.getCurrentMethod();
         XMethod setter = method.getMutator();
-        
+
         String value = randomValueForDbUnit();
         if (setter.getPropertyType().getType().isA("java.util.Date")) {
             value = getDate(new Date(), uiDatePattern);
@@ -151,17 +136,14 @@ public class MethodExTagsHandler extends MethodTagsHandler {
      * @throws XDocletException
      */
     public String idField(Properties attributes) throws XDocletException {
-        XClass currentClass = getCurrentClass();
         Collection members = null;
+
         members = currentClass.getMethods(true);
 
-        String result = "";
-
-        for (Iterator j = members.iterator(); j.hasNext();) {
-            XMember member = (XMember) j.next();
-            setCurrentMethod((XMethod) member);
-
-            XMethod getter = (XMethod) member;
+        for (Iterator j = members.iterator(); j.hasNext(); ) {
+            XMember member = (XMember)j.next();
+            setCurrentMethod((XMethod)member);
+            XMethod getter = (XMethod)member;
 
             if (super.isGetterMethod(getter)) {
                 Properties pro = new Properties();
@@ -174,9 +156,19 @@ public class MethodExTagsHandler extends MethodTagsHandler {
                 setCurrentClass(member.getContainingClass());
             }
         }
+        return methodInfo(attributes);
+    }
 
+    /**
+     * Method methodInfo
+     * @param attributes
+     * @return
+     * @throws XDocletException
+     */
+    public String methodInfo(Properties attributes) throws XDocletException {
         String type = attributes.getProperty("getType");
         XMethod getter = super.getCurrentMethod();
+        String  result = "";
 
         if ("propertyName".equals(type)) {
             result = getter.getPropertyName();
@@ -186,11 +178,68 @@ public class MethodExTagsHandler extends MethodTagsHandler {
             result = getter.getMutator().getName();
         } else if ("propertyType".equals(type)) {
             result = getter.getPropertyType().getType().getTransformedName();
+        } else if ("columnName".equals(type)) {
+            result = columnName(attributes);
+        } else if ("javaType".equals(type)) {
+            result = getter.getPropertyType().getType().getQualifiedName();
+        } else if ("jdbcType".equals(type)) {
+            result = jdbcType(attributes);
         } else {
             result = getter.getPropertyName();
         }
 
         return result;
+    }
+
+    /**
+     * Method columnName
+     * @param attributes
+     * @return
+     *
+     * @throws XDocletException
+     */
+    public String columnName(Properties attributes) throws XDocletException {
+        Properties prop = new Properties();
+
+        prop.setProperty("tagName", "hibernate.property");
+        prop.setProperty("paramName", "column");
+
+        String column = methodTagValue(prop);
+
+        if ((column == null) || (column.trim().length() < 1)) {
+            prop.setProperty("tagName", "hibernate.id");
+            column = methodTagValue(prop);
+        }
+
+        return column;
+    }
+
+    /**
+     * Method jdbcType
+     * @param props
+     * @return
+     * @throws XDocletException
+     */
+    public String jdbcType(Properties props) throws XDocletException {
+        String jdbcType = "VARCHAR";
+
+        if (super.getCurrentMethod() != null) {
+            String javaType = super.getCurrentMethod().getPropertyType().getType().getQualifiedName().toLowerCase();
+
+            if (javaType.indexOf("date") > 0) {
+                jdbcType = "TIMESTAMP";
+            } else if (javaType.indexOf("timestamp") > 0) {
+                jdbcType = "TIMESTAMP";
+            } else if ((javaType.indexOf("int") > 0) || (javaType.indexOf("long") > 0) || (javaType.indexOf("short") > 0)) {
+                jdbcType = "INTEGER";
+            } else if (javaType.indexOf("double") > 0) {
+                jdbcType = "DOUBLE";
+            } else if (javaType.indexOf("float") > 0) {
+                jdbcType = "FLOAT";
+            }
+        }
+
+        return jdbcType;
     }
 
     /**
@@ -202,9 +251,8 @@ public class MethodExTagsHandler extends MethodTagsHandler {
      * @param prefix
      * @throws XDocletException
      */
-    protected void forAllMembersEx(XClass currentClass, String template,
-                                   Properties attributes, int forType,
-                                   String prefix) throws XDocletException {
+    protected void forAllMembersEx(XClass currentClass, String template, Properties attributes, int forType, String prefix)
+    throws XDocletException {
         boolean superclasses = TypeConversionUtil.stringToBoolean(attributes.getProperty("superclasses"), false);
         boolean sort = TypeConversionUtil.stringToBoolean(attributes.getProperty("sort"), true);
 
@@ -260,6 +308,28 @@ public class MethodExTagsHandler extends MethodTagsHandler {
         }
 
         setCurrentClass(currentClass);
+    }
+
+    /**
+     * Method className
+     *
+     * @return
+     */
+    public String className() {
+        return currentClass.getName();
+    }
+
+    /**
+     * Method classNameLower
+     * @return
+     */
+    public String classNameLower() {
+        String name = currentClass.getName();
+        char c = name.charAt(0);
+
+        c = Character.toLowerCase(c);
+
+        return c + name.substring(1);
     }
 
     /**
@@ -418,7 +488,7 @@ public class MethodExTagsHandler extends MethodTagsHandler {
     private static final String getDate(Date aDate) {
         return getDate(aDate, datePattern);
     }
-    
+
     private static final String getDate(Date aDate, String pattern) {
         SimpleDateFormat df = null;
         String returnValue = "";

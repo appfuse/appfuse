@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.appfuse.dao.RoleDAO;
 import org.appfuse.model.Role;
-import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
-
 
 /**
  * This class interacts with iBatis's SQL Maps to save/delete and
@@ -17,7 +15,7 @@ import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
-public class RoleDAOiBatis extends SqlMapClientDaoSupport implements RoleDAO {
+public class RoleDAOiBatis extends BaseDAOiBATIS implements RoleDAO {
 
     public List getRoles(Role role) {
         return getSqlMapClientTemplate().queryForList("getRoles", null);

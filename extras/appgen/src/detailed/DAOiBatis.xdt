@@ -1,0 +1,58 @@
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>
+<XDtTagDef:tagDef namespace="MethodEx" handler="org.example.antbook.xdoclet.MethodExTagsHandler"/>
+package <XDtForm:parentPackageName/>.dao.ibatis;
+
+import java.util.List;
+
+import <XDtPackage:packageName/>.<XDtClass:className/>;
+import <XDtForm:parentPackageName/>.dao.<XDtClass:className/>DAO;
+
+import org.springframework.orm.ObjectRetrievalFailureException;
+
+public class <XDtClass:className/>DAOiBatis extends BaseDAOiBATIS implements <XDtClass:className/>DAO {
+
+    /**
+     * @see <XDtForm:parentPackageName/>.dao.<XDtClass:className/>DAO#get<XDtClass:className/>s(<XDtPackage:packageName/>.<XDtClass:className/>)
+     */
+    public List get<XDtClass:className/>s(final <XDtClass:className/> <XDtForm:classNameLower/>) {
+          return getSqlMapClientTemplate().queryForList("get<XDtClass:className/>s", null);
+    }
+
+    /**
+     * @see <XDtForm:parentPackageName/>.dao.<XDtClass:className/>DAO#get<XDtClass:className/>(<XDtMethodEx:idField getType="propertyType"/> <XDtMethodEx:idField getType="propertyName"/>)
+     */
+    public <XDtClass:className/> get<XDtClass:className/>(<XDtMethodEx:idField getType="propertyType"/> <XDtMethodEx:idField getType="propertyName"/>) {
+        <XDtClass:className/> <XDtForm:classNameLower/> = (<XDtClass:className/>) getSqlMapClientTemplate().queryForObject("get<XDtClass:className/>", <XDtMethodEx:idField getType="propertyName"/>);
+
+        if (<XDtForm:classNameLower/> == null) {
+            throw new ObjectRetrievalFailureException(<XDtClass:className/>.class, <XDtMethodEx:idField getType="propertyName"/>);
+        }
+
+        return <XDtForm:classNameLower/>;
+    }
+
+    /**
+     * @see <XDtForm:parentPackageName/>.dao.<XDtClass:className/>DAO#save<XDtClass:className/>(<XDtClass:className/> <XDtForm:classNameLower/>)
+     */    
+    public void save<XDtClass:className/>(final <XDtClass:className/> <XDtForm:classNameLower/>) {
+        <XDtMethodEx:idField getType="propertyType"/> <XDtMethodEx:idField getType="propertyName"/> = <XDtForm:classNameLower/>.<XDtMethodEx:idField getType="getterName"/>();
+        
+        // check for new record
+        if (<XDtMethodEx:idField getType="propertyName"/> == null) {
+            <XDtMethodEx:idField getType="propertyName"/> = (<XDtMethodEx:idField getType="propertyType"/>) getSqlMapClientTemplate().insert("add<XDtForm:className/>", <XDtForm:classNameLower/>);
+        } else {
+            getSqlMapClientTemplate().update("update<XDtForm:className/>", <XDtForm:classNameLower/>);
+        }
+        
+        if( <XDtMethodEx:idField getType="propertyName"/> == null ) {
+            throw new ObjectRetrievalFailureException(<XDtClass:className/>.class, <XDtMethodEx:idField getType="propertyName"/>);
+        }
+    }
+
+    /**
+     * @see <XDtForm:parentPackageName/>.dao.<XDtClass:className/>DAO#remove<XDtClass:className/>(<XDtMethodEx:idField getType="propertyType"/> <XDtMethodEx:idField getType="propertyName"/>)
+     */
+    public void remove<XDtClass:className/>(<XDtMethodEx:idField getType="propertyType"/> <XDtMethodEx:idField getType="propertyName"/>) {
+        getSqlMapClientTemplate().update("delete<XDtClass:className/>", <XDtMethodEx:idField getType="propertyName"/>);
+    }
+}

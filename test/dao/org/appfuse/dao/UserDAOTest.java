@@ -21,7 +21,7 @@ public class UserDAOTest extends BaseDAOTestCase {
 
     public void testGetUserInvalid() throws Exception {
         try {
-            User user = dao.getUser("badusername");
+            dao.getUser("badusername");
             fail("'badusername' found in database, failing test...");
         } catch (DataAccessException d) {
             assertTrue(d != null);

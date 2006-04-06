@@ -1,16 +1,14 @@
-<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>
-<XDtTagDef:tagDef namespace="MethodEx" handler="org.example.antbook.xdoclet.MethodExTagsHandler"/>
-package <XDtForm:parentPackageName/>.dao;
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><XDtTagDef:tagDef namespace="MethodEx" handler="org.example.antbook.xdoclet.MethodExTagsHandler"/>package <XDtForm:parentPackageName/>.dao;
 
 import java.util.List;
 
-import <XDtPackage:packageName/>.<XDtForm:className/>;
+import <XDtPackage:packageName/>.<XDtClass:className/>;
 
 import org.springframework.orm.ObjectRetrievalFailureException;
 
-public class <XDtForm:className/>DAOTest extends BaseDAOTestCase {
+public class <XDtClass:className/>DAOTest extends BaseDAOTestCase {
     private <XDtMethodEx:idField getType="propertyType"/> <XDtForm:classNameLower/>Id = new <XDtMethodEx:idField getType="propertyType"/>("1");
-    private <XDtForm:className/>DAO dao = null;
+    private <XDtClass:className/>DAO dao = null;
 
     public void set<XDtForm:className/>DAO(<XDtForm:className/>DAO dao) {
         this.dao = dao;

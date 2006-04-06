@@ -101,22 +101,6 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar</replacevalue>
         <copy todir="../../src" overwrite="true">
             <fileset dir="src"/>
         </copy>
-        <echo level="info">Removing Hibernate-specific tests</echo>
-        <delete>
-            <fileset dir="../../test" includes="**/Generic*Test.java"/>
-        </delete>
-        <echo level="info">Removing generic "manager" bean definition</echo>
-        <replace file="../../src/service/org/appfuse/service/applicationContext-service.xml">
-        <replacetoken><![CDATA[
-    <!-- Generic manager that can be used to do basic CRUD operations on any objects -->
-    <bean id="manager" parent="txProxyTemplate">
-        <property name="target">
-            <bean class="org.appfuse.service.impl.BaseManager">
-                <property name="DAO" ref="dao"/>
-            </bean>
-        </property>
-    </bean>]]></replacetoken>
-        </replace>
     </target>
 
     <!-- =================================================================== -->
@@ -419,7 +403,8 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
         <!-- I'm purposely not removing the hibernate stuff from the "javadoc" target,
             it's not causing any harm, so I figured I'd leave it in. -->
     </target>
- 
+
+    <property name="web.framework" value=""/>
     <!-- =================================================================== -->
     <!-- Creates new project, installs iBATIS, removes Hibernate and tests   -->
     <!-- =================================================================== -->
@@ -433,10 +418,8 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
         <!-- New project created, install iBATIS, remove Hibernate and run tests -->
         <ant dir="../../../${app.name}/extras/ibatis" target="install" inheritAll="false"/>
         <ant dir="../../../${app.name}/extras/ibatis" target="uninstall-hibernate" inheritAll="false"/>
-        <ant dir="../../../${app.name}" target="setup" inheritAll="false"/>
+        <ant dir="../../../${app.name}" target="setup-db" inheritAll="false"/>
         <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
-
-        <echo>You can start Tomcat to view ${app.name} manually.</echo>
     </target>
 
     <!-- =================================================================== -->
@@ -453,14 +436,34 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
 
         <!-- New project created, install iBATIS and run tests -->
         <ant dir="../../../${app.name}/extras/ibatis" target="install" inheritAll="false"/>
-        <ant dir="../../../${app.name}" target="setup" inheritAll="false"/>
+        <ant dir="../../../${app.name}" target="setup-db" inheritAll="false"/>
         <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
-
-        <echo>You can start Tomcat to view ${app.name} manually.</echo>
     </target>
 
+    <!-- =================================================================== -->
+    <!-- Creates new project, installs iBATIS and tests appgen               -->
+    <!-- =================================================================== -->
+    <target name="test-appgen" description="Creates appfuse-ibatisgen and tests appgen">
+        <property name="app.name" value="appfuse-ibatisgen"/>
+        <property name="db.name" value="appfuse"/>
+        <property name="new.pkg.name" value="org.appfuse"/>
+        <delete dir="../../../${app.name}"/>
+        <ant dir="../.." target="new"/>
+
+        <!-- New project created, install iBATIS and remove Hibernate -->
+        <ant dir="../../../${app.name}/extras/ibatis" target="install" inheritAll="false"/>
+        <ant dir="../../../${app.name}/extras/ibatis" target="uninstall-hibernate" inheritAll="false"/>
+        <!-- Gen code and run tests -->
+        <ant dir="../../../${app.name}/extras/appgen" target="test-all" inheritAll="false">
+            <property name="web.framework" value=""/>
+            <property name="appgen.type" value="pojo"/>
+            <property name="model.name" value="Person"/>
+        </ant>   
+    </target>
+    
     <target name="test-all" depends="test"
         description="Tests iBATIS install with and without Hibernate">
         <antcall target="test-with-hibernate" inheritAll="false"/>
+        <antcall target="test-appgen" inheritAll="false"/>
     </target>
 </project>

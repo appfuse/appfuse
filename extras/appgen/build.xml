@@ -8,17 +8,34 @@
     <property name="lib.dir" location="../../lib"/>
     <property file="${lib.dir}/lib.properties"/>
 
-    <import file="../../properties.xml"/>
+    <path id="xdoclet.classpath">
+        <pathelement location="${log4j.jar}"/>
+        <pathelement location="${commons-logging.jar}"/>
+        <pathelement location="${commons-collections.jar}"/>
+        <fileset dir="${xdoclet.dir}" includes="*.jar"/>
+    </path>
 
-    <property name="model.src.dir" location="../../src/dao"/>
     <property name="overwrite" value="false"/>
-    <property name="gen.dir" value="gen"/> 
-    <property name="app.package" value="org/appfuse"/>
+    <property name="gen.dir" value="gen"/>
+    <property name="app.module" value=""/>
+
+    <condition property="app.module.dash" value="-${app.module}">
+        <not><equals arg1="${app.module}" arg2="" trim="true"/></not>
+    </condition>
+    <condition property="app.module.slash" value="/${app.module}">
+        <not><equals arg1="${app.module}" arg2="" trim="true"/></not>
+    </condition>
+    
+    <property name="app.module.dash" value=""/>
+    <property name="app.module.slash" value=""/>
+    <property name="app.package" value="org/appfuse${app.module.slash}"/>
+    <property name="model.src.dir" location="../../src/dao"/>
+    <property name="module.src.dir" value="src"/>
+    <property name="module.test.dir" value="test"/>
 
     <target name="init">
-
         <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="${ant-contrib.jar}"/>
-    	<taskdef name="stringutil" classname="ise.antelope.tasks.StringUtilTask">
+        <taskdef name="stringutil" classname="ise.antelope.tasks.StringUtilTask">
             <classpath>
                 <fileset dir="${ant-contrib.dir}" includes="*.jar"/>
             </classpath>
@@ -35,19 +52,19 @@
 </echo>
         <echo/>
         <input message="Would you like to generate code from a table or POJO? "
-        	validargs="table,pojo" addproperty="appgen.type"/>
+            validargs="table,pojo" addproperty="appgen.type"/>
         <input message="What is the name of your ${appgen.type} (i.e. person)?" addproperty="object.name"/>
         <fail unless="object.name">
             You must specify a name for your ${appgen.type}.
         </fail>
         <if>
-        	<equals arg1="${appgen.type}" arg2="table"/>
-        	<then>
-        		<echo>Running Middlegen to generate POJO...</echo>
-        		<ant dir="../middlegen" inheritAll="true">
-        			<property name="table.name" value="${object.name}"/>
-        		</ant>
-        	</then>
+            <equals arg1="${appgen.type}" arg2="table"/>
+            <then>
+                <echo>Running Middlegen to generate POJO...</echo>
+                <ant dir="../middlegen" inheritAll="true">
+                    <property name="table.name" value="${object.name}"/>
+                </ant>
+            </then>
         </if>
 
         <stringutil string="${object.name}" property="remainder">
@@ -105,62 +122,82 @@
             <template templateFile="${template.dir}/detailed/DAOTest.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/test/dao/${app.package}/dao/{0}DAOTest.java"/>
+                      destinationFile="${gen.dir}/${module.test.dir}/dao/${app.package}/dao/{0}DAOTest.java"/>
             <!-- DAO Interface -->   
             <template templateFile="${template.dir}/detailed/DAO.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/src/dao/${app.package}/dao/{0}DAO.java"/>
+                      destinationFile="${gen.dir}/${module.src.dir}/dao/${app.package}/dao/{0}DAO.java"/>
             <!-- Hibernate DAO Implementation -->   
             <template templateFile="${template.dir}/detailed/DAOHibernate.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/src/dao/${app.package}/dao/hibernate/{0}DAOHibernate.java"/>
-            <!-- Spring DAO Configuration -->   
+                      destinationFile="${gen.dir}/${module.src.dir}/dao/${app.package}/dao/hibernate/{0}DAOHibernate.java"/>
+            <!-- iBatis DAO Implementation -->   
+            <template templateFile="${template.dir}/detailed/DAOiBatis.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/${module.src.dir}/dao/${app.package}/dao/ibatis/{0}DAOiBatis.java"/>
+            <!-- iBatis SQL Map Configuration -->   
+            <template templateFile="${template.dir}/detailed/sql-map-config.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/${module.src.dir}/dao/${app.package}/dao/ibatis/sql-map-config-{0}.xml"/>
+            <!-- iBatis SQL Map Implementation -->   
+            <template templateFile="${template.dir}/detailed/SQL.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/${module.src.dir}/dao/${app.package}/dao/ibatis/sql/{0}SQL.xml"/>
+            <!-- Spring Hibernate DAO Configuration -->   
             <template templateFile="${template.dir}/detailed/context-hibernate.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/src/dao/${app.package}/dao/hibernate/context-hibernate-{0}.xml"/> 
+                      destinationFile="${gen.dir}/${module.src.dir}/dao/${app.package}/dao/hibernate/context-hibernate-{0}.xml"/> 
+            <!-- Spring iBatis DAO Configuration -->   
+            <template templateFile="${template.dir}/detailed/context-ibatis.xdt"
+                      acceptAbstractClasses="false"
+                      prefixWithPackageStructure="false"
+                      destinationFile="${gen.dir}/${module.src.dir}/dao/${app.package}/dao/ibatis/context-ibatis-{0}.xml"/>
             <!-- Manager Test (uses jMock) -->   
             <template templateFile="${template.dir}/detailed/ManagerTest.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/test/service/${app.package}/service/{0}ManagerTest.java"/>
+                      destinationFile="${gen.dir}/${module.test.dir}/service/${app.package}/service/{0}ManagerTest.java"/>
             <!-- Manager Interface --> 
             <template templateFile="${template.dir}/detailed/Manager.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/src/service/${app.package}/service/{0}Manager.java"/>
+                      destinationFile="${gen.dir}/${module.src.dir}/service/${app.package}/service/{0}Manager.java"/>
             <!-- Manager Implementation -->    
             <template templateFile="${template.dir}/detailed/ManagerImpl.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/src/service/${app.package}/service/impl/{0}ManagerImpl.java"/>
+                      destinationFile="${gen.dir}/${module.src.dir}/service/${app.package}/service/impl/{0}ManagerImpl.java"/>
             <!-- Spring Manager Configuration --> 
             <template templateFile="${template.dir}/detailed/context-service.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/src/service/${app.package}/service/context-service-{0}.xml"/>
+                      destinationFile="${gen.dir}/${module.src.dir}/service/${app.package}/service/context-service-{0}.xml"/>
             <!-- Constant values -->   
             <template templateFile="${template.dir}/Constants.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/src/dao/${app.package}/Constants-{0}.java"/>
+                      destinationFile="${gen.dir}/${module.src.dir}/dao/${app.package}/Constants-{0}.java"/>
             <!-- Action Test -->
             <template templateFile="${template.dir}/ActionTest.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/test/web/${app.package}/webapp/action/{0}ActionTest.java"/>
+                      destinationFile="${gen.dir}/${module.test.dir}/web/${app.package}/webapp/action/{0}ActionTest.java"/>
             <!-- Detailed Action -->
             <template templateFile="${template.dir}/detailed/Action.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/src/web/${app.package}/webapp/action/{0}Action.java"/>
+                      destinationFile="${gen.dir}/${module.src.dir}/web/${app.package}/webapp/action/{0}Action.java"/>
             <!-- Generic Action -->
             <template templateFile="${template.dir}/generic/Action.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/generic/src/web/${app.package}/webapp/action/{0}Action.java"/>
+                      destinationFile="${gen.dir}/generic/${module.src.dir}/web/${app.package}/webapp/action/{0}Action.java"/>
             <!-- Sample data for DBUnit -->    
             <template templateFile="${template.dir}/sample-data.xdt"
                       acceptAbstractClasses="false"
@@ -170,7 +207,7 @@
             <template templateFile="${template.dir}/web-tests.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/test/web/web-tests-{0}.xml"/>    
+                      destinationFile="${gen.dir}/${module.test.dir}/web/web-tests-{0}.xml"/>    
             <!-- i18n entries -->
             <template templateFile="${template.dir}/FormKeys.xdt"
                       acceptAbstractClasses="false"
@@ -201,49 +238,215 @@
    
     <property name="generated.dir" value="${build.dir}/${gen.dir}"/>
     
-    <target name="install-src-detailed" depends="default">
+    <target name="merge-generic" depends="merge-common">
         <echo>Copying all .java files into main project, overwrite="${overwrite}"</echo>
-        <copy todir="../.." overwrite="${overwrite}">
+        <property name="install.generic" value="true"/>
+        <copy todir="../.." overwrite="${overwrite}" includeEmptyDirs="false">
+            <fileset dir="${generated.dir}">
+                <include name="test/**/web/**/*.java"/>
+                <include name="**/*SQL.xml"/>
+                <exclude name="**/Constants-*.java"/>
+                <exclude name="**/dao/**/dao/*ib*/*.java"/>
+            </fileset>
+            <fileset dir="${generated.dir}/generic">
+                <include name="**/*.java"/>
+                <exclude name="**/dao/**/*.java"/>
+            </fileset>
+        </copy>
+
+        <antcall target="merge-config">
+            <param name="gen.sub.dir" value="/generic"/>
+        </antcall>
+    </target>
+
+    <target name="merge-detailed" depends="merge-common">
+        <delete dir="generic"/>
+        <echo>Copying all .java files into main project, overwrite="${overwrite}"</echo>
+        <copy todir="../.." overwrite="${overwrite}" includeEmptyDirs="false">
             <fileset dir="${generated.dir}">
                 <include name="**/*.java"/>
+                <include name="**/*SQL.xml"/>
+                <include name="**/dao/**/${model.name}DAO.java"/>
                 <exclude name="**/Constants-*.java"/>
                 <exclude name="generic/**"/>
+                <exclude name="**/dao/**/dao/*ib*/*.java"/>
             </fileset>
         </copy>
         
-        <echo>Adding beans to Spring config files</echo>
-        <loadfile property="hibernate.context"
-            srcfile="${generated.dir}/src/dao/${app.package}/dao/hibernate/context-hibernate-${model.name}.xml"/>
-        <property name="hibernateConfig" location="../../src/dao/${app.package}/dao/hibernate/applicationContext-hibernate.xml"/>
+        <antcall target="merge-config">
+            <param name="gen.sub.dir" value=""/>
+        </antcall>
+    </target>
+
+    <target name="merge-common" depends="default">
+        <echo>Merging constant values into Constants.java</echo>
+        <!-- load snippet -->
+        <loadfile property="constants" srcfile="${generated.dir}/${module.src.dir}/dao/${app.package}/Constants-${model.name}.java"/>
+        <!-- load constants class -->
+        <property name="constantsClass" location="../../${module.src.dir}/dao/${app.package}/Constants.java"/>
+        <!-- remove previous constants -->
+        <replace file="${constantsClass}" token="//${model.name}-START" value="REGULAR-START"/>
+        <replace file="${constantsClass}" token="//${model.name}-END" value="REGULAR-END"/>
+        <replaceregexp file="${constantsClass}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
+        <!-- Add to the bottom of the list of constants -->
+        <replace file="${constantsClass}" value="${constants}" token="}"/>
+
+        <!-- Append contents of .properties file to application resources -->
+        <echo>Adding keys to ApplicationResources.properties</echo>
+        <!-- load snippet -->
+        <loadfile property="i18n.keys" srcfile="${generated.dir}/web/WEB-INF/classes/${model.name}.properties"/>
+        <!-- load properties file -->  <!-- using *_en version to avoid overwriting existing properties -->
+        <property name="i18nFile" location="../../web/WEB-INF/classes/ApplicationResources_en.properties"/>
+        <replace file="${i18nFile}" token="# -- ${model.name}-START" value="REGULAR-START"/>
+        <replace file="${i18nFile}" token="# -- ${model.name}-END" value="REGULAR-END"/>
+        <!-- Add to the bottom of the properties file -->
+        <replaceregexp file="${i18nFile}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
+        <echo file="${i18nFile}" append="true" message="${i18n.keys}"/>
+        
+        <!-- copy jsp files -->
+        <echo>Copying all .jsp files into main project, overwrite="${overwrite}"</echo>
+        <copy file="${generated.dir}/web/pages/${model.name}Form.jsp" overwrite="${overwrite}"
+            tofile="../../web/pages/${model.name.lowercase}Form.jsp"/>   
+        <copy file="${generated.dir}/web/pages/${model.name}List.jsp" overwrite="${overwrite}"
+            tofile="../../web/pages/${model.name.lowercase}List.jsp"/>
+    </target>
+            
+    <target name="merge-config" depends="merge-tests,merge-menu,merge-hibernate,merge-ibatis">
+        <if>
+            <not><equals arg1="${install.generic}" arg2="true"/></not>
+            <then>
+                <echo>Adding manager beans to applicationContext-service.xml</echo>
+                <!-- load snippet -->
+                <loadfile property="service.context" srcfile="${generated.dir}${gen.sub.dir}/${module.src.dir}/service/${app.package}/service/context-service-${model.name}.xml"/>
+                <!-- load config -->
+                <property name="serviceConfig" location="../../${module.src.dir}/service/${app.package}/service/applicationContext${app.module.dash}-service.xml"/>
+                <!-- remove previous definition -->
+                <replace file="${serviceConfig}" token="&lt;!--${model.name}-START--&gt;" value="REGULAR-START"/>
+                <replace file="${serviceConfig}" token="&lt;!--${model.name}-END--&gt;" value="REGULAR-END"/>
+                <replaceregexp file="${serviceConfig}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
+                <!-- Add to the bottom of the list of beans -->
+                <replace file="${serviceConfig}" value="${service.context}" token="&lt;/beans&gt;"/>
+            </then>
+        </if>
+        <!-- End of merge-config check -->
+    </target>
+    
+    <target name="merge-tests">
+        <echo>Merging sample-data into metadata/sql/sample-data.xml</echo>   
+        <loadfile property="sample.data" srcfile="${generated.dir}/metadata/sql/sample-data-${model.name}.xml"/>
+        <property name="sampleData" location="../../metadata/sql/sample-data.xml"/>
+        <replace file="${sampleData}" token="&lt;!--${model.name}-START--&gt;" value="REGULAR-START"/>
+        <replace file="${sampleData}" token="&lt;!--${model.name}-END--&gt;" value="REGULAR-END"/>
+        <replaceregexp file="${sampleData}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
+        <!-- Add to the bottom of the list of tables -->
+        <replace file="${sampleData}" value="${sample.data}">
+            <replacetoken><![CDATA[</dataset>]]></replacetoken>
+        </replace>
+
+        <echo>Merging web-tests into test/web/web-tests.xml</echo>   
+        <loadfile property="web.tests" srcfile="${generated.dir}/${module.test.dir}/web/web-tests-${model.name}.xml"/>
+        <property name="webTests" location="../../${module.test.dir}/web/web-tests.xml"/>
+        <replace file="${webTests}" token="&lt;!--${model.name}-START--&gt;" value="REGULAR-START"/>
+        <replace file="${webTests}" token="&lt;!--${model.name}-END--&gt;" value="REGULAR-END"/>
+        <replaceregexp file="${webTests}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
+
+        <!-- Add to the bottom of the list of tests -->   
+        <replace file="${webTests}" value="${web.tests}" token="&lt;/project&gt;"/>
+
+        <!-- Add to run-all-tests target -->
+        <replace file="${webTests}" value=",${model.name}Tests&quot;">
+            <replacetoken><![CDATA["
+        description="Call and executes all test cases (targets)"]]></replacetoken>
+        </replace>
+    </target>
+        
+    <target name="merge-menu">
+        <!-- Add links to main menu and side menu -->
+        <echo>Adding links to menus</echo>   
+        <loadfile property="menu.config" srcfile="${generated.dir}/web/WEB-INF/menu-config-${model.name}.xml"/>
+        <property name="menuConfig" location="../../web/WEB-INF/menu-config.xml"/>
+        <replace file="${menuConfig}" token="&lt;!--${model.name}-START--&gt;" value="REGULAR-START"/>
+        <replace file="${menuConfig}" token="&lt;!--${model.name}-END--&gt;" value="REGULAR-END"/>
+        <replaceregexp file="${menuConfig}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
+        <!-- Add to the bottom of the list of tests -->   
+        <replace file="${menuConfig}" value="${menu.config}" token="    &lt;/Menus&gt;"/>
+
+        <loadfile property="menu.jsp" srcfile="${generated.dir}/web/pages/menu-${model.name}.jsp"/>
+        <property name="menuFile" location="../../web/pages/menu.jsp"/>
+        <replace file="${menuFile}" token="&lt;!--${model.name}-START--&gt;" value="REGULAR-START"/>
+        <replace file="${menuFile}" token="&lt;!--${model.name}-END--&gt;" value="REGULAR-END"/>
+        <replaceregexp file="${menuFile}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
+        <!-- Add to the bottom of the list of menus -->   
+        <replace file="${menuFile}" value="${menu.jsp}" token="&lt;/menu:useMenuDisplayer&gt;"/>
+    </target>
+            
+    <target name="merge-hibernate" if="hibernate.jar" unless="install.generic">
+        <echo>Copying Hibernate DAOs...</echo>
+        <copy todir="../.." overwrite="${overwrite}">
+            <fileset dir="${generated.dir}">
+                <include name="**/dao/hibernate/**/*.java"/>
+            </fileset>
+        </copy>
+        
+        <echo>Adding Hibernate beans to applicationContext-hibernate.xml</echo>
+        <!-- load snippet -->
+        <loadfile property="hibernate.context" srcfile="${generated.dir}${gen.sub.dir}/${module.src.dir}/dao/${app.package}/dao/hibernate/context-hibernate-${model.name}.xml"/>
+        <!-- load config -->
+        <property name="hibernateConfig" location="../../${module.src.dir}/dao/${app.package}/dao/hibernate/applicationContext${app.module.dash}-hibernate.xml"/>
+        <!-- remove previous definition -->
         <replace file="${hibernateConfig}" token="&lt;!--${model.name}-START--&gt;" value="REGULAR-START"/>
         <replace file="${hibernateConfig}" token="&lt;!--${model.name}-END--&gt;" value="REGULAR-END"/>
         <replaceregexp file="${hibernateConfig}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
-        
         <!-- Add to the bottom of the list of beans -->
         <replace file="${hibernateConfig}" value="${hibernate.context}" token="&lt;/beans&gt;"/>
-     
-        <loadfile property="service.context"
-            srcfile="${generated.dir}/src/service/${app.package}/service/context-service-${model.name}.xml"/>
-        <property name="serviceConfig" location="../../src/service/${app.package}/service/applicationContext-service.xml"/>
-        <replace file="${serviceConfig}" token="&lt;!--${model.name}-START--&gt;" value="REGULAR-START"/>
-        <replace file="${serviceConfig}" token="&lt;!--${model.name}-END--&gt;" value="REGULAR-END"/>
-        <replaceregexp file="${serviceConfig}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
-
-        <!-- Add to the bottom of the list of beans -->
-        <replace file="${serviceConfig}" value="${service.context}" token="&lt;/beans&gt;"/>
-    </target>   
- 
-    <target name="install-src-generic" depends="default">   
-        <echo>Copying Controller and Test into main project, overwrite="${overwrite}"</echo>
-        <copy todir="../../" overwrite="${overwrite}">
-            <fileset dir="${generated.dir}/generic" includes="**/*.java"/>
-        </copy>
-        <copy todir="../../test" overwrite="${overwrite}">
-            <fileset dir="${generated.dir}/test" includes="**/action/*Test.java"/>
-        </copy>
     </target>
-            
-    <target name="test-replace">
+    
+    <target name="merge-ibatis-config" if="ibatis.jar">
+        <echo>Adding iBATIS SqlMap resources to sql-map-config.xml</echo>
+        <!-- load snippet -->
+        <loadfile property="sqlmap" srcfile="${generated.dir}/${module.src.dir}/dao/${app.package}/dao/ibatis/sql-map-config-${model.name}.xml"/>
+        <!-- load config -->
+        <property name="sqlmapConfig" location="../../${module.src.dir}/dao/${app.package}/dao/ibatis/sql-map-config.xml"/>
+        <!-- remove previous definition -->
+        <replace file="${sqlmapConfig}" token="&lt;!--${model.name}-START--&gt;" value="REGULAR-START"/>
+        <replace file="${sqlmapConfig}" token="&lt;!--${model.name}-END--&gt;" value="REGULAR-END"/>
+        <replaceregexp file="${sqlmapConfig}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
+        <!-- Add to the bottom of the list of resources -->
+        <replace file="${sqlmapConfig}" value="${sqlmap}" token="&lt;/sqlMapConfig&gt;"/>
+    </target>
+    
+    <target name="merge-ibatis" depends="merge-ibatis-config" if="ibatis.jar" unless="install.generic">
+        <echo>Copying iBATIS DAOs...</echo>
+        <copy todir="../.." overwrite="${overwrite}">
+            <fileset dir="${generated.dir}">
+                <include name="**/dao/ibatis/**/*.java"/>
+            </fileset>
+        </copy>
+
+        <echo>Adding iBATIS DAO beans to applicationContext-ibatis.xml</echo>
+        <!-- load snippet -->
+        <loadfile property="ibatis.context" srcfile="${generated.dir}${gen.sub.dir}/${module.src.dir}/dao/${app.package}/dao/ibatis/context-ibatis-${model.name}.xml"/>
+        <!-- load config -->
+        <property name="ibatisConfig" location="../../${module.src.dir}/dao/${app.package}/dao/ibatis/applicationContext${app.module.dash}-ibatis.xml"/>
+        <!-- remove previous definition -->
+        <replace file="${ibatisConfig}" token="&lt;!--${model.name}-START--&gt;" value="REGULAR-START"/>
+        <replace file="${ibatisConfig}" token="&lt;!--${model.name}-END--&gt;" value="REGULAR-END"/>
+        <replaceregexp file="${ibatisConfig}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
+        <!-- Add to the bottom of the list of beans -->
+        <replace file="${ibatisConfig}" value="${ibatis.context}" token="&lt;/beans&gt;"/>
+    </target>
+
+    <target name="install" depends="merge-generic"
+        description="Generates generic code and copies into main project">
+        <echo>Installation completed successfully!</echo>
+    </target>   
+          
+    <target name="install-detailed" depends="merge-detailed"
+        description="Generates detailed source code and copies into main project">
+        <echo>Installation completed successfully!</echo>
+    </target>  
+        
+    <target name="test-replace" depends="default">
         <echo>Merging constant values into Constants.java</echo>
         <loadfile property="constants"
             srcfile="${generated.dir}/src/dao/${app.package}/Constants-${model.name}.java"/>
@@ -264,107 +467,12 @@
             message="${constants}"/>
     </target>
 
-    <target name="install-other">
-        <echo>Merging constant values into Constants.java</echo>
-        <loadfile property="constants"
-            srcfile="${generated.dir}/src/dao/${app.package}/Constants-${model.name}.java"/>
-
-        <property name="constantsFile" location="../../src/dao/${app.package}/Constants.java"/>
-        <replace file="${constantsFile}" token="//${model.name}-START" value="REGULAR-START"/>
-        <replace file="${constantsFile}" token="//${model.name}-END" value="REGULAR-END"/>
-        <replaceregexp file="${constantsFile}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
-
-        <replace file="${constantsFile}" token="}"/>
-        <echo file="${constantsFile}" append="true" message="${constants}"/>
-
-        <echo>Merging sample-data into metadata/sql/sample-data.xml</echo>   
-        <loadfile property="sample.data"
-            srcfile="${generated.dir}/metadata/sql/sample-data-${model.name}.xml"/>
-        <property name="sampleData" location="../../metadata/sql/sample-data.xml"/>
-        <replace file="${sampleData}" token="&lt;!--${model.name}-START--&gt;" value="REGULAR-START"/>
-        <replace file="${sampleData}" token="&lt;!--${model.name}-END--&gt;" value="REGULAR-END"/>
-        <replaceregexp file="${sampleData}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
-
-        <!-- Add to the bottom of the list of tables -->
-        <replace file="${sampleData}" value="${sample.data}">
-            <replacetoken><![CDATA[</dataset>]]></replacetoken>
-        </replace>
-
-        <echo>Merging web-tests into test/web/web-tests.xml</echo>   
-        <loadfile property="web.tests"
-            srcfile="${generated.dir}/test/web/web-tests-${model.name}.xml"/>
-
-        <property name="webTests" location="../../test/web/web-tests.xml"/>
-        <replace file="${webTests}" token="&lt;!--${model.name}-START--&gt;" value="REGULAR-START"/>
-        <replace file="${webTests}" token="&lt;!--${model.name}-END--&gt;" value="REGULAR-END"/>
-        <replaceregexp file="${webTests}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
-
-        <!-- Add to the bottom of the list of tests -->   
-        <replace file="${webTests}" value="${web.tests}" token="&lt;/project&gt;"/>
-
-        <!-- Add to run-all-tests target -->
-        <replace file="${webTests}" value=",${model.name}Tests&quot;">
-            <replacetoken><![CDATA["
-        description="Call and executes all test cases (targets)"]]></replacetoken>
-        </replace>
-
-        <!-- Append contents of .properties file to application resources -->
-        <echo>Adding keys to ApplicationResources.properties</echo>
-        <loadfile property="i18n.keys"
-            srcfile="${generated.dir}/web/WEB-INF/classes/${model.name}.properties"/>
-
-        <property name="i18nFile" location="../../web/WEB-INF/classes/ApplicationResources.properties"/>
-        <replace file="${i18nFile}" token="# -- ${model.name}-START" value="REGULAR-START"/>
-        <replace file="${i18nFile}" token="# -- ${model.name}-END" value="REGULAR-END"/>
-        <replaceregexp file="${i18nFile}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
-        <echo file="${i18nFile}" append="true" message="${i18n.keys}"/>
-        
-        <copy file="${generated.dir}/web/pages/${model.name}Form.jsp" overwrite="${overwrite}"
-            tofile="../../web/pages/${model.name.lowercase}Form.jsp"/>   
-        <copy file="${generated.dir}/web/pages/${model.name}List.jsp" overwrite="${overwrite}"
-            tofile="../../web/pages/${model.name.lowercase}List.jsp"/>
-     
-         <!-- Add links to main menu and side menu -->
-        <echo>Adding links to menu</echo>   
-        <loadfile property="menu.config"
-            srcfile="${generated.dir}/web/WEB-INF/menu-config-${model.name}.xml"/>
-
-        <property name="menuConfig" location="../../web/WEB-INF/menu-config.xml"/>
-        <replace file="${menuConfig}" token="&lt;!--${model.name}-START--&gt;" value="REGULAR-START"/>
-        <replace file="${menuConfig}" token="&lt;!--${model.name}-END--&gt;" value="REGULAR-END"/>
-        <replaceregexp file="${menuConfig}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
-
-        <!-- Add to the bottom of the list of tests -->   
-        <replace file="${menuConfig}" value="${menu.config}" token="    &lt;/Menus&gt;"/>
-
-        <loadfile property="menu.jsp"
-            srcfile="${generated.dir}/web/pages/menu-${model.name}.jsp"/>
-
-        <property name="menuFile" location="../../web/pages/menu.jsp"/>
-        <replace file="${menuFile}" token="&lt;!--${model.name}-START--&gt;" value="REGULAR-START"/>
-        <replace file="${menuFile}" token="&lt;!--${model.name}-END--&gt;" value="REGULAR-END"/>
-        <replaceregexp file="${menuFile}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
-
-        <!-- Add to the bottom of the list of tests -->   
-        <replace file="${menuFile}" value="${menu.jsp}" token="&lt;/menu:useMenuDisplayer&gt;"/>
-    </target>
-            
-    <target name="install" depends="install-src-generic,install-other"
-        description="Generates generic code and copies into main project">
-        <echo>Installation completed successfully!</echo>
-    </target>   
-          
-    <target name="install-detailed" depends="install-src-detailed,install-other"
-        description="Generates detailed source code and copies into main project">
-        <echo>Installation completed successfully!</echo>
-    </target>  
-        
+    <property name="web.framework" value=""/>
     <!-- =================================================================== -->
     <!-- Creates new project, copies Person.java to model directory,         -->
     <!-- generates generic persistence code and runs tests.                  -->
     <!-- =================================================================== -->
-    <target name="test-detailed" 
-        description="Creates new project and generates detailed code">
+    <target name="test-detailed" description="Creates new project and generates detailed code">
         <property name="app.name" value="appfuse-appgen2"/>
         <property name="db.name" value="appfuse"/>
         <property name="new.pkg.name" value="org.appfuse"/>
@@ -385,10 +493,11 @@
     
         <!-- New project created, gen code and run tests -->
         <ant dir="../../../${app.name}/extras/appgen" target="install-detailed" inheritAll="false">
+            <property name="web.framework" value=""/>
             <property name="appgen.type" value="pojo"/>
-            <property name="model.name" value="Person"/>   
+            <property name="object.name" value="Person"/>   
         </ant>   
-        <ant dir="../../../${app.name}" target="setup" inheritAll="false"/>   
+        <ant dir="../../../${app.name}" target="setup-db" inheritAll="false"/>   
         <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
     </target>      
 
@@ -396,8 +505,7 @@
     <!-- Creates new project, copies Person.java to model directory,         -->
     <!-- generates generic persistence code and runs tests.                  -->
     <!-- =================================================================== -->
-    <target name="test" 
-        description="Creates new project and generates generic persistence code">
+    <target name="test" description="Creates new project and generates generic persistence code">
         <property name="app.name" value="appfuse-appgen"/>
         <property name="db.name" value="appfuse"/>
         <property name="new.pkg.name" value="org.appfuse"/>
@@ -418,10 +526,11 @@
         
         <!-- New project created, gen code and run tests -->
         <ant dir="../../../${app.name}/extras/appgen" target="install" inheritAll="false">
+            <property name="web.framework" value=""/>
             <property name="appgen.type" value="pojo"/>
-            <property name="model.name" value="Person"/>   
+            <property name="object.name" value="Person"/>   
         </ant>   
-        <ant dir="../../../${app.name}" target="setup" inheritAll="false"/>   
+        <ant dir="../../../${app.name}" target="setup-db" inheritAll="false"/>   
         <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
     </target> 
     
@@ -432,7 +541,7 @@
     <target name="test-2wordpojo" 
         description="Creates new project and generates detailed persistence code">
         <property name="app.name" value="appfuse-appgenx"/>
-        <property name="db.name" value="appfusex"/>
+        <property name="db.name" value="appfuse"/>
         <property name="new.pkg.name" value="org.appfuse"/>
         <delete dir="../../../${app.name}"/>
         <ant dir="../.." target="new"/>
@@ -440,7 +549,7 @@
         <!-- Copy test model object into new project -->   
         <copy todir="../../../${app.name}/src">
             <fileset dir="test" includes="**/PersonPlus.java"/>
-        </copy>   
+        </copy>
         <!-- Add the mapping file for Person to applicationContext-hibernate.xml -->
         <replace dir="../../../${app.name}/src">
             <include name="**/applicationContext-hibernate.xml"/>
@@ -451,10 +560,11 @@
         
         <!-- New project created, gen code and run tests -->
         <ant dir="../../../${app.name}/extras/appgen" target="install-detailed" inheritAll="false">
+            <property name="web.framework" value=""/>
             <property name="model.name" value="PersonPlus"/>
             <property name="model.name.lowercase" value="personPlus"/>   
         </ant>   
-        <ant dir="../../../${app.name}" target="setup" inheritAll="false"/>   
+        <ant dir="../../../${app.name}" target="setup-db" inheritAll="false"/>   
         <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
     </target>     
  

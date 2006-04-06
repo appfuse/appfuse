@@ -5,7 +5,7 @@
 
 <c:set var="buttons">
     <button type="button" style="margin-right: 5px"
-        onclick="location.href='<c:url value="/edit<XDtForm:className/>.html"/>'">
+        onclick="location.href='<c:url value="/edit<XDtClass:className/>.html"/>'">
         <fmt:message key="button.add"/>
     </button>
 
@@ -16,17 +16,18 @@
 
 <c:out value="${buttons}" escapeXml="false"/>
 
-<display:table name="<XDtForm:classNameLower/>List" cellspacing="0" cellpadding="0" requestURI=""
-    id="<XDtForm:classNameLower/>List" pagesize="25" class="list" export="true">
+<display:table name="${<XDtForm:classNameLower/>List}" cellspacing="0" cellpadding="0"
+    id="<XDtForm:classNameLower/>List" pagesize="25" class="list"
+    export="true" requestURI="">
 
 <XDtMethod:forAllMethods>
   <XDtMethod:ifHasMethodTag tagName="hibernate.id">
-    <display:column property="<XDtMethod:propertyName/>" escapeXml="true" sortable="true"
-        url="/edit<XDtForm:className/>.html" paramId="<XDtMethodEx:idField getType="propertyName"/>" paramProperty="<XDtMethod:propertyName/>"
+    <display:column property="<XDtMethod:propertyName/>" sortable="true" headerClass="sortable"
+        url="/edit<XDtClass:className/>.html" paramId="<XDtMethodEx:idField getType="propertyName"/>" paramProperty="<XDtMethod:propertyName/>"
         titleKey="<XDtForm:classNameLower/>Form.<XDtMethod:propertyName/>"/>
   </XDtMethod:ifHasMethodTag>
   <XDtMethod:ifHasMethodTag tagName="hibernate.property">
-    <display:column property="<XDtMethod:propertyName/>" escapeXml="true" sortable="true"
+    <display:column property="<XDtMethod:propertyName/>" sortable="true" headerClass="sortable"
          titleKey="<XDtForm:classNameLower/>Form.<XDtMethod:propertyName/>"/>
   </XDtMethod:ifHasMethodTag>
   </XDtMethod:forAllMethods>

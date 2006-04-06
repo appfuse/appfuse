@@ -126,34 +126,34 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
             <template templateFile="${template.dir}/ActionTest.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/test/web/${app.package}/webapp/action/{0}ActionTest.java"/>
+                      destinationFile="${gen.dir}/${module.test.dir}/web/${app.package}/webapp/action/{0}ActionTest.java"/>
             <!-- Detailed Action -->
             <template templateFile="${template.dir}/detailed/Action.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/src/web/${app.package}/webapp/action/{0}Action.java"/>
+                      destinationFile="${gen.dir}/${module.src.dir}/web/${app.package}/webapp/action/{0}Action.java"/>
             <!-- Generic Action -->
             <template templateFile="${template.dir}/generic/Action.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/generic/src/web/${app.package}/webapp/action/{0}Action.java"/>]]></replacetoken>
-            <replacevalue><![CDATA[<!-- Detailed Beans -->
+                      destinationFile="${gen.dir}/generic/${module.src.dir}/web/${app.package}/webapp/action/{0}Action.java"/>]]></replacetoken>
+            <replacevalue><![CDATA[<!-- Detailed Pages -->
             <template templateFile="${template.dir}/detailed/FormTest.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/test/web/${app.package}/webapp/action/{0}FormTest.java"/>  
+                      destinationFile="${gen.dir}/${module.test.dir}/web/${app.package}/webapp/action/{0}FormTest.java"/>  
             <template templateFile="${template.dir}/detailed/ListTest.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/test/web/${app.package}/webapp/action/{0}ListTest.java"/>
+                      destinationFile="${gen.dir}/${module.test.dir}/web/${app.package}/webapp/action/{0}ListTest.java"/>
             <template templateFile="${template.dir}/detailed/Form.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/src/web/${app.package}/webapp/action/{0}Form.java"/>
+                      destinationFile="${gen.dir}/${module.src.dir}/web/${app.package}/webapp/action/{0}Form.java"/>
             <template templateFile="${template.dir}/detailed/List.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/src/web/${app.package}/webapp/action/{0}List.java"/>
+                      destinationFile="${gen.dir}/${module.src.dir}/web/${app.package}/webapp/action/{0}List.java"/>
             <template templateFile="${template.dir}/detailed/Form_page.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
@@ -162,23 +162,23 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
                       destinationFile="${gen.dir}/web/pages/{0}List.page"/>
-            <!-- Generic Beans -->
+            <!-- Generic Pages -->
             <template templateFile="${template.dir}/generic/FormTest.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/generic/test/web/${app.package}/webapp/action/{0}FormTest.java"/>
+                      destinationFile="${gen.dir}/generic/${module.test.dir}/web/${app.package}/webapp/action/{0}FormTest.java"/>
             <template templateFile="${template.dir}/generic/ListTest.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/generic/test/web/${app.package}/webapp/action/{0}ListTest.java"/>
+                      destinationFile="${gen.dir}/generic/${module.test.dir}/web/${app.package}/webapp/action/{0}ListTest.java"/>
             <template templateFile="${template.dir}/generic/Form.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/generic/src/web/${app.package}/webapp/action/{0}Form.java"/>
+                      destinationFile="${gen.dir}/generic/${module.src.dir}/web/${app.package}/webapp/action/{0}Form.java"/>
             <template templateFile="${template.dir}/generic/List.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/generic/src/web/${app.package}/webapp/action/{0}List.java"/>
+                      destinationFile="${gen.dir}/generic/${module.src.dir}/web/${app.package}/webapp/action/{0}List.java"/>
             <template templateFile="${template.dir}/generic/Form_page.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
@@ -220,8 +220,9 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
 
         <!-- Modify XML to modify tapestry.application -->
         <replace file="../appgen/build.xml">
-            <replacetoken><![CDATA[<echo>Merging sample-data into metadata/sql/sample-data.xml</echo>]]></replacetoken>
-            <replacevalue><![CDATA[
+            <replacetoken><![CDATA[<!-- End of merge-config check -->]]></replacetoken>
+            <replacevalue><![CDATA[<!-- End of merge-config check -->
+
         <echo>Merging page definitions into web/WEB-INF/tapestry.application</echo>
         <loadfile property="tapestry.application"
             srcfile="${generated.dir}/web/WEB-INF/tapestry-${model.name}.application"/>
@@ -230,9 +231,7 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
         <replace file="${tapestryApplication}" token="&lt;!--${model.name}-END--&gt;" value="REGULAR-END"/>
         <replaceregexp file="${tapestryApplication}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
         <!-- Replace strategically placed comment -->
-        <replace file="${tapestryApplication}" token="&lt;!-- Add additional pages here --&gt;" value="${tapestry.application}"/>
-
-        <echo>Merging sample-data into metadata/sql/sample-data.xml</echo>]]></replacevalue>
+        <replace file="${tapestryApplication}" token="&lt;!-- Add additional pages here --&gt;" value="${tapestry.application}"/>]]></replacevalue>
         </replace>
 
         <!-- Change files from .jsp to .html -->
@@ -240,32 +239,22 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
         <replace file="../appgen/build.xml" token="name}List.jsp" value="name}List.html"/>
         <replace file="../appgen/build.xml" token="lowercase}List.jsp" value="lowercase}s.html"/>
         
-        <!-- Modify install-src-detailed target to copy .page files -->
+        <!-- Modify merge-config target to copy .page files -->
         <replace file="../appgen/build.xml">
-            <replacetoken><![CDATA[<replace file="${serviceConfig}" value="${service.context}" token="&lt;/beans&gt;"/>]]></replacetoken>
-            <replacevalue><![CDATA[<replace file="${serviceConfig}" value="${service.context}" token="&lt;/beans&gt;"/>
+            <replacetoken><![CDATA[<!-- End of merge-config check -->]]></replacetoken>
+            <replacevalue><![CDATA[<!-- End of merge-config check -->
 
-        <copy file="${generated.dir}/web/pages/${model.name}Form.page" overwrite="${overwrite}"
+        <copy file="${generated.dir}${gen.sub.dir}/web/pages/${model.name}Form.page" overwrite="${overwrite}"
             tofile="../../web/pages/${model.name.lowercase}Form.page"/>   
-        <copy file="${generated.dir}/web/pages/${model.name}List.page" overwrite="${overwrite}"
+        <copy file="${generated.dir}${gen.sub.dir}/web/pages/${model.name}List.page" overwrite="${overwrite}"
             tofile="../../web/pages/${model.name.lowercase}s.page"/>]]></replacevalue>
         </replace>
 
-        <!-- Modify install-src-generic target to copy .page files -->
+        <!-- Tapestry has generic tests -->
         <replace file="../appgen/build.xml">
-            <replacetoken><![CDATA[<copy todir="../../test" overwrite="${overwrite}">
-            <fileset dir="${generated.dir}/test" includes="**/action/*Test.java"/>
-        </copy>]]></replacetoken>
-            <replacevalue><![CDATA[<copy todir="../../test" overwrite="${overwrite}">
-            <fileset dir="${generated.dir}/test" includes="**/action/*Test.java"/>
-        </copy>
-
-        <copy file="${generated.dir}/generic/web/pages/${model.name}Form.page" overwrite="${overwrite}"
-            tofile="../../web/pages/${model.name.lowercase}Form.page"/>   
-        <copy file="${generated.dir}/generic/web/pages/${model.name}List.page" overwrite="${overwrite}"
-            tofile="../../web/pages/${model.name.lowercase}s.page"/>]]></replacevalue>
+          <replacetoken><![CDATA[
+                <include name="test/**/web/**/*.java"/>]]></replacetoken>
         </replace>
-
         <!-- Remove Struts specific stuff from Middlegen -->
         <replace file="../middlegen/build.xml">
             <replacetoken><![CDATA[
@@ -449,16 +438,12 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
 ]]></replacetoken>
         </replace>
         
-        <echo level="info">Removing other web framework options</echo>
-        <delete dir="../../extras/jsf"/>
-        <delete dir="../../extras/spring"/>
-        <delete dir="../../extras/webwork"/>
-        
         <echo>----------------------------------------------</echo>
         <echo level="info">NOTE: It's recommended you delete extras/tapestry as you shouldn't need it anymore.</echo>
         <echo>----------------------------------------------</echo>
     </target>
  
+    <property name="web.framework" value="tapestry"/>
     <!-- =================================================================== -->
     <!-- Creates new project, installs Tapestry and runs tests                -->
     <!-- =================================================================== -->
@@ -471,10 +456,8 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
 
         <!-- New project created, install Tapestry and run tests -->
         <ant dir="../../../${app.name}/extras/tapestry" target="install" inheritAll="false"/>
-        <ant dir="../../../${app.name}" target="setup" inheritAll="false"/>
+        <ant dir="../../../${app.name}" target="setup-db" inheritAll="false"/>
         <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
-
-        <echo>Start Tomcat to view ${app.name} manually.</echo>
     </target>
 
     <!-- =================================================================== -->
@@ -492,10 +475,8 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
         <ant dir="../../../${app.name}/extras/ibatis" target="install" inheritAll="false"/>
         <ant dir="../../../${app.name}/extras/ibatis" target="uninstall-hibernate" inheritAll="false"/>
         <ant dir="../../../${app.name}/extras/tapestry" target="install" inheritAll="false"/>
-        <ant dir="../../../${app.name}" target="setup" inheritAll="false"/>
+        <ant dir="../../../${app.name}" target="setup-db" inheritAll="false"/>
         <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
-
-        <echo>Start Tomcat to view ${app.name} manually.</echo>
     </target>
 
     <!-- =================================================================== -->
@@ -512,6 +493,7 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
         <ant dir="../../../${app.name}/extras/tapestry" target="install" inheritAll="false"/>
         <!-- Gen code and run tests -->
         <ant dir="../../../${app.name}/extras/appgen" target="test-all" inheritAll="false">
+            <property name="web.framework" value="tapestry"/>
             <property name="appgen.type" value="pojo"/>
             <property name="model.name" value="Person"/>   
         </ant>   

@@ -23,5 +23,4 @@
         </managed-property>
     </managed-bean>
     <!--<XDtForm:className/>-BEAN-END-->
-
     <!-- Add additional beans here -->

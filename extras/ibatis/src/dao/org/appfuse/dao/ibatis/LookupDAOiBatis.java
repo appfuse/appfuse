@@ -3,7 +3,6 @@ package org.appfuse.dao.ibatis;
 import java.util.List;
 
 import org.appfuse.dao.LookupDAO;
-import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 
 /**
  * iBatis implementation of LookupDAO.
@@ -14,7 +13,7 @@ import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
-public class LookupDAOiBatis extends SqlMapClientDaoSupport implements LookupDAO {
+public class LookupDAOiBatis extends BaseDAOiBATIS implements LookupDAO {
 
     /**
      * @see org.appfuse.dao.LookupDAO#getRoles()

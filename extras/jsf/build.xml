@@ -112,36 +112,36 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
             <template templateFile="${template.dir}/ActionTest.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/test/web/${app.package}/webapp/action/{0}ActionTest.java"/>
+                      destinationFile="${gen.dir}/${module.test.dir}/web/${app.package}/webapp/action/{0}ActionTest.java"/>
             <!-- Detailed Action -->
             <template templateFile="${template.dir}/detailed/Action.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/src/web/${app.package}/webapp/action/{0}Action.java"/>
+                      destinationFile="${gen.dir}/${module.src.dir}/web/${app.package}/webapp/action/{0}Action.java"/>
             <!-- Generic Action -->
             <template templateFile="${template.dir}/generic/Action.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/generic/src/web/${app.package}/webapp/action/{0}Action.java"/>]]></replacetoken>
+                      destinationFile="${gen.dir}/generic/${module.src.dir}/web/${app.package}/webapp/action/{0}Action.java"/>]]></replacetoken>
             <replacevalue><![CDATA[<!-- Form Test -->    
             <template templateFile="${template.dir}/FormTest.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/test/web/${app.package}/webapp/action/{0}FormTest.java"/>
+                      destinationFile="${gen.dir}/${module.test.dir}/web/${app.package}/webapp/action/{0}FormTest.java"/>
             <!-- List Test -->    
             <template templateFile="${template.dir}/ListTest.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/test/web/${app.package}/webapp/action/{0}ListTest.java"/>
+                      destinationFile="${gen.dir}/${module.test.dir}/web/${app.package}/webapp/action/{0}ListTest.java"/>
             <!-- Detailed Beans -->
             <template templateFile="${template.dir}/detailed/Form.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/src/web/${app.package}/webapp/action/{0}Form.java"/>
+                      destinationFile="${gen.dir}/${module.src.dir}/web/${app.package}/webapp/action/{0}Form.java"/>
             <template templateFile="${template.dir}/detailed/List.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/src/web/${app.package}/webapp/action/{0}List.java"/>
+                      destinationFile="${gen.dir}/${module.src.dir}/web/${app.package}/webapp/action/{0}List.java"/>
             <template templateFile="${template.dir}/detailed/managed-beans.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
@@ -150,11 +150,11 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
             <template templateFile="${template.dir}/generic/Form.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/generic/src/web/${app.package}/webapp/action/{0}Form.java"/>
+                      destinationFile="${gen.dir}/generic/${module.src.dir}/web/${app.package}/webapp/action/{0}Form.java"/>
             <template templateFile="${template.dir}/generic/List.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/generic/src/web/${app.package}/webapp/action/{0}List.java"/>
+                      destinationFile="${gen.dir}/generic/${module.src.dir}/web/${app.package}/webapp/action/{0}List.java"/>
             <template templateFile="${template.dir}/generic/managed-beans.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
@@ -168,11 +168,11 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         
         <!-- Modify XML to modify faces-config.xml -->
         <replace file="../appgen/build.xml">
-            <replacetoken><![CDATA[<echo>Merging sample-data into metadata/sql/sample-data.xml</echo>]]></replacetoken>
-            <replacevalue><![CDATA[
+            <replacetoken><![CDATA[<!-- End of merge-config check -->]]></replacetoken>
+            <replacevalue><![CDATA[<!-- End of merge-config check -->
+
         <echo>Merging navigation-rules XML into web/WEB-INF/faces-config.xml</echo>
-        <loadfile property="navigation.rules"
-            srcfile="${generated.dir}/web/WEB-INF/navigation-rules-${model.name}.xml"/>
+        <loadfile property="navigation.rules" srcfile="${generated.dir}/web/WEB-INF/navigation-rules-${model.name}.xml"/>
         <property name="facesConfig" location="../../web/WEB-INF/faces-config.xml"/>
         <replace file="${facesConfig}" token="&lt;!--${model.name}-NAV-START--&gt;" value="REGULAR-START"/>
         <replace file="${facesConfig}" token="&lt;!--${model.name}-NAV-END--&gt;" value="REGULAR-END"/>
@@ -180,37 +180,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         <!-- Replace strategically placed comment -->
         <replace file="${facesConfig}" token="&lt;!-- Add additional rules here --&gt;" value="${navigation.rules}"/>
 
-        <echo>Merging sample-data into metadata/sql/sample-data.xml</echo>]]></replacevalue>
-        </replace>
-        
-        <!-- Modify install-src-detailed target -->
-        <replace file="../appgen/build.xml">
-            <replacetoken><![CDATA[<replace file="${serviceConfig}" value="${service.context}" token="&lt;/beans&gt;"/>]]></replacetoken>
-            <replacevalue><![CDATA[<replace file="${serviceConfig}" value="${service.context}" token="&lt;/beans&gt;"/>
-
-        <echo>Merging managed-beans XML into web/WEB-INF/faces-config.xml</echo>
-        <loadfile property="managed.beans"
-            srcfile="${generated.dir}/web/WEB-INF/managed-beans-${model.name}.xml"/>
-        <property name="facesConfig" location="../../web/WEB-INF/faces-config.xml"/>
-        <replace file="${facesConfig}" token="&lt;!--${model.name}-BEAN-START--&gt;" value="REGULAR-START"/>
-        <replace file="${facesConfig}" token="&lt;!--${model.name}-BEAN-END--&gt;" value="REGULAR-END"/>
-        <replaceregexp file="${facesConfig}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
-        <!-- Replace strategically placed comment -->
-        <replace file="${facesConfig}" token="&lt;!-- Add additional beans here --&gt;" value="${managed.beans}"/>]]></replacevalue>
-        </replace>
-
-        <!-- Modify install-src-generic target -->
-        <replace file="../appgen/build.xml">
-            <replacetoken><![CDATA[<copy todir="../../test" overwrite="${overwrite}">
-            <fileset dir="${generated.dir}/test" includes="**/action/*Test.java"/>
-        </copy>]]></replacetoken>
-            <replacevalue><![CDATA[<copy todir="../../test" overwrite="${overwrite}">
-            <fileset dir="${generated.dir}/test" includes="**/action/*Test.java"/>
-        </copy>
-
-        <echo>Merging managed-beans XML into web/WEB-INF/faces-config.xml</echo>
-        <loadfile property="managed.beans"
-            srcfile="${generated.dir}/generic/web/WEB-INF/managed-beans-${model.name}.xml"/>
+        <loadfile property="managed.beans" srcfile="${generated.dir}${gen.sub.dir}/web/WEB-INF/managed-beans-${model.name}.xml"/>
         <property name="facesConfig" location="../../web/WEB-INF/faces-config.xml"/>
         <replace file="${facesConfig}" token="&lt;!--${model.name}-BEAN-START--&gt;" value="REGULAR-START"/>
         <replace file="${facesConfig}" token="&lt;!--${model.name}-BEAN-END--&gt;" value="REGULAR-END"/>
@@ -375,17 +345,13 @@ log4j.logger.org.apache.myfaces=WARN</replacevalue>
     </target>
 ]]></replacetoken>
         </replace>
-        
-        <echo level="info">Removing other web framework options</echo>
-        <delete dir="../../extras/spring"/>
-        <delete dir="../../extras/tapestry"/>
-        <delete dir="../../extras/webwork"/>
-        
+
         <echo>----------------------------------------------</echo>
         <echo level="info">NOTE: It's recommended you delete extras/jsf as you shouldn't need it anymore.</echo>
         <echo>----------------------------------------------</echo>
     </target>
- 
+
+    <property name="web.framework" value="jsf"/>
     <!-- =================================================================== -->
     <!-- Creates new project, installs JSF and runs tests                -->
     <!-- =================================================================== -->
@@ -398,17 +364,14 @@ log4j.logger.org.apache.myfaces=WARN</replacevalue>
 
         <!-- New project created, install JSF and run tests -->
         <ant dir="../../../${app.name}/extras/jsf" target="install" inheritAll="false"/>
-        <ant dir="../../../${app.name}" target="setup" inheritAll="false"/>
+        <ant dir="../../../${app.name}" target="setup-db" inheritAll="false"/>
         <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
-
-        <echo>Start Tomcat to view ${app.name} manually.</echo>
     </target>
 
     <!-- =================================================================== -->
     <!-- Creates new project, installs JSF+iBATIS and runs tests         -->
     <!-- =================================================================== -->
-    <target name="test-ibatis"
-        description="Creates appfuse-jsf-ibatis and runs tests">
+    <target name="test-ibatis" description="Creates appfuse-jsf-ibatis and runs tests">
         <property name="app.name" value="appfuse-jibatis"/>
         <property name="db.name" value="appfuse"/>
         <property name="new.pkg.name" value="org.appfuse"/>
@@ -419,10 +382,8 @@ log4j.logger.org.apache.myfaces=WARN</replacevalue>
         <ant dir="../../../${app.name}/extras/ibatis" target="install" inheritAll="false"/>
         <ant dir="../../../${app.name}/extras/ibatis" target="uninstall-hibernate" inheritAll="false"/>
         <ant dir="../../../${app.name}/extras/jsf" target="install" inheritAll="false"/>
-        <ant dir="../../../${app.name}" target="setup" inheritAll="false"/>
+        <ant dir="../../../${app.name}" target="setup-db" inheritAll="false"/>
         <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
-
-        <echo>Start Tomcat to view ${app.name} manually.</echo>
     </target>
 
     <!-- =================================================================== -->
@@ -439,6 +400,7 @@ log4j.logger.org.apache.myfaces=WARN</replacevalue>
         <ant dir="../../../${app.name}/extras/jsf" target="install" inheritAll="false"/>
         <!-- Gen code and run tests -->
         <ant dir="../../../${app.name}/extras/appgen" target="test-all" inheritAll="false">
+            <property name="web.framework" value="jsf"/>
             <property name="appgen.type" value="pojo"/>
             <property name="model.name" value="Person"/>
         </ant>   

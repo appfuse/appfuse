@@ -94,13 +94,13 @@
     ]]>
     </select>
 
-    <delete id="deleteUser" parameterClass="user">
+    <delete id="deleteUser" parameterClass="java.lang.String">
     <![CDATA[
         delete from app_user where username = #username#;
     ]]>
     </delete>
 
-    <delete id="deleteUserRoles" parameterClass="user">
+    <delete id="deleteUserRoles" parameterClass="java.lang.String">
     <![CDATA[
         delete from user_role where username = #username#;
     ]]>

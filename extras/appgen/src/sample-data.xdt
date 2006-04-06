@@ -1,95 +1,23 @@
-<XDtTagDef:tagDef namespace="MethodEx" handler="org.example.antbook.xdoclet.MethodExTagsHandler"/>  <!--<XDtMethodEx:className/>-START-->
-<XDtClass:forAllClasses abstract="true" sort="true">
-<XDtClass:ifHasClassTag tagName="hibernate.class" paramName="table" superclasses="false">
+<XDtTagDef:tagDef namespace="MethodEx" handler="org.example.antbook.xdoclet.MethodExTagsHandler"/>  <!--<XDtMethodEx:className/>-START--><XDtClass:forAllClasses abstract="true" sort="true"><XDtClass:ifHasClassTag tagName="hibernate.class" paramName="table" superclasses="false">
   <table name='<XDtClass:classTagValue tagName="hibernate.class" paramName="table"/>'>
-<XDtMethodEx:forAllMethods>
-    <XDtMethodEx:ifHasMethodTag tagName="hibernate.id"><column><XDtMethodEx:ifHasMethodTag tagName="hibernate.id" paramName="column"><XDtMethodEx:methodTagValue tagName="hibernate.id" paramName="column"/></XDtMethodEx:ifHasMethodTag><XDtMethodEx:ifDoesntHaveMethodTag tagName="hibernate.id" paramName="column"><XDtMethodEx:propertyName/></XDtMethodEx:ifDoesntHaveMethodTag></column></XDtMethodEx:ifHasMethodTag>
+<XDtMethodEx:forAllMethods><XDtMethodEx:ifHasMethodTag tagName="hibernate.id">    <column><XDtMethodEx:ifHasMethodTag tagName="hibernate.id" paramName="column"><XDtMethodEx:methodTagValue tagName="hibernate.id" paramName="column"/></XDtMethodEx:ifHasMethodTag><XDtMethodEx:ifDoesntHaveMethodTag tagName="hibernate.id" paramName="column"><XDtMethodEx:propertyName/></XDtMethodEx:ifDoesntHaveMethodTag></column></XDtMethodEx:ifHasMethodTag>
     <XDtMethodEx:ifHasMethodTag tagName="hibernate.property"><column><XDtMethodEx:ifHasMethodTag tagName="hibernate.property" paramName="column"><XDtMethodEx:methodTagValue tagName="hibernate.property" paramName="column"/></XDtMethodEx:ifHasMethodTag><XDtMethodEx:ifDoesntHaveMethodTag tagName="hibernate.property" paramName="column"><XDtMethodEx:propertyName/></XDtMethodEx:ifDoesntHaveMethodTag></column></XDtMethodEx:ifHasMethodTag>
-    <XDtMethodEx:ifHasMethodTag tagName="hibernate.version"><column>version</column></XDtMethodEx:ifHasMethodTag>
-</XDtMethodEx:forAllMethods>
+    <XDtMethodEx:ifHasMethodTag tagName="hibernate.version"><column>version</column></XDtMethodEx:ifHasMethodTag></XDtMethodEx:forAllMethods>
     <row>
-        <XDtMethodEx:forAllMethods>
-        <XDtMethodEx:ifHasMethodTag tagName="hibernate.id">
-        <value>1</value>
-        </XDtMethodEx:ifHasMethodTag>
-        <XDtMethodEx:ifHasMethodTag tagName="hibernate.property">
-        <value><XDtMethodEx:randomValueForDbUnit/></value>
-        </XDtMethodEx:ifHasMethodTag>
-        <XDtMethodEx:ifHasMethodTag tagName="hibernate.version">
-        <value>1</value>
-        </XDtMethodEx:ifHasMethodTag>
-        </XDtMethodEx:forAllMethods>
+        <XDtMethodEx:forAllMethods><XDtMethodEx:ifHasMethodTag tagName="hibernate.id"><value>1</value></XDtMethodEx:ifHasMethodTag>
+        <XDtMethodEx:ifHasMethodTag tagName="hibernate.property"><value><XDtMethodEx:randomValueForDbUnit/></value></XDtMethodEx:ifHasMethodTag>
+        <XDtMethodEx:ifHasMethodTag tagName="hibernate.version"><value>1</value></XDtMethodEx:ifHasMethodTag></XDtMethodEx:forAllMethods>
     </row>
     <row>
-        <XDtMethodEx:forAllMethods>
-        <XDtMethodEx:ifHasMethodTag tagName="hibernate.id">
-        <value>2</value>
-        </XDtMethodEx:ifHasMethodTag>
-        <XDtMethodEx:ifHasMethodTag tagName="hibernate.property">
-        <value><XDtMethodEx:randomValueForDbUnit/></value>
-        </XDtMethodEx:ifHasMethodTag>
-        <XDtMethodEx:ifHasMethodTag tagName="hibernate.version">
-        <value>1</value>
-        </XDtMethodEx:ifHasMethodTag>
-        </XDtMethodEx:forAllMethods>
+        <XDtMethodEx:forAllMethods><XDtMethodEx:ifHasMethodTag tagName="hibernate.id"><value>2</value></XDtMethodEx:ifHasMethodTag>
+        <XDtMethodEx:ifHasMethodTag tagName="hibernate.property"><value><XDtMethodEx:randomValueForDbUnit/></value></XDtMethodEx:ifHasMethodTag>
+        <XDtMethodEx:ifHasMethodTag tagName="hibernate.version"><value>1</value></XDtMethodEx:ifHasMethodTag></XDtMethodEx:forAllMethods>
     </row>
     <row>
-        <XDtMethodEx:forAllMethods>
-        <XDtMethodEx:ifHasMethodTag tagName="hibernate.id">
-        <value>3</value>
-        </XDtMethodEx:ifHasMethodTag>
-        <XDtMethodEx:ifHasMethodTag tagName="hibernate.property">
-        <value><XDtMethodEx:randomValueForDbUnit/></value>
-        </XDtMethodEx:ifHasMethodTag>
-        <XDtMethodEx:ifHasMethodTag tagName="hibernate.version">
-        <value>1</value>
-        </XDtMethodEx:ifHasMethodTag>
-        </XDtMethodEx:forAllMethods>
+        <XDtMethodEx:forAllMethods><XDtMethodEx:ifHasMethodTag tagName="hibernate.id"><value>3</value></XDtMethodEx:ifHasMethodTag>
+        <XDtMethodEx:ifHasMethodTag tagName="hibernate.property"><value><XDtMethodEx:randomValueForDbUnit/></value></XDtMethodEx:ifHasMethodTag>
+        <XDtMethodEx:ifHasMethodTag tagName="hibernate.version"><value>1</value></XDtMethodEx:ifHasMethodTag></XDtMethodEx:forAllMethods>
     </row>
-  </table>
-</XDtClass:ifHasClassTag>
-<XDtClass:ifHasClassTag tagName="hibernate.joined-subclass" paramName="table" superclasses="false">
-  <table name='<XDtClass:classTagValue tagName="hibernate.joined-subclass" paramName="table"/>'>
-    <column><XDtClass:classTagValue tagName="hibernate.joined-subclass-key" paramName="column"/></column>
-<XDtMethodEx:forAllMethods>
-    <XDtMethodEx:ifHasMethodTag tagName="hibernate.property"><column><XDtMethodEx:ifHasMethodTag tagName="hibernate.property" paramName="column"><XDtMethodEx:methodTagValue tagName="hibernate.property" paramName="column"/></XDtMethodEx:ifHasMethodTag><XDtMethodEx:ifDoesntHaveMethodTag tagName="hibernate.property" paramName="column"><XDtMethodEx:propertyName/></XDtMethodEx:ifDoesntHaveMethodTag></column></XDtMethodEx:ifHasMethodTag>
-    <XDtMethodEx:ifHasMethodTag tagName="hibernate.version"><column>version</column></XDtMethodEx:ifHasMethodTag>
-</XDtMethodEx:forAllMethods>
-    <row>
-        <value>1</value>
-        <XDtMethodEx:forAllMethods>
-        <XDtMethodEx:ifHasMethodTag tagName="hibernate.property">
-        <value><XDtMethodEx:randomValueForDbUnit/></value>
-        </XDtMethodEx:ifHasMethodTag>
-        <XDtMethodEx:ifHasMethodTag tagName="hibernate.version">
-        <value>1</value>
-        </XDtMethodEx:ifHasMethodTag>
-        </XDtMethodEx:forAllMethods>
-    </row>
-    <row>
-        <value>2</value>
-        <XDtMethodEx:forAllMethods>
-        <XDtMethodEx:ifHasMethodTag tagName="hibernate.property">
-        <value><XDtMethodEx:randomValueForDbUnit/></value>
-        </XDtMethodEx:ifHasMethodTag>
-        <XDtMethodEx:ifHasMethodTag tagName="hibernate.version">
-        <value>1</value>
-        </XDtMethodEx:ifHasMethodTag>
-        </XDtMethodEx:forAllMethods>
-    </row>
-    <row>
-        <value>3</value>
-        <XDtMethodEx:forAllMethods>
-        <XDtMethodEx:ifHasMethodTag tagName="hibernate.property">
-        <value><XDtMethodEx:randomValueForDbUnit/></value>
-        </XDtMethodEx:ifHasMethodTag>
-        <XDtMethodEx:ifHasMethodTag tagName="hibernate.version">
-        <value>1</value>
-        </XDtMethodEx:ifHasMethodTag>
-        </XDtMethodEx:forAllMethods>
-    </row>
-  </table>
-</XDtClass:ifHasClassTag>
-</XDtClass:forAllClasses>
+  </table></XDtClass:ifHasClassTag></XDtClass:forAllClasses>
   <!--<XDtMethodEx:className/>-END-->
 </dataset>

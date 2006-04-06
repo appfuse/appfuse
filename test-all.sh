@@ -1,4 +1,4 @@
-ant setup test-all
+ant setup-db test-all
 cd extras/appgen
 ant test-all
 cd ../ibatis

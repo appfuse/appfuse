@@ -10,5 +10,4 @@
     <sqlMap resource="org/appfuse/dao/ibatis/sql/LookupSQL.xml" />
     <sqlMap resource="org/appfuse/dao/ibatis/sql/RoleSQL.xml" />
     <sqlMap resource="org/appfuse/dao/ibatis/sql/UserSQL.xml" />
-
 </sqlMapConfig>

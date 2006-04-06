@@ -13,7 +13,6 @@ import org.appfuse.dao.UserDAO;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
 import org.springframework.orm.ObjectRetrievalFailureException;
-import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 
 /**
  * This class interacts with iBatis's SQL Maps to save and retrieve User
@@ -23,7 +22,7 @@ import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
-public class UserDAOiBatis extends SqlMapClientDaoSupport implements UserDAO, UserDetailsService {
+public class UserDAOiBatis extends BaseDAOiBATIS implements UserDAO, UserDetailsService {
     /**
      * Get user by username.
      *
@@ -66,8 +65,8 @@ public class UserDAOiBatis extends SqlMapClientDaoSupport implements UserDAO, Us
      * Convenience method to delete roles
      * @param user
      */
-    private void deleteUserRoles(final User user) {
-        getSqlMapClientTemplate().update("deleteUserRoles", user);
+    private void deleteUserRoles(final String username) {
+        getSqlMapClientTemplate().update("deleteUserRoles", username);
     }
 
     private void addUserRoles(final User user) {
@@ -98,7 +97,7 @@ public class UserDAOiBatis extends SqlMapClientDaoSupport implements UserDAO, Us
         } else {
             user.setVersion(new Integer(user.getVersion().intValue()+1));
             getSqlMapClientTemplate().update("updateUser", user);
-            deleteUserRoles(user);
+            deleteUserRoles(user.getUsername());
             addUserRoles(user);
         }
     }
@@ -107,9 +106,8 @@ public class UserDAOiBatis extends SqlMapClientDaoSupport implements UserDAO, Us
      * @see org.appfuse.dao.UserDAO#removeUser(java.lang.String)
      */
     public void removeUser(String username) {
-        User user = getUser(username);
-        deleteUserRoles(user);
-        getSqlMapClientTemplate().update("deleteUser", user);
+        deleteUserRoles(username);
+        getSqlMapClientTemplate().update("deleteUser", username);
     }
     
     /** 

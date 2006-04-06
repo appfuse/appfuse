@@ -17,9 +17,10 @@ import xjavadoc.XMethod;
 import xjavadoc.XParameter;
 
 public class FormTagsHandler extends AbstractProgramElementTagsHandler {
-    XClass clazz = getCurrentClass();
-    private String curFieldName;
+
     private final static List supportedTypes = new ArrayList();
+    private String curFieldName;
+    private String curType;
     private boolean curFieldIsIdorVersion = false;
     private boolean curFieldIsBoolean = false;
     
@@ -49,6 +50,14 @@ public class FormTagsHandler extends AbstractProgramElementTagsHandler {
     }
 
     /**
+     * Gets the package name for the parent of this Package in directory format.
+     * @return Parent package path.
+     */
+    public String parentPackageDir() {
+        return parentPackageName().replace('.', '/');
+    }
+
+    /**
      * Iterates the body for each field of the current form requiring validation.
      *
      * @param template
@@ -56,13 +65,13 @@ public class FormTagsHandler extends AbstractProgramElementTagsHandler {
      * @throws XDocletException
      */
     public void forAllFields(String template, Properties attributes) throws XDocletException {
+        XClass clazz   = getCurrentClass();
         Map setters = new LinkedHashMap(getFields(clazz));
 
         for (Iterator iterator = setters.keySet().iterator(); iterator.hasNext();) {
             curFieldName = (String) iterator.next();
 
             XMethod field = (XMethod) setters.get(curFieldName);
-
             
             XMethod getter = field.getAccessor();
             setCurrentMethod(getter);
@@ -72,17 +81,20 @@ public class FormTagsHandler extends AbstractProgramElementTagsHandler {
 
             if (hasTag(pro, FOR_METHOD)) {
                 curFieldIsIdorVersion = true;
+            } else {
+                curFieldIsIdorVersion = false;
             }
 
             pro.setProperty("tagName", "hibernate.version");
 
             if (hasTag(pro, FOR_METHOD)) {
                 curFieldIsIdorVersion = true;
-            }
+            } 
 
             String typename = field.getPropertyType().getType().getQualifiedName();
             curFieldIsBoolean = typename.equals("boolean") || typename.equals("java.lang.Boolean");
 
+            curType = typename;
             setCurrentMethod(field);
             generate(template);
         }
@@ -102,6 +114,15 @@ public class FormTagsHandler extends AbstractProgramElementTagsHandler {
             generate(template);
     }
 
+  /**
+   * Method ifIsNotBooleanField
+   *
+   * @param template
+   * @param attributes
+   *
+   * @throws XDocletException
+   *
+   */
     public void ifIsNotBooleanField(String template, Properties attributes) throws XDocletException {
         if (!curFieldIsBoolean)
             generate(template);
@@ -121,10 +142,86 @@ public class FormTagsHandler extends AbstractProgramElementTagsHandler {
         }
     }
 
+    /**
+     * Method ifIsNotIdField
+     *
+     * @param template
+     * @param attributes
+     *
+     * @throws XDocletException
+    */
     public void ifIsNotIdOrVersionField(String template, Properties attributes) throws XDocletException {
         if (!curFieldIsIdorVersion) {
             generate(template);
         }
+    }
+
+    /**
+     * Method ifFieldNameEquals
+     *
+     * @param template
+     * @param attributes
+     *
+     * @throws XDocletException
+     */
+    public void ifFieldNameEquals(String template, Properties attributes) throws XDocletException{
+        String name = attributes.getProperty("name");
+  
+        if ((name != null) && name.equals(curFieldName)) {
+            generate(template);
+        }
+    }
+
+    /**
+     * Method ifFieldNameNotEquals
+     *
+     * @param template
+     * @param attributes
+     *
+     * @throws XDocletException
+     */
+    public void ifFieldNameNotEquals(String template, Properties attributes) throws XDocletException {
+        String name = attributes.getProperty("name");
+    
+        if ((name != null) && !name.equals(curFieldName)) {
+            generate(template);
+        }
+    }
+
+    /**
+     * Method methodTagValue
+     * @param attributes
+     * @return
+     * @throws XDocletException
+     */
+    public String methodTagValue(Properties attributes) throws XDocletException {
+        XMethod method = getCurrentMethod();
+        setCurrentMethod(method.getAccessor());
+        String value = getTagValue(attributes, FOR_METHOD);
+        setCurrentMethod(method);
+        return value;
+    }
+
+    /**
+     * Method columnName
+     * @param attributes
+     * @return
+     * @throws XDocletException
+     */
+    public String columnName(Properties attributes) throws XDocletException {
+        Properties prop = new Properties();
+      
+        prop.setProperty("tagName", "hibernate.property");
+        prop.setProperty("paramName", "column");
+      
+        String column = methodTagValue(prop);
+      
+        if ((column == null) || (column.trim().length() < 1)) {
+            prop.setProperty("tagName", "hibernate.id");
+            column = methodTagValue(prop);
+        }
+      
+        return column;
     }
     
     /**
@@ -136,17 +233,53 @@ public class FormTagsHandler extends AbstractProgramElementTagsHandler {
     public String fieldName(Properties props) {
         return curFieldName;
     }
-
+    
+    /**
+     * Returns the current field's java type.
+     * @param props
+     * @return
+     */
+    public String javaType(Properties props) {
+      return curType;
+    }
+    
+    /**
+     * Returns the current field's jdbc type
+     * @param props
+     * @return
+     */
+    public String jdbcType(Properties props) {
+        String jdbcType = "VARCHAR";
+      
+        if (curType != null) {
+            String javaType = curType.toLowerCase();
+        
+            if (javaType.indexOf("date") > 0) {
+                jdbcType = "TIMESTAMP";
+            } else if (javaType.indexOf("timestamp") > 0) {
+                jdbcType = "TIMESTAMP";
+            } else if ((javaType.indexOf("int") > 0) || (javaType.indexOf("long") > 0) || (javaType.indexOf("short") > 0)) {
+                jdbcType = "INTEGER";
+            } else if (javaType.indexOf("double") > 0) {
+                jdbcType = "DOUBLE";
+            } else if (javaType.indexOf("float") > 0) {
+                jdbcType = "FLOAT";
+            }
+        }
+      
+        return jdbcType;
+    }
+    
     /**
      * @return Classname of the POJO with first letter in lowercase
      */
     public String classNameLower() {
-        String name = clazz.getName();
+        String name = getCurrentClass().getName();
         return Character.toLowerCase(name.charAt(0)) + name.substring(1);   
     }
     
     public String className() {
-        return clazz.getName();
+        return getCurrentClass().getName();
     }
 
     /**
@@ -154,7 +287,7 @@ public class FormTagsHandler extends AbstractProgramElementTagsHandler {
      * @return
      */
     public String classNameUpper() {
-        String name = clazz.getName();
+        String name = getCurrentClass().getName();
         return name.toUpperCase();
     }
 

@@ -1,4 +1,5 @@
-<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><!--<XDtForm:className/>-BEAN-START--><bean id="<XDtForm:classNameLower/>Controller" class="<XDtForm:parentPackageName/>.webapp.action.<XDtForm:className/>Controller" autowire="byName"/>
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><!--<XDtForm:className/>-BEAN-START-->
+    <bean id="<XDtForm:classNameLower/>Controller" class="<XDtForm:parentPackageName/>.webapp.action.<XDtForm:className/>Controller" autowire="byName"/>
 
     <bean id="<XDtForm:classNameLower/>FormController" class="<XDtForm:parentPackageName/>.webapp.action.<XDtForm:className/>FormController" autowire="byName">
         <property name="validator" ref="beanValidator"/>

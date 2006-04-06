@@ -140,8 +140,8 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         
         <!-- Modify XML to modify action-servlet.xml -->
         <replace file="../appgen/build.xml">
-            <replacetoken><![CDATA[<!-- End of merge-config check -->]]></replacetoken>
-            <replacevalue><![CDATA[<!-- End of merge-config check -->
+            <replacetoken><![CDATA[<replace file="${serviceConfig}" value="${service.context}" token="&lt;/beans&gt;"/>]]></replacetoken>
+            <replacevalue><![CDATA[<replace file="${serviceConfig}" value="${service.context}" token="&lt;/beans&gt;"/>
 
         <echo>Merging controller configuration XML into web/WEB-INF/action-servlet.xml</echo>
         <loadfile property="action.beans"
@@ -338,7 +338,6 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         <echo>----------------------------------------------</echo>
     </target>
  
-    <property name="web.framework" value="webwork"/>
     <!-- =================================================================== -->
     <!-- Creates new project, installs WebWork and runs tests                -->
     <!-- =================================================================== -->
@@ -358,7 +357,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
     <!-- =================================================================== -->
     <!-- Creates new project, installs WebWork+iBATIS and runs tests         -->
     <!-- =================================================================== -->
-    <target name="test-ibatis" description="Creates appfuse-webwork-ibatis and runs tests">
+    <target name="test-ibatis"   description="Creates appfuse-webwork-ibatis and runs tests">
         <property name="app.name" value="appfuse-wibatis"/>
         <property name="db.name" value="appfuse"/>
         <property name="new.pkg.name" value="org.appfuse"/>
@@ -387,7 +386,6 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         <ant dir="../../../${app.name}/extras/webwork" target="install" inheritAll="false"/>
         <!-- Gen code and run tests -->
         <ant dir="../../../${app.name}/extras/appgen" target="test-all" inheritAll="false">
-            <property name="web.framework" value="webwork"/>
             <property name="appgen.type" value="pojo"/>
             <property name="model.name" value="Person"/>   
         </ant>   

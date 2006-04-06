@@ -92,36 +92,36 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
             <template templateFile="${template.dir}/ActionTest.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/test/web/${app.package}/webapp/action/{0}ActionTest.java"/>
+                      destinationFile="${gen.dir}/${module.test.dir}/web/${app.package}/webapp/action/{0}ActionTest.java"/>
             <!-- Detailed Action -->
             <template templateFile="${template.dir}/detailed/Action.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/src/web/${app.package}/webapp/action/{0}Action.java"/>
+                      destinationFile="${gen.dir}/${module.src.dir}/web/${app.package}/webapp/action/{0}Action.java"/>
             <!-- Generic Action -->
             <template templateFile="${template.dir}/generic/Action.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/generic/src/web/${app.package}/webapp/action/{0}Action.java"/>]]></replacetoken>
+                      destinationFile="${gen.dir}/generic/${module.src.dir}/web/${app.package}/webapp/action/{0}Action.java"/>]]></replacetoken>
             <replacevalue><![CDATA[<!-- FormController Test -->    
             <template templateFile="${template.dir}/FormControllerTest.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/test/web/${app.package}/webapp/action/{0}FormControllerTest.java"/>
+                      destinationFile="${gen.dir}/${module.test.dir}/web/${app.package}/webapp/action/{0}FormControllerTest.java"/>
             <!-- Controller Test -->    
             <template templateFile="${template.dir}/ControllerTest.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/test/web/${app.package}/webapp/action/{0}ControllerTest.java"/>
+                      destinationFile="${gen.dir}/${module.test.dir}/web/${app.package}/webapp/action/{0}ControllerTest.java"/>
             <!-- Detailed Controllers -->
             <template templateFile="${template.dir}/detailed/FormController.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/src/web/${app.package}/webapp/action/{0}FormController.java"/>
+                      destinationFile="${gen.dir}/${module.src.dir}/web/${app.package}/webapp/action/{0}FormController.java"/>
             <template templateFile="${template.dir}/detailed/Controller.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/src/web/${app.package}/webapp/action/{0}Controller.java"/>
+                      destinationFile="${gen.dir}/${module.src.dir}/web/${app.package}/webapp/action/{0}Controller.java"/>
             <!-- Generic Controllers -->    
             <template templateFile="${template.dir}/generic/FormController.xdt"
                       acceptAbstractClasses="false"
@@ -145,8 +145,9 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         
         <!-- Modify XML to modify action-servlet.xml -->
         <replace file="../appgen/build.xml">
-            <replacetoken><![CDATA[<echo>Merging sample-data into metadata/sql/sample-data.xml</echo>]]></replacetoken>
-            <replacevalue><![CDATA[
+            <replacetoken><![CDATA[<!-- End of merge-config check -->]]></replacetoken>
+            <replacevalue><![CDATA[<!-- End of merge-config check -->
+
         <echo>Merging controller configuration XML into web/WEB-INF/action-servlet.xml</echo>
         <loadfile property="controller.beans"
             srcfile="${generated.dir}/web/WEB-INF/action-servlet-${model.name}.xml"/>
@@ -163,9 +164,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         <replace file="${actionServlet}" token="&lt;!--${model.name}-URL-END--&gt;" value="REGULAR-END"/>
         <replaceregexp file="${actionServlet}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
         <!-- Replace strategically placed comment -->
-        <replace file="${actionServlet}" token="&lt;!-- Add additional URL mappings here --&gt;" value="${controller.mappings}"/>
-
-        <echo>Merging sample-data into metadata/sql/sample-data.xml</echo>]]></replacevalue>
+        <replace file="${actionServlet}" token="&lt;!-- Add additional URL mappings here --&gt;" value="${controller.mappings}"/>]]></replacevalue>
         </replace>
 
         <!-- Replace Struts specific stuff from Middlegen -->
@@ -296,17 +295,13 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
     </target>
 ]]></replacetoken>
         </replace>
-        
-        <echo level="info">Removing other web framework options</echo>
-        <delete dir="../../extras/jsf"/>
-        <delete dir="../../extras/tapestry"/>
-        <delete dir="../../extras/webwork"/>
 
         <echo>----------------------------------------------</echo>
         <echo level="info">NOTE: It's recommended you delete extras/spring as you shouldn't need it anymore.</echo>
         <echo>----------------------------------------------</echo>
     </target>
  
+    <property name="web.framework" value="spring"/>
     <!-- =================================================================== -->
     <!-- Creates new project, installs Spring MVC and runs tests             -->
     <!-- =================================================================== -->
@@ -319,10 +314,8 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
 
         <!-- New project created, install Spring MVC and run tests -->
         <ant dir="../../../${app.name}/extras/spring" target="install" inheritAll="false"/>
-        <ant dir="../../../${app.name}" target="setup" inheritAll="false"/>
+        <ant dir="../../../${app.name}" target="setup-db" inheritAll="false"/>
         <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
-        
-        <echo>Start Tomcat to view ${app.name} manually.</echo>
     </target>
 
     <!-- =================================================================== -->
@@ -339,10 +332,8 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         <ant dir="../../../${app.name}/extras/ibatis" target="install" inheritAll="false"/>
         <ant dir="../../../${app.name}/extras/ibatis" target="uninstall-hibernate" inheritAll="false"/>
         <ant dir="../../../${app.name}/extras/spring" target="install" inheritAll="false"/>
-        <ant dir="../../../${app.name}" target="setup" inheritAll="false"/>
+        <ant dir="../../../${app.name}" target="setup-db" inheritAll="false"/>
         <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
-
-        <echo>Start Tomcat to view ${app.name} manually.</echo>
     </target>
 
     <!-- =================================================================== -->
@@ -359,6 +350,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         <ant dir="../../../${app.name}/extras/spring" target="install" inheritAll="false"/>
         <!-- Gen code and run tests -->
         <ant dir="../../../${app.name}/extras/appgen" target="test-all" inheritAll="false">
+            <property name="web.framework" value="spring"/>
             <property name="appgen.type" value="pojo"/>
             <property name="model.name" value="Person"/>
         </ant>   

@@ -16,6 +16,12 @@
         </property>
         <property name="dataSource" ref="dataSource"/>
     </bean>
+
+    <!-- Generic DAO - can be used when doing standard CRUD -->
+    <bean id="dao" class="org.appfuse.dao.ibatis.BaseDAOiBATIS">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="sqlMapClient" ref="sqlMapClient"/> 
+    </bean> 
     
     <!-- LookupDAO: iBatis implementation --> 
     <bean id="lookupDAO" class="org.appfuse.dao.ibatis.LookupDAOiBatis"> 
