@@ -38,6 +38,7 @@
     <property name="database.url" 
         value="jdbc:${database.type}://${database.host}/${database.name}?useUnicode=true&amp;amp;characterEncoding=utf-8"/>
     <property name="database.show_sql" value="true"/>
+    <property name="database.schema" value=""/>
     
     <!-- Build and deploy properties -->
     <property environment="env"/>
