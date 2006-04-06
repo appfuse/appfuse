@@ -217,12 +217,12 @@
             <template templateFile="${template.dir}/Form_jsp.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/web/pages/{0}Form.jsp"/>
+                      destinationFile="${gen.dir}/web/pages/{0}FormTemp.jsp"/>
             <!-- List JSP -->
             <template templateFile="${template.dir}/List_jsp.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/web/pages/{0}List.jsp"/>
+                      destinationFile="${gen.dir}/web/pages/{0}ListTemp.jsp"/>
             <!-- Menu Config -->
             <template templateFile="${template.dir}/menu-config.xdt"
                       acceptAbstractClasses="false"
@@ -234,6 +234,12 @@
                       prefixWithPackageStructure="false"
                       destinationFile="${gen.dir}/web/pages/menu-{0}.jsp"/>
         </xdoclet>
+
+        <!-- Make first character of JSP filenames lowercase -->
+        <move file="${build.dir}/${gen.dir}/web/pages/${model.name}ListTemp.jsp"
+            tofile="${build.dir}/${gen.dir}/web/pages/${model.name.lowercase}List.jsp"/>
+        <move file="${build.dir}/${gen.dir}/web/pages/${model.name}FormTemp.jsp"
+            tofile="${build.dir}/${gen.dir}/web/pages/${model.name.lowercase}Form.jsp"/>
     </target>
    
     <property name="generated.dir" value="${build.dir}/${gen.dir}"/>
@@ -304,11 +310,10 @@
         <echo file="${i18nFile}" append="true" message="${i18n.keys}"/>
         
         <!-- copy jsp files -->
-        <echo>Copying all .jsp files into main project, overwrite="${overwrite}"</echo>
-        <copy file="${generated.dir}/web/pages/${model.name}Form.jsp" overwrite="${overwrite}"
-            tofile="../../web/pages/${model.name.lowercase}Form.jsp"/>   
-        <copy file="${generated.dir}/web/pages/${model.name}List.jsp" overwrite="${overwrite}"
-            tofile="../../web/pages/${model.name.lowercase}List.jsp"/>
+        <echo>Copying all web files into main project, overwrite="${overwrite}"</echo>
+        <copy todir="../../web/pages">
+            <fileset dir="${generated.dir}/web/pages" includes="${model.name.lowercase}*.jsp"/>
+        </copy>
     </target>
             
     <target name="merge-config" depends="merge-tests,merge-menu,merge-hibernate,merge-ibatis">

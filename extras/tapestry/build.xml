@@ -157,11 +157,11 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
             <template templateFile="${template.dir}/detailed/Form_page.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/web/pages/{0}Form.page"/>
+                      destinationFile="${gen.dir}/web/pages/{0}FormTemp.page"/>
             <template templateFile="${template.dir}/detailed/List_page.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/web/pages/{0}List.page"/>
+                      destinationFile="${gen.dir}/web/pages/{0}ListTemp.page"/>
             <!-- Generic Pages -->
             <template templateFile="${template.dir}/generic/FormTest.xdt"
                       acceptAbstractClasses="false"
@@ -182,11 +182,11 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
             <template templateFile="${template.dir}/generic/Form_page.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/generic/web/pages/{0}Form.page"/>
+                      destinationFile="${gen.dir}/generic/web/pages/{0}FormTemp.page"/>
             <template templateFile="${template.dir}/generic/List_page.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/generic/web/pages/{0}List.page"/>]]></replacevalue>
+                      destinationFile="${gen.dir}/generic/web/pages/{0}ListTemp.page"/>]]></replacevalue>
         </replace>
         
         <!-- Replace JSP templates with HTML templates -->
@@ -195,27 +195,51 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
             <template templateFile="${template.dir}/Form_jsp.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/web/pages/{0}Form.jsp"/>
+                      destinationFile="${gen.dir}/web/pages/{0}FormTemp.jsp"/>
             <!-- List JSP -->
             <template templateFile="${template.dir}/List_jsp.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/web/pages/{0}List.jsp"/>]]></replacetoken>
+                      destinationFile="${gen.dir}/web/pages/{0}ListTemp.jsp"/>]]></replacetoken>
             <replacevalue><![CDATA[<!-- Form HTML -->
             <template templateFile="${template.dir}/Form_html.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/web/pages/{0}Form.html"/>
+                      destinationFile="${gen.dir}/web/pages/{0}FormTemp.html"/>
             <!-- List HTML -->
             <template templateFile="${template.dir}/List_html.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/web/pages/{0}List.html"/>
+                      destinationFile="${gen.dir}/web/pages/{0}ListTemp.html"/>
            <!-- Page definitions -->
            <template templateFile="${template.dir}/tapestry.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
                       destinationFile="${gen.dir}/web/WEB-INF/tapestry-{0}.application"/>]]></replacevalue>
+        </replace>
+
+        <replace file="../appgen/build.xml">
+            <replacetoken><![CDATA[<!-- Make first character of JSP filenames lowercase -->
+        <move file="${build.dir}/${gen.dir}/web/pages/${model.name}ListTemp.jsp"
+            tofile="${build.dir}/${gen.dir}/web/pages/${model.name.lowercase}List.jsp"/>
+        <move file="${build.dir}/${gen.dir}/web/pages/${model.name}FormTemp.jsp"
+            tofile="${build.dir}/${gen.dir}/web/pages/${model.name.lowercase}Form.jsp"/>]]></replacetoken>
+            <replacevalue><![CDATA[<!-- Make first character of HTML filenames lowercase -->
+        <move file="${build.dir}/${gen.dir}/web/pages/${model.name}ListTemp.html"
+            tofile="${build.dir}/${gen.dir}/web/pages/${model.name.lowercase}s.html"/>
+        <move file="${build.dir}/${gen.dir}/web/pages/${model.name}FormTemp.html"
+            tofile="${build.dir}/${gen.dir}/web/pages/${model.name.lowercase}Form.html"/>
+            
+        <!-- Make first character of .page filenames lowercase -->
+        <move file="${build.dir}/${gen.dir}/web/pages/${model.name}ListTemp.page"
+            tofile="${build.dir}/${gen.dir}/web/pages/${model.name.lowercase}s.page"/>
+        <move file="${build.dir}/${gen.dir}/web/pages/${model.name}FormTemp.page"
+            tofile="${build.dir}/${gen.dir}/web/pages/${model.name.lowercase}Form.page"/>
+            
+        <move file="${build.dir}/${gen.dir}/generic/web/pages/${model.name}ListTemp.page"
+            tofile="${build.dir}/${gen.dir}/generic/web/pages/${model.name.lowercase}s.page"/>
+        <move file="${build.dir}/${gen.dir}/generic/web/pages/${model.name}FormTemp.page"
+            tofile="${build.dir}/${gen.dir}/generic/web/pages/${model.name.lowercase}Form.page"/>]]></replacevalue>
         </replace>
 
         <!-- Modify XML to modify tapestry.application -->
@@ -234,23 +258,22 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
         <replace file="${tapestryApplication}" token="&lt;!-- Add additional pages here --&gt;" value="${tapestry.application}"/>]]></replacevalue>
         </replace>
 
-        <!-- Change files from .jsp to .html -->
+        <!-- Change files from *List.html and *.page files to plural form of the model object -->
         <replace file="../appgen/build.xml" token="Form.jsp" value="Form.html"/>
-        <replace file="../appgen/build.xml" token="name}List.jsp" value="name}List.html"/>
-        <replace file="../appgen/build.xml" token="lowercase}List.jsp" value="lowercase}s.html"/>
+        <replace file="../appgen/build.xml" token="lowercase}List.html" value="lowercase}s.html"/>
+        <replace file="../appgen/build.xml" token="lowercase}List.page" value="lowercase}s.page"/>
+        <replace file="../appgen/build.xml" token="${model.name.lowercase}*.jsp" value="${model.name.lowercase}*.html"/>
         
         <!-- Modify merge-config target to copy .page files -->
         <replace file="../appgen/build.xml">
             <replacetoken><![CDATA[<!-- End of merge-config check -->]]></replacetoken>
             <replacevalue><![CDATA[<!-- End of merge-config check -->
 
-        <copy file="${generated.dir}${gen.sub.dir}/web/pages/${model.name}Form.page" overwrite="${overwrite}"
-            tofile="../../web/pages/${model.name.lowercase}Form.page"/>   
-        <copy file="${generated.dir}${gen.sub.dir}/web/pages/${model.name}List.page" overwrite="${overwrite}"
-            tofile="../../web/pages/${model.name.lowercase}s.page"/>]]></replacevalue>
+        <copy todir="../..">
+            <fileset dir="${generated.dir}${gen.sub.dir}" includes="**/*.page"/>
+        </copy>]]></replacevalue>
         </replace>
 
-        <!-- Tapestry has generic tests -->
         <replace file="../appgen/build.xml">
           <replacetoken><![CDATA[
                 <include name="test/**/web/**/*.java"/>]]></replacetoken>

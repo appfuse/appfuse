@@ -195,8 +195,8 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
             <replacevalue><![CDATA[/web/]]></replacevalue>
         </replace>
         <replace file="../appgen/build.xml">
-            <replacetoken><![CDATA[tofile="../../web/${model.name.lowercase}List.jsp"]]></replacetoken>
-            <replacevalue><![CDATA[tofile="../../web/${model.name.lowercase}s.jsp"]]></replacevalue>
+            <replacetoken><![CDATA[tofile="${build.dir}/${gen.dir}/web/${model.name.lowercase}List.jsp"]]></replacetoken>
+            <replacevalue><![CDATA[tofile="${build.dir}/${gen.dir}/web/${model.name.lowercase}s.jsp"]]></replacevalue>
         </replace>
 
         <!-- Remove Struts specific stuff from Middlegen -->
