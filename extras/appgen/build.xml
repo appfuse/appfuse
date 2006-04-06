@@ -358,12 +358,7 @@
         <replace file="${webTests}" value="${web.tests}" token="&lt;/project&gt;"/>
 
         <!-- Add to run-all-tests target -->
-        <replace file="${webTests}">
-            <replacetoken><![CDATA["
-        description="Call and executes all test cases (targets)"]]></replacetoken>
-            <replacevalue><![CDATA[,${model.name}Tests"
-        description="Call and executes all test cases (targets)""]]></replacevalue>
-        </replace>
+        <replace file="${webTests}" token=",FileUpload" value=",FileUpload,${model.name}Tests"/>
     </target>
         
     <target name="merge-menu">
