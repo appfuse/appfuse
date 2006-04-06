@@ -21,6 +21,11 @@ public class FileUploadAction extends BaseAction implements ValidationAware {
         if (this.cancel != null) {
             return "cancel";
         }
+        
+        if (file == null || file.length() > 2097152) {
+            addActionError(getText("maxLengthExceeded"));
+            return INPUT;
+        }
 
         // the directory to upload to
         String uploadDir =

@@ -24,7 +24,7 @@
                 <interceptor-ref name="params" />
                 <interceptor-ref name="conversionError" />
                 <interceptor-ref name="validation">
-                    <param name="excludeMethods">cancel,execute,delete,edit,list</param>
+                    <param name="excludeMethods">cancel,execute,delete,edit,list,default</param>
                 </interceptor-ref>
                 <interceptor-ref name="workflow">
                     <param name="excludeMethods">input,back,cancel</param>
