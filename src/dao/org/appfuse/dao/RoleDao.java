@@ -5,15 +5,15 @@ import java.util.List;
 import org.appfuse.model.Role;
 
 /**
- * Role Data Access Object (DAO) interface.
+ * Role Data Access Object (Dao) interface.
  *
  * <p>
- * <a href="RoleDAO.java.html"><i>View Source</i></a>
+ * <a href="RoleDao.java.html"><i>View Source</i></a>
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
-public interface RoleDAO extends DAO {
+public interface RoleDao extends Dao {
     /**
      * Gets roles information based on login name.
      * @param rolename the current rolename

@@ -2,20 +2,20 @@ package org.appfuse.dao.hibernate;
 
 import java.util.List;
 
-import org.appfuse.dao.LookupDAO;
+import org.appfuse.dao.LookupDao;
 
 
 /**
- * Hibernate implementation of LookupDAO.
+ * Hibernate implementation of LookupDao.
  *
- * <p><a href="LookupDAOHibernate.java.html"><i>View Source</i></a></p>
+ * <p><a href="LookupDaoHibernate.java.html"><i>View Source</i></a></p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
-public class LookupDAOHibernate extends BaseDAOHibernate implements LookupDAO {
+public class LookupDaoHibernate extends BaseDaoHibernate implements LookupDao {
 
     /**
-     * @see org.appfuse.dao.LookupDAO#getRoles()
+     * @see org.appfuse.dao.LookupDao#getRoles()
      */
     public List getRoles() {
         if (log.isDebugEnabled()) {

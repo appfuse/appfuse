@@ -2,7 +2,7 @@ package org.appfuse.service;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.appfuse.dao.UserDAO;
+import org.appfuse.dao.UserDao;
 import org.appfuse.model.User;
 import org.codehaus.xfire.spring.AbstractXFireSpringTest;
 import org.jdom.Document;
@@ -33,16 +33,16 @@ public class UserWebServiceTest extends AbstractXFireSpringTest {
         // Setup testharness 
         User testData = new User("tomcat");
         testData.setEnabled(true);
-        Mock userDAO = new Mock(UserDAO.class);
+        Mock userDao = new Mock(UserDao.class);
         
         // because we can't extend MockObjectTestCase we create new instances for once(), eq() and returnValue()
         InvokeOnceMatcher once = new InvokeOnceMatcher();
         IsEqual eq = new IsEqual("tomcat");
         ReturnStub returnValue = new ReturnStub(testData);
-        userDAO.expects(once).method("getUser").with(eq).will(returnValue);
+        userDao.expects(once).method("getUser").with(eq).will(returnValue);
         
         UserManager service = (UserManager) getContext().getBean("userManager");
-        service.setUserDAO((UserDAO)userDAO.proxy());
+        service.setUserDao((UserDao)userDao.proxy());
         
         // invoke webservice
         Document response =
@@ -50,7 +50,7 @@ public class UserWebServiceTest extends AbstractXFireSpringTest {
 
         //printNode(response);
         // verify result
-        userDAO.verify();
+        userDao.verify();
         addNamespace("service","http://service.appfuse.org");
         addNamespace("model","http://model.appfuse.org");
         assertValid("//service:getUserResponse/service:out[model:username=\"tomcat\"]",response);

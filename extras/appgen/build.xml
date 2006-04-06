@@ -119,25 +119,25 @@
                        to be available to templates -->   
             
             <!-- DAO Test -->   
-            <template templateFile="${template.dir}/detailed/DAOTest.xdt"
+            <template templateFile="${template.dir}/detailed/DaoTest.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/${module.test.dir}/dao/${app.package}/dao/{0}DAOTest.java"/>
+                      destinationFile="${gen.dir}/${module.test.dir}/dao/${app.package}/dao/{0}DaoTest.java"/>
             <!-- DAO Interface -->   
-            <template templateFile="${template.dir}/detailed/DAO.xdt"
+            <template templateFile="${template.dir}/detailed/Dao.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/${module.src.dir}/dao/${app.package}/dao/{0}DAO.java"/>
+                      destinationFile="${gen.dir}/${module.src.dir}/dao/${app.package}/dao/{0}Dao.java"/>
             <!-- Hibernate DAO Implementation -->   
-            <template templateFile="${template.dir}/detailed/DAOHibernate.xdt"
+            <template templateFile="${template.dir}/detailed/DaoHibernate.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/${module.src.dir}/dao/${app.package}/dao/hibernate/{0}DAOHibernate.java"/>
+                      destinationFile="${gen.dir}/${module.src.dir}/dao/${app.package}/dao/hibernate/{0}DaoHibernate.java"/>
             <!-- iBatis DAO Implementation -->   
-            <template templateFile="${template.dir}/detailed/DAOiBatis.xdt"
+            <template templateFile="${template.dir}/detailed/DaoiBatis.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/${module.src.dir}/dao/${app.package}/dao/ibatis/{0}DAOiBatis.java"/>
+                      destinationFile="${gen.dir}/${module.src.dir}/dao/${app.package}/dao/ibatis/{0}DaoiBatis.java"/>
             <!-- iBatis SQL Map Configuration -->   
             <template templateFile="${template.dir}/detailed/sql-map-config.xdt"
                       acceptAbstractClasses="false"
@@ -266,7 +266,7 @@
             <fileset dir="${generated.dir}">
                 <include name="**/*.java"/>
                 <include name="**/*SQL.xml"/>
-                <include name="**/dao/**/${model.name}DAO.java"/>
+                <include name="**/dao/**/${model.name}Dao.java"/>
                 <exclude name="**/Constants-*.java"/>
                 <exclude name="generic/**"/>
                 <exclude name="**/dao/**/dao/*ib*/*.java"/>

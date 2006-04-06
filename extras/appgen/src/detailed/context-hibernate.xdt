@@ -1,4 +1,4 @@
 <XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>    <!--<XDtForm:className/>-START-->
-    <bean id="<XDtForm:classNameLower/>DAO" class="<XDtForm:parentPackageName/>.dao.hibernate.<XDtForm:className/>DAOHibernate" autowire="byName"/>
+    <bean id="<XDtForm:classNameLower/>Dao" class="<XDtForm:parentPackageName/>.dao.hibernate.<XDtForm:className/>DaoHibernate" autowire="byName"/>
     <!--<XDtForm:className/>-END-->
 </beans>

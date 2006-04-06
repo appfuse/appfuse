@@ -3,7 +3,7 @@ package org.appfuse.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.appfuse.dao.LookupDAO;
+import org.appfuse.dao.LookupDao;
 import org.appfuse.model.LabelValue;
 import org.appfuse.model.Role;
 import org.appfuse.service.LookupManager;
@@ -19,11 +19,11 @@ import org.appfuse.service.LookupManager;
 public class LookupManagerImpl extends BaseManager implements LookupManager {
     //~ Instance fields ========================================================
 
-    private LookupDAO dao;
+    private LookupDao dao;
 
     //~ Methods ================================================================
 
-    public void setLookupDAO(LookupDAO dao) {
+    public void setLookupDao(LookupDao dao) {
         super.dao = dao;
         this.dao = dao;
     }

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.appfuse.Constants;
-import org.appfuse.dao.RoleDAO;
-import org.appfuse.dao.UserDAO;
+import org.appfuse.dao.RoleDao;
+import org.appfuse.dao.UserDao;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
 import org.appfuse.service.impl.RoleManagerImpl;
@@ -19,8 +19,8 @@ public class UserManagerTest extends BaseManagerTestCase {
 
     private UserManager userManager = new UserManagerImpl();
     private RoleManager roleManager = new RoleManagerImpl();
-    private Mock userDAO = null;
-    private Mock roleDAO = null;
+    private Mock userDao = null;
+    private Mock roleDao = null;
     private User user = null;
     private Role role = null;
 
@@ -28,44 +28,44 @@ public class UserManagerTest extends BaseManagerTestCase {
 
     protected void setUp() throws Exception {
         super.setUp();
-        userDAO = new Mock(UserDAO.class);
-        userManager.setUserDAO((UserDAO) userDAO.proxy());
-        roleDAO = new Mock(RoleDAO.class);
-        roleManager.setRoleDAO((RoleDAO) roleDAO.proxy());
+        userDao = new Mock(UserDao.class);
+        userManager.setUserDao((UserDao) userDao.proxy());
+        roleDao = new Mock(RoleDao.class);
+        roleManager.setRoleDao((RoleDao) roleDao.proxy());
     }
     
     public void testGetUser() throws Exception {
         User testData = new User("tomcat");
         testData.getRoles().add(new Role("user"));
         // set expected behavior on dao
-        userDAO.expects(once()).method("getUser")
+        userDao.expects(once()).method("getUser")
                .with(eq("tomcat")).will(returnValue(testData));
         
         user = userManager.getUser("tomcat");
         assertTrue(user != null);
         assertTrue(user.getRoles().size() == 1);
-        userDAO.verify();
+        userDao.verify();
     }
 
     public void testSaveUser() throws Exception {
         User testData = new User("tomcat");
         testData.getRoles().add(new Role("user"));
         // set expected behavior on dao
-        userDAO.expects(once()).method("getUser")
+        userDao.expects(once()).method("getUser")
                .with(eq("tomcat")).will(returnValue(testData));
         
         user = userManager.getUser("tomcat");
         user.setPhoneNumber("303-555-1212");
-        userDAO.verify();
+        userDao.verify();
         
         // reset expectations
-        userDAO.reset();
-        userDAO.expects(once()).method("saveUser").with(same(user));
+        userDao.reset();
+        userDao.expects(once()).method("saveUser").with(same(user));
         
         userManager.saveUser(user);
         assertTrue(user.getPhoneNumber().equals("303-555-1212"));
         assertTrue(user.getRoles().size() == 1);
-        userDAO.verify();
+        userDao.verify();
     }
 
     public void testAddAndRemoveUser() throws Exception {
@@ -76,34 +76,34 @@ public class UserManagerTest extends BaseManagerTestCase {
         user = (User) populate(user);
         
         // set expected behavior on role dao
-        roleDAO.expects(once()).method("getRole")
+        roleDao.expects(once()).method("getRole")
                .with(eq("user")).will(returnValue(new Role("user")));
         
         role = roleManager.getRole(Constants.USER_ROLE);
-        roleDAO.verify();
+        roleDao.verify();
         user.addRole(role);
 
         // set expected behavior on user dao
-        userDAO.expects(once()).method("saveUser").with(same(user));
+        userDao.expects(once()).method("saveUser").with(same(user));
         
         userManager.saveUser(user);
         assertTrue(user.getUsername().equals("john"));
         assertTrue(user.getRoles().size() == 1);
-        userDAO.verify();
+        userDao.verify();
         
         // reset expectations
-        userDAO.reset();
+        userDao.reset();
         
-        userDAO.expects(once()).method("removeUser").with(eq(user.getUsername()));
+        userDao.expects(once()).method("removeUser").with(eq(user.getUsername()));
         userManager.removeUser(user.getUsername());
-        userDAO.verify();
+        userDao.verify();
 
         // reset expectations
-        userDAO.reset();
-        userDAO.expects(once()).method("getUser").will(returnValue(null));
+        userDao.reset();
+        userDao.expects(once()).method("getUser").will(returnValue(null));
         user = userManager.getUser("john");
         assertNull(user);
-        userDAO.verify();
+        userDao.verify();
     }
     
     public void testUserExistsException() {
@@ -114,7 +114,7 @@ public class UserManagerTest extends BaseManagerTestCase {
         
         users.add(user);
         Exception ex = new DataIntegrityViolationException("");
-        userDAO.expects(once()).method("saveUser").with(same(user))
+        userDao.expects(once()).method("saveUser").with(same(user))
                .will(throwException(ex));
         
         // run test

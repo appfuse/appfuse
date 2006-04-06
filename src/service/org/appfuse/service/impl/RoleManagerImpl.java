@@ -2,7 +2,7 @@ package org.appfuse.service.impl;
 
 import java.util.List;
 
-import org.appfuse.dao.RoleDAO;
+import org.appfuse.dao.RoleDao;
 import org.appfuse.model.Role;
 import org.appfuse.service.RoleManager;
 
@@ -14,9 +14,9 @@ import org.appfuse.service.RoleManager;
  * @author <a href="mailto:dan@getrolling.com">Dan Kibler</a>
  */
 public class RoleManagerImpl extends BaseManager implements RoleManager {
-    private RoleDAO dao;
+    private RoleDao dao;
 
-    public void setRoleDAO(RoleDAO dao) {
+    public void setRoleDao(RoleDao dao) {
         this.dao = dao;
     }
 

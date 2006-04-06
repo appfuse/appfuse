@@ -9,7 +9,7 @@ import java.util.Map;
 import org.acegisecurity.userdetails.UserDetails;
 import org.acegisecurity.userdetails.UserDetailsService;
 import org.acegisecurity.userdetails.UsernameNotFoundException;
-import org.appfuse.dao.UserDAO;
+import org.appfuse.dao.UserDao;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
 import org.springframework.orm.ObjectRetrievalFailureException;
@@ -18,11 +18,11 @@ import org.springframework.orm.ObjectRetrievalFailureException;
  * This class interacts with iBatis's SQL Maps to save and retrieve User
  * related objects.
  *
- * <p><a href="UserDAOiBatis.java.html"><i>View Source</i></a></p>
+ * <p><a href="UserDaoiBatis.java.html"><i>View Source</i></a></p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
-public class UserDAOiBatis extends BaseDAOiBATIS implements UserDAO, UserDetailsService {
+public class UserDaoiBatis extends BaseDaoiBATIS implements UserDao, UserDetailsService {
     /**
      * Get user by username.
      *
@@ -44,7 +44,7 @@ public class UserDAOiBatis extends BaseDAOiBATIS implements UserDAO, UserDetails
     }
 
     /**
-     * @see org.appfuse.dao.UserDAO#getUsers(org.appfuse.model.User)
+     * @see org.appfuse.dao.UserDao#getUsers(org.appfuse.model.User)
      */
     public List getUsers(User user) {
         List users = getSqlMapClientTemplate().queryForList("getUsers", null);
@@ -87,7 +87,7 @@ public class UserDAOiBatis extends BaseDAOiBATIS implements UserDAO, UserDetails
     }
 
     /**
-     * @see org.appfuse.dao.UserDAO#saveUser(org.appfuse.model.User)
+     * @see org.appfuse.dao.UserDao#saveUser(org.appfuse.model.User)
      */
     public void saveUser(final User user) {
         if (user.getVersion() == null) {
@@ -103,7 +103,7 @@ public class UserDAOiBatis extends BaseDAOiBATIS implements UserDAO, UserDetails
     }
 
     /**
-     * @see org.appfuse.dao.UserDAO#removeUser(java.lang.String)
+     * @see org.appfuse.dao.UserDao#removeUser(java.lang.String)
      */
     public void removeUser(String username) {
         deleteUserRoles(username);

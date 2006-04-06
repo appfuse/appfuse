@@ -5,15 +5,15 @@ import java.util.List;
 import org.appfuse.model.User;
 
 /**
- * User Data Access Object (DAO) interface.
+ * User Data Access Object (Dao) interface.
  *
  * <p>
- * <a href="UserDAO.java.html"><i>View Source</i></a>
+ * <a href="UserDao.java.html"><i>View Source</i></a>
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
-public interface UserDAO extends DAO {
+public interface UserDao extends Dao {
     /**
      * Gets users information based on login name.
      * @param username the current username

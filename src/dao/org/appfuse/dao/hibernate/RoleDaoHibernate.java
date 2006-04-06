@@ -3,7 +3,7 @@ package org.appfuse.dao.hibernate;
 import java.util.List;
 
 import org.appfuse.model.Role;
-import org.appfuse.dao.RoleDAO;
+import org.appfuse.dao.RoleDao;
 
 
 /**
@@ -11,12 +11,12 @@ import org.appfuse.dao.RoleDAO;
  * retrieve Role objects.
  *
  * <p>
- * <a href="RoleDAOHibernate.java.html"><i>View Source</i></a>
+ * <a href="RoleDaoHibernate.java.html"><i>View Source</i></a>
  * </p>
  *
  * @author <a href="mailto:dan@getrolling.com">Dan Kibler</a> 
  */
-public class RoleDAOHibernate extends BaseDAOHibernate implements RoleDAO {
+public class RoleDaoHibernate extends BaseDaoHibernate implements RoleDao {
 
     public List getRoles(Role role) {
         return getHibernateTemplate().find("from Role");

@@ -2,7 +2,7 @@ package org.appfuse.service;
 
 import java.util.List;
 
-import org.appfuse.dao.LookupDAO;
+import org.appfuse.dao.LookupDao;
 
 
 /**
@@ -18,7 +18,7 @@ import org.appfuse.dao.LookupDAO;
 public interface LookupManager extends Manager {
     //~ Methods ================================================================
 
-    public void setLookupDAO(LookupDAO dao);
+    public void setLookupDao(LookupDao dao);
     
     /**
      * Retrieves all possible roles from persistence layer

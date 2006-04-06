@@ -2,7 +2,7 @@ package org.appfuse.service.impl;
 
 import java.util.List;
 
-import org.appfuse.dao.UserDAO;
+import org.appfuse.dao.UserDao;
 import org.appfuse.model.User;
 import org.appfuse.service.UserExistsException;
 import org.appfuse.service.UserManager;
@@ -19,13 +19,13 @@ import org.springframework.dao.DataIntegrityViolationException;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class UserManagerImpl extends BaseManager implements UserManager {
-    private UserDAO dao;
+    private UserDao dao;
 
     /**
-     * Set the DAO for communication with the data layer.
+     * Set the Dao for communication with the data layer.
      * @param dao
      */
-    public void setUserDAO(UserDAO dao) {
+    public void setUserDao(UserDao dao) {
         this.dao = dao;
     }
 

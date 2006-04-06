@@ -5,7 +5,7 @@ package <XDtForm:parentPackageName/>.service;
 import java.util.List;
 
 import <XDtPackage:packageName/>.<XDtForm:className/>;
-import <XDtForm:parentPackageName/>.dao.<XDtForm:className/>DAO;
+import <XDtForm:parentPackageName/>.dao.<XDtForm:className/>Dao;
 
 public interface <XDtForm:className/>Manager extends Manager {
     /**

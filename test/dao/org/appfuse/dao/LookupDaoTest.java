@@ -3,13 +3,13 @@ package org.appfuse.dao;
 import java.util.List;
 
 /**
- * This class tests the current LookupDAO implementation class
+ * This class tests the current LookupDao implementation class
  * @author mraible
  */
-public class LookupDAOTest extends BaseDAOTestCase {
-    private LookupDAO dao;
+public class LookupDaoTest extends BaseDaoTestCase {
+    private LookupDao dao;
     
-    public void setLookupDAO(LookupDAO dao) {
+    public void setLookupDao(LookupDao dao) {
         this.dao = dao;
     }
 

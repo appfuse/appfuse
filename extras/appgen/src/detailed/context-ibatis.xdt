@@ -1,5 +1,5 @@
 <XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>    <!--<XDtForm:className/>-START-->
-    <bean id="<XDtForm:classNameLower/>DAO" class="<XDtForm:parentPackageName/>.dao.ibatis.<XDtClass:className/>DAOiBatis">
+    <bean id="<XDtForm:classNameLower/>Dao" class="<XDtForm:parentPackageName/>.dao.ibatis.<XDtClass:className/>DaoiBatis">
         <property name="dataSource" ref="dataSource"/>
         <property name="sqlMapClient" ref="sqlMapClient"/>
     </bean>

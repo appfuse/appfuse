@@ -34,26 +34,26 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <!-- Generic DAO - can be used when doing standard CRUD -->
-    <bean id="dao" class="org.appfuse.dao.hibernate.BaseDAOHibernate">
+    <!-- Generic Dao - can be used when doing standard CRUD -->
+    <bean id="dao" class="org.appfuse.dao.hibernate.BaseDaoHibernate">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <!-- LookupDAO: Hibernate implementation -->
-    <bean id="lookupDAO" class="org.appfuse.dao.hibernate.LookupDAOHibernate">
+    <!-- LookupDao: Hibernate implementation -->
+    <bean id="lookupDao" class="org.appfuse.dao.hibernate.LookupDaoHibernate">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <!-- UserDAO: Hibernate implementation -->
-    <bean id="userDAO" class="org.appfuse.dao.hibernate.UserDAOHibernate">
+    <!-- UserDao: Hibernate implementation -->
+    <bean id="userDao" class="org.appfuse.dao.hibernate.UserDaoHibernate">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <!-- RoleDAO: Hibernate implementation -->
-    <bean id="roleDAO" class="org.appfuse.dao.hibernate.RoleDAOHibernate">
+    <!-- RoleDao: Hibernate implementation -->
+    <bean id="roleDao" class="org.appfuse.dao.hibernate.RoleDaoHibernate">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <!-- Add new DAOs here -->
+    <!-- Add new Daos here -->
 
 </beans>

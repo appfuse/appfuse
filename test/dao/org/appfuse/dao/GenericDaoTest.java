@@ -4,18 +4,18 @@ import org.appfuse.model.User;
 import org.springframework.orm.ObjectRetrievalFailureException;
 
 /**
- * This class tests the generic DAO and BaseDAO implementation.
+ * This class tests the generic Dao and BaseDao implementation.
  */
-public class GenericDAOTest extends BaseDAOTestCase {
-    protected DAO dao;
+public class GenericDaoTest extends BaseDaoTestCase {
+    protected Dao dao;
     
     /**
-     * This method is used instead of setDAO b/c setDAO uses autowire byType
+     * This method is used instead of setDao b/c setDao uses autowire byType
      * <code>setPopulateProtectedVariables(true)</code> can also be used, but it's
      * a little bit slower.
      */
     public void onSetUpBeforeTransaction() throws Exception {
-        dao = (DAO) applicationContext.getBean("dao");
+        dao = (Dao) applicationContext.getBean("dao");
     }
     
     public void onTearDownAfterTransaction() throws Exception {
@@ -23,7 +23,7 @@ public class GenericDAOTest extends BaseDAOTestCase {
     }
 
     /**
-     * Simple test to verify BaseDAO works.
+     * Simple test to verify BaseDao works.
      */
     public void testCRUD() {
         User user = new User();

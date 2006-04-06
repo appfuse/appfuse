@@ -7,15 +7,15 @@ import org.appfuse.model.User;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 
-public class UserDAOTest extends BaseDAOTestCase {
-    private UserDAO dao = null;
-    private RoleDAO rdao = null;
+public class UserDaoTest extends BaseDaoTestCase {
+    private UserDao dao = null;
+    private RoleDao rdao = null;
     
-    public void setUserDAO(UserDAO dao) {
+    public void setUserDao(UserDao dao) {
         this.dao = dao;
     }
     
-    public void setRoleDAO(RoleDAO rdao) {
+    public void setRoleDao(RoleDao rdao) {
         this.rdao = rdao;
     }
 

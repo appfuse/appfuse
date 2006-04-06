@@ -2,7 +2,7 @@
     <bean id="<XDtForm:classNameLower/>Manager" parent="txProxyTemplate">
         <property name="target">
             <bean class="<XDtForm:parentPackageName/>.service.impl.<XDtForm:className/>ManagerImpl">
-                <property name="<XDtForm:classNameLower/>DAO" ref="<XDtForm:classNameLower/>DAO"/>
+                <property name="<XDtForm:classNameLower/>Dao" ref="<XDtForm:classNameLower/>Dao"/>
             </bean>
         </property>
     </bean>

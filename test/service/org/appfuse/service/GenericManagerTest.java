@@ -1,6 +1,6 @@
 package org.appfuse.service;
 
-import org.appfuse.dao.DAO;
+import org.appfuse.dao.Dao;
 import org.appfuse.model.User;
 import org.appfuse.service.impl.BaseManager;
 import org.jmock.Mock;
@@ -15,8 +15,8 @@ public class GenericManagerTest extends BaseManagerTestCase {
     
     protected void setUp() throws Exception {
         super.setUp();
-        dao = new Mock(DAO.class);
-        manager.setDAO((DAO) dao.proxy());
+        dao = new Mock(Dao.class);
+        manager.setDao((Dao) dao.proxy());
     }
     
     protected void tearDown() throws Exception {
@@ -25,7 +25,7 @@ public class GenericManagerTest extends BaseManagerTestCase {
     }
 
     /**
-     * Simple test to verify BaseDAO works.
+     * Simple test to verify BaseDao works.
      */
     public void testCRUD() {
         User user = new User();

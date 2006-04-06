@@ -5,17 +5,17 @@ package <XDtForm:parentPackageName/>.service.impl;
 import java.util.List;
 
 import <XDtPackage:packageName/>.<XDtForm:className/>;
-import <XDtForm:parentPackageName/>.dao.<XDtForm:className/>DAO;
+import <XDtForm:parentPackageName/>.dao.<XDtForm:className/>Dao;
 import <XDtForm:parentPackageName/>.service.<XDtForm:className/>Manager;
 
 public class <XDtForm:className/>ManagerImpl extends BaseManager implements <XDtForm:className/>Manager {
-    private <XDtForm:className/>DAO dao;
+    private <XDtForm:className/>Dao dao;
 
     /**
-     * Set the DAO for communication with the data layer.
+     * Set the Dao for communication with the data layer.
      * @param dao
      */
-    public void set<XDtForm:className/>DAO(<XDtForm:className/>DAO dao) {
+    public void set<XDtForm:className/>Dao(<XDtForm:className/>Dao dao) {
         this.dao = dao;
     }
 

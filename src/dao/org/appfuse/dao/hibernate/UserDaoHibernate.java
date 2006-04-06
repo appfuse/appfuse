@@ -5,7 +5,7 @@ import java.util.List;
 import org.acegisecurity.userdetails.UserDetails;
 import org.acegisecurity.userdetails.UserDetailsService;
 import org.acegisecurity.userdetails.UsernameNotFoundException;
-import org.appfuse.dao.UserDAO;
+import org.appfuse.dao.UserDao;
 import org.appfuse.model.User;
 import org.springframework.orm.ObjectRetrievalFailureException;
 
@@ -14,16 +14,16 @@ import org.springframework.orm.ObjectRetrievalFailureException;
  * retrieve User objects.
  *
  * <p>
- * <a href="UserDAOHibernate.java.html"><i>View Source</i></a>
+ * <a href="UserDaoHibernate.java.html"><i>View Source</i></a>
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  *   Modified by <a href="mailto:dan@getrolling.com">Dan Kibler</a>
  *   Extended to implement Acegi UserDetailsService interface by David Carter david@carter.net
 */
-public class UserDAOHibernate extends BaseDAOHibernate implements UserDAO, UserDetailsService {
+public class UserDaoHibernate extends BaseDaoHibernate implements UserDao, UserDetailsService {
     /**
-     * @see org.appfuse.dao.UserDAO#getUser(java.lang.String)
+     * @see org.appfuse.dao.UserDao#getUser(java.lang.String)
      */
     public User getUser(String username) {
         User user = (User) getHibernateTemplate().get(User.class, username);
@@ -37,14 +37,14 @@ public class UserDAOHibernate extends BaseDAOHibernate implements UserDAO, UserD
     }
 
     /**
-     * @see org.appfuse.dao.UserDAO#getUsers(org.appfuse.model.User)
+     * @see org.appfuse.dao.UserDao#getUsers(org.appfuse.model.User)
      */
     public List getUsers(User user) {
         return getHibernateTemplate().find("from User u order by upper(u.username)");
     }
 
     /**
-     * @see org.appfuse.dao.UserDAO#saveUser(org.appfuse.model.User)
+     * @see org.appfuse.dao.UserDao#saveUser(org.appfuse.model.User)
      */
     public void saveUser(final User user) {
         if (log.isDebugEnabled()) {
@@ -57,7 +57,7 @@ public class UserDAOHibernate extends BaseDAOHibernate implements UserDAO, UserD
     }
 
     /**
-     * @see org.appfuse.dao.UserDAO#removeUser(java.lang.String)
+     * @see org.appfuse.dao.UserDao#removeUser(java.lang.String)
      */
     public void removeUser(String username) {
         getHibernateTemplate().delete(getUser(username));

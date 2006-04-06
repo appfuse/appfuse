@@ -10,7 +10,7 @@ import org.acegisecurity.context.SecurityContextImpl;
 import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
 import org.acegisecurity.providers.dao.UserCache;
 import org.appfuse.Constants;
-import org.appfuse.dao.UserDAO;
+import org.appfuse.dao.UserDao;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
 import org.jmock.Mock;
@@ -18,7 +18,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class UserSecurityAdviceTest extends BaseManagerTestCase {
-    Mock userDAO = null;
+    Mock userDao = null;
     ApplicationContext ctx = null;
 
     protected void setUp() throws Exception {
@@ -57,9 +57,9 @@ public class UserSecurityAdviceTest extends BaseManagerTestCase {
         UserManager userManager = (UserManager) makeInterceptedTarget();
         User user = new User("admin");
 
-        userDAO.expects(once()).method("saveUser");
+        userDao.expects(once()).method("saveUser");
         userManager.saveUser(user);
-        userDAO.verify();
+        userDao.verify();
     }
 
     public void testUpdateUserProfile() throws Exception {
@@ -67,9 +67,9 @@ public class UserSecurityAdviceTest extends BaseManagerTestCase {
         User user = new User("user");;
         user.getRoles().add(new Role(Constants.USER_ROLE));
 
-        userDAO.expects(once()).method("saveUser");
+        userDao.expects(once()).method("saveUser");
         userManager.saveUser(user);
-        userDAO.verify();
+        userDao.verify();
     }
 
     // Test fix to http://issues.appfuse.org/browse/APF-96
@@ -117,9 +117,9 @@ public class UserSecurityAdviceTest extends BaseManagerTestCase {
         user.getRoles().add(new Role(Constants.ADMIN_ROLE));
         user.getRoles().add(new Role(Constants.USER_ROLE));
 
-        userDAO.expects(once()).method("saveUser");
+        userDao.expects(once()).method("saveUser");
         userManager.saveUser(user);
-        userDAO.verify();
+        userDao.verify();
     }
 
     // Test fix to http://issues.appfuse.org/browse/APF-96
@@ -128,9 +128,9 @@ public class UserSecurityAdviceTest extends BaseManagerTestCase {
         User user = new User("user");
         user.getRoles().add(new Role(Constants.USER_ROLE));
 
-        userDAO.expects(once()).method("saveUser");
+        userDao.expects(once()).method("saveUser");
         userManager.saveUser(user);
-        userDAO.verify();
+        userDao.verify();
     }
     
     // Test removing user from cache after update 
@@ -152,7 +152,7 @@ public class UserSecurityAdviceTest extends BaseManagerTestCase {
         
         assertNotNull(cache.getUserFromCache(user.getUsername().toLowerCase()));
         
-        userDAO.expects(once()).method("saveUser");
+        userDao.expects(once()).method("saveUser");
         userManager.saveUser(user);
         assertNull(cache.getUserFromCache(user.getUsername()));
     }
@@ -162,9 +162,9 @@ public class UserSecurityAdviceTest extends BaseManagerTestCase {
 
         UserManager userManager = (UserManager) ctx.getBean("target");
 
-        // Mock the userDAO
-        userDAO = new Mock(UserDAO.class);
-        userManager.setUserDAO((UserDAO) userDAO.proxy());
+        // Mock the userDao
+        userDao = new Mock(UserDao.class);
+        userManager.setUserDao((UserDao) userDao.proxy());
         return userManager;
     }
 }

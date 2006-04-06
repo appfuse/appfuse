@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.appfuse.dao.DAO;
+import org.appfuse.dao.Dao;
 import org.appfuse.service.Manager;
 
 /**
@@ -18,12 +18,12 @@ import org.appfuse.service.Manager;
  */
 public class BaseManager implements Manager {
     protected final Log log = LogFactory.getLog(getClass());
-    protected DAO dao = null;
+    protected Dao dao = null;
     
     /**
-     * @see org.appfuse.service.Manager#setDAO(org.appfuse.dao.DAO)
+     * @see org.appfuse.service.Manager#setDao(org.appfuse.dao.Dao)
      */
-    public void setDAO(DAO dao) {
+    public void setDao(Dao dao) {
         this.dao = dao;
     }
     

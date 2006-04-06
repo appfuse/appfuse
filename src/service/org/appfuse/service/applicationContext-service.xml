@@ -4,7 +4,7 @@
 
 <beans>
     <bean id="lookupManager" class="org.appfuse.service.impl.LookupManagerImpl">
-        <property name="lookupDAO" ref="lookupDAO"/>
+        <property name="lookupDao" ref="lookupDao"/>
     </bean>
 	
     <!-- Transaction template for Managers, from:
@@ -25,7 +25,7 @@
     <bean id="manager" parent="txProxyTemplate">
         <property name="target">
             <bean class="org.appfuse.service.impl.BaseManager">
-                <property name="DAO" ref="dao"/>
+                <property name="dao" ref="dao"/>
             </bean>
         </property>
     </bean>
@@ -35,7 +35,7 @@
     <bean id="userManager" parent="txProxyTemplate">
         <property name="target">
             <bean class="org.appfuse.service.impl.UserManagerImpl">
-                <property name="userDAO" ref="userDAO"/>
+                <property name="userDao" ref="userDao"/>
             </bean>
         </property>
         <!-- Override default transaction attributes b/c of UserExistsException -->
@@ -79,7 +79,7 @@
     <bean id="roleManager" parent="txProxyTemplate">
         <property name="target">
             <bean class="org.appfuse.service.impl.RoleManagerImpl">
-                <property name="roleDAO" ref="roleDAO"/>
+                <property name="roleDao" ref="roleDao"/>
             </bean>
         </property>
     </bean>

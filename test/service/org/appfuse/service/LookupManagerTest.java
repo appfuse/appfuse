@@ -3,7 +3,7 @@ package org.appfuse.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.appfuse.dao.LookupDAO;
+import org.appfuse.dao.LookupDao;
 import org.appfuse.model.Role;
 import org.appfuse.service.impl.LookupManagerImpl;
 import org.jmock.Mock;
@@ -11,12 +11,12 @@ import org.jmock.Mock;
 
 public class LookupManagerTest extends BaseManagerTestCase {
     private LookupManager mgr = new LookupManagerImpl();
-    private Mock lookupDAO = null;
+    private Mock lookupDao = null;
 
     protected void setUp() throws Exception {
         super.setUp();
-        lookupDAO = new Mock(LookupDAO.class);
-        mgr.setLookupDAO((LookupDAO) lookupDAO.proxy());
+        lookupDao = new Mock(LookupDao.class);
+        mgr.setLookupDao((LookupDao) lookupDao.proxy());
     }
 
     public void testGetAllRoles() {
@@ -28,12 +28,12 @@ public class LookupManagerTest extends BaseManagerTestCase {
         Role role = new Role("admin");
         List testData = new ArrayList();
         testData.add(role);
-        lookupDAO.expects(once()).method("getRoles")
+        lookupDao.expects(once()).method("getRoles")
                  .withNoArguments().will(returnValue(testData));
 
         List roles = mgr.getAllRoles();
         assertTrue(roles.size() > 0);
         // verify expectations
-        lookupDAO.verify();
+        lookupDao.verify();
     }
 }

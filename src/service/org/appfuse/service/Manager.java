@@ -3,15 +3,15 @@ package org.appfuse.service;
 import java.io.Serializable;
 import java.util.List;
 
-import org.appfuse.dao.DAO;
+import org.appfuse.dao.Dao;
 
 public interface Manager {
     
     /**
-     * Expose the setDAO method for testing purposes
+     * Expose the setDao method for testing purposes
      * @param dao
      */
-    public void setDAO(DAO dao);
+    public void setDao(Dao dao);
     
     /**
      * Generic method used to get a all objects of a particular type. 

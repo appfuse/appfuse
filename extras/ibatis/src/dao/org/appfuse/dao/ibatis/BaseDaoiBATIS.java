@@ -8,7 +8,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.appfuse.dao.DAO;
+import org.appfuse.dao.Dao;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import org.springframework.util.ClassUtils;
@@ -17,7 +17,7 @@ import org.springframework.util.ClassUtils;
  * @author Bobby Diaz
  * @version 1.0
  */
-public class BaseDAOiBATIS extends SqlMapClientDaoSupport implements DAO {
+public class BaseDaoiBATIS extends SqlMapClientDaoSupport implements Dao {
     protected final Log log = LogFactory.getLog(getClass());
 
     public List getObjects(Class clazz) {

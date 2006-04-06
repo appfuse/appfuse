@@ -3,11 +3,11 @@ package org.appfuse.dao;
 import org.appfuse.Constants;
 import org.appfuse.model.Role;
 
-public class RoleDAOTest extends BaseDAOTestCase {
+public class RoleDaoTest extends BaseDaoTestCase {
     private Role role = null;
-    private RoleDAO dao = null;
+    private RoleDao dao = null;
 
-    public void setRoleDAO(RoleDAO dao) {
+    public void setRoleDao(RoleDao dao) {
         this.dao = dao;
     }
 

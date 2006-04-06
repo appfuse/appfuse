@@ -50,7 +50,7 @@
     <bean id="loggerListener" class="org.acegisecurity.event.authentication.LoggerListener"/>
     
     <bean id="daoAuthenticationProvider" class="org.acegisecurity.providers.dao.DaoAuthenticationProvider">
-         <property name="userDetailsService" ref="userDAO"/>
+         <property name="userDetailsService" ref="userDao"/>
          <property name="userCache" ref="userCache"/>
          <property name="passwordEncoder" ref="passwordEncoder"/>
     </bean>
@@ -107,7 +107,7 @@
     <bean id="userManager" parent="txProxyTemplate">
         <property name="target">
             <bean class="org.appfuse.service.impl.UserManagerImpl">
-                <property name="userDAO" ref="userDAO"/>
+                <property name="userDao" ref="userDao"/>
             </bean>
         </property>
         <!-- Override default transaction attributes b/c of UserExistsException -->
@@ -144,7 +144,7 @@
     </bean>
  
     <bean id="rememberMeServices" class="org.acegisecurity.ui.rememberme.TokenBasedRememberMeServices"> 
-        <property name="userDetailsService" ref="userDAO"/>
+        <property name="userDetailsService" ref="userDao"/>
         <property name="key" value="appfuseRocks"/> 
         <property name="parameter" value="rememberMe"/>
     </bean> 

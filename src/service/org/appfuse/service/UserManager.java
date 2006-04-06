@@ -2,7 +2,7 @@ package org.appfuse.service;
 
 import java.util.List;
 
-import org.appfuse.dao.UserDAO;
+import org.appfuse.dao.UserDao;
 import org.appfuse.model.User;
 
 
@@ -18,7 +18,7 @@ import org.appfuse.model.User;
 public interface UserManager {
     //~ Methods ================================================================
 
-    public void setUserDAO(UserDAO dao);
+    public void setUserDao(UserDao dao);
     
     /**
      * Retrieves a user by username.  An exception is thrown if now user 

@@ -12,10 +12,10 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
 
 /**
- * Base class for running DAO tests.
+ * Base class for running Dao tests.
  * @author mraible
  */
-public abstract class BaseDAOTestCase extends AbstractTransactionalDataSourceSpringContextTests {
+public abstract class BaseDaoTestCase extends AbstractTransactionalDataSourceSpringContextTests {
     protected final Log log = LogFactory.getLog(getClass());
     protected ResourceBundle rb;
 
@@ -25,7 +25,7 @@ public abstract class BaseDAOTestCase extends AbstractTransactionalDataSourceSpr
                               "classpath*:META-INF/applicationContext-*.xml"};
     }
     
-    public BaseDAOTestCase() {
+    public BaseDaoTestCase() {
         // Since a ResourceBundle is not required for each class, just
         // do a simple check to see if one exists
         String className = this.getClass().getName();

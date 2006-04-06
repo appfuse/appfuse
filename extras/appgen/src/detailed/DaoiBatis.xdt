@@ -5,21 +5,21 @@ package <XDtForm:parentPackageName/>.dao.ibatis;
 import java.util.List;
 
 import <XDtPackage:packageName/>.<XDtClass:className/>;
-import <XDtForm:parentPackageName/>.dao.<XDtClass:className/>DAO;
+import <XDtForm:parentPackageName/>.dao.<XDtClass:className/>Dao;
 
 import org.springframework.orm.ObjectRetrievalFailureException;
 
-public class <XDtClass:className/>DAOiBatis extends BaseDAOiBATIS implements <XDtClass:className/>DAO {
+public class <XDtClass:className/>DaoiBatis extends BaseDaoiBATIS implements <XDtClass:className/>Dao {
 
     /**
-     * @see <XDtForm:parentPackageName/>.dao.<XDtClass:className/>DAO#get<XDtClass:className/>s(<XDtPackage:packageName/>.<XDtClass:className/>)
+     * @see <XDtForm:parentPackageName/>.dao.<XDtClass:className/>Dao#get<XDtClass:className/>s(<XDtPackage:packageName/>.<XDtClass:className/>)
      */
     public List get<XDtClass:className/>s(final <XDtClass:className/> <XDtForm:classNameLower/>) {
           return getSqlMapClientTemplate().queryForList("get<XDtClass:className/>s", null);
     }
 
     /**
-     * @see <XDtForm:parentPackageName/>.dao.<XDtClass:className/>DAO#get<XDtClass:className/>(<XDtMethodEx:idField getType="propertyType"/> <XDtMethodEx:idField getType="propertyName"/>)
+     * @see <XDtForm:parentPackageName/>.dao.<XDtClass:className/>Dao#get<XDtClass:className/>(<XDtMethodEx:idField getType="propertyType"/> <XDtMethodEx:idField getType="propertyName"/>)
      */
     public <XDtClass:className/> get<XDtClass:className/>(<XDtMethodEx:idField getType="propertyType"/> <XDtMethodEx:idField getType="propertyName"/>) {
         <XDtClass:className/> <XDtForm:classNameLower/> = (<XDtClass:className/>) getSqlMapClientTemplate().queryForObject("get<XDtClass:className/>", <XDtMethodEx:idField getType="propertyName"/>);
@@ -32,7 +32,7 @@ public class <XDtClass:className/>DAOiBatis extends BaseDAOiBATIS implements <XD
     }
 
     /**
-     * @see <XDtForm:parentPackageName/>.dao.<XDtClass:className/>DAO#save<XDtClass:className/>(<XDtClass:className/> <XDtForm:classNameLower/>)
+     * @see <XDtForm:parentPackageName/>.dao.<XDtClass:className/>Dao#save<XDtClass:className/>(<XDtClass:className/> <XDtForm:classNameLower/>)
      */    
     public void save<XDtClass:className/>(final <XDtClass:className/> <XDtForm:classNameLower/>) {
         <XDtMethodEx:idField getType="propertyType"/> <XDtMethodEx:idField getType="propertyName"/> = <XDtForm:classNameLower/>.<XDtMethodEx:idField getType="getterName"/>();
@@ -50,7 +50,7 @@ public class <XDtClass:className/>DAOiBatis extends BaseDAOiBATIS implements <XD
     }
 
     /**
-     * @see <XDtForm:parentPackageName/>.dao.<XDtClass:className/>DAO#remove<XDtClass:className/>(<XDtMethodEx:idField getType="propertyType"/> <XDtMethodEx:idField getType="propertyName"/>)
+     * @see <XDtForm:parentPackageName/>.dao.<XDtClass:className/>Dao#remove<XDtClass:className/>(<XDtMethodEx:idField getType="propertyType"/> <XDtMethodEx:idField getType="propertyName"/>)
      */
     public void remove<XDtClass:className/>(<XDtMethodEx:idField getType="propertyType"/> <XDtMethodEx:idField getType="propertyName"/>) {
         getSqlMapClientTemplate().update("delete<XDtClass:className/>", <XDtMethodEx:idField getType="propertyName"/>);

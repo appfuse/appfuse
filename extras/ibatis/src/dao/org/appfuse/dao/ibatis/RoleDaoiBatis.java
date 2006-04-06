@@ -2,7 +2,7 @@ package org.appfuse.dao.ibatis;
 
 import java.util.List;
 
-import org.appfuse.dao.RoleDAO;
+import org.appfuse.dao.RoleDao;
 import org.appfuse.model.Role;
 
 /**
@@ -10,12 +10,12 @@ import org.appfuse.model.Role;
  * retrieve Role objects.
  *
  * <p>
- * <a href="RoleDAOiBatis.java.html"><i>View Source</i></a>
+ * <a href="RoleDaoiBatis.java.html"><i>View Source</i></a>
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
-public class RoleDAOiBatis extends BaseDAOiBATIS implements RoleDAO {
+public class RoleDaoiBatis extends BaseDaoiBATIS implements RoleDao {
 
     public List getRoles(Role role) {
         return getSqlMapClientTemplate().queryForList("getRoles", null);
