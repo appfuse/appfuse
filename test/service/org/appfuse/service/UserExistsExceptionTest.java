@@ -24,26 +24,19 @@ public class UserExistsExceptionTest extends AbstractTransactionalDataSourceSpri
         logger.debug("entered 'testAddExistingUser' method");
 
         User user = manager.getUser("1");
-        // change unique keys
-        user.setUsername("foo");
-        user.setEmail("bar");
-        user.setRoles(null);
-        user.setVersion(null);
-        
-        // first save should succeed
-        manager.saveUser(user);
         
         // create new object with null id - Hibernate doesn't like setId(null)
         User user2 = new User();
         BeanUtils.copyProperties(user, user2);
         user2.setId(null);
+        user2.setVersion(null);
         
-        // try saving as new user, this should fail
+        // try saving as new user, this should fail b/c of unique keys
         try {
             manager.saveUser(user2);
             fail("Duplicate user didn't throw UserExistsException");
         } catch (UserExistsException uee) {
             assertNotNull(uee);
         }
-    }
+    }    
 }
