@@ -29,14 +29,6 @@ public class UserAction extends BaseAction {
     private User user;
     private String username;
     
-    /**
-     * Override constructor to set ordered HashMap for errors.
-     * NOTE: Currently doesn't work.
-     */
-    public UserAction() {
-        super.setFieldErrors(new LinkedHashMap());
-    }
-    
     public List getUsers() {
         return users;
     }
@@ -119,14 +111,14 @@ public class UserAction extends BaseAction {
         return SUCCESS;
     }
 
-    public String save() throws Exception {
-        if (cancel != null) {
-            if (!"list".equals(from)) {
-                return "mainMenu";
-            }
-            return "cancel";
+    public String cancel() {
+        if (!"list".equals(from)) {
+            return "mainMenu";
         }
+        return "cancel";
+    }
 
+    public String save() throws Exception {
         if (delete != null) {
             return delete();
         }

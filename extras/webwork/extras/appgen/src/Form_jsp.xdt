@@ -24,8 +24,8 @@
                 onclick="return confirmDelete('<XDtForm:className/>')" 
                 value="<fmt:message key="button.delete"/>" />
                 
-            <input type="submit" class="button" name="cancel" 
-                value="method:<fmt:message key="button.cancel"/>" />        
+            <input type="submit" class="button" name="method:cancel" 
+                value="<fmt:message key="button.cancel"/>" />
         </td>
     </tr>
 </ww:form>

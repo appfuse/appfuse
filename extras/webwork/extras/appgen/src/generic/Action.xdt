@@ -44,11 +44,11 @@ public class <XDtForm:className/>Action extends BaseAction {
         return SUCCESS;
     }
 
-    public String save() throws Exception {
-        if (cancel != null) {
-            return "cancel";
-        }
+    public String cancel() {
+        return CANCEL;
+    }
 
+    public String save() throws Exception {
         if (delete != null) {
             return delete();
         }

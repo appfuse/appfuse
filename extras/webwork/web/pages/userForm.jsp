@@ -27,7 +27,7 @@
                 value="<fmt:message key="button.delete"/>" />
         </c:if>
         
-            <input type="submit" class="button" name="cancel"
+            <input type="submit" class="button" name="method:cancel"
                 value="<fmt:message key="button.cancel"/>" />
         </td>
     </tr>

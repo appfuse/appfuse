@@ -20,13 +20,11 @@ public class UserActionTest extends BaseActionTestCase {
     }
     
     public void testCancel() throws Exception {
-        action.setCancel("");
-        assertEquals(action.save(), "mainMenu");
+        assertEquals(action.cancel(), "mainMenu");
         assertFalse(action.hasActionErrors());
-        
+
         action.setFrom("list");
-        assertEquals(action.save(), "cancel");
-        assertFalse(action.hasActionErrors());
+        assertEquals(action.cancel(), "cancel");
     }
     
     public void testEdit() throws Exception {
