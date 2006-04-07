@@ -53,7 +53,7 @@ public class Role extends BaseObject implements Serializable, GrantedAuthority {
     }
 
     /**
-     * @hibernate.property column="description" length="30"
+     * @hibernate.property column="description" length="64"
      */
     public String getDescription() {
         return this.description;
