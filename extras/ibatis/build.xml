@@ -3,6 +3,8 @@
 
     <property name="lib.dir" location="../../lib"/>
     <property file="${lib.dir}/lib.properties"/>
+    <!-- import properties (app settings, classpath, jar file locations) -->
+    <import file="../../properties.xml"/>
 
     <!-- =================================================================== -->
     <!-- List options for this build file                                    -->
@@ -449,6 +451,22 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
         <property name="new.pkg.name" value="org.appfuse"/>
         <delete dir="../../../${app.name}"/>
         <ant dir="../.." target="new"/>
+
+        <!-- Create database table -->
+        <sql driver="${database.driver_class}" url="${database.url}"
+            userid="${database.username}" password="${database.password}">
+            <classpath><pathelement path="${database.jar}/"/></classpath>
+            <![CDATA[
+                DROP TABLE IF EXISTS person;
+                CREATE TABLE person (
+                  person_id int(8) auto_increment,
+                  first_name varchar(50) NOT NULL,
+                  last_name varchar(50) NOT NULL,
+                  date_of_birth datetime not null,
+                  PRIMARY KEY (person_id)
+                );
+            ]]>
+        </sql>
 
         <!-- New project created, install iBATIS and remove Hibernate -->
         <ant dir="../../../${app.name}/extras/ibatis" target="install" inheritAll="false"/>
