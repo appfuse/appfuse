@@ -22,7 +22,7 @@ public abstract class UserList extends BasePage {
             log.debug("fetching user with username: " + username);
         }
 
-        User user = getUserManager().getUser(username);
+        User user = getUserManager().getUserByUsername(username);
         user.setConfirmPassword(user.getPassword());
         nextPage.setUser(user);
         nextPage.setFrom("list");

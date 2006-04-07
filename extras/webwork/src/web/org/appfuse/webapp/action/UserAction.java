@@ -46,7 +46,7 @@ public class UserAction extends BaseAction {
     }
 
     public String delete() throws IOException {       
-        userManager.removeUser(user.getUsername());
+        userManager.removeUser(user.getId().toString());
         List args = new ArrayList();
         args.add(user.getFullName());
         saveMessage(getText("user.deleted", args));

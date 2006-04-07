@@ -33,7 +33,7 @@
         <th><label jwcid="@FieldLabel" field="ognl:components.usernameField">Username</label></th>
         <td>
             <span jwcid="@Insert" value="ognl:user.username"/>
-            <input jwcid="@Hidden" type="hidden" value="ognl:user.username" id="username"/>
+            <input jwcid="usernameField" type="text" id="username"/>
         </td>
     </tr>
     <div jwcid="@If" condition="ognl:requestCycle.requestContext.session.getAttribute('cookieLogin') != 'true'">

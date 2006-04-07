@@ -1,5 +1,6 @@
 package org.appfuse.webapp.action;
 
+import org.appfuse.model.User;
 
 public class UserFormTest extends BasePageTestCase {
     private UserForm bean;
@@ -32,8 +33,9 @@ public class UserFormTest extends BasePageTestCase {
     }
     
     public void testRemove() throws Exception {
-        user.setUsername("mraible");
-        bean.setUser(user);
+        User user2Delete = new User();
+        user2Delete.setId(new Long(2));
+        bean.setUser(user2Delete);
         assertEquals(bean.delete(), "list");
         assertFalse(bean.hasErrors());
     }

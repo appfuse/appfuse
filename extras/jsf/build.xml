@@ -191,13 +191,10 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         
         <!-- JSPs for JSF are in root directory -->
         <replace file="../appgen/build.xml">
-            <replacetoken><![CDATA[/web/pages/]]></replacetoken>
-            <replacevalue><![CDATA[/web/]]></replacevalue>
+            <replacetoken><![CDATA[/web/pages]]></replacetoken>
+            <replacevalue><![CDATA[/web]]></replacevalue>
         </replace>
-        <replace file="../appgen/build.xml">
-            <replacetoken><![CDATA[tofile="${build.dir}/${gen.dir}/web/${model.name.lowercase}List.jsp"]]></replacetoken>
-            <replacevalue><![CDATA[tofile="${build.dir}/${gen.dir}/web/${model.name.lowercase}s.jsp"]]></replacevalue>
-        </replace>
+        <replace file="../appgen/build.xml" token="${model.name.lowercase}List.jsp" value="${model.name.lowercase}s.jsp"/>
 
         <!-- Remove Struts specific stuff from Middlegen -->
         <replace file="../middlegen/build.xml">

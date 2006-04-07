@@ -47,7 +47,7 @@ public abstract class PasswordHint extends BasePage implements PageBeginRenderLi
         
         // look up the user's information
         try {
-            User user = getUserManager().getUser(username);
+            User user = getUserManager().getUserByUsername(username);
 
             StringBuffer msg = new StringBuffer();
             msg.append("Your password hint is: " + user.getPasswordHint());

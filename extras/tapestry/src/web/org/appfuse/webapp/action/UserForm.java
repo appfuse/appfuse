@@ -199,7 +199,7 @@ public abstract class UserForm extends BasePage implements PageBeginRenderListen
             log.debug("entered delete method");
         }
 
-        getUserManager().removeUser(getUser().getUsername());
+        getUserManager().removeUser(getUser().getId().toString());
 
         UserList nextPage = (UserList) cycle.getPage("users");
         nextPage.setMessage(getText("user.deleted", getUser().getFullName()));

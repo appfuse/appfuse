@@ -29,6 +29,7 @@
     <h:inputText value="#{userForm.user.username}" id="username" required="true">
         <v:commonsValidator type="required" arg="#{text['user.username']}"/>
     </h:inputText>
+    <t:message for="username" styleClass="fieldError"/>
 
 <c:if test="${cookieLogin != 'true'}">
 

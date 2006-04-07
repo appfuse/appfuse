@@ -167,7 +167,7 @@ public class UserForm extends BasePage implements Serializable {
     }
 
     public String delete() {
-        userManager.removeUser(getUser().getUsername());
+        userManager.removeUser(getUser().getId().toString());
         addMessage("user.deleted", getUser().getFullName());
 
         return "list";

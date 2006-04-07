@@ -83,7 +83,7 @@ public class PasswordHintController implements Controller {
 
         // look up the user's information
         try {
-            User user = (User) mgr.getUser(username);
+            User user = (User) mgr.getUserByUsername(username);
 
             StringBuffer msg = new StringBuffer();
             msg.append("Your password hint is: " + user.getPasswordHint());

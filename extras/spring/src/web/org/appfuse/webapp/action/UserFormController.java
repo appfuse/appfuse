@@ -76,7 +76,7 @@ public class UserFormController extends BaseFormController {
         Locale locale = request.getLocale();
 
         if (request.getParameter("delete") != null) {
-            this.getUserManager().removeUser(user.getUsername());
+            getUserManager().removeUser(user.getId().toString());
             saveMessage(request, getText("user.deleted", user.getFullName(), locale));
 
             return new ModelAndView(getSuccessView());
@@ -113,7 +113,7 @@ public class UserFormController extends BaseFormController {
             }
 
             try {
-                this.getUserManager().saveUser(user);
+                getUserManager().saveUser(user);
             } catch (UserExistsException e) {
                 log.warn(e.getMessage());
 
@@ -207,9 +207,9 @@ public class UserFormController extends BaseFormController {
         User user = null;
 
         if (request.getRequestURI().indexOf("editProfile") > -1) {
-            user = this.getUserManager().getUser(request.getRemoteUser());
+            user = getUserManager().getUserByUsername(request.getRemoteUser());
         } else if (!StringUtils.isBlank(username) && !"".equals(request.getParameter("version"))) {
-            user = this.getUserManager().getUser(username);
+            user = getUserManager().getUserByUsername(username);
         } else {
             user = new User();
             user.addRole(new Role(Constants.USER_ROLE));

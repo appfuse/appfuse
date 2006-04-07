@@ -1,6 +1,7 @@
 package org.appfuse.webapp.action;
 
 import org.apache.tapestry.engine.ILink;
+import org.appfuse.model.User;
 import org.appfuse.service.MailEngine;
 import org.appfuse.service.RoleManager;
 import org.appfuse.service.UserManager;
@@ -48,8 +49,9 @@ public class UserFormTest extends BasePageTestCase {
     }
     
     public void testRemove() throws Exception {
-        user.setUsername("mraible");
-        page.setUser(user);
+        User user2Delete = new User();
+        user2Delete.setId(new Long(2));
+        page.setUser(user2Delete);
         page.delete(new MockRequestCycle());
         assertFalse(page.hasErrors());
     }

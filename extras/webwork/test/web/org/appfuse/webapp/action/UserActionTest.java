@@ -64,6 +64,7 @@ public class UserActionTest extends BaseActionTestCase {
 
     public void testRemove() throws Exception {
         User user = new User("mraible");
+        user.setId(new Long(2));
         action.setUser(user);
         assertEquals(action.delete(), "success");
         assertFalse(action.hasActionErrors());

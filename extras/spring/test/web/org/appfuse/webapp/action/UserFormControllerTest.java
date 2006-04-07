@@ -74,7 +74,7 @@ public class UserFormControllerTest extends BaseControllerTestCase {
     public void testRemove() throws Exception {
         request = newPost("/editUser.html");
         request.addParameter("delete", "");
-        request.addParameter("username", "mraible");
+        request.addParameter("id", "2");
         mv = c.handleRequest(request, new MockHttpServletResponse());
         assertNotNull(request.getSession().getAttribute("messages"));
     }
