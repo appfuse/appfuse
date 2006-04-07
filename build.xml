@@ -1323,6 +1323,11 @@
         </replaceregexp>
 
         <if>
+            <not><equals arg1="${web.framework}" arg2="struts"/></not>
+            <then><ant dir="../${app.name}/extras/${web.framework}" target="install" inheritAll="false"/></then>
+        </if>
+        
+        <if>
             <not><equals arg1="${new.pkg.name}" arg2="org.appfuse"/></not>
             <then><rename-packages newPkgName="${new.pkg.name}"/></then>
         </if>
