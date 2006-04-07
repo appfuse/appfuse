@@ -21,8 +21,6 @@ public class UserManagerTest extends BaseManagerTestCase {
     private RoleManager roleManager = new RoleManagerImpl();
     private Mock userDao = null;
     private Mock roleDao = null;
-    private User user = null;
-    private Role role = null;
 
     //~ Methods ================================================================
 
@@ -41,7 +39,7 @@ public class UserManagerTest extends BaseManagerTestCase {
         userDao.expects(once()).method("getUser")
                .with(eq(new Long(1))).will(returnValue(testData));
         
-        user = userManager.getUser("1");
+        User user = userManager.getUser("1");
         assertTrue(user != null);
         assertTrue(user.getRoles().size() == 1);
         userDao.verify();
@@ -54,7 +52,7 @@ public class UserManagerTest extends BaseManagerTestCase {
         userDao.expects(once()).method("getUser")
                .with(eq(new Long(1))).will(returnValue(testData));
         
-        user = userManager.getUser("1");
+        User user = userManager.getUser("1");
         user.setPhoneNumber("303-555-1212");
         userDao.verify();
         
@@ -69,7 +67,7 @@ public class UserManagerTest extends BaseManagerTestCase {
     }
 
     public void testAddAndRemoveUser() throws Exception {
-        user = new User();
+        User user = new User();
 
         // call populate method in super class to populate test data
         // from a properties file matching this class name
@@ -79,7 +77,7 @@ public class UserManagerTest extends BaseManagerTestCase {
         roleDao.expects(once()).method("getRoleByName")
                .with(eq("user")).will(returnValue(new Role("user")));
         
-        role = roleManager.getRole(Constants.USER_ROLE);
+        Role role = roleManager.getRole(Constants.USER_ROLE);
         roleDao.verify();
         user.addRole(role);
 
@@ -108,10 +106,11 @@ public class UserManagerTest extends BaseManagerTestCase {
     
     public void testUserExistsException() {
         // set expectations
-        user = new User("admin");
+        User user = new User("admin");
         user.setEmail("matt@raibledesigns.com");
-        List users = new ArrayList();
-        
+        List users;
+        users = new ArrayList();
+
         users.add(user);
         Exception ex = new DataIntegrityViolationException("");
         userDao.expects(once()).method("saveUser").with(same(user))
