@@ -77,7 +77,8 @@
         <filter token="APPNAME" value="${webapp.name}"/>
         <filter token="ENCRYPT-ALGORITHM" value="${encrypt.algorithm}"/>
         <filter token="ERROR-MAILTO" value="${error.mailTo}"/>
-        <filter token="ERROR-MAILHOST" value="${error.mailHost}"/>
+        <filter token="ERROR-MAILFROM" value="${mail.default.from}"/>
+        <filter token="ERROR-MAILHOST" value="${mail.host}"/>
         <filter token="ERROR-SERVER" value="${error.server}"/>
         <filter token="SECURE-LOGIN" value="${secure.login}"/>
         <filter token="HIBERNATE-DIALECT" value="${hibernate.dialect}"/>
@@ -457,8 +458,9 @@
                 <fileset dir="test/@{module}" excludes="**/*.java"/>
                 <filterset refid="variables.to.replace"/>
             </copy>
+            <property name="junit.showoutput" value="false"/>
             <junit printsummary="false" forkmode="perBatch" errorProperty="test.failed"
-                failureProperty="test.failed" fork="${junit.fork}" showoutput="false">
+                failureProperty="test.failed" fork="${junit.fork}" showoutput="${junit.showoutput}">
             	<jvmarg value="-Duser.language=en" />
             	<classpath>
                     <pathelement path="@{additional.src.dirs}"/>
@@ -843,7 +845,7 @@
     <!-- The "deploy-web" target deploys the web application in the in the   -->
     <!-- non-war format.                                                     -->
     <!-- =================================================================== -->
-    <target name="deploy-web" depends="stage-web" if="tomcat.home"
+    <target name="deploy-web" depends="compile-jsp" if="tomcat.home"
         description="deploy only web classes to servlet container's deploy directory">
 
         <echo message="Deploying web application to ${tomcat.home}/webapps"/>

@@ -8,7 +8,8 @@
     <property file="${user.home}/.${ant.project.name}-build.properties"/>
     <property file="${user.home}/.build.properties"/>
     <property file="build.properties"/>
-    
+    <property file="web/WEB-INF/classes/mail.properties"/>
+
     <!-- Application options that will likely vary between applications -->
     <property name="http.port" value="8080"/>
     <property name="dao.type" value="hibernate"/>
