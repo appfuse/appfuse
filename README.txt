@@ -36,6 +36,44 @@ To run this application, you will need to perform the following tasks:
 
 Features/Changes in 1.9.1
 ============================
+- Added database table generation support to AppGen with Middlegen. Now you're
+  prompted to generate code from a POJO or a database table. Thanks to Bobby
+  Diaz.
+- Added iBATIS support to AppGen, including generic DAO and Manager. Unfortunately,
+  the SQLMap generation is tied to MySQL and last_insert_id(). I blame iBATIS
+  and it's lack of support for JDBC 3.0's getGeneratedKeys(). ;-)
+- Created a version of CreateDAO tutorial for iBATIS. 
+    http://raibledesigns.com/wiki/CreateDAOiBATIS.html
+- Added Web Services support with an XFire installer in extras/xfire. Thanks to
+  Mika Gšckel.
+- Changed from using "username" as primary key to use traditional "id" property.
+- Changed all *DAO classes to *Dao to be more consistent with Spring's 
+  recommendations and API.
+- Added prompt for web framework to "new" target.
+- Fixed issues with AppFuse on Resin so it should now run out-of-the-box on 
+  Resin 3.0.x (open source version).
+- Fixed issues with AppGen and generating non-String types for ActionTests.
+- Fixed issues with data entry of Chinese characters (re-arranged filter 
+  mappings).
+- Added Spanish and Chinese translations for DisplayTag messages.
+- Added German translation. Thanks to Andreas Deininger.
+- Changed "Cancel" button on list screens to use "Done".
+- Dependent packages upgraded:
+    * Acegi Security 1.0 RC2
+    * DisplayTag 1.1
+    * DWR 1.1.1
+    * Hibernate 3.1.3
+    * iBATIS 2.1.7
+    * MySQL JDBC Driver 3.1.12
+    * OSCache 2.3
+    * PostgreSQL JDBC Driver 8.0-405
+    * Spring 1.2.7
+    * Tapestry 4.0.1
+    * URL Rewrite Filter 3.0-beta
+    * WebTest Build 1263
+    * WebWork 2.2.2
+- Dependent packages added:
+    * XFire 1.0
 
 
 Features/Changes in 1.9
