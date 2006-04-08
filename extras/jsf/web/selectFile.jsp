@@ -4,8 +4,8 @@
 <content tag="heading"><fmt:message key="upload.heading"/></content>
 
 <!--
-	The most important part is to declare your form's enctype to be "multipart/form-data",
-	and to have a form:file element that maps to your ActionForm's FormFile property
+    The most important part is to declare your form's enctype to be "multipart/form-data",
+    and to have a form:file element that maps to your ActionForm's FormFile property
 -->
 <f:view>
 <f:loadBundle var="text" basename="#{fileUpload.bundleName}"/>

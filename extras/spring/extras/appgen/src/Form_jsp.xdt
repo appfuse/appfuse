@@ -5,7 +5,7 @@
 
 <spring:bind path="<XDtForm:classNameLower/>.*">
     <c:if test="${not empty status.errorMessages}">
-    <div class="error">	
+    <div class="error">    
         <c:forEach var="error" items="${status.errorMessages}">
             <img src="<c:url value="/images/iconWarning.gif"/>"
                 alt="<fmt:message key="icon.warning"/>" class="icon" />
@@ -57,7 +57,7 @@
 </form>
 
 <script type="text/javascript">
-	Form.focusFirstElement(document.forms["<XDtForm:classNameLower/>Form"]);
+    Form.focusFirstElement(document.forms["<XDtForm:classNameLower/>Form"]);
 </script>
 
 <v:javascript formName="<XDtForm:classNameLower/>" cdata="false" dynamicJavascript="true" staticJavascript="false"/>

@@ -49,8 +49,8 @@
             SELECT SEQ_<XDtMethodEx:idField getType="columnName"/>.NextVal AS <XDtMethodEx:idField getType="propertyName"/> FROM DUAL
         </selectKey-->
         <selectKey resultClass="java.lang.<XDtMethodEx:idField getType="propertyType"/>" keyProperty="<XDtMethodEx:idField getType="propertyName"/>">
-			SELECT LAST_INSERT_ID() AS <XDtMethodEx:idField getType="propertyName"/>
-		</selectKey>
+            SELECT LAST_INSERT_ID() AS <XDtMethodEx:idField getType="propertyName"/>
+        </selectKey>
         <![CDATA[
             insert into <XDtClass:classTagValue tagName="hibernate.class" paramName="table"/> (<XDtForm:forAllFields><XDtForm:ifIsNotIdOrVersionField><XDtForm:columnName/><XDtForm:ifIsNotLastField>,</XDtForm:ifIsNotLastField></XDtForm:ifIsNotIdOrVersionField></XDtForm:forAllFields>)
             values ( <XDtForm:forAllFields><XDtForm:ifIsNotIdOrVersionField>?<XDtForm:ifIsNotLastField>,</XDtForm:ifIsNotLastField></XDtForm:ifIsNotIdOrVersionField></XDtForm:forAllFields> )

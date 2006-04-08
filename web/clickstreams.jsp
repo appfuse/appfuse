@@ -9,10 +9,10 @@ String showbots = "false";
 
 if (request.getParameter("showbots") != null)
 {
-	if (request.getParameter("showbots").equals("true"))
-		showbots = "true";
-	else if (request.getParameter("showbots").equals("both"))
-		showbots = "both";
+    if (request.getParameter("showbots").equals("true"))
+        showbots = "true";
+    else if (request.getParameter("showbots").equals("both"))
+        showbots = "both";
 }
 %>
 
@@ -25,7 +25,7 @@ if (request.getParameter("showbots") != null)
         
         <p>        
         <% if (clickstreams.keySet().size() == 0) { %>
-        	No clickstreams in progress.
+            No clickstreams in progress.
         <% } %>
         
         <%
@@ -33,31 +33,31 @@ if (request.getParameter("showbots") != null)
         int count = 0;
         while (it.hasNext())
         {
-        	String key = (String)it.next();
-        	Clickstream stream = (Clickstream)clickstreams.get(key);
+            String key = (String)it.next();
+            Clickstream stream = (Clickstream)clickstreams.get(key);
         
-        	if (showbots.equals("false") && stream.isBot())
-        	{
-        		continue;
-        	}
-        	else if (showbots.equals("true") && !stream.isBot())
-        	{
-        		continue;
-        	}
+            if (showbots.equals("false") && stream.isBot())
+            {
+                continue;
+            }
+            else if (showbots.equals("true") && !stream.isBot())
+            {
+                continue;
+            }
         
-        	count++;
-        	try {
+            count++;
+            try {
         %>
         
         <%= count %>. <a href="viewstream.jsp?sid=<%= key %>"><b><%= (stream.getHostname() != null && !stream.getHostname().equals("") ? stream.getHostname() : "Stream") %></b></a> [<%= stream.getStream().size() %> reqs]<br />
         
         <%
-        	}
-        	catch (Exception e)
-        	{
+            }
+            catch (Exception e)
+            {
         %>
-        	An error occurred - <%= e %><br />
+            An error occurred - <%= e %><br />
         <%
-        	}
+            }
         }
         %>

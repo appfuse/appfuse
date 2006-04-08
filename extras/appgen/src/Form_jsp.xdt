@@ -48,7 +48,7 @@
 </html:form>
 
 <script type="text/javascript">
-	Form.focusFirstElement(document.forms["<XDtForm:classNameLower/>Form"]);
+    Form.focusFirstElement(document.forms["<XDtForm:classNameLower/>Form"]);
 </script>
 
 <html:javascript formName="<XDtForm:classNameLower/>Form" cdata="false" dynamicJavascript="true" staticJavascript="false"/>

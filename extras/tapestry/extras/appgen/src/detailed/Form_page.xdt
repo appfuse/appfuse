@@ -18,14 +18,14 @@
     </component>
 
     <XDtForm:forAllFields>
-	<XDtForm:ifIsNotIdOrVersionField>
+    <XDtForm:ifIsNotIdOrVersionField>
     <component id="<XDtForm:fieldName/>Field" type="TextField">
         <binding name="value" value="<XDtForm:classNameLower/>.<XDtForm:fieldName/>"/>
         <binding name="validators" value="validators:required"/>
         <binding name="displayName" value="message:<XDtForm:classNameLower/>.<XDtForm:fieldName/>"/>
     </component>
     
-	</XDtForm:ifIsNotIdOrVersionField>
+    </XDtForm:ifIsNotIdOrVersionField>
   </XDtForm:forAllFields>
 
 </page-specification>

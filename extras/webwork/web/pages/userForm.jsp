@@ -6,8 +6,8 @@
 <input type="hidden" name="from" value="<c:out value="${param.from}"/>" />
 
 <c:if test="${cookieLogin == 'true'}">
-	<ww:hidden name="user.password" value="%{user.password}"/>
-	<ww:hidden name="user.confirmPassword" value="%{user.confirmPassword}"/>
+    <ww:hidden name="user.password" value="%{user.password}"/>
+    <ww:hidden name="user.confirmPassword" value="%{user.confirmPassword}"/>
 </c:if>
 
 <ww:if test="user.username == null || user.username == ''">
@@ -16,8 +16,8 @@
 
 <c:set var="pageButtons">
     <tr>
-    	<td></td>
-    	<td class="buttonBar">
+        <td></td>
+        <td class="buttonBar">
             <input type="submit" class="button" name="save" 
                 value="<fmt:message key="button.save"/>" 
                 onclick="onFormSubmit(this.form)"/>
@@ -34,15 +34,15 @@
     </tr>
 </c:set>
 
-	<ww:textfield label="%{getText('user.username')}" name="user.username" 
-	        value="%{user.username}" required="true"/>
+    <ww:textfield label="%{getText('user.username')}" name="user.username" 
+        value="%{user.username}" required="true"/>
 
-	<c:if test="${cookieLogin != 'true'}">
-	    <ww:password label="%{getText('user.password')}" name="user.password" show="true"
-	        value="%{user.password}" required="true" size="40" onchange="passwordChanged(this)"/>
-	    <ww:password label="%{getText('user.confirmPassword')}" name="user.confirmPassword" 
-	        value="%{user.confirmPassword}" required="true" show="true" size="40"/>
- 	</c:if>
+    <c:if test="${cookieLogin != 'true'}">
+        <ww:password label="%{getText('user.password')}" name="user.password" show="true"
+            value="%{user.password}" required="true" size="40" onchange="passwordChanged(this)"/>
+        <ww:password label="%{getText('user.confirmPassword')}" name="user.confirmPassword" 
+            value="%{user.confirmPassword}" required="true" show="true" size="40"/>
+     </c:if>
 
     <ww:textfield label="%{getText('user.firstName')}" name="user.firstName"
         value="%{user.firstName}" required="true" maxlength="50"/>
@@ -57,11 +57,11 @@
     <tr>
         <th>
             <label for="user.address.country" class="required">
-            	* <fmt:message key="user.address.country"/>:
+                * <fmt:message key="user.address.country"/>:
             </label>
         </th>
         <td>
-       	    <ww:set name="country" value="user.address.country" scope="page"/>
+               <ww:set name="country" value="user.address.country" scope="page"/>
             <appfuse:country name="user.address.country" prompt="" default="${country}"/>
         </td>
     </tr>
@@ -116,29 +116,29 @@
                 <legend>
                     <fmt:message key="userProfile.assignRoles"/>
                 </legend>
-	            <table class="pickList">
-	                <tr>
-	                    <th class="pickLabel">
-	                        <label class="required">
-	                            <fmt:message key="user.availableRoles"/>
-	                        </label>
-	                    </th>
-	                    <td>
-	                    </td>
-	                    <th class="pickLabel">
-	                        <label class="required">
-	                            <fmt:message key="user.roles"/>
-	                        </label>
-	                    </th>
-	                </tr>
-	                <c:set var="leftList" value="${availableRoles}" scope="request"/>
-	                <ww:set name="rightList" value="user.roleList" scope="request"/>
-	                <c:import url="/WEB-INF/pages/pickList.jsp">
-	                    <c:param name="listCount" value="1"/>
-	                    <c:param name="leftId" value="availableRoles"/>
-	                    <c:param name="rightId" value="user.userRoles"/>
-	                </c:import>
-	            </table>
+                <table class="pickList">
+                    <tr>
+                        <th class="pickLabel">
+                            <label class="required">
+                                <fmt:message key="user.availableRoles"/>
+                            </label>
+                        </th>
+                        <td>
+                        </td>
+                        <th class="pickLabel">
+                            <label class="required">
+                                <fmt:message key="user.roles"/>
+                            </label>
+                        </th>
+                    </tr>
+                    <c:set var="leftList" value="${availableRoles}" scope="request"/>
+                    <ww:set name="rightList" value="user.roleList" scope="request"/>
+                    <c:import url="/WEB-INF/pages/pickList.jsp">
+                        <c:param name="listCount" value="1"/>
+                        <c:param name="leftId" value="availableRoles"/>
+                        <c:param name="rightId" value="user.userRoles"/>
+                    </c:import>
+                </table>
             </fieldset>
         </td>
     </tr>
@@ -150,9 +150,9 @@
         </th>
         <td>
             <ww:iterator value="user.roleList" status="status">
-              	<ww:property value="label"/><ww:if test="!#status.last">,</ww:if> 
-              	<input type="hidden" name="user.userRoles"
-              		value="<ww:property value="value"/>" />
+                  <ww:property value="label"/><ww:if test="!#status.last">,</ww:if> 
+                  <input type="hidden" name="user.userRoles"
+                      value="<ww:property value="value"/>" />
             </ww:iterator>
             <ww:hidden name="user.enabled" value="%{user.enabled}"/>
             <ww:hidden name="user.accountExpired" value="%{user.accountExpired}"/>

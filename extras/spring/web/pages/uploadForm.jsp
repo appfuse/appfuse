@@ -4,12 +4,12 @@
 <content tag="heading"><fmt:message key="upload.heading"/></content>
 
 <!--
-	The most important part is to declare your form's enctype to be "multipart/form-data"
+    The most important part is to declare your form's enctype to be "multipart/form-data"
 -->
 
 <spring:bind path="fileUpload.*">
     <c:if test="${not empty status.errorMessages}">
-    <div class="error">	
+    <div class="error">    
         <c:forEach var="error" items="${status.errorMessages}">
             <img src="<c:url value="/images/iconWarning.gif"/>"
                 alt="<fmt:message key="icon.warning"/>" class="icon" />
@@ -30,7 +30,7 @@
             <appfuse:label key="uploadForm.name" />
         </th>
         <td>
-        	<spring:bind path="fileUpload.name">
+            <spring:bind path="fileUpload.name">
             <input type="text" name="name" id="name" size="40" value="<c:out value="${status.value}"/>"/>
             <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
             </spring:bind>
@@ -41,7 +41,7 @@
             <appfuse:label key="uploadForm.file"/>
         </th>
         <td>
-        	<spring:bind path="fileUpload.file">
+            <spring:bind path="fileUpload.file">
             <input type="file" name="file" id="file" size="50" value="<c:out value="${status.value}"/>"/>
             <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
             </spring:bind>

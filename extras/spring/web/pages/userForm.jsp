@@ -60,7 +60,7 @@
         </th>
         <td>
         <spring:bind path="user.username">
-        	<input type="text" name="username" value="<c:out value="${status.value}"/>" id="username"/>
+            <input type="text" name="username" value="<c:out value="${status.value}"/>" id="username"/>
             <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
         </spring:bind>
         </td>

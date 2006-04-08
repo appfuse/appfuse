@@ -4,8 +4,8 @@
 <content tag="heading"><fmt:message key="upload.heading"/></content>
 
 <!--
-	The most important part is to declare your form's enctype to be "multipart/form-data",
-	and to have a form:file element that maps to your ActionForm's FormFile property
+    The most important part is to declare your form's enctype to be "multipart/form-data",
+    and to have a form:file element that maps to your ActionForm's FormFile property
 -->
 
 <p><fmt:message key="upload.message"/></p>
@@ -34,10 +34,10 @@
         <td></td>
         <td class="buttonBar">
             <html:submit styleClass="button" onclick="bCancel=false">
-            	<fmt:message key="button.upload"/>
+                <fmt:message key="button.upload"/>
             </html:submit>
             <html:cancel styleClass="button" onclick="bCancel=true">
-            	<fmt:message key="button.cancel"/>
+                <fmt:message key="button.cancel"/>
             </html:cancel>
         </td>
     </tr>

@@ -60,7 +60,7 @@ public class <XDtForm:className/>FormController extends BaseFormController {
             saveMessage(request, getText(key, locale));
 
             if (!isNew) {
-            	return new ModelAndView("redirect:edit<XDtForm:className/>.html", "<XDtMethodEx:idField getType="propertyName"/>", <XDtForm:classNameLower/>.<XDtMethodEx:idField getType="getterName"/>());
+                return new ModelAndView("redirect:edit<XDtForm:className/>.html", "<XDtMethodEx:idField getType="propertyName"/>", <XDtForm:classNameLower/>.<XDtMethodEx:idField getType="getterName"/>());
             }
         }
 
