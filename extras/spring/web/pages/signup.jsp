@@ -6,7 +6,7 @@
 
 <spring:bind path="user.*">
     <c:if test="${not empty status.errorMessages}">
-    <div class="error">	
+    <div class="error">    
         <c:forEach var="error" items="${status.errorMessages}">
             <img src="<c:url value="/images/iconWarning.gif"/>"
                 alt="<fmt:message key="icon.warning"/>" class="icon" />
@@ -181,8 +181,8 @@
         </td>
     </tr>
     <tr>
-    	<td></td>
-    	<td class="buttonBar">
+        <td></td>
+        <td class="buttonBar">
             <input type="submit" class="button" name="save" onclick="bCancel=false" value="<fmt:message key="button.register"/>" />
 
             <input type="submit" class="button" name="cancel" onclick="bCancel=true" value="<fmt:message key="button.cancel"/>" />

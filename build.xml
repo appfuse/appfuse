@@ -461,8 +461,8 @@
             <property name="junit.showoutput" value="false"/>
             <junit printsummary="false" forkmode="perBatch" errorProperty="test.failed"
                 failureProperty="test.failed" fork="${junit.fork}" showoutput="${junit.showoutput}">
-            	<jvmarg value="-Duser.language=en" />
-            	<classpath>
+                <jvmarg value="-Duser.language=en" />
+                <classpath>
                     <pathelement path="@{additional.src.dirs}"/>
                     <path refid="@{module}.test.classpath"/>
                     <pathelement location="${build.dir}/@{module}/classes"/>
@@ -1257,6 +1257,7 @@
                 <exclude name="**/*.log*"/>
             </fileset>
         </copy>
+        
         <!-- replace app name -->
         <replaceregexp flags="g">
             <regexp pattern="appfuse"/>
@@ -1322,6 +1323,14 @@
             <fileset dir="../${app.name}" includes="properties.xml"/>
         </replaceregexp>
 
+        <if>
+            <and>
+                <not><equals arg1="${web.framework}" arg2=""/></not>
+                <not><equals arg1="${web.framework}" arg2="struts"/></not>
+            </and>
+            <then><ant dir="../${app.name}/extras/${web.framework}" target="install" inheritAll="false"/></then>
+        </if>
+        
         <if>
             <not><equals arg1="${new.pkg.name}" arg2="org.appfuse"/></not>
             <then><rename-packages newPkgName="${new.pkg.name}"/></then>

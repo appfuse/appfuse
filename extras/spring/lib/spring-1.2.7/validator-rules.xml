@@ -23,8 +23,8 @@
                 var fields = new Array();
                 oRequired = new required();
                 for (x in oRequired) {
-                	var field = form[oRequired[x][0]];
-                	
+                    var field = form[oRequired[x][0]];
+                    
                     if (field.type == 'text' ||
                         field.type == 'textarea' ||
                         field.type == 'file' ||
@@ -33,23 +33,23 @@
                         field.type == 'password') {
                         
                         var value = '';
-						// get field's value
-						if (field.type == "select-one") {
-							var si = field.selectedIndex;
-							if (si >= 0) {
-								value = field.options[si].value;
-							}
-						} else {
-							value = field.value;
-						}
+                        // get field's value
+                        if (field.type == "select-one") {
+                            var si = field.selectedIndex;
+                            if (si >= 0) {
+                                value = field.options[si].value;
+                            }
+                        } else {
+                            value = field.value;
+                        }
                         
                         if (trim(value).length == 0) {
                         
-	                        if (i == 0) {
-	                            focusField = field;
-	                        }
-	                        fields[i++] = oRequired[x][1];
-	                        isValid = false;
+                            if (i == 0) {
+                                focusField = field;
+                            }
+                            fields[i++] = oRequired[x][1];
+                            isValid = false;
                         }
                     }
                 }
@@ -242,23 +242,23 @@
                 var fields = new Array();
                 oByte = new ByteValidations();
                 for (x in oByte) {
-                	var field = form[oByte[x][0]];
-                	
+                    var field = form[oByte[x][0]];
+                    
                     if (field.type == 'text' ||
                         field.type == 'textarea' ||
                         field.type == 'select-one' ||
-						field.type == 'radio') {
+                        field.type == 'radio') {
 
-						var value = '';
-						// get field's value
-						if (field.type == "select-one") {
-							var si = field.selectedIndex;
-							if (si >= 0) {
-								value = field.options[si].value;
-							}
-						} else {
-							value = field.value;
-						}
+                        var value = '';
+                        // get field's value
+                        if (field.type == "select-one") {
+                            var si = field.selectedIndex;
+                            if (si >= 0) {
+                                value = field.options[si].value;
+                            }
+                        } else {
+                            value = field.value;
+                        }
                         
                         if (value.length > 0) {
                             if (!isAllDigits(value)) {
@@ -270,17 +270,17 @@
 
                             } else {
 
-	                            var iValue = parseInt(value);
-	                            if (isNaN(iValue) || !(iValue >= -128 && iValue <= 127)) {
-	                                if (i == 0) {
-	                                    focusField = field;
-	                                }
-	                                fields[i++] = oByte[x][1];
-	                                bValid = false;
-	                            }
+                                var iValue = parseInt(value);
+                                if (isNaN(iValue) || !(iValue >= -128 && iValue <= 127)) {
+                                    if (i == 0) {
+                                        focusField = field;
+                                    }
+                                    fields[i++] = oByte[x][1];
+                                    bValid = false;
+                                }
                             }
-						}
-						
+                        }
+                        
                     }
                 }
                 if (fields.length > 0) {
@@ -314,23 +314,23 @@
                 var fields = new Array();
                 oShort = new ShortValidations();
                 for (x in oShort) {
-                	var field = form[oShort[x][0]];
-                	
+                    var field = form[oShort[x][0]];
+                    
                     if (field.type == 'text' ||
                         field.type == 'textarea' ||
                         field.type == 'select-one' ||
                         field.type == 'radio') {
                         
                         var value = '';
-						// get field's value
-						if (field.type == "select-one") {
-							var si = field.selectedIndex;
-							if (si >= 0) {
-								value = field.options[si].value;
-							}
-						} else {
-							value = field.value;
-						}
+                        // get field's value
+                        if (field.type == "select-one") {
+                            var si = field.selectedIndex;
+                            if (si >= 0) {
+                                value = field.options[si].value;
+                            }
+                        } else {
+                            value = field.value;
+                        }
                         
                         if (value.length > 0) {
                             if (!isAllDigits(value)) {
@@ -342,15 +342,15 @@
 
                             } else {
                         
-	                            var iValue = parseInt(value);
-	                            if (isNaN(iValue) || !(iValue >= -32768 && iValue <= 32767)) {
-	                                if (i == 0) {
-	                                    focusField = field;
-	                                }
-	                                fields[i++] = oShort[x][1];
-	                                bValid = false;
-	                            }
-	                       }
+                                var iValue = parseInt(value);
+                                if (isNaN(iValue) || !(iValue >= -32768 && iValue <= 32767)) {
+                                    if (i == 0) {
+                                        focusField = field;
+                                    }
+                                    fields[i++] = oShort[x][1];
+                                    bValid = false;
+                                }
+                           }
                        }
                     }
                 }
@@ -385,7 +385,7 @@
                 var fields = new Array();
                 oInteger = new IntegerValidations();
                 for (x in oInteger) {
-                	var field = form[oInteger[x][0]];
+                    var field = form[oInteger[x][0]];
 
                     if (field.type == 'text' ||
                         field.type == 'textarea' ||
@@ -393,34 +393,34 @@
                         field.type == 'radio') {
                         
                         var value = '';
-						// get field's value
-						if (field.type == "select-one") {
-							var si = field.selectedIndex;
-						    if (si >= 0) {
-							    value = field.options[si].value;
-						    }
-						} else {
-							value = field.value;
-						}
+                        // get field's value
+                        if (field.type == "select-one") {
+                            var si = field.selectedIndex;
+                            if (si >= 0) {
+                                value = field.options[si].value;
+                            }
+                        } else {
+                            value = field.value;
+                        }
                         
                         if (value.length > 0) {
                         
                             if (!isAllDigits(value)) {
                                 bValid = false;
                                 if (i == 0) {
-	                                focusField = field;
-	                            }
-						        fields[i++] = oInteger[x][1];
-						        
+                                    focusField = field;
+                                }
+                                fields[i++] = oInteger[x][1];
+                                
                             } else {
-	                            var iValue = parseInt(value);
-	                            if (isNaN(iValue) || !(iValue >= -2147483648 && iValue <= 2147483647)) {
-	                                if (i == 0) {
-	                                    focusField = field;
-	                                }
-	                                fields[i++] = oInteger[x][1];
-	                                bValid = false;
-	                           }
+                                var iValue = parseInt(value);
+                                if (isNaN(iValue) || !(iValue >= -2147483648 && iValue <= 2147483647)) {
+                                    if (i == 0) {
+                                        focusField = field;
+                                    }
+                                    fields[i++] = oInteger[x][1];
+                                    bValid = false;
+                               }
                            }
                        }
                     }
@@ -488,23 +488,23 @@
                 var fields = new Array();
                 oFloat = new FloatValidations();
                 for (x in oFloat) {
-                	var field = form[oFloat[x][0]];
-                	
+                    var field = form[oFloat[x][0]];
+                    
                     if (field.type == 'text' ||
                         field.type == 'textarea' ||
                         field.type == 'select-one' ||
                         field.type == 'radio') {
                         
-                    	var value = '';
-						// get field's value
-						if (field.type == "select-one") {
-							var si = field.selectedIndex;
-							if (si >= 0) {
-							    value = field.options[si].value;
-							}
-						} else {
-							value = field.value;
-						}
+                        var value = '';
+                        // get field's value
+                        if (field.type == "select-one") {
+                            var si = field.selectedIndex;
+                            if (si >= 0) {
+                                value = field.options[si].value;
+                            }
+                        } else {
+                            value = field.value;
+                        }
                         
                         if (value.length > 0) {
                             // remove '.' before checking digits
@@ -519,14 +519,14 @@
                                 fields[i++] = oFloat[x][1];
 
                             } else {
-	                            var iValue = parseFloat(value);
-	                            if (isNaN(iValue)) {
-	                                if (i == 0) {
-	                                    focusField = field;
-	                                }
-	                                fields[i++] = oFloat[x][1];
-	                                bValid = false;
-	                            }
+                                var iValue = parseFloat(value);
+                                if (isNaN(iValue)) {
+                                    if (i == 0) {
+                                        focusField = field;
+                                    }
+                                    fields[i++] = oFloat[x][1];
+                                    bValid = false;
+                                }
                             }
                         }
                     }
@@ -695,8 +695,8 @@
                return bValid;
             }
 
-	    function isValidDate(day, month, year) {
-	        if (month < 1 || month > 12) {
+        function isValidDate(day, month, year) {
+            if (month < 1 || month > 12) {
                     return false;
                 }
                 if (day < 1 || day > 31) {

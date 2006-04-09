@@ -26,7 +26,7 @@
     
     <target name="uploadFile">
         <stringutil string="${file}" property="filenameIndex">
-            <lastindexof string="/"/>
+            <lastindexof string="\"/>
         </stringutil>
         <stringutil string="${file}" property="filename">
             <substring beginindex="${filenameIndex}"/>

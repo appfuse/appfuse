@@ -9,24 +9,24 @@
 
 <table class="detail" cellpadding="5">
     <tr>
-    	<th>Friendly Name:</th>
-    	<td><ww:property value="name"/></td>
+        <th>Friendly Name:</th>
+        <td><ww:property value="name"/></td>
     </tr>
     <tr>
-    	<th>Filename:</th>
-    	<td><ww:property value="fileFileName"/></td>
+        <th>Filename:</th>
+        <td><ww:property value="fileFileName"/></td>
     </tr>
     <tr>
-    	<th>File content type:</th>
-    	<td><ww:property value="fileContentType"/></td>
+        <th>File content type:</th>
+        <td><ww:property value="fileContentType"/></td>
     </tr>
     <tr>
-    	<th>File size:</th>
-    	<td><ww:property value="file.length()"/> bytes</td>
+        <th>File size:</th>
+        <td><ww:property value="file.length()"/> bytes</td>
     </tr>
     <tr>
-    	<th class="tallCell">File Location:</th>
-    	<td>The file has been written to: <br />
+        <th class="tallCell">File Location:</th>
+        <td>The file has been written to: <br />
             <a href="<c:out value="${link}"/>">
             <c:out value="${location}" escapeXml="false"/></a>
         </td>

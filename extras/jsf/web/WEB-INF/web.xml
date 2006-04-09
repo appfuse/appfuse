@@ -94,9 +94,9 @@
         <filter-class>org.appfuse.webapp.filter.MessageFilter</filter-class>
     </filter>
     <filter>
-	    <filter-name>localeFilter</filter-name>
-	    <filter-class>org.appfuse.webapp.filter.LocaleFilter</filter-class>
-	</filter>
+        <filter-name>localeFilter</filter-name>
+        <filter-class>org.appfuse.webapp.filter.LocaleFilter</filter-class>
+    </filter>
 
     <filter-mapping>
         <filter-name>securityFilter</filter-name>

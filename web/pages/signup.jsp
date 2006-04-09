@@ -82,7 +82,7 @@
             <appfuse:label key="userForm.addressForm.province"/>
         </th>
         <td>
-        	  <html:text property="addressForm.province"
+              <html:text property="addressForm.province"
                 styleId="addressForm.province" size="40"/>
             <html:errors property="addressForm.province"/>
         </td>
@@ -152,10 +152,10 @@
         </td>
     </tr>
     <tr>
-    	<td></td>
-    	<td class="buttonBar">
+        <td></td>
+        <td class="buttonBar">
             <html:submit styleClass="button" onclick="bCancel=false">
-            	  <fmt:message key="button.register"/>
+                  <fmt:message key="button.register"/>
             </html:submit>
 
             <html:cancel styleClass="button" onclick="bCancel=true">

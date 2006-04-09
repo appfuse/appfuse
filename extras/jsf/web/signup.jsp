@@ -120,7 +120,7 @@
     <h:inputHidden value=""/>
     
     <h:panelGroup styleClass="buttonBar">
-    	<h:commandButton value="#{text['button.register']}" action="#{signupForm.save}" 
+        <h:commandButton value="#{text['button.register']}" action="#{signupForm.save}" 
             id="save" styleClass="button"/>
     
         <h:commandButton value="#{text['button.cancel']}" action="cancel" immediate="true"  

@@ -179,7 +179,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         </replace>]]></replacetoken>
         </replace>
         <replace file="../middlegen/build.xml">
-        	<replacetoken><![CDATA[
+            <replacetoken><![CDATA[
         <replace dir="../../../${app.name}/src">
             <include name="**/Cat.java"/>
             <replacetoken>*            @hibernate.property</replacetoken>

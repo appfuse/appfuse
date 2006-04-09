@@ -6,7 +6,7 @@
     <bean id="lookupManager" class="org.appfuse.service.impl.LookupManagerImpl">
         <property name="lookupDao" ref="lookupDao"/>
     </bean>
-	
+    
     <!-- Transaction template for Managers, from:
          http://blog.exis.com/colin/archives/2004/07/31/concise-transaction-definitions-spring-11/ -->
     <bean id="txProxyTemplate" abstract="true"

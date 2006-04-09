@@ -77,8 +77,8 @@
         <filter-class>org.appfuse.webapp.filter.GZIPFilter</filter-class>
     </filter>
     <filter>
-	    <filter-name>localeFilter</filter-name>
-	    <filter-class>org.appfuse.webapp.filter.LocaleFilter</filter-class>
+        <filter-name>localeFilter</filter-name>
+        <filter-class>org.appfuse.webapp.filter.LocaleFilter</filter-class>
     </filter>
     <filter>
         <filter-name>webwork</filter-name>
@@ -151,7 +151,7 @@
         <filter-name>webwork</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-	
+    
     <listener>
         <listener-class>com.opensymphony.clickstream.ClickstreamListener</listener-class>
     </listener>

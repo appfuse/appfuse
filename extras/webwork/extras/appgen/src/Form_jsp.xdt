@@ -31,5 +31,5 @@
 </ww:form>
 
 <script type="text/javascript">
-	Form.focusFirstElement(document.forms["<XDtForm:classNameLower/>Form"]);
+    Form.focusFirstElement(document.forms["<XDtForm:classNameLower/>Form"]);
 </script>

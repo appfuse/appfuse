@@ -164,15 +164,15 @@
         <replace file="../../.classpath">
            <replacetoken><![CDATA[</classpath>]]></replacetoken>
            <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/xfire-1.0/runtime/xbean-spring-2.2.jar"/>
-    <classpathentry kind="lib" path="lib/xfire-1.0/runtime/xfire-aegis-1.0.jar"/>
-    <classpathentry kind="lib" path="lib/xfire-1.0/runtime/xfire-core-1.0.jar"/>
-    <classpathentry kind="lib" path="lib/xfire-1.0/runtime/xfire-spring-1.0.jar"/>
-    <classpathentry kind="lib" path="lib/xfire-1.0/runtime/jdom-1.0.jar"/>
-    <classpathentry kind="lib" path="lib/xfire-1.0/runtime/stax-api-1.0.jar"/>
-    <classpathentry kind="lib" path="lib/xfire-1.0/runtime/wstx-asl-2.9.jar"/>
-    <classpathentry kind="lib" path="lib/xfire-1.0/test/httpunit-1.6.1.jar"/>
-    <classpathentry kind="lib" path="lib/xfire-1.0/runtime/wsdl4j-1.5.2.jar"/>
-    <classpathentry kind="lib" path="build/dao/classes"/>
+	<classpathentry kind="lib" path="lib/xfire-1.0/runtime/xfire-aegis-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/xfire-1.0/runtime/xfire-core-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/xfire-1.0/runtime/xfire-spring-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/xfire-1.0/runtime/jdom-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/xfire-1.0/runtime/stax-api-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/xfire-1.0/runtime/wstx-asl-2.9.jar"/>
+	<classpathentry kind="lib" path="lib/xfire-1.0/test/httpunit-1.6.1.jar"/>
+	<classpathentry kind="lib" path="lib/xfire-1.0/runtime/wsdl4j-1.5.2.jar"/>
+	<classpathentry kind="lib" path="build/dao/classes"/>
 </classpath>]]></replacevalue>
         </replace>
     </target>

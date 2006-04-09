@@ -29,7 +29,7 @@
     <tr>
         <th>
             <label for="user.address.country" class="required">
-            	* <fmt:message key="user.address.country"/>:
+                * <fmt:message key="user.address.country"/>:
             </label>
         </th>
         <td>
