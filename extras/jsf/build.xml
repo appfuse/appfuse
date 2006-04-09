@@ -207,7 +207,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         </replace>]]></replacetoken>
         </replace>
         <replace file="../middlegen/build.xml">
-        	<replacetoken><![CDATA[
+            <replacetoken><![CDATA[
         <replace dir="../../../${app.name}/src">
             <include name="**/Cat.java"/>
             <replacetoken>*            @hibernate.property</replacetoken>
@@ -258,9 +258,9 @@ log4j.logger.org.apache.myfaces=WARN</replacevalue>
         </replace>
         <replace file="../../.classpath">
             <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/struts-1.2.8/struts.jar"/>
-    <classpathentry kind="lib" path="lib/struts-1.2.8/struts-el.jar"/>]]></replacetoken>
+	<classpathentry kind="lib" path="lib/struts-1.2.8/struts-el.jar"/>]]></replacetoken>
             <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/myfaces-1.1.1/lib/myfaces-all.jar"/>
-    <classpathentry kind="lib" path="lib/myfaces-1.1.1/tomahawk.jar"/>]]></replacevalue>
+	<classpathentry kind="lib" path="lib/myfaces-1.1.1/tomahawk.jar"/>]]></replacevalue>
         </replace>
 
         <echo level="info">Refactoring build.xml</echo>

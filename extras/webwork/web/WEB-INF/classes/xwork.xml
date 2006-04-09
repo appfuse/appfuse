@@ -1,12 +1,12 @@
 <!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.1.1//EN"
-	"http://www.opensymphony.com/xwork/xwork-1.1.1.dtd">
+    "http://www.opensymphony.com/xwork/xwork-1.1.1.dtd">
 
 <xwork>
-  	<!-- Include webwork defaults -->
-  	<include file="webwork-default.xml"/>
-  	
-  	<!-- Configuration for the default package. -->
-  	<package name="default" extends="webwork-default">
+      <!-- Include webwork defaults -->
+      <include file="webwork-default.xml"/>
+      
+      <!-- Configuration for the default package. -->
+      <package name="default" extends="webwork-default">
         <interceptors>
             <!-- Interceptor to handle allowing only admins to certain actions -->
             <interceptor name="adminOnly" class="adminInterceptor"/>
@@ -53,7 +53,7 @@
         <action name="activeUsers" class="com.opensymphony.xwork.ActionSupport"> 
             <result name="success">/WEB-INF/pages/activeUsers.jsp</result> 
         </action> 
-		
+        
         <action name="mainMenu" class="com.opensymphony.xwork.ActionSupport"> 
         <result name="success">/WEB-INF/pages/mainMenu.jsp</result> 
         </action> 
@@ -115,5 +115,5 @@
         </action>
         
         <!-- Add additional actions here -->
-  	</package>
+      </package>
 </xwork>

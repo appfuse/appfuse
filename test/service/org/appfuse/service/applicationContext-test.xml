@@ -19,7 +19,7 @@
         <property name="userCache" ref="userCache"/>
     </bean>
 
-	<bean id="userManager" class="org.appfuse.service.impl.UserManagerImpl"/>
+    <bean id="userManager" class="org.appfuse.service.impl.UserManagerImpl"/>
 
     <bean id="target" class="org.springframework.aop.framework.ProxyFactoryBean">
       <property name="proxyInterfaces" value="org.appfuse.service.UserManager"/>

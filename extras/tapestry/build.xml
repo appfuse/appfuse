@@ -92,7 +92,7 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
 ]]></replacetoken>
         </replace>
         <replace file="../../build.xml">
-        	<replacetoken><![CDATA[<lib dir="${displaytag.dir}" includes="*.jar"/>
+            <replacetoken><![CDATA[<lib dir="${displaytag.dir}" includes="*.jar"/>
             ]]></replacetoken>
         </replace>
         <delete>
@@ -289,7 +289,7 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
         </replace>]]></replacetoken>
         </replace>
         <replace file="../middlegen/build.xml">
-        	<replacetoken><![CDATA[
+            <replacetoken><![CDATA[
         <replace dir="../../../${app.name}/src">
             <include name="**/Cat.java"/>
             <replacetoken>*            @hibernate.property</replacetoken>
@@ -345,16 +345,16 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
         
         <replace file="../../.classpath">
             <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/struts-1.2.8/struts.jar"/>
-    <classpathentry kind="lib" path="lib/struts-1.2.8/struts-el.jar"/>]]></replacetoken>
+	<classpathentry kind="lib" path="lib/struts-1.2.8/struts-el.jar"/>]]></replacetoken>
             <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/hivemind-1.1.1.jar"/>
-    <classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/hivemind-lib-1.1.1.jar"/>
-    <classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/javassist-3.0.jar"/>
-    <classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/ognl-2.6.7.jar"/>
-    <classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/oro-2.0.8.jar"/>
-    <classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/tapestry-4.0.1.jar"/>
-    <classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/tapestry-contrib-4.0.1.jar"/>
-    <classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/tapestry-flash-0.1.1.jar"/>
-    <classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/tapestry-spring-0.1.2.jar"/>]]></replacevalue>
+	<classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/hivemind-lib-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/javassist-3.0.jar"/>
+	<classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/ognl-2.6.7.jar"/>
+	<classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/oro-2.0.8.jar"/>
+	<classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/tapestry-4.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/tapestry-contrib-4.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/tapestry-flash-0.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/tapestry-spring-0.1.2.jar"/>]]></replacevalue>
         </replace>
 
         <echo level="info">Refactoring build.xml</echo>
