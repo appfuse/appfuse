@@ -161,7 +161,7 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
         <echo level="info">Removing iBatis JARs from WAR build</echo>
         <replace file="../../build.xml">
             <replacetoken><![CDATA[<lib dir="${ibatis.dir}" includes="*.jar"/>
-                <lib dir="${spring.dir}" includes="*.jar" excludes="*mock.jar"/>]]></replacetoken>
+            <lib dir="${spring.dir}" includes="*.jar" excludes="*mock.jar"/>]]></replacetoken>
             <replacevalue><![CDATA[<lib dir="${spring.dir}" includes="*.jar" excludes="*mock.jar"/>]]></replacevalue>
         </replace>
 
@@ -203,7 +203,7 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
         </copy>
         <replace file="../../build.xml">
             <replacetoken><![CDATA[<lib file="${hibernate.jar}"/>
-                <lib dir="${hibernate.dir}/lib" includes="*.jar"/>]]></replacetoken>
+            <lib dir="${hibernate.dir}/lib" includes="*.jar"/>]]></replacetoken>
             <replacevalue><![CDATA[<lib dir="${ibatis.dir}" includes="*.jar"/>]]></replacevalue>
         </replace>
 
