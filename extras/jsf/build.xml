@@ -349,18 +349,17 @@ log4j.logger.org.apache.myfaces=WARN</replacevalue>
     </target>
 
     <property name="web.framework" value="jsf"/>
+    <property name="db.name" value="appfuse"/>
+    <property name="new.pkg.name" value="org.appfuse"/>
     <!-- =================================================================== -->
     <!-- Creates new project, installs JSF and runs tests                -->
     <!-- =================================================================== -->
     <target name="test" description="Creates appfuse-jsf and runs tests">
-        <property name="app.name" value="appfuse-jsf"/>
-        <property name="db.name" value="appfuse"/>
-        <property name="new.pkg.name" value="org.appfuse"/>   
+        <property name="app.name" value="appfuse-jsf"/> 
         <delete dir="../../../${app.name}"/>
         <ant dir="../.." target="new"/>
 
         <!-- New project created, install JSF and run tests -->
-        <ant dir="../../../${app.name}/extras/jsf" target="install" inheritAll="false"/>
         <ant dir="../../../${app.name}" target="setup-db" inheritAll="false"/>
         <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
     </target>
@@ -370,15 +369,12 @@ log4j.logger.org.apache.myfaces=WARN</replacevalue>
     <!-- =================================================================== -->
     <target name="test-ibatis" description="Creates appfuse-jsf-ibatis and runs tests">
         <property name="app.name" value="appfuse-jibatis"/>
-        <property name="db.name" value="appfuse"/>
-        <property name="new.pkg.name" value="org.appfuse"/>
         <delete dir="../../../${app.name}"/>
         <ant dir="../.." target="new"/>
 
         <!-- New project created, install JSF and run tests -->
         <ant dir="../../../${app.name}/extras/ibatis" target="install" inheritAll="false"/>
         <ant dir="../../../${app.name}/extras/ibatis" target="uninstall-hibernate" inheritAll="false"/>
-        <ant dir="../../../${app.name}/extras/jsf" target="install" inheritAll="false"/>
         <ant dir="../../../${app.name}" target="setup-db" inheritAll="false"/>
         <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
     </target>
@@ -388,13 +384,9 @@ log4j.logger.org.apache.myfaces=WARN</replacevalue>
     <!-- =================================================================== -->
     <target name="test-appgen" description="Creates appfuse-jsfgen and tests appgen">
         <property name="app.name" value="appfuse-jsfgen"/>
-        <property name="db.name" value="appfuse"/>
-        <property name="new.pkg.name" value="org.appfuse"/>
         <delete dir="../../../${app.name}"/>
         <ant dir="../.." target="new"/>
 
-        <!-- New project created, install JSF -->
-        <ant dir="../../../${app.name}/extras/jsf" target="install" inheritAll="false"/>
         <!-- Gen code and run tests -->
         <ant dir="../../../${app.name}/extras/appgen" target="test-all" inheritAll="false">
             <property name="web.framework" value="jsf"/>

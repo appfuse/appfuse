@@ -453,32 +453,23 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
         <!-- Change test-jsp to test-html -->
         <replace file="../../build.xml" token="test-jsp" value="test-html"/>
         
-        <replace file="../../build.xml">
-        <replacetoken><![CDATA[    <target name="install-tapestry" depends="clean" 
-        description="Installs Tapestry, removes Struts">
-        <ant dir="${extras.dir}/tapestry" target="install"/>
-    </target>
-]]></replacetoken>
-        </replace>
-        
         <echo>----------------------------------------------</echo>
         <echo level="info">NOTE: It's recommended you delete extras/tapestry as you shouldn't need it anymore.</echo>
         <echo>----------------------------------------------</echo>
     </target>
  
     <property name="web.framework" value="tapestry"/>
+    <property name="db.name" value="appfuse"/>   
+    <property name="new.pkg.name" value="org.appfuse"/>
     <!-- =================================================================== -->
     <!-- Creates new project, installs Tapestry and runs tests                -->
     <!-- =================================================================== -->
     <target name="test" description="Creates appfuse-tapestry and runs tests">
         <property name="app.name" value="appfuse-tapestry"/>
-        <property name="db.name" value="appfuse"/>   
-        <property name="new.pkg.name" value="org.appfuse"/>
         <delete dir="../../../${app.name}"/>
         <ant dir="../.." target="new"/>
 
-        <!-- New project created, install Tapestry and run tests -->
-        <ant dir="../../../${app.name}/extras/tapestry" target="install" inheritAll="false"/>
+        <!-- New project created, run tests -->
         <ant dir="../../../${app.name}" target="setup-db" inheritAll="false"/>
         <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
     </target>
@@ -486,11 +477,8 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
     <!-- =================================================================== -->
     <!-- Creates new project, installs Tapestry+iBATIS and runs tests         -->
     <!-- =================================================================== -->
-    <target name="test-ibatis"
-        description="Creates appfuse-tapestry-ibatis and runs tests">
+    <target name="test-ibatis" description="Creates appfuse-tapestry-ibatis and runs tests">
         <property name="app.name" value="appfuse-tibatis"/>
-        <property name="db.name" value="appfuse"/>
-        <property name="new.pkg.name" value="org.appfuse"/>
         <delete dir="../../../${app.name}"/>
         <ant dir="../.." target="new"/>
 
@@ -507,13 +495,9 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
     <!-- =================================================================== -->
     <target name="test-appgen" description="Creates appfuse-tapgen and tests appgen">
         <property name="app.name" value="appfuse-tapgen"/>
-        <property name="db.name" value="appfuse"/>
-        <property name="new.pkg.name" value="org.appfuse"/>
         <delete dir="../../../${app.name}"/>
         <ant dir="../.." target="new"/>
 
-        <!-- New project created, install Tapestry -->
-        <ant dir="../../../${app.name}/extras/tapestry" target="install" inheritAll="false"/>
         <!-- Gen code and run tests -->
         <ant dir="../../../${app.name}/extras/appgen" target="test-all" inheritAll="false">
             <property name="web.framework" value="tapestry"/>
