@@ -99,9 +99,8 @@ public class UploadAction extends Action {
 
         bos.close();
 
-        location =
-            "The file has been written to <br />\"" + dirPath.getAbsolutePath()
-            + Constants.FILE_SEP + file.getFileName() + "\"";
+        location = dirPath.getAbsolutePath()
+            + Constants.FILE_SEP + file.getFileName(); 
 
         //close the stream
         stream.close();

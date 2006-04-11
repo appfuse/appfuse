@@ -26,9 +26,8 @@
     </tr>
     <tr>
         <th class="tallCell">File Location:</th>
-        <td>The file has been written to: <br />
-            <a href="<c:out value="${link}"/>">
-            <c:out value="${location}" escapeXml="false"/></a>
+        <td>
+            <c:out value="${location}" escapeXml="false"/>
         </td>
     </tr>
     <tr>
