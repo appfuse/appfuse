@@ -2,9 +2,9 @@
 <ww:if test="hasActionErrors()">
     <div class="error" id="errorMessages">    
       <ww:iterator value="actionErrors">
-                <img src="<c:url value="/images/iconWarning.gif"/>"
-              alt="<fmt:message key="icon.warning"/>" class="icon" />
-          <ww:property/><br />
+        <img src="<c:url value="/images/iconWarning.gif"/>"
+            alt="<fmt:message key="icon.warning"/>" class="icon" />
+        <ww:property escape="false"/><br />
       </ww:iterator>
    </div>
 </ww:if>
@@ -16,7 +16,7 @@
           <ww:iterator value="value">
             <img src="<c:url value="/images/iconWarning.gif"/>"
                 alt="<fmt:message key="icon.warning"/>" class="icon" />
-             <ww:property/><br />
+             <ww:property escape="false"/><br />
           </ww:iterator>
       </ww:iterator>
    </div>
