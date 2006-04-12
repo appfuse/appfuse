@@ -1,5 +1,5 @@
 <!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.1.1//EN"
-    "http://www.opensymphony.com/xwork/xwork-1.1.1.dtd">
+    "http://www.opensymphony.com/xwork/xwork-1.1.3.dtd">
 
 <xwork>
       <!-- Include webwork defaults -->
@@ -10,7 +10,7 @@
         <interceptors>
             <!-- Interceptor to handle allowing only admins to certain actions -->
             <interceptor name="adminOnly" class="adminInterceptor"/>
-            <!-- Verbose way to turn off validation for certain methods -->
+            <!-- https://issues.apache.org/struts/browse/WW-1187 -->
             <interceptor-stack name="defaultStack">
                 <interceptor-ref name="exception" />
                 <interceptor-ref name="alias" />
