@@ -10,7 +10,7 @@
         <interceptors>
             <!-- Interceptor to handle allowing only admins to certain actions -->
             <interceptor name="adminOnly" class="adminInterceptor"/>
-            <!-- Verbose way to turn off validation for certain methods -->
+            <!-- https://issues.apache.org/struts/browse/WW-1187 -->
             <interceptor-stack name="defaultStack">
                 <interceptor-ref name="exception" />
                 <interceptor-ref name="alias" />

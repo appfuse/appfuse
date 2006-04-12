@@ -368,7 +368,8 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
         
         <!-- Remove templates path from new target -->
         <replace file="../../build.xml">
-            <replacetoken><![CDATA[<include name="metadata/templates/*.xdt"/>]]></replacetoken>
+            <replacetoken><![CDATA[<include name="metadata/templates/*.xdt"/>
+                ]]></replacetoken>
         </replace>
 
         <!-- Change JSP syntax to Tapestry Page syntax -->
@@ -452,6 +453,23 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
         
         <!-- Change test-jsp to test-html -->
         <replace file="../../build.xml" token="test-jsp" value="test-html"/>
+        
+        <!-- Remove prompt for web framework -->
+        <replace file="../../build.xml">
+        <replacetoken><![CDATA[
+        <input message="What web framework would you like to use [webwork,tapestry,spring,jsf,struts]?" addproperty="web.framework" defaultvalue="struts"/>]]></replacetoken>
+        </replace>
+        <replace file="../../build.xml">
+        <replacetoken><![CDATA[<if>
+            <and>
+                <not><equals arg1="${web.framework}" arg2=""/></not>
+                <not><equals arg1="${web.framework}" arg2="struts"/></not>
+            </and>
+            <then><ant dir="../${app.name}/extras/${web.framework}" target="install" inheritAll="false"/></then>
+        </if>
+        
+        ]]></replacetoken>
+        </replace>
         
         <echo>----------------------------------------------</echo>
         <echo level="info">NOTE: It's recommended you delete extras/tapestry as you shouldn't need it anymore.</echo>

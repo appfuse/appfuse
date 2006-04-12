@@ -248,7 +248,8 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         
         <!-- Remove templates path from new target -->
         <replace file="../../build.xml">
-            <replacetoken><![CDATA[<include name="metadata/templates/*.xdt"/>]]></replacetoken>
+            <replacetoken><![CDATA[<include name="metadata/templates/*.xdt"/>
+                ]]></replacetoken>
         </replace>
         
         <!-- Add excluded files to the new target -->
@@ -325,12 +326,21 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
             <replacetoken><![CDATA[<lib dir="${strutstestcase.dir}" includes="*.jar"/>]]></replacetoken>
         </replace>
         
+        <!-- Remove prompt for web framework -->
         <replace file="../../build.xml">
-        <replacetoken><![CDATA[    <target name="install-webwork" depends="clean" 
-        description="Installs WebWork, removes Struts">
-        <ant dir="${extras.dir}/webwork" target="install"/>
-    </target>
-]]></replacetoken>
+        <replacetoken><![CDATA[
+        <input message="What web framework would you like to use [webwork,tapestry,spring,jsf,struts]?" addproperty="web.framework" defaultvalue="struts"/>]]></replacetoken>
+        </replace>
+        <replace file="../../build.xml">
+        <replacetoken><![CDATA[<if>
+            <and>
+                <not><equals arg1="${web.framework}" arg2=""/></not>
+                <not><equals arg1="${web.framework}" arg2="struts"/></not>
+            </and>
+            <then><ant dir="../${app.name}/extras/${web.framework}" target="install" inheritAll="false"/></then>
+        </if>
+        
+        ]]></replacetoken>
         </replace>
 
         <echo>----------------------------------------------</echo>
@@ -339,18 +349,16 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
     </target>
  
     <property name="web.framework" value="webwork"/>
+    <property name="db.name" value="appfuse"/>
+    <property name="new.pkg.name" value="org.appfuse"/>
     <!-- =================================================================== -->
     <!-- Creates new project, installs WebWork and runs tests                -->
     <!-- =================================================================== -->
     <target name="test" description="Creates appfuse-webwork and runs tests">
         <property name="app.name" value="appfuse-webwork"/>
-        <property name="db.name" value="appfuse"/>   
-        <property name="new.pkg.name" value="org.appfuse"/>
         <delete dir="../../../${app.name}"/>
         <ant dir="../.." target="new"/>
 
-        <!-- New project created, install WebWork and run tests -->
-        <ant dir="../../../${app.name}/extras/webwork" target="install" inheritAll="false"/>
         <ant dir="../../../${app.name}" target="setup-db" inheritAll="false"/>
         <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
     </target>
@@ -360,15 +368,11 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
     <!-- =================================================================== -->
     <target name="test-ibatis" description="Creates appfuse-webwork-ibatis and runs tests">
         <property name="app.name" value="appfuse-wibatis"/>
-        <property name="db.name" value="appfuse"/>
-        <property name="new.pkg.name" value="org.appfuse"/>
         <delete dir="../../../${app.name}"/>
         <ant dir="../.." target="new"/>
 
-        <!-- New project created, install Spring MVC and run tests -->
         <ant dir="../../../${app.name}/extras/ibatis" target="install" inheritAll="false"/>
         <ant dir="../../../${app.name}/extras/ibatis" target="uninstall-hibernate" inheritAll="false"/>
-        <ant dir="../../../${app.name}/extras/webwork" target="install" inheritAll="false"/>
         <ant dir="../../../${app.name}" target="setup-db" inheritAll="false"/>
         <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
     </target>
@@ -378,14 +382,9 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
     <!-- =================================================================== -->
     <target name="test-appgen" description="Creates appfuse-webwork and tests appgen">
         <property name="app.name" value="appfuse-wwgen"/>
-        <property name="db.name" value="appfuse"/>
-        <property name="new.pkg.name" value="org.appfuse"/>
         <delete dir="../../../${app.name}"/>
         <ant dir="../.." target="new"/>
 
-        <!-- New project created, install WebWork -->
-        <ant dir="../../../${app.name}/extras/webwork" target="install" inheritAll="false"/>
-        <!-- Gen code and run tests -->
         <ant dir="../../../${app.name}/extras/appgen" target="test-all" inheritAll="false">
             <property name="web.framework" value="webwork"/>
             <property name="appgen.type" value="pojo"/>

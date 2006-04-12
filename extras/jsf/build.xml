@@ -274,7 +274,8 @@ log4j.logger.org.apache.myfaces=WARN</replacevalue>
         
         <!-- Remove templates path from new target -->
         <replace file="../../build.xml">
-            <replacetoken><![CDATA[<include name="metadata/templates/*.xdt"/>]]></replacetoken>
+            <replacetoken><![CDATA[<include name="metadata/templates/*.xdt"/>
+                ]]></replacetoken>
         </replace>
 
         <!-- Remove gen-forms target -->
@@ -335,12 +336,21 @@ log4j.logger.org.apache.myfaces=WARN</replacevalue>
             <replacetoken><![CDATA[<lib dir="${strutstestcase.dir}" includes="*.jar"/>]]></replacetoken>
         </replace>
         
+        <!-- Remove prompt for web framework -->
         <replace file="../../build.xml">
-        <replacetoken><![CDATA[    <target name="install-jsf" depends="clean" 
-        description="Installs JSF, removes Struts">
-        <ant dir="${extras.dir}/jsf" target="install"/>
-    </target>
-]]></replacetoken>
+        <replacetoken><![CDATA[
+        <input message="What web framework would you like to use [webwork,tapestry,spring,jsf,struts]?" addproperty="web.framework" defaultvalue="struts"/>]]></replacetoken>
+        </replace>
+        <replace file="../../build.xml">
+        <replacetoken><![CDATA[<if>
+            <and>
+                <not><equals arg1="${web.framework}" arg2=""/></not>
+                <not><equals arg1="${web.framework}" arg2="struts"/></not>
+            </and>
+            <then><ant dir="../${app.name}/extras/${web.framework}" target="install" inheritAll="false"/></then>
+        </if>
+        
+        ]]></replacetoken>
         </replace>
 
         <echo>----------------------------------------------</echo>
@@ -349,18 +359,17 @@ log4j.logger.org.apache.myfaces=WARN</replacevalue>
     </target>
 
     <property name="web.framework" value="jsf"/>
+    <property name="db.name" value="appfuse"/>
+    <property name="new.pkg.name" value="org.appfuse"/>
     <!-- =================================================================== -->
     <!-- Creates new project, installs JSF and runs tests                -->
     <!-- =================================================================== -->
     <target name="test" description="Creates appfuse-jsf and runs tests">
-        <property name="app.name" value="appfuse-jsf"/>
-        <property name="db.name" value="appfuse"/>
-        <property name="new.pkg.name" value="org.appfuse"/>   
+        <property name="app.name" value="appfuse-jsf"/> 
         <delete dir="../../../${app.name}"/>
         <ant dir="../.." target="new"/>
 
         <!-- New project created, install JSF and run tests -->
-        <ant dir="../../../${app.name}/extras/jsf" target="install" inheritAll="false"/>
         <ant dir="../../../${app.name}" target="setup-db" inheritAll="false"/>
         <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
     </target>
@@ -370,15 +379,12 @@ log4j.logger.org.apache.myfaces=WARN</replacevalue>
     <!-- =================================================================== -->
     <target name="test-ibatis" description="Creates appfuse-jsf-ibatis and runs tests">
         <property name="app.name" value="appfuse-jibatis"/>
-        <property name="db.name" value="appfuse"/>
-        <property name="new.pkg.name" value="org.appfuse"/>
         <delete dir="../../../${app.name}"/>
         <ant dir="../.." target="new"/>
 
         <!-- New project created, install JSF and run tests -->
         <ant dir="../../../${app.name}/extras/ibatis" target="install" inheritAll="false"/>
         <ant dir="../../../${app.name}/extras/ibatis" target="uninstall-hibernate" inheritAll="false"/>
-        <ant dir="../../../${app.name}/extras/jsf" target="install" inheritAll="false"/>
         <ant dir="../../../${app.name}" target="setup-db" inheritAll="false"/>
         <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
     </target>
@@ -388,13 +394,9 @@ log4j.logger.org.apache.myfaces=WARN</replacevalue>
     <!-- =================================================================== -->
     <target name="test-appgen" description="Creates appfuse-jsfgen and tests appgen">
         <property name="app.name" value="appfuse-jsfgen"/>
-        <property name="db.name" value="appfuse"/>
-        <property name="new.pkg.name" value="org.appfuse"/>
         <delete dir="../../../${app.name}"/>
         <ant dir="../.." target="new"/>
 
-        <!-- New project created, install JSF -->
-        <ant dir="../../../${app.name}/extras/jsf" target="install" inheritAll="false"/>
         <!-- Gen code and run tests -->
         <ant dir="../../../${app.name}/extras/appgen" target="test-all" inheritAll="false">
             <property name="web.framework" value="jsf"/>

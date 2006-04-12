@@ -227,7 +227,8 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         
         <!-- Remove templates path from new target -->
         <replace file="../../build.xml">
-            <replacetoken><![CDATA[<include name="metadata/templates/*.xdt"/>]]></replacetoken>
+            <replacetoken><![CDATA[<include name="metadata/templates/*.xdt"/>
+                ]]></replacetoken>
         </replace>
         
         <!-- Remove gen-forms target -->
@@ -288,12 +289,21 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
             <replacetoken><![CDATA[<lib dir="${strutstestcase.dir}" includes="*.jar"/>]]></replacetoken>
         </replace>
 
+        <!-- Remove prompt for web framework -->
         <replace file="../../build.xml">
-        <replacetoken><![CDATA[    <target name="install-springmvc" depends="clean" 
-        description="Installs Spring's MVC, removes Struts">
-        <ant dir="${extras.dir}/spring" target="install"/>
-    </target>
-]]></replacetoken>
+        <replacetoken><![CDATA[
+        <input message="What web framework would you like to use [webwork,tapestry,spring,jsf,struts]?" addproperty="web.framework" defaultvalue="struts"/>]]></replacetoken>
+        </replace>
+        <replace file="../../build.xml">
+        <replacetoken><![CDATA[<if>
+            <and>
+                <not><equals arg1="${web.framework}" arg2=""/></not>
+                <not><equals arg1="${web.framework}" arg2="struts"/></not>
+            </and>
+            <then><ant dir="../${app.name}/extras/${web.framework}" target="install" inheritAll="false"/></then>
+        </if>
+        
+        ]]></replacetoken>
         </replace>
 
         <echo>----------------------------------------------</echo>
@@ -302,18 +312,16 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
     </target>
  
     <property name="web.framework" value="spring"/>
+    <property name="db.name" value="appfuse"/>
+    <property name="new.pkg.name" value="org.appfuse"/>
     <!-- =================================================================== -->
     <!-- Creates new project, installs Spring MVC and runs tests             -->
     <!-- =================================================================== -->
     <target name="test" description="Creates appfuse-spring and runs tests">
         <property name="app.name" value="appfuse-spring"/>
-        <property name="db.name" value="appfuse"/>
-        <property name="new.pkg.name" value="org.appfuse"/>
         <delete dir="../../../${app.name}"/>
         <ant dir="../.." target="new"/>
 
-        <!-- New project created, install Spring MVC and run tests -->
-        <ant dir="../../../${app.name}/extras/spring" target="install" inheritAll="false"/>
         <ant dir="../../../${app.name}" target="setup-db" inheritAll="false"/>
         <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
     </target>
@@ -323,15 +331,12 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
     <!-- =================================================================== -->
     <target name="test-ibatis" description="Creates appfuse-sibatis and runs tests">
         <property name="app.name" value="appfuse-sibatis"/>
-        <property name="db.name" value="appfuse"/>
-        <property name="new.pkg.name" value="org.appfuse"/>
         <delete dir="../../../${app.name}"/>
         <ant dir="../.." target="new"/>
 
         <!-- New project created, install Spring MVC and run tests -->
         <ant dir="../../../${app.name}/extras/ibatis" target="install" inheritAll="false"/>
         <ant dir="../../../${app.name}/extras/ibatis" target="uninstall-hibernate" inheritAll="false"/>
-        <ant dir="../../../${app.name}/extras/spring" target="install" inheritAll="false"/>
         <ant dir="../../../${app.name}" target="setup-db" inheritAll="false"/>
         <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
     </target>
@@ -341,13 +346,9 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
     <!-- =================================================================== -->
     <target name="test-appgen" description="Creates appfuse-spring and tests appgen">
         <property name="app.name" value="appfuse-springen"/>
-        <property name="db.name" value="appfuse"/>
-        <property name="new.pkg.name" value="org.appfuse"/>
         <delete dir="../../../${app.name}"/>
         <ant dir="../.." target="new"/>
 
-        <!-- New project created, install Spring MVC -->
-        <ant dir="../../../${app.name}/extras/spring" target="install" inheritAll="false"/>
         <!-- Gen code and run tests -->
         <ant dir="../../../${app.name}/extras/appgen" target="test-all" inheritAll="false">
             <property name="web.framework" value="spring"/>
