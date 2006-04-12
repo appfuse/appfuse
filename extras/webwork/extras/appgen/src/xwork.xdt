@@ -10,7 +10,6 @@
     <action name="save<XDtForm:className/>" class="<XDtForm:classNameLower/>Action" method="save">
         <interceptor-ref name="validationStack"/>
         <result name="cancel" type="redirect"><XDtForm:classNameLower/>s.html</result>
-        <result name="input">/WEB-INF/pages/<XDtForm:classNameLower/>Form.jsp</result>
         <result name="input" type="redirect">
             <param name="location">edit<XDtForm:className/>.html?<XDtMethodEx:idField getType="propertyName"/>=${<XDtForm:classNameLower/>.<XDtMethod:propertyName/>}</param>
             <param name="parse">true</param>
