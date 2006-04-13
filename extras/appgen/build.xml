@@ -343,9 +343,7 @@
         <replace file="${sampleData}" token="&lt;!--${model.name}-END--&gt;" value="REGULAR-END"/>
         <replaceregexp file="${sampleData}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
         <!-- Add to the bottom of the list of tables -->
-        <replace file="${sampleData}" value="${sample.data}">
-            <replacetoken><![CDATA[</dataset>]]></replacetoken>
-        </replace>
+        <replace file="${sampleData}" value="${sample.data}" token="&lt;/dataset&gt;"/>
 
         <echo>Merging web-tests into test/web/web-tests.xml</echo>   
         <loadfile property="web.tests" srcfile="${generated.dir}/${module.test.dir}/web/web-tests-${model.name}.xml"/>
