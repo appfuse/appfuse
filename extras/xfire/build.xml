@@ -191,14 +191,48 @@ public class User extends BaseObject]]></replacetoken>
  */
 public class User extends BaseObject]]></replacevalue>
         </replace>
-        <replace file="../../src/dao/org/appfuse/model/User.java">
+
+		<replace file="../../src/dao/org/appfuse/model/User.java">
            <replacetoken><![CDATA[     */
     public String getFullName()]]></replacetoken>
            <replacevalue><![CDATA[     * @aegis.property ignore="true"
      */
     public String getFullName()]]></replacevalue>
         </replace>
-        <replace file="../../src/dao/org/appfuse/model/User.java">
+
+		<replace file="../../src/dao/org/appfuse/model/User.java">
+           <replacetoken><![CDATA[     */
+    public GrantedAuthority[] getAuthorities()]]></replacetoken>
+           <replacevalue><![CDATA[     * @aegis.property ignore="true"
+     */
+    public GrantedAuthority[] getAuthorities()]]></replacevalue>
+        </replace>
+
+		<replace file="../../src/dao/org/appfuse/model/User.java">
+           <replacetoken><![CDATA[     */
+    public boolean isAccountNonExpired()]]></replacetoken>
+           <replacevalue><![CDATA[     * @aegis.property ignore="true"
+     */
+    public boolean isAccountNonExpired()]]></replacevalue>
+        </replace>
+
+		<replace file="../../src/dao/org/appfuse/model/User.java">
+           <replacetoken><![CDATA[     */
+    public boolean isAccountNonLocked()]]></replacetoken>
+           <replacevalue><![CDATA[     * @aegis.property ignore="true"
+     */
+    public boolean isAccountNonLocked()]]></replacevalue>
+        </replace>
+
+		<replace file="../../src/dao/org/appfuse/model/User.java">
+           <replacetoken><![CDATA[     */
+    public boolean isCredentialsNonExpired()]]></replacetoken>
+           <replacevalue><![CDATA[     * @aegis.property ignore="true"
+     */
+    public boolean isCredentialsNonExpired()]]></replacevalue>
+        </replace>
+
+		<replace file="../../src/dao/org/appfuse/model/User.java">
            <replacetoken><![CDATA[     */
     public Set getRoles()]]></replacetoken>
            <replacevalue><![CDATA[     * @aegis.property componentType="org.appfuse.model.Role"
