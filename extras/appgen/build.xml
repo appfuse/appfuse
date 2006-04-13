@@ -40,6 +40,11 @@
                 <fileset dir="${ant-contrib.dir}" includes="*.jar"/>
             </classpath>
         </taskdef>
+        <taskdef name="if-ext" classname="ise.antelope.tasks.IfTask">
+            <classpath>
+                <fileset dir="${ant-contrib.dir}" includes="*.jar"/>
+            </classpath>
+        </taskdef>
         <mkdir dir="${build.dir}"/>
 <echo level="info">
 +-------------------------------------------------------+
@@ -65,8 +70,8 @@
                     <property name="table.name" value="${object.name}"/>
                 </ant>
             </then>
-        </if>
-
+        </if>   
+            
         <stringutil string="${object.name}" property="remainder">
             <substring beginindex="1"/>
         </stringutil>
@@ -79,6 +84,10 @@
         <stringutil string="${char1}" property="lowerChar1">
             <lowercase/>
         </stringutil>
+        
+        <!-- Check for _ in table name -->
+        <removeUnderscores string="${object.name}"/>     
+        
         <property name="model.name" value="${upperChar1}${remainder}"/>
         <property name="model.name.lowercase" value="${lowerChar1}${remainder}"/>
 
@@ -86,6 +95,63 @@
         <echo>model.name.lowercase=${model.name.lowercase}</echo>-->
     </target>
         
+    <macrodef name="removeUnderscores">
+        <attribute name="string"/>
+        
+        <sequential>
+            <stringutil string="@{string}" property="underscore">
+                <indexof string="_"/>
+            </stringutil>
+            <if-ext>
+                <bool><isgreaterthan arg1="${underscore}" arg2="-1"/></bool>
+
+                <stringutil string="@{string}" property="remainder">
+                    <substring beginindex="${underscore}"/>
+                </stringutil>
+                <stringutil string="${remainder}" property="remainder">
+                    <substring beginindex="1"/>
+                </stringutil>
+                <stringutil string="${remainder}" property="char1">
+                    <substring endindex="1"/>
+                </stringutil>
+                <stringutil string="${char1}" property="upperChar1">
+                    <uppercase/>
+                </stringutil>
+                <stringutil string="${remainder}" property="remainder">
+                    <substring beginindex="1"/>
+                </stringutil>
+                <stringutil string="@{string}" property="beginning">
+                    <substring endindex="${underscore}"/>
+                </stringutil>
+                <stringutil string="${beginning}" property="firstChar">
+                    <substring endindex="1"/>
+                    <uppercase/>
+                </stringutil>
+                <stringutil string="${beginning}" property="beginning">
+                    <substring beginindex="1"/>
+                </stringutil>
+                
+                <removeUnderscores string="${firstChar}${beginning}${upperChar1}${remainder}"/>                
+                <property name="model.name" value="${firstChar}${beginning}${upperChar1}${remainder}"/>
+                
+                <stringutil string="${model.name}" property="remainder">
+                    <substring beginindex="1"/>
+                </stringutil>
+                <stringutil string="${model.name}" property="char1">
+                    <substring endindex="1"/>
+                </stringutil>
+                <stringutil string="${char1}" property="upperChar1">
+                    <uppercase/>
+                </stringutil>
+                <stringutil string="${char1}" property="lowerChar1">
+                    <lowercase/>
+                </stringutil>
+                
+                <property name="model.name.lowercase" value="${lowerChar1}${remainder}"/>                
+            </if-ext>
+        </sequential>
+    </macrodef>
+    
     <!-- For some reason, XDoclet is only happy if the tag handler
          is recompiled, hence the clean dependency *shrug* -->
     <target name="default" depends="clean,gen"/>

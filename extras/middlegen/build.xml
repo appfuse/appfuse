@@ -193,7 +193,7 @@
                   cat_id int(8) auto_increment,
                   color varchar(50) NOT NULL,
                   name varchar(50) NOT NULL,
-                  PRIMARY KEY  (cat_id)
+                  PRIMARY KEY (cat_id)
                 );
             ]]>
         </sql>
