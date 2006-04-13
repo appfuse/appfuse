@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.acegisecurity.Authentication;
 import org.acegisecurity.AuthenticationTrustResolver;
@@ -184,7 +183,6 @@ public final class UserAction extends BaseAction {
 
         // Extract attributes and parameters we will need
         ActionMessages messages = new ActionMessages();
-        HttpSession session = request.getSession();
         UserForm userForm = (UserForm) form;
         User user = new User();
 
