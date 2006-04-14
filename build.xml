@@ -456,77 +456,77 @@
     <macrodef name="test-module">
         <attribute name="module" />
         <attribute name="additional.src.dirs" default="" />
-		<element name="options" optional="yes" />
+        <element name="options" optional="yes" />
 
-		<sequential>
-			<echo level="info">Testing @{module}...</echo>
-			<mkdir dir="${test.dir}/data" />
-			<propertycopy name="testcase" from="@{module}-testcase" silent="true" />
-			<!-- Replace tokens in test properties files -->
-			<copy todir="${test.dir}/@{module}/classes">
-				<fileset dir="test/@{module}" excludes="**/*.java" />
-				<filterset refid="variables.to.replace" />
-			</copy>
+        <sequential>
+            <echo level="info">Testing @{module}...</echo>
+            <mkdir dir="${test.dir}/data" />
+            <propertycopy name="testcase" from="@{module}-testcase" silent="true" />
+            <!-- Replace tokens in test properties files -->
+            <copy todir="${test.dir}/@{module}/classes">
+                <fileset dir="test/@{module}" excludes="**/*.java" />
+                <filterset refid="variables.to.replace" />
+            </copy>
 
-			<junit printsummary="no" forkmode="once" errorProperty="test.failed" failureProperty="test.failed" fork="${junit.fork}">
-				<classpath>
-					<!-- Instrumented classes - must be BEFORE the normal ones -->
-					<!-- ============================= -->
-					<pathelement location="${out.instr.dir}/@{module}/classes" />
+            <junit printsummary="no" forkmode="once" errorProperty="test.failed" failureProperty="test.failed" fork="${junit.fork}">
+                <classpath>
+                    <!-- Instrumented classes - must be BEFORE the normal ones -->
+                    <!-- ============================= -->
+                    <pathelement location="${out.instr.dir}/@{module}/classes" />
 
-					<pathelement path="@{additional.src.dirs}" />
-					<path refid="@{module}.test.classpath" />
-					<pathelement location="${build.dir}/@{module}/classes" />
-					<pathelement location="${test.dir}/@{module}/classes" />
-					<pathelement path="${java.class.path}" />
-					<pathelement path="${webapp.target}" />
-					<pathelement path="${build.dir}/dao/gen" />
-					<!-- For .properties and .xml files -->
-					<pathelement path="${build.dir}/web/classes" />
-					<pathelement path="src/@{module}" />
+                    <pathelement path="@{additional.src.dirs}" />
+                    <path refid="@{module}.test.classpath" />
+                    <pathelement location="${build.dir}/@{module}/classes" />
+                    <pathelement location="${test.dir}/@{module}/classes" />
+                    <pathelement path="${java.class.path}" />
+                    <pathelement path="${webapp.target}" />
+                    <pathelement path="${build.dir}/dao/gen" />
+                    <!-- For .properties and .xml files -->
+                    <pathelement path="${build.dir}/web/classes" />
+                    <pathelement path="src/@{module}" />
 
-					<!-- Emma library -->
-					<!-- ============================= -->
-					<pathelement location="${emma.jar}" />
+                    <!-- Emma library -->
+                    <!-- ============================= -->
+                    <pathelement location="${emma.jar}" />
 
-				</classpath>
+                </classpath>
 
-				<!-- emma-specific jvm parameter -->
-				<!-- =========================== -->
-				<jvmarg value="-Demma.coverage.out.file=${coverage.dir}/coverage-@{module}.emma" />
+                <!-- emma-specific jvm parameter -->
+                <!-- =========================== -->
+                <jvmarg value="-Demma.coverage.out.file=${coverage.dir}/coverage-@{module}.emma" />
 
-				<formatter type="xml" />
-				<formatter type="brief" usefile="false" />
-				<batchtest todir="${test.dir}/data" if="testcase">
-					<fileset dir="${test.dir}/@{module}/classes">
-						<include name="**/*${testcase}*" />
-						<exclude name="**/*TestCase.class" />
-					</fileset>
-				</batchtest>
-				<batchtest todir="${test.dir}/data" unless="testcase">
-					<fileset dir="${test.dir}/@{module}/classes">
-						<include name="**/*Test.class*" />
-					</fileset>
-				</batchtest>
-			</junit>
+                <formatter type="xml" />
+                <formatter type="brief" usefile="false" />
+                <batchtest todir="${test.dir}/data" if="testcase">
+                    <fileset dir="${test.dir}/@{module}/classes">
+                        <include name="**/*${testcase}*" />
+                        <exclude name="**/*TestCase.class" />
+                    </fileset>
+                </batchtest>
+                <batchtest todir="${test.dir}/data" unless="testcase">
+                    <fileset dir="${test.dir}/@{module}/classes">
+                        <include name="**/*Test.class*" />
+                    </fileset>
+                </batchtest>
+            </junit>
 
-			<!-- emma report task -->
-			<!-- ================================== -->
-			<emma enabled="${emma.enabled}">
-				<report sourcepathref="all.sources" depth="method">
-					<fileset dir="${coverage.dir}">
-						<include name="*.emma" />
-					</fileset>
-					<html outfile="${coverage.dir}/coverage.html" />
-				</report>
-			</emma>
+            <!-- emma report task -->
+            <!-- ================================== -->
+            <emma enabled="${emma.enabled}">
+                <report sourcepathref="all.sources" depth="method">
+                    <fileset dir="${coverage.dir}">
+                        <include name="*.emma" />
+                    </fileset>
+                    <html outfile="${coverage.dir}/coverage.html" />
+                </report>
+            </emma>
 
-			<fail if="test.failed">
-				Unit tests failed. For error messages, check the log files in
-				${test.dir}/data or run "ant test-reports"
-				to generate reports at ${test.dir}/reports.</fail>
-		</sequential>
-	</macrodef>
+            <fail if="test.failed">
+                Unit tests failed. For error messages, check the log files in
+                ${test.dir}/data or run "ant test-reports"
+                to generate reports at ${test.dir}/reports.</fail>
+        </sequential>
+    </macrodef>
 
     <target name="test-reports" description="Generate test reports">
         <mkdir dir="${test.dir}/reports"/>
@@ -971,7 +971,7 @@
             </fileset>
         </pmd>
     </target>
-	
+    
     <target name="emma" description="turns on EMMA instrumentation/reporting" >
         <property name="emma.enabled" value="true" />
         <!-- EMMA coverage data output directory: -->
