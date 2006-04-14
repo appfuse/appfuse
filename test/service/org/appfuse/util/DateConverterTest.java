@@ -1,5 +1,6 @@
 package org.appfuse.util;
 
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -11,12 +12,18 @@ public class DateConverterTest extends TestCase {
     private DateConverter converter = new DateConverter();
 
     public void testConvertStringToDate() throws Exception {
-        Date date = (Date) converter.convert(Date.class, "01/05/2005");
+        Date today = new Date();
+        Calendar todayCalendar = new GregorianCalendar();
+        todayCalendar.setTime(today);
+        String datePart = DateFormat.getDateInstance().format(today);
+        
+        Date date = (Date) converter.convert(Date.class, datePart);
+        
         Calendar cal = new GregorianCalendar();
         cal.setTime(date);
-        assertEquals(2005, cal.get(Calendar.YEAR));
-        assertEquals(Calendar.JANUARY, cal.get(Calendar.MONTH));
-        assertEquals(05, cal.get(Calendar.DAY_OF_MONTH));
+        assertEquals(todayCalendar.get(Calendar.YEAR), cal.get(Calendar.YEAR));
+        assertEquals(todayCalendar.get(Calendar.MONTH), cal.get(Calendar.MONTH));
+        assertEquals(todayCalendar.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.DAY_OF_MONTH));
     }
 
     public void testConvertDateToString() throws Exception {
@@ -26,12 +33,17 @@ public class DateConverterTest extends TestCase {
     }
 
     public void testConvertStringToTimestamp() throws Exception {
-        Timestamp time = (Timestamp) converter.convert(Timestamp.class, "01/05/2005 01:02:03.4");
+        Date today = new Date();
+        Calendar todayCalendar = new GregorianCalendar();
+        todayCalendar.setTime(today);
+        String datePart = DateFormat.getDateInstance().format(today);
+
+        Timestamp time = (Timestamp) converter.convert(Timestamp.class, datePart+" 01:02:03.4");
         Calendar cal = new GregorianCalendar();
         cal.setTimeInMillis(time.getTime());
-        assertEquals(2005, cal.get(Calendar.YEAR));
-        assertEquals(Calendar.JANUARY, cal.get(Calendar.MONTH));
-        assertEquals(05, cal.get(Calendar.DAY_OF_MONTH));
+        assertEquals(todayCalendar.get(Calendar.YEAR), cal.get(Calendar.YEAR));
+        assertEquals(todayCalendar.get(Calendar.MONTH), cal.get(Calendar.MONTH));
+        assertEquals(todayCalendar.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.DAY_OF_MONTH));
     }
 
     public void testConvertTimestampToString() throws Exception {
