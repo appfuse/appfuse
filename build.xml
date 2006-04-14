@@ -17,17 +17,17 @@
         <fail unless="junit.present" message="Please copy junit.jar into ${env.ANT_HOME}/lib"/>
 
         <taskdef name="dbunit" classname="org.dbunit.ant.DbUnitTask" classpathref="dao.test.classpath"/>
-        
+
         <!-- Test for Tomcat 5.0.x -->
         <available classname="org.apache.catalina.ant.SessionsTask" property="tomcat5">
             <classpath>
                 <pathelement path="${tomcat.home}/server/lib/catalina-ant.jar"/>
             </classpath>
         </available>
-        
+
         <!-- Test for Tomcat 5.5.x -->
         <available file="${tomcat.home}/common/lib/jasper-compiler-jdt.jar" property="tomcat5.5"/>
-        
+
         <!-- Conditionally set property for converting to JSP 2.0 -->
         <condition property="convert.to.jsp2">
             <equals arg1="${jsp.2}" arg2="true"/>
@@ -38,7 +38,7 @@
             <equals arg1="${jsp.precompile}" arg2="true"/>
         </condition>
     </target>
-    
+
     <!-- Check timestamp on files -->
     <target name="prepare" depends="init" description="create target directories">
         <tstamp/>
@@ -47,14 +47,15 @@
         <mkdir dir="${webapp.target}"/>
         <mkdir dir="${webapp.target}/WEB-INF"/>
         <mkdir dir="${webapp.dist}"/>
-        
+        <delete dir="${out.instr.dir}"/>
+
         <!-- Make sure hibernatedoclet is necessary -->
         <uptodate property="hibernatedoclet.unnecessary">
             <srcfiles dir="src/dao" includes="**/*.java"/>
             <srcfiles dir="${build.dir}/dao/gen" includes="**/*.java"/>
             <mapper type="glob" from="*.java" to="${build.dir}/dao/classes/*.class"/>
         </uptodate>
-        
+
         <!-- Make sure webdoclet is necessary -->
         <uptodate property="webdoclet.uptodate">
             <srcfiles dir="src/web" includes="**/*.java"/>
@@ -68,7 +69,7 @@
                 <available file="${webapp.target}/WEB-INF/web.xml"/>
             </and>
         </condition>
-        
+
     </target>
 
     <!-- List of variables in .properties files that will be replaced at
@@ -83,7 +84,7 @@
         <filter token="SECURE-LOGIN" value="${secure.login}"/>
         <filter token="HIBERNATE-DIALECT" value="${hibernate.dialect}"/>
     </filterset>
-            
+
     <!-- List of variables to replace when configuring Tomcat -->
     <filterset id="db.variables">
         <filter token="DB-DRIVERNAME" value="${database.driver_class}"/>
@@ -91,25 +92,25 @@
         <filter token="DB-USERNAME" value="${database.username}"/>
         <filter token="DB-PASSWORD" value="${database.password}"/>
     </filterset>
-    
+
     <!-- Copy any resource or configuration files -->
     <target name="copy-resources" depends="prepare"
         description="Copy .properties and .xml files from source directory">
         <copy todir="${build.dir}/web/classes" includeEmptyDirs="no">
-            <fileset dir="web/WEB-INF/classes">   
+            <fileset dir="web/WEB-INF/classes">
                 <exclude name="ApplicationResources_zh*.properties"/>
                 <include name="*.properties"/>
                 <include name="*.xml"/>
-                <include name="*.vm"/>   
+                <include name="*.vm"/>
             </fileset>
             <filterset refid="variables.to.replace"/>
-        </copy>            
+        </copy>
         <native2ascii src="web/WEB-INF/classes" dest="${build.dir}/web/classes" 
             includes="ApplicationResources_zh*.properties" encoding="UTF-8"/>
         <generate-database-properties/>
         <copy todir="${build.dir}/web/classes" file="database.properties"/>
     </target>
-    
+
     <!-- =================================================================== -->
     <!-- The "copy-web-files" target copies the static web resources portion -->
     <!-- of your web application source into the build target area           -->
@@ -117,7 +118,9 @@
     <target name="copy-web-files" depends="prepare" description="Copy static files">
         <echo message="Copying static files"/>
         <!-- Remove the copy block below if you're not displaying version/copyright in the footer -->
-        <tstamp><format property="build.timestamp" pattern="EEEE MMM dd, yyyy 'at' hh:mm a zz"/></tstamp>
+        <tstamp>
+            <format property="build.timestamp" pattern="EEEE MMM dd, yyyy 'at' hh:mm a zz"/>
+        </tstamp>
         <copy todir="${webapp.target}">
             <fileset dir="web" includes="common/footer.jsp"/>
             <filterset>
@@ -150,7 +153,7 @@
             </fileset>
         </copy>
     </target>
-    
+
     <!-- =================================================================== -->
     <!-- The "jsp-2" replaces JSTL's <c:out> tags with what's in "value" and -->
     <!-- removes JSTL's 1.0 JARS                                             -->
@@ -168,12 +171,12 @@
             <substitution expression='uri="http://java.sun.com/jsp/jstl/fmt"'/>
             <fileset dir="${webapp.target}" includes="**/*.jsp"/>
         </replaceregexp>
-       <replaceregexp flags="g">
+        <replaceregexp flags="g">
             <regexp pattern='uri="http://java.sun.com/jstl/sql"'/>
             <substitution expression='uri="http://java.sun.com/jsp/jstl/sql"'/>
             <fileset dir="${webapp.target}" includes="**/*.jsp"/>
-        </replaceregexp> 
-        
+        </replaceregexp>
+
         <echo level="info">Removing JSTL's c:out tags</echo>
         <replaceregexp flags="g">
             <regexp pattern='&lt;c:out value="([^"]*)"/&gt;'/>
@@ -441,63 +444,89 @@
                 </classpath>
                 <options/>
             </javac>
+            <emma enabled="${emma.enabled}" >
+                <instr instrpath="${build.dir}/@{module}/classes"
+                       destdir="${out.instr.dir}/@{module}/classes"
+                        metadatafile="${coverage.dir}/metadata-@{module}.emma"
+                        merge="true"/>
+            </emma>
         </sequential>
     </macrodef>
 
     <macrodef name="test-module">
-        <attribute name="module"/>
-        <attribute name="additional.src.dirs" default=""/>
-        <element name="options" optional="yes"/>
+        <attribute name="module" />
+        <attribute name="additional.src.dirs" default="" />
+		<element name="options" optional="yes" />
 
-        <sequential>
-            <echo level="info">Testing @{module}...</echo>
-            <mkdir dir="${test.dir}/data"/>
-            <propertycopy name="testcase" from="@{module}-testcase" silent="true"/>
-            <!-- Replace tokens in test properties files -->
-            <copy todir="${test.dir}/@{module}/classes">
-                <fileset dir="test/@{module}" excludes="**/*.java"/>
-                <filterset refid="variables.to.replace"/>
-            </copy>
-            <property name="junit.showoutput" value="false"/>
-            <junit printsummary="false" forkmode="perBatch" errorProperty="test.failed"
-                failureProperty="test.failed" fork="${junit.fork}" showoutput="${junit.showoutput}">
-                <jvmarg value="-Duser.language=en" />
-                <classpath>
-                    <pathelement path="@{additional.src.dirs}"/>
-                    <path refid="@{module}.test.classpath"/>
-                    <pathelement location="${build.dir}/@{module}/classes"/>
-                    <pathelement location="${test.dir}/@{module}/classes"/>
-                    <pathelement path="${java.class.path}"/>
-                    <pathelement path="${webapp.target}"/>
-                    <pathelement path="${build.dir}/dao/gen"/>
-                    <!-- For .properties and .xml files -->
-                    <pathelement path="${build.dir}/web/classes"/>
-                    <pathelement path="src/@{module}"/>
-                </classpath>
-                <jvmarg line="${run.appfuse.test.debugargline}"/>
-                <formatter type="xml"/>
-                <formatter type="brief" usefile="false"/>
-                <batchtest todir="${test.dir}/data" if="testcase">
-                    <fileset dir="${test.dir}/@{module}/classes">
-                        <include name="**/*${testcase}*"/>
-                        <exclude name="**/*TestCase.class"/>
-                        <exclude name="**/*$*.class" />
-                    </fileset>
-                </batchtest>
-                <batchtest todir="${test.dir}/data" unless="testcase">
-                    <fileset dir="${test.dir}/@{module}/classes">
-                        <include name="**/*Test.class*"/>
-                        <exclude name="**/*$*.class" />
-                    </fileset>
-                </batchtest>
-            </junit>
+		<sequential>
+			<echo level="info">Testing @{module}...</echo>
+			<mkdir dir="${test.dir}/data" />
+			<propertycopy name="testcase" from="@{module}-testcase" silent="true" />
+			<!-- Replace tokens in test properties files -->
+			<copy todir="${test.dir}/@{module}/classes">
+				<fileset dir="test/@{module}" excludes="**/*.java" />
+				<filterset refid="variables.to.replace" />
+			</copy>
 
-            <fail if="test.failed">
-              Unit tests failed. For error messages, check the log files in
-              ${test.dir}/data or run "ant test-reports"
-              to generate reports at ${test.dir}/reports.</fail>
-        </sequential>
-    </macrodef>
+			<junit printsummary="no" forkmode="once" errorProperty="test.failed" failureProperty="test.failed" fork="${junit.fork}">
+				<classpath>
+					<!-- Instrumented classes - must be BEFORE the normal ones -->
+					<!-- ============================= -->
+					<pathelement location="${out.instr.dir}/@{module}/classes" />
+
+					<pathelement path="@{additional.src.dirs}" />
+					<path refid="@{module}.test.classpath" />
+					<pathelement location="${build.dir}/@{module}/classes" />
+					<pathelement location="${test.dir}/@{module}/classes" />
+					<pathelement path="${java.class.path}" />
+					<pathelement path="${webapp.target}" />
+					<pathelement path="${build.dir}/dao/gen" />
+					<!-- For .properties and .xml files -->
+					<pathelement path="${build.dir}/web/classes" />
+					<pathelement path="src/@{module}" />
+
+					<!-- Emma library -->
+					<!-- ============================= -->
+					<pathelement location="${emma.jar}" />
+
+				</classpath>
+
+				<!-- emma-specific jvm parameter -->
+				<!-- =========================== -->
+				<jvmarg value="-Demma.coverage.out.file=${coverage.dir}/coverage-@{module}.emma" />
+
+				<formatter type="xml" />
+				<formatter type="brief" usefile="false" />
+				<batchtest todir="${test.dir}/data" if="testcase">
+					<fileset dir="${test.dir}/@{module}/classes">
+						<include name="**/*${testcase}*" />
+						<exclude name="**/*TestCase.class" />
+					</fileset>
+				</batchtest>
+				<batchtest todir="${test.dir}/data" unless="testcase">
+					<fileset dir="${test.dir}/@{module}/classes">
+						<include name="**/*Test.class*" />
+					</fileset>
+				</batchtest>
+			</junit>
+
+			<!-- emma report task -->
+			<!-- ================================== -->
+			<emma enabled="${emma.enabled}">
+				<report sourcepathref="all.sources" depth="method">
+					<fileset dir="${coverage.dir}">
+						<include name="*.emma" />
+					</fileset>
+					<html outfile="${coverage.dir}/coverage.html" />
+				</report>
+			</emma>
+
+			<fail if="test.failed">
+				Unit tests failed. For error messages, check the log files in
+				${test.dir}/data or run "ant test-reports"
+				to generate reports at ${test.dir}/reports.</fail>
+		</sequential>
+	</macrodef>
 
     <target name="test-reports" description="Generate test reports">
         <mkdir dir="${test.dir}/reports"/>
@@ -755,6 +784,8 @@
         <delete dir="${dist.dir}"/>
         <delete file="database.properties"/>
         <delete file="create-tables.sql"/>
+        <delete dir="${out.instr.dir}"/>
+        <delete dir="${coverage.dir}"/>
     </target>
 
     <!-- =================================================================== -->
@@ -939,6 +970,17 @@
                 <patternset refid="java.files.pattern"/>
             </fileset>
         </pmd>
+    </target>
+	
+    <target name="emma" description="turns on EMMA instrumentation/reporting" >
+        <property name="emma.enabled" value="true" />
+        <!-- EMMA coverage data output directory: -->
+        <property name="coverage.dir" value="${test.dir}/coverage" />
+        <!-- EMMA instrumented classes output directory: -->
+        <property name="out.instr.dir" value="${test.dir}/outinstr" />
+        <mkdir dir="${out.instr.dir}" />
+        <!-- Filter for classes to instrument -->
+        <property name="emma.filter" value="org.appfuse.*" />
     </target>
 
     <target name="todo" description="creates report of todos in code">
