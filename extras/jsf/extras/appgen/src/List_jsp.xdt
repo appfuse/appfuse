@@ -43,7 +43,7 @@
 <c:out value="${buttons}" escapeXml="false"/>
 
 <h:commandLink action="#{<XDtForm:classNameLower/>Form.edit}" id="edit<XDtForm:className/>Link">
-    <f:param name="<XDtMethodEx:idField getType="propertyName"/>"/>
+    <f:param name="<XDtMethodEx:idField getType="propertyName"/>" value=""/>
 </h:commandLink>
 
 <script type="text/javascript">

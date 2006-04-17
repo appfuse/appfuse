@@ -48,8 +48,8 @@
 <%-- JSF Hack for the Display Tag, from James Violette --%>
 <%-- 1. Create a dummy actionLink, w/ no value         --%>
 <h:commandLink action="#{userForm.edit}" id="editUserLink">
-    <f:param name="username"/>
-    <f:param name="from"/>
+    <f:param name="username" value=""/>
+    <f:param name="from" value=""/>
 </h:commandLink>
 <%-- 2. Write your own JavaScript function that's easy to call --%>
 <script type="text/javascript">

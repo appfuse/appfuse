@@ -34,7 +34,7 @@
 #
 # MyFaces (JSF 1.1) - http://www.myfaces.org
 #
-jsf.version=1.1.1
+jsf.version=1.1.2
 jsf.dir=${lib.dir}/myfaces-${jsf.version}/lib
 jsf.jar=${jsf.dir}/myfaces-all.jar]]></replacevalue>
         </replace>
@@ -259,8 +259,9 @@ log4j.logger.org.apache.myfaces=WARN</replacevalue>
         <replace file="../../.classpath">
             <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/struts-1.2.8/struts.jar"/>
 	<classpathentry kind="lib" path="lib/struts-1.2.8/struts-el.jar"/>]]></replacetoken>
-            <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/myfaces-1.1.1/lib/myfaces-all.jar"/>
-	<classpathentry kind="lib" path="lib/myfaces-1.1.1/tomahawk.jar"/>]]></replacevalue>
+            <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/myfaces-1.1.2/lib/myfaces-api-1.1.2.jar"/>
+	<classpathentry kind="lib" path="lib/myfaces-1.1.2/lib/myfaces-impl-1.1.2.jar"/>
+	<classpathentry kind="lib" path="lib/myfaces-1.1.2/tomahawk.jar"/>]]></replacevalue>
         </replace>
 
         <echo level="info">Refactoring build.xml</echo>

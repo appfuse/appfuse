@@ -12,7 +12,7 @@ Looking up password hint for <c:out value="${param.username}"/>...
 <%-- JSF Hack for the Display Tag, from James Violette --%>
 <%-- 1. Create a dummy actionLink, w/ no value         --%>
 <h:commandLink action="#{passwordHint.execute}" id="execute">
-    <f:param name="username"/>
+    <f:param name="username" value=""/>
 </h:commandLink>
 
 </h:form>
