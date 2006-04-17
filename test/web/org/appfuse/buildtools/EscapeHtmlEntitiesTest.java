@@ -2,9 +2,9 @@ package org.appfuse.buildtools;
 
 import java.io.StringReader;
 
-import org.apache.tools.ant.util.FileUtils;
-
 import junit.framework.TestCase;
+
+import org.apache.tools.ant.util.FileUtils;
 
 /**
  * Testcase to verify EscapeHtmlEntities filter.
@@ -17,7 +17,7 @@ public class EscapeHtmlEntitiesTest extends TestCase {
      * @throws Exception
      */
     public void testEscape() throws Exception {
-        StringReader str = new StringReader("‰¸ˆﬂ-÷Û");
+        StringReader str = new StringReader("\u00E4\u00FC\u00F6\u00DF-\u00D6\u00F3");
         EscapeHtmlEntities boot = new EscapeHtmlEntities();
         EscapeHtmlEntities filter = (EscapeHtmlEntities) boot.chain(str);
         filter.setMode(EscapeHtmlEntities.ESCAPE);
@@ -35,6 +35,6 @@ public class EscapeHtmlEntitiesTest extends TestCase {
         EscapeHtmlEntities filter = (EscapeHtmlEntities) boot.chain(str);
         filter.setMode(EscapeHtmlEntities.UNESCAPE);
         String result = FileUtils.readFully(filter, 200);
-        assertEquals("‰¸ˆﬂ-÷Û&noentity;",result);
+        assertEquals("\u00E4\u00FC\u00F6\u00DF-\u00D6\u00F3&noentity;",result);
     }
 }
