@@ -4,9 +4,11 @@
     <property file="${user.home}/${ant.project.name}-build.properties"/>
     <property file="${user.home}/build.properties"/>
     <property file="../../build.properties"/>
-
+    
     <property name="lib.dir" location="../../lib"/>
     <property file="${lib.dir}/lib.properties"/>
+
+    <import file="../../properties.xml"/>
 
     <path id="xdoclet.classpath">
         <pathelement location="${log4j.jar}"/>

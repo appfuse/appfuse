@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 import java.text.*;
 import java.util.*;
 
+import org.appfuse.util.DateUtil;
+
 import xdoclet.XDocletException;
 import xdoclet.tagshandler.*;
 import xdoclet.util.TypeConversionUtil;
@@ -23,7 +25,7 @@ public class MethodExTagsHandler extends MethodTagsHandler {
 
     XClass currentClass = getCurrentClass();
     private static String datePattern = "yyyy-MM-dd";
-    private static String uiDatePattern = "MM/dd/yyyy";
+    private static String uiDatePattern = DateUtil.getDatePattern();
     private static final List numericTypes = new ArrayList();
     private String rootClassName = "";
     private String curprefix = "";
