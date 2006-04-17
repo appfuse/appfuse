@@ -15,7 +15,7 @@ public class DateConverterTest extends TestCase {
         Date today = new Date();
         Calendar todayCalendar = new GregorianCalendar();
         todayCalendar.setTime(today);
-        String datePart = DateFormat.getDateInstance().format(today);
+        String datePart = DateUtil.convertDateToString(today);
         
         Date date = (Date) converter.convert(Date.class, datePart);
         
@@ -36,7 +36,7 @@ public class DateConverterTest extends TestCase {
         Date today = new Date();
         Calendar todayCalendar = new GregorianCalendar();
         todayCalendar.setTime(today);
-        String datePart = DateFormat.getDateInstance().format(today);
+        String datePart = DateUtil.convertDateToString(today);
 
         Timestamp time = (Timestamp) converter.convert(Timestamp.class, datePart+" 01:02:03.4");
         Calendar cal = new GregorianCalendar();
