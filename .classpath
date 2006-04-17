@@ -78,5 +78,6 @@
 	<classpathentry kind="lib" path="lib/webtest-build1263/lib/jaxen-1.1-beta-8.jar"/>
 	<classpathentry kind="lib" path="lib/webtest-build1263/lib/js-1.6R2.jar"/>
 	<classpathentry kind="lib" path="lib/webtest-build1263/lib/nekohtml-0.9.5.jar"/>
+	<classpathentry kind="var" path="ECLIPSE_HOME/plugins/org.apache.ant_1.6.5/lib/ant.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
