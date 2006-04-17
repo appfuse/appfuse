@@ -15,6 +15,7 @@
         <pathelement location="${commons-logging.jar}"/>
         <pathelement location="${commons-collections.jar}"/>
         <fileset dir="${xdoclet.dir}" includes="*.jar"/>
+        <path location="../../web/WEB-INF/classes"/>
     </path>
 
     <property name="overwrite" value="false"/>
