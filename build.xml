@@ -7,7 +7,7 @@
     <target name="init" description="defines custom tasks">
         <!-- Taskdefs -->
         <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="${ant-contrib.jar}"/>
-
+        
         <!-- Ensure that Ant 1.6.2+ is being used -->
         <available classname="org.apache.tools.ant.DynamicAttribute" property="ant-1.6.2"/>
         <fail unless="ant-1.6.2" message="AppFuse requires Ant 1.6.2 for faster unit testing"/>
@@ -38,7 +38,7 @@
             <equals arg1="${jsp.precompile}" arg2="true"/>
         </condition>
     </target>
-
+    
     <!-- Check timestamp on files -->
     <target name="prepare" depends="init" description="create target directories">
         <tstamp/>
@@ -576,6 +576,19 @@
     <target name="test-canoo" if="tomcat.home" depends="ping-tomcat,db-load"
         description="Runs Canoo WebTests in Tomcat to test JSPs">
 
+        <copy todir="${test.dir}/properties">
+            <filterchain>
+                <filterreader classname="org.appfuse.buildtools.EscapeHtmlEntities">
+                    <classpath>
+                        <path refid="web.test.classpath"/>
+                        <pathelement location="${test.dir}/web/classes"/>
+                    </classpath>
+                    <param name="mode" value="unescape"/>
+                </filterreader>
+        	</filterchain>
+            <fileset dir="web/WEB-INF/classes" includes="**/ApplicationResources*.properties"/>
+        </copy>
+        
         <taskdef file="${webtest.dir}/webtestTaskdefs.properties">
             <classpath>
                 <path refid="web.test.classpath"/>
