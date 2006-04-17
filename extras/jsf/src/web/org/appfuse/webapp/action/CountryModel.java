@@ -13,6 +13,7 @@ import java.util.Map;
 import org.appfuse.model.LabelValue;
 
 public class CountryModel {
+    private Map availableCountries;
 
     /**
      * Build a List of LabelValues for all the available countries. Uses
@@ -24,37 +25,40 @@ public class CountryModel {
      * @return List of LabelValues for all available countries.
      */
     public Map getCountries(Locale locale) {
-        final String EMPTY = "";
-        final Locale[] available = Locale.getAvailableLocales();
-
-        List countries = new ArrayList();
-        countries.add(new LabelValue("",""));
-
-        for (int i = 0; i < available.length; i++) {
-            final String iso = available[i].getCountry();
-            final String name = available[i].getDisplayCountry(locale);
-
-            if (!EMPTY.equals(iso) && !EMPTY.equals(name)) {
-                LabelValue country = new LabelValue(name, iso);
-
-                if (!countries.contains(country)) {
-                    countries.add(new LabelValue(name, iso));
+        if (availableCountries == null) {
+            final String EMPTY = "";
+            final Locale[] available = Locale.getAvailableLocales();
+    
+            List countries = new ArrayList();
+            countries.add(new LabelValue("",""));
+    
+            for (int i = 0; i < available.length; i++) {
+                final String iso = available[i].getCountry();
+                final String name = available[i].getDisplayCountry(locale);
+    
+                if (!EMPTY.equals(iso) && !EMPTY.equals(name)) {
+                    LabelValue country = new LabelValue(name, iso);
+    
+                    if (!countries.contains(country)) {
+                        countries.add(new LabelValue(name, iso));
+                    }
                 }
             }
-        }
-
-        Collections.sort(countries, new LabelValueComparator(locale));
-        
-        Map options = new LinkedHashMap();
-        // loop through and convert list to a JSF-Friendly Map for a <select>
-        for (Iterator it = countries.iterator(); it.hasNext();) {
-            LabelValue option = (LabelValue) it.next();
-            if (!options.containsValue(option.getValue())) {
-                options.put(option.getLabel(), option.getValue());
+    
+            Collections.sort(countries, new LabelValueComparator(locale));
+            
+            Map options = new LinkedHashMap();
+            // loop through and convert list to a JSF-Friendly Map for a <select>
+            for (Iterator it = countries.iterator(); it.hasNext();) {
+                LabelValue option = (LabelValue) it.next();
+                if (!options.containsValue(option.getValue())) {
+                    options.put(option.getLabel(), option.getValue());
+                }
             }
+            this.availableCountries = options;
         }
 
-        return options;
+        return availableCountries;
     }
 
     /**

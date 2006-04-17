@@ -11,7 +11,7 @@
         <delete dir="projects/${ant.project.name}"/>
         <svn>
             <checkout url="https://appfuse.dev.java.net/svn/appfuse/trunk/appfuse" 
-                  revision="HEAD" destPath="projects/${ant.project.name}" />
+                  revision="HEAD" destPath="projects/${ant.project.name}"/>
         </svn>
     </target-->
     <target name="cvs">

@@ -12,17 +12,17 @@
             <interceptor name="adminOnly" class="adminInterceptor"/>
             <!-- https://issues.apache.org/struts/browse/WW-1187 -->
             <interceptor-stack name="defaultStack">
-                <interceptor-ref name="exception" />
-                <interceptor-ref name="alias" />
-                <interceptor-ref name="servlet-config" />
-                <interceptor-ref name="prepare" />
-                <interceptor-ref name="i18n" />
-                <interceptor-ref name="chain" />
-                <interceptor-ref name="model-driven" />
-                <interceptor-ref name="fileUpload" />
-                <interceptor-ref name="static-params" />
-                <interceptor-ref name="params" />
-                <interceptor-ref name="conversionError" />
+                <interceptor-ref name="exception"/>
+                <interceptor-ref name="alias"/>
+                <interceptor-ref name="servlet-config"/>
+                <interceptor-ref name="prepare"/>
+                <interceptor-ref name="i18n"/>
+                <interceptor-ref name="chain"/>
+                <interceptor-ref name="model-driven"/>
+                <interceptor-ref name="fileUpload"/>
+                <interceptor-ref name="static-params"/>
+                <interceptor-ref name="params"/>
+                <interceptor-ref name="conversionError"/>
                 <interceptor-ref name="validation">
                     <param name="excludeMethods">cancel,execute,delete,edit,list,default</param>
                 </interceptor-ref>

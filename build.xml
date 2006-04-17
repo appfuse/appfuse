@@ -447,65 +447,65 @@
             <emma enabled="${emma.enabled}" >
                 <instr instrpath="${build.dir}/@{module}/classes"
                        destdir="${out.instr.dir}/@{module}/classes"
-                        metadatafile="${coverage.dir}/metadata-@{module}.emma"
-                        merge="true"/>
+                       metadatafile="${coverage.dir}/metadata-@{module}.emma"
+                       merge="true"/>
             </emma>
         </sequential>
     </macrodef>
 
     <macrodef name="test-module">
-        <attribute name="module" />
-        <attribute name="additional.src.dirs" default="" />
-        <element name="options" optional="yes" />
+        <attribute name="module"/>
+        <attribute name="additional.src.dirs" default=""/>
+        <element name="options" optional="yes"/>
 
         <sequential>
             <echo level="info">Testing @{module}...</echo>
-            <mkdir dir="${test.dir}/data" />
-            <propertycopy name="testcase" from="@{module}-testcase" silent="true" />
+            <mkdir dir="${test.dir}/data"/>
+            <propertycopy name="testcase" from="@{module}-testcase" silent="true"/>
             <!-- Replace tokens in test properties files -->
             <copy todir="${test.dir}/@{module}/classes">
-                <fileset dir="test/@{module}" excludes="**/*.java" />
-                <filterset refid="variables.to.replace" />
+                <fileset dir="test/@{module}" excludes="**/*.java"/>
+                <filterset refid="variables.to.replace"/>
             </copy>
 
             <junit printsummary="no" forkmode="once" errorProperty="test.failed" failureProperty="test.failed" fork="${junit.fork}">
                 <classpath>
                     <!-- Instrumented classes - must be BEFORE the normal ones -->
                     <!-- ============================= -->
-                    <pathelement location="${out.instr.dir}/@{module}/classes" />
+                    <pathelement location="${out.instr.dir}/@{module}/classes"/>
 
-                    <pathelement path="@{additional.src.dirs}" />
-                    <path refid="@{module}.test.classpath" />
-                    <pathelement location="${build.dir}/@{module}/classes" />
-                    <pathelement location="${test.dir}/@{module}/classes" />
-                    <pathelement path="${java.class.path}" />
-                    <pathelement path="${webapp.target}" />
-                    <pathelement path="${build.dir}/dao/gen" />
+                    <pathelement path="@{additional.src.dirs}"/>
+                    <path refid="@{module}.test.classpath"/>
+                    <pathelement location="${build.dir}/@{module}/classes"/>
+                    <pathelement location="${test.dir}/@{module}/classes"/>
+                    <pathelement path="${java.class.path}"/>
+                    <pathelement path="${webapp.target}"/>
+                    <pathelement path="${build.dir}/dao/gen"/>
                     <!-- For .properties and .xml files -->
-                    <pathelement path="${build.dir}/web/classes" />
-                    <pathelement path="src/@{module}" />
+                    <pathelement path="${build.dir}/web/classes"/>
+                    <pathelement path="src/@{module}"/>
 
                     <!-- Emma library -->
                     <!-- ============================= -->
-                    <pathelement location="${emma.jar}" />
+                    <pathelement location="${emma.jar}"/>
 
                 </classpath>
 
                 <!-- emma-specific jvm parameter -->
                 <!-- =========================== -->
-                <jvmarg value="-Demma.coverage.out.file=${coverage.dir}/coverage-@{module}.emma" />
+                <jvmarg value="-Demma.coverage.out.file=${coverage.dir}/coverage-@{module}.emma"/>
 
-                <formatter type="xml" />
-                <formatter type="brief" usefile="false" />
+                <formatter type="xml"/>
+                <formatter type="brief" usefile="false"/>
                 <batchtest todir="${test.dir}/data" if="testcase">
                     <fileset dir="${test.dir}/@{module}/classes">
-                        <include name="**/*${testcase}*" />
-                        <exclude name="**/*TestCase.class" />
+                        <include name="**/*${testcase}*"/>
+                        <exclude name="**/*TestCase.class"/>
                     </fileset>
                 </batchtest>
                 <batchtest todir="${test.dir}/data" unless="testcase">
                     <fileset dir="${test.dir}/@{module}/classes">
-                        <include name="**/*Test.class*" />
+                        <include name="**/*Test.class*"/>
                     </fileset>
                 </batchtest>
             </junit>
@@ -515,9 +515,9 @@
             <emma enabled="${emma.enabled}">
                 <report sourcepathref="all.sources" depth="method">
                     <fileset dir="${coverage.dir}">
-                        <include name="*.emma" />
+                        <include name="*.emma"/>
                     </fileset>
-                    <html outfile="${coverage.dir}/coverage.html" />
+                    <html outfile="${coverage.dir}/coverage.html"/>
                 </report>
             </emma>
 
@@ -559,7 +559,7 @@
         <taskdef classname="org.apache.jasper.JspC" name="jasper" classpathref="jspc.classpath"/>
 
         <jasper verbose="0" package="org.appfuse.jsp" uriroot="${webapp.target}" 
-            webXmlFragment="${jsp.src}/jsp-servlets.xml" outputDir="${jsp.src}" />
+            webXmlFragment="${jsp.src}/jsp-servlets.xml" outputDir="${jsp.src}"/>
         
         <javac srcdir="${jsp.src}" destdir="${build.dir}/web/classes"
             debug="${compile.debug}" deprecation="${compile.deprecation}"
@@ -973,14 +973,14 @@
     </target>
     
     <target name="emma" description="turns on EMMA instrumentation/reporting" >
-        <property name="emma.enabled" value="true" />
+        <property name="emma.enabled" value="true"/>
         <!-- EMMA coverage data output directory: -->
-        <property name="coverage.dir" value="${test.dir}/coverage" />
+        <property name="coverage.dir" value="${test.dir}/coverage"/>
         <!-- EMMA instrumented classes output directory: -->
-        <property name="out.instr.dir" value="${test.dir}/outinstr" />
-        <mkdir dir="${out.instr.dir}" />
+        <property name="out.instr.dir" value="${test.dir}/outinstr"/>
+        <mkdir dir="${out.instr.dir}"/>
         <!-- Filter for classes to instrument -->
-        <property name="emma.filter" value="org.appfuse.*" />
+        <property name="emma.filter" value="org.appfuse.*"/>
     </target>
 
     <target name="todo" description="creates report of todos in code">
@@ -1045,7 +1045,7 @@
     <!-- =================================================================== -->
     <!--            Internal targets to enable running in debug mode         -->
     <!-- =================================================================== -->
-    <target name="check-debug" depends="with-debug,no-debug" />
+    <target name="check-debug" depends="with-debug,no-debug"/>
 
     <target name="with-debug" if="appfuse-debug">
         <property name="run.appfuse.test.debugargline" value="-Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,address=4000,server=y,suspend=y"/>
@@ -1411,13 +1411,13 @@
                      and replace any paths or packages it finds in these files -->
                                                                                                                                              
                 <fileset includes="**/*.xml" excludes="build.xml"/>
-                <fileset includes="metadata/web/*.java" />
-                <fileset includes="**/*.xdt" />
-                <fileset includes="**/*.properties" />
-                <fileset includes="**/*.xml" />
-                <fileset includes="**/*.page" />
-                <fileset includes="**/*.application" />
-                <fileset includes=".springBeansProject" />
+                <fileset includes="metadata/web/*.java"/>
+                <fileset includes="**/*.xdt"/>
+                <fileset includes="**/*.properties"/>
+                <fileset includes="**/*.xml"/>
+                <fileset includes="**/*.page"/>
+                <fileset includes="**/*.application"/>
+                <fileset includes=".springBeansProject"/>
             </appfuse:renamepackages>
 
             <replaceregexp flags="g" match="org.appfuse" replace="@{newPkgName}">

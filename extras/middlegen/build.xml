@@ -168,7 +168,7 @@
     <!-- ==================================================================== -->
     <target name="validate" description="Validate the generated xml mapping documents">
         <xmlvalidate failonerror="no" lenient="no" warn="yes">
-            <fileset dir="${middlegen.dest.dir}" includes="*.xml" />
+            <fileset dir="${middlegen.dest.dir}" includes="*.xml"/>
         </xmlvalidate>
     </target>
 

@@ -6,7 +6,7 @@
         </listeners>
 
         <bootstrappers>
-            <cvsbootstrapper localWorkingCopy="projects/${project.name}" />
+            <cvsbootstrapper localWorkingCopy="projects/${project.name}"/>
         </bootstrappers>
         
         <modificationset quietperiod="30">
