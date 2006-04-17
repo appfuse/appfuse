@@ -1,10 +1,9 @@
 package org.appfuse.util;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import junit.framework.TestCase;
 
