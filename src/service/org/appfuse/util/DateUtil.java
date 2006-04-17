@@ -27,7 +27,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
  *  Modified by <a href="mailto:dan@getrolling.com">Dan Kibler </a> 
  *   to correct time pattern. Minutes should be mm not MM
  * 	(MM is month). 
- * @version $Revision: 1.7 $ $Date: 2005/05/04 04:57:41 $
+ * @version $Revision: 1.8 $ $Date: 2006/04/17 12:31:41 $
  */
 public class DateUtil {
     //~ Static fields/initializers =============================================
@@ -52,6 +52,10 @@ public class DateUtil {
         }
         
         return defaultDatePattern;
+    }
+    
+    public static String getDateTimePattern() {
+        return DateUtil.getDatePattern() + " HH:mm:ss.S";
     }
 
     /**

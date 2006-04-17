@@ -1,23 +1,49 @@
 package org.appfuse.util;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+
+import org.springframework.context.i18n.LocaleContextHolder;
 
 import junit.framework.TestCase;
 
 public class DateConverterTest extends TestCase {
     private DateConverter converter = new DateConverter();
 
+    public void testInternationalization() throws Exception {
+        List locales = new ArrayList() {
+            {
+                add(Locale.US);
+                add(Locale.GERMANY);
+                add(Locale.FRANCE);
+                add(Locale.CHINA);
+                add(Locale.ITALY);
+            }
+        };
+        for (Iterator localeIter = locales.iterator(); localeIter.hasNext();) {
+            Locale locale = (Locale) localeIter.next();
+            LocaleContextHolder.setLocale(locale);
+            testConvertStringToDate();
+            testConvertDateToString();
+            testConvertStringToTimestamp();
+            testConvertTimestampToString();
+        }
+    }
+
     public void testConvertStringToDate() throws Exception {
         Date today = new Date();
         Calendar todayCalendar = new GregorianCalendar();
         todayCalendar.setTime(today);
         String datePart = DateUtil.convertDateToString(today);
-        
+
         Date date = (Date) converter.convert(Date.class, datePart);
-        
+
         Calendar cal = new GregorianCalendar();
         cal.setTime(date);
         assertEquals(todayCalendar.get(Calendar.YEAR), cal.get(Calendar.YEAR));
@@ -37,7 +63,7 @@ public class DateConverterTest extends TestCase {
         todayCalendar.setTime(today);
         String datePart = DateUtil.convertDateToString(today);
 
-        Timestamp time = (Timestamp) converter.convert(Timestamp.class, datePart+" 01:02:03.4");
+        Timestamp time = (Timestamp) converter.convert(Timestamp.class, datePart + " 01:02:03.4");
         Calendar cal = new GregorianCalendar();
         cal.setTimeInMillis(time.getTime());
         assertEquals(todayCalendar.get(Calendar.YEAR), cal.get(Calendar.YEAR));
@@ -48,6 +74,7 @@ public class DateConverterTest extends TestCase {
     public void testConvertTimestampToString() throws Exception {
         Timestamp timestamp = Timestamp.valueOf("2005-03-10 01:02:03.4");
         String time = (String) converter.convert(String.class, timestamp);
-        assertEquals(DateUtil.getDateTime(DateConverter.TS_FORMAT, timestamp), time);
+        assertEquals(DateUtil.getDateTime(DateUtil.getDateTimePattern(), timestamp), time);
     }
+
 }
