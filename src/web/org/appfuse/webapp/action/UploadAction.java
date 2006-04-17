@@ -71,7 +71,7 @@ public class UploadAction extends Action {
         String size = (file.getFileSize() + " bytes");
 
         String data = null;
-        String location = null;
+        String filePath = null;
 
         // the directory to upload to
         String uploadDir =
@@ -99,8 +99,7 @@ public class UploadAction extends Action {
 
         bos.close();
 
-        location = dirPath.getAbsolutePath()
-            + Constants.FILE_SEP + file.getFileName(); 
+        filePath = dirPath.getAbsolutePath() + Constants.FILE_SEP + file.getFileName(); 
 
         //close the stream
         stream.close();
@@ -111,8 +110,12 @@ public class UploadAction extends Action {
         request.setAttribute("contentType", contentType);
         request.setAttribute("size", size);
         request.setAttribute("data", data);
-        request.setAttribute("location", location);
+        request.setAttribute("filePath", filePath);
 
+        String url = request.getContextPath() + "/resources" + "/" +
+            request.getRemoteUser() + "/" + file.getFileName();
+        request.setAttribute("url", url); 
+        
         //destroy the temporary file created
         file.destroy();
 
