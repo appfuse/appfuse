@@ -987,10 +987,6 @@
     
     <target name="emma" description="turns on EMMA instrumentation/reporting" >
         <property name="emma.enabled" value="true"/>
-        <!-- EMMA coverage data output directory: -->
-        <property name="coverage.dir" value="${test.dir}/coverage"/>
-        <!-- EMMA instrumented classes output directory: -->
-        <property name="out.instr.dir" value="${test.dir}/outinstr"/>
         <mkdir dir="${out.instr.dir}"/>
         <!-- Filter for classes to instrument -->
         <property name="emma.filter" value="org.appfuse.*"/>
