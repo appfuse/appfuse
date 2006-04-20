@@ -634,9 +634,9 @@
         </if>
         
         <echo message="Starting ${cargoId}..."/>
-        <cargo containerId="${cargoId}" id="${cargoId}" home="${tomcat.home}" 
-            output="${test.dir}/cargo.log" action="start">
-            <configuration dir="${test.dir}/${cargoId}">
+        <cargo containerId="${cargoId}" home="${tomcat.home}" action="start"
+            output="${test.dir}/cargo.log" wait="false">
+            <configuration home="${test.dir}/${cargoId}">
                 <property name="cargo.logging" value="high"/>
                 <property name="cargo.servlet.port" value="${http.port}"/>
                 <!--<property name="cargo.jvmargs" value="${run.appfuse.test.debugargline}"/>-->
@@ -646,7 +646,6 @@
 
         <antcall target="test-canoo"/>
 
-        <cargo refid="${cargoId}" action="stop"/>
     </target>
 
     <!-- =================================================================== -->
