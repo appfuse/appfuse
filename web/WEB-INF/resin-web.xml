@@ -1,0 +1,13 @@
+<web-app id="/appfuse">
+    <jsp fast-jstl="false"/>
+
+    <!--database>
+        <jndi-name>jdbc/appfuse</jndi-name>
+        <driver type="@DB-DRIVERNAME@">
+            <url>@DB-URL@</url>
+            <user>@DB-USERNAME@</user>
+            <password>@DB-PASSWORD@</password>
+        </driver>
+    </database-->
+</web-app>
+
