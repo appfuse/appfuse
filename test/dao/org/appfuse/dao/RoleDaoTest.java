@@ -31,6 +31,8 @@ public class RoleDaoTest extends BaseDaoTestCase {
     }
 
     public void testAddAndRemoveRole() throws Exception {
+        deleteFromTables(new String[]{"user_role", "role"});
+        
         role = new Role("testrole");
         role.setDescription("new role descr");
 
