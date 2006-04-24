@@ -32,7 +32,7 @@ public class Role extends BaseObject implements Serializable, GrantedAuthority {
     }
     
     /**
-     * @hibernate.id column="id" generator-class="native" unsaved-value="null"
+     * @hibernate.id column="id" generator-class="increment" unsaved-value="null"
      */
     public Long getId() {
         return id;
@@ -77,9 +77,8 @@ public class Role extends BaseObject implements Serializable, GrantedAuthority {
 
         final Role role = (Role) o;
 
-        if (name != null ? !name.equals(role.name) : role.name != null) return false;
+        return !(name != null ? !name.equals(role.name) : role.name != null);
 
-        return true;
     }
 
     public int hashCode() {
@@ -88,7 +87,7 @@ public class Role extends BaseObject implements Serializable, GrantedAuthority {
 
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE)
-                .append(this.name.toString())
+                .append(this.name)
                 .toString();
     }
 
