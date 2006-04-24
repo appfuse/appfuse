@@ -468,7 +468,8 @@
                 <filterset refid="variables.to.replace"/>
             </copy>
 
-            <junit printsummary="no" forkmode="once" errorProperty="test.failed" failureProperty="test.failed" fork="${junit.fork}">
+            <junit printsummary="no" forkmode="once" errorProperty="test.failed" 
+                failureProperty="test.failed" fork="${junit.fork}" showoutput="${junit.showoutput}">
                 <classpath>
                     <!-- Instrumented classes - must be BEFORE the normal ones -->
                     <!-- ============================= -->
