@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
-	<!-- Directory structure of the project -->
-	<property name="build.dir" value="${basedir}/build"/>
-	<property name="dist.dir" value="${basedir}/dist"/>
-	<property name="test.dir" value="${build.dir}/test"/>
-	<!-- Directories for code coverage sampling -->
-	<property name="coverage.dir" value="${test.dir}/coverage"/>
-	<property name="out.instr.dir" value="${test.dir}/outinstr"/>
-	
-	<!-- Default options for code-generation, compiling and junit-testing -->
-	<property name="javac.debug" value="true"/>
-	<property name="compile.deprecation" value="true"/>
-	<!-- build.compiler - seems to be issues using jikes and JDK 1.4 is just as fast-->
-	<property name="build.compiler" value="modern"/>
-	<property name="junit.fork" value="true"/>
-	<property name="junit.showoutput" value="true"/>
-	<property name="xdoclet.force" value="false"/>
+    <!-- Directory structure of the project -->
+    <property name="build.dir" value="${basedir}/build"/>
+    <property name="dist.dir" value="${basedir}/dist"/>
+    <property name="test.dir" value="${build.dir}/test"/>
+    <!-- Directories for code coverage sampling -->
+    <property name="coverage.dir" value="${test.dir}/coverage"/>
+    <property name="out.instr.dir" value="${test.dir}/outinstr"/>
+    
+    <!-- Default options for code-generation, compiling and junit-testing -->
+    <property name="javac.debug" value="true"/>
+    <property name="compile.deprecation" value="true"/>
+    <!-- build.compiler - seems to be issues using jikes and JDK 1.4 is just as fast-->
+    <property name="build.compiler" value="modern"/>
+    <property name="junit.fork" value="true"/>
+    <property name="junit.showoutput" value="true"/>
+    <property name="xdoclet.force" value="false"/>
 
     <!-- Library versions and JARs -->
     <property name="lib.dir" location="lib"/>
