@@ -2,10 +2,12 @@
 <project version="4" relativePaths="false">
   <component name="AntConfiguration">
     <defaultAnt bundledAnt="true" />
-    <buildFile url="file://$PROJECT_DIR$/extras/jsf/build.xml">
-      <additionalClassPath />
+    <buildFile url="file://$PROJECT_DIR$/build.xml">
+      <additionalClassPath>
+        <entry path="file://$PROJECT_DIR$/lib/junit3.8.1/junit.jar" />
+      </additionalClassPath>
       <antReference name="Apache Ant version 1.6.5" />
-      <customJdkName value="1.5" />
+      <customJdkName value="" />
       <maximumHeapSize value="128" />
       <properties>
         <property name="tomcat.home" value="/opt/dev/tools/tomcat" />
@@ -387,7 +389,7 @@
       <module fileurl="file://$PROJECT_DIR$/appfuse.iml" filepath="$PROJECT_DIR$/appfuse.iml" />
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" assert-keyword="true" jdk-15="true" project-jdk-name="1.4" />
+  <component name="ProjectRootManager" version="2" assert-keyword="true" jdk-15="false" project-jdk-name="1.4" />
   <component name="Regex">
     <option name="pos1" value="218" />
     <option name="pos2" value="218" />
