@@ -625,16 +625,12 @@
 
         <if>
             <isset property="tomcat5"/>
-            <then>
-                <property name="cargoId" value="tomcat5x"/>
-            </then>
-            <else>
-                <property name="cargoId" value="tomcat4x"/>
-            </else>
+            <then><property name="cargoId" value="tomcat5x"/></then>
+            <else><property name="cargoId" value="tomcat4x"/></else>
         </if>
         
         <echo message="Starting ${cargoId}..."/>
-        <cargo containerId="${cargoId}" home="${tomcat.home}" action="start"
+        <cargo containerId="${cargoId}" id="${cargoId}" home="${tomcat.home}" action="start"
             output="${test.dir}/cargo.log" wait="false">
             <configuration home="${test.dir}/${cargoId}">
                 <property name="cargo.logging" value="high"/>
@@ -646,6 +642,7 @@
 
         <antcall target="test-canoo"/>
 
+        <cargo refid="${cargoId}" action="stop"/>
     </target>
 
     <!-- =================================================================== -->
