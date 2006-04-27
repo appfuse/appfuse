@@ -18,9 +18,7 @@ public class LookupDaoHibernate extends BaseDaoHibernate implements LookupDao {
      * @see org.appfuse.dao.LookupDao#getRoles()
      */
     public List getRoles() {
-        if (log.isDebugEnabled()) {
-            log.debug("retrieving all role names...");
-        }
+        log.debug("retrieving all role names...");
 
         return getHibernateTemplate().find("from Role order by name");
     }
