@@ -537,16 +537,21 @@
     </target>
 
     <property name="web.framework" value=""/>
+    <property name="db.name" value="appfuse"/>
+    <property name="new.pkg.name" value="org.appfuse"/>
     <!-- =================================================================== -->
     <!-- Creates new project, copies Person.java to model directory,         -->
     <!-- generates generic persistence code and runs tests.                  -->
     <!-- =================================================================== -->
     <target name="test-detailed" description="Creates new project and generates detailed code">
         <property name="app.name" value="appfuse-appgen2"/>
-        <property name="db.name" value="appfuse"/>
-        <property name="new.pkg.name" value="org.appfuse"/>
         <delete dir="../../../${app.name}"/>
-        <ant dir="../.." target="new"/>
+        <ant dir="../.." target="new" inheritAll="false">
+            <property name="app.name" value="${app.name}"/>
+            <property name="db.name" value="${db.name}"/>
+            <property name="new.pkg.name" value="${new.pkg.name}"/>
+            <property name="web.framework" value="${web.framework}"/>
+        </ant>
  
         <!-- Copy test model object into new project -->   
         <copy todir="../../../${app.name}/src">
@@ -576,10 +581,13 @@
     <!-- =================================================================== -->
     <target name="test" description="Creates new project and generates generic persistence code">
         <property name="app.name" value="appfuse-appgen"/>
-        <property name="db.name" value="appfuse"/>
-        <property name="new.pkg.name" value="org.appfuse"/>
         <delete dir="../../../${app.name}"/>
-        <ant dir="../.." target="new"/>
+        <ant dir="../.." target="new" inheritAll="false">
+            <property name="app.name" value="${app.name}"/>
+            <property name="db.name" value="${db.name}"/>
+            <property name="new.pkg.name" value="${new.pkg.name}"/>
+            <property name="web.framework" value="${web.framework}"/>
+        </ant>
 
         <!-- Copy test model object into new project -->   
         <copy todir="../../../${app.name}/src">
@@ -610,10 +618,13 @@
     <target name="test-2wordpojo" 
         description="Creates new project and generates detailed persistence code">
         <property name="app.name" value="appfuse-appgenx"/>
-        <property name="db.name" value="appfuse"/>
-        <property name="new.pkg.name" value="org.appfuse"/>
         <delete dir="../../../${app.name}"/>
-        <ant dir="../.." target="new"/>
+        <ant dir="../.." target="new" inheritAll="false">
+            <property name="app.name" value="${app.name}"/>
+            <property name="db.name" value="${db.name}"/>
+            <property name="new.pkg.name" value="${new.pkg.name}"/>
+            <property name="web.framework" value="${web.framework}"/>
+        </ant>
 
         <!-- Copy test model object into new project -->   
         <copy todir="../../../${app.name}/src">

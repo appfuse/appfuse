@@ -181,7 +181,12 @@
         <property name="new.pkg.name" value="org.appfuse"/>
         <property name="web.framework" value=""/>
         <delete dir="../../../${app.name}"/>
-        <ant dir="../.." target="new"/>
+        <ant dir="../.." target="new" inheritAll="false">
+            <property name="app.name" value="${app.name}"/>
+            <property name="db.name" value="${db.name}"/>
+            <property name="new.pkg.name" value="${new.pkg.name}"/>
+            <property name="web.framework" value="${web.framework}"/>
+        </ant>
 
         <!-- Create database table -->
         <sql driver="${database.driver_class}" url="${database.url}"

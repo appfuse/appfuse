@@ -407,16 +407,21 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
     </target>
 
     <property name="web.framework" value=""/>
+    <property name="db.name" value="appfuse"/>
+    <property name="new.pkg.name" value="org.appfuse"/>        
     <!-- =================================================================== -->
     <!-- Creates new project, installs iBATIS, removes Hibernate and tests   -->
     <!-- =================================================================== -->
     <target name="test" description="Creates appfuse-ibatis and runs tests">
         <property name="app.name" value="appfuse-ibatis"/>
-        <property name="db.name" value="appfuse"/>
-        <property name="new.pkg.name" value="org.appfuse"/>
         <delete dir="../../../${app.name}"/>
-        <ant dir="../.." target="new"/>
-
+        <ant dir="../.." target="new" inheritAll="false">
+            <property name="app.name" value="${app.name}"/>
+            <property name="db.name" value="${db.name}"/>
+            <property name="new.pkg.name" value="${new.pkg.name}"/>
+            <property name="web.framework" value="${web.framework}"/>
+        </ant>
+        
         <!-- New project created, install iBATIS, remove Hibernate and run tests -->
         <ant dir="../../../${app.name}/extras/ibatis" target="install" inheritAll="false"/>
         <ant dir="../../../${app.name}/extras/ibatis" target="uninstall-hibernate" inheritAll="false"/>
@@ -427,14 +432,15 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
     <!-- =================================================================== -->
     <!-- Creates new project, installs iBATIS with Hibernate and tests       -->
     <!-- =================================================================== -->
-    <target name="test-with-hibernate"
-        description="Creates appfuse-ibatis+hibernate and runs tests">
-        <!-- NOTE: 2 dashes in the app name doesn't work -->   
+    <target name="test-with-hibernate" description="Creates appfuse-ibatis+hibernate and runs tests">
         <property name="app.name" value="appfuse-hibatis"/>
-        <property name="db.name" value="appfuse"/>
-        <property name="new.pkg.name" value="org.appfuse"/>
         <delete dir="../../../${app.name}"/>
-        <ant dir="../.." target="new"/>
+        <ant dir="../.." target="new" inheritAll="false">
+            <property name="app.name" value="${app.name}"/>
+            <property name="db.name" value="${db.name}"/>
+            <property name="new.pkg.name" value="${new.pkg.name}"/>
+            <property name="web.framework" value="${web.framework}"/>
+        </ant>
 
         <!-- New project created, install iBATIS and run tests -->
         <ant dir="../../../${app.name}/extras/ibatis" target="install" inheritAll="false"/>
@@ -447,10 +453,13 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
     <!-- =================================================================== -->
     <target name="test-appgen" description="Creates appfuse-ibatisgen and tests appgen">
         <property name="app.name" value="appfuse-ibatisgen"/>
-        <property name="db.name" value="appfuse"/>
-        <property name="new.pkg.name" value="org.appfuse"/>
         <delete dir="../../../${app.name}"/>
-        <ant dir="../.." target="new"/>
+        <ant dir="../.." target="new" inheritAll="false">
+            <property name="app.name" value="${app.name}"/>
+            <property name="db.name" value="${db.name}"/>
+            <property name="new.pkg.name" value="${new.pkg.name}"/>
+            <property name="web.framework" value="${web.framework}"/>
+        </ant>
 
         <!-- Create database table -->
         <sql driver="${database.driver_class}" url="${database.url}"
