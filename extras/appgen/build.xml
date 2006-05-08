@@ -369,8 +369,8 @@
         <echo>Adding keys to ApplicationResources.properties</echo>
         <!-- load snippet -->
         <loadfile property="i18n.keys" srcfile="${generated.dir}/web/WEB-INF/classes/${model.name}.properties"/>
-        <!-- load properties file -->  <!-- using *_en version to avoid overwriting existing properties -->
-        <property name="i18nFile" location="../../web/WEB-INF/classes/ApplicationResources_en.properties"/>
+        <!-- load properties file -->
+        <property name="i18nFile" location="../../web/WEB-INF/classes/ApplicationResources.properties"/>
         <replace file="${i18nFile}" token="# -- ${model.name}-START" value="REGULAR-START"/>
         <replace file="${i18nFile}" token="# -- ${model.name}-END" value="REGULAR-END"/>
         <!-- Add to the bottom of the properties file -->
