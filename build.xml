@@ -849,7 +849,7 @@
             
             <!-- Application frameworks -->
             <link href="http://jakarta.apache.org/commons/lang/api"/>
-            <link href="http://struts.apache.org/struts-doc-1.2.8/api"/>
+            <link href="http://struts.apache.org/struts-doc-1.2.9/api"/>
             <link href="http://www.springframework.org/docs/api"/>
             <link href="http://www.hibernate.org/hib_docs/api"/>
             
