@@ -64,7 +64,7 @@ tapestry.jar=${tapestry.dir}/tapestry-${tapestry.version}.jar]]></replacevalue>
 #
 # Struts - http://struts.apache.org
 #
-struts.version=1.2.8
+struts.version=1.2.9
 struts.dir=${lib.dir}/struts-${struts.version}
 struts.jar=${struts.dir}/struts.jar]]></replacetoken>
         </replace>
@@ -344,8 +344,8 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
         </replace>
         
         <replace file="../../.classpath">
-            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/struts-1.2.8/struts.jar"/>
-	<classpathentry kind="lib" path="lib/struts-1.2.8/struts-el.jar"/>]]></replacetoken>
+            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/struts-1.2.9/struts.jar"/>
+	<classpathentry kind="lib" path="lib/struts-1.2.9/struts-el.jar"/>]]></replacetoken>
             <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/hivemind-1.1.1.jar"/>
 	<classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/hivemind-lib-1.1.1.jar"/>
 	<classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/javassist-3.0.jar"/>

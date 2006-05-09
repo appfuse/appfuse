@@ -160,7 +160,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/struts-1.2.8/struts.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/struts-1.2.9/struts.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -196,7 +196,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/struts-1.2.8/antlr.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/struts-1.2.9/antlr.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -205,7 +205,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/struts-1.2.8/struts-el.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/struts-1.2.9/struts-el.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -358,7 +358,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/spring-1.2.7/ehcache-1.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/spring-1.2.7/ehcache-1.2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -776,8 +776,8 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/ehcache-1.1.jar" />
-      <url>jar://$MODULE_DIR$/lib/spring-1.2.7/ehcache-1.1.jar!/</url>
+      <attribute name="URI" value="/WEB-INF/lib/ehcache-1.2.jar" />
+      <url>jar://$MODULE_DIR$/lib/spring-1.2.7/ehcache-1.2.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
@@ -792,17 +792,17 @@
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/antlr.jar" />
-      <url>jar://$MODULE_DIR$/lib/struts-1.2.8/antlr.jar!/</url>
+      <url>jar://$MODULE_DIR$/lib/struts-1.2.9/antlr.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/struts-el.jar" />
-      <url>jar://$MODULE_DIR$/lib/struts-1.2.8/struts-el.jar!/</url>
+      <url>jar://$MODULE_DIR$/lib/struts-1.2.9/struts-el.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/struts.jar" />
-      <url>jar://$MODULE_DIR$/lib/struts-1.2.8/struts.jar!/</url>
+      <url>jar://$MODULE_DIR$/lib/struts-1.2.9/struts.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
