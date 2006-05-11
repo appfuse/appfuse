@@ -14,7 +14,11 @@ div.error, div.message {
 
 /* use a different color for the errors */
 div.error {
-	border: 2px solid red;
+    border: 2px solid red;
+}
+
+div.message p, div.message p {
+    margin-bottom: 0;
 }
 
 img.validationWarning, div.errors img.icon, div.messages img.icon {

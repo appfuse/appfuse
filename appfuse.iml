@@ -376,7 +376,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/struts-menu-2.3/struts-menu-2.3.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/struts-menu-2.4/struts-menu-2.4.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -806,8 +806,8 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/struts-menu-2.3.jar" />
-      <url>jar://$MODULE_DIR$/lib/struts-menu-2.3/struts-menu-2.3.jar!/</url>
+      <attribute name="URI" value="/WEB-INF/lib/struts-menu-2.4.jar" />
+      <url>jar://$MODULE_DIR$/lib/struts-menu-2.4/struts-menu-2.4.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
