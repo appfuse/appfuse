@@ -42,7 +42,7 @@ public class UserWebServiceTest extends AbstractXFireSpringTest {
         
         // because we can't extend MockObjectTestCase we create new instances for once(), eq() and returnValue()
         InvokeOnceMatcher once = new InvokeOnceMatcher();
-        IsEqual eq = new IsEqual("tomcat");
+        IsEqual eq = new IsEqual(new Long(1));
         ReturnStub returnValue = new ReturnStub(testData);
         userDao.expects(once).method("getUser").with(eq).will(returnValue);
         
@@ -72,20 +72,20 @@ public class UserWebServiceTest extends AbstractXFireSpringTest {
 
         List testData = new ArrayList(){{ add(testUser); }};
         testUser.setEnabled(true);
-        Mock userDAO = new Mock(UserDAO.class);
+        Mock userDao = new Mock(UserDao.class);
         
         // because we can't extend MockObjectTestCase we create new instances for once(), eq() and returnValue()
         InvokeOnceMatcher once = new InvokeOnceMatcher();
         ReturnStub returnValue = new ReturnStub(testData);
         IsEqual eq = new IsEqual(user);
-        userDAO.expects(once).method("getUsers").with(eq).will(returnValue);
+        userDao.expects(once).method("getUsers").with(eq).will(returnValue);
         
         UserManager userService = (UserManager) getContext().getBean("userManager");
-        userService.setUserDAO((UserDAO)userDAO.proxy());
+        userService.setUserDao((UserDao)userDao.proxy());
 
         List userList = (List)client.getUsers(user);
         assertNotNull(userList);
-        userDAO.verify();
+        userDao.verify();
     }
     
     protected ApplicationContext createContext() {
