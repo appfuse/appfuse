@@ -1312,6 +1312,7 @@
             <substitution expression="${app.name}"/>
             <fileset dir="../${app.name}">
                 <include name="**"/>
+                <exclude name="lib/rename-packages-*/*.xml"/>
                 <exclude name="src/**/*.java"/>
                 <exclude name="src/**/*.xml"/>
                 <exclude name="test/**/*.java"/>
@@ -1330,6 +1331,7 @@
                 <exclude name="**/loginMenu.jsp"/>
                 <exclude name="**/README.txt"/>
                 <exclude name=".springBeansProject"/>
+                <exclude name="**/*.jar"/>
             </fileset>
         </replaceregexp>
 
@@ -1381,7 +1383,7 @@
         
         <if>
             <not><equals arg1="${new.pkg.name}" arg2="org.appfuse"/></not>
-            <then><rename-packages newPkgName="${new.pkg.name}"/></then>
+            <then><rename-packages newPkgName="${new.pkg.name}" existingPkgName="org.appfuse"/></then>
         </if>
         
         <condition property="isWindows"><os family="windows"/></condition> 
@@ -1402,38 +1404,6 @@
 </echo>
     </target>
 
-    <macrodef name="rename-packages">
-        <attribute name="src.base.dir" default="../${app.name}"/>
-        <attribute name="newPkgName"/>
-
-        <sequential>
-            <typedef resource="org/appfuse/ant/appfuse-contrib.xml"
-                classpath="${rename-packages.jar}" uri="appfuse:/org.appfuse.ant"/>
-
-            <appfuse:renamepackages xmlns:appfuse="appfuse:/org.appfuse.ant"
-                newPkgName="@{newPkgName}" baseDir="@{src.base.dir}">
-                                                                                                                                             
-                <!-- The renamepackages task will search through this file list
-                     and replace any paths or packages it finds in these files -->
-                                                                                                                                             
-                <fileset includes="**/*.xml" excludes="build.xml"/>
-                <fileset includes="metadata/web/*.java"/>
-                <fileset includes="**/*.xdt"/>
-                <fileset includes="**/*.properties"/>
-                <fileset includes="**/*.xml"/>
-                <fileset includes="**/*.page"/>
-                <fileset includes="**/*.application"/>
-                <fileset includes=".springBeansProject"/>
-            </appfuse:renamepackages>
-
-            <replaceregexp flags="g" match="org.appfuse" replace="@{newPkgName}">
-                <fileset dir="@{src.base.dir}">
-                    <include name="build.xml"/>
-                </fileset>
-            </replaceregexp>
-
-            <echo message="Repackaging info written to rename.log"/>
-        </sequential>
-    </macrodef>
+    <import file="${rename-packages.dir}/rename-packages-macro.xml"/>
 
 </project>
