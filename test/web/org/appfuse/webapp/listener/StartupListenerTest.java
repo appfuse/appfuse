@@ -9,7 +9,6 @@ import org.appfuse.Constants;
 import org.springframework.mock.web.MockServletContext;
 import org.springframework.util.ClassUtils;
 import org.springframework.web.context.ContextLoader;
-import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.WebApplicationContext;
 
 
@@ -35,10 +34,6 @@ public class StartupListenerTest extends TestCase {
         sc.addInitParameter(ContextLoader.CONFIG_LOCATION_PARAM,
                 "classpath*:/" + pkg + "/dao/applicationContext-*.xml," +
                 "classpath*:META-INF/applicationContext-*.xml");
-        
-        ServletContextListener contextListener = new ContextLoaderListener();
-        ServletContextEvent event = new ServletContextEvent(sc);
-        contextListener.contextInitialized(event);
     }
 
     protected void tearDown() throws Exception {

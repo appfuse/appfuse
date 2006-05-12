@@ -18,7 +18,7 @@ public class LocaleFilterTest extends TestCase {
     
     protected void setUp() {
         filter = new LocaleFilter();
-        filter.setFilterConfig(new MockFilterConfig(null));
+        filter.setFilterConfig(new MockFilterConfig());
     }
     
     public void testSetLocaleInSessionWhenSessionIsNull() throws Exception {
