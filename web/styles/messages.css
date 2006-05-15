@@ -1,7 +1,7 @@
 /* This is the style for the informational messages presented to the user */
 
-div.error, div.message {
-    background-color: #ffffcc;
+div.error, div.message, li.error {
+    background: #ffffcc;
     border: 1px solid #000;
     color: #000000;
     font-family: Arial, Helvetica, sans-serif;
@@ -13,7 +13,7 @@ div.error, div.message {
 }
 
 /* use a different color for the errors */
-div.error {
+div.error, li.error {
     border: 2px solid red;
 }
 
@@ -21,11 +21,12 @@ div.message p, div.message p {
     margin-bottom: 0;
 }
 
-img.validationWarning, div.errors img.icon, div.messages img.icon {
+img.validationWarning, div.error img.icon, div.message img.icon, li.error img.icon {
     border: 0;
     width: 14px;
     height: 13px;
-    vertical-align: top;
+    vertical-align: middle;
+    margin-left: 3px;
 }
 
 div.message a {
@@ -55,4 +56,5 @@ span.fieldError {
     color: red;
     font-size: .95em;
     font-weight: bold;
+    display: block;
 }

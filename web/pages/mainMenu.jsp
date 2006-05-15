@@ -1,7 +1,9 @@
 <%@ include file="/common/taglibs.jsp"%>
 
 <title><fmt:message key="mainMenu.title"/></title>
+<meta name="menu" content="MainMenu"/>
 <content tag="heading"><fmt:message key="mainMenu.heading"/></content>
+
 
 <p><fmt:message key="mainMenu.message"/></p>
 

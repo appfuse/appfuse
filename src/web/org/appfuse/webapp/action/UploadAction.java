@@ -28,9 +28,8 @@ import org.appfuse.webapp.form.UploadForm;
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  * 
- * @struts.action name="uploadForm" path="/uploadFile" scope="request"
- *  validate="true" input="failure"
- *
+ * @struts.action name="uploadForm" path="/uploadFile" scope="request" validate="true" input="failure"
+ * @struts.action-set-property property="cancellable" value="true"
  * @struts.action-forward name="failure" path="/WEB-INF/pages/uploadForm.jsp"
  * @struts.action-forward name="success" path="/WEB-INF/pages/uploadDisplay.jsp"
  */
@@ -60,6 +59,10 @@ public class UploadAction extends Action {
 
         //retrieve the file representation
         FormFile file = theForm.getFile();
+
+        if (file == null) {
+            return mapping.findForward("failure");
+        }
 
         //retrieve the file name
         String fileName = file.getFileName();

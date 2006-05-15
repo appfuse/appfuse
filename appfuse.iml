@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="4" relativePaths="true" type="J2EE_WEB_MODULE" j2ee-integration="Tomcat Server">
+  <component name="AppServerSpecificValidatorsManager" />
   <component name="ModuleRootManager" />
   <component name="NewModuleRootManager">
     <output url="file://$MODULE_DIR$/build/appfuse/WEB-INF/classes" />
@@ -142,7 +143,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jakarta-commons/commons-logging-1.1-RC6.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jakarta-commons/commons-logging-1.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -601,6 +602,7 @@
     <setting name="JAR_ENABLED" value="false" />
     <setting name="SYNC_EXPLODED_DIR" value="true" />
     <setting name="BUILD_ON_FRAME_DEACTIVATION" value="false" />
+    <setting name="BUILD_EXTERNAL_DEPENDENCIES" value="false" />
     <setting name="RUN_JASPER_VALIDATION" value="false" />
   </component>
   <component name="WebModuleProperties">
@@ -696,8 +698,8 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/commons-logging-1.1-RC6.jar" />
-      <url>jar://$MODULE_DIR$/lib/jakarta-commons/commons-logging-1.1-RC6.jar!/</url>
+      <attribute name="URI" value="/WEB-INF/lib/commons-logging-1.1.jar" />
+      <url>jar://$MODULE_DIR$/lib/jakarta-commons/commons-logging-1.1.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
@@ -904,7 +906,7 @@
       <attribute name="URI" value="/WEB-INF/xjavadoc-1.1.jar" />
       <url>jar://$MODULE_DIR$/lib/xdoclet-1.3-SNAPSHOT/xjavadoc-1.1.jar!/</url>
     </containerElement>
-    <containerElement type="library" level="application" name="catalina-ant.jar">
+    <containerElement type="library" name="catalina-ant.jar" level="application">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib" />
     </containerElement>
@@ -914,8 +916,6 @@
       <root url="file://$MODULE_DIR$/build/appfuse/WEB-INF" relative="/WEB-INF" />
     </webroots>
   </component>
-  <component name="WeblogicWebModuleProperties">
-    <option name="IS_RUN_APPC" value="false" />
-  </component>
+  <component name="WeblogicWebModuleProperties" />
 </module>
 

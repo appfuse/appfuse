@@ -1,0 +1,229 @@
+/* A CSS Framework by Mike Stenhouse of Content with Style
+
+	 Color pallete:
+	 		#444		- dark gray (text)
+	 		#3e9ade - medium blue (title)
+	 		#b4c24b - lime (header 1)
+	 		#ebf5fc - light cyan (hover text, footer)
+	 		#d7e9f5	- medium cyan (tab)
+	 		#1465b7 - dark blue (tab text, hyperlink)
+	 		#ccc 		- medium gray (line)
+	 		#f7f7f7 - light gray (form background)
+	 		#f90		- orange (required *)
+*/
+
+/* TYPOGRAPHY */
+	body {
+		text-align: left;
+		font-family: verdana, arial, helvetica, sans-serif;
+		font-size: 76%;
+		line-height: 1em;
+		color: #444;
+	}
+
+	div {
+		font-size: 1em;
+	}
+
+	img {
+		border: 0;
+	}
+
+	/* LINKS */
+		a,a:link
+			a:active {
+			color: #1465b7;
+			text-decoration: none;
+		}
+
+		a:visited {
+			color: #1465b7;
+			background-color: transparent;
+		}
+
+		a:hover {
+			color: #cc0000;
+			text-decoration: none;
+		}
+	/* END LINKS */
+
+	/* HEADINGS */
+		h1, h2, h3, h4, h5, h6 {
+			font-family: tahoma, arial, helvetica, sans-serif;
+			font-weight: normal;
+		}
+
+		h1 {
+			font-size: 2.2em;
+			letter-spacing: -1px;
+			line-height: 1.3em;
+
+			margin: 0 0 0.5em 0;
+			padding: 0;
+			color: #b4c24b;
+		}
+
+		div#branding h1 {
+			font-size: 2.6em;
+			letter-spacing: -1px;
+
+			margin: 0;
+			line-height: 1.5em;
+			color: #3e9ade;
+		}
+
+		div#branding p {
+			margin: 0;
+			line-height: 1em;
+		}
+
+		h2 {
+			font-size: 1.4em;
+			line-height: 1.5em;
+			margin: 0 0 0.5em 0;
+			padding: 0;
+		}
+
+		h3 {
+			font-size: 1.3em;
+			line-height: 1.3em;
+			margin: 0 0 0.5em 0;
+			padding: 0;
+			color: black;
+		}
+
+		h4 {
+			font-size: 1.2em;
+			line-height: 1.3em;
+			margin: 0 0 0.25em 0;
+			padding: 0;
+			color: black;
+		}
+
+		h5 {
+			font-size: 1.1em;
+			line-height: 1.3em;
+			margin: 0 0 0.25em 0;
+			padding: 0;
+			color: black;
+		}
+
+		h6 {
+			font-size: 1em;
+			line-height: 1.3em;
+			margin: 0 0 0.25em 0;
+			padding: 0;
+			color: black;
+		}
+	/* END HEADINGS */
+
+	/* TEXT */
+		p {
+			font-size: 1em;
+			margin: 0 0 1.5em 0;
+			padding: 0;
+			line-height: 1.4em;
+		}
+
+		blockquote {
+			border-left: 10px solid #ddd;
+			margin-left: 10px;
+		}
+
+		pre {
+			font-family: monospace;
+			font-size: 1.0em;
+		}
+
+		strong,b {
+			font-weight: bold;
+		}
+
+		em,i {
+			font-style: italic;
+		}
+
+		code {
+			font-family: "courier new", courier, monospace;
+			font-size: 12px;
+			white-space: pre;
+		}
+	/* END TEXT */
+
+	/* LISTS */
+		/*ul {
+			line-height: 1.4em;
+			margin: 0 0 1.5em 0;
+			padding: 0;
+		}
+
+		ul li {
+			margin: 0 0 0.25em 30px;
+			padding: 0;
+		}
+
+		ol {
+			font-size: 1.0em;
+			line-height: 1.4em;
+			margin: 0 0 1.5em 0;
+			padding: 0;
+		}
+
+		ol li {
+			font-size: 1.0em;
+			margin: 0 0 0.25em 30px;
+			padding: 0;
+		}*/
+
+		dl {
+			margin: 0 0 1.5em 0;
+			padding: 0;
+			line-height: 1.4em;
+		}
+
+		dl dt {
+			font-weight: bold;
+			margin: 0.25em 0 0.25em 0;
+			padding: 0;
+		}
+
+		dl dd {
+			margin: 0 0 0 30px;
+			padding: 0;
+		}
+
+	/* END LISTS */
+
+	/* TABLE */
+		table {
+			font-size: 1em;
+			margin: 0 0 1.5em 0;
+			padding: 0;
+		}
+
+		table caption {
+			font-weight: bold;
+			margin: 0 0 0 0;
+			padding: 0 0 1.5em 0;
+		}
+
+		th {
+			font-weight: bold;
+			text-align: left;
+		}
+
+		td {
+			font-size: 1em;
+		}
+	/* END TABLE */
+
+	hr {
+		display: none;
+	}
+
+	div.hr {
+		height: 1px;
+		margin: 1.5em 10px;
+		border-bottom: 1px dotted black;
+	}
+/* END TYPOGRAPHY */

@@ -1,0 +1,31 @@
+@import url(tools.css);
+@import url(typo.css);
+@import url(layout-navtop-subright.css);
+@import url(layout.css);
+@import url(table.css);
+@import url(../displaytag.css);
+@import url(../forms.css);
+@import url(../menu.css);
+@import url(../messages.css);
+
+pre, code {
+    font-size: 12px;
+}
+
+ul.glassList {
+    list-style: url(../../images/aquadot.jpg) disc outside;
+    vertical-align: top;
+    line-height: 1.5;
+}
+
+pre {
+    background: #ffffdd;
+    border: 1px solid #999999;
+    color: #000000;
+    padding: 5px 5px 5px 7px;
+}
+
+#switchLocale {
+    position: absolute;
+    right: 10px;
+}

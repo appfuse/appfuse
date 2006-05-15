@@ -37,9 +37,8 @@ span.export {
 
 span.pagebanner {
 	display: block;
-	margin: 10px 0px 0px 10px;
+	margin: 10px 0px 10px 0px;
 	padding: 2px 4px 2px 0px;
-	width: 79%;
 }
 
 span.pagelinks {
@@ -52,90 +51,52 @@ span.pagelinks {
 	width: 80%;
 }
 
-table.list {
-	border: 1px solid #000000;
-	border-collapse: collapse;
-	margin: 10px;
-	margin-top: 0px;
-	width: 100%;
-}
-
-table.list td {
-	padding: 3px;
-}
-
-table.list th {
-	background: #C0C0C0;
-	color: #000000;
-	padding: 3px;
-	border-bottom: 1px solid #000000;
-	text-align: left;
-}
-
-table.list th a, table.list th a:visited {
-	background-color: transparent;
-	color: #000000;
-	text-decoration: none;
-}
-
-table.list th a:hover {
-	background-color: transparent;
-	color: #008000 !important;
-	text-decoration: overline underline;
-}
-
-th.sorted a, th.sortable a {
+th.sorted a, th.sor.table a {
 	background-position: right;
 	display: block;
 }
 
-table.list th.order1 a {
+.table th.order1 a {
 	background-image: url(../images/arrow_down.png) !important;
 }
 
-table.list th.order2 a {
+.table th.order2 a {
 	background-image: url(../images/arrow_up.png) !important;
 }
 
-table.list th.sortable a {
-	background-image: url(../images/arrow_off.png);
+.table th.sor.table a {
+    background-image: url(../images/arrow_off.png);
 }
 
-table.list th.sorted {
+.table th.sorted {
 	background-color: #ffd;
 	color: #000000;
 }
 
-table.list th.sorted a, table.list th.sortable a {
+.table th.sorted a, .table th.sor.table a {
 	background-position: right;
 	background-repeat: no-repeat;
 	display: block;
 }
 
-table.list th.sortable:hover {
-	background: #FFFF40;
-	color: #008000;
-}
-
-table.list thead tr {
+.table thead tr {
 	background-color: #FFCC00;
 }
 
-table.list tr.even {
+.table tr.even {
 	background: #EEEEEE;
 	border-top: 1px solid #C0C0C0;
 	color: #000000;
 }
 
-table.list tr.odd {
+.table tr.odd {
 	background: #FFFFFF;
 	border-top: 1px solid #C0C0C0;
 	color: #000000;
 }
 
-/* highlight table row onmouseover */
-table.list tr.over {
-	background: #FFFF40;
+/* highlight .table row onmouseover */
+.table tr.over {
 	border-bottom: 1px solid #C0C0C0;
 	border-top: 1px solid #C0C0C0;
 	color: #000000;
@@ -143,6 +104,6 @@ table.list tr.over {
 	cursor: hand; /* IE 5.5 non-compliant workaround */
 }
 
-table.activeUserList, body#activeUsers span.pagelinks {
+.table.activeUserList, body#activeUsers span.pagelinks {
     width: 450px !important;
 }

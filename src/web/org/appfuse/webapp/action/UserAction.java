@@ -53,7 +53,7 @@ import org.springframework.mail.SimpleMailMessage;
  *  validate="false" parameter="method" input="edit"
  *
  * @struts.action-forward name="list" path="/WEB-INF/pages/userList.jsp"
- * @struts.action-forward name="edit" path="/WEB-INF/pages/userProfile.jsp"
+ * @struts.action-forward name="edit" path="/WEB-INF/pages/userForm.jsp"
  */
 public final class UserAction extends BaseAction {
     

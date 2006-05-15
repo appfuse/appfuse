@@ -1,7 +1,11 @@
 <%@ include file="/common/taglibs.jsp"%>
 
-<title><fmt:message key="login.title"/></title>
-<content tag="heading"><fmt:message key="login.heading"/></content>
+<head>
+    <title><fmt:message key="login.title"/></title>
+    <content tag="heading"><fmt:message key="login.heading"/></content>
+    <meta name="menu" content="Login"/>
+    <link rel="stylesheet" type="text/css" media="print" href="<c:url value='/styles/${theme}/layout-1col.css'/>" />
+</head>
 <body id="login"/>
 
 <%--jsp:include page="/loginMenu.jsp"/--%>

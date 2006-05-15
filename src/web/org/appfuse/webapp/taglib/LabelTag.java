@@ -130,17 +130,17 @@ public class LabelTag extends TagSupport {
         if ((message == null) || "".equals(message.trim())) {
             label.append("");
         } else {
-            label.append("<label for=\"" + fieldName + "\"");
+            label.append("<label for=\"").append(fieldName).append("\"");
 
             if (validationError) {
-                label.append(" class=\"" + cssErrorClass + "\"");
+                label.append(" class=\"").append(cssErrorClass).append("\"");
             } else if (cssClass != null) {
-                label.append(" class=\"" + cssClass + "\"");
+                label.append(" class=\"").append(cssClass).append("\"");
             }
 
-            label.append(">" + ((requiredField) ? "* " : "") + message);
-            String marker = (locale.equals(Locale.FRENCH)) ? " :" : ":";
-            label.append(((colon) ? marker : "") + "</label>");
+            label.append(">").append(message);
+            label.append((requiredField) ? " <span class=\"req\">*</span>" : "");
+            label.append("</label>");
 
             if (valError.length() > 0) {
                 String error = valError.toString();
@@ -151,10 +151,10 @@ public class LabelTag extends TagSupport {
                     htmlFriendly =
                         StringUtils.replace(htmlFriendly, "\"", "\\\"");
                     label.append(" <a class=\"errorLink\" href=\"?\" onclick=\"showHelpTip(event, '");
-    
-                    label.append(htmlFriendly + "', false); return false\" ");
+
+                    label.append(htmlFriendly).append("', false); return false\" ");
                     label.append("onmouseover=\"showHelpTip(event, '");
-                    label.append(htmlFriendly + "', false); return false\" ");
+                    label.append(htmlFriendly).append("', false); return false\" ");
                     label.append("onmouseout=\"hideHelpTip(event); return false\">");
                 }
                 
@@ -169,7 +169,7 @@ public class LabelTag extends TagSupport {
                 String context =
                     ((HttpServletRequest) pageContext.getRequest()).getContextPath();
 
-                label.append("src=\"" + context);
+                label.append("src=\"").append(context);
                 label.append(tagUtils.message(pageContext,
                                               Globals.MESSAGES_KEY,
                                               locale.getDisplayName(),

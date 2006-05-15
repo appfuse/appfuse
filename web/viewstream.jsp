@@ -28,6 +28,7 @@ if (stream == null)
 
 <title><fmt:message key="viewstream.title"/></title>
 <content tag="heading"><fmt:message key="viewstream.heading"/></content>
+<meta name="menu" content="AdminMenu"/>
 
 <div style="float: right"><a href="clickstreams.jsp">All streams</a></div>
 
