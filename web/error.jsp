@@ -1,23 +1,15 @@
 <%@ page language="java" isErrorPage="true" %>
-<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
-<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
-<%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic" %>
+<%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page"%>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic" %>
+<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<page:applyDecorator name="default">
 
-<!-- I do not integrate this page as a tile, but rather as a standalone-page -->
-<html>
-<head>
     <title><fmt:message key="errorPage.title"/></title>
-    <link rel="stylesheet" type="text/css" media="all" href="<c:url value="/styles/default.css"/>" /> 
-</head>
 
-<body>
-<div id="screen">
-    <div id="content">
     <h1><fmt:message key="errorPage.heading"/></h1>
     <%-- Error Messages --%>
     <logic:messagesPresent>
@@ -45,6 +37,4 @@
         <fmt:message key="errors.none"/>
     </c:if>
  <% } %>
-    </div>
-</body>
-</html>
+</page:applyDecorator>

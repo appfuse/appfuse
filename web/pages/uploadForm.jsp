@@ -35,7 +35,7 @@
 </html:form>
 
 <script type="text/javascript">
-    Form.focusFirstElement(document.getElementById('uploadForm'));
+    Form.focusFirstElement($('uploadForm'));
     highlightFormElements();
 </script>
 <html:javascript formName="uploadForm" cdata="false" dynamicJavascript="true" staticJavascript="false"/>

@@ -118,7 +118,7 @@
 </html:form>
 
 <script type="text/javascript">
-    Form.focusFirstElement(document.forms['userForm']);
+    Form.focusFirstElement($('userForm'));
 </script>
 <html:javascript formName="userForm" cdata="false" dynamicJavascript="true" staticJavascript="false"/>
 <script type="text/javascript" src="<c:url value="/scripts/validator.jsp"/>"></script>

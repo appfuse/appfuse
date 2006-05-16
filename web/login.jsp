@@ -8,9 +8,6 @@
 </head>
 <body id="login"/>
 
-<%--jsp:include page="/loginMenu.jsp"/--%>
-<%--p><fmt:message key="welcome.message"/></p--%>
-
 <%-- Include the login form --%>
 <jsp:include page="/WEB-INF/pages/loginForm.jsp"/>
 
