@@ -12,7 +12,6 @@
 
         <script type="text/javascript" src="<c:url value='/scripts/prototype.js'/>"></script>
         <script type="text/javascript" src="<c:url value='/scripts/scriptaculous.js'/>"></script>
-        <%--<script type="text/javascript" src="<c:url value='/scripts/Tooltip.js'/>"></script>--%>
         <script type="text/javascript" src="<c:url value='/scripts/global.js'/>"></script>
         <decorator:head/>
     </head>
