@@ -13,14 +13,14 @@
         <li>
       #end
       #if ($menu.name == $currentMenu)
-        <strong><a href="$url" title="$title" #if($menu.target)target="$menu.target"#end>${title}</a></strong>
+        <strong><a href="$url" title="$title" #if($menu.target)target="$menu.target"#end#if($menu.width)style="width: ${menu.width}px"#end>${title}</a></strong>
       #else
-        <a href="$url" title="$title" #if($menu.target)target="$menu.target"#end>${title}</a>
+        <a href="$url" title="$title" #if($menu.target)target="$menu.target"#end#if($menu.width)style="width: ${menu.width}px"#end>${title}</a>
       #end
   #else ## create multiple menu items in a menu
 	  <li class="menubar">
         #if ($menu.name == $currentMenu)<strong>#end
-        <a href="$url" title="$title" #if($menu.target)target="$menu.target"#end>${title}</a>
+        <a href="$url" title="$title" #if($menu.target)target="$menu.target"#end#if($menu.width)style="width: ${menu.width}px"#end>${title}</a>
         #if ($menu.name == $currentMenu)</strong>#end
   #end
 

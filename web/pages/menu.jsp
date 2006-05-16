@@ -24,4 +24,5 @@ function IEHoverPseudo() {
         }
     }
 }
+window.onload = IEHoverPseudo;
 </script>

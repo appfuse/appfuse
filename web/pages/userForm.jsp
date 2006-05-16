@@ -207,7 +207,7 @@
 </html:form>
 
 <script type="text/javascript">
-    Form.focusFirstElement(document.forms["userForm"]);
+    Form.focusFirstElement($('userForm'));
     highlightFormElements();
 
     function passwordChanged(passwordField) {

@@ -5,7 +5,7 @@
 
   #if (!$menu.parent) <h2>$title</h2> #end
 
-  <ul>
+  <ul id="local">
   #foreach ($menuItem in $menu.components)
       #set ($title = $displayer.getMessage($menuItem.title))
       <li><a href="$menuItem.url" title="$title" #if($menuItem.target)target="$menuItem.target"#end>${title}</a>

@@ -51,7 +51,7 @@ span.pagelinks {
 	width: 80%;
 }
 
-th.sorted a, th.sor.table a {
+th.sorted a, th.sortable a {
 	background-position: right;
 	display: block;
 }
@@ -106,4 +106,8 @@ th.sorted a, th.sor.table a {
 
 .table.activeUserList, body#activeUsers span.pagelinks {
     width: 450px !important;
+}
+
+.detail th {
+    text-align: right;
 }

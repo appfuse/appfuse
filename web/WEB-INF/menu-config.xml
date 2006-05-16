@@ -6,8 +6,8 @@
     <Menus>
         <Menu name="MainMenu" title="mainMenu.title" page="/mainMenu.html"/>
         <Menu name="UserMenu" title="menu.user" description="User Menu" forward="editProfile" roles="admin,user"/>
-        <Menu name="FileUpload" title="menu.selectFile" description="File Upload" forward="selectFile" roles="admin,user"/>
-        <Menu name="AdminMenu" title="menu.admin" description="Admin Menu" roles="admin" forward="viewUsers">
+        <Menu name="FileUpload" title="menu.selectFile" description="File Upload" width="100" forward="selectFile" roles="admin,user"/>
+        <Menu name="AdminMenu" title="menu.admin" description="Admin Menu" roles="admin" width="120" forward="viewUsers">
             <Item name="ViewUsers" title="menu.admin.users" forward="viewUsers"/>
             <Item name="ActiveUsers" title="mainMenu.activeUsers" action="activeUsers"/>
             <Item name="ReloadContext" title="menu.admin.reload" action="reload"/>

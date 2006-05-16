@@ -19,11 +19,15 @@
     }
     div#sub {
         float: right;
-        width: 150px;
+        width: 120px;
         display: inline;
     }
-    div#local {
-    }
+        div#sub ul#local li a {
+            margin-left: 40px;
+        }
+        div#sub ul#local>li a {
+            margin-left: -5px !important;
+        }
     div#nav {
         position: absolute;
         top: -25px;
