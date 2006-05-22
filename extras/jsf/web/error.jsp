@@ -1,19 +1,13 @@
 <%@ page language="java" isErrorPage="true" %>
+<%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page"%>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<page:applyDecorator name="default">
 
-<html>
-<head>
-    <title><fmt:message key="errorPage.title"/></title>
-    <link rel="stylesheet" type="text/css" media="all" href="<c:url value="/styles/default.css"/>" /> 
-</head>
-
-<body>
-<div id="screen">
-    <div id="content">
+	<title><fmt:message key="errorPage.title"/></title>
+	
     <h1><fmt:message key="errorPage.heading"/></h1>
     <%@ include file="/common/messages.jsp" %>
  <% if (exception != null) { %>
@@ -22,6 +16,4 @@
     <pre><% ((Exception)request.getAttribute("javax.servlet.error.exception"))
                            .printStackTrace(new java.io.PrintWriter(out)); %></pre>
  <% } %>
-    </div>
-</body>
-</html>
+</page:applyDecorator>

@@ -246,6 +246,8 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
             mergedir="metadata/web">
             <fileset dir="src/dao"/>
 
+            <configParam name="basePackageName" value="org.appfuse"/>
+
             <!-- generate struts forms -->
             <actionform templateFile="metadata/templates/struts_form.xdt">
                 <packageSubstitution packages="model" substituteWith="webapp.form"/>

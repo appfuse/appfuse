@@ -5,6 +5,7 @@ import org.apache.tapestry.engine.ILink;
 import org.apache.tapestry.event.PageEvent;
 import org.apache.tapestry.event.PageBeginRenderListener;
 
+import <XDtConfig:configParameterValue paramName="basePackageName"/>.webapp.action.BasePage;
 import <XDtPackage:packageName/>.<XDtForm:className/>;
 import <XDtForm:parentPackageName/>.service.Manager;
 

@@ -4,9 +4,6 @@
 <content tag="heading"><fmt:message key="login.heading"/></content>
 <body id="login"/>
 
-<%--jsp:include page="/loginMenu.jsp"/--%>
-<%--p><fmt:message key="welcome.message"/></p--%>
-
 <%-- Include the login form --%>
 <jsp:include page="/loginForm.jsp"/>
 

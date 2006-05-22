@@ -8,9 +8,9 @@
 
 <div class="separator"></div>
 
-<button type="button" onclick="location.href='mainMenu.html'">
+<input type="button" onclick="location.href='mainMenu.html'">
     <fmt:message key="button.done"/>
-</button>
+</input>
 
 <f:view>
 

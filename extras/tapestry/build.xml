@@ -221,25 +221,25 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
         <replace file="../appgen/build.xml">
             <replacetoken><![CDATA[<!-- Make first character of JSP filenames lowercase -->
         <move file="${build.dir}/${gen.dir}/web/pages/${model.name}ListTemp.jsp"
-            tofile="${build.dir}/${gen.dir}/web/pages/${model.name.lowercase}List.jsp"/>
+            tofile="${build.dir}/${gen.dir}/web/pages/${app.module.slash.after}${model.name.lowercase}List.jsp"/>
         <move file="${build.dir}/${gen.dir}/web/pages/${model.name}FormTemp.jsp"
-            tofile="${build.dir}/${gen.dir}/web/pages/${model.name.lowercase}Form.jsp"/>]]></replacetoken>
+            tofile="${build.dir}/${gen.dir}/web/pages/${app.module.slash.after}${model.name.lowercase}Form.jsp"/>]]></replacetoken>
             <replacevalue><![CDATA[<!-- Make first character of HTML filenames lowercase -->
         <move file="${build.dir}/${gen.dir}/web/pages/${model.name}ListTemp.html"
-            tofile="${build.dir}/${gen.dir}/web/pages/${model.name.lowercase}s.html"/>
+            tofile="${build.dir}/${gen.dir}/web/pages/${app.module.slash.after}${model.name.lowercase}s.html"/>
         <move file="${build.dir}/${gen.dir}/web/pages/${model.name}FormTemp.html"
-            tofile="${build.dir}/${gen.dir}/web/pages/${model.name.lowercase}Form.html"/>
+            tofile="${build.dir}/${gen.dir}/web/pages/${app.module.slash.after}${model.name.lowercase}Form.html"/>
             
         <!-- Make first character of .page filenames lowercase -->
         <move file="${build.dir}/${gen.dir}/web/pages/${model.name}ListTemp.page"
-            tofile="${build.dir}/${gen.dir}/web/pages/${model.name.lowercase}s.page"/>
+            tofile="${build.dir}/${gen.dir}/web/pages/${app.module.slash.after}${model.name.lowercase}s.page"/>
         <move file="${build.dir}/${gen.dir}/web/pages/${model.name}FormTemp.page"
-            tofile="${build.dir}/${gen.dir}/web/pages/${model.name.lowercase}Form.page"/>
+            tofile="${build.dir}/${gen.dir}/web/pages/${app.module.slash.after}${model.name.lowercase}Form.page"/>
             
         <move file="${build.dir}/${gen.dir}/generic/web/pages/${model.name}ListTemp.page"
-            tofile="${build.dir}/${gen.dir}/generic/web/pages/${model.name.lowercase}s.page"/>
+            tofile="${build.dir}/${gen.dir}/generic/web/pages/${app.module.slash.after}${model.name.lowercase}s.page"/>
         <move file="${build.dir}/${gen.dir}/generic/web/pages/${model.name}FormTemp.page"
-            tofile="${build.dir}/${gen.dir}/generic/web/pages/${model.name.lowercase}Form.page"/>]]></replacevalue>
+            tofile="${build.dir}/${gen.dir}/generic/web/pages/${app.module.slash.after}${model.name.lowercase}Form.page"/>]]></replacevalue>
         </replace>
 
         <!-- Modify XML to modify tapestry.application -->
@@ -398,6 +398,8 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
             addedtags="@xdoclet-generated at ${TODAY}" force="${xdoclet.force}" 
             mergedir="metadata/web">
             <fileset dir="src/dao"/>
+
+            <configParam name="basePackageName" value="org.appfuse"/>
 
             <!-- generate struts forms -->
             <actionform templateFile="metadata/templates/struts_form.xdt">

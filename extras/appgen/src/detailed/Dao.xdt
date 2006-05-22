@@ -4,6 +4,7 @@ package <XDtForm:parentPackageName/>.dao;
 
 import java.util.List;
 
+import <XDtConfig:configParameterValue paramName="basePackageName"/>.dao.Dao;
 import <XDtPackage:packageName/>.<XDtClass:className/>;
 
 public interface <XDtClass:className/>Dao extends Dao {

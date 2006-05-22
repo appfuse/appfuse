@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.tapestry.IRequestCycle;
 
+import <XDtConfig:configParameterValue paramName="basePackageName"/>.webapp.action.BasePage;
 import <XDtPackage:packageName/>.<XDtForm:className/>;
 import <XDtForm:parentPackageName/>.service.Manager;
 

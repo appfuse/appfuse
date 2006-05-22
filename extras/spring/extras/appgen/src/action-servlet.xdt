@@ -3,7 +3,7 @@
 
     <bean id="<XDtForm:classNameLower/>FormController" class="<XDtForm:parentPackageName/>.webapp.action.<XDtForm:className/>FormController" autowire="byName">
         <property name="validator" ref="beanValidator"/>
-        <property name="formView" value="<XDtForm:classNameLower/>Form"/>
+        <property name="formView" value="<XDtConfig:configParameterValue paramName="appModuleNameSlash"/><XDtForm:classNameLower/>Form"/>
         <property name="successView" value="redirect:<XDtForm:classNameLower/>s.html"/>
     </bean>
     <!--<XDtForm:className/>-BEAN-END-->

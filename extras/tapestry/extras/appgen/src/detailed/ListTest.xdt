@@ -1,6 +1,9 @@
 <XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>package <XDtForm:parentPackageName/>.webapp.action;
 
 import org.apache.tapestry.engine.RequestCycle;
+
+import <XDtConfig:configParameterValue paramName="basePackageName"/>.webapp.action.BasePageTestCase;
+import <XDtConfig:configParameterValue paramName="basePackageName"/>.webapp.action.MockRequestCycle;
 import <XDtForm:parentPackageName/>.service.<XDtForm:className/>Manager;
 import <XDtPackage:packageName/>.<XDtForm:className/>;
 

@@ -36,7 +36,7 @@
         <td class="buttonBar">
             <input type="button" name="done" id="done" value="Done"
                 onclick="location.href='mainMenu.html'" />
-            <input type="button" name="done" id="done" value="Upload Another"
+            <input type="button" name="done" value="Upload Another"
                 onclick="location.href='selectFile.html'" />
         </td>
     </tr>

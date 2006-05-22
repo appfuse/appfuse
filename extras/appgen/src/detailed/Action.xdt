@@ -10,7 +10,8 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 
-import <XDtForm:parentPackageName/>.Constants;
+import <XDtConfig:configParameterValue paramName="basePackageName"/>.webapp.action.BaseAction;
+import <XDtConfig:configParameterValue paramName="basePackageName"/>.Constants;
 import <XDtPackage:packageName/>.<XDtForm:className/>;
 import <XDtForm:parentPackageName/>.service.<XDtForm:className/>Manager;
 import <XDtForm:parentPackageName/>.webapp.form.<XDtForm:className/>Form;
@@ -25,8 +26,8 @@ import <XDtForm:parentPackageName/>.webapp.form.<XDtForm:className/>Form;
  * @struts.action name="<XDtForm:classNameLower/>Form" path="/save<XDtForm:className/>" scope="request"
  *  validate="true" parameter="method" input="edit"
  * 
- * @struts.action-forward name="edit" path="/WEB-INF/pages/<XDtForm:classNameLower/>Form.jsp"
- * @struts.action-forward name="list" path="/WEB-INF/pages/<XDtForm:classNameLower/>List.jsp"
+ * @struts.action-forward name="edit" path="/WEB-INF/pages/<XDtConfig:configParameterValue paramName="appModuleNameSlash"/><XDtForm:classNameLower/>Form.jsp"
+ * @struts.action-forward name="list" path="/WEB-INF/pages/<XDtConfig:configParameterValue paramName="appModuleNameSlash"/><XDtForm:classNameLower/>List.jsp"
  * @struts.action-forward name="search" path="/<XDtForm:classNameLower/>s.html" redirect="true"
  */
 public final class <XDtForm:className/>Action extends BaseAction {

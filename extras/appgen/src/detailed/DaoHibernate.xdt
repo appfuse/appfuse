@@ -4,6 +4,7 @@ package <XDtForm:parentPackageName/>.dao.hibernate;
 
 import java.util.List;
 
+import <XDtConfig:configParameterValue paramName="basePackageName"/>.dao.hibernate.BaseDaoHibernate;
 import <XDtPackage:packageName/>.<XDtForm:className/>;
 import <XDtForm:parentPackageName/>.dao.<XDtForm:className/>Dao;
 

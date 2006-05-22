@@ -3,7 +3,7 @@
     "-//Apache Software Foundation//Tapestry Specification 4.0//EN"
     "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
 
-<page-specification class="org.appfuse.webapp.action.<XDtForm:className/>List">
+<page-specification class="<XDtPackage:packageName/>.webapp.action.<XDtForm:className/>List">
     <inject property="manager" type="spring" object="manager"/>
 
     <property name="message" persist="flash"/>

@@ -4,6 +4,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
 
 import com.opensymphony.webwork.ServletActionContext;
 
+import <XDtConfig:configParameterValue paramName="basePackageName"/>.webapp.action.BaseActionTestCase;
 import <XDtPackage:packageName/>.<XDtForm:className/>;
 
 public class <XDtForm:className/>ActionTest extends BaseActionTestCase {

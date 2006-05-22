@@ -21,8 +21,13 @@ following steps:
    already exist in your "model" package. If you choose table, Middlegen will be
    used to create a POJO from an existing database table. This generates all the
    files you create to test and perform CRUD on an object.
+   
+3. Finally, you will be asked to enter an application module or sub-package 
+   name. This is an optional feature that will allow you to organize your 
+   classes into sub-packages. For example, for a POJO "model" package of
+   "org.appfuse.foo.model", just enter foo when prompted.
 
-3. To install the generated files, run "ant install". You can run "ant install 
+4. To install the generated files, run "ant install". You can run "ant install 
    -Dappgen.type=pojo -Dobject.name=person" if you want to do everything in one
    fell swoop.
    

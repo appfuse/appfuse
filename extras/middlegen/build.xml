@@ -16,13 +16,20 @@
     <property name="class.base" value="org.appfuse"/>
     <property name="class.module" value=""/>
     <property name="extends.module" value=""/>
-    <property name="class.package" value="${class.base}${class.module}.model"/>
     <property name="class.extends" value="${class.base}${extends.module}.model.BaseObject"/>
     <property name="gen.base.methods" value="true"/>
     <property name="gen.xdoclet-tag" value="true"/>
     <property name="middlegen.gui" value="false"/>
     <property name="middlegen.lib.dir" value="lib/middlegen-2.1"/>
     <property name="middlegen.dest.dir" value="src"/>
+
+	<!-- Update the class.package if we have a class.module -->
+   	<condition property="class.package" value="${class.base}.model">
+        <equals arg1="${class.module}" arg2="" trim="true"/>
+   	</condition>
+   	<condition property="class.package" value="${class.base}.${class.module}.model">
+     	<not><equals arg1="${class.module}" arg2="" trim="true"/></not>
+   	</condition>
 
     <path id="lib.class.path">
         <path refid="hibernate.classpath"/>

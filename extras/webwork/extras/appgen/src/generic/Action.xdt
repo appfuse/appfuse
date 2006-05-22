@@ -2,6 +2,7 @@
 
 import java.util.List;
 
+import <XDtConfig:configParameterValue paramName="basePackageName"/>.webapp.action.BaseAction;
 import <XDtPackage:packageName/>.<XDtForm:className/>;
 import <XDtForm:parentPackageName/>.service.Manager;
 

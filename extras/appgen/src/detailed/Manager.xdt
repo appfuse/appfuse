@@ -4,6 +4,7 @@ package <XDtForm:parentPackageName/>.service;
 
 import java.util.List;
 
+import <XDtConfig:configParameterValue paramName="basePackageName"/>.service.Manager;
 import <XDtPackage:packageName/>.<XDtForm:className/>;
 import <XDtForm:parentPackageName/>.dao.<XDtForm:className/>Dao;
 
