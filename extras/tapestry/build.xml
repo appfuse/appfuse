@@ -482,12 +482,34 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
     <property name="db.name" value="appfuse"/>   
     <property name="new.pkg.name" value="org.appfuse"/>
     <!-- =================================================================== -->
+    <!-- Creates new project, installs Spring MVC and deploys                -->
+    <!-- =================================================================== -->
+    <target name="deploy" description="Creates appfuse-tapestry and deploys">
+        <property name="app.name" value="appfuse-tapestry"/>
+        <delete dir="../../../${app.name}"/>
+        <ant dir="../.." target="new" inheritAll="false">
+            <property name="app.name" value="${app.name}"/>
+            <property name="db.name" value="${db.name}"/>
+            <property name="new.pkg.name" value="${new.pkg.name}"/>
+            <property name="web.framework" value="${web.framework}"/>
+        </ant>
+
+        <!-- New project created, install Tapestry and run tests -->
+        <ant dir="../../../${app.name}" target="deploy" inheritAll="false"/>
+    </target>
+
+    <!-- =================================================================== -->
     <!-- Creates new project, installs Tapestry and runs tests                -->
     <!-- =================================================================== -->
     <target name="test" description="Creates appfuse-tapestry and runs tests">
         <property name="app.name" value="appfuse-tapestry"/>
         <delete dir="../../../${app.name}"/>
-        <ant dir="../.." target="new"/>
+        <ant dir="../.." target="new" inheritAll="false">
+            <property name="app.name" value="${app.name}"/>
+            <property name="db.name" value="${db.name}"/>
+            <property name="new.pkg.name" value="${new.pkg.name}"/>
+            <property name="web.framework" value="${web.framework}"/>
+        </ant>
 
         <!-- New project created, run tests -->
         <ant dir="../../../${app.name}" target="setup-db" inheritAll="false"/>
@@ -500,7 +522,12 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
     <target name="test-ibatis" description="Creates appfuse-tapestry-ibatis and runs tests">
         <property name="app.name" value="appfuse-tibatis"/>
         <delete dir="../../../${app.name}"/>
-        <ant dir="../.." target="new"/>
+        <ant dir="../.." target="new" inheritAll="false">
+            <property name="app.name" value="${app.name}"/>
+            <property name="db.name" value="${db.name}"/>
+            <property name="new.pkg.name" value="${new.pkg.name}"/>
+            <property name="web.framework" value="${web.framework}"/>
+        </ant>
 
         <!-- New project created, install Tapestry and run tests -->
         <ant dir="../../../${app.name}/extras/ibatis" target="install" inheritAll="false"/>
@@ -516,7 +543,12 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
     <target name="test-appgen" description="Creates appfuse-tapgen and tests appgen">
         <property name="app.name" value="appfuse-tapgen"/>
         <delete dir="../../../${app.name}"/>
-        <ant dir="../.." target="new"/>
+        <ant dir="../.." target="new" inheritAll="false">
+            <property name="app.name" value="${app.name}"/>
+            <property name="db.name" value="${db.name}"/>
+            <property name="new.pkg.name" value="${new.pkg.name}"/>
+            <property name="web.framework" value="${web.framework}"/>
+        </ant>
 
         <!-- Gen code and run tests -->
         <ant dir="../../../${app.name}/extras/appgen" target="test-all" inheritAll="false">

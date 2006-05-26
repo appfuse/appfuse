@@ -13,5 +13,5 @@
     <fmt:message key="flushCache.message"/></p>
 </div>
 <script type="text/javascript">
-window.setTimeout("history.back()", 2000);
+    window.setTimeout("history.back()", 2000);
 </script>

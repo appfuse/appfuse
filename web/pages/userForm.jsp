@@ -153,9 +153,7 @@
     <c:when test="${param.from == 'list' or param.method == 'Add'}">
     <li>
         <fieldset>
-            <legend>
-                <fmt:message key="userProfile.accountSettings"/>
-            </legend>
+            <legend><fmt:message key="userProfile.accountSettings"/></legend>
             <html:checkbox styleClass="checkbox" property="enabled" styleId="enabled"/>
             <label for="enabled" class="choice"><fmt:message key="userForm.enabled"/></label>
 
@@ -171,9 +169,7 @@
     </li>
     <li>
         <fieldset>
-            <legend>
-                <fmt:message key="userProfile.assignRoles"/>
-            </legend>
+            <legend><fmt:message key="userProfile.assignRoles"/></legend>
             <c:forEach var="role" items="${availableRoles}">
                 <html-el:multibox styleClass="checkbox" property="userRoles" styleId="${role.label}">
                     <c:out value="${role.value}"/>
@@ -193,10 +189,10 @@
             <c:out value="${role.name}"/><c:if test="${!status.last}">,</c:if>
             <input type="hidden" name="userRoles" value="<c:out value="${role.name}"/>"/>
         </c:forEach>
-            <html:hidden property="enabled"/>
-            <html:hidden property="accountExpired"/>
-            <html:hidden property="accountLocked"/>
-            <html:hidden property="credentialsExpired"/>
+        <html:hidden property="enabled"/>
+        <html:hidden property="accountExpired"/>
+        <html:hidden property="accountLocked"/>
+        <html:hidden property="credentialsExpired"/>
     </li>
     </c:when>
 </c:choose>

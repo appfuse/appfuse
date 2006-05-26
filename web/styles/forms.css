@@ -15,6 +15,25 @@ form ul {
     padding: 0px;
 }
 
+/* Fixes for forms around everything in JSF */
+form ul.glassList{
+    list-style: url(../images/aquadot.jpg) disc outside;
+    vertical-align: top;
+    line-height: 1.2em;
+    margin-left: 40px;
+}
+
+form ul.glassList li {
+    line-height: 1.1em;
+    font-size: 1.1em;
+    padding: 2px 0px 3px 0px;
+}
+
+form .pagebanner, form .exportlinks, form .table {
+    font-size: 1.1em;
+}
+/* End of JSF fixes */
+
 form li {
     line-height: 2em;
     margin: 0;
@@ -31,12 +50,12 @@ form li p {
     color: #444;
 }
 
-form li {
-    display: inline-block;
-}
-
 form[id] li {
     display: block;
+}
+
+form[id] ul.glassList li {
+    display: list-item;
 }
 
 form li div {
@@ -51,7 +70,7 @@ form li div.group {
 }
 
 form li div.group input.large, form li div.group textarea.large, form li fieldset {
-    width: 340px;
+    width: 334px;
 }
 
 form[id] li div {
@@ -230,7 +249,7 @@ form .medium{
 }
 
 form .large, form textarea.textarea{
-    width: 350px;
+    width: 344px;
 }
 
 form .tags{
@@ -366,13 +385,13 @@ body#login #main {
 }
 
 body#login #main h1 {
-    margin-left: -320px;
+    margin-left: -330px;
 }
 
 #loginForm fieldset {
     width: 300px;
     padding: 10px 30px;
-    margin: 0 0 10px 100px;
+    margin: 0px auto;
 }
 
 #loginForm li {

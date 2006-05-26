@@ -64,16 +64,16 @@ th.sorted a, th.sortable a {
 	background-image: url(../images/arrow_up.png) !important;
 }
 
-.table th.sor.table a {
+/*.table th.sortable a {
     background-image: url(../images/arrow_off.png);
-}
+}*/
 
 .table th.sorted {
 	background-color: #ffd;
 	color: #000000;
 }
 
-.table th.sorted a, .table th.sor.table a {
+.table th.sorted a, .table th.sortable a {
 	background-position: right;
 	background-repeat: no-repeat;
 	display: block;
@@ -95,17 +95,20 @@ th.sorted a, th.sortable a {
 	color: #000000;
 }
 
+.contribTable tr.even {
+    background: #fff !important;
+}
+
+.contribTable tr.odd {
+    background: #eee !important;
+}
+
 /* highlight .table row onmouseover */
 .table tr.over {
 	border-bottom: 1px solid #C0C0C0;
 	border-top: 1px solid #C0C0C0;
 	color: #000000;
 	cursor: pointer;
-	cursor: hand; /* IE 5.5 non-compliant workaround */
-}
-
-.table.activeUserList, body#activeUsers span.pagelinks {
-    width: 450px !important;
 }
 
 .detail th {

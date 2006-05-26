@@ -317,12 +317,34 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
     <property name="db.name" value="appfuse"/>
     <property name="new.pkg.name" value="org.appfuse"/>
     <!-- =================================================================== -->
+    <!-- Creates new project, installs Spring MVC and deploys                -->
+    <!-- =================================================================== -->
+    <target name="deploy" description="Creates appfuse-spring and deploys">
+        <property name="app.name" value="appfuse-spring"/>
+        <delete dir="../../../${app.name}"/>
+        <ant dir="../.." target="new" inheritAll="false">
+            <property name="app.name" value="${app.name}"/>
+            <property name="db.name" value="${db.name}"/>
+            <property name="new.pkg.name" value="${new.pkg.name}"/>
+            <property name="web.framework" value="${web.framework}"/>
+        </ant>
+
+        <!-- New project created, install JSF and run tests -->
+        <ant dir="../../../${app.name}" target="deploy" inheritAll="false"/>
+    </target>
+
+    <!-- =================================================================== -->
     <!-- Creates new project, installs Spring MVC and runs tests             -->
     <!-- =================================================================== -->
     <target name="test" description="Creates appfuse-spring and runs tests">
         <property name="app.name" value="appfuse-spring"/>
         <delete dir="../../../${app.name}"/>
-        <ant dir="../.." target="new"/>
+        <ant dir="../.." target="new" inheritAll="false">
+            <property name="app.name" value="${app.name}"/>
+            <property name="db.name" value="${db.name}"/>
+            <property name="new.pkg.name" value="${new.pkg.name}"/>
+            <property name="web.framework" value="${web.framework}"/>
+        </ant>
 
         <ant dir="../../../${app.name}" target="setup-db" inheritAll="false"/>
         <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
@@ -334,7 +356,12 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
     <target name="test-ibatis" description="Creates appfuse-sibatis and runs tests">
         <property name="app.name" value="appfuse-sibatis"/>
         <delete dir="../../../${app.name}"/>
-        <ant dir="../.." target="new"/>
+        <ant dir="../.." target="new" inheritAll="false">
+            <property name="app.name" value="${app.name}"/>
+            <property name="db.name" value="${db.name}"/>
+            <property name="new.pkg.name" value="${new.pkg.name}"/>
+            <property name="web.framework" value="${web.framework}"/>
+        </ant>
 
         <!-- New project created, install Spring MVC and run tests -->
         <ant dir="../../../${app.name}/extras/ibatis" target="install" inheritAll="false"/>
@@ -349,7 +376,12 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
     <target name="test-appgen" description="Creates appfuse-spring and tests appgen">
         <property name="app.name" value="appfuse-springen"/>
         <delete dir="../../../${app.name}"/>
-        <ant dir="../.." target="new"/>
+        <ant dir="../.." target="new" inheritAll="false">
+            <property name="app.name" value="${app.name}"/>
+            <property name="db.name" value="${db.name}"/>
+            <property name="new.pkg.name" value="${new.pkg.name}"/>
+            <property name="web.framework" value="${web.framework}"/>
+        </ant>
 
         <!-- Gen code and run tests -->
         <ant dir="../../../${app.name}/extras/appgen" target="test-all" inheritAll="false">
@@ -359,8 +391,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         </ant>   
     </target>
     
-    <target name="test-all" depends="test" 
-        description="Tests Spring MVC with Hibernate, iBATIS and AppGen">
+    <target name="test-all" depends="test" description="Tests Spring MVC with Hibernate, iBATIS and AppGen">
         <antcall target="test-ibatis" inheritAll="false"/>
         <antcall target="test-appgen" inheritAll="false"/>
     </target>

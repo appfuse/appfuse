@@ -1,14 +1,19 @@
-<title><span jwcid="@Insert" value="message:userList.title"/></title>
-<content tag="heading"><span key="userList.heading"/></content>
+<head>
+    <title><span jwcid="@Insert" value="message:userList.title"/></title>
+    <content tag="heading"><span key="userList.heading"/></content>
+    <meta name="menu" content="AdminMenu"/>
+</head>
 
 <span jwcid="@ShowMessage"/>
 
-<button class="button" onclick="location.href='userForm.html'"><span key="button.add"/></button>
-<button class="button" onclick="location.href='mainMenu.html'"><span key="button.done"/></button>
+<p>
+    <input type="button" class="button" onclick="location.href='userForm.html'" jwcid="@Any" value="message:button.add"/>
+    <input type="button" class="button" onclick="location.href='mainMenu.html'" jwcid="@Any" value="message:button.done"/>
+</p>
 
-<table jwcid="table@contrib:Table" class="list userList" id="userList"
+<table jwcid="table@contrib:Table" class="table contribTable" id="userList"
     rowsClass="ognl:beans.evenOdd.next" row="ognl:row" 
-    columns="user.username:username, user.firstName:firstName, user.lastName:lastName, user.email:email, user.enabled:enabled" 
+    columns="user.username:username, activeUsers.fullName:fullName, user.email:email, user.enabled:enabled"
     source="ognl:users" initialSortColumn="username"
     arrowUpAsset="ognl:assets.upArrow" arrowDownAsset="ognl:assets.downArrow">
     <tr jwcid="user_usernameColumnValue@Block">
@@ -27,9 +32,9 @@
     </tr>
 </table>
 
-<button class="button" onclick="location.href='userForm.html'"><span key="button.add"/></button>
-<button class="button" onclick="location.href='mainMenu.html'"><span key="button.done"/></button>
+<input type="button" class="button" onclick="location.href='userForm.html'" jwcid="@Any" value="message:button.add"/>
+<input type="button" class="button" onclick="location.href='mainMenu.html'" jwcid="@Any" value="message:button.done"/>
 
 <script type="text/javascript">
-highlightTableRows("userList");
+    highlightTableRows("userList");
 </script>

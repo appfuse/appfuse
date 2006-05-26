@@ -16,13 +16,13 @@
 <XDtForm:forAllFields>
 <XDtForm:ifIsNotIdOrVersionField>
 
-    <h:outputLabel for="<XDtForm:fieldName/>" value="#{text['<XDtForm:classNameLower/>.<XDtForm:fieldName/>']}"/>
+    <h:outputLabel styleClass="desc" for="<XDtForm:fieldName/>" value="#{text['<XDtForm:classNameLower/>.<XDtForm:fieldName/>']}"/>
 
   <XDtForm:ifIsBooleanField>
-    <h:selectBooleanCheckbox id="<XDtForm:fieldName/>" value="#{<XDtForm:classNameLower/>Form.<XDtForm:classNameLower/>.<XDtForm:fieldName/>}"/>
+    <h:selectBooleanCheckbox styleClass="checkbox" id="<XDtForm:fieldName/>" value="#{<XDtForm:classNameLower/>Form.<XDtForm:classNameLower/>.<XDtForm:fieldName/>}"/>
   </XDtForm:ifIsBooleanField>
   <XDtForm:ifIsNotBooleanField>
-    <h:inputText id="<XDtForm:fieldName/>" value="#{<XDtForm:classNameLower/>Form.<XDtForm:classNameLower/>.<XDtForm:fieldName/>}" required="true">
+    <h:inputText styleClass="text medium" id="<XDtForm:fieldName/>" value="#{<XDtForm:classNameLower/>Form.<XDtForm:classNameLower/>.<XDtForm:fieldName/>}" required="true">
         <v:commonsValidator type="required" arg="#{text['<XDtForm:classNameLower/>.<XDtForm:fieldName/>']}"/>
     </h:inputText>
   </XDtForm:ifIsNotBooleanField>

@@ -7,6 +7,11 @@
 
     <!-- precompiled jsp mappings -->
 
+    <!-- Define the default CSS Theme -->
+    <context-param>
+        <param-name>theme</param-name>
+        <param-value>simplicity</param-value>
+    </context-param>
     <!-- Define the basename for a resource bundle for I18N -->
     <context-param>
         <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>

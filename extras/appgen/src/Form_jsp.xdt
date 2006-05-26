@@ -3,8 +3,7 @@
 <title><fmt:message key="<XDtForm:classNameLower/>Detail.title"/></title>
 <content tag="heading"><fmt:message key="<XDtForm:classNameLower/>Detail.heading"/></content>
 
-<html:form action="save<XDtForm:className/>" method="post" styleId="<XDtForm:classNameLower/>Form"
-    focus="" onsubmit="return validate<XDtForm:className/>Form(this)">
+<html:form action="save<XDtForm:className/>" method="post" styleId="<XDtForm:classNameLower/>Form" onsubmit="return validate<XDtForm:className/>Form(this)">
 <ul>
 <XDtForm:forAllFields>
 <XDtForm:ifIsIdOrVersionField>
@@ -12,7 +11,7 @@
 </XDtForm:ifIsIdOrVersionField>
 <XDtForm:ifIsNotIdOrVersionField>    
     <li>
-        <appfuse:label key="<XDtForm:classNameLower/>Form.<XDtForm:fieldName/>"/>
+        <appfuse:label styleClass="desc" key="<XDtForm:classNameLower/>Form.<XDtForm:fieldName/>"/>
         <html:errors property="<XDtForm:fieldName/>"/>
     <XDtForm:ifIsBooleanField>
         <html:checkbox property="<XDtForm:fieldName/>" styleId="<XDtForm:fieldName/>" styleClass="checkbox"/>
@@ -25,18 +24,17 @@
 </XDtForm:ifIsNotIdOrVersionField>
 </XDtForm:forAllFields>
     <li class="buttonBar bottom">
-            <html:submit styleClass="button" property="method.save" onclick="bCancel=false">
-                <fmt:message key="button.save"/>
-            </html:submit>
+        <html:submit styleClass="button" property="method.save" onclick="bCancel=false">
+            <fmt:message key="button.save"/>
+        </html:submit>
 
-            <html:submit styleClass="button" property="method.delete"
-                onclick="bCancel=true; return confirmDelete('<XDtForm:className/>')">
-                <fmt:message key="button.delete"/>
-            </html:submit>
+        <html:submit styleClass="button" property="method.delete" onclick="bCancel=true; return confirmDelete('<XDtForm:className/>')">
+            <fmt:message key="button.delete"/>
+        </html:submit>
 
-            <html:cancel styleClass="button" onclick="bCancel=true">
-                <fmt:message key="button.cancel"/>
-            </html:cancel>
+        <html:cancel styleClass="button" onclick="bCancel=true">
+            <fmt:message key="button.cancel"/>
+        </html:cancel>
     </li>
 </ul>
 </html:form>

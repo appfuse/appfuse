@@ -365,6 +365,23 @@ log4j.logger.org.apache.myfaces=WARN</replacevalue>
     <property name="db.name" value="appfuse"/>
     <property name="new.pkg.name" value="org.appfuse"/>
     <!-- =================================================================== -->
+    <!-- Creates new project, installs JSF and deploys                       -->
+    <!-- =================================================================== -->
+    <target name="deploy" description="Creates appfuse-jsf and deploys">
+        <property name="app.name" value="appfuse-jsf"/> 
+        <delete dir="../../../${app.name}"/>
+        <ant dir="../.." target="new" inheritAll="false">
+            <property name="app.name" value="${app.name}"/>
+            <property name="db.name" value="${db.name}"/>
+            <property name="new.pkg.name" value="${new.pkg.name}"/>
+            <property name="web.framework" value="${web.framework}"/>
+        </ant>
+
+        <!-- New project created, install JSF and run tests -->
+        <ant dir="../../../${app.name}" target="deploy" inheritAll="false"/>
+    </target>
+    
+    <!-- =================================================================== -->
     <!-- Creates new project, installs JSF and runs tests                -->
     <!-- =================================================================== -->
     <target name="test" description="Creates appfuse-jsf and runs tests">

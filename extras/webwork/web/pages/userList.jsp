@@ -6,14 +6,12 @@
 <ww:set name="userList" value="users" scope="request"/>
 
 <c:set var="buttons">
-    <button type="button" style="margin-right: 5px"
-        onclick="location.href='<c:url value="/editUser.html"/>?method=Add&from=list'">
-        <fmt:message key="button.add"/>
-    </button>
+    <input type="button" style="margin-right: 5px"
+        onclick="location.href='<c:url value="/editUser.html?method=Add&from=list"/>'"
+        value="<fmt:message key="button.add"/>"/>
     
-    <button type="button" onclick="location.href='<c:url value="/mainMenu.html" />'">
-        <fmt:message key="button.done"/>
-    </button>
+    <input type="button" onclick="location.href='<c:url value="/mainMenu.html"/>'"
+        value="<fmt:message key="button.done"/>"/>
 </c:set>
 
 <c:out value="${buttons}" escapeXml="false" />
@@ -47,5 +45,5 @@
 <c:out value="${buttons}" escapeXml="false" />
 
 <script type="text/javascript">
-highlightTableRows("users");
+    highlightTableRows("users");
 </script>

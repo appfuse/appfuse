@@ -2,22 +2,21 @@
 
 <title><fmt:message key="<XDtForm:classNameLower/>List.title"/></title>
 <content tag="heading"><fmt:message key="<XDtForm:classNameLower/>List.heading"/></content>
+<meta name="menu" content="<XDtForm:className/>Menu"/>
 
 <c:set var="buttons">
-    <button type="button" style="margin-right: 5px"
-        onclick="location.href='<c:url value="/edit<XDtClass:className/>.html"/>'">
-        <fmt:message key="button.add"/>
-    </button>
+    <input type="button" style="margin-right: 5px"
+        onclick="location.href='<c:url value="/edit<XDtClass:className/>.html"/>'"
+        value="<fmt:message key="button.add"/>"/>
 
-    <button type="button" onclick="location.href='<html:rewrite forward="mainMenu"/>'">
-        <fmt:message key="button.done"/>
-    </button>
+    <input type="button" onclick="location.href='<html:rewrite forward="mainMenu"/>'"
+        value="<fmt:message key="button.done"/>"/>
 </c:set>
 
 <c:out value="${buttons}" escapeXml="false"/>
 
 <display:table name="<XDtForm:classNameLower/>List" cellspacing="0" cellpadding="0"
-    id="<XDtForm:classNameLower/>List" pagesize="25" class="table"
+    id="<XDtForm:classNameLower/>List" pagesize="25" class="table <XDtForm:classNameLower/>List"
     export="true" requestURI="">
 
 <XDtMethod:forAllMethods>
@@ -38,5 +37,5 @@
 <c:out value="${buttons}" escapeXml="false"/>
 
 <script type="text/javascript">
-highlightTableRows("<XDtForm:classNameLower/>List");
+    highlightTableRows("<XDtForm:classNameLower/>List");
 </script>

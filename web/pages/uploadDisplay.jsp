@@ -6,7 +6,8 @@
 
 <p>Below is a list of attributes that were gathered in UploadAction.java.</p>
 
-<form action="">
+<div class="separator"></div>
+
 <table class="detail" cellpadding="5">
     <tr>
         <th>Friendly Name:</th>

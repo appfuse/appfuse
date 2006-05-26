@@ -29,7 +29,7 @@
 
     <bean id="userFormController" class="org.appfuse.webapp.action.UserFormController">
         <property name="validator" ref="beanValidator"/>
-        <property name="formView" value="userProfile"/>
+        <property name="formView" value="userForm"/>
         <property name="successView" value="redirect:users.html"/>
         <property name="cancelView" value="redirect:mainMenu.html"/>
         <property name="userManager" ref="userManager"/>

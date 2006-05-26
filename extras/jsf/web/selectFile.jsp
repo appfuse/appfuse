@@ -2,6 +2,7 @@
 
 <title><fmt:message key="upload.title"/></title>
 <content tag="heading"><fmt:message key="upload.heading"/></content>
+<meta name="menu" content="FileUpload"/>
 
 <!--
     The most important part is to declare your form's enctype to be "multipart/form-data",
@@ -14,14 +15,14 @@
 <ul>
     <li class="info"><fmt:message key="upload.message"/></li>
     <li>
-        <h:outputLabel for="name" value="#{text['uploadForm.name']}"/>
+        <h:outputLabel styleClass="desc" for="name" value="#{text['uploadForm.name']}"/>
         <t:message for="name" styleClass="fieldError"/>
         <h:inputText value="#{fileUpload.name}" id="name" size="40" required="true" styleClass="text medium">
             <v:commonsValidator type="required" arg="#{text['uploadForm.name']}"/>
         </h:inputText>
     </li>
     <li>
-        <h:outputLabel for="uploadForm:file" value="#{text['uploadForm.file']}"/>
+        <h:outputLabel styleClass="desc" for="uploadForm:file" value="#{text['uploadForm.file']}"/>
         <t:message for="uploadForm:file" styleClass="fieldError"/>
         <t:inputFileUpload id="file" value="#{fileUpload.file}" storage="file" required="true" size="50" styleClass="file medium">
             <v:commonsValidator type="required" arg="#{text['uploadForm.file']}"/>

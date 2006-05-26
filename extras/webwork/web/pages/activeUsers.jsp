@@ -8,9 +8,7 @@
 
 <div class="separator"></div>
 
-<button type="button" onclick="location.href='mainMenu.html'">
-    <fmt:message key="button.done"/>
-</button>
+<input type="button" onclick="location.href='mainMenu.html'" value="<fmt:message key="button.done"/>"/>
     
 <display:table name="applicationScope.userNames" id="user" cellspacing="0" cellpadding="0"
     defaultsort="1" class="list activeUserList" pagesize="50" requestURI="">

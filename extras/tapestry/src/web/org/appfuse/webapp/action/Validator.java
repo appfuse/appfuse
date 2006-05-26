@@ -7,6 +7,7 @@ import org.apache.tapestry.form.IFormComponent;
 import org.apache.tapestry.valid.IFieldTracking;
 import org.apache.tapestry.valid.IValidator;
 import org.apache.tapestry.valid.RenderString;
+import org.apache.tapestry.valid.ValidationConstraint;
 import org.apache.tapestry.valid.ValidationDelegate;
 
 import java.util.Locale;
@@ -22,17 +23,13 @@ public class Validator extends ValidationDelegate {
     public void writeLabelAttributes(IMarkupWriter writer, IRequestCycle cycle, IFormComponent component) {
         if (isInError(component)) {
             writer.attribute("class", "error");
-        } else {
-            writer.attribute("class", "required");
         }
-        writer.printRaw("* ");
     }
-    
+
     public void writeLabelSuffix(IFormComponent component,
                                  IMarkupWriter writer, IRequestCycle cycle) {
-        Locale locale = cycle.getEngine().getLocale();
-        String marker = (locale.equals(Locale.FRENCH)) ? " :" : ":";
-        writer.print(marker);
+        // TODO: Add logic so required indicator only added to required fields
+        writer.printRaw(" <span class=\"req\">*</span>");
     }
 
     public void writeAttributes(IMarkupWriter writer, IRequestCycle cycle,

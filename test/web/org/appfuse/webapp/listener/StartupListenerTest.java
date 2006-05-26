@@ -1,5 +1,7 @@
 package org.appfuse.webapp.listener;
 
+import java.util.Map;
+
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
@@ -28,6 +30,7 @@ public class StartupListenerTest extends TestCase {
         
         sc = new MockServletContext("");
         sc.addInitParameter("daoType", "hibernate");
+        sc.addInitParameter("theme", "simplicity");
         
         // initialize Spring
         String pkg = ClassUtils.classPackageAsResourcePath(Constants.class);
@@ -47,6 +50,9 @@ public class StartupListenerTest extends TestCase {
         listener.contextInitialized(event);
 
         assertTrue(sc.getAttribute(Constants.CONFIG) != null);
+        Map config = (Map) sc.getAttribute(Constants.CONFIG);
+        assertEquals(config.get("theme"), "simplicity");
+        
         assertTrue(sc.getAttribute(WebApplicationContext
                 .ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE) != null);
         assertTrue(sc.getAttribute(Constants.AVAILABLE_ROLES) != null);

@@ -1,5 +1,6 @@
 <%@ include file="/common/taglibs.jsp"%>
 
+<meta name="menu" content="UserMenu"/>
 <%-- This page is used to call the userForm.edit action.
      This serves as a workaround to use Struts Menu with JSF - since
      the menu.jsp cannot contain f:view tags, and hence any JSF tags
@@ -11,12 +12,9 @@
 </h:form>
 
 <script type="text/javascript">
-    function submitForm() {
-        var f = document.forms['userProfile'];
-        f.elements['userProfile:_link_hidden_'].value='userProfile:edit';
-        f.submit();
-    }
-    window.onload=submitForm;
+    var f = document.forms['userProfile'];
+    f.elements['userProfile:_link_hidden_'].value='userProfile:edit';
+    f.submit();
 </script>
 
 </f:view>

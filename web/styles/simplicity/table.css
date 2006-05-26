@@ -22,16 +22,31 @@
     color: #000;
     background: transparent;
 }
-.table td, .table th {
+/* For Tapestry's contribTable */
+.table th table, .table th table td {
+    width: 100%;
+    border: 0px;
+}
+.contribTable th {
+    padding: 0px !important;
+    background: #d7e9f5;
+}
+.contribTable th .tableHeaderTable {
+    margin: 0px !important;
+}
+.table td, .table th, .tableHeaderTable td {
     border: 1px solid #e0e0e0;
     padding: 0.5em;
 }
-.table thead th {
+.table thead th, .tableHeaderTable td {
     border: 1px solid #e0e0e0;
     text-align: left;
     font-size: 1em;
     font-weight: bold;
     background: #d7e9f5;
+}
+.tableHeaderTable td a {
+    text-decoration: none !important;
 }
 .table tfoot th, tfoot td {
     border: 1px solid #e0e0e0;
@@ -44,22 +59,16 @@
 }
 .table tbody td a {
     background: transparent;
-    color: #00c;
     text-decoration: underline;
 }
 .table tbody td a:hover {
     background: transparent;
-    color: #00c;
     text-decoration: underline;
 }
 .table tbody th a {
     background: transparent;
-    color: #3f7c5f;
     text-decoration: underline;
     font-weight: bold;
-}
-.table tbody th a:visited {
-    color: #b98b00;
 }
 .table tbody th, .table tbody td {
     vertical-align: top;
@@ -70,4 +79,8 @@
 }
 .table tbody tr:hover {
     background: #ffffd9;
+}
+.tableHeaderImage {
+    position: absolute;
+    margin: 2px 0px 0px -5px;
 }

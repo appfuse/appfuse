@@ -12,17 +12,14 @@ pre, code {
     font-size: 12px;
 }
 
+body#error #content {
+    margin-top: 20px;
+}
+
 ul.glassList {
     list-style: url(../../images/aquadot.jpg) disc outside;
     vertical-align: top;
-    line-height: 1.5;
-}
-
-pre {
-    background: #ffffdd;
-    border: 1px solid #999999;
-    color: #000000;
-    padding: 5px 5px 5px 7px;
+    line-height: 1.5em;
 }
 
 #switchLocale {

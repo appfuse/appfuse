@@ -8,8 +8,9 @@
         <title><decorator:title/> | <fmt:message key="webapp.name"/></title>
 
         <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/${appConfig["theme"]}/theme.css'/>" />
+		<link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/myfaces.css'/>" />
         <link rel="stylesheet" type="text/css" media="print" href="<c:url value='/styles/${appConfig["theme"]}/print.css'/>" />
-
+		
         <script type="text/javascript" src="<c:url value='/scripts/prototype.js'/>"></script>
         <script type="text/javascript" src="<c:url value='/scripts/scriptaculous.js'/>"></script>
         <script type="text/javascript" src="<c:url value='/scripts/global.js'/>"></script>
@@ -41,7 +42,7 @@
             <div id="nav">
                 <div class="wrapper">
                     <h2 class="accessibility">Navigation</h2>
-                    <jsp:include page="/WEB-INF/pages/menu.jsp"/>
+                    <jsp:include page="/menu.jsp"/>
                 </div>
                 <hr />
             </div><!-- end nav -->

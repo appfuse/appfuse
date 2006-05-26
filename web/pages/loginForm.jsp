@@ -13,14 +13,14 @@
     </li>
 </c:if>
     <li>
-       <label for="j_username" class="required desc">
+       <label for="j_username" class="desc">
             <fmt:message key="label.username"/> <span class="req">*</span>
         </label>
         <input type="text" class="text medium" name="j_username" id="j_username" tabindex="1" />
     </li>
 
     <li>
-        <label for="j_password" class="required desc">
+        <label for="j_password" class="desc">
             <fmt:message key="label.password"/> <span class="req">*</span>
         </label>
         <input type="password" class="text medium" name="j_password" id="j_password" tabindex="2" />

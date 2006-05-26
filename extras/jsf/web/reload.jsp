@@ -1,10 +1,12 @@
 <%@ include file="/common/taglibs.jsp"%>
 
+<meta name="menu" content="AdminMenu"/>
+
 <f:view>
 
 <h:form id="reloadForm">
     <h:commandLink action="#{reload.execute}" id="execute">
-        <f:param name="referrer"/>
+        <f:param name="referrer" value=""/>
     </h:commandLink>
 </h:form>
 

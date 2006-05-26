@@ -17,7 +17,7 @@
     </li>
     <li>
         <appfuse:label key="uploadForm.name" styleClass="desc"/>
-        <html:text property="name" size="40" styleId="name" styleClass="text medium"/>
+        <html:text property="name" styleId="name" styleClass="text medium"/>
     </li>
     <li>
         <appfuse:label key="uploadForm.file" styleClass="desc"/>

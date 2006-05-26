@@ -2,6 +2,7 @@
 
 <title><fmt:message key="flushCache.title"/></title>
 <content tag="heading"><fmt:message key="flushCache.heading"/></content>
+<meta name="menu" content="AdminMenu"/>
 
 <cache:flush/>
 <div class="message" style="font-size: 12px">
@@ -10,5 +11,5 @@
         <fmt:message key="flushCache.message"/></p>
 </div>
 <script type="text/javascript">
-window.setTimeout("history.back()", 2000);
+    window.setTimeout("history.back()", 2000);
 </script>

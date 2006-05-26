@@ -32,18 +32,18 @@
         <from-view-id>/*</from-view-id>
         <navigation-case>
             <from-outcome>editProfile</from-outcome>
-            <to-view-id>/userProfile.jsp</to-view-id>
+            <to-view-id>/userForm.jsp</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <from-view-id>/users.jsp</from-view-id>
         <navigation-case>
             <from-outcome>add</from-outcome>
-            <to-view-id>/userProfile.jsp</to-view-id>
+            <to-view-id>/userForm.jsp</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/userProfile.jsp</from-view-id>
+        <from-view-id>/userForm.jsp</from-view-id>
         <navigation-case>
             <from-outcome>cancel</from-outcome>
             <to-view-id>/users.jsp</to-view-id>

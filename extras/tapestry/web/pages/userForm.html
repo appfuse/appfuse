@@ -88,7 +88,8 @@
     <tr>
         <th>
             <!-- Doesn't work label jwcid="@FieldLabel" field="ognl:components.countryField">Country</label-->
-            <label class="required" for="countryField">* <span key="user.address.country">Country</span>:</label>
+            <label for="countryField"><span key="user.address.country">Country</span></label>
+            <label><span class="req"> *</label>
         </th>
         <td>
             <select jwcid="countryField" size="1">

@@ -31,7 +31,7 @@
     <li>
         <appfuse:label styleClass="desc" key="userForm.passwordHint"/>
         <html:errors property="passwordHint"/>
-        <html:text styleClass="text large" property="passwordHint" styleId="passwordHint" size="50"/>
+        <html:text styleClass="text large" property="passwordHint" styleId="passwordHint"/>
     </li>
     <li>
         <div>
@@ -43,7 +43,7 @@
             <div>
                 <appfuse:label styleClass="desc" key="userForm.lastName"/>
                 <html:errors property="lastName"/>
-                <html:text styleClass="text" property="lastName" styleId="lastName" maxlength="50"/>
+                <html:text styleClass="text medium" property="lastName" styleId="lastName" maxlength="50"/>
             </div>
         </div>
     </li>
@@ -52,7 +52,7 @@
             <div class="left">
                 <appfuse:label styleClass="desc" key="userForm.email"/>
                 <html:errors property="email"/>
-                <html:text styleClass="text medium" property="email" styleId="email" size="50"/>
+                <html:text styleClass="text medium" property="email" styleId="email"/>
             </div>
             <div>
                 <appfuse:label styleClass="desc" key="userForm.phoneNumber"/>
@@ -64,7 +64,7 @@
     <li>
         <appfuse:label styleClass="desc" key="userForm.website"/>
         <html:errors property="website"/>
-        <html:text styleClass="text large" property="website" styleId="website" size="50"/>
+        <html:text styleClass="text large" property="website" styleId="website"/>
     </li>
     <li>
         <label class="desc"><fmt:message key="userForm.addressForm.address"/></label>
@@ -97,8 +97,7 @@
                 <appfuse:country name="countries" toScope="page"/>
                 <html:select property="addressForm.country" styleClass="select">
                     <html:option value=""/>
-                    <html:options collection="countries"
-                        property="value" labelProperty="label"/>
+                    <html:options collection="countries" property="value" labelProperty="label"/>
                 </html:select>
                 <html:errors property="addressForm.country"/>
                 <p><appfuse:label key="userForm.addressForm.country"/></p>

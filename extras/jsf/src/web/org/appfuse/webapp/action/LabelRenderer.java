@@ -38,14 +38,9 @@ public class LabelRenderer extends Renderer {
 
         UIInput input = (UIInput) component.findComponent(id);
 
-        if ((input != null) && input.isRequired()) {
-            writer.write("*&nbsp;");
-        }
-
         writer.startElement("label", component);
 
-        String styleClass =
-            (String) component.getAttributes().get("styleClass");
+        String styleClass = (String) component.getAttributes().get("styleClass");
 
         boolean hasErrors = hasMessages(context, input);
 
@@ -65,20 +60,16 @@ public class LabelRenderer extends Renderer {
     public void encodeEnd(FacesContext context, UIComponent component)
     throws java.io.IOException {
         ResponseWriter writer = context.getResponseWriter();
-        HttpServletRequest request =
-            (HttpServletRequest) context.getExternalContext().getRequest();
-        String marker =
-            (request.getLocale().equals(Locale.FRENCH)) ? " :" : ":";
 
-        // Allow there to be no value - useful for creating empty cells
-        // in panelGrid
         Map attrs = component.getAttributes();
+        String id = (String) attrs.get("for");
 
-        if ("".equals(attrs.get("value").toString())) {
-            marker = "";
+        UIInput input = (UIInput) component.findComponent(id);
+
+        if ((input != null) && input.isRequired()) {
+            writer.write(" <span class=\"req\">*</span>");
         }
 
-        writer.write(marker);
         writer.endElement("label");
     }
 
@@ -89,9 +80,9 @@ public class LabelRenderer extends Renderer {
         while (it.hasNext()) {
             String id = (String) it.next();
 
-            if ((component != null) &&
-                    id.equals(component.getClientId(context))) {
+            if ((component != null) && id.equals(component.getClientId(context))) {
                 found = true;
+                break;
             }
         }
 
