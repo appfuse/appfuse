@@ -28,8 +28,12 @@ public class Validator extends ValidationDelegate {
 
     public void writeLabelSuffix(IFormComponent component,
                                  IMarkupWriter writer, IRequestCycle cycle) {
-        // TODO: Add logic so required indicator only added to required fields
-        writer.printRaw(" <span class=\"req\">*</span>");
+        if (component.isRequired()) {
+            writer.begin("span");
+            writer.attribute("class", "req tapestry");
+            writer.printRaw(" *");
+            writer.end();
+        }
     }
 
     public void writeAttributes(IMarkupWriter writer, IRequestCycle cycle,
