@@ -5,6 +5,5 @@
 
 <component-specification allow-informal-parameters="yes">
     <parameter name="key" required="yes"/>
-    <parameter name="class" required="no" property="styleClass"/>
     <component id="label" type="Any" inherit-informal-parameters="yes"/>
 </component-specification>
