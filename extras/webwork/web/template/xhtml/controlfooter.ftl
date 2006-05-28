@@ -8,6 +8,4 @@
     <span class="fieldError">${error?html}</span><#lt/><br/>
 </#list>
 </#if>
-${parameters.after?if_exists}<#t/>
-    </td><#lt/>
-</tr>
+</li>

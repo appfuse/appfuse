@@ -2,6 +2,7 @@
 
 <title><fmt:message key="display.title"/></title>
 <content tag="heading"><fmt:message key="display.heading"/></content>
+<meta name="menu" content="FileUpload"/>
 
 <p>Below is a list of attributes that were gathered in UploadAction.java.</p>
 

@@ -2,25 +2,23 @@
 
 <title><fmt:message key="upload.title"/></title>
 <content tag="heading"><fmt:message key="upload.heading"/></content>
-
-<p><fmt:message key="upload.message"/></p>
-<div class="separator"></div>
+<meta name="menu" content="FileUpload"/>
 
 <ww:form action="uploadFile" enctype="multipart/form-data" method="post"
     validate="true" name="upload">
+    <li class="info">
+        <fmt:message key="upload.message"/>
+    </li>
     <ww:textfield label="%{getText('uploadForm.name')}" name="name"
-        value="name" size="40" required="true"/>
+        cssClass="text medium" value="name" size="40" required="true"/>
     <ww:file label="%{getText('uploadForm.file')}" name="file" id="file" 
-        size="50" required="true"/>
-    <tr>
-        <td></td>
-        <td class="buttonBar">
-            <input type="submit" name="upload" class="button" onclick="bCancel=false"
-                value="<fmt:message key="button.upload"/>" />
-            <input type="button" name="cancel" class="button" onclick="location.href='mainMenu.html'"
-                value="<fmt:message key="button.cancel"/>" />
-        </td>
-    </tr>
+        cssClass="text file" required="true"/>
+    <li class="buttonBar bottom">
+        <input type="submit" name="upload" class="button" onclick="bCancel=false"
+            value="<fmt:message key="button.upload"/>" />
+        <input type="button" name="cancel" class="button" onclick="location.href='mainMenu.html'"
+            value="<fmt:message key="button.cancel"/>" />
+    </li>
 </ww:form>
 
 <script type="text/javascript">

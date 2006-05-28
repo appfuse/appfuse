@@ -1,7 +1,10 @@
 <%@ include file="/common/taglibs.jsp"%>
 
-<title><fmt:message key="activeUsers.title"/></title>
-<content tag="heading"><fmt:message key="activeUsers.heading"/></content>
+<head>
+    <title><fmt:message key="activeUsers.title"/></title>
+    <content tag="heading"><fmt:message key="activeUsers.heading"/></content>
+    <meta name="menu" content="AdminMenu"/>
+</head>
 <body id="activeUsers"/>
 
 <p><fmt:message key="activeUsers.message"/></p>
@@ -9,9 +12,9 @@
 <div class="separator"></div>
 
 <input type="button" onclick="location.href='mainMenu.html'" value="<fmt:message key="button.done"/>"/>
-    
+
 <display:table name="applicationScope.userNames" id="user" cellspacing="0" cellpadding="0"
-    defaultsort="1" class="list activeUserList" pagesize="50" requestURI="">
+    defaultsort="1" class="table" pagesize="50" requestURI="">
   
     <%-- Table columns --%>
     <display:column property="username" escapeXml="true" style="width: 30%" titleKey="user.username" sortable="true"/>

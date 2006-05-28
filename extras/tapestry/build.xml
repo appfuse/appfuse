@@ -482,7 +482,7 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
     <property name="db.name" value="appfuse"/>   
     <property name="new.pkg.name" value="org.appfuse"/>
     <!-- =================================================================== -->
-    <!-- Creates new project, installs Spring MVC and deploys                -->
+    <!-- Creates new project, installs Tapestry and deploys                  -->
     <!-- =================================================================== -->
     <target name="deploy" description="Creates appfuse-tapestry and deploys">
         <property name="app.name" value="appfuse-tapestry"/>
@@ -529,10 +529,8 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
             <property name="web.framework" value="${web.framework}"/>
         </ant>
 
-        <!-- New project created, install Tapestry and run tests -->
         <ant dir="../../../${app.name}/extras/ibatis" target="install" inheritAll="false"/>
         <ant dir="../../../${app.name}/extras/ibatis" target="uninstall-hibernate" inheritAll="false"/>
-        <ant dir="../../../${app.name}/extras/tapestry" target="install" inheritAll="false"/>
         <ant dir="../../../${app.name}" target="setup-db" inheritAll="false"/>
         <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
     </target>
@@ -550,7 +548,6 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
             <property name="web.framework" value="${web.framework}"/>
         </ant>
 
-        <!-- Gen code and run tests -->
         <ant dir="../../../${app.name}/extras/appgen" target="test-all" inheritAll="false">
             <property name="web.framework" value="tapestry"/>
             <property name="appgen.type" value="pojo"/>

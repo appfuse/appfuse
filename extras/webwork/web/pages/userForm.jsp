@@ -1,5 +1,11 @@
 <%@ include file="/common/taglibs.jsp"%>
 
+<head>
+    <title><fmt:message key="userProfile.title"/></title>
+    <content tag="heading"><fmt:message key="userProfile.heading"/></content>
+    <meta name="menu" content="UserMenu"/>
+</head>
+
 <ww:form name="userForm" action="saveUser" method="post" validate="true">
 <ww:hidden name="user.id" value="%{user.id}"/>
 <ww:hidden name="user.version" value="%{user.version}"/>
@@ -13,16 +19,13 @@
 <ww:if test="user.username == null || user.username == ''">
     <input type="hidden" name="encryptPass" value="true" />
 </ww:if>
-
-<c:set var="pageButtons">
-    <tr>
-        <td></td>
-        <td class="buttonBar">
+    <li class="buttonBar right">
+        <c:set var="buttons">
             <input type="submit" class="button" name="save" 
                 value="<fmt:message key="button.save"/>" 
                 onclick="onFormSubmit(this.form)"/>
             
-        <c:if test="${param.from == 'list'}">
+        <c:if test="${param.from == 'list' and param.method != 'Add'}">
             <input type="submit" class="button" name="delete"
                 onclick="return confirmDelete('user')}" 
                 value="<fmt:message key="button.delete"/>" />
@@ -30,12 +33,21 @@
         
             <input type="submit" class="button" name="method:cancel"
                 value="<fmt:message key="button.cancel"/>" />
-        </td>
-    </tr>
-</c:set>
-
+        </c:set>
+        <c:out value="${buttons}" escapeXml="false"/>
+    </li>
+    <li class="info">
+        <c:choose>
+            <c:when test="${param.from == 'list'}">
+                <p><fmt:message key="userProfile.admin.message"/></p>
+            </c:when>
+            <c:otherwise>
+                <p><fmt:message key="userProfile.message"/></p>
+            </c:otherwise>
+        </c:choose>
+    </li>
     <ww:textfield label="%{getText('user.username')}" name="user.username" 
-        value="%{user.username}" required="true"/>
+        value="%{user.username}" cssClass="text large" required="true"/>
 
     <c:if test="${cookieLogin != 'true'}">
         <ww:password label="%{getText('user.password')}" name="user.password" show="true"
@@ -165,7 +177,7 @@
 
     <%-- Print out buttons - defined at top of form --%>
     <%-- This is so you can put them at the top and the bottom if you like --%>
-    <c:out value="${pageButtons}" escapeXml="false" />
+    <c:out value="${buttons}" escapeXml="false" />
 
 </ww:form>
 

@@ -148,7 +148,7 @@
     </div>
     <div jwcid="@If" condition="ognl:from != 'list'">
     <li>
-        <strong><label jwcid="@Label" for="hiddenUserRoles" key="user.roles"/>:</strong>
+        <strong><span key="user.roles"/>:</strong>
         <input jwcid="hiddenUserRoles" type="hidden"/>
         <input jwcid="@Hidden" type="hidden" value="ognl:user.enabled"/>
         <input jwcid="@Hidden" type="hidden" value="ognl:user.accountExpired"/>
