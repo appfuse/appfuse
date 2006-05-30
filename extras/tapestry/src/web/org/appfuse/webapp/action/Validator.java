@@ -20,10 +20,9 @@ import java.util.Locale;
 public class Validator extends ValidationDelegate {
     private static final long serialVersionUID = 6658594142293597652L;
 
-    public void writeLabelAttributes(IMarkupWriter writer, IRequestCycle cycle, IFormComponent component) {
-        if (isInError(component)) {
-            writer.attribute("class", "error");
-        }
+    public void writeLabelPrefix(IFormComponent component,
+                                 IMarkupWriter writer, IRequestCycle cycle) {
+        // does nothing put prevent <font color="red"> from getting written
     }
 
     public void writeLabelSuffix(IFormComponent component,
@@ -39,14 +38,16 @@ public class Validator extends ValidationDelegate {
     public void writeAttributes(IMarkupWriter writer, IRequestCycle cycle,
                                 IFormComponent component, IValidator validator) {
         if (isInError()) {
-            writer.attribute("class", "error");
+            String cssClass = ((component.getBinding("class") != null) ?
+                                component.getBinding("class").getObject().toString() : "");
+            writer.attribute("class", cssClass + " error");
         }
     }
 
-    public void writeSuffix(IMarkupWriter writer, IRequestCycle cycle,
+    public void writePrefix(IMarkupWriter writer, IRequestCycle cycle,
                             IFormComponent component, IValidator validator) {
         if (isInError(component)) {
-            writer.printRaw("&nbsp;");
+            //writer.printRaw("&nbsp;");
             writer.begin("img");
 
             String ctxPath = cycle.getInfrastructure().getContextPath();
@@ -55,7 +56,7 @@ public class Validator extends ValidationDelegate {
             writer.attribute("alt", cycle.getPage().getMessages().getMessage("icon.warning"));
             writer.end();
 
-            writer.printRaw("&nbsp;");
+            //writer.printRaw("&nbsp;");
 
             IFieldTracking tracking = getComponentTracking();
             IRender render = tracking.getErrorRenderer();
@@ -70,5 +71,10 @@ public class Validator extends ValidationDelegate {
             writer.printRaw(error);
             writer.end();
         }
+    }
+
+    public void writeSuffix(IMarkupWriter writer, IRequestCycle cycle,
+                            IFormComponent component, IValidator validator) {
+        // prevent <font> tags from getting written when there's an error
     }
 }
