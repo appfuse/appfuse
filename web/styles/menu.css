@@ -17,9 +17,9 @@ ul#primary-nav li a {
     text-decoration: none;
     color: #777;
     padding: 5px;
-	width: 90px;
-	text-align: center;
-	white-space: nowrap;
+    width: 90px;
+    text-align: center;
+    white-space: nowrap;
 }
 
 /* Fix IE. Hide from IE Mac \*/

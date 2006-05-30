@@ -71,7 +71,6 @@
     font-weight: bold;
 }
 .table tbody th, .table tbody td {
-    vertical-align: top;
     text-align: left;
 }
 .table tfoot td {

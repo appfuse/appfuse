@@ -16,7 +16,7 @@ form ul {
 }
 
 /* Fixes for forms around everything in JSF */
-form ul.glassList{
+form ul.glassList {
     list-style: url(../images/aquadot.jpg) disc outside;
     vertical-align: top;
     line-height: 1.2em;
@@ -63,14 +63,14 @@ form li div {
 }
 
 form li div.group {
-	display: block !important;
+    display: block !important;
     background-color: #f7f7f7;
     padding: 10px;
-    width: 350px;
+    width: 355px;
 }
 
 form li div.group input.large, form li div.group textarea.large, form li fieldset {
-    width: 334px;
+    width: 339px;
 }
 
 form[id] li div {
@@ -249,7 +249,7 @@ form .medium{
 }
 
 form .large, form textarea.textarea{
-    width: 344px;
+    width: 349px;
 }
 
 form .tags{
@@ -386,6 +386,10 @@ body#login #main {
 
 body#login #main h1 {
     margin-left: -330px;
+}
+
+body#login p {
+    margin-top: 10px;
 }
 
 #loginForm fieldset {
