@@ -588,7 +588,7 @@
                     </classpath>
                     <param name="mode" value="unescape"/>
                 </filterreader>
-        	</filterchain>
+            </filterchain>
             <fileset dir="web/WEB-INF/classes" includes="**/ApplicationResources*.properties"/>
         </copy>
         

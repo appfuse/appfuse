@@ -58,7 +58,7 @@
         <input message="What is the name, if any, of the module for your ${appgen.type} (i.e. organization)?" addproperty="app.module"/>
 
         <condition property="app.module.dash" value="-${app.module}">
-        	<not><equals arg1="${app.module}" arg2="" trim="true"/></not>
+            <not><equals arg1="${app.module}" arg2="" trim="true"/></not>
         </condition>
         <condition property="app.module.slash.before" value="/${app.module}">
             <not><equals arg1="${app.module}" arg2="" trim="true"/></not>

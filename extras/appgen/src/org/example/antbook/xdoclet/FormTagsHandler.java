@@ -76,7 +76,7 @@ public class FormTagsHandler extends AbstractProgramElementTagsHandler {
             
             XMethod getter = field.getAccessor();
             setCurrentMethod(getter);
-       	    curFieldIsIdorVersion = false;
+            curFieldIsIdorVersion = false;
             Properties prop = new Properties();
             prop.setProperty("tagName", "hibernate.id");
 
