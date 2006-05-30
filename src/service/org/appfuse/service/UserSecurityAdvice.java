@@ -1,15 +1,6 @@
 package org.appfuse.service;
 
-import java.lang.reflect.Method;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
-
-import org.acegisecurity.AccessDeniedException;
-import org.acegisecurity.Authentication;
-import org.acegisecurity.AuthenticationTrustResolver;
-import org.acegisecurity.AuthenticationTrustResolverImpl;
-import org.acegisecurity.GrantedAuthority;
+import org.acegisecurity.*;
 import org.acegisecurity.context.SecurityContext;
 import org.acegisecurity.context.SecurityContextHolder;
 import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
@@ -23,6 +14,11 @@ import org.appfuse.model.Role;
 import org.appfuse.model.User;
 import org.springframework.aop.AfterReturningAdvice;
 import org.springframework.aop.MethodBeforeAdvice;
+
+import java.lang.reflect.Method;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdvice {
     public final static String ACCESS_DENIED = "Access Denied: Only administrators are allowed to modify other users.";
@@ -54,14 +50,14 @@ public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdv
             User user = (User) args[0];
             String username = user.getUsername();
 
-            String currentUser = null;
+            String currentUser;
             if (auth.getPrincipal() instanceof UserDetails) {
                 currentUser = ((UserDetails) auth.getPrincipal()).getUsername();
             } else {
                 currentUser = String.valueOf(auth.getPrincipal());
             }
 
-            if (!username.equals(currentUser)) {
+            if (username != null && !username.equals(currentUser)) {
                 AuthenticationTrustResolver resolver = new AuthenticationTrustResolverImpl();
                 // allow new users to signup - this is OK b/c Signup doesn't allow setting of roles
                 boolean signupUser = resolver.isAnonymous(auth);
@@ -82,7 +78,7 @@ public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdv
 
             // fix for http://issues.appfuse.org/browse/APF-96
             // don't allow users with "user" role to upgrade to "admin" role
-            else if (username.equalsIgnoreCase(currentUser) && !administrator) {
+            else if (username != null && username.equalsIgnoreCase(currentUser) && !administrator) {
 
                 // get the list of roles the user is trying add
                 Set userRoles = new HashSet();
