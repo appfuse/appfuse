@@ -30,9 +30,11 @@
 	    #displayCssMenu($menuIt)
      #end
         </li>
-    </ul>
   #else
     </li>
+    #if $($velocityCount == $menu.parent.components.size())
+    </ul>
+    #end
   #end
 
 #end
