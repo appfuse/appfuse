@@ -28,12 +28,12 @@
 
 <ul>
     <li class="buttonBar right">
-        <input type="submit" class="button" jwcid="@Submit" value="message:button.save" id="save" action="ognl:listeners.save"/>
+        <input type="submit" class="button" jwcid="@Submit" value="message:button.save" id="save" action="listener:save"/>
           <span jwcid="@If" condition="ognl:user.username != null">
-            <input type="submit" class="button" jwcid="@Submit" value="message:button.delete" id="delete" action="ognl:listeners.delete"
+            <input type="submit" class="button" jwcid="@Submit" value="message:button.delete" id="delete" action="listener:delete"
                 onclick="form.onsubmit = null; return confirmDelete('User')"/>
           </span>
-        <input type="submit" class="button" jwcid="@Submit" value="message:button.cancel" id="cancel" action="ognl:listeners.cancel"
+        <input type="submit" class="button" jwcid="@Submit" value="message:button.cancel" id="cancel" action="listener:cancel"
             onclick="form.onsubmit = null"/>
     </li>
     <li class="info">
@@ -157,12 +157,12 @@
     </li>
     </div>
     <li class="buttonBar bottom">
-        <input type="submit" class="button" jwcid="@Submit" value="message:button.save" id="save" action="ognl:listeners.save"/>
+        <input type="submit" class="button" jwcid="@Submit" value="message:button.save" id="save" action="listener:save"/>
         <span jwcid="@If" condition="ognl:user.username != null">
-        <input type="submit" class="button" jwcid="@Submit" value="message:button.delete" id="delete" action="ognl:listeners.delete"
+        <input type="submit" class="button" jwcid="@Submit" value="message:button.delete" id="delete" action="listener:delete"
             onclick="form.onsubmit = null; return confirmDelete('User')"/>
         </span>
-        <input type="submit" class="button" jwcid="@Submit" value="message:button.cancel" id="cancel" action="ognl:listeners.cancel"
+        <input type="submit" class="button" jwcid="@Submit" value="message:button.cancel" id="cancel" action="listener:cancel"
             onclick="form.onsubmit = null"/>
     </li>
 </ul>

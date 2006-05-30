@@ -24,9 +24,9 @@
     </li>
     <li class="buttonBar bottom">
         <input type="submit" class="button" jwcid="@Submit"
-            value="message:button.save" id="save" listener="ognl:listeners.upload"/>
+            value="message:button.save" id="save" action="listener:upload"/>
         <input type="submit" class="button" jwcid="@Submit"
-            value="message:button.cancel" id="cancel" listener="ognl:listeners.cancel"
+            value="message:button.cancel" id="cancel" action="listener:cancel"
             onclick="form.onsubmit = null"/>
     </li>
 </ul>

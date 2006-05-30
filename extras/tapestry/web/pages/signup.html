@@ -88,8 +88,8 @@
         </div>
     </li>
     <li class="buttonBar bottom">
-        <input type="submit" class="button" jwcid="@Submit" value="message:button.register" id="register" action="ognl:listeners.save"/>
-        <input type="submit" class="button" jwcid="@Submit" value="message:button.cancel" id="cancel" action="ognl:listeners.cancel"
+        <input type="submit" class="button" jwcid="@Submit" value="message:button.register" id="register" action="listener:save"/>
+        <input type="submit" class="button" jwcid="@Submit" value="message:button.cancel" id="cancel" action="listener:cancel"
             onclick="form.onsubmit = null"/>
     </li>
 </ul>

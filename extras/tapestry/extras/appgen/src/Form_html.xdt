@@ -20,12 +20,12 @@
 </XDtForm:ifIsNotIdOrVersionField>
 </XDtForm:forAllFields>
     <li class="buttonBar button">
-        <input type="submit" class="button" jwcid="@Submit" value="message:button.save" id="save" action="ognl:listeners.save"/>
+        <input type="submit" class="button" jwcid="@Submit" value="message:button.save" id="save" action="listener:save"/>
       <span jwcid="@If" condition="ognl:<XDtForm:classNameLower/>.<XDtMethodEx:idField getType="propertyName"/> != null">
-        <input type="submit" class="button" jwcid="@Submit" value="message:button.delete" id="delete" action="ognl:listeners.delete"
+        <input type="submit" class="button" jwcid="@Submit" value="message:button.delete" id="delete" action="listener:delete"
             onclick="form.onsubmit = null; return confirmDelete('<XDtForm:className/>')"/>
       </span>
-        <input type="submit" class="button" jwcid="@Submit" value="message:button.cancel" id="cancel" action="ognl:listeners.cancel"
+        <input type="submit" class="button" jwcid="@Submit" value="message:button.cancel" id="cancel" action="listener:cancel"
             onclick="form.onsubmit = null"/>
     </li>
 </ul>
