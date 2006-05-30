@@ -28,12 +28,12 @@
 
 <ul>
     <li class="buttonBar right">
-        <input type="submit" class="button" jwcid="@Submit" value="message:button.save" id="save" listener="ognl:listeners.save"/>
+        <input type="submit" class="button" jwcid="@Submit" value="message:button.save" id="save" action="ognl:listeners.save"/>
           <span jwcid="@If" condition="ognl:user.username != null">
-            <input type="submit" class="button" jwcid="@Submit" value="message:button.delete" id="delete" listener="ognl:listeners.delete"
+            <input type="submit" class="button" jwcid="@Submit" value="message:button.delete" id="delete" action="ognl:listeners.delete"
                 onclick="form.onsubmit = null; return confirmDelete('User')"/>
           </span>
-        <input type="submit" class="button" jwcid="@Submit" value="message:button.cancel" id="cancel" listener="ognl:listeners.cancel"
+        <input type="submit" class="button" jwcid="@Submit" value="message:button.cancel" id="cancel" action="ognl:listeners.cancel"
             onclick="form.onsubmit = null"/>
     </li>
     <li class="info">
@@ -123,19 +123,19 @@
             <legend><span key="userProfile.accountSettings"/></legend>
             <label>
                 <input class="checkbox" type="checkbox" jwcid="@Checkbox" value="ognl:user.enabled" id="enabled"/>
-                <span key="user.enabled"/>
+                <label jwcid="@Label" class="choice" for="enabled" key="user.enabled"/>
             </label>
             <label>
                 <input class="checkbox" type="checkbox" jwcid="@Checkbox" value="ognl:user.accountExpired" id="accountExpired"/>
-                <span key="user.accountExpired"/>
+                <label jwcid="@Label" class="choice" for="accountExpired" key="user.accountExpired"/>
             </label>
             <label>
                 <input class="checkbox" type="checkbox" jwcid="@Checkbox" value="ognl:user.accountLocked" id="accountLocked"/>
-                <span key="user.accountLocked"/>
+                <label jwcid="@Label" class="choice" for="accountLocked" key="user.accountLocked"/>
             </label>
             <label>
                 <input class="checkbox" type="checkbox" jwcid="@Checkbox" value="ognl:user.credentialsExpired" id="credentialsExpired"/>
-                <span key="user.credentialsExpired"/>
+                <label jwcid="@Label" class="choice" for="credentialsExpired" key="user.credentialsExpired"/>
             </label>
         </fieldset>
     </li>
@@ -157,12 +157,12 @@
     </li>
     </div>
     <li class="buttonBar bottom">
-        <input type="submit" class="button" jwcid="@Submit" value="message:button.save" id="save" listener="ognl:listeners.save"/>
+        <input type="submit" class="button" jwcid="@Submit" value="message:button.save" id="save" action="ognl:listeners.save"/>
         <span jwcid="@If" condition="ognl:user.username != null">
-        <input type="submit" class="button" jwcid="@Submit" value="message:button.delete" id="delete" listener="ognl:listeners.delete"
+        <input type="submit" class="button" jwcid="@Submit" value="message:button.delete" id="delete" action="ognl:listeners.delete"
             onclick="form.onsubmit = null; return confirmDelete('User')"/>
         </span>
-        <input type="submit" class="button" jwcid="@Submit" value="message:button.cancel" id="cancel" listener="ognl:listeners.cancel"
+        <input type="submit" class="button" jwcid="@Submit" value="message:button.cancel" id="cancel" action="ognl:listeners.cancel"
             onclick="form.onsubmit = null"/>
     </li>
 </ul>
