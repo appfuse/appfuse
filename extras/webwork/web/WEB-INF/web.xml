@@ -26,7 +26,11 @@
     <!-- Context Configuration locations for Spring XML files -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/applicationContext-*.xml,/WEB-INF/action-servlet.xml</param-value>
+        <param-value>
+            /WEB-INF/applicationContext-*.xml
+            /WEB-INF/action-servlet.xml
+            /WEB-INF/security.xml
+        </param-value>
     </context-param>
 
     <filter>

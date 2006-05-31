@@ -10,73 +10,13 @@
             <value>
                 CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
                 PATTERN_TYPE_APACHE_ANT
-                /**=httpSessionContextIntegrationFilter,authenticationProcessingFilter,remoteUserFilter,rememberMeProcessingFilter,anonymousProcessingFilter,exceptionTranslationFilter,filterInvocationInterceptor
+                /**=httpSessionContextIntegrationFilter,authenticationProcessingFilter,securityContextHolderAwareRequestFilter,rememberMeProcessingFilter,anonymousProcessingFilter,exceptionTranslationFilter,filterInvocationInterceptor
             </value>
-            <!-- Put channelProcessingFilter before remoteUserFilter to turn on SSL switching -->
+            <!-- Put channelProcessingFilter before securityContextHolderAwareRequestFilter to turn on SSL switching -->
             <!-- It's off by default b/c Canoo WebTest doesn't support SSL out-of-the-box -->
         </property>
     </bean>
-
-    <!-- ======================== AUTHENTICATION ======================= -->
-
-    <!-- Note the order that entries are placed against the objectDefinitionSource is critical.
-         The FilterSecurityInterceptor will work from the top of the list down to the FIRST pattern that matches the request URL.
-         Accordingly, you should place MOST SPECIFIC (ie a/b/c/d.*) expressions first, with LEAST SPECIFIC (ie a/.*) expressions last -->
-    <bean id="filterInvocationInterceptor" class="org.acegisecurity.intercept.web.FilterSecurityInterceptor">
-        <property name="authenticationManager" ref="authenticationManager"/>
-        <property name="accessDecisionManager" ref="accessDecisionManager"/>
-         <property name="objectDefinitionSource">
-            <value>
-                PATTERN_TYPE_APACHE_ANT
-                /signup.html=ROLE_ANONYMOUS,admin,user
-                /passwordHint.html*=ROLE_ANONYMOUS,admin,user
-                /**/*.html*=admin,user
-                /clickstreams.jsp=admin
-            </value>
-        </property>
-    </bean>
-
-    <bean id="authenticationManager" class="org.acegisecurity.providers.ProviderManager">
-        <property name="providers">
-            <list>
-                <ref local="daoAuthenticationProvider"/>
-                <ref local="anonymousAuthenticationProvider"/>
-                <ref local="rememberMeAuthenticationProvider"/>
-            </list>
-        </property>
-    </bean>
-   
-    <!-- Log failed authentication attempts to commons-logging -->
-    <bean id="loggerListener" class="org.acegisecurity.event.authentication.LoggerListener"/>
     
-    <bean id="daoAuthenticationProvider" class="org.acegisecurity.providers.dao.DaoAuthenticationProvider">
-         <property name="userDetailsService" ref="userDao"/>
-         <property name="userCache" ref="userCache"/>
-         <property name="passwordEncoder" ref="passwordEncoder"/>
-    </bean>
-
-    <!-- This bean definition must be available to ApplicationContext.getBean() so StartupListener
-         can look for it and detect if password encryption is turned on or not -->
-    <bean id="passwordEncoder" class="org.acegisecurity.providers.encoding.ShaPasswordEncoder"/>
-
-    <bean id="anonymousAuthenticationProvider" class="org.acegisecurity.providers.anonymous.AnonymousAuthenticationProvider">
-        <property name="key" value="anonymous"/>
-    </bean>
-
-    <bean id="roleVoter" class="org.acegisecurity.vote.RoleVoter">
-        <property name="rolePrefix" value=""/>
-    </bean>
-
-    <bean id="accessDecisionManager" class="org.acegisecurity.vote.AffirmativeBased">
-        <property name="allowIfAllAbstainDecisions" value="false"/>
-        <property name="decisionVoters">
-            <list>
-                <ref local="roleVoter"/>
-            </list>
-        </property>
-    </bean>
-    
-    <!-- ===================== HTTP REQUEST SECURITY ==================== -->
     <bean id="httpSessionContextIntegrationFilter" class="org.acegisecurity.context.HttpSessionContextIntegrationFilter"/>
     
     <bean id="authenticationProcessingFilter" class="org.acegisecurity.ui.webapp.AuthenticationProcessingFilter">
@@ -87,21 +27,87 @@
         <property name="rememberMeServices" ref="rememberMeServices"/>
     </bean>
     
+    <bean id="securityContextHolderAwareRequestFilter" class="org.acegisecurity.wrapper.SecurityContextHolderAwareRequestFilter"/>
+    
+    <bean id="rememberMeProcessingFilter" class="org.acegisecurity.ui.rememberme.RememberMeProcessingFilter">
+        <property name="authenticationManager" ref="authenticationManager"/>
+        <property name="rememberMeServices" ref="rememberMeServices"/>
+    </bean>
+    
     <bean id="anonymousProcessingFilter" class="org.acegisecurity.providers.anonymous.AnonymousProcessingFilter">
         <property name="key" value="anonymous"/>
         <property name="userAttribute" value="anonymous,ROLE_ANONYMOUS"/>
     </bean>
     
     <bean id="exceptionTranslationFilter" class="org.acegisecurity.ui.ExceptionTranslationFilter">
-        <property name="authenticationEntryPoint" ref="authenticationProcessingFilterEntryPoint"/>
+        <property name="authenticationEntryPoint">
+            <bean class="org.acegisecurity.ui.webapp.AuthenticationProcessingFilterEntryPoint">
+                <property name="loginFormUrl" value="/login.jsp"/>
+                <property name="forceHttps" value="false"/>
+            </bean>
+        </property>
     </bean>
     
-    <bean id="remoteUserFilter" class="org.acegisecurity.wrapper.SecurityContextHolderAwareRequestFilter"/>
-
-    <bean id="authenticationProcessingFilterEntryPoint" class="org.acegisecurity.ui.webapp.AuthenticationProcessingFilterEntryPoint">
-        <property name="loginFormUrl" value="/login.jsp"/>
-        <property name="forceHttps" value="false"/>
+    <bean id="filterInvocationInterceptor" class="org.acegisecurity.intercept.web.FilterSecurityInterceptor">
+        <property name="authenticationManager" ref="authenticationManager"/>
+        <property name="accessDecisionManager" ref="accessDecisionManager"/>
+        <property name="objectDefinitionSource">
+            <value>
+                PATTERN_TYPE_APACHE_ANT
+                /signup.html*=ROLE_ANONYMOUS,admin,user
+                /passwordHint.html*=ROLE_ANONYMOUS,admin,user
+                /**/*.html*=admin,user
+                /clickstreams.jsp*=admin
+            </value>
+        </property>
     </bean>
+    
+    <bean id="accessDecisionManager" class="org.acegisecurity.vote.AffirmativeBased">
+        <property name="allowIfAllAbstainDecisions" value="false"/>
+        <property name="decisionVoters">
+            <list>
+                <bean class="org.acegisecurity.vote.RoleVoter">
+                    <property name="rolePrefix" value=""/>
+                </bean>
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="rememberMeServices" class="org.acegisecurity.ui.rememberme.TokenBasedRememberMeServices"> 
+        <property name="userDetailsService" ref="userDao"/>
+        <property name="key" value="appfuseRocks"/>
+    </bean> 
+  
+    <bean id="authenticationManager" class="org.acegisecurity.providers.ProviderManager">
+        <property name="providers">
+            <list>
+                <ref local="daoAuthenticationProvider"/>
+                <ref local="anonymousAuthenticationProvider"/>
+                <ref local="rememberMeAuthenticationProvider"/>
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="daoAuthenticationProvider" class="org.acegisecurity.providers.dao.DaoAuthenticationProvider">
+         <property name="userDetailsService" ref="userDao"/>
+         <property name="userCache" ref="userCache"/>
+         <property name="passwordEncoder" ref="passwordEncoder"/>
+    </bean>
+
+    <bean id="anonymousAuthenticationProvider" class="org.acegisecurity.providers.anonymous.AnonymousAuthenticationProvider">
+        <property name="key" value="anonymous"/>
+    </bean>
+
+    <bean id="rememberMeAuthenticationProvider" class="org.acegisecurity.providers.rememberme.RememberMeAuthenticationProvider">
+        <property name="key" value="appfuseRocks"/>
+    </bean>
+
+    <!-- This bean definition must be available to ApplicationContext.getBean() so StartupListener
+         can look for it and detect if password encryption is turned on or not -->
+    <bean id="passwordEncoder" class="org.acegisecurity.providers.encoding.ShaPasswordEncoder"/>
+
+    <!-- This bean is optional; it isn't used by any other bean as it only listens and logs -->
+    <bean id="loggerListener" class="org.acegisecurity.event.authentication.LoggerListener"/>
 
     <!-- Override 'userManager' bean definition to add userManagerSecurity interceptor -->
     <bean id="userManager" parent="txProxyTemplate">
@@ -137,23 +143,7 @@
         </property>
     </bean>
     
-    <!-- ===================== REMEMBER ME ==================== -->
-    <bean id="rememberMeProcessingFilter" class="org.acegisecurity.ui.rememberme.RememberMeProcessingFilter">
-        <property name="authenticationManager" ref="authenticationManager"/>
-        <property name="rememberMeServices" ref="rememberMeServices"/>
-    </bean>
- 
-    <bean id="rememberMeServices" class="org.acegisecurity.ui.rememberme.TokenBasedRememberMeServices"> 
-        <property name="userDetailsService" ref="userDao"/>
-        <property name="key" value="appfuseRocks"/> 
-        <property name="parameter" value="rememberMe"/>
-    </bean> 
-  
-    <bean id="rememberMeAuthenticationProvider" class="org.acegisecurity.providers.rememberme.RememberMeAuthenticationProvider"> 
-        <property name="key" value="appfuseRocks"/>
-    </bean>
-    
-    <!-- ===================== SSL SWITCHING ==================== -->
+    <!-- SSL Switching: to use this, configure it in the filterChainProxy bean -->
     <bean id="channelProcessingFilter" class="org.acegisecurity.securechannel.ChannelProcessingFilter">
         <property name="channelDecisionManager" ref="channelDecisionManager"/>
         <property name="filterInvocationDefinitionSource">
