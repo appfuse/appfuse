@@ -95,19 +95,19 @@
         <div class="group">
             <div>
                 <input class="text large" jwcid="addressField" type="text" id="address"/>
-                <p><span key="user.address.address">Address</span></p>
+                <p><label jwcid="@Label" for="address" key="user.address.address">Address</label></p>
             </div>
             <div class="left">
                 <input class="text medium" jwcid="cityField" type="text" id="city"/>
-                <p><span key="user.address.city">City</span></p>
+                <p><label jwcid="@FieldLabel" field="ognl:components.cityField">City</label></p>
             </div>
             <div>
                 <input class="text state" jwcid="stateField" type="text" id="state" size="2"/>
-                <p><span key="user.address.province">State</span></p>
+                <p><label jwcid="@FieldLabel" field="ognl:components.stateField">State</label></p>
             </div>
             <div class="left">
                 <input class="text zip" jwcid="postalCodeField" type="text" id="postalCode"/>
-                <p><span key="user.address.postalCode"/></p>
+                <p><label jwcid="@FieldLabel" field="ognl:components.postalCodeField">Zip</label></p>
             </div>
             <div>
                 <select jwcid="countryField" size="1" class="select">

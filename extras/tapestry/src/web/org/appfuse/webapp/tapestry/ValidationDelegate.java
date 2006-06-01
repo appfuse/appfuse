@@ -1,4 +1,4 @@
-package org.appfuse.webapp.action;
+package org.appfuse.webapp.tapestry;
 
 import org.apache.tapestry.IMarkupWriter;
 import org.apache.tapestry.IRender;
@@ -7,8 +7,6 @@ import org.apache.tapestry.form.IFormComponent;
 import org.apache.tapestry.valid.IFieldTracking;
 import org.apache.tapestry.valid.IValidator;
 import org.apache.tapestry.valid.RenderString;
-import org.apache.tapestry.valid.ValidationConstraint;
-import org.apache.tapestry.valid.ValidationDelegate;
 
 import java.util.Locale;
 
@@ -17,7 +15,7 @@ import java.util.Locale;
  *
  * @author Matt Raible
  */
-public class Validator extends ValidationDelegate {
+public class ValidationDelegate extends org.apache.tapestry.valid.ValidationDelegate {
     private static final long serialVersionUID = 6658594142293597652L;
 
     public void writeLabelPrefix(IFormComponent component,
@@ -29,7 +27,7 @@ public class Validator extends ValidationDelegate {
                                  IMarkupWriter writer, IRequestCycle cycle) {
         if (component.isRequired()) {
             writer.begin("span");
-            writer.attribute("class", "req tapestry");
+            writer.attribute("class", "req");
             writer.printRaw(" *");
             writer.end();
         }
@@ -47,16 +45,17 @@ public class Validator extends ValidationDelegate {
     public void writePrefix(IMarkupWriter writer, IRequestCycle cycle,
                             IFormComponent component, IValidator validator) {
         if (isInError(component)) {
-            //writer.printRaw("&nbsp;");
-            writer.begin("img");
+            writer.begin("span");
+            writer.attribute("class", "fieldError");
 
+            writer.begin("img");
             String ctxPath = cycle.getInfrastructure().getContextPath();
             writer.attribute("src", ctxPath + "/images/iconWarning.gif");
             writer.attribute("class", "validationWarning");
             writer.attribute("alt", cycle.getPage().getMessages().getMessage("icon.warning"));
-            writer.end();
+            writer.end("img");
 
-            //writer.printRaw("&nbsp;");
+            writer.printRaw("&nbsp;");
 
             IFieldTracking tracking = getComponentTracking();
             IRender render = tracking.getErrorRenderer();
@@ -66,10 +65,8 @@ public class Validator extends ValidationDelegate {
                 error = ((RenderString) render).getString();
             }
 
-            writer.begin("span");
-            writer.attribute("class", "fieldError");
             writer.printRaw(error);
-            writer.end();
+            writer.end("span");
         }
     }
 

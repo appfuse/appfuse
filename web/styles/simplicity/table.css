@@ -76,8 +76,8 @@
 .table tfoot td {
     border: 1px solid #996;
 }
-.table tbody tr:hover {
-    background: #ffffd9;
+.table tbody tr:hover, .table tr:hover {
+    background: #ffffd9 !important; /* important needed for Tapestry, as is .table tr:hover */
 }
 .tableHeaderImage {
     position: absolute;
