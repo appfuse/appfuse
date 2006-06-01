@@ -4,6 +4,7 @@
     <title><fmt:message key="userProfile.title"/></title>
     <content tag="heading"><fmt:message key="userProfile.heading"/></content>
     <meta name="menu" content="UserMenu"/>
+    <script type="text/javascript" src="<c:url value='/scripts/selectbox.js'/>"></script>
 </head>
 
 <ww:form name="userForm" action="saveUser" method="post" validate="true">
@@ -21,14 +22,12 @@
 </ww:if>
     <li class="buttonBar right">
         <c:set var="buttons">
-            <input type="submit" class="button" name="save" 
-                value="<fmt:message key="button.save"/>" 
-                onclick="onFormSubmit(this.form)"/>
+            <input type="submit" class="button" name="save"
+                value="<fmt:message key="button.save"/>" onclick="onFormSubmit(this.form)"/>
             
         <c:if test="${param.from == 'list' and param.method != 'Add'}">
             <input type="submit" class="button" name="delete"
-                onclick="return confirmDelete('user')}" 
-                value="<fmt:message key="button.delete"/>" />
+                value="<fmt:message key="button.delete"/>" onclick="return confirmDelete('user')}"/>
         </c:if>
         
             <input type="submit" class="button" name="method:cancel"
@@ -50,135 +49,145 @@
         value="%{user.username}" cssClass="text large" required="true"/>
 
     <c:if test="${cookieLogin != 'true'}">
-        <ww:password label="%{getText('user.password')}" name="user.password" show="true"
-            value="%{user.password}" required="true" size="40" onchange="passwordChanged(this)"/>
-        <ww:password label="%{getText('user.confirmPassword')}" name="user.confirmPassword" 
-            value="%{user.confirmPassword}" required="true" show="true" size="40"/>
-     </c:if>
+    <li>
+        <div>
+            <div class="left">
+                <ww:password label="%{getText('user.password')}" name="user.password" show="true" theme="xhtml" value="%{user.password}"
+                    required="true" cssClass="text medium" onchange="passwordChanged(this)"/>
+            </div>
+            <div>
+                <ww:password label="%{getText('user.confirmPassword')}" name="user.confirmPassword" theme="xhtml" value="%{user.confirmPassword}"
+                    required="true" show="true" cssClass="text medium"/>
+            </div>
+        </div>
+    </li>
+    </c:if>
 
-    <ww:textfield label="%{getText('user.firstName')}" name="user.firstName"
-        value="%{user.firstName}" required="true" maxlength="50"/>
-    <ww:textfield label="%{getText('user.lastName')}" name="user.lastName"
-        value="%{user.lastName}" required="true" maxlength="50"/>
-    <ww:textfield label="%{getText('user.address.address')}" name="user.address.address"
-        value="%{user.address.address}" size="50"/>
-    <ww:textfield label="%{getText('user.address.city')}" name="user.address.city"
-        value="%{user.address.city}" size="40" required="true"/>
-    <ww:textfield label="%{getText('user.address.province')}" name="user.address.province"
-        value="%{user.address.province}" required="true" size="40"/>
-    <tr>
-        <th>
-            <label for="user.address.country" class="required">
-                * <fmt:message key="user.address.country"/>:
-            </label>
-        </th>
-        <td>
-               <ww:set name="country" value="user.address.country" scope="page"/>
-            <appfuse:country name="user.address.country" prompt="" default="${country}"/>
-        </td>
-    </tr>
-    <ww:textfield label="%{getText('user.address.postalCode')}" name="user.address.postalCode"
-        value="%{user.address.postalCode}" required="true" size="10"/>
-    <ww:textfield label="%{getText('user.email')}" name="user.email"
-        value="%{user.email}" required="true" size="50"/>
-    <ww:textfield label="%{getText('user.phoneNumber')}" name="user.phoneNumber"
-        value="%{user.phoneNumber}"/>
-    <ww:textfield label="%{getText('user.website')}" name="user.website"
-        value="%{user.website}" required="true" size="50"/>
     <ww:textfield label="%{getText('user.passwordHint')}" name="user.passwordHint"
-        value="%{user.passwordHint}" required="true" size="50"/>
+        value="%{user.passwordHint}" required="true" cssClass="text large"/>
 
+    <li>
+        <div>
+            <div class="left">
+                <ww:textfield label="%{getText('user.firstName')}" name="user.firstName" theme="xhtml"
+                    value="%{user.firstName}" required="true" cssClass="text medium"/>
+            </div>
+            <div>
+                <ww:textfield label="%{getText('user.lastName')}" name="user.lastName" theme="xhtml"
+                    value="%{user.lastName}" required="true" cssClass="text medium"/>
+            </div>
+        </div>
+    </li>
+
+    <li>
+        <div>
+            <div class="left">
+                <ww:textfield label="%{getText('user.email')}" name="user.email" theme="xhtml"
+                    value="%{user.email}" required="true" cssClass="text medium"/>
+            </div>
+            <div>
+                <ww:textfield label="%{getText('user.phoneNumber')}" name="user.phoneNumber" theme="xhtml"
+                    value="%{user.phoneNumber}" cssClass="text medium"/>
+            </div>
+        </div>
+    </li>
+
+    <ww:textfield label="%{getText('user.website')}" name="user.website"
+        value="%{user.website}" required="true" cssClass="text large"/>
+
+    <li>
+        <label class="desc"><fmt:message key="user.address.address"/></label>
+        <div class="group">
+            <div>
+                <ww:textfield label="%{getText('user.address.address')}" name="user.address.address"
+                    value="%{user.address.address}" cssClass="text large" labelposition="bottom"/>
+            </div>
+            <div class="left">
+                <ww:textfield label="%{getText('user.address.city')}" name="user.address.city"
+                    value="%{user.address.city}" required="true" cssClass="text medium" labelposition="bottom"/>
+            </div>
+            <div>
+                <ww:textfield label="%{getText('user.address.province')}" name="user.address.province"
+                    value="%{user.address.province}" required="true" cssClass="text state" size="2" labelposition="bottom"/>
+            </div>
+            <div class="left">
+                <ww:textfield label="%{getText('user.address.postalCode')}" name="user.address.postalCode"
+                    value="%{user.address.postalCode}" required="true" cssClass="text zip" labelposition="bottom"/>
+            </div>
+            <div>
+                <ww:set name="country" value="user.address.country" scope="page"/>
+                <appfuse:country name="user.address.country" prompt="" default="${country}"/>
+                <p><label for="user.address.country"><fmt:message key="user.address.country"/> <span class="req">*</span></p>
+            </div>
+        </div>
+    </li>
 <c:choose>
     <c:when test="${param.from == 'list' or param.method == 'Add'}">
-    <tr>
-        <td></td>
-        <td>
-            <fieldset class="pickList">
-                <legend>
-                    <fmt:message key="userProfile.accountSettings"/>
-                </legend>
-                <table class="pickList">
-                    <tr>
-                        <td>
-                            <ww:checkbox name="user.enabled" id="user.enabled" 
-                                value="${user.enabled}" fieldValue="true" theme="simple"/>
-                            <label for="user.enabled"><fmt:message key="user.enabled"/></label>
-                        
-                            <ww:checkbox name="user.accountExpired" id="user.accountExpired" 
-                                value="%{user.accountExpired}" fieldValue="true" theme="simple"/>
-                            <label for="user.accountExpired"><fmt:message key="user.accountExpired"/></label>
+    <li>
+        <fieldset>
+            <legend><fmt:message key="userProfile.accountSettings"/></legend>
+            <ww:checkbox name="user.enabled" id="user.enabled"
+                value="${user.enabled}" fieldValue="true" theme="simple"/>
+            <label for="user.enabled" class="choice"><fmt:message key="user.enabled"/></label>
 
-                            <ww:checkbox name="user.accountLocked" id="user.accountLocked" 
-                                value="%{user.accountLocked}" fieldValue="true" theme="simple"/>
-                            <label for="user.accountLocked"><fmt:message key="user.accountLocked"/></label>
+            <ww:checkbox name="user.accountExpired" id="user.accountExpired"
+                value="%{user.accountExpired}" fieldValue="true" theme="simple"/>
+            <label for="user.accountExpired" class="choice"><fmt:message key="user.accountExpired"/></label>
 
-                            <ww:checkbox name="user.credentialsExpired" id="user.credentialsExpired" 
-                                value="%{user.credentialsExpired}" fieldValue="true" theme="simple"/>
-                            <label for="user.credentialsExpired"><fmt:message key="user.credentialsExpired"/></label>
-                        </td>
-                    </tr>
-                </table>
-            </fieldset>
-        </td>
-    </tr>
-    <tr>
-        <td></td>
-        <td>
-            <fieldset class="pickList">
-                <legend>
-                    <fmt:message key="userProfile.assignRoles"/>
-                </legend>
-                <table class="pickList">
-                    <tr>
-                        <th class="pickLabel">
-                            <label class="required">
-                                <fmt:message key="user.availableRoles"/>
-                            </label>
-                        </th>
-                        <td>
-                        </td>
-                        <th class="pickLabel">
-                            <label class="required">
-                                <fmt:message key="user.roles"/>
-                            </label>
-                        </th>
-                    </tr>
-                    <c:set var="leftList" value="${availableRoles}" scope="request"/>
-                    <ww:set name="rightList" value="user.roleList" scope="request"/>
-                    <c:import url="/WEB-INF/pages/pickList.jsp">
-                        <c:param name="listCount" value="1"/>
-                        <c:param name="leftId" value="availableRoles"/>
-                        <c:param name="rightId" value="user.userRoles"/>
-                    </c:import>
-                </table>
-            </fieldset>
-        </td>
-    </tr>
+            <ww:checkbox name="user.accountLocked" id="user.accountLocked"
+                value="%{user.accountLocked}" fieldValue="true" theme="simple"/>
+            <label for="user.accountLocked" class="choice"><fmt:message key="user.accountLocked"/></label>
+
+            <ww:checkbox name="user.credentialsExpired" id="user.credentialsExpired"
+                value="%{user.credentialsExpired}" fieldValue="true" theme="simple"/>
+            <label for="user.credentialsExpired" class="choice"><fmt:message key="user.credentialsExpired"/></label>
+        </fieldset>
+    </li>
+    <li>
+        <fieldset>
+            <legend><fmt:message key="userProfile.assignRoles"/></legend>
+            <table class="pickList">
+                <tr>
+                    <th class="pickLabel">
+                        <label class="required">
+                            <fmt:message key="user.availableRoles"/>
+                        </label>
+                    </th>
+                    <td></td>
+                    <th class="pickLabel">
+                        <label class="required">
+                            <fmt:message key="user.roles"/>
+                        </label>
+                    </th>
+                </tr>
+                <c:set var="leftList" value="${availableRoles}" scope="request"/>
+                <ww:set name="rightList" value="user.roleList" scope="request"/>
+                <c:import url="/WEB-INF/pages/pickList.jsp">
+                    <c:param name="listCount" value="1"/>
+                    <c:param name="leftId" value="availableRoles"/>
+                    <c:param name="rightId" value="userRoles"/>
+                </c:import>
+            </table>
+        </fieldset>
+    </li>
     </c:when>
     <c:otherwise>
-    <tr>
-        <th>
-            <label><fmt:message key="user.roles"/>:</label>
-        </th>
-        <td>
-            <ww:iterator value="user.roleList" status="status">
-                  <ww:property value="label"/><ww:if test="!#status.last">,</ww:if> 
-                  <input type="hidden" name="user.userRoles"
-                      value="<ww:property value="value"/>" />
-            </ww:iterator>
-            <ww:hidden name="user.enabled" value="%{user.enabled}"/>
-            <ww:hidden name="user.accountExpired" value="%{user.accountExpired}"/>
-            <ww:hidden name="user.accountLocked" value="%{user.accountLocked}"/>
-            <ww:hidden name="user.credentialsExpired" value="%{user.credentialsExpired}"/> 
-        </td>
-    </tr>
+    <li>
+        <strong><fmt:message key="user.roles"/>:</strong>
+        <ww:iterator value="user.roleList" status="status">
+          <ww:property value="label"/><ww:if test="!#status.last">,</ww:if>
+          <input type="hidden" name="user.userRoles" value="<ww:property value="value"/>"/>
+        </ww:iterator>
+        <ww:hidden name="user.enabled" value="%{user.enabled}"/>
+        <ww:hidden name="user.accountExpired" value="%{user.accountExpired}"/>
+        <ww:hidden name="user.accountLocked" value="%{user.accountLocked}"/>
+        <ww:hidden name="user.credentialsExpired" value="%{user.credentialsExpired}"/>
+    </li>
     </c:otherwise>
 </c:choose>
-
-    <%-- Print out buttons - defined at top of form --%>
-    <%-- This is so you can put them at the top and the bottom if you like --%>
-    <c:out value="${buttons}" escapeXml="false" />
-
+    <li class="buttonBar bottom">
+        <c:out value="${buttons}" escapeXml="false"/>
+    </li>
 </ww:form>
 
 <script type="text/javascript">

@@ -3,7 +3,6 @@
 	then give the label it's own row in the table
 -->
 <#assign hasFieldErrors = parameters.name?exists && fieldErrors?exists && fieldErrors[parameters.name]?exists/>
-<li>
 <#if parameters.label?exists>
     <label <#t/>
     <#if parameters.id?exists>
@@ -19,5 +18,7 @@ ${parameters.label?html}<#t/>
 <#if parameters.required?default(false)> <span class="req">*</span></#if></label><#t/>
 </#if>
 <#if hasFieldErrors>
-<img src="./images/iconWarning.gif" alt="Validation Error" class="icon" />
+<#list fieldErrors[parameters.name] as error>
+    <span class="fieldError"><img src="./images/iconWarning.gif" alt="Validation Error" class="icon" /> ${error?html}</span><#lt/>
+</#list>
 </#if>
