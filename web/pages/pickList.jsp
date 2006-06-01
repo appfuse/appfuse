@@ -1,8 +1,7 @@
 <%@ include file="/common/taglibs.jsp"%>
 <tr>
     <td>
-        <select name="<c:out value="${param.leftId}"/>" 
-            multiple="multiple"
+        <select name="<c:out value="${param.leftId}"/>" multiple="multiple"
             onDblClick="moveSelectedOptions(this,$('<c:out value="${param.rightId}"/>'),true)"
             id="<c:out value="${param.leftId}"/>" size="5">
     <c:if test="${leftList != null}">
@@ -29,8 +28,7 @@
             All &lt;&lt;</button>
     </td>
     <td>
-        <select name="<c:out value="${param.rightId}"/>" 
-            multiple="multiple"
+        <select name="<c:out value="${param.rightId}"/>" multiple="multiple"
             id="<c:out value="${param.rightId}"/>" size="5">
     <c:if test="${rightList != null}">
         <c:forEach var="list" items="${rightList}" varStatus="status">
