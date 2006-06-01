@@ -1327,6 +1327,7 @@
                 <exclude name="web/WEB-INF/classes/mail.properties"/>
                 <exclude name="**/*.page"/>
                 <exclude name="**/*.application"/>
+                <exclude name="**/*.jwc"/>
                 <exclude name="**/*_page.xdt"/>
                 <exclude name="**/managed-beans.xdt"/>
                 <exclude name="docs/**"/>
