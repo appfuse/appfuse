@@ -76,6 +76,7 @@
     <bean id="rememberMeServices" class="org.acegisecurity.ui.rememberme.TokenBasedRememberMeServices"> 
         <property name="userDetailsService" ref="userDao"/>
         <property name="key" value="appfuseRocks"/>
+        <property name="parameter" value="rememberMe"/>
     </bean> 
   
     <bean id="authenticationManager" class="org.acegisecurity.providers.ProviderManager">
