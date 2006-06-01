@@ -52,7 +52,7 @@ div.message img.icon {
     vertical-align: middle;
 }
 
-span.fieldError {
+span.fieldError, .errorMessage {
     color: red;
     font-size: .95em;
     font-weight: bold;
