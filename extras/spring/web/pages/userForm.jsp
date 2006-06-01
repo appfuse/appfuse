@@ -4,6 +4,7 @@
     <title><fmt:message key="userProfile.title"/></title>
     <content tag="heading"><fmt:message key="userProfile.heading"/></content>
     <meta name="menu" content="UserMenu"/>
+    <script type="text/javascript" src="<c:url value='/scripts/selectbox.js'/>"></script>
 </head>
 
 <spring:bind path="user.*">
@@ -248,8 +249,7 @@
 
         <c:forEach var="role" items="${user.roleList}" varStatus="status">
             <c:out value="${role.label}"/><c:if test="${!status.last}">,</c:if>
-            <input type="hidden" name="userRoles"
-                value="<c:out value="${role.label}"/>"/>
+            <input type="hidden" name="userRoles" value="<c:out value="${role.label}"/>"/>
         </c:forEach>
         <spring:bind path="user.enabled">
             <input type="hidden" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>"/>
