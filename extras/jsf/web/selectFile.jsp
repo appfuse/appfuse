@@ -16,6 +16,10 @@
 <h:form id="uploadForm" enctype="multipart/form-data" onsubmit="return validateUploadForm(this)">
 
 <h:panelGrid columns="3">
+
+    <h:panelGroup styleClass="info"><h:outputText value="#{text['upload.message']}"/></h:panelGroup>
+    <h:outputText/><h:outputText/>
+    
     <h:outputLabel styleClass="desc" for="name" value="#{text['uploadForm.name']}"/>
     <t:message for="name" styleClass="fieldError"/>
     <h:inputText value="#{fileUpload.name}" id="name" required="true" styleClass="text medium">

@@ -7,12 +7,16 @@
 <f:view>
 <f:loadBundle var="text" basename="#{signupForm.bundleName}"/>
 
-<p><h:outputText value="#{text['signup.message']}"/></p>
 <div class="separator"></div>
 
 <h:form id="signupForm" onsubmit="return validateSignupForm(this)">
 
 <h:panelGrid columns="3">
+
+    <h:panelGroup styleClass="info">
+        <h:outputText value="#{text['signup.message']}"/>
+    </h:panelGroup>
+    <h:outputText/><h:outputText/>
 
     <h:outputLabel for="username" styleClass="desc" value="#{text['user.username']}"/>
     <t:message for="username" styleClass="fieldError"/>
@@ -41,6 +45,7 @@
             </t:htmlTag>
         </t:htmlTag>
     </h:panelGroup>
+    <h:outputText/><h:outputText/>
 
     <h:outputLabel for="passwordHint" value="#{text['user.passwordHint']}" styleClass="desc"/>
     <t:message for="passwordHint" styleClass="fieldError"/>
@@ -66,6 +71,7 @@
             </t:htmlTag>
         </t:htmlTag>
     </h:panelGroup>
+    <h:outputText/><h:outputText/>
 
     <h:panelGroup>
         <t:htmlTag value="div">
@@ -87,6 +93,7 @@
             </t:htmlTag>
         </t:htmlTag>
     </h:panelGroup>
+    <h:outputText/><h:outputText/>
 
     <h:outputLabel for="website" value="#{text['user.website']}" styleClass="desc"/>
     <t:message for="website" styleClass="fieldError"/>
@@ -134,19 +141,20 @@
             </t:htmlTag>
         </t:htmlTag>
     </h:panelGroup>
+    <h:outputText/><h:outputText/>
 
     <h:panelGroup styleClass="buttonBar bottom">
         <h:commandButton value="#{text['button.register']}" action="#{signupForm.save}" id="save" styleClass="button"/>
         <h:commandButton value="#{text['button.cancel']}" action="cancel" immediate="true" id="cancel" styleClass="button" onclick="bCancel=true"/>
     </h:panelGroup>
-
+    <h:outputText/><h:outputText/>
 </h:panelGrid>
 </h:form>
 
 <v:validatorScript functionName="validateSignupForm"/>
 
 <script type="text/javascript">
-    Form.focusFirstElement(document.forms["signupForm"]);
+    Form.focusFirstElement($('signupForm'));
 </script>
 
 </f:view>

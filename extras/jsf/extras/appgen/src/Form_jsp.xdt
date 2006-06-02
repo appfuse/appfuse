@@ -12,7 +12,7 @@
 <h:inputHidden value="#{<XDtForm:classNameLower/>Form.<XDtForm:classNameLower/>.<XDtForm:fieldName/>}" id="<XDtForm:fieldName/>"/>
 </XDtForm:ifIsIdOrVersionField>
 </XDtForm:forAllFields>
-<h:panelGrid columns="3" styleClass="detail" columnClasses="label">
+<h:panelGrid columns="3">
 <XDtForm:forAllFields>
 <XDtForm:ifIsNotIdOrVersionField>
 
@@ -30,10 +30,7 @@
 </XDtForm:ifIsNotIdOrVersionField>
 </XDtForm:forAllFields>
 
-    <%-- Put in empty <td></td> --%>
-    <h:inputHidden value=""/>
-
-    <h:panelGroup styleClass="buttonBar">
+    <h:panelGroup styleClass="buttonBar bottom">
         <h:commandButton value="#{text['button.save']}" action="#{<XDtForm:classNameLower/>Form.save}" 
             id="save" styleClass="button"/>
 
@@ -45,15 +42,14 @@
         <h:commandButton value="#{text['button.cancel']}" action="cancel" immediate="true"  
             id="cancel" styleClass="button" onclick="bCancel=true"/>
     </h:panelGroup>
-
-    <h:inputHidden value=""/>
+    <h:outputText/><h:outputText/>
 </h:panelGrid>
 </h:form>
 
 <v:validatorScript functionName="validate<XDtForm:className/>Form"/>
 
 <script type="text/javascript">
-    Form.focusFirstElement(document.forms["<XDtForm:classNameLower/>Form"]);
+    Form.focusFirstElement($('<XDtForm:classNameLower/>Form'));
 </script>
 
 </f:view>

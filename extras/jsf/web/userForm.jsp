@@ -42,6 +42,7 @@
         <h:commandButton value="#{text['button.cancel']}" action="#{userForm.cancel}" immediate="true"
             styleClass="button" onclick="bCancel=true"/>
     </h:panelGroup>
+    <h:outputText/><h:outputText/>
 
     <h:panelGroup styleClass="info">
         <c:choose>
@@ -51,6 +52,7 @@
             <c:otherwise><h:outputText value="#{text['userProfile.message']}"/></c:otherwise>
         </c:choose>
     </h:panelGroup>
+    <h:outputText/><h:outputText/>
 
     <h:outputLabel for="username" styleClass="desc" value="#{text['user.username']}"/>
     <t:message for="username" styleClass="fieldError"/>
@@ -80,6 +82,7 @@
             </t:htmlTag>
         </t:htmlTag>
     </h:panelGroup>
+    <h:outputText/><h:outputText/>
     </c:if>
 
     <h:outputLabel for="passwordHint" value="#{text['user.passwordHint']}" styleClass="desc"/>
@@ -106,6 +109,7 @@
             </t:htmlTag>
         </t:htmlTag>
     </h:panelGroup>
+    <h:outputText/><h:outputText/>
 
     <h:panelGroup>
         <t:htmlTag value="div">
@@ -127,6 +131,7 @@
             </t:htmlTag>
         </t:htmlTag>
     </h:panelGroup>
+    <h:outputText/><h:outputText/>
 
     <h:outputLabel for="website" value="#{text['user.website']}" styleClass="desc"/>
     <t:message for="website" styleClass="fieldError"/>
@@ -174,6 +179,7 @@
             </t:htmlTag>
         </t:htmlTag>
     </h:panelGroup>
+    <h:outputText/><h:outputText/>
 
 <c:choose>
     <c:when test="${param.from == 'list' or param['editUser:add'] == addText}">
@@ -193,6 +199,7 @@
             <h:outputLabel for="credentialsExpired" styleClass="choice" value="#{text['user.credentialsExpired']}"/>
         </t:htmlTag>
     </h:panelGroup>
+    <h:outputText/><h:outputText/>
     <h:panelGroup>
         <t:htmlTag value="fieldset">
             <t:htmlTag value="legend"><h:outputText value="#{text['userProfile.assignRoles']}"/></t:htmlTag>
@@ -201,6 +208,7 @@
             </h:selectManyCheckbox>
         </t:htmlTag>
     </h:panelGroup>
+    <h:outputText/><h:outputText/>
     </c:when>
     <c:otherwise>
     <h:panelGroup>
@@ -216,11 +224,9 @@
         <h:inputHidden value="#{userForm.user.accountLocked}"/>
         <h:inputHidden value="#{userForm.user.credentialsExpired}"/>
     </h:panelGroup>
+    <h:outputText/><h:outputText/>
     </c:otherwise>
 </c:choose>
-
-    <h:outputText/>
-    <h:outputText/>
 
     <h:panelGroup styleClass="buttonBar bottom">
         <h:commandButton value="#{text['button.save']}" action="#{userForm.save}" styleClass="button"/>
@@ -231,7 +237,7 @@
         <h:commandButton value="#{text['button.cancel']}" action="#{userForm.cancel}" immediate="true"
             styleClass="button" onclick="bCancel=true"/>
     </h:panelGroup>
-
+    <h:outputText/><h:outputText/>
 </h:panelGrid>
 </h:form>
 
