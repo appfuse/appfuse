@@ -695,7 +695,6 @@
         
         <!-- New project created, gen code and run tests -->
         <ant dir="../../../${app.name}/extras/appgen" target="install-detailed" inheritAll="false">
-            <property name="web.framework" value="${web.framework}"/>
             <property name="appgen.type" value="pojo"/>
             <property name="object.name" value="Department"/>   
             <property name="app.module" value="organization"/>
