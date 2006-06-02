@@ -25,7 +25,7 @@ import <XDtForm:parentPackageName/>.webapp.form.<XDtForm:className/>Form;
  *  validate="false" parameter="method" input="list"
  * @struts.action name="<XDtForm:classNameLower/>Form" path="/save<XDtForm:className/>" scope="request"
  *  validate="true" parameter="method" input="edit"
- * 
+ * @struts.action-set-property property="cancellable" value="true"
  * @struts.action-forward name="edit" path="/WEB-INF/pages/<XDtConfig:configParameterValue paramName="appModuleNameSlash"/><XDtForm:classNameLower/>Form.jsp"
  * @struts.action-forward name="list" path="/WEB-INF/pages/<XDtConfig:configParameterValue paramName="appModuleNameSlash"/><XDtForm:classNameLower/>List.jsp"
  * @struts.action-forward name="search" path="/<XDtForm:classNameLower/>s.html" redirect="true"
