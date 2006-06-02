@@ -459,7 +459,7 @@
         <replace file="${menuFile}" token="&lt;!--${model.name}-END--&gt;" value="REGULAR-END"/>
         <replaceregexp file="${menuFile}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
         <!-- Add to the bottom of the list of menus -->   
-        <replace file="${menuFile}" value="${menu.jsp}" token="&lt;/menu:useMenuDisplayer&gt;"/>
+        <replace file="${menuFile}" value="${menu.jsp}" token="&lt;/ul&gt;"/>
     </target>
             
     <target name="merge-hibernate" if="hibernate.jar" unless="install.generic">
