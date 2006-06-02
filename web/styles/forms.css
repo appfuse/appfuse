@@ -92,7 +92,7 @@ form .clear{
 }
 
 form li div {
-    margin-bottom: 5px;
+    margin-bottom: 0px;
 }
 
 form li div p {
@@ -301,7 +301,6 @@ p.error{
 fieldset{
     margin: 0 0 5px 0;
     padding: 10px 10px 5px 10px;
-    border: 1px solid silver;
     color: #444;
 }
 
