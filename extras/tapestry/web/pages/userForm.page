@@ -51,6 +51,12 @@
         <binding name="displayName" value="message:user.confirmPassword"/>
     </component>
     
+    <component id="passwordHintField" type="TextField">
+        <binding name="value" value="user.passwordHint"/>
+        <binding name="validators" value="validators:required"/>
+        <binding name="displayName" value="message:user.passwordHint"/>
+    </component>
+
     <component id="firstNameField" type="TextField">
         <binding name="value" value="user.firstName"/>
         <binding name="validators" value="validators:required"/>
@@ -62,37 +68,7 @@
         <binding name="validators" value="validators:required"/>
         <binding name="displayName" value="message:user.lastName"/>
     </component>
-    
-    <component id="cityField" type="TextField">
-        <binding name="value" value="user.address.city"/>
-        <binding name="validators" value="validators:required"/>
-        <binding name="displayName" value="message:user.address.city"/>
-    </component>
-    
-    <component id="stateField" type="TextField">
-        <binding name="value" value="user.address.province"/>
-        <binding name="validators" value="validators:required"/>
-        <binding name="displayName" value="message:user.address.province"/>
-    </component>
-    
-    <!-- TODO: Validate this field -->
-    <component id="countryField" type="PropertySelection">
-        <binding name="model" value="countries"/>
-        <binding name="value" value="user.address.country"/>
-        <!-- Doesn't work -->
-        <!--message-binding name="displayName" key="user.address.country"/-->
-    </component>
-    
-    <component id="addressField" type="TextField">
-        <binding name="value" value="user.address.address"/>
-    </component>
-    
-    <component id="postalCodeField" type="TextField">
-        <binding name="value" value="user.address.postalCode"/>
-        <binding name="validators" value="validators:required,$zipValidator"/>
-        <binding name="displayName" value="message:user.address.postalCode"/>
-    </component>
-    
+
     <component id="emailField" type="TextField">
         <binding name="value" value="user.email"/>
         <binding name="validators" value="validators:required,email"/>
@@ -111,18 +87,42 @@
         <binding name="displayName" value="message:user.website"/>
     </component>
     
-    <component id="passwordHintField" type="TextField">
-        <binding name="value" value="user.passwordHint"/>
+    <component id="addressField" type="TextField">
+        <binding name="value" value="user.address.address"/>
+    </component>
+
+    <component id="cityField" type="TextField">
+        <binding name="value" value="user.address.city"/>
         <binding name="validators" value="validators:required"/>
-        <binding name="displayName" value="message:user.passwordHint"/>
+        <binding name="displayName" value="message:user.address.city"/>
     </component>
     
+    <component id="stateField" type="TextField">
+        <binding name="value" value="user.address.province"/>
+        <binding name="validators" value="validators:required"/>
+        <binding name="displayName" value="message:user.address.province"/>
+    </component>
+    
+    <component id="postalCodeField" type="TextField">
+        <binding name="value" value="user.address.postalCode"/>
+        <binding name="validators" value="validators:required,$zipValidator"/>
+        <binding name="displayName" value="message:user.address.postalCode"/>
+    </component>
+
+    <!-- TODO: Validate this field -->
+    <component id="countryField" type="PropertySelection">
+        <binding name="model" value="countries"/>
+        <binding name="value" value="user.address.country"/>
+        <!-- Doesn't work -->
+        <!--message-binding name="displayName" key="user.address.country"/-->
+    </component>
+
     <component id="userRoles" type="contrib:MultiplePropertySelection">
        <binding name="model" value="availableRoles"/>
        <binding name="selectedList" value="userRoles"/>
        <binding name="renderer" value="beans.multipleCheckboxRenderer"/>
     </component>
-    
+
     <component id="hiddenUserRoles" type="contrib:MultiplePropertySelection">
        <binding name="model" value="availableRoles"/>
        <binding name="selectedList" value="userRoles"/>

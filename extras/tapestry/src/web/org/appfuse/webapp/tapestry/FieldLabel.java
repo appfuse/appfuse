@@ -48,8 +48,9 @@ public abstract class FieldLabel extends org.apache.tapestry.valid.FieldLabel {
         writer.begin("label");
         delegate.writeLabelPrefix(field, writer, cycle);
 
-        if (id != null)
+        if (id != null) {
             writer.attribute("for", id);
+        }
 
         delegate.writeLabelAttributes(writer, cycle, field);
         renderInformalParameters(writer, cycle);
