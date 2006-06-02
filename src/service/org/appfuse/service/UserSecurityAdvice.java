@@ -24,7 +24,7 @@ public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdv
     public final static String ACCESS_DENIED = "Access Denied: Only administrators are allowed to modify other users.";
     protected final Log log = LogFactory.getLog(UserSecurityAdvice.class);
     private UserCache userCache;
-    
+
     public void setUserCache(UserCache userCache) {
         this.userCache = userCache;
     }
@@ -105,22 +105,22 @@ public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdv
         }
     }
 
-    public void afterReturning(Object returnValue, Method method, Object[] args, Object target) 
+    public void afterReturning(Object returnValue, Method method, Object[] args, Object target)
     throws Throwable {
         User user = (User) args[0];
-        
+
         if (userCache != null && user.getVersion() != null) {
             if (log.isDebugEnabled()) {
                 log.debug("Removing '" + user.getUsername() + "' from userCache");
             }
-            
+
             userCache.removeUserFromCache(user.getUsername());
-            
+
             // reset the authentication object if current user
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             if (auth != null && auth.getPrincipal() instanceof UserDetails) {
                 User currentUser = (User) auth.getPrincipal();
-                if (currentUser.getUsername().equalsIgnoreCase(user.getUsername())) {
+                if (currentUser.getId().equals(user.getId())) {
                     auth = new UsernamePasswordAuthenticationToken(user, user.getPassword(), user.getAuthorities());
                     SecurityContextHolder.getContext().setAuthentication(auth);
                 }
