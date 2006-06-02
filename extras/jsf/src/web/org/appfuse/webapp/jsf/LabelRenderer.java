@@ -1,7 +1,6 @@
-package org.appfuse.webapp.action;
+package org.appfuse.webapp.jsf;
 
 import java.util.Iterator;
-import java.util.Locale;
 import java.util.Map;
 
 import javax.faces.component.UIComponent;
@@ -10,15 +9,13 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.Renderer;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
  * Custom LabelRenderer component that adds asterisks for required
- * fields and a colon.  Based off of an example by David Geary
- * on the MyFaces Mailing list.
+ * fields.  Based off of an example from David Geary on the MyFaces
+ * Mailing list.
  *
  * @author Matt Raible
  */
@@ -46,8 +43,6 @@ public class LabelRenderer extends Renderer {
 
         if (styleClass != null) {
             writer.writeAttribute("class", styleClass, null);
-        } else if ((input != null) && input.isRequired()) {
-            writer.writeAttribute("class", "required", null);
         }
 
         String renderedId =

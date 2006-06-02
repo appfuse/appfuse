@@ -70,7 +70,7 @@ form li div.group {
 }
 
 form li div.group input.large, form li div.group textarea.large, form li fieldset {
-    width: 334px;
+    width: 339px;
 }
 
 form[id] li div {
