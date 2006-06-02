@@ -17,6 +17,15 @@ div.error, li.error {
     border: 2px solid red;
 }
 
+/* IE fix, followed by the rest of the world fix */
+li.error {
+    padding: 3px !important;
+}
+
+ul>li.error {
+    padding: 0px !important;
+}
+
 div.message p, div.message p {
     margin-bottom: 0;
 }

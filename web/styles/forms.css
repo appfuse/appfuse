@@ -298,11 +298,14 @@ p.error{
 }
 
 /* ----- Fieldsets ----- */
-fieldset{
+fieldset {
     margin: 0 0 5px 0;
     padding: 10px 10px 5px 10px;
     color: #444;
 }
+
+/* Firefox and others, don't apply to IE or it will put a border under each input element */
+li>fieldset, form>fieldset { border: 1px solid silver }
 
 fieldset.choices{
     padding: 10px 5px 10px 10px;
@@ -315,6 +318,7 @@ fieldset.fieldset{
 legend{
     font-weight: bold;
     margin: 0 0 0 0;
+    color: #444;
 }
 
 #formProperties[id] legend, .choices[class] legend{
