@@ -2,12 +2,12 @@ package org.appfuse.webapp.jsf;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.myfaces.shared_impl.renderkit.JSFAttr;
-import org.apache.myfaces.shared_impl.renderkit.RendererUtils;
-import org.apache.myfaces.shared_impl.renderkit.html.HTML;
-import org.apache.myfaces.shared_impl.renderkit.html.HtmlRenderer;
-import org.apache.myfaces.shared_impl.renderkit.html.HtmlRendererUtils;
-import org.apache.myfaces.shared_impl.util.StringUtils;
+import org.apache.myfaces.shared_tomahawk.renderkit.JSFAttr;
+import org.apache.myfaces.shared_tomahawk.renderkit.RendererUtils;
+import org.apache.myfaces.shared_tomahawk.renderkit.html.HTML;
+import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlRenderer;
+import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlRendererUtils;
+import org.apache.myfaces.shared_tomahawk.util.StringUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIPanel;
@@ -48,7 +48,7 @@ public class PanelGridRenderer extends HtmlRenderer {
         if (component instanceof HtmlPanelGrid) {
             columns = ((HtmlPanelGrid) component).getColumns();
         } else {
-            Integer i = (Integer) component.getAttributes().get(org.apache.myfaces.shared_impl.renderkit.JSFAttr.COLUMNS_ATTR);
+            Integer i = (Integer) component.getAttributes().get(org.apache.myfaces.shared_tomahawk.renderkit.JSFAttr.COLUMNS_ATTR);
             columns = i != null ? i.intValue() : 0;
         }
 
@@ -85,7 +85,7 @@ public class PanelGridRenderer extends HtmlRenderer {
         }
 
         String[] rowClassesArray = (rowClasses == null)
-                ? org.apache.myfaces.shared_impl.util.ArrayUtils.EMPTY_STRING_ARRAY
+                ? org.apache.myfaces.shared_tomahawk.util.ArrayUtils.EMPTY_STRING_ARRAY
                 : StringUtils.trim(StringUtils.splitShortString(rowClasses, ','));
         int rowClassesCount = rowClassesArray.length;
 
@@ -130,5 +130,4 @@ public class PanelGridRenderer extends HtmlRenderer {
             }
         }
     }
-
 }
