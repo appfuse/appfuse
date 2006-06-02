@@ -267,7 +267,7 @@
     </c:when>
 </c:choose>
     <li class="buttonBar bottom">
-        <c:out value="${pageButtons}" escapeXml="false"/>
+        <c:out value="${buttons}" escapeXml="false"/>
     </li>
 </ul>
 </form>
