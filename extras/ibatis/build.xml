@@ -482,11 +482,7 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
         <ant dir="../../../${app.name}/extras/ibatis" target="install" inheritAll="false"/>
         <ant dir="../../../${app.name}/extras/ibatis" target="uninstall-hibernate" inheritAll="false"/>
         <!-- Gen code and run tests -->
-        <ant dir="../../../${app.name}/extras/appgen" target="test-all" inheritAll="false">
-            <property name="web.framework" value=""/>
-            <property name="appgen.type" value="pojo"/>
-            <property name="model.name" value="Person"/>
-        </ant>   
+        <ant dir="../../../${app.name}/extras/appgen" target="test-all" inheritAll="false"/> 
     </target>
     
     <target name="test-all" depends="test"

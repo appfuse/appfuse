@@ -549,9 +549,7 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
         </ant>
 
         <ant dir="../../../${app.name}/extras/appgen" target="test-all" inheritAll="false">
-            <property name="web.framework" value="tapestry"/>
-            <property name="appgen.type" value="pojo"/>
-            <property name="model.name" value="Person"/>   
+            <property name="web.framework" value="tapestry"/> 
         </ant>   
     </target>
     

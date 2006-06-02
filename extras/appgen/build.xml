@@ -189,7 +189,7 @@
             </classpath>
         </taskdef>
         <property name="template.dir" value="src"/>
-        
+
         <xdoclet destdir="${build.dir}"
                  excludedtags="@version,@author"
                  force="${xdoclet.force}">
@@ -691,8 +691,8 @@
             <replacetoken><![CDATA[<value>org/appfuse/model/Role.hbm.xml</value>]]></replacetoken>
             <replacevalue><![CDATA[<value>org/appfuse/organization/model/Department.hbm.xml</value>
                 <value>org/appfuse/model/Role.hbm.xml</value>]]></replacevalue>
-        </replace>     
-        
+        </replace>
+
         <!-- New project created, gen code and run tests -->
         <ant dir="../../../${app.name}/extras/appgen" target="install-detailed" inheritAll="false">
             <property name="appgen.type" value="pojo"/>
