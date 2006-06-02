@@ -9,7 +9,7 @@
     <inject property="response" object="service:tapestry.globals.HttpServletResponse"/>
     <inject property="<XDtForm:classNameLower/>Manager" type="spring" object="<XDtForm:classNameLower/>Manager"/>
 
-    <bean name="delegate" class="<XDtForm:parentPackageName/>.webapp.action.Validator"/>
+    <bean name="delegate" class="<XDtForm:parentPackageName/>.webapp.tapestry.ValidationDelegate"/>
     <property name="message" persist="flash"/>
 
     <component id="<XDtForm:classNameLower/>Form" type="Form">
