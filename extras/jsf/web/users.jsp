@@ -15,7 +15,7 @@
     <h:commandButton value="#{text['button.add']}" action="add" id="add" 
         immediate="true" styleClass="button"/>
 
-    <input type="button" onclick="location.href='<c:url value="/mainMenu.html" />'"
+    <input type="button" class="button" onclick="location.href='<c:url value="/mainMenu.html" />'"
         value="<fmt:message key="button.done"/>"/>
 </c:set>
 
