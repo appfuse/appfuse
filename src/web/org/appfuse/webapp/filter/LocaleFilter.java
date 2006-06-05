@@ -1,7 +1,8 @@
 package org.appfuse.webapp.filter;
 
-import java.io.IOException;
-import java.util.Locale;
+import org.appfuse.Constants;
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -9,10 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.jstl.core.Config;
-
-import org.appfuse.Constants;
-import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.web.filter.OncePerRequestFilter;
+import java.io.IOException;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * Filter to wrap request with a request including user preferred locale.
@@ -44,6 +44,12 @@ public class LocaleFilter extends OncePerRequestFilter {
                 request = new LocaleRequestWrapper(request, preferredLocale);
                 LocaleContextHolder.setLocale(preferredLocale);
             }
+        }
+
+        String theme = request.getParameter("theme");
+        if (theme != null && request.isUserInRole(Constants.ADMIN_ROLE)) {
+            Map config = (Map) getServletContext().getAttribute(Constants.CONFIG);
+            config.put("theme", theme);
         }
 
         chain.doFilter(request, response);
