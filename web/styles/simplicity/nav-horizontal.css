@@ -60,7 +60,7 @@
         text-decoration: none;
         background-color: #ebf5fc;
     }
-    div#nav strong {
+    div#nav a.current {
         display: inline-block;
         /* hide from ie/mac \*/
         display: block;
@@ -69,13 +69,13 @@
         color: #4f8cc9;
         background: #d7e9f5;
 
-        font-size: 1.2em;
+        font-size: 1.2em !important;
     }
-    div#nav strong a,
-    div#nav strong a:link,
-    div#nav strong a:active,
-    div#nav strong a:visited,
-    div#nav strong a:hover {
+    div#nav a.current,
+    div#nav a.current:link,
+    div#nav a.current:active,
+    div#nav a.current:visited,
+    div#nav a.current:hover {
        color: #4f8cc9;
        background-color: #d7e9f5;
     }
