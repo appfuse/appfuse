@@ -1,0 +1,48 @@
+/* A CSS Framework by Mike Stenhouse of Content with Style */ /* NAV BAR AT THE TOP, LOCAL NAV ON THE LEFT AND TWO COLUMNS OF CONTENT */
+
+@import url(nav-horizontal.css);
+
+div#content {
+    position: relative;
+    width: 701px;
+    margin: 0 auto 20px auto;
+    padding: 0;
+    text-align: left;
+}
+
+div#main {
+    float: left;
+    width: 445px;
+    margin-left: 150px;
+    display: inline;
+}
+
+div#sub {
+    float: right;
+    width: 140px;
+    display: inline;
+}
+
+div#local {
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    float: right;
+    width: 150px;
+    display: inline;
+}
+
+div#local li {
+    list-style: none;
+    margin-left: 10px;
+}
+
+div#nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    float: left;
+    width: 150px;
+    display: inline;
+}
+/* END CONTENT */

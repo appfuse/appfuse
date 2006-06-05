@@ -1,0 +1,73 @@
+/* A CSS Framework by Mike Stenhouse of Content with Style */
+
+/* SITE SPECIFIC LAYOUT */
+    body {
+        margin: 0;
+        padding: 0;
+
+        background: white;
+
+        text-align: center;
+    }
+    div#page {
+        width: 780px;
+
+        margin:  0 auto;
+        padding: 0;
+
+        background: white;
+        text-align: center;
+    }
+    
+    /* HEADER */
+        div#header {
+            margin: 0 0 5em 0;
+            padding: 40px 20px;
+            
+            color: white;
+            background: black;
+            
+            text-align: left;
+        }
+        div#branding {
+            float: left;
+            width: 100%;
+            
+            margin: 0;
+            padding: 10px 0 10px 20px;
+            
+            text-align: left;
+        }
+    /* END HEADER */
+    
+    
+    /* CONTENT */
+        div#content {
+            
+        }
+        
+        /* MAIN */
+            div#main {
+                
+            }
+        /* END MAIN */
+        
+        /* SUB */
+            div#sub {
+                
+            }
+        /* END SUB */
+        
+    /* END CONTENT */
+    
+    
+    /* FOOTER */
+        div#footer {
+            color: white;
+            background-color: black;
+        }
+        div#footer p {            
+            margin: 0;
+        }
+    /* END FOOTER */
+/* END LAYOUT */

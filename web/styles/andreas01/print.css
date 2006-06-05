@@ -1,0 +1,37 @@
+/* andreas01 - an open source xhtml/css website layout by Andreas Viklund (http://andreasviklund.com). Made for OSWD.org, free to use as-is for any purpose as long as the proper credits are given for the original design work. For design assistance and support, contact me through my website or through http://oswd.org/email.phtml?user=Andreas
+
+Version: 1.0
+(July 25, 2005)
+
+Print layout: */
+
+body {
+    margin: 0 auto;
+    padding: 0;
+    font-family: "Times New Roman", Serif;
+    background: #ffffff;
+    color: #000000;
+}
+
+#page {
+    margin: 2%;
+    width: auto;
+    float: none !important;
+}
+
+#header h1 {
+    margin: 0 0 10px 0;
+}
+
+#frontphoto, #local ul, #sub, .announce, .hide {
+    display: none;
+}
+
+#main img {
+    display: none;
+}
+
+a {
+    text-decoration: underline;
+    color: #0000FF;
+}

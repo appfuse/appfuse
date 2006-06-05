@@ -69,6 +69,10 @@ form li div.group {
     width: 355px;
 }
 
+form li div.group p {
+    text-align: left;
+}
+
 form li div.group input.large, form li div.group textarea.large, form li fieldset {
     width: 339px;
 }
@@ -122,6 +126,7 @@ form .info{
     margin: 0 0 4px 0;
     padding: 0 0 4px 0;
     border-bottom: 1px dotted #ccc !important;
+    text-align: left;
 }
 
 form .info[class]{
@@ -420,8 +425,10 @@ body#login #main h1 {
     margin-left: -330px;
 }
 
-body#login p {
+body#login #main p {
     margin-top: 10px;
+    margin-bottom: 0;
+    padding-bottom: 0;
 }
 
 #loginForm fieldset {

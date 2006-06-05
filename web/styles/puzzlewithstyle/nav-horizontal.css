@@ -1,0 +1,67 @@
+/* A CSS Framework template by Mattias Fjellström, zelphus@gmail.com */
+/* Based on "A CSS Framework by Mike Stenhouse of Content with Style" */
+
+/* NAV */
+	div#nav {
+        font-size: 0.8em;
+		
+    }
+    * html div#nav {
+        /* hide ie/mac \*/
+        height: 1%;
+        /* end hide */
+    }
+    div#nav div.wrapper {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+		background: #cc0000;
+		color: #fff;
+    }
+    div#nav ul {
+        width: auto; 
+        width: 100%;
+                
+        margin: 0;
+        padding: 0;
+        
+        line-height: 1em;
+        list-style: none;
+    }
+    div#nav li {
+        float: left;
+        display: inline;
+   
+        list-style: none;
+        
+        margin: 0;
+        padding: 0;
+        
+        line-height: 2em;
+
+        background: #cc0000;
+        border-right: 1px solid #800000;
+    }
+    div#nav li.last {
+        
+    }
+    div#nav a {
+        /* hide from ie/mac \*/
+        display: block;
+        /* end hide */
+        font-weight: bold;
+        text-decoration: none;
+
+        margin: 0;
+        padding: 10px 15px;
+
+        color: #fff;
+        background-color: #cc0000;
+    }
+    div#nav a:hover, div#nav a.current {
+        text-decoration: underline;
+		color: #000 !important;
+        background: #fff;
+    }
+/* END NAV */

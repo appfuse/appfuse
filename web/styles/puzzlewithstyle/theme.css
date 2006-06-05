@@ -1,0 +1,56 @@
+@import url(tools.css);
+@import url(typo.css);
+@import url(layout-navtop-subright.css);
+@import url(layout.css);
+@import url(table.css);
+@import url(../displaytag.css);
+@import url(../forms.css);
+@import url(../menu.css);
+@import url(../messages.css);
+
+pre, code {
+    font-size: 12px;
+}
+
+body#error #content {
+    margin-top: 20px;
+}
+
+ul.glassList {
+    list-style: url(../../images/aquadot.jpg) disc outside;
+    vertical-align: top;
+    line-height: 1.5em;
+}
+
+#switchLocale {
+    position: absolute;
+    right: 10px;
+}
+
+ul#primary-nav li a {
+    color: white;
+}
+
+form div.group p label {
+    text-align: left;
+}
+
+ul#primary-nav li.pad {
+    display: none;
+}
+
+ul#primary-nav ul {
+    margin-top: 17px;
+}
+
+ul#primary-nav ul li {
+    border: 1px solid black;
+    border-bottom: 0px;
+}
+
+ul#primary-nav ul li.last {
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+}
+
+ul#primary-nav li ul li a { width: 93% } /* Sub Menu Styles */

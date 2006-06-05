@@ -1,0 +1,19 @@
+/* A CSS Framework by Mike Stenhouse of Content with Style */
+
+/* NAV BAR AT THE TOP AND ONE COLUMN OF CONTENT */
+
+    div#main {
+        width: 100%;
+        text-align: left;
+    }
+
+        div#main fieldset, div#main p {
+            margin-left: 25px;
+            text-align: left;
+        }
+
+        div#main h1 {
+            width: 100%;
+        }
+
+/* END CONTENT */
