@@ -79,10 +79,6 @@ th.sorted a, th.sortable a {
     display: block;
 }
 
-.table thead tr {
-    background-color: #FFCC00;
-}
-
 .table tr.even {
     background: #EEEEEE;
     border-top: 1px solid #C0C0C0;
