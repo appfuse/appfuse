@@ -193,7 +193,6 @@
             }
             .table a:visited {
                 color: #444;
-                font-weight: normal;
             }
             .table th a {
                 border-bottom: 0;
@@ -242,7 +241,7 @@
                 border-width: 1px 0;
             }
             .table tbody tr.even th,
-            .table tbody tr.even td, {
+            .table tbody tr.even td {
                 border-color: #EBE5D9;
                 background: #F7F4EE;
             }
