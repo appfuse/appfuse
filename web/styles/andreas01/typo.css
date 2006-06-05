@@ -11,6 +11,9 @@
     div {
         font-size: 1em;
     }
+        div#header a {
+           color: black;
+        }
     img {
         border: 0;
     }
@@ -19,19 +22,17 @@
     a,
     a:link
     a:active {
-        color: blue;
-        background-color: white;
-        text-decoration: underline;
-    }
-    a:visited {
-        color: purple;
-        background-color: transparent;
+        text-decoration: none;
+        color: #286ea0;
     }
     a:hover {
-        color: white;
-        background-color: black;
-        text-decoration: none;
+        text-decoration: underline;
+        color: #286ea0;
+        background: inherit;
     }
+        a img {
+            border: 0;
+        }
 /* END LINKS */
 
 /* HEADINGS */
@@ -82,17 +83,17 @@
 /* TEXT */
     p {
         font-size: 1em;
-        margin: 0 0 1.5em 0;
+        margin: 0 0 10px 0;
         padding: 0;
-        line-height:1.4em;
+        line-height: 1.6em;
     }
     blockquote {
-        border-left:10px solid #ddd;
-        margin-left:10px;
+        border-left: 10px solid #ddd;
+        margin-left: 10px;
     }
     pre {
         font-family: monospace;
-        font-size: 1.0em;
+        font-size: 12px;
     }
     strong, b {
         font-weight: bold;
@@ -102,7 +103,7 @@
     }
     code {
         font-family: "Courier New", Courier, monospace;
-        font-size: 1em;
+        font-size: 12px;
         white-space: pre;
     }
 /* END TEXT */
@@ -113,6 +114,11 @@
         margin: 0 0 1.5em 0;
         padding: 0;
     }
+        ul.glassList {
+            list-style: url(../../images/aquadot.jpg) disc outside;
+            vertical-align: top;
+            line-height: 1.5em;
+        }
     ul li {
         margin: 0 0 0.25em 30px;
         padding: 0;
@@ -163,6 +169,119 @@
     td {
         font-size: 1em;
     }
+
+    /*
+    Coffee with milk
+    Table design by Roger Johansson, 456 Berea Street
+    www.456bereastreet.com
+    ================================================*/
+        .table {
+            font: normal "Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 0 0 1em;
+            color: #000;
+            width: 100%;
+        }
+            .table a {
+                color: #523A0B;
+                text-decoration: none;
+                border-bottom: 1px dotted;
+            }
+            .table td a img {
+                border: 0 !important;
+            }
+            .table a:visited {
+                color: #444;
+                font-weight: normal;
+            }
+            .table th a {
+                border-bottom: 0;
+            }
+            .table td a:visited:after {
+                content: "\00A0\221A";
+            }
+            .contribTable th a:visited:after, .tableHeaderTable td a:visited:after {
+                content: "";
+            }
+            .table a:hover {
+                border-bottom-style: solid;
+                text-decoration: none;
+            }
+            .table th a:hover {
+                text-decoration: underline;
+            }
+            .table thead th, .table thead td,
+            .table tfoot th, .table tfoot td, .contribTable table.tableHeaderTable {
+                border: 1px solid #523A0B;
+                border-width: 1px 0;
+                background: #EBE5D9;
+            }
+            .table th {
+                font-weight: bold;
+                line-height: normal;
+                padding: 0.25em 0.5em;
+                text-align: left;
+            }
+            .table tbody th, .table td {
+                padding: 0.25em 0.5em;
+                text-align: left;
+                vertical-align: top;
+            }
+            .table tbody th {
+                font-weight: normal;
+                white-space: nowrap;
+            }
+            .table tbody th a:link,
+            .table tbody th a:visited {
+                font-weight: bold;
+            }
+            .table tbody td,
+            .table tbody th {
+                border: 1px solid #fff;
+                border-width: 1px 0;
+            }
+            .table tbody tr.even th,
+            .table tbody tr.even td, {
+                border-color: #EBE5D9;
+                background: #F7F4EE;
+            }
+            .table tbody tr:hover td,
+            .table tbody tr:hover th {
+                background: #ffffee;
+                border-color: #523A0B;
+            }
+            /* Turn off highlighting row for Tapestry's heading */
+            .table tr:hover table.tableHeaderTable, .table tr:hover table.tableHeaderTable th,
+                .table tr:hover table.tableHeaderTable td {
+                background: #EBE5D9;
+            }
+            .table caption {
+                font-family: Georgia,Times,serif;
+                font-weight: normal;
+                font-size: 1.4em;
+                text-align: left;
+                margin: 0;
+                padding: 0.5em 0.25em;
+            }
+            /* For Tapestry's contribTable */
+            .table th table, .table th table td {
+                width: 100%;
+                border: 0;
+            }
+            .contribTable th {
+                padding: 0px !important;
+            }
+            .contribTable th .tableHeaderTable {
+                margin: 0px !important;
+                padding: 0;
+            }
+            .contribTable tr.even {
+                background: #fff !important;
+            }
+            .contribTable tr.odd {
+                background: #F7F4EE !important;
+            }
 /* END TABLE */
 
     hr {
@@ -172,6 +291,25 @@
         height: 1px;
         margin: 1.5em 10px;
         border-bottom: 1px dotted black;
+    }
+
+/* MISC CLASSES */
+
+div.announce {
+    margin: 20px 0 10px 0;
+    padding: 10px;
+    width: 130px;
+    color: #505050;
+    background-color: #f4f4f4;
+}
+
+    div.announce p {
+        line-height: 1.2em;
+        padding-bottom: 10px;
+    }
+
+    div.announce h3 {
+        color: #505050;
     }
 
 /* END TYPOGRAPHY */

@@ -15,15 +15,15 @@
     }
     div#main {
         float: left;
-        width: 520px;
+        width: 560px;
         display: inline;
-		margin: 0 0 0 20px;
+        margin: 0 0 0 20px;
     }
     div#sub {
         float: right;
-        width: 200px;
+        width: 160px;
         display: inline;
-		margin: 0 20px 0 10px;
+        margin: 0 20px 0 10px;
     }
     div#local {
         display: none;

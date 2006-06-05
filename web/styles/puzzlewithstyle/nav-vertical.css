@@ -2,7 +2,7 @@
 /* Based on "A CSS Framework by Mike Stenhouse of Content with Style" */
 
 /* NAV */
-	div#nav {
+    div#nav {
         font-size: 1.0em;
     }
     * html div#nav {
@@ -34,9 +34,9 @@
         padding: 0;
         
         line-height: 20px;
-		
-		border-bottom: 1px solid #ddd;
-		padding: 5px 0;
+
+        border-bottom: 1px solid #ddd;
+        padding: 5px 0;
     }
     * html div#nav li {
         /* hide ie/mac \*/
@@ -54,7 +54,7 @@
         
         margin: 0;
         padding: 5px;
-		height: 20px;
+        height: 20px;
         
         color: #000;
         background: #fff;
@@ -63,31 +63,31 @@
         color: #cc0000;
         background: #fff;
         text-decoration: underline;
-		text-transform: uppercase;
+        text-transform: uppercase;
     }
    
-	div#nav li ul {
-		margin: 0;
+    div#nav li ul {
+        margin: 0;
         padding: 0;
         
         font-size: 0.9em;
         list-style: none;
-	}
-	
-	div#nav li ul li {
+    }
+
+    div#nav li ul li {
         padding: 0;
-		margin: 2px 0 0 20px;
+        margin: 2px 0 0 20px;
         list-style: none;
-		border: none;
-	}
-	
-	div#nav li ul a {
-		color: #5d5d5d;
-		background: #fff;
-	}
-	
-	div#nav li ul li a:hover {
-		color: #cc0000;
-		text-transform: none;
-	}
+        border: none;
+    }
+
+    div#nav li ul a {
+        color: #5d5d5d;
+        background: #fff;
+    }
+
+    div#nav li ul li a:hover {
+        color: #cc0000;
+        text-transform: none;
+    }
 /* END NAV */

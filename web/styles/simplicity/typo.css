@@ -132,7 +132,7 @@
 
         pre {
             font-family: monospace;
-            font-size: 1.0em;
+            font-size: 12px;
         }
 
         strong,b {
@@ -151,30 +151,11 @@
     /* END TEXT */
 
     /* LISTS */
-        /*ul {
-            line-height: 1.4em;
-            margin: 0 0 1.5em 0;
-            padding: 0;
+        ul.glassList {
+            list-style: url(../../images/aquadot.jpg) disc outside;
+            vertical-align: top;
+            line-height: 1.5em;
         }
-
-        ul li {
-            margin: 0 0 0.25em 30px;
-            padding: 0;
-        }
-
-        ol {
-            font-size: 1.0em;
-            line-height: 1.4em;
-            margin: 0 0 1.5em 0;
-            padding: 0;
-        }
-
-        ol li {
-            font-size: 1.0em;
-            margin: 0 0 0.25em 30px;
-            padding: 0;
-        }*/
-
         dl {
             margin: 0 0 1.5em 0;
             padding: 0;
@@ -215,6 +196,94 @@
         td {
             font-size: 1em;
         }
+
+        /*********************************
+           Project: CSS Table Galery
+           Title: Like Adwords
+           Author: Cleiton Francisco
+           URL: http://www.cleiton.net/
+           Country: Brazil
+           Update: 2005-12-18
+         *******************************/
+
+            .table {
+                border-collapse: collapse;
+                border: 2px solid #74B3DC;
+                color: #000;
+                background: #fff;
+                width: 100%;
+            }
+                .table caption {
+                    padding: 0 0.6em 0.8em;
+                    font-size: 1.3em;
+                    font-weight: bold;
+                    text-align: left;
+                    color: #000;
+                    background: transparent;
+                }
+                /* For Tapestry's contribTable */
+                .table th table, .table th table td {
+                    width: 100%;
+                    border: 0px;
+                }
+                .contribTable th {
+                    padding: 0px !important;
+                    background: #d7e9f5;
+                }
+                .contribTable th .tableHeaderTable {
+                    margin: 0px !important;
+                }
+                .table td, .table th, .tableHeaderTable td {
+                    border: 1px solid #e0e0e0;
+                    padding: 0.5em;
+                }
+                .table thead th, .tableHeaderTable td {
+                    border: 1px solid #e0e0e0;
+                    text-align: left;
+                    font-size: 1em;
+                    font-weight: bold;
+                    background: #d7e9f5;
+                }
+                .tableHeaderTable td a {
+                    text-decoration: none !important;
+                }
+                .table tfoot th, tfoot td {
+                    border: 1px solid #e0e0e0;
+                    text-align: left;
+                    font-size: 1em;
+                    background: #e8e8cf;
+                }
+                .table tfoot th {
+                    font-weight: bold;
+                }
+                .table tbody td a {
+                    background: transparent;
+                    text-decoration: underline;
+                }
+                .table tbody td a:hover {
+                    background: transparent;
+                    text-decoration: underline;
+                }
+                .table tbody th a {
+                    background: transparent;
+                    text-decoration: underline;
+                    font-weight: bold;
+                }
+                .table tbody th, .table tbody td {
+                    text-align: left;
+                }
+                .table tfoot td {
+                    border: 1px solid #996;
+                }
+                .table tbody tr:hover, .table tr:hover, .table tr.over {
+                    background: #ffffd9 !important; /* important needed for Tapestry, as is .table tr:hover */
+                }
+                .contribTable tr.even {
+                    background: #fff !important;
+                }
+                .contribTable tr.odd {
+                    background: #eee !important;
+                }
     /* END TABLE */
 
     hr {

@@ -31,11 +31,13 @@ div.message p, div.message p {
 }
 
 img.validationWarning, div.error img.icon, div.message img.icon, li.error img.icon {
-    border: 0;
+    border: 0 !important;
     width: 14px;
     height: 13px;
     vertical-align: middle;
     margin-left: 3px;
+    background: transparent !important;
+    /* important added because some themes define div#main img */
 }
 
 div.message a {

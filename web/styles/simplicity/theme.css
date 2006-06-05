@@ -2,27 +2,6 @@
 @import url(typo.css);
 @import url(layout-navtop-subright.css);
 @import url(layout.css);
-@import url(table.css);
 @import url(../displaytag.css);
 @import url(../forms.css);
-@import url(../menu.css);
 @import url(../messages.css);
-
-pre, code {
-    font-size: 12px;
-}
-
-body#error #content {
-    margin-top: 20px;
-}
-
-ul.glassList {
-    list-style: url(../../images/aquadot.jpg) disc outside;
-    vertical-align: top;
-    line-height: 1.5em;
-}
-
-#switchLocale {
-    position: absolute;
-    right: 10px;
-}

@@ -1,41 +1,56 @@
 /* A CSS Framework by Mike Stenhouse of Content with Style */
 
+/* andreas01 - an open source xhtml/css website layout by Andreas Viklund (http://andreasviklund.com). Made for OSWD.org, free to use as-is for any purpose as long as the proper credits are given for the original design work. For design assistance and support, contact me through my website or through http://oswd.org/email.phtml?user=Andreas
+
+Version: 1.0
+(July 25, 2005) */
+
 /* SITE SPECIFIC LAYOUT */
     body {
-        margin: 0;
+        margin: 0 auto;
         padding: 0;
-
-        background: white;
-
-        text-align: center;
+        font: 76% Verdana, Tahoma, Arial, sans-serif;
+        background: #f4f4f4 url(images/bg.gif) top center repeat-y;
     }
     div#page {
-        width: 780px;
-
-        margin:  0 auto;
-        padding: 0;
-
-        background: white;
-        text-align: center;
+        background: #ffffff;
+        color: #303030;
+        margin: 0 auto;
+        width: 760px;
     }
     
     /* HEADER */
         div#header {
-            margin: 0 0 5em 0;
-            padding: 40px 20px;
-            
-            color: white;
-            background: black;
-            
-            text-align: left;
+            color: black;
+            clear: both;
+            margin: 10px 0 10px 0;
+            padding: 0;
+            height: 225px;
+            width: 100%;
+            background: #fff url(images/front.jpg) bottom center no-repeat;
         }
+            div#switchLocale {
+                position: absolute;
+                right: 10px;
+            }
+            div#header h1 {
+               margin-left: -10px;
+            }
+            div#header p {
+                position: absolute;
+                color: #a0a0a0;
+                text-align: right;
+                width: 725px;
+                top: 35px;
+                font-size: 0.8em;
+                line-height: 1.2em;
+                font-weight: bold;
+            }
         div#branding {
             float: left;
             width: 100%;
-            
             margin: 0;
             padding: 10px 0 10px 20px;
-            
             text-align: left;
         }
     /* END HEADER */
@@ -43,19 +58,53 @@
     
     /* CONTENT */
         div#content {
-            
+            width: 100%;
+            text-align: left;
+            padding: 0px;
         }
-        
+            body#error #content {
+                margin-top: 20px;
+            }
         /* MAIN */
             div#main {
-                
+                border-left: 1px solid #f0f0f0;
+                border-right: 1px solid #f0f0f0;
+                padding: 0px 10px;
             }
+                div#main h1 {
+                    font-size: 1.5em;
+                    margin: -4px 0 0.4em 0;
+                }
+                div#main h2 {
+                    font-size: 1.3em;
+                    margin: 0 0 10px 0;
+                }
+                div#main img {
+                    padding: 1px;
+                    display: inline;
+                    background: #cccccc;
+                    border: 4px solid #f0f0f0;
+                }
+
         /* END MAIN */
         
         /* SUB */
             div#sub {
-                
+                float: right;
+                width: 130px;
+                margin: 0 0 20px 0;
+                padding: 0;
+                font-size: 0.95em;
+                line-height: 1.5em;
             }
+                div#sub h2 {
+                    font-size: 0.9em;
+                    line-height: 1.5em;
+                }
+                div#sub p {
+                    margin: 0 0 1.6em 0;
+                    line-height: 1.5em;
+                }
         /* END SUB */
         
     /* END CONTENT */
@@ -63,11 +112,67 @@
     
     /* FOOTER */
         div#footer {
-            color: white;
-            background-color: black;
+            clear: both;
+            margin: 0 auto;
+            padding: 10px 0 20px 0;
+            border-top: 4px solid #f0f0f0;
+            width: 760px;
+            text-align: center;
+            background-color: white;
+            color: #808080;
+            font-size: 0.9em;
         }
-        div#footer p {            
-            margin: 0;
-        }
+
+            div#footer a {
+                color: #808080;
+                text-decoration: none;
+            }
+
+            div#footer a:hover {
+                text-decoration: underline;
+            }
+
+            div#footer p {
+                margin: 0;
+            }
+            div#footer span.left, div#footer span.right {
+                display: block;
+                text-align: center;
+                float: none;
+                margin: 5px;
+            }
     /* END FOOTER */
+
+    /* MISC LAYOUT CLASSES */
+    .left {
+        margin: 10px 10px 5px 0;
+        float: left;
+    }
+
+    .right {
+        margin: 10px 0 5px 10px;
+        float: right;
+    }
+
+    .textright {
+        text-align: right;
+    }
+
+    .center {
+        text-align: center;
+    }
+
+    .small {
+        font-size: 0.8em;
+    }
+
+    .bold {
+        font-weight: bold;
+    }
+
+    .hide {
+        display: none;
+    }
+    /* END MISC LAYOUT CLASSES */
+
 /* END LAYOUT */

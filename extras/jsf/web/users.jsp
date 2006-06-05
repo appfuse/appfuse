@@ -26,15 +26,17 @@
     
 <display:table name="userList.users" cellspacing="0" cellpadding="0" class="table"
     requestURI="/users.html" id="users" export="true" defaultsort="1" pagesize="25">
-    <display:column sortable="true" titleKey="user.username" media="html" style="width: 20%">
+    <display:column sortable="true" titleKey="user.username" media="html" style="width: 25%">
         <a href="javascript:viewUser('<c:out value="${users.username}"/>')"><c:out value="${users.username}"/></a>
     </display:column>
     <display:column property="username" escapeXml="true" media="csv excel xml pdf" titleKey="user.username"/>
-    <display:column property="fullName" escapeXml="true" sortable="true" titleKey="activeUsers.fullName" style="width: 39%"/>
-    <display:column property="email" sortable="true" titleKey="user.email" style="width: 25%" autolink="true"/>
-    <display:column sortProperty="enabled" sortable="true" titleKey="user.enabled" style="width: 16%; padding-left: 15px">
+    <display:column property="fullName" escapeXml="true" sortable="true" titleKey="activeUsers.fullName" style="width: 34%"/>
+    <display:column property="email" sortable="true" titleKey="user.email" style="width: 25%" autolink="true" media="html"/>
+    <display:column property="email" titleKey="user.email" media="csv xml excel pdf"/>
+    <display:column sortProperty="enabled" sortable="true" titleKey="user.enabled" style="width: 16%; padding-left: 15px" media="html">
         <input type="checkbox" disabled="disabled" <c:if test="${users.enabled}">checked="checked"</c:if>/>
-    </display:column> 
+    </display:column>
+    <display:column property="enabled" titleKey="user.enabled" media="csv xml excel pdf"/>
 
     <display:setProperty name="paging.banner.item_name" value="user"/>
     <display:setProperty name="paging.banner.items_name" value="users"/>

@@ -4,16 +4,20 @@
 
     div#main {
         width: 100%;
-        text-align: left;
+        text-align: center;
+        margin-left: 150px;
     }
-
+        div#main h1 {
+            margin-left: -330px;
+            width: 100%;
+        }
+        div#main p {
+            margin-top: 10px;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
         div#main fieldset, div#main p {
             margin-left: 25px;
             text-align: left;
         }
-
-        div#main h1 {
-            width: 100%;
-        }
-
 /* END CONTENT */

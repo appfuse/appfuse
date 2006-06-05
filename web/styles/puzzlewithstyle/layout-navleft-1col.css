@@ -17,7 +17,7 @@
         float: right;
         width: 560px;
         display: inline;
-		margin: 0 20px 0 0;
+        margin: 0 20px 0 0;
     }
     div#local {
         display: none;
@@ -29,6 +29,6 @@
         float: left;
         width: 150px;
         display: inline;
-		margin: 0 0 0 20px;
+        margin: 0 0 0 20px;
     }
 /* END CONTENT */

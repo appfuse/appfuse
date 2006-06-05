@@ -2,9 +2,9 @@
 /* Based on "A CSS Framework by Mike Stenhouse of Content with Style" */
 
 /* NAV */
-	div#nav {
+    div#nav {
         font-size: 0.8em;
-		
+
     }
     * html div#nav {
         /* hide ie/mac \*/
@@ -16,8 +16,8 @@
         left: 0;
         bottom: 0;
         width: 100%;
-		background: #cc0000;
-		color: #fff;
+        background: #cc0000;
+        color: #fff;
     }
     div#nav ul {
         width: auto; 
@@ -61,7 +61,82 @@
     }
     div#nav a:hover, div#nav a.current {
         text-decoration: underline;
-		color: #000 !important;
+        color: #000 !important;
         background: #fff;
     }
 /* END NAV */
+
+/* DROP DOWN MENUS */
+    ul#primary-nav, ul#primary-nav ul {
+        margin: 0;
+        padding: 0;
+        width: 150px; /* Width of Menu Items */
+        background: #fff; /* IE6 Bug */
+        font-size: 100%;
+    }
+
+        ul#primary-nav li {
+            position: relative;
+            list-style: none;
+        }
+
+            ul#primary-nav li.pad {
+                display: none;
+            }
+
+            ul#primary-nav li a {
+                display: block;
+                text-decoration: none;
+                color: #fff;
+                width: 70px;
+                text-align: center;
+                white-space: nowrap;
+            }
+
+        /* Fix IE. Hide from IE Mac \*/
+        * html ul#primary-nav li { float: left; height: 1%; }
+            * html ul#primary-nav li a { height: 1%; }
+        /* End */
+
+            ul#primary-nav ul {
+                position: absolute;
+                display: none;
+                left: 0px; /* Set 1px less than menu width */
+                width: 149px;
+                top: 22px;
+                margin-top: 17px;
+            }
+
+                ul#primary-nav ul li {
+                    border: 1px solid black;
+                    border-bottom: 0;
+                    width: 149px;
+                    font-size: 1em;
+                }
+
+                    ul#primary-nav ul li.last {
+                        border-bottom: 1px solid black;
+                        border-right: 1px solid black;
+                    }
+
+                        ul#primary-nav li ul li a { padding: 3px 5px; text-align: left; width: 93% } /* Sub Menu Styles */
+
+                        ul#primary-nav li:hover ul ul,
+                        ul#primary-nav li:hover ul ul ul,
+                        ul#primary-nav li.over ul ul,
+                        ul#primary-nav li.over ul ul ul { display: none; } /* Hide sub-menus initially */
+
+                        ul#primary-nav li:hover ul,
+                        ul#primary-nav li li:hover ul,
+                        ul#primary-nav li li li:hover ul,
+                        ul#primary-nav li.over ul,
+                        ul#primary-nav li li.over ul,
+                        ul#primary-nav li li li.over ul { display: block; } /* The magic */
+
+                        ul#primary-nav li.menubar { background: transparent url(../../images/arrow.gif) right center no-repeat; }
+
+                        ul#primary-nav li:hover,
+                        ul#primary-nav li.over { background-color: #fff }
+
+                        ul#primary-nav li a:hover { color: #E2144A; }
+/* END DROP DOWN MENUS */

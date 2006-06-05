@@ -69,7 +69,7 @@ form li div.group {
     width: 355px;
 }
 
-form li div.group p {
+form li div.group p, form div.group p label {
     text-align: left;
 }
 
@@ -417,19 +417,6 @@ table.pickList td select {
 /* END FORM ELEMENTS */
 
 /* Specific forms */
-body#login #main {
-    text-align: center;
-}
-
-body#login #main h1 {
-    margin-left: -330px;
-}
-
-body#login #main p {
-    margin-top: 10px;
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
 
 #loginForm fieldset {
     width: 300px;

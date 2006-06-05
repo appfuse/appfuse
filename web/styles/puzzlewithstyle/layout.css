@@ -23,12 +23,14 @@
         div#header {
             margin: 10px 0 20px 0;
             padding: 20px 20px;
-            
             color: white;
             background: #800000 url(images/headerbackground.gif) no-repeat top left;
-            
             text-align: left;
         }
+            div#switchLocale {
+                position: absolute;
+                right: 10px;
+            }
             div#header h1 {
                 text-align: left;
             }
@@ -58,7 +60,9 @@
         div#content {
         
         }
-        
+            body#error #content {
+                margin-top: 20px;
+            }
         /* MAIN */
             div#main {
                 
@@ -121,13 +125,15 @@ div.left img {
     padding: 5px;
     margin: 10px 10px 5px 10px;
 }
+div.left img.validationWarning {
+    border: 0;
+}
 div.left p {
     font-size: 0.8em;
     text-align: center;
     margin: 0;
     padding: 0;
 }
-
 div.right {
     float: right;
 }
@@ -142,7 +148,6 @@ div.right p {
     margin: 0;
     padding: 0;
 }
-
 div.center {
     clear: both;
     display: block;

@@ -14,7 +14,19 @@
     }
     div#main {
         width: 97% !important;
+        text-align: center;
+        margin: 0;
     }
+
+        div#main h1 {
+            margin-left: -330px;
+        }
+        div#main p {
+            margin-top: 10px;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
     div#local {
         display: none;
     }

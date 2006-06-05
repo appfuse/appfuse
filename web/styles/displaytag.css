@@ -64,6 +64,13 @@ th.sorted a, th.sortable a {
     background-image: url(../images/arrow_up.png) !important;
 }
 
+div#main .tableHeaderImage { /* Tapestry */
+    position: absolute;
+    margin: 2px 0px 0px -5px;
+    background: transparent;
+    border: 0px;
+}
+
 /*.table th.sortable a {
     background-image: url(../images/arrow_off.png);
 }*/
@@ -80,23 +87,15 @@ th.sorted a, th.sortable a {
 }
 
 .table tr.even {
-    background: #EEEEEE;
-    border-top: 1px solid #C0C0C0;
+    background: #eee;
+    border-top: 1px solid #c0c0c0;
     color: #000000;
 }
 
 .table tr.odd {
-    background: #FFFFFF;
-    border-top: 1px solid #C0C0C0;
+    background: #fff;
+    border-top: 1px solid #c0c0c0;
     color: #000000;
-}
-
-.contribTable tr.even {
-    background: #fff !important;
-}
-
-.contribTable tr.odd {
-    background: #eee !important;
 }
 
 /* highlight .table row onmouseover */

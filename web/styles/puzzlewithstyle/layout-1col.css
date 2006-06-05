@@ -8,14 +8,24 @@
         position: relative;
         width: 780px;
         
-        margin: 40px auto 20px auto;
+        margin: 80px auto 20px auto;
         padding: 0;
         
         text-align: left;
     }
     div#main {
         width: 100%;
+        text-align: center;
+        margin: 0;
     }
+        div#main h1 {
+            margin-left: -330px;
+        }
+        div#main p {
+            margin-top: 10px;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
     div#local {
         display: none;
     }
@@ -23,6 +33,11 @@
         display: none;
     }
     div#nav {
-        display: none;
+        position: absolute;
+        top: -30px;
+        left: 0;
+        width: 100%;
+
+        text-align: left;
     }
 /* END CONTENT */
