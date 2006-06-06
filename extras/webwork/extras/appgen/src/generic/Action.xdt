@@ -58,7 +58,7 @@ public class <XDtForm:className/>Action extends BaseAction {
         saveMessage(getText(key));
 
         if (!isNew) {
-            return INPUT;
+            return "redirect:form";
         } else {
             return SUCCESS;
         }

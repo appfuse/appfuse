@@ -30,7 +30,7 @@ public class <XDtForm:className/>ActionTest extends BaseActionTestCase {
         </XDtMethodEx:forAllMethods>
         action.set<XDtForm:className/>(<XDtForm:classNameLower/>);
 
-        assertEquals(action.save(), "success");
+        assertEquals("success", action.save());
         assertFalse(action.hasFieldErrors());
     }
 
@@ -67,7 +67,7 @@ public class <XDtForm:className/>ActionTest extends BaseActionTestCase {
         </XDtMethodEx:forAllMethods>
         action.set<XDtForm:className/>(<XDtForm:classNameLower/>);
 
-        assertEquals(action.save(), "input");
+        assertEquals("redirect:form", action.save());
         assertFalse(action.hasActionErrors());
         assertFalse(action.hasFieldErrors());
         assertNotNull(request.getSession().getAttribute("messages"));
@@ -79,7 +79,7 @@ public class <XDtForm:className/>ActionTest extends BaseActionTestCase {
         <XDtForm:classNameLower/>.<XDtMethodEx:idField getType="setterName"/>(new <XDtMethodEx:idField getType="propertyType"/>("2"));
         action.set<XDtForm:className/>(<XDtForm:classNameLower/>);
 
-        assertEquals(action.delete(), "success");
+        assertEquals("success", action.delete());
         assertNotNull(request.getSession().getAttribute("messages"));
     }
 }
