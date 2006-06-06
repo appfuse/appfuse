@@ -36,7 +36,7 @@ public class <XDtForm:className/>FormTest extends BasePageTestCase {
         </XDtMethodEx:forAllMethods>
         page.set<XDtForm:className/>(<XDtForm:classNameLower/>);
 
-        ILink link = page.save(new MockRequestCycle(<XDtForm:className/>Form.class.getPackage().getName()));
+        ILink link = page.save(new MockRequestCycle(this.getClass().getPackage().getName()));
         assertNotNull(page.get<XDtForm:className/>());
         assertFalse(page.hasErrors());
         assertEquals("<XDtForm:classNameLower/>s" + EXTENSION, link.getURL());
@@ -54,7 +54,7 @@ public class <XDtForm:className/>FormTest extends BasePageTestCase {
         </XDtMethodEx:forAllMethods>
         page.set<XDtForm:className/>(<XDtForm:classNameLower/>);
 
-        ILink link = page.save(new MockRequestCycle(<XDtForm:className/>Form.class.getPackage().getName()));
+        ILink link = page.save(new MockRequestCycle(this.getClass().getPackage().getName()));
         assertNotNull(page.get<XDtForm:className/>());
         assertFalse(page.hasErrors());
         assertNull(link);
@@ -64,7 +64,7 @@ public class <XDtForm:className/>FormTest extends BasePageTestCase {
         <XDtForm:className/> <XDtForm:classNameLower/> = new <XDtForm:className/>();
         <XDtForm:classNameLower/>.<XDtMethodEx:idField getType="setterName"/>(new <XDtMethodEx:idField getType="propertyType"/>("2"));
         page.set<XDtForm:className/>(<XDtForm:classNameLower/>);
-        page.delete(new MockRequestCycle(<XDtForm:className/>Form.class.getPackage().getName()));
+        page.delete(new MockRequestCycle(this.getClass().getPackage().getName()));
         assertFalse(page.hasErrors());
     }
 }
