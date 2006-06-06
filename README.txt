@@ -34,14 +34,36 @@ To run this application, you will need to perform the following tasks:
     If you experience issues with Tomcat, check your build/test/cargo.log file.
 
 
+Features/Changes in 1.9.2
+============================
+- Changed to use Mike Stenhouse's CSS Framework. Adapted winning themes from 
+  CSS Design Contest for AppFuse and include 3 out-of-the-box.
+- Added code coverage support using EMMA. Just type "emma" as one of you tasks
+  when you want coverage. For example, "ant emma test-dao". Thanks to Mika 
+  Göckel.
+- Extended AppGen to allow for sub-packages. Thanks to Doug Hays.
+- Add geronimo-web.xml and resin-web.xml to WEB-INF directory so AppFuse works 
+  out-of-the-box on Resin or Geronimo 1.0.
+- Added JavaScript and CSS Files to gzip compression url-patterns.
+- Dependent packages upgraded:
+    * Commons Logging 1.1
+    * EhCache 1.2
+    * Struts Menu 2.4
+    * Struts 1.2.9
+    * Spring 1.2.8
+    * XFire 1.1
+- Dependent packages added:
+    * EMMA 2.0.5312    
+
+
 Features/Changes in 1.9.1
 ============================
 - Added database table generation support to AppGen with Middlegen. Now you're
   prompted to generate code from a POJO or a database table. Thanks to Bobby
   Diaz.
-- Added iBATIS support to AppGen, including generic DAO and Manager. Unfortunately,
-  the SQLMap generation is tied to MySQL and last_insert_id(). I blame iBATIS
-  and it's lack of support for JDBC 3.0's getGeneratedKeys(). ;-)
+- Added iBATIS support to AppGen, including generic DAO and Manager. 
+  Unfortunately, the SQLMap generation is tied to MySQL and last_insert_id(). 
+  I blame iBATIS and it's lack of support for JDBC 3.0's getGeneratedKeys(). ;-)
 - Created a version of CreateDAO tutorial for iBATIS. 
     http://raibledesigns.com/wiki/CreateDAOiBATIS.html
 - Added Web Services support with an XFire installer in extras/xfire. Thanks to
