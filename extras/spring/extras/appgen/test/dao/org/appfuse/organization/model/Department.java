@@ -32,36 +32,42 @@ public class Department extends BaseObject {
 
     /**
      * @hibernate.property column="department_name" length="50" not-null="true"
-     * @spring.validator type="required"
      */
     public String getDepartmentName() {
         return departmentName;
     }
 
+    /**
+     * @spring.validator type="required"
+     */
     public void setDepartmentName(String departmentName) {
         this.departmentName = departmentName;
     }
 
     /**
      * @hibernate.property column="mission_statement" length="50" not-null="true"
-     * @spring.validator type="required"
      */
     public String getMissionStatement() {
         return missionStatement;
     }
 
+    /**
+     * @spring.validator type="required"
+     */
     public void setMissionStatement(String missionStatement) {
         this.missionStatement = missionStatement;
     }
     
     /**
      * @hibernate.property column="created_date" length="20" not-null="true"
-     * @spring.validator type="required"
      */
     public Date getCreatedDate() {
         return createdDate;
     }
-    
+
+    /**
+     * @spring.validator type="required"
+     */
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
