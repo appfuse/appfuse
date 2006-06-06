@@ -83,11 +83,6 @@
         <init-param>
             <param-name>maxFileSize</param-name>
             <param-value>2m</param-value>
-            <description>Set the size limit for uploaded files.
-                Format: 10 - 10 bytes
-                        10k - 10 KB
-                        10m - 10 MB
-            </description>
         </init-param>
     </filter>
     <filter>
@@ -185,7 +180,11 @@
     </filter-mapping>
     <filter-mapping>
         <filter-name>extensionsFilter</filter-name>
-        <url-pattern>*.html</url-pattern>
+        <servlet-name>faces</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>extensionsFilter</filter-name>
+        <url-pattern>/faces/myFacesExtensionResource/*</url-pattern>
     </filter-mapping>
 
     <listener>
