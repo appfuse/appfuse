@@ -472,6 +472,7 @@
 
             <junit printsummary="no" forkmode="once" errorProperty="test.failed" 
                 failureProperty="test.failed" fork="${junit.fork}" showoutput="${junit.showoutput}">
+                <jvmarg value="-Duser.language=en"/>
                 <classpath>
                     <!-- Instrumented classes - must be BEFORE the normal ones -->
                     <!-- ============================= -->
@@ -1067,8 +1068,7 @@
     <!-- =================================================================== -->
     <!--            Start Tomcat                                             -->
     <!-- =================================================================== -->
-    <target name="start.tomcat"
-        description="starts tomcat in the current console window" depends="check-debug">
+    <target name="start.tomcat" description="starts tomcat in the current console window" depends="check-debug">
         <java classname="org.apache.catalina.startup.Bootstrap" fork="yes">
             <jvmarg value="-Dcatalina.home=${tomcat.home}"/>
             <jvmarg line="${run.appfuse.test.debugargline}"/>
