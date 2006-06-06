@@ -9,7 +9,7 @@
     <inject property="response" object="service:tapestry.globals.HttpServletResponse"/>
     <inject property="<XDtForm:classNameLower/>Manager" type="spring" object="<XDtForm:classNameLower/>Manager"/>
 
-    <bean name="delegate" class="<XDtForm:parentPackageName/>.webapp.tapestry.ValidationDelegate"/>
+    <bean name="delegate" class="<XDtConfig:configParameterValue paramName="basePackageName"/>.webapp.tapestry.ValidationDelegate"/>
     <property name="message" persist="flash"/>
 
     <component id="<XDtForm:classNameLower/>Form" type="Form">
@@ -18,14 +18,22 @@
     </component>
 
     <XDtForm:forAllFields>
-    <XDtForm:ifIsNotIdOrVersionField>
+    <XDtForm:ifIsNotIdOrVersionField><XDtForm:ifIsDateField>
+    <component id="<XDtForm:fieldName/>Field" type="DatePicker">
+        <binding name="value" value="<XDtForm:classNameLower/>.<XDtForm:fieldName/>"/>
+        <binding name="validators" value="validators:required"/>
+        <binding name="displayName" value="message:<XDtForm:classNameLower/>.<XDtForm:fieldName/>"/>
+        <binding name="translator" value="translator:date,pattern=MM/dd/yyyy"/> <!-- TODO: Pattern should be read from message: -->
+    </component>
+
+    </XDtForm:ifIsDateField><XDtForm:ifIsNotDateField>
     <component id="<XDtForm:fieldName/>Field" type="TextField">
         <binding name="value" value="<XDtForm:classNameLower/>.<XDtForm:fieldName/>"/>
         <binding name="validators" value="validators:required"/>
         <binding name="displayName" value="message:<XDtForm:classNameLower/>.<XDtForm:fieldName/>"/>
     </component>
     
-    </XDtForm:ifIsNotIdOrVersionField>
+    </XDtForm:ifIsNotDateField></XDtForm:ifIsNotIdOrVersionField>
   </XDtForm:forAllFields>
 
 </page-specification>

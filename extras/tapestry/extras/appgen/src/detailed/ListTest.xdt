@@ -17,7 +17,7 @@ public class <XDtForm:className/>ListTest extends BasePageTestCase {
         super.onSetUp();
         // these can be mocked if you want a more "pure" unit test
         Map map = new HashMap();
-        map.put("<XDtForm:classNameLower/>Manager", (<XDtForm:className/>Manager) applicationContext.getBean("<XDtForm:classNameLower/>Manager"));
+        map.put("<XDtForm:classNameLower/>Manager", applicationContext.getBean("<XDtForm:classNameLower/>Manager"));
         page = (<XDtForm:className/>List) getPage(<XDtForm:className/>List.class, map);
     }
 
@@ -27,7 +27,7 @@ public class <XDtForm:className/>ListTest extends BasePageTestCase {
     }
 
     public void testEdit() throws Exception {
-        RequestCycle cycle = new MockRequestCycle();
+        RequestCycle cycle = new MockRequestCycle(<XDtForm:className/>List.class.getPackage().getName());
         cycle.setServiceParameters(new Object[] {new <XDtMethodEx:idField getType="propertyType"/>("1")});
         page.edit(cycle);
         assertFalse(page.hasErrors());
