@@ -5,7 +5,6 @@ import org.apache.tapestry.engine.ILink;
 import <XDtConfig:configParameterValue paramName="basePackageName"/>.webapp.action.BasePageTestCase;
 import <XDtConfig:configParameterValue paramName="basePackageName"/>.webapp.action.MockRequestCycle;
 import <XDtPackage:packageName/>.<XDtForm:className/>;
-import <XDtForm:parentPackageName/>.service.<XDtForm:className/>Manager;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +16,7 @@ public class <XDtForm:className/>FormTest extends BasePageTestCase {
         super.onSetUp();
         // these can be mocked if you want a more "pure" unit test
         Map map = new HashMap();
-        map.put("<XDtForm:classNameLower/>Manager", (<XDtForm:className/>Manager) applicationContext.getBean("<XDtForm:classNameLower/>Manager"));
+        map.put("<XDtForm:classNameLower/>Manager", applicationContext.getBean("<XDtForm:classNameLower/>Manager"));
         page = (<XDtForm:className/>Form) getPage(<XDtForm:className/>Form.class, map);
     }
 
