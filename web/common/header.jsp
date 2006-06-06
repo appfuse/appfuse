@@ -1,7 +1,7 @@
 <%@ include file="/common/taglibs.jsp"%>
 
 <c:if test="${pageContext.request.locale.language != 'en'}">
-    <div id="switchLocale"><a href="<c:url value='/mainMenu.html?locale=en'/>"><fmt:message key="webapp.name"/> in English</a></div>
+    <div id="switchLocale"><a href="<c:url value='/?locale=en'/>"><fmt:message key="webapp.name"/> in English</a></div>
 </c:if>
 
 <div id="branding">
