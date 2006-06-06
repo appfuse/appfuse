@@ -3,10 +3,12 @@
 <f:view>
 <f:loadBundle var="text" basename="#{<XDtForm:classNameLower/>List.bundleName}"/>
 
-<title><fmt:message key="<XDtForm:classNameLower/>List.title"/></title>
-<content tag="heading"><fmt:message key="<XDtForm:classNameLower/>List.heading"/></content>
-<meta name="menu" content="<XDtForm:className/>Menu"/>
-
+<head>
+    <title><fmt:message key="<XDtForm:classNameLower/>List.title"/></title>
+    <content tag="heading"><fmt:message key="<XDtForm:classNameLower/>List.heading"/></content>
+    <meta name="menu" content="<XDtForm:className/>Menu"/>
+</head>
+    
 <h:form id="edit<XDtForm:className/>">
 
 <c:set var="buttons">
