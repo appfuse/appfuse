@@ -275,8 +275,11 @@
             .table thead a, .tableHeaderTable td a {
                 color: #fff;
             }
+            .table thead th.sorted {
+                background: maroon;
+            }
             .table thead th.sorted a {
-                color: maroon;
+                color: white;
             }
             .table th {
                 font-weight: bold;
@@ -291,6 +294,13 @@
             }
             .table .odd {
                 background: #eee;
+            }
+            .table tbody tr:hover, .table tr.over, .contribTable tr:hover {
+                background: #ffffd9 !important; /* important needed for Tapestry, as is .table tr:hover */
+            }
+            .table tbody tr:hover td, .table tr.over td, .contribTable tr:hover td {
+                border-top: 1px solid silver;
+                border-bottom: 1px solid silver;
             }
             /* For Tapestry's contribTable */
             .table th table, .table th table td {

@@ -21,11 +21,10 @@
     }
     div#nav ul {
         width: auto; 
-        width: 100%;
-                
+
         margin: 0;
         padding: 0;
-        
+
         line-height: 1em;
         list-style: none;
     }

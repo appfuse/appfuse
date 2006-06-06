@@ -7,10 +7,8 @@
     div#content {
         position: relative;
         width: 780px;
-        
         margin: 80px auto 20px auto;
         padding: 0;
-        
         text-align: left;
     }
     div#main {
@@ -23,17 +21,19 @@
         float: right;
         width: 160px;
         display: inline;
+        margin-right: 6px; /* increasing this value will make the menu disappear in IE */
+    }
+    div>div#sub {
         margin: 0 20px 0 10px;
     }
     div#local {
         display: none;
     }
     div#nav {
+        width: 100%;
         position: absolute;
         top: -30px;
         left: 0;
-        width: 100%;
-        
         text-align: left;
     }
 /* END CONTENT */
