@@ -18,7 +18,14 @@ Version: 1.0
         margin: 0 auto;
         width: 760px;
     }
-    
+
+    div#content {
+        position: relative;
+        width: 701px;
+        margin: 0 auto 20px auto;
+        padding: 0;
+        text-align: left;
+    }
     /* HEADER */
         div#header {
             color: black;
@@ -37,15 +44,16 @@ Version: 1.0
                margin-left: -10px;
             }
             div#header p {
-                position: absolute;
+                float: right;
+                margin: -40px 10px 0 0;
                 color: #a0a0a0;
                 text-align: right;
-                width: 50%;
-                margin-left: 35%;
-                top: 35px;
                 font-size: 0.8em;
                 line-height: 1.2em;
                 font-weight: bold;
+            }
+            div>div#header p {
+                margin-right: 30px;
             }
         div#branding {
             float: left;
@@ -62,7 +70,11 @@ Version: 1.0
             width: 100%;
             text-align: left;
             padding: 0px;
+            margin-left: 10px;
         }
+            div>div#content {
+                margin-left: 0px;
+            }
             body#error #content {
                 margin-top: 20px;
             }
@@ -88,24 +100,11 @@ Version: 1.0
                 }
 
         /* END MAIN */
-        
+
         /* SUB */
             div#sub {
-                float: right;
-                width: 130px;
-                margin: 0 0 20px 0;
-                padding: 0;
-                font-size: 0.95em;
-                line-height: 1.5em;
+                
             }
-                div#sub h2 {
-                    font-size: 0.9em;
-                    line-height: 1.5em;
-                }
-                div#sub p {
-                    margin: 0 0 1.6em 0;
-                    line-height: 1.5em;
-                }
         /* END SUB */
         
     /* END CONTENT */

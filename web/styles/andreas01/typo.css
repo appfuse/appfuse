@@ -184,7 +184,7 @@
             width: 100%;
         }
             .table a {
-                color: #523A0B;
+                color: #523A0B !important;
                 text-decoration: none;
                 border-bottom: 1px dotted;
             }
@@ -245,10 +245,10 @@
                 border-color: #EBE5D9;
                 background: #F7F4EE;
             }
-            .table tbody tr:hover td,
+            .table tbody tr:hover td, .table tr.over td,
             .table tbody tr:hover th {
-                background: #ffffee;
-                border-color: #523A0B;
+                background: #ffffee !important;
+                border-color: #523A0B !important; /* important needed on both for IE */
             }
             /* Turn off highlighting row for Tapestry's heading */
             .table tr:hover table.tableHeaderTable, .table tr:hover table.tableHeaderTable th,

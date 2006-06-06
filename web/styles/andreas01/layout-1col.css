@@ -3,9 +3,10 @@
 /* NAV BAR AT THE TOP AND ONE COLUMN OF CONTENT */
 
     div#main {
-        width: 100%;
+        width: 585px;
         text-align: center;
         margin-left: 150px;
+        border-right: 0;
     }
         div#main h1 {
             margin-left: -330px;

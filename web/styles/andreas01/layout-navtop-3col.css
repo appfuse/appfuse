@@ -2,47 +2,50 @@
 
 @import url(nav-horizontal.css);
 
-div#content {
-    position: relative;
-    width: 701px;
-    margin: 0 auto 20px auto;
-    padding: 0;
-    text-align: left;
-}
+    div#main {
+        float: left;
+        width: 445px;
+        margin-left: 150px;
+        display: inline;
+    }
 
-div#main {
-    float: left;
-    width: 445px;
-    margin-left: 150px;
-    display: inline;
-}
+    div#sub {
+        float: right;
+        width: 120px;
+        margin: 0 0 20px 0;
+        padding: 0;
+        font-size: 0.90em;
+        line-height: 1.5em;
+    }
+        div#sub h2 {
+            font-size: 0.9em;
+            line-height: 1.5em;
+        }
+        div#sub p {
+            margin: 0 0 1.6em 0;
+            line-height: 1.5em;
+        }
 
-div#sub {
-    float: right;
-    width: 140px;
-    display: inline;
-}
+    div#local {
+        position: absolute;
+        top: 20px;
+        right: 10px;
+        float: right;
+        width: 150px;
+        display: inline;
+    }
 
-div#local {
-    position: absolute;
-    top: 20px;
-    right: 10px;
-    float: right;
-    width: 150px;
-    display: inline;
-}
+        div#local li {
+            list-style: none;
+            margin-left: 10px;
+        }
 
-div#local li {
-    list-style: none;
-    margin-left: 10px;
-}
-
-div#nav {
-    position: absolute;
-    top: 0;
-    left: 0;
-    float: left;
-    width: 150px;
-    display: inline;
-}
+    div#nav {
+        position: absolute;
+        top: 0;
+        left: 0;
+        float: left;
+        width: 150px;
+        display: inline;
+    }
 /* END CONTENT */
