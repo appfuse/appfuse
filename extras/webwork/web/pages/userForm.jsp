@@ -127,7 +127,7 @@
         <fieldset>
             <legend><fmt:message key="userProfile.accountSettings"/></legend>
             <ww:checkbox name="user.enabled" id="user.enabled"
-                value="${user.enabled}" fieldValue="true" theme="simple"/>
+                value="%{user.enabled}" fieldValue="true" theme="simple"/>
             <label for="user.enabled" class="choice"><fmt:message key="user.enabled"/></label>
 
             <ww:checkbox name="user.accountExpired" id="user.accountExpired"
