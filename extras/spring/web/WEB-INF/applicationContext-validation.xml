@@ -3,7 +3,7 @@
     "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
-    <bean id="validatorFactory" class="org.springmodules.commons.validator.DefaultValidatorFactory">
+    <bean id="validatorFactory" class="org.springmodules.validation.commons.DefaultValidatorFactory">
         <property name="validationConfigLocations">
             <list>
                 <value>/WEB-INF/validation.xml</value>
@@ -13,7 +13,7 @@
         </property>
     </bean>
 
-    <bean id="beanValidator" class="org.springmodules.commons.validator.DefaultBeanValidator">
+    <bean id="beanValidator" class="org.springmodules.validation.commons.DefaultBeanValidator">
         <property name="validatorFactory" ref="validatorFactory"/>
     </bean>
 </beans>
