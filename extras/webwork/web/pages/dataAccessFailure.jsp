@@ -2,6 +2,7 @@
 
 <title>Data Access Error</title>
 <content tag="heading">Data Access Failure</content>
+<meta name="menu" content="AdminMenu"/>
 
 <p>
     <c:out value="${requestScope.exception.message}"/>

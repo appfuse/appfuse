@@ -7,39 +7,32 @@
 <span jwcid="@ShowMessage"/>
 
 <form jwcid="<XDtForm:classNameLower/>Form">
-<table class="detail">
+<ul>
 <XDtForm:forAllFields>
 <XDtForm:ifIsIdOrVersionField>
 <input type="hidden" jwcid="@Hidden" value="ognl:<XDtForm:classNameLower/>.<XDtForm:fieldName/>"/>
 </XDtForm:ifIsIdOrVersionField>
 <XDtForm:ifIsNotIdOrVersionField>
-    <tr>
-        <th>
-            <label jwcid="@FieldLabel" field="ognl:components.<XDtForm:fieldName/>Field"/>
-        </th>
-        <td>
-            <input jwcid="<XDtForm:fieldName/>Field" type="text" id="<XDtForm:fieldName/>"/>
-        </td>
-    </tr>
+    <li>
+        <label class="desc" jwcid="@FieldLabel" field="ognl:components.<XDtForm:fieldName/>Field"/>
+		<input class="text medium" jwcid="<XDtForm:fieldName/>Field" type="text" id="<XDtForm:fieldName/>"/>
+    </li>
 </XDtForm:ifIsNotIdOrVersionField>
 </XDtForm:forAllFields>
-    <tr>
-        <td></td>
-        <td class="buttonBar">
-            <input type="submit" class="button" jwcid="@Submit" value="message:button.save" id="save" listener="ognl:listeners.save"/>
-          <span jwcid="@If" condition="ognl:<XDtForm:classNameLower/>.<XDtMethodEx:idField getType="propertyName"/> != null">
-            <input type="submit" class="button" jwcid="@Submit" value="message:button.delete" id="delete" listener="ognl:listeners.delete"
-                onclick="form.onsubmit = null; return confirmDelete('<XDtForm:className/>')"/>
-          </span>
-            <input type="submit" class="button" jwcid="@Submit" value="message:button.cancel" id="cancel" listener="ognl:listeners.cancel"
-                onclick="form.onsubmit = null"/>
-        </td>
-    </tr>
-</table>
+    <li class="buttonBar button">
+        <input type="submit" class="button" jwcid="@Submit" value="message:button.save" id="save" action="listener:save"/>
+      <span jwcid="@If" condition="ognl:<XDtForm:classNameLower/>.<XDtMethodEx:idField getType="propertyName"/> != null">
+        <input type="submit" class="button" jwcid="@Submit" value="message:button.delete" id="delete" action="listener:delete"
+            onclick="form.onsubmit = null; return confirmDelete('<XDtForm:className/>')"/>
+      </span>
+        <input type="submit" class="button" jwcid="@Submit" value="message:button.cancel" id="cancel" action="listener:cancel"
+            onclick="form.onsubmit = null"/>
+    </li>
+</ul>
 </form>
 
 <script type="text/javascript">
-    Form.focusFirstElement(document.forms["<XDtForm:classNameLower/>Form"]);
+    Form.focusFirstElement($("<XDtForm:classNameLower/>Form"));
 </script>
 
 </body>

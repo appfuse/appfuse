@@ -15,9 +15,8 @@
     </c:if>
 </spring:bind>
 
-<form method="post" action="<c:url value="/edit<XDtForm:className/>.html"/>" id="<XDtForm:classNameLower/>Form"
-    onsubmit="return validate<XDtForm:className/>(this)">
-<table class="detail">
+<form method="post" action="<c:url value="/edit<XDtForm:className/>.html"/>" id="<XDtForm:classNameLower/>Form" onsubmit="return validate<XDtForm:className/>(this)">
+<ul>
 <XDtForm:forAllFields>
 <XDtForm:ifIsIdOrVersionField>
 <spring:bind path="<XDtForm:classNameLower/>.<XDtForm:fieldName/>">
@@ -25,39 +24,25 @@
 </spring:bind>
 </XDtForm:ifIsIdOrVersionField>
 <XDtForm:ifIsNotIdOrVersionField>
-    <tr>
-        <th>
-            <appfuse:label key="<XDtForm:classNameLower/>.<XDtForm:fieldName/>"/>
-        </th>
-        <td>
-            <spring:bind path="<XDtForm:classNameLower/>.<XDtForm:fieldName/>">
-                <input type="text" name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" 
-                    value="<c:out value="${status.value}"/>" />
-                <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
-            </spring:bind>
-        </td>
-    </tr>
+    <li>
+        <appfuse:label styleClass="desc" key="<XDtForm:classNameLower/>.<XDtForm:fieldName/>"/>
+        <spring:bind path="<XDtForm:classNameLower/>.<XDtForm:fieldName/>">
+            <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
+            <input type="text" name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" class="text medium"/>
+        </spring:bind>
+    </li>
 </XDtForm:ifIsNotIdOrVersionField>
 </XDtForm:forAllFields>
-    <tr>
-        <td></td>
-        <td class="buttonBar">            
-            <input type="submit" class="button" name="save" 
-                onclick="bCancel=false" value="<fmt:message key="button.save"/>" />
-            
-            <input type="submit" class="button" name="delete"
-                onclick="bCancel=true;return confirmDelete('<XDtForm:className/>')" 
-                value="<fmt:message key="button.delete"/>" />
-                
-            <input type="submit" class="button" name="cancel" onclick="bCancel=true"
-                value="<fmt:message key="button.cancel"/>" />        
-        </td>
-    </tr>
-</table>
+    <li class="buttonBar bottom">
+        <input type="submit" class="button" name="save"  onclick="bCancel=false" value="<fmt:message key="button.save"/>" />
+        <input type="submit" class="button" name="delete" onclick="bCancel=true;return confirmDelete('<XDtForm:className/>')" value="<fmt:message key="button.delete"/>" />
+        <input type="submit" class="button" name="cancel" onclick="bCancel=true" value="<fmt:message key="button.cancel"/>" />
+    </li>
+</ul>
 </form>
 
 <script type="text/javascript">
-    Form.focusFirstElement(document.forms["<XDtForm:classNameLower/>Form"]);
+    Form.focusFirstElement($('<XDtForm:classNameLower/>Form'));
 </script>
 
 <v:javascript formName="<XDtForm:classNameLower/>" cdata="false" dynamicJavascript="true" staticJavascript="false"/>

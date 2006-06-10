@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+import <XDtConfig:configParameterValue paramName="basePackageName"/>.webapp.action.BaseFormController;
 import <XDtPackage:packageName/>.<XDtForm:className/>;
 import <XDtForm:parentPackageName/>.service.<XDtForm:className/>Manager;
 import org.springframework.validation.BindException;

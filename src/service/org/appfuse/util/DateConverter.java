@@ -22,13 +22,12 @@ import org.apache.commons.lang.StringUtils;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class DateConverter implements Converter {
-    public static final String TS_FORMAT = DateUtil.getDatePattern() + " HH:mm:ss.S";
 
     public Object convert(Class type, Object value) {
         if (value == null) {
             return null;
         } else if (type == Timestamp.class) {
-            return convertToDate(type, value, TS_FORMAT);
+            return convertToDate(type, value, DateUtil.getDateTimePattern());
         } else if (type == Date.class) {
             return convertToDate(type, value, DateUtil.getDatePattern());
         } else if (type == String.class) {
@@ -69,7 +68,7 @@ public class DateConverter implements Converter {
         if (value instanceof Date) {
             DateFormat df = new SimpleDateFormat(DateUtil.getDatePattern());
             if (value instanceof Timestamp) {
-                df = new SimpleDateFormat(TS_FORMAT);
+                df = new SimpleDateFormat(DateUtil.getDateTimePattern());
             } 
     
             try {

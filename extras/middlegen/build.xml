@@ -16,13 +16,20 @@
     <property name="class.base" value="org.appfuse"/>
     <property name="class.module" value=""/>
     <property name="extends.module" value=""/>
-    <property name="class.package" value="${class.base}${class.module}.model"/>
     <property name="class.extends" value="${class.base}${extends.module}.model.BaseObject"/>
     <property name="gen.base.methods" value="true"/>
     <property name="gen.xdoclet-tag" value="true"/>
     <property name="middlegen.gui" value="false"/>
     <property name="middlegen.lib.dir" value="lib/middlegen-2.1"/>
     <property name="middlegen.dest.dir" value="src"/>
+
+	<!-- Update the class.package if we have a class.module -->
+   	<condition property="class.package" value="${class.base}.model">
+        <equals arg1="${class.module}" arg2="" trim="true"/>
+   	</condition>
+   	<condition property="class.package" value="${class.base}.${class.module}.model">
+     	<not><equals arg1="${class.module}" arg2="" trim="true"/></not>
+   	</condition>
 
     <path id="lib.class.path">
         <path refid="hibernate.classpath"/>
@@ -168,7 +175,7 @@
     <!-- ==================================================================== -->
     <target name="validate" description="Validate the generated xml mapping documents">
         <xmlvalidate failonerror="no" lenient="no" warn="yes">
-            <fileset dir="${middlegen.dest.dir}" includes="*.xml" />
+            <fileset dir="${middlegen.dest.dir}" includes="*.xml"/>
         </xmlvalidate>
     </target>
 
@@ -181,7 +188,12 @@
         <property name="new.pkg.name" value="org.appfuse"/>
         <property name="web.framework" value=""/>
         <delete dir="../../../${app.name}"/>
-        <ant dir="../.." target="new"/>
+        <ant dir="../.." target="new" inheritAll="false">
+            <property name="app.name" value="${app.name}"/>
+            <property name="db.name" value="${db.name}"/>
+            <property name="new.pkg.name" value="${new.pkg.name}"/>
+            <property name="web.framework" value="${web.framework}"/>
+        </ant>
 
         <!-- Create database table -->
         <sql driver="${database.driver_class}" url="${database.url}"

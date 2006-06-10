@@ -1,44 +1,35 @@
 <title><span key="upload.title"/></title>
 <content tag="heading"><span key="upload.heading"/></content>
-
+<meta name="menu" content="FileUpload"/>
 <body jwcid="@Body">
 
 <span jwcid="@ShowValidationError" delegate="ognl:beans.delegate"/>
 <span jwcid="@ShowMessage"/>
 
-<span key="upload.message"/>
-
 <div class="separator"></div>
 
-<form jwcid="form">              
-<table class="detail">
-    <tr>
-        <th>
-            <label class="required" for="name">* <span key="uploadForm.name">Name</span>:</label>
-        </th>
-        <td>
-            <input jwcid="nameField" type="text" id="name" size="40"/>
-        </td>
-    </tr>
-    <tr>
-        <th>
-            <label class="required" for="name">* <span key="uploadForm.file">File</span>:</label>
-        </th>
-        <td>
-            <input type="file" jwcid="@Upload" file="ognl:file" size="50" displayName="message:uploadForm.file" validators="validators:required"/>
-        </td>
-    </tr>
-    <tr>
-        <td></td>
-        <td class="buttonBar">
-            <input type="submit" class="button" jwcid="@Submit" 
-                value="message:button.save" id="save" listener="ognl:listeners.upload"/>
-            <input type="submit" class="button" jwcid="@Submit" 
-                value="message:button.cancel" id="cancel" listener="ognl:listeners.cancel"
-                onclick="form.onsubmit = null"/>
-        </td>
-    </tr>
-</table>
+<form jwcid="form">
+<ul>
+    <li class="info">
+        <span key="upload.message"/>
+    </li>
+    <li>
+        <label class="desc" for="name"><span key="uploadForm.name">Name</span>&nbsp;<span class="req">*</span></label>
+        <input jwcid="nameField" type="text" id="name" class="text medium"/>
+    </li>
+    <li>
+        <label class="desc" for="file"><span key="uploadForm.file">File</span>&nbsp;<span class="req">*</span></label>
+        <input type="file" jwcid="@Upload" file="ognl:file" class="file medium"
+            displayName="message:uploadForm.file" validators="validators:required" id="file"/>
+    </li>
+    <li class="buttonBar bottom">
+        <input type="submit" class="button" jwcid="@Submit"
+            value="message:button.save" id="save" action="listener:upload"/>
+        <input type="submit" class="button" jwcid="@Submit"
+            value="message:button.cancel" id="cancel" action="listener:cancel"
+            onclick="form.onsubmit = null"/>
+    </li>
+</ul>
 </form>
 
 <script type="text/javascript">highlightFormElements();</script>

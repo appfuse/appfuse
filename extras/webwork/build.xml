@@ -60,7 +60,7 @@ webwork.dir=${lib.dir}/webwork-${webwork.version}]]></replacevalue>
 #
 # Struts - http://struts.apache.org
 #
-struts.version=1.2.8
+struts.version=1.2.9
 struts.dir=${lib.dir}/struts-${struts.version}
 struts.jar=${struts.dir}/struts.jar]]></replacetoken>
         </replace>
@@ -227,14 +227,14 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
             <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/strutstest-2.1.3/strutstest-2.1.3.jar"/>]]></replacetoken>
         </replace>
         <replace file="../../.classpath">
-            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/struts-1.2.8/struts.jar"/>
-	<classpathentry kind="lib" path="lib/struts-1.2.8/struts-el.jar"/>]]></replacetoken>
-            <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/webwork-2.2.1/freemarker-2.3.4"/>
-	<classpathentry kind="lib" path="lib/webwork-2.2.1/ognl-2.6.7.jar"/>
-	<classpathentry kind="lib" path="lib/webwork-2.2.1/oscore-2.2.4.jar"/>
-	<classpathentry kind="lib" path="lib/webwork-2.2.1/rife-continuations-0.0.2.jar"/>
-	<classpathentry kind="lib" path="lib/webwork-2.2.1/webwork-2.2.3.jar"/>
-	<classpathentry kind="lib" path="lib/webwork-2.2.1/xwork-1.1.3.jar"/>]]></replacevalue>
+            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/struts-1.2.9/struts.jar"/>
+	<classpathentry kind="lib" path="lib/struts-1.2.9/struts-el.jar"/>]]></replacetoken>
+            <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/webwork-2.2.2/freemarker-2.3.4.jar"/>
+	<classpathentry kind="lib" path="lib/webwork-2.2.2/ognl-2.6.7.jar"/>
+	<classpathentry kind="lib" path="lib/webwork-2.2.2/oscore-2.2.4.jar"/>
+	<classpathentry kind="lib" path="lib/webwork-2.2.2/rife-continuations-0.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/webwork-2.2.2/webwork-2.2.3.jar"/>
+	<classpathentry kind="lib" path="lib/webwork-2.2.2/xwork-1.1.3.jar"/>]]></replacevalue>
         </replace>
 
         <echo level="info">Refactoring build.xml</echo>
@@ -273,6 +273,8 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
             addedtags="@xdoclet-generated at ${TODAY}" force="${xdoclet.force}" 
             mergedir="metadata/web">
             <fileset dir="src/dao"/>
+
+            <configParam name="basePackageName" value="org.appfuse"/>
 
             <!-- generate struts forms -->
             <actionform templateFile="metadata/templates/struts_form.xdt">
@@ -352,13 +354,36 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
     <property name="db.name" value="appfuse"/>
     <property name="new.pkg.name" value="org.appfuse"/>
     <!-- =================================================================== -->
+    <!-- Creates new project, installs WebWork and deploys                   -->
+    <!-- =================================================================== -->
+    <target name="deploy" description="Creates appfuse-webwork and deploys">
+        <property name="app.name" value="appfuse-webwork"/>
+        <delete dir="../../../${app.name}"/>
+        <ant dir="../.." target="new" inheritAll="false">
+            <property name="app.name" value="${app.name}"/>
+            <property name="db.name" value="${db.name}"/>
+            <property name="new.pkg.name" value="${new.pkg.name}"/>
+            <property name="web.framework" value="${web.framework}"/>
+        </ant>
+
+        <!-- New project created, install WebWork and run tests -->
+        <ant dir="../../../${app.name}" target="deploy" inheritAll="false"/>
+    </target>
+
+    <!-- =================================================================== -->
     <!-- Creates new project, installs WebWork and runs tests                -->
     <!-- =================================================================== -->
     <target name="test" description="Creates appfuse-webwork and runs tests">
         <property name="app.name" value="appfuse-webwork"/>
         <delete dir="../../../${app.name}"/>
-        <ant dir="../.." target="new"/>
+        <ant dir="../.." target="new" inheritAll="false">
+            <property name="app.name" value="${app.name}"/>
+            <property name="db.name" value="${db.name}"/>
+            <property name="new.pkg.name" value="${new.pkg.name}"/>
+            <property name="web.framework" value="${web.framework}"/>
+        </ant>
 
+        <!-- New project created, run tests -->
         <ant dir="../../../${app.name}" target="setup-db" inheritAll="false"/>
         <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
     </target>
@@ -369,7 +394,12 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
     <target name="test-ibatis" description="Creates appfuse-webwork-ibatis and runs tests">
         <property name="app.name" value="appfuse-wibatis"/>
         <delete dir="../../../${app.name}"/>
-        <ant dir="../.." target="new"/>
+        <ant dir="../.." target="new" inheritAll="false">
+            <property name="app.name" value="${app.name}"/>
+            <property name="db.name" value="${db.name}"/>
+            <property name="new.pkg.name" value="${new.pkg.name}"/>
+            <property name="web.framework" value="${web.framework}"/>
+        </ant>
 
         <ant dir="../../../${app.name}/extras/ibatis" target="install" inheritAll="false"/>
         <ant dir="../../../${app.name}/extras/ibatis" target="uninstall-hibernate" inheritAll="false"/>
@@ -383,12 +413,15 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
     <target name="test-appgen" description="Creates appfuse-webwork and tests appgen">
         <property name="app.name" value="appfuse-wwgen"/>
         <delete dir="../../../${app.name}"/>
-        <ant dir="../.." target="new"/>
+        <ant dir="../.." target="new" inheritAll="false">
+            <property name="app.name" value="${app.name}"/>
+            <property name="db.name" value="${db.name}"/>
+            <property name="new.pkg.name" value="${new.pkg.name}"/>
+            <property name="web.framework" value="${web.framework}"/>
+        </ant>
 
         <ant dir="../../../${app.name}/extras/appgen" target="test-all" inheritAll="false">
-            <property name="web.framework" value="webwork"/>
-            <property name="appgen.type" value="pojo"/>
-            <property name="model.name" value="Person"/>   
+            <property name="web.framework" value="webwork"/>   
         </ant>   
     </target>
     

@@ -40,7 +40,7 @@ public class UserFormControllerTest extends BaseControllerTestCase {
 
         mv = c.handleRequest(request, new MockHttpServletResponse());
 
-        assertEquals("userProfile", mv.getViewName());
+        assertEquals("userForm", mv.getViewName());
         User editUser = (User) mv.getModel().get(c.getCommandName());
         assertEquals("Tomcat User", editUser.getFullName());
     }
@@ -54,9 +54,9 @@ public class UserFormControllerTest extends BaseControllerTestCase {
         super.objectToRequestParameters(user, request);
         
         mv = c.handleRequest(request, new MockHttpServletResponse());
+
         log.debug(mv.getModel());
-        Errors errors =
-            (Errors) mv.getModel().get(BindException.ERROR_KEY_PREFIX + "user");
+        Errors errors = (Errors) mv.getModel().get(BindException.ERROR_KEY_PREFIX + "user");
         assertNull(errors);
         assertNotNull(request.getSession().getAttribute("messages"));
     }
@@ -65,9 +65,10 @@ public class UserFormControllerTest extends BaseControllerTestCase {
         request = newPost("/editUser.html");
         request.addParameter("firstName", "Julie");
         request.setRemoteUser("tomcat");
+
         mv = c.handleRequest(request, new MockHttpServletResponse());
-        Errors errors =
-            (Errors) mv.getModel().get(BindException.ERROR_KEY_PREFIX + "user");
+
+        Errors errors = (Errors) mv.getModel().get(BindException.ERROR_KEY_PREFIX + "user");
         assertTrue(errors.getAllErrors().size() == 10);
     }
     
@@ -75,7 +76,9 @@ public class UserFormControllerTest extends BaseControllerTestCase {
         request = newPost("/editUser.html");
         request.addParameter("delete", "");
         request.addParameter("id", "2");
+
         mv = c.handleRequest(request, new MockHttpServletResponse());
+        
         assertNotNull(request.getSession().getAttribute("messages"));
     }
 }

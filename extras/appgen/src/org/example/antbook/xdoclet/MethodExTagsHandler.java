@@ -1,14 +1,24 @@
 package org.example.antbook.xdoclet;
 
 import java.sql.Timestamp;
-
-import java.text.*;
-import java.util.*;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.MissingResourceException;
+import java.util.Properties;
+import java.util.ResourceBundle;
 
 import xdoclet.XDocletException;
-import xdoclet.tagshandler.*;
+import xdoclet.tagshandler.MethodTagsHandler;
 import xdoclet.util.TypeConversionUtil;
-import xjavadoc.*;
+import xjavadoc.Type;
+import xjavadoc.XClass;
+import xjavadoc.XMember;
+import xjavadoc.XMethod;
 
 /**
  * This class is an extension to xdoclet.tagshandler.MethodTagsHandler with
@@ -23,7 +33,7 @@ public class MethodExTagsHandler extends MethodTagsHandler {
 
     XClass currentClass = getCurrentClass();
     private static String datePattern = "yyyy-MM-dd";
-    private static String uiDatePattern = "MM/dd/yyyy";
+    private static String uiDatePattern = getDatePattern();
     private static final List numericTypes = new ArrayList();
     private String rootClassName = "";
     private String curprefix = "";
@@ -500,4 +510,19 @@ public class MethodExTagsHandler extends MethodTagsHandler {
 
         return returnValue;
     }
+    /**
+     * Return default datePattern (MM/dd/yyyy)
+     * @return a string representing the date pattern on the UI
+     */
+    public static synchronized String getDatePattern() {
+        String result;
+        try {
+            result = ResourceBundle.getBundle("ApplicationResources", Locale.getDefault())
+                .getString("date.format");
+        } catch (MissingResourceException mse) {
+            result = "MM/dd/yyyy";
+        }
+        return result;
+    }
+
 }

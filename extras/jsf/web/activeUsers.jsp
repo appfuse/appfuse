@@ -1,32 +1,31 @@
 <%@ include file="/common/taglibs.jsp"%>
 
-<title><fmt:message key="activeUsers.title"/></title>
-<content tag="heading"><fmt:message key="activeUsers.heading"/></content>
+<head>
+    <title><fmt:message key="activeUsers.title"/></title>
+    <content tag="heading"><fmt:message key="activeUsers.heading"/></content>
+    <meta name="menu" content="AdminMenu"/>
+</head>
 <body id="activeUsers"/>
+
+<f:view>
+<f:loadBundle var="text" basename="#{basePage.bundleName}"/>
 
 <p><fmt:message key="activeUsers.message"/></p>
 
 <div class="separator"></div>
 
-<button type="button" onclick="location.href='mainMenu.html'">
-    <fmt:message key="button.done"/>
-</button>
+<input type="button" onclick="location.href='mainMenu.html'" value="<fmt:message key="button.done"/>"/>
 
-<f:view>
-
-<f:loadBundle var="text" basename="#{basePage.bundleName}"/>
-
-<h:form id="activeUsersForm">   
-
+<h:form id="activeUsersForm">
 <t:buffer into="#{table}">            
 <t:dataTable id="activeUsers" var="user" value="#{activeUserList.users}"
      rows="20"
      sortColumn="#{activeUserList.sort}"
      sortAscending="#{activeUserList.ascending}"
-     styleClass="activeUserList list"
+     styleClass="table activeUserList"
      rowClasses="standardTable_Row1,standardTable_Row2"
      columnClasses="standardTable_Column,standardTable_Column">
-    <t:column width="135px" 
+    <t:column width="135px"
         headerstyleClass="#{activeUserList.sort == 'username' ? 'standardTable_SortHeader' : 'standardTable_Header'}">
         <f:facet name="header">
             <t:commandSortHeader columnName="username" arrow="false">
@@ -73,11 +72,11 @@
 
 <t:buffer into="#{scroller}"> 
 <h:panelGrid columns="1" styleClass="scroller" columnClasses="standardTable_ColumnCentered" >
-<t:dataScroller id="scroll"    for="activeUsers"
+<t:dataScroller id="scroll" for="activeUsers"
     fastStep="10" pageCountVar="pageCount"
     pageIndexVar="pageIndex" styleClass="scroller"
     paginator="true" paginatorMaxPages="9"
-    paginatorTableClass="paginator"    paginatorActiveColumnClass="currentPage">
+    paginatorTableClass="paginator" paginatorActiveColumnClass="currentPage">
     <f:facet name="first" >
         <t:graphicImage url="/images/arrow-first.gif"/>
     </f:facet>

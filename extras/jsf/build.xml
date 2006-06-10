@@ -34,7 +34,7 @@
 #
 # MyFaces (JSF 1.1) - http://www.myfaces.org
 #
-jsf.version=1.1.1
+jsf.version=1.1.3
 jsf.dir=${lib.dir}/myfaces-${jsf.version}/lib
 jsf.jar=${jsf.dir}/myfaces-all.jar]]></replacevalue>
         </replace>
@@ -67,7 +67,7 @@ jsf.jar=${jsf.dir}/myfaces-all.jar]]></replacevalue>
 #
 # Struts - http://struts.apache.org
 #
-struts.version=1.2.8
+struts.version=1.2.9
 struts.dir=${lib.dir}/struts-${struts.version}
 struts.jar=${struts.dir}/struts.jar]]></replacetoken>
         </replace>
@@ -257,10 +257,11 @@ log4j.logger.org.apache.myfaces=WARN</replacevalue>
             <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/strutstest-2.1.3/strutstest-2.1.3.jar"/>]]></replacetoken>
         </replace>
         <replace file="../../.classpath">
-            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/struts-1.2.8/struts.jar"/>
-	<classpathentry kind="lib" path="lib/struts-1.2.8/struts-el.jar"/>]]></replacetoken>
-            <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/myfaces-1.1.1/lib/myfaces-all.jar"/>
-	<classpathentry kind="lib" path="lib/myfaces-1.1.1/tomahawk.jar"/>]]></replacevalue>
+            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/struts-1.2.9/struts.jar"/>
+	<classpathentry kind="lib" path="lib/struts-1.2.9/struts-el.jar"/>]]></replacetoken>
+            <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/myfaces-1.1.3/lib/myfaces-api-1.1.2.jar"/>
+	<classpathentry kind="lib" path="lib/myfaces-1.1.3/lib/myfaces-impl-1.1.2.jar"/>
+	<classpathentry kind="lib" path="lib/myfaces-1.1.3/tomahawk-1.1.2.jar"/>]]></replacevalue>
         </replace>
 
         <echo level="info">Refactoring build.xml</echo>
@@ -292,6 +293,8 @@ log4j.logger.org.apache.myfaces=WARN</replacevalue>
             addedtags="@xdoclet-generated at ${TODAY}" force="${xdoclet.force}" 
             mergedir="metadata/web">
             <fileset dir="src/dao"/>
+
+            <configParam name="basePackageName" value="org.appfuse"/>
 
             <!-- generate struts forms -->
             <actionform templateFile="metadata/templates/struts_form.xdt">
@@ -362,12 +365,34 @@ log4j.logger.org.apache.myfaces=WARN</replacevalue>
     <property name="db.name" value="appfuse"/>
     <property name="new.pkg.name" value="org.appfuse"/>
     <!-- =================================================================== -->
+    <!-- Creates new project, installs JSF and deploys                       -->
+    <!-- =================================================================== -->
+    <target name="deploy" description="Creates appfuse-jsf and deploys">
+        <property name="app.name" value="appfuse-jsf"/> 
+        <delete dir="../../../${app.name}"/>
+        <ant dir="../.." target="new" inheritAll="false">
+            <property name="app.name" value="${app.name}"/>
+            <property name="db.name" value="${db.name}"/>
+            <property name="new.pkg.name" value="${new.pkg.name}"/>
+            <property name="web.framework" value="${web.framework}"/>
+        </ant>
+
+        <!-- New project created, install JSF and run tests -->
+        <ant dir="../../../${app.name}" target="deploy" inheritAll="false"/>
+    </target>
+    
+    <!-- =================================================================== -->
     <!-- Creates new project, installs JSF and runs tests                -->
     <!-- =================================================================== -->
     <target name="test" description="Creates appfuse-jsf and runs tests">
         <property name="app.name" value="appfuse-jsf"/> 
         <delete dir="../../../${app.name}"/>
-        <ant dir="../.." target="new"/>
+        <ant dir="../.." target="new" inheritAll="false">
+            <property name="app.name" value="${app.name}"/>
+            <property name="db.name" value="${db.name}"/>
+            <property name="new.pkg.name" value="${new.pkg.name}"/>
+            <property name="web.framework" value="${web.framework}"/>
+        </ant>
 
         <!-- New project created, install JSF and run tests -->
         <ant dir="../../../${app.name}" target="setup-db" inheritAll="false"/>
@@ -380,7 +405,12 @@ log4j.logger.org.apache.myfaces=WARN</replacevalue>
     <target name="test-ibatis" description="Creates appfuse-jsf-ibatis and runs tests">
         <property name="app.name" value="appfuse-jibatis"/>
         <delete dir="../../../${app.name}"/>
-        <ant dir="../.." target="new"/>
+        <ant dir="../.." target="new" inheritAll="false">
+            <property name="app.name" value="${app.name}"/>
+            <property name="db.name" value="${db.name}"/>
+            <property name="new.pkg.name" value="${new.pkg.name}"/>
+            <property name="web.framework" value="${web.framework}"/>
+        </ant>
 
         <!-- New project created, install JSF and run tests -->
         <ant dir="../../../${app.name}/extras/ibatis" target="install" inheritAll="false"/>
@@ -395,13 +425,16 @@ log4j.logger.org.apache.myfaces=WARN</replacevalue>
     <target name="test-appgen" description="Creates appfuse-jsfgen and tests appgen">
         <property name="app.name" value="appfuse-jsfgen"/>
         <delete dir="../../../${app.name}"/>
-        <ant dir="../.." target="new"/>
+        <ant dir="../.." target="new" inheritAll="false">
+            <property name="app.name" value="${app.name}"/>
+            <property name="db.name" value="${db.name}"/>
+            <property name="new.pkg.name" value="${new.pkg.name}"/>
+            <property name="web.framework" value="${web.framework}"/>
+        </ant>
 
         <!-- Gen code and run tests -->
         <ant dir="../../../${app.name}/extras/appgen" target="test-all" inheritAll="false">
             <property name="web.framework" value="jsf"/>
-            <property name="appgen.type" value="pojo"/>
-            <property name="model.name" value="Person"/>
         </ant>   
     </target>
     

@@ -1,9 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
+    <!-- Directory structure of the project -->
+    <property name="build.dir" value="${basedir}/build"/>
+    <property name="dist.dir" value="${basedir}/dist"/>
+    <property name="test.dir" value="${build.dir}/test"/>
+    <!-- Directories for code coverage sampling -->
+    <property name="coverage.dir" value="${test.dir}/coverage"/>
+    <property name="out.instr.dir" value="${test.dir}/outinstr"/>
+    
+    <!-- Default options for code-generation, compiling and junit-testing -->
+    <property name="javac.debug" value="true"/>
+    <property name="compile.deprecation" value="true"/>
+    <!-- build.compiler - seems to be issues using jikes and JDK 1.4 is just as fast-->
+    <property name="build.compiler" value="modern"/>
+    <property name="junit.fork" value="true"/>
+    <property name="junit.showoutput" value="true"/>
+    <property name="xdoclet.force" value="false"/>
+
     <!-- Library versions and JARs -->
     <property name="lib.dir" location="lib"/>
     <property file="${lib.dir}/lib.properties"/>
-    
+
     <!-- Load user overrides -->
     <property file="${user.home}/.${ant.project.name}-build.properties"/>
     <property file="${user.home}/.build.properties"/>
@@ -15,7 +32,7 @@
     <property name="dao.type" value="hibernate"/>
     <property name="jsp.2" value="false"/>
     <property name="jsp.precompile" value="false"/>
-    
+
     <!-- Properties for running unit tests with tomcat -->
     <property name="tomcat.server" value="localhost"/>
     <property name="tomcat.manager.url" value="http://${tomcat.server}:${http.port}/manager"/>
@@ -29,27 +46,27 @@
     <property name="database.host" value="localhost"/>
     <property name="database.username" value="test"/>
     <property name="database.password" value="test"/>
-    
+
     <!-- database URL for creating other dbs - used in db-create target -->
     <property name="database.admin.url" value="jdbc:${database.type}://${database.host}/mysql"/>
     <property name="database.admin.username" value="root"/>
     <property name="database.admin.password" value=""/>
     <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLInnoDBDialect"/>
     <property name="database.driver_class" value="com.mysql.jdbc.Driver"/>
-    <property name="database.url" 
+    <property name="database.url"
         value="jdbc:${database.type}://${database.host}/${database.name}?useUnicode=true&amp;amp;characterEncoding=utf-8"/>
     <property name="database.show_sql" value="true"/>
     <property name="database.schema" value=""/>
-    
+
     <!-- Build and deploy properties -->
     <property environment="env"/>
     <property name="env.COMPUTERNAME" value="${env.HOSTNAME}"/>
 
-    <property name="tomcat.home" value="${env.CATALINA_HOME}"/>    
+    <property name="tomcat.home" value="${env.CATALINA_HOME}"/>
     <!-- The target directory for building the packed web application -->
-    <property name="webapp.dist" value="${dist.dir}/webapps"/>    
+    <property name="webapp.dist" value="${dist.dir}/webapps"/>
     <!-- The target directory for building the unpacked web application -->
-    <property name="webapp.target" value="${build.dir}/${webapp.name}"/>    
+    <property name="webapp.target" value="${build.dir}/${webapp.name}"/>
     <!-- Should Java compilations set the debug compiler option? -->
     <property name="compile.debug" value="true"/>
     <!-- Should Java compilations set the deprecation compiler option? -->
@@ -61,11 +78,11 @@
     <property name="tar.user" value="ant"/>
     <property name="tar.group" value="ant"/>
     <property name="tar.mode" value="644"/>
-    
+
     <!-- =================================================================== -->
     <!-- Classpaths                                                          -->
     <!-- =================================================================== -->
-    
+
     <path id="xdoclet.classpath">
         <pathelement location="${log4j.jar}"/>
         <pathelement location="${commons-logging.jar}"/>
@@ -84,7 +101,7 @@
         <pathelement location="${commons-lang.jar}"/>
         <path location="${build.dir}/dao/classes"/>
     </path>
-    
+
     <!-- DAO -->
     <path id="dao.compile.classpath">
         <path refid="hibernate.classpath"/>
@@ -99,7 +116,7 @@
         <pathelement location="${commons-collections.jar}"/>
         <pathelement location="${log4j.jar}"/>
     </path>
-    
+
     <!-- Service -->
     <path id="service.compile.classpath">
         <path refid="dao.compile.classpath"/>
@@ -119,7 +136,7 @@
         <pathelement location="${jmock.jar}"/>
         <path location="test/dao"/>
     </path>
-        
+
     <!-- Web -->
     <path id="web.compile.classpath">
         <pathelement location="${dist.dir}/${webapp.name}-dao.jar"/>
@@ -152,7 +169,7 @@
         <path refid="dao.compile.classpath"/>
         <path location="test/dao"/>
     </path>
-    
+
     <path id="jspc.classpath">
         <path refid="dao.compile.classpath"/>
         <pathelement location="${commons-logging.jar}"/>
@@ -167,14 +184,27 @@
         <fileset dir="${tomcat.home}/common/lib" includes="*.jar"/>
         <path location="${build.dir}/web/classes"/>
     </path>
-        
+
+    <path id="emma.libs">
+        <pathelement location="${emma.dir}/emma.jar"/>
+        <pathelement location="${emma.dir}/emma_ant.jar"/>
+    </path>
+
+    <path id="all.sources">
+        <pathelement path="src/dao"/>
+        <pathelement path="src/service"/>
+        <pathelement path="src/web"/>
+    </path>
+
+    <taskdef resource="emma_ant.properties" classpathref="emma.libs"/>
+
     <property name="inheritAll" value="true"/>
-    
+
     <!-- this macro is called by tasks that depend on a database.properties -->
     <macrodef name="generate-database-properties">
         <sequential>
             <echo>generating database.properties from build.properties</echo>
-            <propertyfile comment="Hibernate Configuration for JUnit tests" 
+            <propertyfile comment="Hibernate Configuration for JUnit tests"
                 file="${basedir}/database.properties">
                 <entry key="hibernate.dialect" value="${hibernate.dialect}"/>
                 <entry key="hibernate.connection.driver_class" value="${database.driver_class}"/>
@@ -183,10 +213,10 @@
                 <entry key="hibernate.connection.password" value="${database.password}"/>
                 <entry key="hibernate.connection.show_sql" value="${database.show_sql}"/>
                 <entry key="dao.type" value="${dao.type}"/>
-             </propertyfile>
-             <replace file="database.properties" token="amp;" value=""/>
-             <property file="database.properties"/>
-         </sequential>
+            </propertyfile>
+            <replace file="database.properties" token="amp;" value=""/>
+            <property file="database.properties"/>
+        </sequential>
     </macrodef>
-    
+
 </project>

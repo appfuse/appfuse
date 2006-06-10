@@ -2,7 +2,7 @@
  <env:Header/>
  <env:Body>
   <getUser xmlns="http://service.appfuse.org">
-    <in0>tomcat</in0>
+    <in0>1</in0>
   </getUser>
  </env:Body>
 </env:Envelope>

@@ -1,29 +1,26 @@
 <%@ include file="/common/taglibs.jsp"%>
 
-<title><fmt:message key="upload.title"/></title>
-<content tag="heading"><fmt:message key="upload.heading"/></content>
+<head>
+    <title><fmt:message key="upload.title"/></title>
+    <content tag="heading"><fmt:message key="upload.heading"/></content>
+    <meta name="menu" content="FileUpload"/>
+</head>
 
-<p><fmt:message key="upload.message"/></p>
-<div class="separator"></div>
-
-<ww:form action="uploadFile" enctype="multipart/form-data" method="post"
-    validate="true" name="upload">
-    <ww:textfield label="%{getText('uploadForm.name')}" name="name"
-        value="name" size="40" required="true"/>
-    <ww:file label="%{getText('uploadForm.file')}" name="file" id="file" 
-        size="50" required="true"/>
-    <tr>
-        <td></td>
-        <td class="buttonBar">
-            <input type="submit" name="upload" class="button" onclick="bCancel=false"
-                value="<fmt:message key="button.upload"/>" />
-            <input type="button" name="cancel" class="button" onclick="location.href='mainMenu.html'"
-                value="<fmt:message key="button.cancel"/>" />
-        </td>
-    </tr>
+<ww:form action="uploadFile" enctype="multipart/form-data" method="post" validate="true" id="uploadForm">
+    <li class="info">
+        <fmt:message key="upload.message"/>
+    </li>
+    <ww:textfield label="%{getText('uploadForm.name')}" cssClass="text medium" required="true"/>
+    <ww:file label="%{getText('uploadForm.file')}" cssClass="text file" required="true"/>
+    <li class="buttonBar bottom">
+        <input type="submit" name="upload" class="button" onclick="bCancel=false"
+            value="<fmt:message key="button.upload"/>" />
+        <input type="button" name="cancel" class="button" onclick="location.href='mainMenu.html'"
+            value="<fmt:message key="button.cancel"/>" />
+    </li>
 </ww:form>
 
 <script type="text/javascript">
-    Form.focusFirstElement(document.forms["upload"]);
+    Form.focusFirstElement($('uploadForm'));
 </script>
 

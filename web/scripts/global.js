@@ -1,26 +1,3 @@
-function MM_preloadImages() { //v3.0
-  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
-    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
-    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
-}
-
-function MM_swapImgRestore() { //v3.0
-  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
-}
-
-function MM_findObj(n, d) { //v4.01
-  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
-    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
-  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
-  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
-  if(!x && d.getElementById) x=d.getElementById(n); return x;
-}
-
-function MM_swapImage() { //v3.0
-  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
-   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
-}
-
 /* This function is used to change the style class of an element */
 function swapClass(obj, newStyle) {
     obj.className = newStyle;
@@ -29,31 +6,6 @@ function swapClass(obj, newStyle) {
 function isUndefined(value) {   
     var undef;   
     return value == undef; 
-}
-
-/* Function for showing and hiding elements that use 'display:none' to hide */
-function toggleDisplay(targetId)
-{
-    if (document.getElementById) {
-        target = document.getElementById(targetId);
-    	if (target.style.display == "none"){
-    		target.style.display = "";
-    	} else {
-    		target.style.display = "none";
-    	}
-    }
-}
-
-// toggle visibility 
-function toggleVisibility(targetId) {
-    if (document.getElementById) {
-        target = document.getElementById(targetId);
-    	if (target.style.visibility == "hidden"){
-    		target.style.visibility = "visible";
-    	} else {
-    		target.style.visibility = "hidden";
-    	}
-    }
 }
 
 function checkAll(theForm) { // check all the checkboxes in the list
@@ -184,7 +136,6 @@ function toggleRadio(elementId, index) {
     var element = document.getElementsByName(elementId)[index];
     element.checked = true;
 }
-
 
 /* This function is used to open a pop-up window */
 function openWindow(url, winTitle, winParams) {
@@ -318,10 +269,11 @@ function highlightTableRows(tableId) {
     var previousClass = null;
     var table = document.getElementById(tableId); 
     var tbody = table.getElementsByTagName("tbody")[0];
+    var rows;
     if (tbody == null) {
-        var rows = table.getElementsByTagName("tr");
+        rows = table.getElementsByTagName("tr");
     } else {
-        var rows = tbody.getElementsByTagName("tr");
+        rows = tbody.getElementsByTagName("tr");
     }
     // add event handlers so rows light up and are clickable
     for (i=0; i < rows.length; i++) {
@@ -337,7 +289,7 @@ function highlightTableRows(tableId) {
 }
 
 function highlightFormElements() {
-    // add input box highlighting 
+    // add input box highlighting
     addFocusHandlers(document.getElementsByTagName("input"));
     addFocusHandlers(document.getElementsByTagName("textarea"));
 }
@@ -347,8 +299,10 @@ function addFocusHandlers(elements) {
         if (elements[i].type != "button" && elements[i].type != "submit" &&
             elements[i].type != "reset" && elements[i].type != "checkbox" && elements[i].type != "radio") {
             if (elements[i].getAttribute('readonly') != "readonly" && elements[i].getAttribute('readonly') != "disabled") {
-                elements[i].onfocus=function() {this.className='focus';this.select()};
-                elements[i].onblur=function() {this.className=''};
+                elements[i].onfocus=function() {this.style.backgroundColor='#ffd';this.select()};
+                elements[i].onmouseover=function() {this.style.backgroundColor='#ffd'};
+                elements[i].onblur=function() {this.style.backgroundColor='';}
+                elements[i].onmouseout=function() {this.style.backgroundColor='';}
             }
         }
     }

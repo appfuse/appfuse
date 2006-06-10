@@ -1,6 +1,9 @@
 <XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>package <XDtForm:parentPackageName/>.webapp.action;
 
 import org.apache.tapestry.engine.RequestCycle;
+
+import <XDtConfig:configParameterValue paramName="basePackageName"/>.webapp.action.BasePageTestCase;
+import <XDtConfig:configParameterValue paramName="basePackageName"/>.webapp.action.MockRequestCycle;
 import <XDtForm:parentPackageName/>.service.Manager;
 import <XDtPackage:packageName/>.<XDtForm:className/>;
 
@@ -14,7 +17,7 @@ public class <XDtForm:className/>ListTest extends BasePageTestCase {
         super.onSetUp();
         // these can be mocked if you want a more "pure" unit test
         Map map = new HashMap();
-        map.put("manager", (Manager) applicationContext.getBean("manager"));
+        map.put("manager", applicationContext.getBean("manager"));
         page = (<XDtForm:className/>List) getPage(<XDtForm:className/>List.class, map);
     }
 
@@ -24,7 +27,7 @@ public class <XDtForm:className/>ListTest extends BasePageTestCase {
     }
 
     public void testEdit() throws Exception {
-        RequestCycle cycle = new MockRequestCycle();
+        RequestCycle cycle = new MockRequestCycle(<XDtForm:className/>List.class.getPackage().getName());
         cycle.setServiceParameters(new Object[] {new <XDtMethodEx:idField getType="propertyType"/>("1")});
         page.edit(cycle);
         assertFalse(page.hasErrors());

@@ -13,7 +13,7 @@ public class UserListTest extends BasePageTestCase {
         super.onSetUp();        
         // these can be mocked if you want a more "pure" unit test
         Map map = new HashMap();
-        map.put("userManager", (UserManager) applicationContext.getBean("userManager"));
+        map.put("userManager", applicationContext.getBean("userManager"));
         page = (UserList) getPage(UserList.class, map);
     }
 

@@ -23,20 +23,20 @@
 	<classpathentry kind="lib" path="lib/velocity-1.4/velocity-tools-view-1.1.jar"/>
 	<classpathentry kind="lib" path="lib/strutstest-2.1.3/strutstest-2.1.3.jar"/>
 	<classpathentry kind="lib" path="lib/dbunit-2.1/dbunit-2.1.jar"/>
-	<classpathentry kind="lib" path="lib/struts-menu-2.3/struts-menu-2.3.jar"/>
+	<classpathentry kind="lib" path="lib/struts-menu-2.4/struts-menu-2.4.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-commons/commons-beanutils.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-commons/commons-collections.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-commons/commons-dbcp.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-commons/commons-digester.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-commons/commons-fileupload.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-commons/commons-lang.jar"/>
-	<classpathentry kind="lib" path="lib/jakarta-commons/commons-logging-1.1-RC6.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta-commons/commons-logging-1.1.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-commons/commons-pool.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-commons/commons-validator.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-commons/jakarta-oro.jar"/>
-	<classpathentry kind="lib" path="lib/struts-1.2.8/struts.jar"/>
-	<classpathentry kind="lib" path="lib/struts-1.2.8/struts-el.jar"/>
-	<classpathentry kind="lib" path="lib/struts-1.2.8/antlr.jar"/>
+	<classpathentry kind="lib" path="lib/struts-1.2.9/struts.jar"/>
+	<classpathentry kind="lib" path="lib/struts-1.2.9/struts-el.jar"/>
+	<classpathentry kind="lib" path="lib/struts-1.2.9/antlr.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-taglibs/standard-1.0.6/lib/jstl.jar"/>
 	<classpathentry kind="lib" path="lib/jmock-1.0.1/jmock-1.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/ant-contrib-1.0b2/ant-contrib-1.0b2.jar"/>
@@ -58,11 +58,11 @@
 	<classpathentry kind="lib" path="lib/hibernate-3.1.3/lib/dom4j-1.6.1.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-3.1.3/lib/jta.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-3.1.3/lib/oscache-2.3.jar"/>
-	<classpathentry kind="lib" path="lib/spring-1.2.7/acegi-security-1.0.0-RC2.jar"/>
-	<classpathentry kind="lib" path="lib/spring-1.2.7/commons-codec-1.3.jar"/>
-	<classpathentry kind="lib" path="lib/spring-1.2.7/ehcache-1.1.jar"/>
-	<classpathentry kind="lib" path="lib/spring-1.2.7/spring.jar"/>
-	<classpathentry kind="lib" path="lib/spring-1.2.7/spring-mock.jar"/>
+	<classpathentry kind="lib" path="lib/spring-1.2.8/acegi-security-1.0.0-RC2.jar"/>
+	<classpathentry kind="lib" path="lib/spring-1.2.8/commons-codec-1.3.jar"/>
+	<classpathentry kind="lib" path="lib/spring-1.2.8/ehcache-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/spring-1.2.8/spring.jar"/>
+	<classpathentry kind="lib" path="lib/spring-1.2.8/spring-mock.jar"/>
 	<classpathentry kind="lib" path="lib/urlrewrite-3.0-beta/urlrewrite-3.0-beta.jar"/>
 	<classpathentry kind="lib" path="lib/java2html-1.3.1/j2h.jar"/>
 	<classpathentry kind="lib" path="lib/sitemesh-2.2.1/sitemesh-2.2.1.jar"/>
@@ -78,5 +78,6 @@
 	<classpathentry kind="lib" path="lib/webtest-build1263/lib/jaxen-1.1-beta-8.jar"/>
 	<classpathentry kind="lib" path="lib/webtest-build1263/lib/js-1.6R2.jar"/>
 	<classpathentry kind="lib" path="lib/webtest-build1263/lib/nekohtml-0.9.5.jar"/>
+	<classpathentry kind="var" path="ECLIPSE_HOME/plugins/org.apache.ant_1.6.5/lib/ant.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

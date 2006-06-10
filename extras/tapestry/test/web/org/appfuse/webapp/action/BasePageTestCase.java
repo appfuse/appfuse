@@ -34,7 +34,7 @@ public class BasePageTestCase extends AbstractDependencyInjectionSpringContextTe
     protected void onSetUp() throws Exception {
         // populate the userForm and place into session
         UserManager userMgr = (UserManager) applicationContext.getBean("userManager");
-        user = (User) userMgr.getUserByUsername("tomcat");
+        user = userMgr.getUserByUsername("tomcat");
         
         // change the port on the mailSender so it doesn't conflict with an 
         // existing SMTP server on localhost

@@ -7,6 +7,11 @@
 
     <!-- precompiled jsp mappings -->
 
+    <!-- Define the default CSS Theme -->
+    <context-param>
+        <param-name>theme</param-name>
+        <param-value>simplicity</param-value>
+    </context-param>
     <!-- Define the basename for a resource bundle for I18N -->
     <context-param>
         <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
@@ -21,7 +26,7 @@
     <!-- Context Configuration locations for Spring XML files -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/applicationContext-*.xml</param-value>
+        <param-value>/WEB-INF/applicationContext-*.xml,/WEB-INF/security.xml</param-value>
     </context-param>
 
     <filter>
@@ -74,15 +79,10 @@
     </filter>
     <filter>
         <filter-name>extensionsFilter</filter-name>
-        <filter-class>org.apache.myfaces.component.html.util.ExtensionsFilter</filter-class>
+        <filter-class>org.apache.myfaces.webapp.filter.ExtensionsFilter</filter-class>
         <init-param>
             <param-name>maxFileSize</param-name>
             <param-value>2m</param-value>
-            <description>Set the size limit for uploaded files.
-                Format: 10 - 10 bytes
-                        10k - 10 KB
-                        10m - 10 MB
-            </description>
         </init-param>
     </filter>
     <filter>
@@ -146,6 +146,18 @@
     </filter-mapping>
     <filter-mapping>
         <filter-name>compressionFilter</filter-name>
+        <url-pattern>*.css</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>compressionFilter</filter-name>
+        <url-pattern>*.jsp</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>compressionFilter</filter-name>
+        <url-pattern>*.js</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>compressionFilter</filter-name>
         <url-pattern>*.html</url-pattern>
     </filter-mapping>
     <filter-mapping>
@@ -168,7 +180,11 @@
     </filter-mapping>
     <filter-mapping>
         <filter-name>extensionsFilter</filter-name>
-        <url-pattern>*.html</url-pattern>
+        <servlet-name>faces</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>extensionsFilter</filter-name>
+        <url-pattern>/faces/myFacesExtensionResource/*</url-pattern>
     </filter-mapping>
 
     <listener>

@@ -1,22 +1,54 @@
 package org.appfuse.util;
 
-import java.util.Date;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+
+import org.springframework.context.i18n.LocaleContextHolder;
 
 import junit.framework.TestCase;
 
 public class DateConverterTest extends TestCase {
     private DateConverter converter = new DateConverter();
 
+    public void testInternationalization() throws Exception {
+        List locales = new ArrayList() {
+            {
+                add(Locale.US);
+                add(Locale.GERMANY);
+                add(Locale.FRANCE);
+                add(Locale.CHINA);
+                add(Locale.ITALY);
+            }
+        };
+        for (Iterator localeIter = locales.iterator(); localeIter.hasNext();) {
+            Locale locale = (Locale) localeIter.next();
+            LocaleContextHolder.setLocale(locale);
+            testConvertStringToDate();
+            testConvertDateToString();
+            testConvertStringToTimestamp();
+            testConvertTimestampToString();
+        }
+    }
+
     public void testConvertStringToDate() throws Exception {
-        Date date = (Date) converter.convert(Date.class, "01/05/2005");
+        Date today = new Date();
+        Calendar todayCalendar = new GregorianCalendar();
+        todayCalendar.setTime(today);
+        String datePart = DateUtil.convertDateToString(today);
+
+        Date date = (Date) converter.convert(Date.class, datePart);
+
         Calendar cal = new GregorianCalendar();
         cal.setTime(date);
-        assertEquals(2005, cal.get(Calendar.YEAR));
-        assertEquals(Calendar.JANUARY, cal.get(Calendar.MONTH));
-        assertEquals(05, cal.get(Calendar.DAY_OF_MONTH));
+        assertEquals(todayCalendar.get(Calendar.YEAR), cal.get(Calendar.YEAR));
+        assertEquals(todayCalendar.get(Calendar.MONTH), cal.get(Calendar.MONTH));
+        assertEquals(todayCalendar.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.DAY_OF_MONTH));
     }
 
     public void testConvertDateToString() throws Exception {
@@ -26,17 +58,23 @@ public class DateConverterTest extends TestCase {
     }
 
     public void testConvertStringToTimestamp() throws Exception {
-        Timestamp time = (Timestamp) converter.convert(Timestamp.class, "01/05/2005 01:02:03.4");
+        Date today = new Date();
+        Calendar todayCalendar = new GregorianCalendar();
+        todayCalendar.setTime(today);
+        String datePart = DateUtil.convertDateToString(today);
+
+        Timestamp time = (Timestamp) converter.convert(Timestamp.class, datePart + " 01:02:03.4");
         Calendar cal = new GregorianCalendar();
         cal.setTimeInMillis(time.getTime());
-        assertEquals(2005, cal.get(Calendar.YEAR));
-        assertEquals(Calendar.JANUARY, cal.get(Calendar.MONTH));
-        assertEquals(05, cal.get(Calendar.DAY_OF_MONTH));
+        assertEquals(todayCalendar.get(Calendar.YEAR), cal.get(Calendar.YEAR));
+        assertEquals(todayCalendar.get(Calendar.MONTH), cal.get(Calendar.MONTH));
+        assertEquals(todayCalendar.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.DAY_OF_MONTH));
     }
 
     public void testConvertTimestampToString() throws Exception {
         Timestamp timestamp = Timestamp.valueOf("2005-03-10 01:02:03.4");
         String time = (String) converter.convert(String.class, timestamp);
-        assertEquals(DateUtil.getDateTime(DateConverter.TS_FORMAT, timestamp), time);
+        assertEquals(DateUtil.getDateTime(DateUtil.getDateTimePattern(), timestamp), time);
     }
+
 }

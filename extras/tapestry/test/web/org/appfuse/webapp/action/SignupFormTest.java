@@ -20,10 +20,10 @@ public class SignupFormTest extends BasePageTestCase {
         super.onSetUp();        
         // these can be mocked if you want a more "pure" unit test
         Map map = new HashMap();
-        map.put("userManager", (UserManager) applicationContext.getBean("userManager"));
-        map.put("roleManager", (RoleManager) applicationContext.getBean("roleManager"));
-        map.put("mailMessage", (SimpleMailMessage) applicationContext.getBean("mailMessage"));
-        map.put("mailEngine", (MailEngine) applicationContext.getBean("mailEngine"));
+        map.put("userManager", applicationContext.getBean("userManager"));
+        map.put("roleManager", applicationContext.getBean("roleManager"));
+        map.put("mailMessage", applicationContext.getBean("mailMessage"));
+        map.put("mailEngine", applicationContext.getBean("mailEngine"));
         page = (SignupForm) getPage(SignupForm.class, map);
     }
     

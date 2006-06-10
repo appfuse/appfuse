@@ -7,6 +7,11 @@
 
     <!-- precompiled jsp mappings -->
 
+    <!-- Define the default CSS Theme -->
+    <context-param>
+        <param-name>theme</param-name>
+        <param-value>simplicity</param-value>
+    </context-param>
     <!-- Define the basename for a resource bundle for I18N -->
     <context-param>
         <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
@@ -21,7 +26,11 @@
     <!-- Context Configuration locations for Spring XML files -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/applicationContext-*.xml,/WEB-INF/action-servlet.xml</param-value>
+        <param-value>
+            /WEB-INF/applicationContext-*.xml
+            /WEB-INF/action-servlet.xml
+            /WEB-INF/security.xml
+        </param-value>
     </context-param>
 
     <filter>
@@ -130,6 +139,18 @@
     <filter-mapping>
         <filter-name>exportFilter</filter-name>
         <url-pattern>*.html</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>compressionFilter</filter-name>
+        <url-pattern>*.css</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>compressionFilter</filter-name>
+        <url-pattern>*.jsp</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>compressionFilter</filter-name>
+        <url-pattern>*.js</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>compressionFilter</filter-name>

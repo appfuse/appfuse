@@ -58,6 +58,10 @@ public class StartupListener extends ContextLoaderListener
         if (config == null) {
             config = new HashMap();
         }
+        
+        if (context.getInitParameter("theme") != null) {
+            config.put("theme", context.getInitParameter("theme"));
+        }
 
         ApplicationContext ctx =
             WebApplicationContextUtils.getRequiredWebApplicationContext(context);

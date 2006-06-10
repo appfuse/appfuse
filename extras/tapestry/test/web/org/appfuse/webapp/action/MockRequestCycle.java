@@ -6,6 +6,16 @@ import org.apache.tapestry.html.BasePage;
 import org.apache.tapestry.test.Creator;
 
 public class MockRequestCycle extends RequestCycle {
+    private String pkg;
+
+    public MockRequestCycle() {
+        super();
+    }
+
+    public MockRequestCycle(String pkg) {
+        super();
+        this.pkg = pkg;
+    }
 
     public IPage getPage(final String name) {
         // convert the first character to uppercase
@@ -16,10 +26,15 @@ public class MockRequestCycle extends RequestCycle {
         if (className.endsWith("s")) {
             className = className.substring(0, className.length() - 1) + "List";
         }
-        
-        className = MockRequestCycle.class.getPackage().getName() + "." + className;
-        IPage page = null;
-        
+
+        if (pkg != null) {
+            className = pkg + "." + className;
+        } else {
+            className = MockRequestCycle.class.getPackage().getName() + "." + className;
+        }
+
+        IPage page;
+
         try {
             page = (IPage) new Creator().newInstance(Class.forName(className));
         } catch (Exception e) {
@@ -31,7 +46,7 @@ public class MockRequestCycle extends RequestCycle {
                 throw new RuntimeException("Unable to instantiate '" + className + "'");
             }
         }
-        
+
         page.setPageName(name);
         return page;
     }

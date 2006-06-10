@@ -2,6 +2,7 @@
 
 <title><fmt:message key="display.title"/></title>
 <content tag="heading"><fmt:message key="display.heading"/></content>
+<meta name="menu" content="FileUpload"/>
 
 <p>Below is a list of attributes that were gathered in UploadAction.java.</p>
 
@@ -36,7 +37,7 @@
         <td class="buttonBar">
             <input class="button" type="button" value="Done"
                 onclick="location.href='mainMenu.html'" />
-            <input class="button" type="button" value="Upload Another"
+            <input class="button" type="button" style="width: 120px" value="Upload Another"
                 onclick="location.href='uploadFile!default.html'" />
         </td>
     </tr>

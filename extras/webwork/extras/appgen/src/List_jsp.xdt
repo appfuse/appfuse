@@ -2,16 +2,15 @@
 
 <title><fmt:message key="<XDtForm:classNameLower/>List.title"/></title>
 <content tag="heading"><fmt:message key="<XDtForm:classNameLower/>List.heading"/></content>
+<meta name="menu" content="<XDtForm:className/>Menu"/>
 
 <c:set var="buttons">
-    <button type="button" style="margin-right: 5px"
-        onclick="location.href='<c:url value="/edit<XDtForm:className/>.html"/>?method=Add&from=list'">
-        <fmt:message key="button.add"/>
-    </button>
+    <input type="button" style="margin-right: 5px"
+        onclick="location.href='<c:url value="/edit<XDtForm:className/>.html?method=Add&from=list"/>'"
+        value="<fmt:message key="button.add"/>"/>
 
-    <button type="button" onclick="location.href='<c:url value="/mainMenu.html"/>'">
-        <fmt:message key="button.done"/>
-    </button>
+    <input type="button" onclick="location.href='<c:url value="/mainMenu.html"/>'"
+        value="<fmt:message key="button.done"/>"/>
 </c:set>
 
 <c:out value="${buttons}" escapeXml="false"/>
@@ -19,7 +18,7 @@
 <ww:set name="<XDtForm:classNameLower/>List" value="<XDtForm:classNameLower/>s" scope="request"/>
 
 <display:table name="<XDtForm:classNameLower/>List" cellspacing="0" cellpadding="0" requestURI=""
-    id="<XDtForm:classNameLower/>List" pagesize="25" class="list" export="true">
+    id="<XDtForm:classNameLower/>List" pagesize="25" class="table" export="true">
 
 <XDtMethod:forAllMethods>
   <XDtMethod:ifHasMethodTag tagName="hibernate.id">
@@ -39,5 +38,5 @@
 <c:out value="${buttons}" escapeXml="false"/>
 
 <script type="text/javascript">
-highlightTableRows("<XDtForm:classNameLower/>List");
+    highlightTableRows("<XDtForm:classNameLower/>List");
 </script>

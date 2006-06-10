@@ -31,13 +31,13 @@ public class User extends BaseObject implements Serializable, UserDetails {
     protected String username;                    // required
     protected String password;                    // required
     protected String confirmPassword;
+    protected String passwordHint;
     protected String firstName;                   // required
     protected String lastName;                    // required
-    protected Address address = new Address();
-    protected String phoneNumber;
     protected String email;                       // required; unique
+    protected String phoneNumber;
     protected String website;
-    protected String passwordHint;
+    protected Address address = new Address();
     protected Integer version;
     protected Set roles = new HashSet();
     protected boolean enabled;
@@ -87,6 +87,14 @@ public class User extends BaseObject implements Serializable, UserDetails {
 
     /**
      * @struts.validator type="required"
+     * @hibernate.property column="password_hint" not-null="false"
+     */
+    public String getPasswordHint() {
+        return passwordHint;
+    }
+
+    /**
+     * @struts.validator type="required"
      * @hibernate.property column="first_name" not-null="true" length="50"
      */
     public String getFirstName() {
@@ -99,20 +107,6 @@ public class User extends BaseObject implements Serializable, UserDetails {
      */
     public String getLastName() {
         return lastName;
-    }
-
-    /**
-     * Returns the full name.
-     */
-    public String getFullName() {
-        return firstName + ' ' + lastName;
-    }
-
-    /**
-     * @hibernate.component
-     */
-    public Address getAddress() {
-        return address;
     }
 
     /**
@@ -142,11 +136,17 @@ public class User extends BaseObject implements Serializable, UserDetails {
     }
 
     /**
-     * @struts.validator type="required"
-     * @hibernate.property column="password_hint" not-null="false"
+     * Returns the full name.
      */
-    public String getPasswordHint() {
-        return passwordHint;
+    public String getFullName() {
+        return firstName + ' ' + lastName;
+    }
+
+    /**
+     * @hibernate.component
+     */
+    public Address getAddress() {
+        return address;
     }
 
     /**
@@ -245,16 +245,16 @@ public class User extends BaseObject implements Serializable, UserDetails {
         this.confirmPassword = confirmPassword;
     }
 
+    public void setPasswordHint(String passwordHint) {
+        this.passwordHint = passwordHint;
+    }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
     }
 
     public void setEmail(String email) {
@@ -269,8 +269,8 @@ public class User extends BaseObject implements Serializable, UserDetails {
         this.website = website;
     }
 
-    public void setPasswordHint(String passwordHint) {
-        this.passwordHint = passwordHint;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public void setRoles(Set roles) {

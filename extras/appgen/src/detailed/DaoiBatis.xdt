@@ -4,6 +4,7 @@ package <XDtForm:parentPackageName/>.dao.ibatis;
 
 import java.util.List;
 
+import <XDtConfig:configParameterValue paramName="basePackageName"/>.dao.ibatis.BaseDaoiBATIS;
 import <XDtPackage:packageName/>.<XDtClass:className/>;
 import <XDtForm:parentPackageName/>.dao.<XDtClass:className/>Dao;
 

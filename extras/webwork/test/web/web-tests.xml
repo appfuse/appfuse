@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: web-tests.xml,v 1.13 2006/03/29 00:40:48 mraible Exp $               -->
+<!-- $Id: web-tests.xml,v 1.13.2.1 2006/06/10 13:59:50 mraible Exp $               -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY config SYSTEM "file:./config.xml">
@@ -7,7 +7,7 @@
 ]>
 <project basedir="." default="run-all-tests"> 
     <!-- Use i18n bundle, 2nd one listed is the default -->
-    <property file="${build.dir}/web/classes/ApplicationResources_${user.language}.properties"/>
+    <property file="${build.dir}/test/properties/ApplicationResources_${user.language}.properties"/>
     <property file="web/WEB-INF/classes/ApplicationResources.properties"/>
 
     <!-- runs all targets -->
@@ -135,7 +135,7 @@
                 <setinputfield description="set email" name="user.email" value="newuser@raibledesigns.com"/>
                 <setinputfield description="set website" name="user.website" value="http://raibledesigns.com"/>
                 <setinputfield description="set passwordHint" name="user.passwordHint" value="test"/>
-                <setselectfield description="Select roles" name="user.userRoles" value="user"/>
+                <setselectfield description="Select roles" name="userRoles" value="user"/>
                 <clickbutton label="${button.save}" description="Click button 'Save'"/>
                 
                 <verifytitle description="Redisplay add user page" text=".*${userProfile.title}.*" regex="true"/>

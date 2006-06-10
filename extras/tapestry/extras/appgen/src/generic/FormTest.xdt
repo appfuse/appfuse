@@ -1,6 +1,9 @@
 <XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>package <XDtForm:parentPackageName/>.webapp.action;
 
 import org.apache.tapestry.engine.ILink;
+
+import <XDtConfig:configParameterValue paramName="basePackageName"/>.webapp.action.BasePageTestCase;
+import <XDtConfig:configParameterValue paramName="basePackageName"/>.webapp.action.MockRequestCycle;
 import <XDtPackage:packageName/>.<XDtForm:className/>;
 import <XDtForm:parentPackageName/>.service.Manager;
 
@@ -14,7 +17,7 @@ public class <XDtForm:className/>FormTest extends BasePageTestCase {
         super.onSetUp();
         // these can be mocked if you want a more "pure" unit test
         Map map = new HashMap();
-        map.put("manager", (Manager) applicationContext.getBean("manager"));
+        map.put("manager", applicationContext.getBean("manager"));
         page = (<XDtForm:className/>Form) getPage(<XDtForm:className/>Form.class, map);
     }
 
@@ -33,7 +36,7 @@ public class <XDtForm:className/>FormTest extends BasePageTestCase {
         </XDtMethodEx:forAllMethods>
         page.set<XDtForm:className/>(<XDtForm:classNameLower/>);
 
-        ILink link = page.save(new MockRequestCycle());
+        ILink link = page.save(new MockRequestCycle(this.getClass().getPackage().getName()));
         assertNotNull(page.get<XDtForm:className/>());
         assertFalse(page.hasErrors());
         assertEquals("<XDtForm:classNameLower/>s" + EXTENSION, link.getURL());
@@ -51,7 +54,7 @@ public class <XDtForm:className/>FormTest extends BasePageTestCase {
         </XDtMethodEx:forAllMethods>
         page.set<XDtForm:className/>(<XDtForm:classNameLower/>);
 
-        ILink link = page.save(new MockRequestCycle());
+        ILink link = page.save(new MockRequestCycle(this.getClass().getPackage().getName()));
         assertNotNull(page.get<XDtForm:className/>());
         assertFalse(page.hasErrors());
         assertNull(link);
@@ -61,7 +64,7 @@ public class <XDtForm:className/>FormTest extends BasePageTestCase {
         <XDtForm:className/> <XDtForm:classNameLower/> = new <XDtForm:className/>();
         <XDtForm:classNameLower/>.<XDtMethodEx:idField getType="setterName"/>(new <XDtMethodEx:idField getType="propertyType"/>("2"));
         page.set<XDtForm:className/>(<XDtForm:classNameLower/>);
-        page.delete(new MockRequestCycle());
+        page.delete(new MockRequestCycle(this.getClass().getPackage().getName()));
         assertFalse(page.hasErrors());
     }
 }

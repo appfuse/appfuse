@@ -1,5 +1,12 @@
 <%@ include file="/common/taglibs.jsp"%>
 
+<head>
+    <title><fmt:message key="userProfile.title"/></title>
+    <content tag="heading"><fmt:message key="userProfile.heading"/></content>
+    <meta name="menu" content="UserMenu"/>
+    <script type="text/javascript" src="<c:url value='/scripts/selectbox.js'/>"></script>
+</head>
+
 <spring:bind path="user.*">
     <c:if test="${not empty status.errorMessages}">
     <div class="error">
@@ -12,8 +19,7 @@
     </c:if>
 </spring:bind>
 
-<form method="post" action="<c:url value="/editUser.html"/>" id="userForm"
-    onsubmit="return onFormSubmit(this)">
+<form method="post" action="<c:url value="/editUser.html"/>" id="userForm" onsubmit="return onFormSubmit(this)">
 <spring:bind path="user.id">
 <input type="hidden" name="id" value="<c:out value="${status.value}"/>"/>
 </spring:bind>
@@ -35,300 +41,239 @@
     <input type="hidden" name="encryptPass" value="true"/>
 </c:if>
 
-<table class="detail">
-<c:set var="pageButtons">
-    <tr>
-        <td></td>
-        <td class="buttonBar">
-            <input type="submit" class="button" name="save"
-                onclick="bCancel=false" value="<fmt:message key="button.save"/>"/>
+<ul>
+    <li class="buttonBar right">
+        <%-- So the buttons can be used at the bottom of the form --%>
+        <c:set var="buttons">
+            <input type="submit" class="button" name="save" onclick="bCancel=false" value="<fmt:message key="button.save"/>"/>
 
-        <c:if test="${param.from == 'list'}">
-            <input type="submit" class="button" name="delete"
-                onclick="bCancel=true;return confirmDelete('user')"
+        <c:if test="${param.from == 'list' and param.method != 'Add'}">
+            <input type="submit" class="button" name="delete" onclick="bCancel=true;return confirmDelete('user')"
                 value="<fmt:message key="button.delete"/>"/>
         </c:if>
 
-            <input type="submit" class="button" name="cancel" onclick="bCancel=true"
-                value="<fmt:message key="button.cancel"/>"/>
-        </td>
-    </tr>
-</c:set>
-    <tr>
-        <th>
-            <appfuse:label key="user.username"/>
-        </th>
-        <td>
+            <input type="submit" class="button" name="cancel" onclick="bCancel=true" value="<fmt:message key="button.cancel"/>"/>
+        </c:set>
+        <c:out value="${buttons}" escapeXml="false"/>
+    </li>
+    <li class="info">
+        <c:choose>
+            <c:when test="${param.from == 'list'}">
+                <p><fmt:message key="userProfile.admin.message"/></p>
+            </c:when>
+            <c:otherwise>
+                <p><fmt:message key="userProfile.message"/></p>
+            </c:otherwise>
+        </c:choose>
+    </li>
+    <li>
+        <appfuse:label styleClass="desc" key="user.username"/>
         <spring:bind path="user.username">
-            <input type="text" name="username" value="<c:out value="${status.value}"/>" id="username"/>
             <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
+            <input type="text" name="username" value="<c:out value="${status.value}"/>" id="username" class="text large"/>
         </spring:bind>
-        </td>
-    </tr>
+    </li>
     <c:if test="${cookieLogin != 'true'}">
-    <tr>
-        <th>
-            <appfuse:label key="user.password"/>
-        </th>
-        <td>
-            <spring:bind path="user.password">
-            <input type="password" id="password" name="password" size="40"
-                value="<c:out value="${status.value}"/>" onchange="passwordChanged(this)"/>
-            <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
-            </spring:bind>
-        </td>
-    </tr>
-    <tr>
-        <th>
-            <appfuse:label key="user.confirmPassword"/>
-        </th>
-        <td>
-            <spring:bind path="user.confirmPassword">
-            <input type="password" name="confirmPassword" id="confirmPassword"
-                value="<c:out value="${status.value}"/>" size="40"/>
-            <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
-            </spring:bind>
-        </td>
-    </tr>
+    <li>
+        <div>
+            <div class="left">
+                <appfuse:label styleClass="desc" key="user.password"/>
+                <spring:bind path="user.password">
+                    <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
+                    <input type="password" id="password" name="password" class="text medium"
+                        value="<c:out value="${status.value}"/>" onchange="passwordChanged(this)"/>
+                </spring:bind>
+            </div>
+            <div>
+                <appfuse:label styleClass="desc" key="user.confirmPassword"/>
+                <spring:bind path="user.confirmPassword">
+                    <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
+                    <input type="password" name="confirmPassword" id="confirmPassword"
+                        value="<c:out value="${status.value}"/>" class="text medium"/>
+                </spring:bind>
+            </div>
+        </div>
+    </li>
     </c:if>
-    <tr>
-        <th>
-            <appfuse:label key="user.firstName"/>
-        </th>
-        <td>
+    <li>
+        <appfuse:label styleClass="desc" key="user.passwordHint"/>
+        <spring:bind path="user.passwordHint">
+            <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
+            <input type="text" name="passwordHint" value="<c:out value="${status.value}"/>" id="passwordHint" class="text large"/>
+        </spring:bind>
+    </li>
+    <li>
+        <div class="left">
+            <appfuse:label styleClass="desc" key="user.firstName"/>
             <spring:bind path="user.firstName">
-            <input type="text" name="firstName" value="<c:out value="${status.value}"/>" id="firstName"/>
-            <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
+                <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
+                <input type="text" name="firstName" value="<c:out value="${status.value}"/>" id="firstName" class="text medium" maxlength="50"/>
             </spring:bind>
-        </td>
-    </tr>
-    <tr>
-        <th>
-            <appfuse:label key="user.lastName"/>
-        </th>
-        <td>
+        </div>
+        <div>
+            <appfuse:label styleClass="desc" key="user.lastName"/>
             <spring:bind path="user.lastName">
-            <input type="text" name="lastName" value="<c:out value="${status.value}"/>" id="lastName"/>
-            <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
+                <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
+                <input type="text" name="lastName" value="<c:out value="${status.value}"/>" id="lastName" class="text medium" maxlength="50"/>
             </spring:bind>
-        </td>
-    </tr>
-    <tr>
-        <th>
-            <appfuse:label key="user.address.address"/>
-        </th>
-        <td>
-            <spring:bind path="user.address.address">
-            <input type="text" name="address.address" value="<c:out value="${status.value}"/>" id="address.address" size="50"/>
+        </div>
+    </li>
+    <li>
+        <div>
+            <div class="left">
+                <appfuse:label styleClass="desc" key="user.email"/>
+                <spring:bind path="user.email">
+                    <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
+                    <input type="text" name="email" value="<c:out value="${status.value}"/>" id="email" class="text medium"/>
+                </spring:bind>
+            </div>
+            <div>
+                <appfuse:label styleClass="desc" key="user.phoneNumber"/>
+                <spring:bind path="user.phoneNumber">
+                    <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
+                    <input type="text" name="phoneNumber" value="<c:out value="${status.value}"/>" id="phoneNumber" class="text medium"/>
+                </spring:bind>
+
+            </div>
+        </div>
+    </li>
+    <li>
+        <appfuse:label styleClass="desc" key="user.website"/>
+        <spring:bind path="user.website">
             <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
-            </spring:bind>
-        </td>
-    </tr>
-    <tr>
-        <th>
-            <appfuse:label key="user.address.city"/>
-        </th>
-        <td>
-            <spring:bind path="user.address.city">
-            <input type="text" name="address.city" value="<c:out value="${status.value}"/>" id="address.city" size="40"/>
-            <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
-            </spring:bind>
-        </td>
-    </tr>
-    <tr>
-        <th>
-            <appfuse:label key="user.address.province"/>
-        </th>
-        <td>
-            <spring:bind path="user.address.province">
-            <input type="text" name="address.province" value="<c:out value="${status.value}"/>" id="address.province" size="40"/>
-            <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
-            </spring:bind>
-        </td>
-    </tr>
-    <tr>
-        <th>
-            <appfuse:label key="user.address.country"/>
-        </th>
-        <td>
-            <spring:bind path="user.address.country">
-            <appfuse:country name="address.country" prompt="" default="${user.address.country}"/>
-            <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
-            </spring:bind>
-        </td>
-    </tr>
-    <tr>
-        <th>
-            <appfuse:label key="user.address.postalCode"/>
-        </th>
-        <td>
-            <spring:bind path="user.address.postalCode">
-            <input type="text" name="address.postalCode" value="<c:out value="${status.value}"/>" id="address.postalCode" size="10"/>
-            <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
-            </spring:bind>
-        </td>
-    </tr>
-    <tr>
-        <th>
-            <appfuse:label key="user.email"/>
-        </th>
-        <td>
-            <spring:bind path="user.email">
-            <input type="text" name="email" value="<c:out value="${status.value}"/>" id="email" size="50"/>
-            <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
-            </spring:bind>
-        </td>
-    </tr>
-    <tr>
-        <th>
-            <appfuse:label key="user.phoneNumber"/>
-        </th>
-        <td>
-            <spring:bind path="user.phoneNumber">
-            <input type="text" name="phoneNumber" value="<c:out value="${status.value}"/>" id="phoneNumber"/>
-            <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
-            </spring:bind>
-        </td>
-    </tr>
-    <tr>
-        <th>
-            <appfuse:label key="user.website"/>
-        </th>
-        <td>
-            <spring:bind path="user.website">
-            <input type="text" name="website" value="<c:out value="${status.value}"/>" id="website" size="50"/>
-            <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
-            </spring:bind>
-            <c:if test="${!empty user.website}">
-            <a href="<c:out value="${user.website}"/>"><fmt:message key="user.visitWebsite"/></a>
-            </c:if>
-        </td>
-    </tr>
-    <tr>
-        <th>
-            <appfuse:label key="user.passwordHint"/>
-        </th>
-        <td>
-            <spring:bind path="user.passwordHint">
-            <input type="text" name="passwordHint" value="<c:out value="${status.value}"/>" id="passwordHint" size="50"/>
-            <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
-            </spring:bind>
-        </td>
-    </tr>
+            <input type="text" name="website" value="<c:out value="${status.value}"/>" id="website" class="text large"/>
+        </spring:bind>
+    </li>
+    <li>
+        <label class="desc"><fmt:message key="user.address.address"/></label>
+        <div class="group">
+            <div>
+                <spring:bind path="user.address.address">
+                    <input type="text" name="address.address" value="<c:out value="${status.value}"/>" id="address.address" class="text large"/>
+                    <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
+                </spring:bind>
+                <p><appfuse:label key="user.address.address"/></p>
+            </div>
+            <div class="left">
+                <spring:bind path="user.address.city">
+                    <input type="text" name="address.city" value="<c:out value="${status.value}"/>" id="address.city" class="text medium"/>
+                    <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
+                </spring:bind>
+                <p><appfuse:label key="user.address.city"/></p>
+            </div>
+            <div>
+                <spring:bind path="user.address.province">
+                    <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
+                    <input type="text" name="address.province" value="<c:out value="${status.value}"/>" id="address.province" class="text state" size="2"/>
+                </spring:bind>
+                <p><appfuse:label key="user.address.province"/></p>
+            </div>
+            <div class="left">
+                <spring:bind path="user.address.postalCode">
+                    <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
+                    <input type="text" name="address.postalCode" value="<c:out value="${status.value}"/>" id="address.postalCode" class="text zip"/>
+                </spring:bind>
+                <p><appfuse:label key="user.address.postalCode"/></p>
+            </div>
+            <div>
+                <spring:bind path="user.address.country">
+                    <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
+                    <appfuse:country name="address.country" prompt="" default="${user.address.country}"/>
+                </spring:bind>
+                <p><appfuse:label key="user.address.country"/></p>
+            </div>
+        </div>
+    </li>
 <c:choose>
     <c:when test="${param.from == 'list' or param.method == 'Add'}">
-    <tr>
-        <td></td>
-        <td>
-            <fieldset class="pickList">
-                <legend>
-                    <fmt:message key="userProfile.accountSettings"/>
-                </legend>
-                <table class="pickList">
-                    <tr>
-                        <td>
-                            <spring:bind path="user.enabled">
-                                <input type="hidden" name="_<c:out value="${status.expression}"/>"  value="visible"/>
-                                <input type="checkbox" name="<c:out value="${status.expression}"/>"
-                                    <c:if test="${status.value}">checked="checked"</c:if> />
-                            </spring:bind>
-                            <label for="enabled"><fmt:message key="user.enabled"/></label>
-                        
-                            <spring:bind path="user.accountExpired">
-                                <input type="hidden" name="_<c:out value="${status.expression}"/>"  value="visible"/>
-                                <input type="checkbox" name="<c:out value="${status.expression}"/>"
-                                    <c:if test="${status.value}">checked="checked"</c:if> />
-                            </spring:bind>
-                            <label for="accountExpired"><fmt:message key="user.accountExpired"/></label>
+    <li>
+        <fieldset>
+            <legend><fmt:message key="userProfile.accountSettings"/></legend>
 
-                            <spring:bind path="user.accountLocked">
-                                <input type="hidden" name="_<c:out value="${status.expression}"/>"  value="visible"/>
-                                <input type="checkbox" name="<c:out value="${status.expression}"/>"
-                                    <c:if test="${status.value}">checked="checked"</c:if> />
-                            </spring:bind>
-                            <label for="accountLocked"><fmt:message key="user.accountLocked"/></label>
+            <spring:bind path="user.enabled">
+                <input type="hidden" name="_<c:out value="${status.expression}"/>"  value="visible"/>
+                <input type="checkbox" name="<c:out value="${status.expression}"/>"
+                    <c:if test="${status.value}">checked="checked"</c:if> />
+            </spring:bind>
+            <label for="enabled" class="choice"><fmt:message key="user.enabled"/></label>
 
-                            <spring:bind path="user.credentialsExpired">
-                                <input type="hidden" name="_<c:out value="${status.expression}"/>"  value="visible"/>
-                                <input type="checkbox" name="<c:out value="${status.expression}"/>"
-                                    <c:if test="${status.value}">checked="checked"</c:if> />
-                            </spring:bind>
-                            <label for="credentialsExpired"><fmt:message key="user.credentialsExpired"/></label>
-                        </td>
-                    </tr>
-                </table>
-            </fieldset>
-        </td>
-    </tr>
-    <tr>
-        <td></td>
-        <td>
-            <fieldset class="pickList">
-                <legend>
-                    <fmt:message key="userProfile.assignRoles"/>
-                </legend>
-                <table class="pickList">
-                    <tr>
-                        <th class="pickLabel">
-                            <appfuse:label key="user.availableRoles"
-                                colon="false" styleClass="required"/>
-                        </th>
-                        <td>
-                        </td>
-                        <th class="pickLabel">
-                            <appfuse:label key="user.roles"
-                                colon="false" styleClass="required"/>
-                        </th>
-                    </tr>
-                    <c:set var="leftList" value="${availableRoles}" scope="request"/>
-                    <c:set var="rightList" value="${user.roleList}" scope="request"/>
-                    <c:import url="/WEB-INF/pages/pickList.jsp">
-                        <c:param name="listCount" value="1"/>
-                        <c:param name="leftId" value="availableRoles"/>
-                        <c:param name="rightId" value="userRoles"/>
-                    </c:import>
-                </table>
-            </fieldset>
-        </td>
-    </tr>
+            <spring:bind path="user.accountExpired">
+                <input type="hidden" name="_<c:out value="${status.expression}"/>"  value="visible"/>
+                <input type="checkbox" name="<c:out value="${status.expression}"/>"
+                    <c:if test="${status.value}">checked="checked"</c:if> />
+            </spring:bind>
+            <label for="accountExpired" class="choice"><fmt:message key="user.accountExpired"/></label>
+
+            <spring:bind path="user.accountLocked">
+                <input type="hidden" name="_<c:out value="${status.expression}"/>"  value="visible"/>
+                <input type="checkbox" name="<c:out value="${status.expression}"/>"
+                    <c:if test="${status.value}">checked="checked"</c:if> />
+            </spring:bind>
+            <label for="accountLocked" class="choice"><fmt:message key="user.accountLocked"/></label>
+
+            <spring:bind path="user.credentialsExpired">
+                <input type="hidden" name="_<c:out value="${status.expression}"/>"  value="visible"/>
+                <input type="checkbox" name="<c:out value="${status.expression}"/>"
+                    <c:if test="${status.value}">checked="checked"</c:if> />
+            </spring:bind>
+            <label for="credentialsExpired" class="choice"><fmt:message key="user.credentialsExpired"/></label>
+        </fieldset>
+    </li>
+    <li>
+        <fieldset class="pickList">
+            <legend><fmt:message key="userProfile.assignRoles"/></legend>
+            <table class="pickList">
+                <tr>
+                    <th class="pickLabel">
+                        <appfuse:label key="user.availableRoles" colon="false" styleClass="required"/>
+                    </th>
+                    <td></td>
+                    <th class="pickLabel">
+                        <appfuse:label key="user.roles" colon="false" styleClass="required"/>
+                    </th>
+                </tr>
+                <c:set var="leftList" value="${availableRoles}" scope="request"/>
+                <c:set var="rightList" value="${user.roleList}" scope="request"/>
+                <c:import url="/WEB-INF/pages/pickList.jsp">
+                    <c:param name="listCount" value="1"/>
+                    <c:param name="leftId" value="availableRoles"/>
+                    <c:param name="rightId" value="userRoles"/>
+                </c:import>
+            </table>
+        </fieldset>
+    </li>
     </c:when>
     <c:when test="${not empty user.username}">
-    <tr>
-        <th>
-            <appfuse:label key="user.roles"/>
-        </th>
-        <td>
+    <li>
+        <strong><appfuse:label key="user.roles"/></strong>
+
         <c:forEach var="role" items="${user.roleList}" varStatus="status">
             <c:out value="${role.label}"/><c:if test="${!status.last}">,</c:if>
-            <input type="hidden" name="userRoles"
-                value="<c:out value="${role.label}"/>"/>
+            <input type="hidden" name="userRoles" value="<c:out value="${role.label}"/>"/>
         </c:forEach>
-            <spring:bind path="user.enabled">
+        <spring:bind path="user.enabled">
             <input type="hidden" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>"/>
-            </spring:bind>
-            <spring:bind path="user.accountExpired">
+        </spring:bind>
+        <spring:bind path="user.accountExpired">
             <input type="hidden" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>"/>
-            </spring:bind>
-            <spring:bind path="user.accountLocked">
+        </spring:bind>
+        <spring:bind path="user.accountLocked">
             <input type="hidden" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>"/>
-            </spring:bind>
-            <spring:bind path="user.credentialsExpired">
+        </spring:bind>
+        <spring:bind path="user.credentialsExpired">
             <input type="hidden" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>"/>
-            </spring:bind>
-        </td>
-    </tr>
+        </spring:bind>
+    </li>
     </c:when>
 </c:choose>
-
-    <%-- Print out buttons - defined at top of form --%>
-    <%-- This is so you can put them at the top and the bottom if you like --%>
-    <c:out value="${pageButtons}" escapeXml="false"/>
-
-</table>
+    <li class="buttonBar bottom">
+        <c:out value="${buttons}" escapeXml="false"/>
+    </li>
+</ul>
 </form>
 
 <script type="text/javascript">
-    Form.focusFirstElement(document.forms["userForm"]);
+    Form.focusFirstElement($('userForm'));
     highlightFormElements();
 
     function passwordChanged(passwordField) {

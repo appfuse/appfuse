@@ -29,7 +29,7 @@ import org.apache.struts.validator.ValidatorPlugIn;
  * Hatcher (http://www.ehatchersolutions.com/JavaDevWithAnt/).
  *
  * <p>It is designed to be used as follows:
- * <pre>&lt;tag:label key="user.username" /&gt;</pre>
+ * <pre>&lt;tag:label key="user.username"/&gt;</pre>
  *
  * @jsp.tag name="label" bodycontent="empty"
  */
@@ -39,8 +39,7 @@ public class LabelTag extends TagSupport {
     protected String key = null;
     protected String styleClass = null;
     protected String errorClass = null;
-    protected boolean colon = true;
-    protected boolean helpTip = false;
+    protected boolean colon = false;
 
     public int doStartTag() throws JspException {
         // Look up this key to see if its a field of the current form
@@ -52,8 +51,7 @@ public class LabelTag extends TagSupport {
             (ValidatorResources) pageContext.getServletContext()
                 .getAttribute(ValidatorPlugIn.VALIDATOR_KEY);
         
-        Locale locale = 
-            (Locale) pageContext.findAttribute(Globals.LOCALE_KEY);
+        Locale locale = (Locale) pageContext.findAttribute(Globals.LOCALE_KEY);
 
         if (locale == null) {
             locale = Locale.getDefault();
@@ -130,35 +128,20 @@ public class LabelTag extends TagSupport {
         if ((message == null) || "".equals(message.trim())) {
             label.append("");
         } else {
-            label.append("<label for=\"" + fieldName + "\"");
+            label.append("<label for=\"").append(fieldName).append("\"");
 
             if (validationError) {
-                label.append(" class=\"" + cssErrorClass + "\"");
+                label.append(" class=\"").append(cssErrorClass).append("\"");
             } else if (cssClass != null) {
-                label.append(" class=\"" + cssClass + "\"");
+                label.append(" class=\"").append(cssClass).append("\"");
             }
 
-            label.append(">" + ((requiredField) ? "* " : "") + message);
-            String marker = (locale.equals(Locale.FRENCH)) ? " :" : ":";
-            label.append(((colon) ? marker : "") + "</label>");
+            label.append(">").append(message);
+            label.append((requiredField) ? " <span class=\"req\">*</span>" : "");
+            label.append((colon) ? ":" : "");
+            label.append("</label>");
 
             if (valError.length() > 0) {
-                String error = valError.toString();
-
-                if (helpTip) {
-                    // strip out any single or double quotes
-                    String htmlFriendly = StringUtils.replace(error, "'", "\\\'");
-                    htmlFriendly =
-                        StringUtils.replace(htmlFriendly, "\"", "\\\"");
-                    label.append(" <a class=\"errorLink\" href=\"?\" onclick=\"showHelpTip(event, '");
-    
-                    label.append(htmlFriendly + "', false); return false\" ");
-                    label.append("onmouseover=\"showHelpTip(event, '");
-                    label.append(htmlFriendly + "', false); return false\" ");
-                    label.append("onmouseout=\"hideHelpTip(event); return false\">");
-                }
-                
-                
                 label.append("<img class=\"validationWarning\" alt=\"");
                 label.append(tagUtils.message(pageContext,
                                               Globals.MESSAGES_KEY,
@@ -166,18 +149,14 @@ public class LabelTag extends TagSupport {
                                               "icon.warning"));
                 label.append("\" ");
 
-                String context =
-                    ((HttpServletRequest) pageContext.getRequest()).getContextPath();
+                String context = ((HttpServletRequest) pageContext.getRequest()).getContextPath();
 
-                label.append("src=\"" + context);
+                label.append("src=\"").append(context);
                 label.append(tagUtils.message(pageContext,
                                               Globals.MESSAGES_KEY,
                                               locale.getDisplayName(),
                                               "icon.warning.img"));
                 label.append("\" />");
-                if (helpTip) {
-                    label.append("</a>");
-                }
             }
         }
 
@@ -224,24 +203,13 @@ public class LabelTag extends TagSupport {
     }
 
     /**
-     * Setter for displaying a JavaScript popup helptip.  Default
-     * is false because error text is shown next to field.
-     *
-     * @jsp.attribute required="false" rtexprvalue="true"
-     */
-    public void setHelpTip(boolean helpTip) {
-        this.helpTip = helpTip;
-    }
-    
-    /**
      * Release all allocated resources.
      */
     public void release() {
         super.release();
         key = null;
-        colon = true;
+        colon = false;
         styleClass = null;
         errorClass = null;
-        helpTip = false;
     }
 }
