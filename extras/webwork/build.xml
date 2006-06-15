@@ -228,7 +228,8 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         </replace>
         <replace file="../../.classpath">
             <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/struts-1.2.9/struts.jar"/>
-	<classpathentry kind="lib" path="lib/struts-1.2.9/struts-el.jar"/>]]></replacetoken>
+	<classpathentry kind="lib" path="lib/struts-1.2.9/struts-el.jar"/>
+	<classpathentry kind="lib" path="lib/struts-1.2.9/antlr.jar"/>]]></replacetoken>
             <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/webwork-2.2.2/freemarker-2.3.4.jar"/>
 	<classpathentry kind="lib" path="lib/webwork-2.2.2/ognl-2.6.7.jar"/>
 	<classpathentry kind="lib" path="lib/webwork-2.2.2/oscore-2.2.4.jar"/>
