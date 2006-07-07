@@ -1,6 +1,15 @@
 package org.appfuse.service;
 
-import org.acegisecurity.*;
+import java.lang.reflect.Method;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
+import org.acegisecurity.AccessDeniedException;
+import org.acegisecurity.Authentication;
+import org.acegisecurity.AuthenticationTrustResolver;
+import org.acegisecurity.AuthenticationTrustResolverImpl;
+import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.context.SecurityContext;
 import org.acegisecurity.context.SecurityContextHolder;
 import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
@@ -14,11 +23,6 @@ import org.appfuse.model.Role;
 import org.appfuse.model.User;
 import org.springframework.aop.AfterReturningAdvice;
 import org.springframework.aop.MethodBeforeAdvice;
-
-import java.lang.reflect.Method;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
 
 public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdvice {
     public final static String ACCESS_DENIED = "Access Denied: Only administrators are allowed to modify other users.";
@@ -121,6 +125,14 @@ public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdv
             if (auth != null && auth.getPrincipal() instanceof UserDetails) {
                 User currentUser = (User) auth.getPrincipal();
                 if (currentUser.getId().equals(user.getId())) {
+                    if (!currentUser.getUsername().equalsIgnoreCase(user.getUsername())) {
+                        // The name of the current user changed, so the previous flush won't have done anything. 
+                        // Flush the old name, too.
+                        if (log.isDebugEnabled()) {
+                            log.debug("Removing '" + currentUser.getUsername() + "' from userCache");
+                        }
+                        userCache.removeUserFromCache(currentUser.getUsername());
+                    }
                     auth = new UsernamePasswordAuthenticationToken(user, user.getPassword(), user.getAuthorities());
                     SecurityContextHolder.getContext().setAuthentication(auth);
                 }
