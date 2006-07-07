@@ -89,7 +89,6 @@
     ul#primary-nav, ul#primary-nav ul {
         margin: 0;
         padding: 0;
-        width: 150px; /* Width of Menu Items */
         background: #fff; /* IE6 Bug */
         font-size: 100%;
     }
@@ -111,20 +110,20 @@
         /* Fix IE. Hide from IE Mac \*/
         * html ul#primary-nav li { float: left; height: 1%; }
             * html ul#primary-nav li a { height: 1%; }
+            * html ul#primary-nav ul { width: 149px; }
+            * html ul#primary-nav ul li { width: 149px; }
         /* End */
 
             ul#primary-nav ul {
                 position: absolute;
                 display: none;
                 left: 0px; /* Set 1px less than menu width */
-                width: 149px;
                 top: 22px;
             }
 
                 ul#primary-nav ul li {
                     border: 1px solid silver;
                     border-bottom: 0;
-                    width: 149px;
                     font-size: 1em;
                 }
 
