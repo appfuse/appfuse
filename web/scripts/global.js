@@ -298,7 +298,7 @@ function addFocusHandlers(elements) {
     for (i=0; i < elements.length; i++) {
         if (elements[i].type != "button" && elements[i].type != "submit" &&
             elements[i].type != "reset" && elements[i].type != "checkbox" && elements[i].type != "radio") {
-            if (elements[i].getAttribute('readonly') != "readonly" && elements[i].getAttribute('readonly') != "disabled") {
+            if (!elements[i].getAttribute('readonly') && !elements[i].getAttribute('disabled')) {
                 elements[i].onfocus=function() {this.style.backgroundColor='#ffd';this.select()};
                 elements[i].onmouseover=function() {this.style.backgroundColor='#ffd'};
                 elements[i].onblur=function() {this.style.backgroundColor='';}
