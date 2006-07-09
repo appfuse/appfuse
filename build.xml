@@ -89,6 +89,7 @@
     <filterset id="db.variables">
         <filter token="DB-DRIVERNAME" value="${database.driver_class}"/>
         <filter token="DB-URL" value="${database.url}"/>
+        <filter token="DB-NAME" value="${database.name}"/>
         <filter token="DB-USERNAME" value="${database.username}"/>
         <filter token="DB-PASSWORD" value="${database.password}"/>
     </filterset>
@@ -714,9 +715,9 @@
                 <echo message="Detected MySQL, creating database..."/>
                 <echo>Creating '${database.name}' database with: ${database.type}-create.sql</echo>
                 <echo>URL: ${database.admin.url}</echo>
-                <filter token="dbname" value="${database.name}"/>
                 <copy tofile="${build.dir}/dao/gen/${database.type}-create.sql" overwrite="true" filtering="true">
                     <fileset file="metadata/sql/${database.type}-create.sql"/>
+                    <filterset refid="db.variables"/>
                 </copy>
                 <sql
                     driver="${database.driver_class}"
@@ -842,13 +843,6 @@
             <tag name="struts.validator" scope="all" description="Validator:"/>
             <tag name="struts.validator-args" scope="all" description="Validator Args:"/>
             <tag name="struts.validator-var" scope="all" description="Validator Var:"/>
-            <tag name="web.listener" scope="all" description="Listener:"/>
-            <tag name="web.filter" scope="all" description="Filter:"/>
-            <tag name="web.filter-prepare-param" scope="all" description="prepare-Param:"/>
-            <tag name="web.filter-mapping" scope="all" description="Mapping:"/>
-            <tag name="web.servlet" scope="all" description="Servlet:"/>
-            <tag name="web.servlet-prepare-param" scope="all" description="prepare-Param:"/>
-            <tag name="web.servlet-mapping" scope="all" description="Mapping:"/>
             
             <!-- Application frameworks -->
             <link href="http://jakarta.apache.org/commons/lang/api"/>
