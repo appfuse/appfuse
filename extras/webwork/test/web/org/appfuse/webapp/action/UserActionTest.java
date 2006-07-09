@@ -60,8 +60,9 @@ public class UserActionTest extends BaseActionTestCase {
         User user = userManager.getUserByUsername("tomcat");
         user.setPassword("tomcat");
         user.setConfirmPassword("tomcat");
-        // conflict, mraible already has this
-        user.setEmail("matt@raibledesigns.com"); 
+        // e-mail address from existing user
+        User existingUser = (User) userManager.getUsers(null).get(0);
+        user.setEmail(existingUser.getEmail());
         action.setUser(user);
         action.setFrom("list");
         
@@ -73,8 +74,8 @@ public class UserActionTest extends BaseActionTestCase {
 
         assertEquals(action.save(), "input");
         assertNotNull(action.getUser());
-        assertTrue(action.hasActionErrors());
         assertEquals(originalVersionNumber, user.getVersion());
+        assertTrue(action.hasActionErrors());
         action.clearErrorsAndMessages();
         
         // save with valid e-mail
