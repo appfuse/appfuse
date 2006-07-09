@@ -12,10 +12,10 @@
     <target name="help" description="Print usage for key targets">
     <echo>
     Key Targets:
-                install: installs iBatis into AppFuse
-              uninstall: uninstalls iBatis from AppFuse
-    uninstall-hibernate: uninstalls Hibernate from AppFuse
-                   test: creates appfuse-ibatis project and runs tests   
+                install: Installs iBatis into AppFuse
+              uninstall: Uninstalls iBatis from AppFuse
+    uninstall-hibernate: Uninstalls Hibernate from AppFuse
+                   test: Creates appfuse-ibatis project and runs tests   
 
                    help: Print this help text...
     </echo>
@@ -83,7 +83,7 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar</replacevalue>
         <replace file="../../build.xml">
             <replacetoken><![CDATA[<lib dir="${spring.dir}" includes="*.jar" excludes="*mock.jar"/>]]></replacetoken>
             <replacevalue><![CDATA[<lib dir="${ibatis.dir}" includes="*.jar"/>
-                <lib dir="${spring.dir}" includes="*.jar" excludes="*mock.jar"/>]]></replacevalue>
+            <lib dir="${spring.dir}" includes="*.jar" excludes="*mock.jar"/>]]></replacevalue>
         </replace>
 
         <echo level="info">Commenting out Hibernate OSIV Filter</echo>
@@ -204,12 +204,10 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
         <replace file="../../build.xml">
             <replacetoken><![CDATA[<lib file="${hibernate.jar}"/>
             <lib dir="${hibernate.dir}/lib" includes="*.jar"/>]]></replacetoken>
-            <replacevalue><![CDATA[<lib dir="${ibatis.dir}" includes="*.jar"/>]]></replacevalue>
         </replace>
 
         <echo level="info">Deleting Hibernate JARs from ../../lib</echo>
         <delete dir="${hibernate.dir}"/>
-        <delete file="${spring.dir}/spring-hibernate*.jar"/>
 
         <echo level="info">Removing Hibernate entries from ../../lib.properties</echo>
         <replace file="${lib.dir}/lib.properties">
