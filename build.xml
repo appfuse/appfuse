@@ -66,7 +66,7 @@
         <condition property="webdoclet.unnecessary">
             <and>
                 <equals arg1="${webdoclet.uptodate}" arg2="true"/>
-                <available file="${webapp.target}/WEB-INF/web.xml"/>
+                <available file="${webapp.target}/WEB-INF/${webapp.name}.tld"/>
             </and>
         </condition>
 
