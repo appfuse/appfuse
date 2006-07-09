@@ -65,10 +65,13 @@
         <property name="objectDefinitionSource">
             <value>
                 PATTERN_TYPE_APACHE_ANT
-                /signup.html*=ROLE_ANONYMOUS,admin,user
-                /passwordHint.html*=ROLE_ANONYMOUS,admin,user
-                /**/*.html*=admin,user
                 /clickstreams.jsp*=admin
+                /flushCache.*=admin
+                /passwordHint.html*=ROLE_ANONYMOUS,admin,user
+                /reload.*=admin
+                /signup.html*=ROLE_ANONYMOUS,admin,user
+                /users.html*=admin
+                /**/*.html*=admin,user
             </value>
         </property>
     </bean>
