@@ -20,9 +20,14 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class UserSecurityAdviceTest extends BaseManagerTestCase {
     Mock userDao = null;
     ApplicationContext ctx = null;
+    SecurityContext initialSecurityContext = null;
 
     protected void setUp() throws Exception {
         super.setUp();
+        
+        // store initial security context for later restoration
+        initialSecurityContext = SecurityContextHolder.getContext();
+        
         SecurityContext context = new SecurityContextImpl();
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("user",
                 "password",
@@ -31,6 +36,10 @@ public class UserSecurityAdviceTest extends BaseManagerTestCase {
         SecurityContextHolder.setContext(context);
     }
 
+    protected void tearDown() {
+        SecurityContextHolder.setContext(initialSecurityContext);
+    }
+    
     public void testAddUserWithoutAdminRole() throws Exception {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         assertTrue(auth.isAuthenticated());
