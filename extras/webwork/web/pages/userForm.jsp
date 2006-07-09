@@ -176,7 +176,7 @@
         <strong><fmt:message key="user.roles"/>:</strong>
         <ww:iterator value="user.roleList" status="status">
           <ww:property value="label"/><ww:if test="!#status.last">,</ww:if>
-          <input type="hidden" name="user.userRoles" value="<ww:property value="value"/>"/>
+          <input type="hidden" name="userRoles" value="<ww:property value="value"/>"/>
         </ww:iterator>
         <ww:hidden name="user.enabled" value="%{user.enabled}"/>
         <ww:hidden name="user.accountExpired" value="%{user.accountExpired}"/>
