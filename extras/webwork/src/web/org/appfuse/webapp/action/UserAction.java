@@ -139,7 +139,7 @@ public class UserAction extends BaseAction {
 
         boolean isNew = ("".equals(getRequest().getParameter("user.version")));
 
-        String[] userRoles = getRequest().getParameterValues("user.userRoles");
+        String[] userRoles = getRequest().getParameterValues("userRoles");
 
         for (int i = 0; userRoles != null && i < userRoles.length; i++) {
             String roleName = userRoles[i];
