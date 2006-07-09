@@ -7,7 +7,7 @@
 
   ## create a single menu item
   #if ($menu.components.size() == 0)
-      #if $($velocityCount == $menu.parent.components.size())
+      #if ($velocityCount == $menu.parent.components.size())
         <li class="last">
       #else
         <li>
@@ -18,19 +18,19 @@
         <a href="$url" title="$title" #if($menu.target)target="$menu.target"#end#if($menu.width)style="width: ${menu.width}px"#end>${title}</a>
       #end
   #else ## create multiple menu items in a menu
-	  <li class="menubar">
+      <li class="menubar">
         <a href="$url" title="$title" #if ($menu.name == $currentMenu) class="current" #end#if($menu.target)target="$menu.target"#end#if($menu.width)style="width: ${menu.width}px"#end>${title}</a>
   #end
 
   #if ($menu.components.size() > 0)
     <ul>
-  	 #foreach ($menuIt in $menu.components)
-	    #displayCssMenu($menuIt)
+       #foreach ($menuIt in $menu.components)
+           #displayCssMenu($menuIt)
      #end
         </li>
   #else
     </li>
-    #if $($velocityCount == $menu.parent.components.size())
+    #if ($velocityCount == $menu.parent.components.size())
     </ul>
     #end
   #end
