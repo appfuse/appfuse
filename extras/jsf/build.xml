@@ -21,7 +21,7 @@
     <!-- Replaces Struts with JSF                                            -->
     <!-- =================================================================== -->
     <target name="install"
-        description="replaces Struts with MyFaces in the AppFuse base project">
+        description="Replaces Struts with MyFaces in the AppFuse base project">
         <echo level="info">Copying JARs to ../../lib</echo>
         <copy todir="${lib.dir}">
             <fileset dir="lib" includes="**"/>

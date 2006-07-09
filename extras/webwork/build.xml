@@ -311,11 +311,6 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         </replace>
         
         <replace file="../../build.xml">
-            <replacetoken><![CDATA[
-            <webinf dir="${struts.dir}" includes="*.xml"/>]]></replacetoken>
-        </replace>
-        
-        <replace file="../../build.xml">
             <replacetoken>dir="${struts.dir}"</replacetoken>
             <replacevalue>dir="${webwork.dir}"</replacevalue>
         </replace>

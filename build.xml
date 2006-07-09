@@ -383,7 +383,7 @@
                 <include name="**/*.xml"/>
             </fileset>
         </copy>
-        <war destfile="${webapp.dist}/${webapp.war}"
+        <war destfile="${webapp.dist}/${webapp.war}" duplicate="preserve"
             webxml="${webapp.target}/WEB-INF/web.xml" compress="true">
             <fileset dir="${webapp.target}" excludes="**/web.xml"/>
             <metainf dir="${webapp.dist}" includes="context.xml"/>
@@ -397,8 +397,6 @@
 
             <lib file="${dist.dir}/${webapp.name}-dao.jar"/>
             <lib file="${dist.dir}/${webapp.name}-service.jar"/>
-            
-            <webinf dir="${struts.dir}" includes="*.xml"/>
 
             <lib file="${clickstream.jar}"/>
             <lib file="${dwr.jar}"/>

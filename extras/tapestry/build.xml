@@ -436,11 +436,6 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
         </replace>
         
         <replace file="../../build.xml">
-            <replacetoken><![CDATA[
-            <webinf dir="${struts.dir}" includes="*.xml"/>]]></replacetoken>
-        </replace>
-        
-        <replace file="../../build.xml">
             <replacetoken>dir="${struts.dir}"</replacetoken>
             <replacevalue>dir="${tapestry.dir}"</replacevalue>
         </replace>
