@@ -12,15 +12,10 @@
                 <value>org/appfuse/model/User.hbm.xml</value>
             </list>
         </property>
-        <!-- The property below is commented out b/c it doesn't work when run via
-             Ant in Eclipse.  It works fine for individual JUnit tests and in IDEA ??
-        <property name="mappingJarLocations">
-            <list><value>file:dist/appfuse-dao.jar</value></list>
-        </property>
-        -->
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">@HIBERNATE-DIALECT@</prop>
+                <prop key="hibernate.query.substitutions">true 'Y', false 'N'</prop>
                 <!-- Create/update the database tables automatically when the JVM starts up
                 <prop key="hibernate.hbm2ddl.auto">update</prop> -->
                 <!-- Turn batching off for better error messages under PostgreSQL 
