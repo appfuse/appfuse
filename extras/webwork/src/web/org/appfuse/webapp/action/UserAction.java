@@ -137,6 +137,7 @@ public class UserAction extends BaseAction {
             user.setPassword(StringUtil.encodePassword(user.getPassword(), algorithm));
         }
 
+        Integer originalVersion = user.getVersion();
         boolean isNew = ("".equals(getRequest().getParameter("user.version")));
 
         String[] userRoles = getRequest().getParameterValues("userRoles");
@@ -155,6 +156,8 @@ public class UserAction extends BaseAction {
             args.add(user.getEmail());
             addActionError(getText("errors.existing.user", args));
 
+            // reset the version # to what was passed in
+            user.setVersion(originalVersion);
             // redisplay the unencrypted passwords
             user.setPassword(user.getConfirmPassword());
             return INPUT;
