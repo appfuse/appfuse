@@ -689,9 +689,12 @@
         </dbunit>
     </target>
 
-    <target name="db-load" depends="prepare"
-        description="Loads the database with sample data">
-        <property name="operation" value="CLEAN_INSERT"/>
+    <target name="db-load" depends="prepare" description="Loads the database with sample data">
+        <!-- Conditionally change operation based on whether database is mssql -->
+        <condition property="operation" value="MSSQL_CLEAN_INSERT" else="CLEAN_INSERT">
+            <equals arg1="${database.type}" arg2="sqlserver"/>
+        </condition>
+
         <property name="file" value="metadata/sql/sample-data.xml"/>
         <dbunit driver="${database.driver_class}"
             supportBatchStatement="false" url="${database.url}"
