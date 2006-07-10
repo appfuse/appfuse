@@ -159,15 +159,9 @@
     </path>
     <path id="web.test.classpath">
         <path refid="web.compile.classpath"/>
-        <pathelement location="${dumbster.jar}"/>
-        <pathelement location="${junit.jar}"/>
+        <path refid="service.test.classpath"/>
         <pathelement location="${strutstestcase.jar}"/>
         <fileset dir="${webtest.dir}/lib" includes="*.jar"/>
-        <pathelement location="${log4j.jar}"/>
-        <fileset dir="${velocity.dir}" includes="*.jar"/>
-        <!-- Needed for testing out-of-container -->
-        <path refid="dao.compile.classpath"/>
-        <path location="test/dao"/>
     </path>
 
     <path id="jspc.classpath">
