@@ -288,17 +288,22 @@ import org.appfuse.service.UserWebService;]]></replacevalue>
     <!-- =================================================================== -->
     <target name="test" description="Creates appfuse-xfire and verifies installation">
         <property name="app.name" value="appfuse-xfire"/>
-        <property name="db.name" value="appfuse"/>
-        <property name="new.pkg.name" value="org.appfuse"/>
-        <property name="web.framework" value=""/>
         <delete dir="../../../${app.name}"/>
         <ant dir="../.." target="new"/>
+        <ant dir="../.." target="new" inheritAll="false">
+            <property name="app.name" value="${app.name}"/>
+            <property name="db.name" value="appfuse"/>
+            <property name="new.pkg.name" value="org.appfuse"/>
+            <property name="web.framework" value=""/>
+        </ant>
 
         <!-- New project created, install XFire -->
         <ant dir="../../../${app.name}/extras/xfire" target="install" inheritAll="false"/>
-        <!-- Test installation -->
+        <!-- Run XFire tests -->
         <ant dir="../../../${app.name}" target="test-service" inheritAll="false">
             <property name="testcase" value="EchoWebServiceTest"/>
-        </ant> 
+        </ant>
+        <!-- Run all tests -->
+        <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
     </target>
 </project>
