@@ -137,11 +137,10 @@ public class UserCounterListener implements ServletContextListener,
     public void attributeRemoved(HttpSessionBindingEvent event) {
         if (event.getName().equals(EVENT_KEY) && !isAnonymous()) {
             SecurityContext securityContext = (SecurityContext) event.getValue();
-            System.out.println("securityContext is null: " + (securityContext == null));
-            System.out.println("authentication is null: " + (securityContext.getAuthentication() == null));
-            System.out.println("principal is null: " + (securityContext.getAuthentication().getPrincipal() == null));
-            User user = (User) securityContext.getAuthentication().getPrincipal();
-            removeUsername(user);
+            if (securityContext.getAuthentication() != null) {
+                User user = (User) securityContext.getAuthentication().getPrincipal();
+                removeUsername(user);
+            }
         }
     }
 
