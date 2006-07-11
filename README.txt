@@ -40,7 +40,7 @@ Features/Changes in 1.9.3
   username.
 - Fixed versioning issues when updating a username with a pre-existing username
   or e-mail.
-- Updated build.xml so DbUnit works with Microsoft SQL Express/Server.§
+- Updated build.xml so DbUnit works with Microsoft SQL Express/Server.
 - Removed geronimo-web.xml so AppFuse works out-of-the-box with Geronimo 1.1.
 - Fixed WebWork and Struts server-side validation issues with file upload.
 - Changed security.xml to explicitly protect admin-only pages.
