@@ -289,7 +289,6 @@ import org.appfuse.service.UserWebService;]]></replacevalue>
     <target name="test" description="Creates appfuse-xfire and verifies installation">
         <property name="app.name" value="appfuse-xfire"/>
         <delete dir="../../../${app.name}"/>
-        <ant dir="../.." target="new"/>
         <ant dir="../.." target="new" inheritAll="false">
             <property name="app.name" value="${app.name}"/>
             <property name="db.name" value="appfuse"/>
