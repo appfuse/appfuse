@@ -34,6 +34,27 @@ To run this application, you will need to perform the following tasks:
     If you experience issues with Tomcat, check your build/test/cargo.log file.
 
 
+Features/Changes in 1.9.3
+============================
+- Fixed UserSecurityAdvice so userCache is cleared properly when changing 
+  username.
+- Fixed versioning issues when updating a username with a pre-existing username
+  or e-mail.
+- Updated build.xml so DbUnit works with Microsoft SQL Express/Server.§
+- Removed geronimo-web.xml so AppFuse works out-of-the-box with Geronimo 1.1.
+- Fixed WebWork and Struts server-side validation issues with file upload.
+- Changed security.xml to explicitly protect admin-only pages.
+- Added filter-mapping for securityFilter so Acegi protects DWR calls.
+- Menu CSS improvements.
+- Various i18n improvements.
+- Dependent packages upgraded:
+    * Acegi Security 1.0.1
+    * EhCache 1.2.1
+    * MyFaces Tomahawk 1.1.3
+    * Struts Menu 2.4.1
+    * XFire 1.1.2
+
+
 Features/Changes in 1.9.2
 ============================
 - Changed to use Mike Stenhouse's CSS Framework. Adapted winning themes from 
