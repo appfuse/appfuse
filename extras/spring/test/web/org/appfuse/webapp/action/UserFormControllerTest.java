@@ -1,6 +1,5 @@
 package org.appfuse.webapp.action;
 
-import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;

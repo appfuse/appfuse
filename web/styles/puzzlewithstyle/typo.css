@@ -272,7 +272,8 @@
                 background: #cc0000;
                 color: #fff;
             }
-            .table thead a, .tableHeaderTable td a {
+            .table thead a, .table thead a:hover, .table thead a:visited, 
+            .tableHeaderTable td a {
                 color: #fff;
             }
             .table thead th.sorted {

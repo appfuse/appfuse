@@ -88,6 +88,10 @@
     </filter-mapping>
     <filter-mapping>
         <filter-name>securityFilter</filter-name>
+        <url-pattern>/dwr/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>securityFilter</filter-name>
         <url-pattern>*.html</url-pattern>
     </filter-mapping>
     <filter-mapping>

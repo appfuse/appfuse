@@ -265,7 +265,8 @@ public class MethodExTagsHandler extends MethodTagsHandler {
     throws XDocletException {
         boolean superclasses = TypeConversionUtil.stringToBoolean(attributes.getProperty("superclasses"), false);
         boolean sort = TypeConversionUtil.stringToBoolean(attributes.getProperty("sort"), true);
-
+        boolean generateChildren = TypeConversionUtil.stringToBoolean(attributes.getProperty("generateChildren"), true);
+        
         Collection members = null;
 
         switch (forType) {
@@ -305,7 +306,7 @@ public class MethodExTagsHandler extends MethodTagsHandler {
                 // iterate through sub-components only
                 pro.setProperty("tagName", "hibernate.component");
 
-                if (super.hasTag(pro, FOR_METHOD)) {
+                if (super.hasTag(pro, FOR_METHOD) && generateChildren) {
                     Type type = getter.getReturnType();
                     String temp = prefix + ("get" + type.getType().getName() + "Form().");
                     forAllMembersEx(type.getType(), template, attributes, forType, temp);

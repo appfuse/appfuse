@@ -10,8 +10,8 @@
     <li class="info">
         <fmt:message key="upload.message"/>
     </li>
-    <ww:textfield label="%{getText('uploadForm.name')}" cssClass="text medium" required="true"/>
-    <ww:file label="%{getText('uploadForm.file')}" cssClass="text file" required="true"/>
+    <ww:textfield name="name" label="%{getText('uploadForm.name')}" cssClass="text medium" required="true"/>
+    <ww:file name="file" label="%{getText('uploadForm.file')}" cssClass="text file" required="true"/>
     <li class="buttonBar bottom">
         <input type="submit" name="upload" class="button" onclick="bCancel=false"
             value="<fmt:message key="button.upload"/>" />

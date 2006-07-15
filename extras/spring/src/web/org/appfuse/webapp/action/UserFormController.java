@@ -4,7 +4,6 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.acegisecurity.Authentication;
 import org.acegisecurity.AuthenticationTrustResolver;
@@ -112,6 +111,8 @@ public class UserFormController extends BaseFormController {
                 }
             }
 
+            Integer originalVersion = user.getVersion();
+            
             try {
                 getUserManager().saveUser(user);
             } catch (UserExistsException e) {
@@ -124,7 +125,9 @@ public class UserFormController extends BaseFormController {
 
                 // redisplay the unencrypted passwords
                 user.setPassword(user.getConfirmPassword());
-
+                // reset the version # to what was passed in
+                user.setVersion(originalVersion);
+                
                 return showForm(request, response, errors);
             }
 
@@ -185,39 +188,42 @@ public class UserFormController extends BaseFormController {
 
     protected Object formBackingObject(HttpServletRequest request)
     throws Exception {
-        String username = request.getParameter("username");
+        if (!isFormSubmission(request)) {
+            String username = request.getParameter("username");
 
-        // if user logged in with remember me, display a warning that they can't change passwords
-        log.debug("checking for remember me login...");
+            // if user logged in with remember me, display a warning that they can't change passwords
+            log.debug("checking for remember me login...");
 
-        AuthenticationTrustResolver resolver = new AuthenticationTrustResolverImpl();
-        SecurityContext ctx = SecurityContextHolder.getContext();
+            AuthenticationTrustResolver resolver = new AuthenticationTrustResolverImpl();
+            SecurityContext ctx = SecurityContextHolder.getContext();
 
-        if (ctx.getAuthentication() != null) {
-            Authentication auth = ctx.getAuthentication();
+            if (ctx.getAuthentication() != null) {
+                Authentication auth = ctx.getAuthentication();
 
-            if (resolver.isRememberMe(auth)) {
-                request.getSession().setAttribute("cookieLogin", "true");
-                
-                // add warning message
-                saveMessage(request, getText("userProfile.cookieLogin", request.getLocale()));
+                if (resolver.isRememberMe(auth)) {
+                    request.getSession().setAttribute("cookieLogin", "true");
+
+                    // add warning message
+                    saveMessage(request, getText("userProfile.cookieLogin", request.getLocale()));
+                }
             }
+
+            User user = null;
+
+            if (request.getRequestURI().indexOf("editProfile") > -1) {
+                user = getUserManager().getUserByUsername(request.getRemoteUser());
+            } else if (!StringUtils.isBlank(username) && !"".equals(request.getParameter("version"))) {
+                user = getUserManager().getUserByUsername(username);
+            } else {
+                user = new User();
+                user.addRole(new Role(Constants.USER_ROLE));
+            }
+
+            user.setConfirmPassword(user.getPassword());
+
+            return user;
         }
-
-        User user = null;
-
-        if (request.getRequestURI().indexOf("editProfile") > -1) {
-            user = getUserManager().getUserByUsername(request.getRemoteUser());
-        } else if (!StringUtils.isBlank(username) && !"".equals(request.getParameter("version"))) {
-            user = getUserManager().getUserByUsername(username);
-        } else {
-            user = new User();
-            user.addRole(new Role(Constants.USER_ROLE));
-        }
-
-        user.setConfirmPassword(user.getPassword());
-
-        return user;
+        return super.formBackingObject(request);
     }
 
     protected void onBind(HttpServletRequest request, Object command)

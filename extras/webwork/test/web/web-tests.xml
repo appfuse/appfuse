@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: web-tests.xml,v 1.15 2006/06/01 22:49:51 mraible Exp $               -->
+<!-- $Id: web-tests.xml,v 1.16 2006/07/15 11:57:05 mraible Exp $               -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY config SYSTEM "file:./config.xml">
@@ -156,11 +156,13 @@
     </target>
     
     <!-- Sign up a new user (no login) -->
-    <target name="Signup"
-        description="Signup a new user">
+    <target name="Signup" description="Signup a new user">
         <webtest name="signup">
             &config;
             <steps>
+                <!-- Logout in case user is already signed in -->
+                <invoke description="get Logout Page" url="/logout.jsp"/>
+
                 <invoke description="click signup link" url="/signup.html"/>
                 <verifytitle description="view signup title" text=".*${signup.title}.*" regex="true"/>
                     

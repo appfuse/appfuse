@@ -71,7 +71,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/hibernate-3.1.3/lib/oscache-2.3.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/hibernate-3.1.3/lib/oscache-2.3.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -350,7 +350,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/spring-1.2.8/acegi-security-1.0.0-RC2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/spring-1.2.8/acegi-security-1.0.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -359,7 +359,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/spring-1.2.8/ehcache-1.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/spring-1.2.8/ehcache-1.2.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -377,7 +377,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/struts-menu-2.4/struts-menu-2.4.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/struts-menu-2.4.1/struts-menu-2.4.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -602,7 +602,6 @@
     <setting name="JAR_ENABLED" value="false" />
     <setting name="SYNC_EXPLODED_DIR" value="true" />
     <setting name="BUILD_ON_FRAME_DEACTIVATION" value="false" />
-    <setting name="BUILD_EXTERNAL_DEPENDENCIES" value="false" />
     <setting name="RUN_JASPER_VALIDATION" value="false" />
   </component>
   <component name="WebModuleProperties">
@@ -663,8 +662,8 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/oscache-2.3.jar" />
-      <url>jar://$MODULE_DIR$/lib/hibernate-3.1.3/lib/oscache-2.3.jar!/</url>
+      <attribute name="URI" value="/WEB-INF/lib/oscache-2.3.1.jar" />
+      <url>jar://$MODULE_DIR$/lib/hibernate-3.1.3/lib/oscache-2.3.1.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
@@ -768,8 +767,8 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/acegi-security-1.0.0-RC2.jar" />
-      <url>jar://$MODULE_DIR$/lib/spring-1.2.8/acegi-security-1.0.0-RC2.jar!/</url>
+      <attribute name="URI" value="/WEB-INF/lib/acegi-security-1.0.1.jar" />
+      <url>jar://$MODULE_DIR$/lib/spring-1.2.8/acegi-security-1.0.1.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
@@ -778,8 +777,8 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/ehcache-1.2.jar" />
-      <url>jar://$MODULE_DIR$/lib/spring-1.2.8/ehcache-1.2.jar!/</url>
+      <attribute name="URI" value="/WEB-INF/lib/ehcache-1.2.1.jar" />
+      <url>jar://$MODULE_DIR$/lib/spring-1.2.8/ehcache-1.2.1.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
@@ -808,8 +807,8 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/struts-menu-2.4.jar" />
-      <url>jar://$MODULE_DIR$/lib/struts-menu-2.4/struts-menu-2.4.jar!/</url>
+      <attribute name="URI" value="/WEB-INF/lib/struts-menu-2.4.1.jar" />
+      <url>jar://$MODULE_DIR$/lib/struts-menu-2.4.1/struts-menu-2.4.1.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
@@ -906,7 +905,7 @@
       <attribute name="URI" value="/WEB-INF/xjavadoc-1.1.jar" />
       <url>jar://$MODULE_DIR$/lib/xdoclet-1.3-SNAPSHOT/xjavadoc-1.1.jar!/</url>
     </containerElement>
-    <containerElement type="library" name="catalina-ant.jar" level="application">
+    <containerElement type="library" level="application" name="catalina-ant.jar">
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib" />
     </containerElement>
@@ -916,6 +915,8 @@
       <root url="file://$MODULE_DIR$/build/appfuse/WEB-INF" relative="/WEB-INF" />
     </webroots>
   </component>
-  <component name="WeblogicWebModuleProperties" />
+  <component name="WeblogicWebModuleProperties">
+    <option name="IS_RUN_APPC" value="false" />
+  </component>
 </module>
 

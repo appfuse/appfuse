@@ -225,6 +225,8 @@ public final class UserAction extends BaseAction {
 
             BeanUtils.copyProperties(userForm, convert(user));
             userForm.setConfirmPassword(userForm.getPassword());
+            // reset the version # to what was passed in
+            userForm.setVersion(request.getParameter("version"));
             updateFormBean(mapping, request, userForm); 
             
             return mapping.findForward("edit");

@@ -17,6 +17,7 @@ import org.springframework.util.ClassUtils;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 
 import com.opensymphony.xwork.ActionContext;
+import com.opensymphony.xwork.util.LocalizedTextUtil;
 import com.opensymphony.webwork.ServletActionContext;
 
 public abstract class BaseActionTestCase extends TestCase {
@@ -41,6 +42,7 @@ public abstract class BaseActionTestCase extends TestCase {
     }
 
     protected void setUp() throws Exception {
+        LocalizedTextUtil.addDefaultResourceBundle(Constants.BUNDLE_KEY); 
         ActionContext.getContext().setSession(new HashMap());
         
         // change the port on the mailSender so it doesn't conflict with an 

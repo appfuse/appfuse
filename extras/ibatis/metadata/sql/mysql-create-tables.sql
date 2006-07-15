@@ -31,7 +31,7 @@ create table app_user (
 create table role (
     id int(8) not null auto_increment,
     name varchar(20) not null,
-    description varchar(50),
+    description varchar(64),
     primary key (id)
 );
 alter table user_role add index FK143BF46A14048CB4 (role_id), add constraint FK143BF46A14048CB4 foreign key (role_id) references role (id);

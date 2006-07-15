@@ -27,11 +27,8 @@ import org.appfuse.model.User;
  * these users and exposes them in the servlet context.
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- *
- * @web.listener
  */
-public class UserCounterListener implements ServletContextListener,
-                                            HttpSessionAttributeListener {
+public class UserCounterListener implements ServletContextListener, HttpSessionAttributeListener {
     public static final String COUNT_KEY = "userCounter";
     public static final String USERS_KEY = "userNames";
     public static final String EVENT_KEY = HttpSessionContextIntegrationFilter.ACEGI_SECURITY_CONTEXT_KEY;
@@ -108,7 +105,7 @@ public class UserCounterListener implements ServletContextListener,
     }
 
     /**
-    * This method is designed to catch when user's login and record their name
+     * This method is designed to catch when user's login and record their name
      * @see javax.servlet.http.HttpSessionAttributeListener#attributeAdded(javax.servlet.http.HttpSessionBindingEvent)
      */
     public void attributeAdded(HttpSessionBindingEvent event) {
@@ -131,14 +128,17 @@ public class UserCounterListener implements ServletContextListener,
     }
 
     /**
-    * When user's logout, remove their name from the hashMap
+     * When user's logout, remove their name from the hashMap
      * @see javax.servlet.http.HttpSessionAttributeListener#attributeRemoved(javax.servlet.http.HttpSessionBindingEvent)
      */
     public void attributeRemoved(HttpSessionBindingEvent event) {
         if (event.getName().equals(EVENT_KEY) && !isAnonymous()) {
             SecurityContext securityContext = (SecurityContext) event.getValue();
-            User user = (User) securityContext.getAuthentication().getPrincipal();
-            removeUsername(user);
+            Authentication auth = securityContext.getAuthentication();
+            if (auth != null && (auth.getPrincipal() instanceof User)) {
+                User user = (User) auth.getPrincipal();
+                removeUsername(user);
+            }
         }
     }
 

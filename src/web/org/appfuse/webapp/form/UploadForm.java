@@ -15,7 +15,7 @@ import org.apache.struts.upload.MultipartRequestHandler;
  * see that application.
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- * @version $Revision: 1.5 $ $Date: 2005/04/11 21:09:48 $
+ * @version $Revision: 1.6 $ $Date: 2006/07/15 11:57:19 $
  * 
  * @struts.form name="uploadForm"
  */
@@ -71,18 +71,20 @@ public class UploadForm extends BaseForm {
      * Check to make sure the client hasn't exceeded the maximum allowed upload size inside of this
      * validate method.
      */
-     // Commented out to avoid: Unhandled Exception thrown: class java.lang.NullPointerException
-     public ActionErrors validate(ActionMapping mapping,
-                                  HttpServletRequest request) {
-         ActionErrors errors = null;
+     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
+         
+         ActionErrors errors = super.validate(mapping, request);
+         
          // has the maximum length been exceeded?
          Boolean maxLengthExceeded =
              (Boolean) request.getAttribute(MultipartRequestHandler.ATTRIBUTE_MAX_LENGTH_EXCEEDED);
          if ((maxLengthExceeded != null) && (maxLengthExceeded.booleanValue())) {
-             errors = new ActionErrors();
-             errors.add(ERROR_PROPERTY_MAX_LENGTH_EXCEEDED,
-                        new ActionMessage("maxLengthExceeded"));
+             if (errors == null) {
+                 errors = new ActionErrors();
+             }
+             errors.add(ERROR_PROPERTY_MAX_LENGTH_EXCEEDED, new ActionMessage("maxLengthExceeded"));
          }
+         
          return errors;
      }
 }

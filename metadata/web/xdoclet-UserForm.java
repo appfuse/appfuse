@@ -1,4 +1,4 @@
-    public String[] getUserRoles() {
+public String[] getUserRoles() {
         org.appfuse.model.Role role;
         String[] userRoles = new String[roles.size()];
         int i = 0;

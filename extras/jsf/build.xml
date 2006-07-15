@@ -21,7 +21,7 @@
     <!-- Replaces Struts with JSF                                            -->
     <!-- =================================================================== -->
     <target name="install"
-        description="replaces Struts with MyFaces in the AppFuse base project">
+        description="Replaces Struts with MyFaces in the AppFuse base project">
         <echo level="info">Copying JARs to ../../lib</echo>
         <copy todir="${lib.dir}">
             <fileset dir="lib" includes="**"/>
@@ -258,10 +258,11 @@ log4j.logger.org.apache.myfaces=WARN</replacevalue>
         </replace>
         <replace file="../../.classpath">
             <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/struts-1.2.9/struts.jar"/>
-	<classpathentry kind="lib" path="lib/struts-1.2.9/struts-el.jar"/>]]></replacetoken>
-            <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/myfaces-1.1.3/lib/myfaces-api-1.1.2.jar"/>
-	<classpathentry kind="lib" path="lib/myfaces-1.1.3/lib/myfaces-impl-1.1.2.jar"/>
-	<classpathentry kind="lib" path="lib/myfaces-1.1.3/tomahawk-1.1.2.jar"/>]]></replacevalue>
+	<classpathentry kind="lib" path="lib/struts-1.2.9/struts-el.jar"/>
+	<classpathentry kind="lib" path="lib/struts-1.2.9/antlr.jar"/>]]></replacetoken>
+            <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/myfaces-1.1.3/lib/myfaces-api-1.1.3.jar"/>
+	<classpathentry kind="lib" path="lib/myfaces-1.1.3/lib/myfaces-impl-1.1.3.jar"/>
+	<classpathentry kind="lib" path="lib/myfaces-1.1.3/tomahawk-1.1.3.jar"/>]]></replacevalue>
         </replace>
 
         <echo level="info">Refactoring build.xml</echo>
