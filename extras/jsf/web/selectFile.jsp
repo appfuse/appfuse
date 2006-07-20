@@ -1,52 +1,50 @@
 <%@ include file="/common/taglibs.jsp"%>
 
-<title><fmt:message key="upload.title"/></title>
-<content tag="heading"><fmt:message key="upload.heading"/></content>
+<head>
+    <title><fmt:message key="upload.title"/></title>
+    <content tag="heading"><fmt:message key="upload.heading"/></content>
+    <meta name="menu" content="FileUpload"/>
+</head>
 
 <!--
-	The most important part is to declare your form's enctype to be "multipart/form-data",
-	and to have a form:file element that maps to your ActionForm's FormFile property
+    The most important part is to declare your form's enctype to be "multipart/form-data",
+    and to have a form:file element that maps to your ActionForm's FormFile property
 -->
 <f:view>
 <f:loadBundle var="text" basename="#{fileUpload.bundleName}"/>
 
-<p><fmt:message key="upload.message"/></p>
-<div class="separator"></div>
+<h:form id="uploadForm" enctype="multipart/form-data" onsubmit="return validateUploadForm(this)">
 
-<h:form id="uploadForm" enctype="multipart/form-data" onsubmit="return validateUploadForm(this)">               
-<h:panelGrid columns="3" styleClass="detail" columnClasses="label">
+<h:panelGrid columns="3">
 
-    <h:outputLabel for="name" value="#{text['uploadForm.name']}"/>
+    <h:panelGroup styleClass="info"><h:outputText value="#{text['upload.message']}"/></h:panelGroup>
+    <h:outputText/><h:outputText/>
     
-    <h:inputText value="#{fileUpload.name}" id="name" size="40" required="true">
+    <h:outputLabel styleClass="desc" for="name" value="#{text['uploadForm.name']}"/>
+    <t:message for="name" styleClass="fieldError"/>
+    <h:inputText value="#{fileUpload.name}" id="name" required="true" styleClass="text medium">
         <v:commonsValidator type="required" arg="#{text['uploadForm.name']}"/>
     </h:inputText>
-    <t:message for="name" styleClass="fieldError"/>
-    
-    <h:outputLabel for="uploadForm:file" value="#{text['uploadForm.file']}"/>
-    
-    <t:inputFileUpload id="file" value="#{fileUpload.file}" storage="file" required="true" size="50">
+
+    <h:outputLabel styleClass="desc" for="file" value="#{text['uploadForm.file']}"/>
+    <t:message for="file" styleClass="fieldError"/>
+    <t:inputFileUpload id="file" value="#{fileUpload.file}" storage="file" required="true" styleClass="file medium">
         <v:commonsValidator type="required" arg="#{text['uploadForm.file']}"/>
     </t:inputFileUpload>
-    <t:message for="uploadForm:file" styleClass="fieldError"/>
-    
-    <h:inputHidden value=""/>
-    
-    <h:panelGroup styleClass="buttonBar">
-        <h:commandButton value="#{text['button.upload']}" action="#{fileUpload.upload}" 
+
+    <h:panelGroup styleClass="buttonBar bottom">
+        <h:commandButton value="#{text['button.upload']}" action="#{fileUpload.upload}"
             id="upload" styleClass="button"/>
-        <h:commandButton value="#{text['button.cancel']}" action="mainMenu" immediate="true"  
+        <h:commandButton value="#{text['button.cancel']}" action="mainMenu" immediate="true"
             id="cancel" styleClass="button" onclick="bCancel=true"/>
     </h:panelGroup>
-    
-    <h:inputHidden value=""/>
 </h:panelGrid>
 </h:form>
 
 <v:validatorScript functionName="validateUploadForm"/>
 
 <script type="text/javascript">
-    Form.focusFirstElement(document.forms["uploadForm"]);
+    Form.focusFirstElement($('uploadForm'));
     highlightFormElements();
 </script>
 

@@ -1,5 +1,5 @@
-<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0//EN" 
-"http://www.opensymphony.com/xwork/xwork-validator-1.0.dtd"> 
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0//EN"
+    "http://www.opensymphony.com/xwork/xwork-validator-1.0.dtd"> 
 
 <validators>
     <validator name="required" class="com.opensymphony.xwork.validator.validators.RequiredFieldValidator"/>

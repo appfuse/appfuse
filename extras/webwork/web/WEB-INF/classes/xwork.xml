@@ -1,28 +1,28 @@
 <!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.1.1//EN"
-	"http://www.opensymphony.com/xwork/xwork-1.1.1.dtd">
+    "http://www.opensymphony.com/xwork/xwork-1.1.1.dtd">
 
 <xwork>
-  	<!-- Include webwork defaults -->
-  	<include file="webwork-default.xml"/>
-  	
-  	<!-- Configuration for the default package. -->
-  	<package name="default" extends="webwork-default">
+      <!-- Include webwork defaults -->
+      <include file="webwork-default.xml"/>
+      
+      <!-- Configuration for the default package. -->
+      <package name="default" extends="webwork-default">
         <interceptors>
             <!-- Interceptor to handle allowing only admins to certain actions -->
             <interceptor name="adminOnly" class="adminInterceptor"/>
-            <!-- Verbose way to turn off validation for certain methods -->
+            <!-- https://issues.apache.org/struts/browse/WW-1187 -->
             <interceptor-stack name="defaultStack">
-                <interceptor-ref name="exception" />
-                <interceptor-ref name="alias" />
-                <interceptor-ref name="servlet-config" />
-                <interceptor-ref name="prepare" />
-                <interceptor-ref name="i18n" />
-                <interceptor-ref name="chain" />
-                <interceptor-ref name="model-driven" />
-                <interceptor-ref name="fileUpload" />
-                <interceptor-ref name="static-params" />
-                <interceptor-ref name="params" />
-                <interceptor-ref name="conversionError" />
+                <interceptor-ref name="exception"/>
+                <interceptor-ref name="alias"/>
+                <interceptor-ref name="servlet-config"/>
+                <interceptor-ref name="prepare"/>
+                <interceptor-ref name="i18n"/>
+                <interceptor-ref name="chain"/>
+                <interceptor-ref name="model-driven"/>
+                <interceptor-ref name="fileUpload"/>
+                <interceptor-ref name="static-params"/>
+                <interceptor-ref name="params"/>
+                <interceptor-ref name="conversionError"/>
                 <interceptor-ref name="validation">
                     <param name="excludeMethods">cancel,execute,delete,edit,list,default</param>
                 </interceptor-ref>
@@ -53,7 +53,7 @@
         <action name="activeUsers" class="com.opensymphony.xwork.ActionSupport"> 
             <result name="success">/WEB-INF/pages/activeUsers.jsp</result> 
         </action> 
-		
+        
         <action name="mainMenu" class="com.opensymphony.xwork.ActionSupport"> 
         <result name="success">/WEB-INF/pages/mainMenu.jsp</result> 
         </action> 
@@ -76,18 +76,18 @@
         
         <action name="editUser" class="userAction" method="edit">
             <interceptor-ref name="adminCheck"/>
-            <result name="success">/WEB-INF/pages/userProfile.jsp</result>
+            <result name="success">/WEB-INF/pages/userForm.jsp</result>
             <result name="input">/WEB-INF/pages/userList.jsp</result>
         </action>
 
         <action name="editProfile" class="userAction" method="edit"> 
-            <result name="success">/WEB-INF/pages/userProfile.jsp</result>
+            <result name="success">/WEB-INF/pages/userForm.jsp</result>
             <result name="error">/WEB-INF/pages/mainMenu.jsp</result>
         </action>
         
         <action name="saveUser" class="userAction" method="save">
             <result name="cancel" type="redirect">users.html</result>
-            <result name="input">/WEB-INF/pages/userProfile.jsp</result>
+            <result name="input">/WEB-INF/pages/userForm.jsp</result>
             <result name="success" type="redirect">users.html</result>
             <result name="addAnother" type="redirect">editUser.html?method=Add&amp;from=list</result>
         </action>
@@ -115,5 +115,5 @@
         </action>
         
         <!-- Add additional actions here -->
-  	</package>
+      </package>
 </xwork>

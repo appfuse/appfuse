@@ -96,11 +96,14 @@ public class UserDaoTest extends BaseDaoTestCase {
         user.setAddress(address);
         user.setEmail("testuser@appfuse.org");
         user.setWebsite("http://raibledesigns.com");
-        user.addRole(rdao.getRoleByName(Constants.USER_ROLE));
+        
+        Role role = rdao.getRoleByName(Constants.USER_ROLE);
+        assertNotNull(role.getId());
+        user.addRole(role);
 
         dao.saveUser(user);
 
-        assertNotNull(user.getUsername());
+        assertNotNull(user.getId());
         assertEquals("testpass", user.getPassword());
 
         dao.removeUser(user.getId());

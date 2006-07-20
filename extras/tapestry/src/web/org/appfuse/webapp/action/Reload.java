@@ -5,10 +5,9 @@ import java.io.IOException;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.engine.IEngineService;
 import org.apache.tapestry.engine.ILink;
-import org.apache.tapestry.event.PageBeginRenderListener;
 import org.appfuse.webapp.listener.StartupListener;
 
-public abstract class Reload extends BasePage implements PageBeginRenderListener {
+public abstract class Reload extends BasePage {
     public abstract IEngineService getEngineService();
 
     public ILink execute(IRequestCycle cycle) throws IOException {

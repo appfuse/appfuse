@@ -23,17 +23,16 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.support.RequestContext;
 import org.springframework.web.servlet.DispatcherServlet;
-import org.springmodules.commons.validator.ValidatorFactory;
+import org.springmodules.validation.commons.ValidatorFactory;
 
 
 /**
  * <p>This class is designed to render a <label> tag for labeling your forms and
  * adds an asterik (*) for required fields.  It was originally written by Erik
- * Hatcher (http://www.ehatchersolutions.com/JavaDevWithAnt/).</p>
+ * Hatcher (http://www.ehatchersolutions.com/JavaDevWithAnt/).
  *
  * <p>It is designed to be used as follows:
- * <pre>&lt;tag:label key="userForm.username" /&gt;</pre>
- * </p>
+ * <pre>&lt;tag:label key="userForm.username"/&gt;</pre>
  *
  * @jsp.tag name="label" bodycontent="empty"
  */
@@ -44,8 +43,7 @@ public class LabelTag extends TagSupport {
     protected String key = null;
     protected String styleClass = null;
     protected String errorClass = null;
-    protected boolean colon = true;
-    protected boolean helpTip = false;
+    protected boolean colon = false;
 
     public int doStartTag() throws JspException {
         
@@ -119,42 +117,29 @@ public class LabelTag extends TagSupport {
         if ((message == null) || "".equals(message.trim())) {
             label.append("");
         } else {
-            label.append("<label for=\"" + fieldName + "\"");
+            label.append("<label for=\"").append(fieldName).append("\"");
 
             if (validationError) {
-                label.append(" class=\"" + cssErrorClass + "\"");
+                label.append(" class=\"").append(cssErrorClass).append("\"");
             } else if (cssClass != null) {
-                label.append(" class=\"" + cssClass + "\"");
+                label.append(" class=\"").append(cssClass).append("\"");
             }
 
-            label.append(">" + ((requiredField) ? "* " : "") + message);
-            String marker = (locale.equals(Locale.FRENCH)) ? " :" : ":";
-            label.append(((colon) ? marker : "") + "</label>");
+            label.append(">").append(message);
+            label.append((requiredField) ? " <span class=\"req\">*</span>" : "");
+            label.append((colon) ? ":" : "");
+            label.append("</label>");
             
             if (fes != null && fes.size() > 0) {
-                
-                if (helpTip) {
-                    label.append(" <a class=\"errorLink\" href=\"?\" onclick=\"showHelpTip(event, '");
-                    label.append(errorMsg + "', false); return false\" ");
-                    label.append("onmouseover=\"showHelpTip(event, '");
-                    label.append(errorMsg + "', false); return false\" ");
-                    label.append("onmouseout=\"hideHelpTip(event); return false\">");
-                }
-                
                 label.append("<img class=\"validationWarning\" alt=\"");
                 label.append(getMessageSource().getMessage("icon.warning", null, locale));
                 label.append("\"");
 
-                String context =
-                    ((HttpServletRequest) pageContext.getRequest()).getContextPath();
+                String context = ((HttpServletRequest) pageContext.getRequest()).getContextPath();
 
                 label.append("src=\"" + context);
                 label.append(getMessageSource().getMessage("icon.warning.img", null, locale));
                 label.append("\" />");
-                
-                if (helpTip) {
-                    label.append("</a>");
-                }
             }
         }
 
@@ -224,16 +209,6 @@ public class LabelTag extends TagSupport {
     public void setErrorClass(String errorClass) {
         this.errorClass = errorClass;
     }
-
-    /**
-     * Setter for displaying a JavaScript popup helptip.  Default
-     * is false because error text is shown next to field.
-     *
-     * @jsp.attribute required="false" rtexprvalue="true"
-     */
-    public void setHelpTip(boolean helpTip) {
-        this.helpTip = helpTip;
-    }
     
     /**
      * Release all allocated resources.
@@ -241,10 +216,9 @@ public class LabelTag extends TagSupport {
     public void release() {
         super.release();
         key = null;
-        colon = true;
+        colon = false;
         styleClass = null;
         errorClass = null;
-        helpTip = false;
     }
     
     /**
@@ -279,6 +253,4 @@ public class LabelTag extends TagSupport {
     private MessageSource getMessageSource() {
         return requestContext.getWebApplicationContext();
     }
-    
-
 }

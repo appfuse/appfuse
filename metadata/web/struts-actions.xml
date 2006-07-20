@@ -6,7 +6,7 @@
     <action path="/flush" type="org.apache.struts.actions.ForwardAction"
         parameter="/WEB-INF/pages/flushCache.jsp" roles="admin"/>
 
-	<!-- Forward to page to begin file upload -->
+    <!-- Forward to page to begin file upload -->
     <action path="/selectFile" type="org.apache.struts.actions.ForwardAction"
         parameter="/WEB-INF/pages/uploadForm.jsp"/>
         

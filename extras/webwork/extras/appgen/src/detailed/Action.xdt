@@ -2,6 +2,7 @@
 
 import java.util.List;
 
+import <XDtConfig:configParameterValue paramName="basePackageName"/>.webapp.action.BaseAction;
 import <XDtPackage:packageName/>.<XDtForm:className/>;
 import <XDtForm:parentPackageName/>.service.<XDtForm:className/>Manager;
 
@@ -57,7 +58,7 @@ public class <XDtForm:className/>Action extends BaseAction {
         saveMessage(getText(key));
 
         if (!isNew) {
-            return INPUT;
+            return "redirect:form";
         } else {
             return SUCCESS;
         }

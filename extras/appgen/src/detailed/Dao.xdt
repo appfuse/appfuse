@@ -4,6 +4,7 @@ package <XDtForm:parentPackageName/>.dao;
 
 import java.util.List;
 
+import <XDtConfig:configParameterValue paramName="basePackageName"/>.dao.Dao;
 import <XDtPackage:packageName/>.<XDtClass:className/>;
 
 public interface <XDtClass:className/>Dao extends Dao {
@@ -26,10 +27,10 @@ public interface <XDtClass:className/>Dao extends Dao {
     /**
      * Saves a <XDtForm:classNameLower/>'s information
      * @param <XDtForm:classNameLower/> the object to be saved
-     */	
+     */    
     public void save<XDtClass:className/>(<XDtClass:className/> <XDtForm:classNameLower/>);
 
-	/**
+    /**
      * Removes a <XDtForm:classNameLower/> from the database by <XDtMethodEx:idField getType="propertyName"/>
      * @param <XDtMethodEx:idField getType="propertyName"/> the <XDtForm:classNameLower/>'s <XDtMethodEx:idField getType="propertyName"/>
      */

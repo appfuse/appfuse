@@ -1,0 +1,112 @@
+/* A CSS Framework by Mike Stenhouse of Content with Style */
+
+/* NAV */
+
+    div#nav {
+        width: 150px;
+        font-size: 0.9em;
+        text-align: left;
+    }
+
+        div#nav ul {
+            list-style: none;
+            width: 150px;
+            margin: 0;
+            padding: 0;
+            font-size: 1.1em;
+        }
+
+        div#nav li {
+            margin: 0px 0px 4px 0px;
+        }
+
+        div#nav li.last {
+            margin-bottom: 0;
+        }
+
+        div#nav li a {
+            font-weight: bold;
+            height: 20px;
+            width: 90% !important;
+            text-decoration: none;
+            color: #505050;
+            display: block;
+            padding: 4px 0 2px 10px;
+            background: #f4f4f4;
+            border-left: 4px solid #cccccc;
+        }
+
+        div#nav .pad {
+            display: none;
+        }
+
+        div#local li a:hover , div#nav li a:hover, div#nav li a.current {
+            background: #eaeaea;
+            color: #286ea0;
+            border-left: 4px solid #286ea0;
+        }
+
+    ul#local li {
+        list-style: none;
+        margin-left: 10px;
+    }
+
+/* END NAV */
+
+/* DROP DOWN MENUS */
+    ul#primary-nav, ul#primary-nav ul {
+        margin: 0;
+        padding: 0;
+        background: #fff; /* IE6 Bug */
+        font-size: 100%;
+    }
+
+        ul#primary-nav li {
+            position: relative;
+            list-style: none;
+        }
+
+            ul#primary-nav li a {
+                display: block;
+                text-decoration: none;
+                color: #777;
+                padding: 5px;
+            }
+
+        /* Fix IE. Hide from IE Mac \*/
+        * html ul#primary-nav li { float: left; height: 1%; }
+            * html ul#primary-nav li a { height: 1%; }
+            * html ul#primary-nav ul { width: 149px; }
+            * html ul#primary-nav ul li { width: 149px; }
+        /* End */
+
+            ul#primary-nav ul {
+                position: absolute;
+                display: none;
+                left: 149px; /* Set 1px less than menu width */
+                top: 0;
+                border: 1px solid black;
+            }
+
+                ul#primary-nav li ul li a { padding: 2px 5px; } /* Sub Menu Styles */
+
+                ul#primary-nav li:hover ul ul,
+                ul#primary-nav li:hover ul ul ul,
+                ul#primary-nav li.over ul ul,
+                ul#primary-nav li.over ul ul ul { display: none; } /* Hide sub-menus initially */
+
+                ul#primary-nav li:hover ul,
+                ul#primary-nav li li:hover ul,
+                ul#primary-nav li li li:hover ul,
+                ul#primary-nav li.over ul,
+                ul#primary-nav li li.over ul,
+                ul#primary-nav li li li.over ul { display: block; } /* The magic */
+
+                ul#primary-nav li.menubar { background: transparent url(../../images/arrow.gif) right center no-repeat; }
+
+                ul#primary-nav li:hover,
+                ul#primary-nav li.over { background-color: #f9f9f9; }
+
+                ul#primary-nav li a:hover { color: #E2144A; }
+
+/* END DROP DOWN MENUS */

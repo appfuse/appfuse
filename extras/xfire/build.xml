@@ -68,9 +68,11 @@
                 
         <echo level="info">Adding servlet and servlet-mapping to web/WEB-INF/web.xml</echo>
         <replace file="../../web/WEB-INF/web.xml">
-           <replacetoken><![CDATA[<servlet-mapping>
-        <servlet-name>action</servlet-name>]]></replacetoken>
-           <replacevalue><![CDATA[<servlet>
+           <replacetoken><![CDATA[</servlet>
+
+    <servlet-mapping>]]></replacetoken>
+           <replacevalue><![CDATA[</servlet>
+    <servlet>
         <servlet-name>XFireServlet</servlet-name>
         <display-name>XFire Servlet</display-name>
         <servlet-class>org.codehaus.xfire.spring.XFireSpringServlet</servlet-class>
@@ -81,8 +83,7 @@
         <url-pattern>/services/*</url-pattern>
     </servlet-mapping>
                
-    <servlet-mapping>
-        <servlet-name>action</servlet-name>]]></replacevalue>
+    <servlet-mapping>]]></replacevalue>
         </replace>
 
         <replace file="../../web/WEB-INF/web.xml">
@@ -163,15 +164,15 @@
         <echo level="info">Adjusting .classpath for eclipse</echo>
         <replace file="../../.classpath">
            <replacetoken><![CDATA[</classpath>]]></replacetoken>
-           <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/xfire-1.0/runtime/xbean-spring-2.2.jar"/>
-    <classpathentry kind="lib" path="lib/xfire-1.0/runtime/xfire-aegis-1.0.jar"/>
-    <classpathentry kind="lib" path="lib/xfire-1.0/runtime/xfire-core-1.0.jar"/>
-    <classpathentry kind="lib" path="lib/xfire-1.0/runtime/xfire-spring-1.0.jar"/>
-    <classpathentry kind="lib" path="lib/xfire-1.0/runtime/jdom-1.0.jar"/>
-    <classpathentry kind="lib" path="lib/xfire-1.0/runtime/stax-api-1.0.jar"/>
-    <classpathentry kind="lib" path="lib/xfire-1.0/runtime/wstx-asl-2.9.jar"/>
-    <classpathentry kind="lib" path="lib/xfire-1.0/test/httpunit-1.6.1.jar"/>
-    <classpathentry kind="lib" path="lib/xfire-1.0/runtime/wsdl4j-1.5.2.jar"/>
+           <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/xfire-1.1.2/runtime/xbean-spring-2.4.jar"/>
+    <classpathentry kind="lib" path="lib/xfire-1.1.2/runtime/xfire-aegis-1.1.2.jar"/>
+    <classpathentry kind="lib" path="lib/xfire-1.1.2/runtime/xfire-core-1.1.2.jar"/>
+    <classpathentry kind="lib" path="lib/xfire-1.1.2/runtime/xfire-spring-1.1.2.jar"/>
+    <classpathentry kind="lib" path="lib/xfire-1.1.2/runtime/jdom-1.0.jar"/>
+    <classpathentry kind="lib" path="lib/xfire-1.1.2/runtime/stax-api-1.0.1.jar"/>
+    <classpathentry kind="lib" path="lib/xfire-1.1.2/runtime/wstx-asl-2.9.3.jar"/>
+    <classpathentry kind="lib" path="lib/xfire-1.1.2/test/httpunit-1.6.1.jar"/>
+    <classpathentry kind="lib" path="lib/xfire-1.1.2/runtime/wsdl4j-1.5.2.jar"/>
     <classpathentry kind="lib" path="build/dao/classes"/>
 </classpath>]]></replacevalue>
         </replace>
@@ -191,14 +192,48 @@ public class User extends BaseObject]]></replacetoken>
  */
 public class User extends BaseObject]]></replacevalue>
         </replace>
-        <replace file="../../src/dao/org/appfuse/model/User.java">
+
+		<replace file="../../src/dao/org/appfuse/model/User.java">
            <replacetoken><![CDATA[     */
     public String getFullName()]]></replacetoken>
            <replacevalue><![CDATA[     * @aegis.property ignore="true"
      */
     public String getFullName()]]></replacevalue>
         </replace>
-        <replace file="../../src/dao/org/appfuse/model/User.java">
+
+		<replace file="../../src/dao/org/appfuse/model/User.java">
+           <replacetoken><![CDATA[     */
+    public GrantedAuthority[] getAuthorities()]]></replacetoken>
+           <replacevalue><![CDATA[     * @aegis.property ignore="true"
+     */
+    public GrantedAuthority[] getAuthorities()]]></replacevalue>
+        </replace>
+
+		<replace file="../../src/dao/org/appfuse/model/User.java">
+           <replacetoken><![CDATA[     */
+    public boolean isAccountNonExpired()]]></replacetoken>
+           <replacevalue><![CDATA[     * @aegis.property ignore="true"
+     */
+    public boolean isAccountNonExpired()]]></replacevalue>
+        </replace>
+
+		<replace file="../../src/dao/org/appfuse/model/User.java">
+           <replacetoken><![CDATA[     */
+    public boolean isAccountNonLocked()]]></replacetoken>
+           <replacevalue><![CDATA[     * @aegis.property ignore="true"
+     */
+    public boolean isAccountNonLocked()]]></replacevalue>
+        </replace>
+
+		<replace file="../../src/dao/org/appfuse/model/User.java">
+           <replacetoken><![CDATA[     */
+    public boolean isCredentialsNonExpired()]]></replacetoken>
+           <replacevalue><![CDATA[     * @aegis.property ignore="true"
+     */
+    public boolean isCredentialsNonExpired()]]></replacevalue>
+        </replace>
+
+		<replace file="../../src/dao/org/appfuse/model/User.java">
            <replacetoken><![CDATA[     */
     public Set getRoles()]]></replacetoken>
            <replacevalue><![CDATA[     * @aegis.property componentType="org.appfuse.model.Role"
@@ -253,17 +288,21 @@ import org.appfuse.service.UserWebService;]]></replacevalue>
     <!-- =================================================================== -->
     <target name="test" description="Creates appfuse-xfire and verifies installation">
         <property name="app.name" value="appfuse-xfire"/>
-        <property name="db.name" value="appfuse"/>
-        <property name="new.pkg.name" value="org.appfuse"/>
-        <property name="web.framework" value=""/>
         <delete dir="../../../${app.name}"/>
-        <ant dir="../.." target="new"/>
+        <ant dir="../.." target="new" inheritAll="false">
+            <property name="app.name" value="${app.name}"/>
+            <property name="db.name" value="appfuse"/>
+            <property name="new.pkg.name" value="org.appfuse"/>
+            <property name="web.framework" value=""/>
+        </ant>
 
         <!-- New project created, install XFire -->
         <ant dir="../../../${app.name}/extras/xfire" target="install" inheritAll="false"/>
-        <!-- Test installation -->
+        <!-- Run XFire tests -->
         <ant dir="../../../${app.name}" target="test-service" inheritAll="false">
             <property name="testcase" value="EchoWebServiceTest"/>
-        </ant> 
+        </ant>
+        <!-- Run all tests -->
+        <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
     </target>
 </project>

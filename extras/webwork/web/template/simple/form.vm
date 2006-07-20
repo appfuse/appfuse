@@ -1,8 +1,0 @@
-<form #if ($parameters.name) name="$!webwork.htmlEncode($parameters.name)" id="$!webwork.htmlEncode($parameters.name)" #end 
-#if ($parameters.action) action="$!webwork.htmlEncode($parameters.action)" #end
-#if ($parameters.method) method="$!webwork.htmlEncode($parameters.method)" #end
-#if ($parameters.enctype) enctype="$!webwork.htmlEncode($parameters.enctype)" #end
-#if ($parameters.validate) onsubmit="return(${parameters.name}_validate())" #end
-#if ($parameters.cssClass) class="$!webwork.htmlEncode($parameters.cssClass)" #end
-#if ($parameters.cssStyle) style="$!webwork.htmlEncode($parameters.cssStyle)" #end
->

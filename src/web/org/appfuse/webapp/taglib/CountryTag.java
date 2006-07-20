@@ -27,7 +27,7 @@ import org.displaytag.tags.el.ExpressionEvaluator;
  * </p>
  *
  * @author Jens Fischer, Matt Raible
- * @version $Revision: 1.4 $ $Date: 2006/01/10 06:52:46 $
+ * @version $Revision: 1.4.2.1 $ $Date: 2006/06/10 14:00:00 $
  *
  * @jsp.tag name="country" bodycontent="empty"
  */
@@ -108,7 +108,7 @@ public class CountryTag extends TagSupport {
             }
         } else {
             StringBuffer sb = new StringBuffer();
-            sb.append("<select name=\"" + name + "\" id=\"" + name + "\">\n");
+            sb.append("<select name=\"" + name + "\" id=\"" + name + "\" class=\"select\">\n");
 
             if (prompt != null) {
                 sb.append("    <option value=\"\" selected=\"selected\">");

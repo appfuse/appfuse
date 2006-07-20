@@ -28,7 +28,7 @@ public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdv
     public final static String ACCESS_DENIED = "Access Denied: Only administrators are allowed to modify other users.";
     protected final Log log = LogFactory.getLog(UserSecurityAdvice.class);
     private UserCache userCache;
-    
+
     public void setUserCache(UserCache userCache) {
         this.userCache = userCache;
     }
@@ -54,14 +54,14 @@ public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdv
             User user = (User) args[0];
             String username = user.getUsername();
 
-            String currentUser = null;
+            String currentUser;
             if (auth.getPrincipal() instanceof UserDetails) {
                 currentUser = ((UserDetails) auth.getPrincipal()).getUsername();
             } else {
                 currentUser = String.valueOf(auth.getPrincipal());
             }
 
-            if (!username.equals(currentUser)) {
+            if (username != null && !username.equals(currentUser)) {
                 AuthenticationTrustResolver resolver = new AuthenticationTrustResolverImpl();
                 // allow new users to signup - this is OK b/c Signup doesn't allow setting of roles
                 boolean signupUser = resolver.isAnonymous(auth);
@@ -82,7 +82,7 @@ public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdv
 
             // fix for http://issues.appfuse.org/browse/APF-96
             // don't allow users with "user" role to upgrade to "admin" role
-            else if (username.equalsIgnoreCase(currentUser) && !administrator) {
+            else if (username != null && username.equalsIgnoreCase(currentUser) && !administrator) {
 
                 // get the list of roles the user is trying add
                 Set userRoles = new HashSet();
@@ -109,22 +109,30 @@ public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdv
         }
     }
 
-    public void afterReturning(Object returnValue, Method method, Object[] args, Object target) 
+    public void afterReturning(Object returnValue, Method method, Object[] args, Object target)
     throws Throwable {
         User user = (User) args[0];
-        
+
         if (userCache != null && user.getVersion() != null) {
             if (log.isDebugEnabled()) {
                 log.debug("Removing '" + user.getUsername() + "' from userCache");
             }
-            
+
             userCache.removeUserFromCache(user.getUsername());
-            
+
             // reset the authentication object if current user
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             if (auth != null && auth.getPrincipal() instanceof UserDetails) {
                 User currentUser = (User) auth.getPrincipal();
-                if (currentUser.getUsername().equalsIgnoreCase(user.getUsername())) {
+                if (currentUser.getId().equals(user.getId())) {
+                    if (!currentUser.getUsername().equalsIgnoreCase(user.getUsername())) {
+                        // The name of the current user changed, so the previous flush won't have done anything. 
+                        // Flush the old name, too.
+                        if (log.isDebugEnabled()) {
+                            log.debug("Removing '" + currentUser.getUsername() + "' from userCache");
+                        }
+                        userCache.removeUserFromCache(currentUser.getUsername());
+                    }
                     auth = new UsernamePasswordAuthenticationToken(user, user.getPassword(), user.getAuthorities());
                     SecurityContextHolder.getContext().setAuthentication(auth);
                 }

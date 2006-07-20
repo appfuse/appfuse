@@ -133,6 +133,8 @@ public class UserForm extends BasePage implements Serializable {
             String roleName = userRoles[i];
             user.addRole(roleManager.getRole(roleName));
         }
+        
+        Integer originalVersion = user.getVersion();
 
         try {
             userManager.saveUser(user);
@@ -141,6 +143,8 @@ public class UserForm extends BasePage implements Serializable {
             addError("errors.existing.user",
                      new Object[] { user.getUsername(), user.getEmail() });
 
+            // reset the version # to what was passed in
+            user.setVersion(originalVersion);
             return "editProfile";
         }
 

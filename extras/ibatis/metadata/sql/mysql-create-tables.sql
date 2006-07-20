@@ -7,7 +7,7 @@ create table user_role (
     primary key (user_id, role_id)
 );
 create table app_user (
-	id int(8) not null auto_increment,
+    id int(8) not null auto_increment,
     username varchar(20) not null unique,
     version integer not null,
     password varchar(50),
@@ -29,9 +29,9 @@ create table app_user (
     primary key (id)
 );
 create table role (
-	id int(8) not null auto_increment,
+    id int(8) not null auto_increment,
     name varchar(20) not null,
-    description varchar(50),
+    description varchar(64),
     primary key (id)
 );
 alter table user_role add index FK143BF46A14048CB4 (role_id), add constraint FK143BF46A14048CB4 foreign key (role_id) references role (id);

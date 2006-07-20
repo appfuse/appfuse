@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.acegisecurity.Authentication;
 import org.acegisecurity.AuthenticationTrustResolver;
@@ -54,7 +53,7 @@ import org.springframework.mail.SimpleMailMessage;
  *  validate="false" parameter="method" input="edit"
  *
  * @struts.action-forward name="list" path="/WEB-INF/pages/userList.jsp"
- * @struts.action-forward name="edit" path="/WEB-INF/pages/userProfile.jsp"
+ * @struts.action-forward name="edit" path="/WEB-INF/pages/userForm.jsp"
  */
 public final class UserAction extends BaseAction {
     
@@ -184,7 +183,6 @@ public final class UserAction extends BaseAction {
 
         // Extract attributes and parameters we will need
         ActionMessages messages = new ActionMessages();
-        HttpSession session = request.getSession();
         UserForm userForm = (UserForm) form;
         User user = new User();
 
@@ -227,6 +225,8 @@ public final class UserAction extends BaseAction {
 
             BeanUtils.copyProperties(userForm, convert(user));
             userForm.setConfirmPassword(userForm.getPassword());
+            // reset the version # to what was passed in
+            userForm.setVersion(request.getParameter("version"));
             updateFormBean(mapping, request, userForm); 
             
             return mapping.findForward("edit");

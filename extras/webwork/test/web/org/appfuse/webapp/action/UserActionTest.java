@@ -54,6 +54,36 @@ public class UserActionTest extends BaseActionTestCase {
         assertNotNull(action.getUser());
         assertFalse(action.hasActionErrors());
     }
+    
+    public void testSaveConflictingUser() throws Exception {
+        UserManager userManager = (UserManager) ctx.getBean("userManager");
+        User user = userManager.getUserByUsername("tomcat");
+        user.setPassword("tomcat");
+        user.setConfirmPassword("tomcat");
+        // e-mail address from existing user
+        User existingUser = (User) userManager.getUsers(null).get(0);
+        user.setEmail(existingUser.getEmail());
+        action.setUser(user);
+        action.setFrom("list");
+        
+        Integer originalVersionNumber = user.getVersion();
+        log.debug("original version #: " + originalVersionNumber);
+        
+        request.addParameter("encryptPass", "true");
+        ServletActionContext.setRequest(request);
+
+        assertEquals(action.save(), "input");
+        assertNotNull(action.getUser());
+        assertEquals(originalVersionNumber, user.getVersion());
+        assertTrue(action.hasActionErrors());
+        action.clearErrorsAndMessages();
+        
+        // save with valid e-mail
+        user.setEmail("mraible@gmail.com");
+        assertEquals(action.save(), "input");
+        assertEquals(originalVersionNumber.intValue()+1, user.getVersion().intValue());
+        assertFalse(action.hasActionErrors());
+    }
 
     public void testSearch() throws Exception {
         assertNull(action.getUsers());

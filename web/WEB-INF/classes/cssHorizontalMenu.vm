@@ -1,0 +1,40 @@
+#macro( displayCssMenu $menu )
+
+  ## set menu title
+  #set ($title = $displayer.getMessage($menu.title))
+
+  #if (!$menu.url) #set ($url="#") #else #set ($url=$menu.url) #end
+
+  ## create a single menu item
+  #if ($menu.components.size() == 0)
+      #if ($velocityCount == $menu.parent.components.size())
+        <li class="last">
+      #else
+        <li>
+      #end
+      #if ($menu.name == $currentMenu)
+        <a href="$url" title="$title" class="current" #if($menu.target)target="$menu.target"#end#if($menu.width)style="width: ${menu.width}px"#end>${title}</a>
+      #else
+        <a href="$url" title="$title" #if($menu.target)target="$menu.target"#end#if($menu.width)style="width: ${menu.width}px"#end>${title}</a>
+      #end
+  #else ## create multiple menu items in a menu
+      <li class="menubar">
+        <a href="$url" title="$title" #if ($menu.name == $currentMenu) class="current" #end#if($menu.target)target="$menu.target"#end#if($menu.width)style="width: ${menu.width}px"#end>${title}</a>
+  #end
+
+  #if ($menu.components.size() > 0)
+    <ul>
+       #foreach ($menuIt in $menu.components)
+           #displayCssMenu($menuIt)
+     #end
+        </li>
+  #else
+    </li>
+    #if ($velocityCount == $menu.parent.components.size())
+    </ul>
+    #end
+  #end
+
+#end
+
+#displayCssMenu($menu)

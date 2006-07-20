@@ -9,7 +9,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.beanutils.BeanUtils;
 
-import <XDtForm:parentPackageName/>.Constants;
+import <XDtConfig:configParameterValue paramName="basePackageName"/>.Constants;
 import <XDtForm:parentPackageName/>.model.<XDtForm:className/>;
 import <XDtForm:parentPackageName/>.service.<XDtForm:className/>Manager;
 
@@ -37,6 +37,6 @@ public class <XDtForm:className/>Controller implements Controller {
 
         List <XDtForm:classNameLower/>s = <XDtForm:classNameLower/>Manager.get<XDtForm:className/>s(<XDtForm:classNameLower/>);
 
-        return new ModelAndView("<XDtForm:classNameLower/>List", Constants.<XDtForm:classNameUpper/>_LIST, <XDtForm:classNameLower/>s);
+        return new ModelAndView("<XDtConfig:configParameterValue paramName="appModuleNameSlash"/><XDtForm:classNameLower/>List", Constants.<XDtForm:classNameUpper/>_LIST, <XDtForm:classNameLower/>s);
     }
 }

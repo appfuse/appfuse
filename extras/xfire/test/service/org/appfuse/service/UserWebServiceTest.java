@@ -1,9 +1,14 @@
 package org.appfuse.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.dao.UserDao;
 import org.appfuse.model.User;
+import org.codehaus.xfire.client.XFireProxyFactory;
+import org.codehaus.xfire.service.Service;
 import org.codehaus.xfire.spring.AbstractXFireSpringTest;
 import org.jdom.Document;
 import org.jmock.Mock;
@@ -23,7 +28,7 @@ public class UserWebServiceTest extends AbstractXFireSpringTest {
     
     public void testGetWsdl() throws Exception {
         Document doc = getWSDLDocument("UserWebService");
-        //printNode(doc);
+        printNode(doc);
         
         assertValid("//xsd:complexType[@name=\"User\"]", doc);
         assertValid("//xsd:complexType[@name=\"Role\"]", doc);
@@ -37,7 +42,7 @@ public class UserWebServiceTest extends AbstractXFireSpringTest {
         
         // because we can't extend MockObjectTestCase we create new instances for once(), eq() and returnValue()
         InvokeOnceMatcher once = new InvokeOnceMatcher();
-        IsEqual eq = new IsEqual("tomcat");
+        IsEqual eq = new IsEqual(new Long(1));
         ReturnStub returnValue = new ReturnStub(testData);
         userDao.expects(once).method("getUser").with(eq).will(returnValue);
         
@@ -56,7 +61,33 @@ public class UserWebServiceTest extends AbstractXFireSpringTest {
         assertValid("//service:getUserResponse/service:out[model:username=\"tomcat\"]",response);
         assertValid("//service:getUserResponse/service:out[model:enabled=\"true\"]",response);
     }
+    
+    public void testGetUsers() throws Exception {
+        Service service = getServiceRegistry().getService("UserWebService");
+        UserWebService client = (UserWebService)
+            new XFireProxyFactory(getXFire()).create(service, "xfire.local://UserWebService");
 
+        final User testUser = new User("tomcat");
+        User user = new User();
+
+        List testData = new ArrayList(){{ add(testUser); }};
+        testUser.setEnabled(true);
+        Mock userDao = new Mock(UserDao.class);
+        
+        // because we can't extend MockObjectTestCase we create new instances for once(), eq() and returnValue()
+        InvokeOnceMatcher once = new InvokeOnceMatcher();
+        ReturnStub returnValue = new ReturnStub(testData);
+        IsEqual eq = new IsEqual(user);
+        userDao.expects(once).method("getUsers").with(eq).will(returnValue);
+        
+        UserManager userService = (UserManager) getContext().getBean("userManager");
+        userService.setUserDao((UserDao)userDao.proxy());
+
+        List userList = (List)client.getUsers(user);
+        assertNotNull(userList);
+        userDao.verify();
+    }
+    
     protected ApplicationContext createContext() {
         return new ClassPathXmlApplicationContext(new String[]{
                 "org/appfuse/service/applicationContext-test.xml",

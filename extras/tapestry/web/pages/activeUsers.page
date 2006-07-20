@@ -4,6 +4,7 @@
     "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
         
 <page-specification class="org.appfuse.webapp.action.BasePage">
+    <inject property="request" object="service:tapestry.globals.HttpServletRequest"/>
     <property name="row"/>
     
     <bean name="evenOdd" class="org.apache.tapestry.bean.EvenOdd"/>

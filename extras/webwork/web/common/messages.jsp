@@ -1,22 +1,22 @@
 <%-- ActionError Messages - usually set in Actions --%>
 <ww:if test="hasActionErrors()">
-    <div class="error" id="errorMessages">	
+    <div class="error" id="errorMessages">    
       <ww:iterator value="actionErrors">
-			    <img src="<c:url value="/images/iconWarning.gif"/>"
-              alt="<fmt:message key="icon.warning"/>" class="icon" />
-          <ww:property/><br />
+        <img src="<c:url value="/images/iconWarning.gif"/>"
+            alt="<fmt:message key="icon.warning"/>" class="icon" />
+        <ww:property escape="false"/><br />
       </ww:iterator>
    </div>
 </ww:if>
 
 <%-- FieldError Messages - usually set by validation rules --%>
 <ww:if test="hasFieldErrors()">
-    <div class="error" id="errorMessages">	
+    <div class="error" id="errorMessages">    
       <ww:iterator value="fieldErrors">
           <ww:iterator value="value">
-			<img src="<c:url value="/images/iconWarning.gif"/>"
+            <img src="<c:url value="/images/iconWarning.gif"/>"
                 alt="<fmt:message key="icon.warning"/>" class="icon" />
-             <ww:property/><br />
+             <ww:property escape="false"/><br />
           </ww:iterator>
       </ww:iterator>
    </div>
@@ -24,7 +24,7 @@
 
 <%-- Success Messages --%>
 <c:if test="${not empty messages}">
-    <div class="message" id="successMessages">	
+    <div class="message" id="successMessages">    
         <c:forEach var="msg" items="${messages}">
             <img src="<c:url value="/images/iconInformation.gif"/>"
                 alt="<fmt:message key="icon.information"/>" class="icon" />

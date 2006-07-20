@@ -3,52 +3,44 @@
 <title><fmt:message key="<XDtForm:classNameLower/>Detail.title"/></title>
 <content tag="heading"><fmt:message key="<XDtForm:classNameLower/>Detail.heading"/></content>
 
-<html:form action="save<XDtForm:className/>" method="post" styleId="<XDtForm:classNameLower/>Form"
-    focus="" onsubmit="return validate<XDtForm:className/>Form(this)">
-<table class="detail">
+<html:form action="save<XDtForm:className/>" method="post" styleId="<XDtForm:classNameLower/>Form" onsubmit="return validate<XDtForm:className/>Form(this)">
+<ul>
 <XDtForm:forAllFields>
 <XDtForm:ifIsIdOrVersionField>
 <html:hidden property="<XDtForm:fieldName/>"/>
 </XDtForm:ifIsIdOrVersionField>
 <XDtForm:ifIsNotIdOrVersionField>    
-    <tr>
-        <th>
-            <appfuse:label key="<XDtForm:classNameLower/>Form.<XDtForm:fieldName/>"/>
-        </th>
-        <td>
-        <XDtForm:ifIsBooleanField>
-            <html:checkbox property="<XDtForm:fieldName/>" styleId="<XDtForm:fieldName/>"/>
-        </XDtForm:ifIsBooleanField>
-        <XDtForm:ifIsNotBooleanField>
-            <html:text property="<XDtForm:fieldName/>" styleId="<XDtForm:fieldName/>"/>
-        </XDtForm:ifIsNotBooleanField>
-            <html:errors property="<XDtForm:fieldName/>"/>
-        </td>
-    </tr>
+    <li>
+        <appfuse:label styleClass="desc" key="<XDtForm:classNameLower/>Form.<XDtForm:fieldName/>"/>
+        <html:errors property="<XDtForm:fieldName/>"/>
+    <XDtForm:ifIsBooleanField>
+        <html:checkbox property="<XDtForm:fieldName/>" styleId="<XDtForm:fieldName/>" styleClass="checkbox"/>
+    </XDtForm:ifIsBooleanField>
+    <XDtForm:ifIsNotBooleanField>
+        <html:text property="<XDtForm:fieldName/>" styleId="<XDtForm:fieldName/>" styleClass="text medium"/>
+    </XDtForm:ifIsNotBooleanField>
+
+    </li>
 </XDtForm:ifIsNotIdOrVersionField>
 </XDtForm:forAllFields>
-    <tr>
-        <td></td>
-        <td class="buttonBar">
-            <html:submit styleClass="button" property="method.save" onclick="bCancel=false">
-                <fmt:message key="button.save"/>
-            </html:submit>
+    <li class="buttonBar bottom">
+        <html:submit styleClass="button" property="method.save" onclick="bCancel=false">
+            <fmt:message key="button.save"/>
+        </html:submit>
 
-            <html:submit styleClass="button" property="method.delete"
-                onclick="bCancel=true; return confirmDelete('<XDtForm:className/>')">
-                <fmt:message key="button.delete"/>
-            </html:submit>
+        <html:submit styleClass="button" property="method.delete" onclick="bCancel=true; return confirmDelete('<XDtForm:className/>')">
+            <fmt:message key="button.delete"/>
+        </html:submit>
 
-            <html:cancel styleClass="button" onclick="bCancel=true">
-                <fmt:message key="button.cancel"/>
-            </html:cancel>
-        </td>
-    </tr>
-</table>
+        <html:cancel styleClass="button" onclick="bCancel=true">
+            <fmt:message key="button.cancel"/>
+        </html:cancel>
+    </li>
+</ul>
 </html:form>
 
 <script type="text/javascript">
-	Form.focusFirstElement(document.forms["<XDtForm:classNameLower/>Form"]);
+    Form.focusFirstElement($("<XDtForm:classNameLower/>Form"));
 </script>
 
 <html:javascript formName="<XDtForm:classNameLower/>Form" cdata="false" dynamicJavascript="true" staticJavascript="false"/>

@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: web-tests.xml,v 1.19 2006/01/13 07:21:08 mraible Exp $               -->
+<!-- $Id: web-tests.xml,v 1.19.2.2 2006/07/09 05:22:29 mraible Exp $               -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY config SYSTEM "file:./config.xml">
@@ -7,7 +7,7 @@
 ]>
 <project basedir="." default="run-all-tests"> 
     <!-- Use i18n bundle, 2nd one listed is the default -->
-    <property file="${build.dir}/web/classes/ApplicationResources_${user.language}.properties"/>
+    <property file="${build.dir}/test/properties/ApplicationResources_${user.language}.properties"/>
     <property file="web/WEB-INF/classes/ApplicationResources.properties"/>
 
     <!-- runs all targets -->
@@ -155,11 +155,13 @@
     </target>
     
     <!-- Sign up a new user (no login) -->
-    <target name="Signup"
-        description="Signup a new user">
+    <target name="Signup" description="Signup a new user">
         <webtest name="signup">
             &config;
             <steps>
+                <!-- Logout in case user is already signed in -->
+                <invoke description="get Logout Page" url="/logout.jsp"/>
+
                 <invoke description="click signup link" url="/signup.html"/>
                 <verifytitle description="view signup title" text=".*${signup.title}.*" regex="true"/>
                 

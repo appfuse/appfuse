@@ -3,18 +3,20 @@
 <f:view>
 <f:loadBundle var="text" basename="#{<XDtForm:classNameLower/>List.bundleName}"/>
 
-<title><fmt:message key="<XDtForm:classNameLower/>List.title"/></title>
-<content tag="heading"><fmt:message key="<XDtForm:classNameLower/>List.heading"/></content>
-
+<head>
+    <title><fmt:message key="<XDtForm:classNameLower/>List.title"/></title>
+    <content tag="heading"><fmt:message key="<XDtForm:classNameLower/>List.heading"/></content>
+    <meta name="menu" content="<XDtForm:className/>Menu"/>
+</head>
+    
 <h:form id="edit<XDtForm:className/>">
 
 <c:set var="buttons">
     <h:commandButton value="#{text['button.add']}" action="add" id="add" 
         immediate="true" styleClass="button"/>
 
-    <button type="button" onclick="location.href='<c:url value="/mainMenu.html" />'">
-        <fmt:message key="button.done"/>
-    </button>
+    <input type="button" onclick="location.href='<c:url value="/mainMenu.html" />'"
+        value="<fmt:message key="button.done"/>"/>
 </c:set>
 
 <c:out value="${buttons}" escapeXml="false"/>
@@ -23,7 +25,7 @@
 <h:dataTable var="<XDtForm:classNameLower/>" value="#{<XDtForm:classNameLower/>List.<XDtForm:classNameLower/>s}" style="display:none"/>
 
 <display:table name="<XDtForm:classNameLower/>List.<XDtForm:classNameLower/>s" cellspacing="0" cellpadding="0" requestURI=""
-    id="<XDtForm:classNameLower/>s" pagesize="25" class="list" export="true">
+    id="<XDtForm:classNameLower/>s" pagesize="25" class="table <XDtForm:classNameLower/>List" export="true">
 
 <XDtMethod:forAllMethods>
   <XDtMethod:ifHasMethodTag tagName="hibernate.id">
@@ -43,17 +45,17 @@
 <c:out value="${buttons}" escapeXml="false"/>
 
 <h:commandLink action="#{<XDtForm:classNameLower/>Form.edit}" id="edit<XDtForm:className/>Link">
-    <f:param name="<XDtMethodEx:idField getType="propertyName"/>"/>
+    <f:param name="<XDtMethodEx:idField getType="propertyName"/>" value=""/>
 </h:commandLink>
 
 <script type="text/javascript">
-function view<XDtForm:className/>(<XDtMethodEx:idField getType="propertyName"/>) {
-    var f = document.forms['edit<XDtForm:className/>'];
-    f.elements['edit<XDtForm:className/>:_link_hidden_'].value='edit<XDtForm:className/>:edit<XDtForm:className/>Link';
-    f.elements['<XDtMethodEx:idField getType="propertyName"/>'].value=<XDtMethodEx:idField getType="propertyName"/>;
-    f.submit();
-}
-highlightTableRows("<XDtForm:classNameLower/>s");
+    function view<XDtForm:className/>(<XDtMethodEx:idField getType="propertyName"/>) {
+        var f = document.forms['edit<XDtForm:className/>'];
+        f.elements['edit<XDtForm:className/>:_link_hidden_'].value='edit<XDtForm:className/>:edit<XDtForm:className/>Link';
+        f.elements['<XDtMethodEx:idField getType="propertyName"/>'].value=<XDtMethodEx:idField getType="propertyName"/>;
+        f.submit();
+    }
+    highlightTableRows("<XDtForm:classNameLower/>s");
 </script>
 </h:form>
 

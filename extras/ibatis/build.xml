@@ -12,10 +12,10 @@
     <target name="help" description="Print usage for key targets">
     <echo>
     Key Targets:
-                install: installs iBatis into AppFuse
-              uninstall: uninstalls iBatis from AppFuse
-    uninstall-hibernate: uninstalls Hibernate from AppFuse
-                   test: creates appfuse-ibatis project and runs tests   
+                install: Installs iBatis into AppFuse
+              uninstall: Uninstalls iBatis from AppFuse
+    uninstall-hibernate: Uninstalls Hibernate from AppFuse
+                   test: Creates appfuse-ibatis project and runs tests   
 
                    help: Print this help text...
     </echo>
@@ -69,7 +69,7 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar</replacevalue>
             <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/ibatis-2.1.7/ibatis-common-2.jar"/>
 	<classpathentry kind="lib" path="lib/ibatis-2.1.7/ibatis-sqlmap-2.jar"/>
 	<classpathentry kind="lib" path="lib/ibatis-2.1.7/jta.jar"/>
-	<classpathentry kind="lib" path="lib/ibatis-2.1.7/oscache-2.3.jar"/>
+	<classpathentry kind="lib" path="lib/ibatis-2.1.7/oscache-2.3.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>]]></replacevalue>
         </replace>
 
@@ -83,7 +83,7 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar</replacevalue>
         <replace file="../../build.xml">
             <replacetoken><![CDATA[<lib dir="${spring.dir}" includes="*.jar" excludes="*mock.jar"/>]]></replacetoken>
             <replacevalue><![CDATA[<lib dir="${ibatis.dir}" includes="*.jar"/>
-                <lib dir="${spring.dir}" includes="*.jar" excludes="*mock.jar"/>]]></replacevalue>
+            <lib dir="${spring.dir}" includes="*.jar" excludes="*mock.jar"/>]]></replacevalue>
         </replace>
 
         <echo level="info">Commenting out Hibernate OSIV Filter</echo>
@@ -149,7 +149,7 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
             <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/ibatis-2.1.7/ibatis-common-2.jar"/>
 	<classpathentry kind="lib" path="lib/ibatis-2.1.7/ibatis-sqlmap-2.jar"/>
 	<classpathentry kind="lib" path="lib/ibatis-2.1.7/jta.jar"/>
-	<classpathentry kind="lib" path="lib/ibatis-2.1.7/oscache-2.3.jar"/>]]></replacetoken>
+	<classpathentry kind="lib" path="lib/ibatis-2.1.7/oscache-2.3.1.jar"/>]]></replacetoken>
         </replace>
         
         <echo level="info">Changing dao.type to hibernate</echo>
@@ -161,7 +161,7 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
         <echo level="info">Removing iBatis JARs from WAR build</echo>
         <replace file="../../build.xml">
             <replacetoken><![CDATA[<lib dir="${ibatis.dir}" includes="*.jar"/>
-                <lib dir="${spring.dir}" includes="*.jar" excludes="*mock.jar"/>]]></replacetoken>
+            <lib dir="${spring.dir}" includes="*.jar" excludes="*mock.jar"/>]]></replacetoken>
             <replacevalue><![CDATA[<lib dir="${spring.dir}" includes="*.jar" excludes="*mock.jar"/>]]></replacevalue>
         </replace>
 
@@ -203,8 +203,7 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
         </copy>
         <replace file="../../build.xml">
             <replacetoken><![CDATA[<lib file="${hibernate.jar}"/>
-                <lib dir="${hibernate.dir}/lib" includes="*.jar"/>]]></replacetoken>
-            <replacevalue><![CDATA[<lib dir="${ibatis.dir}" includes="*.jar"/>]]></replacevalue>
+            <lib dir="${hibernate.dir}/lib" includes="*.jar"/>]]></replacetoken>
         </replace>
 
         <echo level="info">Deleting Hibernate JARs from ../../lib</echo>
@@ -250,7 +249,7 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
 	<classpathentry kind="lib" path="lib/hibernate-3.1.3/lib/cglib-2.1.3.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-3.1.3/lib/dom4j-1.6.1.jar"/>
 	<classpathentry kind="lib" path="lib/hibernate-3.1.3/lib/jta.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-3.1.3/lib/oscache-2.3.jar"/>]]></replacetoken>
+	<classpathentry kind="lib" path="lib/hibernate-3.1.3/lib/oscache-2.3.1.jar"/>]]></replacetoken>
         </replace>
         
         <echo level="info">Removing all references to Hibernate in build.xml</echo>
@@ -407,16 +406,21 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
     </target>
 
     <property name="web.framework" value=""/>
+    <property name="db.name" value="appfuse"/>
+    <property name="new.pkg.name" value="org.appfuse"/>        
     <!-- =================================================================== -->
     <!-- Creates new project, installs iBATIS, removes Hibernate and tests   -->
     <!-- =================================================================== -->
     <target name="test" description="Creates appfuse-ibatis and runs tests">
         <property name="app.name" value="appfuse-ibatis"/>
-        <property name="db.name" value="appfuse"/>
-        <property name="new.pkg.name" value="org.appfuse"/>
         <delete dir="../../../${app.name}"/>
-        <ant dir="../.." target="new"/>
-
+        <ant dir="../.." target="new" inheritAll="false">
+            <property name="app.name" value="${app.name}"/>
+            <property name="db.name" value="${db.name}"/>
+            <property name="new.pkg.name" value="${new.pkg.name}"/>
+            <property name="web.framework" value="${web.framework}"/>
+        </ant>
+        
         <!-- New project created, install iBATIS, remove Hibernate and run tests -->
         <ant dir="../../../${app.name}/extras/ibatis" target="install" inheritAll="false"/>
         <ant dir="../../../${app.name}/extras/ibatis" target="uninstall-hibernate" inheritAll="false"/>
@@ -427,14 +431,15 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
     <!-- =================================================================== -->
     <!-- Creates new project, installs iBATIS with Hibernate and tests       -->
     <!-- =================================================================== -->
-    <target name="test-with-hibernate"
-        description="Creates appfuse-ibatis+hibernate and runs tests">
-        <!-- NOTE: 2 dashes in the app name doesn't work -->   
+    <target name="test-with-hibernate" description="Creates appfuse-ibatis+hibernate and runs tests">
         <property name="app.name" value="appfuse-hibatis"/>
-        <property name="db.name" value="appfuse"/>
-        <property name="new.pkg.name" value="org.appfuse"/>
         <delete dir="../../../${app.name}"/>
-        <ant dir="../.." target="new"/>
+        <ant dir="../.." target="new" inheritAll="false">
+            <property name="app.name" value="${app.name}"/>
+            <property name="db.name" value="${db.name}"/>
+            <property name="new.pkg.name" value="${new.pkg.name}"/>
+            <property name="web.framework" value="${web.framework}"/>
+        </ant>
 
         <!-- New project created, install iBATIS and run tests -->
         <ant dir="../../../${app.name}/extras/ibatis" target="install" inheritAll="false"/>
@@ -447,10 +452,13 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
     <!-- =================================================================== -->
     <target name="test-appgen" description="Creates appfuse-ibatisgen and tests appgen">
         <property name="app.name" value="appfuse-ibatisgen"/>
-        <property name="db.name" value="appfuse"/>
-        <property name="new.pkg.name" value="org.appfuse"/>
         <delete dir="../../../${app.name}"/>
-        <ant dir="../.." target="new"/>
+        <ant dir="../.." target="new" inheritAll="false">
+            <property name="app.name" value="${app.name}"/>
+            <property name="db.name" value="${db.name}"/>
+            <property name="new.pkg.name" value="${new.pkg.name}"/>
+            <property name="web.framework" value="${web.framework}"/>
+        </ant>
 
         <!-- Create database table -->
         <sql driver="${database.driver_class}" url="${database.url}"
@@ -472,11 +480,7 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
         <ant dir="../../../${app.name}/extras/ibatis" target="install" inheritAll="false"/>
         <ant dir="../../../${app.name}/extras/ibatis" target="uninstall-hibernate" inheritAll="false"/>
         <!-- Gen code and run tests -->
-        <ant dir="../../../${app.name}/extras/appgen" target="test-all" inheritAll="false">
-            <property name="web.framework" value=""/>
-            <property name="appgen.type" value="pojo"/>
-            <property name="model.name" value="Person"/>
-        </ant>   
+        <ant dir="../../../${app.name}/extras/appgen" target="test-all" inheritAll="false"/> 
     </target>
     
     <target name="test-all" depends="test"

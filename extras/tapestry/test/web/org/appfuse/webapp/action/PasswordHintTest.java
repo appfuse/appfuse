@@ -17,9 +17,9 @@ public class PasswordHintTest extends BasePageTestCase {
         super.onSetUp();        
         // these can be mocked if you want a more "pure" unit test
         Map map = new HashMap();
-        map.put("userManager", (UserManager) applicationContext.getBean("userManager"));
-        map.put("mailEngine", (MailEngine) applicationContext.getBean("mailEngine"));
-        map.put("mailMessage", (MailMessage) applicationContext.getBean("mailMessage"));
+        map.put("userManager", applicationContext.getBean("userManager"));
+        map.put("mailEngine", applicationContext.getBean("mailEngine"));
+        map.put("mailMessage", applicationContext.getBean("mailMessage"));
         page = (PasswordHint) getPage(PasswordHint.class, map);
     }
     

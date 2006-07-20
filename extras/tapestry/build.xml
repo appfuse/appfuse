@@ -64,7 +64,7 @@ tapestry.jar=${tapestry.dir}/tapestry-${tapestry.version}.jar]]></replacevalue>
 #
 # Struts - http://struts.apache.org
 #
-struts.version=1.2.8
+struts.version=1.2.9
 struts.dir=${lib.dir}/struts-${struts.version}
 struts.jar=${struts.dir}/struts.jar]]></replacetoken>
         </replace>
@@ -92,7 +92,7 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
 ]]></replacetoken>
         </replace>
         <replace file="../../build.xml">
-        	<replacetoken><![CDATA[<lib dir="${displaytag.dir}" includes="*.jar"/>
+            <replacetoken><![CDATA[<lib dir="${displaytag.dir}" includes="*.jar"/>
             ]]></replacetoken>
         </replace>
         <delete>
@@ -221,25 +221,25 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
         <replace file="../appgen/build.xml">
             <replacetoken><![CDATA[<!-- Make first character of JSP filenames lowercase -->
         <move file="${build.dir}/${gen.dir}/web/pages/${model.name}ListTemp.jsp"
-            tofile="${build.dir}/${gen.dir}/web/pages/${model.name.lowercase}List.jsp"/>
+            tofile="${build.dir}/${gen.dir}/web/pages/${app.module.slash.after}${model.name.lowercase}List.jsp"/>
         <move file="${build.dir}/${gen.dir}/web/pages/${model.name}FormTemp.jsp"
-            tofile="${build.dir}/${gen.dir}/web/pages/${model.name.lowercase}Form.jsp"/>]]></replacetoken>
+            tofile="${build.dir}/${gen.dir}/web/pages/${app.module.slash.after}${model.name.lowercase}Form.jsp"/>]]></replacetoken>
             <replacevalue><![CDATA[<!-- Make first character of HTML filenames lowercase -->
         <move file="${build.dir}/${gen.dir}/web/pages/${model.name}ListTemp.html"
-            tofile="${build.dir}/${gen.dir}/web/pages/${model.name.lowercase}s.html"/>
+            tofile="${build.dir}/${gen.dir}/web/pages/${app.module.slash.after}${model.name.lowercase}s.html"/>
         <move file="${build.dir}/${gen.dir}/web/pages/${model.name}FormTemp.html"
-            tofile="${build.dir}/${gen.dir}/web/pages/${model.name.lowercase}Form.html"/>
+            tofile="${build.dir}/${gen.dir}/web/pages/${app.module.slash.after}${model.name.lowercase}Form.html"/>
             
         <!-- Make first character of .page filenames lowercase -->
         <move file="${build.dir}/${gen.dir}/web/pages/${model.name}ListTemp.page"
-            tofile="${build.dir}/${gen.dir}/web/pages/${model.name.lowercase}s.page"/>
+            tofile="${build.dir}/${gen.dir}/web/pages/${app.module.slash.after}${model.name.lowercase}s.page"/>
         <move file="${build.dir}/${gen.dir}/web/pages/${model.name}FormTemp.page"
-            tofile="${build.dir}/${gen.dir}/web/pages/${model.name.lowercase}Form.page"/>
+            tofile="${build.dir}/${gen.dir}/web/pages/${app.module.slash.after}${model.name.lowercase}Form.page"/>
             
         <move file="${build.dir}/${gen.dir}/generic/web/pages/${model.name}ListTemp.page"
-            tofile="${build.dir}/${gen.dir}/generic/web/pages/${model.name.lowercase}s.page"/>
+            tofile="${build.dir}/${gen.dir}/generic/web/pages/${app.module.slash.after}${model.name.lowercase}s.page"/>
         <move file="${build.dir}/${gen.dir}/generic/web/pages/${model.name}FormTemp.page"
-            tofile="${build.dir}/${gen.dir}/generic/web/pages/${model.name.lowercase}Form.page"/>]]></replacevalue>
+            tofile="${build.dir}/${gen.dir}/generic/web/pages/${app.module.slash.after}${model.name.lowercase}Form.page"/>]]></replacevalue>
         </replace>
 
         <!-- Modify XML to modify tapestry.application -->
@@ -289,7 +289,7 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
         </replace>]]></replacetoken>
         </replace>
         <replace file="../middlegen/build.xml">
-        	<replacetoken><![CDATA[
+            <replacetoken><![CDATA[
         <replace dir="../../../${app.name}/src">
             <include name="**/Cat.java"/>
             <replacetoken>*            @hibernate.property</replacetoken>
@@ -344,17 +344,18 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
         </replace>
         
         <replace file="../../.classpath">
-            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/struts-1.2.8/struts.jar"/>
-    <classpathentry kind="lib" path="lib/struts-1.2.8/struts-el.jar"/>]]></replacetoken>
+            <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/struts-1.2.9/struts.jar"/>
+	<classpathentry kind="lib" path="lib/struts-1.2.9/struts-el.jar"/>
+	<classpathentry kind="lib" path="lib/struts-1.2.9/antlr.jar"/>]]></replacetoken>
             <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/hivemind-1.1.1.jar"/>
-    <classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/hivemind-lib-1.1.1.jar"/>
-    <classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/javassist-3.0.jar"/>
-    <classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/ognl-2.6.7.jar"/>
-    <classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/oro-2.0.8.jar"/>
-    <classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/tapestry-4.0.1.jar"/>
-    <classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/tapestry-contrib-4.0.1.jar"/>
-    <classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/tapestry-flash-0.1.1.jar"/>
-    <classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/tapestry-spring-0.1.2.jar"/>]]></replacevalue>
+	<classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/hivemind-lib-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/javassist-3.0.jar"/>
+	<classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/ognl-2.6.7.jar"/>
+	<classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/oro-2.0.8.jar"/>
+	<classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/tapestry-4.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/tapestry-contrib-4.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/tapestry-flash-0.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/tapestry-4.0.1/lib/tapestry-spring-0.1.2.jar"/>]]></replacevalue>
         </replace>
 
         <echo level="info">Refactoring build.xml</echo>
@@ -368,7 +369,8 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
         
         <!-- Remove templates path from new target -->
         <replace file="../../build.xml">
-            <replacetoken><![CDATA[<include name="metadata/templates/*.xdt"/>]]></replacetoken>
+            <replacetoken><![CDATA[<include name="metadata/templates/*.xdt"/>
+                ]]></replacetoken>
         </replace>
 
         <!-- Change JSP syntax to Tapestry Page syntax -->
@@ -397,6 +399,8 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
             addedtags="@xdoclet-generated at ${TODAY}" force="${xdoclet.force}" 
             mergedir="metadata/web">
             <fileset dir="src/dao"/>
+
+            <configParam name="basePackageName" value="org.appfuse"/>
 
             <!-- generate struts forms -->
             <actionform templateFile="metadata/templates/struts_form.xdt">
@@ -432,11 +436,6 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
         </replace>
         
         <replace file="../../build.xml">
-            <replacetoken><![CDATA[
-            <webinf dir="${struts.dir}" includes="*.xml"/>]]></replacetoken>
-        </replace>
-        
-        <replace file="../../build.xml">
             <replacetoken>dir="${struts.dir}"</replacetoken>
             <replacevalue>dir="${tapestry.dir}"</replacevalue>
         </replace>
@@ -453,12 +452,21 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
         <!-- Change test-jsp to test-html -->
         <replace file="../../build.xml" token="test-jsp" value="test-html"/>
         
+        <!-- Remove prompt for web framework -->
         <replace file="../../build.xml">
-        <replacetoken><![CDATA[    <target name="install-tapestry" depends="clean" 
-        description="Installs Tapestry, removes Struts">
-        <ant dir="${extras.dir}/tapestry" target="install"/>
-    </target>
-]]></replacetoken>
+        <replacetoken><![CDATA[
+        <input message="What web framework would you like to use [webwork,tapestry,spring,jsf,struts]?" addproperty="web.framework" defaultvalue="struts"/>]]></replacetoken>
+        </replace>
+        <replace file="../../build.xml">
+        <replacetoken><![CDATA[<if>
+            <and>
+                <not><equals arg1="${web.framework}" arg2=""/></not>
+                <not><equals arg1="${web.framework}" arg2="struts"/></not>
+            </and>
+            <then><ant dir="../${app.name}/extras/${web.framework}" target="install" inheritAll="false"/></then>
+        </if>
+        
+        ]]></replacetoken>
         </replace>
         
         <echo>----------------------------------------------</echo>
@@ -467,18 +475,39 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
     </target>
  
     <property name="web.framework" value="tapestry"/>
+    <property name="db.name" value="appfuse"/>   
+    <property name="new.pkg.name" value="org.appfuse"/>
+    <!-- =================================================================== -->
+    <!-- Creates new project, installs Tapestry and deploys                  -->
+    <!-- =================================================================== -->
+    <target name="deploy" description="Creates appfuse-tapestry and deploys">
+        <property name="app.name" value="appfuse-tapestry"/>
+        <delete dir="../../../${app.name}"/>
+        <ant dir="../.." target="new" inheritAll="false">
+            <property name="app.name" value="${app.name}"/>
+            <property name="db.name" value="${db.name}"/>
+            <property name="new.pkg.name" value="${new.pkg.name}"/>
+            <property name="web.framework" value="${web.framework}"/>
+        </ant>
+
+        <!-- New project created, install Tapestry and run tests -->
+        <ant dir="../../../${app.name}" target="deploy" inheritAll="false"/>
+    </target>
+
     <!-- =================================================================== -->
     <!-- Creates new project, installs Tapestry and runs tests                -->
     <!-- =================================================================== -->
     <target name="test" description="Creates appfuse-tapestry and runs tests">
         <property name="app.name" value="appfuse-tapestry"/>
-        <property name="db.name" value="appfuse"/>   
-        <property name="new.pkg.name" value="org.appfuse"/>
         <delete dir="../../../${app.name}"/>
-        <ant dir="../.." target="new"/>
+        <ant dir="../.." target="new" inheritAll="false">
+            <property name="app.name" value="${app.name}"/>
+            <property name="db.name" value="${db.name}"/>
+            <property name="new.pkg.name" value="${new.pkg.name}"/>
+            <property name="web.framework" value="${web.framework}"/>
+        </ant>
 
-        <!-- New project created, install Tapestry and run tests -->
-        <ant dir="../../../${app.name}/extras/tapestry" target="install" inheritAll="false"/>
+        <!-- New project created, run tests -->
         <ant dir="../../../${app.name}" target="setup-db" inheritAll="false"/>
         <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
     </target>
@@ -486,18 +515,18 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
     <!-- =================================================================== -->
     <!-- Creates new project, installs Tapestry+iBATIS and runs tests         -->
     <!-- =================================================================== -->
-    <target name="test-ibatis"
-        description="Creates appfuse-tapestry-ibatis and runs tests">
+    <target name="test-ibatis" description="Creates appfuse-tapestry-ibatis and runs tests">
         <property name="app.name" value="appfuse-tibatis"/>
-        <property name="db.name" value="appfuse"/>
-        <property name="new.pkg.name" value="org.appfuse"/>
         <delete dir="../../../${app.name}"/>
-        <ant dir="../.." target="new"/>
+        <ant dir="../.." target="new" inheritAll="false">
+            <property name="app.name" value="${app.name}"/>
+            <property name="db.name" value="${db.name}"/>
+            <property name="new.pkg.name" value="${new.pkg.name}"/>
+            <property name="web.framework" value="${web.framework}"/>
+        </ant>
 
-        <!-- New project created, install Tapestry and run tests -->
         <ant dir="../../../${app.name}/extras/ibatis" target="install" inheritAll="false"/>
         <ant dir="../../../${app.name}/extras/ibatis" target="uninstall-hibernate" inheritAll="false"/>
-        <ant dir="../../../${app.name}/extras/tapestry" target="install" inheritAll="false"/>
         <ant dir="../../../${app.name}" target="setup-db" inheritAll="false"/>
         <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
     </target>
@@ -507,18 +536,16 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
     <!-- =================================================================== -->
     <target name="test-appgen" description="Creates appfuse-tapgen and tests appgen">
         <property name="app.name" value="appfuse-tapgen"/>
-        <property name="db.name" value="appfuse"/>
-        <property name="new.pkg.name" value="org.appfuse"/>
         <delete dir="../../../${app.name}"/>
-        <ant dir="../.." target="new"/>
+        <ant dir="../.." target="new" inheritAll="false">
+            <property name="app.name" value="${app.name}"/>
+            <property name="db.name" value="${db.name}"/>
+            <property name="new.pkg.name" value="${new.pkg.name}"/>
+            <property name="web.framework" value="${web.framework}"/>
+        </ant>
 
-        <!-- New project created, install Tapestry -->
-        <ant dir="../../../${app.name}/extras/tapestry" target="install" inheritAll="false"/>
-        <!-- Gen code and run tests -->
         <ant dir="../../../${app.name}/extras/appgen" target="test-all" inheritAll="false">
-            <property name="web.framework" value="tapestry"/>
-            <property name="appgen.type" value="pojo"/>
-            <property name="model.name" value="Person"/>   
+            <property name="web.framework" value="tapestry"/> 
         </ant>   
     </target>
     

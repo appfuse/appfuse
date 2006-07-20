@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+import <XDtConfig:configParameterValue paramName="basePackageName"/>.webapp.action.BaseFormController;
 import <XDtPackage:packageName/>.<XDtForm:className/>;
 import <XDtForm:parentPackageName/>.service.<XDtForm:className/>Manager;
 import org.springframework.validation.BindException;
@@ -60,7 +61,7 @@ public class <XDtForm:className/>FormController extends BaseFormController {
             saveMessage(request, getText(key, locale));
 
             if (!isNew) {
-            	return new ModelAndView("redirect:edit<XDtForm:className/>.html", "<XDtMethodEx:idField getType="propertyName"/>", <XDtForm:classNameLower/>.<XDtMethodEx:idField getType="getterName"/>());
+                return new ModelAndView("redirect:edit<XDtForm:className/>.html", "<XDtMethodEx:idField getType="propertyName"/>", <XDtForm:classNameLower/>.<XDtMethodEx:idField getType="getterName"/>());
             }
         }
 

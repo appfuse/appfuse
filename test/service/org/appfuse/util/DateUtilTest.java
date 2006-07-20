@@ -20,22 +20,23 @@ public class DateUtilTest extends TestCase {
         super(name);
     }
 
-    public void testGetDatePattern() throws Exception {
-        String pattern = DateUtil.getDatePattern();
-        assertTrue(pattern.equals("MM/dd/yyyy"));
-    }
-    
-    public void testGetNonEnglishDatePattern() {
+    public void testGetInternationalDatePattern() {
         LocaleContextHolder.setLocale(new Locale("nl"));
         assertEquals("dd-MMM-yyyy", DateUtil.getDatePattern());
        
-        LocaleContextHolder.setLocale(new Locale("fr"));
+        LocaleContextHolder.setLocale(Locale.FRANCE);
         assertEquals("dd/MM/yyyy", DateUtil.getDatePattern());
         
-        // non-existant bundle should default to MM/dd/yyyy
+        LocaleContextHolder.setLocale(Locale.GERMANY);
+        assertEquals("dd.MM.yyyy", DateUtil.getDatePattern());
+        
+        // non-existant bundle should default to default locale
         LocaleContextHolder.setLocale(new Locale("fi"));
-        assertTrue(!"dd/MM/yyyy".equals(DateUtil.getDatePattern()));
-        assertEquals("MM/dd/yyyy", DateUtil.getDatePattern());
+        String fiPattern = DateUtil.getDatePattern();
+        LocaleContextHolder.setLocale(Locale.getDefault());
+        String defaultPattern = DateUtil.getDatePattern();
+        
+        assertEquals(defaultPattern, fiPattern);
     }
 
     public void testGetDate() throws Exception {

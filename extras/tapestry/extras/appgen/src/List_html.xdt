@@ -1,12 +1,15 @@
 <XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><title><span jwcid="@Insert" value="message:<XDtForm:classNameLower/>List.title"/></title>
 <content tag="heading"><span key="<XDtForm:classNameLower/>List.heading"/></content>
+<meta name="menu" content="<XDtForm:className/>Menu"/>
 
 <span jwcid="@ShowMessage"/>
 
-<button class="button" onclick="location.href='<XDtForm:classNameLower/>Form.html'"><span key="button.add"/></button>
-<button class="button" onclick="location.href='mainMenu.html'"><span key="button.done"/></button>
+<p>
+    <input type="button" class="button" onclick="location.href='<XDtForm:classNameLower/>Form.html'" jwcid="@Any" value="message:button.add"/>
+    <input type="button" class="button" onclick="location.href='mainMenu.html'" jwcid="@Any" value="message:button.done"/>
+</p>
 
-<table jwcid="table@contrib:Table" class="list <XDtForm:classNameLower/>List" id="<XDtForm:classNameLower/>List"
+<table jwcid="table@contrib:Table" class="table contribTable <XDtForm:classNameLower/>List" id="<XDtForm:classNameLower/>List"
     rowsClass="ognl:beans.evenOdd.next" row="ognl:row" source="ognl:<XDtForm:classNameLower/>s"
     columns="<XDtForm:forAllFields><XDtForm:classNameLower/>.<XDtForm:fieldName/>:<XDtForm:fieldName/>,</XDtForm:forAllFields>"
     arrowUpAsset="ognl:assets.upArrow" arrowDownAsset="ognl:assets.downArrow">
@@ -17,9 +20,9 @@
     </tr>
 </table>
 
-<button class="button" onclick="location.href='<XDtForm:classNameLower/>Form.html'"><span key="button.add"/></button>
-<button class="button" onclick="location.href='mainMenu.html'"><span key="button.done"/></button>
+<input type="button" class="button" onclick="location.href='<XDtForm:classNameLower/>Form.html'" jwcid="@Any" value="message:button.add"/>
+<input type="button" class="button" onclick="location.href='mainMenu.html'" jwcid="@Any" value="message:button.done"/>
 
 <script type="text/javascript">
-highlightTableRows("<XDtForm:classNameLower/>List");
+    highlightTableRows("<XDtForm:classNameLower/>List");
 </script>

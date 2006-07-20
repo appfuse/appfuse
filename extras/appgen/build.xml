@@ -4,31 +4,23 @@
     <property file="${user.home}/${ant.project.name}-build.properties"/>
     <property file="${user.home}/build.properties"/>
     <property file="../../build.properties"/>
-
+    
     <property name="lib.dir" location="../../lib"/>
     <property file="${lib.dir}/lib.properties"/>
+
+    <import file="../../properties.xml"/>
 
     <path id="xdoclet.classpath">
         <pathelement location="${log4j.jar}"/>
         <pathelement location="${commons-logging.jar}"/>
         <pathelement location="${commons-collections.jar}"/>
         <fileset dir="${xdoclet.dir}" includes="*.jar"/>
+        <path location="../../web/WEB-INF/classes"/>
     </path>
 
     <property name="overwrite" value="false"/>
     <property name="gen.dir" value="gen"/>
-    <property name="app.module" value=""/>
 
-    <condition property="app.module.dash" value="-${app.module}">
-        <not><equals arg1="${app.module}" arg2="" trim="true"/></not>
-    </condition>
-    <condition property="app.module.slash" value="/${app.module}">
-        <not><equals arg1="${app.module}" arg2="" trim="true"/></not>
-    </condition>
-    
-    <property name="app.module.dash" value=""/>
-    <property name="app.module.slash" value=""/>
-    <property name="app.package" value="org/appfuse${app.module.slash}"/>
     <property name="model.src.dir" location="../../src/dao"/>
     <property name="module.src.dir" value="src"/>
     <property name="module.test.dir" value="test"/>
@@ -36,6 +28,11 @@
     <target name="init">
         <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="${ant-contrib.jar}"/>
         <taskdef name="stringutil" classname="ise.antelope.tasks.StringUtilTask">
+            <classpath>
+                <fileset dir="${ant-contrib.dir}" includes="*.jar"/>
+            </classpath>
+        </taskdef>
+        <taskdef name="if-ext" classname="ise.antelope.tasks.IfTask">
             <classpath>
                 <fileset dir="${ant-contrib.dir}" includes="*.jar"/>
             </classpath>
@@ -57,16 +54,37 @@
         <fail unless="object.name">
             You must specify a name for your ${appgen.type}.
         </fail>
+        
+        <input message="What is the name, if any, of the module for your ${appgen.type} (i.e. organization)?" addproperty="app.module"/>
+
+        <condition property="app.module.dash" value="-${app.module}">
+            <not><equals arg1="${app.module}" arg2="" trim="true"/></not>
+        </condition>
+        <condition property="app.module.slash.before" value="/${app.module}">
+            <not><equals arg1="${app.module}" arg2="" trim="true"/></not>
+        </condition>
+        <condition property="app.module.slash.after" value="${app.module}/">
+            <not><equals arg1="${app.module}" arg2="" trim="true"/></not>
+        </condition>
+        
+        <property name="app.module.dash" value=""/>
+        <property name="app.module.slash.before" value=""/>
+        <property name="app.module.slash.after" value=""/>        
+        <property name="new.pkg.name" value="org.appfuse"/>
+        <property name="app.package.base" value="org/appfuse"/>
+        <property name="app.package" value="${app.package.base}${app.module.slash.before}"/>
+
         <if>
             <equals arg1="${appgen.type}" arg2="table"/>
             <then>
                 <echo>Running Middlegen to generate POJO...</echo>
                 <ant dir="../middlegen" inheritAll="true">
                     <property name="table.name" value="${object.name}"/>
+                    <property name="class.module" value="${app.module}"/>
                 </ant>
             </then>
-        </if>
-
+        </if>   
+            
         <stringutil string="${object.name}" property="remainder">
             <substring beginindex="1"/>
         </stringutil>
@@ -79,6 +97,10 @@
         <stringutil string="${char1}" property="lowerChar1">
             <lowercase/>
         </stringutil>
+        
+        <!-- Check for _ in table name -->
+        <removeUnderscores string="${object.name}"/>     
+        
         <property name="model.name" value="${upperChar1}${remainder}"/>
         <property name="model.name.lowercase" value="${lowerChar1}${remainder}"/>
 
@@ -86,6 +108,63 @@
         <echo>model.name.lowercase=${model.name.lowercase}</echo>-->
     </target>
         
+    <macrodef name="removeUnderscores">
+        <attribute name="string"/>
+        
+        <sequential>
+            <stringutil string="@{string}" property="underscore">
+                <indexof string="_"/>
+            </stringutil>
+            <if-ext>
+                <bool><isgreaterthan arg1="${underscore}" arg2="-1"/></bool>
+
+                <stringutil string="@{string}" property="remainder">
+                    <substring beginindex="${underscore}"/>
+                </stringutil>
+                <stringutil string="${remainder}" property="remainder">
+                    <substring beginindex="1"/>
+                </stringutil>
+                <stringutil string="${remainder}" property="char1">
+                    <substring endindex="1"/>
+                </stringutil>
+                <stringutil string="${char1}" property="upperChar1">
+                    <uppercase/>
+                </stringutil>
+                <stringutil string="${remainder}" property="remainder">
+                    <substring beginindex="1"/>
+                </stringutil>
+                <stringutil string="@{string}" property="beginning">
+                    <substring endindex="${underscore}"/>
+                </stringutil>
+                <stringutil string="${beginning}" property="firstChar">
+                    <substring endindex="1"/>
+                    <uppercase/>
+                </stringutil>
+                <stringutil string="${beginning}" property="beginning">
+                    <substring beginindex="1"/>
+                </stringutil>
+                
+                <removeUnderscores string="${firstChar}${beginning}${upperChar1}${remainder}"/>                
+                <property name="model.name" value="${firstChar}${beginning}${upperChar1}${remainder}"/>
+                
+                <stringutil string="${model.name}" property="remainder">
+                    <substring beginindex="1"/>
+                </stringutil>
+                <stringutil string="${model.name}" property="char1">
+                    <substring endindex="1"/>
+                </stringutil>
+                <stringutil string="${char1}" property="upperChar1">
+                    <uppercase/>
+                </stringutil>
+                <stringutil string="${char1}" property="lowerChar1">
+                    <lowercase/>
+                </stringutil>
+                
+                <property name="model.name.lowercase" value="${lowerChar1}${remainder}"/>                
+            </if-ext>
+        </sequential>
+    </macrodef>
+    
     <!-- For some reason, XDoclet is only happy if the tag handler
          is recompiled, hence the clean dependency *shrug* -->
     <target name="default" depends="clean,gen"/>
@@ -110,11 +189,15 @@
             </classpath>
         </taskdef>
         <property name="template.dir" value="src"/>
-        
+
         <xdoclet destdir="${build.dir}"
                  excludedtags="@version,@author"
                  force="${xdoclet.force}">
             <fileset dir="${model.src.dir}" includes="**/${model.name}.java"/>
+
+            <configParam name="basePackageName" value="${new.pkg.name}"/>
+            <configParam name="appModuleNameSlash" value="${app.module.slash.after}"/>
+
             <!-- NOTE: You must have {0} in the destinationFile for the class
                        to be available to templates -->   
             
@@ -237,9 +320,9 @@
 
         <!-- Make first character of JSP filenames lowercase -->
         <move file="${build.dir}/${gen.dir}/web/pages/${model.name}ListTemp.jsp"
-            tofile="${build.dir}/${gen.dir}/web/pages/${model.name.lowercase}List.jsp"/>
+            tofile="${build.dir}/${gen.dir}/web/pages/${app.module.slash.after}${model.name.lowercase}List.jsp"/>
         <move file="${build.dir}/${gen.dir}/web/pages/${model.name}FormTemp.jsp"
-            tofile="${build.dir}/${gen.dir}/web/pages/${model.name.lowercase}Form.jsp"/>
+            tofile="${build.dir}/${gen.dir}/web/pages/${app.module.slash.after}${model.name.lowercase}Form.jsp"/>
     </target>
    
     <property name="generated.dir" value="${build.dir}/${gen.dir}"/>
@@ -288,7 +371,7 @@
         <!-- load snippet -->
         <loadfile property="constants" srcfile="${generated.dir}/${module.src.dir}/dao/${app.package}/Constants-${model.name}.java"/>
         <!-- load constants class -->
-        <property name="constantsClass" location="../../${module.src.dir}/dao/${app.package}/Constants.java"/>
+        <property name="constantsClass" location="../../${module.src.dir}/dao/${app.package.base}/Constants.java"/>
         <!-- remove previous constants -->
         <replace file="${constantsClass}" token="//${model.name}-START" value="REGULAR-START"/>
         <replace file="${constantsClass}" token="//${model.name}-END" value="REGULAR-END"/>
@@ -300,8 +383,8 @@
         <echo>Adding keys to ApplicationResources.properties</echo>
         <!-- load snippet -->
         <loadfile property="i18n.keys" srcfile="${generated.dir}/web/WEB-INF/classes/${model.name}.properties"/>
-        <!-- load properties file -->  <!-- using *_en version to avoid overwriting existing properties -->
-        <property name="i18nFile" location="../../web/WEB-INF/classes/ApplicationResources_en.properties"/>
+        <!-- load properties file -->
+        <property name="i18nFile" location="../../web/WEB-INF/classes/ApplicationResources.properties"/>
         <replace file="${i18nFile}" token="# -- ${model.name}-START" value="REGULAR-START"/>
         <replace file="${i18nFile}" token="# -- ${model.name}-END" value="REGULAR-END"/>
         <!-- Add to the bottom of the properties file -->
@@ -311,7 +394,7 @@
         <!-- copy jsp files -->
         <echo>Copying all web files into main project, overwrite="${overwrite}"</echo>
         <copy todir="../../web/pages">
-            <fileset dir="${generated.dir}/web/pages" includes="${model.name.lowercase}*.jsp"/>
+            <fileset dir="${generated.dir}/web/pages" includes="**/${model.name.lowercase}*.jsp"/>
         </copy>
     </target>
             
@@ -323,7 +406,7 @@
                 <!-- load snippet -->
                 <loadfile property="service.context" srcfile="${generated.dir}${gen.sub.dir}/${module.src.dir}/service/${app.package}/service/context-service-${model.name}.xml"/>
                 <!-- load config -->
-                <property name="serviceConfig" location="../../${module.src.dir}/service/${app.package}/service/applicationContext${app.module.dash}-service.xml"/>
+                <property name="serviceConfig" location="../../${module.src.dir}/service/${app.package.base}/service/applicationContext-service.xml"/>
                 <!-- remove previous definition -->
                 <replace file="${serviceConfig}" token="&lt;!--${model.name}-START--&gt;" value="REGULAR-START"/>
                 <replace file="${serviceConfig}" token="&lt;!--${model.name}-END--&gt;" value="REGULAR-END"/>
@@ -343,9 +426,7 @@
         <replace file="${sampleData}" token="&lt;!--${model.name}-END--&gt;" value="REGULAR-END"/>
         <replaceregexp file="${sampleData}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
         <!-- Add to the bottom of the list of tables -->
-        <replace file="${sampleData}" value="${sample.data}">
-            <replacetoken><![CDATA[</dataset>]]></replacetoken>
-        </replace>
+        <replace file="${sampleData}" value="${sample.data}" token="&lt;/dataset&gt;"/>
 
         <echo>Merging web-tests into test/web/web-tests.xml</echo>   
         <loadfile property="web.tests" srcfile="${generated.dir}/${module.test.dir}/web/web-tests-${model.name}.xml"/>
@@ -378,7 +459,7 @@
         <replace file="${menuFile}" token="&lt;!--${model.name}-END--&gt;" value="REGULAR-END"/>
         <replaceregexp file="${menuFile}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
         <!-- Add to the bottom of the list of menus -->   
-        <replace file="${menuFile}" value="${menu.jsp}" token="&lt;/menu:useMenuDisplayer&gt;"/>
+        <replace file="${menuFile}" value="${menu.jsp}" token="&lt;/ul&gt;"/>
     </target>
             
     <target name="merge-hibernate" if="hibernate.jar" unless="install.generic">
@@ -393,7 +474,7 @@
         <!-- load snippet -->
         <loadfile property="hibernate.context" srcfile="${generated.dir}${gen.sub.dir}/${module.src.dir}/dao/${app.package}/dao/hibernate/context-hibernate-${model.name}.xml"/>
         <!-- load config -->
-        <property name="hibernateConfig" location="../../${module.src.dir}/dao/${app.package}/dao/hibernate/applicationContext${app.module.dash}-hibernate.xml"/>
+        <property name="hibernateConfig" location="../../${module.src.dir}/dao/${app.package.base}/dao/hibernate/applicationContext-hibernate.xml"/>
         <!-- remove previous definition -->
         <replace file="${hibernateConfig}" token="&lt;!--${model.name}-START--&gt;" value="REGULAR-START"/>
         <replace file="${hibernateConfig}" token="&lt;!--${model.name}-END--&gt;" value="REGULAR-END"/>
@@ -407,7 +488,7 @@
         <!-- load snippet -->
         <loadfile property="sqlmap" srcfile="${generated.dir}/${module.src.dir}/dao/${app.package}/dao/ibatis/sql-map-config-${model.name}.xml"/>
         <!-- load config -->
-        <property name="sqlmapConfig" location="../../${module.src.dir}/dao/${app.package}/dao/ibatis/sql-map-config.xml"/>
+        <property name="sqlmapConfig" location="../../${module.src.dir}/dao/${app.package.base}/dao/ibatis/sql-map-config.xml"/>
         <!-- remove previous definition -->
         <replace file="${sqlmapConfig}" token="&lt;!--${model.name}-START--&gt;" value="REGULAR-START"/>
         <replace file="${sqlmapConfig}" token="&lt;!--${model.name}-END--&gt;" value="REGULAR-END"/>
@@ -429,7 +510,7 @@
         <!-- load snippet -->
         <loadfile property="ibatis.context" srcfile="${generated.dir}${gen.sub.dir}/${module.src.dir}/dao/${app.package}/dao/ibatis/context-ibatis-${model.name}.xml"/>
         <!-- load config -->
-        <property name="ibatisConfig" location="../../${module.src.dir}/dao/${app.package}/dao/ibatis/applicationContext${app.module.dash}-ibatis.xml"/>
+        <property name="ibatisConfig" location="../../${module.src.dir}/dao/${app.package.base}/dao/ibatis/applicationContext-ibatis.xml"/>
         <!-- remove previous definition -->
         <replace file="${ibatisConfig}" token="&lt;!--${model.name}-START--&gt;" value="REGULAR-START"/>
         <replace file="${ibatisConfig}" token="&lt;!--${model.name}-END--&gt;" value="REGULAR-END"/>
@@ -470,16 +551,21 @@
     </target>
 
     <property name="web.framework" value=""/>
+    <property name="db.name" value="appfuse"/>
+    <property name="new.pkg.name" value="org.appfuse"/>
     <!-- =================================================================== -->
     <!-- Creates new project, copies Person.java to model directory,         -->
     <!-- generates generic persistence code and runs tests.                  -->
     <!-- =================================================================== -->
     <target name="test-detailed" description="Creates new project and generates detailed code">
         <property name="app.name" value="appfuse-appgen2"/>
-        <property name="db.name" value="appfuse"/>
-        <property name="new.pkg.name" value="org.appfuse"/>
         <delete dir="../../../${app.name}"/>
-        <ant dir="../.." target="new"/>
+        <ant dir="../.." target="new" inheritAll="false">
+            <property name="app.name" value="${app.name}"/>
+            <property name="db.name" value="${db.name}"/>
+            <property name="new.pkg.name" value="${new.pkg.name}"/>
+            <property name="web.framework" value="${web.framework}"/>
+        </ant>
  
         <!-- Copy test model object into new project -->   
         <copy todir="../../../${app.name}/src">
@@ -497,7 +583,8 @@
         <ant dir="../../../${app.name}/extras/appgen" target="install-detailed" inheritAll="false">
             <property name="web.framework" value=""/>
             <property name="appgen.type" value="pojo"/>
-            <property name="object.name" value="Person"/>   
+            <property name="object.name" value="Person"/>
+            <property name="app.module" value=""/>   
         </ant>   
         <ant dir="../../../${app.name}" target="setup-db" inheritAll="false"/>   
         <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
@@ -509,10 +596,13 @@
     <!-- =================================================================== -->
     <target name="test" description="Creates new project and generates generic persistence code">
         <property name="app.name" value="appfuse-appgen"/>
-        <property name="db.name" value="appfuse"/>
-        <property name="new.pkg.name" value="org.appfuse"/>
         <delete dir="../../../${app.name}"/>
-        <ant dir="../.." target="new"/>
+        <ant dir="../.." target="new" inheritAll="false">
+            <property name="app.name" value="${app.name}"/>
+            <property name="db.name" value="${db.name}"/>
+            <property name="new.pkg.name" value="${new.pkg.name}"/>
+            <property name="web.framework" value="${web.framework}"/>
+        </ant>
 
         <!-- Copy test model object into new project -->   
         <copy todir="../../../${app.name}/src">
@@ -530,7 +620,8 @@
         <ant dir="../../../${app.name}/extras/appgen" target="install" inheritAll="false">
             <property name="web.framework" value=""/>
             <property name="appgen.type" value="pojo"/>
-            <property name="object.name" value="Person"/>   
+            <property name="object.name" value="Person"/> 
+            <property name="app.module" value=""/>               
         </ant>   
         <ant dir="../../../${app.name}" target="setup-db" inheritAll="false"/>   
         <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
@@ -543,10 +634,13 @@
     <target name="test-2wordpojo" 
         description="Creates new project and generates detailed persistence code">
         <property name="app.name" value="appfuse-appgenx"/>
-        <property name="db.name" value="appfuse"/>
-        <property name="new.pkg.name" value="org.appfuse"/>
         <delete dir="../../../${app.name}"/>
-        <ant dir="../.." target="new"/>
+        <ant dir="../.." target="new" inheritAll="false">
+            <property name="app.name" value="${app.name}"/>
+            <property name="db.name" value="${db.name}"/>
+            <property name="new.pkg.name" value="${new.pkg.name}"/>
+            <property name="web.framework" value="${web.framework}"/>
+        </ant>
 
         <!-- Copy test model object into new project -->   
         <copy todir="../../../${app.name}/src">
@@ -563,8 +657,47 @@
         <!-- New project created, gen code and run tests -->
         <ant dir="../../../${app.name}/extras/appgen" target="install-detailed" inheritAll="false">
             <property name="web.framework" value=""/>
-            <property name="model.name" value="PersonPlus"/>
-            <property name="model.name.lowercase" value="personPlus"/>   
+            <property name="appgen.type" value="pojo"/>
+            <property name="object.name" value="PersonPlus"/>   
+            <property name="app.module" value=""/>   
+        </ant>   
+        <ant dir="../../../${app.name}" target="setup-db" inheritAll="false"/>   
+        <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
+    </target>     
+ 
+     <!-- =================================================================== -->
+    <!-- Creates new project, copies Department.java to model directory,     -->
+    <!-- generates generic persistence code and runs tests. The key element  -->
+    <!-- being tested here is the app.module functionality                   -->
+    <!-- =================================================================== -->
+    <target name="test-appmodule" 
+        description="Creates new project and generates detailed persistence code testing the app.module functionality">
+        <property name="app.name" value="appfuse-appmodule"/>
+        <delete dir="../../../${app.name}"/>
+        <ant dir="../.." target="new" inheritAll="false">
+            <property name="app.name" value="${app.name}"/>
+            <property name="db.name" value="${db.name}"/>
+            <property name="new.pkg.name" value="${new.pkg.name}"/>
+            <property name="web.framework" value="${web.framework}"/>
+        </ant>
+
+        <!-- Copy test model object into new project -->   
+        <copy todir="../../../${app.name}/src">
+            <fileset dir="test" includes="**/Department.java"/>
+        </copy>   
+        <!-- Add the mapping file for Department to applicationContext-hibernate.xml -->
+        <replace dir="../../../${app.name}/src">
+            <include name="**/applicationContext-hibernate.xml"/>
+            <replacetoken><![CDATA[<value>org/appfuse/model/Role.hbm.xml</value>]]></replacetoken>
+            <replacevalue><![CDATA[<value>org/appfuse/organization/model/Department.hbm.xml</value>
+                <value>org/appfuse/model/Role.hbm.xml</value>]]></replacevalue>
+        </replace>
+
+        <!-- New project created, gen code and run tests -->
+        <ant dir="../../../${app.name}/extras/appgen" target="install-detailed" inheritAll="false">
+            <property name="appgen.type" value="pojo"/>
+            <property name="object.name" value="Department"/>   
+            <property name="app.module" value="organization"/>
         </ant>   
         <ant dir="../../../${app.name}" target="setup-db" inheritAll="false"/>   
         <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
@@ -573,6 +706,7 @@
     <target name="test-all" depends="test"
         description="Tests generic and detailed code generation methods">  
         <antcall target="test-detailed" inheritAll="false"/>
+        <antcall target="test-appmodule" inheritAll="false"/>
     </target>
 </project>
 

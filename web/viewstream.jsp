@@ -6,8 +6,8 @@
 <%
 if (request.getParameter("sid") == null)
 {
-	response.sendRedirect("clickstreams.jsp");
-	return;
+    response.sendRedirect("clickstreams.jsp");
+    return;
 }
 
 Map clickstreams = (Map)application.getAttribute("clickstreams");
@@ -16,18 +16,19 @@ Clickstream stream = null;
 
 if (clickstreams.get(request.getParameter("sid")) != null)
 {
-	stream = (Clickstream)clickstreams.get(request.getParameter("sid"));
+    stream = (Clickstream)clickstreams.get(request.getParameter("sid"));
 }
 
 if (stream == null)
 {
-	response.sendRedirect("clickstreams.jsp");
-	return;
+    response.sendRedirect("clickstreams.jsp");
+    return;
 }
 %>
 
 <title><fmt:message key="viewstream.title"/></title>
 <content tag="heading"><fmt:message key="viewstream.heading"/></content>
+<meta name="menu" content="AdminMenu"/>
 
 <div style="float: right"><a href="clickstreams.jsp">All streams</a></div>
 
@@ -42,12 +43,12 @@ if (stream == null)
 
 <% long streamLength = stream.getLastRequest().getTime() - stream.getStart().getTime(); %>
 <b>Session Length</b>:
-	<%= (streamLength > 3600000 ?
-		" " + (streamLength / 3600000) + " hours" : "") +
-	(streamLength > 60000 ?
-		" " + ((streamLength / 60000) % 60) + " minutes" : "") +
-	(streamLength > 1000 ?
-		" " + ((streamLength / 1000) % 60) + " seconds" : "") %><br>
+    <%= (streamLength > 3600000 ?
+        " " + (streamLength / 3600000) + " hours" : "") +
+    (streamLength > 60000 ?
+        " " + ((streamLength / 60000) % 60) + " minutes" : "") +
+    (streamLength > 1000 ?
+        " " + ((streamLength / 1000) % 60) + " seconds" : "") %><br>
 
 <b># of Requests</b>: <%= stream.getStream().size() %>
 
@@ -60,8 +61,8 @@ Iterator clickstreamIt = stream.getStream().iterator();
 int count = 0;
 while (clickstreamIt.hasNext())
 {
-	count++;
-	String click = ((ClickstreamRequest)clickstreamIt.next()).toString();
+    count++;
+    String click = ((ClickstreamRequest)clickstreamIt.next()).toString();
 %>
 <tr><td><%= count %>:</td><td><a href="http://<%= click %>"><%= click %></a></td></tr>
 <%

@@ -23,6 +23,7 @@ public class FormTagsHandler extends AbstractProgramElementTagsHandler {
     private String curType;
     private boolean curFieldIsIdorVersion = false;
     private boolean curFieldIsBoolean = false;
+    private boolean curFieldIsDate = false;
     private boolean lastField = false;
     
     static {
@@ -76,7 +77,7 @@ public class FormTagsHandler extends AbstractProgramElementTagsHandler {
             
             XMethod getter = field.getAccessor();
             setCurrentMethod(getter);
-       	    curFieldIsIdorVersion = false;
+            curFieldIsIdorVersion = false;
             Properties prop = new Properties();
             prop.setProperty("tagName", "hibernate.id");
 
@@ -101,6 +102,7 @@ public class FormTagsHandler extends AbstractProgramElementTagsHandler {
 
             String typename = field.getPropertyType().getType().getQualifiedName();
             curFieldIsBoolean = typename.equals("boolean") || typename.equals("java.lang.Boolean");
+            curFieldIsDate = typename.equals("java.util.Date") || typename.equals("java.sql.Timestamp");
 
             curType = typename;
             setCurrentMethod(field);
@@ -142,6 +144,33 @@ public class FormTagsHandler extends AbstractProgramElementTagsHandler {
         if (!curFieldIsBoolean)
             generate(template);
     }
+
+    /**
+     * This method is used so Date fields can be detected when building view templates.
+     *
+     * @param template
+     * @param attributes
+     * @throws XDocletException
+     */
+    public void ifIsDateField(String template, Properties attributes) throws XDocletException {
+        if (curFieldIsDate)
+            generate(template);
+    }
+
+  /**
+   * Method ifIsDateField
+   *
+   * @param template
+   * @param attributes
+   *
+   * @throws XDocletException
+   *
+   */
+    public void ifIsNotDateField(String template, Properties attributes) throws XDocletException {
+        if (!curFieldIsDate)
+            generate(template);
+    }
+
 
     /**
      * This method is used to determine id fields - this is used in the view

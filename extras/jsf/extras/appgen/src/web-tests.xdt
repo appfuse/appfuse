@@ -14,7 +14,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="View <XDtForm:className/> List" url="/<XDtForm:classNameLower/>s.html"/>
+                <invoke description="View <XDtForm:className/> List" url="/<XDtConfig:configParameterValue paramName="appModuleNameSlash"/><XDtForm:classNameLower/>s.html"/>
                 <clicklink description="edit first record in list" label="1"/>
                 <verifytitle description="we should see the <XDtForm:classNameLower/>Detail title"
                     text=".*${<XDtForm:classNameLower/>Detail.title}.*" regex="true"/>
@@ -29,7 +29,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="View <XDtForm:className/> List" url="/<XDtForm:classNameLower/>s.html"/>
+                <invoke description="View <XDtForm:className/> List" url="/<XDtConfig:configParameterValue paramName="appModuleNameSlash"/><XDtForm:classNameLower/>s.html"/>
                 <clicklink description="edit first record in list" label="1"/>
                 <verifytitle description="we should see the <XDtForm:classNameLower/>Detail title"
                     text=".*${<XDtForm:classNameLower/>Detail.title}.*" regex="true"/>
@@ -57,7 +57,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="View <XDtForm:className/> List" url="/<XDtForm:classNameLower/>s.html"/>
+                <invoke description="View <XDtForm:className/> List" url="/<XDtConfig:configParameterValue paramName="appModuleNameSlash"/><XDtForm:classNameLower/>s.html"/>
                 <clickbutton description="Click 'Add' button'" label="${button.add}"/>
                 <verifytitle description="we should see the <XDtForm:classNameLower/>Detail title"
                     text=".*${<XDtForm:classNameLower/>Detail.title}.*" regex="true"/>
@@ -84,7 +84,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="View <XDtForm:className/> List" url="/<XDtForm:classNameLower/>s.html"/>
+                <invoke description="View <XDtForm:className/> List" url="/<XDtConfig:configParameterValue paramName="appModuleNameSlash"/><XDtForm:classNameLower/>s.html"/>
                 <clicklink description="delete first record in list" label="1"/>
                 <prepareDialogResponse description="Confirm delete" dialogType="confirm" response="true"/>
                 <clickbutton label="${button.delete}" description="Click button 'Delete'"/>
@@ -102,7 +102,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="click View <XDtForm:className/>s link" url="/<XDtForm:classNameLower/>s.html"/>
+                <invoke description="click View <XDtForm:className/>s link" url="/<XDtConfig:configParameterValue paramName="appModuleNameSlash"/><XDtForm:classNameLower/>s.html"/>
                 <verifytitle description="we should see the <XDtForm:classNameLower/>List title"
                     text=".*${<XDtForm:classNameLower/>List.title}.*" regex="true"/>
             </steps>

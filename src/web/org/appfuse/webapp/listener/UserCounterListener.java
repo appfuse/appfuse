@@ -11,6 +11,10 @@ import javax.servlet.http.HttpSessionBindingEvent;
 
 import org.acegisecurity.context.HttpSessionContextIntegrationFilter;
 import org.acegisecurity.context.SecurityContext;
+import org.acegisecurity.context.SecurityContextHolder;
+import org.acegisecurity.Authentication;
+import org.acegisecurity.AuthenticationTrustResolver;
+import org.acegisecurity.AuthenticationTrustResolverImpl;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.model.User;
@@ -23,11 +27,8 @@ import org.appfuse.model.User;
  * these users and exposes them in the servlet context.
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- *
- * @web.listener
  */
-public class UserCounterListener implements ServletContextListener,
-                                            HttpSessionAttributeListener {
+public class UserCounterListener implements ServletContextListener, HttpSessionAttributeListener {
     public static final String COUNT_KEY = "userCounter";
     public static final String USERS_KEY = "userNames";
     public static final String EVENT_KEY = HttpSessionContextIntegrationFilter.ACEGI_SECURITY_CONTEXT_KEY;
@@ -104,34 +105,55 @@ public class UserCounterListener implements ServletContextListener,
     }
 
     /**
-    * This method is designed to catch when user's login and record their name
+     * This method is designed to catch when user's login and record their name
      * @see javax.servlet.http.HttpSessionAttributeListener#attributeAdded(javax.servlet.http.HttpSessionBindingEvent)
      */
     public void attributeAdded(HttpSessionBindingEvent event) {
         log.debug("event.name: " + event.getName());
-        if (event.getName().equals(EVENT_KEY)) {
+        if (event.getName().equals(EVENT_KEY) && !isAnonymous()) {
             SecurityContext securityContext = (SecurityContext) event.getValue();
             User user = (User) securityContext.getAuthentication().getPrincipal();
             addUsername(user);
         }
     }
 
+    private boolean isAnonymous() {
+        AuthenticationTrustResolver resolver = new AuthenticationTrustResolverImpl();
+        SecurityContext ctx = SecurityContextHolder.getContext();
+        if (ctx != null) {
+            Authentication auth = ctx.getAuthentication();
+            return resolver.isAnonymous(auth);
+        }
+        return true;
+    }
+
     /**
-    * When user's logout, remove their name from the hashMap
+     * When user's logout, remove their name from the hashMap
      * @see javax.servlet.http.HttpSessionAttributeListener#attributeRemoved(javax.servlet.http.HttpSessionBindingEvent)
      */
     public void attributeRemoved(HttpSessionBindingEvent event) {
-        if (event.getName().equals(EVENT_KEY)) {
+        if (event.getName().equals(EVENT_KEY) && !isAnonymous()) {
             SecurityContext securityContext = (SecurityContext) event.getValue();
-            User user = (User) securityContext.getAuthentication().getPrincipal();
-            removeUsername(user);
+            Authentication auth = securityContext.getAuthentication();
+            if (auth != null && (auth.getPrincipal() instanceof User)) {
+                User user = (User) auth.getPrincipal();
+                removeUsername(user);
+            }
         }
     }
 
     /**
+     * Needed for Acegi Security 1.0, as it adds an anonymous user to the session and
+     * then replaces it after authentication. http://forum.springframework.org/showthread.php?p=63593
      * @see javax.servlet.http.HttpSessionAttributeListener#attributeReplaced(javax.servlet.http.HttpSessionBindingEvent)
      */
     public void attributeReplaced(HttpSessionBindingEvent event) {
-        // I don't really care if the user changes their information
+        if (event.getName().equals(EVENT_KEY) && !isAnonymous()) {
+            SecurityContext securityContext = (SecurityContext) event.getValue();
+            if (securityContext.getAuthentication() != null) {
+                User user = (User) securityContext.getAuthentication().getPrincipal();
+                addUsername(user);
+            }
+        }
     }
 }

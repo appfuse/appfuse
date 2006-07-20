@@ -20,13 +20,15 @@
       many lines of code.  In short, for J2EE - it's the best thing since sliced bread.
       <br /><br />
       Special thanks to all the <a href="https://appfuse.dev.java.net/sponsors.html">sponsors</a> of this project.
-    <a href="news"></a>
+    <a name="news"></a>
     <h3>Latest News</h3>
     <blockquote>
         If you know nothing about AppFuse, the best thing
         to do is read the article: <a href="http://today.java.net/pub/a/today/2004/07/15/thefuse.html">AppFuse: Start Your J2EE Web Apps</a> or watch
         <a href="http://demo.appfuse.org/setup.html">this video</a>.
         <ul>
+            <li><strong style="color: blue;">July 11, 2006:</strong> <a href="https://appfuse.dev.java.net/servlets/NewsItemView?newsItemID=3927">AppFuse 1.9.3 Released</a>. Bug fixes and upgrades to several dependencies.</li>
+            <li><strong style="color: blue;">June 6, 2006:</strong> <a href="https://appfuse.dev.java.net/servlets/NewsItemView?newsItemID=3826">AppFuse 1.9.2 Released</a>. CSS Framework integration, EMMA code-coverage support and AppGen sub-package support.</li>
             <li><strong style="color: blue">April 7, 2006:</strong>
                 <a href="https://appfuse.dev.java.net/servlets/NewsItemView?newsItemID=3526">AppFuse 1.9.1 Released</a>. This release includes XFire 1.0, Tapestry 4.0.1 and WebWork 2.2.2, as well as support for using AppGen to reverse engineer database tables (using Middlegen). iBATIS is now supported by AppGen and a <a href="http://raibledesigns.com/wiki/CreateDAOiBATIS.html">Create iBATIS DAO Tutorial</a> has been put together.</li>
             <li><strong style="color: blue">January 14, 2006:</strong>
@@ -44,20 +46,18 @@
                 <a href="http://issues.appfuse.org">JIRA Issue Tracker</a>. Thanks to <a href="http://atlassian.com">Atlassian</a> for the
                 free JIRA license and to <a href="http://contegix.com">Contegix</a> for hosting it.  Also thanks to <a href="http://kgbinternet.com">
                 KGB Internet Solutions</a> for sponsoring the hosting of the <a href="http://demo.appfuse.org/demos.html">AppFuse Demos</a>.</li>
-            <li><strong style="color: blue;">April 29, 2005:</strong> <a href="http://raibledesigns.com/page/rd?anchor=ann_appfuse_1_8_released">
-                AppFuse 1.8 Released</a>.  Acegi Security integration + many improvements to build.xml and AppGen.</li>
         </ul>
         <strong>Developer Weblogs:</strong> Matt Raible (<a href="http://raibledesigns.com">Raible Designs</a> and <a href="http://jroller.com/page/raible">Spring Live</a>), 
                 <a href="http://jroller.com/page/ddcarter">Dave Carter</a>, <a href="http://jroller.com/page/sjivan">Sanjiv Jivan</a> and <a href="http://www.thogau.net/blog">Thomas Gaudin</a>.
     </blockquote>
 
     <a name="info"></a>
-    <h3>Project Information</h3>
+    <h3 id="info">Project Information</h3>
     <blockquote>
       <!-- project info start -->
       <ul>
         <li><b>Project Name:</b> AppFuse</li>
-        <li><b>Latest Release:</b> 1.9.1</li>
+        <li><b>Latest Release:</b> 1.9.3</li>
         <!-- Status of best release: Planning, Pre-Alpha, Alpha, Beta, Production -->
         <li><b>Latest Release Status:</b> Production</li>
         <!-- Project Type: Web Service, Tool, Component, or add your own -->
@@ -137,33 +137,33 @@
     To build AppFuse, follow these steps:
     <ol>
       <li>
-        Download and install <code>ant</code> 1.6.2 or greater from
-        <a href="http://ant.apache.org" target="_blank">
-        http://ant.apache.org/</a>, or use the command <code>asant</code>
+        Download and install <code>ant</code> 1.6.5 from
+        <a href="http://ant.apache.org/bindownload.cgi" target="_blank">
+        http://ant.apache.org</a>, or use the command <code>asant</code>
         provided with the J2EE 1.4 SDK.
       </li>
       <li>
         Download and install MySQL 3.23.53 or greater from
-        <a href="http://www.mysql.com/downloads/mysql-4.0.html" target="_blank">
-        http://www.mysql.com/downloads/mysql-4.0.html</a>.  By default, AppFuse
+        <a href="http://dev.mysql.com/downloads/mysql/5.0.html" target="_blank">
+        http://dev.mysql.com/downloads</a>.  By default, AppFuse
         expects a "root" user with no password (mysql defaults to this).
       </li>
       <li>
-        Download and install Tomcat 4.1.x or greater from
-        <a href="http://jakarta.apache.org/site/binindex.cgi" target="_blank">
-        http://jakarta.apache.org/site/binindex.cgi</a>.  As part of the
+        Download and install Tomcat 5.0.x+ from
+        <a href="http://tomcat.apache.org/download-55.cgi" target="_blank">
+        http://tomcat.apache.org</a>.  As part of the
         installation, make sure an admin/admin user exists with a "manager"
         role in $CATALINA_HOME/conf/tomcat-users.xml.
       </li>
       <li>
-        Check out the <code>appfuse</code> source code from java.net.  You
-        can find instructions for doing so here:
+        Check out or <a href="https://appfuse.dev.java.net/servlets/ProjectDocumentList">download</a> the source code from java.net.  You
+        can find CVS instructions at:
         <a href="http://appfuse.dev.java.net/source/browse/appfuse/">
         http://appfuse.dev.java.net/source/browse/appfuse/</a>
       </li>
       <li>
         Run '<code>ant setup</code>'.  An <code>appfuse</code> database will be
-        created in MySQL and a WAR will be expananded into $CATALINA_HOME/webapps.
+        created in MySQL and a WAR will be expanded into $CATALINA_HOME/webapps.
       </li>
       <li>Login to the application at http://localhost:8080/appfuse.</li>
     </ol>
@@ -178,21 +178,21 @@
         <h4>Creating Objects and DAOs</h4>
         A HowTo for creating Java Objects (that represent tables) and creating
         Java classes to persist those objects in the database.
-        <a href="http://raibledesigns.com/wiki/Wiki.jsp?page=CreateDAO">View Tutorial &#187</a>
+        <a href="http://raibledesigns.com/wiki/CreateDAO.html">View Tutorial &#187</a>
 
         <h4>Creating Managers</h4>
         A HowTo for creating Business Delegates that talk to the database tier (DAOs) and
         the web tier (Struts Actions).
-        <a href="http://raibledesigns.com/wiki/Wiki.jsp?page=CreateManager">View Tutorial &#187</a>
+        <a href="http://raibledesigns.com/wiki/CreateManager.html">View Tutorial &#187</a>
 
         <h4>Creating Actions and JSPs</h4>
         A HowTo for creating Actions and JSPs in the AppFuse architecture.
-        <a href="http://raibledesigns.com/wiki/Wiki.jsp?page=CreateActions">View Tutorial &#187</a>
+        <a href="http://raibledesigns.com/wiki/CreateActions.html">View Tutorial &#187</a>
 
         <h4>Adding Validation and List Screen</h4>
         Adding validation logic to the personForm so that firstName and lastName are required fields
         and adding a list screen to display all person records in the database.
-        <a href="http://raibledesigns.com/wiki/Wiki.jsp?page=ValidationAndList">View Tutorial &#187</a>
+        <a href="http://raibledesigns.com/wiki/ValidationAndList.html">View Tutorial &#187</a>
 
     </blockquote>
 
@@ -203,7 +203,7 @@
       support by subscribing to the various
       <a href="servlets/ProjectMailingListList">mailing lists</a> offered
       in this java.net project.  You can also checkout the
-      <a href="http://raibledesigns.com/wiki/Wiki.jsp?page=AppFuseSupport">
+      <a href="http://raibledesigns.com/wiki/AppFuseSupport.html">
       AppFuse FAQ</a>.
     </blockquote>
 
@@ -221,6 +221,20 @@
     <h3>Revision History</h3>
     <blockquote>
       <ul>
+        <li>Version 1.9.3 - [July 11, 2006]
+          <ul>
+            <li>Bug fixes and dependency upgrades.</li>
+            <li><a href="https://appfuse.dev.java.net/servlets/NewsItemView?newsItemID=3927">Read Announcement</a></li>
+            <li><a href="https://appfuse.dev.java.net/servlets/ProjectDocumentView?documentID=37281">Release Notes</a></li>
+          </ul>
+        </li>
+        <li>Version 1.9.2 - [June 6, 2006]
+          <ul>
+            <li>CSS Framework, EMMA and AppGen sub-packages.</li>
+            <li><a href="https://appfuse.dev.java.net/servlets/NewsItemView?newsItemID=3826">Read Announcement</a></li>
+            <li><a href="https://appfuse.dev.java.net/servlets/ProjectDocumentView?documentID=35762">Release Notes</a></li>
+          </ul>
+        </li>
         <li>Version 1.9.1 - [April 7, 2006]
           <ul>
             <li>Tapestry 4, XFire 1, WebWork 2.2 and iBATIS AppGen support.</li>

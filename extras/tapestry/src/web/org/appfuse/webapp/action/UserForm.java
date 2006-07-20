@@ -93,9 +93,7 @@ public abstract class UserForm extends BasePage implements PageBeginRenderListen
     }
 
     public ILink cancel(IRequestCycle cycle) {
-        if (log.isDebugEnabled()) {
-            log.debug("Entering 'cancel' method");
-        }
+        log.debug("Entering 'cancel' method");
 
         if (getFrom() != null && getFrom().equalsIgnoreCase("list")) {
             return getEngineService().getLink(false, "users");
@@ -105,9 +103,7 @@ public abstract class UserForm extends BasePage implements PageBeginRenderListen
     }
 
     public ILink save(IRequestCycle cycle) throws UserExistsException {
-        if (log.isDebugEnabled()) {
-            log.debug("entered save method");
-        }
+        log.debug("entered save method");
 
         HttpServletRequest request = getRequest();
         
@@ -162,6 +158,8 @@ public abstract class UserForm extends BasePage implements PageBeginRenderListen
             user.addRole(getRoleManager().getRole(roleName));
         }
 
+        Integer originalVersion = user.getVersion();
+        
         try {
             userManager.saveUser(user);
         } catch (UserExistsException e) {
@@ -170,7 +168,7 @@ public abstract class UserForm extends BasePage implements PageBeginRenderListen
                      getMessages().format("errors.existing.user", user.getUsername(),
                             user.getEmail()), ValidationConstraint.CONSISTENCY);
             getUser().setPassword(user.getConfirmPassword());
-            getUser().setVersion(null);
+            getUser().setVersion(originalVersion);
             return null;
         }
 
@@ -185,7 +183,6 @@ public abstract class UserForm extends BasePage implements PageBeginRenderListen
                 sendNewUserEmail(request, user);
                 UserList nextPage = (UserList) cycle.getPage("users");
                 nextPage.setMessage(getText("user.added", user.getFullName()));
-                //cycle.activate(nextPage); // return to the list screen
                 return getEngineService().getLink(false, nextPage.getPageName());
             } else {
                 setMessage(getText("user.updated.byAdmin", user.getFullName()));
@@ -195,9 +192,7 @@ public abstract class UserForm extends BasePage implements PageBeginRenderListen
     }
 
     public ILink delete(IRequestCycle cycle) {
-        if (log.isDebugEnabled()) {
-            log.debug("entered delete method");
-        }
+        log.debug("entered delete method");
 
         getUserManager().removeUser(getUser().getId().toString());
 

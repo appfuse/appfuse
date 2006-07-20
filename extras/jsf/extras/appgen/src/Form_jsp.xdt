@@ -1,7 +1,10 @@
 <XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><%@ include file="/common/taglibs.jsp"%>
 
-<title><fmt:message key="<XDtForm:classNameLower/>Detail.title"/></title>
-<content tag="heading"><fmt:message key="<XDtForm:classNameLower/>Detail.heading"/></content>
+<head>
+    <title><fmt:message key="<XDtForm:classNameLower/>Detail.title"/></title>
+    <content tag="heading"><fmt:message key="<XDtForm:classNameLower/>Detail.heading"/></content>
+    <meta name="menu" content="<XDtForm:className/>Menu"/>
+</head>
 
 <f:view>
 <f:loadBundle var="text" basename="#{<XDtForm:classNameLower/>Form.bundleName}"/>
@@ -12,28 +15,33 @@
 <h:inputHidden value="#{<XDtForm:classNameLower/>Form.<XDtForm:classNameLower/>.<XDtForm:fieldName/>}" id="<XDtForm:fieldName/>"/>
 </XDtForm:ifIsIdOrVersionField>
 </XDtForm:forAllFields>
-<h:panelGrid columns="3" styleClass="detail" columnClasses="label">
+<h:panelGrid columns="3">
 <XDtForm:forAllFields>
 <XDtForm:ifIsNotIdOrVersionField>
 
-    <h:outputLabel for="<XDtForm:fieldName/>" value="#{text['<XDtForm:classNameLower/>.<XDtForm:fieldName/>']}"/>
+    <h:outputLabel styleClass="desc" for="<XDtForm:fieldName/>" value="#{text['<XDtForm:classNameLower/>.<XDtForm:fieldName/>']}"/>
 
   <XDtForm:ifIsBooleanField>
-    <h:selectBooleanCheckbox id="<XDtForm:fieldName/>" value="#{<XDtForm:classNameLower/>Form.<XDtForm:classNameLower/>.<XDtForm:fieldName/>}"/>
+    <h:selectBooleanCheckbox styleClass="checkbox" id="<XDtForm:fieldName/>" value="#{<XDtForm:classNameLower/>Form.<XDtForm:classNameLower/>.<XDtForm:fieldName/>}"/>
   </XDtForm:ifIsBooleanField>
   <XDtForm:ifIsNotBooleanField>
-    <h:inputText id="<XDtForm:fieldName/>" value="#{<XDtForm:classNameLower/>Form.<XDtForm:classNameLower/>.<XDtForm:fieldName/>}" required="true">
+    <XDtForm:ifIsDateField>
+        <h:inputText styleClass="text medium" id="<XDtForm:fieldName/>" value="#{<XDtForm:classNameLower/>Form.<XDtForm:classNameLower/>.<XDtForm:fieldName/>}" required="true">
+            <v:commonsValidator type="required" arg="#{text['<XDtForm:classNameLower/>.<XDtForm:fieldName/>']}"/>
+            <f:convertDateTime pattern="#{text['date.format']}"/>
+        </h:inputText>
+    </XDtForm:ifIsDateField>
+    <XDtForm:ifIsNotDateField>
+    <h:inputText styleClass="text medium" id="<XDtForm:fieldName/>" value="#{<XDtForm:classNameLower/>Form.<XDtForm:classNameLower/>.<XDtForm:fieldName/>}" required="true">
         <v:commonsValidator type="required" arg="#{text['<XDtForm:classNameLower/>.<XDtForm:fieldName/>']}"/>
     </h:inputText>
+    </XDtForm:ifIsNotDateField>
   </XDtForm:ifIsNotBooleanField>
     <t:message for="<XDtForm:fieldName/>" styleClass="fieldError"/>
 </XDtForm:ifIsNotIdOrVersionField>
 </XDtForm:forAllFields>
 
-    <%-- Put in empty <td></td> --%>
-    <h:inputHidden value=""/>
-
-    <h:panelGroup styleClass="buttonBar">
+    <h:panelGroup styleClass="buttonBar bottom">
         <h:commandButton value="#{text['button.save']}" action="#{<XDtForm:classNameLower/>Form.save}" 
             id="save" styleClass="button"/>
 
@@ -45,15 +53,14 @@
         <h:commandButton value="#{text['button.cancel']}" action="cancel" immediate="true"  
             id="cancel" styleClass="button" onclick="bCancel=true"/>
     </h:panelGroup>
-
-    <h:inputHidden value=""/>
+    <h:outputText/><h:outputText/>
 </h:panelGrid>
 </h:form>
 
 <v:validatorScript functionName="validate<XDtForm:className/>Form"/>
 
 <script type="text/javascript">
-	Form.focusFirstElement(document.forms["<XDtForm:classNameLower/>Form"]);
+    Form.focusFirstElement($('<XDtForm:classNameLower/>Form'));
 </script>
 
 </f:view>

@@ -7,6 +7,11 @@
 
     <!-- precompiled jsp mappings -->
     
+    <!-- Define the default CSS Theme -->
+    <context-param>
+        <param-name>theme</param-name>
+        <param-value>simplicity</param-value>
+    </context-param>
     <!-- Define the basename for a resource bundle for I18N -->
     <context-param>
         <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
@@ -21,7 +26,7 @@
     <!-- Context Configuration locations for Spring XML files -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/applicationContext-*.xml</param-value>
+        <param-value>/WEB-INF/applicationContext-*.xml,/WEB-INF/security.xml</param-value>
     </context-param>
 
     <filter>
@@ -77,13 +82,33 @@
         <filter-class>org.appfuse.webapp.filter.GZIPFilter</filter-class>
     </filter>
     <filter>
-	    <filter-name>localeFilter</filter-name>
-	    <filter-class>org.appfuse.webapp.filter.LocaleFilter</filter-class>
-	</filter>
+        <filter-name>localeFilter</filter-name>
+        <filter-class>org.appfuse.webapp.filter.LocaleFilter</filter-class>
+    </filter>
 
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>/j_security_check</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>/dwr/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>*.html</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>*.jsp</url-pattern>
+    </filter-mapping>
     <filter-mapping>
         <filter-name>securityFilter</filter-name>
         <url-pattern>/j_security_check</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>securityFilter</filter-name>
+        <url-pattern>/dwr/*</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>securityFilter</filter-name>
@@ -92,7 +117,7 @@
     <filter-mapping>
         <filter-name>securityFilter</filter-name>
         <url-pattern>*.jsp</url-pattern>
-    </filter-mapping>    
+    </filter-mapping>  
     <!-- Commented out for 2 reasons: 1) it's a pain when developing JSPs, and
                                       2) it causes the Signup webtest to fail -->
     <!--filter-mapping>
@@ -108,14 +133,6 @@
         <url-pattern>*.html</url-pattern>
     </filter-mapping>
     <filter-mapping>
-        <filter-name>encodingFilter</filter-name>
-        <url-pattern>*.html</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>encodingFilter</filter-name>
-        <url-pattern>*.jsp</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
         <filter-name>localeFilter</filter-name>
         <url-pattern>*.html</url-pattern>
     </filter-mapping>
@@ -126,6 +143,18 @@
     <filter-mapping>
         <filter-name>exportFilter</filter-name>
         <url-pattern>*.html</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>compressionFilter</filter-name>
+        <url-pattern>*.css</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>compressionFilter</filter-name>
+        <url-pattern>*.jsp</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>compressionFilter</filter-name>
+        <url-pattern>*.js</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>compressionFilter</filter-name>

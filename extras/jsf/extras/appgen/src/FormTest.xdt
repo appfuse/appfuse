@@ -1,5 +1,6 @@
 <XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><XDtTagDef:tagDef namespace="MethodEx" handler="org.example.antbook.xdoclet.MethodExTagsHandler"/>package <XDtForm:parentPackageName/>.webapp.action;
 
+import <XDtConfig:configParameterValue paramName="basePackageName"/>.webapp.action.BasePageTestCase;
 import <XDtPackage:packageName/>.<XDtForm:className/>;
 
 public class <XDtForm:className/>FormTest extends BasePageTestCase {

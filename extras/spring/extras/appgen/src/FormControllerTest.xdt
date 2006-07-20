@@ -1,6 +1,7 @@
 <XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>package <XDtForm:parentPackageName/>.webapp.action;
 
 import <XDtPackage:packageName/>.<XDtForm:className/>;
+import <XDtConfig:configParameterValue paramName="basePackageName"/>.webapp.action.BaseControllerTestCase;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.validation.BindException;
@@ -29,7 +30,7 @@ public class <XDtForm:className/>FormControllerTest extends BaseControllerTestCa
 
         mv = c.handleRequest(request, new MockHttpServletResponse());
 
-        assertEquals("<XDtForm:classNameLower/>Form", mv.getViewName());
+        assertEquals("<XDtConfig:configParameterValue paramName="appModuleNameSlash"/><XDtForm:classNameLower/>Form", mv.getViewName());
     }
 
     public void testSave() throws Exception {

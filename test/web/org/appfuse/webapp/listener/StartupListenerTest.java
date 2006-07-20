@@ -1,5 +1,7 @@
 package org.appfuse.webapp.listener;
 
+import java.util.Map;
+
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
@@ -9,7 +11,6 @@ import org.appfuse.Constants;
 import org.springframework.mock.web.MockServletContext;
 import org.springframework.util.ClassUtils;
 import org.springframework.web.context.ContextLoader;
-import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.WebApplicationContext;
 
 
@@ -29,16 +30,13 @@ public class StartupListenerTest extends TestCase {
         
         sc = new MockServletContext("");
         sc.addInitParameter("daoType", "hibernate");
+        sc.addInitParameter("theme", "simplicity");
         
         // initialize Spring
         String pkg = ClassUtils.classPackageAsResourcePath(Constants.class);
         sc.addInitParameter(ContextLoader.CONFIG_LOCATION_PARAM,
                 "classpath*:/" + pkg + "/dao/applicationContext-*.xml," +
                 "classpath*:META-INF/applicationContext-*.xml");
-        
-        ServletContextListener contextListener = new ContextLoaderListener();
-        ServletContextEvent event = new ServletContextEvent(sc);
-        contextListener.contextInitialized(event);
     }
 
     protected void tearDown() throws Exception {
@@ -52,6 +50,9 @@ public class StartupListenerTest extends TestCase {
         listener.contextInitialized(event);
 
         assertTrue(sc.getAttribute(Constants.CONFIG) != null);
+        Map config = (Map) sc.getAttribute(Constants.CONFIG);
+        assertEquals(config.get("theme"), "simplicity");
+        
         assertTrue(sc.getAttribute(WebApplicationContext
                 .ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE) != null);
         assertTrue(sc.getAttribute(Constants.AVAILABLE_ROLES) != null);
