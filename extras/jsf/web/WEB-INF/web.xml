@@ -99,6 +99,22 @@
     </filter>
 
     <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>/j_security_check</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>/dwr/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>*.html</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>*.jsp</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
         <filter-name>securityFilter</filter-name>
         <url-pattern>/j_security_check</url-pattern>
     </filter-mapping>
@@ -113,7 +129,7 @@
     <filter-mapping>
         <filter-name>securityFilter</filter-name>
         <url-pattern>*.jsp</url-pattern>
-    </filter-mapping>    
+    </filter-mapping>  
     <!-- Commented out for 2 reasons: 1) it's a pain when developing JSPs, and
                                       2) it causes the Signup webtest to fail -->
     <!--filter-mapping>
@@ -127,14 +143,6 @@
     <filter-mapping>
         <filter-name>clickstreamFilter</filter-name>
         <url-pattern>*.html</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>encodingFilter</filter-name>
-        <url-pattern>*.html</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>encodingFilter</filter-name>
-        <url-pattern>*.jsp</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>localeFilter</filter-name>

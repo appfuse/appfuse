@@ -1,6 +1,6 @@
 <!DOCTYPE form-validation PUBLIC
-     "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.2.0//EN"
-     "http://jakarta.apache.org/commons/dtds/validator_1_2_0.dtd">
+     "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.3.0//EN"
+     "http://jakarta.apache.org/commons/dtds/validator_1_3_0.dtd">
 
 <form-validation>
     <global>
@@ -20,7 +20,7 @@
                 var focusField = null;
                 var i = 0;
                 var fields = new Array();
-                oTwoFields = eval('new ' + retrieveFormName(form) + '_twofields()');
+                oTwoFields = eval('new ' + jcv_retrieveFormName(form) + '_twofields()');
                 
                 for (x in oTwoFields) {
                     var field = form[oTwoFields[x][0]];
