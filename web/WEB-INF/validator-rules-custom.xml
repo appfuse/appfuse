@@ -20,7 +20,7 @@
                 var focusField = null;
                 var i = 0;
                 var fields = new Array();
-                oTwoFields = eval('new ' + retrieveFormName(form) + '_twofields()');
+                oTwoFields = eval('new ' + jcv_retrieveFormName(form) + '_twofields()');
                 
                 for (x in oTwoFields) {
                     var field = form[oTwoFields[x][0]];
