@@ -127,6 +127,11 @@
                     font-size: 1em;
                 }
 
+                    ul#primary-nav ul li ul {
+                        margin-left: 149px;
+                        margin-top: -23px;
+                    }
+                       
                     ul#primary-nav ul li.last {
                         border-bottom: 1px solid silver;
                         border-right: 1px solid silver;
