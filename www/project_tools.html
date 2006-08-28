@@ -1,69 +1,103 @@
-<div><a href="http://raibledesigns.com/wiki/AppFuseQuickStart.html">QuickStart Guide</a></div>
-<div><a href="http://raibledesigns.com/wiki/AppFuse.html">Wiki</a> &middot; 
-<a href="http://raibledesigns.com/wiki/Articles.html">Tutorials</a> &middot;
-<a href="http://raibledesigns.com/wiki/AppFuseSupport.html">FAQ</a></div>
-<div><a href="http://raibledesigns.com/page/rd?anchor=appfuse_demos_moved_to_demo">Demos</a> and 
-     <a href="http://raibledesigns.com/page/rd?anchor=appfuse_videos">Videos</a></div>
-<div><a href="sponsors.html">Sponsors</a></div>
-<div><a href="http://www.frappr.com/appfuse">AppFuse Frappr Group</a></div>
-</div>
-<div class="label"><strong>User Mailing List</strong></div>
-<div>
-<div><a href="mailto:users-subscribe@appfuse.dev.java.net">Subscribe</a></div>
-<div>Archives: <a href="http://news.gmane.org/gmane.comp.java.appfuse.user">Gmane</a> &middot; <a href="http://appfuse.org/forum">Nabble</a></div>
-</div>
-<div class="label"><strong>Developer Blogs</strong></div>
-<div>
-<div><a href="http://jroller.com/page/ddcarter">Dave Carter</a></div>
-<div><a href="http://raibledesigns.com">Matt Raible</a>
-&middot; <a href="http://jroller.com/page/raible">Spring Live</a></div>
-<div><a href="http://jroller.com/page/sjivan">Sanjiv Jivan</a></div>
-<div><a href="http://www.thogau.net/blog">Thomas Gaudin</a></div>
+</dd>
+<script id="eraser">
+// hide all default navigation bars
 
-<script type="text/javascript">
-
-function replaceLinks() {
-    try {
-        var tools = document.getElementById("projecttools");
-        var links = tools.getElementsByTagName("a");
-        for (i=0; i < links.length; i++) {
-            if (links[i].getAttribute("href").indexOf("ProjectIssues") > -1) {
-                links[i].setAttribute("href", "http://issues.appfuse.org/browse/APF");
-                links[i].innerHTML="JIRA Issue Tracker";
-            }
-
-            if (links[i].getAttribute("href").indexOf("ProjectForumView") > -1) {
-                links[i].setAttribute("href", "http://appfuse.org/forums");
-            }
-        } 
-        if (document.getElementById("info") != null) {
-            document.getElementById("logo").style.display = "";
-        }
-    } catch (e) {}
-}
-
-function fisheye() {
-    if (document.getElementById("browsesource") != null) {
-        var fisheyeDiv = document.createElement("div");
-        fisheyeDiv.className="app";
-        var header = document.createElement("div");
-        header.className="h2";
-        header.innerHTML = "<h2>Browse source code with FishEye</h2>";
-        fisheyeDiv.appendChild(header);
-        var fisheye = document.createElement("iframe");
-        fisheye.setAttribute("src", "http://fisheye5.cenqua.com/viewrep/appfuse");
-        fisheye.setAttribute("border", "0");
-        fisheye.style.width="99%";
-        fisheye.style.height="700px";
-        fisheye.style.border="0";
-        fisheye.style.marginTop="10px";
-        fisheye.style.marginLeft="5px";
-        fisheyeDiv.appendChild(fisheye);
-        document.getElementById("dirlist").insertBefore(fisheyeDiv, document.getElementById("browsesource"));
+// get to the block
+var dd = document.getElementById("eraser").previousSibling;
+for( n=dd; n!=null; n=n.previousSibling ) {
+  if(n.nodeType==1) { // if element
+    if(n.tagName=="DD") { // kill all the link items
+      n.style.display = "none";
     }
+    if(n.tagName=="DT") { // change the title
+      n.innerHTML = "<strong>AppFuse Project</strong>";
+    }
+  }
 }
-window.onload=function() { replaceLinks(); fisheye(); }
+
+// delete the "get involved" block
+for( n=dd.parentNode.previousSibling; n!=null; n=n.previousSibling ) {
+  if(n.nodeType==1) { // if element
+    if(n.tagName=="DL") {
+      n.style.display = "none";
+    }
+  }
+}
 </script>
+<dd>
+  <ul>
+      <li>
+        <a href="https://appfuse.org" target="_top">AppFuse Project Home</a>
+      </li>
+      <li>
+		<a href="https://appfuse.dev.java.net/servlets/ProjectDocumentList">Downloads</a><br>
+
+      </li>
+      <li>
+        <a href="http://raibledesigns.com/wiki/AppFuseSupport.html">AppFuse FAQ</a><br>
+      </li>
+      <li>
+        <a href="https://appfuse.dev.java.net/servlets/ProjectMembershipRequest">Join AppFuse</a>
+      </li>
+      <li><a href="sponsors.html">Project Sponsors</a></li>
+      <li>
+
+	<a href="http://raibledesigns.com/wiki/AppFuse.html">AppFuse Wiki</a><br>
+      </li>
+      <li>
+	<a href="http://raibledesigns.com/wiki/Articles.html">Documentation</a> &amp; <a href="http://demo.appfuse.org/demos.html">Demos</a><br/>
+      </li>
+  </ul>
+</dd>
+<dd>
+  <ul>
+
+      <li>
+	<a href="http://raibledesigns.com/wiki/AppFuseQuickStart.html">Get Started</a>
+      </li>
+      <li>
+	<a href="https://appfuse.dev.java.net/servlets/ProjectNewsList">Announcements</a>
+      </li>
+      <li>
+
+	<a href="http://appfuse.org/forums">Discussion Forum</a>
+      </li>
+      <li><a href="http://www.frappr.com/appfuse">AppFuse Frappr Group</a></li>
+  </ul>
+</dd>
+<dd>
+  <ul>
+
+      <li>
+	<a href="https://appfuse.dev.java.net/servlets/ProjectMailingListList">Mailing Lists</a>
+      </li>
+      <li>
+  	<a href="https://appfuse.dev.java.net/source/browse/appfuse">Source code - SVN</a><br>
+      </li>
+      <li>
+  	<a href="http://fisheye5.cenqua.com/browse/appfuse">FishEye for AppFuse</a><br>
+
+      </li>
+      <li>
+  	<a href="https://issues.appfuse.org">JIRA Issue Tracker</a><br>
+      </li>
+  </ul>
+</dd>
+<dd>
+    <div class="label"><strong>User Mailing List</strong></div>
+    <div>
+    <div><a href="mailto:users-subscribe@appfuse.dev.java.net">Subscribe</a></div>
+    <div>Archives: <a href="http://news.gmane.org/gmane.comp.java.appfuse.user">Gmane</a> &middot; <a href="http://appfuse.org/forum">Nabble</a></div>
+    </div>
+    <div class="label"><strong>Developer Blogs</strong></div>
+    <div>
+    <div><a href="http://jroller.com/page/ddcarter">Dave Carter</a></div>
+    <div><a href="http://raibledesigns.com">Matt Raible</a>
+    &middot; <a href="http://jroller.com/page/raible">Spring Live</a></div>
+    <div><a href="http://jroller.com/page/sjivan">Sanjiv Jivan</a></div>
+    <div><a href="http://www.thogau.net/blog">Thomas Gaudin</a></div>
+</dd>
+<dd>
 <style type="text/css">
 .topline, .topbar { border: 0 }
 #banner { height: 0px }
@@ -72,7 +106,7 @@ window.onload=function() { replaceLinks(); fisheye(); }
 <div id="logo" style="position: absolute; top: 100px; right: 30px; text-align: right; width: 205px; display: none">
 <img src="https://appfuse.dev.java.net/images/appfuse-title.gif" width="203" height="74" /><br/>
 <div style="text-align: center; float: right; margin-right: 20px">
-<a href="http://wiki.java.net/bin/view/Projects/GlassFishExtras" target="_blank" style="font-family: Arial, Helvetica, sans-serif; font-size: 9pt">Works  With
-<br /><img src="https://glassfish.dev.java.net/glassfish_buttons/projectglassfish.gif" style="border: 0px none" alt="Project GlassFish" /></a></div>
+<a href="http://wiki.java.net/bin/view/Projects/appfuseExtras" target="_blank" style="font-family: Arial, Helvetica, sans-serif; font-size: 9pt">Works  With
+<br /><img src="https://appfuse.dev.java.net/appfuse_buttons/projectappfuse.gif" style="border: 0px none" alt="AppFuse" /></a></div>
 </div>
 
