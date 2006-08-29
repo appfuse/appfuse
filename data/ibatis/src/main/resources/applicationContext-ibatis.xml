@@ -4,15 +4,14 @@
 
 <beans>
     <!-- Transaction manager for a single JDBC DataSource -->
-    <bean id="transactionManager" 
-        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
-    
+
     <!-- SqlMap setup for iBATIS Database Layer -->
     <bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
         <property name="configLocation">
-            <value>classpath:/org/appfuse/dao/ibatis/sql-map-config.xml</value>
+            <value>classpath:/sql-map-config.xml</value>
         </property>
         <property name="dataSource" ref="dataSource"/>
     </bean>

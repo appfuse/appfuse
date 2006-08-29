@@ -14,14 +14,6 @@
         <level value="WARN"/>
     </logger>
 
-    <logger name="org.hibernate">
-        <level value="WARN"/>
-    </logger>
-
-    <!--<logger name="org.hibernate.SQL">
-        <level value="DEBUG"/>
-    </logger>-->
-
     <logger name="org.springframework">
         <level value="WARN"/>
     </logger>
