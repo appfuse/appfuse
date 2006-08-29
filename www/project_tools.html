@@ -99,11 +99,19 @@ for( n=dd.parentNode.previousSibling; n!=null; n=n.previousSibling ) {
 </style>
 <div id="logo" style="background-image: none">
 <img src="https://appfuse.dev.java.net/images/appfuse-title.gif" width="203" height="74"/><br/>
-    <div style="text-align: center; background-image: none">
+    <div style="text-align: center; background-image: none; display: none" id="servers">
     <span style="font-style: italic">Runs blazingly fast on... </span><br/><br/>
     <a href="http://tomcat.apache.org"><img src="https://appfuse.dev.java.net/images/tomcat-logo.jpg" alt="Tomcat" style="border: 0px none" width="85" height="60"/></a>
     
     <br/>... and <a href="http://raibledesigns.com/page/rd?entry=comparing_open_source_application_servers">most open source app servers</a>.
     </div>
 </div>
+
+<script type="text/javascript">
+    if (document.getElementById("info") != null) {
+        document.getElementById("servers").style.display = "";
+    }
+</script>
+
+
 
