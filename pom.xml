@@ -69,9 +69,9 @@
         </developer>
     </developers>
     <scm>
-        <connection>scm:svn:http://svn.java.net/repos/appfuse/trunk</connection>
-        <developerConnection>scm:svn:http://svn.java.net/repos/appfuse/trunk</developerConnection>
-        <url>https://appfuse.dev.java.net/svn/appfuse</url>
+        <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk</connection>
+        <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk</developerConnection>
+        <url>https://appfuse.dev.java.net/source/browse/appfuse/</url>
     </scm>
     <issueManagement>
         <system>jira</system>
