@@ -1,5 +1,0 @@
-    <global-exceptions>
-        <exception type="java.lang.Exception"
-            key="errors.general"
-            handler="org.appfuse.webapp.action.ActionExceptionHandler"/>
-    </global-exceptions>

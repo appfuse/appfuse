@@ -1,0 +1,10 @@
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0//EN" 
+    "http://www.opensymphony.com/xwork/xwork-validator-1.0.dtd">
+<validators>
+    <field name="user">
+        <field-validator type="visitor">
+            <param name="appendPrefix">false</param>
+            <message/>
+        </field-validator>
+    </field>
+</validators>

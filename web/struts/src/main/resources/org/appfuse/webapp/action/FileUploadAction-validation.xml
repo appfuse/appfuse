@@ -1,0 +1,14 @@
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0//EN" 
+    "http://www.opensymphony.com/xwork/xwork-validator-1.0.dtd">
+<validators>
+    <field name="name">
+        <field-validator type="requiredstring">
+            <message>Name is a required field.</message>
+        </field-validator>
+    </field>
+    <field name="file">
+        <field-validator type="required">
+            <message>File to Upload is a required field.</message>
+        </field-validator>
+    </field>
+</validators>
