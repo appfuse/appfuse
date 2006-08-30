@@ -8,8 +8,8 @@ import java.io.OutputStream;
 
 import org.appfuse.Constants;
 
-import com.opensymphony.webwork.ServletActionContext;
-import com.opensymphony.xwork.ValidationAware;
+import org.apache.struts2.ServletActionContext;
+import com.opensymphony.xwork2.ValidationAware;
 
 public class FileUploadAction extends BaseAction implements ValidationAware {
     private File file;

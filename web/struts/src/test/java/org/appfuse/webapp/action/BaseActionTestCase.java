@@ -12,9 +12,9 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockServletContext;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 
-import com.opensymphony.webwork.ServletActionContext;
-import com.opensymphony.xwork.ActionContext;
-import com.opensymphony.xwork.util.LocalizedTextUtil;
+import org.apache.struts2.ServletActionContext;
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.util.LocalizedTextUtil;
 
 public abstract class BaseActionTestCase extends TestCase {
     protected transient final Log log = LogFactory.getLog(getClass());

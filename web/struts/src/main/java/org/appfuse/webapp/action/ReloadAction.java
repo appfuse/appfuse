@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.appfuse.webapp.listener.StartupListener;
 
-import com.opensymphony.webwork.ServletActionContext;
+import org.apache.struts2.ServletActionContext;
 
 /**
  * This class is used to reload the drop-downs initialized in the

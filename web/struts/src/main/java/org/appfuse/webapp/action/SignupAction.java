@@ -10,7 +10,7 @@ import org.appfuse.util.StringUtil;
 import org.appfuse.service.UserExistsException;
 import org.appfuse.webapp.util.RequestUtil;
 
-import com.opensymphony.webwork.ServletActionContext;
+import org.apache.struts2.ServletActionContext;
 
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;

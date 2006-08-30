@@ -18,8 +18,8 @@ import org.appfuse.service.RoleManager;
 import org.appfuse.service.UserManager;
 import org.springframework.mail.SimpleMailMessage;
 
-import com.opensymphony.webwork.ServletActionContext;
-import com.opensymphony.xwork.ActionSupport;
+import org.apache.struts2.ServletActionContext;
+import com.opensymphony.xwork2.ActionSupport;
 
 
 /**

@@ -21,7 +21,7 @@ import org.appfuse.util.StringUtil;
 import org.appfuse.service.UserExistsException;
 import org.appfuse.webapp.util.RequestUtil;
 
-import com.opensymphony.webwork.ServletActionContext;
+import org.apache.struts2.ServletActionContext;
 
 public class UserAction extends BaseAction {
     private List users;
