@@ -8,5 +8,5 @@
 <%@ taglib uri="http://www.opensymphony.com/oscache" prefix="cache" %>
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator" prefix="decorator"%>
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page"%>
-<%@ taglib uri="/webwork" prefix="ww" %>
+<%@ taglib uri="/struts-tags" prefix="s" %>
 <%@ taglib uri="http://www.appfuse.org/tags/struts" prefix="appfuse" %>

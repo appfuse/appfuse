@@ -1,26 +1,26 @@
 <%-- ActionError Messages - usually set in Actions --%>
-<ww:if test="hasActionErrors()">
+<s:if test="hasActionErrors()">
     <div class="error" id="errorMessages">    
-      <ww:iterator value="actionErrors">
+      <s:iterator value="actionErrors">
         <img src="<c:url value="/images/iconWarning.gif"/>"
             alt="<fmt:message key="icon.warning"/>" class="icon" />
-        <ww:property escape="false"/><br />
-      </ww:iterator>
+        <s:property escape="false"/><br />
+      </s:iterator>
    </div>
-</ww:if>
+</s:if>
 
 <%-- FieldError Messages - usually set by validation rules --%>
-<ww:if test="hasFieldErrors()">
+<s:if test="hasFieldErrors()">
     <div class="error" id="errorMessages">    
-      <ww:iterator value="fieldErrors">
-          <ww:iterator value="value">
+      <s:iterator value="fieldErrors">
+          <s:iterator value="value">
             <img src="<c:url value="/images/iconWarning.gif"/>"
                 alt="<fmt:message key="icon.warning"/>" class="icon" />
-             <ww:property escape="false"/><br />
-          </ww:iterator>
-      </ww:iterator>
+             <s:property escape="false"/><br />
+          </s:iterator>
+      </s:iterator>
    </div>
-</ww:if>
+</s:if>
 
 <%-- Success Messages --%>
 <c:if test="${not empty messages}">

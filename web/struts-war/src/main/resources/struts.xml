@@ -1,12 +1,12 @@
-<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.1.1//EN"
-    "http://www.opensymphony.com/xwork/xwork-1.1.1.dtd">
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
 
-<xwork>
-      <!-- Include webwork defaults -->
-      <include file="webwork-default.xml"/>
-      
-      <!-- Configuration for the default package. -->
-      <package name="default" extends="webwork-default">
+<struts>
+    <!-- Include Struts defaults -->
+    <include file="struts-default.xml"/>
+
+    <!-- Configuration for the default package. -->
+    <package name="default" extends="struts-default">
         <interceptors>
             <!-- Interceptor to handle allowing only admins to certain actions -->
             <interceptor name="adminOnly" class="adminInterceptor"/>
@@ -46,16 +46,15 @@
         </global-results>
 
         <global-exception-mappings>
-            <exception-mapping exception="org.springframework.dao.DataAccessException"
-                result="dataAccessFailure"/>
+            <exception-mapping exception="org.springframework.dao.DataAccessException" result="dataAccessFailure"/>
         </global-exception-mappings> 
         
-        <action name="activeUsers" class="com.opensymphony.xwork.ActionSupport"> 
+        <action name="activeUsers" class="com.opensymphony.xwork2.ActionSupport"> 
             <result name="success">/WEB-INF/pages/activeUsers.jsp</result> 
         </action> 
         
-        <action name="mainMenu" class="com.opensymphony.xwork.ActionSupport"> 
-        <result name="success">/WEB-INF/pages/mainMenu.jsp</result> 
+        <action name="mainMenu" class="com.opensymphony.xwork2.ActionSupport">
+            <result name="success">/WEB-INF/pages/mainMenu.jsp</result> 
         </action> 
 
         <action name="signup" class="signupAction">
@@ -99,7 +98,7 @@
             <result name="cancel" type="redirect">mainMenu.html</result>
         </action>
         
-        <action name="flushCache" class="com.opensymphony.xwork.ActionSupport">
+        <action name="flushCache" class="com.opensymphony.xwork2.ActionSupport">
             <interceptor-ref name="adminCheck"/>
             <result name="success">/WEB-INF/pages/flushCache.jsp</result> 
         </action> 
@@ -116,4 +115,4 @@
         
         <!-- Add additional actions here -->
       </package>
-</xwork>
+</struts>

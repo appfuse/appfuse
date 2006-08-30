@@ -6,7 +6,7 @@
     <meta name="menu" content="AdminMenu"/>
 </head>
 
-<ww:set name="userList" value="users" scope="request"/>
+<s:set name="userList" value="users" scope="request"/>
 
 <c:set var="buttons">
     <input type="button" style="margin-right: 5px"

@@ -11,19 +11,19 @@
 <table class="detail" cellpadding="5">
     <tr>
         <th>Friendly Name:</th>
-        <td><ww:property value="name"/></td>
+        <td><s:property value="name"/></td>
     </tr>
     <tr>
         <th>Filename:</th>
-        <td><ww:property value="fileFileName"/></td>
+        <td><s:property value="fileFileName"/></td>
     </tr>
     <tr>
         <th>File content type:</th>
-        <td><ww:property value="fileContentType"/></td>
+        <td><s:property value="fileContentType"/></td>
     </tr>
     <tr>
         <th>File size:</th>
-        <td><ww:property value="file.length()"/> bytes</td>
+        <td><s:property value="file.length()"/> bytes</td>
     </tr>
     <tr>
         <th class="tallCell">File Location:</th>
