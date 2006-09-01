@@ -11,7 +11,7 @@
 
     <!-- Override default validation.js from WebWork -->
     <rule>
-        <from>^/webwork/css_xhtml/validation.js$</from>
+        <from>^/struts/css_xhtml/validation.js$</from>
         <to type="forward">/template/css_xhtml/validation.js</to>
     </rule>
 </urlrewrite>

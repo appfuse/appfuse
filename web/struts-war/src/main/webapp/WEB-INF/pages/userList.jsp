@@ -6,8 +6,6 @@
     <meta name="menu" content="AdminMenu"/>
 </head>
 
-<s:set name="userList" value="users" scope="request"/>
-
 <c:set var="buttons">
     <input type="button" style="margin-right: 5px"
         onclick="location.href='<c:url value="/editUser.html?method=Add&from=list"/>'"
@@ -19,8 +17,7 @@
 
 <c:out value="${buttons}" escapeXml="false" />
 
-<c:if test="${not empty requestScope.userList}">
-<display:table name="userList" cellspacing="0" cellpadding="0" requestURI="" 
+<display:table name="users" cellspacing="0" cellpadding="0" requestURI="" 
     defaultsort="1" id="users" pagesize="25" class="table" export="true">
     <display:column property="username" escapeXml="true" sortable="true" titleKey="user.username" style="width: 25%"
         url="/editUser.html?from=list" paramId="username" paramProperty="username"/>
@@ -39,10 +36,6 @@
     <display:setProperty name="export.csv.filename" value="User List.csv"/>
     <display:setProperty name="export.pdf.filename" value="User List.pdf"/>
 </display:table>
-</c:if>
-<c:if test="${empty requestScope.userList}">
-    <fmt:message key="userList.nousers"/>
-</c:if>
 
 <c:out value="${buttons}" escapeXml="false" />
 

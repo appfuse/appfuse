@@ -68,7 +68,7 @@ public class FileUploadAction extends BaseAction implements ValidationAware {
         return SUCCESS;
     }
 
-    public String doDefault() {
+    public String start() {
         return INPUT;
     }
 
