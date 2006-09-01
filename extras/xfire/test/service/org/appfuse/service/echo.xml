@@ -1,8 +1,0 @@
-<env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/">
- <env:Header/>
- <env:Body>
-  <echo xmlns="http://service.appfuse.org">
-    <in0>Hello world!</in0>
-  </echo>
- </env:Body>
-</env:Envelope>

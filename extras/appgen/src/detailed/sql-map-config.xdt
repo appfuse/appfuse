@@ -1,4 +1,0 @@
-<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>    <!--<XDtForm:className/>-START-->
-    <sqlMap resource="<XDtForm:parentPackageDir/>/dao/ibatis/sql/<XDtForm:className/>SQL.xml" />
-    <!--<XDtForm:className/>-END-->
-</sqlMapConfig>
