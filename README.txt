@@ -5,13 +5,20 @@ Developer notes on setting up your IDE to work with AppFuse are contained
 below. Instructions currently existing for Eclipse and IDEA. Netbeans is
 on the roadmap; you're more than welcome to create them in the meantime.
 
+To begin, download Maven 2.0.4, install it, and add $M2_HOME/bin to your $PATH.
+Create a MAVEN_OPTS environment variable and set its value to:
+
+-Xms512M -Xmx512M
+
 All issues should be logged in JIRA at http://issues.appfuse.org.
 Talk with everyone on the mailing list at http://appfuse.org/forums.
 
-Eclipse:
+Eclipse 3.2:
 ----------
-Download Maven 2.0, install it, and add $M2_HOME/bin to your $PATH. From the 
-command line, cd into the appfuse directory and type "mvn eclipse:eclipse". 
+From the command line, cd into the appfuse directory and run:
+
+mvn eclipse:eclipse -DdownloadSources=true
+
 Get a cup of coffee or soda (or even better, a beer!) while you wait for Maven 
 to download all the dependencies.
 
@@ -26,19 +33,20 @@ Variables page. Add a new one with a name of M2_REPO and Path of to your local
 Maven repository (/Users/${username}/.m2/repository on OS X and 
 C:\Documents and Settings\${username}\.m2\repository on Windows). 
 
-Once the project files have been created, open Eclipse and go to File > New >
-Project > Java Project. Click Next and type "appfuse" in the Project name box. 
-Click Finish to begin importing the project. 
+To setup hierarchical projects in Eclipse 3.2+, perform the following steps:
 
-To see how to rapidly develop using Eclipse and Jetty, see the following:
+1. Rename appfuse/data/.project file to something else. 
+2. Go to File -> Import ->  General -> Existing Projects and browse to your 
+   workspace and the appfuse/data root. Because there is no .project file, 
+   Eclipse will show all the subprojects as being available.  Select them and 
+   click ok.
+3. Rename the appfuse/data/.project back and refresh your left pane in Eclipse.
+4. Repeat these steps for the "web" directory.
 
-http://raibledesigns.com/page/rd?entry=edit_java_webapps_redux_jetty
-
-IDEA:
+IDEA 5.1:
 ----------
-Download Maven 2.0, install it, and add $M2_HOME/bin to your $PATH. From the 
-command line, cd into the appfuse directory and type "mvn idea:idea". Get a 
-cup of coffee or soda (or even better, a beer!) while you wait for Maven 
+From the command line, cd into the appfuse directory and type "mvn idea:idea". 
+Get a cup of coffee or soda (or even better, a beer!) while you wait for Maven 
 to download all the dependencies.
 
 After opening your project in IDEA, you may need to modify your Project JDK. 
