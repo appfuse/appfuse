@@ -1,5 +1,0 @@
-<config host="${tomcat.server}" port="${http.port}" protocol="http" 
-    basepath="${webapp.name}" resultpath="${test.dir}/data" saveresponse="true"
-    resultfile="web-tests-result.xml" summary="true">
-    <header name="Accept-Language" value="${user.language}"/>
-</config>

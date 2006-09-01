@@ -10,6 +10,11 @@
         </layout>
     </appender>
 
+    <!-- Suppress success logging from InteractiveAuthenticationSuccessEvent -->
+    <logger name="org.acegisecurity">
+        <level value="ERROR"/>
+    </logger>
+
     <logger name="org.apache">
         <level value="WARN"/>
     </logger>
