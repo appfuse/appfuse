@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="AppFuse">
+  <bannerLeft>
+    <name>AppFuse</name>
+    <src>https://appfuse.dev.java.net/images/appfuse-title.gif</src>
+    <href>http://appfuse.org</href>
+  </bannerLeft>
+  <publishDate format="dd MMM yyyy" />
+  <skin>
+    <groupId>org.apache.maven.skins</groupId>
+    <artifactId>maven-stylus-skin</artifactId>
+  </skin>
+  <body>
+
+    ${reports}
+  </body>
+</project>
+
