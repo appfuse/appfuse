@@ -13,7 +13,7 @@ To use the AppGen tool (after installing your web framework), perform the
 following steps: 
 
 1. If you're using Hibernate, configure the mapping file for your POJO in 
-   applicationContext-hibernate.xml. If you're using iBATIS, you can skip this 
+   applicationContext-dao.xml. If you're using iBATIS, you can skip this
    step.
 
 2. cd into the extras/appgen directory and run "ant". You will be prompted to

@@ -42,7 +42,7 @@ public abstract class BasePageTestCase extends TestCase {
         servletContext = new MockServletContext("");
         servletContext.addInitParameter(BasePage.jstlBundleParam, MESSAGES);
         servletContext.addInitParameter(ContextLoader.CONFIG_LOCATION_PARAM,
-                "classpath*:/applicationContext-hibernate.xml, " +
+                "classpath*:/applicationContext-dao.xml, " +
                 "classpath*:/applicationContext-service.xml, " +
                 "classpath:/applicationContext-resources.xml");
 

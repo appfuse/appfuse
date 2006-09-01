@@ -5,5 +5,5 @@ you are prompted to choose b/w generating from a POJO or a database table.
 If you choose table, the build.xml file in this package is executed. You can
 also build POJOs with this package standalone by typing "ant" in this directory.
 
-NOTE: This package does not modify applicationContext-hibernate.xml to add
+NOTE: This package does not modify applicationContext-dao.xml to add
 Hibernate mappings.

@@ -216,9 +216,9 @@
             <property name="object.name" value="cat"/>
         </ant>
 
-        <!-- Add the mapping file for Cat to applicationContext-hibernate.xml -->
+        <!-- Add the mapping file for Cat to applicationContext-dao.xml -->
         <replace dir="../../../${app.name}/src">
-            <include name="**/applicationContext-hibernate.xml"/>
+            <include name="**/applicationContext-dao.xml"/>
             <replacetoken><![CDATA[<value>org/appfuse/model/Role.hbm.xml</value>]]></replacetoken>
             <replacevalue><![CDATA[<value>org/appfuse/model/Cat.hbm.xml</value>
                 <value>org/appfuse/model/Role.hbm.xml</value>]]></replacevalue>

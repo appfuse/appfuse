@@ -25,7 +25,7 @@ public abstract class BaseActionTestCase extends TestCase {
     // once for all tests
     static {
         String[] paths = {
-                "classpath*:/applicationContext-hibernate.xml",
+                "classpath*:/applicationContext-dao.xml",
                 "classpath*:/applicationContext-service.xml",
                 "/applicationContext-resources.xml",
                 "/action-servlet.xml"

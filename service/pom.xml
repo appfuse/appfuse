@@ -17,8 +17,7 @@
     limitations under the License.
 -->
 
-<project
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0">
 
     <modelVersion>4.0.0</modelVersion>
@@ -81,7 +80,7 @@
         <!-- TODO: Figure out how to make this dao-layer agnostic -->
         <dependency>
             <groupId>${pom.groupId}</groupId>
-            <artifactId>appfuse-hibernate</artifactId>
+            <artifactId>appfuse-${dao.framework}</artifactId>
             <version>${pom.version}</version>
         </dependency>
         <dependency>

@@ -24,7 +24,7 @@ public abstract class BasePageTestCase extends AbstractDependencyInjectionSpring
     protected User user;
 
     protected String[] getConfigLocations() {
-        return new String[] {"classpath*:/applicationContext-hibernate.xml",
+        return new String[] {"classpath*:/applicationContext-dao.xml",
             "classpath*:/applicationContext-service.xml",
             "/applicationContext-resources.xml"};
     }

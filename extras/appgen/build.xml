@@ -470,11 +470,11 @@
             </fileset>
         </copy>
         
-        <echo>Adding Hibernate beans to applicationContext-hibernate.xml</echo>
+        <echo>Adding Hibernate beans to applicationContext-dao.xml</echo>
         <!-- load snippet -->
         <loadfile property="hibernate.context" srcfile="${generated.dir}${gen.sub.dir}/${module.src.dir}/dao/${app.package}/dao/hibernate/context-hibernate-${model.name}.xml"/>
         <!-- load config -->
-        <property name="hibernateConfig" location="../../${module.src.dir}/dao/${app.package.base}/dao/hibernate/applicationContext-hibernate.xml"/>
+        <property name="hibernateConfig" location="../../${module.src.dir}/dao/${app.package.base}/dao/hibernate/applicationContext-dao.xml"/>
         <!-- remove previous definition -->
         <replace file="${hibernateConfig}" token="&lt;!--${model.name}-START--&gt;" value="REGULAR-START"/>
         <replace file="${hibernateConfig}" token="&lt;!--${model.name}-END--&gt;" value="REGULAR-END"/>
@@ -506,11 +506,11 @@
             </fileset>
         </copy>
 
-        <echo>Adding iBATIS DAO beans to applicationContext-ibatis.xml</echo>
+        <echo>Adding iBATIS DAO beans to applicationContext-dao.xml</echo>
         <!-- load snippet -->
         <loadfile property="ibatis.context" srcfile="${generated.dir}${gen.sub.dir}/${module.src.dir}/dao/${app.package}/dao/ibatis/context-ibatis-${model.name}.xml"/>
         <!-- load config -->
-        <property name="ibatisConfig" location="../../${module.src.dir}/dao/${app.package.base}/dao/ibatis/applicationContext-ibatis.xml"/>
+        <property name="ibatisConfig" location="../../${module.src.dir}/dao/${app.package.base}/dao/ibatis/applicationContext-dao.xml"/>
         <!-- remove previous definition -->
         <replace file="${ibatisConfig}" token="&lt;!--${model.name}-START--&gt;" value="REGULAR-START"/>
         <replace file="${ibatisConfig}" token="&lt;!--${model.name}-END--&gt;" value="REGULAR-END"/>
@@ -571,9 +571,9 @@
         <copy todir="../../../${app.name}/src">
             <fileset dir="test" includes="**/Person.java"/>
         </copy> 
-        <!-- Add the mapping file for Person to applicationContext-hibernate.xml -->
+        <!-- Add the mapping file for Person to applicationContext-dao.xml -->
         <replace dir="../../../${app.name}/src">
-            <include name="**/applicationContext-hibernate.xml"/>
+            <include name="**/applicationContext-dao.xml"/>
             <replacetoken><![CDATA[<value>org/appfuse/model/Role.hbm.xml</value>]]></replacetoken>
             <replacevalue><![CDATA[<value>org/appfuse/model/Person.hbm.xml</value>
                 <value>org/appfuse/model/Role.hbm.xml</value>]]></replacevalue>
@@ -608,9 +608,9 @@
         <copy todir="../../../${app.name}/src">
             <fileset dir="test" includes="**/Person.java"/>
         </copy>   
-        <!-- Add the mapping file for Person to applicationContext-hibernate.xml -->
+        <!-- Add the mapping file for Person to applicationContext-dao.xml -->
         <replace dir="../../../${app.name}/src">
-            <include name="**/applicationContext-hibernate.xml"/>
+            <include name="**/applicationContext-dao.xml"/>
             <replacetoken><![CDATA[<value>org/appfuse/model/Role.hbm.xml</value>]]></replacetoken>
             <replacevalue><![CDATA[<value>org/appfuse/model/Person.hbm.xml</value>
                 <value>org/appfuse/model/Role.hbm.xml</value>]]></replacevalue>
@@ -646,9 +646,9 @@
         <copy todir="../../../${app.name}/src">
             <fileset dir="test" includes="**/PersonPlus.java"/>
         </copy>
-        <!-- Add the mapping file for Person to applicationContext-hibernate.xml -->
+        <!-- Add the mapping file for Person to applicationContext-dao.xml -->
         <replace dir="../../../${app.name}/src">
-            <include name="**/applicationContext-hibernate.xml"/>
+            <include name="**/applicationContext-dao.xml"/>
             <replacetoken><![CDATA[<value>org/appfuse/model/Role.hbm.xml</value>]]></replacetoken>
             <replacevalue><![CDATA[<value>org/appfuse/model/PersonPlus.hbm.xml</value>
                 <value>org/appfuse/model/Role.hbm.xml</value>]]></replacevalue>
@@ -685,9 +685,9 @@
         <copy todir="../../../${app.name}/src">
             <fileset dir="test" includes="**/Department.java"/>
         </copy>   
-        <!-- Add the mapping file for Department to applicationContext-hibernate.xml -->
+        <!-- Add the mapping file for Department to applicationContext-dao.xml -->
         <replace dir="../../../${app.name}/src">
-            <include name="**/applicationContext-hibernate.xml"/>
+            <include name="**/applicationContext-dao.xml"/>
             <replacetoken><![CDATA[<value>org/appfuse/model/Role.hbm.xml</value>]]></replacetoken>
             <replacevalue><![CDATA[<value>org/appfuse/organization/model/Department.hbm.xml</value>
                 <value>org/appfuse/model/Role.hbm.xml</value>]]></replacevalue>
