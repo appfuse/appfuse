@@ -8,20 +8,15 @@
  */
 package org.appfuse.service;
 
-import java.util.List;
-
 import org.appfuse.dao.RoleDao;
 import org.appfuse.model.Role;
 
-public interface RoleManager {
+import java.util.List;
 
+public interface RoleManager extends Manager {
     public void setRoleDao(RoleDao dao);
-
     public List getRoles(Role role);
-
     public Role getRole(String rolename);
-
     public void saveRole(Role role);
-
     public void removeRole(String rolename);
 }

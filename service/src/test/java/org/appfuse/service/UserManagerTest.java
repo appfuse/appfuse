@@ -108,8 +108,8 @@ public class UserManagerTest extends BaseManagerTestCase {
         // set expectations
         User user = new User("admin");
         user.setEmail("matt@raibledesigns.com");
-        List users;
-        users = new ArrayList();
+        List<User> users;
+        users = new ArrayList<User>();
 
         users.add(user);
         Exception ex = new DataIntegrityViolationException("");

@@ -1,10 +1,10 @@
 package org.appfuse.util;
 
-import java.io.IOException;
-import java.security.MessageDigest;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import java.io.IOException;
+import java.security.MessageDigest;
 
 
 /**
@@ -60,12 +60,12 @@ public class StringUtil {
 
         StringBuffer buf = new StringBuffer();
 
-        for (int i = 0; i < encodedPassword.length; i++) {
-            if ((encodedPassword[i] & 0xff) < 0x10) {
+        for (byte anEncodedPassword : encodedPassword) {
+            if ((anEncodedPassword & 0xff) < 0x10) {
                 buf.append("0");
             }
 
-            buf.append(Long.toString(encodedPassword[i] & 0xff, 16));
+            buf.append(Long.toString(anEncodedPassword & 0xff, 16));
         }
 
         return buf.toString();

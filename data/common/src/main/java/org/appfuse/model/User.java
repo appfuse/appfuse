@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.userdetails.UserDetails;
@@ -42,7 +41,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
     protected String website;
     protected Address address = new Address();
     protected Integer version;
-    protected Set roles = new HashSet();
+    protected Set<Role> roles = new HashSet<Role>();
     protected boolean enabled;
     protected boolean accountExpired;
     protected boolean accountLocked;
@@ -157,23 +156,20 @@ public class User extends BaseObject implements Serializable, UserDetails {
      * @hibernate.collection-key column="user_id"
      * @hibernate.collection-many-to-many class="org.appfuse.model.Role" column="role_id"
      */
-    public Set getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
     /**
      * Convert user roles to LabelValue objects for convenience.
      */
-    public List getRoleList() {
-        List userRoles = new ArrayList();
+    public List<LabelValue> getRoleList() {
+        List<LabelValue> userRoles = new ArrayList<LabelValue>();
 
         if (this.roles != null) {
-            for (Iterator it = roles.iterator(); it.hasNext();) {
-                Role role = (Role) it.next();
-
+            for (Role role : roles) {
                 // convert the user's roles to LabelValue Objects
-                userRoles.add(new LabelValue(role.getName(),
-                                             role.getName()));
+                userRoles.add(new LabelValue(role.getName(), role.getName()));
             }
         }
 
@@ -192,7 +188,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
      * @see org.acegisecurity.userdetails.UserDetails#getAuthorities()
      */
     public GrantedAuthority[] getAuthorities() {
-        return (GrantedAuthority[]) roles.toArray(new GrantedAuthority[0]);
+        return roles.toArray(new GrantedAuthority[0]);
     }
 
     /**
@@ -295,7 +291,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
         this.address = address;
     }
 
-    public void setRoles(Set roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 
@@ -325,9 +321,8 @@ public class User extends BaseObject implements Serializable, UserDetails {
 
         final User user = (User) o;
 
-        if (username != null ? !username.equals(user.getUsername()) : user.getUsername() != null) return false;
+        return !(username != null ? !username.equals(user.getUsername()) : user.getUsername() != null);
 
-        return true;
     }
 
     public int hashCode() {

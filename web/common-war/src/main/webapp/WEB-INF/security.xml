@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
-    "http://www.springframework.org/dtd/spring-beans.dtd">
-
-<beans>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <!-- ======================== FILTER CHAIN ======================= -->
     <bean id="filterChainProxy" class="org.acegisecurity.util.FilterChainProxy">
@@ -124,28 +125,10 @@
     <!-- This bean is optional; it isn't used by any other bean as it only listens and logs -->
     <bean id="loggerListener" class="org.acegisecurity.event.authentication.LoggerListener"/>
 
-    <!-- Override 'userManager' bean definition to add userManagerSecurity interceptor -->
-    <bean id="userManager" parent="txProxyTemplate">
-        <property name="target">
-            <bean class="org.appfuse.service.impl.UserManagerImpl">
-                <property name="userDao" ref="userDao"/>
-            </bean>
-        </property>
-        <!-- Override default transaction attributes b/c of UserExistsException -->
-        <property name="transactionAttributes">
-            <props>
-                <prop key="save*">PROPAGATION_REQUIRED,-UserExistsException</prop>
-                <prop key="remove*">PROPAGATION_REQUIRED</prop>
-                <prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
-            </props>
-        </property>
-        <property name="preInterceptors">
-            <list>
-                <ref bean="userSecurityInterceptor"/>
-                <ref bean="userManagerSecurity"/>
-            </list>
-        </property>
-    </bean>
+    <!-- Add additional role-based security to userManager -->
+    <aop:config>
+        <aop:advisor id="userRoleSecurity" pointcut="execution(* *.service.UserManager.*(..))" advice-ref="userManagerSecurity"/>
+    </aop:config>
 
     <bean id="userManagerSecurity" class="org.acegisecurity.intercept.method.aopalliance.MethodSecurityInterceptor">
         <property name="authenticationManager" ref="authenticationManager"/>
@@ -158,7 +141,7 @@
         </property>
     </bean>
     
-    <!-- SSL Switching: to use this, configure it in the filterChainProxy bean -->
+    <!-- SSL Switching: to use this, add it to the list of filters in the filterChainProxy bean at the top -->
     <bean id="channelProcessingFilter" class="org.acegisecurity.securechannel.ChannelProcessingFilter">
         <property name="channelDecisionManager" ref="channelDecisionManager"/>
         <property name="filterInvocationDefinitionSource">

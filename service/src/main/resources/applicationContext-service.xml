@@ -1,64 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
-    "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-<beans>
+    <aop:config>
+        <aop:advisor id="serviceMethods" pointcut="execution(* *.service.*Manager.*(..))" advice-ref="txAdvice"/>
+        <aop:advisor id="userManagerMethods" pointcut="execution(* *.service.UserManager.*(..))"
+                     advice-ref="userManagerTxAdvice"/>
+        <aop:advisor id="userManagerSecurity" pointcut="execution(* *.service.UserManager.saveUser(..))"
+                     advice-ref="userSecurityAdvice"/>
+    </aop:config>
+
+    <!-- Needed to enable scanning for @Transactional -->
+    <tx:annotation-driven/>
+
+    <tx:advice id="txAdvice">
+        <tx:attributes>
+            <tx:method name="*"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <tx:advice id="userManagerTxAdvice">
+        <tx:attributes>
+            <tx:method name="save*" rollback-for="UserExistsException"/>
+            <tx:method name="remove*"/>
+            <tx:method name="*"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!-- Generic manager that can be used to do basic CRUD operations on any objects -->
+    <bean id="manager" class="org.appfuse.service.impl.BaseManager">
+        <property name="dao" ref="dao"/>
+    </bean>
+
     <bean id="lookupManager" class="org.appfuse.service.impl.LookupManagerImpl">
         <property name="lookupDao" ref="lookupDao"/>
     </bean>
-    
-    <!-- Transaction template for Managers, from:
-         http://blog.exis.com/colin/archives/2004/07/31/concise-transaction-definitions-spring-11/ -->
-    <bean id="txProxyTemplate" abstract="true"
-        class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
-        <property name="transactionManager" ref="transactionManager"/>
-        <property name="transactionAttributes">
-            <props>
-                <prop key="save*">PROPAGATION_REQUIRED</prop>
-                <prop key="remove*">PROPAGATION_REQUIRED</prop>
-                <prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
-            </props>
-        </property>
+
+    <bean id="userManager" class="org.appfuse.service.impl.UserManagerImpl">
+        <property name="userDao" ref="userDao"/>
     </bean>
 
-    <!-- Generic manager that can be used to do basic CRUD operations on any objects -->
-    <bean id="manager" parent="txProxyTemplate">
-        <property name="target">
-            <bean class="org.appfuse.service.impl.BaseManager">
-                <property name="dao" ref="dao"/>
-            </bean>
-        </property>
-    </bean>
-    
-    <!-- Transaction declarations for business services.  To apply a generic transaction proxy to
-         all managers, you might look into using the BeanNameAutoProxyCreator -->
-    <bean id="userManager" parent="txProxyTemplate">
-        <property name="target">
-            <bean class="org.appfuse.service.impl.UserManagerImpl">
-                <property name="userDao" ref="userDao"/>
-            </bean>
-        </property>
-        <!-- Override default transaction attributes b/c of UserExistsException -->
-        <property name="transactionAttributes">
-            <props>
-                <prop key="save*">PROPAGATION_REQUIRED,-UserExistsException</prop>
-                <prop key="remove*">PROPAGATION_REQUIRED</prop>
-                <prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
-            </props>
-        </property>
-        <!-- This property is overriden in applicationContext-security.xml to add
-             method-level role security -->
-        <property name="preInterceptors">
-            <list>
-                <ref bean="userSecurityInterceptor"/>
-            </list>
-        </property>
-    </bean>
-
-    <!-- This interceptor insures that that users can only update themselves, not other users -->
-    <bean id="userSecurityInterceptor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
-        <property name="advice" ref="userSecurityAdvice"/>
-        <property name="patterns" value=".*saveUser"/>
+    <bean id="roleManager" class="org.appfuse.service.impl.RoleManagerImpl">
+        <property name="roleDao" ref="roleDao"/>
     </bean>
 
     <bean id="userSecurityAdvice" class="org.appfuse.service.UserSecurityAdvice">
@@ -75,15 +61,7 @@
             </bean>
         </property>
     </bean>
-    
-    <bean id="roleManager" parent="txProxyTemplate">
-        <property name="target">
-            <bean class="org.appfuse.service.impl.RoleManagerImpl">
-                <property name="roleDao" ref="roleDao"/>
-            </bean>
-        </property>
-    </bean>
-     
+
     <bean id="mailEngine" class="org.appfuse.service.MailEngine">
         <property name="mailSender" ref="mailSender"/>
         <property name="velocityEngine" ref="velocityEngine"/>
@@ -111,6 +89,6 @@
     <bean id="mailMessage" class="org.springframework.mail.SimpleMailMessage" singleton="false">
         <property name="from" value="${mail.default.from}"/>
     </bean>
-    
+
     <!-- Add new Managers here -->
 </beans>

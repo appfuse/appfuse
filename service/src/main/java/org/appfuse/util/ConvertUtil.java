@@ -1,15 +1,5 @@
 package org.appfuse.util;
 
-import java.beans.PropertyDescriptor;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.ResourceBundle;
-
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
@@ -18,6 +8,9 @@ import org.apache.commons.logging.LogFactory;
 import org.appfuse.model.BaseObject;
 import org.appfuse.model.LabelValue;
 import org.springframework.aop.support.AopUtils;
+
+import java.beans.PropertyDescriptor;
+import java.util.*;
 
 
 /**
@@ -41,22 +34,21 @@ public final class ConvertUtil {
      * @param rb a given resource bundle
      * @return Map a populated map
      */
-    public static Map convertBundleToMap(ResourceBundle rb) {
-        Map map = new HashMap();
+    public static Map<String,String> convertBundleToMap(ResourceBundle rb) {
+        Map<String,String> map = new HashMap<String, String>();
 
-        for (Enumeration keys = rb.getKeys(); keys.hasMoreElements();) {
-            String key = (String) keys.nextElement();
+        for (Enumeration<String> keys = rb.getKeys(); keys.hasMoreElements();) {
+            String key = keys.nextElement();
             map.put(key, rb.getString(key));
         }
 
         return map;
     }
     
-    public static Map convertListToMap(List list) {
-        Map map = new LinkedHashMap();
-        
-        for (Iterator it = list.iterator(); it.hasNext();) {
-            LabelValue option = (LabelValue) it.next();
+    public static Map<String,String> convertListToMap(List<LabelValue> list) {
+        Map<String,String> map = new LinkedHashMap<String, String>();
+
+        for (LabelValue option : list) {
             map.put(option.getLabel(), option.getValue());
         }
         
@@ -71,8 +63,8 @@ public final class ConvertUtil {
     public static Properties convertBundleToProperties(ResourceBundle rb) {
         Properties props = new Properties();
 
-        for (Enumeration keys = rb.getKeys(); keys.hasMoreElements();) {
-            String key = (String) keys.nextElement();
+        for (Enumeration<String> keys = rb.getKeys(); keys.hasMoreElements();) {
+            String key = keys.nextElement();
             props.put(key, rb.getString(key));
         }
 
@@ -88,7 +80,7 @@ public final class ConvertUtil {
      */
     public static Object populateObject(Object obj, ResourceBundle rb) {
         try {
-            Map map = convertBundleToMap(rb);
+            Map<String,String> map = convertBundleToMap(rb);
 
             BeanUtils.copyProperties(obj, map);
         } catch (Exception e) {
@@ -115,9 +107,7 @@ public final class ConvertUtil {
         String name = o.getClass().getName();
 
         if (o instanceof BaseObject) {
-            if (log.isDebugEnabled()) {
-                log.debug("getting form equivalent of pojo...");
-            }
+            log.debug("getting form equivalent of pojo...");
 
             name = StringUtils.replace(name, ".model.", ".webapp.form.");
             if (AopUtils.isCglibProxy(o))  {
@@ -132,7 +122,7 @@ public final class ConvertUtil {
             name = name.substring(0, name.lastIndexOf("Form"));
         }
 		
-        Class obj = Class.forName(name);
+        Class<?> obj = Class.forName(name);
 
         if (log.isDebugEnabled()) {
             log.debug("returning className: " + obj.getName());
@@ -174,12 +164,12 @@ public final class ConvertUtil {
         PropertyDescriptor[] origDescriptors =
                 PropertyUtils.getPropertyDescriptors(o);
 
-        for (int i = 0; i < origDescriptors.length; i++) {
-            String name = origDescriptors[i].getName();
+        for (PropertyDescriptor origDescriptor : origDescriptors) {
+            String name = origDescriptor.getName();
 
-            if (origDescriptors[i].getPropertyType().equals(List.class)) {
-                List list = (List) PropertyUtils.getProperty(o, name);
-                for (int j=0; j < list.size(); j++) {
+            if (origDescriptor.getPropertyType().equals(List.class)) {
+                List<Object> list = (List<Object>) PropertyUtils.getProperty(o, name);
+                for (int j = 0; j < list.size(); j++) {
                     Object origin = list.get(j);
                     target = convert(origin);
                     list.set(j, target);

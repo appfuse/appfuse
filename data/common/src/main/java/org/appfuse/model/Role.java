@@ -8,14 +8,13 @@ import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
  * This class is used to represent available roles in the database.</p>
- *
+ * <p/>
  * <p><a href="Role.java.html"><i>View Source</i></a></p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- *  Version by Dan Kibler dan@getrolling.com
- *  Extended to implement Acegi GrantedAuthority interface 
- *  	by David Carter david@carter.net
- *
+ *         Version by Dan Kibler dan@getrolling.com
+ *         Extended to implement Acegi GrantedAuthority interface
+ *         by David Carter david@carter.net
  * @struts.form extends="BaseForm"
  * @hibernate.class table="role"
  */
@@ -25,12 +24,13 @@ public class Role extends BaseObject implements Serializable, GrantedAuthority {
     private String name;
     private String description;
 
-    public Role() {}
-    
+    public Role() {
+    }
+
     public Role(String name) {
         this.name = name;
     }
-    
+
     /**
      * @hibernate.id column="id" generator-class="increment" unsaved-value="null"
      */
@@ -44,7 +44,7 @@ public class Role extends BaseObject implements Serializable, GrantedAuthority {
     public String getAuthority() {
         return getName();
     }
-    
+
     /**
      * @hibernate.property column="name" length="20"
      */
@@ -58,7 +58,7 @@ public class Role extends BaseObject implements Serializable, GrantedAuthority {
     public String getDescription() {
         return this.description;
     }
-    
+
     public void setId(Long id) {
         this.id = id;
     }

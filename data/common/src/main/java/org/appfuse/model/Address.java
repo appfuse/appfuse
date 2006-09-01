@@ -93,9 +93,8 @@ public class Address extends BaseObject implements Serializable {
         if (city != null ? !city.equals(address1.city) : address1.city != null) return false;
         if (country != null ? !country.equals(address1.country) : address1.country != null) return false;
         if (postalCode != null ? !postalCode.equals(address1.postalCode) : address1.postalCode != null) return false;
-        if (province != null ? !province.equals(address1.province) : address1.province != null) return false;
+        return !(province != null ? !province.equals(address1.province) : address1.province != null);
 
-        return true;
     }
 
     public int hashCode() {

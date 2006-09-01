@@ -1,15 +1,6 @@
 package org.appfuse.service;
 
-import java.lang.reflect.Method;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
-
-import org.acegisecurity.AccessDeniedException;
-import org.acegisecurity.Authentication;
-import org.acegisecurity.AuthenticationTrustResolver;
-import org.acegisecurity.AuthenticationTrustResolverImpl;
-import org.acegisecurity.GrantedAuthority;
+import org.acegisecurity.*;
 import org.acegisecurity.context.SecurityContext;
 import org.acegisecurity.context.SecurityContextHolder;
 import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
@@ -23,6 +14,10 @@ import org.appfuse.model.Role;
 import org.appfuse.model.User;
 import org.springframework.aop.AfterReturningAdvice;
 import org.springframework.aop.MethodBeforeAdvice;
+
+import java.lang.reflect.Method;
+import java.util.HashSet;
+import java.util.Set;
 
 public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdvice {
     public final static String ACCESS_DENIED = "Access Denied: Only administrators are allowed to modify other users.";
@@ -44,8 +39,8 @@ public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdv
             Authentication auth = ctx.getAuthentication();
             boolean administrator = false;
             GrantedAuthority[] roles = auth.getAuthorities();
-            for (int i=0; i < roles.length; i++) {
-                if (roles[i].getAuthority().equals(Constants.ADMIN_ROLE)) {
+            for (GrantedAuthority role1 : roles) {
+                if (role1.getAuthority().equals(Constants.ADMIN_ROLE)) {
                     administrator = true;
                     break;
                 }
@@ -85,18 +80,18 @@ public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdv
             else if (username != null && username.equalsIgnoreCase(currentUser) && !administrator) {
 
                 // get the list of roles the user is trying add
-                Set userRoles = new HashSet();
+                Set<String> userRoles = new HashSet<String>();
                 if (user.getRoles() != null) {
-                    for (Iterator it = user.getRoles().iterator(); it.hasNext();) {
-                        Role role = (Role) it.next();
+                    for (Object o : user.getRoles()) {
+                        Role role = (Role) o;
                         userRoles.add(role.getName());
                     }
                 }
 
                 // get the list of roles the user currently has
-                Set authorizedRoles = new HashSet();
-                for (int i=0; i < roles.length; i++) {
-                    authorizedRoles.add(roles[i].getAuthority());
+                Set<String> authorizedRoles = new HashSet<String>();
+                for (GrantedAuthority role1 : roles) {
+                    authorizedRoles.add(role1.getAuthority());
                 }
 
                 // if they don't match - access denied

@@ -1,5 +1,7 @@
 package org.appfuse.dao;
 
+import org.appfuse.model.Role;
+
 import java.util.List;
 
 
@@ -16,5 +18,5 @@ import java.util.List;
 public interface LookupDao extends Dao {
     //~ Methods ================================================================
 
-    public List getRoles();
+    public List<Role> getRoles();
 }

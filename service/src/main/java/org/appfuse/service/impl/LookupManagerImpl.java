@@ -1,12 +1,12 @@
 package org.appfuse.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.appfuse.dao.LookupDao;
 import org.appfuse.model.LabelValue;
 import org.appfuse.model.Role;
 import org.appfuse.service.LookupManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -31,13 +31,11 @@ public class LookupManagerImpl extends BaseManager implements LookupManager {
      * @see org.appfuse.service.LookupManager#getAllRoles()
      */
     public List getAllRoles() {
-        List roles = dao.getRoles();
-        List list = new ArrayList();
-        Role role = null;
+        List<Role> roles = dao.getRoles();
+        List<LabelValue> list = new ArrayList<LabelValue>();
 
-        for (int i = 0; i < roles.size(); i++) {
-            role = (Role) roles.get(i);
-            list.add(new LabelValue(role.getName(), role.getName()));
+        for (Role role1 : roles) {
+            list.add(new LabelValue(role1.getName(), role1.getName()));
         }
 
         return list;

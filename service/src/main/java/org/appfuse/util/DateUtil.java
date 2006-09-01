@@ -1,18 +1,13 @@
 package org.appfuse.util;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Locale;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.Constants;
 import org.springframework.context.i18n.LocaleContextHolder;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 
 /**
@@ -27,13 +22,12 @@ import org.springframework.context.i18n.LocaleContextHolder;
  *  Modified by <a href="mailto:dan@getrolling.com">Dan Kibler </a> 
  *   to correct time pattern. Minutes should be mm not MM
  * 	(MM is month). 
- * @version $Revision: 1.9 $ $Date: 2006/07/15 11:57:17 $
+ * @version $Revision: 1.9 $ $Date: 2006-07-15 05:58:03 -0600 (Sat, 15 Jul 2006) $
  */
 public class DateUtil {
     //~ Static fields/initializers =============================================
 
     private static Log log = LogFactory.getLog(DateUtil.class);
-    private static String defaultDatePattern = null;
     private static String timePattern = "HH:mm";
 
     //~ Methods ================================================================
@@ -44,6 +38,7 @@ public class DateUtil {
      */
     public static synchronized String getDatePattern() {
         Locale locale = LocaleContextHolder.getLocale();
+        String defaultDatePattern;
         try {
             defaultDatePattern = ResourceBundle.getBundle(Constants.BUNDLE_KEY, locale)
                 .getString("date.format");
@@ -65,8 +60,8 @@ public class DateUtil {
      * @param aDate date from database as a string
      * @return formatted string for the ui
      */
-    public static final String getDate(Date aDate) {
-        SimpleDateFormat df = null;
+    public static String getDate(Date aDate) {
+        SimpleDateFormat df;
         String returnValue = "";
 
         if (aDate != null) {
@@ -87,10 +82,10 @@ public class DateUtil {
      * @see java.text.SimpleDateFormat
      * @throws ParseException
      */
-    public static final Date convertStringToDate(String aMask, String strDate)
+    public static Date convertStringToDate(String aMask, String strDate)
       throws ParseException {
-        SimpleDateFormat df = null;
-        Date date = null;
+        SimpleDateFormat df;
+        Date date;
         df = new SimpleDateFormat(aMask);
 
         if (log.isDebugEnabled()) {
@@ -148,7 +143,7 @@ public class DateUtil {
      * 
      * @see java.text.SimpleDateFormat
      */
-    public static final String getDateTime(String aMask, Date aDate) {
+    public static String getDateTime(String aMask, Date aDate) {
         SimpleDateFormat df = null;
         String returnValue = "";
 
@@ -170,7 +165,7 @@ public class DateUtil {
      * @param aDate A date to convert
      * @return a string representation of the date
      */
-    public static final String convertDateToString(Date aDate) {
+    public static String convertDateToString(Date aDate) {
         return getDateTime(getDatePattern(), aDate);
     }
 

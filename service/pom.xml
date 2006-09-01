@@ -77,11 +77,15 @@
     </build>
     
     <dependencies>
-        <!-- TODO: Figure out how to make this dao-layer agnostic -->
         <dependency>
             <groupId>${pom.groupId}</groupId>
             <artifactId>appfuse-${dao.framework}</artifactId>
             <version>${pom.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.5.2</version>
         </dependency>
         <dependency>
             <groupId>commons-beanutils</groupId>
