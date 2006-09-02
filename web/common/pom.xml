@@ -139,6 +139,10 @@
                     <groupId>struts</groupId>
                     <artifactId>struts</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>commons-beanutils</groupId>
+                    <artifactId>commons-beanutils</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
