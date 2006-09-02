@@ -32,7 +32,7 @@ public class Role extends BaseObject implements Serializable, GrantedAuthority {
     }
     
     /**
-     * @hibernate.id column="id" generator-class="increment" unsaved-value="null"
+     * @hibernate.id column="id" generator-class="native" unsaved-value="null"
      */
     public Long getId() {
         return id;
