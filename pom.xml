@@ -131,10 +131,6 @@
             <id>central</id>
             <url>http://ibiblio.org/maven2</url>
         </repository>
-        <repository>
-            <id>appfuse</id>
-            <url>http://static.appfuse.org/repository</url>
-        </repository>
     </repositories>
     <pluginRepositories>
         <pluginRepository>
@@ -171,11 +167,6 @@
                     <artifactId>spring-support</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-            <version>1.0.4</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
