@@ -77,8 +77,7 @@ public class UserDaoiBatis extends BaseDaoiBATIS implements UserDao, UserDetails
                 newRole.put("userId", user.getId());
                 newRole.put("roleId", role.getId());
 
-                List userRoles = getSqlMapClientTemplate().queryForList("getUserRoles", user.getUsername());
-
+                List userRoles = getSqlMapClientTemplate().queryForList("getUserRoles", user.getId());
                 if (userRoles.isEmpty()) {
                     getSqlMapClientTemplate().update("addUserRole", newRole);
                 }
