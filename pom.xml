@@ -131,6 +131,10 @@
             <id>central</id>
             <url>http://ibiblio.org/maven2</url>
         </repository>
+        <repository>
+            <id>appfuse</id>
+            <url>http://static.appfuse.org/repository</url>
+        </repository>
     </repositories>
     <pluginRepositories>
         <pluginRepository>
