@@ -78,20 +78,20 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>dbunit-maven-plugin</artifactId>
                 <version>1.0-SNAPSHOT</version>
+                <configuration>
+                    <driver>${jdbc.driverClassName}</driver>
+                    <username>${jdbc.username}</username>
+                    <password>${jdbc.password}</password>
+                    <url>${jdbc.url}</url>
+                    <sourceData>${basedir}/src/test/data/sample-data.xml</sourceData>
+                    <sourceDataFormat>xml</sourceDataFormat>
+                </configuration>
                 <executions>
                     <execution>
                         <phase>test-compile</phase>
                         <goals>
                             <goal>clean-insert</goal>
                         </goals>
-                        <configuration>
-                            <driver>${jdbc.driverClassName}</driver>
-                            <username>${jdbc.username}</username>
-                            <password>${jdbc.password}</password>
-                            <url>${jdbc.url}</url>
-                            <sourceData>${basedir}/src/test/data/sample-data.xml</sourceData>
-                            <sourceDataFormat>xml</sourceDataFormat>
-                        </configuration>
                     </execution>
                 </executions>
                 <dependencies>
