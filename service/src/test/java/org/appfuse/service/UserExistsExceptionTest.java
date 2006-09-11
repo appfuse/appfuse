@@ -13,8 +13,9 @@ public class UserExistsExceptionTest extends AbstractTransactionalDataSourceSpri
     
     protected String[] getConfigLocations() {
         setAutowireMode(AUTOWIRE_BY_NAME);
-        // TODO: Figure out how to load DAOs w/o hard-coding the path to hibernate or ibatis
-        return new String[] {"classpath*:/applicationContext-*.xml", "classpath*:/applicationContext-dao.xml"};
+        return new String[] {"/applicationContext-service.xml",
+                             "/applicationContext-resources.xml",
+                             "classpath*:/applicationContext-dao.xml"};
     }
 
     public void testAddExistingUser() throws Exception {
