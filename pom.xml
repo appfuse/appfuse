@@ -108,7 +108,7 @@
             </plugin>
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
-                <artifactId>maven-jetty6-plugin</artifactId>
+                <artifactId>maven-jetty-plugin</artifactId>
                 <configuration>
                     <scanIntervalSeconds>3</scanIntervalSeconds>
                 </configuration>
@@ -228,6 +228,7 @@
 
     <properties>
         <dao.framework>hibernate</dao.framework>
+        
         <jdbc.groupId>mysql</jdbc.groupId>
         <jdbc.artifactId>mysql-connector-java</jdbc.artifactId>
         <jdbc.version>5.0.3</jdbc.version>
@@ -236,9 +237,14 @@
         <jdbc.username>test</jdbc.username>
         <jdbc.password>test</jdbc.password>
         
+        <cargo.host>localhost</cargo.host>
+        <cargo.port>9876</cargo.port>
+        
         <hibernate.version>3.2</hibernate.version>
         <myfaces.version>1.1.3</myfaces.version>
         <spring.version>2.0-rc3</spring.version>
         <struts.version>2.0.0</struts.version>
+        
+        <copyright.year>2006</copyright.year>
     </properties>
 </project>
