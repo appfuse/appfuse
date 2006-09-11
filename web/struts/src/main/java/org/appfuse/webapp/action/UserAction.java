@@ -1,27 +1,23 @@
 package org.appfuse.webapp.action;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import org.acegisecurity.Authentication;
 import org.acegisecurity.AuthenticationTrustResolver;
 import org.acegisecurity.AuthenticationTrustResolverImpl;
-import org.acegisecurity.Authentication;
-import org.acegisecurity.context.SecurityContextHolder;
 import org.acegisecurity.context.SecurityContext;
-
+import org.acegisecurity.context.SecurityContextHolder;
+import org.apache.struts2.ServletActionContext;
 import org.appfuse.Constants;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
-import org.appfuse.util.StringUtil;
 import org.appfuse.service.UserExistsException;
+import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.util.RequestUtil;
 
-import org.apache.struts2.ServletActionContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserAction extends BaseAction {
     private List users;
@@ -46,7 +42,7 @@ public class UserAction extends BaseAction {
 
     public String delete() throws IOException {       
         userManager.removeUser(user.getId().toString());
-        List args = new ArrayList();
+        List<String> args = new ArrayList<String>();
         args.add(user.getFullName());
         saveMessage(getText("user.deleted", args));
 
@@ -124,8 +120,7 @@ public class UserAction extends BaseAction {
 
         Boolean encrypt = (Boolean) getConfiguration().get(Constants.ENCRYPT_PASSWORD);
 
-        if ("true".equals(getRequest().getParameter("encryptPass"))
-                && (encrypt != null && encrypt.booleanValue())) {
+        if ("true".equals(getRequest().getParameter("encryptPass")) && (encrypt != null && encrypt)) {
             String algorithm = (String) getConfiguration().get(Constants.ENC_ALGORITHM);
 
             if (algorithm == null) { // should only happen for test case
@@ -150,7 +145,7 @@ public class UserAction extends BaseAction {
             userManager.saveUser(user);
         } catch (UserExistsException e) {
             log.warn(e.getMessage());
-            List args = new ArrayList();
+            List<String> args = new ArrayList<String>();
             args.add(user.getUsername());
             args.add(user.getEmail());
             addActionError(getText("errors.existing.user", args));
@@ -169,7 +164,7 @@ public class UserAction extends BaseAction {
             return "mainMenu";
         } else {
             // add success messages
-            List args = new ArrayList();
+            List<String> args = new ArrayList<String>();
             args.add(user.getFullName());
             if (isNew) {
                 saveMessage(getText("user.added", args));
@@ -187,7 +182,6 @@ public class UserAction extends BaseAction {
 
     public String list() {
         users = userManager.getUsers(new User());
-
         return SUCCESS;
     }
 }

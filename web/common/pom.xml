@@ -29,6 +29,7 @@
     </parent>
 
     <artifactId>appfuse-web-common</artifactId>
+    <packaging>war</packaging>
     <name>AppFuse Common Web Module</name>
     <build>
         <plugins>
@@ -96,6 +97,12 @@
             <groupId>displaytag</groupId>
             <artifactId>displaytag</artifactId>
             <version>1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>dumbster</groupId>
+            <artifactId>dumbster</artifactId>
+            <version>1.5</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>uk.ltd.getahead</groupId>

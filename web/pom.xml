@@ -32,14 +32,9 @@
     <name>AppFuse Web Modules</name>
     <modules>
         <module>common</module>
-        <module>common-war</module>
         <module>jsf</module>
-        <module>jsf-war</module>
         <module>spring</module>
-        <module>spring-war</module>
         <module>struts</module>
-        <module>struts-war</module>
         <module>tapestry</module>
-        <module>tapestry-war</module>
     </modules>
 </project>

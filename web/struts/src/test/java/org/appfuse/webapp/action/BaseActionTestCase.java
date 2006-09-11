@@ -1,20 +1,18 @@
 package org.appfuse.webapp.action;
 
-import java.util.HashMap;
-
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.util.LocalizedTextUtil;
 import junit.framework.TestCase;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.struts2.ServletActionContext;
 import org.appfuse.Constants;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockServletContext;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 
-import org.apache.struts2.ServletActionContext;
-import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.util.LocalizedTextUtil;
+import java.util.HashMap;
 
 public abstract class BaseActionTestCase extends TestCase {
     protected transient final Log log = LogFactory.getLog(getClass());
@@ -27,8 +25,8 @@ public abstract class BaseActionTestCase extends TestCase {
         String[] paths = {
                 "classpath*:/applicationContext-dao.xml",
                 "classpath*:/applicationContext-service.xml",
-                "/applicationContext-resources.xml",
-                "/action-servlet.xml"
+                "/WEB-INF/applicationContext-resources.xml",
+                "/WEB-INF/action-servlet.xml"
             };
         
         ctx = new XmlWebApplicationContext();

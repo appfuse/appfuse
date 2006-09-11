@@ -44,7 +44,7 @@ public abstract class BasePageTestCase extends TestCase {
         servletContext.addInitParameter(ContextLoader.CONFIG_LOCATION_PARAM,
                 "classpath*:/applicationContext-dao.xml, " +
                 "classpath*:/applicationContext-service.xml, " +
-                "classpath:/applicationContext-resources.xml");
+                "/WEB-INF/applicationContext-resources.xml");
 
         ServletContextListener contextListener = new ContextLoaderListener();
         ServletContextEvent event = new ServletContextEvent(servletContext);

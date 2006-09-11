@@ -1,5 +1,0 @@
-<config host="localhost" port="8080" protocol="http"
-    basepath="appfuse-struts-war-2.0-SNAPSHOT" resultpath="target/webtest-data" saveresponse="true"
-    resultfile="web-tests-result.xml" summary="true">
-    <header name="Accept-Language" value="${user.language}"/>
-</config>

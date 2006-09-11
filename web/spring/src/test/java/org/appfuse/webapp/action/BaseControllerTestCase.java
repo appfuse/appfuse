@@ -32,9 +32,9 @@ public abstract class BaseControllerTestCase extends TestCase {
         String[] paths = {
                 "classpath*:/applicationContext-dao.xml",
                 "classpath*:/applicationContext-service.xml",
-                "/applicationContext-resources.xml",
-                "/applicationContext-validation.xml",
-                "/action-servlet.xml"
+                "/WEB-INF/applicationContext-resources.xml",
+                "/WEB-INF/applicationContext-validation.xml",
+                "/WEB-INF/action-servlet.xml"
             };
 
         ctx = new XmlWebApplicationContext();
@@ -82,25 +82,25 @@ public abstract class BaseControllerTestCase extends TestCase {
                     objectToRequestParameters(field, request, fields[i].getName());
                 } else if (!(field instanceof List) && !(field instanceof Set)) {
                     String paramName = fields[i].getName();
-    
+
                     if (prefix != null) {
                         paramName = prefix + "." + paramName;
                     }
-    
+
                     String paramValue = String.valueOf(fields[i].get(o));
-    
+
                     // handle Dates
                     if (field instanceof java.util.Date) {
                         paramValue = DateUtil.convertDateToString((Date)fields[i].get(o));
                         if ("null".equals(paramValue)) paramValue = "";
                     }
-    
+
                     request.addParameter(paramName, paramValue);
                 }
             }
         }
     }
-    
+
     private Field[] getDeclaredFields(Class clazz) {
         Field[] f = new Field[0];
         Class superClazz = clazz.getSuperclass();

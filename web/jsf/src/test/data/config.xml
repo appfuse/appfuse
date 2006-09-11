@@ -1,0 +1,5 @@
+<config host="${host}" port="${port}" protocol="http"
+    basepath="${webapp.name}" resultpath="target/webtest-data" saveresponse="true"
+    resultfile="web-tests-result.xml" summary="true">
+    <header name="Accept-Language" value="${user.language}"/>
+</config>
