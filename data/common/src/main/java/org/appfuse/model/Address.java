@@ -2,6 +2,9 @@ package org.appfuse.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
@@ -14,6 +17,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  *
  * @struts.form include-all="true" extends="BaseForm"
  */
+@Entity
 public class Address extends BaseObject implements Serializable {
     private static final long serialVersionUID = 3617859655330969141L;
     protected String address;
@@ -22,33 +26,31 @@ public class Address extends BaseObject implements Serializable {
     protected String country;
     protected String postalCode;
 
-    /**
-     * @hibernate.property column="address" not-null="false" length="150"
-     */
+    @Column(length=150)
     public String getAddress() {
         return address;
     }
 
     /**
      * @struts.validator type="required"
-     * @hibernate.property column="city" not-null="true" length="50"
      */
+    @Column(nullable=false,length=50)
     public String getCity() {
         return city;
     }
 
     /**
      * @struts.validator type="required"
-     * @hibernate.property column="province" length="100"
      */
+    @Column(length=100)
     public String getProvince() {
         return province;
     }
 
     /**
      * @struts.validator type="required"
-     * @hibernate.property column="country" length="100"
      */
+    @Column(length=100)
     public String getCountry() {
         return country;
     }
@@ -57,8 +59,8 @@ public class Address extends BaseObject implements Serializable {
      * @struts.validator type="required"
      * @struts.validator type="mask" msgkey="errors.zip"
      * @struts.validator-var name="mask" value="${zip}"
-     * @hibernate.property column="postal_code" not-null="true" length="15"
      */
+    @Column(name="postal_code",nullable=false,length=15)
     public String getPostalCode() {
         return postalCode;
     }

@@ -3,12 +3,18 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!-- Hibernate SessionFactory -->
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <property name="mappingResources">
+        <!--  Causes: WARN - AnnotationBinder.bindPackage(210) | Package not found or wo package-info.java: org.appfuse.model -->
+        <!--property name="annotatedPackages">
+        	<list>
+        		<value>org.appfuse.model</value>
+        	</list>
+        </property-->
+        <property name="annotatedClasses">
             <list>
-                <value>org/appfuse/model/Role.hbm.xml</value>
-                <value>org/appfuse/model/User.hbm.xml</value>
+                <value>org.appfuse.model.Role</value>
+                <value>org.appfuse.model.User</value>
             </list>
         </property>
         <property name="hibernateProperties">

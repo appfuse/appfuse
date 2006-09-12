@@ -54,7 +54,7 @@
                     <dependency>
                         <groupId>org.hibernate</groupId>
                         <artifactId>hibernate</artifactId>
-                        <version>3.2.0.cr3</version>
+                        <version>3.2.0.cr2</version>
                         <exclusions>
                             <exclusion>
                                 <groupId>javax.transaction</groupId>
@@ -113,8 +113,24 @@
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-annotations</artifactId>
+            <version>3.2.0.cr1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.persistence</groupId>
+                    <artifactId>ejb</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>persistence-api</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
             <artifactId>hibernate</artifactId>
-            <version>3.2.0.cr3</version>
+            <version>3.2.0.cr2</version>
             <exclusions>
                 <exclusion>
                     <groupId>javax.transaction</groupId>
@@ -126,6 +142,6 @@
             <groupId>geronimo-spec</groupId>
             <artifactId>geronimo-spec-jta</artifactId>
             <version>1.0.1B-rc4</version>
-        </dependency>
+        </dependency>   
     </dependencies>
 </project>

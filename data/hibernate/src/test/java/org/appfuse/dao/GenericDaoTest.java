@@ -1,6 +1,7 @@
 package org.appfuse.dao;
 
 import org.appfuse.model.User;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.orm.ObjectRetrievalFailureException;
 
 /**
@@ -57,6 +58,8 @@ public class GenericDaoTest extends BaseDaoTestCase {
             fail("User 'foo' found in database");
         } catch (ObjectRetrievalFailureException e) {
             assertNotNull(e.getMessage());
+        } catch (InvalidDataAccessApiUsageException e) { // hibernate 3.2.0.cr2 throws this one
+            assertNotNull(e.getMessage());        	
         }
     }
 }

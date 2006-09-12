@@ -6,6 +6,20 @@ import java.util.Set;
 import java.util.List;
 import java.util.ArrayList;
 
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.persistence.Version;
+
 import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.userdetails.UserDetails;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -24,8 +38,9 @@ import org.apache.commons.lang.builder.ToStringStyle;
  *      by David Carter david@carter.net
  *
  * @struts.form include-all="true" extends="BaseForm"
- * @hibernate.class table="app_user"
  */
+@Entity
+@Table(name="app_user")
 public class User extends BaseObject implements Serializable, UserDetails {
     private static final long serialVersionUID = 3832626162173359411L;
 
@@ -53,17 +68,15 @@ public class User extends BaseObject implements Serializable, UserDetails {
         this.username = username;
     }
 
-    /**
-     * @hibernate.id column="id" generator-class="native" unsaved-value="null"
-     */
+    @Id  @GeneratedValue(strategy=GenerationType.AUTO)
     public Long getId() {
         return id;
     }
 
     /**
      * @struts.validator type="required"
-     * @hibernate.property length="50" not-null="true" unique="true"
      */
+    @Column(nullable=false,length=50,unique=true)
     public String getUsername() {
         return username;
     }
@@ -74,8 +87,8 @@ public class User extends BaseObject implements Serializable, UserDetails {
      * @struts.validator-args arg1resource="userForm.password"
      * @struts.validator-args arg1resource="userForm.confirmPassword"
      * @struts.validator-var name="secondProperty" value="confirmPassword"
-     * @hibernate.property column="password" not-null="true"
      */
+    @Column(nullable=false)
     public String getPassword() {
         return password;
     }
@@ -83,30 +96,31 @@ public class User extends BaseObject implements Serializable, UserDetails {
     /**
      * @struts.validator type="required"
      */
+    @Transient
     public String getConfirmPassword() {
         return confirmPassword;
     }
 
     /**
      * @struts.validator type="required"
-     * @hibernate.property column="password_hint" not-null="false"
      */
+    @Column(name="password_hint")
     public String getPasswordHint() {
         return passwordHint;
     }
 
     /**
      * @struts.validator type="required"
-     * @hibernate.property column="first_name" not-null="true" length="50"
      */
+    @Column(name="first_name",nullable=false,length=50)
     public String getFirstName() {
         return firstName;
     }
 
     /**
      * @struts.validator type="required"
-     * @hibernate.property column="last_name" not-null="true" length="50"
      */
+    @Column(name="last_name",nullable=false,length=50)
     public String getLastName() {
         return lastName;
     }
@@ -114,8 +128,8 @@ public class User extends BaseObject implements Serializable, UserDetails {
     /**
      * @struts.validator type="required"
      * @struts.validator type="email"
-     * @hibernate.property name="email" not-null="true" unique="true"
      */
+    @Column(nullable=false,unique=true)
     public String getEmail() {
         return email;
     }
@@ -123,15 +137,14 @@ public class User extends BaseObject implements Serializable, UserDetails {
     /**
      * @struts.validator type="mask" msgkey="errors.phone"
      * @struts.validator-var name="mask" value="${phone}"
-     * @hibernate.property column="phone_number" not-null="false"
      */
+    @Column(name="phone_number")
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
     /**
      * @struts.validator type="required"
-     * @hibernate.property column="website" not-null="false"
      */
     public String getWebsite() {
         return website;
@@ -140,22 +153,22 @@ public class User extends BaseObject implements Serializable, UserDetails {
     /**
      * Returns the full name.
      */
+    @Transient
     public String getFullName() {
         return firstName + ' ' + lastName;
     }
 
-    /**
-     * @hibernate.component
-     */
+    @Embedded
     public Address getAddress() {
         return address;
     }
 
-    /**
-     * @hibernate.set table="user_role" cascade="save-update" lazy="false"
-     * @hibernate.collection-key column="user_id"
-     * @hibernate.collection-many-to-many class="org.appfuse.model.Role" column="role_id"
-     */
+    @OneToMany(fetch = FetchType.EAGER) 
+    @JoinTable(
+            name="user_role",
+            joinColumns = { @JoinColumn( name="user_id") },
+            inverseJoinColumns = @JoinColumn( name="role_id")
+    )    
     public Set<Role> getRoles() {
         return roles;
     }
@@ -163,6 +176,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
     /**
      * Convert user roles to LabelValue objects for convenience.
      */
+    @Transient
     public List<LabelValue> getRoleList() {
         List<LabelValue> userRoles = new ArrayList<LabelValue>();
 
@@ -187,27 +201,22 @@ public class User extends BaseObject implements Serializable, UserDetails {
     /**
      * @see org.acegisecurity.userdetails.UserDetails#getAuthorities()
      */
+    @Transient
     public GrantedAuthority[] getAuthorities() {
         return roles.toArray(new GrantedAuthority[0]);
     }
 
-    /**
-     * @hibernate.version
-     */
+    @Version
     public Integer getVersion() {
         return version;
     }
     
-    /**
-     * @hibernate.property column="account_enabled" type="yes_no"
-     */
+    @Column(name="account_enabled")
     public boolean isEnabled() {
         return enabled;
     }
     
-    /**
-     * @hibernate.property column="account_expired" not-null="true" type="yes_no"
-     */
+    @Column(name="account_expired",nullable=false)
     public boolean isAccountExpired() {
         return accountExpired;
     }
@@ -215,13 +224,12 @@ public class User extends BaseObject implements Serializable, UserDetails {
     /**
      * @see org.acegisecurity.userdetails.UserDetails#isAccountNonExpired()
      */
+    @Transient
     public boolean isAccountNonExpired() {
         return !isAccountExpired();
     }
 
-    /**
-     * @hibernate.property column="account_locked" not-null="true" type="yes_no"
-     */
+    @Column(name="account_locked",nullable=false)
     public boolean isAccountLocked() {
         return accountLocked;
     }
@@ -229,13 +237,12 @@ public class User extends BaseObject implements Serializable, UserDetails {
     /**
      * @see org.acegisecurity.userdetails.UserDetails#isAccountNonLocked()
      */
+    @Transient
     public boolean isAccountNonLocked() {
         return !isAccountLocked();
     }
 
-    /**
-     * @hibernate.property column="credentials_expired" not-null="true"  type="yes_no"
-     */
+    @Column(name="credentials_expired",nullable=false)
     public boolean isCredentialsExpired() {
         return credentialsExpired;
     }
@@ -243,6 +250,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
     /**
      * @see org.acegisecurity.userdetails.UserDetails#isCredentialsNonExpired()
      */
+    @Transient
     public boolean isCredentialsNonExpired() {
         return !credentialsExpired;
     }

@@ -2,6 +2,14 @@ package org.appfuse.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import org.acegisecurity.GrantedAuthority;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
@@ -16,8 +24,9 @@ import org.apache.commons.lang.builder.ToStringStyle;
  *         Extended to implement Acegi GrantedAuthority interface
  *         by David Carter david@carter.net
  * @struts.form extends="BaseForm"
- * @hibernate.class table="role"
  */
+@Entity
+@Table(name="role")
 public class Role extends BaseObject implements Serializable, GrantedAuthority {
     private static final long serialVersionUID = 3690197650654049848L;
     private Long id;
@@ -31,9 +40,7 @@ public class Role extends BaseObject implements Serializable, GrantedAuthority {
         this.name = name;
     }
 
-    /**
-     * @hibernate.id column="id" generator-class="increment" unsaved-value="null"
-     */
+    @Id  @GeneratedValue(strategy=GenerationType.AUTO)
     public Long getId() {
         return id;
     }
@@ -41,20 +48,17 @@ public class Role extends BaseObject implements Serializable, GrantedAuthority {
     /**
      * @see org.acegisecurity.GrantedAuthority#getAuthority()
      */
+    @Transient
     public String getAuthority() {
         return getName();
     }
 
-    /**
-     * @hibernate.property column="name" length="20"
-     */
+    @Column(length=20)
     public String getName() {
         return this.name;
     }
 
-    /**
-     * @hibernate.property column="description" length="64"
-     */
+    @Column(length=64)
     public String getDescription() {
         return this.description;
     }
