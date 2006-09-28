@@ -173,6 +173,7 @@
         <pathelement location="${sitemesh.jar}"/>
         <pathelement location="${strutsmenu.jar}"/>
         <fileset dir="${jstl.dir}/lib" includes="*.jar"/>
+        <fileset dir="${jsp2.jstl.dir}/lib" includes="*.jar"/>
         <fileset dir="${struts.dir}" includes="*.jar"/>
         <fileset dir="${spring.dir}" includes="*.jar"/>
         <fileset dir="${tomcat.home}/common/lib" includes="*.jar"/>
