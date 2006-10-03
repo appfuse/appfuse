@@ -155,6 +155,13 @@
             </plugin>
         </plugins>
     </build>
+    
+    <repositories>
+        <repository>
+            <id>apache-snapshots</id>
+            <url>http://people.apache.org/maven-snapshot-repository</url>
+        </repository>
+    </repositories>            
 
     <dependencies>
         <dependency>
@@ -172,7 +179,7 @@
         <dependency>
             <groupId>org.apache.struts</groupId>
             <artifactId>struts2-core</artifactId>
-            <version>2.0.0-SNAPSHOT</version>
+            <version>${struts.version}</version>
         </dependency>
         <dependency>
             <groupId>dumbster</groupId>

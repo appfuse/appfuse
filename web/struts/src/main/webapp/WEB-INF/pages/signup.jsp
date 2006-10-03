@@ -16,12 +16,12 @@
     <li>
         <div>
             <div class="left">
-                <s:password label="%{getText('user.password')}" name="user.password" show="true" theme="xhtml" value="%{user.password}"
+                <s:password label="%{getText('user.password')}" name="user.password" showPassword="true" theme="xhtml" value="%{user.password}"
                     required="true" cssClass="text medium"/>
             </div>
             <div>
                 <s:password label="%{getText('user.confirmPassword')}" name="user.confirmPassword" theme="xhtml" value="%{user.confirmPassword}"
-                    required="true" show="true" cssClass="text medium"/>
+                    required="true" showPassword="true" cssClass="text medium"/>
             </div>
         </div>
     </li>

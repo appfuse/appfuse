@@ -85,7 +85,7 @@
         </property>
     </bean>
 
-    <bean id="mailMessage" class="org.springframework.mail.SimpleMailMessage" singleton="false">
+    <bean id="mailMessage" class="org.springframework.mail.SimpleMailMessage" scope="prototype">
         <property name="from" value="${mail.default.from}"/>
     </bean>
 

@@ -22,7 +22,7 @@ import java.util.*;
  *  Modified by <a href="mailto:dan@getrolling.com">Dan Kibler </a> 
  *   to correct time pattern. Minutes should be mm not MM
  * 	(MM is month). 
- * @version $Revision: 1.9 $ $Date: 2006-07-15 05:58:03 -0600 (Sat, 15 Jul 2006) $
+ * @version $Revision: 1.9 $ $Date$
  */
 public class DateUtil {
     //~ Static fields/initializers =============================================
@@ -36,7 +36,7 @@ public class DateUtil {
      * Return default datePattern (MM/dd/yyyy)
      * @return a string representing the date pattern on the UI
      */
-    public static synchronized String getDatePattern() {
+    public static String getDatePattern() {
         Locale locale = LocaleContextHolder.getLocale();
         String defaultDatePattern;
         try {
