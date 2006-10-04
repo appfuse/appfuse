@@ -257,6 +257,14 @@ public class Role extends BaseObject]]></replacevalue>
      */
     public Set getUsers()]]></replacevalue>
         </replace>
+    	<!-- APF-347 only in case of SpringMVC -->
+        <replace file="../../src/dao/org/appfuse/model/Role.java">
+           <replacetoken><![CDATA[     */
+    public List getRoleList()]]></replacetoken>
+           <replacevalue><![CDATA[     * @aegis.property ignore="true"
+     */
+    public List getRoleList()]]></replacevalue>
+        </replace>
         
         <echo level="info">Annotating UserManagerImpl with aegis xdoclet tags</echo>
         <replace file="../../src/service/org/appfuse/service/impl/UserManagerImpl.java">
