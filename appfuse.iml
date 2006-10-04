@@ -359,7 +359,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/spring-2.0/ehcache-1.2.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/spring-2.0/ehcache-1.2.3.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -777,8 +777,8 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/ehcache-1.2.1.jar" />
-      <url>jar://$MODULE_DIR$/lib/spring-2.0/ehcache-1.2.1.jar!/</url>
+      <attribute name="URI" value="/WEB-INF/lib/ehcache-1.2.3.jar" />
+      <url>jar://$MODULE_DIR$/lib/spring-2.0/ehcache-1.2.3.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
