@@ -258,7 +258,7 @@ public class Role extends BaseObject]]></replacevalue>
     public Set getUsers()]]></replacevalue>
         </replace>
     	<!-- APF-347 only in case of SpringMVC -->
-        <replace file="../../src/dao/org/appfuse/model/Role.java">
+        <replace file="../../src/dao/org/appfuse/model/User.java">
            <replacetoken><![CDATA[     */
     public List getRoleList()]]></replacetoken>
            <replacevalue><![CDATA[     * @aegis.property ignore="true"
