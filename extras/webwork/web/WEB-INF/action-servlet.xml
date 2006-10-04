@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
-    "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-<beans>    
     <bean id="adminInterceptor" class="org.appfuse.webapp.interceptor.UserRoleAuthorizationInterceptor">
         <property name="authorizedRoles" value="admin"/>
     </bean>
     
-    <bean id="signupAction" class="org.appfuse.webapp.action.SignupAction" singleton="false">
+    <bean id="signupAction" class="org.appfuse.webapp.action.SignupAction" scope="prototype">
         <property name="userManager" ref="userManager"/>
         <property name="roleManager" ref="roleManager"/>
         <property name="mailEngine" ref="mailEngine"/>
@@ -15,7 +14,7 @@
         <property name="templateName" value="accountCreated.vm"/>
     </bean>
     
-    <bean id="userAction" class="org.appfuse.webapp.action.UserAction" singleton="false">
+    <bean id="userAction" class="org.appfuse.webapp.action.UserAction" scope="prototype">
         <property name="userManager" ref="userManager"/>
         <property name="roleManager" ref="roleManager"/>
         <property name="mailEngine" ref="mailEngine"/>
@@ -23,7 +22,7 @@
         <property name="templateName" value="accountCreated.vm"/>
     </bean>
     
-    <bean id="passwordHintAction" class="org.appfuse.webapp.action.PasswordHintAction" singleton="false">
+    <bean id="passwordHintAction" class="org.appfuse.webapp.action.PasswordHintAction" scope="prototype">
         <property name="userManager" ref="userManager"/>
         <property name="mailEngine" ref="mailEngine"/>
         <property name="message" ref="mailMessage"/>

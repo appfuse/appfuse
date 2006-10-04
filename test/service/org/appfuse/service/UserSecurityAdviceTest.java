@@ -43,7 +43,7 @@ public class UserSecurityAdviceTest extends BaseManagerTestCase {
     public void testAddUserWithoutAdminRole() throws Exception {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         assertTrue(auth.isAuthenticated());
-        UserManager userManager = (UserManager) makeInterceptedTarget();
+        UserManager userManager = makeInterceptedTarget();
         User user = new User("admin");
 
         try {
@@ -63,7 +63,7 @@ public class UserSecurityAdviceTest extends BaseManagerTestCase {
         context.setAuthentication(token);
         SecurityContextHolder.setContext(context);
 
-        UserManager userManager = (UserManager) makeInterceptedTarget();
+        UserManager userManager = makeInterceptedTarget();
         User user = new User("admin");
 
         userDao.expects(once()).method("saveUser");
@@ -72,7 +72,7 @@ public class UserSecurityAdviceTest extends BaseManagerTestCase {
     }
 
     public void testUpdateUserProfile() throws Exception {
-        UserManager userManager = (UserManager) makeInterceptedTarget();
+        UserManager userManager = makeInterceptedTarget();
         User user = new User("user");;
         user.getRoles().add(new Role(Constants.USER_ROLE));
 
@@ -83,7 +83,7 @@ public class UserSecurityAdviceTest extends BaseManagerTestCase {
 
     // Test fix to http://issues.appfuse.org/browse/APF-96
     public void testChangeToAdminRoleFromUserRole() throws Exception {
-        UserManager userManager = (UserManager) makeInterceptedTarget();
+        UserManager userManager = makeInterceptedTarget();
         User user = new User("user");
         user.getRoles().add(new Role(Constants.ADMIN_ROLE));
 
@@ -98,7 +98,7 @@ public class UserSecurityAdviceTest extends BaseManagerTestCase {
 
     // Test fix to http://issues.appfuse.org/browse/APF-96
     public void testAddAdminRoleWhenAlreadyHasUserRole() throws Exception {
-        UserManager userManager = (UserManager) makeInterceptedTarget();
+        UserManager userManager = makeInterceptedTarget();
         User user = new User("user");
         user.getRoles().add(new Role(Constants.ADMIN_ROLE));
         user.getRoles().add(new Role(Constants.USER_ROLE));
@@ -133,7 +133,7 @@ public class UserSecurityAdviceTest extends BaseManagerTestCase {
 
     // Test fix to http://issues.appfuse.org/browse/APF-96
     public void testUpdateUserWithUserRole() throws Exception {
-        UserManager userManager = (UserManager) makeInterceptedTarget();
+        UserManager userManager = makeInterceptedTarget();
         User user = new User("user");
         user.getRoles().add(new Role(Constants.USER_ROLE));
 
@@ -151,7 +151,7 @@ public class UserSecurityAdviceTest extends BaseManagerTestCase {
         context.setAuthentication(token);
         SecurityContextHolder.setContext(context);
         
-        UserManager userManager = (UserManager) makeInterceptedTarget();
+        UserManager userManager = makeInterceptedTarget();
         
         UserCache cache = (UserCache) ctx.getBean("userCache");
         User user = new User("cacheduser");

@@ -55,7 +55,7 @@ public class UserFormControllerTest extends BaseControllerTestCase {
         mv = c.handleRequest(request, new MockHttpServletResponse());
 
         log.debug(mv.getModel());
-        Errors errors = (Errors) mv.getModel().get(BindException.ERROR_KEY_PREFIX + "user");
+        Errors errors = (Errors) mv.getModel().get(BindException.MODEL_KEY_PREFIX + "user");
         assertNull(errors);
         assertNotNull(request.getSession().getAttribute("messages"));
     }
@@ -67,7 +67,7 @@ public class UserFormControllerTest extends BaseControllerTestCase {
 
         mv = c.handleRequest(request, new MockHttpServletResponse());
 
-        Errors errors = (Errors) mv.getModel().get(BindException.ERROR_KEY_PREFIX + "user");
+        Errors errors = (Errors) mv.getModel().get(BindException.MODEL_KEY_PREFIX + "user");
         assertTrue(errors.getAllErrors().size() == 10);
     }
     

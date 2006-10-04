@@ -5,6 +5,7 @@ import java.util.List;
 import <XDtConfig:configParameterValue paramName="basePackageName"/>.dao.BaseDaoTestCase;
 import <XDtPackage:packageName/>.<XDtClass:className/>;
 
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.orm.ObjectRetrievalFailureException;
 
 public class <XDtClass:className/>DaoTest extends BaseDaoTestCase {
@@ -92,6 +93,8 @@ public class <XDtClass:className/>DaoTest extends BaseDaoTestCase {
             fail("<XDtForm:classNameLower/> found in database");
         } catch (ObjectRetrievalFailureException e) {
             assertNotNull(e.getMessage());
+        } catch (InvalidDataAccessApiUsageException e) { // Spring 2.0 throws this one
+            assertNotNull(e.getMessage());        	
         }
     }
 }

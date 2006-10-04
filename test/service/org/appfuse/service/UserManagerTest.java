@@ -18,7 +18,7 @@ public class UserManagerTest extends BaseManagerTestCase {
     //~ Instance fields ========================================================
 
     private UserManagerImpl userManager = new UserManagerImpl();
-    private RoleManager roleManager = new RoleManagerImpl();
+    private RoleManagerImpl roleManager = new RoleManagerImpl();
     private Mock userDao = null;
     private Mock roleDao = null;
 

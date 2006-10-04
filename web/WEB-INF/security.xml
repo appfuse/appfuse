@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
-    "http://www.springframework.org/dtd/spring-beans.dtd">
-
-<beans>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- ======================== FILTER CHAIN ======================= -->
     <bean id="filterChainProxy" class="org.acegisecurity.util.FilterChainProxy">
@@ -16,9 +16,9 @@
             <!-- It's off by default b/c Canoo WebTest doesn't support SSL out-of-the-box -->
         </property>
     </bean>
-    
+
     <bean id="httpSessionContextIntegrationFilter" class="org.acegisecurity.context.HttpSessionContextIntegrationFilter"/>
-    
+
     <bean id="logoutFilter" class="org.acegisecurity.ui.logout.LogoutFilter">
         <constructor-arg value="/index.jsp"/> <!-- URL redirected to after logout -->
         <constructor-arg>
@@ -29,7 +29,7 @@
         </constructor-arg>
         <property name="filterProcessesUrl" value="/logout.jsp"/>
     </bean>
-   
+
     <bean id="authenticationProcessingFilter" class="org.acegisecurity.ui.webapp.AuthenticationProcessingFilter">
         <property name="authenticationManager" ref="authenticationManager"/>
         <property name="authenticationFailureUrl" value="/login.jsp?error=true"/>
@@ -37,19 +37,19 @@
         <property name="filterProcessesUrl" value="/j_security_check"/>
         <property name="rememberMeServices" ref="rememberMeServices"/>
     </bean>
-    
+
     <bean id="securityContextHolderAwareRequestFilter" class="org.acegisecurity.wrapper.SecurityContextHolderAwareRequestFilter"/>
-    
+
     <bean id="rememberMeProcessingFilter" class="org.acegisecurity.ui.rememberme.RememberMeProcessingFilter">
         <property name="authenticationManager" ref="authenticationManager"/>
         <property name="rememberMeServices" ref="rememberMeServices"/>
     </bean>
-    
+
     <bean id="anonymousProcessingFilter" class="org.acegisecurity.providers.anonymous.AnonymousProcessingFilter">
         <property name="key" value="anonymous"/>
         <property name="userAttribute" value="anonymous,ROLE_ANONYMOUS"/>
     </bean>
-    
+
     <bean id="exceptionTranslationFilter" class="org.acegisecurity.ui.ExceptionTranslationFilter">
         <property name="authenticationEntryPoint">
             <bean class="org.acegisecurity.ui.webapp.AuthenticationProcessingFilterEntryPoint">
@@ -58,7 +58,7 @@
             </bean>
         </property>
     </bean>
-    
+
     <bean id="filterInvocationInterceptor" class="org.acegisecurity.intercept.web.FilterSecurityInterceptor">
         <property name="authenticationManager" ref="authenticationManager"/>
         <property name="accessDecisionManager" ref="accessDecisionManager"/>
@@ -75,7 +75,7 @@
             </value>
         </property>
     </bean>
-    
+
     <bean id="accessDecisionManager" class="org.acegisecurity.vote.AffirmativeBased">
         <property name="allowIfAllAbstainDecisions" value="false"/>
         <property name="decisionVoters">
@@ -86,13 +86,13 @@
             </list>
         </property>
     </bean>
-    
-    <bean id="rememberMeServices" class="org.acegisecurity.ui.rememberme.TokenBasedRememberMeServices"> 
+
+    <bean id="rememberMeServices" class="org.acegisecurity.ui.rememberme.TokenBasedRememberMeServices">
         <property name="userDetailsService" ref="userDao"/>
         <property name="key" value="appfuseRocks"/>
         <property name="parameter" value="rememberMe"/>
-    </bean> 
-  
+    </bean>
+
     <bean id="authenticationManager" class="org.acegisecurity.providers.ProviderManager">
         <property name="providers">
             <list>
@@ -102,7 +102,7 @@
             </list>
         </property>
     </bean>
-    
+
     <bean id="daoAuthenticationProvider" class="org.acegisecurity.providers.dao.DaoAuthenticationProvider">
          <property name="userDetailsService" ref="userDao"/>
          <property name="userCache" ref="userCache"/>
@@ -124,28 +124,10 @@
     <!-- This bean is optional; it isn't used by any other bean as it only listens and logs -->
     <bean id="loggerListener" class="org.acegisecurity.event.authentication.LoggerListener"/>
 
-    <!-- Override 'userManager' bean definition to add userManagerSecurity interceptor -->
-    <bean id="userManager" parent="txProxyTemplate">
-        <property name="target">
-            <bean class="org.appfuse.service.impl.UserManagerImpl">
-                <property name="userDao" ref="userDao"/>
-            </bean>
-        </property>
-        <!-- Override default transaction attributes b/c of UserExistsException -->
-        <property name="transactionAttributes">
-            <props>
-                <prop key="save*">PROPAGATION_REQUIRED,-UserExistsException</prop>
-                <prop key="remove*">PROPAGATION_REQUIRED</prop>
-                <prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
-            </props>
-        </property>
-        <property name="preInterceptors">
-            <list>
-                <ref bean="userSecurityInterceptor"/>
-                <ref bean="userManagerSecurity"/>
-            </list>
-        </property>
-    </bean>
+    <!-- Apply userManagerSecurity interceptor to userManager bean -->
+    <aop:config>
+        <aop:advisor id="userManagerMethods" advice-ref="userManagerSecurity" pointcut="execution(* org.appfuse.service.UserManager.*(..))"/>
+    </aop:config>
 
     <bean id="userManagerSecurity" class="org.acegisecurity.intercept.method.aopalliance.MethodSecurityInterceptor">
         <property name="authenticationManager" ref="authenticationManager"/>
@@ -157,7 +139,7 @@
              </value>
         </property>
     </bean>
-    
+
     <!-- SSL Switching: to use this, configure it in the filterChainProxy bean -->
     <bean id="channelProcessingFilter" class="org.acegisecurity.securechannel.ChannelProcessingFilter">
         <property name="channelDecisionManager" ref="channelDecisionManager"/>

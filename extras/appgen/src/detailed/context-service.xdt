@@ -1,10 +1,6 @@
 <XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>    <!--<XDtForm:className/>-START-->    
-    <bean id="<XDtForm:classNameLower/>Manager" parent="txProxyTemplate">
-        <property name="target">
-            <bean class="<XDtForm:parentPackageName/>.service.impl.<XDtForm:className/>ManagerImpl">
-                <property name="<XDtForm:classNameLower/>Dao" ref="<XDtForm:classNameLower/>Dao"/>
-            </bean>
-        </property>
+    <bean id="<XDtForm:classNameLower/>Manager" class="<XDtForm:parentPackageName/>.service.impl.<XDtForm:className/>ManagerImpl">
+        <property name="<XDtForm:classNameLower/>Dao" ref="<XDtForm:classNameLower/>Dao"/>
     </bean>
     <!--<XDtForm:className/>-END-->
 </beans>

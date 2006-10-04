@@ -20,8 +20,7 @@ public class Department extends BaseObject {
 
     /**
      * @return Returns the id.
-     * @hibernate.id column="department_id"
-     *  generator-class="increment" unsaved-value="null"
+     * @hibernate.id column="department_id" generator-class="native" unsaved-value="null"
      */
     public Long getDepartmentId() {
         return departmentId;

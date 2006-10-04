@@ -22,6 +22,7 @@ public class UserExistsExceptionTest extends AbstractTransactionalDataSourceSpri
 
     public void testAddExistingUser() throws Exception {
         logger.debug("entered 'testAddExistingUser' method");
+        assertNotNull(manager);
 
         User user = manager.getUser("1");
         
