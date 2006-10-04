@@ -135,10 +135,6 @@
             <id>appfuse</id>
             <url>http://static.appfuse.org/repository</url>
         </repository>
-        <repository>
-            <id>spring</id>
-            <url>https://svn.sourceforge.net/svnroot/springframework/repos/repo-snapshots</url>
-        </repository>
     </repositories>
     <pluginRepositories>
         <pluginRepository>
@@ -154,7 +150,7 @@
         <dependency>
             <groupId>org.acegisecurity</groupId>
             <artifactId>acegi-security</artifactId>
-            <version>1.0.1</version>
+            <version>${acegi.version}</version>
             <exclusions>
                 <!-- Maven thinks 2.0 is newer than 2.1 -->
                 <exclusion>
@@ -243,11 +239,12 @@
         
         <cargo.host>localhost</cargo.host>
         <cargo.port>9876</cargo.port>
-        
+       
+        <acegi.version>1.0.1</acegi.version> 
         <hibernate.version>3.2</hibernate.version>
         <myfaces.version>1.1.3</myfaces.version>
-        <spring.version>2.0-rc4</spring.version>
-        <struts.version>2.0.0-SNAPSHOT</struts.version>
+        <spring.version>2.0</spring.version>
+        <struts.version>2.0.1-SNAPSHOT</struts.version>
         
         <copyright.year>2006</copyright.year>
     </properties>
