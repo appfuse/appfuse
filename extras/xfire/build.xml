@@ -164,16 +164,16 @@
         <echo level="info">Adjusting .classpath for eclipse</echo>
         <replace file="../../.classpath">
            <replacetoken><![CDATA[</classpath>]]></replacetoken>
-           <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/xfire-1.1.2/runtime/xbean-spring-2.4.jar"/>
-    <classpathentry kind="lib" path="lib/xfire-1.1.2/runtime/xfire-aegis-1.1.2.jar"/>
-    <classpathentry kind="lib" path="lib/xfire-1.1.2/runtime/xfire-core-1.1.2.jar"/>
-    <classpathentry kind="lib" path="lib/xfire-1.1.2/runtime/xfire-spring-1.1.2.jar"/>
-    <classpathentry kind="lib" path="lib/xfire-1.1.2/runtime/jdom-1.0.jar"/>
-    <classpathentry kind="lib" path="lib/xfire-1.1.2/runtime/stax-api-1.0.1.jar"/>
-    <classpathentry kind="lib" path="lib/xfire-1.1.2/runtime/wstx-asl-2.9.3.jar"/>
-    <classpathentry kind="lib" path="lib/xfire-1.1.2/test/httpunit-1.6.1.jar"/>
-    <classpathentry kind="lib" path="lib/xfire-1.1.2/runtime/wsdl4j-1.5.2.jar"/>
-    <classpathentry kind="lib" path="build/dao/classes"/>
+           <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/xfire-1.2.2/runtime/xbean-spring-2.4.jar"/>
+	<classpathentry kind="lib" path="lib/xfire-1.2.2/runtime/xfire-aegis-1.2.2.jar"/>
+	<classpathentry kind="lib" path="lib/xfire-1.2.2/runtime/xfire-core-1.2.2.jar"/>
+	<classpathentry kind="lib" path="lib/xfire-1.2.2/runtime/xfire-spring-1.2.2.jar"/>
+	<classpathentry kind="lib" path="lib/xfire-1.2.2/runtime/jdom-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/xfire-1.2.2/runtime/stax-api-1.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/xfire-1.2.2/runtime/wstx-asl-2.9.3.jar"/>
+	<classpathentry kind="lib" path="lib/xfire-1.2.2/test/httpunit-1.6.1.jar"/>
+	<classpathentry kind="lib" path="lib/xfire-1.2.2/runtime/wsdl4j-1.5.2.jar"/>
+	<classpathentry kind="lib" path="build/dao/classes"/>
 </classpath>]]></replacevalue>
         </replace>
     </target>
