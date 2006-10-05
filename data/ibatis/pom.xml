@@ -74,12 +74,12 @@
         <dependency>
             <groupId>com.ibatis</groupId>
             <artifactId>ibatis2-sqlmap</artifactId>
-            <version>2.1.6.589</version>
+            <version>${ibatis.version}</version>
         </dependency>
         <dependency>
             <groupId>geronimo-spec</groupId>
             <artifactId>geronimo-spec-jta</artifactId>
-            <version>1.0.1B-rc4</version>
+            <version>${jta.version}</version>
         </dependency>
     </dependencies>
 </project>

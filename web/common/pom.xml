@@ -79,13 +79,13 @@
         <dependency>
             <groupId>ant</groupId>
             <artifactId>ant</artifactId>
-            <version>1.6.5</version>
+            <version>${ant.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>commons-dbcp</groupId>
             <artifactId>commons-dbcp</artifactId>
-            <version>1.2.1</version>
+            <version>${commons.dbcp.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>xerces</groupId>
@@ -96,41 +96,40 @@
         <dependency>
             <groupId>displaytag</groupId>
             <artifactId>displaytag</artifactId>
-            <version>1.1</version>
+            <version>${displaytag.version}</version>
         </dependency>
         <dependency>
             <groupId>dumbster</groupId>
             <artifactId>dumbster</artifactId>
-            <version>1.5</version>
+            <version>${dumbster.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>uk.ltd.getahead</groupId>
             <artifactId>dwr</artifactId>
-            <version>1.1.1</version>
-            <scope>runtime</scope>
+            <version>${dwr.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jsp-api</artifactId>
-            <version>2.0</version>
+            <version>${jsp.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
-            <version>2.4</version>
+            <version>${servlet.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
-            <version>1.1.2</version>
+            <version>${jstl.version}</version>
         </dependency>
         <dependency>
             <groupId>taglibs</groupId>
             <artifactId>standard</artifactId>
-            <version>1.1.2</version>
+            <version>${jstl.version}</version>
         </dependency>
         <dependency>
             <groupId>${jdbc.groupId}</groupId>
@@ -140,7 +139,7 @@
         <dependency>
             <groupId>struts-menu</groupId>
             <artifactId>struts-menu</artifactId>
-            <version>2.4.1</version>
+            <version>${struts.menu.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>struts</groupId>
@@ -155,22 +154,22 @@
         <dependency>
             <groupId>opensymphony</groupId>
             <artifactId>clickstream</artifactId>
-            <version>1.0.2</version>
+            <version>${clickstream.version}</version>
         </dependency>
         <dependency>
             <groupId>opensymphony</groupId>
             <artifactId>oscache</artifactId>
-            <version>2.3</version>
+            <version>${oscache.version}</version>
         </dependency>
         <dependency>
             <groupId>opensymphony</groupId>
             <artifactId>sitemesh</artifactId>
-            <version>2.2.1</version>
+            <version>${sitemesh.version}</version>
         </dependency>
         <dependency>
             <groupId>org.tuckey</groupId>
             <artifactId>urlrewrite</artifactId>
-            <version>2.5.2</version>
+            <version>${urlrewrite.version}</version>
         </dependency>
     </dependencies>
 </project>

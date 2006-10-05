@@ -85,17 +85,17 @@
         <dependency>
             <groupId>aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
-            <version>1.5.2</version>
+            <version>${aspectj.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
-            <version>1.7.0</version>
+            <version>${commons.beanutils.version}</version>
         </dependency>
         <dependency>
             <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache</artifactId>
-            <version>1.2.3</version>
+            <version>${ehcache.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>net.sf.hibernate</groupId>
@@ -106,18 +106,18 @@
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
-            <version>1.4</version>
+            <version>${javamail.version}</version>
         </dependency>
         <dependency>
             <groupId>jmock</groupId>
             <artifactId>jmock</artifactId>
-            <version>1.1.0</version>
+            <version>${jmock.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>velocity</groupId>
             <artifactId>velocity</artifactId>
-            <version>1.4</version>
+            <version>${velocity.version}</version>
         </dependency>
     </dependencies>
 </project>

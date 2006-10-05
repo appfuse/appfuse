@@ -52,22 +52,6 @@
                 </executions>
                 <dependencies>
                     <dependency>
-                        <groupId>org.hibernate</groupId>
-                        <artifactId>hibernate</artifactId>
-                        <version>3.2.0.cr2</version>
-                        <exclusions>
-                            <exclusion>
-                                <groupId>javax.transaction</groupId>
-                                <artifactId>jta</artifactId>
-                            </exclusion>
-                        </exclusions>
-                    </dependency>
-                    <dependency>
-                        <groupId>log4j</groupId>
-                        <artifactId>log4j</artifactId>
-                        <version>1.2.13</version>
-                    </dependency>
-                    <dependency>
                         <groupId>${jdbc.groupId}</groupId>
                         <artifactId>${jdbc.artifactId}</artifactId>
                         <version>${jdbc.version}</version>
@@ -123,14 +107,9 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>javax.persistence</groupId>
-            <artifactId>persistence-api</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate</artifactId>
-            <version>3.2.0.cr2</version>
+            <version>${hibernate.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>javax.transaction</groupId>
@@ -141,7 +120,7 @@
         <dependency>
             <groupId>geronimo-spec</groupId>
             <artifactId>geronimo-spec-jta</artifactId>
-            <version>1.0.1B-rc4</version>
+            <version>${jta.version}</version>
         </dependency>   
     </dependencies>
 </project>

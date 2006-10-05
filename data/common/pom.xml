@@ -36,12 +36,12 @@
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
-            <version>2.1</version>
+            <version>${commons.lang.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.persistence</groupId>
             <artifactId>persistence-api</artifactId>
-            <version>1.0</version>
+            <version>${jpa.version}</version>
         </dependency>                                               
     </dependencies>
 </project>

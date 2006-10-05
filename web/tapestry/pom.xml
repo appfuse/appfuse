@@ -115,7 +115,7 @@
                     <dependency>
                         <groupId>com.canoo</groupId>
                         <artifactId>webtest</artifactId>
-                        <version>1193</version>
+                        <version>${webtest.version}</version>
                         <exclusions>
                             <exclusion>
                                 <groupId>javax.xml</groupId>
@@ -126,17 +126,17 @@
                     <dependency>
                         <groupId>javax.mail</groupId>
                         <artifactId>mail</artifactId>
-                        <version>1.4</version>
+                        <version>${javamail.version}</version>
                     </dependency>
                     <dependency>
                         <groupId>log4j</groupId>
                         <artifactId>log4j</artifactId>
-                        <version>1.2.13</version>
+                        <version>${log4j.version}</version>
                     </dependency>
                     <dependency>
                         <groupId>oro</groupId>
                         <artifactId>oro</artifactId>
-                        <version>2.0.8</version>
+                        <version>${oro.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -179,42 +179,42 @@
         <dependency>
             <groupId>tapestry</groupId>
             <artifactId>tapestry</artifactId>
-            <version>4.0.2</version>
+            <version>${tapestry.version}</version>
         </dependency>
         <dependency>
             <groupId>tapestry</groupId>
             <artifactId>tapestry-contrib</artifactId>
-            <version>4.0.2</version>
+            <version>${tapestry.version}</version>
         </dependency>
         <dependency>
             <groupId>com.javaforge.tapestry</groupId>
             <artifactId>tapestry-flash</artifactId>
-            <version>0.1.1</version>
+            <version>${tapestry.flash.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.javaforge.tapestry</groupId>
             <artifactId>tapestry-spring</artifactId>
-            <version>0.1.2</version>
+            <version>${tapestry.spring.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>dumbster</groupId>
             <artifactId>dumbster</artifactId>
-            <version>1.5</version>
+            <version>${dumbster.version}</version>
             <scope>test</scope>
         </dependency>
         <!-- Dependencies with scope=provided aren't picked up from dependent JARs -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jsp-api</artifactId>
-            <version>2.0</version>
+            <version>${jsp.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
-            <version>2.4</version>
+            <version>${servlet.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
