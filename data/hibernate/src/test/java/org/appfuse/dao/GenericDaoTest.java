@@ -58,7 +58,7 @@ public class GenericDaoTest extends BaseDaoTestCase {
             fail("User 'foo' found in database");
         } catch (ObjectRetrievalFailureException e) {
             assertNotNull(e.getMessage());
-        } catch (InvalidDataAccessApiUsageException e) { // hibernate 3.2.0.cr2 throws this one
+        } catch (InvalidDataAccessApiUsageException e) { // Spring 2.0 throws this one
             assertNotNull(e.getMessage());        	
         }
     }
