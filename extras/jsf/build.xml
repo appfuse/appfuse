@@ -262,7 +262,7 @@ log4j.logger.org.apache.myfaces=WARN</replacevalue>
 	<classpathentry kind="lib" path="lib/struts-1.2.9/antlr.jar"/>]]></replacetoken>
             <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/myfaces-1.1.4/lib/myfaces-api-1.1.4.jar"/>
 	<classpathentry kind="lib" path="lib/myfaces-1.1.4/lib/myfaces-impl-1.1.4.jar"/>
-	<classpathentry kind="lib" path="lib/myfaces-1.1.4/tomahawk-1.1.3.jar"/>]]></replacevalue>
+	<classpathentry kind="lib" path="lib/myfaces-1.1.4/lib/tomahawk-1.1.3.jar"/>]]></replacevalue>
         </replace>
 
         <echo level="info">Refactoring build.xml</echo>
