@@ -10,6 +10,10 @@
         </layout>
     </appender>
 
+    <logger name="net.sf.ehcache">
+        <level value="ERROR"/>
+    </logger>
+
     <!-- Suppress success logging from InteractiveAuthenticationSuccessEvent -->
     <logger name="org.acegisecurity">
         <level value="ERROR"/>
