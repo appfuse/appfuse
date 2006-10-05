@@ -54,7 +54,7 @@ public class <XDtForm:className/>FormControllerTest extends BaseControllerTestCa
         
         mv = c.handleRequest(request, new MockHttpServletResponse());
         
-        Errors errors = (Errors) mv.getModel().get(BindException.ERROR_KEY_PREFIX + "<XDtForm:classNameLower/>");
+        Errors errors = (Errors) mv.getModel().get(BindException.MODEL_KEY_PREFIX + "<XDtForm:classNameLower/>");
 
         if (errors != null) {
             log.debug(errors);
