@@ -229,7 +229,7 @@
         <dependency>
             <groupId>org.apache.myfaces.tomahawk</groupId>
             <artifactId>tomahawk</artifactId>
-            <version>${myfaces.version}</version>
+            <version>${myfaces.tomahawk.version}</version>
         </dependency>
         <dependency>
             <groupId>dumbster</groupId>
