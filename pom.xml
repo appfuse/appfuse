@@ -247,6 +247,7 @@
         
         <cargo.host>localhost</cargo.host>
         <cargo.port>9876</cargo.port>
+        <cargo.wait>false</cargo.wait>
         
         <acegi.version>1.0.2</acegi.version>
         <!-- Ant is for i18n->HTML parsing with Ant in AppFuse 1.9.x, 
