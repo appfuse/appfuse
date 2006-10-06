@@ -1,5 +1,14 @@
 package org.appfuse.webapp.jsf;
 
+import java.io.IOException;
+import java.util.Iterator;
+
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIPanel;
+import javax.faces.component.html.HtmlPanelGrid;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.shared_tomahawk.renderkit.JSFAttr;
@@ -8,14 +17,6 @@ import org.apache.myfaces.shared_tomahawk.renderkit.html.HTML;
 import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlRenderer;
 import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlRendererUtils;
 import org.apache.myfaces.shared_tomahawk.util.StringUtils;
-
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIPanel;
-import javax.faces.component.html.HtmlPanelGrid;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.Iterator;
 
 /**
  * Override HtmlGridRendererBase (http://tinyurl.com/oqbxh) so <h:panelGrid> spits out <ul> and <li>

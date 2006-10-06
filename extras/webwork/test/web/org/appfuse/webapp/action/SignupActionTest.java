@@ -9,7 +9,6 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import com.dumbster.smtp.SimpleSmtpServer;
 import com.opensymphony.webwork.ServletActionContext;
 
-
 public class SignupActionTest extends BaseActionTestCase {
     private SignupAction action;
 
