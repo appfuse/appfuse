@@ -9,7 +9,6 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import com.dumbster.smtp.SimpleSmtpServer;
 import org.apache.struts2.ServletActionContext;
 
-
 public class SignupActionTest extends BaseActionTestCase {
     private SignupAction action;
 

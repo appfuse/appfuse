@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserAction extends BaseAction {
+    private static final long serialVersionUID = 6776558938712115191L;
     private List users;
     private User user;
     private String username;

@@ -11,6 +11,7 @@ import org.appfuse.webapp.listener.StartupListener;
  * @author Matt Raible
  */
 public class Reload extends BasePage implements Serializable {
+    private static final long serialVersionUID = 2466200890766730676L;
 
     public String execute() throws IOException {
 

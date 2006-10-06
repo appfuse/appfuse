@@ -28,8 +28,8 @@ import org.appfuse.webapp.util.RequestUtil;
  * @author mraible
  */
 public class UserForm extends BasePage implements Serializable {
+    private static final long serialVersionUID = -1141119853856863204L;
     private RoleManager roleManager;
-    private String from;
     private String username;
     private User user = new User();
     private Map availableRoles;

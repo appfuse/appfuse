@@ -5,7 +5,6 @@ import java.util.Map;
 
 import com.dumbster.smtp.SimpleSmtpServer;
 
-
 public class PasswordHintTest extends BasePageTestCase {
     private PasswordHint page;
     

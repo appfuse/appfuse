@@ -22,6 +22,7 @@ import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
 import org.acegisecurity.providers.ProviderManager;
 
 public class SignupAction extends BaseAction {
+    private static final long serialVersionUID = 6558317334878272308L;
     private User user;
     private String cancel;
     

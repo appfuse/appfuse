@@ -1,9 +1,3 @@
-/*
- * Created on Sep 20, 2004
- *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
 package org.appfuse.webapp.action;
 
 import java.io.IOException;
@@ -26,14 +20,9 @@ import org.apache.struts2.ServletActionContext;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class ReloadAction extends BaseAction {
+    private static final long serialVersionUID = 295460450224891051L;
 
-	// TODO: Make this an admin-only action
-    
     public String execute() throws IOException {
-        if (log.isDebugEnabled()) {
-            log.debug("Entering 'execute' method");
-        }
-
         StartupListener.setupContext(getSession().getServletContext());
 
         String referer = getRequest().getHeader("Referer");

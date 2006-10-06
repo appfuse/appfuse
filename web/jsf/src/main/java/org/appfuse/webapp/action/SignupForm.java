@@ -22,6 +22,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  * @author mraible
  */
 public class SignupForm extends BasePage implements Serializable {
+    private static final long serialVersionUID = 3524937486662786265L;
     private User user = new User();
     private RoleManager roleManager;
 

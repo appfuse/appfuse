@@ -12,6 +12,7 @@ import org.apache.struts2.ServletActionContext;
 import com.opensymphony.xwork2.ValidationAware;
 
 public class FileUploadAction extends BaseAction implements ValidationAware {
+    private static final long serialVersionUID = -9208910183310010569L;
     private File file;
     private String fileContentType;
     private String fileFileName;

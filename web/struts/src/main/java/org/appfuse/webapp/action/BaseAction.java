@@ -35,6 +35,7 @@ import com.opensymphony.xwork2.ActionSupport;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class BaseAction extends ActionSupport {
+    private static final long serialVersionUID = 3525445612504421307L;
     public static final String CANCEL = "cancel";
     protected transient final Log log = LogFactory.getLog(getClass());
     protected UserManager userManager = null;

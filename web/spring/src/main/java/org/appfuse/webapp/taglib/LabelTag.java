@@ -18,11 +18,10 @@ import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
 import org.springframework.validation.Errors;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.servlet.support.RequestContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.servlet.DispatcherServlet;
+import org.springframework.web.servlet.support.RequestContext;
 import org.springmodules.validation.commons.ValidatorFactory;
 
 
@@ -37,7 +36,7 @@ import org.springmodules.validation.commons.ValidatorFactory;
  * @jsp.tag name="label" bodycontent="empty"
  */
 public class LabelTag extends TagSupport {
-   
+    private static final long serialVersionUID = -5310144023136517119L;
     protected RequestContext requestContext;
     protected transient final Log log = LogFactory.getLog(LabelTag.class);
     protected String key = null;
@@ -90,10 +89,13 @@ public class LabelTag extends TagSupport {
 
 		Errors errors = requestContext.getErrors(formName, false);
         List fes = null;
-        String errorMsg = null;
         if (errors != null) {
             fes = errors.getFieldErrors(fieldName);
-            errorMsg = getErrorMessages(fes);
+            //String errorMsg = getErrorMessages(fes);
+        }
+        
+        if (fes != null && fes.size() > 0) {
+            validationError = true;
         }
 
         // Retrieve the message string we are looking for
@@ -130,7 +132,7 @@ public class LabelTag extends TagSupport {
             label.append((colon) ? ":" : "");
             label.append("</label>");
             
-            if (fes != null && fes.size() > 0) {
+            if (validationError) {
                 label.append("<img class=\"validationWarning\" alt=\"");
                 label.append(getMessageSource().getMessage("icon.warning", null, locale));
                 label.append("\"");
@@ -158,14 +160,14 @@ public class LabelTag extends TagSupport {
     /**
      * Extract the error messages from the given ObjectError list.
      */
-    private String getErrorMessages(List fes) throws NoSuchMessageException {
+    /*private String getErrorMessages(List fes) throws NoSuchMessageException {
         StringBuffer message = new StringBuffer();
         for (int i = 0; i < fes.size(); i++) {
             ObjectError error = (ObjectError) fes.get(i);
             message.append(this.requestContext.getMessage(error, true));
         }
         return message.toString();
-    }
+    }*/
 
     /**
      * Write the message to the page.

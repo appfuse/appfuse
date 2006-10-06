@@ -42,7 +42,10 @@ public class LabelRenderer extends Renderer {
         boolean hasErrors = hasMessages(context, input);
 
         if (styleClass != null) {
+            if (hasErrors) styleClass += " error";
             writer.writeAttribute("class", styleClass, null);
+        } else if (hasErrors) {
+            writer.writeAttribute("class", "error", null);
         }
 
         String renderedId =
