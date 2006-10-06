@@ -147,28 +147,8 @@
     <dependencies>
         <dependency>
             <groupId>org.acegisecurity</groupId>
-            <artifactId>acegi-security</artifactId>
+            <artifactId>acegi-security-tiger</artifactId>
             <version>${acegi.version}</version>
-            <exclusions>
-                <!-- Maven thinks 2.0 is newer than 2.1 -->
-                <exclusion>
-                    <groupId>commons-lang</groupId>
-                    <artifactId>commons-lang</artifactId>
-                </exclusion>
-                <!-- exclude older versions of Spring -->
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-remoting</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-jdbc</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-support</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -268,7 +248,7 @@
         <cargo.host>localhost</cargo.host>
         <cargo.port>9876</cargo.port>
         
-        <acegi.version>1.0.1</acegi.version>
+        <acegi.version>1.0.2</acegi.version>
         <!-- Ant is for i18n->HTML parsing with Ant in AppFuse 1.9.x, 
              may no longer be needed if test deleted in web/common/pom.xml -->
         <ant.version>1.6.5</ant.version> 
