@@ -1,9 +1,3 @@
-/*
- * Created on Sep 20, 2004
- *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
 package org.appfuse.webapp.action;
 
 import java.util.ArrayList;
@@ -22,6 +16,7 @@ import org.appfuse.webapp.util.RequestUtil;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class PasswordHintAction extends BaseAction {
+    private static final long serialVersionUID = -4037514607101222025L;
     private String username;
     
     /**

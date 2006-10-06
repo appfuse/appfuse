@@ -8,8 +8,6 @@ import org.apache.tapestry.valid.IFieldTracking;
 import org.apache.tapestry.valid.IValidator;
 import org.apache.tapestry.valid.RenderString;
 
-import java.util.Locale;
-
 /**
  * Custom Validation Delegate - based on one found in Tapestry in Action.
  *

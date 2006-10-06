@@ -55,7 +55,7 @@ public class SignupControllerTest extends BaseControllerTestCase {
         
         ModelAndView mv = c.handleRequest(request, response);
         Errors errors =
-            (Errors) mv.getModel().get(BindException.ERROR_KEY_PREFIX + "user");
+            (Errors) mv.getModel().get(BindException.MODEL_KEY_PREFIX + "user");
         assertTrue("no errors returned in model", errors == null);
         
         // verify an account information e-mail was sent

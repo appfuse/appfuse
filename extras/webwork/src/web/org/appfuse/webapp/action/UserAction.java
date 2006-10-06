@@ -2,29 +2,28 @@ package org.appfuse.webapp.action;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.acegisecurity.Authentication;
 import org.acegisecurity.AuthenticationTrustResolver;
 import org.acegisecurity.AuthenticationTrustResolverImpl;
-import org.acegisecurity.Authentication;
-import org.acegisecurity.context.SecurityContextHolder;
 import org.acegisecurity.context.SecurityContext;
-
+import org.acegisecurity.context.SecurityContextHolder;
 import org.apache.commons.lang.StringUtils;
 import org.appfuse.Constants;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
-import org.appfuse.util.StringUtil;
 import org.appfuse.service.UserExistsException;
+import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.util.RequestUtil;
 
 import com.opensymphony.webwork.ServletActionContext;
 
 public class UserAction extends BaseAction {
+    private static final long serialVersionUID = 6776558938712115191L;
     private List users;
     private User user;
     private String username;

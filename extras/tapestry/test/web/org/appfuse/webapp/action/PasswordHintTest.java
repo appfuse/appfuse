@@ -3,12 +3,7 @@ package org.appfuse.webapp.action;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.appfuse.service.MailEngine;
-import org.appfuse.service.UserManager;
-import org.springframework.mail.MailMessage;
-
 import com.dumbster.smtp.SimpleSmtpServer;
-
 
 public class PasswordHintTest extends BasePageTestCase {
     private PasswordHint page;

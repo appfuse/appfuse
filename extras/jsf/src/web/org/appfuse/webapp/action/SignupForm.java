@@ -2,23 +2,19 @@ package org.appfuse.webapp.action;
 
 import java.io.Serializable;
 
+import org.acegisecurity.Authentication;
+import org.acegisecurity.context.SecurityContextHolder;
+import org.acegisecurity.providers.ProviderManager;
+import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
 import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.service.RoleManager;
 import org.appfuse.service.UserExistsException;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.util.RequestUtil;
-
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
-
-import org.acegisecurity.context.SecurityContextHolder;
-import org.acegisecurity.Authentication;
-import org.acegisecurity.GrantedAuthority;
-import org.acegisecurity.GrantedAuthorityImpl;
-import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
-import org.acegisecurity.providers.ProviderManager;
 
 /**
  * JSF Page class to handle signing up a new user.
@@ -26,6 +22,7 @@ import org.acegisecurity.providers.ProviderManager;
  * @author mraible
  */
 public class SignupForm extends BasePage implements Serializable {
+    private static final long serialVersionUID = 3524937486662786265L;
     private User user = new User();
     private RoleManager roleManager;
 

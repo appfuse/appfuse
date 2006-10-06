@@ -26,16 +26,13 @@ import org.appfuse.service.UserManager;
 import org.springframework.mail.SimpleMailMessage;
 
 public class BasePage {
-    public static final String jstlBundleParam =
-        "javax.servlet.jsp.jstl.fmt.localizationContext";
+    public static final String jstlBundleParam = "javax.servlet.jsp.jstl.fmt.localizationContext";
     protected final Log log = LogFactory.getLog(getClass());
     protected UserManager userManager = null;
     protected MailEngine mailEngine = null;
     protected SimpleMailMessage message = null;
     protected String templateName = null;
     protected FacesContext facesContext = null;
-    
-    private HttpServletRequest request = null;
 
     /**
      * Allow overriding of facesContext for unit tests

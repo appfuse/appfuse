@@ -215,7 +215,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
             <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/spring-2.0/spring.jar"/>]]></replacetoken>
             <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/spring-2.0/spring.jar"/>
 	<classpathentry kind="lib" path="lib/spring-2.0/antlr.jar"/>
-	<classpathentry kind="lib" path="lib/spring-2.0/springmodules-validation-0.4.jar"/>]]></replacevalue>
+	<classpathentry kind="lib" path="lib/spring-2.0/springmodules-validation-0.5.jar"/>]]></replacevalue>
         </replace>
 
         <echo level="info">Refactoring build.xml</echo>

@@ -1,29 +1,25 @@
 package org.appfuse.webapp.action;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
+import org.acegisecurity.Authentication;
+import org.acegisecurity.context.SecurityContextHolder;
+import org.acegisecurity.providers.ProviderManager;
+import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
 import org.appfuse.Constants;
 import org.appfuse.model.User;
-import org.appfuse.util.StringUtil;
 import org.appfuse.service.UserExistsException;
+import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.util.RequestUtil;
-
-import com.opensymphony.webwork.ServletActionContext;
-
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import org.acegisecurity.context.SecurityContextHolder;
-import org.acegisecurity.Authentication;
-import org.acegisecurity.GrantedAuthority;
-import org.acegisecurity.GrantedAuthorityImpl;
-import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
-import org.acegisecurity.providers.ProviderManager;
+import com.opensymphony.webwork.ServletActionContext;
 
 public class SignupAction extends BaseAction {
+    private static final long serialVersionUID = 6558317334878272308L;
     private User user;
     private String cancel;
     

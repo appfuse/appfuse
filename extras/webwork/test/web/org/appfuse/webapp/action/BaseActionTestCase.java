@@ -1,24 +1,21 @@
 package org.appfuse.webapp.action;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import junit.framework.TestCase;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.Constants;
-import org.appfuse.model.User;
-import org.appfuse.service.UserManager;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.mock.web.MockServletContext;
 import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockServletContext;
 import org.springframework.util.ClassUtils;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 
+import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.xwork.ActionContext;
 import com.opensymphony.xwork.util.LocalizedTextUtil;
-import com.opensymphony.webwork.ServletActionContext;
 
 public abstract class BaseActionTestCase extends TestCase {
     protected transient final Log log = LogFactory.getLog(getClass());

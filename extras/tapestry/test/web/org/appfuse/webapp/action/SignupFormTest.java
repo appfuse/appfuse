@@ -6,10 +6,6 @@ import java.util.Map;
 import org.appfuse.Constants;
 import org.appfuse.model.Address;
 import org.appfuse.model.User;
-import org.appfuse.service.MailEngine;
-import org.appfuse.service.RoleManager;
-import org.appfuse.service.UserManager;
-import org.springframework.mail.SimpleMailMessage;
 
 import com.dumbster.smtp.SimpleSmtpServer;
 

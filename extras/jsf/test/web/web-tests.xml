@@ -1,5 +1,5 @@
 <!-- ======================================================================= -->
-<!-- $Id: web-tests.xml,v 1.11.2.2 2006/07/09 05:22:28 mraible Exp $               -->
+<!-- $Id$               -->
 <!-- ======================================================================= -->
 <!DOCTYPE project [
     <!ENTITY config SYSTEM "file:./config.xml">
@@ -219,17 +219,12 @@
             <steps>
                 &login;
                 <invoke description="click Upload a File link" url="/selectFile.html"/>
-                <verifytitle description="we should see file upload form" 
-                    text=".*${upload.title}.*" regex="true"/>
-                <!--setinputfield description="set name" name="name" 
-                    value="Canoo Test File"/>
-                <setinputfield description="set file" name="file" 
-                    value="${basedir}/build.properties"/>
+                <verifytitle description="we should see file upload form" text=".*${upload.title}.*" regex="true"/>
+                <setinputfield description="set name" name="uploadForm:name" value="Canoo Test File"/>
+                <setFileField description="set file" name="uploadForm:file" fileName="${basedir}/build.properties"/>
                 <clickbutton label="${button.upload}" description="Click Upload"/>
-                <verifytitle description="show file data if upload OK"
-                     text=".*${display.title}.*" regex="true"/>
-                <verifytext description="verify original file name displayed on page"
-                     text="build.properties" /-->
+                <verifytitle description="show file data if upload OK" text=".*${display.title}.*" regex="true"/>
+                <verifytext description="verify original filename displayed on page" text="build.properties" />
             </steps>
         </webtest>
     </target>

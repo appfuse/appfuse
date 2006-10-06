@@ -1,10 +1,6 @@
 package org.appfuse.webapp.action;
 
-import org.springframework.mock.web.MockHttpServletRequest;
-
 import com.dumbster.smtp.SimpleSmtpServer;
-import com.opensymphony.webwork.ServletActionContext;
-
 
 public class PasswordHintActionTest extends BaseActionTestCase {
     private PasswordHintAction action;

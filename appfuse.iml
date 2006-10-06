@@ -359,6 +359,15 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/spring-2.0/aspectjweaver-1.5.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/spring-2.0/ehcache-1.2.3.jar!/" />
         </CLASSES>
         <JAVADOC />
@@ -769,6 +778,11 @@
       <attribute name="method" value="1" />
       <attribute name="URI" value="/WEB-INF/lib/acegi-security-1.0.2.jar" />
       <url>jar://$MODULE_DIR$/lib/spring-2.0/acegi-security-1.0.2.jar!/</url>
+    </containerElement>
+    <containerElement type="library" level="module">
+      <attribute name="method" value="1" />
+      <attribute name="URI" value="/WEB-INF/lib/aspectjweaver-1.5.2.jar" />
+      <url>jar://$MODULE_DIR$/lib/spring-2.0/aspectjweaver-1.5.2.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />

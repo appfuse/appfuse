@@ -1,10 +1,9 @@
 package org.appfuse.webapp.action;
 
-import org.apache.tapestry.engine.RequestCycle;
-import org.appfuse.service.UserManager;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import org.apache.tapestry.engine.RequestCycle;
 
 public class UserListTest extends BasePageTestCase {
     private UserList page;

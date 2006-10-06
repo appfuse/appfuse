@@ -12,6 +12,7 @@ import com.opensymphony.webwork.ServletActionContext;
 import com.opensymphony.xwork.ValidationAware;
 
 public class FileUploadAction extends BaseAction implements ValidationAware {
+    private static final long serialVersionUID = -9208910183310010569L;
     private File file;
     private String fileContentType;
     private String fileFileName;

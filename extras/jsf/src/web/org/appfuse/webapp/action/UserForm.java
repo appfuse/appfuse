@@ -6,14 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.acegisecurity.Authentication;
 import org.acegisecurity.AuthenticationTrustResolver;
 import org.acegisecurity.AuthenticationTrustResolverImpl;
-import org.acegisecurity.context.SecurityContextHolder;
 import org.acegisecurity.context.SecurityContext;
-
+import org.acegisecurity.context.SecurityContextHolder;
 import org.apache.commons.lang.StringUtils;
 import org.appfuse.Constants;
 import org.appfuse.model.Role;
@@ -30,8 +28,8 @@ import org.appfuse.webapp.util.RequestUtil;
  * @author mraible
  */
 public class UserForm extends BasePage implements Serializable {
+    private static final long serialVersionUID = -1141119853856863204L;
     private RoleManager roleManager;
-    private String from;
     private String username;
     private User user = new User();
     private Map availableRoles;

@@ -22,6 +22,7 @@ import com.opensymphony.xwork.interceptor.Interceptor;
  * @see org.springframework.web.servlet.handler.UserRoleAuthorizationInterceptor
  */
 public class UserRoleAuthorizationInterceptor implements Interceptor {
+    private static final long serialVersionUID = 5067790608840427509L;
     private String[] authorizedRoles;
 
     public String intercept(ActionInvocation invocation) throws Exception {
