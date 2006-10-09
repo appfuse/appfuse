@@ -185,12 +185,6 @@
     </managed-bean>
     
     <managed-bean>
-        <managed-bean-name>flushCache</managed-bean-name>
-        <managed-bean-class>org.appfuse.webapp.action.FlushCache</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
-    
-    <managed-bean>
         <managed-bean-name>reload</managed-bean-name>
         <managed-bean-class>org.appfuse.webapp.action.Reload</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
