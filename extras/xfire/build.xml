@@ -63,7 +63,7 @@
             <replacetoken><![CDATA[<path id="service.test.classpath">]]></replacetoken>
             <replacevalue><![CDATA[<path id="service.test.classpath">
         <fileset dir="${xfire.test.dir}" includes="*.jar"/>
-        <pathelement location="${servletapi.jar}"/>]]></replacevalue>
+            <pathelement location="${servletapi.jar}"/>]]></replacevalue>
         </replace>
                 
         <echo level="info">Adding servlet and servlet-mapping to web/WEB-INF/web.xml</echo>
@@ -74,7 +74,6 @@
            <replacevalue><![CDATA[</servlet>
     <servlet>
         <servlet-name>XFireServlet</servlet-name>
-        <display-name>XFire Servlet</display-name>
         <servlet-class>org.codehaus.xfire.spring.XFireSpringServlet</servlet-class>
     </servlet>
                
