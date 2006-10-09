@@ -14,10 +14,11 @@ import org.appfuse.dao.UserDao;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
 import org.jmock.Mock;
+import org.jmock.MockObjectTestCase;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class UserSecurityAdviceTest extends BaseManagerTestCase {
+public class UserSecurityAdviceTest extends MockObjectTestCase {
     Mock userDao = null;
     ApplicationContext ctx = null;
     SecurityContext initialSecurityContext = null;

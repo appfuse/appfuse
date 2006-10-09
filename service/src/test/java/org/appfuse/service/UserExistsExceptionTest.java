@@ -2,9 +2,8 @@ package org.appfuse.service;
 
 import org.appfuse.model.User;
 import org.springframework.beans.BeanUtils;
-import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
 
-public class UserExistsExceptionTest extends AbstractTransactionalDataSourceSpringContextTests {
+public class UserExistsExceptionTest extends BaseManagerTestCase {
     private UserManager manager = null;
 
     public void setUserManager(UserManager userManager) {
