@@ -1286,6 +1286,7 @@
                 <exclude name="*.log"/>
                 <exclude name="*.sh"/>
                 <exclude name=".#**"/>
+                <exclude name="java-net.xml"/>
                 <exclude name="extras/**"/>
                 <include name="**"/>
             </fileset>
