@@ -37,7 +37,7 @@
         <h:commandButton value="#{text['button.save']}" action="#{userForm.save}" styleClass="button"/>
         <c:if test="${param.from == 'list'}">
         <h:commandButton value="#{text['button.delete']}" action="#{userForm.delete}"
-            styleClass="button" onclick="bCancel=false; return confirmDelete('User')"/>
+            styleClass="button" onclick="bCancel=true; return confirmDelete('User')"/>
         </c:if>
         <h:commandButton value="#{text['button.cancel']}" action="#{userForm.cancel}" immediate="true"
             styleClass="button" onclick="bCancel=true"/>
@@ -232,7 +232,7 @@
         <h:commandButton value="#{text['button.save']}" action="#{userForm.save}" styleClass="button"/>
         <c:if test="${param.from == 'list'}">
         <h:commandButton value="#{text['button.delete']}" action="#{userForm.delete}"
-            styleClass="button" onclick="bCancel=false; return confirmDelete('User')"/>
+            styleClass="button" onclick="bCancel=true; return confirmDelete('User')"/>
         </c:if>
         <h:commandButton value="#{text['button.cancel']}" action="#{userForm.cancel}" immediate="true"
             styleClass="button" onclick="bCancel=true"/>
