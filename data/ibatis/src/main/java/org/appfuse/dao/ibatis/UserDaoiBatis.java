@@ -37,7 +37,7 @@ public class UserDaoiBatis extends BaseDaoiBATIS implements UserDao, UserDetails
             throw new ObjectRetrievalFailureException(User.class, userId);
         } else {
             List roles = getSqlMapClientTemplate().queryForList("getUserRoles", user);
-            user.setRoles(new HashSet(roles));
+            user.setRoles(new HashSet<Role>(roles));
         }
 
         return user;
@@ -54,7 +54,7 @@ public class UserDaoiBatis extends BaseDaoiBATIS implements UserDao, UserDetails
             user = (User) users.get(i);
 
             List roles =  getSqlMapClientTemplate().queryForList("getUserRoles", user);
-            user.setRoles(new HashSet(roles));
+            user.setRoles(new HashSet<Role>(roles));
             users.set(i, user);
         }
 
@@ -63,7 +63,7 @@ public class UserDaoiBatis extends BaseDaoiBATIS implements UserDao, UserDetails
 
     /**
      * Convenience method to delete roles
-     * @param user
+     * @param userId the id of the user to delete
      */
     private void deleteUserRoles(final Long userId) {
         getSqlMapClientTemplate().update("deleteUserRoles", userId);
@@ -71,9 +71,8 @@ public class UserDaoiBatis extends BaseDaoiBATIS implements UserDao, UserDetails
 
     private void addUserRoles(final User user) {
         if (user.getRoles() != null) {
-            for (Iterator it = user.getRoles().iterator(); it.hasNext();) {
-                Role role = (Role) it.next();
-                Map newRole = new HashMap();
+            for (Role role : user.getRoles()) {
+                Map<String, Long> newRole = new HashMap<String, Long>();
                 newRole.put("userId", user.getId());
                 newRole.put("roleId", role.getId());
 
@@ -121,7 +120,7 @@ public class UserDaoiBatis extends BaseDaoiBATIS implements UserDao, UserDetails
              throw new UsernameNotFoundException("user '" + username + "' not found...");
          } else {
              List roles = getSqlMapClientTemplate().queryForList("getUserRoles", user);
-             user.setRoles(new HashSet(roles));
+             user.setRoles(new HashSet<Role>(roles));
          }
 
          return user;
