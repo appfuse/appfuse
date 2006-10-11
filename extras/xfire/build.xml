@@ -133,7 +133,7 @@
         <xdoclet excludedtags="@version,@author"
             addedtags="@xdoclet-generated at ${TODAY}"
             force="${xdoclet.force}"
-            destdir="${build.dir}/dao/classes"
+            destdir="${build.dir}/dao/gen"
             mergedir="metadata/webservice">
             <fileset dir="src/dao" includes="**/*.java"/>
 
