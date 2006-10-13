@@ -321,7 +321,7 @@
             mergedir="metadata/web" excludedtags="@version,@author" verbose="true">
             <fileset dir="src/web"/>
             <fileset dir="${build.dir}/web/gen"/>
-            <jsptaglib validateXML="true"
+            <jsptaglib validateXML="true" templateFile="metadata/templates/taglib_tld.xdt"
                 description="Custom tag library for this application"
                 shortName="${webapp.name}" filename="${webapp.name}.tld"/>
             <strutsconfigxml validateXML="true" version="1.2"/>

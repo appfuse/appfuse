@@ -32,8 +32,6 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  * well for doing this.
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- *
- * @web.listener
  */
 public class StartupListener extends ContextLoaderListener
     implements ServletContextListener {

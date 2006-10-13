@@ -75,7 +75,9 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
         </replace>
         
         <echo level="info">Deleting struts_form.xdt for XDoclet</echo>
-        <delete dir="../../metadata/templates"/>
+        <delete>
+            <fileset dir="../../metadata/templates" includes="struts*"/>
+        </delete>
 
         <echo level="info">Deleting Struts merge-files in metadata/web</echo>
         <delete>
