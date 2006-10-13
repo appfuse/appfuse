@@ -17,13 +17,13 @@
     <property name="junit.showoutput" value="true"/>
     <property name="xdoclet.force" value="false"/>
 
-    <!-- Load user overrides -->
-    <property file="${user.home}/.${ant.project.name}-build.properties"/>
-    <property file="${user.home}/.build.properties"/>
     <!-- Library versions and JARs -->
     <property name="lib.dir" location="lib"/>
     <property file="${lib.dir}/lib.properties"/>
 
+    <!-- Load user overrides -->
+    <property file="${user.home}/.${ant.project.name}-build.properties"/>
+    <property file="${user.home}/.build.properties"/>
     <property file="build.properties"/>
     <property file="web/WEB-INF/classes/mail.properties"/>
 
