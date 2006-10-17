@@ -86,7 +86,7 @@
                 <artifactId>maven-antrun-plugin</artifactId>
                 <configuration>
                     <tasks>
-                        <taskdef file="src/test/resources/webtestTaskdefs.properties">
+                        <taskdef resource="webtest_base_relaxed.taskdef">
                             <classpath refid="maven.test.classpath"/>
                         </taskdef>
                         <mkdir dir="target/webtest-data"/>

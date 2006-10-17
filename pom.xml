@@ -289,7 +289,7 @@
         <tapestry.spring.version>0.1.2</tapestry.spring.version>
         <urlrewrite.version>2.5.2</urlrewrite.version>
         <velocity.version>1.4</velocity.version>
-        <webtest.version>1193</webtest.version>
+        <webtest.version>1393</webtest.version>
         
         <copyright.year>2004-2006</copyright.year>
     </properties>
