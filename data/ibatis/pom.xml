@@ -2,7 +2,7 @@
 
 <!--
     Copyright 2002-2006 the original author or authors.
-                                                                                                     ‰
+
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
@@ -52,6 +52,39 @@
                         <goals>
                             <goal>clean-insert</goal>
                         </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>${jdbc.groupId}</groupId>
+                        <artifactId>${jdbc.artifactId}</artifactId>
+                        <version>${jdbc.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>sql-maven-plugin</artifactId>
+                <configuration>
+                    <driver>${jdbc.driverClassName}</driver>
+                    <username>${jdbc.username}</username>
+                    <password>${jdbc.password}</password>
+                    <url>${jdbc.url}&amp;createDatabaseIfNotExist=true</url>
+                    <autocommit>true</autocommit>
+                </configuration>
+                <executions>                    
+                    <execution>
+                        <id>create-schema</id>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <autocommit>true</autocommit>
+                            <srcFiles>
+                                <srcFile>src/test/data/${jdbc.groupId}-schema.sql</srcFile>
+                            </srcFiles>
+                        </configuration>
                     </execution>
                 </executions>
                 <dependencies>
