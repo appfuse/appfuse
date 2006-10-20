@@ -109,10 +109,5 @@
             <artifactId>ibatis2-sqlmap</artifactId>
             <version>${ibatis.version}</version>
         </dependency>
-        <dependency>
-            <groupId>geronimo-spec</groupId>
-            <artifactId>geronimo-spec-jta</artifactId>
-            <version>${jta.version}</version>
-        </dependency>
     </dependencies>
 </project>

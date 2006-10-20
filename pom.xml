@@ -264,7 +264,7 @@
         <dumbster.version>1.5</dumbster.version>
         <dwr.version>1.1.1</dwr.version>
         <ehcache.version>1.2.3</ehcache.version>
-        <hibernate.version>3.2.0.cr2</hibernate.version>
+        <hibernate.version>3.2.0.ga</hibernate.version>
         <ibatis.version>2.1.6.589</ibatis.version>
         <javamail.version>1.4</javamail.version>
         <jmock.version>1.1.0</jmock.version>

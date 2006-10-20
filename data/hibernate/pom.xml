@@ -89,6 +89,13 @@
         </plugins>
     </build>
 
+    <repositories>
+        <repository>
+            <id>java.net</id> <!-- for jta -->
+            <url>https://maven2-repository.dev.java.net/nonav/repository</url>
+        </repository>
+    </repositories>
+    
     <dependencies>
         <dependency>
             <groupId>${pom.groupId}</groupId>
@@ -98,7 +105,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-annotations</artifactId>
-            <version>3.2.0.cr1</version>
+            <version>${hibernate.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>javax.persistence</groupId>
@@ -110,17 +117,6 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate</artifactId>
             <version>${hibernate.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.transaction</groupId>
-                    <artifactId>jta</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>geronimo-spec</groupId>
-            <artifactId>geronimo-spec-jta</artifactId>
-            <version>${jta.version}</version>
-        </dependency>   
+        </dependency>  
     </dependencies>
 </project>
