@@ -503,7 +503,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/mysql-connector-java-3.1.12/mysql-connector-java-3.1.12-bin.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/mysql-connector-java-5.0.3/mysql-connector-java-5.0.3-bin.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -767,8 +767,8 @@
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
-      <attribute name="URI" value="/WEB-INF/lib/mysql-connector-java-3.1.12-bin.jar" />
-      <url>jar://$MODULE_DIR$/lib/mysql-connector-java-3.1.12/mysql-connector-java-3.1.12-bin.jar!/</url>
+      <attribute name="URI" value="/WEB-INF/lib/mysql-connector-java-5.0.3-bin.jar" />
+      <url>jar://$MODULE_DIR$/lib/mysql-connector-java-5.0.3/mysql-connector-java-5.0.3-bin.jar!/</url>
     </containerElement>
     <containerElement type="library" level="module">
       <attribute name="method" value="1" />
