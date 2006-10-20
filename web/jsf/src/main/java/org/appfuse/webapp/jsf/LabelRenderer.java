@@ -9,6 +9,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.Renderer;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -33,7 +34,11 @@ public class LabelRenderer extends Renderer {
         Map attrs = component.getAttributes();
         String id = (String) attrs.get("for");
 
-        UIInput input = (UIInput) component.findComponent(id);
+        UIInput input = null;
+        
+        if (!StringUtils.isEmpty(id)) {
+            input = (UIInput) component.findComponent(id);
+        }
 
         writer.startElement("label", component);
 
@@ -62,7 +67,11 @@ public class LabelRenderer extends Renderer {
         Map attrs = component.getAttributes();
         String id = (String) attrs.get("for");
 
-        UIInput input = (UIInput) component.findComponent(id);
+        UIInput input = null;
+        
+        if (!StringUtils.isEmpty(id)) {
+            input = (UIInput) component.findComponent(id);
+        }
 
         if ((input != null) && input.isRequired()) {
             writer.write(" <span class=\"req\">*</span>");
