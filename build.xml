@@ -232,7 +232,7 @@
         <!-- Copy XML and properties files from source -->
         <copy todir="${build.dir}/dao/gen">
             <fileset dir="src/dao" excludes="**/*-${dao.type}.xml">
-                <include name="**/*.xml">
+                <include name="**/*.xml"/>
                 <include name="**/*.properties"/>
             </fileset>
             <filterset refid="variables.to.replace"/>
