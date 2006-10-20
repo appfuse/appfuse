@@ -79,7 +79,12 @@ public abstract class BaseControllerTestCase extends TestCase {
             Object field = (fields[i].get(o));
             if (field != null) {
                 if (field instanceof BaseObject) {
-                    objectToRequestParameters(field, request, fields[i].getName());
+                    // Fix for http://issues.appfuse.org/browse/APF-429
+                    if (prefix != null) {
+                        objectToRequestParameters(field, request, prefix + "." + fields[i].getName());
+                    } else {
+                        objectToRequestParameters(field, request, fields[i].getName());
+                    }
                 } else if (!(field instanceof List) && !(field instanceof Set)) {
                     String paramName = fields[i].getName();
 
