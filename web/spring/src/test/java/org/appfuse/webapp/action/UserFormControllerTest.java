@@ -57,7 +57,7 @@ public class UserFormControllerTest extends BaseControllerTestCase {
         log.debug(mv.getModel());
         Errors errors = (Errors) mv.getModel().get(BindException.MODEL_KEY_PREFIX + "user");
         assertNull(errors);
-        assertNotNull(request.getSession().getAttribute("messages"));
+        assertNotNull(request.getSession().getAttribute("successMessages"));
     }
     
     public void testAddWithMissingFields() throws Exception {
@@ -78,6 +78,6 @@ public class UserFormControllerTest extends BaseControllerTestCase {
 
         mv = c.handleRequest(request, new MockHttpServletResponse());
         
-        assertNotNull(request.getSession().getAttribute("messages"));
+        assertNotNull(request.getSession().getAttribute("successMessages"));
     }
 }

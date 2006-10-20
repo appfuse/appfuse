@@ -11,13 +11,13 @@
 </c:if>
 
 <%-- Success Messages --%>
-<c:if test="${not empty messages}">
+<c:if test="${not empty successMessages}">
     <div class="message" id="successMessages">
-        <c:forEach var="msg" items="${messages}">
+        <c:forEach var="msg" items="${successMessages}">
             <img src="<c:url value="/images/iconInformation.gif"/>"
                 alt="<fmt:message key="icon.information"/>" class="icon" />
             <c:out value="${msg}" escapeXml="false"/><br />
         </c:forEach>
     </div>
-    <c:remove var="messages" scope="session"/>
+    <c:remove var="successMessages" scope="session"/>
 </c:if>

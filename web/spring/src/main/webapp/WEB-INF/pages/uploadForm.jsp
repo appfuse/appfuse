@@ -22,23 +22,21 @@
 
 <div class="separator"></div>
 
-<form method="post" id="uploadForm" action="<c:url value="/uploadFile.html"/>"
-    enctype="multipart/form-data" onsubmit="return validateFileUpload(this)">
+<form:form commandName="fileUpload" method="post" action="uploadFile.html" enctype="multipart/form-data"
+    onsubmit="return validateFileUpload(this)" id="uploadForm">
 <ul>
     <li class="info">
         <fmt:message key="upload.message"/>
     </li>
     <li>
         <appfuse:label key="uploadForm.name" styleClass="desc"/>
-        <spring:bind path="fileUpload.name">
-        <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
-        <input type="text" name="name" id="name" class="text medium" value="<c:out value="${status.value}"/>"/>
-        </spring:bind>
+        <form:errors path="name" cssClass="fieldError"/>
+        <form:input path="name" id="name" cssClass="text medium"/>
     </li>
     <li>
         <appfuse:label key="uploadForm.file" styleClass="desc"/>
+        <form:errors path="file" cssClass="fieldError"/>
         <spring:bind path="fileUpload.file">
-        <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
         <input type="file" name="file" id="file" class="file medium" value="<c:out value="${status.value}"/>"/>
         </spring:bind>
     </li>
@@ -49,7 +47,7 @@
             value="<fmt:message key="button.cancel"/>" />
     </li>
 </ul>
-</form>
+</form:form>
 
 <script type="text/javascript">
     Form.focusFirstElement($('uploadForm'));

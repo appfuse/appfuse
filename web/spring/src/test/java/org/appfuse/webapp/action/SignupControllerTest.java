@@ -30,8 +30,7 @@ public class SignupControllerTest extends BaseControllerTestCase {
         MockHttpServletRequest request = newGet("/signup.html");
         HttpServletResponse response = new MockHttpServletResponse();
         ModelAndView mv = c.handleRequest(request, response);
-        assertTrue("returned correct view name",
-                   mv.getViewName().equals("signup"));
+        assertTrue("returned correct view name", mv.getViewName().equals("signup"));
     }
 
     public void testSignupUser() throws Exception {
@@ -63,7 +62,7 @@ public class SignupControllerTest extends BaseControllerTestCase {
         assertTrue(server.getReceivedEmailSize() == 1);
         
         // verify that success messages are in the request
-        assertNotNull(request.getSession().getAttribute("messages"));
+        assertNotNull(request.getSession().getAttribute("successMessages"));
         assertNotNull(request.getSession().getAttribute(Constants.REGISTERED));
     }
 }
