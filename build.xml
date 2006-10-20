@@ -72,8 +72,7 @@
 
     </target>
 
-    <!-- List of variables in .properties files that will be replaced at
-         build time -->
+    <!-- List of variables in .properties files that will be replaced at build time -->
     <filterset id="variables.to.replace">
         <filter token="APPNAME" value="${webapp.name}"/>
         <filter token="ENCRYPT-ALGORITHM" value="${encrypt.algorithm}"/>
@@ -230,9 +229,12 @@
     </target>
 
     <target name="package-dao" depends="prepare,compile-dao" description="Package DAO JAR">
-        <!-- Copy XML files from source -->
+        <!-- Copy XML and properties files from source -->
         <copy todir="${build.dir}/dao/gen">
-            <fileset dir="src/dao" includes="**/*.xml" excludes="**/*-${dao.type}.xml"/>
+            <fileset dir="src/dao" excludes="**/*-${dao.type}.xml">
+                <include name="**/*.xml">
+                <include name="**/*.properties"/>
+            </fileset>
             <filterset refid="variables.to.replace"/>
         </copy>
         <!-- Copy Spring configuration files -->
