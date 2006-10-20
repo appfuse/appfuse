@@ -18,123 +18,91 @@
 
 <div class="separator"></div>
 
-<form method="post" action="<c:url value="/signup.html"/>" id="signupForm" onsubmit="return validateUser(this)">
+<form:form commandName="user" method="post" action="signup.html" onsubmit="return validateUser(this)" id="signupForm">
 <ul>
     <li class="info">
         <fmt:message key="signup.message"/>
     </li>
     <li>
         <appfuse:label styleClass="desc" key="user.username"/>
-        <spring:bind path="user.username">
-            <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
-            <input type="text" name="username" value="<c:out value="${status.value}"/>" id="username" class="text large"/>
-        </spring:bind>
+        <form:errors path="username" cssClass="fieldError"/>
+        <form:input path="username" id="username" cssClass="text large"/>
     </li>
     <li>
         <div>
             <div class="left">
                 <appfuse:label styleClass="desc" key="user.password"/>
-                <spring:bind path="user.password">
-                    <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
-                    <input type="password" id="password" name="password" class="text medium"
-                        value="<c:out value="${status.value}"/>"/>
-                </spring:bind>
+                <form:errors path="password" cssClass="fieldError"/>
+                <form:password path="password" id="password" cssClass="text medium"/>
             </div>
             <div>
                 <appfuse:label styleClass="desc" key="user.confirmPassword"/>
-                <spring:bind path="user.confirmPassword">
-                    <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
-                    <input type="password" name="confirmPassword" id="confirmPassword"
-                        value="<c:out value="${status.value}"/>" class="text medium"/>
-                </spring:bind>
+                <form:errors path="confirmPassword" cssClass="fieldError"/>
+                <form:password path="confirmPassword" id="confirmPassword" cssClass="text medium"/>
             </div>
         </div>
     </li>
     <li>
         <appfuse:label styleClass="desc" key="user.passwordHint"/>
-        <spring:bind path="user.passwordHint">
-            <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
-            <input type="text" name="passwordHint" value="<c:out value="${status.value}"/>" id="passwordHint" class="text large"/>
-        </spring:bind>
+        <form:errors path="passwordHint" cssClass="fieldError"/>
+        <form:input path="passwordHint" id="passwordHint" cssClass="text large"/>
     </li>
     <li>
         <div class="left">
             <appfuse:label styleClass="desc" key="user.firstName"/>
-            <spring:bind path="user.firstName">
-                <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
-                <input type="text" name="firstName" value="<c:out value="${status.value}"/>" id="firstName" class="text medium" maxlength="50"/>
-            </spring:bind>
+            <form:errors path="firstName" cssClass="fieldError"/>
+            <form:input path="firstName" id="firstName" cssClass="text medium" maxlength="50"/>
         </div>
         <div>
             <appfuse:label styleClass="desc" key="user.lastName"/>
-            <spring:bind path="user.lastName">
-                <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
-                <input type="text" name="lastName" value="<c:out value="${status.value}"/>" id="lastName" class="text medium" maxlength="50"/>
-            </spring:bind>
+            <form:errors path="lastName" cssClass="fieldError"/>
+            <form:input path="lastName" id="lastName" cssClass="text medium" maxlength="50"/>
         </div>
     </li>
     <li>
         <div>
             <div class="left">
                 <appfuse:label styleClass="desc" key="user.email"/>
-                <spring:bind path="user.email">
-                    <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
-                    <input type="text" name="email" value="<c:out value="${status.value}"/>" id="email" class="text medium"/>
-                </spring:bind>
+                <form:errors path="email" cssClass="fieldError"/>
+                <form:input path="email" id="email" cssClass="text medium"/>
             </div>
             <div>
                 <appfuse:label styleClass="desc" key="user.phoneNumber"/>
-                <spring:bind path="user.phoneNumber">
-                    <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
-                    <input type="text" name="phoneNumber" value="<c:out value="${status.value}"/>" id="phoneNumber" class="text medium"/>
-                </spring:bind>
-
+                <form:errors path="phoneNumber" cssClass="fieldError"/>
+                <form:input path="phoneNumber" id="phoneNumber" cssClass="text medium"/>
             </div>
         </div>
     </li>
     <li>
         <appfuse:label styleClass="desc" key="user.website"/>
-        <spring:bind path="user.website">
-            <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
-            <input type="text" name="website" value="<c:out value="${status.value}"/>" id="website" class="text large"/>
-        </spring:bind>
+        <form:errors path="website" cssClass="fieldError"/>
+        <form:input path="website" id="website" cssClass="text large"/>
     </li>
     <li>
         <label class="desc"><fmt:message key="user.address.address"/></label>
         <div class="group">
             <div>
-                <spring:bind path="user.address.address">
-                    <input type="text" name="address.address" value="<c:out value="${status.value}"/>" id="address.address" class="text large"/>
-                    <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
-                </spring:bind>
+                <form:input path="address.address" id="address.address" cssClass="text large"/>
+                <form:errors path="address.address" cssClass="fieldError"/>
                 <p><appfuse:label key="user.address.address"/></p>
             </div>
             <div class="left">
-                <spring:bind path="user.address.city">
-                    <input type="text" name="address.city" value="<c:out value="${status.value}"/>" id="address.city" class="text medium"/>
-                    <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
-                </spring:bind>
+                <form:input path="address.city" id="address.city" cssClass="text medium"/>
+                <form:errors path="address.city" cssClass="fieldError"/>
                 <p><appfuse:label key="user.address.city"/></p>
             </div>
             <div>
-                <spring:bind path="user.address.province">
-                    <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
-                    <input type="text" name="address.province" value="<c:out value="${status.value}"/>" id="address.province" class="text state" size="2"/>
-                </spring:bind>
+                <form:input path="address.province" id="address.province" cssClass="text state" size="2"/>
+                <form:errors path="address.province" cssClass="fieldError"/>
                 <p><appfuse:label key="user.address.province"/></p>
             </div>
             <div class="left">
-                <spring:bind path="user.address.postalCode">
-                    <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
-                    <input type="text" name="address.postalCode" value="<c:out value="${status.value}"/>" id="address.postalCode" class="text zip"/>
-                </spring:bind>
+                <form:input path="address.postalCode" id="address.postalCode" cssClass="text zip"/>
+                <form:errors path="address.postalCode" cssClass="fieldError"/>
                 <p><appfuse:label key="user.address.postalCode"/></p>
             </div>
             <div>
-                <spring:bind path="user.address.country">
-                    <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
-                    <appfuse:country name="address.country" prompt="" default="${user.address.country}"/>
-                </spring:bind>
+                <appfuse:country name="address.country" prompt="" default="${user.address.country}"/>
                 <p><appfuse:label key="user.address.country"/></p>
             </div>
         </div>
@@ -144,7 +112,7 @@
         <input type="submit" class="button" name="cancel" onclick="bCancel=true" value="<fmt:message key="button.cancel"/>"/>
     </li>
 </ul>
-</form>
+</form:form>
 
 <script type="text/javascript">
     Form.focusFirstElement($('signupForm'));

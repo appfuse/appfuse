@@ -41,6 +41,7 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
  */
 public class BaseFormController extends SimpleFormController {
     protected final transient Log log = LogFactory.getLog(getClass());
+    protected final String MESSAGES_KEY = "successMessages";
     private UserManager userManager = null;
     protected MailEngine mailEngine = null;
     protected SimpleMailMessage message = null;
@@ -56,14 +57,14 @@ public class BaseFormController extends SimpleFormController {
     }
 
     public void saveMessage(HttpServletRequest request, String msg) {
-        List messages = (List) request.getSession().getAttribute("messages");
+        List messages = (List) request.getSession().getAttribute(MESSAGES_KEY);
 
         if (messages == null) {
             messages = new ArrayList();
         }
 
         messages.add(msg);
-        request.getSession().setAttribute("messages", messages);
+        request.getSession().setAttribute(MESSAGES_KEY, messages);
     }
 
     /**

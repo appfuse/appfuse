@@ -15,21 +15,17 @@
     </c:if>
 </spring:bind>
 
-<form method="post" action="<c:url value="/edit<XDtForm:className/>.html"/>" id="<XDtForm:classNameLower/>Form" onsubmit="return validate<XDtForm:className/>(this)">
+<form:form commandName="<XDtForm:classNameLower/>" method="post" action="edit<XDtForm:className/>.html" onsubmit="return validate<XDtForm:className/>(this)" id="<XDtForm:classNameLower/>Form">
 <ul>
 <XDtForm:forAllFields>
 <XDtForm:ifIsIdOrVersionField>
-<spring:bind path="<XDtForm:classNameLower/>.<XDtForm:fieldName/>">
-<input type="hidden" name="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>"/> 
-</spring:bind>
+<form:hidden path="<XDtForm:fieldName/>"/>
 </XDtForm:ifIsIdOrVersionField>
 <XDtForm:ifIsNotIdOrVersionField>
     <li>
         <appfuse:label styleClass="desc" key="<XDtForm:classNameLower/>.<XDtForm:fieldName/>"/>
-        <spring:bind path="<XDtForm:classNameLower/>.<XDtForm:fieldName/>">
-            <span class="fieldError"><c:out value="${status.errorMessage}"/></span>
-            <input type="text" name="<c:out value="${status.expression}"/>" id="<c:out value="${status.expression}"/>" value="<c:out value="${status.value}"/>" class="text medium"/>
-        </spring:bind>
+        <form:errors path="<XDtForm:fieldName/>" cssClass="fieldError"/>
+        <form:input path="<XDtForm:fieldName/>" id="<XDtForm:fieldName/>" cssClass="text medium"/>
     </li>
 </XDtForm:ifIsNotIdOrVersionField>
 </XDtForm:forAllFields>
@@ -39,7 +35,7 @@
         <input type="submit" class="button" name="cancel" onclick="bCancel=true" value="<fmt:message key="button.cancel"/>" />
     </li>
 </ul>
-</form>
+</form:form>
 
 <script type="text/javascript">
     Form.focusFirstElement($('<XDtForm:classNameLower/>Form'));

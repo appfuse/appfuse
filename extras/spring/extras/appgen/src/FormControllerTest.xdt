@@ -61,7 +61,7 @@ public class <XDtForm:className/>FormControllerTest extends BaseControllerTestCa
         }
         
         assertNull(errors);
-        assertNotNull(request.getSession().getAttribute("messages"));        
+        assertNotNull(request.getSession().getAttribute("successMessages"));        
     }
 
     public void testRemove() throws Exception {
@@ -69,6 +69,6 @@ public class <XDtForm:className/>FormControllerTest extends BaseControllerTestCa
         request.addParameter("delete", "");
         request.addParameter("<XDtMethodEx:idField getType="propertyName"/>", "2");
         mv = c.handleRequest(request, new MockHttpServletResponse());
-        assertNotNull(request.getSession().getAttribute("messages"));
+        assertNotNull(request.getSession().getAttribute("successMessages"));
     }
 }
