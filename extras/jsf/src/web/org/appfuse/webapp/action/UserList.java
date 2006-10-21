@@ -32,7 +32,7 @@ public class UserList extends BasePage implements Serializable {
     public List getUsers() {
         List users = userManager.getUsers(null);
 
-        Comparator comparator = new BeanComparator(sort);
+        Comparator comparator = new BeanComparator(sortColumn);
         if (!ascending) {
             comparator = new ReverseComparator(comparator);
         }
