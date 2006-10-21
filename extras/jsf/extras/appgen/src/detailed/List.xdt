@@ -40,7 +40,7 @@ public class <XDtForm:className/>List extends BasePage implements Serializable {
     public List get<XDtForm:className/>s() {
         List <XDtForm:classNameLower/>s = <XDtForm:classNameLower/>Manager.get<XDtForm:className/>s(null);
 
-        Comparator comparator = new BeanComparator(sort);
+        Comparator comparator = new BeanComparator(sortColumn);
         if (!ascending) {
             comparator = new ReverseComparator(comparator);
         }
