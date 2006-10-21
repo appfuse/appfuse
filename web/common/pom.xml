@@ -140,16 +140,6 @@
             <groupId>struts-menu</groupId>
             <artifactId>struts-menu</artifactId>
             <version>${struts.menu.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>struts</groupId>
-                    <artifactId>struts</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-beanutils</groupId>
-                    <artifactId>commons-beanutils</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>opensymphony</groupId>
