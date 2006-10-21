@@ -1,0 +1,108 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" 
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<f:view>
+<f:loadBundle var="text" basename="#{basePage.bundleName}"/>
+<head>
+    <title>#{text['activeUsers.title']}</title>
+    <meta name="heading" content="#{text['activeUsers.heading']}"/>
+    <meta name="menu" content="AdminMenu"/>
+</head>
+
+<body id="activeUsers">
+    
+    <p>#{text['activeUsers.message']}</p>
+    
+    <div class="separator"></div>
+    
+    <input type="button" onclick="location.href='mainMenu.html'" value="#{text['button.done']}"/>
+    
+    <h:form id="activeUsersForm">
+    <!-- Error from this table is caused by http://issues.apache.org/jira/browse/TOMAHAWK-466 -->
+    <t:buffer into="#{table}">
+    <t:dataTable id="activeUsers" var="user" value="#{activeUserList.users}" rows="20"
+         sortColumn="#{activeUserList.sort}" sortAscending="#{activeUserList.ascending}"
+         styleClass="table activeUserList" rowClasses="standardTable_Row1,standardTable_Row2"
+         columnClasses="standardTable_Column,standardTable_Column">
+        <t:column width="135px"
+            headerstyleClass="#{activeUserList.sort == 'username' ? 'standardTable_SortHeader' : 'standardTable_Header'}">
+            <f:facet name="header">
+                <t:commandSortHeader columnName="username" arrow="false">
+                    <f:facet name="ascending">
+                        <t:graphicImage value="/images/arrow_up.png" rendered="true"
+                            style="position: relative; left: -7px"/>
+                    </f:facet>
+                    <f:facet name="descending">
+                        <t:graphicImage value="/images/arrow_down.png" rendered="true" 
+                            style="position: relative; left: -7px"/>
+                    </f:facet>
+                    <h:outputText value="#{text['user.username']}" /> 
+                    <t:graphicImage value="/images/arrow_off.png" rendered="true" 
+                        style="padding-left: 5px;"/>
+                </t:commandSortHeader>
+            </f:facet>
+            <h:outputText value="#{user.username}" />
+        </t:column>
+        <t:column
+            headerstyleClass="#{activeUserList.sort == 'fullName' ? 'standardTable_SortHeader' : 'standardTable_Header'}">
+            <f:facet name="header">
+                <t:commandSortHeader columnName="fullName" arrow="false">
+                    <f:facet name="ascending">
+                        <t:graphicImage value="/images/arrow_up.png" rendered="true"
+                            style="position: relative; left: -7px"/>
+                    </f:facet>
+                    <f:facet name="descending">
+                        <t:graphicImage value="/images/arrow_down.png" rendered="true" 
+                            style="position: relative; left: -7px"/>
+                    </f:facet>
+                    <h:outputText value="#{text['activeUsers.fullName']}" />
+                    <t:graphicImage value="/images/arrow_off.png" rendered="true" 
+                        style="padding-left: 5px;"/>              
+                </t:commandSortHeader>
+            </f:facet>
+            <h:outputText value="#{user.fullName}" />
+            <h:outputLink value="mailto:#{user.email}" rendered="#{not empty user.email}">
+            <h:graphicImage style="padding-left: 10px;" alt="#{text['icon.email']}" 
+                url="/images/iconEmail.gif" />
+            </h:outputLink> 
+        </t:column>
+    </t:dataTable>
+    </t:buffer>
+    
+    <t:buffer into="#{scroller}"> 
+        <ui:include src="/common/tableFooter.xhtml">
+            <ui:param name="tableName" value="activeUsers"/> 
+        </ui:include>
+    </t:buffer>
+    
+    <t:buffer into="#{summary}"> 
+    <h:panelGrid columns="1" styleClass="summary" columnClasses="standardTable_ColumnCentered" >
+    <t:dataScroller id="summary"
+            for="activeUsers"
+            rowsCountVar="rowsCount"
+            displayedRowsCountVar="displayedRowsCountVar"
+            firstRowIndexVar="firstRowIndex"
+            lastRowIndexVar="lastRowIndex"
+            pageCountVar="pageCount"
+            pageIndexVar="pageIndex">
+        <h:outputFormat value="#{text['activeUsers.summary']}">
+            <f:param value="#{rowsCount}" />
+            <f:param value="#{displayedRowsCountVar}" />
+            <f:param value="#{firstRowIndex}" />
+            <f:param value="#{lastRowIndex}" />
+            <f:param value="#{pageIndex}" />
+            <f:param value="#{pageCount}" />
+        </h:outputFormat>
+    </t:dataScroller>  
+    </h:panelGrid>
+    </t:buffer>
+    
+    <h:outputText value="#{summary}" escape="false"/>
+    <h:outputText value="#{table}" escape="false"/>
+    <h:outputText value="#{scroller}" escape="false"/>
+
+</h:form>
+</body>
+</f:view>
+</html>   

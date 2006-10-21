@@ -10,8 +10,7 @@ public class PasswordHintControllerTest extends BaseControllerTestCase {
     private PasswordHintController c;
 
     protected void setUp() throws Exception {
-        // needed to initialize a user
-        super.setUp();
+        super.setUp(); // needed to initialize a user
         c = (PasswordHintController) ctx.getBean("passwordHintController");
     }
     

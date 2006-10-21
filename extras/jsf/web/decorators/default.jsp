@@ -26,7 +26,7 @@
         <div id="content" class="clearfix">
             <div id="main">
                 <%@ include file="/common/messages.jsp" %>
-                <h1><decorator:getProperty property="page.heading"/></h1>
+                <h1><decorator:getProperty property="meta.heading"/></h1>
                 <decorator:body/>
             </div>
 

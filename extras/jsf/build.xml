@@ -28,6 +28,26 @@
         </copy>
         <echo level="info">Adding entries to ../../lib.properties</echo>
         <replace file="${lib.dir}/lib.properties">
+            <replacetoken><![CDATA[#
+# ant-contrib - http://www.sf.net/projects/ant-contrib]]></replacetoken>
+            <replacevalue><![CDATA[#
+# acegi-jsf - http://jsf-comp.sourceforge.net/components/index.html
+#
+acegi-jsf.version=1.1.2
+acegi-jsf.dir=${lib.dir}/acegi-jsf-${acegi-jsf.version}
+acegi-jsf.jar=${acegi-jsf.dir}/acegi-jsf-${acegi-jsf.version}.jar
+
+#
+# ajax4jsf - https://ajax4jsf.dev.java.net
+#
+ajax4jsf.version=1.0.2
+ajax4jsf.dir=${lib.dir}/ajax4jsf-${ajax4jsf.version}
+ajax4jsf.jar=${ajax4jsf.dir}/ajax4jsf-${ajax4jsf.version}.jar
+
+#
+# ant-contrib - http://www.sf.net/projects/ant-contrib]]></replacevalue>
+        </replace>
+        <replace file="${lib.dir}/lib.properties">
             <replacetoken><![CDATA[jmock.jar=${jmock.dir}/jmock-${jmock.version}.jar]]></replacetoken>
             <replacevalue><![CDATA[jmock.jar=${jmock.dir}/jmock-${jmock.version}.jar
 
@@ -35,14 +55,25 @@
 # MyFaces (JSF 1.1) - http://www.myfaces.org
 #
 jsf.version=1.1.4
-jsf.dir=${lib.dir}/myfaces-${jsf.version}/lib
-jsf.jar=${jsf.dir}/myfaces-all.jar]]></replacevalue>
+jsf.dir=${lib.dir}/myfaces-${jsf.version}/lib]]></replacevalue>
         </replace>
+        <replace file="${lib.dir}/lib.properties">
+            <replacetoken><![CDATA[emma.jar=${lib.dir}/emma-${emma.version}/emma.jar]]></replacetoken>
+            <replacevalue><![CDATA[emma.jar=${lib.dir}/emma-${emma.version}/emma.jar
 
+#
+# Facelets - https://facelets.dev.java.net
+#
+facelets.version=1.1.11
+facelets.dir=${lib.dir}/facelets-${facelets.version}/]]></replacevalue>
+        </replace>
+        
         <echo level="info">Adding classpath entries</echo>
         <replace file="../../properties.xml">
             <replacetoken><![CDATA[<pathelement location="${struts.jar}"/>]]></replacetoken>
-            <replacevalue><![CDATA[<fileset dir="${jsf.dir}" includes="*.jar"/>]]></replacevalue>
+            <replacevalue><![CDATA[<fileset dir="${facelets.dir}" includes="*.jar"/>
+        <fileset dir="${jsf.dir}" includes="*.jar"/>
+        <pathelement location="${acegi-jsf.jar}"/>]]></replacevalue>
         </replace>
         <replace file="../../properties.xml">
             <replacetoken><![CDATA[<pathelement location="${strutstestcase.jar}"/>]]></replacetoken>
@@ -168,6 +199,32 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
                       destinationFile="${gen.dir}/web/WEB-INF/navigation-rules-{0}.xml"/>]]></replacevalue>
         </replace>
         
+        <!-- Change "jsp" references to "xhtml" -->
+        <replace file="../appgen/build.xml">
+            <replacetoken>Form.jsp</replacetoken>
+            <replacevalue>Form.xhtml</replacevalue>
+        </replace>
+        <replace file="../appgen/build.xml">
+            <replacetoken>List.jsp</replacetoken>
+            <replacevalue>List.xhtml</replacevalue>
+        </replace>
+        <replace file="../appgen/build.xml">
+            <replacetoken>Temp.jsp</replacetoken>
+            <replacevalue>Temp.xhtml</replacevalue>
+        </replace>
+        <replace file="../appgen/build.xml">
+            <replacetoken>List_jsp</replacetoken>
+            <replacevalue>List_xhtml</replacevalue>
+        </replace>
+        <replace file="../appgen/build.xml">
+            <replacetoken>Form_jsp</replacetoken>
+            <replacevalue>Form_xhtml</replacevalue>
+        </replace>
+        <replace file="../appgen/build.xml">
+            <replacetoken>*.jsp</replacetoken>
+            <replacevalue>*.xhtml</replacevalue>
+        </replace>  
+        
         <!-- Modify XML to modify faces-config.xml -->
         <replace file="../appgen/build.xml">
             <replacetoken><![CDATA[<!-- End of merge-config check -->]]></replacetoken>
@@ -196,7 +253,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
             <replacetoken><![CDATA[/web/pages]]></replacetoken>
             <replacevalue><![CDATA[/web]]></replacevalue>
         </replace>
-        <replace file="../appgen/build.xml" token="${model.name.lowercase}List.jsp" value="${model.name.lowercase}s.jsp"/>
+        <replace file="../appgen/build.xml" token="${model.name.lowercase}List.xhtml" value="${model.name.lowercase}s.xhtml"/>
 
         <!-- Remove Struts specific stuff from Middlegen -->
         <replace file="../middlegen/build.xml">
@@ -262,7 +319,12 @@ log4j.logger.org.apache.myfaces=WARN</replacevalue>
             <replacetoken><![CDATA[<classpathentry kind="lib" path="lib/struts-1.2.9/struts.jar"/>
 	<classpathentry kind="lib" path="lib/struts-1.2.9/struts-el.jar"/>
 	<classpathentry kind="lib" path="lib/struts-1.2.9/antlr.jar"/>]]></replacetoken>
-            <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/myfaces-1.1.4/lib/myfaces-api-1.1.4.jar"/>
+            <replacevalue><![CDATA[<classpathentry kind="lib" path="lib/acegi-jsf-1.1.2/acegi-jsf-1.1.2.jar"/>
+	<classpathentry kind="lib" path="lib/ajax4jsf-1.0.2/ajax4jsf-1.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/facelets-1.1.11/jsf-facelets.jar"/>
+	<classpathentry kind="lib" path="lib/facelets-1.1.11/el-ri.jar"/>
+	<classpathentry kind="lib" path="lib/facelets-1.1.11/el-api.jar"/>
+	<classpathentry kind="lib" path="lib/myfaces-1.1.4/lib/myfaces-api-1.1.4.jar"/>
 	<classpathentry kind="lib" path="lib/myfaces-1.1.4/lib/myfaces-impl-1.1.4.jar"/>
 	<classpathentry kind="lib" path="lib/myfaces-1.1.4/lib/tomahawk-1.1.3.jar"/>]]></replacevalue>
         </replace>
@@ -330,6 +392,14 @@ log4j.logger.org.apache.myfaces=WARN</replacevalue>
         <replace file="../../build.xml">
             <replacetoken>dir="${struts.dir}"</replacetoken>
             <replacevalue>dir="${jsf.dir}"</replacevalue>
+        </replace>
+
+        <replace file="../../build.xml">
+            <replacetoken><![CDATA[<lib file="${clickstream.jar}"/>]]></replacetoken>
+            <replacevalue><![CDATA[<lib file="${acegi-jsf.jar}"/>
+            <lib file="${ajax4jsf.jar}"/>
+            <lib dir="${facelets.dir}" includes="*.jar"/>
+            <lib file="${clickstream.jar}"/>]]></replacevalue>
         </replace>
 
         <!-- Fix test-web target -->

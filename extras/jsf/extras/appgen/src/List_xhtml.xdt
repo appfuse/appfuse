@@ -1,0 +1,64 @@
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<f:view>
+<f:loadBundle var="text" basename="#{<XDtForm:classNameLower/>List.bundleName}"/>
+    <head>
+        <title>#{text['<XDtForm:classNameLower/>List.title']}</title>
+        <meta name="heading" content="#{text['<XDtForm:classNameLower/>List.heading']}"/>
+        <meta name="menu" content="<XDtForm:className/>Menu"/>
+    </head>
+<body id="<XDtForm:classNameLower/>List">
+    
+<h:form id="edit<XDtForm:className/>">
+
+<h:commandButton value="#{text['button.add']}" action="add" id="add" immediate="true" styleClass="button"/>
+<h:commandButton value="#{text['button.done']}" action="mainMenu" id="cancel" immediate="true" styleClass="button" style="margin-left: 5px"/>
+
+<!-- Error from this table is caused by http://issues.apache.org/jira/browse/TOMAHAWK-466 -->
+<t:dataTable id="<XDtForm:classNameLower/>s" var="<XDtForm:classNameLower/>" style="margin-top: 10px"
+    value="#{<XDtForm:classNameLower/>List.<XDtForm:classNameLower/>s}" rows="25" sortColumn="#{<XDtForm:classNameLower/>List.sortColumn}"
+    sortAscending="#{<XDtForm:classNameLower/>List.ascending}" styleClass="scrollerTable table"
+    headerClass="standardTable_Header" rowClasses="standardTable_Row1,standardTable_Row2"
+    columnClasses="standardTable_Column,standardTable_Column,standardTable_Column,standardTable_Column,standardTable_ColumnCentered">
+<XDtMethod:forAllMethods>
+  <XDtMethod:ifHasMethodTag tagName="hibernate.id">
+    <t:column>
+        <f:facet name="header">
+            <t:commandSortHeader columnName="<XDtMethod:propertyName/>" arrow="true">
+                <h:outputText value="#{text['<XDtForm:classNameLower/>.<XDtMethod:propertyName/>']}" />
+            </t:commandSortHeader>
+        </f:facet>
+        <h:commandLink action="#{<XDtForm:classNameLower/>Form.edit}" value="#{<XDtForm:classNameLower/>.<XDtMethod:propertyName/>}">
+            <f:param name="<XDtMethod:propertyName/>" value="#{<XDtForm:classNameLower/>.<XDtMethod:propertyName/>}"/>
+            <f:param name="from" value="list"/>
+        </h:commandLink>
+    </t:column>
+  </XDtMethod:ifHasMethodTag>
+  <XDtMethod:ifHasMethodTag tagName="hibernate.property">
+    <t:column>
+        <f:facet name="header">
+            <t:commandSortHeader columnName="<XDtMethod:propertyName/>" arrow="true">
+                <h:outputText value="#{text['<XDtForm:classNameLower/>.<XDtMethod:propertyName/>']}" />
+            </t:commandSortHeader>
+        </f:facet>
+        <h:outputText value="#{<XDtForm:classNameLower/>.<XDtMethod:propertyName/>}" escape="true"/>
+    </t:column>
+  </XDtMethod:ifHasMethodTag>    
+</XDtMethod:forAllMethods>
+</t:dataTable>
+
+<ui:include src="/common/tableFooter.xhtml">
+    <ui:param name="tableName" value="<XDtForm:classNameLower/>s"/>
+</ui:include>
+
+<script type="text/javascript">
+    highlightTableRows("edit<XDtForm:className/>:<XDtForm:classNameLower/>s");
+</script>
+
+</h:form>
+
+</body>
+</f:view>
+</html>

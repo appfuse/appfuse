@@ -1,19 +1,51 @@
 <XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/>package <XDtForm:parentPackageName/>.webapp.action;
 
+import org.apache.commons.beanutils.BeanComparator;
+import org.apache.commons.collections.comparators.ReverseComparator;
+        
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import <XDtConfig:configParameterValue paramName="basePackageName"/>.webapp.action.BasePage;
+import <XDtPackage:packageName/>.<XDtForm:className/>;
 import <XDtForm:parentPackageName/>.service.<XDtForm:className/>Manager;
 
 public class <XDtForm:className/>List extends BasePage implements Serializable {
     private <XDtForm:className/>Manager <XDtForm:classNameLower/>Manager;
+    private String sortColumn = "<XDtMethodEx:idField getType="propertyName"/>";
+    private boolean ascending = true;
+
+    public String getSortColumn() {
+        return sortColumn;
+    }
+
+    public void setSortColumn(String sortColumn) {
+        this.sortColumn = sortColumn;
+    }
+
+    public boolean isAscending() {
+        return ascending;
+    }
+
+    public void setAscending(boolean ascending) {
+        this.ascending = ascending;
+    }
 
     public void set<XDtForm:className/>Manager(<XDtForm:className/>Manager manager) {
         this.<XDtForm:classNameLower/>Manager = manager;
     }
 
     public List get<XDtForm:className/>s() {
-        return <XDtForm:classNameLower/>Manager.get<XDtForm:className/>s(null);
+        List <XDtForm:classNameLower/>s = <XDtForm:classNameLower/>Manager.get<XDtForm:className/>s(null);
+
+        Comparator comparator = new BeanComparator(sort);
+        if (!ascending) {
+            comparator = new ReverseComparator(comparator);
+        }
+        Collections.sort(<XDtForm:classNameLower/>s, comparator);
+        
+        return <XDtForm:classNameLower/>s;
     }
 }

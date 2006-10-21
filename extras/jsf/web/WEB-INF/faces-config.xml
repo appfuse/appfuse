@@ -19,12 +19,34 @@
         </locale-config>
         <message-bundle>ApplicationResources</message-bundle>
     </application>
-    
+
+    <component>
+        <component-type>net.sf.jsfcomp.acegijsf.Authorize</component-type>
+        <component-class>net.sf.jsfcomp.acegijsf.Authorize</component-class>
+    </component>
+
+    <component>
+        <component-type>net.sf.jsfcomp.acegijsf.Authentication</component-type>
+        <component-class>net.sf.jsfcomp.acegijsf.Authentication</component-class>
+    </component>
+
+    <component>
+        <component-type>com.corejsf.validator.UIValidatorScript</component-type>
+        <component-class>com.corejsf.validator.UIValidatorScript</component-class>
+    </component>
+
+    <navigation-rule>
+        <from-view-id>/mainMenu.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>ajax4jsf</from-action>
+            <to-view-id>/ajax4jsf.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
     <navigation-rule>
         <from-view-id>/*</from-view-id>
         <navigation-case>
             <from-outcome>mainMenu</from-outcome>
-            <to-view-id>/mainMenu.jsp</to-view-id>
+            <to-view-id>/mainMenu.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
@@ -32,38 +54,38 @@
         <from-view-id>/*</from-view-id>
         <navigation-case>
             <from-outcome>editProfile</from-outcome>
-            <to-view-id>/userForm.jsp</to-view-id>
+            <to-view-id>/userForm.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/users.jsp</from-view-id>
+        <from-view-id>/users.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>add</from-outcome>
-            <to-view-id>/userForm.jsp</to-view-id>
+            <to-view-id>/userForm.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/userForm.jsp</from-view-id>
+        <from-view-id>/userForm.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>cancel</from-outcome>
-            <to-view-id>/users.jsp</to-view-id>
+            <to-view-id>/users.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>list</from-outcome>
-            <to-view-id>/users.jsp</to-view-id>
+            <to-view-id>/users.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/selectFile.jsp</from-view-id>
+        <from-view-id>/selectFile.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>success</from-outcome>
-            <to-view-id>/showFile.jsp</to-view-id>
+            <to-view-id>/showFile.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/signup.jsp</from-view-id>
+        <from-view-id>/signup.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>cancel</from-outcome>
             <to-view-id>/login.jsp</to-view-id>
@@ -71,7 +93,7 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/passwordHint.jsp</from-view-id>
+        <from-view-id>/passwordHint.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>success</from-outcome>
             <to-view-id>/login.jsp</to-view-id>
@@ -213,4 +235,10 @@
             <renderer-class>org.appfuse.webapp.jsf.PanelGridRenderer</renderer-class>
         </renderer>
     </render-kit>
+
+    <validator>
+        <validator-id>com.corejsf.validator.CommonsValidator</validator-id>
+        <validator-class>com.corejsf.validator.CommonsValidator</validator-class>
+    </validator>
+
 </faces-config>

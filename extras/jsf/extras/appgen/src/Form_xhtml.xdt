@@ -1,13 +1,16 @@
-<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><%@ include file="/common/taglibs.jsp"%>
-
-<head>
-    <title><fmt:message key="<XDtForm:classNameLower/>Detail.title"/></title>
-    <content tag="heading"><fmt:message key="<XDtForm:classNameLower/>Detail.heading"/></content>
-    <meta name="menu" content="<XDtForm:className/>Menu"/>
-</head>
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:v="http://corejsf.com/validator">
 
 <f:view>
 <f:loadBundle var="text" basename="#{<XDtForm:classNameLower/>Form.bundleName}"/>
+    <head>
+        <title>#{text['<XDtForm:classNameLower/>Detail.title']}</title>
+        <meta name="heading" content="#{text['<XDtForm:classNameLower/>Detail.heading']}"/>
+        <meta name="menu" content="<XDtForm:className/>Menu"/>
+    </head>
+<body id="<XDtForm:classNameLower/>Form">
 
 <h:form id="<XDtForm:classNameLower/>Form" onsubmit="return validate<XDtForm:className/>Form(this)">
 <XDtForm:forAllFields>
@@ -42,12 +45,11 @@
 </XDtForm:forAllFields>
 
     <h:panelGroup styleClass="buttonBar bottom">
-        <h:commandButton value="#{text['button.save']}" action="#{<XDtForm:classNameLower/>Form.save}" 
-            id="save" styleClass="button"/>
+        <h:commandButton value="#{text['button.save']}" action="#{<XDtForm:classNameLower/>Form.save}" id="save" styleClass="button"/>
 
         <c:if test="${not empty <XDtForm:classNameLower/>Form.<XDtForm:classNameLower/>.<XDtMethodEx:idField getType="propertyName"/>}">
         <h:commandButton value="#{text['button.delete']}" action="#{<XDtForm:classNameLower/>Form.delete}" 
-            id="delete" styleClass="button" onclick="bCancel=false; return confirmDelete('<XDtForm:className/>')"/>
+            id="delete" styleClass="button" onclick="bCancel=true; return confirmDelete('<XDtForm:className/>')"/>
         </c:if>
 
         <h:commandButton value="#{text['button.cancel']}" action="cancel" immediate="true"  
@@ -61,6 +63,9 @@
 
 <script type="text/javascript">
     Form.focusFirstElement($('<XDtForm:classNameLower/>Form'));
+    highlightFormElements();
 </script>
 
+</body>
 </f:view>
+</html>

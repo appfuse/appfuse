@@ -1,12 +1,43 @@
 package org.appfuse.webapp.action;
 
+import org.apache.commons.beanutils.BeanComparator;
+import org.apache.commons.collections.comparators.ReverseComparator;
+
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class UserList extends BasePage implements Serializable {
-    private static final long serialVersionUID = -2370422643417612459L;
+    private static final long serialVersionUID = 972359310602744018L;
+    private String sortColumn = "username";
+    private boolean ascending = true;
+    
+    public String getSortColumn() {
+        return sortColumn;
+    }
 
+    public void setSortColumn(String sortColumn) {
+        this.sortColumn = sortColumn;
+    }
+
+    public boolean isAscending() {
+        return ascending;
+    }
+
+    public void setAscending(boolean ascending) {
+        this.ascending = ascending;
+    } 
+    
     public List getUsers() {
-        return userManager.getUsers(null);
+        List users = userManager.getUsers(null);
+
+        Comparator comparator = new BeanComparator(sort);
+        if (!ascending) {
+            comparator = new ReverseComparator(comparator);
+        }
+        Collections.sort(users, comparator);
+
+        return users;
     }
 }

@@ -28,7 +28,35 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>/WEB-INF/applicationContext-*.xml,/WEB-INF/security.xml</param-value>
     </context-param>
+    <context-param>
+        <param-name>org.ajax4jsf.VIEW_HANDLERS</param-name>
+        <param-value>com.sun.facelets.FaceletViewHandler</param-value>
+    </context-param>
+    <context-param>
+        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+        <param-value>client</param-value>
+    </context-param>
+    <context-param>
+        <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+        <param-value>.xhtml</param-value>
+    </context-param>
+    <context-param>
+        <param-name>facelets.DEVELOPMENT</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
+        <param-name>facelets.LIBRARIES</param-name>
+        <param-value>
+            /WEB-INF/taglibs/acegijsf.taglib.xml;
+            /WEB-INF/taglibs/corejsf-validator.taglib.xml;
+            /WEB-INF/taglibs/tomahawk.taglib.xml
+        </param-value>
+    </context-param>
 
+    <filter>
+        <filter-name>ajax4jsf</filter-name>
+        <filter-class>org.ajax4jsf.Filter</filter-class>
+    </filter>
     <filter>
         <filter-name>securityFilter</filter-name>
         <filter-class>org.acegisecurity.util.FilterToBeanProxy</filter-class>
@@ -129,7 +157,13 @@
     <filter-mapping>
         <filter-name>securityFilter</filter-name>
         <url-pattern>*.jsp</url-pattern>
-    </filter-mapping>  
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>ajax4jsf</filter-name>
+        <servlet-name>faces</servlet-name>
+        <!--dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher-->
+    </filter-mapping>
     <!-- Commented out for 2 reasons: 1) it's a pain when developing JSPs, and
                                       2) it causes the Signup webtest to fail -->
     <!--filter-mapping>
@@ -216,6 +250,9 @@
     </listener>
     <listener>
         <listener-class>org.appfuse.webapp.listener.UserCounterListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
     </listener>
 
     <servlet>
