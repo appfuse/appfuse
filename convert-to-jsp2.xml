@@ -56,24 +56,26 @@ jstl.dir=${lib.dir}/jakarta-taglibs/standard-${jstl.version}</replacevalue>
         
         <echo level="info">Modifying properties.xml to remove convert to JSP 2.0 as an option (this is a permanent change)</echo>
         <replace file="properties.xml">
-            <replacetoken><![CDATA[[
+            <replacetoken><![CDATA[
     <property name="jsp.2" value="false"/>]]></replacetoken>
         </replace>
         <replace file="properties.xml">
-            <replacetoken><![CDATA[[
+            <replacetoken><![CDATA[
         <fileset dir="${jsp2.jstl.dir}/lib" includes="*.jar"/>]]></replacetoken>
         </replace>
         
         <echo level="info">Modifying build.xml to remove option to convert to JSP 2.0</echo>
         <replace file="build.xml">
-             <replacetoken><![CDATA[[<!-- Conditionally set property for converting to JSP 2.0 -->
+             <replacetoken><![CDATA[<!-- Conditionally set property for converting to JSP 2.0 -->
         <condition property="convert.to.jsp2">
             <equals arg1="${jsp.2}" arg2="true"/>
-        </condition>]]></replacetoken>
+        </condition>
+
+        ]]></replacetoken>
         </replace>
         
         <replace file="build.xml">
-            <replacetoken><![CDATA[[<!-- If Servlet 2.4, uncomment the <dispatcher> elements in filter-mappings -->
+            <replacetoken><![CDATA[<!-- If Servlet 2.4, uncomment the <dispatcher> elements in filter-mappings -->
         <if>
             <or>
                 <isset property="convert.to.jsp2"/>
