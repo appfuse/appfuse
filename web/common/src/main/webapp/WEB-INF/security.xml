@@ -124,12 +124,12 @@
     <!-- This bean is optional; it isn't used by any other bean as it only listens and logs -->
     <bean id="loggerListener" class="org.acegisecurity.event.authentication.LoggerListener"/>
 
-    <!-- Apply userManagerSecurity interceptor to userManager bean -->
+    <!-- Apply method-level interceptor to userManager bean -->
     <aop:config>
-        <aop:advisor id="userManagerMethods" advice-ref="userManagerSecurity" pointcut="execution(* org.appfuse.service.UserManager.*(..))"/>
+        <aop:advisor id="managerSecurity" advice-ref="methodSecurityInterceptor" pointcut="execution(* org.appfuse.service.UserManager.*(..))"/>
     </aop:config>
 
-    <bean id="userManagerSecurity" class="org.acegisecurity.intercept.method.aopalliance.MethodSecurityInterceptor">
+    <bean id="methodSecurityInterceptor" class="org.acegisecurity.intercept.method.aopalliance.MethodSecurityInterceptor">
         <property name="authenticationManager" ref="authenticationManager"/>
         <property name="accessDecisionManager" ref="accessDecisionManager"/>
         <property name="objectDefinitionSource">
