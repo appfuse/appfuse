@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="convert-to-jsp2" basedir="." default="convert">
+
+    <target name="convert" description="Convert an AppFuse project to use JSP 2.0 by default">
+    
+        <echo level="info">Change JSTL Tags to Run-Time</echo>
+        <replaceregexp flags="g">
+            <regexp pattern='uri="http://java.sun.com/jstl/core"'/>
+            <substitution expression='uri="http://java.sun.com/jsp/jstl/core"'/>
+            <fileset dir="web" includes="**/*.jsp"/>
+        </replaceregexp>
+        <replaceregexp flags="g">
+            <regexp pattern='uri="http://java.sun.com/jstl/fmt"'/>
+            <substitution expression='uri="http://java.sun.com/jsp/jstl/fmt"'/>
+            <fileset dir="web" includes="**/*.jsp"/>
+        </replaceregexp>
+        <replaceregexp flags="g">
+            <regexp pattern='uri="http://java.sun.com/jstl/sql"'/>
+            <substitution expression='uri="http://java.sun.com/jsp/jstl/sql"'/>
+            <fileset dir="web" includes="**/*.jsp"/>
+        </replaceregexp>
+
+        <echo level="info">Removing JSTL's c:out tags</echo>
+        <replaceregexp flags="g">
+            <regexp pattern='&lt;c:out value="([^"]*)"/&gt;'/>
+            <substitution expression="\1"/>
+            <fileset dir="web" includes="**/*.jsp"/>
+        </replaceregexp>
+
+        <echo level="info">Replacing 2.3 DTD with 2.4 XSD in web.xml</echo>
+        <replace file="web/WEB-INF/web.xml">
+            <replacetoken><![CDATA[<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" 
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>]]></replacetoken>
+            <replacevalue><![CDATA[<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+]]></replacevalue>
+        </replace>
+        
+        <replaceregexp flags="g" file="web/WEB-INF/web.xml"
+            match='&lt;!--dispatcher&gt;' replace='&lt;dispatcher&gt;'/>
+        <replaceregexp flags="g" file="web/WEB-INF/web.xml"
+            match='&lt;/dispatcher--&gt;' replace='&lt;/dispatcher&gt;'/>
+            
+        <echo level="info">Modifying JSTL version in lib.properties</echo>
+        <replace file="lib/lib.properties">
+            <replacetoken>jstl.version=1.0.6
+jstl.dir=${lib.dir}/jakarta-taglibs/standard-${jstl.version}
+jsp2.jstl.version=1.1.2
+jsp2.jstl.dir=${lib.dir}/jakarta-taglibs/standard-${jsp2.jstl.version}</replacetoken>
+            <replacevalue>jstl.version=1.1.2
+jstl.dir=${lib.dir}/jakarta-taglibs/standard-${jstl.version}</replacevalue>       
+        </replace>
+        
+        <echo level="info">Modifying properties.xml to remove convert to JSP 2.0 as an option (this is a permanent change)</echo>
+        <replace file="properties.xml">
+            <replacetoken><![CDATA[[
+    <property name="jsp.2" value="false"/>]]></replacetoken>
+        </replace>
+        <replace file="properties.xml">
+            <replacetoken><![CDATA[[
+        <fileset dir="${jsp2.jstl.dir}/lib" includes="*.jar"/>]]></replacetoken>
+        </replace>
+        
+        <echo level="info">Modifying build.xml to remove option to convert to JSP 2.0</echo>
+        <replace file="build.xml">
+             <replacetoken><![CDATA[[<!-- Conditionally set property for converting to JSP 2.0 -->
+        <condition property="convert.to.jsp2">
+            <equals arg1="${jsp.2}" arg2="true"/>
+        </condition>]]></replacetoken>
+        </replace>
+        
+        <replace file="build.xml">
+            <replacetoken><![CDATA[[<!-- If Servlet 2.4, uncomment the <dispatcher> elements in filter-mappings -->
+        <if>
+            <or>
+                <isset property="convert.to.jsp2"/>
+            </or>
+            <then>
+                <replaceregexp flags="g"
+                    file="${webapp.target}/WEB-INF/web.xml"
+                    match='&lt;!--dispatcher&gt;'
+                    replace='&lt;dispatcher&gt;'/>
+                <replaceregexp flags="g"
+                    file="${webapp.target}/WEB-INF/web.xml"
+                    match='&lt;/dispatcher--&gt;'
+                    replace='&lt;/dispatcher&gt;'/>
+                <property name="jstl.final.dir" value="${jsp2.jstl.dir}"/> 
+            </then>
+            <else>
+                <property name="jstl.final.dir" value="${jstl.dir}"/>
+            </else> 
+        </if>
+        ]]></replacetoken>
+        </replace>
+        
+        <replace file="build.xml" token="jstl.final.dir" value="jstl.dir"/>
+        
+        <replace file="build.xml">
+            <replacetoken>depends="jsp-2"</replacetoken>
+            <replacevalue>depends="webdoclet"</replacevalue>
+        </replace>
+        
+        <echo/>
+        <echo level="info">You can now safely remove the "jsp-2" target from your build.xml and delete this build file.</echo>
+    </target>
+    
+    <target name="test" description="Tests running the convert target in this file">
+        <property name="app.name" value="appfuse-jsp2.0"/>
+        <delete dir="../${app.name}"/>
+        <ant dir="." target="new" inheritAll="false">
+            <property name="app.name" value="${app.name}"/>
+            <property name="db.name" value="appfuse"/>
+            <property name="new.pkg.name" value="org.appfuse"/>
+            <property name="web.framework" value="jsf"/>
+        </ant>
+        <!-- New project created, run convert then run tests -->
+        <ant dir="../${app.name}" antfile="convert-to-jsp2.xml" inheritAll="false"/>
+        <ant dir="../${app.name}" target="setup-db" inheritAll="false"/>
+        <ant dir="../${app.name}" target="test-all" inheritAll="false"/>
+    </target>
+</project>
