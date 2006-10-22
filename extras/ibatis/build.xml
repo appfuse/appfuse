@@ -489,9 +489,10 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
             <property name="use.postgresql" value="${use.postgresql}"/>
         </ant>
 
-        <!-- Create database table -->
+        <!-- Create database table for MySQL -->
         <sql onerror="continue" driver="${database.driver_class}" url="${database.url}"
-            userid="${database.username}" password="${database.password}">
+            userid="${database.username}" password="${database.password}" 
+            rdbms="mysql" autocommit="true">
             <classpath><pathelement path="${database.jar}/"/></classpath>
             <![CDATA[
                 DROP TABLE IF EXISTS person;
@@ -502,6 +503,33 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
                   date_of_birth datetime not null,
                   PRIMARY KEY (person_id)
                 );
+            ]]>
+        </sql>
+        
+        <!-- Create database table for PostgreSQL -->
+        <sql onerror="continue" driver="${database.driver_class}" url="${database.url}"
+            userid="${database.username}" password="${database.password}" 
+            rdbms="postgresql" autocommit="true">
+            <classpath><pathelement path="${database.jar}/"/></classpath>
+            <![CDATA[
+                DROP SEQUENCE person_seq;
+                DROP TABLE person;
+                
+                CREATE SEQUENCE person_seq
+                  INCREMENT 1
+                  MINVALUE 1
+                  MAXVALUE 9223372036854775807
+                  START 5
+                  CACHE 1;
+                  
+                CREATE TABLE person ( 
+                  person_id int4 NOT NULL DEFAULT nextval('person_seq'::regclass),
+                  first_name varchar(50) NOT NULL,
+                  last_name varchar(50) NOT NULL,
+                  date_of_birth date NOT NULL,
+                  CONSTRAINT person_pkey PRIMARY KEY (person_id)
+                );
+                WITHOUT OIDS;
             ]]>
         </sql>
 
