@@ -112,6 +112,16 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar</replacevalue>
     </filter-mapping-->]]></replacevalue>
         </replace>
 
+        <if>
+            <equals arg1="${use.postgresql}" arg2="y"/>
+            <then>
+                <echo level="info">Copying metadata/sql files to ../../metadata/sql</echo>
+                <copy todir="../../metadata/sql" overwrite="true">
+                    <fileset dir="metadata/sql"/>
+                </copy>
+            </then>
+        </if>
+        
         <echo level="info">Copying src files to ../../src</echo>
         <copy todir="../../src" overwrite="true">
             <fileset dir="src"/>
