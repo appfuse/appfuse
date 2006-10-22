@@ -12,7 +12,7 @@
 <html>
 <head>
     <title><fmt:message key="errorPage.title"/></title>
-    <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/${appConfig["theme"]}/theme.css'/>" />
+    <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/${appConfig["csstheme"]}/theme.css'/>" />
 </head>
 
 <body id="error">
