@@ -722,7 +722,7 @@
                     <fileset file="metadata/sql/${database.type}-create.sql"/>
                     <filterset refid="db.variables"/>
                 </copy>
-                <sql
+                <sql onerror="continue"
                     driver="${database.driver_class}"
                     url="${database.admin.url}"
                     userid="${database.admin.username}"

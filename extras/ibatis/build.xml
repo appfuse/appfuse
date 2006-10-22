@@ -342,7 +342,7 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
             <fileset dir="${build.dir}/dao/gen" includes="**/*.hbm.xml"/>
         </schemaexport>]]></replacetoken>
             <replacevalue><![CDATA[<target name="db-prepare" description="creates database tables">
-        <sql driver="${database.driver_class}" url="${database.url}"
+        <sql onerror="continue" autocommit="true" driver="${database.driver_class}" url="${database.url}" 
              userid="${database.username}" password="${database.password}">
 
             <classpath>
@@ -371,7 +371,7 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
             <fileset dir="${build.dir}/dao/gen" includes="**/*.hbm.xml"/>
         </schemaexport>]]></replacetoken>
             <replacevalue><![CDATA[<target name="db-drop" description="drops database tables">
-        <sql driver="${database.driver_class}" url="${database.url}"
+        <sql onerror="continue" driver="${database.driver_class}" url="${database.url}"
              userid="${database.username}" password="${database.password}">
 
             <classpath>
@@ -454,10 +454,13 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
             <property name="db.name" value="${db.name}"/>
             <property name="new.pkg.name" value="${new.pkg.name}"/>
             <property name="web.framework" value="${web.framework}"/>
+            <property name="use.postgresql" value="${use.postgresql}"/>
         </ant>
 
         <!-- New project created, install iBATIS and run tests -->
-        <ant dir="../../../${app.name}/extras/ibatis" target="install" inheritAll="false"/>
+        <ant dir="../../../${app.name}/extras/ibatis" target="install" inheritAll="false">
+            <property name="use.postgresql" value="${use.postgresql}"/>
+        </ant>
         <ant dir="../../../${app.name}" target="setup-db" inheritAll="false"/>
         <ant dir="../../../${app.name}" target="test-all" inheritAll="false"/>
     </target>
@@ -473,10 +476,11 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
             <property name="db.name" value="${db.name}"/>
             <property name="new.pkg.name" value="${new.pkg.name}"/>
             <property name="web.framework" value="${web.framework}"/>
+            <property name="use.postgresql" value="${use.postgresql}"/>
         </ant>
 
         <!-- Create database table -->
-        <sql driver="${database.driver_class}" url="${database.url}"
+        <sql onerror="continue" driver="${database.driver_class}" url="${database.url}"
             userid="${database.username}" password="${database.password}">
             <classpath><pathelement path="${database.jar}/"/></classpath>
             <![CDATA[
@@ -492,7 +496,9 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
         </sql>
 
         <!-- New project created, install iBATIS and remove Hibernate -->
-        <ant dir="../../../${app.name}/extras/ibatis" target="install" inheritAll="false"/>
+        <ant dir="../../../${app.name}/extras/ibatis" target="install" inheritAll="false">
+            <property name="use.postgresql" value="${use.postgresql}"/>
+        </ant>
         <ant dir="../../../${app.name}/extras/ibatis" target="uninstall-hibernate" inheritAll="false"/>
         <!-- Gen code and run tests -->
         <ant dir="../../../${app.name}/extras/appgen" target="test-all" inheritAll="false"/> 
