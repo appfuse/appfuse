@@ -78,9 +78,6 @@ public final class ActionExceptionHandler extends ExceptionHandler {
         ActionMessage error = null;
         String property = null;
 
-        // log the exception to the default logger
-        logException(ex);
-
         if (ex instanceof AccessDeniedException && forward == null) {
             storeException(request, "", new ActionMessage("errors.detail", ex.getMessage()), forward);
             try {
