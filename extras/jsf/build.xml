@@ -80,9 +80,8 @@ facelets.dir=${lib.dir}/facelets-${facelets.version}/]]></replacevalue>
             <replacevalue><![CDATA[<fileset dir="${jstl.dir}/lib" includes="jstl.jar"/>]]></replacevalue>
         </replace>
         <replace file="../../properties.xml">
-            <replacetoken><![CDATA[<pathelement location="${log4j.jar}"/>]]></replacetoken>
-            <replacevalue><![CDATA[<pathelement location="${log4j.jar}"/>
-    <fileset dir="${servletapi.dir}" includes="*.jar"/>]]></replacevalue>
+            <replacetoken><![CDATA[<pathelement location="${servletapi.jar}"/>]]></replacetoken>
+            <replacevalue><![CDATA[<fileset dir="${servletapi.dir}" includes="*.jar"/>]]></replacevalue>
         </replace>
         <replace file="../../properties.xml">
             <replacetoken><![CDATA[<fileset dir="${struts.dir}" includes="*.jar"/>]]></replacetoken>
