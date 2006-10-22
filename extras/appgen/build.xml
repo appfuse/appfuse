@@ -315,7 +315,7 @@
             <template templateFile="${template.dir}/menu_jsp.xdt"
                       acceptAbstractClasses="false"
                       prefixWithPackageStructure="false"
-                      destinationFile="${gen.dir}/web/pages/menu-{0}.jsp"/>
+                      destinationFile="${gen.dir}/web/common/menu-{0}.jsp"/>
         </xdoclet>
 
         <!-- Make first character of JSP filenames lowercase -->
@@ -453,8 +453,8 @@
         <!-- Add to the bottom of the list of tests -->   
         <replace file="${menuConfig}" value="${menu.config}" token="    &lt;/Menus&gt;"/>
 
-        <loadfile property="menu.jsp" srcfile="${generated.dir}/web/pages/menu-${model.name}.jsp"/>
-        <property name="menuFile" location="../../web/pages/menu.jsp"/>
+        <loadfile property="menu.jsp" srcfile="${generated.dir}/web/common/menu-${model.name}.jsp"/>
+        <property name="menuFile" location="../../web/common/menu.jsp"/>
         <replace file="${menuFile}" token="&lt;!--${model.name}-START--&gt;" value="REGULAR-START"/>
         <replace file="${menuFile}" token="&lt;!--${model.name}-END--&gt;" value="REGULAR-END"/>
         <replaceregexp file="${menuFile}" match="REGULAR-START(?s:.)*REGULAR-END" replace="" flags="g"/>
