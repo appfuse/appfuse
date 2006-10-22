@@ -52,8 +52,8 @@
         <!-- Make sure hibernatedoclet is necessary -->
         <uptodate property="hibernatedoclet.unnecessary">
             <srcfiles dir="src/dao" includes="**/*.java"/>
-            <srcfiles dir="${build.dir}/dao/gen" includes="**/*.java"/>
-            <mapper type="glob" from="*.java" to="${build.dir}/dao/classes/*.class"/>
+            <srcfiles dir="${build.dir}/dao/gen" includes="**/*.xml"/>
+            <mapper type="glob" from="*.java" to="${build.dir}/dao/gen/*.hbm.xml"/>
         </uptodate>
 
         <!-- Make sure webdoclet is necessary -->
