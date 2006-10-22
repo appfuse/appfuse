@@ -99,19 +99,19 @@
         <label class="desc"><fmt:message key="user.address.address"/></label>
         <div class="group">
             <div>
-                <ww:textfield label="%{getText('user.address.address')}" name="user.address.address"
+                <ww:textfield label="%{getText('user.address.address')}" name="user.address.address" theme="xhtml"
                     value="%{user.address.address}" cssClass="text large" labelposition="bottom"/>
             </div>
             <div class="left">
-                <ww:textfield label="%{getText('user.address.city')}" name="user.address.city"
+                <ww:textfield label="%{getText('user.address.city')}" name="user.address.city" theme="xhtml"
                     value="%{user.address.city}" required="true" cssClass="text medium" labelposition="bottom"/>
             </div>
             <div>
-                <ww:textfield label="%{getText('user.address.province')}" name="user.address.province"
+                <ww:textfield label="%{getText('user.address.province')}" name="user.address.province" theme="xhtml"
                     value="%{user.address.province}" required="true" cssClass="text state" size="2" labelposition="bottom"/>
             </div>
             <div class="left">
-                <ww:textfield label="%{getText('user.address.postalCode')}" name="user.address.postalCode"
+                <ww:textfield label="%{getText('user.address.postalCode')}" name="user.address.postalCode" theme="xhtml" 
                     value="%{user.address.postalCode}" required="true" cssClass="text zip" labelposition="bottom"/>
             </div>
             <div>

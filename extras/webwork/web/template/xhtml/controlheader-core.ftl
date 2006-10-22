@@ -3,7 +3,7 @@
 	then give the label it's own row in the table
 -->
 <#assign hasFieldErrors = parameters.name?exists && fieldErrors?exists && fieldErrors[parameters.name]?exists/>
-<#if parameters.label?exists>
+<#if parameters.label?exists && parameters.labelposition?default("top") == 'top'>
     <label <#t/>
     <#if parameters.id?exists>
         for="${parameters.id?html}" <#t/>
