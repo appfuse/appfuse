@@ -24,8 +24,21 @@
     <!-- =================================================================== -->
     <!-- Install iBatis as part of AppFuse                                   -->
     <!-- =================================================================== -->
-    <target name="install"
-        description="installs iBatis into the AppFuse base project">
+    <target name="install" description="installs iBatis into the AppFuse base project">
+    <input message="Do you want to use iBATIS with PostgreSQL? [y,n]"
+        defaultvalue="n" addproperty="use.postgresql"/>
+  
+        <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="${ant-contrib.jar}"/>
+        
+        <if>
+            <equals arg1="${use.postgresql}" arg2="y"/>
+            <then>
+                <echo level="info">Installing PostgreSQL files for iBATIS</echo>
+                <copy todir="metadata/sql" file="metadata/postgresql/sample-data.xml"/>
+                <copy todir="src/dao/org/appfuse/dao/ibatis/sql" file="metadata/postgresql/UserSQL.xml"/>
+            </then>
+        </if>
+        
         <echo level="info">Copying iBatis JARs to ../../lib</echo>
         <copy todir="${lib.dir}">
             <fileset dir="lib" includes="**"/>
@@ -192,7 +205,7 @@ ibatis.jar=${ibatis.dir}/ibatis-sqlmap.jar
         </echo>
         <echo level="info">Copying database creation scripts</echo>
         <copy todir="../../metadata/sql">
-            <fileset dir="metadata/sql" includes="*.sql"/>
+            <fileset dir="metadata/sql"/>
         </copy>
 
         <echo level="info">Copying jta.jar from Hibernate to iBATIS</echo>

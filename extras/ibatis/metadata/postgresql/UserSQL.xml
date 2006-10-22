@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="UserSQL">
+
+    <typeAlias alias="user" type="org.appfuse.model.User"/>
+
+    <resultMap id="userResult" class="user">
+        <result property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="firstName" column="first_name"/>
+        <result property="lastName" column="last_name"/>
+        <result property="address.address" column="address"/>
+        <result property="address.city" column="city"/>
+        <result property="address.province" column="province"/>
+        <result property="address.country" column="country"/>
+        <result property="address.postalCode" column="postal_code"/>
+        <result property="email" column="email"/>
+        <result property="phoneNumber" column="phone_number"/>
+        <result property="website" column="website"/>
+        <result property="passwordHint" column="password_hint"/>
+        <result property="version" column="version"/>
+        <result property="enabled" column="account_enabled"/>
+        <result property="accountExpired" column="account_expired"/>
+        <result property="accountLocked" column="account_locked"/>
+        <result property="credentialsExpired" column="credentials_expired"/>
+        <!--result property="roles" column="username" select="getUserRoles"/-->
+    </resultMap>
+
+    <insert id="addUser" parameterClass="user">
+    <![CDATA[
+        insert into
+        app_user (username, password, first_name, last_name, address,
+                  city, province, country, postal_code, email, phone_number,
+                  website, password_hint, version, account_enabled, account_expired,
+                  account_locked, credentials_expired)
+        values (#username#, #password#, #firstName#, #lastName#,
+                #address.address#, #address.city#, #address.province#,
+                #address.country#, #address.postalCode#, #email#, #phoneNumber#,
+                #website#, #passwordHint#, #version#, #enabled#, #accountExpired#,
+                #accountLocked#, #credentialsExpired#);
+    ]]>
+        <selectKey resultClass="java.lang.Long" keyProperty="id" >
+            select currval('app_user_seq');
+        </selectKey>
+    </insert>
+
+    <insert id="addUserRole" parameterClass="map">
+    <![CDATA[
+        insert into user_role (user_id, role_id)
+        values (#userId#, #roleId#);
+    ]]>
+    </insert>
+
+    <update id="updateUser" parameterClass="user">
+    <![CDATA[
+        update app_user SET
+            username = #username#,
+            password = #password#,
+            first_name = #firstName#,
+            last_name = #lastName#,
+            address = #address.address#,
+            city = #address.city#,
+            province = #address.province#,
+            country = #address.country#,
+            postal_code = #address.postalCode#,
+            email = #email#,
+            phone_number = #phoneNumber#,
+            website = #website#,
+            password_hint = #passwordHint#,
+            version = #version#,
+            account_enabled = #enabled#,
+            account_expired = #accountExpired#,
+            account_locked = #accountLocked#,
+            credentials_expired = #credentialsExpired#
+        where id = #id#;
+    ]]>
+    </update>
+
+    <select id="getUser" resultMap="userResult">
+    <![CDATA[
+        select * from app_user where id=#id#;
+    ]]>
+    </select>
+    
+    <select id="getUserByUsername" resultMap="userResult">
+    <![CDATA[
+        select * from app_user where username=#username#;
+    ]]>
+    </select>
+
+    <select id="getUsers" resultMap="userResult">
+    <![CDATA[
+        select * from app_user ORDER BY UPPER(username);
+    ]]>
+    </select>
+
+    <select id="getUserRoles" resultClass="role">
+    <![CDATA[
+        select r.id, r.name, r.description from role r, user_role ur
+        where (ur.role_id = r.id) and ur.user_id=#id#;
+    ]]>
+    </select>
+
+    <delete id="deleteUser" parameterClass="java.lang.Long">
+    <![CDATA[
+        delete from app_user where id = #id#;
+    ]]>
+    </delete>
+
+    <delete id="deleteUserRoles" parameterClass="java.lang.Long">
+    <![CDATA[
+        delete from user_role where user_id = #id#;
+    ]]>
+    </delete>
+</sqlMap>
