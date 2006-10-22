@@ -99,6 +99,10 @@
         <copy todir="${build.dir}/web/classes" includeEmptyDirs="no">
             <fileset dir="web/WEB-INF/classes">
                 <exclude name="ApplicationResources_zh*.properties"/>
+                <exclude name="ApplicationResources_de.properties"/>
+                <exclude name="ApplicationResources_fr.properties"/>
+                <exclude name="ApplicationResources_nl.properties"/>
+                <exclude name="ApplicationResources_pt*.properties"/>
                 <include name="*.properties"/>
                 <include name="*.xml"/>
                 <include name="*.vm"/>
@@ -107,6 +111,13 @@
         </copy>
         <native2ascii src="web/WEB-INF/classes" dest="${build.dir}/web/classes" 
             includes="ApplicationResources_zh*.properties" encoding="UTF-8"/>
+        <native2ascii src="web/WEB-INF/classes" dest="${build.dir}/web/classes" 
+            encoding="8859_1">
+            <include name="ApplicationResources_de.properties"/>
+            <include name="ApplicationResources_fr.properties"/>
+            <include name="ApplicationResources_nl.properties"/>
+            <include name="ApplicationResources_pt*.properties"/>
+        </native2ascii>
         <generate-database-properties/>
         <copy todir="${build.dir}/web/classes" file="database.properties"/>
     </target>
