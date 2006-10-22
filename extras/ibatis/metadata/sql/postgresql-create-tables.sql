@@ -1,4 +1,14 @@
--- DROP SEQUENCE app_user_seq;
+-- Tried to do test for existence before dropping with the following script, 
+-- but it didn't work: http://www.thescripts.com/forum/thread173559.html
+
+DROP TABLE user_role;
+DROP TABLE app_user;
+DROP TABLE "role";
+
+DROP SEQUENCE user_role_id;
+DROP SEQUENCE app_user_seq;
+DROP SEQUENCE role_seq;
+
 -- Note the start value of 3 so the 2 inserts performed by appfuse do not conflict
 CREATE SEQUENCE app_user_seq
   INCREMENT 1
@@ -7,7 +17,7 @@ CREATE SEQUENCE app_user_seq
   START 3
   CACHE 1;
   
--- DROP SEQUENCE role_seq;
+
 CREATE SEQUENCE role_seq
   INCREMENT 1
   MINVALUE 1
@@ -15,7 +25,6 @@ CREATE SEQUENCE role_seq
   START 11
   CACHE 1;
 
--- DROP SEQUENCE user_role_id;
 CREATE SEQUENCE user_role_id
   INCREMENT 1
   MINVALUE 1
@@ -23,7 +32,6 @@ CREATE SEQUENCE user_role_id
   START 1
   CACHE 1;
 
--- DROP TABLE app_user;
 CREATE TABLE app_user
 (
   id int4 NOT NULL DEFAULT nextval('app_user_seq'::regclass),
@@ -51,7 +59,6 @@ CREATE TABLE app_user
 )
 WITHOUT OIDS;
 
--- DROP TABLE "role";
 CREATE TABLE "role"
 (
   id int4 NOT NULL DEFAULT nextval('role_seq'::regclass),
@@ -62,7 +69,6 @@ CREATE TABLE "role"
 WITHOUT OIDS;
 
 
--- DROP TABLE user_role;
 CREATE TABLE user_role
 (
   user_id int4 NOT NULL,

@@ -325,6 +325,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
     <property name="web.framework" value="spring"/>
     <property name="db.name" value="appfuse"/>
     <property name="new.pkg.name" value="org.appfuse"/>
+    <property name="use.postgresql" value="n"/>
     <!-- =================================================================== -->
     <!-- Creates new project, installs Spring MVC and deploys                -->
     <!-- =================================================================== -->
@@ -370,6 +371,7 @@ strutstestcase.jar=${strutstestcase.dir}/strutstest-${strutstestcase.version}.ja
             <property name="db.name" value="${db.name}"/>
             <property name="new.pkg.name" value="${new.pkg.name}"/>
             <property name="web.framework" value="${web.framework}"/>
+            <property name="use.postgresql" value="${use.postgresql}"/>
         </ant>
 
         <!-- New project created, install Spring MVC and run tests -->

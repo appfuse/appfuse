@@ -34,8 +34,8 @@
             <equals arg1="${use.postgresql}" arg2="y"/>
             <then>
                 <echo level="info">Installing PostgreSQL files for iBATIS</echo>
-                <copy todir="metadata/sql" file="metadata/postgresql/sample-data.xml"/>
-                <copy todir="src/dao/org/appfuse/dao/ibatis/sql" file="metadata/postgresql/UserSQL.xml"/>
+                <copy todir="metadata/sql" file="metadata/postgresql/sample-data.xml" overwrite="true"/>
+                <copy todir="src/dao/org/appfuse/dao/ibatis/sql" file="metadata/postgresql/UserSQL.xml" overwrite="true"/>
             </then>
         </if>
         
@@ -420,7 +420,8 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
 
     <property name="web.framework" value=""/>
     <property name="db.name" value="appfuse"/>
-    <property name="new.pkg.name" value="org.appfuse"/>        
+    <property name="new.pkg.name" value="org.appfuse"/>      
+    <property name="use.postgresql" value="n"/>  
     <!-- =================================================================== -->
     <!-- Creates new project, installs iBATIS, removes Hibernate and tests   -->
     <!-- =================================================================== -->
@@ -432,6 +433,7 @@ hibernate.jar=${hibernate.dir}/hibernate3.jar]]></replacetoken>
             <property name="db.name" value="${db.name}"/>
             <property name="new.pkg.name" value="${new.pkg.name}"/>
             <property name="web.framework" value="${web.framework}"/>
+            <property name="use.postgresql" value="${use.postgresql}"/>
         </ant>
         
         <!-- New project created, install iBATIS, remove Hibernate and run tests -->

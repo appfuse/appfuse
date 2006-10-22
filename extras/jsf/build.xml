@@ -437,6 +437,7 @@ log4j.logger.org.apache.myfaces=WARN</replacevalue>
     <property name="web.framework" value="jsf"/>
     <property name="db.name" value="appfuse"/>
     <property name="new.pkg.name" value="org.appfuse"/>
+    <property name="use.postgresql" value="n"/>
     <!-- =================================================================== -->
     <!-- Creates new project, installs JSF and deploys                       -->
     <!-- =================================================================== -->
@@ -483,6 +484,7 @@ log4j.logger.org.apache.myfaces=WARN</replacevalue>
             <property name="db.name" value="${db.name}"/>
             <property name="new.pkg.name" value="${new.pkg.name}"/>
             <property name="web.framework" value="${web.framework}"/>
+            <property name="use.postgresql" value="${use.postgresql}"/>
         </ant>
 
         <!-- New project created, install JSF and run tests -->

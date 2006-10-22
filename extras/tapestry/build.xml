@@ -479,6 +479,7 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
     <property name="web.framework" value="tapestry"/>
     <property name="db.name" value="appfuse"/>   
     <property name="new.pkg.name" value="org.appfuse"/>
+    <property name="use.postgresql" value="n"/>
     <!-- =================================================================== -->
     <!-- Creates new project, installs Tapestry and deploys                  -->
     <!-- =================================================================== -->
@@ -525,6 +526,7 @@ displaytag.jar=${displaytag.dir}/displaytag-${displaytag.version}.jar
             <property name="db.name" value="${db.name}"/>
             <property name="new.pkg.name" value="${new.pkg.name}"/>
             <property name="web.framework" value="${web.framework}"/>
+            <property name="use.postgresql" value="${use.postgresql}"/>
         </ant>
 
         <ant dir="../../../${app.name}/extras/ibatis" target="install" inheritAll="false"/>
