@@ -177,7 +177,7 @@
                 </tr>
                 <c:set var="leftList" value="${availableRoles}" scope="request"/>
                 <c:set var="rightList" value="${user.roleList}" scope="request"/>
-                <c:import url="/WEB-INF/pages/pickList.jsp">
+                <c:import url="/common/pickList.jsp">
                     <c:param name="listCount" value="1"/>
                     <c:param name="leftId" value="availableRoles"/>
                     <c:param name="rightId" value="userRoles"/>
