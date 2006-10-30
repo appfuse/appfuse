@@ -15,7 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
@@ -26,18 +26,13 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
- * This class is used to generate the Struts Validator Form as well as the
- * This class is used to generate Spring Validation rules
- * as well as the Hibernate mapping file.
- *
- * <p><a href="User.java.html"><i>View Source</i></a>
+ * This class represents the basic "user" object in AppFuse that allows for authentication
+ * and user management.  It implements Acegi Security's UserDetails interface.
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  *         Updated by Dan Kibler (dan@getrolling.com)
  *  Extended to implement Acegi UserDetails interface
  *      by David Carter david@carter.net
- *
- * @struts.form include-all="true" extends="BaseForm"
  */
 @Entity
 @Table(name="app_user")
@@ -73,79 +68,46 @@ public class User extends BaseObject implements Serializable, UserDetails {
         return id;
     }
 
-    /**
-     * @struts.validator type="required"
-     */
     @Column(nullable=false,length=50,unique=true)
     public String getUsername() {
         return username;
     }
 
-    /**
-     * @struts.validator type="required"
-     * @struts.validator type="twofields" msgkey="errors.twofields"
-     * @struts.validator-args arg1resource="userForm.password"
-     * @struts.validator-args arg1resource="userForm.confirmPassword"
-     * @struts.validator-var name="secondProperty" value="confirmPassword"
-     */
     @Column(nullable=false)
     public String getPassword() {
         return password;
     }
 
-    /**
-     * @struts.validator type="required"
-     */
     @Transient
     public String getConfirmPassword() {
         return confirmPassword;
     }
 
-    /**
-     * @struts.validator type="required"
-     */
     @Column(name="password_hint")
     public String getPasswordHint() {
         return passwordHint;
     }
 
-    /**
-     * @struts.validator type="required"
-     */
     @Column(name="first_name",nullable=false,length=50)
     public String getFirstName() {
         return firstName;
     }
 
-    /**
-     * @struts.validator type="required"
-     */
     @Column(name="last_name",nullable=false,length=50)
     public String getLastName() {
         return lastName;
     }
 
-    /**
-     * @struts.validator type="required"
-     * @struts.validator type="email"
-     */
     @Column(nullable=false,unique=true)
     public String getEmail() {
         return email;
     }
 
-    /**
-     * @struts.validator type="mask" msgkey="errors.phone"
-     * @struts.validator-var name="mask" value="${phone}"
-     */
     @Column(name="phone_number")
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    /**
-     * @struts.validator type="required"
-     */
     public String getWebsite() {
         return website;
     }
@@ -163,7 +125,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
         return address;
     }
 
-    @OneToMany(fetch = FetchType.EAGER) 
+    @ManyToMany(fetch = FetchType.EAGER) 
     @JoinTable(
             name="user_role",
             joinColumns = { @JoinColumn( name="user_id") },

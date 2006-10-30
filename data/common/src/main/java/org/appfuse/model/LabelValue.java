@@ -10,7 +10,6 @@ import java.util.Comparator;
  * example is the <code>&lt;html:options&gt;</code> tag.
  * 
  * <p>Note: this class has a natural ordering that is inconsistent with equals.
- * </p>
  *
  * @see org.apache.struts.util.LabelValueBean
  */

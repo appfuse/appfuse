@@ -3,21 +3,18 @@ package org.appfuse.model;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
- * This class is used to represent an address.</p>
- *
- * <p><a href="Address.java.html"><i>View Source</i></a></p>
+ * This class is used to represent an address.
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- *
- * @struts.form include-all="true" extends="BaseForm"
  */
-@Entity
+@Embeddable
 public class Address extends BaseObject implements Serializable {
     private static final long serialVersionUID = 3617859655330969141L;
     protected String address;
