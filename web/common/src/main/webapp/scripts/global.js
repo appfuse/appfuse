@@ -337,6 +337,18 @@ window.onload = function() {
     if ($('errorMessages')) {
         new Effect.Highlight('errorMessages');
     }
+    
+    /* Initialize menus for IE */
+    if ($("primary-nav")) {
+        var navItems = $("primary-nav").getElementsByTagName("li");
+    
+        for (var i=0; i<navItems.length; i++) {
+            if (navItems[i].className == "menubar") {
+                navItems[i].onmouseover=function() { this.className += " over"; }
+                navItems[i].onmouseout=function() { this.className = "menubar"; }
+            }
+        }
+    }
 }
 
 // Show the document's title on the status bar
