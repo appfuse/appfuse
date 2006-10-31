@@ -5,8 +5,8 @@
 <!-- https://urlrewrite.dev.java.net/manual/3.0 -->
 <urlrewrite>
     <rule>
-        <from>^/user/(.*).html$</from>
-        <to type="forward">/editUser.html\?username=$1</to>
+        <from>^/user/(.*)\.html$</from>
+        <to type="forward">/editUser.html?username=$1</to>
     </rule>
 </urlrewrite>
 
