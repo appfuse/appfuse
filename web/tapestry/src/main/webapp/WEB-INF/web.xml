@@ -79,7 +79,7 @@
     </filter>
     <filter>
         <filter-name>compressionFilter</filter-name>
-        <filter-class>org.appfuse.webapp.filter.GZIPFilter</filter-class>
+        <filter-class>net.sf.ehcache.constructs.web.filter.GzipFilter</filter-class>
     </filter>
     <filter>
         <filter-name>localeFilter</filter-name>
