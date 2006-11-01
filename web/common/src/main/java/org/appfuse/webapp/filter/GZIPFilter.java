@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.displaytag.tags.TableTagParameters;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
@@ -21,8 +20,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
  * and non-commercially.
  *
  * @author  Matt Raible
- *
- * @web.filter name="compressionFilter"
  */
 public class GZIPFilter extends OncePerRequestFilter {
     private final transient Log log = LogFactory.getLog(GZIPFilter.class);
@@ -56,8 +53,8 @@ public class GZIPFilter extends OncePerRequestFilter {
     private boolean isGZIPSupported(HttpServletRequest req) {
         
         // disable gzip filter for exporting from displaytag
-        String exporting = req.getParameter(TableTagParameters.PARAMETER_EXPORTING);
-        
+        String exporting = req.getParameter("6578706f7274"); // TableTagParameters.PARAMETER_EXPORTING
+
         if (exporting != null) {
             log.debug("detected excel export, disabling filter...");
             return false;
