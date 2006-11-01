@@ -4,13 +4,13 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Entity;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
- * This class is used to represent an address.
+ * This class is used to represent an address with address,
+ * city, province and postal-code information.
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
@@ -28,35 +28,21 @@ public class Address extends BaseObject implements Serializable {
         return address;
     }
 
-    /**
-     * @struts.validator type="required"
-     */
     @Column(nullable=false,length=50)
     public String getCity() {
         return city;
     }
 
-    /**
-     * @struts.validator type="required"
-     */
     @Column(length=100)
     public String getProvince() {
         return province;
     }
 
-    /**
-     * @struts.validator type="required"
-     */
     @Column(length=100)
     public String getCountry() {
         return country;
     }
 
-    /**
-     * @struts.validator type="required"
-     * @struts.validator type="mask" msgkey="errors.zip"
-     * @struts.validator-var name="mask" value="${zip}"
-     */
     @Column(name="postal_code",nullable=false,length=15)
     public String getPostalCode() {
         return postalCode;
@@ -88,12 +74,7 @@ public class Address extends BaseObject implements Serializable {
 
         final Address address1 = (Address) o;
 
-        if (address != null ? !address.equals(address1.address) : address1.address != null) return false;
-        if (city != null ? !city.equals(address1.city) : address1.city != null) return false;
-        if (country != null ? !country.equals(address1.country) : address1.country != null) return false;
-        if (postalCode != null ? !postalCode.equals(address1.postalCode) : address1.postalCode != null) return false;
-        return !(province != null ? !province.equals(address1.province) : address1.province != null);
-
+        return this.hashCode() == address1.hashCode();
     }
 
     public int hashCode() {
