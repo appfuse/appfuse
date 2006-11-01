@@ -1,10 +1,8 @@
-<?xml version="1.0"?>
-<!DOCTYPE faces-config PUBLIC
-    "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN"
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN"
     "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
 
 <faces-config>
-    <!-- Spring VariableResolver for JSF -->
     <application>
         <variable-resolver>org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver>
         <locale-config>
@@ -14,17 +12,31 @@
           <supported-locale>de</supported-locale>
           <supported-locale>fr</supported-locale>
           <supported-locale>nl</supported-locale>
+          <supported-locale>pt</supported-locale>
           <supported-locale>pt_BR</supported-locale>
+          <supported-locale>zh</supported-locale>
           <supported-locale>zh_CN</supported-locale>
         </locale-config>
         <message-bundle>ApplicationResources</message-bundle>
     </application>
     
+    <component>
+        <component-type>com.corejsf.validator.UIValidatorScript</component-type>
+        <component-class>com.corejsf.validator.UIValidatorScript</component-class>
+    </component>
+
+    <navigation-rule>
+        <from-view-id>/mainMenu.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>ajax4jsf</from-action>
+            <to-view-id>/ajax4jsf.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
     <navigation-rule>
         <from-view-id>/*</from-view-id>
         <navigation-case>
             <from-outcome>mainMenu</from-outcome>
-            <to-view-id>/mainMenu.jsp</to-view-id>
+            <to-view-id>/mainMenu.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
@@ -32,38 +44,38 @@
         <from-view-id>/*</from-view-id>
         <navigation-case>
             <from-outcome>editProfile</from-outcome>
-            <to-view-id>/userForm.jsp</to-view-id>
+            <to-view-id>/userForm.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/users.jsp</from-view-id>
+        <from-view-id>/users.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>add</from-outcome>
-            <to-view-id>/userForm.jsp</to-view-id>
+            <to-view-id>/userForm.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/userForm.jsp</from-view-id>
+        <from-view-id>/userForm.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>cancel</from-outcome>
-            <to-view-id>/users.jsp</to-view-id>
+            <to-view-id>/users.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>list</from-outcome>
-            <to-view-id>/users.jsp</to-view-id>
+            <to-view-id>/users.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/selectFile.jsp</from-view-id>
+        <from-view-id>/selectFile.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>success</from-outcome>
-            <to-view-id>/showFile.jsp</to-view-id>
+            <to-view-id>/showFile.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/signup.jsp</from-view-id>
+        <from-view-id>/signup.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>cancel</from-outcome>
             <to-view-id>/login.jsp</to-view-id>
@@ -71,7 +83,7 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/passwordHint.jsp</from-view-id>
+        <from-view-id>/passwordHint.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>success</from-outcome>
             <to-view-id>/login.jsp</to-view-id>
@@ -213,4 +225,10 @@
             <renderer-class>org.appfuse.webapp.jsf.PanelGridRenderer</renderer-class>
         </renderer>
     </render-kit>
+
+    <validator>
+        <validator-id>com.corejsf.validator.CommonsValidator</validator-id>
+        <validator-class>com.corejsf.validator.CommonsValidator</validator-class>
+    </validator>
+
 </faces-config>

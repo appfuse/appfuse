@@ -1,0 +1,32 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<f:view>
+<f:loadBundle var="text" basename="#{basePage.bundleName}"/>
+<head>
+    <title>#{text['mainMenu.title']}</title>
+    <meta name="menu" content="MainMenu"/>
+    <meta name="heading" content="#{text['mainMenu.heading']}"/>
+</head>
+
+<p>#{text['mainMenu.message']}</p>
+
+<div class="separator"></div>
+
+<h:form id="editUser">
+<ul class="glassList">
+    <li>
+        <h:commandLink value="#{text['menu.user']}" action="#{userForm.edit}"/>
+    </li>
+    <li>
+        <h:commandLink value="#{text['menu.selectFile']}" action="selectFile"/>
+    </li>
+    <li>
+        <h:commandLink value="Ajax4JSF Demo" action="ajax4jsf"/>
+    </li>
+</ul>
+</h:form>
+
+</f:view>
+</html>

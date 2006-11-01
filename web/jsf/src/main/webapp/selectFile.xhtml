@@ -1,17 +1,20 @@
-<%@ include file="/common/taglibs.jsp"%>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core" 
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:v="http://corejsf.com/validator">
 
+<f:view>
+<f:loadBundle var="text" basename="#{basePage.bundleName}"/>
 <head>
-    <title><fmt:message key="upload.title"/></title>
-    <content tag="heading"><fmt:message key="upload.heading"/></content>
+    <title>#{text['upload.title']}</title>
     <meta name="menu" content="FileUpload"/>
+    <meta name="heading" content="#{text['upload.heading']}"/>
 </head>
 
 <!--
     The most important part is to declare your form's enctype to be "multipart/form-data",
     and to have a form:file element that maps to your ActionForm's FormFile property
 -->
-<f:view>
-<f:loadBundle var="text" basename="#{fileUpload.bundleName}"/>
 
 <h:form id="uploadForm" enctype="multipart/form-data" onsubmit="return validateUploadForm(this)">
 
@@ -49,3 +52,4 @@
 </script>
 
 </f:view>
+</html>
