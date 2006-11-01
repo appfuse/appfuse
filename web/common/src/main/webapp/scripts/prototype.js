@@ -1442,7 +1442,7 @@ var Form = {
 
   findFirstElement: function(form) {
     return Form.getElements(form).find(function(element) {
-      return element.type != 'hidden' && !element.disabled &&
+      return element.type != 'hidden' && element.type != 'submit' && element.type != 'button' && !element.disabled &&
         ['input', 'select', 'textarea'].include(element.tagName.toLowerCase());
     });
   },
