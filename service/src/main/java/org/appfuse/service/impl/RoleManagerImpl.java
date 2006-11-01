@@ -20,8 +20,8 @@ public class RoleManagerImpl extends BaseManager implements RoleManager {
         this.dao = dao;
     }
 
-    public List getRoles(Role role) {
-        return dao.getRoles(role);
+    public List<Role> getRoles(Role role) {
+        return dao.getAll();
     }
 
     public Role getRole(String rolename) {
@@ -29,7 +29,7 @@ public class RoleManagerImpl extends BaseManager implements RoleManager {
     }
 
     public void saveRole(Role role) {
-        dao.saveRole(role);
+        dao.save(role);
     }
 
     public void removeRole(String rolename) {

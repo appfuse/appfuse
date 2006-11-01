@@ -22,8 +22,6 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
  * Class for sending e-mail messages based on Velocity templates
  * or with attachments.
  * 
- * <p><a href="MailEngine.java.html"><i>View Source</i></a></p>
- * 
  * @author Matt Raible
  */
 public class MailEngine {

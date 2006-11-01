@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.appfuse.dao.Dao;
+import org.appfuse.dao.UniversalDao;
 import org.appfuse.service.Manager;
 
 /**
@@ -18,40 +18,40 @@ import org.appfuse.service.Manager;
  */
 public class BaseManager implements Manager {
     protected final Log log = LogFactory.getLog(getClass());
-    protected Dao dao = null;
+    protected UniversalDao dao = null;
     
     /**
-     * @see org.appfuse.service.Manager#setDao(org.appfuse.dao.Dao)
+     * @see org.appfuse.service.Manager#setDao(org.appfuse.dao.UniversalDao)
      */
-    public void setDao(Dao dao) {
+    public void setDao(UniversalDao dao) {
         this.dao = dao;
     }
     
     /**
-     * @see org.appfuse.service.Manager#getObject(java.lang.Class, java.io.Serializable)
+     * @see org.appfuse.service.Manager#get(java.lang.Class, java.io.Serializable)
      */
-    public Object getObject(Class clazz, Serializable id) {
-        return dao.getObject(clazz, id);
+    public Object get(Class clazz, Serializable id) {
+        return dao.get(clazz, id);
     }
     
     /**
-     * @see org.appfuse.service.Manager#getObjects(java.lang.Class)
+     * @see org.appfuse.service.Manager#getAll(java.lang.Class)
      */
-    public List getObjects(Class clazz) {
-        return dao.getObjects(clazz);
+    public List getAll(Class clazz) {
+        return dao.getAll(clazz);
     }
     
     /**
-     * @see org.appfuse.service.Manager#removeObject(java.lang.Class, java.io.Serializable)
+     * @see org.appfuse.service.Manager#remove(java.lang.Class, java.io.Serializable)
      */
-    public void removeObject(Class clazz, Serializable id) {
-        dao.removeObject(clazz, id);
+    public void remove(Class clazz, Serializable id) {
+        dao.remove(clazz, id);
     }
     
     /**
-     * @see org.appfuse.service.Manager#saveObject(java.lang.Object)
+     * @see org.appfuse.service.Manager#save(java.lang.Object)
      */
-    public void saveObject(Object o) {
-        dao.saveObject(o);
+    public void save(Object o) {
+        dao.save(o);
     }
 }

@@ -7,21 +7,11 @@ import org.acegisecurity.userdetails.UsernameNotFoundException;
 import org.appfuse.model.User;
 
 /**
- * User Data Access Object (Dao) interface.
- *
- * <p>
- * <a href="UserDao.java.html"><i>View Source</i></a>
- * </p>
+ * User Data Access Object (GenericDao) interface.
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
-public interface UserDao extends Dao {
-    /**
-     * Gets users information based on user id.
-     * @param userId the user's id
-     * @return user populated user object
-     */
-    public User getUser(Long userId);
+public interface UserDao extends GenericDao<org.appfuse.model.User, Long> {
 
     /**
      * Gets users information based on login name.
@@ -31,21 +21,16 @@ public interface UserDao extends Dao {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
     
     /**
-     * Gets a list of users based on parameters passed in.
+     * Gets a list of users ordered by the uppercase version of their username.
      *
      * @return List populated list of users
      */
-    public List getUsers(User user);
+    public List<User> getUsers();
 
     /**
-     * Saves a user's information
+     * Saves a user's information.
      * @param user the object to be saved
      */
     public void saveUser(User user);
-
-    /**
-     * Removes a user from the database by id
-     * @param userId the user's id
-     */
-    public void removeUser(Long userId);
+    
 }

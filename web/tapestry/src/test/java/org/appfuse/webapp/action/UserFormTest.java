@@ -13,7 +13,7 @@ public class UserFormTest extends BasePageTestCase {
     protected void onSetUp() throws Exception {
         super.onSetUp();        
         // these can be mocked if you want a more "pure" unit test
-        Map map = new HashMap();
+        Map<String, Object> map = new HashMap<String, Object>();
         map.put("userManager", applicationContext.getBean("userManager"));
         map.put("roleManager", applicationContext.getBean("roleManager"));
         map.put("mailMessage", applicationContext.getBean("mailMessage"));
@@ -46,7 +46,7 @@ public class UserFormTest extends BasePageTestCase {
     
     public void testRemove() throws Exception {
         User user2Delete = new User();
-        user2Delete.setId(new Long(2));
+        user2Delete.setId(2L);
         page.setUser(user2Delete);
         page.delete(new MockRequestCycle());
         assertFalse(page.hasErrors());

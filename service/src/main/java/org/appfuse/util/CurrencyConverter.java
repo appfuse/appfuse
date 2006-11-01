@@ -12,11 +12,6 @@ import java.text.ParseException;
 /**
  * This class is converts a Double to a double-digit String
  * (and vise-versa) by BeanUtils when copying properties.
- * Registered for use in BaseAction.
- *
- * <p>
- * <a href="CurrencyConverter.java.html"><i>View Source</i></a>
- * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */

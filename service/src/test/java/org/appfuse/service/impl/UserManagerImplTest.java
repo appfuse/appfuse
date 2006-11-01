@@ -9,9 +9,6 @@ import org.appfuse.service.UserExistsException;
 import org.jmock.Mock;
 import org.springframework.dao.DataIntegrityViolationException;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 public class UserManagerImplTest extends BaseManagerTestCase {
     //~ Instance fields ========================================================
@@ -35,8 +32,8 @@ public class UserManagerImplTest extends BaseManagerTestCase {
         User testData = new User("1");
         testData.getRoles().add(new Role("user"));
         // set expected behavior on dao
-        userDao.expects(once()).method("getUser")
-               .with(eq(new Long(1))).will(returnValue(testData));
+        userDao.expects(once()).method("get")
+               .with(eq(1L)).will(returnValue(testData));
         
         User user = userManager.getUser("1");
         assertTrue(user != null);
@@ -48,8 +45,8 @@ public class UserManagerImplTest extends BaseManagerTestCase {
         User testData = new User("1");
         testData.getRoles().add(new Role("user"));
         // set expected behavior on dao
-        userDao.expects(once()).method("getUser")
-               .with(eq(new Long(1))).will(returnValue(testData));
+        userDao.expects(once()).method("get")
+               .with(eq(1L)).will(returnValue(testData));
         
         User user = userManager.getUser("1");
         user.setPhoneNumber("303-555-1212");
@@ -91,13 +88,13 @@ public class UserManagerImplTest extends BaseManagerTestCase {
         // reset expectations
         userDao.reset();
         
-        userDao.expects(once()).method("removeUser").with(eq(new Long(5)));
+        userDao.expects(once()).method("remove").with(eq(5L));
         userManager.removeUser("5");
         userDao.verify();
 
         // reset expectations
         userDao.reset();
-        userDao.expects(once()).method("getUser").will(returnValue(null));
+        userDao.expects(once()).method("get").will(returnValue(null));
         user = userManager.getUser("5");
         assertNull(user);
         userDao.verify();
@@ -107,10 +104,7 @@ public class UserManagerImplTest extends BaseManagerTestCase {
         // set expectations
         User user = new User("admin");
         user.setEmail("matt@raibledesigns.com");
-        List users;
-        users = new ArrayList();
 
-        users.add(user);
         Exception ex = new DataIntegrityViolationException("");
         userDao.expects(once()).method("saveUser").with(same(user))
                .will(throwException(ex));

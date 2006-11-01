@@ -21,7 +21,7 @@ public class UserDaoTest extends BaseDaoTestCase {
 
     public void testGetUserInvalid() throws Exception {
         try {
-            dao.getUser(new Long(1000));
+            dao.get(1000L);
             fail("'badusername' found in database, failing test...");
         } catch (DataAccessException d) {
             assertTrue(d != null);
@@ -29,7 +29,7 @@ public class UserDaoTest extends BaseDaoTestCase {
     }
 
     public void testGetUser() throws Exception {
-        User user = dao.getUser(new Long(1));
+        User user = dao.get(1L);
 
         assertNotNull(user);
         assertEquals(1, user.getRoles().size());
@@ -37,7 +37,7 @@ public class UserDaoTest extends BaseDaoTestCase {
     }
 
     public void testUpdateUser() throws Exception {
-        User user = dao.getUser(new Long(1));
+        User user = dao.get(1L);
 
         Address address = user.getAddress();
         address.setAddress("new address");
@@ -62,7 +62,7 @@ public class UserDaoTest extends BaseDaoTestCase {
     }
 
     public void testAddUserRole() throws Exception {
-        User user = dao.getUser(new Long(1));
+        User user = dao.get(1L);
         assertEquals(1, user.getRoles().size());
 
         Role role = rdao.getRoleByName(Constants.ADMIN_ROLE);
@@ -106,10 +106,10 @@ public class UserDaoTest extends BaseDaoTestCase {
         assertNotNull(user.getId());
         assertEquals("testpass", user.getPassword());
 
-        dao.removeUser(user.getId());
+        dao.remove(user.getId());
 
         try {
-            user = dao.getUser(user.getId());
+            dao.get(user.getId());
             fail("getUser didn't throw DataAccessException");
         } catch (DataAccessException d) {
             assertNotNull(d);

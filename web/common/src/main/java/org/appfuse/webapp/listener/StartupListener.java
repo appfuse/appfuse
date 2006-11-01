@@ -27,7 +27,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  * 
  * <p>Keep in mind that this listener is executed outside of OpenSessionInViewFilter,
  * so if you're using Hibernate you'll have to explicitly initialize all loaded data at the 
- * Dao or service level to avoid LazyInitializationException. Hibernate.initialize() works
+ * GenericDao or service level to avoid LazyInitializationException. Hibernate.initialize() works
  * well for doing this.
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>

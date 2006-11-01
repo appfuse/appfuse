@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -17,7 +16,7 @@ public class DateConverterTest extends TestCase {
     private DateConverter converter = new DateConverter();
 
     public void testInternationalization() throws Exception {
-        List locales = new ArrayList() {
+        List<Locale> locales = new ArrayList<Locale>() {
             private static final long serialVersionUID = 1L;
             {
                 add(Locale.US);
@@ -27,8 +26,8 @@ public class DateConverterTest extends TestCase {
                 add(Locale.ITALY);
             }
         };
-        for (Iterator localeIter = locales.iterator(); localeIter.hasNext();) {
-            Locale locale = (Locale) localeIter.next();
+
+        for (Locale locale : locales) {
             LocaleContextHolder.setLocale(locale);
             testConvertStringToDate();
             testConvertDateToString();
@@ -53,7 +52,7 @@ public class DateConverterTest extends TestCase {
     }
 
     public void testConvertDateToString() throws Exception {
-        Calendar cal = new GregorianCalendar(2005, 00, 16);
+        Calendar cal = new GregorianCalendar(2005, 0, 16);
         String date = (String) converter.convert(String.class, cal.getTime());
         assertEquals(DateUtil.convertDateToString(cal.getTime()), date);
     }

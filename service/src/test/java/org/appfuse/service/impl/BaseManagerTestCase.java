@@ -37,9 +37,9 @@ public abstract class BaseManagerTestCase extends MockObjectTestCase {
      * Utility method to populate a javabean-style object with values
      * from a Properties file
      *
-     * @param obj
-     * @return
-     * @throws Exception
+     * @param obj the model object to populate
+     * @return Object populated object
+     * @throws Exception if BeanUtils fails to copy properly
      */
     protected Object populate(Object obj) throws Exception {
         // loop through all the beans methods and set its properties from

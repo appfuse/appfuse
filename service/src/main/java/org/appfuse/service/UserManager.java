@@ -11,27 +11,27 @@ import org.appfuse.model.User;
  * Business Service Interface to handle communication between web and
  * persistence layer.
  *
- * <p><a href="UserManager.java.html"><i>View Source</i></a></p>
- *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  *  Modified by <a href="mailto:dan@getrolling.com">Dan Kibler </a> 
  */
 public interface UserManager {
-    
+
     public void setUserDao(UserDao userDao);
 
     /**
      * Retrieves a user by userId.  An exception is thrown if user not found
      *
-     * @param userId
+     * @param userId the identifier for the user
      * @return User
      */
     public User getUser(String userId);
     
     /**
      * Finds a user by their username.
-     * @param username
+     * @param username the user's username used to login
      * @return User a populated user object
+     * @throws org.acegisecurity.userdetails.UsernameNotFoundException
+     *         exception thrown when user not found
      */
     public User getUserByUsername(String username) throws UsernameNotFoundException;
 
@@ -46,7 +46,7 @@ public interface UserManager {
      * Saves a user's information
      *
      * @param user the user's information
-     * @throws UserExistsException
+     * @throws UserExistsException thrown when user already exists
      */
     public void saveUser(User user) throws UserExistsException;
 

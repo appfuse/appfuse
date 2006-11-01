@@ -12,10 +12,6 @@ import org.apache.commons.lang.StringUtils;
  * java.util.Date for use as a Timestamp. It is used by BeanUtils when copying
  * properties.
  * 
- * <p>
- * <a href="TimestampConverter.java.html"><i>View Source</i></a>
- * </p>
- * 
  * @author <a href="mailto:dan@getrolling.com">Dan Kibler</a>
  */
 public class TimestampConverter extends DateConverter {

@@ -35,7 +35,7 @@ public class UserFormTest extends BasePageTestCase {
     
     public void testRemove() throws Exception {
         User user2Delete = new User();
-        user2Delete.setId(new Long(2));
+        user2Delete.setId(2L);
         bean.setUser(user2Delete);
         assertEquals(bean.delete(), "list");
         assertFalse(bean.hasErrors());

@@ -34,7 +34,7 @@ public class UserActionTest extends BaseActionTestCase {
         
         action.setUsername("tomcat");
         assertNull(action.getUser());
-        assertEquals(action.edit(), "success");
+        assertEquals("success", action.edit());
         assertNotNull(action.getUser());
         assertFalse(action.hasActionErrors());
     }
@@ -72,7 +72,7 @@ public class UserActionTest extends BaseActionTestCase {
         request.addParameter("encryptPass", "true");
         ServletActionContext.setRequest(request);
 
-        assertEquals(action.save(), "input");
+        assertEquals("input", action.save());
         assertNotNull(action.getUser());
         assertEquals(originalVersionNumber, user.getVersion());
         assertTrue(action.hasActionErrors());
@@ -80,23 +80,23 @@ public class UserActionTest extends BaseActionTestCase {
         
         // save with valid e-mail
         user.setEmail("mraible@gmail.com");
-        assertEquals(action.save(), "input");
-        assertEquals(originalVersionNumber.intValue()+1, user.getVersion().intValue());
+        assertEquals("input", action.save());
+        assertEquals(originalVersionNumber+1, user.getVersion().intValue());
         assertFalse(action.hasActionErrors());
     }
 
     public void testSearch() throws Exception {
         assertNull(action.getUsers());
-        assertEquals(action.list(), "success");
+        assertEquals("success", action.list());
         assertNotNull(action.getUsers());
         assertFalse(action.hasActionErrors());
     }
 
     public void testRemove() throws Exception {
         User user = new User("mraible");
-        user.setId(new Long(2));
+        user.setId(2L);
         action.setUser(user);
-        assertEquals(action.delete(), "success");
+        assertEquals("success", action.delete());
         assertFalse(action.hasActionErrors());
     }
 }

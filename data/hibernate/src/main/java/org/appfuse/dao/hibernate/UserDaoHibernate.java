@@ -13,31 +13,26 @@ import org.springframework.orm.ObjectRetrievalFailureException;
  * This class interacts with Spring's HibernateTemplate to save/delete and
  * retrieve User objects.
  *
- * <p><a href="UserDaoHibernate.java.html"><i>View Source</i></a></p>
- *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  *   Modified by <a href="mailto:dan@getrolling.com">Dan Kibler</a>
  *   Extended to implement Acegi UserDetailsService interface by David Carter david@carter.net
+ *   Modified by <a href="mailto:bwnoll@gmail.com">Bryan Noll</a> to work with 
+ *   the new BaseDaoHibernate implementation that uses generics.
 */
-public class UserDaoHibernate extends BaseDaoHibernate implements UserDao, UserDetailsService {
-    /**
-     * @see org.appfuse.dao.UserDao#getUser(Long)
-     */
-    public User getUser(Long userId) {
-        User user = (User) getHibernateTemplate().get(User.class, userId);
-
-        if (user == null) {
-            log.warn("uh oh, user '" + userId + "' not found...");
-            throw new ObjectRetrievalFailureException(User.class, userId);
-        }
-
-        return user;
+public class UserDaoHibernate 
+     extends GenericDaoHibernate<org.appfuse.model.User, Long> 
+  implements UserDao, UserDetailsService {
+    
+    
+    
+    public UserDaoHibernate() {
+        super(org.appfuse.model.User.class);
     }
 
     /**
-     * @see org.appfuse.dao.UserDao#getUsers(org.appfuse.model.User)
+     * @see org.appfuse.dao.UserDao#getUsers()
      */
-    public List getUsers(User user) {
+    public List getUsers() {
         return getHibernateTemplate().find("from User u order by upper(u.username)");
     }
 
@@ -53,12 +48,15 @@ public class UserDaoHibernate extends BaseDaoHibernate implements UserDao, UserD
         // necessary to throw a DataIntegrityViolation and catch it in UserManager
         getHibernateTemplate().flush();
     }
-
+    
     /**
-     * @see org.appfuse.dao.UserDao#removeUser(Long)
+     * Overridden simply to call the saveUser method. This is happenening 
+     * because saveUser flushes the session and saveObject of BaseDaoHibernate 
+     * does not.
      */
-    public void removeUser(Long userId) {
-        getHibernateTemplate().delete(getUser(userId));
+    @Override
+    public void save(User user) {
+        this.saveUser(user);
     }
 
     /** 

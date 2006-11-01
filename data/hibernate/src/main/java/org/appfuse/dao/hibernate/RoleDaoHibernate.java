@@ -10,20 +10,12 @@ import org.appfuse.model.Role;
  * This class interacts with Spring's HibernateTemplate to save/delete and
  * retrieve Role objects.
  *
- * <p>
- * <a href="RoleDaoHibernate.java.html"><i>View Source</i></a>
- * </p>
- *
- * @author <a href="mailto:dan@getrolling.com">Dan Kibler</a> 
+ * @author <a href="mailto:bwnoll@gmail.com">Bryan Noll</a> 
  */
-public class RoleDaoHibernate extends BaseDaoHibernate implements RoleDao {
+public class RoleDaoHibernate extends GenericDaoHibernate<Role, Long> implements RoleDao {
 
-    public List getRoles(Role role) {
-        return getHibernateTemplate().find("from Role");
-    }
-    
-    public Role getRole(Long roleId) {
-        return (Role) getHibernateTemplate().get(Role.class, roleId);
+    public RoleDaoHibernate() {
+        super(Role.class);
     }
 
     public Role getRoleByName(String rolename) {
@@ -34,14 +26,9 @@ public class RoleDaoHibernate extends BaseDaoHibernate implements RoleDao {
             return (Role) roles.get(0);
         }
     }
-
-    public void saveRole(Role role) {
-        getHibernateTemplate().saveOrUpdate(role);
-    }
-
+    
     public void removeRole(String rolename) {
         Object role = getRoleByName(rolename);
         getHibernateTemplate().delete(role);
     }
-
 }

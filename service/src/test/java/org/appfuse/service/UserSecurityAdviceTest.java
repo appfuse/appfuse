@@ -74,7 +74,7 @@ public class UserSecurityAdviceTest extends MockObjectTestCase {
 
     public void testUpdateUserProfile() throws Exception {
         UserManager userManager = makeInterceptedTarget();
-        User user = new User("user");;
+        User user = new User("user");
         user.getRoles().add(new Role(Constants.USER_ROLE));
 
         userDao.expects(once()).method("saveUser");
@@ -122,7 +122,7 @@ public class UserSecurityAdviceTest extends MockObjectTestCase {
         context.setAuthentication(token);
         SecurityContextHolder.setContext(context);
 
-        UserManager userManager = (UserManager) makeInterceptedTarget();
+        UserManager userManager = makeInterceptedTarget();
         User user = new User("user");
         user.getRoles().add(new Role(Constants.ADMIN_ROLE));
         user.getRoles().add(new Role(Constants.USER_ROLE));
@@ -156,7 +156,7 @@ public class UserSecurityAdviceTest extends MockObjectTestCase {
         
         UserCache cache = (UserCache) ctx.getBean("userCache");
         User user = new User("cacheduser");
-        user.setVersion(new Integer(1));
+        user.setVersion(1);
         user.getRoles().add(new Role(Constants.USER_ROLE));
         cache.putUserInCache(user);
         

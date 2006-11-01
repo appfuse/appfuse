@@ -1,6 +1,6 @@
 package org.appfuse.service.impl;
 
-import org.appfuse.dao.Dao;
+import org.appfuse.dao.UniversalDao;
 import org.appfuse.model.User;
 import org.jmock.Mock;
 import org.springframework.orm.ObjectRetrievalFailureException;
@@ -14,8 +14,8 @@ public class GenericManagerTest extends BaseManagerTestCase {
     
     protected void setUp() throws Exception {
         super.setUp();
-        dao = new Mock(Dao.class);
-        manager.setDao((Dao) dao.proxy());
+        dao = new Mock(UniversalDao.class);
+        manager.setDao((UniversalDao) dao.proxy());
     }
     
     protected void tearDown() throws Exception {
@@ -33,35 +33,35 @@ public class GenericManagerTest extends BaseManagerTestCase {
 
         // create
         // set expectations
-        dao.expects(once()).method("saveObject").isVoid();
+        dao.expects(once()).method("save").isVoid();
         
-        manager.saveObject(user);
+        manager.save(user);
         dao.verify();
         
         // retrieve
         dao.reset();
         // expectations
-        dao.expects(once()).method("getObject").will(returnValue(user));
+        dao.expects(once()).method("get").will(returnValue(user));
         
-        user = (User) manager.getObject(User.class, user.getUsername());
+        user = (User) manager.get(User.class, user.getUsername());
         dao.verify();
         
         // update
         dao.reset();
-        dao.expects(once()).method("saveObject").isVoid();
+        dao.expects(once()).method("save").isVoid();
         user.getAddress().setCountry("USA");
-        manager.saveObject(user);
+        manager.save(user);
         dao.verify();
         
         // delete
         dao.reset();
         // expectations
         Exception ex = new ObjectRetrievalFailureException(User.class, "foo");
-        dao.expects(once()).method("removeObject").isVoid();            
-        dao.expects(once()).method("getObject").will(throwException(ex));
-        manager.removeObject(User.class, "foo");
+        dao.expects(once()).method("remove").isVoid();            
+        dao.expects(once()).method("get").will(throwException(ex));
+        manager.remove(User.class, "foo");
         try {
-            manager.getObject(User.class, "foo");
+            manager.get(User.class, "foo");
             fail("User 'foo' found in database");
         } catch (ObjectRetrievalFailureException e) {
             assertNotNull(e.getMessage());

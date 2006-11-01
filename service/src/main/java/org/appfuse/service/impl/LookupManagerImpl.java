@@ -12,8 +12,6 @@ import java.util.List;
 /**
  * Implementation of LookupManager interface to talk to the persistence layer.
  *
- * <p><a href="LookupManagerImpl.java.html"><i>View Source</i></a></p>
- *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class LookupManagerImpl extends BaseManager implements LookupManager {
@@ -30,7 +28,7 @@ public class LookupManagerImpl extends BaseManager implements LookupManager {
     /**
      * @see org.appfuse.service.LookupManager#getAllRoles()
      */
-    public List getAllRoles() {
+    public List<LabelValue> getAllRoles() {
         List<Role> roles = dao.getRoles();
         List<LabelValue> list = new ArrayList<LabelValue>();
 

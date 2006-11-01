@@ -8,11 +8,9 @@ import org.appfuse.model.Role;
 /**
  * Hibernate implementation of LookupDao.
  *
- * <p><a href="LookupDaoHibernate.java.html"><i>View Source</i></a></p>
- *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
-public class LookupDaoHibernate extends BaseDaoHibernate implements LookupDao {
+public class LookupDaoHibernate extends UniversalDaoHibernate implements LookupDao {
 
     /**
      * @see org.appfuse.dao.LookupDao#getRoles()

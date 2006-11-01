@@ -2,7 +2,6 @@ package org.appfuse.dao.ibatis;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -18,18 +17,22 @@ import org.springframework.orm.ObjectRetrievalFailureException;
  * This class interacts with iBatis's SQL Maps to save and retrieve User
  * related objects.
  *
- * <p><a href="UserDaoiBatis.java.html"><i>View Source</i></a></p>
- *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
-public class UserDaoiBatis extends BaseDaoiBATIS implements UserDao, UserDetailsService {
+public class UserDaoiBatis extends GenericDaoiBatis<User, Long>implements UserDao, UserDetailsService {
+    
+    public UserDaoiBatis() {
+        super(org.appfuse.model.User.class);
+    }
+    
     /**
      * Get user by id.
      *
      * @param userId the user's id
      * @return a populated user object
      */
-    public User getUser(Long userId) {
+    @Override
+    public User get(Long userId) {
         User user = (User) getSqlMapClientTemplate().queryForObject("getUser", userId);
 
         if (user == null) {
@@ -44,14 +47,14 @@ public class UserDaoiBatis extends BaseDaoiBATIS implements UserDao, UserDetails
     }
 
     /**
-     * @see org.appfuse.dao.UserDao#getUsers(org.appfuse.model.User)
+     * @see org.appfuse.dao.UserDao#getUsers()
      */
-    public List getUsers(User user) {
+    public List<User> getUsers() {
         List users = getSqlMapClientTemplate().queryForList("getUsers", null);
 
         // get the roles for each user
         for (int i = 0; i < users.size(); i++) {
-            user = (User) users.get(i);
+            User user = (User) users.get(i);
 
             List roles =  getSqlMapClientTemplate().queryForList("getUserRoles", user);
             user.setRoles(new HashSet<Role>(roles));
@@ -88,7 +91,7 @@ public class UserDaoiBatis extends BaseDaoiBATIS implements UserDao, UserDetails
      * @see org.appfuse.dao.UserDao#saveUser(org.appfuse.model.User)
      */
     public void saveUser(final User user) {
-        prepareObjectForSaveOrUpdate(user);
+        iBatisDaoUtils.prepareObjectForSaveOrUpdate(user);
         
         if (user.getId() == null) {
             Long id = (Long) getSqlMapClientTemplate().insert("addUser", user);
@@ -101,10 +104,9 @@ public class UserDaoiBatis extends BaseDaoiBATIS implements UserDao, UserDetails
         }
     }
 
-    /**
-     * @see org.appfuse.dao.UserDao#removeUser(java.lang.Long)
-     */
-    public void removeUser(Long userId) {
+
+    @Override
+    public void remove(Long userId) {
         deleteUserRoles(userId);
         getSqlMapClientTemplate().update("deleteUser", userId);
     }

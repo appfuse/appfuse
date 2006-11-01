@@ -34,12 +34,14 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <!-- Generic Dao - can be used when doing standard CRUD -->
-    <bean id="dao" class="org.appfuse.dao.hibernate.BaseDaoHibernate">
+    <!-- UniversalDao - can be used when doing standard CRUD - made available 
+        for those who don't mind casting.  If you don't want to cast, look at 
+        'fooDao' below. -->
+    <bean id="universalDao" class="org.appfuse.dao.hibernate.UniversalDaoHibernate">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <!-- LookupDao: Hibernate implementation -->
+    <!-- LookupDao - can be used when doing standard CRUD -->
     <bean id="lookupDao" class="org.appfuse.dao.hibernate.LookupDaoHibernate">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
@@ -55,5 +57,19 @@
     </bean>
 
     <!-- Add new Daos here -->
+    
+    <!-- If you want to be able to do simple CRUD for new domain objects without 
+        having to cast, you don't have create a Dao interface and implementation 
+        for that domain object, you simply have to do the following.  
+        
+        You will need to create a Dao interface and implementation for that 
+        domain object if you need more than simple CRUD to occur.  
+        (finders, bulk update/delete, etc.) eg... 'fooDao'
+    
+    <bean id="fooDao" class="org.appfuse.dao.hibernate.GenericDaoHibernate">
+        <constructor-arg value="org.appfuse.model.Foo"/>
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    -->
 
 </beans>

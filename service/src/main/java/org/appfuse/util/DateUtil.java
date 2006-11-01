@@ -11,18 +11,13 @@ import java.util.*;
 
 
 /**
- * Date Utility Class
- * This is used to convert Strings to Dates and Timestamps
- *
- * <p>
- * <a href="DateUtil.java.html"><i>View Source</i></a>
- * </p>
+ * Date Utility Class used to convert Strings to Dates and Timestamps
  * 
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  *  Modified by <a href="mailto:dan@getrolling.com">Dan Kibler </a> 
  *   to correct time pattern. Minutes should be mm not MM
  * 	(MM is month). 
- * @version $Revision: 1.9 $ $Date$
+ * @version $Revision: 1.9 $ $Date: 2006-10-03 12:57:31 -0600 (Tue, 03 Oct 2006) $
  */
 public class DateUtil {
     //~ Static fields/initializers =============================================

@@ -5,14 +5,26 @@ import java.util.List;
 
 
 /**
- * Data Access Object (Dao) interface.   This is an interface
- * used to tag our Dao classes and to provide common methods to all Daos.
- *
- * <p><a href="Dao.java.html"><i>View Source</i></a></p>
+ * Data Access Object (DAO) interface. 
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
+ * 
+ * Modifications and comments by <a href="mailto:bwnoll@gmail.com">Bryan Noll</a>
+ * This thing used to be named simply 'GenericDao' in versions of appfuse prior to 2.0.
+ * It was renamed in an attempt to distinguish and describe it as something 
+ * different than GenericDao.  GenericDao is intended for subclassing, and was
+ * named Generic because 1) it has very general functionality and 2) is 
+ * 'generic' in the Java 5 sense of the word... aka... it uses Generics.
+ * 
+ * Implementations of this class are not intended for subclassing. You most
+ * likely would want to subclass GenericDao.  The only real difference is that 
+ * instances of java.lang.Class are passed into the methods in this class, and 
+ * they are part of the constructor in the GenericDao, hence you'll have to do 
+ * some casting if you use this one.
+ * 
+ * @see org.appfuse.dao.GenericDao
  */
-public interface Dao {
+public interface UniversalDao {
 
     /**
      * Generic method used to get all objects of a particular type. This
@@ -20,7 +32,7 @@ public interface Dao {
      * @param clazz the type of objects (a.k.a. while table) to get data from
      * @return List of populated objects
      */
-    public List getObjects(Class clazz);
+    public List getAll(Class clazz);
     
     /**
      * Generic method to get an object based on class and identifier. An 
@@ -32,18 +44,18 @@ public interface Dao {
      * @return a populated object
      * @see org.springframework.orm.ObjectRetrievalFailureException
      */
-    public Object getObject(Class clazz, Serializable id);
+    public Object get(Class clazz, Serializable id);
 
     /**
      * Generic method to save an object - handles both update and insert.
      * @param o the object to save
      */
-    public void saveObject(Object o);
+    public void save(Object o);
 
     /**
      * Generic method to delete an object based on class and id
      * @param clazz model class to lookup
      * @param id the identifier (primary key) of the class
      */
-    public void removeObject(Class clazz, Serializable id);
+    public void remove(Class clazz, Serializable id);
 }

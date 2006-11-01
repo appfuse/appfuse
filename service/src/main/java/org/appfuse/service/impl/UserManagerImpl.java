@@ -24,7 +24,7 @@ public class UserManagerImpl extends BaseManager implements UserManager {
 
     /**
      * Set the Dao for communication with the data layer.
-     * @param dao
+     * @param dao the UserDao that communicates with the database
      */
     public void setUserDao(UserDao dao) {
         this.dao = dao;
@@ -34,14 +34,14 @@ public class UserManagerImpl extends BaseManager implements UserManager {
      * @see org.appfuse.service.UserManager#getUser(java.lang.String)
      */
     public User getUser(String userId) {
-        return dao.getUser(new Long(userId));
+        return dao.get(new Long(userId));
     }
 
     /**
      * @see org.appfuse.service.UserManager#getUsers(org.appfuse.model.User)
      */
     public List getUsers(User user) {
-        return dao.getUsers(user);
+        return dao.getUsers();
     }
 
     /**
@@ -63,11 +63,8 @@ public class UserManagerImpl extends BaseManager implements UserManager {
      * @see org.appfuse.service.UserManager#removeUser(java.lang.String)
      */
     public void removeUser(String userId) {
-        if (log.isDebugEnabled()) {
-            log.debug("removing user: " + userId);
-        }
-
-        dao.removeUser(new Long(userId));
+        log.debug("removing user: " + userId);
+        dao.remove(new Long(userId));
     }
 
     public User getUserByUsername(String username) throws UsernameNotFoundException {

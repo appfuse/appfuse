@@ -12,7 +12,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
 
 /**
- * Base class for running Dao tests.
+ * Base class for running GenericDao tests.
  * @author mraible
  */
 public abstract class BaseDaoTestCase extends AbstractTransactionalDataSourceSpringContextTests {
@@ -39,17 +39,17 @@ public abstract class BaseDaoTestCase extends AbstractTransactionalDataSourceSpr
     /**
      * Utility method to populate a javabean-style object with values
      * from a Properties file
-     * @param obj
+     * @param obj the model object to populate
      * @return Object populated object
-     * @throws Exception
+     * @throws Exception if BeanUtils fails to copy properly
      */
     protected Object populate(Object obj) throws Exception {
         // loop through all the beans methods and set its properties from
         // its .properties file
-        Map map = new HashMap();
+        Map<String, String> map = new HashMap<String, String>();
 
-        for (Enumeration keys = rb.getKeys(); keys.hasMoreElements();) {
-            String key = (String) keys.nextElement();
+        for (Enumeration<String> keys = rb.getKeys(); keys.hasMoreElements();) {
+            String key = keys.nextElement();
             map.put(key, rb.getString(key));
         }
 

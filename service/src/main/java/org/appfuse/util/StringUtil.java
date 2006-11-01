@@ -9,11 +9,6 @@ import java.security.MessageDigest;
 
 /**
  * String Utility Class This is used to encode passwords programmatically
- *
- * <p>
- * <a h
- * ref="StringUtil.java.html"><i>View Source</i></a>
- * </p>
  * 
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */

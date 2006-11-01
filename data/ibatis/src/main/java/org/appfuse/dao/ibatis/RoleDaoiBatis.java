@@ -9,15 +9,16 @@ import org.appfuse.model.Role;
  * This class interacts with iBatis's SQL Maps to save/delete and
  * retrieve Role objects.
  *
- * <p>
- * <a href="RoleDaoiBatis.java.html"><i>View Source</i></a>
- * </p>
- *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
-public class RoleDaoiBatis extends BaseDaoiBATIS implements RoleDao {
+public class RoleDaoiBatis extends GenericDaoiBatis<Role, Long> implements RoleDao {
+    
+    public RoleDaoiBatis() {
+        super(Role.class);
+    }
 
-    public List getRoles(Role role) {
+    @Override
+    public List getAll() {
         return getSqlMapClientTemplate().queryForList("getRoles", null);
     }
     
@@ -25,7 +26,8 @@ public class RoleDaoiBatis extends BaseDaoiBATIS implements RoleDao {
         return (Role) getSqlMapClientTemplate().queryForObject("getRoleByName", name);
     }
 
-    public void saveRole(final Role role) {
+    @Override
+    public void save(final Role role) {
         if (role.getId() == null) {
             getSqlMapClientTemplate().update("addRole", role);
         } else {
