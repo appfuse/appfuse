@@ -1,7 +1,6 @@
 package org.appfuse.webapp.listener;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
@@ -50,10 +49,10 @@ public class StartupListener extends ContextLoaderListener
 
         // Orion starts Servlets before Listeners, so check if the config
         // object already exists
-        Map config = (HashMap) context.getAttribute(Constants.CONFIG);
+        Map<String, Object> config = (HashMap<String, Object>) context.getAttribute(Constants.CONFIG);
 
         if (config == null) {
-            config = new HashMap();
+            config = new HashMap<String, Object>();
         }
         
         if (context.getInitParameter("theme") != null) {
@@ -66,8 +65,8 @@ public class StartupListener extends ContextLoaderListener
         boolean encryptPassword = false;
         try {
             ProviderManager provider = (ProviderManager) ctx.getBean("authenticationManager");
-            for (Iterator it = provider.getProviders().iterator(); it.hasNext();) {
-                AuthenticationProvider p = (AuthenticationProvider) it.next();
+            for (Object o : provider.getProviders()) {
+                AuthenticationProvider p = (AuthenticationProvider) o;
                 if (p instanceof RememberMeAuthenticationProvider) {
                     config.put("rememberMeEnabled", Boolean.TRUE);
                 }
