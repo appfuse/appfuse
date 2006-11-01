@@ -57,6 +57,7 @@ public abstract class BaseControllerTestCase extends TestCase {
 
     /**
      * Convenience methods to make tests simpler
+     * @return a MockHttpServletRequest with a POST to the specified URL
      */
     public MockHttpServletRequest newPost(String url) {
         return new MockHttpServletRequest("POST", url);
@@ -75,28 +76,28 @@ public abstract class BaseControllerTestCase extends TestCase {
         Field[] fields = getDeclaredFields(clazz);
         AccessibleObject.setAccessible(fields, true);
 
-        for (int i = 0; i < fields.length; i++) {
-            Object field = (fields[i].get(o));
+        for (Field field1 : fields) {
+            Object field = (field1.get(o));
             if (field != null) {
                 if (field instanceof BaseObject) {
                     // Fix for http://issues.appfuse.org/browse/APF-429
                     if (prefix != null) {
-                        objectToRequestParameters(field, request, prefix + "." + fields[i].getName());
+                        objectToRequestParameters(field, request, prefix + "." + field1.getName());
                     } else {
-                        objectToRequestParameters(field, request, fields[i].getName());
+                        objectToRequestParameters(field, request, field1.getName());
                     }
                 } else if (!(field instanceof List) && !(field instanceof Set)) {
-                    String paramName = fields[i].getName();
+                    String paramName = field1.getName();
 
                     if (prefix != null) {
                         paramName = prefix + "." + paramName;
                     }
 
-                    String paramValue = String.valueOf(fields[i].get(o));
+                    String paramValue = String.valueOf(field1.get(o));
 
                     // handle Dates
-                    if (field instanceof java.util.Date) {
-                        paramValue = DateUtil.convertDateToString((Date)fields[i].get(o));
+                    if (field instanceof Date) {
+                        paramValue = DateUtil.convertDateToString((Date) field1.get(o));
                         if ("null".equals(paramValue)) paramValue = "";
                     }
 
@@ -109,13 +110,13 @@ public abstract class BaseControllerTestCase extends TestCase {
     private Field[] getDeclaredFields(Class clazz) {
         Field[] f = new Field[0];
         Class superClazz = clazz.getSuperclass();
-        Collection rval = new ArrayList();
+        Collection<Field> rval = new ArrayList<Field>();
         
         if (superClazz != null) {
             rval.addAll(Arrays.asList(getDeclaredFields(superClazz)));
         }
         
         rval.addAll(Arrays.asList(clazz.getDeclaredFields()));
-        return (Field[]) rval.toArray(f);
+        return rval.toArray(f);
     }
 }
