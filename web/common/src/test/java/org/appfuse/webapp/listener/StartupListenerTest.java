@@ -12,8 +12,8 @@ import java.util.Map;
 
 
 /**
- * This class tests the StartupListener class to
- * verify that variables are placed into the application context.
+ * This class tests the StartupListener class to verify that variables are
+ * placed into the servlet context.
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
@@ -27,7 +27,7 @@ public class StartupListenerTest extends TestCase {
         
         sc = new MockServletContext("");
         sc.addInitParameter("daoType", "hibernate");
-        sc.addInitParameter("theme", "simplicity");
+        sc.addInitParameter(Constants.CSS_THEME, "simplicity");
         
         // initialize Spring
         sc.addInitParameter(ContextLoader.CONFIG_LOCATION_PARAM,
@@ -48,7 +48,7 @@ public class StartupListenerTest extends TestCase {
 
         assertTrue(sc.getAttribute(Constants.CONFIG) != null);
         Map config = (Map) sc.getAttribute(Constants.CONFIG);
-        assertEquals(config.get("theme"), "simplicity");
+        assertEquals(config.get(Constants.CSS_THEME), "simplicity");
         
         assertTrue(sc.getAttribute(WebApplicationContext
                 .ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE) != null);

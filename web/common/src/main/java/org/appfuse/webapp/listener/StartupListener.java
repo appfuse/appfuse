@@ -31,9 +31,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
-public class StartupListener extends ContextLoaderListener
-    implements ServletContextListener {
-    
+public class StartupListener extends ContextLoaderListener implements ServletContextListener {
     private static final Log log = LogFactory.getLog(StartupListener.class);
 
     public void contextInitialized(ServletContextEvent event) {
@@ -55,8 +53,8 @@ public class StartupListener extends ContextLoaderListener
             config = new HashMap<String, Object>();
         }
         
-        if (context.getInitParameter("theme") != null) {
-            config.put("theme", context.getInitParameter("theme"));
+        if (context.getInitParameter(Constants.CSS_THEME) != null) {
+            config.put(Constants.CSS_THEME, context.getInitParameter(Constants.CSS_THEME));
         }
 
         ApplicationContext ctx =

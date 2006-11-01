@@ -74,4 +74,9 @@ public class Constants {
      * when adding/editing a user.
      */
     public static final String AVAILABLE_ROLES = "availableRoles";
+    
+    /**
+     * The name of the CSS Theme setting.
+     */
+    public static final String CSS_THEME = "csstheme";
 }

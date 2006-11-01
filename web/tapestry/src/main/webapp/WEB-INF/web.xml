@@ -8,7 +8,7 @@
 
     <!-- Define the default CSS Theme -->
     <context-param>
-        <param-name>theme</param-name>
+        <param-name>csstheme</param-name>
         <param-value>simplicity</param-value>
     </context-param>
     <!-- Define the basename for a resource bundle for I18N -->
