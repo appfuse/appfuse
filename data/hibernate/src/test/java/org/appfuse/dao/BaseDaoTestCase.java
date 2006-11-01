@@ -12,7 +12,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
 
 /**
- * Base class for running GenericDao tests.
+ * Base class for running DAO tests.
  * @author mraible
  */
 public abstract class BaseDaoTestCase extends AbstractTransactionalDataSourceSpringContextTests {
