@@ -175,9 +175,9 @@
             <version>${commons.fileupload.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.springmodules</groupId>
-            <artifactId>spring-modules-validation</artifactId>
-            <version>${springmodules.validation.version}</version>
+            <groupId>displaytag</groupId>
+            <artifactId>displaytag</artifactId>
+            <version>${displaytag.version}</version>
         </dependency>
         <dependency>
             <groupId>dumbster</groupId>
@@ -197,6 +197,11 @@
             <artifactId>servlet-api</artifactId>
             <version>${servlet.version}</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springmodules</groupId>
+            <artifactId>spring-modules-validation</artifactId>
+            <version>${springmodules.validation.version}</version>
         </dependency>
     </dependencies>
 

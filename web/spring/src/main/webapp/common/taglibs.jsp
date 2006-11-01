@@ -1,4 +1,4 @@
-<%@ page language="java" errorPage="/error.jsp" pageEncoding="UTF-8" contentType="text/html; charset=utf-8" %>
+<%@ page language="java" errorPage="/error.jsp" pageEncoding="UTF-8" contentType="text/html;charset=utf-8" %>
 <%@ taglib uri="http://acegisecurity.org/authz" prefix="authz" %>
 <%@ taglib uri="http://www.springmodules.org/tags/commons-validator" prefix="v" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
@@ -12,3 +12,5 @@
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator" prefix="decorator"%>
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page"%>
 <%@ taglib uri="http://www.appfuse.org/tags/spring" prefix="appfuse" %>
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
+

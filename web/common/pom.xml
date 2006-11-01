@@ -94,11 +94,6 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>displaytag</groupId>
-            <artifactId>displaytag</artifactId>
-            <version>${displaytag.version}</version>
-        </dependency>
-        <dependency>
             <groupId>dumbster</groupId>
             <artifactId>dumbster</artifactId>
             <version>${dumbster.version}</version>

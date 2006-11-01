@@ -106,10 +106,6 @@
         <filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class>
     </filter>
     <filter>
-        <filter-name>exportFilter</filter-name>
-        <filter-class>org.displaytag.filter.ResponseOverrideFilter</filter-class>
-    </filter>
-    <filter>
         <filter-name>extensionsFilter</filter-name>
         <filter-class>org.apache.myfaces.webapp.filter.ExtensionsFilter</filter-class>
         <init-param>
@@ -163,6 +159,14 @@
         <url-pattern>*.jsp</url-pattern>
     </filter-mapping>
     <filter-mapping>
+        <filter-name>extensionsFilter</filter-name>
+        <servlet-name>faces</servlet-name>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>extensionsFilter</filter-name>
+        <url-pattern>/faces/myFacesExtensionResource/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
         <filter-name>ajax4jsf</filter-name>
         <servlet-name>faces</servlet-name>
         <dispatcher>REQUEST</dispatcher>
@@ -189,10 +193,6 @@
     <filter-mapping>
         <filter-name>localeFilter</filter-name>
         <url-pattern>*.jsp</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>exportFilter</filter-name>
-        <url-pattern>*.html</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>compressionFilter</filter-name>
@@ -227,14 +227,6 @@
         <url-pattern>*.html</url-pattern>
         <dispatcher>REQUEST</dispatcher>
         <dispatcher>FORWARD</dispatcher>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>extensionsFilter</filter-name>
-        <servlet-name>faces</servlet-name>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>extensionsFilter</filter-name>
-        <url-pattern>/faces/myFacesExtensionResource/*</url-pattern>
     </filter-mapping>
 
     <listener>
