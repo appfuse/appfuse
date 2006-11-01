@@ -33,7 +33,7 @@ public class GenericDaoHibernate<T, PK extends Serializable> extends HibernateDa
         T entity = (T) super.getHibernateTemplate().get(this.persistentClass, id);
 
         if (entity == null) {
-            log.warn("Uh oh, '" + this.persistentClass + "' object with id'" + id + "' not found...");
+            log.warn("Uh oh, '" + this.persistentClass + "' object with id '" + id + "' not found...");
             throw new ObjectRetrievalFailureException(this.persistentClass, id);
         }
 
