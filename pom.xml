@@ -132,7 +132,7 @@
             <url>http://static.appfuse.org/repository</url>
         </repository>
     </repositories>
-    
+
     <pluginRepositories>
         <pluginRepository>
             <id>maven-snapshots</id>
@@ -143,12 +143,34 @@
             <url>http://static.appfuse.org/repository</url>
         </pluginRepository>
     </pluginRepositories>
-    
+
     <dependencies>
         <dependency>
             <groupId>org.acegisecurity</groupId>
             <artifactId>acegi-security-tiger</artifactId>
             <version>${acegi.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-aop</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-dao</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-jdbc</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-remoting</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-support</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -171,6 +193,25 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring</artifactId>
             <version>${spring.version}</version>
+            <!-- commons-logging 1.1. has invalid dependencies -->
+            <exclusions>
+                <exclusion>
+                    <groupId>avalon-framework</groupId>
+                    <artifactId>avalon-framework</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>logkit</groupId>
+                    <artifactId>logkit</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>servlet-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -178,6 +219,10 @@
             <version>${spring.version}</version>
             <scope>test</scope>
             <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-aop</artifactId>
+                </exclusion>
                 <exclusion>
                     <groupId>org.springframework</groupId>
                     <artifactId>spring-beans</artifactId>
@@ -192,7 +237,7 @@
                 </exclusion>
                 <exclusion>
                     <groupId>org.springframework</groupId>
-                    <artifactId>spring-core</artifactId>
+                    <artifactId>spring-dao</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>org.springframework</groupId>
@@ -236,7 +281,7 @@
 
     <properties>
         <dao.framework>hibernate</dao.framework>
-        
+
         <jdbc.groupId>mysql</jdbc.groupId>
         <jdbc.artifactId>mysql-connector-java</jdbc.artifactId>
         <jdbc.version>5.0.3</jdbc.version>
@@ -244,15 +289,15 @@
         <jdbc.url><![CDATA[jdbc:mysql://localhost/appfuse?useUnicode=true&amp;characterEncoding=utf-8]]></jdbc.url>
         <jdbc.username>test</jdbc.username>
         <jdbc.password>test</jdbc.password>
-        
+
         <cargo.host>localhost</cargo.host>
         <cargo.port>9876</cargo.port>
         <cargo.wait>false</cargo.wait>
-        
+
         <acegi.version>1.0.2</acegi.version>
         <!-- Ant is for i18n->HTML parsing with Ant in AppFuse 1.9.x, 
              may no longer be needed if test deleted in web/common/pom.xml -->
-        <ant.version>1.6.5</ant.version> 
+        <ant.version>1.6.5</ant.version>
         <aspectj.version>1.5.2</aspectj.version>
         <clickstream.version>1.0.2</clickstream.version>
         <commons.lang.version>2.1</commons.lang.version>
@@ -290,7 +335,7 @@
         <urlrewrite.version>2.5.2</urlrewrite.version>
         <velocity.version>1.4</velocity.version>
         <webtest.version>1393</webtest.version>
-        
+
         <copyright.year>2004-2006</copyright.year>
     </properties>
 </project>
