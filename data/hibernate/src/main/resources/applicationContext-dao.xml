@@ -5,12 +5,6 @@
     <!-- Hibernate SessionFactory -->
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <!--  Causes: WARN - AnnotationBinder.bindPackage(210) | Package not found or wo package-info.java: org.appfuse.model -->
-        <!--property name="annotatedPackages">
-        	<list>
-        		<value>org.appfuse.model</value>
-        	</list>
-        </property-->
         <property name="annotatedClasses">
             <list>
                 <value>org.appfuse.model.Role</value>
