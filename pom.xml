@@ -71,6 +71,13 @@
             <timezone>-7</timezone>
         </developer>
         <developer>
+            <id>scryan</id>
+            <name>Scott Ryan</name>
+            <email>scott@theryansplace.com</email>
+            <organization>Soaring Eagle, LLC.</organization>
+            <timezone>-7</timezone>
+        </developer>
+        <developer>
             <id>sjivan</id>
             <name>Sanjiv Jivan</name>
             <email>sanjiv.jivan@gmail.com</email>
