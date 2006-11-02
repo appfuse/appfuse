@@ -58,6 +58,7 @@ public abstract class BaseControllerTestCase extends TestCase {
     /**
      * Convenience methods to make tests simpler
      * @return a MockHttpServletRequest with a POST to the specified URL
+     * @param url the URL to post to
      */
     public MockHttpServletRequest newPost(String url) {
         return new MockHttpServletRequest("POST", url);
