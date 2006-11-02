@@ -32,7 +32,7 @@
     <prerequisites>
         <maven>2.0.4</maven>
     </prerequisites>
-    
+
     <scm>
         <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk</connection>
         <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk</developerConnection>
@@ -78,8 +78,15 @@
             <id>bendg25</id>
             <name>Ben Gill</name>
             <email>ben@jazzyphones.com</email>
-            <organization>Jazzyphones Ltd</organization>
+            <organization>ben.d.gill@gmail.com</organization>
             <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>melinate</id>
+            <name>Nathan Anderson</name>
+            <email>nathan@melinate.com</email>
+            <organization>Sum-Ware, Inc.</organization>
+            <timezone>-8</timezone>
         </developer>
         <developer>
             <id>mraible</id>
@@ -295,14 +302,15 @@
 
     <properties>
         <dao.framework>hibernate</dao.framework>
-        
+
         <hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
 
         <jdbc.groupId>mysql</jdbc.groupId>
         <jdbc.artifactId>mysql-connector-java</jdbc.artifactId>
         <jdbc.version>5.0.3</jdbc.version>
         <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-        <jdbc.url><![CDATA[jdbc:mysql://localhost/appfuse?useUnicode=true&amp;characterEncoding=utf-8&amp;createDatabaseIfNotExist=true]]></jdbc.url>
+        <jdbc.url>
+            <![CDATA[jdbc:mysql://localhost/appfuse?useUnicode=true&amp;characterEncoding=utf-8&amp;createDatabaseIfNotExist=true]]></jdbc.url>
         <jdbc.username>test</jdbc.username>
         <jdbc.password>test</jdbc.password>
 
