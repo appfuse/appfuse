@@ -69,7 +69,7 @@
                     <driver>${jdbc.driverClassName}</driver>
                     <username>${jdbc.username}</username>
                     <password>${jdbc.password}</password>
-                    <url>${jdbc.url}&amp;createDatabaseIfNotExist=true</url>
+                    <url>${jdbc.url}</url>
                     <autocommit>true</autocommit>
                 </configuration>
                 <executions>                    
@@ -96,6 +96,12 @@
                 </dependencies>
             </plugin>
         </plugins>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>
     </build>
 
     <dependencies>

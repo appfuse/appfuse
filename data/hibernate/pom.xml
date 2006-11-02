@@ -39,7 +39,7 @@
                 <artifactId>hibernate3-maven-plugin</artifactId>
                 <configuration>
                     <hibernate>
-                        <propertyFile>src/test/resources/database.properties</propertyFile>
+                        <propertyFile>target/test-classes/database.properties</propertyFile>
                     </hibernate>
                 </configuration>
                 <executions>
@@ -87,6 +87,12 @@
                 </dependencies>
             </plugin>
         </plugins>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>
     </build>
 
     <repositories>

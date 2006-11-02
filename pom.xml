@@ -281,12 +281,14 @@
 
     <properties>
         <dao.framework>hibernate</dao.framework>
+        
+        <hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
 
         <jdbc.groupId>mysql</jdbc.groupId>
         <jdbc.artifactId>mysql-connector-java</jdbc.artifactId>
         <jdbc.version>5.0.3</jdbc.version>
         <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-        <jdbc.url><![CDATA[jdbc:mysql://localhost/appfuse?useUnicode=true&amp;characterEncoding=utf-8]]></jdbc.url>
+        <jdbc.url><![CDATA[jdbc:mysql://localhost/appfuse?useUnicode=true&amp;characterEncoding=utf-8&amp;createDatabaseIfNotExist=true]]></jdbc.url>
         <jdbc.username>test</jdbc.username>
         <jdbc.password>test</jdbc.password>
 
