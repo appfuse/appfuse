@@ -47,12 +47,21 @@
     <ciManagement>
         <system>CruiseControl</system>
         <url>http://home.raibledesigns.com:8280</url>
+        <notifiers>
+            <notifier>
+                <type>rss</type>
+                <configuration>
+                    <url>http://home.raibledesigns.com:8280/rss/appfuse-2.x</url>
+                </configuration>
+            </notifier>
+        </notifiers>
     </ciManagement>
 
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
             <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
         </license>
     </licenses>
 
