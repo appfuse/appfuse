@@ -31,6 +31,12 @@
     <packaging>pom</packaging>
     <name>AppFuse Data Modules</name>
 
+    <scm>
+        <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/data</connection>
+        <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/data</developerConnection>
+        <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/data</url>
+    </scm>
+    
     <modules>
         <module>common</module>
         <module>hibernate</module>

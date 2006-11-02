@@ -31,6 +31,12 @@
     <packaging>pom</packaging>
     <name>AppFuse Web Modules</name>
 
+    <scm>
+        <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/web</connection>
+        <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/web</developerConnection>
+        <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/web</url>
+    </scm>
+
     <modules>
         <module>common</module>
         <module>jsf</module>
