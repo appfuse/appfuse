@@ -32,6 +32,12 @@
     <packaging>war</packaging>
     <name>AppFuse Spring MVC Module</name>
 
+    <scm>
+        <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/web/spring</connection>
+        <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/web/spring</developerConnection>
+        <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/web/spring</url>
+    </scm>
+
     <build>
         <defaultGoal>install</defaultGoal>
         <testResources>

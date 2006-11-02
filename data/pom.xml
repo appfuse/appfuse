@@ -30,6 +30,7 @@
     <artifactId>appfuse-data</artifactId>
     <packaging>pom</packaging>
     <name>AppFuse Data Modules</name>
+
     <modules>
         <module>common</module>
         <module>hibernate</module>

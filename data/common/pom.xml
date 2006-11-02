@@ -31,6 +31,13 @@
     <artifactId>appfuse-data-common</artifactId>
     <packaging>jar</packaging>
     <name>AppFuse Common Data Module</name>
+
+    <scm>
+        <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/data/common</connection>
+        <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/data/common</developerConnection>
+        <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/data/common</url>
+    </scm>
+
     <dependencies>
         <dependency>
             <groupId>commons-lang</groupId>

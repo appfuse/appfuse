@@ -30,6 +30,7 @@
     <artifactId>appfuse-web</artifactId>
     <packaging>pom</packaging>
     <name>AppFuse Web Modules</name>
+
     <modules>
         <module>common</module>
         <module>jsf</module>

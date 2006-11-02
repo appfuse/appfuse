@@ -11,9 +11,9 @@ Create a MAVEN_OPTS environment variable and set its value to:
 -Xms512M -Xmx512M
 
 All issues should be logged in JIRA at http://issues.appfuse.org.
-Talk with everyone on the mailing list at http://appfuse.org/forums.
+Get your questions answered on the mailing list at http://appfuse.org/forums.
 
-Eclipse 3.2:
+Eclipse 3.2+:
 ----------
 From the command line, cd into the appfuse directory and run:
 
@@ -43,7 +43,7 @@ To setup hierarchical projects in Eclipse 3.2+, perform the following steps:
 3. Rename the appfuse/data/.project back and refresh your left pane in Eclipse.
 4. Repeat these steps for the "web" directory.
 
-IDEA 5.1:
+IDEA 6.0+:
 ----------
 From the command line, cd into the appfuse directory and type "mvn idea:idea". 
 Get a cup of coffee or soda (or even better, a beer!) while you wait for Maven 

@@ -32,6 +32,12 @@
     <packaging>jar</packaging>
     <name>AppFuse Service Module</name>
 
+    <scm>
+        <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/service</connection>
+        <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/service</developerConnection>
+        <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/service</url>
+    </scm>
+    
     <build>
         <plugins>
             <plugin>

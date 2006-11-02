@@ -32,6 +32,12 @@
     <packaging>war</packaging>
     <name>AppFuse Struts 2 Module</name>
 
+    <scm>
+        <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/web/struts</connection>
+        <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/web/struts</developerConnection>
+        <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/web/struts</url>
+    </scm>
+
     <build>
         <defaultGoal>install</defaultGoal>
         <testResources>

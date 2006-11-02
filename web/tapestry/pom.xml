@@ -32,6 +32,12 @@
     <packaging>war</packaging>
     <name>AppFuse Tapestry Module</name>
 
+    <scm>
+        <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/web/tapestry</connection>
+        <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/web/tapestry</developerConnection>
+        <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/web/tapestry</url>
+    </scm>
+    
     <build>
         <defaultGoal>install</defaultGoal>
         <testResources>
