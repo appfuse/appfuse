@@ -49,10 +49,12 @@
         <url>http://home.raibledesigns.com:8280</url>
         <notifiers>
             <notifier>
-                <type>rss</type>
-                <configuration>
-                    <url>http://home.raibledesigns.com:8280/rss/appfuse-2.x</url>
-                </configuration>
+                <type>mail</type>
+                <sendOnError>true</sendOnError>
+                <sendOnFailure>true</sendOnFailure>
+                <sendOnSuccess>false</sendOnSuccess>
+                <sendOnWarning>false</sendOnWarning>
+                <configuration><address>commits@appfuse.dev.java.net</address></configuration>
             </notifier>
         </notifiers>
     </ciManagement>
