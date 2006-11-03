@@ -1,7 +1,6 @@
 package org.appfuse.webapp.action;
 
-import com.dumbster.smtp.SimpleSmtpServer;
-
+import org.subethamail.wiser.Wiser;
 
 public class PasswordHintTest extends BasePageTestCase {
     private PasswordHint bean;
@@ -12,16 +11,18 @@ public class PasswordHintTest extends BasePageTestCase {
     }
 
     public void testExecute() throws Exception {
+       // start SMTP Server
+        Wiser wiser = new Wiser();
+        wiser.setPort(2525);
+        wiser.start();
+
         bean.setUsername("tomcat");
-
-        SimpleSmtpServer server = SimpleSmtpServer.start(2525);
-
         assertEquals(bean.execute(), "success");
         assertFalse(bean.hasErrors());
 
         // verify an account information e-mail was sent
-        server.stop();
-        assertTrue(server.getReceivedEmailSize() == 1);
+        wiser.stop();
+        assertTrue(wiser.getMessages().size() == 1);
         
         // verify that success messages are in the request
         assertNotNull(bean.getSession().getAttribute("messages"));

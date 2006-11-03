@@ -106,12 +106,6 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>ant</groupId>
-            <artifactId>ant</artifactId>
-            <version>${ant.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>commons-dbcp</groupId>
             <artifactId>commons-dbcp</artifactId>
             <version>${commons.dbcp.version}</version>
@@ -123,9 +117,9 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>dumbster</groupId>
-            <artifactId>dumbster</artifactId>
-            <version>${dumbster.version}</version>
+            <groupId>org.subethamail</groupId>
+            <artifactId>subethasmtp-wiser</artifactId>
+            <version>${wiser.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>

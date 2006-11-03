@@ -3,8 +3,7 @@ package org.appfuse.webapp.action;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import com.dumbster.smtp.SimpleSmtpServer;
-
+import org.subethamail.wiser.Wiser;
 
 public class PasswordHintControllerTest extends BaseControllerTestCase {
     private PasswordHintController c;
@@ -23,13 +22,16 @@ public class PasswordHintControllerTest extends BaseControllerTestCase {
         MockHttpServletRequest request = newGet("/passwordHint.html");
         request.addParameter("username", "tomcat");
 
-        SimpleSmtpServer server = SimpleSmtpServer.start(2525);
+       // start SMTP Server
+        Wiser wiser = new Wiser();
+        wiser.setPort(2525);
+        wiser.start();
         
         c.handleRequest(request, new MockHttpServletResponse());
         
         // verify an account information e-mail was sent
-        server.stop();
-        assertTrue(server.getReceivedEmailSize() == 1);
+        wiser.stop();
+        assertTrue(wiser.getMessages().size() == 1);
         
         // verify that success messages are in the session
         assertNotNull(request.getSession().getAttribute("messages"));

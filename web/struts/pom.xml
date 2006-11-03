@@ -193,9 +193,9 @@
             <version>${displaytag.version}</version>
         </dependency>
         <dependency>
-            <groupId>dumbster</groupId>
-            <artifactId>dumbster</artifactId>
-            <version>${dumbster.version}</version>
+            <groupId>org.subethamail</groupId>
+            <artifactId>subethasmtp-wiser</artifactId>
+            <version>${wiser.version}</version>
             <scope>test</scope>
         </dependency>
         <!-- Dependencies with scope=provided aren't picked up from dependent JARs -->

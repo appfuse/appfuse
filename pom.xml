@@ -330,9 +330,6 @@
         <cargo.wait>false</cargo.wait>
 
         <acegi.version>1.0.2</acegi.version>
-        <!-- Ant is for i18n->HTML parsing with Ant in AppFuse 1.9.x, 
-             may no longer be needed if test deleted in web/common/pom.xml -->
-        <ant.version>1.6.5</ant.version>
         <aspectj.version>1.5.2</aspectj.version>
         <clickstream.version>1.0.2</clickstream.version>
         <commons.lang.version>2.1</commons.lang.version>
@@ -341,7 +338,6 @@
         <commons.fileupload.version>1.1.1</commons.fileupload.version>
         <corejsf.validator.version>1.0</corejsf.validator.version>
         <displaytag.version>1.1</displaytag.version>
-        <dumbster.version>1.5</dumbster.version>
         <dwr.version>1.1.1</dwr.version>
         <ehcache.version>1.2.3</ehcache.version>
         <hibernate.version>3.2.0.ga</hibernate.version>
@@ -370,7 +366,8 @@
         <urlrewrite.version>2.5.2</urlrewrite.version>
         <velocity.version>1.4</velocity.version>
         <webtest.version>1393</webtest.version>
-
+        <wiser.version>1.0.3</wiser.version>
+        
         <copyright.year>2004-2006</copyright.year>
     </properties>
 </project>

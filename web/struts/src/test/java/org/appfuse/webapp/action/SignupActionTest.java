@@ -6,7 +6,7 @@ import org.appfuse.model.User;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import com.dumbster.smtp.SimpleSmtpServer;
+import org.subethamail.wiser.Wiser;
 import org.apache.struts2.ServletActionContext;
 
 public class SignupActionTest extends BaseActionTestCase {
@@ -52,14 +52,16 @@ public class SignupActionTest extends BaseActionTestCase {
         ServletActionContext.setResponse(new MockHttpServletResponse());
         
         // start SMTP Server
-        SimpleSmtpServer server = SimpleSmtpServer.start(2525);
+        Wiser wiser = new Wiser();
+        wiser.setPort(2525);
+        wiser.start();
         
         assertEquals(action.save(), "success");
         assertFalse(action.hasActionErrors());
         
         // verify an account information e-mail was sent
-        server.stop();
-        assertTrue(server.getReceivedEmailSize() == 1);
+        wiser.stop();
+        assertTrue(wiser.getMessages().size() == 1);
 
         // verify that success messages are in the session
         assertNotNull(action.getSession().getAttribute(Constants.REGISTERED));

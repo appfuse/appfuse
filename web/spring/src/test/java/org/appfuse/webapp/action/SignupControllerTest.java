@@ -9,8 +9,7 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.dumbster.smtp.SimpleSmtpServer;
-
+import org.subethamail.wiser.Wiser;
 
 public class SignupControllerTest extends BaseControllerTestCase {
     private SignupController c;
@@ -50,16 +49,18 @@ public class SignupControllerTest extends BaseControllerTestCase {
 
         HttpServletResponse response = new MockHttpServletResponse();
         
-        SimpleSmtpServer server = SimpleSmtpServer.start(2525);
+       // start SMTP Server
+        Wiser wiser = new Wiser();
+        wiser.setPort(2525);
+        wiser.start();
         
         ModelAndView mv = c.handleRequest(request, response);
-        Errors errors =
-            (Errors) mv.getModel().get(BindException.MODEL_KEY_PREFIX + "user");
+        Errors errors = (Errors) mv.getModel().get(BindException.MODEL_KEY_PREFIX + "user");
         assertTrue("no errors returned in model", errors == null);
         
         // verify an account information e-mail was sent
-        server.stop();
-        assertTrue(server.getReceivedEmailSize() == 1);
+        wiser.stop();
+        assertTrue(wiser.getMessages().size() == 1);
         
         // verify that success messages are in the request
         assertNotNull(request.getSession().getAttribute("successMessages"));

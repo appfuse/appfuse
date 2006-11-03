@@ -1,9 +1,9 @@
 package org.appfuse.webapp.action;
 
+import org.subethamail.wiser.Wiser;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import com.dumbster.smtp.SimpleSmtpServer;
 
 public class PasswordHintTest extends BasePageTestCase {
     private PasswordHint page;
@@ -11,7 +11,7 @@ public class PasswordHintTest extends BasePageTestCase {
     protected void onSetUp() throws Exception {
         super.onSetUp();        
         // these can be mocked if you want a more "pure" unit test
-        Map map = new HashMap();
+        Map<String, Object> map = new HashMap<String, Object>();
         map.put("userManager", applicationContext.getBean("userManager"));
         map.put("mailEngine", applicationContext.getBean("mailEngine"));
         map.put("mailMessage", applicationContext.getBean("mailMessage"));
@@ -24,14 +24,17 @@ public class PasswordHintTest extends BasePageTestCase {
     }
     
     public void testExecute() throws Exception {
-        SimpleSmtpServer server = SimpleSmtpServer.start(2525);
+        // start SMTP Server
+        Wiser wiser = new Wiser();
+        wiser.setPort(2525);
+        wiser.start();
         page.execute("tomcat");
         
         assertFalse(page.hasErrors());
 
         // verify an account information e-mail was sent
-        server.stop();
-        assertTrue(server.getReceivedEmailSize() == 1);
+        wiser.stop();
+        assertTrue(wiser.getMessages().size() == 1);
         
         // verify that success messages are in the request
         assertNotNull(page.getSession().getAttribute("message"));
