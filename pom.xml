@@ -93,11 +93,11 @@
             <timezone>+1</timezone>
         </developer>
         <developer>
-            <id>melinate</id>
-            <name>Nathan Anderson</name>
-            <email>nathan@melinate.com</email>
-            <organization>Sum-Ware, Inc.</organization>
-            <timezone>-8</timezone>
+            <id>ov3rdriv3</id>
+            <name>Mika Goeckel</name>
+            <email>mikagoeckel@codehaus.org</email>
+            <organization>cyber:con gmbh</organization>
+            <timezone>+1</timezone>
         </developer>
         <developer>
             <id>mraible</id>
@@ -107,11 +107,11 @@
             <timezone>-7</timezone>
         </developer>
         <developer>
-            <id>scryan</id>
-            <name>Scott Ryan</name>
-            <email>scott@theryansplace.com</email>
-            <organization>Soaring Eagle, LLC.</organization>
-            <timezone>-7</timezone>
+            <id>melinate</id>
+            <name>Nathan Anderson</name>
+            <email>nathan@melinate.com</email>
+            <organization>Sum-Ware, Inc.</organization>
+            <timezone>-8</timezone>
         </developer>
         <developer>
             <id>sjivan</id>
@@ -119,6 +119,13 @@
             <email>sanjiv.jivan@gmail.com</email>
             <organization>i2 Technologies</organization>
             <timezone>-5</timezone>
+        </developer>
+        <developer>
+            <id>scryan</id>
+            <name>Scott Ryan</name>
+            <email>scott@theryansplace.com</email>
+            <organization>Soaring Eagle, LLC.</organization>
+            <timezone>-7</timezone>
         </developer>
     </developers>
 
