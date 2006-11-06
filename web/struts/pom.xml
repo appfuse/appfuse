@@ -73,8 +73,8 @@
                         </goals>
                     </execution>
                     <execution>
-                        <id>pre-integration-test</id>
-                        <phase>pre-integration-test</phase>
+                        <id>test</id>
+                        <phase>test</phase>
                         <goals>
                             <goal>clean-insert</goal>
                         </goals>

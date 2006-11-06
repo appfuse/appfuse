@@ -73,8 +73,9 @@
                         </goals>
                     </execution>
                     <execution>
-                        <id>pre-integration-test</id>
-                        <phase>pre-integration-test</phase>
+                        <!-- Runs before integration tests and jetty:run-war -->
+                        <id>test</id>
+                        <phase>test</phase>
                         <goals>
                             <goal>clean-insert</goal>
                         </goals>
