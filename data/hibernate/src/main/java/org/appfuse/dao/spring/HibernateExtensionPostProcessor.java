@@ -48,6 +48,7 @@ public class HibernateExtensionPostProcessor implements BeanFactoryPostProcessor
     private String sessionFactoryBeanName = "sessionFactory";
     private List mappingResources;
     private List annotatedClasses;
+    private List configLocations;
 
     /**
      * Adds the annotated classes and the mapping resources to the existing Session Factory configuration.
@@ -58,35 +59,42 @@ public class HibernateExtensionPostProcessor implements BeanFactoryPostProcessor
             MutablePropertyValues propertyValues = sessionFactoryBeanDefinition.getPropertyValues();
 
             if (mappingResources != null) {
-                //do we have existing resourses?
+                // do we have existing resourses?
                 PropertyValue propertyValue = propertyValues.getPropertyValue("mappingResources");
 
                 if (propertyValue == null) {
-                    //add one
                     propertyValue = new PropertyValue("mappingResources", new ArrayList());
                     propertyValues.addPropertyValue(propertyValue);
                 }
 
-                //value is expected to be a list.
+                // value is expected to be a list.
                 List existingMappingResources = (List) propertyValue.getValue();
                 existingMappingResources.addAll(mappingResources);
             }
 
             if (annotatedClasses != null) {
-                //do we have existing resourses?
+                // do we have existing resources?
                 PropertyValue propertyValue = propertyValues.getPropertyValue("annotatedClasses");
 
                 if (propertyValue == null) {
-                    //add one
                     propertyValue = new PropertyValue("annotatedClasses", new ArrayList());
                     propertyValues.addPropertyValue(propertyValue);
                 }
 
-                //value is expected to be a list.
+                // value is expected to be a list.
                 List existingMappingResources = (List) propertyValue.getValue();
                 existingMappingResources.addAll(annotatedClasses);
             }
 
+            if (configLocations != null) {
+                PropertyValue propertyValue = propertyValues.getPropertyValue("configLocations");
+                if (propertyValue == null) {
+                    propertyValue = new PropertyValue("configLocations", new ArrayList());
+                    propertyValues.addPropertyValue(propertyValue);
+                }
+                List existingConfigLocations = (List) propertyValue.getValue();
+                existingConfigLocations.addAll(configLocations);
+            }
         } else {
             throw new NoSuchBeanDefinitionException("No bean named [" + sessionFactoryBeanName + "] exists within the bean factory. " +
                     "Cannot post process session factory to add Hibernate resource definitions.");
@@ -119,5 +127,14 @@ public class HibernateExtensionPostProcessor implements BeanFactoryPostProcessor
      */
     public void setAnnotatedClasses(List annotatedClasses) {
         this.annotatedClasses = annotatedClasses;
+    }
+
+    /**
+     * The list of configuration locations (i.e. classpath:hibernate.cfg.xml) to add to the session factory
+     *
+     * @param configLocations The list of configuration locations that need to be added.
+     */
+    public void setConfigLocations(List configLocations) {
+        this.configLocations = configLocations;
     }
 }

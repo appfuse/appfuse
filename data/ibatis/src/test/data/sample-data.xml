@@ -36,10 +36,10 @@
       <value>http://jakarta.apache.org/tomcat</value>
       <value><![CDATA[A male kitty.]]></value>
       <value>1</value>
-      <value>Y</value>
-      <value>N</value>
-      <value>N</value>
-      <value>N</value>
+      <value>1</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
     </row>
     <row>
       <value>2</value>
@@ -57,10 +57,10 @@
       <value>http://raibledesigns.com</value>
       <value><![CDATA[Not a female kitty.]]></value>
       <value>1</value>
-      <value>Y</value>
-      <value>N</value>
-      <value>N</value>
-      <value>N</value>
+      <value>1</value>
+      <value>0</value>
+      <value>0</value>
+      <value>0</value>
     </row>
   </table>
   <table name='role'>

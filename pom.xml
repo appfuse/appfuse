@@ -328,7 +328,7 @@
         <jdbc.version>5.0.3</jdbc.version>
         <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
         <jdbc.url>
-            <![CDATA[jdbc:mysql://localhost/appfuse?useUnicode=true&amp;characterEncoding=utf-8&amp;createDatabaseIfNotExist=true]]></jdbc.url>
+            <![CDATA[jdbc:mysql://localhost/appfuse?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8]]></jdbc.url>
         <jdbc.username>test</jdbc.username>
         <jdbc.password>test</jdbc.password>
 

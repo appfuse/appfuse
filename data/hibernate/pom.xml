@@ -46,13 +46,15 @@
                 <configuration>
                     <hibernate>
                         <propertyFile>target/test-classes/database.properties</propertyFile>
+                        <includeJars>true</includeJars>
                     </hibernate>
+                    <update>true</update>
                 </configuration>
                 <executions>
                     <execution>
                         <phase>test-compile</phase>
                         <goals>
-                            <goal>schema-update</goal>
+                            <goal>hbm2ddl</goal>
                         </goals>
                     </execution>
                 </executions>

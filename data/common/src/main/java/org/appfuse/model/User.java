@@ -1,29 +1,16 @@
 package org.appfuse.model;
 
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.List;
-import java.util.ArrayList;
-
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.persistence.Version;
-
 import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.userdetails.UserDetails;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * This class represents the basic "user" object in AppFuse that allows for authentication
@@ -114,6 +101,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
 
     /**
      * Returns the full name.
+     * @return firstName + ' ' + lastName
      */
     @Transient
     public String getFullName() {
@@ -137,6 +125,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
 
     /**
      * Convert user roles to LabelValue objects for convenience.
+     * @return a list of LabelValue objects with role information
      */
     @Transient
     public List<LabelValue> getRoleList() {
@@ -154,7 +143,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
 
     /**
      * Adds a role for the user
-     * @param role
+     * @param role the fully instantiated role
      */
     public void addRole(Role role) {
         getRoles().add(role);

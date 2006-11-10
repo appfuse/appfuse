@@ -48,7 +48,7 @@
             <groupId>javax.persistence</groupId>
             <artifactId>persistence-api</artifactId>
             <version>${jpa.version}</version>
-        </dependency>                                               
+        </dependency>
     </dependencies>
 </project>
 
