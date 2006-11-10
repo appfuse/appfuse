@@ -4,6 +4,8 @@
 <dwr>
     <allow>
         <!--create creator="spring" javascript="UserManager">
+            <!-- APF-451: class parameter needed for DWR signatures -->
+            <param name="class" value="org.appfuse.service.UserManager"/>
             <param name="beanName" value="userManager"/>
             <include method="getUsers"/>
         </create>
