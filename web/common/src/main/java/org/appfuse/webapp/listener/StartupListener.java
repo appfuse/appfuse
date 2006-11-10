@@ -1,12 +1,5 @@
 package org.appfuse.webapp.listener;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-
 import org.acegisecurity.providers.AuthenticationProvider;
 import org.acegisecurity.providers.ProviderManager;
 import org.acegisecurity.providers.encoding.Md5PasswordEncoder;
@@ -17,8 +10,13 @@ import org.appfuse.Constants;
 import org.appfuse.service.LookupManager;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
-import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.WebApplicationContextUtils;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>StartupListener class used to initialize and database settings
@@ -31,17 +29,11 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
-public class StartupListener extends ContextLoaderListener implements ServletContextListener {
+public class StartupListener implements ServletContextListener {
     private static final Log log = LogFactory.getLog(StartupListener.class);
 
     public void contextInitialized(ServletContextEvent event) {
-        if (log.isDebugEnabled()) {
-            log.debug("initializing context...");
-        }
-
-        // call Spring's context ContextLoaderListener to initialize
-        // all the context files specified in web.xml
-        super.contextInitialized(event);
+        log.debug("initializing context...");
 
         ServletContext context = event.getServletContext();
 
@@ -98,17 +90,23 @@ public class StartupListener extends ContextLoaderListener implements ServletCon
         setupContext(context);
     }
 
+    /**
+     * This method uses the LookupManager to lookup available roles from the data layer.
+     * @param context The servlet context
+     */
     public static void setupContext(ServletContext context) {
-        ApplicationContext ctx = 
-            WebApplicationContextUtils.getRequiredWebApplicationContext(context);
-
+        ApplicationContext ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(context);
         LookupManager mgr = (LookupManager) ctx.getBean("lookupManager");
 
         // get list of possible roles
         context.setAttribute(Constants.AVAILABLE_ROLES, mgr.getAllRoles());
+        log.debug("Drop-down initialization complete [OK]");
+    }
 
-        if (log.isDebugEnabled()) {
-            log.debug("Drop-down initialization complete [OK]");
-        }
+    /**
+     * This is a no-op method.
+     * @param servletContextEvent The servlet context event
+     */
+    public void contextDestroyed(ServletContextEvent servletContextEvent) {
     }
 }

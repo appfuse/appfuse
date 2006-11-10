@@ -209,16 +209,22 @@
         <listener-class>com.opensymphony.clickstream.ClickstreamListener</listener-class>
     </listener>
     <listener>
-        <listener-class>net.sf.navigator.menu.MenuContextListener</listener-class>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
     <listener>
         <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
     </listener>
     <listener>
         <listener-class>org.appfuse.webapp.listener.StartupListener</listener-class>
     </listener>
     <listener>
         <listener-class>org.appfuse.webapp.listener.UserCounterListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>net.sf.navigator.menu.MenuContextListener</listener-class>
     </listener>
     
     <servlet>
