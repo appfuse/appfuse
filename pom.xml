@@ -151,7 +151,6 @@
                 <configuration>
                     <dependentWarExcludes>
                         decorators/default.jsp,
-                        WEB-INF/urlrewrite.xml,
                         WEB-INF/web.xml
                     </dependentWarExcludes>
                 </configuration>
