@@ -150,7 +150,6 @@
                 <version>2.0.1</version>
                 <configuration>
                     <dependentWarExcludes>
-                        decorators/default.jsp,
                         WEB-INF/web.xml
                     </dependentWarExcludes>
                 </configuration>
