@@ -30,11 +30,11 @@ import org.hibernate.cfg.reveng.TableIdentifier;
  * @author <a href="mailto:scott@theryansplace.com">Scott Ryan</a>
  * @version $Id$
  */
-public class AppfuseReverseEngineeringDelegator extends DelegatingReverseEngineeringStrategy
+public class AppFuseReverseEngineeringDelegator extends DelegatingReverseEngineeringStrategy
 {
 
     /** A static logger for the class. */
-    public static final Log LOG = LogFactory.getLog( AppfuseReverseEngineeringDelegator.class );
+    public static final Log LOG = LogFactory.getLog( AppFuseReverseEngineeringDelegator.class );
 
     /**
      * Creates a new AuroraReverseEngineeringDelegator object.
@@ -42,7 +42,7 @@ public class AppfuseReverseEngineeringDelegator extends DelegatingReverseEnginee
      * @param inDelegate
      *            A delegat for this object.
      */
-    public AppfuseReverseEngineeringDelegator( final ReverseEngineeringStrategy inDelegate )
+    public AppFuseReverseEngineeringDelegator( final ReverseEngineeringStrategy inDelegate )
     {
         super( inDelegate );
     }

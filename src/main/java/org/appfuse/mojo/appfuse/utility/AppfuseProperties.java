@@ -21,7 +21,7 @@ package org.appfuse.mojo.appfuse.utility;
  * support the current version of appfuse. The user can choose to override any of these properties however that is
  * discouraged.
  */
-public class AppfuseProperties
+public class AppFuseProperties
 {
     // Beginning of Model parameters.
     /**

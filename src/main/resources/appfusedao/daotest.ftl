@@ -1,6 +1,6 @@
 package ${daopackagename};
 
-// Generated on ${date} by Appfuse maven plugin generator using Hibernate Tools ${version}
+// Generated on ${date} by AppFuse maven plugin generator using Hibernate Tools ${version}
 import ${modelpackagename}.${pojo.getDeclarationName()};
 <#assign classbody>
 <#assign declarationName = pojo.importType(pojo.getDeclarationName())>

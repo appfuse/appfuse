@@ -19,7 +19,7 @@ package org.appfuse.mojo.appfuse.mojo.service;
 import java.util.Properties;
 
 import org.appfuse.mojo.appfuse.mojo.PojoMojoBase;
-import org.appfuse.mojo.appfuse.utility.AppfuseProperties;
+import org.appfuse.mojo.appfuse.utility.AppFuseProperties;
 
 /**
  * This mojo class will create manager interfaces from a set of hbm.xml files.
@@ -48,8 +48,8 @@ public class GenerateManagerMojo extends PojoMojoBase
      */
     public String getOutputPattern()
     {
-        return buildOutputPattern( AppfuseProperties.MANAGER_OUTPUT_PATTERN,
-                                   AppfuseProperties.MANAGER_OUTPUT_PATTERN_PROPERTY_KEY, this.getPackageName() );
+        return buildOutputPattern( AppFuseProperties.MANAGER_OUTPUT_PATTERN,
+                                   AppFuseProperties.MANAGER_OUTPUT_PATTERN_PROPERTY_KEY, this.getPackageName() );
     }
 
     /**
@@ -59,8 +59,8 @@ public class GenerateManagerMojo extends PojoMojoBase
      */
     public String getTemplateName()
     {
-        return locateTemplate( AppfuseProperties.MANAGER_TEMPLATE_NAME,
-                               AppfuseProperties.MANAGER_TEMPLATE_NAME_PROPERTY_KEY );
+        return locateTemplate( AppFuseProperties.MANAGER_TEMPLATE_NAME,
+                               AppFuseProperties.MANAGER_TEMPLATE_NAME_PROPERTY_KEY );
     }
 
     /**
@@ -71,8 +71,8 @@ public class GenerateManagerMojo extends PojoMojoBase
      */
     protected String getPackageName()
     {
-        return buildPackageName( AppfuseProperties.DEFAULT_MANAGER_PACKAGE_EXTENSION,
-                                 AppfuseProperties.MANAGER_PACKAGE_EXTENSION_PROPERTY_KEY );
+        return buildPackageName( AppFuseProperties.DEFAULT_MANAGER_PACKAGE_EXTENSION,
+                                 AppFuseProperties.MANAGER_PACKAGE_EXTENSION_PROPERTY_KEY );
     }
 
     /**

@@ -19,7 +19,7 @@ package org.appfuse.mojo.appfuse.mojo.data;
 import java.util.Properties;
 
 import org.appfuse.mojo.appfuse.mojo.PojoMojoBase;
-import org.appfuse.mojo.appfuse.utility.AppfuseProperties;
+import org.appfuse.mojo.appfuse.utility.AppFuseProperties;
 
 /**
  * This mojo class will create hibernate dao implementations of the dao interfaces from a set of hbm.xml files.
@@ -49,8 +49,8 @@ public class GenerateHibernateDaoMojo extends PojoMojoBase
      */
     protected String getPackageName()
     {
-        return buildPackageName( AppfuseProperties.DEFAULT_HIBERNATE_DAO_PACKAGE_EXTENSION,
-                                 AppfuseProperties.HIBERNATE_DAO_PACKAGE_EXTENSION_PROPETY_KEY );
+        return buildPackageName( AppFuseProperties.DEFAULT_HIBERNATE_DAO_PACKAGE_EXTENSION,
+                                 AppFuseProperties.HIBERNATE_DAO_PACKAGE_EXTENSION_PROPETY_KEY );
     }
 
     /**
@@ -75,8 +75,8 @@ public class GenerateHibernateDaoMojo extends PojoMojoBase
      */
     public String getTemplateName()
     {
-        return locateTemplate( AppfuseProperties.HIBERNATE_DAO_TEMPLATE_NAME,
-                               AppfuseProperties.HIBERNATE_DAO_TEMPLATE_NAME_PROPERTY_KEY );
+        return locateTemplate( AppFuseProperties.HIBERNATE_DAO_TEMPLATE_NAME,
+                               AppFuseProperties.HIBERNATE_DAO_TEMPLATE_NAME_PROPERTY_KEY );
 
     }
 
@@ -88,8 +88,8 @@ public class GenerateHibernateDaoMojo extends PojoMojoBase
      */
     public String getOutputPattern()
     {
-        return buildOutputPattern( AppfuseProperties.HIBERNATE_DAO_OUTPUT_PATTERN,
-                                   AppfuseProperties.HIBERNATE_DAO_OUTPUT_PATTERN_PROPERTY_KEY, this.getPackageName() );
+        return buildOutputPattern( AppFuseProperties.HIBERNATE_DAO_OUTPUT_PATTERN,
+                                   AppFuseProperties.HIBERNATE_DAO_OUTPUT_PATTERN_PROPERTY_KEY, this.getPackageName() );
     }
 
     /**

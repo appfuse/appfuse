@@ -20,7 +20,7 @@ import java.util.Properties;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.appfuse.mojo.appfuse.utility.AppfuseProperties;
+import org.appfuse.mojo.appfuse.utility.AppFuseProperties;
 
 /**
  * This class is a base class for all appfuse plugin components to use for access to shared resources.
@@ -118,7 +118,7 @@ public abstract class MojoBase extends AbstractMojo
 
         if ( getLog().isInfoEnabled() )
         {
-            getLog().info( "Running the Appfuse Mojo Base without an implementation" );
+            getLog().info( "Running the AppFuse Mojo Base without an implementation" );
         }
 
         throw new MojoExecutionException( "Unimplemented Mojo Base" );
@@ -300,14 +300,14 @@ public abstract class MojoBase extends AbstractMojo
      */
     protected String getModelPackageName()
     {
-        String modelPackageExtension = AppfuseProperties.DEFAULT_MODEL_PACKAGE_EXTENSION;
+        String modelPackageExtension = AppFuseProperties.DEFAULT_MODEL_PACKAGE_EXTENSION;
         // See if there is a model package extension in the properties
         if ( this.getProcessingProperties() != null
                         && this.getProcessingProperties().containsKey(
-                                                                       AppfuseProperties.MODEL_PACKAGE_EXTENSION_PROPETY_KEY ) )
+                                                                       AppFuseProperties.MODEL_PACKAGE_EXTENSION_PROPETY_KEY ) )
         {
             modelPackageExtension =
-                ( String ) this.getProcessingProperties().get( AppfuseProperties.MODEL_PACKAGE_EXTENSION_PROPETY_KEY );
+                ( String ) this.getProcessingProperties().get( AppFuseProperties.MODEL_PACKAGE_EXTENSION_PROPETY_KEY );
         }
         return this.getBasePackageName() + "." + modelPackageExtension;
     }

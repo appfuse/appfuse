@@ -1,6 +1,6 @@
 package ${managerpackagename};
 
-// Generated on ${date} by Appfuse Maven Plugin generator using Hibernate Tools ${version}
+// Generated on ${date} by AppFuse Maven Plugin generator using Hibernate Tools ${version}
 <#assign classbody>
 import ${modelpackagename}.${pojo.getDeclarationName()};
 <#assign declarationName = pojo.importType(pojo.getDeclarationName())>

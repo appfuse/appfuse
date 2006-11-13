@@ -19,7 +19,7 @@ package org.appfuse.mojo.appfuse.mojo.data;
 import java.util.Properties;
 
 import org.appfuse.mojo.appfuse.mojo.PojoMojoBase;
-import org.appfuse.mojo.appfuse.utility.AppfuseProperties;
+import org.appfuse.mojo.appfuse.utility.AppFuseProperties;
 
 /**
  * This mojo class will create model or value objects from a set of hbm.xml files.
@@ -48,8 +48,8 @@ public class GenerateModelMojo extends PojoMojoBase
      */
     public String getTemplateName()
     {
-        return locateTemplate( AppfuseProperties.MODEL_TEMPLATE_NAME,
-                               AppfuseProperties.MODEL_TEMPLATE_NAME_PROPERTY_KEY );
+        return locateTemplate( AppFuseProperties.MODEL_TEMPLATE_NAME,
+                               AppFuseProperties.MODEL_TEMPLATE_NAME_PROPERTY_KEY );
     }
 
     /**
@@ -60,8 +60,8 @@ public class GenerateModelMojo extends PojoMojoBase
      */
     public String getOutputPattern()
     {
-        return buildOutputPattern( AppfuseProperties.MODEL_OUTPUT_PATTERN,
-                                   AppfuseProperties.MODEL_OUTPUT_PATTERN_PROPERTY_KEY, this.getModelPackageName() );
+        return buildOutputPattern( AppFuseProperties.MODEL_OUTPUT_PATTERN,
+                                   AppFuseProperties.MODEL_OUTPUT_PATTERN_PROPERTY_KEY, this.getModelPackageName() );
 
     }
 
