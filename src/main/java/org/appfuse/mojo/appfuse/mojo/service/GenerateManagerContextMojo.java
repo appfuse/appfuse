@@ -19,7 +19,6 @@ package org.appfuse.mojo.appfuse.mojo.service;
 import java.util.Properties;
 
 import org.appfuse.mojo.appfuse.mojo.PojoMojoBase;
-import org.appfuse.mojo.appfuse.utility.AppFuseProperties;
 
 /**
  * This mojo class will create context xml entries for the manager dao implementations and dao interfaces from a set of
@@ -50,8 +49,8 @@ public class GenerateManagerContextMojo extends PojoMojoBase
      */
     public String getOutputPattern()
     {
-        return buildOutputPattern( AppFuseProperties.MANAGER_CONTEXT_OUTPUT_PATTERN,
-                                   AppFuseProperties.MANAGER_CONTEXT_OUTPUT_PATTERN_PROPERTY_KEY,
+        return buildOutputPattern( org.appfuse.mojo.appfuse.utility.AppFuseProperties.MANAGER_CONTEXT_OUTPUT_PATTERN,
+                                   org.appfuse.mojo.appfuse.utility.AppFuseProperties.MANAGER_CONTEXT_OUTPUT_PATTERN_PROPERTY_KEY,
                                    this.getManagerImplPackageName() );
 
     }
@@ -63,8 +62,8 @@ public class GenerateManagerContextMojo extends PojoMojoBase
      */
     public String getTemplateName()
     {
-        return locateTemplate( AppFuseProperties.MANAGER_CONTEXT_TEMPLATE_NAME,
-                               AppFuseProperties.MANAGER_CONTEXT_TEMPLATE_NAME_PROPERTY_KEY );
+        return locateTemplate( org.appfuse.mojo.appfuse.utility.AppFuseProperties.MANAGER_CONTEXT_TEMPLATE_NAME,
+                               org.appfuse.mojo.appfuse.utility.AppFuseProperties.MANAGER_CONTEXT_TEMPLATE_NAME_PROPERTY_KEY );
 
     }
 
@@ -96,8 +95,8 @@ public class GenerateManagerContextMojo extends PojoMojoBase
      */
     protected String getManagerImplPackageName()
     {
-        return buildPackageName( AppFuseProperties.DEFAULT_MANAGER_IMPL_PACKAGE_EXTENSION,
-                                 AppFuseProperties.MANAGER_IMPL_PACKAGE_EXTENSION_PROPETY_KEY );
+        return buildPackageName( org.appfuse.mojo.appfuse.utility.AppFuseProperties.DEFAULT_MANAGER_IMPL_PACKAGE_EXTENSION,
+                                 org.appfuse.mojo.appfuse.utility.AppFuseProperties.MANAGER_IMPL_PACKAGE_EXTENSION_PROPETY_KEY );
     }
 
     /**
@@ -108,16 +107,16 @@ public class GenerateManagerContextMojo extends PojoMojoBase
     protected String getTransactionTemplateName()
     {
         // See if a template name was passed in otherwise use the default.
-        String templateName = AppFuseProperties.DEFAULT_TRANSACTION_TEMPLATE_NAME;
+        String templateName = org.appfuse.mojo.appfuse.utility.AppFuseProperties.DEFAULT_TRANSACTION_TEMPLATE_NAME;
 
         // See if there is a model package extension in the properties
         if ( this.getProcessingProperties() != null
                         && this.getProcessingProperties().containsKey(
-                           AppFuseProperties.TRANSACTION_TEMPLATE_NAME_PROPERTY_KEY ) )
+                           org.appfuse.mojo.appfuse.utility.AppFuseProperties.TRANSACTION_TEMPLATE_NAME_PROPERTY_KEY ) )
         {
             templateName =
                 ( String ) this.getProcessingProperties().get( 
-                           AppFuseProperties.TRANSACTION_TEMPLATE_NAME_PROPERTY_KEY );
+                           org.appfuse.mojo.appfuse.utility.AppFuseProperties.TRANSACTION_TEMPLATE_NAME_PROPERTY_KEY );
         }
         return templateName;
     }

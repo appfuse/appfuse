@@ -22,7 +22,6 @@ import java.util.Properties;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.appfuse.mojo.appfuse.utility.AntUtilities;
-import org.appfuse.mojo.appfuse.utility.AppFuseProperties;
 import org.appfuse.mojo.appfuse.utility.FileUtilities;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.tool.hbm2x.POJOExporter;
@@ -239,15 +238,15 @@ public abstract class PojoMojoBase extends MojoBase
     public String getTemplateHelperClassName()
     {
         // See if a class name was passed in otherwise use the default.
-        String className = AppFuseProperties.DEFAULT_TEMPLATE_HELPER_CLASS;
+        String className = org.appfuse.mojo.appfuse.utility.AppFuseProperties.DEFAULT_TEMPLATE_HELPER_CLASS;
 
         // See if there is a model package extension in the properties
         if ( this.getProcessingProperties() != null
                         && this.getProcessingProperties().containsKey(
-                                                                       AppFuseProperties.TEMPLATE_HELPER_CLASS_PROPERTY_KEY ) )
+                                                                       org.appfuse.mojo.appfuse.utility.AppFuseProperties.TEMPLATE_HELPER_CLASS_PROPERTY_KEY ) )
         {
             className =
-                ( String ) this.getProcessingProperties().get( AppFuseProperties.TEMPLATE_HELPER_CLASS_PROPERTY_KEY );
+                ( String ) this.getProcessingProperties().get( org.appfuse.mojo.appfuse.utility.AppFuseProperties.TEMPLATE_HELPER_CLASS_PROPERTY_KEY );
         }
         return className;
     }
