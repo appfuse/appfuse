@@ -1,0 +1,53 @@
+                                    ------
+                             Appfuse Plugin Usage
+                                    ------
+                                Scott Ryan
+                                    ------
+                                 Jan 1, 2006
+
+Maven 2 Appfuse Plugin
+
+  This plugin provides support for generating the data layer for the Appfuse environment.  This plugin is still in its early stages but give it a go and give
+  us feedback on what you think.
+
+
+* Basic Appfuse Configuration.
+
+  The recommended Basic Appfuse configuration is as follows.
+
+-------------------
+
+Be sure to set up the repository access as defined on page http://mojo.codehaus.org/using-sandbox-plugins.html 
+
+For a local deployment
+
+<project>
+  ...
+  <build>
+    ...
+    <plugins>
+      ......
+      	<plugins>
+	   <plugin>
+	      <groupId>org.codehaus.mojo</groupId>
+	      <artifactId>appfuse-maven-plugin</artifactId>
+	      <configuration>
+	         <modelPackageName>com.appfuse.datakit.model</modelPackageName>
+	  	 <reverseEngineeringConfigurationFileDirectory>${basedir}/src/main/resources/</reverseEngineeringConfigurationFileDirectory>
+		 <reverseEngineeringConfigurationFiles>
+		    <reverseEngineeringConfigurationFile>hibernate.reveng1.xml</reverseEngineeringConfigurationFile>
+		    <reverseEngineeringConfigurationFile>hibernate.reveng2.xml</reverseEngineeringConfigurationFile>
+		 </reverseEngineeringConfigurationFiles>
+		 <reverseStrategyClass>org.codehaus.mojo.appfuse.reveng.AppfuseReverseEngineeringDelegator</reverseStrategyClass>
+	      </configuration>
+	</plugin>
+    </plugins>
+  </build>
+</project>
+
+There are many more configuration parameters and they are documented in the source code or on the mojo website.  You can also use the documentation 
+on the hibernate-tools website for more information on configuration.
+
+-------------------
+
+  

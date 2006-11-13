@@ -1,0 +1,28 @@
+                                    ------
+                             Apfuse Plugin Usage
+                                    ------
+                                Scott Ryan
+                                    ------
+                                 Jan 1, 2006
+
+Maven 2 Appfuse Plugin
+
+  This plugin provides support for the Appfuse data layer.
+
+
+* Basic Reverse Engineering xml file sample.
+
+  Here is a quick example of what a reverse engineering xml file might look like.  You can get many more details at the Hibernate tools website http://www.hibernate.org/255.html.
+
+-------------------
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering SYSTEM "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+	<schema-selection match-schema=".*" match-table="ROLE"/>
+</hibernate-reverse-engineering>
+
+This will cause the system to only create an hbm.xml file for the role table in the appfuse schema.
+-------------------
+
+  
