@@ -19,7 +19,6 @@ package org.appfuse.mojo.appfuse.mojo.data;
 import java.util.Properties;
 
 import org.appfuse.mojo.appfuse.mojo.PojoMojoBase;
-import org.appfuse.mojo.appfuse.utility.AppFuseProperties;
 
 /**
  * This mojo class will create dao interfaces from a set of hbm.xml files.
@@ -48,8 +47,8 @@ public class GenerateDaoMojo extends PojoMojoBase
      */
     public String getOutputPattern()
     {
-        return buildOutputPattern( AppFuseProperties.DAO_OUTPUT_PATTERN,
-                                   AppFuseProperties.DAO_OUTPUT_PATTERN_PROPERTY_KEY, this.getPackageName() );
+        return buildOutputPattern( org.appfuse.mojo.appfuse.utility.AppFuseProperties.DAO_OUTPUT_PATTERN,
+                                   org.appfuse.mojo.appfuse.utility.AppFuseProperties.DAO_OUTPUT_PATTERN_PROPERTY_KEY, this.getPackageName() );
     }
 
     /**
@@ -59,7 +58,7 @@ public class GenerateDaoMojo extends PojoMojoBase
      */
     public String getTemplateName()
     {
-        return locateTemplate( AppFuseProperties.DAO_TEMPLATE_NAME, AppFuseProperties.DAO_TEMPLATE_NAME_PROPERTY_KEY );
+        return locateTemplate( org.appfuse.mojo.appfuse.utility.AppFuseProperties.DAO_TEMPLATE_NAME, org.appfuse.mojo.appfuse.utility.AppFuseProperties.DAO_TEMPLATE_NAME_PROPERTY_KEY );
     }
 
     /**
@@ -86,8 +85,8 @@ public class GenerateDaoMojo extends PojoMojoBase
      */
     protected String getPackageName()
     {
-        return buildPackageName( AppFuseProperties.DEFAULT_DAO_PACKAGE_EXTENSION,
-                                 AppFuseProperties.DAO_PACKAGE_EXTENSION_PROPETY_KEY );
+        return buildPackageName( org.appfuse.mojo.appfuse.utility.AppFuseProperties.DEFAULT_DAO_PACKAGE_EXTENSION,
+                                 org.appfuse.mojo.appfuse.utility.AppFuseProperties.DAO_PACKAGE_EXTENSION_PROPETY_KEY );
     }
 
     /**
