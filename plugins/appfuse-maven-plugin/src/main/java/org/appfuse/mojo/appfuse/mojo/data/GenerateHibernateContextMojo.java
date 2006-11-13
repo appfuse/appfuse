@@ -19,7 +19,7 @@ package org.appfuse.mojo.appfuse.mojo.data;
 import java.util.Properties;
 
 import org.appfuse.mojo.appfuse.mojo.PojoMojoBase;
-import org.appfuse.mojo.appfuse.utility.AppfuseProperties;
+import org.appfuse.mojo.appfuse.utility.AppFuseProperties;
 
 /**
  * This mojo class will create context xml entries for the hibernate dao implementations and dao interfaces from a set
@@ -50,8 +50,8 @@ public class GenerateHibernateContextMojo extends PojoMojoBase
      */
     public String getOutputPattern()
     {
-        return buildOutputPattern( AppfuseProperties.HIBERNATE_CONTEXT_OUTPUT_PATTERN,
-                                   AppfuseProperties.HIBERNATE_CONTEXT_OUTPUT_PATTERN_PROPERTY_KEY,
+        return buildOutputPattern( AppFuseProperties.HIBERNATE_CONTEXT_OUTPUT_PATTERN,
+                                   AppFuseProperties.HIBERNATE_CONTEXT_OUTPUT_PATTERN_PROPERTY_KEY,
                                    this.getHibernaeDaoPackageName() );
     }
 
@@ -62,8 +62,8 @@ public class GenerateHibernateContextMojo extends PojoMojoBase
      */
     public String getTemplateName()
     {
-        return locateTemplate( AppfuseProperties.HIBERNATE_CONTEXT_TEMPLATE_NAME,
-                               AppfuseProperties.HIBERNATE_CONTEXT_TEMPLATE_NAME_PROPERTY_KEY );
+        return locateTemplate( AppFuseProperties.HIBERNATE_CONTEXT_TEMPLATE_NAME,
+                               AppFuseProperties.HIBERNATE_CONTEXT_TEMPLATE_NAME_PROPERTY_KEY );
     }
 
     /**
@@ -74,8 +74,8 @@ public class GenerateHibernateContextMojo extends PojoMojoBase
      */
     protected String getHibernaeDaoPackageName()
     {
-        return buildPackageName( AppfuseProperties.DEFAULT_HIBERNATE_DAO_PACKAGE_EXTENSION,
-                                 AppfuseProperties.HIBERNATE_DAO_PACKAGE_EXTENSION_PROPETY_KEY );
+        return buildPackageName( AppFuseProperties.DEFAULT_HIBERNATE_DAO_PACKAGE_EXTENSION,
+                                 AppFuseProperties.HIBERNATE_DAO_PACKAGE_EXTENSION_PROPETY_KEY );
     }
 
     /**
@@ -86,16 +86,16 @@ public class GenerateHibernateContextMojo extends PojoMojoBase
     protected String getSessionFactoryName()
     {
         // See if a session factory name was passed in otherwise use the default.
-        String sessionFactoryName = AppfuseProperties.DEFAULT_SESSION_FACTORY_NAME;
+        String sessionFactoryName = AppFuseProperties.DEFAULT_SESSION_FACTORY_NAME;
 
         // See if there is a sessionFactoryName in the properties
         if ( this.getProcessingProperties() != null
                         && this.getProcessingProperties().containsKey(
-                           AppfuseProperties.SESSION_FACTORY_NAME_PROPERTY_KEY ) )
+                           AppFuseProperties.SESSION_FACTORY_NAME_PROPERTY_KEY ) )
         {
             sessionFactoryName =
                 ( String ) this.getProcessingProperties().get( 
-                           AppfuseProperties.SESSION_FACTORY_NAME_PROPERTY_KEY );
+                           AppFuseProperties.SESSION_FACTORY_NAME_PROPERTY_KEY );
         }
         return sessionFactoryName;
     }

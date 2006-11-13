@@ -55,7 +55,7 @@ public class DbToXMLMojo extends MojoBase
     /**
      * The full package and classname for any additional ReverseEngineeringDelegator class that might be used to alter
      * the way the reverse engineering might be handled. A sample is included in the code for this plugin and to use
-     * that class you would set this value to org.codehaus.mojo.appfuse.reveng.AppfuseReverseEngineeringDelegator.
+     * that class you would set this value to org.codehaus.mojo.appfuse.reveng.AppFuseReverseEngineeringDelegator.
      * 
      * @parameter default-value=""
      */

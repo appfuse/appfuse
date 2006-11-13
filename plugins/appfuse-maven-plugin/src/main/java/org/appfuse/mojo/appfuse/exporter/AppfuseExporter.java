@@ -32,29 +32,29 @@ import org.hibernate.tool.hbm2x.pojo.POJOClass;
  * @author <a href="mailto:scott@theryansplace.com">Scott Ryan</a>
  * @version $Id$
  */
-public class AppfuseExporter extends POJOExporter
+public class AppFuseExporter extends POJOExporter
 {
 
     /** A static logger for the class. */
-    public static final Log LOG = LogFactory.getLog( AppfuseExporter.class );
+    public static final Log LOG = LogFactory.getLog( AppFuseExporter.class );
 
     /**
-     * Creates a new AppfuseExporter object.
+     * Creates a new AppFuseExporter object.
      * 
      * @param inConfiguration
      *            The configuration object containing useful configuration information.
      * @param inOutputDirectory
      *            The directory to output the results into.
      */
-    public AppfuseExporter( final Configuration inConfiguration, final File inOutputDirectory )
+    public AppFuseExporter( final Configuration inConfiguration, final File inOutputDirectory )
     {
         super( inConfiguration, inOutputDirectory );
     }
 
     /**
-     * Creates a new AppfuseExporter object.
+     * Creates a new AppFuseExporter object.
      */
-    public AppfuseExporter()
+    public AppFuseExporter()
     {
         super();
     }
@@ -98,7 +98,7 @@ public class AppfuseExporter extends POJOExporter
     }
 
     /**
-     * This method determines if the components should be exported or not. For generation of Appfuse objects we do not
+     * This method determines if the components should be exported or not. For generation of AppFuse objects we do not
      * want to process any component objects but just the primary objects.
      * 
      * @param inAdditionalContext
