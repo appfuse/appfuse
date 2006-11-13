@@ -1,0 +1,22 @@
+                                    ------
+                             Appfuse Plugin Installation
+                                    ------
+                                   Scott Ryan
+                                    ------
+                                 Jan 1, 2006
+
+Maven 2 Appfuse Plugin
+
+
+* Basic Apfuse Plugin Installation.
+
+  The recommended Basic Appfuse installation process is as follows.
+
+-------------------
+Since this plugin uses hibernate tools and hibernate to do some of its work you will need to download the jta jar.  The JTA jar cannot be hosted in the maven 
+repository but when you attempt to use the plugin the first time it will show you instructions on how to populate your repository with the jta jar from
+sun.
+
+
+-------------------
+
