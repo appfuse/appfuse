@@ -1,4 +1,4 @@
-package org.appfuse.mojo.appfuse.mojo.data;
+package org.appfuse.mojo.appfuse.mojo.web;
 
 /*
  * Copyright 2005-2006 The Apache Software Foundation.
@@ -22,26 +22,26 @@ import org.appfuse.mojo.appfuse.mojo.PojoMojoBase;
 import org.appfuse.mojo.appfuse.utility.AppFuseProperties;
 
 /**
- * This mojo class will create Spring Web classes for List style web
+ * This mojo class will create Spring Web classes for Form style web
  * web pages using a set of pre-existing hbm.xml files. These hbm.xml Hibernate mapping
  * files can be generated as well using the dbtoxml goal. Once the backing beans are
  * created they can be copied into the working project using the copywebfiles goal.
- * 
+ *
  * @author <a href="mailto:dlwhitehurst@gmail.com">David L. Whitehurst</a>
  * @version $Id: $
- * @description Generate Spring Web Form module for the AppFuse Pojo Form.
- * @goal genspringformweb
+ * @description Generate Spring Web Form module for the AppFuse Pojo List.
+ * @goal genspringlistweb
  */
-public class GenerateSpringFormWebMojo extends PojoMojoBase
+public class GenerateSpringListWebMojo extends PojoMojoBase
 {
 
     /**
-     * Creates a new GenerateSpringFormWebMojo object.
+     * Creates a new GenerateSpringListWebMojo object.
      */
-    public GenerateSpringFormWebMojo()
+    public GenerateSpringListWebMojo()
     {
         super();
-        this.setMojoName( "GenerateSpringFormWebMojo" );
+        this.setMojoName( "GenerateSpringListWebMojo" );
     }
 
     /**
@@ -51,7 +51,7 @@ public class GenerateSpringFormWebMojo extends PojoMojoBase
      */
     public String getOutputPattern()
     {
-        return buildOutputPattern( AppFuseProperties.WEB_FORM_OUTPUT_PATTERN,
+        return buildOutputPattern( AppFuseProperties.WEB_LIST_OUTPUT_PATTERN,
                                    AppFuseProperties.WEB_OUTPUT_PATTERN_PROPERTY_KEY, this.getPackageName() );
     }
 
@@ -62,7 +62,7 @@ public class GenerateSpringFormWebMojo extends PojoMojoBase
      */
     public String getTemplateName()
     {
-        return locateTemplate( AppFuseProperties.WEB_SPRING_FORM_TEMPLATE_NAME,
+        return locateTemplate( AppFuseProperties.WEB_SPRING_LIST_TEMPLATE_NAME,
                                AppFuseProperties.WEB_TEMPLATE_NAME_PROPERTY_KEY );
     }
 
@@ -104,7 +104,7 @@ public class GenerateSpringFormWebMojo extends PojoMojoBase
     {
         StringBuffer buffer = new StringBuffer();
         buffer.append( super.toString() );
-        buffer.append( "GenerateSpringFormWebMojo[" );
+        buffer.append( "GenerateSpringListWebMojo[" );
         buffer.append( "]" );
         return buffer.toString();
     }

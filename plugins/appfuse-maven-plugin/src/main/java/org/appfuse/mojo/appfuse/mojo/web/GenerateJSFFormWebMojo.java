@@ -1,4 +1,4 @@
-package org.appfuse.mojo.appfuse.mojo.data;
+package org.appfuse.mojo.appfuse.mojo.web;
 
 /*
  * Copyright 2005-2006 The Apache Software Foundation.
@@ -22,26 +22,26 @@ import org.appfuse.mojo.appfuse.mojo.PojoMojoBase;
 import org.appfuse.mojo.appfuse.utility.AppFuseProperties;
 
 /**
- * This mojo class will create Spring Web classes for Form style web
+ * This mojo class will create Java Server Faces (JSF) backing beans for Form style web
  * web pages using a set of pre-existing hbm.xml files. These hbm.xml Hibernate mapping
- * files can be generated as well using the dbtoxml goal. Once the backing beans are
+ * files can be generated as well using the dbtoxml goal. Once the backing beans are 
  * created they can be copied into the working project using the copywebfiles goal.
- *
+ * 
  * @author <a href="mailto:dlwhitehurst@gmail.com">David L. Whitehurst</a>
  * @version $Id: $
- * @description Generate Spring Web Form module for the AppFuse Pojo List.
- * @goal genspringlistweb
+ * @description Generate one or more JSF Backing Bean Form modules from the input hbm.xml files.
+ * @goal genjsfformweb
  */
-public class GenerateSpringListWebMojo extends PojoMojoBase
+public class GenerateJSFFormWebMojo extends PojoMojoBase
 {
 
     /**
-     * Creates a new GenerateSpringListWebMojo object.
+     * Creates a new GenerateJSFFormWebMojo object.
      */
-    public GenerateSpringListWebMojo()
+    public GenerateJSFFormWebMojo()
     {
         super();
-        this.setMojoName( "GenerateSpringListWebMojo" );
+        this.setMojoName( "GenerateJSFFormWebMojo" );
     }
 
     /**
@@ -51,7 +51,7 @@ public class GenerateSpringListWebMojo extends PojoMojoBase
      */
     public String getOutputPattern()
     {
-        return buildOutputPattern( AppFuseProperties.WEB_LIST_OUTPUT_PATTERN,
+        return buildOutputPattern( AppFuseProperties.WEB_FORM_OUTPUT_PATTERN,
                                    AppFuseProperties.WEB_OUTPUT_PATTERN_PROPERTY_KEY, this.getPackageName() );
     }
 
@@ -62,12 +62,12 @@ public class GenerateSpringListWebMojo extends PojoMojoBase
      */
     public String getTemplateName()
     {
-        return locateTemplate( AppFuseProperties.WEB_SPRING_LIST_TEMPLATE_NAME,
+        return locateTemplate( AppFuseProperties.WEB_JSF_FORM_TEMPLATE_NAME,
                                AppFuseProperties.WEB_TEMPLATE_NAME_PROPERTY_KEY );
     }
 
     /**
-     * This method will return the full package name to be used for generating output for the Spring web objects.
+     * This method will return the full package name to be used for generating output for the JSF Backing Bean objects.
      * 
      * @return The full package name for all web objects.
      * 
@@ -87,7 +87,7 @@ public class GenerateSpringListWebMojo extends PojoMojoBase
      */
     protected void validateProperties( final Properties inProperties )
     {
-        // See if there is a web and model package extension
+        // See if there is a model and web package extension
         // add the package names in the properties for access inside the template.
         inProperties.put( "webpackagename", this.getPackageName() );
         inProperties.put( "modelpackagename", this.getModelPackageName() );
@@ -104,7 +104,7 @@ public class GenerateSpringListWebMojo extends PojoMojoBase
     {
         StringBuffer buffer = new StringBuffer();
         buffer.append( super.toString() );
-        buffer.append( "GenerateSpringListWebMojo[" );
+        buffer.append( "GenerateJSFFormWebMojo[" );
         buffer.append( "]" );
         return buffer.toString();
     }
