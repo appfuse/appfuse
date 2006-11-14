@@ -296,12 +296,7 @@ public class AppFuseProperties
     /**
      * The name of the freemarker template to use to create Struts Action classes for web forms.
      */
-    public static final String WEB_STRUTS_FORM_TEMPLATE_NAME = "appfuseweb/StrutsForm.ftl";
-
-    /**
-     * The name of the freemarker template to use to create Struts Action classes for web list forms.
-     */
-    public static final String WEB_STRUTS_LIST_TEMPLATE_NAME = "appfuseweb/StrutsList.ftl";
+    public static final String WEB_STRUTS_ACTION_TEMPLATE_NAME = "appfuseweb/StrutsAction.ftl";
 
     /**
      * The name of the freemarker template to use to create SpringWeb classes for web forms.
