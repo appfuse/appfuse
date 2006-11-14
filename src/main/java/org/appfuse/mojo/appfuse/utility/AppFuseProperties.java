@@ -21,13 +21,14 @@ package org.appfuse.mojo.appfuse.utility;
  * support the current version of appfuse. The user can choose to override any of these properties however that is
  * discouraged.
  */
-public class AppFuseProperties {
+public class AppFuseProperties
+{
     // Beginning of Model parameters.
     /**
      * This is the key in the properties file that indicates the model package extention to be used if the default is
      * not sufficient.
      */
-    public static final String MODEL_PACKAGE_EXTENSION_PROPETY_KEY = "appfuse.model.package.extension";
+    public static final String MODEL_PACKAGE_EXTENSION_PROPERTY_KEY = "appfuse.model.package.extension";
 
     /**
      * This is the extension that will be added to the base package name to construct the model package name and file
@@ -137,7 +138,7 @@ public class AppFuseProperties {
      * The property key to set to find the hibernate context output pattern.
      */
     public static final String HIBERNATE_CONTEXT_OUTPUT_PATTERN_PROPERTY_KEY =
-        "appfuse.hibrnate.context.output.pattern";
+        "appfuse.hibernate.context.output.pattern";
 
     /**
      * The output pattern to use for file output for the hibernate context objects.
@@ -263,4 +264,79 @@ public class AppFuseProperties {
      * helper class.
      */
     public static final String TEMPLATE_HELPER_CLASS_PROPERTY_KEY = "appfuse.template.helper.class";
+
+    // Beginning of web Context parameters.
+    /**
+     * This is the key in the properties file that indicates the web package extention to be used if the default is
+     * not sufficient.
+     */
+    public static final String WEB_PACKAGE_EXTENSION_PROPERTY_KEY = "appfuse.web.package.extension";
+
+    /**
+     * This is the extension that will be added to the base package name to construct the web package name and file
+     * location.
+     */
+    public static final String DEFAULT_WEB_PACKAGE_EXTENSION = "webapp.action";
+
+    /**
+     * The property key to set to find the web template name.
+     */
+    public static final String WEB_TEMPLATE_NAME_PROPERTY_KEY = "appfuse.web.template.name";
+
+    /**
+     * The name of the freemarker template to use to create JSF Form Backing Bean objects.
+     */
+    public static final String WEB_JSF_FORM_TEMPLATE_NAME = "appfuseweb/jsfform.ftl";
+
+    /**
+     * The name of the freemarker template to use to create JSF List Backing Bean objects.
+     */
+    public static final String WEB_JSF_LIST_TEMPLATE_NAME = "appfuseweb/jsflist.ftl";
+
+    /**
+     * The name of the freemarker template to use to create Struts Action classes for web forms.
+     */
+    public static final String WEB_STRUTS_FORM_TEMPLATE_NAME = "appfuseweb/StrutsForm.ftl";
+
+    /**
+     * The name of the freemarker template to use to create Struts Action classes for web list forms.
+     */
+    public static final String WEB_STRUTS_LIST_TEMPLATE_NAME = "appfuseweb/StrutsList.ftl";
+
+    /**
+     * The name of the freemarker template to use to create SpringWeb classes for web forms.
+     */
+    public static final String WEB_SPRING_FORM_TEMPLATE_NAME = "appfuseweb/SpringForm.ftl";
+
+    /**
+     * The name of the freemarker template to use to create SpringWeb classes for web list forms.
+     */
+    public static final String WEB_SPRING_LIST_TEMPLATE_NAME = "appfuseweb/SpringList.ftl";
+
+    /**
+     * The name of the freemarker template to use to create Tapestry classes for web forms.
+     */
+    public static final String WEB_TAPESTRY_FORM_TEMPLATE_NAME = "appfuseweb/TapestryForm.ftl";
+
+    /**
+     * The name of the freemarker template to use to create Tapestry classes for web list forms.
+     */
+    public static final String WEB_TAPESTRY_LIST_TEMPLATE_NAME = "appfuseweb/TapestryList.ftl";
+    
+    /**
+     * The property key to set to find the web output pattern.
+     */
+    public static final String WEB_OUTPUT_PATTERN_PROPERTY_KEY = "appfuse.web.output.pattern";
+
+    /**
+     * The output pattern to use for file output for the web form objects.
+     */
+    public static final String WEB_FORM_OUTPUT_PATTERN = "{class-name}Form.java";
+    
+    /**
+     * The output pattern to use for file output for the web list objects.
+     */
+    public static final String WEB_LIST_OUTPUT_PATTERN = "{class-name}List.java";
+
 }
+
