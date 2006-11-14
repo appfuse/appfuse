@@ -33,7 +33,15 @@
 	<name>AppFuse Maven Plugin</name>
 	<version>2.0.0-SNAPSHOT</version>
 	<inceptionYear>2006</inceptionYear>
-	<scm>
+    <description>
+        The appfuse-maven-plugin project is now part of the AppFuse project.  This plugin was originally
+        created by Scott Ryan and began at Codehaus.  This plugin will be very useful for AppFuse developers and
+        also users of AppFuse as a foundational application.  This plugin is used with Maven to generate source
+        code from a database connection or existing model objects or Pojos.  The plugin is not fully functional,
+        but it's now available with full checkouts of AppFuse.  It will remain isolated from the AppFuse build
+        until it's ready for public consumption.
+    </description>
+    <scm>
 		<connection>
 			scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/plugins/appfuse-maven-plugin
 		</connection>
@@ -61,6 +69,15 @@
 			</roles>
 			<timezone>-7</timezone>
 		</developer>
+        <developer>
+            <id>dlwhitehurst</id>
+            <name>David Whitehurst</name>
+            <email>dlwhitehurst@gmail.com</email>
+            <roles>
+                <role>Java Developer</role>
+            </roles>
+            <timezone>-6</timezone>
+        </developer>
 	</developers>
 	<dependencies>
 		<dependency>
