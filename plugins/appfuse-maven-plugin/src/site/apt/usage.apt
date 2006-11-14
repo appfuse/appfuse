@@ -4,49 +4,25 @@
                                 Scott Ryan
                                     ------
                                  Jan 1, 2006
+                                 revised Nov 14, 2006
+
 
 Maven 2 Appfuse Plugin
 
-  This plugin provides support for generating the data layer for the Appfuse environment.  This plugin is still in its early stages but give it a go and give
-  us feedback on what you think.
+  This plugin provides support for generating the data layer for the Appfuse environment.  This plugin is still
+  in its early stages but do give it a test and give us your feedback thru JIRA.
 
 
-* Basic Appfuse Configuration.
+  If you've made the changes that were described in the installation document, you should be ready to run the
+  plugin and generate some code modules.
 
-  The recommended Basic Appfuse configuration is as follows.
+  Go to /web/common in your AppFuse project and run "mvn appfuse:genmodel".
+  You can cd to /appfuse/appfuse/web/common/target/appfuse/generated-sources/org/appfuse/model/ and you should
+  see a Pojo class that was created from your Hibernate mapping file.
 
--------------------
-
-Be sure to set up the repository access as defined on page http://mojo.codehaus.org/using-sandbox-plugins.html 
-
-For a local deployment
-
-<project>
-  ...
-  <build>
-    ...
-    <plugins>
-      ......
-      	<plugins>
-	   <plugin>
-	      <groupId>org.codehaus.mojo</groupId>
-	      <artifactId>appfuse-maven-plugin</artifactId>
-	      <configuration>
-	         <modelPackageName>com.appfuse.datakit.model</modelPackageName>
-	  	 <reverseEngineeringConfigurationFileDirectory>${basedir}/src/main/resources/</reverseEngineeringConfigurationFileDirectory>
-		 <reverseEngineeringConfigurationFiles>
-		    <reverseEngineeringConfigurationFile>hibernate.reveng1.xml</reverseEngineeringConfigurationFile>
-		    <reverseEngineeringConfigurationFile>hibernate.reveng2.xml</reverseEngineeringConfigurationFile>
-		 </reverseEngineeringConfigurationFiles>
-		 <reverseStrategyClass>org.codehaus.mojo.appfuse.reveng.AppfuseReverseEngineeringDelegator</reverseStrategyClass>
-	      </configuration>
-	</plugin>
-    </plugins>
-  </build>
-</project>
-
-There are many more configuration parameters and they are documented in the source code or on the mojo website.  You can also use the documentation 
-on the hibernate-tools website for more information on configuration.
+  Now, go to /web/common in your AppFuse project and run "mvn appfuse:gendao".
+  You can cd to /appfuse/appfuse/web/common/target/appfuse/generated-sources/org/appfuse/dao/ and you should
+  see a Dao class that was created from your Hibernate mapping file to support the access to your Pojo.
 
 -------------------
 
