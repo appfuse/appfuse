@@ -10,8 +10,6 @@
     <name>AppFuse</name>
     <src></src>
     <href></href>
-    <src></src>
-    <href></href>
 
   </bannerRight>
   <body>
@@ -20,15 +18,13 @@
       <item name="Maven" href="http://maven.apache.org/maven2/" />
       <item name="AppFuse" href="https://appfuse.dev.java.net/" />
     </links>
-    <menu name="AppFuse">
-      <item name="home" href="http://appfuse.org/" />
-    </menu>
-    <menu name="AppFuse Plugin Docs">
-      <item name="Goals" href="plugin-info.html" />
-      <item name="Usage" href="usage.html" />
+    <menu name="AppFuse Plugin">
+      <item name="Goals" href="plugin-info.html"/>
       <item name="Installation" href="installation.html" />
+      <item name="Usage" href="usage.html" />
       <item name="Sample Reverse Engineering File" href="reveng.html" />
       <item name="FAQ" href="FAQ.html" />
+      <item name="AppFuse Project" href="http://appfuse.org/" />
     </menu>
     ${reports}
   </body>

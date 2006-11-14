@@ -24,6 +24,6 @@ Maven 2 Appfuse Plugin
   You can cd to /appfuse/appfuse/web/common/target/appfuse/generated-sources/org/appfuse/dao/ and you should
   see a Dao class that was created from your Hibernate mapping file to support the access to your Pojo.
 
--------------------
+
 
   

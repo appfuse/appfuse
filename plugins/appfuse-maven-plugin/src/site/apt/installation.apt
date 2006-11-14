@@ -14,8 +14,8 @@ Maven 2 Appfuse Plugin
   The recommended Basic Appfuse installation process is as follows.
 
 -------------------
-The plugin once installed is not entirely functional.  The easiest way to quickly see our code
-generation is to place any *.hbm.xml in appfuse/web/common/target/appfuse/generated-sources/org/appfuse/model/
+The easiest way to quickly see our code generation is to place any *.hbm.xml in
+appfuse/web/common/target/appfuse/generated-sources/org/appfuse/model/
 
 You will also need to add a section to the web/common/pom.xml.  Here's an example:
 
