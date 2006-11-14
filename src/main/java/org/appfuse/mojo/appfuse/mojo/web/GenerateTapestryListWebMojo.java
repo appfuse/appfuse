@@ -1,4 +1,4 @@
-package org.appfuse.mojo.appfuse.mojo.data;
+package org.appfuse.mojo.appfuse.mojo.web;
 
 /*
  * Copyright 2005-2006 The Apache Software Foundation.
@@ -22,26 +22,26 @@ import org.appfuse.mojo.appfuse.mojo.PojoMojoBase;
 import org.appfuse.mojo.appfuse.utility.AppFuseProperties;
 
 /**
- * This mojo class will create Java Server Faces (JSF) backing beans for List style web
+ * This mojo class will create Tapestry Web classes for List style web
  * web pages using a set of pre-existing hbm.xml files. These hbm.xml Hibernate mapping
- * files can be generated as well using the dbtoxml goal. Once the backing beans are 
+ * files can be generated as well using the dbtoxml goal. Once the backing beans are
  * created they can be copied into the working project using the copywebfiles goal.
- * 
+ *
  * @author <a href="mailto:dlwhitehurst@gmail.com">David L. Whitehurst</a>
  * @version $Id: $
- * @description Generate one or more JSF Backing Bean List modules from the input hbm.xml files.
- * @goal genjsflistweb
+ * @description Generate one or more Tapestry Web List modules from the input hbm.xml files.
+ * @goal gentapestrylistweb
  */
-public class GenerateJSFListWebMojo extends PojoMojoBase
+public class GenerateTapestryListWebMojo extends PojoMojoBase
 {
 
     /**
-     * Creates a new GenerateJSFListWebMojo object.
+     * Creates a new GenerateTapestryListWebMojo object.
      */
-    public GenerateJSFListWebMojo()
+    public GenerateTapestryListWebMojo()
     {
         super();
-        this.setMojoName( "GenerateJSFListWebMojo" );
+        this.setMojoName( "GenerateTapestryListWebMojo" );
     }
 
     /**
@@ -62,12 +62,12 @@ public class GenerateJSFListWebMojo extends PojoMojoBase
      */
     public String getTemplateName()
     {
-        return locateTemplate( AppFuseProperties.WEB_JSF_LIST_TEMPLATE_NAME,
+        return locateTemplate( AppFuseProperties.WEB_TAPESTRY_LIST_TEMPLATE_NAME,
                                AppFuseProperties.WEB_TEMPLATE_NAME_PROPERTY_KEY );
     }
 
     /**
-     * This method will return the full package name to be used for generating output for the JSF Backing Bean objects.
+     * This method will return the full package name to be used for generating output for the manager objects.
      * 
      * @return The full package name for all dao objects.
      * 
@@ -87,9 +87,9 @@ public class GenerateJSFListWebMojo extends PojoMojoBase
      */
     protected void validateProperties( final Properties inProperties )
     {
-        // See if there is a web and a model package extension
-        // add the package names in the properties for access inside the template.
-        inProperties.put( "webpackagename", this.getPackageName() );
+        // See if there is a model package extension
+        // add the model package name in the properties for access inside the template.
+        inProperties.put( "managerpackagename", this.getPackageName() );
         inProperties.put( "modelpackagename", this.getModelPackageName() );
 
     }
@@ -104,7 +104,7 @@ public class GenerateJSFListWebMojo extends PojoMojoBase
     {
         StringBuffer buffer = new StringBuffer();
         buffer.append( super.toString() );
-        buffer.append( "GenerateJSFListWebMojo[" );
+        buffer.append( "GenerateTapestryListWebMojo[" );
         buffer.append( "]" );
         return buffer.toString();
     }
