@@ -23,25 +23,25 @@ import org.appfuse.mojo.appfuse.utility.AppFuseProperties;
 
 /**
  * This mojo class will create Spring Web classes for Form style web
- * web pages using a set of pre-existing hbm.xml files. These hbm.xml Hibernate mapping
+ * pages using a set of pre-existing hbm.xml files. These hbm.xml Hibernate mapping
  * files can be generated as well using the dbtoxml goal. Once the backing beans are
  * created they can be copied into the working project using the copywebfiles goal.
- * 
+ *
  * @author <a href="mailto:dlwhitehurst@gmail.com">David L. Whitehurst</a>
  * @version $Id: $
- * @description Generate one or more Tapestry Web Form modules from the input hbm.xml files.
- * @goal gentapestryformweb
+ * @description Generate Spring Web Form module for the AppFuse Pojo List.
+ * @goal genspringlist
  */
-public class GenerateTapestryFormWebMojo extends PojoMojoBase
+public class GenerateSpringListMojo extends PojoMojoBase
 {
 
     /**
-     * Creates a new GenerateTapestryFormWebMojo object.
+     * Creates a new GenerateSpringListMojo object.
      */
-    public GenerateTapestryFormWebMojo()
+    public GenerateSpringListMojo()
     {
         super();
-        this.setMojoName( "GenerateTapestryFormWebMojo" );
+        this.setMojoName( "GenerateSpringListMojo" );
     }
 
     /**
@@ -51,7 +51,7 @@ public class GenerateTapestryFormWebMojo extends PojoMojoBase
      */
     public String getOutputPattern()
     {
-        return buildOutputPattern( AppFuseProperties.WEB_FORM_OUTPUT_PATTERN,
+        return buildOutputPattern( AppFuseProperties.WEB_LIST_OUTPUT_PATTERN,
                                    AppFuseProperties.WEB_OUTPUT_PATTERN_PROPERTY_KEY, this.getPackageName() );
     }
 
@@ -62,12 +62,12 @@ public class GenerateTapestryFormWebMojo extends PojoMojoBase
      */
     public String getTemplateName()
     {
-        return locateTemplate( AppFuseProperties.WEB_TAPESTRY_FORM_TEMPLATE_NAME,
+        return locateTemplate( AppFuseProperties.WEB_SPRING_LIST_TEMPLATE_NAME,
                                AppFuseProperties.WEB_TEMPLATE_NAME_PROPERTY_KEY );
     }
 
     /**
-     * This method will return the full package name to be used for generating output for the Tapestry Web objects.
+     * This method will return the full package name to be used for generating output for the Spring web objects.
      * 
      * @return The full package name for all web objects.
      * 
@@ -87,9 +87,9 @@ public class GenerateTapestryFormWebMojo extends PojoMojoBase
      */
     protected void validateProperties( final Properties inProperties )
     {
-        // See if there is a model package extension
-        // add the model package name in the properties for access inside the template.
-        inProperties.put( "managerpackagename", this.getPackageName() );
+        // See if there is a web and model package extension
+        // add the package names in the properties for access inside the template.
+        inProperties.put( "webpackagename", this.getPackageName() );
         inProperties.put( "modelpackagename", this.getModelPackageName() );
 
     }
@@ -104,7 +104,7 @@ public class GenerateTapestryFormWebMojo extends PojoMojoBase
     {
         StringBuffer buffer = new StringBuffer();
         buffer.append( super.toString() );
-        buffer.append( "GenerateTapestryFormWebMojo[" );
+        buffer.append( "GenerateSpringListMojo[" );
         buffer.append( "]" );
         return buffer.toString();
     }
