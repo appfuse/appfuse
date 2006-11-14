@@ -23,25 +23,25 @@ import org.appfuse.mojo.appfuse.utility.AppFuseProperties;
 
 /**
  * This mojo class will create Java Server Faces (JSF) backing beans for List style web
- * web pages using a set of pre-existing hbm.xml files. These hbm.xml Hibernate mapping
+ * pages using a set of pre-existing hbm.xml files. These hbm.xml Hibernate mapping
  * files can be generated as well using the dbtoxml goal. Once the backing beans are 
  * created they can be copied into the working project using the copywebfiles goal.
  * 
  * @author <a href="mailto:dlwhitehurst@gmail.com">David L. Whitehurst</a>
  * @version $Id: $
  * @description Generate one or more JSF Backing Bean List modules from the input hbm.xml files.
- * @goal genjsflistweb
+ * @goal genjsflist
  */
-public class GenerateJSFListWebMojo extends PojoMojoBase
+public class GenerateJSFListMojo extends PojoMojoBase
 {
 
     /**
-     * Creates a new GenerateJSFListWebMojo object.
+     * Creates a new GenerateJSFListMojo object.
      */
-    public GenerateJSFListWebMojo()
+    public GenerateJSFListMojo()
     {
         super();
-        this.setMojoName( "GenerateJSFListWebMojo" );
+        this.setMojoName( "GenerateJSFListMojo" );
     }
 
     /**
@@ -104,7 +104,7 @@ public class GenerateJSFListWebMojo extends PojoMojoBase
     {
         StringBuffer buffer = new StringBuffer();
         buffer.append( super.toString() );
-        buffer.append( "GenerateJSFListWebMojo[" );
+        buffer.append( "GenerateJSFListMojo[" );
         buffer.append( "]" );
         return buffer.toString();
     }

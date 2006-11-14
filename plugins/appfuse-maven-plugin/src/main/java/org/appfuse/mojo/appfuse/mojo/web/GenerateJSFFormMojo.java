@@ -23,25 +23,25 @@ import org.appfuse.mojo.appfuse.utility.AppFuseProperties;
 
 /**
  * This mojo class will create Java Server Faces (JSF) backing beans for Form style web
- * web pages using a set of pre-existing hbm.xml files. These hbm.xml Hibernate mapping
+ * pages using a set of pre-existing hbm.xml files. These hbm.xml Hibernate mapping
  * files can be generated as well using the dbtoxml goal. Once the backing beans are 
  * created they can be copied into the working project using the copywebfiles goal.
  * 
  * @author <a href="mailto:dlwhitehurst@gmail.com">David L. Whitehurst</a>
  * @version $Id: $
  * @description Generate one or more JSF Backing Bean Form modules from the input hbm.xml files.
- * @goal genjsfformweb
+ * @goal genjsfform
  */
-public class GenerateJSFFormWebMojo extends PojoMojoBase
+public class GenerateJSFFormMojo extends PojoMojoBase
 {
 
     /**
-     * Creates a new GenerateJSFFormWebMojo object.
+     * Creates a new GenerateJSFFormMojo object.
      */
-    public GenerateJSFFormWebMojo()
+    public GenerateJSFFormMojo()
     {
         super();
-        this.setMojoName( "GenerateJSFFormWebMojo" );
+        this.setMojoName( "GenerateJSFFormMojo" );
     }
 
     /**
@@ -104,7 +104,7 @@ public class GenerateJSFFormWebMojo extends PojoMojoBase
     {
         StringBuffer buffer = new StringBuffer();
         buffer.append( super.toString() );
-        buffer.append( "GenerateJSFFormWebMojo[" );
+        buffer.append( "GenerateJSFFormMojo[" );
         buffer.append( "]" );
         return buffer.toString();
     }
