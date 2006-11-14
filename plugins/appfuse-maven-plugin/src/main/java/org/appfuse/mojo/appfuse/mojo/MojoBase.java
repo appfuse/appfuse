@@ -178,7 +178,7 @@ public abstract class MojoBase extends AbstractMojo
     /**
      * Setter for the file pattern.
      * 
-     * @param inFilePatterns
+     * @param inFilePattern
      *            The value of file pattern.
      */
     public void setFilePattern( final String inFilePattern )
@@ -303,10 +303,10 @@ public abstract class MojoBase extends AbstractMojo
         // See if there is a model package extension in the properties
         if ( this.getProcessingProperties() != null
                         && this.getProcessingProperties().containsKey(
-                                                                       org.appfuse.mojo.appfuse.utility.AppFuseProperties.MODEL_PACKAGE_EXTENSION_PROPETY_KEY ) )
+                                                                       org.appfuse.mojo.appfuse.utility.AppFuseProperties.MODEL_PACKAGE_EXTENSION_PROPERTY_KEY ) )
         {
             modelPackageExtension =
-                ( String ) this.getProcessingProperties().get( org.appfuse.mojo.appfuse.utility.AppFuseProperties.MODEL_PACKAGE_EXTENSION_PROPETY_KEY );
+                ( String ) this.getProcessingProperties().get( org.appfuse.mojo.appfuse.utility.AppFuseProperties.MODEL_PACKAGE_EXTENSION_PROPERTY_KEY );
         }
         return this.getBasePackageName() + "." + modelPackageExtension;
     }
