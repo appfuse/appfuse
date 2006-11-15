@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Copyright 2002-2006 the original author or authors.
+    
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>${groupId}</groupId>
+    <artifactId>${artifactId}</artifactId>
+    <packaging>jar</packaging>
+    <name>appfuse-basic</name>
+    <version>${version}</version>
+    <inceptionYear>2003</inceptionYear>
+    <url>http://appfuse.org</url>
+
+    <prerequisites>
+        <maven>2.0.4</maven>
+    </prerequisites>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <mailingLists>
+        <mailingList>
+            <name>Development List</name>
+            <subscribe>dev-subscribe@appfuse.dev.java.net</subscribe>
+            <unsubscribe>dev-unsubscribe@appfuse.dev.java.net</unsubscribe>
+            <post>dev@appfuse.dev.java.net</post>
+            <archive>http://www.nabble.com/AppFuse---Dev-f2371.html</archive>
+        </mailingList>
+        <mailingList>
+            <name>User List</name>
+            <subscribe>user-subscribe@appfuse.dev.java.net</subscribe>
+            <unsubscribe>user-unsubscribe@appfuse.dev.java.net</unsubscribe>
+            <post>user@appfuse.dev.java.net</post>
+            <archive>http://www.nabble.com/AppFuse---User-f2370.html</archive>
+        </mailingList>
+    </mailingLists>
+
+    <developers>
+        <developer>
+            <id>username</id>
+            <name>DeveloperName</name>
+            <email>DeveloperEmail</email>
+            <organization>YourCompany</organization>
+            <timezone>+1</timezone>
+        </developer>
+    </developers>
+
+    <build>
+        <defaultGoal>install</defaultGoal>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <configuration>
+                    <additionalProjectnatures>
+                        <projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
+                    </additionalProjectnatures>
+                    <additionalBuildcommands>
+                        <buildcommand>org.springframework.ide.eclipse.core.springbuilder</buildcommand>
+                    </additionalBuildcommands> 
+                    <downloadSources>true</downloadSources>
+                    <downloadJavadocs>true</downloadJavadocs>
+                    <wtpversion>1.0</wtpversion>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-idea-plugin</artifactId>
+                <configuration>
+                    <downloadSources>true</downloadSources>
+                    <downloadJavadocs>true</downloadJavadocs>
+                    <dependenciesAsLibraries>true</dependenciesAsLibraries>
+                    <useFullNames>false</useFullNames>
+                </configuration>
+            </plugin> 
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.0.1</version>
+                <configuration>
+                    <dependentWarExcludes>
+                        WEB-INF/web.xml
+                    </dependentWarExcludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>maven-jetty-plugin</artifactId>
+                <configuration>
+                    <scanIntervalSeconds>3</scanIntervalSeconds>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <modules>
+        <module>data</module>
+        <module>service</module>
+        <module>web</module>
+    </modules>
+
+    <repositories>
+        <repository>
+            <id>central</id>
+            <url>http://repo1.maven.org/maven2</url>
+        </repository>
+        <repository>
+            <id>appfuse</id>
+            <url>http://static.appfuse.org/repository</url>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>maven-snapshots</id>
+            <url>http://snapshots.repository.codehaus.org</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>appfuse</id>
+            <url>http://static.appfuse.org/repository</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.acegisecurity</groupId>
+            <artifactId>acegi-security-tiger</artifactId>
+            <version>${acegi.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-aop</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-dao</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-jdbc</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-remoting</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-support</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${jdbc.groupId}</groupId>
+            <artifactId>${jdbc.artifactId}</artifactId>
+            <version>${jdbc.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring</artifactId>
+            <version>${spring.version}</version>
+            <!-- commons-logging 1.1. has invalid dependencies -->
+            <exclusions>
+                <exclusion>
+                    <groupId>avalon-framework</groupId>
+                    <artifactId>avalon-framework</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>logkit</groupId>
+                    <artifactId>logkit</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>servlet-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-mock</artifactId>
+            <version>${spring.version}</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-aop</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-beans</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-context</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-dao</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-jdbc</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-jpa</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-webmvc</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-javadoc-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-jxr-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-pmd-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </reporting>
+
+    <properties>
+        <dao.framework>hibernate</dao.framework>
+
+        <hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
+
+        <jdbc.groupId>mysql</jdbc.groupId>
+        <jdbc.artifactId>mysql-connector-java</jdbc.artifactId>
+        <jdbc.version>5.0.3</jdbc.version>
+        <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
+        <jdbc.url>
+            <![CDATA[jdbc:mysql://localhost/appfuse?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8]]></jdbc.url>
+        <jdbc.username>test</jdbc.username>
+        <jdbc.password>test</jdbc.password>
+
+        <cargo.host>localhost</cargo.host>
+        <cargo.port>9876</cargo.port>
+        <cargo.wait>false</cargo.wait>
+
+        <acegi.version>1.0.2</acegi.version>
+        <aspectj.version>1.5.2</aspectj.version>
+        <clickstream.version>1.0.2</clickstream.version>
+        <commons.lang.version>2.1</commons.lang.version>
+        <commons.beanutils.version>1.7.0</commons.beanutils.version>
+        <commons.dbcp.version>1.2.1</commons.dbcp.version>
+        <commons.fileupload.version>1.1.1</commons.fileupload.version>
+        <corejsf.validator.version>1.0</corejsf.validator.version>
+        <displaytag.version>1.1</displaytag.version>
+        <dwr.version>1.1.1</dwr.version>
+        <ehcache.version>1.2.3</ehcache.version>
+        <hibernate.version>3.2.0.ga</hibernate.version>
+        <ibatis.version>2.1.6.589</ibatis.version>
+        <javamail.version>1.4</javamail.version>
+        <jmock.version>1.1.0</jmock.version>
+        <jpa.version>1.0</jpa.version>
+        <jsp.version>2.0</jsp.version>
+        <jstl.version>1.1.2</jstl.version>
+        <jta.version>1.0.1B-rc4</jta.version>
+        <junit.version>3.8.1</junit.version>
+        <log4j.version>1.2.13</log4j.version>
+        <myfaces.version>1.1.4</myfaces.version>
+        <myfaces.tomahawk.version>1.1.3</myfaces.tomahawk.version>
+        <oro.version>2.0.8</oro.version>
+        <oscache.version>2.3</oscache.version>
+        <servlet.version>2.4</servlet.version>
+        <sitemesh.version>2.2.1</sitemesh.version>
+        <spring.version>2.0</spring.version>
+        <springmodules.validation.version>0.5</springmodules.validation.version>
+        <struts.version>2.0.1</struts.version>
+        <struts.menu.version>2.4.2</struts.menu.version>
+        <tapestry.version>4.0.2</tapestry.version>
+        <tapestry.flash.version>0.1.1</tapestry.flash.version>
+        <tapestry.spring.version>0.1.2</tapestry.spring.version>
+        <urlrewrite.version>2.5.2</urlrewrite.version>
+        <velocity.version>1.4</velocity.version>
+        <webtest.version>1393</webtest.version>
+        <wiser.version>1.0.3</wiser.version>
+        
+        <copyright.year>2004-2006</copyright.year>
+    </properties>
+</project>

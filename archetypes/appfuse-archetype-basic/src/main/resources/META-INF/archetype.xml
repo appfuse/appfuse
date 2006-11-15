@@ -1,0 +1,11 @@
+<archetype>
+  <id>appfuse-basic</id>
+  <resources>
+    <resource>src/main/resources/touch-common.sh</resource>
+    <resource>src/main/resources/touch-webfiles.sh</resource>
+    <resource>src/main/resources/README.txt</resource>
+  </resources>
+  <site-resources>
+	<site-resource>src/site/site.xml</site-resource>
+  </site-resources>
+</archetype>
