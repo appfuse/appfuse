@@ -32,9 +32,11 @@
         <maven>2.0.4</maven>
     </prerequisites>
 
-    <!-- ############################################################################################### -->
-    <!-- ## SOURCE REPOSITORY                                                                            -->
-    <!-- ############################################################################################### -->
+    <!--
+    ###############################################################################################
+    ## SOURCE REPOSITORY
+    ###############################################################################################
+    -->
 
     <scm>
         <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk</connection>
@@ -42,18 +44,22 @@
         <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk</url>
     </scm>
 
-    <!-- ############################################################################################### -->
-    <!-- ## BUG TRACKING                                                                                 -->
-    <!-- ############################################################################################### -->
+    <!--
+    ###############################################################################################
+    ## BUG TRACKING
+    ###############################################################################################
+    -->
 
     <issueManagement>
         <system>jira</system>
         <url>http://issues.appfuse.org/browse/APF</url>
     </issueManagement>
 
-    <!-- ############################################################################################### -->
-    <!-- ## SOURCE REPOSITORY                                                                            -->
-    <!-- ############################################################################################### -->
+    <!--
+    ###############################################################################################
+    ## SOURCE REPOSITORY
+    ###############################################################################################
+    -->
 
     <mailingLists>
         <mailingList>
@@ -72,9 +78,11 @@
         </mailingList>
     </mailingLists>
 
-    <!-- ############################################################################################### -->
-    <!-- ## DEVELOPMENT TEAM                                                                             -->
-    <!-- ############################################################################################### -->
+    <!--
+    ###############################################################################################
+    ## DEVELOPMENT TEAM
+    ###############################################################################################
+    -->
 
     <developers>
         <developer>
@@ -128,9 +136,11 @@
         </developer>
     </developers>
 
-    <!-- ############################################################################################### -->
-    <!-- ## SOURCE LICENSE                                                                               -->
-    <!-- ############################################################################################### -->
+    <!--
+    ###############################################################################################
+    ## SOURCE LICENSE
+    ###############################################################################################
+    -->
 
     <licenses>
         <license>
@@ -140,9 +150,11 @@
         </license>
     </licenses>
 
-    <!-- ############################################################################################### -->
-    <!-- ## PROJECT BUILD                                                                                -->
-    <!-- ############################################################################################### -->
+    <!--
+    ###############################################################################################
+    ## PROJECT BUILD
+    ###############################################################################################
+    -->
 
     <build>
         <defaultGoal>install</defaultGoal>
@@ -196,4 +208,148 @@
         </plugins>
     </build>
 
+    <!--
+    ###############################################################################################
+    ## MAVEN REPOSITORIES
+    ###############################################################################################
+    -->
+
+    <repositories>
+        <repository>
+            <id>central</id>
+            <url>http://repo1.maven.org/maven2</url>
+        </repository>
+        <repository>
+            <id>appfuse</id>
+            <url>http://static.appfuse.org/repository</url>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>maven-snapshots</id>
+            <url>http://snapshots.repository.codehaus.org</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>appfuse</id>
+            <url>http://static.appfuse.org/repository</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <!--
+    ###############################################################################################
+    ## DEPENDENCIES
+    ###############################################################################################
+    -->
+
+    <dependencies>
+        <dependency>
+            <groupId>org.acegisecurity</groupId>
+            <artifactId>acegi-security-tiger</artifactId>
+            <version>${acegi.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-aop</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-dao</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-jdbc</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-remoting</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-support</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${jdbc.groupId}</groupId>
+            <artifactId>${jdbc.artifactId}</artifactId>
+            <version>${jdbc.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring</artifactId>
+            <version>${spring.version}</version>
+            <!-- commons-logging 1.1. has invalid dependencies -->
+            <exclusions>
+                <exclusion>
+                    <groupId>avalon-framework</groupId>
+                    <artifactId>avalon-framework</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>logkit</groupId>
+                    <artifactId>logkit</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>servlet-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-mock</artifactId>
+            <version>${spring.version}</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-aop</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-beans</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-context</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-dao</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-jdbc</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-jpa</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-webmvc</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
 </project>
