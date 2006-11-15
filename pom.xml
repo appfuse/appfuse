@@ -43,8 +43,8 @@
     </issueManagement>
 
     <ciManagement>
-        <system>CruiseControl</system>
-        <url>http://home.raibledesigns.com:8280</url>
+        <system>Continuum</system>
+        <url>http://home.raibledesigns.com:8380</url>
         <notifiers>
             <notifier>
                 <type>mail</type>
