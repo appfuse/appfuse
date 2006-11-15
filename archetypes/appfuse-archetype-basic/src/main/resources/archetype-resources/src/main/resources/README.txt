@@ -1,5 +1,11 @@
-AppFuse - Providing integration and style to open source Java. 
+AppFuse Archetype Basic
 -----------------------------------------------------------------------------
+If you're reading this then you've created your new project using Maven and
+appfuse-archetype basic.  You have only created the shell of an AppFuse JEE
+application.  You will need to modify pom.xml in the project directory to
+define your architecture dependencies.  A lot of the project file sections
+were taken from the Maven project file for AppFuse development.  You will want
+to modify and customize your file to suit your project needs.
 
 Developer notes on setting up your IDE to work with AppFuse are contained 
 below. Instructions currently existing for Eclipse and IDEA. Netbeans is
