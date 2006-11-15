@@ -96,7 +96,7 @@ public class GenerateManagerContextMojo extends PojoMojoBase
     protected String getManagerImplPackageName()
     {
         return buildPackageName( org.appfuse.mojo.appfuse.utility.AppFuseProperties.DEFAULT_MANAGER_IMPL_PACKAGE_EXTENSION,
-                                 org.appfuse.mojo.appfuse.utility.AppFuseProperties.MANAGER_IMPL_PACKAGE_EXTENSION_PROPETY_KEY );
+                                 org.appfuse.mojo.appfuse.utility.AppFuseProperties.MANAGER_IMPL_PACKAGE_EXTENSION_PROPERTY_KEY );
     }
 
     /**
