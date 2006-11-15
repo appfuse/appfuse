@@ -49,7 +49,7 @@ public class GenerateHibernateDaoMojo extends PojoMojoBase
     protected String getPackageName()
     {
         return buildPackageName( org.appfuse.mojo.appfuse.utility.AppFuseProperties.DEFAULT_HIBERNATE_DAO_PACKAGE_EXTENSION,
-                                 org.appfuse.mojo.appfuse.utility.AppFuseProperties.HIBERNATE_DAO_PACKAGE_EXTENSION_PROPETY_KEY );
+                                 org.appfuse.mojo.appfuse.utility.AppFuseProperties.HIBERNATE_DAO_PACKAGE_EXTENSION_PROPERTY_KEY );
     }
 
     /**

@@ -86,7 +86,7 @@ public class GenerateDaoMojo extends PojoMojoBase
     protected String getPackageName()
     {
         return buildPackageName( org.appfuse.mojo.appfuse.utility.AppFuseProperties.DEFAULT_DAO_PACKAGE_EXTENSION,
-                                 org.appfuse.mojo.appfuse.utility.AppFuseProperties.DAO_PACKAGE_EXTENSION_PROPETY_KEY );
+                                 org.appfuse.mojo.appfuse.utility.AppFuseProperties.DAO_PACKAGE_EXTENSION_PROPERTY_KEY );
     }
 
     /**
