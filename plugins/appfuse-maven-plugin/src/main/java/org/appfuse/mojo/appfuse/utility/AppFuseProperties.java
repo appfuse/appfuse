@@ -61,7 +61,7 @@ public class AppFuseProperties
      * This is the key in the properties file that indicates the dao package extention to be used if the default is not
      * sufficient.
      */
-    public static final String DAO_PACKAGE_EXTENSION_PROPETY_KEY = "appfuse.dao.package.extension";
+    public static final String DAO_PACKAGE_EXTENSION_PROPERTY_KEY = "appfuse.dao.package.extension";
 
     /**
      * This is the extension that will be added to the base package name to construct the dao package name and file
@@ -94,7 +94,7 @@ public class AppFuseProperties
      * This is the key in the properties file that indicates the hibernate dao package extention to be used if the
      * default is not sufficient.
      */
-    public static final String HIBERNATE_DAO_PACKAGE_EXTENSION_PROPETY_KEY = "appfuse.hibernate.dao.package.extension";
+    public static final String HIBERNATE_DAO_PACKAGE_EXTENSION_PROPERTY_KEY = "appfuse.hibernate.dao.package.extension";
 
     /**
      * This is the extension that will be added to the base package name to construct the hibernate dao package name and
