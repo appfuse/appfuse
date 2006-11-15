@@ -1,5 +1,10 @@
 package org.appfuse.mojo.appfuse.utility;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Properties;
+
 /*
  * Copyright 2006 The Apache Software Foundation.
  *
@@ -32,6 +37,7 @@ public class FileUtilities
         throw new UnsupportedOperationException( "Utility classes do not have public contructors." );
     }
 
+
     /**
      * This method will convert a package name to a relative file locatiion for processing. For Example com.appfuse.data
      * would be converted to com/appfuse/data.
@@ -46,5 +52,28 @@ public class FileUtilities
         String fileLocation = inPackageName.replace( '.', '/' );
 
         return fileLocation;
+    }
+
+    /**
+     * This method is used to return database properties for testing.  This method is temporary
+     * 
+     * @return
+     */
+    public static File getDatabaseProperties() {
+        Properties props = new Properties();
+        props.put("hibernate.dialect","org.hibernate.dialect.MySQLInnoDBDialect");
+        props.put("hibernate.connection.url","jdbc:mysql://localhost/appfuse?useUnicode=true&characterEncoding=utf-8");
+        props.put("hibernate.connection.driver_class","com.mysql.jdbc.Driver");
+        props.put("hibernate.connection.show_sql","true");
+        props.put("hibernate.connection.username","test");
+        props.put("hibernate.connection.password","test");
+
+        File tempProperties = new File("temp.properties");
+        try {
+            props.store(new FileOutputStream(tempProperties), null);
+        } catch (IOException ioex) {
+            ioex.printStackTrace();
+        }
+        return tempProperties;
     }
 }

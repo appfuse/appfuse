@@ -183,7 +183,7 @@ public class AppFuseProperties
      * This is the key in the properties file that indicates the manager impl package extention to be used if the
      * default is not sufficient.
      */
-    public static final String MANAGER_IMPL_PACKAGE_EXTENSION_PROPETY_KEY = "appfuse.manager.impl.package.extension";
+    public static final String MANAGER_IMPL_PACKAGE_EXTENSION_PROPERTY_KEY = "appfuse.manager.impl.package.extension";
 
     /**
      * This is the extension that will be added to the base package name to construct the manager impl package name and

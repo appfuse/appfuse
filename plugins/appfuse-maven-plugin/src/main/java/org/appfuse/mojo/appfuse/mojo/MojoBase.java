@@ -95,7 +95,7 @@ public abstract class MojoBase extends AbstractMojo
     private boolean copyOverWrite;
 
     /**
-     * A propeties object passed to the exporter to be influence the object that could be used to process the data or to
+     * A properties object passed to the exporter to be influence the object that could be used to process the data or to
      * create objects to be used inside the templates for complex processing. In general the user should never set these
      * properties. The design is to use default over configuration. If you accept the defaults you will generate code
      * that is in alignment with the current appfuse standard including naming and file locations. This capability it

@@ -16,14 +16,15 @@ package org.appfuse.mojo.appfuse.mojo.data;
  * limitations under the License.
  */
 
-import java.io.File;
-import java.util.Properties;
-
 import org.apache.maven.plugin.MojoExecutionException;
 import org.appfuse.mojo.appfuse.mojo.MojoBase;
+import org.appfuse.mojo.appfuse.utility.FileUtilities;
 import org.appfuse.mojo.appfuse.utility.JDBCConfigurationUtility;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.tool.hbm2x.HibernateMappingExporter;
+
+import java.io.File;
+import java.util.Properties;
 
 /**
  * This mojo class will reverse engineer a set of hbm.xml files from a database connection.
@@ -37,7 +38,7 @@ public class DbToXMLMojo extends MojoBase
 {
 
     /**
-     * The full name of the locaton of the hibernate format database properties file.
+     * The full name of the location of the hibernate format database properties file.
      * 
      * @parameter expression="${basedir}/src/main/resources/database.properties"
      */
@@ -200,7 +201,9 @@ public class DbToXMLMojo extends MojoBase
 
         if ( ( this.getDatabasePropertiesFile() != null ) && ( this.getDatabasePropertiesFile().length() > 0 ) )
         {
-            configurationUtility.setPropertyFile( new File( this.getDatabasePropertiesFile() ) );
+            // TODO - temporary hack to resolve database properties issue
+            //configurationUtility.setPropertyFile( new File( this.getDatabasePropertiesFile() ) );
+            configurationUtility.setPropertyFile(FileUtilities.getDatabaseProperties());
         }
         else
         {
