@@ -1,163 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<!--
-    Copyright 2002-2006 the original author or authors.
-    
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-    
-    http://www.apache.org/licenses/LICENSE-2.0
-    
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
--->
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>${groupId}</groupId>
     <artifactId>${artifactId}</artifactId>
-    <packaging>jar</packaging>
-    <name>appfuse-basic</name>
+    <packaging>war</packaging>
     <version>${version}</version>
-    <inceptionYear>2003</inceptionYear>
-    <url>http://appfuse.org</url>
+    <name>A kick-ass webapp</name>
+    <url>http://www.mycompany.com</url>
 
     <prerequisites>
         <maven>2.0.4</maven>
     </prerequisites>
 
-    <!--
-    ###############################################################################################
-    ## SOURCE REPOSITORY
-    ###############################################################################################
-    -->
-
-    <scm>
-        <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk</connection>
-        <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk</developerConnection>
-        <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk</url>
-    </scm>
-
-    <!--
-    ###############################################################################################
-    ## BUG TRACKING
-    ###############################################################################################
-    -->
-
-    <issueManagement>
-        <system>jira</system>
-        <url>http://issues.appfuse.org/browse/APF</url>
-    </issueManagement>
-
-    <!--
-    ###############################################################################################
-    ## SOURCE REPOSITORY
-    ###############################################################################################
-    -->
-
-    <mailingLists>
-        <mailingList>
-            <name>Development List</name>
-            <subscribe>dev-subscribe@appfuse.dev.java.net</subscribe>
-            <unsubscribe>dev-unsubscribe@appfuse.dev.java.net</unsubscribe>
-            <post>dev@appfuse.dev.java.net</post>
-            <archive>http://www.nabble.com/AppFuse---Dev-f2371.html</archive>
-        </mailingList>
-        <mailingList>
-            <name>User List</name>
-            <subscribe>user-subscribe@appfuse.dev.java.net</subscribe>
-            <unsubscribe>user-unsubscribe@appfuse.dev.java.net</unsubscribe>
-            <post>user@appfuse.dev.java.net</post>
-            <archive>http://www.nabble.com/AppFuse---User-f2370.html</archive>
-        </mailingList>
-    </mailingLists>
-
-    <!--
-    ###############################################################################################
-    ## DEVELOPMENT TEAM
-    ###############################################################################################
-    -->
-
-    <developers>
-        <developer>
-            <id>bendg25</id>
-            <name>Ben Gill</name>
-            <email>ben@jazzyphones.com</email>
-            <organization>ben.d.gill@gmail.com</organization>
-            <timezone>+1</timezone>
-        </developer>
-        <developer>
-            <id>ov3rdriv3</id>
-            <name>Mika Goeckel</name>
-            <email>mikagoeckel@codehaus.org</email>
-            <organization>cyber:con gmbh</organization>
-            <timezone>+1</timezone>
-        </developer>
-        <developer>
-            <id>mraible</id>
-            <name>Matt Raible</name>
-            <email>mraible@virtuas.com</email>
-            <organization>Virtuas Open Source Solutions</organization>
-            <timezone>-7</timezone>
-        </developer>
-        <developer>
-            <id>melinate</id>
-            <name>Nathan Anderson</name>
-            <email>nathan@melinate.com</email>
-            <organization>Sum-Ware, Inc.</organization>
-            <timezone>-8</timezone>
-        </developer>
-        <developer>
-            <id>sjivan</id>
-            <name>Sanjiv Jivan</name>
-            <email>sanjiv.jivan@gmail.com</email>
-            <organization>i2 Technologies</organization>
-            <timezone>-5</timezone>
-        </developer>
-        <developer>
-            <id>scryan</id>
-            <name>Scott Ryan</name>
-            <email>scott@theryansplace.com</email>
-            <organization>Soaring Eagle, LLC.</organization>
-            <timezone>-7</timezone>
-        </developer>
-        <developer>
-            <id>dlwhitehurst</id>
-            <name>David Whitehurst</name>
-            <email>dlwhitehurst@gmail.com</email>
-            <organization>CIBERsites ADM US, Oklahoma City</organization>
-            <timezone>-6</timezone>
-        </developer>
-    </developers>
-
-    <!--
-    ###############################################################################################
-    ## SOURCE LICENSE
-    ###############################################################################################
-    -->
-
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-
-    <!--
-    ###############################################################################################
-    ## PROJECT BUILD
-    ###############################################################################################
-    -->
-
     <build>
         <defaultGoal>install</defaultGoal>
+        <finalName>${artifactId}</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -190,29 +49,27 @@
                 </configuration>
             </plugin>
             <plugin>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.0.1</version>
-                <configuration>
-                    <dependentWarExcludes>
-                        WEB-INF/web.xml
-                    </dependentWarExcludes>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>maven-jetty-plugin</artifactId>
                 <configuration>
                     <scanIntervalSeconds>3</scanIntervalSeconds>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.appfuse</groupId>
+                <artifactId>maven-warpath-plugin</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <extensions>true</extensions>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>add-classes</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
-
-    <!--
-    ###############################################################################################
-    ## MAVEN REPOSITORIES
-    ###############################################################################################
-    -->
 
     <repositories>
         <repository>
@@ -236,187 +93,68 @@
         </pluginRepository>
     </pluginRepositories>
 
-    <!--
-    ###############################################################################################
-    ## DEPENDENCIES
-    ###############################################################################################
-    -->
-
     <dependencies>
         <dependency>
-            <groupId>org.acegisecurity</groupId>
-            <artifactId>acegi-security-tiger</artifactId>
-            <version>${acegi.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-aop</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-dao</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-jdbc</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-remoting</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-support</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>org.appfuse</groupId>
+            <artifactId>appfuse-${web.framework}</artifactId>
+            <version>${appfuse.version}</version>
+            <type>war</type>
         </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>${log4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${jdbc.groupId}</groupId>
-            <artifactId>${jdbc.artifactId}</artifactId>
-            <version>${jdbc.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring</artifactId>
-            <version>${spring.version}</version>
-            <!-- commons-logging 1.1. has invalid dependencies -->
-            <exclusions>
-                <exclusion>
-                    <groupId>avalon-framework</groupId>
-                    <artifactId>avalon-framework</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>log4j</groupId>
-                    <artifactId>log4j</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>logkit</groupId>
-                    <artifactId>logkit</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>javax.servlet</groupId>
-                    <artifactId>servlet-api</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-mock</artifactId>
-            <version>${spring.version}</version>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-aop</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-beans</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-context</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-core</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-dao</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-jdbc</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-jpa</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-webmvc</artifactId>
-                </exclusion>
-            </exclusions>
+         <dependency>
+            <groupId>org.appfuse</groupId>
+            <artifactId>appfuse-${web.framework}</artifactId>
+            <version>${appfuse.version}</version>
+            <type>warpath</type>
         </dependency>
     </dependencies>
 
-    <!--
-    ###############################################################################################
-    ## PROPERTIES
-    ###############################################################################################
-    -->
+    <profiles>
+        <profile>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.cargo</groupId>
+                        <artifactId>cargo-maven2-plugin</artifactId>
+                        <configuration>
+                            <wait>false</wait>
+                            <container>
+                                <containerId>jetty6x</containerId>
+                                <type>embedded</type>
+                            </container>
+                            <configuration>
+                                <properties>
+                                    <cargo.hostname>${cargo.host}</cargo.hostname>
+                                    <cargo.servlet.port>${cargo.port}</cargo.servlet.port>
+                                </properties>
+                            </configuration>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>start-container</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>start</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>stop-container</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>stop</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <properties>
-        <dao.framework>hibernate</dao.framework>
-
-        <hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
-
-        <jdbc.groupId>mysql</jdbc.groupId>
-        <jdbc.artifactId>mysql-connector-java</jdbc.artifactId>
-        <jdbc.version>5.0.3</jdbc.version>
-        <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-        <jdbc.url>
-            <![CDATA[jdbc:mysql://localhost/appfuse?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8]]></jdbc.url>
-        <jdbc.username>test</jdbc.username>
-        <jdbc.password>test</jdbc.password>
-
-        <cargo.host>localhost</cargo.host>
-        <cargo.port>9876</cargo.port>
-        <cargo.wait>false</cargo.wait>
-
-        <acegi.version>1.0.2</acegi.version>
-        <aspectj.version>1.5.2</aspectj.version>
-        <clickstream.version>1.0.2</clickstream.version>
-        <commons.lang.version>2.1</commons.lang.version>
-        <commons.beanutils.version>1.7.0</commons.beanutils.version>
-        <commons.dbcp.version>1.2.1</commons.dbcp.version>
-        <commons.fileupload.version>1.1.1</commons.fileupload.version>
-        <corejsf.validator.version>1.0</corejsf.validator.version>
-        <displaytag.version>1.1</displaytag.version>
-        <dwr.version>1.1.1</dwr.version>
-        <ehcache.version>1.2.3</ehcache.version>
-        <hibernate.version>3.2.0.ga</hibernate.version>
-        <ibatis.version>2.1.6.589</ibatis.version>
-        <javamail.version>1.4</javamail.version>
-        <jmock.version>1.1.0</jmock.version>
-        <jpa.version>1.0</jpa.version>
-        <jsp.version>2.0</jsp.version>
-        <jstl.version>1.1.2</jstl.version>
-        <jta.version>1.0.1B-rc4</jta.version>
-        <junit.version>3.8.1</junit.version>
-        <log4j.version>1.2.13</log4j.version>
-        <myfaces.version>1.1.4</myfaces.version>
-        <myfaces.tomahawk.version>1.1.3</myfaces.tomahawk.version>
-        <oro.version>2.0.8</oro.version>
-        <oscache.version>2.3</oscache.version>
-        <servlet.version>2.4</servlet.version>
-        <sitemesh.version>2.2.1</sitemesh.version>
-        <spring.version>2.0</spring.version>
-        <springmodules.validation.version>0.5</springmodules.validation.version>
-        <struts.version>2.0.1</struts.version>
-        <struts.menu.version>2.4.2</struts.menu.version>
-        <tapestry.version>4.0.2</tapestry.version>
-        <tapestry.flash.version>0.1.1</tapestry.flash.version>
-        <tapestry.spring.version>0.1.2</tapestry.spring.version>
-        <urlrewrite.version>2.5.2</urlrewrite.version>
-        <velocity.version>1.4</velocity.version>
-        <webtest.version>1393</webtest.version>
-        <wiser.version>1.0.3</wiser.version>
-
-        <copyright.year>2004-2006</copyright.year>
+        <web.framework>jsf</web.framework>
+        <appfuse.version>2.0-SNAPSHOT</appfuse.version>
     </properties>
-
 </project>

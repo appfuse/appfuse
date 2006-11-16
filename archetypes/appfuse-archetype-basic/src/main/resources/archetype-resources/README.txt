@@ -1,4 +1,4 @@
-AppFuse Archetype Basic
+AppFuse Basic Archetype
 -----------------------------------------------------------------------------
 If you're reading this then you've created your new project using Maven and
 appfuse-archetype basic.  You have only created the shell of an AppFuse JEE
