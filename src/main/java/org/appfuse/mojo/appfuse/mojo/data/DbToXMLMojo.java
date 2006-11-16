@@ -201,7 +201,7 @@ public class DbToXMLMojo extends MojoBase
 
         if ( ( this.getDatabasePropertiesFile() != null ) && ( this.getDatabasePropertiesFile().length() > 0 ) )
         {
-            // TODO - temporary hack to resolve database properties issue
+            // @todo - temporary hack to resolve database properties issue
             //configurationUtility.setPropertyFile( new File( this.getDatabasePropertiesFile() ) );
             configurationUtility.setPropertyFile(FileUtilities.getDatabaseProperties());
         }
@@ -231,7 +231,7 @@ public class DbToXMLMojo extends MojoBase
 
         // set the configurator into the exporter
         exporter.setConfiguration( configuration );
-
+        
         // Set the destination directory
         if ( ( this.getOutputDirectory() != null ) && ( this.getOutputDirectory().length() > 0 ) )
         {
@@ -250,7 +250,7 @@ public class DbToXMLMojo extends MojoBase
     }
 
     /**
-     * toString methode: creates a String representation of the object
+     * toString method: creates a String representation of the object
      * 
      * @return the String representation
      * 
