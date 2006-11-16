@@ -54,6 +54,18 @@
                 <configuration>
                     <scanIntervalSeconds>3</scanIntervalSeconds>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.myfaces.core</groupId>
+                        <artifactId>myfaces-impl</artifactId>
+                        <version>1.1.4</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                        <version>1.2.13</version>
+                    </dependency>
+                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.appfuse</groupId>
@@ -154,7 +166,7 @@
     </profiles>
 
     <properties>
-        <web.framework>jsf</web.framework>
+        <web.framework>${web.framework}</web.framework>
         <appfuse.version>2.0-SNAPSHOT</appfuse.version>
     </properties>
 </project>
