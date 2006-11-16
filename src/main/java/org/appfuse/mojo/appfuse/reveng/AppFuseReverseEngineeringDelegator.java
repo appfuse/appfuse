@@ -65,7 +65,7 @@ public class AppFuseReverseEngineeringDelegator extends DelegatingReverseEnginee
             LOG.debug( "Processing table " + tableName );
         }
 
-        return tableName + "Value";
+        return tableName;  //+ "Value";
     }
 
     /**
