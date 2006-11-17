@@ -91,6 +91,7 @@ public class GenerateJSFFormMojo extends PojoMojoBase
         // add the package names in the properties for access inside the template.
         inProperties.put( "webpackagename", this.getPackageName() );
         inProperties.put( "modelpackagename", this.getModelPackageName() );
+        inProperties.put( "basepackagename", this.getBasePackageName() );
 
     }
 
