@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!--
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -12,10 +11,7 @@
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
--->
-
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+--><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -92,19 +88,19 @@
                 <configuration>
                     <tasks>
                         <taskdef resource="webtest_base_relaxed.taskdef">
-                            <classpath refid="maven.test.classpath"/>
+                            <classpath refid="maven.test.classpath"></classpath>
                         </taskdef>
-                        <mkdir dir="target/webtest-data"/>
+                        <mkdir dir="target/webtest-data"></mkdir>
                         <!-- Delete old results file if it exists -->
-                        <delete file="target/webtest-data/web-tests-result.xml"/>
+                        <delete file="target/webtest-data/web-tests-result.xml"></delete>
                         <!-- This is so the default will be used if no test case is specified -->
-                        <property name="test" value="run-all-tests"/>
+                        <property name="test" value="run-all-tests"></property>
                         <echo level="info">Testing '${project.build.finalName}' with locale '${user.language}'</echo>
                         <ant antfile="src/test/data/web-tests.xml" target="${test}">
-                            <property name="user.language" value="${user.language}"/>
-                            <property name="webapp.name" value="${project.build.finalName}"/>
-                            <property name="host" value="${cargo.host}"/>
-                            <property name="port" value="${cargo.port}"/>
+                            <property name="user.language" value="${user.language}"></property>
+                            <property name="webapp.name" value="${project.build.finalName}"></property>
+                            <property name="host" value="${cargo.host}"></property>
+                            <property name="port" value="${cargo.port}"></property>
                         </ant>
                     </tasks>
                 </configuration>
@@ -297,9 +293,7 @@
                             <container>
                                 <containerId>tomcat5x</containerId>
                                 <zipUrlInstaller>
-                                    <url>
-                                        http://apache.org/dist/tomcat/tomcat-5/v5.5.17/bin/apache-tomcat-5.5.17.zip
-                                    </url>
+                                    <url>http://apache.org/dist/tomcat/tomcat-5/v5.5.17/bin/apache-tomcat-5.5.17.zip</url>
                                     <installDir>${installDir}</installDir>
                                 </zipUrlInstaller>
                             </container>
@@ -343,9 +337,7 @@
                             <container>
                                 <containerId>jboss4x</containerId>
                                 <zipUrlInstaller>
-                                    <url>
-                                        http://easynews.dl.sourceforge.net/sourceforge/jboss/jboss-4.0.5.GA.zip
-                                    </url>
+                                    <url>http://easynews.dl.sourceforge.net/sourceforge/jboss/jboss-4.0.5.GA.zip</url>
                                     <installDir>${installDir}</installDir>
                                 </zipUrlInstaller>
                             </container>
@@ -377,6 +369,18 @@
                 </plugins>
             </build>
         </profile>
+        <profile>
+            <id>netbeans-public</id>
+            <activation>
+                <property>
+                    <name>netbeans.execution</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build />
+            <properties>
+                <netbeans.deployment.server.type>Tomcat55</netbeans.deployment.server.type>
+            </properties>
+        </profile>
     </profiles>
 </project>
-

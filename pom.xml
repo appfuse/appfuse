@@ -239,7 +239,7 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
-            <scope>test</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>log4j</groupId>
@@ -280,7 +280,7 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-mock</artifactId>
             <version>${spring.version}</version>
-            <scope>test</scope>
+            <optional>true</optional>
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework</groupId>
