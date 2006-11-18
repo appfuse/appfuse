@@ -185,7 +185,7 @@
                         <groupId>org.codehaus.cargo</groupId>
                         <artifactId>cargo-maven2-plugin</artifactId>
                         <configuration>
-                            <wait>false</wait>
+                            <wait>${cargo.wait}</wait>
                             <container>
                                 <containerId>jetty6x</containerId>
                                 <type>embedded</type>
@@ -221,6 +221,10 @@
 
     <properties>
         <web.framework>${web.framework}</web.framework>
+
+        <cargo.host>localhost</cargo.host>
+        <cargo.port>8888</cargo.port>
+        <cargo.wait>false</cargo.wait>
         <appfuse.version>2.0-SNAPSHOT</appfuse.version>
         <spring.version>2.0</spring.version>
         <jmock.version>1.1.0</jmock.version>
