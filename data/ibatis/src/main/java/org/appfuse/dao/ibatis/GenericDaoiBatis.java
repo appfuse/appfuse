@@ -1,8 +1,6 @@
 package org.appfuse.dao.ibatis;
 
 import java.io.Serializable;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -33,7 +31,7 @@ public class GenericDaoiBatis<T, PK extends Serializable> extends SqlMapClientDa
     }
 
     public T get(PK id) {
-        T object = (T)getSqlMapClientTemplate().queryForObject(iBatisDaoUtils.getFindQuery(ClassUtils.getShortName(this.persistentClass)), id);
+        T object = (T) getSqlMapClientTemplate().queryForObject(iBatisDaoUtils.getFindQuery(ClassUtils.getShortName(this.persistentClass)), id);
         if (object == null) {
             throw new ObjectRetrievalFailureException(ClassUtils.getShortName(this.persistentClass), id);
         }
