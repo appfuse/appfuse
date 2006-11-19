@@ -68,7 +68,7 @@ public abstract class FileUpload extends BasePage {
         stream.close();
 
         // set the data for retrieval on next page
-        FileDisplay next = (FileDisplay) cycle.getPage("showFile");
+        FileDisplay next = (FileDisplay) cycle.getPage("FileDisplay");
         next.setFile(file);
         next.setName(getName());
         next.setFilePath(dirPath.getAbsolutePath() + Constants.FILE_SEP +

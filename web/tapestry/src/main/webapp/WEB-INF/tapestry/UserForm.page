@@ -3,7 +3,8 @@
     "-//Apache Software Foundation//Tapestry Specification 4.0//EN" 
     "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
     
-<page-specification class="org.appfuse.webapp.action.UserForm">
+<!--<page-specification class="org.appfuse.webapp.action.UserForm">-->
+<page-specification>
     <inject property="engineService" object="engine-service:page"/>
     <inject property="mailMessage" type="spring" object="mailMessage"/>
     <inject property="mailEngine" type="spring" object="mailEngine"/>

@@ -181,7 +181,7 @@ public abstract class UserForm extends BasePage implements PageBeginRenderListen
             // add success messages
             if ("X".equals(request.getParameter(("version")))) {                
                 sendNewUserEmail(request, user);
-                UserList nextPage = (UserList) cycle.getPage("users");
+                UserList nextPage = (UserList) cycle.getPage("UserList");
                 nextPage.setMessage(getText("user.added", user.getFullName()));
                 return getEngineService().getLink(false, nextPage.getPageName());
             } else {
@@ -196,7 +196,7 @@ public abstract class UserForm extends BasePage implements PageBeginRenderListen
 
         getUserManager().removeUser(getUser().getId().toString());
 
-        UserList nextPage = (UserList) cycle.getPage("users");
+        UserList nextPage = (UserList) cycle.getPage("UserList");
         nextPage.setMessage(getText("user.deleted", getUser().getFullName()));
         return getEngineService().getLink(false, nextPage.getPageName());
     }

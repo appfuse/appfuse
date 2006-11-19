@@ -8,7 +8,7 @@ public abstract class MainMenu extends BasePage {
     public abstract UserManager getUserManager();
 
     public void editProfile(IRequestCycle cycle) {
-        UserForm nextPage = (UserForm) cycle.getPage("userForm");
+        UserForm nextPage = (UserForm) cycle.getPage("UserForm");
         String username = getRequest().getRemoteUser();
 
         if (log.isDebugEnabled()) {

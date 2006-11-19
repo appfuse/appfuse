@@ -14,7 +14,7 @@ public abstract class UserList extends BasePage {
     }
     
     public void edit(IRequestCycle cycle) {
-        UserForm nextPage = (UserForm) cycle.getPage("userForm");
+        UserForm nextPage = (UserForm) cycle.getPage("UserForm");
         Object[] parameters = cycle.getListenerParameters();
         String username = (String) parameters[0];
 

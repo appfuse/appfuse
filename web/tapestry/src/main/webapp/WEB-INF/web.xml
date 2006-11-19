@@ -77,10 +77,12 @@
         <filter-name>sitemesh</filter-name>
         <filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class>
     </filter>
+    <!--
     <filter>
         <filter-name>compressionFilter</filter-name>
         <filter-class>net.sf.ehcache.constructs.web.filter.GzipFilter</filter-class>
     </filter>
+    -->
     <filter>
         <filter-name>localeFilter</filter-name>
         <filter-class>org.appfuse.webapp.filter.LocaleFilter</filter-class>
@@ -168,6 +170,7 @@
         <filter-name>localeFilter</filter-name>
         <url-pattern>*.sdirect</url-pattern>
     </filter-mapping>
+    <!--
     <filter-mapping>
         <filter-name>compressionFilter</filter-name>
         <url-pattern>*.css</url-pattern>
@@ -192,6 +195,7 @@
         <filter-name>compressionFilter</filter-name>
         <url-pattern>*.sdirect</url-pattern>
     </filter-mapping>
+    -->
     <filter-mapping>
         <filter-name>rewriteFilter</filter-name>
         <url-pattern>/*</url-pattern>
