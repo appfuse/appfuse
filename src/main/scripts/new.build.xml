@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="new-appfuse" basedir="." default="new">
+
+    <!--
+    ###############################################################################################
+    ## Classpaths
+    ###############################################################################################
+    -->
+
+        <path id="ant.classpath">
+            <pathelement location="${ant-contrib.jar}"/>
+        </path>
+        <path id="maven.dependency.classpath">
+            <fileset dir="${user.home}/.m2/repository/" includes="**/*.jar"/>
+        </path>
+
+        <path id="maven.classpath">
+            <pathelement location="target/maven-artifact-ant-2.0.4-SNAPSHOT-dep.jar" />
+        </path>
+
+    <!--
+    ###############################################################################################
+    ## Clean
+    ###############################################################################################
+    -->
+    <target name="clean" description="Removes build artifacts">
+        <echo level="info">Cleaning build and distribution directories</echo>
+        <!-- delete target directories -->
+    </target>
+
+    <!--
+    ###############################################################################################
+    ## Init
+    ###############################################################################################
+    -->
+    <target name="init" description="Defines custom tasks">
+        <!-- Taskdefs -->
+        <available resource="net/sf/antcontrib/antcontrib.properties" property="ant-contrib.jar"/>
+        <fail unless="ant-contrib.jar" message="AppFuse requires ant-contrib for special ant tasks."/>
+    </target>
+
+    <!--
+    ###############################################################################################
+    ## New
+    ###############################################################################################
+    -->
+    <target name="new" depends="clean,init"
+        description="creates a new project with the specified name in a different directory">
+<echo level="info">
++-------------------------------------------------------------+
+|    -- Welcome to the AppFuse New Application Wizard! --     |
+|                                                             |
+| To create a new application, please answer the following    |
+| questions.                                                  |
++-------------------------------------------------------------+
+</echo>
+        <echo/>
+
+        <!-- Prompt user for input -->
+        <input message="What would you like to name your application [myapp]?" addproperty="app.name" defaultvalue="myapp"/>
+        <input message="What would you like to name your database [mydb]?" addproperty="db.name" defaultvalue="mydb"/>
+        <input message="What package name would you like to use [org.appfuse]?" addproperty="new.pkg.name" defaultvalue="org.appfuse"/>
+        <input message="What web framework would you like to use [webwork,tapestry,spring,jsf,struts]?" addproperty="web.framework" defaultvalue="struts"/>
+
+        <echo level="info">Creating new application named '${app.name}'...</echo>
+        <copy todir="../${app.name}">
+            <fileset dir="${basedir}">
+                <exclude name="plugins/**"/>
+                <exclude name="archetypes/**"/>
+                <exclude name="target/**"/>
+                <exclude name="sandbox/**"/>
+                <exclude name="www/**"/>
+                <exclude name="*.log"/>
+                <exclude name="**/appfuse.*"/>
+                <!-- <exclude name="*.sh"/> -->
+                <exclude name=".#**"/>
+                <exclude name="java-net.xml"/>
+                <exclude name="extras/**"/>
+                <include name="**"/>
+            </fileset>
+        </copy>
+
+        <!-- replace app name -->
+        <replaceregexp flags="g">
+            <regexp pattern="appfuse"/>
+            <substitution expression="${app.name}"/>
+            <fileset dir="../${app.name}">
+                <include name="**"/>
+                <exclude name="**/*.properties"/>
+                <exclude name="**/*.jpg"/>
+                <exclude name="**/*.gif"/>
+                <exclude name="**/*.ico"/>
+                <exclude name="**/*.png"/>
+                <exclude name="**/*.warpath"/>
+
+
+                <exclude name="lib/rename-packages-*/*.xml"/>
+                <exclude name="src/**/*.java"/>
+                <exclude name="src/**/*.xml"/>
+                <exclude name="test/**/*.java"/>
+                <exclude name="test/**/*.xml"/>
+                <exclude name="extras/**/*.java"/>
+                <exclude name="extras/**/*.xml"/>
+                <exclude name="metadata/web/global-exceptions.xml"/>
+                <exclude name="web/WEB-INF/*.xml"/>
+                <exclude name="web/WEB-INF/classes/log4j.properties"/>
+                <exclude name="web/WEB-INF/classes/mail.properties"/>
+                <exclude name="**/*.page"/>
+                <exclude name="**/*.application"/>
+                <exclude name="**/*.jwc"/>
+                <exclude name="**/*_page.xdt"/>
+                <exclude name="**/managed-beans.xdt"/>
+                <exclude name="docs/**"/>
+                <exclude name="**/loginMenu.jsp"/>
+                <exclude name="**/README.txt"/>
+                <exclude name=".springBeansProject"/>
+                <exclude name="**/*.jar"/>
+            </fileset>
+        </replaceregexp>
+
+        <!-- Copy IDEA project files -->
+        <copy file="appfuse.iml" tofile="../${app.name}/${app.name}.iml"/>
+        <copy file="appfuse.ipr" tofile="../${app.name}/${app.name}.ipr"/>
+        <copy file="appfuse.iws" tofile="../${app.name}/${app.name}.iws"/>
+        
+        <replace dir="../${app.name}" value="${app.name}" token="appfuse">
+            <include name="${app.name}.i*"/>
+        </replace> 
+
+        <!-- Replace JNDI Name for database -->
+        <replaceregexp flags="g">
+            <regexp pattern="jdbc(.*)${app.name}"/>
+            <substitution expression="jdbc\1${db.name}"/>
+         <!--   <fileset dir="../${app.name}/metadata/web" includes="*web-resource-env-refs.xml"/> -->
+         <!--   <fileset dir="../${app.name}/metadata/conf" includes="**"/> -->
+            <fileset dir="../${app.name}/web" includes="**/*.jsp"/>
+            <fileset dir="../${app.name}" includes="database.properties.reference"/>
+        </replaceregexp>
+
+        <!-- Replace JNDI Name in Spring config files -->
+        <replaceregexp flags="g" match="jdbc/appfuse" replace="jdbc/${db.name}"
+            file="../${app.name}/web/WEB-INF/applicationContext-resources.xml"/>
+
+        <!-- Replace database name in properties.xml in database creation script -->
+        <replaceregexp flags="g">
+            <regexp pattern="${app.name}"/>
+            <substitution expression="${db.name}"/>
+          <!--  <fileset dir="../${app.name}/metadata/sql" includes="*.sql"/> -->
+            <fileset dir="../${app.name}" includes="properties.xml"/>
+        </replaceregexp>
+
+        <!-- fix if windows -->
+<!--        <condition property="isWindows"><os family="windows"/></condition>
+        <if>
+            <isset property="isWindows"/>
+            <then>
+                <ant dir="../${app.name}" target="fixcrlf"/>
+            </then>
+        </if>  -->
+
+<echo level="info">
++-------------------------------------------------------------+
+|           -- Application created successfully! --           |
+|                                                             |
+| Now you should be able to cd to your application and run:   |
+| > (NOTE: replace with mvn) ant setup test-all               |
++-------------------------------------------------------------+
+</echo>
+    </target>
+
+    <!--
+    ###############################################################################################
+    ## FIX CARRRIAGE RETURN AND LINE FEEDS
+    ###############################################################################################
+    -->
+
+    <target name="fixcrlf" depends="init">
+        <echo>Running fixcrlf....</echo>
+        <fixcrlf srcdir="${basedir}"
+            excludes="**/ApplicationResources_zh*.properties"
+            includes="**/*.txt,
+                      **/*.properties,
+                      **/*.sql,
+                      **/*.java,
+                      **/*.jsp,
+                      **/*.xdt,
+                      **/*.xml,
+                      **/*.page,
+                      **/*.html,
+                      **/*.js,
+                      **/*.css,
+                      **/*.reference,
+                      **/*.ldif,
+                      **/*.conf"/>
+    </target>
+
+</project>
