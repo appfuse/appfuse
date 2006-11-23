@@ -125,6 +125,13 @@
             <organization>Soaring Eagle, LLC.</organization>
             <timezone>-7</timezone>
         </developer>
+        <developer>
+            <id>dlwhitehurst</id>
+            <name>David Whitehurst</name>
+            <email>dlwhitehurst@gmail.com</email>
+            <organization>CIBERsites ADM US</organization>
+            <timezone>-6</timezone>
+        </developer>
     </developers>
 
     <build>
@@ -176,6 +183,13 @@
                     <scanIntervalSeconds>3</scanIntervalSeconds>
                 </configuration>
             </plugin>
+            <!-- uncomment and mvn site:site in appfuse-maven-plugin and read documentation -->
+            <!--
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>appfuse-maven-plugin</artifactId>
+            </plugin>
+            -->
         </plugins>
     </build>
 
@@ -252,6 +266,13 @@
             <version>${jdbc.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>ant</groupId>
+            <artifactId>ant</artifactId>
+            <version>1.6.5</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring</artifactId>

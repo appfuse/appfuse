@@ -12,6 +12,9 @@ Maven 2 Appfuse Plugin
   This plugin provides support for generating the data layer for the Appfuse environment.  This plugin is still
   in its early stages but do give it a test and give us your feedback thru JIRA.
 
+  The latest functionality is the "new" goal.  Build and install this plugin using mvn install at this plugin
+  root directory.  Then cd to the appfuse root directory and type "mvn appfuse:new" to create a new appfuse
+  application.  This is not complete but it should start a new application and build successful.
 
   If you've made the changes that were described in the installation document, you should be ready to run the
   plugin and generate some code modules.
