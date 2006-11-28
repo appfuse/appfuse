@@ -7,7 +7,7 @@
     <artifactId>${artifactId}</artifactId>
     <packaging>war</packaging>
     <version>${version}</version>
-    <name>A kick-ass webapp</name>
+    <name>Archetype AppFuse Web Application</name>
     <url>http://www.mycompany.com</url>
 
     <prerequisites>
@@ -184,11 +184,9 @@
             </build>
         </profile>
     </profiles>
-
     <properties>
         <dao.framework>hibernate</dao.framework>
         <web.framework>struts</web.framework>
-
         <cargo.host>localhost</cargo.host>
         <cargo.port>8888</cargo.port>
         <cargo.wait>false</cargo.wait>

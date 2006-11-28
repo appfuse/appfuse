@@ -1,18 +1,12 @@
 <archetype>
     <id>appfuse-basic</id>
-    <!--resources>
-        <resource>README.txt</resource>
-        <resource>src/main/resources</resource>
-        <resource>src/main/webapp</resource>
-        <resource>src/main/webapp/WEB-INF</resource>
-    </resources>-->
+    <resources>
+      <resource filtered="true">pom.xml</resource>
+    </resources>
     <site-resources>
         <site-resource>src/site/site.xml</site-resource>
     </site-resources>
-    <!--<sources>
-        <source>src/main/java</source>
-    </sources>
-    <testSources>
-        <source>src/test/java</source>
-    </testSources>-->
+    <contextProperties>
+    <property name="web.framework" value="jsf"/>
+    </contextProperties>
 </archetype>
