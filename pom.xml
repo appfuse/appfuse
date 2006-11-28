@@ -302,40 +302,6 @@
             <artifactId>spring-mock</artifactId>
             <version>${spring.version}</version>
             <optional>true</optional>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-aop</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-beans</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-context</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-core</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-dao</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-jdbc</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-jpa</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-webmvc</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
     </dependencies>
 
@@ -366,7 +332,7 @@
     <properties>
         <dao.framework>hibernate</dao.framework>
 
-        <hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
+        <hibernate.dialect>org.hibernate.dialect.MySQLInnoDBDialect</hibernate.dialect>
 
         <jdbc.groupId>mysql</jdbc.groupId>
         <jdbc.artifactId>mysql-connector-java</jdbc.artifactId>
@@ -384,7 +350,7 @@
         <acegi.version>1.0.2</acegi.version>
         <aspectj.version>1.5.2</aspectj.version>
         <clickstream.version>1.0.2</clickstream.version>
-        <commons.lang.version>2.1</commons.lang.version>
+        <commons.lang.version>2.2</commons.lang.version>
         <commons.beanutils.version>1.7.0</commons.beanutils.version>
         <commons.dbcp.version>1.2.1</commons.dbcp.version>
         <commons.fileupload.version>1.1.1</commons.fileupload.version>
@@ -393,7 +359,7 @@
         <dwr.version>1.1.1</dwr.version>
         <ehcache.version>1.2.3</ehcache.version>
         <hibernate.version>3.2.0.ga</hibernate.version>
-        <ibatis.version>2.1.6.589</ibatis.version>
+        <ibatis.version>2.1.7.597</ibatis.version>
         <javamail.version>1.4</javamail.version>
         <jmock.version>1.1.0</jmock.version>
         <jpa.version>1.0</jpa.version>
@@ -408,8 +374,8 @@
         <oscache.version>2.3</oscache.version>
         <servlet.version>2.4</servlet.version>
         <sitemesh.version>2.2.1</sitemesh.version>
-        <spring.version>2.0</spring.version>
-        <springmodules.validation.version>0.5</springmodules.validation.version>
+        <spring.version>2.0.1</spring.version>
+        <springmodules.validation.version>0.6</springmodules.validation.version>
         <struts.version>2.0.1</struts.version>
         <struts.menu.version>2.4.2</struts.menu.version>
         <tapestry.version>4.0.2</tapestry.version>

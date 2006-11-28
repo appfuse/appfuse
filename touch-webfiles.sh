@@ -13,4 +13,4 @@ touch web/struts/src/main/webapp/WEB-INF/pages/*
 
 touch web/tapestry/src/main/webapp/*
 touch web/tapestry/src/main/webapp/WEB-INF/*
-touch web/tapestry/src/main/webapp/WEB-INF/pages/*
+touch web/tapestry/src/main/webapp/WEB-INF/tapestry/*
