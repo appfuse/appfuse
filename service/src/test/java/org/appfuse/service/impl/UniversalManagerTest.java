@@ -8,7 +8,7 @@ import org.springframework.orm.ObjectRetrievalFailureException;
 /**
  * This class tests the generic Manager and BaseManager implementation.
  */
-public class GenericManagerTest extends BaseManagerTestCase {
+public class UniversalManagerTest extends BaseManagerTestCase {
     protected BaseManager manager = new BaseManager();
     protected Mock dao;
     

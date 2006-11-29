@@ -44,8 +44,6 @@
     <bean id="roleDao" class="org.appfuse.dao.hibernate.RoleDaoHibernate">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
-
-    <!-- Add new Daos here -->
     
     <!-- If you want to be able to do simple CRUD for new domain objects without 
         having to cast, you don't have create a Dao interface and implementation 
@@ -60,5 +58,7 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
     -->
+
+    <!-- Add new DAOs here -->
 
 </beans>

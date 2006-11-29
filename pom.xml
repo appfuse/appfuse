@@ -295,6 +295,10 @@
                     <groupId>javax.servlet</groupId>
                     <artifactId>servlet-api</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
@@ -307,6 +311,9 @@
 
     <reporting>
         <plugins>
+            <plugin>
+                <artifactId>maven-changes-plugin</artifactId>
+            </plugin>
             <plugin>
                 <artifactId>maven-checkstyle-plugin</artifactId>
             </plugin>

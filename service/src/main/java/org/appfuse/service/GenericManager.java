@@ -1,18 +1,17 @@
-package org.appfuse.dao;
+package org.appfuse.service;
 
 import java.io.Serializable;
 import java.util.List;
 
-
 /**
- * Generic DAO (Data Access Object) with common methods to CRUD POJOs.
+ * Generic Manager that talks to GenericDao to CRUD POJOs.
  *
- * <p>Extend this interface if you want typesafe (no casting necessary) DAO's for your
+ * <p>Extend this interface if you want typesafe (no casting necessary) Manager's for your
  * domain objects.
  *
- * @author <a href="mailto:bwnoll@gmail.com">Bryan Noll</a>
+ * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
-public interface GenericDao <T, PK extends Serializable> {
+public interface GenericManager<T, PK extends Serializable> {
 
     /**
      * Generic method used to get all objects of a particular type. This

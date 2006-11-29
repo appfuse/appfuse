@@ -7,7 +7,6 @@ import org.acegisecurity.userdetails.UserDetailsService;
 import org.acegisecurity.userdetails.UsernameNotFoundException;
 import org.appfuse.dao.UserDao;
 import org.appfuse.model.User;
-import org.springframework.orm.ObjectRetrievalFailureException;
 
 /**
  * This class interacts with Spring's HibernateTemplate to save/delete and
@@ -19,14 +18,10 @@ import org.springframework.orm.ObjectRetrievalFailureException;
  *   Modified by <a href="mailto:bwnoll@gmail.com">Bryan Noll</a> to work with 
  *   the new BaseDaoHibernate implementation that uses generics.
 */
-public class UserDaoHibernate 
-     extends GenericDaoHibernate<org.appfuse.model.User, Long> 
-  implements UserDao, UserDetailsService {
-    
-    
-    
+public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements UserDao, UserDetailsService {
+
     public UserDaoHibernate() {
-        super(org.appfuse.model.User.class);
+        super(User.class);
     }
 
     /**
