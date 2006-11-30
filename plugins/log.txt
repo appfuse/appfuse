@@ -1,0 +1,110 @@
++ Error stacktraces are turned on.
+Maven version: 2.0.4
+[DEBUG] Building Maven user-level plugin registry from: '/home/piratepete/.m2/plugin-registry.xml'
+[DEBUG] Building Maven global-level plugin registry from: '/usr/local/maven-2.0.4/conf/plugin-registry.xml'
+[INFO] Scanning for projects...
+[INFO] Searching repository for plugin with prefix: 'exec'.
+[INFO] org.apache.maven.plugins: checking for updates from maven-snapshots
+[DEBUG] repository metadata for: 'org.apache.maven.plugins' could not be found on repository: maven-snapshots
+[INFO] org.apache.maven.plugins: checking for updates from central
+[INFO] org.codehaus.mojo: checking for updates from maven-snapshots
+[INFO] org.codehaus.mojo: checking for updates from central
+[INFO] artifact org.codehaus.mojo:exec-maven-plugin: checking for updates from maven-snapshots
+[INFO] artifact org.codehaus.mojo:exec-maven-plugin: checking for updates from central
+[DEBUG] exec-maven-plugin: resolved to version 1.0.3-SNAPSHOT from repository central
+[INFO] snapshot org.codehaus.mojo:exec-maven-plugin:1.0.3-SNAPSHOT: checking for updates from maven-snapshots
+[DEBUG] Skipping disabled repository central
+[DEBUG] exec-maven-plugin: resolved to version 1.0.3-20061108.100912-2 from repository maven-snapshots
+[DEBUG] Retrieving parent-POM: org.codehaus.mojo:mojo::12 for project: null:exec-maven-plugin:maven-plugin:1.0.3-20061108.100912-2 from the repository.
+[INFO] ----------------------------------------------------------------------------
+[INFO] Building AppFuse QuickStart
+[INFO]    task-segment: [exec:exec]
+[INFO] ----------------------------------------------------------------------------
+[DEBUG] org.appfuse:quickstart:jar:1.0-SNAPSHOT (selected for null)
+[DEBUG]   ant:ant:jar:1.6.5:compile (selected for compile)
+[DEBUG]   junit:junit:jar:3.8.1:compile (selected for compile)
+[DEBUG]   log4j:log4j:jar:1.2.13:compile (selected for compile)
+[DEBUG] org.codehaus.mojo:exec-maven-plugin:maven-plugin:1.0.3-20061108.100912-2:runtime (selected for runtime)
+[DEBUG] Retrieving parent-POM: org.codehaus.plexus:plexus::1.0.4 for project: null:plexus-utils:jar:1.1 from the repository.
+[DEBUG]   org.codehaus.plexus:plexus-utils:jar:1.1:runtime (selected for runtime)
+[DEBUG] Retrieving parent-POM: org.apache.maven:maven::2.0 for project: null:maven-project:jar:2.0 from the repository.
+[DEBUG]   org.apache.maven:maven-project:jar:2.0:runtime (selected for runtime)
+[DEBUG]     org.codehaus.plexus:plexus-utils:jar:1.0.4:runtime (removed - nearer found: 1.1)
+[DEBUG]     org.codehaus.plexus:plexus-container-default:jar:1.0-alpha-8:runtime (selected for runtime)
+[DEBUG]       org.codehaus.plexus:plexus-utils:jar:1.0.4:runtime (removed - nearer found: 1.1)
+[DEBUG]       classworlds:classworlds:jar:1.1-alpha-2:runtime (selected for runtime)
+[DEBUG]       junit:junit:jar:3.8.1:runtime (selected for runtime)
+[DEBUG] Retrieving parent-POM: org.apache.maven:maven::2.0 for project: org.apache.maven:maven-artifact:jar:2.0 from the repository.
+[DEBUG]     org.apache.maven:maven-artifact:jar:2.0:runtime (selected for runtime)
+[DEBUG]       org.codehaus.plexus:plexus-utils:jar:1.0.4:runtime (removed - nearer found: 1.1)
+[DEBUG] Retrieving parent-POM: org.apache.maven:maven::2.0 for project: org.apache.maven:maven-model:jar:2.0 from the repository.
+[DEBUG]     org.apache.maven:maven-model:jar:2.0:runtime (selected for runtime)
+[DEBUG]       org.codehaus.plexus:plexus-utils:jar:1.0.4:runtime (removed - nearer found: 1.1)
+[DEBUG] Retrieving parent-POM: org.apache.maven:maven::2.0 for project: org.apache.maven:maven-artifact-manager:jar:2.0 from the repository.
+[DEBUG]     org.apache.maven:maven-artifact-manager:jar:2.0:runtime (selected for runtime)
+[DEBUG]       org.codehaus.plexus:plexus-utils:jar:1.0.4:runtime (removed - nearer found: 1.1)
+[DEBUG] Retrieving parent-POM: org.apache.maven:maven::2.0 for project: org.apache.maven:maven-repository-metadata:jar:2.0 from the repository.
+[DEBUG]       org.apache.maven:maven-repository-metadata:jar:2.0:runtime (selected for runtime)
+[DEBUG]         org.codehaus.plexus:plexus-utils:jar:1.0.4:runtime (removed - nearer found: 1.1)
+[DEBUG]       org.apache.maven.wagon:wagon-provider-api:jar:1.0-alpha-5:runtime (selected for runtime)
+[DEBUG]         org.codehaus.plexus:plexus-utils:jar:1.0.4:runtime (removed - nearer found: 1.1)
+[DEBUG] Retrieving parent-POM: org.apache.maven:maven::2.0 for project: null:maven-profile:jar:2.0 from the repository.
+[DEBUG]     org.apache.maven:maven-profile:jar:2.0:runtime (selected for runtime)
+[DEBUG]       org.codehaus.plexus:plexus-utils:jar:1.0.4:runtime (removed - nearer found: 1.1)
+[DEBUG] Retrieving parent-POM: org.apache.maven:maven::2.0 for project: org.apache.maven:maven-plugin-api:jar:2.0 from the repository.
+[DEBUG]   org.apache.maven:maven-plugin-api:jar:2.0:runtime (selected for runtime)
+[DEBUG] Configuring mojo 'org.codehaus.mojo:exec-maven-plugin:1.0.3-SNAPSHOT:exec' -->
+[DEBUG]   (f) arguments = [-jar, -classpath, Classpath {}, target/quickstart-1.0-SNAPSHOT.jar]
+[DEBUG]   (f) basedir = /home/piratepete/Java/quickstart
+[DEBUG]   (f) executable = java
+[DEBUG]   (f) project = org.apache.maven.project.MavenProject@1c7c4d60
+[DEBUG]   (f) skip = false
+[DEBUG] -- end configuration --
+[INFO] [exec:exec]
+[DEBUG] dealing with junit:junit:jar:3.8.1:compile
+[DEBUG] dealing with ant:ant:jar:1.6.5:compile
+[DEBUG] dealing with log4j:log4j:jar:1.2.13:compile
+[DEBUG] executable java not found in place, assuming it is in the PATH.
+[INFO] Exception occurred during event dispatching:
+[INFO] java.lang.NoClassDefFoundError: org/apache/log4j/Logger
+[INFO] 	at org.appfuse.command.NewCommand.<clinit>(NewCommand.java:20)
+[INFO] 	at org.appfuse.ui.StartDialog.onOK(StartDialog.java:101)
+[INFO] 	at org.appfuse.ui.StartDialog.access$000(StartDialog.java:19)
+[INFO] 	at org.appfuse.ui.StartDialog$1.actionPerformed(StartDialog.java:49)
+[INFO] 	at javax.swing.AbstractButton.fireActionPerformed(AbstractButton.java:1849)
+[INFO] 	at javax.swing.AbstractButton$Handler.actionPerformed(AbstractButton.java:2169)
+[INFO] 	at javax.swing.DefaultButtonModel.fireActionPerformed(DefaultButtonModel.java:420)
+[INFO] 	at javax.swing.DefaultButtonModel.setPressed(DefaultButtonModel.java:258)
+[INFO] 	at javax.swing.plaf.basic.BasicButtonListener.mouseReleased(BasicButtonListener.java:236)
+[INFO] 	at java.awt.Component.processMouseEvent(Component.java:5488)
+[INFO] 	at javax.swing.JComponent.processMouseEvent(JComponent.java:3126)
+[INFO] 	at java.awt.Component.processEvent(Component.java:5253)
+[INFO] 	at java.awt.Container.processEvent(Container.java:1966)
+[INFO] 	at java.awt.Component.dispatchEventImpl(Component.java:3955)
+[INFO] 	at java.awt.Container.dispatchEventImpl(Container.java:2024)
+[INFO] 	at java.awt.Component.dispatchEvent(Component.java:3803)
+[INFO] 	at java.awt.LightweightDispatcher.retargetMouseEvent(Container.java:4212)
+[INFO] 	at java.awt.LightweightDispatcher.processMouseEvent(Container.java:3892)
+[INFO] 	at java.awt.LightweightDispatcher.dispatchEvent(Container.java:3822)
+[INFO] 	at java.awt.Container.dispatchEventImpl(Container.java:2010)
+[INFO] 	at java.awt.Window.dispatchEventImpl(Window.java:1778)
+[INFO] 	at java.awt.Component.dispatchEvent(Component.java:3803)
+[INFO] 	at java.awt.EventQueue.dispatchEvent(EventQueue.java:463)
+[INFO] 	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:242)
+[INFO] 	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:163)
+[INFO] 	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:153)
+[INFO] 	at java.awt.Dialog$1.run(Dialog.java:517)
+[INFO] 	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
+[INFO] 	at java.awt.EventQueue.dispatchEvent(EventQueue.java:461)
+[INFO] 	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(EventDispatchThread.java:242)
+[INFO] 	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:163)
+[INFO] 	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:157)
+[INFO] 	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:149)
+[INFO] 	at java.awt.EventDispatchThread.run(EventDispatchThread.java:110)
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 10 seconds
+[INFO] Finished at: Thu Nov 30 08:56:44 CST 2006
+[INFO] Final Memory: 2M/4M
+[INFO] ------------------------------------------------------------------------
