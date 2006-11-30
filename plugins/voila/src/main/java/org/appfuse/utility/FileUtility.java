@@ -1,6 +1,6 @@
 package org.appfuse.utility;
 
-import java.io.File;
+import java.io.*;
 
 /**
  * <p> This program is open software. It is licensed using the Apache Software
@@ -13,6 +13,13 @@ import java.io.File;
  */
 public class FileUtility {
 
+    /**
+     * Work method that deletes any build directories that linger in the
+     * AppFuse application.  This method can be modified to suit the project
+     * as AppFuse target directories change.
+     *
+     * @return
+     */
     public static boolean deleteTargetDirectories() {
         boolean result = true;
         // delete all production target directories
@@ -41,8 +48,12 @@ public class FileUtility {
         
     }
 
-
-    private static boolean deleteDirectory(File dir) {
+    /**
+     * Deletes a directory and it's contents
+     * @param dir
+     * @return
+     */
+    public static boolean deleteDirectory(File dir) {
         boolean result = false;
 
         if (dir.isDirectory()) {
@@ -59,4 +70,44 @@ public class FileUtility {
         return dir.delete();
 
     }
+
+    /**
+     * Copies a source directory to a destination directory.  If the directories
+     * are files, the source file will be copied to the destination file.
+     */
+    public static void copyDirectory(File source, File destination) throws IOException {
+        if (source.isDirectory()) {
+            if (!destination.exists()) {
+                destination.mkdir();
+            }
+
+            String[] children = source.list();
+            for (int i=0; i<children.length; i++) {
+                copyDirectory(new File(source, children[i]),
+                                     new File(destination, children[i]));
+            }
+        } else {
+            copyFile(source, destination);
+        }
+    }
+
+     /**
+      *  Copies a source file to a destination file by copying 1024 bytes
+      *  at a time until there are no more bytes.
+      */
+     public static void copyFile(File source, File destination) throws IOException {
+        // create in and out streams
+        InputStream in = new FileInputStream(source);
+        OutputStream out = new FileOutputStream(destination);
+
+        // Transfer bytes from in to out
+        byte[] buf = new byte[1024];
+        int len;
+        while ((len = in.read(buf)) > 0) {
+            out.write(buf, 0, len);
+        }
+        in.close();
+        out.close();
+    }
+
 }
