@@ -110,4 +110,33 @@ public class FileUtility {
         out.close();
     }
 
+    /**
+     * Creates a directory by pathname or relative to execution
+     * @param name
+     */
+    public static void createDirectory(String name) {
+        boolean success = (new File(name)).mkdirs();
+
+        if (!success) {
+            System.err.println("ERROR: directory creation failed.");
+        }
+    }
+
+    /**
+     * Lists files (children) in Directory (File)
+     * @param name
+     */
+    public static void listFilesInDirectory(String name) {
+        File dir = new File(name);
+
+        String[] children = dir.list();
+        if (children == null) {
+            System.err.println("Directory or file does not exist");
+        } else {
+            for (int i=0; i<children.length; i++) {
+                String filename = children[i];
+                System.out.println(filename);
+            }
+        }
+    }
 }
