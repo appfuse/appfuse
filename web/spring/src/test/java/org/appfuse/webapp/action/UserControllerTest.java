@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class UserControllerTest extends BaseControllerTestCase {
 
     public void testHandleRequest() throws Exception {
-        UserController c = (UserController) ctx.getBean("userController");
+        UserController c = (UserController) applicationContext.getBean("userController");
         ModelAndView mav =
             c.handleRequest((HttpServletRequest) null,
                             (HttpServletResponse) null);

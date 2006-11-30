@@ -8,20 +8,14 @@ import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
 public class UserFormControllerTest extends BaseControllerTestCase {
-    private UserFormController c;
+    private UserFormController c = null;
     private MockHttpServletRequest request;
     private ModelAndView mv;
 
-    protected void setUp() throws Exception {
-        // needed to initialize a user
-        super.setUp();
-        c = (UserFormController) ctx.getBean("userFormController");
+    public void setUserFormController(UserFormController form) {
+        this.c = form;
     }
-
-    protected void tearDown() {
-        c = null;
-    }
-
+    
     public void testCancel() throws Exception {
         log.debug("testing cancel...");
         request = newPost("/editUser.html");

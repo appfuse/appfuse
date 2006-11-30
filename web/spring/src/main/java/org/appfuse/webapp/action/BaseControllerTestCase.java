@@ -1,60 +1,67 @@
 package org.appfuse.webapp.action;
 
-import junit.framework.TestCase;
+import java.lang.reflect.AccessibleObject;
+import java.lang.reflect.Field;
+import java.util.*;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.model.BaseObject;
 import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
 import org.appfuse.util.DateUtil;
+
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockServletContext;
+import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
+import org.springframework.util.StringUtils;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 
-import java.lang.reflect.AccessibleObject;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
-
-public abstract class BaseControllerTestCase extends TestCase {
+public abstract class BaseControllerTestCase extends AbstractTransactionalDataSourceSpringContextTests {
     protected transient final Log log = LogFactory.getLog(getClass());
-    protected static XmlWebApplicationContext ctx;
     protected User user;
 
-    // This static block ensures that Spring's BeanFactory is only loaded
-    // once for all tests
-    static {
-        String[] paths = {
+    protected String[] getConfigLocations() {
+        setAutowireMode(AUTOWIRE_BY_NAME);
+        return new String[] {
                 "classpath*:/applicationContext-dao.xml",
                 "classpath*:/applicationContext-service.xml",
                 "/WEB-INF/applicationContext-resources.xml",
                 "/WEB-INF/applicationContext-validation.xml",
                 "/WEB-INF/action-servlet.xml"
             };
-
-        ctx = new XmlWebApplicationContext();
-        ctx.setConfigLocations(paths);
-        ctx.setServletContext(new MockServletContext(""));
-        ctx.refresh();
     }
 
-    protected void setUp() throws Exception {
+    protected void onSetUpBeforeTransaction() throws Exception {
         // populate the userForm and place into session
-        UserManager userMgr = (UserManager) ctx.getBean("userManager");
+        UserManager userMgr = (UserManager) applicationContext.getBean("userManager");
         user = (User) userMgr.getUserByUsername("tomcat");
 
         // change the port on the mailSender so it doesn't conflict with an
         // existing SMTP server on localhost
-        JavaMailSenderImpl mailSender = (JavaMailSenderImpl) ctx.getBean("mailSender");
+        JavaMailSenderImpl mailSender = (JavaMailSenderImpl) applicationContext.getBean("mailSender");
         mailSender.setPort(2525);
         mailSender.setHost("localhost");
     }
 
+    /**
+     * Subclasses can invoke this to get a context key for the given location.
+     * This doesn't affect the applicationContext instance variable in this class.
+     * Dependency Injection cannot be applied from such contexts.
+     */
+    protected ConfigurableApplicationContext loadContextLocations(String[] locations) {
+        if (logger.isInfoEnabled()) {
+            logger.info("Loading additional configuration from: " + StringUtils.arrayToCommaDelimitedString(locations));
+        }
+        XmlWebApplicationContext ctx = new XmlWebApplicationContext();
+        ctx.setConfigLocations(locations);
+        ctx.setServletContext(new MockServletContext());
+        ctx.refresh();
+        return ctx;
+    }
+    
     /**
      * Convenience methods to make tests simpler
      * @return a MockHttpServletRequest with a POST to the specified URL
@@ -77,28 +84,28 @@ public abstract class BaseControllerTestCase extends TestCase {
         Field[] fields = getDeclaredFields(clazz);
         AccessibleObject.setAccessible(fields, true);
 
-        for (Field field1 : fields) {
-            Object field = (field1.get(o));
+        for (Field f : fields) {
+            Object field = (f.get(o));
             if (field != null) {
                 if (field instanceof BaseObject) {
                     // Fix for http://issues.appfuse.org/browse/APF-429
                     if (prefix != null) {
-                        objectToRequestParameters(field, request, prefix + "." + field1.getName());
+                        objectToRequestParameters(field, request, prefix + "." + f.getName());
                     } else {
-                        objectToRequestParameters(field, request, field1.getName());
+                        objectToRequestParameters(field, request, f.getName());
                     }
                 } else if (!(field instanceof List) && !(field instanceof Set)) {
-                    String paramName = field1.getName();
+                    String paramName = f.getName();
 
                     if (prefix != null) {
                         paramName = prefix + "." + paramName;
                     }
 
-                    String paramValue = String.valueOf(field1.get(o));
+                    String paramValue = String.valueOf(f.get(o));
 
                     // handle Dates
                     if (field instanceof Date) {
-                        paramValue = DateUtil.convertDateToString((Date) field1.get(o));
+                        paramValue = DateUtil.convertDateToString((Date) f.get(o));
                         if ("null".equals(paramValue)) paramValue = "";
                     }
 
