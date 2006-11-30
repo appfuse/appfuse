@@ -7,14 +7,12 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="configLocation" value="classpath:hibernate.cfg.xml"/>
         <property name="hibernateProperties">
-            <props>
-                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
-                <prop key="hibernate.query.substitutions">true 'Y', false 'N'</prop>
-                <!-- Create/update the database tables automatically when the JVM starts up
-                <prop key="hibernate.hbm2ddl.auto">update</prop> -->
-                <!-- Turn batching off for better error messages under PostgreSQL 
-                <prop key="hibernate.jdbc.batch_size">0</prop> -->
-            </props>
+            <value>
+                hibernate.dialect=${hibernate.dialect}
+                hibernate.query.substitutions=true 'Y', false 'N'
+            </value>
+            <!-- Turn batching off for better error messages under PostgreSQL -->
+            <!-- hibernate.jdbc.batch_size=0 -->
         </property>
     </bean>
 
