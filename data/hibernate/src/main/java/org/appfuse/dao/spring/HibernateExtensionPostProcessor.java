@@ -1,5 +1,9 @@
 package org.appfuse.dao.spring;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+
 import org.springframework.beans.BeansException;
 import org.springframework.beans.MutablePropertyValues;
 import org.springframework.beans.PropertyValue;
@@ -7,9 +11,6 @@ import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * <p>Adds Hibernate persistent class definitions to an existing Spring Session Factory bean, possibly defined
@@ -49,6 +50,7 @@ public class HibernateExtensionPostProcessor implements BeanFactoryPostProcessor
     private List mappingResources;
     private List annotatedClasses;
     private List configLocations;
+    private Properties hibernateProperties;
 
     /**
      * Adds the annotated classes and the mapping resources to the existing Session Factory configuration.
@@ -95,6 +97,16 @@ public class HibernateExtensionPostProcessor implements BeanFactoryPostProcessor
                 List existingConfigLocations = (List) propertyValue.getValue();
                 existingConfigLocations.addAll(configLocations);
             }
+
+            if (hibernateProperties != null) {
+                PropertyValue propertyValue = propertyValues.getPropertyValue("hibernateProperties");
+                if (propertyValue == null) {
+                    propertyValue = new PropertyValue("hibernateProperties", new Properties());
+                    propertyValues.addPropertyValue(propertyValue);
+                }
+                Properties existingHibernateProperties = (Properties) propertyValue.getValue();
+                existingHibernateProperties.putAll(hibernateProperties);
+            }
         } else {
             throw new NoSuchBeanDefinitionException("No bean named [" + sessionFactoryBeanName + "] exists within the bean factory. " +
                     "Cannot post process session factory to add Hibernate resource definitions.");
@@ -136,5 +148,14 @@ public class HibernateExtensionPostProcessor implements BeanFactoryPostProcessor
      */
     public void setConfigLocations(List configLocations) {
         this.configLocations = configLocations;
+    }
+
+    /**
+     * Hibernate properties to add to the session factory.
+     *
+     * @param hibernateProperties The list of additional properties.
+     */
+    public void setHibernateProperties(Properties hibernateProperties) {
+        this.hibernateProperties = hibernateProperties;
     }
 }
