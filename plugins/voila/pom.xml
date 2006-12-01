@@ -22,7 +22,7 @@
     <groupId>org.appfuse</groupId>
     <artifactId>voila</artifactId>
     <packaging>jar</packaging>
-    <name>AppFuse QuickStart</name>
+    <name>Voila Installer</name>
     <version>1.0-SNAPSHOT</version>
     <inceptionYear>2006</inceptionYear>
     <url>http://appfuse.dev.java.net</url>
@@ -30,13 +30,13 @@
     <prerequisites>
         <maven>2.0.4</maven>
     </prerequisites>
-<!--
+
     <scm>
-        <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/voila</connection>
-        <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/voila</developerConnection>
-        <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/voila</url>
+        <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/plugins/voila</connection>
+        <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/plugins/voila</developerConnection>
+        <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/plugins/voila</url>
     </scm>
--->
+
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
@@ -176,7 +176,6 @@
 
     <properties>
         <junit.version>3.8.1</junit.version>
-        <log4j.version>1.2.13</log4j.version>
     </properties>
 </project>
 

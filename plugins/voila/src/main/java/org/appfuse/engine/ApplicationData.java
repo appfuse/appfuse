@@ -16,7 +16,12 @@ public class ApplicationData {
     private String databaseName;
     private String persistenceChoice;
     private String webAChoice;
+    private int operatingSystem;
 
+    private static final int OS_LINUX = 1;
+    private static final int OS_WINDOW = 2;
+    private static final int OS_X = 3;
+    
     public String getApplicationName() {
         return applicationName;
     }
@@ -63,5 +68,21 @@ public class ApplicationData {
 
     public void setDatabaseName(String databaseName) {
         this.databaseName = databaseName;
+    }
+
+    /**
+     * Getter for operating system
+     * @return
+     */
+    public int getOperatingSystem() {
+        return operatingSystem;
+    }
+
+    /**
+     * Setter for operating system
+     * @param operatingSystem
+     */
+    public void setOperatingSystem(int operatingSystem) {
+        this.operatingSystem = operatingSystem;
     }
 }

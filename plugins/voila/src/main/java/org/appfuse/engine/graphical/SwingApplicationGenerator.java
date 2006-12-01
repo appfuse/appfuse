@@ -40,11 +40,5 @@ public class SwingApplicationGenerator extends ApplicationGenerator {
         start.setVisible(true);
 
 
-
-        /**
-         * dispose of dialog
-         */
-        start.dispose();
-
     }
 }
