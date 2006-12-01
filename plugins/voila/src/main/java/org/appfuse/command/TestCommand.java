@@ -9,13 +9,13 @@ package org.appfuse.command;
  * @author David L Whitehurst
  */
 
-public class Hello extends Command implements Runnable {
+public class TestCommand extends Command implements Runnable {
 
-    public Hello() {
+    public TestCommand() {
         super("HelloCommand");
     }
     public final void run() {
-        System.out.println("Hello there.");
+        System.out.println("TestCommand there.");
         super.setStatus(true);
 
     }

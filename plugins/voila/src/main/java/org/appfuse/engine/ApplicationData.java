@@ -1,4 +1,4 @@
-package org.appfuse.ui;
+package org.appfuse.engine;
 /**
  * <p> This program is open software. It is licensed using the Apache Software
  * Foundation, version 2.0 January 2004
@@ -9,7 +9,7 @@ package org.appfuse.ui;
  * @author David L Whitehurst
  */
 
-public class StartDialogData {
+public class ApplicationData {
     private String applicationName;
     private String packageName;
     private String databaseChoice;
