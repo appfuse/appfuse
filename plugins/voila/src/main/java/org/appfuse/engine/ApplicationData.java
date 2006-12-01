@@ -18,9 +18,9 @@ public class ApplicationData {
     private String webAChoice;
     private int operatingSystem;
 
-    private static final int OS_LINUX = 1;
-    private static final int OS_WINDOW = 2;
-    private static final int OS_X = 3;
+    public static final int OS_LINUX = 1;
+    public static final int OS_WINDOWS = 2;
+    public static final int OS_X = 3;
     
     public String getApplicationName() {
         return applicationName;

@@ -1,11 +1,8 @@
 package org.appfuse.command;
 
-import org.appfuse.utility.FileUtility;
 import org.appfuse.utility.PropertyUtility;
 import org.appfuse.engine.ApplicationData;
 
-import java.util.Enumeration;
-import java.util.StringTokenizer;
 import java.io.IOException;
 import java.io.File;
 
@@ -41,27 +38,79 @@ public class NewCommand extends Command implements Runnable {
     public void run() {
 
         /**
+         * verify system OS and check for Maven. The OS might be used to suggest
+         * help during Maven installation if needed
+         */
+        if (verifySystemCheck()) {
+            // go
+            data.setOperatingSystem(ApplicationData.OS_LINUX);  // for now
+            createArchetype(ApplicationData.OS_LINUX);
+
+        } else {
+            // todo implement the get Maven fix
+            /**
+            * create an archetype for the new application by making a String script and calling
+            * either shell or batch execution based on system OS
+            */
+            switch (data.getOperatingSystem()) {
+                case ApplicationData.OS_LINUX :
+                    // todo - implement linux maven install
+                    break;
+
+                case ApplicationData.OS_WINDOWS :
+                    // todo - implement windows maven install
+                    break;
+
+                case ApplicationData.OS_X :
+                    // todo - implement os-x maven install
+                    break;
+
+                default:
+                    // todo create a swing dialog warning that we have problem
+                    break;
+
+        }
+        }
+
+        /**
          *  let the user the know what is going to happen
          */
         showExecutionStart();
 
-        /**
-         * Todo determine OS and design script execution types
-         */
+
+    }
+
+    /**
+     * Create Maven appfuse archetype based on system architecture
+     * @param os
+     */
+    private void createArchetype(int os) {
 
         /**
-         * create an archetype for the new application by making a String script and calling
-         * either shell or batch execution based on system OS
+         * create an archetype for the new application
          */
-         executeArchetypeScript(1);
+        executeArchetypeCommand();
+
+    }
+
+    /**
+     * Checks the user's system OS and checks to see if Maven is installed
+     * @return
+     */
+    private boolean verifySystemCheck() {
+        return true; // todo implement
     }
 
     /**
      * Execute maven archetype create goal for determined operating system
-     * @param osType
      */
-    private void executeArchetypeScript(int osType) {
+    private void executeArchetypeCommand() {
+        /*
+        * Maven embedder:doit
+        *
+        */
 
+        /*
         String[] commands = {"mvn","archetype:create",
                             "-DarchetypeGroupId=org.appfuse",
                             "-DarchetypeArtifactId=appfuse-archetype-basic",
@@ -70,13 +119,12 @@ public class NewCommand extends Command implements Runnable {
                             "-DartifactId=" + data.getApplicationName()};
 
 
-        // archetype goes here
         String path = PropertyUtility.getInstance().getSystemProperties().getProperty("user.dir");
         System.out.println(path);
         
-        // create archetype
         runCommand(commands, null, new File("../"));
-        
+        */
+
         //buffer.append("firefox http://localhost/mediawiki");
 
     }
