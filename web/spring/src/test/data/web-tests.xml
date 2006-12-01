@@ -156,9 +156,6 @@
         <webtest name="signup">
             &config;
             <steps>
-                <!-- Logout in case user is already signed in -->
-                <invoke description="get Logout Page" url="/logout.jsp"/>
-
                 <invoke description="click signup link" url="/signup.html"/>
                 <verifytitle description="view signup title" text=".*${signup.title}.*" regex="true"/>
                 
