@@ -1,9 +1,7 @@
 package org.appfuse.command;
 
 import org.appfuse.utility.FileUtility;
-import org.appfuse.ui.StartDialogData;
-
-import java.util.logging.Logger;
+import org.appfuse.engine.ApplicationData;
 
 /**
  * <p> This program is open software. It is licensed using the Apache Software
@@ -16,17 +14,19 @@ import java.util.logging.Logger;
  */
 public class NewCommand extends Command implements Runnable {
 
-    private StartDialogData dataModel;
+    private ApplicationData data;
 
-    public NewCommand(StartDialogData dataData) {
+    public NewCommand(ApplicationData data) {
         super("NewCommand");
-        this.dataModel = dataData;
+        this.data = data;
     }
 
     public void run() {
+
         /**
          * Remove all build artifacts from existing appfuse/data ,/service ,/web ,/etc
          */
+
         FileUtility.deleteTargetDirectories();
 
         /**
@@ -36,12 +36,12 @@ public class NewCommand extends Command implements Runnable {
         System.out.println("##############################################################");
         System.out.println("Creating a new web application with the following parameters: ");
         System.out.println("##############################################################");
-        System.out.println("Name: " + dataModel.getApplicationName());
-        System.out.println("Package: " + dataModel.getPackageName());
-        System.out.println("Database Choice: " + dataModel.getDatabaseChoice());
-        System.out.println("Database Name: " + dataModel.getDatabaseName());
-        System.out.println("Persistence Module: " + dataModel.getPersistenceChoice());
-        System.out.println("Web Module: " + dataModel.getWebAChoice());
+        System.out.println("Name: " + data.getApplicationName());
+        System.out.println("Package: " + data.getPackageName());
+        System.out.println("Database Choice: " + data.getDatabaseChoice());
+        System.out.println("Database Name: " + data.getDatabaseName());
+        System.out.println("Persistence Module: " + data.getPersistenceChoice());
+        System.out.println("Web Module: " + data.getWebAChoice());
 
         /**
          * copy and modify AppFuse

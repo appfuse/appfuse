@@ -2,6 +2,7 @@ package org.appfuse.ui;
 
 import org.appfuse.command.NewCommand;
 import org.appfuse.control.ThreadManager;
+import org.appfuse.engine.ApplicationData;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -33,11 +34,19 @@ public class StartDialog extends JDialog {
     private GridBagLayout gbLayout;
     private GridBagConstraints gbConstraints;
 
+    private static ApplicationData data;
+
     {
         createUIComponents();
     }
 
-    public StartDialog() {
+    /**
+     * Default Constructor
+     */
+    public StartDialog() {}
+
+    public StartDialog(ApplicationData data) {
+        this.data = data;
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
@@ -90,7 +99,11 @@ e)          {
     }
 
     private void onOK() {
-        StartDialogData data = new StartDialogData();
+
+        if (data == null) {
+            data = new ApplicationData();
+        }
+
         data.setApplicationName(textField1.getText());
         data.setPackageName(textField2.getText());
         data.setDatabaseChoice((String) comboBox1.getSelectedItem());
@@ -98,10 +111,12 @@ e)          {
         data.setPersistenceChoice((String) comboBox2.getSelectedItem());
         data.setWebAChoice((String) comboBox3.getSelectedItem());
 
+        /**
+         * Create command and add to ThreadManager for processing
+         */
         NewCommand newCommand = new NewCommand(data);
         ThreadManager.getInstance().add(newCommand);
 
-        //dispose();
     }
 
     private void onCancel() {
@@ -196,5 +211,21 @@ e)          {
         gbLayout.setConstraints(c, gbConstraints);
         contentPane.add(c);
 
+    }
+
+    /**
+     * Getter for dialog data
+     * @return
+     */
+    public ApplicationData getData() {
+        return data;
+    }
+
+    /**
+     * Setter for dialog data
+     * @param data
+     */
+    public void setData(ApplicationData data) {
+        this.data = data;
     }
 }

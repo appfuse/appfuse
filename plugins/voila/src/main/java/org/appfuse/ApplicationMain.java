@@ -9,9 +9,8 @@ package org.appfuse;
  * @author David L Whitehurst
  */
 
-import org.appfuse.ui.StartDialog;
+import org.appfuse.engine.graphical.SwingApplicationGenerator;
 
-import java.awt.*;
 
 /**
  * This class is used to start the AppFuse QuickStart application
@@ -19,10 +18,9 @@ import java.awt.*;
 public class ApplicationMain {
 
     public static void main(String[] args) {
-        StartDialog start = new StartDialog();
-        start.setTitle("Voila Installer v.0.0.1 Beta");
-        start.setSize(new Dimension(400,280));
-        start.setVisible(true);
+        SwingApplicationGenerator swingGenerator = new SwingApplicationGenerator();
+        swingGenerator.createApplication();
         System.exit(0);
     }
 }
+

@@ -10,14 +10,12 @@ package org.appfuse.control;
  */
 
 import junit.framework.TestCase;
-import org.appfuse.command.Hello;
+import org.appfuse.command.TestCommand;
 
 /**
  * This Class tests the functionality of the ThreadManager
  */
 public class ThreadFactoryTest extends TestCase {
-
-    //private final Log log = LogFactory.getLog(DateUtilTest.class);
 
     /**
      * Constructor
@@ -41,14 +39,14 @@ public class ThreadFactoryTest extends TestCase {
      * Test a simple threaded command
      * @throws Exception
      */
-    public void testHello() throws Exception {
-        Hello hello = new Hello();
-        ThreadManager.getInstance().add(hello);
-        while(!hello.getStatus()) {
+    public void testDumbCommand() throws Exception {
+        TestCommand testCommand = new TestCommand();
+        ThreadManager.getInstance().add(testCommand);
+        while(!testCommand.getStatus()) {
            //System.out.println("waiting...");
            // waiting ...
         }
-        assertTrue(hello.getStatus());
+        assertTrue(testCommand.getStatus());
     }
 
     /**
