@@ -372,7 +372,7 @@
         <cargo.port>9876</cargo.port>
         <cargo.wait>false</cargo.wait>
 
-        <acegi.version>1.0.2</acegi.version>
+        <acegi.version>1.0.3</acegi.version>
         <aspectj.version>1.5.2</aspectj.version>
         <clickstream.version>1.0.2</clickstream.version>
         <commons.lang.version>2.2</commons.lang.version>
