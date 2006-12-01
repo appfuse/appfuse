@@ -1,10 +1,13 @@
 package org.appfuse.command;
 
 import org.appfuse.utility.FileUtility;
+import org.appfuse.utility.PropertyUtility;
 import org.appfuse.engine.ApplicationData;
 
 import java.util.Enumeration;
+import java.util.StringTokenizer;
 import java.io.IOException;
+import java.io.File;
 
 /**
  * <p> This program is open software. It is licensed using the Apache Software
@@ -59,29 +62,28 @@ public class NewCommand extends Command implements Runnable {
      */
     private void executeArchetypeScript(int osType) {
 
-        String cmd = "cd ..";
-        runCommand(cmd);
+        String[] commands = {"mvn","archetype:create",
+                            "-DarchetypeGroupId=org.appfuse",
+                            "-DarchetypeArtifactId=appfuse-archetype-basic",
+                            "-DarchetypeVersion=1.0-SNAPSHOT",
+                            "-DgroupId=" + data.getPackageName(),
+                            "-DartifactId=" + data.getApplicationName()};
 
-        StringBuffer buffer = new StringBuffer();
-        buffer.append("cd ..|mvn archetype:create ");
-        buffer.append("-DarchetypeGroupId=org.appfuse ");
-        buffer.append("-DarchetypeArtifactId=appfuse-archetype-basic ");
-        buffer.append("-DarchetypeVersion=1.0-SNAPSHOT" );
 
-        // now dynamic
-        buffer.append("-DgroupId=" + data.getPackageName() + " ");
-        buffer.append("-DartifactId=" + data.getApplicationName());
-
+        // archetype goes here
+        String path = PropertyUtility.getInstance().getSystemProperties().getProperty("user.dir");
+        System.out.println(path);
+        
         // create archetype
-        runCommand(buffer.toString());
+        runCommand(commands, null, new File("../"));
         
         //buffer.append("firefox http://localhost/mediawiki");
 
     }
 
-    private void runCommand(String command) {
+    private void runCommand(String[] commandArray, String[] envP, File location) {
         try {
-            Runtime.getRuntime().exec(command);
+            Runtime.getRuntime().exec(commandArray, envP, location);
         } catch (IOException e) {
             e.printStackTrace();
         }
