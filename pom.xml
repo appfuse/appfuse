@@ -52,7 +52,9 @@
                 <sendOnFailure>true</sendOnFailure>
                 <sendOnSuccess>false</sendOnSuccess>
                 <sendOnWarning>false</sendOnWarning>
-                <configuration><address>commits@appfuse.dev.java.net</address></configuration>
+                <configuration>
+                    <address>commits@appfuse.dev.java.net</address>
+                </configuration>
             </notifier>
         </notifiers>
     </ciManagement>
@@ -136,6 +138,12 @@
 
     <build>
         <defaultGoal>install</defaultGoal>
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-ssh-external</artifactId>
+            </extension>
+        </extensions>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -152,7 +160,7 @@
                     </additionalProjectnatures>
                     <additionalBuildcommands>
                         <buildcommand>org.springframework.ide.eclipse.core.springbuilder</buildcommand>
-                    </additionalBuildcommands> 
+                    </additionalBuildcommands>
                     <downloadSources>true</downloadSources>
                     <downloadJavadocs>true</downloadJavadocs>
                     <wtpversion>1.0</wtpversion>
@@ -166,7 +174,7 @@
                     <dependenciesAsLibraries>true</dependenciesAsLibraries>
                     <useFullNames>false</useFullNames>
                 </configuration>
-            </plugin> 
+            </plugin>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.0.1</version>
@@ -194,6 +202,14 @@
             </plugin>
         </plugins>
     </build>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>appfuse-snapshots</id>
+            <name>AppFuse Snapshot Repository</name>
+            <url>scpexe://static.appfuse.org//home/raibledemo/public_html/repository</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <modules>
         <module>data</module>
@@ -394,7 +410,7 @@
         <velocity.version>1.4</velocity.version>
         <webtest.version>1393</webtest.version>
         <wiser.version>1.0.3</wiser.version>
-        
+
         <copyright.year>2004-2006</copyright.year>
     </properties>
 </project>
