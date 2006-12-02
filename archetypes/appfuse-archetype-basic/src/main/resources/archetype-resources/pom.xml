@@ -13,13 +13,7 @@
     <prerequisites>
         <maven>2.0.4</maven>
     </prerequisites>
-
-    <scm>
-        <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/archetypes/appfuse-archetype-basic</connection>
-        <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/archetypes/appfuse-archetype-basic</developerConnection>
-        <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/archetypes/appfuse-archetype-basic</url>
-    </scm>
-
+	
     <build>
         <defaultGoal>package</defaultGoal>
         <plugins>
