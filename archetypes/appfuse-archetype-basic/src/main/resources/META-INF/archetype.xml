@@ -2,7 +2,7 @@
     <id>appfuse-basic</id>
     <resources>
       <resource filtered="true">pom.xml</resource>
-      <resource>src/main/resources/database.properties</resource>  
+      <resource>src/main/resources/jdbc.properties</resource>  
     </resources>
     <site-resources>
         <site-resource>src/site/site.xml</site-resource>
