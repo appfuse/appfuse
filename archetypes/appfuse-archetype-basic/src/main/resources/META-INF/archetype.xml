@@ -1,16 +1,16 @@
 <archetype>
     <id>appfuse-basic</id>
     <resources>
-      <resource filtered="true">pom.xml</resource>
-      <resource>src/main/resources/database.properties</resource>  
-      <resource>README.txt</resource>  
-      <resource>appfuse.sql</resource>  
-      <resource>create-database.sh</resource>  
+        <resource filtered="true">pom.xml</resource>
+        <resource>src/main/resources/database.properties</resource>
+        <resource>README.txt</resource>
+        <resource>appfuse.sql</resource>
+        <resource>create-database.sh</resource>
     </resources>
     <site-resources>
         <site-resource>src/site/site.xml</site-resource>
     </site-resources>
     <contextProperties>
-    <property name="web.framework" value="jsf"/>
+        <property name="web.framework" value="jsf"/>
     </contextProperties>
 </archetype>

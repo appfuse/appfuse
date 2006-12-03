@@ -43,7 +43,7 @@
                 <artifactId>hibernate3-maven-plugin</artifactId>
                 <configuration>
                     <hibernate>
-                        <propertyFile>target/test-classes/database.properties</propertyFile>
+                        <propertyFile>target/test-classes/jdbc.properties</propertyFile>
                         <includeJars>true</includeJars>
                     </hibernate>
                     <update>true</update>

@@ -57,7 +57,7 @@
                 <artifactId>hibernate3-maven-plugin</artifactId>
                 <configuration>
                     <hibernate>
-                        <propertyFile>src/main/resources/database.properties</propertyFile>
+                        <propertyFile>src/main/resources/jdbc.properties</propertyFile>
                         <includeJars>true</includeJars>
                     </hibernate>
                     <update>true</update>

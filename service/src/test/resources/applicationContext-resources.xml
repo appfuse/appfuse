@@ -5,7 +5,7 @@
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-                <value>classpath:database.properties</value>
+                <value>classpath:jdbc.properties</value>
                 <value>classpath:mail.properties</value>
             </list>
         </property>
