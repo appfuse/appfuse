@@ -2,7 +2,7 @@
     <id>appfuse-basic</id>
     <resources>
         <resource filtered="true">pom.xml</resource>
-        <resource>src/main/resources/database.properties</resource>
+        <resource>src/main/resources/jdbc.properties</resource>
         <resource>README.txt</resource>
         <resource>appfuse.sql</resource>
         <resource>create-database.sh</resource>
@@ -10,6 +10,11 @@
     <site-resources>
         <site-resource>src/site/site.xml</site-resource>
     </site-resources>
+    <sources>
+	<source>src/main/java/data/RemoveMe.java</source>
+	<source>src/main/java/service/RemoveMe.java</source>
+	<source>src/main/java/web/RemoveMe.java</source>
+    </sources>
     <contextProperties>
         <property name="web.framework" value="jsf"/>
     </contextProperties>
