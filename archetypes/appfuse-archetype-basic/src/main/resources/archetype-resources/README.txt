@@ -11,17 +11,17 @@ You may need an appfuse database. If so you will have to do the
 following:
 
 1.  Download and install MySQL 5.x database
-2.  Run http://static.appfuse.org/downloads/appfuse.sql
+2.  Change permissions on create-database.sh provided in your project root
+    directory. 
 
     e.g.
-        $mysql -u root -p < appfuse.sql
+        $chmod 755 create-database.sh
 
-3.  Cd to your new project root directory and run the application hosted
-    at http://localhost:8080/
+3.  Run the following maven goal using the jetty plugin specified in the
+    pom.  View the application at http://localhost:8080/ 
 
     e.g.
         $mvn jetty:run-war
-
 
 4.  More information can be found at
 
