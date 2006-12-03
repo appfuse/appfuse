@@ -12,10 +12,11 @@ following:
 
 1.  Download and install MySQL 5.x database
 2.  Change permissions on create-database.sh provided in your project root
-    directory. 
+    directory. Run script. 
 
     e.g.
         $chmod 755 create-database.sh
+	$./create-database.sh
 
 3.  Run the following maven goal using the jetty plugin specified in the
     pom.  View the application at http://localhost:8080/ 
