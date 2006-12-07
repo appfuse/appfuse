@@ -68,8 +68,14 @@
 
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <property name="host" value="${mail.host}"/>
-        <property name="username" value="${mail.username}"/>
+        <!-- Uncomment if you need to authenticate with your SMTP Server -->
+        <!--property name="username" value="${mail.username}"/>
         <property name="password" value="${mail.password}"/>
+        <property name="javaMailProperties">
+            <value>
+                mail.smtp.auth=true
+            </value>
+        </property-->
     </bean>
 
     <!-- Configure Velocity for sending e-mail -->
