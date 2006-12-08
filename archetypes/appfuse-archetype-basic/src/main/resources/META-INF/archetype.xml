@@ -17,11 +17,11 @@
 	<source>src/main/java/service/impl/PersonManagerImpl.java</source>
 	<source>src/main/java/webapp/PersonAction.java</source>
     </sources>
-    <test-sources>
-	<test-source>src/test/java/dao/PersonDaoTest.java</test-source>
-	<test-source>src/test/java/service/PersonManagerTest.java</test-source>
-	<test-source>src/test/java/webapp/PersonActionTest.java</test-source>
-    </test-sources>
+    <testSources>
+	<source>src/test/java/dao/PersonDaoTest.java</source>
+	<source>src/test/java/service/PersonManagerTest.java</source>
+	<source>src/test/java/webapp/PersonActionTest.java</source>
+    </testSources>
     <contextProperties>
         <property name="web.framework" value="jsf"/>
     </contextProperties>
