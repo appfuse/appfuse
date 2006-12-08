@@ -11,10 +11,17 @@
         <site-resource>src/site/site.xml</site-resource>
     </site-resources>
     <sources>
-	<source>src/main/java/data/RemoveMe.java</source>
-	<source>src/main/java/service/RemoveMe.java</source>
-	<source>src/main/java/web/RemoveMe.java</source>
+	<source>src/main/java/dao/PersonDao.java</source>
+	<source>src/main/java/dao/impl/PersonDaoImpl.java</source>
+	<source>src/main/java/service/PersonManager.java</source>
+	<source>src/main/java/service/PersonManagerImpl.java</source>
+	<source>src/main/java/webapp/PersonAction.java</source>
     </sources>
+    <test-sources>
+	<test-source>src/test/java/dao/PersonDaoTest.java</test-source>
+	<test-source>src/test/java/service/PersonManagerTest.java</test-source>
+	<test-source>src/test/java/webapp/PersonActionTest.java</test-source>
+    </test-sources>
     <contextProperties>
         <property name="web.framework" value="jsf"/>
     </contextProperties>
