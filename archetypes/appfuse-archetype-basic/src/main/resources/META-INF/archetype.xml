@@ -14,7 +14,7 @@
 	<source>src/main/java/dao/PersonDao.java</source>
 	<source>src/main/java/dao/impl/PersonDaoImpl.java</source>
 	<source>src/main/java/service/PersonManager.java</source>
-	<source>src/main/java/service/PersonManagerImpl.java</source>
+	<source>src/main/java/service/impl/PersonManagerImpl.java</source>
 	<source>src/main/java/webapp/PersonAction.java</source>
     </sources>
     <test-sources>
