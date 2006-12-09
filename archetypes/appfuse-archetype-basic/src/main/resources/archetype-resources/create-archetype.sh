@@ -14,4 +14,4 @@
 #
 ########################################################################
 
-mvn archetype:create -DarchetypeGroupId=org.appfuse -DarchetypeArtifactId=appfuse-archetype-basic -DarchetypeVersion=1.0-SNAPSHOT -DgroupId=org.appfuse -DartifactId=myapp -DremoteRepositories=http://static.appfuse.org/repository 
+mvn archetype:create -DarchetypeGroupId=org.appfuse -DarchetypeArtifactId=appfuse-archetype-basic -DarchetypeVersion=1.0-SNAPSHOT -DgroupId=com.mycompany -DartifactId=myapp -DremoteRepositories=http://static.appfuse.org/repository 
