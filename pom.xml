@@ -376,7 +376,7 @@
         <cargo.wait>false</cargo.wait>
 
         <acegi.version>1.0.3</acegi.version>
-        <aspectj.version>1.5.2</aspectj.version>
+        <aspectj.version>1.5.3</aspectj.version>
         <clickstream.version>1.0.2</clickstream.version>
         <commons.lang.version>2.2</commons.lang.version>
         <commons.beanutils.version>1.7.0</commons.beanutils.version>
