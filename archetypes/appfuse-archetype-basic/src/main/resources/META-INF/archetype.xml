@@ -11,16 +11,10 @@
         <site-resource>src/site/site.xml</site-resource>
     </site-resources>
     <sources>
-	<source>src/main/java/dao/PersonDao.java</source>
-	<source>src/main/java/dao/impl/PersonDaoImpl.java</source>
-	<source>src/main/java/service/PersonManager.java</source>
-	<source>src/main/java/service/impl/PersonManagerImpl.java</source>
-	<source>src/main/java/webapp/PersonAction.java</source>
+	<source>src/main/java/App.java</source>
     </sources>
     <testSources>
-	<source>src/test/java/dao/PersonDaoTest.java</source>
-	<source>src/test/java/service/PersonManagerTest.java</source>
-	<source>src/test/java/webapp/PersonActionTest.java</source>
+	<source>src/test/java/AppTest.java</source>
     </testSources>
     <contextProperties>
         <property name="web.framework" value="jsf"/>
