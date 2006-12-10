@@ -110,7 +110,7 @@ e)          {
         data.setDatabaseChoice((String) comboBox1.getSelectedItem());
         data.setDatabaseName(textField3.getText());
         data.setPersistenceChoice((String) comboBox2.getSelectedItem());
-        data.setWebAChoice((String) comboBox3.getSelectedItem());
+        data.setWebChoice((String) comboBox3.getSelectedItem());
 
 
 

@@ -144,6 +144,6 @@ public class NewCommand extends Command implements Runnable {
         System.out.println("Database Choice: " + data.getDatabaseChoice());
         System.out.println("Database Name: " + data.getDatabaseName());
         System.out.println("Persistence Module: " + data.getPersistenceChoice());
-        System.out.println("Web Module: " + data.getWebAChoice());
+        System.out.println("Web Module: " + data.getWebChoice());
     }
 }

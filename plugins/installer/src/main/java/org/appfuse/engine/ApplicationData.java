@@ -15,7 +15,7 @@ public class ApplicationData {
     private String databaseChoice;
     private String databaseName;
     private String persistenceChoice;
-    private String webAChoice;
+    private String webChoice;
     private int operatingSystem;
 
     public static final int OS_LINUX = 1;
@@ -54,12 +54,12 @@ public class ApplicationData {
         this.persistenceChoice = persistenceChoice;
     }
 
-    public String getWebAChoice() {
-        return webAChoice;
+    public String getWebChoice() {
+        return webChoice;
     }
 
-    public void setWebAChoice(String webAChoice) {
-        this.webAChoice = webAChoice;
+    public void setWebChoice(String webChoice) {
+        this.webChoice = webChoice;
     }
 
     public String getDatabaseName() {
