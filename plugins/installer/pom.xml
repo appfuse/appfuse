@@ -65,42 +65,33 @@
                     <target>1.5</target>
                 </configuration>
             </plugin>
-	    <plugin>
-		<groupId>org.apache.maven.plugins</groupId>
-		<artifactId>maven-jar-plugin</artifactId>
-		<configuration>
-		  <archive>
-		    <manifest>
-		       	<mainClass>org.appfuse.ApplicationMain</mainClass>
-                	<packageName>org.appfuse</packageName>
-		    	<addClasspath>true</addClasspath>
+	        <plugin>
+		        <groupId>org.apache.maven.plugins</groupId>
+		        <artifactId>maven-jar-plugin</artifactId>
+		        <configuration>
+		        <archive>
+		            <manifest>
+		       	        <mainClass>org.appfuse.ApplicationMain</mainClass>
+                	    <packageName>org.appfuse</packageName>
+		    	        <addClasspath>true</addClasspath>
             	    </manifest>
-		</archive>
-		</configuration>
-	    </plugin>
-        <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>exec-maven-plugin</artifactId>
-            <executions>
-                <execution>
-                    <goals>
-                        <goal>java</goal>
-                    </goals>
-                </execution>
-            </executions>
-            <configuration>
-                <!-- <executable>java</executable> -->
-		<mainClass>org.appfuse.ApplicationMain</mainClass>
-            <!-- <arguments> -->
-                <!-- <argument>-jar</argument> -->
-                <!-- <argument>-classpath</argument> -->
-                <!-- automatically creates the classpath using all project dependencies,
-                 also adding the project build directory -->
-                <!-- <classpath/> -->
-                <!-- <argument>target/installer-1.0-SNAPSHOT.jar</argument> -->
-            <!-- </arguments> -->
-        </configuration>
-        </plugin>
+		        </archive>
+		        </configuration>
+	        </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+		            <mainClass>org.appfuse.ApplicationMain</mainClass>
+                </configuration>
+            </plugin>
             <plugin>
                 <artifactId>maven-eclipse-plugin</artifactId>
                 <configuration>
@@ -123,7 +114,7 @@
                     <dependenciesAsLibraries>true</dependenciesAsLibraries>
                     <useFullNames>false</useFullNames>
                 </configuration>
-            </plugin> 
+            </plugin>
         </plugins>
     </build>
 
