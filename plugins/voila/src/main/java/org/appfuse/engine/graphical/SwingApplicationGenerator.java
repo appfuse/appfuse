@@ -26,7 +26,7 @@ public class SwingApplicationGenerator extends ApplicationGenerator {
         /**
          * Name the dialog
          */
-        start.setTitle("Voila Installer");
+        start.setTitle("AppFuse Installer");
 
         /**
          * The dialog widgets are placed using GridBagLayout.  The final
