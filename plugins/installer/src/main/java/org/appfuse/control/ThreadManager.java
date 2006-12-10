@@ -133,7 +133,7 @@ public class ThreadManager {
             public void run() {
                 while (!isShutdown()) {
                     if (((LinkedList) threads).isEmpty() && workerGroup.activeCount() < WORKER_COUNT) {
-                        enqueue(new ManagedThread(workerGroup, "Worker-" + counter++));
+                        enqueue(new ManagedThread(workerGroup, "taskThread-" + counter++));
                     }
                     try {
                         sleep(1500);

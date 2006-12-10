@@ -7,6 +7,10 @@ import org.appfuse.ui.SplashScreen;
 import java.io.IOException;
 import java.io.File;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.xml.DOMConfigurator;
+import static org.apache.log4j.Logger.*;
+
 /**
  * <p> This program is open software. It is licensed using the Apache Software
  * Foundation, version 2.0 January 2004
@@ -18,6 +22,7 @@ import java.io.File;
  */
 public class NewCommand extends Command implements Runnable {
     private static SplashScreen splash;
+    private static Logger log;
 
     /**
      * Construction data used by command
@@ -32,6 +37,8 @@ public class NewCommand extends Command implements Runnable {
     public NewCommand(ApplicationData data) {
         super("NewCommand");
         this.data = data;
+        DOMConfigurator.configure(getClass().getResource("/META-INF/log4j.xml"));
+        log = getLogger(NewCommand.class);
     }
 
     /**
@@ -91,12 +98,6 @@ public class NewCommand extends Command implements Runnable {
         }
     }
 
-    private void showExecutionEnd() {
-        System.out.println("##############################################################");
-        System.out.println("Application created: Press Cancel to end dialog");
-        System.out.println("##############################################################");
-    }
-
     /**
      * Execute maven archetype create goal for determined operating system
      */
@@ -115,7 +116,7 @@ public class NewCommand extends Command implements Runnable {
 
 
         String path = PropertyUtility.getInstance().getSystemProperties().getProperty("user.dir");
-        System.out.println(path);
+        log.info(path);
         
         runCommand(commands, null, new File("../"));
 
@@ -123,6 +124,12 @@ public class NewCommand extends Command implements Runnable {
 
     }
 
+    /**
+     * Execute command using Java Runtime object
+     * @param commandArray
+     * @param envP
+     * @param location
+     */
     private void runCommand(String[] commandArray, String[] envP, File location) {
         try {
             Runtime.getRuntime().exec(commandArray, envP, location);
@@ -130,20 +137,30 @@ public class NewCommand extends Command implements Runnable {
             e.printStackTrace();
         }
     }
+
     /**
-     * Todo refactor for log4j
      * Send console message to acknowledge command start.
      *
      */
     private void showExecutionStart() {
-        System.out.println("##############################################################");
-        System.out.println("Creating a new web application with the following parameters: ");
-        System.out.println("##############################################################");
-        System.out.println("Name: " + data.getApplicationName());
-        System.out.println("Package: " + data.getPackageName());
-        System.out.println("Database Choice: " + data.getDatabaseChoice());
-        System.out.println("Database Name: " + data.getDatabaseName());
-        System.out.println("Persistence Module: " + data.getPersistenceChoice());
-        System.out.println("Web Module: " + data.getWebChoice());
+        log.info("##############################################################");
+        log.info("Creating a new web application with the following parameters: ");
+        log.info("##############################################################");
+        log.info("Name: " + data.getApplicationName());
+        log.info("Package: " + data.getPackageName());
+        log.info("Database Choice: " + data.getDatabaseChoice());
+        log.info("Database Name: " + data.getDatabaseName());
+        log.info("Persistence Module: " + data.getPersistenceChoice());
+        log.info("Web Module: " + data.getWebChoice());
     }
+
+    /**
+     * Send console message to acknowledge command end.
+     */
+    private void showExecutionEnd() {
+        log.info("##############################################################");
+        log.info("Application created: Press Cancel to end dialog");
+        log.info("##############################################################");
+    }
+
 }
