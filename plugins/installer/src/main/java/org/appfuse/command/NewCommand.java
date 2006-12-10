@@ -37,8 +37,10 @@ public class NewCommand extends Command implements Runnable {
     public NewCommand(ApplicationData data) {
         super("NewCommand");
         this.data = data;
+        // configure log4j using resource URL APF-548
         DOMConfigurator.configure(getClass().getResource("/META-INF/log4j.xml"));
         log = getLogger(NewCommand.class);
+
     }
 
     /**
