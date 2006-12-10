@@ -20,9 +20,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.appfuse</groupId>
-    <artifactId>voila</artifactId>
+    <artifactId>installer</artifactId>
     <packaging>jar</packaging>
-    <name>Voila Installer</name>
+    <name>AppFuse Installer</name>
     <version>1.0-SNAPSHOT</version>
     <inceptionYear>2006</inceptionYear>
     <url>http://appfuse.dev.java.net</url>
@@ -32,9 +32,9 @@
     </prerequisites>
 
     <scm>
-        <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/plugins/voila</connection>
-        <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/plugins/voila</developerConnection>
-        <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/plugins/voila</url>
+        <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/plugins/installer</connection>
+        <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/plugins/installer</developerConnection>
+        <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/plugins/installer</url>
     </scm>
 
     <licenses>
@@ -97,7 +97,7 @@
                 <!-- automatically creates the classpath using all project dependencies,
                  also adding the project build directory -->
                 </classpath>
-                <argument>target/voila-1.0-SNAPSHOT.jar</argument>
+                <argument>target/installer-1.0-SNAPSHOT.jar</argument>
             </arguments>
         </configuration>
         </plugin>
