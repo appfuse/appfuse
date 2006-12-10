@@ -62,7 +62,7 @@ public class FileUtilityTest extends TestCase {
     public void testDeleteDirectory() throws Exception {
        boolean result = FileUtility.deleteDirectory(new File("./TestDirectory")); // this works
        result = FileUtility.deleteDirectory(new File("./TestDirectory2"));
-
        assertTrue(result);
+
     }
 }

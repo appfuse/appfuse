@@ -82,6 +82,7 @@ e)          {
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
+
     private void InitializeDropDowns() {
         // database choices
         comboBox1.addItem("MySQL Version 5.x");
@@ -111,11 +112,14 @@ e)          {
         data.setPersistenceChoice((String) comboBox2.getSelectedItem());
         data.setWebAChoice((String) comboBox3.getSelectedItem());
 
+
+
         /**
          * Create command and add to ThreadManager for processing
          */
         NewCommand newCommand = new NewCommand(data);
         ThreadManager.getInstance().add(newCommand);
+
 
     }
 
@@ -156,7 +160,7 @@ e)          {
         label6.setText("Web Modules");
 
         final JLabel label7 = new JLabel();
-        label7.setIcon(new ImageIcon(getClass().getResource("/META-INF/voila.png")));
+        label7.setIcon(new ImageIcon(getClass().getResource("/META-INF/appfuse-title.gif")));
 
         comboBox1 = new JComboBox();
         comboBox2 = new JComboBox();
@@ -165,7 +169,7 @@ e)          {
         textField1 = new JTextField();
         textField1.setText("myapp");
         textField2 = new JTextField();
-        textField2.setText("org.appfuse");
+        textField2.setText("com.mycompany");
         textField3 = new JTextField();
         textField3.setText("mydb");
         textField1.setSize(200,10);

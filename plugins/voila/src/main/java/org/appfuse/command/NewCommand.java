@@ -2,6 +2,7 @@ package org.appfuse.command;
 
 import org.appfuse.utility.PropertyUtility;
 import org.appfuse.engine.ApplicationData;
+import org.appfuse.ui.SplashScreen;
 
 import java.io.IOException;
 import java.io.File;
@@ -16,6 +17,7 @@ import java.io.File;
  * @author David L Whitehurst
  */
 public class NewCommand extends Command implements Runnable {
+    private static SplashScreen splash;
 
     /**
      * Construction data used by command
@@ -38,67 +40,61 @@ public class NewCommand extends Command implements Runnable {
     public void run() {
 
         /**
-         * verify system OS and check for Maven. The OS might be used to suggest
-         * help during Maven installation if needed
-         */
-        if (verifySystemCheck()) {
-            // go
-            data.setOperatingSystem(ApplicationData.OS_LINUX);  // for now
-            createArchetype(ApplicationData.OS_LINUX);
-
-        } else {
-            // todo implement the get Maven fix
-            /**
-            * create an archetype for the new application by making a String script and calling
-            * either shell or batch execution based on system OS
-            */
-            switch (data.getOperatingSystem()) {
-                case ApplicationData.OS_LINUX :
-                    // todo - implement linux maven install
-                    break;
-
-                case ApplicationData.OS_WINDOWS :
-                    // todo - implement windows maven install
-                    break;
-
-                case ApplicationData.OS_X :
-                    // todo - implement os-x maven install
-                    break;
-
-                default:
-                    // todo create a swing dialog warning that we have problem
-                    break;
-
-        }
-        }
-
-        /**
          *  let the user the know what is going to happen
          */
         showExecutionStart();
-
-
-    }
-
-    /**
-     * Create Maven appfuse archetype based on system architecture
-     * @param os
-     */
-    private void createArchetype(int os) {
 
         /**
          * create an archetype for the new application
          */
         executeArchetypeCommand();
 
+        /**
+         * Provide some delay to allow thread to create the archetype
+         */
+        splash = new SplashScreen();
+
+        for (int i = 0; i < 7; i++) {
+            updateStatus(i);
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException ie) {
+                ie.printStackTrace();
+            }
+        }
+
+        hideSplashScreen();
+        splash = null;
+
+        /**
+         *  let the user the know what is going to happen
+         */
+        showExecutionEnd();
     }
 
     /**
-     * Checks the user's system OS and checks to see if Maven is installed
-     * @return
+     * Method to hide Splash screen
      */
-    private boolean verifySystemCheck() {
-        return true; // todo implement
+    private static void hideSplashScreen() {
+        if (splash != null) {
+            splash.dispose();
+            splash = null;
+        }
+    }
+
+    /**
+     * Method to increment Splash progress indicator
+     */
+    private static void updateStatus(final int increment) {
+        if (splash != null) {
+            splash.advance();
+        }
+    }
+
+    private void showExecutionEnd() {
+        System.out.println("##############################################################");
+        System.out.println("Application created: Press Cancel to end dialog");
+        System.out.println("##############################################################");
     }
 
     /**
@@ -110,7 +106,6 @@ public class NewCommand extends Command implements Runnable {
         *
         */
 
-        /*
         String[] commands = {"mvn","archetype:create",
                             "-DarchetypeGroupId=org.appfuse",
                             "-DarchetypeArtifactId=appfuse-archetype-basic",
@@ -123,7 +118,6 @@ public class NewCommand extends Command implements Runnable {
         System.out.println(path);
         
         runCommand(commands, null, new File("../"));
-        */
 
         //buffer.append("firefox http://localhost/mediawiki");
 
