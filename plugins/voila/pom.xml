@@ -134,7 +134,7 @@
         </repository>
         <repository>
             <id>appfuse</id>
-            <url>http://static.appfuse.org</url>
+            <url>http://static.appfuse.org/repository</url>
         </repository>
     </repositories>
 
@@ -145,7 +145,7 @@
         </pluginRepository>
         <pluginRepository>
             <id>appfuse</id>
-            <url>http://static.appfuse.org</url>
+            <url>http://static.appfuse.org/repository</url>
         </pluginRepository>
     </pluginRepositories>
 
