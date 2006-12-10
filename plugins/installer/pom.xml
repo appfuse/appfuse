@@ -84,21 +84,21 @@
             <executions>
                 <execution>
                     <goals>
-                        <goal>exec</goal>
+                        <goal>java</goal>
                     </goals>
                 </execution>
             </executions>
             <configuration>
-                <executable>java</executable>
-            <arguments>
-                <argument>-jar</argument>
-                <argument>-classpath</argument>
-		        <classpath>
+                <!-- <executable>java</executable> -->
+		<mainClass>org.appfuse.ApplicationMain</mainClass>
+            <!-- <arguments> -->
+                <!-- <argument>-jar</argument> -->
+                <!-- <argument>-classpath</argument> -->
                 <!-- automatically creates the classpath using all project dependencies,
                  also adding the project build directory -->
-                </classpath>
-                <argument>target/installer-1.0-SNAPSHOT.jar</argument>
-            </arguments>
+                <!-- <classpath/> -->
+                <!-- <argument>target/installer-1.0-SNAPSHOT.jar</argument> -->
+            <!-- </arguments> -->
         </configuration>
         </plugin>
             <plugin>
@@ -156,6 +156,11 @@
             <version>${junit.version}</version>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
     </dependencies>
 
     <reporting>
@@ -184,6 +189,7 @@
 
     <properties>
         <junit.version>3.8.1</junit.version>
+        <log4j.version>1.2.13</log4j.version>
     </properties>
 </project>
 
