@@ -41,12 +41,18 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>hibernate3-maven-plugin</artifactId>
+                <version>2.0-SNAPSHOT</version>
                 <configuration>
-                    <hibernate>
-                        <propertyFile>target/test-classes/jdbc.properties</propertyFile>
-                        <includeJars>true</includeJars>
-                    </hibernate>
-                    <update>true</update>
+                    <components>
+                        <component>
+                            <name>hbm2ddl</name>
+                            <implementation>annotationconfiguration</implementation>
+                        </component>
+                    </components>
+                    <componentProperties>
+                        <jdk5>true</jdk5>
+                        <propertyfile>/target/test-classes/jdbc.properties</propertyfile>
+                    </componentProperties>
                 </configuration>
                 <executions>
                     <execution>
@@ -107,6 +113,13 @@
             <url>https://maven2-repository.dev.java.net/nonav/repository</url>
         </repository>
     </repositories>
+    
+    <pluginRepositories>
+        <pluginRepository>
+            <id>mojo.snapshots</id>
+            <url>http://snapshots.repository.codehaus.org</url>
+        </pluginRepository>
+    </pluginRepositories>
     
     <dependencies>
         <dependency>
