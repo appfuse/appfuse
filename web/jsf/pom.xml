@@ -184,8 +184,8 @@
 
     <repositories>
         <repository>
-            <id>java.net</id>
-            <url>https://maven2-repository.dev.java.net/nonav/repository</url>
+            <id>javax.el</id>
+            <url>http://delo.dcs.fmph.uniba.sk/sioux/maven2</url>
         </repository>
         <!-- For corejsf-validator, probably wouldn't hurt to get it published on ibiblio -->
         <repository>
