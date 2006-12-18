@@ -12,13 +12,14 @@
     <inject property="roleManager" type="spring" object="roleManager"/>
     <inject property="userManager" type="spring" object="userManager"/>
 
-    <bean name="delegate" class="org.appfuse.webapp.tapestry.ValidationDelegate"/>
+    <!--<bean name="delegate" class="org.appfuse.webapp.tapestry.ValidationDelegate"/>-->
     
     <property name="user"/>
     <property name="message" persist="flash"/>
 
     <component id="signupForm" type="Form">
-        <binding name="delegate" value="ognl:beans.delegate"/>
+        <!--<binding name="delegate" value="ognl:beans.delegate"/>-->
+        <binding name="delegate" value="ognl:delegate"/>
         <binding name="clientValidationEnabled" value="true"/>
     </component>
     

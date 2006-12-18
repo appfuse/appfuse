@@ -3,6 +3,8 @@ package org.appfuse.webapp.action;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.tapestry.engine.IEngineService;
+import org.apache.tapestry.event.PageDetachListener;
+import org.apache.tapestry.event.PageEvent;
 import org.apache.tapestry.form.IFormComponent;
 import org.apache.tapestry.valid.IValidationDelegate;
 import org.apache.tapestry.valid.ValidationConstraint;
@@ -16,21 +18,31 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class BasePage extends org.apache.tapestry.html.BasePage {
+public abstract class BasePage extends org.apache.tapestry.html.BasePage implements PageDetachListener {
     protected final Log log = LogFactory.getLog(getClass());
     public abstract HttpServletRequest getRequest();
     public abstract HttpServletResponse getResponse();
     public abstract IEngineService getEngineService();
     public abstract String getMessage();
     public abstract void setMessage(String message);
+    
+    private IValidationDelegate delegate;
 
-    protected ValidationDelegate getDelegate() {
-        // be nice to unit tests
-        if (getSpecification() != null) {
-            return (ValidationDelegate) getBeans().getBean("delegate");
-        } else {
-            return new ValidationDelegate();
+    public IValidationDelegate getDelegate() {
+//        // be nice to unit tests
+//        if (getSpecification() != null) {
+//            return (ValidationDelegate) getBeans().getBean("delegate");
+//        } else {
+//            return new ValidationDelegate();
+//        }
+        if (this.delegate == null) {
+            this.delegate = new org.appfuse.webapp.tapestry.ValidationDelegate();
         }
+        return this.delegate;
+    }
+    
+    public void pageDetached(PageEvent event) {
+        this.delegate = null;
     }
 
     protected void addError(IValidationDelegate delegate, String componentId,
@@ -93,4 +105,5 @@ public abstract class BasePage extends org.apache.tapestry.html.BasePage {
             return "";
         }
     }
+    
 }

@@ -5,7 +5,8 @@
 	
 <component-specification allow-informal-parameters="false" allow-body="false">
 
-  <parameter name="delegate" default-value="ognl:beans.delegate"/>
+  <!--<parameter name="delegate" default-value="ognl:beans.delegate"/>-->
+  <parameter name="delegate" default-value="ognl:delegate"/>
   <asset name="icon" path="/images/iconWarning.gif"/>
   
 </component-specification>
