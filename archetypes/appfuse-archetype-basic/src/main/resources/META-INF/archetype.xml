@@ -2,19 +2,19 @@
     <id>appfuse-basic</id>
     <resources>
         <resource filtered="true">pom.xml</resource>
+        <resource>src/main/resources/hibernate.cfg.xml</resource>
         <resource>src/main/resources/jdbc.properties</resource>
         <resource>README.txt</resource>
-        <resource>appfuse.sql</resource>
-        <resource>create-database.sh</resource>
+        <resource>src/test/resources/sample-data.xml</resource>
     </resources>
     <site-resources>
         <site-resource>src/site/site.xml</site-resource>
     </site-resources>
     <sources>
-	<source>src/main/java/App.java</source>
+	    <source>src/main/java/App.java</source>
     </sources>
     <testSources>
-	<source>src/test/java/AppTest.java</source>
+	    <source>src/test/java/AppTest.java</source>
     </testSources>
     <contextProperties>
         <property name="web.framework" value="jsf"/>
