@@ -45,11 +45,6 @@
         until it's ready for public consumption.
     </description>
 
-    <!--
-    ###############################################################################################
-    ## SOURCE REPOSITORY
-    ###############################################################################################
-    -->
 
     <scm>
 		<connection>
@@ -63,12 +58,6 @@
 		</url>
 	</scm>
 
-    <!--
-    ###############################################################################################
-    ## SOURCE LICENSE
-    ###############################################################################################
-    -->
-
     <licenses>
 		<license>
 			<name>Apache License 2</name>
@@ -76,12 +65,6 @@
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
-
-    <!--
-    ###############################################################################################
-    ## DEVELOPMENT TEAM
-    ###############################################################################################
-    -->
 
     <developers>
 		<developer>
@@ -104,12 +87,6 @@
         </developer>
 	</developers>
 
-    <!--
-    ###############################################################################################
-    ## DEPENDENCIES
-    ###############################################################################################
-    -->
-
     <dependencies>
 		<dependency>
 			<groupId>org.apache.maven</groupId>
@@ -125,7 +102,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate</artifactId>
-			<version>3.2.0.cr3</version>
+			<version>${hibernate.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>ant</groupId>
@@ -134,16 +111,11 @@
 		</dependency>
 		<!--  This is included until I can figure out how to get this in the user's classpath -->
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>3.1.13</version>
+			<groupId>${jdbc.groupId}</groupId>
+			<artifactId>${jdbc.artifactId}</artifactId>
+			<version>${jdbc.version}</version>
 		</dependency>
 	</dependencies>
-    <!--
-    ###############################################################################################
-    ## PROPERTIES
-    ###############################################################################################
-    -->
 
     <properties>
         <web.common.dir>web/common</web.common.dir>
