@@ -211,7 +211,7 @@
         <snapshotRepository>
             <id>appfuse-snapshots</id>
             <name>AppFuse Snapshot Repository</name>
-            <url>scpexe://static.appfuse.org//home/raibledemo/public_html/repository</url>
+            <url>scp://static.appfuse.org/home/raibledemo/public_html/repository</url>
         </snapshotRepository>
     </distributionManagement>
 
