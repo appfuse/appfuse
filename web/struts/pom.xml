@@ -262,6 +262,7 @@
             </build>
         </profile>
         <profile>
+            <id>jetty</id>
             <build>
                 <plugins>
                     <plugin>
