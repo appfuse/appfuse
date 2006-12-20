@@ -37,7 +37,7 @@
     
     <distributionManagement>
         <snapshotRepository>
-            <id>appfuse-snapshot</id>
+            <id>appfuse-snapshots</id>
             <url>scp://static.appfuse.org/home/raibledemo/public_html/repository</url>
         </snapshotRepository>
     </distributionManagement>
