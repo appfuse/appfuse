@@ -158,6 +158,22 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+              <artifactId>maven-war-plugin</artifactId>
+              <executions>
+                  <execution>
+                      <id>skinny-war</id>
+                      <goals>
+                          <goal>war</goal>
+                      </goals>
+                      <phase>post-integration-test</phase>
+                      <inherited>false</inherited>
+                      <configuration>
+                          <warSourceExcludes>WEB-INF/lib/**</warSourceExcludes>
+                      </configuration>
+                  </execution>
+              </executions>
+          </plugin>
         </plugins>
     </build>
 
@@ -213,6 +229,11 @@
                     <artifactId>ejb</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>${jdbc.groupId}</groupId>
+            <artifactId>${jdbc.artifactId}</artifactId>
+            <version>${jdbc.version}</version>
         </dependency>
     </dependencies>
 
