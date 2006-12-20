@@ -427,5 +427,33 @@
                 <jdbc.password>postgres</jdbc.password>
             </properties>
         </profile>
+        <profile>
+            <!-- Doesn't work: Another instance of Derby may have already booted the database -->
+            <id>derby</id>
+            <properties>
+                <hibernate.dialect>org.hibernate.dialect.DerbyDialect</hibernate.dialect>
+                <jdbc.groupId>org.apache.derby</jdbc.groupId>
+                <jdbc.artifactId>derby</jdbc.artifactId>
+                <jdbc.version>10.2.1.6</jdbc.version>
+                <jdbc.driverClassName>org.apache.derby.jdbc.EmbeddedDriver</jdbc.driverClassName>
+                <jdbc.url><![CDATA[jdbc:derby:appfuse;create=true]]></jdbc.url>
+                <jdbc.username>any</jdbc.username>
+                <jdbc.password>value</jdbc.password>
+            </properties>
+        </profile>
+        <profile>
+            <!-- Doesn't work: The database is already in use by another process -->
+            <id>hsqldb</id>
+            <properties>
+                <hibernate.dialect>org.hibernate.dialect.HSQLDialect</hibernate.dialect>
+                <jdbc.groupId>hsqldb</jdbc.groupId>
+                <jdbc.artifactId>hsqldb</jdbc.artifactId>
+                <jdbc.version>1.8.0.7</jdbc.version>
+                <jdbc.driverClassName>org.hsqldb.jdbcDriver</jdbc.driverClassName>
+                <jdbc.url><![CDATA[jdbc:hsqldb:appfuse]]></jdbc.url>
+                <jdbc.username>sa</jdbc.username>
+                <jdbc.password></jdbc.password>
+            </properties>
+        </profile>
     </profiles>
 </project>
