@@ -117,6 +117,22 @@
 		</dependency>
 	</dependencies>
 
+    <distributionManagement>
+        <site>
+            <id>appfuse-plugins</id>
+            <name>AppFuse Plugins Site</name>
+            <url>scp://static.appfuse.org/home/raibledemo/public_html/plugins/appfuse-maven-plugin</url>
+        </site>
+    </distributionManagement>
+    
+    <reporting>
+        <plugins>
+            <plugin>
+                <artifactId>maven-plugin-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </reporting>
+    
     <properties>
         <web.common.dir>web/common</web.common.dir>
     </properties>

@@ -30,6 +30,15 @@
 
     <modules>
         <module>appfuse-maven-plugin</module>
+        <module>maven-warpath-plugin</module>
     </modules>
+
+    <distributionManagement>
+        <site>
+            <id>appfuse-plugins</id>
+            <name>AppFuse Plugins Site</name>
+            <url>scp://static.appfuse.org/home/raibledemo/public_html/plugins</url>
+        </site>
+    </distributionManagement>
 </project>
 
