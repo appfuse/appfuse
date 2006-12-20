@@ -49,7 +49,7 @@
                     <username>${jdbc.username}</username>
                     <password>${jdbc.password}</password>
                     <url>${jdbc.url}</url>
-                    <sourceData>${basedir}/src/test/data/sample-data.xml</sourceData>
+                    <sourceData>${basedir}/src/test/resources/sample-data.xml</sourceData>
                     <sourceDataFormat>xml</sourceDataFormat>
                 </configuration>
                 <executions>
@@ -88,7 +88,7 @@
                         <configuration>
                             <autocommit>true</autocommit>
                             <srcFiles>
-                                <srcFile>src/test/data/${jdbc.groupId}-schema.sql</srcFile>
+                                <srcFile>src/test/resources/${jdbc.groupId}-schema.sql</srcFile>
                             </srcFiles>
                         </configuration>
                     </execution>

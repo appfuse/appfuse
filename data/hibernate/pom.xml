@@ -79,7 +79,7 @@
                     <username>${jdbc.username}</username>
                     <password>${jdbc.password}</password>
                     <url>${jdbc.url}</url>
-                    <sourceData>${basedir}/src/test/data/sample-data.xml</sourceData>
+                    <sourceData>${basedir}/src/test/resources/sample-data.xml</sourceData>
                     <sourceDataFormat>xml</sourceDataFormat>
                 </configuration>
                 <executions>

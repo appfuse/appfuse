@@ -55,7 +55,7 @@
                     <username>${jdbc.username}</username>
                     <password>${jdbc.password}</password>
                     <url>${jdbc.url}</url>
-                    <sourceData>${basedir}/src/test/data/sample-data.xml</sourceData>
+                    <sourceData>${basedir}/src/test/resources/sample-data.xml</sourceData>
                     <sourceDataFormat>xml</sourceDataFormat>
                 </configuration>
                 <executions>
@@ -96,7 +96,7 @@
                         <!-- This is so the default will be used if no test case is specified -->
                         <property name="test" value="run-all-tests"></property>
                         <echo level="info">Testing '${project.build.finalName}' with locale '${user.language}'</echo>
-                        <ant antfile="src/test/data/web-tests.xml" target="${test}">
+                        <ant antfile="src/test/resources/web-tests.xml" target="${test}">
                             <property name="user.language" value="${user.language}"></property>
                             <property name="webapp.name" value="${project.build.finalName}"></property>
                             <property name="host" value="${cargo.host}"></property>
@@ -369,19 +369,6 @@
                     </plugin>
                 </plugins>
             </build>
-        </profile>
-        <profile>
-            <id>netbeans-public</id>
-            <activation>
-                <property>
-                    <name>netbeans.execution</name>
-                    <value>true</value>
-                </property>
-            </activation>
-            <build />
-            <properties>
-                <netbeans.deployment.server.type>Tomcat55</netbeans.deployment.server.type>
-            </properties>
         </profile>
     </profiles>
 </project>

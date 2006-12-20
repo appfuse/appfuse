@@ -59,7 +59,7 @@
                     <username>${jdbc.username}</username>
                     <password>${jdbc.password}</password>
                     <url>${jdbc.url}</url>
-                    <sourceData>${basedir}/src/test/data/sample-data.xml</sourceData>
+                    <sourceData>${basedir}/src/test/resources/sample-data.xml</sourceData>
                     <sourceDataFormat>xml</sourceDataFormat>
                 </configuration>
                 <executions>
@@ -99,7 +99,7 @@
                         <!-- This is so the default will be used if no test case is specified -->
                         <property name="test" value="run-all-tests"/>
                         <echo level="info">Testing '${project.build.finalName}' with locale '${user.language}'</echo>
-                        <ant antfile="src/test/data/web-tests.xml" target="${test}">
+                        <ant antfile="src/test/resources/web-tests.xml" target="${test}">
                             <property name="user.language" value="${user.language}"/>
                             <property name="webapp.name" value="${project.build.finalName}"/>
                             <property name="host" value="${cargo.host}"/>
