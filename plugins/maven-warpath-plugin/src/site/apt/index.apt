@@ -1,0 +1,21 @@
+ -----
+ Maven Warpath Plugin
+ -----
+ The AppFuse Team
+ -----
+
+Introduction
+
+ The Warpath plugin extends the existing war overlay functionality included in the Maven War plugin to turn war artifacts
+ into fully fledged build dependencies. It allows you to:
+
+ * Develop with classes included in the war artifact /WEB-INF/classes directory by including them in the project classpath.
+
+ * Automatically inherit transitive dependencies from the war artifact
+   (the default Maven behaviour is not to inherit transitively from war dependencies).
+
+ []
+
+ The Warpath artifact was originally developed for use in the {{{http://appfuse.dev.java.net}AppFuse}} project.
+ A big thanks to all on {{{http://appfuse.dev.java.net}AppFuse}} for all the encouragement and help with development
+ of the plugin!

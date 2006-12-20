@@ -1,0 +1,13 @@
+ -----
+ Maven Warpath Plugin : Know Issues
+ -----
+ The AppFuse Team
+ -----
+
+Known Issues
+
+   The following are the list of known issues with the Warpath plugin:
+
+   [[1]] The Maven Eclipse plugin may fail to set up inter project dependencies when generating Eclipse project files for
+         a project that uses the Warpath plugin and has multiple web modules with dependencies between the web modules.
+         The workaround is to manually set up the dependencies in Eclipse.

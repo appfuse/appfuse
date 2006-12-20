@@ -1,0 +1,77 @@
+  -----
+  Maven Warpath Plugin : Usage
+  -----
+  The AppFuse Team
+  -----
+
+Usage
+
+   To use the Warpath plugin include the following plugin configuration element in your pom.xml file:
+
++---------------------------------+
+[...]
+<build>
+  <plugins>
+    <plugin>
+      <groupId>org.appfuse</groupId>
+      <artifactId>maven-warpath-plugin</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <extensions>true</extensions>
+      <executions>
+        <execution>
+          <goals>
+            <goal>add-classes</goal>
+          </goals>
+        </execution>
+      </executions>
+    </plugin>
+  </plugins>
+</build>
+[...]
++---------------------------------+
+
+   And add the war dependencies you want included in the classpath as <<warpath>> type dependencies:
+
++---------------------------------+
+[...]
+<dependencies>
+  <dependency>
+    <groupId>org.appfuse</groupId>
+    <artifactId>appfuse-web</artifactId>
+    <version>2.0</version>
+    <type>war</type>
+  </dependency>
+  <dependency>
+    <groupId>org.appfuse</groupId>
+    <artifactId>appfuse-web</artifactId>
+    <version>2.0</version>
+    <type>warpath</type>
+  </dependency>
+</dependencies>
+[...]
++---------------------------------+
+
+   <<Note:>> Both the <war> and <warpath> dependency types are needed: the <war> type is used by the Maven war plugin
+   to do the war overlay, the <warpath> type is used by the Warpath plugin to determine the correct list of artifacts
+   for inclusion in the project classpath.
+
+   The following is also recommended to avoid several versions of the same jar dependency turning up in the final war
+   build artifact due to the overlay process (all the transitive dependencies are available now!):
+
++---------------------------------+
+[...]
+<build>
+  <plugins>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-war-plugin</artifactId>
+      <configuration>
+        <dependentWarExcludes>WEB-INF/lib/*</dependentWarExcludes>
+      </configuration>
+    </plugin>
+  </plugins>
+</build>
+[...]
++---------------------------------+
+
+   Happy war overlaying!
