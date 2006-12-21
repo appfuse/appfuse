@@ -9,6 +9,7 @@
         <aop:advisor id="userManagerTx" advice-ref="userManagerTxAdvice" pointcut="execution(* *..service.UserManager.*(..))" order="0"/>        
         <aop:advisor id="userManagerSecurity" advice-ref="userSecurityAdvice" pointcut="execution(* *..service.UserManager.saveUser(..))" order="1"/>
         <aop:advisor id="managerTx" advice-ref="txAdvice" pointcut="execution(* *..service.*Manager.*(..))" order="2"/>
+        <aop:advisor id="acegiTx" advice-ref="txAdvice" pointcut="execution(* org.appfuse.dao.UserDao.loadUserByUsername(..))" order="3"/> 
     </aop:config>
     
     <!-- Enable @Transactional support -->
