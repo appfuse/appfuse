@@ -5,11 +5,13 @@
             http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
             http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
 
+    <!-- =================================================================== -->
+    <!-- AOP: Configuration and Aspects                                      -->
+    <!-- =================================================================== -->
     <aop:config>
         <aop:advisor id="userManagerTx" advice-ref="userManagerTxAdvice" pointcut="execution(* *..service.UserManager.*(..))" order="0"/>        
         <aop:advisor id="userManagerSecurity" advice-ref="userSecurityAdvice" pointcut="execution(* *..service.UserManager.saveUser(..))" order="1"/>
         <aop:advisor id="managerTx" advice-ref="txAdvice" pointcut="execution(* *..service.*Manager.*(..))" order="2"/>
-        <aop:advisor id="acegiTx" advice-ref="txAdvice" pointcut="execution(* org.appfuse.dao.UserDao.loadUserByUsername(..))" order="3"/> 
     </aop:config>
     
     <!-- Enable @Transactional support -->
@@ -33,18 +35,6 @@
         </tx:attributes>
     </tx:advice>
     
-    <bean id="lookupManager" class="org.appfuse.service.impl.LookupManagerImpl">
-        <property name="lookupDao" ref="lookupDao"/>
-    </bean>
-
-    <bean id="manager" class="org.appfuse.service.impl.BaseManager">
-        <property name="dao" ref="universalDao"/>
-    </bean>
-
-    <bean id="userManager" class="org.appfuse.service.impl.UserManagerImpl">
-        <property name="userDao" ref="userDao"/>
-    </bean>
-
     <bean id="userSecurityAdvice" class="org.appfuse.service.UserSecurityAdvice">
         <property name="userCache" ref="userCache"/>
     </bean>
@@ -59,11 +49,10 @@
             </bean>
         </property>
     </bean>
-
-    <bean id="roleManager" class="org.appfuse.service.impl.RoleManagerImpl">
-        <property name="roleDao" ref="roleDao"/>
-    </bean>
-
+    
+    <!-- =================================================================== -->
+    <!-- Mail: Sender and Velocity configuration                             -->
+    <!-- =================================================================== -->
     <bean id="mailEngine" class="org.appfuse.service.MailEngine">
         <property name="mailSender" ref="mailSender"/>
         <property name="velocityEngine" ref="velocityEngine"/>
@@ -96,6 +85,25 @@
 
     <bean id="mailMessage" class="org.springframework.mail.SimpleMailMessage" scope="prototype">
         <property name="from" value="${mail.default.from}"/>
+    </bean>
+
+    <!-- =================================================================== -->
+    <!-- Managers: For accessing DAOs                                        -->
+    <!-- =================================================================== -->
+    <bean id="manager" class="org.appfuse.service.impl.BaseManager">
+        <property name="dao" ref="universalDao"/>
+    </bean>
+    
+    <bean id="lookupManager" class="org.appfuse.service.impl.LookupManagerImpl">
+        <property name="lookupDao" ref="lookupDao"/>
+    </bean>
+
+    <bean id="userManager" class="org.appfuse.service.impl.UserManagerImpl">
+        <property name="userDao" ref="userDao"/>
+    </bean>
+
+    <bean id="roleManager" class="org.appfuse.service.impl.RoleManagerImpl">
+        <property name="roleDao" ref="roleDao"/>
     </bean>
 
     <!-- Add new Managers here -->
