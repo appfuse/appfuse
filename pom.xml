@@ -382,7 +382,7 @@
         <displaytag.version>1.1</displaytag.version>
         <dwr.version>1.1.1</dwr.version>
         <ehcache.version>1.2.4</ehcache.version>
-        <hibernate.version>3.2.0.ga</hibernate.version>
+        <hibernate.version>3.2.1.ga</hibernate.version>
         <ibatis.version>2.1.7.597</ibatis.version>
         <javamail.version>1.4</javamail.version>
         <jmock.version>1.1.0</jmock.version>
@@ -450,7 +450,7 @@
                 <jdbc.artifactId>hsqldb</jdbc.artifactId>
                 <jdbc.version>1.8.0.7</jdbc.version>
                 <jdbc.driverClassName>org.hsqldb.jdbcDriver</jdbc.driverClassName>
-                <jdbc.url><![CDATA[jdbc:hsqldb:appfuse]]></jdbc.url>
+                <jdbc.url><![CDATA[jdbc:hsqldb:appfuse;shutdown=true]]></jdbc.url>
                 <jdbc.username>sa</jdbc.username>
                 <jdbc.password></jdbc.password>
             </properties>
