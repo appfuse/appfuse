@@ -51,7 +51,8 @@
                     </components>
                     <componentProperties>
                         <jdk5>true</jdk5>
-                        <propertyfile>/target/test-classes/jdbc.properties</propertyfile>
+                        <propertyfile>target/test-classes/jdbc.properties</propertyfile>
+                        <!--scan-jars>true</scan-jars-->
                     </componentProperties>
                 </configuration>
                 <executions>
