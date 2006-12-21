@@ -19,7 +19,9 @@
     
     <tx:advice id="txAdvice">
         <tx:attributes>
-            <tx:method name="get*" read-only="true"/>
+            <!-- Read-only commented out to make things easier for end-users -->
+            <!-- http://issues.appfuse.org/browse/APF-556 -->
+            <!--tx:method name="get*" read-only="true"/-->
             <tx:method name="*"/>
         </tx:attributes>
     </tx:advice>
