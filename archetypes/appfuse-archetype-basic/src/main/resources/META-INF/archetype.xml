@@ -7,9 +7,9 @@
         <resource>README.txt</resource>
         <resource>src/test/resources/sample-data.xml</resource>
     </resources>
-    <site-resources>
+    <siteResources>
         <resource>src/site/site.xml</resource>
-    </site-resources>
+    </siteResources>
     <sources>
 	      <source>src/main/java/App.java</source>
     </sources>
