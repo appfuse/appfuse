@@ -34,12 +34,5 @@
         <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/archetypes/appfuse-archetype-basic</developerConnection>
         <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/archetypes/appfuse-archetype-basic</url>
     </scm>
-    
-    <distributionManagement>
-        <snapshotRepository>
-            <id>appfuse-snapshots</id>
-            <url>scp://static.appfuse.org/home/raibledemo/public_html/repository</url>
-        </snapshotRepository>
-    </distributionManagement>
 </project>
 

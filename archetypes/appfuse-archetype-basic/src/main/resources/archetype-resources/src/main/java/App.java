@@ -1,7 +1,7 @@
 package $package;
 
 public class App {
-   public static String getHello() {
-	return new String("Hello");
-   }
+    public static String getHello() {
+        return "Hello";
+    }
 }
