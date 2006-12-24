@@ -7,7 +7,7 @@ The application is web-ready using AppFuse static snapshot deployments. The
 pom file is pre-defined with hibernate as a persistence model and Spring MVC
 as the web MVC model.
 
-You may need an appfuse database. If so you will have to do the following:
+To get started, please complete the following steps:
 
 1. Download and install a MySQL 5.x database from 
    http://dev.mysql.com/downloads/mysql/5.0.html#downloads.
