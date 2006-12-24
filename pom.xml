@@ -213,6 +213,7 @@
     </distributionManagement>
 
     <modules>
+        <module>archetypes</module>
         <module>data</module>
         <module>service</module>
         <module>web</module>

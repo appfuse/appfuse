@@ -37,5 +37,5 @@
     <modules>
         <module>appfuse-archetype-basic</module>
         <module>appfuse-archetype-modular</module>
-  </modules>
+    </modules>
 </project>
