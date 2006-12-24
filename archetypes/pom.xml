@@ -36,9 +36,6 @@
 
     <modules>
         <module>appfuse-archetype-basic</module>
-        <!--
-        <module>appfuse-archetype-enterprise</module>
-          -->
-    <module>mywebapp</module>
+        <module>appfuse-archetype-modular</module>
   </modules>
 </project>

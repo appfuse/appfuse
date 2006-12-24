@@ -1,0 +1,26 @@
+<archetype>
+    <id>appfuse-modular</id>
+    <resources>
+        <resource>pom.xml</resource>
+        <resource>README.txt</resource>
+        <resource>core/pom.xml</resource>
+        <resource>core/src/main/resources/hibernate.cfg.xml</resource>
+        <resource>core/src/test/resources/jdbc.properties</resource>
+        <resource>core/src/test/resources/sample-data.xml</resource>
+        <resource>web/pom.xml</resource>
+        <resource>web/src/main/resources/hibernate.cfg.xml</resource>
+        <resource>web/src/main/resources/jdbc.properties</resource>
+        <resource>web/src/test/resources/sample-data.xml</resource>
+        <!-- Sources currently don't resolve for multi-module projects, so we've ditched the package name.
+             Read more about this at http://www.nabble.com/Quickstart-Doc-tf2873440s2369.html. -->
+	    <resource>core/src/main/java/Core.java</resource>
+        <resource>web/src/main/java/App.java</resource>
+        <resource>core/src/test/java/CoreTest.java</resource>
+        <resource>web/src/test/java/AppTest.java</resource>
+    </resources>
+    <siteResources>
+        <resource>core/src/site/site.xml</resource>
+        <resource>web/src/site/site.xml</resource>
+        <resource>src/site/site.xml</resource>
+    </siteResources>
+</archetype>
