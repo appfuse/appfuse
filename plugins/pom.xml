@@ -30,7 +30,6 @@
     <modules>
         <module>appfuse-maven-plugin</module>
         <module>maven-warpath-plugin</module>
-    <module>myapp</module>
   </modules>
 
     <distributionManagement>
