@@ -448,5 +448,20 @@
                 <jdbc.password></jdbc.password>
             </properties>
         </profile>
+        <profile>
+            <!-- JAR doesn't exist in repo: http://repo1.maven.org/maven2/org/h2database/h2database/1.0.20061217 -->
+            <!-- Fails with org.dbunit.dataset.NoSuchColumnException: app_user.account_enabled -->
+            <id>h2</id>
+            <properties>
+                <hibernate.dialect>org.hibernate.dialect.H2Dialect</hibernate.dialect>
+                <jdbc.groupId>org.h2database</jdbc.groupId>
+                <jdbc.artifactId>h2database</jdbc.artifactId>
+                <jdbc.version>1.0.20061217</jdbc.version>
+                <jdbc.driverClassName>org.h2.Driver</jdbc.driverClassName>
+                <jdbc.url><![CDATA[jdbc:h2:appfuse]]></jdbc.url>
+                <jdbc.username>sa</jdbc.username>
+                <jdbc.password></jdbc.password>
+            </properties>
+        </profile>
     </profiles>
 </project>
