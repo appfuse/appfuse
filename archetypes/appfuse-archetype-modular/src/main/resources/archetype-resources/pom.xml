@@ -92,7 +92,7 @@
 
     <properties>
         <dao.framework>hibernate</dao.framework>
-        <web.framework>spring</web.framework>
+        <web.framework>struts</web.framework>
         <appfuse.version>2.0-SNAPSHOT</appfuse.version>
         <junit.version>3.8.1</junit.version>
 
