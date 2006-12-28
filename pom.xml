@@ -400,7 +400,7 @@
         <tapestry.spring.version>0.1.2</tapestry.spring.version>
         <urlrewrite.version>2.5.2</urlrewrite.version>
         <velocity.version>1.4</velocity.version>
-        <webtest.version>1393</webtest.version>
+        <webtest.version>1454</webtest.version>
         <wiser.version>1.0.3</wiser.version>
 
         <copyright.year>2004-2006</copyright.year>
