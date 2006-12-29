@@ -188,7 +188,7 @@
     </c:when>
     <c:when test="${not empty user.username}">
     <li>
-        <strong><appfuse:label key="user.roles"/></strong>
+        <strong><appfuse:label key="user.roles"/>:</strong>
         <c:forEach var="role" items="${user.roleList}" varStatus="status">
             <c:out value="${role.label}"/><c:if test="${!status.last}">,</c:if>
             <input type="hidden" name="userRoles" value="<c:out value="${role.label}"/>"/>

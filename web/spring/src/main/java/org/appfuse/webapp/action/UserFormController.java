@@ -82,32 +82,27 @@ public class UserFormController extends BaseFormController {
         } else {
             Boolean encrypt = (Boolean) getConfiguration().get(Constants.ENCRYPT_PASSWORD);
 
-            if (StringUtils.equals(request.getParameter("encryptPass"), "true") 
-                    && (encrypt != null && encrypt.booleanValue())) {
-
+            if (StringUtils.equals(request.getParameter("encryptPass"), "true") && (encrypt != null && encrypt)) {
                 String algorithm = (String) getConfiguration().get(Constants.ENC_ALGORITHM);
 
                 if (algorithm == null) { // should only happen for test case
-
-                    if (log.isDebugEnabled()) {
-                        log.debug("assuming testcase, setting algorithm to 'SHA'");
-                    }
-
+                    log.debug("assuming testcase, setting algorithm to 'SHA'");
                     algorithm = "SHA";
                 }
 
                 user.setPassword(StringUtil.encodePassword(user.getPassword(), algorithm));
             }
 
-            String[] userRoles = request.getParameterValues("userRoles");
+            // only attempt to change roles if user is admin for other users,
+            // formBackingObject() method will handle populating
+            if (request.isUserInRole(Constants.ADMIN_ROLE)) {
+                String[] userRoles = request.getParameterValues("userRoles");
 
-            if (userRoles != null) {
-                // for some reason, Spring seems to hang on to the roles in
-                // the User object, even though isSessionForm() == false
-                user.getRoles().clear();
-                for (int i = 0; i < userRoles.length; i++) {
-                    String roleName = userRoles[i];
-                    user.addRole(roleManager.getRole(roleName));
+                if (userRoles != null) {
+                    user.getRoles().clear();
+                    for (String roleName : userRoles) {
+                        user.addRole(roleManager.getRole(roleName));
+                    }
                 }
             }
 
@@ -188,6 +183,7 @@ public class UserFormController extends BaseFormController {
 
     protected Object formBackingObject(HttpServletRequest request)
     throws Exception {
+
         if (!isFormSubmission(request)) {
             String username = request.getParameter("username");
 
@@ -208,7 +204,7 @@ public class UserFormController extends BaseFormController {
                 }
             }
 
-            User user = null;
+            User user;
 
             if (request.getRequestURI().indexOf("editProfile") > -1) {
                 user = getUserManager().getUserByUsername(request.getRemoteUser());
@@ -222,7 +218,12 @@ public class UserFormController extends BaseFormController {
             user.setConfirmPassword(user.getPassword());
 
             return user;
+        } else if (request.getParameter("id") != null && !"".equals(request.getParameter("id"))
+                && request.getParameter("cancel") == null) {
+            // populate user object from database, so all fields don't need to be hidden fields in form
+            return getUserManager().getUser(request.getParameter("id"));
         }
+
         return super.formBackingObject(request);
     }
 

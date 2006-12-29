@@ -3,6 +3,7 @@ package org.appfuse.webapp.action;
 import org.acegisecurity.Authentication;
 import org.acegisecurity.AuthenticationTrustResolver;
 import org.acegisecurity.AuthenticationTrustResolverImpl;
+import org.acegisecurity.AccessDeniedException;
 import org.acegisecurity.context.SecurityContext;
 import org.acegisecurity.context.SecurityContextHolder;
 import org.apache.struts2.ServletActionContext;
@@ -19,11 +20,22 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserAction extends BaseAction {
+import com.opensymphony.xwork2.Preparable;
+
+public class UserAction extends BaseAction implements Preparable {
     private static final long serialVersionUID = 6776558938712115191L;
     private List users;
     private User user;
     private String username;
+
+    public void prepare() throws Exception {
+        if (getRequest().getMethod().equalsIgnoreCase("post")) {
+            if (!"".equals(getRequest().getParameter("user.id"))) {
+                // prevent failures on new
+                user = userManager.getUser(getRequest().getParameter("user.id"));
+            }
+        }
+    }
     
     public List getUsers() {
         return users;
@@ -133,13 +145,17 @@ public class UserAction extends BaseAction {
         }
 
         Integer originalVersion = user.getVersion();
+
         boolean isNew = ("".equals(getRequest().getParameter("user.version")));
+        // only attempt to change roles if user is admin
+        // for other users, prepare() method will handle populating
+        if (getRequest().isUserInRole(Constants.ADMIN_ROLE)) {
+            String[] userRoles = getRequest().getParameterValues("userRoles");
 
-        String[] userRoles = getRequest().getParameterValues("userRoles");
-
-        for (int i = 0; userRoles != null && i < userRoles.length; i++) {
-            String roleName = userRoles[i];
-            user.addRole(roleManager.getRole(roleName));
+            for (int i = 0; userRoles != null && i < userRoles.length; i++) {
+                String roleName = userRoles[i];
+                user.addRole(roleManager.getRole(roleName));
+            }
         }
 
         try {
@@ -156,7 +172,7 @@ public class UserAction extends BaseAction {
             // redisplay the unencrypted passwords
             user.setPassword(user.getConfirmPassword());
             return INPUT;
-        }
+        } 
 
         if (!"list".equals(from)) {
             // add success messages
