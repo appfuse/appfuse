@@ -10,6 +10,9 @@
             <value>
                 CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
                 PATTERN_TYPE_APACHE_ANT
+                /images/**=#NONE#
+                /scripts/**=#NONE#
+                /styles/**=#NONE#
                 /**=httpSessionContextIntegrationFilter,logoutFilter,authenticationProcessingFilter,securityContextHolderAwareRequestFilter,rememberMeProcessingFilter,anonymousProcessingFilter,exceptionTranslationFilter,filterInvocationInterceptor
             </value>
             <!-- Put channelProcessingFilter before securityContextHolderAwareRequestFilter to turn on SSL switching -->
