@@ -45,7 +45,7 @@
         <label class="desc" jwcid="@FieldLabel" field="ognl:components.usernameField">Username</label>
         <input jwcid="usernameField" type="text" id="username" class="text large"/>
     </li>
-    <div jwcid="@If" condition="ognl:requestCycle.requestContext.session.getAttribute('cookieLogin') != 'true'">
+    <div jwcid="@If" condition="ognl:request.session.getAttribute('cookieLogin') != 'true'">
     <li>
         <div>
             <div class="left">
