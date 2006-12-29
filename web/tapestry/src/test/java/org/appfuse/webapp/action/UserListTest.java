@@ -11,7 +11,7 @@ public class UserListTest extends BasePageTestCase {
     protected void onSetUp() throws Exception {
         super.onSetUp();        
         // these can be mocked if you want a more "pure" unit test
-        Map map = new HashMap();
+        Map<String, Object> map = new HashMap<String, Object>();
         map.put("userManager", applicationContext.getBean("userManager"));
         page = (UserList) getPage(UserList.class, map);
     }
@@ -23,7 +23,7 @@ public class UserListTest extends BasePageTestCase {
     
     public void testEdit() throws Exception {
         RequestCycle cycle = new MockRequestCycle();
-        cycle.setServiceParameters(new Object[] {"tomcat"});
+        cycle.setListenerParameters(new Object[] {"tomcat"});
         page.edit(cycle);
         assertFalse(page.hasErrors());
     }
