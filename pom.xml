@@ -35,7 +35,9 @@
         can choose between Struts 2, JSF, Spring MVC and Tapestry. Test-first 
         development is promoted when using AppFuse, and all the infrastructure 
         is in place to do integration testing, unit/mock testing, as well as UI 
-        testing.
+        testing. Features include Authentication (using Acegi Security),
+        Remember Me, Self Registration, Password Hint and GZip Compression.
+        The fuse to start your apps.
     </description>
 
     <prerequisites>
