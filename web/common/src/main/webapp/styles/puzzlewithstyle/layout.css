@@ -23,6 +23,8 @@
         div#header {
             margin: 10px 0 20px 0;
             padding: 20px 20px;
+            /* height and color are needed by ie7 */
+            height: 114px;
             color: white;
             background: #800000 url(images/headerbackground.gif) no-repeat top left;
             text-align: left;

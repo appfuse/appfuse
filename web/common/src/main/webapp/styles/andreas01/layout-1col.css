@@ -9,8 +9,8 @@
         border-right: 0;
     }
         div#main h1 {
-            margin-left: -330px;
-            width: 100%;
+            margin-left: 25px;
+            text-align: left;
         }
         div#main p {
             margin-top: 10px;

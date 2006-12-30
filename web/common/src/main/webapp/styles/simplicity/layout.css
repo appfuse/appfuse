@@ -9,23 +9,21 @@
     }
     div#page {
         width: 780px;
-        margin:  0 auto;
+        margin: 0 auto;
         padding: 0;
         text-align: center;
     }
-    
     /* HEADER */
         div#header {
             margin: 0 0 5em 0;
             padding: 6px 0 2px 10px;
             text-align: left;
+            height: 79px; /* needed by IE 7 */
         }
-
             div#switchLocale {
                 position: absolute;
                 right: 10px;
             }
-        
         div#branding {
             float: left;
             width: 50%;
@@ -43,7 +41,6 @@
         }
     /* END HEADER */
     
-    
     /* CONTENT */
         div#content {
         }
@@ -54,7 +51,6 @@
             div#main {
                 padding-left: 15px;
             }
-
                 div#main form ul li {
                     list-style-type: none;
                     margin-left: 0;
@@ -65,17 +61,11 @@
             div#sub h2 {
                 margin-bottom: 5px;
             }
-
-            div#sub ul {
-                margin: 0;
-            }
-
+            
             div#sub ul li {
                 list-style-type: none;
-                margin-left: -30px;
                 padding-bottom: 10px;
             }
-
                 div#sub p.line {
                     border-top: 1px dotted #ccc;
                     margin: 15px 0;

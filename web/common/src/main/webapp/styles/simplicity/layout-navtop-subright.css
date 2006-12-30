@@ -6,10 +6,8 @@
     div#content {
         position: relative;
         width: 701px;
-        
         margin: 0 auto 20px auto;
         padding: 0;
-        
         text-align: left;
     }
     div#main {
@@ -22,11 +20,10 @@
         width: 120px;
         display: inline;
     }
-        div#sub ul#local li a {
-            margin-left: 40px;
-        }
-        div#sub ul#local>li a {
-            margin-left: -5px !important;
+        div#sub ul#local {
+            padding: 0;
+            margin: 0;
+            margin-left: 10px;
         }
     div#nav {
         position: absolute;

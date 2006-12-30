@@ -168,7 +168,7 @@ form .section p{
 }
 
 /* ----- FIELDS AND LABELS ----- */
-label.desc{
+label.desc { 
     margin: 4px 0 3px 0;
     border: 0;
     color: #444;
@@ -177,6 +177,9 @@ label.desc{
     display: block;
     font-weight: bold;
 }
+
+/* wwlbl is from Struts and this is needed to make things work properly with IE 7 */
+div.wwlbl { display: block !important }
 
 p label {
     font-weight: normal;

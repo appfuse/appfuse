@@ -15,25 +15,19 @@
         left: 0;
         bottom: 0;
     }
-
     div#nav ul {
         width: auto;
-
         margin: 0;
         padding: 0;
-
         line-height: 1em;
         list-style: none;
     }
     div#nav li {
         float: left;
         display: inline;
-
         list-style: none;
-
         margin: 0;
         padding: 0;
-
         font-size: 1.2em;
         line-height: 1em;
     }
@@ -50,10 +44,8 @@
         /* end hide */
         font-weight: bold;
         text-decoration: none;
-
         margin: 0;
         padding: 5px 15px 5px 15px;
-
         color: #4f8cc9;
     }
     div#nav a:hover {
@@ -65,10 +57,8 @@
         /* hide from ie/mac \*/
         display: block;
         /* end hide */
-
         color: #4f8cc9;
         background: #d7e9f5;
-
         font-size: 1.2em !important;
     }
     div#nav a.current,
@@ -92,12 +82,10 @@
         background: #fff; /* IE6 Bug */
         font-size: 100%;
     }
-
         ul#primary-nav li {
             position: relative;
             list-style: none;
         }
-
             ul#primary-nav li a {
                 display: block;
                 text-decoration: none;
@@ -106,7 +94,6 @@
                 text-align: center;
                 white-space: nowrap;
             }
-
         /* Fix IE. Hide from IE Mac \*/
         * html ul#primary-nav li { float: left; height: 1%; }
             * html ul#primary-nav li a { height: 1%; }
@@ -120,41 +107,32 @@
                 left: 0px; /* Set 1px less than menu width */
                 top: 22px;
             }
-
                 ul#primary-nav ul li {
                     border: 1px solid silver;
                     border-bottom: 0;
                     font-size: 1em;
                 }
-
                     ul#primary-nav ul li ul {
                         margin-left: 149px;
                         margin-top: -23px;
                     }
-                       
                     ul#primary-nav ul li.last {
                         border-bottom: 1px solid silver;
                         border-right: 1px solid silver;
                     }
-
                         ul#primary-nav li ul li a { padding: 3px 5px; text-align: left; width: 119px } /* Sub Menu Styles */
-
                         ul#primary-nav li:hover ul ul,
                         ul#primary-nav li:hover ul ul ul,
                         ul#primary-nav li.over ul ul,
                         ul#primary-nav li.over ul ul ul { display: none; } /* Hide sub-menus initially */
-
                         ul#primary-nav li:hover ul,
                         ul#primary-nav li li:hover ul,
                         ul#primary-nav li li li:hover ul,
                         ul#primary-nav li.over ul,
                         ul#primary-nav li li.over ul,
                         ul#primary-nav li li li.over ul { display: block; } /* The magic */
-
                         ul#primary-nav li.menubar { background: transparent url(../../images/arrow.gif) right center no-repeat; }
-
                         ul#primary-nav li:hover,
                         ul#primary-nav li.over { background-color: #fff }
-
                         ul#primary-nav li a:hover { color: #E2144A; }
 /* END DROP DOWN MENUS */
