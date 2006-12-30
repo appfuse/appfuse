@@ -25,8 +25,8 @@
     <h:inputHidden value="#{userForm.user.confirmPassword}" id="confirmPassword"/>
 </c:if>
 
-<c:if test="${empty userForm.user.username}">
-<input type="hidden" name="encryptPass" value="true" />
+<c:if test="${empty userForm.user.version}">
+    <input type="hidden" name="encryptPass" value="true" />
 </c:if>
 
 <c:set var="addText" value="#{text['button.add']}"/>

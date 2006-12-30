@@ -29,7 +29,7 @@
     <form:hidden path="confirmPassword"/>
 </c:if>
 
-<c:if test="${empty user.username}">
+<c:if test="${empty user.version}">
     <input type="hidden" name="encryptPass" value="true"/>
 </c:if>
 

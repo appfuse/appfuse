@@ -17,7 +17,7 @@
     <s:hidden name="user.confirmPassword" value="%{user.confirmPassword}"/>
 </c:if>
 
-<s:if test="user.username == null || user.username == ''">
+<s:if test="user.version == null">
     <input type="hidden" name="encryptPass" value="true" />
 </s:if>
     <li class="buttonBar right">
@@ -197,8 +197,7 @@
     function passwordChanged(passwordField) {
         var origPassword = "<s:property value="user.password"/>";
         if (passwordField.value != origPassword) {
-            createFormElement("input", "hidden", 
-                              "encryptPass", "encryptPass", 
+            createFormElement("input", "hidden",  "encryptPass", "encryptPass", 
                               "true", passwordField.form);
         }
     }

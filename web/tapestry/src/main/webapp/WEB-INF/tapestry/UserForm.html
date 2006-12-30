@@ -23,7 +23,7 @@
     <input jwcid="@Hidden" id="confirmPassword" value="ognl:user.confirmPassword"/>
 </div>
 
-<span jwcid="@If" condition="ognl:user.username == null">
+<span jwcid="@If" condition="ognl:user.version == null">
     <input type="hidden" name="encryptPass" value="true" />
 </span>
 
