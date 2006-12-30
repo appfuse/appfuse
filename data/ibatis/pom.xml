@@ -32,6 +32,10 @@
     <packaging>jar</packaging>
     <name>AppFuse iBATIS Module</name>
 
+    <description>
+        AppFuse DAO backend implemented with iBATIS (http://ibatis.apache.org).    
+    </description>
+
     <scm>
         <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/data/ibatis</connection>
         <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/data/ibatis</developerConnection>

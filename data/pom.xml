@@ -29,6 +29,10 @@
     <packaging>pom</packaging>
     <name>AppFuse Data Modules</name>
 
+    <description>
+        AppFuse domain objects (appfuse-data-common) and DAO frameworks (Hibernate, iBATIS, JPA). 
+    </description>
+
     <scm>
         <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/data</connection>
         <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/data</developerConnection>

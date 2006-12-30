@@ -29,6 +29,10 @@
     <name>AppFuse Basic Archetype</name>
     <version>1.0-SNAPSHOT</version>
 
+    <description>
+        Maven 2 archetype that creates a web application with AppFuse embedded in it.
+    </description>
+    
     <scm>
         <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/archetypes/appfuse-archetype-basic</connection>
         <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/archetypes/appfuse-archetype-basic</developerConnection>

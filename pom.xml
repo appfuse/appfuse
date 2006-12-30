@@ -27,6 +27,17 @@
     <inceptionYear>2003</inceptionYear>
     <url>http://appfuse.org</url>
 
+    <description>
+        AppFuse is project that helps you start developing an application quickly.
+        It takes care of integrating many open source projects for you. For example: 
+        Spring, Hibernate, Maven, MySQL and Struts. In addition to Hibernate, you 
+        can also use JPA or iBATIS as your backend. For your web framework, you 
+        can choose between Struts 2, JSF, Spring MVC and Tapestry. Test-first 
+        development is promoted when using AppFuse, and all the infrastructure 
+        is in place to do integration testing, unit/mock testing, as well as UI 
+        testing.
+    </description>
+
     <prerequisites>
         <maven>2.0.4</maven>
     </prerequisites>

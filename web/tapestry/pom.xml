@@ -30,6 +30,11 @@
     <packaging>war</packaging>
     <name>AppFuse Tapestry Module</name>
 
+    <description>
+        Tapestry Module for AppFuse: includes Tapestry with Spring and Flash messages support.
+        Include this module in your dependencies if you want to use Tapestry as your web framework.
+    </description>
+
     <scm>
         <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/web/tapestry</connection>
         <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/web/tapestry</developerConnection>

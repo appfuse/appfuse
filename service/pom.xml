@@ -32,6 +32,11 @@
     <packaging>jar</packaging>
     <name>AppFuse Service Module</name>
 
+    <description>
+        Service layer for AppFuse-based applications. Includes JavaMail support, as well as Spring AOP
+        pointcuts that apply transaction attributes to all *Manager interfaces in a "service" package.
+    </description>
+
     <scm>
         <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/service</connection>
         <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/service</developerConnection>

@@ -30,6 +30,12 @@
     <packaging>war</packaging>
     <name>AppFuse Common Web Module</name>
 
+    <description>
+        Common web files (images, stylesheets, scripts) and Java classes (listeners and filters) used
+        by all web frameworks. This module is not meant to be included in a project utilizing AppFuse.
+        It's designed to be used internally by AppFuse only.
+    </description>
+
     <scm>
         <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/web/common</connection>
         <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/web/common</developerConnection>

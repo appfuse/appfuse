@@ -30,6 +30,11 @@
     <packaging>war</packaging>
     <name>AppFuse Struts 2 Module</name>
 
+    <description>
+        Struts 2 Module for AppFuse: includes Struts 2 and Display Tag. Include this module in your
+        dependencies if you want to use Struts 2 as your web framework.
+    </description>
+
     <scm>
         <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/web/struts</connection>
         <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/web/struts</developerConnection>

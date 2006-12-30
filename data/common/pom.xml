@@ -30,6 +30,11 @@
     <packaging>jar</packaging>
     <name>AppFuse Common Data Module</name>
 
+    <description>
+        AppFuse domain objects and DAO interfaces for doing User Management and supporting generic CRUD.
+        Domain objects have JPA annotations for Hibernate and JPA DAO implementations.
+    </description>
+
     <scm>
         <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/data/common</connection>
         <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/data/common</developerConnection>

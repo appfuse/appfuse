@@ -31,6 +31,10 @@
     <packaging>pom</packaging>
     <name>AppFuse Archetype Modules</name>
 
+    <description>
+        AppFuse archetypes are used to create new projects with AppFuse dependencies and necessary plugins.
+    </description>
+
     <scm>
         <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/archetypes</connection>
         <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/archetypes</developerConnection>

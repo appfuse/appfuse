@@ -29,6 +29,10 @@
     <packaging>pom</packaging>
     <name>AppFuse Web Modules</name>
 
+    <description>
+        AppFuse Web Frameworks: JSF, Spring MVC, Struts 2 and Tapestry. 
+    </description>
+    
     <scm>
         <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/web</connection>
         <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/web</developerConnection>

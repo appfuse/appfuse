@@ -29,6 +29,12 @@
     <name>AppFuse Modular Archetype</name>
     <version>1.0-SNAPSHOT</version>
 
+    <description>
+        Maven 2 archetype that creates a modular web application with AppFuse. This archetype creates two modules:
+        "core" and "web". The core module depends on appfuse-service, while the web module depends on core as well
+        as one of AppFuse's supported web frameworks (JSF, Spring MVC, Struts 2 or Tapestry).
+    </description>
+    
     <scm>
         <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/archetypes/appfuse-archetype-modular</connection>
         <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/archetypes/appfuse-archetype-modular</developerConnection>

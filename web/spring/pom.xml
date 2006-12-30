@@ -30,6 +30,11 @@
     <packaging>war</packaging>
     <name>AppFuse Spring MVC Module</name>
 
+    <description>
+        Spring MVC Module for AppFuse: includes Spring MVC, Display Tag and Spring Modules for validation.
+        Include this module in your dependencies if you want to use Spring MVC as your web framework.
+    </description>
+
     <scm>
         <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/web/spring</connection>
         <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/web/spring</developerConnection>
