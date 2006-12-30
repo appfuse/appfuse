@@ -54,8 +54,8 @@
     </issueManagement>
 
     <ciManagement>
-        <system>Continuum</system>
-        <url>http://home.raibledesigns.com:8380</url>
+        <system>CruiseControl</system>
+        <url>http://home.raibledesigns.com:8280/buildresults/appfuse-2.x</url>
         <notifiers>
             <notifier>
                 <type>mail</type>
@@ -65,6 +65,12 @@
                 <sendOnWarning>false</sendOnWarning>
                 <configuration>
                     <address>commits@appfuse.dev.java.net</address>
+                </configuration>
+            </notifier>
+            <notifier>
+                <type>rss</type>
+                <configuration>
+                    <url>http://home.raibledesigns.com:8280/rss/appfuse-2.x</url>
                 </configuration>
             </notifier>
         </notifiers>
