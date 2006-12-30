@@ -177,7 +177,6 @@ public class UserAction extends BaseAction implements Preparable {
         if (!"list".equals(from)) {
             // add success messages
             saveMessage(getText("user.saved"));
-
             return "mainMenu";
         } else {
             // add success messages

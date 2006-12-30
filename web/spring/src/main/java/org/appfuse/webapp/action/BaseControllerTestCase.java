@@ -28,22 +28,27 @@ public abstract class BaseControllerTestCase extends AbstractTransactionalDataSo
         return new String[] {
                 "classpath*:/applicationContext-dao.xml",
                 "classpath*:/applicationContext-service.xml",
-                "/WEB-INF/applicationContext-resources.xml",
-                "/WEB-INF/applicationContext-validation.xml",
+                "/WEB-INF/applicationContext*.xml",
                 "/WEB-INF/action-servlet.xml"
             };
     }
 
+    @Override
     protected void onSetUpBeforeTransaction() throws Exception {
         // populate the userForm and place into session
         UserManager userMgr = (UserManager) applicationContext.getBean("userManager");
-        user = (User) userMgr.getUserByUsername("tomcat");
+        user = userMgr.getUserByUsername("tomcat");
 
         // change the port on the mailSender so it doesn't conflict with an
         // existing SMTP server on localhost
         JavaMailSenderImpl mailSender = (JavaMailSenderImpl) applicationContext.getBean("mailSender");
         mailSender.setPort(2525);
         mailSender.setHost("localhost");
+    }
+
+    @Override
+    protected void onTearDownAfterTransaction() throws Exception {
+        user = null;
     }
 
     /**

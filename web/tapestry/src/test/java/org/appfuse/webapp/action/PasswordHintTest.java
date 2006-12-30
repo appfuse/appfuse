@@ -7,9 +7,10 @@ import java.util.Map;
 
 public class PasswordHintTest extends BasePageTestCase {
     private PasswordHint page;
-    
-    protected void onSetUp() throws Exception {
-        super.onSetUp();        
+
+    @Override
+    protected void onSetUpBeforeTransaction() throws Exception {
+        super.onSetUpBeforeTransaction();
         // these can be mocked if you want a more "pure" unit test
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("userManager", applicationContext.getBean("userManager"));
@@ -17,9 +18,10 @@ public class PasswordHintTest extends BasePageTestCase {
         map.put("mailMessage", applicationContext.getBean("mailMessage"));
         page = (PasswordHint) getPage(PasswordHint.class, map);
     }
-    
-    protected void onTearDown() throws Exception {
-        super.onTearDown();
+
+    @Override
+    protected void onTearDownAfterTransaction() throws Exception {
+        super.onTearDownAfterTransaction();
         page = null;
     }
     

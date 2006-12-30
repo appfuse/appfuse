@@ -11,8 +11,9 @@ import java.util.Map;
 public class SignupFormTest extends BasePageTestCase {
     private SignupForm page;
 
-    protected void onSetUp() throws Exception {
-        super.onSetUp();
+    @Override
+    protected void onSetUpBeforeTransaction() throws Exception {
+        super.onSetUpBeforeTransaction();
         // these can be mocked if you want a more "pure" unit test
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("userManager", applicationContext.getBean("userManager"));
@@ -22,8 +23,9 @@ public class SignupFormTest extends BasePageTestCase {
         page = (SignupForm) getPage(SignupForm.class, map);
     }
 
-    protected void onTearDown() throws Exception {
-        super.onTearDown();
+    @Override
+    protected void onTearDownAfterTransaction() throws Exception {
+        super.onTearDownAfterTransaction();
         page = null;
     }
 

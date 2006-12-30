@@ -7,6 +7,7 @@ import org.apache.myfaces.webapp.StartupServletContextListener;
 import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
 import org.appfuse.webapp.util.FacesUtils;
+import org.appfuse.Constants;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -27,8 +28,8 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 public abstract class BasePageTestCase extends TestCase {
-    protected final transient Log log = LogFactory.getLog(getClass());
-    protected static final String MESSAGES = "ApplicationResources";
+    protected final Log log = LogFactory.getLog(getClass());
+    protected static final String MESSAGES = Constants.BUNDLE_KEY;
     protected static FacesContext facesContext;
     protected static MockServletConfig config;
     protected static MockServletContext servletContext;
@@ -44,7 +45,7 @@ public abstract class BasePageTestCase extends TestCase {
         servletContext.addInitParameter(ContextLoader.CONFIG_LOCATION_PARAM,
                 "classpath*:/applicationContext-dao.xml, " +
                 "classpath*:/applicationContext-service.xml, " +
-                "/WEB-INF/applicationContext-resources.xml");
+                "/WEB-INF/applicationContext*.xml");
 
         ServletContextListener contextListener = new ContextLoaderListener();
         ServletContextEvent event = new ServletContextEvent(servletContext);

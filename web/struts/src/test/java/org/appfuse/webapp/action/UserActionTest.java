@@ -9,14 +9,8 @@ import org.apache.struts2.ServletActionContext;
 public class UserActionTest extends BaseActionTestCase {
     private UserAction action;
 
-    protected void setUp() throws Exception {    
-        super.setUp();
-        action = (UserAction) ctx.getBean("userAction");
-    }
-    
-    protected void tearDown() throws Exception {
-        super.tearDown();
-        action = null;
+    public void setUserAction(UserAction action) {
+        this.action = action;
     }
     
     public void testCancel() throws Exception {
@@ -29,7 +23,7 @@ public class UserActionTest extends BaseActionTestCase {
     
     public void testEdit() throws Exception {
         // so request.getRequestURL() doesn't fail
-        request = new MockHttpServletRequest("GET", "/editUser.html");
+        MockHttpServletRequest request = new MockHttpServletRequest("GET", "/editUser.html");
         ServletActionContext.setRequest(request);
         
         action.setUsername("tomcat");
@@ -40,13 +34,14 @@ public class UserActionTest extends BaseActionTestCase {
     }
 
     public void testSave() throws Exception {
-        UserManager userManager = (UserManager) ctx.getBean("userManager");
+        UserManager userManager = (UserManager) applicationContext.getBean("userManager");
         User user = userManager.getUserByUsername("tomcat");
         user.setPassword("tomcat");
         user.setConfirmPassword("tomcat");
         action.setUser(user);
         action.setFrom("list");
         
+        MockHttpServletRequest request = new MockHttpServletRequest();
         request.addParameter("encryptPass", "true");
         ServletActionContext.setRequest(request);
 
@@ -56,7 +51,7 @@ public class UserActionTest extends BaseActionTestCase {
     }
     
     public void testSaveConflictingUser() throws Exception {
-        UserManager userManager = (UserManager) ctx.getBean("userManager");
+        UserManager userManager = (UserManager) applicationContext.getBean("userManager");
         User user = userManager.getUserByUsername("tomcat");
         user.setPassword("tomcat");
         user.setConfirmPassword("tomcat");
@@ -68,7 +63,8 @@ public class UserActionTest extends BaseActionTestCase {
         
         Integer originalVersionNumber = user.getVersion();
         log.debug("original version #: " + originalVersionNumber);
-        
+
+        MockHttpServletRequest request = new MockHttpServletRequest();
         request.addParameter("encryptPass", "true");
         ServletActionContext.setRequest(request);
 
@@ -76,13 +72,6 @@ public class UserActionTest extends BaseActionTestCase {
         assertNotNull(action.getUser());
         assertEquals(originalVersionNumber, user.getVersion());
         assertTrue(action.hasActionErrors());
-        action.clearErrorsAndMessages();
-        
-        // save with valid e-mail
-        user.setEmail("mraible@gmail.com");
-        assertEquals("input", action.save());
-        assertEquals(originalVersionNumber+1, user.getVersion().intValue());
-        assertFalse(action.hasActionErrors());
     }
 
     public void testSearch() throws Exception {

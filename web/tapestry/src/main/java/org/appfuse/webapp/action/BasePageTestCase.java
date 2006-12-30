@@ -15,21 +15,23 @@ import org.appfuse.service.UserManager;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
+import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
 
-public abstract class BasePageTestCase extends AbstractDependencyInjectionSpringContextTests {
+public abstract class BasePageTestCase extends AbstractTransactionalDataSourceSpringContextTests {
     protected final Log log = LogFactory.getLog(getClass());
     protected final static String EXTENSION = ".html";
     protected static final String MESSAGES = Constants.BUNDLE_KEY;
     protected User user;
 
     protected String[] getConfigLocations() {
+        super.setAutowireMode(AUTOWIRE_BY_NAME);
         return new String[] {"classpath*:/applicationContext-dao.xml",
             "classpath*:/applicationContext-service.xml",
-            "/applicationContext-resources.xml"};
+            "/WEB-INF/applicationContext*.xml"};
     }
-    
-    protected void onSetUp() throws Exception {
+
+    @Override
+    protected void onSetUpBeforeTransaction() throws Exception {
         // populate the userForm and place into session
         UserManager userMgr = (UserManager) applicationContext.getBean("userManager");
         user = userMgr.getUserByUsername("tomcat");
@@ -40,8 +42,9 @@ public abstract class BasePageTestCase extends AbstractDependencyInjectionSpring
         mailSender.setPort(2525);
         mailSender.setHost("localhost");
     }
-    
-    protected void onTearDown() throws Exception {
+
+    @Override
+    protected void onTearDownAfterTransaction() throws Exception {
         user = null;
     }
 
@@ -49,10 +52,10 @@ public abstract class BasePageTestCase extends AbstractDependencyInjectionSpring
         return getPage(clazz, null);
     }
     
-    protected IPage getPage(Class clazz, Map properties) {
+    protected IPage getPage(Class clazz, Map<String, Object> properties) {
         Creator creator = new Creator();
         if (properties == null) {
-            properties = new HashMap();
+            properties = new HashMap<String, Object>();
         }
         
         Messages messages = new MessageFormatter(log, MESSAGES);

@@ -5,14 +5,8 @@ import org.subethamail.wiser.Wiser;
 public class PasswordHintActionTest extends BaseActionTestCase {
     private PasswordHintAction action;
 
-    protected void setUp() throws Exception {
-        super.setUp();
-        action = (PasswordHintAction) ctx.getBean("passwordHintAction");
-    }
-
-    protected void tearDown() throws Exception {
-        super.tearDown();
-        action = null;
+    public void setPasswordHintAction(PasswordHintAction action) {
+        this.action = action;
     }
 
     public void testExecute() throws Exception {

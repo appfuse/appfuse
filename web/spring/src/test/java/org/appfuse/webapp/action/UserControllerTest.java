@@ -12,11 +12,9 @@ public class UserControllerTest extends BaseControllerTestCase {
 
     public void testHandleRequest() throws Exception {
         UserController c = (UserController) applicationContext.getBean("userController");
-        ModelAndView mav =
-            c.handleRequest((HttpServletRequest) null,
-                            (HttpServletResponse) null);
+        ModelAndView mav = c.handleRequest(null, null);
         Map m = mav.getModel();
         assertNotNull(m.get(Constants.USER_LIST));
-        assertEquals(mav.getViewName(), "userList");
+        assertEquals("userList", mav.getViewName());
     }
 }
