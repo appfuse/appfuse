@@ -170,10 +170,28 @@
             <type>warpath</type>
         </dependency>
         <dependency>
+            <groupId>jmock</groupId>
+            <artifactId>jmock</artifactId>
+            <version>${jmock.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
             <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-mock</artifactId>
+            <version>${spring.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.subethamail</groupId>
+            <artifactId>subethasmtp-wiser</artifactId>
+            <version>${wiser.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -208,8 +226,11 @@
         <dao.framework>hibernate</dao.framework>
         <web.framework>struts</web.framework>
         <appfuse.version>2.0-SNAPSHOT</appfuse.version>
+        <jmock.version>1.1.0</jmock.version>
         <junit.version>3.8.1</junit.version>
-
+        <spring.version>2.0.1</spring.version>
+        <wiser.version>1.0.3</wiser.version>
+        
         <hibernate.dialect>org.hibernate.dialect.MySQLInnoDBDialect</hibernate.dialect>
         <jdbc.groupId>mysql</jdbc.groupId>
         <jdbc.artifactId>mysql-connector-java</jdbc.artifactId>
