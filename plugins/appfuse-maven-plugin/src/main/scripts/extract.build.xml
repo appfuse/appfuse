@@ -16,5 +16,6 @@
                 <include name="ApplicationResources.properties"/>
             </fileset>
         </copy>
+        <delete dir="src/main/webapp"/>
     </target>
 </project>
