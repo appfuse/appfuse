@@ -1,0 +1,20 @@
+<project>
+    <target name="extract">
+        <echo level="info">Moving webapp configuration files into src/main/resource ...</echo>
+        <copy todir="src/main/resources/">
+            <fileset dir="src/main/webapp/WEB-INF">
+                <include name="web.xml"/>
+                <include name="applicationContextResources.xml"/>
+                <include name="security.xml"/>
+                <include name="urlrewrite.xml"/>
+                <include name="menu-config.xml"/>
+                <include name="dwr.xml"/>
+            </fileset>
+        </copy>
+        <copy todir="src/main/resources/">
+            <fileset dir="src/main/webapp/WEB-INF/classes">
+                <include name="ApplicationResources.properties"/>
+            </fileset>
+        </copy>
+    </target>
+</project>

@@ -1,0 +1,15 @@
+<pluginMetadata>
+  <mojos>
+    <mojo>
+      <goal>extract</goal>
+
+      <!-- this element refers to the Ant target we'll invoke -->
+      <call>extract</call>
+      <description>
+        Extracts a base set of web files for user customization. If all of the
+        AppFuse files are needed use "mvn war:inplace" instead.
+      </description>
+    </mojo>
+  </mojos>
+</pluginMetadata>
+

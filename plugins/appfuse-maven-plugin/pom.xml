@@ -34,15 +34,12 @@
 	<artifactId>appfuse-maven-plugin</artifactId>
 	<packaging>maven-plugin</packaging>
 	<name>AppFuse Maven Plugin</name>
-	<version>2.0.0-SNAPSHOT</version>
+	<version>2.0-SNAPSHOT</version>
 	<inceptionYear>2006</inceptionYear>
     <description>
         The appfuse-maven-plugin project is now part of the AppFuse project.  This plugin was originally
-        created by Scott Ryan and began at Codehaus.  This plugin will be very useful for AppFuse developers and
-        also users of AppFuse as a foundational application.  This plugin is used with Maven to generate source
-        code from a database connection or existing model objects or Pojos.  The plugin is not fully functional,
-        but it's now available with full checkouts of AppFuse.  It will remain isolated from the AppFuse build
-        until it's ready for public consumption.
+        created by Scott Ryan and began at Codehaus.  This plugin is used with Maven to generate source
+        or resource artifacts for extending the functionality of your AppFuse application.
     </description>
 
 
@@ -86,6 +83,35 @@
             <timezone>-6</timezone>
         </developer>
 	</developers>
+    <build>
+        <plugins>
+        <plugin>
+            <!-- NOTE: We don't need groupId if the plugin's groupId is
+             org.apache.maven.plugins OR org.codehaus.mojo.
+             We also don't have to specify a version, since Maven can
+             automatically resolve the newest one.
+            -->
+            <artifactId>maven-plugin-plugin</artifactId>
+
+            <!-- Add the Ant plugin tools -->
+            <dependencies>
+            <dependency>
+                <groupId>org.apache.maven</groupId>
+                <artifactId>maven-plugin-tools-ant</artifactId>
+                <version>2.0.1</version>
+            </dependency>
+            </dependencies>
+
+            <!-- Tell the plugin-plugin which prefix we will use.
+             Later, we'll configure Maven to allow us to invoke this
+             plugin using the "prefix:mojo" shorthand.
+            -->
+            <configuration>
+            <goalPrefix>extract</goalPrefix>
+            </configuration>
+        </plugin>
+        </plugins>
+    </build>
 
     <dependencies>
 		<dependency>
@@ -115,7 +141,12 @@
 			<artifactId>${jdbc.artifactId}</artifactId>
 			<version>${jdbc.version}</version>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-script-ant</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+    </dependencies>
 
     <distributionManagement>
         <site>
