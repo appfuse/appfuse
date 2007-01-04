@@ -18,4 +18,25 @@
         </copy>
         <delete dir="src/main/webapp"/>
     </target>
+    <target name="touch">
+        <!-- Taskdefs -->
+        <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="${ant-contrib.jar}"/>
+        
+        <condition property="isUnix">
+            <os family="unix"/>
+        </condition>
+
+    <if>
+        <equals arg1="${isUnix}" arg2="true" />
+    <then>
+        <echo level="info">Must be UNIX/LINUX ${os.name} ${os.version} ${os.arch} ... running touch files now.</echo>
+        <exec executable="/bin/bash">
+            <arg value="touch-webfiles.sh"/>
+        </exec>
+        <exec executable="/bin/bash">
+            <arg value="touch-common.sh"/>
+        </exec>
+    </then>
+    </if>
+    </target>
 </project>
