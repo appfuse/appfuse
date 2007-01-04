@@ -199,9 +199,7 @@ public class DbToXMLMojo extends MojoBase
 
         if ( ( this.getDatabasePropertiesFile() != null ) && ( this.getDatabasePropertiesFile().length() > 0 ) )
         {
-            // @todo - temporary hack to resolve database properties issue
-            //configurationUtility.setPropertyFile( new File( this.getDatabasePropertiesFile() ) );
-            configurationUtility.setPropertyFile(FileUtilities.getDatabaseProperties());
+            configurationUtility.setPropertyFile( new File( this.getDatabasePropertiesFile() ) );
         }
         else
         {
