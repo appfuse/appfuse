@@ -9,14 +9,6 @@
         AppFuse files are needed use "mvn war:inplace" instead.
       </description>
     </mojo>
-      <mojo>
-        <goal>touch</goal>
-        <!-- this element refers to the Ant target we'll invoke -->
-        <call>touch</call>
-        <description>
-          Runs touchfile scripts.
-        </description>
-      </mojo>
   </mojos>
 </pluginMetadata>
 
