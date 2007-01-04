@@ -38,7 +38,7 @@ public class DbToXMLMojo extends MojoBase
     /**
      * The full name of the location of the hibernate format database properties file.
      * 
-     * @parameter expression="${basedir}/src/main/resources/jdbc.properties"
+     * @parameter expression="${basedir}/target/classes/jdbc.properties"
      */
     private String databasePropertiesFile;
 
