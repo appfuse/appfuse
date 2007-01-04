@@ -26,20 +26,19 @@
         <artifactId>appfuse</artifactId>
         <version>2.0-SNAPSHOT</version>
     </parent>
-    
+
 	<prerequisites>
 		<maven>2.0.4</maven>
 	</prerequisites>
-	
-	<artifactId>appfuse-maven-plugin</artifactId>
+
+    <artifactId>appfuse-maven-plugin</artifactId>
 	<packaging>maven-plugin</packaging>
 	<name>AppFuse Maven Plugin</name>
 	<version>2.0-SNAPSHOT</version>
 	<inceptionYear>2006</inceptionYear>
     <description>
-        The appfuse-maven-plugin project is now part of the AppFuse project.  This plugin was originally
-        created by Scott Ryan and began at Codehaus.  This plugin is used with Maven to generate source
-        or resource artifacts for extending the functionality of your AppFuse application.
+        This plugin is used with Maven to generate source or resource artifacts for extending
+        the functionality of your AppFuse application.
     </description>
 
 

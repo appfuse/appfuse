@@ -52,7 +52,7 @@ public class CopyXMLFilesMojo extends CopyMojoBase
             getLog().info( "Running the " + this.getMojoName() + " mojo with properties " + this );
         }
 
-        Copy copyTask = this.createCopyTask( this.getModelDirectory() );
+        Copy copyTask = this.createCopyTask( this.getModelDirectory() ); 
 
         // Copy the files
         copyTask.perform();
