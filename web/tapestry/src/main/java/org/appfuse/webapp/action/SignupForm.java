@@ -58,10 +58,8 @@ public abstract class SignupForm extends BasePage implements PageBeginRenderList
         getResponse().sendRedirect(getRequest().getContextPath());
     }
     
-    public void save(IRequestCycle cycle) throws UserExistsException, IOException {
-        if (log.isDebugEnabled()) {
-            log.debug("entered save method");
-        }
+    public void save(IRequestCycle cycle) throws IOException {
+        log.debug("entered save method");
         
         // make sure the password fields match
         IValidationDelegate delegate = getDelegate();
@@ -80,7 +78,7 @@ public abstract class SignupForm extends BasePage implements PageBeginRenderList
         
         Boolean encrypt = (Boolean) getConfiguration().get(Constants.ENCRYPT_PASSWORD);
         
-        if (encrypt != null && encrypt.booleanValue()) {
+        if (encrypt != null && encrypt) {
             String algorithm = (String) getConfiguration().get(Constants.ENC_ALGORITHM);
     
             if (algorithm == null) { // should only happen for test case
@@ -96,8 +94,6 @@ public abstract class SignupForm extends BasePage implements PageBeginRenderList
 
         // Set the default user role on this new user
         user.addRole(getRoleManager().getRole(Constants.USER_ROLE));
-        
-        getUserManager().saveUser(getUser());
         
         try {
             getUserManager().saveUser(user);

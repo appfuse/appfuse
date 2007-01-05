@@ -42,7 +42,10 @@
     </scm>
 
     <modules>
-        <module>appfuse-archetype-basic</module>
+        <module>appfuse-basic-jsf</module>
+        <module>appfuse-basic-spring</module>
+        <module>appfuse-basic-struts</module>
+        <module>appfuse-basic-tapestry</module>
         <module>appfuse-archetype-modular</module>
     </modules>
 </project>

@@ -133,6 +133,64 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <configuration>
+                    <tasks>
+                        <taskdef resource="webtest_base_relaxed.taskdef">
+                            <classpath refid="maven.test.classpath"/>
+                        </taskdef>
+                        <mkdir dir="target/webtest-data"/>
+                        <!-- Delete old results file if it exists -->
+                        <delete file="target/webtest-data/web-tests-result.xml"/>
+                        <!-- This is so the default will be used if no test case is specified -->
+                        <property name="test" value="run-all-tests"/>
+                        <echo level="info">Testing '${project.build.finalName}' with locale '${user.language}'</echo>
+                        <ant antfile="src/test/resources/web-tests.xml" target="${test}">
+                            <property name="user.language" value="${user.language}"/>
+                            <property name="webapp.name" value="${project.build.finalName}"/>
+                            <property name="host" value="${cargo.host}"/>
+                            <property name="port" value="${cargo.port}"/>
+                        </ant>
+                    </tasks>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.canoo</groupId>
+                        <artifactId>webtest</artifactId>
+                        <version>${webtest.version}</version>
+                        <exclusions>
+                            <exclusion>
+                                <groupId>javax.xml</groupId>
+                                <artifactId>jsr173</artifactId>
+                            </exclusion>
+                        </exclusions>
+                    </dependency>
+                    <dependency>
+                        <groupId>javax.mail</groupId>
+                        <artifactId>mail</artifactId>
+                        <version>${javamail.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                        <version>${log4j.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>oro</groupId>
+                        <artifactId>oro</artifactId>
+                        <version>${oro.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
         </plugins>
         <resources>
             <resource>
@@ -240,11 +298,20 @@
         <dao.framework>hibernate</dao.framework>
         <web.framework>tapestry</web.framework>
         <appfuse.version>2.0-SNAPSHOT</appfuse.version>
+
+        <!-- Testing dependencies -->
         <jmock.version>1.1.0</jmock.version>
         <junit.version>3.8.1</junit.version>
         <spring.version>2.0.1</spring.version>
         <wiser.version>1.0.3</wiser.version>
-        
+
+        <!-- WebTest dependencies -->
+        <javamail.version>1.4</javamail.version>
+        <log4j.version>1.2.13</log4j.version>
+        <oro.version>2.0.8</oro.version>
+        <webtest.version>1454</webtest.version>
+
+        <!-- Database settings -->
         <hibernate.dialect>org.hibernate.dialect.MySQLInnoDBDialect</hibernate.dialect>
         <jdbc.groupId>mysql</jdbc.groupId>
         <jdbc.artifactId>mysql-connector-java</jdbc.artifactId>
