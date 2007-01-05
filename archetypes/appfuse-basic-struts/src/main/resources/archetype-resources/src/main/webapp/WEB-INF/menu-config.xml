@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MenuConfig>
+    <Displayers>
+        <Displayer name="Velocity" type="net.sf.navigator.displayer.VelocityMenuDisplayer"/>
+    </Displayers>
+    <Menus>
+        <Menu name="MainMenu" title="mainMenu.title" page="/mainMenu.html"/>
+        <Menu name="UserMenu" title="menu.user" description="User Menu" page="/editProfile.html" roles="admin,user"/>
+        <Menu name="FileUpload" title="menu.selectFile" description="File Upload" width="100" page="/uploadFile!start.html" roles="admin,user"/>
+        <Menu name="AdminMenu" title="menu.admin" description="Admin Menu" roles="admin" width="120" page="/users.html">
+            <Item name="ViewUsers" title="menu.admin.users" page="/users.html"/>
+            <Item name="ActiveUsers" title="mainMenu.activeUsers" page="/activeUsers.html"/>
+            <Item name="ReloadContext" title="menu.admin.reload" page="/reload.html"/>
+            <Item name="FlushCache" title="menu.flushCache" page="/flushCache.html"/>
+            <Item name="Clickstream" title="menu.clickstream" page="/clickstreams.jsp"/>
+        </Menu>
+        <Menu name="Logout" title="user.logout" page="/logout.jsp" roles="admin,user"/>
+    </Menus>
+</MenuConfig>

@@ -1,0 +1,22 @@
+<archetype>
+    <id>appfuse-basic</id>
+    <resources>
+        <resource filtered="true">pom.xml</resource>
+        <resource>src/main/resources/hibernate.cfg.xml</resource>
+        <resource>src/main/resources/jdbc.properties</resource>
+        <resource>README.txt</resource>
+        <resource>src/test/resources/sample-data.xml</resource>
+    </resources>
+    <siteResources>
+        <resource>src/site/site.xml</resource>
+    </siteResources>
+    <sources>
+	      <source>src/main/java/App.java</source>
+    </sources>
+    <testSources>
+	      <source>src/test/java/AppTest.java</source>
+    </testSources>
+    <contextProperties>
+        <property name="web.framework" value="jsf"/>
+    </contextProperties>
+</archetype>

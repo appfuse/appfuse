@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<urlrewrite>
+    <rule>
+        <from>^/user/(.*).html$</from>
+        <to type="forward">/editUser.html\?username=$1</to>
+    </rule>
+
+    <!-- Override default validation.js from WebWork -->
+    <rule>
+        <from>^/struts/css_xhtml/validation.js$</from>
+        <to type="forward">/template/css_xhtml/validation.js</to>
+    </rule>
+</urlrewrite>
+
