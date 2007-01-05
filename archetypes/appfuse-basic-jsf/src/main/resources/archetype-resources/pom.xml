@@ -375,7 +375,7 @@
 
         <!-- Testing dependency versions -->
         <jmock.version>1.1.0</jmock.version>
-        <junit.version>3.8.1</junit.version>
+        <junit.version>3.8.2</junit.version>
         <spring.version>2.0.1</spring.version>
         <wiser.version>1.0.3</wiser.version>
 
