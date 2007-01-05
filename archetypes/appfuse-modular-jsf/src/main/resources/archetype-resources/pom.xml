@@ -137,7 +137,7 @@
 
     <properties>
         <dao.framework>hibernate</dao.framework>
-        <web.framework>struts</web.framework>
+        <web.framework>jsf</web.framework>
         <appfuse.version>2.0-SNAPSHOT</appfuse.version>
 
         <!-- Database settings -->

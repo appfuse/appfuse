@@ -25,7 +25,7 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>appfuse-modular-struts</artifactId>
+    <artifactId>appfuse-modular-tapestry</artifactId>
     <name>AppFuse Modular Archetype - Tapestry</name>
     <version>1.0-SNAPSHOT</version>
 
