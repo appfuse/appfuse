@@ -86,7 +86,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>dbunit-maven-plugin</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>1.0-beta-1-SNAPSHOT</version>
                 <configuration>
                     <driver>${jdbc.driverClassName}</driver>
                     <username>${jdbc.username}</username>
@@ -245,19 +245,19 @@
             <groupId>jmock</groupId>
             <artifactId>jmock</artifactId>
             <version>${jmock.version}</version>
-            <optional>true</optional>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
-            <optional>true</optional>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-mock</artifactId>
             <version>${spring.version}</version>
-            <optional>true</optional>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.subethamail</groupId>
@@ -294,22 +294,62 @@
         </plugins>
     </reporting>
 
+    <profiles>
+        <profile>
+            <id>tomcat5x</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.cargo</groupId>
+                        <artifactId>cargo-maven2-plugin</artifactId>
+                        <configuration>
+                            <wait>${cargo.wait}</wait>
+                            <container>
+                                <containerId>tomcat5x</containerId>
+                                <zipUrlInstaller>
+                                    <url>
+                                        http://apache.org/dist/tomcat/tomcat-5/v5.5.17/bin/apache-tomcat-5.5.17.zip
+                                    </url>
+                                    <installDir>${installDir}</installDir>
+                                </zipUrlInstaller>
+                            </container>
+                            <configuration>
+                                <home>${project.build.directory}/tomcat5x/container</home>
+                                <properties>
+                                    <cargo.hostname>${cargo.host}</cargo.hostname>
+                                    <cargo.servlet.port>${cargo.port}</cargo.servlet.port>
+                                </properties>
+                            </configuration>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>start-container</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>start</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>stop-container</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>stop</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
     <properties>
         <dao.framework>hibernate</dao.framework>
         <web.framework>spring</web.framework>
         <appfuse.version>2.0-SNAPSHOT</appfuse.version>
-
-        <!-- Testing dependencies -->
-        <jmock.version>1.1.0</jmock.version>
-        <junit.version>3.8.1</junit.version>
-        <spring.version>2.0.1</spring.version>
-        <wiser.version>1.0.3</wiser.version>
-
-        <!-- WebTest dependencies -->
-        <javamail.version>1.4</javamail.version>
-        <log4j.version>1.2.13</log4j.version>
-        <oro.version>2.0.8</oro.version>
-        <webtest.version>1454</webtest.version>
 
         <!-- Database settings -->
         <hibernate.dialect>org.hibernate.dialect.MySQLInnoDBDialect</hibernate.dialect>
@@ -320,5 +360,22 @@
         <jdbc.url><![CDATA[jdbc:mysql://localhost/appfuse?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8]]></jdbc.url>
         <jdbc.username>root</jdbc.username>
         <jdbc.password></jdbc.password>
+
+        <!-- Testing dependency versions -->
+        <jmock.version>1.1.0</jmock.version>
+        <junit.version>3.8.1</junit.version>
+        <spring.version>2.0.1</spring.version>
+        <wiser.version>1.0.3</wiser.version>
+
+        <!-- WebTest dependency versions  -->
+        <javamail.version>1.4</javamail.version>
+        <log4j.version>1.2.13</log4j.version>
+        <oro.version>2.0.8</oro.version>
+        <webtest.version>1454</webtest.version>
+
+        <!-- Cargo settings -->
+        <cargo.host>localhost</cargo.host>
+        <cargo.port>8081</cargo.port>
+        <cargo.wait>false</cargo.wait>
     </properties>
 </project>
