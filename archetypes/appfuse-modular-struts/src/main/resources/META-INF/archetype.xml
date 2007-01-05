@@ -26,11 +26,10 @@
         <resource>web/src/main/resources/hibernate.cfg.xml</resource>
         <resource>web/src/main/resources/jdbc.properties</resource>
         <resource>web/src/main/resources/log4j.xml</resource>
-        <resource>web/src/main/resources/struts.xml</resource>
         <resource>web/src/main/resources/mail.properties</resource>
+        <resource>web/src/main/resources/struts.xml</resource>
         <resource>web/src/main/webapp/WEB-INF/menu-config.xml</resource>
         <resource>web/src/main/webapp/WEB-INF/urlrewrite.xml</resource>
-        <resource>web/src/main/webapp/WEB-INF/validation.xml</resource>
         <resource>web/src/main/webapp/WEB-INF/web.xml</resource>
         <resource>web/src/test/resources/config.xml</resource>
         <resource>web/src/test/resources/login.xml</resource>
