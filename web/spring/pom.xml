@@ -64,7 +64,7 @@
                     <username>${jdbc.username}</username>
                     <password>${jdbc.password}</password>
                     <url>${jdbc.url}</url>
-                    <sourceData>${basedir}/src/test/resources/sample-data.xml</sourceData>
+                    <sourceData>src/test/resources/sample-data.xml</sourceData>
                     <sourceDataFormat>xml</sourceDataFormat>
                 </configuration>
                 <executions>
@@ -228,12 +228,6 @@
             <groupId>org.springmodules</groupId>
             <artifactId>spring-modules-validation</artifactId>
             <version>${springmodules.validation.version}</version>            
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.persistence</groupId>
-                    <artifactId>ejb</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>${jdbc.groupId}</groupId>
