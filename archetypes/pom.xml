@@ -46,6 +46,6 @@
         <module>appfuse-basic-spring</module>
         <module>appfuse-basic-struts</module>
         <module>appfuse-basic-tapestry</module>
-        <module>appfuse-archetype-modular</module>
+        <module>appfuse-modular-struts</module>
     </modules>
 </project>
