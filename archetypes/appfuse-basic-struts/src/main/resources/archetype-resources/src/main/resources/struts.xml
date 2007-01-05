@@ -1,0 +1,118 @@
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <!-- Include Struts defaults -->
+    <include file="struts-default.xml"/>
+
+    <!-- Configuration for the default package. -->
+    <package name="default" extends="struts-default">
+        <interceptors>
+            <!-- Interceptor to handle allowing only admins to certain actions -->
+            <interceptor name="adminOnly" class="adminInterceptor"/>
+            <!-- https://issues.apache.org/struts/browse/WW-1187 -->
+            <interceptor-stack name="defaultStack">
+                <interceptor-ref name="exception"/>
+                <interceptor-ref name="alias"/>
+                <interceptor-ref name="servlet-config"/>
+                <interceptor-ref name="prepare"/>
+                <interceptor-ref name="i18n"/>
+                <interceptor-ref name="chain"/>
+                <interceptor-ref name="model-driven"/>
+                <interceptor-ref name="fileUpload"/>
+                <interceptor-ref name="static-params"/>
+                <interceptor-ref name="params"/>
+                <interceptor-ref name="conversionError"/>
+                <interceptor-ref name="validation">
+                    <param name="excludeMethods">cancel,execute,delete,edit,list,start</param>
+                </interceptor-ref>
+                <interceptor-ref name="workflow">
+                    <param name="excludeMethods">input,back,cancel</param>
+                </interceptor-ref>
+            </interceptor-stack>
+            <interceptor-stack name="fileUploadStack">
+                <interceptor-ref name="fileUpload"/>
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+            <interceptor-stack name="adminCheck">
+                <interceptor-ref name="defaultStack"/>
+                <interceptor-ref name="adminOnly"/>
+            </interceptor-stack>
+        </interceptors>
+
+        <global-results>
+            <result name="mainMenu" type="redirect">mainMenu.html</result>
+            <result name="dataAccessFailure">/WEB-INF/pages/dataAccessFailure.jsp</result>
+        </global-results>
+
+        <global-exception-mappings>
+            <exception-mapping exception="org.springframework.dao.DataAccessException" result="dataAccessFailure"/>
+        </global-exception-mappings> 
+        
+        <action name="activeUsers" class="com.opensymphony.xwork2.ActionSupport"> 
+            <result name="success">/WEB-INF/pages/activeUsers.jsp</result> 
+        </action> 
+        
+        <action name="mainMenu" class="com.opensymphony.xwork2.ActionSupport">
+            <result name="success">/WEB-INF/pages/mainMenu.jsp</result> 
+        </action> 
+
+        <action name="signup" class="signupAction">
+            <result name="cancel" type="redirect">/</result>
+            <result name="input">/WEB-INF/pages/signup.jsp</result>
+            <result name="success" type="chain">saveSignup</result>
+        </action> 
+
+        <action name="saveSignup" class="signupAction" method="save">
+            <result name="input">/WEB-INF/pages/signup.jsp</result>
+            <result name="success" type="redirect">/mainMenu.html</result>
+        </action> 
+
+        <action name="users" class="userAction" method="list"> 
+            <interceptor-ref name="adminCheck"/>
+            <result name="success">/WEB-INF/pages/userList.jsp</result> 
+        </action>
+        
+        <action name="editUser" class="userAction" method="edit">
+            <interceptor-ref name="adminCheck"/>
+            <result name="success">/WEB-INF/pages/userForm.jsp</result>
+            <result name="input">/WEB-INF/pages/userList.jsp</result>
+        </action>
+
+        <action name="editProfile" class="userAction" method="edit"> 
+            <result name="success">/WEB-INF/pages/userForm.jsp</result>
+            <result name="error">/WEB-INF/pages/mainMenu.jsp</result>
+        </action>
+        
+        <action name="saveUser" class="userAction" method="save">
+            <result name="cancel" type="redirect">users.html</result>
+            <result name="input">/WEB-INF/pages/userForm.jsp</result>
+            <result name="success" type="redirect">users.html</result>
+            <result name="addAnother" type="redirect">editUser.html?method=Add&amp;from=list</result>
+        </action>
+        
+        <action name="uploadFile" class="org.appfuse.webapp.action.FileUploadAction">
+            <interceptor-ref name="fileUploadStack"/>
+            <result name="input">/WEB-INF/pages/uploadForm.jsp</result>
+            <result name="success">/WEB-INF/pages/uploadDisplay.jsp</result>
+            <result name="cancel" type="redirect">mainMenu.html</result>
+        </action>
+        
+        <action name="flushCache" class="com.opensymphony.xwork2.ActionSupport">
+            <interceptor-ref name="adminCheck"/>
+            <result name="success">/WEB-INF/pages/flushCache.jsp</result> 
+        </action> 
+
+        <action name="passwordHint" class="passwordHintAction"> 
+            <result name="success">/</result> 
+        </action> 
+        
+        <action name="reload" class="org.appfuse.webapp.action.ReloadAction">
+            <interceptor-ref name="adminCheck"/>
+            <!-- this should never be used, it's here to prevent warnings -->
+            <result name="success">/WEB-INF/pages/mainMenu.jsp</result>
+        </action>
+        
+        <!-- Add additional actions here -->
+      </package>
+</struts>
