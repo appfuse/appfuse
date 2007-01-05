@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN"
+    "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
+
+<faces-config>
+    <application>
+        <variable-resolver>org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver>
+        <locale-config>
+          <default-locale>en</default-locale>
+          <supported-locale>en</supported-locale>
+          <supported-locale>es</supported-locale>
+          <supported-locale>de</supported-locale>
+          <supported-locale>fr</supported-locale>
+          <supported-locale>nl</supported-locale>
+          <supported-locale>pt</supported-locale>
+          <supported-locale>pt_BR</supported-locale>
+          <supported-locale>zh</supported-locale>
+          <supported-locale>zh_CN</supported-locale>
+        </locale-config>
+        <message-bundle>ApplicationResources</message-bundle>
+    </application>
+    
+    <component>
+        <component-type>com.corejsf.validator.UIValidatorScript</component-type>
+        <component-class>com.corejsf.validator.UIValidatorScript</component-class>
+    </component>
+
+    <navigation-rule>
+        <from-view-id>/mainMenu.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>ajax4jsf</from-action>
+            <to-view-id>/ajax4jsf.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/*</from-view-id>
+        <navigation-case>
+            <from-outcome>mainMenu</from-outcome>
+            <to-view-id>/mainMenu.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/*</from-view-id>
+        <navigation-case>
+            <from-outcome>editProfile</from-outcome>
+            <to-view-id>/userForm.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/users.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>add</from-outcome>
+            <to-view-id>/userForm.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/userForm.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>cancel</from-outcome>
+            <to-view-id>/users.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>list</from-outcome>
+            <to-view-id>/users.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/selectFile.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/showFile.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/signup.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>cancel</from-outcome>
+            <to-view-id>/login.jsp</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/passwordHint.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/login.jsp</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <!-- Add additional rules here -->
+    
+    <managed-bean>
+        <managed-bean-name>basePage</managed-bean-name>
+        <managed-bean-class>org.appfuse.webapp.action.BasePage</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>userList</managed-bean-name>
+        <managed-bean-class>org.appfuse.webapp.action.UserList</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>userManager</property-name>
+            <value>#{userManager}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>userForm</managed-bean-name>
+        <managed-bean-class>org.appfuse.webapp.action.UserForm</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+          <property-name>username</property-name>
+          <value>#{param.username}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>userManager</property-name>
+            <value>#{userManager}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>roleManager</property-name>
+            <value>#{roleManager}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>mailEngine</property-name>
+            <value>#{mailEngine}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>message</property-name>
+            <value>#{mailMessage}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>templateName</property-name>
+            <value>accountCreated.vm</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>signupForm</managed-bean-name>
+        <managed-bean-class>org.appfuse.webapp.action.SignupForm</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>userManager</property-name>
+            <value>#{userManager}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>roleManager</property-name>
+            <value>#{roleManager}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>mailEngine</property-name>
+            <value>#{mailEngine}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>message</property-name>
+            <value>#{mailMessage}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>templateName</property-name>
+            <value>accountCreated.vm</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>passwordHint</managed-bean-name>
+        <managed-bean-class>org.appfuse.webapp.action.PasswordHint</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+          <property-name>username</property-name>
+          <value>#{param.username}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>userManager</property-name>
+            <value>#{userManager}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>mailEngine</property-name>
+            <value>#{mailEngine}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>message</property-name>
+            <value>#{mailMessage}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>templateName</property-name>
+            <value>accountCreated.vm</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>fileUpload</managed-bean-name>
+        <managed-bean-class>org.appfuse.webapp.action.FileUpload</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>reload</managed-bean-name>
+        <managed-bean-class>org.appfuse.webapp.action.Reload</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>activeUserList</managed-bean-name>
+        <managed-bean-class>org.appfuse.webapp.action.ActiveUserList</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    
+    <!-- Add additional beans here -->
+    
+    <render-kit>
+        <description>Some replacements for the standard renderers</description>
+        <renderer>
+            <description>Replacement renderer for h:outputLabel</description>
+            <component-family>javax.faces.Output</component-family>
+            <renderer-type>javax.faces.Label</renderer-type>
+            <renderer-class>org.appfuse.webapp.jsf.LabelRenderer</renderer-class>
+        </renderer>
+        <renderer>
+            <description>Replacement renderer for h:panelGrid that uses lists instead of tables</description>
+            <component-family>javax.faces.Panel</component-family>
+            <renderer-type>javax.faces.Grid</renderer-type>
+            <renderer-class>org.appfuse.webapp.jsf.PanelGridRenderer</renderer-class>
+        </renderer>
+    </render-kit>
+
+    <validator>
+        <validator-id>com.corejsf.validator.CommonsValidator</validator-id>
+        <validator-class>com.corejsf.validator.CommonsValidator</validator-class>
+    </validator>
+
+</faces-config>

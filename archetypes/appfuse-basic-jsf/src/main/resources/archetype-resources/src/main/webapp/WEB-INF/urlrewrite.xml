@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<urlrewrite>
+    <rule>
+        <from>^/login.html$</from>
+        <to type="forward">/login.jsp</to>
+    </rule>
+    <rule>
+        <from>^/flushCache.html$</from>
+        <to type="forward">/flushCache.jsp</to>
+    </rule>
+</urlrewrite>
+
