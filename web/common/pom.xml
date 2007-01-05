@@ -102,12 +102,6 @@
             <artifactId>appfuse-service</artifactId>
             <version>${pom.version}</version>
             <exclusions>
-                <!-- EhCache has servlet-api as compile -->
-                <exclusion>
-                    <groupId>javax.servlet</groupId>
-                    <artifactId>servlet-api</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>commons-dbcp</groupId>
