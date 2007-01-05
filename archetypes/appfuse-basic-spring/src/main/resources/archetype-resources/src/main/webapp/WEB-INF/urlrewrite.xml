@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<urlrewrite>
+    <rule>
+        <from>^/user/(.*)\.html$</from>
+        <to type="forward">/editUser.html?username=$1</to>
+    </rule>
+</urlrewrite>
+

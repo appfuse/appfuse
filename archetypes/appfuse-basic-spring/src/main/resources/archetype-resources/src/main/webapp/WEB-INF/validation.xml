@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE form-validation PUBLIC "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1//EN" "http://jakarta.apache.org/commons/dtds/validator_1_1.dtd">
+
+<form-validation>
+     <global>
+      <constant>
+        <constant-name>phone</constant-name>
+        <constant-value>^\(?(\d{3})\)?[-| ]?(\d{3})[-| ]?(\d{4})$</constant-value>
+      </constant>
+      <constant>
+        <constant-name>zip</constant-name>
+        <constant-value>^\d{5}\d*$</constant-value>
+      </constant>
+      <constant>
+        <constant-name>currency</constant-name>
+        <constant-value>^\d{1,3}(,?\d{1,3})*\.?(\d{1,2})?$</constant-value>
+      </constant> 
+   </global>
+   <formset>
+        <form name="fileUpload">
+            <field property="name" depends="required">
+                <arg0 key="uploadForm.name"/>
+            </field>
+            <!-- Client-side Javascript won't catch this in IE, but server-side will -->
+            <field property="file" depends="required">
+                <arg0 key="uploadForm.file"/>
+            </field>
+        </form>
+    </formset>
+
+  <formset>
+  <!--
+    Define form validation config in validation-forms.xml
+  -->
+
+      <form name="address">
+              <field property="city"
+                     depends="required">
+
+                  <arg0 key="address.city"/>
+              </field>
+              <field property="country"
+                     depends="required">
+
+                  <arg0 key="address.country"/>
+              </field>
+              <field property="postalCode"
+                     depends="required,mask">
+                  <msg
+                    name="mask"
+                    key="errors.zip"/>
+
+                  <arg0 key="address.postalCode"/>
+                  <var>
+                    <var-name>mask</var-name>
+                    <var-value>${zip}</var-value>
+                  </var>
+              </field>
+              <field property="province"
+                     depends="required">
+
+                  <arg0 key="address.province"/>
+              </field>
+      </form>
+      <form name="user">
+              <field property="username"
+                     depends="required">
+
+                  <arg0 key="user.username"/>
+              </field>
+              <field property="password"
+                     depends="required,twofields">
+                  <msg
+                    name="twofields"
+                    key="errors.twofields"/>
+
+                  <arg0 key="user.password"/>
+                  <arg1
+                    key="user.confirmPassword"
+                  />
+                  <var>
+                    <var-name>secondProperty</var-name>
+                    <var-value>confirmPassword</var-value>
+                  </var>
+              </field>
+              <field property="confirmPassword"
+                     depends="required">
+
+                  <arg0 key="user.confirmPassword"/>
+              </field>
+              <field property="firstName"
+                     depends="required">
+
+                  <arg0 key="user.firstName"/>
+              </field>
+              <field property="lastName"
+                     depends="required">
+
+                  <arg0 key="user.lastName"/>
+              </field>
+              <field property="address.city"
+                     depends="required">
+
+                  <arg0 key="user.address.city"/>
+              </field>
+              <field property="address.country"
+                     depends="required">
+
+                  <arg0 key="user.address.country"/>
+              </field>
+              <field property="address.postalCode"
+                     depends="required,mask">
+                  <msg
+                    name="mask"
+                    key="errors.zip"/>
+
+                  <arg0 key="user.address.postalCode"/>
+                  <var>
+                    <var-name>mask</var-name>
+                    <var-value>${zip}</var-value>
+                  </var>
+              </field>
+              <field property="address.province"
+                     depends="required">
+
+                  <arg0 key="user.address.province"/>
+              </field>
+              <field property="email"
+                     depends="required,email">
+
+                  <arg0 key="user.email"/>
+              </field>
+              <field property="phoneNumber"
+                     depends="mask">
+                  <msg
+                    name="mask"
+                    key="errors.phone"/>
+
+                  <arg0 key="user.phoneNumber"/>
+                  <var>
+                    <var-name>mask</var-name>
+                    <var-value>${phone}</var-value>
+                  </var>
+              </field>
+              <field property="passwordHint"
+                     depends="required">
+
+                  <arg0 key="user.passwordHint"/>
+              </field>
+      </form>
+  </formset>
+</form-validation>
