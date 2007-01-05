@@ -1,5 +1,5 @@
 <archetype>
-    <id>appfuse-modular-struts</id>
+    <id>appfuse-modular-jsf</id>
     <resources>
         <resource>pom.xml</resource>
         <resource>README.txt</resource>
@@ -9,7 +9,7 @@
         <resource>core/src/test/resources/sample-data.xml</resource>
         <resource>web/pom.xml</resource>
 
-        <!-- web artifacts, copied from archetype.xml in appfuse-basic-struts -->
+        <!-- web artifacts, copied from archetype.xml in appfuse-basic-jsf -->
         <resource>web/src/main/resources/applicationContext-resources.xml</resource>
         <resource>web/src/main/resources/ApplicationResources.properties</resource>
         <resource>web/src/main/resources/ApplicationResources_de.properties</resource>
@@ -26,11 +26,10 @@
         <resource>web/src/main/resources/hibernate.cfg.xml</resource>
         <resource>web/src/main/resources/jdbc.properties</resource>
         <resource>web/src/main/resources/log4j.xml</resource>
-        <resource>web/src/main/resources/struts.xml</resource>
         <resource>web/src/main/resources/mail.properties</resource>
+        <resource>web/src/main/webapp/WEB-INF/faces-config.xml</resource>
         <resource>web/src/main/webapp/WEB-INF/menu-config.xml</resource>
         <resource>web/src/main/webapp/WEB-INF/urlrewrite.xml</resource>
-        <resource>web/src/main/webapp/WEB-INF/validation.xml</resource>
         <resource>web/src/main/webapp/WEB-INF/web.xml</resource>
         <resource>web/src/test/resources/config.xml</resource>
         <resource>web/src/test/resources/login.xml</resource>

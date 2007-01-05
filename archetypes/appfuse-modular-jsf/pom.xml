@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-    Copyright 2002-2006 the original author or authors.
 
+<!--
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
@@ -14,7 +13,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
@@ -24,31 +22,23 @@
         <groupId>org.appfuse</groupId>
         <artifactId>appfuse</artifactId>
         <version>2.0-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>appfuse-archetypes</artifactId>
+    <artifactId>appfuse-modular-struts</artifactId>
+    <name>AppFuse Modular Archetype - JSF</name>
     <version>1.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
-    <name>AppFuse Archetype Modules</name>
 
     <description>
-        AppFuse archetypes are used to create new projects with AppFuse dependencies and necessary plugins.
+        Maven 2 archetype that creates a modular web application with AppFuse. This archetype creates two modules:
+        "core" and "web". The core module depends on appfuse-service, while the web module depends on core as well
+        as AppFuse's JSF implementation.
     </description>
-
+    
     <scm>
-        <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/archetypes</connection>
-        <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/archetypes</developerConnection>
-        <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/archetypes</url>
+        <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/archetypes/appfuse-modular-jsf</connection>
+        <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/archetypes/appfuse-modular-jsf</developerConnection>
+        <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/archetypes/appfuse-modular-jsf</url>
     </scm>
-
-    <modules>
-        <module>appfuse-basic-jsf</module>
-        <module>appfuse-basic-spring</module>
-        <module>appfuse-basic-struts</module>
-        <module>appfuse-basic-tapestry</module>
-        <module>appfuse-modular-jsf</module>
-        <module>appfuse-modular-struts</module>
-        <module>appfuse-modular-spring</module>
-        <module>appfuse-modular-tapestry</module>
-    </modules>
 </project>
+

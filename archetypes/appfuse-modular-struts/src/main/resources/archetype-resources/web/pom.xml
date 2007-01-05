@@ -13,7 +13,7 @@
     
     <artifactId>${artifactId}-webapp</artifactId>
     <packaging>war</packaging>
-    <name>AppFuse Modular Application - Web</name>
+    <name>AppFuse Modular Application - Web (Struts 2)</name>
 
     <prerequisites>
         <maven>2.0.4</maven>

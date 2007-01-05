@@ -1,11 +1,10 @@
-AppFuse Modular Struts 2 Archetype
+AppFuse Modular JSF Archetype
 --------------------------------------------------------------------------------
 If you're reading this then you've created your new project using Maven and
-appfuse-modular-struts.  You have only created the shell of an AppFuse Java EE
+appfuse-basic-spring.  You have only created the shell of an AppFuse Java EE
 application.  The project object model (pom) is defined in the file pom.xml.
 The application is ready to run as a web application. The pom.xml file is
-pre-defined with Hibernate as a persistence model and Struts 2 as the web
-framework.
+pre-defined with Hibernate as a persistence model and JSF as the web framework.
 
 There are two modules in this project. The first is "core" and is meant to 
 contain Services and DAOs. The second is "web" and contains any web-related
