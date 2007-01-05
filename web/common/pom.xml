@@ -101,7 +101,6 @@
             <groupId>${pom.groupId}</groupId>
             <artifactId>appfuse-service</artifactId>
             <version>${pom.version}</version>
-            <exclusions>
         </dependency>
         <dependency>
             <groupId>commons-dbcp</groupId>
