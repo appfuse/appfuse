@@ -230,12 +230,6 @@
             <type>warpath</type>
         </dependency>
         <dependency>
-            <groupId>${pom.groupId}</groupId>
-            <artifactId>appfuse-${dao.framework}</artifactId>
-            <version>${pom.version}</version>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
             <groupId>org.ajax4jsf</groupId>
             <artifactId>ajax4jsf</artifactId>
             <version>1.0.2</version>

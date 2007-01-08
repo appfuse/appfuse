@@ -93,7 +93,6 @@
             <groupId>${pom.groupId}</groupId>
             <artifactId>appfuse-${dao.framework}</artifactId>
             <version>${pom.version}</version>
-            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>aspectj</groupId>
