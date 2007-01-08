@@ -203,6 +203,12 @@
             <type>warpath</type>
         </dependency>
         <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>appfuse-${dao.framework}</artifactId>
+            <version>${pom.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
             <groupId>tapestry</groupId>
             <artifactId>tapestry</artifactId>
             <version>${tapestry.version}</version>

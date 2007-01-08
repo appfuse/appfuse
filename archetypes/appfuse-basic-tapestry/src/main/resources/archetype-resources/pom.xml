@@ -242,6 +242,11 @@
             <type>warpath</type>
         </dependency>
         <dependency>
+            <groupId>org.appfuse</groupId>
+            <artifactId>appfuse-${dao.framework}</artifactId>
+            <version>${appfuse.version}</version>
+        </dependency>
+        <dependency>
             <groupId>jmock</groupId>
             <artifactId>jmock</artifactId>
             <version>${jmock.version}</version>
