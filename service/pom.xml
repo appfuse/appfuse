@@ -54,14 +54,14 @@
                     <username>${jdbc.username}</username>
                     <password>${jdbc.password}</password>
                     <url>${jdbc.url}</url>
-                    <sourceData>src/test/resources/sample-data.xml</sourceData>
-                    <sourceDataFormat>xml</sourceDataFormat>
+                    <src>src/test/resources/sample-data.xml</src>
+                    <type>CLEAN_INSERT</type>
                 </configuration>
                 <executions>
                     <execution>
                         <phase>test-compile</phase>
                         <goals>
-                            <goal>clean-insert</goal>
+                            <goal>operation</goal>
                         </goals>
                     </execution>
                 </executions>
