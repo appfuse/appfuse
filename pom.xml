@@ -415,8 +415,8 @@
         <struts.version>2.0.1</struts.version>
         <struts.menu.version>2.4.2</struts.menu.version>
         <tapestry.version>4.0.2</tapestry.version>
-        <tapestry.flash.version>0.1.1</tapestry.flash.version>
-        <tapestry.spring.version>0.1.2</tapestry.spring.version>
+        <tapestry.flash.version>1.0.0</tapestry.flash.version>
+        <tapestry.spring.version>1.0.0</tapestry.spring.version>
         <urlrewrite.version>2.5.2</urlrewrite.version>
         <velocity.version>1.4</velocity.version>
         <webtest.version>1454</webtest.version>
