@@ -82,35 +82,6 @@
             <timezone>-6</timezone>
         </developer>
 	</developers>
-    <build>
-        <plugins>
-        <plugin>
-            <!-- NOTE: We don't need groupId if the plugin's groupId is
-             org.apache.maven.plugins OR org.codehaus.mojo.
-             We also don't have to specify a version, since Maven can
-             automatically resolve the newest one.
-            -->
-            <artifactId>maven-plugin-plugin</artifactId>
-
-            <!-- Add the Ant plugin tools -->
-            <dependencies>
-            <dependency>
-                <groupId>org.apache.maven</groupId>
-                <artifactId>maven-plugin-tools-ant</artifactId>
-                <version>2.0.1</version>
-            </dependency>
-            </dependencies>
-
-            <!-- Tell the plugin-plugin which prefix we will use.
-             Later, we'll configure Maven to allow us to invoke this
-             plugin using the "prefix:mojo" shorthand.
-            -->
-            <configuration>
-            <goalPrefix>script</goalPrefix>
-            </configuration>
-        </plugin>
-        </plugins>
-    </build>
 
     <dependencies>
 		<dependency>
