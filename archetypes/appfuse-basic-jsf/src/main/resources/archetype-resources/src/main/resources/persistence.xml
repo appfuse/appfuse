@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
+  <persistence-unit name="ApplicationEntityManager" transaction-type="RESOURCE_LOCAL">
+
+    <class>org.appfuse.model.User</class>
+    <class>org.appfuse.model.Role</class>
+
+  </persistence-unit>
+</persistence>
