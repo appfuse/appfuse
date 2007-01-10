@@ -55,6 +55,7 @@
                     <url>${jdbc.url}</url>
                     <src>src/test/resources/sample-data.xml</src>
                     <type>CLEAN_INSERT</type>
+                    <skip>${maven.test.skip}</skip>
                 </configuration>
                 <executions>
                     <execution>
@@ -75,12 +76,14 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>sql-maven-plugin</artifactId>
+                <version>1.0-SNAPSHOT</version>
                 <configuration>
                     <driver>${jdbc.driverClassName}</driver>
                     <username>${jdbc.username}</username>
                     <password>${jdbc.password}</password>
                     <url>${jdbc.url}</url>
                     <autocommit>true</autocommit>
+                    <skip>${maven.test.skip}</skip>
                 </configuration>
                 <executions>                    
                     <execution>

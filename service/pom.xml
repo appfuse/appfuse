@@ -56,6 +56,7 @@
                     <url>${jdbc.url}</url>
                     <src>src/test/resources/sample-data.xml</src>
                     <type>CLEAN_INSERT</type>
+                    <skip>${maven.test.skip}</skip>
                 </configuration>
                 <executions>
                     <execution>
