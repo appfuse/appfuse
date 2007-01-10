@@ -38,7 +38,7 @@ public class DbToXMLMojo extends MojoBase
     /**
      * The full name of the location of the hibernate format database properties file.
      * 
-     * @parameter expression="${basedir}/target/classes/jdbc.properties"
+     * @parameter expression="${appfuse.database.properties}" default-value="${basedir}/target/classes/jdbc.properties"
      */
     private String databasePropertiesFile;
 
@@ -47,7 +47,7 @@ public class DbToXMLMojo extends MojoBase
      * reverse engineering process. This file controls such things as the schema and table names that will be reverse
      * engineered.
      * 
-     * @parameter expression = "${basedir}/src/main/resources/hibernate.reveng.xml"
+     * @parameter expression="${appfuse.reveng.file}" default-value = "${basedir}/src/main/resources/hibernate.reveng.xml"
      */
     private String reverseEngineeringConfigurationFile;
 
@@ -56,14 +56,14 @@ public class DbToXMLMojo extends MojoBase
      * the way the reverse engineering might be handled. A sample is included in the code for this plugin and to use
      * that class you would set this value to org.codehaus.mojo.appfuse.reveng.AppFuseReverseEngineeringDelegator.
      * 
-     * @parameter default-value="org.appfuse.mojo.appfuse.reveng.AppFuseReverseEngineeringDelegator"
+     * @parameter expression="${appfuse.revstrategy.class}" default-value="org.appfuse.mojo.appfuse.reveng.AppFuseReverseEngineeringDelegator"
      */
     private String reverseStrategyClass;
 
     /**
      * The name of the freemarker template that will be used to reverse engineer the hbm files from the database.
-     * 
-     * @parameter default-value="hbm/hibernate-mapping.hbm.ftl"
+     *
+     * @parameter expression="${appfuse.hbm.template}" default-value="hbm/hibernate-mapping.hbm.ftl"
      */
     private String hbmTemplateName;
 
