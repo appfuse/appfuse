@@ -43,14 +43,14 @@ public abstract class MojoBase extends AbstractMojo
      * pom or settings.xml file or on the command line like -Dappfuse.pom.pattern=**forwardslashUser* and this will
      * process all objects in the that begin with User.
      * 
-     * @parameter default-value = ""
+     * @parameter expression="${appfuse.file.pattern}" default-value = ""
      */
     private String filePattern;
 
     /**
      * The name of the based package to be used for all object generation.
      * 
-     * @parameter default-value="org.appfuse"
+     * @parameter expression="${appfuse.base.package"} default-value="org.appfuse"
      */
     private String basePackageName;
 
@@ -58,14 +58,14 @@ public abstract class MojoBase extends AbstractMojo
      * This is the location of the directory where the model hbm.xml files will be placed during the copy operation for
      * inclusion in the project.*
      * 
-     * @parameter expression="${basedir}/src/main/resources"
+     * @parameter expression="${appfuse.model.directory}" default-value="${basedir}/src/main/resources"
      */
     private String modelDirectory;
 
     /**
      * This is the location of the directory where the source java files will be placed for inclusion in the project.*
      * 
-     * @parameter expression="${basedir}/src/main/java"
+     * @parameter expression="${appfuse.source.directory}" default-value="${basedir}/src/main/java"
      */
     private String sourceDirectory;
 
@@ -77,7 +77,7 @@ public abstract class MojoBase extends AbstractMojo
      * value to ${basedir}/target/generated-sources or set the flag on eclipse/idea plugin to include this file in your
      * project file as a source directory.
      * 
-     * @parameter expression="${basedir}/target/appfuse/generated-sources"
+     * @parameter expression="${appfuse.output.directory}" default-value="${basedir}/target/appfuse/generated-sources"
      */
     private String outputDirectory;
 
@@ -88,7 +88,7 @@ public abstract class MojoBase extends AbstractMojo
      * true the existing java files in the target directory will be overwritten and if set to false (default) the new
      * files will be added to the target directory but existing files will not be overwritten by new files.
      * 
-     * @parameter default-value = "false"
+     * @parameter expression="${appfuse.copy.overwrite}" default-value="false"
      */
     private boolean copyOverWrite;
 
@@ -100,7 +100,7 @@ public abstract class MojoBase extends AbstractMojo
      * provided for advanced developers who understand the appfuse structure and the plugin function and wish to change
      * the default behavour of the plugin.
      * 
-     * @parameter default-value = ""
+     * @parameter expression="${appfuse.processing.properties}" default-value = ""
      */
     private Properties processingProperties;
 
