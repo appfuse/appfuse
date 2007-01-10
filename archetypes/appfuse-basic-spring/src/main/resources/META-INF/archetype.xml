@@ -18,6 +18,7 @@
         <resource>src/main/resources/ehcache.xml</resource>
         <resource>src/main/resources/hibernate.cfg.xml</resource>
         <resource>src/main/resources/jdbc.properties</resource>
+        <resource>src/main/resources/persistence.xml</resource>
         <resource>src/main/resources/log4j.xml</resource>
         <resource>src/main/resources/mail.properties</resource>
         <resource>src/main/webapp/WEB-INF/menu-config.xml</resource>
