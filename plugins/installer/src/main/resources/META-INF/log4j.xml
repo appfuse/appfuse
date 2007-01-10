@@ -32,7 +32,7 @@
         <param name="port" value="5000" />	    	
     </appender>
 	
-    <logger name="gov.mass.eos" additivity="false">
+    <logger name="org.appfuse" additivity="false">
         <level value="INFO"/>
   	<appender-ref ref="STDOUT" />
   	<appender-ref ref="FILE" />
