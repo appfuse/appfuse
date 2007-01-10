@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+    <!-- EntityManagerFactory -->
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="showSql" value="true" />
+                <property name="generateDdl" value="false" />
+                <property name="database" value="MYSQL" />
+            </bean>
+        </property>
+        
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.query.substitutions">
+                    true 'Y', false 'N'
+                </prop>
+                <!-- Turn batching off for better error messages under PostgreSQL 
+                    <prop key="hibernate.jdbc.batch_size">0</prop> -->
+            </props>
+        </property>
+        <property name="dataSource" ref="dataSource"/>
+        <property name="persistenceUnitName" value="ApplicationEntityManager"/>
+    </bean>
+
+    <!-- Needed so the @PersistenceUnit annotation is recognized -->
+    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+
+    <!-- Transaction manager for a single EntityManagerFactory (alternative to JTA) -->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
+
+    <!-- UniversalDao - can be used when doing standard CRUD - made available 
+        for those who don't mind casting.  If you don't want to cast, look at 
+        'fooDao' below. -->
+    <bean id="universalDao" class="org.appfuse.dao.jpa.UniversalDaoJpa"/>
+
+    <!-- LookupDao - can be used when doing standard CRUD -->
+    <bean id="lookupDao" class="org.appfuse.dao.jpa.LookupDaoJpa"/>
+
+    <!-- UserDao: Hibernate implementation -->
+    <bean id="userDao" class="org.appfuse.dao.jpa.UserDaoJpa"/>
+
+    <!-- RoleDao: Hibernate implementation -->
+    <bean id="roleDao" class="org.appfuse.dao.jpa.RoleDaoJpa"/>
+
+    <!-- If you want to be able to do simple CRUD for new domain objects without 
+        having to cast, you don't have create a Dao interface and implementation 
+        for that domain object, you simply have to do the following.  
+        
+        You will need to create a Dao interface and implementation for that 
+        domain object if you need more than simple CRUD to occur.  
+        (finders, bulk update/delete, etc.) eg... 'fooDao'
+        
+        <bean id="fooDao" class="org.appfuse.dao.jpa.GenericDaoJpa">
+            <constructor-arg value="org.appfuse.model.Foo"/>
+        </bean>
+    -->
+
+    <!-- Add new DAOs here -->
+</beans>
