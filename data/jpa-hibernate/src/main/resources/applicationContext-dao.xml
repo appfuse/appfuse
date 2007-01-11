@@ -5,25 +5,30 @@
 
     <!-- EntityManagerFactory -->
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="jpaVendorAdapter">
-            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-                <property name="showSql" value="true" />
-                <property name="generateDdl" value="false" />
-                <property name="database" value="MYSQL" />
-            </bean>
-        </property>
-        
+        <property name="persistenceUnitManager" ref="persistenceUnitManager" />
         <property name="jpaProperties">
             <props>
+                <prop key="hibernate.dialect">
+                    ${hibernate.dialect}
+                </prop>
                 <prop key="hibernate.query.substitutions">
                     true 'Y', false 'N'
                 </prop>
+                <!-- Create/update the database tables automatically when the JVM starts up
+                    <prop key="hibernate.hbm2ddl.auto">update</prop> -->
                 <!-- Turn batching off for better error messages under PostgreSQL 
                     <prop key="hibernate.jdbc.batch_size">0</prop> -->
             </props>
         </property>
-        <property name="dataSource" ref="dataSource"/>
-        <property name="persistenceUnitName" value="ApplicationEntityManager"/>
+    </bean>
+
+    <bean id="persistenceUnitManager" class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager">
+        <property name="persistenceXmlLocations">
+            <list>
+                <value>classpath:META-INF/persistence.xml</value>
+            </list>
+        </property>
+        <property name="defaultDataSource" ref="dataSource" />
     </bean>
 
     <!-- Needed so the @PersistenceUnit annotation is recognized -->
