@@ -6,10 +6,10 @@ import org.jmock.Mock;
 import org.springframework.orm.ObjectRetrievalFailureException;
 
 /**
- * This class tests the generic Manager and BaseManager implementation.
+ * This class tests the generic UniversalManager and UniversalManagerImpl implementation.
  */
-public class UniversalManagerTest extends BaseManagerTestCase {
-    protected BaseManager manager = new BaseManager();
+public class UniversalManagerTest extends BaseManagerMockTestCase {
+    protected UniversalManagerImpl manager = new UniversalManagerImpl();
     protected Mock dao;
     
     protected void setUp() throws Exception {

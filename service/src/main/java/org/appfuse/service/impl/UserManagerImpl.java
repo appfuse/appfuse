@@ -19,7 +19,7 @@ import org.springframework.dao.DataIntegrityViolationException;
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
-public class UserManagerImpl extends BaseManager implements UserManager {
+public class UserManagerImpl extends UniversalManagerImpl implements UserManager {
     private UserDao dao;
 
     /**

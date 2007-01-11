@@ -11,7 +11,7 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 
-public abstract class BaseManagerTestCase extends MockObjectTestCase {
+public abstract class BaseManagerMockTestCase extends MockObjectTestCase {
     //~ Static fields/initializers =============================================
 
     protected final Log log = LogFactory.getLog(getClass());
@@ -19,7 +19,7 @@ public abstract class BaseManagerTestCase extends MockObjectTestCase {
 
     //~ Constructors ===========================================================
 
-    public BaseManagerTestCase() {
+    public BaseManagerMockTestCase() {
         // Since a ResourceBundle is not required for each class, just
         // do a simple check to see if one exists
         String className = this.getClass().getName();

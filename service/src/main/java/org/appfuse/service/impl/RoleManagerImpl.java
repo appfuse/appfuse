@@ -13,7 +13,7 @@ import org.appfuse.service.RoleManager;
  * 
  * @author <a href="mailto:dan@getrolling.com">Dan Kibler</a>
  */
-public class RoleManagerImpl extends BaseManager implements RoleManager {
+public class RoleManagerImpl extends UniversalManagerImpl implements RoleManager {
     private RoleDao dao;
 
     public void setRoleDao(RoleDao dao) {

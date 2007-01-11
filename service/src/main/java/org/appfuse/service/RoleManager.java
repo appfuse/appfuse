@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author <a href="mailto:dan@getrolling.com">Dan Kibler </a>
  */
-public interface RoleManager extends Manager {
+public interface RoleManager extends UniversalManager {
     public List getRoles(Role role);
     public Role getRole(String rolename);
     public void saveRole(Role role);

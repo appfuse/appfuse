@@ -3,7 +3,7 @@ package org.appfuse.service;
 import java.io.Serializable;
 import java.util.List;
 
-public interface Manager {
+public interface UniversalManager {
     /**
      * Generic method used to get a all objects of a particular type. 
      * @param clazz the type of objects 

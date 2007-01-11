@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class LookupManagerImplTest extends BaseManagerTestCase {
+public class LookupManagerImplTest extends BaseManagerMockTestCase {
     private LookupManagerImpl mgr = new LookupManagerImpl();
     private Mock lookupDao = null;
 

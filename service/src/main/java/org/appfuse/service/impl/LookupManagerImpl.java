@@ -14,17 +14,14 @@ import java.util.List;
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
-public class LookupManagerImpl extends BaseManager implements LookupManager {
-    //~ Instance fields ========================================================
-
+public class LookupManagerImpl extends UniversalManagerImpl implements LookupManager {
     private LookupDao dao;
-
-    //~ Methods ================================================================
 
     public void setLookupDao(LookupDao dao) {
         super.dao = dao;
         this.dao = dao;
     }
+    
     /**
      * @see org.appfuse.service.LookupManager#getAllRoles()
      */

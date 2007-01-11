@@ -78,11 +78,10 @@ public final class ConvertUtil {
     public static Object populateObject(Object obj, ResourceBundle rb) {
         try {
             Map<String,String> map = convertBundleToMap(rb);
-
             BeanUtils.copyProperties(obj, map);
         } catch (Exception e) {
             e.printStackTrace();
-            log.error("Exception occured populating object: " + e.getMessage());
+            log.error("Exception occurred populating object: " + e.getMessage());
         }
 
         return obj;

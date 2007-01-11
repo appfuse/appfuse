@@ -90,7 +90,7 @@
     <!-- =================================================================== -->
     <!-- Managers: For accessing DAOs                                        -->
     <!-- =================================================================== -->
-    <bean id="manager" class="org.appfuse.service.impl.BaseManager">
+    <bean id="manager" class="org.appfuse.service.impl.UniversalManagerImpl">
         <property name="dao" ref="universalDao"/>
     </bean>
     

@@ -10,7 +10,7 @@ import org.jmock.Mock;
 import org.springframework.dao.DataIntegrityViolationException;
 
 
-public class UserManagerImplTest extends BaseManagerTestCase {
+public class UserManagerImplTest extends BaseManagerMockTestCase {
     //~ Instance fields ========================================================
 
     private UserManagerImpl userManager = new UserManagerImpl();

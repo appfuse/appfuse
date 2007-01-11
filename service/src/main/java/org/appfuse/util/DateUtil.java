@@ -17,7 +17,6 @@ import java.util.*;
  *  Modified by <a href="mailto:dan@getrolling.com">Dan Kibler </a> 
  *   to correct time pattern. Minutes should be mm not MM
  * 	(MM is month). 
- * @version $Revision: 1.9 $ $Date: 2006-10-03 12:57:31 -0600 (Tue, 03 Oct 2006) $
  */
 public class DateUtil {
     //~ Static fields/initializers =============================================

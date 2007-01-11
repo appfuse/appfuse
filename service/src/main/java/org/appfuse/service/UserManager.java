@@ -14,7 +14,7 @@ import org.appfuse.model.User;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  *  Modified by <a href="mailto:dan@getrolling.com">Dan Kibler </a> 
  */
-public interface UserManager {
+public interface UserManager extends UniversalManager {
 
     public void setUserDao(UserDao userDao);
 
