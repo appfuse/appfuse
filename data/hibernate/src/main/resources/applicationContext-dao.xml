@@ -6,12 +6,6 @@
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="configLocation" value="classpath:hibernate.cfg.xml"/>
-        <!--property name="annotatedClasses">
-            <list>
-                <value>org.appfuse.model.Role</value>
-                <value>org.appfuse.model.User</value>
-            </list>
-        </property-->
         <property name="hibernateProperties">
             <value>
                 hibernate.dialect=${hibernate.dialect}
@@ -35,17 +29,14 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <!-- LookupDao - can be used when doing standard CRUD -->
     <bean id="lookupDao" class="org.appfuse.dao.hibernate.LookupDaoHibernate">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <!-- UserDao: Hibernate implementation -->
     <bean id="userDao" class="org.appfuse.dao.hibernate.UserDaoHibernate">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <!-- RoleDao: Hibernate implementation -->
     <bean id="roleDao" class="org.appfuse.dao.hibernate.RoleDaoHibernate">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>

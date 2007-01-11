@@ -21,19 +21,16 @@
         <property name="sqlMapClient" ref="sqlMapClient"/> 
     </bean> 
     
-    <!-- LookupDao: iBatis implementation --> 
     <bean id="lookupDao" class="org.appfuse.dao.ibatis.LookupDaoiBatis"> 
         <property name="dataSource" ref="dataSource"/>
         <property name="sqlMapClient" ref="sqlMapClient"/> 
     </bean> 
     
-    <!-- UserDao: iBatis implementation --> 
     <bean id="userDao" class="org.appfuse.dao.ibatis.UserDaoiBatis"> 
         <property name="dataSource" ref="dataSource"/>
         <property name="sqlMapClient" ref="sqlMapClient"/>  
     </bean> 
 
-    <!-- RoleDao: Hibernate implementation -->
     <bean id="roleDao" class="org.appfuse.dao.ibatis.RoleDaoiBatis">
         <property name="dataSource" ref="dataSource"/>
         <property name="sqlMapClient" ref="sqlMapClient"/>  
