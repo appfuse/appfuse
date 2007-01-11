@@ -30,6 +30,10 @@
     <packaging>jar</packaging>
     <name>AppFuse JPA Hibernate Module</name>
 
+    <description>
+        AppFuse DAO backend implemented with Hibernate's JPA implementation.
+    </description>
+
     <scm>
         <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/data/hibernate</connection>
         <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/data/hibernate</developerConnection>

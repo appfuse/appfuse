@@ -21,7 +21,11 @@ public abstract class BaseDaoTestCase extends AbstractTransactionalDataSourceSpr
 
     protected String[] getConfigLocations() {
         setAutowireMode(AUTOWIRE_BY_NAME);
-        return new String [] {"classpath*:/applicationContext-*.xml"};
+        return new String[] {
+                "classpath*:/applicationContext-dao.xml",
+                "classpath*:/applicationContext-resources.xml",
+                "classpath:**/applicationContext*.xml"
+            };
     }
     
     public BaseDaoTestCase() {

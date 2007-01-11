@@ -216,6 +216,12 @@
                 <directory>src/test/resources</directory>
                 <filtering>true</filtering>
             </testResource>
+            <testResource>
+                <directory>src/main/webapp</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </testResource>
         </testResources>
     </build>
 
