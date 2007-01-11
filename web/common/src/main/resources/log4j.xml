@@ -6,7 +6,7 @@
     <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern"
-                value="[${artifactId}] %p [%t] %c{1}.%M(%L) | %m%n"/>
+                value="%p [%t] %c{1}.%M(%L) | %m%n"/>
         </layout>
     </appender>
 
