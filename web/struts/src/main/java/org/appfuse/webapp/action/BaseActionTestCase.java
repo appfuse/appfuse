@@ -11,15 +11,20 @@ import org.springframework.test.AbstractTransactionalDataSourceSpringContextTest
 
 import java.util.HashMap;
 
+/**
+ * Base class for running Struts 2 Action tests.
+ * @author mraible
+ */
 public abstract class BaseActionTestCase extends AbstractTransactionalDataSourceSpringContextTests {
     protected transient final Log log = logger;
 
     protected String[] getConfigLocations() {
         super.setAutowireMode(AUTOWIRE_BY_NAME);
-        return new String[] {"classpath*:/applicationContext-dao.xml",
-            "classpath*:/applicationContext-service.xml",
-            "/WEB-INF/applicationContext*.xml",
-            "/WEB-INF/action-servlet.xml"};
+        return new String[] {
+                "classpath*:/applicationContext-dao.xml",
+                "classpath*:/applicationContext-service.xml",
+                "/WEB-INF/applicationContext*.xml"
+            };
     }
 
     @Override

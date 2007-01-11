@@ -29,7 +29,7 @@ public abstract class BaseControllerTestCase extends AbstractTransactionalDataSo
                 "classpath*:/applicationContext-dao.xml",
                 "classpath*:/applicationContext-service.xml",
                 "/WEB-INF/applicationContext*.xml",
-                "/WEB-INF/action-servlet.xml"
+                "/WEB-INF/dispatcher-servlet.xml"
             };
     }
 

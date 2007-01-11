@@ -162,7 +162,7 @@
     </listener>
     
     <servlet>
-        <servlet-name>action</servlet-name>
+        <servlet-name>dispatcher</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <load-on-startup>2</load-on-startup>
     </servlet>
@@ -177,7 +177,7 @@
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>action</servlet-name>
+        <servlet-name>dispatcher</servlet-name>
         <url-pattern>*.html</url-pattern>
     </servlet-mapping>
 
