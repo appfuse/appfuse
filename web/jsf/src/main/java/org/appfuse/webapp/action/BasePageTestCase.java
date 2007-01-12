@@ -43,9 +43,9 @@ public abstract class BasePageTestCase extends TestCase {
         servletContext = new MockServletContext("");
         servletContext.addInitParameter(BasePage.jstlBundleParam, MESSAGES);
         servletContext.addInitParameter(ContextLoader.CONFIG_LOCATION_PARAM,
+                "classpath*:/applicationContext-resources.xml, " +
                 "classpath*:/applicationContext-dao.xml, " +
-                "classpath*:/applicationContext-service.xml, " +
-                "/WEB-INF/applicationContext*.xml");
+                "classpath*:/applicationContext-service.xml");
 
         ServletContextListener contextListener = new ContextLoaderListener();
         ServletContextEvent event = new ServletContextEvent(servletContext);

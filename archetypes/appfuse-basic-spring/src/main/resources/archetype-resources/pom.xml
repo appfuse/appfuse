@@ -248,6 +248,19 @@
             <version>${appfuse.version}</version>
             <type>warpath</type>
         </dependency>
+        <!-- Dependencies with scope=provided aren't picked up from dependent JARs -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>${jsp.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>${servlet.version}</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>jmock</groupId>
             <artifactId>jmock</artifactId>
@@ -369,6 +382,8 @@
         <jdbc.password></jdbc.password>
 
         <!-- Testing dependency versions -->
+        <jsp.version>2.0</jsp.version>
+        <servlet.version>2.4</servlet.version>
         <jmock.version>1.1.0</jmock.version>
         <junit.version>3.8.2</junit.version>
         <spring.version>2.0.1</spring.version>

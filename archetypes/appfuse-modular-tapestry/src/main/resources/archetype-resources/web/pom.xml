@@ -169,6 +169,19 @@
             <version>${appfuse.version}</version>
             <type>warpath</type>
         </dependency>
+        <!-- Dependencies with scope=provided aren't picked up from dependent JARs -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>${jsp.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>${servlet.version}</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <profiles>
