@@ -112,7 +112,7 @@ public class NewCommand extends Command implements Runnable {
         String[] commands = {"mvn","archetype:create",
                             "-DarchetypeGroupId=org.appfuse",
                             "-DarchetypeArtifactId=appfuse-archetype-basic-struts",
-                            "-DarchetypeVersion=1.0-SNAPSHOT",
+                            "-DarchetypeVersion=1.0-m2",
                             "-DgroupId=" + data.getPackageName(),
                             "-DartifactId=" + data.getApplicationName(),
                             "-DremoteRepositories=http://static.appfuse.org/repository"};

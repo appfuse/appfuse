@@ -124,7 +124,7 @@
             <plugin>
                 <groupId>org.appfuse</groupId>
                 <artifactId>maven-warpath-plugin</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>1.0-m2</version>
                 <extensions>true</extensions>
                 <executions>
                     <execution>
@@ -369,7 +369,7 @@
     <properties>
         <dao.framework>hibernate</dao.framework>
         <web.framework>tapestry</web.framework>
-        <appfuse.version>2.0-SNAPSHOT</appfuse.version>
+        <appfuse.version>2.0-m2</appfuse.version>
 
         <!-- Database settings -->
         <hibernate.dialect>org.hibernate.dialect.MySQLInnoDBDialect</hibernate.dialect>
