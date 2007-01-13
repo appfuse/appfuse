@@ -28,7 +28,7 @@
                 <configuration>
                     <components>
                         <component>
-                            <name>hbm3-SNAPSHOTddl</name>
+                            <name>hbm2ddl</name>
                             <implementation>annotationconfiguration</implementation>
                         </component>
                     </components>
@@ -41,7 +41,7 @@
                     <execution>
                         <phase>test-compile</phase>
                         <goals>
-                            <goal>hbm3-SNAPSHOTddl</goal>
+                            <goal>hbm2ddl</goal>
                         </goals>
                     </execution>
                 </executions>
