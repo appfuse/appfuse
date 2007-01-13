@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.appfuse</groupId>
         <artifactId>appfuse</artifactId>
-        <version>2.0-m2</version>
+        <version>2.0-m3-SNAPSHOT</version>
 	<relativePath>../../pom.xml</relativePath>
     </parent>
 
@@ -49,7 +49,7 @@
                 <configuration>
                     <components>
                         <component>
-                            <name>hbm2ddl</name>
+                            <name>hbm3-SNAPSHOTddl</name>
                             <implementation>jpaconfiguration</implementation>
                         </component>
                     </components>
@@ -62,7 +62,7 @@
                     <execution>
                         <phase>test-compile</phase>
                         <goals>
-                            <goal>hbm2ddl</goal>
+                            <goal>hbm3-SNAPSHOTddl</goal>
                         </goals>
                     </execution>
                 </executions>

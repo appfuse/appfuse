@@ -58,7 +58,7 @@
                 <configuration>
                     <components>
                         <component>
-                            <name>hbm2ddl</name>
+                            <name>hbm3-SNAPSHOTddl</name>
                             <implementation>annotationconfiguration</implementation>
                         </component>
                     </components>
@@ -71,7 +71,7 @@
                     <execution>
                         <phase>test-compile</phase>
                         <goals>
-                            <goal>hbm2ddl</goal>
+                            <goal>hbm3-SNAPSHOTddl</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -124,7 +124,7 @@
             <plugin>
                 <groupId>org.appfuse</groupId>
                 <artifactId>maven-warpath-plugin</artifactId>
-                <version>1.0-m2</version>
+                <version>1.0-m3-SNAPSHOT</version>
                 <extensions>true</extensions>
                 <executions>
                     <execution>
@@ -369,7 +369,7 @@
     <properties>
         <dao.framework>hibernate</dao.framework>
         <web.framework>tapestry</web.framework>
-        <appfuse.version>2.0-m2</appfuse.version>
+        <appfuse.version>2.0-m3-SNAPSHOT</appfuse.version>
 
         <!-- Database settings -->
         <hibernate.dialect>org.hibernate.dialect.MySQLInnoDBDialect</hibernate.dialect>
