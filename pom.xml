@@ -229,6 +229,11 @@
             <name>AppFuse Release Repository</name>
             <url>scp://static.appfuse.org/home/raibledemo/public_html/repository</url>
         </repository>
+        <site>
+            <id>appfuse-site</id>
+            <name>AppFuse Maven Site</name>
+            <url>scp://static.appfuse.org/home/raibledemo/public_html</url>
+        </site>
         <snapshotRepository>
             <id>appfuse-snapshots</id>
             <name>AppFuse Snapshot Repository</name>
