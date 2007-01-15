@@ -15,7 +15,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author <a href="mailto:bwnoll@gmail.com">Bryan Noll</a>
  */
 @Entity
-public class MockRole {
+public class MockRoleBadGetter {
     private static final long serialVersionUID = 3690197650654049848L;
     
     @Id  @GeneratedValue(strategy=GenerationType.AUTO)
@@ -23,14 +23,14 @@ public class MockRole {
     private String name;
     private String description;
 
-    public MockRole() {
+    public MockRoleBadGetter() {
     }
 
-    public MockRole(String name) {
+    public MockRoleBadGetter(String name) {
         this.name = name;
     }
 
-    public Long getId() {
+    public Long getPersistentId() {
         return id;
     }
 
@@ -52,7 +52,7 @@ public class MockRole {
         return this.description;
     }
 
-    public void setId(Long id) {
+    public void setPersistentId(Long id) {
         this.id = id;
     }
 
@@ -66,9 +66,9 @@ public class MockRole {
 
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof MockRole)) return false;
+        if (!(o instanceof MockRoleBadGetter)) return false;
 
-        final MockRole role = (MockRole) o;
+        final MockRoleBadGetter role = (MockRoleBadGetter) o;
 
         return !(name != null ? !name.equals(role.name) : role.name != null);
 

@@ -29,20 +29,22 @@ public class DaoUtils {
         String logMsg = "Persistent identity for object of type '?1' is accessible with method '?2'";
         boolean hasId = false;
 
+        boolean fieldIsAnnotated = false;
         try {
             final AccessibleObject annotatedAccessibleObject = getAnnotatedAccessibleObject(
-                    o, Id.class, EmbeddedId.class);
+                    o.getClass(), Id.class, EmbeddedId.class);
 
             if (annotatedAccessibleObject != null) {
+                log.debug("'" + annotatedAccessibleObject + "' was annotated as the identifier of '" + o.getClass().getName() + "'");
                 hasId = true;
                 Method getter = null;
                 if (annotatedAccessibleObject instanceof Method) {
                     getter = (Method) annotatedAccessibleObject;
                 } else if (annotatedAccessibleObject instanceof Field) {
+                    fieldIsAnnotated = true;
                     getter = findGetter(o.getClass(),
                             ((Field) annotatedAccessibleObject).getName());
                 }
-
                 objId = getter.invoke(o);
                 if (log.isDebugEnabled()) {
                     logMsg = logMsg.replace("?1", o.getClass().getName());
@@ -59,8 +61,15 @@ public class DaoUtils {
         } catch (SecurityException e) {
             throw new PersistenceException(eMsg, e);
         } catch (NoSuchMethodException e) {
-            throw new PersistenceException("There is no getter method for "
-                    + o.getClass().getSimpleName() + " ID property", e);
+            if (fieldIsAnnotated) {
+                throw new PersistenceException("A field (as opposed to a method) " +
+                  "was annotated as the identifier of '" + o.getClass().getName() + 
+                  "', but a no corresponding getter method conforming to " +
+                  "JavaBean conventions was found." , e);
+            } else {
+                throw new PersistenceException("Attempting to invoke getter method " +
+                  "to return the identifer of '" + o.getClass().getName() + "' failed.", e);
+            }
         }
         
         if (!hasId) {
@@ -72,32 +81,29 @@ public class DaoUtils {
         return objId;
     }
 
-    private static AccessibleObject getAnnotatedAccessibleObject(Object o, Class<? extends Annotation>... annotations)
+    private static AccessibleObject getAnnotatedAccessibleObject(Class c, Class<? extends Annotation>... annotations)
             throws PersistenceException {
 
         final Set<AccessibleObject> members = new HashSet<AccessibleObject>();
-        members.addAll(Arrays.asList(o.getClass().getDeclaredMethods()));
-        members.addAll(Arrays.asList(o.getClass().getDeclaredFields()));
+        members.addAll(Arrays.asList(c.getDeclaredMethods()));
+        members.addAll(Arrays.asList(c.getDeclaredFields()));
 
         for (AccessibleObject member : members) {
             for (Class<? extends Annotation> annotation : annotations)
                 if (member.isAnnotationPresent(annotation))
                     return member;
         }
+        
+        if (c.getSuperclass() != null)
+            return getAnnotatedAccessibleObject (c.getSuperclass(), annotations);
 
         return null;
     }
 
-    private static Method findGetter(Class type, String property) throws SecurityException, NoSuchMethodException {
+    private static Method findGetter(Class type, String property) throws NoSuchMethodException {
         String methodName = GET_INITIALS
                 + Character.toUpperCase(property.charAt(0))
                 + property.substring(1);
-        try {
             return type.getMethod(methodName);
-        } catch (SecurityException e) {
-            throw e;
-        } catch (NoSuchMethodException e) {
-            throw e;
-        }
     }
 }
