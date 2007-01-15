@@ -55,7 +55,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>dbunit-maven-plugin</artifactId>
-                <version>1.0-beta-1-SNAPSHOT</version>
+                <version>1.0-beta-1</version>
                 <configuration>
                     <driver>${jdbc.driverClassName}</driver>
                     <username>${jdbc.username}</username>
@@ -317,6 +317,7 @@
                     <plugin>
                         <groupId>org.codehaus.cargo</groupId>
                         <artifactId>cargo-maven2-plugin</artifactId>
+                        <version>0.2</version>
                         <configuration>
                             <wait>${cargo.wait}</wait>
                             <container>
@@ -361,6 +362,7 @@
                     <plugin>
                         <groupId>org.codehaus.cargo</groupId>
                         <artifactId>cargo-maven2-plugin</artifactId>
+                        <version>0.2</version>
                         <configuration>
                             <wait>${cargo.wait}</wait>
                             <container>
