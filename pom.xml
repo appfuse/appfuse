@@ -243,6 +243,7 @@
 
     <modules>
         <module>archetypes</module>
+        <module>plugins</module>
         <module>data</module>
         <module>service</module>
         <module>web</module>
