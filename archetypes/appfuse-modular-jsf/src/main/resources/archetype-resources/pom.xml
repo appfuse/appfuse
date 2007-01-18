@@ -78,6 +78,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>${jdbc.groupId}</groupId>
+            <artifactId>${jdbc.artifactId}</artifactId>
+            <version>${jdbc.version}</version>
+        </dependency>
+        <dependency>
             <groupId>jmock</groupId>
             <artifactId>jmock</artifactId>
             <version>${jmock.version}</version>

@@ -65,6 +65,7 @@
                     <componentProperties>
                         <jdk5>true</jdk5>
                         <propertyfile>target/classes/jdbc.properties</propertyfile>
+                        <skip>${maven.test.skip}</skip>
                     </componentProperties>
                 </configuration>
                 <executions>
@@ -259,6 +260,11 @@
             <artifactId>appfuse-${web.framework}</artifactId>
             <version>${appfuse.version}</version>
             <type>warpath</type>
+        </dependency>
+        <dependency>
+            <groupId>${jdbc.groupId}</groupId>
+            <artifactId>${jdbc.artifactId}</artifactId>
+            <version>${jdbc.version}</version>
         </dependency>
         <!-- Dependencies with scope=provided aren't picked up from dependent JARs -->
         <dependency>

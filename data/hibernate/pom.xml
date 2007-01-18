@@ -56,7 +56,7 @@
                     <componentProperties>
                         <jdk5>true</jdk5>
                         <propertyfile>target/test-classes/jdbc.properties</propertyfile>
-                        <!--scan-jars>true</scan-jars-->
+                        <skip>${maven.test.skip}</skip>
                     </componentProperties>
                 </configuration>
                 <executions>
