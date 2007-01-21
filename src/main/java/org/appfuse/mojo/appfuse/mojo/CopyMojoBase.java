@@ -69,7 +69,7 @@ public abstract class CopyMojoBase extends MojoBase
     /**
      * This method will create an Ant based copy task based on a processing pattern.
      * 
-     * @param inFilePattern
+     * @param inDestinationDirectory
      *            The initial pattern to process which should not include any suffix.
      * @return The Ant copy task to copy the proper files
      */
