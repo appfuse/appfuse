@@ -181,14 +181,20 @@
           </plugin>
         </plugins>
     </build>
-    
+
     <repositories>
         <repository>
-            <id>maven-snapshots</id>
-            <url>http://people.apache.org/maven-snapshot-repository</url>
+            <id>appfuse</id>
+            <name>AppFuse Repository</name>
+            <url>http://static.appfuse.org/repository</url>
+        </repository>
+        <repository>
+            <id>struts-203-staging</id>
+            <name>Apache Struts 2.0.3 Staging Repository</name>
+            <url>http://people.apache.org/builds/struts/2.0.3/m2-staging-repository</url>
         </repository>
     </repositories>
-
+    
     <dependencies>
         <dependency>
             <groupId>${pom.groupId}</groupId>
@@ -205,6 +211,11 @@
         <dependency>
             <groupId>org.apache.struts</groupId>
             <artifactId>struts2-core</artifactId>
+            <version>${struts.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-spring-plugin</artifactId>
             <version>${struts.version}</version>
         </dependency>
         <dependency>
