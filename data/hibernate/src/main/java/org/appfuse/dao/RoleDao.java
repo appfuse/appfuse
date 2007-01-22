@@ -1,8 +1,5 @@
 package org.appfuse.dao;
 
-import java.io.Serializable;
-import java.util.List;
-
 import org.appfuse.model.Role;
 
 /**
@@ -17,7 +14,7 @@ public interface RoleDao extends GenericDao<org.appfuse.model.Role, Long> {
      * @return role populated role object
      */
     public Role getRoleByName(String rolename);
-    
+
     /**
      * Removes a role from the database by name
      * @param rolename the role's rolename
