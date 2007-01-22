@@ -92,7 +92,7 @@ public class AntUtilities
      * 
      * @param inDirectory
      *            The directory containing the files to be maintained in the fileset.
-     * @param inIncludePatterns
+     * @param inIncludePattern
      *            The list of patterns to match and include in the fileset.
      * @param inExcludePatterns
      *            The list of patterns to match and exclude in the fileset.
