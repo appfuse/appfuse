@@ -104,6 +104,17 @@ public abstract class MojoBase extends AbstractMojo
      */
     private Properties processingProperties;
 
+
+    /**
+     * @parameter expression="${appfuse.destination.file}" default-value = ""
+     */
+    private String destinationFile;
+
+    /**
+     * @parameter expression="${appfuse.application.context.file}" default-value = "${basedir}/src/main/webapp/WEB-INF/applicationContext.xml"
+     */
+    private String applicationContextFile;
+
     /**
      * This method will run an appfuse mojo.
      * 
@@ -119,6 +130,32 @@ public abstract class MojoBase extends AbstractMojo
         }
 
         throw new MojoExecutionException( "Unimplemented Mojo Base" );
+    }
+
+    public String getApplicationContextFile() {
+        return applicationContextFile;
+    }
+
+    public void setApplicationContextFile(String applicationContextFile) {
+        this.applicationContextFile = applicationContextFile;
+    }
+
+    /**
+     * Getter for property destination file
+     *
+     * @return The value of destination file
+     */
+    public String getDestinationFile() {
+        return destinationFile;
+    }
+
+    /**
+     * Setter for the destination file
+     *
+     * @param destinationFile
+     */
+    public void setDestinationFile(String destinationFile) {
+        this.destinationFile = destinationFile;
     }
 
     /**
