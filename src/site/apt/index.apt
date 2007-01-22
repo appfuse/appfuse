@@ -29,6 +29,8 @@ Maven 2 Appfuse Plugin
     
     * copyxmlfiles
 
+    * genmodel (works, but doesn't extend BaseObject yet)
+
   The DAO and Service Manager classes for AppFuse 2.0 are being reviewed and those goals will be revised soon.
 
   Stay tuned ...
