@@ -1,18 +1,22 @@
------
- Introduction
- ------
- Author David L. Whitehurst
- ------
- 14 NOVEMBER 2006
- ------
+                                    ------
+                             Appfuse Maven Plugin
+                                    ------
+                                David L. Whitehurst
+                                    ------
+                                 Jan 21, 2006
 
 
-appfuse-maven-plugin
+Maven 2 Appfuse Plugin
+
+
+
+* Overview
 
   The AppFuse Maven plugin is now part of the AppFuse project.  It was developed originally by Scott Ryan at
-  Codehaus.  Natural evolution has caused this plugin to now be part of the AppFuse project.  The plugin
-  source is available with a normal AppFuse checkout, however, it's installation is not part of the root POM.
+  Codehaus.  Natural evolution has caused this plugin to migrate into the AppFuse project.  We are working on
+  functionality of the plugin and status will be provided on dev@appfuse.dev.java.net
 
-  The plugin provides some functionality but is currently under development to support future AppFuse releases.
-  By adding the plugin to the AppFuse project, it's development will be visible and should provide the same tool
-  support that AppGen does for pre-Maven AppFuse.
+  The plugin is used to create or generate artifacts that can be used to extend or grow your AppFuse projects.
+  Many custom web applications using AppFuse can benefit from the plugin's ability to perform many repetitive
+  tasks that each POJO addition would need.
+  
