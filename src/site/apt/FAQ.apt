@@ -4,23 +4,15 @@
                                    Scott Ryan
                                     ------
                                  Jan 1, 2006
+                                 Jan 21, 2007 (revised)
 
-Maven 2 Appfuse Plugin FAQ
+Maven 2 AppFuse Plugin FAQ
 
-  This page will show some of the common questions we get when using the Appfuse plugin.
+  This page will show some of the common questions we get when using the AppFuse plugin.
 
 
-* Appfuse Plugin FAQ's.
+* AppFuse Plugin FAQ's.
 
   Some common FAQ's for the plugin.
 
--------------------
-1. How do I get the Maven Apfuse Plugin.
-   Follow the instructions on the following page http://mojo.codehaus.org/using-sandbox-plugins.html 
-   as well as the installation and usage instructions for this mojo.
-   
-   
-
-
--------------------
-
+   * C'mon ask some questions on the AppFuse forum, we'll answer them.
