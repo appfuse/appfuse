@@ -95,6 +95,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.1</version>
                 <configuration>
                     <tasks>
                         <taskdef resource="webtest_base_relaxed.taskdef">
@@ -166,6 +167,7 @@
             </plugin>
             <plugin>
               <artifactId>maven-war-plugin</artifactId>
+              <version>2.0.2</version>
               <executions>
                   <execution>
                       <id>skinny-war</id>
