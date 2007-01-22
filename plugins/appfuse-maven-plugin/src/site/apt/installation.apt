@@ -4,73 +4,31 @@
                                    Scott Ryan
                                     ------
                                  written Jan 1, 2006
-                                 revised Nov 14, 2006
+                                 revised Jan 21, 2007
 
 Maven 2 Appfuse Plugin
 
 
 * Basic Appfuse Plugin Installation.
 
-  The recommended Basic Appfuse installation process is as follows.
+  The recommended Basic Appfuse installation process is as follows. Most likely you will be using this plugin
+  with a project that you've created using an AppFuse archetype.  The plugin is probably already in the project
+  created pom.xml.  Verify that the following is in the build section of your project pom.xml
 
 -------------------
-The easiest way to quickly see our code generation is to place any *.hbm.xml in
-appfuse/web/common/target/appfuse/generated-sources/org/appfuse/model/
-
-You will also need to add a section to the web/common/pom.xml.  Here's an example:
-
 <project>
   ...
   <build>
     ...
     <plugins>
-      ......
-      	<plugins>
-	   <plugin>
-	     <groupId>org.codehaus.mojo</groupId>
-	     <artifactId>appfuse-maven-plugin</artifactId>
-	     <configuration>
-	         <modelPackageName>com.appfuse.datakit.model</modelPackageName>
-	  	 <reverseEngineeringConfigurationFileDirectory>
-	  	    ${basedir}/src/main/resources/</reverseEngineeringConfigurationFileDirectory>
-		 <reverseEngineeringConfigurationFiles>
-		    <reverseEngineeringConfigurationFile>
-		        hibernate.reveng1.xml
-		    </reverseEngineeringConfigurationFile>
-		    <reverseEngineeringConfigurationFile>
-		        hibernate.reveng2.xml
-		    </reverseEngineeringConfigurationFile>
-		 </reverseEngineeringConfigurationFiles>
-		 <reverseStrategyClass>
-		    org.codehaus.mojo.appfuse.reveng.AppfuseReverseEngineeringDelegator
-		 </reverseStrategyClass>
-	     </configuration>
-	</plugin>
+      ...
+      <plugin>
+          <groupId>org.appfuse</groupId>
+          <artifactId>appfuse-maven-plugin</artifactId>
+          <version>2.0-m3-SNAPSHOT</version>
+      </plugin>
     </plugins>
   </build>
 </project>
-
-You may or may not have to modify your database.properties file.  At present, AppFuse requires that the
-database properties file be located in the web layer.  This is by necessity only because AppFuse version 2
-has yet to be released publicly.  If you're reading this and using version 2, then we've not done our job and
-kept up with the documentation.  This is an issue and has not been resolved.
-
-For a linux installation, you may have to modify the database.properties as such:
-
-#jdbc.driverClassName=${jdbc.driverClassName}
-# jdbc.url=${jdbc.url}
-#jdbc.username=${jdbc.username}
-#jdbc.password=${jdbc.password}
-#jdbc.url=localhost:3306
-#jdbc.username=test
-#jdbc.password=test
-#hibernate.dialect=${hibernate.dialect}
-hibernate.dialect=org.hibernate.dialect.MySQLInnoDBDialect
-hibernate.connection.url=jdbc\:mysql\://localhost/appfuse?useUnicode\=true&characterEncoding\=utf-8
-hibernate.connection.driver_class=com.mysql.jdbc.Driver
-hibernate.connection.show_sql=true
-
-Notice that the original lines are commented because this is only temporary until we figure out the
-infrastructure and path issues a little more.
 -------------------
 
