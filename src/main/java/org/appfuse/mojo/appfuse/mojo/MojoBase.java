@@ -48,7 +48,7 @@ public abstract class MojoBase extends AbstractMojo
     private String filePattern;
 
     /**
-     * The name of the based package to be used for all object generation.
+     * The name of the base package to be used for all object generation.
      * 
      * @parameter expression="${appfuse.base.package}" default-value="org.appfuse"
      */
