@@ -19,7 +19,7 @@
     </c:if>
 </spring:bind>
 
-<form:form commandName="user" method="post" action="editUser.html" onsubmit="return onFormSubmit(this)" id="userForm">
+<form:form commandName="user" method="post" action="userform.html" onsubmit="return onFormSubmit(this)" id="userForm">
 <form:hidden path="id"/>
 <form:hidden path="version"/>
 <input type="hidden" name="from" value="<c:out value="${param.from}"/>"/>
@@ -69,12 +69,20 @@
             <div class="left">
                 <appfuse:label styleClass="desc" key="user.password"/>
                 <form:errors path="password" cssClass="fieldError"/>
-                <form:password path="password" id="password" cssClass="text medium" onchange="passwordChanged(this)"/>
+                <%-- Spring 2.0.2 does not show passwords, 2.0.3 will fix this --%>
+                <%-- http://opensource.atlassian.com/projects/spring/browse/SPR-2866 --%>
+                <%--form:password path="password" id="password" cssClass="text medium" onchange="passwordChanged(this)"/--%>
+                <spring:bind path="user.password">
+                <input type="password" name="password" id="password" class="text medium" onchange="passwordChanged(this)" value="${user.password}"/>
+                </spring:bind>
             </div>
             <div>
                 <appfuse:label styleClass="desc" key="user.confirmPassword"/>
                 <form:errors path="confirmPassword" cssClass="fieldError"/>
-                <form:password path="confirmPassword" id="confirmPassword" cssClass="text medium"/>
+                <%--form:password path="confirmPassword" id="confirmPassword" cssClass="text medium"/--%>
+                <spring:bind path="user.confirmPassword">
+                <input type="password" name="confirmPassword" id="confirmPassword" class="text medium" value="${user.confirmPassword}"/>   
+                </spring:bind>
             </div>
         </div>
     </li>

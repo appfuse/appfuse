@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.acegisecurity.Authentication;
 import org.acegisecurity.AuthenticationTrustResolver;
 import org.acegisecurity.AuthenticationTrustResolverImpl;
+import org.acegisecurity.AccessDeniedException;
 import org.acegisecurity.context.SecurityContextHolder;
 import org.acegisecurity.context.SecurityContext;
 
@@ -23,6 +24,8 @@ import org.appfuse.webapp.util.RequestUtil;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.web.bind.RequestUtils;
+import org.springframework.web.bind.ServletRequestUtils;
 
 /**
  * Implementation of <strong>SimpleFormController</strong> that interacts with
@@ -35,9 +38,6 @@ import org.springframework.web.servlet.view.RedirectView;
 public class UserFormController extends BaseFormController {
     private RoleManager roleManager;
 
-    /**
-     * @param roleManager The roleManager to set.
-     */
     public void setRoleManager(RoleManager roleManager) {
         this.roleManager = roleManager;
     }
@@ -67,9 +67,7 @@ public class UserFormController extends BaseFormController {
                                  HttpServletResponse response, Object command,
                                  BindException errors)
     throws Exception {
-        if (log.isDebugEnabled()) {
-            log.debug("entering 'onSubmit' method...");
-        }
+        log.debug("entering 'onSubmit' method...");
 
         User user = (User) command;
         Locale locale = request.getLocale();
@@ -140,7 +138,7 @@ public class UserFormController extends BaseFormController {
                     sendUserMessage(user, getText("newuser.email.message", user.getFullName(), locale),
                                     RequestUtil.getAppURL(request));
 
-                    return showNewForm(request, response);
+                    return new ModelAndView(getSuccessView());
                 } else {
                     saveMessage(request, getText("user.updated.byAdmin", user.getFullName(), locale));
                 }
@@ -154,28 +152,16 @@ public class UserFormController extends BaseFormController {
                                     HttpServletResponse response,
                                     BindException errors)
     throws Exception {
-        if (request.getRequestURI().indexOf("editProfile") > -1) {
-            // if URL is "editProfile" - make sure it's the current user
-            // reject if username passed in or "list" parameter passed in
-            // someone that is trying this probably knows the AppFuse code
-            // but it's a legitimate bug, so I'll fix it. ;-)
-            if ((request.getParameter("username") != null) || (request.getParameter("from") != null)) {
+
+        // If not an adminstrator, make sure user is not trying to add or edit another user
+        if (!request.isUserInRole(Constants.ADMIN_ROLE) && !isFormSubmission(request)) {
+            if (isAdd(request) || request.getParameter("id") != null) {
                 response.sendError(HttpServletResponse.SC_FORBIDDEN);
-                log.warn("User '" + request.getRemoteUser() + "' is trying to edit user '" +
-                         request.getParameter("username") + "'");
+                log.warn("User '" + request.getRemoteUser() + "' is trying to edit user with id '" +
+                         request.getParameter("id") + "'");
 
-                return null;
+                throw new AccessDeniedException("You do not have permission to modify other users.");
             }
-        }
-
-        // prevent ordinary users from calling a GET on editUser.html
-        // unless a bind error exists.
-        if ((request.getRequestURI().indexOf("editUser") > -1) && (!request.isUserInRole(Constants.ADMIN_ROLE) &&
-                (errors.getErrorCount() == 0) && // be nice to server-side validation for editProfile
-                (request.getRemoteUser() != null))) { // be nice to unit tests
-            response.sendError(HttpServletResponse.SC_FORBIDDEN);
-
-            return null;
         }
 
         return super.showForm(request, response, errors);
@@ -185,7 +171,7 @@ public class UserFormController extends BaseFormController {
     throws Exception {
 
         if (!isFormSubmission(request)) {
-            String username = request.getParameter("username");
+            String userId = request.getParameter("id");
 
             // if user logged in with remember me, display a warning that they can't change passwords
             log.debug("checking for remember me login...");
@@ -205,11 +191,10 @@ public class UserFormController extends BaseFormController {
             }
 
             User user;
-
-            if (request.getRequestURI().indexOf("editProfile") > -1) {
+            if (userId == null && !isAdd(request)) {
                 user = getUserManager().getUserByUsername(request.getRemoteUser());
-            } else if (!StringUtils.isBlank(username) && !"".equals(request.getParameter("version"))) {
-                user = getUserManager().getUserByUsername(username);
+            } else if (!StringUtils.isBlank(userId) && !"".equals(request.getParameter("version"))) {
+                user = getUserManager().getUser(userId);
             } else {
                 user = new User();
                 user.addRole(new Role(Constants.USER_ROLE));
@@ -235,5 +220,10 @@ public class UserFormController extends BaseFormController {
         } else {
             super.setValidateOnBinding(true);
         }
+    }
+
+    protected boolean isAdd(HttpServletRequest request) {
+        String method = request.getParameter("method");
+        return (method != null && method.equalsIgnoreCase("add"));
     }
 }

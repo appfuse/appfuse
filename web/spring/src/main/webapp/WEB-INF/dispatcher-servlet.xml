@@ -11,9 +11,14 @@
             </props>
         </property>
     </bean>
-    
-    <bean id="userController" class="org.appfuse.webapp.action.UserController">
-        <property name="userManager" ref="userManager"/>
+
+    <bean id="filenameController" class="org.springframework.web.servlet.mvc.UrlFilenameViewController"/>
+
+    <bean id="fileUploadController" class="org.appfuse.webapp.action.FileUploadController">
+        <property name="validator" ref="beanValidator"/>
+        <property name="cancelView" value="redirect:mainMenu.html"/>
+        <property name="formView" value="uploadForm"/>
+        <property name="successView" value="uploadDisplay"/>
     </bean>
 
     <bean id="passwordHintController" class="org.appfuse.webapp.action.PasswordHintController">
@@ -24,6 +29,21 @@
     </bean>
 
     <bean id="reloadController" class="org.appfuse.webapp.action.ReloadController"/>
+
+    <bean id="signupController" class="org.appfuse.webapp.action.SignupController">
+        <property name="validator" ref="beanValidator"/>
+        <property name="formView" value="signup"/>
+        <property name="successView" value="redirect:mainMenu.html"/>
+        <property name="userManager" ref="userManager"/>
+        <property name="roleManager" ref="roleManager"/>
+        <property name="mailEngine" ref="mailEngine"/>
+        <property name="message" ref="mailMessage"/>
+        <property name="templateName" value="accountCreated.vm"/>
+    </bean>
+
+    <bean id="userController" class="org.appfuse.webapp.action.UserController">
+        <property name="userManager" ref="userManager"/>
+    </bean>
 
     <bean id="userFormController" class="org.appfuse.webapp.action.UserFormController">
         <property name="validator" ref="beanValidator"/>
@@ -37,71 +57,28 @@
         <property name="templateName" value="accountCreated.vm"/>
     </bean>
 
-    <bean id="fileUploadController" class="org.appfuse.webapp.action.FileUploadController">
-        <property name="validator" ref="beanValidator"/>
-        <property name="cancelView" value="redirect:mainMenu.html"/>
-        <property name="formView" value="uploadForm"/>
-        <property name="successView" value="uploadDisplay"/>
-    </bean>
-
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="maxUploadSize" value="2097152"/>
     </bean>
-    
-    <bean id="signupController" class="org.appfuse.webapp.action.SignupController">
-        <property name="validator" ref="beanValidator"/>
-        <property name="formView" value="signup"/>
-        <property name="successView" value="redirect:mainMenu.html"/>
-        <property name="userManager" ref="userManager"/>
-        <property name="roleManager" ref="roleManager"/>
-        <property name="mailEngine" ref="mailEngine"/>
-        <property name="message" ref="mailMessage"/>
-        <property name="templateName" value="accountCreated.vm"/>
-    </bean>
-    
-    <!-- Add additional controller beans here -->
 
-    <!-- Load WEB-INF/classes/ApplicationResources.properties for i18n messages using JSTL's fmt tag -->
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basename" value="ApplicationResources"/>
     </bean>
 
     <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
         <property name="mappings">
-            <props>
-                <prop key="/editProfile.html">userFormController</prop>
-                <prop key="/mainMenu.html">filenameController</prop>
-                <prop key="/editUser.html">userFormController</prop> 
-                <prop key="/selectFile.html">fileUploadController</prop>
-                <prop key="/uploadFile.html">fileUploadController</prop>
-                <prop key="/passwordHint.html">passwordHintController</prop>
-                <prop key="/signup.html">signupController</prop>
-                <!-- Add additional URL mappings here -->
-            </props>
+            <value>
+                /activeUsers.html=filenameController
+                /flushCache.html=filenameController
+                /mainMenu.html=filenameController
+            </value>
         </property>
+        <property name="order" value="1"/>
     </bean>
 
-    <bean id="adminUrlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-        <property name="interceptors">
-            <list>
-                <ref bean="adminInterceptor"/>
-            </list>
-        </property>
-        <property name="mappings">
-            <props>
-                <prop key="/activeUsers.html">filenameController</prop>
-                <prop key="/users.html">userController</prop>
-                <prop key="/flushCache.html">filenameController</prop>                
-                <prop key="/reload.html">reloadController</prop>
-            </props>
-        </property>
+    <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping">
+        <property name="order" value="0"/>
     </bean>
-
-    <bean id="adminInterceptor" class="org.springframework.web.servlet.handler.UserRoleAuthorizationInterceptor">
-        <property name="authorizedRoles" value="admin"/>
-    </bean>
-    
-    <bean id="filenameController" class="org.springframework.web.servlet.mvc.UrlFilenameViewController"/>
 
     <!-- View Resolver for JSPs -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">

@@ -24,21 +24,17 @@ import org.springframework.web.servlet.view.RedirectView;
 /**
  * Simple class to retrieve and send a password hint to users.
  *
- * <p>
- * <a href="PasswordHintController.java.html"><i>View Source</i></a>
- * </p>
- *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class PasswordHintController implements Controller {
-    private transient final Log log = LogFactory.getLog(PasswordHintController.class);
-    private UserManager mgr = null;
+    private final Log log = LogFactory.getLog(PasswordHintController.class);
+    private UserManager userManager = null;
     private MessageSource messageSource = null;
     protected MailEngine mailEngine = null;
     protected SimpleMailMessage message = null;
     
     public void setUserManager(UserManager userManager) {
-        this.mgr = userManager;
+        this.userManager = userManager;
     }
 
     public void setMessageSource(MessageSource messageSource) {
@@ -56,34 +52,25 @@ public class PasswordHintController implements Controller {
     public ModelAndView handleRequest(HttpServletRequest request,
                                       HttpServletResponse response)
     throws Exception {
-        if (log.isDebugEnabled()) {
-            log.debug("entering 'handleRequest' method...");
-        }
+        log.debug("entering 'handleRequest' method...");
 
         String username = request.getParameter("username");
-        MessageSourceAccessor text = 
-            new MessageSourceAccessor(messageSource, request.getLocale());
+        MessageSourceAccessor text = new MessageSourceAccessor(messageSource, request.getLocale());
 
         // ensure that the username has been sent
         if (username == null) {
             log.warn("Username not specified, notifying user that it's a required field.");
 
-            request.setAttribute("error",
-                                 text.getMessage("errors.required",
-                                                 new Object[] {
-                                                     text.getMessage("user.username")
-                                                 }));
+            request.setAttribute("error", text.getMessage("errors.required", text.getMessage("user.username")));
 
             return new ModelAndView("login");
         }
 
-        if (log.isDebugEnabled()) {
-            log.debug("Processing Password Hint...");
-        }
+        log.debug("Processing Password Hint...");
 
         // look up the user's information
         try {
-            User user = (User) mgr.getUserByUsername(username);
+            User user = userManager.getUserByUsername(username);
 
             StringBuffer msg = new StringBuffer();
             msg.append("Your password hint is: " + user.getPasswordHint());

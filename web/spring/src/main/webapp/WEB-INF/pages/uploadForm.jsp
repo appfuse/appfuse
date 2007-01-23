@@ -22,7 +22,7 @@
 
 <div class="separator"></div>
 
-<form:form commandName="fileUpload" method="post" action="uploadFile.html" enctype="multipart/form-data"
+<form:form commandName="fileUpload" method="post" action="fileupload.html" enctype="multipart/form-data"
     onsubmit="return validateFileUpload(this)" id="uploadForm">
 <ul>
     <li class="info">
