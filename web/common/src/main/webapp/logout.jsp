@@ -3,7 +3,7 @@
 <%@ page import="org.acegisecurity.ui.rememberme.TokenBasedRememberMeServices" %>
 
 <%
-if (request.getSession(false)) != null) {
+if (request.getSession(false) != null) {
     session.invalidate();
     Cookie terminate = new Cookie(TokenBasedRememberMeServices.ACEGI_SECURITY_HASHED_REMEMBER_ME_COOKIE_KEY, null);
     terminate.setMaxAge(0);
