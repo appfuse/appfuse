@@ -1,11 +1,10 @@
-package org.appfuse.webapp.action;
+package org.appfuse.webapp.page;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.tapestry.engine.ILink;
 import org.appfuse.model.User;
-
 
 public class UserFormTest extends BasePageTestCase {
     private UserForm page;

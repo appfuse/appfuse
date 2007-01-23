@@ -1,7 +1,5 @@
-package org.appfuse.webapp.tapestry;
+package org.appfuse.webapp.component;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.tapestry.IMarkupWriter;
 import org.apache.tapestry.IRequestCycle;
 import org.apache.tapestry.contrib.form.IMultiplePropertySelectionRenderer;
@@ -10,16 +8,14 @@ import org.apache.tapestry.form.IPropertySelectionModel;
 
 /**
  *  Implementation of {@link IMultiplePropertySelectionRenderer} that
- *  produces hidden fields.  This is designed so some users can see checkboxes
- *  and others can't.
+ *  produces checkbox (&lt;input type=checkbox&gt;) elements with ids
+ *  on the labels.
  *
  *  @author Matt Raible
  *
  **/
-public class HiddenMultiplePropertySelectionRenderer
+public class CheckBoxMultiplePropertySelectionRenderer
     implements IMultiplePropertySelectionRenderer {
-    protected final Log log = LogFactory.getLog(getClass());
-    
     /**
      *  Writes the &lt;table&gt; element.
      *
@@ -40,22 +36,34 @@ public class HiddenMultiplePropertySelectionRenderer
                              IMarkupWriter writer, IRequestCycle cycle,
                              IPropertySelectionModel model, Object option,
                              int index, boolean selected) {
-        if (selected) {
-            writer.begin("input");
-            writer.attribute("type", "hidden");
-            writer.attribute("name", component.getName());
-    
-            String id = component.getName() + "." + model.getValue(index);
-            writer.attribute("id", id);
-            writer.attribute("value", model.getValue(index));
-            writer.end();
-            writer.print(model.getLabel(index));
-            //log.debug("optionCount: " + model.getOptionCount());
-            //log.debug("index: " + index);
-            if (index < (model.getOptionCount()-2)) {
-                writer.printRaw(", ");
-            }
-            writer.println();
+        writer.begin("input");
+        writer.attribute("type", "checkbox");
+        writer.attribute("name", component.getName());
+
+        String id = component.getName() + "." + model.getValue(index);
+        writer.attribute("id", id);
+        writer.attribute("value", model.getValue(index));
+
+        if (component.isDisabled()) {
+            writer.attribute("disabled", "disabled");
         }
+
+        if (selected) {
+            writer.attribute("checked", "checked");
+        }
+
+        writer.end();
+
+        writer.println();
+
+        //writer.printRaw("&nbsp;");
+        writer.begin("label");
+        writer.attribute("for", id);
+        writer.print(model.getLabel(index));
+        writer.end(); // <label>
+
+        //writer.printRaw("&nbsp;");
+
+        writer.println();
     }
 }

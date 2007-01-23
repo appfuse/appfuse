@@ -1,4 +1,4 @@
-package org.appfuse.webapp.tapestry;
+package org.appfuse.webapp.component;
 
 import org.apache.hivemind.impl.MessageFormatter;
 import org.apache.tapestry.IComponent;

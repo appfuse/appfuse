@@ -1,4 +1,4 @@
-package org.appfuse.webapp.action;
+package org.appfuse.webapp.page;
 
 import org.appfuse.Constants;
 import org.appfuse.model.Address;
