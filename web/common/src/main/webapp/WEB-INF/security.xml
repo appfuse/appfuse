@@ -13,7 +13,7 @@
                 /images/**=#NONE#
                 /scripts/**=#NONE#
                 /styles/**=#NONE#
-                /**=httpSessionContextIntegrationFilter,logoutFilter,authenticationProcessingFilter,securityContextHolderAwareRequestFilter,rememberMeProcessingFilter,anonymousProcessingFilter,exceptionTranslationFilter,filterInvocationInterceptor
+                /**=httpSessionContextIntegrationFilter,authenticationProcessingFilter,securityContextHolderAwareRequestFilter,rememberMeProcessingFilter,anonymousProcessingFilter,exceptionTranslationFilter,filterInvocationInterceptor
             </value>
             <!-- Put channelProcessingFilter before securityContextHolderAwareRequestFilter to turn on SSL switching -->
             <!-- It's off by default b/c Canoo WebTest doesn't support SSL out-of-the-box -->
@@ -22,8 +22,9 @@
 
     <bean id="httpSessionContextIntegrationFilter" class="org.acegisecurity.context.HttpSessionContextIntegrationFilter"/>
 
-    <bean id="logoutFilter" class="org.acegisecurity.ui.logout.LogoutFilter">
-        <constructor-arg value="/index.jsp"/> <!-- URL redirected to after logout -->
+    <!-- Changed to use logout.jsp since causes 404 on WebSphere: http://issues.appfuse.org/browse/APF-566 -->
+    <!--bean id="logoutFilter" class="org.acegisecurity.ui.logout.LogoutFilter">
+        <constructor-arg value="/index.jsp"/>
         <constructor-arg>
             <list>
                 <ref bean="rememberMeServices"/>
@@ -31,7 +32,7 @@
             </list>
         </constructor-arg>
         <property name="filterProcessesUrl" value="/logout.jsp"/>
-    </bean>
+    </bean-->
 
     <bean id="authenticationProcessingFilter" class="org.acegisecurity.ui.webapp.AuthenticationProcessingFilter">
         <property name="authenticationManager" ref="authenticationManager"/>
