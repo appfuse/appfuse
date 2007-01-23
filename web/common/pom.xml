@@ -121,7 +121,7 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>uk.ltd.getahead</groupId>
+            <groupId>org.directwebremoting</groupId>
             <artifactId>dwr</artifactId>
             <version>${dwr.version}</version>
         </dependency>
