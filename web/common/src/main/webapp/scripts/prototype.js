@@ -1946,7 +1946,7 @@ Form.Methods = {
 
   findFirstElement: function(form) {
     return $(form).getElements().find(function(element) {
-      return element.type != 'hidden' && !element.disabled &&
+      return element.type != 'hidden' && element.type != 'submit' && element.type != 'button' && element.type != 'reset' && !element.disabled &&
         ['input', 'select', 'textarea'].include(element.tagName.toLowerCase());
     });
   },
