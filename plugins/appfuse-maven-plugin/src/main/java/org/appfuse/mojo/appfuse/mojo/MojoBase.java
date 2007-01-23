@@ -39,8 +39,8 @@ public abstract class MojoBase extends AbstractMojo
      * An ant format expression defining which files you would like to process with the mojo. The pattern should not
      * include the suffix as that will be determined by the mojo as to what type of file is to be processed. The default
      * is to process all pojo's. A trick to allow you to dynamically define this on the command line is to assign this
-     * value in the pom to a property value such as ${appfuse.pom.pattern} Then you can either define a property in a
-     * pom or settings.xml file or on the command line like -Dappfuse.pom.pattern=**forwardslashUser* and this will
+     * value in the pom to a property value such as ${appfuse.file.pattern} Then you can either define a property in a
+     * pom or settings.xml file or on the command line like -Dappfuse.file.pattern=**forwardslashUser* and this will
      * process all objects in the that begin with User.
      * 
      * @parameter expression="${appfuse.file.pattern}" default-value = ""
@@ -106,15 +106,38 @@ public abstract class MojoBase extends AbstractMojo
 
 
     /**
+     * The destination file used with config mojos.  This parameter purposely has no default because it will be used
+     * with -Dparameter most commonly when adding snippets to configuration files specific to a single POJO.
+     *
      * @parameter expression="${appfuse.destination.file}" default-value = ""
      */
     private String destinationFile;
 
     /**
-     * @parameter expression="${appfuse.application.context.file}" default-value = "${basedir}/src/main/webapp/WEB-INF/applicationContext.xml"
+     * The parent Spring configuration file.  While Spring can be configured in multiple files, this parameter is used
+     * to add configuration snippets into the configuration file.  This parameter is used with the config mojos and
+     * can be overridden if needed.
+     * 
+     * @parameter expression="${appfuse.application.context.file}"
+     * default-value = "${basedir}/src/main/webapp/WEB-INF/applicationContext.xml"
      */
     private String applicationContextFile;
 
+
+    /**
+     * The ANT LoadFile property name.  This parameter is used with the config mojos and will commonly be overridden. It
+     * has no default value because it will be used with -Dparameter most commonly when adding snippets to configuration
+     * files specific to a single POJO.
+     *
+     * @parameter expression="${appfuse.config.property}" default-value = ""
+     */
+    private String configPropertyName;
+
+    /**
+     * @parameter expression="${appfuse.config.infile}" default-value = ""
+     */
+    private String configInFile;
+    
     /**
      * This method will run an appfuse mojo.
      * 
@@ -132,10 +155,56 @@ public abstract class MojoBase extends AbstractMojo
         throw new MojoExecutionException( "Unimplemented Mojo Base" );
     }
 
+    /**
+     * Getter for the configuration property name
+     *
+     * @return The value for the configuration property name
+     */
+    public String getConfigPropertyName() {
+        return configPropertyName;
+    }
+
+    /**
+     * Setter for the configuration property name
+     *
+     * @param configPropertyName
+     */
+    public void setConfigPropertyName(String configPropertyName) {
+        this.configPropertyName = configPropertyName;
+    }
+
+    /**
+     * Getter for the configuration infile
+     *
+     * @return The value for the configuration infile
+     */
+    public String getConfigInFile() {
+        return configInFile;
+    }
+
+    /**
+     * Setter for the configuration infile
+     *
+     * @param configInFile
+     */
+    public void setConfigInFile(String configInFile) {
+        this.configInFile = configInFile;
+    }
+
+    /**
+     * Getter for the Spring applicationContext file
+     *
+     * @return  The value for the Spring applicationContext file
+     */
     public String getApplicationContextFile() {
         return applicationContextFile;
     }
 
+    /**
+     * Setter for the Spring applicationContext file
+     *
+     * @param applicationContextFile
+     */
     public void setApplicationContextFile(String applicationContextFile) {
         this.applicationContextFile = applicationContextFile;
     }
