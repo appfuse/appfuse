@@ -17,7 +17,7 @@ public class UserFormTest extends BasePageTestCase {
     }
     
     public void testEdit() throws Exception {
-        bean.setUsername("tomcat");
+        bean.setId("1");
         assertEquals(bean.edit(), "editProfile");
         assertNotNull(bean.getUser().getUsername());
         assertFalse(bean.hasErrors());

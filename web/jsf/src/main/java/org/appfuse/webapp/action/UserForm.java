@@ -1,7 +1,6 @@
 package org.appfuse.webapp.action;
 
 import java.io.Serializable;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -30,17 +29,13 @@ import org.appfuse.webapp.util.RequestUtil;
 public class UserForm extends BasePage implements Serializable {
     private static final long serialVersionUID = -1141119853856863204L;
     private RoleManager roleManager;
-    private String username;
+    private String id;
     private User user = new User();
-    private Map availableRoles;
+    private Map<String, String> availableRoles;
     private String[] userRoles;
-    
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
-    public String getUsername() {
-        return username;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public User getUser() {
@@ -53,6 +48,12 @@ public class UserForm extends BasePage implements Serializable {
 
     public void setRoleManager(RoleManager roleManager) {
         this.roleManager = roleManager;
+    }
+
+    public String add() {
+        user = new User();
+        user.addRole(new Role(Constants.USER_ROLE));
+        return "editProfile";
     }
 
     public String cancel() {
@@ -70,16 +71,18 @@ public class UserForm extends BasePage implements Serializable {
     public String edit() {
         HttpServletRequest request = getRequest();
 
-        // if a user's username is passed in
-        if (username != null) {
-            // lookup the user using that id
-            user = userManager.getUserByUsername(username);
-        } else if (username == null) {
-            user = userManager.getUserByUsername(request.getRemoteUser());
-        } else {
-            user = new User();
-            user.addRole(new Role(Constants.USER_ROLE));
+        // for some reason, the id is not set from the user list - setting username works fine
+        if (id == null) {
+            id = request.getParameter("id");
         }
+        
+        // if a user's id is passed in
+        if (id != null) {
+            // lookup the user using that id
+            user = userManager.getUser(id);
+        } else if (request.getParameter("add") == null) {
+            user = userManager.getUserByUsername(request.getRemoteUser());
+        } 
 
         if (user.getUsername() != null) {
             user.setConfirmPassword(user.getPassword());
@@ -109,7 +112,7 @@ public class UserForm extends BasePage implements Serializable {
         String originalPassword = getParameter("userForm:originalPassword");
 
         Boolean encrypt = (Boolean) getConfiguration().get(Constants.ENCRYPT_PASSWORD);
-        boolean doEncrypt = (encrypt != null) ? encrypt.booleanValue() : false;
+        boolean doEncrypt = (encrypt != null) && encrypt;
         
         if (doEncrypt && (StringUtils.equals(getParameter("encryptPass"), "true") ||
                 !StringUtils.equals(password, originalPassword))) {
@@ -180,7 +183,7 @@ public class UserForm extends BasePage implements Serializable {
      * @return String
      */
     public String getFrom() {
-        if ((username != null) || (getParameter("editUser:add") != null) ||
+        if ((id != null) || (getParameter("editUser:add") != null) ||
                 ("list".equals(getParameter("from")))) {
             return "list";
         }
@@ -189,10 +192,9 @@ public class UserForm extends BasePage implements Serializable {
     }
 
     // Form Controls ==========================================================
-    public Map getAvailableRoles() {
+    public Map<String, String> getAvailableRoles() {
         if (availableRoles == null) {
-            List roles =
-                (List) getServletContext().getAttribute(Constants.AVAILABLE_ROLES);
+            List roles = (List) getServletContext().getAttribute(Constants.AVAILABLE_ROLES);
             availableRoles = ConvertUtil.convertListToMap(roles);
         }
 
@@ -205,9 +207,7 @@ public class UserForm extends BasePage implements Serializable {
         int i = 0;
 
         if (userRoles.length > 0) {
-            for (Iterator it = user.getRoles().iterator(); it.hasNext();) {
-                Role role = (Role) it.next();
-
+            for (Role role : user.getRoles()) {
                 userRoles[i] = role.getName();
                 i++;
             }

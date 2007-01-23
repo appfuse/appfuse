@@ -12,7 +12,7 @@
 
 <h:form id="editUser">
 
-<h:commandButton value="#{text['button.add']}" action="add" id="add" immediate="true" styleClass="button"/>
+<h:commandButton value="#{text['button.add']}" action="#{userForm.add}" id="add" styleClass="button"/>
 <h:commandButton value="#{text['button.cancel']}" action="mainMenu" id="cancel" 
     immediate="true" styleClass="button" style="margin-left: 5px"/>
 
@@ -28,8 +28,8 @@
                 <h:outputText value="#{text['user.username']}" />
             </t:commandSortHeader>
         </f:facet>
-        <h:commandLink action="#{userForm.edit}" value="#{user.username}">
-            <f:param name="username" value="#{user.username}"/>
+        <h:commandLink action="#{userForm.edit}" value="#{user.username}" >
+            <f:param name="id" value="#{user.id}"/>
             <f:param name="from" value="list"/>
         </h:commandLink>
     </t:column>

@@ -13,15 +13,13 @@
         description="Call and executes all test cases (targets)"/>
     
     <!-- runs user-related tests -->
-    <target name="UserTests" 
-        depends="EditUser,SearchUser,SaveUser,AddUser,ActiveUsers"
+    <target name="UserTests" depends="EditUser,SearchUser,SaveUser,AddUser,ActiveUsers"
         description="Call and executes all user test cases (targets)">
-        <echo>Successfully ran all User JSP tests!</echo>
+        <echo>Successfully ran all User UI tests!</echo>
     </target>
     
     <!-- Login to the application -->
-    <target name="Login" 
-        description="Runs login test and verifies Main Menu's Title">
+    <target name="Login" description="Runs login test and verifies Main Menu's Title">
         <webtest name="login">
             &config;
             <steps>
@@ -31,30 +29,25 @@
     </target>
 
     <!-- Logout of the application -->
-    <target name="Logout"
-        description="Runs logout test and verifies Login's Title">
+    <target name="Logout" description="Runs logout test and verifies Login's Title">
         <webtest name="login">
             &config;
             <steps>
                 &login;
                 <invoke description="get Logout Page" url="/logout.jsp"/>
-                <verifytitle description="we should see the login title"
-                    text=".*${login.title}.*" regex="true"/>
+                <verifytitle description="we should see the login title" text=".*${login.title}.*" regex="true"/>
             </steps>
         </webtest>
     </target>
 
     <!-- Retrieve Password Hint -->
-    <target name="PasswordHint" 
-        description="Gets the user's password hint">
+    <target name="PasswordHint" description="Gets the user's password hint">
         <webtest name="passwordHint">
             &config;
             <steps>
                 <invoke description="get Login Page" url="/"/>
-                <verifytitle description="we should see the login title" 
-                    text=".*${login.title}.*" regex="true"/>
-                <invoke description="click password hint link"
-                    url="/passwordHint.html?username=mraible"/>
+                <verifytitle description="we should see the login title" text=".*${login.title}.*" regex="true"/>
+                <invoke description="click password hint link" url="/passwordHint.html?username=mraible"/>
                 <verifytitle description="we should see the login title again"
                     text=".*${login.title}.*" regex="true"/>
             </steps>
@@ -62,8 +55,7 @@
     </target>
     
     <!-- Verify the edit user screen displays without errors -->
-    <target name="EditUser" 
-        description="Tests selecting the 'Edit Profile' forward">
+    <target name="EditUser" description="Tests selecting the 'Edit Profile' forward">
         <webtest name="editUser">
             &config;
             <steps>
@@ -76,8 +68,7 @@
     </target>
     
     <!-- Verify the user list screen displays without errors -->
-    <target name="SearchUser" 
-        description="Tests search for and displaying all users">
+    <target name="SearchUser" description="Tests search for and displaying all users">
         <webtest name="searchUser">
             &config;
             <steps>
@@ -90,8 +81,7 @@
     </target>
     
     <!-- Edit a user and then save -->
-    <target name="SaveUser" 
-        description="Tests editing and saving a user">
+    <target name="SaveUser" description="Tests editing and saving a user">
         <webtest name="saveUser">
             &config;
             <steps>
@@ -109,8 +99,7 @@
     </target>
     
     <!-- Add a new user after logging in -->
-    <target name="AddUser"
-        description="Adds a new user profile">
+    <target name="AddUser" description="Adds a new user profile">
         <webtest name="addUser">
             &config;
             <steps>
@@ -133,6 +122,7 @@
                 <setinputfield description="set passwordHint" name="userForm:passwordHint" value="test"/>
                 <setcheckbox description="select roles" name="userForm:userRoles" checked="user"/>
                 <clickbutton label="${button.save}" description="Click button 'Save'"/>
+                
                 <verifytitle description="view user list screen" text=".*${userList.title}.*" regex="true"/>
                 <verifytext description="verify success message" regex="true"
                     text='&lt;div class="message.*&gt;.*&lt;strong&gt;Test Name&lt;/strong&gt;.*&lt;/div&gt;'/>
@@ -178,8 +168,7 @@
     </target>
 
     <!-- View Active Users -->
-    <target name="ActiveUsers" 
-        description="View Active Users List">
+    <target name="ActiveUsers" description="View Active Users List">
         <webtest name="activeUsers">
             &config;
             <steps>
@@ -192,8 +181,7 @@
     </target>
     
     <!-- Flush OSCache -->
-    <target name="FlushCache" 
-        description="opens JSP to Flush Page Cache">
+    <target name="FlushCache" description="opens JSP to Flush Page Cache">
         <webtest name="flushCache">
             &config;
             <steps>
@@ -206,8 +194,7 @@
     </target>
     
     <!-- File Upload -->
-    <target name="FileUpload" 
-        description="Tests uploading a file">
+    <target name="FileUpload" description="Tests uploading a file">
         <webtest name="fileUpload">
             &config;
             <steps>
@@ -215,10 +202,10 @@
                 <invoke description="click Upload a File link" url="/selectFile.html"/>
                 <verifytitle description="we should see file upload form" text=".*${upload.title}.*" regex="true"/>
                 <setinputfield description="set name" name="uploadForm:name" value="Canoo Test File"/>
-                <setFileField description="set file" name="uploadForm:file" fileName="build.properties"/>
+                <setFileField description="set file" name="uploadForm:file" fileName="pom.xml"/>
                 <clickbutton label="${button.upload}" description="Click Upload"/>
                 <verifytitle description="show file data if upload OK" text=".*${display.title}.*" regex="true"/>
-                <verifytext description="verify original filename displayed on page" text="build.properties" />
+                <verifytext description="verify original filename displayed on page" text="pom.xml" />
             </steps>
         </webtest>
     </target>
