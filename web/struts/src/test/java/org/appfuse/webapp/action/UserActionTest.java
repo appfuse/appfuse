@@ -26,7 +26,7 @@ public class UserActionTest extends BaseActionTestCase {
         MockHttpServletRequest request = new MockHttpServletRequest("GET", "/editUser.html");
         ServletActionContext.setRequest(request);
         
-        action.setUsername("tomcat");
+        action.setId("1"); // tomcat
         assertNull(action.getUser());
         assertEquals("success", action.edit());
         assertNotNull(action.getUser());

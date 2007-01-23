@@ -3,7 +3,6 @@ package org.appfuse.webapp.action;
 import org.acegisecurity.Authentication;
 import org.acegisecurity.AuthenticationTrustResolver;
 import org.acegisecurity.AuthenticationTrustResolverImpl;
-import org.acegisecurity.AccessDeniedException;
 import org.acegisecurity.context.SecurityContext;
 import org.acegisecurity.context.SecurityContextHolder;
 import org.apache.struts2.ServletActionContext;
@@ -26,7 +25,7 @@ public class UserAction extends BaseAction implements Preparable {
     private static final long serialVersionUID = 6776558938712115191L;
     private List users;
     private User user;
-    private String username;
+    private String id;
 
     public void prepare() throws Exception {
         if (getRequest().getMethod().equalsIgnoreCase("post")) {
@@ -41,8 +40,8 @@ public class UserAction extends BaseAction implements Preparable {
         return users;
     }
 
-    public void setUsername(String id) {
-        this.username = id;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public User getUser() {
@@ -64,28 +63,26 @@ public class UserAction extends BaseAction implements Preparable {
 
     public String edit() throws IOException {
         HttpServletRequest request = getRequest();
-        boolean editProfile =
-            (request.getRequestURI().indexOf("editProfile") > -1);
+        boolean editProfile = (request.getRequestURI().indexOf("editProfile") > -1);
 
         // if URL is "editProfile" - make sure it's the current user
         if (editProfile) {
-            // reject if username passed in or "list" parameter passed in
+            // reject if id passed in or "list" parameter passed in
             // someone that is trying this probably knows the AppFuse code
             // but it's a legitimate bug, so I'll fix it. ;-)
-            if ((request.getParameter("username") != null) ||
-                    (request.getParameter("from") != null)) {
+            if ((request.getParameter("id") != null) || (request.getParameter("from") != null)) {
                 ServletActionContext.getResponse().sendError(HttpServletResponse.SC_FORBIDDEN);
                 log.warn("User '" + request.getRemoteUser() + "' is trying to edit user '" +
-                         request.getParameter("username") + "'");
+                         request.getParameter("id") + "'");
 
                 return null;
             }
         }
 
-        // if a user's username is passed in
-        if (username != null) {
+        // if a user's id is passed in
+        if (id != null) {
             // lookup the user using that id
-            user = userManager.getUserByUsername(username);
+            user = userManager.getUser(id);
         } else if (editProfile) {
             user = userManager.getUserByUsername(request.getRemoteUser());
         } else {
@@ -188,7 +185,7 @@ public class UserAction extends BaseAction implements Preparable {
                 message.setSubject(getText("signup.email.subject"));
                 sendUserMessage(user, getText("newuser.email.message", args),
                                 RequestUtil.getAppURL(getRequest()));
-                return "addAnother";
+                return SUCCESS;
             } else {
                 saveMessage(getText("user.updated.byAdmin", args));
                 return INPUT;

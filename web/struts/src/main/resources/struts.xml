@@ -88,7 +88,6 @@
             <result name="cancel" type="redirect">users.html</result>
             <result name="input">/WEB-INF/pages/userForm.jsp</result>
             <result name="success" type="redirect">users.html</result>
-            <result name="addAnother" type="redirect">editUser.html?method=Add&amp;from=list</result>
         </action>
         
         <action name="uploadFile" class="org.appfuse.webapp.action.FileUploadAction">
