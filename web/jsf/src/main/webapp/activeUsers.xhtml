@@ -22,11 +22,11 @@
     <!-- Error from this table is caused by http://issues.apache.org/jira/browse/TOMAHAWK-466 -->
     <t:buffer into="#{table}">
     <t:dataTable id="activeUsers" var="user" value="#{activeUserList.users}" rows="20"
-         sortColumn="#{activeUserList.sort}" sortAscending="#{activeUserList.ascending}"
+         sortColumn="#{activeUserList.sortColumn}" sortAscending="#{activeUserList.ascending}"
          styleClass="table activeUserList" rowClasses="standardTable_Row1,standardTable_Row2"
          columnClasses="standardTable_Column,standardTable_Column">
         <t:column width="135px"
-            headerstyleClass="#{activeUserList.sort == 'username' ? 'standardTable_SortHeader' : 'standardTable_Header'}">
+            headerstyleClass="#{activeUserList.sortColumn == 'username' ? 'standardTable_SortHeader' : 'standardTable_Header'}">
             <f:facet name="header">
                 <t:commandSortHeader columnName="username" arrow="false">
                     <f:facet name="ascending">
@@ -45,7 +45,7 @@
             <h:outputText value="#{user.username}" />
         </t:column>
         <t:column
-            headerstyleClass="#{activeUserList.sort == 'fullName' ? 'standardTable_SortHeader' : 'standardTable_Header'}">
+            headerstyleClass="#{activeUserList.sortColumn == 'fullName' ? 'standardTable_SortHeader' : 'standardTable_Header'}">
             <f:facet name="header">
                 <t:commandSortHeader columnName="fullName" arrow="false">
                     <f:facet name="ascending">

@@ -1,8 +1,11 @@
 package org.appfuse.webapp.action;
 
+import java.io.Serializable;
 import java.text.MessageFormat;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.beanutils.BeanComparator;
+import org.apache.commons.collections.comparators.NullComparator;
+import org.apache.commons.collections.comparators.ReverseComparator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -33,10 +39,12 @@ public class BasePage {
     protected SimpleMailMessage message = null;
     protected String templateName = null;
     protected FacesContext facesContext = null;
+    protected String sortColumn = null;
+    protected boolean ascending = true;
+    protected boolean nullsAreHigh = true;
 
     /**
      * Allow overriding of facesContext for unit tests
-     * @param userManager
      */
     public void setFacesContext(FacesContext facesContext) {
         this.facesContext = facesContext;
@@ -109,10 +117,10 @@ public class BasePage {
     protected void addMessage(String key, Object arg) {
         // JSF Success Messages won't live past a redirect, so I don't use it
         //FacesUtils.addInfoMessage(formatMessage(key, arg));
-        List messages = (List) getSession().getAttribute("messages");
+        List<String> messages = (List) getSession().getAttribute("messages");
 
         if (messages == null) {
-            messages = new ArrayList();
+            messages = new ArrayList<String>();
         }
 
         messages.add(getText(key, arg));
@@ -126,10 +134,10 @@ public class BasePage {
     protected void addError(String key, Object arg) {
         // The "JSF Way" doesn't allow you to put HTML in your error messages, so I don't use it.
         // FacesUtils.addErrorMessage(formatMessage(key, arg));
-        List errors = (List) getSession().getAttribute("errors");
+        List<String> errors = (List) getSession().getAttribute("errors");
 
         if (errors == null) {
-            errors = new ArrayList();
+            errors = new ArrayList<String>();
         }
 
         errors.add(getText(key, arg));
@@ -211,7 +219,7 @@ public class BasePage {
 
         message.setTo(user.getFullName() + "<" + user.getEmail() + ">");
 
-        Map model = new HashMap();
+        Map<String, Serializable> model = new HashMap<String, Serializable>();
         model.put("user", user);
 
         // TODO: once you figure out how to get the global resource bundle in
@@ -233,5 +241,37 @@ public class BasePage {
 
     public void setTemplateName(String templateName) {
         this.templateName = templateName;
+    }
+
+    // The following methods are used by t:dataTable for sorting.
+    public String getSortColumn() {
+        return sortColumn;
+    }
+
+    public void setSortColumn(String sortColumn) {
+        this.sortColumn = sortColumn;
+    }
+
+    public boolean isAscending() {
+        return ascending;
+    }
+
+    public void setAscending(boolean ascending) {
+        this.ascending = ascending;
+    }
+
+    /**
+     * Sort list according to which column has been clicked on.
+     * @param list
+     * @return ordered list
+     */
+    @SuppressWarnings("unchecked")
+    protected List sort(List list) {
+        Comparator comparator = new BeanComparator(sortColumn, new NullComparator(nullsAreHigh));
+        if (!ascending) {
+            comparator = new ReverseComparator(comparator);
+        }
+        Collections.sort(list, comparator);
+        return list;
     }
 }
