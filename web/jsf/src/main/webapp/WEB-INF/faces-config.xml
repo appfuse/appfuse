@@ -107,7 +107,7 @@
         <managed-bean-scope>request</managed-bean-scope>
         <managed-property>
           <property-name>id</property-name>
-          <value>#{param.username}</value>
+          <value>#{param.id}</value>
         </managed-property>
         <managed-property>
             <property-name>userManager</property-name>

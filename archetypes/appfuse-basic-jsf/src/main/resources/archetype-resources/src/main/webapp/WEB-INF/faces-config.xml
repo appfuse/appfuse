@@ -48,13 +48,6 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/users.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>add</from-outcome>
-            <to-view-id>/userForm.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
         <from-view-id>/userForm.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>cancel</from-outcome>
@@ -113,8 +106,8 @@
         <managed-bean-class>org.appfuse.webapp.action.UserForm</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
         <managed-property>
-          <property-name>username</property-name>
-          <value>#{param.username}</value>
+          <property-name>id</property-name>
+          <value>#{param.id}</value>
         </managed-property>
         <managed-property>
             <property-name>userManager</property-name>

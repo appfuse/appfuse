@@ -70,17 +70,12 @@ public class UserForm extends BasePage implements Serializable {
 
     public String edit() {
         HttpServletRequest request = getRequest();
-
-        // for some reason, the id is not set from the user list - setting username works fine
-        if (id == null) {
-            id = request.getParameter("id");
-        }
         
         // if a user's id is passed in
         if (id != null) {
             // lookup the user using that id
             user = userManager.getUser(id);
-        } else if (request.getParameter("add") == null) {
+        } else {
             user = userManager.getUserByUsername(request.getRemoteUser());
         } 
 
