@@ -11,9 +11,7 @@ public abstract class MainMenu extends BasePage {
         UserForm nextPage = (UserForm) cycle.getPage("UserForm");
         String username = getRequest().getRemoteUser();
 
-        if (log.isDebugEnabled()) {
-            log.debug("fetching user profile: " + username);
-        }
+        log.debug("fetching user profile: " + username);
 
         User user = getUserManager().getUserByUsername(username);
         user.setConfirmPassword(user.getPassword());

@@ -13,15 +13,13 @@
         description="Call and executes all test cases (targets)"/>
     
     <!-- runs user-related tests -->
-    <target name="UserTests" 
-        depends="EditUser,SearchUser,SaveUser,AddUser,ActiveUsers"
+    <target name="UserTests" depends="EditUser,SearchUser,SaveUser,AddUser,ActiveUsers"
         description="Call and executes all user test cases (targets)">
-        <echo>Successfully ran all User HTML tests!</echo>
+        <echo>Successfully ran all User UI tests!</echo>
     </target>
     
     <!-- Login to the application -->
-    <target name="Login" 
-        description="Runs login test and verifies Main Menu's Title">
+    <target name="Login" description="Runs login test and verifies Main Menu's Title">
         <webtest name="login">
             &config;
             <steps>
@@ -31,15 +29,13 @@
     </target>
 
     <!-- Logout of the application -->
-    <target name="Logout"
-        description="Runs logout test and verifies Login's Title">
+    <target name="Logout" description="Runs logout test and verifies Login's Title">
         <webtest name="login">
             &config;
             <steps>
                 &login;
                 <invoke description="get Logout Page" url="/logout.jsp"/>
-                <verifytitle description="we should see the login title"
-                    text=".*${login.title}.*" regex="true"/>
+                <verifytitle description="we should see the login title" text=".*${login.title}.*" regex="true"/>
             </steps>
         </webtest>
     </target>
@@ -51,19 +47,15 @@
             &config;
             <steps>
                 <invoke description="get Login Page" url="/"/>
-                <verifytitle description="we should see the login title" 
-                    text=".*${login.title}.*" regex="true"/>
-                <invoke description="click password hint link"
-                    url="/passwordHint.html?username=mraible"/>
-                <verifytitle description="we should see the login title again"
-                    text=".*${login.title}.*" regex="true"/>
+                <verifytitle description="check login title" text=".*${login.title}.*" regex="true"/>
+                <invoke description="click password hint link" url="/passwordHint.html?username=mraible"/>
+                <verifytitle description="show login title again" text=".*${login.title}.*" regex="true"/>
             </steps>
         </webtest>
     </target>
     
     <!-- Verify the edit user screen displays without errors -->
-    <target name="EditUser" 
-        description="Tests selecting the 'Edit Profile' forward">
+    <target name="EditUser" description="Tests selecting the 'Edit Profile' forward">
         <webtest name="editUser">
             &config;
             <steps>
@@ -83,15 +75,14 @@
             <steps>
                 &login;
                 <invoke description="click View Users link" url="/UserList.html"/>
-                <verifytitle description="we should see the user list title" 
+                <verifytitle description="we should see the user list title"
                     text=".*${userList.title}.*" regex="true"/>
             </steps>
         </webtest>
     </target>
     
     <!-- Edit a user and then save -->
-    <target name="SaveUser" 
-        description="Tests editing and saving a user">
+    <target name="SaveUser" description="Tests editing and saving a user">
         <webtest name="saveUser">
             &config;
             <steps>
@@ -109,14 +100,12 @@
     </target>
     
     <!-- Add a new user after logging in -->
-    <target name="AddUser"
-        description="Adds a new user profile">
+    <target name="AddUser" description="Adds a new user profile">
         <webtest name="addUser">
             &config;
             <steps>
                 &login;
                 <invoke description="Click 'Add' button" url="/UserForm.html"/>
-
                 <verifytitle text=".*${userProfile.title}.*" regex="true"/>
 
                 <setinputfield name="usernameField" value="newuser"/>
@@ -215,17 +204,12 @@
             <steps>
                 &login;
                 <invoke description="click Upload a File link" url="/FileUpload.html"/>
-                <verifytitle description="we should see file upload form" 
-                    text=".*${upload.title}.*" regex="true"/>
-                <!--setinputfield description="set name" name="name" 
-                    value="Canoo Test File"/>
-                <setinputfield description="set file" name="file" 
-                    value="${basedir}/build.properties"/>
+                <verifytitle description="we should see file upload form" text=".*${upload.title}.*" regex="true"/>
+                <setinputfield description="set name" name="nameField" value="Canoo Test File"/>
+                <setFileField description="set file" name="Upload" fileName="pom.xml"/>
                 <clickbutton label="${button.upload}" description="Click Upload"/>
-                <verifytitle description="show file data if upload OK"
-                     text=".*${display.title}.*" regex="true"/>
-                <verifytext description="verify original file name displayed on page"
-                     text="build.properties" /-->
+                <verifytitle description="show file data if upload OK" text=".*${display.title}.*" regex="true"/>
+                <verifytext description="verify original filename displayed on page" text="pom.xml"/>
             </steps>
         </webtest>
     </target>

@@ -16,13 +16,11 @@ public abstract class UserList extends BasePage {
     public void edit(IRequestCycle cycle) {
         UserForm nextPage = (UserForm) cycle.getPage("UserForm");
         Object[] parameters = cycle.getListenerParameters();
-        String username = (String) parameters[0];
+        Long id = (Long) parameters[0];
 
-        if (log.isDebugEnabled()) {
-            log.debug("fetching user with username: " + username);
-        }
+        log.debug("fetching user with id: " + id);
 
-        User user = getUserManager().getUserByUsername(username);
+        User user = getUserManager().getUser(""+id);
         user.setConfirmPassword(user.getPassword());
         nextPage.setUser(user);
         nextPage.setFrom("list");

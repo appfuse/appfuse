@@ -17,7 +17,7 @@
     source="ognl:users" initialSortColumn="username"
     arrowUpAsset="ognl:assets.upArrow" arrowDownAsset="ognl:assets.downArrow">
     <tr jwcid="user_usernameColumnValue@Block">
-        <a jwcid="@DirectLink" listener="ognl:listeners.edit" parameters="ognl:row.username">
+        <a jwcid="@DirectLink" listener="ognl:listeners.edit" parameters="ognl:row.id">
             <span jwcid="@Insert" value="ognl:row.username"/>
         </a>
     </tr>
