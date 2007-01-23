@@ -68,6 +68,7 @@
         <property name="objectDefinitionSource">
             <value>
                 PATTERN_TYPE_APACHE_ANT
+                /activeUsers.*=admin
                 /clickstreams.jsp*=admin
                 /flushCache.*=admin
                 /passwordHint.html*=ROLE_ANONYMOUS,admin,user
