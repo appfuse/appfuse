@@ -13,10 +13,9 @@
     <s:textfield name="name" label="%{getText('uploadForm.name')}" cssClass="text medium" required="true"/>
     <s:file name="file" label="%{getText('uploadForm.file')}" cssClass="text file" required="true"/>
     <li class="buttonBar bottom">
-        <input type="submit" name="upload" class="button" onclick="bCancel=false"
-            value="<fmt:message key="button.upload"/>" />
-        <input type="button" name="cancel" class="button" onclick="location.href='mainMenu.html'"
-            value="<fmt:message key="button.cancel"/>" />
+        <s:submit key="button.upload" name="upload" cssClass="button"/>
+        <input type="button" value="<fmt:message key="button.cancel"/>" class="button"
+            onclick="this.form.onsubmit = null; location.href='mainMenu.html'"/>
     </li>
 </s:form>
 

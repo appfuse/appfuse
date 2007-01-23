@@ -10,34 +10,31 @@
     <li class="info">
         <fmt:message key="signup.message"/>
     </li>
-    <s:textfield label="%{getText('user.username')}" name="user.username"
-        value="%{user.username}" cssClass="text large" required="true"/>
+
+    <s:textfield key="user.username" cssClass="text large" required="true"/>
 
     <li>
         <div>
             <div class="left">
-                <s:password label="%{getText('user.password')}" name="user.password" showPassword="true" theme="xhtml" value="%{user.password}"
-                    required="true" cssClass="text medium"/>
+                <s:password key="user.password" showPassword="true" theme="xhtml" required="true" 
+                    cssClass="text medium"/>
             </div>
             <div>
-                <s:password label="%{getText('user.confirmPassword')}" name="user.confirmPassword" theme="xhtml" value="%{user.confirmPassword}"
-                    required="true" showPassword="true" cssClass="text medium"/>
+                <s:password key="user.confirmPassword" theme="xhtml" required="true" 
+                    showPassword="true" cssClass="text medium"/>
             </div>
         </div>
     </li>
 
-    <s:textfield label="%{getText('user.passwordHint')}" name="user.passwordHint"
-        value="%{user.passwordHint}" required="true" cssClass="text large"/>
+    <s:textfield key="user.passwordHint" required="true" cssClass="text large"/>
 
     <li>
         <div>
             <div class="left">
-                <s:textfield label="%{getText('user.firstName')}" name="user.firstName" theme="xhtml"
-                    value="%{user.firstName}" required="true" cssClass="text medium"/>
+                <s:textfield key="user.firstName" theme="xhtml" required="true" cssClass="text medium"/>
             </div>
             <div>
-                <s:textfield label="%{getText('user.lastName')}" name="user.lastName" theme="xhtml"
-                    value="%{user.lastName}" required="true" cssClass="text medium"/>
+                <s:textfield key="user.lastName" theme="xhtml" required="true" cssClass="text medium"/>
             </div>
         </div>
     </li>
@@ -45,37 +42,33 @@
     <li>
         <div>
             <div class="left">
-                <s:textfield label="%{getText('user.email')}" name="user.email" theme="xhtml"
-                    value="%{user.email}" required="true" cssClass="text medium"/>
+                <s:textfield key="user.email" theme="xhtml" required="true" cssClass="text medium"/>
             </div>
             <div>
-                <s:textfield label="%{getText('user.phoneNumber')}" name="user.phoneNumber" theme="xhtml"
-                    value="%{user.phoneNumber}" cssClass="text medium"/>
+                <s:textfield key="user.phoneNumber" theme="xhtml" cssClass="text medium"/>
             </div>
         </div>
     </li>
 
-    <s:textfield label="%{getText('user.website')}" name="user.website"
-        value="%{user.website}" required="true" cssClass="text large"/>
+    <s:textfield key="user.website" required="true" cssClass="text large"/>
 
     <li>
         <label class="desc"><fmt:message key="user.address.address"/></label>
         <div class="group">
             <div>
-                <s:textfield label="%{getText('user.address.address')}" name="user.address.address" theme="xhtml"
-                    value="%{user.address.address}" cssClass="text large" labelposition="bottom"  />
+                <s:textfield key="user.address.address" theme="xhtml" cssClass="text large" labelposition="bottom"/>
             </div>
             <div class="left">
-                <s:textfield label="%{getText('user.address.city')}" name="user.address.city" theme="xhtml"
-                    value="%{user.address.city}" required="true" cssClass="text medium" labelposition="bottom"/>
+                <s:textfield key="user.address.city" theme="xhtml" required="true" cssClass="text medium" 
+                    labelposition="bottom"/>
             </div>
             <div>
-                <s:textfield label="%{getText('user.address.province')}" name="user.address.province" theme="xhtml"
-                    value="%{user.address.province}" required="true" cssClass="text state" size="2" labelposition="bottom"/>
+                <s:textfield key="user.address.province" theme="xhtml" required="true" cssClass="text state" 
+                    size="2" labelposition="bottom"/>
             </div>
             <div class="left">
-                <s:textfield label="%{getText('user.address.postalCode')}" name="user.address.postalCode" theme="xhtml" 
-                    value="%{user.address.postalCode}" required="true" cssClass="text zip" labelposition="bottom"/>
+                <s:textfield key="user.address.postalCode" theme="xhtml" required="true" cssClass="text zip" 
+                    labelposition="bottom"/>
             </div>
             <div>
                 <s:set name="country" value="user.address.country" scope="page"/>
@@ -85,8 +78,8 @@
         </div>
     </li>
     <li class="buttonBar bottom">
-        <input type="submit" class="button" name="save" value="<fmt:message key="button.register"/>"/>
-        <input type="submit" class="button" name="cancel" value="<fmt:message key="button.cancel"/>"/>
+        <s:submit key="button.register" cssClass="button"/>
+        <s:submit key="button.cancel" name="cancel" cssClass="button"/>
     </li>
 </s:form>
 

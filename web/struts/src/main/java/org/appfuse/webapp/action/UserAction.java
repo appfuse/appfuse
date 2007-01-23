@@ -124,10 +124,6 @@ public class UserAction extends BaseAction implements Preparable {
     }
 
     public String save() throws Exception {
-        if (delete != null) {
-            return delete();
-        }
-
         Boolean encrypt = (Boolean) getConfiguration().get(Constants.ENCRYPT_PASSWORD);
 
         if ("true".equals(getRequest().getParameter("encryptPass")) && (encrypt != null && encrypt)) {
