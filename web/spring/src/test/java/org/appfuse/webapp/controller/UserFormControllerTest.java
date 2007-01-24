@@ -1,14 +1,13 @@
-package org.appfuse.webapp.action;
+package org.appfuse.webapp.controller;
 
-import org.appfuse.model.User;
+import org.acegisecurity.AccessDeniedException;
 import org.appfuse.Constants;
+import org.appfuse.model.User;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.ui.ModelMap;
-import org.acegisecurity.AccessDeniedException;
 
 public class UserFormControllerTest extends BaseControllerTestCase {
     private UserFormController c = null;

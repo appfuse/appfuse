@@ -1,4 +1,4 @@
-package org.appfuse.webapp.action;
+package org.appfuse.webapp.controller;
 
 import java.util.ArrayList;
 import java.util.List;

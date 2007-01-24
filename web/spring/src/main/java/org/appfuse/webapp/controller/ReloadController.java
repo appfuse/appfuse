@@ -1,4 +1,4 @@
-package org.appfuse.webapp.action;
+package org.appfuse.webapp.controller;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;

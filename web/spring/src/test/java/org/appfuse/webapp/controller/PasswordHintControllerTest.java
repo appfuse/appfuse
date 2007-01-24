@@ -1,8 +1,7 @@
-package org.appfuse.webapp.action;
+package org.appfuse.webapp.controller;
 
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
-
 import org.subethamail.wiser.Wiser;
 
 public class PasswordHintControllerTest extends BaseControllerTestCase {

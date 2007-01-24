@@ -1,4 +1,4 @@
-package org.appfuse.webapp.action;
+package org.appfuse.webapp.controller;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -8,7 +8,6 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
-
 import org.subethamail.wiser.Wiser;
 
 public class SignupControllerTest extends BaseControllerTestCase {
