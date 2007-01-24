@@ -16,43 +16,42 @@
 -->
 
 <!DOCTYPE component-specification PUBLIC
-  "-//Apache Software Foundation//Tapestry Specification 4.0//EN"
-  "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
+    "-//Apache Software Foundation//Tapestry Specification 4.0//EN"
+    "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
 
-<component-specification class="org.appfuse.webapp.tapestry.FieldLabel"
-	allow-body="no"
+<component-specification class="org.appfuse.webapp.component.FieldLabel" allow-body="no"
 	allow-informal-parameters="yes">
 
-  <description>
-  Labels a ValidField of other form element component.
-  </description>
-
-  <parameter name="field" required="yes"/>
-
-  <parameter name="displayName">
     <description>
-      Optional.  Defaults to the displayName of the associated field.
-      Used to override the field's displayName, or when there is no
-      field.
+        Labels a ValidField of other form element component.
     </description>
-  </parameter>
-
-  <parameter name="raw">
-    <description>
-      If false (the default), then HTML characters in the value are escaped.  If
-      true, then value is emitted exactly as is.
-    </description>
-  </parameter>
-
-  <parameter name="prerender" default-value="true">
-    <description>
-      If true (the default), then the field (if any) will be pre-rendered by the FieldLabel.
-      This is useful when the FieldLabel and field are inside a loop and the FieldLabel
-      precedes the field.  This parameter should be set to false if the FieldLabel occurs
-      after the field.
-    </description>
-  </parameter>
-
-  <reserved-parameter name="for"/>
+    
+    <parameter name="field" required="yes"/>
+    
+    <parameter name="displayName">
+        <description>
+            Optional.  Defaults to the displayName of the associated field.
+            Used to override the field's displayName, or when there is no
+            field.
+        </description>
+    </parameter>
+    
+    <parameter name="raw">
+        <description>
+            If false (the default), then HTML characters in the value are escaped.  If
+            true, then value is emitted exactly as is.
+        </description>
+    </parameter>
+    
+    <parameter name="prerender" default-value="true">
+        <description>
+            If true (the default), then the field (if any) will be pre-rendered by the FieldLabel.
+            This is useful when the FieldLabel and field are inside a loop and the FieldLabel
+            precedes the field.  This parameter should be set to false if the FieldLabel occurs
+            after the field.
+        </description>
+    </parameter>
+    
+    <reserved-parameter name="for"/>
 
 </component-specification>

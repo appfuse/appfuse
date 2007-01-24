@@ -3,7 +3,6 @@
     "-//Apache Software Foundation//Tapestry Specification 4.0//EN" 
     "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
         
-<!--<page-specification class="org.appfuse.webapp.action.Reload">-->
 <page-specification>
     <inject property="engineService" object="engine-service:page"/>
     <inject property="request" object="service:tapestry.globals.HttpServletRequest"/>

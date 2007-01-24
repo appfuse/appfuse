@@ -3,5 +3,4 @@
     "-//Apache Software Foundation//Tapestry Specification 4.0//EN" 
     "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
 
-<!--<page-specification class="org.appfuse.webapp.action.Error">-->
 <page-specification/>

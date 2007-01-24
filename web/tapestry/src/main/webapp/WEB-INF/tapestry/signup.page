@@ -3,7 +3,7 @@
     "-//Apache Software Foundation//Tapestry Specification 4.0//EN" 
     "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
     
-<page-specification class="org.appfuse.webapp.action.SignupForm">
+<page-specification class="org.appfuse.webapp.page.SignupForm">
     <inject property="engineService" object="engine-service:page"/>
     <inject property="mailMessage" type="spring" object="mailMessage"/>
     <inject property="mailEngine" type="spring" object="mailEngine"/>
@@ -11,14 +11,11 @@
     <inject property="response" object="service:tapestry.globals.HttpServletResponse"/>
     <inject property="roleManager" type="spring" object="roleManager"/>
     <inject property="userManager" type="spring" object="userManager"/>
-
-    <!--<bean name="delegate" class="org.appfuse.webapp.tapestry.ValidationDelegate"/>-->
     
     <property name="user"/>
     <property name="message" persist="flash"/>
 
     <component id="signupForm" type="Form">
-        <!--<binding name="delegate" value="ognl:beans.delegate"/>-->
         <binding name="delegate" value="ognl:delegate"/>
         <binding name="clientValidationEnabled" value="true"/>
     </component>
