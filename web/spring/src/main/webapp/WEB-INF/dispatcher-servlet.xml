@@ -14,23 +14,23 @@
 
     <bean id="filenameController" class="org.springframework.web.servlet.mvc.UrlFilenameViewController"/>
 
-    <bean id="fileUploadController" class="org.appfuse.webapp.action.FileUploadController">
+    <bean id="fileUploadController" class="org.appfuse.webapp.controller.FileUploadController">
         <property name="validator" ref="beanValidator"/>
         <property name="cancelView" value="redirect:mainMenu.html"/>
         <property name="formView" value="uploadForm"/>
         <property name="successView" value="uploadDisplay"/>
     </bean>
 
-    <bean id="passwordHintController" class="org.appfuse.webapp.action.PasswordHintController">
+    <bean id="passwordHintController" class="org.appfuse.webapp.controller.PasswordHintController">
         <property name="userManager" ref="userManager"/>
         <property name="messageSource" ref="messageSource"/>
         <property name="mailEngine" ref="mailEngine"/>
         <property name="message" ref="mailMessage"/>
     </bean>
 
-    <bean id="reloadController" class="org.appfuse.webapp.action.ReloadController"/>
+    <bean id="reloadController" class="org.appfuse.webapp.controller.ReloadController"/>
 
-    <bean id="signupController" class="org.appfuse.webapp.action.SignupController">
+    <bean id="signupController" class="org.appfuse.webapp.controller.SignupController">
         <property name="validator" ref="beanValidator"/>
         <property name="formView" value="signup"/>
         <property name="successView" value="redirect:mainMenu.html"/>
@@ -41,11 +41,11 @@
         <property name="templateName" value="accountCreated.vm"/>
     </bean>
 
-    <bean id="userController" class="org.appfuse.webapp.action.UserController">
+    <bean id="userController" class="org.appfuse.webapp.controller.UserController">
         <property name="userManager" ref="userManager"/>
     </bean>
 
-    <bean id="userFormController" class="org.appfuse.webapp.action.UserFormController">
+    <bean id="userFormController" class="org.appfuse.webapp.controller.UserFormController">
         <property name="validator" ref="beanValidator"/>
         <property name="formView" value="userForm"/>
         <property name="successView" value="redirect:users.html"/>
