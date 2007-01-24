@@ -33,7 +33,7 @@ public abstract class BasePageTestCase extends TestCase {
     protected static FacesContext facesContext;
     protected static MockServletConfig config;
     protected static MockServletContext servletContext;
-    protected static WebApplicationContext ctx;
+    protected static WebApplicationContext applicationContext;
     protected static User user;
 
     // This static block ensures that Spring's BeanFactory and JSF's 
@@ -45,25 +45,26 @@ public abstract class BasePageTestCase extends TestCase {
         servletContext.addInitParameter(ContextLoader.CONFIG_LOCATION_PARAM,
                 "classpath*:/applicationContext-resources.xml, " +
                 "classpath*:/applicationContext-dao.xml, " +
-                "classpath*:/applicationContext-service.xml");
+                "classpath*:/applicationContext-service.xml," +
+                "/WEB-INF/applicationContext*.xml");
 
         ServletContextListener contextListener = new ContextLoaderListener();
         ServletContextEvent event = new ServletContextEvent(servletContext);
         contextListener.contextInitialized(event);
 
-        ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext);
+        applicationContext = WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext);
         config = new MockServletConfig(servletContext);
         performFacesContextConfig();
     }
     
     protected void setUp() throws Exception {
         // populate the userForm and place into session
-        UserManager userMgr = (UserManager) ctx.getBean("userManager");
+        UserManager userMgr = (UserManager) applicationContext.getBean("userManager");
         user = userMgr.getUserByUsername("tomcat");
         
         // change the port on the mailSender so it doesn't conflict with an 
         // existing SMTP server on localhost
-        JavaMailSenderImpl mailSender = (JavaMailSenderImpl) ctx.getBean("mailSender");
+        JavaMailSenderImpl mailSender = (JavaMailSenderImpl) applicationContext.getBean("mailSender");
         mailSender.setPort(2525);
         mailSender.setHost("localhost");
     }

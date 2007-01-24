@@ -45,6 +45,7 @@ public class BasePage {
 
     /**
      * Allow overriding of facesContext for unit tests
+     * @param facesContext the current context
      */
     public void setFacesContext(FacesContext facesContext) {
         this.facesContext = facesContext;
