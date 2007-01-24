@@ -22,27 +22,25 @@ public class RoleDaoTest extends BaseDaoTestCase {
 
     public void testUpdateRole() throws Exception {
         Role role = dao.getRoleByName("user");
-        log.debug(role);
         role.setDescription("test descr");
-
         dao.save(role);
-        assertEquals(role.getDescription(), "test descr");
+        flush();
+        
+        role = dao.getRoleByName("user");
+        assertEquals("test descr", role.getDescription());
     }
 
     public void testAddAndRemoveRole() throws Exception {
         Role role = new Role("testrole");
         role.setDescription("new role descr");
         dao.save(role);
-        setComplete(); // change behavior from rollback to commit
-        endTransaction();
-
-        startNewTransaction();
-	    role = dao.getRoleByName("testrole");
+        flush();
+        
+        role = dao.getRoleByName("testrole");
         assertNotNull(role.getDescription());
 
         dao.removeRole("testrole");
-        setComplete();
-        endTransaction(); // deletes role from database
+        flush();
 
         role = dao.getRoleByName("testrole");
         assertNull(role);

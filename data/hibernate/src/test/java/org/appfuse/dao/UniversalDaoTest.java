@@ -39,20 +39,25 @@ public class UniversalDaoTest extends BaseDaoTestCase {
 
         // create
         universalDao.save(user);
+        flush();
         assertNotNull(user.getId());
 
         // retrieve
         user = (User) universalDao.get(User.class, user.getId());
         assertNotNull(user);
-        assertEquals(user.getLastName(), "last");
+        assertEquals("last", user.getLastName());
 
         // update
         user.getAddress().setCountry("USA");
         universalDao.save(user);
-        assertEquals(user.getAddress().getCountry(), "USA");
+        flush();
+
+        user = (User) universalDao.get(User.class, user.getId());
+        assertEquals( "USA", user.getAddress().getCountry());
 
         // delete
         universalDao.remove(User.class, user.getId());
+        flush();
         try {
             universalDao.get(User.class, user.getId());
             fail("User 'foo' found in database");

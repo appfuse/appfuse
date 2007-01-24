@@ -43,8 +43,10 @@ public class UserDaoTest extends BaseDaoTestCase {
         address.setAddress("new address");
 
         dao.saveUser(user);
+        flush();
 
-        assertEquals(user.getAddress(), address);
+        user = dao.get(1L);
+        assertEquals(address, user.getAddress());
         assertEquals("new address", user.getAddress().getAddress());
         
         // verify that violation occurs when adding new user with same username
@@ -54,6 +56,7 @@ public class UserDaoTest extends BaseDaoTestCase {
 
         try {
             dao.saveUser(user);
+            flush();
             fail("saveUser didn't throw DataIntegrityViolationException");
         } catch (DataIntegrityViolationException e) {
             assertNotNull(e);
@@ -68,18 +71,24 @@ public class UserDaoTest extends BaseDaoTestCase {
         Role role = rdao.getRoleByName(Constants.ADMIN_ROLE);
         user.addRole(role);
         dao.saveUser(user);
+        flush();
 
+        user = dao.get(1L);
         assertEquals(2, user.getRoles().size());
 
         //add the same role twice - should result in no additional role
         user.addRole(role);
         dao.saveUser(user);
+        flush();
 
+        user = dao.get(1L);
         assertEquals("more than 2 roles", 2, user.getRoles().size());
 
         user.getRoles().remove(role);
         dao.saveUser(user);
+        flush();
 
+        user = dao.get(1L);
         assertEquals(1, user.getRoles().size());
     }
 
@@ -102,12 +111,15 @@ public class UserDaoTest extends BaseDaoTestCase {
         user.addRole(role);
 
         dao.saveUser(user);
+        flush();
 
         assertNotNull(user.getId());
+        user = dao.get(user.getId());
         assertEquals("testpass", user.getPassword());
 
         dao.remove(user.getId());
-
+        flush();
+        
         try {
             dao.get(user.getId());
             fail("getUser didn't throw DataAccessException");

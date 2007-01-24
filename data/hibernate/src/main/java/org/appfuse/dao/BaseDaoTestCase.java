@@ -10,6 +10,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
+import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.hibernate.SessionFactory;
 
 /**
  * Base class for running DAO tests.
@@ -60,5 +62,16 @@ public abstract class BaseDaoTestCase extends AbstractTransactionalDataSourceSpr
         BeanUtils.copyProperties(map, obj);
 
         return obj;
+    }
+
+    /**
+     * Create a HibernateTemplate from the SessionFactory and call flush() and clear() on it.
+     * Designed to be used after "save" methods in tests: http://issues.appfuse.org/browse/APF-178.
+     */
+    protected void flush() {
+        HibernateTemplate hibernateTemplate =
+                new HibernateTemplate((SessionFactory) applicationContext.getBean("sessionFactory"));
+        hibernateTemplate.flush();
+        hibernateTemplate.clear();
     }
 }
