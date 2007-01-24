@@ -20,7 +20,7 @@
   </skin>
   <body>
     <links>
-      <item name="AppFuse" href="http://static.appfuse.org" />
+      <item name="AppFuse" href="http://appfuse.org" />
       <item name="Maven 2" href="http://maven.apache.org/"/>
     </links>
     <menu name="AppFuse Plugin">
@@ -28,7 +28,7 @@
       <item name="Installation" href="installation.html" />
       <item name="Usage" href="usage.html" />
       <item name="FAQ" href="FAQ.html" />
-      <item name="AppFuse Project" href="http://static.appfuse.org/" />
+      <item name="AppFuse Project" href="http://appfuse.org/" />
     </menu>
     ${reports}
   </body>
