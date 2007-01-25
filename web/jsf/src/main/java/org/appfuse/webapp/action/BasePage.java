@@ -89,8 +89,15 @@ public class BasePage {
         try {
             message = getBundle().getString(key);
         } catch (java.util.MissingResourceException mre) {
-            log.warn("Missing key for '" + key + "'");
-
+            // When running tests, the the resource bundle is read from the common-web
+            // JAR, causing keys to not be found and the following message to be printed.
+            // When running the application, the resource bundle is resolved correctly.
+            // Not packaging the i18n bundles in the common-web.war definitely fixes the
+            // problem. However, then projects that depend on it fails because keys are
+            // not found. Commenting out the warning message seems like the most reasonable
+            // solution for now. Maybe the warpath plugin can exclude certains files from
+            // the classpath?
+            //log.warn("Missing key for '" + key + "'");
             return "???" + key + "???";
         }
 
@@ -99,7 +106,7 @@ public class BasePage {
 
     public String getText(String key, Object arg) {
         if (arg == null) {
-            return getBundle().getString(key);
+            return getText(key);
         }
 
         MessageFormat form = new MessageFormat(getBundle().getString(key));
