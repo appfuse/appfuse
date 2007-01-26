@@ -36,7 +36,16 @@
                 </configuration>
                 <executions>
                     <execution>
+                        <id>test-compile</id>
                         <phase>test-compile</phase>
+                        <goals>
+                            <goal>operation</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <!-- Runs before integration tests and jetty:run-war -->
+                        <id>test</id>
+                        <phase>test</phase>
                         <goals>
                             <goal>operation</goal>
                         </goals>
