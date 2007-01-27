@@ -1,5 +1,8 @@
 package org.appfuse;
 
+import org.codehaus.plexus.util.StringUtils;
+import org.codehaus.plexus.util.SelectorUtils;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -29,9 +32,11 @@ public class WarPathUtils
    *
    * @param warFile        The war file to unpack.
    * @param classesJarFile The target jar file which will hold the contents of the WEB-INF/classes directory.
+   * @param includes Comma separated list of resource patterns to include in the path
+   * @param excludes Comma separated list of resource patterns to exclude from the path.
    * @throws IOException if an I/O error occurs.
    */
-  public static void unpackWarClassesIfNewer(File warFile, File classesJarFile) throws IOException
+  public static void unpackWarClassesIfNewer(File warFile, File classesJarFile, String includes, String excludes) throws IOException
   {
     boolean process = false;
     if (!classesJarFile.exists() || warFile.lastModified() > classesJarFile.lastModified())
@@ -45,7 +50,7 @@ public class WarPathUtils
       JarOutputStream classesJarOutputStream = new JarOutputStream(new FileOutputStream(classesJarFile));
       try
       {
-        unpackWebInfClasses(zipFile, classesJarOutputStream);
+        unpackWebInfClasses(zipFile, classesJarOutputStream, includes, excludes);
       }
       finally
       {
@@ -90,11 +95,35 @@ public class WarPathUtils
    *
    * @param zipFile                The war file to unpack
    * @param classesJarOutputStream The target directory.
+   * @param includes               Comma separated patterns to match against resources to include
+   * @param excludes               Comma separated patterns to match against resources to exclude
    * @throws IOException if an I/O error occurs during the unpacking.
    */
-  public static void unpackWebInfClasses(ZipFile zipFile, JarOutputStream classesJarOutputStream) throws IOException
+  public static void unpackWebInfClasses(ZipFile zipFile, JarOutputStream classesJarOutputStream, String includes, String excludes) throws IOException
   {
     Enumeration zipEntries = zipFile.entries();
+
+    String[] includePatterns;
+
+    if (StringUtils.isNotEmpty(includes))
+    {
+      includePatterns = StringUtils.split(includes, ",");
+    }
+    else
+    {
+      includePatterns = new String[]{"**"};
+    }
+
+    String[] excludesPattern;
+
+    if (StringUtils.isNotEmpty(excludes))
+    {
+      excludesPattern = StringUtils.split(excludes, ",");
+    }
+    else
+    {
+      excludesPattern = new String[0];
+    }
 
     while (zipEntries.hasMoreElements())
     {
@@ -104,26 +133,53 @@ public class WarPathUtils
       {
         String classesEntry = matcher.group(1);
 
-        ZipEntry jarEntry = new ZipEntry(classesEntry);
-
-        jarEntry.setComment(zipEntry.getComment());
-        jarEntry.setExtra(zipEntry.getExtra());
-        jarEntry.setMethod(zipEntry.getMethod());
-        jarEntry.setTime(zipEntry.getTime());
-        jarEntry.setSize(zipEntry.getSize());
-        jarEntry.setCompressedSize(zipEntry.getCompressedSize());
-        jarEntry.setCrc(zipEntry.getCrc());
-        classesJarOutputStream.putNextEntry(jarEntry);
-        byte[] readBuffer = new byte[1024];
-        int readLength;
-        InputStream inputStream = zipFile.getInputStream(zipEntry);
-        while ((readLength = inputStream.read(readBuffer)) >= 0)
+        if (matches(classesEntry, includePatterns))
         {
-          classesJarOutputStream.write(readBuffer, 0, readLength);
-        }
+          if (!matches(classesEntry, excludesPattern))
+          {
+            ZipEntry jarEntry = new ZipEntry(classesEntry);
 
+            jarEntry.setComment(zipEntry.getComment());
+            jarEntry.setExtra(zipEntry.getExtra());
+            jarEntry.setMethod(zipEntry.getMethod());
+            jarEntry.setTime(zipEntry.getTime());
+            jarEntry.setSize(zipEntry.getSize());
+            jarEntry.setCompressedSize(zipEntry.getCompressedSize());
+            jarEntry.setCrc(zipEntry.getCrc());
+            classesJarOutputStream.putNextEntry(jarEntry);
+            byte[] readBuffer = new byte[1024];
+            int readLength;
+            InputStream inputStream = zipFile.getInputStream(zipEntry);
+            while ((readLength = inputStream.read(readBuffer)) >= 0)
+            {
+              classesJarOutputStream.write(readBuffer, 0, readLength);
+            }
+          }
+        }
       }
     }
+  }
+
+  private static boolean matches(String entry, String[] patterns)
+  {
+    entry = replaceFileSeparator(entry);
+    for (int i = 0; i < patterns.length; i++)
+    {
+      String pattern = replaceFileSeparator(patterns[i]);
+      if (SelectorUtils.matchPath(pattern, entry))
+      {
+        return true;
+      }
+
+    }
+    return false;
+  }
+
+  private static String replaceFileSeparator(String path)
+  {
+    path = path.replace('/', File.separatorChar);
+    path = path.replace('\\', File.separatorChar);
+    return path;
   }
 
 }

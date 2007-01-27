@@ -76,6 +76,23 @@ public class AddClassesMojo extends AbstractMojo
    */
   private ArtifactFactory artifactFactory;
 
+  /**
+   * The filter that determines the resources, from the dependent war's WEB-INF/classes directory, to
+   * include on the classpath. Default is &quot;**&quot;.
+   *
+   * @parameter expression="**"
+   */
+  private String warpathIncludes;
+
+  /**
+   * The filter that determines the resources, from the dependent war's WEB-INF/classes directory, to
+   * exclude from the classpath. Note that excludes takes priority over includes. The default is the empty
+   * string, i.e. exclude nothing.
+   *
+   * @parameter
+   */
+  private String warpathExcludes;
+
 
   public void execute()
           throws MojoExecutionException
@@ -115,7 +132,7 @@ public class AddClassesMojo extends AbstractMojo
         File warClassesDirectory = new File(workDirectory, warWorkingDir);
         try
         {
-          WarPathUtils.unpackWarClassesIfNewer(artifact.getFile(), warClassesDirectory);
+          WarPathUtils.unpackWarClassesIfNewer(artifact.getFile(), warClassesDirectory, warpathIncludes, warpathExcludes);
         }
         catch (IOException e)
         {

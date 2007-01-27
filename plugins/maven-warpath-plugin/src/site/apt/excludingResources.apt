@@ -1,0 +1,43 @@
+ -----
+  Maven Warpath Plugin : Including and Excluding Classpath Resources
+  -----
+  The AppFuse Team
+  -----
+
+Including and Excluding Classpath Resources
+
+   The Warpath plugin allows fine grained control over the resources that are included on the classpath
+   from the dependent war files. The following configuration would exclude all files called foo.resource
+   from being included in the classpath:
+
++---------------------------------+
+[...]
+<build>
+  <plugins>
+    <plugin>
+      <groupId>org.appfuse</groupId>
+      <artifactId>maven-warpath-plugin</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <extensions>true</extensions>
+      <executions>
+        <execution>
+          <goals>
+            <goal>add-classes</goal>
+          </goals>
+        </execution>
+        <configuration>
+          <warpathExcludes>**/foo.resource</warpathExcludes>
+        </configuration>
+      </executions>
+    </plugin>
+  </plugins>
+</build>
+[...]
++---------------------------------+
+
+   By default waparthIncludes is set to '**' (include everything) and warpathExcludes is set to blank
+   (exclude nothing). Both parameters accept a comma separated list of patterns to match against file
+   entries found below WEB-INF/classes on any dependent war included with the warpath type. The patterns will
+   match against the portion of the path starting below WEB-INF/classes i.e. the pattern bar/foo.resource would
+   match the file WEB-INF/classes/bar/foo.resource as it is found in any dependent warpath package. Note that a
+   match using an excludes pattern takes precendence over a match on an includes pattern.

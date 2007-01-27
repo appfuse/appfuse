@@ -23,6 +23,7 @@
     </menu>
     <menu name="Warpath Plugin Docs">
       <item name="Usage" href="usage.html"/>
+      <item name="Excluding Resouces" href="excludingResources.html"/>
       <item name="Goals" href="plugin-info.html"/>
       <item name="Issues" href="issues.html"/>
     </menu>
