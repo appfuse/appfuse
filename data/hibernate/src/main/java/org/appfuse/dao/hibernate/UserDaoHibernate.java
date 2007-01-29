@@ -27,7 +27,7 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
     /**
      * @see org.appfuse.dao.UserDao#getUsers()
      */
-    public List getUsers() {
+    public List<User> getUsers() {
         return getHibernateTemplate().find("from User u order by upper(u.username)");
     }
 
@@ -35,10 +35,7 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
      * @see org.appfuse.dao.UserDao#saveUser(org.appfuse.model.User)
      */
     public void saveUser(final User user) {
-        if (log.isDebugEnabled()) {
-            log.debug("user's id: " + user.getId());
-        }
-        
+        log.debug("user's id: " + user.getId());        
         getHibernateTemplate().saveOrUpdate(user);
         // necessary to throw a DataIntegrityViolation and catch it in UserManager
         getHibernateTemplate().flush();

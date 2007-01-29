@@ -7,9 +7,7 @@ import org.appfuse.model.Role;
 import org.appfuse.service.RoleManager;
 
 /**
- * Implementation of RoleManager interface.</p>
- * 
- * <p><a href="RoleManagerImpl.java.html"><i>View Source</i></a></p>
+ * Implementation of RoleManager interface.
  * 
  * @author <a href="mailto:dan@getrolling.com">Dan Kibler</a>
  */
