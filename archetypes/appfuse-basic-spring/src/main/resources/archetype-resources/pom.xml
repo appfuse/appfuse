@@ -123,7 +123,7 @@
                     <type>CLEAN_INSERT</type>
                     <skip>${maven.test.skip}</skip>
                 </configuration>
-                <<executions>
+                <executions>
                     <execution>
                         <id>test-compile</id>
                         <phase>test-compile</phase>
