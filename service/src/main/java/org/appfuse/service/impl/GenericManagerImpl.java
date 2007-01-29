@@ -44,7 +44,7 @@ import java.util.List;
  */
 public class GenericManagerImpl<T, PK extends Serializable> implements GenericManager<T, PK> {
     protected final Log log = LogFactory.getLog(getClass());
-    private GenericDao<T, PK> genericDao;
+    protected GenericDao<T, PK> genericDao;
 
     public GenericManagerImpl(GenericDao<T, PK> genericDao) {
         this.genericDao = genericDao;
