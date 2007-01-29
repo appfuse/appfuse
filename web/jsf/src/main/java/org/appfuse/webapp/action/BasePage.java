@@ -89,15 +89,7 @@ public class BasePage {
         try {
             message = getBundle().getString(key);
         } catch (java.util.MissingResourceException mre) {
-            // When running tests, the the resource bundle is read from the common-web
-            // JAR, causing keys to not be found and the following message to be printed.
-            // When running the application, the resource bundle is resolved correctly.
-            // Not packaging the i18n bundles in the common-web.war definitely fixes the
-            // problem. However, then projects that depend on it fails because keys are
-            // not found. Commenting out the warning message seems like the most reasonable
-            // solution for now. Maybe the warpath plugin can exclude certains files from
-            // the classpath?
-            //log.warn("Missing key for '" + key + "'");
+            log.warn("Missing key for '" + key + "'");
             return "???" + key + "???";
         }
 
@@ -123,8 +115,8 @@ public class BasePage {
     }
 
     protected void addMessage(String key, Object arg) {
-        // JSF Success Messages won't live past a redirect, so I don't use it
-        //FacesUtils.addInfoMessage(formatMessage(key, arg));
+        // JSF Success Messages won't live past a redirect, so it's not used
+        // FacesUtils.addInfoMessage(formatMessage(key, arg));
         List<String> messages = (List) getSession().getAttribute("messages");
 
         if (messages == null) {
@@ -159,7 +151,7 @@ public class BasePage {
     
     /**
      * Convenience method for unit tests.
-     * @return
+     * @return boolean indicator of an "errors" attribute in the session
      */
     public boolean hasErrors() {
         return (getSession().getAttribute("errors") != null);
@@ -167,7 +159,7 @@ public class BasePage {
 
     /**
      * Servlet API Convenience method
-     * @return
+     * @return HttpServletRequest from the FacesContext
      */
     protected HttpServletRequest getRequest() {
         return (HttpServletRequest) getFacesContext().getExternalContext().getRequest();
@@ -175,7 +167,7 @@ public class BasePage {
 
     /**
      * Servlet API Convenience method
-     * @return
+     * @return the current user's session
      */
     protected HttpSession getSession() {
         return getRequest().getSession();
@@ -183,7 +175,7 @@ public class BasePage {
 
     /**
      * Servlet API Convenience method
-     * @return
+     * @return HttpServletResponse from the FacesContext
      */
     protected HttpServletResponse getResponse() {
         return (HttpServletResponse) getFacesContext().getExternalContext().getResponse();
@@ -191,7 +183,7 @@ public class BasePage {
 
     /**
      * Servlet API Convenience method
-     * @return
+     * @return the ServletContext form the FacesContext
      */
     protected ServletContext getServletContext() {
         return (ServletContext) getFacesContext().getExternalContext().getContext();
@@ -216,9 +208,9 @@ public class BasePage {
 
     /**
      * Convenience message to send messages to users, includes app URL as footer.
-     * @param user
-     * @param msg
-     * @param url
+     * @param user the user to send the message to
+     * @param msg the message to send
+     * @param url the application's URL
      */
     protected void sendUserMessage(User user, String msg, String url) {
         if (log.isDebugEnabled()) {
@@ -270,7 +262,7 @@ public class BasePage {
 
     /**
      * Sort list according to which column has been clicked on.
-     * @param list
+     * @param list the java.util.List to sort
      * @return ordered list
      */
     @SuppressWarnings("unchecked")
