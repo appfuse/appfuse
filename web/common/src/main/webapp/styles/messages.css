@@ -1,6 +1,6 @@
 /* This is the style for the informational messages presented to the user */
 
-div.error, div.message, li.error {
+div.error, span.error, li.error, div.message {
     background: #ffffcc;
     border: 1px solid #000;
     color: #000000;
@@ -13,8 +13,17 @@ div.error, div.message, li.error {
 }
 
 /* use a different color for the errors */
-div.error, li.error {
+div.error, span.error, li.error {
     border: 2px solid red;
+}
+
+/* For Spring MVC */
+span.error {
+    display: block;
+}
+
+label.error {
+    font-weight: bold;
 }
 
 /* IE fix, followed by the rest of the world fix */
