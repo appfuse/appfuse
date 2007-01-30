@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.io.Serializable;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -112,8 +113,7 @@ public class BaseFormController extends SimpleFormController {
      * @return the user's populated form from the session
      */
     public Map getConfiguration() {
-        Map config =
-            (HashMap) getServletContext().getAttribute(Constants.CONFIG);
+        Map config = (HashMap) getServletContext().getAttribute(Constants.CONFIG);
 
         // so unit tests don't puke when nothing's been set
         if (config == null) {
@@ -170,7 +170,7 @@ public class BaseFormController extends SimpleFormController {
 
         message.setTo(user.getFullName() + "<" + user.getEmail() + ">");
 
-        Map model = new HashMap();
+        Map<String, Serializable> model = new HashMap<String, Serializable>();
         model.put("user", user);
 
         // TODO: once you figure out how to get the global resource bundle in
