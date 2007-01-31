@@ -12,8 +12,8 @@
     <inject property="roleManager" type="spring" object="roleManager"/>
     <inject property="userManager" type="spring" object="userManager"/>
     
-    <bean name="multipleCheckboxRenderer" class="org.appfuse.webapp.component.CheckBoxMultiplePropertySelectionRenderer"/>
-    <bean name="hiddenCheckboxRenderer" class="org.appfuse.webapp.component.HiddenMultiplePropertySelectionRenderer"/>
+    <bean name="multipleCheckboxRenderer" class="org.appfuse.webapp.components.CheckBoxMultiplePropertySelectionRenderer"/>
+    <bean name="hiddenCheckboxRenderer" class="org.appfuse.webapp.components.HiddenMultiplePropertySelectionRenderer"/>
     
     <property name="user"/>
     <property name="from"/>

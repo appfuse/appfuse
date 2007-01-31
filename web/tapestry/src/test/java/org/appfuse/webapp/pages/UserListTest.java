@@ -1,4 +1,4 @@
-package org.appfuse.webapp.page;
+package org.appfuse.webapp.pages;
 
 import java.util.HashMap;
 import java.util.Map;

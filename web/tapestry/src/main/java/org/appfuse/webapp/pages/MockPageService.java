@@ -1,4 +1,4 @@
-package org.appfuse.webapp.page;
+package org.appfuse.webapp.pages;
 
 import org.apache.tapestry.engine.ILink;
 import org.apache.tapestry.engine.PageService;

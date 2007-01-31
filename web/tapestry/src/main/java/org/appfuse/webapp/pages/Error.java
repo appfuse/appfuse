@@ -1,9 +1,9 @@
-package org.appfuse.webapp.page;
+package org.appfuse.webapp.pages;
 
 import org.apache.tapestry.pages.Exception;
 
 /**
- * A customized exception page; in non-debug mode, it omits displays the main exception display.
+ * A customized exception pages; in non-debug mode, it omits displays the main exception display.
  */
 
 public abstract class Error extends Exception {

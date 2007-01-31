@@ -1,4 +1,4 @@
-package org.appfuse.webapp.component;
+package org.appfuse.webapp.components;
 
 import org.apache.tapestry.IMarkupWriter;
 import org.apache.tapestry.IRender;

@@ -1,4 +1,4 @@
-package org.appfuse.webapp.page;
+package org.appfuse.webapp.pages;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -187,7 +187,7 @@ public abstract class UserForm extends BasePage implements PageBeginRenderListen
                 return getEngineService().getLink(false, nextPage.getPageName());
             } else {
                 setMessage(getText("user.updated.byAdmin", user.getFullName()));
-                return null; // return to current page
+                return null; // return to current pages
             }
         }
     }

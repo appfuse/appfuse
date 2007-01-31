@@ -5,9 +5,9 @@
     
 <application name="tapestry"> 
 
-    <meta key="org.apache.tapestry.visit-class" value="org.appfuse.webapp.action.Visit"/>
-    <meta key="org.apache.tapestry.default-page-class" value="org.appfuse.webapp.action.BasePage"/>
-    <meta key="org.apache.tapestry.page-class-packages" value="org.appfuse.webapp.action"/>
+    <meta key="org.apache.tapestry.visit-class" value="org.appfuse.webapp.pages.Visit"/>
+    <meta key="org.apache.tapestry.default-page-class" value="org.appfuse.webapp.pages.BasePage"/>
+    <meta key="org.apache.tapestry.page-class-packages" value="org.appfuse.webapp.pages,${groupId}.webapp.pages"/>
     
     <library id="contrib" specification-path="/org/apache/tapestry/contrib/Contrib.library"/> 
     
@@ -17,11 +17,10 @@
     <page name="signup" specification-path="tapestry/signup.page"/>
     
     <!-- 
-    Add additional pages here only if they don ot have the same name as 
+    Add additional pages here only if they don't have the same name as 
     their corresponding java class that lives in the property specified by 
     'org.apache.tapestry.page-class-packages' above. 
     -->
-    
     
     <extension name="org.apache.tapestry.multipart-decoder"
         class="org.apache.tapestry.multipart.DefaultMultipartDecoder">

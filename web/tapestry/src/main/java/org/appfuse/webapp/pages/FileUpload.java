@@ -1,4 +1,4 @@
-package org.appfuse.webapp.page;
+package org.appfuse.webapp.pages;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -63,7 +63,7 @@ public abstract class FileUpload extends BasePage {
         // close the stream
         stream.close();
 
-        // set the data for retrieval on next page
+        // set the data for retrieval on next pages
         FileDisplay next = (FileDisplay) cycle.getPage("FileDisplay");
         next.setFile(file);
         next.setName(getName());

@@ -1,4 +1,4 @@
-package org.appfuse.webapp.page;
+package org.appfuse.webapp.pages;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,7 +30,7 @@ public abstract class BasePage extends org.apache.tapestry.html.BasePage impleme
 
     public IValidationDelegate getDelegate() {
         if (this.delegate == null) {
-            this.delegate = new org.appfuse.webapp.component.ValidationDelegate();
+            this.delegate = new org.appfuse.webapp.components.ValidationDelegate();
         }
         return this.delegate;
     }

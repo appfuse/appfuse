@@ -1,4 +1,4 @@
-package org.appfuse.webapp.page;
+package org.appfuse.webapp.pages;
 
 import org.apache.tapestry.IRequestCycle;
 import org.appfuse.model.User;
