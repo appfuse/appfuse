@@ -44,9 +44,7 @@ public abstract class SignupForm extends BasePage implements PageBeginRenderList
     }
     
     public void pageBeginRender(PageEvent event) {
-        if (getUser() == null && !event.getRequestCycle().isRewinding()) {
-            setUser(new User());
-        } else if (event.getRequestCycle().isRewinding()) {
+        if (getUser() == null) {
             setUser(new User());
         }
     }
