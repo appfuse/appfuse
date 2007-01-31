@@ -41,8 +41,7 @@
     </target>
 
     <!-- Retrieve Password Hint -->
-    <target name="PasswordHint" 
-        description="Gets the user's password hint">
+    <target name="PasswordHint" description="Gets the user's password hint">
         <webtest name="passwordHint">
             &config;
             <steps>
@@ -68,8 +67,7 @@
     </target>
     
     <!-- Verify the user list screen displays without errors -->
-    <target name="SearchUser" 
-        description="Tests search for and displaying all users">
+    <target name="SearchUser" description="Tests search for and displaying all users">
         <webtest name="searchUser">
             &config;
             <steps>
@@ -169,8 +167,7 @@
     </target>
 
     <!-- View Active Users -->
-    <target name="ActiveUsers" 
-        description="View Active Users List">
+    <target name="ActiveUsers" description="View Active Users List">
         <webtest name="activeUsers">
             &config;
             <steps>
@@ -183,8 +180,7 @@
     </target>
     
     <!-- Flush OSCache -->
-    <target name="FlushCache" 
-        description="opens JSP to Flush Page Cache">
+    <target name="FlushCache" description="opens JSP to Flush Page Cache">
         <webtest name="flushCache">
             &config;
             <steps>
@@ -197,8 +193,7 @@
     </target>
     
     <!-- File Upload -->
-    <target name="FileUpload" 
-        description="Tests uploading a file">
+    <target name="FileUpload" description="Tests uploading a file">
         <webtest name="fileUpload">
             &config;
             <steps>
