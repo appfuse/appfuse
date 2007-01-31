@@ -112,13 +112,6 @@
         </testResources>
     </build>
 
-    <repositories>
-        <repository>
-            <id>java.net</id> <!-- for jta -->
-            <url>http://maven2.glassfishwiki.org</url>
-        </repository>
-    </repositories>
-
     <pluginRepositories>
         <pluginRepository>
             <id>mojo.snapshots</id>
