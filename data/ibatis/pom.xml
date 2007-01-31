@@ -88,7 +88,7 @@
                 <executions>                    
                     <execution>
                         <id>create-schema</id>
-                        <phase>process-test-resources</phase>
+                        <phase>process-classes</phase>
                         <goals>
                             <goal>execute</goal>
                         </goals>
