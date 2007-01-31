@@ -64,7 +64,7 @@
                     </additionalBuildcommands>
                     <downloadSources>true</downloadSources>
                     <downloadJavadocs>true</downloadJavadocs>
-                    <wtpversion>1.0</wtpversion>
+                    <wtpversion>1.5</wtpversion>
                 </configuration>
             </plugin>
             <plugin>
@@ -96,7 +96,7 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <phase>test-compile</phase>
+                        <phase>process-test-resources</phase>
                         <goals>
                             <goal>hbm2ddl</goal>
                         </goals>
