@@ -187,14 +187,9 @@
 
     <repositories>
         <repository>
-            <id>appfuse</id>
-            <name>AppFuse Repository</name>
-            <url>http://static.appfuse.org/repository</url>
-        </repository>
-        <repository>
-            <id>struts-203-staging</id>
-            <name>Apache Struts 2.0.3 Staging Repository</name>
-            <url>http://people.apache.org/builds/struts/2.0.3/m2-staging-repository</url>
+            <id>struts-204-staging</id>
+            <name>Apache Struts 2.0.4 Staging Repository</name>
+            <url>http://people.apache.org/builds/struts/2.0.4/m2-staging-repository</url>
         </repository>
     </repositories>
     
@@ -220,6 +215,34 @@
             <groupId>org.apache.struts</groupId>
             <artifactId>struts2-spring-plugin</artifactId>
             <version>${struts.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-beans</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-context</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-web</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>${commons.fileupload.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons.io.version}</version>
         </dependency>
         <dependency>
             <groupId>displaytag</groupId>

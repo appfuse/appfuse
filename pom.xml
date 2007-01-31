@@ -405,6 +405,7 @@
         <commons.beanutils.version>1.7.0</commons.beanutils.version>
         <commons.dbcp.version>1.2.1</commons.dbcp.version>
         <commons.fileupload.version>1.1.1</commons.fileupload.version>
+        <commons.io.version>1.1</commons.io.version>
         <corejsf.validator.version>1.0</corejsf.validator.version>
         <displaytag.version>1.1</displaytag.version>
         <dwr.version>2.0.rc2</dwr.version>
@@ -427,7 +428,7 @@
         <sitemesh.version>2.2.1</sitemesh.version>
         <spring.version>2.0.2</spring.version>
         <springmodules.validation.version>0.5</springmodules.validation.version>
-        <struts.version>2.0.3</struts.version>
+        <struts.version>2.0.4</struts.version>
         <struts.menu.version>2.4.2</struts.menu.version>
         <tapestry.version>4.0.2</tapestry.version>
         <tapestry.flash.version>1.0.0</tapestry.flash.version>

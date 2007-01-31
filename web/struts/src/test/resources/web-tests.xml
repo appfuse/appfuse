@@ -205,10 +205,9 @@
                 <verifytitle description="we should see file upload form" text=".*${upload.title}.*" regex="true"/>
                 <setinputfield description="set name" name="name" value="Canoo Test File"/>
                 <setFileField description="set file" name="file" fileName="pom.xml"/>
-                <!-- File Upload is broken in Struts 2.0.3: https://issues.apache.org/struts/browse/WW-1642
                 <clickbutton label="${button.upload}" description="Click Upload"/>
                 <verifytitle description="show file data if upload OK" text=".*${display.title}.*" regex="true"/>
-                <verifytext description="verify original filename displayed on page" text="pom.xml"/>  -->
+                <verifytext description="verify original filename displayed on page" text="pom.xml"/>
             </steps>
         </webtest>
     </target>
