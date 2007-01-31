@@ -2,6 +2,16 @@
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
+    <!-- Constants -->
+    <constant name="struts.devMode" value="false"/>
+    <constant name="struts.locale" value="en"/>
+    <constant name="struts.i18n.encoding" value="UTF-8"/>
+    <constant name="struts.action.extension" value="html"/>
+    <constant name="struts.objectFactory" value="spring"/>
+    <constant name="struts.custom.i18n.resources" value="ApplicationResources,errors"/>
+    <constant name="struts.multipart.maxSize" value="2097152"/>
+    <constant name="struts.ui.theme" value="css_xhtml"/>
+
     <!-- Include Struts defaults -->
     <include file="struts-default.xml"/>
 
@@ -88,7 +98,6 @@
             <result name="cancel" type="redirect">users.html</result>
             <result name="input">/WEB-INF/pages/userForm.jsp</result>
             <result name="success" type="redirect">users.html</result>
-            <result name="addAnother" type="redirect">editUser.html?method=Add&amp;from=list</result>
         </action>
         
         <action name="uploadFile" class="org.appfuse.webapp.action.FileUploadAction">
