@@ -112,7 +112,7 @@ public abstract class UserForm extends BasePage implements PageBeginRenderListen
         IValidationDelegate delegate = getDelegate();
 
         if (!StringUtils.equals(getUser().getPassword(), getUser().getConfirmPassword())) {
-            addError(delegate, "confirmPasswordField", getMessages().format("errors.twofields",
+            addError("confirmPasswordField", getMessages().format("errors.twofields",
                      getText("user.confirmPassword"), getText("user.password")),
                      ValidationConstraint.CONSISTENCY);
         }
@@ -125,7 +125,7 @@ public abstract class UserForm extends BasePage implements PageBeginRenderListen
         String originalPassword = getRequest().getParameter("originalPassword");
         
         Boolean encrypt = (Boolean) getConfiguration().get(Constants.ENCRYPT_PASSWORD);
-        boolean doEncrypt = (encrypt != null) && encrypt.booleanValue();
+        boolean doEncrypt = (encrypt != null) && encrypt;
                 
         if (doEncrypt && (StringUtils.equals(getRequest().getParameter("encryptPass"), "true") ||
                 !StringUtils.equals("S"+password, originalPassword)) || 
@@ -165,7 +165,7 @@ public abstract class UserForm extends BasePage implements PageBeginRenderListen
             userManager.saveUser(user);
         } catch (UserExistsException e) {
             log.warn(e.getMessage());
-            addError(delegate, "emailField",
+            addError("emailField",
                      getMessages().format("errors.existing.user", user.getUsername(),
                             user.getEmail()), ValidationConstraint.CONSISTENCY);
             getUser().setPassword(user.getConfirmPassword());

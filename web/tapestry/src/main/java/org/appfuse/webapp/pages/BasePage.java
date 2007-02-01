@@ -39,8 +39,7 @@ public abstract class BasePage extends org.apache.tapestry.html.BasePage impleme
         this.delegate = null;
     }
 
-    protected void addError(IValidationDelegate delegate, String componentId,
-                            String message, ValidationConstraint constraint) {
+    protected void addError(String componentId, String message, ValidationConstraint constraint) {
         IFormComponent component = (IFormComponent) getComponent(componentId);
 
         delegate.setFormComponent(component);

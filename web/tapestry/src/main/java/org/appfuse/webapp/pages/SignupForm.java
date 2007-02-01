@@ -62,9 +62,8 @@ public abstract class SignupForm extends BasePage implements PageBeginRenderList
         // make sure the password fields match
         IValidationDelegate delegate = getDelegate();
         if (!StringUtils.equals(getUser().getPassword(), getUser().getConfirmPassword())) {
-            addError(delegate, "confirmPasswordField", 
-                     getText("errors.twofields", new Object[] {getText("user.confirmPassword"), 
-                                                               getText("user.password")}),
+            addError("confirmPasswordField", getText("errors.twofields",
+                    new Object[] {getText("user.confirmPassword"), getText("user.password")}),
                      ValidationConstraint.CONSISTENCY);
         }
         
@@ -97,7 +96,7 @@ public abstract class SignupForm extends BasePage implements PageBeginRenderList
             getUserManager().saveUser(user);
         } catch (UserExistsException e) {
             log.warn(e.getMessage());
-            addError(delegate, "usernameField",
+            addError("usernameField",
                      getMessages().format("errors.existing.user", user.getUsername(),
                             user.getEmail()), ValidationConstraint.CONSISTENCY);
             // redisplay the unencrypted passwords
