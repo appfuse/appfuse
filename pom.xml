@@ -427,7 +427,7 @@
         <servlet.version>2.4</servlet.version>
         <sitemesh.version>2.2.1</sitemesh.version>
         <spring.version>2.0.2</spring.version>
-        <springmodules.validation.version>0.7</springmodules.validation.version>
+        <springmodules.validation.version>0.5</springmodules.validation.version>
         <struts.version>2.0.4</struts.version>
         <struts.menu.version>2.4.2</struts.menu.version>
         <tapestry.version>4.0.2</tapestry.version>
