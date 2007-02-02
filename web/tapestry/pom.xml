@@ -40,20 +40,8 @@
         <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/web/tapestry</developerConnection>
         <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/web/tapestry</url>
     </scm>
-    
+
     <build>
-        <defaultGoal>install</defaultGoal>
-        <testResources>
-            <testResource>
-                <directory>src/test/resources</directory>
-            </testResource>
-            <testResource>
-                <directory>src/main/webapp</directory>
-                <includes>
-                    <include>**/*.xml</include>
-                </includes>
-            </testResource>
-        </testResources>
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -94,69 +82,10 @@
                 </dependencies>
             </plugin>
             <plugin>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.1</version>
-                <configuration>
-                    <tasks>
-                        <taskdef resource="webtest_base_relaxed.taskdef">
-                            <classpath refid="maven.test.classpath"/>
-                        </taskdef>
-                        <mkdir dir="target/webtest-data"/>
-                        <!-- Delete old results file if it exists -->
-                        <delete file="target/webtest-data/web-tests-result.xml"/>
-                        <!-- This is so the default will be used if no test case is specified -->
-                        <property name="test" value="run-all-tests"/>
-                        <echo level="info">Testing '${project.build.finalName}' with locale '${user.language}'</echo>
-                        <ant antfile="src/test/resources/web-tests.xml" target="${test}">
-                            <property name="user.language" value="${user.language}"/>
-                            <property name="webapp.name" value="${project.build.finalName}"/>
-                            <property name="host" value="${cargo.host}"/>
-                            <property name="port" value="${cargo.port}"/>
-                        </ant>
-                    </tasks>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>integration-test</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.canoo</groupId>
-                        <artifactId>webtest</artifactId>
-                        <version>${webtest.version}</version>
-                        <exclusions>
-                            <exclusion>
-                                <groupId>javax.xml</groupId>
-                                <artifactId>jsr173</artifactId>
-                            </exclusion>
-                        </exclusions>
-                    </dependency>
-                    <dependency>
-                        <groupId>javax.mail</groupId>
-                        <artifactId>mail</artifactId>
-                        <version>${javamail.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>log4j</groupId>
-                        <artifactId>log4j</artifactId>
-                        <version>${log4j.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>oro</groupId>
-                        <artifactId>oro</artifactId>
-                        <version>${oro.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-            <plugin>
                 <groupId>org.appfuse</groupId>
                 <artifactId>maven-warpath-plugin</artifactId>
                 <version>1.0-m3-SNAPSHOT</version>
-                <extensions>true</extensions> 
+                <extensions>true</extensions>
                 <executions>
                     <execution>
                         <goals>
@@ -166,23 +95,34 @@
                 </executions>
             </plugin>
             <plugin>
-              <artifactId>maven-war-plugin</artifactId>
-              <version>2.0.2</version>
-              <executions>
-                  <execution>
-                      <id>skinny-war</id>
-                      <goals>
-                          <goal>war</goal>
-                      </goals>
-                      <phase>post-integration-test</phase>
-                      <inherited>false</inherited>
-                      <configuration>
-                          <warSourceExcludes>WEB-INF/lib/**</warSourceExcludes>
-                      </configuration>
-                  </execution>
-              </executions>
-          </plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.0.2</version>
+                <executions>
+                    <execution>
+                        <id>skinny-war</id>
+                        <goals>
+                            <goal>war</goal>
+                        </goals>
+                        <phase>post-integration-test</phase>
+                        <inherited>false</inherited>
+                        <configuration>
+                            <warSourceExcludes>WEB-INF/lib/**</warSourceExcludes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+            </testResource>
+            <testResource>
+                <directory>src/main/webapp</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </testResource>
+        </testResources>
     </build>
 
     <repositories>
@@ -255,9 +195,11 @@
 
     <profiles>
         <profile>
-            <id>tomcat5x</id>
+            <id>${cargo.container}</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <property>
+                    <name>!maven.test.skip</name>
+                </property>
             </activation>
             <build>
                 <plugins>
@@ -268,16 +210,15 @@
                         <configuration>
                             <wait>${cargo.wait}</wait>
                             <container>
-                                <containerId>tomcat5x</containerId>
+                                <containerId>${cargo.container}</containerId>
+                                <!--home>${cargo.container.home}</home-->
                                 <zipUrlInstaller>
-                                    <url>
-                                        http://apache.org/dist/tomcat/tomcat-5/v5.5.17/bin/apache-tomcat-5.5.17.zip
-                                    </url>
+                                    <url>${cargo.container.url}</url>
                                     <installDir>${installDir}</installDir>
                                 </zipUrlInstaller>
                             </container>
                             <configuration>
-                                <home>${project.build.directory}/tomcat5x/container</home>
+                                <home>${project.build.directory}/${cargo.container}/container</home>
                                 <properties>
                                     <cargo.hostname>${cargo.host}</cargo.hostname>
                                     <cargo.servlet.port>${cargo.port}</cargo.servlet.port>
@@ -300,6 +241,66 @@
                                 </goals>
                             </execution>
                         </executions>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>1.1</version>
+                        <configuration>
+                            <tasks>
+                                <taskdef resource="webtest_base_relaxed.taskdef">
+                                    <classpath refid="maven.test.classpath"></classpath>
+                                </taskdef>
+                                <mkdir dir="target/webtest-data"></mkdir>
+                                <!-- Delete old results file if it exists -->
+                                <delete file="target/webtest-data/web-tests-result.xml"></delete>
+                                <!-- This is so the default will be used if no test case is specified -->
+                                <property name="test" value="run-all-tests"></property>
+                                <echo level="info">Testing '${project.build.finalName}' with locale '${user.language}'
+                                </echo>
+                                <ant antfile="src/test/resources/web-tests.xml" target="${test}">
+                                    <property name="user.language" value="${user.language}"></property>
+                                    <property name="webapp.name" value="${project.build.finalName}"></property>
+                                    <property name="host" value="${cargo.host}"></property>
+                                    <property name="port" value="${cargo.port}"></property>
+                                </ant>
+                            </tasks>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>integration-test</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <dependencies>
+                            <dependency>
+                                <groupId>com.canoo</groupId>
+                                <artifactId>webtest</artifactId>
+                                <version>${webtest.version}</version>
+                                <exclusions>
+                                    <exclusion>
+                                        <groupId>javax.xml</groupId>
+                                        <artifactId>jsr173</artifactId>
+                                    </exclusion>
+                                </exclusions>
+                            </dependency>
+                            <dependency>
+                                <groupId>javax.mail</groupId>
+                                <artifactId>mail</artifactId>
+                                <version>${javamail.version}</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>log4j</groupId>
+                                <artifactId>log4j</artifactId>
+                                <version>${log4j.version}</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>oro</groupId>
+                                <artifactId>oro</artifactId>
+                                <version>${oro.version}</version>
+                            </dependency>
+                        </dependencies>
                     </plugin>
                 </plugins>
             </build>
