@@ -249,10 +249,10 @@
                                 <property name="test" value="run-all-tests"></property>
                                 <echo level="info">Testing '${project.build.finalName}' with locale '${user.language}'</echo>
                                 <ant antfile="src/test/resources/web-tests.xml" target="${test}">
-                                    <property name="user.language" value="${user.language}"></property>
-                                    <property name="webapp.name" value="${project.build.finalName}"></property>
-                                    <property name="host" value="${cargo.host}"></property>
-                                    <property name="port" value="${cargo.port}"></property>
+                                    <property name="user.language" value="${user.language}"/>
+                                    <property name="webapp.name" value="${project.build.finalName}"/>
+                                    <property name="host" value="${cargo.host}"/>
+                                    <property name="port" value="${cargo.port}"/>
                                 </ant>
                             </tasks>
                         </configuration>

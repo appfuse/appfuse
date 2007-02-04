@@ -34,11 +34,46 @@
         "core" and "web". The core module depends on appfuse-service, while the web module depends on core as well
         as AppFuse's Tapestry implementation.
     </description>
-    
+
     <scm>
         <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/archetypes/appfuse-modular-tapestry</connection>
         <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/archetypes/appfuse-modular-tapestry</developerConnection>
         <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/archetypes/appfuse-modular-tapestry</url>
     </scm>
+
+    <profiles>
+        <profile>
+            <id>integration-test</id>
+            <activation>
+                <property>
+                    <name>!maven.test.skip</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>1.1</version>
+                        <configuration>
+                            <tasks>
+                                <ant antfile="../common-test.xml" dir=".">
+                                    <property name="archetype" value="${pom.artifactId}"/>
+                                    <property name="version" value="${pom.version}"/>
+                                </ant>
+                            </tasks>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>integration-test</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
 
