@@ -18,6 +18,7 @@
         <sequential>
             <delete dir="${test.dir}"/>
             <mkdir dir="${test.dir}"/>
+            <maven dir="${basedir}" command="install -Dmaven.test.skip=true"/>
             <maven dir="${test.dir}" archetype="@{archetype}" version="@{version}" />
             <maven dir="${test.dir}/archetype" command="integration-test"/>
         </sequential>
@@ -31,13 +32,13 @@
         <attribute name="command" default="archetype:create -DarchetypeGroupId=org.appfuse -DarchetypeArtifactId=@{archetype} -DremoteRepositories=http://static.appfuse.org/repository -DarchetypeVersion=@{version} -DgroupId=com.mycompany -DartifactId=archetype"/>
         
         <sequential>
-            <exec dir="@{dir}" executable="mvn.bat" os="Windows XP">
+            <exec dir="@{dir}" executable="mvn.bat" os="Windows XP" failonerror="true">
                 <arg line="@{command}"/>
             </exec>
-            <exec dir="@{dir}" executable="mvn" os="Mac OS X">
+            <exec dir="@{dir}" executable="mvn" os="Mac OS X" failonerror="true">
                 <arg line="@{command}"/>
             </exec>
-            <exec dir="@{dir}" executable="mvn" os="Linux">
+            <exec dir="@{dir}" executable="mvn" os="Linux" failonerror="true">
                 <arg line="@{command}"/>
             </exec>
         </sequential>
