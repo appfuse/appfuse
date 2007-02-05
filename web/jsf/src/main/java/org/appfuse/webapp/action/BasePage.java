@@ -80,7 +80,8 @@ public class BasePage {
     }
 
     public ResourceBundle getBundle() {
-        return ResourceBundle.getBundle(getBundleName(), getRequest().getLocale());
+        ClassLoader classLoader =  Thread.currentThread().getContextClassLoader();
+        return ResourceBundle.getBundle(getBundleName(), getRequest().getLocale(), classLoader);
     }
 
     public String getText(String key) {
