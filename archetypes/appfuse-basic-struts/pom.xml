@@ -42,11 +42,11 @@
     <profiles>
         <profile>
             <id>integration-test</id>
-            <activation>
+            <!--activation>
                 <property>
                     <name>!maven.test.skip</name>
                 </property>
-            </activation>
+            </activation-->
             <build>
                 <plugins>
                     <plugin>
