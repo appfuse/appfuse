@@ -54,7 +54,7 @@
             </div>
             <div>
                 <s:password key="user.confirmPassword" theme="xhtml" required="true" 
-                    showPassword="true" cssClass="text medium"/>
+                    showPassword="true" cssClass="text medium" onchange="passwordChanged(this)"/>
             </div>
         </div>
     </li>
@@ -177,9 +177,14 @@
     highlightFormElements();
 
     function passwordChanged(passwordField) {
-        var origPassword = "<s:property value="user.password"/>";
+        if (passwordField.name == "user.password") {
+            var origPassword = "<s:property value="user.password"/>";
+        } else if (passwordField.name == "user.confirmPassword") {
+            var origPassword = "<s:property value="user.confirmPassword"/>";
+        }
+        
         if (passwordField.value != origPassword) {
-            createFormElement("input", "hidden",  "encryptPass", "encryptPass", 
+            createFormElement("input", "hidden",  "encryptPass", "encryptPass",
                               "true", passwordField.form);
         }
     }

@@ -81,7 +81,7 @@
                 <form:errors path="confirmPassword" cssClass="fieldError"/>
                 <%--form:password path="confirmPassword" id="confirmPassword" cssClass="text medium"/--%>
                 <spring:bind path="user.confirmPassword">
-                <input type="password" name="confirmPassword" id="confirmPassword" class="text medium" value="${user.confirmPassword}"/>   
+                <input type="password" name="confirmPassword" id="confirmPassword" class="text medium" onchange="passwordChanged(this)" value="${user.confirmPassword}"/>   
                 </spring:bind>
             </div>
         </div>
@@ -219,10 +219,14 @@
     highlightFormElements();
 
     function passwordChanged(passwordField) {
-        var origPassword = "<c:out value="${user.password}"/>";
+        if (passwordField.id == "password") {
+            var origPassword = "${user.password}";
+        } else if (passwordField.id == "confirmPassword") {
+            var origPassword = "${user.confirmPassword}";
+        }
+
         if (passwordField.value != origPassword) {
-            createFormElement("input", "hidden",
-                              "encryptPass", "encryptPass",
+            createFormElement("input", "hidden",  "encryptPass", "encryptPass",
                               "true", passwordField.form);
         }
     }
