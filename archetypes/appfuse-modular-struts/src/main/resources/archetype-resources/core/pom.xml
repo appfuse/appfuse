@@ -86,6 +86,13 @@
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>ApplicationResources_zh*.properties</exclude>
+                    <exclude>ApplicationResources_de.properties</exclude>
+                    <exclude>ApplicationResources_fr.properties</exclude>
+                    <exclude>ApplicationResources_nl.properties</exclude>
+                    <exclude>ApplicationResources_pt*.properties</exclude>
+                </excludes>
                 <filtering>true</filtering>
             </resource>
         </resources>
