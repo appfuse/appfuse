@@ -12,8 +12,8 @@
 <p><input type="button" onclick="location.href='mainMenu.html'" jwcid="@Any" value="message:button.done"/></p>
   
 <table jwcid="table@contrib:Table" class="table contribTable" id="user"
-    rowsClass="ognl:beans.evenOdd.next" row="ognl:row" 
+    rowsClass="ognl:beans.rowsClass.next" row="ognl:row"
     columns="user.username:username, activeUsers.fullName:fullName" 
     source="ognl:getServletContext().getAttribute('userNames')" initialSortColumn="user.username"
-    arrowUpAsset="ognl:assets.upArrow" arrowDownAsset="ognl:assets.downArrow">
+    arrowUpAsset="asset:upArrow" arrowDownAsset="asset:downArrow">
 </table>

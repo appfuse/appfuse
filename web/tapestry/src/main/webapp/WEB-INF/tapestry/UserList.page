@@ -9,7 +9,7 @@
     <property name="message" persist="flash"/>
     <property name="row"/>
     
-    <bean name="evenOdd" class="org.apache.tapestry.bean.EvenOdd"/>
+    <bean name="rowsClass" class="org.apache.tapestry.bean.EvenOdd"/>
     <asset name="upArrow" path="/images/arrow_up.png"/>
     <asset name="downArrow" path="/images/arrow_down.png"/>
 </page-specification>

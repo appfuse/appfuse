@@ -12,12 +12,12 @@
 </p>
 
 <table jwcid="table@contrib:Table" class="table contribTable" id="userList"
-    rowsClass="ognl:beans.evenOdd.next" row="ognl:row" 
+    rowsClass="ognl:beans.rowsClass.next" row="ognl:row" 
     columns="user.username:username, activeUsers.fullName:fullName, user.email:email, user.enabled:enabled"
     source="ognl:users" initialSortColumn="username"
-    arrowUpAsset="ognl:assets.upArrow" arrowDownAsset="ognl:assets.downArrow">
+    arrowUpAsset="asset:upArrow" arrowDownAsset="asset:downArrow">
     <tr jwcid="user_usernameColumnValue@Block">
-        <a jwcid="@DirectLink" listener="ognl:listeners.edit" parameters="ognl:row.id">
+        <a jwcid="@DirectLink" listener="listener:edit" parameters="ognl:row.id">
             <span jwcid="@Insert" value="ognl:row.username"/>
         </a>
     </tr>
