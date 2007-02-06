@@ -284,6 +284,7 @@ function highlightTableRows(tableId) {
             var link = cell.getElementsByTagName("a")[0];
             location.href = link.getAttribute("href");
             this.style.cursor="wait";
+            return false;
         }
     }
 }
