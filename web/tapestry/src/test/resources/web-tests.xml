@@ -201,7 +201,7 @@
                 <invoke description="click Upload a File link" url="/FileUpload.html"/>
                 <verifytitle description="we should see file upload form" text=".*${upload.title}.*" regex="true"/>
                 <setinputfield description="set name" name="nameField" value="Canoo Test File"/>
-                <setFileField description="set file" name="Upload" fileName="pom.xml"/>
+                <setFileField description="set file" name="fileField" fileName="pom.xml"/>
                 <clickbutton label="${button.upload}" description="Click Upload"/>
                 <verifytitle description="show file data if upload OK" text=".*${display.title}.*" regex="true"/>
                 <verifytext description="verify original filename displayed on page" text="pom.xml"/>
