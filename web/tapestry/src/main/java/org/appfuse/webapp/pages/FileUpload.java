@@ -51,7 +51,7 @@ public abstract class FileUpload extends BasePage {
 
         // write the file to the file specified
         OutputStream bos = new FileOutputStream(uploadDir + file.getFileName());
-        int bytesRead = 0;
+        int bytesRead;
         byte[] buffer = new byte[8192];
 
         while ((bytesRead = stream.read(buffer, 0, 8192)) != -1) {
