@@ -252,6 +252,11 @@
             <url>http://repo1.maven.org/maven2</url>
         </repository>
         <repository>
+            <id>struts-205-staging</id>
+            <name>Apache Struts 2.0.5 Staging Repository</name>
+            <url>http://people.apache.org/builds/struts/2.0.5/m2-staging-repository</url>
+        </repository>
+        <repository>
             <id>appfuse</id>
             <url>http://static.appfuse.org/repository</url>
         </repository>
