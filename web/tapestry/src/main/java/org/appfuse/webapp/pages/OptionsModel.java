@@ -5,31 +5,31 @@ import java.util.List;
 import org.apache.tapestry.form.IPropertySelectionModel;
 import org.appfuse.model.LabelValue;
 
-public class RoleModel implements IPropertySelectionModel {
-    private List roles = null;
+public class OptionsModel implements IPropertySelectionModel {
+    private List options = null;
 
-    public RoleModel(List roles) {
-        this.roles = roles;
+    public OptionsModel(List roles) {
+        this.options = roles;
     }
 
     public int getOptionCount() {
-        return this.roles.size();
+        return this.options.size();
     }
 
     public Object getOption(int index) {
-        LabelValue option = (LabelValue) this.roles.get(index);
+        LabelValue option = (LabelValue) this.options.get(index);
 
         return option.getValue();
     }
 
     public String getLabel(int index) {
-        LabelValue option = (LabelValue) this.roles.get(index);
+        LabelValue option = (LabelValue) this.options.get(index);
 
         return option.getLabel();
     }
 
     public String getValue(int index) {
-        LabelValue option = (LabelValue) this.roles.get(index);
+        LabelValue option = (LabelValue) this.options.get(index);
 
         return option.getValue();
     }

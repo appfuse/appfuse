@@ -34,7 +34,7 @@ public abstract class UserForm extends BasePage implements PageBeginRenderListen
     public abstract IPropertySelectionModel getAvailableRoles();
     public abstract void setAvailableRoles(IPropertySelectionModel model);
     public abstract List getUserRoles();
-    public abstract void setUserRoles(List roles);
+    public abstract void setUserRoles(List<String> roles);
     public abstract IPropertySelectionModel getCountries(); 
     public abstract void setCountries(IPropertySelectionModel model);
     public abstract MailEngine getMailEngine();
@@ -59,14 +59,14 @@ public abstract class UserForm extends BasePage implements PageBeginRenderListen
         // initialize drop-downs
         if (getAvailableRoles() == null) {
             List roles = (List) getServletContext().getAttribute(Constants.AVAILABLE_ROLES);
-            setAvailableRoles(new RoleModel(roles));
+            setAvailableRoles(new OptionsModel(roles));
         }
         
-        List selectedRoles = new ArrayList(getUser().getRoles().size());
+        List<String> selectedRoles = new ArrayList<String>(getUser().getRoles().size());
 
-        for (Iterator it = getUser().getRoles().iterator();
+        for (Iterator<Role> it = getUser().getRoles().iterator();
                  (it != null) && it.hasNext();) {
-            Role role = (Role) it.next();
+            Role role = it.next();
             selectedRoles.add(role.getName());
         }
         setUserRoles(selectedRoles);
@@ -213,11 +213,11 @@ public abstract class UserForm extends BasePage implements PageBeginRenderListen
 
         StringBuffer msg = new StringBuffer();
         msg.append(getText("newuser.email.message", user.getFullName()));
-        msg.append("\n\n" + getText("user.username"));
-        msg.append(": " + user.getUsername() + "\n");
-        msg.append(getText("user.password") + ": ");
+        msg.append("\n\n").append(getText("user.username"));
+        msg.append(": ").append(user.getUsername()).append("\n");
+        msg.append(getText("user.password")).append(": ");
         msg.append(user.getPassword());
-        msg.append("\n\nLogin at: " + RequestUtil.getAppURL(request));
+        msg.append("\n\nLogin at: ").append(RequestUtil.getAppURL(request));
         message.setText(msg.toString());
 
         message.setSubject(getText("signup.email.subject"));
