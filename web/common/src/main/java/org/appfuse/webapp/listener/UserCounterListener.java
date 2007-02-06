@@ -82,15 +82,11 @@ public class UserCounterListener implements ServletContextListener, HttpSessionA
             users = new HashSet();
         }
 
-        if (log.isDebugEnabled()) {
-            if (users.contains(user)) {
-                log.debug("User already logged in, adding anyway...");
-            }
+        if (!users.contains(user)) {
+            users.add(user);
+            servletContext.setAttribute(USERS_KEY, users);
+            incrementUserCounter();
         }
-
-        users.add(user);
-        servletContext.setAttribute(USERS_KEY, users);
-        incrementUserCounter();
     }
 
     synchronized void removeUsername(Object user) {
