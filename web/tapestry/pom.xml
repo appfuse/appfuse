@@ -152,6 +152,11 @@
         </dependency>
         <dependency>
             <groupId>tapestry</groupId>
+            <artifactId>tapestry-annotations</artifactId>
+            <version>${tapestry.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>tapestry</groupId>
             <artifactId>tapestry-contrib</artifactId>
             <version>${tapestry.version}</version>
         </dependency>

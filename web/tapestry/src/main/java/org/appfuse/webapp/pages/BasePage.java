@@ -16,6 +16,7 @@ import org.apache.tapestry.event.PageEvent;
 import org.apache.tapestry.form.IFormComponent;
 import org.apache.tapestry.valid.IValidationDelegate;
 import org.apache.tapestry.valid.ValidationConstraint;
+import org.apache.tapestry.annotations.InjectPage;
 import org.appfuse.Constants;
 
 public abstract class BasePage extends org.apache.tapestry.html.BasePage implements PageDetachListener {
@@ -25,7 +26,10 @@ public abstract class BasePage extends org.apache.tapestry.html.BasePage impleme
     public abstract IEngineService getEngineService();
     public abstract String getMessage();
     public abstract void setMessage(String message);
-    
+
+    @InjectPage("mainMenu")
+	public abstract MainMenu getMainMenu();
+
     private IValidationDelegate delegate;
 
     public IValidationDelegate getDelegate() {

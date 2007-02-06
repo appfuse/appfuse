@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import org.apache.tapestry.IRequestCycle;
+import org.apache.tapestry.annotations.InjectPage;
 import org.apache.tapestry.request.IUploadFile;
 import org.appfuse.Constants;
 
@@ -22,9 +23,9 @@ public abstract class FileUpload extends BasePage {
     public abstract void setName(String name);
     public abstract String getName();
     
-    public void cancel(IRequestCycle cycle) {
+    public String cancel() {
         log.debug("entered 'cancel' method");
-        cycle.activate("mainMenu");
+        return "mainMenu";
     }
     
     public void upload(IRequestCycle cycle) throws IOException {
