@@ -108,12 +108,11 @@
         <binding name="displayName" value="message:user.address.postalCode"/>
     </component>
 
-    <!-- TODO: Validate this field -->
     <component id="countryField" type="PropertySelection">
         <binding name="model" value="countries"/>
         <binding name="value" value="user.address.country"/>
-        <!-- Doesn't work -->
-        <!--message-binding name="displayName" key="user.address.country"/-->
+        <binding name="validators" value="validators:required"/>
+        <binding name="displayName" value="message:user.address.country"/>
     </component>
 
     <component id="userRoles" type="contrib:MultiplePropertySelection">
