@@ -71,7 +71,7 @@
             <plugin>
                 <groupId>org.appfuse</groupId>
                 <artifactId>maven-warpath-plugin</artifactId>
-                <version>1.0-m3-SNAPSHOT</version>
+                <version>1.0-m3</version>
                 <extensions>true</extensions>
                 <executions>
                     <execution>

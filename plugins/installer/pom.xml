@@ -23,7 +23,7 @@
     <artifactId>installer</artifactId>
     <packaging>jar</packaging>
     <name>AppFuse Installer</name>
-    <version>1.0-m3-SNAPSHOT</version>
+    <version>1.0-m3</version>
     <inceptionYear>2006</inceptionYear>
     <url>http://appfuse.dev.java.net</url>
 
