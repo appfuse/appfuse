@@ -163,9 +163,9 @@
 
     <repositories>
         <repository>
-            <id>struts-204-staging</id>
-            <name>Apache Struts 2.0.4 Staging Repository</name>
-            <url>http://people.apache.org/builds/struts/2.0.4/m2-staging-repository</url>
+            <id>struts-205-staging</id>
+            <name>Apache Struts 2.0.5 Staging Repository</name>
+            <url>http://people.apache.org/builds/struts/2.0.5/m2-staging-repository</url>
         </repository>
     </repositories>
 
