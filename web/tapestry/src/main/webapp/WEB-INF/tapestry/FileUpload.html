@@ -15,13 +15,12 @@
         <span key="upload.message"/>
     </li>
     <li>
-        <label class="desc" for="name"><span key="uploadForm.name">Name</span>&nbsp;<span class="req">*</span></label>
+        <label class="desc" jwcid="@FieldLabel" field="component:nameField"/>
         <input jwcid="nameField" type="text" id="name" class="text medium"/>
     </li>
     <li>
-        <label class="desc" for="file"><span key="uploadForm.file">File</span>&nbsp;<span class="req">*</span></label>
-        <input type="file" jwcid="@Upload" file="ognl:file" class="file medium"
-            displayName="message:uploadForm.file" validators="validators:required" id="file"/>
+        <label class="desc" jwcid="@FieldLabel" field="component:fileField"/>
+        <input jwcid="fileField" type="file" id="file" class="text medium"/>
     </li>
     <li class="buttonBar bottom">
         <input type="submit" class="button" jwcid="@Submit"

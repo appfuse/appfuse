@@ -5,10 +5,8 @@
 
 <page-specification>
     <inject property="request" object="service:tapestry.globals.HttpServletRequest"/>
-    <!--<bean name="delegate" class="org.apache.tapestry.valid.ValidationDelegate"/>-->
        
     <component id="form" type="Form">
-        <!--<binding name="delegate" value="ognl:beans.delegate"/>-->
         <binding name="delegate" value="ognl:delegate"/>
         <binding name="clientValidationEnabled" value="true"/>
     </component>
@@ -20,5 +18,11 @@
         <binding name="value" value="name"/>
         <binding name="validators" value="validators:required"/>
         <binding name="displayName" value="message:uploadForm.name"/>
+    </component>
+
+    <component id="fileField" type="Upload">
+        <binding name="file" value="file"/>
+        <binding name="validators" value="validators:required"/>
+        <binding name="displayName" value="message:uploadForm.file"/>
     </component>
 </page-specification>
