@@ -7,8 +7,7 @@
         <extension-encoder id="extension" extension="svc" after="*"/>
     </contribution>
 
-    <!-- Uncomment before going to production as it displays nicer error messages to users -->
-    <!--<contribution configuration-id="tapestry.InfrastructureOverrides">
-        <property name="exceptionPageName" value="error"/>
-    </contribution>-->
+    <contribution configuration-id="tapestry.InfrastructureOverrides" if="not(property tapestry.devMode)">
+        <property name="exceptionPageName" value="Error"/>
+    </contribution> 
 </module>
