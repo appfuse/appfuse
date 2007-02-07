@@ -47,7 +47,7 @@
             <plugin>
                 <groupId>org.appfuse</groupId>
                 <artifactId>appfuse-maven-plugin</artifactId>
-                <version>2.0-m3</version>
+                <version>2.0-m4-SNAPSHOT</version>
             </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -505,7 +505,7 @@
     <properties>
         <dao.framework>hibernate</dao.framework>
         <web.framework>jsf</web.framework>
-        <appfuse.version>2.0-m3</appfuse.version>
+        <appfuse.version>2.0-m4-SNAPSHOT</appfuse.version>
 
         <!-- Database settings -->
         <hibernate.dialect>org.hibernate.dialect.MySQLInnoDBDialect</hibernate.dialect>
