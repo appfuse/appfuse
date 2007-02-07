@@ -4,7 +4,6 @@
 <struts>
     <!-- Constants -->
     <constant name="struts.devMode" value="false"/>
-    <constant name="struts.locale" value="en"/>
     <constant name="struts.i18n.encoding" value="UTF-8"/>
     <constant name="struts.action.extension" value="html"/>
     <constant name="struts.objectFactory" value="spring"/>
