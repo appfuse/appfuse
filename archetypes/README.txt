@@ -14,6 +14,11 @@ Basic Archetypes
   is linked (via svn:externals) to src/main/resources in the JSF archetype.
 * The src/test/resources directory is linked (via svn:externals) to the
   src/test/resources directory for each web framework.
+  
+This means if you need to edit any files in src/main/resources, you should do
+it in both the Struts and JSF modules. The reason for this is because the 
+Struts module needs some more files (i.e. struts.xml) in its src/main/resources
+and SVN doesn't support svn:externals on files at this time.
 
 Modular Archetypes
 =============================================================================
