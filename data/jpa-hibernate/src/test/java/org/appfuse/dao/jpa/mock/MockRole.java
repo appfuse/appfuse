@@ -14,7 +14,6 @@ import org.apache.commons.lang.builder.ToStringStyle;
 /**
  * @author <a href="mailto:bwnoll@gmail.com">Bryan Noll</a>
  */
-@Entity
 public class MockRole {
     private static final long serialVersionUID = 3690197650654049848L;
     
