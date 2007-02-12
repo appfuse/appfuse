@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
+
+    <persistence-unit name="ApplicationEntityManager" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <class>org.appfuse.model.User</class>
+        <class>org.appfuse.model.Role</class>
+        
+        <!-- 
+        Adding more <class>f.q.c.Name</class> elements here is not required.  
+        The annotated classes will still be detected, as can be observed in the 
+        following log output:
+        
+        INFO [main] Ejb3Configuration.scanForClasses(652) | found EJB3 Entity bean: com.mycompany.model.Person
+        
+        That being said, it will still work if you do add your <class> 
+        declarations here for clarity, simply as a way to explicitly see all the 
+        classes that are mapped as persistent entities.  Do whatever blows your 
+        skirt up.
+        -->
+        
+    </persistence-unit>
+    
+</persistence>
