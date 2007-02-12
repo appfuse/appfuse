@@ -47,42 +47,42 @@
     <target name="test-all" description="Runs all archetype tests using Ant">
         <ant antfile="../common-test.xml" dir="appfuse-basic-jsf">
             <property name="archetype" value="appfuse-basic-jsf"/>
-            <property name="version" value="1.0-m3"/>
+            <property name="version" value="1.0-m4-SNAPSHOT"/>
         </ant>
         
         <ant antfile="../common-test.xml" dir="appfuse-basic-spring">
             <property name="archetype" value="appfuse-basic-spring"/>
-            <property name="version" value="1.0-m3"/>
+            <property name="version" value="1.0-m4-SNAPSHOT"/>
         </ant>
         
         <ant antfile="../common-test.xml" dir="appfuse-basic-struts">
             <property name="archetype" value="appfuse-basic-struts"/>
-            <property name="version" value="1.0-m3"/>
+            <property name="version" value="1.0-m4-SNAPSHOT"/>
         </ant>
         
         <ant antfile="../common-test.xml" dir="appfuse-basic-tapestry">
             <property name="archetype" value="appfuse-basic-tapestry"/>
-            <property name="version" value="1.0-m3"/>
+            <property name="version" value="1.0-m4-SNAPSHOT"/>
         </ant>
         
         <ant antfile="../common-test.xml" dir="appfuse-modular-jsf">
             <property name="archetype" value="appfuse-modular-jsf"/>
-            <property name="version" value="1.0-m3"/>
+            <property name="version" value="1.0-m4-SNAPSHOT"/>
         </ant>
         
         <ant antfile="../common-test.xml" dir="appfuse-modular-spring">
             <property name="archetype" value="appfuse-modular-spring"/>
-            <property name="version" value="1.0-m3"/>
+            <property name="version" value="1.0-m4-SNAPSHOT"/>
         </ant>
         
         <ant antfile="../common-test.xml" dir="appfuse-modular-struts">
             <property name="archetype" value="appfuse-modular-struts"/>
-            <property name="version" value="1.0-m3"/>
+            <property name="version" value="1.0-m4-SNAPSHOT"/>
         </ant>
         
         <ant antfile="../common-test.xml" dir="appfuse-modular-tapestry">
             <property name="archetype" value="appfuse-modular-tapestry"/>
-            <property name="version" value="1.0-m3"/>
+            <property name="version" value="1.0-m4-SNAPSHOT"/>
         </ant>
     </target>
 </project>
