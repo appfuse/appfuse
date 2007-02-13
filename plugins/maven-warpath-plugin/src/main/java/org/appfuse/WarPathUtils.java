@@ -165,7 +165,7 @@ public class WarPathUtils
     entry = replaceFileSeparator(entry);
     for (int i = 0; i < patterns.length; i++)
     {
-      String pattern = replaceFileSeparator(patterns[i]);
+      String pattern = replaceFileSeparator(patterns[i].trim());
       if (SelectorUtils.matchPath(pattern, entry))
       {
         return true;
