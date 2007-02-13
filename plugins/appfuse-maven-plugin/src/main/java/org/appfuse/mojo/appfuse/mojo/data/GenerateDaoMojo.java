@@ -30,7 +30,7 @@ public class GenerateDaoMojo extends PojoMojoBase
 {
 
     /**
-     * Creates a new GenerateDaoMojo object.
+     * Creates a new GenDaoMojo object.
      */
     public GenerateDaoMojo()
     {

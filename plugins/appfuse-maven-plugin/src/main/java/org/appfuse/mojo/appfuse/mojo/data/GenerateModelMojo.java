@@ -17,7 +17,6 @@ package org.appfuse.mojo.appfuse.mojo.data;
 import java.util.Properties;
 
 import org.appfuse.mojo.appfuse.mojo.PojoMojoBase;
-import org.apache.maven.plugin.MojoExecutionException;
 
 /**
  * This mojo class will create model or value objects from a set of hbm.xml files.
@@ -25,14 +24,14 @@ import org.apache.maven.plugin.MojoExecutionException;
  * @author <a href="mailto:scott@theryansplace.com">Scott Ryan</a>
  * @version $Id: $
  * @description Generate one or more model/value objects from the input hbm.xml files.
- *
+ * @goal genmodel
  */
 // goal was genmodel
 public class GenerateModelMojo extends PojoMojoBase
 {
 
     /**
-     * Creates a new GenerateModelMojo object.
+     * Creates a new GenModelMojo object.
      */
     public GenerateModelMojo()
     {
