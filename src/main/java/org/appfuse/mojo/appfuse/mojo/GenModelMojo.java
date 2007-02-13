@@ -2,10 +2,12 @@ package org.appfuse.mojo.appfuse.mojo;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.hibernate.tool.hbm2x.HibernateMappingExporter;
+import org.hibernate.tool.hbm2x.POJOExporter;
 import org.hibernate.cfg.Configuration;
 import org.appfuse.mojo.appfuse.utility.JDBCConfigurationUtility;
 
 import java.util.Properties;
+import java.util.List;
 import java.io.File;
 
 /**
@@ -16,15 +18,15 @@ import java.io.File;
  * @description Generate one or more model/value objects from the input hbm.xml files.
  * @goal gen-model
  */
-public class GenerateModelMojo extends PojoMojoBase {
+public class GenModelMojo extends PojoMojoBase {
 
     /**
-     * Creates a new GenerateModelMojo object.
+     * Creates a new GenModelMojo object.
      */
-    public GenerateModelMojo()
+    public GenModelMojo()
     {
         super();
-        this.setMojoName( "GenerateModelMojo" );
+        this.setMojoName( "GenModelMojo" );
     }    
     /**
      * This method will run the database conversion to hbm file mojo task.
@@ -109,8 +111,68 @@ public class GenerateModelMojo extends PojoMojoBase {
         // run the exporter.
         exporter.start();
 
-        // run execute on parent
-        super.execute();
+        // run second part
+        //###########################################################
+
+        // Get a Hibernate Mapping Exporter
+        POJOExporter pojoExporter = new POJOExporter();
+        // Allow the class to set, update or delete property settings before they are handed into the exporter. We use
+        // the passed back property set so that the original on remains intact.
+        Properties updatedProperties = null;
+        // Make sure we have a properties object.
+        if ( this.getProcessingProperties() == null )
+        {
+            updatedProperties = new Properties();
+        }
+        else
+        {
+            updatedProperties = this.getProcessingProperties();
+        }
+        // Allow the mojo to modify the properties
+        validateProperties( updatedProperties );
+
+        // Set any custom properties that might have been passed in.
+        exporter.setProperties( updatedProperties );
+
+        // call create to set up the configuration.
+        Configuration pojoConfiguration = new Configuration();
+
+        List files = this.getListOfFilesToProcess();
+        getLog().info( "Processing " + files.size() + " files based on pattern match " );
+
+        for ( int j = 0; j < files.size(); j++ )
+        {
+            String fileName = ( String ) files.get( j );
+
+            if ( getLog().isDebugEnabled() )
+            {
+                getLog().debug( "Adding file " + fileName + " to Pojo the processing list" );
+            }
+
+            pojoConfiguration.addFile( fileName );
+        }
+
+        // set the configuratino into the exporter
+        pojoExporter.setConfiguration( configuration );
+
+        // Set the destination directory
+        if ( ( this.getOutputDirectory() != null ) && ( getOutputDirectory().length() > 0 ) )
+        {
+            pojoExporter.setOutputDirectory( new File( getOutputDirectory() ) );
+        }
+        else
+        {
+            throw new MojoExecutionException( "output directory cannot be null or empty" );
+        }
+
+        // Set the file pattern model for the ouput files
+        pojoExporter.setFilePattern( getOutputPattern() );
+
+        // Set the template information.
+        pojoExporter.setTemplateName( getTemplateName() );
+
+        // run the exporter.
+        pojoExporter.start();
     }
 
     protected void validateProperties(final Properties inProperties) {
@@ -141,7 +203,7 @@ public class GenerateModelMojo extends PojoMojoBase {
     {
         StringBuffer buffer = new StringBuffer();
         buffer.append( super.toString() );
-        buffer.append( "GenerateModelMojo[" );
+        buffer.append( "GenModelMojo[" );
         buffer.append( "]" );
         return buffer.toString();
     }

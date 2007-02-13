@@ -7,5 +7,5 @@ package org.appfuse.mojo.appfuse.mojo;
  * Time: 10:10:42 PM
  * To change this template use File | Settings | File Templates.
  */
-public class GenerateServiceMojo extends MojoBase {
+public class GenServiceMojo extends MojoBase {
 }
