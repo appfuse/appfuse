@@ -30,7 +30,7 @@ import java.util.Properties;
  * @author <a href="mailto:scott@theryansplace.com">Scott Ryan</a>
  * @version $Id: $
  * @description Generate xml files from a database.
- * @goal dbtoxml
+ * 
  */
 public class DbToXMLMojo extends MojoBase
 {

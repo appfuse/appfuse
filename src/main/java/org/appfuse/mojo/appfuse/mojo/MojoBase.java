@@ -29,6 +29,70 @@ import org.apache.maven.plugin.MojoExecutionException;
 public abstract class MojoBase extends AbstractMojo
 {
 
+    public String getDatabasePropertiesFile() {
+        return databasePropertiesFile;
+    }
+
+    public void setDatabasePropertiesFile(String databasePropertiesFile) {
+        this.databasePropertiesFile = databasePropertiesFile;
+    }
+
+    public String getReverseEngineeringConfigurationFile() {
+        return reverseEngineeringConfigurationFile;
+    }
+
+    public void setReverseEngineeringConfigurationFile(String reverseEngineeringConfigurationFile) {
+        this.reverseEngineeringConfigurationFile = reverseEngineeringConfigurationFile;
+    }
+
+    public String getReverseStrategyClass() {
+        return reverseStrategyClass;
+    }
+
+    public void setReverseStrategyClass(String reverseStrategyClass) {
+        this.reverseStrategyClass = reverseStrategyClass;
+    }
+
+    public String getHbmTemplateName() {
+        return hbmTemplateName;
+    }
+
+    public void setHbmTemplateName(String hbmTemplateName) {
+        this.hbmTemplateName = hbmTemplateName;
+    }
+
+    /**
+     * The full name of the location of the hibernate format database properties file.
+     *
+     * @parameter expression="${appfuse.database.properties}" default-value="${basedir}/target/classes/jdbc.properties"
+     */
+    private String databasePropertiesFile;
+
+    /**
+     * The location and name of the file that defines the attrbutes and other data that will be used to control the
+     * reverse engineering process. This file controls such things as the schema and table names that will be reverse
+     * engineered.
+     *
+     * @parameter expression="${appfuse.reveng.file}" default-value = "${basedir}/src/main/resources/hibernate.reveng.xml"
+     */
+    private String reverseEngineeringConfigurationFile;
+
+    /**
+     * The full package and classname for any additional ReverseEngineeringDelegator class that might be used to alter
+     * the way the reverse engineering might be handled. A sample is included in the code for this plugin and to use
+     * that class you would set this value to org.codehaus.mojo.appfuse.reveng.AppFuseReverseEngineeringDelegator.
+     *
+     * @parameter expression="${appfuse.revstrategy.class}" default-value="org.appfuse.mojo.appfuse.reveng.AppFuseReverseEngineeringDelegator"
+     */
+    private String reverseStrategyClass;
+
+    /**
+     * The name of the freemarker template that will be used to reverse engineer the hbm files from the database.
+     *
+     * @parameter expression="${appfuse.hbm.template}" default-value="hbm/hibernate-mapping.hbm.ftl"
+     */
+    private String hbmTemplateName;
+
     /**
      * This is the name of the mojo that is used when outputing logging information for any mojos that extend this based
      * class.

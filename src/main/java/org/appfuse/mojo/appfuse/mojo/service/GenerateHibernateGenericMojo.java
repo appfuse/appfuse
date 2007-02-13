@@ -49,8 +49,11 @@ public class GenerateHibernateGenericMojo extends ConfigMojoBase {
             getLog().info( "Running the " + this.getMojoName() + " mojo with properties " + this );
         }
 
+        
         LoadFile loadFileTask = this.createLoadFileTask();
 
+        // Generate Generic Manager snippets in XML files
+        
         // Configure the files
         loadFileTask.perform();
     }
@@ -62,7 +65,7 @@ public class GenerateHibernateGenericMojo extends ConfigMojoBase {
      */
     protected LoadFile createLoadFileTask()
     {
-        // TODO - implement using output directory and application context as destination
+        // TODO - implement using output directory, filePattern, and application context as destination
         return null;
 
     }
