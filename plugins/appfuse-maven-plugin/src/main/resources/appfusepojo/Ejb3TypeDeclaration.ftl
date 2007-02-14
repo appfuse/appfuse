@@ -1,4 +1,4 @@
-
+<#if ejb3?if_exists>
 <#if pojo.isComponent()>
 @${pojo.importType("javax.persistence.Embeddable")}
 <#else>
@@ -12,4 +12,5 @@
 <#if pojo.needsAnnTableUniqueConstraints()>
     , uniqueConstraints = { ${pojo.generateAnnTableUniqueConstraint()} }
 </#if>)
+</#if>
 </#if>
