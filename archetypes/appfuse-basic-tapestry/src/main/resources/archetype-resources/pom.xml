@@ -115,12 +115,13 @@
                 <artifactId>dbunit-maven-plugin</artifactId>
                 <version>1.0-beta-1</version>
                 <configuration>
+                    <dataTypeFactoryName>${dbunit.dataTypeFactoryName}</dataTypeFactoryName>
                     <driver>${jdbc.driverClassName}</driver>
                     <username>${jdbc.username}</username>
                     <password>${jdbc.password}</password>
                     <url>${jdbc.url}</url>
                     <src>src/test/resources/sample-data.xml</src>
-                    <type>CLEAN_INSERT</type>
+                    <type>${dbunit.operation.type}</type>
                     <skip>${maven.test.skip}</skip>
                 </configuration>
                 <executions>
@@ -478,6 +479,51 @@
                 <jdbc.password>postgres</jdbc.password>
             </properties>
         </profile>
+        <profile>
+            <!-- You need to enable TCP/IP Connections for SQL Server 2005 after installing. -->
+            <!-- http://www.mattwoodward.com/blog/index.cfm?commentID=211 -->
+            <id>sqlserver</id>
+            <properties>
+                <dbunit.dataTypeFactoryName>org.dbunit.ext.mssql.MsSqlDataTypeFactory</dbunit.dataTypeFactoryName>
+                <dbunit.operation.type>MSSQL_CLEAN_INSERT</dbunit.operation.type>
+                <hibernate.dialect>org.hibernate.dialect.SQLServerDialect</hibernate.dialect>
+                <jdbc.groupId>net.sourceforge.jtds</jdbc.groupId>
+                <jdbc.artifactId>jtds</jdbc.artifactId>
+                <jdbc.version>1.2</jdbc.version>
+                <jdbc.driverClassName>net.sourceforge.jtds.jdbc.Driver</jdbc.driverClassName>
+                <jdbc.url><![CDATA[jdbc:jtds:sqlserver://localhost:3683/${artifactId}]]></jdbc.url>
+                <jdbc.username>sa</jdbc.username>
+                <jdbc.password>appfuse</jdbc.password>
+            </properties>
+        </profile>
+        <profile>
+            <id>hsqldb</id>
+            <properties>
+                <dbunit.dataTypeFactoryName>org.dbunit.ext.hsqldb.HsqldbDataTypeFactory</dbunit.dataTypeFactoryName>
+                <hibernate.dialect>org.hibernate.dialect.HSQLDialect</hibernate.dialect>
+                <jdbc.groupId>hsqldb</jdbc.groupId>
+                <jdbc.artifactId>hsqldb</jdbc.artifactId>
+                <jdbc.version>1.8.0.7</jdbc.version>
+                <jdbc.driverClassName>org.hsqldb.jdbcDriver</jdbc.driverClassName>
+                <jdbc.url><![CDATA[jdbc:hsqldb:${artifactId};shutdown=true]]></jdbc.url>
+                <jdbc.username>sa</jdbc.username>
+                <jdbc.password></jdbc.password>
+            </properties>
+        </profile>
+        <profile>
+            <id>h2</id>
+            <properties>
+                <dbunit.dataTypeFactoryName>org.dbunit.ext.hsqldb.HsqldbDataTypeFactory</dbunit.dataTypeFactoryName>
+                <hibernate.dialect>org.hibernate.dialect.H2Dialect</hibernate.dialect>
+                <jdbc.groupId>com.h2database</jdbc.groupId>
+                <jdbc.artifactId>h2</jdbc.artifactId>
+                <jdbc.version>1.0.20061217</jdbc.version>
+                <jdbc.driverClassName>org.h2.Driver</jdbc.driverClassName>
+                <jdbc.url><![CDATA[jdbc:h2:${artifactId}]]></jdbc.url>
+                <jdbc.username>sa</jdbc.username>
+                <jdbc.password></jdbc.password>
+            </properties>
+        </profile>
 
         <!-- ================= Container Profiles ================= -->
         <profile>
@@ -496,6 +542,8 @@
         <appfuse.version>2.0-m4-SNAPSHOT</appfuse.version>
 
         <!-- Database settings -->
+        <dbunit.dataTypeFactoryName>org.dbunit.dataset.datatype.DefaultDataTypeFactory</dbunit.dataTypeFactoryName>
+        <dbunit.operation.type>CLEAN_INSERT</dbunit.operation.type>
         <hibernate.dialect>org.hibernate.dialect.MySQLInnoDBDialect</hibernate.dialect>
         <jdbc.groupId>mysql</jdbc.groupId>
         <jdbc.artifactId>mysql-connector-java</jdbc.artifactId>

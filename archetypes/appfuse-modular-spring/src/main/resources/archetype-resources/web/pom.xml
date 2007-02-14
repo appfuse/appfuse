@@ -26,12 +26,13 @@
                 <artifactId>dbunit-maven-plugin</artifactId>
                 <version>1.0-beta-1</version>
                 <configuration>
+                    <dataTypeFactoryName>${dbunit.dataTypeFactoryName}</dataTypeFactoryName>
                     <driver>${jdbc.driverClassName}</driver>
                     <username>${jdbc.username}</username>
                     <password>${jdbc.password}</password>
                     <url>${jdbc.url}</url>
                     <src>src/test/resources/sample-data.xml</src>
-                    <type>CLEAN_INSERT</type>
+                    <type>${dbunit.operation.type}</type>
                     <skip>${maven.test.skip}</skip>
                 </configuration>
                 <executions>

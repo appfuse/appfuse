@@ -385,10 +385,12 @@
     <properties>
         <dao.framework>hibernate</dao.framework>
 
+        <dbunit.dataTypeFactoryName>org.dbunit.dataset.datatype.DefaultDataTypeFactory</dbunit.dataTypeFactoryName>
+        <dbunit.operation.type>CLEAN_INSERT</dbunit.operation.type>
         <hibernate.dialect>org.hibernate.dialect.MySQLInnoDBDialect</hibernate.dialect>
         <jdbc.groupId>mysql</jdbc.groupId>
         <jdbc.artifactId>mysql-connector-java</jdbc.artifactId>
-        <jdbc.version>5.0.3</jdbc.version>
+        <jdbc.version>5.0.4</jdbc.version>
         <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
         <jdbc.url><![CDATA[jdbc:mysql://localhost/appfuse?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8]]></jdbc.url>
         <jdbc.username>root</jdbc.username>
@@ -447,6 +449,20 @@
     <profiles>
         <!-- ================= Database Profiles ================= -->
         <profile>
+            <id>oracle</id>
+            <properties>
+                <dbunit.dataTypeFactoryName>org.dbunit.ext.oracle.OracleDataTypeFactory</dbunit.dataTypeFactoryName>
+                <hibernate.dialect>org.hibernate.dialect.Oracle9Dialect</hibernate.dialect>
+                <jdbc.groupId>com.oracle</jdbc.groupId>
+                <jdbc.artifactId>ojdbc14</jdbc.artifactId>
+                <jdbc.version>10.2.0.2.0</jdbc.version>
+                <jdbc.driverClassName>oracle.jdbc.driver.OracleDriver</jdbc.driverClassName>
+                <jdbc.url><![CDATA[jdbc:oracle:thin:@localhost:1521:XE]]></jdbc.url>
+                <jdbc.username>system</jdbc.username>
+                <jdbc.password>system</jdbc.password>
+            </properties>
+        </profile>
+        <profile>
             <id>postgresql</id>            
             <properties>
                 <hibernate.dialect>org.hibernate.dialect.PostgreSQLDialect</hibernate.dialect>
@@ -460,13 +476,31 @@
             </properties>
         </profile>
         <profile>
-            <!-- Doesn't work: Another instance of Derby may have already booted the database -->
+            <!-- You need to enable TCP/IP Connections for SQL Server 2005 after installing. -->
+            <!-- http://www.mattwoodward.com/blog/index.cfm?commentID=211 -->
+            <id>sqlserver</id>
+            <properties>
+                <dbunit.dataTypeFactoryName>org.dbunit.ext.mssql.MsSqlDataTypeFactory</dbunit.dataTypeFactoryName>
+                <dbunit.operation.type>MSSQL_CLEAN_INSERT</dbunit.operation.type>
+                <hibernate.dialect>org.hibernate.dialect.SQLServerDialect</hibernate.dialect>
+                <jdbc.groupId>net.sourceforge.jtds</jdbc.groupId>
+                <jdbc.artifactId>jtds</jdbc.artifactId>
+                <jdbc.version>1.2</jdbc.version>
+                <jdbc.driverClassName>net.sourceforge.jtds.jdbc.Driver</jdbc.driverClassName>
+                <jdbc.url><![CDATA[jdbc:jtds:sqlserver://localhost:3683/appfuse]]></jdbc.url>
+                <jdbc.username>sa</jdbc.username>
+                <jdbc.password>appfuse</jdbc.password>
+            </properties>
+        </profile>
+        <profile>
+            <!-- Doesn't work: http://www.nabble.com/Issues-trying-to-use-Embedded-Derby-with-hibernate3-and-dbunit-tf3226221.html -->
             <id>derby</id>
             <properties>
+                <dbunit.dataTypeFactoryName>org.dbunit.ext.db2.Db2DataTypeFactory</dbunit.dataTypeFactoryName>
                 <hibernate.dialect>org.hibernate.dialect.DerbyDialect</hibernate.dialect>
                 <jdbc.groupId>org.apache.derby</jdbc.groupId>
                 <jdbc.artifactId>derby</jdbc.artifactId>
-                <jdbc.version>10.2.1.6</jdbc.version>
+                <jdbc.version>10.2.2.0</jdbc.version>
                 <jdbc.driverClassName>org.apache.derby.jdbc.EmbeddedDriver</jdbc.driverClassName>
                 <jdbc.url><![CDATA[jdbc:derby:appfuse;create=true]]></jdbc.url>
                 <jdbc.username>any</jdbc.username>
@@ -474,9 +508,9 @@
             </properties>
         </profile>
         <profile>
-            <!-- Doesn't work: The database is already in use by another process -->
             <id>hsqldb</id>
             <properties>
+                <dbunit.dataTypeFactoryName>org.dbunit.ext.hsqldb.HsqldbDataTypeFactory</dbunit.dataTypeFactoryName>
                 <hibernate.dialect>org.hibernate.dialect.HSQLDialect</hibernate.dialect>
                 <jdbc.groupId>hsqldb</jdbc.groupId>
                 <jdbc.artifactId>hsqldb</jdbc.artifactId>
@@ -488,13 +522,12 @@
             </properties>
         </profile>
         <profile>
-            <!-- JAR doesn't exist in repo: http://repo1.maven.org/maven2/org/h2database/h2database/1.0.20061217 -->
-            <!-- Fails with org.dbunit.dataset.NoSuchColumnException: app_user.account_enabled -->
             <id>h2</id>
             <properties>
+                <dbunit.dataTypeFactoryName>org.dbunit.ext.hsqldb.HsqldbDataTypeFactory</dbunit.dataTypeFactoryName>
                 <hibernate.dialect>org.hibernate.dialect.H2Dialect</hibernate.dialect>
-                <jdbc.groupId>org.h2database</jdbc.groupId>
-                <jdbc.artifactId>h2database</jdbc.artifactId>
+                <jdbc.groupId>com.h2database</jdbc.groupId>
+                <jdbc.artifactId>h2</jdbc.artifactId>
                 <jdbc.version>1.0.20061217</jdbc.version>
                 <jdbc.driverClassName>org.h2.Driver</jdbc.driverClassName>
                 <jdbc.url><![CDATA[jdbc:h2:appfuse]]></jdbc.url>
