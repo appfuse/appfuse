@@ -1,4 +1,4 @@
-<#if ejb3>
+
 <#if pojo.hasIdentifierProperty()>
 <#if property.equals(clazz.identifierProperty)>
  ${pojo.generateAnnIdGenerator()}
@@ -18,5 +18,4 @@ ${pojo.generateCollectionAnnotation(property, cfg)}
 <#else>
 ${pojo.generateBasicAnnotation(property)}
 ${pojo.generateAnnColumnAnnotation(property)}
-</#if>
 </#if>
