@@ -59,7 +59,8 @@ public abstract class PojoMojoBase extends MojoBase
         POJOExporter exporter = new POJOExporter();
         // Allow the class to set, update or delete property settings before they are handed into the exporter. We use
         // the passed back property set so that the original on remains intact.
-        Properties updatedProperties = null;
+
+        Properties updatedProperties;
         // Make sure we have a properties object.
         if ( this.getProcessingProperties() == null )
         {
@@ -69,6 +70,7 @@ public abstract class PojoMojoBase extends MojoBase
         {
             updatedProperties = this.getProcessingProperties();
         }
+
         // Allow the mojo to modify the properties
         validateProperties( updatedProperties );
 
@@ -200,8 +202,7 @@ public abstract class PojoMojoBase extends MojoBase
         // We need to build up the entire file pattern from the package name and the file pattern
         String packageLocation = FileUtilities.convertPackageNameToFileLocation( inPackageName );
         // Combine the package name and the file pattern
-        String pattern = packageLocation + "/" + outputPattern;
-        return pattern;
+        return packageLocation + "/" + outputPattern;
     }
 
     /**
@@ -288,9 +289,8 @@ public abstract class PojoMojoBase extends MojoBase
         getLog().info( "Using final file pattern of " + pattern + " to process the data" );
 
         // get the list of files to process based on the list of patterns
-        List files = AntUtilities.generateFileNameListFromPattern( this.getModelDirectory(), pattern );
 
-        return files;
+        return AntUtilities.generateFileNameListFromPattern( this.getModelDirectory(), pattern );
     }
 
     /**

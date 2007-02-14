@@ -21,7 +21,7 @@ Maven 2 Appfuse Plugin
   This plugin provides support for generating the data layer for the AppFuse environment.  This plugin is still
   in its early stages but do give it a test and give us your feedback thru JIRA.
 
-  Create the following file hibernate-reveng.xml and place in /src/main/resources in your archetype-created
+  Create the following file hibernate.reveng.xml and place in /src/main/resources in your archetype-created
   AppFuse project. You can get many more details at the Hibernate tools website http://www.hibernate.org/255.html.
 
 ---------------------

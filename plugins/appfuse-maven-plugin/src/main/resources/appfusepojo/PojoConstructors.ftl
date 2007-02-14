@@ -1,8 +1,6 @@
-      // Constructors
 
     /** default constructor */
-    public ${pojo.getDeclarationName()}() {
-    }
+    public ${pojo.getDeclarationName()}() {}
 
 <#if pojo.needsMinimalConstructor()>	/** minimal constructor */
     public ${pojo.getDeclarationName()}(${c2j.asParameterList(pojo.getPropertyClosureForMinimalConstructor(), jdk5, pojo)}) {
@@ -13,6 +11,7 @@
         this.${field.name} = ${field.name};
 </#foreach>
     }
+
 </#if>    
     /** full constructor */
     public ${pojo.getDeclarationName()}(${c2j.asParameterList(pojo.getPropertyClosureForFullConstructor(), jdk5, pojo)}) {
@@ -23,4 +22,5 @@
        this.${field.name} = ${field.name};
 </#foreach>
     }
-    
+
+            
