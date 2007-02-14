@@ -404,6 +404,7 @@
         <cargo.wait>false</cargo.wait>
 
         <acegi.version>1.0.3</acegi.version>
+        <ajax4jsf.version>1.0.6</ajax4jsf.version>
         <aspectj.version>1.5.3</aspectj.version>
         <clickstream.version>1.0.2</clickstream.version>
         <commons.lang.version>2.2</commons.lang.version>
@@ -415,6 +416,8 @@
         <displaytag.version>1.1</displaytag.version>
         <dwr.version>2.0.rc2</dwr.version>
         <ehcache.version>1.2.4</ehcache.version>
+        <el.version>1.2</el.version>
+        <facelets.version>1.1.11</facelets.version>
         <hibernate.version>3.2.1.ga</hibernate.version>
         <ibatis.version>2.1.7.597</ibatis.version>
         <javamail.version>1.4</javamail.version>

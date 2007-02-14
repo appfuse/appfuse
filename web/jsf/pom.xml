@@ -172,24 +172,24 @@
             <type>warpath</type>
         </dependency>
         <dependency>
-            <groupId>org.ajax4jsf</groupId>
+            <groupId>net.java.dev.ajax4jsf</groupId>
             <artifactId>ajax4jsf</artifactId>
-            <version>1.0.2</version>
+            <version>${ajax4jsf.version}</version>
         </dependency>
         <dependency>
             <groupId>com.sun.facelets</groupId>
             <artifactId>jsf-facelets</artifactId>
-            <version>1.1.11</version>
+            <version>${facelets.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.el</groupId>
             <artifactId>el-api</artifactId>
-            <version>1.2</version>
+            <version>${el.version}</version>
         </dependency>
         <dependency>
             <groupId>com.sun.el</groupId>
             <artifactId>el-ri</artifactId>
-            <version>1.2</version>
+            <version>${el.version}</version>
         </dependency>
         <dependency>
             <groupId>com.corejsf</groupId>
