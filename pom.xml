@@ -449,6 +449,49 @@
     <profiles>
         <!-- ================= Database Profiles ================= -->
         <profile>
+            <!-- Doesn't work: http://www.nabble.com/Issues-trying-to-use-Embedded-Derby-with-hibernate3-and-dbunit-tf3226221.html -->
+            <id>derby</id>
+            <properties>
+                <dbunit.dataTypeFactoryName>org.dbunit.ext.db2.Db2DataTypeFactory</dbunit.dataTypeFactoryName>
+                <hibernate.dialect>org.hibernate.dialect.DerbyDialect</hibernate.dialect>
+                <jdbc.groupId>org.apache.derby</jdbc.groupId>
+                <jdbc.artifactId>derby</jdbc.artifactId>
+                <jdbc.version>10.2.2.0</jdbc.version>
+                <jdbc.driverClassName>org.apache.derby.jdbc.EmbeddedDriver</jdbc.driverClassName>
+                <jdbc.url><![CDATA[jdbc:derby:appfuse;create=true]]></jdbc.url>
+                <jdbc.username>any</jdbc.username>
+                <jdbc.password>value</jdbc.password>
+            </properties>
+        </profile>
+        <profile>
+            <id>h2</id>
+            <properties>
+                <dbunit.dataTypeFactoryName>org.dbunit.ext.hsqldb.HsqldbDataTypeFactory</dbunit.dataTypeFactoryName>
+                <hibernate.dialect>org.hibernate.dialect.H2Dialect</hibernate.dialect>
+                <jdbc.groupId>com.h2database</jdbc.groupId>
+                <jdbc.artifactId>h2</jdbc.artifactId>
+                <jdbc.version>1.0.20061217</jdbc.version>
+                <jdbc.driverClassName>org.h2.Driver</jdbc.driverClassName>
+                <jdbc.url><![CDATA[jdbc:h2:appfuse]]></jdbc.url>
+                <jdbc.username>sa</jdbc.username>
+                <jdbc.password></jdbc.password>
+            </properties>
+        </profile>
+        <profile>
+            <id>hsqldb</id>
+            <properties>
+                <dbunit.dataTypeFactoryName>org.dbunit.ext.hsqldb.HsqldbDataTypeFactory</dbunit.dataTypeFactoryName>
+                <hibernate.dialect>org.hibernate.dialect.HSQLDialect</hibernate.dialect>
+                <jdbc.groupId>hsqldb</jdbc.groupId>
+                <jdbc.artifactId>hsqldb</jdbc.artifactId>
+                <jdbc.version>1.8.0.7</jdbc.version>
+                <jdbc.driverClassName>org.hsqldb.jdbcDriver</jdbc.driverClassName>
+                <jdbc.url><![CDATA[jdbc:hsqldb:appfuse;shutdown=true]]></jdbc.url>
+                <jdbc.username>sa</jdbc.username>
+                <jdbc.password></jdbc.password>
+            </properties>
+        </profile>
+        <profile>
             <id>oracle</id>
             <properties>
                 <dbunit.dataTypeFactoryName>org.dbunit.ext.oracle.OracleDataTypeFactory</dbunit.dataTypeFactoryName>
@@ -490,49 +533,6 @@
                 <jdbc.url><![CDATA[jdbc:jtds:sqlserver://localhost:3683/appfuse]]></jdbc.url>
                 <jdbc.username>sa</jdbc.username>
                 <jdbc.password>appfuse</jdbc.password>
-            </properties>
-        </profile>
-        <profile>
-            <!-- Doesn't work: http://www.nabble.com/Issues-trying-to-use-Embedded-Derby-with-hibernate3-and-dbunit-tf3226221.html -->
-            <id>derby</id>
-            <properties>
-                <dbunit.dataTypeFactoryName>org.dbunit.ext.db2.Db2DataTypeFactory</dbunit.dataTypeFactoryName>
-                <hibernate.dialect>org.hibernate.dialect.DerbyDialect</hibernate.dialect>
-                <jdbc.groupId>org.apache.derby</jdbc.groupId>
-                <jdbc.artifactId>derby</jdbc.artifactId>
-                <jdbc.version>10.2.2.0</jdbc.version>
-                <jdbc.driverClassName>org.apache.derby.jdbc.EmbeddedDriver</jdbc.driverClassName>
-                <jdbc.url><![CDATA[jdbc:derby:appfuse;create=true]]></jdbc.url>
-                <jdbc.username>any</jdbc.username>
-                <jdbc.password>value</jdbc.password>
-            </properties>
-        </profile>
-        <profile>
-            <id>hsqldb</id>
-            <properties>
-                <dbunit.dataTypeFactoryName>org.dbunit.ext.hsqldb.HsqldbDataTypeFactory</dbunit.dataTypeFactoryName>
-                <hibernate.dialect>org.hibernate.dialect.HSQLDialect</hibernate.dialect>
-                <jdbc.groupId>hsqldb</jdbc.groupId>
-                <jdbc.artifactId>hsqldb</jdbc.artifactId>
-                <jdbc.version>1.8.0.7</jdbc.version>
-                <jdbc.driverClassName>org.hsqldb.jdbcDriver</jdbc.driverClassName>
-                <jdbc.url><![CDATA[jdbc:hsqldb:appfuse;shutdown=true]]></jdbc.url>
-                <jdbc.username>sa</jdbc.username>
-                <jdbc.password></jdbc.password>
-            </properties>
-        </profile>
-        <profile>
-            <id>h2</id>
-            <properties>
-                <dbunit.dataTypeFactoryName>org.dbunit.ext.hsqldb.HsqldbDataTypeFactory</dbunit.dataTypeFactoryName>
-                <hibernate.dialect>org.hibernate.dialect.H2Dialect</hibernate.dialect>
-                <jdbc.groupId>com.h2database</jdbc.groupId>
-                <jdbc.artifactId>h2</jdbc.artifactId>
-                <jdbc.version>1.0.20061217</jdbc.version>
-                <jdbc.driverClassName>org.h2.Driver</jdbc.driverClassName>
-                <jdbc.url><![CDATA[jdbc:h2:appfuse]]></jdbc.url>
-                <jdbc.username>sa</jdbc.username>
-                <jdbc.password></jdbc.password>
             </properties>
         </profile>
 
