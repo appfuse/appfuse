@@ -18,7 +18,7 @@
     
     function passwordHint() {
         if ($("j_username").value.length == 0) {
-            alert("The <fmt:message key="label.username"/> field must be filled in to get a password hint sent to you.");
+            alert("<fmt:message key="errors.requiredField"><fmt:param><fmt:message key="label.username"/></fmt:param></fmt:message>");
             $("j_username").focus();
         } else {
             location.href="<c:url value="/passwordHint.html"/>?username=" + $("j_username").value;     
