@@ -5,11 +5,10 @@
 
     <!-- EntityManagerFactory -->
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="persistenceUnitManager" ref="persistenceUnitManager" />
+        <property name="persistenceUnitManager" ref="persistenceUnitManager"/>
         <property name="jpaProperties">
             <value>
                 hibernate.dialect=${hibernate.dialect}
-                hibernate.hbm2ddl.auto=update
                 hibernate.query.substitutions=true 'Y', false 'N'
             </value>
             <!-- Turn batching off for better error messages under PostgreSQL -->
@@ -23,11 +22,11 @@
                 <value>classpath:META-INF/persistence.xml</value>
             </list>
         </property>
-        <property name="defaultDataSource" ref="dataSource" />
+        <property name="defaultDataSource" ref="dataSource"/>
     </bean>
 
     <!-- Needed so the @PersistenceUnit annotation is recognized -->
-    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
 
     <!-- Transaction manager for a single EntityManagerFactory (alternative to JTA) -->
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">

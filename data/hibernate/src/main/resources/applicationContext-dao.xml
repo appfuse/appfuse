@@ -9,7 +9,6 @@
         <property name="hibernateProperties">
             <value>
                 hibernate.dialect=${hibernate.dialect}
-                hibernate.hbm2ddl.auto=update
                 hibernate.query.substitutions=true 'Y', false 'N'
             </value>
             <!-- Turn batching off for better error messages under PostgreSQL -->
