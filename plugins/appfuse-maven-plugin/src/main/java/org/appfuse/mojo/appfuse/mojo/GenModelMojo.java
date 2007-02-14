@@ -11,201 +11,211 @@ import java.util.List;
 import java.io.File;
 
 /**
- * This mojo class will create model or value objects from a set of hbm.xml files.
- *
+ * This mojo class will create model or value objects from a set of hbm.xml
+ * files.
+ * 
  * @author <a href="mailto:dlwhitehurst@gmail.com">David L. Whitehurst</a>
  * @version $Id: $
- * @description Generate one or more model/value objects from the input hbm.xml files.
+ * @description Generate one or more model/value objects from the input hbm.xml
+ *              files.
  * @goal gen-model
  */
 public class GenModelMojo extends PojoMojoBase {
 
-    /**
-     * Creates a new GenModelMojo object.
-     */
-    public GenModelMojo()
-    {
-        super();
-        this.setMojoName( "GenModelMojo" );
-    }    
-    /**
-     * This method will run the database conversion to hbm file mojo task.
-     *
-     * @throws org.apache.maven.plugin.MojoExecutionException
-     *             Thrown if we fail to obtain an appfuse resource.
-     */
-    public void execute() throws MojoExecutionException {
+	/**
+	 * Creates a new GenModelMojo object.
+	 */
+	public GenModelMojo() {
+		super();
+		this.setMojoName("GenModelMojo");
+	}
 
-        if ( getLog().isInfoEnabled() )
-        {
-            getLog().info( "Running the " + this.getMojoName() + " Mojo with properties " + this );
-        }
+	/**
+	 * This method will run the database conversion to hbm file mojo task.
+	 * 
+	 * @throws org.apache.maven.plugin.MojoExecutionException
+	 *             Thrown if we fail to obtain an appfuse resource.
+	 */
+	public void execute() throws MojoExecutionException {
 
-        // Get a Hibernate Mapping Exporter
-        HibernateMappingExporter exporter = new HibernateMappingExporter();
-        Properties properties = new Properties();
+		if (getLog().isInfoEnabled()) {
+			getLog().info(
+					"Running the " + this.getMojoName()
+							+ " Mojo with properties " + this);
+		}
 
-        // Set any custom properties that might have been passed in.
-        exporter.setProperties( properties );
+		// Get a Hibernate Mapping Exporter
+		HibernateMappingExporter exporter = new HibernateMappingExporter();
+		Properties properties = new Properties();
+		// Load the ejb3 and jdk5 flags
+		properties.put("ejb3", this.isEjb3());
+		properties.put("jdk5", this.isJdk5());
 
-        // create a new JDBC configuration object.
-        JDBCConfigurationUtility configurationUtility = new JDBCConfigurationUtility();
+		// Set any custom properties that might have been passed in.
+		exporter.setProperties(properties);
 
-        // call create to set up the configuration.
-        Configuration configuration = configurationUtility.createConfiguration();
+		// create a new JDBC configuration object.
+		JDBCConfigurationUtility configurationUtility = new JDBCConfigurationUtility();
 
-        // Set some parameters in the configuration class.
-        if ( ( this.getModelPackageName() != null ) && ( this.getModelPackageName().length() > 0 ) )
-        {
-            configurationUtility.setPackageName( this.getModelPackageName() );
-        }
-        else
-        {
-            throw new MojoExecutionException( "Model package name cannot be null or empty" );
-        }
+		// call create to set up the configuration.
+		Configuration configuration = configurationUtility
+				.createConfiguration();
 
-        if ( ( this.getDatabasePropertiesFile() != null ) && ( this.getDatabasePropertiesFile().length() > 0 ) )
-        {
-            configurationUtility.setPropertyFile( new File( this.getDatabasePropertiesFile() ) );
-        }
-        else
-        {
-            throw new MojoExecutionException( "Hibernate properties file cannot be null or empty" );
-        }
+		// Set some parameters in the configuration class.
+		if ((this.getModelPackageName() != null)
+				&& (this.getModelPackageName().length() > 0)) {
+			configurationUtility.setPackageName(this.getModelPackageName());
+		} else {
+			throw new MojoExecutionException(
+					"Model package name cannot be null or empty");
+		}
 
-        // Load the reverse engineering configuration xml files.
-        if ( ( this.getReverseEngineeringConfigurationFile() == null )
-                        || ( this.getReverseEngineeringConfigurationFile().length() == 0 ) )
-        {
-            throw new MojoExecutionException( "There must be at least one reverse engineering xml file defined" );
-        }
+		if ((this.getDatabasePropertiesFile() != null)
+				&& (this.getDatabasePropertiesFile().length() > 0)) {
+			configurationUtility.setPropertyFile(new File(this
+					.getDatabasePropertiesFile()));
+		} else {
+			throw new MojoExecutionException(
+					"Hibernate properties file cannot be null or empty");
+		}
 
-        configurationUtility.addRevEngFile( this.getReverseEngineeringConfigurationFile() );
+		// Load the reverse engineering configuration xml files.
+		if ((this.getReverseEngineeringConfigurationFile() == null)
+				|| (this.getReverseEngineeringConfigurationFile().length() == 0)) {
+			throw new MojoExecutionException(
+					"There must be at least one reverse engineering xml file defined");
+		}
 
-        // Set the reverse engineering strategy class
-        if ( ( this.getReverseStrategyClass() != null ) && ( this.getReverseStrategyClass().length() > 0 ) )
-        {
-            configurationUtility.setReverseStrategy( this.getReverseStrategyClass() );
-        }
+		configurationUtility.addRevEngFile(this
+				.getReverseEngineeringConfigurationFile());
 
-        // complete the configuration processing
-        configurationUtility.doConfiguration( configuration );
-        configuration.buildMappings();
+		// Set the reverse engineering strategy class
+		if ((this.getReverseStrategyClass() != null)
+				&& (this.getReverseStrategyClass().length() > 0)) {
+			configurationUtility.setReverseStrategy(this
+					.getReverseStrategyClass());
+		}
 
-        // set the configurator into the exporter
-        exporter.setConfiguration( configuration );
+		// complete the configuration processing
+		configurationUtility.doConfiguration(configuration);
+		configuration.buildMappings();
 
-        // Set the destination directory
-        if ( ( this.getOutputDirectory() != null ) && ( this.getOutputDirectory().length() > 0 ) )
-        {
-            exporter.setOutputDirectory( new File( this.getOutputDirectory() ) );
-        }
-        else
-        {
-            throw new MojoExecutionException( "Output directory cannot be null or empty" );
-        }
+		// set the configurator into the exporter
+		exporter.setConfiguration(configuration);
 
-        // Set the template information.
-        exporter.setTemplateName( this.getHbmTemplateName() );
+		// Set the destination directory
+		if ((this.getOutputDirectory() != null)
+				&& (this.getOutputDirectory().length() > 0)) {
+			exporter.setOutputDirectory(new File(this.getOutputDirectory()));
+		} else {
+			throw new MojoExecutionException(
+					"Output directory cannot be null or empty");
+		}
 
-        // run the exporter.
-        exporter.start();
+		// Set the template information.
+		exporter.setTemplateName(this.getHbmTemplateName());
 
-        // run second part
-        //###########################################################
+		// run the exporter.
+		exporter.start();
 
-        // Get a Hibernate Mapping Exporter
-        POJOExporter pojoExporter = new POJOExporter();
-        // Allow the class to set, update or delete property settings before they are handed into the exporter. We use
-        // the passed back property set so that the original on remains intact.
-        Properties updatedProperties = null;
-        // Make sure we have a properties object.
-        if ( this.getProcessingProperties() == null )
-        {
-            updatedProperties = new Properties();
-        }
-        else
-        {
-            updatedProperties = this.getProcessingProperties();
-        }
-        // Allow the mojo to modify the properties
-        validateProperties( updatedProperties );
+		// run second part
+		// ###########################################################
 
-        // Set any custom properties that might have been passed in.
-        exporter.setProperties( updatedProperties );
+		// Get a Hibernate Mapping Exporter
+		POJOExporter pojoExporter = new POJOExporter();
+		// Allow the class to set, update or delete property settings before
+		// they are handed into the exporter. We use
+		// the passed back property set so that the original on remains intact.
+		Properties updatedProperties = null;
+		// Make sure we have a properties object.
+		if (this.getProcessingProperties() == null) {
+			updatedProperties = new Properties();
+		} else {
+			updatedProperties = this.getProcessingProperties();
+		}
+		// Allow the mojo to modify the properties
+		validateProperties(updatedProperties);
 
-        // call create to set up the configuration.
-        Configuration pojoConfiguration = new Configuration();
+		// Set any custom properties that might have been passed in.
+		exporter.setProperties(updatedProperties);
 
-        List files = this.getListOfFilesToProcess();
-        getLog().info( "Processing " + files.size() + " files based on pattern match " );
+		// call create to set up the configuration.
+		Configuration pojoConfiguration = new Configuration();
 
-        for ( int j = 0; j < files.size(); j++ )
-        {
-            String fileName = ( String ) files.get( j );
+		List files = this.getListOfFilesToProcess();
+		getLog()
+				.info(
+						"Processing " + files.size()
+								+ " files based on pattern match ");
 
-            if ( getLog().isDebugEnabled() )
-            {
-                getLog().debug( "Adding file " + fileName + " to Pojo the processing list" );
-            }
+		for (int j = 0; j < files.size(); j++) {
+			String fileName = (String) files.get(j);
 
-            pojoConfiguration.addFile( fileName );
-        }
+			if (getLog().isDebugEnabled()) {
+				getLog().debug(
+						"Adding file " + fileName
+								+ " to Pojo the processing list");
+			}
 
-        // set the configuratino into the exporter
-        pojoExporter.setConfiguration( configuration );
+			pojoConfiguration.addFile(fileName);
+		}
 
-        // Set the destination directory
-        if ( ( this.getOutputDirectory() != null ) && ( getOutputDirectory().length() > 0 ) )
-        {
-            pojoExporter.setOutputDirectory( new File( getOutputDirectory() ) );
-        }
-        else
-        {
-            throw new MojoExecutionException( "output directory cannot be null or empty" );
-        }
+		// set the configuratino into the exporter
+		pojoExporter.setConfiguration(configuration);
 
-        // Set the file pattern model for the ouput files
-        pojoExporter.setFilePattern( getOutputPattern() );
+		// Set the destination directory
+		if ((this.getOutputDirectory() != null)
+				&& (getOutputDirectory().length() > 0)) {
+			pojoExporter.setOutputDirectory(new File(getOutputDirectory()));
+		} else {
+			throw new MojoExecutionException(
+					"output directory cannot be null or empty");
+		}
 
-        // Set the template information.
-        pojoExporter.setTemplateName( getTemplateName() );
+		// Set the file pattern model for the ouput files
+		pojoExporter.setFilePattern(getOutputPattern());
 
-        // run the exporter.
-        pojoExporter.start();
-    }
+		// Set the template information.
+		pojoExporter.setTemplateName(getTemplateName());
 
-    protected void validateProperties(final Properties inProperties) {
-        // add the model package name in the properties for access inside the template.
-        inProperties.put( "modelpackagename", this.getModelPackageName() );
-        
-    }
+		// run the exporter.
+		pojoExporter.start();
+	}
 
-    protected String getTemplateName() {
-        return locateTemplate( org.appfuse.mojo.appfuse.utility.AppFuseProperties.MODEL_TEMPLATE_NAME,
-                               org.appfuse.mojo.appfuse.utility.AppFuseProperties.MODEL_TEMPLATE_NAME_PROPERTY_KEY );
-        
-    }
+	protected void validateProperties(final Properties inProperties) {
+		// add the model package name in the properties for access inside the
+		// template.
+		inProperties.put("modelpackagename", this.getModelPackageName());
 
-    public String getOutputPattern() {
-        return buildOutputPattern( org.appfuse.mojo.appfuse.utility.AppFuseProperties.MODEL_OUTPUT_PATTERN,
-                                   org.appfuse.mojo.appfuse.utility.AppFuseProperties.MODEL_OUTPUT_PATTERN_PROPERTY_KEY, this.getModelPackageName() );
-        
-    }
+	}
 
-    /**
-     * toString method: creates a String representation of the object
-     *
-     * @return the String representation
-     *
-     */
-    public String toString()
-    {
-        StringBuffer buffer = new StringBuffer();
-        buffer.append( super.toString() );
-        buffer.append( "GenModelMojo[" );
-        buffer.append( "]" );
-        return buffer.toString();
-    }
-    
+	protected String getTemplateName() {
+		return locateTemplate(
+				org.appfuse.mojo.appfuse.utility.AppFuseProperties.MODEL_TEMPLATE_NAME,
+				org.appfuse.mojo.appfuse.utility.AppFuseProperties.MODEL_TEMPLATE_NAME_PROPERTY_KEY);
+
+	}
+
+	public String getOutputPattern() {
+		return buildOutputPattern(
+				org.appfuse.mojo.appfuse.utility.AppFuseProperties.MODEL_OUTPUT_PATTERN,
+				org.appfuse.mojo.appfuse.utility.AppFuseProperties.MODEL_OUTPUT_PATTERN_PROPERTY_KEY,
+				this.getModelPackageName());
+
+	}
+
+	/**
+	 * toString method: creates a String representation of the object
+	 * 
+	 * @return the String representation
+	 * 
+	 */
+	public String toString() {
+		StringBuffer buffer = new StringBuffer();
+		buffer.append(super.toString());
+		buffer.append("GenModelMojo[");
+		buffer.append("]");
+		return buffer.toString();
+	}
+
 }
