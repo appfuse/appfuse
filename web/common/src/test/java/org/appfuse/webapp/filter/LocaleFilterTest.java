@@ -74,4 +74,18 @@ public class LocaleFilterTest extends TestCase {
         
         assertNotNull(Config.get(request.getSession(), Config.FMT_LOCALE));
     }
+
+    public void testLocaleAndCountry() throws Exception {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.setSession(new MockHttpSession());
+        request.addParameter("locale", "zh_TW");
+
+        MockHttpServletResponse response = new MockHttpServletResponse();
+        filter.doFilter(request, response, new MockFilterChain());
+
+        // session not null, should result in not null
+        Locale locale = (Locale) request.getSession().getAttribute(Constants.PREFERRED_LOCALE_KEY);
+        assertNotNull(locale);
+        assertEquals(new Locale("zh", "TW"), locale);
+    }
 }

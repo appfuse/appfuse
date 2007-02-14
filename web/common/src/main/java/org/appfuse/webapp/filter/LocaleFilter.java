@@ -20,7 +20,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
  */
 public class LocaleFilter extends OncePerRequestFilter {
 
-    public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, 
+    public void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                  FilterChain chain)
             throws IOException, ServletException {
 
@@ -28,9 +28,16 @@ public class LocaleFilter extends OncePerRequestFilter {
         Locale preferredLocale = null;
 
         if (locale != null) {
-            preferredLocale = new Locale(locale);
+            int indexOfUnderscore = locale.indexOf('_');
+            if (indexOfUnderscore != -1) {
+                String language = locale.substring(0, indexOfUnderscore);
+                String country = locale.substring(indexOfUnderscore + 1);
+                preferredLocale = new Locale(language, country);
+            } else {
+                preferredLocale = new Locale(locale);
+            }
         }
-        
+
         HttpSession session = request.getSession(false);
 
         if (session != null) {
@@ -54,7 +61,7 @@ public class LocaleFilter extends OncePerRequestFilter {
         }
 
         chain.doFilter(request, response);
-        
+
         // Reset thread-bound LocaleContext.
         LocaleContextHolder.setLocaleContext(null);
     }
