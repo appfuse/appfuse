@@ -144,9 +144,4 @@
             </plugin>
         </plugins>
     </reporting>
-    
-    <properties>
-        <web.common.dir>web/common</web.common.dir>
-    </properties>
-
 </project>

@@ -25,7 +25,7 @@ import org.hibernate.tool.hbm2x.pojo.POJOClass;
 
 /**
  * This method provides a sample on how to extend the pojo processor when processing new objects from the hbm.xml into
- * jaa objects using freemarker.
+ * Java objects using freemarker.
  * 
  * @author <a href="mailto:scott@theryansplace.com">Scott Ryan</a>
  * @version $Id$
