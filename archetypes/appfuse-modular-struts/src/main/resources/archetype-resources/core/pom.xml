@@ -65,6 +65,7 @@
                     <url>${jdbc.url}</url>
                     <src>src/test/resources/sample-data.xml</src>
                     <type>${dbunit.operation.type}</type>
+                    <schema>${dbunit.schema}</schema>
                     <skip>${maven.test.skip}</skip>
                 </configuration>
                 <executions>
