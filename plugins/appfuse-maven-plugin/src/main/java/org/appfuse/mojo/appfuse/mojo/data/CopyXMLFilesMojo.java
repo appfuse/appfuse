@@ -24,7 +24,7 @@ import org.appfuse.mojo.appfuse.mojo.CopyMojoBase;
  * @author <a href="mailto:scott@theryansplace.com">Scott Ryan</a>
  * @version $Id: $
  * @description Copy hbm.xml model files from the generation directory to the destination directory.
- * @goal copyxmlfiles
+ 
  */
 public class CopyXMLFilesMojo extends CopyMojoBase
 {

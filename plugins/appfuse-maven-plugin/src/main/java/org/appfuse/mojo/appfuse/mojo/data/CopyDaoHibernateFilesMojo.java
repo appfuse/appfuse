@@ -24,7 +24,7 @@ import org.appfuse.mojo.appfuse.mojo.CopyMojoBase;
  * @author <a href="mailto:scott@theryansplace.com">Scott Ryan</a>
  * @version $Id: $
  * @description Copy hibernate dao java implemenation files from the generation directory to the destination directory.
- * @goal copydaohibernatefiles
+
  */
 public class CopyDaoHibernateFilesMojo extends CopyMojoBase
 {

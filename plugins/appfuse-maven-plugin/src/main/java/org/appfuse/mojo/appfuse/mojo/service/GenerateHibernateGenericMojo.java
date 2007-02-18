@@ -25,7 +25,7 @@ import org.apache.tools.ant.taskdefs.LoadFile;
  * @author <a href="mailto:dlwhitehurst@gmail.com">David Whitehurst</a>
  * @version $Id$
  * @description Base mojo for use by appfuse config mojos.
- * @goal genhibernategeneric
+ 
  */
 public class GenerateHibernateGenericMojo extends ConfigMojoBase {
 

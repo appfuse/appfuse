@@ -25,7 +25,7 @@ import org.appfuse.mojo.appfuse.mojo.PojoMojoBase;
  * @author <a href="mailto:scott@theryansplace.com">Scott Ryan</a>
  * @version $Id: $
  * @description Generate one or more manager implementations of the manager interfaces from the input hbm.xml files.
- * @goal genmanagerimpl
+ 
  */
 public class GenerateManagerImplMojo extends PojoMojoBase
 {

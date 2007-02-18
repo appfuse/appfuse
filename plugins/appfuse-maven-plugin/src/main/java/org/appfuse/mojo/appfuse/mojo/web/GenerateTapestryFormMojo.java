@@ -28,7 +28,7 @@ import org.appfuse.mojo.appfuse.utility.AppFuseProperties;
  * @author <a href="mailto:dlwhitehurst@gmail.com">David L. Whitehurst</a>
  * @version $Id: $
  * @description Generate one or more Tapestry Web Form modules from the input hbm.xml files.
- * @goal gentapestryform
+ 
  */
 public class GenerateTapestryFormMojo extends PojoMojoBase
 {

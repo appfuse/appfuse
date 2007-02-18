@@ -28,7 +28,7 @@ import org.appfuse.mojo.appfuse.utility.AppFuseProperties;
  * @author <a href="mailto:dlwhitehurst@gmail.com">David L. Whitehurst</a>
  * @version $Id: $
  * @description Generate one or more JSF Backing Bean List modules from the input hbm.xml files.
- * @goal genjsflist
+ 
  */
 public class GenerateJSFListMojo extends PojoMojoBase
 {

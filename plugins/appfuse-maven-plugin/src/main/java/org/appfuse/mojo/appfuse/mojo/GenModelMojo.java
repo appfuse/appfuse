@@ -18,7 +18,7 @@ import java.io.File;
  * @version $Id: $
  * @description Generate one or more model/value objects from the input hbm.xml
  *              files.
- * @goal gen-model
+
  */
 public class GenModelMojo extends PojoMojoBase {
 

@@ -26,7 +26,7 @@ import org.appfuse.mojo.appfuse.mojo.PojoMojoBase;
  * @version $Id: $
  * @description Generate one or more service context entries for the applicationContext-service.xml file from input
  *              hbm.xml files.
- * @goal genmanagercontext
+ 
  */
 public class GenerateManagerContextMojo extends PojoMojoBase
 {

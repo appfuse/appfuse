@@ -8,7 +8,7 @@ import java.util.Properties;
  * @author <a href="mailto:dlwhitehurst@gmail.com">David L. Whitehurst</a>
  * @version $Id: $
  * @description Generate one or more model/value objects from the input hbm.xml files.
- * @goal gen-dao
+ 
  */
 public class GenDaoMojo extends PojoMojoBase {
 

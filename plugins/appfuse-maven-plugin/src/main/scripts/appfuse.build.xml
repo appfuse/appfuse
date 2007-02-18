@@ -2,7 +2,7 @@
   <target name="hello">
     <echo>Hello, from the project ${projectName}. Built by ${user.name}</echo>
   </target>
-  <target name="data">
+  <target name="genmodel">
     <!-- This is a temporary groovy script to make sure class path is setup until Jason fixes it in Maven. -->
     <script language="groovy">
       import org.apache.tools.ant.types.Path 
@@ -18,10 +18,11 @@
         <path refid="classpath" />
       </classpath>
     </taskdef>
-    <echo>Using configuration file ${configuration.file}</echo>
-    <hibernatetool destdir="${build.dir}/generated">
-      <configuration configurationfile="${configuration.file}" />
-      <hbm2hbmxml />
+    <echo>Using configuration file ${hibernate.properties.file} to generate model pojos to ${appfuse.destination.dir}</echo>
+    <hibernatetool destdir="${appfuse.destination.dir}">
+       <jdbcconfiguration propertyfile="${hibernate.properties.file}" />
+       <hbm2java ejb3="${appfuse.ejb3}" jdk5="${appfuse.jdk5}"/>
+       <hbm2cfgxml ejb3="${appfuse.ejb3}"/>
     </hibernatetool>
   </target>
 </project>

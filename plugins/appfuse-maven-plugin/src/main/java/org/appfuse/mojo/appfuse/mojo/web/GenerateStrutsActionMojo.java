@@ -28,7 +28,7 @@ import org.appfuse.mojo.appfuse.utility.AppFuseProperties;
  * @author <a href="mailto:dlwhitehurst@gmail.com">David L. Whitehurst</a>
  * @version $Id: $
  * @description Generate Struts Action module for the AppFuse Pojo List.
- * @goal genstrutsaction
+ 
  */
 public class GenerateStrutsActionMojo extends PojoMojoBase {
     /**
