@@ -20,7 +20,7 @@
     </taskdef>
     <echo>Using configuration file ${hibernate.properties.file} to generate model pojos to ${appfuse.destination.dir}</echo>
     <hibernatetool destdir="${appfuse.destination.dir}">
-       <jdbcconfiguration propertyfile="${hibernate.properties.file}" />
+       <jdbcconfiguration propertyfile="${hibernate.properties.file}" packagename="${appfuse.model.package.name}"/>
        <hbm2java ejb3="${appfuse.ejb3}" jdk5="${appfuse.jdk5}"/>
        <hbm2cfgxml ejb3="${appfuse.ejb3}"/>
     </hibernatetool>
@@ -53,8 +53,8 @@
          filepattern="${appfuse.output.file.pattern}">
          <property key="jdk5" value="${appfuse.jdk5}" />
          <property key="ejb3" value="${appfuse.ejb3}" />
-         <property key="daopackagename" value="com.scott"/>
-         <property key="modelpackagename" value="com.scott"/>
+         <property key="daopackagename" value="${appfuse.dao.package.name}"/>
+         <property key="modelpackagename" value="${appfuse.model.package.name}"/>
       </hbmtemplate>
     </hibernatetool>
   </target>

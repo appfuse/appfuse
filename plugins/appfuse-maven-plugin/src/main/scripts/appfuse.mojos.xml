@@ -80,12 +80,21 @@
           <property>appfuse.destination.dir</property>
           <required>true</required>
           <readonly>true</readonly>
-          <defaultValue>
-            ${basedir}/src/main/java
-          </defaultValue>
+          <defaultValue>${basedir}/src/main/java</defaultValue>
           <type>java.lang.String</type>
           <description>
             The name of the directory to generate to.
+          </description>
+        </parameter>
+        <parameter>
+          <name>Model Package Name</name>
+          <property>appfuse.model.package.name</property>
+          <required>true</required>
+          <readonly>true</readonly>
+          <defaultValue>org.appfuse.model</defaultValue>
+          <type>java.lang.String</type>
+          <description>
+            The package name for the model objects.
           </description>
         </parameter>
         <parameter>
@@ -170,7 +179,9 @@
           <property>appfuse.output.file.pattern</property>
           <required>true</required>
           <readonly>true</readonly>
-          <defaultValue>{package-name}/{class-name}Test.java</defaultValue>
+          <defaultValue>
+            {package-name}/{class-name}Test.java
+          </defaultValue>
           <type>java.lang.String</type>
           <description>
             The file pattern to use when outputting the generated file.
@@ -182,7 +193,7 @@
           <required>true</required>
           <readonly>true</readonly>
           <defaultValue>
-            ${basedir}/target/scott/appfuse/gen
+             ${basedir}/src/main/java
           </defaultValue>
           <type>java.lang.String</type>
           <description>
@@ -220,6 +231,28 @@
           <type>java.lang.String</type>
           <description>
             The flag that indicates if ejb3 annotations should be used.
+          </description>
+        </parameter>
+        <parameter>
+          <name>DAO Package Name</name>
+          <property>appfuse.dao.package.name</property>
+          <required>true</required>
+          <readonly>true</readonly>
+          <defaultValue>org.appfuse.dao</defaultValue>
+          <type>java.lang.String</type>
+          <description>
+            The package name for all dao objects.
+          </description>
+        </parameter>
+        <parameter>
+          <name>Model Package Name</name>
+          <property>appfuse.model.package.name</property>
+          <required>true</required>
+          <readonly>true</readonly>
+          <defaultValue>org.appfuse.model</defaultValue>
+          <type>java.lang.String</type>
+          <description>
+            The package name for the model objects.
           </description>
         </parameter>
       </parameters>
