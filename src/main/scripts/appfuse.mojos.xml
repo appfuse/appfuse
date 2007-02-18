@@ -42,11 +42,14 @@
       </parameters>
     </mojo>
     <mojo>
-      <goal>data</goal>
+      <goal>genmodel</goal>
       <requiresProject>true</requiresProject>
       <!-- this element refers to the Ant target we'll invoke -->
-      <call>data</call>
-      <description>Say Hello, World.</description>
+      <call>genmodel</call>
+      <description>
+        This goal will generate annotated model pojos and a
+        hibernate.cfg.xml file from the database properties file.
+      </description>
       <parameters>
         <parameter>
           <name>compileClasspath</name>
@@ -59,16 +62,28 @@
           <type>java.util.List</type>
         </parameter>
         <parameter>
-          <name>configuration File</name>
-          <property>configuration.file</property>
+          <name>Hibernate Properties File</name>
+          <property>hibernate.properties.file</property>
           <required>true</required>
           <readonly>true</readonly>
           <defaultValue>
-            ${basedir}/src/main/resources/hibernate.cfg.xml
+            ${basedir}/src/main/resources/jdbc.properties
           </defaultValue>
           <type>java.lang.String</type>
           <description>
-            The name of the project currently being built.
+            The name of the properties file containing the database
+            connection properties.
+          </description>
+        </parameter>
+        <parameter>
+          <name>Generation Destination Directory</name>
+          <property>appfuse.destination.dir</property>
+          <required>true</required>
+          <readonly>true</readonly>
+          <defaultValue>${basedir}/target/scott/appfuse/gen</defaultValue>
+          <type>java.lang.String</type>
+          <description>
+            The name of the directory to generate to.
           </description>
         </parameter>
         <parameter>
@@ -80,6 +95,28 @@
           <type>java.lang.String</type>
           <description>
             The name of the project currently being built.
+          </description>
+        </parameter>
+        <parameter>
+          <name>JDK 5 Flag</name>
+          <property>appfuse.jdk5</property>
+          <required>true</required>
+          <readonly>true</readonly>
+          <defaultValue>true</defaultValue>
+          <type>java.lang.String</type>
+          <description>
+            The flag that indicates if jdk5 annotations should be used.
+          </description>
+        </parameter>
+        <parameter>
+          <name>EJB 3 Flag</name>
+          <property>appfuse.ejb3</property>
+          <required>true</required>
+          <readonly>true</readonly>
+          <defaultValue>true</defaultValue>
+          <type>java.lang.String</type>
+          <description>
+            The flag that indicates if ejb3 annotations should be used.
           </description>
         </parameter>
       </parameters>

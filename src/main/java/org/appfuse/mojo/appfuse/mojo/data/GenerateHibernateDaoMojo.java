@@ -24,7 +24,7 @@ import org.appfuse.mojo.appfuse.mojo.PojoMojoBase;
  * @author <a href="mailto:scott@theryansplace.com">Scott Ryan</a>
  * @version $Id: $
  * @description Generate one or more hibernate dao implementations of the dao interfaces from the input hbm.xml files.
- * @goal genhibernatedao
+
  */
 public class GenerateHibernateDaoMojo extends PojoMojoBase
 {

@@ -26,7 +26,7 @@ import org.appfuse.mojo.appfuse.mojo.PojoMojoBase;
  * @version $Id: $
  * @description Generate one or more hibernate context entries for the applicationContext-persist.xml file from input
  *              hbm.xml files.
- * @goal genhibernatecontext
+ 
  */
 public class GenerateHibernateContextMojo extends PojoMojoBase
 {

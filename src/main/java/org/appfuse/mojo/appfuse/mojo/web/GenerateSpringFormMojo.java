@@ -28,7 +28,7 @@ import org.appfuse.mojo.appfuse.utility.AppFuseProperties;
  * @author <a href="mailto:dlwhitehurst@gmail.com">David L. Whitehurst</a>
  * @version $Id: $
  * @description Generate Spring Web Form module for the AppFuse Pojo Form.
- * @goal genspringform
+ 
  */
 public class GenerateSpringFormMojo extends PojoMojoBase
 {

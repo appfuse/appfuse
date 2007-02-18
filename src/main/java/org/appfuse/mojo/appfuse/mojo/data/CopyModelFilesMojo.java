@@ -23,7 +23,7 @@ import org.appfuse.mojo.appfuse.mojo.CopyMojoBase;
  * @author <a href="mailto:scott@theryansplace.com">Scott Ryan</a>
  * @version $Id: $
  * @description Copy model java files from the generation directory to the destination directory.
- * @goal copymodelfiles
+ 
  */
 public class CopyModelFilesMojo extends CopyMojoBase
 {

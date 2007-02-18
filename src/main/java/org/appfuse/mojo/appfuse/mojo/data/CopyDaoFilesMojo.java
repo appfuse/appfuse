@@ -23,7 +23,7 @@ import org.appfuse.mojo.appfuse.mojo.MojoBase;
  * @author <a href="mailto:scott@theryansplace.com">Scott Ryan</a>
  * @version $Id: $
  * @description Copy dao java interface files from the generation directory to the destination directory.
- * @goal copydaofiles
+ 
  */
 public class CopyDaoFilesMojo extends MojoBase
 {
