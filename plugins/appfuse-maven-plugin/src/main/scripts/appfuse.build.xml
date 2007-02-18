@@ -25,4 +25,37 @@
        <hbm2cfgxml ejb3="${appfuse.ejb3}"/>
     </hibernatetool>
   </target>
+  <target name="gendao">
+    <!-- This is a temporary groovy script to make sure class path is setup until Jason fixes it in Maven. -->
+    <script language="groovy">
+      import org.apache.tools.ant.types.Path 
+      import org.codehaus.plexus.util.StringUtils 
+      List compilePath = project.getReference("appfuse.compile.classpath") 
+      Path path = new Path(project) 
+      path.setPath( StringUtils.join(compilePath.iterator(), File.pathSeparator ) );
+      project.addReference("classpath", path);
+    </script>
+    <taskdef name="hibernatetool"
+      classname="org.hibernate.tool.ant.HibernateToolTask">
+      <classpath>
+        <path refid="classpath" />
+      </classpath>
+    </taskdef>
+    <echo>Using configuration file ${hibernate.properties.file} to generate model pojos to ${appfuse.destination.dir}</echo>
+    <hibernatetool destdir="${appfuse.destination.dir}">
+      <classpath>
+        <path refid="classpath" />
+      </classpath>
+       <annotationconfiguration configurationfile="${appfuse.destination.dir}/hibernate.cfg.xml"/>
+       <hbmtemplate 
+         templateprefix="${appfuse.template.prefix}" 
+         template="${appfuse.template.name}" 
+         filepattern="${appfuse.output.file.pattern}">
+         <property key="jdk5" value="${appfuse.jdk5}" />
+         <property key="ejb3" value="${appfuse.ejb3}" />
+         <property key="daopackagename" value="com.scott"/>
+         <property key="modelpackagename" value="com.scott"/>
+      </hbmtemplate>
+    </hibernatetool>
+  </target>
 </project>

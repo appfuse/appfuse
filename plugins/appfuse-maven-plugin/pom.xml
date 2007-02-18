@@ -126,6 +126,21 @@
       <artifactId>hibernate-tools</artifactId>
       <version>3.2.0.beta8</version>
     </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate</artifactId>
+      <version>3.2.1.ga</version>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-annotations</artifactId>
+      <version>3.2.0.ga</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.persistence</groupId>
+      <artifactId>persistence-api</artifactId>
+      <version>1.0</version>
+    </dependency>
     <!--  This is included until I can figure out how to get this in the user's classpath -->
     <dependency>
       <groupId>${jdbc.groupId}</groupId>
