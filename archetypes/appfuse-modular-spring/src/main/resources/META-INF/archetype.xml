@@ -32,10 +32,13 @@
         <resource>web/src/main/resources/jdbc.properties</resource>
         <resource>web/src/main/resources/log4j.xml</resource>
         <resource>web/src/main/resources/mail.properties</resource>
+        <resource>web/src/main/webapp/WEB-INF/applicationContext-validation.xml</resource>
+        <resource>web/src/main/webapp/WEB-INF/dispatcher-servlet.xml</resource>
         <resource>web/src/main/webapp/WEB-INF/menu-config.xml</resource>
         <resource>web/src/main/webapp/WEB-INF/urlrewrite.xml</resource>
         <resource>web/src/main/webapp/WEB-INF/validation.xml</resource>
-        <resource>web/src/main/webapp/WEB-INF/web.xml</resource>
+        <resource>web/src/main/webapp/WEB-INF/validator-rules.xml</resource>
+        <resource>web/src/main/webapp/WEB-INF/validator-rules-custom.xml</resource>
         <resource>web/src/test/resources/config.xml</resource>
         <resource>web/src/test/resources/login.xml</resource>
         <resource>web/src/test/resources/sample-data.xml</resource>

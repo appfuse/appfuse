@@ -21,9 +21,13 @@
         <resource>src/main/resources/META-INF/persistence.xml</resource>
         <resource>src/main/resources/log4j.xml</resource>
         <resource>src/main/resources/mail.properties</resource>
+        <resource>src/main/webapp/WEB-INF/applicationContext-validation.xml</resource>
+        <resource>src/main/webapp/WEB-INF/dispatcher-servlet.xml</resource>
         <resource>src/main/webapp/WEB-INF/menu-config.xml</resource>
         <resource>src/main/webapp/WEB-INF/urlrewrite.xml</resource>
         <resource>src/main/webapp/WEB-INF/validation.xml</resource>
+        <resource>src/main/webapp/WEB-INF/validator-rules.xml</resource>
+        <resource>src/main/webapp/WEB-INF/validator-rules-custom.xml</resource>
         <resource>src/main/webapp/WEB-INF/web.xml</resource>
         <resource>src/test/resources/config.xml</resource>
         <resource>src/test/resources/login.xml</resource>
