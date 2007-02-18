@@ -80,7 +80,110 @@
           <property>appfuse.destination.dir</property>
           <required>true</required>
           <readonly>true</readonly>
-          <defaultValue>${basedir}/target/scott/appfuse/gen</defaultValue>
+          <defaultValue>
+            ${basedir}/src/main/java
+          </defaultValue>
+          <type>java.lang.String</type>
+          <description>
+            The name of the directory to generate to.
+          </description>
+        </parameter>
+        <parameter>
+          <name>projectName</name>
+          <property>projectName</property>
+          <required>true</required>
+          <readonly>true</readonly>
+          <defaultValue>${project.name}</defaultValue>
+          <type>java.lang.String</type>
+          <description>
+            The name of the project currently being built.
+          </description>
+        </parameter>
+        <parameter>
+          <name>JDK 5 Flag</name>
+          <property>appfuse.jdk5</property>
+          <required>true</required>
+          <readonly>true</readonly>
+          <defaultValue>true</defaultValue>
+          <type>java.lang.String</type>
+          <description>
+            The flag that indicates if jdk5 annotations should be used.
+          </description>
+        </parameter>
+        <parameter>
+          <name>EJB 3 Flag</name>
+          <property>appfuse.ejb3</property>
+          <required>true</required>
+          <readonly>true</readonly>
+          <defaultValue>true</defaultValue>
+          <type>java.lang.String</type>
+          <description>
+            The flag that indicates if ejb3 annotations should be used.
+          </description>
+        </parameter>
+      </parameters>
+    </mojo>
+    <mojo>
+      <goal>gendao</goal>
+      <requiresProject>true</requiresProject>
+      <!-- this element refers to the Ant target we'll invoke -->
+      <call>gendao</call>
+      <description>
+        This goal will generate java objects driven by a freemarker
+        template and a hibernate.cfg.xml.
+      </description>
+      <parameters>
+        <parameter>
+          <name>compileClasspath</name>
+          <property>appfuse.compile.classpath</property>
+          <required>true</required>
+          <readonly>true</readonly>
+          <defaultValue>
+            ${project.compileClasspathElements}
+          </defaultValue>
+          <type>java.util.List</type>
+        </parameter>
+        <parameter>
+          <name>Template Prefix</name>
+          <property>appfuse.template.prefix</property>
+          <required>true</required>
+          <readonly>true</readonly>
+          <defaultValue>appfusedao/</defaultValue>
+          <type>java.lang.String</type>
+          <description>
+            The prefix for the template to use to generate the code.
+          </description>
+        </parameter>
+        <parameter>
+          <name>Template Name</name>
+          <property>appfuse.template.name</property>
+          <required>true</required>
+          <readonly>true</readonly>
+          <defaultValue>appfusedao/daotest.ftl</defaultValue>
+          <type>java.lang.String</type>
+          <description>
+            The name of the template to use to generate the code.
+          </description>
+        </parameter>
+        <parameter>
+          <name>Ouput File Pattern</name>
+          <property>appfuse.output.file.pattern</property>
+          <required>true</required>
+          <readonly>true</readonly>
+          <defaultValue>{package-name}/{class-name}Test.java</defaultValue>
+          <type>java.lang.String</type>
+          <description>
+            The file pattern to use when outputting the generated file.
+          </description>
+        </parameter>
+        <parameter>
+          <name>Generation Destination Directory</name>
+          <property>appfuse.destination.dir</property>
+          <required>true</required>
+          <readonly>true</readonly>
+          <defaultValue>
+            ${basedir}/target/scott/appfuse/gen
+          </defaultValue>
           <type>java.lang.String</type>
           <description>
             The name of the directory to generate to.
