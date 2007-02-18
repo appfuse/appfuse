@@ -1,147 +1,179 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!--
-    Copyright 2002-2006 the original author or authors.
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-        http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+  Copyright 2002-2006 the original author or authors.
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+  http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 -->
-
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    
-    <modelVersion>4.0.0</modelVersion>
-
-    <parent>
-        <groupId>org.appfuse</groupId>
-        <artifactId>appfuse</artifactId>
-        <version>2.0-m4-SNAPSHOT</version>
-    </parent>
-
-	<prerequisites>
-		<maven>2.0.4</maven>
-	</prerequisites>
-
-    <artifactId>appfuse-maven-plugin</artifactId>
-	<packaging>maven-plugin</packaging>
-	<name>AppFuse Maven Plugin</name>
-	<version>2.0-m4-SNAPSHOT</version>
-	<inceptionYear>2006</inceptionYear>
-    <description>
-        This plugin is used with Maven to generate source or resource artifacts for extending
-        the functionality of your AppFuse application.
-    </description>
-
-
-    <scm>
-		<connection>
-			scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/plugins/appfuse-maven-plugin
-		</connection>
-		<developerConnection>
-			scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/plugins/appfuse-maven-plugin
-		</developerConnection>
-		<url>
-			https://appfuse.dev.java.net/source/browse/appfuse/trunk/plugins/appfuse-maven-plugin
-		</url>
-	</scm>
-
-    <licenses>
-		<license>
-			<name>Apache License 2</name>
-			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
-
-    <developers>
-		<developer>
-			<id>scryan</id>
-			<name>Scott Ryan</name>
-			<email>scott@theryansplace.com</email>
-			<roles>
-				<role>Java Developer</role>
-			</roles>
-			<timezone>-7</timezone>
-		</developer>
-        <developer>
-            <id>dlwhitehurst</id>
-            <name>David Whitehurst</name>
-            <email>dlwhitehurst@gmail.com</email>
-            <roles>
-                <role>Java Developer</role>
-            </roles>
-            <timezone>-6</timezone>
-        </developer>
-	</developers>
-
-    <dependencies>
-		<dependency>
-			<groupId>org.apache.maven</groupId>
-			<artifactId>maven-plugin-api</artifactId>
-			<version>2.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-tools</artifactId>
-			<version>3.2.0.beta6</version>
-		</dependency>
-		<!-- This is to fix a bug where beta 6 calls for the wrong version of hibernate in its pom -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate</artifactId>
-			<version>${hibernate.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>ant</groupId>
-			<artifactId>ant</artifactId>
-			<version>1.6.5</version>
-		</dependency>
-        <dependency>
-            <groupId>ant</groupId>
-            <artifactId>ant-optional</artifactId>
-            <version>1.5.3-1</version>
-        </dependency>
-        <dependency>
-            <groupId>ant-contrib</groupId>
-            <artifactId>ant-contrib</artifactId>
-            <version>1.0b2</version>
-        </dependency>
-
-		<!--  This is included until I can figure out how to get this in the user's classpath -->
-		<dependency>
-			<groupId>${jdbc.groupId}</groupId>
-			<artifactId>${jdbc.artifactId}</artifactId>
-			<version>${jdbc.version}</version>
-		</dependency>
-        <dependency>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.appfuse</groupId>
+    <artifactId>appfuse</artifactId>
+    <version>2.0-m4-SNAPSHOT</version>
+  </parent>
+  <prerequisites>
+    <maven>2.0.4</maven>
+  </prerequisites>
+  <artifactId>appfuse-maven-plugin</artifactId>
+  <packaging>maven-plugin</packaging>
+  <name>AppFuse Maven Plugin</name>
+  <version>2.0-m4-SNAPSHOT</version>
+  <inceptionYear>2006</inceptionYear>
+  <description>
+    This plugin is used with Maven to generate source or resource
+    artifacts for extending the functionality of your AppFuse
+    application.
+  </description>
+  <scm>
+    <connection>
+      scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/plugins/appfuse-maven-plugin
+    </connection>
+    <developerConnection>
+      scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/plugins/appfuse-maven-plugin
+    </developerConnection>
+    <url>
+      https://appfuse.dev.java.net/source/browse/appfuse/trunk/plugins/appfuse-maven-plugin
+    </url>
+  </scm>
+  <licenses>
+    <license>
+      <name>Apache License 2</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <id>scryan</id>
+      <name>Scott Ryan</name>
+      <email>scott@theryansplace.com</email>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+      <timezone>-7</timezone>
+    </developer>
+    <developer>
+      <id>dlwhitehurst</id>
+      <name>David Whitehurst</name>
+      <email>dlwhitehurst@gmail.com</email>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+      <timezone>-6</timezone>
+    </developer>
+  </developers>
+  <dependencies>
+    <!-- This is the code to allow for any based mojos -->
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-script-ant</artifactId>
+      <version>2.0.1</version>
+    </dependency>
+    <!--  These dependencies are in here for the groovy hack to gain access to the classpath until Jason fixes it in the mojo support. -->
+    <dependency>
+      <groupId>ant</groupId>
+      <artifactId>ant-apache-bsf</artifactId>
+      <version>1.6.5</version>
+    </dependency>
+    <dependency>
+      <groupId>bsf</groupId>
+      <artifactId>bsf</artifactId>
+      <version>2.3.0</version>
+    </dependency>
+    <dependency>
+      <groupId>groovy</groupId>
+      <artifactId>groovy</artifactId>
+      <version>1.0-jsr-06</version>
+    </dependency>
+    <!--  End of dependencies for groovy hack -->
+    <!-- This is for the support of java native mojos -->
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+      <version>2.0</version>
+    </dependency>
+    <!-- This is to support of ant based mojos -->
+    <dependency>
+      <groupId>ant</groupId>
+      <artifactId>ant</artifactId>
+      <version>1.6.5</version>
+    </dependency>
+    <dependency>
+      <groupId>ant</groupId>
+      <artifactId>ant-optional</artifactId>
+      <version>1.5.3-1</version>
+    </dependency>
+    <dependency>
+      <groupId>ant-contrib</groupId>
+      <artifactId>ant-contrib</artifactId>
+      <version>1.0b2</version>
+    </dependency>
+    <!-- This is to support the calls to hibernate tools from ant and java. -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-tools</artifactId>
+      <version>3.2.0.beta8</version>
+    </dependency>
+    <!--  This is included until I can figure out how to get this in the user's classpath -->
+    <dependency>
+      <groupId>${jdbc.groupId}</groupId>
+      <artifactId>${jdbc.artifactId}</artifactId>
+      <version>${jdbc.version}</version>
+    </dependency>
+  </dependencies>
+  <distributionManagement>
+    <site>
+      <id>appfuse-plugins</id>
+      <name>AppFuse Plugins Site</name>
+      <url>
+        scp://static.appfuse.org/home/raibledemo/public_html/plugins/appfuse-maven-plugin
+      </url>
+    </site>
+  </distributionManagement>
+  <build>
+    <plugins>
+      <plugin>
+        <!-- NOTE: We don't need groupId if the plugin's groupId is
+          org.apache.maven.plugins OR org.codehaus.mojo.
+          We also don't have to specify a version, since Maven can
+          automatically resolve the newest one.
+        -->
+        <artifactId>maven-plugin-plugin</artifactId>
+        <!-- Add the Ant plugin tools -->
+        <dependencies>
+          <dependency>
             <groupId>org.apache.maven</groupId>
-            <artifactId>maven-script-ant</artifactId>
+            <artifactId>maven-plugin-tools-ant</artifactId>
             <version>2.0.1</version>
-        </dependency>
-    </dependencies>
-
-    <distributionManagement>
-        <site>
-            <id>appfuse-plugins</id>
-            <name>AppFuse Plugins Site</name>
-            <url>scp://static.appfuse.org/home/raibledemo/public_html/plugins/appfuse-maven-plugin</url>
-        </site>
-    </distributionManagement>
-    
-    <reporting>
-        <plugins>
-            <plugin>
-                <artifactId>maven-plugin-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </reporting>
+          </dependency>
+        </dependencies>
+        <!-- Tell the plugin-plugin which prefix we will use.
+          Later, we'll configure Maven to allow us to invoke this
+          plugin using the "prefix:mojo" shorthand.
+        -->
+        <configuration>
+          <goalPrefix>appfuse</goalPrefix>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <reporting>
+    <plugins>
+      <plugin>
+        <artifactId>maven-plugin-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </reporting>
 </project>
