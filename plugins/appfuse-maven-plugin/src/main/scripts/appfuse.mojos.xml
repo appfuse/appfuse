@@ -67,7 +67,7 @@
           <required>true</required>
           <readonly>true</readonly>
           <defaultValue>
-            ${basedir}/src/main/resources/jdbc.properties
+            ${basedir}/target/classes/jdbc.properties
           </defaultValue>
           <type>java.lang.String</type>
           <description>
