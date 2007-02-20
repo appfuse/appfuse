@@ -18,11 +18,13 @@
         <path refid="classpath" />
       </classpath>
     </taskdef>
-    <echo>Using configuration file ${hibernate.properties.file} to generate model pojos to ${appfuse.destination.dir}</echo>
-    <hibernatetool destdir="${appfuse.destination.dir}">
-       <jdbcconfiguration propertyfile="${hibernate.properties.file}" packagename="${appfuse.model.package.name}"/>
-       <hbm2java ejb3="${appfuse.ejb3}" jdk5="${appfuse.jdk5}"/>
-       <hbm2cfgxml ejb3="${appfuse.ejb3}"/>
+    <echo>Using configuration file ${hibernate.properties.file} and reverse engineering file ${hibernate.reveng.file} 
+    	to generate model pojos to ${appfuse.src.destination.dir} with package name ${appfuse.model.package.name} 
+    	and ejb3 flag set to ${appfuse.ejb3} and jdk5 flag set to  ${appfuse.jdk5}</echo>
+    <hibernatetool >
+       <jdbcconfiguration propertyfile="${hibernate.properties.file}" packagename="${appfuse.model.package.name}" />
+       <hbm2java ejb3="${appfuse.ejb3}" jdk5="${appfuse.jdk5}" destdir="${appfuse.src.destination.dir}"/>
+       <hbm2cfgxml ejb3="${appfuse.ejb3}" destdir="${appfuse.resource.destination.dir}"/>
     </hibernatetool>
   </target>
   <target name="gendao">
@@ -42,11 +44,11 @@
       </classpath>
     </taskdef>
     <echo>Using configuration file ${hibernate.properties.file} to generate model pojos to ${appfuse.destination.dir}</echo>
-    <hibernatetool destdir="${appfuse.destination.dir}">
+    <hibernatetool destdir="${appfuse.src.destination.dir}">
       <classpath>
         <path refid="classpath" />
       </classpath>
-       <annotationconfiguration configurationfile="${appfuse.destination.dir}/hibernate.cfg.xml"/>
+       <annotationconfiguration configurationfile="${appfuse.src.destination.dir}/hibernate.cfg.xml"/>
        <hbmtemplate 
          templateprefix="${appfuse.template.prefix}" 
          template="${appfuse.template.name}" 

@@ -76,14 +76,43 @@
           </description>
         </parameter>
         <parameter>
-          <name>Generation Destination Directory</name>
-          <property>appfuse.destination.dir</property>
+          <name>Reverse Engineering File</name>
+          <property>hibernate.reveng.file</property>
           <required>true</required>
           <readonly>true</readonly>
-          <defaultValue>${basedir}/src/main/java</defaultValue>
+          <defaultValue>
+            ${basedir}/src/main/resources/hibernate.reveng.xml
+          </defaultValue>
           <type>java.lang.String</type>
           <description>
-            The name of the directory to generate to.
+            The name of the reverse engineering file used to control the
+            creation of the model layer from the database.
+          </description>
+        </parameter>
+        <parameter>
+          <name>Source Generation Destination Directory</name>
+          <property>appfuse.src.destination.dir</property>
+          <required>true</required>
+          <readonly>true</readonly>
+          <defaultValue>
+            ${basedir}/target/generated-sources/main/java
+          </defaultValue>
+          <type>java.lang.String</type>
+          <description>
+            The name of the directory to generate the java source to.
+          </description>
+        </parameter>
+        <parameter>
+          <name>Resource Generation Destination Directory</name>
+          <property>appfuse.resource.destination.dir</property>
+          <required>true</required>
+          <readonly>true</readonly>
+          <defaultValue>
+            ${basedir}/target/generated-sources/main/resources
+          </defaultValue>
+          <type>java.lang.String</type>
+          <description>
+            The name of the directory to generate resources to.
           </description>
         </parameter>
         <parameter>
@@ -91,7 +120,7 @@
           <property>appfuse.model.package.name</property>
           <required>true</required>
           <readonly>true</readonly>
-          <defaultValue>org.appfuse.model</defaultValue>
+          <defaultValue>${project.groupId}.model</defaultValue>
           <type>java.lang.String</type>
           <description>
             The package name for the model objects.
@@ -188,16 +217,16 @@
           </description>
         </parameter>
         <parameter>
-          <name>Generation Destination Directory</name>
-          <property>appfuse.destination.dir</property>
+          <name>Source Generation Destination Directory</name>
+          <property>appfuse.src.destination.dir</property>
           <required>true</required>
           <readonly>true</readonly>
           <defaultValue>
-             ${basedir}/src/main/java
+            ${basedir}/target/generated-sources/main/java
           </defaultValue>
           <type>java.lang.String</type>
           <description>
-            The name of the directory to generate to.
+            The name of the directory to generate source to.
           </description>
         </parameter>
         <parameter>
@@ -238,7 +267,7 @@
           <property>appfuse.dao.package.name</property>
           <required>true</required>
           <readonly>true</readonly>
-          <defaultValue>org.appfuse.dao</defaultValue>
+          <defaultValue>${project.groupId}.dao</defaultValue>
           <type>java.lang.String</type>
           <description>
             The package name for all dao objects.
@@ -249,7 +278,7 @@
           <property>appfuse.model.package.name</property>
           <required>true</required>
           <readonly>true</readonly>
-          <defaultValue>org.appfuse.model</defaultValue>
+          <defaultValue>${project.groupId}.model</defaultValue>
           <type>java.lang.String</type>
           <description>
             The package name for the model objects.
