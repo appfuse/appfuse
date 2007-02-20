@@ -162,6 +162,14 @@
             </testResource>
         </testResources>
     </build>
+    
+    <repositories>
+        <repository>
+            <id>struts-206-staging</id>
+            <name>Apache Struts 2.0.6 Staging Repository</name>
+            <url>http://people.apache.org/builds/struts/2.0.6/m2-staging-repository</url>
+        </repository>
+    </repositories>
 
     <dependencies>
         <dependency>
