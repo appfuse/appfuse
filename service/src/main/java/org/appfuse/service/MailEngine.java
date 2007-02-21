@@ -75,7 +75,8 @@ public class MailEngine {
     /**
      * Convenience method for sending messages with attachments.
      * 
-     * @param emailAddresses
+     * @param recipients
+     * @param sender
      * @param resource
      * @param bodyText
      * @param subject
@@ -83,7 +84,7 @@ public class MailEngine {
      * @throws MessagingException
      * @author Ben Gill
      */
-    public void sendMessage(String[] emailAddresses,
+    public void sendMessage(String[] recipients, String sender, 
                             ClassPathResource resource, String bodyText,
                             String subject, String attachmentName)
     throws MessagingException {
@@ -93,7 +94,8 @@ public class MailEngine {
         // use the true flag to indicate you need a multipart message
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-        helper.setTo(emailAddresses);
+        helper.setTo(recipients);
+        helper.setFrom(sender);
         helper.setText(bodyText);
         helper.setSubject(subject);
 
