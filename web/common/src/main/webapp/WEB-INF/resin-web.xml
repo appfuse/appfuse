@@ -1,12 +1,12 @@
-<web-app id="/appfuse">
+<web-app id="${project.build.finalName}">
     <jsp fast-jstl="false"/>
 
     <!--database>
         <jndi-name>jdbc/appfuse</jndi-name>
-        <driver type="@DB-DRIVERNAME@">
-            <url>@DB-URL@</url>
-            <user>@DB-USERNAME@</user>
-            <password>@DB-PASSWORD@</password>
+        <driver type="${jdbc.driverClassName}">
+            <url>${jdbc.url}</url>
+            <user>${jdbc.username}</user>
+            <password>${jdbc.password}</password>
         </driver>
     </database-->
 </web-app>
