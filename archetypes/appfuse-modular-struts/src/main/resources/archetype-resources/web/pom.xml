@@ -119,7 +119,8 @@
                                 ApplicationResources_de.properties,
                                 ApplicationResources_fr.properties,
                                 ApplicationResources_nl.properties,
-                                ApplicationResources_pt*.properties
+                                ApplicationResources_pt*.properties,
+                                ApplicationResources_tr.properties
                             </includes>
                         </configuration>
                     </execution>
@@ -135,6 +136,7 @@
                     <exclude>ApplicationResources_fr.properties</exclude>
                     <exclude>ApplicationResources_nl.properties</exclude>
                     <exclude>ApplicationResources_pt*.properties</exclude>
+                    <exclude>ApplicationResources_tr.properties</exclude>
                 </excludes>
                 <filtering>true</filtering>
             </resource>

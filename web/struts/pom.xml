@@ -129,7 +129,7 @@
                         </goals>
                         <configuration>
                             <encoding>UTF8</encoding>
-                            <includes>ApplicationResources_zh*</includes>
+                            <includes>errors_zh*</includes>
                         </configuration>
                     </execution>
                     <execution>
@@ -140,16 +140,31 @@
                         <configuration>
                             <encoding>8859_1</encoding>
                             <includes>
-                                ApplicationResources_de.properties,
-                                ApplicationResources_fr.properties,
-                                ApplicationResources_nl.properties,
-                                ApplicationResources_pt*.properties
+                                errors_de.properties,
+                                errors_fr.properties,
+                                errors_nl.properties,
+                                errors_pt*.properties,
+                                errors_tr.properties
                             </includes>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>errors_zh*.properties</exclude>
+                    <exclude>errors_de.properties</exclude>
+                    <exclude>errors_fr.properties</exclude>
+                    <exclude>errors_nl.properties</exclude>
+                    <exclude>errors_pt*.properties</exclude>
+                    <exclude>errors_tr.properties</exclude>
+                </excludes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <testResources>
             <testResource>
                 <directory>src/test/resources</directory>
