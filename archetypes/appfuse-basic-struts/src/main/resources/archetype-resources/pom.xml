@@ -188,7 +188,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>native2ascii-maven-plugin</artifactId>
-                <version>1.0-beta-1-SNAPSHOT</version>
+                <version>1.0-alpha-1-SNAPSHOT</version>
                 <configuration>
                     <dest>target/classes</dest>
                     <src>src/main/resources</src>
