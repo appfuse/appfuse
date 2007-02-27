@@ -12,6 +12,7 @@
             <supported-locale>de</supported-locale>
             <supported-locale>fr</supported-locale>
             <supported-locale>nl</supported-locale>
+            <supported-locale>no</supported-locale>
             <supported-locale>pt</supported-locale>
             <supported-locale>pt_BR</supported-locale>
             <supported-locale>tr</supported-locale>
