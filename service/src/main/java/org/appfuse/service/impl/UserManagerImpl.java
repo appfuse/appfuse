@@ -9,6 +9,8 @@ import org.appfuse.service.UserExistsException;
 import org.appfuse.service.UserManager;
 import org.springframework.dao.DataIntegrityViolationException;
 
+import javax.persistence.EntityExistsException;
+
 
 /**
  * Implementation of UserManager interface.</p>
@@ -52,9 +54,12 @@ public class UserManagerImpl extends UniversalManagerImpl implements UserManager
     	if (user.getVersion() == null) {
             user.setUsername(user.getUsername().toLowerCase());
     	}
+        
         try {
             dao.saveUser(user);
         } catch (DataIntegrityViolationException e) {
+            throw new UserExistsException("User '" + user.getUsername() + "' already exists!");
+        } catch (EntityExistsException e) { // needed for JPA
             throw new UserExistsException("User '" + user.getUsername() + "' already exists!");
         }
     }
