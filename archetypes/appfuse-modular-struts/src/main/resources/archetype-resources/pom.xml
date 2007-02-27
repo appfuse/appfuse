@@ -298,5 +298,7 @@
         <cargo.host>localhost</cargo.host>
         <cargo.port>8081</cargo.port>
         <cargo.wait>false</cargo.wait>
+
+        <copyright.year>2007</copyright.year>
     </properties>
 </project>
