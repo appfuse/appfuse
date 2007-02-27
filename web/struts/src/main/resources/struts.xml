@@ -19,7 +19,7 @@
         <interceptors>
             <!-- Interceptor to handle allowing only admins to certain actions -->
             <interceptor name="adminOnly" class="adminInterceptor"/>
-            <!-- https://issues.apache.org/struts/browse/WW-1187 -->
+            <!-- Copied from struts-default.xml and changed validation exclude methods -->
             <interceptor-stack name="defaultStack">
                 <interceptor-ref name="exception"/>
                 <interceptor-ref name="alias"/>
@@ -27,16 +27,22 @@
                 <interceptor-ref name="prepare"/>
                 <interceptor-ref name="i18n"/>
                 <interceptor-ref name="chain"/>
+                <interceptor-ref name="debugging"/>
+                <interceptor-ref name="profiling"/>
+                <interceptor-ref name="scoped-model-driven"/>
                 <interceptor-ref name="model-driven"/>
                 <interceptor-ref name="fileUpload"/>
+                <interceptor-ref name="checkbox"/>
                 <interceptor-ref name="static-params"/>
-                <interceptor-ref name="params"/>
+                <interceptor-ref name="params">
+                	<param name="excludeParams">dojo\..*</param>
+                </interceptor-ref>
                 <interceptor-ref name="conversionError"/>
                 <interceptor-ref name="validation">
                     <param name="excludeMethods">cancel,execute,delete,edit,list,start</param>
                 </interceptor-ref>
                 <interceptor-ref name="workflow">
-                    <param name="excludeMethods">input,back,cancel</param>
+                    <param name="excludeMethods">input,back,cancel,browse</param>
                 </interceptor-ref>
             </interceptor-stack>
             <interceptor-stack name="fileUploadStack">
