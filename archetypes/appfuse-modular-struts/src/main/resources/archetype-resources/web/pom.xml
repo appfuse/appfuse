@@ -212,6 +212,8 @@
                                     <url>${cargo.container.url}</url>
                                     <installDir>${installDir}</installDir>
                                 </zipUrlInstaller>
+                                <log>${project.build.directory}/${cargo.container}/cargo.log</log>
+                                <output>${project.build.directory}/${cargo.container}/${cargo.container}.log</output>
                             </container>
                             <configuration>
                                 <home>${project.build.directory}/${cargo.container}/container</home>
