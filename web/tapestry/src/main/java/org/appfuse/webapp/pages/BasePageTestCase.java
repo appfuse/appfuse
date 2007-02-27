@@ -29,6 +29,7 @@ public abstract class BasePageTestCase extends AbstractTransactionalDataSourceSp
                 "classpath*:/applicationContext-resources.xml",
                 "classpath*:/applicationContext-dao.xml",
                 "classpath*:/applicationContext-service.xml",
+                "classpath*:/applicationContext.xml", // for modular archetypes
                 "/WEB-INF/applicationContext*.xml"
             };
     }

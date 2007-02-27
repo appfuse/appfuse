@@ -46,6 +46,7 @@ public abstract class BasePageTestCase extends TestCase {
                 "classpath*:/applicationContext-resources.xml, " +
                 "classpath*:/applicationContext-dao.xml, " +
                 "classpath*:/applicationContext-service.xml," +
+                "classpath*:/applicationContext.xml," + // for modular archetypes
                 "/WEB-INF/applicationContext*.xml");
 
         ServletContextListener contextListener = new ContextLoaderListener();
