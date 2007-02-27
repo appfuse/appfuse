@@ -126,8 +126,8 @@
             <version>${pom.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.ibatis</groupId>
-            <artifactId>ibatis2-sqlmap</artifactId>
+            <groupId>org.apache.ibatis</groupId>
+            <artifactId>ibatis-sqlmap</artifactId>
             <version>${ibatis.version}</version>
         </dependency>
     </dependencies>

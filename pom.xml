@@ -419,7 +419,7 @@
         <el.version>1.2</el.version>
         <facelets.version>1.1.11</facelets.version>
         <hibernate.version>3.2.1.ga</hibernate.version>
-        <ibatis.version>2.1.7.597</ibatis.version>
+        <ibatis.version>2.3.0</ibatis.version>
         <javamail.version>1.4</javamail.version>
         <jmock.version>1.1.0</jmock.version>
         <jpa.version>1.0</jpa.version>
