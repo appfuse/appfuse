@@ -14,10 +14,6 @@
     <artifactId>${artifactId}-core</artifactId>
     <packaging>jar</packaging>
     <name>AppFuse Modular Application - Core</name>
-
-    <prerequisites>
-        <maven>2.0.4</maven>
-    </prerequisites>
 	
     <build>
         <plugins>

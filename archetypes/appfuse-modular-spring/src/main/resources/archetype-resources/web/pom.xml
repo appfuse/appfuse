@@ -15,10 +15,6 @@
     <packaging>war</packaging>
     <name>AppFuse Modular Application - Web (Spring MVC)</name>
 
-    <prerequisites>
-        <maven>2.0.4</maven>
-    </prerequisites>
-	
     <build>
         <plugins>
             <plugin>
