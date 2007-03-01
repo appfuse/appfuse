@@ -38,18 +38,6 @@
     <logger name="org.appfuse">
         <level value="INFO"/>
     </logger>
-
-    <logger name="org.appfuse.util">
-        <level value="WARN"/>
-    </logger>
-    
-    <logger name="org.appfuse.webapp.filter">
-        <level value="ERROR"/>
-    </logger>
-    
-    <logger name="org.appfuse.webapp.listener.UserCounterListener">
-        <level value="WARN"/>
-    </logger>
     
     <logger name="${groupId}">
         <level value="DEBUG"/>
