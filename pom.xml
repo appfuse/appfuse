@@ -407,7 +407,7 @@
         <ajax4jsf.version>1.0.6</ajax4jsf.version>
         <aspectj.version>1.5.3</aspectj.version>
         <clickstream.version>1.0.2</clickstream.version>
-        <commons.lang.version>2.2</commons.lang.version>
+        <commons.lang.version>2.3</commons.lang.version>
         <commons.beanutils.version>1.7.0</commons.beanutils.version>
         <commons.dbcp.version>1.2.1</commons.dbcp.version>
         <commons.fileupload.version>1.1.1</commons.fileupload.version>
@@ -533,7 +533,7 @@
                 <jdbc.artifactId>jtds</jdbc.artifactId>
                 <jdbc.version>1.2</jdbc.version>
                 <jdbc.driverClassName>net.sourceforge.jtds.jdbc.Driver</jdbc.driverClassName>
-                <jdbc.url><![CDATA[jdbc:jtds:sqlserver://localhost:3683/appfuse]]></jdbc.url>
+                <jdbc.url><![CDATA[jdbc:jtds:sqlserver://localhost:1433/appfuse]]></jdbc.url>
                 <jdbc.username>sa</jdbc.username>
                 <jdbc.password>appfuse</jdbc.password>
             </properties>
