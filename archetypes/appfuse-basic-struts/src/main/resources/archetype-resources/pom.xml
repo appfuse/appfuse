@@ -159,6 +159,9 @@
                 <configuration>
                     <contextPath>/</contextPath>
                     <scanIntervalSeconds>3</scanIntervalSeconds>
+                    <scanTargets>
+                        <scanTarget>src/main/webapp/WEB-INF</scanTarget>
+                    </scanTargets>
                 </configuration>
             </plugin>
             <plugin>
