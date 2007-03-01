@@ -193,7 +193,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>native2ascii-maven-plugin</artifactId>
-                <version>1.0-alpha-1-SNAPSHOT</version>
+                <version>1.0-alpha-1</version>
                 <configuration>
                     <dest>target/classes</dest>
                     <src>src/main/resources</src>
@@ -206,7 +206,10 @@
                         </goals>
                         <configuration>
                             <encoding>UTF8</encoding>
-                            <includes>ApplicationResources_zh*</includes>
+                            <includes>
+                                ApplicationResources_tr.properties,
+                                ApplicationResources_zh*.properties
+                            </includes>
                         </configuration>
                     </execution>
                     <execution>
@@ -220,8 +223,7 @@
                                 ApplicationResources_de.properties,
                                 ApplicationResources_fr.properties,
                                 ApplicationResources_nl.properties,
-                                ApplicationResources_pt*.properties,
-                                ApplicationResources_tr.properties
+                                ApplicationResources_pt*.properties
                             </includes>
                         </configuration>
                     </execution>
