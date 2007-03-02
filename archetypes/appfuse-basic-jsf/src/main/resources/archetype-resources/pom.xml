@@ -164,6 +164,9 @@
                 <configuration>
                     <contextPath>/</contextPath>
                     <scanIntervalSeconds>3</scanIntervalSeconds>
+                    <scanTargets>
+                        <scanTarget>src/main/webapp/WEB-INF<scanTarget>
+                    </scanTargets>
                 </configuration>
                 <dependencies>
                     <dependency>
@@ -603,7 +606,7 @@
         <hibernate.dialect>org.hibernate.dialect.MySQLInnoDBDialect</hibernate.dialect>
         <jdbc.groupId>mysql</jdbc.groupId>
         <jdbc.artifactId>mysql-connector-java</jdbc.artifactId>
-        <jdbc.version>5.0.3</jdbc.version>
+        <jdbc.version>5.0.4</jdbc.version>
         <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
         <jdbc.url><![CDATA[jdbc:mysql://localhost/${artifactId}?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8]]></jdbc.url>
         <jdbc.username>root</jdbc.username>

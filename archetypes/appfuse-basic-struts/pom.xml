@@ -27,7 +27,7 @@
 
     <artifactId>appfuse-basic-struts</artifactId>
     <name>AppFuse Basic Archetype - Struts</name>
-    <version>1.0-m4-SNAPSHOT</version>
+    <version>2.0-m4-SNAPSHOT</version>
 
     <description>
         Maven 2 archetype that creates a web application with AppFuse embedded in it.
