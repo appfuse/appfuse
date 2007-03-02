@@ -17,7 +17,7 @@ ${parameters.label?html}<#t/>
 <#include "/${parameters.templateDir}/xhtml/tooltip.ftl" /> 
 <#if parameters.required?default(false)> <span class="req">*</span></#if></label><#t/>
 </#if>
-<#if hasFieldErrors>
+<#if hasFieldErrors && parameters.labelposition?default("top") != 'bottom'>
 <#list fieldErrors[parameters.name] as error>
     <span class="fieldError"><img src="./images/iconWarning.gif" alt="Validation Error" class="icon" /> ${error?html}</span><#lt/>
 </#list>
