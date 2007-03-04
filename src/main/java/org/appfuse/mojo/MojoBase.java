@@ -5,6 +5,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 
 import org.codehaus.plexus.components.interactivity.Prompter;
+import org.codehaus.plexus.components.interactivity.PrompterException;
 
 
 /**
@@ -226,6 +227,22 @@ public abstract class MojoBase extends AbstractMojo
     public void setHibernateConfigurationFile(final String inHibernateConfigurationFile)
     {
         this.hibernateConfigurationFile = inHibernateConfigurationFile;
+    }
+
+    /**
+     * This method will prompt the user for an ant pattern to determine which objects to generate
+     * from..
+     *
+     * @return  The ant pattern to use to find model objects.
+     *
+     * @throws  PrompterException  Thrown if the user input cannot be generated.
+     */
+    public String promptForInputPattern() throws PrompterException
+    {
+        String returnValue = prompter.prompt(
+                "Please enter an Ant Pattern to determine which objects to generate. (Default is **/*.java)");
+
+        return returnValue;
     }
 
     /**

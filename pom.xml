@@ -32,9 +32,8 @@
   <version>2.0-m4-SNAPSHOT</version>
   <inceptionYear>2006</inceptionYear>
   <description>
-    This plugin is used with Maven to generate source or resource
-    artifacts for extending the functionality of your AppFuse
-    application.
+    This plugin is used with Maven to generate source or resource artifacts for extending the
+    functionality of your AppFuse application.
   </description>
   <scm>
     <connection>
@@ -43,9 +42,7 @@
     <developerConnection>
       scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/plugins/appfuse-maven-plugin
     </developerConnection>
-    <url>
-      https://appfuse.dev.java.net/source/browse/appfuse/trunk/plugins/appfuse-maven-plugin
-    </url>
+    <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/plugins/appfuse-maven-plugin</url>
   </scm>
   <licenses>
     <license>
@@ -81,30 +78,24 @@
       <artifactId>maven-script-ant</artifactId>
       <version>2.0.1</version>
     </dependency>
-    <!--  These dependencies are in here for the groovy hack to gain access to the classpath until Jason fixes it in the mojo support. -->
     <dependency>
-      <groupId>ant</groupId>
-      <artifactId>ant-apache-bsf</artifactId>
-      <version>1.6.5</version>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-project</artifactId>
+      <version>2.0.3</version>
     </dependency>
+    <!--  This is for the prompter -->
     <dependency>
-      <groupId>bsf</groupId>
-      <artifactId>bsf</artifactId>
-      <version>2.3.0</version>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-interactivity-api</artifactId>
+      <version>1.0-alpha-5</version>
     </dependency>
-    <dependency>
-      <groupId>groovy</groupId>
-      <artifactId>groovy</artifactId>
-      <version>1.0-jsr-06</version>
-    </dependency>
-    <!--  End of dependencies for groovy hack -->
     <!-- This is for the support of java native mojos -->
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-plugin-api</artifactId>
       <version>2.0</version>
     </dependency>
-    <!-- This is to support of ant based mojos -->
+    <!-- This is to support the ant calls within the mojos -->
     <dependency>
       <groupId>ant</groupId>
       <artifactId>ant</artifactId>
@@ -115,11 +106,6 @@
       <artifactId>ant-optional</artifactId>
       <version>1.5.3-1</version>
     </dependency>
-    <dependency>
-      <groupId>ant-contrib</groupId>
-      <artifactId>ant-contrib</artifactId>
-      <version>1.0b2</version>
-    </dependency>
     <!-- This is to support the calls to hibernate tools from ant and java. -->
     <dependency>
       <groupId>org.hibernate</groupId>
@@ -128,20 +114,9 @@
     </dependency>
     <dependency>
       <groupId>org.hibernate</groupId>
-      <artifactId>hibernate</artifactId>
+      <artifactId>hibernate-annotations</artifactId>
       <version>3.2.1.ga</version>
     </dependency>
-    <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-annotations</artifactId>
-      <version>3.2.0.ga</version>
-    </dependency>
-    <dependency>
-      <groupId>javax.persistence</groupId>
-      <artifactId>persistence-api</artifactId>
-      <version>1.0</version>
-    </dependency>
-    <!--  This is included until I can figure out how to get this in the user's classpath -->
     <dependency>
       <groupId>${jdbc.groupId}</groupId>
       <artifactId>${jdbc.artifactId}</artifactId>
@@ -152,9 +127,7 @@
     <site>
       <id>appfuse-plugins</id>
       <name>AppFuse Plugins Site</name>
-      <url>
-        scp://static.appfuse.org/home/raibledemo/public_html/plugins/appfuse-maven-plugin
-      </url>
+      <url>scp://static.appfuse.org/home/raibledemo/public_html/plugins/appfuse-maven-plugin</url>
     </site>
   </distributionManagement>
   <build>

@@ -1,33 +1,64 @@
 package org.appfuse.mojo.appfuse.mojo.service;
 
 /*
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  */
+import org.apache.maven.artifact.DependencyResolutionRequiredException;
+import org.apache.maven.plugin.MojoExecutionException;
+
+import org.appfuse.mojo.MojoBase;
+import org.appfuse.mojo.appfuse.utility.MojoUtilities;
+import org.appfuse.mojo.tasks.GeneratePojoTask;
+
+import org.codehaus.plexus.components.interactivity.PrompterException;
 
 import java.util.Properties;
 
-import org.appfuse.mojo.appfuse.mojo.PojoMojoBase;
 
 /**
  * This mojo class will create manager interfaces from a set of hbm.xml files.
- * 
- * @author <a href="mailto:scott@theryansplace.com">Scott Ryan</a>
- * @version $Id: $
- * @description Generate one or more manager interfaces from the input hbm.xml files.
-
+ *
+ * @author                        <a href="mailto:scott@theryansplace.com">Scott Ryan</a>
+ * @version                       $Id: $
+ * @description                   Generate one or more manager interfaces from the input hbm.xml
+ *                                files.*
+ * @goal                          genmanager
+ * @requiresDependencyResolution  compile
  */
-public class GenerateManagerMojo extends PojoMojoBase
+public class GenerateManagerMojo extends MojoBase
 {
+    /**
+     * This is the package name for the dao objects.
+     *
+     * @parameter  expression="${appfuse.manager.package.name}"
+     *             default-value="${project.groupId}.manager"
+     */
+    private String managerPackageName;
+
+    /**
+     * This is the output file pattern for manager objects. The package name will be added to the
+     * beginning of the pattern with . replaced with slashes.
+     *
+     * @parameter  expression="${appfuse.manager.output.file.pattern}"
+     *             default-value="{class-name}Manager.java"
+     */
+    private String managerFilePattern;
+
+    /**
+     * This is the template name used to generate the manager objects.
+     *
+     * @parameter  expression="${appfuse.manager.template.name}"
+     *             default-value="/appfusemanager/managerinterface.ftl"
+     */
+    private String managerTemplateName;
 
     /**
      * Creates a new GenerateManagerMojo object.
@@ -35,72 +66,133 @@ public class GenerateManagerMojo extends PojoMojoBase
     public GenerateManagerMojo()
     {
         super();
-        this.setMojoName( "GenerateManagerMojo" );
+        this.setMojoName("GenerateManagerMojo");
     }
 
     /**
-     * Getter for property file pattern.
-     * 
-     * @return The value of file pattern.
+     * This method will generate a set of DAO test objects to match the input file pattern.
+     *
+     * @throws  MojoExecutionException  Thrown if an error is encountered in executing the mojo.
      */
-    public String getOutputPattern()
+    public void execute() throws MojoExecutionException
     {
-        return buildOutputPattern( org.appfuse.mojo.appfuse.utility.AppFuseProperties.MANAGER_OUTPUT_PATTERN,
-                                   org.appfuse.mojo.appfuse.utility.AppFuseProperties.MANAGER_OUTPUT_PATTERN_PROPERTY_KEY, this.getPackageName() );
+        this.getLog().info("Running Mojo " + this.getMojoName());
+
+        // Prompt for the input file pattern
+        this.getLog().info("Parameters are " + this.toString());
+
+        try
+        {
+            // Create a new task
+            GeneratePojoTask task = new GeneratePojoTask();
+
+            // Generate the properties list to be set to the generation task.
+            Properties props = new Properties();
+            props.put("modelpackagename", this.getModelPackageName());
+
+            // Set all the properties required.
+            task.setEjb3(this.isEjb3());
+            task.setJdk5(this.isJdk5());
+            task.setOutputDirectory(this.getOutputDirectory());
+            task.setOutputFilePattern(this.getManagerFilePattern());
+            task.setInputFilePattern(this.promptForInputPattern());
+            task.setPackageName(this.getManagerPackageName());
+            task.setModelPackageName(this.getModelPackageName());
+            task.setTemplateProperties(props);
+            task.setTemplateName(this.getManagerTemplateName());
+            task.setHibernateConfigurationFile(this.getHibernateConfigurationFile());
+
+            // Get a ouput file classpath for this project
+            String outputClasspath;
+            outputClasspath = MojoUtilities.getOutputClasspath(this.getMavenProject());
+            task.setOuputClassDirectory(outputClasspath);
+            task.execute();
+        }
+        catch (DependencyResolutionRequiredException ex)
+        {
+            throw new MojoExecutionException(ex.getMessage());
+        }
+        catch (PrompterException ex)
+        {
+            throw new MojoExecutionException(ex.getMessage());
+        }
     }
 
     /**
-     * This method implments the abstract method in the base class to allow a different template name to be processed.
-     * 
-     * @return The value of template name.
+     * Getter for property manager file pattern.
+     *
+     * @return  The value of manager file pattern.
      */
-    public String getTemplateName()
+    public String getManagerFilePattern()
     {
-        return locateTemplate( org.appfuse.mojo.appfuse.utility.AppFuseProperties.MANAGER_TEMPLATE_NAME,
-                               org.appfuse.mojo.appfuse.utility.AppFuseProperties.MANAGER_TEMPLATE_NAME_PROPERTY_KEY );
+        return this.managerFilePattern;
     }
 
     /**
-     * This method will return the full package name to be used for generating output for the manager objects.
-     * 
-     * @return The full package name for all dao objects.
-     * 
+     * Setter for the manager file pattern.
+     *
+     * @param  inManagerFilePattern  The value of manager file pattern.
      */
-    protected String getPackageName()
+    public void setManagerFilePattern(final String inManagerFilePattern)
     {
-        return buildPackageName( org.appfuse.mojo.appfuse.utility.AppFuseProperties.DEFAULT_MANAGER_PACKAGE_EXTENSION,
-                                 org.appfuse.mojo.appfuse.utility.AppFuseProperties.MANAGER_PACKAGE_EXTENSION_PROPERTY_KEY );
+        this.managerFilePattern = inManagerFilePattern;
     }
 
     /**
-     * This method is used to make sure the proper properties are set to be used in processing this mojo. These
-     * properties are passed in to the generator to be used within any freemarker templates.
-     * 
-     * @param inProperties
-     *            The project properties that already have been populated.
+     * Getter for property manager package name.
+     *
+     * @return  The value of manager package name.
      */
-    protected void validateProperties( final Properties inProperties )
+    public String getManagerPackageName()
     {
-        // See if there is a model package extension
-        // add the model package name in the properties for access inside the template.
-        inProperties.put( "managerpackagename", this.getPackageName() );
-        inProperties.put( "modelpackagename", this.getModelPackageName() );
+        return this.managerPackageName;
+    }
 
+    /**
+     * Setter for the manager package name.
+     *
+     * @param  inManagerPackageName  The value of manager package name.
+     */
+    public void setManagerPackageName(final String inManagerPackageName)
+    {
+        this.managerPackageName = inManagerPackageName;
+    }
+
+    /**
+     * Getter for property manager template name.
+     *
+     * @return  The value of manager template name.
+     */
+    public String getManagerTemplateName()
+    {
+        return this.managerTemplateName;
+    }
+
+    /**
+     * Setter for the manager template name.
+     *
+     * @param  inManagerTemplateName  The value of manager template name.
+     */
+    public void setManagerTemplateName(final String inManagerTemplateName)
+    {
+        this.managerTemplateName = inManagerTemplateName;
     }
 
     /**
      * This method creates a String representation of this object.
-     * 
-     * @return the String representation of this object
-     * 
-     * @author
+     *
+     * @return  the String representation of this object
      */
     public String toString()
     {
         StringBuffer buffer = new StringBuffer();
-        buffer.append( super.toString() );
-        buffer.append( "GenerateManagerMojo[" );
-        buffer.append( "]" );
+        buffer.append(super.toString());
+        buffer.append("GenerateManagerMojo[");
+        buffer.append("managerFilePattern = ").append(managerFilePattern);
+        buffer.append("\n managerPackageName = ").append(managerPackageName);
+        buffer.append("\n managerTemplateName = ").append(managerTemplateName);
+        buffer.append("]");
+
         return buffer.toString();
     }
 }
