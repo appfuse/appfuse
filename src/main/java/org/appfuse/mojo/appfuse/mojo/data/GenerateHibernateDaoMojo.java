@@ -1,33 +1,64 @@
 package org.appfuse.mojo.appfuse.mojo.data;
 
 /*
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  */
+import org.apache.maven.artifact.DependencyResolutionRequiredException;
+import org.apache.maven.plugin.MojoExecutionException;
+
+import org.appfuse.mojo.MojoBase;
+import org.appfuse.mojo.appfuse.utility.MojoUtilities;
+import org.appfuse.mojo.tasks.GeneratePojoTask;
+
+import org.codehaus.plexus.components.interactivity.PrompterException;
 
 import java.util.Properties;
 
-import org.appfuse.mojo.appfuse.mojo.PojoMojoBase;
 
 /**
- * This mojo class will create hibernate dao implementations of the dao interfaces from a set of hbm.xml files.
- * 
- * @author <a href="mailto:scott@theryansplace.com">Scott Ryan</a>
- * @version $Id: $
- * @description Generate one or more hibernate dao implementations of the dao interfaces from the input hbm.xml files.
-
+ * This mojo class will create the hibernate dao objects from a set of hbm.xml files.
+ *
+ * @author                        <a href="mailto:scott@theryansplace.com">Scott Ryan</a>
+ * @version                       $Id: $
+ * @description                   Generate one or more hibernate dao objects from the input
+ *                                annotated model objects.
+ * @goal                          genhibernatedao
+ * @requiresDependencyResolution  compile
  */
-public class GenerateHibernateDaoMojo extends PojoMojoBase
+public class GenerateHibernateDaoMojo extends MojoBase
 {
+    /**
+     * This is the package name for the dao objects.
+     *
+     * @parameter  expression="${appfuse.hibernate.dao.package.name}"
+     *             default-value="${project.groupId}.dao.hibernate"
+     */
+    private String hibernateDaoPackageName;
+
+    /**
+     * This is the output file pattern for Hibernate Dao objects. The package name will be added to
+     * the beginning of the pattern with . replaced with slashes.
+     *
+     * @parameter  expression="${appfuse.hibernate.dao.output.file.pattern}"
+     *             default-value="{class-name}HibernateDao.java"
+     */
+    private String hibernateDaoFilePattern;
+
+    /**
+     * This is the template name used to generate the dao test objects.
+     *
+     * @parameter  expression="${appfuse.hibernate.dao.template.name}"
+     *             default-value="/appfusedao/hibernatedao.ftl"
+     */
+    private String hibernateDaoTemplateName;
 
     /**
      * Creates a new GenerateHibernateDaoMojo object.
@@ -35,71 +66,116 @@ public class GenerateHibernateDaoMojo extends PojoMojoBase
     public GenerateHibernateDaoMojo()
     {
         super();
-        this.setMojoName( "GenerateHibernateDaoMojo" );
+        this.setMojoName("GenerateHibernateDaoMojo");
     }
 
     /**
-     * This method will return the full package name to be used for generating output for the hibernate dao objects.
-     * 
-     * @return The full package name for all dao objects.
-     * 
+     * This method will generate a set of Hibernate DAO objects to match the input file pattern.
+     *
+     * @throws  MojoExecutionException  Thrown if an error is encountered in executing the mojo.
      */
-    protected String getPackageName()
+    public void execute() throws MojoExecutionException
     {
-        return buildPackageName( org.appfuse.mojo.appfuse.utility.AppFuseProperties.DEFAULT_HIBERNATE_DAO_PACKAGE_EXTENSION,
-                                 org.appfuse.mojo.appfuse.utility.AppFuseProperties.HIBERNATE_DAO_PACKAGE_EXTENSION_PROPERTY_KEY );
+        this.getLog().info("Running Mojo " + this.getMojoName());
+
+        // Prompt for the input file pattern
+        this.getLog().info("Parameters are " + this.toString());
+
+        try
+        {
+            // Create a new task
+            GeneratePojoTask task = new GeneratePojoTask();
+
+            // Generate the properties list to be set to the generation task.
+            Properties props = new Properties();
+            props.put("modelpackagename", this.getModelPackageName());
+            props.put("hibernatedaopackagename", this.getHibernateDaoPackageName());
+
+            // Set all the properties required.
+            task.setEjb3(this.isEjb3());
+            task.setJdk5(this.isJdk5());
+            task.setOutputDirectory(this.getOutputDirectory());
+            task.setOutputFilePattern(this.getHibernateDaoFilePattern());
+            task.setInputFilePattern(this.promptForInputPattern());
+            task.setPackageName(this.getHibernateDaoPackageName());
+            task.setModelPackageName(this.getModelPackageName());
+            task.setTemplateProperties(props);
+            task.setTemplateName(this.getHibernateDaoTemplateName());
+            task.setHibernateConfigurationFile(this.getHibernateConfigurationFile());
+
+            // Get a ouput file classpath for this project
+            String outputClasspath;
+            outputClasspath = MojoUtilities.getOutputClasspath(this.getMavenProject());
+            task.setOuputClassDirectory(outputClasspath);
+            task.execute();
+        }
+        catch (DependencyResolutionRequiredException ex)
+        {
+            throw new MojoExecutionException(ex.getMessage());
+        }
+        catch (PrompterException ex)
+        {
+            throw new MojoExecutionException(ex.getMessage());
+        }
     }
 
     /**
-     * This method is used to make sure the proper properties are set to be used in processing this mojo. These
-     * properties are passed in to the generator to be used within any freemarker templates.
-     * 
-     * @param inProperties
-     *            The project properties that already have been populated.
+     * Getter for property hibernate dao file pattern.
+     *
+     * @return  The value of hibernate dao file pattern.
      */
-    protected void validateProperties( final Properties inProperties )
+    public String getHibernateDaoFilePattern()
     {
-        // add the model package name in the properties for access inside the template.
-        inProperties.put( "hibernatedaopackagename", this.getPackageName() );
-        inProperties.put( "modelpackagename", this.getModelPackageName() );
-
+        return this.hibernateDaoFilePattern;
     }
 
     /**
-     * This method implments the abstract method in the base class to allow a different template name to be processed.
-     * 
-     * @return The value of template name.
+     * Setter for the hibernate dao file pattern.
+     *
+     * @param  inHibernateDaoFilePattern  The value of hibernate dao file pattern.
      */
-    public String getTemplateName()
+    public void setHibernateDaoFilePattern(final String inHibernateDaoFilePattern)
     {
-        return locateTemplate( org.appfuse.mojo.appfuse.utility.AppFuseProperties.HIBERNATE_DAO_TEMPLATE_NAME,
-                               org.appfuse.mojo.appfuse.utility.AppFuseProperties.HIBERNATE_DAO_TEMPLATE_NAME_PROPERTY_KEY );
-
+        this.hibernateDaoFilePattern = inHibernateDaoFilePattern;
     }
 
     /**
-     * This method implements the abstract method in the base class allowing a different pattern to be used for this
-     * generation.
-     * 
-     * @return The value of output pattern.
+     * Getter for property hibernate dao package name.
+     *
+     * @return  The value of hibernate dao package name.
      */
-    public String getOutputPattern()
+    public String getHibernateDaoPackageName()
     {
-        return buildOutputPattern( org.appfuse.mojo.appfuse.utility.AppFuseProperties.HIBERNATE_DAO_OUTPUT_PATTERN,
-                                   org.appfuse.mojo.appfuse.utility.AppFuseProperties.HIBERNATE_DAO_OUTPUT_PATTERN_PROPERTY_KEY, this.getPackageName() );
+        return this.hibernateDaoPackageName;
     }
 
     /**
-     * This method creates a String representation of this object.
-     * 
-     * @return the String representation of this object
+     * Setter for the hibernate dao package name.
+     *
+     * @param  inHibernateDaoPackageName  The value of hibernate dao package name.
      */
-    public String toString()
+    public void setHibernateDaoPackageName(final String inHibernateDaoPackageName)
     {
-        StringBuffer buffer = new StringBuffer();
-        buffer.append( "GenerateHibernateDaoMojo[" );
-        buffer.append( "]" );
+        this.hibernateDaoPackageName = inHibernateDaoPackageName;
+    }
 
-        return buffer.toString();
+    /**
+     * Getter for property hibernate dao template name.
+     *
+     * @return  The value of hibernate dao template name.
+     */
+    public String getHibernateDaoTemplateName()
+    {
+        return this.hibernateDaoTemplateName;
+    }
+
+    /**
+     * Setter for the hibernate dao template name.
+     *
+     * @param  inHibernateDaoTemplateName  The value of hibernate dao template name.
+     */
+    public void setHibernateDaoTemplateName(final String inHibernateDaoTemplateName)
+    {
+        this.hibernateDaoTemplateName = inHibernateDaoTemplateName;
     }
 }

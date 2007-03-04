@@ -24,7 +24,7 @@ import java.util.Properties;
 
 
 /**
- * This mojo class will create dao interfaces from a set of hbm.xml files.
+ * This mojo class will create dao interfaces from a set of annotated class files.
  *
  * @author                        <a href="mailto:scott@theryansplace.com">Scott Ryan</a>
  * @version                       $Id: $
@@ -175,21 +175,5 @@ public class GenerateDaoTestMojo extends MojoBase
     public void setDaoTestTemplateName(final String inDaoTestTemplateName)
     {
         this.daoTestTemplateName = inDaoTestTemplateName;
-    }
-
-    /**
-     * This method will prompt the user for an ant pattern to determine which objects to generate
-     * from..
-     *
-     * @return  The ant pattern to use to find model objects.
-     *
-     * @throws  PrompterException  Thrown if the user input cannot be generated.
-     */
-    private String promptForInputPattern() throws PrompterException
-    {
-        String returnValue = prompter.prompt(
-                "Please enter an Ant Pattern to determine which objects to generate. (Default is **/*.java)");
-
-        return returnValue;
     }
 }
