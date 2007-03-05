@@ -30,6 +30,13 @@ public interface GenericManager<T, PK extends Serializable> {
      * @see org.springframework.orm.ObjectRetrievalFailureException
      */
     public T get(PK id);
+    
+    /**
+     * Checks for existence of an object of type T using the id arg.
+     * @param id
+     * @return - true if it exists, false if it doesn't
+     */
+    public boolean exists(PK id);
 
     /**
      * Generic method to save an object - handles both update and insert.

@@ -1,14 +1,12 @@
 package org.appfuse.service.impl;
 
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
-import org.springframework.orm.ObjectRetrievalFailureException;
-import org.appfuse.dao.GenericDao;
-import org.appfuse.service.GenericManager;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import java.io.Serializable;
 import java.util.List;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.appfuse.dao.GenericDao;
+import org.appfuse.service.GenericManager;
 
 /**
  * This class serves as the Base class for all other Managers - namely to hold
@@ -56,6 +54,10 @@ public class GenericManagerImpl<T, PK extends Serializable> implements GenericMa
 
     public T get(PK id) {
         return genericDao.get(id);
+    }
+    
+    public boolean exists(PK id) {
+        return genericDao.exists(id);
     }
 
     public void save(T object) {
