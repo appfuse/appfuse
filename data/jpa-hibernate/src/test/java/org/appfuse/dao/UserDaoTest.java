@@ -47,7 +47,6 @@ public class UserDaoTest extends BaseDaoTestCase {
         Address address = user.getAddress();
         address.setAddress("new address");
 
-//        dao.saveUser(user);
         dao.save(user);
 
         assertEquals(user.getAddress(), address);
@@ -60,7 +59,6 @@ public class UserDaoTest extends BaseDaoTestCase {
 
         super.startNewTransaction();
         try {
-//            dao.saveUser(userDupe);
             dao.save(user);
             fail("saveUser didn't throw EntityExistsException");
         } catch (EntityExistsException e) {
@@ -75,20 +73,17 @@ public class UserDaoTest extends BaseDaoTestCase {
 
         Role role = rdao.getRoleByName(Constants.ADMIN_ROLE);
         user.addRole(role);
-//        dao.saveUser(user);
         dao.save(user);
 
         assertEquals(2, user.getRoles().size());
 
         //add the same role twice - should result in no additional role
         user.addRole(role);
-//        dao.saveUser(user);
         dao.save(user);
 
         assertEquals("more than 2 roles", 2, user.getRoles().size());
 
         user.getRoles().remove(role);
-//        dao.saveUser(user);
         dao.save(user);
 
         assertEquals(1, user.getRoles().size());
@@ -112,7 +107,6 @@ public class UserDaoTest extends BaseDaoTestCase {
         assertNotNull(role.getId());
         user.addRole(role);
 
-//        dao.saveUser(user);
         dao.save(user);
 
         assertNotNull(user.getId());
@@ -126,5 +120,15 @@ public class UserDaoTest extends BaseDaoTestCase {
         } catch (EntityNotFoundException e) {
             assertNotNull(e);
         }
+    }
+    
+    public void testUserExists() throws Exception {
+        boolean b = dao.exists(1L);
+        super.assertTrue(b);
+    }
+    
+    public void testUserNotExists() throws Exception {
+        boolean b = dao.exists(111L);
+        super.assertFalse(b);
     }
 }

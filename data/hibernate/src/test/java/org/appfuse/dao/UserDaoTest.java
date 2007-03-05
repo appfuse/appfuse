@@ -127,4 +127,14 @@ public class UserDaoTest extends BaseDaoTestCase {
             assertNotNull(d);
         }
     }
+    
+    public void testUserExists() throws Exception {
+        boolean b = dao.exists(1L);
+        super.assertTrue(b);
+    }
+    
+    public void testUserNotExists() throws Exception {
+        boolean b = dao.exists(111L);
+        super.assertFalse(b);
+    }
 }

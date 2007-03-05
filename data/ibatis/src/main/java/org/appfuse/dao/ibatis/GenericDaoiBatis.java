@@ -41,9 +41,19 @@ public class GenericDaoiBatis<T, PK extends Serializable> extends SqlMapClientDa
     public T get(PK id) {
         T object = (T) getSqlMapClientTemplate().queryForObject(iBatisDaoUtils.getFindQuery(ClassUtils.getShortName(this.persistentClass)), id);
         if (object == null) {
+            log.warn("Uh oh, '" + this.persistentClass + "' object with id '" + id + "' not found...");
             throw new ObjectRetrievalFailureException(ClassUtils.getShortName(this.persistentClass), id);
         }
         return object;
+    }
+    
+    public boolean exists(PK id) {
+        T object = (T) getSqlMapClientTemplate().queryForObject(iBatisDaoUtils.getFindQuery(ClassUtils.getShortName(this.persistentClass)), id);
+        if (object == null) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public void save(final T object) {

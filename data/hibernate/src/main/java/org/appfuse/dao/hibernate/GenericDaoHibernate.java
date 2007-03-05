@@ -47,6 +47,15 @@ public class GenericDaoHibernate<T, PK extends Serializable> extends HibernateDa
 
         return entity;
     }
+    
+    public boolean exists(PK id) {
+	T entity = (T) super.getHibernateTemplate().get(this.persistentClass, id);
+	if (entity == null) {
+	    return false;
+	} else {
+	    return true;
+	}
+    }
 
     public void save(T object) {
         super.getHibernateTemplate().saveOrUpdate(object);
