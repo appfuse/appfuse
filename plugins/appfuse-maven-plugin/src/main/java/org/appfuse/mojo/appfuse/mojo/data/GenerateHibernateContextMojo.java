@@ -43,6 +43,13 @@ public class GenerateHibernateContextMojo extends PojoMojoBase
     private String hibernateDaoPackageName;
 
     /**
+     * This is the name of the session factory for the hibernate dao objects.
+     *
+     * @parameter  expression="${appfuse.sessiont.factory.name}" default-value="sessionfactory"
+     */
+    private String sessionFactoryName;
+
+    /**
      * This is the output file pattern for Hiberate Dao objects. The package name will be added to
      * the beginning of the pattern with . replaced with slashes.
      *
@@ -76,6 +83,8 @@ public class GenerateHibernateContextMojo extends PojoMojoBase
     public void addProperties(final Properties inProperties)
     {
         super.addProperties(inProperties);
+        inProperties.setProperty("hibernatedaopackagename", this.getHibernateDaoPackageName());
+        inProperties.setProperty("sessionfactoryname", this.getSessionFactoryName());
     }
 
     /**
@@ -164,6 +173,26 @@ public class GenerateHibernateContextMojo extends PojoMojoBase
     }
 
     /**
+     * Getter for property session factory name.
+     *
+     * @return  The value of session factory name.
+     */
+    public String getSessionFactoryName()
+    {
+        return this.sessionFactoryName;
+    }
+
+    /**
+     * Setter for the session factory name.
+     *
+     * @param  inSessionFactoryName  The value of session factory name.
+     */
+    public void setSessionFactoryName(final String inSessionFactoryName)
+    {
+        this.sessionFactoryName = inSessionFactoryName;
+    }
+
+    /**
      * This method creates a String representation of this object.
      *
      * @return  the String representation of this object
@@ -176,6 +205,7 @@ public class GenerateHibernateContextMojo extends PojoMojoBase
         buffer.append("hibernateDaoContextTemplateName = ").append(hibernateDaoContextTemplateName);
         buffer.append("\n hibernateDaoFilePattern = ").append(hibernateDaoFilePattern);
         buffer.append("\n hibernateDaoPackageName = ").append(hibernateDaoPackageName);
+        buffer.append("\n sessionFactoryName = ").append(sessionFactoryName);
         buffer.append("]");
 
         return buffer.toString();
