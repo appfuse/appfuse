@@ -53,6 +53,13 @@ public abstract class MojoBase extends AbstractMojo
     private String outputDirectory;
 
     /**
+     * This is the package name for the project objects.
+     *
+     * @parameter  expression="${appfuse.base.package.name}" default-value="${project.groupId}"
+     */
+    private String basePackageName;
+
+    /**
      * This is the package name for the model objects.
      *
      * @parameter  expression="${appfuse.model.package.name}"
@@ -246,6 +253,26 @@ public abstract class MojoBase extends AbstractMojo
     }
 
     /**
+     * Getter for property base package name.
+     *
+     * @return  The value of base package name.
+     */
+    public String getBasePackageName()
+    {
+        return this.basePackageName;
+    }
+
+    /**
+     * Setter for the base package name.
+     *
+     * @param  inBasePackageName  The value of base package name.
+     */
+    public void setBasePackageName(final String inBasePackageName)
+    {
+        this.basePackageName = inBasePackageName;
+    }
+
+    /**
      * This method creates a String representation of this object.
      *
      * @return  the String representation of this object
@@ -258,6 +285,7 @@ public abstract class MojoBase extends AbstractMojo
         buffer.append("\n jdk5 = ").append(jdk5);
         buffer.append("\n mojoName = ").append(mojoName);
         buffer.append("\n modelPackageName = ").append(modelPackageName);
+        buffer.append("\n basePackageName = ").append(basePackageName);
         buffer.append("\n outputDirectory = ").append(outputDirectory);
         buffer.append("\n hibernateConfigurationFile = ").append(hibernateConfigurationFile);
         buffer.append("]");
