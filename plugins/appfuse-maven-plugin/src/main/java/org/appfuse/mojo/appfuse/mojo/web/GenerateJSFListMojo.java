@@ -55,7 +55,7 @@ public class GenerateJSFListMojo extends WebMojoBase
      * This is the template name used to generate the jsf list objects.
      *
      * @parameter  expression="${appfuse.jsf.list.template.name}"
-     *             default-value="/appfuseweb/JsfList.ftl"
+     *             default-value="/appfuseweb/jsflist.ftl"
      */
     private String jsfListTemplateName;
 
@@ -76,7 +76,8 @@ public class GenerateJSFListMojo extends WebMojoBase
     public void addProperties(final Properties inProperties)
     {
         super.addProperties(inProperties);
-        // inProperties.setProperty("hibernatedaopackagename", this.getHibernateDaoPackageName());
+        inProperties.setProperty("webpackagename", this.getWebPackageName());
+        inProperties.setProperty("basepackagename", this.getBasePackageName());
     }
 
     /**

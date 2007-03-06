@@ -55,7 +55,7 @@ public class GenerateJSFFormMojo extends WebMojoBase
      * This is the template name used to generate the jsf form objects.
      *
      * @parameter  expression="${appfuse.jsf.form.template.name}"
-     *             default-value="/appfuseweb/JsfForm.ftl"
+     *             default-value="/appfuseweb/jsfform.ftl"
      */
     private String jsfFormTemplateName;
 
@@ -76,7 +76,8 @@ public class GenerateJSFFormMojo extends WebMojoBase
     public void addProperties(final Properties inProperties)
     {
         super.addProperties(inProperties);
-        // inProperties.setProperty("hibernatedaopackagename", this.getHibernateDaoPackageName());
+        inProperties.setProperty("webpackagename", this.getWebPackageName());
+        inProperties.setProperty("basepackagename", this.getBasePackageName());
     }
 
     /**
