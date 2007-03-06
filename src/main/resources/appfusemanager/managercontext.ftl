@@ -1,7 +1,7 @@
 <#if pojo.isComponent()>
  <#else>
 <!--${pojo.getDeclarationName()}Manager-START-->
-    <bean id="${assist.convertName(pojo.getDeclarationName())}Manager" parent="${transactionproxyname}">
+    <bean id="${helper.convertName(pojo.getDeclarationName())}Manager" parent="${transactionproxyname}">
         <property name="target">
             <bean
                 class="${managerimplpackagename}.${pojo.getDeclarationName()}ManagerImpl"

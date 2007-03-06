@@ -20,6 +20,16 @@ import java.util.Properties;
 public class PojoMojoBase extends MojoBase
 {
     /**
+     * This is the name of the helper class that will be inserted into each freemarker template to
+     * perform java based actions. This class will be available inside each freemarker template as
+     * $helper
+     *
+     * @parameter  expression="${appfuse.pojo.helper.class.name}"
+     *             default-value="org.appfuse.mojo.appfuse.template.Helper"
+     */
+    private String helperClassName;
+
+    /**
      * This method will generate a set of DAO test objects to match the input file pattern.
      *
      * @throws  MojoExecutionException  Thrown if an error is encountered in executing the mojo.
@@ -64,6 +74,7 @@ public class PojoMojoBase extends MojoBase
     public void addProperties(final Properties inProperties)
     {
         inProperties.put("modelpackagename", this.getModelPackageName());
+        inProperties.put("hibernatetool.helper.toolclass", this.getHelperClassName());
     }
 
     /**
@@ -97,5 +108,41 @@ public class PojoMojoBase extends MojoBase
         String outputClasspath;
         outputClasspath = MojoUtilities.getOutputClasspath(this.getMavenProject());
         inTask.setOuputClassDirectory(outputClasspath);
+    }
+
+    /**
+     * Getter for property helper class name.
+     *
+     * @return  The value of helper class name.
+     */
+    public String getHelperClassName()
+    {
+        return this.helperClassName;
+    }
+
+    /**
+     * Setter for the helper class name.
+     *
+     * @param  inHelperClassName  The value of helper class name.
+     */
+    public void setHelperClassName(final String inHelperClassName)
+    {
+        this.helperClassName = inHelperClassName;
+    }
+
+    /**
+     * This method creates a String representation of this object.
+     *
+     * @return  the String representation of this object
+     */
+    public String toString()
+    {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(super.toString());
+        buffer.append("PojoMojoBase[");
+        buffer.append("helperClassName = ").append(helperClassName);
+        buffer.append("]");
+
+        return buffer.toString();
     }
 }
