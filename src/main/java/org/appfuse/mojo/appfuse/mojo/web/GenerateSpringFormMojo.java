@@ -12,10 +12,7 @@ package org.appfuse.mojo.appfuse.mojo.web;
  * the License.
  */
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
-import org.apache.maven.plugin.MojoExecutionException;
 
-import org.appfuse.mojo.MojoBase;
-import org.appfuse.mojo.appfuse.utility.MojoUtilities;
 import org.appfuse.mojo.tasks.GeneratePojoTask;
 
 import org.codehaus.plexus.components.interactivity.PrompterException;
@@ -35,7 +32,7 @@ import java.util.Properties;
  * @goal                          genspringform
  * @requiresDependencyResolution  compile
  */
-public class GenerateSpringFormMojo extends MojoBase
+public class GenerateSpringFormMojo extends WebMojoBase
 {
     /**
      * This is the package name for the web objects.
@@ -71,52 +68,39 @@ public class GenerateSpringFormMojo extends MojoBase
     }
 
     /**
-     * This method will generate a set of DAO test objects to match the input file pattern.
+     * This method is called to add properties to the task for use inside the freemarker template.
      *
-     * @throws  MojoExecutionException  Thrown if an error is encountered in executing the mojo.
+     * @param  inProperties  The properties objects to use in the template.
      */
-    public void execute() throws MojoExecutionException
+    public void addProperties(final Properties inProperties)
     {
-        this.getLog().info("Running Mojo " + this.getMojoName());
+        super.addProperties(inProperties);
+        // inProperties.setProperty("hibernatedaopackagename", this.getHibernateDaoPackageName());
+    }
 
-        // Prompt for the input file pattern
-        this.getLog().info("Parameters are " + this.toString());
-
-        try
-        {
-            // Create a new task
-            GeneratePojoTask task = new GeneratePojoTask();
-
-            // Generate the properties list to be set to the generation task.
-            Properties props = new Properties();
-            props.put("modelpackagename", this.getModelPackageName());
-
-            // Set all the properties required.
-            task.setEjb3(this.isEjb3());
-            task.setJdk5(this.isJdk5());
-            task.setOutputDirectory(this.getOutputDirectory());
-            task.setOutputFilePattern(this.getWebFormFilePattern());
-            task.setInputFilePattern(this.promptForInputPattern());
-            task.setPackageName(this.webPackageName);
-            task.setModelPackageName(this.getModelPackageName());
-            task.setTemplateProperties(props);
-            task.setTemplateName(this.getSpringFormTemplateName());
-            task.setHibernateConfigurationFile(this.getHibernateConfigurationFile());
-
-            // Get a ouput file classpath for this project
-            String outputClasspath;
-            outputClasspath = MojoUtilities.getOutputClasspath(this.getMavenProject());
-            task.setOuputClassDirectory(outputClasspath);
-            task.execute();
-        }
-        catch (DependencyResolutionRequiredException ex)
-        {
-            throw new MojoExecutionException(ex.getMessage());
-        }
-        catch (PrompterException ex)
-        {
-            throw new MojoExecutionException(ex.getMessage());
-        }
+    /**
+     * This method is called to add items to the task such as output directories etc. Classes may
+     * override this class to add or override such task items as the templace , filepattern or
+     * pacakge name. Best practice is for inheriting classes to call super.addTaskItems and then add
+     * their own items typically the template name, filepattern, and package name.
+     *
+     * @param   inTask        The task to add items to.
+     * @param   inProperties  The properties object to pass to the freemarker templates.
+     *
+     * @throws  PrompterException                      Thrown if a prompt for information thrown an
+     *                                                 exception.
+     * @throws  DependencyResolutionRequiredException  Thrown if the mojo does not declare
+     *                                                 dependency resolution in its initial stanza
+     *                                                 as this is required for resolution of
+     *                                                 dependencies.
+     */
+    public void addTaskItems(final GeneratePojoTask inTask, final Properties inProperties)
+        throws PrompterException, DependencyResolutionRequiredException
+    {
+        super.addTaskItems(inTask, inProperties);
+        inTask.setOutputFilePattern(this.getWebFormFilePattern());
+        inTask.setPackageName(this.getWebPackageName());
+        inTask.setTemplateName(this.getSpringFormTemplateName());
     }
 
     /**
