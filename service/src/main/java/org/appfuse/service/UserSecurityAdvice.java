@@ -4,7 +4,6 @@ import org.acegisecurity.*;
 import org.acegisecurity.context.SecurityContext;
 import org.acegisecurity.context.SecurityContextHolder;
 import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
-import org.acegisecurity.providers.dao.UserCache;
 import org.acegisecurity.userdetails.UserDetails;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.logging.Log;
@@ -22,11 +21,6 @@ import java.util.Set;
 public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdvice {
     public final static String ACCESS_DENIED = "Access Denied: Only administrators are allowed to modify other users.";
     protected final Log log = LogFactory.getLog(UserSecurityAdvice.class);
-    private UserCache userCache;
-
-    public void setUserCache(UserCache userCache) {
-        this.userCache = userCache;
-    }
 
     /**
      * Method to enforce security and only allow administrators to modify users. Regular
@@ -108,26 +102,12 @@ public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdv
     throws Throwable {
         User user = (User) args[0];
 
-        if (userCache != null && user.getVersion() != null) {
-            if (log.isDebugEnabled()) {
-                log.debug("Removing '" + user.getUsername() + "' from userCache");
-            }
-
-            userCache.removeUserFromCache(user.getUsername());
-
+        if (user.getVersion() != null) {
             // reset the authentication object if current user
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             if (auth != null && auth.getPrincipal() instanceof UserDetails) {
                 User currentUser = (User) auth.getPrincipal();
                 if (currentUser.getId().equals(user.getId())) {
-                    if (!currentUser.getUsername().equalsIgnoreCase(user.getUsername())) {
-                        // The name of the current user changed, so the previous flush won't have done anything. 
-                        // Flush the old name, too.
-                        if (log.isDebugEnabled()) {
-                            log.debug("Removing '" + currentUser.getUsername() + "' from userCache");
-                        }
-                        userCache.removeUserFromCache(currentUser.getUsername());
-                    }
                     auth = new UsernamePasswordAuthenticationToken(user, user.getPassword(), user.getAuthorities());
                     SecurityContextHolder.getContext().setAuthentication(auth);
                 }

@@ -142,30 +142,6 @@ public class UserSecurityAdviceTest extends MockObjectTestCase {
         userManager.saveUser(user);
         userDao.verify();
     }
-    
-    // Test removing user from cache after update 
-    public void testRemoveUserFromCache() throws Exception {
-        SecurityContext context = new SecurityContextImpl();
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("user",
-                "password",
-                new GrantedAuthority[] {new GrantedAuthorityImpl(Constants.ADMIN_ROLE)});
-        context.setAuthentication(token);
-        SecurityContextHolder.setContext(context);
-        
-        UserManager userManager = makeInterceptedTarget();
-        
-        UserCache cache = (UserCache) ctx.getBean("userCache");
-        User user = new User("cacheduser");
-        user.setVersion(1);
-        user.getRoles().add(new Role(Constants.USER_ROLE));
-        cache.putUserInCache(user);
-        
-        assertNotNull(cache.getUserFromCache(user.getUsername().toLowerCase()));
-        
-        userDao.expects(once()).method("saveUser");
-        userManager.saveUser(user);
-        assertNull(cache.getUserFromCache(user.getUsername()));
-    }
 
     private UserManager makeInterceptedTarget() {
         ctx = new ClassPathXmlApplicationContext("/applicationContext-test.xml");
