@@ -22,7 +22,7 @@
         <c:if test="${not empty user.email}">
         <a href="mailto:<c:out value="${user.email}"/>">
             <img src="<c:url value="/images/iconEmail.gif"/>" 
-                alt="<fmt:message key="icon.email"/>" styleClass="icon"/></a>
+                alt="<fmt:message key="icon.email"/>" class="icon"/></a>
         </c:if>
     </display:column>
         
