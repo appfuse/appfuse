@@ -10,8 +10,6 @@ import org.apache.hivemind.impl.MessageFormatter;
 import org.apache.tapestry.IPage;
 import org.apache.tapestry.test.Creator;
 import org.appfuse.Constants;
-import org.appfuse.model.User;
-import org.appfuse.service.UserManager;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -21,7 +19,6 @@ public abstract class BasePageTestCase extends AbstractTransactionalDataSourceSp
     protected final Log log = LogFactory.getLog(getClass());
     protected final static String EXTENSION = ".html";
     protected static final String MESSAGES = Constants.BUNDLE_KEY;
-    protected User user;
 
     protected String[] getConfigLocations() {
         super.setAutowireMode(AUTOWIRE_BY_NAME);
@@ -36,20 +33,11 @@ public abstract class BasePageTestCase extends AbstractTransactionalDataSourceSp
 
     @Override
     protected void onSetUpBeforeTransaction() throws Exception {
-        // populate the userForm and place into session
-        UserManager userMgr = (UserManager) applicationContext.getBean("userManager");
-        user = userMgr.getUserByUsername("tomcat");
-        
         // change the port on the mailSender so it doesn't conflict with an 
         // existing SMTP server on localhost
         JavaMailSenderImpl mailSender = (JavaMailSenderImpl) applicationContext.getBean("mailSender");
         mailSender.setPort(2525);
         mailSender.setHost("localhost");
-    }
-
-    @Override
-    protected void onTearDownAfterTransaction() throws Exception {
-        user = null;
     }
 
     protected IPage getPage(Class clazz) {
@@ -64,7 +52,7 @@ public abstract class BasePageTestCase extends AbstractTransactionalDataSourceSp
         
         Messages messages = new MessageFormatter(log, MESSAGES);
         MockHttpServletRequest request = new MockHttpServletRequest();
-        request.setRemoteUser(user.getUsername());
+        request.setRemoteUser("tomcat");
         
         properties.put("engineService", new MockPageService());
         properties.put("messages", messages);

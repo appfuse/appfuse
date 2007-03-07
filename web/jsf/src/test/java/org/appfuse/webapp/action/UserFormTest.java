@@ -1,12 +1,15 @@
 package org.appfuse.webapp.action;
 
 import org.appfuse.model.User;
+import org.appfuse.service.UserManager;
 
 public class UserFormTest extends BasePageTestCase {
     private UserForm bean;
+    private UserManager userManager;
 
-    protected void setUp() throws Exception {    
+    protected void setUp() throws Exception {
         super.setUp();
+        userManager = (UserManager) applicationContext.getBean("userManager");
         bean = (UserForm) getManagedBean("userForm");
         assertNotNull(bean);
     }
@@ -24,6 +27,7 @@ public class UserFormTest extends BasePageTestCase {
     }
 
     public void testSave() throws Exception {
+        User user = userManager.getUser("1");
         user.setPassword("tomcat");
         user.setConfirmPassword("tomcat");
         bean.setUser(user);

@@ -2,6 +2,7 @@ package org.appfuse.webapp.controller;
 
 import org.acegisecurity.AccessDeniedException;
 import org.appfuse.Constants;
+import org.appfuse.service.UserManager;
 import org.appfuse.model.User;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -94,6 +95,7 @@ public class UserFormControllerTest extends BaseControllerTestCase {
         request = newPost("/userform.html");
         // set updated properties first since adding them later will
         // result in multiple parameters with the same name getting sent
+        User user = ((UserManager) applicationContext.getBean("userManager")).getUser("1");
         user.setConfirmPassword(user.getPassword());
         user.setLastName("Updated Last Name");
         super.objectToRequestParameters(user, request);

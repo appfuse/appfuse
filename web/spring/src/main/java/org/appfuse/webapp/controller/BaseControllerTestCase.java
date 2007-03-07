@@ -7,8 +7,6 @@ import java.util.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.model.BaseObject;
-import org.appfuse.model.User;
-import org.appfuse.service.UserManager;
 import org.appfuse.util.DateUtil;
 
 import org.springframework.context.ConfigurableApplicationContext;
@@ -21,7 +19,6 @@ import org.springframework.web.context.support.XmlWebApplicationContext;
 
 public abstract class BaseControllerTestCase extends AbstractTransactionalDataSourceSpringContextTests {
     protected transient final Log log = LogFactory.getLog(getClass());
-    protected User user;
 
     protected String[] getConfigLocations() {
         setAutowireMode(AUTOWIRE_BY_NAME);
@@ -37,20 +34,11 @@ public abstract class BaseControllerTestCase extends AbstractTransactionalDataSo
 
     @Override
     protected void onSetUpBeforeTransaction() throws Exception {
-        // populate the userForm and place into session
-        UserManager userMgr = (UserManager) applicationContext.getBean("userManager");
-        user = userMgr.getUserByUsername("tomcat");
-
         // change the port on the mailSender so it doesn't conflict with an
         // existing SMTP server on localhost
         JavaMailSenderImpl mailSender = (JavaMailSenderImpl) applicationContext.getBean("mailSender");
         mailSender.setPort(2525);
         mailSender.setHost("localhost");
-    }
-
-    @Override
-    protected void onTearDownAfterTransaction() throws Exception {
-        user = null;
     }
 
     /**

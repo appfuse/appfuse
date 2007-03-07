@@ -4,8 +4,6 @@ import junit.framework.TestCase;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.myfaces.webapp.StartupServletContextListener;
-import org.appfuse.model.User;
-import org.appfuse.service.UserManager;
 import org.appfuse.webapp.util.FacesUtils;
 import org.appfuse.Constants;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -34,7 +32,6 @@ public abstract class BasePageTestCase extends TestCase {
     protected static MockServletConfig config;
     protected static MockServletContext servletContext;
     protected static WebApplicationContext applicationContext;
-    protected static User user;
 
     // This static block ensures that Spring's BeanFactory and JSF's 
     // FacesContext is only loaded once for all tests. If there's something
@@ -57,12 +54,9 @@ public abstract class BasePageTestCase extends TestCase {
         config = new MockServletConfig(servletContext);
         performFacesContextConfig();
     }
-    
+
+    @Override
     protected void setUp() throws Exception {
-        // populate the userForm and place into session
-        UserManager userMgr = (UserManager) applicationContext.getBean("userManager");
-        user = userMgr.getUserByUsername("tomcat");
-        
         // change the port on the mailSender so it doesn't conflict with an 
         // existing SMTP server on localhost
         JavaMailSenderImpl mailSender = (JavaMailSenderImpl) applicationContext.getBean("mailSender");

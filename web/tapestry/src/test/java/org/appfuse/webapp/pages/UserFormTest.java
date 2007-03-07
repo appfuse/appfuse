@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.tapestry.engine.ILink;
 import org.appfuse.model.User;
+import org.appfuse.service.UserManager;
 
 public class UserFormTest extends BasePageTestCase {
     private UserForm page;
@@ -34,6 +35,7 @@ public class UserFormTest extends BasePageTestCase {
     }
     
     public void testSave() throws Exception {
+        User user = ((UserManager) applicationContext.getBean("userManager")).getUser("1");
         user.setPassword("tomcat");
         user.setConfirmPassword("tomcat");
         page.setUser(user);
