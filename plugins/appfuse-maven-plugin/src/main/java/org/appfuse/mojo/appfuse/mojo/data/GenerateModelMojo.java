@@ -3,6 +3,7 @@ package org.appfuse.mojo.appfuse.mojo.data;
 import org.apache.maven.plugin.MojoExecutionException;
 
 import org.appfuse.mojo.MojoBase;
+import org.appfuse.mojo.appfuse.utility.FileUtilities;
 import org.appfuse.mojo.tasks.GenerateModelTask;
 
 import org.codehaus.plexus.components.interactivity.PrompterException;
@@ -95,7 +96,14 @@ public class GenerateModelMojo extends MojoBase
         if (copyFiles)
         {
             this.getLog().info("Copying generated files to source tree");
-            // TODO Place the copy code in here
+
+            // Create the pattern from the package name
+            String pattern = FileUtilities.convertPackageNameToFileLocation(this.modelPackageName) +
+                "**/*.java";
+            this.getLog().info("Copy pattern is " + pattern + " from " + this.getOutputDirectory() +
+                " to " + this.getSourceDirectory());
+            this.copyGeneratedObjects(this.getOutputDirectory(), this.getSourceDirectory(),
+                pattern);
         }
         else
         {
