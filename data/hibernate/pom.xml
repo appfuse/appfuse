@@ -134,12 +134,6 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-annotations</artifactId>
             <version>${hibernate.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.persistence</groupId>
-                    <artifactId>ejb</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <!-- Upgrade to latest version of EhCache -->
         <dependency>
