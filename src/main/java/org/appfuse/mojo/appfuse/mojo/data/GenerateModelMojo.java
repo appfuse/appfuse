@@ -29,6 +29,27 @@ public class GenerateModelMojo extends MojoBase
     private String databasePropertiesFile;
 
     /**
+     * The full name of the reverse strategy class.
+     *
+     * @parameter  expression="${appfuse.reverse.strategy.class.name}" default-value=""
+     */
+    private String reverseStrategyClassName;
+
+    /**
+     * The full name of the naming strategy class.
+     *
+     * @parameter  expression="${appfuse.naming.strategy.class.name}" default-value=""
+     */
+    private String namingStrategyClassName;
+
+    /**
+     * The full name of the entity resolver class.
+     *
+     * @parameter  expression="${appfuse.entity.resolver.class.name}" default-value=""
+     */
+    private String entityResolverClassName;
+
+    /**
      * The name of the package to be used for all model object generation.
      *
      * @parameter  expression="${appfuse.model.package.name}"
@@ -91,6 +112,9 @@ public class GenerateModelMojo extends MojoBase
         task.setOutputDirectory(this.getOutputDirectory());
         task.setDatabasePropertiesFile(this.getDatabasePropertiesFile());
         task.setPackageName(this.getModelPackageName());
+        task.setEntityResolverClassName(this.getEntityResolverClassName());
+        task.setNamingStrategyClassName(this.getNamingStrategyClassName());
+        task.setReverseStrategyClassName(this.getReverseStrategyClassName());
         task.execute();
 
         if (copyFiles)
@@ -218,6 +242,66 @@ public class GenerateModelMojo extends MojoBase
     }
 
     /**
+     * Getter for property entity resolver class name.
+     *
+     * @return  The value of entity resolver class name.
+     */
+    public String getEntityResolverClassName()
+    {
+        return this.entityResolverClassName;
+    }
+
+    /**
+     * Setter for the entity resolver class name.
+     *
+     * @param  inEntityResolverClassName  The value of entity resolver class name.
+     */
+    public void setEntityResolverClassName(final String inEntityResolverClassName)
+    {
+        this.entityResolverClassName = inEntityResolverClassName;
+    }
+
+    /**
+     * Getter for property naming strategy class name.
+     *
+     * @return  The value of naming strategy class name.
+     */
+    public String getNamingStrategyClassName()
+    {
+        return this.namingStrategyClassName;
+    }
+
+    /**
+     * Setter for the naming strategy class name.
+     *
+     * @param  inNamingStrategyClassName  The value of naming strategy class name.
+     */
+    public void setNamingStrategyClassName(final String inNamingStrategyClassName)
+    {
+        this.namingStrategyClassName = inNamingStrategyClassName;
+    }
+
+    /**
+     * Getter for property reverse strategy class name.
+     *
+     * @return  The value of reverse strategy class name.
+     */
+    public String getReverseStrategyClassName()
+    {
+        return this.reverseStrategyClassName;
+    }
+
+    /**
+     * Setter for the reverse strategy class name.
+     *
+     * @param  inReverseStrategyClassName  The value of reverse strategy class name.
+     */
+    public void setReverseStrategyClassName(final String inReverseStrategyClassName)
+    {
+        this.reverseStrategyClassName = inReverseStrategyClassName;
+    }
+
+    /**
      * This method creates a String representation of this object.
      *
      * @return  the String representation of this object
@@ -226,11 +310,14 @@ public class GenerateModelMojo extends MojoBase
     {
         StringBuffer buffer = new StringBuffer();
         buffer.append(super.toString());
-        buffer.append("GenModelMojo[");
+        buffer.append("GenerateModelMojo[");
         buffer.append("databasePropertiesFile = ").append(databasePropertiesFile);
+        buffer.append("\n entityResolverClassName = ").append(entityResolverClassName);
         buffer.append("\n modelPackageName = ").append(modelPackageName);
+        buffer.append("\n namingStrategyClassName = ").append(namingStrategyClassName);
         buffer.append("\n reverseEngineeringConfigurationFile = ").append(
             reverseEngineeringConfigurationFile);
+        buffer.append("\n reverseStrategyClassName = ").append(reverseStrategyClassName);
         buffer.append("]");
 
         return buffer.toString();

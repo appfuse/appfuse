@@ -39,6 +39,15 @@ public class GenerateModelTask extends GenerationTaskBase
     /** If set to true the hibernate.cfg.xml file will be generated. */
     private boolean generateConfigurationFile;
 
+    /** The full name of the reverse strategy class. */
+    private String reverseStrategyClassName;
+
+    /** The full name of the naming strategy class. */
+    private String namingStrategyClassName;
+
+    /** The full name of the entity resolver class. */
+    private String entityResolverClassName;
+
     /**
      * Creates a new GenerateModelTask object.
      */
@@ -129,6 +138,24 @@ public class GenerateModelTask extends GenerationTaskBase
             jdbcConfigurationTask.setRevEngFile(revEngPath);
         }
 
+        if ((this.getReverseStrategyClassName() != null) &&
+                (this.getReverseStrategyClassName().length() > 0))
+        {
+            jdbcConfigurationTask.setReverseStrategy(this.getReverseStrategyClassName());
+        }
+
+        if ((this.getNamingStrategyClassName() != null) &&
+                (this.getNamingStrategyClassName().length() > 0))
+        {
+            jdbcConfigurationTask.setNamingStrategy(this.getNamingStrategyClassName());
+        }
+
+        if ((this.getEntityResolverClassName() != null) &&
+                (this.getEntityResolverClassName().length() > 0))
+        {
+            jdbcConfigurationTask.setEntityResolver(this.getEntityResolverClassName());
+        }
+
         // set the path to the database properties file
         jdbcConfigurationTask.setPropertyFile(new File(this.getDatabasePropertiesFile()));
 
@@ -217,6 +244,66 @@ public class GenerateModelTask extends GenerationTaskBase
     }
 
     /**
+     * Getter for property entity resolver class name.
+     *
+     * @return  The value of entity resolver class name.
+     */
+    public String getEntityResolverClassName()
+    {
+        return this.entityResolverClassName;
+    }
+
+    /**
+     * Setter for the entity resolver class name.
+     *
+     * @param  inEntityResolverClassName  The value of entity resolver class name.
+     */
+    public void setEntityResolverClassName(final String inEntityResolverClassName)
+    {
+        this.entityResolverClassName = inEntityResolverClassName;
+    }
+
+    /**
+     * Getter for property naming strategy class name.
+     *
+     * @return  The value of naming strategy class name.
+     */
+    public String getNamingStrategyClassName()
+    {
+        return this.namingStrategyClassName;
+    }
+
+    /**
+     * Setter for the naming strategy class name.
+     *
+     * @param  inNamingStrategyClassName  The value of naming strategy class name.
+     */
+    public void setNamingStrategyClassName(final String inNamingStrategyClassName)
+    {
+        this.namingStrategyClassName = inNamingStrategyClassName;
+    }
+
+    /**
+     * Getter for property reverse strategy class name.
+     *
+     * @return  The value of reverse strategy class name.
+     */
+    public String getReverseStrategyClassName()
+    {
+        return this.reverseStrategyClassName;
+    }
+
+    /**
+     * Setter for the reverse strategy class name.
+     *
+     * @param  inReverseStrategyClassName  The value of reverse strategy class name.
+     */
+    public void setReverseStrategyClassName(final String inReverseStrategyClassName)
+    {
+        this.reverseStrategyClassName = inReverseStrategyClassName;
+    }
+
+    /**
      * This method creates a String representation of this object.
      *
      * @return  the String representation of this object
@@ -227,9 +314,12 @@ public class GenerateModelTask extends GenerationTaskBase
         buffer.append(super.toString());
         buffer.append("GenerateModelTask[");
         buffer.append("databasePropertiesFile = ").append(databasePropertiesFile);
+        buffer.append("\n entityResolverClassName = ").append(entityResolverClassName);
+        buffer.append("\n generateConfigurationFile = ").append(generateConfigurationFile);
+        buffer.append("\n namingStrategyClassName = ").append(namingStrategyClassName);
         buffer.append("\n packageName = ").append(packageName);
         buffer.append("\n reverseEngineeringFile = ").append(reverseEngineeringFile);
-        buffer.append("\n generateConfigurationFile = ").append(generateConfigurationFile);
+        buffer.append("\n reverseStrategyClassName = ").append(reverseStrategyClassName);
         buffer.append("]");
 
         return buffer.toString();
