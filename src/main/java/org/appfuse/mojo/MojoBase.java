@@ -4,8 +4,18 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 
+import org.apache.tools.ant.Project;
+import org.apache.tools.ant.taskdefs.Copy;
+import org.apache.tools.ant.types.FileSet;
+
+import org.appfuse.mojo.appfuse.utility.AntUtilities;
+
 import org.codehaus.plexus.components.interactivity.Prompter;
 import org.codehaus.plexus.components.interactivity.PrompterException;
+
+import java.io.File;
+
+import java.util.ArrayList;
 
 
 /**
@@ -33,6 +43,13 @@ public abstract class MojoBase extends AbstractMojo
     private MavenProject mavenProject;
 
     /**
+     * The directory containing the soure code.
+     *
+     * @parameter  expression="${appfuse.source.directory}" default-value="${basedir}/src/main/java"
+     */
+    private String sourceDirectory;
+
+    /**
      * This is the name of the mojo that is used when outputing logging information for any mojos
      * that extend this based class.
      */
@@ -48,7 +65,7 @@ public abstract class MojoBase extends AbstractMojo
      * file in your project file as a source directory.
      *
      * @parameter  expression="${appfuse.output.directory}"
-     *             default-value="${basedir}/target/generated-sources"
+     *             default-value="${basedir}/target/generated-sources/"
      */
     private String outputDirectory;
 
@@ -273,6 +290,49 @@ public abstract class MojoBase extends AbstractMojo
     }
 
     /**
+     * This method will copy files from the source directory to the destination directory based on
+     * the pattenr.
+     *
+     * @param  inSourceDirectory       The source directory to copy from.
+     * @param  inDestinationDirectory  The destination directory to copy to.
+     * @param  inPattern               The file pattern to match to locate files to copy.
+     */
+    protected void copyGeneratedObjects(final String inSourceDirectory,
+        final String inDestinationDirectory, final String inPattern)
+    {
+        Project project = AntUtilities.createProject();
+        Copy copyTask = (Copy) project.createTask("copy");
+        copyTask.init();
+
+        FileSet fileSet = AntUtilities.createFileset(inSourceDirectory, inPattern, new ArrayList());
+        getLog().info("Copying files based on pattern " + inPattern + " from directory " +
+            inSourceDirectory);
+        copyTask.setTodir(new File(inDestinationDirectory));
+        copyTask.addFileset(fileSet);
+        copyTask.execute();
+    }
+
+    /**
+     * Getter for property source directory.
+     *
+     * @return  The value of source directory.
+     */
+    public String getSourceDirectory()
+    {
+        return this.sourceDirectory;
+    }
+
+    /**
+     * Setter for the source directory.
+     *
+     * @param  inSourceDirectory  The value of source directory.
+     */
+    public void setSourceDirectory(final String inSourceDirectory)
+    {
+        this.sourceDirectory = inSourceDirectory;
+    }
+
+    /**
      * This method creates a String representation of this object.
      *
      * @return  the String representation of this object
@@ -287,6 +347,7 @@ public abstract class MojoBase extends AbstractMojo
         buffer.append("\n modelPackageName = ").append(modelPackageName);
         buffer.append("\n basePackageName = ").append(basePackageName);
         buffer.append("\n outputDirectory = ").append(outputDirectory);
+        buffer.append("\n sourceDirectory = ").append(sourceDirectory);
         buffer.append("\n hibernateConfigurationFile = ").append(hibernateConfigurationFile);
         buffer.append("]");
 

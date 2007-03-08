@@ -3,46 +3,47 @@ package org.appfuse.mojo.appfuse.utility;
 /*
  * Copyright 2006 The Apache Software Foundation.
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in
- * compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-import org.apache.tools.ant.DirectoryScanner;
-import org.apache.tools.ant.Project;
-import org.apache.tools.ant.types.FileSet;
-import org.apache.tools.ant.types.selectors.FilenameSelector;
 
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.tools.ant.DirectoryScanner;
+import org.apache.tools.ant.Project;
+import org.apache.tools.ant.types.FileSet;
 
 /**
  * This class will provide a set of methods to interact with the ant build system at a java level.
- *
- * @author  <a href="mailto:scott@theryansplace.com">Scott Ryan</a>
+ * 
+ * @author <a href="mailto:scott@theryansplace.com">Scott Ryan</a>
  */
 public class AntUtilities
 {
+
     /**
      * Creates a new AntUtilities object. Utility classes do not have public contructors.
      */
     protected AntUtilities()
     {
-        throw new UnsupportedOperationException("Utility classes do not have public contructors.");
+        throw new UnsupportedOperationException( "Utility classes do not have public contructors." );
     }
 
     /**
      * This method will create an ant project object.
-     *
-     * @return  The ant project for use by tasks.
+     * 
+     * @return The ant project for use by tasks.
      */
     public static Project createProject()
     {
@@ -54,57 +55,67 @@ public class AntUtilities
     }
 
     /**
-     * This method will take an ant based search pattern and a starting directory and return all the
-     * file names that match that pattern.
-     *
-     * @param   inDirectory  The starting directory to use to locate files.
-     * @param   inPattern    The pattern to use in matching file names.
-     *
-     * @return  A list of file name Strings that match the pattern in the target directory
+     * This method will take an ant based search pattern and a starting directory and return all the file names that
+     * match that pattern.
+     * 
+     * @param inDirectory
+     *            The starting directory to use to locate files.
+     * @param inPattern
+     *            The pattern to use in matching file names.
+     * 
+     * @return A list of file names that match the pattern in the target directory
      */
-    public static List generateFileNameListFromPattern(final String inDirectory,
-        final String inPattern)
+    public static List generateFileNameListFromPattern( final String inDirectory, final String inPattern )
     {
-        List<String> fileNames = new ArrayList<String>();
+        List fileNames = new ArrayList();
         DirectoryScanner directoryScanner = new DirectoryScanner();
-        directoryScanner.setBasedir(inDirectory);
+        directoryScanner.setBasedir( inDirectory );
 
         String[] patterns = new String[1];
         patterns[0] = inPattern;
-        directoryScanner.setIncludes(patterns);
+        directoryScanner.setIncludes( patterns );
         directoryScanner.scan();
 
         String[] filesIncluded = directoryScanner.getIncludedFiles();
 
-        for (int i = 0; i < filesIncluded.length; i++)
+        for ( int i = 0; i < filesIncluded.length; i++ )
         {
-            fileNames.add(inDirectory + "/" + filesIncluded[i]);
+            fileNames.add( inDirectory + "/" + filesIncluded[i] );
         }
 
         return fileNames;
     }
 
     /**
-     * This method will create a fileset of files to be processed based on a diretory location and a
-     * set of include and exclude patterns.
-     *
-     * @param   inDirectory  The directory containing the files to be maintained in the fileset.
-     * @param   inPattern    The attern to match and include in the fileset.
-     * @param   inProject    The Ant project to associate this file scanner with.
-     *
-     * @return  The file set to process.
+     * This method will create a fileset of files to be processed based on a diretory location and a set of include and
+     * exclude patterns.
+     * 
+     * @param inDirectory
+     *            The directory containing the files to be maintained in the fileset.
+     * @param inIncludePattern
+     *            The list of patterns to match and include in the fileset.
+     * @param inExcludePatterns
+     *            The list of patterns to match and exclude in the fileset.
+     * 
+     * @return The file set to process.
      */
-    public static FileSet createFileset(final String inDirectory, final String inPattern,
-        final Project inProject)
+    public static FileSet createFileset( final String inDirectory, final String inIncludePattern,
+                                         final List inExcludePatterns )
     {
         FileSet fileSet = new FileSet();
-        FilenameSelector selector = new FilenameSelector();
-        selector.setName(inPattern);
-        fileSet.add(selector);
-        fileSet.setProject(inProject);
 
         // Set the search directory
-        fileSet.setDir(new File(inDirectory));
+        fileSet.setDir( new File( inDirectory ) );
+
+        // Set the includes
+
+        fileSet.setIncludes( ( String ) inIncludePattern );
+
+        // Set the excludes
+        for ( int i = 0; i < inExcludePatterns.size(); i++ )
+        {
+            fileSet.setExcludes( ( String ) inExcludePatterns.get( i ) );
+        }
 
         return fileSet;
     }
