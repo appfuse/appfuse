@@ -262,7 +262,7 @@
 
     <profiles>
         <profile>
-            <id>${cargo.container}</id>
+            <id>integration-test</id>
             <activation>
                 <property>
                     <name>!maven.test.skip</name>
@@ -273,7 +273,7 @@
                     <plugin>
                         <groupId>org.codehaus.cargo</groupId>
                         <artifactId>cargo-maven2-plugin</artifactId>
-                        <version>0.2</version>
+                        <version>0.3</version>
                         <configuration>
                             <wait>${cargo.wait}</wait>
                             <container>
@@ -283,8 +283,6 @@
                                     <url>${cargo.container.url}</url>
                                     <installDir>${installDir}</installDir>
                                 </zipUrlInstaller>
-                                <log>${project.build.directory}/${cargo.container}/cargo.log</log>
-                                <output>${project.build.directory}/${cargo.container}/${cargo.container}.log</output>
                             </container>
                             <configuration>
                                 <home>${project.build.directory}/${cargo.container}/container</home>

@@ -49,19 +49,14 @@ public class UserCounterListener implements ServletContextListener, HttpSessionA
     }
 
     synchronized void incrementUserCounter() {
-        counter =
-            Integer.parseInt((String) servletContext.getAttribute(COUNT_KEY));
+        counter = Integer.parseInt((String) servletContext.getAttribute(COUNT_KEY));
         counter++;
         servletContext.setAttribute(COUNT_KEY, Integer.toString(counter));
-
-        if (log.isDebugEnabled()) {
-            log.debug("User Count: " + counter);
-        }
+        //log.debug("User Count: " + counter);
     }
 
     synchronized void decrementUserCounter() {
-        int counter =
-            Integer.parseInt((String) servletContext.getAttribute(COUNT_KEY));
+        int counter = Integer.parseInt((String) servletContext.getAttribute(COUNT_KEY));
         counter--;
 
         if (counter < 0) {
@@ -69,10 +64,7 @@ public class UserCounterListener implements ServletContextListener, HttpSessionA
         }
 
         servletContext.setAttribute(COUNT_KEY, Integer.toString(counter));
-
-        if (log.isDebugEnabled()) {
-            log.debug("User Count: " + counter);
-        }
+        //log.debug("User Count: " + counter);
     }
 
     synchronized void addUsername(Object user) {
@@ -105,7 +97,7 @@ public class UserCounterListener implements ServletContextListener, HttpSessionA
      * @see javax.servlet.http.HttpSessionAttributeListener#attributeAdded(javax.servlet.http.HttpSessionBindingEvent)
      */
     public void attributeAdded(HttpSessionBindingEvent event) {
-        log.debug("event.name: " + event.getName());
+        //log.debug("event.name: " + event.getName());
         if (event.getName().equals(EVENT_KEY) && !isAnonymous()) {
             SecurityContext securityContext = (SecurityContext) event.getValue();
             User user = (User) securityContext.getAuthentication().getPrincipal();
