@@ -33,12 +33,12 @@
             <div class="left">
                 <appfuse:label styleClass="desc" key="user.password"/>
                 <form:errors path="password" cssClass="fieldError"/>
-                <form:password path="password" id="password" cssClass="text medium"/>
+                <form:password path="password" id="password" cssClass="text medium" showPassword="true"/>
             </div>
             <div>
                 <appfuse:label styleClass="desc" key="user.confirmPassword"/>
                 <form:errors path="confirmPassword" cssClass="fieldError"/>
-                <form:password path="confirmPassword" id="confirmPassword" cssClass="text medium"/>
+                <form:password path="confirmPassword" id="confirmPassword" cssClass="text medium" showPassword="true"/>
             </div>
         </div>
     </li>

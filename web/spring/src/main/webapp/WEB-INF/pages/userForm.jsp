@@ -69,20 +69,12 @@
             <div class="left">
                 <appfuse:label styleClass="desc" key="user.password"/>
                 <form:errors path="password" cssClass="fieldError"/>
-                <%-- Spring 2.0.2 does not show passwords, 2.0.3 will fix this --%>
-                <%-- http://opensource.atlassian.com/projects/spring/browse/SPR-2866 --%>
-                <%--form:password path="password" id="password" cssClass="text medium" onchange="passwordChanged(this)"/--%>
-                <spring:bind path="user.password">
-                <input type="password" name="password" id="password" class="text medium" onchange="passwordChanged(this)" value="${user.password}"/>
-                </spring:bind>
+                <form:password path="password" id="password" cssClass="text medium" onchange="passwordChanged(this)" showPassword="true"/>
             </div>
             <div>
                 <appfuse:label styleClass="desc" key="user.confirmPassword"/>
                 <form:errors path="confirmPassword" cssClass="fieldError"/>
-                <%--form:password path="confirmPassword" id="confirmPassword" cssClass="text medium"/--%>
-                <spring:bind path="user.confirmPassword">
-                <input type="password" name="confirmPassword" id="confirmPassword" class="text medium" onchange="passwordChanged(this)" value="${user.confirmPassword}"/>   
-                </spring:bind>
+                <form:password path="confirmPassword" id="confirmPassword" cssClass="text medium" showPassword="true"/>
             </div>
         </div>
     </li>

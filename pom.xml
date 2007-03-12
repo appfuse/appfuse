@@ -434,8 +434,8 @@
         <oscache.version>2.3</oscache.version>
         <servlet.version>2.4</servlet.version>
         <sitemesh.version>2.2.1</sitemesh.version>
-        <spring.version>2.0.2</spring.version>
-        <springmodules.validation.version>0.7</springmodules.validation.version>
+        <spring.version>2.0.3</spring.version>
+        <springmodules.validation.version>0.8</springmodules.validation.version>
         <struts.version>2.0.6</struts.version>
         <struts.menu.version>2.4.2</struts.menu.version>
         <tapestry.version>4.0.2</tapestry.version>
