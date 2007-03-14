@@ -409,6 +409,7 @@
         <clickstream.version>1.0.2</clickstream.version>
         <commons.lang.version>2.3</commons.lang.version>
         <commons.beanutils.version>1.7.0</commons.beanutils.version>
+        <commons.collections.version>3.2</commons.collections.version>
         <commons.dbcp.version>1.2.1</commons.dbcp.version>
         <commons.fileupload.version>1.1.1</commons.fileupload.version>
         <commons.io.version>1.1</commons.io.version>
@@ -472,7 +473,7 @@
                 <hibernate.dialect>org.hibernate.dialect.H2Dialect</hibernate.dialect>
                 <jdbc.groupId>com.h2database</jdbc.groupId>
                 <jdbc.artifactId>h2</jdbc.artifactId>
-                <jdbc.version>1.0.20061217</jdbc.version>
+                <jdbc.version>1.0.20070304</jdbc.version>
                 <jdbc.driverClassName>org.h2.Driver</jdbc.driverClassName>
                 <jdbc.url><![CDATA[jdbc:h2:appfuse]]></jdbc.url>
                 <jdbc.username>sa</jdbc.username>

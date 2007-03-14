@@ -143,6 +143,12 @@
             <artifactId>appfuse-service</artifactId>
             <version>${pom.version}</version>
         </dependency>
+        <!-- Fix for Maven thinking commons-collections-2.1 is newer than 3.1. -->
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>${commons.collections.version}</version>
+        </dependency>
         <dependency>
             <groupId>commons-dbcp</groupId>
             <artifactId>commons-dbcp</artifactId>
@@ -201,6 +207,11 @@
             <artifactId>struts-menu</artifactId>
             <version>${struts.menu.version}</version>
             <exclusions>
+                <!-- This is necessary because Velocity 1.5 has a different groupId -->
+                <exclusion>
+                    <groupId>velocity</groupId>
+                    <artifactId>velocity</artifactId>
+                </exclusion>
                 <exclusion>
                     <groupId>xml-apis</groupId>
                     <artifactId>xml-apis</artifactId>
