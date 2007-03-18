@@ -67,7 +67,7 @@ public class AntUtilities
      */
     public static List generateFileNameListFromPattern( final String inDirectory, final String inPattern )
     {
-        List fileNames = new ArrayList();
+        List<String> fileNames = new ArrayList<String>();
         DirectoryScanner directoryScanner = new DirectoryScanner();
         directoryScanner.setBasedir( inDirectory );
 
