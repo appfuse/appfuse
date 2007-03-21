@@ -583,29 +583,20 @@
     </profiles>
 
     <properties>
+        <copyright.year>2007</copyright.year>
         <dao.framework>hibernate</dao.framework>
         <web.framework>spring</web.framework>
-        <appfuse.version>2.0-m4-SNAPSHOT</appfuse.version>
+        
+		<!-- Framework dependency versions -->
+		<appfuse.version>2.0-m4-SNAPSHOT</appfuse.version>
+		<spring.version>2.0.3</spring.version>
 
-        <!-- Database settings -->
-        <dbunit.dataTypeFactoryName>org.dbunit.dataset.datatype.DefaultDataTypeFactory</dbunit.dataTypeFactoryName>
-        <dbunit.operation.type>CLEAN_INSERT</dbunit.operation.type>
-        <hibernate.dialect>org.hibernate.dialect.MySQLInnoDBDialect</hibernate.dialect>
-        <jdbc.groupId>mysql</jdbc.groupId>
-        <jdbc.artifactId>mysql-connector-java</jdbc.artifactId>
-        <jdbc.version>5.0.4</jdbc.version>
-        <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-        <jdbc.url><![CDATA[jdbc:mysql://localhost/${artifactId}?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8]]></jdbc.url>
-        <jdbc.username>root</jdbc.username>
-        <jdbc.password></jdbc.password>
-
-        <!-- Testing dependency versions -->
-        <jsp.version>2.0</jsp.version>
-        <servlet.version>2.4</servlet.version>
-        <jmock.version>1.1.0</jmock.version>
-        <junit.version>3.8.2</junit.version>
-        <spring.version>2.0.3</spring.version>
-        <wiser.version>1.0.3</wiser.version>
+		<!-- Testing dependency versions -->
+		<jmock.version>1.1.0</jmock.version>
+		<jsp.version>2.0</jsp.version>
+		<junit.version>3.8.2</junit.version>
+		<servlet.version>2.4</servlet.version>
+		<wiser.version>1.0.3</wiser.version>
 
         <!-- WebTest dependency versions  -->
         <javamail.version>1.4</javamail.version>
@@ -620,7 +611,17 @@
         <cargo.host>localhost</cargo.host>
         <cargo.port>8081</cargo.port>
         <cargo.wait>false</cargo.wait>
-
-        <copyright.year>2007</copyright.year>
+                
+        <!-- Database settings -->
+        <dbunit.dataTypeFactoryName>org.dbunit.dataset.datatype.DefaultDataTypeFactory</dbunit.dataTypeFactoryName>
+        <dbunit.operation.type>CLEAN_INSERT</dbunit.operation.type>
+        <hibernate.dialect>org.hibernate.dialect.MySQLInnoDBDialect</hibernate.dialect>
+        <jdbc.groupId>mysql</jdbc.groupId>
+        <jdbc.artifactId>mysql-connector-java</jdbc.artifactId>
+        <jdbc.version>5.0.4</jdbc.version>
+        <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
+        <jdbc.url><![CDATA[jdbc:mysql://localhost/${artifactId}?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8]]></jdbc.url>
+        <jdbc.username>root</jdbc.username>
+        <jdbc.password></jdbc.password>
     </properties>
 </project>
