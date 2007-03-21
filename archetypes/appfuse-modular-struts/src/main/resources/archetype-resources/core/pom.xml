@@ -90,6 +90,7 @@
                     <exclude>ApplicationResources_de.properties</exclude>
                     <exclude>ApplicationResources_fr.properties</exclude>
                     <exclude>ApplicationResources_nl.properties</exclude>
+                    <exclude>ApplicationResources_no.properties</exclude>
                     <exclude>ApplicationResources_pt*.properties</exclude>
                 </excludes>
                 <filtering>true</filtering>
