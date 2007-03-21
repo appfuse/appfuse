@@ -246,6 +246,14 @@
     <session-config>
         <session-timeout>10</session-timeout>
     </session-config>
+    
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Protect XHTML Templates</web-resource-name>
+            <url-pattern>*.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint/>
+   </security-constraint>
 
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
