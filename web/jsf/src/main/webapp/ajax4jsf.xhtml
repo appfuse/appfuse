@@ -10,12 +10,12 @@
         <h:panelGrid columns="2">
 
             <h:outputLabel for="input" styleClass="desc" value="Type the Text:"/>
-            <input jsfc="h:inputText" id="input" class="text large" value="#{userForm.username}">
+            <input jsfc="h:inputText" id="input" class="text large" value="#{userForm.user.username}">
                 <a4j:support event="onkeyup" reRender="repeater"/>
             </input>
 
             <h:outputText value="Text in the AJAX Response:"/>
-            <h:outputText id="repeater" value="#{userForm.username}" style="color: blue; margin-left: 5px"/>
+            <h:outputText id="repeater" value="#{userForm.user.username}" style="color: blue; margin-left: 5px"/>
 
         </h:panelGrid>
     </form>
