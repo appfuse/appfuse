@@ -135,11 +135,5 @@
             <artifactId>hibernate-annotations</artifactId>
             <version>${hibernate.version}</version>
         </dependency>
-        <!-- Upgrade to latest version of EhCache -->
-        <dependency>
-            <groupId>net.sf.ehcache</groupId>
-            <artifactId>ehcache</artifactId>
-            <version>${ehcache.version}</version>
-        </dependency>
     </dependencies>
 </project>
