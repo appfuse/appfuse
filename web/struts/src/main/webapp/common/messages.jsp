@@ -1,3 +1,4 @@
+<% if (request.getAttribute("struts.valueStack") != null) { %>
 <%-- ActionError Messages - usually set in Actions --%>
 <s:if test="hasActionErrors()">
     <div class="error" id="errorMessages">    
@@ -21,6 +22,7 @@
       </s:iterator>
    </div>
 </s:if>
+<% } %>
 
 <%-- Success Messages --%>
 <c:if test="${not empty messages}">

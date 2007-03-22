@@ -18,12 +18,12 @@
             <div id="main">
                 <h1><fmt:message key="errorPage.heading"/></h1>
                 <%@ include file="/common/messages.jsp" %>
-                 <% if (exception != null) { %>
+                <% if (exception != null) { %>
                     <pre><% exception.printStackTrace(new java.io.PrintWriter(out)); %></pre>
-                 <% } else if (request.getAttribute("javax.servlet.error.exception") != null) { %>
+                <% } else if (request.getAttribute("javax.servlet.error.exception") != null) { %>
                     <pre><% ((Exception)request.getAttribute("javax.servlet.error.exception"))
                                            .printStackTrace(new java.io.PrintWriter(out)); %></pre>
-                 <% } %>
+                <% } %>
             </div>
         </div>
     </div>
