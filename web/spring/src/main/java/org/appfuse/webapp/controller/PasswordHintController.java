@@ -106,11 +106,11 @@ public class PasswordHintController implements Controller {
 
     // this method is also in BaseForm Controller
     public void saveMessage(HttpServletRequest request, String msg) {
-        List messages = (List) request.getSession().getAttribute("messages");
+        List messages = (List) request.getSession().getAttribute(BaseFormController.MESSAGES_KEY);
         if (messages == null) {
             messages = new ArrayList();
         }
         messages.add(msg);
-        request.getSession().setAttribute("messages", messages);
+        request.getSession().setAttribute(BaseFormController.MESSAGES_KEY, messages);
     }
 }

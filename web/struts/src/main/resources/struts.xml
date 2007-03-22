@@ -119,7 +119,8 @@
             <result name="success">/WEB-INF/pages/flushCache.jsp</result> 
         </action> 
 
-        <action name="passwordHint" class="passwordHintAction"> 
+        <action name="passwordHint" class="passwordHintAction">
+            <result name="input">/</result> 
             <result name="success">/</result> 
         </action> 
         

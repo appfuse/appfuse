@@ -94,6 +94,18 @@
         <filter-name>sitemesh</filter-name>
         <filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class>
     </filter>
+    <filter>
+        <filter-name>staticFilter</filter-name>
+        <filter-class>org.appfuse.webapp.filter.StaticFilter</filter-class>
+        <init-param>
+            <param-name>includes</param-name>
+            <param-value>/scripts/dojo/*</param-value>
+        </init-param>
+        <init-param>
+            <param-name>servletName</param-name>
+            <param-value>dispatcher</param-value>
+        </init-param>
+    </filter>
 
     <filter-mapping>
         <filter-name>encodingFilter</filter-name>
@@ -141,6 +153,12 @@
         <dispatcher>REQUEST</dispatcher>
         <dispatcher>FORWARD</dispatcher>
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>staticFilter</filter-name>
+        <url-pattern>*.html</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
 
     <listener>
         <listener-class>com.opensymphony.clickstream.ClickstreamListener</listener-class>
@@ -179,10 +197,11 @@
         </init-param>
     </servlet>
 
-    <servlet-mapping>
+    <!-- Dispatching handled by StaticFilter -->
+    <!--<servlet-mapping>
         <servlet-name>dispatcher</servlet-name>
         <url-pattern>*.html</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping>-->
 
     <servlet-mapping>
         <servlet-name>dwr-invoker</servlet-name>

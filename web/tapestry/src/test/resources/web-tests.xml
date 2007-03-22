@@ -9,7 +9,7 @@
 
     <!-- runs all targets -->
     <target name="run-all-tests" 
-        depends="Login,Logout,PasswordHint,Signup,UserTests,FlushCache,FileUpload"
+        depends="Login,Logout,PasswordHint,Signup,StaticPages,UserTests,FlushCache,FileUpload"
         description="Call and executes all test cases (targets)"/>
     
     <!-- runs user-related tests -->
@@ -53,6 +53,18 @@
         </webtest>
     </target>
     
+    <target name="StaticPages" description="Ensures that StaticFilter is working">
+        <webtest name="staticPages">
+            &config;
+            <steps>
+                &login;
+                <invoke description="go to static HTML page" url="/scripts/dojo/test.html"/>
+                <verifytitle description="we should see static title" text="Static HTML Page" regex="true"/>
+                <verifytext description="verify message" text="Static content!"/>
+            </steps>
+        </webtest>
+    </target>
+
     <!-- Verify the edit user screen displays without errors -->
     <target name="EditUser" description="Tests selecting the 'Edit Profile' forward">
         <webtest name="editUser">

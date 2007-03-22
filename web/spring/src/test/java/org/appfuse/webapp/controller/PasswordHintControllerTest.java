@@ -12,7 +12,7 @@ public class PasswordHintControllerTest extends BaseControllerTestCase {
     }
 
     public void testExecute() throws Exception {
-        MockHttpServletRequest request = newGet("/passwordhint.html");
+        MockHttpServletRequest request = newGet("/passwordHint.html");
         request.addParameter("username", "tomcat");
 
        // start SMTP Server
@@ -27,6 +27,6 @@ public class PasswordHintControllerTest extends BaseControllerTestCase {
         assertTrue(wiser.getMessages().size() == 1);
         
         // verify that success messages are in the session
-        assertNotNull(request.getSession().getAttribute("messages"));
+        assertNotNull(request.getSession().getAttribute(BaseFormController.MESSAGES_KEY));
     }
 }

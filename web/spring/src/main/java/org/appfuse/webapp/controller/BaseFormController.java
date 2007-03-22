@@ -42,7 +42,7 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
  */
 public class BaseFormController extends SimpleFormController {
     protected final transient Log log = LogFactory.getLog(getClass());
-    protected final String MESSAGES_KEY = "successMessages";
+    public static final String MESSAGES_KEY = "successMessages";
     private UserManager userManager = null;
     protected MailEngine mailEngine = null;
     protected SimpleMailMessage message = null;

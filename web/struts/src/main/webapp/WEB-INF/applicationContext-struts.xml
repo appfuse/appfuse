@@ -10,7 +10,7 @@
         <property name="userManager" ref="userManager"/>
         <property name="roleManager" ref="roleManager"/>
         <property name="mailEngine" ref="mailEngine"/>
-        <property name="message" ref="mailMessage"/>
+        <property name="mailMessage" ref="mailMessage"/>
         <property name="templateName" value="accountCreated.vm"/>
     </bean>
     
@@ -18,13 +18,13 @@
         <property name="userManager" ref="userManager"/>
         <property name="roleManager" ref="roleManager"/>
         <property name="mailEngine" ref="mailEngine"/>
-        <property name="message" ref="mailMessage"/>
+        <property name="mailMessage" ref="mailMessage"/>
         <property name="templateName" value="accountCreated.vm"/>
     </bean>
     
     <bean id="passwordHintAction" class="org.appfuse.webapp.action.PasswordHintAction" scope="prototype">
         <property name="userManager" ref="userManager"/>
         <property name="mailEngine" ref="mailEngine"/>
-        <property name="message" ref="mailMessage"/>
+        <property name="mailMessage" ref="mailMessage"/>
     </bean>
 </beans>

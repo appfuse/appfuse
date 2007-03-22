@@ -49,11 +49,11 @@ public class PasswordHintAction extends BaseAction {
             msg.append("Your password hint is: " + user.getPasswordHint());
             msg.append("\n\nLogin at: " + RequestUtil.getAppURL(getRequest()));
 
-            message.setTo(user.getEmail());
+            mailMessage.setTo(user.getEmail());
             String subject = '[' + getText("webapp.name") + "] " + getText("user.passwordHint");
-            message.setSubject(subject);
-            message.setText(msg.toString());
-            mailEngine.send(message);
+            mailMessage.setSubject(subject);
+            mailMessage.setText(msg.toString());
+            mailEngine.send(mailMessage);
             
             args.add(username);
             args.add(user.getEmail());
@@ -64,6 +64,7 @@ public class PasswordHintAction extends BaseAction {
             e.printStackTrace();
             // If exception is expected do not rethrow
             addActionError(getText("login.passwordHint.error", args));
+            return INPUT;
         }
 
         return SUCCESS;

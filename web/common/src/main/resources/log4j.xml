@@ -35,11 +35,6 @@
         <level value="WARN"/>
     </logger>
    
-    <!-- To prevent warning about BaseActionTestCase -->
-    <logger name="com.opensymphony.xwork2.util.ResolverUtil">
-        <level value="ERROR"/>
-    </logger>
-    
     <logger name="org.appfuse">
         <level value="DEBUG"/>
     </logger>

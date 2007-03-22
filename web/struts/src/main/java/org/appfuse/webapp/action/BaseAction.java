@@ -45,7 +45,7 @@ public class BaseAction extends ActionSupport {
     protected String delete = null;
     protected String save = null;
     protected MailEngine mailEngine = null;
-    protected SimpleMailMessage message = null;
+    protected SimpleMailMessage mailMessage = null;
     protected String templateName = null; 
 
     public String cancel() {
@@ -104,7 +104,7 @@ public class BaseAction extends ActionSupport {
             log.debug("sending e-mail to user [" + user.getEmail() + "]...");
         }
 
-        message.setTo(user.getFullName() + "<" + user.getEmail() + ">");
+        mailMessage.setTo(user.getFullName() + "<" + user.getEmail() + ">");
 
         Map model = new HashMap();
         model.put("user", user);
@@ -112,7 +112,7 @@ public class BaseAction extends ActionSupport {
         // model.put("bundle", getTexts());
         model.put("message", msg);
         model.put("applicationURL", url);
-        mailEngine.sendMessage(message, templateName, model);   
+        mailEngine.sendMessage(mailMessage, templateName, model);
     }
 
     public void setUserManager(UserManager userManager) {
@@ -127,8 +127,8 @@ public class BaseAction extends ActionSupport {
         this.mailEngine = mailEngine;
     }
     
-    public void setMessage(SimpleMailMessage message) {
-        this.message = message;
+    public void setMailMessage(SimpleMailMessage mailMessage) {
+        this.mailMessage = mailMessage;
     }
     
     public void setTemplateName(String templateName) {
