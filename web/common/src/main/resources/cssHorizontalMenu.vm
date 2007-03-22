@@ -32,12 +32,19 @@
     #end
 
     #if ($menu.components.size() > 0)
-        #if ($hasViewableChildren) <ul> #end
+        #if ($hasViewableChildren) 
+          <ul> 
+        #end
 
         #foreach ($menuIt in $menu.components)
             #displayCssMenu($menuIt)
         #end
-         </li>
+        
+        #if ($hasViewableChildren && ($velocityCount == $menu.parent.components.size()))
+          </ul>
+        #else
+          </li>
+        #end
     #else
       </li>
       #if ($velocityCount == $menu.parent.components.size())
