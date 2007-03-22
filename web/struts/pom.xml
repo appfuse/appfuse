@@ -198,6 +198,11 @@
         </dependency>
         <dependency>
             <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-codebehind-plugin</artifactId>
+            <version>${struts.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.struts</groupId>
             <artifactId>struts2-spring-plugin</artifactId>
             <version>${struts.version}</version>
             <exclusions>

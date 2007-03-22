@@ -101,6 +101,10 @@
     <filter>
         <filter-name>struts</filter-name>
         <filter-class>org.apache.struts2.dispatcher.FilterDispatcher</filter-class>
+        <init-param>
+            <param-name>actionPackages</param-name>
+            <param-value>org.appfuse.webapp.action</param-value>
+        </init-param>
     </filter>
 
     <filter-mapping>
@@ -180,7 +184,7 @@
 
     <servlet>
         <servlet-name>dwr-invoker</servlet-name>
-        <servlet-class>uk.ltd.getahead.dwr.DWRServlet</servlet-class>
+        <servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class>
         <init-param>
             <param-name>debug</param-name>
             <param-value>true</param-value>

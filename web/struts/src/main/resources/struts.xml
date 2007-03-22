@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 
@@ -10,6 +11,7 @@
     <constant name="struts.custom.i18n.resources" value="ApplicationResources,errors"/>
     <constant name="struts.multipart.maxSize" value="2097152"/>
     <constant name="struts.ui.theme" value="css_xhtml"/>
+    <constant name="struts.codebehind.pathPrefix" value="/WEB-INF/pages/"/>
 
     <!-- Include Struts defaults -->
     <include file="struts-default.xml"/>

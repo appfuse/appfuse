@@ -27,6 +27,4 @@
         <property name="mailEngine" ref="mailEngine"/>
         <property name="message" ref="mailMessage"/>
     </bean>
-    
-    <!-- Add additional actions here -->
 </beans>
