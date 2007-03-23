@@ -23,7 +23,7 @@
         <groupId>org.appfuse</groupId>
         <artifactId>appfuse</artifactId>
         <version>2.0-m5-SNAPSHOT</version>
-	<relativePath>../../pom.xml</relativePath>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <artifactId>appfuse-jpa-hibernate</artifactId>
