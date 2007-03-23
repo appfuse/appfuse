@@ -192,7 +192,7 @@
             <plugin>
                 <groupId>org.appfuse</groupId>
                 <artifactId>maven-warpath-plugin</artifactId>
-                <version>1.0-m4-SNAPSHOT</version>
+                <version>1.0-m4</version>
                 <extensions>true</extensions>
                 <executions>
                     <execution>
@@ -291,10 +291,6 @@
     </repositories>
 
     <pluginRepositories>
-        <pluginRepository>
-            <id>maven-snapshots</id>
-            <url>http://snapshots.repository.codehaus.org</url>
-        </pluginRepository>
         <pluginRepository>
             <id>appfuse</id>
             <url>http://static.appfuse.org/repository</url>
@@ -602,7 +598,7 @@
         <web.framework>jsf</web.framework>
         
 		<!-- Framework dependency versions -->
-		<appfuse.version>2.0-m4-SNAPSHOT</appfuse.version>
+		<appfuse.version>2.0-m4</appfuse.version>
 		<spring.version>2.0.3</spring.version>
 
 		<!-- Testing dependency versions -->

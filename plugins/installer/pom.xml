@@ -23,7 +23,7 @@
     <artifactId>installer</artifactId>
     <packaging>jar</packaging>
     <name>AppFuse Installer</name>
-    <version>1.0-m4-SNAPSHOT</version>
+    <version>1.0-m4</version>
     <inceptionYear>2006</inceptionYear>
     <url>http://appfuse.dev.java.net</url>
 
@@ -133,10 +133,6 @@
     </repositories>
 
     <pluginRepositories>
-        <pluginRepository>
-            <id>maven-snapshots</id>
-            <url>http://snapshots.repository.codehaus.org</url>
-        </pluginRepository>
         <pluginRepository>
             <id>appfuse</id>
             <url>http://static.appfuse.org/repository</url>

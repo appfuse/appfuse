@@ -23,7 +23,7 @@
     <artifactId>appfuse</artifactId>
     <packaging>pom</packaging>
     <name>AppFuse</name>
-    <version>2.0-m4-SNAPSHOT</version>
+    <version>2.0-m4</version>
     <inceptionYear>2003</inceptionYear>
     <url>http://appfuse.org</url>
 
@@ -265,10 +265,6 @@
     </repositories>
 
     <pluginRepositories>
-        <pluginRepository>
-            <id>maven-snapshots</id>
-            <url>http://snapshots.repository.codehaus.org</url>
-        </pluginRepository>
         <pluginRepository>
             <id>appfuse</id>
             <url>http://static.appfuse.org/repository</url>
