@@ -192,30 +192,9 @@ function deleteCookie(name,path,domain) {
 }
 
 // This function is for stripping leading and trailing spaces
-function trim(str) { 
-    if (str != null) {
-        var i; 
-        for (i=0; i<str.length; i++) {
-            if (str.charAt(i)!=" ") {
-                str=str.substring(i,str.length); 
-                break;
-            } 
-        } 
-    
-        for (i=str.length-1; i>=0; i--) {
-            if (str.charAt(i)!=" ") {
-                str=str.substring(0,i+1); 
-                break;
-            } 
-        } 
-        
-        if (str.charAt(0)==" ") {
-            return ""; 
-        } else {
-            return str; 
-        }
-    }
-} 
+String.prototype.trim = function () {
+    return this.replace(/^\s*(\S*(\s+\S+)*)\s*$/, "$1");
+};
 
 // This function is used by the login screen to validate user/pass
 // are entered. 
