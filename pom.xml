@@ -150,7 +150,8 @@
             <id>dlwhitehurst</id>
             <name>David Whitehurst</name>
             <email>dlwhitehurst@gmail.com</email>
-            <organization>CIBERsites ADM US</organization>
+            <organization>Cape Henry Technologies Inc.</organization>
+	    <organizationUrl>http://www.capehenrytech.com</organizationUrl>
             <timezone>-6</timezone>
         </developer>
         <developer>
