@@ -107,7 +107,7 @@ public class UserFormController extends BaseFormController {
             Integer originalVersion = user.getVersion();
             
             try {
-                getUserManager().saveUser(user);
+                user = getUserManager().saveUser(user);
             } catch (UserExistsException e) {
                 log.warn(e.getMessage());
 

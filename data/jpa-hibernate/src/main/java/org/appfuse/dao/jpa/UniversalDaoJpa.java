@@ -31,14 +31,8 @@ public class UniversalDaoJpa implements UniversalDao {
     /**
      * @see org.appfuse.dao.UniversalDao#save(java.lang.Object)
      */
-    public void save(Object o) {
-        Object objId = DaoUtils.getPersistentId(o);
-        
-        if (objId == null) {
-            this.entityManager.persist(o);
-        } else {
-            this.entityManager.merge(o);
-        }
+    public Object save(Object o) {
+	return this.entityManager.merge(o);
     }
 
     /**

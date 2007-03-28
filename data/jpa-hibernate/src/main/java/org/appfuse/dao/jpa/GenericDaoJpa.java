@@ -69,14 +69,8 @@ public class GenericDaoJpa<T, PK extends Serializable> implements GenericDao<T, 
 	}
     }
 
-    public void save(T object) {
-        Object objId = DaoUtils.getPersistentId(object);
-        
-        if (objId == null) {
-            this.entityManager.persist(object);
-        } else {
-            this.entityManager.merge(object);
-        }
+    public T save(T object) {
+	return this.entityManager.merge(object);
     }
 
     public void remove(PK id) {

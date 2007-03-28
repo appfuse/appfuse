@@ -34,11 +34,12 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
     /**
      * @see org.appfuse.dao.UserDao#saveUser(org.appfuse.model.User)
      */
-    public void saveUser(final User user) {
-        log.debug("user's id: " + user.getId());        
+    public User saveUser(User user) {
+        log.debug("user's id: " + user.getId());
         getHibernateTemplate().saveOrUpdate(user);
         // necessary to throw a DataIntegrityViolation and catch it in UserManager
         getHibernateTemplate().flush();
+        return user;
     }
     
     /**
@@ -47,8 +48,8 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
      * does not.
      */
     @Override
-    public void save(User user) {
-        this.saveUser(user);
+    public User save(User user) {
+        return this.saveUser(user);
     }
 
     /** 

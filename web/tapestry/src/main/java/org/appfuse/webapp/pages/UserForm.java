@@ -162,7 +162,7 @@ public abstract class UserForm extends BasePage implements PageBeginRenderListen
         Integer originalVersion = user.getVersion();
         
         try {
-            userManager.saveUser(user);
+            user = userManager.saveUser(user);
         } catch (UserExistsException e) {
             log.warn(e.getMessage());
             addError("emailField",

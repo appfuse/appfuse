@@ -60,8 +60,8 @@ public class GenericManagerImpl<T, PK extends Serializable> implements GenericMa
         return genericDao.exists(id);
     }
 
-    public void save(T object) {
-        genericDao.save(object);
+    public T save(T object) {
+        return genericDao.save(object);
     }
 
     public void remove(PK id) {

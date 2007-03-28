@@ -49,14 +49,14 @@ public class UserManagerImpl extends UniversalManagerImpl implements UserManager
     /**
      * @see org.appfuse.service.UserManager#saveUser(org.appfuse.model.User)
      */
-    public void saveUser(User user) throws UserExistsException {
+    public User saveUser(User user) throws UserExistsException {
     	// if new user, lowercase userId
     	if (user.getVersion() == null) {
             user.setUsername(user.getUsername().toLowerCase());
     	}
         
         try {
-            dao.saveUser(user);
+            return dao.saveUser(user);
         } catch (DataIntegrityViolationException e) {
             throw new UserExistsException("User '" + user.getUsername() + "' already exists!");
         } catch (EntityExistsException e) { // needed for JPA

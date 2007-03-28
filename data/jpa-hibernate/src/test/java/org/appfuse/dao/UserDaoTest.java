@@ -107,7 +107,7 @@ public class UserDaoTest extends BaseDaoTestCase {
         assertNotNull(role.getId());
         user.addRole(role);
 
-        dao.save(user);
+        user = dao.save(user);
 
         assertNotNull(user.getId());
         assertEquals("testpass", user.getPassword());

@@ -74,7 +74,7 @@ public class SignupAction extends BaseAction {
         user.addRole(roleManager.getRole(Constants.USER_ROLE));
 
         try {
-            userManager.saveUser(user);
+            user = userManager.saveUser(user);
         } catch (UserExistsException e) {
             log.warn(e.getMessage());
             List args = new ArrayList();

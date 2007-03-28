@@ -73,7 +73,7 @@ public class SignupController extends BaseFormController {
         user.addRole(roleManager.getRole(Constants.USER_ROLE));
 
         try {
-            this.getUserManager().saveUser(user);
+            user = this.getUserManager().saveUser(user);
         } catch (UserExistsException e) {
             log.warn(e.getMessage());
 

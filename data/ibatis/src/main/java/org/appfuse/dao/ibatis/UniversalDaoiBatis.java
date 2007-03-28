@@ -35,7 +35,7 @@ public class UniversalDaoiBatis extends SqlMapClientDaoSupport implements Univer
         return object;
     }
 
-    public void save(final Object object) {
+    public Object save(final Object object) {
         String className = ClassUtils.getShortName(object.getClass());
         Object primaryKey = iBatisDaoUtils.getPrimaryKeyValue(object);
         String keyId = null;
@@ -63,6 +63,8 @@ public class UniversalDaoiBatis extends SqlMapClientDaoSupport implements Univer
         // check for null id
         if (iBatisDaoUtils.getPrimaryKeyValue(object) == null) {
             throw new ObjectRetrievalFailureException(className, object);
+        } else {
+            return object;
         }
     }
 

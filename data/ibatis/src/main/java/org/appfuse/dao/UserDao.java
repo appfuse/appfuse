@@ -33,6 +33,6 @@ public interface UserDao extends GenericDao<org.appfuse.model.User, Long> {
      * Saves a user's information.
      * @param user the object to be saved
      */
-    public void saveUser(User user);
+    public User saveUser(User user);
     
 }

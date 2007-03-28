@@ -42,7 +42,7 @@ public interface GenericManager<T, PK extends Serializable> {
      * Generic method to save an object - handles both update and insert.
      * @param object the object to save
      */
-    public void save(T object);
+    public T save(T object);
 
     /**
      * Generic method to delete an object based on class and id

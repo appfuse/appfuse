@@ -38,7 +38,7 @@ public class UniversalDaoTest extends BaseDaoTestCase {
         user.setEmail("foo@bar.com");
 
         // create
-        universalDao.save(user);
+        user = (User)universalDao.save(user);
         assertNotNull(user.getId());
 
         // retrieve

@@ -42,7 +42,7 @@ public class UserDaoTest extends BaseDaoTestCase {
         Address address = user.getAddress();
         address.setAddress("new address");
 
-        dao.saveUser(user);
+        user = dao.saveUser(user);
 
         assertEquals(user.getAddress(), address);
         assertEquals("new address", user.getAddress().getAddress());
@@ -53,7 +53,7 @@ public class UserDaoTest extends BaseDaoTestCase {
         endTransaction();
 
         try {
-            dao.saveUser(user);
+            user = dao.saveUser(user);
             fail("saveUser didn't throw DataIntegrityViolationException");
         } catch (DataIntegrityViolationException e) {
             assertNotNull(e);
@@ -67,18 +67,18 @@ public class UserDaoTest extends BaseDaoTestCase {
 
         Role role = rdao.getRoleByName(Constants.ADMIN_ROLE);
         user.addRole(role);
-        dao.saveUser(user);
+        user = dao.saveUser(user);
 
         assertEquals(2, user.getRoles().size());
 
         //add the same role twice - should result in no additional role
         user.addRole(role);
-        dao.saveUser(user);
+        user = dao.saveUser(user);
 
         assertEquals("more than 2 roles", 2, user.getRoles().size());
 
         user.getRoles().remove(role);
-        dao.saveUser(user);
+        user = dao.saveUser(user);
 
         assertEquals(1, user.getRoles().size());
     }
@@ -101,7 +101,7 @@ public class UserDaoTest extends BaseDaoTestCase {
         assertNotNull(role.getId());
         user.addRole(role);
 
-        dao.saveUser(user);
+        user = dao.saveUser(user);
 
         assertNotNull(user.getId());
         assertEquals("testpass", user.getPassword());

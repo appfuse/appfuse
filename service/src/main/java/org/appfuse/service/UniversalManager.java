@@ -25,7 +25,7 @@ public interface UniversalManager {
      * Generic method to save an object.
      * @param o the object to save
      */
-    public void save(Object o);
+    public Object save(Object o);
 
     /**
      * Generic method to delete an object based on class and id

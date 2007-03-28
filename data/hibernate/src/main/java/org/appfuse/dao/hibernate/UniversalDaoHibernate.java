@@ -22,8 +22,8 @@ public class UniversalDaoHibernate extends HibernateDaoSupport implements Univer
     /**
      * @see org.appfuse.dao.UniversalDao#save(java.lang.Object)
      */
-    public void save(Object o) {
-        getHibernateTemplate().saveOrUpdate(o);
+    public Object save(Object o) {
+        return getHibernateTemplate().merge(o);
     }
 
     /**

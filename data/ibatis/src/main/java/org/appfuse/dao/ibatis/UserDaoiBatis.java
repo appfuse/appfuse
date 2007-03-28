@@ -90,7 +90,7 @@ public class UserDaoiBatis extends GenericDaoiBatis<User, Long>implements UserDa
     /**
      * @see org.appfuse.dao.UserDao#saveUser(org.appfuse.model.User)
      */
-    public void saveUser(final User user) {
+    public User saveUser(final User user) {
         iBatisDaoUtils.prepareObjectForSaveOrUpdate(user);
         
         if (user.getId() == null) {
@@ -102,6 +102,7 @@ public class UserDaoiBatis extends GenericDaoiBatis<User, Long>implements UserDa
             deleteUserRoles(user.getId());
             addUserRoles(user);
         }
+        return user;
     }
 
 

@@ -93,7 +93,7 @@ public abstract class SignupForm extends BasePage implements PageBeginRenderList
         user.addRole(getRoleManager().getRole(Constants.USER_ROLE));
         
         try {
-            getUserManager().saveUser(user);
+            user = getUserManager().saveUser(user);
         } catch (UserExistsException e) {
             log.warn(e.getMessage());
             addError("usernameField",

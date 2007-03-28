@@ -33,9 +33,9 @@ public class UniversalManagerTest extends BaseManagerMockTestCase {
 
         // create
         // set expectations
-        dao.expects(once()).method("save").isVoid();
+        dao.expects(once()).method("save").will(returnValue(user));
         
-        manager.save(user);
+        user = (User)manager.save(user);
         dao.verify();
         
         // retrieve
@@ -50,7 +50,7 @@ public class UniversalManagerTest extends BaseManagerMockTestCase {
         dao.reset();
         dao.expects(once()).method("save").isVoid();
         user.getAddress().setCountry("USA");
-        manager.save(user);
+        user = (User)manager.save(user);
         dao.verify();
         
         // delete

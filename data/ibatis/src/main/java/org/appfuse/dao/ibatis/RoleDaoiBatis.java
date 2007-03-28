@@ -27,12 +27,13 @@ public class RoleDaoiBatis extends GenericDaoiBatis<Role, Long> implements RoleD
     }
 
     @Override
-    public void save(final Role role) {
+    public Role save(final Role role) {
         if (role.getId() == null) {
             getSqlMapClientTemplate().update("addRole", role);
         } else {
             getSqlMapClientTemplate().update("updateRole", role);
         }
+        return role;
     }
 
     public void removeRole(String rolename) {

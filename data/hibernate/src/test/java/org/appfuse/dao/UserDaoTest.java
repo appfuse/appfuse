@@ -70,7 +70,7 @@ public class UserDaoTest extends BaseDaoTestCase {
 
         Role role = rdao.getRoleByName(Constants.ADMIN_ROLE);
         user.addRole(role);
-        dao.saveUser(user);
+        user = dao.saveUser(user);
         flush();
 
         user = dao.get(1L);
@@ -110,7 +110,7 @@ public class UserDaoTest extends BaseDaoTestCase {
         assertNotNull(role.getId());
         user.addRole(role);
 
-        dao.saveUser(user);
+        user = dao.saveUser(user);
         flush();
 
         assertNotNull(user.getId());

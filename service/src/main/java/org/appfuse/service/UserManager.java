@@ -48,7 +48,7 @@ public interface UserManager extends UniversalManager {
      * @param user the user's information
      * @throws UserExistsException thrown when user already exists
      */
-    public void saveUser(User user) throws UserExistsException;
+    public User saveUser(User user) throws UserExistsException;
 
     /**
      * Removes a user from the database by their userId

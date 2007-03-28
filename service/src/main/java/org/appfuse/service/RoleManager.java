@@ -13,6 +13,6 @@ import java.util.List;
 public interface RoleManager extends UniversalManager {
     public List getRoles(Role role);
     public Role getRole(String rolename);
-    public void saveRole(Role role);
+    public Role saveRole(Role role);
     public void removeRole(String rolename);
 }

@@ -25,14 +25,14 @@ public class RoleDaoTest extends BaseDaoTestCase {
         log.debug(role);
         role.setDescription("test descr");
 
-        dao.save(role);
+        role = dao.save(role);
         assertEquals(role.getDescription(), "test descr");
     }
 
     public void testAddAndRemoveRole() throws Exception {
         Role role = new Role("testrole");
         role.setDescription("new role descr");
-        dao.save(role);
+        role = dao.save(role);
         setComplete(); // change behavior from rollback to commit
         endTransaction();
 

@@ -48,7 +48,7 @@ public class UniversalManagerImpl implements UniversalManager {
     /**
      * @see org.appfuse.service.UniversalManager#save(java.lang.Object)
      */
-    public void save(Object o) {
-        dao.save(o);
+    public Object save(Object o) {
+        return dao.save(o);
     }
 }

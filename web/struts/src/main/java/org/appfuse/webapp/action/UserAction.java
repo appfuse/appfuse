@@ -152,7 +152,7 @@ public class UserAction extends BaseAction implements Preparable {
         }
 
         try {
-            userManager.saveUser(user);
+            user = userManager.saveUser(user);
         } catch (UserExistsException e) {
             log.warn(e.getMessage());
             List<String> args = new ArrayList<String>();

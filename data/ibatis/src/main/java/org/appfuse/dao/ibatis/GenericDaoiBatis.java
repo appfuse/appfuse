@@ -56,7 +56,7 @@ public class GenericDaoiBatis<T, PK extends Serializable> extends SqlMapClientDa
         }
     }
 
-    public void save(final T object) {
+    public T save(final T object) {
         String className = ClassUtils.getShortName(object.getClass());
         Object primaryKey = iBatisDaoUtils.getPrimaryKeyValue(object);
         String keyId = null;
@@ -84,6 +84,8 @@ public class GenericDaoiBatis<T, PK extends Serializable> extends SqlMapClientDa
         // check for null id
         if (iBatisDaoUtils.getPrimaryKeyValue(object) == null) {
             throw new ObjectRetrievalFailureException(className, object);
+        } else {
+            return object;
         }
     }
 

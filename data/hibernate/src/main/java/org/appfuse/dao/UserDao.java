@@ -34,6 +34,6 @@ public interface UserDao extends GenericDao<User, Long> {
      * Saves a user's information.
      * @param user the object to be saved
      */
-    public void saveUser(User user);
+    public User saveUser(User user);
     
 }

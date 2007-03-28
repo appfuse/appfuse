@@ -50,7 +50,8 @@ public class UserDaoJpa extends GenericDaoJpa<User, Long> implements UserDao, Us
         }
     }
     
-    public void saveUser(User user) {
-        super.save(user);
+    public User saveUser(User user) {
+        User u = super.save(user);
+        return u;
     }
 }

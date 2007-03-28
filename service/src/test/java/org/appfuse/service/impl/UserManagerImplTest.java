@@ -53,9 +53,9 @@ public class UserManagerImplTest extends BaseManagerMockTestCase {
         
         // reset expectations
         userDao.reset();
-        userDao.expects(once()).method("saveUser").with(same(user));
+        userDao.expects(once()).method("saveUser").with(same(user)).will(returnValue(user));
         
-        userManager.saveUser(user);
+        user = userManager.saveUser(user);
         assertTrue(user.getPhoneNumber().equals("303-555-1212"));
         assertTrue(user.getRoles().size() == 1);
         userDao.verify();
@@ -77,9 +77,9 @@ public class UserManagerImplTest extends BaseManagerMockTestCase {
         user.addRole(role);
 
         // set expected behavior on user dao
-        userDao.expects(once()).method("saveUser").with(same(user));
+        userDao.expects(once()).method("saveUser").with(same(user)).will(returnValue(user));
         
-        userManager.saveUser(user);
+        user = userManager.saveUser(user);
         assertTrue(user.getUsername().equals("john"));
         assertTrue(user.getRoles().size() == 1);
         userDao.verify();
@@ -110,7 +110,7 @@ public class UserManagerImplTest extends BaseManagerMockTestCase {
         
         // run test
         try {
-            userManager.saveUser(user);
+            user = userManager.saveUser(user);
             fail("Expected UserExistsException not thrown");
         } catch (UserExistsException e) {
             log.debug("expected exception: " + e.getMessage());

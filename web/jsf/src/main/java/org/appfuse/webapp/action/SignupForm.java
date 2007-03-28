@@ -60,7 +60,7 @@ public class SignupForm extends BasePage implements Serializable {
         user.addRole(roleManager.getRole(Constants.USER_ROLE));
 
         try {
-            userManager.saveUser(user);
+            user = userManager.saveUser(user);
         } catch (UserExistsException e) {
             log.warn(e.getMessage());
             addMessage("errors.existing.user", 
