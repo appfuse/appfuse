@@ -178,13 +178,6 @@
         </testResources>
     </build>
     
-    <repositories>
-        <repository>
-            <id>apache</id>
-            <url>http://people.apache.org/builds/struts/2.0.7/m2-staging-repository</url>
-        </repository>
-    </repositories>
-
     <dependencies>
         <dependency>
             <groupId>${pom.groupId}</groupId>
