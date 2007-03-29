@@ -2,7 +2,7 @@
 
 <head>
     <title><fmt:message key="userProfile.title"/></title>
-    <content tag="heading"><fmt:message key="userProfile.heading"/></content>
+    <meta name="heading" content="<fmt:message key='userProfile.heading'/>"/>
     <meta name="menu" content="UserMenu"/>
     <script type="text/javascript" src="<c:url value='/scripts/selectbox.js'/>"></script>
 </head>

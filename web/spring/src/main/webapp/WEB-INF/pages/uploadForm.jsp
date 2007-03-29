@@ -1,8 +1,10 @@
 <%@ include file="/common/taglibs.jsp"%>
 
-<title><fmt:message key="upload.title"/></title>
-<content tag="heading"><fmt:message key="upload.heading"/></content>
-<meta name="menu" content="FileUpload"/>
+<head>
+    <title><fmt:message key="upload.title"/></title>
+    <meta name="heading" content="<fmt:message key='upload.heading'/>"/>
+    <meta name="menu" content="FileUpload"/>
+</head>
 
 <!--
     The most important part is to declare your form's enctype to be "multipart/form-data"

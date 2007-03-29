@@ -14,9 +14,11 @@ if (request.getParameter("showbots") != null)
 }
 %>
 
-<title><fmt:message key="clickstreams.title"/></title>
-<content tag="heading"><fmt:message key="clickstreams.heading"/></content>
-<meta name="menu" content="AdminMenu"/>
+<head>
+    <title><fmt:message key="clickstreams.title"/></title>
+    <meta name="heading" content="<fmt:message key='clickstreams.heading'/>"/>
+    <meta name="menu" content="AdminMenu"/>
+</head>
 
 <a href="?showbots=false">No Bots</a> |
 <a href="?showbots=true">All Bots</a> |

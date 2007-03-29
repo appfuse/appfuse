@@ -2,7 +2,7 @@
 
 <head>
     <title><fmt:message key="activeUsers.title"/></title>
-    <content tag="heading"><fmt:message key="activeUsers.heading"/></content>
+    <meta name="heading" content="<fmt:message key='activeUsers.heading'/>"/>
     <meta name="menu" content="AdminMenu"/>
 </head>
 <body id="activeUsers"/>

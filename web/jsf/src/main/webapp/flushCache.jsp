@@ -1,8 +1,10 @@
 <%@ include file="/common/taglibs.jsp" %>
 
-<title><fmt:message key="flushCache.title"/></title>
-<content tag="heading"><fmt:message key="flushCache.heading"/></content>
-<meta name="menu" content="AdminMenu"/>
+<head>
+    <title><fmt:message key="flushCache.title"/></title>
+    <meta name="heading" content="<fmt:message key='flushCache.heading'/>"/>
+    <meta name="menu" content="AdminMenu"/>
+</head>
 
 <cache:flush/>
 <div class="message" style="font-size: 12px">

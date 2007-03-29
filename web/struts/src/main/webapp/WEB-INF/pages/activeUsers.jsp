@@ -2,7 +2,7 @@
 
 <head>
     <title><fmt:message key="activeUsers.title"/></title>
-    <content tag="heading"><fmt:message key="activeUsers.heading"/></content>
+    <meta name="heading" content="<fmt:message key='activeUsers.heading'/>"/>
     <meta name="menu" content="AdminMenu"/>
 </head>
 <body id="activeUsers"/>
@@ -16,7 +16,6 @@
 <display:table name="applicationScope.userNames" id="user" cellspacing="0" cellpadding="0"
     defaultsort="1" class="table" pagesize="50" requestURI="">
   
-    <%-- Table columns --%>
     <display:column property="username" escapeXml="true" style="width: 30%" titleKey="user.username" sortable="true"/>
     <display:column titleKey="activeUsers.fullName" sortable="true">
         <c:out value="${user.firstName} ${user.lastName}" escapeXml="true"/>

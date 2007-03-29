@@ -2,7 +2,7 @@
 
 <head>
     <title><fmt:message key="userList.title"/></title>
-    <content tag="heading"><fmt:message key="userList.heading"/></content>
+    <meta name="heading" content="<fmt:message key='userList.heading'/>"/>
     <meta name="menu" content="AdminMenu"/>
 </head>
 

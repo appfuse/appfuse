@@ -1,8 +1,10 @@
 <%@ include file="/common/taglibs.jsp"%>
 
-<title><fmt:message key="display.title"/></title>
-<content tag="heading"><fmt:message key="display.heading"/></content>
-<meta name="menu" content="FileUpload"/>
+<head>
+    <title><fmt:message key="display.title"/></title>
+    <meta name="heading" content="<fmt:message key='display.heading'/>"/>
+    <meta name="menu" content="FileUpload"/>
+</head>
 
 <p>Below is a list of attributes that were gathered in FileUploadController.java.</p>
 

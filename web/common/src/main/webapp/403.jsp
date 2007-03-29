@@ -2,8 +2,10 @@
 
 <page:applyDecorator name="default">
 
-<title><fmt:message key="403.title"/></title>
-<content tag="heading"><fmt:message key="403.title"/></content>
+<head>
+    <title><fmt:message key="403.title"/></title>
+    <meta name="heading" content="<fmt:message key='403.title'/>"/>
+</head>
 
 <p>
     <fmt:message key="403.message">

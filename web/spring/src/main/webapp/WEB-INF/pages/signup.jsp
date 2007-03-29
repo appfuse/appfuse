@@ -1,7 +1,10 @@
 <%@ include file="/common/taglibs.jsp"%>
 
-<title><fmt:message key="signup.title"/></title>
-<content tag="heading"><fmt:message key="signup.heading"/></content>
+<head>
+    <title><fmt:message key="signup.title"/></title>
+    <meta name="heading" content="<fmt:message key='signup.heading'/>"/>
+</head>
+
 <body id="signup"/>
 
 <spring:bind path="user.*">

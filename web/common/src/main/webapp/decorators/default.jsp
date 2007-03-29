@@ -25,7 +25,7 @@
         <div id="content" class="clearfix">
             <div id="main">
                 <%@ include file="/common/messages.jsp" %>
-                <h1><decorator:getProperty property="page.heading"/></h1>
+                <h1><decorator:getProperty property="meta.heading"/></h1>
                 <decorator:body/>
             </div>
 
@@ -43,7 +43,7 @@
                     <h2 class="accessibility">Navigation</h2>
                     <jsp:include page="/common/menu.jsp"/>
                 </div>
-                <hr />
+                <hr/>
             </div><!-- end nav -->
         </div>
 

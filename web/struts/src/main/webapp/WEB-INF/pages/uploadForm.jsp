@@ -2,7 +2,7 @@
 
 <head>
     <title><fmt:message key="upload.title"/></title>
-    <content tag="heading"><fmt:message key="upload.heading"/></content>
+    <meta name="heading" content="<fmt:message key='upload.heading'/>"/>
     <meta name="menu" content="FileUpload"/>
 </head>
 
