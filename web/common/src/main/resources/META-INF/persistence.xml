@@ -7,4 +7,8 @@
         <class>org.appfuse.model.Role</class>
     </persistence-unit>
 
+    <!-- WARNING: This file's file original source is at web/common/src/main/resources/META-INF. The
+        META-INF directory is included in the jsf, spring, struts and tapestry projects using svn:externals.
+        If you need to modify this file, please do so in web/common/src/main/resources/META-INF, check it
+        in, and then "svn up" for the other modules. -->
 </persistence>
