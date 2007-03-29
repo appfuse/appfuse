@@ -297,6 +297,20 @@
             <artifactId>appfuse-${web.framework}</artifactId>
             <version>${appfuse.version}</version>
             <type>warpath</type>
+            <!-- This exclusion and the dependency following this one allow DAO framework switching. -->
+            <!-- You only need these if you want to use JPA or iBATIS. See APF-565 for more information. -->
+            <!-- It does no harm to leave it in for Hibernate, but it's not needed. -->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.appfuse</groupId>
+                    <artifactId>appfuse-hibernate</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.appfuse</groupId>
+            <artifactId>appfuse-${dao.framework}</artifactId>
+            <version>${appfuse.version}</version>
         </dependency>
         <dependency>
             <groupId>${jdbc.groupId}</groupId>
@@ -581,6 +595,7 @@
     </profiles>
 
     <properties>
+        <!-- Application settings -->
         <copyright.year>2007</copyright.year>
         <dao.framework>hibernate</dao.framework>
         <web.framework>struts</web.framework>

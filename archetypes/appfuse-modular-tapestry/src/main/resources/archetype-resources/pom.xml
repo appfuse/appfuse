@@ -268,6 +268,7 @@
     </profiles>
 
     <properties>
+        <!-- Application settings -->
         <copyright.year>2007</copyright.year>
         <dao.framework>hibernate</dao.framework>
         <web.framework>tapestry</web.framework>
