@@ -133,7 +133,7 @@
                         <phase>post-integration-test</phase>
                         <inherited>false</inherited>
                         <configuration>
-                            <warSourceExcludes>WEB-INF/lib/**</warSourceExcludes>
+                            <warSourceExcludes>WEB-INF/lib/**,WEB-INF/classes/META-INF/*</warSourceExcludes>
                         </configuration>
                     </execution>
                 </executions>
