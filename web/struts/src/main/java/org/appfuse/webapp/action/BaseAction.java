@@ -96,7 +96,7 @@ public class BaseAction extends ActionSupport {
      * Convenience method to get the session
      */
     protected HttpSession getSession() {
-    	return getRequest().getSession();
+        return getRequest().getSession();
     }
     
     protected void sendUserMessage(User user, String msg, String url) {

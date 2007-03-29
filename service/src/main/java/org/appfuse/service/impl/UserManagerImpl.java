@@ -50,10 +50,10 @@ public class UserManagerImpl extends UniversalManagerImpl implements UserManager
      * @see org.appfuse.service.UserManager#saveUser(org.appfuse.model.User)
      */
     public User saveUser(User user) throws UserExistsException {
-    	// if new user, lowercase userId
-    	if (user.getVersion() == null) {
+        // if new user, lowercase userId
+        if (user.getVersion() == null) {
             user.setUsername(user.getUsername().toLowerCase());
-    	}
+        }
         
         try {
             return dao.saveUser(user);

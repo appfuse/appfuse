@@ -121,8 +121,8 @@
         <developer>
             <id>mraible</id>
             <name>Matt Raible</name>
-            <email>mraible@virtuas.com</email>
-            <organization>Virtuas Open Source Solutions</organization>
+            <email>matt@raibledesigns.com</email>
+            <organization>Raible Designs, Inc.</organization>
             <timezone>-7</timezone>
         </developer>
         <developer>
@@ -151,7 +151,7 @@
             <name>David Whitehurst</name>
             <email>dlwhitehurst@gmail.com</email>
             <organization>Cape Henry Technologies Inc.</organization>
-	    <organizationUrl>http://www.capehenrytech.com</organizationUrl>
+            <organizationUrl>http://www.capehenrytech.com</organizationUrl>
             <timezone>-6</timezone>
         </developer>
         <developer>

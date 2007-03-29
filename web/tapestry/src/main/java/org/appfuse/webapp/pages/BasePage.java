@@ -28,7 +28,7 @@ public abstract class BasePage extends org.apache.tapestry.html.BasePage impleme
     public abstract void setMessage(String message);
 
     @InjectPage("mainMenu")
-	public abstract MainMenu getMainMenu();
+    public abstract MainMenu getMainMenu();
 
     private IValidationDelegate delegate;
 

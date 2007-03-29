@@ -90,7 +90,7 @@ public class RequestUtil {
      */
     public static String getAppURL(HttpServletRequest request) {
         StringBuffer url = new StringBuffer();
-    	int port = request.getServerPort();
+        int port = request.getServerPort();
         if (port < 0) {
             port = 80; // Work around java.net.URL bug
         }

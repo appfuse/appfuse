@@ -1,7 +1,5 @@
 <%@ include file="/common/taglibs.jsp"%>
-
-<%@ page import="java.util.*,
-                 com.opensymphony.clickstream.Clickstream" %>
+<%@ page import="java.util.*,com.opensymphony.clickstream.Clickstream" %>
 
 <%
 Map clickstreams = (Map) application.getAttribute("clickstreams");

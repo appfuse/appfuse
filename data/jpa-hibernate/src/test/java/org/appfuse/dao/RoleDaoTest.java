@@ -37,7 +37,7 @@ public class RoleDaoTest extends BaseDaoTestCase {
         endTransaction();
 
         startNewTransaction();
-	    role = dao.getRoleByName("testrole");
+        role = dao.getRoleByName("testrole");
         assertNotNull(role.getDescription());
 
         dao.removeRole("testrole");

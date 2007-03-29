@@ -14,7 +14,7 @@
     <artifactId>${artifactId}-webapp</artifactId>
     <packaging>war</packaging>
     <name>AppFuse Modular Application - Web (JSF)</name>
-	
+    
     <build>
         <plugins>
             <plugin>

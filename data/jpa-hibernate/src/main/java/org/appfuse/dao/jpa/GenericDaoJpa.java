@@ -60,17 +60,17 @@ public class GenericDaoJpa<T, PK extends Serializable> implements GenericDao<T, 
     }
     
     public boolean exists(PK id) {
-	T entity = (T) this.entityManager.find(this.persistentClass, id);
-	
-	if (entity == null) {
-	    return false;
-	} else {
-	    return true;
-	}
+        T entity = (T) this.entityManager.find(this.persistentClass, id);
+        
+        if (entity == null) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public T save(T object) {
-	return this.entityManager.merge(object);
+    return this.entityManager.merge(object);
     }
 
     public void remove(PK id) {

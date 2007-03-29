@@ -320,7 +320,10 @@
                         <configuration>
                             <tasks>
                                 <taskdef resource="webtest_base_relaxed.taskdef">
-                                    <classpath refid="maven.test.classpath"/>
+                                    <classpath>
+                                        <path refid="maven.test.classpath"/>
+                                        <path location="src/main/resources"/>
+                                    </classpath>
                                 </taskdef>
                                 <mkdir dir="target/webtest-data"/>
                                 <!-- Delete old results file if it exists -->

@@ -29,7 +29,7 @@ import org.displaytag.tags.el.ExpressionEvaluator;
  * @jsp.tag name="country" bodycontent="empty"
  */
 public class CountryTag extends TagSupport {
-	private static final long serialVersionUID = 3905528206810167095L;
+    private static final long serialVersionUID = 3905528206810167095L;
     private String name;
     private String prompt;
     private String scope;

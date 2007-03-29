@@ -93,7 +93,7 @@ public class StringUtil {
         try {
             return String.valueOf(dec.decode(str));
         } catch (DecoderException de) {
-        	throw new RuntimeException(de.getMessage(), de.getCause());
+            throw new RuntimeException(de.getMessage(), de.getCause());
         }
     }
 }

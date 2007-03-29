@@ -87,7 +87,7 @@ public class LabelTag extends TagSupport {
             }
         }
 
-		Errors errors = requestContext.getErrors(formName, false);
+        Errors errors = requestContext.getErrors(formName, false);
         List fes = null;
         if (errors != null) {
             fes = errors.getFieldErrors(fieldName);
@@ -101,7 +101,7 @@ public class LabelTag extends TagSupport {
         // Retrieve the message string we are looking for
         String message = null;
         try {
-        	message = getMessageSource().getMessage(key, null, locale);
+            message = getMessageSource().getMessage(key, null, locale);
         } catch (NoSuchMessageException nsm) {
             message = "???" + key + "???";
         }

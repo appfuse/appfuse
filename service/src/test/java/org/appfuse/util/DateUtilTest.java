@@ -12,7 +12,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
 public class DateUtilTest extends TestCase {
     //~ Instance fields ========================================================
 
-	private final Log log = LogFactory.getLog(DateUtilTest.class);
+    private final Log log = LogFactory.getLog(DateUtilTest.class);
 
     //~ Constructors ===========================================================
 
@@ -54,15 +54,11 @@ public class DateUtilTest extends TestCase {
     }
     
     public void testGetDateTime() {
-    	if (log.isDebugEnabled()) {
-    		log.debug("entered 'testGetDateTime' method");
-    	}
-		String now = DateUtil.getTimeNow(new Date());
-		assertTrue(now != null);
-		log.debug(now);
-    }
-
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(DateUtilTest.class);
+        if (log.isDebugEnabled()) {
+            log.debug("entered 'testGetDateTime' method");
+        }
+        String now = DateUtil.getTimeNow(new Date());
+        assertTrue(now != null);
+        log.debug(now);
     }
 }

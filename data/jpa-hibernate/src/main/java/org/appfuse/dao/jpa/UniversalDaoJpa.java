@@ -20,19 +20,18 @@ import org.appfuse.dao.UniversalDao;
  */
 public class UniversalDaoJpa implements UniversalDao {
     protected final Log log = LogFactory.getLog(getClass());
-    
     protected EntityManager entityManager;
     
     @PersistenceContext(unitName="ApplicationEntityManager")
     public void setEntityManager(EntityManager entityManager) {
-      this.entityManager = entityManager;
+        this.entityManager = entityManager;
     }
 
     /**
      * @see org.appfuse.dao.UniversalDao#save(java.lang.Object)
      */
     public Object save(Object o) {
-	return this.entityManager.merge(o);
+        return this.entityManager.merge(o);
     }
 
     /**
@@ -54,8 +53,7 @@ public class UniversalDaoJpa implements UniversalDao {
      * @see org.appfuse.dao.UniversalDao#getAll(java.lang.Class)
      */
     public List getAll(Class clazz) {
-        return this.entityManager.createQuery(
-                "select obj from " + clazz + " obj").getResultList();
+        return this.entityManager.createQuery("select obj from " + clazz + " obj").getResultList();
     }
 
     /**
