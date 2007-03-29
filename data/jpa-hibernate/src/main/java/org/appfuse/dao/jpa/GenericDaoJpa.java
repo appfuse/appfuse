@@ -28,17 +28,16 @@ import org.appfuse.dao.GenericDao;
  */
 public class GenericDaoJpa<T, PK extends Serializable> implements GenericDao<T, PK> {
     protected final Log log = LogFactory.getLog(getClass());
+    protected EntityManager entityManager;
     private Class<T> persistentClass;
-
+    
     public GenericDaoJpa(Class<T> persistentClass) {
         this.persistentClass = persistentClass;
     }
     
-    protected EntityManager entityManager;
-    
     @PersistenceContext(unitName="ApplicationEntityManager")
     public void setEntityManager(EntityManager entityManager) {
-      this.entityManager = entityManager;
+        this.entityManager = entityManager;
     }
 
     public List<T> getAll() {
@@ -70,7 +69,7 @@ public class GenericDaoJpa<T, PK extends Serializable> implements GenericDao<T, 
     }
 
     public T save(T object) {
-    return this.entityManager.merge(object);
+        return this.entityManager.merge(object);
     }
 
     public void remove(PK id) {
