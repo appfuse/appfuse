@@ -6,7 +6,7 @@
 
     <select id="getRoles" resultClass="org.appfuse.model.Role">
       <![CDATA[
-        select name, description from role;
+        select name, description from role
       ]]>
     </select>
 

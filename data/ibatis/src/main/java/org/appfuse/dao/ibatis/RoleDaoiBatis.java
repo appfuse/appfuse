@@ -17,8 +17,8 @@ public class RoleDaoiBatis extends GenericDaoiBatis<Role, Long> implements RoleD
         super(Role.class);
     }
 
-    @Override
-    public List getAll() {
+    @Override @SuppressWarnings("unchecked") 
+    public List<Role> getAll() {
         return getSqlMapClientTemplate().queryForList("getRoles", null);
     }
     
@@ -29,7 +29,7 @@ public class RoleDaoiBatis extends GenericDaoiBatis<Role, Long> implements RoleD
     @Override
     public Role save(final Role role) {
         if (role.getId() == null) {
-            getSqlMapClientTemplate().update("addRole", role);
+            getSqlMapClientTemplate().insert("addRole", role);
         } else {
             getSqlMapClientTemplate().update("updateRole", role);
         }

@@ -8,27 +8,27 @@
 
     <select id="getRoleByName" resultClass="role">
     <![CDATA[
-        select * from role where name=#name#;
+        select * from role where name=#name#
     ]]>
     </select>
 
     <insert id="addRole" parameterClass="role">
     <![CDATA[
         insert into role (name, description) 
-        values (#name#, #description#);
+        values (#name#, #description#)
     ]]>
     </insert>
     
     <update id="updateRole" parameterClass="role">
     <![CDATA[
         update role set name=#name#, description=#description#
-        where id=#id#;
+        where id=#id#
     ]]>
     </update>
     
     <delete id="deleteRole">
     <![CDATA[
-        delete from role where name=#name#;
+        delete from role where name=#name#
     ]]>
     </delete>
 </sqlMap>

@@ -40,17 +40,16 @@
                 #address.address#, #address.city#, #address.province#,
                 #address.country#, #address.postalCode#, #email#, #phoneNumber#,
                 #website#, #passwordHint#, #version#, #enabled#, #accountExpired#,
-                #accountLocked#, #credentialsExpired#);
+                #accountLocked#, #credentialsExpired#)
     ]]>
-        <selectKey resultClass="java.lang.Long" keyProperty="id" >
+        <selectKey resultClass="java.lang.Long" keyProperty="id" type="post">
             select last_insert_id();
         </selectKey>
     </insert>
 
     <insert id="addUserRole" parameterClass="map">
     <![CDATA[
-        insert into user_role (user_id, role_id)
-        values (#userId#, #roleId#);
+        insert into user_role (user_id, role_id) values (#userId#, #roleId#)
     ]]>
     </insert>
 
@@ -75,44 +74,44 @@
             account_expired = #accountExpired#,
             account_locked = #accountLocked#,
             credentials_expired = #credentialsExpired#
-        where id = #id#;
+        where id = #id#
     ]]>
     </update>
 
     <select id="getUser" resultMap="userResult">
     <![CDATA[
-        select * from app_user where id=#id#;
+        select * from app_user where id=#id#
     ]]>
     </select>
     
     <select id="getUserByUsername" resultMap="userResult">
     <![CDATA[
-        select * from app_user where username=#username#;
+        select * from app_user where username=#username#
     ]]>
     </select>
 
     <select id="getUsers" resultMap="userResult">
     <![CDATA[
-        select * from app_user ORDER BY UPPER(username);
+        select * from app_user ORDER BY UPPER(username)
     ]]>
     </select>
 
     <select id="getUserRoles" resultClass="role">
     <![CDATA[
         select r.id, r.name, r.description from role r, user_role ur
-        where (ur.role_id = r.id) and ur.user_id=#id#;
+        where (ur.role_id = r.id) and ur.user_id=#id#
     ]]>
     </select>
 
     <delete id="deleteUser" parameterClass="java.lang.Long">
     <![CDATA[
-        delete from app_user where id = #id#;
+        delete from app_user where id = #id#
     ]]>
     </delete>
 
     <delete id="deleteUserRoles" parameterClass="java.lang.Long">
     <![CDATA[
-        delete from user_role where user_id = #id#;
+        delete from user_role where user_id = #id#
     ]]>
     </delete>
 </sqlMap>
