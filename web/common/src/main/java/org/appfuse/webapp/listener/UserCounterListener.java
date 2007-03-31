@@ -139,8 +139,10 @@ public class UserCounterListener implements ServletContextListener, HttpSessionA
         if (event.getName().equals(EVENT_KEY) && !isAnonymous()) {
             SecurityContext securityContext = (SecurityContext) event.getValue();
             if (securityContext.getAuthentication() != null) {
-                User user = (User) securityContext.getAuthentication().getPrincipal();
-                addUsername(user);
+                if (securityContext.getAuthentication().getPrincipal() instanceof User) {
+                    User user = (User) securityContext.getAuthentication().getPrincipal();
+                    addUsername(user);
+                }
             }
         }
     }

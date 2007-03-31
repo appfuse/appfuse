@@ -4,6 +4,7 @@ import org.appfuse.Constants;
 import org.appfuse.model.Address;
 import org.appfuse.model.User;
 import org.subethamail.wiser.Wiser;
+import org.acegisecurity.context.SecurityContextHolder;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -64,5 +65,7 @@ public class SignupFormTest extends BasePageTestCase {
 
         // verify that success messages are in the session
         assertNotNull(page.getSession().getAttribute(Constants.REGISTERED));
+
+        SecurityContextHolder.getContext().setAuthentication(null);
     }
 }

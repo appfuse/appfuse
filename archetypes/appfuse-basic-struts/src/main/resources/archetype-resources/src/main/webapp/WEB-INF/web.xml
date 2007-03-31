@@ -64,12 +64,11 @@
         <filter-name>gzipFilter</filter-name>
         <filter-class>net.sf.ehcache.constructs.web.filter.GzipFilter</filter-class>
     </filter>
-    <!-- Remove this filter if you're using iBATIS, use OpenEntityManagerInViewFilter if using JPA -->
-    <filter>
+    <!--<filter>
         <filter-name>lazyLoadingFilter</filter-name>
         <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
-        <!--<filter-class>org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter</filter-class>-->
-    </filter>
+    </filter>-->
+    <!-- Use "org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter" if you're using JPA -->
     <filter>
         <filter-name>localeFilter</filter-name>
         <filter-class>org.appfuse.webapp.filter.LocaleFilter</filter-class>
@@ -129,10 +128,10 @@
         <filter-name>cacheFilter</filter-name>
         <url-pattern>*.jsp</url-pattern>
     </filter-mapping-->
-    <filter-mapping>
+    <!--<filter-mapping>
         <filter-name>lazyLoadingFilter</filter-name>
         <url-pattern>/*</url-pattern>
-    </filter-mapping>
+    </filter-mapping>-->
     <filter-mapping>
         <filter-name>clickstreamFilter</filter-name>
         <url-pattern>/*</url-pattern>

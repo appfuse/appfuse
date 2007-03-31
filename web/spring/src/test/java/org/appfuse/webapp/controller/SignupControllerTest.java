@@ -9,6 +9,7 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 import org.subethamail.wiser.Wiser;
+import org.acegisecurity.context.SecurityContextHolder;
 
 public class SignupControllerTest extends BaseControllerTestCase {
     private SignupController c = null;
@@ -57,5 +58,7 @@ public class SignupControllerTest extends BaseControllerTestCase {
         // verify that success messages are in the request
         assertNotNull(request.getSession().getAttribute("successMessages"));
         assertNotNull(request.getSession().getAttribute(Constants.REGISTERED));
+
+        SecurityContextHolder.getContext().setAuthentication(null);
     }
 }

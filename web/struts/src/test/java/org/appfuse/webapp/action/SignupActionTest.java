@@ -8,6 +8,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 
 import org.subethamail.wiser.Wiser;
 import org.apache.struts2.ServletActionContext;
+import org.acegisecurity.context.SecurityContextHolder;
 
 public class SignupActionTest extends BaseActionTestCase {
     private SignupAction action;
@@ -59,5 +60,7 @@ public class SignupActionTest extends BaseActionTestCase {
 
         // verify that success messages are in the session
         assertNotNull(action.getSession().getAttribute(Constants.REGISTERED));
+
+        SecurityContextHolder.getContext().setAuthentication(null);
     }
 }
