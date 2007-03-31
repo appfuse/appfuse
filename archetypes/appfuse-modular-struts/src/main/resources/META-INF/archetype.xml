@@ -6,6 +6,7 @@
         <resource>core/pom.xml</resource>
         <resource>core/src/main/resources/hibernate.cfg.xml</resource>
         <resource>core/src/main/resources/META-INF/persistence.xml</resource>
+        <resource>core/src/main/resources/sql-map-config.xml</resource>
         <resource>core/src/test/resources/applicationContext-resources.xml</resource>
         <resource>core/src/test/resources/jdbc.properties</resource>
         <resource>core/src/test/resources/log4j.xml</resource>

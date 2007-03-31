@@ -24,6 +24,7 @@
         <resource>src/main/resources/META-INF/persistence.xml</resource>
         <resource>src/main/resources/log4j.xml</resource>
         <resource>src/main/resources/mail.properties</resource>
+        <resource>src/main/resources/sql-map-config.xml</resource>
         <resource>src/main/webapp/WEB-INF/faces-config.xml</resource>
         <resource>src/main/webapp/WEB-INF/menu-config.xml</resource>
         <resource>src/main/webapp/WEB-INF/urlrewrite.xml</resource>
