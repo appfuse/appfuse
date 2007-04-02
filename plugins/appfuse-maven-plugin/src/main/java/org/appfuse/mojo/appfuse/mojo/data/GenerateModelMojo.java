@@ -63,7 +63,7 @@ public class GenerateModelMojo extends MojoBase
      * table names that will be reverse engineered. If the file is not defined then all objects will
      * be reverse engineered.
      *
-     * @parameter  expression="${appfuse.reveng.file}" default-value = ""
+     * @parameter  expression="${appfuse.reveng.file}" default-value="${basedir}/src/test/resources/hibernate.reveng.xml"
      */
     private String reverseEngineeringConfigurationFile;
 
@@ -81,15 +81,15 @@ public class GenerateModelMojo extends MojoBase
      *
      * @throws  MojoExecutionException  Thrown if we fail to obtain an appfuse resource.
      */
-    public void execute() throws MojoExecutionException
+    public void execute()
     {
         this.getLog().info("Running Mojo " + this.getMojoName());
 
-        boolean copyFiles = false;
-        boolean generateConfigFile = false;
+        boolean copyFiles = true;
+        boolean generateConfigFile = true;
 
         // prompt for copy yes no and whether to generate the hibernate.cfg.xml file
-        try
+        /*try
         {
             copyFiles = promptForCopy();
             generateConfigFile = promptForGenConfig();
@@ -97,7 +97,7 @@ public class GenerateModelMojo extends MojoBase
         catch (PrompterException ex)
         {
             throw new MojoExecutionException(ex.getMessage());
-        }
+        }*/
 
         this.getLog().info("Parameters are " + this.toString());
 
