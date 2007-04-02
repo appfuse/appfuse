@@ -167,7 +167,9 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.0.2</version>
                 <configuration>
-                    <dependentWarExcludes>**/hibernate.cfg.xml,WEB-INF/classes/META-INF/**</dependentWarExcludes>
+                    <dependentWarExcludes>
+                        **/hibernate.cfg.xml,**/sql-map-config.xml,**/web.xml,WEB-INF/classes/META-INF/**
+                    </dependentWarExcludes>
                 </configuration>
             </plugin>
             <plugin>

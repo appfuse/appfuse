@@ -78,7 +78,7 @@
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
-                    <warSourceExcludes>WEB-INF/lib/**,WEB-INF/classes/META-INF/*</warSourceExcludes>  
+                    <warSourceExcludes>WEB-INF/lib/**</warSourceExcludes>  
                 </configuration>
             </plugin>
             <plugin>
