@@ -104,10 +104,11 @@ public class PojoMojoBase extends MojoBase
         inTask.setTemplateProperties(inProperties);
         inTask.setHibernateConfigurationFile(this.getHibernateConfigurationFile());
 
-        // Get a ouput file classpath for this project
-        String outputClasspath;
-        outputClasspath = MojoUtilities.getOutputClasspath(this.getMavenProject());
-        inTask.setOuputClassDirectory(outputClasspath);
+        // Get the compile time classpath for this project
+        String compileClasspath;
+        compileClasspath = MojoUtilities.getCompileClasspath(this.getMavenProject());
+        System.out.println("Classpath is " + compileClasspath);
+        inTask.setOuputClassDirectory(compileClasspath);
     }
 
     /**

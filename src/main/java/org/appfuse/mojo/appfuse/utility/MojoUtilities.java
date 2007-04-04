@@ -3,6 +3,8 @@ package org.appfuse.mojo.appfuse.utility;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.project.MavenProject;
 
+import java.io.File;
+
 import java.util.List;
 
 
@@ -15,25 +17,32 @@ import java.util.List;
 public class MojoUtilities
 {
     /**
-     * This method will return the ouput path for the build.
+     * This method will return the compile time classpath for the project.
      *
      * @param   inProject  The maven project to investigate.
      *
-     * @return  The value of output classpath.
+     * @return  The value of compile time classpath.
      *
      * @throws  DependencyResolutionRequiredException  Thrown if depedency resolution has not been
      *                                                 called in the mojo at this point.
      */
-    public static String getOutputClasspath(MavenProject inProject)
+    public static String getCompileClasspath(MavenProject inProject)
         throws DependencyResolutionRequiredException
     {
         List elements = inProject.getCompileClasspathElements();
-        String classpath = "";
+        StringBuffer classpath = new StringBuffer();
+        String pathSeperator = File.pathSeparator;
 
-        // I am assuming the first one is the ouptut classpath for now.
-        // TODO find a better way to do this.
-        classpath = (String) elements.get(0);
+        for (int i = 0; i < elements.size(); i++)
+        {
+            classpath.append((String) elements.get(i));
 
-        return classpath;
+            if (i < (elements.size() - 1))
+            {
+                classpath.append(pathSeperator);
+            }
+        }
+
+        return classpath.toString();
     }
 }
