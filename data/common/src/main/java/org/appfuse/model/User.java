@@ -63,7 +63,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
         this.username = username;
     }
 
-    @Id  @GeneratedValue(strategy=GenerationType.AUTO)
+    @Id @GeneratedValue(strategy=GenerationType.AUTO)
     public Long getId() {
         return id;
     }
