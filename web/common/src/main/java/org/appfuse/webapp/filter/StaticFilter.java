@@ -88,6 +88,10 @@ public class StaticFilter extends OncePerRequestFilter {
                 logger.debug("Forwarding to static resource: " + path);
             }
 
+            if (path.contains(".html")) {
+                response.setContentType("text/html");
+            }
+
             RequestDispatcher rd = getServletContext().getRequestDispatcher(path);
             rd.include(request, response);
             return;
