@@ -85,11 +85,11 @@
             <result name="success" type="redirect">/mainMenu.html</result>
         </action> 
 
-        <action name="users" class="userAction" method="list"> 
+        <action name="users" class="userAction" method="list">
             <interceptor-ref name="adminCheck"/>
-            <result name="success">/WEB-INF/pages/userList.jsp</result> 
+            <result name="success">/WEB-INF/pages/userList.jsp</result>
         </action>
-        
+
         <action name="editUser" class="userAction" method="edit">
             <interceptor-ref name="adminCheck"/>
             <result name="success">/WEB-INF/pages/userForm.jsp</result>

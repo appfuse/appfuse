@@ -3,7 +3,7 @@
 <urlrewrite>
     <rule>
         <from>^/user/(.*).html$</from>
-        <to type="forward">/editUser.html\?username=$1</to>
+        <to type="forward">/editUser.html\?id=$1&amp;from=list</to>
     </rule>
 
     <!-- Override default validation.js from WebWork -->

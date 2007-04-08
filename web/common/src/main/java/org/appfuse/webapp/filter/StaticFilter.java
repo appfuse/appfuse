@@ -89,7 +89,7 @@ public class StaticFilter extends OncePerRequestFilter {
             }
 
             RequestDispatcher rd = getServletContext().getRequestDispatcher(path);
-            rd.forward(request, response);
+            rd.include(request, response);
             return;
         }
 

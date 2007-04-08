@@ -3,7 +3,7 @@
 <urlrewrite>
     <rule>
         <from>^/user/(.*)\.html$</from>
-        <to type="forward">/userform.html?username=$1</to>
+        <to type="forward">/userform.html?id=$1&amp;from=list</to>
     </rule>
 </urlrewrite>
 
