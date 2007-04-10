@@ -7,7 +7,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import org.apache.tapestry.IRequestCycle;
-import org.apache.tapestry.annotations.InjectPage;
 import org.apache.tapestry.request.IUploadFile;
 import org.appfuse.Constants;
 

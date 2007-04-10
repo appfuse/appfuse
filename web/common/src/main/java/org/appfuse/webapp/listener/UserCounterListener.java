@@ -15,8 +15,6 @@ import org.acegisecurity.AuthenticationTrustResolverImpl;
 import org.acegisecurity.context.HttpSessionContextIntegrationFilter;
 import org.acegisecurity.context.SecurityContext;
 import org.acegisecurity.context.SecurityContextHolder;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.appfuse.model.User;
 
 
@@ -32,7 +30,6 @@ public class UserCounterListener implements ServletContextListener, HttpSessionA
     public static final String COUNT_KEY = "userCounter";
     public static final String USERS_KEY = "userNames";
     public static final String EVENT_KEY = HttpSessionContextIntegrationFilter.ACEGI_SECURITY_CONTEXT_KEY;
-    private final transient Log log = LogFactory.getLog(UserCounterListener.class);
     private transient ServletContext servletContext;
     private int counter;
     private Set users;
@@ -67,7 +64,8 @@ public class UserCounterListener implements ServletContextListener, HttpSessionA
         //log.debug("User Count: " + counter);
     }
 
-    synchronized void addUsername(Object user) {
+    @SuppressWarnings("unchecked")
+	synchronized void addUsername(Object user) {
         users = (Set) servletContext.getAttribute(USERS_KEY);
 
         if (users == null) {

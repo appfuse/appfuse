@@ -27,7 +27,7 @@ public class PasswordHintAction extends BaseAction {
     }
 
     public String execute() {
-        List args = new ArrayList();
+        List<String> args = new ArrayList<String>();
         
         // ensure that the username has been sent
         if (username == null) {

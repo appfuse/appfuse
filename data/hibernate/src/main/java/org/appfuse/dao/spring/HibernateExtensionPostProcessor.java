@@ -55,7 +55,8 @@ public class HibernateExtensionPostProcessor implements BeanFactoryPostProcessor
     /**
      * Adds the annotated classes and the mapping resources to the existing Session Factory configuration.
      */
-    public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
+    @SuppressWarnings("unchecked")
+	public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
         if (configurableListableBeanFactory.containsBean(sessionFactoryBeanName)) {
             BeanDefinition sessionFactoryBeanDefinition = configurableListableBeanFactory.getBeanDefinition(sessionFactoryBeanName);
             MutablePropertyValues propertyValues = sessionFactoryBeanDefinition.getPropertyValues();

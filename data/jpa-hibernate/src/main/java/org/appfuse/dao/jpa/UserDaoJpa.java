@@ -30,7 +30,8 @@ public class UserDaoJpa extends GenericDaoJpa<User, Long> implements UserDao, Us
     /**
      * @see org.appfuse.dao.UserDao#getUsers()
      */
-    public List getUsers() {
+    @SuppressWarnings("unchecked")
+	public List<User> getUsers() {
         Query q = this.entityManager.createQuery("select u from User u order by upper(u.username)");
         return q.getResultList();
     }
@@ -38,15 +39,16 @@ public class UserDaoJpa extends GenericDaoJpa<User, Long> implements UserDao, Us
     /** 
     * @see org.acegisecurity.userdetails.UserDetailsService#loadUserByUsername(java.lang.String)
     */
-    @Transactional
+    @SuppressWarnings("unchecked")
+	@Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Query q = this.entityManager.createQuery("select u from User u where username=?");
         q.setParameter(1, username);
-        List users = q.getResultList();
+        List<User> users = q.getResultList();
         if (users == null || users.isEmpty()) {
             throw new UsernameNotFoundException("user '" + username + "' not found...");
         } else {
-            return (UserDetails) users.get(0);
+            return users.get(0);
         }
     }
     

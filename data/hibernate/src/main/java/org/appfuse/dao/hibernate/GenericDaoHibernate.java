@@ -1,7 +1,6 @@
 package org.appfuse.dao.hibernate;
 
 import java.io.Serializable;
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -33,11 +32,13 @@ public class GenericDaoHibernate<T, PK extends Serializable> extends HibernateDa
         this.persistentClass = persistentClass;
     }
 
-    public List<T> getAll() {
+    @SuppressWarnings("unchecked")
+	public List<T> getAll() {
         return super.getHibernateTemplate().loadAll(this.persistentClass);
     }
 
-    public T get(PK id) {
+    @SuppressWarnings("unchecked")
+	public T get(PK id) {
         T entity = (T) super.getHibernateTemplate().get(this.persistentClass, id);
 
         if (entity == null) {
@@ -48,7 +49,8 @@ public class GenericDaoHibernate<T, PK extends Serializable> extends HibernateDa
         return entity;
     }
     
-    public boolean exists(PK id) {
+    @SuppressWarnings("unchecked")
+	public boolean exists(PK id) {
         T entity = (T) super.getHibernateTemplate().get(this.persistentClass, id);
         if (entity == null) {
             return false;
@@ -57,8 +59,9 @@ public class GenericDaoHibernate<T, PK extends Serializable> extends HibernateDa
         }
     }
 
-    public T save(T object) {
-        return (T)super.getHibernateTemplate().merge(object);
+    @SuppressWarnings("unchecked")
+	public T save(T object) {
+        return (T) super.getHibernateTemplate().merge(object);
     }
 
     public void remove(PK id) {

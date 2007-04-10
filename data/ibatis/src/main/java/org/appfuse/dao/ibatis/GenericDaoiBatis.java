@@ -34,11 +34,13 @@ public class GenericDaoiBatis<T, PK extends Serializable> extends SqlMapClientDa
         this.persistentClass = persistentClass;
     }
 
-    public List<T> getAll() {
+    @SuppressWarnings("unchecked")
+	public List<T> getAll() {
         return getSqlMapClientTemplate().queryForList(iBatisDaoUtils.getSelectQuery(ClassUtils.getShortName(this.persistentClass)), null);
     }
 
-    public T get(PK id) {
+    @SuppressWarnings("unchecked")
+	public T get(PK id) {
         T object = (T) getSqlMapClientTemplate().queryForObject(iBatisDaoUtils.getFindQuery(ClassUtils.getShortName(this.persistentClass)), id);
         if (object == null) {
             log.warn("Uh oh, '" + this.persistentClass + "' object with id '" + id + "' not found...");
@@ -47,7 +49,8 @@ public class GenericDaoiBatis<T, PK extends Serializable> extends SqlMapClientDa
         return object;
     }
     
-    public boolean exists(PK id) {
+    @SuppressWarnings("unchecked")
+	public boolean exists(PK id) {
         T object = (T) getSqlMapClientTemplate().queryForObject(iBatisDaoUtils.getFindQuery(ClassUtils.getShortName(this.persistentClass)), id);
         if (object == null) {
             return false;

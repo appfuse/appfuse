@@ -31,7 +31,8 @@ public class UserDaoiBatis extends GenericDaoiBatis<User, Long>implements UserDa
      * @param userId the user's id
      * @return a populated user object
      */
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public User get(Long userId) {
         User user = (User) getSqlMapClientTemplate().queryForObject("getUser", userId);
 
@@ -49,7 +50,8 @@ public class UserDaoiBatis extends GenericDaoiBatis<User, Long>implements UserDa
     /**
      * @see org.appfuse.dao.UserDao#getUsers()
      */
-    public List<User> getUsers() {
+    @SuppressWarnings("unchecked")
+	public List<User> getUsers() {
         List users = getSqlMapClientTemplate().queryForList("getUsers", null);
 
         // get the roles for each user
@@ -115,7 +117,8 @@ public class UserDaoiBatis extends GenericDaoiBatis<User, Long>implements UserDa
     /** 
      * @see org.acegisecurity.userdetails.UserDetailsService#loadUserByUsername(java.lang.String)
      */
-     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+     @SuppressWarnings("unchecked")
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
          User user = (User) getSqlMapClientTemplate().queryForObject("getUserByUsername", username);
 
          if (user == null) {

@@ -40,7 +40,8 @@ public class GenericDaoJpa<T, PK extends Serializable> implements GenericDao<T, 
         this.entityManager = entityManager;
     }
 
-    public List<T> getAll() {
+    @SuppressWarnings("unchecked")
+	public List<T> getAll() {
         return this.entityManager.createQuery(
                 "select obj from " + this.persistentClass.getName() + " obj")
                 .getResultList();

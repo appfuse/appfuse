@@ -40,7 +40,7 @@ public class ReloadController implements Controller {
 
         if (referer != null) {
             log.info("reload complete, reloading user back to: " + referer);
-            List messages = new ArrayList();
+            List<String> messages = new ArrayList<String>();
             messages.add("Reloading options completed successfully.");
             request.getSession().setAttribute("messages", messages);
             response.sendRedirect(response.encodeRedirectURL(referer));

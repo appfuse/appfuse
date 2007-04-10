@@ -1,7 +1,6 @@
 package org.appfuse.dao.jpa.mock;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 
 import org.appfuse.model.Role;
 

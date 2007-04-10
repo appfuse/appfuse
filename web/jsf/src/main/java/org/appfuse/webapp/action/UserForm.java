@@ -187,7 +187,8 @@ public class UserForm extends BasePage implements Serializable {
     }
 
     // Form Controls ==========================================================
-    public Map<String, String> getAvailableRoles() {
+    @SuppressWarnings("unchecked")
+	public Map<String, String> getAvailableRoles() {
         if (availableRoles == null) {
             List roles = (List) getServletContext().getAttribute(Constants.AVAILABLE_ROLES);
             availableRoles = ConvertUtil.convertListToMap(roles);

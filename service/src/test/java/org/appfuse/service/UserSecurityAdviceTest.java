@@ -8,7 +8,6 @@ import org.acegisecurity.context.SecurityContext;
 import org.acegisecurity.context.SecurityContextHolder;
 import org.acegisecurity.context.SecurityContextImpl;
 import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
-import org.acegisecurity.providers.dao.UserCache;
 import org.appfuse.Constants;
 import org.appfuse.dao.UserDao;
 import org.appfuse.model.Role;

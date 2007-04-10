@@ -24,8 +24,6 @@ import org.appfuse.webapp.util.RequestUtil;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
-import org.springframework.web.bind.RequestUtils;
-import org.springframework.web.bind.ServletRequestUtils;
 
 /**
  * Implementation of <strong>SimpleFormController</strong> that interacts with

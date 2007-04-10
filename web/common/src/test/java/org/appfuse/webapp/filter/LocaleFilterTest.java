@@ -16,9 +16,9 @@ import org.springframework.mock.web.MockHttpSession;
 public class LocaleFilterTest extends TestCase {
     private LocaleFilter filter = null;
     
-    protected void setUp() {
+    protected void setUp() throws Exception {
         filter = new LocaleFilter();
-        filter.setFilterConfig(new MockFilterConfig());
+        filter.init(new MockFilterConfig());
     }
     
     public void testSetLocaleInSessionWhenSessionIsNull() throws Exception {

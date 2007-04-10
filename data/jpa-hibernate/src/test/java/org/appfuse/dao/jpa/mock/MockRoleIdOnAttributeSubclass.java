@@ -1,7 +1,6 @@
 package org.appfuse.dao.jpa.mock;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 
 /**
  * @author <a href="mailto:bwnoll@gmail.com">Bryan Noll</a>

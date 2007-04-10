@@ -52,7 +52,8 @@ public class BaseAction extends ActionSupport {
         return CANCEL;
     }
     
-    protected void saveMessage(String msg) {
+    @SuppressWarnings("unchecked")
+	protected void saveMessage(String msg) {
         List messages = (List) getRequest().getSession().getAttribute("messages");
         if (messages == null) {
             messages = new ArrayList();
@@ -106,7 +107,7 @@ public class BaseAction extends ActionSupport {
 
         mailMessage.setTo(user.getFullName() + "<" + user.getEmail() + ">");
 
-        Map model = new HashMap();
+        Map<String, Object> model = new HashMap<String, Object>();
         model.put("user", user);
         // TODO: figure out how to get bundle specified in webwork.properties
         // model.put("bundle", getTexts());

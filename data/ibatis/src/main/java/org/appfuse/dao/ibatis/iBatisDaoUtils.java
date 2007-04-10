@@ -36,8 +36,8 @@ public class iBatisDaoUtils {
         String getterMethod = "get" + Character.toUpperCase(fieldName.charAt(0)) + fieldName.substring(1); 
         
         try {
-            Method getMethod = o.getClass().getMethod(getterMethod, null);
-            return getMethod.invoke(o, null);
+            Method getMethod = o.getClass().getMethod(getterMethod, (Class[]) null);
+            return getMethod.invoke(o, (Object[]) null);
         } catch (Exception e) {
             e.printStackTrace();
             log.error("Could not invoke method '" + getterMethod + "' on " + ClassUtils.getShortName(o.getClass()));
@@ -51,8 +51,8 @@ public class iBatisDaoUtils {
             for (Field fld : fieldlist) {
                 String fieldName = fld.getName();
                 if (fieldName.equals("version")) {
-                    Method setMethod = o.getClass().getMethod("setVersion", Integer.class);
-                    Object value = o.getClass().getMethod("getVersion", null).invoke(o, null);
+                    Method setMethod = o.getClass().getMethod("setVersion", new Class[] {Integer.class});
+                    Object value = o.getClass().getMethod("getVersion", (Class[]) null).invoke(o, (Object[]) null);
                     if (value == null) {
                         setMethod.invoke(o, 1);
                     } else {

@@ -2,10 +2,7 @@ package org.appfuse.service;
 
 import java.util.List;
 
-import org.appfuse.dao.LookupDao;
-import org.appfuse.model.Role;
 import org.appfuse.model.LabelValue;
-
 
 /**
  * Business Service Interface to talk to persistence layer and
