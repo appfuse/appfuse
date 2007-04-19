@@ -18,22 +18,22 @@
     <!-- Generic Dao - can be used when doing standard CRUD -->
     <bean id="universalDao" class="org.appfuse.dao.ibatis.UniversalDaoiBatis">
         <property name="dataSource" ref="dataSource"/>
-        <property name="sqlMapClient" ref="sqlMapClient"/> 
+        <property name="sqlMapClient" ref="sqlMapClient"/>
     </bean> 
     
     <bean id="lookupDao" class="org.appfuse.dao.ibatis.LookupDaoiBatis"> 
         <property name="dataSource" ref="dataSource"/>
-        <property name="sqlMapClient" ref="sqlMapClient"/> 
+        <property name="sqlMapClient" ref="sqlMapClient"/>
     </bean> 
     
     <bean id="userDao" class="org.appfuse.dao.ibatis.UserDaoiBatis"> 
         <property name="dataSource" ref="dataSource"/>
-        <property name="sqlMapClient" ref="sqlMapClient"/>  
+        <property name="sqlMapClient" ref="sqlMapClient"/>
     </bean> 
 
     <bean id="roleDao" class="org.appfuse.dao.ibatis.RoleDaoiBatis">
         <property name="dataSource" ref="dataSource"/>
-        <property name="sqlMapClient" ref="sqlMapClient"/>  
+        <property name="sqlMapClient" ref="sqlMapClient"/>
     </bean>
     
     <!-- If you want to be able to do simple CRUD for new domain objects without
@@ -52,5 +52,4 @@
     -->
 
     <!-- Add new DAOs here -->
-
 </beans>
