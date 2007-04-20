@@ -16,7 +16,7 @@ public class PasswordHintTest extends BasePageTestCase {
         wiser.setPort(2525);
         wiser.start();
 
-        bean.setUsername("tomcat");
+        bean.setUsername("user");
         assertEquals(bean.execute(), "success");
         assertFalse(bean.hasErrors());
 

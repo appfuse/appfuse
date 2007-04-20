@@ -52,7 +52,7 @@ public abstract class BasePageTestCase extends AbstractTransactionalDataSourceSp
         
         Messages messages = new MessageFormatter(log, MESSAGES);
         MockHttpServletRequest request = new MockHttpServletRequest();
-        request.setRemoteUser("tomcat");
+        request.setRemoteUser("user");
         
         properties.put("engineService", new MockPageService());
         properties.put("messages", messages);

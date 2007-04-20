@@ -30,7 +30,7 @@ public class PasswordHintTest extends BasePageTestCase {
         Wiser wiser = new Wiser();
         wiser.setPort(2525);
         wiser.start();
-        page.execute("tomcat");
+        page.execute("user");
         
         assertFalse(page.hasErrors());
 

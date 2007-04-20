@@ -13,7 +13,7 @@ public class PasswordHintControllerTest extends BaseControllerTestCase {
 
     public void testExecute() throws Exception {
         MockHttpServletRequest request = newGet("/passwordHint.html");
-        request.addParameter("username", "tomcat");
+        request.addParameter("username", "user");
 
        // start SMTP Server
         Wiser wiser = new Wiser();

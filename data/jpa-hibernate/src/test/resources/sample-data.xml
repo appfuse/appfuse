@@ -22,8 +22,8 @@
     <column>credentials_expired</column>
     <row>
       <value>1</value>
-      <value>tomcat</value>
-      <value>536c0b339345616c1b33caf454454d8b8a190d6c</value>
+      <value>user</value>
+      <value>12dea96fec20593566ab75692c9949596833adc9</value>
       <value>Tomcat</value>
       <value>User</value>
       <value></value>
@@ -43,8 +43,8 @@
     </row>
     <row>
       <value>2</value>
-      <value>mraible</value>
-      <value>536c0b339345616c1b33caf454454d8b8a190d6c</value>
+      <value>admin</value>
+      <value>d033e22ae348aeb5660fc2140aec35850c4da997</value>
       <value>Matt</value>
       <value>Raible</value>
       <value></value>

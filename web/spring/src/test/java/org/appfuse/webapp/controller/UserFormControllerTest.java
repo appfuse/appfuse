@@ -82,7 +82,7 @@ public class UserFormControllerTest extends BaseControllerTestCase {
     public void testEditProfile() throws Exception {
         log.debug("testing edit profile...");
         request = newGet("/userform.html");
-        request.setRemoteUser("tomcat");
+        request.setRemoteUser("user");
 
         mv = c.handleRequest(request, new MockHttpServletResponse());
 
@@ -111,7 +111,7 @@ public class UserFormControllerTest extends BaseControllerTestCase {
     public void testAddWithMissingFields() throws Exception {
         request = newPost("/userform.html");
         request.addParameter("firstName", "Julie");
-        request.setRemoteUser("tomcat");
+        request.setRemoteUser("user");
 
         mv = c.handleRequest(request, new MockHttpServletResponse());
 

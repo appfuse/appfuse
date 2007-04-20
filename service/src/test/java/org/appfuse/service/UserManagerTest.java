@@ -22,7 +22,7 @@ public class UserManagerTest extends BaseManagerTestCase {
     }
 
     public void testGetUser() throws Exception {
-        user = mgr.getUserByUsername("tomcat");
+        user = mgr.getUserByUsername("user");
         assertNotNull(user);
         
         log.debug(user);
@@ -30,7 +30,7 @@ public class UserManagerTest extends BaseManagerTestCase {
     }
 
     public void testSaveUser() throws Exception {
-        user = mgr.getUserByUsername("tomcat");
+        user = mgr.getUserByUsername("user");
         user.setPhoneNumber("303-555-1212");
 
         log.debug("saving user with updated phone number: " + user);

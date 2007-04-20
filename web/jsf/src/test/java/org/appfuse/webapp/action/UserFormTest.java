@@ -28,8 +28,8 @@ public class UserFormTest extends BasePageTestCase {
 
     public void testSave() throws Exception {
         User user = userManager.getUser("1");
-        user.setPassword("tomcat");
-        user.setConfirmPassword("tomcat");
+        user.setPassword("user");
+        user.setConfirmPassword("user");
         bean.setUser(user);
 
         assertEquals(bean.save(), "mainMenu");

@@ -36,8 +36,8 @@ public class UserFormTest extends BasePageTestCase {
     
     public void testSave() throws Exception {
         User user = ((UserManager) applicationContext.getBean("userManager")).getUser("1");
-        user.setPassword("tomcat");
-        user.setConfirmPassword("tomcat");
+        user.setPassword("user");
+        user.setConfirmPassword("user");
         page.setUser(user);
 
         ILink link = page.save(new MockRequestCycle());
