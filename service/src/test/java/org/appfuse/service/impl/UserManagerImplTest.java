@@ -70,7 +70,7 @@ public class UserManagerImplTest extends BaseManagerMockTestCase {
         
         // set expected behavior on role dao
         roleDao.expects(once()).method("getRoleByName")
-               .with(eq("user")).will(returnValue(new Role("user")));
+               .with(eq("ROLE_USER")).will(returnValue(new Role("ROLE_USER")));
         
         Role role = roleManager.getRole(Constants.USER_ROLE);
         roleDao.verify();
@@ -101,7 +101,7 @@ public class UserManagerImplTest extends BaseManagerMockTestCase {
     
     public void testUserExistsException() {
         // set expectations
-        User user = new User("admin");
+        User user = new User("ROLE_ADMIN");
         user.setEmail("matt@raibledesigns.com");
 
         Exception ex = new DataIntegrityViolationException("");
@@ -110,7 +110,7 @@ public class UserManagerImplTest extends BaseManagerMockTestCase {
         
         // run test
         try {
-            user = userManager.saveUser(user);
+            userManager.saveUser(user);
             fail("Expected UserExistsException not thrown");
         } catch (UserExistsException e) {
             log.debug("expected exception: " + e.getMessage());

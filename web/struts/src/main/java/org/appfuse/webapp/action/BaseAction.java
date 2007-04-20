@@ -94,7 +94,8 @@ public class BaseAction extends ActionSupport {
     }
     
     /**
-     * Convenience method to get the session
+     * Convenience method to get the session. This will create a session if one doesn't exist.
+     * @return the session from the request (request.getSession()).
      */
     protected HttpSession getSession() {
         return getRequest().getSession();
@@ -138,7 +139,7 @@ public class BaseAction extends ActionSupport {
     
     /**
      * Convenience method for setting a "from" parameter to indicate the previous page.
-     * @param from
+     * @param from indicator for the originating page
      */
     public void setFrom(String from) {
         this.from = from;

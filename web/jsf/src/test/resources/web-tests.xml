@@ -120,7 +120,7 @@
                 <setinputfield description="set email" name="userForm:email" value="newuser@raibledesigns.com"/>
                 <setinputfield description="set website" name="userForm:website" value="http://raibledesigns.com"/>
                 <setinputfield description="set passwordHint" name="userForm:passwordHint" value="test"/>
-                <setcheckbox description="select roles" name="userForm:userRoles" checked="user"/>
+                <setcheckbox description="select roles" name="userForm:userRoles" checked="ROLE_USER"/>
                 <clickbutton label="${button.save}" description="Click button 'Save'"/>
                 
                 <verifytitle description="view user list screen" text=".*${userList.title}.*" regex="true"/>

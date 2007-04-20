@@ -47,7 +47,7 @@ public class UserSecurityAdviceTest extends MockObjectTestCase {
         User user = new User("admin");
 
         try {
-            user = userManager.saveUser(user);
+            userManager.saveUser(user);
             fail("AccessDeniedException not thrown");
         } catch (AccessDeniedException expected) {
             assertNotNull(expected);
@@ -67,7 +67,7 @@ public class UserSecurityAdviceTest extends MockObjectTestCase {
         User user = new User("admin");
 
         userDao.expects(once()).method("saveUser");
-        user = userManager.saveUser(user);
+        userManager.saveUser(user);
         userDao.verify();
     }
 
@@ -77,7 +77,7 @@ public class UserSecurityAdviceTest extends MockObjectTestCase {
         user.getRoles().add(new Role(Constants.USER_ROLE));
 
         userDao.expects(once()).method("saveUser");
-        user = userManager.saveUser(user);
+        userManager.saveUser(user);
         userDao.verify();
     }
 
@@ -88,7 +88,7 @@ public class UserSecurityAdviceTest extends MockObjectTestCase {
         user.getRoles().add(new Role(Constants.ADMIN_ROLE));
 
         try {
-            user = userManager.saveUser(user);
+            userManager.saveUser(user);
             fail("AccessDeniedException not thrown");
         } catch (AccessDeniedException expected) {
             assertNotNull(expected);
@@ -104,7 +104,7 @@ public class UserSecurityAdviceTest extends MockObjectTestCase {
         user.getRoles().add(new Role(Constants.USER_ROLE));
 
         try {
-            user = userManager.saveUser(user);
+            userManager.saveUser(user);
             fail("AccessDeniedException not thrown");
         } catch (AccessDeniedException expected) {
             assertNotNull(expected);
@@ -127,7 +127,7 @@ public class UserSecurityAdviceTest extends MockObjectTestCase {
         user.getRoles().add(new Role(Constants.USER_ROLE));
 
         userDao.expects(once()).method("saveUser");
-        user = userManager.saveUser(user);
+        userManager.saveUser(user);
         userDao.verify();
     }
 
@@ -138,7 +138,7 @@ public class UserSecurityAdviceTest extends MockObjectTestCase {
         user.getRoles().add(new Role(Constants.USER_ROLE));
 
         userDao.expects(once()).method("saveUser");
-        user = userManager.saveUser(user);
+        userManager.saveUser(user);
         userDao.verify();
     }
 

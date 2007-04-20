@@ -69,14 +69,14 @@
         <property name="objectDefinitionSource">
             <value>
                 PATTERN_TYPE_APACHE_ANT
-                /activeUsers.*=admin
-                /clickstreams.jsp*=admin
-                /flushCache.*=admin
-                /passwordHint.html*=ROLE_ANONYMOUS,admin,user
-                /reload.*=admin
-                /signup.html*=ROLE_ANONYMOUS,admin,user
-                /users.html*=admin
-                /**/*.html*=admin,user
+                /activeUsers.*=ROLE_ADMIN
+                /clickstreams.jsp*=ROLE_ADMIN
+                /flushCache.*=ROLE_ADMIN
+                /passwordHint.html*=ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER
+                /reload.*=ROLE_ADMIN
+                /signup.html*=ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER
+                /users.html*=ROLE_ADMIN
+                /**/*.html*=ROLE_ADMIN,ROLE_USER
             </value>
         </property>
     </bean>
@@ -85,16 +85,14 @@
         <property name="allowIfAllAbstainDecisions" value="false"/>
         <property name="decisionVoters">
             <list>
-                <bean class="org.acegisecurity.vote.RoleVoter">
-                    <property name="rolePrefix" value=""/>
-                </bean>
+                <bean class="org.acegisecurity.vote.RoleVoter"/>
             </list>
         </property>
     </bean>
 
     <bean id="rememberMeServices" class="org.acegisecurity.ui.rememberme.TokenBasedRememberMeServices">
         <property name="userDetailsService" ref="userDao"/>
-        <property name="key" value="appfuseRocks"/>
+        <property name="key" value="23_*!cdU='612./e;NrI"/>
         <property name="parameter" value="rememberMe"/>
     </bean>
 
@@ -118,7 +116,7 @@
     </bean>
 
     <bean id="rememberMeAuthenticationProvider" class="org.acegisecurity.providers.rememberme.RememberMeAuthenticationProvider">
-        <property name="key" value="appfuseRocks"/>
+        <property name="key" value="23_*!cdU='612./e;NrI"/>
     </bean>
 
     <!-- This bean definition must be available to ApplicationContext.getBean() so StartupListener
@@ -138,8 +136,8 @@
         <property name="accessDecisionManager" ref="accessDecisionManager"/>
         <property name="objectDefinitionSource">
              <value>
-                 org.appfuse.service.UserManager.getUsers=admin
-                 org.appfuse.service.UserManager.removeUser=admin
+                 org.appfuse.service.UserManager.getUsers=ROLE_ADMIN
+                 org.appfuse.service.UserManager.removeUser=ROLE_ADMIN
              </value>
         </property>
     </bean>

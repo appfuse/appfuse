@@ -21,7 +21,7 @@ public class RoleDaoTest extends BaseDaoTestCase {
     }
 
     public void testUpdateRole() throws Exception {
-        Role role = dao.getRoleByName("user");
+        Role role = dao.getRoleByName("ROLE_USER");
         log.debug(role);
         role.setDescription("test descr");
 

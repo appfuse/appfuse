@@ -130,7 +130,7 @@
                 <setinputfield description="set email" name="user.email" value="newuser@raibledesigns.com"/>
                 <setinputfield description="set website" name="user.website" value="http://raibledesigns.com"/>
                 <setinputfield description="set passwordHint" name="user.passwordHint" value="test"/>
-                <setselectfield description="Select roles" name="userRoles" value="user"/>
+                <setselectfield description="Select roles" name="userRoles" value="ROLE_USER"/>
                 <clickbutton label="${button.save}" description="Click button 'Save'"/>
                 
                 <verifytitle description="view user list screen" text=".*${userList.title}.*" regex="true"/>

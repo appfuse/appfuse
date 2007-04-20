@@ -56,12 +56,12 @@ public class Constants {
     /**
      * The name of the Administrator role, as specified in web.xml
      */
-    public static final String ADMIN_ROLE = "admin";
+    public static final String ADMIN_ROLE = "ROLE_ADMIN";
 
     /**
      * The name of the User role, as specified in web.xml
      */
-    public static final String USER_ROLE = "user";
+    public static final String USER_ROLE = "ROLE_USER";
 
     /**
      * The name of the user's role list, a request-scoped attribute

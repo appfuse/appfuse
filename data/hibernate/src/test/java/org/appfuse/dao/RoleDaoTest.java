@@ -21,12 +21,12 @@ public class RoleDaoTest extends BaseDaoTestCase {
     }
 
     public void testUpdateRole() throws Exception {
-        Role role = dao.getRoleByName("user");
+        Role role = dao.getRoleByName("ROLE_USER");
         role.setDescription("test descr");
         dao.save(role);
         flush();
         
-        role = dao.getRoleByName("user");
+        role = dao.getRoleByName("ROLE_USER");
         assertEquals("test descr", role.getDescription());
     }
 

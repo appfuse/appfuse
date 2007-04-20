@@ -69,12 +69,12 @@
     <column>description</column>
     <row>
       <value>1</value>
-      <value>admin</value>
+      <value>ROLE_ADMIN</value>
       <value><![CDATA[Administrator role (can edit Users)]]></value>
     </row>
     <row>
       <value>2</value>
-      <value>user</value>
+      <value>ROLE_USER</value>
       <value><![CDATA[Default role for all Users]]></value>
     </row>
   </table>

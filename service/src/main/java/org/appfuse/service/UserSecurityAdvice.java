@@ -70,7 +70,7 @@ public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdv
             }
 
             // fix for http://issues.appfuse.org/browse/APF-96
-            // don't allow users with "user" role to upgrade to "admin" role
+            // don't allow users with "ROLE_USER" role to upgrade to "ROLE_ADMIN" role
             else if (username != null && username.equalsIgnoreCase(currentUser) && !administrator) {
 
                 // get the list of roles the user is trying add

@@ -130,7 +130,7 @@
                 <setinputfield name="emailField" value="newuser@raibledesigns.com"/>
                 <setinputfield name="websiteField" value="http://raibledesigns.com"/>
                 <setinputfield name="passwordHintField" value="test"/>
-                <!--setcheckbox description="Select roles" name="userRoles" checked="user"/-->
+                <!--setcheckbox description="Select roles" name="userRoles" checked="ROLE_USER"/-->
 
                 <clickbutton label="${button.save}" description="Click button 'Save'"/>
 
