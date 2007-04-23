@@ -97,7 +97,7 @@ public abstract class UserForm extends BasePage implements PageBeginRenderListen
         log.debug("Entering 'cancel' method");
 
         if (getFrom() != null && getFrom().equalsIgnoreCase("list")) {
-            return getEngineService().getLink(false, "users");
+            return getEngineService().getLink(false, "Users");
         } else {
             return getEngineService().getLink(false, "mainMenu");
         }
