@@ -115,13 +115,14 @@
             </testResource>
         </testResources>
     </build>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>mojo.snapshots</id>
-            <url>http://snapshots.repository.codehaus.org</url>
-        </pluginRepository>
-    </pluginRepositories>
+    
+    <!-- For JTA, which isn't in Maven's central repository -->
+    <repositories>
+        <repository>
+            <id>java.net</id>
+            <url>http://download.java.net/maven/2</url>
+        </repository>
+    </repositories>
     
     <dependencies>
         <dependency>
