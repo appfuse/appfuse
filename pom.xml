@@ -363,6 +363,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
+                <version>2.0</version>
             </plugin>
             <plugin>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -423,7 +424,6 @@
         <jpa.version>1.0</jpa.version>
         <jsp.version>2.0</jsp.version>
         <jstl.version>1.1.2</jstl.version>
-        <jta.version>1.0.1B-rc4</jta.version>
         <junit.version>3.8.2</junit.version>
         <log4j.version>1.2.13</log4j.version>
         <myfaces.version>1.1.5</myfaces.version>
