@@ -75,6 +75,7 @@
                 /passwordHint.html*=ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER
                 /reload.*=ROLE_ADMIN
                 /signup.html*=ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER
+                /a4j.res/*.html*=ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER <!-- APF-737, OK to remove if not using JSF -->
                 /users.html*=ROLE_ADMIN
                 /**/*.html*=ROLE_ADMIN,ROLE_USER
             </value>
