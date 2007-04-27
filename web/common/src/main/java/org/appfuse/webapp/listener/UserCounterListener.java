@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSessionBindingEvent;
 import org.acegisecurity.Authentication;
 import org.acegisecurity.AuthenticationTrustResolver;
 import org.acegisecurity.AuthenticationTrustResolverImpl;
+import org.acegisecurity.ui.webapp.AuthenticationProcessingFilter;
 import org.acegisecurity.context.HttpSessionContextIntegrationFilter;
 import org.acegisecurity.context.SecurityContext;
 import org.acegisecurity.context.SecurityContextHolder;
@@ -95,10 +96,14 @@ public class UserCounterListener implements ServletContextListener, HttpSessionA
      * @see javax.servlet.http.HttpSessionAttributeListener#attributeAdded(javax.servlet.http.HttpSessionBindingEvent)
      */
     public void attributeAdded(HttpSessionBindingEvent event) {
-        //log.debug("event.name: " + event.getName());
         if (event.getName().equals(EVENT_KEY) && !isAnonymous()) {
             SecurityContext securityContext = (SecurityContext) event.getValue();
             User user = (User) securityContext.getAuthentication().getPrincipal();
+            addUsername(user);
+        // Workaround for Jetty bug (http://www.nabble.com/current-user-count-incorrect-tf3550268.html#a9919134)
+        } else if (event.getName().equals(AuthenticationProcessingFilter.ACEGI_SECURITY_LAST_USERNAME_KEY)) {
+            String username = (String) event.getValue();
+            User user = new User(username);
             addUsername(user);
         }
     }
