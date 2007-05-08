@@ -4,6 +4,7 @@
         <resource>pom.xml</resource>
         <resource>README.txt</resource>
         <resource>core/pom.xml</resource>
+        <resource>core/src/main/resources/applicationContext.xml</resource>
         <resource>core/src/main/resources/hibernate.cfg.xml</resource>
         <resource>core/src/main/resources/META-INF/persistence.xml</resource>
         <resource>core/src/main/resources/sql-map-config.xml</resource>
@@ -31,11 +32,10 @@
         <resource>web/src/main/resources/ApplicationResources_zh_CN.properties</resource>
         <resource>web/src/main/resources/ApplicationResources_zh_TW.properties</resource>
         <resource>web/src/main/resources/ehcache.xml</resource>
-        <!-- Use hibernate.cfg.xml from core module -->
-        <!--<resource>web/src/main/resources/hibernate.cfg.xml</resource>-->
         <resource>web/src/main/resources/jdbc.properties</resource>
         <resource>web/src/main/resources/log4j.xml</resource>
         <resource>web/src/main/resources/mail.properties</resource>
+        <resource>web/src/main/webapp/common/menu.jsp</resource>
         <resource>web/src/main/webapp/WEB-INF/faces-config.xml</resource>
         <resource>web/src/main/webapp/WEB-INF/menu-config.xml</resource>
         <resource>web/src/main/webapp/WEB-INF/urlrewrite.xml</resource>
