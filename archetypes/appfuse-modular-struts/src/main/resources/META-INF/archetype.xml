@@ -12,12 +12,12 @@
         <resource>core/src/test/resources/jdbc.properties</resource>
         <resource>core/src/test/resources/log4j.xml</resource>
         <resource>core/src/test/resources/mail.properties</resource>
-        <resource>core/src/test/resources/sample-data.xml</resource>
+        <resource filtered="false">core/src/test/resources/sample-data.xml</resource>
         <resource>web/pom.xml</resource>
 
         <!-- web artifacts, copied from archetype.xml in appfuse-basic-struts -->
-        <resource>web/src/main/resources/applicationContext-resources.xml</resource>
-        <resource>web/src/main/resources/ApplicationResources.properties</resource>
+        <resource filtered="false">web/src/main/resources/applicationContext-resources.xml</resource>
+        <resource filtered="false">web/src/main/resources/ApplicationResources.properties</resource>
         <resource>web/src/main/resources/ApplicationResources_de.properties</resource>
         <resource>web/src/main/resources/ApplicationResources_en.properties</resource>
         <resource>web/src/main/resources/ApplicationResources_es.properties</resource>
@@ -32,19 +32,19 @@
         <resource>web/src/main/resources/ApplicationResources_zh_CN.properties</resource>
         <resource>web/src/main/resources/ApplicationResources_zh_TW.properties</resource>
         <resource>web/src/main/resources/ehcache.xml</resource>
-        <resource>web/src/main/resources/jdbc.properties</resource>
+        <resource filtered="false">web/src/main/resources/jdbc.properties</resource>
         <resource>web/src/main/resources/log4j.xml</resource>
         <resource>web/src/main/resources/mail.properties</resource>
         <resource>web/src/main/resources/struts.xml</resource>
-        <resource>web/src/main/webapp/common/menu.jsp</resource>
+        <resource filtered="false">web/src/main/webapp/common/menu.jsp</resource>
         <resource>web/src/main/webapp/WEB-INF/applicationContext.xml</resource>
         <resource>web/src/main/webapp/WEB-INF/menu-config.xml</resource>
         <resource>web/src/main/webapp/WEB-INF/urlrewrite.xml</resource>
         <resource>web/src/main/webapp/WEB-INF/web.xml</resource>
-        <resource>web/src/test/resources/config.xml</resource>
-        <resource>web/src/test/resources/login.xml</resource>
-        <resource>web/src/test/resources/sample-data.xml</resource>
-        <resource>web/src/test/resources/web-tests.xml</resource>
+        <resource filtered="false">web/src/test/resources/config.xml</resource>
+        <resource filtered="false">web/src/test/resources/login.xml</resource>
+        <resource filtered="false">web/src/test/resources/sample-data.xml</resource>
+        <resource filtered="false">web/src/test/resources/web-tests.xml</resource>
         
         <!-- Sources currently don't resolve for multi-module projects, so we've ditched the package name.
              Read more about this at http://www.nabble.com/Quickstart-Doc-tf2873440s2369.html. -->

@@ -3,8 +3,8 @@
     <resources>
         <resource>pom.xml</resource>
         <resource>README.txt</resource>
-        <resource>src/main/resources/applicationContext-resources.xml</resource>
-        <resource>src/main/resources/ApplicationResources.properties</resource>
+        <resource filtered="false">src/main/resources/applicationContext-resources.xml</resource>
+        <resource filtered="false">src/main/resources/ApplicationResources.properties</resource>
         <resource>src/main/resources/ApplicationResources_de.properties</resource>
         <resource>src/main/resources/ApplicationResources_en.properties</resource>
         <resource>src/main/resources/ApplicationResources_es.properties</resource>
@@ -20,21 +20,21 @@
         <resource>src/main/resources/ApplicationResources_zh_TW.properties</resource>
         <resource>src/main/resources/ehcache.xml</resource>
         <resource>src/main/resources/hibernate.cfg.xml</resource>
-        <resource>src/main/resources/jdbc.properties</resource>
+        <resource filtered="false">src/main/resources/jdbc.properties</resource>
         <resource>src/main/resources/META-INF/persistence.xml</resource>
         <resource>src/main/resources/log4j.xml</resource>
         <resource>src/main/resources/mail.properties</resource>
         <resource>src/main/resources/sql-map-config.xml</resource>
-        <resource>src/main/webapp/common/menu.jsp</resource>
+        <resource filtered="false">src/main/webapp/common/menu.jsp</resource>
         <resource>src/main/webapp/WEB-INF/applicationContext.xml</resource>
         <resource>src/main/webapp/WEB-INF/menu-config.xml</resource>
         <resource>src/main/webapp/WEB-INF/tapestry.application</resource>
         <resource>src/main/webapp/WEB-INF/urlrewrite.xml</resource>
         <resource>src/main/webapp/WEB-INF/web.xml</resource>
-        <resource>src/test/resources/config.xml</resource>
-        <resource>src/test/resources/login.xml</resource>
-        <resource>src/test/resources/sample-data.xml</resource>
-        <resource>src/test/resources/web-tests.xml</resource>
+        <resource filtered="false">src/test/resources/config.xml</resource>
+        <resource filtered="false">src/test/resources/login.xml</resource>
+        <resource filtered="false">src/test/resources/sample-data.xml</resource>
+        <resource filtered="false">src/test/resources/web-tests.xml</resource>
     </resources>
     <siteResources>
         <resource>src/site/site.xml</resource>
