@@ -47,7 +47,7 @@
             <steps>
                 <invoke description="get Login Page" url="/"/>
                 <verifytitle description="check login title" text=".*${login.title}.*" regex="true"/>
-                <invoke description="click password hint link" url="/passwordHint.html?username=mraible"/>
+                <invoke description="click password hint link" url="/passwordHint.html?username=admin"/>
                 <verifytitle description="show login title again" text=".*${login.title}.*" regex="true"/>
             </steps>
         </webtest>
