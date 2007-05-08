@@ -193,7 +193,7 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.appfuse</groupId>
+                <groupId>org.codehaus.mojo</groupId>
                 <artifactId>appfuse-maven-plugin</artifactId>
                 <version>${appfuse.version}</version>
             </plugin>
