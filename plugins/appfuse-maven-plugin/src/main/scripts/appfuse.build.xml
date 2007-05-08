@@ -1,5 +1,0 @@
-<project>
-  <target name="hello">
-    <echo>Hello, from the project ${projectName}. Built by ${user.name}</echo>
-  </target>
-</project>
