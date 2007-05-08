@@ -1,0 +1,39 @@
+ ------
+ Introduction
+ ------
+ Matt Raible
+ <matt@raibledesigns.com>
+ ------
+ 3 April 2007
+
+Maven AppFuse Plugin
+
+  This plugin provides code generation for AppFuse 2.x projects.
+
+* Goals Overview
+
+  The Maven AppFuse Plugin has seven goals.
+  
+  * {{{gen-model-mojo.html}appfuse:gen-model}}: Generates Java classes from database tables.
+  
+  * {{{gen-ui-mojo.html}appfuse:gen-ui}}: Generates Tests, DAOs, Managers, Controllers and Views based on POJOs.
+  
+  * {{{gen-mojo.html}appfuse:gen}}: Calls both of the above so user only has to type one command.
+
+  
+  []
+
+
+* Usage
+
+  Instructions on how to use the Maven AppFuse Plugin can be found {{{usage.html}here}}.
+
+  []
+
+* Examples
+
+  * {{{examples/simple_configuration.html}Simple plugin configuration.}}
+
+  * {{{examples/phase_embedding.html}Setting the <<hbm2ddl>> goal to run on the <<process-classes>> phase.}}
+
+  * {{{examples/schema_output.html}Output the <<hbm2ddl>> goal to a file.}}
