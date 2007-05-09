@@ -1,0 +1,7 @@
+* Prompt for table or pojo
+* Prompt for pojo name
+* add struts actions to struts.xml
+* copy JSPs into project
+* add web tests to web-tests
+* add i18n keys to ApplicationResources.properties
+
