@@ -81,6 +81,24 @@
             </plugin>
         </plugins>
     </build>
+    
+    <distributionManagement>
+        <repository>
+            <id>appfuse-releases</id>
+            <name>AppFuse Release Repository</name>
+            <url>scp://static.appfuse.org/home/raibledemo/public_html/repository</url>
+        </repository>
+        <site>
+            <id>appfuse-plugins</id>
+            <name>AppFuse Plugins Site</name>
+            <url>scp://static.appfuse.org/home/raibledemo/public_html/plugins/appfuse-maven-plugin</url>
+        </site>
+        <snapshotRepository>
+            <id>appfuse-snapshots</id>
+            <name>AppFuse Snapshot Repository</name>
+            <url>scp://static.appfuse.org/home/raibledemo/public_html/repository</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <repositories>
         <repository>
