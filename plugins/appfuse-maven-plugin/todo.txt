@@ -1,0 +1,7 @@
+* Call ModelGeneratorMojo from AppFuseGeneratorMojo to generate from db
+* Add logic to Action/Controller templates that generate different setters/imports for generic/impl
+* aggregate "gen and install" into single call (lifecycles?)
+* get working with other web frameworks
+* get working with modular
+* get working with other persistence frameworks
+* modify install mojo to handle gen-core and gen-web

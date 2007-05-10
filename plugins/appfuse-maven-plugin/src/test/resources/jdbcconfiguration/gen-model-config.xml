@@ -1,0 +1,24 @@
+<project>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>appfuse-maven-plugin</artifactId>
+                <configuration>
+                    <components>
+                        <component>
+                            <name>gen-model</name>
+                            <outputDirectory>target/appfuse/generated-sources-jdbc</outputDirectory>
+                            <implementation>jdbcconfiguration</implementation>
+                        </component>
+                    </components>
+                    <componentProperties>
+                        <configurationfile>target/test-classes/jdbcconfiguration/hibernate.cfg.xml</configurationfile>
+                        <packagename>jdbcconfiguration</packagename>
+                        <ejb3>true</ejb3>
+                    </componentProperties>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This file is imported in the archetype pom.xml files for integration tests -->
+<project name="plugin-test" default="test-all">
+
+    <property name="version" value="2.0-m5-SNAPSHOT"/>
+    <property name="archetype" value="${archetype}"/>
+    <property name="name" value="test-project"/>
+    <property name="test.dir" value="${basedir}/target"/>
+
+    <target name="test" description="Tests that code generation works with archetype">
+        <echo message="Creating archetype '${archetype}', version '${version}'"/>
+        <test archetype="${archetype}" version="${version}" name="${name}"/>
+    </target>
+
+    <target name="test-struts-basic" description="tests plugin with struts basic archetype">
+        <ant target="test">
+            <property name="archetype" value="appfuse-basic-struts"/>
+            <property name="version" value="${version}"/>
+            <property name="name" value="basic-struts"/>
+        </ant>
+    </target>
+
+    <target name="test-all" description="Runs all archetype tests using Ant">
+        <antcall target="test-struts-basic"/>
+    </target>
+
+    <macrodef name="test">
+        <attribute name="archetype"/>
+        <attribute name="version"/>
+        <attribute name="name"/>
+        
+        <sequential>
+            <delete dir="${test.dir}/${name}"/>
+            <mkdir dir="${test.dir}"/>
+            <maven dir="${test.dir}" archetype="@{archetype}" version="@{version}" name="@{name}"/>
+
+            <!-- copy Person.java to src -->
+            <copy todir="${test.dir}/${name}/src/main/java/com">
+                <fileset dir="src/test/java/com" includes="**/*.java"/>
+            </copy>
+
+            <!-- add person to hibernate.cfg.xml -->
+            <replace file="${test.dir}/${name}/src/main/resources/hibernate.cfg.xml">
+                <replacetoken><![CDATA[<mapping class="org.appfuse.model.Role"/>]]></replacetoken>
+                <replacevalue><![CDATA[<mapping class="org.appfuse.model.Role"/>
+        <mapping class="com.company.model.Person"/>]]></replacevalue>
+            </replace>
+
+            <!-- run gen install integration-test -->
+            <maven dir="${test.dir}/${name}" command="appfuse:gen -Dentity=Person"/>
+            <maven dir="${test.dir}/${name}" command="appfuse:install -Dentity=Person"/>
+            <maven dir="${test.dir}/${name}" command="integration-test"/>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="maven">
+        <attribute name="dir"/>
+        <attribute name="name" default=""/>
+        <attribute name="archetype" default=""/>
+        <attribute name="version" default=""/>
+        <attribute name="command" default="archetype:create -DarchetypeGroupId=org.appfuse -DarchetypeArtifactId=@{archetype} -DarchetypeVersion=@{version} -DgroupId=com.company -DartifactId=@{name}"/>
+
+        <sequential>
+            <exec dir="@{dir}" executable="mvn.bat" os="Windows XP" failonerror="true">
+                <arg line="@{command}"/>
+            </exec>
+            <exec dir="@{dir}" executable="mvn" os="Mac OS X" failonerror="true">
+                <arg line="@{command}"/>
+            </exec>
+            <exec dir="@{dir}" executable="mvn" os="Linux" failonerror="true">
+                <arg line="@{command}"/>
+            </exec>
+        </sequential>
+    </macrodef>
+</project>

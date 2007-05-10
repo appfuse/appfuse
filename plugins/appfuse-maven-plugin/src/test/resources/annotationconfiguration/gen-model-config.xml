@@ -1,0 +1,23 @@
+<project>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>appfuse-maven-plugin</artifactId>
+                <configuration>
+                    <components>
+                        <component>
+                            <name>hbm2java</name>
+                            <outputDirectory>target/appfuse/generated-sources-ann</outputDirectory>
+                            <implementation>annotationconfiguration</implementation>
+                        </component>
+                    </components>
+                    <componentProperties>
+                        <configurationfile>target/test-classes/annotationconfiguration/hibernate.cfg.xml</configurationfile>
+                        <ejb3>true</ejb3>
+                    </componentProperties>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

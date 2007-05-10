@@ -1,0 +1,24 @@
+<project>
+    <groupId>org.codehaus.mojo</groupId>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>appfuse-maven-plugin</artifactId>
+                <configuration>
+                    <components>
+                        <component>
+                            <name>gen-core</name>
+                            <outputDirectory>target/appfuse/generated</outputDirectory>
+                            <implementation>annotationconfiguration</implementation>
+                        </component>
+                    </components>
+                    <componentProperties>
+                        <configurationfile>target/test-classes/annotationconfiguration/hibernate.cfg.xml</configurationfile>
+                        <genericcore>false</genericcore>
+                    </componentProperties>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

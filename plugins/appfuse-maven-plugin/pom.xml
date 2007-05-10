@@ -1,0 +1,199 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>mojo</artifactId>
+        <groupId>org.codehaus.mojo</groupId>
+        <version>13</version>
+    </parent>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>appfuse-maven-plugin</artifactId>
+    <packaging>maven-plugin</packaging>
+    <name>AppFuse Maven Plugin</name>
+    <version>2.0-m5-SNAPSHOT</version>
+    <description>
+        Maven plugin based on the hibernate-tools project. Lots of ideas/code borrowed
+        from the hibernate3-maven-plugin.
+    </description>
+    <inceptionYear>2007</inceptionYear>
+
+    <organization>
+        <name>AppFuse</name>
+        <url>http://www.appfuse.org</url>
+    </organization>
+    <prerequisites>
+        <maven>2.0.6</maven>
+    </prerequisites>
+
+    <url>http://static.appfuse.org/plugins/appfuse-maven-plugin</url>
+
+    <scm>
+        <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/plugins/appfuse-maven-plugin</connection>
+        <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/plugins/appfuse-maven-plugin</developerConnection>
+        <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/plugins/appfuse-maven-plugin</url>
+    </scm>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <build>
+        <defaultGoal>install</defaultGoal>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.0.2</version>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-idea-plugin</artifactId>
+                <version>2.0</version>
+                <configuration>
+                    <downloadSources>true</downloadSources>
+                    <downloadJavadocs>true</downloadJavadocs>
+                    <dependenciesAsLibraries>true</dependenciesAsLibraries>
+                    <useFullNames>false</useFullNames>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-plugin-plugin</artifactId>
+                <configuration>
+                    <prefix>appfuse</prefix>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-docck-plugin</artifactId>
+                <!--executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions-->
+            </plugin>
+        </plugins>
+    </build>
+
+    <distributionManagement>
+        <repository>
+            <id>appfuse-releases</id>
+            <name>AppFuse Release Repository</name>
+            <url>scp://static.appfuse.org/home/raibledemo/public_html/repository</url>
+        </repository>
+        <site>
+            <id>appfuse-plugins</id>
+            <name>AppFuse Plugins Site</name>
+            <url>scp://static.appfuse.org/home/raibledemo/public_html/plugins/appfuse-maven-plugin</url>
+        </site>
+        <snapshotRepository>
+            <id>appfuse-snapshots</id>
+            <name>AppFuse Snapshot Repository</name>
+            <url>scp://static.appfuse.org/home/raibledemo/public_html/repository</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>Codehaus Snapshots</id>
+            <url>http://snapshots.repository.codehaus.org/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>Codehaus Snapshots</id>
+            <url>http://snapshots.repository.codehaus.org/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.codehaus.plexus</groupId>
+            <artifactId>plexus-interactivity-api</artifactId>
+            <version>1.0-alpha-4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.plexus</groupId>
+            <artifactId>plexus-utils</artifactId>
+            <version>1.4.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.mojo.hibernate3</groupId>
+            <artifactId>maven-hibernate3-api</artifactId>
+            <version>${hibernate3.plugin.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.mojo.hibernate3</groupId>
+            <artifactId>maven-hibernate3-jdk15</artifactId>
+            <version>${hibernate3.plugin.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.mojo.hibernate3</groupId>
+            <artifactId>maven-hibernate3-jdk14</artifactId>
+            <version>${hibernate3.plugin.version}</version>
+        </dependency>
+        <!-- This is to support the ant calls within the mojos -->
+        <dependency>
+            <groupId>ant</groupId>
+            <artifactId>ant</artifactId>
+            <version>1.6.5</version>
+        </dependency>
+        <dependency>
+            <groupId>ant</groupId>
+            <artifactId>ant-optional</artifactId>
+            <version>1.5.3-1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.archetype</groupId>
+            <artifactId>maven-archetype-core</artifactId>
+            <version>1.0-alpha-4</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-core</artifactId>
+            <version>2.0.4</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-embedder</artifactId>
+            <version>2.0.4</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.shared</groupId>
+            <artifactId>maven-plugin-testing-harness</artifactId>
+            <version>1.0-beta-1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>1.8.0.7</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <properties>
+        <hibernate3.plugin.version>2.0-alpha-2-SNAPSHOT</hibernate3.plugin.version>
+    </properties>
+</project>
