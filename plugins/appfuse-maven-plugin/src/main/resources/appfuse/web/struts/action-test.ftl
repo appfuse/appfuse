@@ -3,7 +3,13 @@ package ${basepackage}.webapp.action;
 
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.ServletActionContext;
+<#if genericcore>
 import org.appfuse.service.GenericManager;
+<#assign managerClass = GenericManager>
+<#else>
+import ${basepackage}.service.${pojo.shortName}Manager;
+<#assign managerClass = pojo.shortName + 'Manager'>
+</#if>
 import ${pojo.packageName}.${pojo.shortName};
 import org.appfuse.webapp.action.BaseActionTestCase;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -18,7 +24,7 @@ public class ${pojo.shortName}ActionTest extends BaseActionTestCase {
     @Override @SuppressWarnings("unchecked")
     protected void onSetUpBeforeTransaction() throws Exception {
         super.onSetUpBeforeTransaction();
-        GenericManager ${pojoNameLower}Manager = (GenericManager) applicationContext.getBean("${pojoNameLower}Manager");
+        ${managerClass} ${pojoNameLower}Manager = (${managerClass}) applicationContext.getBean("${pojoNameLower}Manager");
 
         // add a test ${pojoNameLower} to the database
         ${pojo.shortName} ${pojoNameLower} = new ${pojo.shortName}();

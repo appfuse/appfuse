@@ -1,27 +1,40 @@
+<#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
 package ${basepackage}.webapp.action;
 
+<#if genericcore>
 import org.appfuse.service.GenericManager;
+<#else>
+import ${basepackage}.service.${pojo.shortName}Manager;
+</#if>
 import ${basepackage}.model.${pojo.shortName};
 import org.appfuse.webapp.action.BaseAction;
 
 import java.util.List;
 
 public class ${pojo.shortName}Action extends BaseAction {
-    private GenericManager<${pojo.shortName}, Long> ${pojo.shortName.toLowerCase()}Manager;
-    private List ${pojo.shortName.toLowerCase()}s;
-    private ${pojo.shortName} ${pojo.shortName.toLowerCase()};
+<#if genericcore>
+    private GenericManager<${pojo.shortName}, Long> ${pojoNameLower}Manager;
+<#else>
+    private ${pojo.shortName}Manager ${pojoNameLower}Manager;
+</#if>
+    private List ${pojoNameLower}s;
+    private ${pojo.shortName} ${pojoNameLower};
     private Long id;
 
-    public void set${pojo.shortName}Manager(GenericManager<${pojo.shortName}, Long> ${pojo.shortName.toLowerCase()}Manager) {
-        this.${pojo.shortName.toLowerCase()}Manager = ${pojo.shortName.toLowerCase()}Manager;
+<#if genericcore>
+    public void set${managerClass}(GenericManager<${pojo.shortName}, Long> ${pojoNameLower}Manager) {
+<#else>
+    public void set${pojo.shortName}Manager(${pojo.shortName}Manager ${pojoNameLower}Manager) {
+</#if>
+        this.${pojoNameLower}Manager = ${pojoNameLower}Manager;
     }
 
     public List get${pojo.shortName}s() {
-        return ${pojo.shortName.toLowerCase()}s;
+        return ${pojoNameLower}s;
     }
 
     public String list() {
-        ${pojo.shortName.toLowerCase()}s = ${pojo.shortName.toLowerCase()}Manager.getAll();
+        ${pojoNameLower}s = ${pojoNameLower}Manager.getAll();
         return SUCCESS;
     }
 
@@ -30,25 +43,25 @@ public class ${pojo.shortName}Action extends BaseAction {
     }
 
     public ${pojo.shortName} get${pojo.shortName}() {
-        return ${pojo.shortName.toLowerCase()};
+        return ${pojoNameLower};
     }
 
-    public void set${pojo.shortName}(${pojo.shortName} ${pojo.shortName.toLowerCase()}) {
-        this.${pojo.shortName.toLowerCase()} = ${pojo.shortName.toLowerCase()};
+    public void set${pojo.shortName}(${pojo.shortName} ${pojoNameLower}) {
+        this.${pojoNameLower} = ${pojoNameLower};
     }
 
     public String delete() {
-        ${pojo.shortName.toLowerCase()}Manager.remove(${pojo.shortName.toLowerCase()}.getId());
-        saveMessage(getText("${pojo.shortName.toLowerCase()}.deleted"));
+        ${pojoNameLower}Manager.remove(${pojoNameLower}.getId());
+        saveMessage(getText("${pojoNameLower}.deleted"));
 
         return SUCCESS;
     }
 
     public String edit() {
         if (id != null) {
-            ${pojo.shortName.toLowerCase()} = ${pojo.shortName.toLowerCase()}Manager.get(id);
+            ${pojoNameLower} = ${pojoNameLower}Manager.get(id);
         } else {
-            ${pojo.shortName.toLowerCase()} = new ${pojo.shortName}();
+            ${pojoNameLower} = new ${pojo.shortName}();
         }
 
         return SUCCESS;
@@ -63,11 +76,11 @@ public class ${pojo.shortName}Action extends BaseAction {
             return delete();
         }
 
-        boolean isNew = (${pojo.shortName.toLowerCase()}.getId() == null);
+        boolean isNew = (${pojoNameLower}.getId() == null);
 
-        ${pojo.shortName.toLowerCase()}Manager.save(${pojo.shortName.toLowerCase()});
+        ${pojoNameLower}Manager.save(${pojoNameLower});
 
-        String key = (isNew) ? "${pojo.shortName.toLowerCase()}.added" : "${pojo.shortName.toLowerCase()}.updated";
+        String key = (isNew) ? "${pojoNameLower}.added" : "${pojoNameLower}.updated";
         saveMessage(getText(key));
 
         if (!isNew) {

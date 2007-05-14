@@ -6,6 +6,7 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>appfuse-maven-plugin</artifactId>
                 <configuration>
+                    <genericCore>false</genericCore>
                     <components>
                         <component>
                             <name>gen-core</name>
@@ -15,7 +16,6 @@
                     </components>
                     <componentProperties>
                         <configurationfile>target/test-classes/annotationconfiguration/hibernate.cfg.xml</configurationfile>
-                        <genericcore>false</genericcore>
                     </componentProperties>
                 </configuration>
             </plugin>

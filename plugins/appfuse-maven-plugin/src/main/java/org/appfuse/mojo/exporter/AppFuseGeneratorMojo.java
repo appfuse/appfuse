@@ -34,6 +34,11 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
     private boolean generateWebOnly;
 
     /**
+     * @parameter expression="${appfuse.genericCore}" default-value="true"
+     */
+    private boolean genericCore;
+
+    /**
      * Default constructor.
      */
     public AppFuseGeneratorMojo() {
@@ -120,7 +125,7 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
         exporter.getProperties().setProperty("daoframework", getProject().getProperties().getProperty("dao.framework"));
         exporter.getProperties().setProperty("webframework", getProject().getProperties().getProperty("web.framework"));
         exporter.getProperties().setProperty("packaging", getProject().getPackaging());
-        exporter.getProperties().setProperty("genericcore", getComponentProperty("genericcore", "true"));
+        exporter.getProperties().setProperty("genericcore", String.valueOf(genericCore));
 
         return exporter;
     }

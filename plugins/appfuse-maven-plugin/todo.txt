@@ -5,3 +5,4 @@
 * get working with modular
 * get working with other persistence frameworks
 * modify install mojo to handle gen-core and gen-web
+* don't hard-code id and Long everywhere
