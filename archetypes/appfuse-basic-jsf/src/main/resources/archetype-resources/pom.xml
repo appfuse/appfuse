@@ -42,13 +42,8 @@
     </developers>
     
     <build>
-        <defaultGoal>package</defaultGoal>
+        <defaultGoal>install</defaultGoal>
         <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>appfuse-maven-plugin</artifactId>
-                <version>${appfuse.version}</version>
-            </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.0.2</version>
@@ -209,6 +204,15 @@
                         hibernate.cfg.xml,jdbc.properties,log4j.xml,mail.properties,**/persistence.xml,
                         sql-map-config.xml
                     </warpathExcludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>appfuse-maven-plugin</artifactId>
+                <version>${appfuse.version}</version>
+                <configuration>
+                    <genericCore>${amp.genericCore}</genericCore>
+                    <fullSource>${amp.fullSource}</fullSource>
                 </configuration>
             </plugin>
             <plugin>
@@ -615,6 +619,8 @@
         <copyright.year>2007</copyright.year>
         <dao.framework>hibernate</dao.framework>
         <web.framework>jsf</web.framework>
+        <amp.genericCore>true</amp.genericCore>
+        <amp.fullSource>false</amp.fullSource>
         
         <!-- Framework dependency versions -->
         <appfuse.version>2.0-m5-SNAPSHOT</appfuse.version>

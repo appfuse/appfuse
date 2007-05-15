@@ -45,11 +45,6 @@
         <defaultGoal>install</defaultGoal>
         <plugins>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>appfuse-maven-plugin</artifactId>
-                <version>${appfuse.version}</version>
-            </plugin>
-            <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.0.2</version>
                 <configuration>
@@ -80,6 +75,15 @@
                     <downloadJavadocs>true</downloadJavadocs>
                     <dependenciesAsLibraries>true</dependenciesAsLibraries>
                     <useFullNames>false</useFullNames>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>appfuse-maven-plugin</artifactId>
+                <version>${appfuse.version}</version>
+                <configuration>
+                    <genericCore>${amp.genericCore}</genericCore>
+                    <fullSource>${amp.fullSource}</fullSource>
                 </configuration>
             </plugin>
         </plugins>
@@ -273,6 +277,8 @@
         <copyright.year>2007</copyright.year>
         <dao.framework>hibernate</dao.framework>
         <web.framework>struts</web.framework>
+        <amp.genericCore>true</amp.genericCore>
+        <amp.fullSource>false</amp.fullSource>
         
         <!-- Framework dependency versions -->
         <appfuse.version>2.0-m5-SNAPSHOT</appfuse.version>

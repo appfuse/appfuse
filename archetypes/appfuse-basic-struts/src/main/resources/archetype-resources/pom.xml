@@ -42,7 +42,7 @@
     </developers>
     
     <build>
-        <defaultGoal>package</defaultGoal>
+        <defaultGoal>install</defaultGoal>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -198,6 +198,10 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>appfuse-maven-plugin</artifactId>
                 <version>${appfuse.version}</version>
+                <configuration>
+                    <genericCore>${amp.genericCore}</genericCore>
+                    <fullSource>${amp.fullSource}</fullSource>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -603,6 +607,8 @@
         <copyright.year>2007</copyright.year>
         <dao.framework>hibernate</dao.framework>
         <web.framework>struts</web.framework>
+        <amp.genericCore>true</amp.genericCore>
+        <amp.fullSource>false</amp.fullSource>
         
         <!-- Framework dependency versions -->
         <appfuse.version>2.0-m5-SNAPSHOT</appfuse.version>

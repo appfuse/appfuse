@@ -57,6 +57,8 @@
         <property name="templateName" value="accountCreated.vm"/>
     </bean>
 
+    <!-- Add additional controller beans here -->
+
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="maxUploadSize" value="2097152"/>
     </bean>
