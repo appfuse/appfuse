@@ -1,3 +1,4 @@
+<#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
 package ${basepackage}.webapp.action;
 
 import ${appfusepackage}.webapp.action.BasePageTestCase;
@@ -7,6 +8,7 @@ import ${basepackage}.model.${pojo.shortName};
 public class ${pojo.shortName}ListTest extends BasePageTestCase {
     private ${pojo.shortName}List bean;
 
+    @Override @SuppressWarnings("unchecked")
     protected void setUp() throws Exception {
         super.setUp();
         bean = (${pojo.shortName}List) getManagedBean("${pojo.shortName.toLowerCase()}List");
@@ -14,10 +16,20 @@ public class ${pojo.shortName}ListTest extends BasePageTestCase {
                 (GenericManager<${pojo.shortName}, Long>) applicationContext.getBean("${pojo.shortName.toLowerCase()}Manager");
 
         // add a test ${pojo.shortName.toLowerCase()} to the database
-        ${pojo.shortName} ${pojo.shortName.toLowerCase()} = new ${pojo.shortName}();
-        ${pojo.shortName.toLowerCase()}.setFirstName("Abbie Loo");
-        ${pojo.shortName.toLowerCase()}.setLastName("Raible");
-        ${pojo.shortName.toLowerCase()}Manager.save(${pojo.shortName.toLowerCase()});
+        // add a test ${pojoNameLower} to the database
+        ${pojo.shortName} ${pojoNameLower} = new ${pojo.shortName}();
+
+        // enter all required fields
+<#foreach field in pojo.getAllPropertiesIterator()>
+    <#foreach column in field.getColumnIterator()>
+        <#if !field.equals(pojo.identifierProperty) && !column.nullable && !c2h.isCollection(field) && !c2h.isManyToOne(field)>
+            <#lt/>        ${pojoNameLower}.set${pojo.getPropertyName(field)}(${data.getValueForJavaTest(field.value.typeName)}<#rt/>
+            <#if field.value.typeName == "java.lang.String" && column.isUnique()><#lt/> + Math.random()</#if><#lt/>);
+        </#if>
+    </#foreach>
+</#foreach>
+
+        ${pojoNameLower}Manager.save(${pojoNameLower});
     }
 
     protected void tearDown() throws Exception {

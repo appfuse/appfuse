@@ -1,25 +1,39 @@
+<#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
 package ${basepackage}.webapp.action;
 
 import java.io.Serializable;
-import ${basepackage}.model.${pojo.shortName};
+
+import ${pojo.packageName}.${pojo.shortName};
 import ${appfusepackage}.webapp.action.BasePage;
+<#if genericcore>
 import ${appfusepackage}.service.GenericManager;
+<#else>
+import ${basepackage}.service.${pojo.shortName}Manager;
+</#if>
 
 public class ${pojo.shortName}Form extends BasePage implements Serializable {
-    private GenericManager<${pojo.shortName}, Long> ${pojo.shortName.toLowerCase()}Manager;
-    private ${pojo.shortName} ${pojo.shortName.toLowerCase()} = new ${pojo.shortName}();
+<#if genericcore>
+    private GenericManager<${pojo.shortName}, Long> ${pojoNameLower}Manager;
+<#else>
+    private ${pojo.shortName}Manager ${pojoNameLower}Manager;
+</#if>
+    private ${pojo.shortName} ${pojoNameLower} = new ${pojo.shortName}();
     private Long id;
 
-    public void set${pojo.shortName}Manager(GenericManager<${pojo.shortName}, Long> manager) {
-        this.${pojo.shortName.toLowerCase()}Manager = manager;
+<#if genericcore>
+    public void set${pojo.shortName}Manager(GenericManager<${pojo.shortName}, Long> ${pojoNameLower}Manager) {
+<#else>
+    public void set${pojo.shortName}Manager(${pojo.shortName}Manager ${pojoNameLower}Manager) {
+</#if>
+        this.${pojoNameLower}Manager = ${pojoNameLower}Manager;
     }
 
     public ${pojo.shortName} get${pojo.shortName}() {
-        return ${pojo.shortName.toLowerCase()};
+        return ${pojoNameLower};
     }
 
-    public void set${pojo.shortName}(${pojo.shortName} ${pojo.shortName.toLowerCase()}) {
-        this.${pojo.shortName.toLowerCase()} = ${pojo.shortName.toLowerCase()};
+    public void set${pojo.shortName}(${pojo.shortName} ${pojoNameLower}) {
+        this.${pojoNameLower} = ${pojoNameLower};
     }
 
     public void setId(Long id) {
@@ -27,27 +41,27 @@ public class ${pojo.shortName}Form extends BasePage implements Serializable {
     }
 
     public String delete() {
-        ${pojo.shortName.toLowerCase()}Manager.remove(${pojo.shortName.toLowerCase()}.getId());
-        addMessage("${pojo.shortName.toLowerCase()}.deleted");
+        ${pojoNameLower}Manager.remove(${pojoNameLower}.getId());
+        addMessage("${pojoNameLower}.deleted");
 
         return "list";
     }
 
     public String edit() {
         if (id != null) {
-            ${pojo.shortName.toLowerCase()} = ${pojo.shortName.toLowerCase()}Manager.get(id);
+            ${pojoNameLower} = ${pojoNameLower}Manager.get(id);
         } else {
-            ${pojo.shortName.toLowerCase()} = new ${pojo.shortName}();
+            ${pojoNameLower} = new ${pojo.shortName}();
         }
 
         return "edit";
     }
 
     public String save() {
-        boolean isNew = (${pojo.shortName.toLowerCase()}.getId() == null);
-        ${pojo.shortName.toLowerCase()}Manager.save(${pojo.shortName.toLowerCase()});
+        boolean isNew = (${pojoNameLower}.getId() == null);
+        ${pojoNameLower}Manager.save(${pojoNameLower});
 
-        String key = (isNew) ? "${pojo.shortName.toLowerCase()}.added" : "${pojo.shortName.toLowerCase()}.updated";
+        String key = (isNew) ? "${pojoNameLower}.added" : "${pojoNameLower}.updated";
         addMessage(key);
 
         if (isNew) {

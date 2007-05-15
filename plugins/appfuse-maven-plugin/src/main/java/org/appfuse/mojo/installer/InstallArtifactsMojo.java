@@ -108,6 +108,7 @@ public class InstallArtifactsMojo extends AbstractMojo {
 
             if ("jsf".equalsIgnoreCase(webFramework)) {
                 log("Installing JSF views and configuring...");
+                installJSFNavigationAndBeans();
                 installJSFViews();
             } else if ("struts".equalsIgnoreCase(webFramework)) {
                 log("Installing Struts views and configuring...");
@@ -192,11 +193,29 @@ public class InstallArtifactsMojo extends AbstractMojo {
         parseXMLFile(generatedFile, pojoName + "Manager", "<!-- Add new Managers here -->", "context.file");
     }
 
+    private void installJSFNavigationAndBeans() {
+        createLoadFileTask("src/main/webapp/WEB-INF/" + pojoName + "-navigation.xml", "navigation.rules").execute();
+        File generatedFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/faces-config.xml"); // todo: handle modular projects
+        parseXMLFile(generatedFile, pojoName + "-nav", "<!-- Add additional rules here -->", "navigation.rules");
+
+        createLoadFileTask("src/main/webapp/WEB-INF/" + pojoName + "-managed-beans.xml", "managed.beans").execute();
+        generatedFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/faces-config.xml"); // todo: handle modular projects
+        parseXMLFile(generatedFile, pojoName + "-beans", "<!-- Add additional beans here -->", "managed.beans");
+    }
+
+
     private void installSpringControllerBeanDefinitions() {
         createLoadFileTask("src/main/webapp/WEB-INF/" + pojoName + "-beans.xml", "dispatcher.servlet").execute();
         File generatedFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/dispatcher-servlet.xml"); // todo: handle modular projects
 
         parseXMLFile(generatedFile, pojoName, "<!-- Add additional controller beans here -->", "dispatcher.servlet");
+    }
+
+    private void installSpringValidation() {
+        createLoadFileTask("src/main/webapp/WEB-INF/" + pojoName + "-validation.xml", "struts.validation").execute();
+        File generatedFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/validation.xml"); // todo: handle modular projects
+
+        parseXMLFile(generatedFile, pojoName, "    </formset>", "struts.validation");
     }
 
     private void installStrutsBeanDefinition() {
@@ -211,13 +230,6 @@ public class InstallArtifactsMojo extends AbstractMojo {
         File existingFile = new File(destinationDirectory + "/src/main/resources/struts.xml");
 
         parseXMLFile(existingFile, pojoName + "Action", "<!-- Add additional actions here -->", "struts.file");
-    }
-
-    private void installSpringValidation() {
-        createLoadFileTask("src/main/webapp/WEB-INF/" + pojoName + "-validation.xml", "struts.validation").execute();
-        File generatedFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/validation.xml"); // todo: handle modular projects
-
-        parseXMLFile(generatedFile, pojoName, "    </formset>", "struts.validation");
     }
 
     // =================== Views ===================

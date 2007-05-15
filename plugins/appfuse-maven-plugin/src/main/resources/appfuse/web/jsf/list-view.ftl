@@ -1,65 +1,58 @@
+<#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core"
       xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk">
 
 <f:view>
-<f:loadBundle var="text" basename="${'#'}{${pojo.shortName.toLowerCase()}List.bundleName}"/>
+<f:loadBundle var="text" basename="${'#'}{${pojoNameLower}List.bundleName}"/>
     <head>
-        <title>${'#'}{text['${pojo.shortName.toLowerCase()}List.title']}</title>
-        <meta name="heading" content="${'#'}{text['${pojo.shortName.toLowerCase()}List.heading']}"/>
+        <title>${'#'}{text['${pojoNameLower}List.title']}</title>
+        <meta name="heading" content="${'#'}{text['${pojoNameLower}List.heading']}"/>
         <meta name="menu" content="${pojo.shortName}Menu"/>
     </head>
-<body id="${pojo.shortName.toLowerCase()}List">
+<body id="${pojoNameLower}List">
 <h:form id="edit${pojo.shortName}">
 
 <h:commandButton value="${'#'}{text['button.add']}" action="add" id="add" immediate="true" styleClass="button"/>
 <h:commandButton value="${'#'}{text['button.done']}" action="mainMenu" id="cancel" immediate="true" styleClass="button" style="margin-left: 5px"/>
 
-<!-- Error from this table is caused by http://issues.apache.org/jira/browse/TOMAHAWK-466 -->
-<t:dataTable id="${pojo.shortName.toLowerCase()}s" var="${pojo.shortName.toLowerCase()}" style="margin-top: 10px"
-    value="${'#'}{${pojo.shortName.toLowerCase()}List.${pojo.shortName.toLowerCase()}s}" rows="25" sortColumn="${'#'}{${pojo.shortName.toLowerCase()}List.sortColumn}"
-    sortAscending="${'#'}{${pojo.shortName.toLowerCase()}List.ascending}" styleClass="scrollerTable table"
+<t:dataTable id="${pojoNameLower}s" var="${pojoNameLower}" style="margin-top: 10px"
+    value="${'#'}{${pojoNameLower}List.${pojoNameLower}s}" rows="25" sortColumn="${'#'}{${pojoNameLower}List.sortColumn}"
+    sortAscending="${'#'}{${pojoNameLower}List.ascending}" styleClass="scrollerTable table"
     headerClass="standardTable_Header" rowClasses="standardTable_Row1,standardTable_Row2"
     columnClasses="standardTable_Column,standardTable_Column,standardTable_Column,standardTable_Column,standardTable_ColumnCentered">
 
+<#foreach field in pojo.getAllPropertiesIterator()>
     <t:column>
         <f:facet name="header">
-            <t:commandSortHeader columnName="id" arrow="true">
-                <h:outputText value="${'#'}{text['${pojo.shortName.toLowerCase()}.id']}" />
+            <t:commandSortHeader columnName="${field.name}" arrow="true">
+                <h:outputText value="${'#'}{text['${pojoNameLower}.${field.name}']}" />
             </t:commandSortHeader>
         </f:facet>
-        <h:commandLink action="${'#'}{${pojo.shortName.toLowerCase()}Form.edit}" value="${'#'}{${pojo.shortName.toLowerCase()}.id}">
-            <f:param name="id" value="${'#'}{${pojo.shortName.toLowerCase()}.id}"/>
+<#if field.equals(pojo.identifierProperty)>
+        <h:commandLink action="${'#'}{${pojoNameLower}Form.edit}" value="${'#'}{${pojoNameLower}.${field.name}}">
+            <f:param name="id" value="${'#'}{${pojoNameLower}.${field.name}}"/>
             <f:param name="from" value="list"/>
         </h:commandLink>
+<#elseif !c2h.isCollection(field) && !c2h.isManyToOne(field)>
+    <#if field.value.typeName == "java.util.Date">
+        <#lt/>    <h:outputText value="${'#'}{${pojoNameLower}.${field.name}}" escape="true"/>
+    <#elseif field.value.typeName == "boolean">
+        <#lt/>    <h:selectBooleanCheckbox value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}" id="${field.name}" disabled="disabled"/>
+    <#else>
+        <#lt/>    <h:outputText value="${'#'}{${pojoNameLower}.${field.name}}" escape="true"/>
+    </#if>
+</#if>
     </t:column>
-
-    <t:column>
-        <f:facet name="header">
-            <t:commandSortHeader columnName="firstName" arrow="true">
-                <h:outputText value="${'#'}{text['${pojo.shortName.toLowerCase()}.firstName']}" />
-            </t:commandSortHeader>
-        </f:facet>
-        <h:outputText value="${'#'}{${pojo.shortName.toLowerCase()}.firstName}" escape="true"/>
-    </t:column>
-
-    <t:column>
-        <f:facet name="header">
-            <t:commandSortHeader columnName="lastName" arrow="true">
-                <h:outputText value="${'#'}{text['${pojo.shortName.toLowerCase()}.lastName']}" />
-            </t:commandSortHeader>
-        </f:facet>
-        <h:outputText value="${'#'}{${pojo.shortName.toLowerCase()}.lastName}" escape="true"/>
-    </t:column>
-
+</#foreach>
 </t:dataTable>
 
 <ui:include src="/common/tableFooter.xhtml">
-    <ui:param name="tableName" value="${pojo.shortName.toLowerCase()}s"/>
+    <ui:param name="tableName" value="${pojoNameLower}s"/>
 </ui:include>
 
 <script type="text/javascript">
-    highlightTableRows("edit${pojo.shortName}:${pojo.shortName.toLowerCase()}s");
+    highlightTableRows("edit${pojo.shortName}:${pojoNameLower}s");
 </script>
 
 </h:form>

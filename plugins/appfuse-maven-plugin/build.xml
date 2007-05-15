@@ -12,10 +12,10 @@
         <test archetype="${archetype}" version="${version}" name="${name}"/>
     </target>
 
-    <target name="test-struts-basic" description="tests plugin with struts basic archetype">
+    <target name="test-jsf-basic" description="tests plugin with jsf basic archetype">
         <ant target="test">
-            <property name="archetype" value="appfuse-basic-struts"/>
-            <property name="name" value="basic-struts"/>
+            <property name="archetype" value="appfuse-basic-jsf"/>
+            <property name="name" value="basic-jsf"/>
         </ant>
     </target>
 
@@ -26,9 +26,17 @@
         </ant>
     </target>
 
+    <target name="test-struts-basic" description="tests plugin with struts basic archetype">
+        <ant target="test">
+            <property name="archetype" value="appfuse-basic-struts"/>
+            <property name="name" value="basic-struts"/>
+        </ant>
+    </target>
+
     <target name="test-all" description="Runs all archetype tests using Ant">
-        <antcall target="test-struts-basic"/>
+        <antcall target="test-jsf-basic"/>
         <antcall target="test-spring-basic"/>
+        <antcall target="test-struts-basic"/>
     </target>
 
     <macrodef name="test">

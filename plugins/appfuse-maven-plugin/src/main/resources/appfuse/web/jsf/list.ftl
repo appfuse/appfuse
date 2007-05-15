@@ -1,24 +1,38 @@
+<#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
 package ${basepackage}.webapp.action;
 
 import java.io.Serializable;
 import java.util.List;
 
 import ${appfusepackage}.webapp.action.BasePage;
+<#if genericcore>
+import ${pojo.packageName}.${pojo.shortName};
 import ${appfusepackage}.service.GenericManager;
+<#else>
+import ${basepackage}.service.${pojo.shortName}Manager;
+</#if>
 
 public class ${pojo.shortName}List extends BasePage implements Serializable {
-    private GenericManager ${pojo.shortName.toLowerCase()}Manager;
+<#if genericcore>
+    private GenericManager<${pojo.shortName}, Long> ${pojoNameLower}Manager;
+<#else>
+    private ${pojo.shortName}Manager ${pojoNameLower}Manager;
+</#if>
 
-    public void set${pojo.shortName}Manager(GenericManager manager) {
-        this.${pojo.shortName.toLowerCase()}Manager = manager;
+<#if genericcore>
+    public void set${pojo.shortName}Manager(GenericManager<${pojo.shortName}, Long> ${pojoNameLower}Manager) {
+<#else>
+    public void set${pojo.shortName}Manager(${pojo.shortName}Manager ${pojoNameLower}Manager) {
+</#if>
+        this.${pojoNameLower}Manager = ${pojoNameLower}Manager;
     }
 
     public ${pojo.shortName}List() {
-        setSortColumn("id"); // sets the default sort column
+        setSortColumn("${pojo.identifierProperty.name}"); // sets the default sort column
     }
 
     public List get${pojo.shortName}s() {
-        return sort(${pojo.shortName.toLowerCase()}Manager.getAll());
+        return sort(${pojoNameLower}Manager.getAll());
     }
 }
 

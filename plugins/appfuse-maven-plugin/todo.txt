@@ -1,9 +1,9 @@
+* test and fix issues with tapestry
+* test and fix issues with modular projects
+* don't hard-code id and Long everywhere
 * Call ModelGeneratorMojo from AppFuseGeneratorMojo to generate from db
 * aggregate "gen and install" into single call (lifecycles?)
-* test and fix issues with jsf and tapestry
-* test and fix issues with modular projects
-* test and fix issues with ibatis and jpa (might be many since we expect hibernate.cfg.xml)
 * modify install mojo to handle gen-core and gen-web
-* don't hard-code id and Long everywhere
+* test and fix issues with ibatis and jpa (might be many since we expect hibernate.cfg.xml)
 
 * create "full-source" mojo: svn export + adding dependencies
