@@ -1,7 +1,7 @@
 package ${basepackage}.webapp.action;
 
 import ${basepackage}.model.${pojo.shortName};
-import org.appfuse.webapp.action.BasePageTestCase;
+import ${appfusepackage}.webapp.action.BasePageTestCase;
 
 public class ${pojo.shortName}FormTest extends BasePageTestCase {
     private ${pojo.shortName}Form bean;

@@ -1,9 +1,10 @@
-<%@ include file="/common/taglibs.jsp"%>
 <#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
+<%@ include file="/common/taglibs.jsp"%>
 
 <head>
     <title><fmt:message key="${pojoNameLower}List.title"/></title>
-    <content tag="heading"><fmt:message key="${pojoNameLower}List.heading"/></content>
+    <meta name="heading" content="<fmt:message key='${pojoNameLower}List.heading'/>"/>
+    <meta name="menu" content="${pojo.shortName}Menu"/>
 </head>
 
 <c:set var="buttons">

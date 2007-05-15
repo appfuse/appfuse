@@ -5,7 +5,7 @@ import java.util.List;
 
 import ${basepackage}.dao.${pojo.shortName}Dao;
 import ${basepackage}.model.${pojo.shortName};
-import org.appfuse.service.impl.BaseManagerMockTestCase;
+import ${appfusepackage}.service.impl.BaseManagerMockTestCase;
 import org.jmock.Mock;
 
 public class ${pojo.shortName}ManagerImplTest extends BaseManagerMockTestCase {

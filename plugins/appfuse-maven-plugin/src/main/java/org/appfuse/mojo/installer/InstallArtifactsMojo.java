@@ -3,6 +3,7 @@ package org.appfuse.mojo.installer;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.project.MavenProject;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.Copy;
 import org.apache.tools.ant.taskdefs.Echo;
@@ -26,6 +27,9 @@ import java.util.ArrayList;
  */
 public class InstallArtifactsMojo extends AbstractMojo {
     private static final String FILE_SEP = System.getProperty("file.separator");
+    Project antProject;
+    String pojoName;
+    String pojoNameLower;
 
     /**
      * This is a prompter that can be user within the maven framework.
@@ -33,9 +37,16 @@ public class InstallArtifactsMojo extends AbstractMojo {
      * @component
      */
     Prompter prompter;
-    Project project;
-    String pojoName;
-    String pojoNameLower;
+
+    /**
+     * <i>Maven Internal</i>: Project to interact with.
+     *
+     * @parameter expression="${project}"
+     * @required
+     * @readonly
+     * @noinspection UnusedDeclaration
+     */
+    private MavenProject project;
 
     /**
      * The path where the generated artifacts will be placed. This is intentionally not set to the
@@ -46,16 +57,21 @@ public class InstallArtifactsMojo extends AbstractMojo {
      * to ${basedir}/target/generated-sources or set the flag on eclipse/idea plugin to include this
      * file in your project file as a source directory.
      *
-     * @parameter expression="${destinationDirectory}" default-value="${basedir}"
+     * @parameter expression="${appfuse.destinationDirectory}" default-value="${basedir}"
      */
     private String destinationDirectory;
 
     /**
      * The directory containing the source code.
      *
-     * @parameter expression="${sourceDirectory}" default-value="${basedir}/target/appfuse/generated-sources"
+     * @parameter expression="${appfuse.sourceDirectory}" default-value="${basedir}/target/appfuse/generated-sources"
      */
     private String sourceDirectory;
+
+    /**
+     * @parameter expression="${appfuse.genericCore}" default-value="true"
+     */
+    private boolean genericCore;
 
     public void execute() throws MojoExecutionException, MojoFailureException {
         pojoName = System.getProperty("entity");
@@ -73,7 +89,54 @@ public class InstallArtifactsMojo extends AbstractMojo {
         }
 
         pojoNameLower = pojoLowerCase(pojoName);
+
+        log("Installing generated .java files...");
         copyGeneratedObjects(this.sourceDirectory, this.destinationDirectory, "**/*.java");
+
+        log("Installing sample data for DbUnit...");
+        installSampleData();
+
+        log("Installing Spring bean definitions...");
+        if (genericCore) {
+           installGenericBeanDefinitions();
+        } else {
+           installDaoAndManagerBeanDefinitions();
+        }
+
+        if (project.getPackaging().equalsIgnoreCase("war")) {
+            String webFramework = project.getProperties().getProperty("web.framework");
+
+            if ("jsf".equalsIgnoreCase(webFramework)) {
+                log("Installing JSF views and configuring...");
+                installJSFViews();
+            } else if ("struts".equalsIgnoreCase(webFramework)) {
+                log("Installing Struts views and configuring...");
+                installStrutsBeanDefinition();
+                installStrutsActionDefinitions();
+                copyGeneratedObjects(sourceDirectory + "/src/main/resources",
+                        destinationDirectory + "/src/main/resources", "**/model/*.xml");
+                copyGeneratedObjects(sourceDirectory + "/src/main/resources",
+                        destinationDirectory + "/src/main/resources", "**/webapp/action/*.xml");
+                installStrutsViews();
+            } else if ("spring".equalsIgnoreCase(webFramework)) {
+                log("Installing Spring views and configuring...");
+                installSpringControllerBeanDefinitions();
+                installSpringValidation();
+                installSpringViews();
+            } else if ("tapestry".equalsIgnoreCase(webFramework)) {
+                log("Installing Tapestry views and configuring...");
+                installTapestryViews();
+            }
+
+            log("Installing i18n messages...");
+            installInternationalizationKeys();
+
+            log("Installing menu...");
+            installMenu();
+
+            log("Installing UI tests...");
+            installUITests();
+        }
     }
 
     /**
@@ -86,42 +149,14 @@ public class InstallArtifactsMojo extends AbstractMojo {
      */
     protected void copyGeneratedObjects(final String inSourceDirectory, final String inDestinationDirectory,
                                         final String inPattern) {
-        project = AntUtils.createProject();
-        Copy copyTask = (Copy) project.createTask("copy");
-        copyTask.init();
+        antProject = AntUtils.createProject();
+        Copy copyTask = (Copy) antProject.createTask("copy");
 
         FileSet fileSet = AntUtils.createFileset(inSourceDirectory, inPattern, new ArrayList());
-        getLog().info("Installing generated .java files...");
+        log("Installing generated files (pattern = " + inPattern + ")...");
         copyTask.setTodir(new File(inDestinationDirectory));
         copyTask.addFileset(fileSet);
         copyTask.execute();
-
-        getLog().info("Installing sample data for DbUnit...");
-        installSampleData();
-
-        getLog().info("Installing Spring bean definitions...");
-        // todo: check if genericcore is off
-        // todo: find/replace bean names instead of Person-START
-        if ("false".equals(System.getProperty("generic-core"))) {
-           installDaoAndManagerBeanDefinitions();
-        } else {
-           installGenericBeanDefinitions();
-        }
-
-        // todo: changed based on web framework
-        getLog().info("Installing Struts and configuring...");
-        installStrutsBeanDefinition();
-        installStrutsActionDefinitions();
-        installStrutsViews();
-
-        getLog().info("Installing menu...");
-        installMenu();
-
-        getLog().info("Installing internationalization messages...");
-        installInternationalizationKeys();
-
-        getLog().info("Installing UI tests...");
-        installUITests();
     }
 
     private String pojoLowerCase(String name) {
@@ -129,7 +164,7 @@ public class InstallArtifactsMojo extends AbstractMojo {
     }
 
     /**
-     * Add sample-data.xml to project's sample-data.xml
+     * Add sample-data.xml to antProject's sample-data.xml
      */
     private void installSampleData() {
         createLoadFileTask("src/test/resources/" + pojoName + "-sample-data.xml", "sample.data").execute();
@@ -157,6 +192,13 @@ public class InstallArtifactsMojo extends AbstractMojo {
         parseXMLFile(generatedFile, pojoName + "Manager", "<!-- Add new Managers here -->", "context.file");
     }
 
+    private void installSpringControllerBeanDefinitions() {
+        createLoadFileTask("src/main/webapp/WEB-INF/" + pojoName + "-beans.xml", "dispatcher.servlet").execute();
+        File generatedFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/dispatcher-servlet.xml"); // todo: handle modular projects
+
+        parseXMLFile(generatedFile, pojoName, "<!-- Add additional controller beans here -->", "dispatcher.servlet");
+    }
+
     private void installStrutsBeanDefinition() {
         createLoadFileTask("src/main/webapp/WEB-INF/" + pojoName + "-struts-bean.xml", "struts.context.file").execute();
         File generatedFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/applicationContext.xml"); // todo: handle modular projects
@@ -171,17 +213,65 @@ public class InstallArtifactsMojo extends AbstractMojo {
         parseXMLFile(existingFile, pojoName + "Action", "<!-- Add additional actions here -->", "struts.file");
     }
 
-    private void installStrutsViews() {
-        Copy c1 = (Copy) project.createTask("copy");
-        c1.setFile(new File(sourceDirectory + "/src/main/webapp/WEB-INF/pages/" + pojoName + "Form.jsp"));
-        c1.setTofile(new File(destinationDirectory + "/src/main/webapp/WEB-INF/pages/" + pojoNameLower + "Form.jsp"));
-        c1.execute();
+    private void installSpringValidation() {
+        createLoadFileTask("src/main/webapp/WEB-INF/" + pojoName + "-validation.xml", "struts.validation").execute();
+        File generatedFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/validation.xml"); // todo: handle modular projects
 
-        Copy c2 = (Copy) project.createTask("copy");
-        c2.setFile(new File(sourceDirectory + "/src/main/webapp/WEB-INF/pages/" + pojoName + "List.jsp"));
-        c2.setTofile(new File(destinationDirectory + "/src/main/webapp/WEB-INF/pages/" + pojoNameLower + "List.jsp"));
-        c2.execute();
+        parseXMLFile(generatedFile, pojoName, "    </formset>", "struts.validation");
     }
+
+    // =================== Views ===================
+
+    private void installJSFViews() {
+        Copy copy = (Copy) antProject.createTask("copy");
+        copy.setFile(new File(sourceDirectory + "/src/main/webapp/" + pojoName + "Form.xhtml"));
+        copy.setTofile(new File(destinationDirectory + "/src/main/webapp/" + pojoNameLower + "Form.xhtml"));
+        copy.execute();
+
+        copy.setFile(new File(sourceDirectory + "/src/main/webapp/" + pojoName + "s.xhtml"));
+        copy.setTofile(new File(destinationDirectory + "/src/main/webapp/" + pojoNameLower + "s.xhtml"));
+        copy.execute();
+    }
+
+    private void installSpringViews() {
+        Copy copy = (Copy) antProject.createTask("copy");
+        copy.setFile(new File(sourceDirectory + "/src/main/webapp/WEB-INF/pages/" + pojoName + "form.jsp"));
+        copy.setTofile(new File(destinationDirectory + "/src/main/webapp/WEB-INF/pages/" + pojoNameLower + "form.jsp"));
+        copy.execute();
+
+        copy.setFile(new File(sourceDirectory + "/src/main/webapp/WEB-INF/pages/" + pojoName + "s.jsp"));
+        copy.setTofile(new File(destinationDirectory + "/src/main/webapp/WEB-INF/pages/" + pojoNameLower + "s.jsp"));
+        copy.execute();
+    }
+
+    private void installStrutsViews() {
+        Copy copy = (Copy) antProject.createTask("copy");
+        copy.setFile(new File(sourceDirectory + "/src/main/webapp/WEB-INF/pages/" + pojoName + "Form.jsp"));
+        copy.setTofile(new File(destinationDirectory + "/src/main/webapp/WEB-INF/pages/" + pojoNameLower + "Form.jsp"));
+        copy.execute();
+
+        copy.setFile(new File(sourceDirectory + "/src/main/webapp/WEB-INF/pages/" + pojoName + "List.jsp"));
+        copy.setTofile(new File(destinationDirectory + "/src/main/webapp/WEB-INF/pages/" + pojoNameLower + "List.jsp"));
+        copy.execute();
+    }
+
+    private void installTapestryViews() {
+        Copy copy = (Copy) antProject.createTask("copy");
+        copy.setFile(new File(sourceDirectory + "/src/main/webapp/WEB-INF/tapestry/" + pojoName + "Form.html"));
+        copy.setTodir(new File(destinationDirectory + "/src/main/webapp/WEB-INF/tapestry"));
+        copy.execute();
+
+        copy.setFile(new File(sourceDirectory + "/src/main/webapp/WEB-INF/tapestry/" + pojoName + "Form.page"));
+        copy.execute();
+
+        copy.setFile(new File(sourceDirectory + "/src/main/webapp/WEB-INF/tapestry/" + pojoName + "List.html"));
+        copy.execute();
+
+        copy.setFile(new File(sourceDirectory + "/src/main/webapp/WEB-INF/tapestry/" + pojoName + "List.page"));
+        copy.execute();
+    }
+
+    // =================== End of Views ===================
 
     private void installMenu() {
         createLoadFileTask("src/main/webapp/common/" + pojoName + "-menu.jsp", "menu.jsp").execute();
@@ -201,10 +291,10 @@ public class InstallArtifactsMojo extends AbstractMojo {
 
         parsePropertiesFile(existingFile, pojoName);
 
-        Echo echoTask = (Echo) project.createTask("echo");
+        Echo echoTask = (Echo) antProject.createTask("echo");
         echoTask.setFile(existingFile);
         echoTask.setAppend(true);
-        echoTask.setMessage(project.getProperty("i18n.file"));
+        echoTask.setMessage(antProject.getProperty("i18n.file"));
         echoTask.execute();
     }
 
@@ -215,7 +305,7 @@ public class InstallArtifactsMojo extends AbstractMojo {
         parseXMLFile(existingFile, pojoName, "</project>", "web.tests");
 
         // Add main target to run-all-tests target
-        Replace replace = (Replace) project.createTask("replace");
+        Replace replace = (Replace) antProject.createTask("replace");
         replace.setFile(existingFile);
         // todo: figure out how to fix the 2 lines below so they don't include pojoNameTest
         // multiple times on subsequent installs
@@ -234,7 +324,7 @@ public class InstallArtifactsMojo extends AbstractMojo {
      */
     protected LoadFile createLoadFileTask(String inFile, String propName) {
         inFile = sourceDirectory + FILE_SEP + inFile;
-        LoadFile loadFileTask = (LoadFile) project.createTask("loadfile");
+        LoadFile loadFileTask = (LoadFile) antProject.createTask("loadfile");
         loadFileTask.init();
         loadFileTask.setProperty(propName);
         loadFileTask.setSrcFile(new File(inFile));
@@ -247,29 +337,29 @@ public class InstallArtifactsMojo extends AbstractMojo {
         if (beanName == null) {
             nameInComment = pojoName;
         }
-        Replace replace1 = (Replace) project.createTask("replace");
+        Replace replace1 = (Replace) antProject.createTask("replace");
         replace1.setFile(existingFile);
         replace1.setToken("<!--" + nameInComment + "-START-->");
         replace1.setValue("REGULAR-START");
         replace1.execute();
 
-        Replace replace2 = (Replace) project.createTask("replace");
+        Replace replace2 = (Replace) antProject.createTask("replace");
         replace2.setFile(existingFile);
         replace2.setToken("<!--" + nameInComment + "-END-->");
         replace2.setValue("REGULAR-END");
         replace2.execute();
 
-        ReplaceRegExp regExpTask = (ReplaceRegExp) project.createTask("replaceregexp");
+        ReplaceRegExp regExpTask = (ReplaceRegExp) antProject.createTask("replaceregexp");
         regExpTask.setFile(existingFile);
         regExpTask.setMatch("REGULAR-START(?s:.)*REGULAR-END");
         regExpTask.setReplace("");
         regExpTask.setFlags("g");
         regExpTask.execute();
 
-        Replace replaceData = (Replace) project.createTask("replace");
+        Replace replaceData = (Replace) antProject.createTask("replace");
         replaceData.setFile(existingFile);
         replaceData.setToken(tokenToReplace);
-        replaceData.setValue(project.getProperty(fileVariable));
+        replaceData.setValue(antProject.getProperty(fileVariable));
         replaceData.execute();
     }
 
@@ -285,23 +375,35 @@ public class InstallArtifactsMojo extends AbstractMojo {
             nameInComment = pojoName;
         }
 
-        Replace replace1 = (Replace) project.createTask("replace");
+        Replace replace1 = (Replace) antProject.createTask("replace");
         replace1.setFile(existingFile);
         replace1.setToken("# -- " + nameInComment + "-START");
         replace1.setValue("REGULAR-START");
         replace1.execute();
 
-        Replace replace2 = (Replace) project.createTask("replace");
+        Replace replace2 = (Replace) antProject.createTask("replace");
         replace2.setFile(existingFile);
         replace2.setToken("# -- " + nameInComment + "-END");
         replace2.setValue("REGULAR-END");
         replace2.execute();
 
-        ReplaceRegExp regExpTask = (ReplaceRegExp) project.createTask("replaceregexp");
+        ReplaceRegExp regExpTask = (ReplaceRegExp) antProject.createTask("replaceregexp");
         regExpTask.setFile(existingFile);
         regExpTask.setMatch("REGULAR-START(?s:.)*REGULAR-END");
         regExpTask.setReplace("");
         regExpTask.setFlags("g");
         regExpTask.execute();
+    }
+
+    private void log(String msg) {
+        getLog().info("[AppFuse] " + msg);
+    }
+
+    public void setProject(MavenProject project) {
+        this.project = project;
+    }
+
+    public void setGenericCore(boolean genericCore) {
+        this.genericCore = genericCore;
     }
 }

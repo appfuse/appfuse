@@ -1,6 +1,6 @@
 package ${basepackage}.service;
 
-import org.appfuse.service.GenericManager;
+import ${appfusepackage}.service.GenericManager;
 import ${basepackage}.model.${pojo.shortName};
 
 import java.util.List;

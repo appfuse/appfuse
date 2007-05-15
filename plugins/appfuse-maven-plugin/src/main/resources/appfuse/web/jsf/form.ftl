@@ -2,8 +2,8 @@ package ${basepackage}.webapp.action;
 
 import java.io.Serializable;
 import ${basepackage}.model.${pojo.shortName};
-import org.appfuse.webapp.action.BasePage;
-import org.appfuse.service.GenericManager;
+import ${appfusepackage}.webapp.action.BasePage;
+import ${appfusepackage}.service.GenericManager;
 
 public class ${pojo.shortName}Form extends BasePage implements Serializable {
     private GenericManager<${pojo.shortName}, Long> ${pojo.shortName.toLowerCase()}Manager;

@@ -2,9 +2,9 @@ package ${basepackage}.webapp.pages;
 
 import org.apache.tapestry.engine.ILink;
 import ${basepackage}.model.${pojo.shortName};
-import org.appfuse.webapp.pages.MockRequestCycle;
-import org.appfuse.webapp.pages.BasePageTestCase;
-import org.appfuse.service.GenericManager;
+import ${appfusepackage}.webapp.pages.MockRequestCycle;
+import ${appfusepackage}.webapp.pages.BasePageTestCase;
+import ${appfusepackage}.service.GenericManager;
 
 import java.util.HashMap;
 import java.util.Map;

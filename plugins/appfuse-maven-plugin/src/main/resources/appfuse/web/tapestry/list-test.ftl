@@ -3,8 +3,8 @@ package ${basepackage}.webapp.pages;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.appfuse.webapp.pages.BasePageTestCase;
-import org.appfuse.webapp.pages.MockRequestCycle;
+import ${appfusepackage}.webapp.pages.BasePageTestCase;
+import ${appfusepackage}.webapp.pages.MockRequestCycle;
 import org.apache.tapestry.engine.RequestCycle;
 
 public class ${pojo.shortName}ListTest extends BasePageTestCase {

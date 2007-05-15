@@ -38,9 +38,9 @@ public class AntUtils {
     }
 
     /**
-     * This method will create an ant project object.
+     * This method will create an ant antProject object.
      *
-     * @return The ant project for use by tasks.
+     * @return The ant antProject for use by tasks.
      */
     public static Project createProject() {
         Project project = new Project();

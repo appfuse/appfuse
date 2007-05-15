@@ -81,7 +81,16 @@ public abstract class HibernateExporterMojo extends AbstractMojo implements Expo
      */
     private MavenProject project;
 
-// --------------------- Interface ExporterMojo ---------------------
+    /**
+     * @parameter expression="${appfuse.fullSource}" default-value="false"
+     */
+    private boolean fullSource;
+
+    public boolean isFullSource() {
+            return fullSource;
+    }
+
+    // --------------------- Interface ExporterMojo ---------------------
 
     /**
      * @see ExporterMojo#getComponentProperty(String)
@@ -168,6 +177,7 @@ public abstract class HibernateExporterMojo extends AbstractMojo implements Expo
         exporter.setProperties(properties);
         exporter.setConfiguration(componentConfiguration.getConfiguration(this));
         exporter.setOutputDirectory(new File(getComponent().getOutputDirectory()));
+        
         return exporter;
     }
 

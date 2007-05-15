@@ -3,7 +3,7 @@ package ${basepackage}.service.impl;
 import ${basepackage}.dao.${pojo.shortName}Dao;
 import ${basepackage}.model.${pojo.shortName};
 import ${basepackage}.service.${pojo.shortName}Manager;
-import org.appfuse.service.impl.GenericManagerImpl;
+import ${appfusepackage}.service.impl.GenericManagerImpl;
 
 import java.util.List;
 

@@ -2,7 +2,7 @@ package ${basepackage}.dao.ibatis;
 
 import ${basepackage}.model.${pojo.shortName};
 import ${basepackage}.dao.${pojo.shortName}Dao;
-import org.appfuse.dao.hibernate.GenericDaoiBatis;
+import ${appfusepackage}.dao.hibernate.GenericDaoiBatis;
 
 public class ${pojo.shortName}DaoiBatis extends GenericDaoiBatis<${pojo.shortName}, Long> implements ${pojo.shortName}Dao {
 

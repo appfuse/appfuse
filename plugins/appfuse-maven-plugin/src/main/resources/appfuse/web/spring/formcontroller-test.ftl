@@ -1,7 +1,8 @@
+<#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
 package ${basepackage}.webapp.controller;
 
-import org.appfuse.webapp.controller.BaseControllerTestCase;
-import ${basepackage}.model.${pojo.shortName};
+import ${appfusepackage}.webapp.controller.BaseControllerTestCase;
+import ${pojo.packageName}.${pojo.shortName};
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.validation.BindException;
@@ -9,49 +10,58 @@ import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 
 public class ${pojo.shortName}FormControllerTest extends BaseControllerTestCase {
-    private ${pojo.shortName}FormController c;
+    private ${pojo.shortName}FormController form;
 
-    public void set${pojo.shortName}FormController(${pojo.shortName}FormController c) {
-        this.c = c;
+    public void set${pojo.shortName}FormController(${pojo.shortName}FormController form) {
+        this.form = form;
     }
 
     public void testEdit() throws Exception {
         log.debug("testing edit...");
-        MockHttpServletRequest request = newGet("/${pojo.shortName.toLowerCase()}form.html");
-        request.addParameter("id", "1");
+        MockHttpServletRequest request = newGet("/${pojoNameLower}form.html");
+        request.addParameter("${pojo.identifierProperty.name}", "1");
 
-        ModelAndView mv = c.handleRequest(request, new MockHttpServletResponse());
+        ModelAndView mv = form.handleRequest(request, new MockHttpServletResponse());
 
-        ${pojo.shortName} ${pojo.shortName.toLowerCase()} = (${pojo.shortName}) mv.getModel().get(c.getCommandName());
-        assertNotNull(${pojo.shortName.toLowerCase()});
+        ${pojo.shortName} ${pojoNameLower} = (${pojo.shortName}) mv.getModel().get(form.getCommandName());
+        assertNotNull(${pojoNameLower});
     }
 
     public void testSave() throws Exception {
-        MockHttpServletRequest request = newGet("/${pojo.shortName.toLowerCase()}form.html");
-        request.addParameter("id", "1");
+        MockHttpServletRequest request = newGet("/${pojoNameLower}form.html");
+        request.addParameter("${pojo.identifierProperty.name}", "1");
 
-        ModelAndView mv = c.handleRequest(request, new MockHttpServletResponse());
+        ModelAndView mv = form.handleRequest(request, new MockHttpServletResponse());
 
-        ${pojo.shortName} ${pojo.shortName.toLowerCase()} = (${pojo.shortName}) mv.getModel().get(c.getCommandName());
-        assertNotNull(${pojo.shortName.toLowerCase()});
+        ${pojo.shortName} ${pojoNameLower} = (${pojo.shortName}) mv.getModel().get(form.getCommandName());
+        assertNotNull(${pojoNameLower});
 
-        request = newPost("/${pojo.shortName.toLowerCase()}form.html");
-        super.objectToRequestParameters(${pojo.shortName.toLowerCase()}, request);
-        request.addParameter("lastName", "Updated Last Name");
+        request = newPost("/${pojoNameLower}form.html");
 
-        mv = c.handleRequest(request, new MockHttpServletResponse());
+        // update required fields
+<#foreach field in pojo.getAllPropertiesIterator()>
+    <#foreach column in field.getColumnIterator()>
+        <#if !field.equals(pojo.identifierProperty) && !column.nullable && !c2h.isCollection(field) && !c2h.isManyToOne(field)>
+            <#lt/>        ${pojoNameLower}.set${pojo.getPropertyName(field)}(${data.getValueForJavaTest(field.value.typeName)});
+        </#if>
+    </#foreach>
+</#foreach>
 
-        Errors errors = (Errors) mv.getModel().get(BindException.MODEL_KEY_PREFIX + "${pojo.shortName.toLowerCase()}");
+        super.objectToRequestParameters(${pojoNameLower}, request);
+
+        mv = form.handleRequest(request, new MockHttpServletResponse());
+
+        Errors errors = (Errors) mv.getModel().get(BindException.MODEL_KEY_PREFIX + "${pojoNameLower}");
         assertNull(errors);
         assertNotNull(request.getSession().getAttribute("successMessages"));
     }
 
     public void testRemove() throws Exception {
-        MockHttpServletRequest request = newPost("/${pojo.shortName.toLowerCase()}form.html");
+        MockHttpServletRequest request = newPost("/${pojoNameLower}form.html");
         request.addParameter("delete", "");
-        request.addParameter("id", "2");
+        request.addParameter("${pojo.identifierProperty.name}", "2");
 
-        c.handleRequest(request, new MockHttpServletResponse());
+        form.handleRequest(request, new MockHttpServletResponse());
 
         assertNotNull(request.getSession().getAttribute("successMessages"));
     }

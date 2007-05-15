@@ -2,7 +2,7 @@ package ${basepackage}.dao.jpa;
 
 import ${basepackage}.model.${pojo.shortName};
 import ${basepackage}.dao.${pojo.shortName}Dao;
-import org.appfuse.dao.hibernate.GenericDaoJpa;
+import ${appfusepackage}.dao.hibernate.GenericDaoJpa;
 
 public class ${pojo.shortName}DaoJpa extends GenericDaoJpa<${pojo.shortName}, Long> implements ${pojo.shortName}Dao {
 

@@ -32,6 +32,9 @@ public final class GenerateSpringTest extends AbstractAppFuseMojoTestCase {
         assertTrue("can't find Person-beans.xml",
                 checkExists("target/appfuse/generated/src/main/webapp/WEB-INF/Person-beans.xml"));
 
+        assertTrue("can't find Person-validation.xml",
+                checkExists("target/appfuse/generated/src/main/webapp/WEB-INF/Person-validation.xml"));
+
         assertTrue("can't find ApplicationResources.properties",
                 checkExists("target/appfuse/generated/src/main/resources/Person-ApplicationResources.properties"));
 

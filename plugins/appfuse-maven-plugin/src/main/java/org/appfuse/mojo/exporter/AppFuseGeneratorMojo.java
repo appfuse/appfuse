@@ -127,6 +127,12 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
         exporter.getProperties().setProperty("packaging", getProject().getPackaging());
         exporter.getProperties().setProperty("genericcore", String.valueOf(genericCore));
 
+        if (isFullSource())
+            exporter.getProperties().setProperty("appfusepackage", getProject().getGroupId());
+        else {
+            exporter.getProperties().setProperty("appfusepackage", "org.appfuse");
+        }
+
         return exporter;
     }
 

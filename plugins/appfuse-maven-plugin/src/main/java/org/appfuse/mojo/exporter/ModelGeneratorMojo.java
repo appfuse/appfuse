@@ -64,6 +64,14 @@ public class ModelGeneratorMojo extends HibernateExporterMojo {
         exporter.setTemplateName("appfuse/model/Pojo.ftl");
         exporter.getProperties().setProperty("ejb3", getComponentProperty("ejb3", "false"));
         exporter.getProperties().setProperty("jdk5", getComponentProperty("jdk5", "false"));
+
+        if (isFullSource()) {
+            exporter.getProperties().setProperty("appfusepackage", getProject().getGroupId());
+        } else {
+            exporter.getProperties().setProperty("appfusepackage", "org.appfuse");
+        }
+
+        
         return exporter;
     }
 

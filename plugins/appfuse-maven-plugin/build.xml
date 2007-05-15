@@ -15,18 +15,25 @@
     <target name="test-struts-basic" description="tests plugin with struts basic archetype">
         <ant target="test">
             <property name="archetype" value="appfuse-basic-struts"/>
-            <property name="version" value="${version}"/>
             <property name="name" value="basic-struts"/>
+        </ant>
+    </target>
+
+    <target name="test-spring-basic" description="tests plugin with spring basic archetype">
+        <ant target="test">
+            <property name="archetype" value="appfuse-basic-spring"/>
+            <property name="name" value="basic-spring"/>
         </ant>
     </target>
 
     <target name="test-all" description="Runs all archetype tests using Ant">
         <antcall target="test-struts-basic"/>
+        <antcall target="test-spring-basic"/>
     </target>
 
     <macrodef name="test">
         <attribute name="archetype"/>
-        <attribute name="version"/>
+        <attribute name="version" default="${version}"/>
         <attribute name="name"/>
         
         <sequential>
@@ -49,6 +56,11 @@
             <!-- run gen install integration-test -->
             <maven dir="${test.dir}/${name}" command="appfuse:gen -Dentity=Person"/>
             <maven dir="${test.dir}/${name}" command="appfuse:install -Dentity=Person"/>
+            <maven dir="${test.dir}/${name}" command="integration-test"/>
+
+            <!-- test w/o generic core -->
+            <maven dir="${test.dir}/${name}" command="appfuse:gen -Dentity=Person -Damp.genericCore=false"/>
+            <maven dir="${test.dir}/${name}" command="appfuse:install -Dentity=Person -Damp.genericCore=false"/>
             <maven dir="${test.dir}/${name}" command="integration-test"/>
         </sequential>
     </macrodef>

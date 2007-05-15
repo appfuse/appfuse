@@ -1,0 +1,22 @@
+<#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0.2//EN"
+    "http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+<#foreach field in pojo.getAllPropertiesIterator()>
+    <#foreach column in field.getColumnIterator()>
+        <#if !field.equals(pojo.identifierProperty) && !column.nullable && !c2h.isCollection(field) && !c2h.isManyToOne(field)>
+            <#if field.value.typeName != "boolean" && field.value.typeName != "java.lang.Boolean">
+            <#lt/>    <field name="${pojoNameLower}.${field.name}">
+                <#if field.value.typeName == "java.lang.String">
+                    <#lt/>        <field-validator type="requiredstring">
+                <#elseif field.value.typeName == "java.util.Date">
+                    <#lt/>        <field-validator type="required">
+                </#if>
+            <#lt/>            <message key="errors.required"/>
+            <#lt/>        </field-validator>
+            <#lt/>    </field>
+            </#if>
+        </#if>
+    </#foreach>
+</#foreach>
+</validators> 

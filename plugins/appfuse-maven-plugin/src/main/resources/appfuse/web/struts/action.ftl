@@ -2,12 +2,12 @@
 package ${basepackage}.webapp.action;
 
 <#if genericcore>
-import org.appfuse.service.GenericManager;
+import ${appfusepackage}.service.GenericManager;
 <#else>
 import ${basepackage}.service.${pojo.shortName}Manager;
 </#if>
 import ${basepackage}.model.${pojo.shortName};
-import org.appfuse.webapp.action.BaseAction;
+import ${appfusepackage}.webapp.action.BaseAction;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ public class ${pojo.shortName}Action extends BaseAction {
     private Long id;
 
 <#if genericcore>
-    public void set${managerClass}(GenericManager<${pojo.shortName}, Long> ${pojoNameLower}Manager) {
+    public void set${pojo.shortName}Manager(GenericManager<${pojo.shortName}, Long> ${pojoNameLower}Manager) {
 <#else>
     public void set${pojo.shortName}Manager(${pojo.shortName}Manager ${pojoNameLower}Manager) {
 </#if>

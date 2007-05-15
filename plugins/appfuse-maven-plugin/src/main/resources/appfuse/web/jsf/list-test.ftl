@@ -1,7 +1,7 @@
 package ${basepackage}.webapp.action;
 
-import org.appfuse.webapp.action.BasePageTestCase;
-import org.appfuse.service.GenericManager;
+import ${appfusepackage}.webapp.action.BasePageTestCase;
+import ${appfusepackage}.service.GenericManager;
 import ${basepackage}.model.${pojo.shortName};
 
 public class ${pojo.shortName}ListTest extends BasePageTestCase {

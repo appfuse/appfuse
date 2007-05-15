@@ -37,7 +37,7 @@
     <!-- Edit a ${pojoNameLower} and then save -->
     <target name="Save${pojo.shortName}" description="Tests editing and saving a ${pojoNameLower}">
         <webtest name="save${pojo.shortName}">
-            ${'&'}config;
+            &config;
             <steps>
                 &login;
                 <invoke description="click Edit ${pojo.shortName} link" url="/edit${pojo.shortName}.html?${pojo.identifierProperty.name}=1"/>

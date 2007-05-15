@@ -2,7 +2,7 @@
 <#assign getIdMethod = pojo.getGetterSignature(pojo.identifierProperty) + "()">
 package ${basepackage}.dao;
 
-import org.appfuse.dao.BaseDaoTestCase;
+import ${appfusepackage}.dao.BaseDaoTestCase;
 import ${basepackage}.model.${pojo.shortName};
 import org.springframework.dao.DataAccessException;
 

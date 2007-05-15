@@ -1,9 +1,9 @@
 package ${basepackage}.webapp.controller;
 
 import org.apache.commons.lang.StringUtils;
-import org.appfuse.service.GenericManager;
+import ${appfusepackage}.service.GenericManager;
 import ${basepackage}.model.${pojo.shortName};
-import org.appfuse.webapp.controller.BaseFormController;
+import ${appfusepackage}.webapp.controller.BaseFormController;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 

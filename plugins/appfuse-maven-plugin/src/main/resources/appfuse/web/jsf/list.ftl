@@ -3,8 +3,8 @@ package ${basepackage}.webapp.action;
 import java.io.Serializable;
 import java.util.List;
 
-import org.appfuse.webapp.action.BasePage;
-import org.appfuse.service.GenericManager;
+import ${appfusepackage}.webapp.action.BasePage;
+import ${appfusepackage}.service.GenericManager;
 
 public class ${pojo.shortName}List extends BasePage implements Serializable {
     private GenericManager ${pojo.shortName.toLowerCase()}Manager;

@@ -27,11 +27,32 @@ public final class GenerateStrutsTest extends AbstractAppFuseMojoTestCase {
         assertTrue("can't find Person-struts.xml",
                 checkExists("target/appfuse/generated/src/main/resources/Person-struts.xml"));
 
+        assertTrue("can't find Person-validation.xml",
+                checkExists("target/appfuse/generated/src/main/resources/annotationconfiguration/model/Person-validation.xml"));
+
+        assertTrue("can't find PersonAction-validation.xml",
+                checkExists("target/appfuse/generated/src/main/resources/annotationconfiguration/webapp/action/PersonAction-validation.xml"));
+
         assertTrue("can't find ApplicationResources.properties",
                 checkExists("target/appfuse/generated/src/main/resources/Person-ApplicationResources.properties"));
 
         assertTrue("can't find web-tests.xml",
                 checkExists("target/appfuse/generated/src/test/resources/Person-web-tests.xml"));
+    }
+
+    public void testGenerateGenericFollowedbyNonGeneric() throws Exception {
+        deleteDirectory("target/appfuse/generated");
+        super.setGenericCore(true);
+        getHibernateMojo("gen", "annotationconfiguration").execute();
+
+        assertTrue("can't find Person-struts.xml",
+                checkExists("target/appfuse/generated/src/main/resources/Person-struts.xml"));
+
+        super.setGenericCore(false);
+        getHibernateMojo("gen", "annotationconfiguration").execute();
+
+        assertTrue("can't find Person-struts.xml",
+                checkExists("target/appfuse/generated/src/main/resources/Person-struts.xml"));
     }
 
     @Override

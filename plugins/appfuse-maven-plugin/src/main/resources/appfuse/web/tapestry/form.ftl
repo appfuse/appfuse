@@ -5,9 +5,9 @@ import org.apache.tapestry.engine.ILink;
 import org.apache.tapestry.event.PageBeginRenderListener;
 import org.apache.tapestry.event.PageEvent;
 
-import org.appfuse.service.GenericManager;
+import ${appfusepackage}.service.GenericManager;
 import ${basepackage}.model.${pojo.shortName};
-import org.appfuse.webapp.pages.BasePage;
+import ${appfusepackage}.webapp.pages.BasePage;
 
 public abstract class ${pojo.shortName}Form extends BasePage implements PageBeginRenderListener {
     public abstract GenericManager<${pojo.shortName}, Long> get${pojo.shortName}Manager();
