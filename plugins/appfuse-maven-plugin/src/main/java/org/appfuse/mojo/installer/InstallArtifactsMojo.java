@@ -127,10 +127,35 @@ public class InstallArtifactsMojo extends AbstractMojo {
             } else if ("tapestry".equalsIgnoreCase(webFramework)) {
                 log("Installing Tapestry views and configuring...");
                 installTapestryViews();
+
+                // The version of Tapestry we're using requires i18n messages to be in WEB-INF/tapestry.properties
+                // todo: update to Tapestry 4.1.2 and remove the code below
+                createLoadFileTask("src/main/resources/" + pojoName + "-ApplicationResources.properties", "i18n.tapestry").execute();
+                File i18nFile = new File(destinationDirectory +  "/src/main/webapp/WEB-INF/tapestry.properties"); // todo: handle modular projects
+
+                if (i18nFile.exists()) {
+                    parsePropertiesFile(i18nFile, pojoName);
+
+                    Echo echoTask = (Echo) antProject.createTask("echo");
+                    echoTask.setFile(i18nFile);
+                    echoTask.setAppend(true);
+                    echoTask.setMessage(antProject.getProperty("i18n.tapestry"));
+                    echoTask.execute();
+                } else {
+                    log("Installing i18n messages...");
+                    installInternationalizationKeys();
+                    Copy copy = (Copy) antProject.createTask("copy");
+                    copy.setFile(new File(destinationDirectory + "/src/main/resources/ApplicationResources.properties"));
+                    copy.setTofile(new File(destinationDirectory + "/src/main/webapp/WEB-INF/tapestry.properties"));
+                    copy.execute();
+                }
             }
 
-            log("Installing i18n messages...");
-            installInternationalizationKeys();
+            // todo: remove if statement when Tapestry i18n issue above is solved
+            if (!"tapestry".equalsIgnoreCase(webFramework)) {
+                log("Installing i18n messages...");
+                installInternationalizationKeys();
+            }
 
             log("Installing menu...");
             installMenu();
@@ -165,7 +190,7 @@ public class InstallArtifactsMojo extends AbstractMojo {
     }
 
     /**
-     * Add sample-data.xml to antProject's sample-data.xml
+     * Add sample-data.xml to project's sample-data.xml
      */
     private void installSampleData() {
         createLoadFileTask("src/test/resources/" + pojoName + "-sample-data.xml", "sample.data").execute();

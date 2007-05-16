@@ -33,10 +33,18 @@
         </ant>
     </target>
 
+    <target name="test-tapestry-basic" description="tests plugin with tapestry basic archetype">
+        <ant target="test">
+            <property name="archetype" value="appfuse-basic-tapestry"/>
+            <property name="name" value="basic-tapestry"/>
+        </ant>
+    </target>
+
     <target name="test-all" description="Runs all archetype tests using Ant">
         <antcall target="test-jsf-basic"/>
         <antcall target="test-spring-basic"/>
         <antcall target="test-struts-basic"/>
+        <antcall target="test-tapestry-basic"/>
     </target>
 
     <macrodef name="test">

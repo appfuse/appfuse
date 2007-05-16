@@ -1,54 +1,69 @@
-    <!-- runs ${pojo.shortName.toLowerCase()}-related tests -->
+[#ftl]
+[#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)]
+    <!--${pojo.shortName}-START-->
+    <!-- runs ${pojoNameLower}-related tests -->
     <target name="${pojo.shortName}Tests" depends="Search${pojo.shortName}s,Edit${pojo.shortName},Save${pojo.shortName},Add${pojo.shortName},Delete${pojo.shortName}"
-        description="Call and executes all ${pojo.shortName.toLowerCase()} test cases (targets)">
+        description="Call and executes all ${pojoNameLower} test cases (targets)">
         <echo>Successfully ran all ${pojo.shortName} UI tests!</echo>
     </target>
 
-    <!-- Verify the people list screen displays without errors -->
-    <target name="Search${pojo.shortName}s" description="Tests search for and displaying all ${pojo.shortName.toLowerCase()}s">
+    <!-- Verify the ${pojoNameLower}s list screen displays without errors -->
+    <target name="Search${pojo.shortName}s" description="Tests search for and displaying all ${pojoNameLower}s">
         <webtest name="search${pojo.shortName}s">
             &config;
             <steps>
                 &login;
-                <invoke description="click View ${pojo.shortName}s link" url="/${pojo.shortName}List.html"/>
-                <verifytitle description="we should see the ${pojo.shortName.toLowerCase()}List title"
-                    text=".*${'$'}{${pojo.shortName.toLowerCase()}List.title}.*" regex="true"/>
+                <invoke description="click View ${pojo.shortName} link" url="/${pojo.shortName}List.html"/>
+                <verifytitle description="we should see the ${pojoNameLower}List title"
+                    text=".*${'$'}{${pojoNameLower}List.title}.*" regex="true"/>
             </steps>
         </webtest>
     </target>
 
-    <!-- Verify the edit ${pojo.shortName.toLowerCase()} screen displays without errors -->
+    <!-- Verify the edit ${pojoNameLower} screen displays without errors -->
     <target name="Edit${pojo.shortName}" description="Tests editing an existing ${pojo.shortName}'s information">
         <webtest name="edit${pojo.shortName}">
             &config;
             <steps>
                 &login;
                 <invoke description="View ${pojo.shortName} List" url="/${pojo.shortName}List.html"/>
-                <clicklink description="edit first record in list" label="1"/>
-                <verifytitle description="we should see the ${pojo.shortName.toLowerCase()}Detail title"
-                    text=".*${'$'}{${pojo.shortName.toLowerCase()}Detail.title}.*" regex="true"/>
+                <clicklink description="click on first record in list" label="1"/>
+                <verifytitle description="we should see the ${pojoNameLower}Detail title"
+                    text=".*${'$'}{${pojoNameLower}Detail.title}.*" regex="true"/>
             </steps>
         </webtest>
     </target>
 
-    <!-- Edit a ${pojo.shortName.toLowerCase()} and then save -->
-    <target name="Save${pojo.shortName}" description="Tests editing and saving a user">
+    <!-- Edit a ${pojoNameLower} and then save -->
+    <target name="Save${pojo.shortName}" description="Tests editing and saving a ${pojoNameLower}">
         <webtest name="save${pojo.shortName}">
             &config;
             <steps>
                 &login;
                 <invoke description="View ${pojo.shortName} List" url="/${pojo.shortName}List.html"/>
-                <clicklink description="edit first record in list" label="1"/>
-                <verifytitle description="we should see the ${pojo.shortName.toLowerCase()}Detail title"
-                    text=".*${'$'}{${pojo.shortName.toLowerCase()}Detail.title}.*" regex="true"/>
+                <clicklink description="click on first record in list" label="1"/>
+                <verifytitle description="we should see the ${pojoNameLower}Detail title"
+                    text=".*${'$'}{${pojoNameLower}Detail.title}.*" regex="true"/>
 
                 <!-- update some of the required fields -->
-                <setinputfield description="set firstName" name="firstNameField" value="firstName"/>
-                <setinputfield description="set lastName" name="lastNameField" value="lastName"/>
-                <clickbutton label="${'$'}{button.save}" description="Click Save"/>
+    [#foreach field in pojo.getAllPropertiesIterator()]
+        [#if !field.equals(pojo.identifierProperty)]
+        [#foreach column in field.getColumnIterator()]
+            [#if !field.equals(pojo.identifierProperty) && !column.nullable && !c2h.isCollection(field) && !c2h.isManyToOne(field)]
+                [#if field.value.typeName == "boolean" || field.value.typeName = "java.lang.Boolean"]
+                <setCheckbox description="set ${field.name}" htmlid="${field.name}" value="${data.getValueForWebTest(field.value.typeName)}"/>
+                [#else]
+                <setInputField description="set ${field.name}" htmlid="${field.name}" value="${data.getValueForWebTest(field.value.typeName)}"/>
+                [/#if]
+            [/#if]
+        [/#foreach]
+        [/#if]
+    [/#foreach]
 
+                <clickbutton label="${'$'}{button.save}" description="Click Save"/>
                 <verifytitle description="Page re-appears if save successful"
-                    text=".*${'$'}{${pojo.shortName.toLowerCase()}Detail.title}.*" regex="true"/>
+                    text=".*${'$'}{${pojoNameLower}Detail.title}.*" regex="true"/>
+                <verifytext description="verify success message" text="${'$'}{${pojoNameLower}.updated}"/>
             </steps>
         </webtest>
     </target>
@@ -60,34 +75,47 @@
             <steps>
                 &login;
                 <invoke description="Click Add button" url="/${pojo.shortName}Form.html"/>
-                <verifytitle description="we should see the ${pojo.shortName.toLowerCase()}Detail title"
-                    text=".*${'$'}{${pojo.shortName.toLowerCase()}Detail.title}.*" regex="true"/>
+                <verifytitle description="we should see the ${pojoNameLower}Detail title"
+                    text=".*${'$'}{${pojoNameLower}Detail.title}.*" regex="true"/>
 
                 <!-- enter required fields -->
-                <setinputfield description="set firstName" name="firstNameField" value="Canoo"/>
-                <setinputfield description="set lastName" name="lastNameField" value="Test"/>
-                <clickbutton label="${'$'}{button.save}" description="Click button 'Save'"/>
+    [#foreach field in pojo.getAllPropertiesIterator()]
+        [#if !field.equals(pojo.identifierProperty)]
+        [#foreach column in field.getColumnIterator()]
+            [#if !field.equals(pojo.identifierProperty) && !column.nullable && !c2h.isCollection(field) && !c2h.isManyToOne(field)]
+                [#if field.value.typeName == "boolean" || field.value.typeName = "java.lang.Boolean"]
+                <setCheckbox description="set ${field.name}" htmlid="${field.name}" value="${data.getValueForWebTest(field.value.typeName)}"/>
+                [#else]
+                <setInputField description="set ${field.name}" htmlid="${field.name}" value="${data.getValueForWebTest(field.value.typeName)}"/>
+                [/#if]
+            [/#if]
+        [/#foreach]
+        [/#if]
+    [/#foreach]
 
+                <clickbutton label="${'$'}{button.save}" description="Click button 'Save'"/>
                 <verifytitle description="${pojo.shortName} List appears if save successful"
-                    text=".*${'$'}{${pojo.shortName.toLowerCase()}List.title}.*" regex="true"/>
-                <verifytext description="verify success message" text="${pojo.shortName.toLowerCase()}.added}"/>
+                    text=".*${'$'}{${pojoNameLower}List.title}.*" regex="true"/>
+                <verifytext description="verify success message" text="${'$'}{${pojoNameLower}.added}"/>
             </steps>
         </webtest>
     </target>
 
-    <!-- Delete existing ${pojo.shortName.toLowerCase()} -->
+    <!-- Delete existing ${pojoNameLower} -->
     <target name="Delete${pojo.shortName}" description="Deletes existing ${pojo.shortName}">
         <webtest name="delete${pojo.shortName}">
             &config;
             <steps>
                 &login;
                 <invoke description="View ${pojo.shortName} List" url="/${pojo.shortName}List.html"/>
-                <clicklink description="delete first record in list" label="1"/>
+                <clicklink description="click on first record in list" label="1"/>
                 <prepareDialogResponse description="Confirm delete" dialogType="confirm" response="true"/>
                 <clickbutton label="${'$'}{button.delete}" description="Click button 'Delete'"/>
                 <verifyNoDialogResponses/>
-                <verifytitle description="display ${pojo.shortName} List" text=".*${'$'}{${pojo.shortName.toLowerCase()}List.title}.*" regex="true"/>
-                <verifytext description="verify success message" text="${pojo.shortName.toLowerCase()}.deleted}"/>
+                <verifytitle description="display ${pojo.shortName} List" text=".*${'$'}{${pojoNameLower}List.title}.*" regex="true"/>
+                <verifytext description="verify success message" text="${'$'}{${pojoNameLower}.deleted}"/>
             </steps>
         </webtest>
     </target>
+    <!--${pojo.shortName}-END-->
+</project>

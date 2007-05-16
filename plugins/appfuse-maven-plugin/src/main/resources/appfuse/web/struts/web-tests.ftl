@@ -2,8 +2,7 @@
 [#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)]
     <!--${pojo.shortName}-START-->
     <!-- runs ${pojoNameLower}-related tests -->
-    <target name="${pojo.shortName}Tests"
-            depends="Search${pojo.shortName}s,Edit${pojo.shortName},Save${pojo.shortName},Add${pojo.shortName},Delete${pojo.shortName}"
+    <target name="${pojo.shortName}Tests" depends="Search${pojo.shortName}s,Edit${pojo.shortName},Save${pojo.shortName},Add${pojo.shortName},Delete${pojo.shortName}"
             description="Call and executes all ${pojoNameLower} test cases (targets)">
         <echo>Successfully ran all ${pojo.shortName} UI tests!</echo>
     </target>

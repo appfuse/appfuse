@@ -1,3 +1,4 @@
+<#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
 package ${basepackage}.webapp.pages;
 
 import java.util.HashMap;
@@ -14,7 +15,7 @@ public class ${pojo.shortName}ListTest extends BasePageTestCase {
         super.onSetUpBeforeTransaction();
         // these can be mocked if you want a more "pure" unit test
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("${pojo.shortName.toLowerCase()}Manager", applicationContext.getBean("${pojo.shortName.toLowerCase()}Manager"));
+        map.put("${pojoNameLower}Manager", applicationContext.getBean("${pojoNameLower}Manager"));
         page = (${pojo.shortName}List) getPage(${pojo.shortName}List.class, map);
     }
 

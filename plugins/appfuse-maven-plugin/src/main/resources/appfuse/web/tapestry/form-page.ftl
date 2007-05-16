@@ -1,3 +1,4 @@
+<#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE page-specification PUBLIC
     "-//Apache Software Foundation//Tapestry Specification 4.0//EN"
@@ -7,24 +8,29 @@
     <inject property="engineService" object="engine-service:page"/>
     <inject property="request" object="service:tapestry.globals.HttpServletRequest"/>
     <inject property="response" object="service:tapestry.globals.HttpServletResponse"/>
-    <inject property="${pojo.shortName.toLowerCase()}Manager" type="spring" object="${pojo.shortName.toLowerCase()}Manager"/>
+    <inject property="${pojoNameLower}Manager" type="spring" object="${pojoNameLower}Manager"/>
 
     <property name="message" persist="flash"/>
 
-    <component id="${pojo.shortName.toLowerCase()}Form" type="Form">
+    <component id="${pojoNameLower}Form" type="Form">
         <binding name="delegate" value="ognl:delegate"/>
         <binding name="clientValidationEnabled" value="true"/>
     </component>
 
-    <component id="firstNameField" type="TextField">
-        <binding name="value" value="${pojo.shortName.toLowerCase()}.firstName"/>
-        <binding name="validators" value="validators:required"/>
-        <binding name="displayName" value="message:${pojo.shortName.toLowerCase()}.firstName"/>
-    </component>
+<#foreach field in pojo.getAllPropertiesIterator()>
+<#if !c2h.isCollection(field) && !c2h.isManyToOne(field)>
+    <#foreach column in field.getColumnIterator()>
+    <#if field.value.typeName == "java.lang.String">
 
-    <component id="lastNameField" type="TextField">
-        <binding name="value" value="${pojo.shortName.toLowerCase()}.lastName"/>
-        <binding name="validators" value="validators:required"/>
-        <binding name="displayName" value="message:${pojo.shortName.toLowerCase()}.lastName"/>
+    <component id="${field.name}Field" type="TextField">
+        <binding name="value" value="${pojoNameLower}.${field.name}"/>
+        <#if !column.nullable>
+            <#lt/>        <binding name="validators" value="validators:required"/>
+        </#if>
+        <binding name="displayName" value="message:${pojoNameLower}.${field.name}"/>
     </component>
+    </#if>
+    </#foreach>
+</#if>
+</#foreach>
 </page-specification>

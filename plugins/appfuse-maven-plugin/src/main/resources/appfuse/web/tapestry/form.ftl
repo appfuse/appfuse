@@ -1,3 +1,4 @@
+<#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
 package ${basepackage}.webapp.pages;
 
 import org.apache.tapestry.IRequestCycle;
@@ -5,13 +6,21 @@ import org.apache.tapestry.engine.ILink;
 import org.apache.tapestry.event.PageBeginRenderListener;
 import org.apache.tapestry.event.PageEvent;
 
+<#if genericcore>
 import ${appfusepackage}.service.GenericManager;
-import ${basepackage}.model.${pojo.shortName};
+<#else>
+import ${basepackage}.service.${pojo.shortName}Manager;
+</#if>
+import ${pojo.packageName}.${pojo.shortName};
 import ${appfusepackage}.webapp.pages.BasePage;
 
 public abstract class ${pojo.shortName}Form extends BasePage implements PageBeginRenderListener {
+<#if genericcore>
     public abstract GenericManager<${pojo.shortName}, Long> get${pojo.shortName}Manager();
-    public abstract void set${pojo.shortName}(${pojo.shortName} ${pojo.shortName.toLowerCase()});
+<#else>
+    public abstract ${pojo.shortName}Manager get${pojo.shortName}Manager();
+</#if>
+    public abstract void set${pojo.shortName}(${pojo.shortName} ${pojoNameLower});
     public abstract ${pojo.shortName} get${pojo.shortName}();
 
     public void pageBeginRender(PageEvent event) {
@@ -31,7 +40,7 @@ public abstract class ${pojo.shortName}Form extends BasePage implements PageBegi
         get${pojo.shortName}Manager().remove(get${pojo.shortName}().getId());
 
         ${pojo.shortName}List nextPage = (${pojo.shortName}List) cycle.getPage("${pojo.shortName}List");
-        nextPage.setMessage(getText("${pojo.shortName.toLowerCase()}.deleted"));
+        nextPage.setMessage(getText("${pojoNameLower}.deleted"));
         return getEngineService().getLink(false, nextPage.getPageName());
     }
 
@@ -44,7 +53,7 @@ public abstract class ${pojo.shortName}Form extends BasePage implements PageBegi
 
         get${pojo.shortName}Manager().save(get${pojo.shortName}());
 
-        String key = (isNew) ? "${pojo.shortName.toLowerCase()}.added" : "${pojo.shortName.toLowerCase()}.updated";
+        String key = (isNew) ? "${pojoNameLower}.added" : "${pojoNameLower}.updated";
 
         if (isNew) {
             ${pojo.shortName}List nextPage = (${pojo.shortName}List) cycle.getPage("${pojo.shortName}List");

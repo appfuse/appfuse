@@ -1,4 +1,3 @@
-* test and fix issues with tapestry
 * test and fix issues with modular projects
 * don't hard-code id and Long everywhere
 * Call ModelGeneratorMojo from AppFuseGeneratorMojo to generate from db
@@ -7,3 +6,7 @@
 * test and fix issues with ibatis and jpa (might be many since we expect hibernate.cfg.xml)
 
 * create "full-source" mojo: svn export + adding dependencies
+
+future
+-----------
+* add javadoc (so passes checkstyle)

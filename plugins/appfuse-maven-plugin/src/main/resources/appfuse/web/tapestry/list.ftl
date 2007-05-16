@@ -1,30 +1,40 @@
-<head>
-	<title><span key="${pojo.shortName.toLowerCase()}List.title"/></title>
-	<content tag="heading"><span key="${pojo.shortName.toLowerCase()}List.heading"/></content>
-	<meta name="menu" content="${pojo.shortName}Menu"/>
-</head>
+<#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
+package ${basepackage}.webapp.pages;
 
-<span jwcid="@ShowMessage"/>
+import java.util.List;
 
-<p>
-    <input type="button" class="button" onclick="location.href='${pojo.shortName}Form.html'" jwcid="@Any" value="message:button.add"/>
-    <input type="button" class="button" onclick="location.href='mainMenu.html'" jwcid="@Any" value="message:button.done"/>
-</p>
+<#if genericcore>
+import ${appfusepackage}.service.GenericManager;
+<#else>
+import ${basepackage}.service.${pojo.shortName}Manager;
+</#if>
+import ${pojo.packageName}.${pojo.shortName};
+import ${appfusepackage}.webapp.pages.BasePage;
+import org.apache.tapestry.IRequestCycle;
 
-<table jwcid="table@contrib:Table" class="table contribTable ${pojo.shortName.toLowerCase()}List" id="${pojo.shortName.toLowerCase()}List"
-    rowsClass="ognl:beans.rowsClass.next" row="ognl:row" source="ognl:${pojo.shortName.toLowerCase()}s"
-    columns="${pojo.shortName.toLowerCase()}.id:id,${pojo.shortName.toLowerCase()}.firstName:firstName,${pojo.shortName.toLowerCase()}.lastName:lastName"
-    arrowUpAsset="asset:upArrow" arrowDownAsset="asset:downArrow">
-    <tr jwcid="${pojo.shortName.toLowerCase()}_idColumnValue@Block">
-        <a jwcid="@DirectLink" listener="listener:edit" parameters="ognl:row.id">
-            <span jwcid="@Insert" value="ognl:row.id"/>
-        </a>
-    </tr>
-</table>
+public abstract class ${pojo.shortName}List extends BasePage {
+<#if genericcore>
+    public abstract GenericManager<${pojo.shortName}, Long> get${pojo.shortName}Manager();
+<#else>
+    public abstract ${pojo.shortName}Manager get${pojo.shortName}Manager();
+</#if>
 
-<input type="button" class="button" onclick="location.href='${pojo.shortName}Form.html'" jwcid="@Any" value="message:button.add"/>
-<input type="button" class="button" onclick="location.href='mainMenu.html'" jwcid="@Any" value="message:button.done"/>
+    public List get${pojo.shortName}s() {
+        return get${pojo.shortName}Manager().getAll();
+    }
 
-<script type="text/javascript">
-    highlightTableRows("${pojo.shortName.toLowerCase()}List");
-</script>
+    public void edit(IRequestCycle cycle) {
+        Object[] parameters = cycle.getListenerParameters();
+        Long ${pojo.identifierProperty.name} = (Long) parameters[0];
+
+        if (log.isDebugEnabled()) {
+            log.debug("fetching ${pojoNameLower} with ${pojo.identifierProperty.name}: " + ${pojo.identifierProperty.name});
+        }
+
+        ${pojo.shortName} person = get${pojo.shortName}Manager().get(${pojo.identifierProperty.name});
+
+        ${pojo.shortName}Form nextPage = (${pojo.shortName}Form) cycle.getPage("${pojo.shortName}Form");
+        nextPage.set${pojo.shortName}(person);
+        cycle.activate(nextPage);
+    }
+}
