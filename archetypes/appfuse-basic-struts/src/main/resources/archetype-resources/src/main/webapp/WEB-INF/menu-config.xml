@@ -4,13 +4,13 @@
         <Displayer name="Velocity" type="net.sf.navigator.displayer.VelocityMenuDisplayer"/>
     </Displayers>
     <Menus>
-        <Menu name="MainMenu" title="mainMenu.title" page="/mainMenu.html"/>
+        <Menu name="MainMenu" title="mainMenu.title" page="/mainMenu.html" roles="ROLE_ADMIN,ROLE_USER"/>
         <Menu name="UserMenu" title="menu.user" description="User Menu" page="/editProfile.html" roles="ROLE_ADMIN,ROLE_USER"/>
-        <Menu name="FileUpload" title="menu.selectFile" description="File Upload" width="100" page="/uploadFile!start.html" roles="ROLE_ADMIN,ROLE_USER"/>
         <Menu name="AdminMenu" title="menu.admin" description="Admin Menu" roles="ROLE_ADMIN" width="120" page="/users.html">
             <Item name="ViewUsers" title="menu.admin.users" page="/users.html"/>
             <Item name="ActiveUsers" title="mainMenu.activeUsers" page="/activeUsers.html"/>
             <Item name="ReloadContext" title="menu.admin.reload" page="/reload.html"/>
+            <Item name="FileUpload" title="menu.selectFile" page="/uploadFile!start.html"/>
             <Item name="FlushCache" title="menu.flushCache" page="/flushCache.html"/>
             <Item name="Clickstream" title="menu.clickstream" page="/clickstreams.jsp"/>
         </Menu>
