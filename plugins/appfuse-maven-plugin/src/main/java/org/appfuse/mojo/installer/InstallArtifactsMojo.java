@@ -74,6 +74,13 @@ public class InstallArtifactsMojo extends AbstractMojo {
     private boolean genericCore;
 
     public void execute() throws MojoExecutionException, MojoFailureException {
+        // if project is of type "pom", throw an error
+        if (project.getPackaging().equalsIgnoreCase("pom")) {
+            String errorMsg = "Doh! This plugin cannot be run from a pom project, please run it from a jar or war project (i.e. core or web).";
+            //getLog().error(errorMsg);
+            throw new MojoFailureException(errorMsg);
+        }
+
         pojoName = System.getProperty("entity");
 
         if (pojoName == null) {
@@ -96,11 +103,14 @@ public class InstallArtifactsMojo extends AbstractMojo {
         log("Installing sample data for DbUnit...");
         installSampleData();
 
-        log("Installing Spring bean definitions...");
-        if (genericCore) {
-           installGenericBeanDefinitions();
-        } else {
-           installDaoAndManagerBeanDefinitions();
+        // install dao and manager if jar (modular/core) or war w/o parent (basic)
+        if (project.getPackaging().equals("jar") || (project.getPackaging().equals("war") && project.getParent() == null)) {
+            log("Installing Spring bean definitions...");
+            if (genericCore) {
+               installGenericBeanDefinitions();
+            } else {
+               installDaoAndManagerBeanDefinitions();
+            }
         }
 
         if (project.getPackaging().equalsIgnoreCase("war")) {
@@ -189,6 +199,14 @@ public class InstallArtifactsMojo extends AbstractMojo {
         return name.substring(0,1).toLowerCase()+ name.substring(1);
     }
 
+    private String getPathToApplicationContext() {
+        if (project.getPackaging().equalsIgnoreCase("war")) {
+            return "/src/main/webapp/WEB-INF/applicationContext.xml";
+        } else { // if (project.getPackaging().equalsIgnoreCase("jar")) {
+            return "/src/main/resources/applicationContext.xml";
+        } 
+    }
+
     /**
      * Add sample-data.xml to project's sample-data.xml
      */
@@ -201,19 +219,19 @@ public class InstallArtifactsMojo extends AbstractMojo {
 
     private void installDaoAndManagerBeanDefinitions() {
         createLoadFileTask("src/main/resources/" + pojoName + "Dao-bean.xml", "dao.context.file").execute();
-        File generatedFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/applicationContext.xml"); // todo: handle modular projects
+        File generatedFile = new File(destinationDirectory + getPathToApplicationContext());
 
         parseXMLFile(generatedFile, pojoName + "Dao", "<!-- Add new DAOs here -->", "dao.context.file");
 
         createLoadFileTask("src/main/resources/" + pojoName + "Manager-bean.xml", "mgr.context.file").execute();
-        generatedFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/applicationContext.xml"); // todo: handle modular projects
+        generatedFile = new File(destinationDirectory + getPathToApplicationContext()); 
 
         parseXMLFile(generatedFile, pojoName + "Manager", "<!-- Add new Managers here -->", "mgr.context.file");
     }
 
     private void installGenericBeanDefinitions() {
         createLoadFileTask("src/main/resources/" + pojoName + "-generic-beans.xml", "context.file").execute();
-        File generatedFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/applicationContext.xml"); // todo: handle modular projects
+        File generatedFile = new File(destinationDirectory + getPathToApplicationContext());
 
         parseXMLFile(generatedFile, pojoName + "Manager", "<!-- Add new Managers here -->", "context.file");
     }
@@ -245,7 +263,7 @@ public class InstallArtifactsMojo extends AbstractMojo {
 
     private void installStrutsBeanDefinition() {
         createLoadFileTask("src/main/webapp/WEB-INF/" + pojoName + "-struts-bean.xml", "struts.context.file").execute();
-        File generatedFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/applicationContext.xml"); // todo: handle modular projects
+        File generatedFile = new File(destinationDirectory + getPathToApplicationContext()); // todo: handle modular projects
 
         parseXMLFile(generatedFile, pojoName + "Action", "<!-- Add new Actions here -->", "struts.context.file");
     }

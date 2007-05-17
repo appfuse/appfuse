@@ -4,80 +4,127 @@
 
     <property name="version" value="2.0-m5-SNAPSHOT"/>
     <property name="archetype" value="${archetype}"/>
-    <property name="name" value="test-project"/>
     <property name="test.dir" value="${basedir}/target"/>
 
-    <target name="test" description="Tests that code generation works with archetype">
-        <echo message="Creating archetype '${archetype}', version '${version}'"/>
-        <test archetype="${archetype}" version="${version}" name="${name}"/>
-    </target>
-
     <target name="test-jsf-basic" description="tests plugin with jsf basic archetype">
-        <ant target="test">
-            <property name="archetype" value="appfuse-basic-jsf"/>
-            <property name="name" value="basic-jsf"/>
-        </ant>
+        <create-gen-basic archetype="appfuse-basic-jsf" name="basic-jsf"/>
     </target>
 
     <target name="test-spring-basic" description="tests plugin with spring basic archetype">
-        <ant target="test">
-            <property name="archetype" value="appfuse-basic-spring"/>
-            <property name="name" value="basic-spring"/>
-        </ant>
+        <create-gen-basic archetype="appfuse-basic-spring" name="basic-spring"/>
     </target>
 
     <target name="test-struts-basic" description="tests plugin with struts basic archetype">
-        <ant target="test">
-            <property name="archetype" value="appfuse-basic-struts"/>
-            <property name="name" value="basic-struts"/>
-        </ant>
+        <create-gen-basic archetype="appfuse-basic-struts" name="basic-struts"/>
     </target>
 
     <target name="test-tapestry-basic" description="tests plugin with tapestry basic archetype">
-        <ant target="test">
-            <property name="archetype" value="appfuse-basic-tapestry"/>
-            <property name="name" value="basic-tapestry"/>
-        </ant>
+        <create-gen-basic archetype="appfuse-basic-tapestry" name="basic-tapestry"/>
     </target>
 
-    <target name="test-all" description="Runs all archetype tests using Ant">
+    <target name="test-basic" description="Runs all basic archetype tests using Ant">
         <antcall target="test-jsf-basic"/>
         <antcall target="test-spring-basic"/>
         <antcall target="test-struts-basic"/>
         <antcall target="test-tapestry-basic"/>
     </target>
 
-    <macrodef name="test">
+    <target name="test-jsf-modular" description="tests plugin with jsf modular archetype">
+        <create-gen-modular archetype="appfuse-modular-jsf" name="modular-jsf"/>
+    </target>
+
+    <target name="test-spring-modular" description="tests plugin with spring modular archetype">
+        <create-gen-modular archetype="appfuse-modular-spring" name="modular-spring"/>
+    </target>
+
+    <target name="test-struts-modular" description="tests plugin with struts modular archetype">
+        <create-gen-modular archetype="appfuse-modular-struts" name="modular-struts"/>
+    </target>
+
+    <target name="test-tapestry-modular" description="tests plugin with tapestry modular archetype">
+        <create-gen-modular archetype="appfuse-modular-tapestry" name="modular-tapestry"/>
+    </target>
+
+    <target name="test-modular" description="Runs all modular archetype tests using Ant">
+        <antcall target="test-jsf-modular"/>
+        <antcall target="test-spring-modular"/>
+        <antcall target="test-struts-modular"/>
+        <antcall target="test-tapestry-modular"/>
+    </target>
+
+    <target name="test-all" depends="test-basic,test-modular"/>
+
+    <macrodef name="create-gen-basic">
         <attribute name="archetype"/>
         <attribute name="version" default="${version}"/>
         <attribute name="name"/>
-        
+
         <sequential>
-            <delete dir="${test.dir}/${name}"/>
+            <delete dir="${test.dir}/@{name}"/>
             <mkdir dir="${test.dir}"/>
             <maven dir="${test.dir}" archetype="@{archetype}" version="@{version}" name="@{name}"/>
 
             <!-- copy Person.java to src -->
-            <copy todir="${test.dir}/${name}/src/main/java/com">
+            <copy todir="${test.dir}/@{name}/src/main/java/com">
                 <fileset dir="src/test/java/com" includes="**/*.java"/>
             </copy>
 
-            <!-- add person to hibernate.cfg.xml -->
-            <replace file="${test.dir}/${name}/src/main/resources/hibernate.cfg.xml">
+            <!-- add Person to hibernate.cfg.xml -->
+            <replace file="${test.dir}/@{name}/src/main/resources/hibernate.cfg.xml">
                 <replacetoken><![CDATA[<mapping class="org.appfuse.model.Role"/>]]></replacetoken>
                 <replacevalue><![CDATA[<mapping class="org.appfuse.model.Role"/>
         <mapping class="com.company.model.Person"/>]]></replacevalue>
             </replace>
 
             <!-- run gen install integration-test -->
-            <maven dir="${test.dir}/${name}" command="appfuse:gen -Dentity=Person"/>
-            <maven dir="${test.dir}/${name}" command="appfuse:install -Dentity=Person"/>
-            <maven dir="${test.dir}/${name}" command="integration-test"/>
+            <maven dir="${test.dir}/@{name}" command="appfuse:gen -Dentity=Person"/>
+            <maven dir="${test.dir}/@{name}" command="appfuse:install -Dentity=Person"/>
+            <maven dir="${test.dir}/@{name}" command="integration-test"/>
 
             <!-- test w/o generic core -->
-            <maven dir="${test.dir}/${name}" command="appfuse:gen -Dentity=Person -Damp.genericCore=false"/>
-            <maven dir="${test.dir}/${name}" command="appfuse:install -Dentity=Person -Damp.genericCore=false"/>
-            <maven dir="${test.dir}/${name}" command="integration-test"/>
+            <maven dir="${test.dir}/@{name}" command="appfuse:gen -Dentity=Person -Damp.genericCore=false"/>
+            <maven dir="${test.dir}/@{name}" command="appfuse:install -Dentity=Person -Damp.genericCore=false"/>
+            <maven dir="${test.dir}/@{name}" command="integration-test"/>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="create-gen-modular">
+        <attribute name="archetype"/>
+        <attribute name="version" default="${version}"/>
+        <attribute name="name"/>
+
+        <sequential>
+            <delete dir="${test.dir}/@{name}"/>
+            <mkdir dir="${test.dir}"/>
+            <maven dir="${test.dir}" archetype="@{archetype}" version="@{version}" name="@{name}"/>
+
+            <!-- copy Person.java to core/src -->
+            <copy todir="${test.dir}/@{name}/core/src/main/java/com">
+                <fileset dir="src/test/java/com" includes="**/*.java"/>
+            </copy>
+
+            <!-- add Person to hibernate.cfg.xml -->
+            <replace file="${test.dir}/@{name}/core/src/main/resources/hibernate.cfg.xml">
+                <replacetoken><![CDATA[<mapping class="org.appfuse.model.Role"/>]]></replacetoken>
+                <replacevalue><![CDATA[<mapping class="org.appfuse.model.Role"/>
+        <mapping class="com.company.model.Person"/>]]></replacevalue>
+            </replace>
+
+            <maven dir="${test.dir}/@{name}" command="install -N"/>
+            
+            <!-- gen and test core -->
+            <maven dir="${test.dir}/@{name}/core" command="appfuse:gen -Dentity=Person -Damp.genericCore=false"/>
+            <maven dir="${test.dir}/@{name}/core" command="appfuse:install -Dentity=Person -Damp.genericCore=false"/>
+            <maven dir="${test.dir}/@{name}/core" command="install"/>
+
+            <!-- copy hibernate.cfg.xml to web project (todo: read from core.jar) -->
+            <copy file="${test.dir}/@{name}/core/src/main/resources/hibernate.cfg.xml"
+                  todir="${test.dir}/@{name}/web/src/main/resources"/>
+
+            <!-- get and test web -->
+            <maven dir="${test.dir}/@{name}/web" command="appfuse:gen -Dentity=Person -Damp.genericCore=false"/>
+            <maven dir="${test.dir}/@{name}/web" command="appfuse:install -Dentity=Person -Damp.genericCore=false"/>
+            <maven dir="${test.dir}/@{name}/web" command="install"/>
         </sequential>
     </macrodef>
 

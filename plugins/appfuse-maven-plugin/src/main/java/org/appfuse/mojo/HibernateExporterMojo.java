@@ -125,6 +125,13 @@ public abstract class HibernateExporterMojo extends AbstractMojo implements Expo
      * @see org.apache.maven.plugin.Mojo#execute()
      */
     public void execute() throws MojoExecutionException, MojoFailureException {
+        // if project is of type "pom", throw an error
+        if (getProject().getPackaging().equalsIgnoreCase("pom")) {
+            String errorMsg = "Doh! This plugin cannot be run from a pom project, please run it from a jar or war project (i.e. core or web).";
+            //getLog().error(errorMsg);
+            throw new MojoFailureException(errorMsg);
+        }
+
         Thread currentThread = Thread.currentThread();
         ClassLoader oldClassLoader = currentThread.getContextClassLoader();
 
@@ -222,8 +229,7 @@ public abstract class HibernateExporterMojo extends AbstractMojo implements Expo
      *
      * @throws MojoExecutionException When there is an erro executing the plugin
      */
-    protected void doExecute()
-            throws MojoExecutionException {
+    protected void doExecute() throws MojoExecutionException {
         configureExporter(createExporter()).start();
     }
 

@@ -88,7 +88,7 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
                 mfe.printStackTrace();
             }*//*
         }*/
-
+        
         String pojoName = System.getProperty("entity");
 
         if (pojoName == null) {

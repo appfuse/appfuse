@@ -1,11 +1,17 @@
-* test and fix issues with modular projects
 * don't hard-code id and Long everywhere
-* Call ModelGeneratorMojo from AppFuseGeneratorMojo to generate from db
-* aggregate "gen and install" into single call (lifecycles?)
-* modify install mojo to handle gen-core and gen-web
-* test and fix issues with ibatis and jpa (might be many since we expect hibernate.cfg.xml)
-
+* allow 'web' modular project to read hibernate.cfg.xml from core.jar
+  * currently, you have to copy hibernate.cfg.xml from core/src/main/resources
+    to web/src/main/resources
+* update documentation to explain usage and current issues
 * create "full-source" mojo: svn export + adding dependencies
+* change tutorials to reflect that applicationContext.xml might already exist
+
+--> Release 2.0 M5
+
+* tune down logging so users don't see output from plugin
+* aggregate "gen and install" into single call (lifecycles?)
+* prompt user for table or pojo and handle appropriately
+* test and fix issues with ibatis and jpa (might be many since we expect hibernate.cfg.xml)
 
 future
 -----------
