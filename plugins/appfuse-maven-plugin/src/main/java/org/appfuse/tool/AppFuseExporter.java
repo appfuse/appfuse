@@ -186,6 +186,8 @@ public class AppFuseExporter extends GenericExporter {
     private String getDaoFilename(String daoFramework) {
         if (daoFramework.equalsIgnoreCase("ibatis")) {
             return "iBatis";
+        } else if (daoFramework.equalsIgnoreCase("jpa-hibernate")) {
+            return "Jpa";
         } else {
             return Character.toUpperCase(daoFramework.charAt(0)) + daoFramework.substring(1);
         }

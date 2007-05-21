@@ -92,14 +92,21 @@ public class InstallSourceMojo extends AbstractMojo {
         }
 
         log("Source successfully exported, modifying pom.xml...");
-        log("Removing maven-warpath-plugin ...");
-        Project antProject = AntUtils.createProject();
-        ReplaceRegExp regExpTask = (ReplaceRegExp) antProject.createTask("replaceregexp");
-        regExpTask.setFile(new File("pom.xml"));
-        regExpTask.setMatch("<artifactId>maven-warpath-plugin</artifactId>(?s:.)</plugin>");
-        regExpTask.setReplace("");
-        regExpTask.setFlags("m");
-        regExpTask.execute();
+        removeWarpathPlugin();
+        
+        // Add dependencies from appfuse-${dao.framework}
+        
+        // Add dependencies from appfuse-service
+        
+        // Add dependencies from appfuse-common-web
+        
+        // Add dependencies from appfuse-${web.framework}
+        
+        // Change spring-mock and jmock dependencies to use <optional>true</option> instead of <scope>test</scope>.
+        // This is necessary because Base*TestCase classes are in src/main/java. If we move these classes to their
+        // own test module, this will no longer be necessary. For the first version of this mojo, it seems easier
+        // to follow the convention used in AppFuse rather than creating a test module and changing all modules to
+        // depend on it.
     }
 
     private void export(String url) throws MojoExecutionException {
@@ -115,11 +122,10 @@ public class InstallSourceMojo extends AbstractMojo {
              * Utility method SVNErrorMessage.getFullMessage() may be used instead of the loop.
              */
             while (err != null) {
-                System.err.println(err.getErrorCode().getCode() + " : " + err.getMessage());
+                getLog().error(err.getErrorCode().getCode() + " : " + err.getMessage());
                 err = err.getChildErrorMessage();
             }
-
-            throw new  MojoExecutionException(e.getMessage());
+            throw new MojoExecutionException(e.getMessage());
         }
     }
 
@@ -134,5 +140,16 @@ public class InstallSourceMojo extends AbstractMojo {
 
     private void log(String msg) {
         getLog().info("[AppFuse] " + msg);
+    }
+    
+    private void removeWarpathPlugin() {
+        log("Removing maven-warpath-plugin ...");
+        Project antProject = AntUtils.createProject();
+        ReplaceRegExp regExpTask = (ReplaceRegExp) antProject.createTask("replaceregexp");
+        regExpTask.setFile(new File("pom.xml"));
+        regExpTask.setMatch("\\s*<plugin>\\s*<groupId>org.appfuse</groupId>(?s:.)*?<artifactId>maven-warpath-plugin</artifactId>(?s:.)*?</plugin>");
+        regExpTask.setReplace("");
+        regExpTask.setFlags("g");
+        regExpTask.execute();
     }
 }

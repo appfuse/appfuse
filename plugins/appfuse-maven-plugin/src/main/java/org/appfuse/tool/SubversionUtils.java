@@ -163,7 +163,7 @@ public class SubversionUtils {
          */
         repository.update(latestRevision, null, true, reporterBaton, exportEditor);
 
-        System.out.println("Exported revision: " + latestRevision);
+        //System.out.println("Exported revision: " + latestRevision);
     }
 
     /*
@@ -247,7 +247,7 @@ public class SubversionUtils {
                 if (!newDir.mkdirs()) {
                     SVNErrorMessage err = SVNErrorMessage.create(SVNErrorCode.IO_ERROR, "error: failed to add the directory ''{0}''.", newDir);
                     //throw new SVNException(err);
-                    System.err.println(err.getMessage() + "Ignoring and not overriding.");
+                    //System.err.println(err.getMessage() + "Ignoring and not overriding.");
                 }
             }
             //System.out.println("dir added: " + path);
@@ -290,7 +290,7 @@ public class SubversionUtils {
             File file = new File(myRootDirectory, path);
             if (file.exists()) {
                 SVNErrorMessage err = SVNErrorMessage.create(SVNErrorCode.IO_ERROR, "error: exported file ''{0}'' already exists!", file);
-                System.err.println(err.getMessage() + "Ignoring and not overriding.");
+                //System.err.println(err.getMessage() + "Ignoring and not overriding.");
                 // throw new SVNException(err);
             } else {
                 try {
