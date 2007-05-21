@@ -52,6 +52,7 @@ public class AppFuseExporter extends GenericExporter {
     }
 
     private void generateCore() {
+        //noinspection UnnecessaryUnboxing
         boolean genericCore = Boolean.valueOf(getProperties().getProperty("genericcore")).booleanValue();
 
         // generate sample-data.xml

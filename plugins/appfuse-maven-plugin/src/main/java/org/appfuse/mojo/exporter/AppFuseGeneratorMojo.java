@@ -1,18 +1,13 @@
 package org.appfuse.mojo.exporter;
 
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
 import org.appfuse.mojo.HibernateExporterMojo;
 import org.appfuse.tool.AppFuseExporter;
-import org.hibernate.tool.hbm2x.Exporter;
 import org.codehaus.plexus.components.interactivity.Prompter;
 import org.codehaus.plexus.components.interactivity.PrompterException;
+import org.hibernate.tool.hbm2x.Exporter;
 
 import java.io.File;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Generates Java classes from set of annotated POJOs
@@ -35,6 +30,7 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
 
     /**
      * @parameter expression="${appfuse.genericCore}" default-value="true"
+     * @noinspection UnusedDeclaration
      */
     private boolean genericCore;
 

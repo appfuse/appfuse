@@ -176,7 +176,7 @@ public abstract class HibernateExporterMojo extends AbstractMojo implements Expo
         String implementation = getComponentProperty("implementation", getComponent().getImplementation());
 
         ComponentConfiguration componentConfiguration = getComponentConfiguration(implementation);
-        getLog().info("using " + componentConfiguration.getName() + " task.");
+        getLog().debug("using " + componentConfiguration.getName() + " task.");
 
         Properties properties = new Properties();
         properties.putAll(componentProperties);
