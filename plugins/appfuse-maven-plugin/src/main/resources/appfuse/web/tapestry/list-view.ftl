@@ -1,7 +1,7 @@
 <#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
 <head>
 	<title><span key="${pojoNameLower}List.title"/></title>
-	<content tag="heading"><span key="${pojoNameLower}List.heading"/></content>
+    <meta name="heading" jwcid="@Any" content="message:${pojoNameLower}List.heading"/>
 	<meta name="menu" content="${pojo.shortName}Menu"/>
 </head>
 

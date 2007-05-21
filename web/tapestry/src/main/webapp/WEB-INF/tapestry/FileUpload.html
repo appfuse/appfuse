@@ -1,9 +1,11 @@
-<title><span key="upload.title"/></title>
-<meta name="heading" content="<span key='upload.heading'/>"/>
-<meta name="menu" content="FileUpload"/>
+<head>
+    <title><span key="upload.title"/></title>
+    <meta name="heading" jwcid="@Any" content="message:upload.heading"/>
+    <meta name="menu" content="AdminMenu"/>
+</head>
+
 <body jwcid="@Body">
 
-<!--<span jwcid="@ShowValidationError" delegate="ognl:beans.delegate"/>-->
 <span jwcid="@ShowValidationError" delegate="ognl:delegate"/>
 <span jwcid="@ShowMessage"/>
 

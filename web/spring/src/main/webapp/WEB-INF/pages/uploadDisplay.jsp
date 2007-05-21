@@ -3,7 +3,7 @@
 <head>
     <title><fmt:message key="display.title"/></title>
     <meta name="heading" content="<fmt:message key='display.heading'/>"/>
-    <meta name="menu" content="FileUpload"/>
+    <meta name="menu" content="AdminMenu"/>
 </head>
 
 <p>Below is a list of attributes that were gathered in FileUploadController.java.</p>
