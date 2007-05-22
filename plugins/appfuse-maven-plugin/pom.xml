@@ -117,7 +117,7 @@
                     <prefix>appfuse</prefix>
                 </configuration>
             </plugin>
-            <plugin>
+            <!--<plugin>
                 <artifactId>maven-docck-plugin</artifactId>
                 <executions>
                     <execution>
@@ -126,7 +126,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
         </plugins>
     </build>
 

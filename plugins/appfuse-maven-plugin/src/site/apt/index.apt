@@ -12,7 +12,7 @@ Maven AppFuse Plugin
 
 * Goals Overview
 
-  The Maven AppFuse Plugin has seven goals.
+  The Maven AppFuse Plugin has several goals.
   
   * {{{gen-model-mojo.html}appfuse:gen-model}}: Generates Java classes from database tables.
   

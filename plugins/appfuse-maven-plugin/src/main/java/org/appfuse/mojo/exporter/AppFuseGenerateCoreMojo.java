@@ -3,8 +3,6 @@ package org.appfuse.mojo.exporter;
 import org.hibernate.tool.hbm2x.Exporter;
 import org.apache.maven.plugin.MojoExecutionException;
 
-import java.util.Properties;
-
 /**
  * Generates Java classes for DAOs and Managers from set of annotated POJOs
  *

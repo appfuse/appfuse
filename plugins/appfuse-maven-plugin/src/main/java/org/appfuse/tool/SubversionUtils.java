@@ -1,9 +1,5 @@
 package org.appfuse.tool;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
-
 import org.tmatesoft.svn.core.SVNCommitInfo;
 import org.tmatesoft.svn.core.SVNErrorCode;
 import org.tmatesoft.svn.core.SVNErrorMessage;
@@ -22,6 +18,10 @@ import org.tmatesoft.svn.core.io.SVNRepositoryFactory;
 import org.tmatesoft.svn.core.io.diff.SVNDeltaProcessor;
 import org.tmatesoft.svn.core.io.diff.SVNDiffWindow;
 import org.tmatesoft.svn.core.wc.SVNWCUtil;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
 
 /*
  * This example program export contents of the repository directory into file system using
@@ -243,13 +243,13 @@ public class SubversionUtils {
          */
         public void addDir(String path, String copyFromPath, long copyFromRevision) throws SVNException {
             File newDir = new File(myRootDirectory, path);
-            if (!newDir.exists()) {
+            /*if (!newDir.exists()) {
                 if (!newDir.mkdirs()) {
                     SVNErrorMessage err = SVNErrorMessage.create(SVNErrorCode.IO_ERROR, "error: failed to add the directory ''{0}''.", newDir);
                     //throw new SVNException(err);
-                    //System.err.println(err.getMessage() + "Ignoring and not overriding.");
+                    System.err.println(err.getMessage() + "Ignoring and not overriding.");
                 }
-            }
+            }*/
             //System.out.println("dir added: " + path);
         }
 
@@ -289,9 +289,9 @@ public class SubversionUtils {
         public void addFile(String path, String copyFromPath, long copyFromRevision) throws SVNException {
             File file = new File(myRootDirectory, path);
             if (file.exists()) {
-                SVNErrorMessage err = SVNErrorMessage.create(SVNErrorCode.IO_ERROR, "error: exported file ''{0}'' already exists!", file);
+                //SVNErrorMessage err = SVNErrorMessage.create(SVNErrorCode.IO_ERROR, "error: exported file ''{0}'' already exists!", file);
                 //System.err.println(err.getMessage() + "Ignoring and not overriding.");
-                // throw new SVNException(err);
+                //throw new SVNException(err);
             } else {
                 try {
                     file.createNewFile();
