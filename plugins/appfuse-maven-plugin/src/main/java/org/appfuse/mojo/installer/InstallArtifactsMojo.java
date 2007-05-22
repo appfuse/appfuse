@@ -141,7 +141,7 @@ public class InstallArtifactsMojo extends AbstractMojo {
                 // The version of Tapestry we're using requires i18n messages to be in WEB-INF/tapestry.properties
                 // todo: update to Tapestry 4.1.2 and remove the code below
                 createLoadFileTask("src/main/resources/" + pojoName + "-ApplicationResources.properties", "i18n.tapestry").execute();
-                File i18nFile = new File(destinationDirectory +  "/src/main/webapp/WEB-INF/tapestry.properties"); // todo: handle modular projects
+                File i18nFile = new File(destinationDirectory +  "/src/main/webapp/WEB-INF/tapestry.properties");
 
                 if (i18nFile.exists()) {
                     parsePropertiesFile(i18nFile, pojoName);
@@ -212,7 +212,7 @@ public class InstallArtifactsMojo extends AbstractMojo {
      */
     private void installSampleData() {
         createLoadFileTask("src/test/resources/" + pojoName + "-sample-data.xml", "sample.data").execute();
-        File existingFile = new File(destinationDirectory + "/src/test/resources/sample-data.xml"); // todo: handle modular projects
+        File existingFile = new File(destinationDirectory + "/src/test/resources/sample-data.xml"); 
 
         parseXMLFile(existingFile, null, "</dataset>", "sample.data");
     }
@@ -238,32 +238,32 @@ public class InstallArtifactsMojo extends AbstractMojo {
 
     private void installJSFNavigationAndBeans() {
         createLoadFileTask("src/main/webapp/WEB-INF/" + pojoName + "-navigation.xml", "navigation.rules").execute();
-        File generatedFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/faces-config.xml"); // todo: handle modular projects
+        File generatedFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/faces-config.xml");
         parseXMLFile(generatedFile, pojoName + "-nav", "<!-- Add additional rules here -->", "navigation.rules");
 
         createLoadFileTask("src/main/webapp/WEB-INF/" + pojoName + "-managed-beans.xml", "managed.beans").execute();
-        generatedFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/faces-config.xml"); // todo: handle modular projects
+        generatedFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/faces-config.xml");
         parseXMLFile(generatedFile, pojoName + "-beans", "<!-- Add additional beans here -->", "managed.beans");
     }
 
 
     private void installSpringControllerBeanDefinitions() {
         createLoadFileTask("src/main/webapp/WEB-INF/" + pojoName + "-beans.xml", "dispatcher.servlet").execute();
-        File generatedFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/dispatcher-servlet.xml"); // todo: handle modular projects
+        File generatedFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/dispatcher-servlet.xml");
 
         parseXMLFile(generatedFile, pojoName, "<!-- Add additional controller beans here -->", "dispatcher.servlet");
     }
 
     private void installSpringValidation() {
         createLoadFileTask("src/main/webapp/WEB-INF/" + pojoName + "-validation.xml", "struts.validation").execute();
-        File generatedFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/validation.xml"); // todo: handle modular projects
+        File generatedFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/validation.xml");
 
         parseXMLFile(generatedFile, pojoName, "    </formset>", "struts.validation");
     }
 
     private void installStrutsBeanDefinition() {
         createLoadFileTask("src/main/webapp/WEB-INF/" + pojoName + "-struts-bean.xml", "struts.context.file").execute();
-        File generatedFile = new File(destinationDirectory + getPathToApplicationContext()); // todo: handle modular projects
+        File generatedFile = new File(destinationDirectory + getPathToApplicationContext());
 
         parseXMLFile(generatedFile, pojoName + "Action", "<!-- Add new Actions here -->", "struts.context.file");
     }
@@ -330,19 +330,19 @@ public class InstallArtifactsMojo extends AbstractMojo {
 
     private void installMenu() {
         createLoadFileTask("src/main/webapp/common/" + pojoName + "-menu.jsp", "menu.jsp").execute();
-        File existingFile = new File(destinationDirectory + "/src/main/webapp/common/menu.jsp"); // todo: handle modular projects
+        File existingFile = new File(destinationDirectory + "/src/main/webapp/common/menu.jsp");
 
         parseXMLFile(existingFile, pojoName, "</ul>", "menu.jsp");
 
         createLoadFileTask("src/main/webapp/WEB-INF/" + pojoName + "-menu-config.xml", "menu.config").execute();
-        existingFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/menu-config.xml"); // todo: handle modular projects
+        existingFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/menu-config.xml");
 
         parseXMLFile(existingFile, pojoName, "    </Menus>", "menu.config");
     }
 
     private void installInternationalizationKeys() {
         createLoadFileTask("src/main/resources/" + pojoName + "-ApplicationResources.properties", "i18n.file").execute();
-        File existingFile = new File(destinationDirectory +  "/src/main/resources/ApplicationResources.properties"); // todo: handle modular projects
+        File existingFile = new File(destinationDirectory +  "/src/main/resources/ApplicationResources.properties");
 
         parsePropertiesFile(existingFile, pojoName);
 
@@ -355,7 +355,7 @@ public class InstallArtifactsMojo extends AbstractMojo {
 
     private void installUITests() {
         createLoadFileTask("src/test/resources/" + pojoName + "-web-tests.xml", "web.tests").execute();
-        File existingFile = new File(destinationDirectory + "/src/test/resources/web-tests.xml"); // todo: handle modular projects
+        File existingFile = new File(destinationDirectory + "/src/test/resources/web-tests.xml");
 
         parseXMLFile(existingFile, pojoName, "</project>", "web.tests");
 
