@@ -1,5 +1,5 @@
 <#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
-#assign getIdMethodName = pojo.getGetterSignature(pojo.identifierProperty)>
+<#assign getIdMethodName = pojo.getGetterSignature(pojo.identifierProperty)>
 <#assign setIdMethodName = 'set' + pojo.getPropertyName(pojo.identifierProperty)>
 <#assign identifierType = pojo.getJavaTypeName(pojo.identifierProperty, jdk5)>
 package ${basepackage}.webapp.action;
