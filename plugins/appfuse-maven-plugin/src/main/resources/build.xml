@@ -1,0 +1,364 @@
+<?xml version="1.0"?>
+<project name="appfuse-light" basedir="." default="help" xmlns:artifact="urn:maven-artifact-ant">
+    <property name="src.dir" value="src/main/java"/>
+    <property name="resources.dir" value="src/main/resources"/>
+    <property name="web.dir" value="src/main/webapp"/>
+    <property name="test.src" value="src/test/java"/>
+    <property name="test.resources.dir" value="src/test/resources"/>
+    <property name="dist.dir" value="dist"/>
+    <property name="build.dir" value="target"/>
+    <property name="test.dir" value="${build.dir}/test"/>
+    
+    <property file="build.properties"/>
+    <property file="${build.dir}/test-classes/jdbc.properties"/>
+    
+    <property name="webapp.name" value="appfuse-light"/>
+    <property name="webapp.version" value="1.0"/>
+
+    <property environment="env"/>
+    <property name="cargo.server" value="tomcat5x"/>
+    <property name="server.home" value="${env.CATALINA_HOME}"/>
+    <property name="deploy.dir" value="${server.home}/webapps"/>
+
+    <typedef resource="org/apache/maven/artifact/ant/antlib.xml" uri="urn:maven-artifact-ant">
+        <classpath>
+            <pathelement location="${basedir}/lib/maven-artifact-ant-2.0.4-dep.jar" />
+        </classpath>
+    </typedef>
+    
+    <artifact:pom file="pom.xml" id="maven.project"/>
+
+    <artifact:dependencies pathId="compile.classpath" filesetId="compile.fileset" useScope="compile">
+        <pom refid="maven.project"/>
+    </artifact:dependencies>
+    
+    <artifact:dependencies pathId="test.classpath" filesetId="test.fileset" useScope="test">
+        <pom refid="maven.project"/>
+    </artifact:dependencies>
+    
+    <artifact:dependencies pathId="runtime.classpath" filesetId="runtime.fileset" useScope="runtime">
+        <pom refid="maven.project"/>
+    </artifact:dependencies>
+
+    <target name="help">
+        <echo message=""/>
+        <echo message="${webapp.name} build file"/>
+        <echo message="-----------------------------------"/>
+        <echo message=""/>
+        <echo message="Available targets are:"/>
+        <echo message=""/>
+        <echo message="compile      --> Compile all Java files"/>
+        <echo message="test         --> Runs JUnit tests"/>
+        <echo message="test-web     --> Runs jWebUnit tests in a running container"/>
+        <echo message="test-tomcat  --> Starts Tomcat to run jWebUnit tests"/>
+        <echo message="test-all     --> Runs all JUnit and jWebUnit tests"/>
+        <echo message=""/>
+        <echo message="war          --> Package as WAR file"/>
+        <echo message="deploy       --> Deploy application as directory"/>
+        <echo message="undeploy     --> Deletes application from server"/>
+        <echo message="deploywar    --> Deploy application as a WAR file"/>
+        <echo message=""/>
+        <echo message="clean        --> Deletes compiled classes and WAR"/>
+        <echo message="new          --> Creates a new project"/>
+    </target>
+        
+    <target name="compile" description="Compile main source tree java files">
+        <mkdir dir="${build.dir}/classes"/>
+        <javac destdir="${build.dir}/classes" debug="true" optimize="false"
+            deprecation="false" failonerror="true" source="1.5" target="1.5">
+            <src path="${src.dir}"/>
+            <classpath>
+                <path refid="compile.classpath"/>
+            </classpath>
+        </javac>
+        <!-- compile tests -->
+        <mkdir dir="${test.dir}/classes"/>
+        <javac destdir="${test.dir}/classes" debug="true" optimize="false"
+            deprecation="false" failonerror="true" source="1.5" target="1.5">
+            <src path="${test.src}"/>
+            <classpath>
+                <path refid="test.classpath"/>
+                <path location="${build.dir}/classes"/>
+            </classpath>
+        </javac>
+        <!-- Copy XML files to ${build.dir}/classes -->
+        <copy todir="${build.dir}/classes">
+            <fileset dir="${src.dir}" includes="**/*.xml"/>
+        </copy>
+    </target>
+
+    <target name="test" depends="compile" description="Runs JUnit tests">
+        <!-- Check that junit.jar is in $ANT_HOME/lib -->
+        <available classname="junit.framework.TestCase" property="junit.present"/>
+        <fail unless="junit.present"
+            message="Please copy ~/.m2/repository/junit/junit/3.8.2/junit-3.8.2.jar into ${env.ANT_HOME}/lib"/>
+
+        <mkdir dir="${test.dir}/data"/>
+        <junit printsummary="no" fork="true" forkmode="once"
+            errorProperty="test.failed" failureProperty="test.failed">
+            <classpath>
+                <path refid="compile.classpath"/>
+                <path refid="test.classpath"/>
+                <path location="${build.dir}/classes"/>
+                <path location="${resources.dir}"/>
+                <path location="${test.dir}/classes"/>
+                <path location="${test.resources.dir}"/>
+                <path location="${web.dir}"/>
+            </classpath>
+            <formatter type="xml"/>
+            <formatter type="brief" usefile="false"/>
+            <batchtest todir="${test.dir}/data" if="test">
+                <fileset dir="${test.dir}/classes">
+                    <include name="**/*${test}*"/>
+                    <exclude name="**/*TestCase.class"/>
+                    <exclude name="**/*$*.class"/>
+                </fileset>
+            </batchtest>
+            <batchtest todir="${test.dir}/data" unless="test">
+                <fileset dir="${test.dir}/classes">
+                    <include name="**/*Test.class*"/>
+                    <exclude name="**/*WebTest.class"/>
+                </fileset>
+            </batchtest>
+        </junit>
+
+        <fail if="test.failed">
+          Unit tests failed. For error messages, check the log files in
+          ${test.dir}/data or run "ant test-reports"
+          to generate reports at ${test.dir}/reports.</fail>
+    </target>
+
+    <target name="test-web" depends="compile"
+        description="Runs jWebUnit tests in a running server">
+        <property name="test" value="WebTest"/>
+        <antcall target="test"/>
+    </target>
+
+    <target name="test-tomcat" depends="war"
+        description="Starts Tomcat, runs jWebUnit tests, stops Tomcat">
+
+        <property name="cargo.wait" value="false"/>
+        <taskdef resource="cargo.tasks" classpathref="test.classpath"/>
+
+        <cargo containerId="${cargo.server}" id="cargo.server" home="${server.home}" 
+            action="start" wait="${cargo.wait}">
+            <configuration>
+                <deployable type="war" file="${basedir}/${dist.dir}/${webapp.name}.war">
+                    <property name="context" value="ROOT"/>
+                </deployable>
+            </configuration>
+        </cargo>
+
+        <antcall target="test-web"/>
+
+        <cargo refid="cargo.server" action="stop"/>
+    </target>
+
+    <!-- <target name="test-all" depends="clear,test,test-tomcat", clear not needed with H2 -->
+    <target name="test-all" depends="test,test-tomcat"
+        description="Runs JUnit tests and starts Tomcat to run jWebUnit tests"/>
+        
+    <target name="test-reports" description="Generate test reports">
+        <mkdir dir="${test.dir}/reports"/>
+        <junitreport todir="${test.dir}">
+            <fileset dir="${test.dir}/data">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${test.dir}/reports"/>
+        </junitreport>
+    </target>
+    
+    <target name="copy-jars" description="Copies JARs from local repository">
+        <mkdir dir="${build.dir}/jars"/>
+        <copy todir="${build.dir}/jars">
+            <fileset refid="compile.fileset"/>
+            <fileset refid="runtime.fileset"/>
+            <mapper type="flatten"/>
+        </copy>
+        <delete>
+            <fileset dir="${build.dir}/jars" includes="servlet-api*"/>
+        </delete>
+    </target>
+    
+    <target name="war" depends="compile,copy-jars" description="Packages app as WAR">
+        <mkdir dir="${dist.dir}"/>
+        <war destfile="${dist.dir}/${webapp.name}.war"
+            webxml="${web.dir}/WEB-INF/web.xml" compress="true">
+            <classes dir="${build.dir}/classes"/>
+            <classes dir="${resources.dir}"/>
+            <fileset dir="${web.dir}" excludes="**/web.xml"/>
+            <zipfileset prefix="WEB-INF/lib" dir="${build.dir}/jars"/>
+        </war>
+    </target>
+
+    <target name="deploy" depends="compile,copy-jars" description="Deploy application">
+        <copy todir="${deploy.dir}/${webapp.name}" preservelastmodified="true">
+            <fileset dir="${web.dir}"/>
+        </copy>
+        <copy todir="${deploy.dir}/${webapp.name}/WEB-INF/classes" preservelastmodified="true">
+            <fileset dir="${build.dir}/classes"/>
+            <fileset dir="${resources.dir}"/>
+        </copy>
+        <copy todir="${deploy.dir}/${webapp.name}/WEB-INF/lib">
+            <fileset dir="${build.dir}/jars"/>
+        </copy>
+    </target>
+
+    <target name="undeploy" description="Deletes application from server">
+        <delete dir="${deploy.dir}/${webapp.name}"/>
+    </target>
+    
+    <target name="deploywar" depends="war" description="Deploy application as a WAR file">
+        <copy todir="${deploy.dir}" preservelastmodified="true"
+            file="${dist.dir}/${webapp.name}.war"/>
+    </target>
+
+    <target name="clean" description="Clean output directories">
+        <delete dir="${build.dir}"/>
+        <delete dir="${dist.dir}"/>
+    </target>
+    
+    <!-- Creates release (source) distribution -->
+    <target name="dist" depends="clean"
+        description="create zip and tar.gz of ${webapp.name} for distribution">
+        <property name="archive.name" value="${webapp.name}-${webapp.version}"/>
+        <mkdir dir="${dist.dir}"/>
+        <property name="archive.target" value="${dist.dir}/${archive.name}"/>
+        <zip zipfile="${archive.target}.zip">
+            <zipfileset prefix="${webapp.name}-${webapp.version}" dir="${basedir}">
+                <patternset id="srcfiles">
+                    <exclude name="*.log"/>
+                    <exclude name="**/*.log"/>
+                    <exclude name="*.i*"/>
+                    <exclude name=".classpath"/>
+                    <exclude name=".project"/>
+                    <exclude name="junit*.properties"/>
+                    <exclude name="**/*~"/>
+                    <exclude name="**/*.bak"/>
+                    <exclude name="*/**.java.txt"/>
+                    <exclude name="${build.dir}/**"/>
+                    <exclude name="${dist.dir}/**"/>
+                    <exclude name="**/${build.dir}/**"/>
+                    <exclude name="db/**"/>   
+                    <exclude name="sandbox/**"/>
+                    <exclude name="www/**"/>
+                    <exclude name="*.sh"/>
+                    <exclude name=".#*"/> 
+                    <exclude name="**/.#*"/>
+                    <exclude name="test-all*"/>
+                    <exclude name="release.*"/>
+                    <include name="**"/>
+                </patternset>
+            </zipfileset>
+        </zip>
+        <tar tarfile="${archive.target}.tar">
+            <tarfileset dir="${basedir}" mode="644"
+                prefix="${webapp.name}"
+                username="ant" group="ant">
+                <patternset refid="srcfiles"/>
+            </tarfileset>
+        </tar>
+        <gzip zipfile="${archive.target}.tar.gz" src="${archive.target}.tar"/>
+        <delete file="${archive.target}.tar"/>
+    </target>
+
+    <!-- populate the database -->
+    <target name="populate" description="Loads sample data into database">
+        <echo message="Loading sample data..."/>
+        <sql driver="${jdbc.driverClassName}" url="${jdbc.url}"
+            userid="${jdbc.username}" password="${jdbc.password}">
+            <classpath refid="compile.classpath"/>
+            <![CDATA[ 
+                INSERT INTO app_user (id, first_name, last_name) 
+                    values (5, 'Julie', 'Raible');
+                INSERT INTO app_user (id, first_name, last_name) 
+                    values (6, 'Abbie', 'Raible');
+            ]]>
+        </sql>
+    </target>
+
+    <!-- clear the database -->
+    <target name="clear" description="Deletes data from database">
+        <echo message="Deleting data from database..."/>
+        <sql driver="${jdbc.driverClassName}" url="${jdbc.url}"
+            userid="${jdbc.username}" password="${jdbc.password}">
+            <classpath refid="compile.classpath"/>
+            <![CDATA[ 
+                DELETE FROM app_user;
+            ]]>
+        </sql>
+    </target>
+
+    <!-- Create a new project using this one as a template -->
+    <target name="new" depends="clean" description="creates a new project with the specified name">
+        <!-- Prompt user for input -->
+        <input message="What would you like to name your application [myapp]?" 
+            addproperty="app.name" defaultvalue="myapp"/>
+        <echo level="info">Creating new application named '${app.name}'...</echo>
+        <copy todir="../${app.name}">
+            <fileset dir="${basedir}">
+                <exclude name="${dist.dir}/**"/>
+                <exclude name="db/**"/>
+                <exclude name="sandbox/**"/>
+                <exclude name="${webapp.name}*"/>
+                <exclude name="*.log"/>
+                <exclude name="java-net.xml"/>
+                <exclude name="**/.#**"/>
+                <exclude name="*.sh"/>
+                <exclude name="www/**"/>
+                <include name="**"/>
+            </fileset>
+        </copy>
+
+        <!-- Replace current app.name with new app.name -->
+        <replaceregexp flags="g">
+            <regexp pattern="appfuse-light"/>
+            <substitution expression="${app.name}"/>
+            <fileset dir="../${app.name}">
+                <include name="build.xml"/>
+                <include name="pom.xml"/>
+                <include name="**/*WebTest.java"/>
+            </fileset>
+        </replaceregexp>
+    </target>
+    
+    <!-- Fix carriage-return line feeds for installers -->
+    <target name="fixcrlf" description="Fixed CR/LF problems for installers">
+        <echo>Running fixcrlf....</echo>
+        <fixcrlf eol="lf" srcdir="${basedir}"
+            includes="**/*.sh,
+                      **/*.properties,
+                      **/*.sql,
+                      **/*.java,
+                      **/*.jsp,
+                      **/*.ftl,
+                      **/*.vm,
+                      **/*.xml,
+                      **/*.page,
+                      **/*.html"/>
+    </target>
+           
+    <target name="beandoc" description="Generate beandoc reports">
+        <artifact:dependencies pathId="beandoc.classpath">
+            <remoteRepository url="http://static.appfuse.org/repository"/>
+            <dependency groupId="org.springframework" artifactId="beandoc" version="0.7.0"/>
+        </artifact:dependencies>
+
+        <taskdef name="beandoc" classname="org.springframework.beandoc.client.AntTask">
+            <classpath refid="beandoc.classpath"/>
+        </taskdef>
+        
+        <mkdir dir="${build.dir}/beandoc"/>
+        <beandoc outputDir="${build.dir}/beandoc">
+            <fileset dir="${web.dir}/WEB-INF">
+                <include name="*-servlet.xml"/>
+                <include name="applicationContext*.xml"/>
+            </fileset>
+        </beandoc>
+        
+        <!-- To add graphs to the reports, download/install GraphViz from graphviz.org. -->
+        <!-- 1. create a beandoc.properties and add the following line to it:           -->
+        <!--    compiler.dotExe=C:/Program Files/ATT/GraphViz/bin/dot.exe               -->
+        <!-- 2. Add beandocProps="beandoc.properties" to the <beandoc> task.            -->
+    </target>
+</project>
