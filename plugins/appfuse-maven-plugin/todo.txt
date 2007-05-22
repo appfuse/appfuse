@@ -1,7 +1,5 @@
-* don't hard-code id and Long everywhere
-* update documentation to explain usage and current issues
 * change tutorials to reflect that applicationContext.xml might already exist
-* add to release notes the files and placeholders that AMP expects
+* add to release notes and documentation to note the files and placeholders that AMP expects
 
 --> Release 2.0 M5
 

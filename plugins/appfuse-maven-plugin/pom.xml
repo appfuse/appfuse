@@ -21,6 +21,7 @@
         <name>AppFuse</name>
         <url>http://www.appfuse.org</url>
     </organization>
+    
     <prerequisites>
         <maven>2.0.6</maven>
     </prerequisites>
@@ -34,6 +35,11 @@
         <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/plugins/appfuse-maven-plugin</url>
     </scm>
 
+    <issueManagement>
+        <system>jira</system>
+        <url>http://issues.appfuse.org/browse/APF</url>
+    </issueManagement>
+    
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
@@ -41,7 +47,49 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
+    
+    <mailingLists>
+        <mailingList>
+            <name>Development List</name>
+            <subscribe>dev-subscribe@appfuse.dev.java.net</subscribe>
+            <unsubscribe>dev-unsubscribe@appfuse.dev.java.net</unsubscribe>
+            <post>dev@appfuse.dev.java.net</post>
+            <archive>http://www.nabble.com/AppFuse---Dev-f2371.html</archive>
+        </mailingList>
+        <mailingList>
+            <name>User List</name>
+            <subscribe>user-subscribe@appfuse.dev.java.net</subscribe>
+            <unsubscribe>user-unsubscribe@appfuse.dev.java.net</unsubscribe>
+            <post>user@appfuse.dev.java.net</post>
+            <archive>http://www.nabble.com/AppFuse---User-f2370.html</archive>
+        </mailingList>
+    </mailingLists>
 
+    <developers>
+        <developer>
+            <id>mraible</id>
+            <name>Matt Raible</name>
+            <email>matt@raibledesigns.com</email>
+            <organization>Raible Designs, Inc.</organization>
+            <timezone>-7</timezone>
+        </developer>
+        <developer>
+            <id>scryan</id>
+            <name>Scott Ryan</name>
+            <email>scott@theryansplace.com</email>
+            <organization>Soaring Eagle, LLC.</organization>
+            <timezone>-7</timezone>
+        </developer>
+        <developer>
+            <id>dlwhitehurst</id>
+            <name>David Whitehurst</name>
+            <email>dlwhitehurst@gmail.com</email>
+            <organization>Cape Henry Technologies Inc.</organization>
+            <organizationUrl>http://www.capehenrytech.com</organizationUrl>
+            <timezone>-6</timezone>
+        </developer>
+    </developers>
+    
     <build>
         <defaultGoal>install</defaultGoal>
         <plugins>
@@ -71,13 +119,13 @@
             </plugin>
             <plugin>
                 <artifactId>maven-docck-plugin</artifactId>
-                <!--executions>
+                <executions>
                     <execution>
                         <goals>
                             <goal>check</goal>
                         </goals>
                     </execution>
-                </executions-->
+                </executions>
             </plugin>
         </plugins>
     </build>
@@ -209,6 +257,35 @@
         </dependency>
     </dependencies>
 
+    <reporting>
+        <plugins>
+            <plugin>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>2.0</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-javadoc-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-jxr-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <configuration>
+                    <linkXref>true</linkXref>
+                    <targetJdk>1.5</targetJdk>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </reporting>
+    
     <properties>
         <hibernate3.plugin.version>2.0-alpha-2-SNAPSHOT</hibernate3.plugin.version>
     </properties>

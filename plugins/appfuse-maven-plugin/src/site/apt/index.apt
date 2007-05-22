@@ -4,7 +4,7 @@
  Matt Raible
  <matt@raibledesigns.com>
  ------
- 3 April 2007
+ 22 May 2007
 
 Maven AppFuse Plugin
 
@@ -18,7 +18,10 @@ Maven AppFuse Plugin
   
   * {{{gen-mojo.html}appfuse:gen}}: Generates Tests, DAOs, Managers, Controllers and Views based on POJOs.
   
-  * {{{gen-mojo.html}appfuse:gen}}: Calls both of the above so user only has to type one command.
+  * {{{install-mojo.html}appfuse:install}}: Installs generated artifacts.
+
+  * {{{full-source-mojo.html}appfuse:full-source}}: Converts AppFuse basic projects to full-source with no AppFuse
+    dependencies. Currently does not work with modular archetypes.
 
   
   []
@@ -33,7 +36,3 @@ Maven AppFuse Plugin
 * Examples
 
   * {{{examples/simple_configuration.html}Simple plugin configuration.}}
-
-  * {{{examples/phase_embedding.html}Setting the <<hbm2ddl>> goal to run on the <<process-classes>> phase.}}
-
-  * {{{examples/schema_output.html}Output the <<hbm2ddl>> goal to a file.}}

@@ -1,16 +1,12 @@
   ------
- Maven 2 AppFuse Plugin - Usage
+ AppFuse Maven Plugin - Usage
  ------
  Matt Raible
  <matt@raibledesigns.com>
  ------
- December 13, 2006
+ 22 May 2007
 
 Usage
-
-* Before Starting
-
-  Before using, setup your project as described here: {{{http://mojo.codehaus.org/using-sandbox-plugins.html}Using Sandbox Plugins}}
 
 * How to Use
 
@@ -24,42 +20,13 @@ Usage
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>appfuse-maven-plugin</artifactId>
-        <version>2.0-SNAPSHOT</version>
+        <version>2.0-M5</version>
         <configuration>
-          <components>
-            <component>
-              <name>gen-model</name>
-              <implementation>annotationconfiguration</implementation>
-            </component>
-          </components>
-          <componentProperties>
-            <drop>true</drop>
-            <configurationfile>/src/main/resources/hibernate.cfg.xml</configurationfile>
-          </componentProperties>
+          <genericCore>true</genericCore> <!-- Set to false if you want Java files generated for your DAOs and Managers -->
+          <fullSource>false</fullSource> <!-- Set to true if you've "full-sourced" your project and changed org.appfuse to your package name -->
         </configuration>
       </plugin>
     </plugins>
   </build>
 ...
 </project>
-------------------------------------------------------------------------------
-
-  Also you need to add your JDBC driver as an extension describe as follows.
-
-------------------------------------------------------------------------------
-<project>
-...
-  <build>
-    <extensions>
-      <extension>
-        <groupId>jdbc.artifact.groupid</groupId>
-        <artifactId>jdbc-driver</artifactId>
-        <version>1.0</version>
-      </extension>
-    </extensions>
-    ...
-  </build>
-</project>
-------------------------------------------------------------------------------
-
-  * Note: To be able to run the plugin you don't need to add the hibernate jars as dependency in your pom.xml
