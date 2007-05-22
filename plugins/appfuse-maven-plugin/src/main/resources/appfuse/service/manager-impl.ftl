@@ -6,7 +6,9 @@ import ${basepackage}.service.${pojo.shortName}Manager;
 import ${appfusepackage}.service.impl.GenericManagerImpl;
 
 import java.util.List;
+import javax.jws.WebService;
 
+@WebService(serviceName = "${pojo.shortName}Service", endpointInterface = "${basepackage}.service.${pojo.shortName}Manager")
 public class ${pojo.shortName}ManagerImpl extends GenericManagerImpl<${pojo.shortName}, ${pojo.getJavaTypeName(pojo.identifierProperty, jdk5)}> implements ${pojo.shortName}Manager {
     ${pojo.shortName}Dao ${pojo.shortName.toLowerCase()}Dao;
 

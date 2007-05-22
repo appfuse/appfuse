@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+        "http://www.springframework.org/dtd/spring-beans.dtd" >
+
+<beans>
+    <import resource="classpath:org/codehaus/xfire/spring/xfire.xml"/>
+
+    <bean id="jaxbTypeMappingRegistry" class="org.codehaus.xfire.jaxb2.JaxbTypeRegistry"
+          init-method="createDefaultMappings" singleton="true"/>
+
+    <bean id="webAnnotations" class="org.codehaus.xfire.annotations.jsr181.Jsr181WebAnnotations"/>
+
+    <bean id="handlerMapping" class="org.codehaus.xfire.spring.remoting.Jsr181HandlerMapping">
+        <property name="typeMappingRegistry" ref="jaxbTypeMappingRegistry"/>
+        <property name="xfire" ref="xfire"/>
+        <property name="webAnnotations" ref="webAnnotations"/>
+    </bean>
+
+    <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="urlMap">
+            <map>
+                <entry key="/">
+                    <ref bean="handlerMapping"/>
+                </entry>
+            </map>
+        </property>
+    </bean>
+</beans> 

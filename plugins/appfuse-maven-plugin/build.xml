@@ -52,7 +52,11 @@
         <antcall target="test-tapestry-modular"/>
     </target>
 
-    <target name="test-all" depends="test-basic,test-modular"/>
+    <target name="test-all">
+        <antcall target="test-basic"/>
+        <antcall target="test-modular"/>
+        <antcall target="test-basic-source"/>
+    </target>
 
     <macrodef name="create-gen-basic">
         <attribute name="archetype"/>
@@ -111,7 +115,7 @@
             </replace>
 
             <maven dir="${test.dir}/@{name}" command="install -N"/>
-            
+
             <!-- gen and test core -->
             <maven dir="${test.dir}/@{name}/core" command="appfuse:gen -Dentity=Person -Damp.genericCore=false"/>
             <maven dir="${test.dir}/@{name}/core" command="appfuse:install -Dentity=Person -Damp.genericCore=false"/>
@@ -171,15 +175,17 @@
         <attribute name="command" default="archetype:create -DarchetypeGroupId=org.appfuse -DarchetypeArtifactId=@{archetype} -DarchetypeVersion=@{version} -DgroupId=com.company -DartifactId=@{name}"/>
 
         <sequential>
-            <exec dir="@{dir}" executable="mvn.bat" os="Windows XP" failonerror="true">
+            <exec dir="@{dir}" executable="mvn.bat" os="Windows XP" failonerror="true" errorproperty="command.failed">
                 <arg line="@{command}"/>
             </exec>
-            <exec dir="@{dir}" executable="mvn" os="Mac OS X" failonerror="true">
+            <exec dir="@{dir}" executable="mvn" os="Mac OS X" failonerror="true" errorproperty="command.failed">
                 <arg line="@{command}"/>
             </exec>
-            <exec dir="@{dir}" executable="mvn" os="Linux" failonerror="true">
+            <exec dir="@{dir}" executable="mvn" os="Linux" failonerror="true" errorproperty="command.failed">
                 <arg line="@{command}"/>
             </exec>
+
+            <!--fail if="command.failed">Failed to run '@{command}' command</fail-->
         </sequential>
     </macrodef>
 </project>

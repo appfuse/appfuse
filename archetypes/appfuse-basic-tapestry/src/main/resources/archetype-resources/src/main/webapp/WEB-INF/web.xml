@@ -32,6 +32,7 @@
             classpath*:/applicationContext-service.xml
             classpath*:/applicationContext.xml
             /WEB-INF/applicationContext*.xml
+            /WEB-INF/xfire-servlet.xml
             /WEB-INF/security.xml
         </param-value>
     </context-param>
@@ -187,10 +188,20 @@
             <param-value>true</param-value>
         </init-param>
     </servlet>
+    
+    <servlet>
+        <servlet-name>xfire</servlet-name>
+        <servlet-class>org.codehaus.xfire.spring.XFireSpringServlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>dwr-invoker</servlet-name>
         <url-pattern>/dwr/*</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>xfire</servlet-name>
+        <url-pattern>/services/*</url-pattern>
     </servlet-mapping>
 
     <!-- Dispatching handled by StaticFilter -->

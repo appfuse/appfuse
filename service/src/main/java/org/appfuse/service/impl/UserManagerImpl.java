@@ -1,27 +1,25 @@
 package org.appfuse.service.impl;
 
-import java.util.List;
-
 import org.acegisecurity.userdetails.UsernameNotFoundException;
 import org.appfuse.dao.UserDao;
 import org.appfuse.model.User;
 import org.appfuse.service.UserExistsException;
 import org.appfuse.service.UserManager;
+import org.appfuse.service.UserService;
 import org.springframework.dao.DataIntegrityViolationException;
 
 import javax.persistence.EntityExistsException;
+import javax.jws.WebService;
+import java.util.List;
 
 
 /**
  * Implementation of UserManager interface.</p>
- * 
- * <p>
- * <a href="UserManagerImpl.java.html"><i>View Source</i></a>
- * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
-public class UserManagerImpl extends UniversalManagerImpl implements UserManager {
+@WebService(serviceName = "UserService", endpointInterface = "org.appfuse.service.UserService")
+public class UserManagerImpl extends UniversalManagerImpl implements UserManager, UserService {
     private UserDao dao;
 
     /**
@@ -42,7 +40,7 @@ public class UserManagerImpl extends UniversalManagerImpl implements UserManager
     /**
      * @see org.appfuse.service.UserManager#getUsers(org.appfuse.model.User)
      */
-    public List getUsers(User user) {
+    public List<User> getUsers(User user) {
         return dao.getUsers();
     }
 

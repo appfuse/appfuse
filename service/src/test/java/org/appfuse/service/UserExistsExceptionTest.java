@@ -32,7 +32,7 @@ public class UserExistsExceptionTest extends BaseManagerTestCase {
         
         // try saving as new user, this should fail b/c of unique keys
         try {
-            user = manager.saveUser(user2);
+            manager.saveUser(user2);
             fail("Duplicate user didn't throw UserExistsException");
         } catch (UserExistsException uee) {
             assertNotNull(uee);
