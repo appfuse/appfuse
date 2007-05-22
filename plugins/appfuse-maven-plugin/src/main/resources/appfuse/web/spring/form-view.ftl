@@ -7,7 +7,7 @@
 </head>
 
 <form:form commandName="${pojoNameLower}" method="post" action="${pojoNameLower}form.html" id="${pojoNameLower}Form" onsubmit="return validate${pojo.shortName}(this)">
-<form:errors path="*" cssClass="error"/>
+<form:errors path="*" cssClass="error" element="div"/>
 <#rt/>
 <#foreach field in pojo.getAllPropertiesIterator()>
 <#if field.equals(pojo.identifierProperty)>
