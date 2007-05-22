@@ -42,6 +42,7 @@
     </scm>
 
     <modules>
+        <module>appfuse-core</module>
         <module>appfuse-basic-jsf</module>
         <module>appfuse-basic-spring</module>
         <module>appfuse-basic-struts</module>

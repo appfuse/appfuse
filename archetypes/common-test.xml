@@ -44,7 +44,12 @@
         </sequential>
     </macrodef>
     
-    <target name="test-all" description="Runs all archetype tests using Ant">        
+    <target name="test-all" description="Runs all archetype tests using Ant">
+        <ant antfile="../common-test.xml" dir="appfuse-core">
+            <property name="archetype" value="appfuse-core"/>
+            <property name="version" value="${version}"/>
+        </ant>
+
         <ant antfile="../common-test.xml" dir="appfuse-basic-jsf">
             <property name="archetype" value="appfuse-basic-jsf"/>
             <property name="version" value="${version}"/>

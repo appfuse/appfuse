@@ -82,20 +82,6 @@
                 </dependencies>
             </plugin>
         </plugins>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <excludes>
-                    <exclude>ApplicationResources_zh*.properties</exclude>
-                    <exclude>ApplicationResources_de.properties</exclude>
-                    <exclude>ApplicationResources_fr.properties</exclude>
-                    <exclude>ApplicationResources_nl.properties</exclude>
-                    <exclude>ApplicationResources_no.properties</exclude>
-                    <exclude>ApplicationResources_pt*.properties</exclude>
-                </excludes>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
         <testResources>
             <testResource>
                 <directory>src/test/resources</directory>
