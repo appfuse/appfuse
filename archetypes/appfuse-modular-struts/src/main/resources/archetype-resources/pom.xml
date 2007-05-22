@@ -165,6 +165,10 @@
             </plugin>
             <plugin>
                 <artifactId>maven-pmd-plugin</artifactId>
+                <configuration>
+                    <linkXref>true</linkXref>
+                    <targetJdk>1.5</targetJdk>
+                </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-report-plugin</artifactId>
