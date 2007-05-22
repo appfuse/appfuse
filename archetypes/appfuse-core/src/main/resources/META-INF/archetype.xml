@@ -1,0 +1,25 @@
+<archetype>
+    <id>appfuse-core</id>
+    <resources>
+        <resource>pom.xml</resource>
+        <resource>README.txt</resource>
+        <resource>src/main/resources/applicationContext.xml</resource>
+        <resource>src/main/resources/hibernate.cfg.xml</resource>
+        <resource>src/main/resources/META-INF/persistence.xml</resource>
+        <resource>src/main/resources/sql-map-config.xml</resource>
+        <resource>src/test/resources/applicationContext-resources.xml</resource>
+        <resource>src/test/resources/jdbc.properties</resource>
+        <resource>src/test/resources/log4j.xml</resource>
+        <resource>src/test/resources/mail.properties</resource>
+        <resource filtered="false">src/test/resources/sample-data.xml</resource>
+    </resources>
+    <siteResources>
+        <resource>src/site/site.xml</resource>
+    </siteResources>
+    <sources>
+        <source>src/main/java/Core.java</source>
+    </sources>
+    <testSources>
+        <source>src/test/java/CoreTest.java</source>
+    </testSources>
+</archetype>
