@@ -50,12 +50,12 @@ public abstract class HibernateExporterMojo extends AbstractMojo implements Expo
      * @parameter
      * @noinspection MismatchedQueryAndUpdateOfCollection
      */
-    private List components = new ArrayList();
+    private List<Component> components = new ArrayList<Component>();
 
     /**
      * Map holding the default component values for this goal.
      */
-    private Map defaultComponents = new HashMap();
+    private Map<String, Component> defaultComponents = new HashMap<String, Component>();
 
     /**
      * Parameter that holds component properties defined by the user.
@@ -69,7 +69,7 @@ public abstract class HibernateExporterMojo extends AbstractMojo implements Expo
      * @component role="org.codehaus.mojo.hibernate3.configuration.ComponentConfiguration"
      * @noinspection MismatchedQueryAndUpdateOfCollection
      */
-    private List componentConfigurations = new ArrayList();
+    private List<ComponentConfiguration> componentConfigurations = new ArrayList<ComponentConfiguration>();
 
     /**
      * <i>Maven Internal</i>: Project to interact with.
@@ -133,13 +133,23 @@ public abstract class HibernateExporterMojo extends AbstractMojo implements Expo
             throw new MojoFailureException(errorMsg);
         }
 
+        // for war projects that have a parent pom, don't reset classpath
+        // this is to allow using hibernate.cfg.xml from core module
+        if (project.getPackaging().equals("war") && project.getParent() != null) {
+            // assume first module in parent project has hibernate.cfg.xml
+            String moduleName = (String) project.getParent().getModules().get(0);
+            getLog().info("Assuming '" + moduleName + "' has hibernate.cfg.xml in its src/main/resources directory");
+            componentProperties.put("configurationfile",
+                    project.getBasedir() + "/../" + moduleName + "/src/main/resources/hibernate.cfg.xml");
+        }
+
         Thread currentThread = Thread.currentThread();
         ClassLoader oldClassLoader = currentThread.getContextClassLoader();
 
         try {
             currentThread.setContextClassLoader(getClassLoader());
             if (getComponentProperty("skip", false)) {
-                getLog().info("skipping amp execution");
+                getLog().info("skipping plugin execution");
             } else {
                 doExecute();
             }
@@ -209,8 +219,8 @@ public abstract class HibernateExporterMojo extends AbstractMojo implements Expo
      * @noinspection ForLoopReplaceableByForEach
      */
     protected ComponentConfiguration getComponentConfiguration(String name) throws MojoExecutionException {
-        for (Iterator it = componentConfigurations.iterator(); it.hasNext();) {
-            ComponentConfiguration componentConfiguration = (ComponentConfiguration) it.next();
+        for (Iterator<ComponentConfiguration> it = componentConfigurations.iterator(); it.hasNext();) {
+            ComponentConfiguration componentConfiguration = it.next();
             if (componentConfiguration.getName().equals(name)) {
                 return componentConfiguration;
             }
@@ -264,10 +274,10 @@ public abstract class HibernateExporterMojo extends AbstractMojo implements Expo
      * @noinspection ForLoopReplaceableByForEach
      */
     protected Component getComponent() {
-        Component defaultGoal = (Component) defaultComponents.get(HibernateUtils.getJavaVersion());
+        Component defaultGoal = defaultComponents.get(HibernateUtils.getJavaVersion());
         if (!components.isEmpty()) {
-            for (Iterator it = components.iterator(); it.hasNext();) {
-                Component component = (Component) it.next();
+            for (Iterator<Component> it = components.iterator(); it.hasNext();) {
+                Component component = it.next();
                 if (getName().equals(component.getName())) {
                     if (component.getImplementation() == null) {
                         component.setImplementation(defaultGoal.getImplementation());

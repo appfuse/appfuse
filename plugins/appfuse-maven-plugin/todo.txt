@@ -1,17 +1,16 @@
 * don't hard-code id and Long everywhere
-* allow 'web' modular project to read hibernate.cfg.xml from core.jar
-  * currently, you have to copy hibernate.cfg.xml from core/src/main/resources
-    to web/src/main/resources
 * update documentation to explain usage and current issues
-* create "full-source" mojo: svn export + adding dependencies
 * change tutorials to reflect that applicationContext.xml might already exist
+* add to release notes the files and placeholders that AMP expects
 
 --> Release 2.0 M5
 
-* tune down logging so users don't see output from plugin
 * aggregate "gen and install" into single call (lifecycles?)
 * prompt user for table or pojo and handle appropriately
 * test and fix issues with ibatis and jpa (might be many since we expect hibernate.cfg.xml)
+* enhance full-source plugin so it understands modular archetypes
+
+--> Release 2.0 RC1
 
 future
 -----------

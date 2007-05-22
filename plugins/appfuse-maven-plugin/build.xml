@@ -117,10 +117,6 @@
             <maven dir="${test.dir}/@{name}/core" command="appfuse:install -Dentity=Person -Damp.genericCore=false"/>
             <maven dir="${test.dir}/@{name}/core" command="install"/>
 
-            <!-- copy hibernate.cfg.xml to web project (todo: read from core.jar) -->
-            <copy file="${test.dir}/@{name}/core/src/main/resources/hibernate.cfg.xml"
-                  todir="${test.dir}/@{name}/web/src/main/resources"/>
-
             <!-- get and test web -->
             <maven dir="${test.dir}/@{name}/web" command="appfuse:gen -Dentity=Person -Damp.genericCore=false"/>
             <maven dir="${test.dir}/@{name}/web" command="appfuse:install -Dentity=Person -Damp.genericCore=false"/>
