@@ -127,9 +127,28 @@
             <maven dir="${test.dir}/@{name}/web" command="install"/>
         </sequential>
     </macrodef>
-    
-    <target name="source-struts-basic" description="tests full-source plugin with struts basic archetype">
+
+    <target name="test-basic-source" description="Tests extracting source into basic archetypes">
+        <antcall target="test-jsf-basic-source"/>
+        <antcall target="test-spring-basic-source"/>
+        <antcall target="test-struts-basic-source"/>
+        <antcall target="test-tapestry-basic-source"/>
+    </target>
+
+    <target name="test-jsf-basic-source" description="tests full-source plugin with jsf basic archetype">
+        <full-source-basic archetype="appfuse-basic-jsf" name="basic-jsf-source"/>
+    </target>
+
+     <target name="test-spring-basic-source" description="tests full-source plugin with spring basic archetype">
+        <full-source-basic archetype="appfuse-basic-spring" name="basic-spring-source"/>
+    </target>
+
+     <target name="test-struts-basic-source" description="tests full-source plugin with struts basic archetype">
         <full-source-basic archetype="appfuse-basic-struts" name="basic-struts-source"/>
+    </target>
+
+     <target name="test-tapestry-basic-source" description="tests full-source plugin with tapestry basic archetype">
+        <full-source-basic archetype="appfuse-basic-tapestry" name="basic-tapestry-source"/>
     </target>
     
     <macrodef name="full-source-basic">
@@ -144,7 +163,7 @@
 
             <!-- run full-source integration-test -->
             <maven dir="${test.dir}/@{name}" command="appfuse:full-source"/>
-            <!--<maven dir="${test.dir}/@{name}" command="integration-test"/>-->
+            <maven dir="${test.dir}/@{name}" command="integration-test"/>
         </sequential>
     </macrodef>
 

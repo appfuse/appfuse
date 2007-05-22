@@ -83,6 +83,7 @@ public abstract class HibernateExporterMojo extends AbstractMojo implements Expo
 
     /**
      * @parameter expression="${appfuse.fullSource}" default-value="false"
+     * @noinspection UnusedDeclaration
      */
     private boolean fullSource;
 
