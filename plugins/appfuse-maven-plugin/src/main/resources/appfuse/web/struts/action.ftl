@@ -1,4 +1,7 @@
 <#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
+<#assign getIdMethodName = pojo.getGetterSignature(pojo.identifierProperty)>
+<#assign setIdMethodName = 'set' + pojo.getPropertyName(pojo.identifierProperty)>
+<#assign identifierType = pojo.getJavaTypeName(pojo.identifierProperty, jdk5)>
 package ${basepackage}.webapp.action;
 
 <#if genericcore>
@@ -13,16 +16,16 @@ import java.util.List;
 
 public class ${pojo.shortName}Action extends BaseAction {
 <#if genericcore>
-    private GenericManager<${pojo.shortName}, Long> ${pojoNameLower}Manager;
+    private GenericManager<${pojo.shortName}, ${pojo.getJavaTypeName(pojo.identifierProperty, jdk5)}> ${pojoNameLower}Manager;
 <#else>
     private ${pojo.shortName}Manager ${pojoNameLower}Manager;
 </#if>
     private List ${pojoNameLower}s;
     private ${pojo.shortName} ${pojoNameLower};
-    private Long id;
+    private ${identifierType}  ${pojo.identifierProperty.name};
 
 <#if genericcore>
-    public void set${pojo.shortName}Manager(GenericManager<${pojo.shortName}, Long> ${pojoNameLower}Manager) {
+    public void set${pojo.shortName}Manager(GenericManager<${pojo.shortName}, ${identifierType}> ${pojoNameLower}Manager) {
 <#else>
     public void set${pojo.shortName}Manager(${pojo.shortName}Manager ${pojoNameLower}Manager) {
 </#if>
@@ -38,8 +41,8 @@ public class ${pojo.shortName}Action extends BaseAction {
         return SUCCESS;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void ${setIdMethodName}(${identifierType}  ${pojo.identifierProperty.name}) {
+        this. ${pojo.identifierProperty.name} =  ${pojo.identifierProperty.name};
     }
 
     public ${pojo.shortName} get${pojo.shortName}() {
@@ -51,15 +54,15 @@ public class ${pojo.shortName}Action extends BaseAction {
     }
 
     public String delete() {
-        ${pojoNameLower}Manager.remove(${pojoNameLower}.getId());
+        ${pojoNameLower}Manager.remove(${pojoNameLower}.${getIdMethodName}());
         saveMessage(getText("${pojoNameLower}.deleted"));
 
         return SUCCESS;
     }
 
     public String edit() {
-        if (id != null) {
-            ${pojoNameLower} = ${pojoNameLower}Manager.get(id);
+        if (${pojo.identifierProperty.name} != null) {
+            ${pojoNameLower} = ${pojoNameLower}Manager.get(${pojo.identifierProperty.name});
         } else {
             ${pojoNameLower} = new ${pojo.shortName}();
         }
@@ -76,7 +79,7 @@ public class ${pojo.shortName}Action extends BaseAction {
             return delete();
         }
 
-        boolean isNew = (${pojoNameLower}.getId() == null);
+        boolean isNew = (${pojoNameLower}.${getIdMethodName}() == null);
 
         ${pojoNameLower}Manager.save(${pojoNameLower});
 

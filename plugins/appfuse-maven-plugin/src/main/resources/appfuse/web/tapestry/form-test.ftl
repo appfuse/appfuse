@@ -1,4 +1,7 @@
 <#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
+<#assign getIdMethodName = pojo.getGetterSignature(pojo.identifierProperty)>
+<#assign setIdMethodName = 'set' + pojo.getPropertyName(pojo.identifierProperty)>
+<#assign identifierType = pojo.getJavaTypeName(pojo.identifierProperty, jdk5)>
 package ${basepackage}.webapp.pages;
 
 import org.apache.tapestry.engine.ILink;
@@ -54,7 +57,7 @@ public class ${pojo.shortName}FormTest extends BasePageTestCase {
     @SuppressWarnings("unchecked")
     public void testSave() {
         <#if genericcore>
-        GenericManager<${pojo.shortName}, Long> ${pojoNameLower}Manager = (GenericManager) applicationContext.getBean("${pojoNameLower}Manager");
+        GenericManager<${pojo.shortName}, ${identifierType}> ${pojoNameLower}Manager = (GenericManager) applicationContext.getBean("${pojoNameLower}Manager");
         <#else>
         ${pojo.shortName}Manager ${pojoNameLower}Manager = (${pojo.shortName}Manager) applicationContext.getBean("${pojoNameLower}Manager"); 
         </#if>
@@ -80,7 +83,7 @@ public class ${pojo.shortName}FormTest extends BasePageTestCase {
 
     public void testRemove() throws Exception {
         ${pojo.shortName} ${pojoNameLower} = new ${pojo.shortName}();
-        ${pojoNameLower}.setId(2L);
+        ${pojoNameLower}.${setIdMethodName}(2L);
         page.set${pojo.shortName}(${pojoNameLower});
         page.delete(new MockRequestCycle(this.getClass().getPackage().getName()));
         assertFalse(page.hasErrors());

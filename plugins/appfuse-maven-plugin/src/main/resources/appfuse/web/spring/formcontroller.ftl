@@ -1,3 +1,7 @@
+<#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
+<#assign getIdMethodName = pojo.getGetterSignature(pojo.identifierProperty)>
+<#assign setIdMethodName = 'set' + pojo.getPropertyName(pojo.identifierProperty)>
+<#assign identifierType = pojo.getJavaTypeName(pojo.identifierProperty, jdk5)>
 package ${basepackage}.webapp.controller;
 
 import org.apache.commons.lang.StringUtils;
@@ -12,23 +16,23 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Locale;
 
 public class ${pojo.shortName}FormController extends BaseFormController {
-    private GenericManager<${pojo.shortName}, Long> ${pojo.shortName.toLowerCase()}Manager = null;
+    private GenericManager<${pojo.shortName}, ${identifierType}> ${pojo.shortName.toLowerCase()}Manager = null;
 
-    public void set${pojo.shortName}Manager(GenericManager<${pojo.shortName}, Long> ${pojo.shortName.toLowerCase()}Manager) {
-        this.${pojo.shortName.toLowerCase()}Manager = ${pojo.shortName.toLowerCase()}Manager;
+    public void set${pojo.shortName}Manager(GenericManager<${pojo.shortName}, ${identifierType}> ${pojoNameLower}Manager) {
+        this.${pojoNameLower}Manager = ${pojoNameLower}Manager;
     }
 
     public ${pojo.shortName}FormController() {
         setCommandClass(${pojo.shortName}.class);
-        setCommandName("${pojo.shortName.toLowerCase()}");
+        setCommandName("${pojoNameLower}");
     }
 
     protected Object formBackingObject(HttpServletRequest request)
     throws Exception {
-        String id = request.getParameter("id");
+        String ${pojo.identifierProperty.name} = request.getParameter("${pojo.identifierProperty.name}");
 
-        if (!StringUtils.isBlank(id)) {
-            return ${pojo.shortName.toLowerCase()}Manager.get(new Long(id));
+        if (!StringUtils.isBlank(${pojo.identifierProperty.name})) {
+            return ${pojoNameLower}Manager.get(new ${identifierType}(${pojo.identifierProperty.name}));
         }
 
         return new ${pojo.shortName}();
@@ -40,21 +44,21 @@ public class ${pojo.shortName}FormController extends BaseFormController {
     throws Exception {
         log.debug("entering 'onSubmit' method...");
 
-        ${pojo.shortName} ${pojo.shortName.toLowerCase()} = (${pojo.shortName}) command;
-        boolean isNew = (${pojo.shortName.toLowerCase()}.getId() == null);
+        ${pojo.shortName} ${pojoNameLower} = (${pojo.shortName}) command;
+        boolean isNew = (${pojoNameLower}.${getIdMethodName}() == null);
         String success = getSuccessView();
         Locale locale = request.getLocale();
 
         if (request.getParameter("delete") != null) {
-            ${pojo.shortName.toLowerCase()}Manager.remove(${pojo.shortName.toLowerCase()}.getId());
-            saveMessage(request, getText("${pojo.shortName.toLowerCase()}.deleted", locale));
+            ${pojoNameLower}Manager.remove(${pojoNameLower}.${getIdMethodName}());
+            saveMessage(request, getText("${pojoNameLower}.deleted", locale));
         } else {
-            ${pojo.shortName.toLowerCase()}Manager.save(${pojo.shortName.toLowerCase()});
-            String key = (isNew) ? "${pojo.shortName.toLowerCase()}.added" : "${pojo.shortName.toLowerCase()}.updated";
+            ${pojoNameLower}Manager.save(${pojoNameLower});
+            String key = (isNew) ? "${pojoNameLower}.added" : "${pojoNameLower}.updated";
             saveMessage(request, getText(key, locale));
 
             if (!isNew) {
-                success = "redirect:${pojo.shortName.toLowerCase()}form.html?id=" + ${pojo.shortName.toLowerCase()}.getId();
+                success = "redirect:${pojoNameLower}form.html?${pojo.identifierProperty.name}=" + ${pojoNameLower}.${getIdMethodName}();
             }
         }
 

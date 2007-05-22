@@ -1,21 +1,20 @@
 package annotationconfiguration;
 
-import java.util.Date;
-import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "person")
 public class Person {
-    private Long id;
+    private Long personId;
     private Date creationDate;
     private String email;
     private Date modificationDate;
@@ -25,8 +24,8 @@ public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Long getId() {
-        return id;
+    public Long getPersonId() {
+        return personId;
     }
 
     @Column(name = "creation_date", nullable = false)
@@ -49,8 +48,8 @@ public class Person {
         return username;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPersonId(Long personId) {
+        this.personId = personId;
     }
 
     public void setCreationDate(Date creationDate) {

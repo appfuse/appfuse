@@ -7,7 +7,7 @@ import ${appfusepackage}.service.impl.GenericManagerImpl;
 
 import java.util.List;
 
-public class ${pojo.shortName}ManagerImpl extends GenericManagerImpl<${pojo.shortName}, Long> implements ${pojo.shortName}Manager {
+public class ${pojo.shortName}ManagerImpl extends GenericManagerImpl<${pojo.shortName}, ${pojo.getJavaTypeName(pojo.identifierProperty, jdk5)}> implements ${pojo.shortName}Manager {
     ${pojo.shortName}Dao ${pojo.shortName.toLowerCase()}Dao;
 
     public ${pojo.shortName}ManagerImpl(${pojo.shortName}Dao ${pojo.shortName.toLowerCase()}Dao) {

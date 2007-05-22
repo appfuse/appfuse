@@ -97,7 +97,7 @@ public class InstallArtifactsMojo extends AbstractMojo {
 
         pojoNameLower = pojoLowerCase(pojoName);
 
-        log("Installing generated .java files...");
+        //log("Installing generated .java files...");
         copyGeneratedObjects(this.sourceDirectory, this.destinationDirectory, "**/*.java");
 
         log("Installing sample data for DbUnit...");
@@ -189,7 +189,7 @@ public class InstallArtifactsMojo extends AbstractMojo {
         Copy copyTask = (Copy) antProject.createTask("copy");
 
         FileSet fileSet = AntUtils.createFileset(inSourceDirectory, inPattern, new ArrayList());
-        log("Installing generated files (pattern = " + inPattern + ")...");
+        log("Installing generated files (pattern: " + inPattern + ")...");
         copyTask.setTodir(new File(inDestinationDirectory));
         copyTask.addFileset(fileSet);
         copyTask.execute();

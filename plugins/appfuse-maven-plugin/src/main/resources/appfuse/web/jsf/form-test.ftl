@@ -1,4 +1,7 @@
 <#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
+<#assign getIdMethodName = pojo.getGetterSignature(pojo.identifierProperty)>
+<#assign setIdMethodName = 'set' + pojo.getPropertyName(pojo.identifierProperty)>
+<#assign identifierType = pojo.getJavaTypeName(pojo.identifierProperty, jdk5)>
 package ${basepackage}.webapp.action;
 
 import ${pojo.packageName}.${pojo.shortName};
@@ -19,7 +22,7 @@ public class ${pojo.shortName}FormTest extends BasePageTestCase {
 
     public void testAdd() throws Exception {
         ${pojo.shortName} ${pojoNameLower} = new ${pojo.shortName}();
-        // set required fields
+
         // enter all required fields
 <#foreach field in pojo.getAllPropertiesIterator()>
     <#foreach column in field.getColumnIterator()>
@@ -37,7 +40,7 @@ public class ${pojo.shortName}FormTest extends BasePageTestCase {
 
     public void testEdit() throws Exception {
         log.debug("testing edit...");
-        bean.setId(1L);
+        bean.${setIdMethodName}(1L);
 
         assertEquals("edit", bean.edit());
         assertNotNull(bean.get${pojo.shortName}());
@@ -45,13 +48,12 @@ public class ${pojo.shortName}FormTest extends BasePageTestCase {
     }
 
     public void testSave() {
-        bean.setId(1L);
+        bean.${setIdMethodName}(1L);
 
         assertEquals("edit", bean.edit());
         assertNotNull(bean.get${pojo.shortName}());
         ${pojo.shortName} ${pojoNameLower} = bean.get${pojo.shortName}();
 
-        // update fields
         // update required fields
 <#foreach field in pojo.getAllPropertiesIterator()>
     <#foreach column in field.getColumnIterator()>
@@ -68,7 +70,7 @@ public class ${pojo.shortName}FormTest extends BasePageTestCase {
 
     public void testRemove() throws Exception {
         ${pojo.shortName} ${pojoNameLower} = new ${pojo.shortName}();
-        ${pojoNameLower}.setId(2L);
+        ${pojoNameLower}.${setIdMethodName}(2L);
         bean.set${pojo.shortName}(${pojoNameLower});
 
         assertEquals("list", bean.delete());

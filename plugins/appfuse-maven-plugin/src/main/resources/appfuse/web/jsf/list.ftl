@@ -14,13 +14,13 @@ import ${basepackage}.service.${pojo.shortName}Manager;
 
 public class ${pojo.shortName}List extends BasePage implements Serializable {
 <#if genericcore>
-    private GenericManager<${pojo.shortName}, Long> ${pojoNameLower}Manager;
+    private GenericManager<${pojo.shortName}, ${pojo.getJavaTypeName(pojo.identifierProperty, jdk5)}> ${pojoNameLower}Manager;
 <#else>
     private ${pojo.shortName}Manager ${pojoNameLower}Manager;
 </#if>
 
 <#if genericcore>
-    public void set${pojo.shortName}Manager(GenericManager<${pojo.shortName}, Long> ${pojoNameLower}Manager) {
+    public void set${pojo.shortName}Manager(GenericManager<${pojo.shortName}, ${pojo.getJavaTypeName(pojo.identifierProperty, jdk5)}> ${pojoNameLower}Manager) {
 <#else>
     public void set${pojo.shortName}Manager(${pojo.shortName}Manager ${pojoNameLower}Manager) {
 </#if>

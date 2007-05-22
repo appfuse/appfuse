@@ -12,8 +12,8 @@ public class ${pojo.shortName}ListTest extends BasePageTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         bean = (${pojo.shortName}List) getManagedBean("${pojo.shortName.toLowerCase()}List");
-        GenericManager<${pojo.shortName}, Long> ${pojo.shortName.toLowerCase()}Manager =
-                (GenericManager<${pojo.shortName}, Long>) applicationContext.getBean("${pojo.shortName.toLowerCase()}Manager");
+        GenericManager<${pojo.shortName}, ${pojo.getJavaTypeName(pojo.identifierProperty, jdk5)}> ${pojo.shortName.toLowerCase()}Manager =
+                (GenericManager<${pojo.shortName}, ${pojo.getJavaTypeName(pojo.identifierProperty, jdk5)}>) applicationContext.getBean("${pojo.shortName.toLowerCase()}Manager");
 
         // add a test ${pojo.shortName.toLowerCase()} to the database
         // add a test ${pojoNameLower} to the database

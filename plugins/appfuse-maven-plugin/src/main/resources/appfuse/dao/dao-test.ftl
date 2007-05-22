@@ -1,5 +1,5 @@
 <#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
-<#assign getIdMethod = pojo.getGetterSignature(pojo.identifierProperty) + "()">
+<#assign getIdMethodName = pojo.getGetterSignature(pojo.identifierProperty)>
 package ${basepackage}.dao;
 
 import ${appfusepackage}.dao.BaseDaoTestCase;
@@ -9,14 +9,14 @@ import org.springframework.dao.DataAccessException;
 import java.util.List;
 
 public class ${pojo.shortName}DaoTest extends BaseDaoTestCase {
-    private ${pojo.shortName}Dao ${pojo.shortName.toLowerCase()}Dao = null;
+    private ${pojo.shortName}Dao ${pojoNameLower}Dao = null;
 
-    public void set${pojo.shortName}Dao(${pojo.shortName}Dao ${pojo.shortName.toLowerCase()}Dao) {
-        this.${pojo.shortName.toLowerCase()}Dao = ${pojo.shortName.toLowerCase()}Dao;
+    public void set${pojo.shortName}Dao(${pojo.shortName}Dao ${pojoNameLower}Dao) {
+        this.${pojoNameLower}Dao = ${pojoNameLower}Dao;
     }
 
     public void testAddAndRemove${pojo.shortName}() throws Exception {
-        ${pojo.shortName} ${pojo.shortName.toLowerCase()} = new ${pojo.shortName}();
+        ${pojo.shortName} ${pojoNameLower} = new ${pojo.shortName}();
 
         // enter all required fields
 <#foreach field in pojo.getAllPropertiesIterator()>
@@ -28,20 +28,20 @@ public class ${pojo.shortName}DaoTest extends BaseDaoTestCase {
     </#foreach>
 </#foreach>
 
-        ${pojo.shortName.toLowerCase()} = ${pojo.shortName.toLowerCase()}Dao.save(${pojo.shortName.toLowerCase()});
+        ${pojoNameLower} = ${pojoNameLower}Dao.save(${pojoNameLower});
         flush();
 
-        ${pojo.shortName.toLowerCase()} = (${pojo.shortName}) ${pojo.shortName.toLowerCase()}Dao.get(${pojo.shortName.toLowerCase()}.getId());
+        ${pojoNameLower} = (${pojo.shortName}) ${pojoNameLower}Dao.get(${pojoNameLower}.${getIdMethodName}());
 
-        assertNotNull(${pojo.shortName.toLowerCase()}.${getIdMethod});
+        assertNotNull(${pojoNameLower}.${getIdMethodName}());
 
-        log.debug("removing ${pojo.shortName.toLowerCase()}...");
+        log.debug("removing ${pojoNameLower}...");
 
-        ${pojo.shortName.toLowerCase()}Dao.remove(${pojo.shortName.toLowerCase()}.${getIdMethod});
+        ${pojoNameLower}Dao.remove(${pojoNameLower}.${getIdMethodName}());
         flush();
 
         try {
-            ${pojo.shortName.toLowerCase()}Dao.get(${pojo.shortName.toLowerCase()}.${getIdMethod});
+            ${pojoNameLower}Dao.get(${pojoNameLower}.${getIdMethodName}());
             fail("${pojo.shortName} found in database");
         } catch (DataAccessException dae) {
             log.debug("Expected exception: " + dae.getMessage());

@@ -1,4 +1,7 @@
 <#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
+#assign getIdMethodName = pojo.getGetterSignature(pojo.identifierProperty)>
+<#assign setIdMethodName = 'set' + pojo.getPropertyName(pojo.identifierProperty)>
+<#assign identifierType = pojo.getJavaTypeName(pojo.identifierProperty, jdk5)>
 package ${basepackage}.webapp.action;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -49,7 +52,7 @@ public class ${pojo.shortName}ActionTest extends BaseActionTestCase {
 
     public void testEdit() throws Exception {
         log.debug("testing edit...");
-        action.setId(1L);
+        action.${setIdMethodName}(1L);
         assertNull(action.get${pojo.shortName}());
         assertEquals("success", action.edit());
         assertNotNull(action.get${pojo.shortName}());
@@ -59,7 +62,7 @@ public class ${pojo.shortName}ActionTest extends BaseActionTestCase {
     public void testSave() throws Exception {
         MockHttpServletRequest request = new MockHttpServletRequest();
         ServletActionContext.setRequest(request);
-        action.setId(1L);
+        action.${setIdMethodName}(1L);
         assertEquals("success", action.edit());
         assertNotNull(action.get${pojo.shortName}());
 
@@ -86,7 +89,7 @@ public class ${pojo.shortName}ActionTest extends BaseActionTestCase {
         ServletActionContext.setRequest(request);
         action.setDelete("");
         ${pojo.shortName} ${pojoNameLower} = new ${pojo.shortName}();
-        ${pojoNameLower}.setId(2L);
+        ${pojoNameLower}.${setIdMethodName}(2L);
         action.set${pojo.shortName}(${pojoNameLower});
         assertEquals("success", action.delete());
         assertNotNull(request.getSession().getAttribute("messages"));
