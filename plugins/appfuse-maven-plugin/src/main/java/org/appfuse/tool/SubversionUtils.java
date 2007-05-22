@@ -243,13 +243,13 @@ public class SubversionUtils {
          */
         public void addDir(String path, String copyFromPath, long copyFromRevision) throws SVNException {
             File newDir = new File(myRootDirectory, path);
-            /*if (!newDir.exists()) {
+            if (!newDir.exists()) {
                 if (!newDir.mkdirs()) {
-                    SVNErrorMessage err = SVNErrorMessage.create(SVNErrorCode.IO_ERROR, "error: failed to add the directory ''{0}''.", newDir);
+                    //SVNErrorMessage err = SVNErrorMessage.create(SVNErrorCode.IO_ERROR, "error: failed to add the directory ''{0}''.", newDir);
                     //throw new SVNException(err);
-                    System.err.println(err.getMessage() + "Ignoring and not overriding.");
+                    //System.err.println(err.getMessage() + "Ignoring and not overriding.");
                 }
-            }*/
+            }
             //System.out.println("dir added: " + path);
         }
 
