@@ -105,7 +105,7 @@ public class InstallSourceMojo extends AbstractMojo {
             export("data/common/src");
 
             // export persistence framework
-            export("data/" + getDaoFramework() + "/src");
+            export("data/" + daoFramework + "/src");
 
             // export service module
             log("Installing source from service module...");
@@ -261,11 +261,10 @@ public class InstallSourceMojo extends AbstractMojo {
     }
 
     private String getDaoFramework() {
-        String fw = project.getProperties().getProperty("dao.framework");
-        if (fw.equalsIgnoreCase("jpa-hibernate")) {
+        if (daoFramework.equalsIgnoreCase("jpa-hibernate")) {
             return "jpa";
         } else {
-            return fw;
+            return daoFramework;
         }
     }
 
