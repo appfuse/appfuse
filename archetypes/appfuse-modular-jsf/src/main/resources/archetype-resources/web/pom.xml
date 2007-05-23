@@ -65,7 +65,11 @@
                     <contextPath>/</contextPath>
                     <scanIntervalSeconds>3</scanIntervalSeconds>
                     <scanTargets>
-                        <scanTarget>src/main/webapp/WEB-INF</scanTarget>
+                        <scanTarget>src/main/webapp/WEB-INF/applicationContext.xml</scanTarget>
+                        <scanTarget>src/main/webapp/WEB-INF/faces-config.xml</scanTarget>
+                        <scanTarget>src/main/webapp/WEB-INF/menu-config.xml</scanTarget>
+                        <scanTarget>src/main/webapp/WEB-INF/urlrewrite.xml</scanTarget>
+                        <scanTarget>src/main/webapp/WEB-INF/web.xml</scanTarget>
                     </scanTargets>
                 </configuration>
                 <dependencies>
