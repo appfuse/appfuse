@@ -11,11 +11,11 @@ public class ${pojo.shortName}ListTest extends BasePageTestCase {
     @Override @SuppressWarnings("unchecked")
     protected void setUp() throws Exception {
         super.setUp();
-        bean = (${pojo.shortName}List) getManagedBean("${pojo.shortName.toLowerCase()}List");
-        GenericManager<${pojo.shortName}, ${pojo.getJavaTypeName(pojo.identifierProperty, jdk5)}> ${pojo.shortName.toLowerCase()}Manager =
-                (GenericManager<${pojo.shortName}, ${pojo.getJavaTypeName(pojo.identifierProperty, jdk5)}>) applicationContext.getBean("${pojo.shortName.toLowerCase()}Manager");
+        bean = (${pojo.shortName}List) getManagedBean("${pojoNameLower}List");
+        GenericManager<${pojo.shortName}, ${pojo.getJavaTypeName(pojo.identifierProperty, jdk5)}> ${pojoNameLower}Manager =
+                (GenericManager<${pojo.shortName}, ${pojo.getJavaTypeName(pojo.identifierProperty, jdk5)}>) applicationContext.getBean("${pojoNameLower}Manager");
 
-        // add a test ${pojo.shortName.toLowerCase()} to the database
+        // add a test ${pojoNameLower} to the database
         // add a test ${pojoNameLower} to the database
         ${pojo.shortName} ${pojoNameLower} = new ${pojo.shortName}();
 

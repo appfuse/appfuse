@@ -1,6 +1,7 @@
+<#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
 <!--${pojo.shortName}Action-START-->
-    <bean id="${pojo.shortName.toLowerCase()}Action" class="${basepackage}.webapp.action.${pojo.shortName}Action" scope="prototype">
-        <property name="${pojo.shortName.toLowerCase()}Manager" ref="${pojo.shortName.toLowerCase()}Manager"/>
+    <bean id="${pojoNameLower}Action" class="${basepackage}.webapp.action.${pojo.shortName}Action" scope="prototype">
+        <property name="${pojoNameLower}Manager" ref="${pojoNameLower}Manager"/>
     </bean>
     <!--${pojo.shortName}Action-END-->
 
