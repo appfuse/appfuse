@@ -26,8 +26,8 @@ public final class GenerateSpringTest extends AbstractAppFuseMojoTestCase {
         assertTrue("can't find Persons.jsp",
                 checkExists("target/appfuse/generated/src/main/webapp/WEB-INF/pages/Persons.jsp"));
 
-        assertTrue("can't find PersonForm.jsp",
-                checkExists("target/appfuse/generated/src/main/webapp/WEB-INF/pages/PersonForm.jsp"));
+        assertTrue("can't find Personform.jsp",
+                checkExists("target/appfuse/generated/src/main/webapp/WEB-INF/pages/Personform.jsp"));
 
         assertTrue("can't find Person-beans.xml",
                 checkExists("target/appfuse/generated/src/main/webapp/WEB-INF/Person-beans.xml"));
