@@ -92,7 +92,7 @@ public class InstallSourceMojo extends AbstractMojo {
         // If appfuse.version is specified as a property, and not a SNAPSHOT, use it for the tag
         String appfuseVersion = project.getProperties().getProperty("appfuse.version");
         if (appfuseVersion != null && !appfuseVersion.endsWith("SNAPSHOT") && tag.equals("trunk/")) {
-            tag = "tags/APPFUSE_" + appfuseVersion.toUpperCase().replaceAll("-", "_");
+            tag = "tags/APPFUSE_" + appfuseVersion.toUpperCase().replaceAll("-", "_") + "/";
         }
 
         daoFramework = project.getProperties().getProperty("dao.framework");
