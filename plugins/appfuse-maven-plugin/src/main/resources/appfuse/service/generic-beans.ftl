@@ -1,5 +1,6 @@
+<#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
 <!--${pojo.shortName}Manager-START-->
-    <bean id="${pojo.shortName.toLowerCase()}Manager" class="${appfusepackage}.service.impl.GenericManagerImpl">
+    <bean id="${pojoNameLower}Manager" class="${appfusepackage}.service.impl.GenericManagerImpl">
         <constructor-arg>
             <#if daoframework == "hibernate">
             <bean class="${appfusepackage}.dao.hibernate.GenericDaoHibernate">

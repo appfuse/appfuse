@@ -1,6 +1,7 @@
+<#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
 <!--${pojo.shortName}Manager-START-->
-    <bean id="${pojo.shortName.toLowerCase()}Manager" class="${basepackage}.service.impl.${pojo.shortName}ManagerImpl">
-        <constructor-arg ref="${pojo.shortName.toLowerCase()}Dao"/>
+    <bean id="${pojoNameLower}Manager" class="${basepackage}.service.impl.${pojo.shortName}ManagerImpl">
+        <constructor-arg ref="${pojoNameLower}Dao"/>
     </bean>
     <!--${pojo.shortName}Manager-END-->
 

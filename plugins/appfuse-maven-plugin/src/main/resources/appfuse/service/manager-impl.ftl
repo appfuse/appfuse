@@ -1,3 +1,4 @@
+<#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
 package ${basepackage}.service.impl;
 
 import ${basepackage}.dao.${pojo.shortName}Dao;
@@ -10,10 +11,10 @@ import javax.jws.WebService;
 
 @WebService(serviceName = "${pojo.shortName}Service", endpointInterface = "${basepackage}.service.${pojo.shortName}Manager")
 public class ${pojo.shortName}ManagerImpl extends GenericManagerImpl<${pojo.shortName}, ${pojo.getJavaTypeName(pojo.identifierProperty, jdk5)}> implements ${pojo.shortName}Manager {
-    ${pojo.shortName}Dao ${pojo.shortName.toLowerCase()}Dao;
+    ${pojo.shortName}Dao ${pojoNameLower}Dao;
 
-    public ${pojo.shortName}ManagerImpl(${pojo.shortName}Dao ${pojo.shortName.toLowerCase()}Dao) {
-        super(${pojo.shortName.toLowerCase()}Dao);
-        this.${pojo.shortName.toLowerCase()}Dao = ${pojo.shortName.toLowerCase()}Dao;
+    public ${pojo.shortName}ManagerImpl(${pojo.shortName}Dao ${pojoNameLower}Dao) {
+        super(${pojoNameLower}Dao);
+        this.${pojoNameLower}Dao = ${pojoNameLower}Dao;
     }
 }

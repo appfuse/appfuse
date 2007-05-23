@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Locale;
 
 public class ${pojo.shortName}FormController extends BaseFormController {
-    private GenericManager<${pojo.shortName}, ${identifierType}> ${pojo.shortName.toLowerCase()}Manager = null;
+    private GenericManager<${pojo.shortName}, ${identifierType}> ${pojoNameLower}Manager = null;
 
     public void set${pojo.shortName}Manager(GenericManager<${pojo.shortName}, ${identifierType}> ${pojoNameLower}Manager) {
         this.${pojoNameLower}Manager = ${pojoNameLower}Manager;
