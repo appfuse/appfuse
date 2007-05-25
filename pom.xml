@@ -232,7 +232,7 @@
         <repository>
             <id>appfuse-releases</id>
             <name>AppFuse Release Repository</name>
-            <url>scp://static.appfuse.org/home/raibledemo/public_html/repository</url>
+            <url>scp://static.appfuse.org/home/raibledemo/public_html/releases</url>
         </repository>
         <site>
             <id>appfuse-site</id>
@@ -262,6 +262,10 @@
         <repository>
             <id>appfuse</id>
             <url>http://static.appfuse.org/repository</url>
+            <!-- Remove this snapshots bit before releasing -->
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </repository>
     </repositories>
 
