@@ -20,7 +20,7 @@ public class SignupActionTest extends BaseActionTestCase {
     public void testDisplayForm() throws Exception {
         MockHttpServletRequest request = new MockHttpServletRequest(null, "GET", "/signup.html");
         ServletActionContext.setRequest(request);
-        assertEquals(action.execute(), "input");
+        assertEquals("input", action.execute());
     }  
     
     public void testExecute() throws Exception {
@@ -51,7 +51,7 @@ public class SignupActionTest extends BaseActionTestCase {
         wiser.setPort(2525);
         wiser.start();
         
-        assertEquals(action.save(), "success");
+        assertEquals("success", action.save());
         assertFalse(action.hasActionErrors());
         
         // verify an account information e-mail was sent

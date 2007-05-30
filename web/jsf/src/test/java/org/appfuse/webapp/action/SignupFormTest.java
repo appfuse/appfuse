@@ -39,7 +39,7 @@ public class SignupFormTest extends BasePageTestCase {
         wiser.setPort(2525);
         wiser.start();
 
-        assertEquals(bean.save(), "mainMenu");
+        assertEquals("mainMenu", bean.save());
         assertFalse(bean.hasErrors());
 
         // verify an account information e-mail was sent

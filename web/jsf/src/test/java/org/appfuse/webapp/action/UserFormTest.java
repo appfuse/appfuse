@@ -21,7 +21,7 @@ public class UserFormTest extends BasePageTestCase {
     
     public void testEdit() throws Exception {
         bean.setId("1");
-        assertEquals(bean.edit(), "editProfile");
+        assertEquals("editProfile", bean.edit());
         assertNotNull(bean.getUser().getUsername());
         assertFalse(bean.hasErrors());
     }
@@ -32,7 +32,7 @@ public class UserFormTest extends BasePageTestCase {
         user.setConfirmPassword("user");
         bean.setUser(user);
 
-        assertEquals(bean.save(), "mainMenu");
+        assertEquals("mainMenu", bean.save());
         assertNotNull(bean.getUser());
         assertFalse(bean.hasErrors());
     }
@@ -41,7 +41,7 @@ public class UserFormTest extends BasePageTestCase {
         User user2Delete = new User();
         user2Delete.setId(2L);
         bean.setUser(user2Delete);
-        assertEquals(bean.delete(), "list");
+        assertEquals("list", bean.delete());
         assertFalse(bean.hasErrors());
     }
 }

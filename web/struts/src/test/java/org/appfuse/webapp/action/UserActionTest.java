@@ -18,7 +18,7 @@ public class UserActionTest extends BaseActionTestCase {
         assertFalse(action.hasActionErrors());
 
         action.setFrom("list");
-        assertEquals(action.cancel(), "cancel");
+        assertEquals("cancel", action.cancel());
     }
     
     public void testEdit() throws Exception {
@@ -45,7 +45,7 @@ public class UserActionTest extends BaseActionTestCase {
         request.addParameter("encryptPass", "true");
         ServletActionContext.setRequest(request);
 
-        assertEquals(action.save(), "input");
+        assertEquals("input", action.save());
         assertNotNull(action.getUser());
         assertFalse(action.hasActionErrors());
     }

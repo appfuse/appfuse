@@ -17,7 +17,7 @@ public class PasswordHintTest extends BasePageTestCase {
         wiser.start();
 
         bean.setUsername("user");
-        assertEquals(bean.execute(), "success");
+        assertEquals("success", bean.execute());
         assertFalse(bean.hasErrors());
 
         // verify an account information e-mail was sent

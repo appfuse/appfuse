@@ -16,7 +16,7 @@ public class PasswordHintActionTest extends BaseActionTestCase {
         wiser.start();
         
         action.setUsername("user");
-        assertEquals(action.execute(), "success");
+        assertEquals("success", action.execute());
         assertFalse(action.hasActionErrors());
 
         // verify an account information e-mail was sent
