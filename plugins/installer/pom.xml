@@ -28,7 +28,7 @@
     <url>http://appfuse.dev.java.net</url>
 
     <prerequisites>
-        <maven>2.0.4</maven>
+        <maven>2.0.6</maven>
     </prerequisites>
 
     <scm>

@@ -11,7 +11,7 @@
     <url>http://www.mycompany.com</url>
 
     <prerequisites>
-        <maven>2.0.4</maven>
+        <maven>2.0.6</maven>
     </prerequisites>
 
     <licenses>

@@ -41,7 +41,7 @@
     </description>
 
     <prerequisites>
-        <maven>2.0.4</maven>
+        <maven>2.0.6</maven>
     </prerequisites>
 
     <scm>
@@ -447,7 +447,7 @@
         <tapestry.version>4.0.2</tapestry.version>
         <tapestry.flash.version>1.0.0</tapestry.flash.version>
         <tapestry.spring.version>1.0.0</tapestry.spring.version>
-        <urlrewrite.version>2.5.2</urlrewrite.version>
+        <urlrewrite.version>3.0.4</urlrewrite.version>
         <velocity.version>1.4</velocity.version>
         <webtest.version>1454</webtest.version>
         <wiser.version>1.0.3</wiser.version>

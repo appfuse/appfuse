@@ -222,7 +222,7 @@
         </dependency>
         <dependency>
             <groupId>org.tuckey</groupId>
-            <artifactId>urlrewrite</artifactId>
+            <artifactId>urlrewritefilter</artifactId>
             <version>${urlrewrite.version}</version>
         </dependency>
     </dependencies>
