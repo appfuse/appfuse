@@ -39,6 +39,7 @@ import java.util.Set;
  */
 public class InstallSourceMojo extends AbstractMojo {
     private static final String APPFUSE_GROUP_ID = "org.appfuse";
+    private static final String FILE_SEP = System.getProperty("file.separator");
     private static final List<String> JSF_PROPERTIES = asList("ajax4jsf", "myfaces.tomahawk", "corejsf.validator", "myfaces", "facelets", "el");
     private static final List<String> SPRING_PROPERTIES = asList("springmodules.validation");
     private static final List<String> STRUTS_PROPERTIES = asList("struts");
@@ -106,6 +107,31 @@ public class InstallSourceMojo extends AbstractMojo {
 
             // export persistence framework
             export("data/" + daoFramework + "/src");
+
+            // if jpa or hibernate, remove duplicate file in test directory
+            if (daoFramework.equalsIgnoreCase("hibernate")) {
+                File duplicateFile = new File(getFilePath("src/test/resources/hibernate.cfg.xml"));
+                if (duplicateFile.exists()) {
+                    log("Deleting duplicate hibernate.cfg.xml from src/test/resources...");
+                    try {
+                        FileUtils.forceDeleteOnExit(duplicateFile);
+                    } catch (IOException io) {
+                        getLog().error("Failed to delete src/test/resources/hibernate.cfg.xml, please delete manually.");
+                    }
+                }
+            } else if (daoFramework.equalsIgnoreCase("jpa-hibernate")) {
+                File duplicateFile = new File(getFilePath("src/test/resources/META-INF"));
+                if (duplicateFile.exists()) {
+                    log("Deleting duplicate persistence.xml from src/test/resources/META-INF...");
+                    try {
+                        // For some reason, this just deletes persistence.xml, not the META-INF directory.
+                        // I tried FileUtils.deleteDirectory(duplicateFile), but no dice.
+                        FileUtils.forceDeleteOnExit(duplicateFile);
+                    } catch (IOException io) {
+                        getLog().error("Failed to delete src/test/resources/META-INF/persistence.xml, please delete manually.");
+                    }
+                }
+            }
 
             // export service module
             log("Installing source from service module...");
@@ -239,6 +265,11 @@ public class InstallSourceMojo extends AbstractMojo {
         if (pom.exists()) {
             pom.delete();
         }
+    }
+
+    private String getFilePath(String s) {
+        s = s.replace("/", FILE_SEP);
+        return s;
     }
 
     private void export(String url) throws MojoExecutionException {
@@ -455,6 +486,11 @@ public class InstallSourceMojo extends AbstractMojo {
         }
 
         newProperties.put(getDaoFramework() + ".version", props.getProperty(getDaoFramework() + ".version"));
+
+        // APF-785: jpa still depends on having hibernate.version as a property
+        if (daoFramework.equalsIgnoreCase("jpa-hibernate")) {
+            newProperties.put("hibernate.version", props.getProperty("hibernate.version"));
+        }
 
         return newProperties;
     }
