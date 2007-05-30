@@ -25,6 +25,7 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
+    <groupId>org.appfuse.archetypes</groupId>
     <artifactId>appfuse-core</artifactId>
     <name>AppFuse Core Archetype</name>
     <version>2.0-rc1-SNAPSHOT</version>

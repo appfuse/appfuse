@@ -29,7 +29,7 @@
         <attribute name="name" default=""/>
         <attribute name="archetype" default=""/>
         <attribute name="version" default=""/>
-        <attribute name="command" default="archetype:create -DarchetypeGroupId=org.appfuse -DarchetypeArtifactId=@{archetype} -DarchetypeVersion=@{version} -DgroupId=com.mycompany -DartifactId=archetype"/>
+        <attribute name="command" default="archetype:create -DarchetypeGroupId=org.appfuse.archetypes -DarchetypeArtifactId=@{archetype} -DarchetypeVersion=@{version} -DgroupId=com.mycompany -DartifactId=archetype"/>
         
         <sequential>
             <exec dir="@{dir}" executable="mvn.bat" os="Windows XP" failonerror="true">

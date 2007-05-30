@@ -25,6 +25,7 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
+    <groupId>org.appfuse.archetypes</groupId>
     <artifactId>appfuse-basic-spring</artifactId>
     <name>AppFuse Basic Archetype - Spring MVC</name>
     <version>2.0-rc1-SNAPSHOT</version>
