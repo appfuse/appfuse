@@ -32,6 +32,7 @@
                         <drop>true</drop>
                         <jdk5>true</jdk5>
                         <propertyfile>target/test-classes/jdbc.properties</propertyfile>
+                        <skip>${maven.test.skip}</skip>
                     </componentProperties>
                 </configuration>
                 <executions>
