@@ -13,9 +13,9 @@
           <li>
         #end
         #if ($menu.name == $currentMenu)
-          <a href="$url" title="$title" class="current" #if($menu.target)target="$menu.target"#end#if($menu.width)style="width: ${menu.width}px"#end>${title}</a>
+          <a href="$url" title="$title" class="current" #if($menu.target)target="$menu.target" #end#if($menu.width)style="width: ${menu.width}px"#end>${title}</a>
         #else
-          <a href="$url" title="$title" #if($menu.target)target="$menu.target"#end#if($menu.width)style="width: ${menu.width}px"#end>${title}</a>
+          <a href="$url" title="$title" #if($menu.target)target="$menu.target" #end#if($menu.width)style="width: ${menu.width}px"#end>${title}</a>
         #end
     #else ## create multiple menu items in a menu
         #if ($menu.components.size() > 0)
@@ -28,7 +28,7 @@
         #end
 
         <li#if ($hasViewableChildren) class="menubar"#end>
-          <a href="$url" title="$title" #if ($menu.name == $currentMenu) class="current" #end#if($menu.target)target="$menu.target"#end#if($menu.width)style="width: ${menu.width}px"#end>${title}</a>
+          <a href="$url" title="$title" #if ($menu.name == $currentMenu) class="current" #end#if($menu.target)target="$menu.target" #end#if($menu.width)style="width: ${menu.width}px"#end>${title}</a>
     #end
 
     #if ($menu.components.size() > 0)
