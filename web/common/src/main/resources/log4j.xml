@@ -39,6 +39,10 @@
         <level value="DEBUG"/>
     </logger>
 
+    <logger name="org.appfuse.webapp.filter.StaticFilter">
+        <level value="INFO"/>
+    </logger>
+
     <root>
         <level value="WARN"/>
         <appender-ref ref="CONSOLE"/>
