@@ -1,4 +1,5 @@
 <#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
+<#assign dateExists = false>
 <%@ include file="/common/taglibs.jsp"%>
 
 <head>
@@ -19,9 +20,14 @@
 <#elseif !c2h.isCollection(field) && !c2h.isManyToOne(field)>
     <#foreach column in field.getColumnIterator()>
         <#if field.value.typeName == "java.util.Date">
-            <#lt/>    <s:textfield key="${pojoNameLower}.${field.name}" required="${(!column.nullable)?string}" cssClass="text medium"/> <!-- todo: add calendar -->
-        <#elseif field.value.typeName == "boolean">
-            <#lt/>    <s:checkbox key="${pojoNameLower}.${field.name}" required="${(!column.nullable)?string}" cssClass="choice"/>
+            <#assign dateExists = true>
+            <#lt/>    <s:textfield key="${pojoNameLower}.${field.name}" required="${(!column.nullable)?string}" cssClass="text" size="11" title="date"/>
+        <#elseif field.value.typeName == "boolean" || field.value.typeName == "java.lang.Boolean">
+            <#lt/><li>
+            <#lt/>    <s:checkbox key="${pojoNameLower}.${field.name}" cssClass="checkbox" theme="simple"/>
+            <#lt/>    <!-- For some reason, key prints out the raw value for the label (i.e. true) instead of the i18n key: https://issues.apache.org/struts/browse/WW-1958-->
+            <#lt/>    <s:label for="${pojoNameLower}Form_${pojoNameLower}_${field.name}" value="%{getText('${pojoNameLower}.${field.name}')}" cssClass="choice desc" theme="simple"/>
+            <#lt/></li>
         <#else>
             <#lt/>    <s:textfield key="${pojoNameLower}.${field.name}" required="${(!column.nullable)?string}" cssClass="text medium"/>
         </#if>
@@ -44,6 +50,16 @@
     </li>
 </s:form>
 
+<#if dateExists><#rt/>
+<script type="text/javascript" src="<c:url value='/scripts/calendar/calendar.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/scripts/calendar/calendar-setup.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/scripts/calendar/lang/calendar-${'$'}{pageContext.request.locale}.js'/>"></script>
+</#if><#rt/>
 <script type="text/javascript">
     Form.focusFirstElement($("${pojoNameLower}Form"));
+<#foreach field in pojo.getAllPropertiesIterator()>
+    <#if !c2h.isCollection(field) && !c2h.isManyToOne(field) && field.value.typeName == "java.util.Date">
+    Calendar.setup({inputField: "${pojoNameLower}Form_${pojoNameLower}_${field.name}", ifFormat: "%m/%d/%Y", button: "${pojoNameLower}.${field.name}DatePicker"});
+    </#if>
+</#foreach>
 </script>

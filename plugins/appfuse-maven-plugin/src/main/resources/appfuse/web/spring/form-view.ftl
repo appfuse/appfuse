@@ -1,4 +1,5 @@
 <#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
+<#assign dateExists = false>
 <%@ include file="/common/taglibs.jsp"%>
 
 <head>
@@ -29,9 +30,11 @@
         <appfuse:label styleClass="desc" key="${pojoNameLower}.${field.name}"/>
         <form:errors path="${field.name}" cssClass="fieldError"/>
         <#if field.value.typeName == "java.util.Date">
-        <form:input path="${field.name}" id="${field.name}" cssClass="text medium"/> <!-- todo: add calendar -->
+        <#assign dateExists = true/>
+        <form:input path="${field.name}" id="${field.name}" cssClass="text" size="11"/>
+        <img src="<c:url value='/images/iconCalendar.gif'/>" alt="" id="${field.name}DatePicker" class="calIcon"/>
         <#elseif field.value.typeName == "boolean" || field.value.typeName == "java.lang.Boolean">
-        <form:checkbox path="${field.name}" id="${field.name}" cssClass="choice"/>
+        <form:checkbox path="${field.name}" id="${field.name}" cssClass="checkbox"/>
         <#else>
         <form:input path="${field.name}" id="${field.name}" cssClass="text medium"/>
         </#if>
@@ -57,8 +60,18 @@
 </form:form>
 
 <v:javascript formName="${pojoNameLower}" cdata="false" dynamicJavascript="true" staticJavascript="false"/>
-<script type="text/javascript" src="<c:url value="/scripts/validator.jsp"/>"></script>
+<script type="text/javascript" src="<c:url value='/scripts/validator.jsp'/>"></script>
 
+<#if dateExists><#rt/>
+<script type="text/javascript" src="<c:url value='/scripts/calendar/calendar.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/scripts/calendar/calendar-setup.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/scripts/calendar/lang/calendar-${'$'}{pageContext.request.locale}.js'/>"></script>
+</#if><#rt/>
 <script type="text/javascript">
     Form.focusFirstElement($('${pojoNameLower}Form'));
+<#foreach field in pojo.getAllPropertiesIterator()>
+    <#if !c2h.isCollection(field) && !c2h.isManyToOne(field) && field.value.typeName == "java.util.Date">
+    Calendar.setup({inputField: "${field.name}", ifFormat: "%m/%d/%Y", button: "${field.name}DatePicker"});
+    </#if>
+</#foreach>
 </script>

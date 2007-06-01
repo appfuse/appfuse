@@ -29,7 +29,7 @@ public class Person {
         return id;
     }
 
-    @Column(name = "creation_date") // removed nullable = false since Canoo WebTest can't handle Dojo's DatePicker
+    @Column(name = "creation_date", nullable = false)
     public Date getCreationDate() {
         return creationDate;
     }
@@ -39,7 +39,7 @@ public class Person {
         return email;
     }
 
-    @Column(name = "modification_date") // removed nullable = false since Canoo WebTest can't handle Dojo's DatePicker
+    @Column(name = "modification_date", nullable = false)
     public Date getModificationDate() {
         return modificationDate;
     }

@@ -72,6 +72,11 @@ div.message img.icon {
     vertical-align: middle;
 }
 
+img.calIcon {
+    vertical-align: middle; 
+    padding-bottom: 6px;
+}
+
 span.fieldError, .errorMessage {
     color: red;
     font-size: .95em;

@@ -34,7 +34,7 @@
         </#if>
         <#if hasFieldErrors>
         <#list fieldErrors[parameters.name] as error>
-            <span class="fieldError"><img src="./images/iconWarning.gif" alt="Validation Error" class="icon" /> ${error?html}</span><#lt/>
+            <span class="fieldError"><img src="${base}/images/iconWarning.gif" alt="Validation Error" class="icon" /> ${error?html}</span><#lt/>
         </#list>
         </#if>
     </#if>
