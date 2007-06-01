@@ -34,6 +34,11 @@
     <logger name="org.springframework">
         <level value="WARN"/>
     </logger>
+
+    <!-- http://issues.appfuse.org/browse/APF-736#action_11786 -->
+    <logger name="com.opensymphony.xwork2.util.XWorkConverter">
+        <level value="FATAL"/>
+    </logger>
    
     <logger name="org.appfuse">
         <level value="INFO"/>
