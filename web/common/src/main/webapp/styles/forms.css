@@ -12,7 +12,7 @@ form ul {
     position: relative;
     list-style: none;
     width: 100%;
-    padding: 0px;
+    padding: 0;
 }
 
 /* Fixes for forms around everything in JSF */
@@ -26,7 +26,7 @@ form ul.glassList {
 form ul.glassList li {
     line-height: 1.1em;
     font-size: 1.1em;
-    padding: 2px 0px 3px 0px;
+    padding: 2px 0 3px 0;
 }
 
 form .pagebanner, form .exportlinks, form .table {
@@ -96,7 +96,7 @@ form .clear{
 }
 
 form li div {
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 form li div p {
@@ -145,7 +145,7 @@ form .section{
     border-top: 1px dotted #ccc !important;
     margin-top: 15px !important;
     padding-top: 12px !important;
-    padding-bottom: 0px !important;
+    padding-bottom: 0 !important;
 }
 
 form .section[class]{
@@ -154,7 +154,7 @@ form .section[class]{
 
 form .first{
     border-top: none !important;
-    margin-top: 0px !important;
+    margin-top: 0 !important;
     padding-top: 1px !important;
 }
 
@@ -320,7 +320,7 @@ fieldset.choices{
 }
 
 fieldset.fieldset{
-    padding: 0px 0 10px 0;
+    padding: 0 0 10px 0;
 }
 
 legend{
@@ -424,10 +424,10 @@ table.pickList td select {
 #loginForm fieldset {
     width: 300px;
     padding: 10px 30px;
-    margin: 0px auto;
+    margin: 0 auto;
 }
 
 #loginForm li {
     text-align: left;
-    padding: 0px;
+    padding: 0;
 }
