@@ -9,9 +9,8 @@ import java.io.OutputStream;
 import org.appfuse.Constants;
 
 import org.apache.struts2.ServletActionContext;
-import com.opensymphony.xwork2.ValidationAware;
 
-public class FileUploadAction extends BaseAction implements ValidationAware {
+public class FileUploadAction extends BaseAction {
     private static final long serialVersionUID = -9208910183310010569L;
     private File file;
     private String fileContentType;
@@ -21,11 +20,6 @@ public class FileUploadAction extends BaseAction implements ValidationAware {
     public String execute() throws Exception {
         if (this.cancel != null) {
             return "cancel";
-        }
-        
-        if (file == null || file.length() > 2097152) {
-            addActionError(getText("maxLengthExceeded"));
-            return INPUT;
         }
 
         // the directory to upload to
@@ -103,5 +97,14 @@ public class FileUploadAction extends BaseAction implements ValidationAware {
 
     public String getFileFileName() {
         return fileFileName;
+    }
+    
+    public void validate() {
+        // todo: figure out why server-side validaton isn't kicking in
+        if ("".equals(fileFileName) || file == null) {
+            super.addFieldError("file", getText("errors.requiredField", new String[] {getText("uploadForm.file")}));
+        } else if (file.length() > 2097152) {
+            addActionError(getText("maxLengthExceeded"));
+        }
     }
 }
