@@ -53,7 +53,7 @@
 <#if dateExists><#rt/>
 <script type="text/javascript" src="<c:url value='/scripts/calendar/calendar.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/scripts/calendar/calendar-setup.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/scripts/calendar/lang/calendar-${'$'}{pageContext.request.locale}.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/scripts/calendar/lang/calendar-en.js'/>"></script>
 </#if><#rt/>
 <script type="text/javascript">
     Form.focusFirstElement($("${pojoNameLower}Form"));
