@@ -4,7 +4,13 @@
 
 <hibernate-configuration>
     <session-factory>
-        <mapping class="annotationconfiguration.Person"/>
+        <mapping class="annotationconfiguration.Cartao"/>
+        <mapping class="annotationconfiguration.Estadocartao"/>
+        <mapping class="annotationconfiguration.Evento"/>
+        <mapping class="annotationconfiguration.Ficheiro"/>
         <mapping class="annotationconfiguration.Item"/>
+        <mapping class="annotationconfiguration.Person"/>
+        <mapping class="annotationconfiguration.Tipocartao"/>
+        <mapping class="annotationconfiguration.Tipoevento"/>
     </session-factory>
 </hibernate-configuration>

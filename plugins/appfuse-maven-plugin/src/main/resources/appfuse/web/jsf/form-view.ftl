@@ -23,6 +23,7 @@
 <#rt/>
 <#foreach field in pojo.getAllPropertiesIterator()>
 <#if field.equals(pojo.identifierProperty)>
+    <#foreach column in field.getColumnIterator()>
     <#assign idFieldName = field.name>
     <#if field.value.identifierGeneratorStrategy == "assigned">
 <h:panelGrid columns="3">
@@ -33,11 +34,10 @@
     <t:message for="${field.name}" styleClass="fieldError"/>
     <#else>
         <#lt/><h:inputHidden value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}" id="${field.name}"/>
-
 <h:panelGrid columns="3">
     </#if>
+    </#foreach>
 <#elseif !c2h.isCollection(field) && !c2h.isManyToOne(field)>
-
     <h:outputLabel styleClass="desc" for="${field.name}" value="${'#'}{text['${pojoNameLower}.${field.name}']}"/>
     <t:message for="${field.name}" styleClass="fieldError"/>
     <#foreach column in field.getColumnIterator()>
@@ -50,7 +50,7 @@
         </#if>
     </t:inputCalendar>
         <#elseif field.value.typeName == "boolean" || field.value.typeName == "java.lang.Boolean">
-            <#lt/>    <h:selectBooleanCheckbox value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}" id="${field.name}" styleClass="choice"/>
+            <#lt/>    <h:selectBooleanCheckbox value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}" id="${field.name}" styleClass="checkbox"/>
         <#else>
             <#lt/>    <h:inputText styleClass="text medium" id="${field.name}" value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}" required="${(!column.nullable)?string}">
         <#if !column.nullable>
