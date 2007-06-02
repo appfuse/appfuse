@@ -245,6 +245,7 @@
                         <configuration>
                             <encoding>UTF8</encoding>
                             <includes>
+                                ApplicationResources_ko.properties,
                                 ApplicationResources_no.properties,
                                 ApplicationResources_tr.properties,
                                 ApplicationResources_zh*.properties
@@ -273,13 +274,14 @@
             <resource>
                 <directory>src/main/resources</directory>
                 <excludes>
-                    <exclude>ApplicationResources_zh*.properties</exclude>
                     <exclude>ApplicationResources_de.properties</exclude>
                     <exclude>ApplicationResources_fr.properties</exclude>
+                    <exclude>ApplicationResources_ko.properties</exclude>
                     <exclude>ApplicationResources_nl.properties</exclude>
                     <exclude>ApplicationResources_no.properties</exclude>
                     <exclude>ApplicationResources_pt*.properties</exclude>
                     <exclude>ApplicationResources_tr.properties</exclude>
+                    <exclude>ApplicationResources_zh*.properties</exclude>
                 </excludes>
                 <filtering>true</filtering>
             </resource>
@@ -531,7 +533,7 @@
                 </plugins>
             </build>
         </profile>
-        
+
         <!-- ================= Database Profiles ================= -->
         <profile>
             <id>derby</id>
@@ -630,7 +632,7 @@
             </properties>
         </profile>
     </profiles>
-    
+
     <properties>
         <!-- Application settings -->
         <copyright.year>2007</copyright.year>

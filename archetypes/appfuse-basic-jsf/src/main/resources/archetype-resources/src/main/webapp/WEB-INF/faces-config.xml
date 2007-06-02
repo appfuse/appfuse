@@ -7,10 +7,12 @@
         <variable-resolver>org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver>
         <locale-config>
             <default-locale>en</default-locale>
+            <supported-locale>de</supported-locale>
             <supported-locale>en</supported-locale>
             <supported-locale>es</supported-locale>
-            <supported-locale>de</supported-locale>
             <supported-locale>fr</supported-locale>
+            <supported-locale>it</supported-locale>
+            <supported-locale>ko</supported-locale>
             <supported-locale>nl</supported-locale>
             <supported-locale>no</supported-locale>
             <supported-locale>pt</supported-locale>

@@ -129,7 +129,7 @@
                         </goals>
                         <configuration>
                             <encoding>UTF8</encoding>
-                            <includes>errors_zh*</includes>
+                            <includes>errors_ko*,errors_tr*,errors_zh*</includes>
                         </configuration>
                     </execution>
                     <execution>
@@ -143,8 +143,7 @@
                                 errors_de.properties,
                                 errors_fr.properties,
                                 errors_nl.properties,
-                                errors_pt*.properties,
-                                errors_tr.properties
+                                errors_pt*.properties
                             </includes>
                         </configuration>
                     </execution>
@@ -155,12 +154,13 @@
             <resource>
                 <directory>src/main/resources</directory>
                 <excludes>
-                    <exclude>errors_zh*.properties</exclude>
                     <exclude>errors_de.properties</exclude>
                     <exclude>errors_fr.properties</exclude>
+                    <exclude>errors_ko.properties</exclude>
                     <exclude>errors_nl.properties</exclude>
                     <exclude>errors_pt*.properties</exclude>
                     <exclude>errors_tr.properties</exclude>
+                    <exclude>errors_zh*.properties</exclude>
                 </excludes>
                 <filtering>true</filtering>
             </resource>
