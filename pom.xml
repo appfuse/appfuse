@@ -409,7 +409,7 @@
         <cargo.port>9876</cargo.port>
         <cargo.wait>false</cargo.wait>
 
-        <acegi.version>1.0.3</acegi.version>
+        <acegi.version>1.0.4</acegi.version>
         <ajax4jsf.version>1.0.6</ajax4jsf.version>
         <aspectj.version>1.5.3</aspectj.version>
         <clickstream.version>1.0.2</clickstream.version>
