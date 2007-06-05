@@ -18,7 +18,7 @@
     arrowUpAsset="asset:upArrow" arrowDownAsset="asset:downArrow"
     columns="<#rt/>
     <#foreach field in pojo.getAllPropertiesIterator()>
-    <#if !c2h.isCollection(field) && !c2h.isManyToOne(field)>
+    <#if !c2h.isCollection(field) && !c2h.isManyToOne(field) && !c2j.isComponent(field)>
         <#lt/>${pojoNameLower}.${field.name}:${field.name},<#rt/>
     </#if>
     </#foreach>">

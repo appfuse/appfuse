@@ -4,7 +4,7 @@
 <validators>
 <#foreach field in pojo.getAllPropertiesIterator()>
     <#foreach column in field.getColumnIterator()>
-        <#if !field.equals(pojo.identifierProperty) && !column.nullable && !c2h.isCollection(field) && !c2h.isManyToOne(field)>
+        <#if !field.equals(pojo.identifierProperty) && !column.nullable && !c2h.isCollection(field) && !c2h.isManyToOne(field) && !c2j.isComponent(field)>
             <#if field.value.typeName != "boolean" && field.value.typeName != "java.lang.Boolean">
             <#lt/>    <field name="${pojoNameLower}.${field.name}">
                 <#if field.value.typeName == "java.lang.String">

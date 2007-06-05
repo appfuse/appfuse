@@ -1,7 +1,7 @@
     <!--${pojo.shortName}-START-->
     <table name="${clazz.table.name}">
 <#foreach field in pojo.getAllPropertiesIterator()>
-<#if !c2h.isCollection(field) && !c2h.isManyToOne(field)>
+<#if !c2h.isCollection(field) && !c2h.isManyToOne(field) && !c2j.isComponent(field)>
     <#foreach column in field.getColumnIterator()>
         <column>${column.name}</column>
     </#foreach>
@@ -11,7 +11,7 @@
 <#foreach num in rows>
     <row>
 <#foreach field in pojo.getAllPropertiesIterator()>
-<#if !c2h.isCollection(field) && !c2h.isManyToOne(field)>
+<#if !c2h.isCollection(field) && !c2h.isManyToOne(field) && !c2j.isComponent(field)>
     <#foreach column in field.getColumnIterator()>
         <value description="${column.name}"><#rt/>
         <#if field.equals(pojo.identifierProperty)>

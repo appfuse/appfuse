@@ -34,7 +34,7 @@
             <f:param name="id" value="${'#'}{${pojoNameLower}.${field.name}}"/>
             <f:param name="from" value="list"/>
         </h:commandLink>
-<#elseif !c2h.isCollection(field) && !c2h.isManyToOne(field)>
+<#elseif !c2h.isCollection(field) && !c2h.isManyToOne(field) && !c2j.isComponent(field)>
     <#if field.value.typeName == "java.util.Date">
         <#lt/>    <h:outputText value="${'#'}{${pojoNameLower}.${field.name}}" escape="true"/>
     <#elseif field.value.typeName == "boolean">

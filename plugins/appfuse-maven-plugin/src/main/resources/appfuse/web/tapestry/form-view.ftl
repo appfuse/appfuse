@@ -25,7 +25,7 @@
 
 <ul>
     </#if>
-<#elseif !c2h.isCollection(field) && !c2h.isManyToOne(field)>
+<#elseif !c2h.isCollection(field) && !c2h.isManyToOne(field) && !c2j.isComponent(field)>
 
     <li>
 <#foreach column in field.getColumnIterator()>

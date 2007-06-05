@@ -2,7 +2,7 @@
 # -- ${pojo.shortName}-START
 <#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
 <#foreach field in pojo.getAllPropertiesIterator()>
-<#if !c2h.isCollection(field) && !c2h.isManyToOne(field)>
+<#if !c2h.isCollection(field) && !c2h.isManyToOne(field) && !c2j.isComponent(field)>
     <#lt/>${pojoNameLower}.${field.name}=${data.getFieldDescription(field.name)}
 </#if>
 </#foreach>

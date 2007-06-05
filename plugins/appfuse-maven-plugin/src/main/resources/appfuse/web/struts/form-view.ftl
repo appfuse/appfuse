@@ -17,7 +17,7 @@
     <#else>
         <#lt/>    <s:hidden key="${pojoNameLower}.${field.name}" cssClass="text medium"/>
     </#if>
-<#elseif !c2h.isCollection(field) && !c2h.isManyToOne(field)>
+<#elseif !c2h.isCollection(field) && !c2h.isManyToOne(field) && !c2j.isComponent(field)>
     <#foreach column in field.getColumnIterator()>
         <#if field.value.typeName == "java.util.Date">
             <#assign dateExists = true>
@@ -58,7 +58,7 @@
 <script type="text/javascript">
     Form.focusFirstElement($("${pojoNameLower}Form"));
 <#foreach field in pojo.getAllPropertiesIterator()>
-    <#if !c2h.isCollection(field) && !c2h.isManyToOne(field) && field.value.typeName == "java.util.Date">
+    <#if !c2h.isCollection(field) && !c2h.isManyToOne(field) && !c2j.isComponent(field) && field.value.typeName == "java.util.Date">
     Calendar.setup({inputField: "${pojoNameLower}Form_${pojoNameLower}_${field.name}", ifFormat: "%m/%d/%Y", button: "${pojoNameLower}.${field.name}DatePicker"});
     </#if>
 </#foreach>

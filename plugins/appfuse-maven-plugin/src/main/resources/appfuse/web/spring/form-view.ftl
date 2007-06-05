@@ -24,7 +24,7 @@
         <#lt/><form:hidden path="${field.name}"/>
         <#lt/><ul>
     </#if>
-<#elseif !c2h.isCollection(field) && !c2h.isManyToOne(field)>
+<#elseif !c2h.isCollection(field) && !c2h.isManyToOne(field) && !c2j.isComponent(field)>
     <#foreach column in field.getColumnIterator()>
     <li>
         <appfuse:label styleClass="desc" key="${pojoNameLower}.${field.name}"/>

@@ -37,7 +37,7 @@
 <h:panelGrid columns="3">
     </#if>
     </#foreach>
-<#elseif !c2h.isCollection(field) && !c2h.isManyToOne(field)>
+<#elseif !c2h.isCollection(field) && !c2h.isManyToOne(field) && !c2j.isComponent(field)>
     <h:outputLabel styleClass="desc" for="${field.name}" value="${'#'}{text['${pojoNameLower}.${field.name}']}"/>
     <t:message for="${field.name}" styleClass="fieldError"/>
     <#foreach column in field.getColumnIterator()>

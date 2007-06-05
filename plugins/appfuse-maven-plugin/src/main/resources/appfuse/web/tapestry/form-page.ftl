@@ -18,7 +18,7 @@
     </component>
 
 <#foreach field in pojo.getAllPropertiesIterator()>
-<#if !c2h.isCollection(field) && !c2h.isManyToOne(field)>
+<#if !c2h.isCollection(field) && !c2h.isManyToOne(field) && !c2j.isComponent(field)>
     <#foreach column in field.getColumnIterator()>
     <#if field.value.typeName == "java.lang.String">
 
