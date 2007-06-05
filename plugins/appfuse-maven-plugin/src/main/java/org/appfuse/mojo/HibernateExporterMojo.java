@@ -136,17 +136,13 @@ public abstract class HibernateExporterMojo extends AbstractMojo implements Expo
         // for war projects that have a parent pom, don't reset classpath
         // this is to allow using hibernate.cfg.xml from core module
         if (project.getPackaging().equals("war") && project.hasParent()) {
-            // allow project to specify configuration file - only assume the following if configuration file is not specified
-            getLog().info("configurationfile: " + getComponentProperty("configurationfile"));
-            if (componentProperties.get("configurationfile") == null) {
-                // assume first module in parent project has hibernate.cfg.xml
-                String moduleName = (String) project.getParent().getModules().get(0);
-                String pathToParent = project.getOriginalModel().getParent().getRelativePath();
-                pathToParent = pathToParent.substring(0, pathToParent.lastIndexOf('/') + 1);
-                getLog().info("Assuming '" + moduleName + "' has hibernate.cfg.xml in its src/main/resources directory");
-                componentProperties.put("configurationfile",
-                        project.getBasedir() + "/" + pathToParent + moduleName + "/src/main/resources/hibernate.cfg.xml");
-            }
+            // assume first module in parent project has hibernate.cfg.xml
+            String moduleName = (String) project.getParent().getModules().get(0);
+            String pathToParent = project.getOriginalModel().getParent().getRelativePath();
+            pathToParent = pathToParent.substring(0, pathToParent.lastIndexOf('/') + 1);
+            getLog().info("Assuming '" + moduleName + "' has hibernate.cfg.xml in its src/main/resources directory");
+            componentProperties.put("configurationfile",
+                    project.getBasedir() + "/" + pathToParent + moduleName + "/src/main/resources/hibernate.cfg.xml");
         }
 
         Thread currentThread = Thread.currentThread();
