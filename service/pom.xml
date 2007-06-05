@@ -130,17 +130,17 @@
         </dependency>
         <dependency>
             <groupId>org.codehaus.xfire</groupId>
-            <artifactId>xfire-jaxb2</artifactId>
+            <artifactId>xfire-java5</artifactId>
             <version>${xfire.version}</version>
         </dependency>
+        <!--<dependency>
+            <groupId>org.codehaus.xfire</groupId>
+            <artifactId>xfire-jaxb2</artifactId>
+            <version>${xfire.version}</version>
+        </dependency>-->
         <dependency>
             <groupId>org.codehaus.xfire</groupId>
             <artifactId>xfire-spring</artifactId>
-            <version>${xfire.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.xfire</groupId>
-            <artifactId>xfire-java5</artifactId>
             <version>${xfire.version}</version>
         </dependency>
     </dependencies>
