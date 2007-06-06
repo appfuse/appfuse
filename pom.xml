@@ -56,8 +56,8 @@
     </issueManagement>
 
     <ciManagement>
-        <system>CruiseControl</system>
-        <url>http://home.raibledesigns.com:8280/buildresults/appfuse-2.x</url>
+        <system>Hudson</system>
+        <url>http://home.raibledesigns.com:8281/</url>
         <notifiers>
             <notifier>
                 <type>mail</type>
@@ -66,13 +66,13 @@
                 <sendOnSuccess>false</sendOnSuccess>
                 <sendOnWarning>false</sendOnWarning>
                 <configuration>
-                    <address>commits@appfuse.dev.java.net</address>
+                    <address>mraible@appfuse.dev.java.net</address>
                 </configuration>
             </notifier>
             <notifier>
                 <type>rss</type>
                 <configuration>
-                    <url>http://home.raibledesigns.com:8280/rss/appfuse-2.x</url>
+                    <url>http://home.raibledesigns.com:8281/rssAll</url>
                 </configuration>
             </notifier>
         </notifiers>
