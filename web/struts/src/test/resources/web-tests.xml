@@ -212,7 +212,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="click Upload a File link" url="/uploadFile!start.html"/>
+                <invoke description="click Upload a File link" url="/uploadFile.html"/>
                 <verifytitle description="we should see file upload form" text=".*${upload.title}.*" regex="true"/>
                 <setinputfield description="set name" name="name" value="Canoo Test File"/>
                 <setFileField description="set file" name="file" fileName="pom.xml"/>
