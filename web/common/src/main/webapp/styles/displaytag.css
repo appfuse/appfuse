@@ -1,6 +1,6 @@
 div.exportlinks {
-    margin: -5px 0px 10px 10px;
-    padding: 2px 4px 2px 0px;
+    margin: -5px 0 10px 10px;
+    padding: 2px 4px 2px 0;
     width: 100%;
 }
 
@@ -30,15 +30,14 @@ span.xml {
 
 span.export {
     cursor: pointer;
-    display: inline;
     display: inline-block;
     padding: 0 4px 1px 20px;
 }
 
 span.pagebanner {
     display: block;
-    margin: 10px 0px 10px 0px;
-    padding: 2px 4px 2px 0px;
+    margin: 10px 0 10px 0;
+    padding: 2px 4px 2px 0;
 }
 
 span.pagelinks {
@@ -46,7 +45,7 @@ span.pagelinks {
     font-size: .95em;
     margin-bottom: 5px;
     margin-top: -18px;
-    padding: 2px 0px 2px 0px;
+    padding: 2px 0 2px 0;
     text-align: right;
     width: 80%;
 }
@@ -66,9 +65,9 @@ th.sorted a, th.sortable a {
 
 div#main .tableHeaderImage { /* Tapestry */
     position: absolute;
-    margin: 2px 0px 0px -5px;
+    margin: 2px 0 0 -5px;
     background: transparent;
-    border: 0px;
+    border: 0;
 }
 
 /*.table th.sortable a {
