@@ -3,6 +3,7 @@ package org.appfuse.webapp.action;
 import org.acegisecurity.Authentication;
 import org.acegisecurity.AuthenticationTrustResolver;
 import org.acegisecurity.AuthenticationTrustResolverImpl;
+import org.acegisecurity.AccessDeniedException;
 import org.acegisecurity.context.SecurityContext;
 import org.acegisecurity.context.SecurityContextHolder;
 import org.apache.commons.lang.StringUtils;
@@ -16,7 +17,9 @@ import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.util.RequestUtil;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.Serializable;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -101,7 +104,7 @@ public class UserForm extends BasePage implements Serializable {
         return "editProfile";
     }
 
-    public String save() {
+    public String save() throws IOException {
         String password = user.getPassword();
         String originalPassword = getParameter("userForm:originalPassword");
 
@@ -133,6 +136,11 @@ public class UserForm extends BasePage implements Serializable {
 
         try {
             user = userManager.saveUser(user);
+        } catch (AccessDeniedException ade) {
+            // thrown by UserSecurityAdvice configured in aop:advisor userManagerSecurity
+			log.warn(ade.getMessage());
+			getResponse().sendError(HttpServletResponse.SC_FORBIDDEN);
+            return null;
         } catch (UserExistsException e) {
             addError("errors.existing.user", new Object[] { user.getUsername(), user.getEmail() });
 

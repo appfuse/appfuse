@@ -104,6 +104,11 @@ public class UserFormController extends BaseFormController {
             
             try {
                 user = getUserManager().saveUser(user);
+            } catch (AccessDeniedException ade) {
+                // thrown by UserSecurityAdvice configured in aop:advisor userManagerSecurity
+                log.warn(ade.getMessage());
+                response.sendError(HttpServletResponse.SC_FORBIDDEN);
+                return null;
             } catch (UserExistsException e) {
                 errors.rejectValue("username", "errors.existing.user",
                                    new Object[] {user.getUsername(), user.getEmail()}, "duplicate user");

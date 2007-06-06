@@ -4,6 +4,7 @@ import com.opensymphony.xwork2.Preparable;
 import org.acegisecurity.Authentication;
 import org.acegisecurity.AuthenticationTrustResolver;
 import org.acegisecurity.AuthenticationTrustResolverImpl;
+import org.acegisecurity.AccessDeniedException;
 import org.acegisecurity.context.SecurityContext;
 import org.acegisecurity.context.SecurityContextHolder;
 import org.apache.struts2.ServletActionContext;
@@ -152,6 +153,11 @@ public class UserAction extends BaseAction implements Preparable {
 
         try {
             user = userManager.saveUser(user);
+        } catch (AccessDeniedException ade) {
+            // thrown by UserSecurityAdvice configured in aop:advisor userManagerSecurity
+			log.warn(ade.getMessage());
+			getResponse().sendError(HttpServletResponse.SC_FORBIDDEN);
+            return null;
         } catch (UserExistsException e) {
             List<String> args = new ArrayList<String>();
             args.add(user.getUsername());

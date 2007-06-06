@@ -1,6 +1,6 @@
 package org.appfuse.webapp.action;
 
-import org.acegisecurity.Authentication;
+import org.acegisecurity.AccessDeniedException;
 import org.acegisecurity.context.SecurityContextHolder;
 import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
 import org.appfuse.Constants;
@@ -10,6 +10,7 @@ import org.appfuse.service.UserExistsException;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.util.RequestUtil;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.Serializable;
 
 /**
@@ -57,10 +58,13 @@ public class SignupForm extends BasePage implements Serializable {
 
         try {
             user = userManager.saveUser(user);
+        } catch (AccessDeniedException ade) {
+            // thrown by UserSecurityAdvice configured in aop:advisor userManagerSecurity 
+            log.warn(ade.getMessage());
+            getResponse().sendError(HttpServletResponse.SC_FORBIDDEN);
+            return null; 
         } catch (UserExistsException e) {
-            log.warn(e.getMessage());
-            addMessage("errors.existing.user",
-                    new Object[]{user.getUsername(), user.getEmail()});
+            addMessage("errors.existing.user", new Object[]{user.getUsername(), user.getEmail()});
 
             // redisplay the unencrypted passwords
             user.setPassword(user.getConfirmPassword());
@@ -71,8 +75,9 @@ public class SignupForm extends BasePage implements Serializable {
         getSession().setAttribute(Constants.REGISTERED, Boolean.TRUE);
 
         // log user in automatically
-        Authentication auth = new UsernamePasswordAuthenticationToken(
+        UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
                 user.getUsername(), user.getConfirmPassword(), user.getAuthorities());
+        auth.setDetails(user);
         SecurityContextHolder.getContext().setAuthentication(auth);
 
         // Send an account information e-mail

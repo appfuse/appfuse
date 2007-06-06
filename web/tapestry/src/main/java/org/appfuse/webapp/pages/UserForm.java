@@ -3,6 +3,7 @@ package org.appfuse.webapp.pages;
 import org.acegisecurity.Authentication;
 import org.acegisecurity.AuthenticationTrustResolver;
 import org.acegisecurity.AuthenticationTrustResolverImpl;
+import org.acegisecurity.AccessDeniedException;
 import org.acegisecurity.context.SecurityContext;
 import org.acegisecurity.context.SecurityContextHolder;
 import org.apache.commons.lang.StringUtils;
@@ -25,9 +26,11 @@ import org.appfuse.webapp.util.RequestUtil;
 import org.springframework.mail.SimpleMailMessage;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.io.IOException;
 
 public abstract class UserForm extends BasePage implements PageBeginRenderListener {
     public abstract IPropertySelectionModel getAvailableRoles();
@@ -102,7 +105,7 @@ public abstract class UserForm extends BasePage implements PageBeginRenderListen
         }
     }
 
-    public ILink save(IRequestCycle cycle) throws UserExistsException {
+    public ILink save(IRequestCycle cycle) throws UserExistsException, IOException {
         log.debug("entered save method");
 
         HttpServletRequest request = getRequest();
@@ -162,6 +165,11 @@ public abstract class UserForm extends BasePage implements PageBeginRenderListen
         
         try {
             user = userManager.saveUser(user);
+        } catch (AccessDeniedException ade) {
+            // thrown by UserSecurityAdvice configured in aop:advisor userManagerSecurity
+			log.warn(ade.getMessage());
+			getResponse().sendError(HttpServletResponse.SC_FORBIDDEN); 
+            return null;
         } catch (UserExistsException e) {
             addError("emailField", getMessages().format("errors.existing.user", user.getUsername(),
                     user.getEmail()), ValidationConstraint.CONSISTENCY);

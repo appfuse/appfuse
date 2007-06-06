@@ -1,6 +1,6 @@
 package org.appfuse.webapp.pages;
 
-import org.acegisecurity.Authentication;
+import org.acegisecurity.AccessDeniedException;
 import org.acegisecurity.context.SecurityContextHolder;
 import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
 import org.apache.commons.lang.StringUtils;
@@ -20,6 +20,7 @@ import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.util.RequestUtil;
 import org.springframework.mail.SimpleMailMessage;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public abstract class SignupForm extends BasePage implements PageBeginRenderListener {
@@ -89,11 +90,14 @@ public abstract class SignupForm extends BasePage implements PageBeginRenderList
 
         try {
             user = getUserManager().saveUser(user);
+        } catch (AccessDeniedException ade) {
+            // thrown by UserSecurityAdvice configured in aop:advisor userManagerSecurity 
+            log.warn(ade.getMessage());
+            getResponse().sendError(HttpServletResponse.SC_FORBIDDEN);
+            return; 
         } catch (UserExistsException e) {
-            log.warn(e.getMessage());
-            addError("usernameField",
-                    getMessages().format("errors.existing.user", user.getUsername(),
-                            user.getEmail()), ValidationConstraint.CONSISTENCY);
+            addError("usernameField", getMessages().format("errors.existing.user", user.getUsername(),
+                    user.getEmail()), ValidationConstraint.CONSISTENCY);
             // redisplay the unencrypted passwords
             user.setPassword(user.getConfirmPassword());
             return;
@@ -102,8 +106,9 @@ public abstract class SignupForm extends BasePage implements PageBeginRenderList
         getSession().setAttribute(Constants.REGISTERED, Boolean.TRUE);
 
         // log user in automatically
-        Authentication auth = new UsernamePasswordAuthenticationToken(
+        UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
                 user.getUsername(), user.getConfirmPassword(), user.getAuthorities());
+        auth.setDetails(user);
         SecurityContextHolder.getContext().setAuthentication(auth);
 
         // Send user an e-mail

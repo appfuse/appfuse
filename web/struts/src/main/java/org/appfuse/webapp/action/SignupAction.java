@@ -1,7 +1,7 @@
 package org.appfuse.webapp.action;
 
 
-import org.acegisecurity.Authentication;
+import org.acegisecurity.AccessDeniedException;
 import org.acegisecurity.context.SecurityContextHolder;
 import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
 import org.apache.struts2.ServletActionContext;
@@ -11,6 +11,7 @@ import org.appfuse.service.UserExistsException;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.util.RequestUtil;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,6 +69,11 @@ public class SignupAction extends BaseAction {
 
         try {
             user = userManager.saveUser(user);
+        } catch (AccessDeniedException ade) {
+            // thrown by UserSecurityAdvice configured in aop:advisor userManagerSecurity 
+            log.warn(ade.getMessage());
+            getResponse().sendError(HttpServletResponse.SC_FORBIDDEN);
+            return null; 
         } catch (UserExistsException e) {
             log.warn(e.getMessage());
             List<String> args = new ArrayList<String>();
@@ -84,8 +90,9 @@ public class SignupAction extends BaseAction {
         getSession().setAttribute(Constants.REGISTERED, Boolean.TRUE);
 
         // log user in automatically
-        Authentication auth = new UsernamePasswordAuthenticationToken(
+        UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
                 user.getUsername(), user.getConfirmPassword(), user.getAuthorities());
+        auth.setDetails(user);
         SecurityContextHolder.getContext().setAuthentication(auth);
 
         // Send an account information e-mail
