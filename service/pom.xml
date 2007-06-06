@@ -132,6 +132,28 @@
             <groupId>org.codehaus.xfire</groupId>
             <artifactId>xfire-java5</artifactId>
             <version>${xfire.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-attributes</groupId>
+                    <artifactId>commons-attributes-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>jaxen</groupId>
+                    <artifactId>jaxen</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>xerces</groupId>
+                    <artifactId>xmlParserAPIs</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>xerces</groupId>
+                    <artifactId>xercesImpl</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.ws.commons</groupId>
+                    <artifactId>XmlSchema</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!--<dependency>
             <groupId>org.codehaus.xfire</groupId>
