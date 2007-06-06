@@ -177,6 +177,13 @@
             </testResource>
         </testResources>
     </build>
+
+    <repositories>
+        <repository>
+            <id>struts-2.0.8</id>
+            <url>http://people.apache.org/builds/struts/2.0.8/m2-staging-repository</url>
+        </repository>
+    </repositories>
     
     <dependencies>
         <dependency>
