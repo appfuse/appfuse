@@ -2,8 +2,6 @@ package org.appfuse.service;
 
 import org.acegisecurity.AccessDeniedException;
 import org.acegisecurity.Authentication;
-import org.acegisecurity.GrantedAuthority;
-import org.acegisecurity.GrantedAuthorityImpl;
 import org.acegisecurity.context.SecurityContext;
 import org.acegisecurity.context.SecurityContextHolder;
 import org.acegisecurity.context.SecurityContextImpl;
@@ -29,9 +27,14 @@ public class UserSecurityAdviceTest extends MockObjectTestCase {
         initialSecurityContext = SecurityContextHolder.getContext();
         
         SecurityContext context = new SecurityContextImpl();
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("user",
-                "password",
-                new GrantedAuthority[] {new GrantedAuthorityImpl(Constants.USER_ROLE)});
+        User user = new User("user");
+        user.setId(1L);
+        user.setPassword("password");
+        user.addRole(new Role(Constants.USER_ROLE));
+
+        UsernamePasswordAuthenticationToken token =
+                new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), user.getAuthorities());
+        token.setDetails(user);
         context.setAuthentication(token);
         SecurityContextHolder.setContext(context);
     }
@@ -45,6 +48,7 @@ public class UserSecurityAdviceTest extends MockObjectTestCase {
         assertTrue(auth.isAuthenticated());
         UserManager userManager = makeInterceptedTarget();
         User user = new User("admin");
+        user.setId(2L);
 
         try {
             userManager.saveUser(user);
@@ -57,23 +61,29 @@ public class UserSecurityAdviceTest extends MockObjectTestCase {
 
     public void testAddUserAsAdmin() throws Exception {
         SecurityContext context = new SecurityContextImpl();
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("admin",
-                "password",
-                new GrantedAuthority[] {new GrantedAuthorityImpl(Constants.ADMIN_ROLE)});
+        User user = new User("admin");
+        user.setId(2L);
+        user.setPassword("password");
+        user.addRole(new Role(Constants.ADMIN_ROLE));
+        UsernamePasswordAuthenticationToken token =
+                new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), user.getAuthorities());
+        token.setDetails(user);
         context.setAuthentication(token);
         SecurityContextHolder.setContext(context);
 
         UserManager userManager = makeInterceptedTarget();
-        User user = new User("admin");
+        User adminUser = new User("admin");
+        adminUser.setId(2L);
 
         userDao.expects(once()).method("saveUser");
-        userManager.saveUser(user);
+        userManager.saveUser(adminUser);
         userDao.verify();
     }
 
     public void testUpdateUserProfile() throws Exception {
         UserManager userManager = makeInterceptedTarget();
         User user = new User("user");
+        user.setId(1L);
         user.getRoles().add(new Role(Constants.USER_ROLE));
 
         userDao.expects(once()).method("saveUser");
@@ -85,6 +95,7 @@ public class UserSecurityAdviceTest extends MockObjectTestCase {
     public void testChangeToAdminRoleFromUserRole() throws Exception {
         UserManager userManager = makeInterceptedTarget();
         User user = new User("user");
+        user.setId(1L);
         user.getRoles().add(new Role(Constants.ADMIN_ROLE));
 
         try {
@@ -100,6 +111,7 @@ public class UserSecurityAdviceTest extends MockObjectTestCase {
     public void testAddAdminRoleWhenAlreadyHasUserRole() throws Exception {
         UserManager userManager = makeInterceptedTarget();
         User user = new User("user");
+        user.setId(1L);
         user.getRoles().add(new Role(Constants.ADMIN_ROLE));
         user.getRoles().add(new Role(Constants.USER_ROLE));
 
@@ -112,17 +124,22 @@ public class UserSecurityAdviceTest extends MockObjectTestCase {
         }
     }
 
-        // Test fix to http://issues.appfuse.org/browse/APF-96
+    // Test fix to http://issues.appfuse.org/browse/APF-96
     public void testAddUserRoleWhenHasAdminRole() throws Exception {
         SecurityContext context = new SecurityContextImpl();
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken("user",
-                "password",
-                new GrantedAuthority[] {new GrantedAuthorityImpl(Constants.ADMIN_ROLE)});
+        User user1 = new User("user");
+        user1.setId(1L);
+        user1.setPassword("password");
+        user1.addRole(new Role(Constants.ADMIN_ROLE));
+        UsernamePasswordAuthenticationToken token =
+                new UsernamePasswordAuthenticationToken(user1.getUsername(), user1.getPassword(), user1.getAuthorities());
+        token.setDetails(user1);
         context.setAuthentication(token);
         SecurityContextHolder.setContext(context);
 
         UserManager userManager = makeInterceptedTarget();
         User user = new User("user");
+        user.setId(1L);
         user.getRoles().add(new Role(Constants.ADMIN_ROLE));
         user.getRoles().add(new Role(Constants.USER_ROLE));
 
@@ -135,6 +152,7 @@ public class UserSecurityAdviceTest extends MockObjectTestCase {
     public void testUpdateUserWithUserRole() throws Exception {
         UserManager userManager = makeInterceptedTarget();
         User user = new User("user");
+        user.setId(1L);
         user.getRoles().add(new Role(Constants.USER_ROLE));
 
         userDao.expects(once()).method("saveUser");

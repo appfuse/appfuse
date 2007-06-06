@@ -1,6 +1,10 @@
 package org.appfuse.service;
 
-import org.acegisecurity.*;
+import org.acegisecurity.AccessDeniedException;
+import org.acegisecurity.Authentication;
+import org.acegisecurity.AuthenticationTrustResolver;
+import org.acegisecurity.AuthenticationTrustResolverImpl;
+import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.context.SecurityContext;
 import org.acegisecurity.context.SecurityContextHolder;
 import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
@@ -41,58 +45,43 @@ public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdv
             }
 
             User user = (User) args[0];
-            String username = user.getUsername();
 
-            String currentUser;
-            if (auth.getPrincipal() instanceof UserDetails) {
-                currentUser = ((UserDetails) auth.getPrincipal()).getUsername();
-            } else {
-                currentUser = String.valueOf(auth.getPrincipal());
-            }
+            AuthenticationTrustResolver resolver = new AuthenticationTrustResolverImpl();
+            // allow new users to signup - this is OK b/c Signup doesn't allow setting of roles
+            boolean signupUser = resolver.isAnonymous(auth);
 
-            if (username != null && !username.equals(currentUser)) {
-                AuthenticationTrustResolver resolver = new AuthenticationTrustResolverImpl();
-                // allow new users to signup - this is OK b/c Signup doesn't allow setting of roles
-                boolean signupUser = resolver.isAnonymous(auth);
-                if (!signupUser) {
-                    if (log.isDebugEnabled()) {
-                        log.debug("Verifying that '" + currentUser + "' can modify '" + username + "'");
+            if (!signupUser) {
+                User currentUser = getCurrentUser(auth);
+
+                if (user.getId() != null && !user.getId().equals(currentUser.getId()) && !administrator) {
+                    log.warn("Access Denied: '" + currentUser.getUsername() + "' tried to modify '" + user.getUsername() + "'!");
+                    throw new AccessDeniedException(ACCESS_DENIED);
+                } else if (user.getId() != null && user.getId().equals(currentUser.getId()) && !administrator) {
+                    // get the list of roles the user is trying add
+                    Set<String> userRoles = new HashSet<String>();
+                    if (user.getRoles() != null) {
+                        for (Object o : user.getRoles()) {
+                            Role role = (Role) o;
+                            userRoles.add(role.getName());
+                        }
                     }
-                    if (!administrator) {
-                        log.warn("Access Denied: '" + currentUser + "' tried to modify '" + username + "'!");
+
+                    // get the list of roles the user currently has
+                    Set<String> authorizedRoles = new HashSet<String>();
+                    for (GrantedAuthority role : roles) {
+                        authorizedRoles.add(role.getAuthority());
+                    }
+
+                    // if they don't match - access denied
+                    // regular users aren't allowed to change their roles
+                    if (!CollectionUtils.isEqualCollection(userRoles, authorizedRoles)) {
+                        log.warn("Access Denied: '" + currentUser.getUsername() + "' tried to change their role(s)!");
                         throw new AccessDeniedException(ACCESS_DENIED);
                     }
-                } else {
-                    if (log.isDebugEnabled()) {
-                        log.debug("Registering new user '" + username + "'");
-                    }
                 }
-            }
-
-            // fix for http://issues.appfuse.org/browse/APF-96
-            // don't allow users with "ROLE_USER" role to upgrade to "ROLE_ADMIN" role
-            else if (username != null && username.equalsIgnoreCase(currentUser) && !administrator) {
-
-                // get the list of roles the user is trying add
-                Set<String> userRoles = new HashSet<String>();
-                if (user.getRoles() != null) {
-                    for (Object o : user.getRoles()) {
-                        Role role = (Role) o;
-                        userRoles.add(role.getName());
-                    }
-                }
-
-                // get the list of roles the user currently has
-                Set<String> authorizedRoles = new HashSet<String>();
-                for (GrantedAuthority role1 : roles) {
-                    authorizedRoles.add(role1.getAuthority());
-                }
-
-                // if they don't match - access denied
-                // users aren't allowed to change their roles
-                if (!CollectionUtils.isEqualCollection(userRoles, authorizedRoles)) {
-                    log.warn("Access Denied: '" + currentUser + "' tried to change their role(s)!");
-                    throw new AccessDeniedException(ACCESS_DENIED);
+            } else {
+                if (log.isDebugEnabled()) {
+                    log.debug("Registering new user '" + user.getUsername() + "'");
                 }
             }
         }
@@ -105,13 +94,28 @@ public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdv
         if (user.getVersion() != null) {
             // reset the authentication object if current user
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            if (auth != null && auth.getPrincipal() instanceof UserDetails) {
-                User currentUser = (User) auth.getPrincipal();
+            AuthenticationTrustResolver resolver = new AuthenticationTrustResolverImpl();
+            // allow new users to signup - this is OK b/c Signup doesn't allow setting of roles
+            boolean signupUser = resolver.isAnonymous(auth);
+            if (auth != null && !signupUser) { 
+                User currentUser = getCurrentUser(auth);
                 if (currentUser.getId().equals(user.getId())) {
                     auth = new UsernamePasswordAuthenticationToken(user, user.getPassword(), user.getAuthorities());
                     SecurityContextHolder.getContext().setAuthentication(auth);
                 }
             }
         }
+    }
+
+    private User getCurrentUser(Authentication auth) {
+        User currentUser;
+        if (auth.getPrincipal() instanceof UserDetails) {
+            currentUser = (User) auth.getPrincipal();
+        } else if (auth.getDetails() instanceof UserDetails) {
+            currentUser = (User) auth.getDetails();
+        } else {
+            throw new AccessDeniedException("User not properly authenticated.");
+        }
+        return currentUser;
     }
 }
