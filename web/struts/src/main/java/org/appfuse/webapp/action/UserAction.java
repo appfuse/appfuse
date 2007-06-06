@@ -1,5 +1,6 @@
 package org.appfuse.webapp.action;
 
+import com.opensymphony.xwork2.Preparable;
 import org.acegisecurity.Authentication;
 import org.acegisecurity.AuthenticationTrustResolver;
 import org.acegisecurity.AuthenticationTrustResolverImpl;
@@ -18,8 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.opensymphony.xwork2.Preparable;
 
 public class UserAction extends BaseAction implements Preparable {
     private static final long serialVersionUID = 6776558938712115191L;
@@ -154,7 +153,6 @@ public class UserAction extends BaseAction implements Preparable {
         try {
             user = userManager.saveUser(user);
         } catch (UserExistsException e) {
-            log.warn(e.getMessage());
             List<String> args = new ArrayList<String>();
             args.add(user.getUsername());
             args.add(user.getEmail());

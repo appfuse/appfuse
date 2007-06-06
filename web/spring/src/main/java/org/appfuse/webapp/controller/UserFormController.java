@@ -1,29 +1,27 @@
 package org.appfuse.webapp.controller;
 
-import java.util.Locale;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import org.acegisecurity.AccessDeniedException;
 import org.acegisecurity.Authentication;
 import org.acegisecurity.AuthenticationTrustResolver;
 import org.acegisecurity.AuthenticationTrustResolverImpl;
-import org.acegisecurity.AccessDeniedException;
-import org.acegisecurity.context.SecurityContextHolder;
 import org.acegisecurity.context.SecurityContext;
-
+import org.acegisecurity.context.SecurityContextHolder;
 import org.apache.commons.lang.StringUtils;
 import org.appfuse.Constants;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
 import org.appfuse.service.RoleManager;
-import org.appfuse.service.UserManager;
 import org.appfuse.service.UserExistsException;
+import org.appfuse.service.UserManager;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.util.RequestUtil;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Locale;
 
 /**
  * Implementation of <strong>SimpleFormController</strong> that interacts with
@@ -107,12 +105,8 @@ public class UserFormController extends BaseFormController {
             try {
                 user = getUserManager().saveUser(user);
             } catch (UserExistsException e) {
-                log.warn(e.getMessage());
-
                 errors.rejectValue("username", "errors.existing.user",
-                                   new Object[] {
-                                       user.getUsername(), user.getEmail()
-                                   }, "duplicate user");
+                                   new Object[] {user.getUsername(), user.getEmail()}, "duplicate user");
 
                 // redisplay the unencrypted passwords
                 user.setPassword(user.getConfirmPassword());

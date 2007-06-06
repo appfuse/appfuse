@@ -1,11 +1,5 @@
 package org.appfuse.webapp.pages;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.acegisecurity.Authentication;
 import org.acegisecurity.AuthenticationTrustResolver;
 import org.acegisecurity.AuthenticationTrustResolverImpl;
@@ -29,6 +23,11 @@ import org.appfuse.service.UserManager;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.util.RequestUtil;
 import org.springframework.mail.SimpleMailMessage;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public abstract class UserForm extends BasePage implements PageBeginRenderListener {
     public abstract IPropertySelectionModel getAvailableRoles();
@@ -164,10 +163,8 @@ public abstract class UserForm extends BasePage implements PageBeginRenderListen
         try {
             user = userManager.saveUser(user);
         } catch (UserExistsException e) {
-            log.warn(e.getMessage());
-            addError("emailField",
-                     getMessages().format("errors.existing.user", user.getUsername(),
-                            user.getEmail()), ValidationConstraint.CONSISTENCY);
+            addError("emailField", getMessages().format("errors.existing.user", user.getUsername(),
+                    user.getEmail()), ValidationConstraint.CONSISTENCY);
             getUser().setPassword(user.getConfirmPassword());
             getUser().setVersion(originalVersion);
             return null;

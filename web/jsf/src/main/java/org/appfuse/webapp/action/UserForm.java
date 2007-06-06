@@ -1,11 +1,5 @@
 package org.appfuse.webapp.action;
 
-import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.acegisecurity.Authentication;
 import org.acegisecurity.AuthenticationTrustResolver;
 import org.acegisecurity.AuthenticationTrustResolverImpl;
@@ -20,6 +14,11 @@ import org.appfuse.service.UserExistsException;
 import org.appfuse.util.ConvertUtil;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.util.RequestUtil;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
 
 /**
  * JSF Page class to handle editing a user with a form.
@@ -135,9 +134,7 @@ public class UserForm extends BasePage implements Serializable {
         try {
             user = userManager.saveUser(user);
         } catch (UserExistsException e) {
-            log.warn(e.getMessage());
-            addError("errors.existing.user",
-                     new Object[] { user.getUsername(), user.getEmail() });
+            addError("errors.existing.user", new Object[] { user.getUsername(), user.getEmail() });
 
             // reset the version # to what was passed in
             user.setVersion(originalVersion);
