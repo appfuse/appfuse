@@ -10,7 +10,7 @@
             <Item name="ViewUsers" title="menu.admin.users" page="/users.html"/>
             <Item name="ActiveUsers" title="mainMenu.activeUsers" page="/activeUsers.html"/>
             <Item name="ReloadContext" title="menu.admin.reload" page="/reload.html"/>
-            <Item name="FileUpload" title="menu.selectFile" page="/uploadFile!start.html"/>
+            <Item name="FileUpload" title="menu.selectFile" page="/uploadFile.html"/>
             <Item name="FlushCache" title="menu.flushCache" page="/flushCache.html"/>
             <Item name="Clickstream" title="menu.clickstream" page="/clickstreams.jsp"/>
         </Menu>

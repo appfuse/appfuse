@@ -41,7 +41,7 @@
                 </interceptor-ref>
                 <interceptor-ref name="conversionError"/>
                 <interceptor-ref name="validation">
-                    <param name="excludeMethods">cancel,execute,delete,edit,list,start</param>
+                    <param name="excludeMethods">cancel,execute,delete,edit,list</param>
                 </interceptor-ref>
                 <interceptor-ref name="workflow">
                     <param name="excludeMethods">input,back,cancel,browse</param>
@@ -120,7 +120,8 @@
         </action> 
 
         <action name="passwordHint" class="passwordHintAction"> 
-            <result name="success">/</result> 
+            <result name="input">/</result>
+            <result name="success">/</result>
         </action> 
         
         <action name="reload" class="org.appfuse.webapp.action.ReloadAction">

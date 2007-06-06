@@ -6,7 +6,7 @@
     <meta name="menu" content="AdminMenu"/>
 </head>
 
-<s:form action="uploadFile" enctype="multipart/form-data" method="post" validate="true" id="uploadForm">
+<s:form action="uploadFile!upload" enctype="multipart/form-data" method="post" validate="true" id="uploadForm">
     <li class="info">
         <fmt:message key="upload.message"/>
     </li>

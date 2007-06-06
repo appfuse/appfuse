@@ -1,14 +1,13 @@
 package org.appfuse.webapp.action;
 
+import org.apache.struts2.ServletActionContext;
+import org.appfuse.Constants;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-
-import org.appfuse.Constants;
-
-import org.apache.struts2.ServletActionContext;
 
 public class FileUploadAction extends BaseAction {
     private static final long serialVersionUID = -9208910183310010569L;
@@ -17,7 +16,7 @@ public class FileUploadAction extends BaseAction {
     private String fileFileName;
     private String name;
 
-    public String execute() throws Exception {
+    public String upload() throws Exception {
         if (this.cancel != null) {
             return "cancel";
         }
@@ -63,7 +62,7 @@ public class FileUploadAction extends BaseAction {
         return SUCCESS;
     }
 
-    public String start() {
+    public String execute() {
         return INPUT;
     }
 
@@ -100,11 +99,12 @@ public class FileUploadAction extends BaseAction {
     }
     
     public void validate() {
-        // todo: figure out why server-side validaton isn't kicking in
-        if ("".equals(fileFileName) || file == null) {
-            super.addFieldError("file", getText("errors.requiredField", new String[] {getText("uploadForm.file")}));
-        } else if (file.length() > 2097152) {
-            addActionError(getText("maxLengthExceeded"));
+        if (getRequest().getMethod().equalsIgnoreCase("post")) {
+            if ("".equals(fileFileName) || file == null) {
+                super.addFieldError("file", getText("errors.requiredField", new String[] {getText("uploadForm.file")}));
+            } else if (file.length() > 2097152) {
+                addActionError(getText("maxLengthExceeded"));
+            }
         }
     }
 }
