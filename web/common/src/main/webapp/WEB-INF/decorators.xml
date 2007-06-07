@@ -1,5 +1,6 @@
 <decorators defaultdir="/decorators">
     <excludes>
+        <pattern>/40*.jsp</pattern>
         <pattern>/*ajax=true*</pattern>
         <pattern>/scripts/dojo/*</pattern>
         <pattern>/struts/dojo/*</pattern> 
