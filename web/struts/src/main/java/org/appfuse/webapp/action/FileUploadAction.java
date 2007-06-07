@@ -48,7 +48,6 @@ public class FileUploadAction extends BaseAction {
         bos.close();        
         stream.close();
 
-        
         // place the data into the request for retrieval on next page
         getRequest().setAttribute("location", dirPath.getAbsolutePath()
                 + Constants.FILE_SEP + fileFileName);
