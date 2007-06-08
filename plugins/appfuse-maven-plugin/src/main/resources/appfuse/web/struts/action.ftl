@@ -4,6 +4,7 @@
 <#assign identifierType = pojo.getJavaTypeName(pojo.identifierProperty, jdk5)>
 package ${basepackage}.webapp.action;
 
+import com.opensymphony.xwork2.Preparable;
 <#if genericcore>
 import ${appfusepackage}.service.GenericManager;
 <#else>
@@ -14,7 +15,7 @@ import ${appfusepackage}.webapp.action.BaseAction;
 
 import java.util.List;
 
-public class ${pojo.shortName}Action extends BaseAction {
+public class ${pojo.shortName}Action extends BaseAction implements Preparable {
 <#if genericcore>
     private GenericManager<${pojo.shortName}, ${pojo.getJavaTypeName(pojo.identifierProperty, jdk5)}> ${pojoNameLower}Manager;
 <#else>
@@ -34,6 +35,19 @@ public class ${pojo.shortName}Action extends BaseAction {
 
     public List get${pojo.shortName}s() {
         return ${pojoNameLower}s;
+    }
+
+    /**
+     * Grab the entity from the database before populating with request parameters
+     */
+    public void prepare() {
+        if (getRequest().getMethod().equalsIgnoreCase("post")) {
+            // prevent failures on new
+            String ${pojoNameLower}Id = getRequest().getParameter("${pojoNameLower}.${pojo.identifierProperty.name}");
+            if (${pojoNameLower}Id != null && !${pojoNameLower}Id.equals("")) {
+                ${pojoNameLower} = ${pojoNameLower}Manager.get(new ${identifierType}(${pojoNameLower}Id));
+            }
+        }
     }
 
     public String list() {
