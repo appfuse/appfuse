@@ -31,7 +31,7 @@
     <name>AppFuse Hibernate Module</name>
 
     <description>
-        AppFuse DAO backend implemented with Hibernate (http://hibernate.org).    
+        AppFuse DAO backend implemented with Hibernate (http://hibernate.org).
     </description>
 
     <scm>
@@ -39,7 +39,7 @@
         <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/data/hibernate</developerConnection>
         <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/data/hibernate</url>
     </scm>
-    
+
     <build>
         <plugins>
             <plugin>
@@ -116,7 +116,7 @@
             </testResource>
         </testResources>
     </build>
-    
+
     <!-- For JTA, which isn't in Maven's central repository -->
     <repositories>
         <repository>
@@ -124,7 +124,7 @@
             <url>http://download.java.net/maven/2</url>
         </repository>
     </repositories>
-    
+
     <dependencies>
         <dependency>
             <groupId>${pom.groupId}</groupId>
@@ -133,7 +133,7 @@
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-annotations</artifactId>
+            <artifactId>hibernate</artifactId>
             <version>${hibernate.version}</version>
             <exclusions>
                 <exclusion>
@@ -141,6 +141,11 @@
                     <artifactId>ehcache</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-annotations</artifactId>
+            <version>${hibernate.annotations.version}</version>
         </dependency>
         <dependency>
             <groupId>net.sf.ehcache</groupId>

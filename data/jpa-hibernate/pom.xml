@@ -39,7 +39,7 @@
         <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/data/hibernate</developerConnection>
         <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/data/hibernate</url>
     </scm>
-    
+
     <build>
         <plugins>
             <plugin>
@@ -115,7 +115,7 @@
             </testResource>
         </testResources>
     </build>
-    
+
     <!-- For JTA, which isn't in Maven's central repository -->
     <repositories>
         <repository>
@@ -123,7 +123,7 @@
             <url>http://download.java.net/maven/2</url>
         </repository>
     </repositories>
-    
+
     <dependencies>
         <dependency>
             <groupId>${pom.groupId}</groupId>
@@ -132,8 +132,24 @@
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
+            <artifactId>hibernate</artifactId>
             <version>${hibernate.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>net.sf.ehcache</groupId>
+                    <artifactId>ehcache</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hibernate.entitymanager.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+            <version>${ehcache.version}</version>
         </dependency>
     </dependencies>
 </project>
