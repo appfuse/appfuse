@@ -139,12 +139,21 @@
                     <groupId>net.sf.ehcache</groupId>
                     <artifactId>ehcache</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>commons-collections</groupId>
+                    <artifactId>commons-collections</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
             <version>${hibernate.entitymanager.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>${commons.collections.version}</version>
         </dependency>
         <dependency>
             <groupId>net.sf.ehcache</groupId>
