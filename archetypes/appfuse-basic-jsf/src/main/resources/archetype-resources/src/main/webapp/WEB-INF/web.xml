@@ -56,6 +56,7 @@
     <context-param>
         <param-name>facelets.LIBRARIES</param-name>
         <param-value>
+            /WEB-INF/taglibs/acegijsf.taglib.xml;
             /WEB-INF/taglibs/corejsf-validator.taglib.xml;
             /WEB-INF/taglibs/tomahawk.taglib.xml
         </param-value>

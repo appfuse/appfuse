@@ -178,6 +178,11 @@
             <version>${ajax4jsf.version}</version>
         </dependency>
         <dependency>
+            <groupId>net.sf.jsfcomp</groupId>
+            <artifactId>acegijsf</artifactId>
+            <version>${acegijsf.version}</version>
+        </dependency>
+        <dependency>
             <groupId>com.sun.facelets</groupId>
             <artifactId>jsf-facelets</artifactId>
             <version>${facelets.version}</version>
