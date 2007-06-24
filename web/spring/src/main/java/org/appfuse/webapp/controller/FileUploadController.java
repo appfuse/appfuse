@@ -57,15 +57,11 @@ public class FileUploadController extends BaseFormController {
             return showForm(request, response, errors);
         }
 
-        MultipartHttpServletRequest multipartRequest =
-            (MultipartHttpServletRequest) request;
-        CommonsMultipartFile file =
-            (CommonsMultipartFile) multipartRequest.getFile("file");
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+        CommonsMultipartFile file = (CommonsMultipartFile) multipartRequest.getFile("file");
 
         // the directory to upload to
-        String uploadDir =
-            getServletContext().getRealPath("/resources") + "/" +
-            request.getRemoteUser() + "/";
+        String uploadDir = getServletContext().getRealPath("/resources") + "/" + request.getRemoteUser() + "/";
 
         // Create the directory if it doesn't exist
         File dirPath = new File(uploadDir);
@@ -78,9 +74,8 @@ public class FileUploadController extends BaseFormController {
         InputStream stream = file.getInputStream();
 
         //write the file to the file specified
-        OutputStream bos =
-            new FileOutputStream(uploadDir + file.getOriginalFilename());
-        int bytesRead = 0;
+        OutputStream bos = new FileOutputStream(uploadDir + file.getOriginalFilename());
+        int bytesRead;
         byte[] buffer = new byte[8192];
 
         while ((bytesRead = stream.read(buffer, 0, 8192)) != -1) {
@@ -97,14 +92,9 @@ public class FileUploadController extends BaseFormController {
         request.setAttribute("fileName", file.getOriginalFilename());
         request.setAttribute("contentType", file.getContentType());
         request.setAttribute("size", file.getSize() + " bytes");
-        request.setAttribute("location",
-                             dirPath.getAbsolutePath() + Constants.FILE_SEP +
-                             file.getOriginalFilename());
+        request.setAttribute("location", dirPath.getAbsolutePath() + Constants.FILE_SEP + file.getOriginalFilename());
 
-        String link =
-            request.getContextPath() + "/resources" + "/" +
-            request.getRemoteUser() + "/";
-
+        String link = request.getContextPath() + "/resources" + "/" + request.getRemoteUser() + "/";
         request.setAttribute("link", link + file.getOriginalFilename());
 
         return new ModelAndView(getSuccessView());

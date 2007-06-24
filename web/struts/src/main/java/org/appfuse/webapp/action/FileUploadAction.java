@@ -23,8 +23,7 @@ public class FileUploadAction extends BaseAction {
 
         // the directory to upload to
         String uploadDir =
-            ServletActionContext.getServletContext().getRealPath("/resources") +
-            "/" + getRequest().getRemoteUser() + "/";
+            ServletActionContext.getServletContext().getRealPath("/resources") + "/" + getRequest().getRemoteUser() + "/";
 
         // write the file to the file specified
         File dirPath = new File(uploadDir);
@@ -49,13 +48,9 @@ public class FileUploadAction extends BaseAction {
         stream.close();
 
         // place the data into the request for retrieval on next page
-        getRequest().setAttribute("location", dirPath.getAbsolutePath()
-                + Constants.FILE_SEP + fileFileName);
+        getRequest().setAttribute("location", dirPath.getAbsolutePath()  + Constants.FILE_SEP + fileFileName);
         
-        String link =
-            getRequest().getContextPath() + "/resources" + "/" +
-            getRequest().getRemoteUser() + "/";
-        
+        String link = getRequest().getContextPath() + "/resources" + "/" + getRequest().getRemoteUser() + "/";
         getRequest().setAttribute("link", link + fileFileName);
         
         return SUCCESS;
@@ -96,9 +91,10 @@ public class FileUploadAction extends BaseAction {
     public String getFileFileName() {
         return fileFileName;
     }
-    
+
     public void validate() {
         if (getRequest().getMethod().equalsIgnoreCase("post")) {
+            getFieldErrors().clear();
             if ("".equals(fileFileName) || file == null) {
                 super.addFieldError("file", getText("errors.requiredField", new String[] {getText("uploadForm.file")}));
             } else if (file.length() > 2097152) {

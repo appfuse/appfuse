@@ -39,9 +39,7 @@ public class FileUpload extends BasePage implements Serializable {
         
         // write the file to the filesystem
         // the directory to upload to
-        String uploadDir =
-            getServletContext().getRealPath("/resources") + "/" +
-            request.getRemoteUser() + "/";
+        String uploadDir = getServletContext().getRealPath("/resources") + "/" + request.getRemoteUser() + "/";
 
         // Create the directory if it doesn't exist
         File dirPath = new File(uploadDir);
@@ -53,10 +51,28 @@ public class FileUpload extends BasePage implements Serializable {
         //retrieve the file data
         InputStream stream = file.getInputStream();
 
+        // APF-758: Fix for Internet Explorer's shortcomings
+        String filename = file.getName();
+        if (filename.indexOf("\\")!= -1) {
+            int slash = filename.lastIndexOf("\\");
+            if (slash != -1) {
+                filename = filename.substring(slash + 1);
+            }
+            // Windows doesn't like /'s either
+            int slash2 = filename.lastIndexOf("/");
+            if (slash2 != -1) {
+                filename = filename.substring(slash2 + 1);
+            }
+            // In case the name is C:foo.txt
+            int slash3 = filename.lastIndexOf(":");
+            if (slash3 != -1) {
+                filename = filename.substring(slash3 + 1);
+            }
+        }
+
         //write the file to the file specified
-        OutputStream bos =
-            new FileOutputStream(uploadDir + file.getName());
-        int bytesRead = 0;
+        OutputStream bos = new FileOutputStream(uploadDir + filename);
+        int bytesRead;
         byte[] buffer = new byte[8192];
 
         while ((bytesRead = stream.read(buffer, 0, 8192)) != -1) {
@@ -70,18 +86,13 @@ public class FileUpload extends BasePage implements Serializable {
 
         // place the data into the request for retrieval on next page
         request.setAttribute("friendlyName", name);
-        request.setAttribute("fileName", file.getName());
+        request.setAttribute("fileName", filename);
         request.setAttribute("contentType", file.getContentType());
         request.setAttribute("size", file.getSize() + " bytes");
-        request.setAttribute("location",
-                             dirPath.getAbsolutePath() + Constants.FILE_SEP +
-                             file.getName());
+        request.setAttribute("location", dirPath.getAbsolutePath() + Constants.FILE_SEP + filename);
 
-        String link =
-            request.getContextPath() + "/resources" + "/" +
-            request.getRemoteUser() + "/";
-
-        request.setAttribute("link", link + file.getName());
+        String link = request.getContextPath() + "/resources" + "/" + request.getRemoteUser() + "/";
+        request.setAttribute("link", link + filename);
         
         return "success";
     }

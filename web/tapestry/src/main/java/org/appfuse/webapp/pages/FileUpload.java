@@ -35,9 +35,7 @@ public abstract class FileUpload extends BasePage {
         }
 
         // write the file to the filesystem the directory to upload to
-        String uploadDir =
-            getServletContext().getRealPath("/resources") + "/" +
-            getRequest().getRemoteUser() + "/";
+        String uploadDir = getServletContext().getRealPath("/resources") + "/" + getRequest().getRemoteUser() + "/";
 
         // Create the directory if it doesn't exist
         File dirPath = new File(uploadDir);
@@ -67,13 +65,9 @@ public abstract class FileUpload extends BasePage {
         FileDisplay next = (FileDisplay) cycle.getPage("FileDisplay");
         next.setFile(file);
         next.setName(getName());
-        next.setFilePath(dirPath.getAbsolutePath() + Constants.FILE_SEP +
-                             file.getFileName());
+        next.setFilePath(dirPath.getAbsolutePath() + Constants.FILE_SEP + file.getFileName());
 
-        String url =
-            getRequest().getContextPath() + "/resources" + "/" +
-            getRequest().getRemoteUser() + "/";
-
+        String url = getRequest().getContextPath() + "/resources" + "/" + getRequest().getRemoteUser() + "/";
         next.setUrl(url + file.getFileName());       
 
         cycle.activate(next);
