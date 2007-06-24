@@ -53,7 +53,7 @@ public class BaseAction extends ActionSupport {
     }
     
     @SuppressWarnings("unchecked")
-	protected void saveMessage(String msg) {
+    protected void saveMessage(String msg) {
         List messages = (List) getRequest().getSession().getAttribute("messages");
         if (messages == null) {
             messages = new ArrayList();

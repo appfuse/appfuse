@@ -28,7 +28,7 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
      * @see org.appfuse.dao.UserDao#getUsers()
      */
     @SuppressWarnings("unchecked")
-	public List<User> getUsers() {
+    public List<User> getUsers() {
         return getHibernateTemplate().find("from User u order by upper(u.username)");
     }
 
