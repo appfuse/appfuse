@@ -62,6 +62,7 @@ public class GenericDaoiBatis<T, PK extends Serializable> extends SqlMapClientDa
     public T save(final T object) {
         String className = ClassUtils.getShortName(object.getClass());
         Object primaryKey = iBatisDaoUtils.getPrimaryKeyValue(object);
+        Class primaryKeyClass = iBatisDaoUtils.getPrimaryKeyFieldType(object);
         String keyId = null;
 
         // check for null id
@@ -73,12 +74,7 @@ public class GenericDaoiBatis<T, PK extends Serializable> extends SqlMapClientDa
         if (StringUtils.isBlank(keyId)) {
             iBatisDaoUtils.prepareObjectForSaveOrUpdate(object);
             primaryKey = getSqlMapClientTemplate().insert(iBatisDaoUtils.getInsertQuery(className), object);
-
-            // check for null id
-            if (primaryKey != null) {
-                keyId = primaryKey.toString();
-            }
-            iBatisDaoUtils.setPrimaryKey(object, Long.class, new Long(keyId));
+            iBatisDaoUtils.setPrimaryKey(object, primaryKeyClass, primaryKey);
         } else {
             iBatisDaoUtils.prepareObjectForSaveOrUpdate(object);
             getSqlMapClientTemplate().update(iBatisDaoUtils.getUpdateQuery(className), object);

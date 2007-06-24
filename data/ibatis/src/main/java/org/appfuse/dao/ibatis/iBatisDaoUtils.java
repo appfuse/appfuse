@@ -30,6 +30,18 @@ public class iBatisDaoUtils {
         return fieldName;
     }
 
+    protected static Class getPrimaryKeyFieldType(Object o) {
+        Field fieldlist[] = o.getClass().getDeclaredFields();
+        Class fieldType = null;
+        for (Field fld : fieldlist) {
+            if (fld.getName().equals("id") || fld.getName().indexOf("Id") > -1 || fld.getName().equals("version")) {
+                fieldType = fld.getType();
+                break;
+            }
+        }
+        return fieldType;
+    }
+
     protected static Object getPrimaryKeyValue(Object o) {
         // Use reflection to find the first property that has the name "id" or "Id"
         String fieldName = getPrimaryKeyFieldName(o);
@@ -51,7 +63,7 @@ public class iBatisDaoUtils {
             for (Field fld : fieldlist) {
                 String fieldName = fld.getName();
                 if (fieldName.equals("version")) {
-                    Method setMethod = o.getClass().getMethod("setVersion", new Class[] {Integer.class});
+                    Method setMethod = o.getClass().getMethod("setVersion", Integer.class);
                     Object value = o.getClass().getMethod("getVersion", (Class[]) null).invoke(o, (Object[]) null);
                     if (value == null) {
                         setMethod.invoke(o, 1);
