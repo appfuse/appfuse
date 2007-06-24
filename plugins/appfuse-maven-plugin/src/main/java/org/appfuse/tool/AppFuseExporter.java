@@ -148,7 +148,9 @@ public class AppFuseExporter extends GenericExporter {
             configureExporter("appfuse/web/struts/form-view.ftl", "src/main/webapp/WEB-INF/pages/{class-name}Form.jsp").start();
 
             // configuration
+            // This template is not used anymore (APF-798), but retained in case we do want to create definitions by default in the future
             configureExporter("appfuse/web/struts/action-beans.ftl", "src/main/webapp/WEB-INF/{class-name}-struts-bean.xml").start();
+
             configureExporter("appfuse/web/struts/struts.ftl", "src/main/resources/{class-name}-struts.xml").start();
 
             // validation

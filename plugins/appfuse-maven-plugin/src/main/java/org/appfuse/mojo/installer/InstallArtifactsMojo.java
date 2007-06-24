@@ -122,7 +122,8 @@ public class InstallArtifactsMojo extends AbstractMojo {
                 installJSFViews();
             } else if ("struts".equalsIgnoreCase(webFramework)) {
                 log("Installing Struts views and configuring...");
-                installStrutsBeanDefinition();
+                // A bean definition for an Action is not used anymore (APF-798)
+                // installStrutsBeanDefinition();
                 installStrutsActionDefinitions();
                 copyGeneratedObjects(sourceDirectory + "/src/main/resources",
                         destinationDirectory + "/src/main/resources", "**/model/*.xml");

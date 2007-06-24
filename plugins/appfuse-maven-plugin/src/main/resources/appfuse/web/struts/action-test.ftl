@@ -20,15 +20,13 @@ import org.springframework.mock.web.MockHttpServletRequest;
 public class ${pojo.shortName}ActionTest extends BaseActionTestCase {
     private ${pojo.shortName}Action action;
 
-    public void set${pojo.shortName}Action(${pojo.shortName}Action action) {
-        this.action = action;
-    }
-
     @Override @SuppressWarnings("unchecked")
     protected void onSetUpBeforeTransaction() throws Exception {
         super.onSetUpBeforeTransaction();
+        action = new ${pojo.shortName}Action();
         ${managerClass} ${pojoNameLower}Manager = (${managerClass}) applicationContext.getBean("${pojoNameLower}Manager");
-
+        action.set${pojo.shortName}Manager(${pojoNameLower}Manager);
+    
         // add a test ${pojoNameLower} to the database
         ${pojo.shortName} ${pojoNameLower} = new ${pojo.shortName}();
 
