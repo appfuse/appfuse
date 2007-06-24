@@ -97,6 +97,11 @@ public class InstallSourceMojo extends AbstractMojo {
         }
 
         daoFramework = project.getProperties().getProperty("dao.framework");
+
+        if (daoFramework == null) {
+            log("No dao.framework property specified, defaulting to 'hibernate'");
+        }
+
         webFramework = project.getProperties().getProperty("web.framework");
 
         // install dao and manager source if modular/core or war writer/o parent (basic)
@@ -141,6 +146,11 @@ public class InstallSourceMojo extends AbstractMojo {
         }
 
         if (project.getPackaging().equalsIgnoreCase("war")) {
+            if (webFramework == null) {
+                getLog().error("The web.framework property is not specified - please modify your pom.xml to add " +
+                        " this property. For example: <web.framework>struts</web.framework>.");
+                throw new MojoExecutionException("No web.framework property specified, please modify pom.xml to add it.");
+            }
             // export web-common
             log("Installing source from web-common module...");
             export("web/common/src");
