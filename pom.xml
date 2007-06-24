@@ -555,7 +555,7 @@
         <urlrewrite.version>3.0.4</urlrewrite.version>
         <velocity.version>1.4</velocity.version>
         <webtest.version>1454</webtest.version>
-        <wiser.version>1.0.3</wiser.version>
+        <wiser.version>1.2</wiser.version>
         <xfire.version>1.2.6</xfire.version>
 
         <copyright.year>2003-2007</copyright.year>
