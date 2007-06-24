@@ -143,6 +143,7 @@ public class UserAction extends BaseAction implements Preparable {
         // only attempt to change roles if user is admin
         // for other users, prepare() method will handle populating
         if (getRequest().isUserInRole(Constants.ADMIN_ROLE)) {
+            user.getRoles().clear(); // APF-788: Removing roles from user doesn't work
             String[] userRoles = getRequest().getParameterValues("userRoles");
 
             for (int i = 0; userRoles != null && i < userRoles.length; i++) {
@@ -155,8 +156,8 @@ public class UserAction extends BaseAction implements Preparable {
             user = userManager.saveUser(user);
         } catch (AccessDeniedException ade) {
             // thrown by UserSecurityAdvice configured in aop:advisor userManagerSecurity
-			log.warn(ade.getMessage());
-			getResponse().sendError(HttpServletResponse.SC_FORBIDDEN);
+            log.warn(ade.getMessage());
+            getResponse().sendError(HttpServletResponse.SC_FORBIDDEN);
             return null;
         } catch (UserExistsException e) {
             List<String> args = new ArrayList<String>();
