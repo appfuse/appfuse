@@ -60,17 +60,16 @@
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>maven-jetty-plugin</artifactId>
-                <version>6.0.0</version>
+                <version>6.1.4</version>
                 <configuration>
                     <contextPath>/</contextPath>
                     <scanIntervalSeconds>3</scanIntervalSeconds>
-                    <scanTargets>
-                        <scanTarget>src/main/resources/struts.xml</scanTarget>
-                        <scanTarget>src/main/webapp/WEB-INF/applicationContext.xml</scanTarget>
-                        <scanTarget>src/main/webapp/WEB-INF/menu-config.xml</scanTarget>
-                        <scanTarget>src/main/webapp/WEB-INF/urlrewrite.xml</scanTarget>
-                        <scanTarget>src/main/webapp/WEB-INF/web.xml</scanTarget>
-                    </scanTargets>
+                    <scanTargetPatterns>
+                        <directory>src/main/webapp/WEB-INF</directory>
+                        <excludes>
+                            <exclude>**/*.jsp</exclude>
+                        </excludes>
+                    </scanTargetPatterns>
                 </configuration>
             </plugin>
             <plugin>
