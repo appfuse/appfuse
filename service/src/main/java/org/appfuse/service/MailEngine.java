@@ -53,6 +53,7 @@ public class MailEngine {
                                                             templateName, model);
         } catch (VelocityException e) {
             e.printStackTrace();
+            log.error(e.getMessage());
         }
 
         msg.setText(result);
@@ -88,8 +89,7 @@ public class MailEngine {
                             ClassPathResource resource, String bodyText,
                             String subject, String attachmentName)
     throws MessagingException {
-        MimeMessage message =
-            ((JavaMailSenderImpl) mailSender).createMimeMessage();
+        MimeMessage message = ((JavaMailSenderImpl) mailSender).createMimeMessage();
 
         // use the true flag to indicate you need a multipart message
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
