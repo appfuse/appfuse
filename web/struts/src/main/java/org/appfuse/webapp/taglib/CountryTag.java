@@ -157,7 +157,7 @@ public class CountryTag extends TagSupport {
      * @return List of LabelValues for all available countries.
      */
     @SuppressWarnings("unchecked")
-	protected List<LabelValue> buildCountryList(Locale locale) {
+    protected List<LabelValue> buildCountryList(Locale locale) {
         final String EMPTY = "";
         final Locale[] available = Locale.getAvailableLocales();
 
@@ -206,7 +206,7 @@ public class CountryTag extends TagSupport {
          * @return The value returned by comparing the localized labels.
          */
         @SuppressWarnings("unchecked")
-		public final int compare(Object o1, Object o2) {
+        public final int compare(Object o1, Object o2) {
             LabelValue lhs = (LabelValue) o1;
             LabelValue rhs = (LabelValue) o2;
 

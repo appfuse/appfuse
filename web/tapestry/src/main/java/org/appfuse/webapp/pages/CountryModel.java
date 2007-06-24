@@ -26,7 +26,7 @@ public class CountryModel implements IPropertySelectionModel {
      * @return List of LabelValues for all available countries.
      */
     @SuppressWarnings("unchecked")
-	public List getCountries(Locale locale) {
+    public List getCountries(Locale locale) {
         final String EMPTY = "";
         final Locale[] available = Locale.getAvailableLocales();
 
@@ -76,7 +76,7 @@ public class CountryModel implements IPropertySelectionModel {
          * @return The value returned by comparing the localized labels.
          */
         @SuppressWarnings("unchecked")
-		public final int compare(Object o1, Object o2) {
+        public final int compare(Object o1, Object o2) {
             LabelValue lhs = (LabelValue) o1;
             LabelValue rhs = (LabelValue) o2;
 

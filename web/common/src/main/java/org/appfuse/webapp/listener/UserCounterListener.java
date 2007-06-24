@@ -66,7 +66,7 @@ public class UserCounterListener implements ServletContextListener, HttpSessionA
     }
 
     @SuppressWarnings("unchecked")
-	synchronized void addUsername(Object user) {
+    synchronized void addUsername(Object user) {
         users = (Set) servletContext.getAttribute(USERS_KEY);
 
         if (users == null) {

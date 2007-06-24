@@ -59,7 +59,7 @@ public class FacesUtils {
      * @param managedBean the managed bean to be stored
      */
     @SuppressWarnings("unchecked")
-	public static void setManagedBeanInSession(String beanName,
+    public static void setManagedBeanInSession(String beanName,
                                                Object managedBean) {
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
                     .put(beanName, managedBean);

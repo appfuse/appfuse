@@ -138,8 +138,8 @@ public class UserForm extends BasePage implements Serializable {
             user = userManager.saveUser(user);
         } catch (AccessDeniedException ade) {
             // thrown by UserSecurityAdvice configured in aop:advisor userManagerSecurity
-			log.warn(ade.getMessage());
-			getResponse().sendError(HttpServletResponse.SC_FORBIDDEN);
+            log.warn(ade.getMessage());
+            getResponse().sendError(HttpServletResponse.SC_FORBIDDEN);
             return null;
         } catch (UserExistsException e) {
             addError("errors.existing.user", new Object[] { user.getUsername(), user.getEmail() });
@@ -193,7 +193,7 @@ public class UserForm extends BasePage implements Serializable {
 
     // Form Controls ==========================================================
     @SuppressWarnings("unchecked")
-	public Map<String, String> getAvailableRoles() {
+    public Map<String, String> getAvailableRoles() {
         if (availableRoles == null) {
             List roles = (List) getServletContext().getAttribute(Constants.AVAILABLE_ROLES);
             availableRoles = ConvertUtil.convertListToMap(roles);

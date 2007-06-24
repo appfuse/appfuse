@@ -42,7 +42,7 @@ public class LocaleRequestWrapper extends HttpServletRequestWrapper {
      * @see javax.servlet.ServletRequestWrapper#getLocales()
      */
     @SuppressWarnings("unchecked")
-	public Enumeration<Locale> getLocales() {
+    public Enumeration<Locale> getLocales() {
         if (null != preferredLocale) {
             List<Locale> l = Collections.list(super.getLocales());
             if(l.contains(preferredLocale))

@@ -65,8 +65,8 @@ public class SignupController extends BaseFormController {
             user = this.getUserManager().saveUser(user);
         } catch (AccessDeniedException ade) {
             // thrown by UserSecurityAdvice configured in aop:advisor userManagerSecurity
-			log.warn(ade.getMessage());
-			response.sendError(HttpServletResponse.SC_FORBIDDEN); 
+            log.warn(ade.getMessage());
+            response.sendError(HttpServletResponse.SC_FORBIDDEN);
             return null; 
         } catch (UserExistsException e) {
             errors.rejectValue("username", "errors.existing.user",

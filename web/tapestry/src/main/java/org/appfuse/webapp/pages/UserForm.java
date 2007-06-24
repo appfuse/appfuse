@@ -167,8 +167,8 @@ public abstract class UserForm extends BasePage implements PageBeginRenderListen
             user = userManager.saveUser(user);
         } catch (AccessDeniedException ade) {
             // thrown by UserSecurityAdvice configured in aop:advisor userManagerSecurity
-			log.warn(ade.getMessage());
-			getResponse().sendError(HttpServletResponse.SC_FORBIDDEN); 
+            log.warn(ade.getMessage());
+            getResponse().sendError(HttpServletResponse.SC_FORBIDDEN);
             return null;
         } catch (UserExistsException e) {
             addError("emailField", getMessages().format("errors.existing.user", user.getUsername(),

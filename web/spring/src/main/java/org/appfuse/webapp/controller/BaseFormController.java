@@ -58,7 +58,7 @@ public class BaseFormController extends SimpleFormController {
     }
 
     @SuppressWarnings("unchecked")
-	public void saveMessage(HttpServletRequest request, String msg) {
+    public void saveMessage(HttpServletRequest request, String msg) {
         List messages = (List) request.getSession().getAttribute(MESSAGES_KEY);
 
         if (messages == null) {

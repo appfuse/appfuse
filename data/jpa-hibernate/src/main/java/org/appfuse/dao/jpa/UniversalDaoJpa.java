@@ -38,7 +38,7 @@ public class UniversalDaoJpa implements UniversalDao {
      * @see org.appfuse.dao.UniversalDao#get(java.lang.Class, java.io.Serializable)
      */
     @SuppressWarnings("unchecked")
-	public Object get(Class clazz, Serializable id) {
+    public Object get(Class clazz, Serializable id) {
         Object o = this.entityManager.find(clazz, id);
 
         if (o == null) {

@@ -116,7 +116,7 @@ public class BasePage {
     }
 
     @SuppressWarnings("unchecked")
-	protected void addMessage(String key, Object arg) {
+    protected void addMessage(String key, Object arg) {
         // JSF Success Messages won't live past a redirect, so it's not used
         // FacesUtils.addInfoMessage(formatMessage(key, arg));
         List<String> messages = (List) getSession().getAttribute("messages");
@@ -134,7 +134,7 @@ public class BasePage {
     }
 
     @SuppressWarnings("unchecked")
-	protected void addError(String key, Object arg) {
+    protected void addError(String key, Object arg) {
         // The "JSF Way" doesn't allow you to put HTML in your error messages, so I don't use it.
         // FacesUtils.addErrorMessage(formatMessage(key, arg));
         List<String> errors = (List) getSession().getAttribute("errors");

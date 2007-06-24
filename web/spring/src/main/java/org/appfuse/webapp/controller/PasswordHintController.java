@@ -96,7 +96,7 @@ public class PasswordHintController implements Controller {
     }
 
     @SuppressWarnings("unchecked")
-	public void saveError(HttpServletRequest request, String error) {
+    public void saveError(HttpServletRequest request, String error) {
         List errors = (List) request.getSession().getAttribute("errors");
         if (errors == null) {
             errors = new ArrayList();
@@ -107,7 +107,7 @@ public class PasswordHintController implements Controller {
 
     // this method is also in BaseForm Controller
     @SuppressWarnings("unchecked")
-	public void saveMessage(HttpServletRequest request, String msg) {
+    public void saveMessage(HttpServletRequest request, String msg) {
         List messages = (List) request.getSession().getAttribute(BaseFormController.MESSAGES_KEY);
         if (messages == null) {
             messages = new ArrayList();

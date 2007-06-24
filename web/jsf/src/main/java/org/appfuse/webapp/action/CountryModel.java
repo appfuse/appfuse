@@ -24,7 +24,7 @@ public class CountryModel {
      * @return List of LabelValues for all available countries.
      */
     @SuppressWarnings("unchecked")
-	public Map<String, String> getCountries(Locale locale) {
+    public Map<String, String> getCountries(Locale locale) {
         if (availableCountries == null) {
             final String EMPTY = "";
             final Locale[] available = Locale.getAvailableLocales();

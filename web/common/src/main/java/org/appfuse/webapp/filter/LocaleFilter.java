@@ -21,7 +21,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 public class LocaleFilter extends OncePerRequestFilter {
 
     @SuppressWarnings("unchecked")
-	public void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
+    public void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                  FilterChain chain)
             throws IOException, ServletException {
 
