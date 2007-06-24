@@ -98,8 +98,10 @@ public class UserCounterListener implements ServletContextListener, HttpSessionA
     public void attributeAdded(HttpSessionBindingEvent event) {
         if (event.getName().equals(EVENT_KEY) && !isAnonymous()) {
             SecurityContext securityContext = (SecurityContext) event.getValue();
-            User user = (User) securityContext.getAuthentication().getPrincipal();
-            addUsername(user);
+            if (securityContext.getAuthentication().getPrincipal() instanceof User) {
+                User user = (User) securityContext.getAuthentication().getPrincipal();
+                addUsername(user);
+            }
         // Workaround for Jetty bug (http://www.nabble.com/current-user-count-incorrect-tf3550268.html#a9919134)
         } else if (event.getName().equals(AuthenticationProcessingFilter.ACEGI_SECURITY_LAST_USERNAME_KEY)) {
             String username = (String) event.getValue();
