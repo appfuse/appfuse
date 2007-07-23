@@ -121,7 +121,7 @@ public abstract class AbstractAppFuseMojoTestCase extends AbstractMojoTestCase {
 
         remoteRepositories.add(remoteRepository);*/
 
-        String archetypeGroupId = "org.appfuse";
+        String archetypeGroupId = "org.appfuse.archetypes";
         archetype.createArchetype(archetypeGroupId, archetypeArtifactId, archetypeVersion, localRepository,
                 remoteRepositories, parameters);
     }
