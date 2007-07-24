@@ -550,7 +550,7 @@
         <sitemesh.version>2.2.1</sitemesh.version>
         <spring.version>2.0.6</spring.version>
         <springmodules.validation.version>0.8</springmodules.validation.version>
-        <struts.version>2.0.8</struts.version>
+        <struts.version>2.0.9</struts.version>
         <struts.menu.version>2.4.3</struts.menu.version>
         <tapestry.version>4.0.2</tapestry.version>
         <tapestry.flash.version>1.0.0</tapestry.flash.version>
