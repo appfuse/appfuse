@@ -56,8 +56,8 @@
     </issueManagement>
 
     <ciManagement>
-        <system>Hudson</system>
-        <url>http://home.raibledesigns.com:8281/</url>
+        <system>Bamboo</system>
+        <url>http://builds.appfuse.org</url>
         <notifiers>
             <notifier>
                 <type>mail</type>
@@ -72,7 +72,7 @@
             <notifier>
                 <type>rss</type>
                 <configuration>
-                    <url>http://home.raibledesigns.com:8281/rssAll</url>
+                    <url>feed://builds.appfuse.org/rss/createAllBuildsRssFeed.action?feedType=rssAll</url>
                 </configuration>
             </notifier>
         </notifiers>
@@ -235,17 +235,17 @@
         <repository>
             <id>appfuse-releases</id>
             <name>AppFuse Release Repository</name>
-            <url>scp://static.appfuse.org/home/raibledemo/public_html/releases</url>
+            <url>scp://static.appfuse.org/var/www/appfuse-releases</url>
         </repository>
         <site>
             <id>appfuse-site</id>
             <name>AppFuse Maven Site</name>
-            <url>scp://static.appfuse.org/home/raibledemo/public_html</url>
+            <url>scp://static.appfuse.org/var/www/appfuse-site</url>
         </site>
         <snapshotRepository>
             <id>appfuse-snapshots</id>
             <name>AppFuse Snapshot Repository</name>
-            <url>scp://static.appfuse.org/home/raibledemo/public_html/repository</url>
+            <url>scp://static.appfuse.org/var/www/appfuse-repo</url>
         </snapshotRepository>
     </distributionManagement>
 
