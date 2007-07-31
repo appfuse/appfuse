@@ -36,7 +36,7 @@
         <site>
             <id>appfuse-plugins</id>
             <name>AppFuse Plugins Site</name>
-            <url>scp://static.appfuse.org/home/raibledemo/public_html/plugins</url>
+            <url>scp://static.appfuse.org/var/www/appfuse-site/plugins</url>
         </site>
     </distributionManagement>
 </project>
