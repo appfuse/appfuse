@@ -134,17 +134,17 @@
         <repository>
             <id>appfuse-releases</id>
             <name>AppFuse Release Repository</name>
-            <url>scp://static.appfuse.org/home/raibledemo/public_html/repository</url>
+            <url>scp://static.appfuse.org/var/www/appfuse-releases</url>
         </repository>
         <site>
-            <id>appfuse-plugins</id>
-            <name>AppFuse Plugins Site</name>
-            <url>scp://static.appfuse.org/home/raibledemo/public_html/plugins/appfuse-maven-plugin</url>
+            <id>appfuse-site</id>
+            <name>AppFuse Maven Site</name>
+            <url>scp://static.appfuse.org/var/www/appfuse-site</url>
         </site>
         <snapshotRepository>
             <id>appfuse-snapshots</id>
             <name>AppFuse Snapshot Repository</name>
-            <url>scp://static.appfuse.org/home/raibledemo/public_html/repository</url>
+            <url>scp://static.appfuse.org/var/www/appfuse-repo</url>
         </snapshotRepository>
     </distributionManagement>
 
