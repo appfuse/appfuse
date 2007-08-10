@@ -90,7 +90,7 @@
         <site>
             <id>appfuse-plugins</id>
             <name>AppFuse Plugins Site</name>
-            <url>scp://static.appfuse.org/home/raibledemo/public_html/plugins/maven-warpath-plugin</url>
+            <url>scp://static.appfuse.org/var/www/appfuse-site/plugins/maven-warpath-plugin</url>
         </site>
     </distributionManagement>
     
