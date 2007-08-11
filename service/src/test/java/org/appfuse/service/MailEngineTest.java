@@ -1,37 +1,46 @@
 package org.appfuse.service;
 
-import java.util.Date;
-
-import javax.mail.BodyPart;
-import javax.mail.Part;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
-
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.subethamail.wiser.Wiser;
 import org.subethamail.wiser.WiserMessage;
 
+import javax.mail.BodyPart;
+import javax.mail.Part;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import java.util.Date;
+
 /**
  * @author Bryan Noll
  */
 public class MailEngineTest extends BaseManagerTestCase {
-    MailEngine mailEngine = null;
-    SimpleMailMessage mailMessage = null;
+    MailEngine mailEngine;
+    SimpleMailMessage mailMessage;
 
-    public MailEngineTest() {}
-    
+    public void setMailEngine(MailEngine mailEngine) {
+        this.mailEngine = mailEngine;
+    }
+
+    public void setMailMessage(SimpleMailMessage mailMessage) {
+        this.mailMessage = mailMessage;
+    }
+
     @Override
-    protected void onSetUp() throws Exception {
+    protected void onSetUp() {
         // change the port on the mailSender so it doesn't conflict with an 
         // existing SMTP server on localhost
-        JavaMailSenderImpl mailSender = (JavaMailSenderImpl) super.applicationContext.getBean("mailSender");
+        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setPort(2525);
-        mailSender.setHost("localhost");        
+        mailSender.setHost("localhost");
+        mailEngine.setMailSender(mailSender);
     }
-    
-    //tests
+
+    @Override
+    protected void onTearDown() {
+       mailEngine.setMailSender(null);
+    }
     
     public void testSend() throws Exception {
         //mock smtp server
@@ -48,10 +57,10 @@ public class MailEngineTest extends BaseManagerTestCase {
         this.mailEngine.send(this.mailMessage);
         
         wiser.stop();
-        super.assertTrue(wiser.getMessages().size() == 1);
+        assertTrue(wiser.getMessages().size() == 1);
         WiserMessage wm = wiser.getMessages().get(0);
-        super.assertEquals(emailSubject, wm.getMimeMessage().getSubject());
-        super.assertEquals(emailBody, wm.getMimeMessage().getContent());
+        assertEquals(emailSubject, wm.getMimeMessage().getSubject());
+        assertEquals(emailBody, wm.getMimeMessage().getContent());
     }
     
     public void testSendMessageWithAttachment() throws Exception {
@@ -68,15 +77,15 @@ public class MailEngineTest extends BaseManagerTestCase {
         String emailBody = "Body of the grepster testSendMessageWithAttachment message sent at: " + dte;
         
         ClassPathResource cpResource = new ClassPathResource("/test-attachment.txt");
-        this.mailEngine.sendMessage(new String[] {"foo@bar.com"}, this.getMailMessage().getFrom(),cpResource, emailBody, emailSubject, ATTACHMENT_NAME);
+        mailEngine.sendMessage(new String[] {"foo@bar.com"}, mailMessage.getFrom(),cpResource, emailBody, emailSubject, ATTACHMENT_NAME);
         
         wiser.stop();
-        super.assertTrue(wiser.getMessages().size() == 1);
+        assertTrue(wiser.getMessages().size() == 1);
         WiserMessage wm = wiser.getMessages().get(0);
         MimeMessage mm = wm.getMimeMessage();
 
         Object o = wm.getMimeMessage().getContent();
-        super.assertTrue(o instanceof MimeMultipart);
+        assertTrue(o instanceof MimeMultipart);
         MimeMultipart multi = (MimeMultipart)o;
         int numOfParts = multi.getCount();
         
@@ -87,33 +96,15 @@ public class MailEngineTest extends BaseManagerTestCase {
             if (disp == null) {                        //the body of the email
                 Object innerContent = bp.getContent();
                 MimeMultipart innerMulti = (MimeMultipart)innerContent;
-                super.assertEquals(emailBody, innerMulti.getBodyPart(0).getContent());
+                assertEquals(emailBody, innerMulti.getBodyPart(0).getContent());
             } else if (disp.equals(Part.ATTACHMENT)) { //the attachment to the email
                 hasTheAttachment = true;
-                super.assertEquals(ATTACHMENT_NAME, bp.getFileName());
+                assertEquals(ATTACHMENT_NAME, bp.getFileName());
             } else {
-                super.fail("Did not expect to be able to get here.");
+                fail("Did not expect to be able to get here.");
             }
         }
-        super.assertTrue(hasTheAttachment);
-        super.assertEquals(emailSubject, mm.getSubject());
-    }
-    
-    
-    //getters and setters
-    public MailEngine getMailEngine() {
-        return mailEngine;
-    }
-
-    public void setMailEngine(MailEngine mailEngine) {
-        this.mailEngine = mailEngine;
-    }
-
-    public SimpleMailMessage getMailMessage() {
-        return mailMessage;
-    }
-
-    public void setMailMessage(SimpleMailMessage mailMessage) {
-        this.mailMessage = mailMessage;
+        assertTrue(hasTheAttachment);
+        assertEquals(emailSubject, mm.getSubject());
     }
 }
