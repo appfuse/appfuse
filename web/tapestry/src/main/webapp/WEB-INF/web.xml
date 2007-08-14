@@ -95,7 +95,7 @@
         <filter-class>org.appfuse.webapp.filter.StaticFilter</filter-class>
         <init-param>
             <param-name>includes</param-name>
-            <param-value>/scripts/dojo/*</param-value>
+            <param-value>/scripts/dojo/*,/dwr/*</param-value>
         </init-param>
         <init-param>
             <param-name>servletName</param-name>
