@@ -301,7 +301,7 @@
         <jsp.version>2.0</jsp.version>
         <junit.version>3.8.2</junit.version>
         <servlet.version>2.4</servlet.version>
-        <wiser.version>1.0.3</wiser.version>
+        <wiser.version>1.2</wiser.version>
 
         <!-- WebTest dependency versions  -->
         <javamail.version>1.4</javamail.version>

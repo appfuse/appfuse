@@ -367,7 +367,7 @@
         <!-- Testing dependency versions -->
         <jmock.version>1.1.0</jmock.version>
         <junit.version>3.8.2</junit.version>
-        <wiser.version>1.0.3</wiser.version>
+        <wiser.version>1.2</wiser.version>
 
         <!-- Database settings -->
         <dbunit.dataTypeFactoryName>org.dbunit.dataset.datatype.DefaultDataTypeFactory</dbunit.dataTypeFactoryName>
