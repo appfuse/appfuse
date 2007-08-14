@@ -29,12 +29,12 @@
 
     <description>
         AppFuse is a project that helps you start developing an application quickly.
-        It takes care of integrating many open source projects for you. For example: 
-        Spring, Hibernate, Maven, MySQL and Struts. In addition to Hibernate, you 
-        can also use JPA or iBATIS as your backend. For your web framework, you 
-        can choose between Struts 2, JSF, Spring MVC and Tapestry. Test-first 
-        development is promoted when using AppFuse, and all the infrastructure 
-        is in place to do integration testing, unit/mock testing, as well as UI 
+        It takes care of integrating many open source projects for you. For example:
+        Spring, Hibernate, Maven, MySQL and Struts. In addition to Hibernate, you
+        can also use JPA or iBATIS as your backend. For your web framework, you
+        can choose between Struts 2, JSF, Spring MVC and Tapestry. Test-first
+        development is promoted when using AppFuse, and all the infrastructure
+        is in place to do integration testing, unit/mock testing, as well as UI
         testing. Features include Authentication (using Acegi Security),
         Remember Me, Self Registration, Password Hint and GZip Compression.
         The fuse to start your apps.
@@ -213,10 +213,12 @@
                     <contextPath>/</contextPath>
                     <scanIntervalSeconds>3</scanIntervalSeconds>
                     <scanTargetPatterns>
-                        <directory>src/main/webapp/WEB-INF</directory>
-                        <excludes>
-                            <exclude>**/*.jsp</exclude>
-                        </excludes>
+                        <scanTargetPattern>
+                            <directory>src/main/webapp/WEB-INF</directory>
+                            <excludes>
+                                <exclude>**/*.jsp</exclude>
+                            </excludes>
+                        </scanTargetPattern>   
                     </scanTargetPatterns>
                 </configuration>
             </plugin>
@@ -390,7 +392,7 @@
             </plugin>
         </plugins>
     </reporting>
-    
+
     <profiles>
         <!-- ================= Database Profiles ================= -->
         <profile>
@@ -451,7 +453,7 @@
             </properties>
         </profile>
         <profile>
-            <id>postgresql</id>            
+            <id>postgresql</id>
             <properties>
                 <hibernate.dialect>org.hibernate.dialect.PostgreSQLDialect</hibernate.dialect>
                 <jdbc.groupId>postgresql</jdbc.groupId>
