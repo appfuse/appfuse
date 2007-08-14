@@ -170,7 +170,7 @@
                 <setinputfield name="emailField" value="signup-user@raibledesigns.com"/>
                 <setinputfield name="websiteField" value="http://raibledesigns.com"/>
                 <setinputfield name="passwordHintField" value="test"/>
-                <clickbutton label="${button.register}" description="Click button 'Signup'"/>
+                <clickbutton htmlid="register" description="Click button 'Signup'"/>
 
                 <verifytitle description="view main menu" text=".*${mainMenu.title}.*" regex="true"/>
                 <verifytext description="verify success message" text="${user.registered}"/>
