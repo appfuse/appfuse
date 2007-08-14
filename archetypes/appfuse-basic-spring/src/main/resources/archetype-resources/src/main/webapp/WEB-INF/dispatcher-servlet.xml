@@ -77,11 +77,11 @@
                 /passwordHint.html=passwordHintController
             </value>
         </property>
-        <property name="order" value="1"/>
+        <property name="order" value="0"/>
     </bean>
 
     <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping">
-        <property name="order" value="0"/>
+        <property name="order" value="1"/>
     </bean>
 
     <!-- View Resolver for JSPs -->
