@@ -14,6 +14,8 @@ ${pojoNameLower}.deleted=${pojo.shortName} has been deleted successfully.
 # -- ${pojoNameLower} list page --
 ${pojoNameLower}List.title=${pojo.shortName} List
 ${pojoNameLower}List.heading=${pojo.shortName}s
+${pojoNameLower}List.${pojoNameLower}=${pojoNameLower}
+${pojoNameLower}List.${pojoNameLower}s=${pojoNameLower}s
 
 # -- ${pojoNameLower} detail page --
 ${pojoNameLower}Detail.title=${pojo.shortName} Detail

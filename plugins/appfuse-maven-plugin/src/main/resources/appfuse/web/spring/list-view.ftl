@@ -39,12 +39,12 @@
 </#if>
 </#foreach>
 
-    <display:setProperty name="paging.banner.item_name" value="${pojoNameLower}"/>
-    <display:setProperty name="paging.banner.items_name" value="${pojoNameLower}s"/>
+    <display:setProperty name="paging.banner.item_name"><fmt:message key="${pojoNameLower}List.${pojoNameLower}"/></display:setProperty>
+    <display:setProperty name="paging.banner.items_name"><fmt:message key="${pojoNameLower}List.${pojoNameLower}s"/></display:setProperty>
 
-    <display:setProperty name="export.excel.filename" value="${pojo.shortName} List.xls"/>
-    <display:setProperty name="export.csv.filename" value="${pojo.shortName} List.csv"/>
-    <display:setProperty name="export.pdf.filename" value="${pojo.shortName} List.pdf"/>
+    <display:setProperty name="export.excel.filename"><fmt:message key="${pojoNameLower}List.title"/>.xls</display:setProperty>
+    <display:setProperty name="export.csv.filename"><fmt:message key="${pojoNameLower}List.title"/>.csv</display:setProperty>
+    <display:setProperty name="export.pdf.filename"><fmt:message key="${pojoNameLower}List.title"/>.pdf</display:setProperty>
 </display:table>
 
 <c:out value="${'$'}{buttons}" escapeXml="false"/>
