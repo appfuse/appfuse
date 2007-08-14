@@ -9,7 +9,6 @@ import org.appfuse.service.UserExistsException;
 import org.jmock.Mock;
 import org.springframework.dao.DataIntegrityViolationException;
 
-
 public class UserManagerImplTest extends BaseManagerMockTestCase {
     //~ Instance fields ========================================================
     private UserManagerImpl userManager = new UserManagerImpl();
@@ -37,7 +36,6 @@ public class UserManagerImplTest extends BaseManagerMockTestCase {
         User user = userManager.getUser("1");
         assertTrue(user != null);
         assertTrue(user.getRoles().size() == 1);
-        userDao.verify();
     }
 
     public void testSaveUser() throws Exception {
@@ -49,16 +47,12 @@ public class UserManagerImplTest extends BaseManagerMockTestCase {
         
         User user = userManager.getUser("1");
         user.setPhoneNumber("303-555-1212");
-        userDao.verify();
-        
-        // reset expectations
-        userDao.reset();
+
         userDao.expects(once()).method("saveUser").with(same(user)).will(returnValue(user));
         
         user = userManager.saveUser(user);
         assertTrue(user.getPhoneNumber().equals("303-555-1212"));
         assertTrue(user.getRoles().size() == 1);
-        userDao.verify();
     }
 
     public void testAddAndRemoveUser() throws Exception {
@@ -73,7 +67,6 @@ public class UserManagerImplTest extends BaseManagerMockTestCase {
                .with(eq("ROLE_USER")).will(returnValue(new Role("ROLE_USER")));
         
         Role role = roleManager.getRole(Constants.USER_ROLE);
-        roleDao.verify();
         user.addRole(role);
 
         // set expected behavior on user dao
@@ -82,21 +75,13 @@ public class UserManagerImplTest extends BaseManagerMockTestCase {
         user = userManager.saveUser(user);
         assertTrue(user.getUsername().equals("john"));
         assertTrue(user.getRoles().size() == 1);
-        userDao.verify();
-        
-        // reset expectations
-        userDao.reset();
         
         userDao.expects(once()).method("remove").with(eq(5L));
         userManager.removeUser("5");
-        userDao.verify();
 
-        // reset expectations
-        userDao.reset();
         userDao.expects(once()).method("get").will(returnValue(null));
         user = userManager.getUser("5");
         assertNull(user);
-        userDao.verify();
     }
     
     public void testUserExistsException() {

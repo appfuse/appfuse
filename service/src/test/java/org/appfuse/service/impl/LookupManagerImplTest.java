@@ -3,6 +3,7 @@ package org.appfuse.service.impl;
 import org.appfuse.dao.LookupDao;
 import org.appfuse.model.Role;
 import org.appfuse.model.LabelValue;
+import org.appfuse.Constants;
 import org.jmock.Mock;
 
 import java.util.ArrayList;
@@ -23,14 +24,12 @@ public class LookupManagerImplTest extends BaseManagerMockTestCase {
         log.debug("entered 'testGetAllRoles' method");
 
         // set expected behavior on dao
-        Role role = new Role("ROLE_ADMIN");
+        Role role = new Role(Constants.ADMIN_ROLE);
         List<Role> testData = new ArrayList<Role>();
         testData.add(role);
         lookupDao.expects(once()).method("getRoles").withNoArguments().will(returnValue(testData));
 
         List<LabelValue> roles = mgr.getAllRoles();
         assertTrue(roles.size() > 0);
-        // verify expectations
-        lookupDao.verify();
     }
 }

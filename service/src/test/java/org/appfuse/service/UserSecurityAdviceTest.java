@@ -77,7 +77,6 @@ public class UserSecurityAdviceTest extends MockObjectTestCase {
 
         userDao.expects(once()).method("saveUser");
         userManager.saveUser(adminUser);
-        userDao.verify();
     }
 
     public void testUpdateUserProfile() throws Exception {
@@ -88,7 +87,6 @@ public class UserSecurityAdviceTest extends MockObjectTestCase {
 
         userDao.expects(once()).method("saveUser");
         userManager.saveUser(user);
-        userDao.verify();
     }
 
     // Test fix to http://issues.appfuse.org/browse/APF-96
@@ -145,7 +143,6 @@ public class UserSecurityAdviceTest extends MockObjectTestCase {
 
         userDao.expects(once()).method("saveUser");
         userManager.saveUser(user);
-        userDao.verify();
     }
 
     // Test fix to http://issues.appfuse.org/browse/APF-96
@@ -157,7 +154,6 @@ public class UserSecurityAdviceTest extends MockObjectTestCase {
 
         userDao.expects(once()).method("saveUser");
         userManager.saveUser(user);
-        userDao.verify();
     }
 
     private UserManager makeInterceptedTarget() {
