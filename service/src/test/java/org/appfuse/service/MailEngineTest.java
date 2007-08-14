@@ -46,7 +46,10 @@ public class MailEngineTest extends BaseManagerTestCase {
         //mock smtp server
         Wiser wiser = new Wiser();
         wiser.setPort(2525);  //default is 25, see onSetUp method for why it is set to 2525
-        wiser.start();
+
+        if (!wiser.getServer().isRunning())  {
+            wiser.start();
+        }
         
         Date dte = new Date();
         this.mailMessage.setTo("foo@bar.com");
@@ -69,7 +72,10 @@ public class MailEngineTest extends BaseManagerTestCase {
         //mock smtp server
         Wiser wiser = new Wiser();
         wiser.setPort(2525);  //default is 25, see onSetUp method for why it is set to 2525
-        wiser.start();
+
+        if (!wiser.getServer().isRunning())  {
+            wiser.start();
+        }
         
         Date dte = new Date();
         
