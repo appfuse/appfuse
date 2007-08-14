@@ -15,8 +15,6 @@
     </label></p><#t/>
     <#if parameters.labelposition?default("top") == 'top'>
     </div> <#rt/>
-    <#else>
-    </span> <#rt/>
     </#if>
     <#if hasFieldErrors>
     <#list fieldErrors[parameters.name] as error>

@@ -8,18 +8,20 @@
 </head>
 
 <s:form name="userForm" action="saveUser" method="post" validate="true">
-<s:hidden key="user.id"/>
-<s:hidden key="user.version"/>
-<input type="hidden" name="from" value="${param.from}"/>
+    <li style="display: none">
+        <s:hidden key="user.id"/>
+        <s:hidden key="user.version"/>
+        <input type="hidden" name="from" value="${param.from}"/>
 
-<c:if test="${cookieLogin == 'true'}">
-    <s:hidden key="user.password"/>
-    <s:hidden key="user.confirmPassword"/>
-</c:if>
+        <c:if test="${cookieLogin == 'true'}">
+            <s:hidden key="user.password"/>
+            <s:hidden key="user.confirmPassword"/>
+        </c:if>
 
-<s:if test="user.version == null">
-    <input type="hidden" name="encryptPass" value="true" />
-</s:if>
+        <s:if test="user.version == null">
+            <input type="hidden" name="encryptPass" value="true" />
+        </s:if>
+    </li>
     <li class="buttonBar right">
         <c:set var="buttons">
             <s:submit key="button.save" method="save" onclick="onFormSubmit(this.form)"/>

@@ -15,7 +15,9 @@
     <#if field.value.identifierGeneratorStrategy == "assigned">
         <#lt/>    <s:textfield key="${pojoNameLower}.${field.name}" required="true" cssClass="text medium"/>
     <#else>
-        <#lt/>    <s:hidden key="${pojoNameLower}.${field.name}" cssClass="text medium"/>
+    <li style="display: none">
+        <s:hidden key="${pojoNameLower}.${field.name}"/>
+    </li>
     </#if>
 <#elseif !c2h.isCollection(field) && !c2h.isManyToOne(field) && !c2j.isComponent(field)>
     <#foreach column in field.getColumnIterator()>
