@@ -18,6 +18,7 @@ import java.util.Date;
 public class MailEngineTest extends BaseManagerTestCase {
     MailEngine mailEngine;
     SimpleMailMessage mailMessage;
+    JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 
     public void setMailEngine(MailEngine mailEngine) {
         this.mailEngine = mailEngine;
@@ -29,10 +30,6 @@ public class MailEngineTest extends BaseManagerTestCase {
 
     @Override
     protected void onSetUp() {
-        // change the port on the mailSender so it doesn't conflict with an 
-        // existing SMTP server on localhost
-        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setPort(2525);
         mailSender.setHost("localhost");
         mailEngine.setMailSender(mailSender);
     }
@@ -43,13 +40,13 @@ public class MailEngineTest extends BaseManagerTestCase {
     }
     
     public void testSend() throws Exception {
-        //mock smtp server
+        // mock smtp server
         Wiser wiser = new Wiser();
-        wiser.setPort(2525);  //default is 25, see onSetUp method for why it is set to 2525
-
-        if (!wiser.getServer().isRunning())  {
-            wiser.start();
-        }
+        // set the port to a random value so there's no conflicts between tests
+        int port = 2525 + (int)(Math.random() * 100);
+        mailSender.setPort(port);
+        wiser.setPort(port);
+        wiser.start();
         
         Date dte = new Date();
         this.mailMessage.setTo("foo@bar.com");
@@ -71,14 +68,12 @@ public class MailEngineTest extends BaseManagerTestCase {
         
         //mock smtp server
         Wiser wiser = new Wiser();
-        wiser.setPort(2525);  //default is 25, see onSetUp method for why it is set to 2525
-
-        if (!wiser.getServer().isRunning())  {
-            wiser.start();
-        }
+        int port = 2525 + (int)(Math.random() * 100);
+        mailSender.setPort(port);
+        wiser.setPort(port);
+        wiser.start();
         
         Date dte = new Date();
-        
         String emailSubject = "grepster testSendMessageWithAttachment: " + dte;
         String emailBody = "Body of the grepster testSendMessageWithAttachment message sent at: " + dte;
         
