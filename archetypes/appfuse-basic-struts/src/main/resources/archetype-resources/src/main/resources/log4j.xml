@@ -39,6 +39,11 @@
     <logger name="com.opensymphony.xwork2.util.XWorkConverter">
         <level value="FATAL"/>
     </logger>
+
+    <!-- http://issues.appfuse.org/browse/APF-852 -->
+    <logger name="com.opensymphony.xwork2.util.OgnlUtil">
+        <level value="ERROR"/>
+    </logger>
    
     <logger name="org.appfuse">
         <level value="INFO"/>
