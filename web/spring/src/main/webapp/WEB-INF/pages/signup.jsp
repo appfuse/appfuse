@@ -95,7 +95,7 @@
                 <p><appfuse:label key="user.address.city"/></p>
             </div>
             <div>
-                <form:input path="address.province" id="address.province" cssClass="text state" cssClass="text state error"/>
+                <form:input path="address.province" id="address.province" cssClass="text state" cssErrorClass="text state error"/>
                 <form:errors path="address.province" cssClass="fieldError"/>
                 <p><appfuse:label key="user.address.province"/></p>
             </div>
