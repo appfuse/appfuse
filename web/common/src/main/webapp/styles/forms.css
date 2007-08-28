@@ -287,10 +287,7 @@ form li.error{
 }
 
 input.error, textarea.error{
-    border: 1px solid #EF5959;
-    border-left: 1px solid #FF8F8F;
-    border-top: 1px solid #FF8F8F;
-    background: #fff;
+    background: #FFCA7A;
 }
 
 p.error, li.error label.desc{

@@ -33,7 +33,7 @@
     <li>
         <appfuse:label key="uploadForm.name" styleClass="desc"/>
         <form:errors path="name" cssClass="fieldError"/>
-        <form:input path="name" id="name" cssClass="text medium"/>
+        <form:input path="name" id="name" cssClass="text medium" cssErrorClass="text state error"/>
     </li>
     <li>
         <appfuse:label key="uploadForm.file" styleClass="desc"/>

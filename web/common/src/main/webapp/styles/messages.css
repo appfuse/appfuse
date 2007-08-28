@@ -23,6 +23,7 @@ span.error {
 }
 
 label.error {
+    display: none; /* Replace the label in error with the validation message */
     font-weight: bold;
 }
 
@@ -32,7 +33,7 @@ li.error {
 }
 
 ul>li.error {
-    padding: 0px !important;
+    padding: 0 !important;
 }
 
 div.message p, div.message p {
@@ -48,6 +49,11 @@ img.validationWarning, div.error img.icon, div.message img.icon, li.error img.ic
     background: transparent !important;
     /* important added because some themes define div#main img */
 }
+
+/* Replaces label with validation error */
+div li img.validationWarning { float: left; margin-top: 5px; margin-right: 3px; }
+/* hides the icon when message is below input fields */
+li div p img.validationWarning { /*margin-top: -17px; float: right*/ display: none}
 
 div.message a {
     background: transparent;
@@ -73,7 +79,7 @@ div.message img.icon {
 }
 
 img.calIcon {
-    vertical-align: middle; 
+    vertical-align: middle;
     padding-bottom: 6px;
 }
 

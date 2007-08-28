@@ -139,7 +139,7 @@ public class LabelTag extends TagSupport {
 
                 String context = ((HttpServletRequest) pageContext.getRequest()).getContextPath();
 
-                label.append("src=\"" + context);
+                label.append(" src=\"").append(context);
                 label.append(getMessageSource().getMessage("icon.warning.img", null, locale));
                 label.append("\" />");
             }
