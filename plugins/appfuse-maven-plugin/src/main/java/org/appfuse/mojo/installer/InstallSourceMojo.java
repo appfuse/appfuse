@@ -23,13 +23,8 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import static java.util.Arrays.asList;
-import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Properties;
-import java.util.Set;
+import java.util.*;
 
 /**
  * This mojo is used to "install" source artifacts from Subversion into an AppFuse project.
@@ -205,13 +200,32 @@ public class InstallSourceMojo extends AbstractMojo {
 
         project.getOriginalModel().setDependencies(newDependencies);
 
+
         // todo: figure out how to get these written in alphabetical order
         project.getOriginalModel().setProperties(getAppFuseProperties());
+
+
+        // properties sort
+        Properties props = project.getModel().getProperties();
+        SortedProperties sorted = new SortedProperties();
+        for (Iterator iter = props.keySet().iterator(); iter.hasNext();) {
+            String key = (String) iter.next();
+            sorted.put(key, props.getProperty(key));
+        }
+        String sortedProperties = "";
+        Enumeration keys = sorted.keys();
+        while (keys.hasMoreElements()) {
+            String key = (String)keys.nextElement();
+            log("<" + key + ">" + sorted.getProperty(key) + "</" + key + ">");
+            sortedProperties = sortedProperties + "    <" + key + ">" + sorted.getProperty(key) + "</" + key + ">" + "\n";
+        }
+        // todo: incorporate this sort into final pom.xml
 
         StringWriter writer = new StringWriter();
 
         try {
             project.writeOriginalModel(writer);
+
             File pom = new File("pom-fullsource.xml");
             if (pom.exists()) {
                 pom.delete();
@@ -239,30 +253,32 @@ public class InstallSourceMojo extends AbstractMojo {
         try {
             String originalPom = FileUtils.readFileToString(new File("pom.xml"));
             startTag = originalPom.indexOf("\n    <dependencies>");
-
             StringBuffer sb = new StringBuffer();
             sb.append(originalPom.substring(0, startTag));
             sb.append(dependencyXml);
             sb.append(originalPom.substring(originalPom.indexOf("</dependencies>", startTag)));
 
             startTag = pomXml.indexOf("\n  <properties>");
-
             String propertiesXml = pomXml.substring(startTag + 16, pomXml.lastIndexOf("\n  </properties>"));
+
             // change 2 spaces to 4
             propertiesXml = propertiesXml.replaceAll("  ", "    ");
+
+
             // add the Spring version to the new properties since spring.version is replaced below
             propertiesXml = "        <spring.version>" + project.getProperties().getProperty("spring.version") + "</spring.version>\n" + propertiesXml;
             propertiesXml = "        <!-- Sorry about the ordering of the properties below, we hope to fix this in a future release -->\n" + propertiesXml;
 
             // add new properties
-            String pomWithProperties = sb.toString().replaceFirst("        <spring.version>(.*)</spring.version>", propertiesXml);
+            String pomWithProperties = sb.toString().replaceFirst("        <spring.version>(.*)</spring.version>", propertiesXml); // propertiesXml
+            pomWithProperties = pomWithProperties.replaceAll("<amp.fullSource>false</amp.fullSource>","<amp.fullSource>true</amp.fullSource>"); 
+            FileUtils.writeStringToFile(new File("pom.xml"), pomWithProperties); // was pomWithProperties
 
-            FileUtils.writeStringToFile(new File("pom.xml"), pomWithProperties);
         } catch (IOException ex) {
             getLog().error("Unable to write to pom.xml: " + ex.getMessage(), ex);
             throw new MojoFailureException(ex.getMessage());
         }
-
+        
         log("Yeehaw - it worked! Unfortunately, this plugin doesn't rename packages yet, but it will in 2.0 Final");
         log("If you manually rename your packages, make sure and set <amp.fullSource> to true.");
         // todo: rename packages
@@ -520,5 +536,18 @@ public class InstallSourceMojo extends AbstractMojo {
         loadFileTask.setSrcFile(new File(inFile));
 
         return loadFileTask;
+    }
+
+    public class SortedProperties extends Properties{
+
+        public synchronized Enumeration keys() {
+            Enumeration keysEnum = super.keys();
+            Vector keyList = new Vector();
+            while(keysEnum.hasMoreElements()){
+                keyList.add(keysEnum.nextElement());
+            }
+            Collections.sort(keyList);
+            return keyList.elements();
+        }
     }
 }
