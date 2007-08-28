@@ -8,11 +8,11 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 public class ${pojo.shortName}ControllerTest extends BaseControllerTestCase {
-	private ${pojo.shortName}Controller controller;
+    private ${pojo.shortName}Controller controller;
 
-	public void set${pojo.shortName}Controller(${pojo.shortName}Controller controller) {
-		this.controller = controller;
-	}
+    public void set${pojo.shortName}Controller(${pojo.shortName}Controller controller) {
+        this.controller = controller;
+    }
 
     public void testHandleRequest() throws Exception {
         ModelAndView mav = controller.handleRequest(null, null);
