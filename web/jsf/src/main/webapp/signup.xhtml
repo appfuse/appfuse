@@ -120,14 +120,14 @@
                 <t:htmlTag value="p"><h:outputLabel for="city" value="#{text['user.address.city']}"/></t:htmlTag>
             </t:htmlTag>
             <t:htmlTag value="div">
-                <h:inputText value="#{signupForm.user.address.province}" id="province" size="2" required="true" styleClass="text state">
+                <h:inputText value="#{signupForm.user.address.province}" id="province" required="true" styleClass="text state">
                     <v:commonsValidator type="required" arg="#{text['user.address.province']}"/>
                 </h:inputText>
                 <t:message for="province" styleClass="fieldError"/>
                 <t:htmlTag value="p"><h:outputLabel for="province" value="#{text['user.address.province']}"/></t:htmlTag>
             </t:htmlTag>
             <t:htmlTag value="div" styleClass="left">
-                <h:inputText value="#{signupForm.user.address.postalCode}" id="postalCode" required="true" styleClass="text zip">
+                <h:inputText value="#{signupForm.user.address.postalCode}" id="postalCode" required="true" styleClass="text medium">
                     <v:commonsValidator type="required" arg="#{text['user.address.postalCode']}"/>
                     <t:validateRegExpr pattern="^\d{5}\d*$"/>
                 </h:inputText>

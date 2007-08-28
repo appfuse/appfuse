@@ -256,6 +256,10 @@ form .medium{
     width: 170px;
 }
 
+form .state{
+    width: 160px;
+}
+
 form .large, form textarea.textarea{
     width: 349px;
 }

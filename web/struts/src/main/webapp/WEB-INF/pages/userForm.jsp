@@ -100,10 +100,10 @@
             </div>
             <div>
                 <s:textfield key="user.address.province" theme="xhtml" required="true" cssClass="text state" 
-                    size="2" labelposition="bottom"/>
+                    labelposition="bottom"/>
             </div>
             <div class="left">
-                <s:textfield key="user.address.postalCode" theme="xhtml" required="true" cssClass="text zip" 
+                <s:textfield key="user.address.postalCode" theme="xhtml" required="true" cssClass="text medium" 
                     labelposition="bottom"/>
             </div>
             <div>

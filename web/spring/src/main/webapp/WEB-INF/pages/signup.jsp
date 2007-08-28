@@ -95,12 +95,12 @@
                 <p><appfuse:label key="user.address.city"/></p>
             </div>
             <div>
-                <form:input path="address.province" id="address.province" cssClass="text state" size="2"/>
+                <form:input path="address.province" id="address.province" cssClass="text state"/>
                 <form:errors path="address.province" cssClass="fieldError"/>
                 <p><appfuse:label key="user.address.province"/></p>
             </div>
             <div class="left">
-                <form:input path="address.postalCode" id="address.postalCode" cssClass="text zip"/>
+                <form:input path="address.postalCode" id="address.postalCode" cssClass="text medium"/>
                 <form:errors path="address.postalCode" cssClass="fieldError"/>
                 <p><appfuse:label key="user.address.postalCode"/></p>
             </div>
