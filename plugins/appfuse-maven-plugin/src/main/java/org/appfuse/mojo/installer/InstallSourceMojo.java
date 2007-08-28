@@ -272,6 +272,13 @@ public class InstallSourceMojo extends AbstractMojo {
             // add new properties
             String pomWithProperties = sb.toString().replaceFirst("        <spring.version>(.*)</spring.version>", propertiesXml); // propertiesXml
             pomWithProperties = pomWithProperties.replaceAll("<amp.fullSource>false</amp.fullSource>","<amp.fullSource>true</amp.fullSource>"); 
+            String os = System.getProperty("os.name");
+
+            if (os.startsWith("Linux") || os.startsWith("Mac")) {
+                // remove the \r returns
+                pomWithProperties = pomWithProperties.replaceAll("\r",""); 
+            }
+
             FileUtils.writeStringToFile(new File("pom.xml"), pomWithProperties); // was pomWithProperties
 
         } catch (IOException ex) {
