@@ -19,8 +19,8 @@ import org.apache.myfaces.shared_tomahawk.renderkit.html.HtmlRendererUtils;
 import org.apache.myfaces.shared_tomahawk.util.StringUtils;
 
 /**
- * Override HtmlGridRendererBase (http://tinyurl.com/oqbxh) so <h:panelGrid> spits out <ul> and <li>
- * instead of <table> and <tr><td>.
+ * Override HtmlGridRendererBase (http://tinyurl.com/oqbxh) so &lt;h:panelGrid&gt; spits out &lt;ul&gt; and &lt;li&gt;
+ * instead of &lt;table> and &lt;tr&gt;&lt;td&gt;.
  *
  * @author Matt Raible
  */
