@@ -26,7 +26,7 @@
         <c:set var="buttons">
             <s:submit key="button.save" method="save" onclick="onFormSubmit(this.form)"/>
             
-        <c:if test="${param.from == 'list' and param.method != 'Add'}">
+        <c:if test="${param.from == 'list' and not empty user.id}">
             <s:submit key="button.delete" method="delete" onclick="return confirmDelete('user')"/>
         </c:if>
         
@@ -118,7 +118,7 @@
         </div>
     </li>
 <c:choose>
-    <c:when test="${param.from == 'list' or param.method == 'Add'}">
+    <c:when test="${param.from == 'list'}">
     <li>
         <fieldset>
             <legend><fmt:message key="userProfile.accountSettings"/></legend>

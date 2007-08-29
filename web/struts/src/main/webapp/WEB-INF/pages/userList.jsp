@@ -8,7 +8,7 @@
 
 <c:set var="buttons">
     <input type="button" style="margin-right: 5px"
-        onclick="location.href='<c:url value="/editUser.html?method=Add&from=list"/>'"
+        onclick="location.href='<c:url value="/editUser.html?from=list"/>'"
         value="<fmt:message key="button.add"/>"/>
     
     <input type="button" onclick="location.href='<c:url value="/mainMenu.html"/>'"
