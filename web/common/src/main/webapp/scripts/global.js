@@ -261,7 +261,13 @@ function highlightTableRows(tableId) {
         rows[i].onclick = function() {
             var cell = this.getElementsByTagName("td")[0];
             var link = cell.getElementsByTagName("a")[0];
-            location.href = link.getAttribute("href");
+            if (link.onclick) {
+                call = link.getAttributeValue("onclick");
+                // this will not work for links with onclick handlers that return false
+                eval(call);
+            } else {
+                location.href = link.getAttribute("href");
+            }
             this.style.cursor="wait";
             return false;
         }
