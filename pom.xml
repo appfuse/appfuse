@@ -534,7 +534,7 @@
         <el.version>1.2</el.version>
         <facelets.version>1.1.11</facelets.version>
         <hibernate.version>3.2.5.ga</hibernate.version>
-        <hibernate.annotations.version>3.2.1.ga</hibernate.annotations.version>
+        <hibernate.annotations.version>3.3.0.ga</hibernate.annotations.version>
         <hibernate.entitymanager.version>3.2.1.ga</hibernate.entitymanager.version>
         <ibatis.version>2.3.0</ibatis.version>
         <javamail.version>1.4</javamail.version>
