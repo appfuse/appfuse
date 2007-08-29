@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN"
-        "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd"
+    version="1.2">
 
-<faces-config>
     <application>
         <variable-resolver>org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver>
         <locale-config>
@@ -56,12 +57,12 @@
         <from-view-id>/userForm.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>cancel</from-outcome>
-            <to-view-id>/users.xhtml</to-view-id>
+            <to-view-id>/admin/users.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
             <from-outcome>list</from-outcome>
-            <to-view-id>/users.xhtml</to-view-id>
+            <to-view-id>/admin/users.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>

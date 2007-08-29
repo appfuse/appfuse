@@ -96,31 +96,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- Override definition in parent for additional JSF dependencies -->
-            <plugin>
-                <groupId>org.mortbay.jetty</groupId>
-                <artifactId>maven-jetty-plugin</artifactId>
-                <version>6.1.5</version>
-                <configuration>
-                    <contextPath>/</contextPath>
-                    <scanIntervalSeconds>3</scanIntervalSeconds>
-                    <scanTargets>
-                        <scanTarget>src/main/webapp/WEB-INF</scanTarget>
-                    </scanTargets>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.myfaces.core</groupId>
-                        <artifactId>myfaces-impl</artifactId>
-                        <version>${myfaces.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>log4j</groupId>
-                        <artifactId>log4j</artifactId>
-                        <version>${log4j.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.0.2</version>
@@ -153,11 +128,11 @@
     </build>
 
     <repositories>
-        <!-- This is no longer needed unless el-api is uncommented below. -->
-        <!-- It remains in this file for backwards compatibility. -->
+        <!-- Needed for Facelets -->
         <repository>
-            <id>javax.el</id>
-            <url>http://delo.dcs.fmph.uniba.sk/sioux/maven2</url>
+            <id>java.net</id>
+            <url>http://download.java.net/maven/1/</url>
+            <layout>legacy</layout>
         </repository>
     </repositories>
 
@@ -189,18 +164,6 @@
             <artifactId>jsf-facelets</artifactId>
             <version>${facelets.version}</version>
         </dependency>
-        <!-- Uncomment the following if you want to run in Tomcat 5.x -->
-        <!-- http://raibledesigns.com/rd/entry/upgrading_to_tomcat_6 -->
-        <!--<dependency>
-            <groupId>javax.el</groupId>
-            <artifactId>el-api</artifactId>
-            <version>${el.version}</version>
-        </dependency>-->
-        <dependency>
-            <groupId>com.sun.el</groupId>
-            <artifactId>el-ri</artifactId>
-            <version>${el.version}</version>
-        </dependency>
         <dependency>
             <groupId>com.corejsf</groupId>
             <artifactId>corejsf-validator</artifactId>
@@ -222,6 +185,17 @@
             <version>${myfaces.tomahawk.version}</version>
         </dependency>
         <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>jsr250-api</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shale</groupId>
+            <artifactId>shale-test</artifactId>
+            <version>${shale.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
             <groupId>org.subethamail</groupId>
             <artifactId>subethasmtp-wiser</artifactId>
             <version>${wiser.version}</version>
@@ -229,9 +203,9 @@
         </dependency>
         <!-- Dependencies with scope=provided aren't picked up from dependent JARs -->
         <dependency>
-            <groupId>javax.servlet</groupId>
+            <groupId>javax.servlet.jsp</groupId>
             <artifactId>jsp-api</artifactId>
-            <version>${jsp.version}</version>
+            <version>2.1</version> <!-- Special case for JSF only -->
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -328,46 +302,22 @@
                         </executions>
                         <dependencies>
                             <dependency>
-                                <groupId>com.canoo</groupId>
+                                <groupId>com.canoo.webtest</groupId>
                                 <artifactId>webtest</artifactId>
                                 <version>${webtest.version}</version>
+                                <!-- groovy-all doesn't have a pom in central repo -->
+                                <!-- exclude groovy to prevent trying to fetch pom -->
                                 <exclusions>
                                     <exclusion>
-                                        <groupId>javax.xml</groupId>
-                                        <artifactId>jsr173</artifactId>
+                                        <groupId>groovy</groupId>
+                                        <artifactId>groovy-all</artifactId>
                                     </exclusion>
                                 </exclusions>
-                            </dependency>
-                            <dependency>
-                                <groupId>javax.mail</groupId>
-                                <artifactId>mail</artifactId>
-                                <version>${javamail.version}</version>
-                            </dependency>
-                            <dependency>
-                                <groupId>log4j</groupId>
-                                <artifactId>log4j</artifactId>
-                                <version>${log4j.version}</version>
-                            </dependency>
-                            <dependency>
-                                <groupId>oro</groupId>
-                                <artifactId>oro</artifactId>
-                                <version>${oro.version}</version>
                             </dependency>
                         </dependencies>
                     </plugin>
                 </plugins>
             </build>
-        </profile>
-        <profile>
-            <id>jboss</id>
-            <!-- Add el-api dependency since JBoss 4.0.5 uses Tomcat 5.5.x and JBoss 4.2.0 doesn't work with Cargo -->
-            <dependencies>
-                <dependency>
-                    <groupId>javax.el</groupId>
-                    <artifactId>el-api</artifactId>
-                    <version>${el.version}</version>
-                </dependency>
-            </dependencies>
         </profile>
     </profiles>
 </project>

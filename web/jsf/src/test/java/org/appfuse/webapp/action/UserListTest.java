@@ -1,11 +1,20 @@
 package org.appfuse.webapp.action;
 
+import org.appfuse.service.UserManager;
+
 public class UserListTest extends BasePageTestCase {
     private UserList bean;
+    private UserManager userManager;
 
-    protected void setUp() throws Exception {    
-        super.setUp();
-        bean = (UserList) getManagedBean("userList");
+    public void setUserManager(UserManager userManager) {
+        this.userManager = userManager;
+    }
+
+    @Override
+    protected void onSetUp() throws Exception {    
+        super.onSetUp();
+        bean = new UserList();
+        bean.setUserManager(userManager);
     }
     
     public void testSearch() throws Exception {

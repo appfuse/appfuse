@@ -7,15 +7,21 @@ public class UserFormTest extends BasePageTestCase {
     private UserForm bean;
     private UserManager userManager;
 
-    protected void setUp() throws Exception {
-        super.setUp();
-        userManager = (UserManager) applicationContext.getBean("userManager");
-        bean = (UserForm) getManagedBean("userForm");
+    public void setUserManager(UserManager userManager) {
+        this.userManager = userManager;
+    }
+
+    @Override
+    protected void onSetUp() throws Exception {
+        super.onSetUp();
+        bean = new UserForm();
+        bean.setUserManager(userManager);
         assertNotNull(bean);
     }
-    
-    protected void tearDown() throws Exception {
-        super.tearDown();
+
+    @Override
+    protected void onTearDown() throws Exception {
+        super.onTearDown();
         bean = null;
     }
     

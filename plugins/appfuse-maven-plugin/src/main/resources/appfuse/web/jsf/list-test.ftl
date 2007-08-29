@@ -7,15 +7,26 @@ import ${basepackage}.model.${pojo.shortName};
 
 public class ${pojo.shortName}ListTest extends BasePageTestCase {
     private ${pojo.shortName}List bean;
+<#if genericcore>
+    private GenericManager<${pojo.shortName}, ${identifierType}> ${pojoNameLower}Manager;
+<#else>
+    private ${pojo.shortName}Manager ${pojoNameLower}Manager;
+</#if>
 
+<#if genericcore>
+    public void set${pojo.shortName}Manager(GenericManager<${pojo.shortName}, ${identifierType}> ${pojoNameLower}Manager) {
+<#else>
+    public void set${pojo.shortName}Manager(${pojo.shortName}Manager ${pojoNameLower}Manager) {
+</#if>
+        this.${pojoNameLower}Manager = ${pojoNameLower}Manager;
+    }
+        
     @Override @SuppressWarnings("unchecked")
-    protected void setUp() throws Exception {
-        super.setUp();
-        bean = (${pojo.shortName}List) getManagedBean("${pojoNameLower}List");
-        GenericManager<${pojo.shortName}, ${pojo.getJavaTypeName(pojo.identifierProperty, jdk5)}> ${pojoNameLower}Manager =
-                (GenericManager<${pojo.shortName}, ${pojo.getJavaTypeName(pojo.identifierProperty, jdk5)}>) applicationContext.getBean("${pojoNameLower}Manager");
-
-        // add a test ${pojoNameLower} to the database
+    protected void onSetUp() throws Exception {
+        super.onSetUp();
+        bean = new ${pojo.shortName}List();
+        bean.set${pojo.shortName}Manager(${pojoNameLower}Manager);
+        
         // add a test ${pojoNameLower} to the database
         ${pojo.shortName} ${pojoNameLower} = new ${pojo.shortName}();
 
@@ -32,8 +43,9 @@ public class ${pojo.shortName}ListTest extends BasePageTestCase {
         ${pojoNameLower}Manager.save(${pojoNameLower});
     }
 
-    protected void tearDown() throws Exception {
-        super.tearDown();
+    @Override
+    protected void onTearDown() throws Exception {
+        super.onTearDown();
         bean = null;
     }
 

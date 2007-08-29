@@ -1,18 +1,28 @@
 package org.appfuse.webapp.action;
 
 import org.appfuse.Constants;
+import org.appfuse.service.UserManager;
+import org.appfuse.service.RoleManager;
+import org.appfuse.service.MailEngine;
 import org.appfuse.model.Address;
 import org.appfuse.model.User;
 
 import org.subethamail.wiser.Wiser;
 import org.acegisecurity.context.SecurityContextHolder;
+import org.springframework.mail.SimpleMailMessage;
 
 public class SignupFormTest extends BasePageTestCase {
     private SignupForm bean;
 
-    public void setUp() throws Exception {
-        super.setUp();
-        bean = (SignupForm) getManagedBean("signupForm");
+    @Override
+    public void onSetUp() throws Exception {
+        super.onSetUp();
+        bean = new SignupForm();
+        bean.setUserManager((UserManager) applicationContext.getBean("userManager"));
+        bean.setRoleManager((RoleManager) applicationContext.getBean("roleManager"));
+        bean.setMessage((SimpleMailMessage) applicationContext.getBean("mailMessage"));
+        bean.setMailEngine((MailEngine) applicationContext.getBean("mailEngine"));
+        bean.setTemplateName("accountCreated.vm");
     }
 
     public void testExecute() throws Exception {

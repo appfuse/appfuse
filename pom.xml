@@ -513,7 +513,7 @@
 
         <cargo.container>tomcat5x</cargo.container>
         <cargo.container.home>${env.CATALINA_HOME}</cargo.container.home>
-        <cargo.container.url>http://archive.apache.org/dist/tomcat/tomcat-6/v6.0.13/bin/apache-tomcat-6.0.13.zip</cargo.container.url>
+        <cargo.container.url>http://archive.apache.org/dist/tomcat/tomcat-6/v6.0.14/bin/apache-tomcat-6.0.14.zip</cargo.container.url>
         <cargo.host>localhost</cargo.host>
         <cargo.port>9876</cargo.port>
         <cargo.wait>false</cargo.wait>
@@ -535,7 +535,7 @@
         <dwr.version>2.0.1</dwr.version>
         <ehcache.version>1.3.0</ehcache.version>
         <el.version>1.2</el.version>
-        <facelets.version>1.1.11</facelets.version>
+        <facelets.version>1.1.13</facelets.version>
         <hibernate.version>3.2.5.ga</hibernate.version>
         <hibernate.annotations.version>3.3.0.ga</hibernate.annotations.version>
         <hibernate.entitymanager.version>3.3.1.ga</hibernate.entitymanager.version>
@@ -547,11 +547,11 @@
         <jstl.version>1.1.2</jstl.version>
         <junit.version>3.8.2</junit.version>
         <log4j.version>1.2.13</log4j.version>
-        <myfaces.version>1.1.5</myfaces.version>
+        <myfaces.version>1.2.0</myfaces.version>
         <myfaces.tomahawk.version>1.1.6</myfaces.tomahawk.version>
-        <oro.version>2.0.8</oro.version>
         <oscache.version>2.3</oscache.version>
         <servlet.version>2.4</servlet.version>
+        <shale.version>1.0.4</shale.version>
         <sitemesh.version>2.2.1</sitemesh.version>
         <spring.version>2.0.6</spring.version>
         <springmodules.validation.version>0.8</springmodules.validation.version>
@@ -562,7 +562,7 @@
         <tapestry.spring.version>1.0.0</tapestry.spring.version>
         <urlrewrite.version>3.0.4</urlrewrite.version>
         <velocity.version>1.4</velocity.version>
-        <webtest.version>1454</webtest.version>
+        <webtest.version>R_1600</webtest.version>
         <wiser.version>1.2</wiser.version>
         <xfire.version>1.2.6</xfire.version>
 

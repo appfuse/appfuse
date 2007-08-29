@@ -83,25 +83,32 @@ public class UserForm extends BasePage implements Serializable {
 
         if (user.getUsername() != null) {
             user.setConfirmPassword(user.getPassword());
-
-            // if user logged in with remember me, display a warning that they can't change passwords
-            log.debug("checking for remember me login...");
-
-            AuthenticationTrustResolver resolver = new AuthenticationTrustResolverImpl();
-            SecurityContext ctx = SecurityContextHolder.getContext();
-
-            if (ctx != null) {
-                Authentication auth = ctx.getAuthentication();
-
-                if (resolver.isRememberMe(auth)) {
-                    getSession().setAttribute("cookieLogin", "true");
-                    log.trace("User '" + user.getUsername() + "' logged in with cookie");
-                    addMessage("userProfile.cookieLogin");
-                }
+            if (isRememberMe()) {
+                // if user logged in with remember me, display a warning that they can't change passwords
+                log.debug("checking for remember me login...");
+                log.trace("User '" + user.getUsername() + "' logged in with cookie");
+                addMessage("userProfile.cookieLogin");
             }
         }
 
         return "editProfile";
+    }
+
+    /**
+     * Convenience method for view templates to check if the user is logged in with RememberMe (cookies).
+     * @return true/false - false if user interactively logged in.
+     */
+    public boolean isRememberMe() {
+        if (user != null && user.getId() == null) return false; // check for add()
+        
+        AuthenticationTrustResolver resolver = new AuthenticationTrustResolverImpl();
+        SecurityContext ctx = SecurityContextHolder.getContext();
+
+        if (ctx != null) {
+            Authentication auth = ctx.getAuthentication();
+            return resolver.isRememberMe(auth);
+        }
+        return false;
     }
 
     public String save() throws IOException {

@@ -32,30 +32,17 @@ import org.appfuse.service.UserManager;
 import org.springframework.mail.SimpleMailMessage;
 
 public class BasePage {
-    public static final String jstlBundleParam = "javax.servlet.jsp.jstl.fmt.localizationContext";
     protected final Log log = LogFactory.getLog(getClass());
-    protected UserManager userManager = null;
-    protected MailEngine mailEngine = null;
-    protected SimpleMailMessage message = null;
-    protected String templateName = null;
-    protected FacesContext facesContext = null;
-    protected String sortColumn = null;
-    protected boolean ascending = true;
-    protected boolean nullsAreHigh = true;
-
-    /**
-     * Allow overriding of facesContext for unit tests
-     * @param facesContext the current context
-     */
-    public void setFacesContext(FacesContext facesContext) {
-        this.facesContext = facesContext;
-    }
+    protected UserManager userManager;
+    protected MailEngine mailEngine;
+    protected SimpleMailMessage message;
+    protected String templateName;
+    protected FacesContext facesContext;
+    protected String sortColumn;
+    protected boolean ascending;
+    protected boolean nullsAreHigh;
     
     public FacesContext getFacesContext() {
-        if (facesContext != null){
-            // for unit tests
-            return facesContext;
-        }
         return FacesContext.getCurrentInstance();
     }
 
@@ -68,15 +55,13 @@ public class BasePage {
         return getRequest().getParameter(name);
     }
 
-    public String getBundleName() {
-        // get name of resource bundle from JSTL settings, JSF makes this too hard
-        return getServletContext().getInitParameter(jstlBundleParam);
-    }
-
     public Map getCountries() {
         CountryModel model = new CountryModel();
-
         return model.getCountries(getRequest().getLocale());
+    }
+
+    public String getBundleName() {
+        return getFacesContext().getApplication().getMessageBundle();
     }
 
     public ResourceBundle getBundle() {

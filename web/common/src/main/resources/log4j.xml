@@ -23,6 +23,11 @@
         <level value="WARN"/>
     </logger>
 
+    <!-- Suppress invalid warning messages from JSF -->
+    <logger name="org.apache.myfaces.shared_impl.renderkit.html">
+        <level value="ERROR"/>
+    </logger>
+
     <logger name="org.hibernate">
         <level value="WARN"/>
     </logger>

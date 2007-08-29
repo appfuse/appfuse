@@ -12,9 +12,8 @@
 </h:form>
 
 <script type="text/javascript">
-    var f = document.forms['userProfile'];
-    f.elements['userProfile:_idcl'].value='userProfile:edit';
-    f.submit();
+    // Might be able to remove proprietary call if I can get @PostConstruct to work
+    oamSubmitForm('userProfile','userProfile:edit');
 </script>
 
 </f:view>

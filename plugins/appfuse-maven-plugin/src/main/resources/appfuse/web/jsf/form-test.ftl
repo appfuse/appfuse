@@ -9,14 +9,30 @@ import ${appfusepackage}.webapp.action.BasePageTestCase;
 
 public class ${pojo.shortName}FormTest extends BasePageTestCase {
     private ${pojo.shortName}Form bean;
-
-    protected void setUp() throws Exception {
-        super.setUp();
-        bean = (${pojo.shortName}Form) getManagedBean("${pojoNameLower}Form");
+<#if genericcore>
+    private GenericManager<${pojo.shortName}, ${identifierType}> ${pojoNameLower}Manager;
+<#else>
+    private ${pojo.shortName}Manager ${pojoNameLower}Manager;
+</#if>
+        
+<#if genericcore>
+    public void set${pojo.shortName}Manager(GenericManager<${pojo.shortName}, ${identifierType}> ${pojoNameLower}Manager) {
+<#else>
+    public void set${pojo.shortName}Manager(${pojo.shortName}Manager ${pojoNameLower}Manager) {
+</#if>
+        this.${pojoNameLower}Manager = ${pojoNameLower}Manager;
     }
 
-    protected void tearDown() throws Exception {
-        super.tearDown();
+    @Override
+    protected void onSetUp() throws Exception {
+        super.onSetUp();
+        bean = new ${pojo.shortName}Form();
+        bean.set${pojo.shortName}Manager(${pojoNameLower}Manager);
+    }
+
+    @Override
+    protected void onTearDown() throws Exception {
+        super.onTearDown();
         bean = null;
     }
 

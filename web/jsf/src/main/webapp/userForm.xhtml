@@ -20,7 +20,7 @@
 <h:inputHidden value="#{userForm.user.password}" id="originalPassword"/>
 <input type="hidden" name="from" value="#{userForm.from}" />
 
-<c:if test="${cookieLogin == 'true'}">
+<c:if test="${userForm.rememberMe}">
     <h:inputHidden value="#{userForm.user.password}" id="password"/>
     <h:inputHidden value="#{userForm.user.confirmPassword}" id="confirmPassword"/>
 </c:if>
@@ -35,7 +35,7 @@
 
     <h:panelGroup styleClass="buttonBar right">
         <h:commandButton value="#{text['button.save']}" action="#{userForm.save}" styleClass="button"/>
-        <c:if test="${param.from == 'list'}">
+        <c:if test="${not empty userForm.user.id}">
         <h:commandButton value="#{text['button.delete']}" action="#{userForm.delete}"
             styleClass="button" onclick="bCancel=true; return confirmDelete('User')"/>
         </c:if>
@@ -46,7 +46,7 @@
 
     <h:panelGroup styleClass="info">
         <c:choose>
-            <c:when test="${param.from == 'list'}">
+            <c:when test="${param.from == 'list' or empty userForm.user.id}">
                 <h:outputText value="#{text['userProfile.admin.message']}"/>
             </c:when>
             <c:otherwise><h:outputText value="#{text['userProfile.message']}"/></c:otherwise>
@@ -60,7 +60,7 @@
         <v:commonsValidator type="required" arg="#{text['user.username']}"/>
     </h:inputText>
 
-    <c:if test="${cookieLogin != 'true'}">
+    <c:if test="${!userForm.rememberMe}">
     <h:panelGroup>
         <div>
             <div class="left">
@@ -155,14 +155,14 @@
                 <t:htmlTag value="p"><h:outputLabel for="city" value="#{text['user.address.city']}"/></t:htmlTag>
             </t:htmlTag>
             <t:htmlTag value="div">
-                <h:inputText value="#{userForm.user.address.province}" id="province" size="2" required="true" styleClass="text state">
+                <h:inputText value="#{userForm.user.address.province}" id="province" required="true" styleClass="text state">
                     <v:commonsValidator type="required" arg="#{text['user.address.province']}"/>
                 </h:inputText>
                 <t:message for="province" styleClass="fieldError"/>
                 <t:htmlTag value="p"><h:outputLabel for="province" value="#{text['user.address.province']}"/></t:htmlTag>
             </t:htmlTag>
             <t:htmlTag value="div" styleClass="left">
-                <h:inputText value="#{userForm.user.address.postalCode}" id="postalCode" required="true" styleClass="text zip">
+                <h:inputText value="#{userForm.user.address.postalCode}" id="postalCode" required="true" styleClass="text medium">
                     <v:commonsValidator type="required" arg="#{text['user.address.postalCode']}"/>
                     <t:validateRegExpr pattern="^\d{5}\d*$"/>
                 </h:inputText>
@@ -228,7 +228,7 @@
 
     <h:panelGroup styleClass="buttonBar bottom">
         <h:commandButton value="#{text['button.save']}" action="#{userForm.save}" styleClass="button"/>
-        <c:if test="${param.from == 'list'}">
+        <c:if test="${not empty userForm.user.id}">
         <h:commandButton value="#{text['button.delete']}" action="#{userForm.delete}"
             styleClass="button" onclick="bCancel=true; return confirmDelete('User')"/>
         </c:if>

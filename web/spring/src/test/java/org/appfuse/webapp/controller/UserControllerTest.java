@@ -12,6 +12,6 @@ public class UserControllerTest extends BaseControllerTestCase {
         ModelAndView mav = c.handleRequest(null, null);
         Map m = mav.getModel();
         assertNotNull(m.get(Constants.USER_LIST));
-        assertEquals("userList", mav.getViewName());
+        assertEquals("admin/userList", mav.getViewName());
     }
 }
