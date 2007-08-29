@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 3.0//EN"
+    "http://tuckey.org/res/dtds/urlrewrite3.0.dtd">
 
 <urlrewrite>
     <rule>
-        <from>^/user/(.*).html$</from>
-        <to type="forward">/editUser.html\?id=$1&amp;from=list</to>
+        <from>^/admin/user/(.*).html$</from>
+        <to type="forward">/admin/editUser.html\?id=$1&amp;from=list</to>
     </rule>
 
     <!-- Override default validation.js from WebWork -->

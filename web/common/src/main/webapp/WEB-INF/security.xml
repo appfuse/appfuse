@@ -69,14 +69,10 @@
         <property name="objectDefinitionSource">
             <value>
                 PATTERN_TYPE_APACHE_ANT
-                /activeUsers.*=ROLE_ADMIN
-                /clickstreams.jsp*=ROLE_ADMIN
-                /flushCache.*=ROLE_ADMIN
+                /admin/*=ROLE_ADMIN
                 /passwordHint.html*=ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER
-                /reload.*=ROLE_ADMIN
                 /signup.html*=ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER
                 /a4j.res/*.html*=ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER <!-- APF-737, OK to remove if not using JSF -->
-                /users.html*=ROLE_ADMIN
                 /**/*.html*=ROLE_ADMIN,ROLE_USER
             </value>
         </property>

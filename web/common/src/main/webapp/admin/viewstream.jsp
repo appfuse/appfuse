@@ -27,12 +27,14 @@ if (stream == null)
 %>
 
 <head>
-    <title><fmt:message key="viewstream.title"/></title>
-    <meta name="heading" content="<fmt:message key='viewstream.heading'/>"/>
-    <meta name="menu" content="AdminMenu"/>
+  <title>
+    <fmt:message key="viewstream.title"/>
+  </title>
+  <meta name="heading" content="<fmt:message key='viewstream.heading'/>"/>
+  <meta name="menu" content="AdminMenu"/>
 </head>
 
-<div style="float: right"><a href="clickstreams.jsp">All streams</a></div>
+<div style="float: right"><a href="clickstreams.jspjsp">All streams</a></div>
 
 <h2>Clickstream for <%= stream.getHostname() %></h2>
 

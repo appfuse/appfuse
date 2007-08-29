@@ -12,8 +12,10 @@
 
 <h:form id="editUser">
 
-<h:commandButton value="#{text['button.add']}" action="#{userForm.add}" id="add" styleClass="button"/>
-<h:commandButton value="#{text['button.done']}" action="mainMenu" id="cancel" 
+<h:commandButton value="#{text['button.add']}" action="#{userForm.add}" id="add" styleClass="button">
+    <f:param name="from" value="list"/>
+</h:commandButton>
+<h:commandButton value="#{text['button.done']}" action="mainMenu" id="cancel"
     immediate="true" styleClass="button" style="margin-left: 5px"/>
 
 <!-- Error from this table is caused by http://issues.apache.org/jira/browse/TOMAHAWK-466 -->
@@ -30,7 +32,6 @@
         </f:facet>
         <h:commandLink action="#{userForm.edit}" value="#{user.username}" >
             <f:param name="id" value="#{user.id}"/>
-            <f:param name="from" value="list"/>
         </h:commandLink>
     </t:column>
     <t:column width="34%">

@@ -4,8 +4,8 @@
 
 <urlrewrite>
     <rule>
-        <from>^/user/(.*)\.html$</from>
-        <to type="forward">/userform.html?id=$1&amp;from=list</to>
+        <from>^/admin/user/(.*)\.html$</from>
+        <to type="forward">/admin/userform.html?id=$1&amp;from=list</to>
     </rule>
 </urlrewrite>
 

@@ -7,12 +7,12 @@
         <Menu name="MainMenu" title="mainMenu.title" page="/mainMenu.html" roles="ROLE_ADMIN,ROLE_USER"/>
         <Menu name="UserMenu" title="menu.user" description="User Menu" page="/userform.html" roles="ROLE_ADMIN,ROLE_USER"/>
         <Menu name="AdminMenu" title="menu.admin" description="Admin Menu" roles="ROLE_ADMIN" width="120" page="/users.html">
-            <Item name="ViewUsers" title="menu.admin.users" page="/users.html"/>
-            <Item name="ActiveUsers" title="mainMenu.activeUsers" page="/activeUsers.html"/>
-            <Item name="ReloadContext" title="menu.admin.reload" page="/reload.html"/>
+            <Item name="ViewUsers" title="menu.admin.users" page="/admin/users.html"/>
+            <Item name="ActiveUsers" title="mainMenu.activeUsers" page="/admin/activeUsers.html"/>
+            <Item name="ReloadContext" title="menu.admin.reload" page="/admin/reload.html"/>
             <Item name="FileUpload" title="menu.selectFile" page="/fileupload.html"/>
-            <Item name="FlushCache" title="menu.flushCache" page="/flushCache.html"/>
-            <Item name="Clickstream" title="menu.clickstream" page="/clickstreams.jsp"/>
+            <Item name="FlushCache" title="menu.flushCache" page="/admin/flushCache.html"/>
+            <Item name="Clickstream" title="menu.clickstream" page="/admin/clickstreams.jsp"/>
         </Menu>
         <Menu name="Logout" title="user.logout" page="/logout.jsp" roles="ROLE_ADMIN,ROLE_USER"/>
     </Menus>
