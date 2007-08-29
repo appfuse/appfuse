@@ -94,7 +94,9 @@
         <!-- Checks for Size Violations.                    -->
         <!-- See http://checkstyle.sf.net/config_sizes.html -->
         <module name="FileLength" />
-        <!--        <module name="LineLength"/>-->
+        <module name="LineLength">
+            <property name="max" value="120"/>
+        </module>
         <module name="MethodLength">
             <property name="max" value="160" />
         </module>
@@ -138,7 +140,7 @@
         <!-- See http://checkstyle.sf.net/config_coding.html -->
         <!--<module name="AvoidInlineConditionals"/>-->
         <module name="DoubleCheckedLocking" />
-        <!-- MY FAVOURITE -->
+        <!-- MY FAVORITE -->
         <module name="EmptyStatement" />
         <module name="EqualsHashCode" />
         <!--<module name="HiddenField">-->
@@ -151,7 +153,9 @@
 
         <!--        <module name="MagicNumber"/>-->
         <module name="MissingSwitchDefault" />
-        <module name="RedundantThrows" />
+        <module name="RedundantThrows">
+            <property name="allowUnchecked" value="true"/>
+        </module>
         <module name="SimplifyBooleanExpression" />
         <module name="SimplifyBooleanReturn" />
         <!-- Checks for class design                         -->
