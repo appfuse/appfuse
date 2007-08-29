@@ -368,6 +368,9 @@
             </plugin>
             <plugin>
                 <artifactId>maven-checkstyle-plugin</artifactId>
+                <configuration>
+                    <configLocation>https://appfuse.dev.java.net/checkstyle.xml</configLocation>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>

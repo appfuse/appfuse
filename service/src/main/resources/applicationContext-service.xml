@@ -19,6 +19,9 @@
     
     <!-- Enable @AspectJ support -->
     <aop:aspectj-autoproxy/>
+
+    <!-- Enable @Configured support -->
+    <aop:spring-configured/>
     
     <tx:advice id="txAdvice">
         <tx:attributes>
