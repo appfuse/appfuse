@@ -116,8 +116,8 @@
         </testResources>
     </build>
 
-    <!-- For JTA, which isn't in Maven's central repository -->
     <repositories>
+        <!-- For JTA, which isn't in Maven's central repository -->
         <repository>
             <id>java.net</id>
             <url>http://download.java.net/maven/2</url>
@@ -149,6 +149,17 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
             <version>${hibernate.entitymanager.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>jboss</groupId>
+                    <artifactId>jboss-common-core</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>jboss</groupId>
+            <artifactId>jboss-archive-browsing</artifactId>
+            <version>5.0.0alpha-200607201-119</version>
         </dependency>
         <dependency>
             <groupId>commons-collections</groupId>
