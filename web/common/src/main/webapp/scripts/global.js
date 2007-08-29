@@ -11,50 +11,50 @@ function isUndefined(value) {
 function checkAll(theForm) { // check all the checkboxes in the list
   for (var i=0;i<theForm.elements.length;i++) {
     var e = theForm.elements[i];
-		var eName = e.name;
-    	if (eName != 'allbox' && 
+        var eName = e.name;
+        if (eName != 'allbox' && 
             (e.type.indexOf("checkbox") == 0)) {
-        	e.checked = theForm.allbox.checked;		
-		}
-	} 
+            e.checked = theForm.allbox.checked;        
+        }
+    } 
 }
 
 /* Function to clear a form of all it's values */
 function clearForm(frmObj) {
-	for (var i = 0; i < frmObj.length; i++) {
+    for (var i = 0; i < frmObj.length; i++) {
         var element = frmObj.elements[i];
-		if(element.type.indexOf("text") == 0 || 
-				element.type.indexOf("password") == 0) {
-					element.value="";
-		} else if (element.type.indexOf("radio") == 0) {
-			element.checked=false;
-		} else if (element.type.indexOf("checkbox") == 0) {
-			element.checked = false;
-		} else if (element.type.indexOf("select") == 0) {
-			for(var j = 0; j < element.length ; j++) {
-				element.options[j].selected=false;
-			}
+        if(element.type.indexOf("text") == 0 || 
+                element.type.indexOf("password") == 0) {
+                    element.value="";
+        } else if (element.type.indexOf("radio") == 0) {
+            element.checked=false;
+        } else if (element.type.indexOf("checkbox") == 0) {
+            element.checked = false;
+        } else if (element.type.indexOf("select") == 0) {
+            for(var j = 0; j < element.length ; j++) {
+                element.options[j].selected=false;
+            }
             element.options[0].selected=true;
-		}
-	} 
+        }
+    } 
 }
 
 /* Function to get a form's values in a string */
 function getFormAsString(frmObj) {
     var query = "";
-	for (var i = 0; i < frmObj.length; i++) {
+    for (var i = 0; i < frmObj.length; i++) {
         var element = frmObj.elements[i];
         if (element.type.indexOf("checkbox") == 0 || 
             element.type.indexOf("radio") == 0) { 
             if (element.checked) {
                 query += element.name + '=' + escape(element.value) + "&";
             }
-		} else if (element.type.indexOf("select") == 0) {
-			for (var j = 0; j < element.length ; j++) {
-				if (element.options[j].selected) {
+        } else if (element.type.indexOf("select") == 0) {
+            for (var j = 0; j < element.length ; j++) {
+                if (element.options[j].selected) {
                     query += element.name + '=' + escape(element.value) + "&";
                 }
-			}
+            }
         } else {
             query += element.name + '=' 
                   + escape(element.value) + "&"; 
@@ -67,11 +67,11 @@ function getFormAsString(frmObj) {
    the search form when it is visible */
 function toggleForm(frmObj, iState) // 1 visible, 0 hidden 
 {
-	for(var i = 0; i < frmObj.length; i++) {
-		if (frmObj.elements[i].type.indexOf("select") == 0 || frmObj.elements[i].type.indexOf("checkbox") == 0) {
+    for(var i = 0; i < frmObj.length; i++) {
+        if (frmObj.elements[i].type.indexOf("select") == 0 || frmObj.elements[i].type.indexOf("checkbox") == 0) {
             frmObj.elements[i].style.visibility = iState ? "visible" : "hidden";
-		}
-	} 
+        }
+    } 
 }
 
 /* Helper function for re-ordering options in a select */
@@ -109,12 +109,12 @@ function move(list,to) {
 /*  This function is to select all options in a multi-valued <select> */
 function selectAll(elementId) {
     var element = document.getElementById(elementId);
-	len = element.length;
-	if (len != 0) {
-		for (i = 0; i < len; i++) {
-			element.options[i].selected = true;
-		}
-	}
+    len = element.length;
+    if (len != 0) {
+        for (i = 0; i < len; i++) {
+            element.options[i].selected = true;
+        }
+    }
 }
 
 /* This function is used to select a checkbox by passing
@@ -139,7 +139,7 @@ function toggleRadio(elementId, index) {
 
 /* This function is used to open a pop-up window */
 function openWindow(url, winTitle, winParams) {
-	winName = window.open(url, winTitle, winParams);
+    winName = window.open(url, winTitle, winParams);
     winName.focus();
 }
 
@@ -165,20 +165,20 @@ function setCookie(name,value,expires,path,domain,secure) {
 
 /* This function is used to get cookies */
 function getCookie(name) {
-	var prefix = name + "=" 
-	var start = document.cookie.indexOf(prefix) 
+    var prefix = name + "=" 
+    var start = document.cookie.indexOf(prefix) 
 
-	if (start==-1) {
-		return null;
-	}
-	
-	var end = document.cookie.indexOf(";", start+prefix.length) 
-	if (end==-1) {
-		end=document.cookie.length;
-	}
+    if (start==-1) {
+        return null;
+    }
+    
+    var end = document.cookie.indexOf(";", start+prefix.length) 
+    if (end==-1) {
+        end=document.cookie.length;
+    }
 
-	var value=document.cookie.substring(start+prefix.length, end) 
-	return unescape(value);
+    var value=document.cookie.substring(start+prefix.length, end) 
+    return unescape(value);
 }
 
 /* This function is used to delete cookies */
@@ -262,7 +262,10 @@ function highlightTableRows(tableId) {
             var cell = this.getElementsByTagName("td")[0];
             var link = cell.getElementsByTagName("a")[0];
             if (link.onclick) {
-                call = link.getAttributeValue("onclick");
+                call = link.getAttribute("onclick");
+                if (call.indexOf("return ") == 0) {
+                    call = call.substring(7);
+                } 
                 // this will not work for links with onclick handlers that return false
                 eval(call);
             } else {
