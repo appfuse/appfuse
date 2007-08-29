@@ -65,7 +65,10 @@
         </module>
         <!-- Checks for Naming Conventions.                  -->
         <!-- See http://checkstyle.sf.net/config_naming.html -->
-        <module name="ConstantName" />
+        <module name="ConstantName">
+            <!-- Allow "log" as a constant - don't force LOG -->
+            <property name="format" value="^[log][A-Z][A-Z0-9]*(_[A-Z0-9]+)*$"/>
+        </module>
         <module name="LocalFinalVariableName" />
         <module name="LocalVariableName" />
         <module name="MemberName" />
@@ -75,7 +78,10 @@
         <module name="StaticVariableName">
             <property name="format" value="^[A-Z][A-Z0-9]*$" />
         </module>
-        <module name="TypeName" />
+        <module name="TypeName">
+            <!-- Allow "iBatis" to start a class/interface name -->
+            <property name="format" value="^[iBatis][A-Z][a-zA-Z0-9]*$"/>
+        </module>
         <!-- Checks for Headers                              -->
         <!-- See http://checkstyle.sf.net/config_header.html -->
         <!-- MR: Commented out as we don't have a standard header yet -->
