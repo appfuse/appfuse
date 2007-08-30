@@ -114,7 +114,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="click Add Button" url="/editUser.html?method=Add&amp;from=list"/>
+                <invoke description="click Add Button" url="/editUser.html?from=list"/>
                 <verifytitle description="we should see the user profile title"
                     text=".*${userProfile.title}.*" regex="true"/>
                     
