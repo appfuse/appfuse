@@ -11,42 +11,47 @@ import org.appfuse.service.UniversalManager;
 /**
  * Base class for Business Services - use this class for utility methods and
  * generic CRUD methods.
- * 
- * <p><a href="UniversalManagerImpl.java.html"><i>View Source</i></a></p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class UniversalManagerImpl implements UniversalManager {
+    /**
+     * Log instance for all child classes. Uses LogFactory.getLog(getClass()) from Commons Logging
+     */
     protected final Log log = LogFactory.getLog(getClass());
-    protected UniversalDao dao = null;
+
+    /**
+     * UniversalDao instance, ready to charge forward and persist to the database
+     */
+    protected UniversalDao dao;
  
     public void setDao(UniversalDao dao) {
         this.dao = dao;
     }
-    
+
     /**
-     * @see org.appfuse.service.UniversalManager#get(java.lang.Class, java.io.Serializable)
+     * {@inheritDoc}
      */
     public Object get(Class clazz, Serializable id) {
         return dao.get(clazz, id);
     }
-    
+
     /**
-     * @see org.appfuse.service.UniversalManager#getAll(java.lang.Class)
+     * {@inheritDoc}
      */
     public List getAll(Class clazz) {
         return dao.getAll(clazz);
     }
-    
+
     /**
-     * @see org.appfuse.service.UniversalManager#remove(java.lang.Class, java.io.Serializable)
+     * {@inheritDoc}
      */
     public void remove(Class clazz, Serializable id) {
         dao.remove(clazz, id);
     }
-    
+
     /**
-     * @see org.appfuse.service.UniversalManager#save(java.lang.Object)
+     * {@inheritDoc}
      */
     public Object save(Object o) {
         return dao.save(o);

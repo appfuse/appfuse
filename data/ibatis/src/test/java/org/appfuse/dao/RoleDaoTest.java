@@ -26,6 +26,8 @@ public class RoleDaoTest extends BaseDaoTestCase {
         role.setDescription("test descr");
 
         role = dao.save(role);
+
+        role = dao.getRoleByName("ROLE_USER");
         assertEquals(role.getDescription(), "test descr");
     }
 

@@ -17,13 +17,17 @@ import java.util.List;
 public class LookupManagerImpl extends UniversalManagerImpl implements LookupManager {
     private LookupDao dao;
 
+    /**
+     * Method that allows setting the DAO to talk to the data store with.
+     * @param dao the dao implementation
+     */
     public void setLookupDao(LookupDao dao) {
         super.dao = dao;
         this.dao = dao;
     }
-    
+
     /**
-     * @see org.appfuse.service.LookupManager#getAllRoles()
+     * {@inheritDoc}
      */
     public List<LabelValue> getAllRoles() {
         List<Role> roles = dao.getRoles();

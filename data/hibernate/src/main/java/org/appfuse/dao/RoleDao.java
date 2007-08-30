@@ -13,11 +13,11 @@ public interface RoleDao extends GenericDao<Role, Long> {
      * @param rolename the rolename
      * @return populated role object
      */
-    public Role getRoleByName(String rolename);
+    Role getRoleByName(String rolename);
 
     /**
      * Removes a role from the database by name
      * @param rolename the role's rolename
      */
-    public void removeRole(String rolename);
+    void removeRole(String rolename);
 }

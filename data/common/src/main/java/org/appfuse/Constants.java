@@ -3,32 +3,41 @@ package org.appfuse;
 
 /**
  * Constant values used throughout the application.
- *
- * <p>
- * <a href="Constants.java.html"><i>View Source</i></a>
- * </p>
+ * 
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class Constants {
     //~ Static fields/initializers =============================================
-   
-    /** The name of the ResourceBundle used in this application */
+
+    /**
+     * The name of the ResourceBundle used in this application
+     */
     public static final String BUNDLE_KEY = "ApplicationResources";
 
-    /** The encryption algorithm key to be used for passwords */
+    /**
+     * The encryption algorithm key to be used for passwords
+     */
     public static final String ENC_ALGORITHM = "algorithm";
 
-    /** A flag to indicate if passwords should be encrypted */
+    /**
+     * A flag to indicate if passwords should be encrypted
+     */
     public static final String ENCRYPT_PASSWORD = "encryptPassword";
 
-    /** File separator from System properties */
+    /**
+     * File separator from System properties
+     */
     public static final String FILE_SEP = System.getProperty("file.separator");
 
-    /** User home from System properties */
+    /**
+     * User home from System properties
+     */
     public static final String USER_HOME = System.getProperty("user.home") + FILE_SEP;
 
-    /** The name of the configuration hashmap stored in application scope. */
+    /**
+     * The name of the configuration hashmap stored in application scope.
+     */
     public static final String CONFIG = "appConfig";
 
     /**
@@ -37,7 +46,7 @@ public class Constants {
      * to do extra work or have two session-level variables.
      */
     public static final String PREFERRED_LOCALE_KEY = "org.apache.struts2.action.LOCALE";
-    
+
     /**
      * The request scope attribute under which an editable user form is stored
      */
@@ -74,7 +83,7 @@ public class Constants {
      * when adding/editing a user.
      */
     public static final String AVAILABLE_ROLES = "availableRoles";
-    
+
     /**
      * The name of the CSS Theme setting.
      */

@@ -16,7 +16,11 @@ import java.util.List;
  */
 public interface UserManager extends UniversalManager {
 
-    public void setUserDao(UserDao userDao);
+    /**
+     * Convenience method for testing - allows you to mock the DAO and set it on an interface.
+     * @param userDao the UserDao implementation to use
+     */
+    void setUserDao(UserDao userDao);
 
     /**
      * Retrieves a user by userId.  An exception is thrown if user not found
@@ -24,8 +28,8 @@ public interface UserManager extends UniversalManager {
      * @param userId the identifier for the user
      * @return User
      */
-    public User getUser(String userId);
-    
+    User getUser(String userId);
+
     /**
      * Finds a user by their username.
      * @param username the user's username used to login
@@ -33,28 +37,28 @@ public interface UserManager extends UniversalManager {
      * @throws org.acegisecurity.userdetails.UsernameNotFoundException
      *         exception thrown when user not found
      */
-    public User getUserByUsername(String username) throws UsernameNotFoundException;
+    User getUserByUsername(String username) throws UsernameNotFoundException;
 
     /**
      * Retrieves a list of users, filtering with parameters on a user object
      * @param user parameters to filter on
      * @return List
      */
-    public List<User> getUsers(User user);
+    List getUsers(User user);
 
     /**
      * Saves a user's information
      *
      * @param user the user's information
      * @throws UserExistsException thrown when user already exists
-     * @return updated user
+     * @return user the updated user object
      */
-    public User saveUser(User user) throws UserExistsException;
+    User saveUser(User user) throws UserExistsException;
 
     /**
      * Removes a user from the database by their userId
      *
      * @param userId the user's id
      */
-    public void removeUser(String userId);
+    void removeUser(String userId);
 }

@@ -14,6 +14,7 @@ import java.util.Comparator;
  * @see org.apache.struts.util.LabelValueBean
  */
 public class LabelValue implements Comparable, Serializable {
+
     private static final long serialVersionUID = 3689355407466181430L;
 
     /**
@@ -27,7 +28,6 @@ public class LabelValue implements Comparable, Serializable {
             return label1.compareToIgnoreCase(label2);
         }
     };
-
 
     // ----------------------------------------------------------- Constructors
 
@@ -45,11 +45,10 @@ public class LabelValue implements Comparable, Serializable {
      * @param label The label to be displayed to the user.
      * @param value The value to be returned to the server.
      */
-    public LabelValue(String label, String value) {
+    public LabelValue(final String label, final String value) {
         this.label = label;
         this.value = value;
     }
-
 
     // ------------------------------------------------------------- Properties
 
@@ -57,7 +56,7 @@ public class LabelValue implements Comparable, Serializable {
     /**
      * The property which supplies the option label visible to the end user.
      */
-    private String label = null;
+    private String label;
 
     public String getLabel() {
         return this.label;
@@ -71,7 +70,7 @@ public class LabelValue implements Comparable, Serializable {
     /**
      * The property which supplies the value returned to the server.
      */
-    private String value = null;
+    private String value;
 
     public String getValue() {
         return this.value;
@@ -89,6 +88,8 @@ public class LabelValue implements Comparable, Serializable {
      * viewable part of the object.
      *
      * @see Comparable
+     * @param o LabelValue object to compare to
+     * @return 0 if labels match for compared objects
      */
     public int compareTo(Object o) {
         // Implicitly tests for the correct type, throwing
@@ -100,6 +101,7 @@ public class LabelValue implements Comparable, Serializable {
 
     /**
      * Return a string representation of this object.
+     * @return object as a string
      */
     public String toString() {
         StringBuffer sb = new StringBuffer("LabelValue[");
@@ -114,6 +116,8 @@ public class LabelValue implements Comparable, Serializable {
      * LabelValueBeans are equal if their values are both null or equal.
      *
      * @see java.lang.Object#equals(java.lang.Object)
+     * @param obj object to compare to
+     * @return true/false based on whether values match or not
      */
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -142,6 +146,7 @@ public class LabelValue implements Comparable, Serializable {
      * The hash code is based on the object's value.
      *
      * @see java.lang.Object#hashCode()
+     * @return hashCode
      */
     public int hashCode() {
         return (this.getValue() == null) ? 17 : this.getValue().hashCode();

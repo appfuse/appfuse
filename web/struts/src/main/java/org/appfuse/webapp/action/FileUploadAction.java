@@ -9,6 +9,9 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+/**
+ * Sample action that shows how to do file upload with Struts 2.
+ */
 public class FileUploadAction extends BaseAction {
     private static final long serialVersionUID = -9208910183310010569L;
     private File file;
@@ -16,14 +19,19 @@ public class FileUploadAction extends BaseAction {
     private String fileFileName;
     private String name;
 
+    /**
+     * Upload the file
+     * @return String with result (cancel, input or sucess)
+     * @throws Exception if something goes wrong
+     */
     public String upload() throws Exception {
         if (this.cancel != null) {
             return "cancel";
         }
 
         // the directory to upload to
-        String uploadDir =
-            ServletActionContext.getServletContext().getRealPath("/resources") + "/" + getRequest().getRemoteUser() + "/";
+        String uploadDir = ServletActionContext.getServletContext().getRealPath("/resources")
+                + "/" + getRequest().getRemoteUser() + "/";
 
         // write the file to the file specified
         File dirPath = new File(uploadDir);
@@ -37,25 +45,32 @@ public class FileUploadAction extends BaseAction {
 
         //write the file to the file specified
         OutputStream bos = new FileOutputStream(uploadDir + fileFileName);
-        int bytesRead = 0;
+        int bytesRead;
         byte[] buffer = new byte[8192];
 
         while ((bytesRead = stream.read(buffer, 0, 8192)) != -1) {
             bos.write(buffer, 0, bytesRead);
         }
 
-        bos.close();        
+        bos.close();
         stream.close();
 
         // place the data into the request for retrieval on next page
-        getRequest().setAttribute("location", dirPath.getAbsolutePath()  + Constants.FILE_SEP + fileFileName);
-        
-        String link = getRequest().getContextPath() + "/resources" + "/" + getRequest().getRemoteUser() + "/";
+        getRequest().setAttribute("location", dirPath.getAbsolutePath()
+                + Constants.FILE_SEP + fileFileName);
+
+        String link = getRequest().getContextPath() + "/resources" + "/"
+                + getRequest().getRemoteUser() + "/";
+
         getRequest().setAttribute("link", link + fileFileName);
-        
+
         return SUCCESS;
     }
 
+    /**
+     * Default method - returns "input"
+     * @return "input"
+     */
     public String execute() {
         return INPUT;
     }
@@ -92,6 +107,7 @@ public class FileUploadAction extends BaseAction {
         return fileFileName;
     }
 
+    @Override
     public void validate() {
         if (getRequest().getMethod().equalsIgnoreCase("post")) {
             getFieldErrors().clear();

@@ -14,12 +14,25 @@ import java.text.MessageFormat;
  *
  * @author Bobby Diaz, Bryan Noll
  */
-public class iBatisDaoUtils {
-    
+public final class iBatisDaoUtils {
+    /**
+     * Log variable for all child classes. Uses LogFactory.getLog(getClass()) from Commons Logging
+     */
     protected static final Log log = LogFactory.getLog(iBatisDaoUtils.class);
-    
+
+    /**
+     * Checkstyle rule: utility classes should not have public constructor
+     */
+    private iBatisDaoUtils() {
+    }
+
+    /**
+     * Get primary key field name from object. Looks for "id", "Id" and "version".
+     * @param o the object to examine
+     * @return the fieldName
+     */
     protected static String getPrimaryKeyFieldName(Object o) {
-        Field fieldlist[] = o.getClass().getDeclaredFields();
+        Field[] fieldlist = o.getClass().getDeclaredFields();
         String fieldName = null;
         for (Field fld : fieldlist) {
             if (fld.getName().equals("id") || fld.getName().indexOf("Id") > -1 || fld.getName().equals("version")) {
@@ -30,8 +43,13 @@ public class iBatisDaoUtils {
         return fieldName;
     }
 
+    /**
+     * Get the object type of the primary key
+     * @param o the object to examine
+     * @return the class type
+     */
     protected static Class getPrimaryKeyFieldType(Object o) {
-        Field fieldlist[] = o.getClass().getDeclaredFields();
+        Field[] fieldlist = o.getClass().getDeclaredFields();
         Class fieldType = null;
         for (Field fld : fieldlist) {
             if (fld.getName().equals("id") || fld.getName().indexOf("Id") > -1 || fld.getName().equals("version")) {
@@ -42,11 +60,16 @@ public class iBatisDaoUtils {
         return fieldType;
     }
 
+    /**
+     * Get the value of the primary key using reflection.
+     * @param o the object to examine
+     * @return the value as an Object
+     */
     protected static Object getPrimaryKeyValue(Object o) {
         // Use reflection to find the first property that has the name "id" or "Id"
         String fieldName = getPrimaryKeyFieldName(o);
         String getterMethod = "get" + Character.toUpperCase(fieldName.charAt(0)) + fieldName.substring(1); 
-        
+
         try {
             Method getMethod = o.getClass().getMethod(getterMethod, (Class[]) null);
             return getMethod.invoke(o, (Object[]) null);
@@ -56,10 +79,15 @@ public class iBatisDaoUtils {
         }
         return null;
     }
-    
+
+    /**
+     * Prepare object for save or update by looking for a "version" field and incrementing it if it exists.
+     * This should probably be changed to look for the @Version annotation instead.
+     * @param o the object to examine
+     */
     protected static void prepareObjectForSaveOrUpdate(Object o) {
         try {
-            Field fieldlist[] = o.getClass().getDeclaredFields();
+            Field[] fieldlist = o.getClass().getDeclaredFields();
             for (Field fld : fieldlist) {
                 String fieldName = fld.getName();
                 if (fieldName.equals("version")) {
@@ -78,6 +106,12 @@ public class iBatisDaoUtils {
         }
     }
 
+    /**
+     * Sets the primary key's value
+     * @param o the object to examine
+     * @param clazz the class type of the primary key
+     * @param value the value of the new primary key
+     */
     protected static void setPrimaryKey(Object o, Class clazz, Object value) {
         String fieldName = getPrimaryKeyFieldName(o);
         String setMethodName = "set" + Character.toUpperCase(fieldName.charAt(0)) + fieldName.substring(1);

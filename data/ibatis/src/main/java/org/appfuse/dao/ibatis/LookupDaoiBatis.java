@@ -13,11 +13,11 @@ import org.appfuse.model.Role;
 public class LookupDaoiBatis extends UniversalDaoiBatis implements LookupDao {
 
     /**
-     * @see org.appfuse.dao.LookupDao#getRoles()
+     * {@inheritDoc}
      */
     @SuppressWarnings("unchecked")
     public List<Role> getRoles() {
-        logger.debug("retrieving all role names...");
+        log.debug("retrieving all role names...");
 
         return getSqlMapClientTemplate().queryForList("getRoles", null);
     }

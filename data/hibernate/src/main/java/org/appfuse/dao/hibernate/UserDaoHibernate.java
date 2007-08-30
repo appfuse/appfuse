@@ -1,12 +1,12 @@
 package org.appfuse.dao.hibernate;
 
-import java.util.List;
-
 import org.acegisecurity.userdetails.UserDetails;
 import org.acegisecurity.userdetails.UserDetailsService;
 import org.acegisecurity.userdetails.UsernameNotFoundException;
 import org.appfuse.dao.UserDao;
 import org.appfuse.model.User;
+
+import java.util.List;
 
 /**
  * This class interacts with Spring's HibernateTemplate to save/delete and
@@ -20,12 +20,15 @@ import org.appfuse.model.User;
 */
 public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements UserDao, UserDetailsService {
 
+    /**
+     * Constructor that sets the entity to User.class.
+     */
     public UserDaoHibernate() {
         super(User.class);
     }
 
     /**
-     * @see org.appfuse.dao.UserDao#getUsers()
+     * {@inheritDoc}
      */
     @SuppressWarnings("unchecked")
     public List<User> getUsers() {
@@ -33,7 +36,7 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
     }
 
     /**
-     * @see org.appfuse.dao.UserDao#saveUser(org.appfuse.model.User)
+     * {@inheritDoc}
      */
     public User saveUser(User user) {
         log.debug("user's id: " + user.getId());
@@ -42,11 +45,14 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
         getHibernateTemplate().flush();
         return user;
     }
-    
+
     /**
      * Overridden simply to call the saveUser method. This is happenening 
      * because saveUser flushes the session and saveObject of BaseDaoHibernate 
      * does not.
+     *
+     * @param user the user to save
+     * @return the modified user (with a primary key set if they're new)
      */
     @Override
     public User save(User user) {
@@ -54,7 +60,7 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
     }
 
     /** 
-    * @see org.acegisecurity.userdetails.UserDetailsService#loadUserByUsername(java.lang.String)
+     * {@inheritDoc}
     */
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         List users = getHibernateTemplate().find("from User where username=?", username);

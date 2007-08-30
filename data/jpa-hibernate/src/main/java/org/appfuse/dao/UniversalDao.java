@@ -32,8 +32,8 @@ public interface UniversalDao {
      * @param clazz the type of objects (a.k.a. while table) to get data from
      * @return List of populated objects
      */
-    public List getAll(Class clazz);
-    
+    List getAll(Class clazz);
+
     /**
      * Generic method to get an object based on class and identifier. An 
      * ObjectRetrievalFailureException Runtime Exception is thrown if 
@@ -44,18 +44,19 @@ public interface UniversalDao {
      * @return a populated object
      * @see org.springframework.orm.ObjectRetrievalFailureException
      */
-    public Object get(Class clazz, Serializable id);
+    Object get(Class clazz, Serializable id);
 
     /**
      * Generic method to save an object - handles both update and insert.
      * @param o the object to save
+     * @return a populated object
      */
-    public Object save(Object o);
+    Object save(Object o);
 
     /**
      * Generic method to delete an object based on class and id
      * @param clazz model class to lookup
      * @param id the identifier (primary key) of the class
      */
-    public void remove(Class clazz, Serializable id);
+    void remove(Class clazz, Serializable id);
 }

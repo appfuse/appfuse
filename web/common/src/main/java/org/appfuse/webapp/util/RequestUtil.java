@@ -10,16 +10,22 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Convenience class for setting and retrieving cookies.
  */
-public class RequestUtil {
-    private transient static Log log = LogFactory.getLog(RequestUtil.class);
+public final class RequestUtil {
+    private static final Log log = LogFactory.getLog(RequestUtil.class);
+
+    /**
+     * Checkstyle rule: utility classes should not have public constructor
+     */
+    private RequestUtil() {
+    }
 
     /**
      * Convenience method to set a cookie
      *
-     * @param response
-     * @param name
-     * @param value
-     * @param path
+     * @param response the current response
+     * @param name the name of the cookie
+     * @param value the value of the cookie
+     * @param path the path to set it on
      */
     public static void setCookie(HttpServletResponse response, String name,
                                  String value, String path) {
@@ -51,9 +57,7 @@ public class RequestUtil {
             return returnCookie;
         }
 
-        for (int i = 0; i < cookies.length; i++) {
-            Cookie thisCookie = cookies[i];
-
+        for (Cookie thisCookie : cookies) {
             if (thisCookie.getName().equals(name)) {
                 // cookies with no value do me no good!
                 if (!thisCookie.getValue().equals("")) {
@@ -83,10 +87,13 @@ public class RequestUtil {
             response.addCookie(cookie);
         }
     }
-    
+
     /**
      * Convenience method to get the application's URL based on request
      * variables.
+     * 
+     * @param request the current request
+     * @return URL to application
      */
     public static String getAppURL(HttpServletRequest request) {
         StringBuffer url = new StringBuffer();

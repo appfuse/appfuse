@@ -72,8 +72,8 @@ public class StaticFilter extends OncePerRequestFilter {
      * @param request the current request
      * @param response the current response
      * @param chain the filter chain
-     * @throws IOException
-     * @throws ServletException
+     * @throws ServletException when something goes wrong
+     * @throws IOException when something goes terribly wrong
      */
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                  FilterChain chain) throws IOException, ServletException {
@@ -102,7 +102,7 @@ public class StaticFilter extends OncePerRequestFilter {
             rd.forward(request, response);
             return;
         }
-        
+
         chain.doFilter(request, response);
     }
 }

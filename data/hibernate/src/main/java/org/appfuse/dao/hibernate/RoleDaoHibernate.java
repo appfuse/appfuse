@@ -14,10 +14,16 @@ import org.appfuse.model.Role;
  */
 public class RoleDaoHibernate extends GenericDaoHibernate<Role, Long> implements RoleDao {
 
+    /**
+     * Constructor to create a Generics-based version using Role as the entity
+     */
     public RoleDaoHibernate() {
         super(Role.class);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public Role getRoleByName(String rolename) {
         List roles = getHibernateTemplate().find("from Role where name=?", rolename);
         if (roles.isEmpty()) {
@@ -26,7 +32,10 @@ public class RoleDaoHibernate extends GenericDaoHibernate<Role, Long> implements
             return (Role) roles.get(0);
         }
     }
-    
+
+    /**
+     * {@inheritDoc}
+     */
     public void removeRole(String rolename) {
         Object role = getRoleByName(rolename);
         getHibernateTemplate().delete(role);

@@ -30,10 +30,17 @@ public class Role extends BaseObject implements Serializable, GrantedAuthority {
     private String name;
     private String description;
 
+    /**
+     * Default constructor - creates a new instance with no values set.
+     */
     public Role() {
     }
 
-    public Role(String name) {
+    /**
+     * Create a new instance and set the name.
+     * @param name name of the role.
+     */
+    public Role(final String name) {
         this.name = name;
     }
 
@@ -44,6 +51,7 @@ public class Role extends BaseObject implements Serializable, GrantedAuthority {
 
     /**
      * @see org.acegisecurity.GrantedAuthority#getAuthority()
+     * @return the name property (getAuthority required by Acegi's GrantedAuthority interface)
      */
     @Transient
     public String getAuthority() {
@@ -72,9 +80,16 @@ public class Role extends BaseObject implements Serializable, GrantedAuthority {
         this.description = description;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Role)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Role)) {
+            return false;
+        }
 
         final Role role = (Role) o;
 
@@ -82,10 +97,16 @@ public class Role extends BaseObject implements Serializable, GrantedAuthority {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public int hashCode() {
         return (name != null ? name.hashCode() : 0);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.SIMPLE_STYLE)
                 .append(this.name)

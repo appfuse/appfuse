@@ -17,17 +17,20 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * @author Bryan Noll
  */
 public class UniversalDaoHibernate extends HibernateDaoSupport implements UniversalDao {
+    /**
+     * Log variable for all child classes. Uses LogFactory.getLog(getClass()) from Commons Logging
+     */
     protected final Log log = LogFactory.getLog(getClass());
 
     /**
-     * @see org.appfuse.dao.UniversalDao#save(java.lang.Object)
+     * {@inheritDoc}
      */
     public Object save(Object o) {
         return getHibernateTemplate().merge(o);
     }
 
     /**
-     * @see org.appfuse.dao.UniversalDao#get(java.lang.Class, java.io.Serializable)
+     * {@inheritDoc}
      */
     public Object get(Class clazz, Serializable id) {
         Object o = getHibernateTemplate().get(clazz, id);
@@ -40,14 +43,14 @@ public class UniversalDaoHibernate extends HibernateDaoSupport implements Univer
     }
 
     /**
-     * @see org.appfuse.dao.UniversalDao#getAll(java.lang.Class)
+     * {@inheritDoc}
      */
     public List getAll(Class clazz) {
         return getHibernateTemplate().loadAll(clazz);
     }
 
     /**
-     * @see org.appfuse.dao.UniversalDao#remove(java.lang.Class, java.io.Serializable)
+     * {@inheritDoc}
      */
     public void remove(Class clazz, Serializable id) {
         getHibernateTemplate().delete(get(clazz, id));

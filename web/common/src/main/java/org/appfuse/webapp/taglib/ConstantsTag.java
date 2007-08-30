@@ -30,29 +30,32 @@ import org.appfuse.Constants;
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- *
- * @jsp.tag name="constants" bodycontent="empty"
- *  tei-class="org.appfuse.webapp.taglib.ConstantsTei"
  */
 public class ConstantsTag extends TagSupport {
     private static final long serialVersionUID = 3258417209566116146L;
     private final Log log = LogFactory.getLog(ConstantsTag.class);
-    
+
     /**
      * The class to expose the variables from.
      */
-    public String clazz = Constants.class.getName();
+    private String clazz = Constants.class.getName();
 
     /**
      * The scope to be put the variable in.
      */
-    protected String scope = null;
+    protected String scope;
 
     /**
      * The single variable to expose.
      */
-    protected String var = null;
+    protected String var;
 
+    /**
+     * Main method that does processing and exposes Constants in specified scope 
+     * @return int
+     * @throws JspException if processing fails
+     */
+    @Override
     public int doStartTag() throws JspException {
         // Using reflection, get the available field names in the class
         Class c = null;
@@ -76,20 +79,13 @@ public class ConstantsTag extends TagSupport {
 
                 AccessibleObject.setAccessible(fields, true);
 
-                for (int i = 0; i < fields.length; i++) {
-                    /*if (log.isDebugEnabled()) {
-                       log.debug("putting '" + fields[i].getName() + "=" +
-                                 fields[i].get(this) + "' into " + scope +
-                                 " scope");
-                       }*/
-                    pageContext.setAttribute(fields[i].getName(),
-                                             fields[i].get(this), toScope);
+                for (Field field : fields) {
+                    pageContext.setAttribute(field.getName(), field.get(this), toScope);
                 }
             } else {
                 try {
                     Object value = c.getField(var).get(this);
-                    pageContext.setAttribute(c.getField(var).getName(), value,
-                                             toScope);
+                    pageContext.setAttribute(c.getField(var).getName(), value, toScope);
                 } catch (NoSuchFieldException nsf) {
                     log.error(nsf.getMessage());
                     throw new JspException(nsf);
@@ -104,9 +100,6 @@ public class ConstantsTag extends TagSupport {
         return (SKIP_BODY);
     }
 
-    /**
-     * @jsp.attribute
-     */
     public void setClassName(String clazz) {
         this.clazz = clazz;
     }
@@ -115,9 +108,6 @@ public class ConstantsTag extends TagSupport {
         return this.clazz;
     }
 
-    /**
-     * @jsp.attribute
-     */
     public void setScope(String scope) {
         this.scope = scope;
     }
@@ -126,9 +116,6 @@ public class ConstantsTag extends TagSupport {
         return (this.scope);
     }
 
-    /**
-     * @jsp.attribute
-     */
     public void setVar(String var) {
         this.var = var;
     }
@@ -145,24 +132,21 @@ public class ConstantsTag extends TagSupport {
         clazz = null;
         scope = Constants.class.getName();
     }
-    
-    // ~========== From Struts' TagUtils class =====================
 
     /**
      * Maps lowercase JSP scope names to their PageContext integer constant
      * values.
      */
-    private static final Map scopes = new HashMap();
+    private static final Map<String, Integer> SCOPES = new HashMap<String, Integer>();
 
     /**
-     * Initialize the scope names map and the encode variable with the 
-     * Java 1.4 method if available.
+     * Initialize the scope names map and the encode variable
      */
     static {
-        scopes.put("page", new Integer(PageContext.PAGE_SCOPE));
-        scopes.put("request", new Integer(PageContext.REQUEST_SCOPE));
-        scopes.put("session", new Integer(PageContext.SESSION_SCOPE));
-        scopes.put("application", new Integer(PageContext.APPLICATION_SCOPE));
+        SCOPES.put("page", PageContext.PAGE_SCOPE);
+        SCOPES.put("request", PageContext.REQUEST_SCOPE);
+        SCOPES.put("session", PageContext.SESSION_SCOPE);
+        SCOPES.put("application", PageContext.APPLICATION_SCOPE);
     }
     
     /**
@@ -173,12 +157,12 @@ public class ConstantsTag extends TagSupport {
      * @throws JspException if the scopeName is not a valid name.
      */
     public int getScope(String scopeName) throws JspException {
-        Integer scope = (Integer) scopes.get(scopeName.toLowerCase());
+        Integer scope = (Integer) SCOPES.get(scopeName.toLowerCase());
 
         if (scope == null) {
             throw new JspException("Scope '" + scopeName + "' not a valid option");
         }
 
-        return scope.intValue();
+        return scope;
     }
 }

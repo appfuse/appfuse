@@ -12,24 +12,26 @@ import org.apache.struts2.ServletActionContext;
 /**
  * This class is used to reload the drop-downs initialized in the
  * StartupListener.
- *
- * <p>
- * <a href="ReloadAction.java.html"><i>View Source</i></a>
- * </p>
- *
+
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class ReloadAction extends BaseAction {
     private static final long serialVersionUID = 295460450224891051L;
 
+    /**
+     * Method that calls StartupListener.setContext() and returns user to
+     * referrer location (or does a popup if none found).
+     * @return sucess when everything goes right
+     * @throws IOException when response.sendRedirect fails
+     */
     public String execute() throws IOException {
         StartupListener.setupContext(getSession().getServletContext());
 
         String referer = getRequest().getHeader("Referer");
         HttpServletResponse response = ServletActionContext.getResponse();
-        
+
         if (referer != null) {
-            log.info("reload complete, reloading user back to: " + referer);     
+            log.info("reload complete, reloading user back to: " + referer);
             saveMessage(getText("reload.succeeded"));
             response.sendRedirect(response.encodeRedirectURL(referer));
             return SUCCESS;

@@ -18,18 +18,30 @@ public class RoleManagerImpl extends UniversalManagerImpl implements RoleManager
         this.dao = dao;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public List<Role> getRoles(Role role) {
         return dao.getAll();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public Role getRole(String rolename) {
         return dao.getRoleByName(rolename);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public Role saveRole(Role role) {
         return dao.save(role);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void removeRole(String rolename) {
         dao.removeRole(rolename);
     }

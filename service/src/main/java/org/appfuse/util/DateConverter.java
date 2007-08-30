@@ -19,6 +19,12 @@ import org.apache.commons.lang.StringUtils;
  */
 public class DateConverter implements Converter {
 
+    /**
+     * Convert a date to a String and a String to a Date
+     * @param type String, Date or Timestamp
+     * @param value value to convert
+     * @return Converted value for property population
+     */
     public Object convert(Class type, Object value) {
         if (value == null) {
             return null;
@@ -30,11 +36,17 @@ public class DateConverter implements Converter {
             return convertToString(type, value);
         }
 
-        throw new ConversionException("Could not convert " +
-                                      value.getClass().getName() + " to " +
-                                      type.getName());
+        throw new ConversionException(
+                "Could not convert " + value.getClass().getName() + " to " + type.getName());
     }
 
+    /**
+     * Convert a String to a Date with the specified pattern.
+     * @param type String
+     * @param value value of String
+     * @param pattern date pattern to parse with
+     * @return Converted value for property population
+     */
     protected Object convertToDate(Class type, Object value, String pattern) {
         DateFormat df = new SimpleDateFormat(pattern);
         if (value instanceof String) {
@@ -54,19 +66,24 @@ public class DateConverter implements Converter {
             }
         }
 
-        throw new ConversionException("Could not convert " +
-                                      value.getClass().getName() + " to " +
-                                      type.getName());
+        throw new ConversionException(
+                "Could not convert " + value.getClass().getName() + " to " + type.getName());
     }
 
-    protected Object convertToString(Class type, Object value) {        
+    /**
+     * Convert a java.util.Date to a String
+     * @param type Date or Timestamp
+     * @param value value to convert
+     * @return Converted value for property population
+     */
+    protected Object convertToString(Class type, Object value) {
 
         if (value instanceof Date) {
             DateFormat df = new SimpleDateFormat(DateUtil.getDatePattern());
             if (value instanceof Timestamp) {
                 df = new SimpleDateFormat(DateUtil.getDateTimePattern());
             } 
-    
+
             try {
                 return df.format(value);
             } catch (Exception e) {

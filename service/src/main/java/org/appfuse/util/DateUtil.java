@@ -18,12 +18,14 @@ import java.util.*;
  *  to correct time pattern. Minutes should be mm not MM (MM is month). 
  */
 public class DateUtil {
-    //~ Static fields/initializers =============================================
-
     private static Log log = LogFactory.getLog(DateUtil.class);
-    private static String timePattern = "HH:mm";
+    private static final String TIME_PATTERN = "HH:mm";
 
-    //~ Methods ================================================================
+    /**
+     * Checkstyle rule: utility classes should not have public constructor
+     */
+    private DateUtil() {
+    }
 
     /**
      * Return default datePattern (MM/dd/yyyy)
@@ -38,10 +40,10 @@ public class DateUtil {
         } catch (MissingResourceException mse) {
             defaultDatePattern = "MM/dd/yyyy";
         }
-        
+
         return defaultDatePattern;
     }
-    
+
     public static String getDateTimePattern() {
         return DateUtil.getDatePattern() + " HH:mm:ss.S";
     }
@@ -73,7 +75,7 @@ public class DateUtil {
      * @param strDate a string representation of a date
      * @return a converted Date object
      * @see java.text.SimpleDateFormat
-     * @throws ParseException
+     * @throws ParseException when String doesn't match the expected format
      */
     public static Date convertStringToDate(String aMask, String strDate)
       throws ParseException {
@@ -82,8 +84,7 @@ public class DateUtil {
         df = new SimpleDateFormat(aMask);
 
         if (log.isDebugEnabled()) {
-            log.debug("converting '" + strDate + "' to date with mask '"
-                      + aMask + "'");
+            log.debug("converting '" + strDate + "' to date with mask '" + aMask + "'");
         }
 
         try {
@@ -104,14 +105,14 @@ public class DateUtil {
      * @return the current date/time
      */
     public static String getTimeNow(Date theTime) {
-        return getDateTime(timePattern, theTime);
+        return getDateTime(TIME_PATTERN, theTime);
     }
 
     /**
      * This method returns the current date in the format: MM/dd/yyyy
      * 
      * @return the current date
-     * @throws ParseException
+     * @throws ParseException when String doesn't match the expected format
      */
     public static Calendar getToday() throws ParseException {
         Date today = new Date();
@@ -167,8 +168,7 @@ public class DateUtil {
      * 
      * @param strDate the date to convert (in format MM/dd/yyyy)
      * @return a date object
-     * 
-     * @throws ParseException
+     * @throws ParseException when String doesn't match the expected format
      */
     public static Date convertStringToDate(String strDate)
       throws ParseException {
@@ -181,12 +181,10 @@ public class DateUtil {
 
             aDate = convertStringToDate(getDatePattern(), strDate);
         } catch (ParseException pe) {
-            log.error("Could not convert '" + strDate
-                      + "' to a date, throwing exception");
+            log.error("Could not convert '" + strDate + "' to a date, throwing exception");
             pe.printStackTrace();
             throw new ParseException(pe.getMessage(),
                                      pe.getErrorOffset());
-                    
         }
 
         return aDate;

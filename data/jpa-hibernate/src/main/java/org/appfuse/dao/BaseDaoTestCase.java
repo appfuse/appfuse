@@ -16,9 +16,19 @@ import org.springframework.test.jpa.AbstractJpaTests;
  * @author mraible
  */
 public abstract class BaseDaoTestCase extends AbstractJpaTests {
+    /**
+     * Log variable for all child classes. Uses LogFactory.getLog(getClass()) from Commons Logging
+     */
     protected final Log log = LogFactory.getLog(getClass());
+    /**
+     * ResourceBundle loaded from src/test/resources/${package.name}/ClassName.properties (if exists)
+     */
     protected ResourceBundle rb;
 
+    /**
+     * Sets AutowireMode to AUTOWIRE_BY_NAME and configures all context files needed to tests DAOs.
+     * @return String array of Spring context files.
+     */
     protected String[] getConfigLocations() {
         setAutowireMode(AUTOWIRE_BY_NAME);
         return new String[] {
@@ -28,7 +38,11 @@ public abstract class BaseDaoTestCase extends AbstractJpaTests {
                 "classpath:**/applicationContext*.xml" // for web projects
             };
     }
-    
+
+    /**
+     * Default constructor - populates "rb" variable if properties file exists for the class in
+     * src/test/resources.
+     */
     public BaseDaoTestCase() {
         // Since a ResourceBundle is not required for each class, just
         // do a simple check to see if one exists
@@ -49,8 +63,7 @@ public abstract class BaseDaoTestCase extends AbstractJpaTests {
      * @throws Exception if BeanUtils fails to copy properly
      */
     protected Object populate(Object obj) throws Exception {
-        // loop through all the beans methods and set its properties from
-        // its .properties file
+        // loop through all the beans methods and set its properties from its .properties file
         Map<String, String> map = new HashMap<String, String>();
 
         for (Enumeration<String> keys = rb.getKeys(); keys.hasMoreElements();) {

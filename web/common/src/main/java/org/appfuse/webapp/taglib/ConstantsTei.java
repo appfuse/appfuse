@@ -25,10 +25,12 @@ public class ConstantsTei extends TagExtraInfo {
 
     /**
      * Return information about the scripting variables to be created.
+     * @param data the input data
+     * @return VariableInfo array of variable information
      */
     public VariableInfo[] getVariableInfo(TagData data) {
         // loop through and expose all attributes
-        List vars = new ArrayList();
+        List<VariableInfo> vars = new ArrayList<VariableInfo>();
 
         try {
             String clazz = data.getAttributeString("className");
@@ -45,17 +47,17 @@ public class ConstantsTei extends TagExtraInfo {
 
                 AccessibleObject.setAccessible(fields, true);
 
-                for (int i = 0; i < fields.length; i++) {
-                    String type = fields[i].getType().getName();
-                    vars.add(new VariableInfo(fields[i].getName(),
-                             ((fields[i].getType().isArray()) ? type.substring(2, type.length()-1) + "[]" : type),
-                             true, VariableInfo.AT_END));
+                for (Field field : fields) {
+                    String type = field.getType().getName();
+                    vars.add(new VariableInfo(field.getName(),
+                            ((field.getType().isArray()) ? type.substring(2, type.length() - 1) + "[]" : type),
+                            true, VariableInfo.AT_END));
                 }
             } else {
                 String var = data.getAttributeString("var");
                 String type = c.getField(var).getType().getName();
                 vars.add(new VariableInfo(c.getField(var).getName(),
-                         ((c.getField(var).getType().isArray()) ? type.substring(2, type.length()-1) + "[]" : type),
+                         ((c.getField(var).getType().isArray()) ? type.substring(2, type.length() - 1) + "[]" : type),
                          true, VariableInfo.AT_END));
             }
         } catch (Exception cnf) {
@@ -63,6 +65,6 @@ public class ConstantsTei extends TagExtraInfo {
             cnf.printStackTrace();
         }
 
-        return (VariableInfo[]) vars.toArray(new VariableInfo[] {  });
+        return vars.toArray(new VariableInfo[] {});
     }
 }

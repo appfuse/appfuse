@@ -25,7 +25,7 @@ import org.springframework.ui.velocity.VelocityEngineUtils;
  * @author Matt Raible
  */
 public class MailEngine {
-    protected static final Log log = LogFactory.getLog(MailEngine.class);
+    private final Log log = LogFactory.getLog(MailEngine.class);
     private MailSender mailSender;
     private VelocityEngine velocityEngine;
 
@@ -39,12 +39,11 @@ public class MailEngine {
 
     /**
      * Send a simple message based on a Velocity template.
-     * @param msg
-     * @param templateName
-     * @param model
+     * @param msg the message to populate
+     * @param templateName the Velocity template to use (relative to classpath)
+     * @param model a map containing key/value pairs
      */
-    public void sendMessage(SimpleMailMessage msg, String templateName,
-                            Map model) {
+    public void sendMessage(SimpleMailMessage msg, String templateName, Map model) {
         String result = null;
 
         try {
@@ -62,7 +61,7 @@ public class MailEngine {
 
     /**
      * Send a simple message with pre-populated values.
-     * @param msg
+     * @param msg the message to send
      */
     public void send(SimpleMailMessage msg) {
         try {
@@ -76,13 +75,13 @@ public class MailEngine {
     /**
      * Convenience method for sending messages with attachments.
      * 
-     * @param recipients
-     * @param sender
-     * @param resource
-     * @param bodyText
-     * @param subject
-     * @param attachmentName
-     * @throws MessagingException
+     * @param recipients array of e-mail addresses
+     * @param sender e-mail address of sender
+     * @param resource attachment from classpath
+     * @param bodyText text in e-mail
+     * @param subject subject of e-mail
+     * @param attachmentName name for attachment
+     * @throws MessagingException thrown when can't communicate with SMTP server
      * @author Ben Gill
      */
     public void sendMessage(String[] recipients, String sender, 

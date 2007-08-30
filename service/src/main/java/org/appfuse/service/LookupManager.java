@@ -15,5 +15,5 @@ public interface LookupManager extends UniversalManager {
      * Retrieves all possible roles from persistence layer
      * @return List of LabelValue objects
      */
-    public List<LabelValue> getAllRoles();
+    List<LabelValue> getAllRoles();
 }

@@ -1,10 +1,5 @@
 package org.appfuse.dao.ibatis;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-
 import org.acegisecurity.userdetails.UserDetails;
 import org.acegisecurity.userdetails.UserDetailsService;
 import org.acegisecurity.userdetails.UsernameNotFoundException;
@@ -13,6 +8,11 @@ import org.appfuse.model.Role;
 import org.appfuse.model.User;
 import org.springframework.orm.ObjectRetrievalFailureException;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+
 /**
  * This class interacts with iBatis's SQL Maps to save and retrieve User
  * related objects.
@@ -20,11 +20,14 @@ import org.springframework.orm.ObjectRetrievalFailureException;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class UserDaoiBatis extends GenericDaoiBatis<User, Long>implements UserDao, UserDetailsService {
-    
+
+    /**
+     * Constructor that sets the entity to User.class.
+     */
     public UserDaoiBatis() {
         super(org.appfuse.model.User.class);
     }
-    
+
     /**
      * Get user by id.
      *
@@ -48,7 +51,7 @@ public class UserDaoiBatis extends GenericDaoiBatis<User, Long>implements UserDa
     }
 
     /**
-     * @see org.appfuse.dao.UserDao#getUsers()
+     * {@inheritDoc}
      */
     @SuppressWarnings("unchecked")
     public List<User> getUsers() {
@@ -90,11 +93,11 @@ public class UserDaoiBatis extends GenericDaoiBatis<User, Long>implements UserDa
     }
 
     /**
-     * @see org.appfuse.dao.UserDao#saveUser(org.appfuse.model.User)
+     * {@inheritDoc}
      */
     public User saveUser(final User user) {
         iBatisDaoUtils.prepareObjectForSaveOrUpdate(user);
-        
+
         if (user.getId() == null) {
             Long id = (Long) getSqlMapClientTemplate().insert("addUser", user);
             user.setId(id);
@@ -108,14 +111,17 @@ public class UserDaoiBatis extends GenericDaoiBatis<User, Long>implements UserDa
     }
 
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void remove(Long userId) {
         deleteUserRoles(userId);
         getSqlMapClientTemplate().update("deleteUser", userId);
     }
-    
-    /** 
-     * @see org.acegisecurity.userdetails.UserDetailsService#loadUserByUsername(java.lang.String)
+
+    /**
+     * {@inheritDoc}
      */
      @SuppressWarnings("unchecked")
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

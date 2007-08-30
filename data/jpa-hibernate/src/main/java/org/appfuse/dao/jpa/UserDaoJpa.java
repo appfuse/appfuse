@@ -23,12 +23,15 @@ import org.springframework.transaction.annotation.Transactional;
 */
 public class UserDaoJpa extends GenericDaoJpa<User, Long> implements UserDao, UserDetailsService {
 
+    /**
+     * Constructor that sets the entity to User.class.
+     */
     public UserDaoJpa() {
         super(User.class);
     }
 
     /**
-     * @see org.appfuse.dao.UserDao#getUsers()
+     * {@inheritDoc}
      */
     @SuppressWarnings("unchecked")
     public List<User> getUsers() {
@@ -36,9 +39,9 @@ public class UserDaoJpa extends GenericDaoJpa<User, Long> implements UserDao, Us
         return q.getResultList();
     }
 
-    /** 
-    * @see org.acegisecurity.userdetails.UserDetailsService#loadUserByUsername(java.lang.String)
-    */
+    /**
+     * {@inheritDoc}
+     */
     @SuppressWarnings("unchecked")
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -51,7 +54,12 @@ public class UserDaoJpa extends GenericDaoJpa<User, Long> implements UserDao, Us
             return users.get(0);
         }
     }
-    
+
+    /**
+     * Save user and flush entityManager
+     * @param user the user to save
+     * @return the updated user
+     */
     public User saveUser(User user) {
         User u = super.save(user);
         entityManager.flush();

@@ -16,8 +16,12 @@ import java.text.ParseException;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class CurrencyConverter implements Converter {
-    protected final Log log = LogFactory.getLog(CurrencyConverter.class);
-    protected final DecimalFormat formatter = new DecimalFormat("###,###.00");
+    private final Log log = LogFactory.getLog(CurrencyConverter.class);
+    private DecimalFormat formatter = new DecimalFormat("###,###.00");
+
+    public void setDecimalFormatter(DecimalFormat df) {
+        this.formatter = df;
+    }
 
     /**
      * Convert a String to a Double and a Double to a String
@@ -62,7 +66,6 @@ public class CurrencyConverter implements Converter {
             }
         }
 
-        throw new ConversionException("Could not convert " + value + " to " +
-                                      type.getName() + "!");
+        throw new ConversionException("Could not convert " + value + " to " + type.getName() + "!");
     }
 }

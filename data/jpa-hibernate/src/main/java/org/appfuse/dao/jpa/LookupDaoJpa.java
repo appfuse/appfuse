@@ -13,7 +13,7 @@ import org.appfuse.model.Role;
 public class LookupDaoJpa extends UniversalDaoJpa implements LookupDao {
 
     /**
-     * @see org.appfuse.dao.LookupDao#getRoles()
+     * {@inheritDoc}
      */
     @SuppressWarnings("unchecked")
     public List<Role> getRoles() {

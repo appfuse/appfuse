@@ -11,8 +11,23 @@ import java.util.List;
  * @author <a href="mailto:dan@getrolling.com">Dan Kibler </a>
  */
 public interface RoleManager extends UniversalManager {
-    public List getRoles(Role role);
-    public Role getRole(String rolename);
-    public Role saveRole(Role role);
-    public void removeRole(String rolename);
+    /**
+     * {@inheritDoc}
+     */
+    List getRoles(Role role);
+
+    /**
+     * {@inheritDoc}
+     */
+    Role getRole(String rolename);
+
+    /**
+     * {@inheritDoc}
+     */
+    Role saveRole(Role role);
+
+    /**
+     * {@inheritDoc}
+     */
+    void removeRole(String rolename);
 }

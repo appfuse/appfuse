@@ -13,11 +13,14 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
-public class StringUtil {
-    //~ Static fields/initializers =============================================
+public final class StringUtil {
+    private static final Log log = LogFactory.getLog(StringUtil.class);
 
-    private final static Log log = LogFactory.getLog(StringUtil.class);
-
+    /**
+     * Checkstyle rule: utility classes should not have public constructor
+     */
+    private StringUtil() {
+    }
     //~ Methods ================================================================
 
     /**
@@ -74,8 +77,8 @@ public class StringUtil {
      * This is weak encoding in that anyone can use the decodeString
      * routine to reverse the encoding.
      *
-     * @param str
-     * @return String
+     * @param str the string to encode
+     * @return the encoded string
      */
     public static String encodeString(String str)  {
         Base64 encoder = new Base64();
@@ -85,8 +88,8 @@ public class StringUtil {
     /**
      * Decode a string using Base64 encoding.
      *
-     * @param str
-     * @return String
+     * @param str the string to decode
+     * @return the decoded string
      */
     public static String decodeString(String str) {
         Base64 dec = new Base64();

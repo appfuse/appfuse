@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Action to allow new users to sign up.
+ */
 public class SignupAction extends BaseAction {
     private static final long serialVersionUID = 6558317334878272308L;
     private User user;
@@ -28,10 +31,18 @@ public class SignupAction extends BaseAction {
         this.user = user;
     }
 
+    /**
+     * Return an instance of the user - to display when validation errors occur
+     * @return a populated user
+     */
     public User getUser() {
         return user;
     }
 
+    /**
+     * When method=GET, "input" is returned. Otherwise, "success" is returned.
+     * @return cancel, input or success
+     */
     public String execute() {
         if (cancel != null) {
             return CANCEL;
@@ -42,10 +53,19 @@ public class SignupAction extends BaseAction {
         return SUCCESS;
     }
 
+    /**
+     * Returns "input"
+     * @return "input" by default
+     */
     public String doDefault() {
         return INPUT;
     }
 
+    /**
+     * Save the user, encrypting their passwords if necessary
+     * @return success when good things happen
+     * @throws Exception when bad things happen
+     */
     public String save() throws Exception {
         Boolean encrypt = (Boolean) getConfiguration().get(Constants.ENCRYPT_PASSWORD);
 

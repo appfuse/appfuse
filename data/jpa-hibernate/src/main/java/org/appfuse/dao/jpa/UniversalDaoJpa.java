@@ -1,15 +1,14 @@
 package org.appfuse.dao.jpa;
 
-import java.io.Serializable;
-import java.util.List;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.appfuse.dao.UniversalDao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.appfuse.dao.UniversalDao;
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * This class serves as the a class that can CRUD any object witout any
@@ -19,23 +18,29 @@ import org.appfuse.dao.UniversalDao;
  * @author Bryan Noll
  */
 public class UniversalDaoJpa implements UniversalDao {
+    /**
+     * Log variable for all child classes. Uses LogFactory.getLog(getClass()) from Commons Logging
+     */
     protected final Log log = LogFactory.getLog(getClass());
+    /**
+     * Entity manager, injected by Spring using @PersistenceContext annotation on setEntityManager()
+     */
     protected EntityManager entityManager;
-    
+
     @PersistenceContext(unitName="ApplicationEntityManager")
     public void setEntityManager(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
     /**
-     * @see org.appfuse.dao.UniversalDao#save(java.lang.Object)
+     * {@inheritDoc}
      */
     public Object save(Object o) {
         return this.entityManager.merge(o);
     }
 
     /**
-     * @see org.appfuse.dao.UniversalDao#get(java.lang.Class, java.io.Serializable)
+     * {@inheritDoc}
      */
     @SuppressWarnings("unchecked")
     public Object get(Class clazz, Serializable id) {
@@ -51,14 +56,14 @@ public class UniversalDaoJpa implements UniversalDao {
     }
 
     /**
-     * @see org.appfuse.dao.UniversalDao#getAll(java.lang.Class)
+     * {@inheritDoc}
      */
     public List getAll(Class clazz) {
         return this.entityManager.createQuery("select obj from " + clazz + " obj").getResultList();
     }
 
     /**
-     * @see org.appfuse.dao.UniversalDao#remove(java.lang.Class, java.io.Serializable)
+     * {@inheritDoc}
      */
     public void remove(Class clazz, Serializable id) {
         this.entityManager.remove(this.get(clazz, id));

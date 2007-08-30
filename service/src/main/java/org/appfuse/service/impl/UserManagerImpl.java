@@ -14,7 +14,7 @@ import java.util.List;
 
 
 /**
- * Implementation of UserManager interface.</p>
+ * Implementation of UserManager interface.
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
@@ -31,28 +31,28 @@ public class UserManagerImpl extends UniversalManagerImpl implements UserManager
     }
 
     /**
-     * @see org.appfuse.service.UserManager#getUser(java.lang.String)
+     * {@inheritDoc}
      */
     public User getUser(String userId) {
         return dao.get(new Long(userId));
     }
 
     /**
-     * @see org.appfuse.service.UserManager#getUsers(org.appfuse.model.User)
+     * {@inheritDoc}
      */
     public List<User> getUsers(User user) {
         return dao.getUsers();
     }
 
     /**
-     * @see org.appfuse.service.UserManager#saveUser(org.appfuse.model.User)
+     * {@inheritDoc}
      */
     public User saveUser(User user) throws UserExistsException {
         // if new user, lowercase userId
         if (user.getVersion() == null) {
             user.setUsername(user.getUsername().toLowerCase());
         }
-        
+
         try {
             return dao.saveUser(user);
         } catch (DataIntegrityViolationException e) {
@@ -67,13 +67,19 @@ public class UserManagerImpl extends UniversalManagerImpl implements UserManager
     }
 
     /**
-     * @see org.appfuse.service.UserManager#removeUser(java.lang.String)
+     * {@inheritDoc}
      */
     public void removeUser(String userId) {
         log.debug("removing user: " + userId);
         dao.remove(new Long(userId));
     }
 
+    /**
+     * {@inheritDoc}
+     * @param username the login name of the human
+     * @return User the populated user object
+     * @throws UsernameNotFoundException thrown when username not found
+     */
     public User getUserByUsername(String username) throws UsernameNotFoundException {
         return (User) dao.loadUserByUsername(username);
     }

@@ -5,25 +5,12 @@ import org.acegisecurity.userdetails.UserDetails;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.persistence.Version;
 
 /**
  * This class represents the basic "user" object in AppFuse that allows for authentication
@@ -31,35 +18,42 @@ import javax.persistence.Version;
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  *         Updated by Dan Kibler (dan@getrolling.com)
- *  Extended to implement Acegi UserDetails interface
- *      by David Carter david@carter.net
+ *         Extended to implement Acegi UserDetails interface
+ *         by David Carter david@carter.net
  */
 @Entity
 @Table(name="app_user")
 public class User extends BaseObject implements Serializable, UserDetails {
     private static final long serialVersionUID = 3832626162173359411L;
 
-    protected Long id;
-    protected String username;                    // required
-    protected String password;                    // required
-    protected String confirmPassword;
-    protected String passwordHint;
-    protected String firstName;                   // required
-    protected String lastName;                    // required
-    protected String email;                       // required; unique
-    protected String phoneNumber;
-    protected String website;
-    protected Address address = new Address();
-    protected Integer version;
-    protected Set<Role> roles = new HashSet<Role>();
-    protected boolean enabled;
-    protected boolean accountExpired;
-    protected boolean accountLocked;
-    protected boolean credentialsExpired;
+    private Long id;
+    private String username;                    // required
+    private String password;                    // required
+    private String confirmPassword;
+    private String passwordHint;
+    private String firstName;                   // required
+    private String lastName;                    // required
+    private String email;                       // required; unique
+    private String phoneNumber;
+    private String website;
+    private Address address = new Address();
+    private Integer version;
+    private Set<Role> roles = new HashSet<Role>();
+    private boolean enabled;
+    private boolean accountExpired;
+    private boolean accountLocked;
+    private boolean credentialsExpired;
 
+    /**
+     * Default constructor - creates a new instance with no values set.
+     */
     public User() {}
 
-    public User(String username) {
+    /**
+     * Create a new instance and set the username.
+     * @param username login name for user.
+     */
+    public User(final String username) {
         this.username = username;
     }
 
@@ -164,6 +158,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
     
     /**
      * @see org.acegisecurity.userdetails.UserDetails#getAuthorities()
+     * @return GrantedAuthority[] an array of roles.
      */
     @Transient
     public GrantedAuthority[] getAuthorities() {
@@ -287,9 +282,16 @@ public class User extends BaseObject implements Serializable, UserDetails {
         this.credentialsExpired = credentialsExpired;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof User)) {
+            return false;
+        }
 
         final User user = (User) o;
 
@@ -297,17 +299,23 @@ public class User extends BaseObject implements Serializable, UserDetails {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public int hashCode() {
         return (username != null ? username.hashCode() : 0);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public String toString() {
-        ToStringBuilder sb = new ToStringBuilder(this,
-                ToStringStyle.DEFAULT_STYLE).append("username", this.username)
+        ToStringBuilder sb = new ToStringBuilder(this, ToStringStyle.DEFAULT_STYLE)
+                .append("username", this.username)
                 .append("enabled", this.enabled)
-                .append("accountExpired",this.accountExpired)
-                .append("credentialsExpired",this.credentialsExpired)
-                .append("accountLocked",this.accountLocked);
+                .append("accountExpired", this.accountExpired)
+                .append("credentialsExpired", this.credentialsExpired)
+                .append("accountLocked", this.accountLocked);
 
         GrantedAuthority[] auths = this.getAuthorities();
         if (auths != null) {

@@ -21,9 +21,9 @@ import java.util.Map;
 /**
  * <p>StartupListener class used to initialize and database settings
  * and populate any application-wide drop-downs.
- * 
+ * <p/>
  * <p>Keep in mind that this listener is executed outside of OpenSessionInViewFilter,
- * so if you're using Hibernate you'll have to explicitly initialize all loaded data at the 
+ * so if you're using Hibernate you'll have to explicitly initialize all loaded data at the
  * GenericDao or service level to avoid LazyInitializationException. Hibernate.initialize() works
  * well for doing this.
  *
@@ -32,6 +32,7 @@ import java.util.Map;
 public class StartupListener implements ServletContextListener {
     private static final Log log = LogFactory.getLog(StartupListener.class);
 
+    @SuppressWarnings({"unchecked"})
     public void contextInitialized(ServletContextEvent event) {
         log.debug("initializing context...");
 
@@ -72,6 +73,7 @@ public class StartupListener implements ServletContextListener {
                 config.put(Constants.ENC_ALGORITHM, algorithm);
             }
         } catch (NoSuchBeanDefinitionException n) {
+            log.debug("authenticationManager bean not found, assuming test and ignoring...");
             // ignore, should only happen when testing
         }
 
@@ -105,8 +107,10 @@ public class StartupListener implements ServletContextListener {
 
     /**
      * This is a no-op method.
+     *
      * @param servletContextEvent The servlet context event
      */
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
+        // nothing to see here, just trying to make checkstyle happy
     }
 }

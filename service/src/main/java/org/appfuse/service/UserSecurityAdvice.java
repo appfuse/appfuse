@@ -22,13 +22,27 @@ import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * This advice is responsible for enforcing security and only allowing administrators
+ * to modify users. Users are allowed to modify themselves.
+ *
+ * @author mraible
+ */
 public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdvice {
-    public final static String ACCESS_DENIED = "Access Denied: Only administrators are allowed to modify other users.";
-    protected final Log log = LogFactory.getLog(UserSecurityAdvice.class);
+    /**
+     * Default "Access Denied" error message (not i18n-ized).
+     */
+    public static final String ACCESS_DENIED = "Access Denied: Only administrators are allowed to modify other users.";
+    private final Log log = LogFactory.getLog(UserSecurityAdvice.class);
 
     /**
      * Method to enforce security and only allow administrators to modify users. Regular
      * users are allowed to modify themselves.
+     *
+     * @param method the name of the method executed
+     * @param args the arguments to the method
+     * @param target the target class
+     * @throws Throwable thrown when args[0] is null or not a User object
      */
     public void before(Method method, Object[] args, Object target) throws Throwable {
         SecurityContext ctx = SecurityContextHolder.getContext();
@@ -87,6 +101,14 @@ public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdv
         }
     }
 
+    /**
+     * After returning, grab the user, check if they've been modified and reset the SecurityContext if they have.
+     * @param returnValue the user object
+     * @param method the name of the method executed
+     * @param args the arguments to the method
+     * @param target the target class
+     * @throws Throwable thrown when args[0] is null or not a User object
+     */
     public void afterReturning(Object returnValue, Method method, Object[] args, Object target)
     throws Throwable {
         User user = (User) args[0];
@@ -97,7 +119,7 @@ public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdv
             AuthenticationTrustResolver resolver = new AuthenticationTrustResolverImpl();
             // allow new users to signup - this is OK b/c Signup doesn't allow setting of roles
             boolean signupUser = resolver.isAnonymous(auth);
-            if (auth != null && !signupUser) { 
+            if (auth != null && !signupUser) {
                 User currentUser = getCurrentUser(auth);
                 if (currentUser.getId().equals(user.getId())) {
                     auth = new UsernamePasswordAuthenticationToken(user, user.getPassword(), user.getAuthorities());

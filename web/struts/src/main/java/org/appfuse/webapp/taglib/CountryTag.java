@@ -28,8 +28,6 @@ import org.displaytag.tags.el.ExpressionEvaluator;
  *
  * @author Jens Fischer, Matt Raible
  * @version $Revision: 1.4.2.1 $ $Date: 2006-06-10 08:00:48 -0600 (Sat, 10 Jun 2006) $
- *
- * @jsp.tag name="country" bodycontent="empty"
  */
 public class CountryTag extends TagSupport {
     private static final long serialVersionUID = 3905528206810167095L;
@@ -38,39 +36,18 @@ public class CountryTag extends TagSupport {
     private String scope;
     private String selected;
 
-    /**
-     * @param name The name to set.
-     *
-     * @jsp.attribute required="false" rtexprvalue="true"
-     */
     public void setName(String name) {
         this.name = name;
     }
 
-    /**
-     * @param prompt The prompt to set.
-     * @jsp.attribute required="false" rtexprvalue="true"
-     */
     public void setPrompt(String prompt) {
         this.prompt = prompt;
     }
 
-    /**
-     * @param selected The selected option.
-     * @jsp.attribute required="false" rtexprvalue="true"
-     */
     public void setDefault(String selected) {
         this.selected = selected;
     }
 
-    /**
-     * Property used to simply stuff the list of countries into a
-     * specified scope.
-     *
-     * @param scope
-     *
-     * @jsp.attribute required="false" rtexprvalue="true"
-     */
     public void setToScope(String scope) {
         this.scope = scope;
     }
@@ -79,9 +56,7 @@ public class CountryTag extends TagSupport {
      * Process the start of this tag.
      *
      * @return int status
-     *
      * @exception JspException if a JSP exception has occurred
-     *
      * @see javax.servlet.jsp.tagext.Tag#doStartTag()
      */
     public int doStartTag() throws JspException {
@@ -108,22 +83,22 @@ public class CountryTag extends TagSupport {
             }
         } else {
             StringBuffer sb = new StringBuffer();
-            sb.append("<select name=\"" + name + "\" id=\"" + name + "\" class=\"select\">\n");
+            sb.append("<select name=\"").append(name).append("\" id=\"").append(name).append("\" class=\"select\">\n");
 
             if (prompt != null) {
                 sb.append("    <option value=\"\" selected=\"selected\">");
-                sb.append(eval.evalString("prompt", prompt) + "</option>\n");
+                sb.append(eval.evalString("prompt", prompt)).append("</option>\n");
             }
 
-            for (Iterator i = countries.iterator(); i.hasNext();) {
-                LabelValue country = (LabelValue) i.next();
-                sb.append("    <option value=\"" + country.getValue() + "\"");
+            for (Object country1 : countries) {
+                LabelValue country = (LabelValue) country1;
+                sb.append("    <option value=\"").append(country.getValue()).append("\"");
 
                 if ((selected != null) && selected.equals(country.getValue())) {
                     sb.append(" selected=\"selected\"");
                 }
 
-                sb.append(">" + country.getLabel() + "</option>\n");
+                sb.append(">").append(country.getLabel()).append("</option>\n");
             }
 
             sb.append("</select>");
@@ -158,16 +133,15 @@ public class CountryTag extends TagSupport {
      */
     @SuppressWarnings("unchecked")
     protected List<LabelValue> buildCountryList(Locale locale) {
-        final String EMPTY = "";
         final Locale[] available = Locale.getAvailableLocales();
 
         List<LabelValue> countries = new ArrayList<LabelValue>();
 
-        for (int i = 0; i < available.length; i++) {
-            final String iso = available[i].getCountry();
-            final String name = available[i].getDisplayCountry(locale);
+        for (Locale anAvailable : available) {
+            final String iso = anAvailable.getCountry();
+            final String name = anAvailable.getDisplayCountry(locale);
 
-            if (!EMPTY.equals(iso) && !EMPTY.equals(name)) {
+            if (!"".equals(iso) && !"".equals(name)) {
                 LabelValue country = new LabelValue(name, iso);
 
                 if (!countries.contains(country)) {
@@ -193,7 +167,7 @@ public class CountryTag extends TagSupport {
          *
          * @param locale The Locale used for localized String comparison.
          */
-        public LabelValueComparator(Locale locale) {
+        public LabelValueComparator(final Locale locale) {
             c = Collator.getInstance(locale);
         }
 

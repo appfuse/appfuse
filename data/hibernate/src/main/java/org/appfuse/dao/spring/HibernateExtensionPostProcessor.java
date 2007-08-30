@@ -1,10 +1,5 @@
 package org.appfuse.dao.spring;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-
-import org.springframework.beans.BeansException;
 import org.springframework.beans.MutablePropertyValues;
 import org.springframework.beans.PropertyValue;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
@@ -12,11 +7,15 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+
 /**
  * <p>Adds Hibernate persistent class definitions to an existing Spring Session Factory bean, possibly defined
- * within a seperate Spring configuration file in a seperate jar file. By using this extension factory developers can add
- * persistent classes to an AppFuse application without modifying any of the existing AppFuse Spring configuration or
- * jar distribution files.
+ * within a seperate Spring configuration file in a seperate jar file. By using this extension factory developers can
+ * add persistent classes to an AppFuse application without modifying any of the existing AppFuse Spring configuration
+ * or jar distribution files.
  * 
  * <p>As an example consider the following Spring bean configuration:
  * 
@@ -36,12 +35,12 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
  * </pre>
  * 
  * <p>The snippet will add two persistent classes to an existing Session Factory bean called &quot;sessionFactory&quot;.
- * Note that the extension can handle both annotated classes and the more traditional .hbm.xml files. Assuming that these
- * persistent classes are packaged in a jar called extension.jar which contains the Spring configuration file
- * applicationContext-dao.xml at the root level, then the standard AppFuse configuration will automatically pick up the new
- * Spring configuration file and the new persistent classes will be added to the list already defined for the session factory
- * bean configured within the standard appfuse-hibernate.jar file. And all this without needing to touch the original AppFuse
- * configuration files!
+ * Note that the extension can handle both annotated classes and the more traditional .hbm.xml files. Assuming that
+ * these persistent classes are packaged in a jar called extension.jar which contains the Spring configuration file
+ * applicationContext-dao.xml at the root level, then the standard AppFuse configuration will automatically pick up the
+ * new Spring configuration file and the new persistent classes will be added to the list already defined for the
+ * session factory bean configured within the standard appfuse-hibernate.jar file. And all this without needing to
+ * touch the original AppFuse configuration files!
  *
  * @author Michael Horwitz
  */
@@ -54,11 +53,13 @@ public class HibernateExtensionPostProcessor implements BeanFactoryPostProcessor
 
     /**
      * Adds the annotated classes and the mapping resources to the existing Session Factory configuration.
+     * @param configurableListableBeanFactory the good ol' bean factory
      */
     @SuppressWarnings("unchecked")
-    public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
+    public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory)  {
         if (configurableListableBeanFactory.containsBean(sessionFactoryBeanName)) {
-            BeanDefinition sessionFactoryBeanDefinition = configurableListableBeanFactory.getBeanDefinition(sessionFactoryBeanName);
+            BeanDefinition sessionFactoryBeanDefinition =
+                    configurableListableBeanFactory.getBeanDefinition(sessionFactoryBeanName);
             MutablePropertyValues propertyValues = sessionFactoryBeanDefinition.getPropertyValues();
 
             if (mappingResources != null) {
@@ -109,8 +110,9 @@ public class HibernateExtensionPostProcessor implements BeanFactoryPostProcessor
                 existingHibernateProperties.putAll(hibernateProperties);
             }
         } else {
-            throw new NoSuchBeanDefinitionException("No bean named [" + sessionFactoryBeanName + "] exists within the bean factory. " +
-                    "Cannot post process session factory to add Hibernate resource definitions.");
+            throw new NoSuchBeanDefinitionException("No bean named [" + sessionFactoryBeanName
+                    + "] exists within the bean factory. "
+                    + "Cannot post process session factory to add Hibernate resource definitions.");
         }
     }
 
