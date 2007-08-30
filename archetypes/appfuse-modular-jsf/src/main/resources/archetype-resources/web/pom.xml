@@ -78,18 +78,6 @@
                         </scanTargetPattern>
                     </scanTargetPatterns>
                 </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.myfaces.core</groupId>
-                        <artifactId>myfaces-impl</artifactId>
-                        <version>1.1.5</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>log4j</groupId>
-                        <artifactId>log4j</artifactId>
-                        <version>1.2.13</version>
-                    </dependency>
-                </dependencies>
             </plugin>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
@@ -208,16 +196,8 @@
             <version>${appfuse.version}</version>
             <type>warpath</type>
         </dependency>
-        <!-- Uncomment the following if you want to run in Tomcat 5.x -->
-        <!-- http://raibledesigns.com/rd/entry/upgrading_to_tomcat_6 -->
-        <!--<dependency>
-            <groupId>javax.el</groupId>
-            <artifactId>el-api</artifactId>
-            <version>1.2</version>
-        </dependency>-->
-        <!-- Dependencies with scope=provided aren't picked up from dependent JARs -->
         <dependency>
-            <groupId>javax.servlet</groupId>
+            <groupId>javax.servlet.jsp</groupId>
             <artifactId>jsp-api</artifactId>
             <version>${jsp.version}</version>
             <scope>provided</scope>
