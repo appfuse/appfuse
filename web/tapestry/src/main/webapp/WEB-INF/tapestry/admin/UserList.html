@@ -1,14 +1,14 @@
+<html jwcid="@Shell" title="message:userList.title">
 <head>
-    <title><span jwcid="@Insert" value="message:userList.title"/></title>
-    <meta name="heading" content="<span key='userList.heading'/>"/>
+    <meta name="heading" jwcid="@Any" content="message:userList.heading"/>
     <meta name="menu" content="AdminMenu"/>
 </head>
 
 <span jwcid="@ShowMessage"/>
 
 <p>
-    <input type="button" class="button" onclick="location.href='UserForm.html'" jwcid="@Any" value="message:button.add"/>
-    <input type="button" class="button" onclick="location.href='mainMenu.html'" jwcid="@Any" value="message:button.done"/>
+    <input type="button" class="button" onclick="location.href='../UserForm.html'" jwcid="@Any" value="message:button.add"/>
+    <input type="button" class="button" onclick="location.href='../mainMenu.html'" jwcid="@Any" value="message:button.done"/>
 </p>
 
 <table jwcid="table@contrib:Table" class="table contribTable" id="userList"
@@ -32,9 +32,10 @@
     </tr>
 </table>
 
-<input type="button" class="button" onclick="location.href='UserForm.html'" jwcid="@Any" value="message:button.add"/>
-<input type="button" class="button" onclick="location.href='mainMenu.html'" jwcid="@Any" value="message:button.done"/>
+<input type="button" class="button" onclick="location.href='../UserForm.html'" jwcid="@Any" value="message:button.add"/>
+<input type="button" class="button" onclick="location.href='../mainMenu.html'" jwcid="@Any" value="message:button.done"/>
 
 <script type="text/javascript">
     highlightTableRows("userList");
 </script>
+</html>

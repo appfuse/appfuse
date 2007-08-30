@@ -1,4 +1,6 @@
-<title>Doh!</title>
+<head>
+    <title>Doh!</title>
+</head>
 
 <h1>An Error Occurred</h1>
 
@@ -6,12 +8,6 @@
 
 <p>You may attempt to <a jwcid="@ServiceLink" service="restart" href="#">try again</a>.</p>
 
-<span jwcid="@If" condition="ognl:global.debugEnabled">
-    <span jwcid="@ExceptionDisplay" exceptions="ognl:exceptions"/>
-    <span jwcid="@RequestDisplay"/>
-    <span jwcid="@contrib:InspectorButton"/>
-
-    <span jwcid="@Else">
-        Please check your log files for further information.
-    </span>
-</span>
+<span jwcid="@ExceptionDisplay" exceptions="ognl:exceptions"/>
+<span jwcid="@RequestDisplay"/>
+<span jwcid="@contrib:InspectorButton"/>

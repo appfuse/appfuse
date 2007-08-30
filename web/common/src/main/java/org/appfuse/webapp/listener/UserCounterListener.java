@@ -1,7 +1,7 @@
 package org.appfuse.webapp.listener;
 
-import java.util.HashSet;
 import java.util.Set;
+import java.util.LinkedHashSet;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -33,7 +33,7 @@ public class UserCounterListener implements ServletContextListener, HttpSessionA
     public static final String EVENT_KEY = HttpSessionContextIntegrationFilter.ACEGI_SECURITY_CONTEXT_KEY;
     private transient ServletContext servletContext;
     private int counter;
-    private Set users;
+    private Set<User> users;
 
     public synchronized void contextInitialized(ServletContextEvent sce) {
         servletContext = sce.getServletContext();
@@ -66,11 +66,11 @@ public class UserCounterListener implements ServletContextListener, HttpSessionA
     }
 
     @SuppressWarnings("unchecked")
-    synchronized void addUsername(Object user) {
+    synchronized void addUsername(User user) {
         users = (Set) servletContext.getAttribute(USERS_KEY);
 
         if (users == null) {
-            users = new HashSet();
+            users = new LinkedHashSet<User>();
         }
 
         if (!users.contains(user)) {
@@ -80,7 +80,7 @@ public class UserCounterListener implements ServletContextListener, HttpSessionA
         }
     }
 
-    synchronized void removeUsername(Object user) {
+    synchronized void removeUsername(User user) {
         users = (Set) servletContext.getAttribute(USERS_KEY);
 
         if (users != null) {

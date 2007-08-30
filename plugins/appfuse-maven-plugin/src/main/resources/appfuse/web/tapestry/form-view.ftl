@@ -1,7 +1,8 @@
 <#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
+<html jwcid="@Shell" title="message:${pojoNameLower}Detail.title">
 <head>
-    <title><span key="${pojoNameLower}Detail.title"/></title>
     <meta name="heading" jwcid="@Any" content="message:${pojoNameLower}Detail.heading"/>
+    <meta name="menu" content="${pojo.shortName}Menu"/>
 </head>
 
 <body jwcid="@Body">
@@ -68,3 +69,4 @@
 </script>
 
 </body>
+</html>

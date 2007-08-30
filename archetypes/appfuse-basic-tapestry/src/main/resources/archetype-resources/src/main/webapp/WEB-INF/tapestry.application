@@ -8,7 +8,8 @@
     <meta key="org.apache.tapestry.visit-class" value="org.appfuse.webapp.pages.Visit"/>
     <meta key="org.apache.tapestry.default-page-class" value="org.appfuse.webapp.pages.BasePage"/>
     <meta key="org.apache.tapestry.page-class-packages" value="org.appfuse.webapp.pages,${groupId}.webapp.pages"/>
-    
+    <meta key="org.apache.tapestry.namespace-properties-name" value="ApplicationResources"/>
+
     <library id="contrib" specification-path="/org/apache/tapestry/contrib/Contrib.library"/> 
     
     <page name="Home" specification-path="tapestry/mainMenu.page"/>
@@ -16,10 +17,10 @@
     <page name="passwordHint" specification-path="tapestry/passwordHint.page"/>
     <page name="signup" specification-path="tapestry/signup.page"/>
     
-    <!-- 
-    Add additional pages here only if they don't have the same name as 
-    their corresponding java class that lives in the property specified by 
-    'org.apache.tapestry.page-class-packages' above. 
+    <!--
+    Add additional pages here only if they don't have the same name as
+    their corresponding java class that lives in the property specified by
+    'org.apache.tapestry.page-class-packages' above.
     -->
     
     <extension name="org.apache.tapestry.multipart-decoder"

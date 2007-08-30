@@ -1,10 +1,12 @@
-package org.appfuse.webapp.pages;
+package org.appfuse.webapp.pages.admin;
 
 import java.util.List;
 
 import org.apache.tapestry.IRequestCycle;
 import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
+import org.appfuse.webapp.pages.BasePage;
+import org.appfuse.webapp.pages.UserForm;
 
 public abstract class UserList extends BasePage {
     public abstract UserManager getUserManager();

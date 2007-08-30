@@ -1,9 +1,10 @@
+<html jwcid="@Shell" title="message:mainMenu.title">
 <head>
-    <title><span key="mainMenu.title"/></title>
-    <meta name="heading" content="<span key='mainMenu.heading'/>"/>
+    <meta name="heading" jwcid="@Any" content="message:mainMenu.heading"/>
     <meta name="menu" content="MainMenu"/>
 </head>
-        
+<body>
+
 <span jwcid="@ShowMessage"/>
 
 <p><span key="mainMenu.message"/></p>
@@ -18,3 +19,5 @@
         <a jwcid="@PageLink" page="FileUpload"><span key="menu.selectFile"/></a>
     </li>
 </ul>
+</body>
+</html>

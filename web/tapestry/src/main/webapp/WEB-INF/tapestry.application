@@ -8,6 +8,7 @@
     <meta key="org.apache.tapestry.visit-class" value="org.appfuse.webapp.pages.Visit"/>
     <meta key="org.apache.tapestry.default-page-class" value="org.appfuse.webapp.pages.BasePage"/>
     <meta key="org.apache.tapestry.page-class-packages" value="org.appfuse.webapp.pages"/>
+    <meta key="org.apache.tapestry.namespace-properties-name" value="ApplicationResources"/>
     
     <library id="contrib" specification-path="/org/apache/tapestry/contrib/Contrib.library"/> 
     

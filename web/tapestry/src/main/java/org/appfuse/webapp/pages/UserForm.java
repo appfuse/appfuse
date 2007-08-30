@@ -23,6 +23,7 @@ import org.appfuse.service.UserExistsException;
 import org.appfuse.service.UserManager;
 import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.util.RequestUtil;
+import org.appfuse.webapp.pages.admin.UserList;
 import org.springframework.mail.SimpleMailMessage;
 
 import javax.servlet.http.HttpServletRequest;
@@ -99,7 +100,7 @@ public abstract class UserForm extends BasePage implements PageBeginRenderListen
         log.debug("Entering 'cancel' method");
 
         if (getFrom() != null && getFrom().equalsIgnoreCase("list")) {
-            return getEngineService().getLink(false, "UserList");
+            return getEngineService().getLink(false, "admin/UserList");
         } else {
             return getEngineService().getLink(false, "mainMenu");
         }
@@ -187,7 +188,7 @@ public abstract class UserForm extends BasePage implements PageBeginRenderListen
             // add success messages
             if ("X".equals(request.getParameter(("version")))) {                
                 sendNewUserEmail(request, user);
-                UserList nextPage = (UserList) cycle.getPage("UserList");
+                UserList nextPage = (UserList) cycle.getPage("admin/UserList");
                 nextPage.setMessage(getText("user.added", user.getFullName()));
                 return getEngineService().getLink(false, nextPage.getPageName());
             } else {
@@ -202,7 +203,7 @@ public abstract class UserForm extends BasePage implements PageBeginRenderListen
 
         getUserManager().removeUser(getUser().getId().toString());
 
-        UserList nextPage = (UserList) cycle.getPage("UserList");
+        UserList nextPage = (UserList) cycle.getPage("admin/UserList");
         nextPage.setMessage(getText("user.deleted", getUser().getFullName()));
         return getEngineService().getLink(false, nextPage.getPageName());
     }

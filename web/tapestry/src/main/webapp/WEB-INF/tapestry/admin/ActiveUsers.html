@@ -1,0 +1,30 @@
+<html jwcid="@Shell" title="message:activeUsers.title">
+<head>
+    <meta name="heading" jwcid="@Any" content="message:activeUsers.heading"/>
+    <meta name="menu" content="AdminMenu"/>
+</head>
+<body id="activeUsers">
+
+<p><span key="activeUsers.message"/></p>
+
+<div class="separator"></div>
+
+<p>
+    This feature is not activated in the Tapestry version of AppFuse because it causes an OOM error
+    when rendering the active users. See <a href="http://tinyurl.com/2heeuy">here</a> for more information.
+    The resolution of this issue is being tracked as <a href="http://issues.appfuse.org/browse/APF-859">APF-859</a>.
+</p>
+
+<p><input type="button" onclick="location.href='mainMenu.html'" jwcid="@Any" value="message:button.done"/></p>
+
+<!-- Commented out because causes an OOM error in Tapestry 4.1.3 -->
+<!-- http://www.nabble.com/Re%3A-Tapestry-Javassist-reading-the-wrong-class-type-p12397448.html -->
+<!--<table jwcid="table@contrib:Table" class="table contribTable" id="user"
+    rowsClass="ognl:beans.rowsClass.next" row="ognl:row"
+    columns="user.username:username, activeUsers.fullName:fullName" 
+    source="ognl:getServletContext().getAttribute('userNames')" initialSortColumn="username"
+    arrowUpAsset="asset:upArrow" arrowDownAsset="asset:downArrow">
+</table>-->
+
+</body>
+</html>

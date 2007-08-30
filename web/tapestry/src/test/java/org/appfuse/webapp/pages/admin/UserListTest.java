@@ -1,9 +1,12 @@
-package org.appfuse.webapp.pages;
+package org.appfuse.webapp.pages.admin;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.tapestry.engine.RequestCycle;
+import org.appfuse.webapp.pages.admin.UserList;
+import org.appfuse.webapp.pages.BasePageTestCase;
+import org.appfuse.webapp.pages.MockRequestCycle;
 
 public class UserListTest extends BasePageTestCase {
     private UserList page;

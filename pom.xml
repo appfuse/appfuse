@@ -557,7 +557,7 @@
         <springmodules.validation.version>0.8</springmodules.validation.version>
         <struts.version>2.0.9</struts.version>
         <struts.menu.version>2.4.3</struts.menu.version>
-        <tapestry.version>4.0.2</tapestry.version>
+        <tapestry.version>4.1.3-SNAPSHOT</tapestry.version>
         <tapestry.flash.version>1.0.0</tapestry.flash.version>
         <tapestry.spring.version>1.0.0</tapestry.spring.version>
         <urlrewrite.version>3.0.4</urlrewrite.version>

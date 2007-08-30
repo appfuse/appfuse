@@ -4,8 +4,8 @@
 
 <urlrewrite use-context="true">
     <rule>
-        <from>/flushCache.html</from>
-        <to type="redirect">/flushCache.jsp</to>
+        <from>/admin/flushCache.html</from>
+        <to type="redirect">/admin/flushCache.jsp</to>
     </rule>
     <rule>
         <from>/restart.svc</from>

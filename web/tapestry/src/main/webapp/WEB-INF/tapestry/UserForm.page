@@ -111,7 +111,8 @@
     <component id="countryField" type="PropertySelection">
         <binding name="model" value="countries"/>
         <binding name="value" value="user.address.country"/>
-        <binding name="validators" value="validators:required"/>
+        <!-- http://www.nabble.com/Validation-and-CSS-with-4.1.3-SNAPSHOT-tf4318536.html#a12397222 -->
+        <!--<binding name="validators" value="validators:required"/>-->
         <binding name="displayName" value="message:user.address.country"/>
     </component>
 

@@ -1,9 +1,10 @@
 <#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
+<html jwcid="@Shell" title="message:${pojoNameLower}List.title">
 <head>
-	<title><span key="${pojoNameLower}List.title"/></title>
     <meta name="heading" jwcid="@Any" content="message:${pojoNameLower}List.heading"/>
-	<meta name="menu" content="${pojo.shortName}Menu"/>
+    <meta name="menu" content="${pojo.shortName}Menu"/>
 </head>
+<body jwcid="@Body">
 
 <span jwcid="@ShowMessage"/>
 
@@ -35,3 +36,6 @@
 <script type="text/javascript">
     highlightTableRows("${pojoNameLower}List");
 </script>
+
+</body>
+</html>

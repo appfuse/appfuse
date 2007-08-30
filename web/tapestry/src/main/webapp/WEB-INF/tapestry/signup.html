@@ -1,11 +1,10 @@
+<html jwcid="@Shell" title="message:signup.title">
 <head>
-    <title><span key="signup.title"/></title>
-    <meta name="heading" content="<span key='signup.heading'/>"/>
+    <meta name="heading" jwcid="@Any" content="message:signup.heading"/>
 </head>
         
 <body jwcid="@Body" id="signup">
 
-<!--<span jwcid="@ShowValidationError" delegate="ognl:beans.delegate"/>-->
 <span jwcid="@ShowValidationError" delegate="ognl:delegate"/>
 
 <div class="separator"></div>
@@ -75,15 +74,15 @@
                 <p><label jwcid="@FieldLabel" field="component:cityField" prerender="false">City</label></p>
             </div>
             <div>
-                <input class="text state" jwcid="stateField" type="text" id="state" size="2"/>
+                <input class="text state" jwcid="stateField" type="text" id="state"/>
                 <p><label jwcid="@FieldLabel" field="component:stateField" prerender="false">State</label></p>
             </div>
             <div class="left">
-                <input class="text zip" jwcid="postalCodeField" type="text" id="zip"/>
+                <input class="text medium" jwcid="postalCodeField" type="text" id="postalCode"/>
                 <p><label jwcid="@FieldLabel" field="component:postalCodeField" prerender="false">Zip</label></p>
             </div>
             <div>
-                <select jwcid="countryField" size="1" class="select">
+                <select jwcid="countryField" size="1" class="select" id="country">
                     <option></option>
                 </select>
                 <p><label jwcid="@FieldLabel" field="component:countryField" prerender="false">Country</label></p>
@@ -104,3 +103,4 @@
 </script>
 
 </body>
+</html>

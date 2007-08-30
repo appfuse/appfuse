@@ -37,4 +37,8 @@ public class OptionsModel implements IPropertySelectionModel {
     public Object translateValue(String value) {
         return value;
     }
+
+    public boolean isDisabled(int index) {
+        return false;
+    }
 }

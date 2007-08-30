@@ -9,5 +9,5 @@
 
     <contribution configuration-id="tapestry.InfrastructureOverrides" if="not(property tapestry.devMode)">
         <property name="exceptionPageName" value="Error"/>
-    </contribution> 
+    </contribution>
 </module>

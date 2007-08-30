@@ -89,3 +89,49 @@ span.fieldError, .errorMessage {
     font-weight: bold;
     display: block;
 }
+
+/* Tapestry-specific messages: http://tapestry.apache.org/tapestry4.1/usersguide/clientside-validation.html */
+.fieldMissing {
+    background: #FFCA7A !important;
+}
+
+.fieldInvalid {
+    background: #FF887A !important;
+    font-weight: bold;
+}
+
+.alertDialog {
+    width: 30em;
+    border: 2px solid red;
+    padding: 2em;
+    text-align: left;
+    background: #fff;
+    -moz-border-radius: 10px;
+}
+
+.alertContent .alertButton {
+    float: right;
+    position: relative;
+    bottom: .75em;
+}
+
+.missingList, .invalidList {
+    padding-bottom: 1em;
+    padding-top: 0.2em;
+    padding-left: 0.1em;
+    padding-right: 0.2em;
+    margin: 0;
+}
+
+.missingList {
+    border-top: 4px solid #FFCA7A;
+}
+
+.invalidList {
+    border-top: 4px solid #FF887A;
+}
+
+.missingList li, .invalidList li {
+    list-style: none;
+    line-height: 1.2;
+}

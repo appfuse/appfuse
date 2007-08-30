@@ -16,13 +16,26 @@ import org.apache.tapestry.valid.RenderString;
 public class ValidationDelegate extends org.apache.tapestry.valid.ValidationDelegate {
     private static final long serialVersionUID = 6658594142293597652L;
 
+    @Override
     public void writeLabelPrefix(IFormComponent component,
                                  IMarkupWriter writer, IRequestCycle cycle) {
         // does nothing put prevent <font color="red"> from getting written
     }
 
+    @Override
     public void writeLabelSuffix(IFormComponent component,
                                  IMarkupWriter writer, IRequestCycle cycle) {
+        // suppress <font> tags
+    }
+    
+    public void writeLabelAttributes(IMarkupWriter writer, IRequestCycle cycle, IFormComponent component) {
+        if (isInError(component)) {
+            writer.appendAttribute("class", "error");
+        }
+    }
+
+    @Override
+    public void afterLabelText(IMarkupWriter writer, IRequestCycle cycle, IFormComponent component) {
         if (component.isRequired()) {
             writer.begin("span");
             writer.attribute("class", "req");
@@ -31,15 +44,15 @@ public class ValidationDelegate extends org.apache.tapestry.valid.ValidationDele
         }
     }
 
+    @Override
     public void writeAttributes(IMarkupWriter writer, IRequestCycle cycle,
                                 IFormComponent component, IValidator validator) {
         if (isInError()) {
-            String cssClass = ((component.getBinding("class") != null) ?
-                                component.getBinding("class").getObject().toString() : "");
-            writer.attribute("class", cssClass + " error");
+            writer.appendAttribute("class", "error");
         }
     }
 
+    @Override
     public void writePrefix(IMarkupWriter writer, IRequestCycle cycle,
                             IFormComponent component, IValidator validator) {
         if (isInError(component)) {
@@ -68,8 +81,8 @@ public class ValidationDelegate extends org.apache.tapestry.valid.ValidationDele
         }
     }
 
-    public void writeSuffix(IMarkupWriter writer, IRequestCycle cycle,
-                            IFormComponent component, IValidator validator) {
-        // prevent <font> tags from getting written when there's an error
+    @Override
+    public void writeSuffix(IMarkupWriter writer, IRequestCycle cycle, IFormComponent component, IValidator validator) {
+        // prevent <font> tags from being written
     }
 }

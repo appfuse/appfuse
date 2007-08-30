@@ -108,4 +108,7 @@ public class CountryModel implements IPropertySelectionModel {
         return value;
     }
 
+    public boolean isDisabled(int index) {
+        return false;
+    }
 }

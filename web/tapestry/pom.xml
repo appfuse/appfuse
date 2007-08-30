@@ -132,6 +132,16 @@
             <id>tapestry@javaforge</id>
             <url>http://howardlewisship.com/repository</url>
         </repository>
+        <!-- Needed for Tapestry 4.1.3-SNAPSHOT -->
+        <!-- 4.1.3 is needed for https://issues.apache.org/jira/browse/TAPESTRY-234 -->
+        <repository>
+            <id>apache.snapshots</id>
+            <url>http://people.apache.org/repo/m2-snapshot-repository</url>
+        </repository>
+        <repository>
+            <id>opensymphony.snapshots</id>
+            <url>http://opencomponentry.com/repository/m2-snapshot-repo</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -148,17 +158,12 @@
             <type>warpath</type>
         </dependency>
         <dependency>
-            <groupId>tapestry</groupId>
-            <artifactId>tapestry</artifactId>
-            <version>${tapestry.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>tapestry</groupId>
+            <groupId>org.apache.tapestry</groupId>
             <artifactId>tapestry-annotations</artifactId>
             <version>${tapestry.version}</version>
         </dependency>
         <dependency>
-            <groupId>tapestry</groupId>
+            <groupId>org.apache.tapestry</groupId>
             <artifactId>tapestry-contrib</artifactId>
             <version>${tapestry.version}</version>
         </dependency>
@@ -167,12 +172,32 @@
             <artifactId>tapestry-flash</artifactId>
             <version>${tapestry.flash.version}</version>
             <scope>runtime</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>tapestry</groupId>
+                    <artifactId>tapestry</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>tapestry</groupId>
+                    <artifactId>tapestry-annotations</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.javaforge.tapestry</groupId>
             <artifactId>tapestry-spring</artifactId>
             <version>${tapestry.spring.version}</version>
             <scope>runtime</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>tapestry</groupId>
+                    <artifactId>tapestry</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>tapestry</groupId>
+                    <artifactId>tapestry-annotations</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.subethamail</groupId>
@@ -281,30 +306,15 @@
                         </executions>
                         <dependencies>
                             <dependency>
-                                <groupId>com.canoo</groupId>
+                                <groupId>com.canoo.webtest</groupId>
                                 <artifactId>webtest</artifactId>
                                 <version>${webtest.version}</version>
                                 <exclusions>
                                     <exclusion>
-                                        <groupId>javax.xml</groupId>
-                                        <artifactId>jsr173</artifactId>
+                                        <groupId>groovy</groupId>
+                                        <artifactId>groovy-all</artifactId>
                                     </exclusion>
                                 </exclusions>
-                            </dependency>
-                            <dependency>
-                                <groupId>javax.mail</groupId>
-                                <artifactId>mail</artifactId>
-                                <version>${javamail.version}</version>
-                            </dependency>
-                            <dependency>
-                                <groupId>log4j</groupId>
-                                <artifactId>log4j</artifactId>
-                                <version>${log4j.version}</version>
-                            </dependency>
-                            <dependency>
-                                <groupId>oro</groupId>
-                                <artifactId>oro</artifactId>
-                                <version>${oro.version}</version>
                             </dependency>
                         </dependencies>
                     </plugin>

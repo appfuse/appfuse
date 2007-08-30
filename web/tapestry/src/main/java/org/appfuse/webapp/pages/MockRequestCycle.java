@@ -17,8 +17,15 @@ public class MockRequestCycle extends RequestCycle {
         this.pkg = pkg;
     }
 
-    public IPage getPage(final String name) {
-        // convert the first character to uppercase
+    public IPage getPage(String name) {
+        String subpackage = null;
+
+        // convert the first character to uppercase if no package name
+        if (name.contains("/")) {
+            subpackage = name.substring(0, name.indexOf('/'));
+            name = name.substring(subpackage.length() + 1);
+        }
+
         char first = Character.toUpperCase(name.charAt(0));
         String className = first + name.substring(1);
 
@@ -27,11 +34,10 @@ public class MockRequestCycle extends RequestCycle {
             className = className.substring(0, className.length() - 1) + "List";
         }
 
-        if (pkg != null) {
-            className = pkg + "." + className;
-        } else {
-            className = MockRequestCycle.class.getPackage().getName() + "." + className;
-        }
+        String appfusePkg = MockRequestCycle.class.getPackage().getName();
+
+        className = ((pkg != null) ? pkg : appfusePkg) +
+                ((subpackage != null) ? "." + subpackage : "") + "." + className;
 
         IPage page;
 
@@ -51,3 +57,4 @@ public class MockRequestCycle extends RequestCycle {
         return page;
     }
 }
+

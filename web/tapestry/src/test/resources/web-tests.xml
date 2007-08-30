@@ -84,7 +84,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="click View Users link" url="/UserList.html"/>
+                <invoke description="click View Users link" url="/admin/UserList.html"/>
                 <verifytitle description="we should see the user list title"
                     text=".*${userList.title}.*" regex="true"/>
             </steps>
@@ -100,8 +100,8 @@
                 <clicklink description="click Edit Profile link" label="${menu.user}"/>
                 <verifytitle description="we should see the user profile title" 
                     text=".*${userProfile.title}.*" regex="true"/>
-                <setinputfield name="addressField" value="2255 Lane Avenue"/>
-                <setinputfield name="postalCodeField"  value="59826"/>
+                <setinputfield name="address" value="2255 Lane Avenue"/>
+                <setinputfield name="postalCode"  value="59826"/>
                 <clickbutton label="${button.save}" description="Click Save"/>
                 <verifytitle description="display Main Menu if save OK"
                      text=".*${mainMenu.title}.*" regex="true"/>
@@ -118,18 +118,18 @@
                 <invoke description="Click 'Add' button" url="/UserForm.html"/>
                 <verifytitle text=".*${userProfile.title}.*" regex="true"/>
 
-                <setinputfield name="usernameField" value="newuser"/>
-                <setinputfield name="passwordField" value="test"/>
-                <setinputfield name="confirmPasswordField" value="test"/>
-                <setinputfield name="firstNameField" value="Test"/>
-                <setinputfield name="lastNameField" value="Name"/>
-                <setinputfield name="cityField" value="Denver"/>
-                <setinputfield name="stateField" value="CO"/>
-                <setselectfield name="countryField" value="US"/>
-                <setinputfield name="postalCodeField" value="80210"/>
-                <setinputfield name="emailField" value="newuser@raibledesigns.com"/>
-                <setinputfield name="websiteField" value="http://raibledesigns.com"/>
-                <setinputfield name="passwordHintField" value="test"/>
+                <setinputfield name="username" value="newuser"/>
+                <setinputfield name="password" value="test"/>
+                <setinputfield name="confirmPassword" value="test"/>
+                <setinputfield name="firstName" value="Test"/>
+                <setinputfield name="lastName" value="Name"/>
+                <setinputfield name="city" value="Denver"/>
+                <setinputfield name="state" value="CO"/>
+                <setselectfield name="country" value="US"/>
+                <setinputfield name="postalCode" value="80210"/>
+                <setinputfield name="email" value="newuser@raibledesigns.com"/>
+                <setinputfield name="website" value="http://raibledesigns.com"/>
+                <setinputfield name="passwordHint" value="test"/>
                 <!--setcheckbox description="Select roles" name="userRoles" checked="ROLE_USER"/-->
 
                 <clickbutton label="${button.save}" description="Click button 'Save'"/>
@@ -158,18 +158,18 @@
                 <invoke description="click signup link" url="/signup.html"/>
                 <verifytitle description="view signup title" text=".*${signup.title}.*" regex="true"/>
                 
-                <setinputfield name="usernameField" value="signup-user"/>
-                <setinputfield name="passwordField" value="test"/>
-                <setinputfield name="confirmPasswordField" value="test"/>
-                <setinputfield name="firstNameField" value="Test"/>
-                <setinputfield name="lastNameField" value="Name"/>
-                <setinputfield name="cityField"  value="Denver"/>
-                <setinputfield name="stateField" value="CO"/>
-                <setselectfield name="countryField" value="US"/>
-                <setinputfield name="postalCodeField" value="80210"/>
-                <setinputfield name="emailField" value="signup-user@raibledesigns.com"/>
-                <setinputfield name="websiteField" value="http://raibledesigns.com"/>
-                <setinputfield name="passwordHintField" value="test"/>
+                <setinputfield name="username" value="signup-user"/>
+                <setinputfield name="password" value="test"/>
+                <setinputfield name="confirmPassword" value="test"/>
+                <setinputfield name="firstName" value="Test"/>
+                <setinputfield name="lastName" value="Name"/>
+                <setinputfield name="city" value="Denver"/>
+                <setinputfield name="state" value="CO"/>
+                <setselectfield name="country" value="US"/>
+                <setinputfield name="postalCode" value="80210"/>
+                <setinputfield name="email" value="signup-user@raibledesigns.com"/>
+                <setinputfield name="website" value="http://raibledesigns.com"/>
+                <setinputfield name="passwordHint" value="test"/>
                 <clickbutton htmlid="register" description="Click button 'Signup'"/>
 
                 <verifytitle description="view main menu" text=".*${mainMenu.title}.*" regex="true"/>
@@ -184,7 +184,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="get activeUsers URL" url="/ActiveUsers.html"/>
+                <invoke description="get activeUsers URL" url="/admin/ActiveUsers.html"/>
                 <verifytitle description="we should see the activeUsers title" 
                     text=".*${activeUsers.title}.*" regex="true"/>
             </steps>
@@ -197,7 +197,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="get flushCache URL" url="/flushCache.jsp"/>
+                <invoke description="get flushCache URL" url="/admin/flushCache.jsp"/>
                 <verifytitle description="we should see the flush cache title" 
                     text=".*${flushCache.title}.*" regex="true"/>
             </steps>
@@ -212,8 +212,8 @@
                 &login;
                 <invoke description="click Upload a File link" url="/FileUpload.html"/>
                 <verifytitle description="we should see file upload form" text=".*${upload.title}.*" regex="true"/>
-                <setinputfield description="set name" name="nameField" value="Canoo Test File"/>
-                <setFileField description="set file" name="fileField" fileName="pom.xml"/>
+                <setinputfield description="set name" name="name" value="Canoo Test File"/>
+                <setFileField description="set file" name="file" fileName="pom.xml"/>
                 <clickbutton label="${button.upload}" description="Click Upload"/>
                 <verifytitle description="show file data if upload OK" text=".*${display.title}.*" regex="true"/>
                 <verifytext description="verify original filename displayed on page" text="pom.xml"/>
