@@ -69,7 +69,12 @@
                             <directory>src/main/webapp/WEB-INF</directory>
                             <excludes>
                                 <exclude>**/*.jsp</exclude>
+                                <exclude>**/*.xhtml</exclude>
                             </excludes>
+                            <includes>
+                                <include>**/*.properties</include>
+                                <include>**/*.xml</include>
+                            </includes>
                         </scanTargetPattern>
                     </scanTargetPatterns>
                 </configuration>

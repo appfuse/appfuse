@@ -199,6 +199,10 @@
                             <excludes>
                                 <exclude>**/*.jsp</exclude>
                             </excludes>
+                            <includes>
+                                <include>**/*.properties</include>
+                                <include>**/*.xml</include>
+                            </includes>
                         </scanTargetPattern>
                     </scanTargetPatterns>
                 </configuration>
