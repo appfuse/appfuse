@@ -183,7 +183,7 @@
     </reporting>
 
     <properties>
-        <junit.version>3.8.2</junit.version>
+        <junit.version>4.4</junit.version>
         <log4j.version>1.2.13</log4j.version>
     </properties>
 </project>
