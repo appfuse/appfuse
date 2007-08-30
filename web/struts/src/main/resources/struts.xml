@@ -12,7 +12,7 @@
     <constant name="struts.multipart.maxSize" value="2097152"/>
     <constant name="struts.ui.theme" value="css_xhtml"/>
     <constant name="struts.codebehind.pathPrefix" value="/WEB-INF/pages/"/>
-    <constant name="struts.enable.SlashesInActionNames" value="true"/> 
+    <constant name="struts.enable.SlashesInActionNames" value="true"/>
 
     <!-- Include Struts defaults -->
     <include file="struts-default.xml"/>
@@ -85,7 +85,7 @@
         <action name="editUser" class="userAction" method="edit">
             <interceptor-ref name="adminCheck"/>
             <result name="success">/WEB-INF/pages/userForm.jsp</result>
-            <result name="input">/WEB-INF/pages/userList.jsp</result>
+            <result name="input">/WEB-INF/pages/admin/userList.jsp</result>
         </action>
 
         <action name="editProfile" class="userAction" method="edit">
@@ -117,12 +117,12 @@
     <!-- Actions in this package will be prefixed with /admin/ -->
     <package name="admin" extends="default" namespace="/admin">
         <action name="activeUsers" class="com.opensymphony.xwork2.ActionSupport">
-            <result name="success">/WEB-INF/pages/activeUsers.jsp</result>
+            <result name="success">/WEB-INF/pages/admin/activeUsers.jsp</result>
         </action>
 
         <action name="flushCache" class="com.opensymphony.xwork2.ActionSupport">
             <interceptor-ref name="adminCheck"/>
-            <result name="success">/WEB-INF/pages/flushCache.jsp</result>
+            <result name="success">/WEB-INF/pages/admin/flushCache.jsp</result>
         </action>
         
         <action name="reload" class="org.appfuse.webapp.action.ReloadAction">
@@ -133,7 +133,7 @@
 
         <action name="users" class="userAction" method="list">
             <interceptor-ref name="adminCheck"/>
-            <result name="success">/WEB-INF/pages/userList.jsp</result>
+            <result name="success">/WEB-INF/pages/admin/userList.jsp</result>
         </action>
     </package>
 </struts>
