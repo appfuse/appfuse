@@ -1,8 +1,13 @@
 <#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
+<#assign identifierType = pojo.getJavaTypeName(pojo.identifierProperty, jdk5)>
 package ${basepackage}.webapp.action;
 
 import ${appfusepackage}.webapp.action.BasePageTestCase;
+<#if genericcore>
 import ${appfusepackage}.service.GenericManager;
+<#else>
+import ${basepackage}.service.${pojo.shortName}Manager;
+</#if>
 import ${basepackage}.model.${pojo.shortName};
 
 public class ${pojo.shortName}ListTest extends BasePageTestCase {
@@ -50,7 +55,7 @@ public class ${pojo.shortName}ListTest extends BasePageTestCase {
     }
 
     public void testSearch() throws Exception {
-        assertTrue(bean.get${pojo.shortName}s().size() >= 1);
+        assertTrue(bean.get${util.getPluralForWord(pojo.shortName)}().size() >= 1);
         assertFalse(bean.hasErrors());
     }
 }

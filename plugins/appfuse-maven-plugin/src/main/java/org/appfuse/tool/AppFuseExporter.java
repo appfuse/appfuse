@@ -222,6 +222,7 @@ public class AppFuseExporter extends GenericExporter {
         exporter.setFilePattern(pattern);
         exporter.setArtifactCollector(getArtifactCollector());
         exporter.getProperties().put("data", new DataHelper());
+        exporter.getProperties().put("util", new StringUtils());
 
         return exporter;
     }

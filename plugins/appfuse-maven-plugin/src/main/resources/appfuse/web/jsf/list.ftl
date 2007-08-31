@@ -31,7 +31,7 @@ public class ${pojo.shortName}List extends BasePage implements Serializable {
         setSortColumn("${pojo.identifierProperty.name}"); // sets the default sort column
     }
 
-    public List get${pojo.shortName}s() {
+    public List get${util.getPluralForWord(pojo.shortName)}() {
         return sort(${pojoNameLower}Manager.getAll());
     }
 }

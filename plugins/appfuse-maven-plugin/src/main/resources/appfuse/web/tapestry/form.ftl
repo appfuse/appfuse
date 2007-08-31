@@ -33,12 +33,12 @@ public abstract class ${pojo.shortName}Form extends BasePage implements PageBegi
     }
 
     public ILink cancel(IRequestCycle cycle) {
-        log.debug("Entering 'cancel' method");
+        log.debug("Entering 'cancel' method...");
         return getEngineService().getLink(false, "${pojo.shortName}List");
     }
 
     public ILink delete(IRequestCycle cycle) {
-        log.debug("entered 'delete' method");
+        log.debug("entered 'delete' method...");
 
         get${pojo.shortName}Manager().remove(get${pojo.shortName}().${getIdMethodName}());
 

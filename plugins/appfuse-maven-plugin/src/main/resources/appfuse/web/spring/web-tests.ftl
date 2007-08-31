@@ -3,18 +3,18 @@
     <!--${pojo.shortName}-START-->
     <!-- runs ${pojoNameLower}-related tests -->
     <target name="${pojo.shortName}Tests"
-            depends="Search${pojo.shortName}s,Edit${pojo.shortName},Save${pojo.shortName},Add${pojo.shortName},Delete${pojo.shortName}"
+            depends="Search${util.getPluralForWord(pojo.shortName)},Edit${pojo.shortName},Save${pojo.shortName},Add${pojo.shortName},Delete${pojo.shortName}"
             description="Call and executes all ${pojoNameLower} test cases (targets)">
         <echo>Successfully ran all ${pojo.shortName} UI tests!</echo>
     </target>
 
-    <!-- Verify the ${pojoNameLower}s list screen displays without errors -->
-    <target name="Search${pojo.shortName}s" description="Tests search for and displaying all ${pojoNameLower}s">
-        <webtest name="search${pojo.shortName}s">
+    <!-- Verify the ${util.getPluralForWord(pojoNameLower)} list screen displays without errors -->
+    <target name="Search${util.getPluralForWord(pojo.shortName)}" description="Tests search for and displaying all ${util.getPluralForWord(pojoNameLower)}">
+        <webtest name="search${util.getPluralForWord(pojo.shortName)}">
             &config;
             <steps>
                 &login;
-                <invoke description="click View ${pojo.shortName} link" url="/${pojoNameLower}s.html"/>
+                <invoke description="click View ${pojo.shortName} link" url="/${util.getPluralForWord(pojoNameLower)}.html"/>
                 <verifytitle description="we should see the ${pojoNameLower}List title"
                     text=".*${'$'}{${pojoNameLower}List.title}.*" regex="true"/>
             </steps>
@@ -27,7 +27,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="View ${pojo.shortName}s List" url="/${pojoNameLower}s.html"/>
+                <invoke description="View ${pojo.shortName} List" url="/${util.getPluralForWord(pojoNameLower)}.html"/>
                 <clicklink label="1" description="Click edit link"/>
                 <verifytitle description="we should see the ${pojoNameLower}Detail title"
                     text=".*${'$'}{${pojoNameLower}Detail.title}.*" regex="true"/>

@@ -15,14 +15,9 @@
 
 <!-- todo: remove trailing comma from columns list -->
 <table jwcid="table@contrib:Table" class="table contribTable ${pojoNameLower}List" id="${pojoNameLower}List"
-    rowsClass="ognl:beans.rowsClass.next" row="ognl:row" source="ognl:${pojoNameLower}s"
+    rowsClass="ognl:beans.rowsClass.next" row="ognl:row" source="ognl:${util.getPluralForWord(pojoNameLower)}"
     arrowUpAsset="asset:upArrow" arrowDownAsset="asset:downArrow"
-    columns="<#rt/>
-    <#foreach field in pojo.getAllPropertiesIterator()>
-    <#if !c2h.isCollection(field) && !c2h.isManyToOne(field) && !c2j.isComponent(field)>
-        <#lt/>${pojoNameLower}.${field.name}:${field.name},<#rt/>
-    </#if>
-    </#foreach>">
+    columns="<#foreach field in pojo.getAllPropertiesIterator()><#if !c2h.isCollection(field) && !c2h.isManyToOne(field) && !c2j.isComponent(field)>${pojoNameLower}.${field.name}:${field.name},</#if></#foreach>">
     <tr jwcid="${pojoNameLower}_${pojo.identifierProperty.name}ColumnValue@Block">
         <a jwcid="@DirectLink" listener="listener:edit" parameters="ognl:row.${pojo.identifierProperty.name}">
             <span jwcid="@Insert" value="ognl:row.${pojo.identifierProperty.name}"/>

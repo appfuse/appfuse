@@ -21,7 +21,7 @@ public class ${pojo.shortName}Action extends BaseAction implements Preparable {
 <#else>
     private ${pojo.shortName}Manager ${pojoNameLower}Manager;
 </#if>
-    private List ${pojoNameLower}s;
+    private List ${util.getPluralForWord(pojoNameLower)};
     private ${pojo.shortName} ${pojoNameLower};
     private ${identifierType}  ${pojo.identifierProperty.name};
 
@@ -33,8 +33,8 @@ public class ${pojo.shortName}Action extends BaseAction implements Preparable {
         this.${pojoNameLower}Manager = ${pojoNameLower}Manager;
     }
 
-    public List get${pojo.shortName}s() {
-        return ${pojoNameLower}s;
+    public List get${util.getPluralForWord(pojo.shortName)}() {
+        return ${util.getPluralForWord(pojoNameLower)};
     }
 
     /**
@@ -51,7 +51,7 @@ public class ${pojo.shortName}Action extends BaseAction implements Preparable {
     }
 
     public String list() {
-        ${pojoNameLower}s = ${pojoNameLower}Manager.getAll();
+        ${util.getPluralForWord(pojoNameLower)} = ${pojoNameLower}Manager.getAll();
         return SUCCESS;
     }
 

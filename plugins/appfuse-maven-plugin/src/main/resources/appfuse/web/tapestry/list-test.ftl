@@ -25,12 +25,12 @@ public class ${pojo.shortName}ListTest extends BasePageTestCase {
     }
 
     public void testSearch() throws Exception {
-        assertTrue(page.get${pojo.shortName}s().size() >= 1);
+        assertTrue(page.get${util.getPluralForWord(pojo.shortName)}().size() >= 1);
     }
 
     public void testEdit() throws Exception {
         RequestCycle cycle = new MockRequestCycle(this.getClass().getPackage().getName());
-        cycle.setServiceParameters(new Object[] {1L});
+        cycle.setListenerParameters(new Object[] {1L});
         page.edit(cycle);
         assertFalse(page.hasErrors());
     }

@@ -45,7 +45,7 @@ public class ${pojo.shortName}ActionTest extends BaseActionTestCase {
 
     public void testSearch() throws Exception {
         assertEquals(action.list(), ActionSupport.SUCCESS);
-        assertTrue(action.get${pojo.shortName}s().size() >= 1);
+        assertTrue(action.get${util.getPluralForWord(pojo.shortName)}().size() >= 1);
     }
 
     public void testEdit() throws Exception {

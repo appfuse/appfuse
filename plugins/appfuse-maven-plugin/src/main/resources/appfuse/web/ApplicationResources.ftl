@@ -13,9 +13,9 @@ ${pojoNameLower}.deleted=${pojo.shortName} has been deleted successfully.
 
 # -- ${pojoNameLower} list page --
 ${pojoNameLower}List.title=${pojo.shortName} List
-${pojoNameLower}List.heading=${pojo.shortName}s
+${pojoNameLower}List.heading=${util.getPluralForWord(pojo.shortName)}
 ${pojoNameLower}List.${pojoNameLower}=${pojoNameLower}
-${pojoNameLower}List.${pojoNameLower}s=${pojoNameLower}s
+${pojoNameLower}List.${util.getPluralForWord(pojoNameLower)}=${util.getPluralForWord(pojoNameLower)}
 
 # -- ${pojoNameLower} detail page --
 ${pojoNameLower}Detail.title=${pojo.shortName} Detail

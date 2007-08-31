@@ -28,10 +28,11 @@ public class ${pojo.shortName}DaoTest extends BaseDaoTestCase {
     </#foreach>
 </#foreach>
 
+        log.debug("adding ${pojoNameLower}...");
         ${pojoNameLower} = ${pojoNameLower}Dao.save(${pojoNameLower});
         flush();
 
-        ${pojoNameLower} = (${pojo.shortName}) ${pojoNameLower}Dao.get(${pojoNameLower}.${getIdMethodName}());
+        ${pojoNameLower} = ${pojoNameLower}Dao.get(${pojoNameLower}.${getIdMethodName}());
 
         assertNotNull(${pojoNameLower}.${getIdMethodName}());
 

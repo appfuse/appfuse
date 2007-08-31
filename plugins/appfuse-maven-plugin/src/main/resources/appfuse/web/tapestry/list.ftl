@@ -19,7 +19,7 @@ public abstract class ${pojo.shortName}List extends BasePage {
     public abstract ${pojo.shortName}Manager get${pojo.shortName}Manager();
 </#if>
 
-    public List get${pojo.shortName}s() {
+    public List get${util.getPluralForWord(pojo.shortName)}() {
         return get${pojo.shortName}Manager().getAll();
     }
 

@@ -16,8 +16,8 @@
 <h:commandButton value="${'#'}{text['button.add']}" action="add" id="add" immediate="true" styleClass="button"/>
 <h:commandButton value="${'#'}{text['button.done']}" action="mainMenu" id="cancel" immediate="true" styleClass="button" style="margin-left: 5px"/>
 
-<t:dataTable id="${pojoNameLower}s" var="${pojoNameLower}" style="margin-top: 10px"
-    value="${'#'}{${pojoNameLower}List.${pojoNameLower}s}" rows="25" sortColumn="${'#'}{${pojoNameLower}List.sortColumn}"
+<t:dataTable id="${util.getPluralForWord(pojoNameLower)}" var="${pojoNameLower}" style="margin-top: 10px"
+    value="${'#'}{${pojoNameLower}List.${util.getPluralForWord(pojoNameLower)}}" rows="25" sortColumn="${'#'}{${pojoNameLower}List.sortColumn}"
     sortAscending="${'#'}{${pojoNameLower}List.ascending}" styleClass="scrollerTable table"
     headerClass="standardTable_Header" rowClasses="standardTable_Row1,standardTable_Row2"
     columnClasses="standardTable_Column,standardTable_Column,standardTable_Column,standardTable_Column,standardTable_ColumnCentered">
@@ -48,11 +48,11 @@
 </t:dataTable>
 
 <ui:include src="/common/tableFooter.xhtml">
-    <ui:param name="tableName" value="${pojoNameLower}s"/>
+    <ui:param name="tableName" value="${util.getPluralForWord(pojoNameLower)}"/>
 </ui:include>
 
 <script type="text/javascript">
-    highlightTableRows("edit${pojo.shortName}:${pojoNameLower}s");
+    highlightTableRows("edit${pojo.shortName}:${util.getPluralForWord(pojoNameLower)}");
 </script>
 
 </h:form>

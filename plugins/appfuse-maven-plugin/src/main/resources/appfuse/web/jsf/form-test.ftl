@@ -4,6 +4,11 @@
 <#assign identifierType = pojo.getJavaTypeName(pojo.identifierProperty, jdk5)>
 package ${basepackage}.webapp.action;
 
+<#if genericcore>
+import ${appfusepackage}.service.GenericManager;
+<#else>
+import ${basepackage}.service.${pojo.shortName}Manager;
+</#if>
 import ${pojo.packageName}.${pojo.shortName};
 import ${appfusepackage}.webapp.action.BasePageTestCase;
 
@@ -64,6 +69,7 @@ public class ${pojo.shortName}FormTest extends BasePageTestCase {
     }
 
     public void testSave() {
+        log.debug("testing save...");
         bean.${setIdMethodName}(1L);
 
         assertEquals("edit", bean.edit());
@@ -85,6 +91,7 @@ public class ${pojo.shortName}FormTest extends BasePageTestCase {
     }
 
     public void testRemove() throws Exception {
+        log.debug("testing remove...");
         ${pojo.shortName} ${pojoNameLower} = new ${pojo.shortName}();
         ${pojoNameLower}.${setIdMethodName}(2L);
         bean.set${pojo.shortName}(${pojoNameLower});

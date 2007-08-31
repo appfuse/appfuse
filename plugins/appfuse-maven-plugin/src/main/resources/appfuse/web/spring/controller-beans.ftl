@@ -6,7 +6,7 @@
 
     <bean id="${pojoNameLower}FormController" class="${basepackage}.webapp.controller.${pojo.shortName}FormController">
         <property name="validator" ref="beanValidator"/>
-        <property name="successView" value="redirect:${pojoNameLower}s.html"/>
+        <property name="successView" value="redirect:${util.getPluralForWord(pojoNameLower)}.html"/>
         <property name="${pojoNameLower}Manager" ref="${pojoNameLower}Manager"/>
     </bean>
     <!--${pojo.shortName}-END-->
