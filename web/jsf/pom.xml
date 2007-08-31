@@ -205,7 +205,7 @@
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>jsp-api</artifactId>
-            <version>2.1</version> <!-- Special case for JSF only -->
+            <version>${jsp.version}</version> <!-- Special case for JSF only -->
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -320,4 +320,8 @@
             </build>
         </profile>
     </profiles>
+
+    <properties>
+        <jsp.version>2.1</jsp.version>
+    </properties>
 </project>
