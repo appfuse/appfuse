@@ -14,6 +14,7 @@ import org.apache.tools.ant.taskdefs.Get;
 import org.apache.tools.ant.taskdefs.LoadFile;
 import org.apache.tools.ant.taskdefs.optional.ReplaceRegExp;
 import org.appfuse.tool.SubversionUtils;
+import org.codehaus.plexus.components.interactivity.Prompter;
 import org.tmatesoft.svn.core.SVNErrorMessage;
 import org.tmatesoft.svn.core.SVNException;
 
@@ -23,8 +24,14 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
-import static java.util.Arrays.asList;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Properties;
+import java.util.Set;
+import java.util.TreeSet;
+
 
 /**
  * This mojo is used to "install" source artifacts from Subversion into an AppFuse project.
@@ -35,15 +42,11 @@ import java.util.*;
 public class InstallSourceMojo extends AbstractMojo {
     private static final String APPFUSE_GROUP_ID = "org.appfuse";
     private static final String FILE_SEP = System.getProperty("file.separator");
-    private static final List<String> JSF_PROPERTIES = asList("ajax4jsf", "myfaces.tomahawk", "corejsf.validator", "myfaces", "facelets", "el");
-    private static final List<String> SPRING_PROPERTIES = asList("springmodules.validation");
-    private static final List<String> STRUTS_PROPERTIES = asList("struts");
-    private static final List<String> TAPESTRY_PROPERTIES = asList("tapestry.flash", "tapestry", "tapestry.spring");
-
     private String daoFramework;
     private String webFramework;
     Project antProject = AntUtils.createProject();
-    
+    Properties appfuseProperties;
+
     /**
      * The path where the files from SVN will be placed. This is intentionally set to "src" since that's the default
      * src directory used for exporting AppFuse artifacts.
@@ -51,7 +54,14 @@ public class InstallSourceMojo extends AbstractMojo {
      * @parameter expression="${appfuse.destinationDirectory}" default-value="${basedir}/src"
      */
     private String destinationDirectory;
-    
+
+    /**
+     * User prompter to get input from user executing mojo.
+     *
+     * @component
+     */
+    protected Prompter prompter;
+
     /**
      * The directory containing the source code.
      *
@@ -78,16 +88,17 @@ public class InstallSourceMojo extends AbstractMojo {
 
     public void execute() throws MojoExecutionException, MojoFailureException {
         // todo: get this working from the top-level directory - only works with basic project for now
-        
         if (!project.getPackaging().equalsIgnoreCase("war")) {
             String errorMsg = "This plugin can currently only be run from an AppFuse web project (packaging == 'war').";
+
             //getLog().error(errorMsg);
             throw new MojoFailureException(errorMsg);
         }
 
         // If appfuse.version is specified as a property, and not a SNAPSHOT, use it for the tag
         String appfuseVersion = project.getProperties().getProperty("appfuse.version");
-        if (appfuseVersion != null && !appfuseVersion.endsWith("SNAPSHOT") && tag.equals("trunk/")) {
+
+        if ((appfuseVersion != null) && !appfuseVersion.endsWith("SNAPSHOT") && tag.equals("trunk/")) {
             tag = "tags/APPFUSE_" + appfuseVersion.toUpperCase().replaceAll("-", "_") + "/";
         }
 
@@ -100,7 +111,7 @@ public class InstallSourceMojo extends AbstractMojo {
         webFramework = project.getProperties().getProperty("web.framework");
 
         // install dao and manager source if modular/core or war writer/o parent (basic)
-        if (project.getPackaging().equals("jar") || (project.getPackaging().equals("war") && project.getParent() == null)) {
+        if (project.getPackaging().equals("jar") || (project.getPackaging().equals("war") && (project.getParent() == null))) {
             log("Installing source from data modules...");
             // export data-common
             export("data/common/src");
@@ -111,8 +122,10 @@ public class InstallSourceMojo extends AbstractMojo {
             // if jpa or hibernate, remove duplicate file in test directory
             if (daoFramework.equalsIgnoreCase("hibernate")) {
                 File duplicateFile = new File(getFilePath("src/test/resources/hibernate.cfg.xml"));
+
                 if (duplicateFile.exists()) {
-                    log("Deleting duplicate hibernate.cfg.xml from src/test/resources...");
+                    //log("Deleting duplicate hibernate.cfg.xml from src/test/resources...");
+
                     try {
                         FileUtils.forceDeleteOnExit(duplicateFile);
                     } catch (IOException io) {
@@ -121,8 +134,10 @@ public class InstallSourceMojo extends AbstractMojo {
                 }
             } else if (daoFramework.equalsIgnoreCase("jpa-hibernate")) {
                 File duplicateFile = new File(getFilePath("src/test/resources/META-INF"));
+
                 if (duplicateFile.exists()) {
                     log("Deleting duplicate persistence.xml from src/test/resources/META-INF...");
+
                     try {
                         // For some reason, this just deletes persistence.xml, not the META-INF directory.
                         // I tried FileUtils.deleteDirectory(duplicateFile), but no dice.
@@ -143,9 +158,10 @@ public class InstallSourceMojo extends AbstractMojo {
         if (project.getPackaging().equalsIgnoreCase("war")) {
             if (webFramework == null) {
                 getLog().error("The web.framework property is not specified - please modify your pom.xml to add " +
-                        " this property. For example: <web.framework>struts</web.framework>.");
+                    " this property. For example: <web.framework>struts</web.framework>.");
                 throw new MojoExecutionException("No web.framework property specified, please modify pom.xml to add it.");
             }
+
             // export web-common
             log("Installing source from web-common module...");
             export("web/common/src");
@@ -164,6 +180,7 @@ public class InstallSourceMojo extends AbstractMojo {
         // remove all appfuse dependencies
         for (Object dependency : dependencies) {
             Dependency dep = (Dependency) dependency;
+
             if (!dep.getGroupId().equals(APPFUSE_GROUP_ID)) {
                 newDependencies.add(dep);
             }
@@ -174,10 +191,10 @@ public class InstallSourceMojo extends AbstractMojo {
 
         // Add dependencies from appfuse-${dao.framework}
         newDependencies = addModuleDependencies(newDependencies, daoFramework, "data/" + daoFramework);
-        
+
         // Add dependencies from appfuse-service
         newDependencies = addModuleDependencies(newDependencies, "service", "service");
-        
+
         // Add dependencies from appfuse-common-web
         newDependencies = addModuleDependencies(newDependencies, "web-common", "web/common");
 
@@ -189,37 +206,54 @@ public class InstallSourceMojo extends AbstractMojo {
         // own test module, this will no longer be necessary. For the first version of this mojo, it seems easier
         // to follow the convention used in AppFuse rather than creating a test module and changing all modules to
         // depend on it.
+
+        // create properties based on dependencies while we're at it
+        Set<String> projectProperties = new TreeSet<String>();
+
         for (Dependency dep : newDependencies) {
-            if (dep.getArtifactId().equals("spring-mock") || dep.getArtifactId().equals("jmock") || dep.getArtifactId().equals("junit")) {
+            if (dep.getArtifactId().equals("spring-mock") || dep.getArtifactId().equals("jmock") ||
+                dep.getArtifactId().equals("junit") || dep.getArtifactId().equals("shale-test")) {
                 dep.setOptional(true);
                 dep.setScope(null);
             }
+            String version = dep.getVersion();
+            // trim off ${}
+            if (version.startsWith("${")) {
+                version = version.substring(2);
+            }
+
+            if (version.endsWith("}")) {
+                version = version.substring(0, version.length() - 1);
+            }
+            projectProperties.add(version);
         }
 
         Collections.sort(newDependencies, new BeanComparator("groupId"));
 
         project.getOriginalModel().setDependencies(newDependencies);
 
+        Properties currentProperties = project.getOriginalModel().getProperties();
 
-        // todo: figure out how to get these written in alphabetical order
-        project.getOriginalModel().setProperties(getAppFuseProperties());
-
-
-        // properties sort
-        Properties props = project.getModel().getProperties();
-        SortedProperties sorted = new SortedProperties();
-        for (Iterator iter = props.keySet().iterator(); iter.hasNext();) {
-            String key = (String) iter.next();
-            sorted.put(key, props.getProperty(key));
+        Set<String> currentKeys = new LinkedHashSet<String>();
+        for (Object key : currentProperties.keySet()) {
+            currentKeys.add((String) key);
         }
-        String sortedProperties = "";
-        Enumeration keys = sorted.keys();
-        while (keys.hasMoreElements()) {
-            String key = (String)keys.nextElement();
-            log("<" + key + ">" + sorted.getProperty(key) + "</" + key + ">");
-            sortedProperties = sortedProperties + "    <" + key + ">" + sorted.getProperty(key) + "</" + key + ">" + "\n";
+
+        StringBuffer sortedProperties = new StringBuffer();
+        
+        for (String key : projectProperties) {
+            // don't add property if it already exists in project
+            if (!currentKeys.contains(key)) {
+                String value = appfuseProperties.getProperty(key);
+
+                if (value.contains("&amp;")) {
+                    value = "<![CDATA[" + value + "]]>";
+                }
+
+                sortedProperties.append("        <").append(key).append(">")
+                        .append(value).append("</").append(key).append(">" + "\n");
+            }
         }
-        // todo: incorporate this sort into final pom.xml
 
         StringWriter writer = new StringWriter();
 
@@ -227,9 +261,11 @@ public class InstallSourceMojo extends AbstractMojo {
             project.writeOriginalModel(writer);
 
             File pom = new File("pom-fullsource.xml");
+
             if (pom.exists()) {
                 pom.delete();
             }
+
             FileWriter fw = new FileWriter(pom);
             fw.write(writer.toString());
             fw.flush();
@@ -248,51 +284,53 @@ public class InstallSourceMojo extends AbstractMojo {
         String dependencyXml = pomXml.substring(startTag, pomXml.indexOf("</dependencies>", startTag));
         // change 2 spaces to 4
         dependencyXml = dependencyXml.replaceAll("  ", "    ");
-        dependencyXml = "    <!-- Dependencies calculated by AppFuse when running full-source plugin -->" + dependencyXml;
+        dependencyXml = "\n    <!-- Dependencies calculated by AppFuse when running full-source plugin -->" + dependencyXml;
 
         try {
             String originalPom = FileUtils.readFileToString(new File("pom.xml"));
             startTag = originalPom.indexOf("\n    <dependencies>");
+
             StringBuffer sb = new StringBuffer();
             sb.append(originalPom.substring(0, startTag));
             sb.append(dependencyXml);
             sb.append(originalPom.substring(originalPom.indexOf("</dependencies>", startTag)));
 
-            startTag = pomXml.indexOf("\n  <properties>");
-            String propertiesXml = pomXml.substring(startTag + 16, pomXml.lastIndexOf("\n  </properties>"));
-
-            // change 2 spaces to 4
-            propertiesXml = propertiesXml.replaceAll("  ", "    ");
-
-
-            // add the Spring version to the new properties since spring.version is replaced below
-            propertiesXml = "        <spring.version>" + project.getProperties().getProperty("spring.version") + "</spring.version>\n" + propertiesXml;
-            propertiesXml = "        <!-- Sorry about the ordering of the properties below, we hope to fix this in a future release -->\n" + propertiesXml;
-
             // add new properties
-            String pomWithProperties = sb.toString().replaceFirst("        <spring.version>(.*)</spring.version>", propertiesXml); // propertiesXml
-            pomWithProperties = pomWithProperties.replaceAll("<amp.fullSource>false</amp.fullSource>","<amp.fullSource>true</amp.fullSource>"); 
+            String pomWithProperties = sb.toString().replace("</properties>\n</project>",
+                    "\n        <!-- Properties calculated by AppFuse when running full-source plugin -->\n" + sortedProperties + "    </properties>\n</project>");
+
+            pomWithProperties = pomWithProperties.replaceAll("<amp.fullSource>false</amp.fullSource>", "<amp.fullSource>true</amp.fullSource>");
+
             String os = System.getProperty("os.name");
 
             if (os.startsWith("Linux") || os.startsWith("Mac")) {
                 // remove the \r returns
-                pomWithProperties = pomWithProperties.replaceAll("\r",""); 
+                pomWithProperties = pomWithProperties.replaceAll("\r", "");
             }
 
             FileUtils.writeStringToFile(new File("pom.xml"), pomWithProperties); // was pomWithProperties
-
         } catch (IOException ex) {
             getLog().error("Unable to write to pom.xml: " + ex.getMessage(), ex);
             throw new MojoFailureException(ex.getMessage());
         }
-        
-        log("Don't forget to refactor(rename) your packages using appfuse:refactor-packages");
+
+        boolean renamePackages = true;
+        if (System.getProperty("renamePackages") != null) {
+            renamePackages = Boolean.valueOf(System.getProperty("renamePackages"));
+        }
+
+        if (renamePackages) {
+            log("Renaming packages to '" + project.getGroupId() + "'...");
+            org.appfuse.tool.FileUtils renamePackagesTool = new org.appfuse.tool.FileUtils(project.getGroupId());
+            renamePackagesTool.execute();
+        }
 
         // todo: gather and add repositories from appfuse projects
         // should work for now since most artifacts are in static.appfuse.org/repository
 
         // cleanup so user isn't aware that files were created
         File pom = new File("pom-fullsource.xml");
+
         if (pom.exists()) {
             pom.delete();
         }
@@ -300,6 +338,7 @@ public class InstallSourceMojo extends AbstractMojo {
 
     private String getFilePath(String s) {
         s = s.replace("/", FILE_SEP);
+
         return s;
     }
 
@@ -310,14 +349,18 @@ public class InstallSourceMojo extends AbstractMojo {
             svn.export();
         } catch (SVNException e) {
             SVNErrorMessage err = e.getErrorMessage();
+
             /*
              * Display all tree of error messages.
              * Utility method SVNErrorMessage.getFullMessage() may be used instead of the loop.
              */
             while (err != null) {
-                getLog().error(err.getErrorCode().getCode() + " : " + err.getMessage());
+                getLog()
+                    .error(err.getErrorCode().getCode() + " : " +
+                    err.getMessage());
                 err = err.getChildErrorMessage();
             }
+
             throw new MojoExecutionException(e.getMessage());
         }
     }
@@ -333,9 +376,10 @@ public class InstallSourceMojo extends AbstractMojo {
     private void log(String msg) {
         getLog().info("[AppFuse] " + msg);
     }
-    
+
     private void removeWarpathPlugin(File pom) {
         log("Removing maven-warpath-plugin...");
+
         Project antProject = AntUtils.createProject();
         ReplaceRegExp regExpTask = (ReplaceRegExp) antProject.createTask("replaceregexp");
         regExpTask.setFile(pom);
@@ -362,26 +406,28 @@ public class InstallSourceMojo extends AbstractMojo {
 
     // Convenience method that doesn't remove warpath plugin
     private List<Dependency> addModuleDependencies(List<Dependency> dependencies, String moduleName, String moduleLocation) {
-        return addModuleDependencies(dependencies, moduleName, moduleLocation, false);    
+        return addModuleDependencies(dependencies, moduleName, moduleLocation, false);
     }
 
     private List<Dependency> addModuleDependencies(List<Dependency> dependencies, String moduleName, String moduleLocation, boolean removeWarpath) {
-        log("Adding dependencies from '" + moduleName + "' module...");
+        log("Adding dependencies from " + moduleName + " module...");
+
         // Read dependencies from module's pom.xml
         URL pomLocation = null;
         File newDir = new File("target", "appfuse-" + moduleName);
+
         if (!newDir.exists()) {
             newDir.mkdirs();
         }
-        
+
         File pom = new File("target/appfuse-" + moduleName + "/pom.xml");
-        
+
         try {
             pomLocation = new URL(trunk + tag + moduleLocation + "/pom.xml");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-        
+
         Get get = (Get) AntUtils.createProject().createTask("get");
         get.setSrc(pomLocation);
         get.setDest(pom);
@@ -390,27 +436,21 @@ public class InstallSourceMojo extends AbstractMojo {
         get.execute();
 
         if (removeWarpath) {
-           this.removeWarpathPlugin(pom);
+            this.removeWarpathPlugin(pom);
         }
-        
-        MavenEmbedder maven = new MavenEmbedder();
-        maven.setOffline(true);
-        maven.setClassLoader(Thread.currentThread().getContextClassLoader());
-        maven.setLogger(new MavenEmbedderConsoleLogger());
 
-        MavenProject p = null;
-        try {
-            maven.start();
-            p = maven.readProjectWithDependencies(pom);
-            maven.stop();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        MavenProject p = createProjectFromPom(pom);
 
         List moduleDependencies = p.getOriginalModel().getDependencies();
 
+        // set the properties for appfuse if root module
+        if (moduleName.equalsIgnoreCase("root")) {
+            appfuseProperties = p.getOriginalModel().getProperties();
+        }
+
         // create a list of artifactIds to check for duplicates (there's no equals() on Dependency)
         Set<String> artifactIds = new LinkedHashSet<String>();
+
         for (Dependency dep : dependencies) {
             artifactIds.add(dep.getArtifactId());
         }
@@ -418,7 +458,9 @@ public class InstallSourceMojo extends AbstractMojo {
         // add all non-appfuse dependencies
         for (Object moduleDependency : moduleDependencies) {
             Dependency dep = (Dependency) moduleDependency;
-            if (!artifactIds.contains(dep.getArtifactId()) && !dep.getArtifactId().contains("appfuse")) {
+
+            if (!artifactIds.contains(dep.getArtifactId()) &&
+                    !dep.getArtifactId().contains("appfuse")) {
                 dependencies.add(dep);
             }
         }
@@ -426,36 +468,14 @@ public class InstallSourceMojo extends AbstractMojo {
         return dependencies;
     }
 
-    private Properties getAppFuseProperties() {
-        log("Getting properties from 'appfuse' module...");
-        // Read dependencies from module's pom.xml
-        URL pomLocation = null;
-        File newDir = new File("target", "appfuse");
-        if (!newDir.exists()) {
-            newDir.mkdirs();
-        }
-
-        File pom = new File("target/appfuse/pom.xml");
-
-        try {
-            pomLocation = new URL(trunk + tag + "/pom.xml");
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-
-        Get get = (Get) AntUtils.createProject().createTask("get");
-        get.setSrc(pomLocation);
-        get.setDest(pom);
-        get.setUsername("guest");
-        get.setPassword("");
-        get.execute();
-
+    private MavenProject createProjectFromPom(File pom) {
         MavenEmbedder maven = new MavenEmbedder();
         maven.setOffline(true);
         maven.setClassLoader(Thread.currentThread().getContextClassLoader());
         maven.setLogger(new MavenEmbedderConsoleLogger());
 
         MavenProject p = null;
+
         try {
             maven.start();
             p = maven.readProjectWithDependencies(pom);
@@ -464,66 +484,7 @@ public class InstallSourceMojo extends AbstractMojo {
             e.printStackTrace();
         }
 
-        Properties props = p.getOriginalModel().getProperties();
-        Properties projectProperties = project.getOriginalModel().getProperties();
-        Properties newProperties = new Properties();
-
-        // don't include dao and web framework dependencies
-        List<String> webDependencies = new ArrayList<String>();
-        webDependencies.addAll(JSF_PROPERTIES);
-        webDependencies.addAll(SPRING_PROPERTIES);
-        webDependencies.addAll(STRUTS_PROPERTIES);
-        webDependencies.addAll(TAPESTRY_PROPERTIES);
-
-        for (Object o : props.keySet()) {
-            String key = (String) o;
-            if (!projectProperties.containsKey(key)) {
-                newProperties.put(key, props.getProperty(key));
-            }
-        }
-
-        // NOTE: There's *got* to be a cleaner way to do this, but I can't think of it right now
-        // ensure properties are only for the current frameworks being used
-
-        // PROPOSED FIX: Read versions from webapp pom.xml and link keys to properties
-        for (String key : webDependencies) {
-            newProperties.remove(key + ".version");
-        }
-
-        newProperties.remove("hibernate.version");
-        newProperties.remove("ibatis.version");
-        newProperties.remove("jpa.version");
-
-        if (webFramework.equalsIgnoreCase("jsf")) {
-            for (String key : JSF_PROPERTIES) {
-                key += ".version";
-                newProperties.put(key, props.getProperty(key));
-            }
-        } else if (webFramework.equalsIgnoreCase("spring")) {
-            for (String key : SPRING_PROPERTIES) {
-                key += ".version";
-                newProperties.put(key, props.getProperty(key));
-            }
-        } else if (webFramework.equalsIgnoreCase("struts")) {
-            for (String key : STRUTS_PROPERTIES) {
-                key += ".version";
-                newProperties.put(key, props.getProperty(key));
-            }
-        } else if (webFramework.equalsIgnoreCase("tapestry")) {
-            for (String key : TAPESTRY_PROPERTIES) {
-                key += ".version";
-                newProperties.put(key, props.getProperty(key));
-            }
-        }
-
-        newProperties.put(getDaoFramework() + ".version", props.getProperty(getDaoFramework() + ".version"));
-
-        // APF-785: jpa still depends on having hibernate.version as a property
-        if (daoFramework.equalsIgnoreCase("jpa-hibernate")) {
-            newProperties.put("hibernate.version", props.getProperty("hibernate.version"));
-        }
-
-        return newProperties;
+        return p;
     }
 
     /**
@@ -541,18 +502,5 @@ public class InstallSourceMojo extends AbstractMojo {
         loadFileTask.setSrcFile(new File(inFile));
 
         return loadFileTask;
-    }
-
-    public class SortedProperties extends Properties{
-
-        public synchronized Enumeration keys() {
-            Enumeration keysEnum = super.keys();
-            Vector keyList = new Vector();
-            while(keysEnum.hasMoreElements()){
-                keyList.add(keysEnum.nextElement());
-            }
-            Collections.sort(keyList);
-            return keyList.elements();
-        }
     }
 }

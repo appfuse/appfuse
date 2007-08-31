@@ -2,25 +2,22 @@ package org.appfuse.tool;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import java.io.File;
-import java.io.IOException;
+import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.DirectoryScanner;
+import org.apache.tools.ant.types.FileSet;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
-
+import java.io.IOException;
 import java.util.Iterator;
+import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.Vector;
-
-import org.apache.tools.ant.BuildException;
-import org.apache.tools.ant.DirectoryScanner;
-import org.apache.tools.ant.types.FileSet;
 
 
 /**
@@ -91,7 +88,7 @@ public class FileUtils {
      *
      * @param baseDir
      */
-    public void setBaseDir(String baseDir)                       
+    public void setBaseDir(String baseDir)
     {
         if (!new File(baseDir.trim()).exists())
         {
@@ -412,38 +409,32 @@ public class FileUtils {
             return;
         }
 
-        log.debug("There are [" + files.length + "] files in dir [" + inDirName
-                + "]");
+        log.debug("There are [" + files.length + "] files in dir [" + inDirName + "]");
 
-        for (int i = 0; i < files.length; i++)
-        {
-            log.debug("file is [" + files[i] + "]");
+        for (String file : files) {
+            log.debug("file is [" + file + "]");
 
-            String fileName = inDirName + File.separator + files[i];
+            String fileName = inDirName + File.separator + file;
             File aFile = new File(fileName);
 
-            if (aFile.isDirectory())
-            {
+            if (aFile.isDirectory()) {
                 log.debug("Got a dir [" + fileName + "]");
 
-                String newDirName = inDirName + File.separator + files[i];
+                String newDirName = inDirName + File.separator + file;
 
                 log.debug("Recursing with [" + newDirName + "]");
 
                 checkSummary(newDirName);
-            }
-            else
-            {
+            } else {
                 // Normal file
-               log.debug("Checking file [" + fileName + "] existingPkgPath is ["
+                log.debug("Checking file [" + fileName + "] existingPkgPath is ["
                         + existingPkgPath + "]");
 
-                if (isValidFileType(fileName))
-                {
-                	if (hasFileOldPathOrPkg(fileName)) {
+                if (isValidFileType(fileName)) {
+                    if (hasFileOldPathOrPkg(fileName)) {
 
-                		log.debug("File [" + fileName + "] still has old pkg [" + existingPkgPath + "]");
-                	}
+                        log.debug("File [" + fileName + "] still has old pkg [" + existingPkgPath + "]");
+                    }
                 }
             }
         }
@@ -996,35 +987,19 @@ public class FileUtils {
 
         try
         {
-            // resources
-            changePackageNamesInFile(this.workBaseDir + "/main/resources/hibernate.cfg.xml",
-                FileUtils.SAVE_FILE);
-            changePackageNamesInFile(this.workBaseDir + "/main/resources/applicationContext-dao.xml",
-                FileUtils.SAVE_FILE);
-            changePackageNamesInFile(this.workBaseDir + "/main/resources/applicationContext-service.xml",
-                FileUtils.SAVE_FILE);
-            changePackageNamesInFile(this.workBaseDir + "/test/resources/applicationContext-test.xml",
-                FileUtils.SAVE_FILE);
+            String[] extensions = {"properties","tld","xml"};
+            
+            Iterator filesInMain = org.apache.commons.io.FileUtils.iterateFiles(
+                    new File(this.workBaseDir), extensions, true);
 
-            // web files
-            changePackageNamesInFile(this.workBaseDir + "/main/webapp/WEB-INF/web.xml",
-                FileUtils.SAVE_FILE);
-            changePackageNamesInFile(this.workBaseDir + "/main/webapp/WEB-INF/security.xml",
-                FileUtils.SAVE_FILE);
-            changePackageNamesInFile(this.workBaseDir + "/main/webapp/WEB-INF/dispatcher-servlet.xml",
-                FileUtils.SAVE_FILE);
-            changePackageNamesInFile(this.workBaseDir + "/main/webapp/WEB-INF/dwr.xml",
-                FileUtils.SAVE_FILE);
-            changePackageNamesInFile(this.workBaseDir + "/main/webapp/WEB-INF/applicationContext-validation.xml",
-                FileUtils.SAVE_FILE);
-            changePackageNamesInFile(this.workBaseDir + "/main/webapp/WEB-INF/appfuse.tld",
-                FileUtils.SAVE_FILE);
+            while (filesInMain.hasNext()) {
+                File f = (File) filesInMain.next();
+                changePackageNamesInFile(f.getAbsolutePath(), FileUtils.SAVE_FILE);
+            }
 
         } catch (IOException ioex) {
             log.error("IOException: " + ioex.getMessage());
         }
-
-
     }
 
     /**
@@ -1060,8 +1035,6 @@ public class FileUtils {
 
             renameOtherFiles();
             log.error("Rename other files");
-
-            //
 
             refactorNonPackageFiles();
 
