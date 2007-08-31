@@ -198,8 +198,10 @@
                             <directory>src/main/webapp/WEB-INF</directory>
                             <excludes>
                                 <exclude>**/*.jsp</exclude>
+                                <exclude>**/*.html</exclude>
                             </excludes>
                             <includes>
+                                <include>**/*.page</include>
                                 <include>**/*.properties</include>
                                 <include>**/*.xml</include>
                             </includes>

@@ -103,7 +103,8 @@
                 <configuration>
                     <warpathExcludes>
                         applicationContext-resources.xml,ApplicationResources*.properties,ehcache.xml,
-                        hibernate.cfg.xml,jdbc.properties,log4j.xml,mail.properties,**/persistence.xml
+                        hibernate.cfg.xml,jdbc.properties,log4j.xml,mail.properties,**/persistence.xml,
+                        sql-map-config.xml
                     </warpathExcludes>
                 </configuration>
             </plugin>
@@ -124,6 +125,7 @@
                         <configuration>
                             <encoding>UTF8</encoding>
                             <includes>
+                                ApplicationResources_ko.properties,
                                 ApplicationResources_no.properties,
                                 ApplicationResources_tr.properties,
                                 ApplicationResources_zh*.properties
@@ -152,13 +154,14 @@
             <resource>
                 <directory>src/main/resources</directory>
                 <excludes>
-                    <exclude>ApplicationResources_zh*.properties</exclude>
                     <exclude>ApplicationResources_de.properties</exclude>
                     <exclude>ApplicationResources_fr.properties</exclude>
+                    <exclude>ApplicationResources_ko.properties</exclude>
                     <exclude>ApplicationResources_nl.properties</exclude>
                     <exclude>ApplicationResources_no.properties</exclude>
                     <exclude>ApplicationResources_pt*.properties</exclude>
                     <exclude>ApplicationResources_tr.properties</exclude>
+                    <exclude>ApplicationResources_zh*.properties</exclude>
                 </excludes>
                 <filtering>true</filtering>
             </resource>
@@ -207,6 +210,12 @@
             <artifactId>servlet-api</artifactId>
             <version>${servlet.version}</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shale</groupId>
+            <artifactId>shale-test</artifactId>
+            <version>${shale.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

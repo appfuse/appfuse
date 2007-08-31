@@ -550,17 +550,7 @@
                                         <groupId>groovy</groupId>
                                         <artifactId>groovy-all</artifactId>
                                     </exclusion>
-                                    <!-- Downgrade HtmlUnit for JSF: http://tinyurl.com/2p3jwt -->
-                                    <exclusion>
-                                        <groupId>htmlunit</groupId>
-                                        <artifactId>htmlunit</artifactId>
-                                    </exclusion>
                                 </exclusions>
-                            </dependency>
-                            <dependency>
-                                <groupId>htmlunit</groupId>
-                                <artifactId>htmlunit</artifactId>
-                                <version>1.11</version>
                             </dependency>
                         </dependencies>
                     </plugin>
