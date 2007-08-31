@@ -14,9 +14,6 @@
     <constant name="struts.codebehind.pathPrefix" value="/WEB-INF/pages/"/>
     <constant name="struts.enable.SlashesInActionNames" value="true"/>
 
-    <!-- Include Struts defaults -->
-    <include file="struts-default.xml"/>
-
     <!-- Configuration for the default package. -->
     <package name="default" extends="struts-default">
         <interceptors>
