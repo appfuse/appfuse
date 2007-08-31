@@ -452,30 +452,30 @@ public class FileUtils {
     private boolean hasFileOldPathOrPkg(String fileName) {
 
     	try {
-	    	String fileContents = fromFile(fileName);
+            String fileContents = fromFile(fileName);
 
-	    	String patternStr = escape(existingPkgPath);
+            String patternStr = escape(existingPkgPath);
 
-	    	if (matches(patternStr, fileContents)) {
-	    		return true;
-	    	}
+            if (matches(patternStr, fileContents)) {
+                return true;
+            }
 
             patternStr = getUnixPath(existingPkgPath);
-	        patternStr = escape(patternStr);
+            patternStr = escape(patternStr);
 
-	    	if (matches(patternStr, fileContents)) {
-	    		return true;
-	    	}
+            if (matches(patternStr, fileContents)) {
+                return true;
+            }
 
-	        patternStr = getWindowsPath(existingPkgPath);
-	        patternStr = escape(patternStr);
+            patternStr = getWindowsPath(existingPkgPath);
+            patternStr = escape(patternStr);
 
             return matches(patternStr, fileContents);
 
         } catch (IOException e) {
-    		log.error("Error loading fileContents in hasFileOldPathOrPkg [" + e.getMessage() + "]");
-    		return false;
-    	}
+            log.error("Error loading fileContents in hasFileOldPathOrPkg [" + e.getMessage() + "]");
+            return false;
+        }
 
     }
 
@@ -905,23 +905,23 @@ public class FileUtils {
     private void processOtherFile(String fileName)
     {
         try
-	    {
+        {
             log.error("processOtherFile DLW");
             log.error("Processing file [" + fileName + "]");
 
-	        if (isValidFileType(fileName))
-	        {
-	            fileName = correctFileSeparators(fileName);
-		        log.error("After correcting file separators fileName is ["
-		            + fileName + "]");
-		        log.error("file is valid so changing package names");
-		        fileName = workBaseDir + File.separator + fileName;
-		        changePackageNamesInFile(fileName,
-		            FileUtils.SAVE_FILE);
-		        log.error("processing change package names on other file ["
-		            + fileName + "]");
-	        }
-	        else
+            if (isValidFileType(fileName))
+            {
+                fileName = correctFileSeparators(fileName);
+                log.error("After correcting file separators fileName is ["
+                    + fileName + "]");
+                log.error("file is valid so changing package names");
+                fileName = workBaseDir + File.separator + fileName;
+                changePackageNamesInFile(fileName,
+                    FileUtils.SAVE_FILE);
+                log.error("processing change package names on other file ["
+                    + fileName + "]");
+            }
+            else
             {
                 log.error("Not processing file [" + fileName + "] as it is not a valid type");
             }
@@ -994,6 +994,24 @@ public class FileUtils {
 
             while (filesInMain.hasNext()) {
                 File f = (File) filesInMain.next();
+                changePackageNamesInFile(f.getAbsolutePath(), FileUtils.SAVE_FILE);
+            }
+
+            // core
+            Iterator filesInCore = org.apache.commons.io.FileUtils.iterateFiles(
+                    new File("core"), extensions, true);
+
+            while (filesInCore.hasNext()) {
+                File f = (File) filesInCore.next();
+                changePackageNamesInFile(f.getAbsolutePath(), FileUtils.SAVE_FILE);
+            }
+
+            // web
+            Iterator filesInWeb = org.apache.commons.io.FileUtils.iterateFiles(
+                    new File("web"), extensions, true);
+
+            while (filesInWeb.hasNext()) {
+                File f = (File) filesInWeb.next();
                 changePackageNamesInFile(f.getAbsolutePath(), FileUtils.SAVE_FILE);
             }
 

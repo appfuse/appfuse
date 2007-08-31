@@ -14,7 +14,6 @@ import org.apache.tools.ant.taskdefs.Get;
 import org.apache.tools.ant.taskdefs.LoadFile;
 import org.apache.tools.ant.taskdefs.optional.ReplaceRegExp;
 import org.appfuse.tool.SubversionUtils;
-import org.codehaus.plexus.components.interactivity.Prompter;
 import org.tmatesoft.svn.core.SVNErrorMessage;
 import org.tmatesoft.svn.core.SVNException;
 
@@ -26,8 +25,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
@@ -42,10 +43,13 @@ import java.util.TreeSet;
 public class InstallSourceMojo extends AbstractMojo {
     private static final String APPFUSE_GROUP_ID = "org.appfuse";
     private static final String FILE_SEP = System.getProperty("file.separator");
-    private String daoFramework;
-    private String webFramework;
+
     Project antProject = AntUtils.createProject();
     Properties appfuseProperties;
+
+    // ThreadLocale to hold properties as they're built when traversing through a modular project
+    private static final ThreadLocal propertiesContextHolder = new ThreadLocal();
+
 
     /**
      * The path where the files from SVN will be placed. This is intentionally set to "src" since that's the default
@@ -54,13 +58,6 @@ public class InstallSourceMojo extends AbstractMojo {
      * @parameter expression="${appfuse.destinationDirectory}" default-value="${basedir}/src"
      */
     private String destinationDirectory;
-
-    /**
-     * User prompter to get input from user executing mojo.
-     *
-     * @component
-     */
-    protected Prompter prompter;
 
     /**
      * The directory containing the source code.
@@ -87,14 +84,6 @@ public class InstallSourceMojo extends AbstractMojo {
     private MavenProject project;
 
     public void execute() throws MojoExecutionException, MojoFailureException {
-        // todo: get this working from the top-level directory - only works with basic project for now
-        if (!project.getPackaging().equalsIgnoreCase("war")) {
-            String errorMsg = "This plugin can currently only be run from an AppFuse web project (packaging == 'war').";
-
-            //getLog().error(errorMsg);
-            throw new MojoFailureException(errorMsg);
-        }
-
         // If appfuse.version is specified as a property, and not a SNAPSHOT, use it for the tag
         String appfuseVersion = project.getProperties().getProperty("appfuse.version");
 
@@ -102,26 +91,34 @@ public class InstallSourceMojo extends AbstractMojo {
             tag = "tags/APPFUSE_" + appfuseVersion.toUpperCase().replaceAll("-", "_") + "/";
         }
 
-        daoFramework = project.getProperties().getProperty("dao.framework");
+        String daoFramework = project.getProperties().getProperty("dao.framework");
 
         if (daoFramework == null) {
             log("No dao.framework property specified, defaulting to 'hibernate'");
         }
 
-        webFramework = project.getProperties().getProperty("web.framework");
+        String webFramework = project.getProperties().getProperty("web.framework");
 
-        // install dao and manager source if modular/core or war writer/o parent (basic)
-        if (project.getPackaging().equals("jar") || (project.getPackaging().equals("war") && (project.getParent() == null))) {
+        boolean modular = (project.getPackaging().equals("pom") && !project.hasParent());
+
+        if (project.getPackaging().equals("jar") || (project.getPackaging().equals("war") && !project.hasParent())) {
             log("Installing source from data modules...");
             // export data-common
-            export("data/common/src");
+            export("data/common/src", (modular) ? "core/src" : destinationDirectory);
 
             // export persistence framework
-            export("data/" + daoFramework + "/src");
+            export("data/" + daoFramework + "/src", (modular) ? "core/src" : destinationDirectory);
 
             // if jpa or hibernate, remove duplicate file in test directory
-            if (daoFramework.equalsIgnoreCase("hibernate")) {
-                File duplicateFile = new File(getFilePath("src/test/resources/hibernate.cfg.xml"));
+            if ("hibernate".equalsIgnoreCase(daoFramework)) {
+                String filePath;
+                if (project.getPackaging().equalsIgnoreCase("jar") && !project.hasParent()) {
+                    filePath = "src/main/resources/hibernate.cfg.xml";
+                } else {
+                    filePath = "src/test/resources/hibernate.cfg.xml";
+                }
+
+                File duplicateFile = new File(getFilePath(filePath));
 
                 if (duplicateFile.exists()) {
                     //log("Deleting duplicate hibernate.cfg.xml from src/test/resources...");
@@ -129,30 +126,37 @@ public class InstallSourceMojo extends AbstractMojo {
                     try {
                         FileUtils.forceDeleteOnExit(duplicateFile);
                     } catch (IOException io) {
-                        getLog().error("Failed to delete src/test/resources/hibernate.cfg.xml, please delete manually.");
+                        getLog().error("Failed to delete '" + filePath + "', please delete manually.");
                     }
                 }
-            } else if (daoFramework.equalsIgnoreCase("jpa-hibernate")) {
-                File duplicateFile = new File(getFilePath("src/test/resources/META-INF"));
+            } else if (!"jpa-hibernate".equalsIgnoreCase(daoFramework)) {
+                String filePath;
+                if (project.getPackaging().equalsIgnoreCase("jar") && !project.hasParent()) {
+                    filePath = "src/main/resources/META-INF";
+                } else {
+                    filePath = "src/test/resources/META-INF";
+                }
+
+                File duplicateFile = new File(getFilePath(filePath));
 
                 if (duplicateFile.exists()) {
-                    log("Deleting duplicate persistence.xml from src/test/resources/META-INF...");
+                    log("Deleting duplicate persistence.xml from '" + filePath + "'...");
 
                     try {
                         // For some reason, this just deletes persistence.xml, not the META-INF directory.
                         // I tried FileUtils.deleteDirectory(duplicateFile), but no dice.
                         FileUtils.forceDeleteOnExit(duplicateFile);
                     } catch (IOException io) {
-                        getLog().error("Failed to delete src/test/resources/META-INF/persistence.xml, please delete manually.");
+                        getLog().error("Failed to delete '" + filePath + "/persistence.xml', please delete manually.");
                     }
                 }
+
+                // todo: delete ibatis's sql-map-config.xml from main when core is present
             }
 
             // export service module
             log("Installing source from service module...");
-            export("service/src");
-
-            // add dependencies from appfuse-service to pom.xml
+            export("service/src", (modular) ? "core/src" : destinationDirectory);
         }
 
         if (project.getPackaging().equalsIgnoreCase("war")) {
@@ -164,15 +168,27 @@ public class InstallSourceMojo extends AbstractMojo {
 
             // export web-common
             log("Installing source from web-common module...");
-            export("web/common/src");
+            export("web/common/src", (modular) ? "web/src" : destinationDirectory);
 
             // export web framework
             log("Installing source from " + webFramework + " module...");
-            export("web/" + webFramework + "/src");
+            export("web/" + webFramework + "/src", (modular) ? "web/src" : destinationDirectory);
+
+            try {
+                // copy jdbc.properties to core/src/test/resources
+                FileUtils.copyFileToDirectory(new File("web/src/main/resources/jdbc.properties"), new File("core/src/test/resources"));
+            } catch (IOException io) {
+                getLog().error("Failed to copy jdbc.properties to core module");
+            }
         }
 
         log("Source successfully exported, modifying pom.xml...");
-        removeWarpathPlugin(new File("pom.xml"));
+
+        if (project.getPackaging().equals("pom")) {
+            removeWarpathPlugin(new File("web/pom.xml"));
+        } else if (project.getPackaging().equals("war")) {
+            removeWarpathPlugin(new File("pom.xml"));
+        }
 
         List dependencies = project.getOriginalModel().getDependencies();
         List<Dependency> newDependencies = new ArrayList<Dependency>();
@@ -186,21 +202,59 @@ public class InstallSourceMojo extends AbstractMojo {
             }
         }
 
-        // add dependencies from root appfuse pom
-        newDependencies = addModuleDependencies(newDependencies, "root", "");
+        if (!project.getPackaging().equals("pom") && !project.hasParent()) {
 
-        // Add dependencies from appfuse-${dao.framework}
-        newDependencies = addModuleDependencies(newDependencies, daoFramework, "data/" + daoFramework);
+            // add dependencies from root appfuse pom
+            newDependencies = addModuleDependencies(newDependencies, "root", "");
 
-        // Add dependencies from appfuse-service
-        newDependencies = addModuleDependencies(newDependencies, "service", "service");
+            // Add dependencies from appfuse-${dao.framework}
+            newDependencies = addModuleDependencies(newDependencies, daoFramework, "data/" + daoFramework);
 
-        // Add dependencies from appfuse-common-web
-        newDependencies = addModuleDependencies(newDependencies, "web-common", "web/common");
+            // Add dependencies from appfuse-service
+            newDependencies = addModuleDependencies(newDependencies, "service", "service");
 
-        // Add dependencies from appfuse-${web.framework}
-        newDependencies = addModuleDependencies(newDependencies, webFramework, "web/" + webFramework, true);
+            // Add dependencies from appfuse-common-web
+            newDependencies = addModuleDependencies(newDependencies, "web-common", "web/common");
 
+            // Add dependencies from appfuse-${web.framework}
+            newDependencies = addModuleDependencies(newDependencies, webFramework, "web/" + webFramework, true);
+
+            createFullSourcePom(newDependencies);
+        } else {
+            if (project.getPackaging().equals("pom")) {
+                // add dependencies from root appfuse pom
+                newDependencies = addModuleDependencies(newDependencies, "root", "");
+
+                createFullSourcePom(newDependencies);
+            }
+
+            if (project.getPackaging().equals("jar")) {
+                newDependencies.clear();
+
+                // Add dependencies from appfuse-${dao.framework}
+                newDependencies = addModuleDependencies(newDependencies, daoFramework, "data/" + daoFramework);
+
+                // Add dependencies from appfuse-service
+                newDependencies = addModuleDependencies(newDependencies, "service", "service");
+
+                createFullSourcePom(newDependencies);
+            }
+
+            if (project.getPackaging().equals("war")) {
+                newDependencies.clear();
+                
+                // Add dependencies from appfuse-common-web
+                newDependencies = addModuleDependencies(newDependencies, "web-common", "web/common");
+
+                // Add dependencies from appfuse-${web.framework}
+                newDependencies = addModuleDependencies(newDependencies, webFramework, "web/" + webFramework, true);
+
+                createFullSourcePom(newDependencies);
+            }
+        }
+    }
+
+    private void createFullSourcePom(List<Dependency> newDependencies) throws MojoFailureException {
         // Change spring-mock and jmock dependencies to use <optional>true</option> instead of <scope>test</scope>.
         // This is necessary because Base*TestCase classes are in src/main/java. If we move these classes to their
         // own test module, this will no longer be necessary. For the first version of this mojo, it seems easier
@@ -228,6 +282,25 @@ public class InstallSourceMojo extends AbstractMojo {
             projectProperties.add(version);
         }
 
+        // add core as a dependency for modular wars
+        if (project.getPackaging().equals("war") && project.hasParent()) {
+            Dependency core = new Dependency();
+            core.setGroupId("${pom.parent.groupId}");
+            core.setArtifactId("${pom.parent.artifactId}-core");
+            core.setVersion("${pom.parent.version}");
+            newDependencies.add(core);
+
+            // workaround for JSF requiring JSP 2.1 - this is a true hack
+            if (project.getProperties().getProperty("web.framework").equals("jsf")) {
+                Dependency jsp21 = new Dependency();
+                jsp21.setGroupId("javax.servlet.jsp");
+                jsp21.setArtifactId("jsp-api");
+                jsp21.setVersion("2.1");
+                jsp21.setScope("provided");
+                newDependencies.add(jsp21);
+            }
+        }
+        
         Collections.sort(newDependencies, new BeanComparator("groupId"));
 
         project.getOriginalModel().setDependencies(newDependencies);
@@ -240,6 +313,11 @@ public class InstallSourceMojo extends AbstractMojo {
         }
 
         StringBuffer sortedProperties = new StringBuffer();
+
+        Properties appfuseProperties = getAppFuseProperties();
+
+        // holder for properties - stored in ThreadLocale
+        Map propertiesForPom = new LinkedHashMap();
         
         for (String key : projectProperties) {
             // don't add property if it already exists in project
@@ -252,7 +330,18 @@ public class InstallSourceMojo extends AbstractMojo {
 
                 sortedProperties.append("        <").append(key).append(">")
                         .append(value).append("</").append(key).append(">" + "\n");
+                propertiesForPom.put(key, value);
             }
+        }
+
+        if (project.getPackaging().equals("pom") || project.hasParent()) {
+            // store sorted properties in a thread local for later retrieval
+            Map properties = new LinkedHashMap();
+            if (propertiesContextHolder.get() != null) {
+                properties = (LinkedHashMap) propertiesContextHolder.get();
+            }
+            properties.putAll(propertiesForPom);
+            propertiesContextHolder.set(properties);
         }
 
         StringWriter writer = new StringWriter();
@@ -287,7 +376,17 @@ public class InstallSourceMojo extends AbstractMojo {
         dependencyXml = "\n    <!-- Dependencies calculated by AppFuse when running full-source plugin -->" + dependencyXml;
 
         try {
-            String originalPom = FileUtils.readFileToString(new File("pom.xml"));
+            String packaging = project.getPackaging();
+            String pathToPom = "pom.xml";
+            if (project.hasParent()) {
+               if (packaging.equals("jar")) {
+                   pathToPom = "core/" + pathToPom;
+               } else if (packaging.equals("war")) {
+                   pathToPom = "web/" + pathToPom;
+               }
+            }
+
+            String originalPom = FileUtils.readFileToString(new File(pathToPom));
             startTag = originalPom.indexOf("\n    <dependencies>");
 
             StringBuffer sb = new StringBuffer();
@@ -307,8 +406,7 @@ public class InstallSourceMojo extends AbstractMojo {
                 // remove the \r returns
                 pomWithProperties = pomWithProperties.replaceAll("\r", "");
             }
-
-            FileUtils.writeStringToFile(new File("pom.xml"), pomWithProperties); // was pomWithProperties
+            FileUtils.writeStringToFile(new File(pathToPom), pomWithProperties); // was pomWithProperties
         } catch (IOException ex) {
             getLog().error("Unable to write to pom.xml: " + ex.getMessage(), ex);
             throw new MojoFailureException(ex.getMessage());
@@ -319,14 +417,66 @@ public class InstallSourceMojo extends AbstractMojo {
             renamePackages = Boolean.valueOf(System.getProperty("renamePackages"));
         }
 
-        if (renamePackages) {
+        if (renamePackages && !project.getPackaging().equals("pom")) {
             log("Renaming packages to '" + project.getGroupId() + "'...");
             org.appfuse.tool.FileUtils renamePackagesTool = new org.appfuse.tool.FileUtils(project.getGroupId());
+            if (project.hasParent()) {
+                if (project.getPackaging().equals("jar")) {
+                    renamePackagesTool.setBaseDir("core");
+                } else {
+                    renamePackagesTool.setBaseDir("web");
+                }
+            }
+            
             renamePackagesTool.execute();
         }
 
         // todo: gather and add repositories from appfuse projects
         // should work for now since most artifacts are in static.appfuse.org/repository
+
+        // when performing full-source on a modular project, add the properties to the root pom.xml at the end
+        if (project.getPackaging().equals("war") && project.hasParent()) {
+            // store sorted properties in a thread local for later retrieval
+            Map properties = (Map) propertiesContextHolder.get();
+            Set<String> propertiesToAdd = new TreeSet<String>(properties.keySet());
+
+            // alphabetize the properties by key
+            for (String key : propertiesToAdd) {
+                // don't add property if it already exists in project
+                Set keysInProject = project.getParent().getOriginalModel().getProperties().keySet();
+                if (!keysInProject.contains(key)) {
+                    String value = getAppFuseProperties().getProperty(key);
+
+                    if (value.contains("&amp;")) {
+                        value = "<![CDATA[" + value + "]]>";
+                    }
+
+                    sortedProperties.append("        <").append(key).append(">")
+                            .append(value).append("</").append(key).append(">" + "\n");
+                }
+            }
+
+            try {
+                String originalPom = FileUtils.readFileToString(new File("pom.xml"));
+
+                String pomWithProperties = originalPom.replace("</properties>\n</project>",
+                    "\n        <!-- Properties calculated by AppFuse when running full-source plugin -->\n" + sortedProperties + "    </properties>\n</project>");
+
+                pomWithProperties = pomWithProperties.replaceAll("<amp.fullSource>false</amp.fullSource>", "<amp.fullSource>true</amp.fullSource>");
+
+                String os = System.getProperty("os.name");
+
+                if (os.startsWith("Linux") || os.startsWith("Mac")) {
+                    // remove the \r returns
+                    pomWithProperties = pomWithProperties.replaceAll("\r", "");
+                }
+                FileUtils.writeStringToFile(new File("pom.xml"), pomWithProperties); 
+            } catch (IOException ex) {
+                getLog().error("Unable to read root pom.xml: " + ex.getMessage(), ex);
+                throw new MojoFailureException(ex.getMessage());
+            }
+
+        }
 
         // cleanup so user isn't aware that files were created
         File pom = new File("pom-fullsource.xml");
@@ -336,13 +486,22 @@ public class InstallSourceMojo extends AbstractMojo {
         }
     }
 
+    private Properties getAppFuseProperties() {
+        // should only happen when executing full-source on modular modules (b/c they don't export root).
+        if (appfuseProperties == null) {
+            File pom = new File("target/appfuse-root/pom.xml");
+            appfuseProperties = createProjectFromPom(pom).getOriginalModel().getProperties();
+        }
+        return appfuseProperties;
+    }
+
     private String getFilePath(String s) {
         s = s.replace("/", FILE_SEP);
 
         return s;
     }
 
-    private void export(String url) throws MojoExecutionException {
+    private void export(String url, String destinationDirectory) throws MojoExecutionException {
         SubversionUtils svn = new SubversionUtils(trunk + tag + url, destinationDirectory);
 
         try {
@@ -362,14 +521,6 @@ public class InstallSourceMojo extends AbstractMojo {
             }
 
             throw new MojoExecutionException(e.getMessage());
-        }
-    }
-
-    private String getDaoFramework() {
-        if (daoFramework.equalsIgnoreCase("jpa-hibernate")) {
-            return "jpa";
-        } else {
-            return daoFramework;
         }
     }
 
@@ -436,7 +587,7 @@ public class InstallSourceMojo extends AbstractMojo {
         get.execute();
 
         if (removeWarpath) {
-            this.removeWarpathPlugin(pom);
+            removeWarpathPlugin(pom);
         }
 
         MavenProject p = createProjectFromPom(pom);

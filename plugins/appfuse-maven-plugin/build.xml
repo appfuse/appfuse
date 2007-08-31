@@ -56,6 +56,7 @@
         <antcall target="test-basic"/>
         <antcall target="test-modular"/>
         <antcall target="test-basic-source"/>
+        <antcall target="test-modular-source"/>
     </target>
 
     <macrodef name="create-gen-basic">
@@ -135,23 +136,46 @@
         <antcall target="test-tapestry-basic-source"/>
     </target>
 
+    <target name="test-modular-source" description="Tests extracting source into modular archetypes">
+        <antcall target="test-jsf-modular-source"/>
+        <antcall target="test-spring-modular-source"/>
+        <antcall target="test-struts-modular-source"/>
+        <antcall target="test-tapestry-modular-source"/>
+    </target>
+
     <target name="test-jsf-basic-source" description="tests full-source plugin with jsf basic archetype">
-        <full-source-basic archetype="appfuse-basic-jsf" name="basic-jsf-source"/>
+        <full-source archetype="appfuse-basic-jsf" name="basic-jsf-source"/>
     </target>
 
      <target name="test-spring-basic-source" description="tests full-source plugin with spring basic archetype">
-        <full-source-basic archetype="appfuse-basic-spring" name="basic-spring-source"/>
+        <full-source archetype="appfuse-basic-spring" name="basic-spring-source"/>
     </target>
 
      <target name="test-struts-basic-source" description="tests full-source plugin with struts basic archetype">
-        <full-source-basic archetype="appfuse-basic-struts" name="basic-struts-source"/>
+        <full-source archetype="appfuse-basic-struts" name="basic-struts-source"/>
     </target>
 
      <target name="test-tapestry-basic-source" description="tests full-source plugin with tapestry basic archetype">
-        <full-source-basic archetype="appfuse-basic-tapestry" name="basic-tapestry-source"/>
+        <full-source archetype="appfuse-basic-tapestry" name="basic-tapestry-source"/>
+    </target>
+
+    <target name="test-jsf-modular-source" description="tests full-source plugin with jsf modular archetype">
+        <full-source archetype="appfuse-modular-jsf" name="modular-jsf-source"/>
+    </target>
+
+     <target name="test-spring-modular-source" description="tests full-source plugin with spring modular archetype">
+        <full-source archetype="appfuse-modular-spring" name="modular-spring-source"/>
+    </target>
+
+     <target name="test-struts-modular-source" description="tests full-source plugin with struts modular archetype">
+        <full-source archetype="appfuse-modular-struts" name="modular-struts-source"/>
+    </target>
+
+     <target name="test-tapestry-modular-source" description="tests full-source plugin with tapestry modular archetype">
+        <full-source archetype="appfuse-modular-tapestry" name="modular-tapestry-source"/>
     </target>
     
-    <macrodef name="full-source-basic">
+    <macrodef name="full-source">
         <attribute name="archetype"/>
         <attribute name="version" default="${version}"/>
         <attribute name="name"/>
