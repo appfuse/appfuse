@@ -184,11 +184,11 @@
             <artifactId>tomahawk</artifactId>
             <version>${myfaces.tomahawk.version}</version>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>javax.annotation</groupId>
             <artifactId>jsr250-api</artifactId>
             <version>1.0</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.apache.shale</groupId>
             <artifactId>shale-test</artifactId>
