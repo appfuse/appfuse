@@ -39,7 +39,12 @@ public abstract class AbstractAppFuseMojoTestCase extends AbstractMojoTestCase {
         }
         HibernateExporterMojo mojo = (HibernateExporterMojo) lookupMojo(goal, getTestFile(path));
         mojo.getLog().info("executing: " + getTestFile(path).getPath());
-        setVariableValueToObject(mojo, "project", getMavenProject());
+        //setVariableValueToObject(mojo, "project", getMavenProject());
+
+        // disableInstallation to prevent installation
+        System.setProperty("disableInstallation", "true");
+        
+        mojo.setProject(getMavenProject());
 
         return mojo;
     }
@@ -89,6 +94,7 @@ public abstract class AbstractAppFuseMojoTestCase extends AbstractMojoTestCase {
                     props = new Properties();
                     props.put("dao.framework", this.daoFramework);
                     props.put("web.framework", this.webFramework);
+                    props.put("amp.disableInstallation", "true");
                 }
                 return props;
             }

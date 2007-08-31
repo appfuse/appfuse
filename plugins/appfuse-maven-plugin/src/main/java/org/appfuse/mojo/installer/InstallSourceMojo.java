@@ -174,11 +174,13 @@ public class InstallSourceMojo extends AbstractMojo {
             log("Installing source from " + webFramework + " module...");
             export("web/" + webFramework + "/src", (modular) ? "web/src" : destinationDirectory);
 
-            try {
-                // copy jdbc.properties to core/src/test/resources
-                FileUtils.copyFileToDirectory(new File("web/src/main/resources/jdbc.properties"), new File("core/src/test/resources"));
-            } catch (IOException io) {
-                getLog().error("Failed to copy jdbc.properties to core module");
+            if (project.hasParent()) {
+                try {
+                    // copy jdbc.properties to core/src/test/resources
+                    FileUtils.copyFileToDirectory(new File("web/src/main/resources/jdbc.properties"), new File("core/src/test/resources"));
+                } catch (IOException io) {
+                    getLog().error("Failed to copy jdbc.properties to core module");
+                }
             }
         }
 

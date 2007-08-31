@@ -983,8 +983,6 @@ public class FileUtils {
 
     private void refactorNonPackageFiles() {
 
-        // todo - this is sloppy and should be an iteration and not just specific files
-
         try
         {
             String[] extensions = {"properties","tld","xml"};
@@ -997,22 +995,26 @@ public class FileUtils {
                 changePackageNamesInFile(f.getAbsolutePath(), FileUtils.SAVE_FILE);
             }
 
-            // core
-            Iterator filesInCore = org.apache.commons.io.FileUtils.iterateFiles(
-                    new File("core"), extensions, true);
+            if (this.baseDir.equals("core")) {
+                // core
+                Iterator filesInCore = org.apache.commons.io.FileUtils.iterateFiles(
+                        new File("core"), extensions, true);
 
-            while (filesInCore.hasNext()) {
-                File f = (File) filesInCore.next();
-                changePackageNamesInFile(f.getAbsolutePath(), FileUtils.SAVE_FILE);
+                while (filesInCore.hasNext()) {
+                    File f = (File) filesInCore.next();
+                    changePackageNamesInFile(f.getAbsolutePath(), FileUtils.SAVE_FILE);
+                }
             }
 
-            // web
-            Iterator filesInWeb = org.apache.commons.io.FileUtils.iterateFiles(
-                    new File("web"), extensions, true);
+            if (this.baseDir.equals("web")) {
+                // web
+                Iterator filesInWeb = org.apache.commons.io.FileUtils.iterateFiles(
+                        new File("web"), extensions, true);
 
-            while (filesInWeb.hasNext()) {
-                File f = (File) filesInWeb.next();
-                changePackageNamesInFile(f.getAbsolutePath(), FileUtils.SAVE_FILE);
+                while (filesInWeb.hasNext()) {
+                    File f = (File) filesInWeb.next();
+                    changePackageNamesInFile(f.getAbsolutePath(), FileUtils.SAVE_FILE);
+                }
             }
 
         } catch (IOException ioex) {
