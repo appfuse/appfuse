@@ -1,10 +1,10 @@
 package org.appfuse.tool;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.DirectoryScanner;
 import org.apache.tools.ant.types.FileSet;
+import org.apache.maven.plugin.logging.SystemStreamLog;
+import org.apache.maven.plugin.logging.Log;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
  * plugin to change package names of appfuse source
  * contributions.  Liberties have been taken to make this
  * open source code just work here. Some methods were removed
- * and logging needs additional design consideration.
+ * and logging now uses SystemStreamLog from Apache (Maven)
  *
  * @author <a href="mailto:david@capehenrytech.com">David L. Whitehurst</a>
  */
@@ -34,14 +34,14 @@ public class FileUtils {
 
     static final boolean SAVE_FILE = true;
     static final boolean DONT_SAVE_FILE = false;
-    boolean debug = true;
+    boolean debug = false;
     private String baseDir = "src"; // root
     private String workBaseDir = "null"; // actually called null
     private String existingPkgName = "org.appfuse"; // AppFuse
     private String newPkgName;
     private String existingPkgPath;
     private String newPkgPath;
-    protected transient final Log log = LogFactory.getLog(getClass());
+    protected transient final Log log = new SystemStreamLog();
 
     StringBuffer logOutput = new StringBuffer();
 
@@ -77,8 +77,11 @@ public class FileUtils {
     public void setInvalidFileTypes(String invalidFileTypes)
     {
         this.invalidFileTypes = invalidFileTypes.split(",");
-        log.debug("default invalidFileTypes overriden with [" + invalidFileTypes
+
+        if (debug) {
+            log.debug("default invalidFileTypes overriden with [" + invalidFileTypes
                 + "]");
+        }
     }
 
     /**
@@ -106,7 +109,10 @@ public class FileUtils {
             {
                 this.workBaseDir = this.baseDir + ".work";
             }
-           log.debug("Set workBaseDir to [" + this.workBaseDir + "]");
+
+            if (debug) {
+                log.debug("Set workBaseDir to [" + this.workBaseDir + "]");
+            }
         }
     }
 
@@ -149,7 +155,11 @@ public class FileUtils {
         {
             packageName = packageName.substring(1);
         }
-        log.debug("returning stipped package name of [" + packageName + "]");
+
+        if (debug) {
+            log.debug("returning stipped package name of [" + packageName + "]");
+        }
+
         return packageName;
     }
 
@@ -164,6 +174,7 @@ public class FileUtils {
     {
 
         log.info("existingPkgName came in as [" + existingPkgName + "]");
+
         this.existingPkgName = stripUnwantedDots(existingPkgName.trim());
         validatePackageName(this.existingPkgName);
         if (this.existingPkgName.length() == 0)
@@ -185,6 +196,7 @@ public class FileUtils {
     public void setNewPkgName(String newPkgName) throws Exception
     {
         log.info("newPkgName came in as [" + newPkgName + "]");
+
         this.newPkgName = stripUnwantedDots(newPkgName.trim());
         validatePackageName(this.newPkgName);
         if (this.newPkgName.length() == 0)
@@ -201,8 +213,11 @@ public class FileUtils {
     {
         this.existingPkgPath = getPackagePath(existingPkgName);
         this.newPkgPath = getPackagePath(newPkgName);
-        log.debug("Set existing package path as [" + existingPkgPath + "]");
-        log.debug("Set new package path as [" + newPkgPath + "]");
+
+        if (debug) {
+            log.debug("Set existing package path as [" + existingPkgPath + "]");
+            log.debug("Set new package path as [" + newPkgPath + "]");
+        }
     }
 
     /**
@@ -244,11 +259,14 @@ public class FileUtils {
             if (dir.mkdirs())
             {
                 String message = "Created directory [" + directoryName + "]";
-                log.debug(message);
+
+                if (debug) {
+                    log.debug(message);
+                }
             }
             else
             {
-                log.debug("Failed to create directory [" + directoryName + "]");
+                log.error("Failed to create directory [" + directoryName + "]");
             }
         }
     }
@@ -266,8 +284,11 @@ public class FileUtils {
      */
     private void repackage(String inDirName, String inWorkDirName)
             throws IOException {
-        log.debug("Inside repackage inDirName is [" + inDirName + "]");
-        log.debug("Inside repackage inWorkDirName is [" + inWorkDirName + "]");
+
+        if (debug) {
+            log.debug("Inside repackage inDirName is [" + inDirName + "]");
+            log.debug("Inside repackage inWorkDirName is [" + inWorkDirName + "]");
+        }
 
         String[] files = new File(inDirName).list();
 
@@ -276,23 +297,31 @@ public class FileUtils {
             return;
         }
 
-        log.debug("There are [" + files.length + "] files in dir [" + inDirName
+        if (debug) {
+            log.debug("There are [" + files.length + "] files in dir [" + inDirName
                 + "]");
+        }
 
         for (int i = 0; i < files.length; i++)
         {
-            log.debug("file is [" + files[i] + "]");
+            if (debug) {
+                log.debug("file is [" + files[i] + "]");
+            }
 
             String fileName = inDirName + File.separator + files[i];
             File aFile = new File(fileName);
 
             if (files[i].equals("CVS"))
             {
-                log.debug("ignoring CVS dir");
+                if (debug) {
+                    log.debug("ignoring CVS dir");
+                }
             }
             else if (aFile.isDirectory())
             {
-                log.debug("Got a dir [" + fileName + "]");
+                if (debug) {
+                    log.debug("Got a dir [" + fileName + "]");
+                }
 
                 String newDirName = inDirName + File.separator + files[i];
                 String newWorkDirName = inWorkDirName + File.separator
@@ -302,27 +331,28 @@ public class FileUtils {
                 {
                     String newPath = convertOldPackageDirName(fileName);
 
-                    log.debug("found old package dir [" + fileName + "] "
+                    if (debug) {
+                        log.debug("found old package dir [" + fileName + "] "
                             + "newPath is [" + newPath.toString() + "]");
+                    }
                     createDirectory(newPath.toString());
 
                 }
-                log.debug("Recursing with [" + newDirName + "]");
+
+                if (debug) {
+                    log.debug("Recursing with [" + newDirName + "]");
+                }
 
                 repackage(newDirName, newWorkDirName);
-                /**
-                 * TODO: Create this empty directory but we need
-                 * to convert the name to the correct name within the new
-                 * package structure based on the depth and differences
-                 * in depth between old pkg path and new...
-                 */
 
             }
             else
             {
                 // Normal file
-                log.debug("Processing file [" + fileName + "] existingPkgPath is ["
+                if (debug) {
+                    log.debug("Processing file [" + fileName + "] existingPkgPath is ["
                         + existingPkgPath + "]");
+                }
 
                 // Should we process this file at all or leave it?
                 int existingPathIndexPos = fileName.indexOf(existingPkgPath);
@@ -330,15 +360,21 @@ public class FileUtils {
                 if (existingPathIndexPos != -1)
                 {
                     // Normal file in old package structure
-                    log.debug("found file with existing package name ["
+                    if (debug) {
+                        log.debug("found file with existing package name ["
                            + fileName + "]");
+                    }
+
                     String newPath = convertOldPackageDirName(fileName
                             .substring(0, fileName.lastIndexOf(File.separator)));
                     String newFileName = newPath
                             + fileName.substring(fileName
                                     .lastIndexOf(File.separator));
 
-                    log.debug("creating directory [" + newPath + "]");
+                    if (debug) {
+                        log.debug("creating directory [" + newPath + "]");
+                    }
+
                     createDirectory(newPath);
 
                     if (isValidFileType(fileName))
@@ -346,19 +382,25 @@ public class FileUtils {
                         String output = changePackageNamesInFile(fileName,
                                 FileUtils.DONT_SAVE_FILE);
 
-                        log.debug("Saving file [" + fileName
+                        if (debug) {
+                            log.debug("Saving file [" + fileName
                                 + "] to new package directory ["
                                 + newFileName + "]");
+                        }
+
                         toFile(newFileName, output);
                     }
                     else
                     {
-                        log.debug("Renaming file non valid file type ["
+                        if (debug) {
+                            log.debug("Renaming file non valid file type ["
                                 + fileName + "]");
+                        }
+
                         if (!aFile.renameTo(new File(newFileName)))
                         {
-                            log.debug("Failed to rename file [" + fileName + "] to ["
-                                    + newFileName + "]");
+                            log.error("Failed to rename file [" + fileName + "] to ["
+                                + newFileName + "]");
                         }
                     }
                 }
@@ -371,16 +413,22 @@ public class FileUtils {
                             + fileName.substring(this.baseDir.length());
                     String newPath = newFileName.substring(0, newFileName
                             .lastIndexOf(File.separator));
-                    log.debug("Creating dir [" + newPath + "]");
+
+                    if (debug) {
+                        log.debug("Creating dir [" + newPath + "]");
+                    }
+
                     createDirectory(newPath);
 
                     if (aFile.renameTo(new File(newFileName)))
                     {
-                        log.debug("Saved file [" + newFileName
+                        if (debug) {
+                            log.debug("Saved file [" + newFileName
                                 + "] to new directory structure");
+                        }
                     } else
                     {
-                        log.debug("Failed to rename file [" + fileName + "] to ["
+                        log.error("Failed to rename file [" + fileName + "] to ["
                                 + newFileName + "] to new directory structure");
                     }
                 }
@@ -400,7 +448,9 @@ public class FileUtils {
     private void checkSummary(String inDirName)
             throws IOException
     {
-        log.debug("Inside checkSummary inDirName is [" + inDirName + "]");
+        if (debug) {
+            log.debug("Inside checkSummary inDirName is [" + inDirName + "]");
+        }
 
         String[] files = new File(inDirName).list();
 
@@ -409,31 +459,44 @@ public class FileUtils {
             return;
         }
 
-        log.debug("There are [" + files.length + "] files in dir [" + inDirName + "]");
+        if (debug) {
+            log.debug("There are [" + files.length + "] files in dir [" + inDirName + "]");
+        }
 
         for (String file : files) {
-            log.debug("file is [" + file + "]");
+
+            if (debug) {
+                log.debug("file is [" + file + "]");
+            }
 
             String fileName = inDirName + File.separator + file;
             File aFile = new File(fileName);
 
             if (aFile.isDirectory()) {
-                log.debug("Got a dir [" + fileName + "]");
+
+                if (debug) {
+                    log.debug("Got a dir [" + fileName + "]");
+                }
 
                 String newDirName = inDirName + File.separator + file;
 
-                log.debug("Recursing with [" + newDirName + "]");
+                if (debug) {
+                    log.debug("Recursing with [" + newDirName + "]");
+                }
 
                 checkSummary(newDirName);
             } else {
                 // Normal file
-                log.debug("Checking file [" + fileName + "] existingPkgPath is ["
+                if (debug) {
+                    log.debug("Checking file [" + fileName + "] existingPkgPath is ["
                         + existingPkgPath + "]");
+                }
 
                 if (isValidFileType(fileName)) {
                     if (hasFileOldPathOrPkg(fileName)) {
-
-                        log.debug("File [" + fileName + "] still has old pkg [" + existingPkgPath + "]");
+                        if (debug) {
+                            log.debug("File [" + fileName + "] still has old pkg [" + existingPkgPath + "]");
+                        }
                     }
                 }
             }
@@ -488,38 +551,58 @@ public class FileUtils {
 
         StringBuffer newPath = new StringBuffer();
         newPath.append(this.workBaseDir);
+
         // Get the front bit
-        log.debug("startExistingPathIndexPos is [" + startExistingPathIndexPos + "]");
-        log.debug("about to do substring on [" + dirName + "] positions ["
+        if (debug) {
+            log.debug("startExistingPathIndexPos is [" + startExistingPathIndexPos + "]");
+            log.debug("about to do substring on [" + dirName + "] positions ["
                 + this.baseDir.length() + "] and [" + startExistingPathIndexPos
                 + "]");
+        }
 
         String firstPartFileName = dirName.substring(this.baseDir.length(),
                 startExistingPathIndexPos);
-        log.debug("firstPartFileName is [" + firstPartFileName + "]");
+
+        if (debug) {
+            log.debug("firstPartFileName is [" + firstPartFileName + "]");
+        }
+
         newPath.append(firstPartFileName);
         newPath.append(newPkgPath);
 
         String lastPartFileName = dirName.substring(endExistingPathIndexPos);
-        log.debug("appending lastPartFileName [" + lastPartFileName + "]");
+
+        if (debug) {
+            log.debug("appending lastPartFileName [" + lastPartFileName + "]");
+        }
+
         newPath.append(lastPartFileName);
+
         return newPath.toString();
     }
 
 
     private boolean isOldPackageDir(String dirName)
     {
-        log.debug("inside isOldPackageDir with [" + dirName + "]");
+        if (debug) {
+            log.debug("inside isOldPackageDir with [" + dirName + "]");
+        }
 
         // Should we process this file at all or leave it?
         int existingPathIndexPos = dirName.indexOf(existingPkgPath);
 
         if (existingPathIndexPos != -1)
         {
-            log.debug("found dir with existing package name [" + dirName + "]");
+            if (debug) {
+                log.debug("found dir with existing package name [" + dirName + "]");
+            }
             return true;
         }
-        log.debug("dir [" + dirName + "] is not old package dir");
+
+        if (debug) {
+            log.debug("dir [" + dirName + "] is not old package dir");
+        }
+
         return false;
     }
 
@@ -552,7 +635,10 @@ public class FileUtils {
      */
     public void toFile(String fileName, String contents) throws IOException
     {
-        log.debug("Saving file to fileName [" + fileName + "]");
+        if (debug) {
+            log.debug("Saving file to fileName [" + fileName + "]");
+        }
+
         BufferedOutputStream bout = new BufferedOutputStream(
                 new DataOutputStream(new FileOutputStream(fileName)));
 
@@ -572,8 +658,10 @@ public class FileUtils {
         {
             if (fileName.endsWith(invalidFileTypes[i]))
             {
-                log.debug("File [" + fileName
+                if (debug) {
+                    log.debug("File [" + fileName
                         + "] will just be moved as it is not a valid type");
+                }
                 return false;
             }
         }
@@ -602,7 +690,11 @@ public class FileUtils {
             }
             newStr += strArr[i];
         }
-        log.debug("escaped str is [" + newStr + "]");
+
+        if (debug) {
+            log.debug("escaped str is [" + newStr + "]");
+        }
+
         return newStr;
     }
 
@@ -635,7 +727,9 @@ public class FileUtils {
      */
     private String changeUnixPaths(String fileContents)
     {
-        log.debug("inside changeUnixPaths");
+        if (debug) {
+            log.debug("inside changeUnixPaths");
+        }
 
         String patternStr;
 
@@ -645,17 +739,31 @@ public class FileUtils {
         }
         else
         {
-            log.debug("before calling getUnixPath existingPkgPath is ["
+            if (debug) {
+                log.debug("before calling getUnixPath existingPkgPath is ["
                     + existingPkgPath + "]");
+            }
+
             patternStr = getUnixPath(existingPkgPath);
         }
-        log.debug("patternStr before escaping is [" + patternStr + "]");
+
+        if (debug) {
+            log.debug("patternStr before escaping is [" + patternStr + "]");
+        }
+
         patternStr = escape(patternStr);
-        log.debug("after escaping the search/match string is [" + patternStr
+
+        if (debug) {
+            log.debug("after escaping the search/match string is [" + patternStr
                 + "]");
-        log.debug("newPkgPath is [" + newPkgPath + "] about to escape it");
+            log.debug("newPkgPath is [" + newPkgPath + "] about to escape it");
+        }
+
         String replacementStr = escape(getUnixPath(newPkgPath));
-        log.debug("replacementStr after escaping is [" + replacementStr + "]");
+
+        if (debug) {
+            log.debug("replacementStr after escaping is [" + replacementStr + "]");
+        }
 
         return performReplacement(fileContents, patternStr, replacementStr);
     }
@@ -681,7 +789,11 @@ public class FileUtils {
                 newStr += strArr[i];
             }
         }
-        log.debug("escaped str is [" + newStr + "]");
+
+        if (debug) {
+            log.debug("escaped str is [" + newStr + "]");
+        }
+
         return newStr;
     }
 
@@ -693,7 +805,10 @@ public class FileUtils {
      */
     private String getUnixPath(String path)
     {
-        log.debug("inside getUnixPath with path [" + path + "]");
+        if (debug) {
+            log.debug("inside getUnixPath with path [" + path + "]");
+        }
+
         String newStr = "";
         char[] strArr = path.toCharArray();
 
@@ -707,7 +822,11 @@ public class FileUtils {
                 newStr += strArr[i];
             }
         }
-        log.debug("escaped str is [" + newStr + "]");
+
+        if (debug) {
+            log.debug("escaped str is [" + newStr + "]");
+        }
+
         return newStr;
     }
 
@@ -723,7 +842,9 @@ public class FileUtils {
      */
     private String changeWindowsPaths(String fileContents)
     {
-        log.debug("inside changeWindowsPaths");
+        if (debug) {
+            log.debug("inside changeWindowsPaths");
+        }
 
         String patternStr;
 
@@ -733,20 +854,35 @@ public class FileUtils {
         }
         else
         {
-            log.debug("existingPkgPath is currently [" + existingPkgPath
+            if (debug) {
+                log.debug("existingPkgPath is currently [" + existingPkgPath
                     + "] before calling getWindowsPath");
+            }
+
             patternStr = getWindowsPath(existingPkgPath);
 
         }
-        log.debug("patternStr is [" + patternStr
+
+        if (debug) {
+            log.debug("patternStr is [" + patternStr
                 + "] after calling getWindowsPath");
+        }
+
         patternStr = escape(patternStr);
-        log.debug("After escaping the pattern/search str it is [" + patternStr
+
+        if (debug) {
+            log.debug("After escaping the pattern/search str it is [" + patternStr
                 + "]");
-        log.debug("Before escaping and calling getWindowsPath the newPkgPath it is ["
+            log.debug("Before escaping and calling getWindowsPath the newPkgPath it is ["
                 + newPkgPath + "]");
+        }
+
         String replacementStr = escape(getWindowsPath(newPkgPath));
-        log.debug("After escaping it, it is now [" + replacementStr + "]");
+
+        if (debug) {
+            log.debug("After escaping it, it is now [" + replacementStr + "]");
+        }
+
         return performReplacement(fileContents, patternStr, replacementStr);
     }
 
@@ -763,7 +899,9 @@ public class FileUtils {
     private String performReplacement(String fileContents, String patternStr,
             String replacementStr)
     {
-        log.debug("replacing [" + patternStr + "] with [" + replacementStr + "]");
+        if (debug) {
+            log.debug("replacing [" + patternStr + "] with [" + replacementStr + "]");
+        }
 
         // Compile regular expression
         Pattern pattern = Pattern.compile(patternStr);
@@ -781,11 +919,6 @@ public class FileUtils {
     /**
      * This method changes the name of any strings in the file and saves the
      * file back to disk
-     *
-     * TODO: This needs to support newPkgPath of "" and therefore strip out the
-     * package string completely and remove and imports statements that will
-     * collapse into (ie. import org.appfuse.Constants; to import Constants;
-     * which will cause a compilation error
      *
      * @return the contents of the file after the package names have been
      *         changed
@@ -819,7 +952,10 @@ public class FileUtils {
     private String changePackageNamesInFile(String fileName,
             boolean saveToSameFile) throws IOException
     {
-        log.debug("calling fromFile with fileName [" + fileName + "]");
+        if (debug) {
+            log.debug("calling fromFile with fileName [" + fileName + "]");
+        }
+
         String inputStr = fromFile(fileName);
 
         String output = changePackageNames(inputStr);
@@ -864,20 +1000,34 @@ public class FileUtils {
      */
     private void renameOtherFiles()
     {
-        log.info("Inside renameOtherFiles");
+        if (debug) {
+            log.debug("Inside renameOtherFiles");
+        }
+
         try
         {
             for (Iterator itFSets = filesets.iterator(); itFSets.hasNext(); )
             {
                 FileSet fs = (FileSet)itFSets.next();
                 fs.setDir(new File(workBaseDir));
-                log.debug("got fileset fs [" + fs + "]");
-                // TODO - figure out why this won't compile (getProject())
+
+                if (debug) {
+                    log.debug("got fileset fs [" + fs + "]");
+                }
+
                 DirectoryScanner ds = fs.getDirectoryScanner(new org.apache.tools.ant.Project());
-                log.debug("ds baseDir is [" + ds.getBasedir().getAbsolutePath() + "]");
+
+                if (debug) {
+                    log.debug("ds baseDir is [" + ds.getBasedir().getAbsolutePath() + "]");
+                }
+
                 ds.scan();
                 String[] includedFiles = ds.getIncludedFiles();
-                log.debug("Got includedFiles [" + includedFiles + "]");
+
+                if (debug) {
+                    log.debug("Got includedFiles [" + includedFiles + "]");
+                }
+
                 if (includedFiles != null)
                 {
                     for(int i=0; i<includedFiles.length; i++) {
@@ -886,7 +1036,9 @@ public class FileUtils {
                 }
                 else
                 {
-                    log.info("Did not find any matching files for one of the filesets");
+                    if (debug) {
+                        log.debug("Did not find any matching files for one of the filesets");
+                    }
 
                 }
             }
@@ -906,20 +1058,28 @@ public class FileUtils {
     {
         try
         {
-            log.error("processOtherFile DLW");
-            log.error("Processing file [" + fileName + "]");
+            if (debug) {
+                log.debug("Processing file [" + fileName + "]");
+            }
 
             if (isValidFileType(fileName))
             {
                 fileName = correctFileSeparators(fileName);
-                log.error("After correcting file separators fileName is ["
-                    + fileName + "]");
-                log.error("file is valid so changing package names");
+
+                if (debug) {
+                    log.debug("After correcting file separators fileName is ["
+                        + fileName + "]");
+                    log.debug("file is valid so changing package names");
+                }
+
                 fileName = workBaseDir + File.separator + fileName;
                 changePackageNamesInFile(fileName,
                     FileUtils.SAVE_FILE);
-                log.error("processing change package names on other file ["
-                    + fileName + "]");
+
+                if (debug) {
+                    log.debug("processing change package names on other file ["
+                        + fileName + "]");
+                }
             }
             else
             {
@@ -946,7 +1106,10 @@ public class FileUtils {
     {
 
         File aFile = new File(fileName);
-        log.debug("inside deleteAll with fileName [" + fileName + "]");
+
+        if (debug) {
+            log.debug("inside deleteAll with fileName [" + fileName + "]");
+        }
 
         if (aFile.exists())
         {
@@ -962,16 +1125,21 @@ public class FileUtils {
                     deleteAll(subFileName);
                 }
             }
-            log.debug("About to delete file inside deleteAll [" + fileName + "]");
+
+            if (debug) {
+                log.debug("About to delete file inside deleteAll [" + fileName + "]");
+            }
 
             if (aFile.delete())
             {
-                if (isDir)
-                {
-                    log.debug("Deleted dir [" + fileName + "]");
-                } else
-                {
-                    log.debug("Deleted file [" + fileName + "]");
+                if (debug) {
+                    if (isDir)
+                    {
+                        log.debug("Deleted dir [" + fileName + "]");
+                    } else
+                    {
+                        log.debug("Deleted file [" + fileName + "]");
+                    }
                 }
             }
             else
@@ -986,7 +1154,7 @@ public class FileUtils {
         try
         {
             String[] extensions = {"properties","tld","xml"};
-            
+
             Iterator filesInMain = org.apache.commons.io.FileUtils.iterateFiles(
                     new File(this.workBaseDir), extensions, true);
 
@@ -995,26 +1163,22 @@ public class FileUtils {
                 changePackageNamesInFile(f.getAbsolutePath(), FileUtils.SAVE_FILE);
             }
 
-            if (this.baseDir.equals("core")) {
-                // core
-                Iterator filesInCore = org.apache.commons.io.FileUtils.iterateFiles(
-                        new File("core"), extensions, true);
+            // core
+            Iterator filesInCore = org.apache.commons.io.FileUtils.iterateFiles(
+                    new File("core"), extensions, true);
 
-                while (filesInCore.hasNext()) {
-                    File f = (File) filesInCore.next();
-                    changePackageNamesInFile(f.getAbsolutePath(), FileUtils.SAVE_FILE);
-                }
+            while (filesInCore.hasNext()) {
+                File f = (File) filesInCore.next();
+                changePackageNamesInFile(f.getAbsolutePath(), FileUtils.SAVE_FILE);
             }
 
-            if (this.baseDir.equals("web")) {
-                // web
-                Iterator filesInWeb = org.apache.commons.io.FileUtils.iterateFiles(
-                        new File("web"), extensions, true);
+            // web
+            Iterator filesInWeb = org.apache.commons.io.FileUtils.iterateFiles(
+                    new File("web"), extensions, true);
 
-                while (filesInWeb.hasNext()) {
-                    File f = (File) filesInWeb.next();
-                    changePackageNamesInFile(f.getAbsolutePath(), FileUtils.SAVE_FILE);
-                }
+            while (filesInWeb.hasNext()) {
+                File f = (File) filesInWeb.next();
+                changePackageNamesInFile(f.getAbsolutePath(), FileUtils.SAVE_FILE);
             }
 
         } catch (IOException ioex) {
@@ -1044,31 +1208,51 @@ public class FileUtils {
                                 + "baseDir=\"${src.base.dir}\"/>\n");
             }
 
-            log.debug("existingPkgName is [" + this.existingPkgName + "]");
-            log.debug("newPkgName is [" + this.newPkgName + "]");
+            if (debug) {
+                log.debug("existingPkgName is [" + this.existingPkgName + "]");
+                log.debug("newPkgName is [" + this.newPkgName + "]");
+            }
 
             setPackagePaths();
-            log.error("Package paths set");
+
+            if (debug) {
+                log.debug("Package paths set");
+            }
 
             repackage(this.baseDir, this.workBaseDir);
-            log.error("RePackage directories");
+
+            if (debug) {
+                log.debug("RePackage directories");
+            }
 
             renameOtherFiles();
-            log.error("Rename other files");
 
+            if (debug) {
+                log.debug("Rename other files");
+            }
+
+            // fix files with qualified names other than old package
             refactorNonPackageFiles();
 
             // Check the new dir structures for any files left over with the old pkg name in
             checkSummary(this.workBaseDir);
-            log.error("CheckSummary");
+
+            if (debug) {
+                log.debug("CheckSummary");
+            }
 
             deleteAll(this.baseDir);
-            log.error("Delete all");
+
+            if (debug) {
+                log.debug("Delete all");
+            }
 
             File workBaseDir = new File(this.workBaseDir);
             if (workBaseDir.renameTo(new File(this.baseDir)))
             {
-                log.error("Successfully renamed work dir back to base dir");
+                if (debug) {
+                    log.debug("Successfully renamed work dir back to base dir");
+                }
             }
             else
             {
@@ -1083,10 +1267,9 @@ public class FileUtils {
         {
             log.error("Uncaught exception caught [" + e.getMessage() + "]");
         }
-        finally
-        {
-            //writeLog(); removed method (overkill)
-        }
+
+        // success!
+        log.info("Refactored all AppFuse package imports, statements, and qualified paths to your groupId");
     }
 
 }

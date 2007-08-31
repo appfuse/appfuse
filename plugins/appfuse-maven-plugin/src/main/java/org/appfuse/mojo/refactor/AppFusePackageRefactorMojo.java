@@ -2,8 +2,8 @@ package org.appfuse.mojo.refactor;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-import org.appfuse.tool.FileUtils;
 import org.appfuse.mojo.HibernateExporterMojo;
+import org.appfuse.tool.FileUtils;
 import org.hibernate.tool.hbm2x.Exporter;
 
 /**
