@@ -1,8 +1,10 @@
 package org.appfuse.mojo.refactor;
 
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.appfuse.tool.FileUtils;
+import org.appfuse.mojo.HibernateExporterMojo;
+import org.hibernate.tool.hbm2x.Exporter;
 
 /**
  * Generates Java classes from set of annotated POJOs
@@ -10,9 +12,31 @@ import org.apache.maven.plugin.MojoFailureException;
  * @author <a href="mailto:david@capehenrytech.com">David L. Whitehurst</a>
  * @goal refactor-packages
  */
-public class AppFusePackageRefactorMojo extends AbstractMojo {
+public class AppFusePackageRefactorMojo extends HibernateExporterMojo {
 
+    @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        //To change body of implemented methods use File | Settings | File Templates.
+
+        FileUtils tool = new FileUtils(getProject().getGroupId());
+        tool.execute();
+        
+    }
+
+    /**
+     * extending Hibernate exporter only to access the Maven project
+     *
+     * @return null
+     */
+    protected Exporter createExporter() {
+        return null;  //unused at this time
+    }
+
+    /**
+     * extending Hibernate exporter only to access the Maven project
+     *
+     * @return null
+     */
+    public String getName() {
+        return null;  //unused at this time
     }
 }

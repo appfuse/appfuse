@@ -29,18 +29,18 @@ import org.apache.tools.ant.types.FileSet;
  * plugin to change package names of appfuse source
  * contributions.  Liberties have been taken to make this
  * open source code just work here. Some methods were removed
- * and logging is a little different.
+ * and logging needs additional design consideration.
  *
- * @author David L. Whitehurst
+ * @author <a href="mailto:david@capehenrytech.com">David L. Whitehurst</a>
  */
 public class FileUtils {
 
     static final boolean SAVE_FILE = true;
     static final boolean DONT_SAVE_FILE = false;
     boolean debug = true;
-    private String baseDir;
-    private String workBaseDir;
-    private String existingPkgName = "org.appfuse";
+    private String baseDir = "src"; // root
+    private String workBaseDir = "null"; // actually called null
+    private String existingPkgName = "org.appfuse"; // AppFuse
     private String newPkgName;
     private String existingPkgPath;
     private String newPkgPath;
@@ -49,9 +49,16 @@ public class FileUtils {
     StringBuffer logOutput = new StringBuffer();
 
     String[] invalidFileTypes = new String[] { "class", "jar", "jpg", "gif", "png", "ico" };
-    //    private File dir;
+
     private Vector filesets = new Vector();
 
+    /**
+     * Constructor
+     */
+    public FileUtils(String newPackage) {
+        this.newPkgName = newPackage;
+
+    }
     /**
      * simple method to add filesets
      * @param fileset
@@ -176,6 +183,7 @@ public class FileUtils {
      * by ANT when it invokes the Task.
      *
      * @param newPkgName
+     * @throws Exception
      */
     public void setNewPkgName(String newPkgName) throws Exception
     {
@@ -427,14 +435,14 @@ public class FileUtils {
             else
             {
                 // Normal file
-                log.debug("Checking file [" + fileName + "] existingPkgPath is ["
+               log.debug("Checking file [" + fileName + "] existingPkgPath is ["
                         + existingPkgPath + "]");
 
                 if (isValidFileType(fileName))
                 {
                 	if (hasFileOldPathOrPkg(fileName)) {
 
-                		log.warn("File [" + fileName + "] still has old pkg [" + existingPkgPath + "]");
+                		log.debug("File [" + fileName + "] still has old pkg [" + existingPkgPath + "]");
                 	}
                 }
             }
@@ -460,7 +468,8 @@ public class FileUtils {
 	    	if (matches(patternStr, fileContents)) {
 	    		return true;
 	    	}
-	        patternStr = getUnixPath(existingPkgPath);
+
+            patternStr = getUnixPath(existingPkgPath);
 	        patternStr = escape(patternStr);
 
 	    	if (matches(patternStr, fileContents)) {
@@ -470,12 +479,9 @@ public class FileUtils {
 	        patternStr = getWindowsPath(existingPkgPath);
 	        patternStr = escape(patternStr);
 
-	    	if (matches(patternStr, fileContents)) {
-	    		return true;
-	    	}
+            return matches(patternStr, fileContents);
 
-	    	return false;
-    	} catch (IOException e) {
+        } catch (IOException e) {
     		log.error("Error loading fileContents in hasFileOldPathOrPkg [" + e.getMessage() + "]");
     		return false;
     	}
@@ -909,29 +915,30 @@ public class FileUtils {
     {
         try
 	    {
-            log.debug("Processing file [" + fileName + "]");
+            log.error("processOtherFile DLW");
+            log.error("Processing file [" + fileName + "]");
 
 	        if (isValidFileType(fileName))
 	        {
 	            fileName = correctFileSeparators(fileName);
-		        log.debug("After correcting file separators fileName is ["
+		        log.error("After correcting file separators fileName is ["
 		            + fileName + "]");
-		        log.debug("file is valid so changing package names");
+		        log.error("file is valid so changing package names");
 		        fileName = workBaseDir + File.separator + fileName;
 		        changePackageNamesInFile(fileName,
 		            FileUtils.SAVE_FILE);
-		        log.debug("processing change package names on other file ["
+		        log.error("processing change package names on other file ["
 		            + fileName + "]");
 	        }
 	        else
             {
-                log.debug("Not processing file [" + fileName + "] as it is not a valid type");
+                log.error("Not processing file [" + fileName + "] as it is not a valid type");
             }
         }
         catch (FileNotFoundException f)
         {
             // continue and process next
-            log.info("could not find resource from path ["
+            log.error("could not find resource from path ["
                 + fileName
                 + "]");
         }
@@ -983,6 +990,43 @@ public class FileUtils {
         }
     }
 
+    private void refactorNonPackageFiles() {
+
+        // todo - this is sloppy and should be an iteration and not just specific files
+
+        try
+        {
+            // resources
+            changePackageNamesInFile(this.workBaseDir + "/main/resources/hibernate.cfg.xml",
+                FileUtils.SAVE_FILE);
+            changePackageNamesInFile(this.workBaseDir + "/main/resources/applicationContext-dao.xml",
+                FileUtils.SAVE_FILE);
+            changePackageNamesInFile(this.workBaseDir + "/main/resources/applicationContext-service.xml",
+                FileUtils.SAVE_FILE);
+            changePackageNamesInFile(this.workBaseDir + "/test/resources/applicationContext-test.xml",
+                FileUtils.SAVE_FILE);
+
+            // web files
+            changePackageNamesInFile(this.workBaseDir + "/main/webapp/WEB-INF/web.xml",
+                FileUtils.SAVE_FILE);
+            changePackageNamesInFile(this.workBaseDir + "/main/webapp/WEB-INF/security.xml",
+                FileUtils.SAVE_FILE);
+            changePackageNamesInFile(this.workBaseDir + "/main/webapp/WEB-INF/dispatcher-servlet.xml",
+                FileUtils.SAVE_FILE);
+            changePackageNamesInFile(this.workBaseDir + "/main/webapp/WEB-INF/dwr.xml",
+                FileUtils.SAVE_FILE);
+            changePackageNamesInFile(this.workBaseDir + "/main/webapp/WEB-INF/applicationContext-validation.xml",
+                FileUtils.SAVE_FILE);
+            changePackageNamesInFile(this.workBaseDir + "/main/webapp/WEB-INF/appfuse.tld",
+                FileUtils.SAVE_FILE);
+
+        } catch (IOException ioex) {
+            log.error("IOException: " + ioex.getMessage());
+        }
+
+
+    }
+
     /**
      * This is the main method that gets invoked when ANT calls this task
      */
@@ -990,47 +1034,48 @@ public class FileUtils {
     {
         try
         {
-            String basic = "\n\nBasic build.xml usage:\n<renamepackages newPkgName=\""
-                    + "${new.pkg.name}\"\n baseDir=\"${src.base.dir}\" />\n\n";
-            String optional = "Optional build.xml usage:\n<renamepackages "
-                    + "debug=\"${rename.debug}\" otherFile=\"${other.file}\" \n"
-                    + " \nexistingPkgName=\"${existing.pkg.name}\" \n"
-                    + "invalidFileTypes=\"${rename.invalid.filetypes}\"/>\n\n";
-            String example = "Command line example:\nant -v -Drename.debug=false "
-                    + "\n-Dexisting.pkg.name=...org.appfuse. \n-Dnew.pkg.name=com.myapp "
-                    + "\n-Dnew.base.pkg.name=com \n-Dsrc.base.dir=../test "
-                    + "\n-Drename.invalid.filetypes=class \n-Drename.delete.dirs=true\n\n";
-            String usage = basic + optional + example;
 
             if (newPkgName == null)
             {
                 throw new BuildException(
                         "The new package path needs to be set using <renamepackages "
-                                + "newPkgName=\"${new.pkg.name}\"" + usage);
+                                + "newPkgName=\"${new.pkg.name}\"");
             }
 
             if (baseDir == null)
             {
                 throw new BuildException(
                         "The base directory needs to be set using <renamepackages "
-                                + "baseDir=\"${src.base.dir}\"/>\n" + usage);
+                                + "baseDir=\"${src.base.dir}\"/>\n");
             }
 
             log.debug("existingPkgName is [" + this.existingPkgName + "]");
             log.debug("newPkgName is [" + this.newPkgName + "]");
+
             setPackagePaths();
+            log.error("Package paths set");
+
             repackage(this.baseDir, this.workBaseDir);
+            log.error("RePackage directories");
 
             renameOtherFiles();
+            log.error("Rename other files");
+
+            //
+
+            refactorNonPackageFiles();
 
             // Check the new dir structures for any files left over with the old pkg name in
             checkSummary(this.workBaseDir);
+            log.error("CheckSummary");
 
             deleteAll(this.baseDir);
+            log.error("Delete all");
+
             File workBaseDir = new File(this.workBaseDir);
             if (workBaseDir.renameTo(new File(this.baseDir)))
             {
-                log.info("Successfully renamed work dir back to base dir");
+                log.error("Successfully renamed work dir back to base dir");
             }
             else
             {

@@ -286,9 +286,7 @@ public class InstallSourceMojo extends AbstractMojo {
             throw new MojoFailureException(ex.getMessage());
         }
         
-        log("Yeehaw - it worked! Unfortunately, this plugin doesn't rename packages yet, but it will in 2.0 Final");
-        log("If you manually rename your packages, make sure and set <amp.fullSource> to true.");
-        // todo: rename packages
+        log("Don't forget to refactor(rename) your packages using appfuse:refactor-packages");
 
         // todo: gather and add repositories from appfuse projects
         // should work for now since most artifacts are in static.appfuse.org/repository
