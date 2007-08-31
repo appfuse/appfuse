@@ -12,6 +12,7 @@
     <constant name="struts.multipart.maxSize" value="2097152"/>
     <constant name="struts.ui.theme" value="css_xhtml"/>
     <constant name="struts.codebehind.pathPrefix" value="/WEB-INF/pages/"/>
+    <constant name="struts.enable.SlashesInActionNames" value="true"/>
 
     <!-- Include Struts defaults -->
     <include file="struts-default.xml"/>
@@ -65,12 +66,8 @@
         <global-exception-mappings>
             <exception-mapping exception="org.springframework.dao.DataAccessException" result="dataAccessFailure"/>
         </global-exception-mappings> 
-        
-        <action name="activeUsers" class="com.opensymphony.xwork2.ActionSupport"> 
-            <result name="success">/WEB-INF/pages/activeUsers.jsp</result> 
-        </action> 
-        
-        <action name="mainMenu" class="com.opensymphony.xwork2.ActionSupport">
+
+        <action name="mainMenu">
             <result name="success">/WEB-INF/pages/mainMenu.jsp</result> 
         </action> 
 
@@ -85,51 +82,58 @@
             <result name="success" type="redirect">/mainMenu.html</result>
         </action> 
 
-        <action name="users" class="userAction" method="list"> 
-            <interceptor-ref name="adminCheck"/>
-            <result name="success">/WEB-INF/pages/userList.jsp</result> 
-        </action>
-        
         <action name="editUser" class="userAction" method="edit">
             <interceptor-ref name="adminCheck"/>
             <result name="success">/WEB-INF/pages/userForm.jsp</result>
-            <result name="input">/WEB-INF/pages/userList.jsp</result>
+            <result name="input">/WEB-INF/pages/admin/userList.jsp</result>
         </action>
 
         <action name="editProfile" class="userAction" method="edit"> 
             <result name="success">/WEB-INF/pages/userForm.jsp</result>
             <result name="error">/WEB-INF/pages/mainMenu.jsp</result>
         </action>
-        
+
         <action name="saveUser" class="userAction" method="save">
-            <result name="cancel" type="redirect">users.html</result>
+            <result name="cancel" type="redirect">admin/users.html</result>
             <result name="input">/WEB-INF/pages/userForm.jsp</result>
-            <result name="success" type="redirect">users.html</result>
+            <result name="success" type="redirect">admin/users.html</result>
         </action>
-        
+
         <action name="uploadFile" class="org.appfuse.webapp.action.FileUploadAction">
             <interceptor-ref name="fileUploadStack"/>
             <result name="input">/WEB-INF/pages/uploadForm.jsp</result>
             <result name="success">/WEB-INF/pages/uploadDisplay.jsp</result>
             <result name="cancel" type="redirect">mainMenu.html</result>
         </action>
-        
-        <action name="flushCache" class="com.opensymphony.xwork2.ActionSupport">
-            <interceptor-ref name="adminCheck"/>
-            <result name="success">/WEB-INF/pages/flushCache.jsp</result> 
-        </action> 
 
         <action name="passwordHint" class="passwordHintAction"> 
             <result name="input">/</result>
             <result name="success">/</result>
-        </action> 
-        
+        </action>
+
+        <!-- Add additional actions here -->
+      </package>
+
+    <!-- Actions in this package will be prefixed with /admin/ -->
+    <package name="admin" extends="default" namespace="/admin">
+        <action name="activeUsers" class="com.opensymphony.xwork2.ActionSupport">
+            <result name="success">/WEB-INF/pages/admin/activeUsers.jsp</result>
+        </action>
+
+        <action name="flushCache" class="com.opensymphony.xwork2.ActionSupport">
+            <interceptor-ref name="adminCheck"/>
+            <result name="success">/WEB-INF/pages/admin/flushCache.jsp</result>
+        </action>
+
         <action name="reload" class="org.appfuse.webapp.action.ReloadAction">
             <interceptor-ref name="adminCheck"/>
             <!-- this should never be used, it's here to prevent warnings -->
             <result name="success">/WEB-INF/pages/mainMenu.jsp</result>
         </action>
-        
-        <!-- Add additional actions here -->
-      </package>
+
+        <action name="users" class="userAction" method="list">
+            <interceptor-ref name="adminCheck"/>
+            <result name="success">/WEB-INF/pages/admin/userList.jsp</result>
+        </action>
+    </package>
 </struts>
