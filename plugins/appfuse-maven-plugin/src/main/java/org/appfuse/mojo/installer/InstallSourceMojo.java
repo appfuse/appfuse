@@ -397,7 +397,8 @@ public class InstallSourceMojo extends AbstractMojo {
             sb.append(dependencyXml);
             sb.append(originalPom.substring(originalPom.indexOf("</dependencies>", startTag)));
 
-            if (sb.lastIndexOf("</properties>") > -1) {
+            // only add properties to root pom.xml
+            if (!project.hasParent() && sb.lastIndexOf("</properties>") > -1) {
                 // chop off end of file to fix problem with not finding "</properties>\n</project>"
                 String pomWithProperties = sb.substring(0, sb.lastIndexOf("</properties>"));
 
