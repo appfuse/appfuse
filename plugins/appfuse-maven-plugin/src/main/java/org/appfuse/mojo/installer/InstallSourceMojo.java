@@ -397,19 +397,25 @@ public class InstallSourceMojo extends AbstractMojo {
             sb.append(dependencyXml);
             sb.append(originalPom.substring(originalPom.indexOf("</dependencies>", startTag)));
 
-            // add new properties
-            String pomWithProperties = sb.toString().replace("</properties>\n</project>",
-                    "\n        <!-- Properties calculated by AppFuse when running full-source plugin -->\n" + sortedProperties + "    </properties>\n</project>");
+            if (sb.lastIndexOf("</properties>") > -1) {
+                // chop off end of file to fix problem with not finding "</properties>\n</project>"
+                String pomWithProperties = sb.substring(0, sb.lastIndexOf("</properties>"));
 
-            pomWithProperties = pomWithProperties.replaceAll("<amp.fullSource>false</amp.fullSource>", "<amp.fullSource>true</amp.fullSource>");
+                // add new properties
+                pomWithProperties += "\n        <!-- Properties calculated by AppFuse when running full-source plugin -->\n"
+                        + sortedProperties + "    </properties>\n</project>";
+                pomWithProperties = pomWithProperties.replaceAll("<amp.fullSource>false</amp.fullSource>", "<amp.fullSource>true</amp.fullSource>");
 
-            String os = System.getProperty("os.name");
+                // Fix line-endings on non-Windows platforms
+                String os = System.getProperty("os.name");
 
-            if (os.startsWith("Linux") || os.startsWith("Mac")) {
-                // remove the \r returns
-                pomWithProperties = pomWithProperties.replaceAll("\r", "");
+                if (os.startsWith("Linux") || os.startsWith("Mac")) {
+                    // remove the \r returns
+                    pomWithProperties = pomWithProperties.replaceAll("\r", "");
+                }
+
+                FileUtils.writeStringToFile(new File(pathToPom), pomWithProperties); // was pomWithProperties
             }
-            FileUtils.writeStringToFile(new File(pathToPom), pomWithProperties); // was pomWithProperties
         } catch (IOException ex) {
             getLog().error("Unable to write to pom.xml: " + ex.getMessage(), ex);
             throw new MojoFailureException(ex.getMessage());
