@@ -34,7 +34,7 @@ public class FileUtils {
 
     static final boolean SAVE_FILE = true;
     static final boolean DONT_SAVE_FILE = false;
-    boolean debug = false;
+    boolean debug = true;
     private String baseDir = "src"; // root
     private String workBaseDir = "null"; // actually called null
     private String existingPkgName = "org.appfuse"; // AppFuse
@@ -42,6 +42,8 @@ public class FileUtils {
     private String existingPkgPath;
     private String newPkgPath;
     protected transient final Log log = new SystemStreamLog();
+    private final String core = "/main/resources/";
+    private final String web = "/main/webapp/WEB-INF/";
 
     StringBuffer logOutput = new StringBuffer();
 
@@ -157,7 +159,7 @@ public class FileUtils {
         }
 
         if (debug) {
-            log.debug("returning stipped package name of [" + packageName + "]");
+            log.debug("returning stripped package name of [" + packageName + "]");
         }
 
         return packageName;
@@ -1163,24 +1165,6 @@ public class FileUtils {
                 changePackageNamesInFile(f.getAbsolutePath(), FileUtils.SAVE_FILE);
             }
 
-            // core
-            Iterator filesInCore = org.apache.commons.io.FileUtils.iterateFiles(
-                    new File("core"), extensions, true);
-
-            while (filesInCore.hasNext()) {
-                File f = (File) filesInCore.next();
-                changePackageNamesInFile(f.getAbsolutePath(), FileUtils.SAVE_FILE);
-            }
-
-            // web
-            Iterator filesInWeb = org.apache.commons.io.FileUtils.iterateFiles(
-                    new File("web"), extensions, true);
-
-            while (filesInWeb.hasNext()) {
-                File f = (File) filesInWeb.next();
-                changePackageNamesInFile(f.getAbsolutePath(), FileUtils.SAVE_FILE);
-            }
-
         } catch (IOException ioex) {
             log.error("IOException: " + ioex.getMessage());
         }
@@ -1209,26 +1193,26 @@ public class FileUtils {
             }
 
             if (debug) {
-                log.debug("existingPkgName is [" + this.existingPkgName + "]");
-                log.debug("newPkgName is [" + this.newPkgName + "]");
+                log.info("existingPkgName is [" + this.existingPkgName + "]");
+                log.info("newPkgName is [" + this.newPkgName + "]");
             }
 
             setPackagePaths();
 
             if (debug) {
-                log.debug("Package paths set");
+                log.info("Package paths set");
             }
 
             repackage(this.baseDir, this.workBaseDir);
 
             if (debug) {
-                log.debug("RePackage directories");
+                log.info("RePackage directories");
             }
 
             renameOtherFiles();
 
             if (debug) {
-                log.debug("Rename other files");
+                log.info("Rename other files");
             }
 
             // fix files with qualified names other than old package
@@ -1238,20 +1222,20 @@ public class FileUtils {
             checkSummary(this.workBaseDir);
 
             if (debug) {
-                log.debug("CheckSummary");
+                log.info("CheckSummary");
             }
 
             deleteAll(this.baseDir);
 
             if (debug) {
-                log.debug("Delete all");
+                log.info("Delete all");
             }
 
             File workBaseDir = new File(this.workBaseDir);
             if (workBaseDir.renameTo(new File(this.baseDir)))
             {
                 if (debug) {
-                    log.debug("Successfully renamed work dir back to base dir");
+                    log.info("Successfully renamed work dir back to base dir");
                 }
             }
             else
