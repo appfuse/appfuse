@@ -42,8 +42,6 @@ public class FileUtils {
     private String existingPkgPath;
     private String newPkgPath;
     protected transient final Log log = new SystemStreamLog();
-    private final String core = "/main/resources/";
-    private final String web = "/main/webapp/WEB-INF/";
 
     StringBuffer logOutput = new StringBuffer();
 
