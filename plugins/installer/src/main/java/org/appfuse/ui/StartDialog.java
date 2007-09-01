@@ -92,11 +92,13 @@ e)          {
         comboBox2.addItem("iBatis");
 
         // web model-view-controller choices
-        comboBox3.addItem("Struts");
+        comboBox3.addItem("Struts2");
         comboBox3.addItem("Java Server Faces");
         comboBox3.addItem("Spring MVC");
         comboBox3.addItem("Tapestry");
-        comboBox3.addItem("Webwork");
+
+        // TODO - add modular vs. basic
+
     }
 
     private void onOK() {
