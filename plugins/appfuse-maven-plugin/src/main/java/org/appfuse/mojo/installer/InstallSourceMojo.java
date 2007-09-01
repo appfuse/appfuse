@@ -49,7 +49,7 @@ public class InstallSourceMojo extends AbstractMojo {
     Properties appfuseProperties;
 
     // ThreadLocale to hold properties as they're built when traversing through a modular project
-    private static final ThreadLocal propertiesContextHolder = new ThreadLocal();
+    private static final ThreadLocal<Map> propertiesContextHolder = new ThreadLocal<Map>();
 
 
     /**
@@ -298,9 +298,12 @@ public class InstallSourceMojo extends AbstractMojo {
                 Dependency jsp21 = new Dependency();
                 jsp21.setGroupId("javax.servlet.jsp");
                 jsp21.setArtifactId("jsp-api");
-                jsp21.setVersion("2.1");
+                jsp21.setVersion("${jsp.version}");
                 jsp21.setScope("provided");
                 newDependencies.add(jsp21);
+
+                // replace jsp.version property as well
+                project.getOriginalModel().getProperties().setProperty("jsp.version", "2.1");
             }
         }
         
@@ -320,7 +323,7 @@ public class InstallSourceMojo extends AbstractMojo {
         Properties appfuseProperties = getAppFuseProperties();
 
         // holder for properties - stored in ThreadLocale
-        Map propertiesForPom = new LinkedHashMap();
+        Map<String, String> propertiesForPom = new LinkedHashMap<String, String>();
         
         for (String key : projectProperties) {
             // don't add property if it already exists in project
@@ -339,11 +342,17 @@ public class InstallSourceMojo extends AbstractMojo {
 
         if (project.getPackaging().equals("pom") || project.hasParent()) {
             // store sorted properties in a thread local for later retrieval
-            Map properties = new LinkedHashMap();
+            Map<String, String> properties = new LinkedHashMap<String, String>();
             if (propertiesContextHolder.get() != null) {
                 properties = (LinkedHashMap) propertiesContextHolder.get();
             }
-            properties.putAll(propertiesForPom);
+
+            for (String key : propertiesForPom.keySet()) {
+                if (!properties.containsKey(key)) {
+                    properties.put(key, propertiesForPom.get(key));
+                }
+            }
+
             propertiesContextHolder.set(properties);
         }
 
@@ -397,26 +406,29 @@ public class InstallSourceMojo extends AbstractMojo {
             sb.append(dependencyXml);
             sb.append(originalPom.substring(originalPom.indexOf("</dependencies>", startTag)));
 
-            // only add properties to root pom.xml
-            if (!project.hasParent() && sb.lastIndexOf("</properties>") > -1) {
+            String adjustedPom = sb.toString();
+            
+            // Calculate properties and add them to pom if not a modular project - otherwise properties are added
+            // near the end of this method from a threadlocal
+            if (!project.getPackaging().equals("pom") && !project.hasParent() && adjustedPom.lastIndexOf("</properties>") > -1) {
                 // chop off end of file to fix problem with not finding "</properties>\n</project>"
-                String pomWithProperties = sb.substring(0, sb.lastIndexOf("</properties>"));
+                adjustedPom = sb.substring(0, sb.lastIndexOf("</properties>"));
 
                 // add new properties
-                pomWithProperties += "\n        <!-- Properties calculated by AppFuse when running full-source plugin -->\n"
+                adjustedPom += "\n        <!-- Properties calculated by AppFuse when running full-source plugin -->\n"
                         + sortedProperties + "    </properties>\n</project>";
-                pomWithProperties = pomWithProperties.replaceAll("<amp.fullSource>false</amp.fullSource>", "<amp.fullSource>true</amp.fullSource>");
-
-                // Fix line-endings on non-Windows platforms
-                String os = System.getProperty("os.name");
-
-                if (os.startsWith("Linux") || os.startsWith("Mac")) {
-                    // remove the \r returns
-                    pomWithProperties = pomWithProperties.replaceAll("\r", "");
-                }
-
-                FileUtils.writeStringToFile(new File(pathToPom), pomWithProperties); // was pomWithProperties
+                adjustedPom = adjustedPom.replaceAll("<amp.fullSource>false</amp.fullSource>", "<amp.fullSource>true</amp.fullSource>");
             }
+            
+            // Fix line-endings on non-Windows platforms
+            String os = System.getProperty("os.name");
+
+            if (os.startsWith("Linux") || os.startsWith("Mac")) {
+                // remove the \r returns
+                adjustedPom = adjustedPom.replaceAll("\r", "");
+            }
+
+            FileUtils.writeStringToFile(new File(pathToPom), adjustedPom); // was pomWithProperties
         } catch (IOException ex) {
             getLog().error("Unable to write to pom.xml: " + ex.getMessage(), ex);
             throw new MojoFailureException(ex.getMessage());
@@ -447,13 +459,15 @@ public class InstallSourceMojo extends AbstractMojo {
         // when performing full-source on a modular project, add the properties to the root pom.xml at the end
         if (project.getPackaging().equals("war") && project.hasParent()) {
             // store sorted properties in a thread local for later retrieval
-            Map properties = (Map) propertiesContextHolder.get();
+            Map properties = propertiesContextHolder.get();
+             // alphabetize the properties by key
             Set<String> propertiesToAdd = new TreeSet<String>(properties.keySet());
 
-            // alphabetize the properties by key
+            StringBuffer calculatedProperties = new StringBuffer();
+            
             for (String key : propertiesToAdd) {
                 // don't add property if it already exists in project
-                Set keysInProject = project.getParent().getOriginalModel().getProperties().keySet();
+                Set<Object> keysInProject = project.getParent().getOriginalModel().getProperties().keySet();
                 if (!keysInProject.contains(key)) {
                     String value = getAppFuseProperties().getProperty(key);
 
@@ -461,7 +475,7 @@ public class InstallSourceMojo extends AbstractMojo {
                         value = "<![CDATA[" + value + "]]>";
                     }
 
-                    sortedProperties.append("        <").append(key).append(">")
+                    calculatedProperties.append("        <").append(key).append(">")
                             .append(value).append("</").append(key).append(">" + "\n");
                 }
             }
@@ -470,7 +484,7 @@ public class InstallSourceMojo extends AbstractMojo {
                 String originalPom = FileUtils.readFileToString(new File("pom.xml"));
 
                 String pomWithProperties = originalPom.replace("</properties>\n</project>",
-                    "\n        <!-- Properties calculated by AppFuse when running full-source plugin -->\n" + sortedProperties + "    </properties>\n</project>");
+                    "\n        <!-- Properties calculated by AppFuse when running full-source plugin -->\n" + calculatedProperties + "    </properties>\n</project>");
 
                 pomWithProperties = pomWithProperties.replaceAll("<amp.fullSource>false</amp.fullSource>", "<amp.fullSource>true</amp.fullSource>");
 
@@ -619,6 +633,12 @@ public class InstallSourceMojo extends AbstractMojo {
         // add all non-appfuse dependencies
         for (Object moduleDependency : moduleDependencies) {
             Dependency dep = (Dependency) moduleDependency;
+
+            if (dep.getGroupId().equals("javax.servlet") && dep.getArtifactId().equals("jsp-api")
+                && project.getProperties().getProperty("web.framework").equals("jsf")) {
+                // skip adding dependency for old group id of jsp-api
+                continue;
+            }
 
             if (!artifactIds.contains(dep.getArtifactId()) &&
                     !dep.getArtifactId().contains("appfuse")) {
