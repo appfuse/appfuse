@@ -7,7 +7,7 @@ import org.appfuse.tool.FileUtils;
 import org.hibernate.tool.hbm2x.Exporter;
 
 /**
- * Generates Java classes from set of annotated POJOs
+ * Refactors appfuse.org from imports, files, mappings, etc.
  *
  * @author <a href="mailto:david@capehenrytech.com">David L. Whitehurst</a>
  * @goal refactor-packages
