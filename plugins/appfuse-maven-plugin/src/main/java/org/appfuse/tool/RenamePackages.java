@@ -30,7 +30,7 @@ import java.util.regex.Pattern;
  *
  * @author <a href="mailto:david@capehenrytech.com">David L. Whitehurst</a>
  */
-public class FileUtils {
+public class RenamePackages {
 
     static final boolean SAVE_FILE = true;
     static final boolean DONT_SAVE_FILE = false;
@@ -52,7 +52,7 @@ public class FileUtils {
     /**
      * Constructor
      */
-    public FileUtils(String newPackage) {
+    public RenamePackages(String newPackage) {
         this.newPkgName = newPackage;
 
     }
@@ -380,7 +380,7 @@ public class FileUtils {
                     if (isValidFileType(fileName))
                     {
                         String output = changePackageNamesInFile(fileName,
-                                FileUtils.DONT_SAVE_FILE);
+                                RenamePackages.DONT_SAVE_FILE);
 
                         if (debug) {
                             log.debug("Saving file [" + fileName
@@ -1074,7 +1074,7 @@ public class FileUtils {
 
                 fileName = workBaseDir + File.separator + fileName;
                 changePackageNamesInFile(fileName,
-                    FileUtils.SAVE_FILE);
+                    RenamePackages.SAVE_FILE);
 
                 if (debug) {
                     log.debug("processing change package names on other file ["
@@ -1160,7 +1160,7 @@ public class FileUtils {
 
             while (filesInMain.hasNext()) {
                 File f = (File) filesInMain.next();
-                changePackageNamesInFile(f.getAbsolutePath(), FileUtils.SAVE_FILE);
+                changePackageNamesInFile(f.getAbsolutePath(), RenamePackages.SAVE_FILE);
             }
 
         } catch (IOException ioex) {
@@ -1255,3 +1255,4 @@ public class FileUtils {
     }
 
 }
+

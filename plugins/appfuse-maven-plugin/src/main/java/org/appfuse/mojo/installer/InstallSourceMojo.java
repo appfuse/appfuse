@@ -14,6 +14,7 @@ import org.apache.tools.ant.taskdefs.Get;
 import org.apache.tools.ant.taskdefs.LoadFile;
 import org.apache.tools.ant.taskdefs.optional.ReplaceRegExp;
 import org.appfuse.tool.SubversionUtils;
+import org.appfuse.tool.RenamePackages;
 import org.tmatesoft.svn.core.SVNErrorMessage;
 import org.tmatesoft.svn.core.SVNException;
 
@@ -421,7 +422,7 @@ public class InstallSourceMojo extends AbstractMojo {
 
         if (renamePackages && !project.getPackaging().equals("pom")) {
             log("Renaming packages to '" + project.getGroupId() + "'...");
-            org.appfuse.tool.FileUtils renamePackagesTool = new org.appfuse.tool.FileUtils(project.getGroupId());
+            RenamePackages renamePackagesTool = new RenamePackages(project.getGroupId());
             if (project.hasParent()) {
                 if (project.getPackaging().equals("jar")) {
                     renamePackagesTool.setBaseDir("core");
