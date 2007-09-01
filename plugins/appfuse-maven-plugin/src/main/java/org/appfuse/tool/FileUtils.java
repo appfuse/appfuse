@@ -34,7 +34,7 @@ public class FileUtils {
 
     static final boolean SAVE_FILE = true;
     static final boolean DONT_SAVE_FILE = false;
-    boolean debug = true;
+    boolean debug = false;
     private String baseDir = "src"; // root
     private String workBaseDir = "null"; // actually called null
     private String existingPkgName = "org.appfuse"; // AppFuse
