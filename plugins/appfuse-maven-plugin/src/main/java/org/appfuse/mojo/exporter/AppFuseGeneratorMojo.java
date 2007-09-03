@@ -17,7 +17,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 /**
- * Generates Java classes from set of annotated POJOs
+ * Generates Java classes from set of annotated POJOs. Use -DdisableInstallation to prevent installation.
+ * If using this goal in a "core" module or project, only DAOs and Managers will be created. For "web"
+ * modules, the same principle applies.
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  * @goal gen

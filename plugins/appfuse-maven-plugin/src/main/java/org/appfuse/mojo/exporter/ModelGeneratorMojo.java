@@ -31,7 +31,7 @@ import java.io.BufferedReader;
 import java.util.Iterator;
 
 /**
- * Generates Java classes from set of *.hbm.xml files
+ * Generates Java classes from existing database tables.
  *
  * @author <a href="mailto:jreyes@hiberforum.org">Johann Reyes</a>
  * @version $Id: ModelGeneratorMojo.java 3535 2007-03-07 21:02:07Z jreyes $

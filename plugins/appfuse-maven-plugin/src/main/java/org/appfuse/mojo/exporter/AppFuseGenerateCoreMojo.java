@@ -4,7 +4,7 @@ import org.hibernate.tool.hbm2x.Exporter;
 import org.apache.maven.plugin.MojoExecutionException;
 
 /**
- * Generates Java classes for DAOs and Managers from set of annotated POJOs
+ * Generates Java classes and tests for DAOs and Managers from set of annotated POJOs.
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  * @goal gen-core

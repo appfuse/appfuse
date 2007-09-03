@@ -63,7 +63,7 @@ public abstract class HibernateExporterMojo extends AbstractMojo implements Expo
      * @parameter
      * @noinspection MismatchedQueryAndUpdateOfCollection
      */
-    private Map componentProperties = new HashMap();
+    private Map<String, String> componentProperties = new HashMap<String, String>();
 
     /**
      * @component role="org.codehaus.mojo.hibernate3.configuration.ComponentConfiguration"
@@ -276,24 +276,7 @@ public abstract class HibernateExporterMojo extends AbstractMojo implements Expo
         return defaultGoal;
     }
 
-    // Added by MR to allow calling ModelGeneratorMojo from AppFuseGeneratorMojo
-    public void setProject(MavenProject project) {
-        this.project = project;
-    }
-
-    public void setComponentProperties(Map componentProperties) {
-        this.componentProperties = componentProperties;
-    }
-
-    public Map getComponentProperties() {
+    public Map<String, String> getComponentProperties() {
         return componentProperties;
-    }
-
-    public void setComponentConfigurations(List<ComponentConfiguration> componentConfigurations) {
-        this.componentConfigurations = componentConfigurations;
-    }
-
-    public List<ComponentConfiguration> getComponentConfigurations() {
-        return componentConfigurations;
     }
 }
