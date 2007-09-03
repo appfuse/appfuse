@@ -139,7 +139,7 @@
         <site>
             <id>appfuse-site</id>
             <name>AppFuse Maven Site</name>
-            <url>scp://static.appfuse.org/var/www/appfuse-site</url>
+            <url>scp://static.appfuse.org/var/www/appfuse-site/plugins/appfuse-maven-plugin</url>
         </site>
         <snapshotRepository>
             <id>appfuse-snapshots</id>
