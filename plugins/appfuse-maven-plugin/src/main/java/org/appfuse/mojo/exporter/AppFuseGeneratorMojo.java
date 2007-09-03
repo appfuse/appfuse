@@ -157,11 +157,14 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
 
         // if entity is not in hibernate.cfg.xml, add it
         String hibernateConfig = getComponentProperty("configurationfile");
-        try {
-            String hibernateCfgXml = FileUtils.readFileToString(new File(hibernateConfig));
-            addEntityToHibernateCfgXml(hibernateCfgXml);
-        } catch (IOException io) {
-            throw new MojoFailureException(io.getMessage());
+        
+        if (daoFramework.equals("hibernate")) {
+            try {
+                String hibernateCfgXml = FileUtils.readFileToString(new File(hibernateConfig));
+                addEntityToHibernateCfgXml(hibernateCfgXml);
+            } catch (IOException io) {
+                throw new MojoFailureException(io.getMessage());
+            }
         }
 
         // If dao.framework is ibatis, programmatically create a hibernate.cfg.xml and put it in the classpath

@@ -263,7 +263,7 @@
             </delete>
 
             <!-- run gen install integration-test -->
-            <maven dir="${test.dir}/@{name}" command="appfuse:gen -Dentity=Person"/>
+            <maven dir="${test.dir}/@{name}" command="appfuse:gen -Dentity=Person -e"/>
             <maven dir="${test.dir}/@{name}" command="integration-test -Dsurefire.useFile=false"/>
 
             <!-- test w/o generic core -->
