@@ -4,7 +4,7 @@
  Matt Raible
  <matt@raibledesigns.com>
  ------
- 22 May 2007
+ 2 September 2007
 
 Maven AppFuse Plugin
 
@@ -17,11 +17,14 @@ Maven AppFuse Plugin
   * {{{gen-model-mojo.html}appfuse:gen-model}}: Generates Java classes from database tables.
   
   * {{{gen-mojo.html}appfuse:gen}}: Generates Tests, DAOs, Managers, Controllers and Views based on POJOs.
+    As of 2.0-RC1, it also installs them. Use -DdisableInstallation to prevent installation. If using this
+    goal in a "core" module or project, only DAOs and Managers will be created. For "web" modules, the same
+    principle applies.
   
   * {{{install-mojo.html}appfuse:install}}: Installs generated artifacts.
 
   * {{{full-source-mojo.html}appfuse:full-source}}: Converts AppFuse basic projects to full-source with no AppFuse
-    dependencies. Currently does not work with modular archetypes.
+    dependencies. Also renamed packages to match your project's groupId.
 
   []
 
