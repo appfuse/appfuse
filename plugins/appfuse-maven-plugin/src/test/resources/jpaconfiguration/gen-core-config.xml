@@ -1,0 +1,21 @@
+<project>
+    <groupId>org.codehaus.mojo</groupId>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>appfuse-maven-plugin</artifactId>
+                <configuration>
+                    <genericCore>false</genericCore>
+                    <components>
+                        <component>
+                            <name>gen-core</name>
+                            <outputDirectory>target/appfuse/generated</outputDirectory>
+                            <implementation>jpaconfiguration</implementation>
+                        </component>
+                    </components>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

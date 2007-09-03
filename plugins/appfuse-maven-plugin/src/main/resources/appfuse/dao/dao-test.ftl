@@ -4,7 +4,7 @@ package ${basepackage}.dao;
 
 import ${appfusepackage}.dao.BaseDaoTestCase;
 import ${basepackage}.model.${pojo.shortName};
-import org.springframework.dao.DataAccessException;
+import <#if daoframework == "jpa-hibernate">javax.persistence.EntityNotFoundException<#else>org.springframework.dao.DataAccessException</#if>;
 
 import java.util.List;
 
@@ -44,9 +44,9 @@ public class ${pojo.shortName}DaoTest extends BaseDaoTestCase {
         try {
             ${pojoNameLower}Dao.get(${pojoNameLower}.${getIdMethodName}());
             fail("${pojo.shortName} found in database");
-        } catch (DataAccessException dae) {
-            log.debug("Expected exception: " + dae.getMessage());
-            assertNotNull(dae);
+        } catch (<#if daoframework == "jpa-hibernate">EntityNotFoundException<#else>DataAccessException</#if> e) {
+            log.debug("Expected exception: " + e.getMessage());
+            assertNotNull(e);
         }
     }
 }

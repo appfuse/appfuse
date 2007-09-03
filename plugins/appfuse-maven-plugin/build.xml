@@ -57,6 +57,8 @@
         <antcall target="test-modular"/>
         <antcall target="test-basic-source"/>
         <antcall target="test-modular-source"/>
+        <antcall target="test-ibatis"/>
+        <antcall target="test-jpa"/>
     </target>
 
     <macrodef name="create-gen-basic">
@@ -120,12 +122,12 @@
             <!-- gen and test core -->
             <maven dir="${test.dir}/@{name}/core" command="appfuse:gen -Dentity=Person -Damp.genericCore=false"/>
             <!--<maven dir="${test.dir}/@{name}/core" command="appfuse:install -Dentity=Person -Damp.genericCore=false"/>-->
-            <maven dir="${test.dir}/@{name}/core" command="install"/>
+            <maven dir="${test.dir}/@{name}/core" command="install -Dsurefire.useFile=false"/>
 
             <!-- get and test web -->
             <maven dir="${test.dir}/@{name}/web" command="appfuse:gen -Dentity=Person -Damp.genericCore=false"/>
             <!--<maven dir="${test.dir}/@{name}/web" command="appfuse:install -Dentity=Person -Damp.genericCore=false"/>-->
-            <maven dir="${test.dir}/@{name}/web" command="install"/>
+            <maven dir="${test.dir}/@{name}/web" command="install -Dsurefire.useFile=false"/>
         </sequential>
     </macrodef>
 
@@ -187,7 +189,7 @@
 
             <!-- run full-source integration-test -->
             <maven dir="${test.dir}/@{name}" command="appfuse:full-source"/>
-            <maven dir="${test.dir}/@{name}" command="integration-test"/>
+            <maven dir="${test.dir}/@{name}" command="integration-test -Dsurefire.useFile=false"/>
         </sequential>
     </macrodef>
 
@@ -214,13 +216,17 @@
     </macrodef>
     
     <!-- Test iBATIS -->
-    <target name="test-ibatis" description="creates projects, changes dao.framework to ibatis and tests generation and full-sourcedness">
+    <target name="test-ibatis" description="creates projects, changes dao.framework to ibatis and tests generation">
         <create-project-for-daoframework archetype="appfuse-basic-jsf" name="basic-jsf-ibatis" daoFramework="ibatis"/>
         <create-project-for-daoframework archetype="appfuse-basic-struts" name="basic-struts-ibatis" daoFramework="ibatis"/>
     </target>
     
     <!-- Test JPA -->
-    
+    <target name="test-jpa" description="creates projects, changes dao.framework to jpa and tests generation">
+        <create-project-for-daoframework archetype="appfuse-basic-spring" name="basic-spring-jpa" daoFramework="jpa-hibernate"/>
+        <create-project-for-daoframework archetype="appfuse-basic-tapestry" name="basic-tapestry-jpa" daoFramework="jpa-hibernate"/>
+    </target>
+
     <!-- Test generating POJOs from tables -->
     
     <macrodef name="create-project-for-daoframework">
@@ -245,6 +251,12 @@
                 <replacevalue><![CDATA[<dao.framework>@{daoFramework}</dao.framework>]]></replacevalue>
             </replace>
 
+            <!-- Change hibernate3 plugin to use jpaannotation configuration -->
+            <replace file="${test.dir}/@{name}/pom.xml">
+                <replacetoken><![CDATA[<implementation>annotationconfiguration</implementation>]]></replacetoken>
+                <replacevalue><![CDATA[<implementation>jpaconfiguration</implementation>]]></replacevalue>
+            </replace>
+            
             <!-- Remove hibernate.cfg.xml -->
             <delete>
                 <fileset dir="${test.dir}/@{name}/src/main/resources" includes="hibernate.cfg.xml"/>
@@ -252,11 +264,11 @@
 
             <!-- run gen install integration-test -->
             <maven dir="${test.dir}/@{name}" command="appfuse:gen -Dentity=Person"/>
-            <maven dir="${test.dir}/@{name}" command="integration-test"/>
+            <maven dir="${test.dir}/@{name}" command="integration-test -Dsurefire.useFile=false"/>
 
             <!-- test w/o generic core -->
             <maven dir="${test.dir}/@{name}" command="appfuse:gen -Dentity=Person -Damp.genericCore=false"/>
-            <maven dir="${test.dir}/@{name}" command="integration-test"/>
+            <maven dir="${test.dir}/@{name}" command="integration-test -Dsurefire.useFile=false"/>
         </sequential>
     </macrodef>
 </project>

@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import java.util.Date;
 import java.util.List;
 
-@Entity
+@Entity(name = "Persona")
 @Table(name = "person")
 public class Person {
     private Long personId;

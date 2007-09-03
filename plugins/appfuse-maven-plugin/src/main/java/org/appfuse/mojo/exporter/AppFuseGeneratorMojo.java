@@ -112,6 +112,14 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
             throw new MojoExecutionException("You must specify an entity name to continue.");
         }
 
+        String daoFramework = getProject().getProperties().getProperty("dao.framework");
+
+        // If dao.framework is jpa, change to jpaconfiguration and persistence.xml should be found in classpath.
+        // No other configuration is needed.
+        if (daoFramework.indexOf("jpa") > -1) {
+            getComponentProperties().put("implementation", "jpaconfiguration");
+        }
+
         // for war projects that have a parent pom, don't reset classpath
         // this is to allow using hibernate.cfg.xml from core module
         if (getProject().getPackaging().equals("war") && getProject().hasParent()) {
@@ -133,8 +141,7 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
             }
         }
 
-        // if dao.framework not hibernate, programmatically create a hibernate.cfg.xml and put it in the classpath
-        String daoFramework = getProject().getProperties().getProperty("dao.framework");
+        // If dao.framework is ibatis, programmatically create a hibernate.cfg.xml and put it in the classpath
         if (daoFramework.equals("ibatis")) {
             try {
                 // if no hibernate.cfg.xml exists, create one from template in plugin
