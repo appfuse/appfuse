@@ -17,11 +17,18 @@ package org.appfuse.mojo.exporter;
  */
 
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
+import org.apache.commons.io.FileUtils;
 import org.appfuse.mojo.HibernateExporterMojo;
 import org.hibernate.tool.hbm2x.Exporter;
 import org.hibernate.tool.hbm2x.POJOExporter;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
+import java.util.Iterator;
 
 /**
  * Generates Java classes from set of *.hbm.xml files
@@ -34,10 +41,43 @@ import java.io.File;
  */
 public class ModelGeneratorMojo extends HibernateExporterMojo {
     /**
+     * The path where the generated artifacts will be placed. This is intentionally not set to the
+     * default location for maven generated sources. This is to keep these files out of the
+     * eclipse/idea generated sources directory as the intention is that these files will be copied
+     * to a source directory to be edited and modified and not re generated each time the plugin is
+     * run. If you want to regenerate the files each time you build the project just set this value
+     * to ${basedir}/target/generated-sources or set the flag on eclipse/idea plugin to include this
+     * file in your project file as a source directory.
+     *
+     * @parameter expression="${appfuse.destinationDirectory}" default-value="${basedir}"
+     */
+    private String destinationDirectory;
+
+    /**
+     * The directory containing the source code.
+     *
+     * @parameter expression="${appfuse.sourceDirectory}" default-value="${basedir}/target/appfuse/generated-sources"
+     */
+    private String sourceDirectory;
+
+    /**
+     * Allows disabling installation - for tests and end users that don't want to do a full installation
+     *
+     * @parameter expression="${appfuse.disableInstallation}" default-value="false"
+     */
+    private boolean disableInstallation;
+
+    /**
+     * Allows specifying a custom hibernate.reveng.xml file.
+     * @parameter expression="${appfuse.revengfile} default-value="${basedir}/target/test-classes/hibernate.reveng.xml"
+     */
+    
+    /**
      * Default constructor.
      */
     public ModelGeneratorMojo() {
         addDefaultComponent("target/appfuse/generated-sources", "configuration", false);
+        addDefaultComponent("target/appfuse/generated-sources", "jdbcconfiguration", true);
         addDefaultComponent("target/appfuse/generated-sources", "annotationconfiguration", true);
     }
 
@@ -52,6 +92,88 @@ public class ModelGeneratorMojo extends HibernateExporterMojo {
         return "gen-model";
     }
 
+    @Override
+    public void execute() throws MojoExecutionException, MojoFailureException {
+        getComponentProperties().put("implementation", "jdbcconfiguration");
+        getComponentProperties().put("outputDirectory",
+                (sourceDirectory != null) ? sourceDirectory : "${basedir}/target/appfuse/generated-sources");
+
+        // Check for existance of hibernate.reveng.xml and if there isn't one, create it
+        if (getComponentProperty("revengfile") == null) {
+            getComponentProperties().put("revengfile", "target/test-classes/hibernate.reveng.xml");
+        }
+
+        File existingConfig = new File(getComponentProperty("revengfile"));
+        if (!existingConfig.exists()) {
+            InputStream in = this.getClass().getResourceAsStream("/appfuse/model/hibernate.reveng.ftl");
+            StringBuffer configFile = new StringBuffer();
+            try {
+                InputStreamReader isr = new InputStreamReader(in);
+                BufferedReader reader = new BufferedReader(isr);
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    configFile.append(line).append("\n");
+                }
+                reader.close();
+
+                getLog().info("Writing 'hibernate.reveng.xml' to " + existingConfig.getPath());
+                FileUtils.writeStringToFile(existingConfig, configFile.toString());
+            } catch (IOException io) {
+                throw new MojoFailureException(io.getMessage());
+            }
+        }
+
+        // if package name is not configured, default to project's groupId
+        if (getComponentProperty("packagename") == null) {
+            getComponentProperties().put("packagename", getProject().getGroupId() + ".model");
+        }
+        
+        if (getComponentProperty("configurationfile") == null) {
+            // look for jdbc.properties and set "propertyfile" to its path
+            File jdbcProperties = new File("target/classes/jdbc.properties");
+            if (!jdbcProperties.exists()) {
+                jdbcProperties = new File("target/test-classes/jdbc.properties");
+            }
+            if (jdbcProperties.exists()) {
+                if (getComponentProperty("propertyfile") == null) {
+                    getComponentProperties().put("propertyfile", jdbcProperties.getPath());
+                    getLog().debug("Set propertyfile to '" + jdbcProperties.getPath() + "'");
+                }
+            } else {
+                throw new MojoFailureException("Failed to find jdbc.properties in classpath.");
+            }
+        }
+
+        // For some reason, the classloader created in HibernateExporterMojo does not work
+        // when using jdbcconfiguration - it can't find the JDBC Driver (no suitable driver).
+        // Skipping the resetting of the classloader and manually adding the dependency (with XML) works.
+        // It's ugly, but it works. I wish there was a way to get get this plugin to recognize the jdbc driver
+        // from the project.
+
+        super.doExecute();
+
+        if (System.getProperty("disableInstallation") != null) {
+            disableInstallation = Boolean.valueOf(System.getProperty("disableInstallation"));
+        }
+
+        // allow installation to be supressed when testing
+        if (!disableInstallation) {
+            // copy the generated file to the model directory of the project
+            try {
+                String packageName = getComponentProperties().get("packagename").toString();
+                String dir = packageName.replaceAll("\\.", "/");
+                Iterator filesIterator = FileUtils.iterateFiles(new File(sourceDirectory + "/" + dir), new String[] {"java"}, false);
+                while (filesIterator.hasNext()) {
+                    File f = (File) filesIterator.next();
+                    getLog().info("Copying generated '" + f.getName() + "' to project...");
+                    FileUtils.copyFileToDirectory(f, new File(destinationDirectory + "/src/main/java/" + dir));
+                }
+            } catch (IOException io) {
+                throw new MojoFailureException(io.getMessage());
+            }
+        }
+    }
+
     /**
      * @see HibernateExporterMojo#configureExporter(org.hibernate.tool.hbm2x.Exporter)
      */
@@ -62,8 +184,9 @@ public class ModelGeneratorMojo extends HibernateExporterMojo {
         // now set the extra properties for the POJO Exporter
         POJOExporter exporter = (POJOExporter) super.configureExporter(exp);
         exporter.setTemplateName("appfuse/model/Pojo.ftl");
-        exporter.getProperties().setProperty("ejb3", getComponentProperty("ejb3", "false"));
-        exporter.getProperties().setProperty("jdk5", getComponentProperty("jdk5", "false"));
+        exporter.getProperties().setProperty("basepackage", getProject().getGroupId());
+        exporter.getProperties().setProperty("ejb3", getComponentProperty("ejb3", "true"));
+        exporter.getProperties().setProperty("jdk5", getComponentProperty("jdk5", "true"));
 
         if (isFullSource()) {
             exporter.getProperties().setProperty("appfusepackage", getProject().getGroupId());

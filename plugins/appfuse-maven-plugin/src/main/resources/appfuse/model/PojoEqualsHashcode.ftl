@@ -18,7 +18,7 @@
     }
 
     public int hashCode() {
-        int result;
+        int result = 0;
     <#list pojo.getAllPropertiesIterator() as property><#rt/>
         <#if !property.equals(clazz.identifierProperty)><#rt/>
     <#if property_index == 1><#rt/>

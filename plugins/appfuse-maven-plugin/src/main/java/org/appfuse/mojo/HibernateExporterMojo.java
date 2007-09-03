@@ -288,5 +288,12 @@ public abstract class HibernateExporterMojo extends AbstractMojo implements Expo
     public Map getComponentProperties() {
         return componentProperties;
     }
-    
+
+    public void setComponentConfigurations(List<ComponentConfiguration> componentConfigurations) {
+        this.componentConfigurations = componentConfigurations;
+    }
+
+    public List<ComponentConfiguration> getComponentConfigurations() {
+        return componentConfigurations;
+    }
 }

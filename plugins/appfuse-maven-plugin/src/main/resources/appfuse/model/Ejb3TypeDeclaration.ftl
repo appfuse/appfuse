@@ -1,6 +1,6 @@
 <#if ejb3?if_exists><#rt/>
     <#if pojo.isComponent()><#rt/>
-    @${pojo.importType("javax.persistence.Embeddable")}
+    <#lt>@${pojo.importType("javax.persistence.Embeddable")}
     <#else><#rt/>
     <#lt>@${pojo.importType("javax.persistence.Entity")}
     <#lt>@${pojo.importType("javax.persistence.Table")}(name="${clazz.table.name}"<#rt/>

@@ -271,4 +271,31 @@
             <maven dir="${test.dir}/@{name}" command="integration-test -Dsurefire.useFile=false"/>
         </sequential>
     </macrodef>
+
+    <target name="test-gen-model" description="Tests generating POJO (and UI) from a database table">
+        <property name="name" value="basic-tapestry-model"/>
+        <delete dir="${test.dir}/${name}"/>
+        <mkdir dir="${test.dir}"/>
+
+        <maven dir="${test.dir}" archetype="appfuse-basic-tapestry" version="${version}" name="${name}"/>
+        <!-- Create database table -->
+        <sql driver="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost/basic_tapestry_model?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8"
+            userid="root" password="">
+            <classpath>
+                <fileset dir="${user.home}/.m2/repository/mysql/mysql-connector-java/5.0.5" includes="*.jar"/>
+            </classpath>
+            <![CDATA[
+                DROP TABLE IF EXISTS cat;
+                CREATE TABLE cat (
+                  cat_id int(8) auto_increment,
+                  color varchar(50) NOT NULL,
+                  name varchar(50) NOT NULL,
+                  PRIMARY KEY (cat_id)
+                );
+            ]]>
+        </sql>
+        <maven dir="${test.dir}/${name}" command="appfuse:gen-model"/>
+        <maven dir="${test.dir}/${name}" command="appfuse:gen -Dentity=Cat"/>
+        <maven dir="${test.dir}/${name}" command="integration-test -Dsurefire.useFile=false"/>
+    </target>
 </project>

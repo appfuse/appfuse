@@ -91,12 +91,29 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-                // if project is of type "pom", throw an error
+        // if project is of type "pom", throw an error
         if (getProject().getPackaging().equalsIgnoreCase("pom")) {
             String errorMsg = "Doh! This plugin cannot be run from a pom project, please run it from a jar or war project (i.e. core or web).";
             //getLog().error(errorMsg);
             throw new MojoFailureException(errorMsg);
         }
+
+        /*String objectType = System.getProperty("type");
+        if (objectType == null) {
+            try {
+                List<String> options = new ArrayList<String>(2);
+                options.add("pojo");
+                options.add("table");
+
+                objectType = prompter.prompt("Would you like to generate code from a table or a POJO?", options, "pojo");
+            } catch (PrompterException pe) {
+                pe.printStackTrace();
+            }
+        }
+
+        if (objectType != null && objectType.equalsIgnoreCase("table")) {
+            // see http://issues.appfuse.org/browse/APF-869
+        }*/
 
         pojoName = System.getProperty("entity");
 
@@ -127,18 +144,22 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
             String moduleName = (String) getProject().getParent().getModules().get(0);
             String pathToParent = getProject().getOriginalModel().getParent().getRelativePath();
             pathToParent = pathToParent.substring(0, pathToParent.lastIndexOf('/') + 1);
-            getLog().info("Assuming '" + moduleName + "' has hibernate.cfg.xml in its src/main/resources directory");
+            log("Assuming '" + moduleName + "' has hibernate.cfg.xml in its src/main/resources directory");
             getComponentProperties().put("configurationfile",
                     getProject().getBasedir() + "/" + pathToParent + moduleName + "/src/main/resources/hibernate.cfg.xml");
+        }
 
-            // if entity is not in hibernate.cfg.xml, add it
-            String existingConfig = getComponentProperty("configurationfile");
-            try {
-                String hibernateCfgXml = FileUtils.readFileToString(new File(existingConfig));
-                addEntityToHibernateCfgXml(hibernateCfgXml);
-            } catch (IOException io) {
-                throw new MojoFailureException(io.getMessage());
-            }
+        if (getComponentProperty("configurationfile") == null) {
+            getComponentProperties().put("configurationfile", "src/main/resources/hibernate.cfg.xml");
+        }
+
+        // if entity is not in hibernate.cfg.xml, add it
+        String hibernateConfig = getComponentProperty("configurationfile");
+        try {
+            String hibernateCfgXml = FileUtils.readFileToString(new File(hibernateConfig));
+            addEntityToHibernateCfgXml(hibernateCfgXml);
+        } catch (IOException io) {
+            throw new MojoFailureException(io.getMessage());
         }
 
         // If dao.framework is ibatis, programmatically create a hibernate.cfg.xml and put it in the classpath
@@ -146,10 +167,7 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
             try {
                 // if no hibernate.cfg.xml exists, create one from template in plugin
                 String hibernateCfgXml;
-                if (getComponentProperty("configurationfile") == null) {
-                    getComponentProperties().put("configurationfile", "src/main/resources/hibernate.cfg.xml");
-                }
-                File existingConfig = new File(getComponentProperty("configurationfile"));
+                File existingConfig = new File(hibernateConfig);
                 if (!existingConfig.exists()) {
                     InputStream in = this.getClass().getResourceAsStream("/appfuse/dao/ibatis/hibernate.cfg.ftl");
                     StringBuffer configFile = new StringBuffer();
@@ -186,13 +204,15 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
             hibernateCfgXml = hibernateCfgXml.replace("</session-factory>",
                     "    <mapping class=\"" + className + "\"/>"
                     + "\n    </session-factory>");
+            log("Adding '" + pojoName + "' to hibernate.cfg.xml...");
         }
 
         hibernateCfgXml = hibernateCfgXml.replaceAll("\\$\\{appfusepackage}",
                 (isFullSource()) ? getProject().getGroupId() : "org.appfuse");
 
         try {
-            FileUtils.writeStringToFile(new File(getComponentProperty("configurationfile")), hibernateCfgXml);
+            FileUtils.writeStringToFile(new File(
+                    getComponentProperty("configurationfile", "src/main/resources/hibernate.cfg.xml")), hibernateCfgXml);
         } catch (IOException io) {
             throw new MojoFailureException(io.getMessage());
         }
@@ -202,34 +222,6 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
      * @see org.appfuse.mojo.HibernateExporterMojo#configureExporter(org.hibernate.tool.hbm2x.Exporter)
      */
     protected Exporter configureExporter(Exporter exp) throws MojoExecutionException {
-        /*String objectType = System.getProperty("type");
-        if (objectType == null) {
-            try {
-                List<String> options = new ArrayList<String>(2);
-                options.add("pojo");
-                options.add("table");
-                
-                objectType = prompter.prompt("Would you like to generate code from a table or POJO?", options, "pojo");
-            } catch (PrompterException pe) {
-                pe.printStackTrace();
-            }
-        }
-
-        if (objectType != null && objectType.equalsIgnoreCase("table")) {
-            // todo: generate from database with ModelGeneratorMojo
-            *//*ModelGeneratorMojo mojo = new ModelGeneratorMojo();
-            mojo.setProject(getProject());
-            Map<String, String> m = new HashMap<String, String>();
-            m.put("propertiesfile", "src/main/resources/jdbc.properties");
-            mojo.setComponentProperties(m);
-            mojo.addDefaultComponent("target/appfuse/generated-sources", "jdbcconfiguration", false);
-            try {
-                mojo.execute();
-            } catch (MojoFailureException mfe) {
-                mfe.printStackTrace();
-            }*//*
-        }*/
-
         // Read in AppFuseExporter#configureExporter to decide if a class should be generated or not
         System.setProperty("appfuse.entity", pojoName);
 
@@ -298,5 +290,9 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
 
     protected void setGenerateWebOnly(boolean generateWebOnly) {
         this.generateWebOnly = generateWebOnly; 
+    }
+
+    private void log(String msg) {
+        getLog().info("[AppFuse] " + msg);
     }
 }

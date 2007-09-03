@@ -23,6 +23,7 @@ ${pojo.getPackageDeclaration()}
 import ${appfusepackage}.model.BaseObject;
 
 ${pojo.generateImports()}
+import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
 import java.io.Serializable;
