@@ -109,6 +109,15 @@
                     <genericCore>${amp.genericCore}</genericCore>
                     <fullSource>${amp.fullSource}</fullSource>
                 </configuration>
+                <!-- Dependency needed by appfuse:gen-model to connect to database. -->
+                <!-- See http://issues.appfuse.org/browse/APF-868 to learn more.    -->
+                <dependencies>
+                    <dependency>
+                        <groupId>${jdbc.groupId}</groupId>
+                        <artifactId>${jdbc.artifactId}</artifactId>
+                        <version>${jdbc.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -245,6 +254,15 @@
                     <genericCore>${amp.genericCore}</genericCore>
                     <fullSource>${amp.fullSource}</fullSource>
                 </configuration>
+                <!-- Dependency needed by appfuse:gen-model to connect to database. -->
+                <!-- See http://issues.appfuse.org/browse/APF-868 to learn more.    -->
+                <dependencies>
+                    <dependency>
+                        <groupId>${jdbc.groupId}</groupId>
+                        <artifactId>${jdbc.artifactId}</artifactId>
+                        <version>${jdbc.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
