@@ -88,7 +88,7 @@ public abstract class HibernateExporterMojo extends AbstractMojo implements Expo
     private boolean fullSource;
 
     public boolean isFullSource() {
-            return fullSource;
+        return fullSource;
     }
 
     // --------------------- Interface ExporterMojo ---------------------
@@ -126,24 +126,6 @@ public abstract class HibernateExporterMojo extends AbstractMojo implements Expo
      * @see org.apache.maven.plugin.Mojo#execute()
      */
     public void execute() throws MojoExecutionException, MojoFailureException {
-        // if project is of type "pom", throw an error
-        if (getProject().getPackaging().equalsIgnoreCase("pom")) {
-            String errorMsg = "Doh! This plugin cannot be run from a pom project, please run it from a jar or war project (i.e. core or web).";
-            //getLog().error(errorMsg);
-            throw new MojoFailureException(errorMsg);
-        }
-
-        // for war projects that have a parent pom, don't reset classpath
-        // this is to allow using hibernate.cfg.xml from core module
-        if (project.getPackaging().equals("war") && project.hasParent()) {
-            // assume first module in parent project has hibernate.cfg.xml
-            String moduleName = (String) project.getParent().getModules().get(0);
-            String pathToParent = project.getOriginalModel().getParent().getRelativePath();
-            pathToParent = pathToParent.substring(0, pathToParent.lastIndexOf('/') + 1);
-            getLog().info("Assuming '" + moduleName + "' has hibernate.cfg.xml in its src/main/resources directory");
-            componentProperties.put("configurationfile",
-                    project.getBasedir() + "/" + pathToParent + moduleName + "/src/main/resources/hibernate.cfg.xml");
-        }
 
         Thread currentThread = Thread.currentThread();
         ClassLoader oldClassLoader = currentThread.getContextClassLoader();
@@ -197,7 +179,7 @@ public abstract class HibernateExporterMojo extends AbstractMojo implements Expo
         exporter.setProperties(properties);
         exporter.setConfiguration(componentConfiguration.getConfiguration(this));
         exporter.setOutputDirectory(new File(getComponent().getOutputDirectory()));
-        
+
         return exporter;
     }
 
@@ -302,4 +284,9 @@ public abstract class HibernateExporterMojo extends AbstractMojo implements Expo
     public void setComponentProperties(Map componentProperties) {
         this.componentProperties = componentProperties;
     }
+
+    public Map getComponentProperties() {
+        return componentProperties;
+    }
+    
 }

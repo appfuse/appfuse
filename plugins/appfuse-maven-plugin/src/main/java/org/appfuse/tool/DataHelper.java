@@ -208,4 +208,30 @@ public class DataHelper {
 
         return buffer.toString();
     }
+
+    /**
+     * Get JDBC Type - used by iBATIS in sql-map.ftl
+     * 
+     * @param javaType - the Java Class
+     * @return the type to use in a SQL statement
+     */
+    public String getJdbcType(String javaType) {
+        String jdbcType = "VARCHAR";
+
+        javaType = javaType.toLowerCase();
+
+        if (javaType.indexOf("date") > 0) {
+            jdbcType = "TIMESTAMP";
+        } else if (javaType.indexOf("timestamp") > 0) {
+            jdbcType = "TIMESTAMP";
+        } else if ((javaType.indexOf("int") > 0) || (javaType.indexOf("long") > 0) || (javaType.indexOf("short") > 0)) {
+            jdbcType = "INTEGER";
+        } else if (javaType.indexOf("double") > 0) {
+            jdbcType = "DOUBLE";
+        } else if (javaType.indexOf("float") > 0) {
+            jdbcType = "FLOAT";
+        }
+
+        return jdbcType;
+    }
 }

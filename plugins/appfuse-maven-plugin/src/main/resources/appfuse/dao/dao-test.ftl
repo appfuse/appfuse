@@ -9,7 +9,7 @@ import org.springframework.dao.DataAccessException;
 import java.util.List;
 
 public class ${pojo.shortName}DaoTest extends BaseDaoTestCase {
-    private ${pojo.shortName}Dao ${pojoNameLower}Dao = null;
+    private ${pojo.shortName}Dao ${pojoNameLower}Dao;
 
     public void set${pojo.shortName}Dao(${pojo.shortName}Dao ${pojoNameLower}Dao) {
         this.${pojoNameLower}Dao = ${pojoNameLower}Dao;
@@ -30,7 +30,7 @@ public class ${pojo.shortName}DaoTest extends BaseDaoTestCase {
 
         log.debug("adding ${pojoNameLower}...");
         ${pojoNameLower} = ${pojoNameLower}Dao.save(${pojoNameLower});
-        flush();
+        <#lt/><#if daoframework == "daoframework">flush();</#if><#rt/>
 
         ${pojoNameLower} = ${pojoNameLower}Dao.get(${pojoNameLower}.${getIdMethodName}());
 
@@ -39,7 +39,7 @@ public class ${pojo.shortName}DaoTest extends BaseDaoTestCase {
         log.debug("removing ${pojoNameLower}...");
 
         ${pojoNameLower}Dao.remove(${pojoNameLower}.${getIdMethodName}());
-        flush();
+        <#lt/><#if daoframework == "daoframework">flush();</#if><#rt/>
 
         try {
             ${pojoNameLower}Dao.get(${pojoNameLower}.${getIdMethodName}());

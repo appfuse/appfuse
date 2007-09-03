@@ -212,4 +212,51 @@
             <!--fail if="command.failed">Failed to run '@{command}' command</fail-->
         </sequential>
     </macrodef>
+    
+    <!-- Test iBATIS -->
+    <target name="test-ibatis" description="creates projects, changes dao.framework to ibatis and tests generation and full-sourcedness">
+        <create-project-for-daoframework archetype="appfuse-basic-jsf" name="basic-jsf-ibatis" daoFramework="ibatis"/>
+        <create-project-for-daoframework archetype="appfuse-basic-struts" name="basic-struts-ibatis" daoFramework="ibatis"/>
+    </target>
+    
+    <!-- Test JPA -->
+    
+    <!-- Test generating POJOs from tables -->
+    
+    <macrodef name="create-project-for-daoframework">
+        <attribute name="archetype"/>
+        <attribute name="version" default="${version}"/>
+        <attribute name="name"/>
+        <attribute name="daoFramework"/>
+
+        <sequential>
+            <delete dir="${test.dir}/@{name}"/>
+            <mkdir dir="${test.dir}"/>
+            <maven dir="${test.dir}" archetype="@{archetype}" version="@{version}" name="@{name}"/>
+
+            <!-- copy Person.java to src -->
+            <copy todir="${test.dir}/@{name}/src/main/java/com">
+                <fileset dir="src/test/java/com" includes="**/*.java"/>
+            </copy>
+
+            <!-- Change dao.framework property -->
+            <replace file="${test.dir}/@{name}/pom.xml">
+                <replacetoken><![CDATA[<dao.framework>hibernate</dao.framework>]]></replacetoken>
+                <replacevalue><![CDATA[<dao.framework>@{daoFramework}</dao.framework>]]></replacevalue>
+            </replace>
+
+            <!-- Remove hibernate.cfg.xml -->
+            <delete>
+                <fileset dir="${test.dir}/@{name}/src/main/resources" includes="hibernate.cfg.xml"/>
+            </delete>
+
+            <!-- run gen install integration-test -->
+            <maven dir="${test.dir}/@{name}" command="appfuse:gen -Dentity=Person"/>
+            <maven dir="${test.dir}/@{name}" command="integration-test"/>
+
+            <!-- test w/o generic core -->
+            <maven dir="${test.dir}/@{name}" command="appfuse:gen -Dentity=Person -Damp.genericCore=false"/>
+            <maven dir="${test.dir}/@{name}" command="integration-test"/>
+        </sequential>
+    </macrodef>
 </project>

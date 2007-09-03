@@ -1,19 +1,19 @@
 package org.appfuse.tool;
 
-import org.appfuse.mojo.installer.AntUtils;
-import org.apache.tools.ant.taskdefs.Copy;
-import org.apache.tools.ant.taskdefs.Echo;
-import org.apache.tools.ant.taskdefs.Replace;
-import org.apache.tools.ant.taskdefs.LoadFile;
-import org.apache.tools.ant.taskdefs.optional.ReplaceRegExp;
-import org.apache.tools.ant.types.FileSet;
-import org.apache.tools.ant.Project;
-import org.apache.maven.project.MavenProject;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.plugin.logging.SystemStreamLog;
+import org.apache.maven.project.MavenProject;
+import org.apache.tools.ant.Project;
+import org.apache.tools.ant.taskdefs.Copy;
+import org.apache.tools.ant.taskdefs.Echo;
+import org.apache.tools.ant.taskdefs.LoadFile;
+import org.apache.tools.ant.taskdefs.Replace;
+import org.apache.tools.ant.taskdefs.optional.ReplaceRegExp;
+import org.apache.tools.ant.types.FileSet;
+import org.appfuse.mojo.installer.AntUtils;
 
-import java.util.ArrayList;
 import java.io.File;
+import java.util.ArrayList;
 
 /**
  * @author mraible
@@ -53,6 +53,8 @@ public class Installer {
             } else {
                installDaoAndManagerBeanDefinitions();
             }
+            // only installs if iBATIS is configured as dao.framework
+            installiBATISFiles();
         }
 
         if (project.getPackaging().equalsIgnoreCase("war")) {
@@ -147,6 +149,25 @@ public class Installer {
         parseXMLFile(generatedFile, pojoName + "Manager", "<!-- Add new Managers here -->", "mgr.context.file");
     }
 
+    private void installiBATISFiles() {
+        if (project.getProperties().getProperty("dao.framework").equals("ibatis")) {
+            log("Installing iBATIS SQL Maps...");
+            createLoadFileTask("src/main/resources/" + pojoName + "-sql-map-config.xml", "sql.map.config").execute();
+            File sqlMapConfig = new File(destinationDirectory + "/src/main/resources/sql-map-config.xml");
+            parseXMLFile(sqlMapConfig, null, "</sqlMapConfig>", "sql.map.config");
+
+            File sqlMapsDir = new File(destinationDirectory + "/src/main/resources/sqlmaps");
+            if (sqlMapsDir.exists()) {
+                sqlMapsDir.mkdir();
+            }
+
+            Copy copy = (Copy) antProject.createTask("copy");
+            copy.setFile(new File(sourceDirectory + "/src/main/resources/sqlmaps/" + pojoName + "SQL.xml"));
+            copy.setTodir(new File(destinationDirectory + "/src/main/resources/sqlmaps"));
+            copy.execute();
+        }
+    }
+
     private void installGenericBeanDefinitions() {
         createLoadFileTask("src/main/resources/" + pojoName + "-generic-beans.xml", "context.file").execute();
         File generatedFile = new File(destinationDirectory + getPathToApplicationContext());
@@ -177,13 +198,6 @@ public class Installer {
         File generatedFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/validation.xml");
 
         parseXMLFile(generatedFile, pojoName, "    </formset>", "struts.validation");
-    }
-
-    private void installStrutsBeanDefinition() {
-        createLoadFileTask("src/main/webapp/WEB-INF/" + pojoName + "-struts-bean.xml", "struts.context.file").execute();
-        File generatedFile = new File(destinationDirectory + getPathToApplicationContext());
-
-        parseXMLFile(generatedFile, pojoName + "Action", "<!-- Add new Actions here -->", "struts.context.file");
     }
 
     private void installStrutsActionDefinitions() {

@@ -77,7 +77,7 @@ public class AppFuseExporter extends GenericExporter {
             configureExporter("appfuse/dao/" + daoFramework + "/dao-impl.ftl",
                     "src/main/java/{basepkg-name}/dao/" + daoFramework + "/{class-name}Dao" +
                             getDaoFilename(daoFramework) + ".java").start();
-
+            
             // Manager Test
             configureExporter("appfuse/service/manager-test.ftl",
                     "src/test/java/{basepkg-name}/service/impl/{class-name}ManagerImplTest.java").start();
@@ -89,6 +89,16 @@ public class AppFuseExporter extends GenericExporter {
             // Manager Implementation
             configureExporter("appfuse/service/manager-impl.ftl",
                     "src/main/java/{basepkg-name}/service/impl/{class-name}ManagerImpl.java").start();
+        }
+
+        String daoFramework = getProperties().getProperty("daoframework");
+
+        // iBATIS SQL Map files
+        if (daoFramework.equals("ibatis")) {
+            configureExporter("appfuse/dao/ibatis/sql-map-config.ftl",
+                "src/main/resources/{class-name}-sql-map-config.xml").start();
+            configureExporter("appfuse/dao/ibatis/sql-map.ftl",
+                "src/main/resources/sqlmaps/{class-name}SQL.xml").start();
         }
 
         // Manager Bean Definition - // todo with CoC: get rid of need for a bean definition when classes exist
