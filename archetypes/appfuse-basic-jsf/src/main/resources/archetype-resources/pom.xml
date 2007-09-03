@@ -567,7 +567,7 @@
                 <jdbc.artifactId>derbyclient</jdbc.artifactId>
                 <jdbc.version>10.2.2.0</jdbc.version>
                 <jdbc.driverClassName>org.apache.derby.jdbc.ClientDriver</jdbc.driverClassName>
-                <jdbc.url><![CDATA[jdbc:derby://localhost/appfuse;create=true]]></jdbc.url>
+                <jdbc.url><![CDATA[jdbc:derby://localhost/${artifactId.replaceAll('-','_')};create=true]]></jdbc.url>
                 <jdbc.username>any</jdbc.username>
                 <jdbc.password>value</jdbc.password>
             </properties>
@@ -581,7 +581,7 @@
                 <jdbc.artifactId>h2</jdbc.artifactId>
                 <jdbc.version>1.0.20061217</jdbc.version>
                 <jdbc.driverClassName>org.h2.Driver</jdbc.driverClassName>
-                <jdbc.url><![CDATA[jdbc:h2:${artifactId}]]></jdbc.url>
+                <jdbc.url><![CDATA[jdbc:h2:${artifactId.replaceAll('-','_')}]]></jdbc.url>
                 <jdbc.username>sa</jdbc.username>
                 <jdbc.password></jdbc.password>
             </properties>
@@ -595,7 +595,7 @@
                 <jdbc.artifactId>hsqldb</jdbc.artifactId>
                 <jdbc.version>1.8.0.7</jdbc.version>
                 <jdbc.driverClassName>org.hsqldb.jdbcDriver</jdbc.driverClassName>
-                <jdbc.url><![CDATA[jdbc:hsqldb:${artifactId};shutdown=true]]></jdbc.url>
+                <jdbc.url><![CDATA[jdbc:hsqldb:${artifactId.replaceAll('-','_')};shutdown=true]]></jdbc.url>
                 <jdbc.username>sa</jdbc.username>
                 <jdbc.password></jdbc.password>
             </properties>
@@ -623,7 +623,7 @@
                 <jdbc.artifactId>postgresql</jdbc.artifactId>
                 <jdbc.version>8.1-407.jdbc3</jdbc.version>
                 <jdbc.driverClassName>org.postgresql.Driver</jdbc.driverClassName>
-                <jdbc.url><![CDATA[jdbc:postgresql://localhost/${artifactId}]]></jdbc.url>
+                <jdbc.url><![CDATA[jdbc:postgresql://localhost/${artifactId.replaceAll('-','_')}]]></jdbc.url>
                 <jdbc.username>postgres</jdbc.username>
                 <jdbc.password>postgres</jdbc.password>
             </properties>
@@ -640,7 +640,7 @@
                 <jdbc.artifactId>jtds</jdbc.artifactId>
                 <jdbc.version>1.2</jdbc.version>
                 <jdbc.driverClassName>net.sourceforge.jtds.jdbc.Driver</jdbc.driverClassName>
-                <jdbc.url><![CDATA[jdbc:jtds:sqlserver://localhost:3683/${artifactId}]]></jdbc.url>
+                <jdbc.url><![CDATA[jdbc:jtds:sqlserver://localhost:3683/${artifactId.replaceAll('-','_')}]]></jdbc.url>
                 <jdbc.username>sa</jdbc.username>
                 <jdbc.password>appfuse</jdbc.password>
             </properties>
