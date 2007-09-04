@@ -74,8 +74,8 @@ public class AppFuseExporter extends GenericExporter {
             String daoFramework = getProperties().getProperty("daoframework");
 
             // DAO Implementation
-            configureExporter("appfuse/dao/" + getDaoDirectory(daoFramework) + "/dao-impl.ftl",
-                    "src/main/java/{basepkg-name}/dao/" + getDaoDirectory(daoFramework) + "/{class-name}Dao" +
+            configureExporter("appfuse/dao/" + daoFramework + "/dao-impl.ftl",
+                    "src/main/java/{basepkg-name}/dao/" + daoFramework + "/{class-name}Dao" +
                             getDaoFilename(daoFramework) + ".java").start();
             
             // Manager Test
@@ -198,18 +198,11 @@ public class AppFuseExporter extends GenericExporter {
     private String getDaoFilename(String daoFramework) {
         if (daoFramework.equalsIgnoreCase("ibatis")) {
             return "iBatis";
-        } else if (daoFramework.equalsIgnoreCase("jpa-hibernate")) {
+        } else if (daoFramework.equalsIgnoreCase("jpa")) {
             return "Jpa";
         } else {
             return Character.toUpperCase(daoFramework.charAt(0)) + daoFramework.substring(1);
         }
-    }
-
-    private String getDaoDirectory(String daoFramework) {
-        if (daoFramework.equals("jpa-hibernate")) {
-            return "jpa";
-        }
-        return daoFramework;
     }
 
     private GenericExporter configureExporter(String template, String pattern) {

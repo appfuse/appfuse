@@ -223,8 +223,8 @@
     
     <!-- Test JPA -->
     <target name="test-jpa" description="creates projects, changes dao.framework to jpa and tests generation">
-        <create-project-for-daoframework archetype="appfuse-basic-spring" name="basic-spring-jpa" daoFramework="jpa-hibernate"/>
-        <create-project-for-daoframework archetype="appfuse-basic-tapestry" name="basic-tapestry-jpa" daoFramework="jpa-hibernate"/>
+        <create-project-for-daoframework archetype="appfuse-basic-spring" name="basic-spring-jpa" daoFramework="jpa"/>
+        <create-project-for-daoframework archetype="appfuse-basic-tapestry" name="basic-tapestry-jpa" daoFramework="jpa"/>
     </target>
 
     <!-- Test generating POJOs from tables -->

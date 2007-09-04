@@ -13,7 +13,7 @@
                 <property name="dataSource" ref="dataSource"/>
                 <property name="sqlMapClient" ref="sqlMapClient"/>
             </bean>
-            <#elseif daoframework == "jpa-hibernate">
+            <#elseif daoframework == "jpa">
             <bean class="${appfusepackage}.dao.jpa.GenericDaoJpa">
                 <constructor-arg value="${pojo.packageName}.${pojo.shortName}"/>
             </bean>

@@ -26,9 +26,9 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>appfuse-jpa-hibernate</artifactId>
+    <artifactId>appfuse-jpa</artifactId>
     <packaging>jar</packaging>
-    <name>AppFuse JPA Hibernate Module</name>
+    <name>AppFuse JPA Module</name>
 
     <description>
         AppFuse DAO backend implemented with Hibernate's JPA implementation.

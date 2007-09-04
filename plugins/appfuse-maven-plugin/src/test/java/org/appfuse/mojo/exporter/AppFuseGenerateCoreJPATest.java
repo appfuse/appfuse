@@ -29,7 +29,7 @@ public final class AppFuseGenerateCoreJPATest extends AbstractAppFuseMojoTestCas
     @Override
     protected MavenProject getMavenProject() {
         MavenProject project = super.getMavenProject();
-        project.getProperties().setProperty("dao.framework", "jpa-hibernate");
+        project.getProperties().setProperty("dao.framework", "jpa");
         return project;
     }
 }

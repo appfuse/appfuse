@@ -43,7 +43,7 @@
         <module>common</module>
         <module>hibernate</module>
         <module>ibatis</module>
-        <module>jpa-hibernate</module>
+        <module>jpa</module>
     </modules>
 </project>
 

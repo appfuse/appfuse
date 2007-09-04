@@ -9,7 +9,7 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="sqlMapClient" ref="sqlMapClient"/>
     </bean>
-<#elseif daoframework == "jpa-hibernate">
+<#elseif daoframework == "jpa">
     <bean id="${pojoNameLower}Dao" class="${basepackage}.dao.jpa.${pojo.shortName}DaoJpa"/>
 </#if>
     <!--${pojo.shortName}Dao-END-->

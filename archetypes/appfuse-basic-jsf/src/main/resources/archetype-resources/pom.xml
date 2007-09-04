@@ -128,7 +128,7 @@
                         <component>
                             <name>hbm2ddl</name>
                             <implementation>annotationconfiguration</implementation>
-                            <!-- Use 'jpaconfiguration' if your going the -Ddao.framework=jpa-hibernate route. -->
+                            <!-- Use 'jpaconfiguration' if you're using JPA. -->
                             <!--<implementation>jpaconfiguration</implementation>-->
                         </component>
                     </components>
