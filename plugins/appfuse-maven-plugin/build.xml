@@ -258,9 +258,7 @@
             </replace>
             
             <!-- Remove hibernate.cfg.xml -->
-            <delete>
-                <fileset dir="${test.dir}/@{name}/src/main/resources" includes="hibernate.cfg.xml"/>
-            </delete>
+            <delete file="${test.dir}/@name/src/main/resources/hibernate.cfg.xml"/>>
 
             <!-- run gen install integration-test -->
             <maven dir="${test.dir}/@{name}" command="appfuse:gen -Dentity=Person -e"/>
