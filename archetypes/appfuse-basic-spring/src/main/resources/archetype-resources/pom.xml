@@ -228,7 +228,7 @@
             <plugin>
                 <groupId>org.appfuse</groupId>
                 <artifactId>maven-warpath-plugin</artifactId>
-                <version>1.0-rc1-SNAPSHOT</version>
+                <version>1.0-rc1</version>
                 <extensions>true</extensions>
                 <executions>
                     <execution>
@@ -664,7 +664,7 @@
         <amp.fullSource>false</amp.fullSource>
         
         <!-- Framework dependency versions -->
-        <appfuse.version>2.0-rc1-SNAPSHOT</appfuse.version>
+        <appfuse.version>2.0-rc1</appfuse.version>
         <spring.version>2.0.6</spring.version>
 
         <!-- Testing dependency versions -->
