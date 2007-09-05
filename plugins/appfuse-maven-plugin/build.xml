@@ -223,8 +223,8 @@
     
     <!-- Test JPA -->
     <target name="test-jpa" description="creates projects, changes dao.framework to jpa and tests generation">
-        <create-project-for-daoframework archetype="appfuse-basic-spring" name="basic-spring-jpa" daoFramework="jpa"/>
-        <create-project-for-daoframework archetype="appfuse-basic-tapestry" name="basic-tapestry-jpa" daoFramework="jpa"/>
+        <create-project-for-daoframework archetype="appfuse-basic-spring" name="basic-spring-jpa" daoFramework="jpa" hibernate3Config="jpaconfiguration"/>
+        <create-project-for-daoframework archetype="appfuse-basic-tapestry" name="basic-tapestry-jpa" daoFramework="jpa" hibernate3Config="jpaconfiguration"/>
     </target>
 
     <!-- Test generating POJOs from tables -->
@@ -234,6 +234,7 @@
         <attribute name="version" default="${version}"/>
         <attribute name="name"/>
         <attribute name="daoFramework"/>
+        <attribute name="hibernate3Config" default="annotationconfiguration"/>
 
         <sequential>
             <delete dir="${test.dir}/@{name}"/>
@@ -251,14 +252,11 @@
                 <replacevalue><![CDATA[<dao.framework>@{daoFramework}</dao.framework>]]></replacevalue>
             </replace>
 
-            <!-- Change hibernate3 plugin to use jpaannotation configuration -->
-            <replace file="${test.dir}/@{name}/pom.xml">
-                <replacetoken><![CDATA[<implementation>annotationconfiguration</implementation>]]></replacetoken>
-                <replacevalue><![CDATA[<implementation>jpaconfiguration</implementation>]]></replacevalue>
-            </replace>
+            <!-- Change hibernate3 plugin to use jpaconfiguration configuration -->
+            <replace file="${test.dir}/@{name}/pom.xml" token="annotationconfiguration" value="@{hibernate3Config}"/>
             
             <!-- Remove hibernate.cfg.xml -->
-            <delete file="${test.dir}/@name/src/main/resources/hibernate.cfg.xml"/>
+            <delete file="${test.dir}/@{name}/src/main/resources/hibernate.cfg.xml"/>
 
             <!-- run gen install integration-test -->
             <maven dir="${test.dir}/@{name}" command="appfuse:gen -Dentity=Person -e"/>
