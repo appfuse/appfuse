@@ -106,11 +106,11 @@ public class StartupListener implements ServletContextListener {
     }
 
     /**
-     * This is a no-op method.
+     * Shutdown servlet context and release any logging resources.
      *
      * @param servletContextEvent The servlet context event
      */
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
-        // nothing to see here, just trying to make checkstyle happy
+        LogFactory.release(Thread.currentThread().getContextClassLoader());
     }
 }
