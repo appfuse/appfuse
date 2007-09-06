@@ -113,7 +113,7 @@ public class InstallSourceMojo extends AbstractMojo {
             // if jpa or hibernate, remove duplicate file in test directory
             if ("hibernate".equalsIgnoreCase(daoFramework)) {
                 String filePath;
-                if (project.getPackaging().equalsIgnoreCase("jar") && !project.hasParent()) {
+                if (project.getPackaging().equalsIgnoreCase("jar") && project.hasParent()) {
                     filePath = "src/main/resources/hibernate.cfg.xml";
                 } else {
                     filePath = "src/test/resources/hibernate.cfg.xml";
@@ -216,11 +216,13 @@ public class InstallSourceMojo extends AbstractMojo {
             // Add dependencies from appfuse-service
             newDependencies = addModuleDependencies(newDependencies, "service", "service");
 
-            // Add dependencies from appfuse-common-web
-            newDependencies = addModuleDependencies(newDependencies, "web-common", "web/common");
+            if (project.getPackaging().equals("war")) {
+                // Add dependencies from appfuse-common-web
+                newDependencies = addModuleDependencies(newDependencies, "web-common", "web/common");
 
-            // Add dependencies from appfuse-${web.framework}
-            newDependencies = addModuleDependencies(newDependencies, webFramework, "web/" + webFramework, true);
+                // Add dependencies from appfuse-${web.framework}
+                newDependencies = addModuleDependencies(newDependencies, webFramework, "web/" + webFramework, true);
+            }
 
             createFullSourcePom(newDependencies);
         } else {
@@ -407,25 +409,14 @@ public class InstallSourceMojo extends AbstractMojo {
             sb.append(originalPom.substring(originalPom.indexOf("</dependencies>", startTag)));
 
             String adjustedPom = sb.toString();
-            
+
+            // Fix line-endings on non-Windows platforms
+            adjustedPom = adjustLineEndingsForOS(adjustedPom);
+
             // Calculate properties and add them to pom if not a modular project - otherwise properties are added
             // near the end of this method from a threadlocal
-            if (!project.getPackaging().equals("pom") && !project.hasParent() && adjustedPom.lastIndexOf("</properties>") > -1) {
-                // chop off end of file to fix problem with not finding "</properties>\n</project>"
-                adjustedPom = sb.substring(0, sb.lastIndexOf("</properties>"));
-
-                // add new properties
-                adjustedPom += "\n        <!-- Properties calculated by AppFuse when running full-source plugin -->\n"
-                        + sortedProperties + "    </properties>\n</project>";
-                adjustedPom = adjustedPom.replaceAll("<amp.fullSource>false</amp.fullSource>", "<amp.fullSource>true</amp.fullSource>");
-            }
-            
-            // Fix line-endings on non-Windows platforms
-            String os = System.getProperty("os.name");
-
-            if (os.startsWith("Linux") || os.startsWith("Mac")) {
-                // remove the \r returns
-                adjustedPom = adjustedPom.replaceAll("\r", "");
+            if (!project.getPackaging().equals("pom") && !project.hasParent()) {
+                adjustedPom = addPropertiesToPom(adjustedPom, sortedProperties);
             }
 
             FileUtils.writeStringToFile(new File(pathToPom), adjustedPom); // was pomWithProperties
@@ -483,18 +474,9 @@ public class InstallSourceMojo extends AbstractMojo {
             try {
                 String originalPom = FileUtils.readFileToString(new File("pom.xml"));
 
-                String pomWithProperties = originalPom.replace("</properties>\n</project>",
-                    "\n        <!-- Properties calculated by AppFuse when running full-source plugin -->\n" + calculatedProperties + "    </properties>\n</project>");
+                String pomWithProperties = addPropertiesToPom(originalPom, calculatedProperties);
 
-                pomWithProperties = pomWithProperties.replaceAll("<amp.fullSource>false</amp.fullSource>", "<amp.fullSource>true</amp.fullSource>");
-
-                String os = System.getProperty("os.name");
-
-                if (os.startsWith("Linux") || os.startsWith("Mac")) {
-                    // remove the \r returns
-                    pomWithProperties = pomWithProperties.replaceAll("\r", "");
-                }
-                FileUtils.writeStringToFile(new File("pom.xml"), pomWithProperties); 
+                FileUtils.writeStringToFile(new File("pom.xml"), pomWithProperties);
             } catch (IOException ex) {
                 getLog().error("Unable to read root pom.xml: " + ex.getMessage(), ex);
                 throw new MojoFailureException(ex.getMessage());
@@ -508,6 +490,28 @@ public class InstallSourceMojo extends AbstractMojo {
         if (pom.exists()) {
             pom.delete();
         }
+    }
+
+    private static String addPropertiesToPom(String existingPomXmlAsString, StringBuffer sortedProperties) {
+        String adjustedPom = adjustLineEndingsForOS(existingPomXmlAsString);
+
+        // add new properties
+        adjustedPom = adjustedPom.replace("</properties>\\s*</project>",
+                "\n        <!-- Properties calculated by AppFuse when running full-source plugin -->\n" +
+                        sortedProperties + "    </properties>\n</project>");
+        adjustedPom = adjustedPom.replaceAll("<amp.fullSource>false</amp.fullSource>", "<amp.fullSource>true</amp.fullSource>");
+
+        return adjustedPom;
+    }
+
+    private static String adjustLineEndingsForOS(String adjustedPom) {
+        String os = System.getProperty("os.name");
+
+        if (os.startsWith("Linux") || os.startsWith("Mac")) {
+            // remove the \r returns
+            adjustedPom = adjustedPom.replaceAll("\r", "");
+        }
+        return adjustedPom;
     }
 
     private Properties getAppFuseProperties() {
@@ -635,7 +639,7 @@ public class InstallSourceMojo extends AbstractMojo {
             Dependency dep = (Dependency) moduleDependency;
 
             if (dep.getGroupId().equals("javax.servlet") && dep.getArtifactId().equals("jsp-api")
-                && project.getProperties().getProperty("web.framework").equals("jsf")) {
+                && "jsf".equals(project.getProperties().getProperty("web.framework"))) {
                 // skip adding dependency for old group id of jsp-api
                 continue;
             }

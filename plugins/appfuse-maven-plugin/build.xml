@@ -136,6 +136,7 @@
         <antcall target="test-spring-basic-source"/>
         <antcall target="test-struts-basic-source"/>
         <antcall target="test-tapestry-basic-source"/>
+        <antcall target="test-core-source"/>
     </target>
 
     <target name="test-modular-source" description="Tests extracting source into modular archetypes">
@@ -159,6 +160,10 @@
 
      <target name="test-tapestry-basic-source" description="tests full-source plugin with tapestry basic archetype">
         <full-source archetype="appfuse-basic-tapestry" name="basic-tapestry-source"/>
+    </target>
+
+    <target name="test-core-source" description="tests full-source plugin with core archetype">
+        <full-source archetype="appfuse-core" name="core-source"/>
     </target>
 
     <target name="test-jsf-modular-source" description="tests full-source plugin with jsf modular archetype">

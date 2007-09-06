@@ -1251,7 +1251,7 @@ public class RenamePackages {
         }
 
         // success!
-        log.info("Refactored all AppFuse package imports, statements, and qualified paths to your groupId");
+        log.info("[AppFuse] Refactored all 'org.appfuse' packages and paths to '" + newPkgName + "'.");
     }
 
 }
