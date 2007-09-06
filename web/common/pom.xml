@@ -82,7 +82,7 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
+                <groupId>org.appfuse.plugins</groupId>
                 <artifactId>native2ascii-maven-plugin</artifactId>
                 <version>1.0-alpha-1</version>
                 <configuration>

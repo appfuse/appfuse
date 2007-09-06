@@ -1,12 +1,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
-        <artifactId>mojo</artifactId>
-        <groupId>org.codehaus.mojo</groupId>
-        <version>13</version>
+        <groupId>org.appfuse</groupId>
+        <artifactId>appfuse</artifactId>
+        <version>2.0-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
-    <groupId>org.codehaus.mojo</groupId>
+
+    <groupId>org.appfuse</groupId>
     <artifactId>appfuse-maven-plugin</artifactId>
     <packaging>maven-plugin</packaging>
     <name>AppFuse Maven Plugin</name>
@@ -30,8 +33,7 @@
 
     <scm>
         <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/plugins/appfuse-maven-plugin</connection>
-        <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/plugins/appfuse-maven-plugin
-        </developerConnection>
+        <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/plugins/appfuse-maven-plugin</developerConnection>
         <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/plugins/appfuse-maven-plugin</url>
     </scm>
 
@@ -94,24 +96,6 @@
         <defaultGoal>install</defaultGoal>
         <plugins>
             <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.0.2</version>
-                <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-idea-plugin</artifactId>
-                <version>2.1</version>
-                <configuration>
-                    <downloadSources>true</downloadSources>
-                    <downloadJavadocs>true</downloadJavadocs>
-                    <dependenciesAsLibraries>true</dependenciesAsLibraries>
-                    <useFullNames>false</useFullNames>
-                </configuration>
-            </plugin>
-            <plugin>
                 <artifactId>maven-plugin-plugin</artifactId>
                 <configuration>
                     <prefix>appfuse</prefix>
@@ -131,21 +115,11 @@
     </build>
 
     <distributionManagement>
-        <repository>
-            <id>appfuse-releases</id>
-            <name>AppFuse Release Repository</name>
-            <url>scp://static.appfuse.org/var/www/appfuse-releases</url>
-        </repository>
         <site>
-            <id>appfuse-site</id>
-            <name>AppFuse Maven Site</name>
+            <id>appfuse-plugins</id>
+            <name>AppFuse Plugins Site</name>
             <url>scp://static.appfuse.org/var/www/appfuse-site/plugins/appfuse-maven-plugin</url>
         </site>
-        <snapshotRepository>
-            <id>appfuse-snapshots</id>
-            <name>AppFuse Snapshot Repository</name>
-            <url>scp://static.appfuse.org/var/www/appfuse-repo</url>
-        </snapshotRepository>
     </distributionManagement>
 
     <!--repositories>
@@ -224,18 +198,18 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.4</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-io</artifactId>
-            <version>1.3.2</version>
+            <version>${commons.io.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
-            <version>1.7.0</version>
+            <version>${commons.beanutils.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.maven.archetype</groupId>
@@ -267,38 +241,6 @@
             <version>1.1.2</version>
         </dependency>
     </dependencies>
-
-    <reporting>
-        <plugins>
-            <plugin>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <configuration>
-                    <configLocation>https://appfuse.dev.java.net/checkstyle.xml</configLocation>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-                <version>2.0</version>
-            </plugin>
-            <plugin>
-                <artifactId>maven-javadoc-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <artifactId>maven-jxr-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <artifactId>maven-pmd-plugin</artifactId>
-                <configuration>
-                    <linkXref>true</linkXref>
-                    <targetJdk>1.5</targetJdk>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-surefire-report-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </reporting>
     
     <properties>
         <hibernate3.plugin.version>2.0-alpha-2</hibernate3.plugin.version>

@@ -187,7 +187,7 @@ public abstract class HibernateExporterMojo extends AbstractMojo implements Expo
      * @see ExporterMojo#getComponentProperty(String,String)
      */
     public String getComponentProperty(String key, String defaultValue) {
-        String value = (String) componentProperties.get(key);
+        String value = componentProperties.get(key);
         if (value == null || "".equals(value.trim())) {
             return defaultValue;
         }
