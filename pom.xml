@@ -524,7 +524,7 @@
         <cargo.port>9876</cargo.port>
         <cargo.wait>false</cargo.wait>
 
-        <acegi.version>1.0.4</acegi.version>
+        <acegi.version>1.0.5</acegi.version>
         <acegijsf.version>1.1.2</acegijsf.version>
         <ajax4jsf.version>1.0.6</ajax4jsf.version>
         <asm.version>2.2.3</asm.version>
