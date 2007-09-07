@@ -212,6 +212,11 @@
             </exclusions>
         </dependency>
         <dependency>
+            <groupId>net.sf.tacos</groupId>
+            <artifactId>tacos-core</artifactId>
+            <version>${tacos.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.subethamail</groupId>
             <artifactId>subethasmtp-wiser</artifactId>
             <version>${wiser.version}</version>
