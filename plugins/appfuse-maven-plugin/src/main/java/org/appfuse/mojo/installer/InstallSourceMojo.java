@@ -417,7 +417,6 @@ public class InstallSourceMojo extends AbstractMojo {
                 adjustedPom = addPropertiesToPom(adjustedPom, sortedProperties);
             }
 
-            // Fix line-endings on non-Windows platforms
             adjustedPom = adjustLineEndingsForOS(adjustedPom);
 
             FileUtils.writeStringToFile(new File(pathToPom), adjustedPom); // was pomWithProperties
@@ -513,13 +512,7 @@ public class InstallSourceMojo extends AbstractMojo {
                         sortedProperties + "    </properties>\n</project>");
         adjustedPom = adjustedPom.replaceAll("<amp.fullSource>false</amp.fullSource>", "<amp.fullSource>true</amp.fullSource>");
 
-        String os = System.getProperty("os.name");
-        if (os.startsWith("Windows")) {
-            // use windows line endings
-            adjustedPom = adjustedPom.replaceAll(">\n", ">\r\n");
-        }
-
-        return adjustedPom;
+        return adjustLineEndingsForOS(adjustedPom);
     }
 
     private static String adjustLineEndingsForOS(String adjustedPom) {
@@ -528,7 +521,11 @@ public class InstallSourceMojo extends AbstractMojo {
         if (os.startsWith("Linux") || os.startsWith("Mac")) {
             // remove the \r returns
             adjustedPom = adjustedPom.replaceAll("\r", "");
+        } else if (os.startsWith("Windows")) {
+            // use windows line endings
+            adjustedPom = adjustedPom.replaceAll(">\n", ">\r\n");
         }
+
         return adjustedPom;
     }
 
