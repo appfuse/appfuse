@@ -44,6 +44,7 @@ import java.util.TreeSet;
 public class InstallSourceMojo extends AbstractMojo {
     private static final String APPFUSE_GROUP_ID = "org.appfuse";
     private static final String FILE_SEP = System.getProperty("file.separator");
+    private static final String LINE_SEP = System.getProperty("line.separator");
 
     Project antProject = AntUtils.createProject();
     Properties appfuseProperties;
@@ -247,7 +248,7 @@ public class InstallSourceMojo extends AbstractMojo {
 
             if (project.getPackaging().equals("war")) {
                 newDependencies.clear();
-                
+
                 // Add dependencies from appfuse-common-web
                 newDependencies = addModuleDependencies(newDependencies, "web-common", "web/common");
 
@@ -308,7 +309,7 @@ public class InstallSourceMojo extends AbstractMojo {
                 project.getOriginalModel().getProperties().setProperty("jsp.version", "2.1");
             }
         }
-        
+
         Collections.sort(newDependencies, new BeanComparator("groupId"));
 
         project.getOriginalModel().setDependencies(newDependencies);
@@ -326,7 +327,7 @@ public class InstallSourceMojo extends AbstractMojo {
 
         // holder for properties - stored in ThreadLocale
         Map<String, String> propertiesForPom = new LinkedHashMap<String, String>();
-        
+
         for (String key : projectProperties) {
             // don't add property if it already exists in project
             if (!currentKeys.contains(key)) {
@@ -410,14 +411,14 @@ public class InstallSourceMojo extends AbstractMojo {
 
             String adjustedPom = sb.toString();
 
-            // Fix line-endings on non-Windows platforms
-            adjustedPom = adjustLineEndingsForOS(adjustedPom);
-
             // Calculate properties and add them to pom if not a modular project - otherwise properties are added
             // near the end of this method from a threadlocal
             if (!project.getPackaging().equals("pom") && !project.hasParent()) {
                 adjustedPom = addPropertiesToPom(adjustedPom, sortedProperties);
             }
+
+            // Fix line-endings on non-Windows platforms
+            adjustedPom = adjustLineEndingsForOS(adjustedPom);
 
             FileUtils.writeStringToFile(new File(pathToPom), adjustedPom); // was pomWithProperties
         } catch (IOException ex) {
@@ -440,7 +441,7 @@ public class InstallSourceMojo extends AbstractMojo {
                     renamePackagesTool.setBaseDir("web");
                 }
             }
-            
+
             renamePackagesTool.execute();
         }
 
@@ -455,7 +456,7 @@ public class InstallSourceMojo extends AbstractMojo {
             Set<String> propertiesToAdd = new TreeSet<String>(properties.keySet());
 
             StringBuffer calculatedProperties = new StringBuffer();
-            
+
             for (String key : propertiesToAdd) {
                 // don't add property if it already exists in project
                 Set<Object> keysInProject = project.getParent().getOriginalModel().getProperties().keySet();
@@ -466,8 +467,14 @@ public class InstallSourceMojo extends AbstractMojo {
                         value = "<![CDATA[" + value + "]]>";
                     }
 
-                    calculatedProperties.append("        <").append(key).append(">")
-                            .append(value).append("</").append(key).append(">" + "\n");
+                    calculatedProperties.append("        <");
+                    calculatedProperties.append(key);
+                    calculatedProperties.append(">");
+                    calculatedProperties.append(value);
+                    calculatedProperties.append("</");
+                    calculatedProperties.append(key);
+                    calculatedProperties.append(">");
+                    calculatedProperties.append("\n");
                 }
             }
 
@@ -493,13 +500,24 @@ public class InstallSourceMojo extends AbstractMojo {
     }
 
     private static String addPropertiesToPom(String existingPomXmlAsString, StringBuffer sortedProperties) {
-        String adjustedPom = adjustLineEndingsForOS(existingPomXmlAsString);
+        String adjustedPom = existingPomXmlAsString;
+
+        // fix for Windows
+        if (adjustedPom.contains("</properties>\r\n</project>")) {
+            adjustedPom = adjustedPom.replace("</properties>\r\n</project>", "</properties>\n</project>");
+        }
 
         // add new properties
-        adjustedPom = adjustedPom.replace("</properties>\\s*</project>",
-                "\n        <!-- Properties calculated by AppFuse when running full-source plugin -->\n" +
+        adjustedPom = adjustedPom.replace("</properties>\n</project>", LINE_SEP +
+                "        <!-- Properties calculated by AppFuse when running full-source plugin -->\n" +
                         sortedProperties + "    </properties>\n</project>");
         adjustedPom = adjustedPom.replaceAll("<amp.fullSource>false</amp.fullSource>", "<amp.fullSource>true</amp.fullSource>");
+
+        String os = System.getProperty("os.name");
+        if (os.startsWith("Windows")) {
+            // use windows line endings
+            adjustedPom = adjustedPom.replaceAll(">\n", ">\r\n");
+        }
 
         return adjustedPom;
     }
