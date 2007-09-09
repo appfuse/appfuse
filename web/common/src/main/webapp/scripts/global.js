@@ -247,15 +247,15 @@ function confirmDelete(obj) {
 function highlightTableRows(tableId) {
     var previousClass = null;
     var table = document.getElementById(tableId); 
-    var tbody = table.getElementsByTagName("tbody")[0];
-    var rows;
-    if (tbody == null) {
-        rows = table.getElementsByTagName("tr");
-    } else {
-        rows = tbody.getElementsByTagName("tr");
+    var startRow = 0;
+    // workaround for Tapestry not using thead
+    if (!table.getElementsByTagName("thead")[0]) {
+	    startRow = 1;
     }
+    var tbody = table.getElementsByTagName("tbody")[0];
+    var rows = tbody.getElementsByTagName("tr");
     // add event handlers so rows light up and are clickable
-    for (i=0; i < rows.length; i++) {
+    for (i=startRow; i < rows.length; i++) {
         rows[i].onmouseover = function() { previousClass=this.className;this.className+=' over' };
         rows[i].onmouseout = function() { this.className=previousClass };
         rows[i].onclick = function() {
