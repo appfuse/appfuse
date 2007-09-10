@@ -506,7 +506,7 @@ public class RenamePackages {
 
     private boolean matches(String patternStr, String fileContents) {
 
-    	Pattern pattern = Pattern.compile(patternStr);
+        Pattern pattern = Pattern.compile(patternStr);
         Matcher matcher = pattern.matcher(fileContents);
         return matcher.matches();
     }
@@ -514,7 +514,7 @@ public class RenamePackages {
 
     private boolean hasFileOldPathOrPkg(String fileName) {
 
-    	try {
+        try {
             String fileContents = fromFile(fileName);
 
             String patternStr = escape(existingPkgPath);
