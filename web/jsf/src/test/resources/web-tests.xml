@@ -125,7 +125,7 @@
                 
                 <verifytitle description="view user list screen" text=".*${userList.title}.*" regex="true"/>
                 <verifytext description="verify success message" regex="true"
-                    text='&lt;div class="message.*&gt;.*&lt;strong&gt;Test Name&lt;/strong&gt;.*&lt;/div&gt;'/>
+                    text='&lt;div class="message.*&gt;.*Test Name.*&lt;/div&gt;'/>
                     
                 <!-- Delete user -->
                 <clicklink description="Click edit user link" label="newuser"/>
@@ -134,7 +134,7 @@
                 <clickbutton label="${button.delete}" description="Click button 'Delete'"/>
                 <verifyNoDialogResponses/>
                 <verifytext description="verify success message" regex="true"
-                    text='&lt;div class="message.*&gt;.*&lt;strong&gt;Test Name&lt;/strong&gt;.*&lt;/div&gt;'/>
+                    text='&lt;div class="message.*&gt;.*Test Name.*&lt;/div&gt;'/>
                 <verifytitle description="display user list" text=".*${userList.title}.*" regex="true"/>
             </steps>
         </webtest>
