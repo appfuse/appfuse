@@ -1,6 +1,7 @@
 package org.appfuse.webapp.filter;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -31,6 +32,10 @@ public class MessageFilter implements Filter {
         if (messages != null) {
             request.setAttribute("messages", messages);
             request.getSession().removeAttribute("messages");
+        } else {
+            // workaround for issue with Jetty 6.1.5 (Maven Plugin) and MyFaces 1.2.0
+            // http://issues.appfuse.org/browse/APF-856
+            request.setAttribute("messages", new ArrayList());
         }
         
         // grab errors from the session and put them into request
@@ -40,6 +45,10 @@ public class MessageFilter implements Filter {
         if (errors != null) {
             request.setAttribute("errors", errors);
             request.getSession().removeAttribute("errors");
+        } else {
+            // workaround for issue with Jetty 6.1.5 (Maven Plugin) and MyFaces 1.2.0
+            // http://issues.appfuse.org/browse/APF-856
+            request.setAttribute("errors", new ArrayList());
         }
 
         chain.doFilter(req, res);
