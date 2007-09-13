@@ -293,21 +293,17 @@
             <artifactId>acegi-security-tiger</artifactId>
             <version>${acegi.version}</version>
             <exclusions>
-                <exclusion>
+               <exclusion>
                     <groupId>org.springframework</groupId>
-                    <artifactId>spring-aop</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-dao</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-jdbc</artifactId>
+                    <artifactId>spring-core</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>org.springframework</groupId>
                     <artifactId>spring-remoting</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-jdbc</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>org.springframework</groupId>
