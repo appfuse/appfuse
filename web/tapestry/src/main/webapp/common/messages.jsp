@@ -4,7 +4,7 @@
         <c:forEach var="err" items="${error}">
             <img src="<c:url value="/images/iconWarning.gif"/>"
                 alt="<fmt:message key="icon.warning"/>" class="icon" />
-            <c:out value="${err}" escapeXml="false"/><br />
+            <c:out value="${err}"/><br />
         </c:forEach>
     </div>
     <c:remove var="error" scope="session"/>
@@ -16,7 +16,7 @@
         <c:forEach var="msg" items="${message}">
             <img src="<c:url value="/images/iconInformation.gif"/>"
                 alt="<fmt:message key="icon.information"/>" class="icon" />
-            <c:out value="${msg}" escapeXml="false"/><br />
+            <c:out value="${msg}"/><br />
         </c:forEach>
     </div>
     <c:remove var="message" scope="session"/>

@@ -5,7 +5,7 @@
       <s:iterator value="actionErrors">
         <img src="<c:url value="/images/iconWarning.gif"/>"
             alt="<fmt:message key="icon.warning"/>" class="icon" />
-        <s:property escape="false"/><br />
+        <s:property/><br />
       </s:iterator>
    </div>
 </s:if>
@@ -17,7 +17,7 @@
           <s:iterator value="value">
             <img src="<c:url value="/images/iconWarning.gif"/>"
                 alt="<fmt:message key="icon.warning"/>" class="icon" />
-             <s:property escape="false"/><br />
+             <s:property/><br />
           </s:iterator>
       </s:iterator>
    </div>
@@ -30,7 +30,7 @@
         <c:forEach var="msg" items="${messages}">
             <img src="<c:url value="/images/iconInformation.gif"/>"
                 alt="<fmt:message key="icon.information"/>" class="icon" />
-            <c:out value="${msg}" escapeXml="false"/><br />
+            <c:out value="${msg}"/><br />
         </c:forEach>
     </div>
     <c:remove var="messages" scope="session"/>
