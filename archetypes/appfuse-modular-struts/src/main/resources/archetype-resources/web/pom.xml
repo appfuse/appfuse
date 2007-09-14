@@ -161,8 +161,18 @@
                     <exclude>ApplicationResources_pt*.properties</exclude>
                     <exclude>ApplicationResources_tr.properties</exclude>
                     <exclude>ApplicationResources_zh*.properties</exclude>
+                    <exclude>applicationContext-resources.xml</exclude>
+                    <exclude>struts.xml</exclude>
                 </excludes>
                 <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>applicationContext-resources.xml</include>
+                    <include>struts.xml</include>
+                </includes>
+                <filtering>false</filtering>
             </resource>
         </resources>
         <testResources>
