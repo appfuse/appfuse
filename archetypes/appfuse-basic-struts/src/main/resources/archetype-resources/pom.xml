@@ -241,7 +241,7 @@
                     <warpathExcludes>
                         applicationContext-resources.xml,ApplicationResources*.properties,ehcache.xml,
                         hibernate.cfg.xml,jdbc.properties,log4j.xml,mail.properties,**/persistence.xml,
-                        sql-map-config.xml
+                        sql-map-config.xml,struts.xml
                     </warpathExcludes>
                 </configuration>
             </plugin>
