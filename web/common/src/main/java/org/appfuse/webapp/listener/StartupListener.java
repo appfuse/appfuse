@@ -106,11 +106,14 @@ public class StartupListener implements ServletContextListener {
     }
 
     /**
-     * Shutdown servlet context and release any logging resources.
+     * Shutdown servlet context (currently a no-op method).
      *
      * @param servletContextEvent The servlet context event
      */
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
-        LogFactory.release(Thread.currentThread().getContextClassLoader());
+        //LogFactory.release(Thread.currentThread().getContextClassLoader());
+        //Commented out the above call to avoid warning when SLF4J in classpath.
+        //WARN: The method class org.apache.commons.logging.impl.SLF4JLogFactory#release() was invoked.
+        //WARN: Please see http://www.slf4j.org/codes.html for an explanation.
     }
 }
