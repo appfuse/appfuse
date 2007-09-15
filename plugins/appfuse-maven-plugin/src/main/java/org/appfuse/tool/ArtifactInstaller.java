@@ -16,9 +16,10 @@ import java.io.File;
 import java.util.ArrayList;
 
 /**
+ * This class is responsible for installing generated CRUD artifacts into an AppFuse application.
  * @author mraible
  */
-public class Installer {
+public class ArtifactInstaller {
     private Log log;
     static final String FILE_SEP = System.getProperty("file.separator");
     Project antProject;
@@ -29,7 +30,7 @@ public class Installer {
     MavenProject project;
     boolean genericCore;
 
-    public Installer(MavenProject project, String pojoName, String sourceDirectory, String destinationDirectory, boolean genericCore) {
+    public ArtifactInstaller(MavenProject project, String pojoName, String sourceDirectory, String destinationDirectory, boolean genericCore) {
         this.project = project;
         this.pojoName = pojoName;
         this.pojoNameLower = pojoLowerCase(pojoName);
@@ -346,7 +347,8 @@ public class Installer {
         Replace replaceData = (Replace) antProject.createTask("replace");
         replaceData.setFile(existingFile);
         replaceData.setToken(tokenToReplace);
-        replaceData.setValue(antProject.getProperty(fileVariable));
+        String stringWithProperLineEndings = adjustLineEndingsForOS(antProject.getProperty(fileVariable));
+        replaceData.setValue(stringWithProperLineEndings);
         replaceData.execute();
     }
 
@@ -380,6 +382,20 @@ public class Installer {
         regExpTask.setReplace("");
         regExpTask.setFlags("g");
         regExpTask.execute();
+    }
+    
+    private static String adjustLineEndingsForOS(String property) {
+        String os = System.getProperty("os.name");
+
+        if (os.startsWith("Linux") || os.startsWith("Mac")) {
+            // remove the \r returns
+            property = property.replaceAll("\r", "");
+        } else if (os.startsWith("Windows")) {
+            // use windows line endings
+            property = property.replaceAll(">\n", ">\r\n");
+        }
+
+        return property;
     }
 
     private void log(String msg) {

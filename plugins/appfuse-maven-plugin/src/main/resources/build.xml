@@ -270,9 +270,9 @@
             <classpath refid="compile.classpath"/>
             <![CDATA[ 
                 INSERT INTO app_user (id, first_name, last_name) 
-                    values (5, 'Julie', 'Raible');
+                    values (5, 'Abbie', 'Raible');
                 INSERT INTO app_user (id, first_name, last_name) 
-                    values (6, 'Abbie', 'Raible');
+                    values (6, 'Jack', 'Raible');
             ]]>
         </sql>
     </target>

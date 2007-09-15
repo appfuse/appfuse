@@ -83,14 +83,18 @@
         <mapping class="com.company.model.Person"/>]]></replacevalue>
             </replace>
 
+            <echo level="info">Generating Generic CRUD for Person entity...</echo>
             <!-- run gen install integration-test -->
             <maven dir="${test.dir}/@{name}" command="appfuse:gen -Dentity=Person"/>
-            <!--<maven dir="${test.dir}/@{name}" command="appfuse:install -Dentity=Person"/>-->
             <maven dir="${test.dir}/@{name}" command="integration-test"/>
 
+            <echo level="info">Removing Person entity...</echo>
+            <maven dir="${test.dir}/@{name}" command="appfuse:remove -Dentity=Person"/>
+            <maven dir="${test.dir}/@{name}" command="clean integration-test"/>
+
+            <echo level="info">Generating CRUD for Person entity...</echo>
             <!-- test w/o generic core -->
             <maven dir="${test.dir}/@{name}" command="appfuse:gen -Dentity=Person -Damp.genericCore=false"/>
-            <!--<maven dir="${test.dir}/@{name}" command="appfuse:install -Dentity=Person -Damp.genericCore=false"/>-->
             <maven dir="${test.dir}/@{name}" command="integration-test"/>
         </sequential>
     </macrodef>
@@ -121,12 +125,10 @@
 
             <!-- gen and test core -->
             <maven dir="${test.dir}/@{name}/core" command="appfuse:gen -Dentity=Person -Damp.genericCore=false"/>
-            <!--<maven dir="${test.dir}/@{name}/core" command="appfuse:install -Dentity=Person -Damp.genericCore=false"/>-->
             <maven dir="${test.dir}/@{name}/core" command="install -Dsurefire.useFile=false"/>
 
             <!-- get and test web -->
             <maven dir="${test.dir}/@{name}/web" command="appfuse:gen -Dentity=Person -Damp.genericCore=false"/>
-            <!--<maven dir="${test.dir}/@{name}/web" command="appfuse:install -Dentity=Person -Damp.genericCore=false"/>-->
             <maven dir="${test.dir}/@{name}/web" command="install -Dsurefire.useFile=false"/>
         </sequential>
     </macrodef>

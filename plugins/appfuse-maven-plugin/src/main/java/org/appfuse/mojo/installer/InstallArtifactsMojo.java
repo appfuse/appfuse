@@ -4,9 +4,9 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
-import org.appfuse.tool.Installer;
 import org.codehaus.plexus.components.interactivity.Prompter;
 import org.codehaus.plexus.components.interactivity.PrompterException;
+import org.appfuse.tool.ArtifactInstaller;
 
 /**
  * This mojo is used to "install" generated artifacts (Java files, XML files) into an AppFuse project.
@@ -82,7 +82,7 @@ public class InstallArtifactsMojo extends AbstractMojo {
             throw new MojoExecutionException("You must specify an entity name to continue.");
         }
 
-        Installer installer = new Installer(project, pojoName, sourceDirectory, destinationDirectory, genericCore);
+        ArtifactInstaller installer = new ArtifactInstaller(project, pojoName, sourceDirectory, destinationDirectory, genericCore);
         installer.execute();
     }
 }
