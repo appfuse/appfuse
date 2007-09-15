@@ -56,7 +56,7 @@ public class UserFormControllerTest extends BaseControllerTestCase {
     public void testEdit() throws Exception {
         log.debug("testing edit...");
         request = newGet("/userform.html");
-        request.addParameter("id", "1"); // tomcat
+        request.addParameter("id", "-1"); // regular user
         request.addUserRole(Constants.ADMIN_ROLE);
 
         mv = c.handleRequest(request, new MockHttpServletResponse());
@@ -69,7 +69,7 @@ public class UserFormControllerTest extends BaseControllerTestCase {
     public void testEditWithoutPermission() throws Exception {
         log.debug("testing edit...");
         request = newGet("/userform.html");
-        request.addParameter("id", "1"); // tomcat
+        request.addParameter("id", "-1"); // regular user
 
         try {
             mv = c.handleRequest(request, new MockHttpServletResponse());
@@ -95,7 +95,7 @@ public class UserFormControllerTest extends BaseControllerTestCase {
         request = newPost("/userform.html");
         // set updated properties first since adding them later will
         // result in multiple parameters with the same name getting sent
-        User user = ((UserManager) applicationContext.getBean("userManager")).getUser("1");
+        User user = ((UserManager) applicationContext.getBean("userManager")).getUser("-1");
         user.setConfirmPassword(user.getPassword());
         user.setLastName("Updated Last Name");
         super.objectToRequestParameters(user, request);
@@ -110,7 +110,7 @@ public class UserFormControllerTest extends BaseControllerTestCase {
     
     public void testAddWithMissingFields() throws Exception {
         request = newPost("/userform.html");
-        request.addParameter("firstName", "Julie");
+        request.addParameter("firstName", "Jack");
         request.setRemoteUser("user");
 
         mv = c.handleRequest(request, new MockHttpServletResponse());
@@ -122,7 +122,7 @@ public class UserFormControllerTest extends BaseControllerTestCase {
     public void testRemove() throws Exception {
         request = newPost("/userform.html");
         request.addParameter("delete", "");
-        request.addParameter("id", "2");
+        request.addParameter("id", "-2");
 
         mv = c.handleRequest(request, new MockHttpServletResponse());
         

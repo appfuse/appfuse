@@ -26,7 +26,7 @@ public class UserActionTest extends BaseActionTestCase {
         MockHttpServletRequest request = new MockHttpServletRequest("GET", "/editUser.html");
         ServletActionContext.setRequest(request);
         
-        action.setId("1"); // tomcat
+        action.setId("-1"); // regular user
         assertNull(action.getUser());
         assertEquals("success", action.edit());
         assertNotNull(action.getUser());
@@ -83,7 +83,7 @@ public class UserActionTest extends BaseActionTestCase {
 
     public void testRemove() throws Exception {
         User user = new User("admin");
-        user.setId(2L);
+        user.setId(-2L);
         action.setUser(user);
         assertEquals("success", action.delete());
         assertFalse(action.hasActionErrors());

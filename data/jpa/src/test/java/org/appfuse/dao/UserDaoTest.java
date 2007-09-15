@@ -33,7 +33,7 @@ public class UserDaoTest extends BaseDaoTestCase {
     }
 
     public void testGetUser() throws Exception {
-        User user = dao.get(1L);
+        User user = dao.get(-1L);
 
         assertNotNull(user);
         assertEquals(1, user.getRoles().size());
@@ -42,7 +42,7 @@ public class UserDaoTest extends BaseDaoTestCase {
 
     
     public void testUpdateUser() throws Exception {
-        User user = dao.get(1L);
+        User user = dao.get(-1L);
 
         Address address = user.getAddress();
         address.setAddress("new address");
@@ -68,7 +68,7 @@ public class UserDaoTest extends BaseDaoTestCase {
     }
 
     public void testAddUserRole() throws Exception {
-        User user = dao.get(1L);
+        User user = dao.get(-1L);
         assertEquals(1, user.getRoles().size());
 
         Role role = rdao.getRoleByName(Constants.ADMIN_ROLE);
@@ -123,7 +123,7 @@ public class UserDaoTest extends BaseDaoTestCase {
     }
     
     public void testUserExists() throws Exception {
-        boolean b = dao.exists(1L);
+        boolean b = dao.exists(-1L);
         super.assertTrue(b);
     }
     

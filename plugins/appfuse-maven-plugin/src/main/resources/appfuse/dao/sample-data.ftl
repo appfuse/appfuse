@@ -15,7 +15,7 @@
     <#foreach column in field.getColumnIterator()>
         <value description="${column.name}"><#rt/>
         <#if field.equals(pojo.identifierProperty)>
-            <#lt/>${num}<#rt/>
+            <#lt/>-${num}<#rt/>
         <#elseif field.equals(pojo.versionProperty)>
             1<#rt/>
         <#else>

@@ -61,7 +61,7 @@ public class ${pojo.shortName}FormTest extends BasePageTestCase {
 
     public void testEdit() throws Exception {
         log.debug("testing edit...");
-        bean.${setIdMethodName}(1L);
+        bean.${setIdMethodName}(-1L);
 
         assertEquals("edit", bean.edit());
         assertNotNull(bean.get${pojo.shortName}());
@@ -70,7 +70,7 @@ public class ${pojo.shortName}FormTest extends BasePageTestCase {
 
     public void testSave() {
         log.debug("testing save...");
-        bean.${setIdMethodName}(1L);
+        bean.${setIdMethodName}(-1L);
 
         assertEquals("edit", bean.edit());
         assertNotNull(bean.get${pojo.shortName}());
@@ -93,7 +93,7 @@ public class ${pojo.shortName}FormTest extends BasePageTestCase {
     public void testRemove() throws Exception {
         log.debug("testing remove...");
         ${pojo.shortName} ${pojoNameLower} = new ${pojo.shortName}();
-        ${pojoNameLower}.${setIdMethodName}(2L);
+        ${pojoNameLower}.${setIdMethodName}(-2L);
         bean.set${pojo.shortName}(${pojoNameLower});
 
         assertEquals("list", bean.delete());

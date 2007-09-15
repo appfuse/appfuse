@@ -566,6 +566,25 @@
             </build>
         </profile>
 
+        <!-- ================= Production Settings Profile ================= -->
+        <!-- Use "-P prod" when you want to use the settings in this profile -->
+        <!-- =============================================================== -->
+        <profile>
+            <id>prod</id>
+            <build>
+                <plugins>
+                    <!-- Override location of data file for DbUnit to load (doesn't have negative keys) -->
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>dbunit-maven-plugin</artifactId>
+                        <configuration>
+                            <src>src/main/resources/default-data.xml</src>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        
         <!-- ================= Database Profiles ================= -->
         <profile>
             <id>derby</id>

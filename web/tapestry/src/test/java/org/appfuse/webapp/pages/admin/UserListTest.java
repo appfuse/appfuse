@@ -28,7 +28,7 @@ public class UserListTest extends BasePageTestCase {
     
     public void testEdit() throws Exception {
         RequestCycle cycle = new MockRequestCycle();
-        cycle.setListenerParameters(new Object[] {1L}); // tomcat
+        cycle.setListenerParameters(new Object[] {-1L}); // regular user
         page.edit(cycle);
         assertFalse(page.hasErrors());
     }

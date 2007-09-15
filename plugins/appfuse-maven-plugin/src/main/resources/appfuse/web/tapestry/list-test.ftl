@@ -30,7 +30,7 @@ public class ${pojo.shortName}ListTest extends BasePageTestCase {
 
     public void testEdit() throws Exception {
         RequestCycle cycle = new MockRequestCycle(this.getClass().getPackage().getName());
-        cycle.setListenerParameters(new Object[] {1L});
+        cycle.setListenerParameters(new Object[] {-1L});
         page.edit(cycle);
         assertFalse(page.hasErrors());
     }

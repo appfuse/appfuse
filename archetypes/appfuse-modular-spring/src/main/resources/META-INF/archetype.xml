@@ -5,6 +5,7 @@
         <resource>README.txt</resource>
         <resource>core/pom.xml</resource>
         <resource>core/src/main/resources/applicationContext.xml</resource>
+        <resource>core/src/main/resources/default-data.xml</resource>
         <resource>core/src/main/resources/hibernate.cfg.xml</resource>
         <resource>core/src/main/resources/META-INF/persistence.xml</resource>
         <resource>core/src/main/resources/sql-map-config.xml</resource>

@@ -74,7 +74,7 @@ public class ${pojo.shortName}ManagerImplTest extends BaseManagerMockTestCase {
     public void testRemove${pojo.shortName}() {
         log.debug("testing remove...");
 
-        ${pojo.getJavaTypeName(pojo.identifierProperty, jdk5)} ${pojo.identifierProperty.name} = 11L;
+        ${pojo.getJavaTypeName(pojo.identifierProperty, jdk5)} ${pojo.identifierProperty.name} = -11L;
         ${pojoNameLower} = new ${pojo.shortName}();
 
         // set expected behavior on dao

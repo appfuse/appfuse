@@ -19,6 +19,7 @@
         <resource>src/main/resources/ApplicationResources_zh.properties</resource>
         <resource>src/main/resources/ApplicationResources_zh_CN.properties</resource>
         <resource>src/main/resources/ApplicationResources_zh_TW.properties</resource>
+        <resource>src/main/resources/default-data.xml</resource>
         <resource>src/main/resources/ehcache.xml</resource>
         <resource>src/main/resources/hibernate.cfg.xml</resource>
         <resource filtered="false">src/main/resources/jdbc.properties</resource>

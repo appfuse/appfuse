@@ -21,7 +21,7 @@
         <column>account_locked</column>
         <column>credentials_expired</column>
         <row>
-            <value description="id">-1</value>
+            <value description="id">1</value>
             <value description="username">user</value>
             <value description="password">12dea96fec20593566ab75692c9949596833adc9</value>
             <value description="first_name">Tomcat</value>
@@ -34,7 +34,7 @@
             <value description="postal_code">80210</value>
             <value description="province">CO</value>
             <value description="website">http://tomcat.apache.org</value>
-            <value description="password_hint"><![CDATA[A male kitty.]]></value>
+            <value description="password_hint"><![CDATA[The same as your username.]]></value>
             <value description="version">1</value>
             <value description="account_enabled">1</value>
             <value description="account_expired">0</value>
@@ -42,7 +42,7 @@
             <value description="credentials_expired">0</value>
         </row>
         <row>
-            <value description="id">-2</value>
+            <value description="id">2</value>
             <value description="username">admin</value>
             <value description="password">d033e22ae348aeb5660fc2140aec35850c4da997</value>
             <value description="first_name">Matt</value>
@@ -55,7 +55,7 @@
             <value description="postal_code">80210</value>
             <value description="province">CO</value>
             <value description="website">http://raibledesigns.com</value>
-            <value description="password_hint"><![CDATA[Not a female kitty.]]></value>
+            <value description="password_hint"><![CDATA[The same as your username.]]></value>
             <value description="version">1</value>
             <value description="account_enabled">1</value>
             <value description="account_expired">0</value>
@@ -68,12 +68,12 @@
         <column>name</column>
         <column>description</column>
         <row>
-            <value description="id">-1</value>
+            <value description="id">1</value>
             <value description="name">ROLE_ADMIN</value>
             <value description="description"><![CDATA[Administrator role (can edit Users)]]></value>
         </row>
         <row>
-            <value description="id">-2</value>
+            <value description="id">2</value>
             <value description="name">ROLE_USER</value>
             <value description="description"><![CDATA[Default role for all Users]]></value>
         </row>
@@ -82,12 +82,12 @@
         <column>user_id</column>
         <column>role_id</column>
         <row>
-            <value description="user_id">-1</value>
-            <value description="role_id">-2</value>
+            <value description="user_id">1</value>
+            <value description="role_id">2</value>
         </row>
         <row>
-            <value description="user_id">-2</value>
-            <value description="role_id">-1</value>
+            <value description="user_id">2</value>
+            <value description="role_id">1</value>
         </row>
     </table>
 </dataset>

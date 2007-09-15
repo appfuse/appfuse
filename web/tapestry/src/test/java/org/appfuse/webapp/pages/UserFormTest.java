@@ -35,7 +35,7 @@ public class UserFormTest extends BasePageTestCase {
     }
     
     public void testSave() throws Exception {
-        User user = ((UserManager) applicationContext.getBean("userManager")).getUser("1");
+        User user = ((UserManager) applicationContext.getBean("userManager")).getUser("-1");
         user.setPassword("user");
         user.setConfirmPassword("user");
         page.setUser(user);
@@ -49,7 +49,7 @@ public class UserFormTest extends BasePageTestCase {
     
     public void testRemove() throws Exception {
         User user2Delete = new User();
-        user2Delete.setId(2L);
+        user2Delete.setId(-2L);
         page.setUser(user2Delete);
         page.delete(new MockRequestCycle());
         assertFalse(page.hasErrors());

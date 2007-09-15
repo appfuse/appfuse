@@ -26,14 +26,14 @@ public class UserFormTest extends BasePageTestCase {
     }
     
     public void testEdit() throws Exception {
-        bean.setId("1");
+        bean.setId("-1");
         assertEquals("editProfile", bean.edit());
         assertNotNull(bean.getUser().getUsername());
         assertFalse(bean.hasErrors());
     }
 
     public void testSave() throws Exception {
-        User user = userManager.getUser("1");
+        User user = userManager.getUser("-1");
         user.setPassword("user");
         user.setConfirmPassword("user");
         bean.setUser(user);
@@ -45,7 +45,7 @@ public class UserFormTest extends BasePageTestCase {
     
     public void testRemove() throws Exception {
         User user2Delete = new User();
-        user2Delete.setId(2L);
+        user2Delete.setId(-2L);
         bean.setUser(user2Delete);
         assertEquals("list", bean.delete());
         assertFalse(bean.hasErrors());

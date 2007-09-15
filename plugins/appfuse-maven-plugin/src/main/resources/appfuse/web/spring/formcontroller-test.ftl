@@ -19,7 +19,7 @@ public class ${pojo.shortName}FormControllerTest extends BaseControllerTestCase 
     public void testEdit() throws Exception {
         log.debug("testing edit...");
         MockHttpServletRequest request = newGet("/${pojoNameLower}form.html");
-        request.addParameter("${pojo.identifierProperty.name}", "1");
+        request.addParameter("${pojo.identifierProperty.name}", "-1");
 
         ModelAndView mv = form.handleRequest(request, new MockHttpServletResponse());
 
@@ -29,7 +29,7 @@ public class ${pojo.shortName}FormControllerTest extends BaseControllerTestCase 
 
     public void testSave() throws Exception {
         MockHttpServletRequest request = newGet("/${pojoNameLower}form.html");
-        request.addParameter("${pojo.identifierProperty.name}", "1");
+        request.addParameter("${pojo.identifierProperty.name}", "-1");
 
         ModelAndView mv = form.handleRequest(request, new MockHttpServletResponse());
 
@@ -59,7 +59,7 @@ public class ${pojo.shortName}FormControllerTest extends BaseControllerTestCase 
     public void testRemove() throws Exception {
         MockHttpServletRequest request = newPost("/${pojoNameLower}form.html");
         request.addParameter("delete", "");
-        request.addParameter("${pojo.identifierProperty.name}", "2");
+        request.addParameter("${pojo.identifierProperty.name}", "-2");
 
         form.handleRequest(request, new MockHttpServletResponse());
 

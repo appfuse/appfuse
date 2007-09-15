@@ -62,7 +62,7 @@ public class ${pojo.shortName}FormTest extends BasePageTestCase {
         ${pojo.shortName}Manager ${pojoNameLower}Manager = (${pojo.shortName}Manager) applicationContext.getBean("${pojoNameLower}Manager"); 
         </#if>
 
-        ${pojo.shortName} ${pojoNameLower} = ${pojoNameLower}Manager.get(1L);
+        ${pojo.shortName} ${pojoNameLower} = ${pojoNameLower}Manager.get(-1L);
 
         // update required fields
 <#foreach field in pojo.getAllPropertiesIterator()>
@@ -83,7 +83,7 @@ public class ${pojo.shortName}FormTest extends BasePageTestCase {
 
     public void testRemove() throws Exception {
         ${pojo.shortName} ${pojoNameLower} = new ${pojo.shortName}();
-        ${pojoNameLower}.${setIdMethodName}(2L);
+        ${pojoNameLower}.${setIdMethodName}(-2L);
         page.set${pojo.shortName}(${pojoNameLower});
         page.delete(new MockRequestCycle(this.getClass().getPackage().getName()));
         assertFalse(page.hasErrors());
