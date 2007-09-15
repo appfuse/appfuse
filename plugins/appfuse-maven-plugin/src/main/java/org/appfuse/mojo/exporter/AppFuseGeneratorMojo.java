@@ -5,7 +5,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.appfuse.mojo.HibernateExporterMojo;
 import org.appfuse.tool.AppFuseExporter;
-import org.appfuse.tool.Installer;
+import org.appfuse.tool.ArtifactInstaller;
 import org.codehaus.plexus.components.interactivity.Prompter;
 import org.codehaus.plexus.components.interactivity.PrompterException;
 import org.hibernate.tool.hbm2x.Exporter;
@@ -95,7 +95,7 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
     public void execute() throws MojoExecutionException, MojoFailureException {
         // if project is of type "pom", throw an error
         if (getProject().getPackaging().equalsIgnoreCase("pom")) {
-            String errorMsg = "Doh! This plugin cannot be run from a pom project, please run it from a jar or war project (i.e. core or web).";
+            String errorMsg = "[ERROR] This plugin cannot be run from a pom project, please run it from a jar or war project (i.e. core or web).";
             //getLog().error(errorMsg);
             throw new MojoFailureException(errorMsg);
         }
@@ -127,7 +127,7 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
             }
         }
 
-        if (pojoName == null) {
+        if (pojoName == null || "".equals(pojoName.trim())) {
             throw new MojoExecutionException("You must specify an entity name to continue.");
         }
 
@@ -137,6 +137,7 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
         // No other configuration is needed.
         if (daoFramework.indexOf("jpa") > -1) {
             getComponentProperties().put("implementation", "jpaconfiguration");
+            checkEntityExists();
         }
 
         // for war projects that have a parent pom, don't reset classpath
@@ -203,26 +204,6 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
         super.execute();
     }
 
-    private void addEntityToHibernateCfgXml(String hibernateCfgXml) throws MojoFailureException {
-        String className = getProject().getGroupId() + ".model." + pojoName;
-        if (!hibernateCfgXml.contains(pojoName)) {
-            hibernateCfgXml = hibernateCfgXml.replace("</session-factory>",
-                    "    <mapping class=\"" + className + "\"/>"
-                    + "\n    </session-factory>");
-            log("Adding '" + pojoName + "' to hibernate.cfg.xml...");
-        }
-
-        hibernateCfgXml = hibernateCfgXml.replaceAll("\\$\\{appfusepackage}",
-                (isFullSource()) ? getProject().getGroupId() : "org.appfuse");
-
-        try {
-            FileUtils.writeStringToFile(new File(
-                    getComponentProperty("configurationfile", "src/main/resources/hibernate.cfg.xml")), hibernateCfgXml);
-        } catch (IOException io) {
-            throw new MojoFailureException(io.getMessage());
-        }
-    }
-
     /**
      * @see org.appfuse.mojo.HibernateExporterMojo#configureExporter(org.hibernate.tool.hbm2x.Exporter)
      */
@@ -275,7 +256,7 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
         
         // allow installation to be supressed when testing
         if (!disableInstallation) {
-            Installer installer = new Installer(getProject(), pojoName, sourceDirectory, destinationDirectory, genericCore);
+            ArtifactInstaller installer = new ArtifactInstaller(getProject(), pojoName, sourceDirectory, destinationDirectory, genericCore);
             installer.execute();
         }
     }
@@ -299,5 +280,75 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
 
     private void log(String msg) {
         getLog().info("[AppFuse] " + msg);
+    }
+
+    private void addEntityToHibernateCfgXml(String hibernateCfgXml) throws MojoFailureException {
+        String className = getProject().getGroupId() + ".model." + pojoName;
+        if (!hibernateCfgXml.contains(pojoName)) {
+            // check that class exists and has an @Entity annotation
+            checkEntityExists();
+            
+            hibernateCfgXml = hibernateCfgXml.replace("</session-factory>",
+                    "    <mapping class=\"" + className + "\"/>"
+                    + "\n    </session-factory>");
+            log("Adding '" + pojoName + "' to hibernate.cfg.xml...");
+        }
+
+        hibernateCfgXml = hibernateCfgXml.replaceAll("\\$\\{appfusepackage}",
+                (isFullSource()) ? getProject().getGroupId() : "org.appfuse");
+
+        try {
+            FileUtils.writeStringToFile(new File(
+                    getComponentProperty("configurationfile", "src/main/resources/hibernate.cfg.xml")), hibernateCfgXml);
+        } catch (IOException io) {
+            throw new MojoFailureException(io.getMessage());
+        }
+    }
+
+    private void checkEntityExists() throws MojoFailureException {
+        // allow check to be bypassed when -Dentity.check=false
+        if (!"false".equals(System.getProperty("entity.check"))) {
+            String pathToModelPackage = "src/main/java/";
+            if (getProject().getPackaging().equals("war") && getProject().hasParent()) {
+                String moduleName = (String) getProject().getParent().getModules().get(0);
+                String pathToParent = getProject().getOriginalModel().getParent().getRelativePath();
+                pathToParent = pathToParent.substring(0, pathToParent.lastIndexOf('/') + 1);
+                pathToModelPackage = getProject().getBasedir() + "/" + pathToParent + moduleName + pathToModelPackage;
+            }
+
+            // refactor to check classpath instead of filesystem
+            String groupIdAsPath = getProject().getGroupId().replaceAll("\\.", "/");
+            File modelPackage = new File(pathToModelPackage + groupIdAsPath + "/model");
+            boolean entityExists = false;
+
+            if (modelPackage.exists()) {
+                String[] entities = modelPackage.list();
+                for (String entity : entities) {
+                    log("Found '" + entity + "' in model package...");
+                    if (entity.contains(pojoName)) {
+                        entityExists = true;
+                        break;
+                    }
+                }
+            } else {
+                getLog().error("The path ' " + pathToModelPackage + groupIdAsPath + "/model' does not exist!");
+            }
+
+            if (!entityExists) {
+                throw new MojoFailureException("[ERROR] The '" + pojoName + "' entity does not exist in '" + modelPackage + "'.");
+            } else {
+                // Entity found, make sure it has @Entity annotation
+                try {
+                    File pojoFile = new File(modelPackage + "/" + pojoName + ".java");
+                    String entityAsString = FileUtils.readFileToString(pojoFile);
+                    if (!entityAsString.contains("@Entity")) {
+                        String msg = "Entity '" + pojoName + "' found, but it doesn't contain an @Entity annotation. Please add one.";
+                        throw new MojoFailureException(msg);
+                    }
+                } catch (IOException io)  {
+                    throw new MojoFailureException("[ERROR] Class '" + pojoName + ".java' not found in '" + modelPackage + "'");
+                }
+            }
+        }
     }
 }

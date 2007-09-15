@@ -21,6 +21,7 @@ public final class AppFuseGenerateCoreJPATest extends AbstractAppFuseMojoTestCas
 
     @Override
     protected void setUp() throws Exception {
+        System.setProperty("entity.check", "false");
         System.setProperty("entity", "Person");
         System.setProperty("type", "pojo");
         super.setUp();
