@@ -23,10 +23,8 @@
         <property name="username" value="${jdbc.username}"/>
         <property name="password" value="${jdbc.password}"/>
         <property name="maxActive" value="100"/>
-        <property name="maxIdle" value="30"/>
         <property name="maxWait" value="1000"/>
+        <property name="poolPreparedStatements" value="true"/>
         <property name="defaultAutoCommit" value="true"/>
-        <property name="removeAbandoned" value="true"/>
-        <property name="removeAbandonedTimeout" value="60"/>
     </bean>
 </beans>

@@ -23,9 +23,9 @@ public abstract class BaseControllerTestCase extends AbstractTransactionalDataSo
     protected String[] getConfigLocations() {
         setAutowireMode(AUTOWIRE_BY_NAME);
         return new String[] {
-                "classpath*:/applicationContext-resources.xml",
-                "classpath*:/applicationContext-dao.xml",
-                "classpath*:/applicationContext-service.xml",
+                "classpath:/applicationContext-resources.xml",
+                "classpath:/applicationContext-dao.xml",
+                "classpath:/applicationContext-service.xml",
                 "classpath*:/applicationContext.xml", // for modular archetypes
                 "/WEB-INF/applicationContext*.xml",
                 "/WEB-INF/dispatcher-servlet.xml"

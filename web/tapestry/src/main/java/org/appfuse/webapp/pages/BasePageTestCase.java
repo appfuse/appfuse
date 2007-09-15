@@ -23,9 +23,9 @@ public abstract class BasePageTestCase extends AbstractTransactionalDataSourceSp
     protected String[] getConfigLocations() {
         super.setAutowireMode(AUTOWIRE_BY_NAME);
         return new String[] {
-                "classpath*:/applicationContext-resources.xml",
-                "classpath*:/applicationContext-dao.xml",
-                "classpath*:/applicationContext-service.xml",
+                "classpath:/applicationContext-resources.xml",
+                "classpath:/applicationContext-dao.xml",
+                "classpath:/applicationContext-service.xml",
                 "classpath*:/applicationContext.xml", // for modular archetypes
                 "/WEB-INF/applicationContext*.xml"
             };

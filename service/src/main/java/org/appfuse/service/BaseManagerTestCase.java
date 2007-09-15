@@ -19,7 +19,7 @@ public abstract class BaseManagerTestCase extends AbstractTransactionalDataSourc
 
     protected String[] getConfigLocations() {
         setAutowireMode(AUTOWIRE_BY_NAME);
-        return new String[] {"/applicationContext-resources.xml", "classpath*:/applicationContext-dao.xml",
+        return new String[] {"/applicationContext-resources.xml", "classpath:/applicationContext-dao.xml",
                              "/applicationContext-service.xml", "classpath*:/**/applicationContext.xml"};
         // classpath*:/**/applicationContext.xml has to be used since this file does not
         // exist in AppFuse, but may exist in projects that depend on it
