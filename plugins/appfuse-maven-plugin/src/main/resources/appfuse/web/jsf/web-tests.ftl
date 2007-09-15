@@ -28,7 +28,7 @@
             <steps>
                 &login;
                 <invoke description="View ${pojo.shortName} List" url="/${util.getPluralForWord(pojoNameLower)}.html"/>
-                <clicklink label="1"/>
+                <clicklink label="-1"/>
                 <verifytitle description="we should see the ${pojoNameLower}Detail title"
                     text=".*${'$'}{${pojoNameLower}Detail.title}.*" regex="true"/>
             </steps>
@@ -42,7 +42,7 @@
             <steps>
                 &login;
                 <invoke description="View ${pojo.shortName} List" url="/${util.getPluralForWord(pojoNameLower)}.html"/>
-                <clicklink label="1"/>
+                <clicklink label="-1"/>
                 <verifytitle description="we should see the ${pojoNameLower}Detail title"
                     text=".*${'$'}{${pojoNameLower}Detail.title}.*" regex="true"/>
 

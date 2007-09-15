@@ -27,7 +27,7 @@
             <steps>
                 &login;
                 <invoke description="View ${pojo.shortName} List" url="/${pojo.shortName}List.html"/>
-                <clicklink description="click on first record in list" label="1"/>
+                <clicklink description="click on first record in list" label="-1"/>
                 <verifytitle description="we should see the ${pojoNameLower}Detail title"
                     text=".*${'$'}{${pojoNameLower}Detail.title}.*" regex="true"/>
             </steps>
@@ -41,7 +41,7 @@
             <steps>
                 &login;
                 <invoke description="View ${pojo.shortName} List" url="/${pojo.shortName}List.html"/>
-                <clicklink description="click on first record in list" label="1"/>
+                <clicklink description="click on first record in list" label="-1"/>
                 <verifytitle description="we should see the ${pojoNameLower}Detail title"
                     text=".*${'$'}{${pojoNameLower}Detail.title}.*" regex="true"/>
 
@@ -108,7 +108,7 @@
             <steps>
                 &login;
                 <invoke description="View ${pojo.shortName} List" url="/${pojo.shortName}List.html"/>
-                <clicklink description="click on first record in list" label="1"/>
+                <clicklink description="click on first record in list" label="-1"/>
                 <prepareDialogResponse description="Confirm delete" dialogType="confirm" response="true"/>
                 <clickbutton label="${'$'}{button.delete}" description="Click button 'Delete'"/>
                 <verifyNoDialogResponses/>
