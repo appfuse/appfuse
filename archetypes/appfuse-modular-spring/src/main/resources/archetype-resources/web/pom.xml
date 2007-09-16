@@ -90,7 +90,7 @@
             <plugin>
                 <groupId>org.appfuse</groupId>
                 <artifactId>maven-warpath-plugin</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>${appfuse.version}</version>
                 <extensions>true</extensions>
                 <executions>
                     <execution>
