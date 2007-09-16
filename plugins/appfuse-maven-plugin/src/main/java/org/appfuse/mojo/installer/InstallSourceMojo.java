@@ -142,8 +142,6 @@ public class InstallSourceMojo extends AbstractMojo {
                 File duplicateFile = new File(getFilePath(filePath));
 
                 if (duplicateFile.exists()) {
-                    log("Deleting duplicate persistence.xml from '" + filePath + "'...");
-
                     try {
                         // For some reason, this just deletes persistence.xml, not the META-INF directory.
                         // I tried FileUtils.deleteDirectory(duplicateFile), but no dice.
@@ -152,8 +150,23 @@ public class InstallSourceMojo extends AbstractMojo {
                         getLog().error("Failed to delete '" + filePath + "/persistence.xml', please delete manually.");
                     }
                 }
+            } else if ("ibatis".equalsIgnoreCase(daoFramework)) {
+                String filePath;
+                if (project.getPackaging().equalsIgnoreCase("jar") && project.hasParent()) {
+                    filePath = "src/main/resources/sql-map-config.xml";
+                } else {
+                    filePath = "src/test/resources/sql-map-config.xml";
+                }
 
-                // todo: delete ibatis's sql-map-config.xml from main when core is present
+                File duplicateFile = new File(getFilePath(filePath));
+
+                if (duplicateFile.exists()) {
+                    try {
+                        FileUtils.forceDeleteOnExit(duplicateFile);
+                    } catch (IOException io) {
+                        getLog().error("Failed to delete '" + filePath + "', please delete manually.");
+                    }
+                }
             }
 
             // export service module
