@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This file is imported in the archetype pom.xml files for integration tests -->
-<project name="common-test" default="test">
+<project name="common-test" default="test-all">
 
     <property name="version" value="2.0-SNAPSHOT"/>
     <property name="archetype" value="${archetype}"/>
