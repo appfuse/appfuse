@@ -84,7 +84,7 @@
                 <version>2.0.2</version>
                 <configuration>
                     <dependentWarExcludes>
-                        **/hibernate.cfg.xml,**/sql-map-config.xml,**/web.xml,WEB-INF/classes/META-INF/**
+                        **/jdbc.properties,**/hibernate.cfg.xml,**/sql-map-config.xml,**/web.xml,WEB-INF/classes/META-INF/**
                     </dependentWarExcludes>
                 </configuration>
             </plugin>
