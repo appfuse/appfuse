@@ -89,8 +89,16 @@
             <maven dir="${test.dir}/@{name}" command="integration-test"/>
 
             <echo level="info">Removing Person entity...</echo>
-            <maven dir="${test.dir}/@{name}" command="appfuse:remove -Dentity=Person"/>
+            <maven dir="${test.dir}/@{name}" command="appfuse:remove -Dentity=Person -Dskip.areyousure=true"/>
             <maven dir="${test.dir}/@{name}" command="clean integration-test"/>
+
+            <!-- copy Person.java to src -->
+            <copy todir="${test.dir}/@{name}/src/main/java/com">
+                <fileset dir="src/test/java/com" includes="**/*.java"/>
+            </copy>
+
+            <!-- This time, we'll test the auto-adding of <mapping class="com.company.model.Person"/> to -->
+            <!-- hibernate.cfg.xml by doing nothing to add it ourselves. -->
 
             <echo level="info">Generating CRUD for Person entity...</echo>
             <!-- test w/o generic core -->
