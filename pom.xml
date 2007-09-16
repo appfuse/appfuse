@@ -274,9 +274,9 @@
             <id>appfuse</id>
             <url>http://static.appfuse.org/repository</url>
             <!-- Remove this snapshots bit before releasing -->
-            <snapshots>
+            <!--snapshots>
                 <enabled>true</enabled>
-            </snapshots>
+            </snapshots-->
         </repository>
     </repositories>
 
