@@ -333,6 +333,11 @@ public class InstallSourceMojo extends AbstractMojo {
             if (!currentKeys.contains(key)) {
                 String value = appfuseProperties.getProperty(key);
 
+                // this happens when the version number is hard-coded
+                if (value == null) {
+                    continue;
+                }
+                
                 if (value.contains("&amp;")) {
                     value = "<![CDATA[" + value + "]]>";
                 }
