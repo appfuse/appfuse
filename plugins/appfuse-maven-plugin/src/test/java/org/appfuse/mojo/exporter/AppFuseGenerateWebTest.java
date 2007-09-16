@@ -4,6 +4,7 @@ import org.appfuse.mojo.AbstractAppFuseMojoTestCase;
 import org.apache.maven.plugin.MojoFailureException;
 
 public final class AppFuseGenerateWebTest extends AbstractAppFuseMojoTestCase {
+    String os = System.getProperty("os.name");
 
     public void testGenerateWebWithoutCore() throws Exception {
         deleteDirectory("target/appfuse/generated");
@@ -25,7 +26,11 @@ public final class AppFuseGenerateWebTest extends AbstractAppFuseMojoTestCase {
             getHibernateMojo("gen-web", "annotationconfiguration").execute();
             fail("Mojo did not fail when invalid entity configured.");
         } catch (MojoFailureException e) {
-            assertEquals("[ERROR] The 'Clown' entity does not exist in 'src/main/java/com/company/model'.", e.getMessage());
+            String location = "src/main/java/com/company/model";
+            if (os.startsWith("Windows")) {
+                location = location.replace("/", "\\");
+            }
+            assertEquals("[ERROR] The 'Clown' entity does not exist in '" + location + "'.", e.getMessage());
             assertNotNull(e);
         }
     }
@@ -38,7 +43,11 @@ public final class AppFuseGenerateWebTest extends AbstractAppFuseMojoTestCase {
             getHibernateMojo("gen-web", "annotationconfiguration").execute();
             fail("Mojo did not fail when invalid entity configured.");
         } catch (MojoFailureException e) {
-            assertEquals("[ERROR] The 'Dog' entity does not exist in 'src/main/java/com/company/model'.", e.getMessage());
+            String location = "src/main/java/com/company/model";
+            if (os.startsWith("Windows")) {
+                location = location.replace("/", "\\");
+            }
+            assertEquals("[ERROR] The 'Dog' entity does not exist in '" + location + "'.", e.getMessage());
             assertNotNull(e);
         }
     }

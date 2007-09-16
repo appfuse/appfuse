@@ -308,17 +308,19 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
     private void checkEntityExists() throws MojoFailureException {
         // allow check to be bypassed when -Dentity.check=false
         if (!"false".equals(System.getProperty("entity.check"))) {
-            String pathToModelPackage = "src/main/java/";
+            final String FILE_SEP = System.getProperty("file.separator");
+            String pathToModelPackage = "src" + FILE_SEP + "main" + FILE_SEP + "java" + FILE_SEP;
             if (getProject().getPackaging().equals("war") && getProject().hasParent()) {
                 String moduleName = (String) getProject().getParent().getModules().get(0);
                 String pathToParent = getProject().getOriginalModel().getParent().getRelativePath();
                 pathToParent = pathToParent.substring(0, pathToParent.lastIndexOf('/') + 1);
-                pathToModelPackage = getProject().getBasedir() + "/" + pathToParent + moduleName + pathToModelPackage;
+                pathToParent = pathToParent.replaceAll("/", FILE_SEP);
+                pathToModelPackage = getProject().getBasedir() + FILE_SEP + pathToParent + moduleName + pathToModelPackage;
             }
 
             // refactor to check classpath instead of filesystem
-            String groupIdAsPath = getProject().getGroupId().replaceAll("\\.", "/");
-            File modelPackage = new File(pathToModelPackage + groupIdAsPath + "/model");
+            String groupIdAsPath = getProject().getGroupId().replace(".", FILE_SEP);
+            File modelPackage = new File(pathToModelPackage + groupIdAsPath + FILE_SEP + "model");
             boolean entityExists = false;
 
             if (modelPackage.exists()) {
@@ -331,7 +333,7 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
                     }
                 }
             } else {
-                getLog().error("The path ' " + pathToModelPackage + groupIdAsPath + "/model' does not exist!");
+                getLog().error("The path '" + pathToModelPackage + groupIdAsPath + FILE_SEP + "model' does not exist!");
             }
 
             if (!entityExists) {
@@ -339,7 +341,7 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
             } else {
                 // Entity found, make sure it has @Entity annotation
                 try {
-                    File pojoFile = new File(modelPackage + "/" + pojoName + ".java");
+                    File pojoFile = new File(modelPackage + FILE_SEP + pojoName + ".java");
                     String entityAsString = FileUtils.readFileToString(pojoFile);
                     if (!entityAsString.contains("@Entity")) {
                         String msg = "Entity '" + pojoName + "' found, but it doesn't contain an @Entity annotation. Please add one.";
