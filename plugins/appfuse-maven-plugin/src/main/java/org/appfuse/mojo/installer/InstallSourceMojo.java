@@ -131,7 +131,7 @@ public class InstallSourceMojo extends AbstractMojo {
                         getLog().error("Failed to delete '" + filePath + "', please delete manually.");
                     }
                 }
-            } else if (!"jpa".equalsIgnoreCase(daoFramework)) {
+            } else if ("jpa".equalsIgnoreCase(daoFramework)) {
                 String filePath;
                 if (project.getPackaging().equalsIgnoreCase("jar") && !project.hasParent()) {
                     filePath = "src/main/resources/META-INF";
