@@ -211,6 +211,9 @@ public class InstallSourceMojo extends AbstractMojo {
             // add dependencies from root appfuse pom
             newDependencies = addModuleDependencies(newDependencies, "root", "");
 
+            // Add dependencies from appfuse-data-common
+            newDependencies = addModuleDependencies(newDependencies, "data-common", "data/common");
+
             // Add dependencies from appfuse-${dao.framework}
             newDependencies = addModuleDependencies(newDependencies, daoFramework, "data/" + daoFramework);
 
@@ -236,6 +239,9 @@ public class InstallSourceMojo extends AbstractMojo {
 
             if (project.getPackaging().equals("jar")) {
                 newDependencies.clear();
+
+                // Add dependencies from appfuse-data-common
+                newDependencies = addModuleDependencies(newDependencies, "data-common", "data/common");
 
                 // Add dependencies from appfuse-${dao.framework}
                 newDependencies = addModuleDependencies(newDependencies, daoFramework, "data/" + daoFramework);
@@ -407,6 +413,8 @@ public class InstallSourceMojo extends AbstractMojo {
             }
 
             String originalPom = FileUtils.readFileToString(new File(pathToPom));
+            // replace tabs with spaces (in case user has changed their pom.xml
+            originalPom = originalPom.replace("\t", "    ");
             startTag = originalPom.indexOf("\n    <dependencies>");
 
             StringBuffer sb = new StringBuffer();
