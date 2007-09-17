@@ -5,6 +5,10 @@
     <#foreach column in field.getColumnIterator()>
         <column>${column.name}</column>
     </#foreach>
+<#elseif c2h.isManyToOne(field)>
+    <#foreach column in field.getColumnIterator()>
+        <column>${column.name}</column>    
+    </#foreach>
 </#if>
 </#foreach>
 <#assign rows = 1 .. 3>
@@ -21,6 +25,12 @@
         <#else>
             <#lt/>${data.getTestValueForDbUnit(field.value.typeName)}<#rt/>
         </#if>
+        <#lt/></value>
+    </#foreach>
+<#elseif c2h.isManyToOne(field)>
+    <#foreach column in field.getColumnIterator()>
+        <value description="${column.name}"><#rt/>
+            <#lt/>-${num}<#rt/>
         <#lt/></value>
     </#foreach>
 </#if>
