@@ -8,7 +8,7 @@
 
 Maven AppFuse Plugin
 
-  This plugin provides code generation and other utilities for AppFuse 2.x projects.
+  This plugin provides code generation and other utilities for AppFuse 2.x projects. .
 
 * Goals Overview
 
@@ -18,18 +18,24 @@ Maven AppFuse Plugin
   
   * {{{gen-mojo.html}appfuse:gen}}: Generates and installs Tests, DAOs, Managers, Controllers and Views based on POJOs.
   
-  * {{{install-mojo.html}appfuse:install}}: Installs generated artifacts.
+  * {{{remove-mojo.html}appfuse:remove}}: Removes artifacts installed appfuse:gen.
 
   * {{{full-source-mojo.html}appfuse:full-source}}: Converts AppFuse basic projects to full-source with no AppFuse
     dependencies. Also renames packages to match your project's groupId.
+
+  For a full list of goals, see {{{plugin-info.html}available goals}}.
 
   []
 
 * Usage
 
-  {{{usage.html}Instructions}} on how to use the Maven AppFuse Plugin can be found {{{usage.html}here}}.
+  {{{usage.html}Instructions}} on how to use the Maven AppFuse Plugin can be found {{{usage.html}here}}. {{{http://appfuse.org/display/APF/AppFuse+Maven+Plugin}AppFuse's documentation}} contains further details on this plugin's usage.
 
   []
+
+* Customization
+
+  See {{{http://appfuse.org/display/APF/AppFuse+Maven+Plugin#AppFuseMavenPlugin-customization}Customizing AMP Templates}} for information on how to customize this plugin's code generation templates.
 
 * Examples
 

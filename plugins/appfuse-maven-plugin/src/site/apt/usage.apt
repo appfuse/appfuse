@@ -18,9 +18,9 @@ Usage
   <build>
     <plugins>
       <plugin>
-        <groupId>org.appfuse</groupId>
+        <groupId>org.codehaus.mojo</groupId>
         <artifactId>appfuse-maven-plugin</artifactId>
-        <version>2.0-M5</version>
+        <version>2.0</version>
         <configuration>
           <genericCore>true</genericCore> <!-- Set to false if you want Java files generated for your DAOs and Managers -->
           <fullSource>false</fullSource> <!-- Set to true if you've "full-sourced" your project and changed org.appfuse to your package name -->
