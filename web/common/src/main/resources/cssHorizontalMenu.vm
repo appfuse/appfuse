@@ -1,12 +1,13 @@
 #macro( displayCssMenu $menu )
   #if ($displayer.isAllowed($menu))
+    #set ($count = $count + 1)
     ## set menu title
     #set ($title = $displayer.getMessage($menu.title))
     #if (!$menu.url) #set ($url="javascript:void(0)") #else #set ($url=$menu.url) #end
 
     ## create a single menu item
     #if ($menu.components.size() == 0)
-        #if ($velocityCount == $renderedChildren)
+        #if ($count == $renderedChildren)
           <li class="last">
         #else
           <li>
@@ -37,6 +38,7 @@
           <ul> 
         #end
 
+        #set ($count = 0)
         #foreach ($menuIt in $menu.components)
             #displayCssMenu($menuIt)
         #end
@@ -51,7 +53,7 @@
         #end
     #else
       </li>
-      #if ($velocityCount == $menu.parent.components.size())
+      #if ($count == $menu.parent.components.size())
       </ul>
       #end
     #end
