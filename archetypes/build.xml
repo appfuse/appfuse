@@ -30,6 +30,7 @@
         <attribute name="command" default="archetype:create -DarchetypeGroupId=org.appfuse.archetypes -DarchetypeArtifactId=@{archetype} -DarchetypeVersion=@{version} -DgroupId=com.mycompany -DartifactId=@{archetype}"/>
         
         <sequential>
+            <mkdir dir="${test.dir}"/>
             <exec dir="@{dir}" executable="mvn.bat" os="Windows XP" failonerror="true">
                 <arg line="@{command}"/>
             </exec>
