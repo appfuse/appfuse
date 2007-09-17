@@ -25,17 +25,17 @@
     </context-param>
     <!-- Context Configuration locations for Spring XML files -->
     <context-param>
-       <param-name>contextConfigLocation</param-name>
-       <param-value>
-           classpath:/applicationContext-resources.xml
-           classpath:/applicationContext-dao.xml
-           classpath:/applicationContext-service.xml
-           classpath*:/applicationContext.xml
-           /WEB-INF/applicationContext*.xml
-           /WEB-INF/xfire-servlet.xml
-           /WEB-INF/security.xml
-       </param-value>
-   </context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            classpath:/applicationContext-resources.xml
+            classpath:/applicationContext-dao.xml
+            classpath:/applicationContext-service.xml
+            classpath*:/applicationContext.xml
+            /WEB-INF/applicationContext*.xml
+            /WEB-INF/xfire-servlet.xml
+            /WEB-INF/security.xml
+        </param-value>
+    </context-param>
 
     <filter>
         <filter-name>cacheFilter</filter-name>
