@@ -4,7 +4,7 @@
 
     <property name="version" value="2.0-SNAPSHOT"/>
     <property name="archetype" value="${archetype}"/>
-    <property name="test.dir" value="${basedir}/target/test-archetype"/>
+    <property name="test.dir" value="${basedir}/target"/>
 
     <target name="test" description="Tests that 'mvn integration-test' works with archetype">
         <echo message="Creating archetype '${archetype}', version '${version}'"/>
@@ -16,11 +16,9 @@
         <attribute name="version"/>
         
         <sequential>
-            <delete dir="${test.dir}"/>
-            <mkdir dir="${test.dir}"/>
-            <maven dir="${basedir}" command="install -Dmaven.test.skip=true"/>
+            <delete dir="${test.dir}/@{archetype}"/>
             <maven dir="${test.dir}" archetype="@{archetype}" version="@{version}" />
-            <maven dir="${test.dir}/archetype" command="integration-test"/>
+            <maven dir="${test.dir}/@{archetype}" command="integration-test"/>
         </sequential>
     </macrodef>
     
@@ -29,7 +27,7 @@
         <attribute name="name" default=""/>
         <attribute name="archetype" default=""/>
         <attribute name="version" default=""/>
-        <attribute name="command" default="archetype:create -DarchetypeGroupId=org.appfuse.archetypes -DarchetypeArtifactId=@{archetype} -DarchetypeVersion=@{version} -DgroupId=com.mycompany -DartifactId=archetype"/>
+        <attribute name="command" default="archetype:create -DarchetypeGroupId=org.appfuse.archetypes -DarchetypeArtifactId=@{archetype} -DarchetypeVersion=@{version} -DgroupId=com.mycompany -DartifactId=@{archetype}"/>
         
         <sequential>
             <exec dir="@{dir}" executable="mvn.bat" os="Windows XP" failonerror="true">
@@ -45,47 +43,49 @@
     </macrodef>
     
     <target name="test-all" description="Runs all archetype tests using Ant">
-        <ant antfile="../build.xml" dir="appfuse-core">
+        <maven dir="${basedir}" command="clean install"/>
+            
+        <ant antfile="../build.xml" dir="appfuse-core" target="test">
             <property name="archetype" value="appfuse-core"/>
             <property name="version" value="${version}"/>
         </ant>
 
-        <ant antfile="../build.xml" dir="appfuse-basic-jsf">
+        <ant antfile="../build.xml" dir="appfuse-basic-jsf" target="test">
             <property name="archetype" value="appfuse-basic-jsf"/>
             <property name="version" value="${version}"/>
         </ant>
         
-        <ant antfile="../build.xml" dir="appfuse-basic-spring">
+        <ant antfile="../build.xml" dir="appfuse-basic-spring" target="test">
             <property name="archetype" value="appfuse-basic-spring"/>
             <property name="version" value="${version}"/>
         </ant>
         
-        <ant antfile="../build.xml" dir="appfuse-basic-struts">
+        <ant antfile="../build.xml" dir="appfuse-basic-struts" target="test">
             <property name="archetype" value="appfuse-basic-struts"/>
             <property name="version" value="${version}"/>
         </ant>
         
-        <ant antfile="../build.xml" dir="appfuse-basic-tapestry">
+        <ant antfile="../build.xml" dir="appfuse-basic-tapestry" target="test">
             <property name="archetype" value="appfuse-basic-tapestry"/>
             <property name="version" value="${version}"/>
         </ant>
         
-        <ant antfile="../build.xml" dir="appfuse-modular-jsf">
+        <ant antfile="../build.xml" dir="appfuse-modular-jsf" target="test">
             <property name="archetype" value="appfuse-modular-jsf"/>
             <property name="version" value="${version}"/>
         </ant>
         
-        <ant antfile="../build.xml" dir="appfuse-modular-spring">
+        <ant antfile="../build.xml" dir="appfuse-modular-spring" target="test">
             <property name="archetype" value="appfuse-modular-spring"/>
             <property name="version" value="${version}"/>
         </ant>
         
-        <ant antfile="../build.xml" dir="appfuse-modular-struts">
+        <ant antfile="../build.xml" dir="appfuse-modular-struts" target="test">
             <property name="archetype" value="appfuse-modular-struts"/>
             <property name="version" value="${version}"/>
         </ant>
         
-        <ant antfile="../build.xml" dir="appfuse-modular-tapestry">
+        <ant antfile="../build.xml" dir="appfuse-modular-tapestry" target="test">
             <property name="archetype" value="appfuse-modular-tapestry"/>
             <property name="version" value="${version}"/>
         </ant>
