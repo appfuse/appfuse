@@ -11,7 +11,7 @@
     <artifactId>appfuse-maven-plugin</artifactId>
     <packaging>maven-plugin</packaging>
     <name>AppFuse Maven Plugin</name>
-    <version>2.0</version>
+    <version>2.0.1-SNAPSHOT</version>
     <description>
         Maven plugin based on the hibernate-tools project. Lots of ideas/code borrowed
         from the hibernate3-maven-plugin.
@@ -30,9 +30,9 @@
     <url>http://static.appfuse.org/plugins/appfuse-maven-plugin</url>
 
     <scm>
-        <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/tags/APPFUSE_2.0/plugins/appfuse-maven-plugin</connection>
-        <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/tags/APPFUSE_2.0/plugins/appfuse-maven-plugin</developerConnection>
-        <url>https://appfuse.dev.java.net/source/browse/appfuse/tags/APPFUSE_2.0/plugins/appfuse-maven-plugin</url>
+        <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/plugins/appfuse-maven-plugin</connection>
+        <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/plugins/appfuse-maven-plugin</developerConnection>
+        <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/plugins/appfuse-maven-plugin</url>
     </scm>
 
     <issueManagement>
