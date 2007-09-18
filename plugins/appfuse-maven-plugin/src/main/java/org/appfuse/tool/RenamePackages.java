@@ -1,19 +1,13 @@
 package org.appfuse.tool;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.maven.plugin.logging.Log;
+import org.apache.maven.plugin.logging.SystemStreamLog;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.DirectoryScanner;
 import org.apache.tools.ant.types.FileSet;
-import org.apache.maven.plugin.logging.SystemStreamLog;
-import org.apache.maven.plugin.logging.Log;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Iterator;
 import java.util.Vector;
 import java.util.regex.Matcher;
@@ -614,7 +608,7 @@ public class RenamePackages {
      */
     public String fromFile(String fileName) throws IOException
     {
-        BufferedReader in = new BufferedReader(new FileReader(fileName));
+        /*BufferedReader in = new BufferedReader(new FileReader(fileName));
         StringBuffer fileContents = new StringBuffer();
         String str;
 
@@ -624,7 +618,8 @@ public class RenamePackages {
             fileContents.append("\n");
         }
         in.close();
-        return fileContents.toString();
+        return fileContents.toString();*/
+        return FileUtils.readFileToString(new File(fileName), "UTF-8");
     }
 
     /*
@@ -639,12 +634,13 @@ public class RenamePackages {
             log.debug("Saving file to fileName [" + fileName + "]");
         }
 
-        BufferedOutputStream bout = new BufferedOutputStream(
+        FileUtils.writeStringToFile(new File(fileName), contents, "UTF-8");
+        /*BufferedOutputStream bout = new BufferedOutputStream(
                 new DataOutputStream(new FileOutputStream(fileName)));
 
         bout.write(contents.getBytes());
         bout.flush();
-        bout.close();
+        bout.close();*/
     }
 
     /**
@@ -1155,8 +1151,7 @@ public class RenamePackages {
         {
             String[] extensions = {"page","application","properties","tld","xml"};
 
-            Iterator filesInMain = org.apache.commons.io.FileUtils.iterateFiles(
-                    new File(this.workBaseDir), extensions, true);
+            Iterator filesInMain = FileUtils.iterateFiles(new File(this.workBaseDir), extensions, true);
 
             while (filesInMain.hasNext()) {
                 File f = (File) filesInMain.next();
