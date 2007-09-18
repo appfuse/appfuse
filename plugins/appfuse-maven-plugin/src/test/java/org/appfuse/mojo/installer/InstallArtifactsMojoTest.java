@@ -5,12 +5,12 @@ import org.appfuse.mojo.AbstractAppFuseMojoTestCase;
 public class InstallArtifactsMojoTest extends AbstractAppFuseMojoTestCase {
 
     public void testCreateTestProject() throws Exception {
-        createTestProject("appfuse-basic-struts", "2.0-SNAPSHOT");
+        createTestProject("appfuse-basic-struts", "2.0");
         assertTrue("can't find test-project's pom.xml", checkExists("target/test-project/pom.xml"));
     }
 
     /*public void testGenerateCore() throws Exception {
-        createTestProject("appfuse-basic-struts", "2.0-SNAPSHOT");
+        createTestProject("appfuse-basic-struts", "2.0");
         File testPom = new File(getBasedir(), "target/test-project/pom.xml");
 
         MavenEmbedder maven = new MavenEmbedder();

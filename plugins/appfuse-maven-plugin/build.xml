@@ -2,7 +2,7 @@
 <!-- This file is imported in the archetype pom.xml files for integration tests -->
 <project name="plugin-test" default="test-all">
 
-    <property name="version" value="2.0-SNAPSHOT"/>
+    <property name="version" value="2.0"/>
     <property name="archetype" value="${archetype}"/>
     <property name="test.dir" value="${basedir}/target"/>
 
