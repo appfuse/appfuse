@@ -14,15 +14,14 @@
     limitations under the License.
 -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.appfuse</groupId>
         <artifactId>appfuse</artifactId>
-        <version>2.0</version>
+        <version>2.0.1-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
@@ -86,7 +85,7 @@
             <plugin>
                 <groupId>org.appfuse</groupId>
                 <artifactId>maven-warpath-plugin</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>${pom.version}</version>
                 <extensions>true</extensions>
                 <executions>
                     <execution>
@@ -99,6 +98,9 @@
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.0.2</version>
+                <configuration>
+                    <dependentWarExcludes>**/jdbc.properties</dependentWarExcludes>
+                </configuration>
                 <executions>
                     <execution>
                         <id>skinny-war</id>
@@ -327,21 +329,21 @@
                             <tasks>
                                 <taskdef resource="webtest_base_relaxed.taskdef">
                                     <classpath>
-                                        <path refid="maven.test.classpath"/>
-                                        <path location="src/main/resources"/>
+                                        <path refid="maven.test.classpath" />
+                                        <path location="src/main/resources" />
                                     </classpath>
                                 </taskdef>
-                                <mkdir dir="target/webtest-data"/>
+                                <mkdir dir="target/webtest-data" />
                                 <!-- Delete old results file if it exists -->
-                                <delete file="target/webtest-data/web-tests-result.xml"/>
+                                <delete file="target/webtest-data/web-tests-result.xml" />
                                 <!-- This is so the default will be used if no test case is specified -->
-                                <property name="test" value="run-all-tests"/>
+                                <property name="test" value="run-all-tests" />
                                 <echo level="info">Testing '${project.build.finalName}' with locale '${user.language}'</echo>
                                 <ant antfile="src/test/resources/web-tests.xml" target="${test}">
-                                    <property name="user.language" value="${user.language}"/>
-                                    <property name="webapp.name" value="${project.build.finalName}"/>
-                                    <property name="host" value="${cargo.host}"/>
-                                    <property name="port" value="${cargo.port}"/>
+                                    <property name="user.language" value="${user.language}" />
+                                    <property name="webapp.name" value="${project.build.finalName}" />
+                                    <property name="host" value="${cargo.host}" />
+                                    <property name="port" value="${cargo.port}" />
                                 </ant>
                             </tasks>
                         </configuration>
