@@ -6,7 +6,21 @@
   </head>
   <body>
       <p><img src="images/icon.gif" style="float: left; margin: 0 10px 10px 0" alt="AppFuse Logo"/>
-      <a href="http://www-128.ibm.com/developerworks/java/library/j-appfuse">Seven simple reasons to use AppFuse</a> is some good propaganda to get you started.<br/><br/>
+      
+      <strong>AppFuse</strong> is an open source project and application that uses open source tools built on the Java platform to help you develop Web applications quickly and efficiently. It was originally developed to eliminate the ramp-up time found when building new web applications for customers. At its core, AppFuse is a project skeleton, similar to the one that's created by your IDE when you click through a wizard to create a new web project.
+      </p>
+      <p>
+      AppFuse 1.x uses Ant to create your project, as well as build/test/deploy it. AppFuse 2.0 uses Maven 2 to create your project as well as build/test/deploy it. IDE support is much better in 2.0 because you can generate the IDE project files with Maven plugins. AppFuse 1.x uses XDoclet and JDK 1.4+.
+      </p>
+      <p>AppFuse 2.0 is a restructuring of AppFuse 1.x to use Maven 2 and JDK 5 and annotations. The major reasons we've changed to Maven 2 are:
+      </p>
+      <ul>
+        <li>Dependency downloading</li>
+        <li>Easier maintenance (everything can be compiled at once)</li>
+        <li>Easier upgrading for end-users</li>
+      </ul>
+      <p>If you'd like to help out or ask questions about AppFuse 2.0, please do so on the <a href="http://appfuse.org/display/APF/Mailing+Lists">user mailing list</a>. If you'd like to use AppFuse 2.0, see the <a href="http://appfuse.org/display/APF/Demos+and+Videos">demos and videos</a> and use the <a href="http://appfuse.org/display/APF/AppFuse+QuickStart">QuickStart Guide</a> to get started.</p>
+
       AppFuse is an application for "kickstarting" webapp development. <a href="https://appfuse.dev.java.net/servlets/ProjectDocumentList">Download</a>,
       extract and execute <strong>ant new</strong> to instantly be up and running with a kick-ass Java webapp running on Tomcat/MySQL.
       Uses Ant, XDoclet, Spring, Hibernate (or iBATIS), JUnit, jMock, StrutsTestCase, Canoo's WebTest, Struts Menu, Display Tag Library,
@@ -15,9 +29,22 @@
       <a href="http://demo.appfuse.org/setup.html">this video</a>, which shows you how to create a project with AppFuse - as well as gives you a tour
       of its out-of-the-box features.
       </p>
-      <p style="border: 1px solid #F0C000; background-color: #FFFFCE; padding: 10px"><a href="http://appfuse.org"><strong>AppFuse 2.x</strong></a> is currently under development. 
-      This version includes support for Maven 2, as well as many other features that make AppFuse easier to use.
+      <p style="border: 1px solid #090; background-color: #dfd; padding: 10px"><a href="http://appfuse.org"><strong>AppFuse 2. Final</strong></a> has been <a href="http://appfuse.org/display/APF/2007/09/18/AppFuse+2.0+Released%21">released</a>! Now with support for Maven 2, Java 5, JPA, Struts 2 and many other goodies.
       </p>
+      <p>New features in AppFuse 2.0:</p>
+
+<ul>
+
+	<li>Maven 2 Integration</li>
+	<li>Upgraded WebWork to Struts 2</li>
+	<li>JDK 5, Annotations, JSP 2.0, Servlet 2.4</li>
+	<li>JPA Support</li>
+	<li>Generic CRUD backend</li>
+	<li>Full Eclipse, IDEA and NetBeans support</li>
+
+	<li>Fast startup and no deploy with Maven Jetty Plugin</li>
+	<li>Testable on multiple appservers and databases with Cargo and profiles</li>
+</ul>
       <p>
       <a href="http://appfuse-light.dev.java.net">AppFuse Light</a> is a simpler version of AppFuse
       that allows you to use Maven 2 or Ant for building/testing/deploying. 
@@ -32,33 +59,12 @@
     <a name="news"></a>
     <h3>Latest News</h3>
     <blockquote>
-        If you know nothing about AppFuse, the best thing
-        to do is read the article: <a href="http://today.java.net/pub/a/today/2004/07/15/thefuse.html">AppFuse: Start Your J2EE Web Apps</a> or watch
-        <a href="http://demo.appfuse.org/setup.html">this video</a>.
         <ul>
+            <li><strong style="color: blue">September 17, 2007:</strong> <a href="https://appfuse.dev.java.net/servlets/NewsItemView?newsItemID=5333">AppFuse 2.0 Released</a>. Maven 2, Java 5, JPA, Struts 2 and many other features to make developing Java applications easier.</li>
+            <li><strong style="color: blue">September 14, 2007:</strong> <a href="https://appfuse-light.dev.java.net/servlets/NewsItemView?newsItemID=5317">AppFuse Light 1.8 Released</a>. CSS Framework integration, as well as support for Stripes (1.4.2) and Wicket (1.2.6).</li>
             <li><strong style="color: blue;">October 23, 2006:</strong> <a href="https://appfuse.dev.java.net/servlets/NewsItemView?newsItemID=4305">AppFuse 1.9.4 Released</a>. Spring 2.0, Hibernate 3.2, Facelets, Ajax4JSF and many other library upgrades.</li>
-            <li><strong style="color: blue;">July 11, 2006:</strong> <a href="https://appfuse.dev.java.net/servlets/NewsItemView?newsItemID=3927">AppFuse 1.9.3 Released</a>. Bug fixes and upgrades to several dependencies.</li>
-            <li><strong style="color: blue;">June 6, 2006:</strong> <a href="https://appfuse.dev.java.net/servlets/NewsItemView?newsItemID=3826">AppFuse 1.9.2 Released</a>. CSS Framework integration, EMMA code-coverage support and AppGen sub-package support.</li>
-            <li><strong style="color: blue">April 7, 2006:</strong>
-                <a href="https://appfuse.dev.java.net/servlets/NewsItemView?newsItemID=3526">AppFuse 1.9.1 Released</a>. This release includes XFire 1.0, Tapestry 4.0.1 and WebWork 2.2.2, as well as support for using AppGen to reverse engineer database tables (using Middlegen). iBATIS is now supported by AppGen and a <a href="http://raibledesigns.com/wiki/CreateDAOiBATIS.html">Create iBATIS DAO Tutorial</a> has been put together.</li>
-            <li><strong style="color: blue">January 14, 2006:</strong>
-                <a href="https://appfuse.dev.java.net/servlets/NewsItemView?newsItemID=3176">AppFuse 1.9 Released</a>. 
-                This release includes full Acegi Security integration, support for Ajax with DWR and Scriptaculous and many 
-                <a href="https://appfuse.dev.java.net/servlets/ProjectDocumentView?documentID=27428">bug fixes/upgrades</a>.</li>
-            <li><strong style="color: blue">December 28, 2005:</strong>
-                <a href="http://raibledesigns.com/page/rd?entry=ann_equinox_1_5_released">Equinox 1.5 Released</a>. 
-                This release's major new feature is dependency downloading using Maven 2's Ant tasks. It also includes support for Ajax with DWR and Scriptaculous.</li>
-            <li><strong style="color: blue">June 15, 2005:</strong>
-                Thomas Gaudin has put together a couple of detailed and easy-to-follow tutorials on his site: <a href="http://www.thogau.net/tutorials/date/">
-                Handling Dates with AppFuse and Struts</a> and <a href="http://www.thogau.net/tutorials/tree/">Building a persisted dynamic web tree</a>.</li>
-            <li><strong style="color: blue">May 6, 2005:</strong>
-                <a href="http://raibledesigns.com/page/rd?anchor=appfuse_videos">AppFuse Videos</a> created and setup a new
-                <a href="http://issues.appfuse.org">JIRA Issue Tracker</a>. Thanks to <a href="http://atlassian.com">Atlassian</a> for the
-                free JIRA license and to <a href="http://contegix.com">Contegix</a> for hosting it.  Also thanks to <a href="http://kgbinternet.com">
-                KGB Internet Solutions</a> for sponsoring the hosting of the <a href="http://demo.appfuse.org/demos.html">AppFuse Demos</a>.</li>
         </ul>
-        <strong>Developer Weblogs:</strong> Matt Raible (<a href="http://raibledesigns.com">Raible Designs</a> and <a href="http://jroller.com/page/raible">Spring Live</a>), 
-                <a href="http://jroller.com/page/ddcarter">Dave Carter</a>, <a href="http://jroller.com/page/sjivan">Sanjiv Jivan</a> and <a href="http://www.thogau.net/blog">Thomas Gaudin</a>.
+        <strong>Blogs:</strong> <a href="http://appfuse.org/display/APF/News">AppFuse News</a> and <a href="http://raibledesigns.com/rd/category/Java">Raible Designs</a>.
     </blockquote>
 
     <a name="info"></a>
@@ -67,7 +73,7 @@
       <!-- project info start -->
       <ul>
         <li><b>Project Name:</b> AppFuse</li>
-        <li><b>Latest Release:</b> 1.9.4</li>
+        <li><b>Latest Release:</b> 2.0</li>
         <!-- Status of best release: Planning, Pre-Alpha, Alpha, Beta, Production -->
         <li><b>Latest Release Status:</b> Production</li>
         <!-- Project Type: Web Service, Tool, Component, or add your own -->
@@ -83,8 +89,6 @@
         <dd><a href="#screenshot">Screenshot and Demos</a></dd>
         <dd><a href="#download">Download and Installation</a></dd>
         <dd><a href="#features">Features</a></dd>
-        <dd><a href="#building">Building From Source</a></dd>
-        <dd><a href="#usage">Usage Instructions</a></dd>
         <dd><a href="#support">Support</a></dd>
         <dd><a href="#participate">Participation</a></dd>
         <dd><a href="sponsors.html">Sponsors</a></dd>
@@ -100,26 +104,27 @@
       <br /><br />
       <strong>Live Demos:</strong>
         <ul class="glassList">
-            <li><a href="http://demo.appfuse.org/appfuse">Struts + Spring + Hibernate</a></li>
-            <li><a href="http://demo.appfuse.org/appfuse-spring">Spring + iBATIS</a></li>
-            <li><a href="http://demo.appfuse.org/appfuse-webwork">WebWork + Spring + Hibernate</a></li>
+            <li><a href="http://demo.appfuse.org/appfuse-struts">Struts 2 + Spring + Hibernate</a></li>
+            <li><a href="http://demo.appfuse.org/appfuse-spring">Spring MVC + Hibernate</a></li>
             <li><a href="http://demo.appfuse.org/appfuse-jsf">JSF + Spring + Hibernate</a></li>
             <li><a href="http://demo.appfuse.org/appfuse-tapestry">Tapestry + Spring + Hibernate</a></li>
         </ul>
         <strong>Demo Videos:</strong>
-        <p>Below are are videos that are up-to-date with version 1.9.3.  The setup video is around 3 minutes, and the AppGen one is around 3:30.</p>
+        <p>Below are are videos that are up-to-date with version 2.0 M5.  The setup video is around 3 minutes, and the AppGen one is around 3:30.</p>
         </p>
         <table style="width: 650px">
             <tr>
             <td style="text-align: center">
-                <strong>New Project and Feature Tour</strong><br/>
-                <a href="http://demo.appfuse.org/setup.html">
-                <img src="http://static.appfuse.org/images/setup-screenshot.png" alt="Setup Screenshot" width="300" height="187" style="border: 1px solid silver" /></a>
+                <strong>Hello World</strong><br/>
+                <a href="http://static.appfuse.org/movies/2.0/helloworld.mov">
+                <img src="http://appfuse.org/download/attachments/82/helloworld.png" alt="Screenshot" width="320" height="240" style="border: 1px solid silver" /></a><br/>
+                13.2 MB, 6 minutes 14 seconds
             </td>
             <td style="text-align: center">
-                <strong>Code Generation with AppGen</strong><br/>
-                <a href="http://demo.appfuse.org/appgen.html">
-                <img src="http://static.appfuse.org/images/appgen-screenshot.png" alt="AppGen Screenshot" width="300" height="187" style="border: 1px solid silver" /></a>
+                <strong>Easy CRUD with Struts 2</strong><br/>
+                <a href="http://static.appfuse.org/movies/2.0/struts2-crud.mov">
+                <img src="http://appfuse.org/download/attachments/82/crud-struts2.png" alt="Screenshot" width="320" height="240" style="border: 1px solid silver" /></a><br/>
+                14.2 MB, 6 minutes 6 seconds
             </td>
             </tr>
         </table>
@@ -129,7 +134,7 @@
     <a name="download"></a>
     <h3>Download and Installation</h3>
     <blockquote>
-      To download and install AppFuse, see the <a href="http://raibledesigns.com/wiki/AppFuseQuickStart.html">QuickStart Guide</a>.
+      To download and install AppFuse, see the <a href="http://appfuse.org/display/APF/AppFuse+QuickStart">QuickStart Guide</a>.
     </blockquote>
 
     <a name="features"></a>
@@ -140,83 +145,18 @@
         <li>Cross-platform, implemented using Java<sup><small>TM</small></sup>
                 technology.</li>
         <li>Should run on all <a href="http://java.sun.com/j2ee/compatibility.html">
-                J2EE 1.3+ compatible application servers that support J2SE 1.4.</a></li>
+                Java Servlet containers that support Java 5 and Servlet 2.4.</a></li>
         <li>Authentication (using Acegi Security), Remember Me, Self Registration, Password Hint, GZip Compression</li>
         <li>Support for SSL throughout, including login only</li>
         <li>i18n, with built-in translations for Dutch, Italian, Spanish, Brazilian Portuguese and Chinese</li>
         <li>Label Tag Library for displaying validation errors next to fields</li>
         <li>Rich Unit Testing environment using DBUnit, JUnit, jMock and Canoo's WebTest</li>
-        <li>Easy configuration and rapid development using <a href="http://xdoclet.sf.net">XDoclet</a>,
-            <a href="http://www.springframework.org">Spring</a> and
-            <a href="http://raibledesigns.com/wiki/Wiki.jsp?page=AppGen">AppGen</a>.</li>
-        <li>Web Framework Options: Struts, Spring MVC, WebWork, JSF and Tapestry</li>
-        <li>Persistent Framework Options: Hibernate or iBATIS</li>
+        <li>Easy configuration and rapid development using annotations,
+            <a href="http://www.springframework.org">Spring</a> and the 
+            <a href="http://appfuse.org/display/APF/AppFuse+Maven+Plugin">AppFuse Maven Plugin</a>.</li>
+        <li>Web Framework Options: Struts 2, Spring MVC, JSF and Tapestry</li>
+        <li>Persistent Framework Options: Hibernate, iBATIS or JPA</li>
       </ul>
-    </blockquote>
-
-    <a name="building"></a>
-    <h3>Build Instructions</h3>
-    <blockquote>
-    To build AppFuse, follow these steps:
-    <ol>
-      <li>
-        Download and install <code>ant</code> 1.6.5 from
-        <a href="http://ant.apache.org/bindownload.cgi" target="_blank">
-        http://ant.apache.org</a>, or use the command <code>asant</code>
-        provided with the J2EE 1.4 SDK.
-      </li>
-      <li>
-        Download and install MySQL 3.23.53 or greater from
-        <a href="http://dev.mysql.com/downloads/mysql/5.0.html" target="_blank">
-        http://dev.mysql.com/downloads</a>.  By default, AppFuse
-        expects a "root" user with no password (mysql defaults to this).
-      </li>
-      <li>
-        Download and install Tomcat 5.0.x+ from
-        <a href="http://tomcat.apache.org/download-55.cgi" target="_blank">
-        http://tomcat.apache.org</a>.  As part of the
-        installation, make sure an admin/admin user exists with a "manager"
-        role in $CATALINA_HOME/conf/tomcat-users.xml.
-      </li>
-      <li>
-        Check out or <a href="https://appfuse.dev.java.net/servlets/ProjectDocumentList">download</a> the source code from java.net.  You
-        can find Subversion instructions at:
-        <a href="http://appfuse.dev.java.net/source/browse/appfuse/">
-        http://appfuse.dev.java.net/source/browse/appfuse/</a>.
-      </li>
-      <li>
-        Run '<code>ant setup</code>'.  An <code>appfuse</code> database will be
-        created in MySQL and a WAR will be expanded into $CATALINA_HOME/webapps.
-      </li>
-      <li>Login to the application at http://localhost:8080/appfuse.</li>
-    </ol>
-    </blockquote>
-
-    <a name="usage"></a>
-    <h3>Usage Instructions</h3>
-    <blockquote>
-        To use AppFuse, first, <a href="#download">download it</a> and then complete the
-        tutorials below.
-
-        <h4>Creating Objects and DAOs</h4>
-        A HowTo for creating Java Objects (that represent tables) and creating
-        Java classes to persist those objects in the database.
-        <a href="http://raibledesigns.com/wiki/CreateDAO.html">View Tutorial &#187</a>
-
-        <h4>Creating Managers</h4>
-        A HowTo for creating Business Delegates that talk to the database tier (DAOs) and
-        the web tier (Struts Actions).
-        <a href="http://raibledesigns.com/wiki/CreateManager.html">View Tutorial &#187</a>
-
-        <h4>Creating Actions and JSPs</h4>
-        A HowTo for creating Actions and JSPs in the AppFuse architecture.
-        <a href="http://raibledesigns.com/wiki/CreateActions.html">View Tutorial &#187</a>
-
-        <h4>Adding Validation and List Screen</h4>
-        Adding validation logic to the personForm so that firstName and lastName are required fields
-        and adding a list screen to display all person records in the database.
-        <a href="http://raibledesigns.com/wiki/ValidationAndList.html">View Tutorial &#187</a>
-
     </blockquote>
 
     <a name="support"></a>
@@ -224,9 +164,9 @@
     <blockquote>
       AppFuse is a community-supported open-source product.  You can find
       support by subscribing to the various
-      <a href="servlets/ProjectMailingListList">mailing lists</a> offered
+      <a href="http://appfuse.org/display/APF/Mailing+Lists">mailing lists</a> offered
       in this java.net project.  You can also checkout the
-      <a href="http://raibledesigns.com/wiki/AppFuseSupport.html">
+      <a href="http://appfuse.org/display/APF/FAQ">
       AppFuse FAQ</a>.
     </blockquote>
 
@@ -237,15 +177,21 @@
       you will likely find some things that you'd like to improve.  Talk to us on the mailing list
       and let us know what you'd like to see improved.
       <br /><br />
-      Goals for the 2006 include improved useability with IDEs and other tools. This includes Maven 2 
-      support and JDK 5 support. For more details, see the 
-      <a href="http://raibledesigns.com/wiki/AppFuseRoadmap.html">AppFuse Roadmap</a>
+      Goals for the 2007-08 include improved useability with IDEs and other tools. For more details, see the 
+      <a href="http://appfuse.org/display/APF/Roadmap">roadmap</a>
     </blockquote>
 
     <a name="revision"></a>
     <h3>Revision History</h3>
     <blockquote>
       <ul>
+        <li>Version 2.0 - [September 18, 2007]
+          <ul>
+            <li>Maven 2, Java 5, JPA, JSF 1.2 and Struts 2 support.</li>
+            <li><a href="https://appfuse.dev.java.net/servlets/NewsItemView?newsItemID=5333">Read Announcement</a></li>
+            <li><a href="http://appfuse.org/display/APF/Release+Notes+2.0">Release Notes</a></li>
+          </ul>
+        </li>
         <li>Version 1.9.4 - [October 23, 2006]
           <ul>
             <li>Spring 2.0, Hibernate 3.2 and Facelets integration.</li>
