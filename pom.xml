@@ -268,10 +268,6 @@
             <id>appfuse</id>
             <url>http://static.appfuse.org/repository</url>
         </pluginRepository>
-        <!-- Remove this snapshots bit before releasing -->
-        <snapshots>
-            <enabled>true</enabled>
-        </snapshots>
     </pluginRepositories>
 
     <dependencies>
