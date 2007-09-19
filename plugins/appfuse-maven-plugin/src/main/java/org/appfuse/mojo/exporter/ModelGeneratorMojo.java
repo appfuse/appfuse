@@ -98,7 +98,14 @@ public class ModelGeneratorMojo extends HibernateExporterMojo {
         getComponentProperties().put("outputDirectory",
                 (sourceDirectory != null) ? sourceDirectory : "${basedir}/target/appfuse/generated-sources");
 
-        // Check for existance of hibernate.reveng.xml and if there isn't one, create it
+        // default location for reveng file is src/test/resources
+        File revengFile = new File("src/test/resources/hibernate.reveng.xml");
+        if (revengFile.exists() && getComponentProperty("revengfile") == null) {
+           getComponentProperties().put("revengfile", "src/test/resources/hibernate.reveng.xml");
+        }
+        
+        // Check for existence of hibernate.reveng.xml and if there isn't one, create it
+        // Specifying the file explicitly in pom.xml overrides default location
         if (getComponentProperty("revengfile") == null) {
             getComponentProperties().put("revengfile", "target/test-classes/hibernate.reveng.xml");
         }
