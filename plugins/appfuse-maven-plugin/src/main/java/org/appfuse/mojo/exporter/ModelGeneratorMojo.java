@@ -68,11 +68,6 @@ public class ModelGeneratorMojo extends HibernateExporterMojo {
     private boolean disableInstallation;
 
     /**
-     * Allows specifying a custom hibernate.reveng.xml file.
-     * @parameter expression="${appfuse.revengfile} default-value="${basedir}/target/test-classes/hibernate.reveng.xml"
-     */
-    
-    /**
      * Default constructor.
      */
     public ModelGeneratorMojo() {

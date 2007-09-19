@@ -4,7 +4,6 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
-import org.apache.commons.io.FileUtils;
 import org.apache.tools.ant.taskdefs.Replace;
 import org.apache.tools.ant.Project;
 import org.codehaus.plexus.components.interactivity.Prompter;
@@ -12,7 +11,6 @@ import org.codehaus.plexus.components.interactivity.PrompterException;
 import org.appfuse.tool.ArtifactUninstaller;
 
 import java.io.File;
-import java.io.IOException;
 
 /**
  * This mojo is used to "remove" installed artifacts installed by AMP.
@@ -23,11 +21,13 @@ import java.io.IOException;
 public class UninstallArtifactsMojo extends AbstractMojo {
 
     /**
-     * This is a prompter that can be user within the maven framework.
+     * Prompter for user interaction.
      *
      * @component
+     * @readonly
+     * @noinspection UnusedDeclaration
      */
-    Prompter prompter;
+    private Prompter prompter;
 
     /**
      * <i>Maven Internal</i>: Project to interact with.
@@ -43,11 +43,13 @@ public class UninstallArtifactsMojo extends AbstractMojo {
      * The path where the artifacts are installed.
      *
      * @parameter expression="${appfuse.installedDirectory}" default-value="${basedir}"
+     * @noinspection UnusedDeclaration
      */
     private String installedDirectory;
 
     /**
      * @parameter expression="${appfuse.genericCore}" default-value="true"
+     * @noinspection UnusedDeclaration
      */
     private boolean genericCore;
 
