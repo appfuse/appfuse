@@ -161,12 +161,17 @@ public class ModelGeneratorMojo extends HibernateExporterMojo {
             // copy the generated file to the model directory of the project
             try {
                 String packageName = getComponentProperties().get("packagename").toString();
-                String dir = packageName.replaceAll("\\.", "/");
-                Iterator filesIterator = FileUtils.iterateFiles(new File(sourceDirectory + "/" + dir), new String[] {"java"}, false);
-                while (filesIterator.hasNext()) {
-                    File f = (File) filesIterator.next();
-                    getLog().info("Copying generated '" + f.getName() + "' to project...");
-                    FileUtils.copyFileToDirectory(f, new File(destinationDirectory + "/src/main/java/" + dir));
+                String packageAsDir = packageName.replaceAll("\\.", "/");
+                File dir = new File(sourceDirectory + "/" + packageAsDir);
+                if (dir.exists()) {
+                    Iterator filesIterator = FileUtils.iterateFiles(dir, new String[] {"java"}, false);
+                    while (filesIterator.hasNext()) {
+                        File f = (File) filesIterator.next();
+                        getLog().info("Copying generated '" + f.getName() + "' to project...");
+                        FileUtils.copyFileToDirectory(f, new File(destinationDirectory + "/src/main/java/" + dir));
+                    }
+                } else {
+                    throw new MojoFailureException("No tables found in database to generate code from.");
                 }
             } catch (IOException io) {
                 throw new MojoFailureException(io.getMessage());
