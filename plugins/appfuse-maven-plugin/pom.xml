@@ -206,14 +206,14 @@
         </dependency>
         <!-- This is to support the ant calls within the mojos -->
         <dependency>
-            <groupId>ant</groupId>
+            <groupId>org.apache.ant</groupId>
             <artifactId>ant</artifactId>
-            <version>1.6.5</version>
+            <version>1.7.0</version>
         </dependency>
         <dependency>
-            <groupId>ant</groupId>
-            <artifactId>ant-optional</artifactId>
-            <version>1.5.3-1</version>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant-nodeps</artifactId>
+            <version>1.7.0</version>
         </dependency>
         <dependency>
             <groupId>hsqldb</groupId>
