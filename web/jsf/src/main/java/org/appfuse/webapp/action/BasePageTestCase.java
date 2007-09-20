@@ -176,6 +176,7 @@ public abstract class BasePageTestCase extends AbstractTransactionalDataSourceSp
     }
 
     protected String[] getConfigLocations() {
+        setAutowireMode(AUTOWIRE_BY_NAME);
         return new String[] {
             "classpath:/applicationContext-resources.xml",
             "classpath:/applicationContext-dao.xml",
