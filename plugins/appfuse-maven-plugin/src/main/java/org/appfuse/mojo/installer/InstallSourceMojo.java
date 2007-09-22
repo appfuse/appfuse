@@ -102,76 +102,31 @@ public class InstallSourceMojo extends AbstractMojo {
         String webFramework = project.getProperties().getProperty("web.framework");
 
         boolean modular = (project.getPackaging().equals("pom") && !project.hasParent());
-
         if (project.getPackaging().equals("jar") || (project.getPackaging().equals("war") && !project.hasParent())) {
-            log("Installing source from data modules...");
             // export data-common
+            log("Installing source from data-common module...");
             export("data/common/src", (modular) ? "core/src" : destinationDirectory);
 
             // export persistence framework
+            log("Installing source from " + daoFramework + " module...");
             export("data/" + daoFramework + "/src", (modular) ? "core/src" : destinationDirectory);
-
-            // if jpa or hibernate, remove duplicate file in test directory
-            if ("hibernate".equalsIgnoreCase(daoFramework)) {
-                String filePath;
-                if (project.getPackaging().equalsIgnoreCase("jar") && project.hasParent()) {
-                    filePath = "src/main/resources/hibernate.cfg.xml";
-                } else {
-                    filePath = "src/test/resources/hibernate.cfg.xml";
-                }
-
-                File duplicateFile = new File(getFilePath(filePath));
-
-                if (duplicateFile.exists()) {
-                    //log("Deleting duplicate hibernate.cfg.xml from src/test/resources...");
-
-                    try {
-                        FileUtils.forceDeleteOnExit(duplicateFile);
-                    } catch (IOException io) {
-                        getLog().error("Failed to delete '" + filePath + "', please delete manually.");
-                    }
-                }
-            } else if ("jpa".equalsIgnoreCase(daoFramework)) {
-                String filePath;
-                if (project.getPackaging().equalsIgnoreCase("jar") && !project.hasParent()) {
-                    filePath = "src/main/resources/META-INF";
-                } else {
-                    filePath = "src/test/resources/META-INF";
-                }
-
-                File duplicateFile = new File(getFilePath(filePath));
-
-                if (duplicateFile.exists()) {
-                    try {
-                        // For some reason, this just deletes persistence.xml, not the META-INF directory.
-                        // I tried FileUtils.deleteDirectory(duplicateFile), but no dice.
-                        FileUtils.forceDeleteOnExit(duplicateFile);
-                    } catch (IOException io) {
-                        getLog().error("Failed to delete '" + filePath + "/persistence.xml', please delete manually.");
-                    }
-                }
-            } else if ("ibatis".equalsIgnoreCase(daoFramework)) {
-                String filePath;
-                if (project.getPackaging().equalsIgnoreCase("jar") && project.hasParent()) {
-                    filePath = "src/main/resources/sql-map-config.xml";
-                } else {
-                    filePath = "src/test/resources/sql-map-config.xml";
-                }
-
-                File duplicateFile = new File(getFilePath(filePath));
-
-                if (duplicateFile.exists()) {
-                    try {
-                        FileUtils.forceDeleteOnExit(duplicateFile);
-                    } catch (IOException io) {
-                        getLog().error("Failed to delete '" + filePath + "', please delete manually.");
-                    }
-                }
-            }
 
             // export service module
             log("Installing source from service module...");
             export("service/src", (modular) ? "core/src" : destinationDirectory);
+
+            if (project.getPackaging().equalsIgnoreCase("jar")) {
+                // delete dao.framework related files from test directory
+                deleteFile("test/resources/hibernate.cfg.xml");
+                deleteFile("test/resources/META-INF");
+                deleteFile("test/resources/sql-map-config.xml");
+
+                // If JPA or iBATIS, delete hibernate.cfg.xml b/c it will cause issues when
+                // using jpaconfiguration with the hibernate3-maven-plugin
+                if (!"hibernate".equalsIgnoreCase(daoFramework)) {
+                    deleteFile("main/resources/hibernate.cfg.xml");
+                }
+            }
         }
 
         if (project.getPackaging().equalsIgnoreCase("war")) {
@@ -190,12 +145,16 @@ public class InstallSourceMojo extends AbstractMojo {
             export("web/" + webFramework + "/src", (modular) ? "web/src" : destinationDirectory);
 
             if (project.hasParent()) {
-                try {
-                    // copy jdbc.properties to core/src/test/resources
-                    FileUtils.copyFileToDirectory(new File("web/src/main/resources/jdbc.properties"), new File("core/src/test/resources"));
-                } catch (IOException io) {
-                    getLog().error("Failed to copy jdbc.properties to core module");
-                }
+                // copy jdbc.properties to core/src/test/resources
+                //FileUtils.copyFileToDirectory(new File("src/main/resources/jdbc.properties"), new File("../core/src/test/resources"));
+
+                // delete hibernate, ibatis and jpa files from web project
+                deleteFile("main/resources/hibernate.cfg.xml");
+                deleteFile("main/resources/META-INF");
+                deleteFile("main/resources/sql-map-config.xml");
+
+                // there's a jdbc.properties in test/resources that shouldn't be there
+                deleteFile("test/resources/jdbc.properties");
             }
         }
 
@@ -275,6 +234,25 @@ public class InstallSourceMojo extends AbstractMojo {
                 newDependencies = addModuleDependencies(newDependencies, webFramework, "web/" + webFramework, true);
 
                 createFullSourcePom(newDependencies);
+            }
+        }
+    }
+
+    private void deleteFile(String filePath) {
+        if (!filePath.startsWith("/")) {
+            filePath = "/" + filePath;
+        }
+        File duplicateFile = new File(getFilePath(destinationDirectory + filePath));
+        if (duplicateFile.exists()) {
+            try {
+                getLog().debug("Deleting duplicate file at '" + duplicateFile.getCanonicalPath());
+                if (duplicateFile.isDirectory()) {
+                    FileUtils.deleteDirectory(duplicateFile);
+                } else {
+                    FileUtils.forceDeleteOnExit(duplicateFile);
+                }
+            } catch (IOException io) {
+                getLog().error("Failed to delete '" + filePath + "', please delete manually.");
             }
         }
     }
@@ -566,7 +544,7 @@ public class InstallSourceMojo extends AbstractMojo {
 
     private String getFilePath(String s) {
         s = s.replace("/", FILE_SEP);
-
+        //log("returning: " + s);
         return s;
     }
 
