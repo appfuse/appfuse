@@ -1,8 +1,9 @@
 package org.appfuse.mojo.exporter;
 
-import org.apache.commons.io.FileUtils;
+
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.commons.io.FileUtils;
 import org.appfuse.mojo.HibernateExporterMojo;
 import org.appfuse.tool.AppFuseExporter;
 import org.appfuse.tool.ArtifactInstaller;
@@ -315,7 +316,7 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
                 String pathToParent = getProject().getOriginalModel().getParent().getRelativePath();
                 pathToParent = pathToParent.substring(0, pathToParent.lastIndexOf('/') + 1);
                 pathToParent = pathToParent.replaceAll("/", FILE_SEP);
-                pathToModelPackage = getProject().getBasedir() + FILE_SEP + pathToParent + moduleName + pathToModelPackage;
+                pathToModelPackage = getProject().getBasedir() + FILE_SEP + pathToParent + moduleName + "/" + pathToModelPackage;
             }
 
             // refactor to check classpath instead of filesystem
