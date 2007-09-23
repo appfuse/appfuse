@@ -190,7 +190,7 @@
     </target>
 
     <target name="test-jsf-modular-source" description="tests full-source plugin with jsf modular archetype">
-        <!--full-source archetype="appfuse-modular-jsf" name="modular-jsf-source"/-->
+        <full-source archetype="appfuse-modular-jsf" name="modular-jsf-source"/>
         <full-source archetype="appfuse-modular-jsf" name="modular-jsf-ibatis-source" daoFramework="ibatis" hibernate3Config="annotationconfiguration"/>
         <full-source archetype="appfuse-modular-jsf" name="modular-jsf-jpa-source" daoFramework="jpa" hibernate3Config="jpaconfiguration"/>
     </target>
