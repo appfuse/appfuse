@@ -121,9 +121,9 @@ public class InstallSourceMojo extends AbstractMojo {
                 deleteFile("test/resources/META-INF");
                 deleteFile("test/resources/sql-map-config.xml");
 
-                // If JPA or iBATIS, delete hibernate.cfg.xml b/c it will cause issues when
+                // If JPA, delete hibernate.cfg.xml b/c it will cause issues when
                 // using jpaconfiguration with the hibernate3-maven-plugin
-                if (!"hibernate".equalsIgnoreCase(daoFramework)) {
+                if ("jpa".equalsIgnoreCase(daoFramework)) {
                     deleteFile("main/resources/hibernate.cfg.xml");
                 }
             }

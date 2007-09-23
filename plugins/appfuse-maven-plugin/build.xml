@@ -190,26 +190,26 @@
     </target>
 
     <target name="test-jsf-modular-source" description="tests full-source plugin with jsf modular archetype">
-        <full-source archetype="appfuse-modular-jsf" name="modular-jsf-source"/>
-        <full-source archetype="appfuse-modular-jsf" name="modular-jsf-ibatis-source" daoFramework="ibatis" hibernate3Config="jpaconfiguration"/>
+        <!--full-source archetype="appfuse-modular-jsf" name="modular-jsf-source"/-->
+        <full-source archetype="appfuse-modular-jsf" name="modular-jsf-ibatis-source" daoFramework="ibatis" hibernate3Config="annotationconfiguration"/>
         <full-source archetype="appfuse-modular-jsf" name="modular-jsf-jpa-source" daoFramework="jpa" hibernate3Config="jpaconfiguration"/>
     </target>
 
      <target name="test-spring-modular-source" description="tests full-source plugin with spring modular archetype">
         <full-source archetype="appfuse-modular-spring" name="modular-spring-source"/>
-        <full-source archetype="appfuse-modular-spring" name="modular-spring-ibatis-source" daoFramework="ibatis" hibernate3Config="jpaconfiguration"/>
+        <full-source archetype="appfuse-modular-spring" name="modular-spring-ibatis-source" daoFramework="ibatis" hibernate3Config="annotationconfiguration"/>
         <full-source archetype="appfuse-modular-spring" name="modular-spring-jpa-source" daoFramework="jpa" hibernate3Config="jpaconfiguration"/>
     </target>
 
      <target name="test-struts-modular-source" description="tests full-source plugin with struts modular archetype">
         <full-source archetype="appfuse-modular-struts" name="modular-struts-source"/>
-        <full-source archetype="appfuse-modular-struts" name="modular-struts-ibatis-source" daoFramework="ibatis" hibernate3Config="jpaconfiguration"/>
+        <full-source archetype="appfuse-modular-struts" name="modular-struts-ibatis-source" daoFramework="ibatis" hibernate3Config="annotationconfiguration"/>
         <full-source archetype="appfuse-modular-struts" name="modular-struts-jpa-source" daoFramework="jpa" hibernate3Config="jpaconfiguration"/>
     </target>
 
      <target name="test-tapestry-modular-source" description="tests full-source plugin with tapestry modular archetype">
         <full-source archetype="appfuse-modular-tapestry" name="modular-tapestry-source"/>
-        <full-source archetype="appfuse-modular-tapestry" name="modular-tapestry-ibatis-source" daoFramework="ibatis" hibernate3Config="jpaconfiguration"/>
+        <full-source archetype="appfuse-modular-tapestry" name="modular-tapestry-ibatis-source" daoFramework="ibatis" hibernate3Config="annotationconfiguration"/>
         <full-source archetype="appfuse-modular-tapestry" name="modular-tapestry-source" daoFramework="jpa" hibernate3Config="jpaconfiguration"/>
     </target>
     
@@ -271,8 +271,10 @@
     
     <!-- Test iBATIS -->
     <target name="test-ibatis" description="creates projects, changes dao.framework to ibatis and tests generation">
-        <create-project-for-daoframework archetype="appfuse-basic-jsf" name="basic-jsf-ibatis" daoFramework="ibatis"/>
-        <create-project-for-daoframework archetype="appfuse-basic-struts" name="basic-struts-ibatis" daoFramework="ibatis"/>
+        <create-project-for-daoframework archetype="appfuse-basic-jsf" name="basic-jsf-ibatis" 
+            daoFramework="ibatis" hibernate3Config="annotationconfiguration"/>
+        <create-project-for-daoframework archetype="appfuse-basic-struts" name="basic-struts-ibatis" 
+            daoFramework="ibatis" hibernate3Config="annotationconfiguration"/>
     </target>
     
     <!-- Test JPA -->
@@ -288,7 +290,8 @@
         <attribute name="version" default="${version}"/>
         <attribute name="fullSource" default="false"/>
         <attribute name="name"/>
-        <attribute name="daoFramework" default="jpaconfiguration"/>
+        <attribute name="daoFramework"/>
+        <attribute name="hibernate3Config" default="jpaconfiguration"/>
 
         <sequential>
             <delete dir="${test.dir}/@{name}"/>
@@ -336,8 +339,13 @@
             <!-- Change hibernate3 plugin to use jpaconfiguration configuration -->
             <replace file="${test.dir}/@{name}/pom.xml" token="annotationconfiguration" value="@{hibernate3Config}"/>
 
-            <!-- Remove hibernate.cfg.xml -->
-            <delete file="${test.dir}/@{name}/src/main/resources/hibernate.cfg.xml"/>
+            <!-- Remove hibernate.cfg.xml if jpaconfiguration -->
+            <if>
+                <equals arg1="@{hibernate3Config}" arg2="jpaconfiguration"/>
+                <then>
+                    <delete file="${test.dir}/@{name}/src/main/resources/hibernate.cfg.xml"/>
+                </then>
+            </if>
         </sequential>
     </macrodef>
 

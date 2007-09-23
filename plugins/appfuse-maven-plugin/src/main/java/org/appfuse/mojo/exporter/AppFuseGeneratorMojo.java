@@ -101,23 +101,6 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
             throw new MojoFailureException(errorMsg);
         }
 
-        /*String objectType = System.getProperty("type");
-        if (objectType == null) {
-            try {
-                List<String> options = new ArrayList<String>(2);
-                options.add("pojo");
-                options.add("table");
-
-                objectType = prompter.prompt("Would you like to generate code from a table or a POJO?", options, "pojo");
-            } catch (PrompterException pe) {
-                pe.printStackTrace();
-            }
-        }
-
-        if (objectType != null && objectType.equalsIgnoreCase("table")) {
-            // see http://issues.appfuse.org/browse/APF-869
-        }*/
-
         pojoName = System.getProperty("entity");
 
         if (pojoName == null) {
@@ -170,35 +153,41 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
         }
 
         // If dao.framework is ibatis, programmatically create a hibernate.cfg.xml and put it in the classpath
-        if (daoFramework.equals("ibatis")) {
+        if (daoFramework.equalsIgnoreCase("ibatis")) {
             try {
-                // if no hibernate.cfg.xml exists, create one from template in plugin
-                String hibernateCfgXml;
-                File existingConfig = new File(hibernateConfig);
-                if (!existingConfig.exists()) {
-                    InputStream in = this.getClass().getResourceAsStream("/appfuse/dao/ibatis/hibernate.cfg.ftl");
-                    StringBuffer configFile = new StringBuffer();
-                    try {
-                        InputStreamReader isr = new InputStreamReader(in);
-                        BufferedReader reader = new BufferedReader(isr);
-                        String line;
-                        while ((line = reader.readLine()) != null) {
-                            configFile.append(line).append("\n");
+                String pomAsString = FileUtils.readFileToString(new File("pom.xml"));
+                if (pomAsString.contains("<implementation>annotationconfiguration</implementation>")) {
+                    // if no hibernate.cfg.xml exists, create one from template in plugin
+                    log("Creating hibernate.cfg.xml from template...");
+                    String hibernateCfgXml;
+                    File existingConfig = new File(hibernateConfig);
+                    if (!existingConfig.exists()) {
+                        InputStream in = this.getClass().getResourceAsStream("/appfuse/dao/ibatis/hibernate.cfg.ftl");
+                        StringBuffer configFile = new StringBuffer();
+                        try {
+                            InputStreamReader isr = new InputStreamReader(in);
+                            BufferedReader reader = new BufferedReader(isr);
+                            String line;
+                            while ((line = reader.readLine()) != null) {
+                                configFile.append(line).append("\n");
+                            }
+                            reader.close();
+                        } catch (IOException io) {
+                            throw new MojoFailureException(io.getMessage());
                         }
-                        reader.close();
-                    } catch (IOException io) {
-                        throw new MojoFailureException(io.getMessage());
+
+                        hibernateCfgXml = configFile.toString();
+                    } else {
+                        hibernateCfgXml = FileUtils.readFileToString(existingConfig);
                     }
 
-                    hibernateCfgXml = configFile.toString();
+                    addEntityToHibernateCfgXml(hibernateCfgXml);
                 } else {
-                    hibernateCfgXml = FileUtils.readFileToString(existingConfig);
+                    log("[WARN] Detected JPA configuration");
                 }
-
-                addEntityToHibernateCfgXml(hibernateCfgXml);
             } catch (IOException io) {
                 io.printStackTrace();
-                getLog().error("Failed to copy hibernate.cfg.xml into classpath: " + io.getMessage());
+                getLog().error(io.getMessage());
             }
         }
 
@@ -288,7 +277,7 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
         if (!hibernateCfgXml.contains(pojoName)) {
             // check that class exists and has an @Entity annotation
             checkEntityExists();
-            
+
             hibernateCfgXml = hibernateCfgXml.replace("</session-factory>",
                     "    <mapping class=\"" + className + "\"/>"
                     + "\n    </session-factory>");
