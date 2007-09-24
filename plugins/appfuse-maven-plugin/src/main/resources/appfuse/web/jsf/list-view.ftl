@@ -31,7 +31,7 @@
         </f:facet>
 <#if field.equals(pojo.identifierProperty)>
         <h:commandLink action="${'#'}{${pojoNameLower}Form.edit}" value="${'#'}{${pojoNameLower}.${field.name}}">
-            <f:param name="id" value="${'#'}{${pojoNameLower}.${field.name}}"/>
+            <f:param name="${field.name}" value="${'#'}{${pojoNameLower}.${field.name}}"/>
             <f:param name="from" value="list"/>
         </h:commandLink>
 <#elseif !c2h.isCollection(field) && !c2h.isManyToOne(field) && !c2j.isComponent(field)>
