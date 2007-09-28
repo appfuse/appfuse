@@ -20,8 +20,15 @@
 <#foreach field in pojo.getAllPropertiesIterator()>
 <#if !c2h.isCollection(field) && !c2h.isManyToOne(field) && !c2j.isComponent(field)>
     <#foreach column in field.getColumnIterator()>
-    <#if field.value.typeName == "java.lang.String">
+    <#assign type = field.value.typeName>
+    <#if field.equals(pojo.identifierProperty) && field.value.identifierGeneratorStrategy == "assigned">
+    <component id="${field.name}Field" type="TextField">
+        <binding name="value" value="${pojoNameLower}.${field.name}"/>
+        <binding name="validators" value="validators:required"/>
+        <binding name="displayName" value="message:${pojoNameLower}.${field.name}"/>
+    </component>
 
+    <#elseif !field.equals(pojo.identifierProperty) && type != "java.util.Date" && type != "boolean" && type != "java.lang.Boolean">
     <component id="${field.name}Field" type="TextField">
         <binding name="value" value="${pojoNameLower}.${field.name}"/>
         <#if !column.nullable>
@@ -29,6 +36,7 @@
         </#if>
         <binding name="displayName" value="message:${pojoNameLower}.${field.name}"/>
     </component>
+
     </#if>
     </#foreach>
 </#if>
