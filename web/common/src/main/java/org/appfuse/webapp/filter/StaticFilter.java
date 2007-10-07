@@ -17,7 +17,7 @@ import java.util.Set;
 /**
  * A simple filter that allows the application to continue using the .html prefix for actions but also allows
  * static files to be served up with the same extension. Dojo to serve up its HTML template code. The filter works
- * on an include/exclude basis where all requests for active pages are redirected by the filter to thee dispatch
+ * on an include/exclude basis where all requests for active pages are redirected by the filter to the dispatch
  * servlet. All Dojo related .html requests are allowed to pass straight through to be processed by the servlet
  * container as per normal.
  */
@@ -31,7 +31,7 @@ public class StaticFilter extends OncePerRequestFilter {
     private String[] includes;
     private String servletName = null;
     /**
-     * Read the includes/excludes paramters and set the filter accordingly.
+     * Read the includes/excludes parameters and set the filter accordingly.
      */
     public void initFilterBean() {
         String includesParam = getFilterConfig().getInitParameter(INCLUDES_PARAMETER);
