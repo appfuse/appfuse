@@ -3,11 +3,11 @@
     "http://getahead.ltd.uk/dwr/dwr20.dtd">
 <dwr>
     <allow>
-        <!--create creator="spring" javascript="UserManager">
+        <create creator="spring" javascript="UserManager">
             <param name="class" value="org.appfuse.service.UserManager"/>
             <param name="beanName" value="userManager"/>
             <include method="getUsers"/>
         </create>
-        <convert converter="bean" match="org.appfuse.model.User"/-->
+        <convert converter="bean" match="org.appfuse.model.User"/>
     </allow>
 </dwr>
