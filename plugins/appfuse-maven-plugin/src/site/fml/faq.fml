@@ -19,10 +19,10 @@
 <faqs id="FAQ" title="Frequently Asked Questions">
   <part id="General">
     <faq id="question">
-      <question>Question?</question>
+      <question>When running appfuse:full-source, I get an OutOfMemoryError. How do I fix this?</question>
       <answer>
         <p>
-          Answer
+          Set your MAVEN_OPTS environment variable to "-Xms128M -Xmx256M".
         </p>
       </answer>
     </faq>

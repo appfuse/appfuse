@@ -4,11 +4,12 @@
  Matt Raible
  <matt@raibledesigns.com>
  ------
- 2 September 2007
+ 8 October 2007
 
 Maven AppFuse Plugin
 
-  This plugin provides code generation and other utilities for AppFuse 2.x projects. .
+  This plugin provides code generation and other utilities for AppFuse 2.x projects. See the {{{faq.html}FAQ}} if you're having
+  issues running this plugin.
 
 * Goals Overview
 

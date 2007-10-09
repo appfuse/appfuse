@@ -37,6 +37,8 @@ import java.util.TreeSet;
 
 /**
  * This mojo is used to "install" source artifacts from Subversion into an AppFuse project.
+ * If you get an OutOfMemoryError when running this plugin, you should be able to fix it
+ * by setting your MAVEN_OPTS environment variable to "-Xms128M -Xmx256M".
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  * @goal full-source
