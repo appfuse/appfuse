@@ -268,6 +268,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>${commons.lang.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.acegisecurity</groupId>
             <artifactId>acegi-security-tiger</artifactId>
             <version>${acegi.version}</version>
