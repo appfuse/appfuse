@@ -52,6 +52,7 @@
     <bean id="mailEngine" class="org.appfuse.service.MailEngine">
         <property name="mailSender" ref="mailSender"/>
         <property name="velocityEngine" ref="velocityEngine"/>
+        <property name="from" value="${mail.default.from}"/>
     </bean>
 
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">

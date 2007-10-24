@@ -28,6 +28,7 @@ public class MailEngine {
     private final Log log = LogFactory.getLog(MailEngine.class);
     private MailSender mailSender;
     private VelocityEngine velocityEngine;
+    private String defaultFrom;
 
     public void setMailSender(MailSender mailSender) {
         this.mailSender = mailSender;
@@ -35,6 +36,10 @@ public class MailEngine {
 
     public void setVelocityEngine(VelocityEngine velocityEngine) {
         this.velocityEngine = velocityEngine;
+    }
+
+    public void setFrom(String from) {
+        this.defaultFrom = from;
     }
 
     /**
@@ -94,7 +99,14 @@ public class MailEngine {
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
         helper.setTo(recipients);
-        helper.setFrom(sender);
+
+        // use the default sending if no sender specified
+        if (sender == null) {
+            helper.setFrom(defaultFrom);
+        } else {
+           helper.setFrom(sender);
+        }
+
         helper.setText(bodyText);
         helper.setSubject(subject);
 
