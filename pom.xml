@@ -549,7 +549,7 @@
         <sitemesh.version>2.2.1</sitemesh.version>
         <spring.version>2.0.7</spring.version>
         <springmodules.validation.version>0.8</springmodules.validation.version>
-        <struts.version>2.0.9</struts.version>
+        <struts.version>2.0.11</struts.version>
         <struts.menu.version>2.4.3</struts.menu.version>
         <tacos.version>4.1.0</tacos.version>
         <tapestry.version>4.1.3</tapestry.version>
