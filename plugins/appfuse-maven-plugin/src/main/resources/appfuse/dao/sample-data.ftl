@@ -23,7 +23,7 @@
         <#elseif field.equals(pojo.versionProperty)>
             1<#rt/>
         <#else>
-            <#lt/>${data.getTestValueForDbUnit(field.value.typeName)}<#rt/>
+            <#lt/>${data.getTestValueForDbUnit(column)}<#rt/>
         </#if>
         <#lt/></value>
     </#foreach>

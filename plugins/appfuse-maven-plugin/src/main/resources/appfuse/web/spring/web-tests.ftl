@@ -51,9 +51,9 @@
         [#foreach column in field.getColumnIterator()]
             [#if !field.equals(pojo.identifierProperty) && !column.nullable && !c2h.isCollection(field) && !c2h.isManyToOne(field)]
                 [#if field.value.typeName == "boolean" || field.value.typeName = "java.lang.Boolean"]
-                <setCheckbox description="set ${field.name}" name="${field.name}" value="${data.getValueForWebTest(field.value.typeName)}"/>
+                <setCheckbox description="set ${field.name}" name="${field.name}" value="${data.getValueForWebTest(column)}"/>
                 [#else]
-                <setInputField description="set ${field.name}" name="${field.name}" value="${data.getValueForWebTest(field.value.typeName)}"/>
+                <setInputField description="set ${field.name}" name="${field.name}" value="${data.getValueForWebTest(column)}"/>
                 [/#if]
             [/#if]
         [/#foreach]
@@ -84,9 +84,9 @@
         [#foreach column in field.getColumnIterator()]
             [#if !field.equals(pojo.identifierProperty) && !column.nullable && !c2h.isCollection(field) && !c2h.isManyToOne(field)]
                 [#if field.value.typeName == "boolean" || field.value.typeName = "java.lang.Boolean"]
-                <setCheckbox description="set ${field.name}" name="${field.name}" value="${data.getValueForWebTest(field.value.typeName)}"/>
+                <setCheckbox description="set ${field.name}" name="${field.name}" value="${data.getValueForWebTest(column)}"/>
                 [#else]
-                <setInputField description="set ${field.name}" name="${field.name}" value="${data.getValueForWebTest(field.value.typeName)}"/>
+                <setInputField description="set ${field.name}" name="${field.name}" value="${data.getValueForWebTest(column)}"/>
                 [/#if]
             [/#if]
         [/#foreach]

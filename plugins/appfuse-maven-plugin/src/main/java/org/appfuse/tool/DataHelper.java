@@ -1,5 +1,9 @@
 package org.appfuse.tool;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.hibernate.mapping.Column;
+
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,16 +19,18 @@ import java.util.ResourceBundle;
  * @author mraible
  */
 public class DataHelper {
+    private static final Log log = LogFactory.getLog(DataHelper.class);
     private static String datePattern = "yyyy-MM-dd";
     private static String uiDatePattern = getDatePattern();
     
     /**
      * Generate a random value in a format that makes DbUnit happy.
-     * @param type the type (i.e. "java.lang.String")
+     * @param column the column (i.e. "java.lang.String")
      * @return a generated string for the particular type
      */
-    public String getTestValueForDbUnit(String type) {
+    public String getTestValueForDbUnit(Column column) {
         StringBuffer result = new StringBuffer();
+        String type = column.getValue().getType().getReturnedClass().getName();
 
         if ("java.lang.Integer".equals(type) || "int".equals(type)) {
             result.append((int) ((Math.random() * Integer.MAX_VALUE)) );
@@ -45,7 +51,7 @@ public class DataHelper {
         } else if ("java.sql.Timestamp".equals(type)) {
             result.append(new Timestamp(new Date().getTime()).toString());
         } else { // default to String for everything else
-            String stringWithQuotes = generateStringValue();
+            String stringWithQuotes = generateStringValue(column);
             result.append(stringWithQuotes.substring(1, stringWithQuotes.length()-1));
         }
 
@@ -54,14 +60,15 @@ public class DataHelper {
 
     /**
      * Method to generate a random value for use in setting values in a Java test
-     * @param type the type of object (i.e. "java.util.Date")
+     * @param column the type of object (i.e. "java.util.Date")
      * @return The string-ified version of the type
      */
-    public String getValueForJavaTest(String type) {
+    public String getValueForJavaTest(Column column) {
         StringBuffer result = new StringBuffer();
-
+        String type = column.getValue().getType().getReturnedClass().getName();
+        
         if ("java.lang.Integer".equals(type)) {
-            result.append("new Integer(").append((int) ((Math.random() * Integer.MAX_VALUE))).append(")");
+            result.append((int) ((Math.random() * Integer.MAX_VALUE)));
         } else if ("int".equals(type)) {
             result.append("(int) ").append((int) ((Math.random() * Integer.MAX_VALUE)));
         } else if ("java.lang.Float".equals(type) ) {
@@ -75,9 +82,9 @@ public class DataHelper {
             // not sure why, but Long.MAX_VALUE results in too large a number
             result.append((long) ((Math.random() * Integer.MAX_VALUE)));
         } else if ("java.lang.Double".equals(type)) {
-            result.append("new Double(").append((double) ((Math.random() * Double.MAX_VALUE))).append(")");
+            result.append("new Double(").append((Math.random() * Double.MAX_VALUE)).append(")");
         } else if ("double".equals(type)) {
-            result.append((double) ((Math.random() * Double.MAX_VALUE)));
+            result.append((Math.random() * Double.MAX_VALUE));
         } else if ("java.lang.Short".equals(type)) {
             result.append("new Short(\"").append((short) ((Math.random() * Short.MAX_VALUE))).append("\")");
         } else if ("short".equals(type)) {
@@ -87,7 +94,7 @@ public class DataHelper {
         } else if ("byte".equals(type)) {
             result.append("(byte) ").append((byte) ((Math.random() * Byte.MAX_VALUE)));
         } else if ("java.lang.Boolean".equals(type)) {
-            result.append("new Boolean(\"false\")");
+            result.append("Boolean.FALSE");
         } else if ("boolean".equals(type)) {
             result.append("false");
         } else if ("java.util.Date".equals(type)) {
@@ -98,7 +105,7 @@ public class DataHelper {
             result.append("java.sql.Timestamp.valueOf(\"")
                     .append(new Timestamp(new Date().getTime()).toString()).append("\")");
         } else { // default to String for everything else
-            result.append(generateStringValue());
+            result.append(generateStringValue(column));
         }
         
         return result.toString();
@@ -106,12 +113,12 @@ public class DataHelper {
 
     /**
      * Method to generate a random value for use in setting WebTest parameters
-     * @param type the type of object (i.e. "java.util.Date")
+     * @param column the type of object (i.e. "java.util.Date")
      * @return The string-ified version of the date
      */
-    public String getValueForWebTest(String type) {
-
-        String value = getTestValueForDbUnit(type);
+    public String getValueForWebTest(Column column) {
+        String type = column.getValue().getType().getReturnedClass().getName();
+        String value = getTestValueForDbUnit(column);
         if (type.equalsIgnoreCase(Date.class.getName())) {
             value = getDate(new Date(), uiDatePattern);
         } else if ("boolean".equals(type) || "java.lang.Boolean".equals(type)) {
@@ -121,10 +128,14 @@ public class DataHelper {
         return value;
     }
 
-    private String generateStringValue() {
-        int maxLen = 0; // todo: figure out getHibernateLength();
-        if (maxLen == 0) { maxLen = 10; }
-
+    private String generateStringValue(Column column) {
+        int maxLen = column.getLength();
+        if (maxLen > 5000) {
+            log.warn("Column length greater than 5000 characters for '" + column.getName() +
+                    "', setting maxlength to 5000.");
+            maxLen = 5000;
+        }
+        
         StringBuffer result = new StringBuffer("\"");
 
         for (int i = 0; (i < maxLen); i++) {
@@ -134,12 +145,17 @@ public class DataHelper {
             } else {
                 j = (int) ((Math.random() * 26) + 97);
             }
-            result.append(new Character((char)j).toString());
+            result.append(Character.toString((char) j));
         }
+
 
         result.append("\"");
 
         return result.toString();
+    }
+
+    public String generateRandomStringValue(Column column) {
+        return "\"\" + Math.random()";
     }
 
     private static String getDate(Date aDate) {

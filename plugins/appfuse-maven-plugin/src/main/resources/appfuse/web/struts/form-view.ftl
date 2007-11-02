@@ -23,7 +23,7 @@
     <#foreach column in field.getColumnIterator()>
         <#if field.value.typeName == "java.util.Date">
             <#assign dateExists = true>
-            <#lt/>    <s:textfield key="${pojoNameLower}.${field.name}" required="${(!column.nullable)?string}" cssClass="text" size="11" title="date"/>
+            <#lt/>    <s:textfield key="${pojoNameLower}.${field.name}" required="${(!column.nullable)?string}" <#if (column.length > 0)>maxlength="${column.length}" </#if>cssClass="text" size="11" title="date"/>
         <#elseif field.value.typeName == "boolean" || field.value.typeName == "java.lang.Boolean">
             <#lt/><li>
             <#lt/>    <s:checkbox key="${pojoNameLower}.${field.name}" cssClass="checkbox" theme="simple"/>
@@ -31,7 +31,7 @@
             <#lt/>    <s:label for="${pojoNameLower}Form_${pojoNameLower}_${field.name}" value="%{getText('${pojoNameLower}.${field.name}')}" cssClass="choice desc" theme="simple"/>
             <#lt/></li>
         <#else>
-            <#lt/>    <s:textfield key="${pojoNameLower}.${field.name}" required="${(!column.nullable)?string}" cssClass="text medium"/>
+            <#lt/>    <s:textfield key="${pojoNameLower}.${field.name}" required="${(!column.nullable)?string}" <#if (column.length > 0)>maxlength="${column.length}" </#if>cssClass="text medium"/>
         </#if>
     </#foreach>
 <#elseif c2h.isManyToOne(field)>
