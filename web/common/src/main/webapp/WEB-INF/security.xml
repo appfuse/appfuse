@@ -62,6 +62,9 @@
                 <property name="forceHttps" value="false"/>
             </bean>
         </property>
+        <property name="accessDeniedHandler">
+            <bean class="org.acegisecurity.ui.AccessDeniedHandlerImpl"/>
+        </property>
     </bean>
 
     <bean id="filterInvocationInterceptor" class="org.acegisecurity.intercept.web.FilterSecurityInterceptor">
