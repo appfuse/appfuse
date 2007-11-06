@@ -163,8 +163,8 @@
             <version>${ajax4jsf.version}</version>
         </dependency>
         <dependency>
-            <groupId>net.sf.jsfcomp</groupId>
-            <artifactId>acegijsf</artifactId>
+            <groupId>net.sourceforge.jsf-comp</groupId>
+            <artifactId>acegi-jsf</artifactId>
             <version>${acegijsf.version}</version>
         </dependency>
         <dependency>
