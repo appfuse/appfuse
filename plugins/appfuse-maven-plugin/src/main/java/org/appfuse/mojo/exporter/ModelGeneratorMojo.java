@@ -191,6 +191,7 @@ public class ModelGeneratorMojo extends HibernateExporterMojo {
                 } else {
                     throw new MojoFailureException("No tables found in database to generate code from.");
                 }
+                FileUtils.forceDelete(dir);
             } catch (IOException io) {
                 throw new MojoFailureException(io.getMessage());
             }
