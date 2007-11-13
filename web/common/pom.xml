@@ -140,4 +140,13 @@
             </testResource>
         </testResources>
     </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>${jsp.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 </project>
