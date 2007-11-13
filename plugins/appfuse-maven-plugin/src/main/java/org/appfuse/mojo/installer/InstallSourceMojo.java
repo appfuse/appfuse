@@ -272,7 +272,7 @@ public class InstallSourceMojo extends AbstractMojo {
     }
 
     private void createFullSourcePom(List<Dependency> newDependencies) throws MojoFailureException {
-        // Change spring-mock and jmock dependencies to use <optional>true</option> instead of <scope>test</scope>.
+        // Change spring-test and jmock dependencies to use <optional>true</option> instead of <scope>test</scope>.
         // This is necessary because Base*TestCase classes are in src/main/java. If we move these classes to their
         // own test module, this will no longer be necessary. For the first version of this mojo, it seems easier
         // to follow the convention used in AppFuse rather than creating a test module and changing all modules to
