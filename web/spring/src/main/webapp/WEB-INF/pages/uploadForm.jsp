@@ -38,9 +38,7 @@
     <li>
         <appfuse:label key="uploadForm.file" styleClass="desc"/>
         <form:errors path="file" cssClass="fieldError"/>
-        <spring:bind path="fileUpload.file">
-        <input type="file" name="file" id="file" class="file medium" value="<c:out value="${status.value}"/>"/>
-        </spring:bind>
+        <input type="file" name="file" id="file" class="file medium"/>
     </li>
     <li class="buttonBar bottom">
         <input type="submit" name="upload" class="button" onclick="bCancel=false"

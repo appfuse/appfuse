@@ -257,6 +257,10 @@
             <id>appfuse</id>
             <url>http://static.appfuse.org/repository</url>
         </repository>
+        <repository>
+            <id>spring-milestone</id>
+            <url>http://s3.amazonaws.com/maven.springframework.org/milestone</url>
+        </repository>
     </repositories>
 
     <pluginRepositories>
@@ -277,14 +281,6 @@
             <artifactId>acegi-security-tiger</artifactId>
             <version>${acegi.version}</version>
             <exclusions>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-aop</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-core</artifactId>
-                </exclusion>
                 <exclusion>
                     <groupId>org.springframework</groupId>
                     <artifactId>spring-dao</artifactId>
@@ -318,38 +314,10 @@
             <groupId>${jdbc.groupId}</groupId>
             <artifactId>${jdbc.artifactId}</artifactId>
             <version>${jdbc.version}</version>
-        </dependency>
+        </dependency>        
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring</artifactId>
-            <version>${spring.version}</version>
-            <!-- commons-logging 1.1. has invalid dependencies -->
-            <exclusions>
-                <exclusion>
-                    <groupId>avalon-framework</groupId>
-                    <artifactId>avalon-framework</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>log4j</groupId>
-                    <artifactId>log4j</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>logkit</groupId>
-                    <artifactId>logkit</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>javax.servlet</groupId>
-                    <artifactId>servlet-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>junit</groupId>
-                    <artifactId>junit</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-mock</artifactId>
+            <artifactId>spring-test</artifactId>
             <version>${spring.version}</version>
             <optional>true</optional>
         </dependency>
@@ -547,7 +515,7 @@
         <servlet.version>2.4</servlet.version>
         <shale.version>1.0.4</shale.version>
         <sitemesh.version>2.2.1</sitemesh.version>
-        <spring.version>2.0.7</spring.version>
+        <spring.version>2.5-rc2</spring.version>
         <springmodules.validation.version>0.8</springmodules.validation.version>
         <struts.version>2.0.11</struts.version>
         <struts.menu.version>2.4.3</struts.menu.version>

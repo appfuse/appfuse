@@ -20,9 +20,8 @@
 
     <parent>
         <groupId>org.appfuse</groupId>
-        <artifactId>appfuse</artifactId>
+        <artifactId>appfuse-web</artifactId>
         <version>2.0.1-SNAPSHOT</version>
-        <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <artifactId>appfuse-tapestry</artifactId>
@@ -201,30 +200,6 @@
             <groupId>net.sf.tacos</groupId>
             <artifactId>tacos-core</artifactId>
             <version>${tacos.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.subethamail</groupId>
-            <artifactId>subethasmtp-wiser</artifactId>
-            <version>${wiser.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <!-- Dependencies with scope=provided aren't picked up from dependent JARs -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jsp-api</artifactId>
-            <version>${jsp.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>${servlet.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>${jdbc.groupId}</groupId>
-            <artifactId>${jdbc.artifactId}</artifactId>
-            <version>${jdbc.version}</version>
         </dependency>
     </dependencies>
 

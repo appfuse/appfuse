@@ -185,6 +185,9 @@ public class InstallSourceMojo extends AbstractMojo {
             // add dependencies from root appfuse pom
             newDependencies = addModuleDependencies(newDependencies, "root", "");
 
+            // Add dependencies from appfuse-data
+            newDependencies = addModuleDependencies(newDependencies, "data", "data");
+
             // Add dependencies from appfuse-data-common
             newDependencies = addModuleDependencies(newDependencies, "data-common", "data/common");
 
@@ -195,6 +198,9 @@ public class InstallSourceMojo extends AbstractMojo {
             newDependencies = addModuleDependencies(newDependencies, "service", "service");
 
             if (project.getPackaging().equals("war")) {
+                // Add dependencies from appfuse-web
+                newDependencies = addModuleDependencies(newDependencies, "web", "web");
+
                 // Add dependencies from appfuse-common-web
                 newDependencies = addModuleDependencies(newDependencies, "web-common", "web/common");
 
@@ -214,6 +220,9 @@ public class InstallSourceMojo extends AbstractMojo {
             if (project.getPackaging().equals("jar")) {
                 newDependencies.clear();
 
+                // Add dependencies from appfuse-data
+                newDependencies = addModuleDependencies(newDependencies, "data", "data");
+
                 // Add dependencies from appfuse-data-common
                 newDependencies = addModuleDependencies(newDependencies, "data-common", "data/common");
 
@@ -228,6 +237,9 @@ public class InstallSourceMojo extends AbstractMojo {
 
             if (project.getPackaging().equals("war")) {
                 newDependencies.clear();
+
+                // Add dependencies from appfuse-common-web
+                newDependencies = addModuleDependencies(newDependencies, "web", "web");
 
                 // Add dependencies from appfuse-common-web
                 newDependencies = addModuleDependencies(newDependencies, "web-common", "web/common");
@@ -270,7 +282,7 @@ public class InstallSourceMojo extends AbstractMojo {
         Set<String> projectProperties = new TreeSet<String>();
 
         for (Dependency dep : newDependencies) {
-            if (dep.getArtifactId().equals("spring-mock") || dep.getArtifactId().equals("jmock") ||
+            if (dep.getArtifactId().equals("spring-test") || dep.getArtifactId().equals("jmock") ||
                 dep.getArtifactId().equals("junit") || dep.getArtifactId().equals("shale-test")) {
                 dep.setOptional(true);
                 dep.setScope(null);
