@@ -21,7 +21,6 @@ import org.appfuse.service.MailEngine;
 import org.appfuse.service.RoleManager;
 import org.appfuse.service.UserExistsException;
 import org.appfuse.service.UserManager;
-import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.util.RequestUtil;
 import org.appfuse.webapp.pages.admin.UserList;
 import org.springframework.mail.SimpleMailMessage;
@@ -122,25 +121,6 @@ public abstract class UserForm extends BasePage implements PageBeginRenderListen
 
         if (delegate.getHasErrors()) {
             return null;
-        }
-
-        String password = getUser().getPassword();
-        String originalPassword = getRequest().getParameter("originalPassword");
-        
-        Boolean encrypt = (Boolean) getConfiguration().get(Constants.ENCRYPT_PASSWORD);
-        boolean doEncrypt = (encrypt != null) && encrypt;
-                
-        if (doEncrypt && (StringUtils.equals(getRequest().getParameter("encryptPass"), "true") ||
-                !StringUtils.equals("S"+password, originalPassword)) || 
-                ("X".equals(request.getParameter(("version"))))) {
-            String algorithm = (String) getConfiguration().get(Constants.ENC_ALGORITHM);
-
-            if (algorithm == null) { // should only happen for test case
-                log.debug("assuming testcase, setting algorigthm to 'SHA'");
-                algorithm = "SHA";
-            }
-
-            getUser().setPassword(StringUtil.encodePassword(password, algorithm));
         }
 
         // workaround for input tags that don't aren't set by Tapestry (who knows why)

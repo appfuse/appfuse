@@ -114,4 +114,11 @@
         delete from user_role where user_id = #id#
     ]]>
     </delete>
+    
+    <select id="getUserPassword" resultClass="java.lang.String">
+    <![CDATA[
+        select password from app_user where username=#username#
+    ]]>
+    </select>
+    
 </sqlMap>

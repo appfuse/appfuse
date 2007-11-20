@@ -1,5 +1,6 @@
 package org.appfuse.service.impl;
 
+import org.acegisecurity.providers.dao.DaoAuthenticationProvider;
 import org.appfuse.dao.UniversalDao;
 import org.appfuse.model.User;
 import org.jmock.Mock;

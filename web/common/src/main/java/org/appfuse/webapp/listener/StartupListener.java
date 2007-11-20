@@ -2,7 +2,8 @@ package org.appfuse.webapp.listener;
 
 import org.acegisecurity.providers.AuthenticationProvider;
 import org.acegisecurity.providers.ProviderManager;
-import org.acegisecurity.providers.encoding.Md5PasswordEncoder;
+import org.acegisecurity.providers.dao.DaoAuthenticationProvider;
+import org.acegisecurity.providers.encoding.PasswordEncoder;
 import org.acegisecurity.providers.rememberme.RememberMeAuthenticationProvider;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -53,24 +54,16 @@ public class StartupListener implements ServletContextListener {
         ApplicationContext ctx =
             WebApplicationContextUtils.getRequiredWebApplicationContext(context);
 
-        boolean encryptPassword = false;
+        PasswordEncoder passwordEncoder = null;
         try {
             ProviderManager provider = (ProviderManager) ctx.getBean("authenticationManager");
             for (Object o : provider.getProviders()) {
                 AuthenticationProvider p = (AuthenticationProvider) o;
                 if (p instanceof RememberMeAuthenticationProvider) {
                     config.put("rememberMeEnabled", Boolean.TRUE);
+                } else if (p instanceof DaoAuthenticationProvider) {
+                    passwordEncoder = ((DaoAuthenticationProvider) p).getPasswordEncoder();
                 }
-            }
-
-            if (ctx.containsBean("passwordEncoder")) {
-                encryptPassword = true;
-                config.put(Constants.ENCRYPT_PASSWORD, Boolean.TRUE);
-                String algorithm = "SHA";
-                if (ctx.getBean("passwordEncoder") instanceof Md5PasswordEncoder) {
-                    algorithm = "MD5";
-                }
-                config.put(Constants.ENC_ALGORITHM, algorithm);
             }
         } catch (NoSuchBeanDefinitionException n) {
             log.debug("authenticationManager bean not found, assuming test and ignoring...");
@@ -82,9 +75,8 @@ public class StartupListener implements ServletContextListener {
         // output the retrieved values for the Init and Context Parameters
         if (log.isDebugEnabled()) {
             log.debug("Remember Me Enabled? " + config.get("rememberMeEnabled"));
-            log.debug("Encrypt Passwords? " + encryptPassword);
-            if (encryptPassword) {
-                log.debug("Encryption Algorithm: " + config.get(Constants.ENC_ALGORITHM));
+            if (passwordEncoder != null) {
+                log.debug("Password Encryptor: " + passwordEncoder.getClass().getName());
             }
             log.debug("Populating drop-downs...");
         }

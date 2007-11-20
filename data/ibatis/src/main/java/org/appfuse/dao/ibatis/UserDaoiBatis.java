@@ -137,4 +137,12 @@ public class UserDaoiBatis extends GenericDaoiBatis<User, Long>implements UserDa
 
          return user;
      }
+
+     
+     /**
+      * {@inheritDoc}
+      */
+     public String getUserPassword(String username) {
+         return (String) getSqlMapClientTemplate().queryForObject("getUserPassword", username);
+     }
 }

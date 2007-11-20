@@ -100,16 +100,11 @@
     <bean id="authenticationManager" class="org.acegisecurity.providers.ProviderManager">
         <property name="providers">
             <list>
-                <ref local="daoAuthenticationProvider"/>
+                <ref bean="daoAuthenticationProvider"/>
                 <ref local="anonymousAuthenticationProvider"/>
                 <ref local="rememberMeAuthenticationProvider"/>
             </list>
         </property>
-    </bean>
-
-    <bean id="daoAuthenticationProvider" class="org.acegisecurity.providers.dao.DaoAuthenticationProvider">
-         <property name="userDetailsService" ref="userDao"/>
-         <property name="passwordEncoder" ref="passwordEncoder"/>
     </bean>
 
     <bean id="anonymousAuthenticationProvider" class="org.acegisecurity.providers.anonymous.AnonymousAuthenticationProvider">
@@ -120,9 +115,18 @@
         <property name="key" value="23_*!cdU='612./e;NrI"/>
     </bean>
 
-    <!-- This bean definition must be available to ApplicationContext.getBean() so StartupListener
-         can look for it and detect if password encryption is turned on or not -->
+    <!-- The following beans are defined in applicationContext-service.xml, which is stored in appfuse-service.jar -->
+    <!--
+    <bean id="daoAuthenticationProvider" class="org.acegisecurity.providers.dao.DaoAuthenticationProvider">
+         <property name="userDetailsService" ref="userDao"/>
+         <property name="passwordEncoder" ref="passwordEncoder"/>
+    </bean>
+
     <bean id="passwordEncoder" class="org.acegisecurity.providers.encoding.ShaPasswordEncoder"/>
+    -->
+
+    <!-- Uncomment to disabling password encryption -->    
+    <!-- <bean id="passwordEncoder" class="org.acegisecurity.providers.encoding.PlaintextPasswordEncoder"/> -->
 
     <!-- This bean is optional; it isn't used by any other bean as it only listens and logs -->
     <bean id="loggerListener" class="org.acegisecurity.event.authentication.LoggerListener"/>

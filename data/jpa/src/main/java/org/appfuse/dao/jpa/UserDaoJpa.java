@@ -65,4 +65,18 @@ public class UserDaoJpa extends GenericDaoJpa<User, Long> implements UserDao, Us
         entityManager.flush();
         return u;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Transactional
+    public String getUserPassword(String username) {
+        Query q = this.entityManager.createQuery("select u.password from User u where username=?");
+        q.setParameter(1, username);
+        List<String> results = q.getResultList();
+        if (results == null || results.isEmpty()) {
+            return null;
+        }
+        return results.get(0);
+    }
 }

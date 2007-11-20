@@ -16,7 +16,6 @@ import org.appfuse.service.MailEngine;
 import org.appfuse.service.RoleManager;
 import org.appfuse.service.UserExistsException;
 import org.appfuse.service.UserManager;
-import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.util.RequestUtil;
 import org.springframework.mail.SimpleMailMessage;
 
@@ -68,21 +67,6 @@ public abstract class SignupForm extends BasePage implements PageBeginRenderList
         }
 
         User user = getUser();
-
-        Boolean encrypt = (Boolean) getConfiguration().get(Constants.ENCRYPT_PASSWORD);
-
-        if (encrypt != null && encrypt) {
-            String algorithm = (String) getConfiguration().get(Constants.ENC_ALGORITHM);
-
-            if (algorithm == null) { // should only happen for test case
-                if (log.isDebugEnabled()) {
-                    log.debug("assuming testcase, setting algorithm to 'SHA'");
-                }
-                algorithm = "SHA";
-            }
-            user.setPassword(StringUtil.encodePassword(user.getPassword(), algorithm));
-        }
-
         user.setEnabled(true);
 
         // Set the default user role on this new user

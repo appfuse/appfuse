@@ -85,6 +85,18 @@
     </bean>
 
     <!-- =================================================================== -->
+    <!-- Security classes from Acegi - used to configure Password Encryption -->
+    <!-- in UserManagerImpl. Overridden in security.xml.                     -->
+    <!-- =================================================================== -->
+    <!-- =================================================================== -->
+    <bean id="daoAuthenticationProvider" class="org.acegisecurity.providers.dao.DaoAuthenticationProvider">
+         <property name="userDetailsService" ref="userDao"/>
+         <property name="passwordEncoder" ref="passwordEncoder"/>
+    </bean>
+
+    <bean id="passwordEncoder" class="org.acegisecurity.providers.encoding.ShaPasswordEncoder"/>
+
+    <!-- =================================================================== -->
     <!-- Managers: For accessing DAOs                                        -->
     <!-- =================================================================== -->
     <bean id="manager" class="org.appfuse.service.impl.UniversalManagerImpl">
@@ -97,6 +109,7 @@
 
     <bean id="userManager" class="org.appfuse.service.impl.UserManagerImpl">
         <property name="userDao" ref="userDao"/>
+        <property name="authenticationProvider" ref="daoAuthenticationProvider"/>
     </bean>
 
     <bean id="roleManager" class="org.appfuse.service.impl.RoleManagerImpl">

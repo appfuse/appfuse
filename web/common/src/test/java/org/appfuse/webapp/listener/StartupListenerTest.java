@@ -33,7 +33,8 @@ public class StartupListenerTest extends TestCase {
         sc.addInitParameter(ContextLoader.CONFIG_LOCATION_PARAM,
                 "classpath:/applicationContext-dao.xml, " +
                 "classpath:/applicationContext-service.xml, " + 
-                "classpath:/applicationContext-resources.xml");
+                "classpath:/applicationContext-resources.xml, " +
+                "/applicationContext-test.xml");
 
         springListener = new ContextLoaderListener();
         springListener.contextInitialized(new ServletContextEvent(sc));

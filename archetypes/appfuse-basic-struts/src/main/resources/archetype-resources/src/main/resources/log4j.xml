@@ -10,6 +10,10 @@
         </layout>
     </appender>
 
+    <logger name="com.opensymphony.xwork2.util.OgnlValueStack">
+        <level value="ERROR"/>
+    </logger>
+    
     <logger name="net.sf.ehcache">
         <level value="ERROR"/>
     </logger>
@@ -42,6 +46,11 @@
 
     <!-- http://issues.appfuse.org/browse/APF-852 -->
     <logger name="com.opensymphony.xwork2.util.OgnlUtil">
+        <level value="ERROR"/>
+    </logger>
+
+    <!-- Turn off warnings from messages.jsp -->
+    <logger name="com.opensymphony.xwork2.util.OgnlValueStack">
         <level value="ERROR"/>
     </logger>
    

@@ -12,7 +12,6 @@ import org.appfuse.Constants;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
 import org.appfuse.service.UserExistsException;
-import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.util.RequestUtil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -156,19 +155,7 @@ public class UserAction extends BaseAction implements Preparable {
      * @return success if everything worked, otherwise input
      * @throws IOException when setting "access denied" fails on response
      */
-    public String save() throws IOException {
-        Boolean encrypt = (Boolean) getConfiguration().get(Constants.ENCRYPT_PASSWORD);
-
-        if ("true".equals(getRequest().getParameter("encryptPass")) && (encrypt != null && encrypt)) {
-            String algorithm = (String) getConfiguration().get(Constants.ENC_ALGORITHM);
-
-            if (algorithm == null) { // should only happen for test case
-                log.debug("assuming testcase, setting algorithm to 'SHA'");
-                algorithm = "SHA";
-            }
-
-            user.setPassword(StringUtil.encodePassword(user.getPassword(), algorithm));
-        }
+    public String save() throws Exception {
 
         Integer originalVersion = user.getVersion();
 
@@ -186,7 +173,7 @@ public class UserAction extends BaseAction implements Preparable {
         }
 
         try {
-            user = userManager.saveUser(user);
+            userManager.saveUser(user);
         } catch (AccessDeniedException ade) {
             // thrown by UserSecurityAdvice configured in aop:advisor userManagerSecurity
             log.warn(ade.getMessage());

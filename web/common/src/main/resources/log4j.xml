@@ -9,7 +9,7 @@
                 value="%p [%t] %c{1}.%M(%L) | %m%n"/>
         </layout>
     </appender>
-
+    
     <logger name="net.sf.ehcache">
         <level value="ERROR"/>
     </logger>

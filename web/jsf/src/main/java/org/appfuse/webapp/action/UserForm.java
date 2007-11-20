@@ -6,14 +6,13 @@ import org.acegisecurity.AuthenticationTrustResolverImpl;
 import org.acegisecurity.AccessDeniedException;
 import org.acegisecurity.context.SecurityContext;
 import org.acegisecurity.context.SecurityContextHolder;
-import org.apache.commons.lang.StringUtils;
+
 import org.appfuse.Constants;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
 import org.appfuse.service.RoleManager;
 import org.appfuse.service.UserExistsException;
 import org.appfuse.util.ConvertUtil;
-import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.util.RequestUtil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -63,7 +62,7 @@ public class UserForm extends BasePage implements Serializable {
             log.debug("Entering 'cancel' method");
         }
 
-        if (!StringUtils.equals(getParameter("from"), "list")) {
+        if (!"list".equals(getParameter("from"))) {
             return "mainMenu";
         } else {
             return "cancel";
@@ -112,24 +111,6 @@ public class UserForm extends BasePage implements Serializable {
     }
 
     public String save() throws IOException {
-        String password = user.getPassword();
-        String originalPassword = getParameter("userForm:originalPassword");
-
-        Boolean encrypt = (Boolean) getConfiguration().get(Constants.ENCRYPT_PASSWORD);
-        boolean doEncrypt = (encrypt != null) && encrypt;
-        
-        if (doEncrypt && (StringUtils.equals(getParameter("encryptPass"), "true") ||
-                !StringUtils.equals(password, originalPassword))) {
-            String algorithm = (String) getConfiguration().get(Constants.ENC_ALGORITHM);
-
-            if (algorithm == null) { // should only happen for test case
-                log.debug("assuming testcase, setting algorigthm to 'SHA'");
-                algorithm = "SHA";
-            }
-
-            user.setPassword(StringUtil.encodePassword(password, algorithm));
-        }
-        
         // workaround for plain ol' HTML input tags that don't seem to set
         // properties on the managed bean
         setUserRoles(getRequest().getParameterValues("userForm:userRoles"));
@@ -156,7 +137,7 @@ public class UserForm extends BasePage implements Serializable {
             return "editProfile";
         }
 
-        if (!StringUtils.equals(getParameter("from"), "list")) {
+        if (!"list".equals(getParameter("from"))) {
             // add success messages
             addMessage("user.saved");
 

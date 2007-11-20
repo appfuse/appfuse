@@ -1,10 +1,10 @@
 package org.appfuse.service;
 
+import java.util.List;
+
 import org.acegisecurity.userdetails.UsernameNotFoundException;
 import org.appfuse.dao.UserDao;
 import org.appfuse.model.User;
-
-import java.util.List;
 
 
 /**
@@ -47,7 +47,7 @@ public interface UserManager extends UniversalManager {
     List getUsers(User user);
 
     /**
-     * Saves a user's information
+     * Saves a user's information.
      *
      * @param user the user's information
      * @throws UserExistsException thrown when user already exists

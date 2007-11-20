@@ -36,4 +36,12 @@ public interface UserDao extends GenericDao<User, Long> {
      * @return the persisted User object
      */
     User saveUser(User user);
+
+    /**
+     * Retrieves the password in DB for a user
+     * @param username the user's username
+     * @return the password in DB, if the user is already persisted
+     */
+    String getUserPassword(String username);
+    
 }

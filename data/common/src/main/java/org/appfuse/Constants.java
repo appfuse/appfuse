@@ -16,16 +16,6 @@ public class Constants {
     public static final String BUNDLE_KEY = "ApplicationResources";
 
     /**
-     * The encryption algorithm key to be used for passwords
-     */
-    public static final String ENC_ALGORITHM = "algorithm";
-
-    /**
-     * A flag to indicate if passwords should be encrypted
-     */
-    public static final String ENCRYPT_PASSWORD = "encryptPassword";
-
-    /**
      * File separator from System properties
      */
     public static final String FILE_SEP = System.getProperty("file.separator");

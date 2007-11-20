@@ -70,4 +70,17 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
             return (UserDetails) users.get(0);
         }
     }
+
+    /** 
+     * {@inheritDoc}
+    */
+    public String getUserPassword(String username) {
+        List results = 
+            getHibernateTemplate().find("select u.password from User u where username=?", username);
+        if (results == null || results.isEmpty()) {
+            return null;
+        }
+        return (String) results.get(0);
+    }
+    
 }

@@ -13,7 +13,6 @@ import org.appfuse.model.User;
 import org.appfuse.service.RoleManager;
 import org.appfuse.service.UserExistsException;
 import org.appfuse.service.UserManager;
-import org.appfuse.util.StringUtil;
 import org.appfuse.webapp.util.RequestUtil;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
@@ -74,19 +73,7 @@ public class UserFormController extends BaseFormController {
 
             return new ModelAndView(getSuccessView());
         } else {
-            Boolean encrypt = (Boolean) getConfiguration().get(Constants.ENCRYPT_PASSWORD);
-
-            if (StringUtils.equals(request.getParameter("encryptPass"), "true") && (encrypt != null && encrypt)) {
-                String algorithm = (String) getConfiguration().get(Constants.ENC_ALGORITHM);
-
-                if (algorithm == null) { // should only happen for test case
-                    log.debug("assuming testcase, setting algorithm to 'SHA'");
-                    algorithm = "SHA";
-                }
-
-                user.setPassword(StringUtil.encodePassword(user.getPassword(), algorithm));
-            }
-
+            
             // only attempt to change roles if user is admin for other users,
             // formBackingObject() method will handle populating
             if (request.isUserInRole(Constants.ADMIN_ROLE)) {
@@ -103,7 +90,7 @@ public class UserFormController extends BaseFormController {
             Integer originalVersion = user.getVersion();
             
             try {
-                user = getUserManager().saveUser(user);
+                getUserManager().saveUser(user);
             } catch (AccessDeniedException ade) {
                 // thrown by UserSecurityAdvice configured in aop:advisor userManagerSecurity
                 log.warn(ade.getMessage());

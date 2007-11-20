@@ -40,6 +40,12 @@ public class UserDaoTest extends BaseDaoTestCase {
         assertTrue(user.isEnabled());
     }
 
+    public void testGetUserPassword() throws Exception {
+        User user = dao.get(-1L);
+        String password = dao.getUserPassword(user.getUsername());
+        assertNotNull(password);
+    }
+
     
     public void testUpdateUser() throws Exception {
         User user = dao.get(-1L);
