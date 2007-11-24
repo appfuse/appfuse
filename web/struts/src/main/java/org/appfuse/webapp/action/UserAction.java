@@ -13,6 +13,7 @@ import org.appfuse.model.Role;
 import org.appfuse.model.User;
 import org.appfuse.service.UserExistsException;
 import org.appfuse.webapp.util.RequestUtil;
+import org.springframework.mail.MailException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -204,8 +205,12 @@ public class UserAction extends BaseAction implements Preparable {
                 saveMessage(getText("user.added", args));
                 // Send an account information e-mail
                 mailMessage.setSubject(getText("signup.email.subject"));
-                sendUserMessage(user, getText("newuser.email.message", args),
-                                RequestUtil.getAppURL(getRequest()));
+                try {
+                    sendUserMessage(user, getText("newuser.email.message", args),
+                                    RequestUtil.getAppURL(getRequest()));
+                } catch (MailException me) {
+                    addActionError(me.getCause().getLocalizedMessage());
+                }
                 return SUCCESS;
             } else {
                 saveMessage(getText("user.updated.byAdmin", args));

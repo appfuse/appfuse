@@ -17,6 +17,7 @@ import org.appfuse.webapp.util.RequestUtil;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.mail.MailException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -119,8 +120,13 @@ public class UserFormController extends BaseFormController {
 
                     // Send an account information e-mail
                     message.setSubject(getText("signup.email.subject", locale));
-                    sendUserMessage(user, getText("newuser.email.message", user.getFullName(), locale),
-                                    RequestUtil.getAppURL(request));
+
+                    try {
+                        sendUserMessage(user, getText("newuser.email.message", user.getFullName(), locale),
+                                        RequestUtil.getAppURL(request));
+                    } catch (MailException me) {
+                        saveError(request, me.getCause().getLocalizedMessage());
+                    }
 
                     return new ModelAndView(getSuccessView());
                 } else {

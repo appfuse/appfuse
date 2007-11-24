@@ -67,8 +67,9 @@ public class MailEngine {
     /**
      * Send a simple message with pre-populated values.
      * @param msg the message to send
+     * @throws org.springframework.mail.MailException when SMTP server is down
      */
-    public void send(SimpleMailMessage msg) {
+    public void send(SimpleMailMessage msg) throws MailException {
         try {
             mailSender.send(msg);
         } catch (MailException ex) {
@@ -88,7 +89,6 @@ public class MailEngine {
      * @param subject subject of e-mail
      * @param attachmentName name for attachment
      * @throws MessagingException thrown when can't communicate with SMTP server
-     * @author Ben Gill
      */
     public void sendMessage(String[] recipients, String sender, 
                             ClassPathResource resource, String bodyText,

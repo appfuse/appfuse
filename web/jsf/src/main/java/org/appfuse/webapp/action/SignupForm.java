@@ -8,6 +8,7 @@ import org.appfuse.model.User;
 import org.appfuse.service.RoleManager;
 import org.appfuse.service.UserExistsException;
 import org.appfuse.webapp.util.RequestUtil;
+import org.springframework.mail.MailException;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.Serializable;
@@ -66,8 +67,14 @@ public class SignupForm extends BasePage implements Serializable {
 
         // Send an account information e-mail
         message.setSubject(getText("signup.email.subject"));
-        sendUserMessage(user, getText("signup.email.message"),
-                RequestUtil.getAppURL(getRequest()));
+
+        try {
+            sendUserMessage(user, getText("signup.email.message"),
+                    RequestUtil.getAppURL(getRequest()));
+        } catch (MailException me) {
+            addError(me.getCause().getLocalizedMessage());
+            return null;
+        }
 
         return "mainMenu";
     }

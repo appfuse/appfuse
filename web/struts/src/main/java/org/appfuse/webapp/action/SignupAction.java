@@ -9,6 +9,7 @@ import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.service.UserExistsException;
 import org.appfuse.webapp.util.RequestUtil;
+import org.springframework.mail.MailException;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
@@ -101,7 +102,12 @@ public class SignupAction extends BaseAction {
 
         // Send an account information e-mail
         mailMessage.setSubject(getText("signup.email.subject"));
-        sendUserMessage(user, getText("signup.email.message"), RequestUtil.getAppURL(getRequest()));
+
+        try {
+            sendUserMessage(user, getText("signup.email.message"), RequestUtil.getAppURL(getRequest()));
+        } catch (MailException me) {
+            addActionError(me.getCause().getLocalizedMessage());
+        }
 
         return SUCCESS;
     }

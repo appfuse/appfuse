@@ -8,6 +8,7 @@ import org.appfuse.model.User;
 import org.appfuse.service.RoleManager;
 import org.appfuse.service.UserExistsException;
 import org.appfuse.webapp.util.RequestUtil;
+import org.springframework.mail.MailException;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -79,8 +80,13 @@ public class SignupController extends BaseFormController {
 
         // Send an account information e-mail
         message.setSubject(getText("signup.email.subject", locale));
-        sendUserMessage(user, getText("signup.email.message", locale), RequestUtil.getAppURL(request));
 
+        try {
+            sendUserMessage(user, getText("signup.email.message", locale), RequestUtil.getAppURL(request));
+        } catch (MailException me) {
+            saveError(request, me.getCause().getLocalizedMessage());
+        }
+        
         return new ModelAndView(getSuccessView());
     }
 }

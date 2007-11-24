@@ -14,6 +14,7 @@ import org.appfuse.service.RoleManager;
 import org.appfuse.service.UserExistsException;
 import org.appfuse.util.ConvertUtil;
 import org.appfuse.webapp.util.RequestUtil;
+import org.springframework.mail.MailException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -148,8 +149,12 @@ public class UserForm extends BasePage implements Serializable {
             if ("".equals(getParameter("userForm:version"))) {
                 addMessage("user.added", user.getFullName());
 
-                sendUserMessage(user, getText("newuser.email.message",
-                                user.getFullName()), RequestUtil.getAppURL(getRequest()));
+                try {
+                    sendUserMessage(user, getText("newuser.email.message",
+                                    user.getFullName()), RequestUtil.getAppURL(getRequest()));
+                } catch (MailException me) {
+                    addError(me.getCause().getLocalizedMessage());
+                }
 
                 return "list"; // return to list screen
             } else {

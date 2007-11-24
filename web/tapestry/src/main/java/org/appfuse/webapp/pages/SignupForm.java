@@ -18,6 +18,7 @@ import org.appfuse.service.UserExistsException;
 import org.appfuse.service.UserManager;
 import org.appfuse.webapp.util.RequestUtil;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.MailException;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -113,7 +114,11 @@ public abstract class SignupForm extends BasePage implements PageBeginRenderList
         message.setText(msg.toString());
         message.setSubject(getText("signup.email.subject"));
 
-        getMailEngine().send(message);
+        try {
+            getMailEngine().send(message);
+        } catch (MailException me) {
+            getSession().setAttribute("error", me.getCause().getLocalizedMessage());
+        }
 
         getSession().setAttribute("message", getText("user.registered"));
         getResponse().sendRedirect(getRequest().getContextPath());

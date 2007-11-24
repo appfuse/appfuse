@@ -58,6 +58,16 @@ public class BaseFormController extends SimpleFormController {
     }
 
     @SuppressWarnings("unchecked")
+    public void saveError(HttpServletRequest request, String error) {
+        List errors = (List) request.getSession().getAttribute("errors");
+        if (errors == null) {
+            errors = new ArrayList();
+        }
+        errors.add(error);
+        request.getSession().setAttribute("errors", errors);
+    }
+    
+    @SuppressWarnings("unchecked")
     public void saveMessage(HttpServletRequest request, String msg) {
         List messages = (List) request.getSession().getAttribute(MESSAGES_KEY);
 
