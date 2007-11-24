@@ -5,23 +5,23 @@
     <parent>
         <groupId>org.appfuse</groupId>
         <artifactId>appfuse</artifactId>
-        <version>2.0.1-SNAPSHOT</version>
+        <version>2.0.1</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <groupId>org.appfuse.archetypes</groupId>
     <artifactId>appfuse-basic-spring</artifactId>
     <name>AppFuse Basic Archetype - Spring MVC</name>
-    <version>2.0.1-SNAPSHOT</version>
+    <version>2.0.1</version>
 
     <description>
         Maven 2 archetype that creates a web application with AppFuse embedded in it.
     </description>
     
     <scm>
-        <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/archetypes/appfuse-basic-spring</connection>
-        <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/archetypes/appfuse-basic-spring</developerConnection>
-        <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/archetypes/appfuse-basic-spring</url>
+        <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/tags/APPFUSE_2.0.1/archetypes/appfuse-basic-spring</connection>
+        <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/tags/APPFUSE_2.0.1/archetypes/appfuse-basic-spring</developerConnection>
+        <url>https://appfuse.dev.java.net/source/browse/appfuse/tags/APPFUSE_2.0.1/archetypes/appfuse-basic-spring</url>
     </scm>
 
 </project>
