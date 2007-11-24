@@ -5,7 +5,12 @@ import org.acegisecurity.userdetails.UserDetailsService;
 import org.acegisecurity.userdetails.UsernameNotFoundException;
 import org.appfuse.dao.UserDao;
 import org.appfuse.model.User;
+import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
+import org.springframework.orm.hibernate3.SessionFactoryUtils;
 
+import javax.persistence.Table;
 import java.util.List;
 
 /**
@@ -75,12 +80,12 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
      * {@inheritDoc}
     */
     public String getUserPassword(String username) {
-        List results = 
-            getHibernateTemplate().find("select u.password from User u where username=?", username);
-        if (results == null || results.isEmpty()) {
-            return null;
-        }
-        return (String) results.get(0);
+        SimpleJdbcTemplate jdbcTemplate =
+                new SimpleJdbcTemplate(SessionFactoryUtils.getDataSource(getSessionFactory()));
+        Table table = AnnotationUtils.findAnnotation(User.class, Table.class);
+        return jdbcTemplate.queryForObject(
+                "select password from " + table.name() + " where username=?", String.class, username);
+
     }
     
 }

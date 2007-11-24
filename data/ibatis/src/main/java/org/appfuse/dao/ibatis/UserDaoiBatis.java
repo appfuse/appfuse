@@ -7,6 +7,7 @@ import org.appfuse.dao.UserDao;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
 import org.springframework.orm.ObjectRetrievalFailureException;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.HashSet;

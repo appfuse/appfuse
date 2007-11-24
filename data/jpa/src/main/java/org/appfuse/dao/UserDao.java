@@ -6,6 +6,7 @@ import org.acegisecurity.userdetails.UserDetails;
 import org.acegisecurity.userdetails.UsernameNotFoundException;
 import org.appfuse.model.User;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.annotation.Propagation;
 
 /**
  * User Data Access Object (GenericDao) interface.
@@ -42,6 +43,6 @@ public interface UserDao extends GenericDao<User, Long> {
      * @param username the user's username
      * @return the password in DB, if the user is already persisted
      */
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
     String getUserPassword(String username);
-    
 }

@@ -43,10 +43,12 @@
     <!-- LookupDao - can be used when doing standard CRUD -->
     <bean id="lookupDao" class="org.appfuse.dao.jpa.LookupDaoJpa"/>
 
-    <!-- UserDao: Hibernate implementation -->
-    <bean id="userDao" class="org.appfuse.dao.jpa.UserDaoJpa"/>
+    <!-- UserDao: JPA implementation -->
+    <bean id="userDao" class="org.appfuse.dao.jpa.UserDaoJpa">
+        <constructor-arg ref="dataSource"/>
+    </bean>
 
-    <!-- RoleDao: Hibernate implementation -->
+    <!-- RoleDao: JPA implementation -->
     <bean id="roleDao" class="org.appfuse.dao.jpa.RoleDaoJpa"/>
 
     <!-- If you want to be able to do simple CRUD for new domain objects without 

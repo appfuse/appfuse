@@ -1,15 +1,19 @@
 package org.appfuse.dao.jpa;
 
-import java.util.List;
-
-import javax.persistence.Query;
-
 import org.acegisecurity.userdetails.UserDetails;
 import org.acegisecurity.userdetails.UserDetailsService;
 import org.acegisecurity.userdetails.UsernameNotFoundException;
 import org.appfuse.dao.UserDao;
 import org.appfuse.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.core.annotation.AnnotationUtils;
+
+import javax.persistence.Query;
+import javax.persistence.Table;
+import javax.sql.DataSource;
+import java.util.List;
 
 /**
  * This class interacts with Spring's HibernateTemplate to save/delete and
@@ -22,12 +26,15 @@ import org.springframework.transaction.annotation.Transactional;
  *   the new BaseDaoHibernate implementation that uses generics.
 */
 public class UserDaoJpa extends GenericDaoJpa<User, Long> implements UserDao, UserDetailsService {
+    private DataSource dataSource;
 
     /**
      * Constructor that sets the entity to User.class.
+     * @param dataSource the dataSource to use for looking up user's password with a jdbcTemplate
      */
-    public UserDaoJpa() {
+    public UserDaoJpa(DataSource dataSource) {
         super(User.class);
+        this.dataSource = dataSource;
     }
 
     /**
@@ -69,14 +76,10 @@ public class UserDaoJpa extends GenericDaoJpa<User, Long> implements UserDao, Us
     /**
      * {@inheritDoc}
      */
-    @Transactional
     public String getUserPassword(String username) {
-        Query q = this.entityManager.createQuery("select u.password from User u where username=?");
-        q.setParameter(1, username);
-        List<String> results = q.getResultList();
-        if (results == null || results.isEmpty()) {
-            return null;
-        }
-        return results.get(0);
+        SimpleJdbcTemplate jdbcTemplate = new SimpleJdbcTemplate(dataSource);
+        Table table = AnnotationUtils.findAnnotation(User.class, Table.class);
+        return jdbcTemplate.queryForObject(
+                "select password from " + table.name() + " where username=?", String.class, username);
     }
 }

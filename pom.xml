@@ -257,10 +257,6 @@
             <id>appfuse</id>
             <url>http://static.appfuse.org/repository</url>
         </repository>
-        <repository>
-            <id>spring-milestone</id>
-            <url>http://s3.amazonaws.com/maven.springframework.org/milestone</url>
-        </repository>
     </repositories>
 
     <pluginRepositories>
@@ -314,7 +310,7 @@
             <groupId>${jdbc.groupId}</groupId>
             <artifactId>${jdbc.artifactId}</artifactId>
             <version>${jdbc.version}</version>
-        </dependency>        
+        </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
@@ -515,7 +511,7 @@
         <servlet.version>2.4</servlet.version>
         <shale.version>1.0.4</shale.version>
         <sitemesh.version>2.2.1</sitemesh.version>
-        <spring.version>2.5-rc2</spring.version>
+        <spring.version>2.5</spring.version>
         <springmodules.validation.version>0.8</springmodules.validation.version>
         <struts.version>2.0.11</struts.version>
         <struts.menu.version>2.4.3</struts.menu.version>

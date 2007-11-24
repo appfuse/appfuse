@@ -6,6 +6,7 @@ import org.appfuse.model.Role;
 import org.appfuse.model.User;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
+import junit.framework.Assert;
 
 public class UserDaoTest extends BaseDaoTestCase {
     private UserDao dao = null;
@@ -40,6 +41,7 @@ public class UserDaoTest extends BaseDaoTestCase {
         User user = dao.get(-1L);
         String password = dao.getUserPassword(user.getUsername());
         assertNotNull(password);
+        log.debug("password: " + password);
     }
 
     public void testUpdateUser() throws Exception {
@@ -136,11 +138,11 @@ public class UserDaoTest extends BaseDaoTestCase {
     
     public void testUserExists() throws Exception {
         boolean b = dao.exists(-1L);
-        super.assertTrue(b);
+        assertTrue(b);
     }
     
     public void testUserNotExists() throws Exception {
         boolean b = dao.exists(111L);
-        super.assertFalse(b);
+        assertFalse(b);
     }
 }

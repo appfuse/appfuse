@@ -19,9 +19,6 @@ public class UserDaoTest extends BaseDaoTestCase {
     public void setRoleDao(RoleDao rdao) {
         this.rdao = rdao;
     }
-    
-    public UserDaoTest() {
-    }
 
     public void testGetUserInvalid() throws Exception {
         try {
@@ -44,6 +41,7 @@ public class UserDaoTest extends BaseDaoTestCase {
         User user = dao.get(-1L);
         String password = dao.getUserPassword(user.getUsername());
         assertNotNull(password);
+        log.debug("password: " + password);
     }
 
     
