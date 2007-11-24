@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.appfuse.model.User;
 import org.appfuse.webapp.util.RequestUtil;
+import org.acegisecurity.userdetails.UsernameNotFoundException;
+import org.springframework.mail.MailException;
 
 /**
  * Action class to send password hints to registered users.
@@ -68,11 +70,15 @@ public class PasswordHintAction extends BaseAction {
             args.add(user.getEmail());
             
             saveMessage(getText("login.passwordHint.sent", args));
-            
-        } catch (Exception e) {
-            log.warn("Username '" + username + "' not found in database.");
+        } catch (UsernameNotFoundException e) {
+            log.warn(e.getMessage());
             args.add(username);
             addActionError(getText("login.passwordHint.error", args));
+            getSession().setAttribute("errors", getActionErrors());
+            return INPUT;
+        } catch (MailException me) {
+            addActionError(me.getCause().getLocalizedMessage());
+            getSession().setAttribute("errors", getActionErrors());
             return INPUT;
         }
 

@@ -35,3 +35,15 @@
     </div>
     <c:remove var="messages" scope="session"/>
 </c:if>
+
+<%-- Error Messages (on JSPs, not through Struts --%>
+<c:if test="${not empty errors}">
+    <div class="error" id="errorMessages">
+        <c:forEach var="error" items="${errors}">
+            <img src="<c:url value="/images/iconWarning.gif"/>"
+                alt="<fmt:message key="icon.warning"/>" class="icon" />
+            <c:out value="${error}"/><br />
+        </c:forEach>
+    </div>
+    <c:remove var="errors" scope="session"/>
+</c:if>

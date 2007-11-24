@@ -17,9 +17,11 @@ import org.appfuse.webapp.util.RequestUtil;
 import org.springframework.context.MessageSource;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.MailException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 import org.springframework.web.servlet.view.RedirectView;
+import org.acegisecurity.userdetails.UsernameNotFoundException;
 
 /**
  * Simple class to retrieve and send a password hint to users.
@@ -60,9 +62,7 @@ public class PasswordHintController implements Controller {
         // ensure that the username has been sent
         if (username == null) {
             log.warn("Username not specified, notifying user that it's a required field.");
-
             request.setAttribute("error", text.getMessage("errors.required", text.getMessage("user.username")));
-
             return new ModelAndView("login");
         }
 
@@ -73,8 +73,8 @@ public class PasswordHintController implements Controller {
             User user = userManager.getUserByUsername(username);
 
             StringBuffer msg = new StringBuffer();
-            msg.append("Your password hint is: " + user.getPasswordHint());
-            msg.append("\n\nLogin at: " + RequestUtil.getAppURL(request));
+            msg.append("Your password hint is: ").append(user.getPasswordHint());
+            msg.append("\n\nLogin at: ").append(RequestUtil.getAppURL(request));
 
             message.setTo(user.getEmail());
             String subject = '[' + text.getMessage("webapp.name") + "] " + 
@@ -83,13 +83,12 @@ public class PasswordHintController implements Controller {
             message.setText(msg.toString());
             mailEngine.send(message);
 
-            saveMessage(request,
-                        text.getMessage("login.passwordHint.sent",
-                                        new Object[] { username, user.getEmail() }));
-        } catch (Exception e) {
-            saveError(request,
-                      text.getMessage("login.passwordHint.error",
-                                      new Object[] { username }));
+            saveMessage(request, text.getMessage("login.passwordHint.sent", new Object[] { username, user.getEmail() }));
+        } catch (UsernameNotFoundException e) {
+            log.warn(e.getMessage());
+            saveError(request, text.getMessage("login.passwordHint.error", new Object[] { username }));
+        } catch (MailException me) {
+            saveError(request, me.getCause().getLocalizedMessage());
         }
 
         return new ModelAndView(new RedirectView(request.getContextPath()));

@@ -35,7 +35,7 @@ public class StartupListener implements ServletContextListener {
 
     @SuppressWarnings({"unchecked"})
     public void contextInitialized(ServletContextEvent event) {
-        log.debug("initializing context...");
+        log.debug("Initializing context...");
 
         ServletContext context = event.getServletContext();
 

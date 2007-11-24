@@ -1,7 +1,9 @@
 package org.appfuse.webapp.action;
 
+import org.acegisecurity.userdetails.UsernameNotFoundException;
 import org.appfuse.model.User;
 import org.appfuse.webapp.util.RequestUtil;
+import org.springframework.mail.MailException;
 
 /**
  * Managed Bean to send password hints to registered users.
@@ -42,8 +44,8 @@ public class PasswordHint extends BasePage {
             User user = userManager.getUserByUsername(username);
 
             StringBuffer msg = new StringBuffer();
-            msg.append("Your password hint is: " + user.getPasswordHint());
-            msg.append("\n\nLogin at: " + RequestUtil.getAppURL(getRequest()));
+            msg.append("Your password hint is: ").append(user.getPasswordHint());
+            msg.append("\n\nLogin at: ").append(RequestUtil.getAppURL(getRequest()));
 
             message.setTo(user.getEmail());
             String subject = '[' + getText("webapp.name") + "] " + getText("user.passwordHint");
@@ -54,10 +56,12 @@ public class PasswordHint extends BasePage {
             addMessage("login.passwordHint.sent", 
                        new Object[] { username, user.getEmail() });
             
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (UsernameNotFoundException e) {
+            log.warn(e.getMessage());
             // If exception is expected do not rethrow
             addError("login.passwordHint.error", username);
+        } catch (MailException me) {
+            addError(me.getCause().getLocalizedMessage());
         }
 
         return "success";

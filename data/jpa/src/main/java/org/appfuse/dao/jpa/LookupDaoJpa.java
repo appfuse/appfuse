@@ -17,7 +17,7 @@ public class LookupDaoJpa extends UniversalDaoJpa implements LookupDao {
      */
     @SuppressWarnings("unchecked")
     public List<Role> getRoles() {
-        log.debug("retrieving all role names...");
+        log.debug("Retrieving all role names...");
 
         return super.entityManager.createQuery(
                 "select r from Role r order by name").getResultList();

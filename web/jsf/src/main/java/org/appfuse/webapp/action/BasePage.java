@@ -128,7 +128,12 @@ public class BasePage {
             errors = new ArrayList<String>();
         }
 
-        errors.add(getText(key, arg));
+        // if key contains a space, don't look it up, it's likely a raw message
+        if (key.contains(" ") && arg == null) {
+            errors.add(key);
+        } else {
+            errors.add(getText(key, arg));
+        }
 
         getSession().setAttribute("errors", errors);
     }
