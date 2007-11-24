@@ -168,7 +168,6 @@
             <groupId>com.javaforge.tapestry</groupId>
             <artifactId>tapestry-flash</artifactId>
             <version>${tapestry.flash.version}</version>
-            <scope>compile</scope>
             <exclusions>
                 <exclusion>
                     <groupId>tapestry</groupId>
@@ -184,7 +183,6 @@
             <groupId>com.javaforge.tapestry</groupId>
             <artifactId>tapestry-spring</artifactId>
             <version>${tapestry.spring.version}</version>
-            <scope>compile</scope>
             <exclusions>
                 <exclusion>
                     <groupId>tapestry</groupId>
