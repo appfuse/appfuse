@@ -28,10 +28,10 @@
 <ul>
     <li class="buttonBar right">
         <input type="submit" class="button" jwcid="@Submit" value="message:button.save" action="listener:save"/>
-          <div jwcid="@If" condition="ognl:user.username != null">
+          <span jwcid="@If" condition="ognl:user.username != null">
             <input type="submit" class="button" jwcid="@Submit" value="message:button.delete" action="listener:delete"
                 onclick="form.onsubmit = null; return confirmDelete('User')"/>
-          </div>
+          </span>
         <input type="submit" class="button" jwcid="@Submit" value="message:button.cancel" action="listener:cancel"
             onclick="form.onsubmit = null"/>
     </li>
@@ -157,10 +157,10 @@
     </span>
     <li class="buttonBar bottom">
         <input type="submit" class="button" jwcid="@Submit" value="message:button.save" action="listener:save"/>
-        <div jwcid="@If" condition="ognl:user.username != null">
-        <input type="submit" class="button" jwcid="@Submit" value="message:button.delete" action="listener:delete"
-            onclick="form.onsubmit = null; return confirmDelete('User')"/>
-        </div>
+          <span jwcid="@If" condition="ognl:user.username != null">
+            <input type="submit" class="button" jwcid="@Submit" value="message:button.delete" action="listener:delete"
+                onclick="form.onsubmit = null; return confirmDelete('User')"/>
+          </span>
         <input type="submit" class="button" jwcid="@Submit" value="message:button.cancel" action="listener:cancel"
             onclick="form.onsubmit = null"/>
     </li>
