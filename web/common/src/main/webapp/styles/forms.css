@@ -386,7 +386,7 @@ input.button, button {
 }
 
 /* revert to normal for Firefox */
-li>input.button, li>button, input.button>input.button, button>button {
+li>input.button, li>button, input.button>input.button, button>button, span>input.button, div>input.button {
     padding: 2px;
 }
 

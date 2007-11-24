@@ -5,8 +5,6 @@
 </head>
 
 <body jwcid="@Body">
-
-<!--<span jwcid="@ShowValidationError" delegate="ognl:beans.delegate"/>-->
 <span jwcid="@ShowValidationError" delegate="ognl:delegate"/>
 <span jwcid="@ShowMessage"/>
 
@@ -18,10 +16,10 @@
 <input jwcid="version@Hidden" type="hidden" value="ognl:user.version"/>
 <input jwcid="originalPassword@Hidden" type="hidden" value="ognl:user.password"/>
 
-<div jwcid="@If" condition="ognl:request.session.getAttribute('cookieLogin') == 'true'">
+<span jwcid="@If" condition="ognl:request.session.getAttribute('cookieLogin') == 'true'">
     <input jwcid="@Hidden" id="password" value="ognl:user.password"/>
     <input jwcid="@Hidden" id="confirmPassword" value="ognl:user.confirmPassword"/>
-</div>
+</span>
 
 <span jwcid="@If" condition="ognl:user.version == null">
     <input type="hidden" name="encryptPass" value="true" />
@@ -30,10 +28,10 @@
 <ul>
     <li class="buttonBar right">
         <input type="submit" class="button" jwcid="@Submit" value="message:button.save" action="listener:save"/>
-          <span jwcid="@If" condition="ognl:user.username != null">
+          <div jwcid="@If" condition="ognl:user.username != null">
             <input type="submit" class="button" jwcid="@Submit" value="message:button.delete" action="listener:delete"
                 onclick="form.onsubmit = null; return confirmDelete('User')"/>
-          </span>
+          </div>
         <input type="submit" class="button" jwcid="@Submit" value="message:button.cancel" action="listener:cancel"
             onclick="form.onsubmit = null"/>
     </li>
@@ -45,7 +43,7 @@
         <label class="desc" jwcid="@FieldLabel" field="component:usernameField">Username</label>
         <input jwcid="usernameField" type="text" id="username" class="text large"/>
     </li>
-    <div jwcid="@If" condition="ognl:request.session.getAttribute('cookieLogin') != 'true'">
+    <span jwcid="@If" condition="ognl:request.session.getAttribute('cookieLogin') != 'true'">
     <li>
         <div>
             <div class="left">
@@ -58,7 +56,7 @@
             </div>
         </div>
     </li>
-    </div>
+    </span>
     <li>
         <label class="desc" jwcid="@FieldLabel" field="component:passwordHintField">Password Hint</label>
         <input class="text large" jwcid="passwordHintField" type="text" id="passwordHint"/>
@@ -118,7 +116,7 @@
             </div>
         </div>
     </li>
-    <div jwcid="@If" condition="ognl:from == 'list'">
+    <span jwcid="@If" condition="ognl:from == 'list'">
     <li>
         <fieldset>
             <legend><span key="userProfile.accountSettings"/></legend>
@@ -146,8 +144,8 @@
             <input class="checkbox" type="checkbox" jwcid="userRoles"/>
         </fieldset>
     </li>
-    </div>
-    <div jwcid="@If" condition="ognl:from != 'list'">
+    </span>
+    <span jwcid="@If" condition="ognl:from != 'list'">
     <li>
         <strong><span key="user.roles"/>:</strong>
         <input jwcid="hiddenUserRoles" type="hidden"/>
@@ -156,13 +154,13 @@
         <input jwcid="@Hidden" type="hidden" value="ognl:user.accountLocked"/>
         <input jwcid="@Hidden" type="hidden" value="ognl:user.credentialsExpired"/>
     </li>
-    </div>
+    </span>
     <li class="buttonBar bottom">
         <input type="submit" class="button" jwcid="@Submit" value="message:button.save" action="listener:save"/>
-        <span jwcid="@If" condition="ognl:user.username != null">
+        <div jwcid="@If" condition="ognl:user.username != null">
         <input type="submit" class="button" jwcid="@Submit" value="message:button.delete" action="listener:delete"
             onclick="form.onsubmit = null; return confirmDelete('User')"/>
-        </span>
+        </div>
         <input type="submit" class="button" jwcid="@Submit" value="message:button.cancel" action="listener:cancel"
             onclick="form.onsubmit = null"/>
     </li>
