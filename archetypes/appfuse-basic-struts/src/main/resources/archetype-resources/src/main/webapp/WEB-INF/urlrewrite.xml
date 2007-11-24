@@ -13,5 +13,12 @@
         <from>^/struts/css_xhtml/validation.js$</from>
         <to type="forward">/template/css_xhtml/validation.js</to>
     </rule>
+
+    <!-- The following fixes a bug in XFire:        -->
+    <!-- http://jira.codehaus.org/browse/XFIRE-1089 -->
+    <rule>
+        <from>^//services/(.*)$</from>
+        <to type="forward">/services/$1</to>
+    </rule>
 </urlrewrite>
 
