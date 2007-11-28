@@ -44,7 +44,7 @@ public class SignupControllerTest extends BaseControllerTestCase {
         
        // start SMTP Server
         Wiser wiser = new Wiser();
-        wiser.setPort(2525);
+        wiser.setPort(getSmtpPort());
         wiser.start();
         
         ModelAndView mv = c.handleRequest(request, response);

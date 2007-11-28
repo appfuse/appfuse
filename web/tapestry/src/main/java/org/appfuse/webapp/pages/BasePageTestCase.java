@@ -19,6 +19,7 @@ public abstract class BasePageTestCase extends AbstractTransactionalDataSourceSp
     protected final Log log = LogFactory.getLog(getClass());
     protected final static String EXTENSION = ".html";
     protected static final String MESSAGES = Constants.BUNDLE_KEY;
+    private int smtpPort = 25250;
 
     protected String[] getConfigLocations() {
         super.setAutowireMode(AUTOWIRE_BY_NAME);
@@ -33,11 +34,16 @@ public abstract class BasePageTestCase extends AbstractTransactionalDataSourceSp
 
     @Override
     protected void onSetUpBeforeTransaction() throws Exception {
-        // change the port on the mailSender so it doesn't conflict with an 
-        // existing SMTP server on localhost
+        smtpPort = smtpPort + (int) (Math.random() * 100);
+        
+        // change the port on the mailSender so it doesn't conflict with an existing SMTP server on localhost
         JavaMailSenderImpl mailSender = (JavaMailSenderImpl) applicationContext.getBean("mailSender");
-        mailSender.setPort(2525);
+        mailSender.setPort(getSmtpPort());
         mailSender.setHost("localhost");
+    }
+
+    protected int getSmtpPort() {
+        return smtpPort;
     }
 
     protected IPage getPage(Class clazz) {

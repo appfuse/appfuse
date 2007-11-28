@@ -19,6 +19,7 @@ import org.springframework.web.context.support.XmlWebApplicationContext;
 
 public abstract class BaseControllerTestCase extends AbstractTransactionalDataSourceSpringContextTests {
     protected transient final Log log = LogFactory.getLog(getClass());
+    private int smtpPort = 25250;
 
     protected String[] getConfigLocations() {
         setAutowireMode(AUTOWIRE_BY_NAME);
@@ -34,11 +35,16 @@ public abstract class BaseControllerTestCase extends AbstractTransactionalDataSo
 
     @Override
     protected void onSetUpBeforeTransaction() throws Exception {
+        smtpPort = smtpPort + (int) (Math.random() * 100);
         // change the port on the mailSender so it doesn't conflict with an
         // existing SMTP server on localhost
         JavaMailSenderImpl mailSender = (JavaMailSenderImpl) applicationContext.getBean("mailSender");
-        mailSender.setPort(2525);
+        mailSender.setPort(getSmtpPort());
         mailSender.setHost("localhost");
+    }
+
+    protected int getSmtpPort() {
+        return smtpPort;
     }
 
     /**

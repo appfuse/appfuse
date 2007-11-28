@@ -81,12 +81,15 @@ public abstract class BasePageTestCase extends AbstractTransactionalDataSourceSp
 
     // Thread context class loader saved and restored after each test
     private ClassLoader threadContextClassLoader = null;
+    private static int smtpPort = 25250;
 
     /**
      * <p>Set up instance variables required by this test case.</p>
      */
     @Override
     protected void onSetUp() throws Exception {
+        smtpPort = smtpPort + (int) (Math.random() * 100);
+        
         // Set up a new thread context class loader
         threadContextClassLoader = Thread.currentThread().getContextClassLoader();
         Thread.currentThread().setContextClassLoader(new URLClassLoader(new URL[0],
@@ -148,8 +151,12 @@ public abstract class BasePageTestCase extends AbstractTransactionalDataSourceSp
         // change the port on the mailSender so it doesn't conflict with an
         // existing SMTP server on localhost
         JavaMailSenderImpl mailSender = (JavaMailSenderImpl) applicationContext.getBean("mailSender");
-        mailSender.setPort(2525);
+        mailSender.setPort(getSmtpPort());
         mailSender.setHost("localhost");
+    }
+
+    public int getSmtpPort() {
+        return smtpPort;
     }
 
     /**

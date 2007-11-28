@@ -22,7 +22,7 @@ public class PasswordHintTest extends BasePageTestCase {
     public void testExecute() throws Exception {
         // start SMTP Server
         Wiser wiser = new Wiser();
-        wiser.setPort(2525);
+        wiser.setPort(getSmtpPort());
         wiser.start();
 
         bean.setUsername("user");

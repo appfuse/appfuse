@@ -52,7 +52,7 @@ public class SignupFormTest extends BasePageTestCase {
 
         // start SMTP Server
         Wiser wiser = new Wiser();
-        wiser.setPort(2525);
+        wiser.setPort(getSmtpPort());
         wiser.start();
 
         page.save(new MockRequestCycle());

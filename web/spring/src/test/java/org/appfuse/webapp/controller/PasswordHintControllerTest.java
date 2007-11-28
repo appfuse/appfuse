@@ -17,7 +17,7 @@ public class PasswordHintControllerTest extends BaseControllerTestCase {
 
        // start SMTP Server
         Wiser wiser = new Wiser();
-        wiser.setPort(2525);
+        wiser.setPort(getSmtpPort());
         wiser.start();
         
         c.handleRequest(request, new MockHttpServletResponse());

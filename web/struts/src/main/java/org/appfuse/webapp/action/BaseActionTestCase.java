@@ -17,6 +17,7 @@ import java.util.HashMap;
  */
 public abstract class BaseActionTestCase extends AbstractTransactionalDataSourceSpringContextTests {
     protected transient final Log log = logger;
+    private int smtpPort = 25250;
 
     protected String[] getConfigLocations() {
         super.setAutowireMode(AUTOWIRE_BY_NAME);
@@ -31,17 +32,23 @@ public abstract class BaseActionTestCase extends AbstractTransactionalDataSource
 
     @Override
     protected void onSetUpBeforeTransaction() throws Exception {
+        smtpPort = smtpPort + (int) (Math.random() * 100);
+        
         LocalizedTextUtil.addDefaultResourceBundle(Constants.BUNDLE_KEY); 
         ActionContext.getContext().setSession(new HashMap());
         
         // change the port on the mailSender so it doesn't conflict with an 
         // existing SMTP server on localhost
         JavaMailSenderImpl mailSender = (JavaMailSenderImpl) applicationContext.getBean("mailSender");
-        mailSender.setPort(2525);
+        mailSender.setPort(getSmtpPort());
         mailSender.setHost("localhost");
 
         // populate the request so getRequest().getSession() doesn't fail in BaseAction.java
         ServletActionContext.setRequest(new MockHttpServletRequest());
+    }
+
+    protected int getSmtpPort() {
+        return smtpPort;
     }
 
     @Override
