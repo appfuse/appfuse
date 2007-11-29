@@ -207,6 +207,20 @@ public class AppFuseExporter extends GenericExporter {
 
     private GenericExporter configureExporter(String template, String pattern) {
 
+        // Add custom template path if specified
+        String[] templatePaths;
+        if (getProperties().getProperty("templatedirectory") != null) {
+            templatePaths = new String[getTemplatePaths().length + 1];
+            templatePaths[0] = getProperties().getProperty("templatedirectory");
+            if (getTemplatePaths().length > 1) {
+                for (int i = 1; i < getTemplatePaths().length; i++) {
+                    templatePaths[i] = getTemplatePaths()[i-1];
+                }
+            }
+        } else {
+            templatePaths = getTemplatePaths();   
+        }
+
         GenericExporter exporter = new GenericExporter(getConfiguration(), getOutputDirectory()) {
             @Override
             protected void exportPOJO(Map map, POJOClass element) {
@@ -227,7 +241,7 @@ public class AppFuseExporter extends GenericExporter {
             }
         };
         exporter.setProperties((Properties) getProperties().clone());
-        exporter.setTemplatePath(getTemplatePaths());
+        exporter.setTemplatePath(templatePaths);
         exporter.setTemplateName(template);
         exporter.setFilePattern(pattern);
         exporter.setArtifactCollector(getArtifactCollector());

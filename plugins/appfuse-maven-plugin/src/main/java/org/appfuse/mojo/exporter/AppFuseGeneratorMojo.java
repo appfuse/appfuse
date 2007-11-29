@@ -50,6 +50,7 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
      * file in your project file as a source directory.
      *
      * @parameter expression="${appfuse.destinationDirectory}" default-value="${basedir}"
+     * @noinspection UnusedDeclaration
      */
     private String destinationDirectory;
 
@@ -57,6 +58,7 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
      * The directory containing the source code.
      *
      * @parameter expression="${appfuse.sourceDirectory}" default-value="${basedir}/target/appfuse/generated-sources"
+     * @noinspection UnusedDeclaration
      */
     private String sourceDirectory;
 
@@ -72,6 +74,12 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
      * @noinspection UnusedDeclaration
      */
     private boolean genericCore;
+
+    /**
+     * @parameter expression="${appfuse.templateDirectory}" default-value="${basedir}/src/test/resources"
+     * @noinspection UnusedDeclaration
+     */
+    private String templateDirectory;
 
     /**
      * Default constructor.
@@ -222,6 +230,10 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
         exporter.getProperties().setProperty("packaging", getProject().getPackaging());
         exporter.getProperties().setProperty("genericcore", String.valueOf(genericCore));
 
+        if (templateDirectory != null) {
+            exporter.getProperties().setProperty("templatedirectory", templateDirectory);
+        }
+        
         if (isFullSource())
             exporter.getProperties().setProperty("appfusepackage", getProject().getGroupId());
         else {

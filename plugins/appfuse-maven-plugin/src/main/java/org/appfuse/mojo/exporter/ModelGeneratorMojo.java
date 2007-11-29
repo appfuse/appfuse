@@ -66,6 +66,7 @@ public class ModelGeneratorMojo extends HibernateExporterMojo {
      * file in your project file as a source directory.
      *
      * @parameter expression="${appfuse.destinationDirectory}" default-value="${basedir}"
+     * @noinspection UnusedDeclaration
      */
     private String destinationDirectory;
 
@@ -73,6 +74,7 @@ public class ModelGeneratorMojo extends HibernateExporterMojo {
      * The directory containing the source code.
      *
      * @parameter expression="${appfuse.sourceDirectory}" default-value="${basedir}/target/appfuse/generated-sources"
+     * @noinspection UnusedDeclaration
      */
     private String sourceDirectory;
 
@@ -82,6 +84,12 @@ public class ModelGeneratorMojo extends HibernateExporterMojo {
      * @parameter expression="${appfuse.disableInstallation}" default-value="false"
      */
     private boolean disableInstallation;
+
+    /**
+     * @parameter expression="${appfuse.templateDirectory}" default-value="${basedir}/src/test/resources"
+     * @noinspection UnusedDeclaration
+     */
+    private String templateDirectory;
 
     /**
      * Default constructor.
@@ -178,7 +186,7 @@ public class ModelGeneratorMojo extends HibernateExporterMojo {
         if (!disableInstallation) {
             // copy the generated file to the model directory of the project
             try {
-                String packageName = getComponentProperties().get("packagename").toString();
+                String packageName = getComponentProperties().get("packagename");
                 String packageAsDir = packageName.replaceAll("\\.", "/");
                 File dir = new File(sourceDirectory + "/" + packageAsDir);
                 if (dir.exists()) {
@@ -207,6 +215,22 @@ public class ModelGeneratorMojo extends HibernateExporterMojo {
 
         // now set the extra properties for the POJO Exporter
         POJOExporter exporter = (POJOExporter) super.configureExporter(exp);
+
+        // Add custom template path if specified
+        String[] templatePaths;
+        if (templateDirectory != null) {
+            templatePaths = new String[exporter.getTemplatePaths().length + 1];
+            templatePaths[0] = templateDirectory;
+            if (exporter.getTemplatePaths().length > 1) {
+                for (int i = 1; i < exporter.getTemplatePaths().length; i++) {
+                    templatePaths[i] = exporter.getTemplatePaths()[i-1];
+                }
+            }
+        } else {
+            templatePaths = exporter.getTemplatePaths();
+        }
+
+        exporter.setTemplatePath(templatePaths);
         exporter.setTemplateName("appfuse/model/Pojo.ftl");
         exporter.getProperties().setProperty("basepackage", getProject().getGroupId());
         exporter.getProperties().setProperty("ejb3", getComponentProperty("ejb3", "true"));
