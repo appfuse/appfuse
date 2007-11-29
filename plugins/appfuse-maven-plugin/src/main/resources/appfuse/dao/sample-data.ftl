@@ -21,7 +21,11 @@
         <#if field.equals(pojo.identifierProperty)>
             <#lt/>-${num}<#rt/>
         <#elseif field.equals(pojo.versionProperty)>
-            1<#rt/>
+	        <#if field.value.typeName.equals("timestamp")>
+	        	2000-01-01 00:00:00<#t/>
+        	<#else>
+            	1<#rt/>
+			</#if>
         <#else>
             <#lt/>${data.getTestValueForDbUnit(column)}<#rt/>
         </#if>
