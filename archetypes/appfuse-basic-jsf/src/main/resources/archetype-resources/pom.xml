@@ -694,7 +694,7 @@
 
     <properties>
         <!-- Application settings -->
-        <copyright.year>2007</copyright.year>
+        <copyright.year>2008</copyright.year>
         <dao.framework>hibernate</dao.framework>
         <web.framework>jsf</web.framework>
         <amp.genericCore>true</amp.genericCore>
@@ -702,7 +702,7 @@
         
         <!-- Framework dependency versions -->
         <appfuse.version>2.0.2-SNAPSHOT</appfuse.version>
-        <spring.version>2.5</spring.version>
+        <spring.version>2.5.2</spring.version>
 
         <!-- Testing dependency versions -->
         <jmock.version>1.1.0</jmock.version>
