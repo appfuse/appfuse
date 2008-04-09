@@ -517,7 +517,7 @@
         <servlet.version>2.4</servlet.version>
         <shale.version>1.0.4</shale.version>
         <sitemesh.version>2.2.1</sitemesh.version>
-        <spring.version>2.5.2</spring.version>
+        <spring.version>2.5.3</spring.version>
         <springmodules.validation.version>0.8</springmodules.validation.version>
         <struts.version>2.0.11.1</struts.version>
         <struts.menu.version>2.4.3</struts.menu.version>
