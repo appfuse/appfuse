@@ -39,6 +39,13 @@
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
+        <from-view-id>/mainMenu.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>selectFile</from-outcome>
+            <to-view-id>/selectFile.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
         <from-view-id>/*</from-view-id>
         <navigation-case>
             <from-outcome>mainMenu</from-outcome>
