@@ -32,7 +32,7 @@ public class MockRole {
     }
 
     /**
-     * @see org.acegisecurity.GrantedAuthority#getAuthority()
+     * @see org.springframework.security.GrantedAuthority#getAuthority()
      */
     @Transient
     public String getAuthority() {

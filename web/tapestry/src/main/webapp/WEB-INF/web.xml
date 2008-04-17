@@ -80,10 +80,10 @@
     </filter>
     <filter>
         <filter-name>securityFilter</filter-name>
-        <filter-class>org.acegisecurity.util.FilterToBeanProxy</filter-class>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
         <init-param>
-            <param-name>targetClass</param-name>
-            <param-value>org.acegisecurity.util.FilterChainProxy</param-value>
+            <param-name>targetBeanName</param-name>
+            <param-value>springSecurityFilterChain</param-value>
         </init-param>
     </filter>
     <filter>

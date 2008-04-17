@@ -18,10 +18,4 @@
         <property name="password" value="${jdbc.password}"/>
     </bean>
 
-    <bean id="daoAuthenticationProvider" class="org.acegisecurity.providers.dao.DaoAuthenticationProvider">
-        <property name="userDetailsService" ref="userDao"/>
-        <property name="passwordEncoder">
-            <bean class="org.acegisecurity.providers.encoding.ShaPasswordEncoder"/>
-        </property>
-    </bean>
 </beans>

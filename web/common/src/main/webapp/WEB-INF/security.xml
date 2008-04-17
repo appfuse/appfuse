@@ -1,175 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:aop="http://www.springframework.org/schema/aop"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
-            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd"
-       default-lazy-init="true">
+<beans:beans xmlns="http://www.springframework.org/schema/security" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+              http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.xsd">
 
-    <!-- ======================== FILTER CHAIN ======================= -->
-    <bean id="filterChainProxy" class="org.acegisecurity.util.FilterChainProxy">
-        <property name="filterInvocationDefinitionSource">
-            <value>
-                CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
-                PATTERN_TYPE_APACHE_ANT
-                /images/**=#NONE#
-                /scripts/**=#NONE#
-                /styles/**=#NONE#
-                /**=httpSessionContextIntegrationFilter,authenticationProcessingFilter,securityContextHolderAwareRequestFilter,rememberMeProcessingFilter,anonymousProcessingFilter,exceptionTranslationFilter,filterInvocationInterceptor
-            </value>
-            <!-- Put channelProcessingFilter before securityContextHolderAwareRequestFilter to turn on SSL switching -->
-            <!-- It's off by default b/c Canoo WebTest doesn't support SSL out-of-the-box -->
-        </property>
-    </bean>
+    <http auto-config="true" lowercase-comparisons="false">
+        <!--intercept-url pattern="/images/*" filters="none"/>
+        <intercept-url pattern="/styles/*" filters="none"/>
+        <intercept-url pattern="/scripts/*" filters="none"/-->
+        <intercept-url pattern="/admin/*" access="ROLE_ADMIN"/>
+        <intercept-url pattern="/passwordHint.html*" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>
+        <intercept-url pattern="/signup.html*" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>
+        <intercept-url pattern="/a4j.res/*.html*" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>
+        <!-- APF-737, OK to remove line below if you're not using JSF -->
+        <intercept-url pattern="/**/*.html*" access="ROLE_ADMIN,ROLE_USER"/>
+        <form-login login-page="/login.jsp" authentication-failure-url="/login.jsp?error=true" login-processing-url="/j_security_check"/>
+        <remember-me user-service-ref="userDao" key="e37f4b31-0c45-11dd-bd0b-0800200c9a66"/>
+    </http>
 
-    <bean id="httpSessionContextIntegrationFilter" class="org.acegisecurity.context.HttpSessionContextIntegrationFilter"/>
+    <authentication-provider user-service-ref="userDao">
+        <password-encoder ref="passwordEncoder"/>
+    </authentication-provider>
 
-    <!-- Changed to use logout.jsp since causes 404 on WebSphere: http://issues.appfuse.org/browse/APF-566 -->
-    <!--bean id="logoutFilter" class="org.acegisecurity.ui.logout.LogoutFilter">
-        <constructor-arg value="/index.jsp"/>
-        <constructor-arg>
-            <list>
-                <ref bean="rememberMeServices"/>
-                <bean class="org.acegisecurity.ui.logout.SecurityContextLogoutHandler"/>
-            </list>
-        </constructor-arg>
-        <property name="filterProcessesUrl" value="/logout.jsp"/>
-    </bean-->
+    <!-- Override the default password-encoder (SHA) by uncommenting the following and changing the class -->
+    <!-- <bean id="passwordEncoder" class="org.springframework.security.providers.encoding.ShaPasswordEncoder"/> -->
 
-    <bean id="authenticationProcessingFilter" class="org.acegisecurity.ui.webapp.AuthenticationProcessingFilter">
-        <property name="authenticationManager" ref="authenticationManager"/>
-        <property name="authenticationFailureUrl" value="/login.jsp?error=true"/>
-        <property name="defaultTargetUrl" value="/"/>
-        <property name="filterProcessesUrl" value="/j_security_check"/>
-        <property name="rememberMeServices" ref="rememberMeServices"/>
-    </bean>
-
-    <bean id="securityContextHolderAwareRequestFilter" class="org.acegisecurity.wrapper.SecurityContextHolderAwareRequestFilter"/>
-
-    <bean id="rememberMeProcessingFilter" class="org.acegisecurity.ui.rememberme.RememberMeProcessingFilter">
-        <property name="authenticationManager" ref="authenticationManager"/>
-        <property name="rememberMeServices" ref="rememberMeServices"/>
-    </bean>
-
-    <bean id="anonymousProcessingFilter" class="org.acegisecurity.providers.anonymous.AnonymousProcessingFilter">
-        <property name="key" value="anonymous"/>
-        <property name="userAttribute" value="anonymous,ROLE_ANONYMOUS"/>
-    </bean>
-
-    <bean id="exceptionTranslationFilter" class="org.acegisecurity.ui.ExceptionTranslationFilter">
-        <property name="authenticationEntryPoint">
-            <bean class="org.acegisecurity.ui.webapp.AuthenticationProcessingFilterEntryPoint">
-                <property name="loginFormUrl" value="/login.jsp"/>
-                <property name="forceHttps" value="false"/>
-            </bean>
-        </property>
-        <property name="accessDeniedHandler">
-            <bean class="org.acegisecurity.ui.AccessDeniedHandlerImpl"/>
-        </property>
-    </bean>
-
-    <bean id="filterInvocationInterceptor" class="org.acegisecurity.intercept.web.FilterSecurityInterceptor">
-        <property name="authenticationManager" ref="authenticationManager"/>
-        <property name="accessDecisionManager" ref="accessDecisionManager"/>
-        <property name="objectDefinitionSource">
-            <value>
-                PATTERN_TYPE_APACHE_ANT
-                /admin/*=ROLE_ADMIN
-                /passwordHint.html*=ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER
-                /signup.html*=ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER
-                /a4j.res/*.html*=ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER <!-- APF-737, OK to remove if not using JSF -->
-                /**/*.html*=ROLE_ADMIN,ROLE_USER
-            </value>
-        </property>
-    </bean>
-
-    <bean id="accessDecisionManager" class="org.acegisecurity.vote.AffirmativeBased">
-        <property name="allowIfAllAbstainDecisions" value="false"/>
-        <property name="decisionVoters">
-            <list>
-                <bean class="org.acegisecurity.vote.RoleVoter"/>
-            </list>
-        </property>
-    </bean>
-
-    <bean id="rememberMeServices" class="org.acegisecurity.ui.rememberme.TokenBasedRememberMeServices">
-        <property name="userDetailsService" ref="userDao"/>
-        <property name="key" value="23_*!cdU='612./e;NrI"/>
-        <property name="parameter" value="rememberMe"/>
-    </bean>
-
-    <bean id="authenticationManager" class="org.acegisecurity.providers.ProviderManager">
-        <property name="providers">
-            <list>
-                <ref bean="daoAuthenticationProvider"/>
-                <ref local="anonymousAuthenticationProvider"/>
-                <ref local="rememberMeAuthenticationProvider"/>
-            </list>
-        </property>
-    </bean>
-
-    <bean id="anonymousAuthenticationProvider" class="org.acegisecurity.providers.anonymous.AnonymousAuthenticationProvider">
-        <property name="key" value="anonymous"/>
-    </bean>
-
-    <bean id="rememberMeAuthenticationProvider" class="org.acegisecurity.providers.rememberme.RememberMeAuthenticationProvider">
-        <property name="key" value="23_*!cdU='612./e;NrI"/>
-    </bean>
-
-    <!-- The following beans are defined in applicationContext-service.xml, which is stored in appfuse-service.jar -->
-    <!--
-    <bean id="daoAuthenticationProvider" class="org.acegisecurity.providers.dao.DaoAuthenticationProvider">
-         <property name="userDetailsService" ref="userDao"/>
-         <property name="passwordEncoder" ref="passwordEncoder"/>
-    </bean>
-
-    <bean id="passwordEncoder" class="org.acegisecurity.providers.encoding.ShaPasswordEncoder"/>
-    -->
-
-    <!-- Uncomment to disabling password encryption -->    
-    <!-- <bean id="passwordEncoder" class="org.acegisecurity.providers.encoding.PlaintextPasswordEncoder"/> -->
-
-    <!-- This bean is optional; it isn't used by any other bean as it only listens and logs -->
-    <bean id="loggerListener" class="org.acegisecurity.event.authentication.LoggerListener"/>
-
-    <!-- Apply method-level interceptor to userManager bean -->
-    <aop:config>
-        <aop:advisor id="managerSecurity" advice-ref="methodSecurityInterceptor" pointcut="execution(* org.appfuse.service.UserManager.*(..))"/>
-    </aop:config>
-
-    <bean id="methodSecurityInterceptor" class="org.acegisecurity.intercept.method.aopalliance.MethodSecurityInterceptor">
-        <property name="authenticationManager" ref="authenticationManager"/>
-        <property name="accessDecisionManager" ref="accessDecisionManager"/>
-        <property name="objectDefinitionSource">
-             <value>
-                 org.appfuse.service.UserManager.getUsers=ROLE_ADMIN
-                 org.appfuse.service.UserManager.removeUser=ROLE_ADMIN
-             </value>
-        </property>
-    </bean>
-
-    <!-- SSL Switching: to use this, configure it in the filterChainProxy bean -->
-    <bean id="channelProcessingFilter" class="org.acegisecurity.securechannel.ChannelProcessingFilter">
-        <property name="channelDecisionManager" ref="channelDecisionManager"/>
-        <property name="filterInvocationDefinitionSource">
-            <value>
-                PATTERN_TYPE_APACHE_ANT
-                /admin/**=REQUIRES_SECURE_CHANNEL
-                /login*=REQUIRES_SECURE_CHANNEL
-                /j_security_check*=REQUIRES_SECURE_CHANNEL
-                /editProfile.html*=REQUIRES_SECURE_CHANNEL
-                /signup.html*=REQUIRES_SECURE_CHANNEL
-                /saveUser.html*=REQUIRES_SECURE_CHANNEL
-                /**=REQUIRES_INSECURE_CHANNEL
-            </value>
-        </property>
-    </bean>
-
-    <bean id="channelDecisionManager" class="org.acegisecurity.securechannel.ChannelDecisionManagerImpl">
-        <property name="channelProcessors">
-            <list>
-                <bean class="org.acegisecurity.securechannel.SecureChannelProcessor"/>
-                <bean class="org.acegisecurity.securechannel.InsecureChannelProcessor"/>
-            </list>
-        </property>
-    </bean>
-</beans>
+    <global-method-security>
+        <protect-pointcut expression="execution(* org.appfuse.service.UserManager.getUsers(..))" access="ROLE_ADMIN"/>
+        <protect-pointcut expression="execution(* org.appfuse.service.UserManager.removeUser(..))" access="ROLE_ADMIN"/>
+    </global-method-security>
+</beans:beans>

@@ -1,10 +1,5 @@
 package org.appfuse.webapp.listener;
 
-import org.acegisecurity.providers.AuthenticationProvider;
-import org.acegisecurity.providers.ProviderManager;
-import org.acegisecurity.providers.dao.DaoAuthenticationProvider;
-import org.acegisecurity.providers.encoding.PasswordEncoder;
-import org.acegisecurity.providers.rememberme.RememberMeAuthenticationProvider;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.Constants;
@@ -12,6 +7,11 @@ import org.appfuse.service.LookupManager;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
+import org.springframework.security.providers.AuthenticationProvider;
+import org.springframework.security.providers.ProviderManager;
+import org.springframework.security.providers.dao.DaoAuthenticationProvider;
+import org.springframework.security.providers.encoding.PasswordEncoder;
+import org.springframework.security.providers.rememberme.RememberMeAuthenticationProvider;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -54,15 +54,20 @@ public class StartupListener implements ServletContextListener {
         ApplicationContext ctx =
             WebApplicationContextUtils.getRequiredWebApplicationContext(context);
 
+        /*String[] beans = ctx.getBeanDefinitionNames();
+        for (String bean : beans) {
+            log.debug(bean);
+        }*/
+        
         PasswordEncoder passwordEncoder = null;
         try {
-            ProviderManager provider = (ProviderManager) ctx.getBean("authenticationManager");
+            ProviderManager provider = (ProviderManager) ctx.getBean("_authenticationManager");
             for (Object o : provider.getProviders()) {
                 AuthenticationProvider p = (AuthenticationProvider) o;
                 if (p instanceof RememberMeAuthenticationProvider) {
                     config.put("rememberMeEnabled", Boolean.TRUE);
-                } else if (p instanceof DaoAuthenticationProvider) {
-                    passwordEncoder = ((DaoAuthenticationProvider) p).getPasswordEncoder();
+                } else if (ctx.getBean("passwordEncoder") != null) {
+                    passwordEncoder = (PasswordEncoder) ctx.getBean("passwordEncoder");
                 }
             }
         } catch (NoSuchBeanDefinitionException n) {
@@ -76,7 +81,7 @@ public class StartupListener implements ServletContextListener {
         if (log.isDebugEnabled()) {
             log.debug("Remember Me Enabled? " + config.get("rememberMeEnabled"));
             if (passwordEncoder != null) {
-                log.debug("Password Encryptor: " + passwordEncoder.getClass().getName());
+                log.debug("Password Encoder: " + passwordEncoder.getClass().getName());
             }
             log.debug("Populating drop-downs...");
         }

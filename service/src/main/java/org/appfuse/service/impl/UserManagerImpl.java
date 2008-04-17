@@ -1,9 +1,9 @@
 package org.appfuse.service.impl;
 
-import org.acegisecurity.providers.dao.DaoAuthenticationProvider;
-import org.acegisecurity.providers.dao.SaltSource;
-import org.acegisecurity.providers.encoding.PasswordEncoder;
-import org.acegisecurity.userdetails.UsernameNotFoundException;
+import org.springframework.security.providers.dao.DaoAuthenticationProvider;
+import org.springframework.security.providers.dao.SaltSource;
+import org.springframework.security.providers.encoding.PasswordEncoder;
+import org.springframework.security.userdetails.UsernameNotFoundException;
 import org.appfuse.dao.UserDao;
 import org.appfuse.model.User;
 import org.appfuse.service.UserExistsException;
@@ -25,7 +25,7 @@ import java.util.List;
 @WebService(serviceName = "UserService", endpointInterface = "org.appfuse.service.UserService")
 public class UserManagerImpl extends UniversalManagerImpl implements UserManager, UserService {
     private UserDao dao;
-    private DaoAuthenticationProvider authenticationProvider;
+    private PasswordEncoder passwordEncoder;
 
     /**
      * Set the Dao for communication with the data layer.
@@ -37,14 +37,12 @@ public class UserManagerImpl extends UniversalManagerImpl implements UserManager
     }
 
     /**
-     * Set the DaoAuthenticationProvider object that will provide both the
-     * PasswordEncoder and the SaltSource which will be used for password
-     * encryption when necessary.
-     * @param authenticationProvider the DaoAuthenticationProvider object
+     * Set the PasswordEncoder used to encrypt passwords.
+     * @param passwordEncoder the PasswordEncoder implementation
      */
     @Required
-    public void setAuthenticationProvider(DaoAuthenticationProvider authenticationProvider) {
-        this.authenticationProvider = authenticationProvider;
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
     }
 
     /**
@@ -74,36 +72,29 @@ public class UserManagerImpl extends UniversalManagerImpl implements UserManager
         
         // Get and prepare password management-related artifacts
         boolean passwordChanged = false;
-        if (authenticationProvider != null) {
-            PasswordEncoder passwordEncoder = authenticationProvider.getPasswordEncoder();
-
-            if (passwordEncoder != null) {
-                // Check whether we have to encrypt (or re-encrypt) the password
-                if (user.getVersion() == null) {
-                    // New user, always encrypt
+        if (passwordEncoder != null) {
+            // Check whether we have to encrypt (or re-encrypt) the password
+            if (user.getVersion() == null) {
+                // New user, always encrypt
+                passwordChanged = true;
+            } else {
+                // Existing user, check password in DB
+                String currentPassword = dao.getUserPassword(user.getUsername());
+                if (currentPassword == null) {
                     passwordChanged = true;
                 } else {
-                    // Existing user, check password in DB
-                    String currentPassword = dao.getUserPassword(user.getUsername());
-                    if (currentPassword == null) {
+                    if (!currentPassword.equals(user.getPassword())) {
                         passwordChanged = true;
-                    } else {
-                        if (!currentPassword.equals(user.getPassword())) {
-                            passwordChanged = true;
-                        }
                     }
                 }
+            }
 
-                // If password was changed (or new user), encrypt it
-                if (passwordChanged) {
-                    user.setPassword(passwordEncoder.encodePassword(user.getPassword(), null));
-                }
-            } else {
-                log.warn("PasswordEncoder not set on AuthenticationProvider, skipping password encryption...");
+            // If password was changed (or new user), encrypt it
+            if (passwordChanged) {
+                user.setPassword(passwordEncoder.encodePassword(user.getPassword(), null));
             }
         } else {
-            log.warn("AuthenticationProvider not set, skipping password encryption...");
-
+            log.warn("PasswordEncoder not set, skipping password encryption...");
         }
         
         try {

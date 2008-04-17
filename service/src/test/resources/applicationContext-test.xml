@@ -16,7 +16,9 @@
     <bean id="userSecurityAdvice" class="org.appfuse.service.UserSecurityAdvice"/>
 
     <bean id="userManager" class="org.appfuse.service.impl.UserManagerImpl">
-        <property name="authenticationProvider" ref="daoAuthenticationProvider"/>
+        <property name="passwordEncoder">
+            <bean class="org.springframework.security.providers.encoding.ShaPasswordEncoder"/>
+        </property>
     </bean>
 
     <bean id="target" class="org.springframework.aop.framework.ProxyFactoryBean">
@@ -26,15 +28,6 @@
                 <idref local="userSecurityInterceptor"/>
                 <idref local="userManager"/>
             </list>
-        </property>
-    </bean>
-
-    <bean id="daoAuthenticationProvider" class="org.acegisecurity.providers.dao.DaoAuthenticationProvider">
-        <property name="userDetailsService">
-            <bean class="org.appfuse.service.MockUserDetailsService"/>
-        </property>
-        <property name="passwordEncoder">
-            <bean class="org.acegisecurity.providers.encoding.ShaPasswordEncoder"/>
         </property>
     </bean>
 </beans>    

@@ -19,7 +19,7 @@
     </logger>
 
     <!-- Suppress success logging from InteractiveAuthenticationSuccessEvent -->
-    <logger name="org.acegisecurity">
+    <logger name="org.springframework.security">
         <level value="ERROR"/>
     </logger>
 

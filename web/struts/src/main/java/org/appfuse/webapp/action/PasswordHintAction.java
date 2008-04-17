@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.appfuse.model.User;
 import org.appfuse.webapp.util.RequestUtil;
-import org.acegisecurity.userdetails.UsernameNotFoundException;
+import org.springframework.security.userdetails.UsernameNotFoundException;
 import org.springframework.mail.MailException;
 
 /**

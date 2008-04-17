@@ -1,7 +1,7 @@
 package org.appfuse.model;
 
-import org.acegisecurity.GrantedAuthority;
-import org.acegisecurity.userdetails.UserDetails;
+import org.springframework.security.GrantedAuthority;
+import org.springframework.security.userdetails.UserDetails;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
@@ -157,7 +157,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
     }
     
     /**
-     * @see org.acegisecurity.userdetails.UserDetails#getAuthorities()
+     * @see org.springframework.security.userdetails.UserDetails#getAuthorities()
      * @return GrantedAuthority[] an array of roles.
      */
     @Transient
@@ -181,7 +181,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
     }
     
     /**
-     * @see org.acegisecurity.userdetails.UserDetails#isAccountNonExpired()
+     * @see org.springframework.security.userdetails.UserDetails#isAccountNonExpired()
      */
     @Transient
     public boolean isAccountNonExpired() {
@@ -194,7 +194,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
     }
     
     /**
-     * @see org.acegisecurity.userdetails.UserDetails#isAccountNonLocked()
+     * @see org.springframework.security.userdetails.UserDetails#isAccountNonLocked()
      */
     @Transient
     public boolean isAccountNonLocked() {
@@ -207,7 +207,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
     }
     
     /**
-     * @see org.acegisecurity.userdetails.UserDetails#isCredentialsNonExpired()
+     * @see org.springframework.security.userdetails.UserDetails#isCredentialsNonExpired()
      */
     @Transient
     public boolean isCredentialsNonExpired() {

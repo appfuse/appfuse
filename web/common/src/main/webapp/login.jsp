@@ -16,7 +16,7 @@
     <li class="error">
         <img src="${ctx}/images/iconWarning.gif" alt="<fmt:message key='icon.warning'/>" class="icon"/>
         <fmt:message key="errors.password.mismatch"/>
-        <%--${sessionScope.ACEGI_SECURITY_LAST_EXCEPTION.message}--%>
+        <%--${sessionScope.SPRING_SECURITY_LAST_EXCEPTION_KEY.message}--%>
     </li>
 </c:if>
     <li>
@@ -35,7 +35,7 @@
 
 <c:if test="${appConfig['rememberMeEnabled']}">
     <li>
-        <input type="checkbox" class="checkbox" name="rememberMe" id="rememberMe" tabindex="3"/>
+        <input type="checkbox" class="checkbox" name="_spring_security_remember_me" id="rememberMe" tabindex="3"/>
         <label for="rememberMe" class="choice"><fmt:message key="login.rememberMe"/></label>
     </li>
 </c:if>

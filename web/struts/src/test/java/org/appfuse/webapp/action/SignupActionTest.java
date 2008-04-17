@@ -8,7 +8,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 
 import org.subethamail.wiser.Wiser;
 import org.apache.struts2.ServletActionContext;
-import org.acegisecurity.context.SecurityContextHolder;
+import org.springframework.security.context.SecurityContextHolder;
 
 public class SignupActionTest extends BaseActionTestCase {
     private SignupAction action;

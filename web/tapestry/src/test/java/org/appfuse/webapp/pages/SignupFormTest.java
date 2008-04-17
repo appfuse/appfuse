@@ -4,7 +4,7 @@ import org.appfuse.Constants;
 import org.appfuse.model.Address;
 import org.appfuse.model.User;
 import org.subethamail.wiser.Wiser;
-import org.acegisecurity.context.SecurityContextHolder;
+import org.springframework.security.context.SecurityContextHolder;
 
 import java.util.HashMap;
 import java.util.Map;

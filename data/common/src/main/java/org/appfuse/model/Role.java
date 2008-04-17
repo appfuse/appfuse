@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.acegisecurity.GrantedAuthority;
+import org.springframework.security.GrantedAuthority;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
@@ -50,7 +50,7 @@ public class Role extends BaseObject implements Serializable, GrantedAuthority {
     }
 
     /**
-     * @see org.acegisecurity.GrantedAuthority#getAuthority()
+     * @see org.springframework.security.GrantedAuthority#getAuthority()
      * @return the name property (getAuthority required by Acegi's GrantedAuthority interface)
      */
     @Transient
@@ -113,4 +113,7 @@ public class Role extends BaseObject implements Serializable, GrantedAuthority {
                 .toString();
     }
 
+    public int compareTo(Object o) {
+        return (equals(o) ? 0 : -1);
+    }
 }

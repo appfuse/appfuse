@@ -1,7 +1,7 @@
 package org.appfuse.dao;
 
-import org.acegisecurity.userdetails.UserDetails;
-import org.acegisecurity.userdetails.UsernameNotFoundException;
+import org.springframework.security.userdetails.UserDetails;
+import org.springframework.security.userdetails.UsernameNotFoundException;
 import org.appfuse.model.User;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +19,7 @@ public interface UserDao extends GenericDao<User, Long> {
      * Gets users information based on login name.
      * @param username the user's username
      * @return userDetails populated userDetails object
-     * @throws org.acegisecurity.userdetails.UsernameNotFoundException thrown when user not found in database
+     * @throws org.springframework.security.userdetails.UsernameNotFoundException thrown when user not found in database
      */
     @Transactional
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;

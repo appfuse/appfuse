@@ -9,7 +9,7 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 import org.subethamail.wiser.Wiser;
-import org.acegisecurity.context.SecurityContextHolder;
+import org.springframework.security.context.SecurityContextHolder;
 
 public class SignupControllerTest extends BaseControllerTestCase {
     private SignupController c = null;
