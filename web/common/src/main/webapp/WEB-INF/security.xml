@@ -19,9 +19,7 @@
     </http>
 
     <authentication-provider user-service-ref="userDao">
-        <password-encoder ref="passwordEncoder">
-            <salt-source user-property="username"/>
-        </password-encoder>
+        <password-encoder ref="passwordEncoder"/>
     </authentication-provider>
 
     <!-- Override the default password-encoder (SHA) by uncommenting the following and changing the class -->

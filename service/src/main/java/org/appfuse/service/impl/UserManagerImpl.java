@@ -91,7 +91,7 @@ public class UserManagerImpl extends UniversalManagerImpl implements UserManager
 
             // If password was changed (or new user), encrypt it
             if (passwordChanged) {
-                user.setPassword(passwordEncoder.encodePassword(user.getPassword(), user.getUsername()));
+                user.setPassword(passwordEncoder.encodePassword(user.getPassword(), null));
             }
         } else {
             log.warn("PasswordEncoder not set, skipping password encryption...");
