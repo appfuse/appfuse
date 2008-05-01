@@ -165,6 +165,12 @@
             <groupId>net.sourceforge.jsf-comp</groupId>
             <artifactId>acegi-jsf</artifactId>
             <version>${acegijsf.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.acegisecurity</groupId>
+                    <artifactId>acegi-security</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.sun.facelets</groupId>

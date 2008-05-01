@@ -205,6 +205,14 @@
             <artifactId>appfuse-${web.framework}</artifactId>
             <version>${appfuse.version}</version>
             <type>warpath</type>
+            <!-- This exclusion allows DAO framework switching. You only need it if you want to use JPA or iBATIS. -->
+            <!-- See APF-565 for more information. You can safely remove this exclusion if you're using Hibernate. -->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.appfuse</groupId>
+                    <artifactId>appfuse-hibernate</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!-- Dependencies with scope=provided aren't picked up from dependent JARs -->
         <dependency>

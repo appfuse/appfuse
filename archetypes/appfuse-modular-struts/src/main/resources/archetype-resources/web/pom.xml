@@ -10,11 +10,11 @@
         <version>${version}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    
+
     <artifactId>${artifactId}-webapp</artifactId>
     <packaging>war</packaging>
     <name>AppFuse Modular Application - Web (Struts 2)</name>
-    
+
     <build>
         <plugins>
             <plugin>
@@ -207,6 +207,14 @@
             <artifactId>appfuse-${web.framework}</artifactId>
             <version>${appfuse.version}</version>
             <type>warpath</type>
+            <!-- This exclusion allows DAO framework switching. You only need it if you want to use JPA or iBATIS. -->
+            <!-- See APF-565 for more information. You can safely remove this exclusion if you're using Hibernate. -->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.appfuse</groupId>
+                    <artifactId>appfuse-hibernate</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!-- Dependencies with scope=provided aren't picked up from dependent JARs -->
         <dependency>
@@ -285,7 +293,8 @@
                                 <delete file="target/webtest-data/web-tests-result.xml"/>
                                 <!-- This is so the default will be used if no test case is specified -->
                                 <property name="test" value="run-all-tests"/>
-                                <echo level="info">Testing '${project.build.finalName}' with locale '${user.language}'</echo>
+                                <echo level="info">Testing '${project.build.finalName}' with locale '${user.language}'
+                                </echo>
                                 <ant antfile="src/test/resources/web-tests.xml" target="${test}">
                                     <property name="user.language" value="${user.language}"/>
                                     <property name="webapp.name" value="${project.build.finalName}"/>

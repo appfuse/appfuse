@@ -130,6 +130,10 @@
                     <groupId>org.springframework</groupId>
                     <artifactId>spring-web</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-support</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
         <!-- Needed to load xfire-servlet.xml for all web frameworks -->
