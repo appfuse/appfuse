@@ -5,7 +5,7 @@
     version="1.2">
 
     <application>
-        <variable-resolver>org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver>
+        <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
         <locale-config>
             <default-locale>en</default-locale>
             <supported-locale>de</supported-locale>
