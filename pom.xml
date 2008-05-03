@@ -506,8 +506,8 @@
         <springmodules.validation.version>0.8</springmodules.validation.version>
         <struts.version>2.0.11.1</struts.version>
         <struts.menu.version>2.4.3</struts.menu.version>
-        <tacos.version>4.1.0</tacos.version>
-        <tapestry.version>4.1.3</tapestry.version>
+        <tacos.version>4.1.1</tacos.version>
+        <tapestry.version>4.1.5</tapestry.version>
         <tapestry.flash.version>1.0.0</tapestry.flash.version>
         <tapestry.spring.version>1.0.0</tapestry.spring.version>
         <urlrewrite.version>3.0.4</urlrewrite.version>
