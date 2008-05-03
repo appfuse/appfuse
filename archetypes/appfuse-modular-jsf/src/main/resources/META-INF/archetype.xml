@@ -39,7 +39,7 @@
         <resource>web/src/main/resources/mail.properties</resource>
         <resource filtered="false">web/src/main/webapp/common/menu.jsp</resource>
         <resource>web/src/main/webapp/WEB-INF/applicationContext.xml</resource>
-        <resource>web/src/main/webapp/WEB-INF/faces-config.xml</resource>
+        <resource filtered="false">web/src/main/webapp/WEB-INF/faces-config.xml</resource>
         <resource>web/src/main/webapp/WEB-INF/menu-config.xml</resource>
         <resource>web/src/main/webapp/WEB-INF/urlrewrite.xml</resource>
         <resource>web/src/main/webapp/WEB-INF/web.xml</resource>
