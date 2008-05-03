@@ -155,6 +155,17 @@
             <artifactId>appfuse-web-common</artifactId>
             <version>${pom.version}</version>
             <type>warpath</type>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.appfuse</groupId>
+                    <artifactId>appfuse-hibernate</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.appfuse</groupId>
+            <artifactId>appfuse-${dao.framework}</artifactId>
+            <version>${pom.version}</version>
         </dependency>
         <dependency>
             <groupId>net.java.dev.ajax4jsf</groupId>
