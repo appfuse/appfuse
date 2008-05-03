@@ -125,8 +125,9 @@ public class UserForm extends BasePage implements Serializable {
         
         Integer originalVersion = user.getVersion();
 
-        // For some reason, Canoo WebTest causes version to be 0. Set it to null so test will pass
-        if (user.getVersion() != null && user.getVersion() == 0) {
+        // For some reason, Canoo WebTest causes version to be 0. Set it to null so test will pass.
+        if (user.getVersion() == 0) {
+            user.setId(null);
             user.setVersion(null);
         }
 
