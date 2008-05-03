@@ -59,7 +59,7 @@ public class UniversalDaoJpa implements UniversalDao {
      * {@inheritDoc}
      */
     public List getAll(Class clazz) {
-        return this.entityManager.createQuery("select obj from " + clazz + " obj").getResultList();
+        return this.entityManager.createQuery("select obj from " + clazz.getSimpleName() + " obj").getResultList();
     }
 
     /**

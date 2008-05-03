@@ -4,6 +4,8 @@ import javax.persistence.EntityNotFoundException;
 
 import org.appfuse.model.User;
 
+import java.util.List;
+
 /**
  * This class tests the generic GenericDao and BaseDao implementation.
  */
@@ -23,6 +25,12 @@ public class UniversalDaoTest extends BaseDaoTestCase {
         universalDao = null;
     }
 
+    @SuppressWarnings("unchecked")
+    public void testGetAll() {
+        List users = universalDao.getAll(User.class);
+        assertEquals(users.size(), 2);
+    }    
+    
     /**
      * Simple test to verify CRUD works.
      */
