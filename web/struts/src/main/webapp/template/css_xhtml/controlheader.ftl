@@ -8,6 +8,8 @@
 <#if parameters.label?exists>
     <#if parameters.labelposition?default("top") == 'top'>
     <div <#rt/>
+	<#else>
+	<span <#rt/>
     </#if>
     <#if parameters.labelposition?default("top") != 'bottom'>
         <#if parameters.id?exists>id="wwlbl_${parameters.id}"<#rt/></#if> class="wwlbl">
