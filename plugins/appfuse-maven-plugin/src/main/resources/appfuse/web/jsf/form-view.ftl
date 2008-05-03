@@ -52,7 +52,7 @@
         <#elseif field.value.typeName == "boolean" || field.value.typeName == "java.lang.Boolean">
             <#lt/>    <h:selectBooleanCheckbox value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}" id="${field.name}" styleClass="checkbox"/>
         <#else>
-            <#lt/>    <h:inputText styleClass="text medium" id="${field.name}" value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}" required="${(!column.nullable)?string}"<#if (column.length > 0)> maxlength="${column.length}"</#if>>
+            <#lt/>    <h:inputText styleClass="text medium" id="${field.name}" value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}" required="${(!column.nullable)?string}"<#if (column.length > 0)> maxlength="${column.length?c}"</#if>>
         <#if !column.nullable>
         <v:commonsValidator type="required" arg="${'#'}{text['${pojoNameLower}.${field.name}']}"/>
         </#if>

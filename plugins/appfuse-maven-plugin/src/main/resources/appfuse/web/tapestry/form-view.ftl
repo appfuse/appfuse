@@ -38,7 +38,7 @@
         <input class="checkbox" type="checkbox" jwcid="@Checkbox" value="ognl:${pojoNameLower}.${field.name}" id="${field.name}"/>
     <#else>
         <label class="desc" jwcid="@FieldLabel" field="component:${field.name}Field"/>
-        <input class="text medium" jwcid="${field.name}Field" type="text" id="${field.name}"<#if (column.length > 0)> maxlength="${column.length}"</#if>/>
+        <input class="text medium" jwcid="${field.name}Field" type="text" id="${field.name}"<#if (column.length > 0)> maxlength="${column.length?c}"</#if>/>
     </#if>
 </#foreach>
 <#elseif c2h.isManyToOne(field)>

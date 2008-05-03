@@ -36,7 +36,7 @@
         <#elseif field.value.typeName == "boolean" || field.value.typeName == "java.lang.Boolean">
         <form:checkbox path="${field.name}" id="${field.name}" cssClass="checkbox"/>
         <#else>
-        <form:input path="${field.name}" id="${field.name}" cssClass="text medium" cssErrorClass="text medium error"<#if (column.length > 0)> maxlength="${column.length}"</#if>/>
+        <form:input path="${field.name}" id="${field.name}" cssClass="text medium" cssErrorClass="text medium error"<#if (column.length > 0)> maxlength="${column.length?c}"</#if>/>
         </#if>
     </li>
     </#foreach>
