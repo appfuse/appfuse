@@ -51,7 +51,8 @@ public class ${pojo.shortName}Form extends BasePage implements Serializable {
     }
 
     public String edit() {
-        if (${pojo.identifierProperty.name} != null) {
+        // Comparison to zero (vs. null) is required with MyFaces 1.2.2, not with previous versions
+        if (${pojo.identifierProperty.name} != null && ${pojo.identifierProperty.name} != 0) {
             ${pojoNameLower} = ${pojoNameLower}Manager.get(${pojo.identifierProperty.name});
         } else {
             ${pojoNameLower} = new ${pojo.shortName}();
@@ -61,7 +62,7 @@ public class ${pojo.shortName}Form extends BasePage implements Serializable {
     }
 
     public String save() {
-        boolean isNew = (${pojoNameLower}.${getIdMethodName}() == null);
+        boolean isNew = (${pojoNameLower}.${getIdMethodName}() == null || ${pojoNameLower}.${getIdMethodName}() == 0);
         ${pojoNameLower}Manager.save(${pojoNameLower});
 
         String key = (isNew) ? "${pojoNameLower}.added" : "${pojoNameLower}.updated";
