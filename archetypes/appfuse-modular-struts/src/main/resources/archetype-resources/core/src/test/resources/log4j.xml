@@ -23,6 +23,10 @@
         <level value="WARN"/>
     </logger>
 
+    <logger name="org.apache.velocity">
+        <level value="FATAL"/>
+    </logger>
+
     <logger name="org.hibernate">
         <level value="WARN"/>
     </logger>

@@ -23,6 +23,10 @@
         <level value="WARN"/>
     </logger>
 
+    <logger name="org.apache.velocity">
+        <level value="FATAL"/>
+    </logger>
+
     <!-- Suppress invalid warning messages from JSF -->
     <logger name="org.apache.myfaces.shared_impl.renderkit.html">
         <level value="ERROR"/>
