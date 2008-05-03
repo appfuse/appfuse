@@ -88,6 +88,7 @@ public abstract class BasePageTestCase extends AbstractTransactionalDataSourceSp
      */
     @Override
     protected void onSetUp() throws Exception {
+        super.onSetUp();
         smtpPort = smtpPort + (int) (Math.random() * 100);
         
         // Set up a new thread context class loader
@@ -164,6 +165,7 @@ public abstract class BasePageTestCase extends AbstractTransactionalDataSourceSp
      */
     @Override
     protected void onTearDown() throws Exception {
+        super.onTearDown();
         application = null;
         config = null;
         externalContext = null;
