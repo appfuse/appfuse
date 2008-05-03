@@ -44,12 +44,12 @@
                     <dependency>
                         <groupId>org.aspectj</groupId>
                         <artifactId>aspectjrt</artifactId>
-                        <version>${aspectj.version}</version>
+                        <version>1.6.0</version>
                     </dependency>
                     <dependency>
                         <groupId>org.aspectj</groupId>
                         <artifactId>aspectjtools</artifactId>
-                        <version>${aspectj.version}</version>
+                        <version>1.6.0</version>
                     </dependency>
                 </dependencies>
             </plugin>
