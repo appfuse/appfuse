@@ -10,12 +10,20 @@ import org.appfuse.tool.ArtifactInstaller;
 import org.codehaus.plexus.components.interactivity.Prompter;
 import org.codehaus.plexus.components.interactivity.PrompterException;
 import org.hibernate.tool.hbm2x.Exporter;
+import org.xml.sax.helpers.DefaultHandler;
+import org.xml.sax.Attributes;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.StringReader;
+
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 
 /**
  * Generates Java classes from set of annotated POJOs. Use -DdisableInstallation to prevent installation.
@@ -286,7 +294,8 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
 
     private void addEntityToHibernateCfgXml(String hibernateCfgXml) throws MojoFailureException {
         String className = getProject().getGroupId() + ".model." + pojoName;
-        if (!hibernateCfgXml.contains(pojoName)) {
+	POJOSearcher pojoSearcher = new POJOSearcher(hibernateCfgXml);
+	if (!pojoSearcher.searchForPojo(pojoName)) {
             // check that class exists and has an @Entity annotation
             checkEntityExists();
 
@@ -329,7 +338,7 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
                 String[] entities = modelPackage.list();
                 for (String entity : entities) {
                     log("Found '" + entity + "' in model package...");
-                    if (entity.contains(pojoName)) {
+                    if (entity.contains(pojoName + ".java")) {
                         entityExists = true;
                         break;
                     }
@@ -354,5 +363,47 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
                 }
             }
         }
+    }
+    
+    public class POJOSearcher extends DefaultHandler {
+	private String pojoName;
+	private boolean foundPojo;
+	private String xmlString;
+	
+	public POJOSearcher(String xmlString) {
+		this.xmlString = xmlString;
+	}
+	
+	public boolean searchForPojo(String pojoName) {
+		this.pojoName = pojoName;
+		this.foundPojo = false;
+		
+		SAXParserFactory spf = SAXParserFactory.newInstance();
+		try {
+			SAXParser sp = spf.newSAXParser();
+			sp.setProperty("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+
+			sp.parse(new InputSource(new StringReader(xmlString)), this);
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+			ex.printStackTrace();
+		}
+		
+		return foundPojo; 
+	}
+
+	@Override
+	public void startElement(String uri, String localName, String name,
+			Attributes attributes) throws SAXException {
+		super.startElement(uri, localName, name, attributes);
+		if (name.equals("mapping")) {
+			String classValue = attributes.getValue("class");
+			if (classValue != null) {
+				if (classValue.endsWith(pojoName)) {
+					foundPojo = true;
+				}
+			}
+		}
+	}
     }
 }
