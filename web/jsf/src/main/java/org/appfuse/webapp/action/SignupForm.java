@@ -72,7 +72,7 @@ public class SignupForm extends BasePage implements Serializable {
             sendUserMessage(user, getText("signup.email.message"),
                     RequestUtil.getAppURL(getRequest()));
         } catch (MailException me) {
-            addError(me.getCause().getLocalizedMessage());
+            addError(me.getMostSpecificCause().getMessage());
             return null;
         }
 

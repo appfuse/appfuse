@@ -117,7 +117,7 @@ public abstract class SignupForm extends BasePage implements PageBeginRenderList
         try {
             getMailEngine().send(message);
         } catch (MailException me) {
-            getSession().setAttribute("error", me.getCause().getLocalizedMessage());
+            getSession().setAttribute("error", me.getMostSpecificCause().getMessage());
         }
 
         getSession().setAttribute("message", getText("user.registered"));

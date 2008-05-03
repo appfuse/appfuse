@@ -106,7 +106,7 @@ public class SignupAction extends BaseAction {
         try {
             sendUserMessage(user, getText("signup.email.message"), RequestUtil.getAppURL(getRequest()));
         } catch (MailException me) {
-            addActionError(me.getCause().getLocalizedMessage());
+            addActionError(me.getMostSpecificCause().getMessage());
         }
 
         return SUCCESS;

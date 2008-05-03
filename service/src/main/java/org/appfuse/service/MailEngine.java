@@ -73,8 +73,7 @@ public class MailEngine {
         try {
             mailSender.send(msg);
         } catch (MailException ex) {
-            //log it and go on
-            log.error(ex.getCause().getMessage());
+            log.error(ex.getMessage());
             throw ex;
         }
     }
