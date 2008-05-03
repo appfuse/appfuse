@@ -5,7 +5,11 @@
 package ${basepackage}.webapp.controller;
 
 import org.apache.commons.lang.StringUtils;
+<#if genericcore>
 import ${appfusepackage}.service.GenericManager;
+<#else>
+import ${basepackage}.service.${pojo.shortName}Manager;
+</#if>
 import ${basepackage}.model.${pojo.shortName};
 import ${appfusepackage}.webapp.controller.BaseFormController;
 import org.springframework.validation.BindException;
@@ -16,9 +20,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Locale;
 
 public class ${pojo.shortName}FormController extends BaseFormController {
+<#if genericcore>
     private GenericManager<${pojo.shortName}, ${identifierType}> ${pojoNameLower}Manager = null;
+<#else>
+    private ${pojo.shortName}Manager ${pojoNameLower}Manager = null;
+</#if>
 
+<#if genericcore>
     public void set${pojo.shortName}Manager(GenericManager<${pojo.shortName}, ${identifierType}> ${pojoNameLower}Manager) {
+<#else>
+    public void set${pojo.shortName}Manager(${pojo.shortName}Manager ${pojoNameLower}Manager) {
+</#if>
         this.${pojoNameLower}Manager = ${pojoNameLower}Manager;
     }
 
