@@ -1,5 +1,8 @@
 package org.appfuse.dao;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.appfuse.Constants;
 import org.appfuse.model.Role;
 
@@ -44,5 +47,17 @@ public class RoleDaoTest extends BaseDaoTestCase {
 
         role = dao.getRoleByName("testrole");
         assertNull(role);
+    }
+    
+    /**
+     * Tests the generic findByNamedQuery method
+     * @throws Exception
+     */
+    public void testFindByNamedQuery() throws Exception {
+        HashMap<String, Object> queryParams = new HashMap<String, Object>();
+        queryParams.put("name", Constants.USER_ROLE);
+        List<Role> roles = dao.findByNamedQuery("findRoleByName", queryParams);
+        assertNotNull(roles);
+        assertTrue(roles.size() > 0);
     }
 }

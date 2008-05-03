@@ -7,7 +7,12 @@ import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class serves as the Base class for all other DAOs - namely to hold
@@ -48,7 +53,16 @@ public class GenericDaoHibernate<T, PK extends Serializable> extends HibernateDa
     public List<T> getAll() {
         return super.getHibernateTemplate().loadAll(this.persistentClass);
     }
-
+    
+    /**
+     * {@inheritDoc}
+     */
+    @SuppressWarnings("unchecked")
+    public List<T> getAllDistinct() {
+        Collection result = new LinkedHashSet(getAll());
+        return new ArrayList(result);
+    }
+    
     /**
      * {@inheritDoc}
      */
@@ -87,4 +101,26 @@ public class GenericDaoHibernate<T, PK extends Serializable> extends HibernateDa
     public void remove(PK id) {
         super.getHibernateTemplate().delete(this.get(id));
     }
+    
+   /** 
+    * {@inheritDoc}
+    */
+   @SuppressWarnings("unchecked")
+   public List<T> findByNamedQuery(
+       String queryName, 
+       Map<String, Object> queryParams) {
+       String []params = new String[queryParams.size()];
+       Object []values = new Object[queryParams.size()];
+       int index = 0;
+       Iterator<String> i = queryParams.keySet().iterator();
+       while (i.hasNext()) {
+           String key = i.next();
+           params[index] = key;
+           values[index++] = queryParams.get(key);
+       }
+       return getHibernateTemplate().findByNamedQueryAndNamedParam(
+           queryName, 
+           params, 
+           values);
+   }
 }
