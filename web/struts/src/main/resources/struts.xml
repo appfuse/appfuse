@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
-        "http://struts.apache.org/dtds/struts-2.0.dtd">
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
     <!-- Constants -->
@@ -56,7 +56,7 @@
         </interceptors>
 
         <global-results>
-            <result name="mainMenu" type="redirect">mainMenu.html</result>
+            <result name="mainMenu" type="redirect-action">mainMenu</result>
             <result name="dataAccessFailure">/WEB-INF/pages/dataAccessFailure.jsp</result>
         </global-results>
 
@@ -76,7 +76,7 @@
 
         <action name="saveSignup" class="signupAction" method="save">
             <result name="input">/WEB-INF/pages/signup.jsp</result>
-            <result name="success" type="redirect">/mainMenu.html</result>
+            <result name="success" type="redirect-action">/mainMenu</result>
         </action>
 
         <action name="editUser" class="userAction" method="edit">
@@ -91,16 +91,16 @@
         </action>
 
         <action name="saveUser" class="userAction" method="save">
-            <result name="cancel" type="redirect">admin/users.html</result>
+            <result name="cancel" type="redirect-action">admin/users</result>
             <result name="input">/WEB-INF/pages/userForm.jsp</result>
-            <result name="success" type="redirect">admin/users.html</result>
+            <result name="success" type="redirect-action">admin/users</result>
         </action>
 
         <action name="uploadFile" class="org.appfuse.webapp.action.FileUploadAction">
             <interceptor-ref name="fileUploadStack"/>
             <result name="input">/WEB-INF/pages/uploadForm.jsp</result>
             <result name="success">/WEB-INF/pages/uploadDisplay.jsp</result>
-            <result name="cancel" type="redirect">mainMenu.html</result>
+            <result name="cancel" type="redirect-action">mainMenu</result>
         </action>
 
         <action name="passwordHint" class="passwordHintAction">
