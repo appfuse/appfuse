@@ -1,9 +1,9 @@
 package org.appfuse.dao;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
 
