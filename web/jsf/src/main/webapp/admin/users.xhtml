@@ -32,6 +32,7 @@
         </f:facet>
         <h:commandLink action="#{userForm.edit}" value="#{user.username}" >
             <f:param name="id" value="#{user.id}"/>
+            <f:param name="from" value="list"/> 
         </h:commandLink>
     </t:column>
     <t:column width="34%">
