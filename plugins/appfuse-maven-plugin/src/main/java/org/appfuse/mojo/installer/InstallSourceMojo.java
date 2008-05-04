@@ -695,6 +695,7 @@ public class InstallSourceMojo extends AbstractMojo {
         MavenProject p = null;
 
         try {
+            maven.setAlignWithUserInstallation(true);
             maven.start();
             p = maven.readProjectWithDependencies(pom);
             maven.stop();
