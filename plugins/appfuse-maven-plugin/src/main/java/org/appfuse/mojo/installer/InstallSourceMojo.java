@@ -282,7 +282,7 @@ public class InstallSourceMojo extends AbstractMojo {
         Set<String> projectProperties = new TreeSet<String>();
 
         for (Dependency dep : newDependencies) {
-            if (dep.getArtifactId().equals("spring-test") || dep.getArtifactId().equals("jmock") ||
+            if (dep.getArtifactId().equals("spring-test") || dep.getArtifactId().contains("jmock") ||
                 dep.getArtifactId().equals("junit") || dep.getArtifactId().equals("shale-test")) {
                 dep.setOptional(true);
                 dep.setScope(null);
