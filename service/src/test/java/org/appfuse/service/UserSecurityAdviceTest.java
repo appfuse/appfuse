@@ -10,22 +10,30 @@ import org.appfuse.Constants;
 import org.appfuse.dao.UserDao;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
-import org.jmock.Mock;
-import org.jmock.MockObjectTestCase;
+import org.jmock.integration.junit4.JMock;
+import org.jmock.integration.junit4.JUnit4Mockery;
+import org.jmock.Mockery;
+import org.jmock.Expectations;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.junit.runner.RunWith;
+import org.junit.Before;
+import org.junit.After;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
-public class UserSecurityAdviceTest extends MockObjectTestCase {
-    Mock userDao = null;
+@RunWith(JMock.class)
+public class UserSecurityAdviceTest {
+    Mockery context = new JUnit4Mockery();
+    UserDao userDao = null;
     ApplicationContext ctx = null;
     SecurityContext initialSecurityContext = null;
 
-    protected void setUp() throws Exception {
-        super.setUp();
-        
+    @Before
+    public void setUp() throws Exception {
         // store initial security context for later restoration
         initialSecurityContext = SecurityContextHolder.getContext();
-        
+
         SecurityContext context = new SecurityContextImpl();
         User user = new User("user");
         user.setId(1L);
@@ -39,10 +47,12 @@ public class UserSecurityAdviceTest extends MockObjectTestCase {
         SecurityContextHolder.setContext(context);
     }
 
-    protected void tearDown() {
+    @After
+    public void tearDown() {
         SecurityContextHolder.setContext(initialSecurityContext);
     }
-    
+
+    @Test
     public void testAddUserWithoutAdminRole() throws Exception {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         assertTrue(auth.isAuthenticated());
@@ -59,8 +69,9 @@ public class UserSecurityAdviceTest extends MockObjectTestCase {
         }
     }
 
+    @Test
     public void testAddUserAsAdmin() throws Exception {
-        SecurityContext context = new SecurityContextImpl();
+        SecurityContext securityContext = new SecurityContextImpl();
         User user = new User("admin");
         user.setId(2L);
         user.setPassword("password");
@@ -68,28 +79,36 @@ public class UserSecurityAdviceTest extends MockObjectTestCase {
         UsernamePasswordAuthenticationToken token =
                 new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), user.getAuthorities());
         token.setDetails(user);
-        context.setAuthentication(token);
-        SecurityContextHolder.setContext(context);
+        securityContext.setAuthentication(token);
+        SecurityContextHolder.setContext(securityContext);
 
         UserManager userManager = makeInterceptedTarget();
-        User adminUser = new User("admin");
+        final User adminUser = new User("admin");
         adminUser.setId(2L);
 
-        userDao.expects(once()).method("saveUser");
+        context.checking(new Expectations() {{
+            one(userDao).saveUser(with(same(adminUser)));
+        }});
+
         userManager.saveUser(adminUser);
     }
 
+    @Test
     public void testUpdateUserProfile() throws Exception {
         UserManager userManager = makeInterceptedTarget();
-        User user = new User("user");
+        final User user = new User("user");
         user.setId(1L);
         user.getRoles().add(new Role(Constants.USER_ROLE));
 
-        userDao.expects(once()).method("saveUser");
+        context.checking(new Expectations() {{
+            one(userDao).saveUser(with(same(user)));
+        }});
+
         userManager.saveUser(user);
     }
 
     // Test fix to http://issues.appfuse.org/browse/APF-96
+    @Test
     public void testChangeToAdminRoleFromUserRole() throws Exception {
         UserManager userManager = makeInterceptedTarget();
         User user = new User("user");
@@ -106,6 +125,7 @@ public class UserSecurityAdviceTest extends MockObjectTestCase {
     }
 
     // Test fix to http://issues.appfuse.org/browse/APF-96
+    @Test
     public void testAddAdminRoleWhenAlreadyHasUserRole() throws Exception {
         UserManager userManager = makeInterceptedTarget();
         User user = new User("user");
@@ -123,8 +143,9 @@ public class UserSecurityAdviceTest extends MockObjectTestCase {
     }
 
     // Test fix to http://issues.appfuse.org/browse/APF-96
+    @Test
     public void testAddUserRoleWhenHasAdminRole() throws Exception {
-        SecurityContext context = new SecurityContextImpl();
+        SecurityContext securityContext = new SecurityContextImpl();
         User user1 = new User("user");
         user1.setId(1L);
         user1.setPassword("password");
@@ -132,27 +153,34 @@ public class UserSecurityAdviceTest extends MockObjectTestCase {
         UsernamePasswordAuthenticationToken token =
                 new UsernamePasswordAuthenticationToken(user1.getUsername(), user1.getPassword(), user1.getAuthorities());
         token.setDetails(user1);
-        context.setAuthentication(token);
-        SecurityContextHolder.setContext(context);
+        securityContext.setAuthentication(token);
+        SecurityContextHolder.setContext(securityContext);
 
         UserManager userManager = makeInterceptedTarget();
-        User user = new User("user");
+        final User user = new User("user");
         user.setId(1L);
         user.getRoles().add(new Role(Constants.ADMIN_ROLE));
         user.getRoles().add(new Role(Constants.USER_ROLE));
 
-        userDao.expects(once()).method("saveUser");
+        context.checking(new Expectations() {{
+            one(userDao).saveUser(with(same(user)));
+        }});
+
         userManager.saveUser(user);
     }
 
     // Test fix to http://issues.appfuse.org/browse/APF-96
+    @Test
     public void testUpdateUserWithUserRole() throws Exception {
         UserManager userManager = makeInterceptedTarget();
-        User user = new User("user");
+        final User user = new User("user");
         user.setId(1L);
         user.getRoles().add(new Role(Constants.USER_ROLE));
 
-        userDao.expects(once()).method("saveUser");
+        context.checking(new Expectations() {{
+            one(userDao).saveUser(with(same(user)));
+        }});
+
         userManager.saveUser(user);
     }
 
@@ -162,8 +190,8 @@ public class UserSecurityAdviceTest extends MockObjectTestCase {
         UserManager userManager = (UserManager) ctx.getBean("target");
 
         // Mock the userDao
-        userDao = new Mock(UserDao.class);
-        userManager.setUserDao((UserDao) userDao.proxy());
+        userDao = context.mock(UserDao.class);
+        userManager.setUserDao(userDao);
         return userManager;
     }
 }

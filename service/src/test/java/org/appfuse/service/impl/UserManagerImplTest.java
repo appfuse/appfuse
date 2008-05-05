@@ -6,55 +6,72 @@ import org.appfuse.dao.UserDao;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
 import org.appfuse.service.UserExistsException;
-import org.jmock.Mock;
+import org.jmock.Expectations;
+import org.jmock.integration.junit4.JMock;
+import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.dao.DataIntegrityViolationException;
 
 public class UserManagerImplTest extends BaseManagerMockTestCase {
     //~ Instance fields ========================================================
     private UserManagerImpl userManager = new UserManagerImpl();
     private RoleManagerImpl roleManager = new RoleManagerImpl();
-    private Mock userDao = null;
-    private Mock roleDao = null;
+    private UserDao userDao = null;
+    private RoleDao roleDao = null;
 
     //~ Methods ================================================================
-
-    protected void setUp() throws Exception {
-        super.setUp();
-        userDao = new Mock(UserDao.class);
-        userManager.setUserDao((UserDao) userDao.proxy());
-        roleDao = new Mock(RoleDao.class);
-        roleManager.setRoleDao((RoleDao) roleDao.proxy());
+    @Before
+    public void setUp() throws Exception {
+        userDao = context.mock(UserDao.class);
+        userManager.setUserDao(userDao);
+        roleDao = context.mock(RoleDao.class);
+        roleManager.setRoleDao(roleDao);
     }
-    
+
+    @Test
     public void testGetUser() throws Exception {
-        User testData = new User("1");
+        final User testData = new User("1");
         testData.getRoles().add(new Role("user"));
+
         // set expected behavior on dao
-        userDao.expects(once()).method("get")
-               .with(eq(1L)).will(returnValue(testData));
+        context.checking(new Expectations() {{
+            one(userDao).get(with(equal(1L)));
+            will(returnValue(testData));
+        }});
         
         User user = userManager.getUser("1");
         assertTrue(user != null);
+        assert user != null;
         assertTrue(user.getRoles().size() == 1);
     }
 
+    @Test
     public void testSaveUser() throws Exception {
-        User testData = new User("1");
+        final User testData = new User("1");
         testData.getRoles().add(new Role("user"));
+
         // set expected behavior on dao
-        userDao.expects(once()).method("get")
-               .with(eq(1L)).will(returnValue(testData));
+        context.checking(new Expectations() {{
+            one(userDao).get(with(equal(1L)));
+            will(returnValue(testData));
+        }});
         
-        User user = userManager.getUser("1");
+        final User user = userManager.getUser("1");
         user.setPhoneNumber("303-555-1212");
 
-        userDao.expects(once()).method("saveUser").with(same(user)).will(returnValue(user));
+        context.checking(new Expectations() {{
+            one(userDao).saveUser(with(same(user)));
+            will(returnValue(user));
+        }});
         
-        user = userManager.saveUser(user);
-        assertTrue(user.getPhoneNumber().equals("303-555-1212"));
-        assertTrue(user.getRoles().size() == 1);
+        User returned = userManager.saveUser(user);
+        assertTrue(returned.getPhoneNumber().equals("303-555-1212"));
+        assertTrue(returned.getRoles().size() == 1);
     }
 
+    @Test
     public void testAddAndRemoveUser() throws Exception {
         User user = new User();
 
@@ -63,35 +80,52 @@ public class UserManagerImplTest extends BaseManagerMockTestCase {
         user = (User) populate(user);
         
         // set expected behavior on role dao
-        roleDao.expects(once()).method("getRoleByName")
-               .with(eq("ROLE_USER")).will(returnValue(new Role("ROLE_USER")));
-        
+        context.checking(new Expectations() {{
+            one(roleDao).getRoleByName(with(equal("ROLE_USER")));
+            will(returnValue(new Role("ROLE_USER")));
+        }});
+                
         Role role = roleManager.getRole(Constants.USER_ROLE);
         user.addRole(role);
 
         // set expected behavior on user dao
-        userDao.expects(once()).method("saveUser").with(same(user)).will(returnValue(user));
-        
+        final User user1 = user;
+        context.checking(new Expectations() {{
+            one(userDao).saveUser(with(same(user1)));
+            will(returnValue(user1));
+        }});
+
         user = userManager.saveUser(user);
         assertTrue(user.getUsername().equals("john"));
         assertTrue(user.getRoles().size() == 1);
-        
-        userDao.expects(once()).method("remove").with(eq(5L));
+
+        context.checking(new Expectations() {{
+            one(userDao).remove(with(equal(5L)));
+        }});
+
         userManager.removeUser("5");
 
-        userDao.expects(once()).method("get").will(returnValue(null));
+        context.checking(new Expectations() {{
+            one(userDao).get(with(equal(5L)));
+            will(returnValue(null));
+        }});
+        
         user = userManager.getUser("5");
         assertNull(user);
     }
-    
+
+    @Test
     public void testUserExistsException() {
         // set expectations
-        User user = new User("admin");
+        final User user = new User("admin");
         user.setEmail("matt@raibledesigns.com");
 
-        Exception ex = new DataIntegrityViolationException("");
-        userDao.expects(once()).method("saveUser").with(same(user))
-               .will(throwException(ex));
+        final Exception ex = new DataIntegrityViolationException("");
+
+        context.checking(new Expectations() {{
+            one(userDao).saveUser(with(same(user)));
+            will(throwException(ex));
+        }});
         
         // run test
         try {

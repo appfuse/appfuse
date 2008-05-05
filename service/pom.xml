@@ -147,8 +147,14 @@
             <version>${javamail.version}</version>
         </dependency>
         <dependency>
-            <groupId>jmock</groupId>
+            <groupId>org.jmock</groupId>
             <artifactId>jmock</artifactId>
+            <version>${jmock.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.jmock</groupId>
+            <artifactId>jmock-junit4</artifactId>
             <version>${jmock.version}</version>
             <optional>true</optional>
         </dependency>

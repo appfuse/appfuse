@@ -252,8 +252,14 @@
             <version>${jdbc.version}</version>
         </dependency>
         <dependency>
-            <groupId>jmock</groupId>
+            <groupId>org.jmock</groupId>
             <artifactId>jmock</artifactId>
+            <version>${jmock.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jmock</groupId>
+            <artifactId>jmock-junit4</artifactId>
             <version>${jmock.version}</version>
             <scope>test</scope>
         </dependency>
@@ -429,7 +435,7 @@
         <spring.version>2.5.4</spring.version>
 
         <!-- Testing dependency versions -->
-        <jmock.version>1.1.0</jmock.version>
+        <jmock.version>2.4.0</jmock.version>
         <junit.version>4.4</junit.version>
         <wiser.version>1.2</wiser.version>
 

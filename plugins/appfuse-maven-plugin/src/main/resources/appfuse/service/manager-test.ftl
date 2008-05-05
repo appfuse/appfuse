@@ -10,51 +10,66 @@ import java.util.List;
 import ${basepackage}.dao.${pojo.shortName}Dao;
 import ${basepackage}.model.${pojo.shortName};
 import ${appfusepackage}.service.impl.BaseManagerMockTestCase;
-import org.jmock.Mock;
+
+import org.jmock.Expectations;
+import org.junit.Before;
+import org.junit.After;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 public class ${pojo.shortName}ManagerImplTest extends BaseManagerMockTestCase {
     private ${pojo.shortName}ManagerImpl manager = null;
-    private Mock dao = null;
-    private ${pojo.shortName} ${pojoNameLower} = null;
+    private ${pojo.shortName}Dao dao = null;
 
-    protected void setUp() throws Exception {
-        dao = new Mock(${pojo.shortName}Dao.class);
-        manager = new ${pojo.shortName}ManagerImpl((${pojo.shortName}Dao) dao.proxy());
+    @Before
+    public void setUp() {
+        dao = context.mock(${pojo.shortName}Dao.class);
+        manager = new ${pojo.shortName}ManagerImpl(dao);
     }
 
-    protected void tearDown() throws Exception {
+    @After
+    public void tearDown() {
         manager = null;
     }
 
+    @Test
     public void testGet${pojo.shortName}() {
         log.debug("testing get...");
 
-        ${pojo.getJavaTypeName(pojo.identifierProperty, jdk5)} ${pojo.identifierProperty.name} = 7L;
-        ${pojoNameLower} = new ${pojo.shortName}();
+        final ${identifierType} ${pojo.identifierProperty.name} = 7L;
+        final ${pojo.shortName} ${pojoNameLower} = new ${pojo.shortName}();
 
         // set expected behavior on dao
-        dao.expects(once()).method("get").with(eq(${pojo.identifierProperty.name})).will(returnValue(${pojoNameLower}));
+        context.checking(new Expectations() {{
+            one(dao).get(with(equal(${pojo.identifierProperty.name})));
+            will(returnValue(${pojoNameLower}));
+        }});
 
         ${pojo.shortName} result = manager.get(${pojo.identifierProperty.name});
         assertSame(${pojoNameLower}, result);
     }
 
+    @Test
     public void testGet${util.getPluralForWord(pojo.shortName)}() {
         log.debug("testing getAll...");
 
-        List ${util.getPluralForWord(pojoNameLower)} = new ArrayList();
+        final List ${util.getPluralForWord(pojoNameLower)} = new ArrayList();
 
         // set expected behavior on dao
-        dao.expects(once()).method("getAll").will(returnValue(${util.getPluralForWord(pojoNameLower)}));
+        context.checking(new Expectations() {{
+            one(dao).getAll();
+            will(returnValue(${util.getPluralForWord(pojoNameLower)}));
+        }});
 
         List result = manager.getAll();
         assertSame(${util.getPluralForWord(pojoNameLower)}, result);
     }
 
+    @Test
     public void testSave${pojo.shortName}() {
         log.debug("testing save...");
 
-        ${pojoNameLower} = new ${pojo.shortName}();
+        final ${pojo.shortName} ${pojoNameLower} = new ${pojo.shortName}();
         // enter all required fields
 <#foreach field in pojo.getAllPropertiesIterator()>
     <#foreach column in field.getColumnIterator()>
@@ -65,19 +80,23 @@ public class ${pojo.shortName}ManagerImplTest extends BaseManagerMockTestCase {
 </#foreach>
         
         // set expected behavior on dao
-        dao.expects(once()).method("save").with(same(${pojoNameLower})).isVoid();
+        context.checking(new Expectations() {{
+            one(dao).save(with(same(${pojoNameLower})));
+        }});
 
-        ${pojoNameLower} = manager.save(${pojoNameLower});
+        manager.save(${pojoNameLower});
     }
 
+    @Test
     public void testRemove${pojo.shortName}() {
         log.debug("testing remove...");
 
-        ${pojo.getJavaTypeName(pojo.identifierProperty, jdk5)} ${pojo.identifierProperty.name} = -11L;
-        ${pojoNameLower} = new ${pojo.shortName}();
+        final ${identifierType} ${pojo.identifierProperty.name} = -11L;
 
         // set expected behavior on dao
-        dao.expects(once()).method("remove").with(eq(${pojo.identifierProperty.name})).isVoid();
+        context.checking(new Expectations() {{
+            one(dao).remove(with(equal(${pojo.identifierProperty.name})));
+        }});
 
         manager.remove(${pojo.identifierProperty.name});
     }

@@ -4,18 +4,22 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.util.ConvertUtil;
-import org.jmock.MockObjectTestCase;
+import org.jmock.integration.junit4.JMock;
+import org.jmock.integration.junit4.JUnit4Mockery;
+import org.jmock.Mockery;
+import org.junit.runner.RunWith;
 
 import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 
-public abstract class BaseManagerMockTestCase extends MockObjectTestCase {
+@RunWith(JMock.class)
+public abstract class BaseManagerMockTestCase {
     //~ Static fields/initializers =============================================
-
-    protected final Log log = LogFactory.getLog(getClass());
+    final protected Log log = LogFactory.getLog(getClass());
     protected ResourceBundle rb;
+    protected Mockery context = new JUnit4Mockery();
 
     //~ Constructors ===========================================================
 

@@ -1,26 +1,30 @@
 package org.appfuse.service.impl;
 
-import org.springframework.security.providers.dao.DaoAuthenticationProvider;
 import org.appfuse.dao.UniversalDao;
 import org.appfuse.model.User;
-import org.jmock.Mock;
+import org.jmock.Expectations;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.test.AssertThrows;
+import org.junit.Before;
+import org.junit.After;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  * This class tests the generic UniversalManager and UniversalManagerImpl implementation.
  */
 public class UniversalManagerTest extends BaseManagerMockTestCase {
     protected UniversalManagerImpl manager = new UniversalManagerImpl();
-    protected Mock dao;
-    
-    protected void setUp() throws Exception {
-        super.setUp();
-        dao = new Mock(UniversalDao.class);
-        manager.setDao((UniversalDao) dao.proxy());
+    protected UniversalDao dao;
+
+    @Before
+    public void setUp() throws Exception {
+        dao = context.mock(UniversalDao.class);
+        manager.setDao(dao);
     }
-    
-    protected void tearDown() throws Exception {
+
+    @After
+    public void tearDown() throws Exception {
         manager = null;
         dao = null;
     }
@@ -28,29 +32,50 @@ public class UniversalManagerTest extends BaseManagerMockTestCase {
     /**
      * Simple test to verify BaseDao works.
      */
+    @Test
     public void testCreate() {
-        User user = createUser();
-        dao.expects(once()).method("save").will(returnValue(user));
-        user = (User) manager.save(user);
+        final User user = createUser();
+        context.checking(new Expectations() {{
+            one(dao).save(with(same(user)));
+            will(returnValue(user));
+        }});
+
+        manager.save(user);
     }
-    
+
+    @Test
     public void testRetrieve() {
-        User user = createUser();
-        dao.expects(once()).method("get").will(returnValue(user));
-        user = (User) manager.get(User.class, user.getUsername());
+        final User user = createUser();
+        context.checking(new Expectations() {{
+            one(dao).get(User.class, "foo");
+            will(returnValue(user));
+        }});
+
+        User user2 = (User) manager.get(User.class, user.getUsername());
+        assertTrue(user2.getUsername().equals("foo"));
     }
-    
+
+    @Test
     public void testUpdate() {
+        context.checking(new Expectations() {{
+            one(dao).save(createUser());
+        }});
+
         User user = createUser();
-        dao.expects(once()).method("save").isVoid();
         user.getAddress().setCountry("USA");
-        user = (User) manager.save(user);
+        manager.save(user);
     }
-    
+
+    @Test
     public void testDelete() {
-        Exception ex = new ObjectRetrievalFailureException(User.class, "foo");
-        dao.expects(once()).method("remove").isVoid();            
-        dao.expects(once()).method("get").will(throwException(ex));
+        final Exception ex = new ObjectRetrievalFailureException(User.class, "foo");
+
+        context.checking(new Expectations() {{
+            one(dao).remove(User.class, "foo");
+            one(dao).get(User.class, "foo");
+            will(throwException(ex));
+        }});
+
         manager.remove(User.class, "foo");
         new AssertThrows(ObjectRetrievalFailureException.class) {
             public void test() {
