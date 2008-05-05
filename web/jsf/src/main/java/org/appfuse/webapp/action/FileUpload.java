@@ -50,10 +50,15 @@ public class FileUpload extends BasePage implements Serializable {
 
         //retrieve the file data
         InputStream stream = file.getInputStream();
+        String filename = file.getName();
+
+        // APF-946: Canoo Web Tests R_1702 sets full path as name instead of only file name
+        if (filename.indexOf("/") > -1) {
+            filename = filename.substring(filename.lastIndexOf("/") + 1);
+        }
 
         // APF-758: Fix for Internet Explorer's shortcomings
-        String filename = file.getName();
-        if (filename.indexOf("\\")!= -1) {
+        if (filename.indexOf("\\") != -1) {
             int slash = filename.lastIndexOf("\\");
             if (slash != -1) {
                 filename = filename.substring(slash + 1);

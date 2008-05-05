@@ -345,7 +345,7 @@
         <wiser.version>1.2</wiser.version>
 
         <!-- WebTest dependency versions  -->
-        <webtest.version>R_1600</webtest.version>
+        <webtest.version>R_1702</webtest.version>
 
         <!-- Cargo settings -->
         <cargo.container>tomcat5x</cargo.container>

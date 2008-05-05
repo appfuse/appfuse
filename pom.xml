@@ -512,7 +512,7 @@
         <tapestry.spring.version>1.0.0</tapestry.spring.version>
         <urlrewrite.version>3.0.4</urlrewrite.version>
         <velocity.version>1.4</velocity.version>
-        <webtest.version>R_1600</webtest.version>
+        <webtest.version>R_1702</webtest.version>
         <wiser.version>1.2</wiser.version>
         <xfire.version>1.2.6</xfire.version>
 

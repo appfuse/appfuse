@@ -1,6 +1,6 @@
 <!DOCTYPE project [
-    <!ENTITY config SYSTEM "file:./config.xml">
-    <!ENTITY login SYSTEM "file:./login.xml">
+    <!ENTITY config SYSTEM "./config.xml">
+    <!ENTITY login SYSTEM "./login.xml">
 ]>
 <project basedir="." default="run-all-tests"> 
     <!-- Use i18n bundle, 2nd one listed is the default -->

@@ -2,8 +2,8 @@ The majority of files in this directory come from Prototype
 and Scriptaculous - two JavaScript libraries that make Ajax
 easier.
 
-http://prototypejs.org (version 1.5.0)
-http://script.aculo.us (version 1.6.5)
+http://prototypejs.org (version 1.6.0.1)
+http://script.aculo.us (version 1.8.1)
 
 The Prototype framework consists of a single file: prototype.js.
 
@@ -15,6 +15,7 @@ dragdrop.js
 effects.js
 scriptaculous.js
 slider.js
+sound.js
 
 By including scriptaculous.js in your pages, all the rest of
 the files are included as well.
