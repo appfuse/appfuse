@@ -8,8 +8,8 @@
 
 Maven AppFuse Plugin
 
-  This plugin provides code generation and other utilities for AppFuse 2.x projects. See the {{{faq.html}FAQ}} if you're having
-  issues running this plugin.
+  This plugin provides code generation and other utilities for AppFuse 2.x projects. See the {{{faq.html}FAQ}} if you're
+  having issues running this plugin.
 
 * Goals Overview
 
@@ -24,19 +24,28 @@ Maven AppFuse Plugin
   * {{{full-source-mojo.html}appfuse:full-source}}: Converts AppFuse basic projects to full-source with no AppFuse
     dependencies. Also renames packages to match your project's groupId.
 
+  * {{{copy-templates-mojo.html}appfuse:copy-templates}}: Copies FreeMarker templates for CRUD generation into 
+    src/test/resources/appfuse. These templates can be customized to fit your needs. You can delete the templates you
+    don't customize and the default templates will be used instead.
+
   For a full list of goals, see {{{plugin-info.html}available goals}}.
 
   []
 
 * Usage
 
-  {{{usage.html}Instructions}} on how to use the Maven AppFuse Plugin can be found {{{usage.html}here}}. {{{http://appfuse.org/display/APF/AppFuse+Maven+Plugin}AppFuse's documentation}} contains further details on this plugin's usage.
+  {{{usage.html}Instructions}} on how to use the Maven AppFuse Plugin can be found {{{usage.html}here}}.
+  {{{http://appfuse.org/display/APF/AppFuse+Maven+Plugin}AppFuse's documentation}} contains further details on this
+  plugin's usage.
 
   []
 
 * Customization
 
-  See {{{http://appfuse.org/display/APF/AppFuse+Maven+Plugin#AppFuseMavenPlugin-customization}Customizing AMP Templates}} for information on how to customize this plugin's code generation templates.
+  You can customize the templates used for CRUD generation by copying the ones you want to override into your project.
+  Since version 2.0.2, you can run "appfuse:copy-templates" to copy them into your project. If you're using a version
+  prior to 2.0.2, please see
+  {{{http://appfuse.org/display/APF/AppFuse+Maven+Plugin#AppFuseMavenPlugin-customization}Customizing AMP Templates}}.
 
 * Examples
 
