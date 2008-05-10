@@ -22,7 +22,7 @@ import org.springframework.security.ui.webapp.AuthenticationProcessingFilter;
 /**
  * UserCounterListener class used to count the current number
  * of active users for the applications.  Does this by counting
- * how many user objects are stuffed into the session.  It Also grabs
+ * how many user objects are stuffed into the session.  It also grabs
  * these users and exposes them in the servlet context.
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
@@ -118,11 +118,6 @@ public class UserCounterListener implements ServletContextListener, HttpSessionA
                 User user = (User) securityContext.getAuthentication().getPrincipal();
                 addUsername(user);
             }
-        // Workaround for Jetty bug (http://www.nabble.com/current-user-count-incorrect-tf3550268.html#a9919134)
-        } else if (event.getName().equals(AuthenticationProcessingFilter.SPRING_SECURITY_LAST_USERNAME_KEY)) {
-            String username = (String) event.getValue();
-            User user = new User(username);
-            addUsername(user);
         }
     }
 
