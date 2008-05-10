@@ -32,22 +32,26 @@ import java.util.Iterator;
 
 /**
  * Generates Java classes from existing database tables. If you want to customize the
- * reverse engineering strategy, you can modify the default <a href="http://tinyurl.com/25cx4a">hibernate.reveng.xml</a>
+ * reverse engineering strategy, you can modify the default <a href="http://tinyurl.com/3qqgcl">hibernate.reveng.xml</a>
  * and put it in src/test/resources. You can also override the location by specifying the "revengfile"
  * property in the &lt;configuration&gt;. For example:
  *
  * <pre>
    &lt;configuration&gt;
-     &lt;componentProperties&gt;
-       &lt;revengfile&gt;path/to/hibernate.reveng.xml&lt;/revengfile&gt;
-     &lt;/componentProperties&gt;
-     &lt;genericCore&gt;${amp.genericCore}&lt;/genericCore&gt;
-     &lt;fullSource&gt;${amp.fullSource}&lt;/fullSource&gt;
+   &nbsp;&nbsp;&lt;componentProperties&gt;
+   &nbsp;&nbsp;&nbsp;&nbsp;&lt;revengfile&gt;path/to/hibernate.reveng.xml&lt;/revengfile&gt;
+   &nbsp;&nbsp;&lt;/componentProperties&gt;
+   &nbsp;&nbsp;&lt;genericCore&gt;${amp.genericCore}&lt;/genericCore&gt;
+   &nbsp;&nbsp;&lt;fullSource&gt;${amp.fullSource}&lt;/fullSource&gt;
    &lt;/configuration&gt;
  * </pre>
  *
- * <p>(Sorry for the formatting above, the parser that generates documentation from javadocs doesn't seem to recognize
- * the &lt;pre&gt; tag properly and retain indenting.)</p>
+ * <p><b>Oracle Users</b>: If you create a custom hibernate.reveng.xml, make sure to capitalize the table names
+ * in &lt;schema-selection match-schema="MY_SCHEMA_NAME"/&gt;. You'll also need to add the following line to your
+ * jdbc.properties file:</p>
+ * <pre>
+   hibernatetool.metadatadialect=org.hibernate.cfg.reveng.dialect.OracleMetaDataDialect
+   </pre>
  *
  * @author <a href="mailto:jreyes@hiberforum.org">Johann Reyes</a>
  * @version $Id: ModelGeneratorMojo.java 3535 2007-03-07 21:02:07Z jreyes $
