@@ -187,7 +187,7 @@
         <dependency>
             <groupId>org.codehaus.plexus</groupId>
             <artifactId>plexus-utils</artifactId>
-            <version>1.4.5</version>
+            <version>1.5.1</version>
         </dependency>
         <dependency>
             <groupId>org.codehaus.mojo.hibernate3</groupId>
@@ -301,6 +301,6 @@
     </reporting>
 
     <properties>
-        <hibernate3.plugin.version>2.0-alpha-2</hibernate3.plugin.version>
+        <hibernate3.plugin.version>2.1</hibernate3.plugin.version>
     </properties>
 </project>

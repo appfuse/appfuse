@@ -186,7 +186,6 @@ public class ArtifactInstaller {
         parseXMLFile(generatedFile, pojoName + "-beans", "<!-- Add additional beans here -->", "managed.beans");
     }
 
-
     private void installSpringControllerBeanDefinitions() {
         createLoadFileTask("src/main/webapp/WEB-INF/" + pojoName + "-beans.xml", "dispatcher.servlet").execute();
         File generatedFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/dispatcher-servlet.xml");

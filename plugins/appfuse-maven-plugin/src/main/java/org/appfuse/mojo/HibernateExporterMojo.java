@@ -280,8 +280,8 @@ public abstract class HibernateExporterMojo extends AbstractMojo implements Expo
         return componentProperties;
     }
 
-    // Added to allow setting project from tests (AbstractAppFuseMojoTestCase)
-    public void setProject(MavenProject project) {
+    // Allow setting project from tests (AbstractAppFuseMojoTestCase)
+    void setProject(MavenProject project) {
         this.project = project;
     }
 }
