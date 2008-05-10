@@ -204,6 +204,11 @@
             <artifactId>maven-hibernate3-jdk14</artifactId>
             <version>${hibernate3.plugin.version}</version>
         </dependency>
+         <dependency>
+		    <groupId>log4j</groupId>
+		    <artifactId>log4j</artifactId>
+		    <version>1.2.13</version>
+		</dependency>
         <!-- This is to support the ant calls within the mojos -->
         <dependency>
             <groupId>org.apache.ant</groupId>
