@@ -43,11 +43,11 @@
             #displayCssMenu($menuIt)
         #end
         
-        #if ($hasViewableChildren && ($velocityCount == $renderedChildren))
+        #if ($hasViewableChildren && ($count == $renderedChildren))
           </li>
         #else
           </ul>
-          #if ($velocityCount > $renderedChildren) 
+          #if ($count > $renderedChildren) 
           </li>
           #end
         #end
