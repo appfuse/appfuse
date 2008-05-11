@@ -348,6 +348,11 @@ public class InstallSourceMojo extends AbstractMojo {
                 if (value == null) {
                     continue;
                 }
+
+                // hack for Tapestry depending on commons-pool (a.k.a. commons-dbcp 1.2.2)
+                if ("tapestry".equals(project.getProperties().getProperty("web.framework")) && key.equals("commons.dbcp.version")) {
+                    value = "1.2.2";
+                }
                 
                 if (value.contains("&amp;")) {
                     value = "<![CDATA[" + value + "]]>";
@@ -483,7 +488,7 @@ public class InstallSourceMojo extends AbstractMojo {
                     if (value.contains("&amp;")) {
                         value = "<![CDATA[" + value + "]]>";
                     }
-
+                    
                     calculatedProperties.append("        <");
                     calculatedProperties.append(key);
                     calculatedProperties.append(">");
@@ -675,7 +680,7 @@ public class InstallSourceMojo extends AbstractMojo {
                 && "jsf".equals(project.getProperties().getProperty("web.framework"))) {
                 // skip adding dependency for old group id of jsp-api
                 continue;
-            }
+            } 
 
             if (!artifactIds.contains(dep.getArtifactId()) &&
                     !dep.getArtifactId().contains("appfuse")) {
