@@ -5,7 +5,7 @@ Developer notes on setting up your IDE to work with AppFuse are contained
 below. Instructions currently existing for Eclipse and IDEA. Netbeans is
 on the roadmap; you're more than welcome to create them in the meantime.
 
-To begin, download Maven 2.0.6, install it, and add $M2_HOME/bin to your $PATH.
+To begin, download Maven 2.0.9, install it, and add $M2_HOME/bin to your $PATH.
 Create a MAVEN_OPTS environment variable and set its value to:
 
 -Xms512M -Xmx512M
