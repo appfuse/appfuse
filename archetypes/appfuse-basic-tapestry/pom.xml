@@ -20,23 +20,23 @@
     <parent>
         <groupId>org.appfuse</groupId>
         <artifactId>appfuse</artifactId>
-        <version>2.0.2-SNAPSHOT</version>
+        <version>2.0.2</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <groupId>org.appfuse.archetypes</groupId>
     <artifactId>appfuse-basic-tapestry</artifactId>
     <name>AppFuse Basic Archetype - Tapestry</name>
-    <version>2.0.2-SNAPSHOT</version>
+    <version>2.0.2</version>
 
     <description>
         Maven 2 archetype that creates a web application with AppFuse embedded in it.
     </description>
 
     <scm>
-        <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/archetypes/appfuse-basic-tapestry</connection>
-        <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/archetypes/appfuse-basic-tapestry</developerConnection>
-        <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/archetypes/appfuse-basic-tapestry</url>
+        <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/tags/APPFUSE_2.0.2/archetypes/appfuse-basic-tapestry</connection>
+        <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/tags/APPFUSE_2.0.2/archetypes/appfuse-basic-tapestry</developerConnection>
+        <url>https://appfuse.dev.java.net/source/browse/appfuse/tags/APPFUSE_2.0.2/archetypes/appfuse-basic-tapestry</url>
     </scm>
 
 </project>
