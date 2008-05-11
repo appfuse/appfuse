@@ -2,7 +2,7 @@
 <!-- This file is imported in the archetype pom.xml files for integration tests -->
 <project name="common-test" default="test-all">
 
-    <property name="version" value="2.0.2"/>
+    <property name="version" value="2.1-SNAPSHOT"/>
     <property name="archetype" value="${archetype}"/>
     <property name="test.dir" value="${basedir}/target"/>
 
