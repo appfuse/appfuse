@@ -72,7 +72,11 @@
 		            <groupId>xerces</groupId>
 		            <artifactId>xercesImpl</artifactId>
 		        </exclusion>
-		    </exclusions>
+                <exclusion>
+                    <artifactId>commons-collections</artifactId>
+                    <groupId>commons-collections</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.subethamail</groupId>
