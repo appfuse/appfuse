@@ -431,7 +431,7 @@
         <amp.fullSource>false</amp.fullSource>
 
         <!-- Framework dependency versions -->
-        <appfuse.version>2.0.2-SNAPSHOT</appfuse.version>
+        <appfuse.version>2.0.2</appfuse.version>
         <spring.version>2.5.4</spring.version>
 
         <!-- Testing dependency versions -->

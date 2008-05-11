@@ -249,9 +249,6 @@
         <repository>
             <id>appfuse</id>
             <url>http://static.appfuse.org/repository</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
         </repository>
     </repositories>
 
@@ -259,9 +256,6 @@
         <pluginRepository>
             <id>appfuse</id>
             <url>http://static.appfuse.org/repository</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
         </pluginRepository>
     </pluginRepositories>
 

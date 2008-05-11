@@ -13,7 +13,7 @@
     
     <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="classpath"/>
 
-    <property name="version" value="2.0.2-SNAPSHOT"/>
+    <property name="version" value="2.0.2"/>
     <property name="archetype" value="${archetype}"/>
     <property name="test.dir" value="${basedir}/target"/>
 
