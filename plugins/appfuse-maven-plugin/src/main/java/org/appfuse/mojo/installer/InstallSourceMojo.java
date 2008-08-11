@@ -349,6 +349,11 @@ public class InstallSourceMojo extends AbstractMojo {
                     continue;
                 }
 
+				// hack for Tapestry depending on commons-pool (a.k.a. commons-dbcp 1.2.2)
+                if ("tapestry".equals(project.getProperties().getProperty("web.framework")) && key.equals("commons.dbcp.version")) {
+                    value = "1.2.2";
+                }
+
                 if (value.contains("&amp;")) {
                     value = "<![CDATA[" + value + "]]>";
                 }
