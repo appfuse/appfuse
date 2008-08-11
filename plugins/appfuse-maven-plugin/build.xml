@@ -259,7 +259,7 @@
                 <arg line="@{command}"/>
             </exec>
             <exec dir="@{dir}" executable="mvn" os="Mac OS X" failonerror="true" errorproperty="command.failed">
-                <arg line="@{command}"/>
+                <arg line="@{command} -e"/>
             </exec>
             <exec dir="@{dir}" executable="mvn" os="Linux" failonerror="true" errorproperty="command.failed">
                 <arg line="@{command}"/>

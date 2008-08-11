@@ -205,20 +205,20 @@
             <version>${hibernate3.plugin.version}</version>
         </dependency>
          <dependency>
-		    <groupId>log4j</groupId>
-		    <artifactId>log4j</artifactId>
-		    <version>1.2.13</version>
-		</dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.13</version>
+        </dependency>
         <!-- This is to support the ant calls within the mojos -->
         <dependency>
             <groupId>org.apache.ant</groupId>
             <artifactId>ant</artifactId>
-            <version>1.7.0</version>
+            <version>1.7.1</version>
         </dependency>
         <dependency>
             <groupId>org.apache.ant</groupId>
             <artifactId>ant-nodeps</artifactId>
-            <version>1.7.0</version>
+            <version>1.7.1</version>
         </dependency>
         <dependency>
             <groupId>hsqldb</groupId>
