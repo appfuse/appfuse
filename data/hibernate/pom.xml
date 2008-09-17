@@ -14,7 +14,8 @@
     limitations under the License.
 -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -115,11 +116,11 @@
         </testResources>
     </build>
 
-    <!-- For JTA, which isn't in Maven's central repository -->
     <repositories>
+        <!-- For up-to-date Hibernate releases -->
         <repository>
-            <id>java.net</id>
-            <url>http://download.java.net/maven/2</url>
+            <id>jboss</id>
+            <url>http://repository.jboss.com/maven2</url>
         </repository>
     </repositories>
 
@@ -131,33 +132,38 @@
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate</artifactId>
-            <version>${hibernate.version}</version>
+            <artifactId>hibernate-annotations</artifactId>
+            <version>${hibernate.annotations.version}</version>
             <exclusions>
                 <exclusion>
-                    <groupId>net.sf.ehcache</groupId>
-                    <artifactId>ehcache</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-collections</groupId>
-                    <artifactId>commons-collections</artifactId>
+                    <groupId>org.hibernate</groupId>
+                    <artifactId>ejb3-persistence</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
+        <!-- Upgrade Hibernate version -->
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-annotations</artifactId>
-            <version>${hibernate.annotations.version}</version>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
         </dependency>
+        <!-- Use Javassist as Hibernate's bytecode provider -->
+        <dependency>
+            <groupId>javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>3.4.GA</version>
+        </dependency>
+        <!-- Logging Setup (required) -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.5.2</version>
+        </dependency>
+        <!-- Enable EhCache support -->
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-commons-annotations</artifactId>
-            <version>${hibernate.annotations.version}</version> 
-        </dependency>
-        <dependency>
-            <groupId>commons-collections</groupId>
-            <artifactId>commons-collections</artifactId>
-            <version>${commons.collections.version}</version>
+            <artifactId>hibernate-ehcache</artifactId>
+            <version>${hibernate.version}</version>
         </dependency>
         <dependency>
             <groupId>net.sf.ehcache</groupId>

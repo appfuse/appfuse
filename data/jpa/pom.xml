@@ -98,11 +98,11 @@
         </testResources>
     </build>
 
-    <!-- For JTA, which isn't in Maven's central repository -->
     <repositories>
+        <!-- For up-to-date Hibernate releases -->
         <repository>
-            <id>java.net</id>
-            <url>http://download.java.net/maven/2</url>
+            <id>jboss</id>
+            <url>http://repository.jboss.com/maven2</url>
         </repository>
     </repositories>
 
@@ -114,39 +114,26 @@
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate</artifactId>
-            <version>${hibernate.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>net.sf.ehcache</groupId>
-                    <artifactId>ehcache</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-collections</groupId>
-                    <artifactId>commons-collections</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
             <version>${hibernate.entitymanager.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>jboss</groupId>
-                    <artifactId>jboss-common-core</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
+        <!-- Upgrade Hibernate version -->
         <dependency>
-            <groupId>jboss</groupId>
-            <artifactId>jboss-archive-browsing</artifactId>
-            <version>5.0.0alpha-200607201-119</version>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
         </dependency>
+        <!-- Logging Setup (required) -->
         <dependency>
-            <groupId>commons-collections</groupId>
-            <artifactId>commons-collections</artifactId>
-            <version>${commons.collections.version}</version>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.5.2</version>
+        </dependency>
+        <!-- Enable EhCache support -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-ehcache</artifactId>
+            <version>${hibernate.version}</version>
         </dependency>
         <dependency>
             <groupId>net.sf.ehcache</groupId>

@@ -484,9 +484,9 @@
         <ehcache.version>1.5.0</ehcache.version>
         <el.version>1.2</el.version>
         <facelets.version>1.1.14</facelets.version>
-        <hibernate.version>3.2.6.ga</hibernate.version>
-        <hibernate.annotations.version>3.3.0.ga</hibernate.annotations.version>
-        <hibernate.entitymanager.version>3.3.1.ga</hibernate.entitymanager.version>
+        <hibernate.version>3.3.1.GA</hibernate.version>
+        <hibernate.annotations.version>3.4.0.GA</hibernate.annotations.version>
+        <hibernate.entitymanager.version>3.4.0.GA</hibernate.entitymanager.version>
         <ibatis.version>2.3.0</ibatis.version>
         <javamail.version>1.4</javamail.version>
         <jmock.version>2.4.0</jmock.version>
@@ -501,7 +501,7 @@
         <servlet.version>2.4</servlet.version>
         <shale.version>1.0.4</shale.version>
         <sitemesh.version>2.2.1</sitemesh.version>
-        <spring.version>2.5.4</spring.version>
+        <spring.version>2.5.5</spring.version>
         <spring.security.version>2.0.1</spring.security.version>
         <springmodules.validation.version>0.8</springmodules.validation.version>
         <struts.version>2.0.11.1</struts.version>

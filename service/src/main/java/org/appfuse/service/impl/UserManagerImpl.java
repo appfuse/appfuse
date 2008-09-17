@@ -1,7 +1,5 @@
 package org.appfuse.service.impl;
 
-import org.springframework.security.providers.dao.DaoAuthenticationProvider;
-import org.springframework.security.providers.dao.SaltSource;
 import org.springframework.security.providers.encoding.PasswordEncoder;
 import org.springframework.security.userdetails.UsernameNotFoundException;
 import org.appfuse.dao.UserDao;
@@ -13,7 +11,7 @@ import org.springframework.beans.factory.annotation.Required;
 import org.springframework.dao.DataIntegrityViolationException;
 
 import javax.jws.WebService;
-import javax.persistence.EntityExistsException;
+import javax.persistence.PersistenceException;
 import java.util.List;
 
 
@@ -100,11 +98,11 @@ public class UserManagerImpl extends UniversalManagerImpl implements UserManager
         try {
             return dao.saveUser(user);
         } catch (DataIntegrityViolationException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             log.warn(e.getMessage());
             throw new UserExistsException("User '" + user.getUsername() + "' already exists!");
-        } catch (EntityExistsException e) { // needed for JPA
-            e.printStackTrace();
+        } catch (PersistenceException e) { // needed for JPA
+            //e.printStackTrace();
             log.warn(e.getMessage());
             throw new UserExistsException("User '" + user.getUsername() + "' already exists!");
         }

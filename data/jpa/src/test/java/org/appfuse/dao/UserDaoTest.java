@@ -1,7 +1,7 @@
 package org.appfuse.dao;
 
-import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.PersistenceException;
 
 import org.appfuse.Constants;
 import org.appfuse.model.Address;
@@ -64,8 +64,8 @@ public class UserDaoTest extends BaseDaoTestCase {
         super.startNewTransaction();
         try {
             dao.save(user);
-            fail("saveUser didn't throw EntityExistsException");
-        } catch (EntityExistsException e) {
+            fail("saveUser didn't throw PersistenceException");
+        } catch (PersistenceException e) {
             assertNotNull(e);
             log.debug("expected exception: " + e.getMessage());
         }
