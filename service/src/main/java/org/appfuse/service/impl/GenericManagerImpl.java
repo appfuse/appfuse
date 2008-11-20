@@ -49,50 +49,48 @@ public class GenericManagerImpl<T, PK extends Serializable> implements GenericMa
     protected final Log log = LogFactory.getLog(getClass());
 
     /**
-     * GenericDao instance, set by constructor of this class
+     * GenericDao instance, set by constructor of child classes
      */
-    protected GenericDao<T, PK> genericDao;
+    protected GenericDao<T, PK> dao;
 
-    /**
-     * Public constructor for creating a new GenericManagerImpl.
-     * @param genericDao the GenericDao to use for persistence
-     */
-    public GenericManagerImpl(final GenericDao<T, PK> genericDao) {
-        this.genericDao = genericDao;
+    public GenericManagerImpl() {}
+
+    public GenericManagerImpl(GenericDao<T, PK> genericDao) {
+        this.dao = genericDao;
     }
 
     /**
      * {@inheritDoc}
      */
     public List<T> getAll() {
-        return genericDao.getAll();
+        return dao.getAll();
     }
 
     /**
      * {@inheritDoc}
      */
     public T get(PK id) {
-        return genericDao.get(id);
+        return dao.get(id);
     }
 
     /**
      * {@inheritDoc}
      */
     public boolean exists(PK id) {
-        return genericDao.exists(id);
+        return dao.exists(id);
     }
 
     /**
      * {@inheritDoc}
      */
     public T save(T object) {
-        return genericDao.save(object);
+        return dao.save(object);
     }
 
     /**
      * {@inheritDoc}
      */
     public void remove(PK id) {
-        genericDao.remove(id);
+        dao.remove(id);
     }
 }

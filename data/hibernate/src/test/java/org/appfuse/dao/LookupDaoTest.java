@@ -1,5 +1,9 @@
 package org.appfuse.dao;
 
+import static org.junit.Assert.assertTrue;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.List;
 
 /**
@@ -7,14 +11,12 @@ import java.util.List;
  * @author mraible
  */
 public class LookupDaoTest extends BaseDaoTestCase {
-    private LookupDao dao;
-    
-    public void setLookupDao(LookupDao dao) {
-        this.dao = dao;
-    }
+    @Autowired
+    LookupDao lookupDao;
 
+    @Test
     public void testGetRoles() {
-        List roles = dao.getRoles();
+        List roles = lookupDao.getRoles();
         log.debug(roles);
         assertTrue(roles.size() > 0);
     }

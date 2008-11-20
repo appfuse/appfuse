@@ -1,4 +1,4 @@
-package org.appfuse.service;
+package org.appfuse.service.impl;
 
 import org.springframework.security.AccessDeniedException;
 import org.springframework.security.Authentication;
@@ -7,6 +7,9 @@ import org.springframework.security.context.SecurityContextHolder;
 import org.springframework.security.context.SecurityContextImpl;
 import org.springframework.security.providers.UsernamePasswordAuthenticationToken;
 import org.appfuse.Constants;
+import org.appfuse.service.impl.UserManagerImpl;
+import org.appfuse.service.UserManager;
+import org.appfuse.service.UserSecurityAdvice;
 import org.appfuse.dao.UserDao;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
@@ -20,6 +23,7 @@ import org.junit.runner.RunWith;
 import org.junit.Before;
 import org.junit.After;
 import org.junit.Test;
+import org.junit.Assert;
 import static org.junit.Assert.*;
 
 @RunWith(JMock.class)
@@ -65,7 +69,7 @@ public class UserSecurityAdviceTest {
             fail("AccessDeniedException not thrown");
         } catch (AccessDeniedException expected) {
             assertNotNull(expected);
-            assertEquals(expected.getMessage(), UserSecurityAdvice.ACCESS_DENIED);
+            Assert.assertEquals(expected.getMessage(), UserSecurityAdvice.ACCESS_DENIED);
         }
     }
 

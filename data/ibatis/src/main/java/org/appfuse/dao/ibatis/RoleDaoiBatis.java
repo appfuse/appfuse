@@ -2,6 +2,7 @@ package org.appfuse.dao.ibatis;
 
 import org.appfuse.dao.RoleDao;
 import org.appfuse.model.Role;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
+@Repository
 public class RoleDaoiBatis extends GenericDaoiBatis<Role, Long> implements RoleDao {
 
     /**
@@ -23,7 +25,8 @@ public class RoleDaoiBatis extends GenericDaoiBatis<Role, Long> implements RoleD
     /**
      * {@inheritDoc}
      */
-    @Override @SuppressWarnings("unchecked")
+    @Override
+    @SuppressWarnings("unchecked")
     public List<Role> getAll() {
         return getSqlMapClientTemplate().queryForList("getRoles", null);
     }

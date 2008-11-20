@@ -1,56 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd"
        default-lazy-init="true">
     
+    <!-- SqlMap setup for iBATIS Database Layer -->
+    <bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+        <property name="configLocation" value="classpath:/sql-map-config.xml"/>
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
     <!-- Transaction manager for a single JDBC DataSource -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <!-- SqlMap setup for iBATIS Database Layer -->
-    <bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
-        <property name="configLocation">
-            <value>classpath:/sql-map-config.xml</value>
-        </property>
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
+    <!-- Activates scanning of @Autowired -->
+    <context:annotation-config/>
 
-    <!-- Generic Dao - can be used when doing standard CRUD -->
-    <bean id="universalDao" class="org.appfuse.dao.ibatis.UniversalDaoiBatis">
-        <property name="dataSource" ref="dataSource"/>
-        <property name="sqlMapClient" ref="sqlMapClient"/>
-    </bean> 
-    
-    <bean id="lookupDao" class="org.appfuse.dao.ibatis.LookupDaoiBatis"> 
-        <property name="dataSource" ref="dataSource"/>
-        <property name="sqlMapClient" ref="sqlMapClient"/>
-    </bean> 
-    
-    <bean id="userDao" class="org.appfuse.dao.ibatis.UserDaoiBatis"> 
-        <property name="dataSource" ref="dataSource"/>
-        <property name="sqlMapClient" ref="sqlMapClient"/>
-    </bean> 
-
-    <bean id="roleDao" class="org.appfuse.dao.ibatis.RoleDaoiBatis">
-        <property name="dataSource" ref="dataSource"/>
-        <property name="sqlMapClient" ref="sqlMapClient"/>
-    </bean>
-    
-    <!-- If you want to be able to do simple CRUD for new domain objects without
-        having to cast, you don't have create a Dao interface and implementation
-        for that domain object, you simply have to do the following.
-
-        You will need to create a Dao interface and implementation for that
-        domain object if you need more than simple CRUD to occur.
-        (finders, bulk update/delete, etc.) eg... 'fooDao'
-
-    <bean id="fooDao" class="org.appfuse.dao.ibatis.GenericDaoiBatis">
-        <constructor-arg value="org.appfuse.model.Foo"/>
-        <property name="dataSource" ref="dataSource"/>
-        <property name="sqlMapClient" ref="sqlMapClient"/>
-    </bean>
-    -->
-
-    <!-- Add new DAOs here -->
+    <!-- Activates scanning of @Repository -->
+    <context:component-scan base-package="org.appfuse.dao"/>
 </beans>

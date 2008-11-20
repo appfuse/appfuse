@@ -4,23 +4,19 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.Constants;
 import org.appfuse.model.User;
+import static org.junit.Assert.*;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class UserManagerTest extends BaseManagerTestCase {
-    //~ Instance fields ========================================================
-
-    private UserManager mgr = null;
-    private RoleManager roleManager = null;
     private Log log = LogFactory.getLog(UserManagerTest.class);
+    @Autowired
+    private UserManager mgr;
+    @Autowired
+    private RoleManager roleManager;
     private User user;
-    
-    public void setUserManager(UserManager userManager) {
-        this.mgr = userManager;
-    }
-    
-    public void setRoleManager(RoleManager roleManager) {
-        this.roleManager = roleManager;
-    }
 
+    @Test
     public void testGetUser() throws Exception {
         user = mgr.getUserByUsername("user");
         assertNotNull(user);
@@ -29,6 +25,7 @@ public class UserManagerTest extends BaseManagerTestCase {
         assertEquals(1, user.getRoles().size());
     }
 
+    @Test
     public void testSaveUser() throws Exception {
         user = mgr.getUserByUsername("user");
         user.setPhoneNumber("303-555-1212");
@@ -40,6 +37,7 @@ public class UserManagerTest extends BaseManagerTestCase {
         assertEquals(1, user.getRoles().size());
     }
 
+    @Test
     public void testAddAndRemoveUser() throws Exception {
         user = new User();
 

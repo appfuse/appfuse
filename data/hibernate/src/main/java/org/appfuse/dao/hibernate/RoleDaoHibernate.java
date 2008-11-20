@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.appfuse.dao.RoleDao;
 import org.appfuse.model.Role;
+import org.springframework.stereotype.Repository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.hibernate.SessionFactory;
 
 
 /**
@@ -12,6 +15,7 @@ import org.appfuse.model.Role;
  *
  * @author <a href="mailto:bwnoll@gmail.com">Bryan Noll</a> 
  */
+@Repository
 public class RoleDaoHibernate extends GenericDaoHibernate<Role, Long> implements RoleDao {
 
     /**

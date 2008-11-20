@@ -4,31 +4,28 @@ import org.appfuse.Constants;
 import org.appfuse.model.Address;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
+import static org.junit.Assert.*;
+import org.junit.Test;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
-import junit.framework.Assert;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.NotTransactional;
+import org.springframework.test.annotation.ExpectedException;
 
 public class UserDaoTest extends BaseDaoTestCase {
-    private UserDao dao = null;
-    private RoleDao rdao = null;
-    
-    public void setUserDao(UserDao dao) {
-        this.dao = dao;
-    }
-    
-    public void setRoleDao(RoleDao rdao) {
-        this.rdao = rdao;
-    }
+    @Autowired
+    private UserDao dao;
+    @Autowired
+    private RoleDao rdao;
 
+    @Test
+    @ExpectedException(DataAccessException.class)
     public void testGetUserInvalid() throws Exception {
-        try {
-            dao.get(1000L);
-            fail("'badusername' found in database, failing test...");
-        } catch (DataAccessException d) {
-            assertTrue(d != null);
-        }
+        // should throw DataAccessException
+        dao.get(1000L);
     }
 
+    @Test
     public void testGetUser() throws Exception {
         User user = dao.get(-1L);
 
@@ -37,6 +34,7 @@ public class UserDaoTest extends BaseDaoTestCase {
         assertTrue(user.isEnabled());
     }
 
+    @Test
     public void testGetUserPassword() throws Exception {
         User user = dao.get(-1L);
         String password = dao.getUserPassword(user.getUsername());
@@ -44,6 +42,9 @@ public class UserDaoTest extends BaseDaoTestCase {
         log.debug("password: " + password);
     }
 
+    @Test
+    @NotTransactional
+    @ExpectedException(DataIntegrityViolationException.class)
     public void testUpdateUser() throws Exception {
         User user = dao.get(-1L);
 
@@ -56,29 +57,22 @@ public class UserDaoTest extends BaseDaoTestCase {
         user = dao.get(-1L);
         assertEquals(address, user.getAddress());
         assertEquals("new address", user.getAddress().getAddress());
-        
+
         // verify that violation occurs when adding new user with same username
         user.setId(null);
 
-        endTransaction();
-
-        try {
-            dao.saveUser(user);
-            flush();
-            fail("saveUser didn't throw DataIntegrityViolationException");
-        } catch (DataIntegrityViolationException e) {
-            assertNotNull(e);
-            log.debug("expected exception: " + e.getMessage());
-        }
+        // should throw DataIntegrityViolationException
+        dao.saveUser(user);
     }
 
+    @Test
     public void testAddUserRole() throws Exception {
         User user = dao.get(-1L);
         assertEquals(1, user.getRoles().size());
 
         Role role = rdao.getRoleByName(Constants.ADMIN_ROLE);
         user.addRole(role);
-        user = dao.saveUser(user);
+        dao.saveUser(user);
         flush();
 
         user = dao.get(-1L);
@@ -100,6 +94,8 @@ public class UserDaoTest extends BaseDaoTestCase {
         assertEquals(1, user.getRoles().size());
     }
 
+    @Test
+    @ExpectedException(DataAccessException.class)
     public void testAddAndRemoveUser() throws Exception {
         User user = new User("testuser");
         user.setPassword("testpass");
@@ -113,7 +109,7 @@ public class UserDaoTest extends BaseDaoTestCase {
         user.setAddress(address);
         user.setEmail("testuser@appfuse.org");
         user.setWebsite("http://raibledesigns.com");
-        
+
         Role role = rdao.getRoleByName(Constants.USER_ROLE);
         assertNotNull(role.getId());
         user.addRole(role);
@@ -127,20 +123,18 @@ public class UserDaoTest extends BaseDaoTestCase {
 
         dao.remove(user.getId());
         flush();
-        
-        try {
-            dao.get(user.getId());
-            fail("getUser didn't throw DataAccessException");
-        } catch (DataAccessException d) {
-            assertNotNull(d);
-        }
+
+        // should throw DataAccessException
+        dao.get(user.getId());
     }
-    
+
+    @Test
     public void testUserExists() throws Exception {
         boolean b = dao.exists(-1L);
         assertTrue(b);
     }
-    
+
+    @Test
     public void testUserNotExists() throws Exception {
         boolean b = dao.exists(111L);
         assertFalse(b);

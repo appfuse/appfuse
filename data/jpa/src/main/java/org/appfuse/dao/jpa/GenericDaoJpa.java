@@ -9,6 +9,9 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Collection;
+import java.util.LinkedHashSet;
+import java.util.ArrayList;
 
 /**
  * This class serves as the Base class for all other DAOs - namely to hold
@@ -32,25 +35,40 @@ public class GenericDaoJpa<T, PK extends Serializable> implements GenericDao<T, 
      * Log variable for all child classes. Uses LogFactory.getLog(getClass()) from Commons Logging
      */
     protected final Log log = LogFactory.getLog(getClass());
+
+    public static final String PERSISTENCE_UNIT_NAME = "ApplicationEntityManager";
+    
     /**
      * Entity manager, injected by Spring using @PersistenceContext annotation on setEntityManager()
      */
-    protected EntityManager entityManager;
+    @PersistenceContext(unitName=PERSISTENCE_UNIT_NAME)
+    private EntityManager entityManager;
     private Class<T> persistentClass;
 
     /**
-     * Constructor that takes in a class to see which type of entity to persist
+     * Constructor that takes in a class to see which type of entity to persist.
+     * Use this constructor when subclassing or using dependency injection.
      * @param persistentClass the class type you'd like to persist
      */
     public GenericDaoJpa(final Class<T> persistentClass) {
         this.persistentClass = persistentClass;
     }
 
-    @PersistenceContext(unitName="ApplicationEntityManager")
-    public void setEntityManager(EntityManager entityManager) {
+    /**
+     * Constructor that takes in a class to see which type of entity to persist.
+     * Use this constructor when subclassing or using dependency injection.
+     * @param persistentClass the class type you'd like to persist
+     * @param entityManager the configured EntityManager for JPA implementation.
+     */
+    public GenericDaoJpa(final Class<T> persistentClass, EntityManager entityManager) {
+        this.persistentClass = persistentClass;
         this.entityManager = entityManager;
     }
 
+    public EntityManager getEntityManager() {
+        return this.entityManager;
+    }
+    
     /**
      * {@inheritDoc}
      */
@@ -59,6 +77,15 @@ public class GenericDaoJpa<T, PK extends Serializable> implements GenericDao<T, 
         return this.entityManager.createQuery(
                 "select obj from " + this.persistentClass.getName() + " obj")
                 .getResultList();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @SuppressWarnings("unchecked")
+    public List<T> getAllDistinct() {
+        Collection result = new LinkedHashSet(getAll());
+        return new ArrayList(result);
     }
 
     /**

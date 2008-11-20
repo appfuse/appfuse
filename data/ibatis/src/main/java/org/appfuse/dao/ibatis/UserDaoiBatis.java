@@ -8,6 +8,7 @@ import org.appfuse.model.Role;
 import org.appfuse.model.User;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -20,13 +21,14 @@ import java.util.Map;
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
+@Repository("userDao")
 public class UserDaoiBatis extends GenericDaoiBatis<User, Long>implements UserDao, UserDetailsService {
 
     /**
      * Constructor that sets the entity to User.class.
      */
     public UserDaoiBatis() {
-        super(org.appfuse.model.User.class);
+        super(User.class);
     }
 
     /**
@@ -41,7 +43,7 @@ public class UserDaoiBatis extends GenericDaoiBatis<User, Long>implements UserDa
         User user = (User) getSqlMapClientTemplate().queryForObject("getUser", userId);
 
         if (user == null) {
-            logger.warn("uh oh, user not found...");
+            log.warn("uh oh, user not found...");
             throw new ObjectRetrievalFailureException(User.class, userId);
         } else {
             List roles = getSqlMapClientTemplate().queryForList("getUserRoles", user);
@@ -129,7 +131,7 @@ public class UserDaoiBatis extends GenericDaoiBatis<User, Long>implements UserDa
          User user = (User) getSqlMapClientTemplate().queryForObject("getUserByUsername", username);
 
          if (user == null) {
-             logger.warn("uh oh, user not found...");
+             log.warn("uh oh, user not found...");
              throw new UsernameNotFoundException("user '" + username + "' not found...");
          } else {
              List roles = getSqlMapClientTemplate().queryForList("getUserRoles", user);

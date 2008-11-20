@@ -6,16 +6,26 @@ import org.apache.commons.logging.LogFactory;
 import org.appfuse.dao.GenericDao;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
+import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.util.ClassUtils;
+import org.springframework.util.Assert;
+import org.springframework.stereotype.Repository;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.sql.DataSource;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Collection;
+import java.util.LinkedHashSet;
+import java.util.ArrayList;
+
+import com.ibatis.sqlmap.client.SqlMapClient;
 
 /**
  * This class serves as the Base class for all other DAOs - namely to hold
  * common CRUD methods that they might all use. You should only need to extend
  * this class when your require custom CRUD logic.
- *
+ * <p/>
  * <p>To register this class in your Spring context file, use the following XML.
  * <pre>
  *      &lt;bean id="fooDao" class="org.appfuse.dao.ibatis.GenericDaoiBatis"&gt;
@@ -28,19 +38,56 @@ import java.util.List;
  * @param <T> a type variable
  * @param <PK> the primary key for that type
  */
-public class GenericDaoiBatis<T, PK extends Serializable> extends SqlMapClientDaoSupport implements GenericDao<T, PK> {
+public class GenericDaoiBatis<T, PK extends Serializable> implements GenericDao<T, PK> {
     /**
      * Log variable for all child classes. Uses LogFactory.getLog(getClass()) from Commons Logging
      */
     protected final Log log = LogFactory.getLog(getClass());
     private Class<T> persistentClass;
+    private SqlMapClientTemplate sqlMapClientTemplate = new SqlMapClientTemplate();
+
 
     /**
-     * Constructor that takes in a class to see which type of entity to persist
+     * Constructor that takes in a class to see which type of entity to persist.
+     * Use this constructor when subclassing or using dependency injection.
+     *
      * @param persistentClass the class type you'd like to persist
      */
     public GenericDaoiBatis(final Class<T> persistentClass) {
         this.persistentClass = persistentClass;
+    }
+
+    /**
+     * Constructor that takes in a class to see which type of entity to persist
+     * Use this constructor when manually creating a new instance.
+     *
+     * @param persistentClass the class type you'd like to persist
+     * @param sqlMapClient    the configured SqlMapClient
+     */
+    public GenericDaoiBatis(final Class<T> persistentClass, SqlMapClient sqlMapClient) {
+        this.persistentClass = persistentClass;
+        this.sqlMapClientTemplate.setSqlMapClient(sqlMapClient);
+    }
+
+    /**
+     * Set the iBATIS Database Layer SqlMapClient to work with.
+     * Either this or a "sqlMapClientTemplate" is required.
+     *
+     * @param sqlMapClient the configured SqlMapClient
+     */
+    @Autowired
+    public final void setSqlMapClient(SqlMapClient sqlMapClient) {
+        this.sqlMapClientTemplate.setSqlMapClient(sqlMapClient);
+    }
+
+    /**
+     * Return the SqlMapClientTemplate for this DAO,
+     * pre-initialized with the SqlMapClient or set explicitly.
+     *
+     * @return an initialized SqlMapClientTemplate
+     */
+    public final SqlMapClientTemplate getSqlMapClientTemplate() {
+        return this.sqlMapClientTemplate;
     }
 
     /**
@@ -50,6 +97,15 @@ public class GenericDaoiBatis<T, PK extends Serializable> extends SqlMapClientDa
     public List<T> getAll() {
         return getSqlMapClientTemplate().queryForList(
                 iBatisDaoUtils.getSelectQuery(ClassUtils.getShortName(this.persistentClass)), null);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @SuppressWarnings("unchecked")
+    public List<T> getAllDistinct() {
+        Collection result = new LinkedHashSet(getAll());
+        return new ArrayList(result);
     }
 
     /**

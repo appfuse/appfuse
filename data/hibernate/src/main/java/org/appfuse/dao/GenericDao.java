@@ -25,6 +25,14 @@ public interface GenericDao <T, PK extends Serializable> {
     List<T> getAll();
 
     /**
+     * Gets all records without duplicates.
+     * <p>Note that if you use this method, it is imperative that your model
+     * classes correctly implement the hashcode/equals methods</p>
+     * @return List of populated objects
+     */
+    List<T> getAllDistinct();
+
+    /**
      * Generic method to get an object based on class and identifier. An
      * ObjectRetrievalFailureException Runtime Exception is thrown if
      * nothing is found.
@@ -54,15 +62,6 @@ public interface GenericDao <T, PK extends Serializable> {
      * @param id the identifier (primary key) of the object to remove
      */
     void remove(PK id);
-    
-    /**
-     * Gets all records without duplicates.
-     * <p>Note that if you use this method, it is imperative that your model
-     * classes correctly implement the hashcode/equals methods</p>
-     * @return List of populated objects
-     */
-    List<T> getAllDistinct();
-    
 
     /**
      * Find a list of records by using a named query

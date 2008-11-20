@@ -9,6 +9,9 @@ import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 import org.springframework.orm.hibernate3.SessionFactoryUtils;
+import org.springframework.stereotype.Repository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.hibernate.SessionFactory;
 
 import javax.persistence.Table;
 import java.util.List;
@@ -23,6 +26,7 @@ import java.util.List;
  *   Modified by <a href="mailto:bwnoll@gmail.com">Bryan Noll</a> to work with 
  *   the new BaseDaoHibernate implementation that uses generics.
 */
+@Repository("userDao")
 public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements UserDao, UserDetailsService {
 
     /**
@@ -44,7 +48,8 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
      * {@inheritDoc}
      */
     public User saveUser(User user) {
-        log.debug("user's id: " + user.getId());
+        if (log.isDebugEnabled())
+            log.debug("user's id: " + user.getId());
         getHibernateTemplate().saveOrUpdate(user);
         // necessary to throw a DataIntegrityViolation and catch it in UserManager
         getHibernateTemplate().flush();

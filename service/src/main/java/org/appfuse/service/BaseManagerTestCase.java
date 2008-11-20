@@ -5,25 +5,22 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.util.ConvertUtil;
 import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
+import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
+import org.springframework.test.context.ContextConfiguration;
 
 import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-
-public abstract class BaseManagerTestCase extends AbstractTransactionalDataSourceSpringContextTests {
+@ContextConfiguration(
+    locations={"classpath:/applicationContext-resources.xml",
+               "classpath:/applicationContext-dao.xml",
+               "classpath:/applicationContext-service.xml",
+               "classpath*:/**/applicationContext.xml"})
+public abstract class BaseManagerTestCase extends AbstractTransactionalJUnit4SpringContextTests {
     //~ Static fields/initializers =============================================
-
     protected final Log log = LogFactory.getLog(getClass());
     protected static ResourceBundle rb = null;
-
-    protected String[] getConfigLocations() {
-        setAutowireMode(AUTOWIRE_BY_NAME);
-        return new String[] {"/applicationContext-resources.xml", "classpath:/applicationContext-dao.xml",
-                             "/applicationContext-service.xml", "classpath*:/**/applicationContext.xml"};
-        // classpath*:/**/applicationContext.xml has to be used since this file does not
-        // exist in AppFuse, but may exist in projects that depend on it
-    }
 
     //~ Constructors ===========================================================
 

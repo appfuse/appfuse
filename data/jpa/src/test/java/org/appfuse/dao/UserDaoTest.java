@@ -1,34 +1,28 @@
 package org.appfuse.dao;
 
-import javax.persistence.EntityNotFoundException;
-import javax.persistence.PersistenceException;
-
 import org.appfuse.Constants;
 import org.appfuse.model.Address;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
+import static org.junit.Assert.*;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.ObjectRetrievalFailureException;
+import org.springframework.test.annotation.ExpectedException;
 
 public class UserDaoTest extends BaseDaoTestCase {
-    private UserDao dao = null;
-    private RoleDao rdao = null;
-    
-    public void setUserDao(UserDao dao) {
-        this.dao = dao;
-    }
-    
-    public void setRoleDao(RoleDao rdao) {
-        this.rdao = rdao;
-    }
+    @Autowired
+    private UserDao dao;
+    @Autowired
+    private RoleDao rdao;
 
+    @Test
+    @ExpectedException(ObjectRetrievalFailureException.class)
     public void testGetUserInvalid() throws Exception {
-        try {
-            dao.get(1000L);
-            fail("'badusername' found in database, failing test...");
-        } catch (EntityNotFoundException e) {
-            assertTrue(e != null);
-        }
+        dao.get(1000L);
     }
 
+    @Test
     public void testGetUser() throws Exception {
         User user = dao.get(-1L);
 
@@ -37,6 +31,7 @@ public class UserDaoTest extends BaseDaoTestCase {
         assertTrue(user.isEnabled());
     }
 
+    @Test
     public void testGetUserPassword() throws Exception {
         User user = dao.get(-1L);
         String password = dao.getUserPassword(user.getUsername());
@@ -44,7 +39,8 @@ public class UserDaoTest extends BaseDaoTestCase {
         log.debug("password: " + password);
     }
 
-    
+    @Test
+    //@ExpectedException(DataIntegrityViolationException.class)
     public void testUpdateUser() throws Exception {
         User user = dao.get(-1L);
 
@@ -53,24 +49,18 @@ public class UserDaoTest extends BaseDaoTestCase {
 
         dao.save(user);
 
+        user = dao.get(-1L);
         assertEquals(user.getAddress(), address);
         assertEquals("new address", user.getAddress().getAddress());
-        
-        super.endTransaction();
         
         //verify that violation occurs when adding new user with same username
         user.setId(null);
 
-        super.startNewTransaction();
-        try {
-            dao.save(user);
-            fail("saveUser didn't throw PersistenceException");
-        } catch (PersistenceException e) {
-            assertNotNull(e);
-            log.debug("expected exception: " + e.getMessage());
-        }
+        // should throw DataIntegrityViolationException
+        dao.save(user);
     }
 
+    @Test
     public void testAddUserRole() throws Exception {
         User user = dao.get(-1L);
         assertEquals(1, user.getRoles().size());
@@ -93,6 +83,8 @@ public class UserDaoTest extends BaseDaoTestCase {
         assertEquals(1, user.getRoles().size());
     }
 
+    @Test
+    @ExpectedException(ObjectRetrievalFailureException.class)
     public void testAddAndRemoveUser() throws Exception {
         User user = new User("testuser");
         user.setPassword("testpass");
@@ -118,21 +110,17 @@ public class UserDaoTest extends BaseDaoTestCase {
 
         dao.remove(user.getId());
 
-        try {
-            dao.get(user.getId());
-            fail("getUser didn't throw DataAccessException");
-        } catch (EntityNotFoundException e) {
-            assertNotNull(e);
-        }
+        // should throw EntityNotFoundException
+        dao.get(user.getId());
     }
     
     public void testUserExists() throws Exception {
         boolean b = dao.exists(-1L);
-        super.assertTrue(b);
+        assertTrue(b);
     }
     
     public void testUserNotExists() throws Exception {
         boolean b = dao.exists(111L);
-        super.assertFalse(b);
+        assertFalse(b);
     }
 }

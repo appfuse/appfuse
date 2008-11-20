@@ -2,6 +2,9 @@ package org.appfuse.dao;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Collection;
+import java.util.LinkedHashSet;
+import java.util.ArrayList;
 
 
 /**
@@ -22,6 +25,14 @@ public interface GenericDao <T, PK extends Serializable> {
      * @return List of populated objects
      */
     List<T> getAll();
+
+    /**
+     * Gets all records without duplicates.
+     * <p>Note that if you use this method, it is imperative that your model
+     * classes correctly implement the hashcode/equals methods</p>
+     * @return List of populated objects
+     */
+    List<T> getAllDistinct();
 
     /**
      * Generic method to get an object based on class and identifier. An

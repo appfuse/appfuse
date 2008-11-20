@@ -5,16 +5,16 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.persister.entity.EntityPersister;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.junit.Test;
 
 import java.util.Map;
 
 public class HibernateConfigurationTest extends BaseDaoTestCase {
-    private SessionFactory sessionFactory;
+    @Autowired
+    SessionFactory sessionFactory;
 
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
+    @Test
     public void testColumnMapping() throws Exception {
         Session session = sessionFactory.openSession();
         try {

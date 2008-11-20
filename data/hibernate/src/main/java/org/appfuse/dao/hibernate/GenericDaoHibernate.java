@@ -4,12 +4,15 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.dao.GenericDao;
 import org.springframework.orm.ObjectRetrievalFailureException;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
+import org.springframework.stereotype.Repository;
+import org.hibernate.SessionFactory;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -31,19 +34,51 @@ import java.util.Map;
  * @param <T> a type variable
  * @param <PK> the primary key for that type
  */
-public class GenericDaoHibernate<T, PK extends Serializable> extends HibernateDaoSupport implements GenericDao<T, PK> {
+public class GenericDaoHibernate<T, PK extends Serializable> implements GenericDao<T, PK> {
     /**
      * Log variable for all child classes. Uses LogFactory.getLog(getClass()) from Commons Logging
      */
     protected final Log log = LogFactory.getLog(getClass());
     private Class<T> persistentClass;
+    private HibernateTemplate hibernateTemplate;
+    private SessionFactory sessionFactory;
 
     /**
-     * Constructor that takes in a class to see which type of entity to persist
+     * Constructor that takes in a class to see which type of entity to persist.
+     * Use this constructor when subclassing or using dependency injection.
+     * 
      * @param persistentClass the class type you'd like to persist
      */
+    @Autowired
     public GenericDaoHibernate(final Class<T> persistentClass) {
         this.persistentClass = persistentClass;
+    }
+
+    /**
+     * Constructor that takes in a class and sessionFactory for easy creation of DAO
+     * @param persistentClass the class type you'd like to persist
+     * @param sessionFactory the pre-configured Hibernate SessionFactory
+     */
+    @Autowired
+    public GenericDaoHibernate(final Class<T> persistentClass, SessionFactory sessionFactory) {
+        this.persistentClass = persistentClass;
+        this.sessionFactory = sessionFactory;
+        this.hibernateTemplate = new HibernateTemplate(sessionFactory);
+    }
+
+    public HibernateTemplate getHibernateTemplate() {
+        return this.hibernateTemplate;
+    }
+
+    public SessionFactory getSessionFactory() {
+        return this.sessionFactory;
+    }
+
+    @Autowired
+    @Required
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+        this.hibernateTemplate = new HibernateTemplate(sessionFactory);
     }
 
     /**
@@ -51,9 +86,9 @@ public class GenericDaoHibernate<T, PK extends Serializable> extends HibernateDa
      */
     @SuppressWarnings("unchecked")
     public List<T> getAll() {
-        return super.getHibernateTemplate().loadAll(this.persistentClass);
+        return hibernateTemplate.loadAll(this.persistentClass);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -62,13 +97,13 @@ public class GenericDaoHibernate<T, PK extends Serializable> extends HibernateDa
         Collection result = new LinkedHashSet(getAll());
         return new ArrayList(result);
     }
-    
+
     /**
      * {@inheritDoc}
      */
     @SuppressWarnings("unchecked")
     public T get(PK id) {
-        T entity = (T) super.getHibernateTemplate().get(this.persistentClass, id);
+        T entity = (T) hibernateTemplate.get(this.persistentClass, id);
 
         if (entity == null) {
             log.warn("Uh oh, '" + this.persistentClass + "' object with id '" + id + "' not found...");
@@ -83,7 +118,7 @@ public class GenericDaoHibernate<T, PK extends Serializable> extends HibernateDa
      */
     @SuppressWarnings("unchecked")
     public boolean exists(PK id) {
-        T entity = (T) super.getHibernateTemplate().get(this.persistentClass, id);
+        T entity = (T) hibernateTemplate.get(this.persistentClass, id);
         return entity != null;
     }
 
@@ -92,35 +127,33 @@ public class GenericDaoHibernate<T, PK extends Serializable> extends HibernateDa
      */
     @SuppressWarnings("unchecked")
     public T save(T object) {
-        return (T) super.getHibernateTemplate().merge(object);
+        return (T) hibernateTemplate.merge(object);
     }
 
     /**
      * {@inheritDoc}
      */
     public void remove(PK id) {
-        super.getHibernateTemplate().delete(this.get(id));
+        hibernateTemplate.delete(this.get(id));
     }
-    
-   /** 
+
+   /**
     * {@inheritDoc}
     */
    @SuppressWarnings("unchecked")
    public List<T> findByNamedQuery(
-       String queryName, 
+       String queryName,
        Map<String, Object> queryParams) {
-       String []params = new String[queryParams.size()];
-       Object []values = new Object[queryParams.size()];
+       String[] params = new String[queryParams.size()];
+       Object[] values = new Object[queryParams.size()];
        int index = 0;
-       Iterator<String> i = queryParams.keySet().iterator();
-       while (i.hasNext()) {
-           String key = i.next();
-           params[index] = key;
-           values[index++] = queryParams.get(key);
+       for (String s : queryParams.keySet()) {
+           params[index] = s;
+           values[index++] = queryParams.get(s);
        }
-       return getHibernateTemplate().findByNamedQueryAndNamedParam(
-           queryName, 
-           params, 
+       return hibernateTemplate.findByNamedQueryAndNamedParam(
+           queryName,
+           params,
            values);
    }
 }

@@ -10,7 +10,7 @@ import org.appfuse.model.LabelValue;
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
-public interface LookupManager extends UniversalManager {
+public interface LookupManager {
     /**
      * Retrieves all possible roles from persistence layer
      * @return List of LabelValue objects

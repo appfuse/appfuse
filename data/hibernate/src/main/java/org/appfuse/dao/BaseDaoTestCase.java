@@ -5,19 +5,26 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.SessionFactory;
 import org.springframework.orm.hibernate3.HibernateTemplate;
-import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
+import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
+import java.util.*;
 
 /**
  * Base class for running DAO tests.
  * @author mraible
  */
-public abstract class BaseDaoTestCase extends AbstractTransactionalDataSourceSpringContextTests {
+@ContextConfiguration(
+    locations={"classpath:/applicationContext-resources.xml",
+               "classpath:/applicationContext-dao.xml",
+               "classpath*:/applicationContext.xml",
+               "classpath:**/applicationContext*.xml"})
+public abstract class BaseDaoTestCase extends AbstractTransactionalJUnit4SpringContextTests {
+    @Autowired
+    private SessionFactory sessionFactory;
+    
     /**
      * Log variable for all child classes. Uses LogFactory.getLog(getClass()) from Commons Logging
      */
@@ -26,20 +33,6 @@ public abstract class BaseDaoTestCase extends AbstractTransactionalDataSourceSpr
      * ResourceBundle loaded from src/test/resources/${package.name}/ClassName.properties (if exists)
      */
     protected ResourceBundle rb;
-
-    /**
-     * Sets AutowireMode to AUTOWIRE_BY_NAME and configures all context files needed to tests DAOs.
-     * @return String array of Spring context files.
-     */
-    protected String[] getConfigLocations() {
-        setAutowireMode(AUTOWIRE_BY_NAME);
-        return new String[] {
-                "classpath:/applicationContext-resources.xml",
-                "classpath:/applicationContext-dao.xml",
-                "classpath*:/applicationContext.xml", // for modular projects
-                "classpath:**/applicationContext*.xml" // for web projects
-            };
-    }
 
     /**
      * Default constructor - populates "rb" variable if properties file exists for the class in
@@ -81,10 +74,10 @@ public abstract class BaseDaoTestCase extends AbstractTransactionalDataSourceSpr
     /**
      * Create a HibernateTemplate from the SessionFactory and call flush() and clear() on it.
      * Designed to be used after "save" methods in tests: http://issues.appfuse.org/browse/APF-178.
+     * @throws org.springframework.beans.BeansException when can't find 'sessionFactory' bean
      */
-    protected void flush() {
-        HibernateTemplate hibernateTemplate =
-                new HibernateTemplate((SessionFactory) applicationContext.getBean("sessionFactory"));
+    protected void flush() throws BeansException {
+        HibernateTemplate hibernateTemplate = new HibernateTemplate(sessionFactory);
         hibernateTemplate.flush();
         hibernateTemplate.clear();
     }

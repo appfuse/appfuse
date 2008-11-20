@@ -1,24 +1,29 @@
 package org.appfuse.service;
 
 import org.appfuse.model.User;
+import static org.junit.Assert.*;
+import org.junit.Test;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
+import org.springframework.test.annotation.ExpectedException;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-public class UserExistsExceptionTest extends BaseManagerTestCase {
-    private UserManager manager = null;
+@ContextConfiguration(
+    locations={"/applicationContext-service.xml",
+               "/applicationContext-resources.xml",
+               "classpath:/applicationContext-dao.xml"})
+public class UserExistsExceptionTest extends AbstractTransactionalJUnit4SpringContextTests {
+    @Autowired
+    private UserManager manager;
+    private Log log = LogFactory.getLog(UserExistsExceptionTest.class);
 
-    public void setUserManager(UserManager userManager) {
-        this.manager = userManager;
-    }
-    
-    protected String[] getConfigLocations() {
-        setAutowireMode(AUTOWIRE_BY_NAME);
-        return new String[] {"/applicationContext-service.xml",
-                             "/applicationContext-resources.xml",
-                             "classpath:/applicationContext-dao.xml"};
-    }
-
+    @Test
+    @ExpectedException(UserExistsException.class)
     public void testAddExistingUser() throws Exception {
-        logger.debug("entered 'testAddExistingUser' method");
+        log.debug("entered 'testAddExistingUser' method");
         assertNotNull(manager);
 
         User user = manager.getUser("-1");
@@ -30,12 +35,7 @@ public class UserExistsExceptionTest extends BaseManagerTestCase {
         user2.setVersion(null);
         user2.setRoles(null);
         
-        // try saving as new user, this should fail b/c of unique keys
-        try {
-            manager.saveUser(user2);
-            fail("Duplicate user didn't throw UserExistsException");
-        } catch (UserExistsException uee) {
-            assertNotNull(uee);
-        }
+        // try saving as new user, this should fail UserExistsException b/c of unique keys
+        manager.saveUser(user2);
     }    
 }

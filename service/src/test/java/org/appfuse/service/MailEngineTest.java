@@ -1,5 +1,10 @@
 package org.appfuse.service;
 
+import org.junit.After;
+import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -16,29 +21,24 @@ import java.util.Date;
  * @author Bryan Noll
  */
 public class MailEngineTest extends BaseManagerTestCase {
+    @Autowired
     MailEngine mailEngine;
+    @Autowired
     SimpleMailMessage mailMessage;
     JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 
-    public void setMailEngine(MailEngine mailEngine) {
-        this.mailEngine = mailEngine;
-    }
-
-    public void setMailMessage(SimpleMailMessage mailMessage) {
-        this.mailMessage = mailMessage;
-    }
-
-    @Override
-    protected void onSetUp() {
+    @Before
+    public void setUp() {
         mailSender.setHost("localhost");
         mailEngine.setMailSender(mailSender);
     }
 
-    @Override
-    protected void onTearDown() {
+    @After
+    public void tearDown() {
        mailEngine.setMailSender(null);
     }
-    
+
+    @Test
     public void testSend() throws Exception {
         // mock smtp server
         Wiser wiser = new Wiser();
@@ -62,7 +62,8 @@ public class MailEngineTest extends BaseManagerTestCase {
         assertEquals(emailSubject, wm.getMimeMessage().getSubject());
         assertEquals(emailBody, wm.getMimeMessage().getContent());
     }
-    
+
+    @Test
     public void testSendMessageWithAttachment() throws Exception {
         final String ATTACHMENT_NAME = "boring-attachment.txt";
         

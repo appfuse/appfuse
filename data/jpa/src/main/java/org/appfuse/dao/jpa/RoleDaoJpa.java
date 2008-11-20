@@ -6,6 +6,7 @@ import javax.persistence.Query;
 
 import org.appfuse.dao.RoleDao;
 import org.appfuse.model.Role;
+import org.springframework.stereotype.Repository;
 
 
 /**
@@ -14,6 +15,7 @@ import org.appfuse.model.Role;
  *
  * @author <a href="mailto:bwnoll@gmail.com">Bryan Noll</a> 
  */
+@Repository
 public class RoleDaoJpa extends GenericDaoJpa<Role, Long> implements RoleDao {
 
     /**
@@ -27,7 +29,7 @@ public class RoleDaoJpa extends GenericDaoJpa<Role, Long> implements RoleDao {
      * {@inheritDoc}
      */
     public Role getRoleByName(String rolename) {
-        Query q = super.entityManager.createQuery("select r from Role r where r.name = ?");
+        Query q = getEntityManager().createQuery("select r from Role r where r.name = ?");
         q.setParameter(1, rolename);
         List roles = q.getResultList();
 
@@ -43,6 +45,6 @@ public class RoleDaoJpa extends GenericDaoJpa<Role, Long> implements RoleDao {
      */
     public void removeRole(String rolename) {
         Object role = getRoleByName(rolename);
-        super.entityManager.remove(role);
+        getEntityManager().remove(role);
     }
 }

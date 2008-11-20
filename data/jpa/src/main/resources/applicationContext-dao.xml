@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd"
        default-lazy-init="true">
 
+    <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
+    
     <!-- EntityManagerFactory -->
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="persistenceUnitManager" ref="persistenceUnitManager"/>
@@ -35,34 +39,9 @@
         <property name="entityManagerFactory" ref="entityManagerFactory" />
     </bean>
 
-    <!-- UniversalDao - can be used when doing standard CRUD - made available 
-        for those who don't mind casting.  If you don't want to cast, look at 
-        'fooDao' below. -->
-    <bean id="universalDao" class="org.appfuse.dao.jpa.UniversalDaoJpa"/>
+    <!-- Activates scanning of @Autowired -->
+    <context:annotation-config/>
 
-    <!-- LookupDao - can be used when doing standard CRUD -->
-    <bean id="lookupDao" class="org.appfuse.dao.jpa.LookupDaoJpa"/>
-
-    <!-- UserDao: JPA implementation -->
-    <bean id="userDao" class="org.appfuse.dao.jpa.UserDaoJpa">
-        <constructor-arg ref="dataSource"/>
-    </bean>
-
-    <!-- RoleDao: JPA implementation -->
-    <bean id="roleDao" class="org.appfuse.dao.jpa.RoleDaoJpa"/>
-
-    <!-- If you want to be able to do simple CRUD for new domain objects without 
-        having to cast, you don't have create a Dao interface and implementation 
-        for that domain object, you simply have to do the following.  
-        
-        <bean id="fooDao" class="org.appfuse.dao.jpa.GenericDaoJpa">
-            <constructor-arg value="org.appfuse.model.Foo"/>
-        </bean>
-        
-        You will need to create a Dao interface and implementation for that 
-        domain object if you need more than simple CRUD to occur.  
-        (finders, bulk update/delete, etc.) eg... 'fooDao'
-    -->
-
-    <!-- Add new DAOs here -->
+    <!-- Activates scanning of @Repository -->
+    <context:component-scan base-package="org.appfuse.dao"/>
 </beans>

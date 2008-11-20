@@ -3,7 +3,8 @@ package org.appfuse.dao;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
+import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
+import org.springframework.test.context.ContextConfiguration;
 
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -15,7 +16,12 @@ import java.util.ResourceBundle;
  * Base class for running DAO tests.
  * @author mraible
  */
-public abstract class BaseDaoTestCase extends AbstractTransactionalDataSourceSpringContextTests {
+@ContextConfiguration(
+    locations={"classpath:/applicationContext-resources.xml",
+               "classpath:/applicationContext-dao.xml",
+               "classpath*:/applicationContext.xml",
+               "classpath:**/applicationContext*.xml"})
+public abstract class BaseDaoTestCase extends AbstractTransactionalJUnit4SpringContextTests {
     /**
      * Log variable for all child classes. Uses LogFactory.getLog(getClass()) from Commons Logging
      */
@@ -24,21 +30,7 @@ public abstract class BaseDaoTestCase extends AbstractTransactionalDataSourceSpr
      * ResourceBundle loaded from src/test/resources/${package.name}/ClassName.properties (if exists)
      */
     protected ResourceBundle rb;
-
-    /**
-     * Sets AutowireMode to AUTOWIRE_BY_NAME and configures all context files needed to tests DAOs.
-     * @return String array of Spring context files.
-     */
-    protected String[] getConfigLocations() {
-        setAutowireMode(AUTOWIRE_BY_NAME);
-        return new String[] {
-                "classpath:/applicationContext-resources.xml",
-                "classpath:/applicationContext-dao.xml",
-                "classpath*:/applicationContext.xml", // for modular projects
-                "classpath:**/applicationContext*.xml" // for web projects
-            };
-    }
-
+    
     /**
      * Default constructor - populates "rb" variable if properties file exists for the class in
      * src/test/resources.

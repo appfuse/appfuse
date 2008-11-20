@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd"
        default-lazy-init="true">
+
+    <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
 
     <!-- Hibernate SessionFactory -->
     <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
@@ -23,42 +27,11 @@
     <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
-
-    <!-- UniversalDao - can be used when doing standard CRUD - made available 
-        for those who don't mind casting.  If you don't want to cast, look at 
-        'fooDao' below. -->
-    <bean id="universalDao" class="org.appfuse.dao.hibernate.UniversalDaoHibernate">
-        <property name="sessionFactory" ref="sessionFactory"/>
-    </bean>
-
-    <bean id="lookupDao" class="org.appfuse.dao.hibernate.LookupDaoHibernate">
-        <property name="sessionFactory" ref="sessionFactory"/>
-    </bean>
-
-    <bean id="userDao" class="org.appfuse.dao.hibernate.UserDaoHibernate">
-        <property name="sessionFactory" ref="sessionFactory"/>
-    </bean>
-
-    <bean id="roleDao" class="org.appfuse.dao.hibernate.RoleDaoHibernate">
-        <property name="sessionFactory" ref="sessionFactory"/>
-    </bean>
     
-    <!-- If you want to be able to do simple CRUD for new domain objects without 
-        having to cast, you don't have create a Dao interface and implementation 
-        for that domain object, you simply have to do the following.  
-        
-        eg... 'fooDao'
-    
-    <bean id="fooDao" class="org.appfuse.dao.hibernate.GenericDaoHibernate">
-        <constructor-arg value="org.appfuse.model.Foo"/>
-        <property name="sessionFactory" ref="sessionFactory"/>
-    </bean>
-    
-    You will need to create a Dao interface and implementation for that 
-        domain object if you need more than simple CRUD to occur.  
-        (finders, bulk update/delete, etc.)
-    -->
+    <!-- Activates scanning of @Autowired -->
+    <context:annotation-config/>
 
-    <!-- Add new DAOs here -->
+    <!-- Activates scanning of @Repository -->
+    <context:component-scan base-package="org.appfuse.dao"/>
 
 </beans>

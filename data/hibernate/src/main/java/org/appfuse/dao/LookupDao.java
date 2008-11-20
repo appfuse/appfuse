@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
-public interface LookupDao extends UniversalDao {
+public interface LookupDao {
     //~ Methods ================================================================
 
     /**

@@ -68,10 +68,10 @@
             <artifactId>commons-dbcp</artifactId>
             <version>${commons.dbcp.version}</version>
             <exclusions>
-	            <exclusion>
-		            <groupId>xerces</groupId>
-		            <artifactId>xercesImpl</artifactId>
-		        </exclusion>
+                <exclusion>
+                    <groupId>xerces</groupId>
+                    <artifactId>xercesImpl</artifactId>
+                </exclusion>
                 <exclusion>
                     <artifactId>commons-collections</artifactId>
                     <groupId>commons-collections</groupId>

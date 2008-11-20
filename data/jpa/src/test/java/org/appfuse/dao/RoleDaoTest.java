@@ -3,23 +3,28 @@ package org.appfuse.dao;
 import org.appfuse.Constants;
 import org.appfuse.model.Role;
 
+import static org.junit.Assert.*;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.NotTransactional;
+
 public class RoleDaoTest extends BaseDaoTestCase {
+    @Autowired
     private RoleDao dao;
 
-    public void setRoleDao(RoleDao dao) {
-        this.dao = dao;
-    }
-
+    @Test
     public void testGetRoleInvalid() throws Exception {
         Role role = dao.getRoleByName("badrolename");
         assertNull(role);
     }
 
+    @Test
     public void testGetRole() throws Exception {
         Role role = dao.getRoleByName(Constants.USER_ROLE);
         assertNotNull(role);
     }
 
+    @Test
     public void testUpdateRole() throws Exception {
         Role role = dao.getRoleByName("ROLE_USER");
         log.debug(role);
@@ -29,22 +34,23 @@ public class RoleDaoTest extends BaseDaoTestCase {
         assertEquals(role.getDescription(), "test descr");
     }
 
+    @Test
     public void testAddAndRemoveRole() throws Exception {
         Role role = new Role("testrole");
         role.setDescription("new role descr");
         dao.save(role);
-        setComplete(); // change behavior from rollback to commit
-        endTransaction();
+        //setComplete(); // change behavior from rollback to commit
+        //endTransaction();
 
-        startNewTransaction();
+        //startNewTransaction();
         role = dao.getRoleByName("testrole");
         assertNotNull(role.getDescription());
 
         dao.removeRole("testrole");
-        setComplete();
-        super.endTransaction(); // deletes role from database
+        //setComplete();
+        //super.endTransaction(); // deletes role from database
 
-        super.startNewTransaction();
+        //super.startNewTransaction();
         role = dao.getRoleByName("testrole");
         assertNull(role);
     }

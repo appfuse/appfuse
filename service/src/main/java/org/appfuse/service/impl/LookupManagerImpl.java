@@ -4,6 +4,8 @@ import org.appfuse.dao.LookupDao;
 import org.appfuse.model.LabelValue;
 import org.appfuse.model.Role;
 import org.appfuse.service.LookupManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,17 +16,10 @@ import java.util.List;
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
-public class LookupManagerImpl extends UniversalManagerImpl implements LookupManager {
-    private LookupDao dao;
-
-    /**
-     * Method that allows setting the DAO to talk to the data store with.
-     * @param dao the dao implementation
-     */
-    public void setLookupDao(LookupDao dao) {
-        super.dao = dao;
-        this.dao = dao;
-    }
+@Service("lookupManager")
+public class LookupManagerImpl implements LookupManager {
+    @Autowired
+    LookupDao dao;
 
     /**
      * {@inheritDoc}

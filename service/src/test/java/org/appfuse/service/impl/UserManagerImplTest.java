@@ -13,13 +13,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.test.annotation.ExpectedException;
 
 public class UserManagerImplTest extends BaseManagerMockTestCase {
     //~ Instance fields ========================================================
     private UserManagerImpl userManager = new UserManagerImpl();
     private RoleManagerImpl roleManager = new RoleManagerImpl();
-    private UserDao userDao = null;
-    private RoleDao roleDao = null;
+    private UserDao userDao;
+    private RoleDao roleDao;
 
     //~ Methods ================================================================
     @Before
@@ -27,7 +28,7 @@ public class UserManagerImplTest extends BaseManagerMockTestCase {
         userDao = context.mock(UserDao.class);
         userManager.setUserDao(userDao);
         roleDao = context.mock(RoleDao.class);
-        roleManager.setRoleDao(roleDao);
+        roleManager.roleDao = roleDao;
     }
 
     @Test
@@ -48,7 +49,7 @@ public class UserManagerImplTest extends BaseManagerMockTestCase {
     }
 
     @Test
-    public void testSaveUser() throws Exception {
+    public void testSaveUser() throws Exception {                                           
         final User testData = new User("1");
         testData.getRoles().add(new Role("user"));
 

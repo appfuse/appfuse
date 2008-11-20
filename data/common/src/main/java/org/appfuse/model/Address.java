@@ -28,7 +28,7 @@ public class Address extends BaseObject implements Serializable {
         return address;
     }
 
-    @Column(nullable=false,length=50)
+    @Column(length=50)
     public String getCity() {
         return city;
     }
@@ -43,7 +43,7 @@ public class Address extends BaseObject implements Serializable {
         return country;
     }
 
-    @Column(name="postal_code",nullable=false,length=15)
+    @Column(name="postal_code",length=15)
     public String getPostalCode() {
         return postalCode;
     }

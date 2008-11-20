@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
 import javax.persistence.Table;
@@ -25,16 +26,16 @@ import java.util.List;
  *   Modified by <a href="mailto:bwnoll@gmail.com">Bryan Noll</a> to work with 
  *   the new BaseDaoHibernate implementation that uses generics.
 */
+@Repository("userDao")
 public class UserDaoJpa extends GenericDaoJpa<User, Long> implements UserDao, UserDetailsService {
+    @Autowired
     private DataSource dataSource;
 
     /**
      * Constructor that sets the entity to User.class.
-     * @param dataSource the dataSource to use for looking up user's password with a jdbcTemplate
      */
-    public UserDaoJpa(DataSource dataSource) {
+    public UserDaoJpa() {
         super(User.class);
-        this.dataSource = dataSource;
     }
 
     /**
@@ -42,7 +43,7 @@ public class UserDaoJpa extends GenericDaoJpa<User, Long> implements UserDao, Us
      */
     @SuppressWarnings("unchecked")
     public List<User> getUsers() {
-        Query q = this.entityManager.createQuery("select u from User u order by upper(u.username)");
+        Query q = getEntityManager().createQuery("select u from User u order by upper(u.username)");
         return q.getResultList();
     }
 
@@ -52,7 +53,7 @@ public class UserDaoJpa extends GenericDaoJpa<User, Long> implements UserDao, Us
     @SuppressWarnings("unchecked")
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Query q = this.entityManager.createQuery("select u from User u where username=?");
+        Query q = getEntityManager().createQuery("select u from User u where username=?");
         q.setParameter(1, username);
         List<User> users = q.getResultList();
         if (users == null || users.isEmpty()) {
@@ -69,7 +70,7 @@ public class UserDaoJpa extends GenericDaoJpa<User, Long> implements UserDao, Us
      */
     public User saveUser(User user) {
         User u = super.save(user);
-        entityManager.flush();
+        getEntityManager().flush();
         return u;
     }
 

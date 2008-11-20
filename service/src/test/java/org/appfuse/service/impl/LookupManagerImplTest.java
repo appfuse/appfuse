@@ -15,12 +15,12 @@ import java.util.List;
 
 public class LookupManagerImplTest extends BaseManagerMockTestCase {
     private LookupManagerImpl mgr = new LookupManagerImpl();
-    private LookupDao lookupDao = null;
+    private LookupDao lookupDao;
 
     @Before
     public void setUp() throws Exception {
         lookupDao = context.mock(LookupDao.class);
-        mgr.setLookupDao(lookupDao);
+        mgr.dao = lookupDao;
     }
 
     @Test

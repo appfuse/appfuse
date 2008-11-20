@@ -14,8 +14,7 @@ import org.appfuse.model.User;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  *  Modified by <a href="mailto:dan@getrolling.com">Dan Kibler </a> 
  */
-public interface UserManager extends UniversalManager {
-
+public interface UserManager extends GenericManager<User, Long> {
     /**
      * Convenience method for testing - allows you to mock the DAO and set it on an interface.
      * @param userDao the UserDao implementation to use
