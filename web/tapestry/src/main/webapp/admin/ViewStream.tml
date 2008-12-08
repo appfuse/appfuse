@@ -1,0 +1,32 @@
+<t:layout title="message:viewstream.title"
+          heading="message:viewstream.heading" menu="literal:AdminMenu"
+          xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+
+    <div style="float: right"><a href="#" t:type="pagelink" context="literal:both" page="admin/clickstreams">All
+        streams</a></div>
+
+    <h2>Clickstream for ${hostname}</h2>
+
+    <b>Initial Referrer</b>: <a href="#">${streamReferrer}</a><br/>
+    <b>Hostname</b>: ${hostname}<br/>
+    <b>Session ID</b>: ${sessionId}<br/>
+    <b>Bot</b>: ${botStream}<br/>
+    <b>Stream Start</b>: ${streamStart}<br/>
+    <b>Last Request</b>: ${streamFinish}<br/>
+
+    <b>Session Length</b>: ${sessionLength}<br/>
+
+    <b># of Requests</b>: ${streamSize}
+
+    <p><b>Click stream</b>:</p>
+
+    <table border="0" cellpadding="2">
+        <t:loop source="streamList" value="var:click" index="index">
+            <tr>
+                <td>${next}:</td>
+                <td><a href="http://${var:click}">${var:click}</a></td>
+            </tr>
+        </t:loop>
+    </table>
+
+</t:layout>

@@ -184,7 +184,7 @@
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>maven-jetty-plugin</artifactId>
-                <version>6.1.9</version>
+                <version>6.1.12.rc3</version>
                 <configuration>
                     <contextPath>/</contextPath>
                     <scanIntervalSeconds>3</scanIntervalSeconds>
@@ -506,10 +506,7 @@
         <springmodules.validation.version>0.8</springmodules.validation.version>
         <struts.version>2.0.11.1</struts.version>
         <struts.menu.version>2.4.3</struts.menu.version>
-        <tacos.version>4.1.1</tacos.version>
-        <tapestry.version>4.1.5</tapestry.version>
-        <tapestry.flash.version>1.0.0</tapestry.flash.version>
-        <tapestry.spring.version>1.0.0</tapestry.spring.version>
+        <tapestry.version>5.0.14</tapestry.version>
         <urlrewrite.version>3.0.4</urlrewrite.version>
         <velocity.version>1.4</velocity.version>
         <webtest.version>R_1702</webtest.version>

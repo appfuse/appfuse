@@ -1,23 +1,22 @@
 package org.appfuse.webapp.pages;
 
-import org.apache.tapestry.pages.Exception;
+import org.apache.tapestry5.PersistenceConstants;
+import org.apache.tapestry5.annotations.Persist;
+import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.services.ExceptionReporter;
 
 /**
- * A customized exception pages; in non-debug mode, it omits displays the main exception display.
+ * Customized errror handling page
+ *
+ * @author Serge Eby
+ * @version $Id: Error.java 5 2008-08-30 09:59:21Z serge.eby $
  */
+public class Error implements ExceptionReporter {
+    @Property
+    @Persist(PersistenceConstants.FLASH)
+    private String error;
 
-public abstract class Error extends Exception {
-    public abstract String getError();
-    public abstract void setError(String value);
-    
-    public void setException(Throwable value) {
-        super.setException(value);
-
-        String message = value.getMessage();
-
-        if (message == null)
-            message = value.getClass().getName();
-
-        setError(message);
+    public void reportException(Throwable exception) {
+        error = exception.getLocalizedMessage();
     }
 }

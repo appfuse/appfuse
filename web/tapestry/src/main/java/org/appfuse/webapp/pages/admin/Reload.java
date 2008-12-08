@@ -1,23 +1,37 @@
 package org.appfuse.webapp.pages.admin;
 
-import java.io.IOException;
-
-import org.apache.tapestry.IRequestCycle;
-import org.apache.tapestry.engine.IEngineService;
-import org.apache.tapestry.engine.ILink;
+import org.apache.tapestry5.ComponentResources;
+import org.apache.tapestry5.annotations.InjectPage;
+import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.ApplicationGlobals;
 import org.appfuse.webapp.listener.StartupListener;
 import org.appfuse.webapp.pages.BasePage;
 import org.appfuse.webapp.pages.MainMenu;
+import org.slf4j.Logger;
 
-public abstract class Reload extends BasePage {
-    public abstract IEngineService getEngineService();
+import java.io.IOException;
 
-    public ILink execute(IRequestCycle cycle) throws IOException {
-        log.debug("Entering 'execute' method");
+/**
+ * @author Serge Eby
+ * @version $Id: Reload.java 5 2008-08-30 09:59:21Z serge.eby $
+ */
+public class Reload extends BasePage {
 
-        StartupListener.setupContext(getServletContext());
-        MainMenu nextPage = (MainMenu) cycle.getPage("mainMenu");
-        nextPage.setMessage(getText("reload.succeeded"));            
-        return getEngineService().getLink(false, nextPage.getPageName());
+    @Inject
+    private Logger logger;
+
+    @InjectPage
+    private MainMenu mainMenu;
+
+    @Inject
+    private ComponentResources resources;
+
+    @Inject
+    private ApplicationGlobals globals;
+
+    Object onActivate() throws IOException {
+        StartupListener.setupContext(globals.getServletContext());
+        mainMenu.addInfo("reload.succeeded", true);
+        return mainMenu;
     }
 }

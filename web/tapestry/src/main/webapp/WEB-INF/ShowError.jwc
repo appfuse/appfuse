@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE component-specification PUBLIC 
-  "-//Apache Software Foundation//Tapestry Specification 4.0//EN" 
-  "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
-	
-<component-specification allow-informal-parameters="no" allow-body="no"/>
-

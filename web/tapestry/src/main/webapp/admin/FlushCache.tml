@@ -1,0 +1,15 @@
+<t:layout title="message:flushCache.title" 
+heading="message:flushCache.heading" menu="literal:AdminMenu"
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+	
+<div class="message" style="font-size: 12px">
+    <img src="${iconInformation}"
+        alt="${message:icon.information}" class="icon" />
+        ${message:flushCache.message}
+</div>
+<script type="text/javascript">
+    window.setTimeout("history.back()", 2000);
+</script>
+
+
+</t:layout>

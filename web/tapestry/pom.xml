@@ -134,13 +134,6 @@
         </testResources>
     </build>
 
-    <repositories>
-        <repository>
-            <id>tapestry@javaforge</id>
-            <url>http://howardlewisship.com/repository</url>
-        </repository>
-    </repositories>
-
     <dependencies>
         <dependency>
             <groupId>${pom.groupId}</groupId>
@@ -167,48 +160,24 @@
         </dependency>
         <dependency>
             <groupId>org.apache.tapestry</groupId>
-            <artifactId>tapestry-annotations</artifactId>
+            <artifactId>tapestry-core</artifactId>
             <version>${tapestry.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.tapestry</groupId>
-            <artifactId>tapestry-contrib</artifactId>
+            <artifactId>tapestry-spring</artifactId>
             <version>${tapestry.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.javaforge.tapestry</groupId>
-            <artifactId>tapestry-flash</artifactId>
-            <version>${tapestry.flash.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>tapestry</groupId>
-                    <artifactId>tapestry</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>tapestry</groupId>
-                    <artifactId>tapestry-annotations</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>org.apache.tapestry</groupId>
+            <artifactId>tapestry-upload</artifactId>
+            <version>${tapestry.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.javaforge.tapestry</groupId>
-            <artifactId>tapestry-spring</artifactId>
-            <version>${tapestry.spring.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>tapestry</groupId>
-                    <artifactId>tapestry</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>tapestry</groupId>
-                    <artifactId>tapestry-annotations</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>net.sf.tacos</groupId>
-            <artifactId>tacos-core</artifactId>
-            <version>${tacos.version}</version>
+            <groupId>org.apache.tapestry</groupId>
+            <artifactId>tapestry-test</artifactId>
+            <version>${tapestry.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -309,11 +278,5 @@
             </build>
         </profile>
     </profiles>
-
-	<properties>
-		<!-- Commons DBCP 1.2.2 apparently has timeout issues (APF-976), but 1.2.1 causes the following with Tapestry 4.1.5 -->
-		<!-- NoSuchMethodError: org.apache.commons.pool.impl.GenericKeyedObjectPool.setMinIdle(I)V -->
-        <commons.dbcp.version>1.2.2</commons.dbcp.version>
-    </properties>
 </project>
 

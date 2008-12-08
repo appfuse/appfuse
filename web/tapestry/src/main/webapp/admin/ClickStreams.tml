@@ -1,0 +1,39 @@
+<t:layout title="message:clickstreams.title" 
+heading="message:clickstreams.heading" menu="literal:AdminMenu"
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+	
+
+<!--${noBotStreamsLink}|${botStreamsLink}|${allStreamsLink}-->
+
+<a href="#" t:type="pagelink" page="admin/clickstreams" context="literal:false">No Bots</a> |
+<a href="#" t:type="pagelink" page="admin/clickstreams" context="literal:true">All Bots</a> |
+<a href="#" t:type="pagelink" page="admin/clickstreams" context="literal:both">Both</a>
+
+<p>
+<t:if test="clickstreamEmpty">
+	No clickstreams in progress.
+	<t:parameter name="else">
+	<t:loop source="prop:clickstreams.entrySet()" value="entry" index="index">
+<!--	<input type="hidden" value="${next}"/> -->
+	<!-- Hack to start index with 1 -->
+	${next}. <a href="#" t:type="pagelink" context="entry.key" page="admin/viewstream">
+		<b>${streamHostname}</b>
+	</a>  
+	
+	  [${streamSize} reqs]<br />
+	</t:loop>
+</t:parameter>
+</t:if>
+</p>
+<!--<%-->
+<!--    }-->
+<!--    catch (Exception e)-->
+<!--    {-->
+<!--%>-->
+<!--    An error occurred - <%= e %><br />-->
+<!--<%-->
+<!--    }-->
+<!--}-->
+<!--%>-->
+
+</t:layout>
