@@ -34,7 +34,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="get Logout Page" url="/logout.jsp"/>
+                <invoke description="get Logout Page" url="/logout"/>
                 <verifytitle description="we should see the login title" text=".*${login.title}.*" regex="true"/>
             </steps>
         </webtest>
@@ -47,7 +47,7 @@
             <steps>
                 <invoke description="get Login Page" url="/"/>
                 <verifytitle description="check login title" text=".*${login.title}.*" regex="true"/>
-                <invoke description="click password hint link" url="/passwordHint.html?username=admin"/>
+                <invoke description="click password hint link" url="/passwordhint?username=admin"/>
                 <verifytitle description="show login title again" text=".*${login.title}.*" regex="true"/>
             </steps>
         </webtest>
@@ -84,7 +84,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="click View Users link" url="/admin/UserList.html"/>
+                <invoke description="click View Users link" url="/admin/userlist"/>
                 <verifytitle description="we should see the user list title"
                     text=".*${userList.title}.*" regex="true"/>
             </steps>
@@ -115,7 +115,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="Click 'Add' button" url="/UserForm.html"/>
+                <invoke description="Click 'Add' button" url="/useredit"/>
                 <verifytitle text=".*${userProfile.title}.*" regex="true"/>
 
                 <setinputfield name="username" value="newuser"/>
@@ -155,7 +155,7 @@
         <webtest name="signup">
             &config;
             <steps>
-                <invoke description="click signup link" url="/signup.html"/>
+                <invoke description="click signup link" url="/signup"/>
                 <verifytitle description="view signup title" text=".*${signup.title}.*" regex="true"/>
                 
                 <setinputfield name="username" value="signup-user"/>
@@ -170,7 +170,7 @@
                 <setinputfield name="email" value="signup-user@raibledesigns.com"/>
                 <setinputfield name="website" value="http://raibledesigns.com"/>
                 <setinputfield name="passwordHint" value="test"/>
-                <clickbutton htmlid="register" description="Click button 'Signup'"/>
+                <clickbutton htmlid="saveBottom" description="Click button 'Signup'"/>
 
                 <verifytitle description="view main menu" text=".*${mainMenu.title}.*" regex="true"/>
                 <verifytext description="verify success message" text="${user.registered}"/>
@@ -184,7 +184,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="get activeUsers URL" url="/admin/ActiveUsers.html"/>
+                <invoke description="get activeUsers URL" url="/admin/activeusers"/>
                 <verifytitle description="we should see the activeUsers title" 
                     text=".*${activeUsers.title}.*" regex="true"/>
             </steps>
@@ -197,7 +197,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="get flushCache URL" url="/admin/flushCache.jsp"/>
+                <invoke description="get flushCache URL" url="/admin/flushcache"/>
                 <verifytitle description="we should see the flush cache title" 
                     text=".*${flushCache.title}.*" regex="true"/>
             </steps>
@@ -210,7 +210,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="click Upload a File link" url="/FileUpload.html"/>
+                <invoke description="click Upload a File link" url="/fileupload"/>
                 <verifytitle description="we should see file upload form" text=".*${upload.title}.*" regex="true"/>
                 <setinputfield description="set name" name="name" value="Canoo Test File"/>
                 <setFileField description="set file" name="file" fileName="pom.xml"/>

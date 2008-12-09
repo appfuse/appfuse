@@ -4,13 +4,13 @@
 
 <urlrewrite use-context="true">
     <rule>
-        <from>/admin/flushCache.html</from>
-        <to type="redirect">/admin/flushCache.jsp</to>
+        <from>/login.jsp</from>
+        <to type="redirect">login</to>
     </rule>
-    <rule>
-        <from>/restart.svc</from>
-        <to type="redirect">/</to>
-    </rule>
+    <!--<rule>
+        <from>/passwordHint.html\?username=(.*)</from>
+        <to type="redirect">passwordhint?username=$1</to>
+    </rule>-->
     <!-- The following fixes a bug in XFire:        -->
     <!-- http://jira.codehaus.org/browse/XFIRE-1089 -->
     <rule>

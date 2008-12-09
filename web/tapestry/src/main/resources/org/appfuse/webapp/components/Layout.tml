@@ -12,7 +12,6 @@
 </head>
 
 <body id="${bodyId}">
-<!--		<t:messagebanner message="page.message" type="page.type"/>-->
-<t:body/>
+    <t:body/>
 </body>
 </html>

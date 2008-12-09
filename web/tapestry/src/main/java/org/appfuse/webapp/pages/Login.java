@@ -27,7 +27,7 @@ import java.util.Map;
  * @version $Id: Login.java 5 2008-08-30 09:59:21Z serge.eby $
  */
 @IncludeJavaScriptLibrary("context:scripts/login.js")
-public class Login {
+public class Login extends BasePage {
 
     private static final String AUTH_FAILED = "error";
     private static final String SECURITY_URL = "/j_security_check";
@@ -128,4 +128,7 @@ public class Login {
         return resources.createPageLink("Login", false).toAbsoluteURI();
     }
 
+    public String getCssTheme() {
+        return context.getInitParameter(Constants.CSS_THEME);
+    }
 }

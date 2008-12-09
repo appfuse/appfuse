@@ -4,6 +4,7 @@ import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.upload.services.UploadedFile;
+import org.apache.tapestry5.PersistenceConstants;
 import org.slf4j.Logger;
 
 /**
@@ -20,21 +21,35 @@ public class FileDisplay extends BasePage {
     @Inject
     private Logger logger;
 
-    @Property @Persist
-    private UploadedFile file;
-
-    @Property @Persist
+    @Property
+    @Persist
     private String name;
 
-    @Property @Persist
+    @Property
+    @Persist
+    private String fileName;
+
+    @Property
+    @Persist
+    private String contentType;
+
+    @Property
+    @Persist
+    private long size;
+
+    @Property
+    @Persist
     private String path;
 
-    @Property @Persist
+    @Property
+    @Persist
     private String url;
 
     Object initialize(UploadedFile file, String name, String path, String url) {
-        this.file = file;
         this.name = name;
+        this.fileName = file.getFileName();
+        this.contentType = file.getContentType();
+        this.size = file.getSize();
         this.path = path;
         this.url = url;
         return this;

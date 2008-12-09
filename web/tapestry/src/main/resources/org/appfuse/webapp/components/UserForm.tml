@@ -194,8 +194,6 @@
         </t:unless>
 
         <li class="buttonBar bottom">
-
-
             <input type="submit" id="saveBottom" class="button" value="${submitLabel}"/>
             <t:unless test="${signup}">
                 <t:if test="user.username">

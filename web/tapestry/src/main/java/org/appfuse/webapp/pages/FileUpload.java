@@ -34,7 +34,6 @@ public class FileUpload extends BasePage {
     @Property
     private String name;
 
-
     @InjectPage
     private FileDisplay fileDisplay;
 
@@ -47,19 +46,15 @@ public class FileUpload extends BasePage {
     @Inject
     private ComponentResources resources;
 
-
     @Component(parameters = {"event=cancel"})
     private EventLink cancel;
-
 
     Object onCancel() {
         logger.debug("entered 'cancel' method");
         return MainMenu.class;
     }
 
-
     Object onSuccess() {
-
         if (file == null) {
             return null;
         }
@@ -79,8 +74,7 @@ public class FileUpload extends BasePage {
 
         File copied = new File(uploadDir + file.getFileName());
         file.write(copied);
-        String path = dirPath.getAbsolutePath() + Constants.FILE_SEP +
-                file.getFileName();
+        String path = dirPath.getAbsolutePath() + Constants.FILE_SEP + file.getFileName();
         String url =
                 getRequest().getContextPath() + "/resources" + "/" +
                         getRequest().getRemoteUser() + "/" + file.getFileName();

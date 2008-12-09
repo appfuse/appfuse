@@ -1,6 +1,9 @@
 package org.appfuse.webapp.pages;
 
 import org.apache.tapestry5.ComponentResources;
+import org.apache.tapestry5.annotations.InjectPage;
+import org.apache.tapestry5.annotations.Parameter;
+import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.Response;
@@ -38,18 +41,18 @@ public class PasswordHint extends BasePage {
     @Inject
     private ComponentResources resources;
 
+    @InjectPage
+    private Login login;
+
     private String username;
-
-    void beginRender() {
-    }
-
-    void onActivate(String username) throws IOException {
+    
+    Object onActivate() {
+        username = getRequest().getParameter("username");
         // ensure that the username has been sent
         if (username == null || "".equals(username)) {
             logger.warn("Username not specified, notifying user that it's a required field.");
-            getSession().setAttribute("error", getText("errors.required", getText("user.username")));
-            response.sendRedirect(request.getContextPath());
-            return;
+            login.addError("errors.required", true, getText("user.username"));
+            return login;
         }
 
         if (logger.isDebugEnabled()) {
@@ -72,20 +75,15 @@ public class PasswordHint extends BasePage {
             message.setText(msg.toString());
             serviceFacade.getMailEngine().send(message);
 
-            getSession().setAttribute("message", getText("login.passwordHint.sent", new Object[]{username, user.getEmail()}));
+            login.addInfo("login.passwordHint.sent", true, username, user.getEmail());
         } catch (UsernameNotFoundException e) {
             logger.warn(e.getMessage());
             // If exception is expected do not rethrow
-            getSession().setAttribute("error", getText("login.passwordHint.error", username));
+            login.addError("login.passwordHint.error", true, username);
         } catch (MailException me) {
-            getSession().setAttribute("error", me.getCause().getLocalizedMessage());
+            login.addError(me.getCause().getLocalizedMessage(), false);
         }
 
-        response.sendRedirect(request.getContextPath());
-        return;
-    }
-
-    String onPassivate() {
-        return username;
+        return login;
     }
 }

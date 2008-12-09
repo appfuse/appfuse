@@ -62,7 +62,6 @@ public class UserEdit extends BasePage {
     @InjectPage
     private MainMenu mainMenu;
 
-
     @Persist
     private String from;
 
@@ -78,7 +77,6 @@ public class UserEdit extends BasePage {
     public void setUser(User user) {
         this.user = user;
     }
-
 
     public List<String> getUserRoles() {
         return userRoles;

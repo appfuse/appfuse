@@ -9,7 +9,7 @@
     <t:userform t:id="signup"
                 user="user"
                 signup="true"
-                clientValidation="false"
+                clientValidation="true"
                 submitLabel="${message:button.register}"/>
 
 </t:layout>

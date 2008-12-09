@@ -1,8 +1,13 @@
 <t:layout title="message:login.title" heading="message:login.heading"
           menu="literal:AdminMenu" bodyId="login"
           xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+    <head>
+        <link rel="stylesheet" type="text/css" media="all" href="/styles/${cssTheme}/layout-1col.css" />
+    </head>
 
-    <form method="post" id="loginForm" action="${springSecurityUrl}" onsubmit="saveUsername(this);return validateForm(this)">
+    <t:messagebanner t:id="message" type="type"/>
+    
+    <form method="post" id="loginForm" action="${springSecurityUrl}" onsubmit="saveUsername(this)">
         <fieldset style="padding-bottom: 0">
             <ul>
                 <t:if test="${errorMessage}">
@@ -13,15 +18,13 @@
                 </t:if>
                 <li>
                     <label for="j_username" class="required desc">
-                        ${message:label.username}
-                        <span class="req">*</span>
+                        ${message:label.username} <span class="req">*</span>
                     </label>
                     <input type="text" class="text medium" name="j_username" id="j_username" tabindex="1"/>
                 </li>
                 <li>
                     <label for="j_password" class="required desc">
-                        ${message:label.password}
-                        <span class="req">*</span>
+                        ${message:label.password} <span class="req">*</span>
                     </label>
                     <input type="password" class="text medium" name="j_password" id="j_password" tabindex="2"/>
                 </li>

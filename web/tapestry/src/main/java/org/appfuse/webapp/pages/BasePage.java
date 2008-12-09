@@ -74,7 +74,7 @@ public class BasePage {
 
 
     private String buildMessage(String key, boolean flag, Object... args) {
-        return (flag == true ? getMessageText(key, args) : String.format(key, args));
+        return (flag ? getMessageText(key, args) : String.format(key, args));
     }
 
     // TODO: Direct access to servlet API should be avoided whenever possible

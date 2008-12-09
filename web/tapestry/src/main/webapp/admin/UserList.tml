@@ -16,7 +16,7 @@
 	</p>
 
 
-	<t:grid source="users" row="user" model="model" reorder="username,fullname,email,enabled" t:id="userList" class="table">
+	<t:grid source="users" row="user" model="model" reorder="username,fullname,email,enabled" t:id="userList" id="userList" class="table">
 		<t:parameter name="usernamecell">
 			<t:actionlink t:id="edit" context="user.id">
 				${user.username}

@@ -9,7 +9,7 @@
     <t:userform t:id="edit"
                 user="user"
                 signup="false"
-                clientValidation="false"
+                clientValidation="true"
                 from="from"
                 selectedRoles="selectedRoles"
                 userRoles="userRoles"
