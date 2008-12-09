@@ -4,7 +4,6 @@ import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.upload.services.UploadedFile;
-import org.apache.tapestry5.PersistenceConstants;
 import org.slf4j.Logger;
 
 /**
