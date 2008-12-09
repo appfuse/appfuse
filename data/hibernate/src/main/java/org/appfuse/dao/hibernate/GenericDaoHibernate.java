@@ -7,7 +7,6 @@ import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
-import org.springframework.stereotype.Repository;
 import org.hibernate.SessionFactory;
 
 import java.io.Serializable;
@@ -21,7 +20,7 @@ import java.util.Map;
  * This class serves as the Base class for all other DAOs - namely to hold
  * common CRUD methods that they might all use. You should only need to extend
  * this class when your require custom CRUD logic.
- *
+ * <p/>
  * <p>To register this class in your Spring context file, use the following XML.
  * <pre>
  *      &lt;bean id="fooDao" class="org.appfuse.dao.hibernate.GenericDaoHibernate"&gt;
@@ -45,21 +44,20 @@ public class GenericDaoHibernate<T, PK extends Serializable> implements GenericD
 
     /**
      * Constructor that takes in a class to see which type of entity to persist.
-     * Use this constructor when subclassing or using dependency injection.
-     * 
+     * Use this constructor when subclassing.
+     *
      * @param persistentClass the class type you'd like to persist
      */
-    @Autowired
     public GenericDaoHibernate(final Class<T> persistentClass) {
         this.persistentClass = persistentClass;
     }
 
     /**
-     * Constructor that takes in a class and sessionFactory for easy creation of DAO
+     * Constructor that takes in a class and sessionFactory for easy creation of DAO.
+     *
      * @param persistentClass the class type you'd like to persist
-     * @param sessionFactory the pre-configured Hibernate SessionFactory
+     * @param sessionFactory  the pre-configured Hibernate SessionFactory
      */
-    @Autowired
     public GenericDaoHibernate(final Class<T> persistentClass, SessionFactory sessionFactory) {
         this.persistentClass = persistentClass;
         this.sessionFactory = sessionFactory;
@@ -137,23 +135,20 @@ public class GenericDaoHibernate<T, PK extends Serializable> implements GenericD
         hibernateTemplate.delete(this.get(id));
     }
 
-   /**
-    * {@inheritDoc}
-    */
-   @SuppressWarnings("unchecked")
-   public List<T> findByNamedQuery(
-       String queryName,
-       Map<String, Object> queryParams) {
-       String[] params = new String[queryParams.size()];
-       Object[] values = new Object[queryParams.size()];
-       int index = 0;
-       for (String s : queryParams.keySet()) {
-           params[index] = s;
-           values[index++] = queryParams.get(s);
-       }
-       return hibernateTemplate.findByNamedQueryAndNamedParam(
-           queryName,
-           params,
-           values);
-   }
+    /**
+     * {@inheritDoc}
+     */
+    @SuppressWarnings("unchecked")
+    public List<T> findByNamedQuery(String queryName, Map<String, Object> queryParams) {
+        String[] params = new String[queryParams.size()];
+        Object[] values = new Object[queryParams.size()];
+        
+        int index = 0;
+        for (String s : queryParams.keySet()) {
+            params[index] = s;
+            values[index++] = queryParams.get(s);
+        }
+
+        return hibernateTemplate.findByNamedQueryAndNamedParam(queryName, params, values);
+    }
 }
