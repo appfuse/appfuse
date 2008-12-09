@@ -331,6 +331,17 @@ public class RenamePackages {
                     }
                     createDirectory(newPath.toString());
 
+                } else {
+
+                    // Replace existing baseDir
+                    String newPath = this.workBaseDir
+                            + fileName.substring(this.baseDir.length());
+
+                    if (debug) {
+                        log.debug("found dir outside old package [" + fileName + "] "
+                            + "newPath is [" + newPath + "]");
+                    }
+                    createDirectory(newPath);
                 }
 
                 if (debug) {
@@ -405,14 +416,6 @@ public class RenamePackages {
                     // Stip off existing baseDir
                     String newFileName = this.workBaseDir
                             + fileName.substring(this.baseDir.length());
-                    String newPath = newFileName.substring(0, newFileName
-                            .lastIndexOf(File.separator));
-
-                    if (debug) {
-                        log.debug("Creating dir [" + newPath + "]");
-                    }
-
-                    createDirectory(newPath);
 
                     if (aFile.renameTo(new File(newFileName)))
                     {
