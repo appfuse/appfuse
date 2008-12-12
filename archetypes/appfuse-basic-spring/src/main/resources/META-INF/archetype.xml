@@ -37,8 +37,8 @@
         <resource>src/main/webapp/WEB-INF/validator-rules.xml</resource>
         <resource>src/main/webapp/WEB-INF/validator-rules-custom.xml</resource>
         <resource>src/main/webapp/WEB-INF/web.xml</resource>
-        <resource filtered="false">src/test/resources/config.xml</resource>
-        <resource filtered="false">src/test/resources/login.xml</resource>
+        <resource filtered="false">src/test/resources/config.xmlf</resource>
+        <resource filtered="false">src/test/resources/login.xmlf</resource>
         <resource filtered="false">src/test/resources/sample-data.xml</resource>
         <resource filtered="false">src/test/resources/web-tests.xml</resource>
     </resources>

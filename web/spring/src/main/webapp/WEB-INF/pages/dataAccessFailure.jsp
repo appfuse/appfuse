@@ -12,8 +12,7 @@
 
 <!--
 <% 
-Exception ex = (Exception) request.getAttribute("exception");
-ex.printStackTrace(new java.io.PrintWriter(out)); 
+((Exception) request.getAttribute("exception")).printStackTrace(new java.io.PrintWriter(out));  
 %>
 -->
 
