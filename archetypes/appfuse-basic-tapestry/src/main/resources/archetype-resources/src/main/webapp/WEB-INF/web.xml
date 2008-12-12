@@ -37,6 +37,12 @@
         </param-value>
     </context-param>
 
+    <!-- Context Configuration for Tapestry 5 -->
+    <context-param>
+        <param-name>tapestry.app-package</param-name>
+        <param-value>org.appfuse.webapp</param-value>
+    </context-param>
+
     <filter>
         <filter-name>cacheFilter</filter-name>
         <filter-class>com.opensymphony.oscache.web.filter.CacheFilter</filter-class>
@@ -90,17 +96,11 @@
         <filter-name>sitemesh</filter-name>
         <filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class>
     </filter>
+
+    <!-- T5/Spring Filter -->
     <filter>
-        <filter-name>staticFilter</filter-name>
-        <filter-class>org.appfuse.webapp.filter.StaticFilter</filter-class>
-        <init-param>
-            <param-name>includes</param-name>
-            <param-value>/scripts/dojo/*,/dwr/*</param-value>
-        </init-param>
-        <init-param>
-            <param-name>servletName</param-name>
-            <param-value>tapestry</param-value>
-        </init-param>
+        <filter-name>app</filter-name>
+        <filter-class>org.apache.tapestry5.spring.TapestrySpringFilter</filter-class>
     </filter>
 
     <filter-mapping>
@@ -110,17 +110,7 @@
     <filter-mapping>
         <filter-name>securityFilter</filter-name>
         <url-pattern>/*</url-pattern>
-    </filter-mapping> 
-    <!-- Commented out for 2 reasons: 1) it's a pain when developing JSPs, and
-                                      2) it causes the Signup webtest to fail -->
-    <!--filter-mapping>
-        <filter-name>cacheFilter</filter-name>
-        <url-pattern>*.jsp</url-pattern>
-    </filter-mapping-->
-    <!--<filter-mapping>
-        <filter-name>lazyLoadingFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>-->
+    </filter-mapping>
     <filter-mapping>
         <filter-name>clickstreamFilter</filter-name>
         <url-pattern>/*</url-pattern>
@@ -150,11 +140,11 @@
         <dispatcher>REQUEST</dispatcher>
         <dispatcher>FORWARD</dispatcher>
     </filter-mapping>
+
+    <!-- T5 Filter Mapping -->
     <filter-mapping>
-        <filter-name>staticFilter</filter-name>
-        <url-pattern>*.html</url-pattern>
-        <dispatcher>REQUEST</dispatcher>
-        <dispatcher>FORWARD</dispatcher>
+        <filter-name>app</filter-name>
+        <url-pattern>/*</url-pattern>
     </filter-mapping>
 
     <listener>
@@ -178,12 +168,6 @@
     <listener>
         <listener-class>net.sf.navigator.menu.MenuContextListener</listener-class>
     </listener>
-    
-    <servlet>
-        <servlet-name>tapestry</servlet-name>
-        <servlet-class>org.apache.tapestry.ApplicationServlet</servlet-class>
-        <load-on-startup>2</load-on-startup>
-    </servlet>
 
     <servlet>
         <servlet-name>dwr-invoker</servlet-name>
@@ -193,7 +177,7 @@
             <param-value>true</param-value>
         </init-param>
     </servlet>
-    
+
     <servlet>
         <servlet-name>xfire</servlet-name>
         <servlet-class>org.codehaus.xfire.spring.XFireSpringServlet</servlet-class>
@@ -203,36 +187,10 @@
         <servlet-name>dwr-invoker</servlet-name>
         <url-pattern>/dwr/*</url-pattern>
     </servlet-mapping>
-    
+
     <servlet-mapping>
         <servlet-name>xfire</servlet-name>
         <url-pattern>/services/*</url-pattern>
-    </servlet-mapping>
-
-    <!-- Dispatching handled by StaticFilter -->
-    <!--servlet-mapping>
-        <servlet-name>tapestry</servlet-name>
-        <url-pattern>*.html</url-pattern>
-    </servlet-mapping-->
-    
-    <servlet-mapping>
-        <servlet-name>tapestry</servlet-name>
-        <url-pattern>*.direct</url-pattern>
-    </servlet-mapping>
-    
-    <servlet-mapping>
-        <servlet-name>tapestry</servlet-name>
-        <url-pattern>*.sdirect</url-pattern>
-    </servlet-mapping>
-    
-    <servlet-mapping>
-        <servlet-name>tapestry</servlet-name>
-        <url-pattern>/assets/*</url-pattern>
-    </servlet-mapping>
-    
-    <servlet-mapping>
-        <servlet-name>tapestry</servlet-name>
-        <url-pattern>*.svc</url-pattern>
     </servlet-mapping>
 
     <session-config>
@@ -240,23 +198,24 @@
     </session-config>
 
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>/index</welcome-file>
     </welcome-file-list>
 
-    <error-page>
-        <error-code>500</error-code>
-        <location>/error.jsp</location>
-    </error-page>
-    <error-page>
-        <error-code>400</error-code>
-        <location>/index.jsp</location>
-    </error-page>
-    <error-page>
-        <error-code>403</error-code>
-        <location>/403.jsp</location>
-    </error-page>
-    <error-page>
-        <error-code>404</error-code>
-        <location>/404.jsp</location>
-    </error-page>
+    <!--    <error-page>-->
+    <!--        <error-code>500</error-code>-->
+    <!--        <location>/error</location>-->
+    <!--    </error-page>-->
+    <!--    <error-page>-->
+    <!--        <error-code>400</error-code>-->
+    <!--        <location>/index</location>-->
+    <!--    </error-page>-->
+    <!--    <error-page>-->
+    <!--        <error-code>403</error-code>-->
+    <!--        <location>/accessdenied</location>-->
+    <!--    </error-page>-->
+    <!--    <error-page>-->
+    <!--        <error-code>404</error-code>-->
+    <!--        <location>/notfound</location>-->
+    <!--    </error-page>-->
+
 </web-app>
