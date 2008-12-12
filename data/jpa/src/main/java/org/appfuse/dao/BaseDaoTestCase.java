@@ -64,7 +64,7 @@ public abstract class BaseDaoTestCase extends AbstractTransactionalJUnit4SpringC
             map.put(key, rb.getString(key));
         }
 
-        BeanUtils.copyProperties(map, obj);
+        BeanUtils.copyProperties(obj, map);
 
         return obj;
     }
