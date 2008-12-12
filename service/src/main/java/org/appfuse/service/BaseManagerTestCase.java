@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
 public abstract class BaseManagerTestCase extends AbstractTransactionalJUnit4SpringContextTests {
     //~ Static fields/initializers =============================================
     protected final Log log = LogFactory.getLog(getClass());
-    protected static ResourceBundle rb = null;
+    protected ResourceBundle rb;
 
     //~ Constructors ===========================================================
 
