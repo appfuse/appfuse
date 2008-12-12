@@ -6,16 +6,22 @@ import ${appfusepackage}.dao.BaseDaoTestCase;
 import ${basepackage}.model.${pojo.shortName};
 import <#if daoframework == "jpa">javax.persistence.EntityNotFoundException<#else>org.springframework.dao.DataAccessException</#if>;
 
+import static org.junit.Assert.*;
+import org.junit.Test;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.NotTransactional;
+import org.springframework.test.annotation.ExpectedException;
+
 import java.util.List;
 
 public class ${pojo.shortName}DaoTest extends BaseDaoTestCase {
+    @Autowired
     private ${pojo.shortName}Dao ${pojoNameLower}Dao;
 
-    public void set${pojo.shortName}Dao(${pojo.shortName}Dao ${pojoNameLower}Dao) {
-        this.${pojoNameLower}Dao = ${pojoNameLower}Dao;
-    }
-
-    public void testAddAndRemove${pojo.shortName}() throws Exception {
+    @Test
+    @ExpectedException(<#if daoframework == "jpa">EntityNotFoundException<#else>DataAccessException</#if>.class)
+    public void testAddAndRemove${pojo.shortName}() {
         ${pojo.shortName} ${pojoNameLower} = new ${pojo.shortName}();
 
         // enter all required fields
@@ -40,12 +46,7 @@ public class ${pojo.shortName}DaoTest extends BaseDaoTestCase {
         ${pojoNameLower}Dao.remove(${pojoNameLower}.${getIdMethodName}());
         <#lt/><#if daoframework == "daoframework">flush();</#if><#rt/>
 
-        try {
-            ${pojoNameLower}Dao.get(${pojoNameLower}.${getIdMethodName}());
-            fail("${pojo.shortName} found in database");
-        } catch (<#if daoframework == "jpa">EntityNotFoundException<#else>DataAccessException</#if> e) {
-            log.debug("Expected exception: " + e.getMessage());
-            assertNotNull(e);
-        }
+        // should throw <#if daoframework == "jpa">EntityNotFoundException<#else>DataAccessException</#if> 
+        ${pojoNameLower}Dao.get(${pojoNameLower}.${getIdMethodName}());
     }
 }
