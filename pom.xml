@@ -370,7 +370,7 @@
                 <jdbc.artifactId>h2</jdbc.artifactId>
                 <jdbc.version>1.0.62</jdbc.version>
                 <jdbc.driverClassName>org.h2.Driver</jdbc.driverClassName>
-                <jdbc.url><![CDATA[jdbc:h2:${java.io.tmpdir}/appfuse]]></jdbc.url>
+                <jdbc.url><![CDATA[jdbc:h2:/tmp/appfuse]]></jdbc.url>
                 <jdbc.username>sa</jdbc.username>
                 <jdbc.password />
             </properties>
@@ -384,7 +384,7 @@
                 <jdbc.artifactId>hsqldb</jdbc.artifactId>
                 <jdbc.version>1.8.0.7</jdbc.version>
                 <jdbc.driverClassName>org.hsqldb.jdbcDriver</jdbc.driverClassName>
-                <jdbc.url><![CDATA[jdbc:hsqldb:${java.io.tmpdir}/appfuse;shutdown=true]]></jdbc.url>
+                <jdbc.url><![CDATA[jdbc:hsqldb:/tmp/appfuse;shutdown=true]]></jdbc.url>
                 <jdbc.username>sa</jdbc.username>
                 <jdbc.password />
             </properties>
