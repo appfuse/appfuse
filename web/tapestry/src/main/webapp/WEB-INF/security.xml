@@ -13,7 +13,6 @@
         <intercept-url pattern="/admin/*" access="ROLE_ADMIN"/>
         <intercept-url pattern="/passwordhint*/**" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>
         <intercept-url pattern="/signup*" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>
-        <intercept-url pattern="/a4j.res/*.html*" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>
         <intercept-url pattern="/**" access="ROLE_ADMIN,ROLE_USER"/>
 
         <form-login login-page="/login" 
