@@ -238,7 +238,7 @@
                 <hibernate.dialect>org.hibernate.dialect.H2Dialect</hibernate.dialect>
                 <jdbc.groupId>com.h2database</jdbc.groupId>
                 <jdbc.artifactId>h2</jdbc.artifactId>
-                <jdbc.version>1.0.20061217</jdbc.version>
+                <jdbc.version>1.0.79</jdbc.version>
                 <jdbc.driverClassName>org.h2.Driver</jdbc.driverClassName>
                 <jdbc.url><![CDATA[jdbc:h2:/tmp/${artifactId.replaceAll('-','_')}]]></jdbc.url>
                 <jdbc.username>sa</jdbc.username>
