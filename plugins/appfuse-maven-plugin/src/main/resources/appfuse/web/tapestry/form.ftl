@@ -4,10 +4,9 @@
 <#assign identifierType = pojo.getJavaTypeName(pojo.identifierProperty, jdk5)>
 package ${basepackage}.webapp.pages;
 
-import org.apache.tapestry.IRequestCycle;
-import org.apache.tapestry.engine.ILink;
-import org.apache.tapestry.event.PageBeginRenderListener;
-import org.apache.tapestry.event.PageEvent;
+import org.apache.tapestry5.annotations.InjectPage;
+import org.apache.tapestry5.annotations.Persist;
+import org.apache.tapestry5.ioc.annotations.Inject;
 
 <#if genericcore>
 import ${appfusepackage}.service.GenericManager;
@@ -17,54 +16,62 @@ import ${basepackage}.service.${pojo.shortName}Manager;
 import ${pojo.packageName}.${pojo.shortName};
 import ${appfusepackage}.webapp.pages.BasePage;
 
-public abstract class ${pojo.shortName}Form extends BasePage implements PageBeginRenderListener {
+public class ${pojo.shortName}Form extends BasePage {
+    @Inject
 <#if genericcore>
-    public abstract GenericManager<${pojo.shortName}, ${identifierType}> get${pojo.shortName}Manager();
+    private GenericManager<${pojo.shortName}, ${identifierType}> ${pojoNameLower}Manager;
 <#else>
-    public abstract ${pojo.shortName}Manager get${pojo.shortName}Manager();
+    private ${pojo.shortName}Manager ${pojoNameLower}Manager;
 </#if>
-    public abstract void set${pojo.shortName}(${pojo.shortName} ${pojoNameLower});
-    public abstract ${pojo.shortName} get${pojo.shortName}();
 
-    public void pageBeginRender(PageEvent event) {
-        if (get${pojo.shortName}() == null) {
-            set${pojo.shortName}(new ${pojo.shortName}());
+    @Persist
+    private ${pojo.shortName} ${pojoNameLower};
+
+    public ${pojo.shortName} get${pojo.shortName}() {
+        return ${pojoNameLower};
+    }
+
+    /**
+     * Allows setting ${pojoNameLower} object from another class (i.e. ${pojo.shortName}List)
+     *
+     * @param ${pojoNameLower} an initialized instance
+     */
+    public void set${pojo.shortName}(${pojo.shortName} ${pojoNameLower}) {
+        this.${pojoNameLower} = ${pojoNameLower};
+    }
+
+    @InjectPage
+    private ${pojo.shortName}List ${pojoNameLower}List;
+
+    void onActivate(${identifierType} ${pojo.identifierProperty.name}) {
+        if (${pojo.identifierProperty.name} != null) {
+            ${pojoNameLower} = ${pojoNameLower}Manager.get(${pojo.identifierProperty.name});
         }
     }
 
-    public ILink cancel(IRequestCycle cycle) {
-        log.debug("Entering 'cancel' method...");
-        return getEngineService().getLink(false, "${pojo.shortName}List");
-    }
-
-    public ILink delete(IRequestCycle cycle) {
-        log.debug("entered 'delete' method...");
-
-        get${pojo.shortName}Manager().remove(get${pojo.shortName}().${getIdMethodName}());
-
-        ${pojo.shortName}List nextPage = (${pojo.shortName}List) cycle.getPage("${pojo.shortName}List");
-        nextPage.setMessage(getText("${pojoNameLower}.deleted"));
-        return getEngineService().getLink(false, nextPage.getPageName());
-    }
-
-    public ILink save(IRequestCycle cycle) {
-        if (getDelegate().getHasErrors()) {
-            return null;
-        }
-
+    Object onSuccess() {
         boolean isNew = (get${pojo.shortName}().${getIdMethodName}() == null);
 
-        get${pojo.shortName}Manager().save(get${pojo.shortName}());
+        ${pojoNameLower}Manager.save(${pojoNameLower});
 
         String key = (isNew) ? "${pojoNameLower}.added" : "${pojoNameLower}.updated";
 
         if (isNew) {
-            ${pojo.shortName}List nextPage = (${pojo.shortName}List) cycle.getPage("${pojo.shortName}List");
-            nextPage.setMessage(getText(key));
-            return getEngineService().getLink(false, nextPage.getPageName());
+            ${pojoNameLower}List.addInfo(key, true);
+            return ${pojoNameLower}List;
         } else {
-            setMessage(getText(key));
-            return null; // return to current page
+            addInfo(key, true);
+            return this;
         }
+    }
+
+    Object onDelete() {
+        ${pojoNameLower}Manager.remove(${pojoNameLower}.${getIdMethodName}());
+        ${pojoNameLower}List.addInfo("${pojoNameLower}.deleted", true);
+        return ${pojoNameLower}List;
+    }
+
+    Object onCancel() {
+        return ${pojoNameLower}List;
     }
 }

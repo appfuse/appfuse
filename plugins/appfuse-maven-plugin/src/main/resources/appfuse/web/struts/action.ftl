@@ -23,7 +23,7 @@ public class ${pojo.shortName}Action extends BaseAction implements Preparable {
 </#if>
     private List ${util.getPluralForWord(pojoNameLower)};
     private ${pojo.shortName} ${pojoNameLower};
-    private ${identifierType}  ${pojo.identifierProperty.name};
+    private ${identifierType} ${pojo.identifierProperty.name};
 
 <#if genericcore>
     public void set${pojo.shortName}Manager(GenericManager<${pojo.shortName}, ${identifierType}> ${pojoNameLower}Manager) {

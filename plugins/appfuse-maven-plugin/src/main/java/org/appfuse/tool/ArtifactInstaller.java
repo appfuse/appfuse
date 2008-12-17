@@ -244,17 +244,11 @@ public class ArtifactInstaller {
 
     private void installTapestryViews() {
         Copy copy = (Copy) antProject.createTask("copy");
-        copy.setFile(new File(sourceDirectory + "/src/main/webapp/WEB-INF/tapestry/" + pojoName + "Form.html"));
-        copy.setTodir(new File(destinationDirectory + "/src/main/webapp/WEB-INF/tapestry"));
+        copy.setFile(new File(sourceDirectory + "/src/main/webapp/" + pojoName + "Form.tml"));
+        copy.setTodir(new File(destinationDirectory + "/src/main/webapp"));
         copy.execute();
 
-        copy.setFile(new File(sourceDirectory + "/src/main/webapp/WEB-INF/tapestry/" + pojoName + "Form.page"));
-        copy.execute();
-
-        copy.setFile(new File(sourceDirectory + "/src/main/webapp/WEB-INF/tapestry/" + pojoName + "List.html"));
-        copy.execute();
-
-        copy.setFile(new File(sourceDirectory + "/src/main/webapp/WEB-INF/tapestry/" + pojoName + "List.page"));
+        copy.setFile(new File(sourceDirectory + "/src/main/webapp/" + pojoName + "List.tml"));
         copy.execute();
     }
 

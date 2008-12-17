@@ -23,17 +23,11 @@ public final class GenerateTapestryTest extends AbstractAppFuseMojoTestCase {
         assertTrue("can't find /PersonList.java",
                 checkExists("target/appfuse/generated/src/main/java/annotationconfiguration/webapp/pages/PersonList.java"));
 
-        assertTrue("can't find PersonList.html",
-                checkExists("target/appfuse/generated/src/main/webapp/WEB-INF/tapestry/PersonList.html"));
+        assertTrue("can't find PersonList.tml",
+                checkExists("target/appfuse/generated/src/main/webapp/PersonList.tml"));
 
-        assertTrue("can't find PersonList.page",
-                checkExists("target/appfuse/generated/src/main/webapp/WEB-INF/tapestry/PersonList.page"));
-
-        assertTrue("can't find PersonForm.html",
-                checkExists("target/appfuse/generated/src/main/webapp/WEB-INF/tapestry/PersonForm.html"));
-
-        assertTrue("can't find PersonForm.page",
-                checkExists("target/appfuse/generated/src/main/webapp/WEB-INF/tapestry/PersonForm.page"));
+        assertTrue("can't find PersonForm.tml",
+                checkExists("target/appfuse/generated/src/main/webapp/PersonForm.tml"));
 
         assertTrue("can't find ApplicationResources.properties",
                 checkExists("target/appfuse/generated/src/main/resources/Person-ApplicationResources.properties"));

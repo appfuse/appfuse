@@ -1,4 +1,5 @@
 <#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
+<#assign identifierType = pojo.getJavaTypeName(pojo.identifierProperty, jdk5)>
 package ${basepackage}.webapp.pages;
 
 import java.util.List;
@@ -10,31 +11,52 @@ import ${basepackage}.service.${pojo.shortName}Manager;
 </#if>
 import ${pojo.packageName}.${pojo.shortName};
 import ${appfusepackage}.webapp.pages.BasePage;
-import org.apache.tapestry.IRequestCycle;
+import ${appfusepackage}.webapp.pages.MainMenu;
+import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.Component;
+import org.apache.tapestry5.annotations.InjectPage;
+import org.apache.tapestry5.corelib.components.EventLink;
+import org.slf4j.Logger;
 
-public abstract class ${pojo.shortName}List extends BasePage {
+public class ${pojo.shortName}List extends BasePage {
+    @Inject
+    private Logger log;
+
+    @Inject
 <#if genericcore>
-    public abstract GenericManager<${pojo.shortName}, ${pojo.getJavaTypeName(pojo.identifierProperty, jdk5)}> get${pojo.shortName}Manager();
+    private GenericManager<${pojo.shortName}, ${identifierType}> ${pojoNameLower}Manager;
 <#else>
-    public abstract ${pojo.shortName}Manager get${pojo.shortName}Manager();
+    private ${pojo.shortName}Manager ${pojoNameLower}Manager;
 </#if>
 
-    public List get${util.getPluralForWord(pojo.shortName)}() {
-        return get${pojo.shortName}Manager().getAll();
+    @Property
+    private ${pojo.shortName} ${pojoNameLower};
+
+    @InjectPage
+    private ${pojo.shortName}Form form;
+
+    @Component(parameters = {"event=add"})
+    private EventLink addTop, addBottom;
+
+    @Component(parameters = {"event=done"})
+    private EventLink doneTop, doneBottom;
+
+    public List<${pojo.shortName}> get${util.getPluralForWord(pojo.shortName)}() {
+        return ${pojoNameLower}Manager.getAll();
     }
 
-    public void edit(IRequestCycle cycle) {
-        Object[] parameters = cycle.getListenerParameters();
-        ${pojo.getJavaTypeName(pojo.identifierProperty, jdk5)} ${pojo.identifierProperty.name} = (${pojo.getJavaTypeName(pojo.identifierProperty, jdk5)}) parameters[0];
+    Object onAdd() {
+        form.set${pojo.shortName}(new ${pojo.shortName}());
+        return form;
+    }
 
-        if (log.isDebugEnabled()) {
-            log.debug("fetching ${pojoNameLower} with ${pojo.identifierProperty.name}: " + ${pojo.identifierProperty.name});
-        }
+    Object onDone() {
+        return MainMenu.class;
+    }
 
-        ${pojo.shortName} person = get${pojo.shortName}Manager().get(${pojo.identifierProperty.name});
-
-        ${pojo.shortName}Form nextPage = (${pojo.shortName}Form) cycle.getPage("${pojo.shortName}Form");
-        nextPage.set${pojo.shortName}(person);
-        cycle.activate(nextPage);
+    Object onActionFromEdit(${identifierType} ${pojo.identifierProperty.name}) {
+        log.debug("fetching ${pojoNameLower} with ${pojo.identifierProperty.name}: {}", ${pojo.identifierProperty.name});
+        return form;
     }
 }

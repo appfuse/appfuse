@@ -13,7 +13,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="click View ${pojo.shortName} link" url="/${pojo.shortName}List.html"/>
+                <invoke description="click View ${pojo.shortName} link" url="/${pojo.shortName}List"/>
                 <verifytitle description="we should see the ${pojoNameLower}List title"
                     text=".*${'$'}{${pojoNameLower}List.title}.*" regex="true"/>
             </steps>
@@ -40,7 +40,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="View ${pojo.shortName} List" url="/${pojo.shortName}List.html"/>
+                <invoke description="View ${pojo.shortName} List" url="/${pojo.shortName}List"/>
                 <clicklink description="click on first record in list" label="-1"/>
                 <verifytitle description="we should see the ${pojoNameLower}Detail title"
                     text=".*${'$'}{${pojoNameLower}Detail.title}.*" regex="true"/>
@@ -74,7 +74,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="Click Add button" url="/${pojo.shortName}Form.html"/>
+                <invoke description="Click Add button" url="/${pojo.shortName}Form"/>
                 <verifytitle description="we should see the ${pojoNameLower}Detail title"
                     text=".*${'$'}{${pojoNameLower}Detail.title}.*" regex="true"/>
 
@@ -107,7 +107,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="View ${pojo.shortName} List" url="/${pojo.shortName}List.html"/>
+                <invoke description="View ${pojo.shortName} List" url="/${pojo.shortName}List"/>
                 <clicklink description="click on first record in list" label="-1"/>
                 <prepareDialogResponse description="Confirm delete" dialogType="confirm" response="true"/>
                 <clickbutton label="${'$'}{button.delete}" description="Click button 'Delete'"/>

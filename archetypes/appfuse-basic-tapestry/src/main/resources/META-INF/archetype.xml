@@ -30,7 +30,6 @@
         <resource filtered="false">src/main/webapp/common/menu.jsp</resource>
         <resource>src/main/webapp/WEB-INF/applicationContext.xml</resource>
         <resource>src/main/webapp/WEB-INF/menu-config.xml</resource>
-        <resource>src/main/webapp/WEB-INF/tapestry.application</resource>
         <resource>src/main/webapp/WEB-INF/urlrewrite.xml</resource>
         <resource>src/main/webapp/WEB-INF/web.xml</resource>
         <resource filtered="false">src/test/resources/config.xmlf</resource>

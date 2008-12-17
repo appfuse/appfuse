@@ -176,12 +176,8 @@ public class AppFuseExporter extends GenericExporter {
             configureExporter("appfuse/web/tapestry/form.ftl", "src/main/java/{basepkg-name}/webapp/pages/{class-name}Form.java").start();
 
             // views
-            configureExporter("appfuse/web/tapestry/list-view.ftl", "src/main/webapp/WEB-INF/tapestry/{class-name}List.html").start();
-            configureExporter("appfuse/web/tapestry/form-view.ftl", "src/main/webapp/WEB-INF/tapestry/{class-name}Form.html").start();
-
-            // configuration
-            configureExporter("appfuse/web/tapestry/list-page.ftl", "src/main/webapp/WEB-INF/tapestry/{class-name}List.page").start();
-            configureExporter("appfuse/web/tapestry/form-page.ftl", "src/main/webapp/WEB-INF/tapestry/{class-name}Form.page").start();
+            configureExporter("appfuse/web/tapestry/list-view.ftl", "src/main/webapp/{class-name}List.tml").start();
+            configureExporter("appfuse/web/tapestry/form-view.ftl", "src/main/webapp/{class-name}Form.tml").start();
         }
 
         // menu
