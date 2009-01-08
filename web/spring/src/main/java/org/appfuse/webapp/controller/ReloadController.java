@@ -25,7 +25,7 @@ import org.springframework.web.servlet.mvc.Controller;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class ReloadController implements Controller {
-    private transient final Log log = LogFactory.getLog(UserController.class);
+    private transient final Log log = LogFactory.getLog(ReloadController.class);
 
     public ModelAndView handleRequest(HttpServletRequest request,
                                       HttpServletResponse response)
