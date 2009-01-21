@@ -4,7 +4,6 @@
 
 	<t:messagebanner t:id="message" type="type"/>
 	<p>
-	
 		<t:eventlink t:id="addTop">
 			<input type="button" class="button"
 				value="${message:button.add}" />
@@ -14,7 +13,6 @@
 				value="${message:button.done}" />
 		</t:eventlink>
 	</p>
-
 
 	<t:grid source="users" row="user" model="model" reorder="username,fullname,email,enabled" t:id="userList" id="userList" class="table">
 		<t:parameter name="usernamecell">
@@ -38,15 +36,15 @@
 		</t:parameter>
 	</t:grid>
 
-	<t:eventlink t:id="addBottom">
-		<input type="button" class="button"
-			value="${message:button.add}" />
-	</t:eventlink>
-	<t:eventlink t:id="doneBottom">
-		<input type="button" class="button"
-			value="${message:button.done}" />
-	</t:eventlink>
-	
+	<p>
+        <t:eventlink t:id="addBottom">
+            <input type="button" class="button" value="${message:button.add}" />
+        </t:eventlink>
+        <t:eventlink t:id="doneBottom">
+            <input type="button" class="button" value="${message:button.done}" />
+        </t:eventlink>
+	</p>
+
 	<script type="text/javascript">
 		highlightTableRows("userList");
 	</script>

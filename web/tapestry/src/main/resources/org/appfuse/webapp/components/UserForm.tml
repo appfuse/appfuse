@@ -8,7 +8,6 @@
         <input id="version" type="hidden" value="${user.version}"/>
         <input id="originalPassword" type="hidden" value="${user.password}"/>
 
-
         <t:if test="cookieLogin">
             <input type="hidden" id="password" value="${user.password}"/>
             <input type="hidden" id="confirmPassword" value="${user.confirmPassword}"/>
@@ -21,7 +20,6 @@
     </t:unless>
 
     <ul>
-
         <t:unless test="${signup}">
             <li class="buttonBar right">
                 <input type="submit" id="saveTop" class="button" value="${submitLabel}"/>

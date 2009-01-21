@@ -71,7 +71,6 @@ public class UserEdit extends BasePage {
     @Component(id = "edit")
     private UserForm form;
 
-
     private boolean delete = false;
 
     public void setUser(User user) {
@@ -86,7 +85,6 @@ public class UserEdit extends BasePage {
         this.userRoles = userRoles;
     }
 
-
     public void setFrom(String from) {
         this.from = from;
     }
@@ -95,12 +93,7 @@ public class UserEdit extends BasePage {
         return from;
     }
 
-
     public boolean isRememberMe() {
-//		 if (user != null && user.getId() == null) {
-//			 return false; // check for add()
-//		 }
-
         AuthenticationTrustResolver resolver = new AuthenticationTrustResolverImpl();
         SecurityContext ctx = SecurityContextHolder.getContext();
 
@@ -111,13 +104,11 @@ public class UserEdit extends BasePage {
         return false;
     }
 
-
     public boolean isCookieLogin() {
         //return isRememberMe();
         //FIXME: Somehow the above condition always returns false
         return true;
     }
-
 
     void beginRender() {
         if (user == null) {
@@ -126,7 +117,6 @@ public class UserEdit extends BasePage {
             // Add default role
             user.addRole(new Role(Constants.USER_ROLE));
         }
-
 
         selectedRoles = new ArrayList<String>(user.getRoles().size());
 
@@ -161,15 +151,12 @@ public class UserEdit extends BasePage {
         }
     }
 
-
     void onValidateForm() {
         if (!StringUtils.equals(user.getPassword(), user.getConfirmPassword())) {
             addError(form.getForm(), form.getConfirmPasswordField(), "errors.twofields", true,
                     getMessageText("user.confirmPassword"), getMessageText("user.password"));
         }
-
     }
-
 
     Object onSuccess() throws UserExistsException, IOException {
         logger.debug("*** entering onSuccess method ***");
@@ -179,9 +166,7 @@ public class UserEdit extends BasePage {
             return onDelete();
         }
 
-
         HttpServletRequest request = getRequest();
-
 
         if (selectedRoles != null && !selectedRoles.isEmpty()) {
             user.getRoles().clear();
@@ -213,8 +198,6 @@ public class UserEdit extends BasePage {
                 && user.getUsername().equals(getRequest().getRemoteUser())) {
             // add success messages
             mainMenu.addInfo("user.saved", true, user.getFullName());
-
-
             return mainMenu;
         } else {
             // add success messages
@@ -228,7 +211,6 @@ public class UserEdit extends BasePage {
             }
         }
     }
-
 
     void onSelectedFromEdit() {
         delete = true;
@@ -244,12 +226,10 @@ public class UserEdit extends BasePage {
         return userList;
     }
 
-
     void cleanupRender() {
         //user = null;
 //		 validationError = null;
     }
-
 
     // ~ Helper methods
     private void sendNewUserEmail(HttpServletRequest request, User user) {

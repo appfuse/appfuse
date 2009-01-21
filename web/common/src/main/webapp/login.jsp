@@ -16,7 +16,7 @@
     <li class="error">
         <img src="${ctx}/images/iconWarning.gif" alt="<fmt:message key='icon.warning'/>" class="icon"/>
         <fmt:message key="errors.password.mismatch"/>
-        <%--${sessionScope.SPRING_SECURITY_LAST_EXCEPTION_KEY.message}--%>
+        <%--${sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message}--%>
     </li>
 </c:if>
     <li>
