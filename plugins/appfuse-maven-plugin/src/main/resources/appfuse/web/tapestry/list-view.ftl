@@ -3,12 +3,12 @@
           heading="message:${pojoNameLower}List.heading" menu="literal:${pojo.shortName}Menu"
           xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
 
-    <t:messagebanner id="message" type="type"/>
+    <t:messagebanner t:id="message" type="type"/>
     <p>
-        <t:eventlink id="addTop">
+        <t:eventlink t:id="addTop">
             <input type="button" class="button" value="$\{message:button.add}"/>
         </t:eventlink>
-        <t:eventlink id="doneTop">
+        <t:eventlink t:id="doneTop">
             <input type="button" class="button" value="$\{message:button.done}"/>
         </t:eventlink>
     </p>
@@ -22,10 +22,10 @@
     </t:grid>
 
     <p>
-        <t:eventlink id="addBottom">
+        <t:eventlink t:id="addBottom">
             <input type="button" class="button" value="$\{message:button.add}"/>
         </t:eventlink>
-        <t:eventlink id="doneBottom">
+        <t:eventlink t:id="doneBottom">
             <input type="button" class="button" value="$\{message:button.done}"/>
         </t:eventlink>
     </p>
