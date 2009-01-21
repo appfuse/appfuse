@@ -50,7 +50,7 @@ public class SpringObjectProvider implements ObjectProvider {
 
             if (beanNames.length > 0) {
                 // return first result
-                logger.info("returning beaname: " + beanNames[0]);
+                logger.info("returning bean name: " + beanNames[0]);
                 obj = getSpringContext().getBean(beanNames[0]);
             } else {
                 logger.info("Couldn't find a bean for type "
