@@ -27,8 +27,8 @@
     </scm>
 
     <modules>
-        <module>appfuse-maven-plugin</module>
         <module>maven-warpath-plugin</module>
+        <module>appfuse-maven-plugin</module>
     </modules>
 
     <distributionManagement>
