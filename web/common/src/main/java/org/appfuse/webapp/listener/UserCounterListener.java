@@ -16,7 +16,6 @@ import org.springframework.security.context.SecurityContextHolder;
 import org.springframework.security.Authentication;
 import org.springframework.security.AuthenticationTrustResolverImpl;
 import org.springframework.security.AuthenticationTrustResolver;
-import org.springframework.security.ui.webapp.AuthenticationProcessingFilter;
 
 
 /**
