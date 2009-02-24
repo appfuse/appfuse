@@ -521,7 +521,7 @@
         <struts.version>2.0.11.1</struts.version>
         <struts.menu.version>2.4.3</struts.menu.version>
         <tapestry.version>5.0.14</tapestry.version>
-        <urlrewrite.version>3.0.4</urlrewrite.version>
+        <urlrewrite.version>3.1.0</urlrewrite.version>
         <velocity.version>1.4</velocity.version>
         <webtest.version>R_1702</webtest.version>
         <wiser.version>1.2</wiser.version>
