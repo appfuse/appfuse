@@ -50,6 +50,11 @@
             <artifactId>persistence-api</artifactId>
             <version>${jpa.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.compass-project</groupId>
+            <artifactId>compass</artifactId>
+            <version>${compass.version}</version>
+        </dependency>
     </dependencies>
 </project>
 

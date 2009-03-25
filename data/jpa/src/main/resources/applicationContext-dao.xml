@@ -44,4 +44,44 @@
 
     <!-- Activates scanning of @Repository -->
     <context:component-scan base-package="org.appfuse.dao"/>
+
+    <!-- Compass Search Section -->
+
+    <!-- Compass Bean, automatically scanning for searchable classes within the model -->
+    <!-- Hooks into Spring transaction management and stores the index on the file system -->
+    <bean id="compass" class="org.compass.spring.LocalCompassBean">
+        <property name="mappingScan" value="org.appfuse.model" />
+        <property name="transactionManager" ref="transactionManager" />
+        <property name="settings">
+            <map>
+                <entry key="compass.engine.connection" value="target/test-index" />
+            </map>
+        </property>
+    </bean>
+
+    <!-- Compass Template allowing to automatically join/start exising transactions when performing operations -->
+    <bean id="compassTemplate" class="org.compass.core.CompassTemplate">
+        <property name="compass" ref="compass" />
+    </bean>
+
+    <!-- Compass Search Helper allowing to perform search operations in a simpler manner -->
+    <bean id="compassSearchHelper" class="org.compass.core.support.search.CompassSearchHelper">
+        <constructor-arg ref="compass" />
+        <property name="pageSize" value="10" />
+    </bean>
+
+    <!-- CompassGps will automatically mirror any changes done thorugh JPA to searchable classes to the index -->
+    <!-- It will also provide the index operation allowing to reindex the database -->
+    <bean id="compassGps" class="org.compass.gps.impl.SingleCompassGps" init-method="start" destroy-method="stop">
+        <property name="compass" ref="compass" />
+        <property name="gpsDevices">
+            <list>
+                <bean class="org.compass.gps.device.jpa.JpaGpsDevice">
+                    <property name="name" value="jpa" />
+                    <property name="injectEntityLifecycleListener" value="true" />
+                    <property name="entityManagerFactory" ref="entityManagerFactory" />
+                </bean>
+            </list>
+        </property>
+    </bean>
 </beans>

@@ -4,6 +4,10 @@ import org.springframework.security.GrantedAuthority;
 import org.springframework.security.userdetails.UserDetails;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.compass.annotations.Searchable;
+import org.compass.annotations.SearchableId;
+import org.compass.annotations.SearchableProperty;
+import org.compass.annotations.SearchableComponent;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -23,6 +27,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name="app_user")
+@Searchable
 public class User extends BaseObject implements Serializable, UserDetails {
     private static final long serialVersionUID = 3832626162173359411L;
 
@@ -58,11 +63,13 @@ public class User extends BaseObject implements Serializable, UserDetails {
     }
 
     @Id @GeneratedValue(strategy=GenerationType.AUTO)
+    @SearchableId
     public Long getId() {
         return id;
     }
 
     @Column(nullable=false,length=50,unique=true)
+    @SearchableProperty
     public String getUsername() {
         return username;
     }
@@ -83,25 +90,30 @@ public class User extends BaseObject implements Serializable, UserDetails {
     }
 
     @Column(name="first_name",nullable=false,length=50)
+    @SearchableProperty
     public String getFirstName() {
         return firstName;
     }
 
     @Column(name="last_name",nullable=false,length=50)
+    @SearchableProperty
     public String getLastName() {
         return lastName;
     }
 
     @Column(nullable=false,unique=true)
+    @SearchableProperty
     public String getEmail() {
         return email;
     }
 
     @Column(name="phone_number")
+    @SearchableProperty
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
+    @SearchableProperty
     public String getWebsite() {
         return website;
     }
@@ -116,6 +128,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
     }
 
     @Embedded
+    @SearchableComponent
     public Address getAddress() {
         return address;
     }

@@ -90,6 +90,10 @@ public class GenericDaoiBatis<T, PK extends Serializable> implements GenericDao<
         return this.sqlMapClientTemplate;
     }
 
+    public Class<T> getPersistentClass() {
+        return persistentClass;
+    }
+    
     /**
      * {@inheritDoc}
      */

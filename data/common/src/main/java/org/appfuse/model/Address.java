@@ -7,6 +7,8 @@ import javax.persistence.Embeddable;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.compass.annotations.Searchable;
+import org.compass.annotations.SearchableProperty;
 
 /**
  * This class is used to represent an address with address,
@@ -15,6 +17,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 @Embeddable
+@Searchable(root = false)
 public class Address extends BaseObject implements Serializable {
     private static final long serialVersionUID = 3617859655330969141L;
     private String address;
@@ -24,26 +27,31 @@ public class Address extends BaseObject implements Serializable {
     private String postalCode;
 
     @Column(length=150)
+    @SearchableProperty
     public String getAddress() {
         return address;
     }
 
     @Column(length=50)
+    @SearchableProperty
     public String getCity() {
         return city;
     }
 
     @Column(length=100)
+    @SearchableProperty
     public String getProvince() {
         return province;
     }
 
     @Column(length=100)
+    @SearchableProperty
     public String getCountry() {
         return country;
     }
 
     @Column(name="postal_code",length=15)
+    @SearchableProperty
     public String getPostalCode() {
         return postalCode;
     }

@@ -246,6 +246,11 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
+        <repository>
+            <id>compass-project.org</id>
+            <name>Compass</name>
+            <url>http://repo.compass-project.org</url>
+         </repository>
     </repositories>
 
     <pluginRepositories>
@@ -405,8 +410,7 @@
             <id>oracle</id>
             <properties>
                 <dbunit.dataTypeFactoryName>org.dbunit.ext.oracle.OracleDataTypeFactory</dbunit.dataTypeFactoryName>
-                <dbunit.schema>SYSTEM</dbunit.schema>
-                <!-- Make sure to capitalize the schema name -->
+                <dbunit.schema>SYSTEM</dbunit.schema> <!-- Make sure to capitalize the schema name -->
                 <hibernate.dialect>org.hibernate.dialect.Oracle9Dialect</hibernate.dialect>
                 <jdbc.groupId>com.oracle</jdbc.groupId>
                 <jdbc.artifactId>ojdbc14</jdbc.artifactId>
@@ -454,8 +458,7 @@
             <properties>
                 <cargo.container>jboss4x</cargo.container>
                 <cargo.container.home>${env.JBOSS_HOME}</cargo.container.home>
-                <cargo.container.url>http://easynews.dl.sourceforge.net/sourceforge/jboss/jboss-4.0.5.GA.zip
-                </cargo.container.url>
+                <cargo.container.url>http://easynews.dl.sourceforge.net/sourceforge/jboss/jboss-4.0.5.GA.zip</cargo.container.url>
             </properties>
         </profile>
     </profiles>
@@ -492,6 +495,7 @@
         <commons.dbcp.version>1.2.1</commons.dbcp.version>
         <commons.fileupload.version>1.2.1</commons.fileupload.version>
         <commons.io.version>1.3.2</commons.io.version>
+        <compass.version>2.1.2</compass.version>
         <corejsf.validator.version>1.0</corejsf.validator.version>
         <displaytag.version>1.2</displaytag.version>
         <dwr.version>2.0.1</dwr.version>
@@ -501,7 +505,7 @@
         <hibernate.version>3.3.1.GA</hibernate.version>
         <hibernate.annotations.version>3.4.0.GA</hibernate.annotations.version>
         <hibernate.entitymanager.version>3.4.0.GA</hibernate.entitymanager.version>
-        <ibatis.version>2.3.0</ibatis.version>
+        <ibatis.version>2.3.4.726</ibatis.version>
         <javamail.version>1.4</javamail.version>
         <jmock.version>2.4.0</jmock.version>
         <jpa.version>1.0</jpa.version>
