@@ -489,7 +489,7 @@
         <asm.version>2.2.3</asm.version>
         <aspectj.version>1.6.0</aspectj.version>
         <clickstream.version>1.0.2</clickstream.version>
-        <commons.lang.version>2.3</commons.lang.version>
+        <commons.lang.version>2.4</commons.lang.version>
         <commons.beanutils.version>1.7.0</commons.beanutils.version>
         <commons.collections.version>3.2</commons.collections.version>
         <commons.dbcp.version>1.2.1</commons.dbcp.version>
@@ -519,7 +519,7 @@
         <servlet.version>2.4</servlet.version>
         <shale.version>1.0.4</shale.version>
         <sitemesh.version>2.2.1</sitemesh.version>
-        <spring.version>2.5.5</spring.version>
+        <spring.version>2.5.6</spring.version>
         <spring.security.version>2.0.4</spring.security.version>
         <springmodules.validation.version>0.8</springmodules.validation.version>
         <struts.version>2.0.11.1</struts.version>
