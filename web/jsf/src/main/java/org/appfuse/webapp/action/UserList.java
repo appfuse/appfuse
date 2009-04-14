@@ -11,6 +11,6 @@ public class UserList extends BasePage implements Serializable {
     }
     
     public List getUsers() {
-        return sort(userManager.getUsers(null));
+        return sort(userManager.getUsers());
     }
 }

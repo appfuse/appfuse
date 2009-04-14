@@ -1,5 +1,7 @@
 package org.appfuse.webapp.pages.admin;
 
+import java.util.List;
+
 import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.InjectPage;
@@ -17,8 +19,6 @@ import org.appfuse.webapp.pages.BasePage;
 import org.appfuse.webapp.pages.MainMenu;
 import org.appfuse.webapp.pages.UserEdit;
 import org.slf4j.Logger;
-
-import java.util.List;
 
 /**
  * @author Serge Eby
@@ -74,8 +74,9 @@ public class UserList extends BasePage {
         return userManager;
     }
 
+    @SuppressWarnings("unchecked")
     public List<User> getUsers() {
-        return getUserManager().getUsers(null);
+        return getUserManager().getUsers();
     }
 
     Object onAdd() {

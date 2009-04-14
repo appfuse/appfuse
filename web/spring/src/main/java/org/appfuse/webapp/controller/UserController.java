@@ -5,11 +5,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.appfuse.Constants;
-import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
-
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
@@ -38,6 +35,6 @@ public class UserController implements Controller {
             log.debug("entering 'handleRequest' method...");
         }
 
-        return new ModelAndView("admin/userList", Constants.USER_LIST, mgr.getUsers(new User()));
+        return new ModelAndView("admin/userList", Constants.USER_LIST, mgr.getUsers());
     }
 }

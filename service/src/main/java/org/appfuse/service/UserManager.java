@@ -39,11 +39,10 @@ public interface UserManager extends GenericManager<User, Long> {
     User getUserByUsername(String username) throws UsernameNotFoundException;
 
     /**
-     * Retrieves a list of users, filtering with parameters on a user object
-     * @param user parameters to filter on
+     * Retrieves a list of all users.
      * @return List
      */
-    List getUsers(User user);
+    List getUsers();
 
     /**
      * Saves a user's information.

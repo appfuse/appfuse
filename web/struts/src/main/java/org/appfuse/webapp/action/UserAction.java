@@ -1,12 +1,12 @@
 package org.appfuse.webapp.action;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.opensymphony.xwork2.Preparable;
-import org.springframework.security.Authentication;
-import org.springframework.security.AuthenticationTrustResolver;
-import org.springframework.security.AuthenticationTrustResolverImpl;
-import org.springframework.security.AccessDeniedException;
-import org.springframework.security.context.SecurityContext;
-import org.springframework.security.context.SecurityContextHolder;
 import org.apache.struts2.ServletActionContext;
 import org.appfuse.Constants;
 import org.appfuse.model.Role;
@@ -14,12 +14,12 @@ import org.appfuse.model.User;
 import org.appfuse.service.UserExistsException;
 import org.appfuse.webapp.util.RequestUtil;
 import org.springframework.mail.MailException;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.security.AccessDeniedException;
+import org.springframework.security.Authentication;
+import org.springframework.security.AuthenticationTrustResolver;
+import org.springframework.security.AuthenticationTrustResolverImpl;
+import org.springframework.security.context.SecurityContext;
+import org.springframework.security.context.SecurityContextHolder;
 
 /**
  * Action for facilitating User Management feature.
@@ -224,7 +224,7 @@ public class UserAction extends BaseAction implements Preparable {
      * @return "success" if no exceptions thrown
      */
     public String list() {
-        users = userManager.getUsers(new User());
+        users = userManager.getUsers();
         return SUCCESS;
     }
 }

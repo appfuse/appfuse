@@ -1,5 +1,8 @@
 package org.appfuse.service.impl;
 
+import java.util.List;
+import javax.jws.WebService;
+
 import org.appfuse.dao.UserDao;
 import org.appfuse.model.User;
 import org.appfuse.service.UserExistsException;
@@ -7,15 +10,10 @@ import org.appfuse.service.UserManager;
 import org.appfuse.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.security.providers.encoding.PasswordEncoder;
 import org.springframework.security.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.orm.ObjectRetrievalFailureException;
-import org.springframework.orm.jpa.JpaSystemException;
-
-import javax.jws.WebService;
-import javax.persistence.PersistenceException;
-import java.util.List;
 
 
 /**
@@ -50,7 +48,7 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
     /**
      * {@inheritDoc}
      */
-    public List<User> getUsers(User user) {
+    public List<User> getUsers() {
         return userDao.getAllDistinct();
     }
 

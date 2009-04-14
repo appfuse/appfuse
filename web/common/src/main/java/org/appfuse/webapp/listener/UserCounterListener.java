@@ -81,7 +81,7 @@ public class UserCounterListener implements ServletContextListener, HttpSessionA
 
     @SuppressWarnings("unchecked")
     synchronized void addUsername(User user) {
-        users = (Set) servletContext.getAttribute(USERS_KEY);
+        users = (Set<User>) servletContext.getAttribute(USERS_KEY);
 
         if (users == null) {
             users = new LinkedHashSet<User>();
@@ -94,8 +94,9 @@ public class UserCounterListener implements ServletContextListener, HttpSessionA
         }
     }
 
+    @SuppressWarnings("unchecked")
     synchronized void removeUsername(User user) {
-        users = (Set) servletContext.getAttribute(USERS_KEY);
+        users = (Set<User>) servletContext.getAttribute(USERS_KEY);
 
         if (users != null) {
             users.remove(user);

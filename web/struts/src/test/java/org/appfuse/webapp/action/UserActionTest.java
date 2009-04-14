@@ -56,7 +56,7 @@ public class UserActionTest extends BaseActionTestCase {
         user.setPassword("user");
         user.setConfirmPassword("user");
         // e-mail address from existing user
-        User existingUser = (User) userManager.getUsers(null).get(0);
+        User existingUser = (User) userManager.getUsers().get(0);
         user.setEmail(existingUser.getEmail());
         action.setUser(user);
         action.setFrom("list");
