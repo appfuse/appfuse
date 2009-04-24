@@ -17,9 +17,6 @@ import org.appfuse.Constants;
  * @author Serge Eby
  * @version $Id: Layout.java 5 2008-08-30 09:59:21Z serge.eby $
  */
-//@IncludeJavaScriptLibrary("context:scripts/global.js")
-//@IncludeStylesheet("context:styles/{prop:cssTheme}/theme.css",
-//		"context:styles/{prop:cssTheme}/print.css")
 public class Layout {
 
     @Inject
@@ -34,16 +31,6 @@ public class Layout {
     @Property @Parameter(required = true)
     private String title;
 
-//
-//	@InjectContainer
-//	@Property
-//	private BasePage page;
-
-//	
-//	private String message;
-//	
-//	private String type;
-
     @Property
     @Parameter(required = false, defaultPrefix = BindingConstants.MESSAGE)
     private String heading;
@@ -55,10 +42,6 @@ public class Layout {
     @Property
     @Parameter(required = false, defaultPrefix = BindingConstants.LITERAL)
     private String bodyId;
-
-//	void setupRender() {
-//		renderSupport.addScriptLink(globalLibrary);
-//	}
 
     public String getCssTheme() {
         return context.getInitParameter(Constants.CSS_THEME);

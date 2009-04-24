@@ -82,21 +82,7 @@
                 </dependencies>
             </plugin>
             <plugin>
-                <groupId>org.appfuse</groupId>
-                <artifactId>maven-warpath-plugin</artifactId>
-                <version>${pom.version}</version>
-                <extensions>true</extensions>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>add-classes</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.0.2</version>
                 <configuration>
                     <dependentWarExcludes>**/jdbc.properties</dependentWarExcludes>
                 </configuration>
@@ -148,19 +134,6 @@
             <groupId>${pom.groupId}</groupId>
             <artifactId>appfuse-web-common</artifactId>
             <version>${pom.version}</version>
-            <type>war</type>
-        </dependency>
-        <dependency>
-            <groupId>${pom.groupId}</groupId>
-            <artifactId>appfuse-web-common</artifactId>
-            <version>${pom.version}</version>
-            <type>warpath</type>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.appfuse</groupId>
-                    <artifactId>appfuse-hibernate</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.appfuse</groupId>
@@ -208,11 +181,6 @@
             <artifactId>tomahawk</artifactId>
             <version>${myfaces.tomahawk.version}</version>
         </dependency>
-        <!--<dependency>
-            <groupId>javax.annotation</groupId>
-            <artifactId>jsr250-api</artifactId>
-            <version>1.0</version>
-        </dependency>-->
         <dependency>
             <groupId>org.apache.shale</groupId>
             <artifactId>shale-test</artifactId>
@@ -258,11 +226,12 @@
                     <plugin>
                         <groupId>org.codehaus.cargo</groupId>
                         <artifactId>cargo-maven2-plugin</artifactId>
-                        <version>0.3</version>
+                        <version>${cargo.version}</version>
                         <configuration>
                             <wait>${cargo.wait}</wait>
                             <container>
-                                <containerId>${cargo.container}</containerId>
+                                <!-- Using Tomcat instead of Jetty since can't upgrade Jetty to latest version. -->
+                                <containerId>tomcat6x</containerId>
                                 <!--home>${cargo.container.home}</home-->
                                 <zipUrlInstaller>
                                     <url>${cargo.container.url}</url>

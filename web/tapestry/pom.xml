@@ -81,22 +81,9 @@
                     </dependency>
                 </dependencies>
             </plugin>
-            <plugin>
-                <groupId>org.appfuse</groupId>
-                <artifactId>maven-warpath-plugin</artifactId>
-                <version>${pom.version}</version>
-                <extensions>true</extensions>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>add-classes</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+            <!-- Override plugin configuration from appfuse-web so can exclude overridden files -->
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.0.2</version>
                 <configuration>
                     <dependentWarExcludes>**/jdbc.properties</dependentWarExcludes>
                 </configuration>
@@ -139,19 +126,6 @@
             <groupId>${pom.groupId}</groupId>
             <artifactId>appfuse-web-common</artifactId>
             <version>${pom.version}</version>
-            <type>war</type>
-        </dependency>
-        <dependency>
-            <groupId>${pom.groupId}</groupId>
-            <artifactId>appfuse-web-common</artifactId>
-            <version>${pom.version}</version>
-            <type>warpath</type>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.appfuse</groupId>
-                    <artifactId>appfuse-hibernate</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.appfuse</groupId>
@@ -208,16 +182,12 @@
                     <plugin>
                         <groupId>org.codehaus.cargo</groupId>
                         <artifactId>cargo-maven2-plugin</artifactId>
-                        <version>0.3</version>
+                        <version>${cargo.version}</version>
                         <configuration>
                             <wait>${cargo.wait}</wait>
                             <container>
                                 <containerId>${cargo.container}</containerId>
-                                <!--home>${cargo.container.home}</home-->
-                                <zipUrlInstaller>
-                                    <url>${cargo.container.url}</url>
-                                    <installDir>${installDir}</installDir>
-                                </zipUrlInstaller>
+                                <type>embedded</type>
                             </container>
                             <configuration>
                                 <home>${project.build.directory}/${cargo.container}/container</home>
@@ -250,19 +220,20 @@
                         <configuration>
                             <tasks>
                                 <taskdef resource="webtest_base_relaxed.taskdef">
-                                    <classpath refid="maven.test.classpath" />
+                                    <classpath refid="maven.test.classpath"/>
                                 </taskdef>
-                                <mkdir dir="target/webtest-data" />
+                                <mkdir dir="target/webtest-data"/>
                                 <!-- Delete old results file if it exists -->
-                                <delete file="target/webtest-data/web-tests-result.xml" />
+                                <delete file="target/webtest-data/web-tests-result.xml"/>
                                 <!-- This is so the default will be used if no test case is specified -->
-                                <property name="test" value="run-all-tests" />
+                                <property name="test" value="run-all-tests"/>
+                                <property name="i18n.classpath" value="${basedir}/../common/target/classes"/>
                                 <echo level="info">Testing '${project.build.finalName}' with locale '${user.language}'</echo>
                                 <ant antfile="src/test/resources/web-tests.xml" target="${test}">
-                                    <property name="user.language" value="${user.language}" />
-                                    <property name="webapp.name" value="${project.build.finalName}" />
-                                    <property name="host" value="${cargo.host}" />
-                                    <property name="port" value="${cargo.port}" />
+                                    <property name="user.language" value="${user.language}"/>
+                                    <property name="webapp.name" value="${project.build.finalName}"/>
+                                    <property name="host" value="${cargo.host}"/>
+                                    <property name="port" value="${cargo.port}"/>
                                 </ant>
                             </tasks>
                         </configuration>

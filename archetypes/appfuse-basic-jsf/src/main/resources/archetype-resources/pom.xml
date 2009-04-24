@@ -210,7 +210,7 @@
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>maven-jetty-plugin</artifactId>
-                <version>6.1.9</version>
+                <version>6.1.14</version>
                 <configuration>
                     <contextPath>/</contextPath>
                     <scanIntervalSeconds>3</scanIntervalSeconds>
@@ -342,12 +342,8 @@
 
     <repositories>
         <repository>
-            <id>central</id>
-            <url>http://repo1.maven.org/maven2</url>
-        </repository>
-        <repository>
             <id>appfuse</id>
-            <url>http://static.appfuse.org/repository</url>
+            <url>http://oss.sonatype.org/content/repositories/appfuse-releases</url>
         </repository>
         <!-- Needed for Facelets -->
         <repository>
@@ -360,7 +356,7 @@
     <pluginRepositories>
         <pluginRepository>
             <id>appfuse</id>
-            <url>http://static.appfuse.org/repository</url>
+            <url>http://oss.sonatype.org/content/repositories/appfuse-releases</url>
         </pluginRepository>
     </pluginRepositories>
 

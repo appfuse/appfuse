@@ -42,10 +42,6 @@
         <filter-class>com.opensymphony.oscache.web.filter.CacheFilter</filter-class>
     </filter>
     <filter>
-        <filter-name>clickstreamFilter</filter-name>
-        <filter-class>com.opensymphony.clickstream.ClickstreamFilter</filter-class>
-    </filter>
-    <filter>
         <filter-name>encodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
         <init-param>
@@ -134,10 +130,6 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>-->
     <filter-mapping>
-        <filter-name>clickstreamFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
         <filter-name>localeFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
@@ -194,10 +186,7 @@
         <dispatcher>REQUEST</dispatcher>
         <dispatcher>FORWARD</dispatcher>
     </filter-mapping>
-    
-    <listener>
-        <listener-class>com.opensymphony.clickstream.ClickstreamListener</listener-class>
-    </listener>
+
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>

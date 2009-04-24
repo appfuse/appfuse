@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>appfuse-web-common</artifactId>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>AppFuse Common Web Module</name>
 
     <description>

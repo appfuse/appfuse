@@ -4,8 +4,8 @@
 ]>
 <project basedir="." default="run-all-tests"> 
     <!-- Use i18n bundle, 2nd one listed is the default -->
-    <property file="\${basedir}/target/${webapp.name}/WEB-INF/classes/ApplicationResources_${user.language}.properties"/>
-    <property file="\${basedir}/target/${webapp.name}/WEB-INF/classes/ApplicationResources.properties"/>
+    <property file="${i18n.classpath}/ApplicationResources_${user.language}.properties"/>
+    <property file="${i18n.classpath}/ApplicationResources.properties"/>
 
     <!-- runs all targets -->
     <target name="run-all-tests" 

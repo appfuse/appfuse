@@ -115,7 +115,7 @@ public class NewCommand extends Command implements Runnable {
                             "-DarchetypeVersion=1.0-m2",
                             "-DgroupId=" + data.getPackageName(),
                             "-DartifactId=" + data.getApplicationName(),
-                            "-DremoteRepositories=http://static.appfuse.org/repository"};
+                            "-DremoteRepositories=http://oss.sonatype.org/content/repositories/appfuse-releases"};
 
 
         String path = PropertyUtility.getInstance().getSystemProperties().getProperty("user.dir");

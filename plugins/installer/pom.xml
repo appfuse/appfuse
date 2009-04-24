@@ -123,19 +123,15 @@
 
     <repositories>
         <repository>
-            <id>central</id>
-            <url>http://repo1.maven.org/maven2</url>
-        </repository>
-        <repository>
             <id>appfuse</id>
-            <url>http://static.appfuse.org/repository</url>
+            <url>http://oss.sonatype.org/content/repositories/appfuse-releases</url>
         </repository>
     </repositories>
 
     <pluginRepositories>
         <pluginRepository>
             <id>appfuse</id>
-            <url>http://static.appfuse.org/repository</url>
+            <url>http://oss.sonatype.org/content/repositories/appfuse-releases</url>
         </pluginRepository>
     </pluginRepositories>
 

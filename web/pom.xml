@@ -40,11 +40,61 @@
 
     <modules>
         <module>common</module>
-        <module>jsf</module>
-        <module>spring</module>
         <module>struts</module>
         <module>tapestry</module>
     </modules>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>maven-jetty-plugin</artifactId>
+                <version>${jetty.version}</version>
+                <configuration>
+                    <webAppConfig>
+                        <contextPath>/</contextPath>
+                        <baseResource implementation="org.mortbay.resource.ResourceCollection">
+                            <resourcesAsCSV>
+                                ${basedir}/../common/src/main/resources,
+                                ${basedir}/../common/src/main/webapp,
+                                ${basedir}/src/main/resources,
+                                ${basedir}/src/main/webapp
+                            </resourcesAsCSV>
+                        </baseResource>
+                    </webAppConfig>
+                    <scanIntervalSeconds>3</scanIntervalSeconds>
+                    <scanTargetPatterns>
+                        <scanTargetPattern>
+                            <directory>src/main/webapp/WEB-INF</directory>
+                            <excludes>
+                                <exclude>**/*.jsp</exclude>
+                                <exclude>**/*.html</exclude>
+                                <exclude>**/*.xhtml</exclude>
+                            </excludes>
+                            <includes>
+                                <include>**/*.xml</include>
+                                <include>**/*.properties</include>
+                            </includes>
+                        </scanTargetPattern>
+                    </scanTargetPatterns>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <webResources>
+                        <resource>
+                            <directory>../common/src/main/webapp</directory>
+                        </resource>
+                        <resource>
+                            <directory>../common/target/classes</directory>
+                            <targetPath>WEB-INF/classes</targetPath>
+                        </resource>
+                    </webResources>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <dependencies>
         <dependency>

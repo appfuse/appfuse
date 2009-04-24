@@ -340,7 +340,7 @@
            
     <target name="beandoc" description="Generate beandoc reports">
         <artifact:dependencies pathId="beandoc.classpath">
-            <remoteRepository url="http://static.appfuse.org/repository"/>
+            <remoteRepository url="http://oss.sonatype.org/content/repositories/appfuse-releases"/>
             <dependency groupId="org.springframework" artifactId="beandoc" version="0.7.0"/>
         </artifact:dependencies>
 
