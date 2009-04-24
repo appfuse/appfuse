@@ -488,7 +488,6 @@
         <ajax4jsf.version>1.0.6</ajax4jsf.version>
         <asm.version>2.2.3</asm.version>
         <aspectj.version>1.6.0</aspectj.version>
-        <clickstream.version>1.0.2</clickstream.version>
         <commons.lang.version>2.4</commons.lang.version>
         <commons.beanutils.version>1.7.0</commons.beanutils.version>
         <commons.collections.version>3.2</commons.collections.version>

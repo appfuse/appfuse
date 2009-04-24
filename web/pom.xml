@@ -123,11 +123,6 @@
         </dependency>
         <dependency>
             <groupId>opensymphony</groupId>
-            <artifactId>clickstream</artifactId>
-            <version>${clickstream.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>opensymphony</groupId>
             <artifactId>oscache</artifactId>
             <version>${oscache.version}</version>
         </dependency>

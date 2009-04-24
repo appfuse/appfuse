@@ -12,7 +12,6 @@
             <Item name="ReloadContext" title="menu.admin.reload" page="/admin/reload.html"/>
             <Item name="FileUpload" title="menu.selectFile" page="/fileupload.html"/>
             <Item name="FlushCache" title="menu.flushCache" page="/admin/flushCache.html"/>
-            <Item name="Clickstream" title="menu.clickstream" page="/admin/clickstreams.jsp"/>
         </Menu>
         <Menu name="Logout" title="user.logout" page="/logout.jsp" roles="ROLE_ADMIN,ROLE_USER"/>
     </Menus>
