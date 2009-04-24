@@ -101,6 +101,7 @@
                     <type>${dbunit.operation.type}</type>
                     <schema>${dbunit.schema}</schema>
                     <skip>${maven.test.skip}</skip>
+                    <transaction>true</transaction>
                 </configuration>
                 <executions>
                     <execution>
