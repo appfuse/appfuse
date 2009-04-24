@@ -25,7 +25,7 @@
     </description>
 
     <prerequisites>
-        <maven>2.0.6</maven>
+        <maven>2.1.0</maven>
     </prerequisites>
 
     <scm>
@@ -496,7 +496,7 @@
         <oscache.version>2.3</oscache.version>
         <servlet.version>2.4</servlet.version>
         <shale.version>1.0.4</shale.version>
-        <sitemesh.version>2.2.1</sitemesh.version>
+        <sitemesh.version>2.4</sitemesh.version>
         <spring.version>2.5.6</spring.version>
         <spring.security.version>2.0.4</spring.security.version>
         <springmodules.validation.version>0.8</springmodules.validation.version>

@@ -24,7 +24,7 @@
     </organization>
     
     <prerequisites>
-        <maven>2.0.6</maven>
+        <maven>2.1.0</maven>
     </prerequisites>
 
     <url>http://static.appfuse.org/plugins/appfuse-maven-plugin</url>
