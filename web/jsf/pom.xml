@@ -230,11 +230,10 @@
                         <configuration>
                             <wait>${cargo.wait}</wait>
                             <container>
-                                <!-- Using Tomcat instead of Jetty since can't upgrade Jetty to latest version. -->
-                                <containerId>tomcat6x</containerId>
-                                <!--home>${cargo.container.home}</home-->
+                                <containerId>${cargo.container}</containerId>
+                                <!-- Use newer version of Jetty since can't embedded Jetty doesn't work. -->
                                 <zipUrlInstaller>
-                                    <url>${cargo.container.url}</url>
+                                    <url>http://dist.codehaus.org/jetty/jetty-6.1.14/jetty-6.1.14.zip</url>
                                     <installDir>${installDir}</installDir>
                                 </zipUrlInstaller>
                             </container>
