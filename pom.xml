@@ -220,18 +220,18 @@
         <repository>
             <id>appfuse-releases</id>
             <name>AppFuse Release Repository</name>
-            <url>scp://static.appfuse.org/var/www/appfuse-releases</url>
+            <url>http://oss.sonatype.org/content/repositories/appfuse-releases</url>
         </repository>
+        <snapshotRepository>
+            <id>appfuse-snapshots</id>
+            <name>AppFuse Snapshot Repository</name>
+            <url>http://oss.sonatype.org/content/repositories/appfuse-snapshots</url>
+        </snapshotRepository>
         <site>
             <id>appfuse-site</id>
             <name>AppFuse Maven Site</name>
             <url>scp://static.appfuse.org/var/www/appfuse-site</url>
         </site>
-        <snapshotRepository>
-            <id>appfuse-snapshots</id>
-            <name>AppFuse Snapshot Repository</name>
-            <url>scp://static.appfuse.org/var/www/appfuse-repo</url>
-        </snapshotRepository>
     </distributionManagement>
 
     <repositories>
