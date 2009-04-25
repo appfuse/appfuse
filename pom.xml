@@ -463,7 +463,7 @@
         <aspectj.version>1.6.0</aspectj.version>
         <cargo.version>1.0</cargo.version>
         <commons.lang.version>2.4</commons.lang.version>
-        <commons.beanutils.version>1.7.0</commons.beanutils.version>
+        <commons.beanutils.version>1.8.0</commons.beanutils.version>
         <commons.collections.version>3.2</commons.collections.version>
         <commons.dbcp.version>1.2.1</commons.dbcp.version>
         <commons.fileupload.version>1.2.1</commons.fileupload.version>
@@ -479,26 +479,26 @@
         <hibernate.annotations.version>3.4.0.GA</hibernate.annotations.version>
         <hibernate.entitymanager.version>3.4.0.GA</hibernate.entitymanager.version>
         <ibatis.version>2.3.4.726</ibatis.version>
-        <javamail.version>1.4</javamail.version>
+        <javamail.version>1.4.1</javamail.version>
         <jetty.version>6.1.14</jetty.version>
-        <jmock.version>2.4.0</jmock.version>
+        <jmock.version>2.5.1</jmock.version>
         <jpa.version>1.0</jpa.version>
         <jsp.version>2.0</jsp.version>
         <jstl.version>1.1.2</jstl.version>
         <junit.version>4.4</junit.version>
         <log4j.version>1.2.13</log4j.version>
         <myfaces.version>1.2.6</myfaces.version>
-        <myfaces.tomahawk.version>1.1.6</myfaces.tomahawk.version>
-        <oscache.version>2.3</oscache.version>
+        <myfaces.tomahawk.version>1.1.8</myfaces.tomahawk.version>
+        <oscache.version>2.4</oscache.version>
         <servlet.version>2.4</servlet.version>
-        <shale.version>1.0.4</shale.version>
+        <shale.version>1.0.5</shale.version>
         <sitemesh.version>2.4</sitemesh.version>
         <spring.version>2.5.6</spring.version>
         <spring.security.version>2.0.4</spring.security.version>
         <springmodules.validation.version>0.8</springmodules.validation.version>
         <struts.version>2.0.11.1</struts.version>
         <struts.menu.version>2.4.3</struts.menu.version>
-        <tapestry.version>5.0.14</tapestry.version>
+        <tapestry.version>5.0.18</tapestry.version>
         <urlrewrite.version>3.1.0</urlrewrite.version>
         <velocity.version>1.4</velocity.version>
         <webtest.version>R_1702</webtest.version>
