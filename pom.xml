@@ -202,7 +202,7 @@
         <snapshotRepository>
             <id>appfuse-snapshots</id>
             <name>AppFuse Snapshot Repository</name>
-            <url>http://oss.sonatype.org/content/repositories/appfuse-snapshots</url>
+            <url>http://oss.sonatype.org/content/groups/appfuse</url>
         </snapshotRepository>
         <site>
             <id>appfuse-site</id>
@@ -213,12 +213,8 @@
 
     <repositories>
         <repository>
-            <id>appfuse-releases</id>
-            <url>http://oss.sonatype.org/content/repositories/appfuse-releases</url>
-        </repository>
-        <repository>
-            <id>appfuse-snapshots</id>
-            <url>http://oss.sonatype.org/content/repositories/appfuse-snapshots</url>
+            <id>appfuse</id>
+            <url>http://oss.sonatype.org/content/groups/appfuse</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
@@ -232,8 +228,8 @@
 
     <pluginRepositories>
         <pluginRepository>
-            <id>appfuse-snapshots</id>
-            <url>http://oss.sonatype.org/content/repositories/appfuse-snapshots</url>
+            <id>appfuse</id>
+            <url>http://oss.sonatype.org/content/groups/appfuse</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>

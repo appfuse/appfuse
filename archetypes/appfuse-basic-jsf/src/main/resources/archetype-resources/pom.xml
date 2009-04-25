@@ -344,7 +344,7 @@
     <repositories>
         <repository>
             <id>appfuse</id>
-            <url>http://oss.sonatype.org/content/repositories/appfuse-releases</url>
+            <url>http://oss.sonatype.org/content/groups/appfuse</url>
         </repository>
         <!-- Needed for Facelets -->
         <repository>
@@ -357,7 +357,7 @@
     <pluginRepositories>
         <pluginRepository>
             <id>appfuse</id>
-            <url>http://oss.sonatype.org/content/repositories/appfuse-releases</url>
+            <url>http://oss.sonatype.org/content/groups/appfuse</url>
         </pluginRepository>
     </pluginRepositories>
 
