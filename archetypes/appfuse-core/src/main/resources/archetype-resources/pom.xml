@@ -340,7 +340,7 @@
                 <jdbc.artifactId>derbyclient</jdbc.artifactId>
                 <jdbc.version>10.2.2.0</jdbc.version>
                 <jdbc.driverClassName>org.apache.derby.jdbc.ClientDriver</jdbc.driverClassName>
-                <jdbc.url><![CDATA[jdbc:derby://localhost/${artifactId.replaceAll('-','_')};create=true]]></jdbc.url>
+                <jdbc.url><![CDATA[jdbc:derby://localhost/appfuse-basic-jsf;create=true]]></jdbc.url>
                 <jdbc.username>any</jdbc.username>
                 <jdbc.password>value</jdbc.password>
             </properties>
@@ -354,7 +354,7 @@
                 <jdbc.artifactId>h2</jdbc.artifactId>
                 <jdbc.version>1.0.79</jdbc.version>
                 <jdbc.driverClassName>org.h2.Driver</jdbc.driverClassName>
-                <jdbc.url><![CDATA[jdbc:h2:/tmp/${artifactId.replaceAll('-','_')}]]></jdbc.url>
+                <jdbc.url><![CDATA[jdbc:h2:/tmp/appfuse-basic-jsf]]></jdbc.url>
                 <jdbc.username>sa</jdbc.username>
                 <jdbc.password></jdbc.password>
             </properties>
@@ -368,7 +368,7 @@
                 <jdbc.artifactId>hsqldb</jdbc.artifactId>
                 <jdbc.version>1.8.0.7</jdbc.version>
                 <jdbc.driverClassName>org.hsqldb.jdbcDriver</jdbc.driverClassName>
-                <jdbc.url><![CDATA[jdbc:hsqldb:/tmp/${artifactId.replaceAll('-','_')};shutdown=true]]></jdbc.url>
+                <jdbc.url><![CDATA[jdbc:hsqldb:/tmp/appfuse-basic-jsf;shutdown=true]]></jdbc.url>
                 <jdbc.username>sa</jdbc.username>
                 <jdbc.password></jdbc.password>
             </properties>
@@ -396,7 +396,7 @@
                 <jdbc.artifactId>postgresql</jdbc.artifactId>
                 <jdbc.version>8.1-407.jdbc3</jdbc.version>
                 <jdbc.driverClassName>org.postgresql.Driver</jdbc.driverClassName>
-                <jdbc.url><![CDATA[jdbc:postgresql://localhost/${artifactId.replaceAll('-','_')}]]></jdbc.url>
+                <jdbc.url><![CDATA[jdbc:postgresql://localhost/appfuse-basic-jsf]]></jdbc.url>
                 <jdbc.username>postgres</jdbc.username>
                 <jdbc.password>postgres</jdbc.password>
             </properties>
@@ -413,7 +413,7 @@
                 <jdbc.artifactId>jtds</jdbc.artifactId>
                 <jdbc.version>1.2</jdbc.version>
                 <jdbc.driverClassName>net.sourceforge.jtds.jdbc.Driver</jdbc.driverClassName>
-                <jdbc.url><![CDATA[jdbc:jtds:sqlserver://localhost:3683/${artifactId.replaceAll('-','_')}]]></jdbc.url>
+                <jdbc.url><![CDATA[jdbc:jtds:sqlserver://localhost:3683/appfuse-basic-jsf]]></jdbc.url>
                 <jdbc.username>sa</jdbc.username>
                 <jdbc.password>appfuse</jdbc.password>
             </properties>
@@ -443,7 +443,7 @@
         <jdbc.artifactId>mysql-connector-java</jdbc.artifactId>
         <jdbc.version>5.0.5</jdbc.version>
         <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-        <jdbc.url><![CDATA[jdbc:mysql://localhost/${artifactId.replaceAll('-','_')}?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8]]></jdbc.url>
+        <jdbc.url><![CDATA[jdbc:mysql://localhost/appfuse-basic-jsf?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8]]></jdbc.url>
         <jdbc.username>root</jdbc.username>
         <jdbc.password></jdbc.password>
     </properties>
