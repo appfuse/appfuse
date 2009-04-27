@@ -202,7 +202,7 @@
         <snapshotRepository>
             <id>appfuse-snapshots</id>
             <name>AppFuse Snapshot Repository</name>
-            <url>http://oss.sonatype.org/content/groups/appfuse</url>
+            <url>http://oss.sonatype.org/content/repositories/appfuse-snapshots</url>
         </snapshotRepository>
         <site>
             <id>appfuse-site</id>
