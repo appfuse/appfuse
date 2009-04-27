@@ -30,7 +30,7 @@
     <version>2.1-SNAPSHOT</version>
 
     <description>
-        Maven 2 archetype that creates a web application with AppFuse embedded in it.
+        Maven 2 project that creates the AppFuse Basic Tapestry Archetype.
     </description>
 
     <scm>
@@ -39,5 +39,59 @@
         <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/archetypes/appfuse-basic-tapestry</url>
     </scm>
 
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.3</version>
+                <configuration>
+                    <tasks>
+                        <ant antfile="../build.xml" dir="."  target="build-archetype">
+                            <property name="module" value="tapestry"/>
+                        </ant>
+                    </tasks>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>integration-test</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <configuration>
+                            <tasks>
+                                <ant antfile="../build.xml" dir="." target="build-archetype">
+                                    <property name="module" value="tapestry"/>
+                                </ant>
+                                <ant antfile="../build.xml" dir="." target="test">
+                                    <property name="archetype" value="${pom.artifactId}-archetype"/>
+                                </ant>
+                            </tasks>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
 

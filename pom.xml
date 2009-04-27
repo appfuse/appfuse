@@ -219,11 +219,6 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
-        <repository>
-            <id>compass-project.org</id>
-            <name>Compass</name>
-            <url>http://repo.compass-project.org</url>
-         </repository>
     </repositories>
 
     <pluginRepositories>
@@ -306,7 +301,7 @@
             <plugin>
                 <artifactId>maven-pmd-plugin</artifactId>
                 <configuration>
-                    <linkXref>true</linkXref>
+                    <linkXRef>true</linkXRef>
                     <targetJdk>1.5</targetJdk>
                 </configuration>
             </plugin>
@@ -498,7 +493,7 @@
         <springmodules.validation.version>0.8</springmodules.validation.version>
         <struts.version>2.0.11.1</struts.version>
         <struts.menu.version>2.4.3</struts.menu.version>
-        <tapestry.version>5.0.18</tapestry.version>
+        <tapestry.version>5.0.14</tapestry.version>
         <urlrewrite.version>3.1.0</urlrewrite.version>
         <velocity.version>1.4</velocity.version>
         <webtest.version>R_1702</webtest.version>

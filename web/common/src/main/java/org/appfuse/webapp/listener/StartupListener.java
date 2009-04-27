@@ -81,7 +81,7 @@ public class StartupListener implements ServletContextListener {
         if (log.isDebugEnabled()) {
             log.debug("Remember Me Enabled? " + config.get("rememberMeEnabled"));
             if (passwordEncoder != null) {
-                log.debug("Password Encoder: " + passwordEncoder.getClass().getName());
+                log.debug("Password Encoder: " + passwordEncoder.getClass().getSimpleName());
             }
             log.debug("Populating drop-downs...");
         }
