@@ -5,7 +5,7 @@ import org.appfuse.mojo.AbstractAppFuseMojoTestCase;
 public class InstallArtifactsMojoTest extends AbstractAppFuseMojoTestCase {
 
     public void testCreateTestProject() throws Exception {
-        createTestProject("appfuse-basic-struts", "2.1-SNAPSHOT");
+        createTestProject("appfuse-basic-struts-archetype", "2.1-SNAPSHOT");
         assertTrue("can't find test-project's pom.xml", checkExists("target/test-project/pom.xml"));
     }
 

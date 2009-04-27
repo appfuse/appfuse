@@ -1,6 +1,11 @@
 package org.appfuse.mojo;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+
 import org.apache.maven.archetype.Archetype;
+import org.apache.maven.archetype.ArchetypeGenerationRequest;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.artifact.repository.DefaultArtifactRepository;
 import org.apache.maven.artifact.repository.layout.ArtifactRepositoryLayout;
@@ -8,14 +13,8 @@ import org.apache.maven.model.Build;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
 import org.apache.maven.plugin.testing.stubs.MavenProjectStub;
 import org.apache.maven.project.MavenProject;
-import org.codehaus.plexus.util.FileUtils;
 import org.appfuse.mojo.installer.InstallArtifactsMojo;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import org.codehaus.plexus.util.FileUtils;
 
 public abstract class AbstractAppFuseMojoTestCase extends AbstractMojoTestCase {
     private boolean genericCore = false;
@@ -105,30 +104,28 @@ public abstract class AbstractAppFuseMojoTestCase extends AbstractMojoTestCase {
         MavenProject project = getMavenProject();
         FileUtils.deleteDirectory(getTestFile("target/" + project.getArtifactId()));
 
-        Map<String, String> parameters = new HashMap<String, String>();
-
-        parameters.put("groupId", project.getGroupId());
-        parameters.put("artifactId", project.getArtifactId());
-        parameters.put("version", "1.0-SNAPSHOT");
-        parameters.put("basedir", getTestFile("target").getAbsolutePath());
-
         Archetype archetype = (Archetype) lookup(Archetype.ROLE);
-
-        ArtifactRepositoryLayout layout =
-                (ArtifactRepositoryLayout) container.lookup(ArtifactRepositoryLayout.ROLE, "default");
 
         String mavenRepoLocal = "file://" + System.getProperty("user.home") + System.getProperty("file.separator") +
                 ".m2" + System.getProperty("file.separator") + "repository";
+
+        ArtifactRepositoryLayout layout =
+                (ArtifactRepositoryLayout) container.lookup(ArtifactRepositoryLayout.ROLE, "default");
+        
         ArtifactRepository localRepository = new DefaultArtifactRepository("local", mavenRepoLocal, layout);
 
         List<ArtifactRepository> remoteRepositories = new ArrayList<ArtifactRepository>();
-        /*String mavenRepoRemote = "http://repo1.maven.org/maven2";
-        ArtifactRepository remoteRepository = new DefaultArtifactRepository("remote", mavenRepoRemote, layout);
-
-        remoteRepositories.add(remoteRepository);*/
 
         String archetypeGroupId = "org.appfuse.archetypes";
-        archetype.createArchetype(archetypeGroupId, archetypeArtifactId, archetypeVersion, localRepository,
-                remoteRepositories, parameters);
+
+        ArchetypeGenerationRequest request = new ArchetypeGenerationRequest();
+        request.setGroupId(project.getGroupId()).setArtifactId(project.getArtifactId()).setVersion("1.0-SNAPSHOT");
+        request.setArchetypeGroupId(archetypeGroupId).setArchetypeArtifactId(archetypeArtifactId);
+        request.setArchetypeVersion(archetypeVersion);
+        request.setLocalRepository(localRepository);
+        request.setRemoteArtifactRepositories(remoteRepositories);
+        request.setOutputDirectory(getTestFile("target").getAbsolutePath());
+
+        archetype.generateProjectFromArchetype(request);
     }
 }
