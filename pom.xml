@@ -319,10 +319,10 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <modules>
-                <module>archetypes</module>
                 <module>data</module>
                 <module>service</module>
                 <module>web</module>
+                <module>archetypes</module>
             </modules>
         </profile>
         <profile>
