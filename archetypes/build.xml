@@ -116,7 +116,7 @@
         <attribute name="version" default=""/>
         <attribute name="command"
                    default="archetype:generate -B -DarchetypeGroupId=org.appfuse.archetypes -DarchetypeArtifactId=@{archetype}
-                   -DarchetypeVersion=@{version} -DgroupId=com.mycompany -DartifactId=@{archetype} -DpackageName=com.mycompany.webapp"/>
+                   -DarchetypeVersion=@{version} -DgroupId=com.mycompany -DartifactId=@{archetype} -DpackageName=com.mycompany"/>
 
         <sequential>
             <mkdir dir="${test.dir}"/>
@@ -168,26 +168,7 @@
             </then>
             </if>
 
-            <if>
-                <equals arg1="${dest}" arg2="web"/>
-                <then>
-                    <property name="components.dir" value="@{dir}/@{dest}/src/main/resources/webapp/components"/>
-                </then>
-                <else>
-                    <property name="components.dir" value="@{dir}/@{dest}/src/main/resources/components"/>
-                </else>
-            </if>
-
-            <!-- Make sure Tapestry components are put in proper location -->
-            <mkdir dir="${components.dir}"/>
-            <move todir="${components.dir}" failonerror="false">
-                <fileset dir="@{dir}/@{dest}/src/main/resources/org/appfuse/webapp/components" includes="*.tml"/>
-            </move>
-            <delete dir="@{dir}/@{dest}/src/main/resources/org/appfuse/webapp/components" failonerror="false"/>
-
-            <property name="command" value="archetype:create-from-project"/>
-
-            <mvn dir="@{dir}" command="${command}"/>
+            <mvn dir="@{dir}" command="archetype:create-from-project"/>
 
             <!-- Change the version number of the generated archetype -->
             <replace file="@{dir}/target/generated-sources/archetype/pom.xml" token="1.0-SNAPSHOT" value="${version}"/>
@@ -239,23 +220,11 @@
             </replace>
 
             <!-- Manually add ${package} to *.tld files -->
-            <if>
-            <equals arg1="@{dest}" arg2="web"/>
-            <then>
-                <replace dir="@{dir}/target/generated-sources/archetype/src">
-                    <include name="**/*.tld"/>
-                    <replacetoken>org.appfuse.webapp.taglib</replacetoken>
-                    <replacevalue>${package}.webapp.taglib</replacevalue>
-                </replace>
-            </then>
-            <else>
-                <replace dir="@{dir}/target/generated-sources/archetype/src">
-                    <include name="**/*.tld"/>
-                    <replacetoken>org.appfuse.webapp.taglib</replacetoken>
-                    <replacevalue>${package}.taglib</replacevalue>
-                </replace>
-            </else>
-            </if>
+            <replace dir="@{dir}/target/generated-sources/archetype/src">
+                <include name="**/*.tld"/>
+                <replacetoken>org.appfuse.webapp.taglib</replacetoken>
+                <replacevalue>${package}.webapp.taglib</replacevalue>
+            </replace>
 
             <!-- Make sure .tld files are filtered -->
             <replace dir="@{dir}/target/generated-sources/archetype">
@@ -269,17 +238,12 @@
         <include>**/*.tld</include>]]></replacevalue>
             </replace>
 
-            <!-- Fix hibernate.cfg.xml when generating a modular archetype -->
-            <if>
-            <equals arg1="@{dest}" arg2="web"/>
-            <then>
+            <!-- Fix hibernate.cfg.xml -->
             <replace dir="@{dir}/target/generated-sources/archetype/src">
                 <include name="**/hibernate.cfg.xml"/>
                 <replacetoken>${package}</replacetoken>
                 <replacevalue>org.appfuse</replacevalue>
             </replace>
-            </then>
-            </if>
 
             <if>
             <equals arg1="${dest}" arg2=""/>
@@ -319,13 +283,73 @@
             </else>
             </if>
 
+            <if>
+            <equals arg1="${dest}" arg2=""/>
+            <then>
             <!-- Make sure web.xml has proper value for Tapestry -->
             <replace dir="@{dir}/target/generated-sources/archetype">
                 <include name="**/web.xml"/>
                 <replacetoken><![CDATA[<param-value>org.appfuse.webapp</param-value>]]></replacetoken>
-                <replacevalue><![CDATA[<param-value>${package}</param-value>]]></replacevalue>
+                <replacevalue><![CDATA[<param-value>${package}.webapp</param-value>]]></replacevalue>
             </replace>
+            </then>
+            <else>
+                <replace dir="@{dir}/target/generated-sources/archetype">
+                    <include name="**/web.xml"/>
+                    <replacetoken><![CDATA[<param-value>org.appfuse.webapp</param-value>]]></replacetoken>
+                    <replacevalue><![CDATA[<param-value>${package}</param-value>]]></replacevalue>
+                </replace>
+            </else>
+            </if>
 
+            <if>
+            <equals arg1="${dest}" arg2=""/>
+            <then>
+                <!-- Make sure all Java files are in webapp directory -->
+                <replace dir="@{dir}/target/generated-sources/archetype">
+                    <include name="**/*"/>
+                    <replacetoken>${package}</replacetoken>
+                    <replacevalue>${package}.webapp</replacevalue>
+                </replace>
+                <replace dir="@{dir}/target/generated-sources/archetype">
+                    <include name="**/*"/>
+                    <replacetoken>webapp.webapp</replacetoken>
+                    <replacevalue>webapp</replacevalue>
+                </replace>
+
+                <property name="web.root"
+                          value="@{dir}/target/generated-sources/archetype/src/main/resources/archetype-resources"/>
+
+                <!-- sources -->
+                <delete dir="${web.root}/src/main/java/org"/>
+                <mkdir dir="${web.root}/src/webapp"/>
+                <move todir="${web.root}/src/webapp">
+                    <fileset dir="${web.root}/src/main/java"/>
+                </move>
+                <mkdir dir="${web.root}/src/main/java"/>
+                <move todir="${web.root}/src/main/java/webapp">
+                    <fileset dir="${web.root}/src/webapp"/>
+                </move>
+
+                <!-- tests -->
+                <mkdir dir="${web.root}/src/tests"/>
+                <move todir="${web.root}/src/tests">
+                    <fileset dir="${web.root}/src/test/java"/>
+                </move>
+                <mkdir dir="${web.root}/src/test/java"/>
+                <move todir="${web.root}/src/test/java/webapp">
+                    <fileset dir="${web.root}/src/tests"/>
+                </move>
+            </then>
+            </if>
+
+            <!-- Fix ${artifactId}app replacement bug -->
+            <replace dir="@{dir}/target/generated-sources/archetype">
+                <include name="**/*"/>
+                <replacetoken>${artifactId}app</replacetoken>
+                <replacevalue>webapp</replacevalue>
+            </replace>
+                
             <mvn command="install" dir="@{dir}/target/generated-sources/archetype"/>
         </sequential>
     </macrodef>
