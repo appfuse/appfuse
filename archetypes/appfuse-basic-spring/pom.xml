@@ -18,10 +18,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.appfuse</groupId>
-        <artifactId>appfuse</artifactId>
+        <groupId>org.appfuse.archetypes</groupId>
+        <artifactId>appfuse-archetypes</artifactId>
         <version>2.1-SNAPSHOT</version>
-        <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <groupId>org.appfuse.archetypes</groupId>
@@ -43,26 +42,46 @@
         <plugins>
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.3</version>
-                <configuration>
-                    <tasks>
-                        <delete dir="target/spring-archetype"/>
-                        <ant antfile="../build.xml" dir="." target="build-archetype">
-                            <property name="module" value="spring"/>
-                        </ant>
-
-                        <ant antfile="../build.xml" dir="." target="test">
-                            <property name="archetype" value="${pom.artifactId}-archetype"/>
-                        </ant>
-
-                        <ant antfile="../build.xml" dir="." target="deploy">
-                            <property name="module" value="spring"/>
-                        </ant>
-                    </tasks>
-                </configuration>
                 <executions>
                     <execution>
-                        <phase>post-integration-test</phase>
+                        <id>build-archetype</id>
+                        <phase>package</phase>
+                        <configuration>
+                            <tasks>
+                                <delete dir="target/${module}-archetype"/>
+                                <ant antfile="../build.xml" dir="." target="build-archetype">
+                                    <property name="module" value="${module}"/>
+                                </ant>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>test-archetype</id>
+                        <phase>integration-test</phase>
+                        <configuration>
+                            <tasks>
+                                <ant antfile="../build.xml" dir="." target="test">
+                                    <property name="archetype" value="${pom.artifactId}-archetype"/>
+                                </ant>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>deploy-archetype</id>
+                        <phase>deploy</phase>
+                        <configuration>
+                            <tasks>
+                                <ant antfile="../build.xml" dir="." target="deploy">
+                                    <property name="module" value="${module}"/>
+                                </ant>
+                            </tasks>
+                        </configuration>
                         <goals>
                             <goal>run</goal>
                         </goals>
@@ -71,4 +90,8 @@
             </plugin>
         </plugins>
     </build>
+
+    <properties>
+        <module>spring</module>
+    </properties>
 </project>
