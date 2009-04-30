@@ -47,10 +47,16 @@
                 <version>1.3</version>
                 <configuration>
                     <tasks>
+                        <delete dir="target/core-archetype"/>
+
                         <ant antfile="../build.xml" dir="."  target="install-core"/>
 
                         <ant antfile="../build.xml" dir="."  target="test">
                             <property name="archetype" value="${pom.artifactId}-archetype"/>
+                        </ant>
+
+                        <ant antfile="../build.xml" dir="."  target="deploy">
+                            <property name="module" value="core"/>
                         </ant>
                     </tasks>
                 </configuration>

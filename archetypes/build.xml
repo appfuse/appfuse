@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="archetypes" basedir="." default="test-all" xmlns:artifact="urn:maven-artifact-ant">
+<project name="archetypes" basedir="." xmlns:artifact="urn:maven-artifact-ant">
 
     <property name="version" value="2.1-SNAPSHOT"/>
     <property name="archetype" value="${archetype}"/>
@@ -39,6 +39,28 @@
         <!-- Change the version number of the generated archetype -->
         <replace file="${dir}/target/generated-sources/archetype/pom.xml" token="1.0-SNAPSHOT" value="${version}"/>
 
+        <replace file="${dir}/target/generated-sources/archetype/pom.xml">
+                <replacetoken><![CDATA[</name>]]></replacetoken>
+                <replacevalue><![CDATA[</name>
+        <distributionManagement>
+        <repository>
+            <id>appfuse-releases</id>
+            <name>AppFuse Release Repository</name>
+            <url>http://oss.sonatype.org/content/repositories/appfuse-releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>appfuse-snapshots</id>
+            <name>AppFuse Snapshot Repository</name>
+            <url>http://oss.sonatype.org/content/repositories/appfuse-snapshots</url>
+        </snapshotRepository>
+        <site>
+            <id>appfuse-site</id>
+            <name>AppFuse Maven Site</name>
+            <url>scp://static.appfuse.org/var/www/appfuse-site</url>
+        </site>
+    </distributionManagement>]]></replacevalue>
+            </replace>
+
         <!-- Add jdbc.password back in since archetype plugin strips it out -->
         <replace file="${dir}/target/generated-sources/archetype/src/main/resources/archetype-resources/pom.xml">
             <replacetoken><![CDATA[<jdbc.username>root</jdbc.username>]]></replacetoken>
@@ -49,53 +71,9 @@
         <mvn command="install" dir="target/core-archetype/target/generated-sources/archetype"/>
     </target>
 
-    <target name="test-all" description="Runs all archetype tests using Ant">
-        <maven dir="${basedir}" command="clean install"/>
-
-        <ant antfile="../build.xml" dir="appfuse-core" target="test">
-            <property name="archetype" value="appfuse-core"/>
-            <property name="version" value="${version}"/>
-        </ant>
-
-        <ant antfile="../build.xml" dir="appfuse-basic-jsf" target="test">
-            <property name="archetype" value="appfuse-basic-jsf"/>
-            <property name="version" value="${version}"/>
-        </ant>
-
-        <ant antfile="../build.xml" dir="appfuse-basic-spring" target="test">
-            <property name="archetype" value="appfuse-basic-spring"/>
-            <property name="version" value="${version}"/>
-        </ant>
-
-        <ant antfile="../build.xml" dir="appfuse-basic-struts" target="test">
-            <property name="archetype" value="appfuse-basic-struts"/>
-            <property name="version" value="${version}"/>
-        </ant>
-
-        <ant antfile="../build.xml" dir="appfuse-basic-tapestry" target="test">
-            <property name="archetype" value="appfuse-basic-tapestry"/>
-            <property name="version" value="${version}"/>
-        </ant>
-
-        <ant antfile="../build.xml" dir="appfuse-modular-jsf" target="test">
-            <property name="archetype" value="appfuse-modular-jsf"/>
-            <property name="version" value="${version}"/>
-        </ant>
-
-        <ant antfile="../build.xml" dir="appfuse-modular-spring" target="test">
-            <property name="archetype" value="appfuse-modular-spring"/>
-            <property name="version" value="${version}"/>
-        </ant>
-
-        <ant antfile="../build.xml" dir="appfuse-modular-struts" target="test">
-            <property name="archetype" value="appfuse-modular-struts"/>
-            <property name="version" value="${version}"/>
-        </ant>
-
-        <ant antfile="../build.xml" dir="appfuse-modular-tapestry" target="test">
-            <property name="archetype" value="appfuse-modular-tapestry"/>
-            <property name="version" value="${version}"/>
-        </ant>
+    <target name="deploy" description="Deploys archetype">
+        <property name="dir" value="target/${module}-archetype"/>
+        <mvn command="deploy" dir="${dir}/target/generated-sources/archetype"/>
     </target>
 
     <macrodef name="test">
@@ -134,7 +112,7 @@
             <copy todir="@{dir}">
                 <fileset dir="src"/>
             </copy>
-            
+
             <parallel>
                 <copy todir="@{dir}/@{dest}">
                     <fileset dir="${basedir}/../../web/common">
@@ -174,12 +152,12 @@
 
             <!-- Remove hibernate.cfg.xml from web projects when creating modular archetypes -->
             <if>
-            <equals arg1="@{dest}" arg2="web"/>
-            <then>
-            <delete dir="@{dir}/web/src/main/resources">
-                <include name="**/hibernate.cfg.xml"/>
-            </delete>
-            </then>
+                <equals arg1="@{dest}" arg2="web"/>
+                <then>
+                    <delete dir="@{dir}/web/src/main/resources">
+                        <include name="**/hibernate.cfg.xml"/>
+                    </delete>
+                </then>
             </if>
 
             <mvn dir="@{dir}" command="archetype:create-from-project"/>
@@ -194,13 +172,35 @@
   <description>AppFuse Archetype</description>]]></replacevalue>
             </replace>
 
+            <replace file="@{dir}/target/generated-sources/archetype/pom.xml">
+                <replacetoken><![CDATA[</description>]]></replacetoken>
+                <replacevalue><![CDATA[</description>
+        <distributionManagement>
+        <repository>
+            <id>appfuse-releases</id>
+            <name>AppFuse Release Repository</name>
+            <url>http://oss.sonatype.org/content/repositories/appfuse-releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>appfuse-snapshots</id>
+            <name>AppFuse Snapshot Repository</name>
+            <url>http://oss.sonatype.org/content/repositories/appfuse-snapshots</url>
+        </snapshotRepository>
+        <site>
+            <id>appfuse-site</id>
+            <name>AppFuse Maven Site</name>
+            <url>scp://static.appfuse.org/var/www/appfuse-site</url>
+        </site>
+    </distributionManagement>]]></replacevalue>
+            </replace>
+
             <!-- Preserve embedded package names -->
             <replace dir="@{dir}/target/generated-sources/archetype/src">
                 <replacetoken><![CDATA[import ${package}.Constants]]></replacetoken>
                 <replacevalue><![CDATA[import org.appfuse.Constants]]></replacevalue>
             </replace>
 
-            <replace dir="@{dir}/target/generated-sources/archetype/src">                                                                           
+            <replace dir="@{dir}/target/generated-sources/archetype/src">
                 <replacetoken><![CDATA[import ${package}.model]]></replacetoken>
                 <replacevalue><![CDATA[import org.appfuse.model]]></replacevalue>
             </replace>
@@ -260,101 +260,101 @@
             </replace>
 
             <if>
-            <equals arg1="${dest}" arg2=""/>
-            <then>
-            <replace dir="@{dir}/target/generated-sources/archetype">
-                <include name="**/archetype-metadata.xml"/>
-                <replacetoken><![CDATA[<fileSet encoding="UTF-8">
+                <equals arg1="${dest}" arg2=""/>
+                <then>
+                    <replace dir="@{dir}/target/generated-sources/archetype">
+                        <include name="**/archetype-metadata.xml"/>
+                        <replacetoken><![CDATA[<fileSet encoding="UTF-8">
       <directory>src/main/resources</directory>
       <includes>
         <include>**/*.tml</include>
       </includes>
     </fileSet>]]></replacetoken>
-                <replacevalue><![CDATA[<fileSet packaged="true" encoding="UTF-8">
+                        <replacevalue><![CDATA[<fileSet packaged="true" encoding="UTF-8">
       <directory>src/main/resources</directory>
       <includes>
         <include>**/*.tml</include>
       </includes>
     </fileSet>]]></replacevalue>
-            </replace>
-            </then>
-            <else>
-            <replace dir="@{dir}/target/generated-sources/archetype">
-                <include name="**/archetype-metadata.xml"/>
-                <replacetoken><![CDATA[<fileSet encoding="UTF-8">
+                    </replace>
+                </then>
+                <else>
+                    <replace dir="@{dir}/target/generated-sources/archetype">
+                        <include name="**/archetype-metadata.xml"/>
+                        <replacetoken><![CDATA[<fileSet encoding="UTF-8">
           <directory>src/main/resources</directory>
           <includes>
             <include>**/*.tml</include>
           </includes>
         </fileSet>]]></replacetoken>
-                <replacevalue><![CDATA[<fileSet packaged="true" encoding="UTF-8">
+                        <replacevalue><![CDATA[<fileSet packaged="true" encoding="UTF-8">
           <directory>src/main/resources</directory>
           <includes>
             <include>**/*.tml</include>
           </includes>
         </fileSet>]]></replacevalue>
-            </replace>
-            </else>
+                    </replace>
+                </else>
             </if>
 
             <if>
-            <equals arg1="${dest}" arg2=""/>
-            <then>
-            <!-- Make sure web.xml has proper value for Tapestry -->
-            <replace dir="@{dir}/target/generated-sources/archetype">
-                <include name="**/web.xml"/>
-                <replacetoken><![CDATA[<param-value>org.appfuse.webapp</param-value>]]></replacetoken>
-                <replacevalue><![CDATA[<param-value>${package}.webapp</param-value>]]></replacevalue>
-            </replace>
-            </then>
-            <else>
-                <replace dir="@{dir}/target/generated-sources/archetype">
-                    <include name="**/web.xml"/>
-                    <replacetoken><![CDATA[<param-value>org.appfuse.webapp</param-value>]]></replacetoken>
-                    <replacevalue><![CDATA[<param-value>${package}</param-value>]]></replacevalue>
-                </replace>
-            </else>
+                <equals arg1="${dest}" arg2=""/>
+                <then>
+                    <!-- Make sure web.xml has proper value for Tapestry -->
+                    <replace dir="@{dir}/target/generated-sources/archetype">
+                        <include name="**/web.xml"/>
+                        <replacetoken><![CDATA[<param-value>org.appfuse.webapp</param-value>]]></replacetoken>
+                        <replacevalue><![CDATA[<param-value>${package}.webapp</param-value>]]></replacevalue>
+                    </replace>
+                </then>
+                <else>
+                    <replace dir="@{dir}/target/generated-sources/archetype">
+                        <include name="**/web.xml"/>
+                        <replacetoken><![CDATA[<param-value>org.appfuse.webapp</param-value>]]></replacetoken>
+                        <replacevalue><![CDATA[<param-value>${package}</param-value>]]></replacevalue>
+                    </replace>
+                </else>
             </if>
 
             <if>
-            <equals arg1="${dest}" arg2=""/>
-            <then>
-                <!-- Make sure all Java files are in webapp directory -->
-                <replace dir="@{dir}/target/generated-sources/archetype">
-                    <include name="**/*"/>
-                    <replacetoken>${package}</replacetoken>
-                    <replacevalue>${package}.webapp</replacevalue>
-                </replace>
-                <replace dir="@{dir}/target/generated-sources/archetype">
-                    <include name="**/*"/>
-                    <replacetoken>webapp.webapp</replacetoken>
-                    <replacevalue>webapp</replacevalue>
-                </replace>
+                <equals arg1="${dest}" arg2=""/>
+                <then>
+                    <!-- Make sure all Java files are in webapp directory -->
+                    <replace dir="@{dir}/target/generated-sources/archetype">
+                        <include name="**/*"/>
+                        <replacetoken>${package}</replacetoken>
+                        <replacevalue>${package}.webapp</replacevalue>
+                    </replace>
+                    <replace dir="@{dir}/target/generated-sources/archetype">
+                        <include name="**/*"/>
+                        <replacetoken>webapp.webapp</replacetoken>
+                        <replacevalue>webapp</replacevalue>
+                    </replace>
 
-                <property name="web.root"
-                          value="@{dir}/target/generated-sources/archetype/src/main/resources/archetype-resources"/>
+                    <property name="web.root"
+                              value="@{dir}/target/generated-sources/archetype/src/main/resources/archetype-resources"/>
 
-                <!-- sources -->
-                <delete dir="${web.root}/src/main/java/org"/>
-                <mkdir dir="${web.root}/src/webapp"/>
-                <move todir="${web.root}/src/webapp">
-                    <fileset dir="${web.root}/src/main/java"/>
-                </move>
-                <mkdir dir="${web.root}/src/main/java"/>
-                <move todir="${web.root}/src/main/java/webapp">
-                    <fileset dir="${web.root}/src/webapp"/>
-                </move>
+                    <!-- sources -->
+                    <delete dir="${web.root}/src/main/java/org"/>
+                    <mkdir dir="${web.root}/src/webapp"/>
+                    <move todir="${web.root}/src/webapp">
+                        <fileset dir="${web.root}/src/main/java"/>
+                    </move>
+                    <mkdir dir="${web.root}/src/main/java"/>
+                    <move todir="${web.root}/src/main/java/webapp">
+                        <fileset dir="${web.root}/src/webapp"/>
+                    </move>
 
-                <!-- tests -->
-                <mkdir dir="${web.root}/src/tests"/>
-                <move todir="${web.root}/src/tests">
-                    <fileset dir="${web.root}/src/test/java"/>
-                </move>
-                <mkdir dir="${web.root}/src/test/java"/>
-                <move todir="${web.root}/src/test/java/webapp">
-                    <fileset dir="${web.root}/src/tests"/>
-                </move>
-            </then>
+                    <!-- tests -->
+                    <mkdir dir="${web.root}/src/tests"/>
+                    <move todir="${web.root}/src/tests">
+                        <fileset dir="${web.root}/src/test/java"/>
+                    </move>
+                    <mkdir dir="${web.root}/src/test/java"/>
+                    <move todir="${web.root}/src/test/java/webapp">
+                        <fileset dir="${web.root}/src/tests"/>
+                    </move>
+                </then>
             </if>
 
             <!-- Fix ${artifactId}app replacement bug -->
@@ -363,7 +363,7 @@
                 <replacetoken>${artifactId}app</replacetoken>
                 <replacevalue>webapp</replacevalue>
             </replace>
-                
+
             <mvn command="install" dir="@{dir}/target/generated-sources/archetype"/>
         </sequential>
     </macrodef>

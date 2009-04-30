@@ -50,6 +50,8 @@
                 <version>1.3</version>
                 <configuration>
                     <tasks>
+                        <delete dir="target/jsf-archetype"/>
+                        
                         <mkdir dir="target/jsf-archetype/core"/>
                         <copy todir="target/jsf-archetype/core">
                             <fileset dir="../appfuse-core/src">
@@ -61,6 +63,14 @@
                         <ant antfile="../build.xml" dir="." target="build-archetype">
                             <property name="module" value="jsf"/>
                             <property name="dest" value="web"/>
+                        </ant>
+
+                        <ant antfile="../build.xml" dir="." target="test">
+                            <property name="archetype" value="${pom.artifactId}-archetype"/>
+                        </ant>
+
+                        <ant antfile="../build.xml" dir="." target="deploy">
+                            <property name="module" value="jsf"/>
                         </ant>
                     </tasks>
                 </configuration>
@@ -75,44 +85,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>integration-test</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <configuration>
-                            <tasks>
-                                <mkdir dir="target/jsf-archetype/core"/>
-                                <copy todir="target/jsf-archetype/core">
-                                    <fileset dir="../appfuse-core/src">
-                                        <exclude name="pom.xml"/>
-                                        <exclude name="README.txt"/>
-                                    </fileset>
-                                </copy>
-                                
-                                <ant antfile="../build.xml" dir="." target="build-archetype">
-                                    <property name="module" value="jsf"/>
-                                    <property name="dest" value="web"/>
-                                </ant>
-                                <ant antfile="../build.xml" dir="." target="test">
-                                    <property name="archetype" value="${pom.artifactId}-archetype"/>
-                                </ant>
-                            </tasks>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <phase>post-integration-test</phase>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>
