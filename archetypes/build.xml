@@ -158,9 +158,23 @@
                 </copy>
             </parallel>
 
+            <!-- Remove displaytag for JSF and Tapestry -->
+            <if>
+                <equals arg1="@{module}" arg2="jsf"/>
+                <then>
+                    <delete dir="@{dir}" includes="**/displaytag*.properties"/>
+                </then>
+            </if>
+            <if>
+                <equals arg1="@{module}" arg2="tapestry"/>
+                <then>
+                    <delete dir="@{dir}" includes="**/displaytag*.properties"/>
+                </then>
+            </if>
+
             <!-- Remove hibernate.cfg.xml from web projects when creating modular archetypes -->
             <if>
-            <equals arg1="${dest}" arg2="web"/>
+            <equals arg1="@{dest}" arg2="web"/>
             <then>
             <delete dir="@{dir}/web/src/main/resources">
                 <include name="**/hibernate.cfg.xml"/>

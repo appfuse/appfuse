@@ -85,7 +85,15 @@
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
-                    <dependentWarExcludes>**/jdbc.properties</dependentWarExcludes>
+                    <webResources>
+                        <resource>
+                            <directory>../common/src/main/webapp</directory>
+                        </resource>
+                        <resource>
+                            <directory>../common/target/classes</directory>
+                            <targetPath>WEB-INF/classes</targetPath>
+                        </resource>
+                    </webResources>
                 </configuration>
                 <executions>
                     <execution>

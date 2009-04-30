@@ -81,20 +81,6 @@
                     </scanTargetPatterns>
                 </configuration>
             </plugin>
-            <plugin>
-                <artifactId>maven-war-plugin</artifactId>
-                <configuration>
-                    <webResources>
-                        <resource>
-                            <directory>../common/src/main/webapp</directory>
-                        </resource>
-                        <resource>
-                            <directory>../common/target/classes</directory>
-                            <targetPath>WEB-INF/classes</targetPath>
-                        </resource>
-                    </webResources>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 

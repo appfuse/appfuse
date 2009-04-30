@@ -86,7 +86,15 @@
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
-                    <dependentWarExcludes>**/jdbc.properties</dependentWarExcludes>
+                    <webResources>
+                        <resource>
+                            <directory>../common/src/main/webapp</directory>
+                        </resource>
+                        <resource>
+                            <directory>../common/target/classes</directory>
+                            <targetPath>WEB-INF/classes</targetPath>
+                        </resource>
+                    </webResources>
                 </configuration>
                 <executions>
                     <execution>
@@ -224,7 +232,7 @@
                     </plugin>
                     <plugin>
                         <artifactId>maven-antrun-plugin</artifactId>
-                        <version>1.1</version>
+                        <version>1.3</version>
                         <configuration>
                             <tasks>
                                 <taskdef resource="webtest_base_relaxed.taskdef">
