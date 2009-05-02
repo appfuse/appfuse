@@ -240,9 +240,8 @@
                             <wait>${cargo.wait}</wait>
                             <container>
                                 <containerId>${cargo.container}</containerId>
-                                <!-- Use newer version of Jetty since can't embedded Jetty doesn't work. -->
                                 <zipUrlInstaller>
-                                    <url>http://dist.codehaus.org/jetty/jetty-6.1.14/jetty-6.1.14.zip</url>
+                                    <url>${cargo.container.url}</url>
                                     <installDir>${installDir}</installDir>
                                 </zipUrlInstaller>
                             </container>

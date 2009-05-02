@@ -206,7 +206,10 @@
                             <wait>${cargo.wait}</wait>
                             <container>
                                 <containerId>${cargo.container}</containerId>
-                                <type>embedded</type>
+                                <zipUrlInstaller>
+                                    <url>${cargo.container.url}</url>
+                                    <installDir>${installDir}</installDir>
+                                </zipUrlInstaller>
                             </container>
                             <configuration>
                                 <home>${project.build.directory}/${cargo.container}/container</home>
