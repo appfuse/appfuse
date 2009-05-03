@@ -4,7 +4,7 @@ package ${basepackage}.webapp.action;
 import java.io.Serializable;
 import java.util.List;
 
-import ${appfusepackage}.webapp.action.BasePage;
+import ${basepackage}.webapp.action.BasePage;
 <#if genericcore>
 import ${pojo.packageName}.${pojo.shortName};
 import ${appfusepackage}.service.GenericManager;

@@ -4,9 +4,15 @@
 <#assign identifierType = pojo.getJavaTypeName(pojo.identifierProperty, jdk5)>
 package ${basepackage}.webapp.pages;
 
-import org.apache.tapestry5.annotations.InjectPage;
-import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.annotations.Component;
+import org.apache.tapestry5.annotations.InjectPage;
+import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.Persist;
+import org.apache.tapestry5.annotations.Service;
+import org.apache.tapestry5.corelib.components.EventLink;
+import org.apache.tapestry5.corelib.components.Form;
+import org.apache.tapestry5.PersistenceConstants;
 
 <#if genericcore>
 import ${appfusepackage}.service.GenericManager;
@@ -14,17 +20,24 @@ import ${appfusepackage}.service.GenericManager;
 import ${basepackage}.service.${pojo.shortName}Manager;
 </#if>
 import ${pojo.packageName}.${pojo.shortName};
-import ${appfusepackage}.webapp.pages.BasePage;
+
+import org.slf4j.Logger;
+
+import java.util.List;
 
 public class ${pojo.shortName}Form extends BasePage {
     @Inject
+    private Logger log;
+
+    @Inject
+    @Service("${pojoNameLower}Manager")
 <#if genericcore>
     private GenericManager<${pojo.shortName}, ${identifierType}> ${pojoNameLower}Manager;
 <#else>
     private ${pojo.shortName}Manager ${pojoNameLower}Manager;
 </#if>
 
-    @Persist
+    @Persist @Property
     private ${pojo.shortName} ${pojoNameLower};
 
     public ${pojo.shortName} get${pojo.shortName}() {
@@ -43,6 +56,21 @@ public class ${pojo.shortName}Form extends BasePage {
     @InjectPage
     private ${pojo.shortName}List ${pojoNameLower}List;
 
+    @Component(id = "${pojoNameLower}Form")
+    private Form form;
+
+    private boolean cancel;
+    private boolean delete;
+
+    void onValidateForm() {
+        if (!delete && !cancel) {
+            // manually validate required fields or annotate the ${pojo.shortName} object
+            /*if (foo.getProperty() == null || user.getProperty().trim().equals("")) {
+                form.recordError("Property is a required field.");
+            }*/
+        }
+    }
+
     void onActivate(${identifierType} ${pojo.identifierProperty.name}) {
         if (${pojo.identifierProperty.name} != null) {
             ${pojoNameLower} = ${pojoNameLower}Manager.get(${pojo.identifierProperty.name});
@@ -50,6 +78,11 @@ public class ${pojo.shortName}Form extends BasePage {
     }
 
     Object onSuccess() {
+        if (delete) return onDelete();
+        if (cancel) return onCancel();
+
+        log.debug("Saving ${pojoNameLower}...");
+
         boolean isNew = (get${pojo.shortName}().${getIdMethodName}() == null);
 
         ${pojoNameLower}Manager.save(${pojoNameLower});
@@ -63,6 +96,16 @@ public class ${pojo.shortName}Form extends BasePage {
             addInfo(key, true);
             return this;
         }
+    }
+
+    void onSelectedFromDelete() {
+        log.debug("Deleting ${pojoNameLower}...");
+        delete = true;
+    }
+
+    void onSelectedFromCancel() {
+        log.debug("Cancelling form...");
+        cancel = true;
     }
 
     Object onDelete() {

@@ -6,10 +6,10 @@
     <t:messagebanner t:id="message" type="type"/>
     <p>
         <t:eventlink t:id="addTop">
-            <input type="button" class="button" value="$\{message:button.add}"/>
+            <input type="button" class="button" value="${'$'}{message:button.add}"/>
         </t:eventlink>
         <t:eventlink t:id="doneTop">
-            <input type="button" class="button" value="$\{message:button.done}"/>
+            <input type="button" class="button" value="${'$'}{message:button.done}"/>
         </t:eventlink>
     </p>
 
@@ -23,10 +23,10 @@
 
     <p>
         <t:eventlink t:id="addBottom">
-            <input type="button" class="button" value="$\{message:button.add}"/>
+            <input type="button" class="button" value="${'$'}{message:button.add}"/>
         </t:eventlink>
         <t:eventlink t:id="doneBottom">
-            <input type="button" class="button" value="$\{message:button.done}"/>
+            <input type="button" class="button" value="${'$'}{message:button.done}"/>
         </t:eventlink>
     </p>
 

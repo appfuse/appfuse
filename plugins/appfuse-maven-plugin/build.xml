@@ -80,7 +80,7 @@
         <sequential>
             <delete dir="${test.dir}/@{name}"/>
             <mkdir dir="${test.dir}"/>
-            <maven dir="${test.dir}" archetype="@{archetype}" version="@{version}" name="@{name}"/>
+            <maven dir="${test.dir}" archetype="@{archetype}-archetype" version="@{version}" name="@{name}"/>
 
             <!-- copy Person.java to src -->
             <copy todir="${test.dir}/@{name}/src/main/java/com">
@@ -126,7 +126,7 @@
         <sequential>
             <delete dir="${test.dir}/@{name}"/>
             <mkdir dir="${test.dir}"/>
-            <maven dir="${test.dir}" archetype="@{archetype}" version="@{version}" name="@{name}"/>
+            <maven dir="${test.dir}" archetype="@{archetype}-archetype" version="@{version}" name="@{name}"/>
 
             <!-- copy Person.java to core/src -->
             <copy todir="${test.dir}/@{name}/core/src/main/java/com">
@@ -224,7 +224,7 @@
         <sequential>
             <delete dir="${test.dir}/@{name}"/>
             <mkdir dir="${test.dir}"/>
-            <maven dir="${test.dir}" archetype="@{archetype}" version="@{version}" name="@{name}"/>
+            <maven dir="${test.dir}" archetype="@{archetype}-archetype" version="@{version}" name="@{name}"/>
 
             <if>
                 <not><equals arg1="@{daoFramework}" arg2="hibernate"/></not>
@@ -252,7 +252,7 @@
         <attribute name="name" default=""/>
         <attribute name="archetype" default=""/>
         <attribute name="version" default=""/>
-        <attribute name="command" default="archetype:create -DarchetypeGroupId=org.appfuse.archetypes -DarchetypeArtifactId=@{archetype} -DarchetypeVersion=@{version} -DgroupId=com.company -DartifactId=@{name}"/>
+        <attribute name="command" default="archetype:generate -B -DarchetypeGroupId=org.appfuse.archetypes -DarchetypeArtifactId=@{archetype} -DarchetypeVersion=@{version} -DgroupId=com.company -DartifactId=@{name}"/>
 
         <sequential>
             <exec dir="@{dir}" executable="mvn.bat" os="Windows XP" failonerror="true" errorproperty="command.failed">
@@ -296,7 +296,7 @@
         <sequential>
             <delete dir="${test.dir}/@{name}"/>
             <mkdir dir="${test.dir}"/>
-            <maven dir="${test.dir}" archetype="@{archetype}" version="@{version}" name="@{name}"/>
+            <maven dir="${test.dir}" archetype="@{archetype}-archetype" version="@{version}" name="@{name}"/>
 
             <!-- copy Person.java to src -->
             <copy todir="${test.dir}/@{name}/src/main/java/com">

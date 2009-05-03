@@ -5,7 +5,7 @@
 package ${basepackage}.webapp.pages;
 
 import ${basepackage}.model.${pojo.shortName};
-import ${appfusepackage}.webapp.pages.BasePageTestCase;
+import ${basepackage}.webapp.pages.BasePageTestCase;
 <#if genericcore>
 import ${appfusepackage}.service.GenericManager;
 <#else>

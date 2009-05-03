@@ -3,7 +3,7 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
+                <groupId>org.appfuse.plugins</groupId>
                 <artifactId>appfuse-maven-plugin</artifactId>
                 <configuration>
                     <templateDirectory>target/templates/src/test/resources/appfuse</templateDirectory>

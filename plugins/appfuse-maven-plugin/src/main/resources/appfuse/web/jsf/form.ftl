@@ -7,7 +7,7 @@ package ${basepackage}.webapp.action;
 import java.io.Serializable;
 
 import ${pojo.packageName}.${pojo.shortName};
-import ${appfusepackage}.webapp.action.BasePage;
+import ${basepackage}.webapp.action.BasePage;
 <#if genericcore>
 import ${appfusepackage}.service.GenericManager;
 <#else>

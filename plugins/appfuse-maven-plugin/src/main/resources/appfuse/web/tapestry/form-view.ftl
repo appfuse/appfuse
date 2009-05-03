@@ -4,14 +4,21 @@
           xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
 
     <t:messagebanner t:id="message" type="type"/>
-    <t:beaneditform object="${pojoNameLower}" id="${pojoNameLower}Form" exclude="${pojo.identifierProperty.name}"
-                    clientValidation="true" submitLabel="message:button.save" add="buttons">
-        <!-- TODO: Hide for add -->
-        <t:parameter name="buttons">
-            <input type="submit" name="delete" value="message:button.delete">
-            <input type="submit" name="cancel" value="message:button.cancel">
-        </t:parameter>
-    </t:beaneditform>
+
+    <form t:id="${pojoNameLower}Form" clientValidation="true">
+        <t:errors/>
+
+        <div class="t-beaneditor">
+            <t:beaneditor t:id="${pojoNameLower}" object="${pojoNameLower}" exclude="${pojo.identifierProperty.name}"/>
+            
+            <div class="t-beaneditor-row" style="text-align: center">
+                <input t:type="submit" t:id="save" id="save" value="message:button.save"/>
+                <input t:type="submit" t:id="delete" id="delete" value="message:button.delete"
+                       onclick="return confirmDelete('${pojo.shortName}')"/>
+                <input t:type="submit" t:id="cancel" id="cancel" value="message:button.cancel"/>
+            </div>
+        </div>
+    </form>
 
     <script type="text/javascript">
         Form.focusFirstElement($("${pojoNameLower}Form"));

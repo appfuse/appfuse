@@ -1,7 +1,7 @@
 <#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
 package ${basepackage}.webapp.controller;
 
-import ${appfusepackage}.webapp.controller.BaseControllerTestCase;
+import ${basepackage}.webapp.controller.BaseControllerTestCase;
 import ${pojo.packageName}.${pojo.shortName};
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;

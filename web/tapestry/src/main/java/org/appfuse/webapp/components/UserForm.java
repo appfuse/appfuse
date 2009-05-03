@@ -81,7 +81,6 @@ public class UserForm implements ClientElement {
     @Component(id = "username", parameters = {"value=user.username", "validate=required", "label=message:user.username"})
     private TextField usernameField;
 
-
     @Component(id = "password", parameters = {"value=user.password", "validate=required"})
     private HashedPasswordField passwordField;
 
@@ -160,7 +159,6 @@ public class UserForm implements ClientElement {
         return form.getClientId();
     }
 
-
     Binding defaultObject() {
         return defaultProvider.defaultBinding("user", resources);
     }
@@ -184,7 +182,6 @@ public class UserForm implements ClientElement {
     public void recordError(String errorMessage) {
         form.recordError(errorMessage);
     }
-
 
     @Cached
     public Map<String, String> getCountryModel() {

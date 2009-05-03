@@ -11,7 +11,7 @@ import ${appfusepackage}.service.GenericManager;
 import ${basepackage}.service.${pojo.shortName}Manager;
 </#if>
 import ${basepackage}.model.${pojo.shortName};
-import ${appfusepackage}.webapp.controller.BaseFormController;
+import ${basepackage}.webapp.controller.BaseFormController;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 

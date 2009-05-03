@@ -46,9 +46,10 @@ public class ValidationDelegate implements ValidationDecorator {
         if (inError(field)) {
             addErrorClassToCurrentElement("error");
         }
+        /* http://www.nabble.com/Problem-using-BeanEditForm-with-a-POJO-td23349016s302.html#a23352398
         if (field.isRequired()) {
             labelElement.raw("<span class=\"req\"> *</span>");
-        }
+        }*/
 
     }
 

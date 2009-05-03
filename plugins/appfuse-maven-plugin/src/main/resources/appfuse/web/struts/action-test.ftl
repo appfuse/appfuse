@@ -14,7 +14,7 @@ import ${basepackage}.service.${pojo.shortName}Manager;
 <#assign managerClass = pojo.shortName + 'Manager'>
 </#if>
 import ${pojo.packageName}.${pojo.shortName};
-import ${appfusepackage}.webapp.action.BaseActionTestCase;
+import ${basepackage}.webapp.action.BaseActionTestCase;
 import org.springframework.mock.web.MockHttpServletRequest;
 
 public class ${pojo.shortName}ActionTest extends BaseActionTestCase {

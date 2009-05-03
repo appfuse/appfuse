@@ -26,7 +26,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="View ${pojo.shortName} List" url="/${pojo.shortName}List.html"/>
+                <invoke description="View ${pojo.shortName} List" url="/${pojo.shortName}List"/>
                 <clicklink description="click on first record in list" label="-1"/>
                 <verifytitle description="we should see the ${pojoNameLower}Detail title"
                     text=".*${'$'}{${pojoNameLower}Detail.title}.*" regex="true"/>

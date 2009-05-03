@@ -10,12 +10,13 @@ import ${appfusepackage}.service.GenericManager;
 import ${basepackage}.service.${pojo.shortName}Manager;
 </#if>
 import ${pojo.packageName}.${pojo.shortName};
-import ${appfusepackage}.webapp.pages.BasePage;
-import ${appfusepackage}.webapp.pages.MainMenu;
+import ${basepackage}.webapp.pages.BasePage;
+import ${basepackage}.webapp.pages.MainMenu;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.InjectPage;
+import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.Service;
 import org.apache.tapestry5.corelib.components.EventLink;
 import org.slf4j.Logger;
 
@@ -24,6 +25,7 @@ public class ${pojo.shortName}List extends BasePage {
     private Logger log;
 
     @Inject
+    @Service("${pojoNameLower}Manager")
 <#if genericcore>
     private GenericManager<${pojo.shortName}, ${identifierType}> ${pojoNameLower}Manager;
 <#else>

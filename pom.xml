@@ -211,6 +211,14 @@
         </site>
     </distributionManagement>
 
+    <modules>
+        <module>data</module>
+        <module>service</module>
+        <module>web</module>
+        <module>archetypes</module>
+        <module>plugins</module>
+    </modules>
+
     <repositories>
         <repository>
             <id>appfuse</id>
@@ -312,25 +320,6 @@
     </reporting>
 
     <profiles>
-        <!-- ================= Build Profiles ================= -->
-        <profile>
-            <id>default</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <modules>
-                <module>data</module>
-                <module>service</module>
-                <module>web</module>
-                <module>archetypes</module>
-            </modules>
-        </profile>
-        <profile>
-            <id>plugins</id>
-            <modules>
-                <module>plugins</module>
-            </modules>
-        </profile>
         <!-- ================= Database Profiles ================= -->
         <profile>
             <!-- Embedded Derby doesn't work: http://tinyurl.com/27qenw -->

@@ -1,33 +1,20 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>mojo</artifactId>
-        <groupId>org.codehaus.mojo</groupId>
-        <version>13</version>
+        <groupId>org.appfuse.plugins</groupId>
+        <artifactId>appfuse-plugins</artifactId>
+        <version>2.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.codehaus.mojo</groupId>
     <artifactId>appfuse-maven-plugin</artifactId>
     <packaging>maven-plugin</packaging>
     <name>AppFuse Maven Plugin</name>
-    <version>2.1-SNAPSHOT</version>
-    <description>
-        Maven plugin based on the hibernate-tools project. Lots of ideas/code borrowed
-        from the hibernate3-maven-plugin.
-    </description>
-    <inceptionYear>2007</inceptionYear>
 
-    <organization>
-        <name>AppFuse</name>
-        <url>http://www.appfuse.org</url>
-    </organization>
-    
     <prerequisites>
         <maven>2.1.0</maven>
     </prerequisites>
-
-    <url>http://static.appfuse.org/plugins/appfuse-maven-plugin</url>
 
     <scm>
         <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/plugins/appfuse-maven-plugin</connection>
@@ -35,138 +22,24 @@
         <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/plugins/appfuse-maven-plugin</url>
     </scm>
 
-    <issueManagement>
-        <system>jira</system>
-        <url>http://issues.appfuse.org/browse/APF</url>
-    </issueManagement>
-    
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-    
-    <mailingLists>
-        <mailingList>
-            <name>Development List</name>
-            <subscribe>dev-subscribe@appfuse.dev.java.net</subscribe>
-            <unsubscribe>dev-unsubscribe@appfuse.dev.java.net</unsubscribe>
-            <post>dev@appfuse.dev.java.net</post>
-            <archive>http://www.nabble.com/AppFuse---Dev-f2371.html</archive>
-        </mailingList>
-        <mailingList>
-            <name>User List</name>
-            <subscribe>user-subscribe@appfuse.dev.java.net</subscribe>
-            <unsubscribe>user-unsubscribe@appfuse.dev.java.net</unsubscribe>
-            <post>user@appfuse.dev.java.net</post>
-            <archive>http://www.nabble.com/AppFuse---User-f2370.html</archive>
-        </mailingList>
-    </mailingLists>
-
-    <developers>
-        <developer>
-            <id>mraible</id>
-            <name>Matt Raible</name>
-            <email>matt@raibledesigns.com</email>
-            <organization>Raible Designs, Inc.</organization>
-            <timezone>-7</timezone>
-        </developer>
-        <developer>
-            <id>scryan</id>
-            <name>Scott Ryan</name>
-            <email>scott@theryansplace.com</email>
-            <organization>Soaring Eagle, LLC.</organization>
-            <timezone>-7</timezone>
-        </developer>
-        <developer>
-            <id>dlwhitehurst</id>
-            <name>David Whitehurst</name>
-            <email>dlwhitehurst@gmail.com</email>
-            <organization>Cape Henry Technologies Inc.</organization>
-            <organizationUrl>http://www.capehenrytech.com</organizationUrl>
-            <timezone>-6</timezone>
-        </developer>
-    </developers>
-    
     <build>
-        <defaultGoal>install</defaultGoal>
         <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.0.2</version>
-                <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-idea-plugin</artifactId>
-                <version>2.1</version>
-                <configuration>
-                    <downloadSources>true</downloadSources>
-                    <downloadJavadocs>true</downloadJavadocs>
-                    <dependenciesAsLibraries>true</dependenciesAsLibraries>
-                    <useFullNames>false</useFullNames>
-                </configuration>
-            </plugin>
             <plugin>
                 <artifactId>maven-plugin-plugin</artifactId>
                 <configuration>
-                    <prefix>appfuse</prefix>
+                    <goalPrefix>appfuse</goalPrefix>
                 </configuration>
             </plugin>
-            <!--<plugin>
-                <artifactId>maven-docck-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>-->
         </plugins>
     </build>
 
     <distributionManagement>
-        <repository>
-            <id>appfuse-releases</id>
-            <name>AppFuse Release Repository</name>
-            <url>scp://static.appfuse.org/var/www/appfuse-releases</url>
-        </repository>
         <site>
             <id>appfuse-plugins</id>
             <name>AppFuse Plugins Site</name>
             <url>scp://static.appfuse.org/var/www/appfuse-site/plugins/appfuse-maven-plugin</url>
         </site>
-        <snapshotRepository>
-            <id>appfuse-snapshots</id>
-            <name>AppFuse Snapshot Repository</name>
-            <url>scp://static.appfuse.org/var/www/appfuse-repo</url>
-        </snapshotRepository>
     </distributionManagement>
-
-    <repositories>
-        <repository>
-            <id>appfuse</id>
-            <url>http://oss.sonatype.org/content/groups/appfuse</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>appfuse</id>
-            <url>http://oss.sonatype.org/content/groups/appfuse</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
 
     <dependencies>
         <dependency>
@@ -205,7 +78,12 @@
             <artifactId>maven-hibernate3-jdk14</artifactId>
             <version>${hibernate3.plugin.version}</version>
         </dependency>
-         <dependency>
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>2.2</version>
+        </dependency>
+        <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.13</version>
@@ -225,12 +103,6 @@
             <groupId>hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
             <version>1.8.0.7</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.4</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -271,39 +143,13 @@
             <artifactId>svnkit</artifactId>
             <version>1.1.2</version>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
-
-    <reporting>
-        <plugins>
-            <plugin>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <configuration>
-                    <configLocation>https://appfuse.dev.java.net/checkstyle.xml</configLocation>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-                <version>2.0</version>
-            </plugin>
-            <plugin>
-                <artifactId>maven-javadoc-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <artifactId>maven-jxr-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <artifactId>maven-pmd-plugin</artifactId>
-                <configuration>
-                    <linkXRef>true</linkXRef>
-                    <targetJdk>1.5</targetJdk>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-surefire-report-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </reporting>
 
     <properties>
         <hibernate3.plugin.version>2.2</hibernate3.plugin.version>

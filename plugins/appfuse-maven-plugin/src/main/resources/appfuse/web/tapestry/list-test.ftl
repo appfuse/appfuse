@@ -8,7 +8,7 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-import ${appfusepackage}.webapp.pages.BasePageTestCase;
+import ${basepackage}.webapp.pages.BasePageTestCase;
 
 public class ${pojo.shortName}ListTest extends BasePageTestCase {
     @Test

@@ -193,8 +193,7 @@ public class ArtifactUninstaller {
     }
 
     private void removeTapestryViews() {
-        removeGeneratedFiles(installedDirectory + "/src/main/webapp/WEB-INF/tapestry", pojoName + "*.html");
-        removeGeneratedFiles(installedDirectory + "/src/main/webapp/WEB-INF/tapestry", pojoName + "*.page");
+        removeGeneratedFiles(installedDirectory + "/src/main/webapp", pojoName + "*.tml");
     }
 
     // =================== End of Views ===================

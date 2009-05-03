@@ -8,6 +8,7 @@
         <version>2.1-SNAPSHOT</version>
     </parent>
 
+    <groupId>org.appfuse.plugins</groupId>
     <artifactId>appfuse-plugins</artifactId>
     <packaging>pom</packaging>
     <name>AppFuse Plugin Modules</name>

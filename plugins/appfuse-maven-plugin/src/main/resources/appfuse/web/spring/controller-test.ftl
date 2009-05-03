@@ -1,7 +1,7 @@
 <#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
 package ${basepackage}.webapp.controller;
 
-import ${appfusepackage}.webapp.controller.BaseControllerTestCase;
+import ${basepackage}.webapp.controller.BaseControllerTestCase;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 

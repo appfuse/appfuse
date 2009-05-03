@@ -11,7 +11,7 @@ import ${appfusepackage}.service.GenericManager;
 import ${basepackage}.service.${pojo.shortName}Manager;
 </#if>
 import ${basepackage}.model.${pojo.shortName};
-import ${appfusepackage}.webapp.action.BaseAction;
+import ${basepackage}.webapp.action.BaseAction;
 
 import java.util.List;
 
