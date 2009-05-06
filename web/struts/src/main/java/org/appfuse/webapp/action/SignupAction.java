@@ -1,19 +1,19 @@
 package org.appfuse.webapp.action;
 
 
-import org.springframework.security.AccessDeniedException;
-import org.springframework.security.context.SecurityContextHolder;
-import org.springframework.security.providers.UsernamePasswordAuthenticationToken;
+import java.util.ArrayList;
+import java.util.List;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.struts2.ServletActionContext;
 import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.service.UserExistsException;
 import org.appfuse.webapp.util.RequestUtil;
 import org.springframework.mail.MailException;
-
-import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.security.AccessDeniedException;
+import org.springframework.security.context.SecurityContextHolder;
+import org.springframework.security.providers.UsernamePasswordAuthenticationToken;
 
 /**
  * Action to allow new users to sign up.
@@ -81,7 +81,7 @@ public class SignupAction extends BaseAction {
             return null; 
         } catch (UserExistsException e) {
             log.warn(e.getMessage());
-            List<String> args = new ArrayList<String>();
+            List<Object> args = new ArrayList<Object>();
             args.add(user.getUsername());
             args.add(user.getEmail());
             addActionError(getText("errors.existing.user", args));

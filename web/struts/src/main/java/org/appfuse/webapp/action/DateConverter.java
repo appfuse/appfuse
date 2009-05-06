@@ -6,7 +6,7 @@ import java.util.Date;
 
 import org.apache.struts2.util.StrutsTypeConverter;
 import org.appfuse.util.DateUtil;
-import com.opensymphony.xwork2.util.TypeConversionException;
+import com.opensymphony.xwork2.conversion.TypeConversionException;
 
 public class DateConverter extends StrutsTypeConverter {
 

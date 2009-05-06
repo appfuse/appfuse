@@ -30,7 +30,7 @@ public class PasswordHintAction extends BaseAction {
      * @return success if username works, input if not
      */
     public String execute() {
-        List<String> args = new ArrayList<String>();
+        List<Object> args = new ArrayList<Object>();
 
         // ensure that the username has been sent
         if (username == null) {
