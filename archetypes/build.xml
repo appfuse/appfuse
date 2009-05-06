@@ -33,6 +33,8 @@
         <copy todir="${dir}">
             <fileset dir="src"/>
         </copy>
+        <!-- Fix bug that happens in Bamboo -->
+        <delete dir="${dir}" includes="main/**"/>
 
         <mvn command="archetype:create-from-project" dir="${dir}"/>
 
