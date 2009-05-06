@@ -58,6 +58,8 @@
                                         <exclude name="README.txt"/>
                                     </fileset>
                                 </copy>
+                                <!-- Fix bug that happens in Bamboo -->
+                                <delete dir="target/${module}-archetype/core" includes="main/**"/>
 
                                 <ant antfile="../build.xml" dir="." target="build-archetype">
                                     <property name="module" value="${module}"/>
