@@ -1,5 +1,8 @@
 package org.appfuse.webapp.components;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.tapestry5.Binding;
 import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.ClientElement;
@@ -22,9 +25,6 @@ import org.apache.tapestry5.services.ComponentDefaultProvider;
 import org.appfuse.model.User;
 import org.appfuse.webapp.services.ServiceFacade;
 
-import java.util.List;
-import java.util.Map;
-
 /**
  * Generic form for User manipulation
  *
@@ -46,9 +46,7 @@ public class UserForm implements ClientElement {
     @Property
     private String submitLabel;
 
-
     @Parameter(allowNull = true)
-    @Property
     private String from;
 
     @Parameter
@@ -197,14 +195,16 @@ public class UserForm implements ClientElement {
         return (user != null ? user.getVersion() == null : true);
     }
 
-    public void setFrom(String from) {
-        this.from = from;
-    }
-
     public boolean isFromList() {
         return "list".equals(from);
     }
 
+    public String getFrom() {
+        return from;
+    }
 
+    public void setFrom(String from) {
+        this.from = from;
+    }
 }
 

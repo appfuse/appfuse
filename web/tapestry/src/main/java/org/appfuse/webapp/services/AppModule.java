@@ -1,5 +1,7 @@
 package org.appfuse.webapp.services;
 
+import java.io.IOException;
+
 import org.apache.tapestry5.Asset;
 import org.apache.tapestry5.MarkupWriter;
 import org.apache.tapestry5.SymbolConstants;
@@ -26,8 +28,6 @@ import org.appfuse.webapp.services.impl.ServiceFacadeImpl;
 import org.appfuse.webapp.services.impl.ValidationDelegate;
 import org.slf4j.Logger;
 import org.springframework.mail.SimpleMailMessage;
-
-import java.io.IOException;
 
 
 /**
@@ -61,7 +61,7 @@ public class AppModule {
         // overriding to false is a good idea. In addition, this is often
         // overridden
         // on the command line as -Dtapestry.production-mode=false
-        configuration.add(SymbolConstants.PRODUCTION_MODE, "true");
+        configuration.add(SymbolConstants.PRODUCTION_MODE, "false");
 
     }
 

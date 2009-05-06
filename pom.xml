@@ -487,7 +487,7 @@
         <springmodules.validation.version>0.8</springmodules.validation.version>
         <struts.version>2.1.6</struts.version>
         <struts.menu.version>2.4.3</struts.menu.version>
-        <tapestry.version>5.0.14</tapestry.version>
+        <tapestry.version>5.0.18</tapestry.version>
         <urlrewrite.version>3.1.0</urlrewrite.version>
         <velocity.version>1.4</velocity.version>
         <webtest.version>R_1702</webtest.version>

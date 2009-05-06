@@ -41,13 +41,12 @@ public class UserEdit extends BasePage {
     @Inject
     private Logger logger;
 
-    @Persist @Property
+    @Persist
     private User user;
 
     @Property @Persist
     private List<String> selectedRoles;
 
-    @Property
     private List<String> userRoles;
 
     @Inject
@@ -73,6 +72,10 @@ public class UserEdit extends BasePage {
 
     private boolean delete = false;
 
+    public User getUser() {
+        return user;
+    }
+
     public void setUser(User user) {
         this.user = user;
     }
@@ -83,14 +86,6 @@ public class UserEdit extends BasePage {
 
     public void setUserRoles(List<String> userRoles) {
         this.userRoles = userRoles;
-    }
-
-    public void setFrom(String from) {
-        this.from = from;
-    }
-
-    public String getFrom() {
-        return from;
     }
 
     public boolean isRememberMe() {
@@ -144,7 +139,7 @@ public class UserEdit extends BasePage {
     Object onCancel() {
         logger.debug("Entering 'cancel' method");
 
-        if (getFrom() != null && getFrom().equalsIgnoreCase("list")) {
+        if (from != null && from.equalsIgnoreCase("list")) {
             return resources.createPageLink("admin/UserList", false);
         } else {
             return resources.createPageLink("MainMenu", false);
@@ -259,5 +254,13 @@ public class UserEdit extends BasePage {
             //getSession().setAttribute("error", me.getCause().getLocalizedMessage());
             addError(me.getCause().getLocalizedMessage(), false);
         }
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
     }
 }

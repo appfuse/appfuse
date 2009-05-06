@@ -1,5 +1,5 @@
 <t:container xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
-<t:form>
+<t:form t:id="form">
 
     <t:unless test="${signup}">
 
