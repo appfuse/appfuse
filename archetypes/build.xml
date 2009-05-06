@@ -137,6 +137,8 @@
                     </fileset>
                 </copy>
             </parallel>
+						<!-- Fix bug that happens in Bamboo -->
+		        <delete dir="@{dir}" includes="main/**"/>
 
             <!-- Remove displaytag for JSF and Tapestry -->
             <if>
