@@ -257,9 +257,10 @@
         <include>**/*.tld</include>]]></replacevalue>
             </replace>
 
-            <!-- Fix hibernate.cfg.xml -->
+            <!-- Fix hibernate.cfg.xml and persistence.xml -->
             <replace dir="@{dir}/target/generated-sources/archetype/src">
                 <include name="**/hibernate.cfg.xml"/>
+                <include name="**/persistence.xml"/>
                 <replacetoken>${package}</replacetoken>
                 <replacevalue>org.appfuse</replacevalue>
             </replace>
