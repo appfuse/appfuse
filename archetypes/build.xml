@@ -19,7 +19,7 @@
 
     <target name="test" description="Tests that 'mvn integration-test' works with archetype" unless="skipTests">
         <echo message="Creating archetype '${archetype}', version '${version}'"/>
-        <test archetype="${archetype}" version="${version}"/>
+        <test archetype="${archetype}" version="${version}" dao.framework="${dao.framework}"/>
     </target>
 
     <target name="build-archetype" description="Builds Archetypes">
@@ -81,11 +81,12 @@
     <macrodef name="test">
         <attribute name="archetype"/>
         <attribute name="version"/>
+        <attribute name="dao.framework"/>
 
         <sequential>
             <delete dir="${test.dir}/@{archetype}"/>
             <maven dir="${test.dir}" archetype="@{archetype}" version="@{version}"/>
-            <mvn dir="${test.dir}/@{archetype}" command="integration-test"/>
+            <mvn dir="${test.dir}/@{archetype}" command="integration-test -Ddao.framework=@{dao.framework}"/>
         </sequential>
     </macrodef>
 

@@ -37,4 +37,9 @@
         <module>appfuse-modular-spring</module>
         <module>appfuse-modular-tapestry</module>
     </modules>
+
+    <!-- Default properties used when testing archetypes -->
+    <properties>
+        <dao.framework>hibernate</dao.framework>
+    </properties>
 </project>
