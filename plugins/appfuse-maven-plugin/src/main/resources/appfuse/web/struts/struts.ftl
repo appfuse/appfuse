@@ -11,9 +11,9 @@
 
         <action name="save${pojo.shortName}" class="${basepackage}.webapp.action.${pojo.shortName}Action" method="save">
             <result name="input">/WEB-INF/pages/${pojoNameLower}Form.jsp</result>
-            <result name="cancel" type="redirect-action">${util.getPluralForWord(pojoNameLower)}</result>
-            <result name="delete" type="redirect-action">${util.getPluralForWord(pojoNameLower)}</result>
-            <result name="success" type="redirect-action">${util.getPluralForWord(pojoNameLower)}</result>
+            <result name="cancel" type="redirectAction">${util.getPluralForWord(pojoNameLower)}</result>
+            <result name="delete" type="redirectAction">${util.getPluralForWord(pojoNameLower)}</result>
+            <result name="success" type="redirectAction">${util.getPluralForWord(pojoNameLower)}</result>
         </action>
         <!--${pojo.shortName}Action-END-->
 
