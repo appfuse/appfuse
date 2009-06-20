@@ -91,7 +91,7 @@
                     <src>src/test/resources/sample-data.xml</src>
                     <type>${dbunit.operation.type}</type>
                     <schema>${dbunit.schema}</schema>
-                    <skip>${maven.test.skip}</skip>
+                    <skip>${skipTests}</skip>
                     <transaction>true</transaction>
                 </configuration>
                 <executions>
@@ -120,7 +120,7 @@
                     <password>${jdbc.password}</password>
                     <url>${jdbc.url}</url>
                     <autocommit>true</autocommit>
-                    <skip>${maven.test.skip}</skip>
+                    <skip>${skipTests}</skip>
                 </configuration>
                 <executions>                    
                     <execution>

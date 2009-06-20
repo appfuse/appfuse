@@ -57,7 +57,7 @@
                         <jdk5>true</jdk5>
                         <propertyfile>target/test-classes/jdbc.properties</propertyfile>
                         <configurationfile>src/test/resources/hibernate.cfg.xml</configurationfile>
-                        <skip>${maven.test.skip}</skip>
+                        <skip>${skipTests}</skip>
                     </componentProperties>
                 </configuration>
                 <executions>
@@ -89,7 +89,7 @@
                     <src>src/test/resources/sample-data.xml</src>
                     <type>${dbunit.operation.type}</type>
                     <schema>${dbunit.schema}</schema>
-                    <skip>${maven.test.skip}</skip>
+                    <skip>${skipTests}</skip>
                     <transaction>true</transaction>
                 </configuration>
                 <executions>
