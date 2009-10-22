@@ -25,11 +25,11 @@ import org.apache.commons.lang.builder.ToStringStyle;
  *         by David Carter david@carter.net
  */
 @Entity
-@Table(name="role")
-@NamedQueries ({
-    @NamedQuery(
-        name = "findRoleByName",
-        query = "select r from Role r where r.name = :name "
+@Table(name = "role")
+@NamedQueries({
+        @NamedQuery(
+                name = "findRoleByName",
+                query = "select r from Role r where r.name = :name "
         )
 })
 public class Role extends BaseObject implements Serializable, GrantedAuthority {
@@ -46,32 +46,34 @@ public class Role extends BaseObject implements Serializable, GrantedAuthority {
 
     /**
      * Create a new instance and set the name.
+     *
      * @param name name of the role.
      */
     public Role(final String name) {
         this.name = name;
     }
 
-    @Id  @GeneratedValue(strategy=GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
 
     /**
-     * @see org.springframework.security.GrantedAuthority#getAuthority()
      * @return the name property (getAuthority required by Acegi's GrantedAuthority interface)
+     * @see org.springframework.security.GrantedAuthority#getAuthority()
      */
     @Transient
     public String getAuthority() {
         return getName();
     }
 
-    @Column(length=20)
+    @Column(length = 20)
     public String getName() {
         return this.name;
     }
 
-    @Column(length=64)
+    @Column(length = 64)
     public String getDescription() {
         return this.description;
     }
@@ -121,6 +123,9 @@ public class Role extends BaseObject implements Serializable, GrantedAuthority {
                 .toString();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public int compareTo(Object o) {
         return (equals(o) ? 0 : -1);
     }

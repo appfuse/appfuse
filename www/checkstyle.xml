@@ -100,6 +100,8 @@
         <module name="FileLength" />
         <module name="LineLength">
             <property name="max" value="120"/>
+            <!-- ignore rows starting with a * @see and long word-->
+            <property name="ignorePattern" value="^ *\* \@see *[^ ]+$"/> 
         </module>
         <module name="MethodLength">
             <property name="max" value="160" />

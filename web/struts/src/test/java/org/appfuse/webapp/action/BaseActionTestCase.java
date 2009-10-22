@@ -20,12 +20,19 @@ import org.springframework.test.AbstractTransactionalDataSourceSpringContextTest
 /**
  * Base class for running Struts 2 Action tests.
  *
- * @author mraible
+ * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public abstract class BaseActionTestCase extends AbstractTransactionalDataSourceSpringContextTests {
+    /**
+     * Transient log to prevent session synchronization issues - children can use instance for logging.
+     */
     protected transient final Log log = logger;
     private int smtpPort = 25250;
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     protected String[] getConfigLocations() {
         super.setAutowireMode(AUTOWIRE_BY_NAME);
         return new String[]{
@@ -37,6 +44,9 @@ public abstract class BaseActionTestCase extends AbstractTransactionalDataSource
         };
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void onSetUpBeforeTransaction() throws Exception {
         smtpPort = smtpPort + (int) (Math.random() * 100);
@@ -69,6 +79,9 @@ public abstract class BaseActionTestCase extends AbstractTransactionalDataSource
         return smtpPort;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void onTearDownAfterTransaction() throws Exception {
         ActionContext.getContext().setSession(null);

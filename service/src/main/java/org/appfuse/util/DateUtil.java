@@ -12,12 +12,12 @@ import java.util.*;
 
 /**
  * Date Utility Class used to convert Strings to Dates and Timestamps
- * 
+ *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- *  Modified by <a href="mailto:dan@getrolling.com">Dan Kibler </a> 
- *  to correct time pattern. Minutes should be mm not MM (MM is month). 
+ *         Modified by <a href="mailto:dan@getrolling.com">Dan Kibler </a>
+ *         to correct time pattern. Minutes should be mm not MM (MM is month).
  */
-public class DateUtil {
+public final class DateUtil {
     private static Log log = LogFactory.getLog(DateUtil.class);
     private static final String TIME_PATTERN = "HH:mm";
 
@@ -29,6 +29,7 @@ public class DateUtil {
 
     /**
      * Return default datePattern (MM/dd/yyyy)
+     *
      * @return a string representing the date pattern on the UI
      */
     public static String getDatePattern() {
@@ -36,7 +37,7 @@ public class DateUtil {
         String defaultDatePattern;
         try {
             defaultDatePattern = ResourceBundle.getBundle(Constants.BUNDLE_KEY, locale)
-                .getString("date.format");
+                    .getString("date.format");
         } catch (MissingResourceException mse) {
             defaultDatePattern = "MM/dd/yyyy";
         }
@@ -74,11 +75,11 @@ public class DateUtil {
      * @param aMask the date pattern the string is in
      * @param strDate a string representation of a date
      * @return a converted Date object
-     * @see java.text.SimpleDateFormat
      * @throws ParseException when String doesn't match the expected format
+     * @see java.text.SimpleDateFormat
      */
     public static Date convertStringToDate(String aMask, String strDate)
-      throws ParseException {
+            throws ParseException {
         SimpleDateFormat df;
         Date date;
         df = new SimpleDateFormat(aMask);
@@ -110,7 +111,7 @@ public class DateUtil {
 
     /**
      * This method returns the current date in the format: MM/dd/yyyy
-     * 
+     *
      * @return the current date
      * @throws ParseException when String doesn't match the expected format
      */
@@ -134,7 +135,6 @@ public class DateUtil {
      * @param aMask the date pattern the string is in
      * @param aDate a date object
      * @return a formatted string representation of the date
-     * 
      * @see java.text.SimpleDateFormat
      */
     public static String getDateTime(String aMask, Date aDate) {
@@ -155,7 +155,7 @@ public class DateUtil {
      * This method generates a string representation of a date based
      * on the System Property 'dateFormat'
      * in the format you specify on input
-     * 
+     *
      * @param aDate A date to convert
      * @return a string representation of the date
      */
@@ -165,13 +165,13 @@ public class DateUtil {
 
     /**
      * This method converts a String to a date using the datePattern
-     * 
+     *
      * @param strDate the date to convert (in format MM/dd/yyyy)
      * @return a date object
      * @throws ParseException when String doesn't match the expected format
      */
     public static Date convertStringToDate(String strDate)
-      throws ParseException {
+            throws ParseException {
         Date aDate = null;
 
         try {
@@ -184,7 +184,7 @@ public class DateUtil {
             log.error("Could not convert '" + strDate + "' to a date, throwing exception");
             pe.printStackTrace();
             throw new ParseException(pe.getMessage(),
-                                     pe.getErrorOffset());
+                    pe.getErrorOffset());
         }
 
         return aDate;

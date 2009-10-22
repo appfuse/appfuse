@@ -21,6 +21,7 @@ public class FileUploadAction extends BaseAction {
 
     /**
      * Upload the file
+     *
      * @return String with result (cancel, input or sucess)
      * @throws Exception if something goes wrong
      */
@@ -69,6 +70,7 @@ public class FileUploadAction extends BaseAction {
 
     /**
      * Default method - returns "input"
+     *
      * @return "input"
      */
     public String execute() {
@@ -107,6 +109,9 @@ public class FileUploadAction extends BaseAction {
         return fileFileName;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void validate() {
         if (getRequest().getMethod().equalsIgnoreCase("post")) {

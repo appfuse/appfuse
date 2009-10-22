@@ -6,12 +6,11 @@ import org.appfuse.Constants;
 import org.appfuse.service.LookupManager;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.security.providers.AuthenticationProvider;
 import org.springframework.security.providers.ProviderManager;
-import org.springframework.security.providers.dao.DaoAuthenticationProvider;
 import org.springframework.security.providers.encoding.PasswordEncoder;
 import org.springframework.security.providers.rememberme.RememberMeAuthenticationProvider;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -33,7 +32,10 @@ import java.util.Map;
 public class StartupListener implements ServletContextListener {
     private static final Log log = LogFactory.getLog(StartupListener.class);
 
-    @SuppressWarnings({"unchecked"})
+    /**
+     * {@inheritDoc}
+     */
+    @SuppressWarnings("unchecked")
     public void contextInitialized(ServletContextEvent event) {
         log.debug("Initializing context...");
 
@@ -46,19 +48,19 @@ public class StartupListener implements ServletContextListener {
         if (config == null) {
             config = new HashMap<String, Object>();
         }
-        
+
         if (context.getInitParameter(Constants.CSS_THEME) != null) {
             config.put(Constants.CSS_THEME, context.getInitParameter(Constants.CSS_THEME));
         }
 
         ApplicationContext ctx =
-            WebApplicationContextUtils.getRequiredWebApplicationContext(context);
+                WebApplicationContextUtils.getRequiredWebApplicationContext(context);
 
         /*String[] beans = ctx.getBeanDefinitionNames();
         for (String bean : beans) {
             log.debug(bean);
         }*/
-        
+
         PasswordEncoder passwordEncoder = null;
         try {
             ProviderManager provider = (ProviderManager) ctx.getBean("_authenticationManager");
@@ -91,6 +93,7 @@ public class StartupListener implements ServletContextListener {
 
     /**
      * This method uses the LookupManager to lookup available roles from the data layer.
+     *
      * @param context The servlet context
      */
     public static void setupContext(ServletContext context) {

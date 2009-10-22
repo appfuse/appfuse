@@ -1,16 +1,9 @@
 package org.appfuse.webapp.action;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
+import com.opensymphony.xwork2.ActionSupport;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.struts2.ServletActionContext;
 import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.service.MailEngine;
@@ -18,16 +11,21 @@ import org.appfuse.service.RoleManager;
 import org.appfuse.service.UserManager;
 import org.springframework.mail.SimpleMailMessage;
 
-import org.apache.struts2.ServletActionContext;
-import com.opensymphony.xwork2.ActionSupport;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
- * Implementation of <strong>ActionSupport</strong> that contains 
+ * Implementation of <strong>ActionSupport</strong> that contains
  * convenience methods for subclasses.  For example, getting the current
  * user and saving messages/errors. This class is intended to
  * be a base class for all Action classes.
- * 
+ *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class BaseAction extends ActionSupport {
@@ -41,7 +39,7 @@ public class BaseAction extends ActionSupport {
     /**
      * Transient log to prevent session synchronization issues - children can use instance for logging.
      */
-    protected transient final Log log = LogFactory.getLog(getClass());
+    protected final transient Log log = LogFactory.getLog(getClass());
 
     /**
      * The UserManager
@@ -90,6 +88,7 @@ public class BaseAction extends ActionSupport {
 
     /**
      * Simple method that returns "cancel" result
+     *
      * @return "cancel"
      */
     public String cancel() {
@@ -98,6 +97,7 @@ public class BaseAction extends ActionSupport {
 
     /**
      * Save the message in the session, appending if messages already exist
+     *
      * @param msg the message to put in the session
      */
     @SuppressWarnings("unchecked")
@@ -127,6 +127,7 @@ public class BaseAction extends ActionSupport {
 
     /**
      * Convenience method to get the request
+     *
      * @return current request
      */
     protected HttpServletRequest getRequest() {
@@ -135,6 +136,7 @@ public class BaseAction extends ActionSupport {
 
     /**
      * Convenience method to get the response
+     *
      * @return current response
      */
     protected HttpServletResponse getResponse() {
@@ -143,6 +145,7 @@ public class BaseAction extends ActionSupport {
 
     /**
      * Convenience method to get the session. This will create a session if one doesn't exist.
+     *
      * @return the session from the request (request.getSession()).
      */
     protected HttpSession getSession() {
@@ -151,6 +154,7 @@ public class BaseAction extends ActionSupport {
 
     /**
      * Convenience method to send e-mail to users
+     *
      * @param user the user to send to
      * @param msg the message to send
      * @param url the URL to the application (or where ever you'd like to send them)
@@ -193,6 +197,7 @@ public class BaseAction extends ActionSupport {
 
     /**
      * Convenience method for setting a "from" parameter to indicate the previous page.
+     *
      * @param from indicator for the originating page
      */
     public void setFrom(String from) {

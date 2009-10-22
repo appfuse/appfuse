@@ -22,14 +22,15 @@ import java.util.Set;
  * container as per normal.
  */
 public class StaticFilter extends OncePerRequestFilter {
-    private final static String DEFAULT_INCLUDES = "*.html";
-    private final static String DEFAULT_EXCLUDES = "";
+    private static final String DEFAULT_INCLUDES = "*.html";
+    private static final String DEFAULT_EXCLUDES = "";
     private static final String INCLUDES_PARAMETER = "includes";
     private static final String EXCLUDES_PARAMETER = "excludes";
     private static final String SERVLETNAME_PARAMETER = "servletName";
     private String[] excludes;
     private String[] includes;
-    private String servletName = null;
+    private String servletName;
+
     /**
      * Read the includes/excludes parameters and set the filter accordingly.
      */

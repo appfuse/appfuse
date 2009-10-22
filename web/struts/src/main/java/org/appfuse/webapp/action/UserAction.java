@@ -30,7 +30,6 @@ public class UserAction extends BaseAction implements Preparable {
     private User user;
     private String id;
 
-
     /**
      * Grab the entity from the database before populating with request parameters
      */

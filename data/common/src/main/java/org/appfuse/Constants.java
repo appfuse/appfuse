@@ -3,11 +3,14 @@ package org.appfuse;
 
 /**
  * Constant values used throughout the application.
- * 
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
-public class Constants {
+public final class Constants {
+
+    private Constants() {
+        // hide me
+    }
     //~ Static fields/initializers =============================================
 
     /**

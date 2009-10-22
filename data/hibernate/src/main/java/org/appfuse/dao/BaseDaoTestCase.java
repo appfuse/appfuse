@@ -4,27 +4,28 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.SessionFactory;
-import org.springframework.orm.hibernate3.HibernateTemplate;
-import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 
 import java.util.*;
 
 /**
  * Base class for running DAO tests.
- * @author mraible
+ *
+ * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 @ContextConfiguration(
-    locations={"classpath:/applicationContext-resources.xml",
-               "classpath:/applicationContext-dao.xml",
-               "classpath*:/applicationContext.xml",
-               "classpath:**/applicationContext*.xml"})
+        locations = {"classpath:/applicationContext-resources.xml",
+                "classpath:/applicationContext-dao.xml",
+                "classpath*:/applicationContext.xml",
+                "classpath:**/applicationContext*.xml"})
 public abstract class BaseDaoTestCase extends AbstractTransactionalJUnit4SpringContextTests {
     @Autowired
     private SessionFactory sessionFactory;
-    
+
     /**
      * Log variable for all child classes. Uses LogFactory.getLog(getClass()) from Commons Logging
      */
@@ -46,13 +47,14 @@ public abstract class BaseDaoTestCase extends AbstractTransactionalJUnit4SpringC
         try {
             rb = ResourceBundle.getBundle(className);
         } catch (MissingResourceException mre) {
-            //log.warn("No resource bundle found for: " + className);
+            //log.debug("No resource bundle found for: " + className);
         }
     }
 
     /**
      * Utility method to populate a javabean-style object with values
      * from a Properties file
+     *
      * @param obj the model object to populate
      * @return Object populated object
      * @throws Exception if BeanUtils fails to copy properly
@@ -74,7 +76,9 @@ public abstract class BaseDaoTestCase extends AbstractTransactionalJUnit4SpringC
     /**
      * Create a HibernateTemplate from the SessionFactory and call flush() and clear() on it.
      * Designed to be used after "save" methods in tests: http://issues.appfuse.org/browse/APF-178.
-     * @throws org.springframework.beans.BeansException when can't find 'sessionFactory' bean
+     *
+     * @throws org.springframework.beans.BeansException
+     *          when can't find 'sessionFactory' bean
      */
     protected void flush() throws BeansException {
         HibernateTemplate hibernateTemplate = new HibernateTemplate(sessionFactory);
