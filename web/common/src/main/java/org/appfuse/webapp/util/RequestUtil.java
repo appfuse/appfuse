@@ -57,14 +57,10 @@ public final class RequestUtil {
             return returnCookie;
         }
 
-        for (Cookie thisCookie : cookies) {
-            if (thisCookie.getName().equals(name)) {
-                // cookies with no value do me no good!
-                if (!thisCookie.getValue().equals("")) {
-                    returnCookie = thisCookie;
-
-                    break;
-                }
+        for (final Cookie thisCookie : cookies) {
+            if (thisCookie.getName().equals(name) && !"".equals(thisCookie.getValue())) {
+                returnCookie = thisCookie;
+                break;
             }
         }
 

@@ -112,14 +112,14 @@ public class CountryTag extends TagSupport {
         return super.doStartTag();
     }
 
-    /**
-     * Release aquired resources to enable tag reusage.
-     *
-     * @see javax.servlet.jsp.tagext.Tag#release()
-     */
-    public void release() {
-        super.release();
-    }
+    // /**
+    // * Release aquired resources to enable tag reusage.
+    // *
+    // * @see javax.servlet.jsp.tagext.Tag#release()
+    // */
+    // public void release() {
+    // super.release();
+    // }
 
     /**
      * Build a List of LabelValues for all the available countries. Uses

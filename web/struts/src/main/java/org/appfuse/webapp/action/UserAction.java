@@ -35,16 +35,15 @@ public class UserAction extends BaseAction implements Preparable {
      * Grab the entity from the database before populating with request parameters
      */
     public void prepare() {
-        if (getRequest().getMethod().equalsIgnoreCase("post")) {
-            // prevent failures on new
-            if (!"".equals(getRequest().getParameter("user.id"))) {
-                user = userManager.getUser(getRequest().getParameter("user.id"));
-            }
+        // prevent failures on new
+        if (getRequest().getMethod().equalsIgnoreCase("post") && (!"".equals(getRequest().getParameter("user.id")))) {
+            user = userManager.getUser(getRequest().getParameter("user.id"));
         }
     }
 
     /**
      * Holder for users to display on list screen
+     *
      * @return list of users
      */
     public List getUsers() {
@@ -65,6 +64,7 @@ public class UserAction extends BaseAction implements Preparable {
 
     /**
      * Delete the user passed in.
+     *
      * @return success
      */
     public String delete() {
@@ -78,6 +78,7 @@ public class UserAction extends BaseAction implements Preparable {
 
     /**
      * Grab the user from the database based on the "id" passed in.
+     *
      * @return success if user found
      * @throws IOException can happen when sending a "forbidden" from response.sendError()
      */
@@ -86,17 +87,11 @@ public class UserAction extends BaseAction implements Preparable {
         boolean editProfile = (request.getRequestURI().indexOf("editProfile") > -1);
 
         // if URL is "editProfile" - make sure it's the current user
-        if (editProfile) {
-            // reject if id passed in or "list" parameter passed in
-            // someone that is trying this probably knows the AppFuse code
-            // but it's a legitimate bug, so I'll fix it. ;-)
-            if ((request.getParameter("id") != null) || (request.getParameter("from") != null)) {
-                ServletActionContext.getResponse().sendError(HttpServletResponse.SC_FORBIDDEN);
-                log.warn("User '" + request.getRemoteUser() + "' is trying to edit user '" 
-                         + request.getParameter("id") + "'");
-
-                return null;
-            }
+        if (editProfile && ((request.getParameter("id") != null) || (request.getParameter("from") != null))) {
+            ServletActionContext.getResponse().sendError(HttpServletResponse.SC_FORBIDDEN);
+            log.warn("User '" + request.getRemoteUser() + "' is trying to edit user '" +
+                    request.getParameter("id") + "'");
+            return null;
         }
 
         // if a user's id is passed in
@@ -134,6 +129,7 @@ public class UserAction extends BaseAction implements Preparable {
 
     /**
      * Default: just returns "success"
+     *
      * @return "success"
      */
     public String execute() {
@@ -142,6 +138,7 @@ public class UserAction extends BaseAction implements Preparable {
 
     /**
      * Sends users to "mainMenu" when !from.equals("list"). Sends everyone else to "cancel"
+     *
      * @return "mainMenu" or "cancel"
      */
     public String cancel() {
@@ -153,8 +150,9 @@ public class UserAction extends BaseAction implements Preparable {
 
     /**
      * Save user
+     *
      * @return success if everything worked, otherwise input
-     * @throws IOException when setting "access denied" fails on response
+     * @throws Exception when setting "access denied" fails on response
      */
     public String save() throws Exception {
 
@@ -191,7 +189,7 @@ public class UserAction extends BaseAction implements Preparable {
             // redisplay the unencrypted passwords
             user.setPassword(user.getConfirmPassword());
             return INPUT;
-        } 
+        }
 
         if (!"list".equals(from)) {
             // add success messages
@@ -206,8 +204,7 @@ public class UserAction extends BaseAction implements Preparable {
                 // Send an account information e-mail
                 mailMessage.setSubject(getText("signup.email.subject"));
                 try {
-                    sendUserMessage(user, getText("newuser.email.message", args),
-                                    RequestUtil.getAppURL(getRequest()));
+                    sendUserMessage(user, getText("newuser.email.message", args), RequestUtil.getAppURL(getRequest()));
                 } catch (MailException me) {
                     addActionError(me.getCause().getLocalizedMessage());
                 }
@@ -221,6 +218,7 @@ public class UserAction extends BaseAction implements Preparable {
 
     /**
      * Fetch all users from database and put into local "users" variable for retrieval in the UI.
+     *
      * @return "success" if no exceptions thrown
      */
     public String list() {

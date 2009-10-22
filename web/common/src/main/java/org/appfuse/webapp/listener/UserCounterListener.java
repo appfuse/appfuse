@@ -45,6 +45,7 @@ public class UserCounterListener implements ServletContextListener, HttpSessionA
 
     /**
      * Initialize the context
+     *
      * @param sce the event
      */
     public synchronized void contextInitialized(ServletContextEvent sce) {
@@ -54,6 +55,7 @@ public class UserCounterListener implements ServletContextListener, HttpSessionA
 
     /**
      * Set the servletContext, users and counter to null
+     *
      * @param event The servletContextEvent
      */
     public synchronized void contextDestroyed(ServletContextEvent event) {
@@ -108,8 +110,9 @@ public class UserCounterListener implements ServletContextListener, HttpSessionA
 
     /**
      * This method is designed to catch when user's login and record their name
-     * @see javax.servlet.http.HttpSessionAttributeListener#attributeAdded(javax.servlet.http.HttpSessionBindingEvent)
+     *
      * @param event the event to process
+     * @see javax.servlet.http.HttpSessionAttributeListener#attributeAdded(javax.servlet.http.HttpSessionBindingEvent)
      */
     public void attributeAdded(HttpSessionBindingEvent event) {
         if (event.getName().equals(EVENT_KEY) && !isAnonymous()) {
@@ -133,8 +136,9 @@ public class UserCounterListener implements ServletContextListener, HttpSessionA
 
     /**
      * When user's logout, remove their name from the hashMap
-     * @see javax.servlet.http.HttpSessionAttributeListener#attributeRemoved(javax.servlet.http.HttpSessionBindingEvent)
+     *
      * @param event the session binding event
+     * @see javax.servlet.http.HttpSessionAttributeListener#attributeRemoved(javax.servlet.http.HttpSessionBindingEvent)
      */
     public void attributeRemoved(HttpSessionBindingEvent event) {
         if (event.getName().equals(EVENT_KEY) && !isAnonymous()) {
@@ -150,17 +154,17 @@ public class UserCounterListener implements ServletContextListener, HttpSessionA
     /**
      * Needed for Acegi Security 1.0, as it adds an anonymous user to the session and
      * then replaces it after authentication. http://forum.springframework.org/showthread.php?p=63593
-     * @see javax.servlet.http.HttpSessionAttributeListener#attributeReplaced(javax.servlet.http.HttpSessionBindingEvent)
+     *
      * @param event the session binding event
+     * @see javax.servlet.http.HttpSessionAttributeListener#attributeReplaced(javax.servlet.http.HttpSessionBindingEvent)
      */
     public void attributeReplaced(HttpSessionBindingEvent event) {
         if (event.getName().equals(EVENT_KEY) && !isAnonymous()) {
-            SecurityContext securityContext = (SecurityContext) event.getValue();
-            if (securityContext.getAuthentication() != null) {
-                if (securityContext.getAuthentication().getPrincipal() instanceof User) {
-                    User user = (User) securityContext.getAuthentication().getPrincipal();
-                    addUsername(user);
-                }
+            final SecurityContext securityContext = (SecurityContext) event.getValue();
+            if (securityContext.getAuthentication() != null
+                    && securityContext.getAuthentication().getPrincipal() instanceof User) {
+                final User user = (User) securityContext.getAuthentication().getPrincipal();
+                addUsername(user);
             }
         }
     }
