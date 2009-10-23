@@ -20,7 +20,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>dbunit-maven-plugin</artifactId>
-                <version>1.0-beta-1</version>
+                <version>1.0-beta-3</version>
                 <configuration>
                     <dataTypeFactoryName>${dbunit.dataTypeFactoryName}</dataTypeFactoryName>
                     <driver>${jdbc.driverClassName}</driver>
@@ -61,7 +61,7 @@
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>maven-jetty-plugin</artifactId>
-                <version>6.1.14</version>
+                <version>6.1.21</version>
                 <configuration>
                     <contextPath>/</contextPath>
                     <scanIntervalSeconds>3</scanIntervalSeconds>
@@ -269,7 +269,11 @@
                             <wait>${cargo.wait}</wait>
                             <container>
                                 <containerId>${cargo.container}</containerId>
-                                <type>embedded</type>
+                                <!--home>${cargo.container.home}</home-->
+                                <zipUrlInstaller>
+                                    <url>${cargo.container.url}</url>
+                                    <installDir>${installDir}</installDir>
+                                </zipUrlInstaller>
                             </container>
                             <configuration>
                                 <home>${project.build.directory}/${cargo.container}/container</home>

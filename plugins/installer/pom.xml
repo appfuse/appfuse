@@ -28,7 +28,7 @@
     <url>http://appfuse.dev.java.net</url>
 
     <prerequisites>
-        <maven>2.1.0</maven>
+        <maven>2.2.1</maven>
     </prerequisites>
 
     <scm>
@@ -95,7 +95,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-eclipse-plugin</artifactId>
-                <version>2.5.1</version>
+                <version>2.7</version>
                 <configuration>
                     <additionalProjectnatures>
                         <projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
@@ -110,7 +110,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-idea-plugin</artifactId>
-                <version>2.1</version>
+                <version>2.2</version>
                 <configuration>
                     <downloadSources>true</downloadSources>
                     <downloadJavadocs>true</downloadJavadocs>
