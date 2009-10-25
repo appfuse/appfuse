@@ -86,6 +86,7 @@
             <!-- Override plugin configuration from appfuse-web so can exclude overridden files -->
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
+                <version>2.1-beta-1</version>
                 <configuration>
                     <webResources>
                         <resource>
