@@ -1,5 +1,8 @@
 package org.appfuse.webapp.pages;
 
+import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Persist;
@@ -20,9 +23,6 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.AccessDeniedException;
 import org.springframework.security.context.SecurityContextHolder;
 import org.springframework.security.providers.UsernamePasswordAuthenticationToken;
-
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * Self-registration page for new users
@@ -141,7 +141,9 @@ public class Signup extends BasePage {
         }
 
         getSession().setAttribute("message", getText("user.registered"));
-        response.sendRedirect(getRequest().getContextPath());
+	    if (getRequest() != null) { // needed for testing
+            response.sendRedirect(getRequest().getContextPath());
+	    }
         return null;
     }
 }

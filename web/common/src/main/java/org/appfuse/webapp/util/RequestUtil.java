@@ -92,6 +92,8 @@ public final class RequestUtil {
      * @return URL to application
      */
     public static String getAppURL(HttpServletRequest request) {
+        if (request == null) return "";
+        
         StringBuffer url = new StringBuffer();
         int port = request.getServerPort();
         if (port < 0) {

@@ -16,11 +16,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @version $Id: SpringObjectProvider.java 5 2008-08-30 09:59:21Z serge.eby $
  */
 public class SpringObjectProvider implements ObjectProvider {
-
     private TypeCoercer typeCoercer;
     private ApplicationContext context;
-    private static final Logger logger = LoggerFactory
-            .getLogger(SpringObjectProvider.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(SpringObjectProvider.class.getName());
 
     public SpringObjectProvider(@InjectService("TypeCoercer") TypeCoercer typeCoercer) {
         this.typeCoercer = typeCoercer;
@@ -45,31 +43,24 @@ public class SpringObjectProvider implements ObjectProvider {
         Object obj = null;
 
         try {
-            String[] beanNames = getSpringContext().getBeanNamesForType(
-                    objectType);
+            String[] beanNames = getSpringContext().getBeanNamesForType(objectType);
 
             if (beanNames.length > 0) {
                 // return first result
-                logger.info("returning bean name: " + beanNames[0]);
                 obj = getSpringContext().getBean(beanNames[0]);
             } else {
-                logger.info("Couldn't find a bean for type "
-                        + objectType.getName());
+                //log.info("Couldn't find a bean for type " + objectType.getName());
             }
         } catch (Exception e) {
-            logger.warn("Problem occurred when finding a bean for type "
-                    + objectType.getName(), e);
+            log.warn("Problem occurred when finding a bean for type " + objectType.getName(), e);
         }
 
-        T coerced = typeCoercer.coerce(obj, objectType);
-
-        return coerced;
+	    return typeCoercer.coerce(obj, objectType);
 
     }
 
     private ApplicationContext getSpringContext() {
         if (context == null) {
-            logger.info("Returning Spring context");
             context = new ClassPathXmlApplicationContext(new String[]{
                     "classpath:/applicationContext-resources.xml",
                     "classpath:/applicationContext-dao.xml",
@@ -80,5 +71,4 @@ public class SpringObjectProvider implements ObjectProvider {
         }
         return context;
     }
-
 }

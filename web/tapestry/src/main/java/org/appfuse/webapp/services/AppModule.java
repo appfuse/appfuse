@@ -10,7 +10,7 @@ import org.apache.tapestry5.annotations.Path;
 import org.apache.tapestry5.ioc.MappedConfiguration;
 import org.apache.tapestry5.ioc.OrderedConfiguration;
 import org.apache.tapestry5.ioc.ServiceBinder;
-import org.apache.tapestry5.ioc.annotations.InjectService;
+import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.ioc.annotations.Symbol;
 import org.apache.tapestry5.ioc.services.ThreadLocale;
 import org.apache.tapestry5.services.ComponentSource;
@@ -48,13 +48,12 @@ public class AppModule {
         // invoking the constructor.
     }
 
-    public static void contributeApplicationDefaults(
-            MappedConfiguration<String, String> configuration) {
+    public static void contributeApplicationDefaults(MappedConfiguration<String, String> configuration) {
         configuration.add(SymbolConstants.SUPPORTED_LOCALES,
                 "de,en,es,fr,it,ko,nl,no,pt_BR,pt,tr,zh_CN,zh_TW,en_US");
 
         configuration.add(SymbolConstants.APPLICATION_CATALOG,
-                "WEB-INF/classes/ApplicationResources.properties");
+                "context:WEB-INF/classes/ApplicationResources.properties");
 
         // The factory default is true but during the early stages of an
         // application
@@ -114,14 +113,10 @@ public class AppModule {
      */
     public static ServiceFacade buildServiceFacade(final Logger logger,
                                                    final Context context,
-                                                   @InjectService("mailEngine")
-                                                   MailEngine mailEngine,
-                                                   @InjectService("userManager")
-                                                   UserManager userManager,
-                                                   @InjectService("roleManager")
-                                                   RoleManager roleManager,
-                                                   @InjectService("mailMessage")
-                                                   SimpleMailMessage mailMessage,
+                                                   @Inject MailEngine mailEngine,
+                                                   @Inject UserManager userManager,
+                                                   @Inject RoleManager roleManager,
+                                                   @Inject SimpleMailMessage mailMessage,
                                                    final ThreadLocale threadLocale) {
         return new ServiceFacadeImpl(logger, context, mailEngine,
                 userManager, roleManager, mailMessage, threadLocale);

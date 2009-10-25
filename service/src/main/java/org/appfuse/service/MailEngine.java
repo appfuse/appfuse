@@ -34,6 +34,10 @@ public class MailEngine {
         this.mailSender = mailSender;
     }
 
+	public MailSender getMailSender() {
+		return mailSender;
+	}
+
     public void setVelocityEngine(VelocityEngine velocityEngine) {
         this.velocityEngine = velocityEngine;
     }

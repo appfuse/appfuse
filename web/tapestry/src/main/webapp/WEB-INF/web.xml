@@ -42,7 +42,11 @@
         <param-name>tapestry.app-package</param-name>
         <param-value>org.appfuse.webapp</param-value>
     </context-param>
-
+    <context-param>
+        <param-name>tapestry.use-external-spring-context</param-name>
+        <param-value>true</param-value>
+    </context-param> 
+    
     <filter>
         <filter-name>cacheFilter</filter-name>
         <filter-class>com.opensymphony.oscache.web.filter.CacheFilter</filter-class>

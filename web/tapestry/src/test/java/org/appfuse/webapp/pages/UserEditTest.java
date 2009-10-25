@@ -1,12 +1,8 @@
 package org.appfuse.webapp.pages;
 
-import java.util.HashMap;
-import java.util.Map;
+import org.junit.Ignore;
 
-//import org.apache.tapestry5.engine.ILink;
-import org.appfuse.model.User;
-import org.appfuse.service.UserManager;
-
+@Ignore
 public class UserEditTest extends  BasePageTester {
 	// TODO: Rewrite test case using Tapestry5 built-in features
 //    private UserEdit page;

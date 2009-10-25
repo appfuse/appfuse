@@ -1,10 +1,8 @@
 package org.appfuse.webapp.pages;
 
-import org.subethamail.wiser.Wiser;
+import org.junit.Ignore;
 
-import java.util.HashMap;
-import java.util.Map;
-
+@Ignore
 public class PasswordHintTest  extends BasePageTester {
 
 // TODO: Rewrite test case using Tapestry5 built-in features

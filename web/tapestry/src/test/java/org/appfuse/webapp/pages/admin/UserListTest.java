@@ -1,11 +1,9 @@
 package org.appfuse.webapp.pages.admin;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.appfuse.webapp.pages.BasePageTester;
-import org.testng.Assert;
+import org.junit.Ignore;
 
+@Ignore
 public class UserListTest extends BasePageTester {
     private UserList page;
            /*
