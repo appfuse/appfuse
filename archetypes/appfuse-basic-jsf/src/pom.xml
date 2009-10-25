@@ -712,11 +712,11 @@
         <acegijsf.version>1.1.3</acegijsf.version>
         <ajax4jsf.version>1.0.6</ajax4jsf.version>
         <appfuse.version>2.1-SNAPSHOT</appfuse.version>
-        <aspectj.version>1.6.2</aspectj.version>
+        <aspectj.version>1.6.6</aspectj.version>
         <corejsf.validator.version>1.0</corejsf.validator.version>
         <el.version>1.2</el.version>
         <facelets.version>1.1.14</facelets.version>
-        <myfaces.version>1.2.6</myfaces.version>
+        <myfaces.version>1.2.7</myfaces.version>
         <myfaces.tomahawk.version>1.1.8</myfaces.tomahawk.version>
         <spring.version>2.5.6</spring.version>
 
@@ -726,7 +726,7 @@
         <jsp.version>2.1</jsp.version>
         <junit.version>4.4</junit.version>
         <servlet.version>2.4</servlet.version>
-        <shale.version>1.0.4</shale.version>
+        <shale.version>1.0.5</shale.version>
         <wiser.version>1.2</wiser.version>
 
         <!-- WebTest dependency versions  -->
@@ -750,7 +750,7 @@
         <hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
         <jdbc.groupId>mysql</jdbc.groupId>
         <jdbc.artifactId>mysql-connector-java</jdbc.artifactId>
-        <jdbc.version>5.0.5</jdbc.version>
+        <jdbc.version>5.1.10</jdbc.version>
         <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
         <jdbc.url><![CDATA[jdbc:mysql://localhost/${db.name}?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8]]></jdbc.url>
         <jdbc.username>root</jdbc.username>
