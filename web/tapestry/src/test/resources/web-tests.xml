@@ -9,7 +9,7 @@
 
     <!-- runs all targets -->
     <target name="run-all-tests" 
-        depends="Login,Logout,PasswordHint,Signup,StaticPages,UserTests,FlushCache,FileUpload"
+        depends="Login,Logout,PasswordHint,Signup,StaticPages,UserTests,FileUpload"
         description="Call and executes all test cases (targets)"/>
     
     <!-- runs user-related tests -->
@@ -187,19 +187,6 @@
                 <invoke description="get activeUsers URL" url="/admin/activeusers"/>
                 <verifytitle description="we should see the activeUsers title" 
                     text=".*${activeUsers.title}.*" regex="true"/>
-            </steps>
-        </webtest>
-    </target>
-    
-    <!-- Flush OSCache -->
-    <target name="FlushCache" description="opens JSP to Flush Page Cache">
-        <webtest name="flushCache">
-            &config;
-            <steps>
-                &login;
-                <invoke description="get flushCache URL" url="/admin/flushcache"/>
-                <verifytitle description="we should see the flush cache title" 
-                    text=".*${flushCache.title}.*" regex="true"/>
             </steps>
         </webtest>
     </target>

@@ -73,7 +73,6 @@
         <property name="mappings">
             <value>
                 /admin/activeUsers.html=filenameController
-                /admin/flushCache.html=filenameController
                 /admin/reload.html=reloadController
                 /admin/users.html=userController
                 /mainMenu.html=filenameController

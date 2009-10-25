@@ -4,16 +4,14 @@
 
     <t:block id="error">
         <div class="error" id="errorMessages">
-            <img src="${iconWarning}" alt="${message:icon.warning}"
-                 class="icon"/>
+            <img src="${iconWarning}" alt="${message:icon.warning}" class="icon"/>
             ${message}
         </div>
     </t:block>
 
     <t:block id="success">
         <div class="message" id="successMessages">
-            <img src="${iconInformation}"
-                 alt="${message:icon.information}" class="icon"/>
+            <img src="${iconInformation}" alt="${message:icon.information}" class="icon"/>
             ${message}
         </div>
     </t:block>

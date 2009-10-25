@@ -11,7 +11,6 @@
             <Item name="ActiveUsers" title="mainMenu.activeUsers" page="/admin/activeUsers.html"/>
             <Item name="ReloadContext" title="menu.admin.reload" page="/admin/reload.html"/>
             <Item name="FileUpload" title="menu.selectFile" page="/uploadFile.html"/>
-            <Item name="FlushCache" title="menu.flushCache" page="/admin/flushCache.html"/>
         </Menu>
         <Menu name="Logout" title="user.logout" page="/logout.jsp" roles="ROLE_ADMIN,ROLE_USER"/>
     </Menus>

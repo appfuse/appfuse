@@ -67,10 +67,6 @@
         <filter-class>org.ajax4jsf.Filter</filter-class>
     </filter>
     <filter>
-        <filter-name>cacheFilter</filter-name>
-        <filter-class>com.opensymphony.oscache.web.filter.CacheFilter</filter-class>
-    </filter>
-    <filter>
         <filter-name>encodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
         <init-param>

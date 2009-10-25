@@ -8,7 +8,6 @@
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://corejsf.com/validator" prefix="v" %>
 <%@ taglib uri="http://myfaces.apache.org/tomahawk" prefix="t" %>
-<%@ taglib uri="http://www.opensymphony.com/oscache" prefix="cache" %>
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator" prefix="decorator" %>
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/page" prefix="page" %>
 <%@ taglib uri="http://www.appfuse.org/tags/jsf" prefix="appfuse" %>

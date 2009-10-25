@@ -487,7 +487,6 @@
         <log4j.version>1.2.13</log4j.version>
         <myfaces.version>1.2.7</myfaces.version>
         <myfaces.tomahawk.version>1.1.9</myfaces.tomahawk.version>
-        <oscache.version>2.4</oscache.version>
         <servlet.version>2.4</servlet.version>
         <shale.version>1.0.5</shale.version>
         <sitemesh.version>2.4.2</sitemesh.version>

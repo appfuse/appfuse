@@ -117,11 +117,6 @@
         <action name="activeUsers" class="com.opensymphony.xwork2.ActionSupport">
             <result name="success">/WEB-INF/pages/admin/activeUsers.jsp</result>
         </action>
-
-        <action name="flushCache" class="com.opensymphony.xwork2.ActionSupport">
-            <interceptor-ref name="adminCheck"/>
-            <result name="success">/WEB-INF/pages/admin/flushCache.jsp</result>
-        </action>
         
         <action name="reload" class="org.appfuse.webapp.action.ReloadAction">
             <interceptor-ref name="adminCheck"/>

@@ -172,21 +172,6 @@
         </dependency>
         <dependency>
             <groupId>opensymphony</groupId>
-            <artifactId>oscache</artifactId>
-            <version>${oscache.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.jms</groupId>
-                    <artifactId>jms</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>javax.servlet</groupId>
-                    <artifactId>servlet-api</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>opensymphony</groupId>
             <artifactId>sitemesh</artifactId>
             <version>${sitemesh.version}</version>
         </dependency>

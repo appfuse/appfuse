@@ -190,6 +190,18 @@
             </exclusions>
         </dependency>
         <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>${jsp.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>${servlet.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.apache.tapestry</groupId>
             <artifactId>tapestry-core</artifactId>
             <version>${tapestry.version}</version>
@@ -197,7 +209,7 @@
         <dependency>
             <groupId>org.apache.tapestry</groupId>
             <artifactId>tapestry-spring</artifactId>
-            <version>${tapestry.version}</version>
+            <version>5.0.18</version>
         </dependency>
         <dependency>
             <groupId>org.apache.tapestry</groupId>
@@ -221,6 +233,10 @@
                 <exclusion>
                     <groupId>org.openqa.selenium.server</groupId>
                     <artifactId>selenium-server-coreless</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.testng</groupId>
+                    <artifactId>testng</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>

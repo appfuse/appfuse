@@ -423,6 +423,7 @@
 
     <properties>
         <!-- Application settings -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <copyright.year>2009</copyright.year>
         <dao.framework>hibernate</dao.framework>
         <amp.genericCore>true</amp.genericCore>

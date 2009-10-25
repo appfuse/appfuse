@@ -334,6 +334,22 @@
     </pluginRepositories>
 
     <dependencies>
+        <!-- Remove service dependency and woodstox exclusion after upgrade to CXF -->
+        <dependency>
+            <groupId>org.appfuse</groupId>
+            <artifactId>appfuse-service</artifactId>
+            <version>${appfuse.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.appfuse</groupId>
+                    <artifactId>appfuse-hibernate</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.codehaus.woodstox</groupId>
+                    <artifactId>wstx-asl</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
         <dependency>
             <groupId>org.appfuse</groupId>
             <artifactId>appfuse-web-common</artifactId>
@@ -366,12 +382,24 @@
         <dependency>
             <groupId>org.apache.tapestry</groupId>
             <artifactId>tapestry-spring</artifactId>
-            <version>${tapestry.version}</version>
+            <version>5.0.18</version>
         </dependency>
         <dependency>
             <groupId>org.apache.tapestry</groupId>
             <artifactId>tapestry-upload</artifactId>
             <version>${tapestry.version}</version>
+        </dependency>
+	    <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>${servlet.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>${jsp.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.tapestry</groupId>
@@ -390,6 +418,10 @@
                 <exclusion>
                     <groupId>org.openqa.selenium.server</groupId>
                     <artifactId>selenium-server-coreless</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.testng</groupId>
+                    <artifactId>testng</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -677,6 +709,7 @@
 
     <properties>
         <!-- Application settings -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <copyright.year>2009</copyright.year>
         <dao.framework>hibernate</dao.framework>
         <web.framework>tapestry</web.framework>
@@ -688,7 +721,7 @@
         <appfuse.version>2.1-SNAPSHOT</appfuse.version>
         <aspectj.version>1.6.6</aspectj.version>
         <spring.version>2.5.6</spring.version>
-        <tapestry.version>5.0.18</tapestry.version>
+        <tapestry.version>5.1.0.5</tapestry.version>
 
         <!-- Testing dependency versions -->
         <cargo.version>1.0</cargo.version>

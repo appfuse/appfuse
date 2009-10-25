@@ -308,6 +308,7 @@
 
     <properties>
         <!-- Application settings -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <copyright.year>2009</copyright.year>
         <dao.framework>hibernate</dao.framework>
         <web.framework>tapestry</web.framework>
@@ -319,7 +320,7 @@
         <appfuse.version>2.1-SNAPSHOT</appfuse.version>
         <aspectj.version>1.6.6</aspectj.version>
         <spring.version>2.5.6</spring.version>
-        <tapestry.version>5.0.18</tapestry.version>
+        <tapestry.version>5.1.0.5</tapestry.version>
 
         <!-- Testing dependency versions -->
         <cargo.version>1.0</cargo.version>

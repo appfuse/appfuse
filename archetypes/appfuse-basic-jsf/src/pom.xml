@@ -397,6 +397,12 @@
             <artifactId>tomahawk</artifactId>
             <version>${myfaces.tomahawk.version}</version>
         </dependency>
+	    <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>${servlet.version}</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>jsp-api</artifactId>
@@ -701,6 +707,7 @@
 
     <properties>
         <!-- Application settings -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <copyright.year>2009</copyright.year>
         <dao.framework>hibernate</dao.framework>
         <web.framework>jsf</web.framework>
