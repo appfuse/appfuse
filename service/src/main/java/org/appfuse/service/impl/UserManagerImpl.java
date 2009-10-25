@@ -2,6 +2,9 @@ package org.appfuse.service.impl;
 
 import java.util.List;
 import javax.jws.WebService;
+import javax.ws.rs.Path;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.Produces;
 
 import org.appfuse.dao.UserDao;
 import org.appfuse.model.User;

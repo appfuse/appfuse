@@ -334,7 +334,6 @@
     </pluginRepositories>
 
     <dependencies>
-        <!-- Remove service dependency and woodstox exclusion after upgrade to CXF -->
         <dependency>
             <groupId>org.appfuse</groupId>
             <artifactId>appfuse-service</artifactId>
@@ -343,10 +342,6 @@
                 <exclusion>
                     <groupId>org.appfuse</groupId>
                     <artifactId>appfuse-hibernate</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.codehaus.woodstox</groupId>
-                    <artifactId>wstx-asl</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>

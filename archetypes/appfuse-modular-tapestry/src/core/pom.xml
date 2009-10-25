@@ -142,11 +142,6 @@
                     <groupId>org.appfuse</groupId>
                     <artifactId>appfuse-hibernate</artifactId>
                 </exclusion>
-                <!-- Remove woodstox exclusion after upgrade to CXF -->
-                <exclusion>
-                    <groupId>org.codehaus.woodstox</groupId>
-                    <artifactId>wstx-asl</artifactId>
-                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
