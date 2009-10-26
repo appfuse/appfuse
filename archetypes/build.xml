@@ -116,28 +116,26 @@
                 <fileset dir="src"/>
             </copy>
 
-            <parallel>
-                <copy todir="@{dir}/@{dest}">
-                    <fileset dir="${basedir}/../../web/common">
-                        <include name="**/**"/>
-                        <exclude name="pom.xml"/>
-                        <exclude name="target/**"/>
-                        <exclude name="**/.svn/**"/>
-                        <exclude name="*.iml"/>
-                        <exclude name="*.ipr"/>
-                    </fileset>
-                </copy>
-                <copy todir="@{dir}/@{dest}">
-                    <fileset dir="${basedir}/../../web/@{module}">
-                        <include name="**/**"/>
-                        <exclude name="pom.xml"/>
-                        <exclude name="target/**"/>
-                        <exclude name="**/.svn/**"/>
-                        <exclude name="*.iml"/>
-                        <exclude name="*.ipr"/>
-                    </fileset>
-                </copy>
-            </parallel>
+            <copy todir="@{dir}/@{dest}">
+                <fileset dir="${basedir}/../../web/common">
+                    <include name="**/**"/>
+                    <exclude name="pom.xml"/>
+                    <exclude name="target/**"/>
+                    <exclude name="**/.svn/**"/>
+                    <exclude name="*.iml"/>
+                    <exclude name="*.ipr"/>
+                </fileset>
+            </copy>
+            <copy todir="@{dir}/@{dest}">
+                <fileset dir="${basedir}/../../web/@{module}">
+                    <include name="**/**"/>
+                    <exclude name="pom.xml"/>
+                    <exclude name="target/**"/>
+                    <exclude name="**/.svn/**"/>
+                    <exclude name="*.iml"/>
+                    <exclude name="*.ipr"/>
+                </fileset>
+            </copy>
             <!-- Fix bug that happens in Bamboo -->
             <delete dir="@{dir}" includes="main/**"/>
 
