@@ -135,6 +135,12 @@
             <groupId>${pom.groupId}</groupId>
             <artifactId>appfuse-web-common</artifactId>
             <version>${pom.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.appfuse</groupId>
+                    <artifactId>appfuse-hibernate</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.appfuse</groupId>
