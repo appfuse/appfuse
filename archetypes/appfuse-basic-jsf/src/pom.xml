@@ -397,6 +397,12 @@
             <artifactId>tomahawk</artifactId>
             <version>${myfaces.tomahawk.version}</version>
         </dependency>
+        <!-- Upgrade version of commons-io used -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons.io.version}</version>
+        </dependency>
 	    <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
@@ -720,6 +726,7 @@
         <ajax4jsf.version>1.0.6</ajax4jsf.version>
         <appfuse.version>2.1-SNAPSHOT</appfuse.version>
         <aspectj.version>1.6.6</aspectj.version>
+        <commons.io.version>1.4</commons.io.version>
         <corejsf.validator.version>1.0</corejsf.validator.version>
         <el.version>1.2</el.version>
         <facelets.version>1.1.14</facelets.version>

@@ -37,7 +37,7 @@ public class ${pojo.shortName}Form extends BasePage {
     private ${pojo.shortName}Manager ${pojoNameLower}Manager;
 </#if>
 
-    @Persist @Property
+    @Persist
     private ${pojo.shortName} ${pojoNameLower};
 
     public ${pojo.shortName} get${pojo.shortName}() {

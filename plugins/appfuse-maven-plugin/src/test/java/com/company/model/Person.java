@@ -15,7 +15,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "person")
-public class Person {
+public class Person implements java.io.Serializable {
     private Long id;
     private Date creationDate;
     private String email;

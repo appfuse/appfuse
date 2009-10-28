@@ -412,15 +412,10 @@
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
             <version>${commons.fileupload.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-io</groupId>
-                    <artifactId>commons-io</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
+        <!-- Upgrade version of commons-io used -->
         <dependency>
-            <groupId>org.apache.commons</groupId>
+            <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>${commons.io.version}</version>
         </dependency>
@@ -720,7 +715,7 @@
         <appfuse.version>2.1-SNAPSHOT</appfuse.version>
         <aspectj.version>1.6.6</aspectj.version>
         <commons.fileupload.version>1.2.1</commons.fileupload.version>
-        <commons.io.version>1.3.2</commons.io.version>
+        <commons.io.version>1.4</commons.io.version>
         <displaytag.version>1.2</displaytag.version>
         <spring.version>2.5.6</spring.version>
         <struts.version>2.1.8</struts.version>
