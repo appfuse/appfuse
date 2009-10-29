@@ -111,14 +111,9 @@
         <filter-name>localeFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    <!-- Tapestry already gzips the files it serves, so just gzip css and javascript -->
     <filter-mapping>
         <filter-name>gzipFilter</filter-name>
-        <url-pattern>/styles/*</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>gzipFilter</filter-name>
-        <url-pattern>/scripts/*</url-pattern>
+        <url-pattern>/*</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>rewriteFilter</filter-name>

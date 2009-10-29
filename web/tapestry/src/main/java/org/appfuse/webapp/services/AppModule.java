@@ -55,6 +55,9 @@ public class AppModule {
         configuration.add(SymbolConstants.APPLICATION_CATALOG,
                 "context:WEB-INF/classes/ApplicationResources.properties");
 
+	    // Turn off GZip Compression since it causes issues with SiteMesh
+	    configuration.add(SymbolConstants.GZIP_COMPRESSION_ENABLED, "false");
+	    
         // The factory default is true but during the early stages of an
         // application
         // overriding to false is a good idea. In addition, this is often

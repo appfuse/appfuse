@@ -282,12 +282,6 @@
                                 <groupId>com.canoo.webtest</groupId>
                                 <artifactId>webtest</artifactId>
                                 <version>${webtest.version}</version>
-                                <exclusions>
-                                    <exclusion>
-                                        <groupId>groovy</groupId>
-                                        <artifactId>groovy-all</artifactId>
-                                    </exclusion>
-                                </exclusions>
                             </dependency>
                         </dependencies>
                     </plugin>
@@ -295,5 +289,9 @@
             </build>
         </profile>
     </profiles>
+
+    <properties>
+	    <webtest.version>R_1702</webtest.version>
+	</properties>
 </project>
 
