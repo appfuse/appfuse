@@ -95,24 +95,14 @@ public class BasePage {
         return config;
     }
 
-    // TODO: Direct access to servlet API should be avoided whenever possible
-    /**
-     * @deprecated
-     */
     public HttpServletRequest getRequest() {
         return globals.getHTTPServletRequest();
     }
 
-    // TODO: Direct access to servlet API should be avoided whenever possible
-    /**
-     * @deprecated
-     */
     public HttpServletResponse getResponse() {
         return globals.getHTTPServletResponse();
     }
 
-
-    // TODO: Direct access to servlet API should be avoided whenever possible
     /**
      * Convenience method for unit tests.
      *
@@ -122,22 +112,13 @@ public class BasePage {
         return (request.getSession(true).getAttribute("errors") != null);
     }
 
-    // TODO: Direct access to servlet API should be avoided whenever possible
-    /**
-     * @deprecated
-     */
     public ServletContext getServletContext() {
         return getRequest().getSession().getServletContext();
     }
 
-    // TODO: Direct access to servlet API should be avoided whenever possible
-    /**
-     * @deprecated
-     */
     protected Session getSession() {
         return request.getSession(true);
     }
-
 
     // Message Catalog Utilities
     protected String getText(String key) {

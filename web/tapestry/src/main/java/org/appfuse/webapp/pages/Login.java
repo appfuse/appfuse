@@ -1,7 +1,10 @@
 package org.appfuse.webapp.pages;
 
+import java.text.MessageFormat;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.tapestry5.Asset;
-import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.RenderSupport;
 import org.apache.tapestry5.annotations.Environmental;
 import org.apache.tapestry5.annotations.IncludeJavaScriptLibrary;
@@ -11,14 +14,11 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.json.JSONObject;
 import org.apache.tapestry5.services.Context;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 import org.apache.tapestry5.services.Request;
 import org.appfuse.Constants;
 import org.slf4j.Logger;
 import org.springframework.security.ui.AbstractProcessingFilter;
-
-import java.text.MessageFormat;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Login Page
@@ -47,7 +47,7 @@ public class Login extends BasePage {
     private Messages messages;
 
     @Inject
-    private ComponentResources resources;
+    private PageRenderLinkSource linker;
 
     @Inject
     private Context context;
@@ -103,7 +103,7 @@ public class Login extends BasePage {
     }
 
     public String getSignup() {
-        String link = resources.createPageLink("Signup", false).toAbsoluteURI();
+        String link = linker.createPageRenderLink("Signup").toAbsoluteURI();
         return MessageFormat.format(messages.get("login.signup"), link);
     }
 
@@ -121,11 +121,11 @@ public class Login extends BasePage {
     }
 
     private String getPasswordHintLink() {
-        return resources.createPageLink("PasswordHint", false).toAbsoluteURI();
+        return linker.createPageRenderLink("PasswordHint").toAbsoluteURI();
     }
 
     private String getUrl() {
-        return resources.createPageLink("Login", false).toAbsoluteURI();
+        return linker.createPageRenderLink("Login").toAbsoluteURI();
     }
 
     public String getCssTheme() {

@@ -55,9 +55,9 @@ public class AppModule {
         configuration.add(SymbolConstants.APPLICATION_CATALOG,
                 "context:WEB-INF/classes/ApplicationResources.properties");
 
-	    // Turn off GZip Compression since it causes issues with SiteMesh
-	    configuration.add(SymbolConstants.GZIP_COMPRESSION_ENABLED, "false");
-	    
+        // Turn off GZip Compression since it causes issues with SiteMesh
+        configuration.add(SymbolConstants.GZIP_COMPRESSION_ENABLED, "false");
+
         // The factory default is true but during the early stages of an
         // application
         // overriding to false is a good idea. In addition, this is often
@@ -70,45 +70,45 @@ public class AppModule {
 ///**
 // * Sample timing filter
 // */
-//	public RequestFilter buildTimingFilter(final Logger log) {
-//		return new RequestFilter() {
-//			public boolean service(Request request, Response response,
-//					RequestHandler handler) throws IOException {
-//				long startTime = System.currentTimeMillis();
+//    public RequestFilter buildTimingFilter(final Logger log) {
+//        return new RequestFilter() {
+//            public boolean service(Request request, Response response,
+//                    RequestHandler handler) throws IOException {
+//                long startTime = System.currentTimeMillis();
 //
-//				try {
-//					// The responsibility of a filter is to invoke the
-//					// corresponding method
-//					// in the handler. When you chain multiple filters together,
-//					// each filter
-//					// received a handler that is a bridge to the next filter.
+//                try {
+//                    // The responsibility of a filter is to invoke the
+//                    // corresponding method
+//                    // in the handler. When you chain multiple filters together,
+//                    // each filter
+//                    // received a handler that is a bridge to the next filter.
 //
-//					return handler.service(request, response);
-//				} finally {
-//					long elapsed = System.currentTimeMillis() - startTime;
+//                    return handler.service(request, response);
+//                } finally {
+//                    long elapsed = System.currentTimeMillis() - startTime;
 //
-//					log.info(String.format("Request time: %d ms", elapsed));
-//				}
-//			}
-//		};
-//	}
+//                    log.info(String.format("Request time: %d ms", elapsed));
+//                }
+//            }
+//        };
+//    }
 
-//	/**
-//	 * This is a contribution to the RequestHandler service configuration. This
-//	 * is how we extend Tapestry using the timing filter. A common use for this
-//	 * kind of filter is transaction management or security.
-//	 */
-//	public void contributeRequestHandler(
-//			OrderedConfiguration<RequestFilter> configuration,
-//			@InjectService("TimingFilter") RequestFilter filter 
-//			) {
-//		// Each contribution to an ordered configuration has a name, When
-//		// necessary, you may
-//		// set constraints to precisely control the invocation order of the
-//		// contributed filter
-//		// within the pipeline.
-//		configuration.add("Timing", filter);
-//	}
+//    /**
+//     * This is a contribution to the RequestHandler service configuration. This
+//     * is how we extend Tapestry using the timing filter. A common use for this
+//     * kind of filter is transaction management or security.
+//     */
+//    public void contributeRequestHandler(
+//            OrderedConfiguration<RequestFilter> configuration,
+//            @InjectService("TimingFilter") RequestFilter filter
+//            ) {
+//        // Each contribution to an ordered configuration has a name, When
+//        // necessary, you may
+//        // set constraints to precisely control the invocation order of the
+//        // contributed filter
+//        // within the pipeline.
+//        configuration.add("Timing", filter);
+//    }
 
 
     /**

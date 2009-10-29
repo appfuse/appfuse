@@ -27,5 +27,5 @@ public class MessageUtil {
         }
         m.appendTail(sb);
         return sb.toString();
-	}
+    }
 }

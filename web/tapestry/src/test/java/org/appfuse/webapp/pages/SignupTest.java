@@ -12,8 +12,8 @@ public class SignupTest extends BasePageTester {
         doc = tester.renderPage("Signup");
 
         Element form = doc.getElementById("form");
-	    assertNotNull("form exists", form);
-	    
+        assertNotNull("form exists", form);
+
         fieldValues.put("username", "self-registered");
         fieldValues.put("password", "Password1");
         fieldValues.put("confirmPassword", "Password1");
@@ -29,19 +29,19 @@ public class SignupTest extends BasePageTester {
         fieldValues.put("country", "USA");
         fieldValues.put("postalCode", "80210");
 
-	    // start SMTP Server
-	    Wiser wiser = new Wiser();
-	    wiser.setPort(getSmtpPort());
-	    wiser.start();
+        // start SMTP Server
+        Wiser wiser = new Wiser();
+        wiser.setPort(getSmtpPort());
+        wiser.start();
 
         doc = tester.submitForm(form, fieldValues);
-	  
-	    assertFalse(doc.toString().contains("exception"));
+
+        assertFalse(doc.toString().contains("exception"));
 
         // verify an account information e-mail was sent
         wiser.stop();
         assertTrue(wiser.getMessages().size() == 1);
-	    
+
         SecurityContextHolder.getContext().setAuthentication(null);
     }
 }

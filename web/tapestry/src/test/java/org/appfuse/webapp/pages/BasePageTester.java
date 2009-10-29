@@ -22,7 +22,7 @@ public abstract class BasePageTester extends Assert {
     protected String testType;
     protected final static String MOCK = "mock";
     protected final static String INTEGRATION = "integration";
-	protected final Log log = LogFactory.getLog(getClass());
+    protected final Log log = LogFactory.getLog(getClass());
     protected static final String MESSAGES = Constants.BUNDLE_KEY;
     private int smtpPort = 25250;
 
@@ -34,12 +34,12 @@ public abstract class BasePageTester extends Assert {
         testType = INTEGRATION;
         fieldValues = new HashMap<String, String>();
 
-	    smtpPort = smtpPort + (int) (Math.random() * 100);
+        smtpPort = smtpPort + (int) (Math.random() * 100);
 
         // change the port on the mailSender so it doesn't conflict with an existing SMTP server on localhost
-	    ServiceFacade services = tester.getService(ServiceFacade.class);
-	    JavaMailSenderImpl mailSender = (JavaMailSenderImpl) services.getMailEngine().getMailSender();
-	    mailSender.setPort(getSmtpPort());
+        ServiceFacade services = tester.getService(ServiceFacade.class);
+        JavaMailSenderImpl mailSender = (JavaMailSenderImpl) services.getMailEngine().getMailSender();
+        mailSender.setPort(getSmtpPort());
         mailSender.setHost("localhost");
     }
 
@@ -50,7 +50,7 @@ public abstract class BasePageTester extends Assert {
         }
     }
 
-	protected int getSmtpPort() {
+    protected int getSmtpPort() {
         return smtpPort;
     }
 }

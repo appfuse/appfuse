@@ -1,6 +1,6 @@
 <#--
-	if the label position is top,
-	then give the label it's own row in the table
+    if the label position is top,
+    then give the label it's own row in the table
 -->
 <#assign hasFieldErrors = parameters.name?exists && fieldErrors?exists && fieldErrors[parameters.name]?exists/>
 <#if parameters.label?exists && parameters.labelposition?default("top") == 'top'>

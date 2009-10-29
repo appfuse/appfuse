@@ -1,13 +1,18 @@
 package org.appfuse.webapp.pages;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang.StringUtils;
-import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.Link;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 import org.appfuse.Constants;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
@@ -25,11 +30,6 @@ import org.springframework.security.AuthenticationTrustResolver;
 import org.springframework.security.AuthenticationTrustResolverImpl;
 import org.springframework.security.context.SecurityContext;
 import org.springframework.security.context.SecurityContextHolder;
-
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Allow adding new users or viewing/updating existing users
@@ -50,7 +50,7 @@ public class UserEdit extends BasePage {
     private List<String> userRoles;
 
     @Inject
-    private ComponentResources resources;
+    private PageRenderLinkSource linker;
 
     @Inject
     private ServiceFacade serviceFacade;
@@ -88,7 +88,7 @@ public class UserEdit extends BasePage {
         this.userRoles = userRoles;
     }
 
-    public boolean isRememberMe() {
+    public Boolean isRememberMe() {
         AuthenticationTrustResolver resolver = new AuthenticationTrustResolverImpl();
         SecurityContext ctx = SecurityContextHolder.getContext();
 
@@ -99,10 +99,8 @@ public class UserEdit extends BasePage {
         return false;
     }
 
-    public boolean isCookieLogin() {
-        //return isRememberMe();
-        //FIXME: Somehow the above condition always returns false
-        return true;
+    public Boolean getCookieLogin() {
+        return isRememberMe();
     }
 
     void beginRender() {
@@ -127,7 +125,6 @@ public class UserEdit extends BasePage {
         logger.debug("checking for remember me login...");
 
         if (isRememberMe()) {
-            getSession().setAttribute("cookieLogin", "true");
             // add warning message
             setMessage(getText("userProfile.cookieLogin"));
         }
@@ -140,9 +137,9 @@ public class UserEdit extends BasePage {
         logger.debug("Entering 'cancel' method");
 
         if (from != null && from.equalsIgnoreCase("list")) {
-            return resources.createPageLink("admin/UserList", false);
+            return linker.createPageRenderLink("admin/UserList");
         } else {
-            return resources.createPageLink("MainMenu", false);
+            return linker.createPageRenderLink("MainMenu");
         }
     }
 
@@ -223,7 +220,7 @@ public class UserEdit extends BasePage {
 
     void cleanupRender() {
         //user = null;
-//		 validationError = null;
+//         validationError = null;
     }
 
     // ~ Helper methods

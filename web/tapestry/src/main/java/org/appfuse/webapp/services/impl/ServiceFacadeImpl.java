@@ -135,9 +135,9 @@ public class ServiceFacadeImpl implements ServiceFacade {
         public final int compare(String lhs, String rhs) {
             String lvalue = unsortedMap.get(lhs);
             String rvalue = unsortedMap.get(rhs);
-			return c.compare(lvalue, rvalue);
-		}
-	}
-	
-	
+            return c.compare(lvalue, rvalue);
+        }
+    }
+
+
 }

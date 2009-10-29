@@ -223,6 +223,12 @@
         <repository>
             <id>appfuse</id>
             <url>http://oss.sonatype.org/content/groups/appfuse</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </repository>
     </repositories>
 
@@ -230,6 +236,12 @@
         <pluginRepository>
             <id>appfuse</id>
             <url>http://oss.sonatype.org/content/groups/appfuse</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </pluginRepository>
     </pluginRepositories>
 
@@ -248,11 +260,11 @@
                     <groupId>org.springframework</groupId>
                     <artifactId>spring-aop</artifactId>
                 </exclusion>
-	            <exclusion>
+                <exclusion>
                     <groupId>org.springframework</groupId>
                     <artifactId>spring-context</artifactId>
                 </exclusion>
-	            <exclusion>
+                <exclusion>
                     <groupId>org.springframework</groupId>
                     <artifactId>spring-core</artifactId>
                 </exclusion>

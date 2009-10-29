@@ -1,6 +1,6 @@
 <#--
-	Only show message if errors are available.
-	This will be done if ActionSupport is used.
+    Only show message if errors are available.
+    This will be done if ActionSupport is used.
 -->
 <#assign hasFieldErrors = parameters.name?exists && fieldErrors?exists && fieldErrors[parameters.name]?exists/>
 <li <#rt/><#if parameters.id?exists>id="wwgrp_${parameters.id}"<#rt/></#if> class="wwgrp">
@@ -8,8 +8,8 @@
 <#if parameters.label?exists>
     <#if parameters.labelposition?default("top") == 'top'>
     <div <#rt/>
-	<#else>
-	<span <#rt/>
+    <#else>
+    <span <#rt/>
     </#if>
     <#if parameters.labelposition?default("top") != 'bottom'>
         <#if parameters.id?exists>id="wwlbl_${parameters.id}"<#rt/></#if> class="wwlbl">

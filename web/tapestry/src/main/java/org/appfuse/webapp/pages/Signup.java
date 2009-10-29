@@ -52,6 +52,9 @@ public class Signup extends BasePage {
     @Component(id = "signup")
     private UserForm form;
 
+    @Property
+    private Boolean cookieLogin;
+
     void beginRender() {
         if (user == null) {
             user = new User();
@@ -141,9 +144,9 @@ public class Signup extends BasePage {
         }
 
         getSession().setAttribute("message", getText("user.registered"));
-	    if (getRequest() != null) { // needed for testing
+        if (getRequest() != null) { // needed for testing
             response.sendRedirect(getRequest().getContextPath());
-	    }
+        }
         return null;
     }
 }

@@ -55,7 +55,7 @@ public class SpringObjectProvider implements ObjectProvider {
             log.warn("Problem occurred when finding a bean for type " + objectType.getName(), e);
         }
 
-	    return typeCoercer.coerce(obj, objectType);
+        return typeCoercer.coerce(obj, objectType);
 
     }
 

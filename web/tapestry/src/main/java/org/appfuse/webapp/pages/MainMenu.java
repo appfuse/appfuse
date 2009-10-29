@@ -1,9 +1,9 @@
 package org.appfuse.webapp.pages;
 
-import org.apache.tapestry5.annotations.ApplicationState;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.appfuse.model.User;
 import org.appfuse.webapp.data.UserSession;
@@ -35,7 +35,7 @@ public class MainMenu extends BasePage {
     @Persist
     private User user;
 
-    @ApplicationState
+    @SessionState
     private UserSession userSession;
 
     void pageLoaded() {
@@ -62,12 +62,14 @@ public class MainMenu extends BasePage {
     }
 
     Object onActionFromEditProfile() {
-        //FIXME: Use ASO since user object already stored in it
-        String username = getRequest().getRemoteUser();
+        user = userSession.getCurrentUser();
 
-        logger.debug("fetching user profile: " + username);
+        if (user == null) {
+            String username = getRequest().getRemoteUser();
+            logger.debug("fetching user profile: " + username);
+            user = serviceFacade.getUserManager().getUserByUsername(username);
+        }
 
-        user = serviceFacade.getUserManager().getUserByUsername(username);
         user.setConfirmPassword(user.getPassword());
         userEdit.setUser(user);
         userEdit.setFrom("MainMenu");

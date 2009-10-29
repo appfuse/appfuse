@@ -127,9 +127,9 @@ public class UserForm implements ClientElement {
     private EventLink cancelTop, cancelBottom;
 
 //      NOTE: Wrapping a button in a eventlink results into 2 attempts to
-//		delete the user. We will use a submit component instead
-//		@Component(parameters = { "event=delete" })
-//		private EventLink deleteTop, deleteBottom;
+//        delete the user. We will use a submit component instead
+//        @Component(parameters = { "event=delete" })
+//        private EventLink deleteTop, deleteBottom;
 
     @Component(id = "deleteTop")
     private Submit deleteTop;

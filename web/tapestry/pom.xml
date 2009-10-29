@@ -289,9 +289,5 @@
             </build>
         </profile>
     </profiles>
-
-    <properties>
-	    <webtest.version>R_1702</webtest.version>
-	</properties>
 </project>
 

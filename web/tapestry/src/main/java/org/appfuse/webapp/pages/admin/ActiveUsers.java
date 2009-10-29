@@ -1,5 +1,7 @@
 package org.appfuse.webapp.pages.admin;
 
+import java.util.Set;
+
 import org.apache.tapestry5.Asset;
 import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.annotations.Path;
@@ -12,8 +14,6 @@ import org.apache.tapestry5.services.BeanModelSource;
 import org.apache.tapestry5.services.Context;
 import org.appfuse.model.User;
 import org.slf4j.Logger;
-
-import java.util.Set;
 
 /**
  * Lists all active users
@@ -58,7 +58,7 @@ public class ActiveUsers {
     private Context context;
 
     {
-        model = beanModelSource.create(User.class, true, resources.getMessages());
+        model = beanModelSource.createDisplayModel(User.class, resources.getMessages());
         model.include(COLUMNS);
         model.add("fullname");
         // Set labels

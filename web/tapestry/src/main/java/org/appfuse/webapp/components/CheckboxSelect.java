@@ -163,6 +163,6 @@ public class CheckboxSelect extends AbstractField {
             return Collections.emptyList();
         }
         return selected;
-	}
+    }
 
 }

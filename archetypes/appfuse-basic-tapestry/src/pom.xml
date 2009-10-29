@@ -396,7 +396,7 @@
             <artifactId>tapestry-upload</artifactId>
             <version>${tapestry.version}</version>
         </dependency>
-	    <dependency>
+        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <version>${servlet.version}</version>
@@ -731,7 +731,7 @@
         <wiser.version>1.2</wiser.version>
 
         <!-- WebTest dependency versions  -->
-        <webtest.version>R_1702</webtest.version>
+        <webtest.version>3.0</webtest.version>
 
         <cargo.container>tomcat6x</cargo.container>
         <cargo.container.url>http://archive.apache.org/dist/tomcat/tomcat-6/v6.0.20/bin/apache-tomcat-6.0.20.zip</cargo.container.url>

@@ -1,4 +1,4 @@
-<t:container xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+<t:container xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd" xmlns:p="tapestry:parameter">
 <t:form t:id="form">
 
     <t:unless test="${signup}">
@@ -7,12 +7,7 @@
         <input id="id" type="hidden" value="${user.id}"/>
         <input id="version" type="hidden" value="${user.version}"/>
         <input id="originalPassword" type="hidden" value="${user.password}"/>
-
-        <t:if test="cookieLogin">
-            <input type="hidden" id="password" value="${user.password}"/>
-            <input type="hidden" id="confirmPassword" value="${user.confirmPassword}"/>
-        </t:if>
-
+        
         <t:if test="userVersionNull">
             <input type="hidden" name="encryptPass" value="true"/>
         </t:if>
@@ -57,7 +52,7 @@
             <t:label class="desc" for="username">${message:user.username}</t:label>
             <input type="text" t:id="username" class="text large"/>
         </li>
-        <t:if test="cookieLogin">
+        <t:if test="cookieLogin" negate="true">
             <li>
                 <div>
                     <div class="left">
@@ -70,6 +65,10 @@
                     </div>
                 </div>
             </li>
+            <p:else>
+                <input type="hidden" name="password" value="${user.password}"/>
+                <input type="hidden" name="confirmPassword" value="${user.confirmPassword}"/>
+            </p:else>
         </t:if>
         <li>
             <t:label class="desc" for="passwordHint">${message:user.passwordHint}</t:label>
@@ -182,10 +181,10 @@
                 <li>
                     <strong>${message:user.roles}:</strong>
                     ${userRoles}
-                    <input type="hidden" value="${user.enabled}"/>
-                    <input type="hidden" value="${user.accountExpired}"/>
-                    <input type="hidden" value="${prop:user.accountLocked}"/>
-                    <input type="hidden" value="${prop:user.credentialsExpired}"/>
+                    <input type="hidden" name="enabled" value="${user.enabled}"/>
+                    <input type="hidden" name="accountExpired" value="${user.accountExpired}"/>
+                    <input type="hidden" name="accountLocked" value="${prop:user.accountLocked}"/>
+                    <input type="hidden" name="credentialsExpired" value="${prop:user.credentialsExpired}"/>
                 </li>
             </t:if>
 
@@ -195,10 +194,6 @@
             <input type="submit" id="saveBottom" class="button" value="${submitLabel}"/>
             <t:unless test="${signup}">
                 <t:if test="user.username">
-                    <!--          	<t:eventlink t:id="deleteBottom">-->
-                    <!--            	<input type="button" class="button" value="${message:button.delete}"-->
-                    <!--                onclick="form.onsubmit = null; return confirmDelete('User')"/>-->
-                    <!--            </t:eventlink>-->
                     <input t:type="submit" t:id="deleteBottom" class="button" value="${message:button.delete}"
                            onclick="form.onsubmit = null; return confirmDelete('User')"/>
                 </t:if>
@@ -216,4 +211,6 @@
     highlightFormElements();
 </script>
 
+
+    CookieLogin: ${cookieLogin}
 </t:container>

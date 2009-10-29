@@ -17,10 +17,10 @@ import java.util.Map;
  */
 public interface ServiceFacade {
 
-	UserManager getUserManager();
-	RoleManager getRoleManager();
-	MailEngine getMailEngine();
-	SimpleMailMessage getMailMessage();
-	List<String> getAvailableRoles();
-	Map<String, String> getAvailableCountries();
+    UserManager getUserManager();
+    RoleManager getRoleManager();
+    MailEngine getMailEngine();
+    SimpleMailMessage getMailMessage();
+    List<String> getAvailableRoles();
+    Map<String, String> getAvailableCountries();
 }

@@ -1,9 +1,6 @@
 package org.appfuse.webapp.pages;
 
-import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.annotations.InjectPage;
-import org.apache.tapestry5.annotations.Parameter;
-import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.Response;
@@ -14,8 +11,6 @@ import org.slf4j.Logger;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.userdetails.UsernameNotFoundException;
-
-import java.io.IOException;
 
 /**
  * Managed Bean to send password hints to registered users.
@@ -38,16 +33,11 @@ public class PasswordHint extends BasePage {
     @Inject
     private Response response;
 
-    @Inject
-    private ComponentResources resources;
-
     @InjectPage
     private Login login;
 
-    private String username;
-    
     Object onActivate() {
-        username = getRequest().getParameter("username");
+        String username = getRequest().getParameter("username");
         // ensure that the username has been sent
         if (username == null || "".equals(username)) {
             logger.warn("Username not specified, notifying user that it's a required field.");

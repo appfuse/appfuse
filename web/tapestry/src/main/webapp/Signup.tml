@@ -10,6 +10,6 @@
                 user="user"
                 signup="true"
                 clientValidation="true"
+                cookieLogin="cookieLogin"
                 submitLabel="${message:button.register}"/>
-
 </t:layout>

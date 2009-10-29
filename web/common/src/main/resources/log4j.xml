@@ -32,7 +32,7 @@
         <level value="ERROR"/>
     </logger>
 
-	<logger name="org.dbunit">
+    <logger name="org.dbunit">
         <level value="WARN"/>
     </logger>
 

@@ -60,7 +60,7 @@ public class UserList extends BasePage {
     private EventLink doneTop, doneBottom;
 
     {
-        model = beanModelSource.create(User.class, true, resources.getMessages());
+        model = beanModelSource.createDisplayModel(User.class, resources.getMessages());
         model.include(COLUMNS);
         model.add("fullname");
         // Set labels
