@@ -178,9 +178,9 @@
             <version>${facelets.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.corejsf</groupId>
-            <artifactId>corejsf-validator</artifactId>
-            <version>${corejsf.validator.version}</version>
+          <groupId>org.apache.shale</groupId>
+          <artifactId>shale-validator</artifactId>
+          <version>${shale.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.myfaces.core</groupId>
@@ -319,14 +319,6 @@
                                 <groupId>com.canoo.webtest</groupId>
                                 <artifactId>webtest</artifactId>
                                 <version>${webtest.version}</version>
-                                <!-- groovy-all doesn't have a pom in central repo -->
-                                <!-- exclude groovy to prevent trying to fetch pom -->
-                                <exclusions>
-                                    <exclusion>
-                                        <groupId>groovy</groupId>
-                                        <artifactId>groovy-all</artifactId>
-                                    </exclusion>
-                                </exclusions>
                             </dependency>
                         </dependencies>
                     </plugin>

@@ -340,14 +340,6 @@
                                 <groupId>com.canoo.webtest</groupId>
                                 <artifactId>webtest</artifactId>
                                 <version>${webtest.version}</version>
-                                <!-- groovy-all doesn't have a pom in central repo -->
-                                <!-- exclude groovy to prevent trying to fetch pom -->
-                                <exclusions>
-                                    <exclusion>
-                                        <groupId>groovy</groupId>
-                                        <artifactId>groovy-all</artifactId>
-                                    </exclusion>
-                                </exclusions>
                             </dependency>
                         </dependencies>
                     </plugin>

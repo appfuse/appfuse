@@ -40,7 +40,7 @@
             <timezone></timezone>
         </developer>
     </developers>
-    
+
     <build>
         <defaultGoal>install</defaultGoal>
         <plugins>
@@ -314,6 +314,12 @@
         <repository>
             <id>appfuse</id>
             <url>http://oss.sonatype.org/content/groups/appfuse</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </repository>
     </repositories>
 
@@ -321,6 +327,12 @@
         <pluginRepository>
             <id>appfuse</id>
             <url>http://oss.sonatype.org/content/groups/appfuse</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </pluginRepository>
     </pluginRepositories>
 
@@ -544,14 +556,6 @@
                                 <groupId>com.canoo.webtest</groupId>
                                 <artifactId>webtest</artifactId>
                                 <version>${webtest.version}</version>
-                                <!-- groovy-all doesn't have a pom in central repo -->
-                                <!-- exclude groovy to prevent trying to fetch pom -->
-                                <exclusions>
-                                    <exclusion>
-                                        <groupId>groovy</groupId>
-                                        <artifactId>groovy-all</artifactId>
-                                    </exclusion>
-                                </exclusions>
                             </dependency>
                         </dependencies>
                     </plugin>
@@ -577,7 +581,7 @@
                 </plugins>
             </build>
         </profile>
-        
+
         <!-- ================= Database Profiles ================= -->
         <profile>
             <id>derby</id>
@@ -705,20 +709,20 @@
         <wiser.version>1.2</wiser.version>
 
         <!-- WebTest dependency versions  -->
-        <webtest.version>R_1702</webtest.version>
+        <webtest.version>3.0</webtest.version>
 
         <cargo.container>tomcat6x</cargo.container>
         <cargo.container.url>http://archive.apache.org/dist/tomcat/tomcat-6/v6.0.20/bin/apache-tomcat-6.0.20.zip</cargo.container.url>
         <cargo.host>localhost</cargo.host>
         <cargo.port>8081</cargo.port>
         <cargo.wait>false</cargo.wait>
-        
+
         <!-- Jetty Cargo settings:
         <cargo.container>jetty6x</cargo.container>
         <cargo.container.home>${env.CATALINA_HOME}</cargo.container.home>
         <cargo.container.url>http://dist.codehaus.org/jetty/jetty-6.1.21/jetty-6.1.21.zip</cargo.container.url>
         -->
-        
+
         <!-- Database settings -->
         <dbunit.dataTypeFactoryName>org.dbunit.ext.mysql.MySqlDataTypeFactory</dbunit.dataTypeFactoryName>
         <dbunit.operation.type>CLEAN_INSERT</dbunit.operation.type>

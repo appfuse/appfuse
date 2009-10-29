@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core" 
       xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" 
       xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk"
-      xmlns:v="http://corejsf.com/validator">
+      xmlns:v="http://shale.apache.org/validator">
 
 <f:view>
 <f:loadBundle var="text" basename="#{basePage.bundleName}"/>
@@ -26,13 +26,13 @@
     <h:outputLabel styleClass="desc" for="name" value="#{text['uploadForm.name']}"/>
     <t:message for="name" styleClass="fieldError"/>
     <h:inputText value="#{fileUpload.name}" id="name" required="true" styleClass="text medium">
-        <v:commonsValidator type="required" arg="#{text['uploadForm.name']}"/>
+        <v:commonsValidator client="true" type="required" arg="#{text['uploadForm.name']}"/>
     </h:inputText>
 
     <h:outputLabel styleClass="desc" for="file" value="#{text['uploadForm.file']}"/>
     <t:message for="file" styleClass="fieldError"/>
     <t:inputFileUpload id="file" value="#{fileUpload.file}" storage="file" required="true" styleClass="file medium">
-        <v:commonsValidator type="required" arg="#{text['uploadForm.file']}"/>
+        <v:commonsValidator client="true" type="required" arg="#{text['uploadForm.file']}"/>
     </t:inputFileUpload>
 
     <h:panelGroup styleClass="buttonBar bottom">

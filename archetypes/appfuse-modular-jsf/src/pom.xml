@@ -102,6 +102,12 @@
         <repository>
             <id>appfuse</id>
             <url>http://oss.sonatype.org/content/groups/appfuse</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </repository>
         <!-- Needed for Facelets -->
         <repository>
@@ -115,6 +121,12 @@
         <pluginRepository>
             <id>appfuse</id>
             <url>http://oss.sonatype.org/content/groups/appfuse</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </pluginRepository>
     </pluginRepositories>
 
@@ -336,11 +348,10 @@
         <appfuse.version>2.1-SNAPSHOT</appfuse.version>
         <aspectj.version>1.6.6</aspectj.version>
         <commons.io.version>1.4</commons.io.version>
-        <corejsf.validator.version>1.0</corejsf.validator.version>
         <el.version>1.2</el.version>
         <facelets.version>1.1.14</facelets.version>
         <myfaces.version>1.2.7</myfaces.version>
-        <myfaces.tomahawk.version>1.1.8</myfaces.tomahawk.version>
+        <myfaces.tomahawk.version>1.1.9</myfaces.tomahawk.version>
         <spring.version>2.5.6</spring.version>
 
         <!-- Testing dependency versions -->
@@ -353,7 +364,7 @@
         <wiser.version>1.2</wiser.version>
 
         <!-- WebTest dependency versions  -->
-        <webtest.version>R_1702</webtest.version>
+        <webtest.version>3.0</webtest.version>
 
         <cargo.container>tomcat6x</cargo.container>
         <cargo.container.url>http://archive.apache.org/dist/tomcat/tomcat-6/v6.0.20/bin/apache-tomcat-6.0.20.zip</cargo.container.url>

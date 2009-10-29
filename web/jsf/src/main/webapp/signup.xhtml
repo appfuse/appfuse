@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core" 
       xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" 
       xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk"
-      xmlns:v="http://corejsf.com/validator">
+      xmlns:v="http://shale.apache.org/validator">
 
 <f:view>
 <f:loadBundle var="text" basename="#{signupForm.bundleName}"/>
@@ -24,7 +24,7 @@
     <h:outputLabel for="username" styleClass="desc" value="#{text['user.username']}"/>
     <t:message for="username" styleClass="fieldError"/>
     <h:inputText value="#{signupForm.user.username}" id="username" required="true" styleClass="text large">
-        <v:commonsValidator type="required" arg="#{text['user.username']}"/>
+        <v:commonsValidator client="true" type="required" arg="#{text['user.username']}"/>
     </h:inputText>
 
     <h:panelGroup>
@@ -34,7 +34,7 @@
                 <t:message for="password" styleClass="fieldError"/>
                 <h:inputSecret value="#{signupForm.user.password}" id="password"
                     redisplay="true" required="true" styleClass="text medium">
-                    <v:commonsValidator type="required" arg="#{text['user.password']}"/>
+                    <v:commonsValidator client="true" type="required" arg="#{text['user.password']}"/>
                 </h:inputSecret>
             </t:htmlTag>
             <t:htmlTag value="div">
@@ -42,7 +42,7 @@
                 <t:message for="confirmPassword" styleClass="fieldError"/>
                 <h:inputSecret value="#{signupForm.user.confirmPassword}" id="confirmPassword"
                     redisplay="true" required="true" styleClass="text medium">
-                    <v:commonsValidator type="required" arg="#{text['user.confirmPassword']}"/>
+                    <v:commonsValidator client="true" type="required" arg="#{text['user.confirmPassword']}"/>
                     <t:validateEqual for="password"/>
                 </h:inputSecret>
             </t:htmlTag>
@@ -53,7 +53,7 @@
     <h:outputLabel for="passwordHint" value="#{text['user.passwordHint']}" styleClass="desc"/>
     <t:message for="passwordHint" styleClass="fieldError"/>
     <h:inputText value="#{signupForm.user.passwordHint}" id="passwordHint" required="true" styleClass="text large">
-        <v:commonsValidator type="required" arg="#{text['user.passwordHint']}"/>
+        <v:commonsValidator client="true" type="required" arg="#{text['user.passwordHint']}"/>
     </h:inputText>
 
     <h:panelGroup>
@@ -62,14 +62,14 @@
                 <h:outputLabel for="firstName" value="#{text['user.firstName']}" styleClass="desc"/>
                 <t:message for="firstName" styleClass="fieldError"/>
                 <h:inputText id="firstName" value="#{signupForm.user.firstName}" maxlength="50" required="true" styleClass="text medium">
-                    <v:commonsValidator type="required" arg="#{text['user.firstName']}"/>
+                    <v:commonsValidator client="true" type="required" arg="#{text['user.firstName']}"/>
                 </h:inputText>
             </t:htmlTag>
             <t:htmlTag value="div">
                 <h:outputLabel for="lastName" value="#{text['user.lastName']}" styleClass="desc"/>
                 <t:message for="lastName" styleClass="fieldError"/>
                 <h:inputText value="#{signupForm.user.lastName}" id="lastName" maxlength="50" required="true" styleClass="text medium">
-                    <v:commonsValidator type="required" arg="#{text['user.lastName']}"/>
+                    <v:commonsValidator client="true" type="required" arg="#{text['user.lastName']}"/>
                 </h:inputText>
             </t:htmlTag>
         </t:htmlTag>
@@ -83,8 +83,8 @@
                 <t:message for="email" styleClass="fieldError"/>
                 <h:inputText value="#{signupForm.user.email}" id="email" required="true" styleClass="text medium">
                     <f:validator validatorId="org.apache.myfaces.validator.Email"/>
-                    <v:commonsValidator type="required" arg="#{text['user.email']}"/>
-                    <v:commonsValidator type="email" arg="#{text['user.email']}"/>
+                    <v:commonsValidator client="true" type="required" arg="#{text['user.email']}"/>
+                    <v:commonsValidator client="true" type="email" arg="#{text['user.email']}"/>
                 </h:inputText>
             </t:htmlTag>
             <t:htmlTag value="div">
@@ -101,7 +101,7 @@
     <h:outputLabel for="website" value="#{text['user.website']}" styleClass="desc"/>
     <t:message for="website" styleClass="fieldError"/>
     <h:inputText value="#{signupForm.user.website}" id="website" required="true" styleClass="text large">
-        <v:commonsValidator type="required" arg="#{text['user.website']}"/>
+        <v:commonsValidator client="true" type="required" arg="#{text['user.website']}"/>
     </h:inputText>
 
     <h:panelGroup>
@@ -114,21 +114,21 @@
             </t:htmlTag>
             <t:htmlTag value="div" styleClass="left">
                 <h:inputText value="#{signupForm.user.address.city}" id="city" required="true" styleClass="text medium">
-                    <v:commonsValidator type="required" arg="#{text['user.address.city']}"/>
+                    <v:commonsValidator client="true" type="required" arg="#{text['user.address.city']}"/>
                 </h:inputText>
                 <t:message for="city" styleClass="fieldError"/>
                 <t:htmlTag value="p"><h:outputLabel for="city" value="#{text['user.address.city']}"/></t:htmlTag>
             </t:htmlTag>
             <t:htmlTag value="div">
                 <h:inputText value="#{signupForm.user.address.province}" id="province" required="true" styleClass="text state">
-                    <v:commonsValidator type="required" arg="#{text['user.address.province']}"/>
+                    <v:commonsValidator client="true" type="required" arg="#{text['user.address.province']}"/>
                 </h:inputText>
                 <t:message for="province" styleClass="fieldError"/>
                 <t:htmlTag value="p"><h:outputLabel for="province" value="#{text['user.address.province']}"/></t:htmlTag>
             </t:htmlTag>
             <t:htmlTag value="div" styleClass="left">
                 <h:inputText value="#{signupForm.user.address.postalCode}" id="postalCode" required="true" styleClass="text medium">
-                    <v:commonsValidator type="required" arg="#{text['user.address.postalCode']}"/>
+                    <v:commonsValidator client="true" type="required" arg="#{text['user.address.postalCode']}"/>
                     <t:validateRegExpr pattern="^\d{5}\d*$"/>
                 </h:inputText>
                 <t:message for="postalCode" styleClass="fieldError"/>
@@ -137,7 +137,7 @@
             <t:htmlTag value="div">
                 <h:selectOneMenu value="#{signupForm.country}" id="country" required="true" styleClass="select">
                     <f:selectItems value="#{signupForm.countries}"/>
-                    <v:commonsValidator type="required" arg="#{text['user.address.country']}"/>
+                    <v:commonsValidator client="true" type="required" arg="#{text['user.address.country']}"/>
                 </h:selectOneMenu>
                 <t:message for="country" styleClass="fieldError"/>
                 <t:htmlTag value="p"><h:outputLabel for="country" value="#{text['user.address.country']}"/></t:htmlTag>

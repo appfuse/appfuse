@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE facelet-taglib PUBLIC
+        "-//Sun Microsystems, Inc.//DTD Facelet Taglib 1.0//EN"
+        "http://java.sun.com/dtd/facelet-taglib_1_0.dtd">
+
+<facelet-taglib>
+    <namespace>http://shale.apache.org/validator</namespace>
+    <tag>
+        <tag-name>commonsValidator</tag-name>
+        <validator>
+            <validator-id>org.apache.shale.CommonsValidator</validator-id>
+        </validator>
+    </tag>
+    <tag>
+        <tag-name>validatorScript</tag-name>
+        <component>
+            <component-type>org.apache.shale.ValidatorScript</component-type>
+        </component>
+    </tag>
+</facelet-taglib>

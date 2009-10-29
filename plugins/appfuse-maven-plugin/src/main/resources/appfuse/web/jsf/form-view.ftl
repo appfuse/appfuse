@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core"
       xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk"
-      xmlns:v="http://corejsf.com/validator">
+      xmlns:v="http://shale.apache.org/validator">
 
 <f:view>
 <f:loadBundle var="text" basename="${'#'}{${pojoNameLower}Form.bundleName}"/>
@@ -29,7 +29,7 @@
 <h:panelGrid columns="3">
     <h:outputLabel styleClass="desc" for="${field.name}" value="${'#'}{text['${pojoNameLower}.${field.name}']}"/>
     <h:inputText styleClass="text medium" id="${field.name}" value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}" required="${(!column.nullable)?string}">
-        <v:commonsValidator type="required" arg="${'#'}{text['${pojoNameLower}.${field.name}']}"/>
+        <v:commonsValidator client="true" type="required" arg="${'#'}{text['${pojoNameLower}.${field.name}']}"/>
     </h:inputText>
     <t:message for="${field.name}" styleClass="fieldError"/>
     <#else>
@@ -46,7 +46,7 @@
             currentDayCellClass="currentDayCell" value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}"
             renderAsPopup="true" addResources="true" required="${(!column.nullable)?string}">
         <#if !column.nullable>
-        <v:commonsValidator type="required" arg="${'#'}{text['${pojoNameLower}.${field.name}']}"/>
+        <v:commonsValidator client="true" type="required" arg="${'#'}{text['${pojoNameLower}.${field.name}']}"/>
         </#if>
     </t:inputCalendar>
         <#elseif field.value.typeName == "boolean" || field.value.typeName == "java.lang.Boolean">
@@ -54,7 +54,7 @@
         <#else>
             <#lt/>    <h:inputText styleClass="text medium" id="${field.name}" value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}" required="${(!column.nullable)?string}"<#if (column.length > 0)> maxlength="${column.length?c}"</#if>>
         <#if !column.nullable>
-        <v:commonsValidator type="required" arg="${'#'}{text['${pojoNameLower}.${field.name}']}"/>
+        <v:commonsValidator client="true" type="required" arg="${'#'}{text['${pojoNameLower}.${field.name}']}"/>
         </#if>
     </h:inputText>
         </#if>
@@ -65,7 +65,7 @@
             <#lt/>    <h:selectOneMenu value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}" id="${field.name}" required="${(!column.nullable)?string}" styleClass="select">
         <f:selectItems value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}"/>
         <#if !column.nullable>
-        <v:commonsValidator type="required" arg="${'#'}{text['${pojoNameLower}.${field.name}']}"/>
+        <v:commonsValidator client="true" type="required" arg="${'#'}{text['${pojoNameLower}.${field.name}']}"/>
         </#if>
     </h:selectOneMenu>
     </#foreach>

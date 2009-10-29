@@ -26,11 +26,6 @@
         <message-bundle>ApplicationResources</message-bundle>
     </application>
 
-    <component>
-        <component-type>com.corejsf.validator.UIValidatorScript</component-type>
-        <component-class>com.corejsf.validator.UIValidatorScript</component-class>
-    </component>
-
     <navigation-rule>
         <from-view-id>/mainMenu.xhtml</from-view-id>
         <navigation-case>
@@ -233,8 +228,8 @@
     </render-kit>
 
     <validator>
-        <validator-id>com.corejsf.validator.CommonsValidator</validator-id>
-        <validator-class>com.corejsf.validator.CommonsValidator</validator-class>
+        <validator-id>org.apache.shale.validator.CommonsValidator</validator-id>
+        <validator-class>org.apache.shale.validator.CommonsValidator</validator-class>
     </validator>
 
 </faces-config>

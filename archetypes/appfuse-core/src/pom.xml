@@ -213,6 +213,12 @@
         <repository>
             <id>appfuse</id>
             <url>http://oss.sonatype.org/content/groups/appfuse</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </repository>
     </repositories>
 
@@ -220,6 +226,12 @@
         <pluginRepository>
             <id>appfuse</id>
             <url>http://oss.sonatype.org/content/groups/appfuse</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </pluginRepository>
     </pluginRepositories>
 

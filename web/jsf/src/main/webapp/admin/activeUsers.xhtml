@@ -31,15 +31,15 @@
                 <t:commandSortHeader columnName="username" arrow="false">
                     <f:facet name="ascending">
                         <t:graphicImage value="/images/arrow_up.png" rendered="true"
-                            style="position: relative; left: -7px"/>
+                            style="position: relative; left: -7px" alt="Sort Ascending"/>
                     </f:facet>
                     <f:facet name="descending">
                         <t:graphicImage value="/images/arrow_down.png" rendered="true" 
-                            style="position: relative; left: -7px"/>
+                            style="position: relative; left: -7px" alt="Sort Descending"/>
                     </f:facet>
                     <h:outputText value="#{text['user.username']}" /> 
                     <t:graphicImage value="/images/arrow_off.png" rendered="true" 
-                        style="padding-left: 5px;"/>
+                        style="padding-left: 5px;" alt="Not Sorted"/>
                 </t:commandSortHeader>
             </f:facet>
             <h:outputText value="#{user.username}" />
@@ -50,15 +50,15 @@
                 <t:commandSortHeader columnName="fullName" arrow="false">
                     <f:facet name="ascending">
                         <t:graphicImage value="/images/arrow_up.png" rendered="true"
-                            style="position: relative; left: -7px"/>
+                            style="position: relative; left: -7px" alt="Sort Ascending"/>
                     </f:facet>
                     <f:facet name="descending">
                         <t:graphicImage value="/images/arrow_down.png" rendered="true" 
-                            style="position: relative; left: -7px"/>
+                            style="position: relative; left: -7px" alt="Sort Descending"/>
                     </f:facet>
                     <h:outputText value="#{text['activeUsers.fullName']}" />
                     <t:graphicImage value="/images/arrow_off.png" rendered="true" 
-                        style="padding-left: 5px;"/>              
+                        style="padding-left: 5px;" alt="Not Sorted"/>              
                 </t:commandSortHeader>
             </f:facet>
             <h:outputText value="#{user.fullName}" />
