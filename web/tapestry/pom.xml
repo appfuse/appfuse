@@ -178,15 +178,15 @@
             <scope>test</scope>
             <exclusions>
                 <exclusion>
-                    <groupId>org.openqa.selenium.client-drivers</groupId>
+                    <groupId>org.seleniumhq.selenium.client-drivers</groupId>
                     <artifactId>selenium-java-client-driver</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.openqa.selenium.server</groupId>
+                    <groupId>org.seleniumhq.selenium.server</groupId>
                     <artifactId>selenium-server</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.openqa.selenium.server</groupId>
+                    <groupId>org.seleniumhq.selenium.server</groupId>
                     <artifactId>selenium-server-coreless</artifactId>
                 </exclusion>
                 <exclusion>
