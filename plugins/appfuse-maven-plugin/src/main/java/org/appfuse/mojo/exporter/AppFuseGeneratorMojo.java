@@ -234,7 +234,11 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
         // AppFuse-specific values
         exporter.getProperties().setProperty("basepackage", getProject().getGroupId());
         exporter.getProperties().setProperty("daoframework", getProject().getProperties().getProperty("dao.framework"));
-        exporter.getProperties().setProperty("webframework", getProject().getProperties().getProperty("web.framework"));
+        
+        String webFramework = (getProject().getProperties().contains("web.framework")) ? getProject().getProperties().getProperty("web.framework") :"";
+        
+        exporter.getProperties().setProperty("webframework", webFramework);
+
         exporter.getProperties().setProperty("packaging", getProject().getPackaging());
         exporter.getProperties().setProperty("genericcore", String.valueOf(genericCore));
 
