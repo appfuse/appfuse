@@ -40,14 +40,14 @@ public class ArtifactInstaller {
     }
 
     public void execute() {
-        //log("Installing generated .java files...");
-        copyGeneratedObjects(this.sourceDirectory, this.destinationDirectory, "**/*.java");
-
         log("Installing sample data for DbUnit...");
         installSampleData();
 
         // install dao and manager if jar (modular/core) or war w/o parent (basic)
         if (project.getPackaging().equals("jar") || (project.getPackaging().equals("war") && project.getParent() == null)) {
+            copyGeneratedObjects(this.sourceDirectory, this.destinationDirectory, "**/model/**/*.java");
+            copyGeneratedObjects(this.sourceDirectory, this.destinationDirectory, "**/dao/**/*.java");
+            copyGeneratedObjects(this.sourceDirectory, this.destinationDirectory, "**/service/**/*.java");
             log("Installing Spring bean definitions...");
             if (genericCore) {
                installGenericBeanDefinitions();
@@ -59,6 +59,8 @@ public class ArtifactInstaller {
         }
 
         if (project.getPackaging().equalsIgnoreCase("war")) {
+            copyGeneratedObjects(this.sourceDirectory, this.destinationDirectory, "**/webapp/**/*.java");
+
             String webFramework = project.getProperties().getProperty("web.framework");
 
             if ("jsf".equalsIgnoreCase(webFramework)) {

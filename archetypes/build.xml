@@ -221,7 +221,11 @@
             <!-- Fix messed up package name on RequestUtil -->
             <replace dir="@{dir}/target/generated-sources/archetype/src">
                 <replacetoken><![CDATA[import org.appfuse.util.RequestUtil]]></replacetoken>
-                <replacevalue><![CDATA[import org.appfuse.webapp.util.RequestUtil]]></replacevalue>
+                <replacevalue><![CDATA[import ${package}.webapp.util.RequestUtil]]></replacevalue>
+            </replace>
+            <replace dir="@{dir}/target/generated-sources/archetype/src">
+                <replacetoken><![CDATA[import org.appfuse.webapp.util.RequestUtil]]></replacetoken>
+                <replacevalue><![CDATA[import ${package}.webapp.util.RequestUtil]]></replacevalue>
             </replace>
 
             <replace dir="@{dir}/target/generated-sources/archetype/src">
