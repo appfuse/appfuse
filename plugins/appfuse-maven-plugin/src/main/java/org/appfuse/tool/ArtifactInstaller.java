@@ -40,6 +40,11 @@ public class ArtifactInstaller {
     }
 
     public void execute() {
+        antProject = AntUtils.createProject();
+
+        log("Installing sample data for DbUnit...");
+        installSampleData();
+
         // install dao and manager if jar (modular/core) or war w/o parent (basic)
         if (project.getPackaging().equals("jar") || (project.getPackaging().equals("war") && project.getParent() == null)) {
             copyGeneratedObjects(this.sourceDirectory, this.destinationDirectory, "**/model/**/*.java");
@@ -54,9 +59,6 @@ public class ArtifactInstaller {
             // only installs if iBATIS is configured as dao.framework
             installiBATISFiles();
         }
-        
-        log("Installing sample data for DbUnit...");
-        installSampleData();
 
         if (project.getPackaging().equalsIgnoreCase("war")) {
             copyGeneratedObjects(this.sourceDirectory, this.destinationDirectory, "**/webapp/**/*.java");
@@ -108,7 +110,6 @@ public class ArtifactInstaller {
      */
     protected void copyGeneratedObjects(final String inSourceDirectory, final String inDestinationDirectory,
                                         final String inPattern) {
-        antProject = AntUtils.createProject();
         Copy copyTask = (Copy) antProject.createTask("copy");
 
         FileSet fileSet = AntUtils.createFileset(inSourceDirectory, inPattern, new ArrayList());
