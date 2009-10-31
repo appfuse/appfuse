@@ -1,0 +1,84 @@
+<p>To create your <strong>AppFuse</strong> project, copy and paste the command line generated after typing in the groupId, artifactId,
+    selecting your web framework and the version.</p>
+
+<style type="text/css">
+    #mvncmd label {
+        text-align: right;
+        font-weight: bold;
+        width: 180px;
+        float: left;
+        margin: 0 5px;
+    }
+
+    #mvncmd input, #mvncmd select, #mvncm span {
+        width: 180px;
+        margin-bottom: 5px;
+        float: left;
+    }
+
+    #mvncmd textarea {
+        width: 400px;
+        height: 100px;
+    }
+
+    #mvncmd br {
+        clear: left;
+    }
+
+    #mvncmd div {
+        float: left;
+    }
+</style>
+<script type="text/javascript">
+    function changeIt() {
+        var groupId = document.getElementById("groupId").value;
+        var artifactId = document.getElementById("artifactId").value;
+        var version = document.getElementById("version").value;
+        var webFramework = document.getElementById("webFramework").value;
+        var archetypeArtifactId = "appfuse-";
+        if (document.getElementById("multi-module").checked) {
+            archetypeArtifactId += "modular-";
+        } else {
+            archetypeArtifactId += "basic-";
+        }
+        archetypeArtifactId += webFramework;
+        if (version.match(/.*SNAPSHOT/) || parseInt(version) > 2.1) archetypeArtifactId += "-archetype";
+        var cmd = 'mvn archetype:generate -B -DarchetypeGroupId=org.appfuse.archetypes -DarchetypeArtifactId=' + archetypeArtifactId + ' -DarchetypeVersion=' + version + ' -DgroupId=' + groupId + ' -DartifactId=' + artifactId;
+        if (version.match(/.*SNAPSHOT/)) cmd += ' -DremoteRepositories=http://oss.sonatype.org/content/repositories/appfuse';
+        document.getElementById("cmdLine").value = cmd;
+    }
+</script>
+
+<div id="mvncmd">
+    <div>
+        <label for="groupId" title="Base Package">GroupId:</label>
+        <input type="text" id="groupId" value="com.mycompany" onkeyup="changeIt();">
+        <span title="Base Package">&nbsp;(?)</span><br/>
+        <label for="artifactId" title="Project Name"> ArtifactId:</label>
+        <input type="text" id="artifactId" value="myproject" onkeyup="changeIt();">
+        <span title="Project Name">&nbsp;(?)</span><br/>
+        <label for="version" title="AppFuse Version">Version:</label>
+        <select id="version" onchange="changeIt();">
+            <option value="2.1-SNAPSHOT">2.1-SNAPSHOT</option>
+            <option value="2.0.2" selected="selected">2.0.2</option>
+            <option value="2.0.1">2.0.1</option>
+            <option value="1.4.0">1.4.0</option>
+        </select><span title="AppFuse Version">&nbsp;(?)</span><br/>
+        <label for="webFramework" title="Web Framework">Web Framework:</label>
+        <select id="webFramework" onchange="changeIt();">
+            <option value="jsf">JSF</option>
+            <option value="spring">Spring MVC</option>
+            <option value="struts" selected="selected">Struts 2</option>
+            <option value="tapestry">Tapestry 5</option>
+        </select><span title="Web Framework">&nbsp;(?)</span><br/>
+        <label for="multi-module">Multi-Module Project?</label>
+        <input type="checkbox" id="multi-module" onclick="changeIt();">
+        <span title="Modular Maven Project">&nbsp;(?)</span><br/>
+    </div>
+    <div>
+        <label for="cmdLine" id="cmdLabel">Command Line:</label>
+        <textarea id="cmdLine" onfocus="this.select();"></textarea>
+        <script type="text/javascript">changeIt();</script>
+    </div>
+    <br/>
+</div>

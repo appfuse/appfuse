@@ -240,6 +240,15 @@
         <jdbc.password></jdbc.password>]]></replacevalue>
             </replace>
 
+            <!-- Add snapshots=true since archetype plugin strips it out -->
+            <replace file="@{dir}/target/generated-sources/archetype/src/main/resources/archetype-resources/pom.xml">
+                <replacetoken><![CDATA[<snapshots>
+            </snapshots>]]></replacetoken>
+                <replacevalue><![CDATA[<snapshots>
+                <enabled>true</enabled>
+            </snapshots>]]></replacevalue>
+            </replace>
+
             <!-- Manually add ${package} to *.tld files -->
             <replace dir="@{dir}/target/generated-sources/archetype/src">
                 <include name="**/*.tld"/>
