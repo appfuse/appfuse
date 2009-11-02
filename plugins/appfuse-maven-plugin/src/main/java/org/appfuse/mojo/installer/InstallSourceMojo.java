@@ -139,12 +139,12 @@ public class InstallSourceMojo extends AbstractMojo {
             }
 
             // export web-common
-            log("Installing source from web-common module...");
+            /*log("Installing source from web-common module...");
             export("web/common/src", (modular) ? "web/src" : destinationDirectory);
 
             // export web framework
             log("Installing source from " + webFramework + " module...");
-            export("web/" + webFramework + "/src", (modular) ? "web/src" : destinationDirectory);
+            export("web/" + webFramework + "/src", (modular) ? "web/src" : destinationDirectory);*/
 
             if (project.hasParent()) {
                 // copy jdbc.properties to core/src/test/resources
@@ -162,11 +162,12 @@ public class InstallSourceMojo extends AbstractMojo {
 
         log("Source successfully exported, modifying pom.xml...");
 
+        /*
         if (project.getPackaging().equals("pom")) {
             removeWarpathPlugin(new File("web/pom.xml"));
         } else if (project.getPackaging().equals("war")) {
             removeWarpathPlugin(new File("pom.xml"));
-        }
+        }*/
 
         List dependencies = project.getOriginalModel().getDependencies();
         List<Dependency> newDependencies = new ArrayList<Dependency>();
@@ -202,10 +203,10 @@ public class InstallSourceMojo extends AbstractMojo {
                 newDependencies = addModuleDependencies(newDependencies, "web", "web");
 
                 // Add dependencies from appfuse-common-web
-                newDependencies = addModuleDependencies(newDependencies, "web-common", "web/common");
+                //newDependencies = addModuleDependencies(newDependencies, "web-common", "web/common");
 
                 // Add dependencies from appfuse-${web.framework}
-                newDependencies = addModuleDependencies(newDependencies, webFramework, "web/" + webFramework, true);
+                //newDependencies = addModuleDependencies(newDependencies, webFramework, "web/" + webFramework, true);
             }
 
             createFullSourcePom(newDependencies);
@@ -242,10 +243,10 @@ public class InstallSourceMojo extends AbstractMojo {
                 newDependencies = addModuleDependencies(newDependencies, "web", "web");
 
                 // Add dependencies from appfuse-common-web
-                newDependencies = addModuleDependencies(newDependencies, "web-common", "web/common");
+                //newDependencies = addModuleDependencies(newDependencies, "web-common", "web/common");
 
                 // Add dependencies from appfuse-${web.framework}
-                newDependencies = addModuleDependencies(newDependencies, webFramework, "web/" + webFramework, true);
+                //newDependencies = addModuleDependencies(newDependencies, webFramework, "web/" + webFramework, true);
 
                 createFullSourcePom(newDependencies);
             }
@@ -308,7 +309,7 @@ public class InstallSourceMojo extends AbstractMojo {
             newDependencies.add(core);
 
             // workaround for JSF requiring JSP 2.1 - this is a true hack
-            if (project.getProperties().getProperty("web.framework").equals("jsf")) {
+            /*if (project.getProperties().getProperty("web.framework").equals("jsf")) {
                 Dependency jsp21 = new Dependency();
                 jsp21.setGroupId("javax.servlet.jsp");
                 jsp21.setArtifactId("jsp-api");
@@ -318,7 +319,7 @@ public class InstallSourceMojo extends AbstractMojo {
 
                 // replace jsp.version property as well
                 project.getOriginalModel().getProperties().setProperty("jsp.version", "2.1");
-            }
+            }*/
         }
 
         Collections.sort(newDependencies, new BeanComparator("groupId"));

@@ -1152,7 +1152,7 @@ public class RenamePackages {
 
         try
         {
-            String[] extensions = {"page","application","properties","tld","xml"};
+            String[] extensions = {"java","page","application","properties","tld","xml"};
 
             Iterator filesInMain = FileUtils.iterateFiles(new File(this.workBaseDir), extensions, true);
 
