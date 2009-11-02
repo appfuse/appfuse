@@ -516,7 +516,7 @@
                             <wait>${cargo.wait}</wait>
                             <container>
                                 <containerId>${cargo.container}</containerId>
-                                <!--home>${cargo.container.home}</home-->
+                                <home>${cargo.container.home}</home>
                                 <zipUrlInstaller>
                                     <url>${cargo.container.url}</url>
                                     <installDir>${installDir}</installDir>
@@ -751,6 +751,7 @@
         <webtest.version>3.0</webtest.version>
 
         <cargo.container>tomcat6x</cargo.container>
+        <cargo.container.home>${env.CATALINA_HOME}</cargo.container.home>
         <cargo.container.url>http://archive.apache.org/dist/tomcat/tomcat-6/v6.0.20/bin/apache-tomcat-6.0.20.zip</cargo.container.url>
         <cargo.host>localhost</cargo.host>
         <cargo.port>8081</cargo.port>
@@ -758,7 +759,6 @@
         
         <!-- Jetty Cargo settings:
         <cargo.container>jetty6x</cargo.container>
-        <cargo.container.home>${env.CATALINA_HOME}</cargo.container.home>
         <cargo.container.url>http://dist.codehaus.org/jetty/jetty-6.1.21/jetty-6.1.21.zip</cargo.container.url>
         -->
         
