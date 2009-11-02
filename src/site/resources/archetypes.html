@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <title>Create AppFuse Archetype</title>
 <head>
@@ -26,7 +27,7 @@
     }
 
     #mvncmd br {
-        clear: left;
+        clear: both;
     }
 
     #mvncmd div {
@@ -65,14 +66,12 @@
         <span title="Project Name">&nbsp;(?)</span><br/>
         <label for="version" title="AppFuse Version">Version:</label>
         <select id="version" onchange="changeIt();">
-
             <option value="2.1-SNAPSHOT">2.1-SNAPSHOT</option>
             <option value="2.0.2" selected="selected">2.0.2</option>
             <option value="2.0.1">2.0.1</option>
             <option value="1.4.0">1.4.0</option>
         </select><span title="AppFuse Version">&nbsp;(?)</span><br/>
         <label for="webFramework" title="Web Framework">Web Framework:</label>
-
         <select id="webFramework" onchange="changeIt();">
             <option value="jsf">JSF</option>
             <option value="spring">Spring MVC</option>
@@ -81,8 +80,8 @@
         </select><span title="Web Framework">&nbsp;(?)</span><br/>
 
         <label for="multi-module">Multi-Module Project?</label>
-        <input type="checkbox" id="multi-module" onclick="changeIt();" style="margin-left: -75px">
-        <span title="Modular Maven Project" style="margin-left: -75px">&nbsp;(?)</span><br/>
+        <input type="checkbox" id="multi-module" onclick="changeIt();" style="width: 15px">
+        <span title="Modular Maven Project">&nbsp;(?)</span><br/>
     </div>
     <div>
         <label for="cmdLine" id="cmdLabel">Command Line:</label>
