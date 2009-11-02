@@ -12,9 +12,8 @@ import org.apache.maven.project.MavenProject;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.Get;
 import org.apache.tools.ant.taskdefs.LoadFile;
-import org.apache.tools.ant.taskdefs.optional.ReplaceRegExp;
-import org.appfuse.tool.SubversionUtils;
 import org.appfuse.tool.RenamePackages;
+import org.appfuse.tool.SubversionUtils;
 import org.tmatesoft.svn.core.SVNErrorMessage;
 import org.tmatesoft.svn.core.SVNException;
 
@@ -24,15 +23,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 
 /**
@@ -138,14 +129,6 @@ public class InstallSourceMojo extends AbstractMojo {
                 throw new MojoExecutionException("No web.framework property specified, please modify pom.xml to add it.");
             }
 
-            // export web-common
-            /*log("Installing source from web-common module...");
-            export("web/common/src", (modular) ? "web/src" : destinationDirectory);
-
-            // export web framework
-            log("Installing source from " + webFramework + " module...");
-            export("web/" + webFramework + "/src", (modular) ? "web/src" : destinationDirectory);*/
-
             if (project.hasParent()) {
                 // copy jdbc.properties to core/src/test/resources
                 //FileUtils.copyFileToDirectory(new File("src/main/resources/jdbc.properties"), new File("../core/src/test/resources"));
@@ -161,13 +144,6 @@ public class InstallSourceMojo extends AbstractMojo {
         }
 
         log("Source successfully exported, modifying pom.xml...");
-
-        /*
-        if (project.getPackaging().equals("pom")) {
-            removeWarpathPlugin(new File("web/pom.xml"));
-        } else if (project.getPackaging().equals("war")) {
-            removeWarpathPlugin(new File("pom.xml"));
-        }*/
 
         List dependencies = project.getOriginalModel().getDependencies();
         List<Dependency> newDependencies = new ArrayList<Dependency>();
@@ -203,10 +179,10 @@ public class InstallSourceMojo extends AbstractMojo {
                 newDependencies = addModuleDependencies(newDependencies, "web", "web");
 
                 // Add dependencies from appfuse-common-web
-                //newDependencies = addModuleDependencies(newDependencies, "web-common", "web/common");
+                newDependencies = addModuleDependencies(newDependencies, "web-common", "web/common");
 
                 // Add dependencies from appfuse-${web.framework}
-                //newDependencies = addModuleDependencies(newDependencies, webFramework, "web/" + webFramework, true);
+                newDependencies = addModuleDependencies(newDependencies, webFramework, "web/" + webFramework);
             }
 
             createFullSourcePom(newDependencies);
@@ -243,10 +219,10 @@ public class InstallSourceMojo extends AbstractMojo {
                 newDependencies = addModuleDependencies(newDependencies, "web", "web");
 
                 // Add dependencies from appfuse-common-web
-                //newDependencies = addModuleDependencies(newDependencies, "web-common", "web/common");
+                newDependencies = addModuleDependencies(newDependencies, "web-common", "web/common");
 
                 // Add dependencies from appfuse-${web.framework}
-                //newDependencies = addModuleDependencies(newDependencies, webFramework, "web/" + webFramework, true);
+                newDependencies = addModuleDependencies(newDependencies, webFramework, "web/" + webFramework);
 
                 createFullSourcePom(newDependencies);
             }
@@ -304,12 +280,12 @@ public class InstallSourceMojo extends AbstractMojo {
         if (project.getPackaging().equals("war") && project.hasParent()) {
             Dependency core = new Dependency();
             core.setGroupId("${pom.parent.groupId}");
-            core.setArtifactId("${pom.parent.artifactId}-core");
+            core.setArtifactId("core");
             core.setVersion("${pom.parent.version}");
             newDependencies.add(core);
 
             // workaround for JSF requiring JSP 2.1 - this is a true hack
-            /*if (project.getProperties().getProperty("web.framework").equals("jsf")) {
+            if (project.getProperties().getProperty("web.framework").equals("jsf")) {
                 Dependency jsp21 = new Dependency();
                 jsp21.setGroupId("javax.servlet.jsp");
                 jsp21.setArtifactId("jsp-api");
@@ -319,7 +295,7 @@ public class InstallSourceMojo extends AbstractMojo {
 
                 // replace jsp.version property as well
                 project.getOriginalModel().getProperties().setProperty("jsp.version", "2.1");
-            }*/
+            }
         }
 
         Collections.sort(newDependencies, new BeanComparator("groupId"));
@@ -468,9 +444,6 @@ public class InstallSourceMojo extends AbstractMojo {
             renamePackagesTool.execute();
         }
 
-        // todo: gather and add repositories from appfuse projects
-        // should work for now since most artifacts are in static.appfuse.org/repository
-
         // when performing full-source on a modular project, add the properties to the root pom.xml at the end
         if (project.getPackaging().equals("war") && project.hasParent()) {
             // store sorted properties in a thread local for later retrieval
@@ -523,6 +496,17 @@ public class InstallSourceMojo extends AbstractMojo {
     }
 
     private static String addPropertiesToPom(String existingPomXmlAsString, StringBuffer sortedProperties) {
+        // Move modules to build section.
+        existingPomXmlAsString = existingPomXmlAsString.replace("\n" +
+                "  <modules>\n" +
+                "    <module>core</module>\n" +
+                "    <module>web</module>\n" +
+                "  </modules>", "");
+        existingPomXmlAsString = existingPomXmlAsString.replace("</build>", "</build>\n\n    <modules>\n" +
+                "        <module>core</module>\n" +
+                "        <module>web</module>\n" +
+                "    </modules>");
+
         String adjustedPom = existingPomXmlAsString;
 
         // fix for Windows
@@ -595,39 +579,7 @@ public class InstallSourceMojo extends AbstractMojo {
         getLog().info("[AppFuse] " + msg);
     }
 
-    private void removeWarpathPlugin(File pom) {
-        log("Removing maven-warpath-plugin...");
-
-        Project antProject = AntUtils.createProject();
-        ReplaceRegExp regExpTask = (ReplaceRegExp) antProject.createTask("replaceregexp");
-        regExpTask.setFile(pom);
-        regExpTask.setMatch("\\s*<plugin>\\s*<groupId>org.appfuse</groupId>(?s:.)*?<artifactId>maven-warpath-plugin</artifactId>(?s:.)*?</plugin>");
-        regExpTask.setReplace("");
-        regExpTask.setFlags("g");
-        regExpTask.execute();
-
-        // remove any warpath dependencies as well
-        ReplaceRegExp regExpTask2 = (ReplaceRegExp) antProject.createTask("replaceregexp");
-        regExpTask2.setFile(pom);
-        regExpTask2.setMatch("\\s*<dependency>\\s*<groupId>\\$\\{pom\\.groupId\\}</groupId>(?s:.)*?<type>warpath</type>(?s:.)*?</dependency>");
-        regExpTask2.setReplace("");
-        regExpTask2.setFlags("g");
-        regExpTask2.execute();
-
-        ReplaceRegExp regExpTask3 = (ReplaceRegExp) antProject.createTask("replaceregexp");
-        regExpTask3.setFile(pom);
-        regExpTask3.setMatch("\\s*<dependency>\\s*<groupId>org.appfuse</groupId>(?s:.)*?<type>warpath</type>(?s:.)*?</dependency>");
-        regExpTask3.setReplace("");
-        regExpTask3.setFlags("g");
-        regExpTask3.execute();
-    }
-
-    // Convenience method that doesn't remove warpath plugin
     private List<Dependency> addModuleDependencies(List<Dependency> dependencies, String moduleName, String moduleLocation) {
-        return addModuleDependencies(dependencies, moduleName, moduleLocation, false);
-    }
-
-    private List<Dependency> addModuleDependencies(List<Dependency> dependencies, String moduleName, String moduleLocation, boolean removeWarpath) {
         log("Adding dependencies from " + moduleName + " module...");
 
         // Read dependencies from module's pom.xml
@@ -652,10 +604,6 @@ public class InstallSourceMojo extends AbstractMojo {
         get.setUsername("guest");
         get.setPassword("");
         get.execute();
-
-        if (removeWarpath) {
-            removeWarpathPlugin(pom);
-        }
 
         MavenProject p = createProjectFromPom(pom);
 

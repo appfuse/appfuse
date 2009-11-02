@@ -1221,7 +1221,16 @@ public class RenamePackages {
                 log.info("CheckSummary");
             }
 
+            // copy pom.xml to workBaseDir
+            FileUtils.copyFile(new File(baseDir + File.separator + "pom.xml"), 
+                    new File(workBaseDir + File.separator + "pom.xml"));
             deleteAll(this.baseDir);
+
+            // delete src/main/java/org if it exists and is empty
+            File orgDirectory = new File(workBaseDir + "src/main/java/org");
+            if (orgDirectory.exists() && orgDirectory.isDirectory() && orgDirectory.listFiles().length == 0) {
+                orgDirectory.delete();
+            }
 
             if (debug) {
                 log.info("Delete all");
