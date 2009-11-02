@@ -477,6 +477,17 @@ public class InstallSourceMojo extends AbstractMojo {
             try {
                 String originalPom = FileUtils.readFileToString(new File("pom.xml"));
 
+                // Move modules to build section.
+                originalPom = originalPom.replace("\n" +
+                        "  <modules>\n" +
+                        "    <module>core</module>\n" +
+                        "    <module>web</module>\n" +
+                        "  </modules>", "");
+                originalPom = originalPom.replace("</build>", "</build>\n\n    <modules>\n" +
+                        "        <module>core</module>\n" +
+                        "        <module>web</module>\n" +
+                        "    </modules>");
+
                 String pomWithProperties = addPropertiesToPom(originalPom, calculatedProperties);
 
                 FileUtils.writeStringToFile(new File("pom.xml"), pomWithProperties);
@@ -496,17 +507,6 @@ public class InstallSourceMojo extends AbstractMojo {
     }
 
     private static String addPropertiesToPom(String existingPomXmlAsString, StringBuffer sortedProperties) {
-        // Move modules to build section.
-        existingPomXmlAsString = existingPomXmlAsString.replace("\n" +
-                "  <modules>\n" +
-                "    <module>core</module>\n" +
-                "    <module>web</module>\n" +
-                "  </modules>", "");
-        existingPomXmlAsString = existingPomXmlAsString.replace("</build>", "</build>\n\n    <modules>\n" +
-                "        <module>core</module>\n" +
-                "        <module>web</module>\n" +
-                "    </modules>");
-
         String adjustedPom = existingPomXmlAsString;
 
         // fix for Windows
