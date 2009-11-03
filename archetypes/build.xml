@@ -381,6 +381,13 @@
                 <replacevalue>webapp</replacevalue>
             </replace>
 
+            <!-- Replace org.appfuse with ${groupId} in applicationContext.xml -->
+            <replace dir="@{dir}/target/generated-sources/archetype">
+                <include name="**/applicationContext.xml"/>
+                <replacetoken>base-package="org.appfuse"</replacetoken>
+                <replacevalue>base-package="${groupId}"</replacevalue>
+            </replace>
+
             <mvn command="install" dir="@{dir}/target/generated-sources/archetype"/>
         </sequential>
     </macrodef>

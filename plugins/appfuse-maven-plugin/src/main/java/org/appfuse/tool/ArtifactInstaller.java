@@ -50,12 +50,13 @@ public class ArtifactInstaller {
             copyGeneratedObjects(this.sourceDirectory, this.destinationDirectory, "**/model/**/*.java");
             copyGeneratedObjects(this.sourceDirectory, this.destinationDirectory, "**/dao/**/*.java");
             copyGeneratedObjects(this.sourceDirectory, this.destinationDirectory, "**/service/**/*.java");
-            log("Installing Spring bean definitions...");
+            // APF-1105: Changed to use Spring annotations (@Repository, @Service and @Autowired)
+            /*log("Installing Spring bean definitions...");
             if (genericCore) {
                installGenericBeanDefinitions();
             } else {
                installDaoAndManagerBeanDefinitions();
-            }
+            }*/
             // only installs if iBATIS is configured as dao.framework
             installiBATISFiles();
         }

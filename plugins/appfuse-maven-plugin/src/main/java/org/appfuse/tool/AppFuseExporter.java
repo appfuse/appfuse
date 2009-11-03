@@ -68,8 +68,8 @@ public class AppFuseExporter extends GenericExporter {
             // DAO Interfaces
             configureExporter("appfuse/dao/dao.ftl", "src/main/java/{basepkg-name}/dao/{class-name}Dao.java").start();
 
-            // DAO Bean Definition - // todo with CoC: get rid of need for a bean definition when classes exist
-            configureExporter("appfuse/dao/dao-bean.ftl", "src/main/resources/{class-name}Dao-bean.xml").start();
+            // DAO Bean Definition - APF-1105: Changed to use Spring annotations (@Repository, @Service and @Autowired)
+            //configureExporter("appfuse/dao/dao-bean.ftl", "src/main/resources/{class-name}Dao-bean.xml").start();
 
             String daoFramework = getProperties().getProperty("daoframework");
 
@@ -101,8 +101,8 @@ public class AppFuseExporter extends GenericExporter {
                 "src/main/resources/sqlmaps/{class-name}SQL.xml").start();
         }
 
-        // Manager Bean Definition - // todo with CoC: get rid of need for a bean definition when classes exist
-        configureExporter("appfuse/service/manager-bean.ftl", "src/main/resources/{class-name}Manager-bean.xml").start();
+        // Manager Bean Definition - APF-1105: Changed to use Spring annotations (@Repository, @Service and @Autowired)
+        // configureExporter("appfuse/service/manager-bean.ftl", "src/main/resources/{class-name}Manager-bean.xml").start();
     }
 
     private void generateWeb() {

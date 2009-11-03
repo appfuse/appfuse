@@ -11,6 +11,7 @@ import org.springframework.util.ClassUtils;
 import org.springframework.util.Assert;
 import org.springframework.stereotype.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 
 import javax.sql.DataSource;
 import java.io.Serializable;
@@ -30,7 +31,7 @@ import com.ibatis.sqlmap.client.SqlMapClient;
  * <pre>
  *      &lt;bean id="fooDao" class="org.appfuse.dao.ibatis.GenericDaoiBatis"&gt;
  *          &lt;constructor-arg value="org.appfuse.model.Foo"/&gt;
- *          &lt;property name="sessionFactory" ref="sessionFactory"/&gt;
+ *          &lt;property name="sqlMapClient" ref="sqlMapClient"/&gt;
  *      &lt;/bean&gt;
  * </pre>
  *
@@ -45,7 +46,6 @@ public class GenericDaoiBatis<T, PK extends Serializable> implements GenericDao<
     protected final Log log = LogFactory.getLog(getClass());
     private Class<T> persistentClass;
     private SqlMapClientTemplate sqlMapClientTemplate = new SqlMapClientTemplate();
-
 
     /**
      * Constructor that takes in a class to see which type of entity to persist.
@@ -76,6 +76,7 @@ public class GenericDaoiBatis<T, PK extends Serializable> implements GenericDao<
      * @param sqlMapClient the configured SqlMapClient
      */
     @Autowired
+    @Required
     public final void setSqlMapClient(SqlMapClient sqlMapClient) {
         this.sqlMapClientTemplate.setSqlMapClient(sqlMapClient);
     }
