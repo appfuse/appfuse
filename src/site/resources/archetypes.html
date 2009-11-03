@@ -52,7 +52,7 @@
         archetypeArtifactId += webFramework;
         if (version.match(/.*SNAPSHOT/) || parseInt(version) > 2.1) archetypeArtifactId += "-archetype";
         var cmd = 'mvn archetype:generate -B -DarchetypeGroupId=org.appfuse.archetypes -DarchetypeArtifactId=' + archetypeArtifactId + ' -DarchetypeVersion=' + version + ' -DgroupId=' + groupId + ' -DartifactId=' + artifactId;
-        if (version.match(/.*SNAPSHOT/)) cmd += ' -DremoteRepositories=http://oss.sonatype.org/content/repositories/appfuse';
+        if (version.match(/.*SNAPSHOT/)) cmd += ' -DarchetypeRepository=http://oss.sonatype.org/content/repositories/appfuse';
         document.getElementById("cmdLine").value = cmd;
     }
 </script>
