@@ -118,10 +118,10 @@ public class InstallSourceMojo extends AbstractMojo {
             log("Installing source from service module...");
             export("service/src", (modular) ? "core/src" : destinationDirectory);
 
-	        // move Base*TestCase to test directory
-	        moveFiles((modular) ? "core/src/main" : destinationDirectory + "/main",
-			        (modular) ? "core/src/test" : destinationDirectory + "/test", "**/Base*TestCase.java");
-	        
+            // move Base*TestCase to test directory
+            moveFiles((modular) ? "core/src/main" : destinationDirectory + "/main",
+                    (modular) ? "core/src/test" : destinationDirectory + "/test", "**/Base*TestCase.java");
+
             if (project.getPackaging().equalsIgnoreCase("jar")) {
                 // delete dao.framework related files from test directory
                 deleteFile("test/resources/hibernate.cfg.xml");

@@ -41,7 +41,7 @@ public class RenamePackages {
 
     StringBuffer logOutput = new StringBuffer();
 
-    String[] invalidFileTypes = new String[] { "class", "jar", "jpg", "gif", "png", "ico" };
+    String[] invalidFileTypes = new String[]{"class", "jar", "jpg", "gif", "png", "ico"};
 
     private Vector filesets = new Vector();
 
@@ -50,10 +50,11 @@ public class RenamePackages {
      */
     public RenamePackages(String newPackage) {
         this.newPkgName = newPackage;
-
     }
+
     /**
      * simple method to add filesets
+     *
      * @param fileset
      */
     public void addFileset(FileSet fileset) {
@@ -63,20 +64,19 @@ public class RenamePackages {
     /**
      * Override the default set of invalid file types that will be moved to the
      * new package structure.
-     *
+     * <p/>
      * The invalidFileTypes must be a comma
-     *  separated list of file extensions
+     * separated list of file extensions
      * for example "class,jar,exe"
      *
      * @param invalidFileTypes
      */
-    public void setInvalidFileTypes(String invalidFileTypes)
-    {
+    public void setInvalidFileTypes(String invalidFileTypes) {
         this.invalidFileTypes = invalidFileTypes.split(",");
 
         if (debug) {
             log.debug("default invalidFileTypes overriden with [" + invalidFileTypes
-                + "]");
+                    + "]");
         }
     }
 
@@ -87,22 +87,18 @@ public class RenamePackages {
      *
      * @param baseDir
      */
-    public void setBaseDir(String baseDir)
-    {
-        if (!new File(baseDir.trim()).exists())
-        {
+    public void setBaseDir(String baseDir) {
+        if (!new File(baseDir.trim()).exists()) {
             throw new ExceptionInInitializerError("Base dir [" + baseDir.trim()
                     + "] does not exist");
         }
         this.baseDir = correctFileSeparators(baseDir.trim());
-        if (this.baseDir != null)
-        {
+        if (this.baseDir != null) {
             if (this.baseDir.endsWith(File.separator)) {
                 this.workBaseDir = this.baseDir.substring(0, this.baseDir
                         .length())
                         + ".work";
-            } else
-            {
+            } else {
                 this.workBaseDir = this.baseDir + ".work";
             }
 
@@ -116,19 +112,15 @@ public class RenamePackages {
      * Validates the packagename
      *
      * @param packageName
-     * @throws ExceptionInInitializerError
-     *             if the package name is invalid
+     * @throws ExceptionInInitializerError if the package name is invalid
      */
     private void validatePackageName(String packageName)
-            throws ExceptionInInitializerError
-    {
-        if (packageName.indexOf("/") != -1)
-        {
+            throws ExceptionInInitializerError {
+        if (packageName.indexOf("/") != -1) {
             throw new ExceptionInInitializerError("packageName [" + packageName
                     + "] is invalid because it contains slashes");
         }
-        if (packageName.indexOf("\\") != -1)
-        {
+        if (packageName.indexOf("\\") != -1) {
             throw new ExceptionInInitializerError("packageName [" + packageName
                     + "] is invalid because it contains slashes");
         }
@@ -140,15 +132,12 @@ public class RenamePackages {
      * @param packageName
      * @return package name without starting and ending dots
      */
-    private String stripUnwantedDots(String packageName)
-    {
+    private String stripUnwantedDots(String packageName) {
 
-        while (packageName.endsWith("."))
-        {
+        while (packageName.endsWith(".")) {
             packageName = packageName.substring(0, packageName.length() - 1);
         }
-        while (packageName.startsWith("."))
-        {
+        while (packageName.startsWith(".")) {
             packageName = packageName.substring(1);
         }
 
@@ -166,15 +155,13 @@ public class RenamePackages {
      *
      * @param existingPkgName
      */
-    public void setExistingPkgName(String existingPkgName) throws Exception
-    {
+    public void setExistingPkgName(String existingPkgName) throws Exception {
 
         log.info("existingPkgName came in as [" + existingPkgName + "]");
 
         this.existingPkgName = stripUnwantedDots(existingPkgName.trim());
         validatePackageName(this.existingPkgName);
-        if (this.existingPkgName.length() == 0)
-        {
+        if (this.existingPkgName.length() == 0) {
             throw new Exception("Unsupported operation - cannot "
                     + " repackage from empty package name as would "
                     + " not know which imports to expand out");
@@ -189,14 +176,12 @@ public class RenamePackages {
      * @param newPkgName
      * @throws Exception
      */
-    public void setNewPkgName(String newPkgName) throws Exception
-    {
+    public void setNewPkgName(String newPkgName) throws Exception {
         log.info("newPkgName came in as [" + newPkgName + "]");
 
         this.newPkgName = stripUnwantedDots(newPkgName.trim());
         validatePackageName(this.newPkgName);
-        if (this.newPkgName.length() == 0)
-        {
+        if (this.newPkgName.length() == 0) {
             throw new Exception("Unimplemented operation");
         }
     }
@@ -205,8 +190,7 @@ public class RenamePackages {
      * Set the package paths. Replace the . delimiter with the relevant file
      * separator based on the o/s we are running on.
      */
-    private void setPackagePaths()
-    {
+    private void setPackagePaths() {
         this.existingPkgPath = getPackagePath(existingPkgName);
         this.newPkgPath = getPackagePath(newPkgName);
 
@@ -224,15 +208,12 @@ public class RenamePackages {
      * @param pkgName
      * @return path of the pkg name
      */
-    private String getPackagePath(String pkgName)
-    {
+    private String getPackagePath(String pkgName) {
         String[] pkgNames = pkgName.split("\\.");
         String aPath = "";
 
-        for (int i = 0; i < pkgNames.length; i++)
-        {
-            if (aPath.length() != 0)
-            {
+        for (int i = 0; i < pkgNames.length; i++) {
+            if (aPath.length() != 0) {
                 aPath += File.separator;
             }
 
@@ -246,22 +227,17 @@ public class RenamePackages {
      *
      * @param directoryName
      */
-    private void createDirectory(String directoryName)
-    {
+    private void createDirectory(String directoryName) {
         File dir = new File(directoryName);
 
-        if (!dir.exists())
-        {
-            if (dir.mkdirs())
-            {
+        if (!dir.exists()) {
+            if (dir.mkdirs()) {
                 String message = "Created directory [" + directoryName + "]";
 
                 if (debug) {
                     log.debug(message);
                 }
-            }
-            else
-            {
+            } else {
                 log.error("Failed to create directory [" + directoryName + "]");
             }
         }
@@ -288,18 +264,16 @@ public class RenamePackages {
 
         String[] files = new File(inDirName).list();
 
-        if (files == null)
-        {
+        if (files == null) {
             return;
         }
 
         if (debug) {
             log.debug("There are [" + files.length + "] files in dir [" + inDirName
-                + "]");
+                    + "]");
         }
 
-        for (int i = 0; i < files.length; i++)
-        {
+        for (int i = 0; i < files.length; i++) {
             if (debug) {
                 log.debug("file is [" + files[i] + "]");
             }
@@ -307,14 +281,11 @@ public class RenamePackages {
             String fileName = inDirName + File.separator + files[i];
             File aFile = new File(fileName);
 
-            if (files[i].equals("CVS"))
-            {
+            if (files[i].equals("CVS")) {
                 if (debug) {
                     log.debug("ignoring CVS dir");
                 }
-            }
-            else if (aFile.isDirectory())
-            {
+            } else if (aFile.isDirectory()) {
                 if (debug) {
                     log.debug("Got a dir [" + fileName + "]");
                 }
@@ -323,13 +294,12 @@ public class RenamePackages {
                 String newWorkDirName = inWorkDirName + File.separator
                         + files[i];
 
-                if (isOldPackageDir(fileName))
-                {
+                if (isOldPackageDir(fileName)) {
                     String newPath = convertOldPackageDirName(fileName);
 
                     if (debug) {
                         log.debug("found old package dir [" + fileName + "] "
-                            + "newPath is [" + newPath.toString() + "]");
+                                + "newPath is [" + newPath.toString() + "]");
                     }
                     createDirectory(newPath.toString());
 
@@ -341,7 +311,7 @@ public class RenamePackages {
 
                     if (debug) {
                         log.debug("found dir outside old package [" + fileName + "] "
-                            + "newPath is [" + newPath + "]");
+                                + "newPath is [" + newPath + "]");
                     }
                     createDirectory(newPath);
                 }
@@ -352,31 +322,28 @@ public class RenamePackages {
 
                 repackage(newDirName, newWorkDirName);
 
-            }
-            else
-            {
+            } else {
                 // Normal file
                 if (debug) {
                     log.debug("Processing file [" + fileName + "] existingPkgPath is ["
-                        + existingPkgPath + "]");
+                            + existingPkgPath + "]");
                 }
 
                 // Should we process this file at all or leave it?
                 int existingPathIndexPos = fileName.indexOf(existingPkgPath);
 
-                if (existingPathIndexPos != -1)
-                {
+                if (existingPathIndexPos != -1) {
                     // Normal file in old package structure
                     if (debug) {
                         log.debug("found file with existing package name ["
-                           + fileName + "]");
+                                + fileName + "]");
                     }
 
                     String newPath = convertOldPackageDirName(fileName
                             .substring(0, fileName.lastIndexOf(File.separator)));
                     String newFileName = newPath
                             + fileName.substring(fileName
-                                    .lastIndexOf(File.separator));
+                            .lastIndexOf(File.separator));
 
                     if (debug) {
                         log.debug("creating directory [" + newPath + "]");
@@ -384,49 +351,41 @@ public class RenamePackages {
 
                     createDirectory(newPath);
 
-                    if (isValidFileType(fileName))
-                    {
+                    if (isValidFileType(fileName)) {
                         String output = changePackageNamesInFile(fileName,
                                 RenamePackages.DONT_SAVE_FILE);
 
                         if (debug) {
                             log.debug("Saving file [" + fileName
-                                + "] to new package directory ["
-                                + newFileName + "]");
+                                    + "] to new package directory ["
+                                    + newFileName + "]");
                         }
 
                         toFile(newFileName, output);
-                    }
-                    else
-                    {
+                    } else {
                         if (debug) {
                             log.debug("Renaming file non valid file type ["
-                                + fileName + "]");
+                                    + fileName + "]");
                         }
 
-                        if (!aFile.renameTo(new File(newFileName)))
-                        {
+                        if (!aFile.renameTo(new File(newFileName))) {
                             log.error("Failed to rename file [" + fileName + "] to ["
-                                + newFileName + "]");
+                                    + newFileName + "]");
                         }
                     }
-                }
-                else
-                {
+                } else {
                     // Normal file - not in old package structure
 
                     // Stip off existing baseDir
                     String newFileName = this.workBaseDir
                             + fileName.substring(this.baseDir.length());
 
-                    if (aFile.renameTo(new File(newFileName)))
-                    {
+                    if (aFile.renameTo(new File(newFileName))) {
                         if (debug) {
                             log.debug("Saved file [" + newFileName
-                                + "] to new directory structure");
+                                    + "] to new directory structure");
                         }
-                    } else
-                    {
+                    } else {
                         log.error("Failed to rename file [" + fileName + "] to ["
                                 + newFileName + "] to new directory structure");
                     }
@@ -445,16 +404,14 @@ public class RenamePackages {
      * @param inDirName the directory to search
      */
     private void checkSummary(String inDirName)
-            throws IOException
-    {
+            throws IOException {
         if (debug) {
             log.debug("Inside checkSummary inDirName is [" + inDirName + "]");
         }
 
         String[] files = new File(inDirName).list();
 
-        if (files == null)
-        {
+        if (files == null) {
             return;
         }
 
@@ -488,7 +445,7 @@ public class RenamePackages {
                 // Normal file
                 if (debug) {
                     log.debug("Checking file [" + fileName + "] existingPkgPath is ["
-                        + existingPkgPath + "]");
+                            + existingPkgPath + "]");
                 }
 
                 if (isValidFileType(fileName)) {
@@ -541,8 +498,7 @@ public class RenamePackages {
 
     }
 
-    private String convertOldPackageDirName(String dirName)
-    {
+    private String convertOldPackageDirName(String dirName) {
         // Need to create new package directory
         int startExistingPathIndexPos = dirName.indexOf(existingPkgPath);
         int endExistingPathIndexPos = startExistingPathIndexPos
@@ -555,8 +511,8 @@ public class RenamePackages {
         if (debug) {
             log.debug("startExistingPathIndexPos is [" + startExistingPathIndexPos + "]");
             log.debug("about to do substring on [" + dirName + "] positions ["
-                + this.baseDir.length() + "] and [" + startExistingPathIndexPos
-                + "]");
+                    + this.baseDir.length() + "] and [" + startExistingPathIndexPos
+                    + "]");
         }
 
         String firstPartFileName = dirName.substring(this.baseDir.length(),
@@ -581,8 +537,7 @@ public class RenamePackages {
     }
 
 
-    private boolean isOldPackageDir(String dirName)
-    {
+    private boolean isOldPackageDir(String dirName) {
         if (debug) {
             log.debug("inside isOldPackageDir with [" + dirName + "]");
         }
@@ -590,8 +545,7 @@ public class RenamePackages {
         // Should we process this file at all or leave it?
         int existingPathIndexPos = dirName.indexOf(existingPkgPath);
 
-        if (existingPathIndexPos != -1)
-        {
+        if (existingPathIndexPos != -1) {
             if (debug) {
                 log.debug("found dir with existing package name [" + dirName + "]");
             }
@@ -611,8 +565,7 @@ public class RenamePackages {
      *
      * @param fileName the file name to open and read @return the file contents
      */
-    public String fromFile(String fileName) throws IOException
-    {
+    public String fromFile(String fileName) throws IOException {
         /*BufferedReader in = new BufferedReader(new FileReader(fileName));
         StringBuffer fileContents = new StringBuffer();
         String str;
@@ -633,8 +586,7 @@ public class RenamePackages {
      * @param fileName the name of the file @param contents the files contents
      * @throws IOException if there is an error writing the file
      */
-    public void toFile(String fileName, String contents) throws IOException
-    {
+    public void toFile(String fileName, String contents) throws IOException {
         if (debug) {
             log.debug("Saving file to fileName [" + fileName + "]");
         }
@@ -653,15 +605,12 @@ public class RenamePackages {
      *
      * @return true if the file is a valid type, else false
      */
-    private boolean isValidFileType(String fileName)
-    {
-        for (int i = 0; i < invalidFileTypes.length; i++)
-        {
-            if (fileName.endsWith(invalidFileTypes[i]))
-            {
+    private boolean isValidFileType(String fileName) {
+        for (int i = 0; i < invalidFileTypes.length; i++) {
+            if (fileName.endsWith(invalidFileTypes[i])) {
                 if (debug) {
                     log.debug("File [" + fileName
-                        + "] will just be moved as it is not a valid type");
+                            + "] will just be moved as it is not a valid type");
                 }
                 return false;
             }
@@ -674,19 +623,15 @@ public class RenamePackages {
      *
      * @return true if the file is a valid type, else false
      */
-    private String escape(String str)
-    {
+    private String escape(String str) {
         String newStr = "";
         char[] strArr = str.toCharArray();
 
-        for (int i = 0; i < strArr.length; i++)
-        {
-            if (strArr[i] == '.')
-            {
+        for (int i = 0; i < strArr.length; i++) {
+            if (strArr[i] == '.') {
                 newStr += "\\";
             }
-            if (strArr[i] == '\\')
-            {
+            if (strArr[i] == '\\') {
                 newStr += "\\";
             }
             newStr += strArr[i];
@@ -702,15 +647,14 @@ public class RenamePackages {
     /**
      * This method changes the name of any strings in the file and saves the
      * file back to disk
-     *
+     * <p/>
      * With paths, there may be both \ path delimiters or / so we need to run
      * the regex twice to ensure we have replaced both types
      *
      * @return the contents of the file after the package names have been
      *         changed
      */
-    private String changePackagePaths(String fileContents)
-    {
+    private String changePackagePaths(String fileContents) {
         String output = changeWindowsPaths(fileContents);
         output = changeUnixPaths(output);
         return output;
@@ -719,30 +663,26 @@ public class RenamePackages {
     /**
      * This method changes the name of any strings in the file and saves the
      * file back to disk
-     *
+     * <p/>
      * With paths, there may be both \ path delimiters or / so we need to run
      * the regex twice to ensure we have replaced both types
      *
      * @return the contents of the file after the package names have been
      *         changed
      */
-    private String changeUnixPaths(String fileContents)
-    {
+    private String changeUnixPaths(String fileContents) {
         if (debug) {
             log.debug("inside changeUnixPaths");
         }
 
         String patternStr;
 
-        if (newPkgPath.length() == 0)
-        {
+        if (newPkgPath.length() == 0) {
             patternStr = getUnixPath(existingPkgPath) + "/";
-        }
-        else
-        {
+        } else {
             if (debug) {
                 log.debug("before calling getUnixPath existingPkgPath is ["
-                    + existingPkgPath + "]");
+                        + existingPkgPath + "]");
             }
 
             patternStr = getUnixPath(existingPkgPath);
@@ -756,7 +696,7 @@ public class RenamePackages {
 
         if (debug) {
             log.debug("after escaping the search/match string is [" + patternStr
-                + "]");
+                    + "]");
             log.debug("newPkgPath is [" + newPkgPath + "] about to escape it");
         }
 
@@ -775,18 +715,14 @@ public class RenamePackages {
      *
      * @return the path
      */
-    private String getWindowsPath(String path)
-    {
+    private String getWindowsPath(String path) {
         String newStr = "";
         char[] strArr = path.toCharArray();
 
-        for (int i = 0; i < strArr.length; i++)
-        {
-            if (strArr[i] == '/')
-            {
+        for (int i = 0; i < strArr.length; i++) {
+            if (strArr[i] == '/') {
                 newStr += "\\";
-            } else
-            {
+            } else {
                 newStr += strArr[i];
             }
         }
@@ -804,8 +740,7 @@ public class RenamePackages {
      *
      * @return the path
      */
-    private String getUnixPath(String path)
-    {
+    private String getUnixPath(String path) {
         if (debug) {
             log.debug("inside getUnixPath with path [" + path + "]");
         }
@@ -813,13 +748,10 @@ public class RenamePackages {
         String newStr = "";
         char[] strArr = path.toCharArray();
 
-        for (int i = 0; i < strArr.length; i++)
-        {
-            if (strArr[i] == '\\')
-            {
+        for (int i = 0; i < strArr.length; i++) {
+            if (strArr[i] == '\\') {
                 newStr += "/";
-            } else
-            {
+            } else {
                 newStr += strArr[i];
             }
         }
@@ -834,30 +766,26 @@ public class RenamePackages {
     /**
      * This method changes the name of any strings in the file and saves the
      * file back to disk
-     *
+     * <p/>
      * With paths, there may be both \ path delimiters or / so we need to run
      * the regex twice to ensure we have replaced both types
      *
      * @return the contents of the file after the package names have been
      *         changed
      */
-    private String changeWindowsPaths(String fileContents)
-    {
+    private String changeWindowsPaths(String fileContents) {
         if (debug) {
             log.debug("inside changeWindowsPaths");
         }
 
         String patternStr;
 
-        if (newPkgPath.length() == 0)
-        {
+        if (newPkgPath.length() == 0) {
             patternStr = getWindowsPath(existingPkgPath) + "\\";
-        }
-        else
-        {
+        } else {
             if (debug) {
                 log.debug("existingPkgPath is currently [" + existingPkgPath
-                    + "] before calling getWindowsPath");
+                        + "] before calling getWindowsPath");
             }
 
             patternStr = getWindowsPath(existingPkgPath);
@@ -866,16 +794,16 @@ public class RenamePackages {
 
         if (debug) {
             log.debug("patternStr is [" + patternStr
-                + "] after calling getWindowsPath");
+                    + "] after calling getWindowsPath");
         }
 
         patternStr = escape(patternStr);
 
         if (debug) {
             log.debug("After escaping the pattern/search str it is [" + patternStr
-                + "]");
+                    + "]");
             log.debug("Before escaping and calling getWindowsPath the newPkgPath it is ["
-                + newPkgPath + "]");
+                    + newPkgPath + "]");
         }
 
         String replacementStr = escape(getWindowsPath(newPkgPath));
@@ -890,7 +818,7 @@ public class RenamePackages {
     /**
      * This method changes the name of any strings in the file and saves the
      * file back to disk
-     *
+     * <p/>
      * With paths, there may be both \ path delimiters or / so we need to run
      * the regex twice to ensure we have replaced both types
      *
@@ -898,8 +826,7 @@ public class RenamePackages {
      *         changed
      */
     private String performReplacement(String fileContents, String patternStr,
-            String replacementStr)
-    {
+                                      String replacementStr) {
         if (debug) {
             log.debug("replacing [" + patternStr + "] with [" + replacementStr + "]");
         }
@@ -924,16 +851,12 @@ public class RenamePackages {
      * @return the contents of the file after the package names have been
      *         changed
      */
-    private String changePackageNames(String fileContents)
-    {
+    private String changePackageNames(String fileContents) {
         String patternStr;
 
-        if (newPkgName.length() == 0)
-        {
+        if (newPkgName.length() == 0) {
             patternStr = existingPkgName + ".";
-        }
-        else
-        {
+        } else {
             patternStr = existingPkgName;
         }
         patternStr = escape(patternStr);
@@ -951,8 +874,7 @@ public class RenamePackages {
      *         changed
      */
     private String changePackageNamesInFile(String fileName,
-            boolean saveToSameFile) throws IOException
-    {
+                                            boolean saveToSameFile) throws IOException {
         if (debug) {
             log.debug("calling fromFile with fileName [" + fileName + "]");
         }
@@ -962,10 +884,8 @@ public class RenamePackages {
         String output = changePackageNames(inputStr);
         output = changePackagePaths(output);
 
-        if (saveToSameFile)
-        {
-            if (debug)
-            {
+        if (saveToSameFile) {
+            if (debug) {
                 log.debug("replaced package names in file and now saving it to ["
                         + fileName + "]");
             }
@@ -980,16 +900,12 @@ public class RenamePackages {
      *
      * @return the correct path to the file
      */
-    private String correctFileSeparators(String fileName)
-    {
+    private String correctFileSeparators(String fileName) {
         String localSeparator = File.separator;
 
-        if (localSeparator.equals("\\"))
-        {
+        if (localSeparator.equals("\\")) {
             return fileName.replace('/', '\\');
-        }
-        else
-        {
+        } else {
             return fileName.replace('\\', '/');
         }
     }
@@ -999,17 +915,14 @@ public class RenamePackages {
      * file back to disk, the difference is, it uses Spring Ant-style paths
      * to load the files
      */
-    private void renameOtherFiles()
-    {
+    private void renameOtherFiles() {
         if (debug) {
             log.debug("Inside renameOtherFiles");
         }
 
-        try
-        {
-            for (Iterator itFSets = filesets.iterator(); itFSets.hasNext(); )
-            {
-                FileSet fs = (FileSet)itFSets.next();
+        try {
+            for (Iterator itFSets = filesets.iterator(); itFSets.hasNext();) {
+                FileSet fs = (FileSet) itFSets.next();
                 fs.setDir(new File(workBaseDir));
 
                 if (debug) {
@@ -1029,14 +942,11 @@ public class RenamePackages {
                     log.debug("Got includedFiles [" + includedFiles + "]");
                 }
 
-                if (includedFiles != null)
-                {
-                    for(int i=0; i<includedFiles.length; i++) {
+                if (includedFiles != null) {
+                    for (int i = 0; i < includedFiles.length; i++) {
                         processOtherFile(includedFiles[i]);
                     }
-                }
-                else
-                {
+                } else {
                     if (debug) {
                         log.debug("Did not find any matching files for one of the filesets");
                     }
@@ -1044,8 +954,7 @@ public class RenamePackages {
                 }
             }
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
             log.error("Exception at end of renaming other files [" + e.getMessage()
                     + "]");
         }
@@ -1055,47 +964,40 @@ public class RenamePackages {
      * This method changes paths and package names in the given file
      */
 
-    private void processOtherFile(String fileName)
-    {
-        try
-        {
+    private void processOtherFile(String fileName) {
+        try {
             if (debug) {
                 log.debug("Processing file [" + fileName + "]");
             }
 
-            if (isValidFileType(fileName))
-            {
+            if (isValidFileType(fileName)) {
                 fileName = correctFileSeparators(fileName);
 
                 if (debug) {
                     log.debug("After correcting file separators fileName is ["
-                        + fileName + "]");
+                            + fileName + "]");
                     log.debug("file is valid so changing package names");
                 }
 
                 fileName = workBaseDir + File.separator + fileName;
                 changePackageNamesInFile(fileName,
-                    RenamePackages.SAVE_FILE);
+                        RenamePackages.SAVE_FILE);
 
                 if (debug) {
                     log.debug("processing change package names on other file ["
-                        + fileName + "]");
+                            + fileName + "]");
                 }
-            }
-            else
-            {
+            } else {
                 log.error("Not processing file [" + fileName + "] as it is not a valid type");
             }
         }
-        catch (FileNotFoundException f)
-        {
+        catch (FileNotFoundException f) {
             // continue and process next
             log.error("could not find resource from path ["
-                + fileName
-                + "]");
+                    + fileName
+                    + "]");
         }
-        catch (IOException e)
-        {
+        catch (IOException e) {
             log.error("IOException when renaming other files [" + e.getMessage() + "]");
         }
     }
@@ -1103,8 +1005,7 @@ public class RenamePackages {
     /**
      * This method removes directory structures
      */
-    public void deleteAll(String fileName)
-    {
+    public void deleteAll(String fileName) {
 
         File aFile = new File(fileName);
 
@@ -1112,15 +1013,12 @@ public class RenamePackages {
             log.debug("inside deleteAll with fileName [" + fileName + "]");
         }
 
-        if (aFile.exists())
-        {
+        if (aFile.exists()) {
             boolean isDir = aFile.isDirectory();
-            if (isDir)
-            {
+            if (isDir) {
                 String[] inFiles = aFile.list();
 
-                for (int fileNum = 0; fileNum < inFiles.length; fileNum++)
-                {
+                for (int fileNum = 0; fileNum < inFiles.length; fileNum++) {
                     String subFileName = fileName + File.separator
                             + inFiles[fileNum];
                     deleteAll(subFileName);
@@ -1131,20 +1029,15 @@ public class RenamePackages {
                 log.debug("About to delete file inside deleteAll [" + fileName + "]");
             }
 
-            if (aFile.delete())
-            {
+            if (aFile.delete()) {
                 if (debug) {
-                    if (isDir)
-                    {
+                    if (isDir) {
                         log.debug("Deleted dir [" + fileName + "]");
-                    } else
-                    {
+                    } else {
                         log.debug("Deleted file [" + fileName + "]");
                     }
                 }
-            }
-            else
-            {
+            } else {
                 log.error("Failed to delete file/dir [" + fileName + "]");
             }
         }
@@ -1152,9 +1045,8 @@ public class RenamePackages {
 
     private void refactorNonPackageFiles() {
 
-        try
-        {
-            String[] extensions = {"java","page","application","properties","tld","xml"};
+        try {
+            String[] extensions = {"java", "page", "application", "properties", "tld", "xml"};
 
             Iterator filesInMain = FileUtils.iterateFiles(new File(this.workBaseDir), extensions, true);
 
@@ -1171,20 +1063,16 @@ public class RenamePackages {
     /**
      * This is the main method that gets invoked when ANT calls this task
      */
-    public void execute()
-    {
-        try
-        {
+    public void execute() {
+        try {
 
-            if (newPkgName == null)
-            {
+            if (newPkgName == null) {
                 throw new BuildException(
                         "The new package path needs to be set using <renamepackages "
                                 + "newPkgName=\"${new.pkg.name}\"");
             }
 
-            if (baseDir == null)
-            {
+            if (baseDir == null) {
                 throw new BuildException(
                         "The base directory needs to be set using <renamepackages "
                                 + "baseDir=\"${src.base.dir}\"/>\n");
@@ -1230,27 +1118,22 @@ public class RenamePackages {
             }
 
             File workBaseDir = new File(this.workBaseDir);
-            if (workBaseDir.renameTo(new File(this.baseDir)))
-            {
+            if (workBaseDir.renameTo(new File(this.baseDir))) {
                 if (debug) {
                     log.info("Successfully renamed work dir back to base dir");
                 }
-            }
-            else
-            {
+            } else {
                 log.error("Error could not rename work dir");
             }
 
-	        // delete src/**/java/org if it exists
-	        deleteOrgPackage("main");
-	        deleteOrgPackage("test");
+            // delete src/**/java/org if it exists
+            deleteOrgPackage("main");
+            deleteOrgPackage("test");
         }
-        catch (IOException ioe)
-        {
+        catch (IOException ioe) {
             log.error("Caught an IO:" + ioe.getMessage());
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
             log.error("Uncaught exception caught [" + e.getMessage() + "]");
         }
 
@@ -1258,14 +1141,14 @@ public class RenamePackages {
         log.info("[AppFuse] Refactored all 'org.appfuse' packages and paths to '" + newPkgName + "'.");
     }
 
-	private void deleteOrgPackage(String path) {
-		File orgDir = new File(baseDir + "/" + path + "/java/org");
-		if (orgDir.isDirectory() && orgDir.list().length == 0) {
-			if (!orgDir.delete()) {
-				log.warn("Failed to delete '" + orgDir.getAbsolutePath() + "', please delete manually.");
-			}
-		}
-	}
+    private void deleteOrgPackage(String path) {
+        File orgDir = new File(baseDir + "/" + path + "/java/org");
+        if (orgDir.isDirectory() && orgDir.list().length == 0) {
+            if (!orgDir.delete()) {
+                log.warn("Failed to delete '" + orgDir.getAbsolutePath() + "', please delete manually.");
+            }
+        }
+    }
 
 }
 
