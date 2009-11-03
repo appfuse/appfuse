@@ -1,5 +1,8 @@
 package org.appfuse.tool;
 
+import java.io.File;
+import java.util.ArrayList;
+
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.plugin.logging.SystemStreamLog;
 import org.apache.maven.project.MavenProject;
@@ -11,9 +14,6 @@ import org.apache.tools.ant.taskdefs.Replace;
 import org.apache.tools.ant.taskdefs.optional.ReplaceRegExp;
 import org.apache.tools.ant.types.FileSet;
 import org.appfuse.mojo.installer.AntUtils;
-
-import java.io.File;
-import java.util.ArrayList;
 
 /**
  * This class is responsible for installing generated CRUD artifacts into an AppFuse application.
@@ -102,7 +102,7 @@ public class ArtifactInstaller {
 
     /**
      * This method will copy files from the source directory to the destination directory based on
-     * the pattenr.
+     * the pattern.
      *
      * @param inSourceDirectory      The source directory to copy from.
      * @param inDestinationDirectory The destination directory to copy to.

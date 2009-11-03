@@ -1,5 +1,21 @@
 package org.appfuse.mojo.installer;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
+import java.util.TreeSet;
+
 import org.apache.commons.beanutils.BeanComparator;
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.embedder.MavenEmbedder;
@@ -12,18 +28,12 @@ import org.apache.maven.project.MavenProject;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.Get;
 import org.apache.tools.ant.taskdefs.LoadFile;
+import org.apache.tools.ant.taskdefs.Move;
+import org.apache.tools.ant.types.FileSet;
 import org.appfuse.tool.RenamePackages;
 import org.appfuse.tool.SubversionUtils;
 import org.tmatesoft.svn.core.SVNErrorMessage;
 import org.tmatesoft.svn.core.SVNException;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.*;
 
 
 /**
@@ -108,6 +118,10 @@ public class InstallSourceMojo extends AbstractMojo {
             log("Installing source from service module...");
             export("service/src", (modular) ? "core/src" : destinationDirectory);
 
+	        // move Base*TestCase to test directory
+	        moveFiles((modular) ? "core/src/main" : destinationDirectory + "/main",
+			        (modular) ? "core/src/test" : destinationDirectory + "/test", "**/Base*TestCase.java");
+	        
             if (project.getPackaging().equalsIgnoreCase("jar")) {
                 // delete dao.framework related files from test directory
                 deleteFile("test/resources/hibernate.cfg.xml");
@@ -125,7 +139,7 @@ public class InstallSourceMojo extends AbstractMojo {
         if (project.getPackaging().equalsIgnoreCase("war")) {
             if (webFramework == null) {
                 getLog().error("The web.framework property is not specified - please modify your pom.xml to add " +
-                    " this property. For example: <web.framework>struts</web.framework>.");
+                        " this property. For example: <web.framework>struts</web.framework>.");
                 throw new MojoExecutionException("No web.framework property specified, please modify pom.xml to add it.");
             }
 
@@ -260,7 +274,7 @@ public class InstallSourceMojo extends AbstractMojo {
 
         for (Dependency dep : newDependencies) {
             if (dep.getArtifactId().equals("spring-test") || dep.getArtifactId().contains("jmock") ||
-                dep.getArtifactId().equals("junit") || dep.getArtifactId().equals("shale-test")) {
+                    dep.getArtifactId().equals("junit") || dep.getArtifactId().equals("shale-test")) {
                 dep.setOptional(true);
                 dep.setScope(null);
             }
@@ -392,11 +406,11 @@ public class InstallSourceMojo extends AbstractMojo {
             String packaging = project.getPackaging();
             String pathToPom = "pom.xml";
             if (project.hasParent()) {
-               if (packaging.equals("jar")) {
-                   pathToPom = "core/" + pathToPom;
-               } else if (packaging.equals("war")) {
-                   pathToPom = "web/" + pathToPom;
-               }
+                if (packaging.equals("jar")) {
+                    pathToPom = "core/" + pathToPom;
+                } else if (packaging.equals("war")) {
+                    pathToPom = "web/" + pathToPom;
+                }
             }
 
             String originalPom = FileUtils.readFileToString(new File(pathToPom));
@@ -435,9 +449,9 @@ public class InstallSourceMojo extends AbstractMojo {
             RenamePackages renamePackagesTool = new RenamePackages(project.getGroupId());
             if (project.hasParent()) {
                 if (project.getPackaging().equals("jar")) {
-                    renamePackagesTool.setBaseDir("core");
+                    renamePackagesTool.setBaseDir("core/src");
                 } else {
-                    renamePackagesTool.setBaseDir("web");
+                    renamePackagesTool.setBaseDir("web/src");
                 }
             }
 
@@ -448,7 +462,7 @@ public class InstallSourceMojo extends AbstractMojo {
         if (project.getPackaging().equals("war") && project.hasParent()) {
             // store sorted properties in a thread local for later retrieval
             Map properties = propertiesContextHolder.get();
-             // alphabetize the properties by key
+            // alphabetize the properties by key
             Set<String> propertiesToAdd = new TreeSet<String>(properties.keySet());
 
             StringBuffer calculatedProperties = new StringBuffer();
@@ -517,7 +531,7 @@ public class InstallSourceMojo extends AbstractMojo {
         // add new properties
         adjustedPom = adjustedPom.replace("</properties>\n</project>", LINE_SEP +
                 "        <!-- Properties calculated by AppFuse when running full-source plugin -->\n" +
-                        sortedProperties + "    </properties>\n</project>");
+                sortedProperties + "    </properties>\n</project>");
         adjustedPom = adjustedPom.replaceAll("<amp.fullSource>false</amp.fullSource>", "<amp.fullSource>true</amp.fullSource>");
 
         return adjustLineEndingsForOS(adjustedPom);
@@ -561,13 +575,13 @@ public class InstallSourceMojo extends AbstractMojo {
             SVNErrorMessage err = e.getErrorMessage();
 
             /*
-             * Display all tree of error messages.
-             * Utility method SVNErrorMessage.getFullMessage() may be used instead of the loop.
-             */
+                         * Display all tree of error messages.
+                         * Utility method SVNErrorMessage.getFullMessage() may be used instead of the loop.
+                         */
             while (err != null) {
                 getLog()
-                    .error(err.getErrorCode().getCode() + " : " +
-                    err.getMessage());
+                        .error(err.getErrorCode().getCode() + " : " +
+                                err.getMessage());
                 err = err.getChildErrorMessage();
             }
 
@@ -626,7 +640,7 @@ public class InstallSourceMojo extends AbstractMojo {
             Dependency dep = (Dependency) moduleDependency;
 
             if (dep.getGroupId().equals("javax.servlet") && dep.getArtifactId().equals("jsp-api")
-                && "jsf".equals(project.getProperties().getProperty("web.framework"))) {
+                    && "jsf".equals(project.getProperties().getProperty("web.framework"))) {
                 // skip adding dependency for old group id of jsp-api
                 continue;
             }
@@ -675,5 +689,23 @@ public class InstallSourceMojo extends AbstractMojo {
         loadFileTask.setSrcFile(new File(inFile));
 
         return loadFileTask;
+    }
+
+    /**
+     * This method will movie files from the source directory to the destination directory based on
+     * the pattern.
+     *
+     * @param inSourceDirectory      The source directory to copy from.
+     * @param inDestinationDirectory The destination directory to copy to.
+     * @param inPattern              The file pattern to match to locate files to copy.
+     */
+    protected void moveFiles(final String inSourceDirectory, final String inDestinationDirectory,
+                             final String inPattern) {
+        Move moveTask = (Move) antProject.createTask("move");
+
+        FileSet fileSet = AntUtils.createFileset(inSourceDirectory, inPattern, new ArrayList());
+        moveTask.setTodir(new File(inDestinationDirectory));
+        moveTask.addFileset(fileSet);
+        moveTask.execute();
     }
 }

@@ -1,17 +1,19 @@
 package org.appfuse.tool;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.plugin.logging.SystemStreamLog;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.DirectoryScanner;
 import org.apache.tools.ant.types.FileSet;
-
-import java.io.*;
-import java.util.Iterator;
-import java.util.Vector;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 /**
@@ -1221,16 +1223,7 @@ public class RenamePackages {
                 log.info("CheckSummary");
             }
 
-            // copy pom.xml to workBaseDir
-            FileUtils.copyFile(new File(baseDir + File.separator + "pom.xml"), 
-                    new File(workBaseDir + File.separator + "pom.xml"));
             deleteAll(this.baseDir);
-
-            // delete src/main/java/org if it exists and is empty
-            File orgDirectory = new File(workBaseDir + "src/main/java/org");
-            if (orgDirectory.exists() && orgDirectory.isDirectory() && orgDirectory.listFiles().length == 0) {
-                orgDirectory.delete();
-            }
 
             if (debug) {
                 log.info("Delete all");
@@ -1247,6 +1240,10 @@ public class RenamePackages {
             {
                 log.error("Error could not rename work dir");
             }
+
+	        // delete src/**/java/org if it exists
+	        deleteOrgPackage("main");
+	        deleteOrgPackage("test");
         }
         catch (IOException ioe)
         {
@@ -1260,6 +1257,15 @@ public class RenamePackages {
         // success!
         log.info("[AppFuse] Refactored all 'org.appfuse' packages and paths to '" + newPkgName + "'.");
     }
+
+	private void deleteOrgPackage(String path) {
+		File orgDir = new File(baseDir + "/" + path + "/java/org");
+		if (orgDir.isDirectory() && orgDir.list().length == 0) {
+			if (!orgDir.delete()) {
+				log.warn("Failed to delete '" + orgDir.getAbsolutePath() + "', please delete manually.");
+			}
+		}
+	}
 
 }
 
