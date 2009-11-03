@@ -42,11 +42,13 @@
         var version = document.getElementById("version").value;
         var webFramework = document.getElementById("webFramework").value;
         var archetypeArtifactId = "appfuse-";
-        if (document.getElementById("multi-module").checked) {
-            archetypeArtifactId += "modular-";
-        } else {
-            archetypeArtifactId += "basic-";
-        }
+        if (webFramework != "core") {
+            if (document.getElementById("multi-module").checked) {
+                archetypeArtifactId += "modular-";
+            } else {
+                archetypeArtifactId += "basic-";
+            }
+        } 
         archetypeArtifactId += webFramework;
         if (version.match(/.*SNAPSHOT/) || parseInt(version) > 2.1) archetypeArtifactId += "-archetype";
         var cmd = 'mvn archetype:generate -B -DarchetypeGroupId=org.appfuse.archetypes -DarchetypeArtifactId=' + archetypeArtifactId + ' -DarchetypeVersion=' + version + ' -DgroupId=' + groupId + ' -DartifactId=' + artifactId;
@@ -74,6 +76,7 @@
         </select><span title="AppFuse Version">&nbsp;(?)</span><br/>
         <label for="webFramework" title="Web Framework">Web Framework:</label>
         <select id="webFramework" onchange="changeIt();">
+            <option value="core">-- None --</coption>
             <option value="jsf">JSF</option>
             <option value="spring">Spring MVC</option>
             <option value="struts" selected="selected">Struts 2</option>
