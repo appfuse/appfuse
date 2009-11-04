@@ -4,7 +4,7 @@ package ${basepackage}.dao;
 
 import ${appfusepackage}.dao.BaseDaoTestCase;
 import ${basepackage}.model.${pojo.shortName};
-import <#if daoframework == "jpa">javax.persistence.EntityNotFoundException<#else>org.springframework.dao.DataAccessException</#if>;
+import org.springframework.dao.DataAccessException;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -20,7 +20,7 @@ public class ${pojo.shortName}DaoTest extends BaseDaoTestCase {
     private ${pojo.shortName}Dao ${pojoNameLower}Dao;
 
     @Test
-    @ExpectedException(<#if daoframework == "jpa">EntityNotFoundException<#else>DataAccessException</#if>.class)
+    @ExpectedException(DataAccessException.class)
     public void testAddAndRemove${pojo.shortName}() {
         ${pojo.shortName} ${pojoNameLower} = new ${pojo.shortName}();
 
@@ -46,7 +46,7 @@ public class ${pojo.shortName}DaoTest extends BaseDaoTestCase {
         ${pojoNameLower}Dao.remove(${pojoNameLower}.${getIdMethodName}());
         <#lt/><#if daoframework == "daoframework">flush();</#if><#rt/>
 
-        // should throw <#if daoframework == "jpa">EntityNotFoundException<#else>DataAccessException</#if> 
+        // should throw DataAccessException 
         ${pojoNameLower}Dao.get(${pojoNameLower}.${getIdMethodName}());
     }
 }

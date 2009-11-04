@@ -3,6 +3,7 @@ package ${basepackage}.dao.jpa;
 
 import ${basepackage}.model.${pojo.shortName};
 import ${basepackage}.dao.${pojo.shortName}Dao;
+import ${appfusepackage}.dao.jpa.GenericDaoJpa;
 import org.springframework.stereotype.Repository;
 
 @Repository("${pojoNameLower}Dao")

@@ -1,8 +1,5 @@
 package org.appfuse.tool;
 
-import java.io.File;
-import java.util.ArrayList;
-
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.plugin.logging.SystemStreamLog;
 import org.apache.maven.project.MavenProject;
@@ -15,8 +12,12 @@ import org.apache.tools.ant.taskdefs.optional.ReplaceRegExp;
 import org.apache.tools.ant.types.FileSet;
 import org.appfuse.mojo.installer.AntUtils;
 
+import java.io.File;
+import java.util.ArrayList;
+
 /**
  * This class is responsible for installing generated CRUD artifacts into an AppFuse application.
+ *
  * @author mraible
  */
 public class ArtifactInstaller {
@@ -51,11 +52,11 @@ public class ArtifactInstaller {
             copyGeneratedObjects(this.sourceDirectory, this.destinationDirectory, "**/dao/**/*.java");
             copyGeneratedObjects(this.sourceDirectory, this.destinationDirectory, "**/service/**/*.java");
             if (genericCore) {
-               log("Installing Spring bean definitions (since you have genericCore == true)...");
-               installGenericBeanDefinitions();
+                log("Installing Spring bean definitions (genericCore == true)...");
+                installGenericBeanDefinitions();
             } else {
-               // APF-1105: Changed to use Spring annotations (@Repository, @Service and @Autowired)
-               // installDaoAndManagerBeanDefinitions();
+                // APF-1105: Changed to use Spring annotations (@Repository, @Service and @Autowired)
+                //installDaoAndManagerBeanDefinitions();
             }
             // only installs if iBATIS is configured as dao.framework
             installiBATISFiles();
@@ -121,7 +122,7 @@ public class ArtifactInstaller {
     }
 
     private String pojoLowerCase(String name) {
-        return name.substring(0,1).toLowerCase()+ name.substring(1);
+        return name.substring(0, 1).toLowerCase() + name.substring(1);
     }
 
     private String getPathToApplicationContext() {
@@ -142,6 +143,7 @@ public class ArtifactInstaller {
         parseXMLFile(existingFile, null, "</dataset>", "sample.data");
     }
 
+    /* APF-1105: Changed to use Spring annotations (@Repository, @Service and @Autowired)
     private void installDaoAndManagerBeanDefinitions() {
         createLoadFileTask("src/main/resources/" + pojoName + "Dao-bean.xml", "dao.context.file").execute();
         File generatedFile = new File(destinationDirectory + getPathToApplicationContext());
@@ -152,7 +154,7 @@ public class ArtifactInstaller {
         generatedFile = new File(destinationDirectory + getPathToApplicationContext());
 
         parseXMLFile(generatedFile, pojoName + "Manager", "<!-- Add new Managers here -->", "mgr.context.file");
-    }
+    }*/
 
     private void installiBATISFiles() {
         if (project.getProperties().getProperty("dao.framework").equals("ibatis")) {
@@ -273,7 +275,7 @@ public class ArtifactInstaller {
 
     private void installInternationalizationKeys() {
         createLoadFileTask("src/main/resources/" + pojoName + "-ApplicationResources.properties", "i18n.file").execute();
-        File existingFile = new File(destinationDirectory +  "/src/main/resources/ApplicationResources.properties");
+        File existingFile = new File(destinationDirectory + "/src/main/resources/ApplicationResources.properties");
 
         parsePropertiesFile(existingFile, pojoName);
 
@@ -353,8 +355,9 @@ public class ArtifactInstaller {
     /**
      * This file is the same as the method above, except for different comment placeholder formats.
      * Yeah, I know, it's ugly.
+     *
      * @param existingFile file to merge with in project
-     * @param beanName name of placeholder string that goes in comment
+     * @param beanName     name of placeholder string that goes in comment
      */
     private void parsePropertiesFile(File existingFile, String beanName) {
         String nameInComment = beanName;
@@ -381,7 +384,7 @@ public class ArtifactInstaller {
         regExpTask.setFlags("g");
         regExpTask.execute();
     }
-    
+
     private static String adjustLineEndingsForOS(String property) {
         String os = System.getProperty("os.name");
 
@@ -407,7 +410,7 @@ public class ArtifactInstaller {
 
         return log;
     }
-    
+
     public void setProject(MavenProject project) {
         this.project = project;
     }

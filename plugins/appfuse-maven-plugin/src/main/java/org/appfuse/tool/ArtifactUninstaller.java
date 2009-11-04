@@ -4,13 +4,14 @@ import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.plugin.logging.SystemStreamLog;
 import org.apache.maven.project.MavenProject;
 import org.apache.tools.ant.Project;
-import org.apache.tools.ant.types.FileSet;
-import org.apache.tools.ant.taskdefs.*;
+import org.apache.tools.ant.taskdefs.Delete;
+import org.apache.tools.ant.taskdefs.Replace;
 import org.apache.tools.ant.taskdefs.optional.ReplaceRegExp;
+import org.apache.tools.ant.types.FileSet;
 import org.appfuse.mojo.installer.AntUtils;
 
-import java.util.ArrayList;
 import java.io.File;
+import java.util.ArrayList;
 
 /**
  * This class is responsible for removing generated CRUD artifacts from an AppFuse application.
@@ -36,25 +37,29 @@ public class ArtifactUninstaller {
     }
 
     public void execute() {
-        //log("Installing generated .java files...");
-        removeGeneratedFiles(installedDirectory, "**/" + pojoName + "*.java");
-
+        antProject = AntUtils.createProject();
+        
         log("Removing sample data for DbUnit...");
         removeSampleData();
 
         // install dao and manager if jar (modular/core) or war w/o parent (basic)
         if (project.getPackaging().equals("jar") || (project.getPackaging().equals("war") && project.getParent() == null)) {
-            log("Removing Spring bean definitions...");
+            removeGeneratedFiles(installedDirectory, "**/dao/**/" + pojoName + "*.java");
+            removeGeneratedFiles(installedDirectory, "**/service/**/" + pojoName + "*.java");
             if (genericCore) {
-               removeGenericBeanDefinitions();
+                log("Removing Spring bean definitions...");
+                removeGenericBeanDefinitions();
             } else {
-               removeDaoAndManagerBeanDefinitions();
+                // APF-1105: Changed to use Spring annotations (@Repository, @Service and @Autowired)
+                //removeDaoAndManagerBeanDefinitions();
             }
             // only installs if iBATIS is configured as dao.framework
             removeiBATISFiles();
         }
 
         if (project.getPackaging().equalsIgnoreCase("war")) {
+            removeGeneratedFiles(installedDirectory, "**/webapp/**/" + pojoName + "*.java");
+            
             String webFramework = project.getProperties().getProperty("web.framework");
 
             if ("jsf".equalsIgnoreCase(webFramework)) {
@@ -66,8 +71,8 @@ public class ArtifactUninstaller {
                 // A bean definition for an Action is not used anymore (APF-798)
                 // installStrutsBeanDefinition();
                 removeStrutsActionDefinitions();
-                removeGeneratedFiles(installedDirectory + "/src/main/resources", "**/model/*.xml");
-                removeGeneratedFiles(installedDirectory + "/src/main/resources", "**/webapp/action/*.xml");
+                removeGeneratedFiles(installedDirectory + "/src/main/resources", "**/model/" + pojoName + "*.xml");
+                removeGeneratedFiles(installedDirectory + "/src/main/resources", "**/webapp/action/" + pojoName + "*.xml");
                 removeStrutsViews();
             } else if ("spring".equalsIgnoreCase(webFramework)) {
                 log("Removing Spring views and configuring...");
@@ -94,10 +99,9 @@ public class ArtifactUninstaller {
      * This method will remove files from the source directory.
      *
      * @param installedDirectory The destination directory to copy to.
-     * @param removePattern  The file pattern to match to locate files to copy.
+     * @param removePattern      The file pattern to match to locate files to copy.
      */
     protected void removeGeneratedFiles(final String installedDirectory, final String removePattern) {
-        antProject = AntUtils.createProject();
         Delete deleteTask = (Delete) antProject.createTask("delete");
 
         FileSet fileSet = AntUtils.createFileset(installedDirectory, removePattern, new ArrayList());
@@ -107,7 +111,7 @@ public class ArtifactUninstaller {
     }
 
     private String pojoLowerCase(String name) {
-        return name.substring(0,1).toLowerCase()+ name.substring(1);
+        return name.substring(0, 1).toLowerCase() + name.substring(1);
     }
 
     private String getPathToApplicationContext() {
@@ -119,20 +123,21 @@ public class ArtifactUninstaller {
     }
 
     /**
-     * Add sample-data.xml to project's sample-data.xml
+     * Remove table from project's sample-data.xml
      */
     private void removeSampleData() {
         File existingFile = new File(installedDirectory + "/src/test/resources/sample-data.xml");
         parseXMLFile(existingFile, null);
     }
 
+    /* APF-1105: Changed to use Spring annotations (@Repository, @Service and @Autowired)
     private void removeDaoAndManagerBeanDefinitions() {
         File generatedFile = new File(installedDirectory + getPathToApplicationContext());
         parseXMLFile(generatedFile, pojoName + "Dao");
 
         generatedFile = new File(installedDirectory + getPathToApplicationContext());
         parseXMLFile(generatedFile, pojoName + "Manager");
-    }
+    }*/
 
     private void removeiBATISFiles() {
         if (project.getProperties().getProperty("dao.framework").equals("ibatis")) {
@@ -158,10 +163,10 @@ public class ArtifactUninstaller {
         File generatedFile = new File(installedDirectory + "/src/main/webapp/WEB-INF/faces-config.xml");
         parseXMLFile(generatedFile, pojoName + "-nav");
 
-        generatedFile = new File(installedDirectory + "/src/main/webapp/WEB-INF/faces-config.xml");
-        parseXMLFile(generatedFile, pojoName + "-beans");
+        // JSF managed beans configured by Spring annotations in 2.1+
+        //generatedFile = new File(installedDirectory + "/src/main/webapp/WEB-INF/faces-config.xml");
+        //parseXMLFile(generatedFile, pojoName + "-beans");
     }
-
 
     private void removeSpringControllerBeanDefinitions() {
         File generatedFile = new File(installedDirectory + "/src/main/webapp/WEB-INF/dispatcher-servlet.xml");
@@ -207,7 +212,7 @@ public class ArtifactUninstaller {
     }
 
     private void removeInternationalizationKeys() {
-        File existingFile = new File(installedDirectory +  "/src/main/resources/ApplicationResources.properties");
+        File existingFile = new File(installedDirectory + "/src/main/resources/ApplicationResources.properties");
         parsePropertiesFile(existingFile, pojoName);
     }
 
@@ -251,8 +256,9 @@ public class ArtifactUninstaller {
     /**
      * This file is the same as the method above, except for different comment placeholder formats.
      * Yeah, I know, it's ugly.
+     *
      * @param existingFile file to merge with in project
-     * @param beanName name of placeholder string that goes in comment
+     * @param beanName     name of placeholder string that goes in comment
      */
     private void parsePropertiesFile(File existingFile, String beanName) {
         String nameInComment = beanName;
