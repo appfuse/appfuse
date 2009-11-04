@@ -14,6 +14,13 @@ import ${appfusepackage}.service.GenericManager;
 import ${basepackage}.service.${pojo.shortName}Manager;
 </#if>
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+@Component("${pojoNameLower}Form")
+@Scope("request")
 public class ${pojo.shortName}Form extends BasePage implements Serializable {
 <#if genericcore>
     private GenericManager<${pojo.shortName}, ${identifierType}> ${pojoNameLower}Manager;
@@ -23,8 +30,9 @@ public class ${pojo.shortName}Form extends BasePage implements Serializable {
     private ${pojo.shortName} ${pojoNameLower} = new ${pojo.shortName}();
     private ${identifierType} ${pojo.identifierProperty.name};
 
+    @Autowired
 <#if genericcore>
-    public void set${pojo.shortName}Manager(GenericManager<${pojo.shortName}, ${identifierType}> ${pojoNameLower}Manager) {
+    public void set${pojo.shortName}Manager(@Qualifier("${pojoNameLower}Manager") GenericManager<${pojo.shortName}, ${identifierType}> ${pojoNameLower}Manager) {
 <#else>
     public void set${pojo.shortName}Manager(${pojo.shortName}Manager ${pojoNameLower}Manager) {
 </#if>
@@ -51,6 +59,10 @@ public class ${pojo.shortName}Form extends BasePage implements Serializable {
     }
 
     public String edit() {
+        // Workaround for not being able to set the id using ${'#'}{param.id} when using Spring-configured managed-beans
+        if (${pojo.identifierProperty.name} == null) {
+            ${pojo.identifierProperty.name} = new ${identifierType}(getParameter("${pojo.identifierProperty.name}"));
+        }
         // Comparison to zero (vs. null) is required with MyFaces 1.2.2, not with previous versions
         if (${pojo.identifierProperty.name} != null && ${pojo.identifierProperty.name} != 0) {
             ${pojoNameLower} = ${pojoNameLower}Manager.get(${pojo.identifierProperty.name});

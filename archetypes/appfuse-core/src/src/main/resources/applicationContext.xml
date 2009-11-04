@@ -10,4 +10,8 @@
 
     <!-- Activates scanning of @Repository and @Service -->
     <context:component-scan base-package="org.appfuse"/>
+
+    <!-- Add new DAOs here -->
+
+    <!-- Add new Managers here -->
 </beans>

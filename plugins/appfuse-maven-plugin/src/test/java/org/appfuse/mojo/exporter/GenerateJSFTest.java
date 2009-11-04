@@ -31,7 +31,8 @@ public final class GenerateJSFTest extends AbstractAppFuseMojoTestCase {
         assertTrue("can't find " + POJO_NAME + "Form.xhtml",
                 checkExists("target/appfuse/generated/src/main/webapp/" + POJO_NAME + "Form.xhtml"));
 
-        assertTrue("can't find " + POJO_NAME + "-managed-beans.xml",
+        // JSF managed beans configured by Spring annotations in 2.1+
+        assertFalse("found " + POJO_NAME + "-managed-beans.xml",
                 checkExists("target/appfuse/generated/src/main/webapp/WEB-INF/" + POJO_NAME + "-managed-beans.xml"));
 
         assertTrue("can't find " + POJO_NAME + "-navigation.xml",
@@ -71,7 +72,8 @@ public final class GenerateJSFTest extends AbstractAppFuseMojoTestCase {
         assertTrue("can't find " + POJO_NAME + "Form.xhtml",
                 checkExists("target/appfuse/generated/src/main/webapp/" + POJO_NAME + "Form.xhtml"));
 
-        assertTrue("can't find " + POJO_NAME + "-managed-beans.xml",
+        // JSF managed beans configured by Spring annotations in 2.1+
+        assertFalse("found " + POJO_NAME + "-managed-beans.xml",
                 checkExists("target/appfuse/generated/src/main/webapp/WEB-INF/" + POJO_NAME + "-managed-beans.xml"));
 
         assertTrue("can't find " + POJO_NAME + "-navigation.xml",

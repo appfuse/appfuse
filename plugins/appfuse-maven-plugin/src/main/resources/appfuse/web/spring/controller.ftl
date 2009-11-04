@@ -11,6 +11,8 @@ import ${basepackage}.service.${pojo.shortName}Manager;
 </#if>
 import ${basepackage}.model.${pojo.shortName};
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
@@ -21,8 +23,9 @@ public class ${pojo.shortName}Controller implements Controller {
     private ${pojo.shortName}Manager ${pojoNameLower}Manager;
 </#if>
 
+    @Autowired
 <#if genericcore>
-    public void set${pojo.shortName}Manager(GenericManager<${pojo.shortName}, ${pojo.getJavaTypeName(pojo.identifierProperty, jdk5)}> ${pojoNameLower}Manager) {
+    public void set${pojo.shortName}Manager(@Qualifier("${pojoNameLower}Manager") GenericManager<${pojo.shortName}, ${pojo.getJavaTypeName(pojo.identifierProperty, jdk5)}> ${pojoNameLower}Manager) {
 <#else>
     public void set${pojo.shortName}Manager(${pojo.shortName}Manager ${pojoNameLower}Manager) {
 </#if>

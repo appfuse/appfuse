@@ -50,13 +50,13 @@ public class ArtifactInstaller {
             copyGeneratedObjects(this.sourceDirectory, this.destinationDirectory, "**/model/**/*.java");
             copyGeneratedObjects(this.sourceDirectory, this.destinationDirectory, "**/dao/**/*.java");
             copyGeneratedObjects(this.sourceDirectory, this.destinationDirectory, "**/service/**/*.java");
-            // APF-1105: Changed to use Spring annotations (@Repository, @Service and @Autowired)
-            /*log("Installing Spring bean definitions...");
             if (genericCore) {
+               log("Installing Spring bean definitions (since you have genericCore == true)...");
                installGenericBeanDefinitions();
             } else {
-               installDaoAndManagerBeanDefinitions();
-            }*/
+               // APF-1105: Changed to use Spring annotations (@Repository, @Service and @Autowired)
+               // installDaoAndManagerBeanDefinitions();
+            }
             // only installs if iBATIS is configured as dao.framework
             installiBATISFiles();
         }
@@ -185,9 +185,10 @@ public class ArtifactInstaller {
         File generatedFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/faces-config.xml");
         parseXMLFile(generatedFile, pojoName + "-nav", "<!-- Add additional rules here -->", "navigation.rules");
 
-        createLoadFileTask("src/main/webapp/WEB-INF/" + pojoName + "-managed-beans.xml", "managed.beans").execute();
-        generatedFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/faces-config.xml");
-        parseXMLFile(generatedFile, pojoName + "-beans", "<!-- Add additional beans here -->", "managed.beans");
+        // JSF managed beans configured by Spring annotations in 2.1+
+        //createLoadFileTask("src/main/webapp/WEB-INF/" + pojoName + "-managed-beans.xml", "managed.beans").execute();
+        //generatedFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/faces-config.xml");
+        //parseXMLFile(generatedFile, pojoName + "-beans", "<!-- Add additional beans here -->", "managed.beans");
     }
 
     private void installSpringControllerBeanDefinitions() {

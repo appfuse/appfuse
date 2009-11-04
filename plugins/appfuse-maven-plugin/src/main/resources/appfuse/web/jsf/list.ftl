@@ -12,6 +12,13 @@ import ${appfusepackage}.service.GenericManager;
 import ${basepackage}.service.${pojo.shortName}Manager;
 </#if>
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+@Component("${pojoNameLower}List")
+@Scope("request")
 public class ${pojo.shortName}List extends BasePage implements Serializable {
 <#if genericcore>
     private GenericManager<${pojo.shortName}, ${pojo.getJavaTypeName(pojo.identifierProperty, jdk5)}> ${pojoNameLower}Manager;
@@ -19,8 +26,9 @@ public class ${pojo.shortName}List extends BasePage implements Serializable {
     private ${pojo.shortName}Manager ${pojoNameLower}Manager;
 </#if>
 
+    @Autowired
 <#if genericcore>
-    public void set${pojo.shortName}Manager(GenericManager<${pojo.shortName}, ${pojo.getJavaTypeName(pojo.identifierProperty, jdk5)}> ${pojoNameLower}Manager) {
+    public void set${pojo.shortName}Manager(@Qualifier("${pojoNameLower}Manager") GenericManager<${pojo.shortName}, ${pojo.getJavaTypeName(pojo.identifierProperty, jdk5)}> ${pojoNameLower}Manager) {
 <#else>
     public void set${pojo.shortName}Manager(${pojo.shortName}Manager ${pojoNameLower}Manager) {
 </#if>

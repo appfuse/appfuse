@@ -242,11 +242,9 @@
 
             <!-- Add snapshots=true since archetype plugin strips it out -->
             <replace file="@{dir}/target/generated-sources/archetype/src/main/resources/archetype-resources/pom.xml">
-                <replacetoken><![CDATA[<snapshots>
-            </snapshots>]]></replacetoken>
+                <replacetoken><![CDATA[<snapshots>]]></replacetoken>
                 <replacevalue><![CDATA[<snapshots>
-                <enabled>true</enabled>
-            </snapshots>]]></replacevalue>
+                <enabled>true</enabled>]]></replacevalue>
             </replace>
 
             <!-- Manually add ${package} to *.tld files -->
@@ -386,6 +384,13 @@
                 <include name="**/applicationContext.xml"/>
                 <replacetoken>base-package="org.appfuse"</replacetoken>
                 <replacevalue>base-package="${groupId}"</replacevalue>
+            </replace>
+
+            <!-- Replace ${groupId}.webapp with ${groupId} in applicationContext.xml -->
+            <replace dir="@{dir}/target/generated-sources/archetype">
+                <include name="**/applicationContext.xml"/>
+                <replacetoken>base-package="${package}.webapp"</replacetoken>
+                <replacevalue>base-package="${package}"</replacevalue>
             </replace>
 
             <mvn command="install" dir="@{dir}/target/generated-sources/archetype"/>

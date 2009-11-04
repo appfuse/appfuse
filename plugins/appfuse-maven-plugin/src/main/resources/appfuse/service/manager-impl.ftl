@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import javax.jws.WebService;
 
-@Service("${pojo.shortName}Manager")
+@Service("${pojoNameLower}Manager")
 @WebService(serviceName = "${pojo.shortName}Service", endpointInterface = "${basepackage}.service.${pojo.shortName}Manager")
 public class ${pojo.shortName}ManagerImpl extends GenericManagerImpl<${pojo.shortName}, ${pojo.getJavaTypeName(pojo.identifierProperty, jdk5)}> implements ${pojo.shortName}Manager {
     ${pojo.shortName}Dao ${pojoNameLower}Dao;

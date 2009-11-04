@@ -313,11 +313,12 @@
             </if>
             
             <changeDaoFramework name="@{name}" daoFramework="@{daoFramework}" hibernate3Config="@{hibernate3Config}"/>
-            
-            <!-- run gen install integration-test -->
+
+            <!-- test with generic core -->
             <maven dir="${test.dir}/@{name}" command="appfuse:gen -Dentity=Person -e"/>
             <maven dir="${test.dir}/@{name}" command="integration-test -Dsurefire.useFile=false"/>
-
+            <maven dir="${test.dir}/@{name}" command="appfuse:remove -Dentity=Person -Dskip.areyousure=true"/>
+            
             <!-- test w/o generic core -->
             <maven dir="${test.dir}/@{name}" command="appfuse:gen -Dentity=Person -Damp.genericCore=false"/>
             <maven dir="${test.dir}/@{name}" command="integration-test -Dsurefire.useFile=false"/>
