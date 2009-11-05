@@ -48,7 +48,7 @@
         <repository>
             <id>appfuse-releases</id>
             <name>AppFuse Release Repository</name>
-            <url>http://oss.sonatype.org/content/repositories/appfuse-releases</url>
+            <url>http://oss.sonatype.org/service/local/staging/deploy/maven2</url>
         </repository>
         <snapshotRepository>
             <id>appfuse-snapshots</id>
@@ -182,7 +182,7 @@
         <repository>
             <id>appfuse-releases</id>
             <name>AppFuse Release Repository</name>
-            <url>http://oss.sonatype.org/content/repositories/appfuse-releases</url>
+            <url>http://oss.sonatype.org/service/local/staging/deploy/maven2</url>
         </repository>
         <snapshotRepository>
             <id>appfuse-snapshots</id>

@@ -123,15 +123,15 @@
 
     <repositories>
         <repository>
-            <id>appfuse</id>
-            <url>http://oss.sonatype.org/content/repositories/appfuse-releases</url>
+            <id>appfuse-snapshots</id>
+            <url>http://oss.sonatype.org/service/local/staging/deploy/maven2</url>
         </repository>
     </repositories>
 
     <pluginRepositories>
         <pluginRepository>
-            <id>appfuse</id>
-            <url>http://oss.sonatype.org/content/repositories/appfuse-releases</url>
+            <id>appfuse-snapshots</id>
+            <url>http://oss.sonatype.org/service/local/staging/deploy/maven2</url>
         </pluginRepository>
     </pluginRepositories>
 
