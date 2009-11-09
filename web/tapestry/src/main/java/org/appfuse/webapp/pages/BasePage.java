@@ -51,7 +51,6 @@ public class BasePage {
     @Inject
     private Context context;
 
-
     protected void addError(Form form, Field field, String message, boolean flag, Object... args) {
         if (field == null || form == null) {
             return;

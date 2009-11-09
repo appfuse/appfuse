@@ -56,14 +56,13 @@ public class Login extends BasePage {
     private RenderSupport renderSupport;
 
     @Property
-    private String errorMessage = null;
+    private String errorMessage;
 
     void onActivate(String loginError) {
         if (AUTH_FAILED.equals(loginError)) {
             this.errorMessage = ((Exception) request
                     .getSession(true)
-                    .getAttribute(
-                            AbstractProcessingFilter.SPRING_SECURITY_LAST_EXCEPTION_KEY))
+                    .getAttribute(AbstractProcessingFilter.SPRING_SECURITY_LAST_EXCEPTION_KEY))
                     .getMessage();
             logger.error(String.format("Error while attempting to login: %s",
                     errorMessage));
@@ -95,9 +94,15 @@ public class Login extends BasePage {
 
     @SuppressWarnings("unchecked")
     public boolean isRememberMeEnabled() {
-        Map config = (HashMap) context.getAttribute(Constants.CONFIG);
-        if (config != null) {
-            return (config.get("rememberMeEnabled") != null);
+        try {
+            Map config = (HashMap) context.getAttribute(Constants.CONFIG);
+            if (config != null) {
+                return (config.get("rememberMeEnabled") != null);
+            }
+        } catch (UnsupportedOperationException uoe) {
+            // only happens in tests
+            // getAttribute() is not supported for ContextForPageTester
+            logger.warn(uoe.getMessage());
         }
         return false;
     }
@@ -130,5 +135,10 @@ public class Login extends BasePage {
 
     public String getCssTheme() {
         return context.getInitParameter(Constants.CSS_THEME);
+    }
+
+    // Used for testing to provide username for hidden link that Tapestry can click on
+    public String getUsername() {
+        return "admin";
     }
 }

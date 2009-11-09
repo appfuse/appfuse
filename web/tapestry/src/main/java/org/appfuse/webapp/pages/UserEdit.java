@@ -172,11 +172,8 @@ public class UserEdit extends BasePage {
         try {
             user = serviceFacade.getUserManager().saveUser(user);
         } catch (AccessDeniedException ade) {
-            // thrown by UserSecurityAdvice configured in aop:advisor
-            // userManagerSecurity
+            // thrown by UserSecurityAdvice configured in aop:advisor userManagerSecurity
             logger.warn(ade.getMessage());
-            //getResponse().sendError(HttpServletResponse.SC_FORBIDDEN);
-            //return null;
             return AccessDenied.class;
         } catch (UserExistsException e) {
             addError(form.getForm(), form.getEmailField(), "errors.existing.user", true,
@@ -186,8 +183,8 @@ public class UserEdit extends BasePage {
             return null;
         }
 
-        if (!form.isFromList()
-                && user.getUsername().equals(getRequest().getRemoteUser())) {
+        if (!form.isFromList() &&
+                (request != null && user.getUsername().equals(request.getRemoteUser()))) {
             // add success messages
             mainMenu.addInfo("user.saved", true, user.getFullName());
             return mainMenu;

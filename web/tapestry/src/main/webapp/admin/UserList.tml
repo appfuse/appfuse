@@ -5,18 +5,16 @@
     <t:messagebanner t:id="message" type="type"/>
     <p>
         <t:eventlink t:id="addTop">
-            <input type="button" class="button"
-                value="${message:button.add}" />
+            <input type="button" class="button" value="${message:button.add}" />
         </t:eventlink>
         <t:eventlink t:id="doneTop">
-            <input type="button" class="button"
-                value="${message:button.done}" />
+            <input type="button" class="button" value="${message:button.done}" />
         </t:eventlink>
     </p>
 
     <t:grid source="users" row="user" model="model" reorder="username,fullname,email,enabled" t:id="userList" id="userList" class="table">
         <t:parameter name="usernamecell">
-            <t:actionlink t:id="edit" context="user.id">
+            <t:actionlink t:id="edit" context="user.id" id="user-${user.username}">
                 ${user.username}
             </t:actionlink>
         </t:parameter>

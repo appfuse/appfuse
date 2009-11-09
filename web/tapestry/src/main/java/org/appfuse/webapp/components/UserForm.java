@@ -192,7 +192,7 @@ public class UserForm implements ClientElement {
     }
 
     public boolean isUserVersionNull() {
-        return (user != null ? user.getVersion() == null : true);
+        return (user == null || user.getVersion() == null);
     }
 
     public boolean isFromList() {

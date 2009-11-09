@@ -4,6 +4,7 @@ import org.apache.tapestry5.ioc.services.ThreadLocale;
 import org.apache.tapestry5.services.Context;
 import org.appfuse.Constants;
 import org.appfuse.model.LabelValue;
+import org.appfuse.model.Role;
 import org.appfuse.service.MailEngine;
 import org.appfuse.service.RoleManager;
 import org.appfuse.service.UserManager;
@@ -33,7 +34,6 @@ public class ServiceFacadeImpl implements ServiceFacade {
     private UserManager userManager;
     private RoleManager roleManager;
     private SimpleMailMessage mailMessage;
-    private Context context;
     private ThreadLocale threadLocale;
 
     public ServiceFacadeImpl(Logger logger, Context context, MailEngine mailEngine,
@@ -44,7 +44,6 @@ public class ServiceFacadeImpl implements ServiceFacade {
         this.userManager = userMgr;
         this.roleManager = roleMgr;
         this.mailMessage = mailMessage;
-        this.context = context;
         this.threadLocale = threadLocale;
     }
 
@@ -65,39 +64,30 @@ public class ServiceFacadeImpl implements ServiceFacade {
         return userManager;
     }
 
-
     @SuppressWarnings("unchecked")
     public List<String> getAvailableRoles() {
-
-        List<String> roles = null;
-        List<LabelValue> allRoles = (List<LabelValue>) context.getAttribute(Constants.AVAILABLE_ROLES);
-        if (allRoles != null) {
-            roles = new ArrayList<String>();
-            for (LabelValue bean : allRoles) {
-                roles.add(bean.getValue());
-            }
-
+        List<Role> roles = roleManager.getAll();
+        List<String> availableRoles = new ArrayList<String>();
+        for (Role role : roles) {
+            availableRoles.add(role.getName());
         }
-        return roles;
+        return availableRoles;
     }
 
     public Map<String, String> getAvailableCountries() {
-        Map<String, String> countries = null;
+        Map<String, String> countries = new HashMap<String, String>();
         Locale locale = threadLocale.getLocale();
-        if (countries == null) {
-            final String EMPTY = "";
-            countries = new HashMap<String, String>();
-            Locale[] availableLocales = Locale.getAvailableLocales();
+        final String EMPTY = "";
+        Locale[] availableLocales = Locale.getAvailableLocales();
 
-            for (Locale l : availableLocales) {
-                String name = l.getDisplayCountry(locale);
-                String iso = l.getCountry();
-                if (!EMPTY.equals(name) && !EMPTY.equals(iso)) {
-                    countries.put(iso, name);
-                }
+        for (Locale l : availableLocales) {
+            String name = l.getDisplayCountry(locale);
+            String iso = l.getCountry();
+            if (!EMPTY.equals(name) && !EMPTY.equals(iso)) {
+                countries.put(iso, name);
             }
-            logger.debug("Number of countries added: " + countries.size());
         }
+        logger.debug("Number of countries added: " + countries.size());
 
         // Sort by value
         Map<String, String> sortedCountries = new TreeMap<String, String>(new CountryComparator(countries, locale));
@@ -117,6 +107,7 @@ public class ServiceFacadeImpl implements ServiceFacade {
         /**
          * Creates a new CountryComparator object.
          *
+         * @param map of country and locale
          * @param locale The Locale used for localized String comparison.
          */
         public CountryComparator(Map<String, String> map, Locale locale) {

@@ -1,56 +1,91 @@
 package org.appfuse.webapp.pages;
 
-import org.junit.Ignore;
+import org.apache.tapestry5.dom.Element;
+import org.apache.tapestry5.dom.Node;
+import org.junit.Test;
+import org.subethamail.wiser.Wiser;
 
-@Ignore
-public class UserEditTest extends  BasePageTester {
-    // TODO: Rewrite test case using Tapestry5 built-in features
-//    private UserEdit page;
-//
-//    @Override
-//    protected void onSetUpBeforeTransaction() throws Exception {
-//        super.onSetUpBeforeTransaction();        
-//        // these can be mocked if you want a more "pure" unit test
-//        Map<String, Object> map = new HashMap<String, Object>();
-//        map.put("userManager", applicationContext.getBean("userManager"));
-//        map.put("roleManager", applicationContext.getBean("roleManager"));
-//        map.put("mailMessage", applicationContext.getBean("mailMessage"));
-//        map.put("mailEngine", applicationContext.getBean("mailEngine"));
-////        page = (UserForm) getPage(UserForm.class, map);
-//    }
-//
-//    @Override
-//    protected void onTearDownAfterTransaction() throws Exception {
-//        super.onTearDownAfterTransaction();
-//        page = null;
-//    }
-//    
-//    public void testCancel() throws Exception {
-//        page.setFrom("");
-//  //      ILink link = page.cancel(new MockRequestCycle());
-// //       assertEquals("mainMenu" + EXTENSION, link.getURL());
-//    }
-//    
-//    public void testSave() throws Exception {
-//        User user = ((UserManager) applicationContext.getBean("userManager")).getUser("-1");
-//        user.setPassword("user");
-//        user.setConfirmPassword("user");
-//        // FIXME: uncomment section below later
-////        page.setUser(user);
-////
-////  //      ILink link = page.save(new MockRequestCycle());
-////        assertNotNull(page.getUser());
-////        assertFalse(page.hasErrors());
-////        assertNull(page.getFrom());
-////  //      assertEquals("mainMenu" + EXTENSION, link.getURL());
-//    }
-//    
-//    public void testRemove() throws Exception {
-//        User user2Delete = new User();
-//        user2Delete.setId(-2L);
-//        // FIXME: uncomment section below later
-////        page.setUser(user2Delete);
-////  //      page.delete(new MockRequestCycle());
-////        assertFalse(page.hasErrors());
-//    }
+import java.util.List;
+
+public class UserEditTest extends BasePageTester {
+
+    @Test
+    public void testCancel() throws Exception {
+        doc = tester.renderPage("admin/UserList");
+        Element table = doc.getElementById("userList");
+        List<Node> rows = table.find("tbody").getChildren();
+        String username = "";
+
+        username = ((Element) rows.get(0)).find("td/a").getChildMarkup().trim();
+
+        Element idLink = table.getElementById("user-" + username);
+        doc = tester.clickLink(idLink);
+
+        Element cancelButton = doc.getElementById("cancel");
+        doc = tester.clickLink(cancelButton);
+        assertTrue(doc.toString().contains("User List"));
+    }
+
+    @Test
+    public void testSave() throws Exception {
+        doc = tester.renderPage("userEdit");
+
+        Element form = doc.getElementById("form");
+        assertNotNull(form);
+
+        fieldValues.put("username", "tapestry");
+        fieldValues.put("password", "isfun");
+        fieldValues.put("confirmPassword", "isfun");
+        fieldValues.put("passwordHint", "funstuff");
+        fieldValues.put("firstName", "Tapestry");
+        fieldValues.put("lastName", "5");
+        fieldValues.put("email", "tapestry@appfuse.org");
+        fieldValues.put("website", "http://tapestry.apache.org");
+        fieldValues.put("city", "Portland");
+        fieldValues.put("state", "OR");
+        fieldValues.put("postalCode", "97303");
+        fieldValues.put("country", "US");
+
+        // start SMTP Server
+        Wiser wiser = new Wiser();
+        wiser.setPort(getSmtpPort());
+        wiser.start();
+        
+        doc = tester.submitForm(form, fieldValues);
+
+        Element errors = doc.getElementById("errorMessages");
+
+        if (errors != null) {
+            System.out.println(errors);
+        }
+
+        assertNull(doc.getElementById("errorMessages"));
+
+        // verify an account information e-mail was sent
+        wiser.stop();
+        assertTrue(wiser.getMessages().size() == 1);
+
+        Element successMessages = doc.getElementById("successMessages");
+        assertNotNull(successMessages);
+        assertTrue(successMessages.toString().contains("added successfully"));
+        Element table = doc.getElementById("userList");
+        assertTrue(table.toString().contains("tapestry"));
+    }
+
+    @Test
+    public void testRemove() throws Exception {
+        doc = tester.renderPage("admin/UserList");
+        Element table = doc.getElementById("userList");
+        List<Node> rows = table.find("tbody").getChildren();
+        String username = "";
+
+        username = ((Element) rows.get(1)).find("td/a").getChildMarkup().trim();
+
+        Element idLink = table.getElementById("user-" + username);
+        doc = tester.clickLink(idLink);
+
+        Element deleteButton = doc.getElementById("delete");
+        doc = tester.clickSubmit(deleteButton, fieldValues);
+        assertTrue(doc.toString().contains("deleted successfully"));
+    }
 }

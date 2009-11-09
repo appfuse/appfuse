@@ -1,45 +1,31 @@
 package org.appfuse.webapp.pages;
 
+import org.junit.Test;
 import org.junit.Ignore;
+import org.subethamail.wiser.Wiser;
+import org.apache.tapestry5.dom.Element;
 
-@Ignore
-public class PasswordHintTest  extends BasePageTester {
+public class PasswordHintTest extends BasePageTester {
 
-// TODO: Rewrite test case using Tapestry5 built-in features
-//    private PasswordHint page;
-//
-//    @Override
-//    protected void onSetUpBeforeTransaction() throws Exception {
-//        super.onSetUpBeforeTransaction();
-//        // these can be mocked if you want a more "pure" unit test
-//        Map<String, Object> map = new HashMap<String, Object>();
-//        map.put("userManager", applicationContext.getBean("userManager"));
-//        map.put("mailEngine", applicationContext.getBean("mailEngine"));
-//        map.put("mailMessage", applicationContext.getBean("mailMessage"));
-//      //  page = (PasswordHint) getPage(PasswordHint.class, map);
-//    }
-//
-//    @Override
-//    protected void onTearDownAfterTransaction() throws Exception {
-//        super.onTearDownAfterTransaction();
-//        page = null;
-//    }
-//    
-//    public void testExecute() throws Exception {
-//        // start SMTP Server
-//        Wiser wiser = new Wiser();
-//        wiser.setPort(getSmtpPort());
-//        wiser.start();
-//    //    page.execute("user");
-//        
-//        assertFalse(page.hasErrors());
-//
-//        // verify an account information e-mail was sent
-//        wiser.stop();
-//        assertTrue(wiser.getMessages().size() == 1);
-//        
-//        // verify that success messages are in the request
-//  //      assertNotNull(page.getSession().getAttribute("message"));
-//    }
+    @Test
+    public void testActivate() throws Exception {
+        // start SMTP Server
+        Wiser wiser = new Wiser();
+        wiser.setPort(getSmtpPort());
+        wiser.start();
+
+        doc = tester.renderPage("Login");
+
+        Element hintLink = doc.getElementById("passwordHint");
+        assertNotNull("link exists", hintLink);
+        doc = tester.clickLink(hintLink);
+
+        // verify an account information e-mail was sent
+        wiser.stop();
+        assertTrue(wiser.getMessages().size() == 1);
+        
+        assertTrue(doc.getElementById("successMessages").toString()
+                .contains("The password hint for admin has been sent to"));
+    }
 
 }

@@ -94,6 +94,9 @@
                         </resource>
                         <resource>
                             <directory>../common/target/classes</directory>
+                            <excludes>
+                                <exclude>ApplicationResources*</exclude>
+                            </excludes>
                             <targetPath>WEB-INF/classes</targetPath>
                         </resource>
                     </webResources>
@@ -109,6 +112,28 @@
                         <configuration>
                             <warSourceExcludes>WEB-INF/lib/**</warSourceExcludes>
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.3</version>
+                <executions>
+                    <execution>
+                        <id>default-resources</id>
+                        <phase>process-resources</phase>
+                        <configuration>
+                            <tasks>
+                                <echo>Copying i18n files...</echo>
+                                <copy todir="src/main/webapp/WEB-INF">
+                                    <globmapper from="ApplicationResources*" to="app*"/>
+                                    <fileset dir="../common/src/main/resources" includes="ApplicationResources*"/>
+                                </copy>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
@@ -249,30 +274,31 @@
                     <plugin>
                         <artifactId>maven-antrun-plugin</artifactId>
                         <version>1.3</version>
-                        <configuration>
-                            <tasks>
-                                <taskdef resource="webtest_base_relaxed.taskdef">
-                                    <classpath refid="maven.test.classpath"/>
-                                </taskdef>
-                                <mkdir dir="target/webtest-data"/>
-                                <!-- Delete old results file if it exists -->
-                                <delete file="target/webtest-data/web-tests-result.xml"/>
-                                <!-- This is so the default will be used if no test case is specified -->
-                                <property name="test" value="run-all-tests"/>
-                                <property name="i18n.classpath" value="${basedir}/../common/target/classes"/>
-                                <echo level="info">Testing '${project.build.finalName}' with locale '${user.language}'
-                                </echo>
-                                <ant antfile="src/test/resources/web-tests.xml" target="${test}">
-                                    <property name="user.language" value="${user.language}"/>
-                                    <property name="webapp.name" value="${project.build.finalName}"/>
-                                    <property name="host" value="${cargo.host}"/>
-                                    <property name="port" value="${cargo.port}"/>
-                                </ant>
-                            </tasks>
-                        </configuration>
                         <executions>
                             <execution>
                                 <phase>integration-test</phase>
+                                <configuration>
+                                    <tasks>
+                                        <taskdef resource="webtest_base_relaxed.taskdef">
+                                            <classpath refid="maven.test.classpath"/>
+                                        </taskdef>
+                                        <mkdir dir="target/webtest-data"/>
+                                        <!-- Delete old results file if it exists -->
+                                        <delete file="target/webtest-data/web-tests-result.xml"/>
+                                        <!-- This is so the default will be used if no test case is specified -->
+                                        <property name="test" value="run-all-tests"/>
+                                        <property name="i18n.classpath" value="${basedir}/../common/target/classes"/>
+                                        <echo level="info">
+                                            Testing '${project.build.finalName}' with locale '${user.language}'
+                                        </echo>
+                                        <ant antfile="src/test/resources/web-tests.xml" target="${test}">
+                                            <property name="user.language" value="${user.language}"/>
+                                            <property name="webapp.name" value="${project.build.finalName}"/>
+                                            <property name="host" value="${cargo.host}"/>
+                                            <property name="port" value="${cargo.port}"/>
+                                        </ant>
+                                    </tasks>
+                                </configuration>
                                 <goals>
                                     <goal>run</goal>
                                 </goals>

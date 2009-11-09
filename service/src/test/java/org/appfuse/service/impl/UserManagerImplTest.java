@@ -18,7 +18,7 @@ import org.springframework.test.annotation.ExpectedException;
 public class UserManagerImplTest extends BaseManagerMockTestCase {
     //~ Instance fields ========================================================
     private UserManagerImpl userManager = new UserManagerImpl();
-    private RoleManagerImpl roleManager = new RoleManagerImpl();
+    private RoleManagerImpl roleManager;
     private UserDao userDao;
     private RoleDao roleDao;
 
@@ -28,7 +28,7 @@ public class UserManagerImplTest extends BaseManagerMockTestCase {
         userDao = context.mock(UserDao.class);
         userManager.setUserDao(userDao);
         roleDao = context.mock(RoleDao.class);
-        roleManager.roleDao = roleDao;
+        roleManager = new RoleManagerImpl(roleDao);
     }
 
     @Test

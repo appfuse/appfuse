@@ -16,14 +16,19 @@ import org.springframework.stereotype.Service;
  */
 @Service("roleManager")
 public class RoleManagerImpl extends GenericManagerImpl<Role, Long> implements RoleManager {
-    @Autowired
     RoleDao roleDao;
+
+    @Autowired
+    public RoleManagerImpl(RoleDao roleDao) {
+        super(roleDao);
+        this.roleDao = roleDao;
+    }
 
     /**
      * {@inheritDoc}
      */
     public List<Role> getRoles(Role role) {
-        return roleDao.getAll();
+        return dao.getAll();
     }
 
     /**

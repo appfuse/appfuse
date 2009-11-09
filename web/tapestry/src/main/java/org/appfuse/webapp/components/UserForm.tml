@@ -3,10 +3,10 @@
 
     <t:unless test="${signup}">
 
-        <input id="from" type="hidden" value="${from}"/>
-        <input id="id" type="hidden" value="${user.id}"/>
-        <input id="version" type="hidden" value="${user.version}"/>
-        <input id="originalPassword" type="hidden" value="${user.password}"/>
+        <input name="from" type="hidden" value="${from}"/>
+        <input name="id" type="hidden" value="${user.id}"/>
+        <input name="version" type="hidden" value="${user.version}"/>
+        <input name="originalPassword" type="hidden" value="${user.password}"/>
         
         <t:if test="userVersionNull">
             <input type="hidden" name="encryptPass" value="true"/>
@@ -19,14 +19,10 @@
             <li class="buttonBar right">
                 <input type="submit" id="saveTop" class="button" value="${submitLabel}"/>
                 <t:if test="user.username">
-                    <!--            <t:eventlink t:id="deleteTop">-->
-                    <!--            <input type="button" class="button" value="${message:button.delete}"-->
-                    <!--                 onclick="form.onsubmit = null; return confirmDelete('User')"/>-->
-                    <!--            </t:eventlink>-->
                     <input t:type="submit" t:id="deleteTop" class="button" value="${message:button.delete}"
                            onclick="return confirmDelete('User')"/>
                 </t:if>
-                <t:eventlink t:id="cancelTop">
+                <t:eventlink t:id="cancelTop" id="cancel">
                     <input type="submit" class="button" value="${message:button.cancel}"
                            onclick="form.onsubmit = null"/>
                 </t:eventlink>
@@ -195,7 +191,7 @@
             <t:unless test="${signup}">
                 <t:if test="user.username">
                     <input t:type="submit" t:id="deleteBottom" class="button" value="${message:button.delete}"
-                           onclick="form.onsubmit = null; return confirmDelete('User')"/>
+                           id="delete" onclick="form.onsubmit = null; return confirmDelete('User')"/>
                 </t:if>
             </t:unless>
             <t:eventlink t:id="cancelBottom">
@@ -210,7 +206,4 @@
     Form.focusFirstElement($("${clientId}"));
     highlightFormElements();
 </script>
-
-
-    CookieLogin: ${cookieLogin}
 </t:container>

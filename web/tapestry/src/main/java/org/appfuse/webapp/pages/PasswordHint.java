@@ -1,9 +1,12 @@
 package org.appfuse.webapp.pages;
 
 import org.apache.tapestry5.annotations.InjectPage;
+import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.Response;
+import org.apache.tapestry5.internal.test.TestableRequest;
 import org.appfuse.model.User;
 import org.appfuse.webapp.services.ServiceFacade;
 import org.appfuse.webapp.util.RequestUtil;
@@ -27,17 +30,10 @@ public class PasswordHint extends BasePage {
     @Inject
     private ServiceFacade serviceFacade;
 
-    @Inject
-    private Request request;
-
-    @Inject
-    private Response response;
-
     @InjectPage
     private Login login;
 
-    Object onActivate() {
-        String username = getRequest().getParameter("username");
+    Object onActivate(String username) {
         // ensure that the username has been sent
         if (username == null || "".equals(username)) {
             logger.warn("Username not specified, notifying user that it's a required field.");
@@ -64,7 +60,7 @@ public class PasswordHint extends BasePage {
             message.setSubject(subject);
             message.setText(msg.toString());
             serviceFacade.getMailEngine().send(message);
-
+            
             login.addInfo("login.passwordHint.sent", true, username, user.getEmail());
         } catch (UsernameNotFoundException e) {
             logger.warn(e.getMessage());
