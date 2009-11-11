@@ -2,12 +2,13 @@ package org.appfuse.webapp.pages;
 
 import org.apache.tapestry5.dom.Element;
 import org.apache.tapestry5.dom.Node;
+import static org.junit.Assert.*;
 import org.junit.Test;
 import org.subethamail.wiser.Wiser;
 
 import java.util.List;
 
-public class UserEditTest extends BasePageTester {
+public class UserEditTest extends BasePageTestCase {
 
     @Test
     public void testCancel() throws Exception {
@@ -62,8 +63,8 @@ public class UserEditTest extends BasePageTester {
         assertNull(doc.getElementById("errorMessages"));
 
         // verify an account information e-mail was sent
+        assertEquals(1, wiser.getMessages().size());
         wiser.stop();
-        assertTrue(wiser.getMessages().size() == 1);
 
         Element successMessages = doc.getElementById("successMessages");
         assertNotNull(successMessages);

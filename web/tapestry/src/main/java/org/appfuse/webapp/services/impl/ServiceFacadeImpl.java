@@ -47,7 +47,6 @@ public class ServiceFacadeImpl implements ServiceFacade {
         this.threadLocale = threadLocale;
     }
 
-
     public MailEngine getMailEngine() {
         return mailEngine;
     }

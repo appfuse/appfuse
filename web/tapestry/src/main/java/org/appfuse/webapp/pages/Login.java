@@ -136,9 +136,4 @@ public class Login extends BasePage {
     public String getCssTheme() {
         return context.getInitParameter(Constants.CSS_THEME);
     }
-
-    // Used for testing to provide username for hidden link that Tapestry can click on
-    public String getUsername() {
-        return "admin";
-    }
 }

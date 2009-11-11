@@ -37,7 +37,8 @@ public class Signup extends BasePage {
     @Inject
     private ServiceFacade serviceFacade;
 
-    @Property @Persist
+    @Property
+    @Persist
     private User user;
 
     @Inject
@@ -87,8 +88,7 @@ public class Signup extends BasePage {
         user.setEnabled(true);
 
         // Set the default user role on this new user
-        user.addRole(serviceFacade.getRoleManager()
-                .getRole(Constants.USER_ROLE));
+        user.addRole(serviceFacade.getRoleManager().getRole(Constants.USER_ROLE));
 
         try {
             user = serviceFacade.getUserManager().saveUser(user);

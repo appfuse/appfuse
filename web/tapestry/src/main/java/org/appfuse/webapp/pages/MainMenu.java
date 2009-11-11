@@ -8,6 +8,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.appfuse.model.User;
 import org.appfuse.webapp.data.UserSession;
 import org.appfuse.webapp.services.ServiceFacade;
+import org.appfuse.service.UserManager;
 import org.slf4j.Logger;
 import org.springframework.security.Authentication;
 import org.springframework.security.context.SecurityContextHolder;
@@ -26,7 +27,7 @@ public class MainMenu extends BasePage {
     private Logger logger;
 
     @Inject
-    private ServiceFacade serviceFacade;
+    private UserManager userManager;
 
     @InjectPage
     private UserEdit userEdit;
@@ -67,7 +68,7 @@ public class MainMenu extends BasePage {
         if (user == null) {
             String username = getRequest().getRemoteUser();
             logger.debug("fetching user profile: " + username);
-            user = serviceFacade.getUserManager().getUserByUsername(username);
+            user = userManager.getUserByUsername(username);
         }
 
         user.setConfirmPassword(user.getPassword());

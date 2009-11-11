@@ -1,7 +1,5 @@
 package org.appfuse.webapp.pages.admin;
 
-import java.util.List;
-
 import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.InjectPage;
@@ -20,6 +18,8 @@ import org.appfuse.webapp.pages.MainMenu;
 import org.appfuse.webapp.pages.UserEdit;
 import org.slf4j.Logger;
 
+import java.util.List;
+
 /**
  * @author Serge Eby
  * @version $Id: UserList.java 5 2008-08-30 09:59:21Z serge.eby $
@@ -29,14 +29,13 @@ public class UserList extends BasePage {
     private final static String[] COLUMNS = {"username", "email", "enabled"};
 
     @Inject
-    private Logger log;
+    private Logger logger;
 
     @Inject
     private Messages messages;
 
     @Inject
     private UserManager userManager;
-
 
     @Property
     private BeanModel<User> model;
@@ -70,13 +69,9 @@ public class UserList extends BasePage {
         model.get("fullname").label(messages.get("activeUsers.fullName"));
     }
 
-    public UserManager getUserManager() {
-        return userManager;
-    }
-
     @SuppressWarnings("unchecked")
     public List<User> getUsers() {
-        return getUserManager().getUsers();
+        return userManager.getUsers();
     }
 
     Object onAdd() {
@@ -92,13 +87,11 @@ public class UserList extends BasePage {
     }
 
     Object onActionFromEdit(Long id) {
-        log.debug("fetching user with id: " + id);
-        User user = getUserManager().getUser("" + id);
+        logger.debug("fetching user with id: " + id);
+        User user = userManager.getUser("" + id);
         user.setConfirmPassword(user.getPassword());
         userEdit.setUser(user);
         userEdit.setFrom("list");
         return userEdit;
     }
-
-
 }

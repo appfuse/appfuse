@@ -140,7 +140,6 @@ public class BasePage {
         }
     }
 
-
     protected String getMessageText(String key, Object... args) {
         if (args == null) {
             return getMessages().get(key);
@@ -149,7 +148,6 @@ public class BasePage {
         String msg = MessageUtil.convert(messages.get(key));
         return String.format(msg, args);
     }
-
 
     public Messages getMessages() {
         return messages;

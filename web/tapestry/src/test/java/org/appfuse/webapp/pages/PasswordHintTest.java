@@ -1,11 +1,10 @@
 package org.appfuse.webapp.pages;
 
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
-import org.junit.Ignore;
 import org.subethamail.wiser.Wiser;
-import org.apache.tapestry5.dom.Element;
 
-public class PasswordHintTest extends BasePageTester {
+public class PasswordHintTest extends BasePageTestCase {
 
     @Test
     public void testActivate() throws Exception {
@@ -14,16 +13,12 @@ public class PasswordHintTest extends BasePageTester {
         wiser.setPort(getSmtpPort());
         wiser.start();
 
-        doc = tester.renderPage("Login");
-
-        Element hintLink = doc.getElementById("passwordHint");
-        assertNotNull("link exists", hintLink);
-        doc = tester.clickLink(hintLink);
+        doc = tester.renderPage("passwordHint/admin");
 
         // verify an account information e-mail was sent
         wiser.stop();
         assertTrue(wiser.getMessages().size() == 1);
-        
+
         assertTrue(doc.getElementById("successMessages").toString()
                 .contains("The password hint for admin has been sent to"));
     }

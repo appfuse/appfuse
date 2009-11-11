@@ -45,8 +45,8 @@
     <context-param>
         <param-name>tapestry.use-external-spring-context</param-name>
         <param-value>true</param-value>
-    </context-param> 
-    
+    </context-param>
+
     <filter>
         <filter-name>encodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>

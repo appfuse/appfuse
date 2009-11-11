@@ -1,11 +1,12 @@
 package org.appfuse.webapp.pages;
 
 import org.apache.tapestry5.dom.Element;
+import static org.junit.Assert.*;
 import org.junit.Test;
 import org.springframework.security.context.SecurityContextHolder;
 import org.subethamail.wiser.Wiser;
 
-public class SignupTest extends BasePageTester {
+public class SignupTest extends BasePageTestCase {
 
     @Test
     public void testSignup() {
@@ -39,8 +40,8 @@ public class SignupTest extends BasePageTester {
         assertFalse(doc.toString().contains("exception"));
 
         // verify an account information e-mail was sent
+        assertEquals(1, wiser.getMessages().size());
         wiser.stop();
-        assertTrue(wiser.getMessages().size() == 1);
 
         SecurityContextHolder.getContext().setAuthentication(null);
     }

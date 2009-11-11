@@ -1,12 +1,7 @@
 package org.appfuse.webapp.pages;
 
 import org.apache.tapestry5.annotations.InjectPage;
-import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.apache.tapestry5.services.Request;
-import org.apache.tapestry5.services.Response;
-import org.apache.tapestry5.internal.test.TestableRequest;
 import org.appfuse.model.User;
 import org.appfuse.webapp.services.ServiceFacade;
 import org.appfuse.webapp.util.RequestUtil;

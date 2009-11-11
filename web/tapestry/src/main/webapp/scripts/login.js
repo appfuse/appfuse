@@ -16,5 +16,5 @@ function passwordHint() {
     if (document.location.toString().indexOf("error") > -1) {
         prefix = "../";
     }
-    location.href = prefix + "passwordhint?username=" + $("j_username").value;
+    location.href = prefix + "passwordhint/" + $("j_username").value;
 }

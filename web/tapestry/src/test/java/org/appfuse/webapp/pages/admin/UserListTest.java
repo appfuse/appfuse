@@ -1,9 +1,11 @@
 package org.appfuse.webapp.pages.admin;
 
-import org.appfuse.webapp.pages.BasePageTester;
+import org.appfuse.webapp.pages.BasePageTestCase;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
-public class UserListTest extends BasePageTester {
+public class UserListTest extends BasePageTestCase {
 
     @Test
     public void testListUsers() {

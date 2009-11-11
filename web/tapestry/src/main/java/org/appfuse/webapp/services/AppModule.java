@@ -40,10 +40,8 @@ public class AppModule {
     public static void bind(ServiceBinder binder) {
         // binder.bind(MyServiceInterface.class, MyServiceImpl.class);
 
-        // Make bind() calls on the binder object to define most IoC
-        // services.
-        // Use service builder methods (example below) when the
-        // implementation
+        // Make bind() calls on the binder object to define most IoC services.
+        // Use service builder methods (example below) when the implementation
         // is provided inline, or requires more initialization than simply
         // invoking the constructor.
     }
@@ -58,13 +56,10 @@ public class AppModule {
         // Turn off GZip Compression since it causes issues with SiteMesh
         configuration.add(SymbolConstants.GZIP_COMPRESSION_ENABLED, "false");
 
-        // The factory default is true but during the early stages of an
-        // application
-        // overriding to false is a good idea. In addition, this is often
-        // overridden
+        // The factory default is true but during the early stages of an application
+        // overriding to false is a good idea. In addition, this is often overridden
         // on the command line as -Dtapestry.production-mode=false
         configuration.add(SymbolConstants.PRODUCTION_MODE, "false");
-
     }
 
     /**
@@ -119,8 +114,7 @@ public class AppModule {
         }
 
         return new RequestExceptionHandler() {
-            public void handleRequestException(Throwable exception)
-                    throws IOException {
+            public void handleRequestException(Throwable exception) throws IOException {
                 logger.error("Unexpected runtime exception: " + exception.getMessage(), exception);
                 ExceptionReporter error = (ExceptionReporter) componentSource.getPage("Error");
                 error.reportException(exception);

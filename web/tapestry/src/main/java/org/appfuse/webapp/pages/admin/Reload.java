@@ -16,9 +16,6 @@ import org.slf4j.Logger;
  */
 public class Reload extends BasePage {
 
-    @Inject
-    private Logger logger;
-
     @InjectPage
     private MainMenu mainMenu;
 

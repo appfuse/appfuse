@@ -48,8 +48,4 @@
     <p>
         <t:outputraw value="${message:login.passwordHint}"/>
     </p>
-
-    <span style="display: none">
-        <t:pagelink page="passwordhint" context="username" id="passwordHint">Password Hint</t:pagelink>
-    </span>
 </t:layout>
