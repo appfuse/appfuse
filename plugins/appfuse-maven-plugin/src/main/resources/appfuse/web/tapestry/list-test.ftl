@@ -1,44 +1,36 @@
 <#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
 package ${basepackage}.webapp.pages;
 
+import org.apache.tapestry5.dom.Element;
+import org.apache.tapestry5.dom.Node;
 import static org.junit.Assert.*;
-import org.junit.Before;
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import ${basepackage}.webapp.pages.BasePageTestCase;
+import java.util.List;
+import java.util.ResourceBundle;
 
 public class ${pojo.shortName}ListTest extends BasePageTestCase {
+
     @Test
-    public void temporaryTest() {
-        assertTrue(true);
+    public void testList() {
+        doc = tester.renderPage("${pojoNameLower}List");
+        assertNotNull(doc.getElementById("${pojoNameLower}List"));
+        assertTrue(doc.getElementById("${pojoNameLower}List").find("tbody/tr").getChildren().size() >= 2);
     }
 
-    /*private ${pojo.shortName}List page;
+    @Test
+    public void testEdit() {
+        doc = tester.renderPage("${pojoNameLower}List");
 
-    protected void onSetUpBeforeTransaction() throws Exception {
-        super.onSetUpBeforeTransaction();
-        // these can be mocked if you want a more "pure" unit test
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("${pojoNameLower}Manager", applicationContext.getBean("${pojoNameLower}Manager"));
-        page = (${pojo.shortName}List) getPage(${pojo.shortName}List.class, map);
+		Element table = doc.getElementById("${pojoNameLower}List");
+        List<Node> rows = table.find("tbody").getChildren();
+		String id = ((Element) rows.get(0)).find("td/a").getChildMarkup().trim();
+        Element editLink = table.getElementById("${pojoNameLower}-" + id);
+        doc = tester.clickLink(editLink);
+
+        ResourceBundle rb = ResourceBundle.getBundle(MESSAGES);
+
+        assertTrue(doc.toString().contains("<title>" +
+                rb.getString("${pojoNameLower}Detail.title")));
     }
-
-    protected void onTearDownAfterTransaction() throws Exception {
-        super.onTearDownAfterTransaction();
-        page = null;
-    }
-
-    public void testSearch() throws Exception {
-        assertTrue(page.get${util.getPluralForWord(pojo.shortName)}().size() >= 1);
-    }
-
-    public void testEdit() throws Exception {
-        RequestCycle cycle = new MockRequestCycle(this.getClass().getPackage().getName());
-        cycle.setListenerParameters(new Object[] {-1L});
-        page.edit(cycle);
-        assertFalse(page.hasErrors());
-    }*/
 }

@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.subethamail.wiser.Wiser;
 
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class UserEditTest extends BasePageTestCase {
 
@@ -24,7 +25,10 @@ public class UserEditTest extends BasePageTestCase {
 
         Element cancelButton = doc.getElementById("cancel");
         doc = tester.clickLink(cancelButton);
-        assertTrue(doc.toString().contains("User List"));
+
+        ResourceBundle rb = ResourceBundle.getBundle(MESSAGES);
+
+        assertTrue(doc.toString().contains(rb.getString("userList.title")));
     }
 
     @Test

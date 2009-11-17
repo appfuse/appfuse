@@ -15,7 +15,7 @@
 
     <t:grid source="${util.getPluralForWord(pojoNameLower)}" row="${pojoNameLower}" id="${pojoNameLower}List" class="table">
         <t:parameter name="${pojo.identifierProperty.name}Cell">
-            <t:pagelink page="${pojoNameLower}form" context="${pojoNameLower}.${pojo.identifierProperty.name}">
+            <t:pagelink page="${pojoNameLower}form" context="${pojoNameLower}.${pojo.identifierProperty.name}" id="${pojoNameLower}-${'$'}{${pojoNameLower}.${pojo.identifierProperty.name}}">
                 ${'$'}{${pojoNameLower}.${pojo.identifierProperty.name}}
             </t:pagelink>
         </t:parameter>

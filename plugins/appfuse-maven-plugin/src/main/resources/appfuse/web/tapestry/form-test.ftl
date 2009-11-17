@@ -4,95 +4,75 @@
 <#assign identifierType = pojo.getJavaTypeName(pojo.identifierProperty, jdk5)>
 package ${basepackage}.webapp.pages;
 
-import ${basepackage}.model.${pojo.shortName};
-import ${basepackage}.webapp.pages.BasePageTestCase;
-<#if genericcore>
-import ${appfusepackage}.service.GenericManager;
-<#else>
-import ${basepackage}.service.${pojo.shortName}Manager;
-</#if>
-
+import org.apache.tapestry5.dom.Element;
+import org.apache.tapestry5.dom.Node;
 import static org.junit.Assert.*;
-import org.junit.Before;
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 public class ${pojo.shortName}FormTest extends BasePageTestCase {
 
     @Test
-    public void temporaryTest() {
-        assertTrue(true);
-    }
-    /*private ${pojo.shortName}Form page;
+    public void testCancel() throws Exception {
+        doc = tester.renderPage("${pojoNameLower}List");
+        Element table = doc.getElementById("${pojoNameLower}List");
+        List<Node> rows = table.find("tbody").getChildren();
+        String ${pojo.identifierProperty.name} = ((Element) rows.get(0)).find("td/a").getChildMarkup().trim();
 
-    protected void onSetUpBeforeTransaction() throws Exception {
-        super.onSetUpBeforeTransaction();
-        // these can be mocked if you want a more "pure" unit test
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("${pojoNameLower}Manager", applicationContext.getBean("${pojoNameLower}Manager"));
-        page = (${pojo.shortName}Form) getPage(${pojo.shortName}Form.class, map);
-    }
+        Element editLink = table.getElementById("${pojoNameLower}-" + ${pojo.identifierProperty.name});
+        doc = tester.clickLink(editLink);
 
-    protected void onTearDownAfterTransaction() throws Exception {
-        super.onTearDownAfterTransaction();
-        page = null;
+        Element cancelButton = doc.getElementById("cancel");
+        doc = tester.clickSubmit(cancelButton, fieldValues);
+        assertTrue(doc.toString().contains("${pojo.shortName} List"));
     }
 
-    public void testAdd() throws Exception {
-        ${pojo.shortName} ${pojoNameLower} = new ${pojo.shortName}();
+    @Test
+    public void testSave() throws Exception {
+        doc = tester.renderPage("${pojoNameLower}Form");
+
+        Element form = doc.getElementById("${pojoNameLower}Form");
+        assertNotNull(form);
 
         // enter all required fields
 <#foreach field in pojo.getAllPropertiesIterator()>
     <#foreach column in field.getColumnIterator()>
         <#if !field.equals(pojo.identifierProperty) && !column.nullable && !c2h.isCollection(field) && !c2h.isManyToOne(field) && !c2j.isComponent(field)>
-            <#lt/>        ${pojoNameLower}.set${pojo.getPropertyName(field)}(<#rt/>
-            <#if field.value.typeName == "java.lang.String" && column.isUnique()><#lt/>${data.generateRandomStringValue(column)}<#else>${data.getValueForJavaTest(column)}</#if><#lt/>);
+            <#lt/>        fieldValues.put("${field.name}", <#rt/>
+            <#if field.value.typeName == "java.lang.String" && column.isUnique()><#lt/>${data.generateRandomStringValue(column)}<#else>"${data.getValueForWebTest(column)}"</#if><#lt/>);
         </#if>
     </#foreach>
 </#foreach>
-        
-        page.set${pojo.shortName}(${pojoNameLower});
 
-        ILink link = page.save(new MockRequestCycle(this.getClass().getPackage().getName()));
-        assertNotNull(page.get${pojo.shortName}());
-        assertFalse(page.hasErrors());
-        assertEquals("${pojo.shortName}List" + EXTENSION, link.getURL());
+        doc = tester.submitForm(form, fieldValues);
+
+        Element errors = doc.getElementById("errorMessages");
+
+        if (errors != null) {
+            System.out.println(errors);
+        }
+
+        assertNull(doc.getElementById("errorMessages"));
+
+        Element successMessages = doc.getElementById("successMessages");
+        assertNotNull(successMessages);
+        assertTrue(successMessages.toString().contains("added successfully"));
+        Element table = doc.getElementById("${pojoNameLower}List");
     }
 
-    @SuppressWarnings("unchecked")
-    public void testSave() {
-        <#if genericcore>
-        GenericManager<${pojo.shortName}, ${identifierType}> ${pojoNameLower}Manager = (GenericManager) applicationContext.getBean("${pojoNameLower}Manager");
-        <#else>
-        ${pojo.shortName}Manager ${pojoNameLower}Manager = (${pojo.shortName}Manager) applicationContext.getBean("${pojoNameLower}Manager"); 
-        </#if>
-
-        ${pojo.shortName} ${pojoNameLower} = ${pojoNameLower}Manager.get(-1L);
-
-        // update required fields
-<#foreach field in pojo.getAllPropertiesIterator()>
-    <#foreach column in field.getColumnIterator()>
-        <#if !field.equals(pojo.identifierProperty) && !column.nullable && !c2h.isCollection(field) && !c2h.isManyToOne(field) && !c2j.isComponent(field)>
-            <#lt/>        ${pojoNameLower}.set${pojo.getPropertyName(field)}(${data.getValueForJavaTest(column)});
-        </#if>
-    </#foreach>
-</#foreach>
-        
-        page.set${pojo.shortName}(${pojoNameLower});
-
-        ILink link = page.save(new MockRequestCycle(this.getClass().getPackage().getName()));
-        assertNotNull(page.get${pojo.shortName}());
-        assertFalse(page.hasErrors());
-        assertNull(link);
-    }
-
+    @Test
     public void testRemove() throws Exception {
-        ${pojo.shortName} ${pojoNameLower} = new ${pojo.shortName}();
-        ${pojoNameLower}.${setIdMethodName}(-2L);
-        page.set${pojo.shortName}(${pojoNameLower});
-        page.delete(new MockRequestCycle(this.getClass().getPackage().getName()));
-        assertFalse(page.hasErrors());
-    }*/
+        doc = tester.renderPage("${pojoNameLower}List");
+        Element table = doc.getElementById("${pojoNameLower}List");
+        List<Node> rows = table.find("tbody").getChildren();
+        String ${pojo.identifierProperty.name} = ((Element) rows.get(1)).find("td/a").getChildMarkup().trim();
+
+        Element editLink = table.getElementById("${pojoNameLower}-" + ${pojo.identifierProperty.name});
+        doc = tester.clickLink(editLink);
+
+        Element deleteButton = doc.getElementById("delete");
+        doc = tester.clickSubmit(deleteButton, fieldValues);
+        assertTrue(doc.toString().contains("deleted successfully"));
+    }
 }
