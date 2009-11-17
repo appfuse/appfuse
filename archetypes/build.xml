@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="archetypes" basedir="." xmlns:artifact="urn:maven-artifact-ant">
+<project name="archetypes" basedir=".">
 
     <property name="version" value="2.1-SNAPSHOT"/>
     <property name="archetype" value="${archetype}"/>
     <property name="test.dir" value="${basedir}/target"/>
 
-    <typedef resource="org/apache/maven/artifact/ant/antlib.xml" uri="urn:maven-artifact-ant">
+    <taskdef resource="net/sf/antcontrib/antcontrib.properties">
         <classpath>
-            <pathelement location="../../plugins/appfuse-maven-plugin/lib/maven-ant-tasks-2.0.10.jar"/>
+            <pathelement location="../lib/ant-contrib-1.0b3.jar"/>
         </classpath>
-    </typedef>
-
-    <artifact:dependencies pathId="classpath">
-        <dependency groupId="ant-contrib" artifactId="ant-contrib" version="1.0b2"/>
-    </artifact:dependencies>
-
-    <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="classpath"/>
+    </taskdef>
 
     <target name="test" description="Tests that 'mvn integration-test' works with archetype" unless="skipTests">
         <echo message="Creating archetype '${archetype}', version '${version}'"/>
