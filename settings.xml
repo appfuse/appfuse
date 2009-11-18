@@ -1,92 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <settings>
     <servers>
-    <server>
-        <id>appfuse-releases</id>
-        <username>appfuse-deployer</username>
-        <password>XXX</password>
-    </server>
-    <server>
-        <id>appfuse-snapshots</id>
-        <username>appfuse-deployer</username>
-        <password>XXX</password>
-    </server>
+        <server>
+            <id>appfuse-releases</id>
+            <username>appfuse-deployer</username>
+            <password>XXX</password>
+        </server>
+        <server>
+            <id>appfuse-snapshots</id>
+            <username>appfuse-deployer</username>
+            <password>XXX</password>
+        </server>
     </servers>
-    <!-- http://books.sonatype.com/nexus-book/reference/maven-sect-snapshot-repo.html -->
-    <mirrors>
-        <mirror>
-            <!--This is used to direct the public snapshots repo in the
-                 profile below over to a different nexus group -->
-            <id>nexus-public-snapshots</id>
-            <mirrorOf>public-snapshots</mirrorOf>
-            <url>http://oss.sonatype.org/content/groups/public-snapshots</url>
-        </mirror>
-        <mirror>
-            <!--This sends everything else to /public -->
-            <id>nexus</id>
-            <mirrorOf>*</mirrorOf>
-            <url>http://oss.sonatype.org/content/groups/public</url>
-        </mirror>
-    </mirrors>
-    <profiles>
-        <profile>
-            <id>development</id>
-            <repositories>
-                <repository>
-                    <id>central</id>
-                    <url>http://central</url>
-                    <releases>
-                        <enabled>true</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>true</enabled>
-                    </snapshots>
-                </repository>
-            </repositories>
-            <pluginRepositories>
-                <pluginRepository>
-                    <id>central</id>
-                    <url>http://central</url>
-                    <releases>
-                        <enabled>true</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>true</enabled>
-                    </snapshots>
-                </pluginRepository>
-            </pluginRepositories>
-        </profile>
-        <profile>
-            <!--this profile will allow snapshots to be searched when activated-->
-            <id>public-snapshots</id>
-            <repositories>
-                <repository>
-                    <id>public-snapshots</id>
-                    <url>http://public-snapshots</url>
-                    <releases>
-                        <enabled>false</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>true</enabled>
-                    </snapshots>
-                </repository>
-            </repositories>
-            <pluginRepositories>
-                <pluginRepository>
-                    <id>public-snapshots</id>
-                    <url>http://public-snapshots</url>
-                    <releases>
-                        <enabled>false</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>true</enabled>
-                    </snapshots>
-                </pluginRepository>
-            </pluginRepositories>
-        </profile>
-    </profiles>
-    <activeProfiles>
-        <activeProfile>development</activeProfile>
-    </activeProfiles>
 </settings>
 
