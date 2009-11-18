@@ -693,7 +693,7 @@
         <db.name>${artifactId.replaceAll('-','_')}</db.name>
 
         <!-- Framework dependency versions -->
-        <appfuse.version>2.1-SNAPSHOT</appfuse.version>
+        <appfuse.version>2.1.0-M1</appfuse.version>
         <aspectj.version>1.6.6</aspectj.version>
         <commons.fileupload.version>1.2.1</commons.fileupload.version>
         <commons.io.version>1.3.2</commons.io.version>
