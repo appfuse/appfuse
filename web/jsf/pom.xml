@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.appfuse</groupId>
         <artifactId>appfuse-web</artifactId>
-        <version>2.1-SNAPSHOT</version>
+        <version>2.1.0-M1</version>
     </parent>
 
     <artifactId>appfuse-jsf</artifactId>
@@ -34,9 +34,9 @@
     </description>
 
     <scm>
-        <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/web/jsf</connection>
-        <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/web/jsf</developerConnection>
-        <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/web/jsf</url>
+        <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/tags/APPFUSE_2.1.0-M1/web/jsf</connection>
+        <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/tags/APPFUSE_2.1.0-M1/web/jsf</developerConnection>
+        <url>https://appfuse.dev.java.net/source/browse/appfuse/tags/APPFUSE_2.1.0-M1/web/jsf</url>
     </scm>
 
     <build>
@@ -281,20 +281,20 @@
                         <configuration>
                             <tasks>
                                 <taskdef resource="webtest_base_relaxed.taskdef">
-                                    <classpath refid="maven.test.classpath"/>
+                                    <classpath refid="maven.test.classpath" />
                                 </taskdef>
-                                <mkdir dir="target/webtest-data"/>
+                                <mkdir dir="target/webtest-data" />
                                 <!-- Delete old results file if it exists -->
-                                <delete file="target/webtest-data/web-tests-result.xml"/>
+                                <delete file="target/webtest-data/web-tests-result.xml" />
                                 <!-- This is so the default will be used if no test case is specified -->
-                                <property name="test" value="run-all-tests"/>
-                                <property name="i18n.classpath" value="${basedir}/../common/target/classes"/>
+                                <property name="test" value="run-all-tests" />
+                                <property name="i18n.classpath" value="${basedir}/../common/target/classes" />
                                 <echo level="info">Testing '${project.build.finalName}' with locale '${user.language}'</echo>
                                 <ant antfile="src/test/resources/web-tests.xml" target="${test}">
-                                    <property name="user.language" value="${user.language}"/>
-                                    <property name="webapp.name" value="${project.build.finalName}"/>
-                                    <property name="host" value="${cargo.host}"/>
-                                    <property name="port" value="${cargo.port}"/>
+                                    <property name="user.language" value="${user.language}" />
+                                    <property name="webapp.name" value="${project.build.finalName}" />
+                                    <property name="host" value="${cargo.host}" />
+                                    <property name="port" value="${cargo.port}" />
                                 </ant>
                             </tasks>
                         </configuration>

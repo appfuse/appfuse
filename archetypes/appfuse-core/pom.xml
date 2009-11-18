@@ -20,13 +20,13 @@
     <parent>
         <groupId>org.appfuse.archetypes</groupId>
         <artifactId>appfuse-archetypes</artifactId>
-        <version>2.1-SNAPSHOT</version>
+        <version>2.1.0-M1</version>
     </parent>
 
     <groupId>org.appfuse.archetypes</groupId>
     <artifactId>appfuse-core</artifactId>
     <name>AppFuse Core Archetype</name>
-    <version>2.1-SNAPSHOT</version>
+    <version>2.1.0-M1</version>
 
     <description>
         Maven 2 archetype that creates a backend (Managers, DAOs and Web Services)
@@ -34,9 +34,9 @@
     </description>
 
     <scm>
-        <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/archetypes/appfuse-core</connection>
-        <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/archetypes/appfuse-core</developerConnection>
-        <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/archetypes/appfuse-core</url>
+        <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/tags/APPFUSE_2.1.0-M1/archetypes/appfuse-core</connection>
+        <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/tags/APPFUSE_2.1.0-M1/archetypes/appfuse-core</developerConnection>
+        <url>https://appfuse.dev.java.net/source/browse/appfuse/tags/APPFUSE_2.1.0-M1/archetypes/appfuse-core</url>
     </scm>
 
     <build>
@@ -49,8 +49,8 @@
                         <phase>package</phase>
                         <configuration>
                             <tasks>
-                                <delete dir="target/core-archetype"/>
-                                <ant antfile="../build.xml" dir="."  target="install-core"/>
+                                <delete dir="target/core-archetype" />
+                                <ant antfile="../build.xml" dir="." target="install-core" />
                             </tasks>
                         </configuration>
                         <goals>
@@ -62,8 +62,8 @@
                         <phase>integration-test</phase>
                         <configuration>
                             <tasks>
-                                <ant antfile="../build.xml" dir="."  target="test">
-                                    <property name="archetype" value="${pom.artifactId}-archetype"/>
+                                <ant antfile="../build.xml" dir="." target="test">
+                                    <property name="archetype" value="${pom.artifactId}-archetype" />
                                 </ant>
                             </tasks>
                         </configuration>
@@ -77,7 +77,7 @@
                         <configuration>
                             <tasks>
                                 <ant antfile="../build.xml" dir="." target="deploy">
-                                    <property name="module" value="${module}"/>
+                                    <property name="module" value="${module}" />
                                 </ant>
                             </tasks>
                         </configuration>
