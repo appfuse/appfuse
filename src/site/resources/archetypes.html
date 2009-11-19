@@ -12,16 +12,21 @@
         font-weight: bold;
         width: 180px;
         float: left;
-        margin: 0 5px;
+        margin: 5px 5px;
     }
 
-    #mvncmd input, #mvncmd select, #mvncm span {
+    #mvncmd input, #mvncmd select, #mvncmd span {
         width: 180px;
         margin-bottom: 5px;
         float: left;
     }
+    
+    #mvncmd span {
+        margin-top: 3px;
+    }
 
     #mvncmd textarea {
+        margin-top: 5px;
         width: 400px;
         height: 100px;
         color: blue;
@@ -34,30 +39,121 @@
     #mvncmd div {
         float: left;
     }
-</style>
-<script type="text/javascript">
-    function changeIt() {
-        var groupId = document.getElementById("groupId").value;
-        var artifactId = document.getElementById("artifactId").value;
-        var version = document.getElementById("version").value;
-        var webFramework = document.getElementById("webFramework").value;
-        var archetypeArtifactId = "appfuse-";
-        if (webFramework != "core") {
-            if (document.getElementById("multi-module").checked) {
-                archetypeArtifactId += "modular-";
-            } else {
-                archetypeArtifactId += "basic-";
-            }
-        } 
-        archetypeArtifactId += webFramework;
-        if (version.match(/.*SNAPSHOT/) || parseInt(version) > 2.1) archetypeArtifactId += "-archetype";
-        var cmd = 'mvn archetype:generate -B -DarchetypeGroupId=org.appfuse.archetypes -DarchetypeArtifactId=' + archetypeArtifactId + ' -DarchetypeVersion=' + version + ' -DgroupId=' + groupId + ' -DartifactId=' + artifactId;
-        if (version.match(/.*SNAPSHOT/)) cmd += ' -DarchetypeRepository=http://oss.sonatype.org/content/repositories/appfuse';
-        document.getElementById("cmdLine").value = cmd;
+    
+    p.choose {
+        border-bottom: 1px dotted silver;
+        padding-bottom: 5px;
     }
+    label.chosen {
+        font-weight: bold;
+        color: blue;
+    }
+</style>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.1.0/prototype.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.3/scriptaculous.js"></script>
+<script type="text/javascript" src="http://demo.raibledesigns.com/ajaxifiedbody/scripts/rsh.compressed.js"></script>
+<script type="text/javascript">
+// History support for Ajaxified Body: http://raibledesigns.com/rd/entry/ajaxified_body
+window.dhtmlHistory.create({
+    toJSON: function(o) {
+        return Object.toJSON(o);
+    },
+    fromJSON: function(s) {
+        return s.evalJSON();
+    }
+});
+
+var historyListener = function(newLocation, historyData) {
+    // if there is no location then display the default
+   if (newLocation == "") {
+      newLocation = "";
+   }
+   get(newLocation);
+}
+
+window.onload = function() {
+    dhtmlHistory.initialize();
+    dhtmlHistory.addListener(historyListener);
+    if (dhtmlHistory.isFirstLoad()) {
+        if (location.hash) {
+            url = location.hash.substring(1);
+            get(url);
+        }
+    }
+}
+
+function get(url) {
+    // if hostname in URL, assume is absolute and strip protocol/server/port
+    if (url.indexOf("http") > -1 && url.indexOf(document.location.hostname) > -1) {
+        if (document.location.port == "") {
+            url = url.substring(url.indexOf(document.location.hostname) + document.location.hostname.length);
+        } else {
+            url = url.substring(url.indexOf(document.location.port) + document.location.port.length);
+        }
+        if (url.indexOf(document.location.pathname) > -1) {
+            url = url.substring(url.indexOf(document.location.pathname) + document.location.pathname.length);
+        }
+    }
+    dhtmlHistory.add(url);
+    new Effect.Appear('ajaxLoading', { duration: 0 });
+    new Ajax.Request(url + ((url.indexOf('?') > -1) ? "&" : "?") + "ajax=true", {
+        method: 'get',
+        onComplete: function(response) {
+            var  text = response.responseText;
+            if (200 == response.status) {
+                // get body of returned document
+                if (text.indexOf("<body>") > -1) {
+                    var body = text.substring(text.indexOf("<body>") + 6, text.indexOf(("</body>")));
+                    $('mvncmd').innerHTML = body;
+                    evalJS($('mvncmd'));
+                }
+            } else {
+                // rather than alerting the error messages, just go to the page and show error page from server
+                location.href = url;
+            }
+        }
+
+    });
+    new Effect.Fade('ajaxLoading', {duration: 1});
+    $('ajaxLoading').style.display = "none";
+}
+
+function evalJS(element) {
+    var scripts = element.getElementsByTagName("script");
+    for (i=0; i < scripts.length; i++) {
+        // if src, eval it, otherwise eval the body
+        if (scripts[i].hasAttribute("src")) {
+            eval(scripts[i].getAttribute("src"));
+        } else {
+            // alert(scripts[i].innerHTML)
+            eval(scripts[i].innerHTML);
+        }
+    }
+}
+
+function load(submodule) {
+    var base = (document.location.toString().startsWith("http") ? "/" : "http://static.appfuse.org/")
+    if (submodule) base += submodule + "/";
+    base += 'archetypes.html';
+    get(base);
+    if (submodule) {
+        $('appfuse-light-label').className = "chosen";
+        $('appfuse-label').className = "";
+    } else {
+        $('appfuse-light-label').className = "";
+        $('appfuse-label').className = "chosen";
+    }
+}
 </script>
 </head>
-<body>
+<body class="appfuse">
+<div id="ajaxLoading" style="display: none; position: absolute; top: 0; right: 0; background: red; padding: 5px 10px; color: white">Loading...</div>    
+<p class="choose">Choose Application: 
+    <input type="radio" name="app" checked="checked" onclick="load()" id="appfuse"/>
+    <label for="appfuse" id="appfuse-label" class="chosen">AppFuse</label>
+    <input type="radio" name="app" onclick="load('light')" id="appfuse-light"/>
+    <label for="appfuse-light" id="appfuse-light-label">AppFuse Light</label>
+</p>
 <div id="mvncmd">
     <div>
         <label for="groupId" title="Base Package">GroupId:</label>
@@ -84,17 +180,40 @@
         </select><span title="Web Framework">&nbsp;(?)</span><br/>
 
         <label for="multi-module">Multi-Module Project?</label>
-        <input type="checkbox" id="multi-module" onclick="changeIt();" style="width: 15px">
+        <input type="checkbox" id="multi-module" onclick="changeIt();" style="width: 15px; margin-top: 5px">
         <span title="Modular Maven Project">&nbsp;(?)</span><br/>
     </div>
     <div>
         <label for="cmdLine" id="cmdLabel">Command Line:</label>
         <textarea id="cmdLine" onfocus="this.select();"></textarea>
-
-        <script type="text/javascript">changeIt();</script>
     </div>
-    <br/>
+    <script type="text/javascript">
+        function changeIt() {
+            var groupId = $("groupId").value;
+            var artifactId = $("artifactId").value;
+            var version = $("version").value;
+            var webFramework = $("webFramework").value;
+            var archetypeArtifactId = "appfuse-";
+            if (webFramework != "core") {
+                if ($("multi-module") && $("multi-module").checked) {
+                    archetypeArtifactId += "modular-";
+                } else {
+                    if ($('appfuse-light-label').className == "chosen") {
+                        archetypeArtifactId += "light-";
+                    } else {
+                        archetypeArtifactId += "basic-";
+                    }
+                }
+            } 
+            archetypeArtifactId += webFramework;
+            if (version.match(/.*SNAPSHOT/) || parseInt(version) > 2.1) archetypeArtifactId += "-archetype";
+            var cmd = 'mvn archetype:generate -B -DarchetypeGroupId=org.appfuse.archetypes -DarchetypeArtifactId=' + archetypeArtifactId + ' -DarchetypeVersion=' + version + ' -DgroupId=' + groupId + ' -DartifactId=' + artifactId;
+            if (version.match(/.*SNAPSHOT/)) cmd += ' -DarchetypeRepository=http://oss.sonatype.org/content/repositories/appfuse';
+            document.getElementById("cmdLine").value = cmd;
+        }
+
+        changeIt();
+    </script>
 </div>
 </body>
 </html>
-
