@@ -113,7 +113,8 @@
                 }
             } 
             archetypeArtifactId += webFramework;
-            if (version.match(/.*SNAPSHOT/) || parseInt(version) > 2.1) archetypeArtifactId += "-archetype";
+            //console.log('version: ' + parseFloat(version.substring(0,3)));
+            if (version.match(/.*SNAPSHOT/) || parseFloat(version.substring(0,3)) >= 2.1) archetypeArtifactId += "-archetype";
             var cmd = 'mvn archetype:generate -B -DarchetypeGroupId=org.appfuse.archetypes -DarchetypeArtifactId=' + archetypeArtifactId + ' -DarchetypeVersion=' + version + ' -DgroupId=' + groupId + ' -DartifactId=' + artifactId;
             if (version.match(/.*SNAPSHOT/)) cmd += ' -DarchetypeRepository=http://oss.sonatype.org/content/repositories/appfuse';
             document.getElementById("cmdLine").value = cmd;
