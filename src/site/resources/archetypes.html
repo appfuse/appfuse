@@ -6,6 +6,7 @@
     body {
         font-family: arial, sans-serif;
         font-size: 12px;
+        padding-left: 20px;
     }
     #mvncmd label {
         text-align: right;
@@ -51,102 +52,8 @@
 </style>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.1.0/prototype.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.3/scriptaculous.js"></script>
-<script type="text/javascript" src="http://demo.raibledesigns.com/ajaxifiedbody/scripts/rsh.compressed.js"></script>
-<script type="text/javascript">
-// History support for Ajaxified Body: http://raibledesigns.com/rd/entry/ajaxified_body
-window.dhtmlHistory.create({
-    toJSON: function(o) {
-        return Object.toJSON(o);
-    },
-    fromJSON: function(s) {
-        return s.evalJSON();
-    }
-});
-
-var historyListener = function(newLocation, historyData) {
-    // if there is no location then display the default
-   if (newLocation == "") {
-      newLocation = "";
-   }
-   get(newLocation);
-}
-
-window.onload = function() {
-    dhtmlHistory.initialize();
-    dhtmlHistory.addListener(historyListener);
-    if (dhtmlHistory.isFirstLoad()) {
-        if (location.hash) {
-            url = location.hash.substring(1);
-            get(url);
-        }
-    }
-}
-
-function get(url) {
-    // if hostname in URL, assume is absolute and strip protocol/server/port
-    if (url.indexOf("http") > -1 && url.indexOf(document.location.hostname) > -1) {
-        if (document.location.port == "") {
-            url = url.substring(url.indexOf(document.location.hostname) + document.location.hostname.length);
-        } else {
-            url = url.substring(url.indexOf(document.location.port) + document.location.port.length);
-        }
-        if (url.indexOf(document.location.pathname) > -1) {
-            url = url.substring(url.indexOf(document.location.pathname) + document.location.pathname.length);
-        }
-    }
-    dhtmlHistory.add(url);
-    new Effect.Appear('ajaxLoading', { duration: 0 });
-    new Ajax.Request(url + ((url.indexOf('?') > -1) ? "&" : "?") + "ajax=true", {
-        method: 'get',
-        onComplete: function(response) {
-            var  text = response.responseText;
-            if (200 == response.status) {
-                // get body of returned document
-                if (text.indexOf("<body>") > -1) {
-                    var body = text.substring(text.indexOf("<body>") + 6, text.indexOf(("</body>")));
-                    $('mvncmd').innerHTML = body;
-                    evalJS($('mvncmd'));
-                }
-            } else {
-                // rather than alerting the error messages, just go to the page and show error page from server
-                location.href = url;
-            }
-        }
-
-    });
-    new Effect.Fade('ajaxLoading', {duration: 1});
-    $('ajaxLoading').style.display = "none";
-}
-
-function evalJS(element) {
-    var scripts = element.getElementsByTagName("script");
-    for (i=0; i < scripts.length; i++) {
-        // if src, eval it, otherwise eval the body
-        if (scripts[i].hasAttribute("src")) {
-            eval(scripts[i].getAttribute("src"));
-        } else {
-            // alert(scripts[i].innerHTML)
-            eval(scripts[i].innerHTML);
-        }
-    }
-}
-
-function load(submodule) {
-    var base = (document.location.toString().startsWith("http") ? "/" : "http://static.appfuse.org/")
-    if (submodule) base += submodule + "/";
-    base += 'archetypes.html';
-    get(base);
-    if (submodule) {
-        $('appfuse-light-label').className = "chosen";
-        $('appfuse-label').className = "";
-    } else {
-        $('appfuse-light-label').className = "";
-        $('appfuse-label').className = "chosen";
-    }
-}
-</script>
 </head>
-<body class="appfuse">
+<body>
 <div id="ajaxLoading" style="display: none; position: absolute; top: 0; right: 0; background: red; padding: 5px 10px; color: white">Loading...</div>    
 <p class="choose">Choose Application: 
     <input type="radio" name="app" checked="checked" onclick="load()" id="appfuse"/>
@@ -211,9 +118,73 @@ function load(submodule) {
             if (version.match(/.*SNAPSHOT/)) cmd += ' -DarchetypeRepository=http://oss.sonatype.org/content/repositories/appfuse';
             document.getElementById("cmdLine").value = cmd;
         }
-
+        
         changeIt();
     </script>
 </div>
 </body>
+<script type="text/javascript">
+
+function get(url) {
+    // if hostname in URL, assume is absolute and strip protocol/server/port
+    if (url.indexOf("http") > -1 && url.indexOf(document.location.hostname) > -1) {
+        if (document.location.port == "") {
+            url = url.substring(url.indexOf(document.location.hostname) + document.location.hostname.length);
+        } else {
+            url = url.substring(url.indexOf(document.location.port) + document.location.port.length);
+        }
+        if (url.indexOf(document.location.pathname) > -1) {
+            url = url.substring(url.indexOf(document.location.pathname) + document.location.pathname.length);
+        }
+    }
+    new Effect.Appear('ajaxLoading', { duration: 0 });
+    new Ajax.Request(url + ((url.indexOf('?') > -1) ? "&" : "?") + "ajax=true", {
+        method: 'get',
+        onComplete: function(response) {
+            var text = response.responseText;
+            if (200 == response.status) {
+                // get body of returned document
+                if (text.indexOf('<div id="mvncmd">') > -1) {
+                    var body = text.substring(text.indexOf('<div id="mvncmd">') + 17, text.indexOf("</body>"));
+                    $('mvncmd').innerHTML = body;
+                    evalJS($('mvncmd'));
+                }
+            } else {
+                // rather than alerting the error messages, just go to the page and show error page from server
+                location.href = url;
+            }
+        }
+
+    });
+    new Effect.Fade('ajaxLoading', {duration: 1});
+    $('ajaxLoading').style.display = "none";
+}
+
+function evalJS(element) {
+    var scripts = element.getElementsByTagName("script");
+    for (i=0; i < scripts.length; i++) {
+        // if src, eval it, otherwise eval the body
+        if (scripts[i].hasAttribute("src")) {
+            eval(scripts[i].getAttribute("src"));
+        } else {
+            // alert(scripts[i].innerHTML)
+            eval(scripts[i].innerHTML);
+        }
+    }
+}
+
+function load(submodule) {
+    var base = (document.location.toString().startsWith("http") ? "/" : "http://static.appfuse.org/")
+    if (submodule) base += submodule + "/";
+    base += 'archetypes.html';
+    get(base);
+    if (submodule) {
+        $('appfuse-light-label').className = "chosen";
+        $('appfuse-label').className = "";
+    } else {
+        $('appfuse-light-label').className = "";
+        $('appfuse-label').className = "chosen";
+    }
+}
+</script>
 </html>
