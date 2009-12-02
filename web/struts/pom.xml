@@ -164,7 +164,6 @@
             <resource>
                 <directory>src/main/java</directory>
                 <includes>
-                    <include>**/*.java</include>
                     <include>**/*.xml</include>
                 </includes>
             </resource>
