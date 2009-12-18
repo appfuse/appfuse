@@ -179,7 +179,7 @@
     </reporting>
 
     <properties>
-        <junit.version>4.4</junit.version>
+        <junit.version>4.7</junit.version>
         <log4j.version>1.2.13</log4j.version>
     </properties>
 </project>

@@ -142,6 +142,13 @@
             <version>${jmock.version}</version>
             <scope>test</scope>
         </dependency>
+        <!-- Upgrade junit-dep used by jmock -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit-dep</artifactId>
+            <version>4.5</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -346,14 +353,14 @@
         <facelets.version>1.1.14</facelets.version>
         <myfaces.version>1.2.7</myfaces.version>
         <myfaces.tomahawk.version>1.1.9</myfaces.tomahawk.version>
-        <spring.version>2.5.6</spring.version>
+        <spring.version>3.0.0.RELEASE</spring.version>
 
         <!-- Testing dependency versions -->
         <cargo.version>1.0</cargo.version>
         <jmock.version>2.5.1</jmock.version>
         <jsp.version>2.1</jsp.version>
-        <junit.version>4.4</junit.version>
-        <servlet.version>2.4</servlet.version>
+        <junit.version>4.7</junit.version>
+        <servlet.version>2.5</servlet.version>
         <shale.version>1.0.5</shale.version>
         <wiser.version>1.2</wiser.version>
 

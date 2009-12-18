@@ -142,6 +142,13 @@
             <version>${jmock.version}</version>
             <scope>test</scope>
         </dependency>
+        <!-- Upgrade junit-dep used by jmock -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit-dep</artifactId>
+            <version>4.5</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -334,15 +341,15 @@
         <commons.fileupload.version>1.2.1</commons.fileupload.version>
         <commons.io.version>1.3.2</commons.io.version>
         <displaytag.version>1.2</displaytag.version>
-        <spring.version>2.5.6</spring.version>
+        <spring.version>3.0.0.RELEASE</spring.version>
         <springmodules.validation.version>0.8</springmodules.validation.version>
 
         <!-- Testing dependency versions -->
         <cargo.version>1.0</cargo.version>
         <jmock.version>2.5.1</jmock.version>
         <jsp.version>2.0</jsp.version>
-        <junit.version>4.4</junit.version>
-        <servlet.version>2.4</servlet.version>
+        <junit.version>4.7</junit.version>
+        <servlet.version>2.5</servlet.version>
         <wiser.version>1.2</wiser.version>
 
         <!-- WebTest dependency versions  -->

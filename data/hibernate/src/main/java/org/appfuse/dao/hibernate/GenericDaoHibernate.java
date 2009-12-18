@@ -25,7 +25,6 @@ import java.util.Map;
  * <pre>
  *      &lt;bean id="fooDao" class="org.appfuse.dao.hibernate.GenericDaoHibernate"&gt;
  *          &lt;constructor-arg value="org.appfuse.model.Foo"/&gt;
- *          &lt;property name="sessionFactory" ref="sessionFactory"/&gt;
  *      &lt;/bean&gt;
  * </pre>
  *
