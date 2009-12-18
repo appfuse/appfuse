@@ -151,14 +151,12 @@
             <groupId>org.jmock</groupId>
             <artifactId>jmock</artifactId>
             <version>${jmock.version}</version>
-            <scope>test</scope>
             <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.jmock</groupId>
             <artifactId>jmock-junit4</artifactId>
             <version>${jmock.version}</version>
-            <scope>test</scope>
             <optional>true</optional>
         </dependency>
         <!-- Upgrade junit-dep used by jmock -->
