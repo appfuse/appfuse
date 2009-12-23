@@ -1,8 +1,8 @@
 package org.appfuse.webapp.controller;
 
-import org.springframework.security.AccessDeniedException;
-import org.springframework.security.context.SecurityContextHolder;
-import org.springframework.security.providers.UsernamePasswordAuthenticationToken;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.service.RoleManager;

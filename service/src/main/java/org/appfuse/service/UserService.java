@@ -4,7 +4,7 @@ import java.util.List;
 import javax.jws.WebService;
 
 import org.appfuse.model.User;
-import org.springframework.security.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 /**
  * Web Service interface so hierarchy of Generic Manager isn't carried through.
@@ -23,7 +23,7 @@ public interface UserService {
      * Finds a user by their username.
      * @param username the user's username used to login
      * @return User a populated user object
-     * @throws org.springframework.security.userdetails.UsernameNotFoundException
+     * @throws org.springframework.security.core.userdetails.UsernameNotFoundException
      *         exception thrown when user not found
      */
     User getUserByUsername(String username) throws UsernameNotFoundException;

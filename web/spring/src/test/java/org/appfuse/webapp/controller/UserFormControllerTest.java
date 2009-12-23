@@ -1,6 +1,6 @@
 package org.appfuse.webapp.controller;
 
-import org.springframework.security.AccessDeniedException;
+import org.springframework.security.access.AccessDeniedException;
 import org.appfuse.Constants;
 import org.appfuse.service.UserManager;
 import org.appfuse.model.User;

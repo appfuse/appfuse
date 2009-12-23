@@ -10,9 +10,9 @@ import org.appfuse.webapp.data.UserSession;
 import org.appfuse.webapp.services.ServiceFacade;
 import org.appfuse.service.UserManager;
 import org.slf4j.Logger;
-import org.springframework.security.Authentication;
-import org.springframework.security.context.SecurityContextHolder;
-import org.springframework.security.userdetails.UserDetails;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 
 
 /**

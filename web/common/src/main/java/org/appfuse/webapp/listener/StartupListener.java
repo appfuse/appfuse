@@ -6,10 +6,10 @@ import org.appfuse.Constants;
 import org.appfuse.service.LookupManager;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
-import org.springframework.security.providers.AuthenticationProvider;
-import org.springframework.security.providers.ProviderManager;
-import org.springframework.security.providers.encoding.PasswordEncoder;
-import org.springframework.security.providers.rememberme.RememberMeAuthenticationProvider;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.RememberMeAuthenticationProvider;
+import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.servlet.ServletContext;
@@ -63,7 +63,7 @@ public class StartupListener implements ServletContextListener {
 
         PasswordEncoder passwordEncoder = null;
         try {
-            ProviderManager provider = (ProviderManager) ctx.getBean("_authenticationManager");
+            ProviderManager provider = (ProviderManager) ctx.getBean("org.springframework.security.authenticationManager");
             for (Object o : provider.getProviders()) {
                 AuthenticationProvider p = (AuthenticationProvider) o;
                 if (p instanceof RememberMeAuthenticationProvider) {

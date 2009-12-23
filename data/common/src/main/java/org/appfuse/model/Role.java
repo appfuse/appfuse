@@ -12,7 +12,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.springframework.security.GrantedAuthority;
+import org.springframework.security.core.GrantedAuthority;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
@@ -61,7 +61,7 @@ public class Role extends BaseObject implements Serializable, GrantedAuthority {
 
     /**
      * @return the name property (getAuthority required by Acegi's GrantedAuthority interface)
-     * @see org.springframework.security.GrantedAuthority#getAuthority()
+     * @see org.springframework.security.core.GrantedAuthority#getAuthority()
      */
     @Transient
     public String getAuthority() {

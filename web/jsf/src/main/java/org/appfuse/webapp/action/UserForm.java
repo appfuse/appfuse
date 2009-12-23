@@ -1,11 +1,11 @@
 package org.appfuse.webapp.action;
 
-import org.springframework.security.Authentication;
-import org.springframework.security.AuthenticationTrustResolver;
-import org.springframework.security.AuthenticationTrustResolverImpl;
-import org.springframework.security.AccessDeniedException;
-import org.springframework.security.context.SecurityContext;
-import org.springframework.security.context.SecurityContextHolder;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.AuthenticationTrustResolver;
+import org.springframework.security.authentication.AuthenticationTrustResolverImpl;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import org.appfuse.Constants;
 import org.appfuse.model.Role;

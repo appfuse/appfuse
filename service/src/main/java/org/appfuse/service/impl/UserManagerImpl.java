@@ -2,9 +2,6 @@ package org.appfuse.service.impl;
 
 import java.util.List;
 import javax.jws.WebService;
-import javax.ws.rs.Path;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.Produces;
 
 import org.appfuse.dao.UserDao;
 import org.appfuse.model.User;
@@ -14,8 +11,8 @@ import org.appfuse.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.jpa.JpaSystemException;
-import org.springframework.security.providers.encoding.PasswordEncoder;
-import org.springframework.security.userdetails.UsernameNotFoundException;
+import org.springframework.security.authentication.encoding.PasswordEncoder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 

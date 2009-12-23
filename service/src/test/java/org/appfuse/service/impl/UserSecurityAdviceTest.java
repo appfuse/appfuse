@@ -1,29 +1,29 @@
 package org.appfuse.service.impl;
 
-import org.springframework.security.AccessDeniedException;
-import org.springframework.security.Authentication;
-import org.springframework.security.context.SecurityContext;
-import org.springframework.security.context.SecurityContextHolder;
-import org.springframework.security.context.SecurityContextImpl;
-import org.springframework.security.providers.UsernamePasswordAuthenticationToken;
 import org.appfuse.Constants;
-import org.appfuse.service.impl.UserManagerImpl;
-import org.appfuse.service.UserManager;
-import org.appfuse.service.UserSecurityAdvice;
 import org.appfuse.dao.UserDao;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
+import org.appfuse.service.UserManager;
+import org.appfuse.service.UserSecurityAdvice;
+import org.jmock.Expectations;
+import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
-import org.jmock.Mockery;
-import org.jmock.Expectations;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.junit.runner.RunWith;
-import org.junit.Before;
-import org.junit.After;
-import org.junit.Test;
-import org.junit.Assert;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.context.SecurityContextImpl;
+
 import static org.junit.Assert.*;
 
 @RunWith(JMock.class)

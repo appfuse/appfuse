@@ -1,11 +1,9 @@
 package org.appfuse.webapp.controller;
 
-import org.springframework.security.AccessDeniedException;
-import org.springframework.security.Authentication;
-import org.springframework.security.AuthenticationTrustResolver;
-import org.springframework.security.AuthenticationTrustResolverImpl;
-import org.springframework.security.context.SecurityContext;
-import org.springframework.security.context.SecurityContextHolder;
+import java.util.Locale;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang.StringUtils;
 import org.appfuse.Constants;
 import org.appfuse.model.Role;
@@ -14,14 +12,16 @@ import org.appfuse.service.RoleManager;
 import org.appfuse.service.UserExistsException;
 import org.appfuse.service.UserManager;
 import org.appfuse.webapp.util.RequestUtil;
+import org.springframework.mail.MailException;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.AuthenticationTrustResolver;
+import org.springframework.security.authentication.AuthenticationTrustResolverImpl;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
-import org.springframework.mail.MailException;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Locale;
 
 /**
  * Implementation of <strong>SimpleFormController</strong> that interacts with

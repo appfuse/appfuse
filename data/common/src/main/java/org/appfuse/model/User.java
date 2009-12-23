@@ -6,16 +6,12 @@ import org.compass.annotations.Searchable;
 import org.compass.annotations.SearchableComponent;
 import org.compass.annotations.SearchableId;
 import org.compass.annotations.SearchableProperty;
-import org.springframework.security.GrantedAuthority;
-import org.springframework.security.userdetails.UserDetails;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * This class represents the basic "user" object in AppFuse that allows for authentication
@@ -178,11 +174,13 @@ public class User extends BaseObject implements Serializable, UserDetails {
 
     /**
      * @return GrantedAuthority[] an array of roles.
-     * @see org.springframework.security.userdetails.UserDetails#getAuthorities()
+     * @see org.springframework.security.core.userdetails.UserDetails#getAuthorities()
      */
     @Transient
-    public GrantedAuthority[] getAuthorities() {
-        return roles.toArray(new GrantedAuthority[0]);
+    public Set<GrantedAuthority> getAuthorities() {
+        Set<GrantedAuthority> authorities = new LinkedHashSet<GrantedAuthority>();
+        authorities.addAll(roles);
+        return authorities;
     }
 
     @Version
@@ -201,7 +199,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
     }
 
     /**
-     * @see org.springframework.security.userdetails.UserDetails#isAccountNonExpired()
+     * @see org.springframework.security.core.userdetails.UserDetails#isAccountNonExpired()
      */
     @Transient
     public boolean isAccountNonExpired() {
@@ -214,7 +212,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
     }
 
     /**
-     * @see org.springframework.security.userdetails.UserDetails#isAccountNonLocked()
+     * @see org.springframework.security.core.userdetails.UserDetails#isAccountNonLocked()
      */
     @Transient
     public boolean isAccountNonLocked() {
@@ -227,7 +225,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
     }
 
     /**
-     * @see org.springframework.security.userdetails.UserDetails#isCredentialsNonExpired()
+     * @see org.springframework.security.core.userdetails.UserDetails#isCredentialsNonExpired()
      */
     @Transient
     public boolean isCredentialsNonExpired() {
@@ -337,15 +335,16 @@ public class User extends BaseObject implements Serializable, UserDetails {
                 .append("credentialsExpired", this.credentialsExpired)
                 .append("accountLocked", this.accountLocked);
 
-        GrantedAuthority[] auths = this.getAuthorities();
-        if (auths != null) {
+        if (roles != null) {
             sb.append("Granted Authorities: ");
 
-            for (int i = 0; i < auths.length; i++) {
+            int i = 0;
+            for (Role role : roles) {
                 if (i > 0) {
                     sb.append(", ");
                 }
-                sb.append(auths[i].toString());
+                sb.append(role.toString());
+                i++;
             }
         } else {
             sb.append("No Granted Authorities");

@@ -3,7 +3,7 @@ package org.appfuse.webapp.pages;
 import org.apache.tapestry5.dom.Element;
 import static org.junit.Assert.*;
 import org.junit.Test;
-import org.springframework.security.context.SecurityContextHolder;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.subethamail.wiser.Wiser;
 
 public class SignupTest extends BasePageTestCase {

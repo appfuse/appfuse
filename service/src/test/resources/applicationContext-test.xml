@@ -17,7 +17,7 @@
 
     <bean id="userManager" class="org.appfuse.service.impl.UserManagerImpl">
         <property name="passwordEncoder">
-            <bean class="org.springframework.security.providers.encoding.ShaPasswordEncoder"/>
+            <bean class="org.springframework.security.authentication.encoding.ShaPasswordEncoder"/>
         </property>
     </bean>
 

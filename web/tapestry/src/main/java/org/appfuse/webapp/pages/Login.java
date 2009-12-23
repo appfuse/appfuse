@@ -18,7 +18,7 @@ import org.apache.tapestry5.services.PageRenderLinkSource;
 import org.apache.tapestry5.services.Request;
 import org.appfuse.Constants;
 import org.slf4j.Logger;
-import org.springframework.security.ui.AbstractProcessingFilter;
+import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 
 /**
  * Login Page
@@ -62,7 +62,7 @@ public class Login extends BasePage {
         if (AUTH_FAILED.equals(loginError)) {
             this.errorMessage = ((Exception) request
                     .getSession(true)
-                    .getAttribute(AbstractProcessingFilter.SPRING_SECURITY_LAST_EXCEPTION_KEY))
+                    .getAttribute(AbstractAuthenticationProcessingFilter.SPRING_SECURITY_LAST_EXCEPTION_KEY))
                     .getMessage();
             logger.error(String.format("Error while attempting to login: %s",
                     errorMessage));

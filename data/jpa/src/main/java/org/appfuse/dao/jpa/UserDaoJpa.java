@@ -1,15 +1,15 @@
 package org.appfuse.dao.jpa;
 
-import org.springframework.security.userdetails.UserDetails;
-import org.springframework.security.userdetails.UserDetailsService;
-import org.springframework.security.userdetails.UsernameNotFoundException;
 import org.appfuse.dao.UserDao;
 import org.appfuse.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Query;
 import javax.persistence.Table;

@@ -11,9 +11,9 @@ import org.appfuse.model.User;
 import org.appfuse.service.UserExistsException;
 import org.appfuse.webapp.util.RequestUtil;
 import org.springframework.mail.MailException;
-import org.springframework.security.AccessDeniedException;
-import org.springframework.security.context.SecurityContextHolder;
-import org.springframework.security.providers.UsernamePasswordAuthenticationToken;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 /**
  * Action to allow new users to sign up.

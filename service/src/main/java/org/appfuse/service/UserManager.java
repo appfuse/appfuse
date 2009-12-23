@@ -2,7 +2,7 @@ package org.appfuse.service;
 
 import java.util.List;
 
-import org.springframework.security.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.appfuse.dao.UserDao;
 import org.appfuse.model.User;
 
@@ -33,7 +33,7 @@ public interface UserManager extends GenericManager<User, Long> {
      * Finds a user by their username.
      * @param username the user's username used to login
      * @return User a populated user object
-     * @throws org.springframework.security.userdetails.UsernameNotFoundException
+     * @throws org.springframework.security.core.userdetails.UsernameNotFoundException
      *         exception thrown when user not found
      */
     User getUserByUsername(String username) throws UsernameNotFoundException;

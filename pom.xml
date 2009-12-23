@@ -252,26 +252,13 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-core-tiger</artifactId>
+            <artifactId>spring-security-core</artifactId>
             <version>${spring.security.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-aop</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-context</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-core</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-support</artifactId>
-                </exclusion>
-            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring.security.version}</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -532,7 +519,7 @@
         <shale.version>1.0.5</shale.version>
         <sitemesh.version>2.4.2</sitemesh.version>
         <spring.version>3.0.0.RELEASE</spring.version>
-        <spring.security.version>2.0.5.RELEASE</spring.security.version>
+        <spring.security.version>3.0.0.RELEASE</spring.security.version>
         <springmodules.validation.version>0.8</springmodules.validation.version>
         <struts.version>2.1.8</struts.version>
         <struts.menu.version>2.4.3</struts.menu.version>

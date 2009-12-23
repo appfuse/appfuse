@@ -1,13 +1,12 @@
 package org.appfuse.dao.ibatis;
 
-import org.springframework.security.userdetails.UserDetails;
-import org.springframework.security.userdetails.UserDetailsService;
-import org.springframework.security.userdetails.UsernameNotFoundException;
 import org.appfuse.dao.UserDao;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
 import org.springframework.orm.ObjectRetrievalFailureException;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;

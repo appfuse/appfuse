@@ -1,11 +1,5 @@
 package org.appfuse.webapp.action;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.opensymphony.xwork2.Preparable;
 import org.apache.struts2.ServletActionContext;
 import org.appfuse.Constants;
@@ -14,12 +8,18 @@ import org.appfuse.model.User;
 import org.appfuse.service.UserExistsException;
 import org.appfuse.webapp.util.RequestUtil;
 import org.springframework.mail.MailException;
-import org.springframework.security.AccessDeniedException;
-import org.springframework.security.Authentication;
-import org.springframework.security.AuthenticationTrustResolver;
-import org.springframework.security.AuthenticationTrustResolverImpl;
-import org.springframework.security.context.SecurityContext;
-import org.springframework.security.context.SecurityContextHolder;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.AuthenticationTrustResolver;
+import org.springframework.security.authentication.AuthenticationTrustResolverImpl;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Action for facilitating User Management feature.

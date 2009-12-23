@@ -8,7 +8,7 @@ import org.appfuse.webapp.util.RequestUtil;
 import org.slf4j.Logger;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.security.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 /**
  * Managed Bean to send password hints to registered users.
