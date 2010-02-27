@@ -1,4 +1,4 @@
-<ehcache>
+<ehcache updateCheck="false">
 
     <!-- Sets the path to the directory where cache .data files are created.
 
