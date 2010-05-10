@@ -79,7 +79,7 @@ public class UserFormController extends BaseFormController {
 
             return getSuccessView();
         } else {
-            
+
             // only attempt to change roles if user is admin for other users,
             // showForm() method will handle populating
             if (request.isUserInRole(Constants.ADMIN_ROLE)) {
@@ -94,7 +94,7 @@ public class UserFormController extends BaseFormController {
             }
 
             Integer originalVersion = user.getVersion();
-            
+
             try {
                 getUserManager().saveUser(user);
             } catch (AccessDeniedException ade) {
@@ -110,7 +110,7 @@ public class UserFormController extends BaseFormController {
                 user.setPassword(user.getConfirmPassword());
                 // reset the version # to what was passed in
                 user.setVersion(originalVersion);
-                
+
                 return "userForm";
             }
 
@@ -140,7 +140,7 @@ public class UserFormController extends BaseFormController {
             }
         }
 
-        return "uploadForm";
+        return "userForm";
     }
 
     @ModelAttribute

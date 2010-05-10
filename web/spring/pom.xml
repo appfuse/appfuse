@@ -258,11 +258,12 @@
                                 <delete file="target/webtest-data/web-tests-result.xml" />
                                 <!-- This is so the default will be used if no test case is specified -->
                                 <property name="test" value="run-all-tests" />
+                                <property name="webapp.name" value="${project.build.finalName}"/>
                                 <property name="i18n.classpath" value="${basedir}/../common/target/classes" />
                                 <echo level="info">Testing '${project.build.finalName}' with locale '${user.language}'</echo>
                                 <ant antfile="src/test/resources/web-tests.xml" target="${test}">
                                     <property name="user.language" value="${user.language}" />
-                                    <property name="webapp.name" value="${project.build.finalName}" />
+                                    <property name="webapp.name" value="${webapp.name}" />
                                     <property name="host" value="${cargo.host}" />
                                     <property name="port" value="${cargo.port}" />
                                 </ant>
