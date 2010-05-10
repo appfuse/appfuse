@@ -1,5 +1,6 @@
 package org.appfuse.webapp.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -9,7 +10,12 @@ import org.appfuse.service.RoleManager;
 import org.appfuse.service.UserExistsException;
 import org.appfuse.webapp.util.RequestUtil;
 import org.springframework.mail.MailException;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,26 +27,28 @@ import java.util.Locale;
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
+@Controller
+@RequestMapping("/signup.*")
 public class SignupController extends BaseFormController {
     private RoleManager roleManager;
 
+    @Autowired
     public void setRoleManager(RoleManager roleManager) {
         this.roleManager = roleManager;
     }
 
-    public SignupController() {
-        setCommandName("user");
-        setCommandClass(User.class);
+    @ModelAttribute
+    @RequestMapping(method = RequestMethod.GET)
+    public User showForm() {
+        return new User();  
     }
 
-    public ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response,
-                                 Object command, BindException errors)
+    @RequestMapping(method = RequestMethod.POST)
+    public String onSubmit(User user, BindingResult errors, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         if (log.isDebugEnabled()) {
             log.debug("entering 'onSubmit' method...");
         }
-
-        User user = (User) command;
         Locale locale = request.getLocale();
         
         user.setEnabled(true);
@@ -61,7 +69,7 @@ public class SignupController extends BaseFormController {
 
             // redisplay the unencrypted passwords
             user.setPassword(user.getConfirmPassword());
-            return showForm(request, response, errors);
+            return "signup";
         }
 
         saveMessage(request, getText("user.registered", user.getUsername(), locale));
@@ -87,6 +95,6 @@ public class SignupController extends BaseFormController {
             saveError(request, me.getMostSpecificCause().getMessage());
         }
         
-        return new ModelAndView(getSuccessView());
+        return "redirect:mainMenu.html";
     }
 }

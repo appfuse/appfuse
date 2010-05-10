@@ -11,7 +11,7 @@
 
 <div class="separator"></div>
 
-<input type="button" onclick="location.href='mainMenu.html'" value="<fmt:message key="button.done"/>"/>
+<input type="button" onclick="location.href='../mainMenu.html'" value="<fmt:message key="button.done"/>"/>
     
 <display:table name="applicationScope.userNames" id="user" cellspacing="0" cellpadding="0"
     defaultsort="1" class="table" pagesize="50" requestURI="">

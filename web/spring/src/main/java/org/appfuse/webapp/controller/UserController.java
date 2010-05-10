@@ -7,8 +7,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.Constants;
 import org.appfuse.service.UserManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.Controller;
 
 
 /**
@@ -20,17 +23,19 @@ import org.springframework.web.servlet.mvc.Controller;
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
-public class UserController implements Controller {
+@Controller
+@RequestMapping("/admin/users.*")
+public class UserController {
     private transient final Log log = LogFactory.getLog(UserController.class);
     private UserManager mgr = null;
 
+    @Autowired
     public void setUserManager(UserManager userManager) {
         this.mgr = userManager;
     }
 
-    public ModelAndView handleRequest(HttpServletRequest request,
-                                      HttpServletResponse response)
-    throws Exception {
+    @RequestMapping(method = RequestMethod.GET)
+    public ModelAndView handleRequest() throws Exception {
         if (log.isDebugEnabled()) {
             log.debug("entering 'handleRequest' method...");
         }

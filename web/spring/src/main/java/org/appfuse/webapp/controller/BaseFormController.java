@@ -1,34 +1,28 @@
 package org.appfuse.webapp.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.io.Serializable;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.service.MailEngine;
 import org.appfuse.service.UserManager;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
+import org.springframework.context.MessageSource;
+import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.validation.BindException;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.SimpleFormController;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Implementation of <strong>SimpleFormController</strong> that contains
@@ -40,15 +34,28 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
-public class BaseFormController extends SimpleFormController {
+public class BaseFormController implements ServletContextAware {
     protected final transient Log log = LogFactory.getLog(getClass());
     public static final String MESSAGES_KEY = "successMessages";
     private UserManager userManager = null;
     protected MailEngine mailEngine = null;
     protected SimpleMailMessage message = null;
-    protected String templateName = null;
+    protected String templateName = "accountCreated.vm";
     protected String cancelView;
+    protected String successView;
 
+    private MessageSourceAccessor messages;
+    private ServletContext servletContext;
+
+    @Autowired(required = false)
+    Validator validator;
+
+    @Autowired
+    public void setMessages(MessageSource messageSource) {
+        messages = new MessageSourceAccessor(messageSource);
+    }
+
+    @Autowired
     public void setUserManager(UserManager userManager) {
         this.userManager = userManager;
     }
@@ -89,7 +96,7 @@ public class BaseFormController extends SimpleFormController {
      * @return
      */
     public String getText(String msgKey, Locale locale) {
-        return getMessageSourceAccessor().getMessage(msgKey, locale);
+        return messages.getMessage(msgKey, locale);
     }
 
     /**
@@ -114,7 +121,7 @@ public class BaseFormController extends SimpleFormController {
      * @return
      */
     public String getText(String msgKey, Object[] args, Locale locale) {
-        return getMessageSourceAccessor().getMessage(msgKey, args, locale);
+        return messages.getMessage(msgKey, args, locale);
     }
 
     /**
@@ -124,7 +131,7 @@ public class BaseFormController extends SimpleFormController {
      * @return the user's populated form from the session
      */
     public Map getConfiguration() {
-        Map config = (HashMap) getServletContext().getAttribute(Constants.CONFIG);
+        Map config = (HashMap) servletContext.getAttribute(Constants.CONFIG);
 
         // so unit tests don't puke when nothing's been set
         if (config == null) {
@@ -135,24 +142,11 @@ public class BaseFormController extends SimpleFormController {
     }
 
     /**
-     * Default behavior for FormControllers - redirect to the successView
-     * when the cancel button has been pressed.
-     */
-    public ModelAndView processFormSubmission(HttpServletRequest request,
-                                              HttpServletResponse response,
-                                              Object command,
-                                              BindException errors)
-    throws Exception {
-        if (request.getParameter("cancel") != null) {
-            return new ModelAndView(getCancelView());
-        }
-
-        return super.processFormSubmission(request, response, command, errors);
-    }
-    
-    /**
      * Set up a custom property editor for converting form inputs to real objects
+     * @param request the current request
+     * @param binder the data binder
      */
+    @InitBinder
     protected void initBinder(HttpServletRequest request,
                               ServletRequestDataBinder binder) {
         binder.registerCustomEditor(Integer.class, null,
@@ -170,9 +164,9 @@ public class BaseFormController extends SimpleFormController {
 
     /**
      * Convenience message to send messages to users, includes app URL as footer.
-     * @param user
-     * @param msg
-     * @param url
+     * @param user the user to send a message to.
+     * @param msg the message to send.
+     * @param url the URL of the application.
      */
     protected void sendUserMessage(User user, String msg, String url) {
         if (log.isDebugEnabled()) {
@@ -193,10 +187,12 @@ public class BaseFormController extends SimpleFormController {
         mailEngine.sendMessage(message, templateName, model);
     }
 
+    @Autowired
     public void setMailEngine(MailEngine mailEngine) {
         this.mailEngine = mailEngine;
     }
 
+    @Autowired
     public void setMessage(SimpleMailMessage message) {
         this.message = message;
     }
@@ -204,11 +200,10 @@ public class BaseFormController extends SimpleFormController {
     public void setTemplateName(String templateName) {
         this.templateName = templateName;
     }
-    /**
-     * Indicates what view to use when the cancel button has been pressed.
-     */
-    public final void setCancelView(String cancelView) {  
-        this.cancelView = cancelView;  
+   
+    public final BaseFormController setCancelView(String cancelView) {
+        this.cancelView = cancelView;
+        return this;
     }
 
     public final String getCancelView() {
@@ -219,4 +214,20 @@ public class BaseFormController extends SimpleFormController {
         return this.cancelView;   
     }
 
+    public final String getSuccessView() {
+        return this.successView;
+    }
+    
+    public final BaseFormController setSuccessView(String successView) {
+        this.successView = successView;
+        return this;
+    }
+
+    public void setServletContext(ServletContext servletContext) {
+        this.servletContext = servletContext;
+    }
+
+    protected ServletContext getServletContext() {
+        return servletContext;
+    }
 }

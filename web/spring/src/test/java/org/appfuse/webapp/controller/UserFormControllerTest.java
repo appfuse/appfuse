@@ -6,14 +6,13 @@ import org.appfuse.service.UserManager;
 import org.appfuse.model.User;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.validation.BindException;
-import org.springframework.validation.Errors;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.DataBinder;
 
 public class UserFormControllerTest extends BaseControllerTestCase {
     private UserFormController c = null;
     private MockHttpServletRequest request;
-    private ModelAndView mv;
+    private User user;
 
     public void setUserFormController(UserFormController form) {
         this.c = form;
@@ -25,8 +24,7 @@ public class UserFormControllerTest extends BaseControllerTestCase {
         request.addParameter("method", "Add");
         request.addUserRole(Constants.ADMIN_ROLE);
 
-        mv = c.handleRequest(request, new MockHttpServletResponse());
-        User user = (User) mv.getModel().get(c.getCommandName());
+        user = c.showForm(request, new MockHttpServletResponse());
         assertNull(user.getUsername());
     }
 
@@ -36,7 +34,7 @@ public class UserFormControllerTest extends BaseControllerTestCase {
         request.addParameter("method", "Add");
 
         try {
-            mv = c.handleRequest(request, new MockHttpServletResponse());
+            c.showForm(request, new MockHttpServletResponse());
             fail("AccessDeniedException not thrown...");
         } catch (AccessDeniedException ade) {
             assertNotNull(ade.getMessage());
@@ -48,9 +46,10 @@ public class UserFormControllerTest extends BaseControllerTestCase {
         request = newPost("/userform.html");
         request.addParameter("cancel", "");
 
-        mv = c.handleRequest(request, new MockHttpServletResponse());
+        BindingResult errors = new DataBinder(user).getBindingResult();
+        String view = c.onSubmit(user, errors, request, new MockHttpServletResponse());
 
-        assertEquals("redirect:mainMenu.html", mv.getViewName());
+        assertEquals("redirect:mainMenu.html", view);
     }
 
     public void testEdit() throws Exception {
@@ -59,10 +58,7 @@ public class UserFormControllerTest extends BaseControllerTestCase {
         request.addParameter("id", "-1"); // regular user
         request.addUserRole(Constants.ADMIN_ROLE);
 
-        mv = c.handleRequest(request, new MockHttpServletResponse());
-
-        assertEquals("userForm", mv.getViewName());
-        User user = (User) mv.getModel().get(c.getCommandName());
+        User user = c.showForm(request, new MockHttpServletResponse());
         assertEquals("Tomcat User", user.getFullName());
     }
 
@@ -72,7 +68,7 @@ public class UserFormControllerTest extends BaseControllerTestCase {
         request.addParameter("id", "-1"); // regular user
 
         try {
-            mv = c.handleRequest(request, new MockHttpServletResponse());
+            c.showForm(request, new MockHttpServletResponse());
             fail("AccessDeniedException not thrown...");
         } catch (AccessDeniedException ade) {
             assertNotNull(ade.getMessage());
@@ -84,11 +80,8 @@ public class UserFormControllerTest extends BaseControllerTestCase {
         request = newGet("/userform.html");
         request.setRemoteUser("user");
 
-        mv = c.handleRequest(request, new MockHttpServletResponse());
-
-        assertEquals("userForm", mv.getViewName());
-        User userform = (User) mv.getModel().get(c.getCommandName());
-        assertEquals("Tomcat User", userform.getFullName());
+        user = c.showForm(request, new MockHttpServletResponse());
+        assertEquals("Tomcat User", user.getFullName());
     }
 
     public void testSave() throws Exception {
@@ -98,33 +91,34 @@ public class UserFormControllerTest extends BaseControllerTestCase {
         User user = ((UserManager) applicationContext.getBean("userManager")).getUser("-1");
         user.setConfirmPassword(user.getPassword());
         user.setLastName("Updated Last Name");
-        super.objectToRequestParameters(user, request);
-        
-        mv = c.handleRequest(request, new MockHttpServletResponse());
 
-        log.debug(mv.getModel());
-        Errors errors = (Errors) mv.getModel().get(BindException.MODEL_KEY_PREFIX + "user");
-        assertNull(errors);
+        BindingResult errors = new DataBinder(user).getBindingResult();
+        c.onSubmit(user, errors, request, new MockHttpServletResponse());
+
+        assertFalse(errors.hasErrors());
         assertNotNull(request.getSession().getAttribute("successMessages"));
     }
     
     public void testAddWithMissingFields() throws Exception {
         request = newPost("/userform.html");
-        request.addParameter("firstName", "Jack");
+        user = new User();
+        user.setFirstName("Jack");
         request.setRemoteUser("user");
 
-        mv = c.handleRequest(request, new MockHttpServletResponse());
-
-        Errors errors = (Errors) mv.getModel().get(BindException.MODEL_KEY_PREFIX + "user");
+        BindingResult errors = new DataBinder(user).getBindingResult();
+        c.onSubmit(user, errors, request, new MockHttpServletResponse());
+        
         assertTrue(errors.getAllErrors().size() == 10);
     }
     
     public void testRemove() throws Exception {
         request = newPost("/userform.html");
         request.addParameter("delete", "");
-        request.addParameter("id", "-2");
+        user = new User();
+        user.setId(-2L);
 
-        mv = c.handleRequest(request, new MockHttpServletResponse());
+        BindingResult errors = new DataBinder(user).getBindingResult();
+        c.onSubmit(user, errors, request, new MockHttpServletResponse());
         
         assertNotNull(request.getSession().getAttribute("successMessages"));
     }

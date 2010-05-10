@@ -1,60 +1,64 @@
 package org.appfuse.webapp.controller;
 
+import org.appfuse.Constants;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.appfuse.Constants;
-import org.springframework.validation.BindException;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
-import org.springframework.web.servlet.ModelAndView;
-
 /**
  * Controller class to upload Files.
- *
+ * <p/>
  * <p>
  * <a href="FileUploadFormController.java.html"><i>View Source</i></a>
  * </p>
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
+@Controller
+@RequestMapping("/fileupload.*")
 public class FileUploadController extends BaseFormController {
 
     public FileUploadController() {
-        setCommandName("fileUpload");
-        setCommandClass(FileUpload.class);
+        setCancelView("redirect:mainMenu.html");
+        setSuccessView("uploadDisplay");
     }
-    
-    public ModelAndView processFormSubmission(HttpServletRequest request,
-                                              HttpServletResponse response,
-                                              Object command,
-                                              BindException errors)
-    throws Exception {
-        if (request.getParameter("cancel") != null) {
-            return new ModelAndView(getCancelView());
+
+    @ModelAttribute
+    @RequestMapping(method = RequestMethod.GET)
+    public FileUpload showForm() {
+        return new FileUpload();
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public String onSubmit(FileUpload fileUpload, BindingResult errors, HttpServletRequest request)
+            throws Exception {
+
+        if (validator != null) { // validator is null during testing
+            validator.validate(fileUpload, errors);
+
+            if (errors.hasErrors()) {
+                return "uploadForm";
+            }
         }
 
-        return super.processFormSubmission(request, response, command, errors);
-    }
-
-    public ModelAndView onSubmit(HttpServletRequest request,
-                                 HttpServletResponse response, Object command,
-                                 BindException errors)
-    throws Exception {
-        FileUpload fileUpload = (FileUpload) command;
 
         // validate a file was entered
         if (fileUpload.getFile().length == 0) {
-            Object[] args = 
-                new Object[] { getText("uploadForm.file", request.getLocale()) };
+            Object[] args =
+                    new Object[]{getText("uploadForm.file", request.getLocale())};
             errors.rejectValue("file", "errors.required", args, "File");
-            
-            return showForm(request, response, errors);
+
+            return "uploadForm";
         }
 
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
@@ -97,6 +101,6 @@ public class FileUploadController extends BaseFormController {
         String link = request.getContextPath() + "/resources" + "/" + request.getRemoteUser() + "/";
         request.setAttribute("link", link + file.getOriginalFilename());
 
-        return new ModelAndView(getSuccessView());
+        return getSuccessView();
     }
 }

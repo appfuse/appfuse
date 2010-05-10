@@ -1,58 +1,63 @@
 package org.appfuse.webapp.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.appfuse.model.User;
 import org.appfuse.service.MailEngine;
 import org.appfuse.service.UserManager;
 import org.appfuse.webapp.util.RequestUtil;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.support.MessageSourceAccessor;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.MailException;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.Controller;
-import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Simple class to retrieve and send a password hint to users.
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
-public class PasswordHintController implements Controller {
+@Controller
+@RequestMapping("/passwordHint.*")
+public class PasswordHintController {
     private final Log log = LogFactory.getLog(PasswordHintController.class);
     private UserManager userManager = null;
     private MessageSource messageSource = null;
     protected MailEngine mailEngine = null;
     protected SimpleMailMessage message = null;
-    
+
+    @Autowired
     public void setUserManager(UserManager userManager) {
         this.userManager = userManager;
     }
 
+    @Autowired
     public void setMessageSource(MessageSource messageSource) {
         this.messageSource = messageSource;
     }
 
+    @Autowired
     public void setMailEngine(MailEngine mailEngine) {
         this.mailEngine = mailEngine;
     }
-    
+
+    @Autowired
     public void setMessage(SimpleMailMessage message) {
         this.message = message;
     }
-    
-    public ModelAndView handleRequest(HttpServletRequest request,
-                                      HttpServletResponse response)
+
+    @RequestMapping(method = RequestMethod.GET)
+    public ModelAndView handleRequest(HttpServletRequest request)
     throws Exception {
         log.debug("entering 'handleRequest' method...");
 

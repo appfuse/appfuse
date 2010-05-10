@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
-       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd"
        default-lazy-init="true">
 
     <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
@@ -15,56 +17,6 @@
         </property>
     </bean>
 
-    <!-- Activates @Autowired for Controllers -->
-    <context:annotation-config/>
-
-    <bean id="filenameController" class="org.springframework.web.servlet.mvc.UrlFilenameViewController"/>
-
-    <bean id="fileUploadController" class="org.appfuse.webapp.controller.FileUploadController">
-        <property name="validator" ref="beanValidator"/>
-        <property name="cancelView" value="redirect:mainMenu.html"/>
-        <property name="formView" value="uploadForm"/>
-        <property name="successView" value="uploadDisplay"/>
-    </bean>
-
-    <bean id="passwordHintController" class="org.appfuse.webapp.controller.PasswordHintController">
-        <property name="userManager" ref="userManager"/>
-        <property name="messageSource" ref="messageSource"/>
-        <property name="mailEngine" ref="mailEngine"/>
-        <property name="message" ref="mailMessage"/>
-    </bean>
-
-    <bean id="reloadController" class="org.appfuse.webapp.controller.ReloadController"/>
-
-    <bean id="signupController" class="org.appfuse.webapp.controller.SignupController">
-        <property name="validator" ref="beanValidator"/>
-        <property name="formView" value="signup"/>
-        <property name="successView" value="redirect:mainMenu.html"/>
-        <property name="userManager" ref="userManager"/>
-        <property name="roleManager" ref="roleManager"/>
-        <property name="mailEngine" ref="mailEngine"/>
-        <property name="message" ref="mailMessage"/>
-        <property name="templateName" value="accountCreated.vm"/>
-    </bean>
-
-    <bean id="userController" class="org.appfuse.webapp.controller.UserController">
-        <property name="userManager" ref="userManager"/>
-    </bean>
-
-    <bean id="userFormController" class="org.appfuse.webapp.controller.UserFormController">
-        <property name="validator" ref="beanValidator"/>
-        <property name="formView" value="userForm"/>
-        <property name="successView" value="redirect:users.html"/>
-        <property name="cancelView" value="redirect:mainMenu.html"/>
-        <property name="userManager" ref="userManager"/>
-        <property name="roleManager" ref="roleManager"/>
-        <property name="mailEngine" ref="mailEngine"/>
-        <property name="message" ref="mailMessage"/>
-        <property name="templateName" value="accountCreated.vm"/>
-    </bean>
-
-    <!-- Add additional controller beans here -->
-
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="maxUploadSize" value="2097152"/>
     </bean>
@@ -72,24 +24,16 @@
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basename" value="ApplicationResources"/>
         <property name="useCodeAsDefaultMessage" value="true"/>
-    </bean>
+    </bean> 
 
-    <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-        <property name="mappings">
-            <value>
-                /admin/activeUsers.html=filenameController
-                /admin/reload.html=reloadController
-                /admin/users.html=userController
-                /mainMenu.html=filenameController
-                /passwordHint.html=passwordHintController
-            </value>
-        </property>
-        <property name="order" value="0"/>
-    </bean>
+    <context:component-scan base-package="org.appfuse.webapp"/>
 
-    <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping">
-        <property name="order" value="1"/>
-    </bean>
+    <!-- Configures the @Controller programming model -->
+    <mvc:annotation-driven/>
+
+    <!-- Convenient way to map URLs to JSPs w/o having a Controller -->
+    <mvc:view-controller path="/admin/activeUsers.html" view-name="admin/activeUsers"/>
+    <mvc:view-controller path="/mainMenu.html" view-name="mainMenu"/>
 
     <!-- View Resolver for JSPs -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -98,4 +42,6 @@
         <property name="prefix" value="/WEB-INF/pages/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
+    
+    <!-- Add additional controller beans here -->
 </beans>

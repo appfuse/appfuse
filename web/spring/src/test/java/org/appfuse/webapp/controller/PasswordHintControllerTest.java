@@ -20,7 +20,7 @@ public class PasswordHintControllerTest extends BaseControllerTestCase {
         wiser.setPort(getSmtpPort());
         wiser.start();
         
-        c.handleRequest(request, new MockHttpServletResponse());
+        c.handleRequest(request);
         
         // verify an account information e-mail was sent
         wiser.stop();
