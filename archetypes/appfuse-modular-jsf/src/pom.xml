@@ -353,7 +353,7 @@
         <facelets.version>1.1.14</facelets.version>
         <myfaces.version>1.2.7</myfaces.version>
         <myfaces.tomahawk.version>1.1.9</myfaces.tomahawk.version>
-        <spring.version>3.0.0.RELEASE</spring.version>
+        <spring.version>3.0.3.RELEASE</spring.version>
 
         <!-- Testing dependency versions -->
         <cargo.version>1.0</cargo.version>
