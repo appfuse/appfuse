@@ -65,7 +65,7 @@ public class UserFormController extends BaseFormController {
             validator.validate(user, errors);
 
             if (errors.hasErrors() && request.getParameter("delete") == null) { // don't validate when deleting
-                return "userForm";
+                return "userform";
             }
         }
 
@@ -111,7 +111,7 @@ public class UserFormController extends BaseFormController {
                 // reset the version # to what was passed in
                 user.setVersion(originalVersion);
 
-                return "userForm";
+                return "userform";
             }
 
             if (!StringUtils.equals(request.getParameter("from"), "list")) {
@@ -140,7 +140,7 @@ public class UserFormController extends BaseFormController {
             }
         }
 
-        return "userForm";
+        return "userform";
     }
 
     @ModelAttribute
