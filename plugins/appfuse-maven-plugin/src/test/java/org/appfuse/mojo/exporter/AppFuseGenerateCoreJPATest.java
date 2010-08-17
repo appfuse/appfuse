@@ -28,6 +28,12 @@ public final class AppFuseGenerateCoreJPATest extends AbstractAppFuseMojoTestCas
     }
 
     @Override
+    protected void tearDown() throws Exception {
+        System.clearProperty("entity.check");
+        super.tearDown();
+    }
+
+    @Override
     protected MavenProject getMavenProject() {
         MavenProject project = super.getMavenProject();
         project.getProperties().setProperty("dao.framework", "jpa");
