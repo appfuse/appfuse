@@ -46,6 +46,7 @@ public class ${pojo.shortName}FormControllerTest extends BaseControllerTestCase 
     </#foreach>
 </#foreach>
 
+        BindingResult errors = new DataBinder(${pojoNameLower}).getBindingResult();
         form.onSubmit(${pojoNameLower}, errors, request, new MockHttpServletResponse());
         assertFalse(errors.hasErrors());
         assertNotNull(request.getSession().getAttribute("successMessages"));
