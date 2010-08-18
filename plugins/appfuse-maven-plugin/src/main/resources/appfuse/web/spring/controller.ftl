@@ -13,10 +13,13 @@ import ${basepackage}.model.${pojo.shortName};
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.Controller;
 
-public class ${pojo.shortName}Controller implements Controller {
+@Controller
+public class ${pojo.shortName}Controller {
 <#if genericcore>
     private GenericManager<${pojo.shortName}, ${pojo.getJavaTypeName(pojo.identifierProperty, jdk5)}> ${pojoNameLower}Manager;
 <#else>
@@ -32,6 +35,7 @@ public class ${pojo.shortName}Controller implements Controller {
         this.${pojoNameLower}Manager = ${pojoNameLower}Manager;
     }
 
+    @RequestMapping(method = RequestMethod.GET)
     public ModelAndView handleRequest(HttpServletRequest request,
                                       HttpServletResponse response)
     throws Exception {

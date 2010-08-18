@@ -5,12 +5,14 @@ import ${basepackage}.webapp.controller.BaseControllerTestCase;
 import ${pojo.packageName}.${pojo.shortName};
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.validation.BindException;
-import org.springframework.validation.Errors;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.DataBinder;
 import org.springframework.web.servlet.ModelAndView;
 
 public class ${pojo.shortName}FormControllerTest extends BaseControllerTestCase {
     private ${pojo.shortName}FormController form;
+    private ${pojo.shortName} ${pojoNameLower};
+    private MockHttpServletRequest request;
 
     public void set${pojo.shortName}FormController(${pojo.shortName}FormController form) {
         this.form = form;
@@ -18,26 +20,23 @@ public class ${pojo.shortName}FormControllerTest extends BaseControllerTestCase 
 
     public void testEdit() throws Exception {
         log.debug("testing edit...");
-        MockHttpServletRequest request = newGet("/${pojoNameLower}form.html");
+        request = newGet("/${pojoNameLower}form.html");
         request.addParameter("${pojo.identifierProperty.name}", "-1");
 
-        ModelAndView mv = form.handleRequest(request, new MockHttpServletResponse());
-
-        ${pojo.shortName} ${pojoNameLower} = (${pojo.shortName}) mv.getModel().get(form.getCommandName());
+        ${pojoNameLower} = form.showForm(request);
         assertNotNull(${pojoNameLower});
     }
 
     public void testSave() throws Exception {
-        MockHttpServletRequest request = newGet("/${pojoNameLower}form.html");
+        request = newGet("/${pojoNameLower}form.html");
         request.addParameter("${pojo.identifierProperty.name}", "-1");
 
-        ModelAndView mv = form.handleRequest(request, new MockHttpServletResponse());
-
-        ${pojo.shortName} ${pojoNameLower} = (${pojo.shortName}) mv.getModel().get(form.getCommandName());
+        ${pojoNameLower} = form.showForm(request);
         assertNotNull(${pojoNameLower});
 
         request = newPost("/${pojoNameLower}form.html");
 
+        ${pojoNameLower} = form.showForm(request);
         // update required fields
 <#foreach field in pojo.getAllPropertiesIterator()>
     <#foreach column in field.getColumnIterator()>
@@ -47,21 +46,18 @@ public class ${pojo.shortName}FormControllerTest extends BaseControllerTestCase 
     </#foreach>
 </#foreach>
 
-        super.objectToRequestParameters(${pojoNameLower}, request);
-
-        mv = form.handleRequest(request, new MockHttpServletResponse());
-
-        Errors errors = (Errors) mv.getModel().get(BindException.MODEL_KEY_PREFIX + "${pojoNameLower}");
-        assertNull(errors);
+        form.onSubmit(${pojoNameLower}, errors, request, new MockHttpServletResponse());
+        assertFalse(errors.hasErrors());
         assertNotNull(request.getSession().getAttribute("successMessages"));
     }
 
     public void testRemove() throws Exception {
-        MockHttpServletRequest request = newPost("/${pojoNameLower}form.html");
+        request = newPost("/${pojoNameLower}form.html");
         request.addParameter("delete", "");
         request.addParameter("${pojo.identifierProperty.name}", "-2");
 
-        form.handleRequest(request, new MockHttpServletResponse());
+        BindingResult errors = new DataBinder(${pojoNameLower}).getBindingResult();
+        form.onSubmit(${pojoNameLower}, errors, request, new MockHttpServletResponse());
 
         assertNotNull(request.getSession().getAttribute("successMessages"));
     }

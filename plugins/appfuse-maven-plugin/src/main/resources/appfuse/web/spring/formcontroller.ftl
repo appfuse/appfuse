@@ -15,13 +15,18 @@ import ${basepackage}.webapp.controller.BaseFormController;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.validation.BindException;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Locale;
 
+@Controller
+@RequestMapping("/${pojoNameLower}form.*")
 public class ${pojo.shortName}FormController extends BaseFormController {
 <#if genericcore>
     private GenericManager<${pojo.shortName}, ${identifierType}> ${pojoNameLower}Manager = null;
@@ -39,11 +44,13 @@ public class ${pojo.shortName}FormController extends BaseFormController {
     }
 
     public ${pojo.shortName}FormController() {
-        setCommandClass(${pojo.shortName}.class);
-        setCommandName("${pojoNameLower}");
+        setCancelView("redirect:${util.getPluralForWord(pojoNameLower)}.html");
+        setSuccessView("${pojoNameLower}form");
     }
 
-    protected Object formBackingObject(HttpServletRequest request)
+    @ModelAttribute
+    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
+    protected ${pojo.shortName} showForm(HttpServletRequest request)
     throws Exception {
         String ${pojo.identifierProperty.name} = request.getParameter("${pojo.identifierProperty.name}");
 
@@ -54,13 +61,12 @@ public class ${pojo.shortName}FormController extends BaseFormController {
         return new ${pojo.shortName}();
     }
 
-    public ModelAndView onSubmit(HttpServletRequest request,
-                                 HttpServletResponse response, Object command,
-                                 BindException errors)
+    @RequestMapping(method = RequestMethod.POST)
+    public String onSubmit(${pojo.shortName} ${pojoNameLower}, BindingResult errors, HttpServletRequest request,
+                           HttpServletResponse response)
     throws Exception {
         log.debug("entering 'onSubmit' method...");
 
-        ${pojo.shortName} ${pojoNameLower} = (${pojo.shortName}) command;
         boolean isNew = (${pojoNameLower}.${getIdMethodName}() == null);
         String success = getSuccessView();
         Locale locale = request.getLocale();
@@ -78,6 +84,6 @@ public class ${pojo.shortName}FormController extends BaseFormController {
             }
         }
 
-        return new ModelAndView(success);
+        return success;
     }
 }

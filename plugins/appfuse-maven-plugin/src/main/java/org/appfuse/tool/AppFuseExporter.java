@@ -143,8 +143,8 @@ public class AppFuseExporter extends GenericExporter {
             configureExporter("appfuse/web/spring/list-view.ftl", "src/main/webapp/WEB-INF/pages/{class-name}s.jsp").start();
             configureExporter("appfuse/web/spring/form-view.ftl", "src/main/webapp/WEB-INF/pages/{class-name}form.jsp").start();
 
-            // configuration
-            configureExporter("appfuse/web/spring/controller-beans.ftl", "src/main/webapp/WEB-INF/{class-name}-beans.xml").start();
+            // Controllers configured by Spring annotations in 2.1+
+            //configureExporter("appfuse/web/spring/controller-beans.ftl", "src/main/webapp/WEB-INF/{class-name}-beans.xml").start();
 
             // validation
             configureExporter("appfuse/web/spring/form-validation.ftl", "src/main/webapp/WEB-INF/{class-name}-validation.xml").start();

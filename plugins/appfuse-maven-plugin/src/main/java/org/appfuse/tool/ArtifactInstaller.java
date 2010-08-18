@@ -83,7 +83,8 @@ public class ArtifactInstaller {
                 installStrutsViews();
             } else if ("spring".equalsIgnoreCase(webFramework)) {
                 log("Installing Spring views and configuring...");
-                installSpringControllerBeanDefinitions();
+                //Controllers configured by Spring annotations in 2.1+
+                //installSpringControllerBeanDefinitions();
                 installSpringValidation();
                 installSpringViews();
             } else if ("tapestry".equalsIgnoreCase(webFramework)) {
@@ -194,10 +195,11 @@ public class ArtifactInstaller {
     }
 
     private void installSpringControllerBeanDefinitions() {
-        createLoadFileTask("src/main/webapp/WEB-INF/" + pojoName + "-beans.xml", "dispatcher.servlet").execute();
-        File generatedFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/dispatcher-servlet.xml");
+        // Controllers configured by Spring annotations in 2.1+
+        //createLoadFileTask("src/main/webapp/WEB-INF/" + pojoName + "-beans.xml", "dispatcher.servlet").execute();
+        //File generatedFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/dispatcher-servlet.xml");
 
-        parseXMLFile(generatedFile, pojoName, "<!-- Add additional controller beans here -->", "dispatcher.servlet");
+        //parseXMLFile(generatedFile, pojoName, "<!-- Add additional controller beans here -->", "dispatcher.servlet");
     }
 
     private void installSpringValidation() {
