@@ -51,8 +51,8 @@ public class UserFormController extends BaseFormController {
 
     @RequestMapping(method = RequestMethod.POST)
     public String onSubmit(User user, BindingResult errors, HttpServletRequest request,
-                                 HttpServletResponse response)
-    throws Exception {
+                           HttpServletResponse response)
+            throws Exception {
         if (request.getParameter("cancel") != null) {
             if (!StringUtils.equals(request.getParameter("from"), "list")) {
                 return getCancelView();
@@ -104,7 +104,7 @@ public class UserFormController extends BaseFormController {
                 return null;
             } catch (UserExistsException e) {
                 errors.rejectValue("username", "errors.existing.user",
-                                   new Object[] {user.getUsername(), user.getEmail()}, "duplicate user");
+                        new Object[]{user.getUsername(), user.getEmail()}, "duplicate user");
 
                 // redisplay the unencrypted passwords
                 user.setPassword(user.getConfirmPassword());
@@ -128,7 +128,7 @@ public class UserFormController extends BaseFormController {
 
                     try {
                         sendUserMessage(user, getText("newuser.email.message", user.getFullName(), locale),
-                                        RequestUtil.getAppURL(request));
+                                RequestUtil.getAppURL(request));
                     } catch (MailException me) {
                         saveError(request, me.getCause().getLocalizedMessage());
                     }
@@ -146,13 +146,13 @@ public class UserFormController extends BaseFormController {
     @ModelAttribute
     @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
     protected User showForm(HttpServletRequest request, HttpServletResponse response)
-    throws Exception {
+            throws Exception {
         // If not an administrator, make sure user is not trying to add or edit another user
         if (!request.isUserInRole(Constants.ADMIN_ROLE) && !isFormSubmission(request)) {
             if (isAdd(request) || request.getParameter("id") != null) {
                 response.sendError(HttpServletResponse.SC_FORBIDDEN);
                 log.warn("User '" + request.getRemoteUser() + "' is trying to edit user with id '" +
-                         request.getParameter("id") + "'");
+                        request.getParameter("id") + "'");
 
                 throw new AccessDeniedException("You do not have permission to modify other users.");
             }
