@@ -15,5 +15,5 @@ To get started, please complete the following steps:
 
 3. More information can be found at:
 
-   http://appfuse.org/display/APF/QuickStart+Guide
+   http://appfuse.org/display/APF/AppFuse+QuickStart
 
