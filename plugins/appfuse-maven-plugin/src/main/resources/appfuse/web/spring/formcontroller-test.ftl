@@ -55,7 +55,8 @@ public class ${pojo.shortName}FormControllerTest extends BaseControllerTestCase 
     public void testRemove() throws Exception {
         request = newPost("/${pojoNameLower}form.html");
         request.addParameter("delete", "");
-        request.addParameter("${pojo.identifierProperty.name}", "-2");
+        ${pojoNameLower} = new ${pojo.shortName}();
+        ${pojoNameLower}.${pojo.getSetterSignature(pojo.identifierProperty)}(-2L);
 
         BindingResult errors = new DataBinder(${pojoNameLower}).getBindingResult();
         form.onSubmit(${pojoNameLower}, errors, request, new MockHttpServletResponse());
