@@ -1,4 +1,5 @@
 <#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
+<#assign setIdMethodName = 'set' + pojo.getPropertyName(pojo.identifierProperty)>
 package ${basepackage}.webapp.controller;
 
 import ${basepackage}.webapp.controller.BaseControllerTestCase;
@@ -56,7 +57,7 @@ public class ${pojo.shortName}FormControllerTest extends BaseControllerTestCase 
         request = newPost("/${pojoNameLower}form.html");
         request.addParameter("delete", "");
         ${pojoNameLower} = new ${pojo.shortName}();
-        ${pojoNameLower}.${pojo.getSetterSignature(pojo.identifierProperty)}(-2L);
+        ${pojoNameLower}.${setIdMethodName}(-2L);
 
         BindingResult errors = new DataBinder(${pojoNameLower}).getBindingResult();
         form.onSubmit(${pojoNameLower}, errors, request, new MockHttpServletResponse());
