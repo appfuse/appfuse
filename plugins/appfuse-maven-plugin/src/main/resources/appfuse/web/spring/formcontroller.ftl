@@ -45,7 +45,7 @@ public class ${pojo.shortName}FormController extends BaseFormController {
 
     public ${pojo.shortName}FormController() {
         setCancelView("redirect:${util.getPluralForWord(pojoNameLower)}.html");
-        setSuccessView("${pojoNameLower}form");
+        setSuccessView("redirect:${util.getPluralForWord(pojoNameLower)}.html");
     }
 
     @ModelAttribute
