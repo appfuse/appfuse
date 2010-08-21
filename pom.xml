@@ -420,7 +420,7 @@
             </properties>
         </profile>
         <profile>
-            <id>tomcat</id>
+            <id>jetty</id>
             <properties>
                 <cargo.container>jetty6x</cargo.container>
                 <cargo.container.url>http://dist.codehaus.org/jetty/jetty-6.1.21/jetty-6.1.21.zip</cargo.container.url>
@@ -518,6 +518,7 @@
         <servlet.version>2.5</servlet.version>
         <shale.version>1.0.5</shale.version>
         <sitemesh.version>2.4.2</sitemesh.version>
+        <slf4j.version>1.5.2</slf4j.version>
         <spring.version>3.0.4.RELEASE</spring.version>
         <spring.security.version>3.0.3.RELEASE</spring.security.version>
         <springmodules.validation.version>0.8</springmodules.validation.version>
