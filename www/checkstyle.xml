@@ -44,154 +44,152 @@
     </module-->
 
     <module name="Translation" />
-    <module name="TreeWalker">
-        <!-- Checks for Javadoc comments.                     -->
-        <!-- See http://checkstyle.sf.net/config_javadoc.html -->
-        <module name="JavadocMethod">
-            <property name="allowUndeclaredRTE" value="true" />
-            <property name="allowThrowsTagsForSubclasses" value="true" />
-            <property name="allowMissingPropertyJavadoc" value="true" />
-            <property name="scope" value="protected" />
-        </module>
-        <module name="JavadocType">
-            <property name="scope" value="protected" />
-        </module>
-        <module name="JavadocVariable">
-            <property name="scope" value="protected" />
-        </module>
-        <module name="JavadocStyle">
-            <property name="scope" value="protected" />
-            <property name="checkFirstSentence" value="false" />
-        </module>
-        <!-- Checks for Naming Conventions.                  -->
-        <!-- See http://checkstyle.sf.net/config_naming.html -->
-        <module name="ConstantName">
-            <!-- Allow "log" as a constant - don't force LOG -->
-            <property name="format" value="^log$|^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$"/>
-        </module>
-        <module name="LocalFinalVariableName" />
-        <module name="LocalVariableName" />
-        <module name="MemberName" />
-        <module name="MethodName" />
-        <module name="PackageName" />
-        <module name="ParameterName" />
-        <module name="StaticVariableName" />
-        <module name="TypeName">
-            <!-- Allow "iBatis" to start a class/interface name -->
-            <property name="format" value="^iBatis[A-Z][a-zA-Z0-9]*$|^[A-Z][a-zA-Z0-9]*$"/>
-        </module>
-        <!-- Checks for Headers                              -->
-        <!-- See http://checkstyle.sf.net/config_header.html -->
-        <!-- MR: Commented out as we don't have a standard header yet -->
-        <!--module name="Header">
-            <property name="headerFile" value="${basedir}/java.header"/>
-        </module-->
-        <!-- Following interprets the header file as regular expressions. -->
-        <!-- <module name="RegexpHeader"/>                                -->
-        <!-- Checks for imports                              -->
-        <!-- See http://checkstyle.sf.net/config_import.html -->
-        <module name="AvoidStarImport" />
-        <module name="IllegalImport" />
-        <!-- defaults to sun.* packages -->
-        <module name="RedundantImport" />
-        <module name="UnusedImports" />
-        <!-- Checks for Size Violations.                    -->
-        <!-- See http://checkstyle.sf.net/config_sizes.html -->
-        <module name="FileLength" />
-        <module name="LineLength">
-            <property name="max" value="120"/>
-            <!-- ignore rows starting with a * @see and long word-->
-            <property name="ignorePattern" value="^ *\* \@see *[^ ]+$"/> 
-        </module>
-        <module name="MethodLength">
-            <property name="max" value="160" />
-        </module>
-        <module name="ParameterNumber">
-            <property name="max" value="8" />
-        </module>
-        <!-- Checks for whitespace                               -->
-        <!-- See http://checkstyle.sf.net/config_whitespace.html -->
-        <module name="EmptyForIteratorPad" />
-        <module name="NoWhitespaceAfter" />
-        <module name="NoWhitespaceBefore">
-            <property name="tokens" value="DOT" />
-            <property name="allowLineBreaks" value="true" />
-        </module>
-        <module name="OperatorWrap" />
-        <!--TODO: comment this back in when Checkstyle is compatible with Annotations taking in Arrays-->
-        <!--<module name="ParenPad"/>-->
-        <module name="TabCharacter" />
-        <module name="WhitespaceAfter" />
-        <!--TODO: comment this back in when Checkstyle is compatible with Annotations taking in Arrays-->
-        <!--<module name="WhitespaceAround">
-            <property name="tokens" value="ASSIGN, BAND, BAND_ASSIGN, BOR, BOR_ASSIGN, BSR, BSR_ASSIGN, BXOR, BXOR_ASSIGN, COLON, DIV, DIV_ASSIGN, EQUAL, GE, GT, LAND, LE, LITERAL_ASSERT, LITERAL_CATCH, LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY, LITERAL_FOR, LITERAL_IF, LITERAL_RETURN, LITERAL_SYNCHRONIZED, LITERAL_TRY, LITERAL_WHILE, LCURLY, LOR, LT, MINUS, MINUS_ASSIGN, MOD, MOD_ASSIGN, NOT_EQUAL, PLUS, PLUS_ASSIGN, QUESTION, RCURLY, SL, SLIST, SL_ASSIGN, SR, SR_ASSIGN, STAR, STAR_ASSIGN, TYPE_EXTENSION_AND, WILDCARD_TYPE"/>
-        </module>-->
-        <module name="WhitespaceAround">
-            <property name="tokens"
-                      value="ASSIGN, BAND, BAND_ASSIGN, BOR, BOR_ASSIGN, BSR, BSR_ASSIGN, BXOR, BXOR_ASSIGN, COLON, DIV, DIV_ASSIGN, EQUAL, GE, GT, LAND, LE, LITERAL_ASSERT, LITERAL_CATCH, LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY, LITERAL_FOR, LITERAL_IF, LITERAL_RETURN, LITERAL_SYNCHRONIZED, LITERAL_TRY, LITERAL_WHILE, LOR, LT, MINUS, MINUS_ASSIGN, MOD, MOD_ASSIGN, NOT_EQUAL, PLUS, PLUS_ASSIGN, SL, SLIST, SL_ASSIGN, SR, SR_ASSIGN, STAR, STAR_ASSIGN, TYPE_EXTENSION_AND" />
-        </module>
-
-        <!-- Modifier Checks                                    -->
-        <!-- See http://checkstyle.sf.net/config_modifiers.html -->
-        <module name="ModifierOrder" />
-        <module name="RedundantModifier" />
-        <!-- Checks for blocks. You know, those {}'s         -->
-        <!-- See http://checkstyle.sf.net/config_blocks.html -->
-        <module name="AvoidNestedBlocks" />
-        <module name="EmptyBlock" />
-        <module name="LeftCurly" />
-        <module name="NeedBraces" />
-        <module name="RightCurly" />
-        <!-- Checks for common coding problems               -->
-        <!-- See http://checkstyle.sf.net/config_coding.html -->
-        <!--<module name="AvoidInlineConditionals"/>-->
-        <module name="DoubleCheckedLocking" />
-        <!-- MY FAVORITE -->
-        <module name="EmptyStatement" />
-        <module name="EqualsHashCode" />
-        <!--<module name="HiddenField">-->
-        <!-- MR: checks local variables but not parameters -->
-        <!--<property name="tokens" value="VARIABLE_DEF" />-->
-        <!--</module>-->
-        <module name="IllegalInstantiation" />
-
-        <module name="InnerAssignment" />
-
-        <!--        <module name="MagicNumber"/>-->
-        <module name="MissingSwitchDefault" />
-        <module name="RedundantThrows">
-            <property name="allowUnchecked" value="true"/>
-        </module>
-        <module name="SimplifyBooleanExpression" />
-        <module name="SimplifyBooleanReturn" />
-        <!-- Checks for class design                         -->
-        <!-- See http://checkstyle.sf.net/config_design.html -->
-        <!--<module name="DesignForExtension"/>-->
-        <module name="FinalClass" />
-        <module name="HideUtilityClassConstructor" />
-        <module name="InterfaceIsType" />
-        <module name="VisibilityModifier">
-            <property name="protectedAllowed" value="true" />
-        </module>
-        <!-- Miscellaneous other checks.                   -->
-        <!-- See http://checkstyle.sf.net/config_misc.html -->
-        <module name="ArrayTypeStyle" />
-        <module name="FinalParameters">
-            <!-- MR: enforce final parameters only for constructors -->
-            <property name="tokens" value="CTOR_DEF" />
-        </module>
-        <module name="GenericIllegalRegexp">
-            <property name="format" value="\s+\s+$" />
-            <property name="message" value="Line has trailing spaces." />
-        </module>
-        <!--		<module name="TodoComment"/> -->
-        <module name="UpperEll" />
-
-        <module name="NestedIfDepth">
-            <property name="max" value="3" />
-        </module>
-        <module name="NestedTryDepth" />
-        <module name="ExplicitInitialization" />
+    <!-- Checks for Javadoc comments.                     -->
+    <!-- See http://checkstyle.sf.net/config_javadoc.html -->
+    <module name="JavadocMethod">
+        <property name="allowUndeclaredRTE" value="true" />
+        <property name="allowThrowsTagsForSubclasses" value="true" />
+        <property name="allowMissingPropertyJavadoc" value="true" />
+        <property name="scope" value="protected" />
     </module>
+    <module name="JavadocType">
+        <property name="scope" value="protected" />
+    </module>
+    <module name="JavadocVariable">
+        <property name="scope" value="protected" />
+    </module>
+    <module name="JavadocStyle">
+        <property name="scope" value="protected" />
+        <property name="checkFirstSentence" value="false" />
+    </module>
+    <!-- Checks for Naming Conventions.                  -->
+    <!-- See http://checkstyle.sf.net/config_naming.html -->
+    <module name="ConstantName">
+        <!-- Allow "log" as a constant - don't force LOG -->
+        <property name="format" value="^log$|^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$"/>
+    </module>
+    <module name="LocalFinalVariableName" />
+    <module name="LocalVariableName" />
+    <module name="MemberName" />
+    <module name="MethodName" />
+    <module name="PackageName" />
+    <module name="ParameterName" />
+    <module name="StaticVariableName" />
+    <module name="TypeName">
+        <!-- Allow "iBatis" to start a class/interface name -->
+        <property name="format" value="^iBatis[A-Z][a-zA-Z0-9]*$|^[A-Z][a-zA-Z0-9]*$"/>
+    </module>
+    <!-- Checks for Headers                              -->
+    <!-- See http://checkstyle.sf.net/config_header.html -->
+    <!-- MR: Commented out as we don't have a standard header yet -->
+    <!--module name="Header">
+        <property name="headerFile" value="${basedir}/java.header"/>
+    </module-->
+    <!-- Following interprets the header file as regular expressions. -->
+    <!-- <module name="RegexpHeader"/>                                -->
+    <!-- Checks for imports                              -->
+    <!-- See http://checkstyle.sf.net/config_import.html -->
+    <module name="AvoidStarImport" />
+    <module name="IllegalImport" />
+    <!-- defaults to sun.* packages -->
+    <module name="RedundantImport" />
+    <module name="UnusedImports" />
+    <!-- Checks for Size Violations.                    -->
+    <!-- See http://checkstyle.sf.net/config_sizes.html -->
+    <module name="FileLength" />
+    <module name="LineLength">
+        <property name="max" value="120"/>
+        <!-- ignore rows starting with a * @see and long word-->
+        <property name="ignorePattern" value="^ *\* \@see *[^ ]+$"/> 
+    </module>
+    <module name="MethodLength">
+        <property name="max" value="160" />
+    </module>
+    <module name="ParameterNumber">
+        <property name="max" value="8" />
+    </module>
+    <!-- Checks for whitespace                               -->
+    <!-- See http://checkstyle.sf.net/config_whitespace.html -->
+    <module name="EmptyForIteratorPad" />
+    <module name="NoWhitespaceAfter" />
+    <module name="NoWhitespaceBefore">
+        <property name="tokens" value="DOT" />
+        <property name="allowLineBreaks" value="true" />
+    </module>
+    <module name="OperatorWrap" />
+    <!--TODO: comment this back in when Checkstyle is compatible with Annotations taking in Arrays-->
+    <!--<module name="ParenPad"/>-->
+    <module name="TabCharacter" />
+    <module name="WhitespaceAfter" />
+    <!--TODO: comment this back in when Checkstyle is compatible with Annotations taking in Arrays-->
+    <!--<module name="WhitespaceAround">
+        <property name="tokens" value="ASSIGN, BAND, BAND_ASSIGN, BOR, BOR_ASSIGN, BSR, BSR_ASSIGN, BXOR, BXOR_ASSIGN, COLON, DIV, DIV_ASSIGN, EQUAL, GE, GT, LAND, LE, LITERAL_ASSERT, LITERAL_CATCH, LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY, LITERAL_FOR, LITERAL_IF, LITERAL_RETURN, LITERAL_SYNCHRONIZED, LITERAL_TRY, LITERAL_WHILE, LCURLY, LOR, LT, MINUS, MINUS_ASSIGN, MOD, MOD_ASSIGN, NOT_EQUAL, PLUS, PLUS_ASSIGN, QUESTION, RCURLY, SL, SLIST, SL_ASSIGN, SR, SR_ASSIGN, STAR, STAR_ASSIGN, TYPE_EXTENSION_AND, WILDCARD_TYPE"/>
+    </module>-->
+    <module name="WhitespaceAround">
+        <property name="tokens"
+                  value="ASSIGN, BAND, BAND_ASSIGN, BOR, BOR_ASSIGN, BSR, BSR_ASSIGN, BXOR, BXOR_ASSIGN, COLON, DIV, DIV_ASSIGN, EQUAL, GE, GT, LAND, LE, LITERAL_ASSERT, LITERAL_CATCH, LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY, LITERAL_FOR, LITERAL_IF, LITERAL_RETURN, LITERAL_SYNCHRONIZED, LITERAL_TRY, LITERAL_WHILE, LOR, LT, MINUS, MINUS_ASSIGN, MOD, MOD_ASSIGN, NOT_EQUAL, PLUS, PLUS_ASSIGN, SL, SLIST, SL_ASSIGN, SR, SR_ASSIGN, STAR, STAR_ASSIGN, TYPE_EXTENSION_AND" />
+    </module>
+
+    <!-- Modifier Checks                                    -->
+    <!-- See http://checkstyle.sf.net/config_modifiers.html -->
+    <module name="ModifierOrder" />
+    <module name="RedundantModifier" />
+    <!-- Checks for blocks. You know, those {}'s         -->
+    <!-- See http://checkstyle.sf.net/config_blocks.html -->
+    <module name="AvoidNestedBlocks" />
+    <module name="EmptyBlock" />
+    <module name="LeftCurly" />
+    <module name="NeedBraces" />
+    <module name="RightCurly" />
+    <!-- Checks for common coding problems               -->
+    <!-- See http://checkstyle.sf.net/config_coding.html -->
+    <!--<module name="AvoidInlineConditionals"/>-->
+    <module name="DoubleCheckedLocking" />
+    <!-- MY FAVORITE -->
+    <module name="EmptyStatement" />
+    <module name="EqualsHashCode" />
+    <!--<module name="HiddenField">-->
+    <!-- MR: checks local variables but not parameters -->
+    <!--<property name="tokens" value="VARIABLE_DEF" />-->
+    <!--</module>-->
+    <module name="IllegalInstantiation" />
+
+    <module name="InnerAssignment" />
+
+    <!--        <module name="MagicNumber"/>-->
+    <module name="MissingSwitchDefault" />
+    <module name="RedundantThrows">
+        <property name="allowUnchecked" value="true"/>
+    </module>
+    <module name="SimplifyBooleanExpression" />
+    <module name="SimplifyBooleanReturn" />
+    <!-- Checks for class design                         -->
+    <!-- See http://checkstyle.sf.net/config_design.html -->
+    <!--<module name="DesignForExtension"/>-->
+    <module name="FinalClass" />
+    <module name="HideUtilityClassConstructor" />
+    <module name="InterfaceIsType" />
+    <module name="VisibilityModifier">
+        <property name="protectedAllowed" value="true" />
+    </module>
+    <!-- Miscellaneous other checks.                   -->
+    <!-- See http://checkstyle.sf.net/config_misc.html -->
+    <module name="ArrayTypeStyle" />
+    <module name="FinalParameters">
+        <!-- MR: enforce final parameters only for constructors -->
+        <property name="tokens" value="CTOR_DEF" />
+    </module>
+    <module name="GenericIllegalRegexp">
+        <property name="format" value="\s+\s+$" />
+        <property name="message" value="Line has trailing spaces." />
+    </module>
+    <!--		<module name="TodoComment"/> -->
+    <module name="UpperEll" />
+
+    <module name="NestedIfDepth">
+        <property name="max" value="3" />
+    </module>
+    <module name="NestedTryDepth" />
+    <module name="ExplicitInitialization" />
 </module>
 
