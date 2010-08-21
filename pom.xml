@@ -266,10 +266,48 @@
             <version>${junit.version}</version>
             <optional>true</optional>
         </dependency>
+        
+        <!-- Logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>runtime</scope>
+        </dependency>
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>${log4j.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.mail</groupId>
+                    <artifactId>mail</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.jms</groupId>
+                    <artifactId>jms</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.sun.jdmk</groupId>
+                    <artifactId>jmxtools</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.sun.jmx</groupId>
+                    <artifactId>jmxri</artifactId>
+                </exclusion>
+            </exclusions>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>${jdbc.groupId}</groupId>
@@ -512,13 +550,13 @@
         <jsp.version>2.0</jsp.version>
         <jstl.version>1.1.2</jstl.version>
         <junit.version>4.8.1</junit.version>
-        <log4j.version>1.2.13</log4j.version>
+        <log4j.version>1.2.16</log4j.version>
         <myfaces.version>1.2.7</myfaces.version>
         <myfaces.tomahawk.version>1.1.9</myfaces.tomahawk.version>
         <servlet.version>2.5</servlet.version>
         <shale.version>1.0.5</shale.version>
         <sitemesh.version>2.4.2</sitemesh.version>
-        <slf4j.version>1.5.2</slf4j.version>
+        <slf4j.version>1.6.1</slf4j.version>
         <spring.version>3.0.4.RELEASE</spring.version>
         <spring.security.version>3.0.3.RELEASE</spring.security.version>
         <springmodules.validation.version>0.8</springmodules.validation.version>
