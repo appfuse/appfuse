@@ -518,8 +518,8 @@
         <servlet.version>2.5</servlet.version>
         <shale.version>1.0.5</shale.version>
         <sitemesh.version>2.4.2</sitemesh.version>
-        <spring.version>3.0.3.RELEASE</spring.version>
-        <spring.security.version>3.0.0.RELEASE</spring.security.version>
+        <spring.version>3.0.4.RELEASE</spring.version>
+        <spring.security.version>3.0.3.RELEASE</spring.security.version>
         <springmodules.validation.version>0.8</springmodules.validation.version>
         <struts.version>2.1.8</struts.version>
         <struts.menu.version>2.4.3</struts.menu.version>

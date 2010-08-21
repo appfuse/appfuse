@@ -740,7 +740,7 @@
         <!-- Framework dependency versions -->
         <appfuse.version>2.1.0-M2-SNAPSHOT</appfuse.version>
         <aspectj.version>1.6.6</aspectj.version>
-        <spring.version>3.0.3.RELEASE</spring.version>
+        <spring.version>3.0.4.RELEASE</spring.version>
         <tapestry.version>5.1.0.5</tapestry.version>
 
         <!-- Testing dependency versions -->
