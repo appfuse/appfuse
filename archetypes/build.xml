@@ -30,7 +30,7 @@
         <!-- Fix bug that happens in Bamboo -->
         <delete dir="${dir}" includes="main/**"/>
 
-        <mvn command="archetype:create-from-project" dir="${dir}"/>
+        <mvn command="org.apache.maven.plugins:maven-archetype-plugin:2.0-alpha-4:create-from-project" dir="${dir}"/>
 
         <!-- Change the version number of the generated archetype -->
         <replace file="${dir}/target/generated-sources/archetype/pom.xml" token="1.0-SNAPSHOT" value="${version}"/>
@@ -90,7 +90,7 @@
         <attribute name="archetype" default=""/>
         <attribute name="version" default=""/>
         <attribute name="command"
-                   default="archetype:generate -B -DarchetypeGroupId=org.appfuse.archetypes -DarchetypeArtifactId=@{archetype}
+                   default="org.apache.maven.plugins:maven-archetype-plugin:2.0-alpha-4:generate -B -DarchetypeGroupId=org.appfuse.archetypes -DarchetypeArtifactId=@{archetype}
                    -DarchetypeVersion=@{version} -DgroupId=com.mycompany -DartifactId=@{archetype} -DpackageName=com.mycompany"/>
 
         <sequential>
@@ -157,7 +157,7 @@
                 </then>
             </if>
 
-            <mvn dir="@{dir}" command="archetype:create-from-project"/>
+            <mvn dir="@{dir}" command="org.apache.maven.plugins:maven-archetype-plugin:2.0-alpha-4:create-from-project"/>
 
             <!-- Change the version number of the generated archetype -->
             <replace file="@{dir}/target/generated-sources/archetype/pom.xml" token="1.0-SNAPSHOT" value="${version}"/>
