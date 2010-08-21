@@ -344,7 +344,7 @@
                 <jdbc.artifactId>h2</jdbc.artifactId>
                 <jdbc.version>1.2.134</jdbc.version>
                 <jdbc.driverClassName>org.h2.Driver</jdbc.driverClassName>
-                <jdbc.url><![CDATA[jdbc:h2:/tmp/appfuse]]></jdbc.url>
+                <jdbc.url><![CDATA[jdbc:h2:/tmp/appfuse;MVCC=TRUE]]></jdbc.url>
                 <jdbc.username>sa</jdbc.username>
                 <jdbc.password />
             </properties>
