@@ -2,7 +2,7 @@ package org.appfuse.dao.ibatis.search;
 
 import org.appfuse.dao.ibatis.GenericDaoiBatis;
 import org.compass.core.spi.InternalCompass;
-import org.compass.core.mapping.CascadeMapping;
+import org.compass.core.mapping.Cascade;
 import org.compass.core.mapping.CompassMapping;
 
 import java.lang.reflect.Method;
@@ -30,7 +30,7 @@ public class CompassDeleteAdvice extends org.compass.spring.aop.CompassDeleteAdv
             return;
         }
         Class persistentClass = ((GenericDaoiBatis) target).getPersistentClass();
-        if (compassMapping.hasMappingForClass(persistentClass, CascadeMapping.Cascade.DELETE)) {
+        if (compassMapping.hasMappingForClass(persistentClass, Cascade.DELETE)) {
             compassTemplate.delete(persistentClass, findObject(returnValue, args));
         }
     }

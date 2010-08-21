@@ -1,7 +1,7 @@
 package org.appfuse.dao.ibatis.search;
 
 import org.appfuse.dao.ibatis.GenericDaoiBatis;
-import org.compass.core.mapping.CascadeMapping;
+import org.compass.core.mapping.Cascade;
 import org.compass.core.mapping.CompassMapping;
 import org.compass.core.spi.InternalCompass;
 
@@ -30,8 +30,8 @@ public class CompassSaveAdvice extends org.compass.spring.aop.CompassSaveAdvice 
             return;
         }
         Class persistentClass = ((GenericDaoiBatis) target).getPersistentClass();
-        if (compassMapping.hasMappingForClass(persistentClass, CascadeMapping.Cascade.SAVE) ||
-                compassMapping.hasMappingForClass(persistentClass, CascadeMapping.Cascade.CREATE)) {
+        if (compassMapping.hasMappingForClass(persistentClass, Cascade.SAVE) ||
+                compassMapping.hasMappingForClass(persistentClass, Cascade.CREATE)) {
             compassTemplate.save(findObject(returnValue, args));
         }
     }
