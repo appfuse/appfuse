@@ -247,9 +247,9 @@
                 <hibernate.dialect>org.hibernate.dialect.H2Dialect</hibernate.dialect>
                 <jdbc.groupId>com.h2database</jdbc.groupId>
                 <jdbc.artifactId>h2</jdbc.artifactId>
-                <jdbc.version>1.0.79</jdbc.version>
+                <jdbc.version>1.2.134</jdbc.version>
                 <jdbc.driverClassName>org.h2.Driver</jdbc.driverClassName>
-                <jdbc.url><![CDATA[jdbc:h2:/tmp/${db.name}]]></jdbc.url>
+                <jdbc.url><![CDATA[jdbc:h2:/tmp/${db.name};MVCC=TRUE]]></jdbc.url>
                 <jdbc.username>sa</jdbc.username>
                 <jdbc.password></jdbc.password>
             </properties>
