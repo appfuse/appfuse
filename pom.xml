@@ -497,8 +497,8 @@
         <cxf.version>2.2.4</cxf.version>
         <displaytag.version>1.2</displaytag.version>
         <dwr.version>2.0.1</dwr.version>
-        <ehcache.version>1.7.0</ehcache.version>
-        <ehcache.web.version>1.6.0-beta2</ehcache.web.version>
+        <ehcache.version>2.2.0</ehcache.version>
+        <ehcache.web.version>2.0.2</ehcache.web.version>
         <el.version>1.2</el.version>
         <facelets.version>1.1.14</facelets.version>
         <hibernate.version>3.3.2.GA</hibernate.version>
