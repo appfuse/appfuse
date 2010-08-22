@@ -85,7 +85,7 @@
             <!-- Override plugin configuration from appfuse-web so can exclude overridden files -->
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.1-beta-1</version>
+                <version>2.1</version>
                 <configuration>
                     <webResources>
                         <resource>
@@ -97,6 +97,11 @@
                                 <exclude>ApplicationResources*</exclude>
                             </excludes>
                             <targetPath>WEB-INF/classes</targetPath>
+                        </resource>
+                        <resource>
+                            <directory>src/main/webapp/WEB-INF</directory>
+                            <filtering>true</filtering>
+                            <targetPath>WEB-INF</targetPath>
                         </resource>
                     </webResources>
                 </configuration>
