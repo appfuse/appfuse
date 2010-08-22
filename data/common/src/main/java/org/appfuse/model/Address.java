@@ -1,14 +1,13 @@
 package org.appfuse.model;
 
-import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.compass.annotations.Searchable;
 import org.compass.annotations.SearchableProperty;
+
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import java.io.Serializable;
 
 /**
  * This class is used to represent an address with address,
@@ -26,31 +25,31 @@ public class Address extends BaseObject implements Serializable {
     private String country;
     private String postalCode;
 
-    @Column(length=150)
+    @Column(length = 150)
     @SearchableProperty
     public String getAddress() {
         return address;
     }
 
-    @Column(length=50)
+    @Column(length = 50)
     @SearchableProperty
     public String getCity() {
         return city;
     }
 
-    @Column(length=100)
+    @Column(length = 100)
     @SearchableProperty
     public String getProvince() {
         return province;
     }
 
-    @Column(length=100)
+    @Column(length = 100)
     @SearchableProperty
     public String getCountry() {
         return country;
     }
 
-    @Column(name="postal_code",length=15)
+    @Column(name = "postal_code", length = 15)
     @SearchableProperty
     public String getPostalCode() {
         return postalCode;
@@ -78,6 +77,7 @@ public class Address extends BaseObject implements Serializable {
 
     /**
      * Overridden equals method for object comparison. Compares based on hashCode.
+     *
      * @param o Object to compare
      * @return true/false based on hashCode
      */
@@ -96,6 +96,7 @@ public class Address extends BaseObject implements Serializable {
 
     /**
      * Overridden hashCode method - compares on address, city, province, country and postal code.
+     *
      * @return hashCode
      */
     public int hashCode() {
@@ -110,6 +111,7 @@ public class Address extends BaseObject implements Serializable {
 
     /**
      * Returns a multi-line String with key=value pairs.
+     *
      * @return a String representation of this class.
      */
     public String toString() {

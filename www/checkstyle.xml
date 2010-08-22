@@ -150,7 +150,9 @@
         <module name="ParenPad"/>
         <module name="TypecastParenPad"/>
         <module name="WhitespaceAfter"/>
-        <module name="WhitespaceAround"/>
+        <module name="WhitespaceAround">
+            <property name="tokens" value="ASSIGN"/>
+        </module>
         <!-- Modifier Checks                                    -->
         <!-- See http://checkstyle.sf.net/config_modifiers.html -->
         <module name="ModifierOrder"/>
@@ -186,6 +188,7 @@
         <!-- MR: Modified visibility to allow package variables w/o getters/setters (for testing) -->
         <module name="VisibilityModifier">
             <property name="packageAllowed" value="true"/>
+            <property name="protectedAllowed" value="true"/>
         </module>
 
         <!-- Miscellaneous other checks.                   -->

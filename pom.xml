@@ -352,7 +352,7 @@
                 <configuration>
                     <consoleOutput>true</consoleOutput>
                     <configLocation>https://appfuse.dev.java.net/checkstyle.xml</configLocation>
-                    <failsOnError>true</failsOnError>
+                    <failsOnError>false</failsOnError>
                     <maxAllowedViolations>3</maxAllowedViolations>
                 </configuration>
             </plugin>

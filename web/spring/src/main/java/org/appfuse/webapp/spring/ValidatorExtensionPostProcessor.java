@@ -11,9 +11,9 @@ import java.util.List;
 
 /**
  * <p>Adds commons validator configuration files to an existing Spring commons Validator Factory bean, possibly defined
- * within a seperate Spring configuration file in a seperate jar file. By using this extension factory developers can add
- * validation configuration for their own persistent classes to an AppFuse application without modifying any of the existing
- * AppFuse Spring configuration or jar distribution files.
+ * within a seperate Spring configuration file in a seperate jar file. By using this extension factory developers can
+ * add validation configuration for their own persistent classes to an AppFuse application without modifying any of the
+ * existing AppFuse Spring configuration or jar distribution files.
 
  * <p>As an example consider the following Spring bean configuration:
 
@@ -27,12 +27,12 @@ import java.util.List;
  * &lt;/bean&gt;
  * </pre>
  
- * <p>The sample adds a single validation configuration file (foo-validation.xml) to an existing Spring commons Validator Factory bean (a bean of
- * class org.springmodules.validation.commons.DefaultValidatorFactory). Assuming the validator extension is included in a Spring configuration
- * file called applicationContext-foo-validation.xml, and that this configuration file is added directly below WEB-INF in the
- * Foo web project, then the normal war overlay process coupled with AppFuse's configuration file auto detection will ensure that
- * the validation extension is automatically included into the application without requiring any modification of AppFuse's existing
- * config files.
+ * <p>The sample adds a single validation configuration file (foo-validation.xml) to an existing Spring commons
+ * Validator Factory bean (a bean of class org.springmodules.validation.commons.DefaultValidatorFactory). Assuming the
+ * validator extension is included in a Spring configuration file called applicationContext-foo-validation.xml, and
+ * that this configuration file is added directly below WEB-INF in the Foo web project, then the normal war overlay
+ * process coupled with AppFuse's configuration file auto detection will ensure that the validation extension is
+ * automatically included into the application without requiring any modification of AppFuse's existing config files.
  *
  * @author Michael Horwitz
  */
@@ -42,10 +42,12 @@ public class ValidatorExtensionPostProcessor implements BeanFactoryPostProcessor
 
     /**
      * Adds the validation configuration files to the list already held in the validator factory bean configuration.
+     * @param configurableListableBeanFactory the bean factory
      */
-    public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
+    public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) {
         if (configurableListableBeanFactory.containsBean(validatorFactoryBeanName)) {
-            BeanDefinition validatorFactoryBeanDefinition = configurableListableBeanFactory.getBeanDefinition(validatorFactoryBeanName);
+            BeanDefinition validatorFactoryBeanDefinition =
+                    configurableListableBeanFactory.getBeanDefinition(validatorFactoryBeanName);
             MutablePropertyValues propertyValues = validatorFactoryBeanDefinition.getPropertyValues();
             PropertyValue propertyValue = propertyValues.getPropertyValue("validationConfigLocations");
 

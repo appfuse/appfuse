@@ -3,7 +3,6 @@ package org.appfuse.dao.hibernate;
 import java.util.List;
 
 import org.appfuse.dao.LookupDao;
-import org.appfuse.dao.GenericDao;
 import org.appfuse.model.Role;
 import org.springframework.stereotype.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +21,12 @@ public class LookupDaoHibernate implements LookupDao {
     private Log log = LogFactory.getLog(LookupDaoHibernate.class);
     private HibernateTemplate hibernateTemplate;
 
+    /**
+     * Initialize LookupDaoHibernate with Hibernate SessionFactory.
+     * @param sessionFactory
+     */
     @Autowired
-    public LookupDaoHibernate(SessionFactory sessionFactory) {
+    public LookupDaoHibernate(final SessionFactory sessionFactory) {
         this.hibernateTemplate = new HibernateTemplate(sessionFactory);
     }
 

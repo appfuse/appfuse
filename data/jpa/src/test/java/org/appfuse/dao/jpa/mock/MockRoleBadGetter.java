@@ -32,7 +32,7 @@ public class MockRoleBadGetter {
     }
 
     /**
-     * @see org.springframework.security.GrantedAuthority#getAuthority()
+     * @see org.springframework.security.core.GrantedAuthority#getAuthority()
      */
     @Transient
     public String getAuthority() {

@@ -45,8 +45,9 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
      * {@inheritDoc}
      */
     public User saveUser(User user) {
-        if (log.isDebugEnabled())
+        if (log.isDebugEnabled()) {
             log.debug("user's id: " + user.getId());
+        }
         getHibernateTemplate().saveOrUpdate(user);
         // necessary to throw a DataIntegrityViolation and catch it in UserManager
         getHibernateTemplate().flush();

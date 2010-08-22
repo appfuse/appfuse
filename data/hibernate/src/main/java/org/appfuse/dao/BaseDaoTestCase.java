@@ -10,7 +10,11 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 
-import java.util.*;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
 /**
  * Base class for running DAO tests.
@@ -47,7 +51,7 @@ public abstract class BaseDaoTestCase extends AbstractTransactionalJUnit4SpringC
         try {
             rb = ResourceBundle.getBundle(className);
         } catch (MissingResourceException mre) {
-            //log.debug("No resource bundle found for: " + className);
+            log.trace("No resource bundle found for: " + className);
         }
     }
 
@@ -59,7 +63,7 @@ public abstract class BaseDaoTestCase extends AbstractTransactionalJUnit4SpringC
      * @return Object populated object
      * @throws Exception if BeanUtils fails to copy properly
      */
-    protected Object populate(Object obj) throws Exception {
+    protected Object populate(final Object obj) throws Exception {
         // loop through all the beans methods and set its properties from its .properties file
         Map<String, String> map = new HashMap<String, String>();
 
