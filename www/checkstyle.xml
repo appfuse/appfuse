@@ -194,10 +194,6 @@
             <!-- MR: enforce final parameters only for constructors -->
             <property name="tokens" value="CTOR_DEF"/>
         </module>
-        <module name="GenericIllegalRegexp">
-            <property name="format" value="\s+\s+$"/>
-            <property name="message" value="Line has trailing spaces."/>
-        </module>
         <!-- <module name="TodoComment"/> -->
         <module name="UpperEll"/>
         <module name="NestedIfDepth">
