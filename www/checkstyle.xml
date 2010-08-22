@@ -143,7 +143,7 @@
         <module name="MethodParamPad"/>
         <module name="NoWhitespaceAfter"/>
         <module name="NoWhitespaceBefore">
-            <property name="tokens" value="DOT,EQUAL"/>
+            <property name="tokens" value="DOT"/>
             <property name="allowLineBreaks" value="true"/>
         </module>
         <module name="OperatorWrap"/>
