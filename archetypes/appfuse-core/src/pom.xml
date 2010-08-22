@@ -451,12 +451,12 @@
 
         <!-- Framework dependency versions -->
         <appfuse.version>2.1.0-M2-SNAPSHOT</appfuse.version>
-        <aspectj.version>1.6.6</aspectj.version>
+        <aspectj.version>1.6.9</aspectj.version>
         <spring.version>3.0.4.RELEASE</spring.version>
 
         <!-- Testing dependency versions -->
         <jmock.version>2.5.1</jmock.version>
-        <junit.version>4.7</junit.version>
+        <junit.version>4.8.1</junit.version>
         <wiser.version>1.2</wiser.version>
 
         <!-- Database settings -->
