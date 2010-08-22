@@ -137,7 +137,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role",
-            joinColumns = {@JoinColumn(name = "user_id")},
+            joinColumns = { @JoinColumn(name = "user_id") },
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     public Set<Role> getRoles() {
@@ -200,6 +200,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
 
     /**
      * @see org.springframework.security.core.userdetails.UserDetails#isAccountNonExpired()
+     * @return true if account is still active
      */
     @Transient
     public boolean isAccountNonExpired() {
@@ -213,6 +214,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
 
     /**
      * @see org.springframework.security.core.userdetails.UserDetails#isAccountNonLocked()
+     * @return false if account is locked
      */
     @Transient
     public boolean isAccountNonLocked() {
@@ -226,6 +228,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
 
     /**
      * @see org.springframework.security.core.userdetails.UserDetails#isCredentialsNonExpired()
+     * @return true if credentials haven't expired
      */
     @Transient
     public boolean isCredentialsNonExpired() {

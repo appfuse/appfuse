@@ -41,9 +41,10 @@
 
     <!-- Checks that each Java package has a Javadoc file used for commenting. -->
     <!-- See http://checkstyle.sf.net/config_javadoc.html#JavadocPackage       -->
-    <module name="JavadocPackage">
+    <!-- MR: Don't require package-info.java in every package -->
+    <!--module name="JavadocPackage">
         <property name="allowLegacy" value="true"/>
-    </module>
+    </module-->
 
     <!-- Checks whether files end with a new line.                        -->
     <!-- See http://checkstyle.sf.net/config_misc.html#NewlineAtEndOfFile -->
@@ -142,7 +143,7 @@
         <module name="MethodParamPad"/>
         <module name="NoWhitespaceAfter"/>
         <module name="NoWhitespaceBefore">
-            <property name="tokens" value="DOT"/>
+            <property name="tokens" value="DOT,EQUAL"/>
             <property name="allowLineBreaks" value="true"/>
         </module>
         <module name="OperatorWrap"/>
@@ -171,7 +172,7 @@
         <!--module name="HiddenField"/-->
         <module name="IllegalInstantiation"/>
         <module name="InnerAssignment"/>
-        <module name="MagicNumber"/>
+        <!--module name="MagicNumber"/-->
         <module name="MissingSwitchDefault"/>
         <module name="RedundantThrows"/>
         <module name="SimplifyBooleanExpression"/>
