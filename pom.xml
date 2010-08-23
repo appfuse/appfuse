@@ -76,14 +76,14 @@
             <subscribe>dev-subscribe@appfuse.dev.java.net</subscribe>
             <unsubscribe>dev-unsubscribe@appfuse.dev.java.net</unsubscribe>
             <post>dev@appfuse.dev.java.net</post>
-            <archive>http://www.nabble.com/AppFuse---Dev-f2371.html</archive>
-        </mailingList>
+            <archive>http://appfuse.org/display/APF/Forum</archive>
+        </mailingList>                                         
         <mailingList>
             <name>User List</name>
             <subscribe>user-subscribe@appfuse.dev.java.net</subscribe>
             <unsubscribe>user-unsubscribe@appfuse.dev.java.net</unsubscribe>
             <post>user@appfuse.dev.java.net</post>
-            <archive>http://www.nabble.com/AppFuse---User-f2370.html</archive>
+            <archive>http://appfuse.org/display/APF/Forum</archive>
         </mailingList>
     </mailingLists>
 
@@ -557,7 +557,7 @@
         <cargo.version>1.0</cargo.version>
         <commons.lang.version>2.5</commons.lang.version>
         <commons.beanutils.version>1.8.3</commons.beanutils.version>
-        <commons.collections.version>3.2</commons.collections.version>
+        <commons.collections.version>3.2.1</commons.collections.version>
         <commons.dbcp.version>1.3</commons.dbcp.version>
         <commons.fileupload.version>1.2.2</commons.fileupload.version>
         <commons.io.version>1.4</commons.io.version>
