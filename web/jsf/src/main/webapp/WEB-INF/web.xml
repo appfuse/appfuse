@@ -162,22 +162,13 @@
     </filter-mapping>
     <!-- GZipFilter has issues with XFire's service-listing servlet. -->
     <!-- http://issues.appfuse.org/browse/APF-863 -->
-    <filter-mapping>
+    <!-- And showing blank pages. http://issues.appfuse.org/browse/APF-1037 -->
+    <!-- We recommend you configure gzipping in your servlet container.
+         web server, or load balancer. -->
+    <!--filter-mapping>
         <filter-name>gzipFilter</filter-name>
-        <url-pattern>*.css</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>gzipFilter</filter-name>
-        <url-pattern>*.html</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>gzipFilter</filter-name>
-        <url-pattern>*.js</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>gzipFilter</filter-name>
-        <url-pattern>*.jsp</url-pattern>
-    </filter-mapping>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping-->
     <filter-mapping>
         <filter-name>rewriteFilter</filter-name>
         <url-pattern>/*</url-pattern>
