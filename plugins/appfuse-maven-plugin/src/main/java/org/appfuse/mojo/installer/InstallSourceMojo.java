@@ -94,6 +94,12 @@ public class InstallSourceMojo extends AbstractMojo {
 
         if ((appfuseVersion != null) && !appfuseVersion.endsWith("SNAPSHOT") && tag.equals("trunk/")) {
             tag = "tags/APPFUSE_" + appfuseVersion.toUpperCase().replaceAll("-", "_") + "/";
+            // APF-1168: Allow milestone and release candidates
+            if (tag.contains("_M")) {
+                tag = tag.replace("_M", "-M");
+            } else if (tag.contains("_R")) {
+                tag = tag.replace("_R", "-R");
+            }
         }
 
         String daoFramework = project.getProperties().getProperty("dao.framework");
