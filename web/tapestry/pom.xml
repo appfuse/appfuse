@@ -170,9 +170,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>${pom.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>appfuse-web-common</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.appfuse</groupId>
@@ -183,7 +183,7 @@
         <dependency>
             <groupId>org.appfuse</groupId>
             <artifactId>appfuse-${dao.framework}</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.tapestry</groupId>
