@@ -89,6 +89,9 @@ public class InstallSourceMojo extends AbstractMojo {
     private MavenProject project;
 
     public void execute() throws MojoExecutionException, MojoFailureException {
+        // http://issues.appfuse.org/browse/APF-1025
+        System.setProperty("file.encoding", "UTF-8");
+
         // If appfuse.version is specified as a property, and not a SNAPSHOT, use it for the tag
         String appfuseVersion = project.getProperties().getProperty("appfuse.version");
 
