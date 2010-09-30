@@ -506,10 +506,10 @@ public class InstallSourceMojo extends AbstractMojo {
                         "    <module>core</module>\n" +
                         "    <module>web</module>\n" +
                         "  </modules>", "");
-                originalPom = originalPom.replace("</build>", "</build>\n\n    <modules>\n" +
+                originalPom = originalPom.replace("<repositories>", "<modules>\n" +
                         "        <module>core</module>\n" +
                         "        <module>web</module>\n" +
-                        "    </modules>");
+                        "    </modules>\n\n    <repositories>");
 
                 String pomWithProperties = addPropertiesToPom(originalPom, calculatedProperties);
 
