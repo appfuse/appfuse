@@ -28,8 +28,7 @@ public class DateConverter extends StrutsTypeConverter {
         try {
             return DateUtil.convertStringToDate(value[0]);
         } catch (ParseException pe) {
-            pe.printStackTrace();
-            throw new TypeConversionException(pe.getMessage());
+            throw new TypeConversionException(pe.getMessage(), pe);
         }
     }
 
