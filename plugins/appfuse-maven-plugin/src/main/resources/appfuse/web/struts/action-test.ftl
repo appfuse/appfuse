@@ -21,8 +21,7 @@ public class ${pojo.shortName}ActionTest extends BaseActionTestCase {
     private ${pojo.shortName}Action action;
 
     @Override @SuppressWarnings("unchecked")
-    protected void onSetUpBeforeTransaction() throws Exception {
-        super.onSetUpBeforeTransaction();
+    protected void onSetUpInTransaction() throws Exception {
         action = new ${pojo.shortName}Action();
         ${managerClass} ${pojoNameLower}Manager = (${managerClass}) applicationContext.getBean("${pojoNameLower}Manager");
         action.set${pojo.shortName}Manager(${pojoNameLower}Manager);
