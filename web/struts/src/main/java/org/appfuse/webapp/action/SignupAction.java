@@ -73,7 +73,7 @@ public class SignupAction extends BaseAction {
         user.addRole(roleManager.getRole(Constants.USER_ROLE));
 
         try {
-            userManager.saveUser(user);
+            user = userManager.saveUser(user);
         } catch (AccessDeniedException ade) {
             // thrown by UserSecurityAdvice configured in aop:advisor userManagerSecurity 
             log.warn(ade.getMessage());
