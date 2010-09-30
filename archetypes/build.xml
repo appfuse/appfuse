@@ -396,7 +396,7 @@
         <attribute name="dir"/>
 
         <sequential>
-            <exec dir="@{dir}" executable="mvn.bat" os="Windows XP" failonerror="true">
+            <exec dir="@{dir}" executable="mvn.bat" os="Windows 7" failonerror="true">
                 <arg line="@{command}"/>
             </exec>
             <exec dir="@{dir}" executable="mvn" os="Mac OS X" failonerror="true">

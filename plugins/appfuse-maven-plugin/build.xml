@@ -255,7 +255,7 @@
         <attribute name="command" default="archetype:generate -B -DarchetypeGroupId=org.appfuse.archetypes -DarchetypeArtifactId=@{archetype} -DarchetypeVersion=@{version} -DgroupId=com.company -DartifactId=@{name}"/>
 
         <sequential>
-            <exec dir="@{dir}" executable="mvn.bat" os="Windows XP" failonerror="true" errorproperty="command.failed">
+            <exec dir="@{dir}" executable="mvn.bat" os="Windows 7" failonerror="true" errorproperty="command.failed">
                 <arg line="@{command}"/>
             </exec>
             <exec dir="@{dir}" executable="mvn" os="Mac OS X" failonerror="true" errorproperty="command.failed">
