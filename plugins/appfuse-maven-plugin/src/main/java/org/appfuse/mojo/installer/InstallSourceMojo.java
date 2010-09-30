@@ -131,17 +131,15 @@ public class InstallSourceMojo extends AbstractMojo {
             moveFiles((modular) ? "core/src/main" : destinationDirectory + "/main",
                     (modular) ? "core/src/test" : destinationDirectory + "/test", "**/Base*TestCase.java");
 
-            if (project.getPackaging().equalsIgnoreCase("jar")) {
-                // delete dao.framework related files from test directory
-                deleteFile("test/resources/hibernate.cfg.xml");
-                deleteFile("test/resources/META-INF");
-                deleteFile("test/resources/sql-map-config.xml");
+            // delete dao.framework related files from test directory
+            deleteFile("test/resources/hibernate.cfg.xml");
+            deleteFile("test/resources/META-INF");
+            deleteFile("test/resources/sql-map-config.xml");
 
-                // If JPA, delete hibernate.cfg.xml b/c it will cause issues when
-                // using jpaconfiguration with the hibernate3-maven-plugin
-                if ("jpa".equalsIgnoreCase(daoFramework)) {
-                    deleteFile("main/resources/hibernate.cfg.xml");
-                }
+            // If JPA, delete hibernate.cfg.xml b/c it will cause issues when
+            // using jpaconfiguration with the hibernate3-maven-plugin
+            if ("jpa".equalsIgnoreCase(daoFramework)) {
+                deleteFile("main/resources/hibernate.cfg.xml");
             }
         }
 
@@ -257,17 +255,18 @@ public class InstallSourceMojo extends AbstractMojo {
             filePath = "/" + filePath;
         }
         File duplicateFile = new File(getFilePath(destinationDirectory + filePath));
-        if (duplicateFile.exists()) {
-            try {
+        try {
+            getLog().debug("Looking for duplicate file at '" + duplicateFile.getCanonicalPath());
+            if (duplicateFile.exists()) {
                 getLog().debug("Deleting duplicate file at '" + duplicateFile.getCanonicalPath());
                 if (duplicateFile.isDirectory()) {
                     FileUtils.deleteDirectory(duplicateFile);
                 } else {
                     FileUtils.forceDeleteOnExit(duplicateFile);
                 }
-            } catch (IOException io) {
-                getLog().error("Failed to delete '" + filePath + "', please delete manually.");
             }
+        } catch (IOException io) {
+            getLog().error("Failed to delete '" + filePath + "', please delete manually.");
         }
     }
 
@@ -584,9 +583,9 @@ public class InstallSourceMojo extends AbstractMojo {
             SVNErrorMessage err = e.getErrorMessage();
 
             /*
-                         * Display all tree of error messages.
-                         * Utility method SVNErrorMessage.getFullMessage() may be used instead of the loop.
-                         */
+             * Display all tree of error messages.
+             * Utility method SVNErrorMessage.getFullMessage() may be used instead of the loop.
+             */
             while (err != null) {
                 getLog()
                         .error(err.getErrorCode().getCode() + " : " +
