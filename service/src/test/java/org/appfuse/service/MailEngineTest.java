@@ -79,10 +79,19 @@ public class MailEngineTest extends BaseManagerTestCase {
         String emailBody = "Body of the grepster testSendMessageWithAttachment message sent at: " + dte;
         
         ClassPathResource cpResource = new ClassPathResource("/test-attachment.txt");
-        mailEngine.sendMessage(new String[] {"foo@bar.com"}, mailMessage.getFrom(),cpResource, emailBody, emailSubject, ATTACHMENT_NAME);
-        
+        // a null from should work
+        mailEngine.sendMessage(new String[] {
+            "foo@bar.com"
+        }, null, cpResource, emailBody, emailSubject, ATTACHMENT_NAME);
+
+        mailEngine.sendMessage(new String[] {
+            "foo@bar.com"
+        }, mailMessage.getFrom(), cpResource, emailBody, emailSubject, ATTACHMENT_NAME);
+
         wiser.stop();
-        assertTrue(wiser.getMessages().size() == 1);
+        // one without and one with from
+        assertTrue(wiser.getMessages().size() == 2);
+        
         WiserMessage wm = wiser.getMessages().get(0);
         MimeMessage mm = wm.getMimeMessage();
 

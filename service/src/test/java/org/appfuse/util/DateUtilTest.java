@@ -1,5 +1,6 @@
 package org.appfuse.util;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.Locale;
 
@@ -60,5 +61,18 @@ public class DateUtilTest extends TestCase {
         String now = DateUtil.getTimeNow(new Date());
         assertTrue(now != null);
         log.debug(now);
+    }
+    public void testGetDateWithNull() {
+        final String date = DateUtil.getDate(null);
+        assertEquals("", date);
+    }
+
+    public void testGetDateTimeWithNull() {
+        final String date = DateUtil.getDateTime(null, null);
+        assertEquals("", date);
+    }
+
+    public void testGetToday() throws ParseException {
+        assertNotNull(DateUtil.getToday());
     }
 }

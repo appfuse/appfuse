@@ -1,21 +1,19 @@
 package org.appfuse.util;
 
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-
 import java.util.Date;
-import java.sql.Timestamp;
 
 import org.apache.commons.beanutils.ConversionException;
 import org.apache.commons.beanutils.Converter;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
- * This class is converts a java.util.Date to a String
- * and a String to a java.util.Date.
+ * This class converts a java.util.Date to a String and a String to a java.util.Date.
  * 
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
+ * @author <a href="mailto:tstrausz@tryllian.nl">Tibor Strausz</a>
  */
 public class DateConverter implements Converter {
 
@@ -25,7 +23,8 @@ public class DateConverter implements Converter {
      * @param value value to convert
      * @return Converted value for property population
      */
-    public Object convert(Class type, Object value) {
+    @SuppressWarnings("unchecked")
+    public Object convert(final Class type, final Object value) {
         if (value == null) {
             return null;
         } else if (type == Timestamp.class) {
@@ -33,11 +32,10 @@ public class DateConverter implements Converter {
         } else if (type == Date.class) {
             return convertToDate(type, value, DateUtil.getDatePattern());
         } else if (type == String.class) {
-            return convertToString(type, value);
+            return convertToString(value);
         }
 
-        throw new ConversionException(
-                "Could not convert " + value.getClass().getName() + " to " + type.getName());
+        throw new ConversionException("Could not convert " + value.getClass().getName() + " to " + type.getName());
     }
 
     /**
@@ -47,48 +45,43 @@ public class DateConverter implements Converter {
      * @param pattern date pattern to parse with
      * @return Converted value for property population
      */
-    protected Object convertToDate(Class type, Object value, String pattern) {
-        DateFormat df = new SimpleDateFormat(pattern);
+    protected Object convertToDate(final Class<?> type, final Object value, final String pattern) {
+        final DateFormat df = new SimpleDateFormat(pattern);
         if (value instanceof String) {
             try {
                 if (StringUtils.isEmpty(value.toString())) {
                     return null;
                 }
 
-                Date date = df.parse((String) value);
+                final Date date = df.parse((String) value);
                 if (type.equals(Timestamp.class)) {
                     return new Timestamp(date.getTime());
                 }
                 return date;
-            } catch (Exception pe) {
-                pe.printStackTrace();
-                throw new ConversionException("Error converting String to Date");
+            } catch (final Exception e) {
+                throw new ConversionException("Error converting String to Date", e);
             }
         }
 
-        throw new ConversionException(
-                "Could not convert " + value.getClass().getName() + " to " + type.getName());
+        throw new ConversionException("Could not convert " + value.getClass().getName() + " to " + type.getName());
     }
 
     /**
-     * Convert a java.util.Date to a String
-     * @param type Date or Timestamp
+     * Convert a java.util.Date or a java.sql.Timestamp to a String. Or does a toString
      * @param value value to convert
      * @return Converted value for property population
      */
-    protected Object convertToString(Class type, Object value) {
-
+    protected Object convertToString(final Object value) {
         if (value instanceof Date) {
             DateFormat df = new SimpleDateFormat(DateUtil.getDatePattern());
             if (value instanceof Timestamp) {
                 df = new SimpleDateFormat(DateUtil.getDateTimePattern());
-            } 
+            }
 
             try {
                 return df.format(value);
-            } catch (Exception e) {
-                e.printStackTrace();
-                throw new ConversionException("Error converting Date to String");
+            } catch (final Exception e) {
+                throw new ConversionException("Error converting Date to String", e);
             }
         } else {
             return value.toString();

@@ -7,8 +7,12 @@ import org.springframework.context.i18n.LocaleContextHolder;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
-
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
 /**
  * Date Utility Class used to convert Strings to Dates and Timestamps
@@ -142,7 +146,7 @@ public final class DateUtil {
         String returnValue = "";
 
         if (aDate == null) {
-            log.error("aDate is null!");
+            log.warn("aDate is null!");
         } else {
             df = new SimpleDateFormat(aMask);
             returnValue = df.format(aDate);
@@ -170,23 +174,7 @@ public final class DateUtil {
      * @return a date object
      * @throws ParseException when String doesn't match the expected format
      */
-    public static Date convertStringToDate(String strDate)
-            throws ParseException {
-        Date aDate = null;
-
-        try {
-            if (log.isDebugEnabled()) {
-                log.debug("converting date with pattern: " + getDatePattern());
-            }
-
-            aDate = convertStringToDate(getDatePattern(), strDate);
-        } catch (ParseException pe) {
-            log.error("Could not convert '" + strDate + "' to a date, throwing exception");
-            pe.printStackTrace();
-            throw new ParseException(pe.getMessage(),
-                    pe.getErrorOffset());
-        }
-
-        return aDate;
+    public static Date convertStringToDate(final String strDate) throws ParseException {
+        return convertStringToDate(getDatePattern(), strDate);
     }
 }

@@ -42,7 +42,7 @@ public interface UserManager extends GenericManager<User, Long> {
      * Retrieves a list of all users.
      * @return List
      */
-    List getUsers();
+    List<User> getUsers();
 
     /**
      * Saves a user's information.

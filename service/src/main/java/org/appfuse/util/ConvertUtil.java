@@ -5,7 +5,13 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.model.LabelValue;
 
-import java.util.*;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.ResourceBundle;
 
 
 /**
@@ -78,7 +84,7 @@ public final class ConvertUtil {
      * ResourceBundle
      *
      * @param obj an initialized object
-     * @param rb  a resource bundle
+     * @param rb a resource bundle
      * @return a populated object
      */
     public static Object populateObject(Object obj, ResourceBundle rb) {
