@@ -54,6 +54,11 @@
 /* END NAV */
 
 /* DROP DOWN MENUS */
+    /* http://issues.appfuse.org/browse/APF-1203 */
+    ul#primary-nav { z-index:1; } 
+
+    ul#primary-nav ul { z-index:2; }
+
     ul#primary-nav, ul#primary-nav ul {
         margin: 0;
         padding: 0;
