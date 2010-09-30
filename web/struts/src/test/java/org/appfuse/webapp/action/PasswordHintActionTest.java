@@ -1,7 +1,6 @@
 package org.appfuse.webapp.action;
 
 import com.opensymphony.xwork2.Action;
-import org.appfuse.dao.UserDao;
 import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
 
@@ -10,17 +9,12 @@ import org.subethamail.wiser.Wiser;
 public class PasswordHintActionTest extends BaseActionTestCase {
     private PasswordHintAction action;
     private UserManager userManager;
-    private UserDao userDao;
-
-    public void setUserDao(final UserDao userDao) {
-        this.userDao = userDao;
-    }
 
     public void setUserManager(final UserManager userManager) {
         this.userManager = userManager;
     }
 
-    public void setPasswordHintAction(PasswordHintAction action) {
+    public void setPasswordHintAction(final PasswordHintAction action) {
         this.action = action;
     }
 
@@ -58,11 +52,11 @@ public class PasswordHintActionTest extends BaseActionTestCase {
         action.setUsername("manager");
         final User user = userManager.getUserByUsername("admin");
         user.setPasswordHint("  ");
-        userDao.save(user);
+        userManager.save(user);
         assertEquals(Action.INPUT, action.execute());
         assertTrue(action.hasActionErrors());
         user.setPasswordHint(null);
-        userDao.save(user);
+        userManager.save(user);
         assertEquals(Action.INPUT, action.execute());
         assertTrue(action.hasActionErrors());
     }
