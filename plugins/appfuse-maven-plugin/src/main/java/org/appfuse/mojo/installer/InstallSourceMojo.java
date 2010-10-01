@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.regex.Pattern;
 
 import org.apache.commons.beanutils.BeanComparator;
 import org.apache.commons.io.FileUtils;
@@ -421,7 +422,7 @@ public class InstallSourceMojo extends AbstractMojo {
                 }
             }
 
-            String originalPom = FileUtils.readFileToString(new File(pathToPom));
+            String originalPom = FileUtils.readFileToString(new File(pathToPom), "UTF-8");
             // replace tabs with spaces (in case user has changed their pom.xml
             originalPom = originalPom.replace("\t", "    ");
             startTag = originalPom.indexOf("\n    <dependencies>");
@@ -441,7 +442,7 @@ public class InstallSourceMojo extends AbstractMojo {
 
             adjustedPom = adjustLineEndingsForOS(adjustedPom);
 
-            FileUtils.writeStringToFile(new File(pathToPom), adjustedPom); // was pomWithProperties
+            FileUtils.writeStringToFile(new File(pathToPom), adjustedPom, "UTF-8"); // was pomWithProperties
         } catch (IOException ex) {
             getLog().error("Unable to write to pom.xml: " + ex.getMessage(), ex);
             throw new MojoFailureException(ex.getMessage());
@@ -497,14 +498,14 @@ public class InstallSourceMojo extends AbstractMojo {
             }
 
             try {
-                String originalPom = FileUtils.readFileToString(new File("pom.xml"));
+                String originalPom = FileUtils.readFileToString(new File("pom.xml"), "UTF-8");
 
                 // Move modules to build section.
-                originalPom = originalPom.replace("\n" +
-                        "  <modules>\n" +
-                        "    <module>core</module>\n" +
-                        "    <module>web</module>\n" +
-                        "  </modules>", "");
+                originalPom = originalPom.replaceAll("  <modules>", "");
+                // Because I hate fucking regex.
+                originalPom = originalPom.replaceAll("    <module>.*?</module>", "");
+                originalPom = originalPom.replaceAll("  </modules>", "");
+
                 originalPom = originalPom.replace("<repositories>", "<modules>\n" +
                         "        <module>core</module>\n" +
                         "        <module>web</module>\n" +
@@ -512,7 +513,7 @@ public class InstallSourceMojo extends AbstractMojo {
 
                 String pomWithProperties = addPropertiesToPom(originalPom, calculatedProperties);
 
-                FileUtils.writeStringToFile(new File("pom.xml"), pomWithProperties);
+                FileUtils.writeStringToFile(new File("pom.xml"), pomWithProperties, "UTF-8");
             } catch (IOException ex) {
                 getLog().error("Unable to read root pom.xml: " + ex.getMessage(), ex);
                 throw new MojoFailureException(ex.getMessage());
@@ -531,15 +532,11 @@ public class InstallSourceMojo extends AbstractMojo {
     private static String addPropertiesToPom(String existingPomXmlAsString, StringBuffer sortedProperties) {
         String adjustedPom = existingPomXmlAsString;
 
-        // fix for Windows
-        if (adjustedPom.contains("</properties>\r\n</project>")) {
-            adjustedPom = adjustedPom.replace("</properties>\r\n</project>", "</properties>\n</project>");
-        }
-
         // add new properties
-        adjustedPom = adjustedPom.replace("</properties>\n</project>", LINE_SEP +
+        adjustedPom = adjustedPom.replace("    <jdbc.password/>", LINE_SEP +
                 "        <!-- Properties calculated by AppFuse when running full-source plugin -->\n" +
-                sortedProperties + "    </properties>\n</project>");
+                sortedProperties + "</jdbc.password/>");
+
         adjustedPom = adjustedPom.replaceAll("<amp.fullSource>false</amp.fullSource>", "<amp.fullSource>true</amp.fullSource>");
 
         return adjustLineEndingsForOS(adjustedPom);
