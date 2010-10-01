@@ -533,9 +533,9 @@ public class InstallSourceMojo extends AbstractMojo {
         String adjustedPom = existingPomXmlAsString;
 
         // add new properties
-        adjustedPom = adjustedPom.replace("    <jdbc.password/>", LINE_SEP +
+        adjustedPom = adjustedPom.replace("<jdbc.password/>", "<jdbc.password/>" + LINE_SEP + LINE_SEP +
                 "        <!-- Properties calculated by AppFuse when running full-source plugin -->\n" +
-                sortedProperties + "</jdbc.password/>");
+                sortedProperties);
 
         adjustedPom = adjustedPom.replaceAll("<amp.fullSource>false</amp.fullSource>", "<amp.fullSource>true</amp.fullSource>");
 
