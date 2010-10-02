@@ -537,6 +537,11 @@ public class InstallSourceMojo extends AbstractMojo {
                 "        <!-- Properties calculated by AppFuse when running full-source plugin -->\n" +
                 sortedProperties);
 
+        // also look for empty jdbc.password tag since the archetype plugin sometimes expands empty elements
+        adjustedPom = adjustedPom.replace("<jdbc.password></jdbc.password>", "<jdbc.password/>" + LINE_SEP + LINE_SEP +
+                "        <!-- Properties calculated by AppFuse when running full-source plugin -->\n" +
+                sortedProperties);
+
         adjustedPom = adjustedPom.replaceAll("<amp.fullSource>false</amp.fullSource>", "<amp.fullSource>true</amp.fullSource>");
 
         return adjustLineEndingsForOS(adjustedPom);
