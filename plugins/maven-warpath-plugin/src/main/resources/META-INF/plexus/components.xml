@@ -24,5 +24,18 @@
       <addedToClasspath>true</addedToClasspath>
     </configuration>
   </component>
+
+  <component>
+    <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
+    <role-hint>war</role-hint>
+    <implementation>org.apache.maven.artifact.handler.DefaultArtifactHandler</implementation>
+    <configuration>
+      <type>war</type>
+      <includesDependencies>false</includesDependencies>
+      <language>java</language>
+      <addedToClasspath>false</addedToClasspath>
+    </configuration>
+  </component>
+
   </components>
 </component-set>
