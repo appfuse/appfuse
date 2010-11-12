@@ -73,9 +73,10 @@ public class UserForm extends BasePage implements Serializable {
 
     public String edit() {
         HttpServletRequest request = getRequest();
-        
+
         // if a user's id is passed in
         if (id != null) {
+            log.debug("Editing user, id is: " + id);
             // lookup the user using that id
             user = userManager.getUser(id);
         } else {
@@ -125,8 +126,10 @@ public class UserForm extends BasePage implements Serializable {
         
         Integer originalVersion = user.getVersion();
 
-        // For some reason, Canoo WebTest causes version to be 0. Set it to null so test will pass.
-        if (user.getVersion() != null && user.getVersion() == 0) {
+        String userAgent = getRequest().getHeader("User-Agent");
+        // For some reason, IE causes version to be 0. Set it to null so test will pass.
+        if (userAgent != null && userAgent.contains("MSIE") && user.getVersion() == 0) {
+            log.debug("Detected IE, setting version and id to null");
             user.setId(null);
             user.setVersion(null);
         }
