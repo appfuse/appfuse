@@ -160,7 +160,7 @@
             <mvn dir="@{dir}" command="org.apache.maven.plugins:maven-archetype-plugin:2.0-alpha-4:create-from-project"/>
 
             <!-- Change the version number of the generated archetype -->
-            <replace file="@{dir}/target/generated-sources/archetype/pom.xml" token="1.0" value="${version}"/>
+            <replace file="@{dir}/target/generated-sources/archetype/pom.xml" token="1.0-SNAPSHOT" value="${version}"/>
 
             <!-- Add a description to the archetype's pom.xml -->
             <replace file="@{dir}/target/generated-sources/archetype/pom.xml">
