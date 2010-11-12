@@ -341,7 +341,7 @@
         <tapestry.version>5.1.0.5</tapestry.version>
 
         <!-- Testing dependency versions -->
-        <cargo.version>1.0</cargo.version>
+        <cargo.version>1.0.4</cargo.version>
         <jmock.version>2.5.1</jmock.version>
         <jsp.version>2.0</jsp.version>
         <junit.version>4.8.1</junit.version>
