@@ -211,8 +211,13 @@
         <h:outputText/><h:outputText/>
     </c:when>
     <c:otherwise>
+
         <h:panelGroup>
             <t:htmlTag value="strong">#{text['user.roles']}:</t:htmlTag>
+            <c:if test="${not empty param['userForm:userRoles']}">
+                ${param['userForm:userRoles']}
+                <input type="hidden" name="userForm:userRoles" value="${param['userForm:userRoles']}" />
+            </c:if>
             <c:forEach var="role" items="#{userForm.userRoles}" varStatus="status">
                ${role}<c:if test="${!status.last}">,</c:if>
                <input type="hidden" name="userForm:userRoles" value="${role}" />
@@ -225,7 +230,6 @@
         <h:outputText/><h:outputText/>
     </c:otherwise>
 </c:choose>
-
     <h:panelGroup styleClass="buttonBar bottom">
         <h:commandButton value="#{text['button.save']}" action="#{userForm.save}" styleClass="button"/>
         <c:if test="${not empty userForm.user.id}">
