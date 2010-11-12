@@ -415,7 +415,7 @@
 
         <!-- Framework dependency versions -->
         <appfuse.version>2.1.0-M2-SNAPSHOT</appfuse.version>
-        <spring.version>3.0.4.RELEASE</spring.version>
+        <spring.version>3.0.5.RELEASE</spring.version>
 
         <!-- Testing dependency versions -->
         <jmock.version>2.5.1</jmock.version>
