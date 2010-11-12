@@ -9,13 +9,6 @@
     <head>
         <title>${'#'}{text['${pojoNameLower}Detail.title']}</title>
         <meta name="heading" content="${'#'}{text['${pojoNameLower}Detail.heading']}"/>
-        <style type="text/css">
-            .jscalendar-DB-div-style {
-                position: absolute;
-                margin-top: -120px;
-                margin-left: -508px;
-            }
-    </style>
     </head>
 <body id="${pojoNameLower}Form">
 
