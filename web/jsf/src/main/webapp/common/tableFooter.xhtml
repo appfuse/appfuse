@@ -1,7 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core"
       xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk">
-
+<ui:composition>
 <h:panelGrid columns="1" styleClass="scrollerTable" columnClasses="standardTable_ColumnCentered">
     <t:dataScroller id="scroll" for="#{tableName}" fastStep="10"
         pageCountVar="pageCount" pageIndexVar="pageIndex" immediate="false"
@@ -27,5 +27,5 @@
         </f:facet>
     </t:dataScroller>
 </h:panelGrid>
-
+</ui:composition>
 </html>
