@@ -18,7 +18,7 @@ import java.io.File;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  * @goal remove
  */
-public class UninstallArtifactsMojo extends AbstractMojo {
+public class zUninstallArtifactsMojo extends AbstractMojo {
 
     /**
      * Prompter for user interaction.
