@@ -702,7 +702,7 @@
         <db.name>${artifactId.replaceAll('-','_')}</db.name>
 
         <!-- Framework dependency versions -->
-        <appfuse.version>2.1.0-M2-SNAPSHOT</appfuse.version>
+        <appfuse.version>2.1.0-M2</appfuse.version>
         <spring.version>3.0.5.RELEASE</spring.version>
         <tapestry.version>5.1.0.5</tapestry.version>
 
