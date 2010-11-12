@@ -119,7 +119,7 @@ public abstract class AbstractAppFuseMojoTestCase extends AbstractMojoTestCase {
         String archetypeGroupId = "org.appfuse.archetypes";
 
         ArchetypeGenerationRequest request = new ArchetypeGenerationRequest();
-        request.setGroupId(project.getGroupId()).setArtifactId(project.getArtifactId()).setVersion("1.0-SNAPSHOT");
+        request.setGroupId(project.getGroupId()).setArtifactId(project.getArtifactId()).setVersion("1.0");
         request.setArchetypeGroupId(archetypeGroupId).setArchetypeArtifactId(archetypeArtifactId);
         request.setArchetypeVersion(archetypeVersion);
         request.setLocalRepository(localRepository);
