@@ -33,9 +33,7 @@
         <mvn command="org.apache.maven.plugins:maven-archetype-plugin:2.0-alpha-4:create-from-project" dir="${dir}"/>
 
         <!-- Change the version number of the generated archetype -->
-        <replace file="${dir}/target/generated-sources/archetype/pom.xml" value="${version}">
-            <replacetoken><![CDATA[<version>1.0-SNAPSHOT</version>]]></replacetoken>
-        </replace>
+        <replace file="${dir}/target/generated-sources/archetype/pom.xml" value="${version}" token="1.0-SNAPSHOT"/>
 
         <replace file="${dir}/target/generated-sources/archetype/pom.xml">
                 <replacetoken><![CDATA[</name>]]></replacetoken>
@@ -162,9 +160,7 @@
             <mvn dir="@{dir}" command="org.apache.maven.plugins:maven-archetype-plugin:2.0-alpha-4:create-from-project"/>
 
             <!-- Change the version number of the generated archetype -->
-            <replace file="@{dir}/target/generated-sources/archetype/pom.xml" value="${version}">
-                <replacetoken><![CDATA[<version>1.0-SNAPSHOT</version>]]></replacetoken>
-            </replace>
+            <replace file="@{dir}/target/generated-sources/archetype/pom.xml" value="${version}" token="1.0-SNAPSHOT"/>
 
             <!-- Add a description to the archetype's pom.xml -->
             <replace file="@{dir}/target/generated-sources/archetype/pom.xml">
