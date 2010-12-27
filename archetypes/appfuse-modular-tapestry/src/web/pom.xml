@@ -86,7 +86,7 @@
                 <artifactId>native2ascii-maven-plugin</artifactId>
                 <version>1.0-alpha-1</version>
                 <configuration>
-                    <dest>target/classes</dest>
+                    <dest>target/resources</dest>
                     <src>src/main/resources</src>
                 </configuration>
                 <executions>
@@ -98,11 +98,16 @@
                         <configuration>
                             <encoding>UTF8</encoding>
                             <includes>
-                                ApplicationResources_ko.properties,
-                                ApplicationResources_no.properties,
-                                ApplicationResources_tr.properties,
-                                ApplicationResources_zh*.properties
+                                ApplicationResources_*.properties
                             </includes>
+                            <excludes>
+                                ApplicationResources.properties,
+                                ApplicationResources_de*.properties,
+                                ApplicationResources_fr*.properties,
+                                ApplicationResources_nl*.properties,
+                                ApplicationResources_pt*.properties,
+                                ApplicationResources_es*.properties
+                            </excludes>
                         </configuration>
                     </execution>
                     <execution>
@@ -113,10 +118,12 @@
                         <configuration>
                             <encoding>8859_1</encoding>
                             <includes>
+                                ApplicationResources.properties,
                                 ApplicationResources_de.properties,
                                 ApplicationResources_fr.properties,
                                 ApplicationResources_nl.properties,
-                                ApplicationResources_pt*.properties
+                                ApplicationResources_pt*.properties,
+                                ApplicationResources_es*.properties
                             </includes>
                         </configuration>
                     </execution>
@@ -156,24 +163,13 @@
             <resource>
                 <directory>src/main/resources</directory>
                 <excludes>
-                    <exclude>ApplicationResources_de.properties</exclude>
-                    <exclude>ApplicationResources_fr.properties</exclude>
-                    <exclude>ApplicationResources_ko.properties</exclude>
-                    <exclude>ApplicationResources_nl.properties</exclude>
-                    <exclude>ApplicationResources_no.properties</exclude>
-                    <exclude>ApplicationResources_pt*.properties</exclude>
-                    <exclude>ApplicationResources_tr.properties</exclude>
-                    <exclude>ApplicationResources_zh*.properties</exclude>
-                    <exclude>applicationContext-resources.xml</exclude>
+                    <exclude>ApplicationResources*.properties</exclude>
                 </excludes>
                 <filtering>true</filtering>
             </resource>
             <resource>
-                <directory>src/main/resources</directory>
-                <includes>
-                    <include>applicationContext-resources.xml</include>
-                </includes>
-                <filtering>false</filtering>
+                <directory>target/resources</directory>
+                <filtering>true</filtering>
             </resource>
         </resources>
         <testResources>
@@ -278,7 +274,7 @@
                     <plugin>
                         <groupId>org.codehaus.cargo</groupId>
                         <artifactId>cargo-maven2-plugin</artifactId>
-                        <version>1.0</version>
+                        <version>${cargo.version}</version>
                         <configuration>
                             <wait>${cargo.wait}</wait>
                             <container>
