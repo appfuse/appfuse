@@ -14,7 +14,7 @@
         <maven>2.2.1</maven>
     </prerequisites>
 
-    <licenses>
+    <!--<licenses>
         <license>
             <name></name>
             <url></url>
@@ -39,7 +39,7 @@
             <email></email>
             <timezone></timezone>
         </developer>
-    </developers>
+    </developers>-->
     
     <build>
         <defaultGoal>install</defaultGoal>
