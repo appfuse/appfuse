@@ -124,18 +124,6 @@
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-annotations</artifactId>
-            <version>${hibernate.annotations.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.hibernate</groupId>
-                    <artifactId>ejb3-persistence</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!-- Upgrade Hibernate version -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>${hibernate.version}</version>
         </dependency>
@@ -143,7 +131,7 @@
         <dependency>
             <groupId>javassist</groupId>
             <artifactId>javassist</artifactId>
-            <version>3.4.GA</version>
+            <version>3.9.0.GA</version>
         </dependency>
         <!-- Enable EhCache support -->
         <dependency>

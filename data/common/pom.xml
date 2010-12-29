@@ -45,9 +45,11 @@
             <artifactId>commons-lang</artifactId>
             <version>${commons.lang.version}</version>
         </dependency>
+        <!-- Only publicly available version of JPA 2.0 in Maven -->
+        <!-- http://paulszulc.wordpress.com/2010/01/09/jpa-2-0-and-spring-3-0-with-maven/ -->
         <dependency>
-            <groupId>javax.persistence</groupId>
-            <artifactId>persistence-api</artifactId>
+            <groupId>org.hibernate.java-persistence</groupId>
+            <artifactId>jpa-api</artifactId>
             <version>${jpa.version}</version>
         </dependency>
         <dependency>
