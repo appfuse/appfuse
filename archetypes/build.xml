@@ -90,8 +90,9 @@
         <attribute name="archetype" default=""/>
         <attribute name="version" default=""/>
         <attribute name="command"
-                   default="org.apache.maven.plugins:maven-archetype-plugin:2.0-alpha-4:generate -B -DarchetypeGroupId=org.appfuse.archetypes -DarchetypeArtifactId=@{archetype}
-                   -DarchetypeVersion=@{version} -DgroupId=com.mycompany -DartifactId=@{archetype} -DpackageName=com.mycompany"/>
+                   default="archetype:generate -B -DarchetypeGroupId=org.appfuse.archetypes -DarchetypeArtifactId=@{archetype}
+                   -DarchetypeVersion=@{version} -DgroupId=com.mycompany -DartifactId=@{archetype} -DpackageName=com.mycompany
+                   -DarchetypeRepository=local"/>
 
         <sequential>
             <mkdir dir="${test.dir}"/>
@@ -172,59 +173,60 @@
             <replace file="@{dir}/target/generated-sources/archetype/pom.xml">
                 <replacetoken><![CDATA[</description>]]></replacetoken>
                 <replacevalue><![CDATA[</description>
-        <distributionManagement>
-        <repository>
-            <id>appfuse-releases</id>
-            <name>AppFuse Release Repository</name>
-            <url>http://oss.sonatype.org/service/local/staging/deploy/maven2</url>
-        </repository>
-        <snapshotRepository>
-            <id>appfuse-snapshots</id>
-            <name>AppFuse Snapshot Repository</name>
-            <url>http://oss.sonatype.org/content/repositories/appfuse-snapshots</url>
-        </snapshotRepository>
-        <site>
-            <id>appfuse-site</id>
-            <name>AppFuse Maven Site</name>
-            <url>scp://static.appfuse.org/var/www/appfuse-site</url>
-        </site>
-    </distributionManagement>]]></replacevalue>
+
+  <distributionManagement>
+    <repository>
+      <id>appfuse-releases</id>
+      <name>AppFuse Release Repository</name>
+      <url>http://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+    </repository>
+    <snapshotRepository>
+      <id>appfuse-snapshots</id>
+      <name>AppFuse Snapshot Repository</name>
+      <url>http://oss.sonatype.org/content/repositories/appfuse-snapshots</url>
+    </snapshotRepository>
+    <site>
+      <id>appfuse-site</id>
+      <name>AppFuse Maven Site</name>
+      <url>scp://static.appfuse.org/var/www/appfuse-site</url>
+    </site>
+  </distributionManagement>]]></replacevalue>
             </replace>
 
             <!-- Preserve embedded package names -->
             <replace dir="@{dir}/target/generated-sources/archetype/src">
-                <replacetoken><![CDATA[import ${package}.Constants]]></replacetoken>
-                <replacevalue><![CDATA[import org.appfuse.Constants]]></replacevalue>
+                <replacetoken>import ${package}.Constants</replacetoken>
+                <replacevalue>import org.appfuse.Constants</replacevalue>
             </replace>
 
             <replace dir="@{dir}/target/generated-sources/archetype/src">
-                <replacetoken><![CDATA[import ${package}.model]]></replacetoken>
-                <replacevalue><![CDATA[import org.appfuse.model]]></replacevalue>
+                <replacetoken>import ${package}.model</replacetoken>
+                <replacevalue>import org.appfuse.model</replacevalue>
             </replace>
 
             <replace dir="@{dir}/target/generated-sources/archetype/src">
-                <replacetoken><![CDATA[import ${package}.service.]]></replacetoken>
-                <replacevalue><![CDATA[import org.appfuse.service.]]></replacevalue>
+                <replacetoken>import ${package}.service.</replacetoken>
+                <replacevalue>import org.appfuse.service.</replacevalue>
             </replace>
 
             <replace dir="@{dir}/target/generated-sources/archetype/src">
-                <replacetoken><![CDATA[import ${package}.util]]></replacetoken>
-                <replacevalue><![CDATA[import org.appfuse.util]]></replacevalue>
+                <replacetoken>import ${package}.util</replacetoken>
+                <replacevalue>import org.appfuse.util</replacevalue>
             </replace>
 
             <!-- Fix messed up package name on RequestUtil -->
             <replace dir="@{dir}/target/generated-sources/archetype/src">
-                <replacetoken><![CDATA[import org.appfuse.util.RequestUtil]]></replacetoken>
-                <replacevalue><![CDATA[import ${package}.webapp.util.RequestUtil]]></replacevalue>
+                <replacetoken>import org.appfuse.util.RequestUtil</replacetoken>
+                <replacevalue>import ${package}.webapp.util.RequestUtil</replacevalue>
             </replace>
             <replace dir="@{dir}/target/generated-sources/archetype/src">
-                <replacetoken><![CDATA[import org.appfuse.webapp.util.RequestUtil]]></replacetoken>
-                <replacevalue><![CDATA[import ${package}.webapp.util.RequestUtil]]></replacevalue>
+                <replacetoken>import org.appfuse.webapp.util.RequestUtil</replacetoken>
+                <replacevalue>import ${package}.webapp.util.RequestUtil</replacevalue>
             </replace>
 
             <replace dir="@{dir}/target/generated-sources/archetype/src">
-                <replacetoken><![CDATA[import org.appfuse.util.MessageUtil]]></replacetoken>
-                <replacevalue><![CDATA[import ${package}.util.MessageUtil]]></replacevalue>
+                <replacetoken>import org.appfuse.util.MessageUtil</replacetoken>
+                <replacevalue>import ${package}.util.MessageUtil</replacevalue>
             </replace>
 
             <!-- Add jdbc.password back in since archetype plugin strips it out -->
@@ -269,7 +271,18 @@
             </replace>
 
             <if>
-                <equals arg1="${dest}" arg2=""/>
+                <equals arg1="@{dest}" arg2=""/>
+                <then>
+                    <replace dir="@{dir}/target/generated-sources/archetype">
+                        <include name="**/archetype-metadata.xml"/>
+                        <replacetoken><![CDATA[<include>**/*.java</include>]]></replacetoken>
+                        <replacevalue><![CDATA[<include>webapp/**/*.java</include>]]></replacevalue>
+                    </replace>
+                </then>
+            </if>
+
+            <if>
+                <equals arg1="@{dest}" arg2=""/>
                 <then>
                     <replace dir="@{dir}/target/generated-sources/archetype">
                         <include name="**/archetype-metadata.xml"/>
@@ -307,7 +320,7 @@
             </if>
 
             <if>
-                <equals arg1="${dest}" arg2=""/>
+                <equals arg1="@{dest}" arg2=""/>
                 <then>
                     <!-- Make sure web.xml has proper value for Tapestry -->
                     <replace dir="@{dir}/target/generated-sources/archetype">
@@ -326,7 +339,7 @@
             </if>
 
             <if>
-                <equals arg1="${dest}" arg2=""/>
+                <equals arg1="@{dest}" arg2=""/>
                 <then>
                     <!-- Make sure all Java files are in webapp directory -->
                     <replace dir="@{dir}/target/generated-sources/archetype">
@@ -344,11 +357,11 @@
                               value="@{dir}/target/generated-sources/archetype/src/main/resources/archetype-resources"/>
 
                     <!-- sources -->
-                    <delete dir="${web.root}/src/main/java/org"/>
                     <mkdir dir="${web.root}/src/webapp"/>
                     <move todir="${web.root}/src/webapp">
                         <fileset dir="${web.root}/src/main/java"/>
                     </move>
+                    <delete dir="${web.root}/src/main/java"/>
                     <mkdir dir="${web.root}/src/main/java"/>
                     <move todir="${web.root}/src/main/java/webapp">
                         <fileset dir="${web.root}/src/webapp"/>
@@ -359,6 +372,7 @@
                     <move todir="${web.root}/src/tests">
                         <fileset dir="${web.root}/src/test/java"/>
                     </move>
+                    <delete dir="${web.root}/src/test/java"/>
                     <mkdir dir="${web.root}/src/test/java"/>
                     <move todir="${web.root}/src/test/java/webapp">
                         <fileset dir="${web.root}/src/tests"/>
