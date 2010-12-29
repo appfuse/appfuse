@@ -584,7 +584,7 @@
         <hibernate.entitymanager.version>3.4.0.GA</hibernate.entitymanager.version>
         <ibatis.version>2.3.4.726</ibatis.version>
         <javamail.version>1.4.1</javamail.version>
-        <jetty.version>6.1.21</jetty.version>
+        <jetty.version>6.1.26</jetty.version>
         <jmock.version>2.5.1</jmock.version>
         <jpa.version>1.0</jpa.version>
         <jsp.version>2.0</jsp.version>
