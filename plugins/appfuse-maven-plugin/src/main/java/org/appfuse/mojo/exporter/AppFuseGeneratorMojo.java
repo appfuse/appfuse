@@ -1,29 +1,28 @@
 package org.appfuse.mojo.exporter;
 
 
+import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-import org.apache.commons.io.FileUtils;
 import org.appfuse.mojo.HibernateExporterMojo;
 import org.appfuse.tool.AppFuseExporter;
 import org.appfuse.tool.ArtifactInstaller;
 import org.codehaus.plexus.components.interactivity.Prompter;
 import org.codehaus.plexus.components.interactivity.PrompterException;
 import org.hibernate.tool.hbm2x.Exporter;
-import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
 
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
-
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 
 /**
  * Generates Java classes from set of annotated POJOs. Use -DdisableInstallation to prevent installation.
@@ -90,6 +89,12 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
     private String templateDirectory;
 
     /**
+     * Path for where to generate files at.
+     */
+
+    private String fullPath = null;
+
+    /**
      * Default constructor.
      */
     public AppFuseGeneratorMojo() {
@@ -119,6 +124,19 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
 
         pojoName = System.getProperty("entity");
 
+        // A dot in the entity name means the person is specifying the package.
+        if (pojoName.contains(".")) {
+            if (pojoName.indexOf("model") == -1) {
+                throw new MojoExecutionException("You must specify 'model' as the last package in your entity name.");
+            }
+            fullPath = pojoName.substring(0, pojoName.indexOf(".model"));
+            // allow ~ to be used for groupId
+            fullPath = fullPath.replace("~", getProject().getGroupId());
+
+            pojoName = pojoName.substring(pojoName.lastIndexOf(".") + 1);
+            log("Package name set to: " + fullPath);
+        }
+
         if (pojoName == null) {
             try {
                 pojoName = prompter.prompt("What is the name of your pojo (i.e. Person)?");
@@ -130,6 +148,7 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
         if (pojoName == null || "".equals(pojoName.trim())) {
             throw new MojoExecutionException("You must specify an entity name to continue.");
         }
+
 
         String daoFramework = getProject().getProperties().getProperty("dao.framework");
 
@@ -231,13 +250,15 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
             exporter.getProperties().setProperty("generate-web", "true");
         }
 
+        String rootPackage = (fullPath != null) ? fullPath : getProject().getGroupId();
+
         // AppFuse-specific values
-        exporter.getProperties().setProperty("basepackage", getProject().getGroupId());
+        exporter.getProperties().setProperty("basepackage", rootPackage);
         exporter.getProperties().setProperty("daoframework", getProject().getProperties().getProperty("dao.framework"));
-        
+
         String webFramework = (getProject().getProperties().containsKey("web.framework")) ?
                 getProject().getProperties().getProperty("web.framework") : "";
-        
+
         exporter.getProperties().setProperty("webframework", webFramework);
 
         exporter.getProperties().setProperty("packaging", getProject().getPackaging());
@@ -248,7 +269,7 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
         }
 
         if (isFullSource())
-            exporter.getProperties().setProperty("appfusepackage", getProject().getGroupId());
+            exporter.getProperties().setProperty("appfusepackage", rootPackage);
         else {
             exporter.getProperties().setProperty("appfusepackage", "org.appfuse");
         }
@@ -269,7 +290,7 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
             disableInstallation = Boolean.valueOf(System.getProperty("disableInstallation"));
         }
 
-        // allow installation to be supressed when testing
+        // allow installation to be suppressed when testing
         if (!disableInstallation) {
             ArtifactInstaller installer = new ArtifactInstaller(getProject(), pojoName, sourceDirectory, destinationDirectory, genericCore);
             installer.execute();
@@ -298,7 +319,11 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
     }
 
     private void addEntityToHibernateCfgXml(String hibernateCfgXml) throws MojoFailureException {
-        String className = getProject().getGroupId() + ".model." + pojoName;
+        String className = (fullPath != null) ? fullPath : getProject().getGroupId();
+
+        className += ".model." + pojoName;
+        log("Constructed class name : " + className);
+
         POJOSearcher pojoSearcher = new POJOSearcher(hibernateCfgXml);
         if (!pojoSearcher.searchForPojo(pojoName)) {
             // check that class exists and has an @Entity annotation
@@ -336,7 +361,16 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
 
             // refactor to check classpath instead of filesystem
             String groupIdAsPath = getProject().getGroupId().replace(".", FILE_SEP);
-            File modelPackage = new File(pathToModelPackage + groupIdAsPath + FILE_SEP + "model");
+
+            String fullPathPackage = pathToModelPackage + groupIdAsPath;
+            if (fullPath != null) {
+                fullPathPackage += FILE_SEP + fullPath.replace(".", FILE_SEP);
+            } else {
+                fullPathPackage += FILE_SEP + "model";
+            }
+            log("Looking for entity in " + fullPathPackage);
+
+            File modelPackage = new File(fullPathPackage);
             boolean entityExists = false;
 
             if (modelPackage.exists()) {
@@ -349,7 +383,7 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
                     }
                 }
             } else {
-                getLog().error("The path '" + pathToModelPackage + groupIdAsPath + FILE_SEP + "model' does not exist!");
+                getLog().error("The path '" + fullPathPackage + groupIdAsPath + FILE_SEP + "model' does not exist!");
             }
 
             if (!entityExists) {

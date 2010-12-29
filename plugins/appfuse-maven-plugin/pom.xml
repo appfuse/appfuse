@@ -29,6 +29,7 @@
                 <configuration>
                     <goalPrefix>appfuse</goalPrefix>
                 </configuration>
+                <version>2.6</version>
             </plugin>
         </plugins>
     </build>

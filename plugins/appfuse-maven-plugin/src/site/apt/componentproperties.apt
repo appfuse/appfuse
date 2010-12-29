@@ -10,7 +10,7 @@ Component Properties Configuration
 
   The values that <componentProperties> can contain can be found in the {{{http://www.hibernate.org/hib_docs/tools/reference/en/html_single}hibernate-tools}} reference documents.
 
-  Also <implementation> would override all the <implemenation> elements that are part of the <components> element.
+  Also <implementation> would override all the <implementation> elements that are part of the <components> element.
 
 *-------------------------+----------+---------------------------------------------------------------------------------+
 | <<Parameter>>           | <<Type>> | <<Default Value>>

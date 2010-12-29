@@ -1,5 +1,6 @@
 package org.appfuse.tool;
 
+import org.apache.maven.plugin.MojoExecutionException;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.tool.hbm2x.GenericExporter;
 import org.hibernate.tool.hbm2x.pojo.POJOClass;
@@ -231,6 +232,15 @@ public class AppFuseExporter extends GenericExporter {
             protected String resolveFilename(POJOClass element) {
                 String filename = super.resolveFilename(element);
                 String packageLocation = StringHelper.replace(getPackageNameForFile(element), ".", "/");
+
+                String pojoName = System.getProperty("entity");
+
+                // A dot in the entity name means the person is specifying the package.
+                if (System.getProperty("entity").contains(".")) {
+                    packageLocation = pojoName.substring(0, pojoName.indexOf(".model"));
+                    packageLocation = StringHelper.replace(packageLocation, ".", "/");
+                }
+
                 if (packageLocation.endsWith("model") && packageLocation.indexOf('/') > -1) {
                     packageLocation = packageLocation.substring(0, packageLocation.lastIndexOf('/'));
                 }

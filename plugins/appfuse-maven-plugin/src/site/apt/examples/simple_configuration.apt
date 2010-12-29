@@ -4,7 +4,7 @@
  Matt Raible
  <matt@raibledesigns.com>
  ------
- 2 September 2007
+ 28 December 2010
 
 Overview
 
@@ -18,8 +18,9 @@ Example
   <build>
     <plugins>
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
+        <groupId>org.appfuse.plugins</groupId>
         <artifactId>appfuse-maven-plugin</artifactId>
+        <version>${appfuse.version}</version>
       </plugin>
     </plugins>
   </build>
