@@ -1,15 +1,14 @@
 package org.appfuse.webapp.action;
 
 import org.appfuse.Constants;
-import org.appfuse.service.UserManager;
-import org.appfuse.service.RoleManager;
-import org.appfuse.service.MailEngine;
 import org.appfuse.model.Address;
 import org.appfuse.model.User;
-
-import org.subethamail.wiser.Wiser;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.appfuse.service.MailEngine;
+import org.appfuse.service.RoleManager;
+import org.appfuse.service.UserManager;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.subethamail.wiser.Wiser;
 
 public class SignupFormTest extends BasePageTestCase {
     private SignupForm bean;

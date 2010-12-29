@@ -7,13 +7,11 @@ import org.appfuse.model.Role;
 import org.appfuse.model.User;
 import org.appfuse.service.UserExistsException;
 import org.jmock.Expectations;
-import org.jmock.integration.junit4.JMock;
-import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.test.annotation.ExpectedException;
+
+import static org.junit.Assert.*;
 
 public class UserManagerImplTest extends BaseManagerMockTestCase {
     //~ Instance fields ========================================================

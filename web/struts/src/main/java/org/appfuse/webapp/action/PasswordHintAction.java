@@ -1,12 +1,12 @@
 package org.appfuse.webapp.action;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.appfuse.model.User;
 import org.appfuse.webapp.util.RequestUtil;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.mail.MailException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Action class to send password hints to registered users.

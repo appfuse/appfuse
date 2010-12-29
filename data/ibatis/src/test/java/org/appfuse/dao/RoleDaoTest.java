@@ -2,9 +2,10 @@ package org.appfuse.dao;
 
 import org.appfuse.Constants;
 import org.appfuse.model.Role;
-import static org.junit.Assert.*;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import static org.junit.Assert.*;
 
 public class RoleDaoTest extends BaseDaoTestCase {
     @Autowired

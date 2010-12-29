@@ -1,16 +1,17 @@
 package org.appfuse.service.impl;
 
-import org.appfuse.dao.LookupDao;
-import org.appfuse.model.Role;
-import org.appfuse.model.LabelValue;
 import org.appfuse.Constants;
+import org.appfuse.dao.LookupDao;
+import org.appfuse.model.LabelValue;
+import org.appfuse.model.Role;
 import org.jmock.Expectations;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.Assert.assertTrue;
 
 
 public class LookupManagerImplTest extends BaseManagerMockTestCase {

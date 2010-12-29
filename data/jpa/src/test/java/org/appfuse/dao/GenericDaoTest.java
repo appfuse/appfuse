@@ -2,15 +2,15 @@ package org.appfuse.dao;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.appfuse.model.User;
 import org.appfuse.dao.jpa.GenericDaoJpa;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import org.appfuse.model.User;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.persistence.PersistenceContext;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import static org.junit.Assert.*;
 
 public class GenericDaoTest extends BaseDaoTestCase {
     Log log = LogFactory.getLog(GenericDaoTest.class);

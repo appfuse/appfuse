@@ -1,13 +1,11 @@
 package org.appfuse.webapp.action;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-
-import javax.servlet.http.HttpServletResponse;
-
+import org.apache.struts2.ServletActionContext;
 import org.appfuse.webapp.listener.StartupListener;
 
-import org.apache.struts2.ServletActionContext;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  * This class is used to reload the drop-downs initialized in the

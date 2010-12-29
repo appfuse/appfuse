@@ -1,15 +1,14 @@
 package org.appfuse.dao.jpa;
 
-import java.util.List;
-
-import org.appfuse.dao.LookupDao;
-import org.appfuse.model.Role;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.appfuse.dao.LookupDao;
+import org.appfuse.model.Role;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.PersistenceContext;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.List;
 
 /**
  * JPA implementation of LookupDao.

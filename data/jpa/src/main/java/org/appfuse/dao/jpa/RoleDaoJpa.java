@@ -1,12 +1,11 @@
 package org.appfuse.dao.jpa;
 
-import java.util.List;
-
-import javax.persistence.Query;
-
 import org.appfuse.dao.RoleDao;
 import org.appfuse.model.Role;
 import org.springframework.stereotype.Repository;
+
+import javax.persistence.Query;
+import java.util.List;
 
 
 /**

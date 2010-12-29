@@ -1,12 +1,12 @@
 package org.appfuse.dao.hibernate;
 
 import org.appfuse.dao.BaseDaoTestCase;
-import org.hibernate.SessionFactory;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.persister.entity.EntityPersister;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Map;
 

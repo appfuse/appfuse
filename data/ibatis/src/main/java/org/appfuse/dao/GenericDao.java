@@ -2,9 +2,6 @@ package org.appfuse.dao;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.ArrayList;
 
 
 /**

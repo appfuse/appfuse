@@ -1,9 +1,9 @@
 package org.appfuse.webapp.action;
 
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.appfuse.model.User;
 import org.appfuse.webapp.util.RequestUtil;
 import org.springframework.mail.MailException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 /**
  * Managed Bean to send password hints to registered users.

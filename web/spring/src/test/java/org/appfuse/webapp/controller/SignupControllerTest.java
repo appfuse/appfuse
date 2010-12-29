@@ -6,11 +6,8 @@ import org.appfuse.model.User;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.DataBinder;
-import org.springframework.validation.Errors;
-import org.springframework.web.servlet.ModelAndView;
 import org.subethamail.wiser.Wiser;
 
 import javax.servlet.http.HttpServletResponse;

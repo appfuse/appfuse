@@ -1,8 +1,5 @@
 package org.appfuse.webapp.action;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.Serializable;
-
 import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.service.RoleManager;
@@ -12,6 +9,9 @@ import org.springframework.mail.MailException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.Serializable;
 
 /**
  * JSF Page class to handle signing up a new user.

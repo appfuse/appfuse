@@ -1,5 +1,7 @@
 package org.appfuse.webapp.action;
 
+import org.appfuse.model.LabelValue;
+
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,8 +10,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import org.appfuse.model.LabelValue;
 
 public class CountryModel {
     private Map<String, String> availableCountries;

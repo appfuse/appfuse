@@ -1,14 +1,13 @@
 package org.appfuse.util;
 
-import java.text.ParseException;
-import java.util.Date;
-import java.util.Locale;
-
 import junit.framework.TestCase;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.i18n.LocaleContextHolder;
+
+import java.text.ParseException;
+import java.util.Date;
+import java.util.Locale;
 
 public class DateUtilTest extends TestCase {
     //~ Instance fields ========================================================

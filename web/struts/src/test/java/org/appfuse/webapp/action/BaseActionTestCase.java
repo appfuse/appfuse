@@ -1,7 +1,5 @@
 package org.appfuse.webapp.action;
 
-import java.util.HashMap;
-
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.config.Configuration;
 import com.opensymphony.xwork2.config.ConfigurationManager;
@@ -16,6 +14,8 @@ import org.appfuse.Constants;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
+
+import java.util.HashMap;
 
 /**
  * Base class for running Struts 2 Action tests.

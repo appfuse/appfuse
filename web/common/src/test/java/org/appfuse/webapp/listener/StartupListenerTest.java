@@ -4,8 +4,8 @@ import junit.framework.TestCase;
 import org.appfuse.Constants;
 import org.springframework.mock.web.MockServletContext;
 import org.springframework.web.context.ContextLoader;
-import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.ContextLoaderListener;
+import org.springframework.web.context.WebApplicationContext;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;

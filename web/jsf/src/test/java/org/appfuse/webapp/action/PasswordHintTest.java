@@ -1,10 +1,9 @@
 package org.appfuse.webapp.action;
 
-import org.subethamail.wiser.Wiser;
-import org.appfuse.service.UserManager;
-import org.appfuse.service.RoleManager;
 import org.appfuse.service.MailEngine;
+import org.appfuse.service.UserManager;
 import org.springframework.mail.SimpleMailMessage;
+import org.subethamail.wiser.Wiser;
 
 public class PasswordHintTest extends BasePageTestCase {
     private PasswordHint bean;

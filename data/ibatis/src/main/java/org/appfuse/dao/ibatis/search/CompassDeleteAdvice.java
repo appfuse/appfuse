@@ -1,9 +1,9 @@
 package org.appfuse.dao.ibatis.search;
 
 import org.appfuse.dao.ibatis.GenericDaoiBatis;
-import org.compass.core.spi.InternalCompass;
 import org.compass.core.mapping.Cascade;
 import org.compass.core.mapping.CompassMapping;
+import org.compass.core.spi.InternalCompass;
 
 import java.lang.reflect.Method;
 

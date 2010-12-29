@@ -1,8 +1,9 @@
 package org.appfuse.webapp.pages;
 
-import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.subethamail.wiser.Wiser;
+
+import static org.junit.Assert.assertTrue;
 
 public class PasswordHintTest extends BasePageTestCase {
 

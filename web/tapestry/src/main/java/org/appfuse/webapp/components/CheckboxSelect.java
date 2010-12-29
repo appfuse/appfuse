@@ -1,22 +1,23 @@
 package org.appfuse.webapp.components;
 
-import java.util.Map;
-import java.util.List;
-import java.util.Collections;
-
+import org.apache.tapestry5.Binding;
 import org.apache.tapestry5.MarkupWriter;
 import org.apache.tapestry5.OptionGroupModel;
 import org.apache.tapestry5.OptionModel;
 import org.apache.tapestry5.SelectModel;
-import org.apache.tapestry5.Binding;
 import org.apache.tapestry5.SelectModelVisitor;
 import org.apache.tapestry5.ValueEncoder;
 import org.apache.tapestry5.annotations.BeforeRenderTemplate;
 import org.apache.tapestry5.annotations.Parameter;
-import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.corelib.base.AbstractField;
+import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.ioc.internal.util.TapestryException;
 import org.apache.tapestry5.services.Request;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
 import static org.apache.tapestry5.ioc.internal.util.CollectionFactory.newList;
 
 /**

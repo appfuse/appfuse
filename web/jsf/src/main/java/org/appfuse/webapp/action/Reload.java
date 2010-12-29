@@ -1,9 +1,9 @@
 package org.appfuse.webapp.action;
 
+import org.appfuse.webapp.listener.StartupListener;
+
 import java.io.IOException;
 import java.io.Serializable;
-
-import org.appfuse.webapp.listener.StartupListener;
 
 /**
  * JSF Page class to handle reloading options in servlet context.

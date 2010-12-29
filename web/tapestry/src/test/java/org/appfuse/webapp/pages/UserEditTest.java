@@ -2,12 +2,13 @@ package org.appfuse.webapp.pages;
 
 import org.apache.tapestry5.dom.Element;
 import org.apache.tapestry5.dom.Node;
-import static org.junit.Assert.*;
 import org.junit.Test;
 import org.subethamail.wiser.Wiser;
 
 import java.util.List;
 import java.util.ResourceBundle;
+
+import static org.junit.Assert.*;
 
 public class UserEditTest extends BasePageTestCase {
 

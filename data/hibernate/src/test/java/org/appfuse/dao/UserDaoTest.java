@@ -4,15 +4,20 @@ import org.appfuse.Constants;
 import org.appfuse.model.Address;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
-import static org.junit.Assert.*;
+import org.compass.core.CompassCallbackWithoutResult;
+import org.compass.core.CompassException;
+import org.compass.core.CompassHits;
+import org.compass.core.CompassSession;
+import org.compass.core.CompassTemplate;
+import org.compass.gps.CompassGps;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.NotTransactional;
 import org.springframework.test.annotation.ExpectedException;
-import org.compass.core.*;
-import org.compass.gps.CompassGps;
+import org.springframework.test.annotation.NotTransactional;
+
+import static org.junit.Assert.*;
 
 public class UserDaoTest extends BaseDaoTestCase {
     @Autowired

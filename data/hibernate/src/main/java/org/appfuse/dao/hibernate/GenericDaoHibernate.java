@@ -3,11 +3,11 @@ package org.appfuse.dao.hibernate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.dao.GenericDao;
-import org.springframework.orm.ObjectRetrievalFailureException;
-import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
-import org.hibernate.SessionFactory;
+import org.springframework.orm.ObjectRetrievalFailureException;
+import org.springframework.orm.hibernate3.HibernateTemplate;
 
 import java.io.Serializable;
 import java.util.ArrayList;

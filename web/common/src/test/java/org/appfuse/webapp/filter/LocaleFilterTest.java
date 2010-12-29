@@ -1,17 +1,15 @@
 package org.appfuse.webapp.filter;
 
-import java.util.Locale;
-
-import javax.servlet.jsp.jstl.core.Config;
-
 import junit.framework.TestCase;
-
 import org.appfuse.Constants;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.mock.web.MockFilterConfig;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockHttpSession;
+
+import javax.servlet.jsp.jstl.core.Config;
+import java.util.Locale;
 
 public class LocaleFilterTest extends TestCase {
     private LocaleFilter filter = null;

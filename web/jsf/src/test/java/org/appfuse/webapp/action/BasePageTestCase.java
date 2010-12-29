@@ -25,9 +25,9 @@ import javax.faces.lifecycle.LifecycleFactory;
 import javax.faces.render.RenderKitFactory;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.Locale;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * <p>Abstract JUnit test case base class, which sets up the JavaServer Faces

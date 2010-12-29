@@ -1,8 +1,5 @@
 package org.appfuse.webapp.components;
 
-import java.util.List;
-import java.util.Map;
-
 import org.apache.tapestry5.Binding;
 import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.ClientElement;
@@ -24,6 +21,9 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.ComponentDefaultProvider;
 import org.appfuse.model.User;
 import org.appfuse.webapp.services.ServiceFacade;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Generic form for User manipulation

@@ -1,8 +1,5 @@
 package org.appfuse.service.impl;
 
-import java.util.List;
-import javax.jws.WebService;
-
 import org.appfuse.dao.UserDao;
 import org.appfuse.model.User;
 import org.appfuse.service.UserExistsException;
@@ -14,6 +11,9 @@ import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import javax.jws.WebService;
+import java.util.List;
 
 
 /**

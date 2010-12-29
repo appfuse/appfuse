@@ -1,9 +1,9 @@
 package org.appfuse.webapp.controller;
 
-import java.util.Map;
-
 import org.appfuse.Constants;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Map;
 
 public class UserControllerTest extends BaseControllerTestCase {
     UserController c = null;

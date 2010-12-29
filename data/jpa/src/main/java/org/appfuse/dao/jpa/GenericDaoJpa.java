@@ -8,10 +8,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
 import java.io.Serializable;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class serves as the Base class for all other DAOs - namely to hold

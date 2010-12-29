@@ -1,10 +1,10 @@
 package org.appfuse.service;
 
-import java.util.List;
-
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.appfuse.dao.UserDao;
 import org.appfuse.model.User;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import java.util.List;
 
 
 /**

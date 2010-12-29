@@ -1,12 +1,12 @@
 package org.appfuse.service.impl;
 
-import java.io.Serializable;
-import java.util.List;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.dao.GenericDao;
 import org.appfuse.service.GenericManager;
+
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * This class serves as the Base class for all other Managers - namely to hold

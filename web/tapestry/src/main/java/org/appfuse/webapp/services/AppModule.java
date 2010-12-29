@@ -1,7 +1,5 @@
 package org.appfuse.webapp.services;
 
-import java.io.IOException;
-
 import org.apache.tapestry5.Asset;
 import org.apache.tapestry5.MarkupWriter;
 import org.apache.tapestry5.SymbolConstants;
@@ -28,6 +26,8 @@ import org.appfuse.webapp.services.impl.ServiceFacadeImpl;
 import org.appfuse.webapp.services.impl.ValidationDelegate;
 import org.slf4j.Logger;
 import org.springframework.mail.SimpleMailMessage;
+
+import java.io.IOException;
 
 
 /**

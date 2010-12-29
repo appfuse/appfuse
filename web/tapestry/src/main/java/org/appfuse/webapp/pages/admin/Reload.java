@@ -1,14 +1,13 @@
 package org.appfuse.webapp.pages.admin;
 
-import java.io.IOException;
-
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.ApplicationGlobals;
 import org.appfuse.webapp.listener.StartupListener;
 import org.appfuse.webapp.pages.BasePage;
 import org.appfuse.webapp.pages.MainMenu;
-import org.slf4j.Logger;
+
+import java.io.IOException;
 
 /**
  * @author Serge Eby

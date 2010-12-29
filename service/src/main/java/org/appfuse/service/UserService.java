@@ -1,10 +1,10 @@
 package org.appfuse.service;
 
-import java.util.List;
-import javax.jws.WebService;
-
 import org.appfuse.model.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import javax.jws.WebService;
+import java.util.List;
 
 /**
  * Web Service interface so hierarchy of Generic Manager isn't carried through.

@@ -1,12 +1,12 @@
 package org.appfuse.webapp.action;
 
-import java.text.ParseException;
-import java.util.Map;
-import java.util.Date;
-
+import com.opensymphony.xwork2.conversion.TypeConversionException;
 import org.apache.struts2.util.StrutsTypeConverter;
 import org.appfuse.util.DateUtil;
-import com.opensymphony.xwork2.conversion.TypeConversionException;
+
+import java.text.ParseException;
+import java.util.Date;
+import java.util.Map;
 
 /**
  * This class implements a Struts Type Converter and can be used by struts to convert Date's to Strings

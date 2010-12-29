@@ -1,14 +1,13 @@
 package org.appfuse.webapp.interceptor;
 
-import java.io.IOException;
+import com.opensymphony.xwork2.ActionInvocation;
+import com.opensymphony.xwork2.interceptor.Interceptor;
+import org.apache.struts2.ServletActionContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts2.ServletActionContext;
-import com.opensymphony.xwork2.ActionInvocation;
-import com.opensymphony.xwork2.interceptor.Interceptor;
+import java.io.IOException;
 
 /**
  * Security interceptor checks to see if users are in the specified roles

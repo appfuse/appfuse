@@ -1,10 +1,10 @@
 package org.appfuse.webapp.data;
 
-import java.io.Serializable;
-
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.appfuse.model.User;
+
+import java.io.Serializable;
 
 public class UserSession implements Serializable {
     private static final long serialVersionUID = 1932462707656603990L;

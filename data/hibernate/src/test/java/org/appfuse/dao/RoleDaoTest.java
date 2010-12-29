@@ -1,14 +1,14 @@
 package org.appfuse.dao;
 
+import org.appfuse.Constants;
+import org.appfuse.model.Role;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.HashMap;
 import java.util.List;
 
-import org.appfuse.Constants;
-import org.appfuse.model.Role;
-
 import static org.junit.Assert.*;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class RoleDaoTest extends BaseDaoTestCase {
     @Autowired

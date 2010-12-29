@@ -1,11 +1,11 @@
 package org.appfuse.webapp.controller;
 
-import org.springframework.security.access.AccessDeniedException;
 import org.appfuse.Constants;
-import org.appfuse.service.UserManager;
 import org.appfuse.model.User;
+import org.appfuse.service.UserManager;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.DataBinder;
 

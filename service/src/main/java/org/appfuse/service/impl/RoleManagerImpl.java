@@ -1,13 +1,12 @@
 package org.appfuse.service.impl;
 
-import java.util.List;
-
 import org.appfuse.dao.RoleDao;
-import org.appfuse.dao.UserDao;
 import org.appfuse.model.Role;
 import org.appfuse.service.RoleManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Implementation of RoleManager interface.

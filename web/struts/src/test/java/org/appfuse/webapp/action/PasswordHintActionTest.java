@@ -3,7 +3,6 @@ package org.appfuse.webapp.action;
 import com.opensymphony.xwork2.Action;
 import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
-
 import org.subethamail.wiser.Wiser;
 
 public class PasswordHintActionTest extends BaseActionTestCase {

@@ -1,9 +1,5 @@
 package org.appfuse.webapp.pages;
 
-import java.text.MessageFormat;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.tapestry5.Asset;
 import org.apache.tapestry5.RenderSupport;
 import org.apache.tapestry5.annotations.Environmental;
@@ -19,6 +15,10 @@ import org.apache.tapestry5.services.Request;
 import org.appfuse.Constants;
 import org.slf4j.Logger;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
+
+import java.text.MessageFormat;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Login Page

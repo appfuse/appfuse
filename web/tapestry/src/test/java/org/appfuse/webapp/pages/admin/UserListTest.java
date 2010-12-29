@@ -1,10 +1,11 @@
 package org.appfuse.webapp.pages.admin;
 
 import org.appfuse.webapp.pages.BasePageTestCase;
-import static org.junit.Assert.*;
 import org.junit.Test;
 
 import java.util.ResourceBundle;
+
+import static org.junit.Assert.*;
 
 public class UserListTest extends BasePageTestCase {
 

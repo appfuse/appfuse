@@ -1,10 +1,11 @@
 package org.appfuse.webapp.pages;
 
 import org.apache.tapestry5.dom.Element;
-import static org.junit.Assert.*;
 import org.junit.Test;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.subethamail.wiser.Wiser;
+
+import static org.junit.Assert.*;
 
 public class SignupTest extends BasePageTestCase {
 

@@ -1,15 +1,15 @@
 package org.appfuse.dao.hibernate;
 
-import java.util.List;
-
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.appfuse.dao.LookupDao;
 import org.appfuse.model.Role;
-import org.springframework.stereotype.Repository;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
-import org.apache.commons.logging.LogFactory;
-import org.apache.commons.logging.Log;
-import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * Hibernate implementation of LookupDao.

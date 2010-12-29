@@ -2,8 +2,6 @@ package org.appfuse.webapp.services.impl;
 
 import org.apache.tapestry5.ioc.services.ThreadLocale;
 import org.apache.tapestry5.services.Context;
-import org.appfuse.Constants;
-import org.appfuse.model.LabelValue;
 import org.appfuse.model.Role;
 import org.appfuse.service.MailEngine;
 import org.appfuse.service.RoleManager;

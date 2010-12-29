@@ -1,13 +1,13 @@
 package org.appfuse.util;
 
+import org.apache.commons.beanutils.ConversionException;
+import org.apache.commons.beanutils.Converter;
+import org.apache.commons.lang.StringUtils;
+
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import org.apache.commons.beanutils.ConversionException;
-import org.apache.commons.beanutils.Converter;
-import org.apache.commons.lang.StringUtils;
 
 /**
  * This class converts a java.util.Date to a String and a String to a java.util.Date.
