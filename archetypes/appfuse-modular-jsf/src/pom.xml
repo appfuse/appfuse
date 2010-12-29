@@ -182,11 +182,24 @@
             </plugin>
             <plugin>
                 <artifactId>maven-checkstyle-plugin</artifactId>
+                <configuration>
+                    <consoleOutput>true</consoleOutput>
+                    <configLocation>https://appfuse.dev.java.net/checkstyle.xml</configLocation>
+                    <failsOnError>false</failsOnError>
+                    <maxAllowedViolations>3</maxAllowedViolations>
+                </configuration>
                 <version>2.6</version>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
+                <configuration>
+                    <instrumentation>
+                        <excludes>
+                            <exclude>**/model/*.class</exclude>
+                        </excludes>
+                    </instrumentation>
+                </configuration>
                 <version>2.4</version>
             </plugin>
             <plugin>
