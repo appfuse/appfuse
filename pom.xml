@@ -564,7 +564,7 @@
         <ajax4jsf.version>1.0.6</ajax4jsf.version>
         <asm.version>2.2.3</asm.version>
         <aspectj.version>1.6.9</aspectj.version>
-        <cargo.version>1.0</cargo.version>
+        <cargo.version>1.0.5</cargo.version>
         <commons.lang.version>2.5</commons.lang.version>
         <commons.beanutils.version>1.8.3</commons.beanutils.version>
         <commons.collections.version>3.2.1</commons.collections.version>

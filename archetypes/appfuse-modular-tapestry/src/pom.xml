@@ -40,7 +40,7 @@
             <timezone></timezone>
         </developer>
     </developers>-->
-    
+
     <build>
         <defaultGoal>install</defaultGoal>
         <plugins>
@@ -178,20 +178,24 @@
         <plugins>
             <plugin>
                 <artifactId>maven-changes-plugin</artifactId>
+                <version>2.3</version>
             </plugin>
             <plugin>
                 <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.6</version>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
-                <version>2.3</version>
+                <version>2.4</version>
             </plugin>
             <plugin>
                 <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.7</version>
             </plugin>
             <plugin>
                 <artifactId>maven-jxr-plugin</artifactId>
+                <version>2.2</version>
             </plugin>
             <plugin>
                 <artifactId>maven-pmd-plugin</artifactId>
@@ -199,9 +203,11 @@
                     <linkXRef>true</linkXRef>
                     <targetJdk>1.5</targetJdk>
                 </configuration>
+                <version>2.5</version>
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>2.7.1</version>
             </plugin>
         </plugins>
     </reporting>
@@ -341,7 +347,7 @@
         <tapestry.version>5.1.0.5</tapestry.version>
 
         <!-- Testing dependency versions -->
-        <cargo.version>1.0</cargo.version>
+        <cargo.version>1.0.5</cargo.version>
         <jmock.version>2.5.1</jmock.version>
         <jsp.version>2.0</jsp.version>
         <junit.version>4.8.1</junit.version>
@@ -369,7 +375,7 @@
         <hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
         <jdbc.groupId>mysql</jdbc.groupId>
         <jdbc.artifactId>mysql-connector-java</jdbc.artifactId>
-        <jdbc.version>5.1.13</jdbc.version>
+        <jdbc.version>5.1.14</jdbc.version>
         <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
         <jdbc.url><![CDATA[jdbc:mysql://localhost/${db.name}?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8]]></jdbc.url>
         <jdbc.username>root</jdbc.username>
