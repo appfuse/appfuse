@@ -8,15 +8,12 @@
 
     <h:form id="reloadForm">
         <h:commandLink action="#{reload.execute}" id="execute">
-            <f:param name="referrer" value=""/>
+            <f:param name="referrer" value="${header.referer}"/>
         </h:commandLink>
     </h:form>
     
     <script type="text/javascript">
-        var f = document.forms['reloadForm'];
-        f.elements['reloadForm:_idcl'].value='reloadForm:execute';
-        f.elements['referrer'].value=document.referrer;
-        f.submit();
+        oamSubmitForm('reloadForm','reloadForm:execute',null,[['referrer','${header.referer}']]);
     </script>
 
 </f:view>
