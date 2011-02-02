@@ -9,10 +9,10 @@
 
 <c:set var="buttons">
     <input type="button" style="margin-right: 5px" class="button"
-        onclick="location.href='<c:url value="/edit${pojo.shortName}.html"/>'"
+        onclick="location.href='<c:url value="/edit${pojo.shortName}"/>'"
         value="<fmt:message key="button.add"/>"/>
 
-    <input type="button" class="button" onclick="location.href='<c:url value="/mainMenu.html"/>'"
+    <input type="button" class="button" onclick="location.href='<c:url value="/mainMenu"/>'"
         value="<fmt:message key="button.done"/>"/>
 </c:set>
 
@@ -21,7 +21,7 @@
 <display:table name="${util.getPluralForWord(pojoNameLower)}" class="table" requestURI="" id="${pojoNameLower}List" export="true" pagesize="25">
 <#foreach field in pojo.getAllPropertiesIterator()>
 <#if field.equals(pojo.identifierProperty)>
-    <display:column property="${field.name}" sortable="true" href="edit${pojo.shortName}.html" media="html"
+    <display:column property="${field.name}" sortable="true" href="edit${pojo.shortName}" media="html"
         paramId="${field.name}" paramProperty="${field.name}" titleKey="${pojoNameLower}.${field.name}"/>
     <display:column property="${field.name}" media="csv excel xml pdf" titleKey="${pojoNameLower}.${field.name}"/>
 <#elseif !c2h.isCollection(field) && !c2h.isManyToOne(field) && !c2j.isComponent(field)>

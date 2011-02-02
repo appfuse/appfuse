@@ -28,7 +28,7 @@ import java.util.List;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 @Controller
-@RequestMapping("/passwordHint.*")
+@RequestMapping("/passwordHint*")
 public class PasswordHintController {
     private final Log log = LogFactory.getLog(PasswordHintController.class);
     private UserManager userManager = null;
@@ -93,6 +93,7 @@ public class PasswordHintController {
             log.warn(e.getMessage());
             saveError(request, text.getMessage("login.passwordHint.error", new Object[] { username }));
         } catch (MailException me) {
+            log.warn(me.getMessage());
             saveError(request, me.getCause().getLocalizedMessage());
         }
 

@@ -9,7 +9,7 @@
 
     <!-- runs all targets -->
     <target name="run-all-tests" 
-        depends="Login,Logout,PasswordHint,Signup,UserTests,FileUpload"
+        depends="Login,Logout,PasswordHint,Signup,StaticPages,UserTests,FileUpload"
         description="Call and executes all test cases (targets)"/>
     
     <!-- runs user-related tests -->
@@ -34,7 +34,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="get Logout Page" url="/logout.jsp"/>
+                <invoke description="get Logout Page" url="/logout"/>
                 <verifytitle description="we should see the login title" text=".*${login.title}.*" regex="true"/>
             </steps>
         </webtest>
@@ -47,13 +47,25 @@
             <steps>
                 <invoke description="get Login Page" url="/"/>
                 <verifytitle description="we should see the login title" text=".*${login.title}.*" regex="true"/>
-                <invoke description="click password hint link" url="/passwordHint.html?username=admin"/>
+                <invoke description="click password hint link" url="/passwordHint?username=admin"/>
                 <verifytitle description="we should see the login title again"
                     text=".*${login.title}.*" regex="true"/>
             </steps>
         </webtest>
     </target>
     
+    <target name="StaticPages" description="Ensures that StaticFilter is working">
+        <webtest name="staticPages">
+            &config;
+            <steps>
+                &login;
+                <invoke description="go to static HTML page" url="/scripts/dojo/test.html"/>
+                <verifytitle description="we should see static title" text="Static HTML Page" regex="true"/>
+                <verifytext description="verify message" text="Static content!"/>
+            </steps>
+        </webtest>
+    </target>
+
     <!-- Verify the edit user screen displays without errors -->
     <target name="EditUser" description="Tests selecting the 'Edit Profile' forward">
         <webtest name="editUser">
@@ -73,7 +85,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="click View Users link" url="/admin/users.html"/>
+                <invoke description="click View Users link" url="/admin/users"/>
                 <verifytitle description="we should see the user list title" 
                     text=".*${userList.title}.*" regex="true"/>
             </steps>
@@ -86,7 +98,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="click Edit Profile link" url="/editProfile.html"/>
+                <invoke description="click Edit Profile link" url="/editProfile"/>
                 <verifytitle description="we should see the user profile title" 
                     text=".*${userProfile.title}.*" regex="true"/>
                 <setinputfield description="set address" name="userForm:address" value="2255 Lane Avenue"/>
@@ -104,7 +116,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="View User List" url="/admin/users.html"/>
+                <invoke description="View User List" url="/admin/users"/>
                 <clickbutton description="Click 'Add' button'" label="${button.add}"/>
                 
                 <verifytitle description="view user profile title" text=".*${userProfile.title}.*" regex="true"/>
@@ -145,7 +157,7 @@
         <webtest name="signup">
             &config;
             <steps>
-                <invoke description="click signup link" url="/signup.html"/>
+                <invoke description="click signup link" url="/signup"/>
                 <verifytitle description="view signup title" text=".*${signup.title}.*" regex="true"/>
                 
                 <setinputfield description="set username" name="signupForm:username" value="signup-user"/>
@@ -155,7 +167,7 @@
                 <setinputfield description="set lastName" name="signupForm:lastName" value="Name"/>
                 <setinputfield description="set city" name="signupForm:city" value="Denver"/>
                 <setinputfield description="set state" name="signupForm:province" value="CO"/>
-                <setselectfield description="Select country" name="signupForm:country" value="US"/>
+                <setselectfield description="select country" name="signupForm:country" value="US"/>
                 <setinputfield description="set postalCode" name="signupForm:postalCode" value="80210"/>
                 <setinputfield description="set email" name="signupForm:email" value="signup-user@raibledesigns.com"/>
                 <setinputfield description="set website" name="signupForm:website" value="http://raibledesigns.com"/>
@@ -174,7 +186,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="get activeUsers URL" url="/admin/activeUsers.html"/>
+                <invoke description="get activeUsers URL" url="/admin/activeUsers"/>
                 <verifytitle description="we should see the activeUsers title" 
                     text=".*${activeUsers.title}.*" regex="true"/>
             </steps>
@@ -187,7 +199,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="click Upload a File link" url="/selectFile.html"/>
+                <invoke description="click Upload a File link" url="/selectFile"/>
                 <verifytitle description="we should see file upload form" text=".*${upload.title}.*" regex="true"/>
                 <setinputfield description="set name" name="uploadForm:name" value="Canoo Test File"/>
                 <setFileField description="set file" name="uploadForm:file" fileName="pom.xml"/>

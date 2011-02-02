@@ -21,7 +21,7 @@
 
 <div class="separator"></div>
 
-<form:form commandName="user" method="post" action="signup.html" onsubmit="return validateUser(this)" id="signupForm">
+<form:form commandName="user" method="post" action="signup" onsubmit="return validateUser(this)" id="signupForm">
 <ul>
     <li class="info">
         <fmt:message key="signup.message"/>

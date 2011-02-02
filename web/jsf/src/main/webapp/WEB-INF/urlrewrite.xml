@@ -2,15 +2,75 @@
 <!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 3.0//EN"
     "http://tuckey.org/res/dtds/urlrewrite3.0.dtd">
 
-<urlrewrite>
-    <rule>
-        <from>^/login.html$</from>
-        <to type="forward">/login.jsp</to>
+<urlrewrite default-match-type="wildcard">
+    <rule match-type="regex">
+        <from>^/admin/user/(.*)\$</from>
+        <to type="forward">/admin/userform.jsf?id=$1&amp;from=list</to>
     </rule>
     <!-- The following fixes a CSS bug in CXF. -->
     <rule>
         <from>^/services//(.*)$</from>
         <to type="forward">/services/$1</to>
     </rule>
-</urlrewrite>
 
+    <!-- Add rules here for anything that shouldn't be served up by JSF. -->
+    <rule>
+        <from>/</from>
+        <to type="redirect" last="true">mainMenu</to>
+    </rule>
+    <rule>
+        <from>/j_security_check</from>
+        <to>/j_security_check</to>
+    </rule>
+    <rule>
+        <from>/common/**</from>
+        <to>/common/$1</to>
+    </rule>
+    <rule>
+        <from>/images/**</from>
+        <to>/images/$1</to>
+    </rule>
+    <rule>
+        <from>/scripts/**</from>
+        <to>/scripts/$1</to>
+    </rule>
+    <rule>
+        <from>/styles/**</from>
+        <to>/styles/$1</to>
+    </rule>
+    <rule>
+        <from>/crossdomain.xml</from>
+        <to>/crossdomain.xml</to>
+    </rule>
+    <rule>
+        <from>/favicon.ico</from>
+        <to>/favicon.ico</to>
+    </rule>
+    <rule>
+        <from>/login*</from>
+        <to>/login.jsp</to>
+    </rule>
+    <rule>
+        <from>/logout*</from>
+        <to>/logout.jsp</to>
+    </rule>
+
+    <!-- JSF -->
+    <rule match-type="regex">
+        <from>^([^?]*)/([^?/\.]+)(\?.*)?$</from>
+        <to last="true">$1/$2.jsf</to>
+    </rule>
+    <outbound-rule match-type="regex">
+        <!-- TODO: Figure out how to make file upload work w/o using *.jsf -->
+        <condition type="path-info">selectFile</condition>
+        <from>^(.*)\.jsf(\?.*)?$</from>
+        <to last="false">$1$2</to>
+    </outbound-rule>
+    <!-- Remove JSESSIONID from URLs when cookies disabled -->
+    <!-- http://stackoverflow.com/questions/962729/is-it-possible-to-disable-jsessionid-in-tomcat-servlet -->
+    <outbound-rule encodefirst="true" match-type="regex">
+        <name>Strip URL Session ID's</name>
+        <from>^(.*?)(?:\;jsessionid=[^\?#]*)?(\?[^#]*)?(#.*)?$</from>
+        <to>$1$2$3</to>
+    </outbound-rule>
+</urlrewrite>

@@ -1,3 +1,3 @@
 <%@ include file="/common/taglibs.jsp"%>
 
-<c:redirect url="/mainMenu.html"/>
+<c:redirect url="/mainMenu"/>

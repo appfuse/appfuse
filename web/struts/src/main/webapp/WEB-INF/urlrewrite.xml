@@ -1,23 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 3.0//EN"
-    "http://tuckey.org/res/dtds/urlrewrite3.0.dtd">
+        "http://tuckey.org/res/dtds/urlrewrite3.0.dtd">
 
-<urlrewrite>
-    <rule>
-        <from>^/admin/user/(.*).html$</from>
-        <to type="forward">/admin/editUser.html\?id=$1&amp;from=list</to>
+<urlrewrite default-match-type="wildcard">
+    <rule match-type="regex">
+        <from>^/admin/user/(.*)</from>
+        <to type="forward">/app/admin/editUser\?id=$1&amp;from=list</to>
     </rule>
 
     <!-- Override default validation.js from WebWork -->
-    <rule>
+    <rule match-type="regex">
         <from>^/struts/css_xhtml/validation.js$</from>
         <to type="forward">/template/css_xhtml/validation.js</to>
     </rule>
-    
+
     <!-- The following fixes a CSS bug in CXF. -->
     <rule>
         <from>^/services//(.*)$</from>
         <to type="forward">/services/$1</to>
     </rule>
-</urlrewrite>
 
+    <!-- Add rules here for anything that shouldn't be served up by Struts. -->
+    <rule>
+        <from>/</from>
+        <to type="redirect" last="true">mainMenu</to>
+    </rule>
+    <rule>
+        <from>/j_security_check</from>
+        <to>/j_security_check</to>
+    </rule>
+    <rule>
+        <from>/images/**</from>
+        <to>/images/$1</to>
+    </rule>
+    <rule>
+        <from>/scripts/**</from>
+        <to>/scripts/$1</to>
+    </rule>
+    <rule>
+        <from>/styles/**</from>
+        <to>/styles/$1</to>
+    </rule>
+    <rule>
+        <from>/login*</from>
+        <to>/login.jsp</to>
+    </rule>
+    <rule>
+        <from>/logout*</from>
+        <to>/logout.jsp</to>
+    </rule>
+
+    <!-- Struts -->
+    <rule match-type="regex">
+        <from>^([^?]*)/([^?/\.]+)(\?.*)?$</from>
+        <to last="true">$1/$2.action$3</to>
+    </rule>
+    <outbound-rule match-type="regex">
+        <from>^(.*)\.action(\?.*)?$</from>
+        <to last="false">$1$2</to>
+    </outbound-rule>
+    <!-- Remove JSESSIONID from URLs when cookies disabled -->
+    <!-- http://stackoverflow.com/questions/962729/is-it-possible-to-disable-jsessionid-in-tomcat-servlet -->
+    <outbound-rule encodefirst="true" match-type="regex">
+        <name>Strip URL Session ID's</name>
+        <from>^(.*?)(?:\;jsessionid=[^\?#]*)?(\?[^#]*)?(#.*)?$</from>
+        <to>$1$2$3</to>
+    </outbound-rule>
+</urlrewrite>

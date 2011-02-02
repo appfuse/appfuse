@@ -33,8 +33,11 @@ public class FileUpload extends BasePage implements Serializable {
     }
 
     public String upload() throws IOException {
+
+        System.out.println("In upload method...!");
+
         HttpServletRequest request = getRequest();
-        
+
         // write the file to the filesystem
         // the directory to upload to
         String uploadDir = getServletContext().getRealPath("/resources") + "/" + request.getRemoteUser() + "/";

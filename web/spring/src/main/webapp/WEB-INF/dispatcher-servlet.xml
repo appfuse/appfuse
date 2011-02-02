@@ -32,8 +32,8 @@
     <mvc:annotation-driven/>
 
     <!-- Convenient way to map URLs to JSPs w/o having a Controller -->
-    <mvc:view-controller path="/admin/activeUsers.html" view-name="admin/activeUsers"/>
-    <mvc:view-controller path="/mainMenu.html" view-name="mainMenu"/>
+    <mvc:view-controller path="/admin/activeUsers" view-name="admin/activeUsers"/>
+    <mvc:view-controller path="/mainMenu" view-name="mainMenu"/>
 
     <!-- View Resolver for JSPs -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">

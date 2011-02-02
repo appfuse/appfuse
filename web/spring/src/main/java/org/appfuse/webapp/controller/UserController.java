@@ -21,7 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 @Controller
-@RequestMapping("/admin/users.*")
+@RequestMapping("/admin/users*")
 public class UserController {
     private transient final Log log = LogFactory.getLog(UserController.class);
     private UserManager mgr = null;

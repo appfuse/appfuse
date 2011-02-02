@@ -6,7 +6,7 @@
     <!-- Constants -->
     <constant name="struts.devMode" value="false"/>
     <constant name="struts.i18n.encoding" value="UTF-8"/>
-    <constant name="struts.action.extension" value="html"/>
+    <constant name="struts.action.extension" value="action,"/>
     <constant name="struts.objectFactory" value="spring"/>
     <constant name="struts.custom.i18n.resources" value="ApplicationResources,errors"/>
     <constant name="struts.multipart.maxSize" value="2097152"/>

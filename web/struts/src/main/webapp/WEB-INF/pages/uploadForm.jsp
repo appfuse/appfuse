@@ -15,7 +15,7 @@
     <li class="buttonBar bottom">
         <s:submit key="button.upload" name="upload" cssClass="button"/>
         <input type="button" value="<fmt:message key="button.cancel"/>" class="button"
-            onclick="this.form.onsubmit = null; location.href='mainMenu.html'"/>
+            onclick="this.form.onsubmit = null; location.href='mainMenu'"/>
     </li>
 </s:form>
 

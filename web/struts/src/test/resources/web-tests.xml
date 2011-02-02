@@ -34,7 +34,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="get Logout Page" url="/logout.jsp"/>
+                <invoke description="get Logout Page" url="/logout"/>
                 <verifytitle description="we should see the login title" text=".*${login.title}.*" regex="true"/>
             </steps>
         </webtest>
@@ -47,7 +47,7 @@
             <steps>
                 <invoke description="get Login Page" url="/"/>
                 <verifytitle description="we should see the login title" text=".*${login.title}.*" regex="true"/>
-                <invoke description="click password hint link" url="/passwordHint.html?username=admin"/>
+                <invoke description="click password hint link" url="/passwordHint?username=admin"/>
                 <verifytitle description="show login title again" text=".*${login.title}.*" regex="true"/>
             </steps>
         </webtest>
@@ -71,7 +71,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="click Edit Profile link" url="/editProfile.html"/>
+                <invoke description="click Edit Profile link" url="/editProfile"/>
                 <verifytitle description="we should see the user profile title"
                     text=".*${userProfile.title}.*" regex="true"/>
             </steps>
@@ -84,7 +84,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="click View Users link" url="/admin/users.html"/>
+                <invoke description="click View Users link" url="/admin/users"/>
                 <verifytitle description="we should see the user list title" 
                     text=".*${userList.title}.*" regex="true"/>
             </steps>
@@ -97,7 +97,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="click Edit Profile link" url="/editProfile.html"/>
+                <invoke description="click Edit Profile link" url="/editProfile"/>
                 <verifytitle description="we should see the user profile title" 
                     text=".*${userProfile.title}.*" regex="true"/>
                 <setinputfield description="set address" name="user.address.address" value="2255 Lane Avenue"/>
@@ -114,7 +114,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="click Add Button" url="/editUser.html?from=list"/>
+                <invoke description="click Add Button" url="/editUser?from=list"/>
                 <verifytitle description="we should see the user profile title"
                     text=".*${userProfile.title}.*" regex="true"/>
                     
@@ -155,7 +155,7 @@
         <webtest name="signup">
             &config;
             <steps>
-                <invoke description="click signup link" url="/signup.html"/>
+                <invoke description="click signup link" url="/signup"/>
                 <verifytitle description="view signup title" text=".*${signup.title}.*" regex="true"/>
                     
                 <setinputfield description="set username" name="user.username" value="signup-user"/>
@@ -186,7 +186,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="get activeUsers URL" url="/admin/activeUsers.html"/>
+                <invoke description="get activeUsers URL" url="/admin/activeUsers"/>
                 <verifytitle description="we should see the activeUsers title" 
                     text=".*${activeUsers.title}.*" regex="true"/>
             </steps>
@@ -199,7 +199,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="click Upload a File link" url="/uploadFile.html"/>
+                <invoke description="click Upload a File link" url="/uploadFile"/>
                 <verifytitle description="we should see file upload form" text=".*${upload.title}.*" regex="true"/>
                 <setinputfield description="set name" name="name" value="Canoo Test File"/>
                 <setFileField description="set file" name="file" fileName="pom.xml"/>

@@ -14,7 +14,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="click View ${pojo.shortName} link" url="/${util.getPluralForWord(pojoNameLower)}.html"/>
+                <invoke description="click View ${pojo.shortName} link" url="/${util.getPluralForWord(pojoNameLower)}"/>
                 <verifytitle description="we should see the ${pojoNameLower}List title"
                     text=".*${'$'}{${pojoNameLower}List.title}.*" regex="true"/>
             </steps>
@@ -27,7 +27,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="View ${pojo.shortName} List" url="/${util.getPluralForWord(pojoNameLower)}.html"/>
+                <invoke description="View ${pojo.shortName} List" url="/${util.getPluralForWord(pojoNameLower)}"/>
                 <clicklink label="-1" description="Click edit link"/>
                 <verifytitle description="we should see the ${pojoNameLower}Detail title"
                     text=".*${'$'}{${pojoNameLower}Detail.title}.*" regex="true"/>
@@ -41,7 +41,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="click Edit ${pojo.shortName} link" url="/${pojoNameLower}form.html?${pojo.identifierProperty.name}=-1"/>
+                <invoke description="click Edit ${pojo.shortName} link" url="/${pojoNameLower}form?${pojo.identifierProperty.name}=-1"/>
                 <verifytitle description="we should see the ${pojoNameLower}Detail title"
                     text=".*${'$'}{${pojoNameLower}Detail.title}.*" regex="true"/>
 
@@ -74,7 +74,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="click Add Button" url="/${pojoNameLower}form.html"/>
+                <invoke description="click Add Button" url="/${pojoNameLower}form"/>
                 <verifytitle description="we should see the ${pojoNameLower}Detail title"
                     text=".*${'$'}{${pojoNameLower}Detail.title}.*" regex="true"/>
 
@@ -107,7 +107,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="click Edit ${pojo.shortName} link" url="/${pojoNameLower}form.html?${pojo.identifierProperty.name}=-1"/>
+                <invoke description="click Edit ${pojo.shortName} link" url="/${pojoNameLower}form?${pojo.identifierProperty.name}=-1"/>
                 <prepareDialogResponse description="Confirm delete" dialogType="confirm" response="true"/>
                 <clickbutton label="${'$'}{button.delete}" description="Click button 'Delete'"/>
                 <verifyNoDialogResponses/>

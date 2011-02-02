@@ -8,10 +8,10 @@
 
 <c:set var="buttons">
     <input type="button" style="margin-right: 5px"
-        onclick="location.href='<c:url value="/editUser.html?method=Add&from=list"/>'"
+        onclick="location.href='<c:url value="/editUser?method=Add&from=list"/>'"
         value="<fmt:message key="button.add"/>"/>
     
-    <input type="button" onclick="location.href='<c:url value="/mainMenu.html"/>'"
+    <input type="button" onclick="location.href='<c:url value="/mainMenu"/>'"
         value="<fmt:message key="button.done"/>"/>
 </c:set>
 
@@ -20,7 +20,7 @@
 <display:table name="users" cellspacing="0" cellpadding="0" requestURI="" 
     defaultsort="1" id="users" pagesize="25" class="table" export="true">
     <display:column property="username" escapeXml="true" sortable="true" titleKey="user.username" style="width: 25%"
-        url="/editUser.html?from=list" paramId="id" paramProperty="id"/>
+        url="/editUser?from=list" paramId="id" paramProperty="id"/>
     <display:column property="fullName" escapeXml="true" sortable="true" titleKey="activeUsers.fullName" style="width: 34%"/>
     <display:column property="email" sortable="true" titleKey="user.email" style="width: 25%" autolink="true" media="html"/>
     <display:column property="email" titleKey="user.email" media="csv xml excel pdf"/>

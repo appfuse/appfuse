@@ -26,11 +26,12 @@ import java.util.List;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 @Controller
-@RequestMapping("/admin/reload.*")
+@RequestMapping("/admin/reload*")
 public class ReloadController {
     private transient final Log log = LogFactory.getLog(ReloadController.class);
 
     @RequestMapping(method = RequestMethod.GET)
+    @SuppressWarnings("unchecked")
     public ModelAndView handleRequest(HttpServletRequest request,
                                       HttpServletResponse response)
     throws Exception {
@@ -44,9 +45,15 @@ public class ReloadController {
 
         if (referer != null) {
             log.info("reload complete, reloading user back to: " + referer);
-            List<String> messages = new ArrayList<String>();
+            List<String> messages = (List) request.getSession().getAttribute(BaseFormController.MESSAGES_KEY);
+
+            if (messages == null) {
+                messages = new ArrayList();
+            }
+
             messages.add("Reloading options completed successfully.");
-            request.getSession().setAttribute("messages", messages);
+            request.getSession().setAttribute(BaseFormController.MESSAGES_KEY, messages);
+
             response.sendRedirect(response.encodeRedirectURL(referer));
             return null;
         } else {

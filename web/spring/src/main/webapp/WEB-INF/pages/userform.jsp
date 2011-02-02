@@ -19,7 +19,7 @@
     </c:if>
 </spring:bind>
 
-<form:form commandName="user" method="post" action="userform.html" onsubmit="return onFormSubmit(this)" id="userForm">
+<form:form commandName="user" method="post" action="userform" onsubmit="return onFormSubmit(this)" id="userForm">
 <form:hidden path="id"/>
 <form:hidden path="version"/>
 <input type="hidden" name="from" value="<c:out value="${param.from}"/>"/>

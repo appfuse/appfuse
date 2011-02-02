@@ -53,10 +53,15 @@
         <filter-name>exportFilter</filter-name>
         <filter-class>org.displaytag.filter.ResponseOverrideFilter</filter-class>
     </filter>
-    <filter>
+    <!-- GZipFilter has issues with XFire's service-listing servlet. -->
+    <!-- http://issues.appfuse.org/browse/APF-863 -->
+    <!-- And showing blank pages. http://issues.appfuse.org/browse/APF-1037 -->
+    <!-- We recommend you configure gzipping in your servlet container.
+         web server, or load balancer. -->
+    <!--filter>
         <filter-name>gzipFilter</filter-name>
         <filter-class>net.sf.ehcache.constructs.web.filter.GzipFilter</filter-class>
-    </filter>
+    </filter-->
     <!--<filter>
         <filter-name>lazyLoadingFilter</filter-name>
         <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
@@ -69,9 +74,19 @@
     <filter>
         <filter-name>rewriteFilter</filter-name>
         <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+        <!-- sets up log level (will be logged to context log)
+            can be: TRACE, DEBUG, INFO (default), WARN, ERROR, FATAL, log4j, commons, sysout:{level} (ie, sysout:DEBUG)
+            if you are having trouble using normal levels use sysout:DEBUG -->
         <init-param>
             <param-name>logLevel</param-name>
-            <param-value>log4j</param-value>
+            <param-value>commons</param-value>
+        </init-param>
+        <!-- set the amount of seconds the conf file will be checked for reload
+            can be a valid integer (0 denotes check every time,
+            -1 denotes no reload check, default -1) -->
+        <init-param>
+            <param-name>confReloadCheckInterval</param-name>
+            <param-value>-1</param-value>
         </init-param>
     </filter>
     <filter>
@@ -85,14 +100,6 @@
     <filter>
         <filter-name>sitemesh</filter-name>
         <filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class>
-    </filter>
-    <filter>
-        <filter-name>staticFilter</filter-name>
-        <filter-class>org.appfuse.webapp.filter.StaticFilter</filter-class>
-        <init-param>
-            <param-name>includes</param-name>
-            <param-value>/scripts/dojo/*,/dwr/index.html</param-value>
-        </init-param>
     </filter>
     <filter>
         <filter-name>struts-prepare</filter-name>
@@ -115,16 +122,6 @@
         <filter-name>encodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    <filter-mapping>
-        <filter-name>securityFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-    <!-- Commented out for 2 reasons: 1) it's a pain when developing JSPs, and
-2) it causes the Signup webtest to fail -->
-    <!--filter-mapping>
-        <filter-name>cacheFilter</filter-name>
-        <url-pattern>*.jsp</url-pattern>
-    </filter-mapping-->
     <!--<filter-mapping>
         <filter-name>lazyLoadingFilter</filter-name>
         <url-pattern>/*</url-pattern>
@@ -133,28 +130,26 @@
         <filter-name>localeFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    <!-- GZipFilter has issues with XFire's service-listing servlet. -->
-    <!-- http://issues.appfuse.org/browse/APF-863 -->
-    <!-- And showing blank pages. http://issues.appfuse.org/browse/APF-1037 -->
-    <!-- We recommend you configure gzipping in your servlet container.
-         web server, or load balancer. -->
     <!--filter-mapping>
         <filter-name>gzipFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping-->
     <filter-mapping>
-        <filter-name>exportFilter</filter-name>
-        <url-pattern>*.html</url-pattern>
+        <filter-name>rewriteFilter</filter-name>
+        <url-pattern>/*</url-pattern>
     </filter-mapping>
     <filter-mapping>
-        <filter-name>rewriteFilter</filter-name>
+        <filter-name>securityFilter</filter-name>
         <url-pattern>/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>
         <dispatcher>FORWARD</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
     </filter-mapping>
     <filter-mapping>
         <filter-name>struts-prepare</filter-name>
         <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
     </filter-mapping>
     <filter-mapping>
         <filter-name>sitemesh</filter-name>
@@ -164,13 +159,13 @@
         <dispatcher>INCLUDE</dispatcher>
     </filter-mapping>
     <filter-mapping>
-        <filter-name>staticFilter</filter-name>
+        <filter-name>struts</filter-name>
         <url-pattern>/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>
         <dispatcher>FORWARD</dispatcher>
     </filter-mapping>
     <filter-mapping>
-        <filter-name>struts</filter-name>
+        <filter-name>exportFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 

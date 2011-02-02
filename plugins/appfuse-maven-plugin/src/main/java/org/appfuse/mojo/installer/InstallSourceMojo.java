@@ -302,9 +302,9 @@ public class InstallSourceMojo extends AbstractMojo {
         // add core as a dependency for modular wars
         if (project.getPackaging().equals("war") && project.hasParent()) {
             Dependency core = new Dependency();
-            core.setGroupId("${pom.parent.groupId}");
+            core.setGroupId("${project.parent.groupId}");
             core.setArtifactId("core");
-            core.setVersion("${pom.parent.version}");
+            core.setVersion("${project.parent.version}");
             newDependencies.add(core);
 
             // workaround for JSF requiring JSP 2.1 - this is a true hack

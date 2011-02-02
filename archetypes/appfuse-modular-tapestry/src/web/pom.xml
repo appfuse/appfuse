@@ -189,9 +189,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>${pom.parent.groupId}</groupId>
+            <groupId>${project.parent.groupId}</groupId>
             <artifactId>core</artifactId>
-            <version>${pom.parent.version}</version>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>org.appfuse</groupId>

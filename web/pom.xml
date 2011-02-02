@@ -64,21 +64,6 @@
                             </resourcesAsCSV>
                         </baseResource>
                     </webAppConfig>
-                    <scanIntervalSeconds>0</scanIntervalSeconds>
-                    <scanTargetPatterns>
-                        <scanTargetPattern>
-                            <directory>src/main/webapp/WEB-INF</directory>
-                            <excludes>
-                                <exclude>**/*.jsp</exclude>
-                                <exclude>**/*.html</exclude>
-                                <exclude>**/*.xhtml</exclude>
-                            </excludes>
-                            <includes>
-                                <include>**/*.xml</include>
-                                <include>**/*.properties</include>
-                            </includes>
-                        </scanTargetPattern>
-                    </scanTargetPatterns>
                 </configuration>
             </plugin>
         </plugins>

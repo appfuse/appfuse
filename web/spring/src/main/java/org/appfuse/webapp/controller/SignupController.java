@@ -26,7 +26,7 @@ import java.util.Locale;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 @Controller
-@RequestMapping("/signup.*")
+@RequestMapping("/signup*")
 public class SignupController extends BaseFormController {
     private RoleManager roleManager;
 
@@ -93,6 +93,6 @@ public class SignupController extends BaseFormController {
             saveError(request, me.getMostSpecificCause().getMessage());
         }
         
-        return "redirect:mainMenu.html";
+        return "redirect:mainMenu";
     }
 }

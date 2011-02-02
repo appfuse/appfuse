@@ -21,7 +21,7 @@
             alert("<s:text name="errors.requiredField"><s:param><s:text name="label.username"/></s:param></s:text>");
             $("j_username").focus();
         } else {
-            location.href="<c:url value="/passwordHint.html"/>?username=" + $("j_username").value;     
+            location.href="<c:url value="/passwordHint"/>?username=" + $("j_username").value;
         }
     }
     

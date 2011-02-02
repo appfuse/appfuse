@@ -22,7 +22,7 @@ public class Reload extends BasePage implements Serializable {
         StartupListener.setupContext(getServletContext());
         addMessage("reload.succeeded"); 
 
-        return "mainMenu";
+        return "success";
     }
 
 }

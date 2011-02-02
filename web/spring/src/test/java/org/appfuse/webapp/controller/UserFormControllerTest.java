@@ -49,7 +49,7 @@ public class UserFormControllerTest extends BaseControllerTestCase {
         BindingResult errors = new DataBinder(user).getBindingResult();
         String view = c.onSubmit(user, errors, request, new MockHttpServletResponse());
 
-        assertEquals("redirect:mainMenu.html", view);
+        assertEquals("redirect:/mainMenu", view);
     }
 
     public void testEdit() throws Exception {

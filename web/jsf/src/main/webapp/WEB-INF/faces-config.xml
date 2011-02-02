@@ -38,6 +38,7 @@
         <navigation-case>
             <from-outcome>selectFile</from-outcome>
             <to-view-id>/selectFile.xhtml</to-view-id>
+            <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -79,7 +80,7 @@
         <from-view-id>/signup.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>cancel</from-outcome>
-            <to-view-id>/login.jsp</to-view-id>
+            <to-view-id>/login</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
@@ -87,7 +88,15 @@
         <from-view-id>/passwordHint.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>success</from-outcome>
-            <to-view-id>/login.jsp</to-view-id>
+            <to-view-id>/login</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/admin/reload.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/mainMenu.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>

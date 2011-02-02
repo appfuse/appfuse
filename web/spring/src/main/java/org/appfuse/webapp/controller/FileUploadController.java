@@ -25,11 +25,11 @@ import java.io.OutputStream;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 @Controller
-@RequestMapping("/fileupload.*")
+@RequestMapping("/fileupload*")
 public class FileUploadController extends BaseFormController {
 
     public FileUploadController() {
-        setCancelView("redirect:mainMenu.html");
+        setCancelView("redirect:/mainMenu");
         setSuccessView("uploadDisplay");
     }
 
@@ -43,14 +43,17 @@ public class FileUploadController extends BaseFormController {
     public String onSubmit(FileUpload fileUpload, BindingResult errors, HttpServletRequest request)
             throws Exception {
 
+        if (request.getParameter("cancel") != null) {
+            return getCancelView();
+        }
+
         if (validator != null) { // validator is null during testing
             validator.validate(fileUpload, errors);
 
             if (errors.hasErrors()) {
-                return "uploadForm";
+                return "fileupload";
             }
         }
-
 
         // validate a file was entered
         if (fileUpload.getFile().length == 0) {
@@ -58,7 +61,7 @@ public class FileUploadController extends BaseFormController {
                     new Object[]{getText("uploadForm.file", request.getLocale())};
             errors.rejectValue("file", "errors.required", args, "File");
 
-            return "uploadForm";
+            return "fileupload";
         }
 
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;

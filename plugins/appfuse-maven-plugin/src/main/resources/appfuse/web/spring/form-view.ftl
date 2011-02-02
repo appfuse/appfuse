@@ -7,7 +7,7 @@
     <meta name="heading" content="<fmt:message key='${pojoNameLower}Detail.heading'/>"/>
 </head>
 
-<form:form commandName="${pojoNameLower}" method="post" action="${pojoNameLower}form.html" id="${pojoNameLower}Form" onsubmit="return validate${pojo.shortName}(this)">
+<form:form commandName="${pojoNameLower}" method="post" action="${pojoNameLower}form" id="${pojoNameLower}Form" onsubmit="return validate${pojo.shortName}(this)">
 <form:errors path="*" cssClass="error" element="div"/>
 <#rt/>
 <#foreach field in pojo.getAllPropertiesIterator()>

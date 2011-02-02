@@ -35,7 +35,7 @@ import java.util.Locale;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 @Controller
-@RequestMapping("/userform.*")
+@RequestMapping("/userform*")
 public class UserFormController extends BaseFormController {
     private RoleManager roleManager;
 
@@ -45,8 +45,8 @@ public class UserFormController extends BaseFormController {
     }
 
     public UserFormController() {
-        setCancelView("redirect:mainMenu.html");
-        setSuccessView("redirect:admin/users.html");
+        setCancelView("redirect:/mainMenu");
+        setSuccessView("redirect:/admin/users");
     }
 
     @RequestMapping(method = RequestMethod.POST)

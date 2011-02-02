@@ -43,7 +43,7 @@
         <input type="submit" class="button" name="login" value="<fmt:message key='button.login'/>" tabindex="4" />
         <p>
             <fmt:message key="login.signup">
-                <fmt:param><c:url value="/signup.html"/></fmt:param>
+                <fmt:param><c:url value="/signup"/></fmt:param>
             </fmt:message>
         </p>
     </li>

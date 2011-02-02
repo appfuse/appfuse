@@ -21,7 +21,7 @@ public class ${pojo.shortName}FormControllerTest extends BaseControllerTestCase 
 
     public void testEdit() throws Exception {
         log.debug("testing edit...");
-        request = newGet("/${pojoNameLower}form.html");
+        request = newGet("/${pojoNameLower}form");
         request.addParameter("${pojo.identifierProperty.name}", "-1");
 
         ${pojoNameLower} = form.showForm(request);
@@ -29,13 +29,13 @@ public class ${pojo.shortName}FormControllerTest extends BaseControllerTestCase 
     }
 
     public void testSave() throws Exception {
-        request = newGet("/${pojoNameLower}form.html");
+        request = newGet("/${pojoNameLower}form");
         request.addParameter("${pojo.identifierProperty.name}", "-1");
 
         ${pojoNameLower} = form.showForm(request);
         assertNotNull(${pojoNameLower});
 
-        request = newPost("/${pojoNameLower}form.html");
+        request = newPost("/${pojoNameLower}form");
 
         ${pojoNameLower} = form.showForm(request);
         // update required fields
@@ -54,7 +54,7 @@ public class ${pojo.shortName}FormControllerTest extends BaseControllerTestCase 
     }
 
     public void testRemove() throws Exception {
-        request = newPost("/${pojoNameLower}form.html");
+        request = newPost("/${pojoNameLower}form");
         request.addParameter("delete", "");
         ${pojoNameLower} = new ${pojo.shortName}();
         ${pojoNameLower}.${setIdMethodName}(-2L);

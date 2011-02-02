@@ -11,11 +11,6 @@
     <meta name="heading" content="#{text['upload.heading']}"/>
 </head>
 
-<!--
-    The most important part is to declare your form's enctype to be "multipart/form-data",
-    and to have a form:file element that maps to your ActionForm's FormFile property
--->
-
 <h:form id="uploadForm" enctype="multipart/form-data" onsubmit="return validateUploadForm(this)">
 
 <h:panelGrid columns="3">
