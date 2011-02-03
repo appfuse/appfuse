@@ -122,11 +122,7 @@ function selectAll(elementId) {
  */
 function toggleChoice(elementId) {
     var element = document.getElementById(elementId);
-    if (element.checked) {
-        element.checked = false;
-    } else {
-        element.checked = true;
-    }
+    element.checked = !element.checked;
 }
 
 /* This function is used to select a radio button by passing
@@ -165,19 +161,19 @@ function setCookie(name,value,expires,path,domain,secure) {
 
 /* This function is used to get cookies */
 function getCookie(name) {
-    var prefix = name + "=" 
-    var start = document.cookie.indexOf(prefix) 
+    var prefix = name + "=";
+    var start = document.cookie.indexOf(prefix);
 
     if (start==-1) {
         return null;
     }
     
-    var end = document.cookie.indexOf(";", start+prefix.length) 
+    var end = document.cookie.indexOf(";", start+prefix.length);
     if (end==-1) {
         end=document.cookie.length;
     }
 
-    var value=document.cookie.substring(start+prefix.length, end) 
+    var value=document.cookie.substring(start+prefix.length, end);
     return unescape(value);
 }
 
@@ -237,11 +233,7 @@ function createFormElement(element, type, name, id, value, parent) {
 function confirmDelete(obj) {   
     var msg = "Are you sure you want to delete this " + obj + "?";
     ans = confirm(msg);
-    if (ans) {
-        return true;
-    } else {
-        return false;
-    }
+    return ans;
 }
 
 function highlightTableRows(tableId) {
@@ -285,7 +277,7 @@ function highlightFormElements() {
 
 function addFocusHandlers(elements) {
     for (i=0; i < elements.length; i++) {
-        if (elements[i].type != "button" && elements[i].type != "submit" &&
+        if (elements[i].type != "hidden" && elements[i].type != "button" && elements[i].type != "submit" &&
             elements[i].type != "reset" && elements[i].type != "checkbox" && elements[i].type != "radio") {
             if (!elements[i].getAttribute('readonly') && !elements[i].getAttribute('disabled')) {
                 elements[i].onfocus=function() {this.style.backgroundColor='#ffd';this.select()};

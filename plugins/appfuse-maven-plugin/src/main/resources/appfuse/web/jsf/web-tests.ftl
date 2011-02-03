@@ -75,7 +75,8 @@
             &config;
             <steps>
                 &login;
-                <invoke description="View ${pojo.shortName} Form" url="/${pojoNameLower}Form"/>
+                <invoke description="View ${pojo.shortName} List" url="/${util.getPluralForWord(pojoNameLower)}"/>
+                <clickbutton description="Click the 'Add' button" label="${'$'}{button.add}"/>
                 <verifytitle description="we should see the ${pojoNameLower}Detail title"
                     text=".*${'$'}{${pojoNameLower}Detail.title}.*" regex="true"/>
 

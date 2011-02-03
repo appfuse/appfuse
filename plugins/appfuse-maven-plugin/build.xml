@@ -253,7 +253,7 @@
         <attribute name="archetype" default=""/>
         <attribute name="version" default=""/>
         <attribute name="command" default="archetype:generate -B -DarchetypeGroupId=org.appfuse.archetypes -DarchetypeArtifactId=@{archetype}
-                                           -DarchetypeVersion=@{version} -DgroupId=com.company -DartifactId=@{name} -DarchetypeRepository=local"/>
+                                           -DarchetypeVersion=@{version} -DgroupId=com.company -DartifactId=@{name} -DarchetypeCatalog=local"/>
 
         <sequential>
             <exec dir="@{dir}" executable="mvn.bat" os="Windows 7" failonerror="true" errorproperty="command.failed">
