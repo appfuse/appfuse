@@ -357,16 +357,16 @@
         <!-- Framework dependency versions -->
         <appfuse.version>2.1.0-SNAPSHOT</appfuse.version>
         <commons.fileupload.version>1.2.1</commons.fileupload.version>
-        <commons.io.version>1.4</commons.io.version>
+        <commons.io.version>2.0.1</commons.io.version>
         <displaytag.version>1.2</displaytag.version>
         <spring.version>3.0.5.RELEASE</spring.version>
         <struts.version>2.1.8</struts.version>
 
         <!-- Testing dependency versions -->
-        <cargo.version>1.0.5</cargo.version>
+        <cargo.version>1.0.6</cargo.version>
         <jmock.version>2.5.1</jmock.version>
         <jsp.version>2.0</jsp.version>
-        <junit.version>4.8.1</junit.version>
+        <junit.version>4.8.2</junit.version>
         <servlet.version>2.5</servlet.version>
         <wiser.version>1.2</wiser.version>
 
