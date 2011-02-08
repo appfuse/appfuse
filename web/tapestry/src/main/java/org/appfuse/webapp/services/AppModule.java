@@ -37,15 +37,6 @@ import java.io.IOException;
  * @version $Id: AppModule.java 5 2008-08-30 09:59:21Z serge.eby $
  */
 public class AppModule {
-    public static void bind(ServiceBinder binder) {
-        // binder.bind(MyServiceInterface.class, MyServiceImpl.class);
-
-        // Make bind() calls on the binder object to define most IoC services.
-        // Use service builder methods (example below) when the implementation
-        // is provided inline, or requires more initialization than simply
-        // invoking the constructor.
-    }
-
     public static void contributeApplicationDefaults(MappedConfiguration<String, String> configuration) {
         configuration.add(SymbolConstants.SUPPORTED_LOCALES,
                 "de,en,es,fr,it,ko,nl,no,pt_BR,pt,tr,zh_CN,zh_TW,en_US");

@@ -78,7 +78,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.7.1</version>
+                <version>2.7.2</version>
                 <configuration>
                     <!-- This piece of configuration is a workaround for this bug:
                          http://jira.codehaus.org/browse/SUREFIRE-519 -->
@@ -132,7 +132,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit-dep</artifactId>
-            <version>4.5</version>
+            <version>4.8.2</version>
             <scope>test</scope>
             <optional>true</optional>
         </dependency>
@@ -172,7 +172,7 @@
         <dependency>
             <groupId>org.codehaus.woodstox</groupId>
             <artifactId>woodstox-core-asl</artifactId>
-            <version>4.0.3</version>
+            <version>4.1.1</version>
         </dependency>
         <dependency>
             <groupId>org.apache.cxf</groupId>
@@ -219,7 +219,7 @@
         <dependency>
             <groupId>org.codehaus.jackson</groupId>
             <artifactId>jackson-jaxrs</artifactId>
-            <version>1.6.0</version>
+            <version>1.7.1</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
