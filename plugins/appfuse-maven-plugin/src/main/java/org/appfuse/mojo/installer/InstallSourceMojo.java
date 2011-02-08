@@ -68,7 +68,7 @@ public class InstallSourceMojo extends AbstractMojo {
     /**
      * The directory containing the source code.
      *
-     * @parameter expression="${appfuse.trunk}" default-value="https://appfuse.dev.java.net/svn/appfuse/"
+     * @parameter expression="${appfuse.trunk}" default-value="https://svn.java.net/svn/appfuse~svn/"
      */
     private String trunk;
 

@@ -21,7 +21,7 @@
 <project name="AppFuse Maven Plugin">
     <bannerLeft>
         <name>AppFuse</name>
-        <src>https://appfuse.dev.java.net/images/appfuse-title.gif</src>
+        <src>http://java.net/projects/appfuse/sources/svn/content/trunk/www/images/appfuse-title.gif</src>
         <href>http://appfuse.org</href>
     </bannerLeft>
     <publishDate format="dd MMM yyyy"/>

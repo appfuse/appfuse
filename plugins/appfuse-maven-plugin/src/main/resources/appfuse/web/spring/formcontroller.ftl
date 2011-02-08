@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Locale;
 
 @Controller
-@RequestMapping("/${pojoNameLower}form.*")
+@RequestMapping("/${pojoNameLower}form*")
 public class ${pojo.shortName}FormController extends BaseFormController {
 <#if genericcore>
     private GenericManager<${pojo.shortName}, ${identifierType}> ${pojoNameLower}Manager = null;
