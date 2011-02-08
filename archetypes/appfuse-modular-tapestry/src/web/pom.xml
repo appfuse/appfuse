@@ -131,19 +131,19 @@
             </plugin>
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.6</version>
+                <version>1.3</version>
                 <executions>
                     <execution>
                         <id>default-resources</id>
                         <phase>process-resources</phase>
                         <configuration>
-                            <target>
+                            <tasks>
                                 <echo>Copying i18n files...</echo>
                                 <copy todir="src/main/webapp/WEB-INF">
                                     <globmapper from="ApplicationResources*" to="app*"/>
                                     <fileset dir="target/classes" includes="ApplicationResources*"/>
                                 </copy>
-                            </target>
+                            </tasks>
                         </configuration>
                         <goals>
                             <goal>run</goal>
@@ -312,12 +312,12 @@
                     </plugin>
                     <plugin>
                         <artifactId>maven-antrun-plugin</artifactId>
-                        <version>1.6</version>
+                        <version>1.3</version>
                         <executions>
                             <execution>
                                 <phase>integration-test</phase>
                                 <configuration>
-                                    <target>
+                                    <tasks>
                                         <taskdef resource="webtest_base_relaxed.taskdef">
                                             <classpath refid="maven.test.classpath"/>
                                         </taskdef>
@@ -336,7 +336,7 @@
                                             <property name="host" value="${cargo.host}"/>
                                             <property name="port" value="${cargo.port}"/>
                                         </ant>
-                                    </target>
+                                    </tasks>
                                 </configuration>
                                 <goals>
                                     <goal>run</goal>

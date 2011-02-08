@@ -44,13 +44,13 @@
         <plugins>
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.6</version>
+                <version>1.3</version>
                 <executions>
                     <execution>
                         <id>build-archetype</id>
                         <phase>package</phase>
                         <configuration>
-                            <target>
+                            <tasks>
                                 <delete dir="target/${module}-archetype" />
                                 <mkdir dir="target/${module}-archetype/core" />
                                 <copy todir="target/${module}-archetype/core">
@@ -66,7 +66,7 @@
                                     <property name="module" value="${module}" />
                                     <property name="dest" value="web" />
                                 </ant>
-                            </target>
+                            </tasks>
                         </configuration>
                         <goals>
                             <goal>run</goal>
@@ -76,11 +76,11 @@
                         <id>test-archetype</id>
                         <phase>integration-test</phase>
                         <configuration>
-                            <target>
+                            <tasks>
                                 <ant antfile="../build.xml" dir="." target="test">
                                     <property name="archetype" value="${project.artifactId}-archetype" />
                                 </ant>
-                            </target>
+                            </tasks>
                         </configuration>
                         <goals>
                             <goal>run</goal>
@@ -90,11 +90,11 @@
                         <id>deploy-archetype</id>
                         <phase>deploy</phase>
                         <configuration>
-                            <target>
+                            <tasks>
                                 <ant antfile="../build.xml" dir="." target="deploy">
                                     <property name="module" value="${module}" />
                                 </ant>
-                            </target>
+                            </tasks>
                         </configuration>
                         <goals>
                             <goal>run</goal>

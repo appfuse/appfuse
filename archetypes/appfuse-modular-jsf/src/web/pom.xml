@@ -296,9 +296,9 @@
                     </plugin>
                     <plugin>
                         <artifactId>maven-antrun-plugin</artifactId>
-                        <version>1.6</version>
+                        <version>1.3</version>
                         <configuration>
-                            <target>
+                            <tasks>
                                 <taskdef resource="webtest_base_relaxed.taskdef">
                                     <classpath refid="maven.test.classpath"/>
                                 </taskdef>
@@ -315,7 +315,7 @@
                                     <property name="host" value="${cargo.host}"/>
                                     <property name="port" value="${cargo.port}"/>
                                 </ant>
-                            </target>
+                            </tasks>
                         </configuration>
                         <executions>
                             <execution>
