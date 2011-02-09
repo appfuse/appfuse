@@ -25,7 +25,7 @@
     <name>AppFuse Installer</name>
     <version>1.0-SNAPSHOT</version>
     <inceptionYear>2006</inceptionYear>
-    <url>http://appfuse.dev.java.net</url>
+    <url>http://appfuse.org</url>
 
     <prerequisites>
         <maven>2.2.1</maven>
@@ -34,7 +34,7 @@
     <scm>
         <connection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/plugins/installer</connection>
         <developerConnection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/plugins/installer</developerConnection>
-        <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/plugins/installer</url>
+        <url>http://source.appfuse.org/browse/appfuse/trunk/plugins/installer</url>
     </scm>
 
     <licenses>

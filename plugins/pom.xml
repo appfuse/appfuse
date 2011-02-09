@@ -24,7 +24,7 @@
     <scm>
         <connection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/plugins</connection>
         <developerConnection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/plugins</developerConnection>
-        <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/plugins</url>
+        <url>http://source.appfuse.org/browse/appfuse/trunk/plugins</url>
     </scm>
 
     <modules>

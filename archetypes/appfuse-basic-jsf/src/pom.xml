@@ -437,7 +437,7 @@
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <configuration>
                     <consoleOutput>true</consoleOutput>
-                    <configLocation>https://appfuse.dev.java.net/checkstyle.xml</configLocation>
+                    <configLocation>https://svn.java.net/svn/appfuse~svn/trunk/www/checkstyle.xml</configLocation>
                     <failsOnError>false</failsOnError>
                     <maxAllowedViolations>3</maxAllowedViolations>
                 </configuration>

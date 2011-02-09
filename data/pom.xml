@@ -35,7 +35,7 @@
     <scm>
         <connection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/data</connection>
         <developerConnection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/data</developerConnection>
-        <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/data</url>
+        <url>http://source.appfuse.org/browse/appfuse/trunk/data</url>
     </scm>
 
     <modules>

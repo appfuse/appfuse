@@ -19,7 +19,7 @@
     <scm>
         <connection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/plugins/maven-warpath-plugin</connection>
         <developerConnection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/plugins/maven-warpath-plugin</developerConnection>
-        <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/plugins/maven-warpath-plugin</url>
+        <url>http://source.appfuse.org/browse/appfuse/trunk/plugins/maven-warpath-plugin</url>
     </scm>
 
     <developers>

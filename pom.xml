@@ -30,7 +30,7 @@
     <scm>
         <connection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk</connection>
         <developerConnection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk</developerConnection>
-        <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk</url>
+        <url>http://source.appfuse.org/browse/appfuse/trunk</url>
     </scm>
 
     <issueManagement>
@@ -49,7 +49,7 @@
                 <sendOnSuccess>false</sendOnSuccess>
                 <sendOnWarning>false</sendOnWarning>
                 <configuration>
-                    <address>mraible@appfuse.dev.java.net</address>
+                    <address>mraible@appfuse.java.net</address>
                 </configuration>
             </notifier>
             <notifier>
@@ -72,16 +72,16 @@
     <mailingLists>
         <mailingList>
             <name>Development List</name>
-            <subscribe>dev-subscribe@appfuse.dev.java.net</subscribe>
-            <unsubscribe>dev-unsubscribe@appfuse.dev.java.net</unsubscribe>
-            <post>dev@appfuse.dev.java.net</post>
+            <subscribe>dev-subscribe@appfuse.java.net</subscribe>
+            <unsubscribe>dev-unsubscribe@appfuse.java.net</unsubscribe>
+            <post>dev@appfuse.java.net</post>
             <archive>http://appfuse.org/display/APF/Forum</archive>
         </mailingList>                                         
         <mailingList>
             <name>User List</name>
-            <subscribe>user-subscribe@appfuse.dev.java.net</subscribe>
-            <unsubscribe>user-unsubscribe@appfuse.dev.java.net</unsubscribe>
-            <post>user@appfuse.dev.java.net</post>
+            <subscribe>user-subscribe@appfuse.java.net</subscribe>
+            <unsubscribe>user-unsubscribe@appfuse.java.net</unsubscribe>
+            <post>user@appfuse.java.net</post>
             <archive>http://appfuse.org/display/APF/Forum</archive>
         </mailingList>
     </mailingLists>

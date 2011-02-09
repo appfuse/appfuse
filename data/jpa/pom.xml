@@ -19,7 +19,7 @@
     <scm>
         <connection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/data/hibernate</connection>
         <developerConnection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/data/hibernate</developerConnection>
-        <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/data/hibernate</url>
+        <url>http://source.appfuse.org/browse/appfuse/trunk/data/hibernate</url>
     </scm>
 
     <build>

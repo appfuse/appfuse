@@ -22,7 +22,7 @@
     <scm>
         <connection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/archetypes</connection>
         <developerConnection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/archetypes</developerConnection>
-        <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/archetypes</url>
+        <url>http://source.appfuse.org/browse/appfuse/trunk/archetypes</url>
     </scm>
 
     <modules>

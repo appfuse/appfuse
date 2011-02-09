@@ -37,7 +37,7 @@
     <scm>
         <connection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/archetypes/appfuse-modular-struts</connection>
         <developerConnection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/archetypes/appfuse-modular-struts</developerConnection>
-        <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/archetypes/appfuse-modular-struts</url>
+        <url>http://source.appfuse.org/browse/appfuse/trunk/archetypes/appfuse-modular-struts</url>
     </scm>
 
     <build>

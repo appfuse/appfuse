@@ -36,7 +36,7 @@
     <scm>
         <connection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/web/spring</connection>
         <developerConnection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/web/spring</developerConnection>
-        <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/web/spring</url>
+        <url>http://source.appfuse.org/browse/appfuse/trunk/web/spring</url>
     </scm>
 
     <build>

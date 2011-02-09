@@ -2,7 +2,7 @@
 <project name="${artifactId}">
     <bannerLeft>
         <name>${artifactId}</name>
-        <src>https://appfuse.dev.java.net/images/appfuse-title.gif</src>
+        <src>http://appfuse.org/download/attachments/2/APF</src>
         <href>http://appfuse.org</href>
     </bannerLeft>
     <publishDate format="dd MMM yyyy"/>

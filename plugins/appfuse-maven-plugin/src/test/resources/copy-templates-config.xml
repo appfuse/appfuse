@@ -7,7 +7,7 @@
                 <artifactId>appfuse-maven-plugin</artifactId>
                 <configuration>
                     <templateDirectory>target/templates/src/test/resources/appfuse</templateDirectory>
-                    <trunk>https://appfuse.dev.java.net/svn/appfuse/</trunk>
+                    <trunk>https://svn.java.net/svn/appfuse~svn/</trunk>
                     <tag>trunk/</tag>
                 </configuration>
             </plugin>

@@ -35,7 +35,7 @@
     <scm>
         <connection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/archetypes/appfuse-basic-tapestry</connection>
         <developerConnection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/archetypes/appfuse-basic-tapestry</developerConnection>
-        <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/archetypes/appfuse-basic-tapestry</url>
+        <url>http://source.appfuse.org/browse/appfuse/trunk/archetypes/appfuse-basic-tapestry</url>
     </scm>
 
     <build>

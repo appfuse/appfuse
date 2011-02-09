@@ -37,7 +37,7 @@
     <scm>
         <connection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/archetypes/appfuse-modular-tapestry</connection>
         <developerConnection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/archetypes/appfuse-modular-tapestry</developerConnection>
-        <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/archetypes/appfuse-modular-tapestry</url>
+        <url>http://source.appfuse.org/browse/appfuse/trunk/archetypes/appfuse-modular-tapestry</url>
     </scm>
 
     <build>

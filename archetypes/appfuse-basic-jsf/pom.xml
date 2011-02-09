@@ -35,7 +35,7 @@
     <scm>
         <connection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/archetypes/appfuse-basic-jsf</connection>
         <developerConnection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/archetypes/appfuse-basic-jsf</developerConnection>
-        <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/archetypes/appfuse-basic-jsf</url>
+        <url>http://source.appfuse.org/browse/appfuse/trunk/archetypes/appfuse-basic-jsf</url>
     </scm>
 
     <build>
