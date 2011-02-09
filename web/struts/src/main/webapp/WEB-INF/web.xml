@@ -160,8 +160,7 @@
     </filter-mapping>
     <filter-mapping>
         <filter-name>struts</filter-name>
-        <url-pattern>/*</url-pattern>
-        <dispatcher>REQUEST</dispatcher>
+        <url-pattern>*.action</url-pattern>
         <dispatcher>FORWARD</dispatcher>
     </filter-mapping>
     <filter-mapping>
