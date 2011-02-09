@@ -34,8 +34,8 @@
     </description>
 
     <scm>
-        <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/data/common</connection>
-        <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/data/common</developerConnection>
+        <connection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/data/common</connection>
+        <developerConnection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/data/common</developerConnection>
         <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/data/common</url>
     </scm>
 

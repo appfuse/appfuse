@@ -20,7 +20,7 @@
                     <label for="j_username" class="required desc">
                         ${message:label.username} <span class="req">*</span>
                     </label>
-                    <input type="text" class="text medium" name="j_username" id="j_username" tabindex="1"/>
+                    <input type="text" class="text medium" name="j_username" id="j_username" tabindex="1" value=""/>
                 </li>
                 <li>
                     <label for="j_password" class="required desc">
@@ -48,4 +48,5 @@
     <p>
         <t:outputraw value="${message:login.passwordHint}"/>
     </p>
+    <script type="text/javascript" src="scripts/login.js"></script>
 </t:layout>

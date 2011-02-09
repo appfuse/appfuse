@@ -26,7 +26,6 @@ import java.util.Map;
  * @author Serge Eby
  * @version $Id: Login.java 5 2008-08-30 09:59:21Z serge.eby $
  */
-@IncludeJavaScriptLibrary("context:scripts/login.js")
 public class Login extends BasePage {
 
     private static final String AUTH_FAILED = "error";

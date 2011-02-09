@@ -34,8 +34,8 @@
     </description>
 
     <scm>
-        <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/archetypes/appfuse-core</connection>
-        <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk/archetypes/appfuse-core</developerConnection>
+        <connection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/archetypes/appfuse-core</connection>
+        <developerConnection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/archetypes/appfuse-core</developerConnection>
         <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk/archetypes/appfuse-core</url>
     </scm>
 

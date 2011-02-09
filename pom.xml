@@ -28,8 +28,8 @@
     </prerequisites>
 
     <scm>
-        <connection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk</connection>
-        <developerConnection>scm:svn:https://appfuse.dev.java.net/svn/appfuse/trunk</developerConnection>
+        <connection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk</connection>
+        <developerConnection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk</developerConnection>
         <url>https://appfuse.dev.java.net/source/browse/appfuse/trunk</url>
     </scm>
 
@@ -533,7 +533,7 @@
         <jdbc.version>5.1.14</jdbc.version>
         <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
         <jdbc.url>
-            <![CDATA[jdbc:mysql://localhost/appfuse?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8]]>
+            <![CDATA[jdbc:mysql://localhost/appfuse?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true]]>
         </jdbc.url>
         <jdbc.username>root</jdbc.username>
         <jdbc.password />
@@ -569,7 +569,7 @@
         <hibernate.version>3.6.0.Final</hibernate.version>
         <hibernate.entitymanager.version>3.6.0.Final</hibernate.entitymanager.version>
         <ibatis.version>2.3.4.726</ibatis.version>
-        <javamail.version>1.4.4</javamail.version>
+        <javamail.version>1.4.1</javamail.version>
         <jetty.version>6.1.26</jetty.version>
         <jmock.version>2.5.1</jmock.version>
         <jpa.version>2.0-cr-1</jpa.version>

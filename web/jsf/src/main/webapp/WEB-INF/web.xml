@@ -114,7 +114,7 @@
             if you are having trouble using normal levels use sysout:DEBUG -->
         <init-param>
             <param-name>logLevel</param-name>
-            <param-value>common</param-value>
+            <param-value>commons</param-value>
         </init-param>
         <!-- set the amount of seconds the conf file will be checked for reload
             can be a valid integer (0 denotes check every time,
@@ -230,7 +230,6 @@
     <servlet>
         <servlet-name>CXFServlet</servlet-name>
         <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
     </servlet>
 
     <servlet-mapping>

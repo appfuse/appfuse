@@ -9,7 +9,7 @@
 
     <!-- runs all targets -->
     <target name="run-all-tests" 
-        depends="Login,Logout,PasswordHint,Signup,StaticPages,UserTests,FileUpload"
+        depends="Login,Logout,PasswordHint,Signup,UserTests,StaticPages,WebServices,DWR,FileUpload"
         description="Call and executes all test cases (targets)"/>
     
     <!-- runs user-related tests -->
@@ -206,6 +206,34 @@
                 <clickbutton label="${button.upload}" description="Click Upload"/>
                 <verifytitle description="show file data if upload OK" text=".*${display.title}.*" regex="true"/>
                 <verifytext description="verify original filename displayed on page" text="pom.xml"/>
+            </steps>
+        </webtest>
+    </target>
+
+    <!-- Verify CXF is configured properly. -->
+    <target name="WebServices" description="Verifies CXF Services are listed">
+        <webtest name="webservices">
+            &config;
+            <steps>
+                &login;
+                <invoke url="/services/"/>
+                <verifytitle description="should see services listing" text="CXF - Service list.*" regex="true"/>
+                <verifytext description="verify page renders" text="Available SOAP services"/>
+                <verifytext description="verify UserManager exist" text="UserService"/>
+            </steps>
+        </webtest>
+    </target>
+
+    <!-- Verify DWR is configured properly. -->
+    <target name="DWR" description="Verifies DWR Index Page">
+        <webtest name="dwr">
+            &config;
+            <steps>
+                &login;
+                <invoke url="/dwr/"/>
+                <verifytitle description="should DWR Test Index" text="DWR Test Index.*" regex="true"/>
+                <clicklink description="click on UserManager link" label="UserManager"/>
+                <verifytext description="verify next page comes up" text="Methods For: UserManager"/>
             </steps>
         </webtest>
     </target>
