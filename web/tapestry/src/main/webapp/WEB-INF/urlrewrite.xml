@@ -16,10 +16,10 @@
 
     <rule>
         <from>/dwr/**</from>
-        <to last="true">/dwr/$1</to>
+        <to>/dwr/$1</to>
     </rule>
     <rule>
         <from>/services/**</from>
-        <to last="true">/services/$1</to>
+        <to>/services/$1</to>
     </rule>
 </urlrewrite>
