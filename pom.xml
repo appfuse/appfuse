@@ -566,8 +566,8 @@
         <ehcache.web.version>2.0.3</ehcache.web.version>
         <el.version>1.2</el.version>
         <facelets.version>1.1.14</facelets.version>
-        <hibernate.version>3.6.0.Final</hibernate.version>
-        <hibernate.entitymanager.version>3.6.0.Final</hibernate.entitymanager.version>
+        <hibernate.version>3.6.1.Final</hibernate.version>
+        <hibernate.entitymanager.version>3.6.1.Final</hibernate.entitymanager.version>
         <ibatis.version>2.3.4.726</ibatis.version>
         <javamail.version>1.4.1</javamail.version>
         <jetty.version>6.1.26</jetty.version>
