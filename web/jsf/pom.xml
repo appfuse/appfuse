@@ -200,13 +200,6 @@
             <version>${shale.version}</version>
             <optional>true</optional>
         </dependency>
-        <!-- Dependencies with scope=provided aren't picked up from dependent JARs -->
-        <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
-            <version>${jsp.version}</version> <!-- Special case for JSF only -->
-            <scope>provided</scope>
-        </dependency>
     </dependencies>
 
     <profiles>
@@ -301,8 +294,4 @@
             </build>
         </profile>
     </profiles>
-
-    <properties>
-        <jsp.version>2.1</jsp.version>
-    </properties>    
 </project>
