@@ -163,6 +163,11 @@
         <url-pattern>*.action</url-pattern>
         <dispatcher>FORWARD</dispatcher>
     </filter-mapping>
+    <!-- For Struts debugging console -->
+    <filter-mapping>
+        <filter-name>struts</filter-name>
+        <url-pattern>*.html</url-pattern>
+    </filter-mapping>
     <filter-mapping>
         <filter-name>exportFilter</filter-name>
         <url-pattern>/*</url-pattern>

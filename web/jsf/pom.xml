@@ -185,8 +185,13 @@
         </dependency>
         <dependency>
             <groupId>org.apache.myfaces.tomahawk</groupId>
-            <artifactId>tomahawk</artifactId>
+            <artifactId>tomahawk20</artifactId>
             <version>${myfaces.tomahawk.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ocpsoft</groupId>
+            <artifactId>prettyfaces-jsf2</artifactId>
+            <version>3.2.0</version>
         </dependency>
         <!-- Upgrade version of commons-io used -->
         <dependency>

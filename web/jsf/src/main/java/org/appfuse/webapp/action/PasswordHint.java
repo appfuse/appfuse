@@ -5,6 +5,8 @@ import org.appfuse.webapp.util.RequestUtil;
 import org.springframework.mail.MailException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import java.io.IOException;
+
 /**
  * Managed Bean to send password hints to registered users.
  *
@@ -17,22 +19,21 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 public class PasswordHint extends BasePage {
     private String username;
     
-    public String getUsername() {
-        return username;
-    }
-    
     public void setUsername(String username) {
         this.username = username;
     }
-
+    
     public String execute() {
-        
+        getFacesContext().getViewRoot().setViewId("/passwordHint.xhtml");
+
         // ensure that the username has been sent
         if (username == null || "".equals(username)) {
             log.warn("Username not specified, notifying user that it's a required field.");
 
             addError("errors.required", getText("user.username"));
             return null;
+        } else if (username.endsWith(".jsf")) {
+            username = username.substring(0, username.indexOf(".jsf"));
         }
         
         if (log.isDebugEnabled()) {

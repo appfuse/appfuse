@@ -50,6 +50,11 @@
         <from>/favicon.ico</from>
         <to>/favicon.ico</to>
     </rule>
+    <!-- Solve an issue when redirecting from passwordHint -->
+    <rule match-type="regex">
+        <from>^/login.xhtml$</from>
+        <to type="redirect">%{context-path}/login</to>
+    </rule>
     <rule>
         <from>/login*</from>
         <to>/login.jsp</to>
@@ -57,6 +62,13 @@
     <rule>
         <from>/logout*</from>
         <to>/logout.jsp</to>
+    </rule>
+    
+    <!-- JSF 2 Rules -->
+    <!-- Solve an issue when redirecting from passwordHint -->
+    <rule match-type="regex">
+        <from>^/login.xhtml$</from>
+        <to type="redirect">/login</to>
     </rule>
 
     <!-- JSF -->

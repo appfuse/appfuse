@@ -107,6 +107,10 @@
         <filter-class>org.appfuse.webapp.filter.MessageFilter</filter-class>
     </filter>
     <filter>
+       <filter-name>prettyFilter</filter-name>
+       <filter-class>com.ocpsoft.pretty.PrettyFilter</filter-class>
+    </filter>
+    <filter>
         <filter-name>rewriteFilter</filter-name>
         <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
         <!-- sets up log level (will be logged to context log)
@@ -176,6 +180,12 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
     <filter-mapping>
+        <filter-name>prettyFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+    <filter-mapping>
         <filter-name>securityFilter</filter-name>
         <url-pattern>/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>
@@ -190,9 +200,6 @@
         <dispatcher>FORWARD</dispatcher>
     </filter-mapping>
 
-    <listener>
-        <listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
-    </listener>
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
@@ -251,13 +258,13 @@
         <session-timeout>10</session-timeout>
     </session-config>
 
-    <security-constraint>
+    <!--security-constraint>
         <web-resource-collection>
             <web-resource-name>Protect XHTML Templates</web-resource-name>
             <url-pattern>*.xhtml</url-pattern>
         </web-resource-collection>
         <auth-constraint/>
-   </security-constraint>
+   </security-constraint-->
 
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
