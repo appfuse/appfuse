@@ -63,13 +63,6 @@
         <from>/logout*</from>
         <to>/logout.jsp</to>
     </rule>
-    
-    <!-- JSF 2 Rules -->
-    <!-- Solve an issue when redirecting from passwordHint -->
-    <rule match-type="regex">
-        <from>^/login.xhtml$</from>
-        <to type="redirect">/login</to>
-    </rule>
 
     <!-- JSF -->
     <rule match-type="regex">
