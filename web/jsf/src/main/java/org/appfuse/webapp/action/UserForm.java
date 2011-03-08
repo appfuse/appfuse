@@ -71,6 +71,8 @@ public class UserForm extends BasePage implements Serializable {
     }
 
     public String edit() {
+        getFacesContext().getViewRoot().setViewId("/userForm.xhtml");
+
         HttpServletRequest request = getRequest();
 
         // if a user's id is passed in
