@@ -71,7 +71,6 @@ public class UserForm extends BasePage implements Serializable {
     }
 
     public String edit() {
-        getFacesContext().getViewRoot().setViewId("/userForm.xhtml");
         HttpServletRequest request = getRequest();
 
         // if a user's id is passed in
@@ -114,7 +113,6 @@ public class UserForm extends BasePage implements Serializable {
     }
 
     public String save() throws IOException {
-        getFacesContext().getViewRoot().setViewId("/userForm.xhtml");
         // workaround for plain ol' HTML input tags that don't seem to set
         // properties on the managed bean
         setUserRoles(getRequest().getParameterValues("userForm:userRoles"));

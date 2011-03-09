@@ -1,0 +1,20 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
+
+<head>
+    <meta name="menu" content="UserMenu"/>
+</head>
+
+<f:view>
+
+<h:form id="userProfile">
+    <h:commandLink action="#{userForm.edit}" id="edit"/>
+</h:form>
+
+<script type="text/javascript">
+    // Might be able to remove proprietary call if I can get @PostConstruct to work
+    myfaces.oam.submitForm('userProfile','userProfile:edit');
+</script>
+
+</f:view>
+</html>
