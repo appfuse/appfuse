@@ -7,16 +7,8 @@
     <meta name="menu" content="${pojo.shortName}Menu"/>
 </head>
 
-<c:set var="buttons">
-    <input type="button" style="margin-right: 5px"
-        onclick="location.href='<c:url value="/${pojoNameLower}form"/>'"
-        value="<fmt:message key="button.add"/>"/>
-
-    <input type="button" onclick="location.href='<c:url value="/mainMenu"/>'"
-        value="<fmt:message key="button.done"/>"/>
-</c:set>
-
-<c:out value="${'$'}{buttons}" escapeXml="false"/>
+<input type="button" style="margin-right: 5px" onclick="location.href='<c:url value="/${pojoNameLower}form"/>'" value="<fmt:message key="button.add"/>"/>
+<input type="button" onclick="location.href='<c:url value="/mainMenu"/>'" value="<fmt:message key="button.done"/>"/>
 
 <display:table name="${pojoNameLower}List" class="table" requestURI="" id="${pojoNameLower}List" export="true" pagesize="25">
 <#foreach field in pojo.getAllPropertiesIterator()>
@@ -47,7 +39,8 @@
     <display:setProperty name="export.pdf.filename"><fmt:message key="${pojoNameLower}List.title"/>.pdf</display:setProperty>
 </display:table>
 
-<c:out value="${'$'}{buttons}" escapeXml="false"/>
+<input type="button" style="margin-right: 5px" onclick="location.href='<c:url value="/${pojoNameLower}form"/>'" value="<fmt:message key="button.add"/>"/>
+<input type="button" onclick="location.href='<c:url value="/mainMenu"/>'" value="<fmt:message key="button.done"/>"/>
 
 <script type="text/javascript">
     highlightTableRows("${pojoNameLower}List");

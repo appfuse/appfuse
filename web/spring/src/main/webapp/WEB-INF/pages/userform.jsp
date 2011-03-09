@@ -35,18 +35,14 @@
 
 <ul>
     <li class="buttonBar right">
-        <%-- So the buttons can be used at the bottom of the form --%>
-        <c:set var="buttons">
-            <input type="submit" class="button" name="save" onclick="bCancel=false" value="<fmt:message key="button.save"/>"/>
+        <input type="submit" class="button" name="save" onclick="bCancel=false" value="<fmt:message key="button.save"/>"/>
 
         <c:if test="${param.from == 'list' and param.method != 'Add'}">
             <input type="submit" class="button" name="delete" onclick="bCancel=true;return confirmDelete('user')"
                 value="<fmt:message key="button.delete"/>"/>
         </c:if>
 
-            <input type="submit" class="button" name="cancel" onclick="bCancel=true" value="<fmt:message key="button.cancel"/>"/>
-        </c:set>
-        <c:out value="${buttons}" escapeXml="false"/>
+        <input type="submit" class="button" name="cancel" onclick="bCancel=true" value="<fmt:message key="button.cancel"/>"/>
     </li>
     <li class="info">
         <c:choose>
@@ -201,7 +197,14 @@
     </c:when>
 </c:choose>
     <li class="buttonBar bottom">
-        <c:out value="${buttons}" escapeXml="false"/>
+      <input type="submit" class="button" name="save" onclick="bCancel=false" value="<fmt:message key="button.save"/>"/>
+
+      <c:if test="${param.from == 'list' and param.method != 'Add'}">
+          <input type="submit" class="button" name="delete" onclick="bCancel=true;return confirmDelete('user')"
+              value="<fmt:message key="button.delete"/>"/>
+      </c:if>
+
+      <input type="submit" class="button" name="cancel" onclick="bCancel=true" value="<fmt:message key="button.cancel"/>"/>
     </li>
 </ul>
 </form:form>

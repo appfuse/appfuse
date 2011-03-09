@@ -7,14 +7,8 @@
     <meta name="menu" content="${pojo.shortName}Menu"/>
 </head>
 
-<c:set var="buttons">
-    <input type="button" style="margin-right: 5px" class="button"
-        onclick="location.href='<c:url value="/edit${pojo.shortName}"/>'"
-        value="<fmt:message key="button.add"/>"/>
-
-    <input type="button" class="button" onclick="location.href='<c:url value="/mainMenu"/>'"
-        value="<fmt:message key="button.done"/>"/>
-</c:set>
+<input type="button" style="margin-right: 5px" class="button" onclick="location.href='<c:url value="/edit${pojo.shortName}"/>'" value="<fmt:message key="button.add"/>"/>
+<input type="button" class="button" onclick="location.href='<c:url value="/mainMenu"/>'" value="<fmt:message key="button.done"/>"/>
 
 <c:out value="${'$'}{buttons}" escapeXml="false" />
 
@@ -47,7 +41,8 @@
     <display:setProperty name="export.pdf.filename"><fmt:message key="${pojoNameLower}List.title"/>.pdf</display:setProperty>
 </display:table>
 
-<c:out value="${'$'}{buttons}" escapeXml="false" />
+<input type="button" style="margin-right: 5px" class="button" onclick="location.href='<c:url value="/edit${pojo.shortName}"/>'" value="<fmt:message key="button.add"/>"/>
+<input type="button" class="button" onclick="location.href='<c:url value="/mainMenu"/>'" value="<fmt:message key="button.done"/>"/>
 
 <script type="text/javascript">
     highlightTableRows("${pojoNameLower}List");

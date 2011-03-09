@@ -6,16 +6,12 @@
     <meta name="menu" content="AdminMenu"/>
 </head>
 
-<c:set var="buttons">
-    <input type="button" style="margin-right: 5px"
-        onclick="location.href='<c:url value="/editUser?method=Add&from=list"/>'"
-        value="<fmt:message key="button.add"/>"/>
+<input type="button" style="margin-right: 5px"
+    onclick="location.href='<c:url value="/editUser?method=Add&from=list"/>'"
+    value="<fmt:message key="button.add"/>"/>
     
-    <input type="button" onclick="location.href='<c:url value="/mainMenu"/>'"
-        value="<fmt:message key="button.done"/>"/>
-</c:set>
-
-<c:out value="${buttons}" escapeXml="false" />
+<input type="button" onclick="location.href='<c:url value="/mainMenu"/>'"
+    value="<fmt:message key="button.done"/>"/>
 
 <display:table name="users" cellspacing="0" cellpadding="0" requestURI="" 
     defaultsort="1" id="users" pagesize="25" class="table" export="true">
@@ -37,7 +33,12 @@
     <display:setProperty name="export.pdf.filename" value="User List.pdf"/>
 </display:table>
 
-<c:out value="${buttons}" escapeXml="false" />
+<input type="button" style="margin-right: 5px"
+    onclick="location.href='<c:url value="/editUser?method=Add&from=list"/>'"
+    value="<fmt:message key="button.add"/>"/>
+    
+<input type="button" onclick="location.href='<c:url value="/mainMenu"/>'"
+    value="<fmt:message key="button.done"/>"/>
 
 <script type="text/javascript">
     highlightTableRows("users");
