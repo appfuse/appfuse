@@ -1,5 +1,6 @@
 package org.appfuse.webapp.controller;
 
+import org.apache.commons.lang.StringUtils;
 import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.service.RoleManager;
@@ -35,6 +36,11 @@ public class SignupController extends BaseFormController {
         this.roleManager = roleManager;
     }
 
+    public SignupController() {
+        setCancelView("redirect:login");
+        setSuccessView("redirect:mainMenu");
+    }
+
     @ModelAttribute
     @RequestMapping(method = RequestMethod.GET)
     public User showForm() {
@@ -44,6 +50,10 @@ public class SignupController extends BaseFormController {
     @RequestMapping(method = RequestMethod.POST)
     public String onSubmit(User user, BindingResult errors, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
+        if (request.getParameter("cancel") != null) {
+            return getCancelView();
+        }
+
         if (log.isDebugEnabled()) {
             log.debug("entering 'onSubmit' method...");
         }
@@ -93,6 +103,6 @@ public class SignupController extends BaseFormController {
             saveError(request, me.getMostSpecificCause().getMessage());
         }
         
-        return "redirect:mainMenu";
+        return getSuccessView();
     }
 }

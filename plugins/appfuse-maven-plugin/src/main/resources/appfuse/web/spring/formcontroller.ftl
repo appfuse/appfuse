@@ -44,8 +44,8 @@ public class ${pojo.shortName}FormController extends BaseFormController {
     }
 
     public ${pojo.shortName}FormController() {
-        setCancelView("redirect:${util.getPluralForWord(pojoNameLower)}.html");
-        setSuccessView("redirect:${util.getPluralForWord(pojoNameLower)}.html");
+        setCancelView("redirect:${util.getPluralForWord(pojoNameLower)}");
+        setSuccessView("redirect:${util.getPluralForWord(pojoNameLower)}");
     }
 
     @ModelAttribute
@@ -65,6 +65,10 @@ public class ${pojo.shortName}FormController extends BaseFormController {
     public String onSubmit(${pojo.shortName} ${pojoNameLower}, BindingResult errors, HttpServletRequest request,
                            HttpServletResponse response)
     throws Exception {
+        if (request.getParameter("cancel") != null) {
+            return getCancelView();
+        }
+
         log.debug("entering 'onSubmit' method...");
 
         boolean isNew = (${pojoNameLower}.${getIdMethodName}() == null);
@@ -80,7 +84,7 @@ public class ${pojo.shortName}FormController extends BaseFormController {
             saveMessage(request, getText(key, locale));
 
             if (!isNew) {
-                success = "redirect:${pojoNameLower}form.html?${pojo.identifierProperty.name}=" + ${pojoNameLower}.${getIdMethodName}();
+                success = "redirect:${pojoNameLower}form?${pojo.identifierProperty.name}=" + ${pojoNameLower}.${getIdMethodName}();
             }
         }
 
