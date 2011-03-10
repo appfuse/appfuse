@@ -8,7 +8,7 @@
 
 <div id="search">
 <form method="get" action="${ctx}/admin/users" id="searchForm">
-    <input type="search" size="30" name="q" id="query" value="${param.q}"
+    <input type="search" size="20" name="q" id="query" value="${param.q}"
            placeholder="Enter search terms"/>
     <input type="submit" value="Search"/>
 </form>
