@@ -346,7 +346,7 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>javax.servlet</groupId>
+            <groupId>javax.servlet.jsp</groupId>
             <artifactId>jsp-api</artifactId>
             <version>${jsp.version}</version>
             <scope>provided</scope>
@@ -716,7 +716,7 @@
         <!-- Testing dependency versions -->
         <cargo.version>1.0.6</cargo.version>
         <jmock.version>2.5.1</jmock.version>
-        <jsp.version>2.0</jsp.version>
+        <jsp.version>2.1</jsp.version>
         <junit.version>4.8.2</junit.version>
         <servlet.version>2.5</servlet.version>
         <wiser.version>1.2</wiser.version>
