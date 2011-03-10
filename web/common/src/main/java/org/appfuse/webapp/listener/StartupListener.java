@@ -4,6 +4,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.Constants;
 import org.appfuse.service.LookupManager;
+import org.compass.gps.CompassGps;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -61,6 +62,7 @@ public class StartupListener implements ServletContextListener {
             log.debug(bean);
         }*/
 
+
         PasswordEncoder passwordEncoder = null;
         try {
             ProviderManager provider = (ProviderManager) ctx.getBean("org.springframework.security.authentication.ProviderManager#0");
@@ -103,6 +105,9 @@ public class StartupListener implements ServletContextListener {
         // get list of possible roles
         context.setAttribute(Constants.AVAILABLE_ROLES, mgr.getAllRoles());
         log.debug("Drop-down initialization complete [OK]");
+
+        CompassGps compassGps = ctx.getBean(CompassGps.class);
+        compassGps.index();
     }
 
     /**

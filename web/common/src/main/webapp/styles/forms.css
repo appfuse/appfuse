@@ -432,3 +432,8 @@ table.pickList td select {
     text-align: left;
     padding: 0;
 }
+
+#search {
+    float: right;
+    padding: 0 !important;
+}

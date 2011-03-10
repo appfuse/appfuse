@@ -6,6 +6,14 @@
     <meta name="menu" content="AdminMenu"/>
 </head>
 
+<div id="search">
+<form method="get" action="${ctx}/admin/users" id="searchForm">
+    <input type="search" size="30" name="q" id="query" value="${param.q}"
+           placeholder="Enter search terms"/>
+    <input type="submit" value="Search"/>
+</form>
+</div>
+
 <input type="button" style="margin-right: 5px"
     onclick="location.href='<c:url value="/userform?method=Add&from=list"/>'"
     value="<fmt:message key="button.add"/>"/>
@@ -13,7 +21,6 @@
 <input type="button" onclick="location.href='<c:url value="/mainMenu"/>'"
     value="<fmt:message key="button.done"/>"/>
 
-<c:out value="${buttons}" escapeXml="false" />
 
 <display:table name="userList" cellspacing="0" cellpadding="0" requestURI="" 
     defaultsort="1" id="users" pagesize="25" class="table" export="true">
