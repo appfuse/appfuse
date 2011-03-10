@@ -216,8 +216,13 @@
         </dependency>
         <dependency>
             <groupId>org.apache.myfaces.tomahawk</groupId>
-            <artifactId>tomahawk</artifactId>
+            <artifactId>tomahawk20</artifactId>
             <version>${myfaces.tomahawk.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ocpsoft</groupId>
+            <artifactId>prettyfaces-jsf2</artifactId>
+            <version>3.2.0</version>
         </dependency>
         <!-- Upgrade version of commons-io used by Tomahawk -->
         <dependency>
@@ -241,6 +246,12 @@
             <groupId>org.apache.shale</groupId>
             <artifactId>shale-test</artifactId>
             <version>${shale.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>el-api</artifactId>
+            <version>1.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
