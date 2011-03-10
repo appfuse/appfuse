@@ -6,7 +6,11 @@ import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
 import org.compass.core.CompassDetachedHits;
+import org.compass.core.CompassHit;
 import org.compass.core.CompassTemplate;
+import org.compass.core.support.search.CompassSearchCommand;
+import org.compass.core.support.search.CompassSearchHelper;
+import org.compass.core.support.search.CompassSearchResults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +38,7 @@ public class UserController {
     private UserManager mgr = null;
 
     @Autowired
-    private CompassTemplate compassTemplate;
+    private CompassSearchHelper compass;
 
     @Autowired
     public void setUserManager(UserManager userManager) {
@@ -52,10 +56,14 @@ public class UserController {
 
     public List<User> search(String query) {
         List<User> results = new ArrayList<User>();
-        CompassDetachedHits hits = compassTemplate.findWithDetach(query);
-        log.debug("No. of results for '" + query + "': " + hits.length());
-        for (int i = 0; i < hits.length(); i++) {
-            results.add((User) hits.data(i));
+        CompassSearchCommand command = new CompassSearchCommand(query);
+        CompassSearchResults compassResults = compass.search(command);
+        CompassHit[] hits = compassResults.getHits();
+        log.debug("No. of results for '" + query + "': " + compassResults.getTotalHits());
+        for (CompassHit hit : hits) {
+            if (hit.data() instanceof User) {
+                results.add((User) hit.data());
+            }
         }
         return results;
     }
