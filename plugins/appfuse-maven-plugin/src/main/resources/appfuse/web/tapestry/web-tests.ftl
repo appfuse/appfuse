@@ -17,7 +17,7 @@
                 <verifytitle description="we should see the ${pojoNameLower}List title"
                     text=".*${'$'}{${pojoNameLower}List.title}.*" regex="true"/>
                 <setinputfield description="set search term" name="q" value="*"/>
-                <clickbutton label="${button.search}" description="Click Search"/>
+                <clickbutton label="${'$'}{button.search}" description="Click Search"/>
                 <verifytitle text=".*${'$'}{${pojoNameLower}List.title}.*" regex="true"/>
             </steps>
         </webtest>
