@@ -8,7 +8,7 @@
     <div id="search">
     <t:form method="get" t:id="searchForm">
         <t:textfield size="20" name="q" t:id="q"/>
-        <input t:type="submit" value="${message:button.search}" class="button"/>
+        <input t:type="submit" value="${'$'}{message:button.search}" class="button"/>
     </t:form>
     </div>
 

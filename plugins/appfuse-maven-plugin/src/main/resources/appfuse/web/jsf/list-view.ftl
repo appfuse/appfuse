@@ -14,8 +14,8 @@
 
 <div id="search">
 <h:form id="searchForm">
-    <h:inputText id="q" name="q" size="20" value="#{${pojoNameLower}List.query}"/>
-    <h:commandButton value="#{text['button.search']}" action="#{${pojoNameLower}List.search}"/>
+    <h:inputText id="q" name="q" size="20" value="${'#'}{${pojoNameLower}List.query}"/>
+    <h:commandButton value="${'#'}{text['button.search']}" action="${'#'}{${pojoNameLower}List.search}"/>
 </h:form>
 </div>
 
