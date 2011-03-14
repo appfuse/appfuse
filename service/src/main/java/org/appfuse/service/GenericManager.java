@@ -52,4 +52,12 @@ public interface GenericManager<T, PK extends Serializable> {
      * @param id the identifier (primary key) of the object to remove
      */
     void remove(PK id);
+
+    /**
+     * Generic method to search for an object.
+     * @param searchTerm the search term
+     * @param clazz type of class to search for.
+     * @return a list of matched objects
+     */
+    List<T> search(String searchTerm, Class clazz);
 }

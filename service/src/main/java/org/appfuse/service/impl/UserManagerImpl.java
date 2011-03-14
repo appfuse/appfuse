@@ -120,4 +120,11 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
     public User getUserByUsername(String username) throws UsernameNotFoundException {
         return (User) userDao.loadUserByUsername(username);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public List<User> search(String searchTerm) {
+        return super.search(searchTerm, User.class);
+    }
 }

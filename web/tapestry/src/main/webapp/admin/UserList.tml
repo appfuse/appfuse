@@ -3,6 +3,14 @@
     xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
 
     <t:messagebanner t:id="message" type="type"/>
+
+    <div id="search">
+    <t:form method="get" t:id="searchForm">
+        <t:textfield size="20" name="q" t:id="q"/>
+        <input t:type="submit" value="${message:button.search}" class="button"/>
+    </t:form>
+    </div>
+
     <p>
         <t:eventlink t:id="addTop">
             <input type="button" class="button" value="${message:button.add}" />

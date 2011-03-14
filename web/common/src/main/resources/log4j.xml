@@ -28,7 +28,7 @@
     </logger>
 
     <!-- Suppress invalid warning messages from JSF -->
-    <logger name="org.apache.myfaces.shared_impl.renderkit.html">
+    <logger name="org.apache.myfaces">
         <level value="ERROR"/>
     </logger>
 

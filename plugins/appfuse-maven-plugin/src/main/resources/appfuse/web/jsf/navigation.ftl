@@ -10,6 +10,11 @@
             <from-outcome>edit</from-outcome>
             <to-view-id>/${pojoNameLower}Form.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/${util.getPluralForWord(pojoNameLower)}.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <from-view-id>/${pojoNameLower}Form.xhtml</from-view-id>

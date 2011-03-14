@@ -11,6 +11,14 @@
         <meta name="menu" content="${pojo.shortName}Menu"/>
     </head>
 <body id="${pojoNameLower}List">
+
+<div id="search">
+<h:form id="searchForm">
+    <h:inputText id="q" name="q" size="20" value="#{${pojoNameLower}List.query}"/>
+    <h:commandButton value="#{text['button.search']}" action="#{${pojoNameLower}List.search}"/>
+</h:form>
+</div>
+
 <h:form id="edit${pojo.shortName}">
 
 <h:commandButton value="${'#'}{text['button.add']}" action="add" id="add" immediate="true" styleClass="button"/>

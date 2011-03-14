@@ -100,6 +100,14 @@
             <redirect/>
         </navigation-case>
     </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/admin/users.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/admin/users.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
     <!-- Add additional rules here -->
 
     <managed-bean>
@@ -111,7 +119,7 @@
     <managed-bean>
         <managed-bean-name>userList</managed-bean-name>
         <managed-bean-class>org.appfuse.webapp.action.UserList</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
+        <managed-bean-scope>session</managed-bean-scope>
         <managed-property>
             <property-name>userManager</property-name>
             <value>#{userManager}</value>

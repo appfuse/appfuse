@@ -7,10 +7,16 @@
     <meta name="menu" content="${pojo.shortName}Menu"/>
 </head>
 
+<div id="search">
+<form method="get" action="${ctx}/admin/users" id="searchForm">
+    <input type="text" size="20" name="q" id="query" value="${param.q}"
+           placeholder="Enter search terms..."/>
+    <input type="submit" value="<fmt:message key="button.search"/>"/>
+</form>
+</div>
+
 <input type="button" style="margin-right: 5px" class="button" onclick="location.href='<c:url value="/edit${pojo.shortName}"/>'" value="<fmt:message key="button.add"/>"/>
 <input type="button" class="button" onclick="location.href='<c:url value="/mainMenu"/>'" value="<fmt:message key="button.done"/>"/>
-
-<c:out value="${'$'}{buttons}" escapeXml="false" />
 
 <display:table name="${util.getPluralForWord(pojoNameLower)}" class="table" requestURI="" id="${pojoNameLower}List" export="true" pagesize="25">
 <#foreach field in pojo.getAllPropertiesIterator()>

@@ -3,7 +3,6 @@ package org.appfuse.webapp.pages;
 import org.apache.tapestry5.Asset;
 import org.apache.tapestry5.RenderSupport;
 import org.apache.tapestry5.annotations.Environmental;
-import org.apache.tapestry5.annotations.IncludeJavaScriptLibrary;
 import org.apache.tapestry5.annotations.Path;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;

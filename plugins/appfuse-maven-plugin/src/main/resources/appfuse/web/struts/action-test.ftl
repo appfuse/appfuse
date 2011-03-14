@@ -42,9 +42,15 @@ public class ${pojo.shortName}ActionTest extends BaseActionTestCase {
         ${pojoNameLower}Manager.save(${pojoNameLower});
     }
 
-    public void testSearch() throws Exception {
+    public void testGetAll${util.getPluralForWord(pojo.shortName)}() throws Exception {
         assertEquals(action.list(), ActionSupport.SUCCESS);
         assertTrue(action.get${util.getPluralForWord(pojo.shortName)}().size() >= 1);
+    }
+
+    public void testSearch() throws Exception {
+        action.setQ("*");
+        assertEquals(action.list(), ActionSupport.SUCCESS);
+        assertTrue(action.get${util.getPluralForWord(pojo.shortName)}().size() == 3);
     }
 
     public void testEdit() throws Exception {

@@ -10,6 +10,13 @@
     <meta name="menu" content="AdminMenu"/>
 </head>
 
+<div id="search">
+<h:form id="searchForm">
+    <h:inputText id="q" name="q" size="20" value="#{userList.query}"/>
+    <h:commandButton value="#{text['button.search']}" action="#{userList.search}"/>
+</h:form>
+</div>
+
 <h:form id="editUser">
 
 <h:commandButton value="#{text['button.add']}" action="#{userForm.add}" id="add" styleClass="button">

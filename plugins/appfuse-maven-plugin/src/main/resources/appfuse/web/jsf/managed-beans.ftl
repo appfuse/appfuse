@@ -3,7 +3,7 @@
     <managed-bean>
         <managed-bean-name>${pojoNameLower}List</managed-bean-name>
         <managed-bean-class>${basepackage}.webapp.action.${pojo.shortName}List</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
+        <managed-bean-scope>session</managed-bean-scope>
         <managed-property>
             <property-name>${pojoNameLower}Manager</property-name>
             <value>${'#'}{${pojoNameLower}Manager}</value>

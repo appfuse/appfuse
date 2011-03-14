@@ -24,6 +24,7 @@ public class ${pojo.shortName}Action extends BaseAction implements Preparable {
     private List ${util.getPluralForWord(pojoNameLower)};
     private ${pojo.shortName} ${pojoNameLower};
     private ${identifierType} ${pojo.identifierProperty.name};
+    private String query;
 
 <#if genericcore>
     public void set${pojo.shortName}Manager(GenericManager<${pojo.shortName}, ${identifierType}> ${pojoNameLower}Manager) {
@@ -50,12 +51,16 @@ public class ${pojo.shortName}Action extends BaseAction implements Preparable {
         }
     }
 
+    public void setQ(String q) {
+        this.query = q;
+    }
+
     public String list() {
-        ${util.getPluralForWord(pojoNameLower)} = ${pojoNameLower}Manager.getAll();
+        ${util.getPluralForWord(pojoNameLower)} = ${pojoNameLower}Manager.search(query);
         return SUCCESS;
     }
 
-    public void ${setIdMethodName}(${identifierType}  ${pojo.identifierProperty.name}) {
+    public void ${setIdMethodName}(${identifierType} ${pojo.identifierProperty.name}) {
         this. ${pojo.identifierProperty.name} =  ${pojo.identifierProperty.name};
     }
 

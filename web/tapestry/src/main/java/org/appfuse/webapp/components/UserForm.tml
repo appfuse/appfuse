@@ -191,7 +191,7 @@
             <t:unless test="${signup}">
                 <t:if test="user.username">
                     <input t:type="submit" t:id="deleteBottom" class="button" value="${message:button.delete}"
-                           id="delete" onclick="form.onsubmit = null; return confirmDelete('User')"/>
+                           onclick="form.onsubmit = null; return confirmDelete('User')"/>
                 </t:if>
             </t:unless>
             <t:eventlink t:id="cancelBottom">

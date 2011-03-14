@@ -26,9 +26,10 @@ import java.util.List;
  */
 public class UserAction extends BaseAction implements Preparable {
     private static final long serialVersionUID = 6776558938712115191L;
-    private List users;
+    private List<User> users;
     private User user;
     private String id;
+    private String query;
 
     /**
      * Grab the entity from the database before populating with request parameters
@@ -45,7 +46,7 @@ public class UserAction extends BaseAction implements Preparable {
      *
      * @return list of users
      */
-    public List getUsers() {
+    public List<User> getUsers() {
         return users;
     }
 
@@ -59,6 +60,10 @@ public class UserAction extends BaseAction implements Preparable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public void setQ(String q) {
+        this.query = q;
     }
 
     /**
@@ -221,7 +226,8 @@ public class UserAction extends BaseAction implements Preparable {
      * @return "success" if no exceptions thrown
      */
     public String list() {
-        users = userManager.getUsers();
+        users = userManager.search(query);
         return SUCCESS;
     }
+
 }

@@ -88,6 +88,9 @@
                 <invoke description="click View Users link" url="/admin/users"/>
                 <verifytitle description="we should see the user list title" 
                     text=".*${userList.title}.*" regex="true"/>
+                <setinputfield description="set search term" name="q" value="matt_raible"/>
+                <clickbutton label="${button.search}" description="Click Search"/>
+                <verifytext description="verify results" text="One user found."/>
             </steps>
         </webtest>
     </target>

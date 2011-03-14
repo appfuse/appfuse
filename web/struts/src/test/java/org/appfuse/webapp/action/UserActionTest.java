@@ -1,17 +1,24 @@
 package org.appfuse.webapp.action;
 
 import org.apache.struts2.ServletActionContext;
+import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
+import org.compass.gps.CompassGps;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
+import java.util.Map;
 
 public class UserActionTest extends BaseActionTestCase {
+    @Autowired
     private UserAction action;
 
-    public void setUserAction(UserAction action) {
-        this.action = action;
-    }
-    
+    @Autowired
+    private CompassGps compassGps;
+
     public void testCancel() throws Exception {
         assertEquals(action.cancel(), "mainMenu");
         assertFalse(action.hasActionErrors());
@@ -19,12 +26,12 @@ public class UserActionTest extends BaseActionTestCase {
         action.setFrom("list");
         assertEquals("cancel", action.cancel());
     }
-    
+
     public void testEdit() throws Exception {
         // so request.getRequestURL() doesn't fail
         MockHttpServletRequest request = new MockHttpServletRequest("GET", "/editUser.html");
         ServletActionContext.setRequest(request);
-        
+
         action.setId("-1"); // regular user
         assertNull(action.getUser());
         assertEquals("success", action.edit());
@@ -39,7 +46,7 @@ public class UserActionTest extends BaseActionTestCase {
         user.setConfirmPassword("user");
         action.setUser(user);
         action.setFrom("list");
-        
+
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.addParameter("encryptPass", "true");
         ServletActionContext.setRequest(request);
@@ -48,7 +55,7 @@ public class UserActionTest extends BaseActionTestCase {
         assertNotNull(action.getUser());
         assertFalse(action.hasActionErrors());
     }
-    
+
     public void testSaveConflictingUser() throws Exception {
         UserManager userManager = (UserManager) applicationContext.getBean("userManager");
         User user = userManager.getUserByUsername("user");
@@ -59,7 +66,7 @@ public class UserActionTest extends BaseActionTestCase {
         user.setEmail(existingUser.getEmail());
         action.setUser(user);
         action.setFrom("list");
-        
+
         Integer originalVersionNumber = user.getVersion();
         log.debug("original version #: " + originalVersionNumber);
 
@@ -73,7 +80,7 @@ public class UserActionTest extends BaseActionTestCase {
         assertTrue(action.hasActionErrors());
     }
 
-    public void testSearch() throws Exception {
+    public void testListUsers() throws Exception {
         assertNull(action.getUsers());
         assertEquals("success", action.list());
         assertNotNull(action.getUsers());
@@ -85,6 +92,15 @@ public class UserActionTest extends BaseActionTestCase {
         user.setId(-2L);
         action.setUser(user);
         assertEquals("success", action.delete());
+        assertFalse(action.hasActionErrors());
+    }
+
+    public void testSearch() throws Exception {
+        compassGps.index();
+        action.setQ("admin");
+        assertEquals("success", action.list());
+        assertNotNull(action.getUsers());
+        assertTrue(action.getUsers().size() >= 1);
         assertFalse(action.hasActionErrors());
     }
 }

@@ -1,9 +1,6 @@
 <#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
 package ${basepackage}.webapp.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 <#if genericcore>
 import ${appfusepackage}.service.GenericManager;
 <#else>
@@ -16,6 +13,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -37,9 +35,8 @@ public class ${pojo.shortName}Controller {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView handleRequest(HttpServletRequest request,
-                                      HttpServletResponse response)
+    public ModelAndView handleRequest(@RequestParam(required = false, value = "q") String query)
     throws Exception {
-        return new ModelAndView().addObject(${pojoNameLower}Manager.getAll());
+        return new ModelAndView().addObject(${pojoNameLower}Manager.search(query, ${pojo.shortName}.class));
     }
 }

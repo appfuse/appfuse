@@ -44,8 +44,12 @@ public class ${pojo.shortName}List extends BasePage {
     @Component(parameters = {"event=done"})
     private EventLink doneTop, doneBottom;
 
+    @Property
+    @Persist
+    private String q;
+
     public List<${pojo.shortName}> get${util.getPluralForWord(pojo.shortName)}() {
-        return ${pojoNameLower}Manager.getAll();
+        return ${pojoNameLower}Manager.search(q, ${pojo.shortName}.class);
     }
 
     Object onAdd() {
@@ -60,5 +64,9 @@ public class ${pojo.shortName}List extends BasePage {
     Object onActionFromEdit(${identifierType} ${pojo.identifierProperty.name}) {
         log.debug("fetching ${pojoNameLower} with ${pojo.identifierProperty.name}: {}", ${pojo.identifierProperty.name});
         return form;
+    }
+
+    Object onSubmit() {
+        return this;
     }
 }

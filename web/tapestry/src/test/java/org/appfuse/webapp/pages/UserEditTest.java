@@ -89,7 +89,6 @@ public class UserEditTest extends BasePageTestCase {
 
         Element idLink = table.getElementById("user-" + username);
         doc = tester.clickLink(idLink);
-        //System.out.println("edit: " + doc);
 
         Element deleteButton = doc.getElementById("deleteBottom");
         doc = tester.clickSubmit(deleteButton, fieldValues);

@@ -59,4 +59,11 @@ public interface UserManager extends GenericManager<User, Long> {
      * @param userId the user's id
      */
     void removeUser(String userId);
+
+    /**
+     * Search a user for search terms.
+     * @param searchTerm the search terms.
+     * @return a list of matches, or all if no searchTerm.
+     */
+    List<User> search(String searchTerm);
 }

@@ -3,9 +3,11 @@ package org.appfuse.webapp.pages.admin;
 import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.InjectPage;
+import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.beaneditor.BeanModel;
 import org.apache.tapestry5.corelib.components.EventLink;
+import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.BeanModelSource;
@@ -16,8 +18,13 @@ import org.appfuse.service.UserManager;
 import org.appfuse.webapp.pages.BasePage;
 import org.appfuse.webapp.pages.MainMenu;
 import org.appfuse.webapp.pages.UserEdit;
+import org.compass.core.CompassHit;
+import org.compass.core.support.search.CompassSearchCommand;
+import org.compass.core.support.search.CompassSearchHelper;
+import org.compass.core.support.search.CompassSearchResults;
 import org.slf4j.Logger;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -58,6 +65,13 @@ public class UserList extends BasePage {
     @Component(parameters = {"event=done"})
     private EventLink doneTop, doneBottom;
 
+    @Property
+    @Persist
+    private String q;
+
+    @Persist
+    private List<User> users;
+
     {
         model = beanModelSource.createDisplayModel(User.class, resources.getMessages());
         model.include(COLUMNS);
@@ -71,7 +85,7 @@ public class UserList extends BasePage {
 
     @SuppressWarnings("unchecked")
     public List<User> getUsers() {
-        return userManager.getUsers();
+        return userManager.search(q);
     }
 
     Object onAdd() {
@@ -93,5 +107,9 @@ public class UserList extends BasePage {
         userEdit.setUser(user);
         userEdit.setFrom("list");
         return userEdit;
+    }
+
+    Object onSubmit() {
+        return this;
     }
 }

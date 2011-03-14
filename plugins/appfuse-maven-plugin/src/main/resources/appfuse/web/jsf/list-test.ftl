@@ -2,6 +2,9 @@
 <#assign identifierType = pojo.getJavaTypeName(pojo.identifierProperty, jdk5)>
 package ${basepackage}.webapp.action;
 
+import org.compass.gps.CompassGps;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import ${basepackage}.webapp.action.BasePageTestCase;
 <#if genericcore>
 import ${appfusepackage}.service.GenericManager;
@@ -13,18 +16,15 @@ import ${basepackage}.model.${pojo.shortName};
 public class ${pojo.shortName}ListTest extends BasePageTestCase {
     private ${pojo.shortName}List bean;
 <#if genericcore>
+    @Autowired
     private GenericManager<${pojo.shortName}, ${identifierType}> ${pojoNameLower}Manager;
 <#else>
+    @Autowired
     private ${pojo.shortName}Manager ${pojoNameLower}Manager;
 </#if>
 
-<#if genericcore>
-    public void set${pojo.shortName}Manager(GenericManager<${pojo.shortName}, ${identifierType}> ${pojoNameLower}Manager) {
-<#else>
-    public void set${pojo.shortName}Manager(${pojo.shortName}Manager ${pojoNameLower}Manager) {
-</#if>
-        this.${pojoNameLower}Manager = ${pojoNameLower}Manager;
-    }
+    @Autowired
+    private CompassGps compassGps;
         
     @Override @SuppressWarnings("unchecked")
     protected void onSetUp() throws Exception {
@@ -53,8 +53,15 @@ public class ${pojo.shortName}ListTest extends BasePageTestCase {
         bean = null;
     }
 
-    public void testSearch() throws Exception {
+    public void testGetAll${util.getPluralForWord(pojo.shortName)}() throws Exception {
         assertTrue(bean.get${util.getPluralForWord(pojo.shortName)}().size() >= 1);
         assertFalse(bean.hasErrors());
+    }
+
+    public void testSearch() throws Exception {
+        compassGps.index();
+        bean.setQuery("*");
+        assertEquals("success", bean.search());
+        assertTrue(bean.get${util.getPluralForWord(pojo.shortName)}().size() == 3);
     }
 }
