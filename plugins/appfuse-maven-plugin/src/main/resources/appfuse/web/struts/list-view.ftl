@@ -8,7 +8,7 @@
 </head>
 
 <div id="search">
-<form method="get" action="${ctx}/admin/users" id="searchForm">
+<form method="get" action="${'$'}{ctx}/${util.getPluralForWord(pojoNameLower)}" id="searchForm">
     <input type="text" size="20" name="q" id="query" value="${param.q}"
            placeholder="Enter search terms..."/>
     <input type="submit" value="<fmt:message key="button.search"/>"/>
