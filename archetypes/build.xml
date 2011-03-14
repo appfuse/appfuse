@@ -157,6 +157,8 @@
                     </delete>
                 </then>
             </if>
+            
+            <!-- TODO: Remove JSPs from root directory in Tapestry -->
 
             <mvn dir="@{dir}" command="org.apache.maven.plugins:maven-archetype-plugin:2.0-alpha-4:create-from-project"/>
 
