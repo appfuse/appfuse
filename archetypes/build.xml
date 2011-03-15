@@ -30,7 +30,7 @@
         <!-- Fix bug that happens in Bamboo -->
         <delete dir="${dir}" includes="main/**"/>
 
-        <mvn command="org.apache.maven.plugins:maven-archetype-plugin:2.0-alpha-4:create-from-project" dir="${dir}"/>
+        <mvn command="archetype:create-from-project" dir="${dir}"/>
 
         <!-- Change the version number of the generated archetype -->
         <replace file="${dir}/target/generated-sources/archetype/pom.xml" value="${version}" token="1.0-SNAPSHOT"/>
@@ -166,7 +166,7 @@
                 </then>
             </if>
 
-            <mvn dir="@{dir}" command="org.apache.maven.plugins:maven-archetype-plugin:2.0-alpha-4:create-from-project"/>
+            <mvn dir="@{dir}" command="archetype:create-from-project"/>
 
             <!-- Change the version number of the generated archetype -->
             <replace file="@{dir}/target/generated-sources/archetype/pom.xml" value="${version}" token="1.0-SNAPSHOT"/>
@@ -365,26 +365,9 @@
                               value="@{dir}/target/generated-sources/archetype/src/main/resources/archetype-resources"/>
 
                     <!-- sources -->
-                    <!--<mkdir dir="${web.root}/src/webapp"/>
-                    <move todir="${web.root}/src/webapp">
-                        <fileset dir="${web.root}/src/main/java"/>
-                    </move>
-                    <delete dir="${web.root}/src/main/java"/>
-                    <mkdir dir="${web.root}/src/main/java"/>
-                    <move todir="${web.root}/src/main/java/webapp">
-                        <fileset dir="${web.root}/src/webapp"/>
-                    </move>-->
-
+                    <move file="${web.root}/src/main/java" tofile="${web.root}/src/main/java/webapp"/>
                     <!-- tests -->
-                    <!--<mkdir dir="${web.root}/src/tests"/>
-                    <move todir="${web.root}/src/tests">
-                        <fileset dir="${web.root}/src/test/java"/>
-                    </move>
-                    <delete dir="${web.root}/src/test/java"/>
-                    <mkdir dir="${web.root}/src/test/java"/>
-                    <move todir="${web.root}/src/test/java/webapp">
-                        <fileset dir="${web.root}/src/tests"/>
-                    </move>-->
+                    <move file="${web.root}/src/test/java" tofile="${web.root}/src/test/java/webapp"/>
                 </then>
             </if>
 
