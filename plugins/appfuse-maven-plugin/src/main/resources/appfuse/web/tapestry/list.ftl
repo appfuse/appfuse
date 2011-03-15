@@ -15,6 +15,7 @@ import ${basepackage}.webapp.pages.MainMenu;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.InjectPage;
+import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.Service;
 import org.apache.tapestry5.corelib.components.EventLink;
