@@ -15,17 +15,27 @@ import ${basepackage}.service.${pojo.shortName}Manager;
 </#if>
 import ${pojo.packageName}.${pojo.shortName};
 import ${basepackage}.webapp.action.BaseActionTestCase;
+import org.compass.gps.CompassGps;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
 
 public class ${pojo.shortName}ActionTest extends BaseActionTestCase {
     private ${pojo.shortName}Action action;
+    @Autowired
+    private CompassGps compassGps;
+
+    @Override
+    protected void onSetUpBeforeTransaction() throws Exception {
+        super.onSetUpBeforeTransaction();
+        compassGps.index();
+    }
 
     @Override @SuppressWarnings("unchecked")
     protected void onSetUpInTransaction() throws Exception {
         action = new ${pojo.shortName}Action();
         ${managerClass} ${pojoNameLower}Manager = (${managerClass}) applicationContext.getBean("${pojoNameLower}Manager");
         action.set${pojo.shortName}Manager(${pojoNameLower}Manager);
-    
+
         // add a test ${pojoNameLower} to the database
         ${pojo.shortName} ${pojoNameLower} = new ${pojo.shortName}();
 
@@ -50,7 +60,7 @@ public class ${pojo.shortName}ActionTest extends BaseActionTestCase {
     public void testSearch() throws Exception {
         action.setQ("*");
         assertEquals(action.list(), ActionSupport.SUCCESS);
-        assertTrue(action.get${util.getPluralForWord(pojo.shortName)}().size() == 3);
+        assertTrue(action.get${util.getPluralForWord(pojo.shortName)}().size() == 4);
     }
 
     public void testEdit() throws Exception {

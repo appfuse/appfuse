@@ -20,7 +20,7 @@ public class ${pojo.shortName}ListTest extends BasePageTestCase {
     public void testList() {
         doc = tester.renderPage("${pojoNameLower}List");
         assertNotNull(doc.getElementById("${pojoNameLower}List"));
-        assertTrue(doc.getElementById("${pojoNameLower}List").find("tbody/tr").getChildren().size() >= 2);
+        assertTrue(doc.getElementById("${pojoNameLower}List").find("tbody").getChildren().size() >= 2);
     }
 
     @Test
