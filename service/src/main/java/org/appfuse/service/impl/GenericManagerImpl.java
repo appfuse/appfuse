@@ -136,7 +136,7 @@ public class GenericManagerImpl<T, PK extends Serializable> implements GenericMa
         }
 
         if (log.isDebugEnabled()) {
-            log.debug("No. of results for '" + q + "': " + results.size());
+            log.debug("Number of results for '" + q + "': " + results.size());
         }
 
         return results;
