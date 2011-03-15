@@ -396,6 +396,7 @@
             </replace>
 
             <!-- Replace org.appfuse with ${groupId} in applicationContext.xml -->
+            <!-- Happens in basic archetypes -->
             <replace dir="@{dir}/target/generated-sources/archetype">
                 <include name="**/applicationContext.xml"/>
                 <replacetoken>base-package="org.appfuse"</replacetoken>
@@ -403,6 +404,7 @@
             </replace>
 
             <!-- Replace ${groupId}.webapp with ${groupId} in applicationContext.xml -->
+            <!-- Happens in modular archetypes -->
             <replace dir="@{dir}/target/generated-sources/archetype">
                 <include name="**/applicationContext.xml"/>
                 <replacetoken>base-package="${package}.webapp"</replacetoken>
@@ -410,11 +412,27 @@
             </replace>
 
             <!-- Leave Compass as indexing org.appfuse by default -->
-            <!-- Replace ${groupId}.webapp with ${groupId} in applicationContext.xml -->
+            <!-- Replace ${groupId}.webapp with org.appfuse in applicationContext.xml -->
+            <!-- Happens in basic archetypes -->
             <replace dir="@{dir}/target/generated-sources/archetype">
                 <include name="**/applicationContext.xml"/>
                 <replacetoken>value="${package}.webapp"</replacetoken>
                 <replacevalue>value="org.appfuse"</replacevalue>
+            </replace>
+
+            <!-- Replace ${groupId} with org.appfuse in applicationContext.xml -->
+            <!-- Happens in modular archetypes -->
+            <replace dir="@{dir}/target/generated-sources/archetype">
+                <include name="**/applicationContext.xml"/>
+                <replacetoken>value="${package}"</replacetoken>
+                <replacevalue>value="org.appfuse"</replacevalue>
+            </replace>
+
+            <!-- Fix DWR -->
+            <replace dir="@{dir}/target/generated-sources/archetype">
+                <include name="**/dwr.xml"/>
+                <replacetoken>${package}</replacetoken>
+                <replacevalue>org.appfuse</replacevalue>
             </replace>
 
             <mvn command="install" dir="@{dir}/target/generated-sources/archetype"/>
