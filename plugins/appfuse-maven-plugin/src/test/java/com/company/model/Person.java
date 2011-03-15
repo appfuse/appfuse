@@ -1,5 +1,10 @@
 package com.company.model;
 
+import org.compass.annotations.Searchable;
+import org.compass.annotations.SearchableComponent;
+import org.compass.annotations.SearchableId;
+import org.compass.annotations.SearchableProperty;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,6 +20,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "person")
+@Searchable
 public class Person implements java.io.Serializable {
     private Long id;
     private Date creationDate;
@@ -26,31 +32,37 @@ public class Person implements java.io.Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @SearchableId
     public Long getId() {
         return id;
     }
 
     @Column(name = "creation_date", nullable = false)
+    @SearchableProperty
     public Date getCreationDate() {
         return creationDate;
     }
 
     @Column(name = "email_address", length = 40, unique = true, nullable = false)
+    @SearchableProperty
     public String getEmail() {
         return email;
     }
 
     @Column(name = "modification_date", nullable = false)
+    @SearchableProperty
     public Date getModificationDate() {
         return modificationDate;
     }
 
     @Column(name = "username")
+    @SearchableProperty
     public String getUsername() {
         return username;
     }
 
     @Column(nullable = false)
+    @SearchableProperty
     public Integer getAge() {
         return age;
     }

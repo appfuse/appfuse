@@ -31,7 +31,9 @@ public class ${pojo.shortName}ListTest extends BasePageTestCase {
         super.onSetUp();
         bean = new ${pojo.shortName}List();
         bean.set${pojo.shortName}Manager(${pojoNameLower}Manager);
-        
+
+        compassGps.index();
+
         // add a test ${pojoNameLower} to the database
         ${pojo.shortName} ${pojoNameLower} = new ${pojo.shortName}();
 
@@ -59,9 +61,8 @@ public class ${pojo.shortName}ListTest extends BasePageTestCase {
     }
 
     public void testSearch() throws Exception {
-        compassGps.index();
         bean.setQuery("*");
         assertEquals("success", bean.search());
-        assertTrue(bean.get${util.getPluralForWord(pojo.shortName)}().size() == 3);
+        assertTrue(bean.get${util.getPluralForWord(pojo.shortName)}().size() == 4);
     }
 }

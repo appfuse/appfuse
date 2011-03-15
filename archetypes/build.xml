@@ -121,7 +121,7 @@
                     <exclude name="*.ipr"/>
                 </fileset>
             </copy>
-            <copy todir="@{dir}/@{dest}">
+            <copy todir="@{dir}/@{dest}" overwrite="true">
                 <fileset dir="${basedir}/../../web/@{module}">
                     <include name="**/**"/>
                     <exclude name="pom.xml"/>
@@ -158,7 +158,13 @@
                 </then>
             </if>
             
-            <!-- TODO: Remove JSPs from root directory in Tapestry -->
+            <!-- Remove JSPs from root directory in Tapestry -->
+            <if>
+                <equals arg1="@{module}" arg2="tapestry"/>
+                <then>
+                    <delete dir="@{dir}" includes="**/40*.jsp,**/index.jsp,**/login.jsp,**/logout.jsp"/>
+                </then>
+            </if>
 
             <mvn dir="@{dir}" command="org.apache.maven.plugins:maven-archetype-plugin:2.0-alpha-4:create-from-project"/>
 
@@ -401,6 +407,14 @@
                 <include name="**/applicationContext.xml"/>
                 <replacetoken>base-package="${package}.webapp"</replacetoken>
                 <replacevalue>base-package="${package}"</replacevalue>
+            </replace>
+
+            <!-- Leave Compass as indexing org.appfuse by default -->
+            <!-- Replace ${groupId}.webapp with ${groupId} in applicationContext.xml -->
+            <replace dir="@{dir}/target/generated-sources/archetype">
+                <include name="**/applicationContext.xml"/>
+                <replacetoken>value="${package}.webapp"</replacetoken>
+                <replacevalue>value="org.appfuse"</replacevalue>
             </replace>
 
             <mvn command="install" dir="@{dir}/target/generated-sources/archetype"/>

@@ -4,11 +4,6 @@ package ${basepackage}.webapp.action;
 import java.io.Serializable;
 import java.util.List;
 
-import org.compass.core.CompassHit;
-import org.compass.core.support.search.CompassSearchCommand;
-import org.compass.core.support.search.CompassSearchHelper;
-import org.compass.core.support.search.CompassSearchResults;
-
 import ${basepackage}.webapp.action.BasePage;
 <#if genericcore>
 import ${pojo.packageName}.${pojo.shortName};
@@ -26,7 +21,6 @@ import org.springframework.stereotype.Component;
 @Scope("session")
 public class ${pojo.shortName}List extends BasePage implements Serializable {
     private String query;
-    private List<${pojo.shortName}> ${util.getPluralForWord(pojoNameLower)};
 <#if genericcore>
     private GenericManager<${pojo.shortName}, ${pojo.getJavaTypeName(pojo.identifierProperty, jdk5)}> ${pojoNameLower}Manager;
 <#else>
@@ -54,7 +48,7 @@ public class ${pojo.shortName}List extends BasePage implements Serializable {
         setSortColumn("${pojo.identifierProperty.name}"); // sets the default sort column
     }
 
-    public List get${util.getPluralForWord(pojo.shortName)}() {
+    public List<${pojo.shortName}> get${util.getPluralForWord(pojo.shortName)}() {
         if (query != null && !"".equals(query.trim())) {
             return ${pojoNameLower}Manager.search(query, ${pojo.shortName}.class);
         } else {

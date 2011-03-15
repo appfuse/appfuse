@@ -120,7 +120,14 @@ public class GenericManagerImpl<T, PK extends Serializable> implements GenericMa
         CompassSearchCommand command = new CompassSearchCommand(q);
         CompassSearchResults compassResults = compass.search(command);
         CompassHit[] hits = compassResults.getHits();
-        log.debug("No. of results for '" + q + "': " + compassResults.getTotalHits());
+
+        if (log.isDebugEnabled()) {
+            log.debug("No. of results for '" + q + "': " + compassResults.getTotalHits());
+            if (clazz != null) {
+                log.debug("Filtering by type: " + clazz.getName());
+            }
+        }
+
         for (CompassHit hit : hits) {
             if (clazz != null) {
                 if (hit.data().getClass().equals(clazz)) {
