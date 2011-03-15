@@ -36,12 +36,12 @@
     <#foreach column in field.getColumnIterator()>
         <#if field.value.typeName == "java.util.Date">
             <#lt/>    <h:inputText styleClass="text medium" id="${field.name}" value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}" required="${(!column.nullable)?string}">
-        <#elseif !column.nullable>
+        <#if !column.nullable>
         <v:commonsValidator client="true" type="required" arg="${'#'}{text['${pojoNameLower}.${field.name}']}"/>
         </#if>
         <f:convertDateTime pattern="${'#'}{text['date.format']}"/>
     </h:inputText>
-        <#if field.value.typeName == "boolean" || field.value.typeName == "java.lang.Boolean">
+        <#elseif field.value.typeName == "boolean" || field.value.typeName == "java.lang.Boolean">
             <#lt/>    <h:selectBooleanCheckbox value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}" id="${field.name}" styleClass="checkbox"/>
         <#else>
             <#lt/>    <h:inputText styleClass="text medium" id="${field.name}" value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}" required="${(!column.nullable)?string}"<#if (column.length > 0)> maxlength="${column.length?c}"</#if>>
