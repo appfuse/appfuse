@@ -56,12 +56,12 @@ public class ${pojo.shortName}Action extends BaseAction implements Preparable {
     }
 
     public String list() {
-        ${util.getPluralForWord(pojoNameLower)} = ${pojoNameLower}Manager.search(query);
+        ${util.getPluralForWord(pojoNameLower)} = ${pojoNameLower}Manager.search(query, ${pojo.shortName}.class);
         return SUCCESS;
     }
 
     public void ${setIdMethodName}(${identifierType} ${pojo.identifierProperty.name}) {
-        this. ${pojo.identifierProperty.name} =  ${pojo.identifierProperty.name};
+        this.${pojo.identifierProperty.name} = ${pojo.identifierProperty.name};
     }
 
     public ${pojo.shortName} get${pojo.shortName}() {
