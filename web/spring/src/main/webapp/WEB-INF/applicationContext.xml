@@ -16,6 +16,7 @@
     <!-- Hooks into Spring transaction management and stores the index on the file system -->
     <bean id="compass" class="org.compass.spring.LocalCompassBean">
         <property name="mappingScan" value="org.appfuse"/>
+        <property name="postProcessor" ref="compassPostProcessor"/>
         <property name="transactionManager" ref="transactionManager" />
         <property name="settings">
             <map>
@@ -23,6 +24,8 @@
             </map>
         </property>
     </bean>
+
+    <bean id="compassPostProcessor" class="org.appfuse.webapp.search.CompassConfigurationPostProcessor"/>
 
     <!-- Add new DAOs here -->
 

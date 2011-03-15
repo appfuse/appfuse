@@ -158,11 +158,11 @@
                 </then>
             </if>
             
-            <!-- Remove JSPs from root directory in Tapestry -->
+            <!-- Remove JSPs and generated i18n files in Tapestry -->
             <if>
                 <equals arg1="@{module}" arg2="tapestry"/>
                 <then>
-                    <delete dir="@{dir}" includes="**/40*.jsp,**/index.jsp,**/login.jsp,**/logout.jsp"/>
+                    <delete dir="@{dir}" includes="**/40*.jsp,**/index.jsp,**/login.jsp,**/logout.jsp,**/app*.properties"/>
                 </then>
             </if>
 
