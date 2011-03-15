@@ -24,6 +24,10 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
+            <from-outcome>edit</from-outcome>
+            <to-view-id>/${pojoNameLower}Form.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>list</from-outcome>
             <to-view-id>/${util.getPluralForWord(pojoNameLower)}.xhtml</to-view-id>
             <redirect/>
