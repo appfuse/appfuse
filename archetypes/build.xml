@@ -365,7 +365,7 @@
                               value="@{dir}/target/generated-sources/archetype/src/main/resources/archetype-resources"/>
 
                     <!-- sources -->
-                    <mkdir dir="${web.root}/src/webapp"/>
+                    <!--<mkdir dir="${web.root}/src/webapp"/>
                     <move todir="${web.root}/src/webapp">
                         <fileset dir="${web.root}/src/main/java"/>
                     </move>
@@ -373,10 +373,10 @@
                     <mkdir dir="${web.root}/src/main/java"/>
                     <move todir="${web.root}/src/main/java/webapp">
                         <fileset dir="${web.root}/src/webapp"/>
-                    </move>
+                    </move>-->
 
                     <!-- tests -->
-                    <mkdir dir="${web.root}/src/tests"/>
+                    <!--<mkdir dir="${web.root}/src/tests"/>
                     <move todir="${web.root}/src/tests">
                         <fileset dir="${web.root}/src/test/java"/>
                     </move>
@@ -384,7 +384,7 @@
                     <mkdir dir="${web.root}/src/test/java"/>
                     <move todir="${web.root}/src/test/java/webapp">
                         <fileset dir="${web.root}/src/tests"/>
-                    </move>
+                    </move>-->
                 </then>
             </if>
 
@@ -429,11 +429,35 @@
             </replace>
 
             <!-- Fix DWR -->
+            <!-- Basic archetypes -->
+            <replace dir="@{dir}/target/generated-sources/archetype">
+                <include name="**/dwr.xml"/>
+                <replacetoken>${package}.webapp</replacetoken>
+                <replacevalue>org.appfuse</replacevalue>
+            </replace>
+
+            <!-- Modular archetypes -->
             <replace dir="@{dir}/target/generated-sources/archetype">
                 <include name="**/dwr.xml"/>
                 <replacetoken>${package}</replacetoken>
                 <replacevalue>org.appfuse</replacevalue>
             </replace>
+
+            <!-- Fix CompassPostProcessor -->
+            <!-- Basic archetypes -->
+            <replace dir="@{dir}/target/generated-sources/archetype">
+                <include name="**/CompassConfigurationPostProcessor.java"/>
+                <replacetoken>!rootPackage.equals("${package}.webapp")</replacetoken>
+                <replacevalue>!rootPackage.equals("org.appfuse")</replacevalue>
+            </replace>
+
+            <!-- Modular archetypes -->
+            <replace dir="@{dir}/target/generated-sources/archetype">
+                <include name="**/CompassConfigurationPostProcessor.java"/>
+                <replacetoken>!rootPackage.equals("${package}")</replacetoken>
+                <replacevalue>!rootPackage.equals("org.appfuse")</replacevalue>
+            </replace>
+
 
             <mvn command="install" dir="@{dir}/target/generated-sources/archetype"/>
         </sequential>
