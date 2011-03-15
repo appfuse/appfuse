@@ -5,8 +5,8 @@ import java.io.Serializable;
 import java.util.List;
 
 import ${basepackage}.webapp.action.BasePage;
-<#if genericcore>
 import ${pojo.packageName}.${pojo.shortName};
+<#if genericcore>
 import ${appfusepackage}.service.GenericManager;
 <#else>
 import ${basepackage}.service.${pojo.shortName}Manager;

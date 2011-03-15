@@ -8,6 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Map;
 
 public class ${pojo.shortName}ControllerTest extends BaseControllerTestCase {
     @Autowired
@@ -24,7 +25,7 @@ public class ${pojo.shortName}ControllerTest extends BaseControllerTestCase {
 
     public void testSearch() throws Exception {
         compassGps.index();
-        ModelAndView mav = c.handleRequest("*");
+        ModelAndView mav = controller.handleRequest("*");
         Map m = mav.getModel();
         List results = (List) m.get("${pojoNameLower}List");
         assertNotNull(results);
