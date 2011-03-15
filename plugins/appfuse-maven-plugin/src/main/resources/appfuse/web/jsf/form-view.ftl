@@ -35,14 +35,13 @@
     <t:message for="${field.name}" styleClass="fieldError"/>
     <#foreach column in field.getColumnIterator()>
         <#if field.value.typeName == "java.util.Date">
-            <#lt/>    <t:inputCalendar monthYearRowClass="yearMonthHeader" weekRowClass="weekHeader" id="${field.name}"
-            currentDayCellClass="currentDayCell" value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}"
-            renderAsPopup="true" addResources="true" required="${(!column.nullable)?string}">
-        <#if !column.nullable>
+            <#lt/>    <h:inputText styleClass="text medium" id="${field.name}" value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}" required="${(!column.nullable)?string}">
+        <#elseif !column.nullable>
         <v:commonsValidator client="true" type="required" arg="${'#'}{text['${pojoNameLower}.${field.name}']}"/>
         </#if>
-    </t:inputCalendar>
-        <#elseif field.value.typeName == "boolean" || field.value.typeName == "java.lang.Boolean">
+        <f:convertDateTime pattern="#{text['date.format']}"/>
+    </h:inputText>
+        <#if field.value.typeName == "boolean" || field.value.typeName == "java.lang.Boolean">
             <#lt/>    <h:selectBooleanCheckbox value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}" id="${field.name}" styleClass="checkbox"/>
         <#else>
             <#lt/>    <h:inputText styleClass="text medium" id="${field.name}" value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}" required="${(!column.nullable)?string}"<#if (column.length > 0)> maxlength="${column.length?c}"</#if>>
