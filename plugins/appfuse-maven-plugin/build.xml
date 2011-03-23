@@ -356,12 +356,12 @@
         <delete dir="${test.dir}/${name}"/>
         <mkdir dir="${test.dir}"/>
 
-        <maven dir="${test.dir}" archetype="appfuse-basic-tapestry" version="${version}" name="${name}"/>
+        <maven dir="${test.dir}" archetype="appfuse-basic-tapestry-archetype" version="${version}" name="${name}"/>
         <!-- Create database table -->
         <sql driver="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost/basic_tapestry_model?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8"
             userid="root" password="">
             <classpath>
-                <fileset dir="${user.home}/.m2/repository/mysql/mysql-connector-java/5.0.5" includes="*.jar"/>
+                <fileset dir="${user.home}/.m2/repository/mysql/mysql-connector-java/5.1.14" includes="*.jar"/>
             </classpath>
             <![CDATA[
                 DROP TABLE IF EXISTS cat;

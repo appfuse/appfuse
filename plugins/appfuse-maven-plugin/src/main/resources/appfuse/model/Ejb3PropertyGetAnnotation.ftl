@@ -1,7 +1,6 @@
 <#if ejb3><#rt/>
     <#if pojo.hasIdentifierProperty()><#rt/>
         <#if property.equals(clazz.identifierProperty)><#rt/>
-        <#lt/>${pojo.generateAnnIdGenerator()} @GeneratedValue(strategy = GenerationType.AUTO)<#rt/>
         <#lt/>${pojo.generateAnnIdGenerator()} @SearchableId<#rt/>
         </#if><#rt/>
     </#if><#rt/>
@@ -16,7 +15,7 @@
         <#lt/>${pojo.generateBasicAnnotation(property)}
         <#if !property.equals(clazz.identifierProperty)><#rt/>
         <#lt/>${pojo.generateAnnColumnAnnotation(property)}
-        <#lt/>@SearchableProperty
+        <#lt/>    @SearchableProperty
         </#if><#rt/>
     </#if><#rt/>
 </#if><#rt/>
