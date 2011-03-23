@@ -186,15 +186,15 @@ public class ArtifactUninstaller {
     // =================== Views ===================
 
     private void removeJSFViews() {
-        removeGeneratedFiles(installedDirectory + "/src/main/webapp", pojoName + "*.xhtml");
+        removeGeneratedFiles(installedDirectory + "/src/main/webapp", pojoNameLower + "*.xhtml");
     }
 
     private void removeSpringViews() {
-        removeGeneratedFiles(installedDirectory + "/src/main/webapp/WEB-INF/pages", pojoName + "*.jsp");
+        removeGeneratedFiles(installedDirectory + "/src/main/webapp/WEB-INF/pages", pojoNameLower + "*.jsp");
     }
 
     private void removeStrutsViews() {
-        removeGeneratedFiles(installedDirectory + "/src/main/webapp/WEB-INF/pages", pojoName + "*.jsp");
+        removeGeneratedFiles(installedDirectory + "/src/main/webapp/WEB-INF/pages", pojoNameLower + "*.jsp");
     }
 
     private void removeTapestryViews() {
