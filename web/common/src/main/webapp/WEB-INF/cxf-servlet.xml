@@ -18,7 +18,7 @@
     <jaxws:endpoint id="userService" implementor="#userManager" address="/UserService"/>
     <!-- Add new endpoints for additional services you'd like to expose -->
     
-    <!--jaxrs:server address="/rest">
+    <jaxrs:server address="/api">
         <jaxrs:features>
             <cxf:logging/>
         </jaxrs:features>
@@ -33,6 +33,6 @@
             <entry key="xml" value="application/xml"/>
             <entry key="feed" value="application/atom+xml"/>
         </jaxrs:extensionMappings>
-    </jaxrs:server-->
+    </jaxrs:server>
 
 </beans>
