@@ -22,6 +22,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.Version;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -41,6 +43,7 @@ import java.util.Set;
 @Entity
 @Table(name = "app_user")
 @Searchable
+@XmlRootElement
 public class User extends BaseObject implements Serializable, UserDetails {
     private static final long serialVersionUID = 3832626162173359411L;
 
@@ -91,6 +94,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
     }
 
     @Column(nullable = false)
+    @XmlTransient
     public String getPassword() {
         return password;
     }
@@ -101,6 +105,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
     }
 
     @Column(name = "password_hint")
+    @XmlTransient
     public String getPasswordHint() {
         return passwordHint;
     }
