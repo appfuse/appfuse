@@ -14,10 +14,9 @@ import java.util.List;
 /**
  * Web Service interface so hierarchy of Generic Manager isn't carried through.
  */
-// TODO: Remove serviceName when http://jira.codehaus.org/browse/ENUNCIATE-539 is fixed
-@WebService(serviceName = "UserService")
+@WebService
 @Path("/")
-@Produces({"application/xml", "application/json"})
+@Produces({"application/json", "application/xml"})
 public interface UserService {
     /**
      * Retrieves a user by userId.  An exception is thrown if user not found
@@ -35,7 +34,9 @@ public interface UserService {
      * @param username the user's username used to login
      * @return User a populated user object
      */
-    User getUserByUsername(String username);
+    @GET
+    @Path("/{username}")
+    User getUserByUsername(@PathParam("username") String username);
 
     /**
      * Retrieves a list of all users.
