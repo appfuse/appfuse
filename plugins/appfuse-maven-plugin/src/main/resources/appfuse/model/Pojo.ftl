@@ -31,6 +31,8 @@ ${pojo.generateImports()}
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import java.io.Serializable;
 
 ${classbody}
