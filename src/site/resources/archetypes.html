@@ -76,7 +76,6 @@
             <option value="2.1.0-M2" selected="selected">2.1.0-M2</option>
             <option value="2.1.0-M1">2.1.0-M1</option>
             <option value="2.0.2">2.0.2</option>
-            <option value="2.0.1">2.0.1</option>
         </select><span title="AppFuse Version">&nbsp;(?)</span><br/>
         <label for="webFramework" title="Web Framework">Web Framework:</label>
         <select id="webFramework" onchange="changeIt();">
@@ -85,6 +84,7 @@
             <option value="spring">Spring MVC</option>
             <option value="struts" selected="selected">Struts 2</option>
             <option value="tapestry">Tapestry 5</option>
+            <option value="ws">Web Services Only</option>
         </select><span title="Web Framework">&nbsp;(?)</span><br/>
 
         <label for="multi-module">Multi-Module Project?</label>
@@ -102,7 +102,7 @@
             var version = $("version").value;
             var webFramework = $("webFramework").value;
             var archetypeArtifactId = "appfuse-";
-            if (webFramework != "core") {
+            if (webFramework != "core" && webFramework != "ws") {
                 if ($("multi-module") && $("multi-module").checked) {
                     archetypeArtifactId += "modular-";
                 } else {

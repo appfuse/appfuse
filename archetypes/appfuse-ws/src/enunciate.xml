@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<enunciate label="full" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:noNamespaceSchemaLocation="http://enunciate.codehaus.org/schemas/enunciate-1.21.xsd">
+    <api-import pattern="org.appfuse.model.*"/>
+    <api-import pattern="org.appfuse.service.*Service"/>
+    <api-import pattern="org.appfuse.service.**.*ManagerImpl"/>
+
+    <services>
+        <soap defaultSoapSubcontext="/services/"/>
+        <rest defaultRestSubcontext="/api/"/>
+    </services>
+    <modules>
+        <java-client disabled="true"/>
+        <amf disabled="true"/>
+        <c disabled="true"/>
+        <obj-c disabled="true"/>
+        <csharp disabled="true"/>
+        <cxf disabled="false"/>
+        <gwt disabled="false"/>
+        <jaxws-ri disabled="true"/>
+        <jersey disabled="true"/>
+        <spring-app disabled="false">
+            <springImport uri="classpath:/applicationContext-resources.xml"/>
+            <springImport uri="classpath:/applicationContext-dao.xml"/>
+            <springImport uri="classpath:/applicationContext-service.xml"/>
+            <springImport uri="classpath:/applicationContext.xml"/>
+        </spring-app>
+    </modules>
+</enunciate>

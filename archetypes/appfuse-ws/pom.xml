@@ -24,19 +24,19 @@
     </parent>
 
     <groupId>org.appfuse.archetypes</groupId>
-    <artifactId>appfuse-core</artifactId>
-    <name>AppFuse Core Archetype</name>
+    <artifactId>appfuse-ws</artifactId>
+    <name>AppFuse Web Services Archetype</name>
     <version>2.1.0-SNAPSHOT</version>
 
     <description>
         Maven 2 archetype that creates a backend (Managers, DAOs and Web Services)
-        application with AppFuse embedded in it.
+        application and uses Enunciate to expose its web services as SOAP and REST endpoints.
     </description>
 
     <scm>
-        <connection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/archetypes/appfuse-core</connection>
-        <developerConnection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/archetypes/appfuse-core</developerConnection>
-        <url>http://source.appfuse.org/browse/appfuse/trunk/archetypes/appfuse-core</url>
+        <connection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/archetypes/appfuse-ws</connection>
+        <developerConnection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/archetypes/appfuse-ws</developerConnection>
+        <url>http://source.appfuse.org/browse/appfuse/trunk/archetypes/appfuse-ws</url>
     </scm>
 
     <build>
@@ -50,8 +50,10 @@
                         <phase>package</phase>
                         <configuration>
                             <tasks>
-                                <delete dir="target/${module}-archetype" />
-                                <ant antfile="../build.xml" dir="." target="install-module" />
+                                <delete dir="target/ws-archetype" />
+                                <ant antfile="../build.xml" dir="." target="install-module">
+                                    <property name="module" value="${module}"/>
+                                </ant>
                             </tasks>
                         </configuration>
                         <goals>
@@ -92,6 +94,6 @@
     </build>
 
     <properties>
-        <module>core</module>
+        <module>ws</module>
     </properties>
 </project>

@@ -35,6 +35,7 @@
         <module>appfuse-modular-struts</module>
         <module>appfuse-modular-spring</module>
         <module>appfuse-modular-tapestry</module>
+        <module>appfuse-ws</module>
     </modules>
 
     <!-- Default properties used when testing archetypes -->

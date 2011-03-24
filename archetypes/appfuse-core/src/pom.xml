@@ -190,6 +190,21 @@
             </exclusions>
         </dependency>
         <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>${commons.dbcp.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>xerces</groupId>
+                    <artifactId>xercesImpl</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-collections</artifactId>
+                    <groupId>commons-collections</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
             <groupId>org.appfuse</groupId>
             <artifactId>appfuse-${dao.framework}</artifactId>
             <version>${appfuse.version}</version>
@@ -409,6 +424,7 @@
 
         <!-- Framework dependency versions -->
         <appfuse.version>2.1.0-SNAPSHOT</appfuse.version>
+        <commons.dbcp.version>1.3</commons.dbcp.version>
         <spring.version>3.0.5.RELEASE</spring.version>
 
         <!-- Testing dependency versions -->

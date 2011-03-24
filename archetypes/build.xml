@@ -21,8 +21,9 @@
         <buildArchetype module="${module}" dest="${dest}"/>
     </target>
 
-    <target name="install-core" description="Installs Core Archetype">
-        <property name="dir" value="target/core-archetype"/>
+    <target name="install-module" description="Installs Archetype">
+        <property name="module" value="core"/>
+        <property name="dir" value="target/${module}-archetype"/>
         <mkdir dir="${dir}"/>
         <copy todir="${dir}">
             <fileset dir="src"/>
@@ -64,7 +65,7 @@
     <jdbc.password></jdbc.password>]]></replacevalue>
         </replace>
 
-        <mvn command="install" dir="target/core-archetype/target/generated-sources/archetype"/>
+        <mvn command="install" dir="target/${module}-archetype/target/generated-sources/archetype"/>
     </target>
 
     <target name="deploy" description="Deploys archetype">
