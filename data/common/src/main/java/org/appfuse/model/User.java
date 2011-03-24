@@ -99,7 +99,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
         return password;
     }
 
-    @Transient
+    @Transient @XmlTransient
     public String getConfirmPassword() {
         return confirmPassword;
     }
