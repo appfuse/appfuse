@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<enunciate label="full" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<enunciate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:noNamespaceSchemaLocation="http://enunciate.codehaus.org/schemas/enunciate-1.21.xsd">
     <api-import pattern="org.appfuse.model.*"/>
     <api-import pattern="org.appfuse.service.*Service"/>
@@ -10,7 +10,7 @@
         <rest defaultRestSubcontext="/api/"/>
     </services>
     <modules>
-        <java-client disabled="true"/>
+        <java-client disabled="false"/>
         <amf disabled="true"/>
         <c disabled="true"/>
         <obj-c disabled="true"/>

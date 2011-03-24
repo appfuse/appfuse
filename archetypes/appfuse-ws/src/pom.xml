@@ -145,15 +145,28 @@
                 <version>${enunciate.version}</version>
                 <configuration>
                     <configFile>enunciate.xml</configFile>
-                    <exports>
-                        <jaxws.client.library.binaries>${project.artifactId}-client.jar</jaxws.client.library.binaries>
-                    </exports>
                 </configuration>
                 <executions>
                     <execution>
                         <goals>
                             <goal>assemble</goal>
                         </goals>
+                    </execution>
+                    <execution>
+                        <id>install-and-deploy</id>
+                        <goals>
+                            <!-- the "install-artifact" goal does a local install of the artifact -->
+                            <goal>install-artifact</goal>
+                            <!-- the "deploy-artifact" goal deploys the artifact -->
+                            <goal>deploy-artifact</goal>
+                        </goals>
+                        <configuration>
+                            <!-- the "enunciateArtifactId" element is the only thing required.
+                                 other options reflect those of the maven deploy plugin, and include
+                                 options to set the groupId, artifactId, version, classifier, pomFile
+                                 etc. However, suitable defaults will be supplied as necessary -->
+                            <enunciateArtifactId>jaxws.client.library</enunciateArtifactId>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -257,6 +270,12 @@
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-core</artifactId>
             <version>${cxf.version}</version>
+        </dependency>
+        <!-- Override Enunciate's Jackson version -->
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-xc</artifactId>
+            <version>1.7.1</version>
         </dependency>
         <dependency>
             <groupId>org.jmock</groupId>
@@ -414,7 +433,8 @@
             <id>oracle</id>
             <properties>
                 <dbunit.dataTypeFactoryName>org.dbunit.ext.oracle.OracleDataTypeFactory</dbunit.dataTypeFactoryName>
-                <dbunit.schema>SYSTEM</dbunit.schema> <!-- Make sure to capitalize the schema name -->
+                <dbunit.schema>SYSTEM</dbunit.schema>
+                <!-- Make sure to capitalize the schema name -->
                 <hibernate.dialect>org.hibernate.dialect.Oracle9Dialect</hibernate.dialect>
                 <jdbc.groupId>com.oracle</jdbc.groupId>
                 <jdbc.artifactId>ojdbc14</jdbc.artifactId>
@@ -486,7 +506,8 @@
         <jdbc.artifactId>mysql-connector-java</jdbc.artifactId>
         <jdbc.version>5.1.14</jdbc.version>
         <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-        <jdbc.url><![CDATA[jdbc:mysql://localhost/${db.name}?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true]]></jdbc.url>
+        <jdbc.url>
+            <![CDATA[jdbc:mysql://localhost/${db.name}?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true]]></jdbc.url>
         <jdbc.username>root</jdbc.username>
         <jdbc.password/>
     </properties>
