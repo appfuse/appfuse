@@ -16,6 +16,12 @@ public final class AppFuseGenerateCoreiBATISTest extends AbstractAppFuseMojoTest
         assertTrue("can't find PersonSQL.xml",
                 checkExists("target/appfuse/generated/src/main/resources/sqlmaps/PersonSQL.xml"));
 
+        assertTrue("can't find compass-gps.xml",
+                checkExists("target/appfuse/generated/src/main/resources/compass-gps.xml"));
+
+        assertTrue("can't find Person-select-ids.xml",
+                checkExists("target/appfuse/generated/src/main/resources/Person-select-ids.xml"));
+
         // make sure web files don't get generated
         assertFalse("found web-tests.xml",
                 checkExists("target/appfuse/generated/src/test/resources/Person-web-tests.xml"));

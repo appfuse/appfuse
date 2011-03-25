@@ -17,6 +17,7 @@
     <property name="archetype" value="${archetype}"/>
     <property name="test.dir" value="${basedir}/target"/>
 
+    <!-- Basic Archetypes -->
     <target name="test-jsf-basic" description="tests plugin with jsf basic archetype">
         <create-gen-basic archetype="appfuse-basic-jsf" name="basic-jsf"/>
     </target>
@@ -40,6 +41,7 @@
         <antcall target="test-tapestry-basic"/>
     </target>
 
+    <!-- Modular Archetypes -->
     <target name="test-jsf-modular" description="tests plugin with jsf modular archetype">
         <create-gen-modular archetype="appfuse-modular-jsf" name="modular-jsf"/>
     </target>
@@ -54,6 +56,30 @@
 
     <target name="test-tapestry-modular" description="tests plugin with tapestry modular archetype">
         <create-gen-modular archetype="appfuse-modular-tapestry" name="modular-tapestry"/>
+    </target>
+
+    <!-- Light Archetypes -->
+    <target name="test-jsf-light" description="tests plugin with jsf light archetype">
+        <create-gen-basic archetype="appfuse-light-jsf" name="light-jsf"/>
+    </target>
+
+    <target name="test-spring-light" description="tests plugin with spring light archetype">
+        <create-gen-basic archetype="appfuse-light-spring" name="light-spring"/>
+    </target>
+
+    <target name="test-struts-light" description="tests plugin with struts light archetype">
+        <create-gen-basic archetype="appfuse-light-struts" name="light-struts"/>
+    </target>
+
+    <target name="test-tapestry-light" description="tests plugin with tapestry light archetype">
+        <create-gen-basic archetype="appfuse-light-tapestry" name="light-tapestry"/>
+    </target>
+
+    <target name="test-light" description="Runs all light archetype tests using Ant">
+        <antcall target="test-jsf-light"/>
+        <antcall target="test-spring-light"/>
+        <antcall target="test-struts-light"/>
+        <antcall target="test-tapestry-light"/>
     </target>
 
     <target name="test-modular" description="Runs all modular archetype tests using Ant">

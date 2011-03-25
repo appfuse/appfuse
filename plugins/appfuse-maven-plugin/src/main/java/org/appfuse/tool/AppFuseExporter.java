@@ -100,6 +100,10 @@ public class AppFuseExporter extends GenericExporter {
                 "src/main/resources/{class-name}-sql-map-config.xml").start();
             configureExporter("appfuse/dao/ibatis/sql-map.ftl",
                 "src/main/resources/sqlmaps/{class-name}SQL.xml").start();
+            configureExporter("appfuse/dao/ibatis/compass-gps.ftl",
+                "src/main/resources/compass-gps.xml").start();
+            configureExporter("appfuse/dao/ibatis/select-ids.ftl",
+                "src/main/resources/{class-name}-select-ids.xml").start();
         }
 
         // Manager Bean Definition - only used when genericCore == true

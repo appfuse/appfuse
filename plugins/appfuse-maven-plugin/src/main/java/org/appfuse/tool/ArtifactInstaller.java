@@ -1,5 +1,6 @@
 package org.appfuse.tool;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.plugin.logging.SystemStreamLog;
 import org.apache.maven.project.MavenProject;
@@ -13,6 +14,7 @@ import org.apache.tools.ant.types.FileSet;
 import org.appfuse.mojo.installer.AntUtils;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -173,6 +175,27 @@ public class ArtifactInstaller {
             copy.setFile(new File(sourceDirectory + "/src/main/resources/sqlmaps/" + pojoName + "SQL.xml"));
             copy.setTodir(new File(destinationDirectory + "/src/main/resources/sqlmaps"));
             copy.execute();
+
+            // Add compass gps bean if it doesn't exist
+            File ctx = new File(destinationDirectory + "/src/main/webapp/WEB-INF/applicationContext.xml");
+            try {
+                File appCtx = new File(destinationDirectory + "/src/main/webapp/WEB-INF/applicationContext.xml");
+                String appCtxAsString = FileUtils.readFileToString(ctx);
+                if (!appCtxAsString.contains("SqlMapClientGpsDevice")) {
+                    log("Adding compassGps bean to applicationContext.xml");
+                    createLoadFileTask("src/main/resources/compass-gps.xml", "compass.gps").execute();
+                    parseXMLFile(appCtx, null, "<!-- Add new DAOs here -->", "compass.gps");
+                }
+
+                if (!appCtxAsString.contains("<value>get" + pojoName)) {
+                    // add value to list of select statement Ids
+                    createLoadFileTask("src/main/resources/" + pojoName + "-select-ids.xml", "select.ids").execute();
+                    parseXMLFile(appCtx, null, "<value>getUsers</value>", "select.ids");
+                }
+            } catch (IOException e) {
+                log("Failed to read project's applicationContext.xml!");
+                e.printStackTrace();
+            }
         }
     }
 
