@@ -6,15 +6,20 @@ import org.appfuse.model.User;
 import org.appfuse.service.MailEngine;
 import org.appfuse.service.RoleManager;
 import org.appfuse.service.UserManager;
+import org.junit.Before;
+import org.junit.Test;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.subethamail.wiser.Wiser;
+
+import static org.junit.Assert.*;
 
 public class SignupFormTest extends BasePageTestCase {
     private SignupForm bean;
 
     @Override
-    public void onSetUp() throws Exception {
+    @Before
+    public void onSetUp() {
         super.onSetUp();
         bean = new SignupForm();
         bean.setUserManager((UserManager) applicationContext.getBean("userManager"));
@@ -24,6 +29,7 @@ public class SignupFormTest extends BasePageTestCase {
         bean.setTemplateName("accountCreated.vm");
     }
 
+    @Test
     public void testExecute() throws Exception {
         User user = new User("self-registered");
         user.setPassword("Password1");

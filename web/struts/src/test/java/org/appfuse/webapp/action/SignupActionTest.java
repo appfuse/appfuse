@@ -5,40 +5,46 @@ import org.apache.struts2.ServletActionContext;
 import org.appfuse.Constants;
 import org.appfuse.model.Address;
 import org.appfuse.model.User;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.subethamail.wiser.Wiser;
 
+import static org.junit.Assert.*;
+
 public class SignupActionTest extends BaseActionTestCase {
+    @Autowired
     private SignupAction action;
 
-    public void setSignupAction(final SignupAction action) {
-        this.action = action;
-    }
-
+    @Test
     public void testDisplayForm() throws Exception {
         final MockHttpServletRequest request = new MockHttpServletRequest(null, "GET", "/signup.html");
         ServletActionContext.setRequest(request);
         assertEquals("input", action.execute());
     }
 
+    @Test
     public void testExecutePost() throws Exception {
         final MockHttpServletRequest request = new MockHttpServletRequest(null, "POST", "/signup.html");
         ServletActionContext.setRequest(request);
         assertEquals(Action.SUCCESS, action.execute());
     }
 
+    @Test
     public void testExecuteCancel() throws Exception {
         action.setCancel(BaseAction.CANCEL);
         assertEquals(BaseAction.CANCEL, action.execute());
     }
 
+    @Test
     public void testDefault() throws Exception {
         action.setCancel(BaseAction.CANCEL);
         assertEquals(BaseAction.INPUT, action.doDefault());
     }
 
+    @Test
     public void testSave() throws Exception {
         final User user = createUser();
         final User user2 = createUser();

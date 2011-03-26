@@ -10,12 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 public class ${pojo.shortName}ControllerTest extends BaseControllerTestCase {
     @Autowired
     private CompassGps compassGps;
     @Autowired
     private ${pojo.shortName}Controller controller;
 
+    @Test
     public void testHandleRequest() throws Exception {
         ModelAndView mav = controller.handleRequest(null);
         ModelMap m = mav.getModelMap();
@@ -23,6 +27,7 @@ public class ${pojo.shortName}ControllerTest extends BaseControllerTestCase {
         assertTrue(((List) m.get("${pojoNameLower}List")).size() > 0);
     }
 
+    @Test
     public void testSearch() throws Exception {
         compassGps.index();
         ModelAndView mav = controller.handleRequest("*");

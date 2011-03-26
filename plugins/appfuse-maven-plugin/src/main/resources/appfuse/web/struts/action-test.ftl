@@ -19,19 +19,21 @@ import org.compass.gps.CompassGps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 public class ${pojo.shortName}ActionTest extends BaseActionTestCase {
     private ${pojo.shortName}Action action;
     @Autowired
     private CompassGps compassGps;
 
-    @Override
-    protected void onSetUpBeforeTransaction() throws Exception {
-        super.onSetUpBeforeTransaction();
+    @Before
+    protected void onSetUp() {
+        super.onSetUp();
         compassGps.index();
-    }
 
-    @Override @SuppressWarnings("unchecked")
-    protected void onSetUpInTransaction() throws Exception {
         action = new ${pojo.shortName}Action();
         ${managerClass} ${pojoNameLower}Manager = (${managerClass}) applicationContext.getBean("${pojoNameLower}Manager");
         action.set${pojo.shortName}Manager(${pojoNameLower}Manager);
@@ -52,17 +54,20 @@ public class ${pojo.shortName}ActionTest extends BaseActionTestCase {
         ${pojoNameLower}Manager.save(${pojoNameLower});
     }
 
+    @Test
     public void testGetAll${util.getPluralForWord(pojo.shortName)}() throws Exception {
         assertEquals(action.list(), ActionSupport.SUCCESS);
         assertTrue(action.get${util.getPluralForWord(pojo.shortName)}().size() >= 1);
     }
 
+    @Test
     public void testSearch() throws Exception {
         action.setQ("*");
         assertEquals(action.list(), ActionSupport.SUCCESS);
         assertTrue(action.get${util.getPluralForWord(pojo.shortName)}().size() == 4);
     }
 
+    @Test
     public void testEdit() throws Exception {
         log.debug("testing edit...");
         action.${setIdMethodName}(-1L);
@@ -72,6 +77,7 @@ public class ${pojo.shortName}ActionTest extends BaseActionTestCase {
         assertFalse(action.hasActionErrors());
     }
 
+    @Test
     public void testSave() throws Exception {
         MockHttpServletRequest request = new MockHttpServletRequest();
         ServletActionContext.setRequest(request);
@@ -97,6 +103,7 @@ public class ${pojo.shortName}ActionTest extends BaseActionTestCase {
         assertNotNull(request.getSession().getAttribute("messages"));
     }
 
+    @Test
     public void testRemove() throws Exception {
         MockHttpServletRequest request = new MockHttpServletRequest();
         ServletActionContext.setRequest(request);

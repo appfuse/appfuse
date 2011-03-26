@@ -2,11 +2,14 @@ package org.appfuse.webapp.controller;
 
 import org.appfuse.Constants;
 import org.compass.gps.CompassGps;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.Map;
+
+import static org.junit.Assert.*;
 
 public class UserControllerTest extends BaseControllerTestCase {
     @Autowired
@@ -14,6 +17,7 @@ public class UserControllerTest extends BaseControllerTestCase {
     @Autowired
     private UserController c;
 
+    @Test
     public void testHandleRequest() throws Exception {
         ModelAndView mav = c.handleRequest(null);
         Map m = mav.getModel();
@@ -21,6 +25,7 @@ public class UserControllerTest extends BaseControllerTestCase {
         assertEquals("admin/userList", mav.getViewName());
     }
 
+    @Test
     public void testSearch() throws Exception {
         compassGps.index();
         ModelAndView mav = c.handleRequest("admin");

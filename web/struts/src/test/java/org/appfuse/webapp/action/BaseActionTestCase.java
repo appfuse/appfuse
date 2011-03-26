@@ -11,9 +11,12 @@ import com.opensymphony.xwork2.util.ValueStackFactory;
 import org.apache.commons.logging.Log;
 import org.apache.struts2.ServletActionContext;
 import org.appfuse.Constants;
+import org.junit.After;
+import org.junit.Before;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 
 import java.util.HashMap;
 
@@ -22,33 +25,21 @@ import java.util.HashMap;
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
-public abstract class BaseActionTestCase extends AbstractTransactionalDataSourceSpringContextTests {
+@ContextConfiguration(
+        locations = {"classpath:/applicationContext-resources.xml",
+                "classpath:/applicationContext-dao.xml",
+                "classpath:/applicationContext-service.xml",
+                "classpath*:/applicationContext.xml",
+                "classpath:**/applicationContext*.xml"})
+public abstract class BaseActionTestCase extends AbstractTransactionalJUnit4SpringContextTests {
     /**
      * Transient log to prevent session synchronization issues - children can use instance for logging.
      */
     protected transient final Log log = logger;
     private int smtpPort = 25250;
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected String[] getConfigLocations() {
-        super.setAutowireMode(AUTOWIRE_BY_NAME);
-        return new String[]{
-                "classpath:/applicationContext-resources.xml",
-                "classpath:/applicationContext-dao.xml",
-                "classpath:/applicationContext-service.xml",
-                "classpath*:/applicationContext.xml", // for modular archetypes
-                "/WEB-INF/applicationContext*.xml"
-        };
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void onSetUpBeforeTransaction() throws Exception {
+    @Before
+    public void onSetUp() {
         smtpPort = smtpPort + (int) (Math.random() * 100);
 
         LocalizedTextUtil.addDefaultResourceBundle(Constants.BUNDLE_KEY);
@@ -79,11 +70,8 @@ public abstract class BaseActionTestCase extends AbstractTransactionalDataSource
         return smtpPort;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void onTearDownAfterTransaction() throws Exception {
+    @After
+    public void onTearDown() throws Exception {
         ActionContext.getContext().setSession(null);
     }
 }

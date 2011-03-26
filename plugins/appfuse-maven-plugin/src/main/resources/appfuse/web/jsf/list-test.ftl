@@ -13,6 +13,11 @@ import ${basepackage}.service.${pojo.shortName}Manager;
 </#if>
 import ${basepackage}.model.${pojo.shortName};
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 public class ${pojo.shortName}ListTest extends BasePageTestCase {
     private ${pojo.shortName}List bean;
 <#if genericcore>
@@ -25,14 +30,14 @@ public class ${pojo.shortName}ListTest extends BasePageTestCase {
 
     @Autowired
     private CompassGps compassGps;
-        
-    @Override @SuppressWarnings("unchecked")
-    protected void onSetUp() throws Exception {
+
+    @Before
+    public void onSetUp() {
         super.onSetUp();
+        compassGps.index();
+
         bean = new ${pojo.shortName}List();
         bean.set${pojo.shortName}Manager(${pojoNameLower}Manager);
-
-        compassGps.index();
 
         // add a test ${pojoNameLower} to the database
         ${pojo.shortName} ${pojoNameLower} = new ${pojo.shortName}();
@@ -41,7 +46,8 @@ public class ${pojo.shortName}ListTest extends BasePageTestCase {
 <#foreach field in pojo.getAllPropertiesIterator()>
     <#foreach column in field.getColumnIterator()>
         <#if !field.equals(pojo.identifierProperty) && !column.nullable && !c2h.isCollection(field) && !c2h.isManyToOne(field) && !c2j.isComponent(field)>
-            <#lt/>        ${pojoNameLower}.set${pojo.getPropertyName(field)}(${data.getValueForJavaTest(column)});
+            <#lt/>        ${pojoNameLower}.set${pojo.getPropertyName(field)}(<#rt/>
+            <#if field.value.typeName == "java.lang.String" && column.isUnique()><#lt/>${data.generateRandomStringValue(column)}<#else>${data.getValueForJavaTest(column)}</#if><#lt/>);
         </#if>
     </#foreach>
 </#foreach>
@@ -49,17 +55,19 @@ public class ${pojo.shortName}ListTest extends BasePageTestCase {
         ${pojoNameLower}Manager.save(${pojoNameLower});
     }
 
-    @Override
-    protected void onTearDown() throws Exception {
+    @After
+    public void onTearDown() {
         super.onTearDown();
         bean = null;
     }
 
+    @Test
     public void testGetAll${util.getPluralForWord(pojo.shortName)}() throws Exception {
         assertTrue(bean.get${util.getPluralForWord(pojo.shortName)}().size() >= 1);
         assertFalse(bean.hasErrors());
     }
 
+    @Test
     public void testSearch() throws Exception {
         bean.setQuery("*");
         assertEquals("success", bean.search());

@@ -1,15 +1,17 @@
 package org.appfuse.webapp.controller;
 
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.subethamail.wiser.Wiser;
 
-public class PasswordHintControllerTest extends BaseControllerTestCase {
-    private PasswordHintController c = null;
-    
-    public void setPasswordHintController(PasswordHintController password) {
-        this.c = password;
-    }
+import static org.junit.Assert.*;
 
+public class PasswordHintControllerTest extends BaseControllerTestCase {
+    @Autowired
+    private PasswordHintController c = null;
+
+    @Test
     public void testExecute() throws Exception {
         MockHttpServletRequest request = newGet("/passwordHint.html");
         request.addParameter("username", "user");

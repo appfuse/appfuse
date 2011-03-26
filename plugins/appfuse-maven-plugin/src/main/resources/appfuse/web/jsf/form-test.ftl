@@ -12,6 +12,13 @@ import ${basepackage}.service.${pojo.shortName}Manager;
 import ${pojo.packageName}.${pojo.shortName};
 import ${basepackage}.webapp.action.BasePageTestCase;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 public class ${pojo.shortName}FormTest extends BasePageTestCase {
     private ${pojo.shortName}Form bean;
 <#if genericcore>
@@ -21,26 +28,27 @@ public class ${pojo.shortName}FormTest extends BasePageTestCase {
 </#if>
         
 <#if genericcore>
-    public void set${pojo.shortName}Manager(GenericManager<${pojo.shortName}, ${identifierType}> ${pojoNameLower}Manager) {
+    public void set${pojo.shortName}Manager(@Qualifier("${pojoNameLower}Manager") GenericManager<${pojo.shortName}, ${identifierType}> ${pojoNameLower}Manager) {
 <#else>
     public void set${pojo.shortName}Manager(${pojo.shortName}Manager ${pojoNameLower}Manager) {
 </#if>
         this.${pojoNameLower}Manager = ${pojoNameLower}Manager;
     }
 
-    @Override
-    protected void onSetUp() throws Exception {
+    @Before
+    public void onSetUp() {
         super.onSetUp();
         bean = new ${pojo.shortName}Form();
         bean.set${pojo.shortName}Manager(${pojoNameLower}Manager);
     }
 
-    @Override
-    protected void onTearDown() throws Exception {
+    @After
+    public void onTearDown() {
         super.onTearDown();
         bean = null;
     }
 
+    @Test
     public void testAdd() throws Exception {
         ${pojo.shortName} ${pojoNameLower} = new ${pojo.shortName}();
 
@@ -59,6 +67,7 @@ public class ${pojo.shortName}FormTest extends BasePageTestCase {
         assertFalse(bean.hasErrors());
     }
 
+    @Test
     public void testEdit() throws Exception {
         log.debug("testing edit...");
         bean.${setIdMethodName}(-1L);
@@ -68,6 +77,7 @@ public class ${pojo.shortName}FormTest extends BasePageTestCase {
         assertFalse(bean.hasErrors());
     }
 
+    @Test
     public void testSave() {
         log.debug("testing save...");
         bean.${setIdMethodName}(-1L);
@@ -90,6 +100,7 @@ public class ${pojo.shortName}FormTest extends BasePageTestCase {
         assertFalse(bean.hasErrors());
     }
 
+    @Test
     public void testRemove() throws Exception {
         log.debug("testing remove...");
         ${pojo.shortName} ${pojoNameLower} = new ${pojo.shortName}();

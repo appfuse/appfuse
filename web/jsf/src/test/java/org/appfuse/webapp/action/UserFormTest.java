@@ -2,17 +2,21 @@ package org.appfuse.webapp.action;
 
 import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import static org.junit.Assert.*;
 
 public class UserFormTest extends BasePageTestCase {
     private UserForm bean;
+    @Autowired
     private UserManager userManager;
 
-    public void setUserManager(UserManager userManager) {
-        this.userManager = userManager;
-    }
-
     @Override
-    protected void onSetUp() throws Exception {
+    @Before
+    public void onSetUp() {
         super.onSetUp();
         bean = new UserForm();
         bean.setUserManager(userManager);
@@ -20,11 +24,13 @@ public class UserFormTest extends BasePageTestCase {
     }
 
     @Override
-    protected void onTearDown() throws Exception {
+    @After
+    public void onTearDown() throws Exception {
         super.onTearDown();
         bean = null;
     }
-    
+
+    @Test
     public void testEdit() throws Exception {
         bean.setId("-1");
         assertEquals("editProfile", bean.edit());
@@ -32,6 +38,7 @@ public class UserFormTest extends BasePageTestCase {
         assertFalse(bean.hasErrors());
     }
 
+    @Test
     public void testSave() throws Exception {
         User user = userManager.getUser("-1");
         user.setPassword("user");
@@ -42,7 +49,8 @@ public class UserFormTest extends BasePageTestCase {
         assertNotNull(bean.getUser());
         assertFalse(bean.hasErrors());
     }
-    
+
+    @Test
     public void testRemove() throws Exception {
         User user2Delete = new User();
         user2Delete.setId(-2L);
