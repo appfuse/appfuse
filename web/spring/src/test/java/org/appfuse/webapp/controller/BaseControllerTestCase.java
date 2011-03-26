@@ -20,7 +20,7 @@ public abstract class BaseControllerTestCase extends AbstractTransactionalJUnit4
     private int smtpPort = 25250;
 
     @Before
-    public void onSetUp() throws Exception {
+    public void onSetUp() {
         smtpPort = smtpPort + (int) (Math.random() * 100);
         // change the port on the mailSender so it doesn't conflict with an
         // existing SMTP server on localhost

@@ -29,7 +29,7 @@ public abstract class BasePageTestCase extends AbstractTransactionalJUnit4Spring
     private int smtpPort = 25250;
 
     @Before
-    public void before() {
+    public void onSetUp() {
         String appPackage = "org.appfuse.webapp";
         String appName = "app";
         tester = new PageTester(appPackage, appName, "src/main/webapp") {
@@ -51,7 +51,7 @@ public abstract class BasePageTestCase extends AbstractTransactionalJUnit4Spring
     }
 
     @After
-    public void after() {
+    public void onTearDown() {
         if (tester != null) {
             tester.shutdown();
         }

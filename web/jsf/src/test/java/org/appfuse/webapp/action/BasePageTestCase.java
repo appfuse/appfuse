@@ -171,7 +171,7 @@ public abstract class BasePageTestCase extends AbstractTransactionalJUnit4Spring
      * <p>Tear down instance variables required by this test case.</p>
      */
     @After
-    public void onTearDown() throws Exception {
+    public void onTearDown() {
         application = null;
         config = null;
         externalContext = null;

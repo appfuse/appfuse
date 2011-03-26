@@ -71,7 +71,7 @@ public abstract class BaseActionTestCase extends AbstractTransactionalJUnit4Spri
     }
 
     @After
-    public void onTearDown() throws Exception {
+    public void onTearDown() {
         ActionContext.getContext().setSession(null);
     }
 }

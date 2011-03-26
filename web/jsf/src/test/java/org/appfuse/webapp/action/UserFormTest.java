@@ -25,7 +25,7 @@ public class UserFormTest extends BasePageTestCase {
 
     @Override
     @After
-    public void onTearDown() throws Exception {
+    public void onTearDown() {
         super.onTearDown();
         bean = null;
     }
