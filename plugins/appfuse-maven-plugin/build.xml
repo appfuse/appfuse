@@ -127,12 +127,24 @@
 
             <echo level="info">Generating Generic CRUD for Person entity...</echo>
             <!-- run gen install integration-test -->
+            <if>
+                <contains string="@{name}" substring="light"/>
+                <then>
+                    <property name="test-command" value="integration-test -Djdbc.username=sa -Djdbc.password="/>
+                </then>
+                <else>
+                    <property name="test-command" value="integration-test"/>
+                </else>
+            </if>
+ 
+            <echo message="Using test command: ${test-command}"/>
+            
             <maven dir="${test.dir}/@{name}" command="appfuse:gen -Dentity=Person"/>
-            <maven dir="${test.dir}/@{name}" command="integration-test"/>
+            <maven dir="${test.dir}/@{name}" command="${test-command}"/>
 
             <echo level="info">Removing Person entity...</echo>
             <maven dir="${test.dir}/@{name}" command="appfuse:remove -Dentity=Person -Dskip.areyousure=true"/>
-            <maven dir="${test.dir}/@{name}" command="clean integration-test"/>
+            <maven dir="${test.dir}/@{name}" command="clean ${test-command}"/>
 
             <!-- copy Person.java to src -->
             <copy todir="${test.dir}/@{name}/src/main/java/com">
@@ -143,9 +155,10 @@
             <!-- hibernate.cfg.xml by doing nothing to add it ourselves. -->
 
             <echo level="info">Generating CRUD for Person entity...</echo>
+
             <!-- test w/o generic core -->
             <maven dir="${test.dir}/@{name}" command="appfuse:gen -Dentity=Person -Damp.genericCore=false"/>
-            <maven dir="${test.dir}/@{name}" command="integration-test"/>
+            <maven dir="${test.dir}/@{name}" command="${test-command}"/>
         </sequential>
     </macrodef>
 
