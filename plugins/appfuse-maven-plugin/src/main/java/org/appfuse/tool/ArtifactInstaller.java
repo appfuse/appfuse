@@ -1,6 +1,7 @@
 package org.appfuse.tool;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.plugin.logging.SystemStreamLog;
 import org.apache.maven.project.MavenProject;
@@ -45,8 +46,12 @@ public class ArtifactInstaller {
     public void execute() {
         antProject = AntUtils.createProject();
 
-        log("Installing sample data for DbUnit...");
-        installSampleData();
+        boolean hasDbUnit = projectContainsPluginArtifact("dbunit");
+
+        if (hasDbUnit) {
+            log("Installing sample data for DbUnit...");
+            installSampleData();
+        }
 
         // install dao and manager if jar (modular/core) or war w/o parent (basic)
         if (project.getPackaging().equals("jar") || (project.getPackaging().equals("war") && project.getParent() == null)) {
@@ -95,7 +100,7 @@ public class ArtifactInstaller {
             }
 
             log("Installing i18n messages...");
-            installInternationalizationKeys();
+            installInternationalizationKeys(webFramework);
 
             log("Installing menu...");
             installMenu();
@@ -103,6 +108,24 @@ public class ArtifactInstaller {
             log("Installing UI tests...");
             installUITests();
         }
+    }
+
+    private boolean projectContainsPluginArtifact(String artifactId) {
+        for (Object artifact : project.getPluginArtifacts()) {
+            if (((Artifact) artifact).getArtifactId().contains(artifactId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean projectContainsArtifact(String artifactId) {
+        for (Object artifact : project.getArtifacts()) {
+            if (((Artifact) artifact).getArtifactId().contains(artifactId)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -287,20 +310,40 @@ public class ArtifactInstaller {
     // =================== End of Views ===================
 
     private void installMenu() {
-        createLoadFileTask("src/main/webapp/common/" + pojoName + "-menu.jsp", "menu.jsp").execute();
-        File existingFile = new File(destinationDirectory + "/src/main/webapp/common/menu.jsp");
+        boolean hasStrutsMenu;
+        File menuConfig = new File(destinationDirectory + "/src/main/webapp/WEB-INF/menu-config.xml");
+        hasStrutsMenu = menuConfig.exists();
 
-        parseXMLFile(existingFile, pojoName, "</ul>", "menu.jsp");
+        if (hasStrutsMenu) {
+            createLoadFileTask("src/main/webapp/common/" + pojoName + "-menu.jsp", "menu.jsp").execute();
+            File existingFile = new File(destinationDirectory + "/src/main/webapp/common/menu.jsp");
 
-        createLoadFileTask("src/main/webapp/WEB-INF/" + pojoName + "-menu-config.xml", "menu.config").execute();
-        existingFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/menu-config.xml");
+            parseXMLFile(existingFile, pojoName, "</ul>", "menu.jsp");
 
-        parseXMLFile(existingFile, pojoName, "    </Menus>", "menu.config");
+            createLoadFileTask("src/main/webapp/WEB-INF/" + pojoName + "-menu-config.xml", "menu.config").execute();
+            existingFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/menu-config.xml");
+
+            parseXMLFile(existingFile, pojoName, "    </Menus>", "menu.config");
+        } else {
+            createLoadFileTask("src/main/webapp/common/" + pojoName + "-menu-light.jsp", "menu-light.jsp").execute();
+            File existingFile = new File(destinationDirectory + "/src/main/webapp/decorators/default.jsp");
+
+            parseXMLFile(existingFile, pojoName, "<!-- Add new menu items here -->", "menu-light.jsp");
+        }
     }
 
-    private void installInternationalizationKeys() {
+    private void installInternationalizationKeys(String webFramework) {
         createLoadFileTask("src/main/resources/" + pojoName + "-ApplicationResources.properties", "i18n.file").execute();
         File existingFile = new File(destinationDirectory + "/src/main/resources/ApplicationResources.properties");
+
+        // if ApplicationResources doesn't exist, assume appfuse-light and use messages instead
+        if (!existingFile.exists()) {
+            if ("tapestry".equals(webFramework)) {
+                existingFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/app.properties");
+            } else {
+                existingFile = new File(destinationDirectory + "/src/main/resources/messages.properties");
+            }
+        }
 
         parsePropertiesFile(existingFile, pojoName);
 
@@ -314,17 +357,33 @@ public class ArtifactInstaller {
     private void installUITests() {
         createLoadFileTask("src/test/resources/" + pojoName + "-web-tests.xml", "web.tests").execute();
         File existingFile = new File(destinationDirectory + "/src/test/resources/web-tests.xml");
+        if (existingFile.exists()) {
+            parseXMLFile(existingFile, pojoName, "</project>", "web.tests");
 
-        parseXMLFile(existingFile, pojoName, "</project>", "web.tests");
+            // Add main target to run-all-tests target
+            Replace replace = (Replace) antProject.createTask("replace");
+            replace.setFile(existingFile);
 
-        // Add main target to run-all-tests target
-        Replace replace = (Replace) antProject.createTask("replace");
-        replace.setFile(existingFile);
-        // todo: figure out how to fix the 2 lines below so they don't include pojoNameTest
-        // multiple times on subsequent installs
-        replace.setToken(",FileUpload");
-        replace.setValue(",FileUpload," + pojoName + "Tests");
-        replace.execute();
+            try {
+                if (FileUtils.readFileToString(existingFile).contains("FileUpload")) {
+                    // todo: figure out how to fix the 2 lines below so they don't include pojoNameTest
+                    // multiple times on subsequent installs
+                    replace.setToken(",FileUpload");
+                    replace.setValue(",FileUpload," + pojoName + "Tests");
+                } else {
+                    // AppFuse Light
+                    replace.setToken("depends=\"UserTests");
+                    replace.setValue("depends=\"UserTests," + pojoName + "Tests");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            replace.execute();
+        } else {
+            log("Project doesn't use Canoo WebTest, disabling UI test generation.");
+            log("Support for jWebUnit will be added in a future release.");
+            log("See http://issues.appfuse.org/browse/EQX-215 for more information.");
+        }
     }
 
     /**

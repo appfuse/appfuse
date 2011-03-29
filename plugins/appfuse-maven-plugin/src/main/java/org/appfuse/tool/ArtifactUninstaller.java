@@ -205,27 +205,37 @@ public class ArtifactUninstaller {
 
     private void removeMenu() {
         File existingFile = new File(installedDirectory + "/src/main/webapp/common/menu.jsp");
-        parseXMLFile(existingFile, pojoName);
+        if (existingFile.exists()) { // no menu in AppFuse Light
+            parseXMLFile(existingFile, pojoName);
 
-        existingFile = new File(installedDirectory + "/src/main/webapp/WEB-INF/menu-config.xml");
-        parseXMLFile(existingFile, pojoName);
+            existingFile = new File(installedDirectory + "/src/main/webapp/WEB-INF/menu-config.xml");
+            parseXMLFile(existingFile, pojoName);
+        } else {
+            existingFile = new File(installedDirectory + "/src/main/webapp/decorators/default.jsp");
+            parseXMLFile(existingFile, pojoName);
+        }
     }
 
     private void removeInternationalizationKeys() {
         File existingFile = new File(installedDirectory + "/src/main/resources/ApplicationResources.properties");
+        if (!existingFile.exists()) { // assume appfuse-light
+            existingFile = new File(installedDirectory + "/src/main/resources/messages.properties");
+        }
         parsePropertiesFile(existingFile, pojoName);
     }
 
     private void removeUITests() {
         File existingFile = new File(installedDirectory + "/src/test/resources/web-tests.xml");
+        if (existingFile.exists()) {
 
-        parseXMLFile(existingFile, pojoName);
+            parseXMLFile(existingFile, pojoName);
 
-        // Add main target to run-all-tests target
-        Replace replace = (Replace) antProject.createTask("replace");
-        replace.setFile(existingFile);
-        replace.setToken("," + pojoName + "Tests");
-        replace.execute();
+            // Remove tests in run-all-tests target
+            Replace replace = (Replace) antProject.createTask("replace");
+            replace.setFile(existingFile);
+            replace.setToken("," + pojoName + "Tests");
+            replace.execute();
+        }
     }
 
     private void parseXMLFile(File existingFile, String beanName) {

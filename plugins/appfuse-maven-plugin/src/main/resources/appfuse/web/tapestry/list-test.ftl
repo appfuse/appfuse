@@ -51,6 +51,6 @@ public class ${pojo.shortName}ListTest extends BasePageTestCase {
 
         fieldValues.put("q", "*");
         doc = tester.submitForm(form, fieldValues);
-        assertTrue(doc.getElementById("${pojoNameLower}List").find("tbody").getChildren().size() == 3);
+        assertEquals(3, doc.getElementById("${pojoNameLower}List").find("tbody").getChildren().size());
     }
 }

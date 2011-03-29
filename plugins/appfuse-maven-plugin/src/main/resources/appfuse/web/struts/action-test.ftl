@@ -30,7 +30,7 @@ public class ${pojo.shortName}ActionTest extends BaseActionTestCase {
     private CompassGps compassGps;
 
     @Before
-    protected void onSetUp() {
+    public void onSetUp() {
         super.onSetUp();
         compassGps.index();
 
@@ -64,7 +64,7 @@ public class ${pojo.shortName}ActionTest extends BaseActionTestCase {
     public void testSearch() throws Exception {
         action.setQ("*");
         assertEquals(action.list(), ActionSupport.SUCCESS);
-        assertTrue(action.get${util.getPluralForWord(pojo.shortName)}().size() == 4);
+        assertEquals(4, action.get${util.getPluralForWord(pojo.shortName)}().size());
     }
 
     @Test

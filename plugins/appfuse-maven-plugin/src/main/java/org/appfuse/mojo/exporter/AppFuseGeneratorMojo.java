@@ -2,6 +2,7 @@ package org.appfuse.mojo.exporter;
 
 
 import org.apache.commons.io.FileUtils;
+import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.appfuse.mojo.HibernateExporterMojo;
@@ -23,6 +24,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
+import java.util.Collection;
 
 /**
  * Generates Java classes from set of annotated POJOs. Use -DdisableInstallation to prevent installation.
@@ -38,7 +40,6 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
     boolean generateCoreOnly;
     boolean generateWebOnly;
     String pojoName;
-    String pojoNameLower;
 
     /**
      * This is a prompter that can be user within the maven framework.
@@ -148,7 +149,6 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
         if (pojoName == null || "".equals(pojoName.trim())) {
             throw new MojoExecutionException("You must specify an entity name to continue.");
         }
-
 
         String daoFramework = getProject().getProperties().getProperty("dao.framework");
 
@@ -272,6 +272,29 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
             exporter.getProperties().setProperty("appfusepackage", rootPackage);
         else {
             exporter.getProperties().setProperty("appfusepackage", "org.appfuse");
+        }
+
+        // See if the project has security enabled
+        boolean hasSecurity = false;
+        for (Object artifact : getProject().getArtifacts()) {
+            if (((Artifact) artifact).getArtifactId().contains("spring-security")) {
+                hasSecurity = true;
+            }
+        }
+
+        exporter.getProperties().setProperty("hasSecurity", String.valueOf(hasSecurity));
+
+        // determine if using Home or MainMenu for Tapestry
+        if (webFramework.equals("tapestry")) {
+            boolean useMainMenu = true;
+            Collection<File> sourceFiles = FileUtils.listFiles(getProject().getBasedir(),new String[]{"java"}, true);
+            for (File file : sourceFiles) {
+                if (file.getPath().contains("Home.java")) {
+                    useMainMenu = false;
+                    break;
+                }
+            }
+            exporter.getProperties().setProperty("useMainMenu", String.valueOf(useMainMenu));
         }
 
         return exporter;

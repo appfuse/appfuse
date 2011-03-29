@@ -71,6 +71,6 @@ public class ${pojo.shortName}ListTest extends BasePageTestCase {
     public void testSearch() throws Exception {
         bean.setQuery("*");
         assertEquals("success", bean.search());
-        assertTrue(bean.get${util.getPluralForWord(pojo.shortName)}().size() == 4);
+        assertEquals(4, bean.get${util.getPluralForWord(pojo.shortName)}().size());
     }
 }

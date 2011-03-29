@@ -60,4 +60,3 @@ public class ${pojo.shortName}List extends BasePage implements Serializable {
         return "success";
     }
 }
-

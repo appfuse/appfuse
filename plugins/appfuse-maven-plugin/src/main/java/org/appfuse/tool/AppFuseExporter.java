@@ -185,10 +185,15 @@ public class AppFuseExporter extends GenericExporter {
             // views
             configureExporter("appfuse/web/tapestry/list-view.ftl", "src/main/webapp/{class-name}List.tml").start();
             configureExporter("appfuse/web/tapestry/form-view.ftl", "src/main/webapp/{class-name}Form.tml").start();
+        } else {
+            log.warn("Your project's web framework '" + webFramework + "' is not supported by AMP at this time.");
+            log.warn("See http://issues.appfuse.org/browse/EQX-211 for more information.");
+
         }
 
         // menu
         configureExporter("appfuse/web/menu.ftl", "src/main/webapp/common/{class-name}-menu.jsp").start();
+        configureExporter("appfuse/web/menu-light.ftl", "src/main/webapp/common/{class-name}-menu-light.jsp").start();
         configureExporter("appfuse/web/menu-config.ftl", "src/main/webapp/WEB-INF/{class-name}-menu-config.xml").start();
 
         // i18n

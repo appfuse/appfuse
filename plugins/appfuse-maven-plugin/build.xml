@@ -184,6 +184,7 @@
         <antcall target="test-struts-basic-source"/>
         <antcall target="test-tapestry-basic-source"/>
         <antcall target="test-core-source"/>
+        <antcall target="test-ws-source"/>
     </target>
 
     <target name="test-modular-source" description="Tests extracting source into modular archetypes">
@@ -193,6 +194,15 @@
         <antcall target="test-tapestry-modular-source"/>
     </target>
 
+    <target name="test-light-source" description="Tests extracting source into light archetypes">
+        <antcall target="test-jsf-light-source"/>
+        <antcall target="test-spring-light-source"/>
+        <antcall target="test-struts-light-source"/>
+        <antcall target="test-stripes-light-source"/>
+        <antcall target="test-tapestry-light-source"/>
+        <antcall target="test-wicket-light-source"/>
+    </target>
+    
     <target name="test-jsf-basic-source" description="tests full-source plugin with jsf basic archetype">
         <full-source archetype="appfuse-basic-jsf" name="basic-jsf-source"/>
     </target>
@@ -215,6 +225,10 @@
         <full-source archetype="appfuse-core" name="core-jpa-source" daoFramework="jpa" hibernate3Config="jpaconfiguration" modular="false"/>
     </target>
 
+    <target name="test-ws-source" description="tests full-source plugin with ws archetype">
+        <full-source archetype="appfuse-ws" name="ws-source"/>
+    </target>
+    
     <target name="test-jsf-modular-source" description="tests full-source plugin with jsf modular archetype">
         <full-source archetype="appfuse-modular-jsf" name="modular-jsf-source"/>
         <full-source archetype="appfuse-modular-jsf" name="modular-jsf-ibatis-source" daoFramework="ibatis" hibernate3Config="annotationconfiguration"/>
@@ -237,6 +251,30 @@
         <full-source archetype="appfuse-modular-tapestry" name="modular-tapestry-source"/>
         <full-source archetype="appfuse-modular-tapestry" name="modular-tapestry-ibatis-source" daoFramework="ibatis" hibernate3Config="annotationconfiguration"/>
         <full-source archetype="appfuse-modular-tapestry" name="modular-tapestry-source" daoFramework="jpa" hibernate3Config="jpaconfiguration"/>
+    </target>
+    
+    <target name="test-jsf-light-source" description="tests full-source plugin with jsf light archetype">
+        <full-source archetype="appfuse-light-jsf" name="light-jsf-source"/>
+    </target>
+
+     <target name="test-spring-light-source" description="tests full-source plugin with spring light archetype">
+        <full-source archetype="appfuse-light-spring" name="light-spring-source"/>
+    </target>
+
+     <target name="test-struts-light-source" description="tests full-source plugin with struts light archetype">
+        <full-source archetype="appfuse-light-struts" name="light-struts-source"/>
+    </target>
+
+    <target name="test-stripes-light-source" description="tests full-source plugin with stripes light archetype">
+        <full-source archetype="appfuse-light-stripes" name="basic-stripes-source"/>
+    </target>
+    
+    <target name="test-tapestry-light-source" description="tests full-source plugin with tapestry light archetype">
+        <full-source archetype="appfuse-light-tapestry" name="light-tapestry-source"/>
+    </target>
+    
+    <target name="test-wicket-light-source" description="tests full-source plugin with wicket light archetype">
+        <full-source archetype="appfuse-light-wicket" name="light-wicket-source"/>
     </target>
     
     <macrodef name="full-source">

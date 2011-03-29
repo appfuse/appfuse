@@ -34,6 +34,6 @@ public class ${pojo.shortName}ControllerTest extends BaseControllerTestCase {
         Map m = mav.getModel();
         List results = (List) m.get("${pojoNameLower}List");
         assertNotNull(results);
-        assertTrue(results.size() == 3);
+        assertEquals(3, results.size());
     }
 }

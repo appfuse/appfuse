@@ -13,7 +13,7 @@
         <webtest name="search${util.getPluralForWord(pojo.shortName)}">
             &config;
             <steps>
-                &login;
+                [#if hasSecurity.equals("true")]&login;[/#if]
                 <invoke description="click View ${pojo.shortName} link" url="/${util.getPluralForWord(pojoNameLower)}"/>
                 <verifytitle description="we should see the ${pojoNameLower}List title"
                     text=".*${'$'}{${pojoNameLower}List.title}.*" regex="true"/>
@@ -30,7 +30,7 @@
         <webtest name="edit${pojo.shortName}">
             &config;
             <steps>
-                &login;
+                [#if hasSecurity.equals("true")]&login;[/#if]
                 <invoke description="View ${pojo.shortName} List" url="/${util.getPluralForWord(pojoNameLower)}"/>
                 <clicklink label="-1"/>
                 <verifytitle description="we should see the ${pojoNameLower}Detail title"
@@ -44,7 +44,7 @@
         <webtest name="save${pojo.shortName}">
             &config;
             <steps>
-                &login;
+                [#if hasSecurity.equals("true")]&login;[/#if]
                 <invoke description="View ${pojo.shortName} List" url="/${util.getPluralForWord(pojoNameLower)}"/>
                 <clicklink label="-1"/>
                 <verifytitle description="we should see the ${pojoNameLower}Detail title"
@@ -78,7 +78,7 @@
         <webtest name="add${pojo.shortName}">
             &config;
             <steps>
-                &login;
+                [#if hasSecurity.equals("true")]&login;[/#if]
                 <invoke description="View ${pojo.shortName} List" url="/${util.getPluralForWord(pojoNameLower)}"/>
                 <clickbutton description="Click the 'Add' button" label="${'$'}{button.add}"/>
                 <verifytitle description="we should see the ${pojoNameLower}Detail title"
@@ -112,7 +112,7 @@
         <webtest name="delete${pojo.shortName}">
             &config;
             <steps>
-                &login;
+                [#if hasSecurity.equals("true")]&login;[/#if]
                 <invoke description="View ${pojo.shortName} List" url="/${util.getPluralForWord(pojoNameLower)}"/>
                 <clicklink label="2"/>
                 <prepareDialogResponse description="Confirm delete" dialogType="confirm" response="true"/>

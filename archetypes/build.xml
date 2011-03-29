@@ -31,7 +31,7 @@
         <!-- Fix bug that happens in Bamboo -->
         <delete dir="${dir}" includes="main/**"/>
 
-        <mvn command="archetype:create-from-project" dir="${dir}"/>
+        <mvn command="archetype:create-from-project -DpackageName=org.appfuse.webapp" dir="${dir}"/>
 
         <!-- Change the version number of the generated archetype -->
         <replace file="${dir}/target/generated-sources/archetype/pom.xml" value="${version}" token="1.0-SNAPSHOT"/>
@@ -93,7 +93,7 @@
         <attribute name="command"
                    default="archetype:generate -B -DarchetypeGroupId=org.appfuse.archetypes -DarchetypeArtifactId=@{archetype}
                    -DarchetypeVersion=@{version} -DgroupId=com.mycompany -DartifactId=@{archetype} -DpackageName=com.mycompany
-                   -DarchetypeRepository=local"/>
+                   -DarchetypeCatalog=local"/>
 
         <sequential>
             <mkdir dir="${test.dir}"/>
@@ -130,6 +130,8 @@
                     <exclude name="**/.svn/**"/>
                     <exclude name="*.iml"/>
                     <exclude name="*.ipr"/>
+                    <exclude name="*.iws"/>
+                    <exclude name="*.log"/>
                 </fileset>
             </copy>
             <!-- Fix bug that happens in Bamboo -->
@@ -167,7 +169,7 @@
                 </then>
             </if>
 
-            <mvn dir="@{dir}" command="archetype:create-from-project"/>
+            <mvn dir="@{dir}" command="archetype:create-from-project -DpackageName=org.appfuse.webapp"/>
 
             <!-- Change the version number of the generated archetype -->
             <replace file="@{dir}/target/generated-sources/archetype/pom.xml" value="${version}" token="1.0-SNAPSHOT"/>
@@ -279,15 +281,49 @@
                 <replacevalue>org.appfuse</replacevalue>
             </replace>
 
+            <!-- This will cause core java files to not be included in the archetype,
+                 but I think that's OK, as long as the web project is golden. -->
+            <replace dir="@{dir}/target/generated-sources/archetype">
+                <include name="**/archetype-metadata.xml"/>
+                <replacetoken><![CDATA[<include>**/*.java</include>]]></replacetoken>
+                <replacevalue><![CDATA[<include>webapp/**/*.java</include>]]></replacevalue>
+            </replace>
+
             <if>
                 <equals arg1="@{dest}" arg2=""/>
                 <then>
+                    <!-- For Struts and its Model-validation.xml files -->
                     <replace dir="@{dir}/target/generated-sources/archetype">
                         <include name="**/archetype-metadata.xml"/>
-                        <replacetoken><![CDATA[<include>**/*.java</include>]]></replacetoken>
-                        <replacevalue><![CDATA[<include>webapp/**/*.java</include>]]></replacevalue>
+                        <replacetoken><![CDATA[<include>**/*.xml</include>
+        <include>webapp/**/*.java</include>]]></replacetoken>
+                        <replacevalue><![CDATA[<include>webapp/**/*.xml</include>
+        <include>webapp/**/*.java</include>]]></replacevalue>
                     </replace>
                 </then>
+                <else>
+                    <!-- For Struts and its Model-validation.xml files -->
+                    <replace dir="@{dir}/target/generated-sources/archetype">
+                        <include name="**/archetype-metadata.xml"/>
+                        <replacetoken><![CDATA[<include>**/*.xml</include>
+            <include>webapp/**/*.java</include>]]></replacetoken>
+                        <replacevalue><![CDATA[<include>webapp/**/*.xml</include>
+            <include>webapp/**/*.java</include>]]></replacevalue>
+                    </replace>
+                    <!-- Add .webapp to the package name -->
+                    <replace dir="@{dir}/target/generated-sources/archetype/src/main/resources/archetype-resources/web">
+                        <replacetoken>package ${package}</replacetoken>
+                        <replacevalue>package ${package}.webapp</replacevalue>
+                    </replace>
+                    <replace dir="@{dir}/target/generated-sources/archetype/src/main/resources/archetype-resources/web">
+                        <replacetoken>import ${package}</replacetoken>
+                        <replacevalue>import ${package}.webapp</replacevalue>
+                    </replace>
+                    <replace dir="@{dir}/target/generated-sources/archetype/src/main/resources/archetype-resources/web">
+                        <replacetoken>webapp.webapp</replacetoken>
+                        <replacevalue>webapp</replacevalue>
+                    </replace>
+                </else>
             </if>
 
             <if>
@@ -370,6 +406,15 @@
                     <!-- tests -->
                     <move file="${web.root}/src/test/java" tofile="${web.root}/src/test/java/webapp"/>
                 </then>
+                <else>
+                    <property name="web.root"
+                              value="@{dir}/target/generated-sources/archetype/src/main/resources/archetype-resources/web"/>
+
+                    <!-- sources -->
+                    <move file="${web.root}/src/main/java" tofile="${web.root}/src/main/java/webapp"/>
+                    <!-- tests -->
+                    <move file="${web.root}/src/test/java" tofile="${web.root}/src/test/java/webapp"/>
+                </else>
             </if>
 
             <!-- Fix ${artifactId}app replacement bug -->
@@ -442,6 +487,22 @@
                 <replacevalue>!rootPackage.equals("org.appfuse")</replacevalue>
             </replace>
 
+            <if>
+                <equals arg1="@{dest}" arg2="web"/>
+                <then>
+                    <replace dir="@{dir}/target/generated-sources/archetype">
+                        <include name="**/*.xml"/>
+                        <include name="**/*.properties"/>
+                        <replacetoken>${package}</replacetoken>
+                        <replacevalue>${groupId}.webapp</replacevalue>
+                    </replace>
+                    <replace dir="@{dir}/target/generated-sources/archetype">
+                        <include name="**/BasePageTestCase.java"/>
+                        <replacetoken>appPackage = "${package}";</replacetoken>
+                        <replacevalue>appPackage = "${package}.webapp";</replacevalue>
+                    </replace>
+                </then>
+            </if>
 
             <mvn command="install" dir="@{dir}/target/generated-sources/archetype"/>
         </sequential>

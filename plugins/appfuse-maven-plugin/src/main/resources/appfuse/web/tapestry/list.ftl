@@ -10,8 +10,6 @@ import ${appfusepackage}.service.GenericManager;
 import ${basepackage}.service.${pojo.shortName}Manager;
 </#if>
 import ${pojo.packageName}.${pojo.shortName};
-import ${basepackage}.webapp.pages.BasePage;
-import ${basepackage}.webapp.pages.MainMenu;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.InjectPage;
@@ -59,7 +57,7 @@ public class ${pojo.shortName}List extends BasePage {
     }
 
     Object onDone() {
-        return MainMenu.class;
+        return <#if useMainMenu>MainMenu<#else>Home</#if>.class;
     }
 
     Object onActionFromEdit(${identifierType} ${pojo.identifierProperty.name}) {

@@ -12,7 +12,7 @@ import ${basepackage}.service.${pojo.shortName}Manager;
 import ${pojo.packageName}.${pojo.shortName};
 import ${basepackage}.webapp.action.BasePageTestCase;
 
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import org.junit.After;
 import org.junit.Before;
@@ -22,18 +22,12 @@ import static org.junit.Assert.*;
 public class ${pojo.shortName}FormTest extends BasePageTestCase {
     private ${pojo.shortName}Form bean;
 <#if genericcore>
+    @Autowired
     private GenericManager<${pojo.shortName}, ${identifierType}> ${pojoNameLower}Manager;
 <#else>
+    @Autowired
     private ${pojo.shortName}Manager ${pojoNameLower}Manager;
 </#if>
-        
-<#if genericcore>
-    public void set${pojo.shortName}Manager(@Qualifier("${pojoNameLower}Manager") GenericManager<${pojo.shortName}, ${identifierType}> ${pojoNameLower}Manager) {
-<#else>
-    public void set${pojo.shortName}Manager(${pojo.shortName}Manager ${pojoNameLower}Manager) {
-</#if>
-        this.${pojoNameLower}Manager = ${pojoNameLower}Manager;
-    }
 
     @Before
     public void onSetUp() {
