@@ -276,9 +276,13 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
 
         // See if the project has security enabled
         boolean hasSecurity = false;
-        for (Object artifact : getProject().getArtifacts()) {
-            if (((Artifact) artifact).getArtifactId().contains("spring-security")) {
-                hasSecurity = true;
+        if (getProject().getPackaging().equals("war")) {
+            Collection<File> sourceFiles = FileUtils.listFiles(getProject().getBasedir(),new String[]{"xml"}, true);
+            for (File file : sourceFiles) {
+                if (file.getPath().contains("security.xml")) {
+                    hasSecurity = true;
+                    break;
+                }
             }
         }
 

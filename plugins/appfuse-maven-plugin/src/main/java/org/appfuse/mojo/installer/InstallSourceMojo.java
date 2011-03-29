@@ -237,14 +237,28 @@ public class InstallSourceMojo extends AbstractMojo {
             if (project.getPackaging().equals("war")) {
                 newDependencies.clear();
 
-                // Add dependencies from appfuse-common-web
-                newDependencies = addModuleDependencies(newDependencies, "web", "web");
+                // Don't add web and web-common dependencies for AppFuse Light
+                boolean isAppFuse = (project.getProperties().getProperty("copyright.year") != null);
 
-                // Add dependencies from appfuse-common-web
-                newDependencies = addModuleDependencies(newDependencies, "web-common", "web/common");
+                Double appfuseVersionAsDouble;
+                if (appfuseVersion != null && appfuseVersion.contains("-")) {
+                    appfuseVersionAsDouble = new Double(appfuseVersion.substring(0, appfuseVersion.indexOf("-")));
+                } else {
+                    appfuseVersionAsDouble = new Double(appfuseVersion);
+                }
 
-                // Add dependencies from appfuse-${web.framework}
-                newDependencies = addModuleDependencies(newDependencies, webFramework, "web/" + webFramework);
+                getLog().debug("Detected AppFuse version: " + appfuseVersionAsDouble);
+
+                if (isAppFuse && appfuseVersionAsDouble < 2.1) {
+
+                    // Add dependencies from appfuse-common-web
+                    newDependencies = addModuleDependencies(newDependencies, "web", "web");
+
+                    // Add dependencies from appfuse-common-web
+                    newDependencies = addModuleDependencies(newDependencies, "web-common", "web/common");
+
+                    //newDependencies = addModuleDependencies(newDependencies, webFramework, "web/" + webFramework);
+                }
 
                 createFullSourcePom(newDependencies);
             }
