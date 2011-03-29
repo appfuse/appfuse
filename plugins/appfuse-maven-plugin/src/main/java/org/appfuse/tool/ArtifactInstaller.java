@@ -338,11 +338,13 @@ public class ArtifactInstaller {
 
         // if ApplicationResources doesn't exist, assume appfuse-light and use messages instead
         if (!existingFile.exists()) {
+            existingFile = new File(destinationDirectory + "/src/main/resources/messages.properties");
+            /*
             if ("tapestry".equals(webFramework)) {
                 existingFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/app.properties");
             } else {
                 existingFile = new File(destinationDirectory + "/src/main/resources/messages.properties");
-            }
+            }*/
         }
 
         parsePropertiesFile(existingFile, pojoName);
