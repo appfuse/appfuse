@@ -89,13 +89,18 @@
         <antcall target="test-tapestry-modular"/>
     </target>
 
-    <target name="test-all">
+    <target name="test-all" description="Tests AMP, Full Source, iBATIS and JPA with AppFuse archetypes">
         <antcall target="test-basic"/>
         <antcall target="test-modular"/>
         <antcall target="test-basic-source"/>
         <antcall target="test-modular-source"/>
         <antcall target="test-ibatis"/>
         <antcall target="test-jpa"/>
+    </target>
+    
+    <target name="test-all-light" description="Tests AMP and Full Source with AppFuse Light">
+        <antcall target="test-light"/>
+        <antcall target="test-light-source"/>
     </target>
 
     <macrodef name="create-gen-basic">
