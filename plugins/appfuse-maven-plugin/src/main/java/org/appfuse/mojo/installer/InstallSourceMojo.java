@@ -15,7 +15,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.regex.Pattern;
 
 import org.apache.commons.beanutils.BeanComparator;
 import org.apache.commons.io.FileUtils;
@@ -162,6 +161,9 @@ public class InstallSourceMojo extends AbstractMojo {
 
                 // there's a jdbc.properties in test/resources that shouldn't be there
                 deleteFile("test/resources/jdbc.properties");
+            } else if (!isAppFuse()) {
+                // there's a jdbc.properties in test/resources that shouldn't be there
+                deleteFile("test/resources/jdbc.properties");
             }
         }
 
@@ -197,14 +199,7 @@ public class InstallSourceMojo extends AbstractMojo {
             newDependencies = addModuleDependencies(newDependencies, "service", "service");
 
             if (project.getPackaging().equals("war")) {
-                // Add dependencies from appfuse-web
-                newDependencies = addModuleDependencies(newDependencies, "web", "web");
-
-                // Add dependencies from appfuse-common-web
-                newDependencies = addModuleDependencies(newDependencies, "web-common", "web/common");
-
-                // Add dependencies from appfuse-${web.framework}
-                newDependencies = addModuleDependencies(newDependencies, webFramework, "web/" + webFramework);
+                newDependencies = addWebDependencies(appfuseVersion, newDependencies);
             }
 
             createFullSourcePom(newDependencies);
@@ -235,34 +230,34 @@ public class InstallSourceMojo extends AbstractMojo {
             }
 
             if (project.getPackaging().equals("war")) {
+                newDependencies = addWebDependencies(appfuseVersion, newDependencies);
                 newDependencies.clear();
-
-                // Don't add web and web-common dependencies for AppFuse Light
-                boolean isAppFuse = (project.getProperties().getProperty("copyright.year") != null);
-
-                Double appfuseVersionAsDouble;
-                if (appfuseVersion != null && appfuseVersion.contains("-")) {
-                    appfuseVersionAsDouble = new Double(appfuseVersion.substring(0, appfuseVersion.indexOf("-")));
-                } else {
-                    appfuseVersionAsDouble = new Double(appfuseVersion);
-                }
-
-                getLog().debug("Detected AppFuse version: " + appfuseVersionAsDouble);
-
-                if (isAppFuse && appfuseVersionAsDouble < 2.1) {
-
-                    // Add dependencies from appfuse-common-web
-                    newDependencies = addModuleDependencies(newDependencies, "web", "web");
-
-                    // Add dependencies from appfuse-common-web
-                    newDependencies = addModuleDependencies(newDependencies, "web-common", "web/common");
-
-                    //newDependencies = addModuleDependencies(newDependencies, webFramework, "web/" + webFramework);
-                }
 
                 createFullSourcePom(newDependencies);
             }
         }
+    }
+
+    private List<Dependency> addWebDependencies(String appfuseVersion, List<Dependency> newDependencies) {
+        // Add dependencies from appfuse-common-web
+        newDependencies = addModuleDependencies(newDependencies, "web", "web");
+
+        Double appfuseVersionAsDouble = new Double(appfuseVersion.substring(0, appfuseVersion.lastIndexOf(".")));
+
+        getLog().debug("Detected AppFuse version: " + appfuseVersionAsDouble);
+
+        if (isAppFuse() && appfuseVersionAsDouble < 2.1) {
+
+            // Add dependencies from appfuse-common-web
+            newDependencies = addModuleDependencies(newDependencies, "web-common", "web/common");
+
+            //newDependencies = addModuleDependencies(newDependencies, webFramework, "web/" + webFramework);
+        }
+        return newDependencies;
+    }
+
+    private boolean isAppFuse() {
+        return (project.getProperties().getProperty("copyright.year") != null);
     }
 
     private void deleteFile(String filePath) {
