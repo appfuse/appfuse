@@ -28,9 +28,6 @@
                 <arg key="uploadForm.file"/>
             </field>
         </form>
-    </formset>
-
-    <formset>
         <form name="address">
             <field property="city" depends="required">
                 <arg key="address.city"/>
