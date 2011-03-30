@@ -211,7 +211,7 @@ public class InstallSourceMojo extends AbstractMojo {
             newDependencies = addModuleDependencies(newDependencies, "service", "service");
 
             if (!isWebServicesProject && project.getPackaging().equals("war")) {
-                newDependencies = addWebDependencies(appfuseVersion, newDependencies);
+                newDependencies = addWebDependencies(appfuseVersion, newDependencies, webFramework);
             }
 
             createFullSourcePom(newDependencies);
@@ -242,15 +242,16 @@ public class InstallSourceMojo extends AbstractMojo {
             }
 
             if (project.getPackaging().equals("war")) {
-                newDependencies = addWebDependencies(appfuseVersion, newDependencies);
                 newDependencies.clear();
+
+                newDependencies = addWebDependencies(appfuseVersion, newDependencies, webFramework);
 
                 createFullSourcePom(newDependencies);
             }
         }
     }
 
-    private List<Dependency> addWebDependencies(String appfuseVersion, List<Dependency> newDependencies) {
+    private List<Dependency> addWebDependencies(String appfuseVersion, List<Dependency> newDependencies, String webFramework) {
         // Add dependencies from appfuse-common-web
         newDependencies = addModuleDependencies(newDependencies, "web", "web");
 
@@ -264,6 +265,13 @@ public class InstallSourceMojo extends AbstractMojo {
             newDependencies = addModuleDependencies(newDependencies, "web-common", "web/common");
 
             //newDependencies = addModuleDependencies(newDependencies, webFramework, "web/" + webFramework);
+        }
+
+        // modular archetypes still seem to need these - todo: figure out why
+        if (isAppFuse() && project.getPackaging().equals("war") && project.hasParent()) {
+            newDependencies = addModuleDependencies(newDependencies, "web-common", "web/common");
+
+            newDependencies = addModuleDependencies(newDependencies, webFramework, "web/" + webFramework);
         }
         return newDependencies;
     }
