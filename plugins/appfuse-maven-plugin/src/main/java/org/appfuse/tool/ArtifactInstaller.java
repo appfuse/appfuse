@@ -249,10 +249,10 @@ public class ArtifactInstaller {
     }
 
     private void installSpringValidation() {
-        createLoadFileTask("src/main/webapp/WEB-INF/" + pojoName + "-validation.xml", "struts.validation").execute();
+        createLoadFileTask("src/main/webapp/WEB-INF/" + pojoName + "-validation.xml", "spring.validation").execute();
         File generatedFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/validation.xml");
 
-        parseXMLFile(generatedFile, pojoName, "    </formset>", "struts.validation");
+        parseXMLFile(generatedFile, pojoName, "    </formset>", "spring.validation");
     }
 
     private void installStrutsActionDefinitions() {
