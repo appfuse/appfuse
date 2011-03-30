@@ -33,6 +33,7 @@ public class ArtifactInstaller {
     String sourceDirectory;
     MavenProject project;
     boolean genericCore;
+    StringUtils util;
 
     public ArtifactInstaller(MavenProject project, String pojoName, String sourceDirectory, String destinationDirectory, boolean genericCore) {
         this.project = project;
@@ -41,6 +42,7 @@ public class ArtifactInstaller {
         this.sourceDirectory = sourceDirectory;
         this.destinationDirectory = destinationDirectory;
         this.genericCore = genericCore;
+        this.util = new StringUtils();
     }
 
     public void execute() {
@@ -271,7 +273,7 @@ public class ArtifactInstaller {
         copy.execute();
 
         copy.setFile(new File(sourceDirectory + "/src/main/webapp/" + pojoName + "s.xhtml"));
-        copy.setTofile(new File(destinationDirectory + "/src/main/webapp/" + pojoNameLower + "s.xhtml"));
+        copy.setTofile(new File(destinationDirectory + "/src/main/webapp/" + util.getPluralForWord(pojoNameLower) + ".xhtml"));
         copy.execute();
     }
 
@@ -282,7 +284,7 @@ public class ArtifactInstaller {
         copy.execute();
 
         copy.setFile(new File(sourceDirectory + "/src/main/webapp/WEB-INF/pages/" + pojoName + "s.jsp"));
-        copy.setTofile(new File(destinationDirectory + "/src/main/webapp/WEB-INF/pages/" + pojoNameLower + "s.jsp"));
+        copy.setTofile(new File(destinationDirectory + "/src/main/webapp/WEB-INF/pages/" + util.getPluralForWord(pojoNameLower) + ".jsp"));
         copy.execute();
     }
 
