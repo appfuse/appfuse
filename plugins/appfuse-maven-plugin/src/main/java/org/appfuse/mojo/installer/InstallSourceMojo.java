@@ -18,6 +18,7 @@ import java.util.TreeSet;
 
 import org.apache.commons.beanutils.BeanComparator;
 import org.apache.commons.io.FileUtils;
+import org.apache.maven.artifact.Artifact;
 import org.apache.maven.embedder.MavenEmbedder;
 import org.apache.maven.embedder.MavenEmbedderConsoleLogger;
 import org.apache.maven.model.Dependency;
@@ -143,8 +144,19 @@ public class InstallSourceMojo extends AbstractMojo {
             }
         }
 
+        // it's OK if a project created with appfuse-ws doesn't have a web framework defined
+        // currently, a project with appfuse-ws can be identified by enunciate
+        boolean isWebServicesProject = false;
+        for (Object pluginArtifact : project.getPluginArtifacts()) {
+            if (((Artifact) pluginArtifact).getArtifactId().contains("enunciate")) {
+                isWebServicesProject = true;
+                break;
+            }
+        }
+
         if (project.getPackaging().equalsIgnoreCase("war")) {
-            if (webFramework == null) {
+
+            if (webFramework == null && !isWebServicesProject) {
                 getLog().error("The web.framework property is not specified - please modify your pom.xml to add " +
                         " this property. For example: <web.framework>struts</web.framework>.");
                 throw new MojoExecutionException("No web.framework property specified, please modify pom.xml to add it.");
@@ -198,7 +210,7 @@ public class InstallSourceMojo extends AbstractMojo {
             // Add dependencies from appfuse-service
             newDependencies = addModuleDependencies(newDependencies, "service", "service");
 
-            if (project.getPackaging().equals("war")) {
+            if (!isWebServicesProject && project.getPackaging().equals("war")) {
                 newDependencies = addWebDependencies(appfuseVersion, newDependencies);
             }
 
