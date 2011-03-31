@@ -200,7 +200,10 @@ public class AppFuseExporter extends GenericExporter {
         configureExporter("appfuse/web/ApplicationResources.ftl", "src/main/resources/{class-name}-ApplicationResources.properties").start();
 
         // ui tests
-        configureExporter("appfuse/web/" + webFramework + "/web-tests.ftl", "src/test/resources/{class-name}-web-tests.xml").start();
+        if (!webFramework.equals("wicket") && !webFramework.equals("spring-security") &&
+                !webFramework.equals("spring-freemarker") && !webFramework.equals("stripes")) {
+            configureExporter("appfuse/web/" + webFramework + "/web-tests.ftl", "src/test/resources/{class-name}-web-tests.xml").start();
+        }
     }
 
     private String getDaoFilename(String daoFramework) {

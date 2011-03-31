@@ -359,9 +359,11 @@ public class ArtifactInstaller {
     }
 
     private void installUITests() {
-        createLoadFileTask("src/test/resources/" + pojoName + "-web-tests.xml", "web.tests").execute();
+        // Gracefully handle when ui tests don't exist
+        boolean webTestsExist = new File("src/test/resources/" + pojoName + "-web-tests.xml").exists();
         File existingFile = new File(destinationDirectory + "/src/test/resources/web-tests.xml");
-        if (existingFile.exists()) {
+        if (webTestsExist && existingFile.exists()) {
+            createLoadFileTask("src/test/resources/" + pojoName + "-web-tests.xml", "web.tests").execute();
             parseXMLFile(existingFile, pojoName, "</project>", "web.tests");
 
             // Add main target to run-all-tests target
