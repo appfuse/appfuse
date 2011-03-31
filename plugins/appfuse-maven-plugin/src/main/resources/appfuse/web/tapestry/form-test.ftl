@@ -10,6 +10,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class ${pojo.shortName}FormTest extends BasePageTestCase {
 
@@ -25,7 +26,11 @@ public class ${pojo.shortName}FormTest extends BasePageTestCase {
 
         Element cancelButton = doc.getElementById("cancel");
         doc = tester.clickSubmit(cancelButton, fieldValues);
-        assertTrue(doc.toString().contains("${pojo.shortName} List"));
+
+        ResourceBundle rb = ResourceBundle.getBundle(MESSAGES);
+
+        assertTrue(doc.toString().contains("<title>" +
+                rb.getString("${pojoNameLower}List.title")));
     }
 
     @Test

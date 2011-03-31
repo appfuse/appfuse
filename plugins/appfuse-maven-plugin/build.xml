@@ -74,6 +74,10 @@
     <target name="test-tapestry-light" description="tests plugin with tapestry light archetype">
         <create-gen-basic archetype="appfuse-light-tapestry" name="light-tapestry"/>
     </target>
+    
+    <target name="test-wicket-light" description="tests plugin with wicket light archetype">
+        <create-gen-basic archetype="appfuse-light-wicket" name="light-wicket"/>
+    </target>
 
     <target name="test-light" description="Runs all light archetype tests using Ant">
         <antcall target="test-jsf-light"/>
