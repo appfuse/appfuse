@@ -133,7 +133,7 @@
                         <configuration>
                             <tasks>
                                 <echo>Copying i18n files...</echo>
-                                <copy todir="src/main/webapp/WEB-INF">
+                                <copy todir="src/main/webapp/WEB-INF" overwrite="true">
                                     <globmapper from="ApplicationResources*" to="app*" />
                                     <fileset dir="../common/src/main/resources" includes="ApplicationResources*" />
                                 </copy>
