@@ -125,6 +125,18 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
 
         pojoName = System.getProperty("entity");
 
+        if (pojoName == null) {
+            try {
+                pojoName = prompter.prompt("What is the name of your pojo (i.e. Person)?");
+            } catch (PrompterException pe) {
+                pe.printStackTrace();
+            }
+        }
+
+        if (pojoName == null || "".equals(pojoName.trim())) {
+            throw new MojoExecutionException("You must specify an entity name to continue.");
+        }
+
         // A dot in the entity name means the person is specifying the package.
         if (pojoName.contains(".")) {
             if (pojoName.indexOf("model") == -1) {
@@ -136,18 +148,6 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
 
             pojoName = pojoName.substring(pojoName.lastIndexOf(".") + 1);
             log("Package name set to: " + fullPath);
-        }
-
-        if (pojoName == null) {
-            try {
-                pojoName = prompter.prompt("What is the name of your pojo (i.e. Person)?");
-            } catch (PrompterException pe) {
-                pe.printStackTrace();
-            }
-        }
-
-        if (pojoName == null || "".equals(pojoName.trim())) {
-            throw new MojoExecutionException("You must specify an entity name to continue.");
         }
 
         String daoFramework = getProject().getProperties().getProperty("dao.framework");
