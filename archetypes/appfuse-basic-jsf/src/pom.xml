@@ -699,7 +699,7 @@
         <commons.io.version>2.0.1</commons.io.version>
         <el.version>1.2</el.version>
         <facelets.version>1.1.14</facelets.version>
-        <myfaces.version>2.0.4</myfaces.version>
+        <myfaces.version>2.0.5</myfaces.version>
         <myfaces.tomahawk.version>1.1.10</myfaces.tomahawk.version>
         <spring.version>3.0.5.RELEASE</spring.version>
 
