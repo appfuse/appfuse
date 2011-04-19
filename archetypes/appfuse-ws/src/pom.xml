@@ -490,7 +490,7 @@
         <appfuse.version>2.1.1-SNAPSHOT</appfuse.version>
         <commons.dbcp.version>1.3</commons.dbcp.version>
         <cxf.version>2.3.3</cxf.version>
-        <enunciate.version>1.21</enunciate.version>
+        <enunciate.version>1.22</enunciate.version>
         <spring.version>3.0.5.RELEASE</spring.version>
 
         <!-- Testing dependency versions -->
