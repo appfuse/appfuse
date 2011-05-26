@@ -1,0 +1,45 @@
+<t:layout title="message:display.title"
+          heading="message:display.heading" menu="literal:AdminMenu"
+          xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+
+    <p>Below is a list of attributes that were gathered in FileUpload.java.</p>
+
+    <div class="separator"></div>
+
+    <table class="detail" cellpadding="5">
+        <tr>
+            <th>Friendly Name:</th>
+            <td>${name}</td>
+        </tr>
+        <tr>
+            <th>Filename:</th>
+            <td>${fileName}</td>
+        </tr>
+        <tr>
+            <th>File content type:</th>
+            <td>${contentType}</td>
+        </tr>
+        <tr>
+            <th>File size:</th>
+            <td>${size} bytes</td>
+        </tr>
+        <tr>
+            <th class="tallCell">File Location:</th>
+            <td>The file has been written to: <br/>
+                <a t:type="any" href="${url}">${path}</a>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td class="buttonBar">
+                <a t:type="eventlink" event="done">
+                    <input type="button" name="done" id="done" value="Done"/>
+                </a>
+                <a t:type="eventlink" event="anotherUpload">
+                    <input type="button" style="width: 120px" value="Upload Another"/>
+                </a>
+            </td>
+        </tr>
+    </table>
+
+</t:layout>

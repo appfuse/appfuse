@@ -1,0 +1,19 @@
+<t:layout title="message:userProfile.title"
+          heading="message:userProfile.heading" menu="literal:UserMenu"
+          xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+
+    <t:messagebanner t:id="message" type="type"/>
+
+    <div class="separator"></div>
+
+    <t:userform t:id="edit"
+                user="user"
+                signup="false"
+                clientValidation="true"
+                from="from"
+                selectedRoles="selectedRoles"
+                userRoles="userRoles"
+                cookieLogin="cookieLogin"
+                submitLabel="${message:button.save}"/>
+
+</t:layout>

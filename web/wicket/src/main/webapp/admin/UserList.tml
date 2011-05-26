@@ -1,0 +1,58 @@
+<t:layout title="message:userList.title"
+    heading="message:userList.heading" menu="literal:AdminMenu"
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+
+    <t:messagebanner t:id="message" type="type"/>
+
+    <div id="search">
+    <t:form method="get" t:id="searchForm">
+        <t:textfield size="20" name="q" t:id="q"/>
+        <input t:type="submit" value="${message:button.search}"/>
+    </t:form>
+    </div>
+
+    <p>
+        <t:eventlink t:id="addTop">
+            <input type="button" class="button" value="${message:button.add}" />
+        </t:eventlink>
+        <t:eventlink t:id="doneTop">
+            <input type="button" class="button" value="${message:button.done}" />
+        </t:eventlink>
+    </p>
+
+    <t:grid source="users" row="user" model="model" reorder="username,fullname,email,enabled" t:id="userList" id="userList" class="table">
+        <t:parameter name="usernamecell">
+            <t:actionlink t:id="edit" context="user.id" id="user-${user.username}">
+                ${user.username}
+            </t:actionlink>
+        </t:parameter>
+        <t:parameter name="fullnamecell">${user.fullName}</t:parameter>
+        <t:parameter name="emailcell">
+            <a href="mailto:${user.email}" t:type="any">
+                ${user.email}
+            </a>
+        </t:parameter>
+        <t:parameter name="enabledcell">
+            <t:if test="user.enabled">
+                <input type="checkbox" disabled="disabled" style="margin-left: 15px" checked="checked" />
+                <t:parameter name="else">
+                    <input type="checkbox" disabled="disabled" style="margin-left: 15px"/>
+                </t:parameter>
+            </t:if>
+        </t:parameter>
+    </t:grid>
+
+    <p>
+        <t:eventlink t:id="addBottom">
+            <input type="button" class="button" value="${message:button.add}" />
+        </t:eventlink>
+        <t:eventlink t:id="doneBottom">
+            <input type="button" class="button" value="${message:button.done}" />
+        </t:eventlink>
+    </p>
+
+    <script type="text/javascript">
+        highlightTableRows("userList");
+    </script>
+
+</t:layout>

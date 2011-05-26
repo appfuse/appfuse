@@ -1,0 +1,200 @@
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+    <display-name>appfuse</display-name>
+    <distributable/>
+
+    <!-- precompiled jsp mappings -->
+
+    <!-- Define the default CSS Theme -->
+    <context-param>
+        <param-name>csstheme</param-name>
+        <param-value>simplicity</param-value>
+    </context-param>
+    <!-- Define the basename for a resource bundle for I18N -->
+    <context-param>
+        <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
+        <param-value>ApplicationResources</param-value>
+    </context-param>
+    <!-- Fallback locale if no bundles found for browser's preferred locale -->
+    <!-- Force a single locale using param-name 'javax.servlet.jsp.jstl.fmt.locale' -->
+    <context-param>
+        <param-name>javax.servlet.jsp.jstl.fmt.fallbackLocale</param-name>
+        <param-value>en</param-value>
+    </context-param>
+    <!-- Context Configuration locations for Spring XML files -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            classpath:/applicationContext-resources.xml
+            classpath:/applicationContext-dao.xml
+            classpath:/applicationContext-service.xml
+            classpath*:/applicationContext.xml
+            /WEB-INF/applicationContext*.xml
+            /WEB-INF/cxf-servlet.xml
+            /WEB-INF/security.xml
+        </param-value>
+    </context-param>
+
+    <!-- Context Configuration for Tapestry 5 -->
+    <context-param>
+        <param-name>tapestry.app-package</param-name>
+        <param-value>org.appfuse.webapp</param-value>
+    </context-param>
+    <context-param>
+        <param-name>tapestry.use-external-spring-context</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
+    <filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <!-- GZipFilter has issues with XFire's service-listing servlet. -->
+    <!-- http://issues.appfuse.org/browse/APF-863 -->
+    <!-- And showing blank pages. http://issues.appfuse.org/browse/APF-1037 -->
+    <!-- We recommend you configure gzipping in your servlet container.
+         web server, or load balancer. -->
+    <!--filter>
+        <filter-name>gzipFilter</filter-name>
+        <filter-class>net.sf.ehcache.constructs.web.filter.GzipFilter</filter-class>
+    </filter-->
+    <!--<filter>
+        <filter-name>lazyLoadingFilter</filter-name>
+        <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+    </filter>-->
+    <!-- Use "org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter" if you're using JPA -->
+    <filter>
+        <filter-name>localeFilter</filter-name>
+        <filter-class>org.appfuse.webapp.filter.LocaleFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>rewriteFilter</filter-name>
+        <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+        <!-- sets up log level (will be logged to context log)
+            can be: TRACE, DEBUG, INFO (default), WARN, ERROR, FATAL, log4j, commons, sysout:{level} (ie, sysout:DEBUG)
+            if you are having trouble using normal levels use sysout:DEBUG -->
+        <init-param>
+            <param-name>logLevel</param-name>
+            <param-value>commons</param-value>
+        </init-param>
+        <!-- set the amount of seconds the conf file will be checked for reload
+            can be a valid integer (0 denotes check every time,
+            -1 denotes no reload check, default -1) -->
+        <init-param>
+            <param-name>confReloadCheckInterval</param-name>
+            <param-value>-1</param-value>
+        </init-param>
+    </filter>
+    <filter>
+        <filter-name>securityFilter</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+        <init-param>
+            <param-name>targetBeanName</param-name>
+            <param-value>springSecurityFilterChain</param-value>
+        </init-param>
+    </filter>
+    <filter>
+        <filter-name>sitemesh</filter-name>
+        <filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class>
+    </filter>
+
+    <!-- T5/Spring Filter -->
+    <filter>
+        <filter-name>app</filter-name>
+        <filter-class>org.apache.tapestry5.spring.TapestrySpringFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>securityFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>localeFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <!--filter-mapping>
+        <filter-name>gzipFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping-->
+    <filter-mapping>
+        <filter-name>rewriteFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>sitemesh</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+
+    <!-- T5 Filter Mapping -->
+    <filter-mapping>
+        <filter-name>app</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>org.appfuse.webapp.listener.StartupListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>org.appfuse.webapp.listener.UserCounterListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>net.sf.navigator.menu.MenuContextListener</listener-class>
+    </listener>
+
+    <servlet>
+        <servlet-name>dwr-invoker</servlet-name>
+        <servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class>
+        <init-param>
+            <param-name>debug</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet>
+        <servlet-name>CXFServlet</servlet-name>
+        <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>dwr-invoker</servlet-name>
+        <url-pattern>/dwr/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>CXFServlet</servlet-name>
+        <url-pattern>/services/*</url-pattern>
+    </servlet-mapping>
+
+    <session-config>
+        <session-timeout>10</session-timeout>
+    </session-config>
+
+    <welcome-file-list>
+        <welcome-file>/index</welcome-file>
+    </welcome-file-list>
+</web-app>

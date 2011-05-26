@@ -1,0 +1,11 @@
+<t:layout title="literal:Doh!"
+          xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+
+    <h1>An Error Occurred</h1>
+
+    <div style="overflow:auto">${error}</div>
+
+    <p>You may attempt to <t:pagelink page="index">try again</t:pagelink>.</p>
+
+
+</t:layout>

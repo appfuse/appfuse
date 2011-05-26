@@ -1,0 +1,17 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+<head>
+    <title>${title}</title>
+    <t:if test="heading">
+        <meta name="heading" content="${heading}"/>
+    </t:if>
+    <t:if test="menu">
+        <meta name="menu" content="${menu}"/>
+    </t:if>
+</head>
+
+<body id="${bodyId}">
+    <t:body/>
+</body>
+</html>

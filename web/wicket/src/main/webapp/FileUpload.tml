@@ -1,0 +1,26 @@
+<t:layout title="message:upload.title" heading="message:upload.heading"
+          menu="literal:AdminMenu" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+
+    <t:showmessage message="message"/>
+    <div class="separator"></div>
+    <t:form t:id="upload" clientValidation="true">
+        <ul>
+            <li class="info">${message:upload.message}</li>
+            <li>
+                <t:label class="desc" for="name"/>
+                <t:textfield t:id="name" class="text medium" label="${message:uploadForm.name}" validate="required"/>
+            </li>
+            <li>
+                <t:label class="desc" for="file">${message:uploadForm.file}<span class="req"> *</span></t:label>
+                <t:upload t:id="file" class="text medium" validate="required"/>
+            </li>
+            <li class="buttonBar bottom">
+                <t:submit class="button" value="${message:button.upload}" t:id="save"/>
+                <t:eventlink t:id="cancel">
+                    <input type="button" class="button" value="${message:button.cancel}"/>
+                </t:eventlink>
+            </li>
+        </ul>
+    </t:form>
+    <script type="text/javascript">highlightFormElements();</script>
+</t:layout>

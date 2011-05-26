@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+       default-lazy-init="true">
+
+    <!-- Activates scanning of @Autowired -->
+    <context:annotation-config/>
+
+    <!-- Activates scanning of @Repository and @Service -->
+    <context:component-scan base-package="org.appfuse"/>
+
+    <!-- Compass Search Section -->
+    <!-- Compass Bean, automatically scanning for searchable classes within the model -->
+    <!-- Hooks into Spring transaction management and stores the index on the file system -->
+    <bean id="compass" class="org.compass.spring.LocalCompassBean">
+        <property name="mappingScan" value="org.appfuse"/>
+        <property name="postProcessor" ref="compassPostProcessor"/>
+        <property name="transactionManager" ref="transactionManager" />
+        <property name="settings">
+            <map>
+                <entry key="compass.engine.connection" value="target/test-index" />
+            </map>
+        </property>
+    </bean>
+
+    <bean id="compassPostProcessor" class="org.appfuse.webapp.search.CompassConfigurationPostProcessor"/>
+
+    <!-- Add new DAOs here -->
+
+    <!-- Add new Managers here -->
+</beans>

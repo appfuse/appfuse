@@ -1,0 +1,17 @@
+<t:layout title="message:activeUsers.title"
+          heading="message:activeUsers.heading" menu="literal:AdminMenu" bodyId="activeUsers"
+          xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+
+    <p>${message:activeUsers.message}</p>
+
+    <div class="separator"></div>
+
+    <p><input type="button" onclick="location.href='${prop:mainMenuLink}'" t:type="any" value="${message:button.done}"/></p>
+
+    <t:grid source="activeUsers" row="user" model="model" reorder="username,fullname" class="table">
+        <t:parameter name="fullnamecell">
+            ${user.fullName}
+        </t:parameter>
+    </t:grid>
+
+</t:layout>

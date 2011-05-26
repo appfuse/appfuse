@@ -1,0 +1,52 @@
+<t:layout title="message:login.title" heading="message:login.heading"
+          menu="literal:AdminMenu" bodyId="login"
+          xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+    <head>
+        <link rel="stylesheet" type="text/css" media="all" href="/styles/${cssTheme}/layout-1col.css" />
+    </head>
+
+    <t:messagebanner t:id="message" type="type"/>
+    
+    <form method="post" id="loginForm" action="${springSecurityUrl}" onsubmit="saveUsername(this)">
+        <fieldset style="padding-bottom: 0">
+            <ul>
+                <t:if test="${errorMessage}">
+                    <li class="error">
+                        <img src="${iconWarning}" alt="${message:icon.warning}" class="icon"/>
+                        ${message:errors.password.mismatch}
+                    </li>
+                </t:if>
+                <li>
+                    <label for="j_username" class="required desc">
+                        ${message:label.username} <span class="req">*</span>
+                    </label>
+                    <input type="text" class="text medium" name="j_username" id="j_username" tabindex="1" value=""/>
+                </li>
+                <li>
+                    <label for="j_password" class="required desc">
+                        ${message:label.password} <span class="req">*</span>
+                    </label>
+                    <input type="password" class="text medium" name="j_password" id="j_password" tabindex="2"/>
+                </li>
+                <t:if test="rememberMeEnabled">
+                    <li>
+                        <input type="checkbox" class="checkbox" name="_spring_security_remember_me" id="rememberMe" tabindex="3"/>
+                        <label for="rememberMe" class="choice">${message:login.rememberMe}</label>
+                    </li>
+                </t:if>
+                <li>
+                    <input type="submit" class="button" name="login" value="${message:button.login}" tabindex="4"/>
+
+                    <p>
+                        <t:outputraw value="${signup}"/>
+                    </p>
+                </li>
+            </ul>
+        </fieldset>
+    </form>
+
+    <p>
+        <t:outputraw value="${message:login.passwordHint}"/>
+    </p>
+    <script type="text/javascript" src="scripts/login.js"></script>
+</t:layout>

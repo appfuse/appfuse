@@ -1,0 +1,209 @@
+<t:container xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd" xmlns:p="tapestry:parameter">
+<t:form t:id="form">
+
+    <t:unless test="${signup}">
+
+        <input name="from" type="hidden" value="${from}"/>
+        <input name="id" type="hidden" value="${user.id}"/>
+        <input name="version" type="hidden" value="${user.version}"/>
+        <input name="originalPassword" type="hidden" value="${user.password}"/>
+        
+        <t:if test="userVersionNull">
+            <input type="hidden" name="encryptPass" value="true"/>
+        </t:if>
+
+    </t:unless>
+
+    <ul>
+        <t:unless test="${signup}">
+            <li class="buttonBar right">
+                <input type="submit" id="saveTop" class="button" value="${submitLabel}"/>
+                <t:if test="user.username">
+                    <input t:type="submit" t:id="deleteTop" class="button" value="${message:button.delete}"
+                           onclick="return confirmDelete('User')"/>
+                </t:if>
+                <t:eventlink t:id="cancelTop" id="cancel">
+                    <input type="submit" class="button" value="${message:button.cancel}"
+                           onclick="form.onsubmit = null"/>
+                </t:eventlink>
+            </li>
+
+        </t:unless>
+
+        <li class="info">
+            <t:unless test="${signup}">
+                <t:if test="fromList">
+                    <div>${message:userProfile.admin.message}</div>
+                    <t:parameter name="else">
+                        <div>${message:userProfile.message}</div>
+                    </t:parameter>
+                </t:if>
+                <t:parameter name="else">
+                    <div>${message:signup.message}</div>
+                </t:parameter>
+            </t:unless>
+        </li>
+
+        <li>
+            <t:label class="desc" for="username">${message:user.username}</t:label>
+            <input type="text" t:id="username" class="text large"/>
+        </li>
+        <t:if test="cookieLogin" negate="true">
+            <li>
+                <div>
+                    <div class="left">
+                        <t:label class="desc" for="password">${message:user.password}</t:label>
+                        <input class="text medium" type="password" t:id="password"/>
+                    </div>
+                    <div>
+                        <t:label class="desc" for="confirmPassword">${message:user.confirmPassword}</t:label>
+                        <input class="text medium" type="password" t:id="confirmPassword"/>
+                    </div>
+                </div>
+            </li>
+            <p:else>
+                <input type="hidden" name="password" value="${user.password}"/>
+                <input type="hidden" name="confirmPassword" value="${user.confirmPassword}"/>
+            </p:else>
+        </t:if>
+        <li>
+            <t:label class="desc" for="passwordHint">${message:user.passwordHint}</t:label>
+            <input class="text large" type="text" t:id="passwordHint"/>
+        </li>
+        <li>
+            <div>
+                <div class="left">
+                    <t:label class="desc" for="firstName">${message:user.firstName}</t:label>
+                    <input class="text medium" type="text" t:id="firstName"/>
+                </div>
+                <div>
+                    <t:label class="desc" for="lastName">${message:user.lastName}</t:label>
+                    <input class="text medium" type="text" t:id="lastName"/>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div>
+                <div class="left">
+                    <t:label class="desc" for="email">${message:user.email}</t:label>
+                    <input class="text medium" type="textfield" t:id="email"/>
+                </div>
+                <div>
+                    <t:label class="desc" for="phoneNumber">${message:user.phoneNumber}</t:label>
+                    <input class="text medium" type="text" t:id="phoneNumber"/>
+                </div>
+            </div>
+        </li>
+        <li>
+            <t:label class="desc" for="website">${message:user.website}</t:label>
+            <input class="text large" type="text" t:id="website"/>
+        </li>
+        <li>
+            <label class="desc">${message:user.address.address}</label>
+
+            <div class="group">
+                <div>
+                    <input class="text large" type="text" t:id="address"/>
+
+                    <p>
+                        <t:label for="address">${message:user.address.address}</t:label>
+                    </p>
+                </div>
+                <div class="left">
+                    <input class="text medium" type="text" t:id="city"/>
+
+                    <p>
+                        <t:label for="city">${message:user.address.city}</t:label>
+                    </p>
+                </div>
+                <div>
+                    <input class="text state" type="text" t:id="state"/>
+
+                    <p>
+                        <t:label for="state">${message:user.address.province}</t:label>
+                    </p>
+                </div>
+                <div class="left">
+                    <input class="text medium" t:type="text" t:id="postalCode"/>
+
+                    <p>
+                        <t:label for="postalCode">${message:user.address.postalCode}</t:label>
+                    </p>
+                </div>
+                <div>
+                    <t:select size="1" class="select" t:id="country"/>
+                    <p>
+                        <t:label for="country">${message:user.address.country}</t:label>
+                    </p>
+                </div>
+            </div>
+        </li>
+
+        <t:unless test="${signup}">
+            <t:if test="fromList">
+                <li>
+                    <fieldset>
+                        <legend>${message:userProfile.accountSettings}</legend>
+                        <label>
+                            <input class="checkbox" t:type="checkbox" value="user.enabled" t:id="enabled"/>
+                            <t:label class="choice" for="enabled">${message:user.enabled}</t:label>
+                        </label>
+                        <label>
+                            <input class="checkbox" t:type="checkbox" value="user.accountExpired"
+                                   t:id="accountExpired"/>
+                            <t:label class="choice" for="accountExpired">${message:user.accountExpired}</t:label>
+                        </label>
+                        <label>
+                            <input class="checkbox" t:type="checkbox" value="user.accountLocked" t:id="accountLocked"/>
+                            <t:label class="choice" for="accountLocked">${message:user.accountLocked}</t:label>
+                        </label>
+                        <label>
+                            <input class="checkbox" t:type="checkbox" value="user.credentialsExpired"
+                                   t:id="credentialsExpired"/>
+                            <t:label class="choice" for="credentialsExpired">${message:user.credentialsExpired}
+                            </t:label>
+                        </label>
+                    </fieldset>
+                </li>
+                <li>
+                    <fieldset>
+                        <legend>${message:userProfile.assignRoles}</legend>
+                        <t:checkboxselect t:id="selectedRoles" model="roleModel" encoder="encoder"
+                                          selected="selectedRoles"/>
+                    </fieldset>
+                </li>
+            </t:if>
+            <t:if test="fromList" negate="true">
+                <li>
+                    <strong>${message:user.roles}:</strong>
+                    ${userRoles}
+                    <input type="hidden" name="enabled" value="${user.enabled}"/>
+                    <input type="hidden" name="accountExpired" value="${user.accountExpired}"/>
+                    <input type="hidden" name="accountLocked" value="${prop:user.accountLocked}"/>
+                    <input type="hidden" name="credentialsExpired" value="${prop:user.credentialsExpired}"/>
+                </li>
+            </t:if>
+
+        </t:unless>
+
+        <li class="buttonBar bottom">
+            <input type="submit" id="saveBottom" class="button" value="${submitLabel}"/>
+            <t:unless test="${signup}">
+                <t:if test="user.username">
+                    <input t:type="submit" t:id="deleteBottom" class="button" value="${message:button.delete}"
+                           onclick="form.onsubmit = null; return confirmDelete('User')"/>
+                </t:if>
+            </t:unless>
+            <t:eventlink t:id="cancelBottom">
+                <input type="submit" class="button" value="${message:button.cancel}"
+                       onclick="form.onsubmit = null"/>
+            </t:eventlink>
+        </li>
+    </ul>
+</t:form>
+
+<script type="text/javascript">
+    Form.focusFirstElement($("${clientId}"));
+    highlightFormElements();
+</script>
+</t:container>
