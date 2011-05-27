@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+
+<head>
+    <meta name="title" content="Meta title"/>
+    <!-- How to make heading configurable for diffrent pages? -->
+    <meta name="heading" wicket:message="content:userProfile.heading"/>
+    <meta name="menu" content="UserMenu"/>
+    <meta name="bodyId" content="login"/> <!-- TODO: MZA: Is it used? Referenced only in Layout (custom class for Tapestry) -->
+
+    <title>
+        <wicket:message key="userProfile.title">[Title]</wicket:message>
+    </title>
+</head>
+
+<body>
+    <div>
+        <div wicket:id="feedback"></div>
+    </div>
+
+    <form wicket:id="userEditForm">
+        <span wicket:id="userEditPanel"></span>
+    </form>
+
+</body>
+
+</html>

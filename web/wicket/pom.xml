@@ -24,20 +24,24 @@
         <version>2.1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>appfuse-tapestry</artifactId>
+    <artifactId>appfuse-wicket</artifactId>
     <packaging>war</packaging>
-    <name>AppFuse Tapestry Module</name>
+    <name>AppFuse Wicket Module</name>
 
     <description>
-        Tapestry Module for AppFuse: includes Tapestry with Spring and Flash messages support.
-        Include this module in your dependencies if you want to use Tapestry as your web framework.
+        Wicket Module for AppFuse.
+        Include this module in your dependencies if you want to use Wicket as your web framework.
     </description>
 
     <scm>
-        <connection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/web/tapestry</connection>
-        <developerConnection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/web/tapestry</developerConnection>
-        <url>http://source.appfuse.org/browse/appfuse/trunk/web/tapestry</url>
+        <connection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/web/wicket</connection>
+        <developerConnection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/web/wicket</developerConnection>
+        <url>http://source.appfuse.org/browse/appfuse/trunk/web/wicket</url>
     </scm>
+
+    <properties>
+        <wicket.version>1.4.15</wicket.version>
+    </properties>
 
     <build>
         <plugins>
@@ -228,6 +232,45 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+        <!-- Wicket -->
+        <dependency>
+            <groupId>org.apache.wicket</groupId>
+            <artifactId>wicket</artifactId>
+            <version>${wicket.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.wicket</groupId>
+            <artifactId>wicket-spring</artifactId>
+            <version>${wicket.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.wicket</groupId>
+            <artifactId>wicket-extensions</artifactId>
+            <version>${wicket.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.wicket</groupId>
+            <artifactId>wicket-auth-roles</artifactId>
+            <version>${wicket.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.wicket</groupId>
+            <artifactId>wicket-ioc</artifactId>
+            <version>${wicket.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.wicketstuff</groupId>
+            <artifactId>annotation</artifactId>
+            <version>1.4.14</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-core</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        
     </dependencies>
 
     <profiles>

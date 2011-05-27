@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+	xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<head>
+    <meta name="title" wicket:message="content:userList.title"/>
+    <meta name="heading" wicket:message="content:userList.heading"/>
+    <meta name="menu" content="AdminMenu"/>
+</head>
+<body>
+    <div wicket:id="feedback"></div>
+
+    <p>
+        <input wicket:id="addButtonTop" type="button" class="button" wicket:message="value:button.add" />
+        <input wicket:id="doneButtonTop" type="button" class="button" wicket:message="value:button.done" />
+    </p>
+
+    <!-- wicket:extend? -->
+    <!-- TODO: MZA: Row highlight with highlightTableRows()? -->
+    <table wicket:id="userListTable" class="table"/>
+
+    <p>
+        <input wicket:id="addButtonBottom" type="button" class="button" wicket:message="value:button.add" />
+        <input wicket:id="doneButtonBottom" type="button" class="button" wicket:message="value:button.done" />
+    </p>
+
+</body>
+</html>
+

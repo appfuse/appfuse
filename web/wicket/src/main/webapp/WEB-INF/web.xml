@@ -32,12 +32,18 @@
             classpath:/applicationContext-service.xml
             classpath*:/applicationContext.xml
             /WEB-INF/applicationContext*.xml
+<!-- Temporarly disabled due to strange error after merge with Wicket trunk from SVN:
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.apache.cxf.jaxrs.spring.JAXRSServerFactoryBeanDefinitionParser$SpringJAXRSServerFactoryBean': Invocation of init method failed; nested exception is org.apache.cxf.service.factory.ServiceConstructionException
+-->
+<!--
             /WEB-INF/cxf-servlet.xml
+-->
             /WEB-INF/security.xml
         </param-value>
     </context-param>
 
     <!-- Context Configuration for Tapestry 5 -->
+<!--
     <context-param>
         <param-name>tapestry.app-package</param-name>
         <param-value>org.appfuse.webapp</param-value>
@@ -46,7 +52,9 @@
         <param-name>tapestry.use-external-spring-context</param-name>
         <param-value>true</param-value>
     </context-param>
+-->
 
+<!--
     <filter>
         <filter-name>encodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -59,42 +67,35 @@
             <param-value>true</param-value>
         </init-param>
     </filter>
-    <!-- GZipFilter has issues with XFire's service-listing servlet. -->
-    <!-- http://issues.appfuse.org/browse/APF-863 -->
-    <!-- And showing blank pages. http://issues.appfuse.org/browse/APF-1037 -->
-    <!-- We recommend you configure gzipping in your servlet container.
-         web server, or load balancer. -->
-    <!--filter>
+-->
+<!--
+    <filter>
         <filter-name>gzipFilter</filter-name>
         <filter-class>net.sf.ehcache.constructs.web.filter.GzipFilter</filter-class>
-    </filter-->
+    </filter>
+-->
     <!--<filter>
         <filter-name>lazyLoadingFilter</filter-name>
         <filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
     </filter>-->
     <!-- Use "org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter" if you're using JPA -->
+<!--
     <filter>
         <filter-name>localeFilter</filter-name>
         <filter-class>org.appfuse.webapp.filter.LocaleFilter</filter-class>
     </filter>
+-->
+<!--
     <filter>
         <filter-name>rewriteFilter</filter-name>
         <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
-        <!-- sets up log level (will be logged to context log)
-            can be: TRACE, DEBUG, INFO (default), WARN, ERROR, FATAL, log4j, commons, sysout:{level} (ie, sysout:DEBUG)
-            if you are having trouble using normal levels use sysout:DEBUG -->
         <init-param>
             <param-name>logLevel</param-name>
-            <param-value>commons</param-value>
-        </init-param>
-        <!-- set the amount of seconds the conf file will be checked for reload
-            can be a valid integer (0 denotes check every time,
-            -1 denotes no reload check, default -1) -->
-        <init-param>
-            <param-name>confReloadCheckInterval</param-name>
-            <param-value>-1</param-value>
+            <param-value>log4j</param-value>
         </init-param>
     </filter>
+-->
+    <!-- Wicket page are secured at page lavel, filter can secure resources (not used) and is required to for menu --> 
     <filter>
         <filter-name>securityFilter</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
@@ -109,31 +110,57 @@
     </filter>
 
     <!-- T5/Spring Filter -->
+<!--
     <filter>
         <filter-name>app</filter-name>
         <filter-class>org.apache.tapestry5.spring.TapestrySpringFilter</filter-class>
     </filter>
+-->
 
+    <filter>
+        <filter-name>wicket.WicketWarp</filter-name>
+        <filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
+        <init-param>
+            <param-name>applicationFactoryClassName</param-name>
+            <param-value>org.apache.wicket.spring.SpringWebApplicationFactory</param-value>
+        </init-param>
+    </filter>
+
+<!--
     <filter-mapping>
         <filter-name>encodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+-->
+    <!-- FIXME: MZA: Temporarly disabled for Wicket -->
     <filter-mapping>
         <filter-name>securityFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+<!--
     <filter-mapping>
         <filter-name>localeFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+-->
+    <!-- GZipFilter has issues with XFire's service-listing servlet. -->
+    <!-- http://issues.appfuse.org/browse/APF-863 -->
+    <!-- And showing blank pages. http://issues.appfuse.org/browse/APF-1037 -->
+    <!-- We recommend you configure gzipping in your servlet container.
+         web server, or load balancer. -->
     <!--filter-mapping>
         <filter-name>gzipFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping-->
+
+<!--
     <filter-mapping>
         <filter-name>rewriteFilter</filter-name>
         <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
     </filter-mapping>
+-->
     <filter-mapping>
         <filter-name>sitemesh</filter-name>
         <url-pattern>/*</url-pattern>
@@ -142,10 +169,20 @@
     </filter-mapping>
 
     <!-- T5 Filter Mapping -->
+<!--
     <filter-mapping>
         <filter-name>app</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+-->
+
+    <!-- Wicket Filter -->
+
+    <filter-mapping>
+        <filter-name>wicket.WicketWarp</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <!-- End of Wicket filer -->
 
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -166,6 +203,7 @@
         <listener-class>net.sf.navigator.menu.MenuContextListener</listener-class>
     </listener>
 
+<!--
     <servlet>
         <servlet-name>dwr-invoker</servlet-name>
         <servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class>
@@ -178,6 +216,7 @@
     <servlet>
         <servlet-name>CXFServlet</servlet-name>
         <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
     </servlet>
 
     <servlet-mapping>
@@ -189,12 +228,14 @@
         <servlet-name>CXFServlet</servlet-name>
         <url-pattern>/services/*</url-pattern>
     </servlet-mapping>
+-->
 
     <session-config>
         <session-timeout>10</session-timeout>
     </session-config>
 
     <welcome-file-list>
-        <welcome-file>/index</welcome-file>
+        <!--<welcome-file>/index</welcome-file>-->
+        <welcome-file>/login</welcome-file>
     </welcome-file-list>
 </web-app>

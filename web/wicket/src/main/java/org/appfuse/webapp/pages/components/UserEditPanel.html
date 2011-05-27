@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+
+<!-- TODO: MZA: Where to put feedback? -->
+
+<wicket:panel>
+    <ul>
+        <div wicket:id="buttonsGroup">
+            <li class="buttonBar right">
+                <input wicket:id="saveButton" type="submit" class="button" value="[Save]"/>
+                <input wicket:id="deleteButton" type="submit" class="button" wicket:message="value:button.delete" onclick="return confirmDelete('User')"/>
+                <input wicket:id="cancelButton" type="submit" class="button" wicket:message="value:button.cancel"/>
+            </li>
+        </div>
+        <li class="info">
+            <!-- TODO: MZA: Choose in code which label to show - your info or this user info - move to class -->
+            <wicket:message key="userProfile.message">[Title]</wicket:message>
+        </li>
+        <li>
+            <!-- TODO: MZA: maybe one component to display label with edit? -->
+            <label wicket:id="usernameLabel" class="desc">[Username]</label>
+            <input wicket:id="username" type="text" class="text large"/>
+        </li>
+        <div wicket:id="passwordGroup">
+            <li class="left">
+                <label wicket:id="passwordLabel" class="desc">[Password]</label>
+                <input wicket:id="password" type="password" class="text medium"/><br/>
+            </li>
+            <li>
+                <label wicket:id="confirmPasswordLabel" class="desc">[Confirm password]</label>
+                <input wicket:id="confirmPassword" type="password" class="text medium"/><br/>
+            </li>
+        </div>
+        <li>
+            <label wicket:id="passwordHintLabel" class="desc">[Password Hint]</label>
+            <input wicket:id="passwordHint" type="text" class="text large"/><br/>
+        </li>
+        <div>
+            <li class="left">
+                <label wicket:id="firstNameLabel" class="desc">[First Name]</label>
+                <input wicket:id="firstName" type="text" class="text medium"/><br/>
+            </li>
+            <li>
+                <label wicket:id="lastNameLabel" class="desc">[Last Name]</label>
+                <input wicket:id="lastName" type="text" class="text medium"/><br/>
+            </li>
+        </div>
+        <div>
+            <li class="left">
+                <label wicket:id="emailLabel" class="desc">[Email]</label>
+                <input wicket:id="email" type="text" class="text medium"/><br/>
+            </li>
+            <li>
+                <label wicket:id="phoneNumberLabel" class="desc">[Phone Number]</label>
+                <input wicket:id="phoneNumber" type="text" class="text medium"/><br/>
+            </li>
+        </div>
+        <li>
+            <label wicket:id="websiteLabel" class="desc">[Website]</label>
+            <input wicket:id="website" type="text" class="text large"/><br/>
+        </li>
+        <li>
+            <div wicket:id="mainAddress" class="group"></div>
+        </li>
+
+        <div wicket:id="accountSettingsGroup">
+            <li>
+                <fieldset>
+                    <legend><wicket:message key="userProfile.accountSettings">[Account Settings]</wicket:message></legend>
+
+                    <input type="checkbox" wicket:id="enabled"/>
+                    <label class="choice"><wicket:message key="user.enabled">[Enabled]</wicket:message></label>
+
+                    <input type="checkbox" wicket:id="accountExpired"/>
+                    <label class="choice"><wicket:message key="user.accountExpired">[Expired]</wicket:message></label>
+
+                    <input type="checkbox" wicket:id="accountLocked"/>
+                    <label class="choice"><wicket:message key="user.accountLocked">[Locked]</wicket:message></label>
+
+                    <input type="checkbox" wicket:id="credentialsExpired"/>
+                    <label class="choice"><wicket:message key="user.credentialsExpired">[Password Expired]</wicket:message></label>
+
+                </fieldset>
+            </li>
+            <li>
+                <fieldset>
+                    <legend><wicket:message key="userProfile.assignRoles">[Assign Roles]</wicket:message></legend>
+
+                    <span wicket:id="rolesGroup">
+                        <tr wicket:id="roles">
+                            <td>
+                                <input type="checkbox" wicket:id="value"/>
+                            </td>
+                            <td>
+                                <span wicket:id="label">[Role name]</span>
+                            </td>
+                        </tr>
+                    </span>
+                </fieldset>
+            </li>
+        </div>
+
+        <div wicket:id="displayRolesGroup">
+            <li>
+                <strong><wicket:message key="user.roles">[Current Roles]</wicket:message>:</strong>
+                <span wicket:id="rolesRepeater">
+                    <span wicket:id="roleName">[Role name]</span>
+                </span>
+            </li>
+        </div>
+
+        <div wicket:id="buttonsBottomGroup">
+            <li class="buttonBar bottom">
+                <input wicket:id="saveButtonBottom" type="submit" class="button" value="[Save]"/>
+                <input wicket:id="deleteButtonBottom" type="submit" class="button" wicket:message="value:button.delete"/>
+                <input wicket:id="cancelButtonBottom" type="submit" class="button" wicket:message="value:button.cancel"/>
+            </li>
+        </div>
+    </ul>
+</wicket:panel>
+
+<wicket:fragment wicket:id="address">
+    <label wicket:id="addressLabel" class="desc">[Address]</label>
+    <div>
+        <input wicket:id="address" type="text" class="text large"/>
+        <p>
+            <label for="address">Address</label>
+        </p>
+    </div>
+    <div class="left">
+        <input wicket:id="city" type="text" class="text medium"/>
+        <p>
+            <label for="city">
+                City <span class="req">*</span>
+            </label>
+        </p>
+    </div>
+    <div>
+        <input wicket:id="province" type="text" class="text state"/>
+        <p>
+            <label for="province">
+                State <span class="req">*</span>
+            </label>
+        </p>
+    </div>
+    <div>
+        <input wicket:id="postalCode" type="text" class="text medium"/>
+        <p>
+            <label>
+                Zip <span class="req">*</span>
+            </label>
+        </p>
+    </div>
+    <div>
+        <select wicket:id="country" class="select">
+            <option>[Country One]</option>
+            <option>[Country Two]</option>
+        </select>
+        <p>
+            <label>Country</label>
+        </p>
+    </div>
+</wicket:fragment>
+
+</html>
+

@@ -418,6 +418,17 @@ table.pickList td select {
     width: 130px;
 }
 
+loginForm fieldset {
+    width: 300px;
+    padding: 10px 30px;
+    margin: 0 auto;
+}
+
+loginForm li {
+    text-align: left;
+    padding: 0;
+}
+
 /* END FORM ELEMENTS */
 
 /* Specific forms */
@@ -436,4 +447,16 @@ table.pickList td select {
 #search {
     float: right;
     padding: 0 !important;
+}
+
+/* Wicket - tag id is generated automatically and matching has to be done by class */ 
+.loginForm fieldset {
+    width: 300px;
+    padding: 10px 30px;
+    margin: 0 auto;
+}
+
+.loginForm li {
+    text-align: left;
+    padding: 0;
 }

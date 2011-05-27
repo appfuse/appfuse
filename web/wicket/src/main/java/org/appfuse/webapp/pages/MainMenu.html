@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+	xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<head>
+    <meta name="title" content="Main Menu"/>
+    <meta name="heading" content="Welcome!"/>
+    <meta name="menu" content="MainMenu"/>
+</head>
+<body>
+    <div wicket:id="feedback"></div>
+
+    <wicket:message key="mainMenu.message">mainMenu message</wicket:message>
+    
+    <wicket:link>
+        <ul class="glassList">
+            <li>
+                <!-- TODO: MZA: Why it doesn't work? -->
+                <a href="userEdit">
+                    <wicket:message key="menu.user"/>
+                </a>
+            </li>
+            <li>
+                <!-- TODO: MZA: Not implemented yet -->
+                <!--<a href="fileUpload">-->
+                    <wicket:message key="menu.selectFile"/>
+                <!--</a>-->
+            </li>
+        </ul>
+    </wicket:link>
+</body>
+</html>
+

@@ -30,4 +30,8 @@
     <!-- Add new DAOs here -->
 
     <!-- Add new Managers here -->
+
+    <!-- Wicket application -->
+    <bean id="wicketApplication" class="org.appfuse.webapp.WicketApplication"/>
+
 </beans>
