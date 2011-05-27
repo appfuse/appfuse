@@ -44,6 +44,7 @@
         <module>spring</module>
         <module>struts</module>
         <module>tapestry</module>
+        <module>wicket</module>
     </modules>
 
     <build>
