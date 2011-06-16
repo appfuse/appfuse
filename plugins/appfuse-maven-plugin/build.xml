@@ -327,8 +327,19 @@
                 </then>
             </if>
             
+            <!-- Don't use db profile (in Bamboo) for AppFuse Light -->
+            <if>
+                <contains string="@{name}" substring="light"/>
+                <then>
+                    <property name="full-source.command" value="appfuse:full-source"/>
+                </then>
+                <else>
+                    <property name="full-source.command" value="appfuse:full-source -P-db"/>
+                </else>
+            </if>
+            
             <!-- run full-source integration-test -->
-            <maven dir="${test.dir}/@{name}" command="appfuse:full-source"/>
+            <maven dir="${test.dir}/@{name}" command="${full-source.command}"/>
             <maven dir="${test.dir}/@{name}" command="integration-test -Dsurefire.useFile=false"/>
         </sequential>
     </macrodef>
