@@ -91,8 +91,7 @@ public class WicketApplication extends AuthenticatedWebApplication {
         return Login.class;
     }
 
-    //TODO: MZA: Could be changed for testing purposes (like in phonebook)
-    private ApplicationContext getContext() {
+    protected ApplicationContext getContext() {
         return WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
     }
 }
