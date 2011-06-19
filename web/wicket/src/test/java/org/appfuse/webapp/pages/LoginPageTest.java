@@ -55,6 +55,43 @@ public class LoginPageTest {
         tester.assertErrorMessages(new String[] {"Invalid username and/or password, please try again."});
     }
 
+    @Test
+    public void shouldDisplayCorrectErrorMessageOnMissingUsername() {
+        //given
+        goToLoginPage();
+
+        //when
+        submitLoginFormWithUsernameAndPassword(null, "bar");
+
+        //then
+        assertRenderedLoginPageAndErrorMessages(getRequiredErrorMessageByField("username"));
+    }
+
+    @Test
+    public void shouldDisplayCorrectErrorMessageOnMissingPassword() {
+        //given
+        goToLoginPage();
+
+        //when
+        submitLoginFormWithUsernameAndPassword("foo", null);
+
+        //then
+        assertRenderedLoginPageAndErrorMessages(getRequiredErrorMessageByField("password"));
+    }
+
+    @Test
+    public void shouldCorrectErrorMessageOnMissingUsernameAndPassword() {
+        //given
+        goToLoginPage();
+
+        //when
+        submitLoginFormWithUsernameAndPassword(null, null);
+
+        //then
+        assertRenderedLoginPageAndErrorMessages(
+                getRequiredErrorMessageByField("username"), getRequiredErrorMessageByField("password"));
+    }
+
     private void goToLoginPage() {
         tester.startPage(Login.class);
         tester.assertRenderedPage(Login.class);
@@ -65,5 +102,14 @@ public class LoginPageTest {
         loginForm.setValue("border:username", username);
         loginForm.setValue("password", password);
         loginForm.submit();
+    }
+
+    private String getRequiredErrorMessageByField(String field) {
+        return "Field '" + field + "' is required.";
+    }
+
+    private void assertRenderedLoginPageAndErrorMessages(String... errorMessage) {
+        tester.assertRenderedPage(Login.class);
+        tester.assertErrorMessages(errorMessage);
     }
 }
