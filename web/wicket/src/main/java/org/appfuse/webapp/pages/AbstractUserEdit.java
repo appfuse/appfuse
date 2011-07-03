@@ -115,6 +115,10 @@ public abstract class AbstractUserEdit extends AbstractWebPage {
         return userManager;
     }
 
+    protected RoleManager getRoleManager() {
+        return roleManager;
+    }
+
     protected Form<User> getUserEditForm() {
         return userEditForm;
     }

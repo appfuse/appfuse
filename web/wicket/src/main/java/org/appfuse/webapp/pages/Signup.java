@@ -28,9 +28,6 @@ import javax.servlet.http.Cookie;
 public class Signup extends AbstractUserEdit {
 
     @SpringBean
-    private RoleManager roleManager;
-
-    @SpringBean
     private MailEngine mailEngine;
 
     @Override
@@ -67,7 +64,7 @@ public class Signup extends AbstractUserEdit {
     private User prepareNewUser() {
         User user = getUser();
         user.setEnabled(true);
-        user.addRole(roleManager.getRole(Constants.USER_ROLE));
+        user.addRole(getRoleManager().getRole(Constants.USER_ROLE));
         return user;
     }
 
