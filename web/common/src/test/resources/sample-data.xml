@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dataset>
+<dataset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="sample-data.xsd">
     <table name="app_user">
         <column>id</column>
         <column>username</column>
