@@ -288,7 +288,7 @@
     </target>
 
     <target name="test-stripes-light-source" description="tests full-source plugin with stripes light archetype">
-        <full-source archetype="appfuse-light-stripes" name="basic-stripes-source"/>
+        <full-source archetype="appfuse-light-stripes" name="light-stripes-source"/>
     </target>
     
     <target name="test-tapestry-light-source" description="tests full-source plugin with tapestry light archetype">
