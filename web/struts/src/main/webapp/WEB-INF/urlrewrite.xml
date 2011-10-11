@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 3.0//EN"
-        "http://tuckey.org/res/dtds/urlrewrite3.0.dtd">
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 3.1//EN"
+    "http://urlrewritefilter.googlecode.com/svn/trunk/src/java/org/tuckey/web/filters/urlrewrite/dtds/urlrewrite3.1.dtd">
 
 <urlrewrite default-match-type="wildcard">
     <rule match-type="regex">
