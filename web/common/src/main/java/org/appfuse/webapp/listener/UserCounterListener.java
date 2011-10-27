@@ -13,6 +13,8 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionBindingEvent;
+import javax.servlet.http.HttpSessionEvent;
+import javax.servlet.http.HttpSessionListener;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -25,7 +27,7 @@ import java.util.Set;
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
-public class UserCounterListener implements ServletContextListener, HttpSessionAttributeListener {
+public class UserCounterListener implements ServletContextListener, HttpSessionAttributeListener, HttpSessionListener {
     /**
      * Name of user counter variable
      */
@@ -165,6 +167,16 @@ public class UserCounterListener implements ServletContextListener, HttpSessionA
                 final User user = (User) securityContext.getAuthentication().getPrincipal();
                 addUsername(user);
             }
+        }
+    }
+    
+    public void sessionCreated(HttpSessionEvent se) { 
+    }
+    
+    public void sessionDestroyed(HttpSessionEvent se) {
+        Object obj = se.getSession().getAttribute(EVENT_KEY);
+        if (obj != null) {
+            se.getSession().removeAttribute(EVENT_KEY);
         }
     }
 }
