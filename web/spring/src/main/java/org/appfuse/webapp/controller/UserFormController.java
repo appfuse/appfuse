@@ -91,6 +91,13 @@ public class UserFormController extends BaseFormController {
                         user.addRole(roleManager.getRole(roleName));
                     }
                 }
+            } else {
+                // if user is not an admin then load roles from the database
+                // (or any other user properties that should not be editable 
+                // by users without admin role) 
+                User cleanUser = getUserManager().getUserByUsername(
+                        request.getRemoteUser());
+                user.setRoles(cleanUser.getRoles());
             }
 
             Integer originalVersion = user.getVersion();
