@@ -100,6 +100,8 @@ public class UserFormControllerTest extends BaseControllerTestCase {
         user.setConfirmPassword(user.getPassword());
         user.setLastName("Updated Last Name");
 
+        request.setRemoteUser(user.getUsername());
+
         BindingResult errors = new DataBinder(user).getBindingResult();
         c.onSubmit(user, errors, request, new MockHttpServletResponse());
 
