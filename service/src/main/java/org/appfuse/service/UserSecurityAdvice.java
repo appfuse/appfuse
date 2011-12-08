@@ -51,9 +51,9 @@ public class UserSecurityAdvice implements MethodBeforeAdvice, AfterReturningAdv
         if (ctx.getAuthentication() != null) {
             Authentication auth = ctx.getAuthentication();
             boolean administrator = false;
-            Collection<GrantedAuthority> roles = auth.getAuthorities();
-            for (GrantedAuthority role1 : roles) {
-                if (role1.getAuthority().equals(Constants.ADMIN_ROLE)) {
+            Collection<? extends GrantedAuthority> roles = auth.getAuthorities();
+            for (GrantedAuthority role : roles) {
+                if (role.getAuthority().equals(Constants.ADMIN_ROLE)) {
                     administrator = true;
                     break;
                 }

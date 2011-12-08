@@ -491,7 +491,7 @@
         <commons.dbcp.version>1.3</commons.dbcp.version>
         <cxf.version>2.3.3</cxf.version>
         <enunciate.version>1.24-RC1</enunciate.version>
-        <spring.version>3.0.5.RELEASE</spring.version>
+        <spring.version>3.0.6.RELEASE</spring.version>
 
         <!-- Testing dependency versions -->
         <jmock.version>2.5.1</jmock.version>
@@ -509,6 +509,6 @@
         <jdbc.url>
             <![CDATA[jdbc:mysql://localhost/${db.name}?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true]]></jdbc.url>
         <jdbc.username>root</jdbc.username>
-        <jdbc.password/>
+        <jdbc.password></jdbc.password>
     </properties>
 </project>

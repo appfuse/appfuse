@@ -45,17 +45,6 @@
         <module>jpa</module>
     </modules>
 
-    <!-- For up-to-date Hibernate releases -->
-    <repositories>
-        <repository>
-            <id>jboss</id>
-            <url>http://repository.jboss.org/nexus/content/groups/public</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
     <dependencies>
         <dependency>
             <groupId>commons-beanutils</groupId>
