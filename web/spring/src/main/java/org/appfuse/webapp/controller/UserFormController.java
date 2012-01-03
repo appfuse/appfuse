@@ -151,7 +151,7 @@ public class UserFormController extends BaseFormController {
     }
 
     @ModelAttribute
-    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(method = RequestMethod.GET)
     protected User showForm(HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         // If not an administrator, make sure user is not trying to add or edit another user
