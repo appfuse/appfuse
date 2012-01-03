@@ -168,7 +168,7 @@
                 <li>
                     <fieldset>
                         <legend>${message:userProfile.assignRoles}</legend>
-                        <t:checkboxselect t:id="selectedRoles" model="roleModel" encoder="encoder"
+                        <t:checklist t:id="selectedRoles" model="roleModel" encoder="encoder"
                                           selected="selectedRoles"/>
                     </fieldset>
                 </li>

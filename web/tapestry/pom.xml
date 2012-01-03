@@ -197,7 +197,7 @@
         <dependency>
             <groupId>org.apache.tapestry</groupId>
             <artifactId>tapestry-spring</artifactId>
-            <version>5.0.18</version>
+            <version>${tapestry.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.tapestry</groupId>
