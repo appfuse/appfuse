@@ -198,6 +198,12 @@
             <groupId>org.apache.tapestry</groupId>
             <artifactId>tapestry-spring</artifactId>
             <version>${tapestry.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-web</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.tapestry</groupId>
