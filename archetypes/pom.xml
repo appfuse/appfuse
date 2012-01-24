@@ -30,11 +30,11 @@
         <module>appfuse-basic-jsf</module>
         <module>appfuse-basic-spring</module>
         <module>appfuse-basic-struts</module>
-        <module>appfuse-basic-tapestry</module>
+        <!--<module>appfuse-basic-tapestry</module>-->
         <module>appfuse-modular-jsf</module>
         <module>appfuse-modular-struts</module>
         <module>appfuse-modular-spring</module>
-        <module>appfuse-modular-tapestry</module>
+        <!--<module>appfuse-modular-tapestry</module>-->
         <module>appfuse-ws</module>
     </modules>
 
