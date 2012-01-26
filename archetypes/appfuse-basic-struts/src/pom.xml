@@ -546,6 +546,12 @@
                                 <artifactId>webtest</artifactId>
                                 <version>${webtest.version}</version>
                             </dependency>
+                            <!-- Upgrade HtmlUnit for jQuery -->
+                            <dependency>
+                                <groupId>net.sourceforge.htmlunit</groupId>
+                                <artifactId>htmlunit</artifactId>
+                                <version>2.5</version>
+                            </dependency>
                         </dependencies>
                     </plugin>
                 </plugins>
@@ -673,7 +679,7 @@
     <properties>
         <!-- Application settings -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <copyright.year>2011</copyright.year>
+        <copyright.year>2012</copyright.year>
         <dao.framework>hibernate</dao.framework>
         <web.framework>struts</web.framework>
         <amp.genericCore>true</amp.genericCore>
@@ -686,7 +692,7 @@
         <commons.io.version>2.0.1</commons.io.version>
         <displaytag.version>1.2</displaytag.version>
         <spring.version>3.1.0.RELEASE</spring.version>
-        <struts.version>2.1.8</struts.version>
+        <struts.version>2.3.1.2</struts.version>
 
         <!-- Testing dependency versions -->
         <cargo.version>1.0.6</cargo.version>

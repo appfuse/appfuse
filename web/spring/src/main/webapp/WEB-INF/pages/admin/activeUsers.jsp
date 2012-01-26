@@ -9,13 +9,10 @@
 
 <p><fmt:message key="activeUsers.message"/></p>
 
-<div class="separator"></div>
-
-<input type="button" onclick="location.href='../mainMenu'" value="<fmt:message key="button.done"/>"/>
+<input type="button" onclick="location.href='../mainMenu'" value="<fmt:message key="button.done"/>" class="btn"/>
     
 <display:table name="applicationScope.userNames" id="user" cellspacing="0" cellpadding="0"
-    defaultsort="1" class="table" pagesize="50" requestURI="">
-
+    defaultsort="1" class="table table-condensed" pagesize="50" requestURI="">
     <display:column property="username" escapeXml="true" style="width: 30%" titleKey="user.username" sortable="true"/>
     <display:column titleKey="activeUsers.fullName" sortable="true">
         <c:out value="${user.firstName} ${user.lastName}" escapeXml="true"/>

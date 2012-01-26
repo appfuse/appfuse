@@ -6,20 +6,20 @@
     <meta name="menu" content="AdminMenu"/>
 </head>
 
-<s:form action="uploadFile!upload" enctype="multipart/form-data" method="post" validate="true" id="uploadForm">
-    <li class="info">
+<div class="row">
+    <div class="span3">
         <fmt:message key="upload.message"/>
-    </li>
-    <s:textfield name="name" label="%{getText('uploadForm.name')}" cssClass="text medium" required="true"/>
-    <s:file name="file" label="%{getText('uploadForm.file')}" cssClass="text file" required="true"/>
-    <li class="buttonBar bottom">
-        <s:submit key="button.upload" name="upload" cssClass="button"/>
-        <input type="button" value="<fmt:message key="button.cancel"/>" class="button"
-            onclick="this.form.onsubmit = null; location.href='mainMenu'"/>
-    </li>
-</s:form>
-
-<script type="text/javascript">
-    Form.focusFirstElement($('uploadForm'));
-</script>
-
+    </div>
+    <div class="span9">
+        <s:form action="uploadFile!upload" enctype="multipart/form-data" method="post" validate="true" id="uploadForm"
+                cssClass="well form-horizontal">
+            <s:textfield name="name" label="%{getText('uploadForm.name')}" required="true"/>
+            <s:file name="file" label="%{getText('uploadForm.file')}" required="true"/>
+            <fieldset class="form-actions">
+                <s:submit key="button.upload" name="upload" cssClass="btn primary" theme="simple"/>
+                <input type="button" value="<fmt:message key="button.cancel"/>" class="btn"
+                    onclick="this.form.onsubmit = null; location.href='mainMenu'"/>
+            </fieldset>
+        </s:form>
+    </div>
+</div>

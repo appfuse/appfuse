@@ -58,9 +58,9 @@
                         <baseResource implementation="org.mortbay.resource.ResourceCollection">
                             <resourcesAsCSV>
                                 ${basedir}/../common/src/main/resources,
-                                ${basedir}/../common/src/main/webapp,
                                 ${basedir}/src/main/resources,
-                                ${basedir}/src/main/webapp
+                                ${basedir}/src/main/webapp,
+                                ${basedir}/../common/src/main/webapp,
                             </resourcesAsCSV>
                         </baseResource>
                     </webAppConfig>

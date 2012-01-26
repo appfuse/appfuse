@@ -32,6 +32,19 @@
         <level value="ERROR"/>
     </logger>
 
+    <!-- Suppress warnings from Struts -->
+    <logger name="org.apache.struts2.util.TextProviderHelper">
+      <level value="ERROR"/>
+    </logger>
+
+    <logger name="com.opensymphony.xwork2.util.OgnlUtil">
+       <level value="ERROR"/>
+    </logger>
+
+    <logger name="com.opensymphony.xwork2.ognl.OgnlValueStack">
+       <level value="ERROR"/>
+    </logger>
+
     <logger name="org.dbunit">
         <level value="WARN"/>
     </logger>

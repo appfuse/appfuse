@@ -7,23 +7,22 @@
 </head>
 
 <div id="search">
-<form method="get" action="${ctx}/admin/users" id="searchForm">
+<form method="get" action="${ctx}/admin/users" id="searchForm" class="form-search">
     <input type="text" size="20" name="q" id="query" value="${param.q}"
-           placeholder="Enter search terms"/>
-    <input type="submit" value="<fmt:message key="button.search"/>"/>
+           placeholder="Enter search terms..." class="input-medium search-query"/>
+    <input type="submit" value="<fmt:message key="button.search"/>" class="btn"/>
 </form>
 </div>
 
-<input type="button" style="margin-right: 5px"
+<input type="button" style="margin-right: 5px" class="btn"
     onclick="location.href='<c:url value="/userform?method=Add&from=list"/>'"
     value="<fmt:message key="button.add"/>"/>
 
-<input type="button" onclick="location.href='<c:url value="/mainMenu"/>'"
+<input type="button" onclick="location.href='<c:url value="/mainMenu"/>'" class="btn"
     value="<fmt:message key="button.done"/>"/>
 
-
 <display:table name="userList" cellspacing="0" cellpadding="0" requestURI="" 
-    defaultsort="1" id="users" pagesize="25" class="table" export="true">
+    defaultsort="1" id="users" pagesize="25" class="table table-condensed" export="true">
     <display:column property="username" escapeXml="true" sortable="true" titleKey="user.username" style="width: 25%"
         url="/userform?from=list" paramId="id" paramProperty="id"/>
     <display:column property="fullName" escapeXml="true" sortable="true" titleKey="activeUsers.fullName" style="width: 34%"/>
@@ -41,14 +40,3 @@
     <display:setProperty name="export.csv.filename" value="User List.csv"/>
     <display:setProperty name="export.pdf.filename" value="User List.pdf"/>
 </display:table>
-
-<input type="button" style="margin-right: 5px"
-    onclick="location.href='<c:url value="/userform?method=Add&from=list"/>'"
-    value="<fmt:message key="button.add"/>"/>
-
-<input type="button" onclick="location.href='<c:url value="/mainMenu"/>'"
-    value="<fmt:message key="button.done"/>"/>
-
-<script type="text/javascript">
-    highlightTableRows("users");
-</script>

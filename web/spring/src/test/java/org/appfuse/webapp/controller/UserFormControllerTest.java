@@ -119,7 +119,7 @@ public class UserFormControllerTest extends BaseControllerTestCase {
         BindingResult errors = new DataBinder(user).getBindingResult();
         c.onSubmit(user, errors, request, new MockHttpServletResponse());
         
-        assertTrue(errors.getAllErrors().size() == 10);
+        assertTrue(errors.getAllErrors().size() == 6);
     }
 
     @Test
