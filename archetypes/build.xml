@@ -504,6 +504,12 @@
                 </then>
             </if>
 
+            <!-- Fix WebTest path to ApplicationResources.properties -->
+            <replace dir="@{dir}/target/generated-sources/archetype/src">
+                <include name="**/web-tests.xml"/>
+                <replacetoken>../../../../common/target/</replacetoken>
+                <replacevalue>../../../target/</replacevalue>
+            </replace>
             <mvn command="install" dir="@{dir}/target/generated-sources/archetype"/>
         </sequential>
     </macrodef>
