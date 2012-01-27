@@ -282,6 +282,12 @@
                                 <groupId>com.canoo.webtest</groupId>
                                 <artifactId>webtest</artifactId>
                                 <version>${webtest.version}</version>
+                                <exclusions>
+                                    <exclusion>
+                                        <groupId>net.sourceforge.htmlunit</groupId>
+                                        <artifactId>htmlunit</artifactId>
+                                    </exclusion>
+                                </exclusions>
                             </dependency>
                             <!-- Upgrade HtmlUnit for jQuery -->
                             <dependency>
