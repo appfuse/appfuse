@@ -2,7 +2,7 @@ body {
     padding-top: 50px;
 }
 
-body > .navbar-fixed .brand {
+body > .navbar .brand {
     color: #000000;
     float: right;
     font-weight: bold;
@@ -50,15 +50,6 @@ legend {
 
 #search input[type="text"] {
     display: inline-block;
-}
-
-/* PAGE CUSTOMIZATIONS */
-body.home {
-    background: url("../images/logo.gif") no-repeat right center;
-}
-
-body.login, body.signup {
-    background: url("../images/logo.gif") no-repeat scroll right 60px transparent
 }
 
 /* TABLES */

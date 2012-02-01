@@ -2,10 +2,10 @@
 
 <head>
     <title><fmt:message key="display.title"/></title>
-    <meta name="heading" content="<fmt:message key='display.heading'/>"/>
     <meta name="menu" content="AdminMenu"/>
 </head>
 
+<h2><fmt:message key="display.heading"/></h2>
 <p>Below is a list of attributes that were gathered in FileUploadController.java.</p>
 
 <table class="table-striped" cellpadding="5">
@@ -33,7 +33,7 @@
     </tr>
 </table>
 <fieldset class="form-actions">
-    <input type="btn primary" name="done" id="done" value="Done"
+    <input type="btn btn-primary" name="done" id="done" value="Done"
         onclick="location.href='mainMenu'" />
     <input type="btn" style="width: 120px" value="Upload Another"
         onclick="location.href='fileupload'" />

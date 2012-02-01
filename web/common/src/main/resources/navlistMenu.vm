@@ -3,7 +3,7 @@
       ## set menu title
       #set ($title = $displayer.getMessage($menu.title))
 
-      <ul class="nav list">
+      <ul class="nav nav-list">
           #if (!$menu.parent) <li class="nav-header">$title</li>#end
       #foreach ($menuItem in $menu.components)
         #if ($displayer.isAllowed($menuItem))

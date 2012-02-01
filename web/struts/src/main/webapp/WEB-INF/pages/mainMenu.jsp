@@ -7,6 +7,7 @@
 </head>
 <body class="home">
 
+<h2><fmt:message key="mainMenu.heading"/></h2>
 <p><fmt:message key="mainMenu.message"/></p>
 
 <ul class="glassList">
