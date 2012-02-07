@@ -43,7 +43,7 @@
         <module>jsf</module>
         <module>spring</module>
         <module>struts</module>
-        <!--<module>tapestry</module>-->
+        <module>tapestry</module>
     </modules>
 
     <build>

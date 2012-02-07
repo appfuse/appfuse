@@ -1,6 +1,6 @@
-<t:layout title="message:403.title"
-          heading="message:403.title" menu="literal:AdminMenu"
-          xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+<html t:type="layout" title="message:403.title"
+          heading="message:403.title"
+          xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
     <p>
         ${accessDeniedMessage}
     </p>
@@ -11,4 +11,4 @@
             <img src="${accessDeniedImage}" alt="Hawaii"/></a>
     </p>
 
-</t:layout>
+</html>

@@ -1,6 +1,6 @@
-<t:layout title="message:404.title"
+<html t:type="layout" title="message:404.title"
           heading="message:404.title"
-          xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+          xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 
     <p>
         <t:outputraw value="notFoundMessage"/>
@@ -12,4 +12,4 @@
     </p>
 
 
-</t:layout>
+</html>

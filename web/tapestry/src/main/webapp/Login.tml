@@ -1,52 +1,74 @@
-<t:layout title="message:login.title" heading="message:login.heading"
-          menu="literal:AdminMenu" bodyId="login"
-          xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
-    <head>
-        <link rel="stylesheet" type="text/css" media="all" href="/styles/${cssTheme}/layout-1col.css" />
-    </head>
+<html t:type="layout" title="login.title" heading="login.heading"
+      menu="Login" bodyId="login" bodyClass="login"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 
-    <t:messagebanner t:id="message" type="type"/>
-    
-    <form method="post" id="loginForm" action="${springSecurityUrl}" onsubmit="saveUsername(this)">
-        <fieldset style="padding-bottom: 0">
-            <ul>
-                <t:if test="${errorMessage}">
-                    <li class="error">
-                        <img src="${iconWarning}" alt="${message:icon.warning}" class="icon"/>
-                        ${message:errors.password.mismatch}
-                    </li>
-                </t:if>
-                <li>
-                    <label for="j_username" class="required desc">
-                        ${message:label.username} <span class="req">*</span>
-                    </label>
+<div class="login">
+    <div class="span5">
+
+        <form method="post" id="loginForm" action="${springSecurityUrl}"
+              onsubmit="saveUsername(this);return validateForm(this)" class="form-horizontal">
+
+            <t:if test="${errorMessage}">
+                <div class="alert alert-error fade in">
+                    ${message:errors.password.mismatch}
+                </div>
+            </t:if>
+
+            <fieldset class="control-group">
+                <label for="j_username" class="required control-label">
+                    ${message:label.username} <span class="required">*</span>
+                </label>
+
+                <div class="controls">
                     <input type="text" class="text medium" name="j_username" id="j_username" tabindex="1" value=""/>
-                </li>
-                <li>
-                    <label for="j_password" class="required desc">
-                        ${message:label.password} <span class="req">*</span>
-                    </label>
+                </div>
+            </fieldset>
+
+            <fieldset class="control-group">
+                <label for="j_password" class="required control-label">
+                    ${message:label.password} <span class="required">*</span>
+                </label>
+
+                <div class="controls">
                     <input type="password" class="text medium" name="j_password" id="j_password" tabindex="2"/>
-                </li>
-                <t:if test="rememberMeEnabled">
-                    <li>
-                        <input type="checkbox" class="checkbox" name="_spring_security_remember_me" id="rememberMe" tabindex="3"/>
-                        <label for="rememberMe" class="choice">${message:login.rememberMe}</label>
-                    </li>
-                </t:if>
-                <li>
-                    <input type="submit" class="button" name="login" value="${message:button.login}" tabindex="4"/>
+                </div>
+            </fieldset>
 
-                    <p>
-                        <t:outputraw value="${signup}"/>
-                    </p>
-                </li>
-            </ul>
-        </fieldset>
-    </form>
+            <t:if test="rememberMeEnabled">
+                <fieldset class="control-group">
+                    <div class="controls">
 
-    <p>
-        <t:outputraw value="${message:login.passwordHint}"/>
-    </p>
-    <script type="text/javascript" src="scripts/login.js"></script>
-</t:layout>
+                        <label for="rememberMe" class="checkbox">
+                            <input type="checkbox" name="_spring_security_remember_me" id="rememberMe" tabindex="3"/>
+                        ${message:login.rememberMe}
+                        </label>
+                    </div>
+                </fieldset>
+            </t:if>
+
+            <fieldset class="form-actions">
+                <input type="submit" class="btn btn-primary" name="login" value="${message:button.login}" tabindex="4"/>
+            </fieldset>
+
+        </form>
+
+    </div>
+
+
+    <div class="span3">
+        <p>
+            <t:outputraw value="${signupLink}"/>
+        </p>
+
+
+        <p>
+            <t:outputraw value="${message:login.passwordHint}"/>
+        </p>
+
+    </div>
+
+
+</div>
+
+
+</html>

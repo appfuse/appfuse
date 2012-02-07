@@ -24,8 +24,10 @@ public class UserEditTest extends BasePageTestCase {
         Element idLink = table.getElementById("user-" + username);
         doc = tester.clickLink(idLink);
 
-        Element cancelButton = doc.getElementById("cancel");
-        doc = tester.clickLink(cancelButton);
+        Element root = doc.getRootElement();
+        Element cancelButton = root.getElementByAttributeValue("name", "cancel");
+
+        doc = tester.clickSubmit(cancelButton, fieldValues);
 
         ResourceBundle rb = ResourceBundle.getBundle(MESSAGES);
 
@@ -34,7 +36,11 @@ public class UserEditTest extends BasePageTestCase {
 
     @Test
     public void testSave() throws Exception {
-        doc = tester.renderPage("userEdit");
+
+        doc = tester.renderPage("admin/UserList");
+        Element addLink = doc.getElementById("add");
+
+        doc = tester.clickLink(addLink);
 
         Element form = doc.getElementById("form");
         assertNotNull(form);
@@ -59,6 +65,7 @@ public class UserEditTest extends BasePageTestCase {
         
         doc = tester.submitForm(form, fieldValues);
 
+
         Element errors = doc.getElementById("errorMessages");
 
         if (errors != null) {
@@ -67,13 +74,15 @@ public class UserEditTest extends BasePageTestCase {
 
         assertNull(doc.getElementById("errorMessages"));
 
+
         // verify an account information e-mail was sent
         assertEquals(1, wiser.getMessages().size());
         wiser.stop();
 
-        Element successMessages = doc.getElementById("successMessages");
-        assertNotNull(successMessages);
-        assertTrue(successMessages.toString().contains("added successfully"));
+        //Element successMessages = doc.getElementById("successMessages");
+        //assertNotNull(successMessages);
+        //assertTrue(successMessages.toString().contains("added successfully"));
+        assertTrue(doc.toString().contains("added successfully"));
         Element table = doc.getElementById("userList");
         assertTrue(table.toString().contains("tapestry"));
     }
@@ -90,7 +99,7 @@ public class UserEditTest extends BasePageTestCase {
         Element idLink = table.getElementById("user-" + username);
         doc = tester.clickLink(idLink);
 
-        Element deleteButton = doc.getElementById("deleteBottom");
+        Element deleteButton = doc.getElementById("delete");
         doc = tester.clickSubmit(deleteButton, fieldValues);
         assertTrue(doc.toString().contains("deleted successfully"));
     }

@@ -32,6 +32,6 @@ public class Logout {
         // Remove RememberMe cookie
         cookies.removeCookieValue(TokenBasedRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY);
 
-        return MainMenu.class;
+        return Home.class;
     }
 }

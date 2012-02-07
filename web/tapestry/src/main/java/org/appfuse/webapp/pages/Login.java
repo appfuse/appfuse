@@ -1,21 +1,22 @@
 package org.appfuse.webapp.pages;
 
 import org.apache.tapestry5.Asset;
-import org.apache.tapestry5.RenderSupport;
-import org.apache.tapestry5.annotations.Environmental;
-import org.apache.tapestry5.annotations.Path;
-import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.alerts.AlertManager;
+import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.ioc.annotations.Symbol;
+import org.apache.tapestry5.ioc.annotations.Value;
 import org.apache.tapestry5.json.JSONObject;
 import org.apache.tapestry5.services.Context;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 import org.apache.tapestry5.services.Request;
+import org.apache.tapestry5.services.javascript.JavaScriptSupport;
 import org.appfuse.Constants;
+import org.appfuse.webapp.AppFuseSymbolConstants;
 import org.slf4j.Logger;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 
-import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,39 +26,45 @@ import java.util.Map;
  * @author Serge Eby
  * @version $Id: Login.java 5 2008-08-30 09:59:21Z serge.eby $
  */
-public class Login extends BasePage {
 
-    private static final String AUTH_FAILED = "error";
-    private static final String SECURITY_URL = "/j_security_check";
+
+@Import(library = "context:scripts/login.js")
+public class Login {
 
     @Inject
     private Logger logger;
 
     @Inject
-    private Request request;
+    @Symbol(AppFuseSymbolConstants.SECURITY_URL)
+    private String securityUrl;
 
-    @Property
     @Inject
-    @Path("context:images/iconWarning.gif")
-    private Asset iconWarning;
+    private Request request;
 
     @Inject
     private Messages messages;
 
     @Inject
-    private PageRenderLinkSource linker;
+    private AlertManager alertManager;
 
     @Inject
-    private Context context;
+    private PageRenderLinkSource pageRendererLinkSource;
+
 
     @Environmental
-    private RenderSupport renderSupport;
+    private JavaScriptSupport javascriptSupport;
 
     @Property
     private String errorMessage;
 
+
+    @Inject
+    private Context context;
+
+
+    @Log
     void onActivate(String loginError) {
-        if (AUTH_FAILED.equals(loginError)) {
+        if ("error".equals(loginError)) {
             this.errorMessage = ((Exception) request
                     .getSession(true)
                     .getAttribute(AbstractAuthenticationProcessingFilter.SPRING_SECURITY_LAST_EXCEPTION_KEY))
@@ -65,6 +72,7 @@ public class Login extends BasePage {
             logger.error(String.format("Error while attempting to login: %s",
                     errorMessage));
         }
+
     }
 
     String onPassivate() {
@@ -72,18 +80,24 @@ public class Login extends BasePage {
     }
 
     void afterRender() {
-        JSONObject params = new JSONObject();
-        params.put("url", getUrl());
-        params.put("passwordHintLink", getPasswordHintLink());
-        params.put("requiredUsername", getRequiredUsernameError());
-        params.put("requiredPassword", getRequiredPasswordError());
+        JSONObject spec = new JSONObject();
+        String requiredUsernameError = messages.format("errors.required",
+                messages.get("label.username"));
+        String requiredPasswordError = messages.format("errors.required",
+                messages.get("label.password"));
+        spec.put("url", createLink(this.getClass()))
+                .put("passwordHintLink", createLink(PasswordHint.class))
+                .put("requiredUsername", requiredUsernameError)
+                .put("requiredPassword", requiredPasswordError);
 
-        renderSupport.addScript("initialize(%s);", params);
+        // javascriptSupport.addScript("initialize(%s);", spec);
+      //  javascriptSupport.addInitializerCall("loginHint", spec);
 
     }
 
+
     public String getSpringSecurityUrl() {
-        return String.format("%s%s", request.getContextPath(), SECURITY_URL);
+        return request.getContextPath() + securityUrl;
     }
 
     void cleanupRender() {
@@ -105,33 +119,14 @@ public class Login extends BasePage {
         return false;
     }
 
-    public String getSignup() {
-        String link = linker.createPageRenderLink("Signup").toAbsoluteURI();
-        return MessageFormat.format(messages.get("login.signup"), link);
+    public String getSignupLink() {
+        String link = createLink(Signup.class);
+        return messages.format("login.signup", link);
     }
 
-    //~-- Javascript/JSON object helper methods
-    private String getRequiredFieldError(String field) {
-        return MessageFormat.format(messages.get("errors.required"), field);
+
+    private String createLink(Class clazz) {
+        return pageRendererLinkSource.createPageRenderLink(clazz).toAbsoluteURI();
     }
 
-    private String getRequiredUsernameError() {
-        return getRequiredFieldError(messages.get("label.username"));
-    }
-
-    private String getRequiredPasswordError() {
-        return getRequiredFieldError(messages.get("label.password"));
-    }
-
-    private String getPasswordHintLink() {
-        return linker.createPageRenderLink("PasswordHint").toAbsoluteURI();
-    }
-
-    private String getUrl() {
-        return linker.createPageRenderLink("Login").toAbsoluteURI();
-    }
-
-    public String getCssTheme() {
-        return context.getInitParameter(Constants.CSS_THEME);
-    }
 }

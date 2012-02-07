@@ -579,7 +579,7 @@
         <springmodules.validation.version>0.8</springmodules.validation.version>
         <struts.version>2.3.1.2</struts.version>
         <struts.menu.version>2.4.3</struts.menu.version>
-        <tapestry.version>5.3.1</tapestry.version>
+        <tapestry.version>5.3.2</tapestry.version>
         <urlrewrite.version>3.1.0</urlrewrite.version>
         <velocity.version>1.4</velocity.version>
         <webtest.version>3.0</webtest.version>

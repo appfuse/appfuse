@@ -136,6 +136,20 @@
                                 <copy todir="src/main/webapp/WEB-INF" overwrite="true">
                                     <globmapper from="ApplicationResources*" to="app*" />
                                     <fileset dir="../common/src/main/resources" includes="ApplicationResources*" />
+                                    <!-- Tapestry specific customizations -->
+                                    <filterset begintoken="{" endtoken="}">
+                                       <!-- Convert {i} to %s -->
+                                        <filter token="0" value="%1$s" />
+                                        <filter token="1" value="%2$s" />
+                                        <filter token="2" value="%3$s" />
+                                        <filter token="3" value="%4$s" />
+                                        <filter token="4" value="%5$s" />
+                                        <filter token="5" value="%6$s" />
+                                        <filter token="6" value="%7$s" />
+                                       <!-- Tapestry interpret these as symbols -->
+                                        <filter token="pom.version" value="${project.version}" />
+                                        <filter token="copyright.year" value="${copyright.year}" />
+                                    </filterset>
                                 </copy>
                             </tasks>
                         </configuration>
@@ -198,12 +212,14 @@
             <groupId>org.apache.tapestry</groupId>
             <artifactId>tapestry-spring</artifactId>
             <version>${tapestry.version}</version>
+<!--
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework</groupId>
                     <artifactId>spring-web</artifactId>
                 </exclusion>
             </exclusions>
+-->
         </dependency>
         <dependency>
             <groupId>org.apache.tapestry</groupId>
