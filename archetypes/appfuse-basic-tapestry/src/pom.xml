@@ -450,7 +450,7 @@
                         </excludes>
                     </instrumentation>
                 </configuration>
-                <version>2.4</version>
+                <version>2.5.1</version>
             </plugin>
             <plugin>
                 <artifactId>maven-javadoc-plugin</artifactId>
