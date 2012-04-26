@@ -31,15 +31,12 @@ public class Home {
     @Inject
     private AlertManager alertManager;
 
-
     @InjectPage
     private UserEdit userEdit;
 
     @Persist
     @Property
     private User currentUser;
-
-
 
     Object onActionFromEditProfile() {
         logger.debug("Editing current user's profile");

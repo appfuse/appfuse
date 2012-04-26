@@ -17,8 +17,6 @@ import java.io.IOException;
  * @version $Id: Reload.java 5 2008-08-30 09:59:21Z serge.eby $
  */
 public class Reload {
-
-
     @Inject
     private Messages messages;
 
@@ -29,17 +27,11 @@ public class Reload {
     private AlertManager alertManager;
 
 
-
-@Inject
-    private JavaScriptSupport jsSupport;
-
-
-
     Object onActivate() throws IOException {
         StartupListener.setupContext(globals.getServletContext());
         alertManager.alert(Duration.TRANSIENT,
-                           Severity.INFO,
-                           messages.get("reload.succeeded"));
+                Severity.INFO,
+                messages.get("reload.succeeded"));
         return Home.class;
     }
 

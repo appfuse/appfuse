@@ -49,7 +49,6 @@ public class UserEdit {
     @Persist
     private List<Role> selectedRoles;
 
-
     @Inject
     private PageRenderLinkSource pageRenderLinkSource;
 
@@ -86,7 +85,6 @@ public class UserEdit {
     @Property
     private Class goBack;
 
-
     @Persist
     @Property(write = false)
     private String from;
@@ -99,14 +97,9 @@ public class UserEdit {
     @Component(id = "edit")
     private UserForm form;
 
-    // @Component(id = "password")
-    // private HashedPasswordField passwordField;
-
     private boolean delete = false;
 
-
     private boolean cancel = false;
-
 
     public void setUser(User user) {
         this.user = user;
@@ -128,7 +121,6 @@ public class UserEdit {
     public void setInfoMessage(String infoMessage) {
         this.infoMessage = infoMessage;
     }
-
 
     Object[] onPassivate() {
         if (user != null && user.getId() != null) {
@@ -196,7 +188,6 @@ public class UserEdit {
         }
     }
 
-
     void onPrepare() {
         if (user == null) {
             user = new User();
@@ -231,9 +222,7 @@ public class UserEdit {
         } catch (UserExistsException e) {
             // TODO
             //form.recordError(form.getEmailField(), "User exits");
-            alertManager.alert(
-                    Duration.TRANSIENT,
-                    Severity.ERROR,
+            alertManager.alert(Duration.TRANSIENT, Severity.ERROR,
                     messages.format("errors.existing.user", user.getUsername(), user.getEmail())
             );
 
@@ -252,11 +241,7 @@ public class UserEdit {
         } else {
             // add success messages
             if (originalVersion == null) {
-
-
-                alertManager.alert(
-                        Duration.TRANSIENT,
-                        Severity.INFO,
+                alertManager.alert(Duration.TRANSIENT, Severity.INFO,
                         messages.format("user.added", user.getFullName()));
 
                 try {
@@ -271,9 +256,7 @@ public class UserEdit {
                 }
                 return UserList.class;
             } else {
-                alertManager.alert(
-                        Duration.TRANSIENT,
-                        Severity.INFO,
+                alertManager.alert(Duration.TRANSIENT, Severity.INFO,
                         messages.format("user.updated.byAdmin", user.getFullName()));
             }
         }
@@ -281,34 +264,21 @@ public class UserEdit {
         return this;
     }
 
-
     @Log
     Object onDelete() {
         // Save full name before deletion
         String fullName = user.getFullName();
         userManager.removeUser(user.getId().toString());
-        alertManager.alert(
-                Duration.TRANSIENT,
-                Severity.INFO,
+        alertManager.alert(Duration.TRANSIENT, Severity.INFO,
                 messages.format("user.deleted", fullName)
         );
         logger.debug("After deletion.. ready to return userList object");
         return UserList.class;
     }
 
-    void cleanupRender() {
-        //user = null;
-//         validationError = null;
-    }
-
-
     public void setFrom(String from) {
         this.from = from;
     }
-
-//    Object onFailure() {
-//        return this;
-//    }
 
 
 }

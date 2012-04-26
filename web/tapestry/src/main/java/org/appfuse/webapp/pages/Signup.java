@@ -55,7 +55,6 @@ public class Signup {
     @PageActivationContext
     private User user;
 
-
     @Inject
     private HttpServletRequest request;
 
@@ -118,12 +117,10 @@ public class Signup {
 
     @Log
     Object onSuccess() throws IOException {
-
         try {
             user = userManager.saveUser(user);
         } catch (AccessDeniedException ade) {
             // thrown by UserSecurityAdvice configured in aop:advisor
-            // userManagerSecurity
             logger.warn(ade.getMessage());
             return new HttpError(HttpServletResponse.SC_FORBIDDEN, "Resource not available");
         } catch (UserExistsException e) {
@@ -137,14 +134,11 @@ public class Signup {
             //TODO: somehow returning current page doesn't work
             //return this;
 
-             response.sendRedirect("signup");
+            response.sendRedirect("signup");
         }
-        //TODO #2: FIXME: Do we really need session?
-        //getSession().setAttribute(Constants.REGISTERED, Boolean.TRUE);
 
         // log user in automatically
         securityContext.login(user);
-
 
         // Send user an e-mail
         logger.debug(String.format("Sending user '%s' an account information e-mail", user.getUsername()));
@@ -157,13 +151,12 @@ public class Signup {
                     me.getMostSpecificCause().getMessage());
         }
 
-        request.getSession(true).setAttribute("message", messages.get("user.registered"));
+        alertManager.alert(Duration.TRANSIENT, Severity.INFO,  messages.get("user.registered"));
         if (request != null) { // needed for testing
             response.sendRedirect(request.getContextPath());
         }
         return null;
     }
-
 
     @Log
     void onFailure() throws IOException {

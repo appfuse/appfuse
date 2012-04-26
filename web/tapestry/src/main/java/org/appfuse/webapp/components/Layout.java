@@ -28,7 +28,6 @@ import org.appfuse.webapp.services.SecurityContext;
 @Import(stack = AppFuseSymbolConstants.BOOTSTRAP_STACK)
 public class Layout {
 
-
     @Property
     @Parameter(required = true, defaultPrefix = BindingConstants.MESSAGE)
     private String title;

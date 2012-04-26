@@ -313,7 +313,7 @@
         <!-- Framework dependency versions -->
         <appfuse.version>2.1.1-SNAPSHOT</appfuse.version>
         <spring.version>3.1.0.RELEASE</spring.version>
-        <tapestry.version>5.3.1</tapestry.version>
+        <tapestry.version>5.3.3</tapestry.version>
 
         <!-- Testing dependency versions -->
         <cargo.version>1.0.6</cargo.version>

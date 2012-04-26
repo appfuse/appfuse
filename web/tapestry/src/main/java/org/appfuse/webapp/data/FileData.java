@@ -3,6 +3,7 @@ package org.appfuse.webapp.data;
 import org.apache.tapestry5.upload.services.UploadedFile;
 
 import java.io.File;
+import java.io.Serializable;
 
 /**
  * Wrapper class around the attributes used by the upload process
@@ -10,7 +11,7 @@ import java.io.File;
  * @author Serge Eby
  * @version $Id: FileData.java 5 2008-08-30 09:59:21Z serge.eby $
  */
-public class FileData {
+public class FileData implements Serializable {
 
     private UploadedFile file;
     private String friendlyName;

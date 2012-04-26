@@ -3,7 +3,6 @@
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
 
-
 <t:userform t:id="edit"
             user="user"
             signup="false"
@@ -13,6 +12,4 @@
             cookieLogin="cookieLogin"
             heading="message:userProfile.heading"
             submitLabel="${message:button.save}"/>
-
-
 </html>

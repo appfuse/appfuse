@@ -102,3 +102,7 @@ body DIV.t-alert-controls {
 body DIV.t-checklist-row {
 
 }
+
+.t-checklist-row label {
+    display: inline;
+}

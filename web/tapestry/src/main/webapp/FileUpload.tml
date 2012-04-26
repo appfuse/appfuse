@@ -1,49 +1,40 @@
 <html t:type="layout" title="message:upload.title" heading="message:upload.heading"
       menu="AdminMenu" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 
+<div class="span3">
+    <h2>${message:upload.heading}</h2>
+    ${message:upload.message}
+</div>
 
+<div class="span7">
 
-    <div class="span3">
-        <h2>${message:upload.heading}</h2>
-        ${message:upload.message}
-    </div>
+    <form t:type="form" t:id="upload" clientValidation="none" class="well form-horizontal">
 
-    <div class="span7">
+        <fieldset class="control-group">
+            <label t:type="label" class="control-label" for="name">${message:uploadForm.name}</label>
 
+            <div class="controls">
+                <input t:type="textfield" t:id="name" value="fileData.friendlyName"
+                       validate="required"/>
+            </div>
+        </fieldset>
 
-        <form t:type="form" t:id="upload" clientValidation="none" class="well form-horizontal">
+        <fieldset class="control-group">
+            <label t:type="label" class="control-label" for="file">${message:uploadForm.file} <span class="required">*</span></label>
 
+            <div class="controls">
+                <input t:type="upload" t:id="file" value="fileData.file" validate="required"/>
+            </div>
+        </fieldset>
 
-            <fieldset class="control-group">
-                <label t:type="label" class="control-label" for="name">${message:uploadForm.name}</label>
+        <fieldset class="form-actions">
+            <input t:type="submit" class="btn btn-primary" theme="simple" onclick="bCancel=false" value="${message:button.upload}"
+                   t:id="save"/>
+            <a t:type="eventlink" t:id="cancel">
+                <input type="button" class="btn" onclick="bCancel=true" value="${message:button.cancel}"/>
+            </a>
+        </fieldset>
+    </form>
 
-                <div class="controls">
-                    <input t:type="textfield" t:id="name" value="fileData.friendlyName"
-                           validate="required"/>
-                </div>
-            </fieldset>
-
-            <fieldset class="control-group">
-                <label t:type="label" class="control-label" for="file">${message:uploadForm.file} <span class="required">*</span></label>
-
-                <div class="controls">
-                    <input t:type="upload" t:id="file" value="fileData.file"  validate="required"/>
-                </div>
-            </fieldset>
-
-
-            <fieldset class="form-actions">
-                <input t:type="submit" class="btn btn-primary" theme="simple" onclick="bCancel=false" value="${message:button.upload}"
-                       t:id="save"/>
-                <a t:type="eventlink" t:id="cancel">
-                    <input type="button" class="btn" onclick="bCancel=true" value="${message:button.cancel}"/>
-                </a>
-            </fieldset>
-
-
-        </form>
-
-    </div>
-
-
+</div>
 </html>

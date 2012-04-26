@@ -2,7 +2,6 @@
           heading="message:mainMenu.heading" menu="MainMenu" bodyClass="home"
           xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 
-
     <h2>${message:mainMenu.heading}</h2>
     <p>${message:mainMenu.message}</p>
 

@@ -21,8 +21,6 @@ import java.util.List;
  * @version $Id: UserList.java 5 2008-08-30 09:59:21Z serge.eby $
  */
 public class UserList {
-
-
     @Inject
     private Logger logger;
 
@@ -37,7 +35,6 @@ public class UserList {
 
     @Inject
     private JavaScriptSupport jsSupport;
-
 
     @InjectPage
     private UserEdit userEdit;

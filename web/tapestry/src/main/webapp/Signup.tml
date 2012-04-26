@@ -2,8 +2,6 @@
           heading="message:signup.heading"
           xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 
-
-
     <t:userform t:id="signup"
                 user="user"
                 signup="true"

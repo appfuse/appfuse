@@ -52,10 +52,8 @@ public abstract class BasePageTestCase extends AbstractTransactionalJUnit4Spring
             wac.getBeanFactory().registerSingleton(defName, applicationContext.getBean(defName));
         }
 
-
         servletContext.addInitParameter(SpringConstants.USE_EXTERNAL_SPRING_CONTEXT, "true");
-               servletContext.setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE,
-                wac);
+        servletContext.setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, wac);
         tester = new PageTester(appPackage, appName, "src/main/webapp", AppTestModule.class) {
 
             @Override

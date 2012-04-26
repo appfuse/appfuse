@@ -31,10 +31,8 @@ import java.io.File;
  */
 public class FileUpload {
 
-
     @Inject
     private Logger logger;
-
 
     @Inject
     private Messages messages;
@@ -56,7 +54,6 @@ public class FileUpload {
 
     @InjectPage
     private FileDisplay fileDisplay;
-
 
     @Property
     private FileData fileData;
