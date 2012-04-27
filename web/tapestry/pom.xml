@@ -85,7 +85,7 @@
             <!-- Override plugin configuration from appfuse-web so can exclude overridden files -->
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.1.1</version>
+                <version>2.2</version>
                 <configuration>
                     <webResources>
                         <resource>
@@ -109,19 +109,6 @@
                         </resource>
                     </webResources>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>skinny-war</id>
-                        <goals>
-                            <goal>war</goal>
-                        </goals>
-                        <phase>post-integration-test</phase>
-                        <inherited>false</inherited>
-                        <configuration>
-                            <warSourceExcludes>WEB-INF/lib/**</warSourceExcludes>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
