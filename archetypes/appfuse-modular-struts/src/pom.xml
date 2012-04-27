@@ -69,6 +69,13 @@
                     <source>1.5</source>
                     <target>1.5</target>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.codehaus.plexus</groupId>
+                        <artifactId>plexus-compiler-javac</artifactId>
+                        <version>1.8.6</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
