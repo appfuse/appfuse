@@ -101,19 +101,6 @@
                         </resource>
                     </webResources>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>skinny-war</id>
-                        <goals>
-                            <goal>war</goal>
-                        </goals>
-                        <phase>post-integration-test</phase>
-                        <inherited>false</inherited>
-                        <configuration>
-                            <warSourceExcludes>WEB-INF/lib/**</warSourceExcludes>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
         <resources>
@@ -239,7 +226,7 @@
                                 <home>${cargo.container.home}</home>
                                 <zipUrlInstaller>
                                     <url>${cargo.container.url}</url>
-                                    <installDir>${installDir}</installDir>
+                                    <extractDir>${installDir}</extractDir>
                                 </zipUrlInstaller>
                             </container>
                             <configuration>
