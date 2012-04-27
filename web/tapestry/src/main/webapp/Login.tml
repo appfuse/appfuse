@@ -6,7 +6,7 @@
     <div class="span5">
 
         <form method="post" id="loginForm" action="${springSecurityUrl}"
-              onsubmit="saveUsername(this);return validateForm(this)" class="form-horizontal">
+              onsubmit="saveUsername(this)" class="form-horizontal">
 
             <t:if test="${errorMessage}">
                 <div class="alert alert-error fade in">
@@ -51,24 +51,16 @@
             </fieldset>
 
         </form>
-
     </div>
-
 
     <div class="span3">
         <p>
             <t:outputraw value="${signupLink}"/>
         </p>
 
-
         <p>
             <t:outputraw value="${message:login.passwordHint}"/>
         </p>
-
     </div>
-
-
 </div>
-
-
 </html>

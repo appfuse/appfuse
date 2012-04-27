@@ -28,7 +28,7 @@ import java.util.Map;
  */
 
 
-@Import(library = "context:scripts/login.js")
+@Import(library = {"context:scripts/lib/plugins/jquery.cookie.js","context:scripts/login.js"})
 public class Login {
 
     @Inject

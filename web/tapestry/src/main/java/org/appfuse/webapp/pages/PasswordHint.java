@@ -33,7 +33,6 @@ public class PasswordHint {
     @Inject
     private UserManager userManager;
 
-
     @Inject
     private EmailService emailService;
 
@@ -43,13 +42,9 @@ public class PasswordHint {
     @Inject
     private HttpServletRequest request;
 
-
     private String username;
 
-
     Object onActivate(EventContext ctx) {
-
-
         // ensure that the username has been set
         if (ctx == null || ctx.getCount() == 0) {
             logger.warn("Username not specified, notifying user that it's a required field.");
@@ -64,7 +59,6 @@ public class PasswordHint {
         int userIdx = 0;
         this.username = ctx.get(String.class, userIdx).trim();
         logger.debug("Processing Password Hint for username: " + username);
-
 
         // look up the user's information
         try {

@@ -1,7 +1,5 @@
 <t:container xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
 
-
-
 <div class="span3">
     <h2>${heading}</h2>
     ${infoMessage}
@@ -9,7 +7,6 @@
 
 <div class="span7">
 <!-- Add Error Block Here -->
-
 
 <form t:type="form" t:id="form" class="well form-horizontal">
 
@@ -45,11 +42,12 @@
         </div>
     </fieldset>
     <fieldset class="control-group">
-            <label t:type="label" class="control-label" for="confirmPassword">${message:user.confirmPassword}</label>
-            <div class="controls">
-                <input t:type="hashedpasswordfield" t:id="confirmPassword" value="user.confirmPassword"
-                       validate="required"/>
-            </div>
+        <label t:type="label" class="control-label" for="confirmPassword">${message:user.confirmPassword}</label>
+
+        <div class="controls">
+            <input t:type="hashedpasswordfield" t:id="confirmPassword" value="user.confirmPassword"
+                   validate="required"/>
+        </div>
     </fieldset>
     <p:else>
         <input type="hidden" name="password" value="${user.password}"/>
@@ -121,6 +119,7 @@
 
         <fieldset class="control-group">
             <label class="control-label" t:type="label" for="address">${message:user.address.address}</label>
+
             <div class="controls">
                 <input t:type="textfield" t:id="address" value="user.address?.address"/>
             </div>
@@ -128,6 +127,7 @@
 
         <fieldset class="control-group">
             <label class="control-label" t:type="label" for="city">${message:user.address.city}</label>
+
             <div class="controls">
                 <input t:type="textfield" t:id="city" value="user.address?.city"/>
             </div>
@@ -136,6 +136,7 @@
 
         <fieldset class="control-group">
             <label class="control-label" t:type="label" for="state">${message:user.address.province}</label>
+
             <div class="controls">
                 <input t:type="textfield" t:id="state" value="user.address?.province"/>
             </div>
@@ -144,6 +145,7 @@
 
         <fieldset class="control-group">
             <label class="control-label" t:type="label" for="postalCode">${message:user.address.postalCode}</label>
+
             <div class="controls">
                 <input t:type="textfield" t:id="postalCode" value="user.address?.postalCode"/>
             </div>
@@ -151,6 +153,7 @@
 
         <fieldset class="control-group">
             <label t:type="label" for="country" class="control-label">${message:user.address.country}</label>
+
             <div class="controls">
                 <select t:type="select" t:id="country" model="countryModel" value="user.address?.country"
                         encoder="countryEncoder"
@@ -232,6 +235,4 @@
 </form>
 
 </div>
-
-
 </t:container>

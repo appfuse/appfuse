@@ -1,14 +1,12 @@
-if (getCookie("username") != null && getCookie("username") != "") {
-    $("j_username").value = getCookie("username");
-    $("j_password").focus();
+if ($j.cookie("username") != null) {
+    $j("#j_username").val($j.cookie("username"));
+    $j("#j_password").focus();
 } else {
-    $("j_username").focus();
+    $j("#j_username").focus();
 }
 
 function saveUsername(theForm) {
-    var expires = new Date();
-    expires.setTime(expires.getTime() + 24 * 30 * 60 * 60 * 1000); // sets it for approx 30 days.
-    setCookie("username", theForm.j_username.value, expires, "/");
+    $j.cookie("username",theForm.j_username.value, { expires: 30, path: "/"});
 }
 
 function passwordHint() {
