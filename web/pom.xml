@@ -50,12 +50,12 @@
         <plugins>
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
-                <artifactId>maven-jetty-plugin</artifactId>
+                <artifactId>jetty-maven-plugin</artifactId>
                 <version>${jetty.version}</version>
                 <configuration>
-                    <webAppConfig>
+                    <webApp>
                         <contextPath>/</contextPath>
-                        <baseResource implementation="org.mortbay.resource.ResourceCollection">
+                        <baseResource implementation="org.eclipse.jetty.util.resource.ResourceCollection">
                             <resourcesAsCSV>
                                 ${basedir}/../common/src/main/resources,
                                 ${basedir}/src/main/resources,
@@ -63,7 +63,7 @@
                                 ${basedir}/../common/src/main/webapp,
                             </resourcesAsCSV>
                         </baseResource>
-                    </webAppConfig>
+                    </webApp>
                 </configuration>
             </plugin>
         </plugins>
