@@ -26,6 +26,7 @@
     <groupId>org.appfuse.archetypes</groupId>
     <artifactId>appfuse-basic-tapestry</artifactId>
     <name>AppFuse Basic Archetype - Tapestry</name>
+    <packaging>pom</packaging>
     <version>2.1.1-SNAPSHOT</version>
 
     <description>

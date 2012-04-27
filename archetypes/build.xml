@@ -62,7 +62,7 @@
         <replace file="${dir}/target/generated-sources/archetype/src/main/resources/archetype-resources/pom.xml">
             <replacetoken><![CDATA[<jdbc.username>root</jdbc.username>]]></replacetoken>
             <replacevalue><![CDATA[<jdbc.username>root</jdbc.username>
-    <jdbc.password></jdbc.password>]]></replacevalue>
+        <jdbc.password></jdbc.password>]]></replacevalue>
         </replace>
 
         <mvn command="install" dir="target/${module}-archetype/target/generated-sources/archetype"/>

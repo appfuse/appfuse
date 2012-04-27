@@ -26,6 +26,7 @@
     <groupId>org.appfuse.archetypes</groupId>
     <artifactId>appfuse-modular-spring</artifactId>
     <name>AppFuse Modular Archetype - Spring</name>
+    <packaging>pom</packaging>
     <version>2.1.1-SNAPSHOT</version>
 
     <description>
