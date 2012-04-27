@@ -252,7 +252,7 @@
                                 <home>${cargo.container.home}</home>
                                 <zipUrlInstaller>
                                     <url>${cargo.container.url}</url>
-                                    <installDir>${installDir}</installDir>
+                                    <extractDir>${installDir}</extractDir>
                                 </zipUrlInstaller>
                             </container>
                             <configuration>
