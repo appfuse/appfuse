@@ -18,8 +18,12 @@ public class RoleEncoder implements ValueEncoder<Role> {
     }
 
     public Role toValue(String clientValue) {
-        Long id = Long.valueOf(clientValue);
+        // happens when testing with iBatis for some reason
+        if ("null".equals(clientValue)) {
+            return null;
+        }
 
+        Long id = Long.valueOf(clientValue);
         return roleManager.get(id);
     }
 

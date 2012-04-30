@@ -65,15 +65,13 @@ public class UserEditTest extends BasePageTestCase {
         
         doc = tester.submitForm(form, fieldValues);
 
-
         Element errors = doc.getElementById("errorMessages");
 
         if (errors != null) {
-            System.out.println(errors);
+            log.error(errors);
         }
 
         assertNull(doc.getElementById("errorMessages"));
-
 
         // verify an account information e-mail was sent
         assertEquals(1, wiser.getMessages().size());
