@@ -170,7 +170,6 @@ public class UserEdit {
         }
     }
 
-
     @Log
     void onValidatePasswordFromEdit() {
         // Ensure the password fields match
@@ -207,7 +206,10 @@ public class UserEdit {
         if (securityContext.isAdmin()) {
             if (selectedRoles != null && !selectedRoles.isEmpty()) {
                 user.getRoles().clear();
-                user.setRoles(new HashSet<Role>(selectedRoles));
+                for (int i = 0; selectedRoles != null && i < selectedRoles.size(); i++) {
+                    String roleName = selectedRoles.get(i).getName();
+                    user.addRole(roleManager.getRole(roleName));
+                }
             }
         }
 

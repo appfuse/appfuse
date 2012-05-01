@@ -137,6 +137,7 @@
                 <setinputfield name="email" value="newuser@raibledesigns.com"/>
                 <setinputfield name="website" value="http://raibledesigns.com"/>
                 <setinputfield name="passwordHint" value="test"/>
+                <setcheckbox description="Select roles" name="selectedRoles" checked="ROLE_USER"/>
 
                 <clickbutton label="${button.save}" description="Click button 'Save'"/>
 
