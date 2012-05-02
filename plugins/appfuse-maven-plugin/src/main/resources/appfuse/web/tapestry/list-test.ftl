@@ -29,9 +29,9 @@ public class ${pojo.shortName}ListTest extends BasePageTestCase {
     public void testEdit() {
         doc = tester.renderPage("${pojoNameLower}List");
 
-		Element table = doc.getElementById("${pojoNameLower}List");
+        Element table = doc.getElementById("${pojoNameLower}List");
         List<Node> rows = table.find("tbody").getChildren();
-		String id = ((Element) rows.get(0)).find("td/a").getChildMarkup().trim();
+        String id = ((Element) rows.get(0)).find("td/a").getChildMarkup().trim();
         Element editLink = table.getElementById("${pojoNameLower}-" + id);
         doc = tester.clickLink(editLink);
 

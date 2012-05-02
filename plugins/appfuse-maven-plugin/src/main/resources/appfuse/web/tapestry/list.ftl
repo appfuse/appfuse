@@ -19,7 +19,7 @@ import org.apache.tapestry5.annotations.Service;
 import org.apache.tapestry5.corelib.components.EventLink;
 import org.slf4j.Logger;
 
-public class ${pojo.shortName}List extends BasePage {
+public class ${pojo.shortName}List {
     @Inject
     private Logger log;
 

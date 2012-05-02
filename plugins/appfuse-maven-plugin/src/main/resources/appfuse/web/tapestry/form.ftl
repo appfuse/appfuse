@@ -4,6 +4,10 @@
 <#assign identifierType = pojo.getJavaTypeName(pojo.identifierProperty, jdk5)>
 package ${basepackage}.webapp.pages;
 
+import org.apache.tapestry5.alerts.AlertManager;
+import org.apache.tapestry5.alerts.Duration;
+import org.apache.tapestry5.alerts.Severity;
+import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.InjectPage;
@@ -25,7 +29,7 @@ import org.slf4j.Logger;
 
 import java.util.List;
 
-public class ${pojo.shortName}Form extends BasePage {
+public class ${pojo.shortName}Form {
     @Inject
     private Logger log;
 
@@ -36,6 +40,12 @@ public class ${pojo.shortName}Form extends BasePage {
 <#else>
     private ${pojo.shortName}Manager ${pojoNameLower}Manager;
 </#if>
+
+    @Inject
+    private AlertManager alertManager;
+
+    @Inject
+    private Messages messages;
 
     @Persist
     private ${pojo.shortName} ${pojoNameLower};
@@ -88,12 +98,11 @@ public class ${pojo.shortName}Form extends BasePage {
         ${pojoNameLower}Manager.save(${pojoNameLower});
 
         String key = (isNew) ? "${pojoNameLower}.added" : "${pojoNameLower}.updated";
+        alertManager.alert(Duration.TRANSIENT, Severity.INFO,  messages.get(key));
 
         if (isNew) {
-            ${pojoNameLower}List.addInfo(key, true);
             return ${pojoNameLower}List;
         } else {
-            addInfo(key, true);
             return this;
         }
     }
@@ -110,7 +119,7 @@ public class ${pojo.shortName}Form extends BasePage {
 
     Object onDelete() {
         ${pojoNameLower}Manager.remove(${pojoNameLower}.${getIdMethodName}());
-        ${pojoNameLower}List.addInfo("${pojoNameLower}.deleted", true);
+        alertManager.alert(Duration.TRANSIENT, Severity.INFO, messages.format("${pojoNameLower}.deleted"));
         return ${pojoNameLower}List;
     }
 
