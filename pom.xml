@@ -577,7 +577,7 @@
         <spring.version>3.1.0.RELEASE</spring.version>
         <spring.security.version>3.1.0.RELEASE</spring.security.version>
         <springmodules.validation.version>0.8</springmodules.validation.version>
-        <struts.version>2.3.1.2</struts.version>
+        <struts.version>2.3.3</struts.version>
         <struts.menu.version>2.4.3</struts.menu.version>
         <tapestry.version>5.3.3</tapestry.version>
         <urlrewrite.version>3.1.0</urlrewrite.version>
