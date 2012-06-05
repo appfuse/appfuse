@@ -27,5 +27,7 @@
         <property name="maxWait" value="1000"/>
         <property name="poolPreparedStatements" value="true"/>
         <property name="defaultAutoCommit" value="true"/>
+        <property name="validationQuery" value="SELECT 1+1"/>
+        <property name="testOnBorrow" value="true"/>
     </bean>
 </beans>
