@@ -50,18 +50,8 @@ public class StartupListener implements ServletContextListener {
             config = new HashMap<String, Object>();
         }
 
-        if (context.getInitParameter(Constants.CSS_THEME) != null) {
-            config.put(Constants.CSS_THEME, context.getInitParameter(Constants.CSS_THEME));
-        }
-
         ApplicationContext ctx =
                 WebApplicationContextUtils.getRequiredWebApplicationContext(context);
-
-        /*String[] beans = ctx.getBeanDefinitionNames();
-        for (String bean : beans) {
-            log.debug(bean);
-        }*/
-
 
         PasswordEncoder passwordEncoder = null;
         try {
