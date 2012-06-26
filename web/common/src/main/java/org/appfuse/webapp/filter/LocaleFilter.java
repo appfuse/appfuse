@@ -64,12 +64,6 @@ public class LocaleFilter extends OncePerRequestFilter {
             }
         }
 
-        String theme = request.getParameter("theme");
-        if (theme != null && request.isUserInRole(Constants.ADMIN_ROLE)) {
-            Map<String, Object> config = (Map) getServletContext().getAttribute(Constants.CONFIG);
-            config.put(Constants.CSS_THEME, theme);
-        }
-
         chain.doFilter(request, response);
 
         // Reset thread-bound LocaleContext.
