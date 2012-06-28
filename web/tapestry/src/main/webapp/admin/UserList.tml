@@ -6,20 +6,18 @@
     <h2>${message:userList.heading}</h2>
 
     <div id="search">
-    <form t:type="form"  t:id="searchForm" autofocus="false" class="form-search">
+    <form t:type="form" t:id="searchForm" autofocus="false" class="form-search">
         <input t:type="textfield" size="20" name="q" t:id="q" placeholder="Enter search terms..." class="input-medium search-query"/>
         <input t:type="submit" value="${message:button.search}" class="btn"/>
     </form>
     </div>
 
-    <!--<p>-->
-        <a t:type="eventlink" t:id="add" id="add">
-            <input type="button" style="margin-right: 5px" class="btn" value="${message:button.add}" />
-        </a>
-        <a t:type="eventlink" t:id="done" id="done">
-            <input type="button" class="btn" value="${message:button.done}" />
-        </a>
-    <!--</p>-->
+    <a t:type="eventlink" t:id="add" id="add">
+        <input type="button" style="margin-right: 5px" class="btn" value="${message:button.add}" />
+    </a>
+    <a t:type="eventlink" t:id="done" id="done">
+        <input type="button" class="btn" value="${message:button.done}" />
+    </a>
 
     <t:grid source="users" row="currentUser" model="model" reorder="username,fullname,email,enabled" t:id="userList" id="userList" class="table table-condensed">
         <p:usernamecell>

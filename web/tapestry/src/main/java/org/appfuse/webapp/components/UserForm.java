@@ -89,8 +89,6 @@ public class UserForm implements ClientElement, FormValidationControl {
         return form;
     }
 
-
-
     boolean onValidateFromForm() {
         resources.triggerEvent(AppFuseEventConstants.VALIDATE_PASSWORD, null, null);
         return true;

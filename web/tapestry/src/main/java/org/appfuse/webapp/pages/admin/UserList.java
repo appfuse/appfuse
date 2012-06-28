@@ -65,28 +65,23 @@ public class UserList {
         return model;
     }
 
-
     void onActivate() {
         users = userManager.search(q);
     }
 
-
     Object onAdd() {
-        return  userEdit.initialize(null, "list", messages.get("userProfile.admin.message"));
-
+        return userEdit.initialize(null, "list", messages.get("userProfile.admin.message"));
     }
 
     Object onDone() {
         return Home.class;
     }
 
-
     Object onActionFromEdit(User user) {
         logger.debug("fetching user with id: " + user.getId());
         user.setConfirmPassword(user.getPassword());
         return userEdit.initialize(user, "list", messages.get("userProfile.admin.message"));
     }
-
 
     Object onSubmit() {
         return this;
