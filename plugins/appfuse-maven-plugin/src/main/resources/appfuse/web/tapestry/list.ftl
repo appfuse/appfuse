@@ -16,12 +16,11 @@ import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.Service;
-import org.apache.tapestry5.corelib.components.EventLink;
 import org.slf4j.Logger;
 
 public class ${pojo.shortName}List {
     @Inject
-    private Logger log;
+    private Logger logger;
 
     @Inject
     @Service("${pojoNameLower}Manager")
@@ -36,12 +35,6 @@ public class ${pojo.shortName}List {
 
     @InjectPage
     private ${pojo.shortName}Form form;
-
-    @Component(parameters = {"event=add"})
-    private EventLink addTop, addBottom;
-
-    @Component(parameters = {"event=done"})
-    private EventLink doneTop, doneBottom;
 
     @Property
     @Persist
