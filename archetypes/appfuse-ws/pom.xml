@@ -35,8 +35,8 @@
     </description>
 
     <scm>
-        <connection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/archetypes/appfuse-ws</connection>
-        <developerConnection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/archetypes/appfuse-ws</developerConnection>
+        <connection>scm:svn:https://github.com/appfuse/appfuse/trunk/archetypes/appfuse-ws</connection>
+        <developerConnection>scm:svn:https://github.com/appfuse/appfuse/trunk/archetypes/appfuse-ws</developerConnection>
         <url>http://source.appfuse.org/browse/appfuse/trunk/archetypes/appfuse-ws</url>
     </scm>
 

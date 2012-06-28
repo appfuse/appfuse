@@ -17,8 +17,8 @@
     </prerequisites>
 
     <scm>
-        <connection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/plugins/appfuse-maven-plugin</connection>
-        <developerConnection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/plugins/appfuse-maven-plugin</developerConnection>
+        <connection>scm:svn:https://github.com/appfuse/appfuse/trunk/plugins/appfuse-maven-plugin</connection>
+        <developerConnection>scm:svn:https://github.com/appfuse/appfuse/trunk/plugins/appfuse-maven-plugin</developerConnection>
         <url>http://source.appfuse.org/browse/appfuse/trunk/plugins/appfuse-maven-plugin</url>
     </scm>
 

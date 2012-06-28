@@ -34,8 +34,8 @@
     </description>
 
     <scm>
-        <connection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/web/jsf</connection>
-        <developerConnection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/web/jsf</developerConnection>
+        <connection>scm:svn:https://github.com/appfuse/appfuse/trunk/web/jsf</connection>
+        <developerConnection>scm:svn:https://github.com/appfuse/appfuse/trunk/web/jsf</developerConnection>
         <url>http://source.appfuse.org/browse/appfuse/trunk/web/jsf</url>
     </scm>
 

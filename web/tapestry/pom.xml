@@ -34,8 +34,8 @@
     </description>
 
     <scm>
-        <connection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/web/tapestry</connection>
-        <developerConnection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/web/tapestry</developerConnection>
+        <connection>scm:svn:https://github.com/appfuse/appfuse/trunk/web/tapestry</connection>
+        <developerConnection>scm:svn:https://github.com/appfuse/appfuse/trunk/web/tapestry</developerConnection>
         <url>http://source.appfuse.org/browse/appfuse/trunk/web/tapestry</url>
     </scm>
 

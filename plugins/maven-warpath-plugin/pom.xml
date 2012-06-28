@@ -17,8 +17,8 @@
     </prerequisites>
 
     <scm>
-        <connection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/plugins/maven-warpath-plugin</connection>
-        <developerConnection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/plugins/maven-warpath-plugin</developerConnection>
+        <connection>scm:svn:https://github.com/appfuse/appfuse/trunk/plugins/maven-warpath-plugin</connection>
+        <developerConnection>scm:svn:https://github.com/appfuse/appfuse/trunk/plugins/maven-warpath-plugin</developerConnection>
         <url>http://source.appfuse.org/browse/appfuse/trunk/plugins/maven-warpath-plugin</url>
     </scm>
 

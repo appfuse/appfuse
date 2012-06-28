@@ -19,8 +19,8 @@
     </description>
 
     <scm>
-        <connection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/web/common</connection>
-        <developerConnection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/web/common</developerConnection>
+        <connection>scm:svn:https://github.com/appfuse/appfuse/trunk/web/common</connection>
+        <developerConnection>scm:svn:https://github.com/appfuse/appfuse/trunk/web/common</developerConnection>
         <url>http://source.appfuse.org/browse/appfuse/trunk/web/common</url>
     </scm>
 

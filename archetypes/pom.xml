@@ -20,8 +20,8 @@
     </description>
 
     <scm>
-        <connection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/archetypes</connection>
-        <developerConnection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/archetypes</developerConnection>
+        <connection>scm:svn:https://github.com/appfuse/appfuse/trunk/archetypes</connection>
+        <developerConnection>scm:svn:https://github.com/appfuse/appfuse/trunk/archetypes</developerConnection>
         <url>http://source.appfuse.org/browse/appfuse/trunk/archetypes</url>
     </scm>
 

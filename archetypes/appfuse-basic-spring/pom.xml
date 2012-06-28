@@ -34,8 +34,8 @@
     </description>
 
     <scm>
-        <connection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/archetypes/appfuse-basic-spring</connection>
-        <developerConnection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/archetypes/appfuse-basic-spring</developerConnection>
+        <connection>scm:svn:https://github.com/appfuse/appfuse/trunk/archetypes/appfuse-basic-spring</connection>
+        <developerConnection>scm:svn:https://github.com/appfuse/appfuse/trunk/archetypes/appfuse-basic-spring</developerConnection>
         <url>http://source.appfuse.org/browse/appfuse/trunk/archetypes/appfuse-basic-spring</url>
     </scm>
 

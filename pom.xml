@@ -18,7 +18,7 @@
         can choose between Struts 2, JSF, Spring MVC and Tapestry. Test-first
         development is promoted when using AppFuse, and all the infrastructure
         is in place to do integration testing, unit/mock testing, as well as UI
-        testing. Features include Authentication (using Acegi Security),
+        testing. Features include Authentication (using Spring Security),
         Remember Me, Self Registration, Password Hint and GZip Compression.
         The fuse to start your apps.
     </description>
@@ -28,8 +28,8 @@
     </prerequisites>
 
     <scm>
-        <connection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk</connection>
-        <developerConnection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk</developerConnection>
+        <connection>scm:svn:https://github.com/appfuse/appfuse/trunk</connection>
+        <developerConnection>scm:svn:https://github.com/appfuse/appfuse/trunk</developerConnection>
         <url>http://source.appfuse.org/browse/appfuse/trunk</url>
     </scm>
 
@@ -338,7 +338,7 @@
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <configuration>
                     <consoleOutput>true</consoleOutput>
-                    <configLocation>https://svn.java.net/svn/appfuse~svn/trunk/www/checkstyle.xml</configLocation>
+                    <configLocation>https://github.com/appfuse/appfuse/trunk/www/checkstyle.xml</configLocation>
                     <failsOnError>false</failsOnError>
                     <maxAllowedViolations>3</maxAllowedViolations>
                 </configuration>

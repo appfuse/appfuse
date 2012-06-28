@@ -37,8 +37,8 @@
     </description>
 
     <scm>
-        <connection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/service</connection>
-        <developerConnection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/service</developerConnection>
+        <connection>scm:svn:https://github.com/appfuse/appfuse/trunk/service</connection>
+        <developerConnection>scm:svn:https://github.com/appfuse/appfuse/trunk/service</developerConnection>
         <url>http://source.appfuse.org/browse/appfuse/trunk/service</url>
     </scm>
 

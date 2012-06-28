@@ -32,8 +32,8 @@
     </prerequisites>
 
     <scm>
-        <connection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/plugins/installer</connection>
-        <developerConnection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/plugins/installer</developerConnection>
+        <connection>scm:svn:https://github.com/appfuse/appfuse/trunk/plugins/installer</connection>
+        <developerConnection>scm:svn:https://github.com/appfuse/appfuse/trunk/plugins/installer</developerConnection>
         <url>http://source.appfuse.org/browse/appfuse/trunk/plugins/installer</url>
     </scm>
 

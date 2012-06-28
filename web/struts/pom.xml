@@ -34,8 +34,8 @@
     </description>
 
     <scm>
-        <connection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/web/struts</connection>
-        <developerConnection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/web/struts</developerConnection>
+        <connection>scm:svn:https://github.com/appfuse/appfuse/trunk/web/struts</connection>
+        <developerConnection>scm:svn:https://github.com/appfuse/appfuse/trunk/web/struts</developerConnection>
         <url>http://source.appfuse.org/browse/appfuse/trunk/web/struts</url>
     </scm>
 
