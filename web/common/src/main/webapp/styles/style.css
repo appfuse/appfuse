@@ -4,7 +4,6 @@ body {
 
 body > .navbar .brand {
     color: #000000;
-    float: right;
     font-weight: bold;
     margin-left: 20px;
     padding-left: 0;

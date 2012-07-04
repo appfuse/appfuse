@@ -236,6 +236,13 @@ function confirmDelete(obj) {
     return ans;
 }
 
+// 18n version of confirmDelete. Message must be already built.
+function confirmMessage(obj) {
+    var msg = "" + obj;
+    ans = confirm(msg);
+    return ans;
+}
+
 function highlightTableRows(tableId) {
     var previousClass = null;
     var table = document.getElementById(tableId); 
