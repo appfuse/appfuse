@@ -10,19 +10,25 @@
     <h2><fmt:message key="userList.heading"/></h2>
 
     <div id="search">
-        <form method="get" action="${ctx}/admin/users" id="searchForm" class="form-search">
+        <form method="get" action="${ctx}/restaurants" id="searchForm" class="form-search">
             <input type="text" size="20" name="q" id="query" value="${param.q}"
-                   placeholder="Enter search terms..." class="input-medium search-query"/>
-            <input type="submit" value="<fmt:message key="button.search"/>" class="btn"/>
+                   placeholder="<fmt:message key="search.enterTerms"/>" class="input-medium search-query"/>
+            <button id="button.search" class="btn">
+                <i class="icon-search"></i>
+                <fmt:message key="button.search"/>
+            </button>
         </form>
     </div>
 
-    <input type="button" style="margin-right: 5px" class="btn"
-           onclick="location.href='<c:url value="/editUser?method=Add&from=list"/>'"
-           value="<fmt:message key="button.add"/>"/>
-
-    <input type="button" onclick="location.href='<c:url value="/mainMenu"/>'" class="btn"
-           value="<fmt:message key="button.done"/>"/>
+    <div id="actions" class="form-actions">
+        <a class="btn btn-primary" href="<c:url value='/editUser?method=Add&from=list'/>" >
+            <i class="icon-plus"></i>
+            <fmt:message key="button.add"/>
+        </a>
+        <a class="btn" href="<c:url value="/mainMenu"/>" >
+            <fmt:message key="button.done"/>
+        </a>
+    </div>
 
     <display:table name="users" cellspacing="0" cellpadding="0" requestURI=""
                    defaultsort="1" id="users" pagesize="25" class="table table-condensed" export="true">
@@ -39,11 +45,21 @@
         </display:column>
         <display:column property="enabled" titleKey="user.enabled" media="csv xml excel pdf"/>
 
-        <display:setProperty name="paging.banner.item_name" value="user"/>
-        <display:setProperty name="paging.banner.items_name" value="users"/>
+        <display:setProperty name="paging.banner.item_name"><fmt:message key="userList.user"/></display:setProperty>
+        <display:setProperty name="paging.banner.items_name"><fmt:message key="userList.users"/></display:setProperty>
 
         <display:setProperty name="export.excel.filename" value="User List.xls"/>
         <display:setProperty name="export.csv.filename" value="User List.csv"/>
         <display:setProperty name="export.pdf.filename" value="User List.pdf"/>
     </display:table>
+
+    <div id="actions" class="form-actions">
+        <a class="btn btn-primary" href="<c:url value='/editUser?method=Add&from=list'/>" >
+            <i class="icon-plus"></i>
+            <fmt:message key="button.add"/>
+        </a>
+        <a class="btn" href="<c:url value="/mainMenu"/>" >
+            <fmt:message key="button.done"/>
+        </a>
+    </div>
 </div>

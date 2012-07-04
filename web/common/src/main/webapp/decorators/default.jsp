@@ -9,10 +9,14 @@
         <title><decorator:title/> | <fmt:message key="webapp.name"/></title>
 
         <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/lib/bootstrap.min.css'/>" />
-        <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/lib/bootstrap-responsive.min.css'/>" />
         <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/style.css'/>" />
         <decorator:head/>
     </head>
+<script type="text/javascript" src="<c:url value='/scripts/lib/jquery-1.7.2.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/scripts/lib/bootstrap.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/scripts/lib/plugins/jquery.cookie.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/scripts/script.js'/>"></script>
+
 <body<decorator:getProperty property="body.id" writeEntireProperty="true"/><decorator:getProperty property="body.class" writeEntireProperty="true"/>>
     <c:set var="currentMenu" scope="request"><decorator:getProperty property="meta.menu"/></c:set>
 
@@ -68,11 +72,6 @@
             &copy; <fmt:message key="copyright.year"/> <a href="<fmt:message key="company.url"/>"><fmt:message key="company.name"/></a>
         </span>
     </div>
-
-<script type="text/javascript" src="<c:url value='/scripts/lib/jquery-1.7.1.min.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/scripts/lib/bootstrap.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/scripts/lib/plugins/jquery.cookie.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/scripts/script.js'/>"></script>
 <%= (request.getAttribute("scripts") != null) ?  request.getAttribute("scripts") : "" %>
 </body>
 </html>

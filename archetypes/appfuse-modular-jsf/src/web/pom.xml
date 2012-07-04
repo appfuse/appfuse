@@ -60,12 +60,15 @@
             </plugin>
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
+                <!-- conflict with jsf tag libs and newest jetty-maven-plugin -->
+                <!-- 
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>8.1.3.v20120416</version>
+                -->
+                <artifactId>maven-jetty-plugin</artifactId>
+                <version>6.1.26</version>
                 <configuration>
-                    <webApp>
-                        <contextPath>/</contextPath>
-                    </webApp>
+                    <contextPath>/</contextPath>
                 </configuration>
             </plugin>
             <plugin>

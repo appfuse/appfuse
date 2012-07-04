@@ -12,6 +12,11 @@
     </head>
 <body id="${pojoNameLower}Form">
 
+<c:set var="delObject" value="${'#'}{text['${pojoNameLower}List.${pojoNameLower}']}"/>
+<script type="text/javascript">var msgDelConfirm =
+   "<h:outputFormat value="${'#'}{text['delete.confirm']}"><f:param value="${'#'}{delObject}" /></h:outputFormat>";
+</script>
+
 <h:form id="${pojoNameLower}Form" onsubmit="return validate${pojo.shortName}Form(this)">
 <#rt/>
 <#foreach field in pojo.getAllPropertiesIterator()>
@@ -69,7 +74,7 @@
 
         <c:if test="${'$'}{not empty ${pojoNameLower}Form.${pojoNameLower}.${idFieldName}}">
         <h:commandButton value="${'#'}{text['button.delete']}" action="${'#'}{${pojoNameLower}Form.delete}"
-            id="delete" styleClass="button" onclick="bCancel=true; return confirmDelete('${pojo.shortName}')"/>
+            id="delete" styleClass="button" onclick="bCancel=true; return confirmMessage(msgDelConfirm)"/>
         </c:if>
 
         <h:commandButton value="${'#'}{text['button.cancel']}" action="cancel" immediate="true"
