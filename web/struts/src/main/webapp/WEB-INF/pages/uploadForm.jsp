@@ -14,10 +14,21 @@
             cssClass="well form-horizontal">
         <s:textfield name="name" label="%{getText('uploadForm.name')}" required="true"/>
         <s:file name="file" label="%{getText('uploadForm.file')}" required="true"/>
-        <fieldset class="form-actions">
-            <s:submit key="button.upload" name="upload" cssClass="btn btn-primary" theme="simple"/>
-            <input type="button" value="<fmt:message key="button.cancel"/>" class="btn"
-                onclick="this.form.onsubmit = null; location.href='mainMenu'"/>
-        </fieldset>
+        <div id="actions" class="form-actions">
+            <s:submit type="button" key="button.upload" name="upload" cssClass="btn btn-primary" theme="simple">
+                <i class="icon-ok"></i>
+                <fmt:message key="button.save"/>
+            </s:submit>
+
+            <a class="btn" href="mainMenu" >
+                <i class="icon-remove"></i>
+                <fmt:message key="button.cancel"/>
+            </a>
+        </div>
     </s:form>
 </div>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("input[type='text']:visible:enabled:first", document.forms['uploadForm']).focus();
+    });
+</script>

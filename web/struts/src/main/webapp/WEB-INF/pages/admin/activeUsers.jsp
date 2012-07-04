@@ -11,7 +11,11 @@
 
     <p><fmt:message key="activeUsers.message"/></p>
 
-    <input type="button" onclick="location.href='../mainMenu'" value="<fmt:message key="button.done"/>" class="btn"/>
+    <div id="actions" class="form-actions">
+        <a class="btn btn-primary" href="../mainMenu" >
+            <fmt:message key="button.done"/>
+        </a>
+    </div>
 
     <display:table name="applicationScope.userNames" id="user" cellspacing="0" cellpadding="0"
                    defaultsort="1" class="table table-condensed" pagesize="50" requestURI="">
@@ -29,4 +33,10 @@
         <display:setProperty name="paging.banner.item_name" value="user"/>
         <display:setProperty name="paging.banner.items_name" value="users"/>
     </display:table>
+
+    <div id="actions" class="form-actions">
+        <a class="btn btn-primary" href="../mainMenu" >
+            <fmt:message key="button.done"/>
+        </a>
+    </div>
 </div>
