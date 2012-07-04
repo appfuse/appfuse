@@ -42,3 +42,10 @@ function confirmDelete(obj) {
     ans = confirm(msg);
     return ans;
 }
+
+// 18n version of confirmDelete. Message must be already built.
+function confirmMessage(obj) {
+    var msg = "" + obj;
+    ans = confirm(msg);
+    return ans;
+}

@@ -5,6 +5,11 @@
     <meta name="menu" content="UserMenu"/>
 </head>
 
+<c:set var="delObject" scope="request"><fmt:message key="userList.user"/></c:set>
+<script type="text/javascript">var msgDelConfirm =
+   "<fmt:message key="delete.confirm"><fmt:param value="${delObject}"/></fmt:message>";
+</script>
+
 <div class="span3">
     <h2><fmt:message key="userProfile.heading"/></h2>
     <c:choose>
@@ -123,7 +128,7 @@
             <s:submit key="button.save" method="save" cssClass="btn btn-primary" theme="simple"/>
 
             <c:if test="${param.from == 'list' and not empty user.id}">
-                <s:submit key="button.delete" method="delete" onclick="return confirmDelete('user')" cssClass="btn"
+                <s:submit key="button.delete" method="delete" onclick="return confirmMessage(msgDelConfirm)" cssClass="btn"
                           theme="simple"/>
             </c:if>
 

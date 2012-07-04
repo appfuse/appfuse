@@ -7,6 +7,11 @@
     <meta name="heading" content="<fmt:message key='${pojoNameLower}Detail.heading'/>"/>
 </head>
 
+<c:set var="delObject" scope="request"><fmt:message key="${pojoNameLower}List.${pojoNameLower}"/></c:set>
+<script type="text/javascript">var msgDelConfirm =
+   "<fmt:message key="delete.confirm"><fmt:param value=${'"'}${r"${delObject}"}${'"'}/></fmt:message>";
+</script>
+
 <s:form id="${pojoNameLower}Form" action="save${pojo.shortName}" method="post" validate="true">
 <#rt/>
 <#foreach field in pojo.getAllPropertiesIterator()>
@@ -46,7 +51,7 @@
         <s:submit cssClass="button" method="save" key="button.save" theme="simple"/>
         <c:if test="${'$'}{not empty ${pojoNameLower}.${idFieldName}}">
             <s:submit cssClass="button" method="delete" key="button.delete"
-                onclick="return confirmDelete('${pojo.shortName}')" theme="simple"/>
+                onclick="return confirmMessage(msgDelConfirm)" theme="simple"/>
         </c:if>
         <s:submit cssClass="button" method="cancel" key="button.cancel" theme="simple"/>
     </li>
