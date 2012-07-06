@@ -5,6 +5,11 @@
     <meta name="menu" content="UserMenu"/>
 </head>
 
+<c:set var="delObject" scope="request"><fmt:message key="userList.user"/></c:set>
+<script type="text/javascript">var msgDelConfirm =
+   "<fmt:message key="delete.confirm"><fmt:param value="${delObject}"/></fmt:message>";
+</script>
+
 <div class="span3">
     <h2><fmt:message key="userProfile.heading"/></h2>
     <c:choose>
@@ -17,7 +22,7 @@
     </c:choose>
 </div>
 <div class="span7">
-    <s:form name="userForm" action="saveUser" method="post" validate="true" cssClass="well form-horizontal">
+    <s:form name="userForm" action="saveUser" method="post" validate="true" cssClass="well form-horizontal" autocomplete="off">
         <s:hidden key="user.id"/>
         <s:hidden key="user.version"/>
         <input type="hidden" name="from" value="${param.from}"/>
@@ -45,7 +50,6 @@
         <s:textfield key="user.lastName" required="true"/>
         <s:textfield key="user.email" required="true"/>
         <s:textfield key="user.phoneNumber"/>
-        <s:textfield key="user.website" required="true"/>
 
         <fieldset>
             <legend class="accordion-heading">
@@ -119,16 +123,23 @@
         </fieldset>
     </c:otherwise>
 </c:choose>
-        <fieldset class="form-actions">
-            <s:submit key="button.save" method="save" cssClass="btn btn-primary" theme="simple"/>
-
+        <div id="actions" class="form-actions">
+            <s:submit type="button" cssClass="btn btn-primary" method="save" key="button.save" theme="simple">
+                <i class="icon-ok"></i>
+                <fmt:message key="button.save"/>
+            </s:submit>
             <c:if test="${param.from == 'list' and not empty user.id}">
-                <s:submit key="button.delete" method="delete" onclick="return confirmDelete('user')" cssClass="btn"
-                          theme="simple"/>
+                <s:submit type="button" cssClass="btn btn-danger" method="delete" key="button.delete"
+                    onclick="return confirmMessage(msgDelConfirm)" theme="simple">
+                    <i class="icon-trash"></i>
+                    <fmt:message key="button.delete"/>
+                </s:submit>
             </c:if>
-
-            <s:submit key="button.cancel" method="cancel" cssClass="btn" theme="simple"/>
-        </fieldset>
+            <s:submit type="button" cssClass="btn" method="cancel" key="button.cancel" theme="simple">
+                <i class="icon-remove"></i>
+                <fmt:message key="button.cancel"/>
+            </s:submit>
+        </div>
     </s:form>
 </div>
 
@@ -148,3 +159,8 @@
     }
 </script>
 </c:set>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("input[type='text']:visible:enabled:first", document.forms['userForm']).focus();
+    });
+</script>

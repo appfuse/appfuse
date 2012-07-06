@@ -7,6 +7,11 @@
     <meta name="heading" content="<fmt:message key='${pojoNameLower}Detail.heading'/>"/>
 </head>
 
+<c:set var="delObject" scope="request"><fmt:message key="${pojoNameLower}List.${pojoNameLower}"/></c:set>
+<script type="text/javascript">var msgDelConfirm =
+   "<fmt:message key="delete.confirm"><fmt:param value=${'"'}${r"${delObject}"}${'"'}/></fmt:message>";
+</script>
+
 <form:form commandName="${pojoNameLower}" method="post" action="${pojoNameLower}form" id="${pojoNameLower}Form" onsubmit="return validate${pojo.shortName}(this)">
 <form:errors path="*" cssClass="error" element="div"/>
 <#rt/>
@@ -51,7 +56,7 @@
     <li class="buttonBar bottom">
         <input type="submit" class="button" name="save" value="<fmt:message key="button.save"/>"/>
         <c:if test="${'$'}{not empty ${pojoNameLower}.${idFieldName}}">
-        <input type="submit" class="button" name="delete" onclick="bCancel=true;return confirmDelete('${pojoNameLower}')"
+        <input type="submit" class="button" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)"
             value="<fmt:message key="button.delete"/>" />
         </c:if>
         <input type="submit" class="button" name="cancel" value="<fmt:message key="button.cancel"/>" onclick="bCancel=true"/>

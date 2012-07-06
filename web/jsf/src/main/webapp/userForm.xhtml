@@ -11,6 +11,11 @@
     <meta name="heading" content="#{text['userProfile.heading']}"/>
 </head>
 
+<c:set var="delObject" value="#{text['userList.user']}"/>
+<script type="text/javascript">var msgDelConfirm =
+   "<h:outputFormat value="#{text['delete.confirm']}"><f:param value="#{delObject}" /></h:outputFormat>";
+</script>
+
 <div class="separator"></div>
 
 <h:form id="userForm" onsubmit="return validateUserForm(this)">
@@ -37,7 +42,7 @@
         <h:commandButton value="#{text['button.save']}" action="#{userForm.save}" styleClass="button"/>
         <c:if test="${not empty userForm.user.id}">
         <h:commandButton value="#{text['button.delete']}" action="#{userForm.delete}"
-            styleClass="button" onclick="bCancel=true; return confirmDelete('User')"/>
+            styleClass="button" onclick="bCancel=true; return confirmMessage(msgDelConfirm)"/>
         </c:if>
         <h:commandButton value="#{text['button.cancel']}" action="#{userForm.cancel}" immediate="true"
             styleClass="button" onclick="bCancel=true"/>
@@ -233,7 +238,7 @@
         <h:commandButton value="#{text['button.save']}" action="#{userForm.save}" styleClass="button"/>
         <c:if test="${not empty userForm.user.id}">
         <h:commandButton value="#{text['button.delete']}" action="#{userForm.delete}"
-            styleClass="button" onclick="bCancel=true; return confirmDelete('User')"/>
+            styleClass="button" onclick="bCancel=true; return confirmMessage(msgDelConfirm)"/>
         </c:if>
         <h:commandButton value="#{text['button.cancel']}" action="#{userForm.cancel}" immediate="true"
             styleClass="button" onclick="bCancel=true"/>

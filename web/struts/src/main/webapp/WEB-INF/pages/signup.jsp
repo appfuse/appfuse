@@ -21,7 +21,6 @@
         <s:textfield key="user.lastName" required="true"/>
         <s:textfield key="user.email" required="true"/>
         <s:textfield key="user.phoneNumber"/>
-        <s:textfield key="user.website"/>
 
     <fieldset>
         <legend class="accordion-heading">
@@ -44,9 +43,21 @@
             </fieldset>
         </div>
     </fieldset>
-    <fieldset class="form-actions">
-        <s:submit key="button.register" cssClass="btn btn-primary" theme="simple"/>
-        <s:submit key="button.cancel" name="cancel" cssClass="btn" theme="simple"/>
-    </fieldset>
+    <div id="actions" class="form-actions">
+        <s:submit type="button" cssClass="btn btn-primary" method="save" key="button.register" theme="simple">
+            <i class="icon-ok"></i>
+            <fmt:message key="button.register"/>
+        </s:submit>
+        <s:submit type="button" cssClass="btn" method="cancel" key="button.cancel" theme="simple">
+            <i class="icon-remove"></i>
+            <fmt:message key="button.cancel"/>
+        </s:submit>
+    </div>
     </s:form>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("input[type='text']:visible:enabled:first", document.forms['signupForm']).focus();
+    });
+</script>
