@@ -17,6 +17,7 @@ import org.apache.tapestry5.annotations.Service;
 import org.apache.tapestry5.corelib.components.EventLink;
 import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.PersistenceConstants;
+import org.apache.tapestry5.EventContext;
 
 <#if genericcore>
 import ${appfusepackage}.service.GenericManager;
@@ -47,12 +48,13 @@ public class ${pojo.shortName}Form {
     @Inject
     private Messages messages;
 
+    @Property(write = false)
     @Persist
     private ${pojo.shortName} ${pojoNameLower};
 
-    public ${pojo.shortName} get${pojo.shortName}() {
-        return ${pojoNameLower};
-    }
+    <#--public ${pojo.shortName} get${pojo.shortName}() {-->
+        <#--return ${pojoNameLower};-->
+    <#--}-->
 
     /**
      * Allows setting ${pojoNameLower} object from another class (i.e. ${pojo.shortName}List)
@@ -81,10 +83,41 @@ public class ${pojo.shortName}Form {
         }
     }
 
-    void onActivate(${identifierType} ${pojo.identifierProperty.name}) {
-        if (${pojo.identifierProperty.name} != null) {
-            ${pojoNameLower} = ${pojoNameLower}Manager.get(${pojo.identifierProperty.name});
+    void onActivate(EventContext ec) {
+        if (ec.getCount() == 0) {
+            ${pojoNameLower} = null;
         }
+        else if (ec.getCount() == 1) {
+            ${pojoNameLower} = ${pojoNameLower}Manager.get(ec.get(${identifierType}.class, 0));
+        }
+        else {
+            throw new IllegalStateException("Invalid Request");
+        }
+
+    }
+
+    <#--void onActivate(${identifierType} ${pojo.identifierProperty.name}) {-->
+        <#--if (${pojo.identifierProperty.name} != null) {-->
+            <#--${pojoNameLower} = ${pojoNameLower}Manager.get(${pojo.identifierProperty.name});-->
+        <#--}-->
+    <#--}-->
+
+    Long onPassivate() {
+        return   ${pojoNameLower} != null ? ${pojoNameLower}.getId() : null;
+    }
+
+
+
+    void onPrepare() {
+        if (person == null) {
+            person = new Person();
+        }
+    }
+
+    Object onException(Throwable cause) {
+        log.error("Exception: " +  cause.getMessage());
+
+        return this;
     }
 
     Object onSuccess() {
@@ -93,7 +126,7 @@ public class ${pojo.shortName}Form {
 
         log.debug("Saving ${pojoNameLower}...");
 
-        boolean isNew = (get${pojo.shortName}().${getIdMethodName}() == null);
+        boolean isNew = (${pojoNameLower}.${getIdMethodName}() == null);
 
         ${pojoNameLower}Manager.save(${pojoNameLower});
 

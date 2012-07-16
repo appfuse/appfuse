@@ -55,6 +55,8 @@ public class ${pojo.shortName}List {
 
     Object onActionFromEdit(${identifierType} ${pojo.identifierProperty.name}) {
         log.debug("fetching ${pojoNameLower} with ${pojo.identifierProperty.name}: {}", ${pojo.identifierProperty.name});
+        ${pojoNameLower} =  ${pojoNameLower}Manager.get(new ${identifierType} (${pojo.identifierProperty.name}));
+        form.set${pojo.shortName}(${pojoNameLower});
         return form;
     }
 

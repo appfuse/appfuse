@@ -15,7 +15,7 @@ import java.util.ResourceBundle;
 
 public class ${pojo.shortName}ListTest extends BasePageTestCase {
 
-    @Autowired
+    //@Autowired
     private CompassGps compassGps;
 
     @Test
@@ -43,6 +43,7 @@ public class ${pojo.shortName}ListTest extends BasePageTestCase {
 
     @Test
     public void testSearch() {
+        compassGps =  (CompassGps) applicationContext.getBean("compassGps");
         compassGps.index();
         doc = tester.renderPage("${pojoNameLower}List");
 

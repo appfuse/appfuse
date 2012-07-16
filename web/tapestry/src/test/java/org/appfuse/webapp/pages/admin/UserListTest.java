@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 
 public class UserListTest extends BasePageTestCase {
 
-    @Autowired
+    //@Autowired
     private CompassGps compassGps;
 
     @Test
@@ -25,7 +25,7 @@ public class UserListTest extends BasePageTestCase {
     @Test
     public void testEditUser() {
         doc = tester.renderPage("admin/userList");
-        doc = tester.clickLink(doc.getElementById("user-user"));
+        doc = tester.clickLink(doc.getElementById("user-admin"));
 
         ResourceBundle rb = ResourceBundle.getBundle(MESSAGES);
 
@@ -36,7 +36,10 @@ public class UserListTest extends BasePageTestCase {
 
     @Test
     public void testSearch() {
+
+	compassGps =  (CompassGps) applicationContext.getBean("compassGps");
         compassGps.index();
+
         doc = tester.renderPage("admin/userList");
 
         Element form = doc.getElementById("searchForm");

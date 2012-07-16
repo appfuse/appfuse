@@ -5,23 +5,25 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.tapestry5.dom.Document;
 import org.apache.tapestry5.internal.spring.SpringModuleDef;
 import org.apache.tapestry5.ioc.def.ModuleDef;
+import org.apache.tapestry5.ioc.internal.util.InternalUtils;
 import org.apache.tapestry5.spring.SpringConstants;
 import org.apache.tapestry5.test.PageTester;
 import org.appfuse.Constants;
-import org.appfuse.webapp.services.AppModule;
 import org.appfuse.webapp.services.AppTestModule;
+import org.compass.core.util.StringUtils;
 import org.junit.After;
 import org.junit.Before;
-import org.springframework.beans.BeanUtils;
+import org.springframework.context.ApplicationContext;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mock.web.MockServletContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
-import org.springframework.web.context.ConfigurableWebApplicationContext;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.GenericWebApplicationContext;
-import org.springframework.web.context.support.StaticWebApplicationContext;
 
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,31 +39,42 @@ public abstract class BasePageTestCase extends AbstractTransactionalJUnit4Spring
     protected static final String MESSAGES = Constants.BUNDLE_KEY;
     private int smtpPort = 25250;
 
+    private final String[] locations = extractLocationFromAnnotation(this.getClass());
+
+    private MockServletContext servletContext;
+
+    private ServletContextListener listener;
+
+    protected ApplicationContext applicationContext;
+
     @Before
     public void onSetUp() {
         String appPackage = "org.appfuse.webapp";
         String appName = "app";
 
 
-        final MockServletContext servletContext = new MockServletContext();
-        ConfigurableWebApplicationContext wac = new StaticWebApplicationContext();
-        // Just setting the parent doesn't seem to work
-        // wac.setParent(applicationContext);
-        // Workaround below...
-        for (String defName : applicationContext.getBeanDefinitionNames()) {
-            wac.getBeanFactory().registerSingleton(defName, applicationContext.getBean(defName));
-        }
+        servletContext = new MockServletContext("");
 
+        // mock servlet settings
         servletContext.addInitParameter(SpringConstants.USE_EXTERNAL_SPRING_CONTEXT, "true");
-        servletContext.setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, wac);
-        tester = new PageTester(appPackage, appName, "src/main/webapp", AppTestModule.class) {
+        servletContext.addInitParameter(ContextLoader.CONFIG_LOCATION_PARAM,
+                StringUtils.arrayToCommaDelimitedString(locations)
+        );
 
+        // Start context loader w/ mock servlet prior to firing off registry
+        listener = new ContextLoaderListener();
+        listener.contextInitialized(new ServletContextEvent(servletContext));
+
+
+        tester = new PageTester(appPackage, appName, "src/main/webapp", AppTestModule.class) {
             @Override
             protected ModuleDef[] provideExtraModuleDefs() {
                 return new ModuleDef[]{new SpringModuleDef(servletContext)};
             }
         };
 
+        applicationContext = (WebApplicationContext)
+                servletContext.getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
 
         fieldValues = new HashMap<String, String>();
 
@@ -69,9 +82,21 @@ public abstract class BasePageTestCase extends AbstractTransactionalJUnit4Spring
 
         // change the port on the mailSender so it doesn't conflict with an
         // existing SMTP server on localhost
-        JavaMailSenderImpl mailSender = (JavaMailSenderImpl) applicationContext.getBean("mailSender");
+        JavaMailSenderImpl mailSender = //(JavaMailSenderImpl)applicationContext.getBean("mailSender");
+                applicationContext.getBean(JavaMailSenderImpl.class);
         mailSender.setPort(getSmtpPort());
         mailSender.setHost("localhost");
+    }
+
+    private String[] extractLocationFromAnnotation(Class<?> clazz) {
+        ContextConfiguration contextConfiguration = InternalUtils.findAnnotation(clazz.getAnnotations(),
+                ContextConfiguration.class);
+        String[] locations = null;
+        if (contextConfiguration != null) {
+            locations = contextConfiguration.locations();
+        }
+
+        return locations;
     }
 
 
@@ -81,9 +106,12 @@ public abstract class BasePageTestCase extends AbstractTransactionalJUnit4Spring
             tester.shutdown();
         }
         tester = null;
+        listener = null;
+        servletContext = null;
     }
 
     protected int getSmtpPort() {
         return smtpPort;
     }
+
 }
