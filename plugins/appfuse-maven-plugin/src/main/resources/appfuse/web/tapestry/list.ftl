@@ -20,7 +20,7 @@ import org.slf4j.Logger;
 
 public class ${pojo.shortName}List {
     @Inject
-    private Logger logger;
+    private Logger log;
 
     @Inject
     @Service("${pojoNameLower}Manager")
