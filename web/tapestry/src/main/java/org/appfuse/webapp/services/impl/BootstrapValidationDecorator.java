@@ -39,10 +39,13 @@ public class BootstrapValidationDecorator implements ValidationDecorator {
             labelElement.addClassName("error");
         }
 
+/*
+https://issues.apache.org/jira/browse/TAP5-414  still present
+
         if (field.isRequired()) {
             labelElement.raw("<span class=\"required\"> *</span>");
         }
-
+*/
     }
 
     public void afterLabel(Field field) {
