@@ -9,7 +9,6 @@ import org.apache.tapestry5.ioc.OrderedConfiguration;
 import org.apache.tapestry5.ioc.ServiceBinder;
 import org.apache.tapestry5.ioc.annotations.Contribute;
 import org.apache.tapestry5.ioc.annotations.Symbol;
-import org.apache.tapestry5.ioc.services.ThreadLocale;
 import org.apache.tapestry5.services.*;
 import org.apache.tapestry5.services.javascript.JavaScriptStack;
 import org.apache.tapestry5.upload.services.UploadSymbols;
@@ -36,13 +35,11 @@ public class AppModule {
 
     public static void bind(ServiceBinder binder) {
         binder.bind(SecurityContext.class, SpringSecurityContext.class);
+        binder.bind(CountryService.class, CountryServiceImpl.class);
         binder.bind(EmailService.class, EmailServiceImpl.class);
     }
 
-//
-//    public static MenuModelSource buildMenuModelSource(Logger logger, @Inject SecurityContext securityContext) {
-//        return new MenuModelSourceImpl(logger, securityContext);
-//    }
+
 
     //@Contribute(SymbolProvider.class)
     //@ApplicationDefaults
@@ -69,9 +66,6 @@ public class AppModule {
     }
 
 
-    public static CountryService buildCountryService(final Logger logger, final ThreadLocale threadLocale) {
-        return new CountryServiceImpl(logger, threadLocale);
-    }
 
     @Contribute(ValueEncoderSource.class)
     public static void provideEncoders(
@@ -104,30 +98,6 @@ public class AppModule {
     }
 
 
-//    @Contribute(BeanBlockOverrideSource.class)
-//    public static void providePropertyBlocks(
-//            Configuration<BeanBlockContribution> configuration) {
-//
-//        addEditBlock(configuration, DataTypeConstants.TEXT);
-//        addEditBlock(configuration, DataTypeConstants.NUMBER);
-//        addEditBlock(configuration, DataTypeConstants.ENUM);
-//        addEditBlock(configuration, DataTypeConstants.BOOLEAN);
-//        addEditBlock(configuration, DataTypeConstants.DATE);
-//        addEditBlock(configuration, DataTypeConstants.PASSWORD);
-//        addEditBlock(configuration, "hashedpassword");
-//        addEditBlock(configuration, DataTypeConstants.CALENDAR);
-//        addEditBlock(configuration, DataTypeConstants.LONG_TEXT);
-//
-//    }
-//
-//    private static void addEditBlock(Configuration<BeanBlockContribution> configuration, String dataType) {
-//        configuration.add(new EditBlockContribution(dataType, "AppPropertyEditBlocks", dataType));
-//    }
-//
-//
-//    private static void addDisplayBlock(Configuration<BeanBlockContribution> configuration, String dataType) {
-//        configuration.add(new DisplayBlockContribution(dataType, "AppPropertyDisplayBlocks", dataType));
-//    }
 
 
     public void contributeMarkupRenderer(OrderedConfiguration<MarkupRendererFilter> configuration,
@@ -184,8 +154,6 @@ public class AppModule {
     }
 
 
-//    public static void contributeSymbolSource(OrderedConfiguration<SymbolProvider> providers) {
-//        providers.add("springSecurity", new ClasspathResourceSymbolProvider("security.properties"));
-//    }
+
 
 }
