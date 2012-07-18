@@ -76,14 +76,14 @@
 <#if dateExists><#rt/>
 <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/scripts/datepicker/css/datepicker.css'/>" />
 <script type="text/javascript" src="<c:url value='/scripts/datepicker/js/bootstrap-datepicker.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/scripts/datepicker/js/locales/bootstrap-datepicker.${pageContext.request.locale.language}.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/scripts/datepicker/js/locales/bootstrap-datepicker.${r"${pageContext.request.locale.language}"}.js'/>"></script>
 </#if><#rt/>
 <script type="text/javascript">
     $(document).ready(function() {
         $("input[type='text']:visible:enabled:first", document.forms['${pojoNameLower}Form']).focus();
 <#foreach field in pojo.getAllPropertiesIterator()>
     <#if !c2h.isCollection(field) && !c2h.isManyToOne(field) && !c2j.isComponent(field) && field.value.typeName == "java.util.Date">
-        ${'$'}('${'#'}${pojoNameLower}Form_${pojoNameLower}_${field.name}').datepicker({format: "<fmt:message key="calendar.format"/>", weekStart: "<fmt:message key="calendar.weekstart"/>", language: '${pageContext.request.locale.language}'});    
+        ${'$'}('${'#'}${pojoNameLower}Form_${pojoNameLower}_${field.name}').datepicker({format: "<fmt:message key="calendar.format"/>", weekStart: "<fmt:message key="calendar.weekstart"/>", language: '${r"${pageContext.request.locale.language}"}'});    
     </#if>
 </#foreach>
     });

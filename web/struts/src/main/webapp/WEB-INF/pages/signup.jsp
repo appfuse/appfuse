@@ -21,6 +21,7 @@
         <s:textfield key="user.lastName" required="true"/>
         <s:textfield key="user.email" required="true"/>
         <s:textfield key="user.phoneNumber"/>
+        <s:textfield key="user.website"/>
 
     <fieldset>
         <legend class="accordion-heading">

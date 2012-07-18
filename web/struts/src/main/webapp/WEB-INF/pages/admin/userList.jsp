@@ -10,10 +10,10 @@
     <h2><fmt:message key="userList.heading"/></h2>
 
     <div id="search">
-        <form method="get" action="${ctx}/restaurants" id="searchForm" class="form-search">
+        <form method="get" action="${ctx}/admin/users" id="searchForm" class="form-search">
             <input type="text" size="20" name="q" id="query" value="${param.q}"
                    placeholder="<fmt:message key="search.enterTerms"/>" class="input-medium search-query"/>
-            <button id="button.search" class="btn">
+            <button id="button.search" class="btn" type="submit">
                 <i class="icon-search"></i>
                 <fmt:message key="button.search"/>
             </button>
