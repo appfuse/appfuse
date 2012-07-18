@@ -17,7 +17,7 @@
         <div id="actions" class="form-actions">
             <s:submit type="button" key="button.upload" name="upload" cssClass="btn btn-primary" theme="simple">
                 <i class="icon-ok"></i>
-                <fmt:message key="button.save"/>
+                <fmt:message key="button.upload"/>
             </s:submit>
 
             <a class="btn" href="mainMenu" >
