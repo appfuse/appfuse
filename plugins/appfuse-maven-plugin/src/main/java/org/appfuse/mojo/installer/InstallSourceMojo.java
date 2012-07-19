@@ -646,6 +646,9 @@ public class InstallSourceMojo extends AbstractMojo {
         File pom = new File("target/appfuse-" + moduleName + "/pom.xml");
 
         try {
+            // replace github.com with raw.github.com and trunk with master
+            trunk = trunk.replace("https://github.com", "https://raw.github.com");
+            tag = tag.replace("trunk", "master");
             pomLocation = new URL(trunk + tag + moduleLocation + "/pom.xml");
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -654,8 +657,6 @@ public class InstallSourceMojo extends AbstractMojo {
         Get get = (Get) AntUtils.createProject().createTask("get");
         get.setSrc(pomLocation);
         get.setDest(pom);
-        get.setUsername("guest");
-        get.setPassword("");
         get.execute();
 
         MavenProject p = createProjectFromPom(pom);
