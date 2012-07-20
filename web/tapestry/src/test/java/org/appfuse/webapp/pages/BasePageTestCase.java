@@ -99,7 +99,6 @@ public abstract class BasePageTestCase extends AbstractTransactionalJUnit4Spring
         return locations;
     }
 
-
     @After
     public void onTearDown() {
         if (tester != null) {
@@ -113,5 +112,4 @@ public abstract class BasePageTestCase extends AbstractTransactionalJUnit4Spring
     protected int getSmtpPort() {
         return smtpPort;
     }
-
 }

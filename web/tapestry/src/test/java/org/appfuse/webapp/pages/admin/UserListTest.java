@@ -36,8 +36,7 @@ public class UserListTest extends BasePageTestCase {
 
     @Test
     public void testSearch() {
-
-	compassGps =  (CompassGps) applicationContext.getBean("compassGps");
+        compassGps = (CompassGps) applicationContext.getBean("compassGps");
         compassGps.index();
 
         doc = tester.renderPage("admin/userList");
