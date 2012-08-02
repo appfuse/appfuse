@@ -521,7 +521,7 @@
         <hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
         <jdbc.groupId>mysql</jdbc.groupId>
         <jdbc.artifactId>mysql-connector-java</jdbc.artifactId>
-        <jdbc.version>5.1.19</jdbc.version>
+        <jdbc.version>5.1.21</jdbc.version>
         <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
         <jdbc.url>
             <![CDATA[jdbc:mysql://localhost/appfuse?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true]]>
@@ -531,7 +531,7 @@
 
         <cargo.container>tomcat7x</cargo.container>
         <cargo.container.url>
-            http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.27/bin/apache-tomcat-7.0.27.zip
+            http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.29/bin/apache-tomcat-7.0.29.zip
         </cargo.container.url>
         <cargo.container.home>${env.CATALINA_HOME}</cargo.container.home>
         <cargo.host>localhost</cargo.host>
@@ -542,7 +542,7 @@
         <ajax4jsf.version>1.0.6</ajax4jsf.version>
         <asm.version>2.2.3</asm.version>
         <aspectj.version>1.6.10</aspectj.version>
-        <cargo.version>1.2.1</cargo.version>
+        <cargo.version>1.2.3</cargo.version>
         <commons.lang.version>2.6</commons.lang.version>
         <commons.beanutils.version>1.8.3</commons.beanutils.version>
         <commons.collections.version>3.2.1</commons.collections.version>
