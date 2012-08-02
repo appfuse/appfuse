@@ -234,6 +234,7 @@
                                 <properties>
                                     <cargo.hostname>${cargo.host}</cargo.hostname>
                                     <cargo.servlet.port>${cargo.port}</cargo.servlet.port>
+                                    <cargo.ajp.port>8123</cargo.ajp.port>
                                 </properties>
                             </configuration>
                         </configuration>
