@@ -224,6 +224,7 @@
                             <container>
                                 <containerId>${cargo.container}</containerId>
                                 <home>${cargo.container.home}</home>
+                                <timeout>180000</timeout>
                                 <zipUrlInstaller>
                                     <url>${cargo.container.url}</url>
                                     <extractDir>${installDir}</extractDir>
