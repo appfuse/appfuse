@@ -1,4 +1,4 @@
-if ($j.cookie("username") != null) {
+if ($j.cookie("username") != null && $j.cookie("username") != "") {
     $j("#j_username").val($j.cookie("username"));
     $j("#j_password").focus();
 } else {
@@ -14,5 +14,5 @@ function passwordHint() {
     if (document.location.toString().indexOf("error") > -1) {
         prefix = "../";
     }
-    location.href = prefix + "passwordhint/" + $("j_username").value;
+    location.href = prefix + "passwordhint/" + $j("#j_username").val();
 }

@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    if ($.cookie("username") != null) {
+    if ($.cookie("username") != null && $.cookie("username") != "") {
         $("#j_username").val($.cookie("username"));
         $("#j_password").focus();
     } else {
@@ -23,7 +23,7 @@
             alert("<fmt:message key="errors.required"><fmt:param><fmt:message key="label.username"/></fmt:param></fmt:message>");
             $("#j_username").focus();
         } else {
-            location.href="<c:url value="/passwordHint"/>?username=" + $("j_username").value;
+            location.href="<c:url value="/passwordHint"/>?username=" + $("#j_username").val();
         }
     }
     
