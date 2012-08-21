@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    if ($.cookie("username") != null) {
+    if ($.cookie("username") != null && $.cookie("username") != "") {
         $("#j_username").val($.cookie("username"));
         $("#j_password").focus();
     } else {

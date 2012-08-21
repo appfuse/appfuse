@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    if (getCookie("username") != null) {
+    if (getCookie("username") != null && getCookie("username") != "") {
         $("j_username").value = getCookie("username");
         $("j_password").focus();
     } else {

@@ -1,4 +1,4 @@
-if ($j.cookie("username") != null) {
+if ($j.cookie("username") != null && $j.cookie("username") != "") {
     $j("#j_username").val($j.cookie("username"));
     $j("#j_password").focus();
 } else {
