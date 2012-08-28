@@ -77,4 +77,9 @@ public final class Constants {
      */
     public static final String AVAILABLE_ROLES = "availableRoles";
 
+    /**
+     * The name of the CSS Theme setting.
+     * @deprecated No longer used to set themes.
+     */
+    public static final String CSS_THEME = "csstheme";
 }
