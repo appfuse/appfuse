@@ -6,7 +6,6 @@ import org.apache.commons.logging.LogFactory;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 
@@ -15,11 +14,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+import org.hibernate.Session;
+import org.hibernate.search.FullTextSession;
+import org.hibernate.search.Search;
 
 /**
  * Base class for running DAO tests.
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
+ * @author jgarcia (updated: migrate to hibernate 4; moved from compass-search to hibernate-search
  */
 @ContextConfiguration(
         locations = {"classpath:/applicationContext-resources.xml",
@@ -85,8 +88,16 @@ public abstract class BaseDaoTestCase extends AbstractTransactionalJUnit4SpringC
      *          when can't find 'sessionFactory' bean
      */
     protected void flush() throws BeansException {
-        HibernateTemplate hibernateTemplate = new HibernateTemplate(sessionFactory);
-        hibernateTemplate.flush();
-        hibernateTemplate.clear();
+        Session currentSession = sessionFactory.getCurrentSession();
+        currentSession.flush();
+    }
+
+    /**
+     * Flush search indexes, to be done after a reindex() or reindexAll() operation
+     */
+    public void flushSearchIndexes() {
+        Session currentSession = sessionFactory.getCurrentSession();
+        final FullTextSession fullTextSession = Search.getFullTextSession(currentSession);
+        fullTextSession.flushToIndexes();
     }
 }

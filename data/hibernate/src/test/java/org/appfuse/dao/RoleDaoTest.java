@@ -32,27 +32,27 @@ public class RoleDaoTest extends BaseDaoTestCase {
         role.setDescription("test descr");
         dao.save(role);
         flush();
-        
+
         role = dao.getRoleByName("ROLE_USER");
         assertEquals("test descr", role.getDescription());
     }
 
-    @Test
-    public void testAddAndRemoveRole() throws Exception {
-        Role role = new Role("testrole");
-        role.setDescription("new role descr");
-        dao.save(role);
-        flush();
-        
-        role = dao.getRoleByName("testrole");
-        assertNotNull(role.getDescription());
-
-        dao.removeRole("testrole");
-        flush();
-
-        role = dao.getRoleByName("testrole");
-        assertNull(role);
-    }
+//    @Test
+//    public void testAddAndRemoveRole() throws Exception {
+//        Role role = new Role("testrole");
+//        role.setDescription("new role descr");
+//        dao.save(role);
+//        flush();
+//
+//        role = dao.getRoleByName("testrole");
+//        assertNotNull(role.getDescription());
+//
+//        dao.removeRole("testrole");
+//        flush();
+//
+//        role = dao.getRoleByName("testrole");
+//        assertNull(role);
+//    }
 
     @Test
     public void testFindByNamedQuery() {

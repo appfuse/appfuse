@@ -3,7 +3,6 @@ package org.appfuse.webapp.action;
 import org.apache.struts2.ServletActionContext;
 import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
-import org.compass.gps.CompassGps;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -14,7 +13,7 @@ public class UserActionTest extends BaseActionTestCase {
     @Autowired
     private UserAction action;
     @Autowired
-    private CompassGps compassGps;
+    private UserManager userManager;
 
     @Test
     public void testCancel() throws Exception {
@@ -100,7 +99,10 @@ public class UserActionTest extends BaseActionTestCase {
 
     @Test
     public void testSearch() throws Exception {
-        compassGps.index();
+        // regenerate search index
+        userManager.reindex();
+        flushSearchIndexes();
+
         action.setQ("admin");
         assertEquals("success", action.list());
         assertNotNull(action.getUsers());

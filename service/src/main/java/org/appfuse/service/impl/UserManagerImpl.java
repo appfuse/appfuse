@@ -105,6 +105,14 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
     /**
      * {@inheritDoc}
      */
+    public void removeUser(User user) {
+        log.debug("removing user: " + user);
+        userDao.remove(user);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public void removeUser(String userId) {
         log.debug("removing user: " + userId);
         userDao.remove(new Long(userId));

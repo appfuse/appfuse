@@ -11,6 +11,7 @@ import java.util.List;
  * domain objects.
  *
  * @author <a href="mailto:bwnoll@gmail.com">Bryan Noll</a>
+ * @author jgarcia (update: added full text search + reindexing)
  * @param <T> a type variable
  * @param <PK> the primary key for that type
  */
@@ -30,6 +31,14 @@ public interface GenericDao <T, PK extends Serializable> {
      * @return List of populated objects
      */
     List<T> getAllDistinct();
+
+    /**
+     * Gets all records that match a search term. "*" will get them all.
+     * @param searchTerm the term to search for
+     * @return the mathing records
+     * @throws SearchException
+     */
+    List<T> search(String searchTerm) throws SearchException;
 
     /**
      * Generic method to get an object based on class and identifier. An
@@ -57,8 +66,25 @@ public interface GenericDao <T, PK extends Serializable> {
     T save(T object);
 
     /**
-     * Generic method to delete an object based on class and id
+     * Generic method to delete an object
+     * @param object the object to remove
+     */
+    void remove(T object);
+
+    /**
+     * Generic method to delete an object
      * @param id the identifier (primary key) of the object to remove
      */
     void remove(PK id);
+
+    /**
+     * Generic method to regenerate full text index of the persistent class T
+     */
+    void reindex();
+
+    /**
+     * Generic method to regenerate full text index of all indexed classes
+     * @param async true to perform the reindexing asynchronously
+     */
+    void reindexAll(boolean async);
 }

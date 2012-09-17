@@ -3,11 +3,11 @@ package org.appfuse.dao.hibernate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.dao.GenericDao;
+import org.appfuse.dao.SearchException;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.orm.ObjectRetrievalFailureException;
-import org.springframework.orm.hibernate3.HibernateTemplate;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,6 +15,17 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import javax.annotation.Resource;
+import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.queryParser.ParseException;
+import org.apache.lucene.util.Version;
+import org.hibernate.HibernateException;
+import org.hibernate.IdentifierLoadAccess;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.search.FullTextSession;
+import org.hibernate.search.Search;
 
 /**
  * This class serves as the Base class for all other DAOs - namely to hold
@@ -23,8 +34,8 @@ import java.util.Map;
  * <p/>
  * <p>To register this class in your Spring context file, use the following XML.
  * <pre>
- *      &lt;bean id="fooDao" class="org.appfuse.dao.hibernate.GenericDaoHibernate"&gt;
- *          &lt;constructor-arg value="org.appfuse.model.Foo"/&gt;
+ *      &lt;bean id="fooDao" class="com.mycompany.dao.hibernate.GenericDaoHibernate"&gt;
+ *          &lt;constructor-arg value="com.mycompany.model.Foo"/&gt;
  *      &lt;/bean&gt;
  * </pre>
  *
@@ -38,8 +49,9 @@ public class GenericDaoHibernate<T, PK extends Serializable> implements GenericD
      */
     protected final Log log = LogFactory.getLog(getClass());
     private Class<T> persistentClass;
-    private HibernateTemplate hibernateTemplate;
+    @Resource
     private SessionFactory sessionFactory;
+    private Analyzer defaultAnalyzer;
 
     /**
      * Constructor that takes in a class to see which type of entity to persist.
@@ -49,6 +61,7 @@ public class GenericDaoHibernate<T, PK extends Serializable> implements GenericD
      */
     public GenericDaoHibernate(final Class<T> persistentClass) {
         this.persistentClass = persistentClass;
+        defaultAnalyzer = new StandardAnalyzer(Version.LUCENE_35);
     }
 
     /**
@@ -60,11 +73,7 @@ public class GenericDaoHibernate<T, PK extends Serializable> implements GenericD
     public GenericDaoHibernate(final Class<T> persistentClass, SessionFactory sessionFactory) {
         this.persistentClass = persistentClass;
         this.sessionFactory = sessionFactory;
-        this.hibernateTemplate = new HibernateTemplate(sessionFactory);
-    }
-
-    public HibernateTemplate getHibernateTemplate() {
-        return this.hibernateTemplate;
+        defaultAnalyzer = new StandardAnalyzer(Version.LUCENE_35);
     }
 
     public SessionFactory getSessionFactory() {
@@ -75,7 +84,6 @@ public class GenericDaoHibernate<T, PK extends Serializable> implements GenericD
     @Required
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
-        this.hibernateTemplate = new HibernateTemplate(sessionFactory);
     }
 
     /**
@@ -83,7 +91,8 @@ public class GenericDaoHibernate<T, PK extends Serializable> implements GenericD
      */
     @SuppressWarnings("unchecked")
     public List<T> getAll() {
-        return hibernateTemplate.loadAll(this.persistentClass);
+        Session sess = getSession();
+        return sess.createCriteria(persistentClass).list();
     }
 
     /**
@@ -98,9 +107,29 @@ public class GenericDaoHibernate<T, PK extends Serializable> implements GenericD
     /**
      * {@inheritDoc}
      */
+    public List<T> search(String searchTerm) throws SearchException {
+        Session sess = getSession();
+        FullTextSession txtSession = Search.getFullTextSession(sess);
+
+        org.apache.lucene.search.Query qry;
+        try {
+            qry = HibernateSearchTools.generateQuery(searchTerm, this.persistentClass, sess, defaultAnalyzer);
+        } catch (ParseException ex) {
+            throw new SearchException(ex);
+        }
+        org.hibernate.search.FullTextQuery hibQuery = txtSession.createFullTextQuery(qry,
+                this.persistentClass);
+        return hibQuery.list();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @SuppressWarnings("unchecked")
     public T get(PK id) {
-        T entity = (T) hibernateTemplate.get(this.persistentClass, id);
+        Session sess = getSession();
+        IdentifierLoadAccess byId = sess.byId(persistentClass);
+        T entity = (T) byId.load(id);
 
         if (entity == null) {
             log.warn("Uh oh, '" + this.persistentClass + "' object with id '" + id + "' not found...");
@@ -115,7 +144,9 @@ public class GenericDaoHibernate<T, PK extends Serializable> implements GenericD
      */
     @SuppressWarnings("unchecked")
     public boolean exists(PK id) {
-        T entity = (T) hibernateTemplate.get(this.persistentClass, id);
+        Session sess = getSession();
+        IdentifierLoadAccess byId = sess.byId(persistentClass);
+        T entity = (T) byId.load(id);
         return entity != null;
     }
 
@@ -124,14 +155,26 @@ public class GenericDaoHibernate<T, PK extends Serializable> implements GenericD
      */
     @SuppressWarnings("unchecked")
     public T save(T object) {
-        return (T) hibernateTemplate.merge(object);
+        Session sess = getSession();
+        return (T) sess.merge(object);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void remove(T object) {
+        Session sess = getSession();
+        sess.delete(object);
     }
 
     /**
      * {@inheritDoc}
      */
     public void remove(PK id) {
-        hibernateTemplate.delete(this.get(id));
+        Session sess = getSession();
+        IdentifierLoadAccess byId = sess.byId(persistentClass);
+        T entity = (T) byId.load(id);
+        sess.delete(entity);
     }
 
     /**
@@ -139,15 +182,36 @@ public class GenericDaoHibernate<T, PK extends Serializable> implements GenericD
      */
     @SuppressWarnings("unchecked")
     public List<T> findByNamedQuery(String queryName, Map<String, Object> queryParams) {
-        String[] params = new String[queryParams.size()];
-        Object[] values = new Object[queryParams.size()];
-        
-        int index = 0;
+        Session sess = getSession();
+        Query namedQuery = sess.getNamedQuery(queryName);
+
         for (String s : queryParams.keySet()) {
-            params[index] = s;
-            values[index++] = queryParams.get(s);
+            namedQuery.setParameter(s, queryParams.get(s));
         }
 
-        return hibernateTemplate.findByNamedQueryAndNamedParam(queryName, params, values);
+        return namedQuery.list();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void reindex() {
+        HibernateSearchTools.reindex(persistentClass, getSessionFactory().getCurrentSession());
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    public void reindexAll(boolean async) {
+        HibernateSearchTools.reindexAll(async, getSessionFactory().getCurrentSession());
+    }
+
+    private Session getSession() throws HibernateException {
+        Session sess = getSessionFactory().getCurrentSession();
+        if (sess == null) {
+            sess = getSessionFactory().openSession();
+        }
+        return sess;
     }
 }

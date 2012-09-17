@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.subethamail.wiser.Wiser;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import static org.junit.Assert.*;
@@ -29,7 +30,7 @@ public class UserEditTest extends BasePageTestCase {
 
         doc = tester.clickSubmit(cancelButton, fieldValues);
 
-        ResourceBundle rb = ResourceBundle.getBundle(MESSAGES);
+        ResourceBundle rb = ResourceBundle.getBundle(MESSAGES, new Locale("en"));
 
         assertTrue(doc.toString().contains(rb.getString("userList.title")));
     }
@@ -62,7 +63,7 @@ public class UserEditTest extends BasePageTestCase {
         Wiser wiser = new Wiser();
         wiser.setPort(getSmtpPort());
         wiser.start();
-        
+
         doc = tester.submitForm(form, fieldValues);
 
         Element errors = doc.getElementById("errorMessages");

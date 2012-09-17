@@ -24,6 +24,13 @@ import org.springframework.web.context.support.StaticWebApplicationContext;
 
 import java.util.HashMap;
 import java.util.Map;
+import javax.persistence.EntityManagerFactory;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.search.FullTextSession;
+import org.hibernate.search.Search;
+import org.hibernate.search.jpa.FullTextEntityManager;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 
 @ContextConfiguration(locations = {
         "classpath:/applicationContext-resources.xml", "classpath:/applicationContext-dao.xml",
@@ -85,5 +92,38 @@ public abstract class BasePageTestCase extends AbstractTransactionalJUnit4Spring
 
     protected int getSmtpPort() {
         return smtpPort;
+    }
+
+    /**
+     * Flush search indexes, to be done after a reindex() or reindexAll() operation
+     */
+    public void flushSearchIndexes() {
+        // If using JPA DAO, reindex via FullTextEntityManager
+        EntityManagerFactory entityManagerFactory = null;
+        try {
+            entityManagerFactory = (EntityManagerFactory) applicationContext.getBean("entityManagerFactory");
+        } catch (NoSuchBeanDefinitionException ex) {
+            // ignore
+        }
+        if (entityManagerFactory != null) {
+            final FullTextEntityManager fullTextEntityMgr = org.hibernate.search.jpa.Search.getFullTextEntityManager(entityManagerFactory.createEntityManager());
+            fullTextEntityMgr.flushToIndexes();
+            return;
+        }
+
+        // If using HIBERNATE DAO, reindex via FullTextSession
+        SessionFactory sessionFactory = null;
+        try {
+            sessionFactory = (SessionFactory) applicationContext.getBean("sessionFactory");
+        } catch (NoSuchBeanDefinitionException ex) {
+            // ignore
+        }
+        if (sessionFactory != null) {
+            Session currentSession = sessionFactory.getCurrentSession();
+            final FullTextSession fullTextSession = org.hibernate.search.Search.getFullTextSession(currentSession);
+            fullTextSession.flushToIndexes();
+            return;
+        }
+        log.error("flushSearchIndexes cannot be done: cannot find appropiate bean to obtain FullTextSession");
     }
 }

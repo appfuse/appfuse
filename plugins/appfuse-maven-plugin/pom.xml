@@ -144,10 +144,18 @@
             <artifactId>svnkit</artifactId>
             <version>1.1.2</version>
         </dependency>
+        <!-- full text search. TO BE REMOVED when removing ibatis -->
         <dependency>
             <groupId>org.compass-project</groupId>
             <artifactId>compass</artifactId>
-            <version>${compass.version}</version>
+            <version>2.2.0</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- full text search -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-search</artifactId>
+            <version>${hibernate.search.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

@@ -11,6 +11,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+import javax.persistence.EntityManagerFactory;
+import org.hibernate.search.jpa.FullTextEntityManager;
+import org.hibernate.search.jpa.Search;
+import org.junit.AfterClass;
 
 /**
  * Base class for running DAO tests.
@@ -66,5 +70,14 @@ public abstract class BaseDaoTestCase extends AbstractTransactionalJUnit4SpringC
         BeanUtils.copyProperties(obj, map);
 
         return obj;
+    }
+
+    /**
+     * Flush search indexes, to be done after a reindex() or reindexAll() operation
+     */
+    public void flushSearchIndexes() {
+        EntityManagerFactory entityManagerFactory = (EntityManagerFactory) applicationContext.getBean("entityManagerFactory");
+        FullTextEntityManager fullTextEntityMgr = Search.getFullTextEntityManager(entityManagerFactory.createEntityManager());
+        fullTextEntityMgr.flushToIndexes();
     }
 }

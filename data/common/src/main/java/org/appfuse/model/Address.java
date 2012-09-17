@@ -2,12 +2,13 @@ package org.appfuse.model;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-import org.compass.annotations.Searchable;
-import org.compass.annotations.SearchableProperty;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
+import org.hibernate.search.annotations.Analyze;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 
 /**
  * This class is used to represent an address with address,
@@ -16,7 +17,7 @@ import java.io.Serializable;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 @Embeddable
-@Searchable(root = false)
+@Indexed
 public class Address extends BaseObject implements Serializable {
     private static final long serialVersionUID = 3617859655330969141L;
     private String address;
@@ -26,31 +27,31 @@ public class Address extends BaseObject implements Serializable {
     private String postalCode;
 
     @Column(length = 150)
-    @SearchableProperty
+    @Field
     public String getAddress() {
         return address;
     }
 
     @Column(length = 50)
-    @SearchableProperty
+    @Field
     public String getCity() {
         return city;
     }
 
     @Column(length = 100)
-    @SearchableProperty
+    @Field
     public String getProvince() {
         return province;
     }
 
     @Column(length = 100)
-    @SearchableProperty
+    @Field
     public String getCountry() {
         return country;
     }
 
     @Column(name = "postal_code", length = 15)
-    @SearchableProperty
+    @Field(analyze= Analyze.NO)
     public String getPostalCode() {
         return postalCode;
     }

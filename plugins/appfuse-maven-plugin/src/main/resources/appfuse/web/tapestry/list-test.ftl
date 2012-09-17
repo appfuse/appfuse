@@ -1,10 +1,17 @@
 <#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
+<#assign identifierType = pojo.getJavaTypeName(pojo.identifierProperty, jdk5)>
 package ${basepackage}.webapp.pages;
+
+<#if genericcore>
+import ${appfusepackage}.service.GenericManager;
+<#else>
+import ${basepackage}.service.${pojo.shortName}Manager;
+</#if>
+import ${pojo.packageName}.${pojo.shortName};
 
 import org.apache.tapestry5.dom.Element;
 import org.apache.tapestry5.dom.Node;
 
-import org.compass.gps.CompassGps;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.Assert.*;
@@ -14,9 +21,13 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class ${pojo.shortName}ListTest extends BasePageTestCase {
-
+<#if genericcore>
     @Autowired
-    private CompassGps compassGps;
+    private GenericManager<${pojo.shortName}, ${identifierType}> ${pojoNameLower}Manager;
+<#else>
+    @Autowired
+    private ${pojo.shortName}Manager ${pojoNameLower}Manager;
+</#if>
 
     @Test
     public void testList() {
@@ -43,7 +54,10 @@ public class ${pojo.shortName}ListTest extends BasePageTestCase {
 
     @Test
     public void testSearch() {
-        compassGps.index();
+        // regenerate indexes
+        ${pojoNameLower}Manager.reindex();
+        flushSearchIndexes();
+
         doc = tester.renderPage("${pojoNameLower}List");
 
         Element form = doc.getElementById("searchForm");

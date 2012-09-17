@@ -2,10 +2,6 @@ package org.appfuse.model;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-import org.compass.annotations.Searchable;
-import org.compass.annotations.SearchableComponent;
-import org.compass.annotations.SearchableId;
-import org.compass.annotations.SearchableProperty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -30,6 +26,11 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import org.hibernate.search.annotations.Analyze;
+import org.hibernate.search.annotations.DocumentId;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
 /**
  * This class represents the basic "user" object in AppFuse that allows for authentication
@@ -42,7 +43,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "app_user")
-@Searchable
+@Indexed
 @XmlRootElement
 public class User extends BaseObject implements Serializable, UserDetails {
     private static final long serialVersionUID = 3832626162173359411L;
@@ -82,13 +83,13 @@ public class User extends BaseObject implements Serializable, UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @SearchableId
+    @DocumentId
     public Long getId() {
         return id;
     }
 
     @Column(nullable = false, length = 50, unique = true)
-    @SearchableProperty
+    @Field
     public String getUsername() {
         return username;
     }
@@ -111,30 +112,30 @@ public class User extends BaseObject implements Serializable, UserDetails {
     }
 
     @Column(name = "first_name", nullable = false, length = 50)
-    @SearchableProperty
+    @Field
     public String getFirstName() {
         return firstName;
     }
 
     @Column(name = "last_name", nullable = false, length = 50)
-    @SearchableProperty
+    @Field
     public String getLastName() {
         return lastName;
     }
 
     @Column(nullable = false, unique = true)
-    @SearchableProperty
+    @Field
     public String getEmail() {
         return email;
     }
 
     @Column(name = "phone_number")
-    @SearchableProperty
+    @Field(analyze= Analyze.NO)
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    @SearchableProperty
+    @Field
     public String getWebsite() {
         return website;
     }
@@ -150,7 +151,7 @@ public class User extends BaseObject implements Serializable, UserDetails {
     }
 
     @Embedded
-    @SearchableComponent
+    @IndexedEmbedded
     public Address getAddress() {
         return address;
     }

@@ -15,7 +15,6 @@ import ${basepackage}.service.${pojo.shortName}Manager;
 </#if>
 import ${pojo.packageName}.${pojo.shortName};
 import ${basepackage}.webapp.action.BaseActionTestCase;
-import org.compass.gps.CompassGps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
 
@@ -26,13 +25,17 @@ import static org.junit.Assert.*;
 
 public class ${pojo.shortName}ActionTest extends BaseActionTestCase {
     private ${pojo.shortName}Action action;
+<#if genericcore>
     @Autowired
-    private CompassGps compassGps;
+    private GenericManager<${pojo.shortName}, ${identifierType}> ${pojoNameLower}Manager;
+<#else>
+    @Autowired
+    private ${pojo.shortName}Manager ${pojoNameLower}Manager;
+</#if>
 
     @Before
     public void onSetUp() {
         super.onSetUp();
-        compassGps.index();
 
         action = new ${pojo.shortName}Action();
         ${managerClass} ${pojoNameLower}Manager = (${managerClass}) applicationContext.getBean("${pojoNameLower}Manager");
@@ -62,6 +65,10 @@ public class ${pojo.shortName}ActionTest extends BaseActionTestCase {
 
     @Test
     public void testSearch() throws Exception {
+        // regenerate indexes
+        ${pojoNameLower}Manager.reindex();
+        flushSearchIndexes();
+
         action.setQ("*");
         assertEquals(action.list(), ActionSupport.SUCCESS);
         assertEquals(4, action.get${util.getPluralForWord(pojo.shortName)}().size());

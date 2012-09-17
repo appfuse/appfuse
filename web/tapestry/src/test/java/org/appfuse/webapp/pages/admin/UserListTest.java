@@ -1,19 +1,20 @@
 package org.appfuse.webapp.pages.admin;
 
+import java.util.Locale;
 import org.apache.tapestry5.dom.Element;
 import org.appfuse.webapp.pages.BasePageTestCase;
-import org.compass.gps.CompassGps;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ResourceBundle;
+import org.appfuse.service.UserManager;
 
 import static org.junit.Assert.*;
 
 public class UserListTest extends BasePageTestCase {
 
     @Autowired
-    private CompassGps compassGps;
+    private UserManager userManager;
 
     @Test
     public void testListUsers() {
@@ -27,7 +28,7 @@ public class UserListTest extends BasePageTestCase {
         doc = tester.renderPage("admin/userList");
         doc = tester.clickLink(doc.getElementById("user-user"));
 
-        ResourceBundle rb = ResourceBundle.getBundle(MESSAGES);
+        ResourceBundle rb = ResourceBundle.getBundle(MESSAGES, new Locale("en"));
 
         assertTrue(doc.toString().contains("<title>" +
                 rb.getString("userProfile.title") + " | " +
@@ -36,7 +37,10 @@ public class UserListTest extends BasePageTestCase {
 
     @Test
     public void testSearch() {
-        compassGps.index();
+        // regenerate search index
+        userManager.reindex();
+        flushSearchIndexes();
+
         doc = tester.renderPage("admin/userList");
 
         Element form = doc.getElementById("searchForm");
