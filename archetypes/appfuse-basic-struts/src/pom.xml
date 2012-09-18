@@ -522,6 +522,13 @@
                                     <goal>verify-result</goal>
                                 </goals>
                             </execution>
+                            <execution>
+                                <id>webtest-report-html</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                            </execution>
                         </executions>
                         <configuration>
                             <host>${cargo.host}</host>

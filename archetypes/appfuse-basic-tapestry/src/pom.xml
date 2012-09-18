@@ -549,6 +549,13 @@
                                     <goal>verify-result</goal>
                                 </goals>
                             </execution>
+                            <execution>
+                                <id>webtest-report-html</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                            </execution>
                         </executions>
                         <configuration>
                             <host>${cargo.host}</host>
@@ -558,8 +565,8 @@
                             <target>run-all-tests</target>
                             <basepath>${project.build.finalName}</basepath>
                             <resultpath>target/webtest/webtest-results</resultpath>
-                            <haltonfailure>true</haltonfailure>
-                            <haltonerror>true</haltonerror>
+                            <haltonfailure>false</haltonfailure>
+                            <haltonerror>false</haltonerror>
                             <loglevel>fatal</loglevel>
                         </configuration>
                     </plugin>

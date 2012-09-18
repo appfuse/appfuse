@@ -81,7 +81,9 @@
         <sequential>
             <delete dir="${test.dir}/@{archetype}"/>
             <maven dir="${test.dir}" archetype="@{archetype}" version="@{version}"/>
-            <mvn dir="${test.dir}/@{archetype}" command="integration-test -Ddao.framework=@{dao.framework}"/>
+            <!-- verify: runs webtest and verifies result. post-integration-test: creates report allowing to see more details of any possible error -->
+            <!-- locale=en as otherwise there are webtests that fail -->
+            <mvn dir="${test.dir}/@{archetype}" command="verify post-integration-test -Duser.language=en -Ddao.framework=@{dao.framework}"/>
         </sequential>
     </macrodef>
 
