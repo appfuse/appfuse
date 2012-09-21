@@ -4,7 +4,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.Constants;
 import org.appfuse.service.LookupManager;
-import org.compass.gps.CompassGps;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -18,6 +17,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import java.util.HashMap;
 import java.util.Map;
+import org.appfuse.service.GenericManager;
 
 /**
  * <p>StartupListener class used to initialize and database settings
@@ -96,8 +96,14 @@ public class StartupListener implements ServletContextListener {
         context.setAttribute(Constants.AVAILABLE_ROLES, mgr.getAllRoles());
         log.debug("Drop-down initialization complete [OK]");
 
-        CompassGps compassGps = ctx.getBean(CompassGps.class);
-        compassGps.index();
+        // Any manager extending GenericManager will do:
+        GenericManager manager = (GenericManager) ctx.getBean("userManager");
+        doReindexing(manager);
+        log.debug("Full text search reindexing complete [OK]");
+    }
+
+    private static void doReindexing(GenericManager manager) {
+        manager.reindexAll(false);
     }
 
     /**

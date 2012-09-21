@@ -10,6 +10,7 @@ import java.util.List;
  * for your domain objects.
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
+ *  Updated by jgarcia: added full text search + reindexing
  * @param <T> a type variable
  * @param <PK> the primary key for that type
  */
@@ -48,6 +49,12 @@ public interface GenericManager<T, PK extends Serializable> {
     T save(T object);
 
     /**
+     * Generic method to delete an object
+     * @param object the object to remove
+     */
+    void remove(T object);
+
+    /**
      * Generic method to delete an object based on class and id
      * @param id the identifier (primary key) of the object to remove
      */
@@ -60,4 +67,16 @@ public interface GenericManager<T, PK extends Serializable> {
      * @return a list of matched objects
      */
     List<T> search(String searchTerm, Class clazz);
+    /**
+     * Generic method to regenerate full text index of the persistent class T
+     */
+    void reindex();
+
+    /**
+     * Generic method to regenerate full text index of all indexed classes
+     *
+     * @param async
+     *            true to perform the reindexing asynchronously
+     */
+    void reindexAll(boolean async);
 }

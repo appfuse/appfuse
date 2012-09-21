@@ -109,8 +109,8 @@ public class ${pojo.shortName}Form {
 
 
     void onPrepare() {
-        if (person == null) {
-            person = new Person();
+        if (${pojoNameLower} == null) {
+            ${pojoNameLower} = new ${pojo.shortName}();
         }
     }
 

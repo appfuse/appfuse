@@ -14,10 +14,6 @@
         <level value="WARN"/>
     </logger>
 
-    <logger name="org.compass">
-        <level value="WARN"/>
-    </logger>
-
     <logger name="org.hibernate">
         <level value="WARN"/>
     </logger>

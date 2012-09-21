@@ -2,7 +2,6 @@
 <#assign identifierType = pojo.getJavaTypeName(pojo.identifierProperty, jdk5)>
 package ${basepackage}.webapp.action;
 
-import org.compass.gps.CompassGps;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ${basepackage}.webapp.action.BasePageTestCase;
@@ -28,13 +27,9 @@ public class ${pojo.shortName}ListTest extends BasePageTestCase {
     private ${pojo.shortName}Manager ${pojoNameLower}Manager;
 </#if>
 
-    @Autowired
-    private CompassGps compassGps;
-
     @Before
     public void onSetUp() {
         super.onSetUp();
-        compassGps.index();
 
         bean = new ${pojo.shortName}List();
         bean.set${pojo.shortName}Manager(${pojoNameLower}Manager);
@@ -69,6 +64,9 @@ public class ${pojo.shortName}ListTest extends BasePageTestCase {
 
     @Test
     public void testSearch() throws Exception {
+        // regenerate indexes
+        ${pojoNameLower}Manager.reindex();
+
         bean.setQuery("*");
         assertEquals("success", bean.search());
         assertEquals(4, bean.get${util.getPluralForWord(pojo.shortName)}().size());

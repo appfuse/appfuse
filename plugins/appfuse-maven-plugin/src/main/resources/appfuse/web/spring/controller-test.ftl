@@ -1,8 +1,15 @@
 <#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
+<#assign identifierType = pojo.getJavaTypeName(pojo.identifierProperty, jdk5)>
 package ${basepackage}.webapp.controller;
 
+<#if genericcore>
+import ${appfusepackage}.service.GenericManager;
+<#else>
+import ${basepackage}.service.${pojo.shortName}Manager;
+</#if>
+import ${pojo.packageName}.${pojo.shortName};
+
 import ${basepackage}.webapp.controller.BaseControllerTestCase;
-import org.compass.gps.CompassGps;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +21,6 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class ${pojo.shortName}ControllerTest extends BaseControllerTestCase {
-    @Autowired
-    private CompassGps compassGps;
     @Autowired
     private ${pojo.shortName}Controller controller;
 
@@ -29,7 +34,14 @@ public class ${pojo.shortName}ControllerTest extends BaseControllerTestCase {
 
     @Test
     public void testSearch() throws Exception {
-        compassGps.index();
+        // regenerate indexes
+<#if genericcore>
+        GenericManager<${pojo.shortName}, ${identifierType}> ${pojoNameLower}Manager = (GenericManager<${pojo.shortName}, ${identifierType}>) applicationContext.getBean(${'"'}${pojoNameLower}Manager${'"'});
+<#else>
+        ${pojo.shortName}Manager ${pojoNameLower}Manager = (${pojo.shortName}Manager) applicationContext.getBean(${'"'}${pojoNameLower}Manager${'"'});
+</#if>
+        ${pojoNameLower}Manager.reindex();
+
         ModelAndView mav = controller.handleRequest("*");
         Map m = mav.getModel();
         List results = (List) m.get("${pojoNameLower}List");

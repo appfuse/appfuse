@@ -64,7 +64,7 @@ public class UserEditTest extends BasePageTestCase {
         Wiser wiser = new Wiser();
         wiser.setPort(getSmtpPort());
         wiser.start();
-        
+
         doc = tester.submitForm(form, fieldValues);
 
         Element errors = doc.getElementById("errorMessages");

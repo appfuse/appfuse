@@ -42,7 +42,7 @@ public abstract class AbstractAppFuseMojoTestCase extends AbstractMojoTestCase {
 
         // disableInstallation to prevent installation
         System.setProperty("disableInstallation", "true");
-
+        
         mojo.setProject(getMavenProject());
 
         return mojo;
@@ -70,7 +70,7 @@ public abstract class AbstractAppFuseMojoTestCase extends AbstractMojoTestCase {
             String daoFramework = "hibernate";
             String webFramework = "struts";
             Properties props;
-
+            
             public Build getBuild() {
                 return build;
             }
@@ -78,7 +78,7 @@ public abstract class AbstractAppFuseMojoTestCase extends AbstractMojoTestCase {
             public String getArtifactId() {
                 return "test-project";
             }
-
+            
             public String getGroupId() {
                 return "com.company";
             }
@@ -111,7 +111,7 @@ public abstract class AbstractAppFuseMojoTestCase extends AbstractMojoTestCase {
 
         ArtifactRepositoryLayout layout =
                 (ArtifactRepositoryLayout) container.lookup(ArtifactRepositoryLayout.ROLE, "default");
-
+        
         ArtifactRepository localRepository = new DefaultArtifactRepository("local", mavenRepoLocal, layout);
 
         List<ArtifactRepository> remoteRepositories = new ArrayList<ArtifactRepository>();
@@ -119,7 +119,7 @@ public abstract class AbstractAppFuseMojoTestCase extends AbstractMojoTestCase {
         String archetypeGroupId = "org.appfuse.archetypes";
 
         ArchetypeGenerationRequest request = new ArchetypeGenerationRequest();
-        request.setGroupId(project.getGroupId()).setArtifactId(project.getArtifactId()).setVersion(project.getVersion());
+        request.setGroupId(project.getGroupId()).setArtifactId(project.getArtifactId()).setVersion("1.0");
         request.setArchetypeGroupId(archetypeGroupId).setArchetypeArtifactId(archetypeArtifactId);
         request.setArchetypeVersion(archetypeVersion);
         request.setLocalRepository(localRepository);

@@ -10,7 +10,6 @@ import org.apache.tapestry5.spring.SpringConstants;
 import org.apache.tapestry5.test.PageTester;
 import org.appfuse.Constants;
 import org.appfuse.webapp.services.AppTestModule;
-import org.compass.core.util.StringUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.springframework.context.ApplicationContext;
@@ -26,6 +25,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import java.util.HashMap;
 import java.util.Map;
+import org.springframework.util.StringUtils;
 
 @ContextConfiguration(locations = {
         "classpath:/applicationContext-resources.xml", "classpath:/applicationContext-dao.xml",
@@ -105,6 +105,8 @@ public abstract class BasePageTestCase extends AbstractTransactionalJUnit4Spring
             tester.shutdown();
         }
         tester = null;
+        // cleanup: close sessionFactory and related resources (search index locks)
+        listener.contextDestroyed(new ServletContextEvent(servletContext));
         listener = null;
         servletContext = null;
     }

@@ -1,7 +1,6 @@
 package org.appfuse.webapp.action;
 
 import org.appfuse.service.UserManager;
-import org.compass.gps.CompassGps;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +11,6 @@ public class UserListTest extends BasePageTestCase {
     private UserList bean;
     @Autowired
     private UserManager userManager;
-    @Autowired
-    private CompassGps compassGps;
 
     @Override
     @Before
@@ -31,7 +28,9 @@ public class UserListTest extends BasePageTestCase {
 
     @Test
     public void testSearch() throws Exception {
-        compassGps.index();
+        // reindex before searching
+        userManager.reindex();
+
         bean.setQuery("admin");
         assertEquals("success", bean.search());
         assertTrue(bean.getUsers().size() == 1);

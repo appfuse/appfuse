@@ -4,10 +4,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.dao.GenericDao;
 import org.appfuse.service.GenericManager;
-import org.compass.core.CompassHit;
-import org.compass.core.support.search.CompassSearchCommand;
-import org.compass.core.support.search.CompassSearchHelper;
-import org.compass.core.support.search.CompassSearchResults;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
@@ -47,6 +43,7 @@ import java.util.List;
  * @param <T>  a type variable
  * @param <PK> the primary key for that type
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
+ *  Updated by jgarcia: added full text search + reindexing
  */
 public class GenericManagerImpl<T, PK extends Serializable> implements GenericManager<T, PK> {
     /**
@@ -59,8 +56,6 @@ public class GenericManagerImpl<T, PK extends Serializable> implements GenericMa
      */
     protected GenericDao<T, PK> dao;
 
-    @Autowired
-    private CompassSearchHelper compass;
 
     public GenericManagerImpl() {
     }
@@ -100,6 +95,13 @@ public class GenericManagerImpl<T, PK extends Serializable> implements GenericMa
     /**
      * {@inheritDoc}
      */
+    public void remove(T object) {
+        dao.remove(object);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public void remove(PK id) {
         dao.remove(id);
     }
@@ -107,7 +109,7 @@ public class GenericManagerImpl<T, PK extends Serializable> implements GenericMa
     /**
      * {@inheritDoc}
      * <p/>
-     * Search implementation using Compass.
+     * Search implementation using Hibernate Search.
      */
     @SuppressWarnings("unchecked")
     public List<T> search(String q, Class clazz) {
@@ -115,30 +117,20 @@ public class GenericManagerImpl<T, PK extends Serializable> implements GenericMa
             return getAll();
         }
 
-        List<T> results = new ArrayList<T>();
+        return dao.search(q);
+    }
 
-        CompassSearchCommand command = new CompassSearchCommand(q);
-        CompassSearchResults compassResults = compass.search(command);
-        CompassHit[] hits = compassResults.getHits();
+    /**
+     * {@inheritDoc}
+     */
+    public void reindex() {
+        dao.reindex();
+    }
 
-        if (log.isDebugEnabled() && clazz != null) {
-            log.debug("Filtering by type: " + clazz.getName());
-        }
-
-        for (CompassHit hit : hits) {
-            if (clazz != null) {
-                if (hit.data().getClass().equals(clazz)) {
-                    results.add((T) hit.data());
-                }
-            } else {
-                results.add((T) hit.data());
-            }
-        }
-
-        if (log.isDebugEnabled()) {
-            log.debug("Number of results for '" + q + "': " + results.size());
-        }
-
-        return results;
+    /**
+     * {@inheritDoc}
+     */
+    public void reindexAll(boolean async) {
+        dao.reindexAll(async);
     }
 }

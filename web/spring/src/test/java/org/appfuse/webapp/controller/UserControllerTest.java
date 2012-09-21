@@ -1,19 +1,17 @@
 package org.appfuse.webapp.controller;
 
 import org.appfuse.Constants;
-import org.compass.gps.CompassGps;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.Map;
+import org.appfuse.service.UserManager;
 
 import static org.junit.Assert.*;
 
 public class UserControllerTest extends BaseControllerTestCase {
-    @Autowired
-    private CompassGps compassGps;
     @Autowired
     private UserController c;
 
@@ -27,7 +25,10 @@ public class UserControllerTest extends BaseControllerTestCase {
 
     @Test
     public void testSearch() throws Exception {
-        compassGps.index();
+        // reindex before searching
+        UserManager userManager = (UserManager) applicationContext.getBean("userManager");
+        userManager.reindex();
+
         ModelAndView mav = c.handleRequest("admin");
         Map m = mav.getModel();
         List results = (List) m.get(Constants.USER_LIST);

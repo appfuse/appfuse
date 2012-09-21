@@ -4,12 +4,7 @@ import org.appfuse.Constants;
 import org.appfuse.model.Address;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
-import org.compass.core.CompassCallbackWithoutResult;
-import org.compass.core.CompassException;
-import org.compass.core.CompassHits;
-import org.compass.core.CompassSession;
-import org.compass.core.CompassTemplate;
-import org.compass.gps.CompassGps;
+import java.util.List;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -24,10 +19,6 @@ public class UserDaoTest extends BaseDaoTestCase {
     private UserDao dao;
     @Autowired
     private RoleDao rdao;
-    @Autowired
-    private CompassTemplate compassTemplate;
-    @Autowired
-    private CompassGps compassGps;
 
     @Test
     @ExpectedException(DataAccessException.class)
@@ -54,7 +45,6 @@ public class UserDaoTest extends BaseDaoTestCase {
     }
 
     @Test
-    @NotTransactional
     @ExpectedException(DataIntegrityViolationException.class)
     public void testUpdateUser() throws Exception {
         User user = dao.get(-1L);
@@ -70,10 +60,20 @@ public class UserDaoTest extends BaseDaoTestCase {
         assertEquals("new address", user.getAddress().getAddress());
 
         // verify that violation occurs when adding new user with same username
-        user.setId(null);
+        User user2 = new User();
+        user2.setAddress(user.getAddress());
+        user2.setConfirmPassword(user.getConfirmPassword());
+        user2.setEmail(user.getEmail());
+        user2.setFirstName(user.getFirstName());
+        user2.setLastName(user.getLastName());
+        user2.setPassword(user.getPassword());
+        user2.setPasswordHint(user.getPasswordHint());
+        user2.setRoles(user.getRoles());
+        user2.setUsername(user.getUsername());
+        user2.setWebsite(user.getWebsite());
 
         // should throw DataIntegrityViolationException
-        dao.saveUser(user);
+        dao.saveUser(user2);
     }
 
     @Test
@@ -132,7 +132,7 @@ public class UserDaoTest extends BaseDaoTestCase {
         user = dao.get(user.getId());
         assertEquals("testpass", user.getPassword());
 
-        dao.remove(user.getId());
+        dao.remove(user);
         flush();
 
         // should throw DataAccessException
@@ -154,40 +154,24 @@ public class UserDaoTest extends BaseDaoTestCase {
     @Test
     public void testUserSearch() throws Exception {
         // reindex all the data
-        compassGps.index();
+        dao.reindex();
 
-        User user = compassTemplate.get(User.class, -2);
-        assertNotNull(user);
+        List<User> found = dao.search("Matt");
+        assertEquals(1, found.size());
+        User user = found.get(0);
         assertEquals("Matt", user.getFirstName());
-
-        compassTemplate.execute(new CompassCallbackWithoutResult() {
-            @Override
-            protected void doInCompassWithoutResult(CompassSession compassSession) throws CompassException {
-                CompassHits hits = compassSession.find("Matt");
-                assertEquals(1, hits.length());
-                assertEquals("Matt", ((User) hits.data(0)).getFirstName());
-                assertEquals("Matt", hits.resource(0).getValue("firstName"));
-            }
-        });
 
         // test mirroring
         user = dao.get(-2L);
         user.setFirstName("MattX");
         dao.saveUser(user);
         flush();
+        flushSearchIndexes();
 
         // now verify it is reflected in the index
-        user = compassTemplate.get(User.class, -2);
-        assertNotNull(user);
+        found = dao.search("MattX");
+        assertEquals(1, found.size());
+        user = found.get(0);
         assertEquals("MattX", user.getFirstName());
-
-        compassTemplate.execute(new CompassCallbackWithoutResult() {
-            @Override
-            protected void doInCompassWithoutResult(CompassSession compassSession) throws CompassException {
-                CompassHits hits = compassSession.find("MattX");
-                assertEquals(1, hits.length());
-                assertEquals("MattX", ((User) hits.data(0)).getFirstName());
-            }
-        });
     }
 }

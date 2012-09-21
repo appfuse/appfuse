@@ -30,7 +30,7 @@ public class StartupListenerTest extends TestCase {
         // initialize Spring
         sc.addInitParameter(ContextLoader.CONFIG_LOCATION_PARAM,
                 "classpath:/applicationContext-dao.xml, " +
-                "classpath:/applicationContext-service.xml, " + 
+                "classpath:/applicationContext-service.xml, " +
                 "classpath:/applicationContext-resources.xml");
 
         springListener = new ContextLoaderListener();
@@ -40,6 +40,8 @@ public class StartupListenerTest extends TestCase {
 
     protected void tearDown() throws Exception {
         super.tearDown();
+        // cleanup: close sessionFactory and related resources (search index locks)
+        springListener.closeWebApplicationContext(sc);
         springListener = null;
         listener = null;
         sc = null;
