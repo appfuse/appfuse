@@ -1,5 +1,6 @@
 package org.appfuse.webapp.pages.admin;
 
+import java.util.Locale;
 import org.apache.tapestry5.dom.Element;
 import org.appfuse.webapp.pages.BasePageTestCase;
 import org.compass.gps.CompassGps;
@@ -27,7 +28,8 @@ public class UserListTest extends BasePageTestCase {
         doc = tester.renderPage("admin/userList");
         doc = tester.clickLink(doc.getElementById("user-admin"));
 
-        ResourceBundle rb = ResourceBundle.getBundle(MESSAGES);
+        // force locale=en (APF-1324)
+        ResourceBundle rb = ResourceBundle.getBundle(MESSAGES, new Locale("en"));
 
         assertTrue(doc.toString().contains("<title>" +
                 rb.getString("userProfile.title") + " | " +

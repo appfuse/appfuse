@@ -134,10 +134,10 @@
             <if>
                 <contains string="@{name}" substring="light"/>
                 <then>
-                    <property name="test-command" value="verify -Djdbc.username=sa -Djdbc.password="/>
+                    <property name="test-command" value="verify -Duser.language=en -Djdbc.username=sa -Djdbc.password="/>
                 </then>
                 <else>
-                    <property name="test-command" value="verify"/>
+                    <property name="test-command" value="verify -Duser.language=en"/>
                 </else>
             </if>
  
@@ -331,10 +331,10 @@
             <if>
                 <contains string="@{name}" substring="light"/>
                 <then>
-                    <property name="test-command" value="integration-test -Dsurefire.useFile=false -Djdbc.username=sa -Djdbc.password="/>
+                    <property name="test-command" value="integration-test -Duser.language=en -Dsurefire.useFile=false -Djdbc.username=sa -Djdbc.password="/>
                 </then>
                 <else>
-                    <property name="test-command" value="verify -Dsurefire.useFile=false"/>
+                    <property name="test-command" value="verify -Duser.language=en -Dsurefire.useFile=false"/>
                 </else>
             </if>
             
@@ -414,12 +414,12 @@
 
             <!-- test with generic core -->
             <maven dir="${test.dir}/@{name}" command="appfuse:gen -Dentity=Person -e"/>
-            <maven dir="${test.dir}/@{name}" command="verify -Dsurefire.useFile=false"/>
+            <maven dir="${test.dir}/@{name}" command="verify -Duser.language=en -Dsurefire.useFile=false"/>
             <maven dir="${test.dir}/@{name}" command="appfuse:remove -Dentity=Person -Dskip.areyousure=true"/>
             
             <!-- test w/o generic core -->
             <maven dir="${test.dir}/@{name}" command="appfuse:gen -Dentity=Person -Damp.genericCore=false"/>
-            <maven dir="${test.dir}/@{name}" command="verify -Dsurefire.useFile=false"/>
+            <maven dir="${test.dir}/@{name}" command="verify -Duser.language=en -Dsurefire.useFile=false"/>
         </sequential>
     </macrodef>
     
@@ -472,6 +472,6 @@
         </sql>
         <maven dir="${test.dir}/${name}" command="appfuse:gen-model"/>
         <maven dir="${test.dir}/${name}" command="appfuse:gen -Dentity=Cat"/>
-        <maven dir="${test.dir}/${name}" command="verify -Dsurefire.useFile=false"/>
+        <maven dir="${test.dir}/${name}" command="verify -Duser.language=en -Dsurefire.useFile=false"/>
     </target>
 </project>
