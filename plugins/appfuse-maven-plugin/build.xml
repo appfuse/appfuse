@@ -93,12 +93,12 @@
         <antcall target="test-tapestry-modular"/>
     </target>
 
-    <target name="test-all" description="Tests AMP, Full Source, iBATIS and JPA with AppFuse archetypes">
+    <target name="test-all" description="Tests AMP, Full Source and JPA with AppFuse archetypes">
         <antcall target="test-basic"/>
         <antcall target="test-modular"/>
         <antcall target="test-basic-source"/>
         <antcall target="test-modular-source"/>
-        <antcall target="test-ibatis"/>
+        <!--antcall target="test-ibatis"/-->
         <antcall target="test-jpa"/>
     </target>
     
@@ -243,7 +243,7 @@
 
     <target name="test-core-source" description="tests full-source plugin with core archetype">
         <full-source archetype="appfuse-core" name="core-source"/>
-        <full-source archetype="appfuse-core" name="core-ibatis-source" daoFramework="ibatis" hibernate3Config="jpaconfiguration" modular="false"/>
+        <!--full-source archetype="appfuse-core" name="core-ibatis-source" daoFramework="ibatis" hibernate3Config="jpaconfiguration" modular="false"/-->
         <full-source archetype="appfuse-core" name="core-jpa-source" daoFramework="jpa" hibernate3Config="jpaconfiguration" modular="false"/>
     </target>
 
@@ -253,25 +253,25 @@
     
     <target name="test-jsf-modular-source" description="tests full-source plugin with jsf modular archetype">
         <full-source archetype="appfuse-modular-jsf" name="modular-jsf-source"/>
-        <full-source archetype="appfuse-modular-jsf" name="modular-jsf-ibatis-source" daoFramework="ibatis" hibernate3Config="annotationconfiguration"/>
+        <!--full-source archetype="appfuse-modular-jsf" name="modular-jsf-ibatis-source" daoFramework="ibatis" hibernate3Config="annotationconfiguration"/-->
         <full-source archetype="appfuse-modular-jsf" name="modular-jsf-jpa-source" daoFramework="jpa" hibernate3Config="jpaconfiguration"/>
     </target>
 
      <target name="test-spring-modular-source" description="tests full-source plugin with spring modular archetype">
         <full-source archetype="appfuse-modular-spring" name="modular-spring-source"/>
-        <full-source archetype="appfuse-modular-spring" name="modular-spring-ibatis-source" daoFramework="ibatis" hibernate3Config="annotationconfiguration"/>
+        <!--full-source archetype="appfuse-modular-spring" name="modular-spring-ibatis-source" daoFramework="ibatis" hibernate3Config="annotationconfiguration"/-->
         <full-source archetype="appfuse-modular-spring" name="modular-spring-jpa-source" daoFramework="jpa" hibernate3Config="jpaconfiguration"/>
     </target>
 
      <target name="test-struts-modular-source" description="tests full-source plugin with struts modular archetype">
         <full-source archetype="appfuse-modular-struts" name="modular-struts-source"/>
-        <full-source archetype="appfuse-modular-struts" name="modular-struts-ibatis-source" daoFramework="ibatis" hibernate3Config="annotationconfiguration"/>
+        <!--full-source archetype="appfuse-modular-struts" name="modular-struts-ibatis-source" daoFramework="ibatis" hibernate3Config="annotationconfiguration"/-->
         <full-source archetype="appfuse-modular-struts" name="modular-struts-jpa-source" daoFramework="jpa" hibernate3Config="jpaconfiguration"/>
     </target>
 
      <target name="test-tapestry-modular-source" description="tests full-source plugin with tapestry modular archetype">
         <full-source archetype="appfuse-modular-tapestry" name="modular-tapestry-source"/>
-        <full-source archetype="appfuse-modular-tapestry" name="modular-tapestry-ibatis-source" daoFramework="ibatis" hibernate3Config="annotationconfiguration"/>
+        <!--full-source archetype="appfuse-modular-tapestry" name="modular-tapestry-ibatis-source" daoFramework="ibatis" hibernate3Config="annotationconfiguration"/-->
         <full-source archetype="appfuse-modular-tapestry" name="modular-tapestry-source" daoFramework="jpa" hibernate3Config="jpaconfiguration"/>
     </target>
     
