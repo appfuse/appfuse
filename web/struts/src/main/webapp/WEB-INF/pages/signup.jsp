@@ -11,7 +11,7 @@
     <fmt:message key="signup.message"/>
 </div>
 <div class="span7">
-    <s:form name="signupForm" action="signup" method="post" validate="true" cssClass="well form-horizontal">
+    <s:form name="signupForm" action="saveSignup" method="post" validate="true" cssClass="well form-horizontal">
 
         <s:textfield key="user.username" required="true"/>
         <s:password key="user.password" showPassword="true" required="true"/>
@@ -45,7 +45,7 @@
         </div>
     </fieldset>
     <div id="actions" class="form-actions">
-        <s:submit type="button" cssClass="btn btn-primary" method="save" key="button.register" theme="simple">
+        <s:submit type="button" cssClass="btn btn-primary" key="button.register" theme="simple">
             <i class="icon-ok"></i>
             <fmt:message key="button.register"/>
         </s:submit>
