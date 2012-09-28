@@ -70,15 +70,14 @@
             <result name="success">/WEB-INF/pages/mainMenu.jsp</result>
         </action>
 
-        <action name="signup" class="signupAction">
-            <result name="cancel" type="redirect">/</result>
-            <result name="input">/WEB-INF/pages/signup.jsp</result>
-            <result name="success" type="chain">saveSignup</result>
+        <action name="signup">
+            <result>/WEB-INF/pages/signup.jsp</result>
         </action>
 
         <action name="saveSignup" class="signupAction" method="save">
+            <result name="cancel" type="redirect">/</result>
             <result name="input">/WEB-INF/pages/signup.jsp</result>
-            <result name="success" type="redirectAction">/mainMenu</result>
+            <result name="success" type="redirectAction">mainMenu</result>
         </action>
 
         <action name="editUser" class="userAction" method="edit">
