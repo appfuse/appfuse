@@ -1,0 +1,15 @@
+<html t:type="layout" title="message:404.title"
+          heading="message:404.title"
+          xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+
+    <p>
+        <t:outputraw value="notFoundMessage"/>
+    </p>
+    <p style="text-align: center; margin-top: 20px">
+        <a href="http://community.webshots.com/photo/87848122/87848260vtOXvy"
+           title="Emerald Lake - Western Canada, click to Zoom In">
+            <img src="${notFoundImage}" alt="Emerald Lake - Western Canada"/></a>
+    </p>
+
+
+</html>

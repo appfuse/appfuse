@@ -1,0 +1,14 @@
+<html t:type="layout" title="message:403.title"
+          heading="message:403.title"
+          xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+    <p>
+        ${accessDeniedMessage}
+    </p>
+
+    <p style="text-align: center; margin-top: 20px">
+        <a href="http://community.webshots.com/photo/56793801/56801692jkyHaR"
+           title="Hawaii, click to Zoom In">
+            <img src="${accessDeniedImage}" alt="Hawaii"/></a>
+    </p>
+
+</html>

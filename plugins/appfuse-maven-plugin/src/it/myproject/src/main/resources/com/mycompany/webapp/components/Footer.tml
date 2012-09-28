@@ -1,0 +1,13 @@
+<t:container xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
+    <div id="footer">
+
+    <span class="left">${message:webapp.version}
+        <t:if test="loggedIn">
+            | ${message:user.status} ${prop:username}
+        </t:if>
+    </span>
+    <span class="right">
+        &copy; ${message:copyright.year} <a href="${message:company.url}"> ${message:company.name}</a>
+    </span>
+    </div>
+</t:container>

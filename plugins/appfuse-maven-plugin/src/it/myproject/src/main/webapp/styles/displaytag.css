@@ -1,0 +1,110 @@
+div.exportlinks {
+    margin: -5px 0 10px 10px;
+    padding: 2px 4px 2px 0;
+    width: 100%;
+}
+
+div.exportlinks a {
+    text-decoration: none;
+}
+
+div.exportlinks span {
+    background-repeat: no-repeat;
+}
+
+span.csv {
+    background-image: url(../images/ico_file_csv.png);
+}
+
+span.excel {
+    background-image: url(../images/ico_file_excel.png);
+}
+
+span.pdf {
+    background-image: url(../images/ico_file_pdf.png);
+}
+
+span.xml {
+    background-image: url(../images/ico_file_xml.png);
+}
+
+span.export {
+    cursor: pointer;
+    display: inline-block;
+    padding: 0 4px 1px 20px;
+}
+
+span.pagebanner {
+    display: block;
+    margin: 10px 0 10px 0;
+    padding: 2px 4px 2px 0;
+}
+
+span.pagelinks {
+    display: block;
+    font-size: .95em;
+    margin-bottom: 5px;
+    margin-top: -18px;
+    padding: 2px 0 2px 0;
+    text-align: right;
+    width: 80%;
+}
+
+th.sorted a, th.sortable a {
+    background-position: right;
+    display: block;
+}
+
+.table th.order1 a {
+    background-image: url(../images/arrow_down.png) !important;
+}
+
+.table th.order2 a {
+    background-image: url(../images/arrow_up.png) !important;
+}
+
+div#main .tableHeaderImage { /* Tapestry */
+    position: absolute;
+    margin: 2px 0 0 -5px;
+    background: transparent;
+    border: 0;
+}
+
+/*.table th.sortable a {
+    background-image: url(../images/arrow_off.png);
+}*/
+
+.table th.sorted {
+    background-color: #ffd;
+    color: #000000;
+}
+
+.table th.sorted a, .table th.sortable a {
+    background-position: right;
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.table tr.even {
+    background: #eee;
+    border-top: 1px solid #c0c0c0;
+    color: #000000;
+}
+
+.table tr.odd {
+    background: #fff;
+    border-top: 1px solid #c0c0c0;
+    color: #000000;
+}
+
+/* highlight .table row onmouseover */
+.table tr.over {
+    border-bottom: 1px solid #C0C0C0;
+    border-top: 1px solid #C0C0C0;
+    color: #000000;
+    cursor: pointer;
+}
+
+.detail th {
+    text-align: right;
+}

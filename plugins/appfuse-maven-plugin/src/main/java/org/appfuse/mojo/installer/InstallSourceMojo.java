@@ -1,5 +1,26 @@
 package org.appfuse.mojo.installer;
 
+import org.apache.commons.beanutils.BeanComparator;
+import org.apache.commons.io.FileUtils;
+import org.apache.maven.artifact.Artifact;
+import org.apache.maven.artifact.repository.ArtifactRepository;
+import org.apache.maven.model.Dependency;
+import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.project.MavenProject;
+import org.apache.maven.project.MavenProjectBuilder;
+import org.apache.maven.settings.Settings;
+import org.apache.tools.ant.Project;
+import org.apache.tools.ant.taskdefs.Get;
+import org.apache.tools.ant.taskdefs.LoadFile;
+import org.apache.tools.ant.taskdefs.Move;
+import org.apache.tools.ant.types.FileSet;
+import org.appfuse.tool.RenamePackages;
+import org.appfuse.tool.SubversionUtils;
+import org.tmatesoft.svn.core.SVNErrorMessage;
+import org.tmatesoft.svn.core.SVNException;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,27 +36,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
-
-import org.apache.commons.beanutils.BeanComparator;
-import org.apache.commons.io.FileUtils;
-import org.apache.maven.artifact.Artifact;
-import org.apache.maven.embedder.MavenEmbedder;
-import org.apache.maven.embedder.MavenEmbedderConsoleLogger;
-import org.apache.maven.model.Dependency;
-import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
-import org.apache.maven.project.MavenProject;
-import org.apache.maven.settings.Settings;
-import org.apache.tools.ant.Project;
-import org.apache.tools.ant.taskdefs.Get;
-import org.apache.tools.ant.taskdefs.LoadFile;
-import org.apache.tools.ant.taskdefs.Move;
-import org.apache.tools.ant.types.FileSet;
-import org.appfuse.tool.RenamePackages;
-import org.appfuse.tool.SubversionUtils;
-import org.tmatesoft.svn.core.SVNErrorMessage;
-import org.tmatesoft.svn.core.SVNException;
 
 
 /**
@@ -98,6 +98,16 @@ public class InstallSourceMojo extends AbstractMojo {
      *
      */
     private Settings settings;
+
+    /**
+     * @component
+     */
+    private MavenProjectBuilder mavenProjectBuilder;
+
+    /**
+     * @parameter default-value= "${localRepository}"
+     */
+     private ArtifactRepository local;
 
     public void execute() throws MojoExecutionException, MojoFailureException {
         // http://issues.appfuse.org/browse/APF-1025
@@ -705,16 +715,17 @@ public class InstallSourceMojo extends AbstractMojo {
     }
 
     private MavenProject createProjectFromPom(File pom) {
-        MavenEmbedder maven = new MavenEmbedder();
-        maven.setOffline(true);
+        /*MavenEmbedder maven = new MavenEmbedder();
+        maven.setOffline(settings.isOffline());
         maven.setClassLoader(Thread.currentThread().getContextClassLoader());
         maven.setLogger(new MavenEmbedderConsoleLogger());
 
         MavenProject p = null;
 
         try {
-            maven.setAlignWithUserInstallation(true);
+            maven.setAlignWithUserInstallation( true );
             maven.setLocalRepositoryDirectory( new File(settings.getLocalRepository() ));
+
             maven.start();
             p = maven.readProjectWithDependencies(pom);
             maven.stop();
@@ -722,7 +733,15 @@ public class InstallSourceMojo extends AbstractMojo {
             e.printStackTrace();
         }
 
-        return p;
+        return p;*/
+        // olamy: this catch Exception and returns is IMHO crappy !
+        // an exception must be throw and handle by caller !!
+        try {
+        return mavenProjectBuilder.buildWithDependencies( pom, local, null );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**

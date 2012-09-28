@@ -1,0 +1,166 @@
+body {
+    padding-top: 50px;
+}
+
+body > .navbar .brand {
+    color: #000000;
+    float: right;
+    font-weight: bold;
+    margin-left: 20px;
+    padding-left: 0;
+    padding-right: 0;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 30px rgba(255, 255, 255, 0.125);
+}
+
+.navbar .brand:hover {
+    color: #0099ff;
+}
+
+#switchLocale {
+    position: absolute;
+    right: 10px;
+}
+
+h1, h2 {
+    margin-bottom: 10px;
+}
+
+legend {
+    margin-bottom: 0;
+}
+
+/* FORMS */
+
+.controls.readonly {
+    padding-top: 5px;
+}
+
+.well.form-horizontal .form-actions {
+    margin-bottom: 0;
+}
+
+.btn-group .btn {
+    margin-left: 5px;
+}
+
+#search {
+    float: right;
+    margin-top: -40px;
+}
+
+#search input[type="text"] {
+    display: inline-block;
+}
+
+/* TABLES */
+
+th.sorted a, th.sortable a {
+    display: block;
+}
+
+.table th.order1 a {
+    background-image: url(../images/arrow_down.png);
+}
+
+.table th.order2 a {
+    background-image: url(../images/arrow_up.png);
+}
+
+.table th.sorted a, .table th.sortable a {
+    background-position: right;
+    background-repeat: no-repeat;
+    display: block;
+}
+
+div.exportlinks a {
+    text-decoration: none;
+}
+
+div.exportlinks span {
+    background-repeat: no-repeat;
+    background-position: 1px 2px;
+}
+
+span.csv {
+    background-image: url(../images/ico_file_csv.png);
+}
+
+span.excel {
+    background-image: url(../images/ico_file_excel.png);
+}
+
+span.pdf {
+    background-image: url(../images/ico_file_pdf.png);
+}
+
+span.xml {
+    background-image: url(../images/ico_file_xml.png);
+}
+
+span.export {
+    cursor: pointer;
+    display: inline-block;
+    padding: 0 4px 1px 20px;
+}
+
+span.pagebanner {
+    display: block;
+    margin: 0 0 0 10px;
+    padding: 2px 4px 2px 0;
+}
+
+span.pagelinks {
+    display: block;
+    font-size: .95em;
+    margin-bottom: 5px;
+    margin-top: -18px;
+    padding: 2px 0 2px 0;
+    text-align: right;
+    width: 80%;
+}
+
+/* FOOTER */
+#footer {
+    clear: both;
+    margin: 0 auto;
+    padding: 10px 0 20px 0;
+    border-top: 4px solid #f0f0f0;
+    text-align: center;
+    background-color: white;
+    color: #808080;
+    font-size: 0.9em;
+}
+
+#footer a {
+    color: #808080;
+    text-decoration: none;
+}
+
+#footer a:hover {
+    text-decoration: underline;
+}
+
+#footer p {
+    margin: 0;
+}
+
+#footer span.left, #footer span.right {
+    text-align: center;
+    margin: 5px;
+}
+
+/* END FOOTER */
+
+.hide {
+    display: none;
+}
+
+.left {
+    margin: 10px 10px 5px 0;
+    float: left;
+}
+
+.right {
+    margin: 10px 0 5px 10px;
+    float: right;
+}

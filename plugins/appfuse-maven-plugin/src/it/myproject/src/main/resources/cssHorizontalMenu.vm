@@ -1,0 +1,63 @@
+#macro( displayCssMenu $menu )
+  #if ($displayer.isAllowed($menu))
+    #set ($count = $count + 1)
+    ## set menu title
+    #set ($title = $displayer.getMessage($menu.title))
+    #if (!$menu.url) #set ($url="javascript:void(0)") #else #set ($url=$menu.url) #end
+
+    ## create a single menu item
+    #if ($menu.components.size() == 0)
+        #if ($count == $renderedChildren)
+          <li class="last">
+        #else
+          <li>
+        #end
+        #if ($menu.name == $currentMenu)
+          <a href="$url" title="$title" class="current" #if($menu.target)target="$menu.target" #end#if($menu.width)style="width: ${menu.width}px"#end>${title}</a>
+        #else
+          <a href="$url" title="$title" #if($menu.target)target="$menu.target" #end#if($menu.width)style="width: ${menu.width}px"#end>${title}</a>
+        #end
+    #else ## create multiple menu items in a menu
+        #if ($menu.components.size() > 0)
+            #set ($hasViewableChildren = false)
+            #set ($renderedChildren = 0)
+            #foreach ($menuIt in $menu.components)
+                #if ($displayer.isAllowed($menuIt))
+                    #set($hasViewableChildren = true)
+                    #set($renderedChildren = $renderedChildren + 1)
+                #end
+            #end
+        #end
+
+        <li#if ($hasViewableChildren) class="menubar"#end>
+          <a href="$url" title="$title" #if ($menu.name == $currentMenu) class="current" #end#if($menu.target)target="$menu.target" #end#if($menu.width)style="width: ${menu.width}px"#end>${title}</a>
+    #end
+
+    #if ($menu.components.size() > 0)
+        #if ($hasViewableChildren) 
+          <ul> 
+        #end
+
+        #set ($count = 0)
+        #foreach ($menuIt in $menu.components)
+            #displayCssMenu($menuIt)
+        #end
+        
+        #if ($hasViewableChildren && ($count == $renderedChildren))
+          </li>
+        #else
+          </ul>
+          #if ($count > $renderedChildren) 
+          </li>
+          #end
+        #end
+    #else
+      </li>
+      #if ($count == $menu.parent.components.size())
+      </ul>
+      #end
+    #end
+  #end
+#end
+
+#displayCssMenu($menu)

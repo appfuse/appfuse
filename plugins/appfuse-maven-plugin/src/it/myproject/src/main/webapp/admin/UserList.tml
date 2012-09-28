@@ -1,0 +1,44 @@
+<html t:type="layout" title="userList.title"
+    heading="message:userList.heading" menu="AdminMenu"
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
+
+<div class="span10">
+    <h2>${message:userList.heading}</h2>
+
+    <div id="search">
+    <form t:type="form" t:id="searchForm" autofocus="false" class="form-search">
+        <input t:type="textfield" size="20" name="q" t:id="q" placeholder="Enter search terms..." class="input-medium search-query"/>
+        <input t:type="submit" value="${message:button.search}" class="btn"/>
+    </form>
+    </div>
+
+    <a t:type="eventlink" t:id="add" id="add">
+        <input type="button" style="margin-right: 5px" class="btn" value="${message:button.add}" />
+    </a>
+    <a t:type="eventlink" t:id="done" id="done">
+        <input type="button" class="btn" value="${message:button.done}" />
+    </a>
+
+    <t:grid source="users" row="currentUser" model="model" reorder="username,fullname,email,enabled" t:id="userList" id="userList" class="table table-condensed">
+        <p:usernamecell>
+            <a t:type="actionlink" t:id="edit" context="currentUser" id="user-${currentUser.username}">  ${currentUser.username} </a>
+        </p:usernamecell>
+        <p:fullnamecell>${currentUser.fullName}</p:fullnamecell>
+        <p:emailcell>
+            <a href="mailto:${currentUser.email}" t:type="any">
+                ${currentUser.email}
+            </a>
+        </p:emailcell>
+        <p:enabledcell>
+            <t:if test="currentUser.enabled">
+                <input type="checkbox" disabled="disabled" style="margin-left: 15px" checked="checked" />
+                <p:else>
+                    <input type="checkbox" disabled="disabled" style="margin-left: 15px"/>
+                </p:else>
+            </t:if>
+        </p:enabledcell>
+    </t:grid>
+
+  </div>
+
+</html>

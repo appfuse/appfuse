@@ -1,0 +1,12 @@
+<html t:type="layout" title="message:signup.title"
+          heading="message:signup.heading"
+          xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+
+    <t:userform t:id="signup"
+                user="user"
+                signup="true"
+                clientValidation="none"
+                cookieLogin="cookieLogin"
+                heading="message:signup.heading"
+                submitLabel="${message:button.register}"/>
+</html>

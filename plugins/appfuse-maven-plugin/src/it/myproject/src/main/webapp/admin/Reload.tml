@@ -1,0 +1,14 @@
+<html t:type="layout" title="literal:Reload" menu="AdminMenu"
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+
+    <t:form t:id="reload">
+        <input type="hidden" name="referrer" />
+    </t:form>
+
+    <script type="text/javascript">
+        function submitForm() { var f = $('reload');
+        f.referrer.value = document.referrer; f.submit(); }
+        window.onload=submitForm;
+    </script>
+
+</html>

@@ -1,0 +1,19 @@
+<html t:type="layout" title="mainMenu.title"
+          heading="message:mainMenu.heading" menu="MainMenu" bodyClass="home"
+          xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+
+    <h2>${message:mainMenu.heading}</h2>
+    <p>${message:mainMenu.message}</p>
+
+    <div class="separator"></div>
+
+    <ul class="glassList">
+        <li>
+            <a t:type="actionlink" t:id="editProfile">${message:menu.user}</a>
+        </li>
+        <li>
+            <a t:type="pagelink" page="FileUpload">${message:menu.selectFile}</a>
+        </li>
+    </ul>
+
+</html>
