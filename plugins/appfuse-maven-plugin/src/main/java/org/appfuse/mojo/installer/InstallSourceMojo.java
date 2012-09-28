@@ -26,6 +26,7 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.settings.Settings;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.Get;
 import org.apache.tools.ant.taskdefs.LoadFile;
@@ -88,6 +89,15 @@ public class InstallSourceMojo extends AbstractMojo {
      * @noinspection UnusedDeclaration
      */
     private MavenProject project;
+
+    /**
+     *
+     * @parameter expression="${settings}"
+     * @required
+     * @readonly
+     *
+     */
+    private Settings settings;
 
     public void execute() throws MojoExecutionException, MojoFailureException {
         // http://issues.appfuse.org/browse/APF-1025
@@ -704,6 +714,7 @@ public class InstallSourceMojo extends AbstractMojo {
 
         try {
             maven.setAlignWithUserInstallation(true);
+            maven.setLocalRepositoryDirectory( new File(settings.getLocalRepository() ));
             maven.start();
             p = maven.readProjectWithDependencies(pom);
             maven.stop();
