@@ -201,7 +201,7 @@ public class InstallSourceMojo extends AbstractMojo {
 
         log("Source successfully exported, modifying pom.xml...");
 
-        List dependencies = project.getOriginalModel().getDependencies();
+        List dependencies = project.getDependencies();
         List<Dependency> newDependencies = new ArrayList<Dependency>();
 
         // remove all appfuse dependencies
@@ -216,19 +216,19 @@ public class InstallSourceMojo extends AbstractMojo {
         if (!project.getPackaging().equals("pom") && !project.hasParent()) {
 
             // add dependencies from root appfuse pom
-            newDependencies = addModuleDependencies(newDependencies, "root", "");
+            newDependencies = addModuleDependencies(newDependencies, "root", "", "");
 
             // Add dependencies from appfuse-data
-            newDependencies = addModuleDependencies(newDependencies, "data", "data");
+            newDependencies = addModuleDependencies(newDependencies, "data", "data", "");
 
             // Add dependencies from appfuse-data-common
-            newDependencies = addModuleDependencies(newDependencies, "data-common", "data/common");
+            newDependencies = addModuleDependencies(newDependencies, "data-common", "data/common", "appfuse-data");
 
             // Add dependencies from appfuse-${dao.framework}
-            newDependencies = addModuleDependencies(newDependencies, daoFramework, "data/" + daoFramework);
+            newDependencies = addModuleDependencies(newDependencies, daoFramework, "data/" + daoFramework, "appfuse-data");
 
             // Add dependencies from appfuse-service
-            newDependencies = addModuleDependencies(newDependencies, "service", "service");
+            newDependencies = addModuleDependencies(newDependencies, "service", "service", "");
 
             if (!isWebServicesProject && project.getPackaging().equals("war")) {
                 newDependencies = addWebDependencies(appfuseVersion, newDependencies, webFramework);
@@ -238,7 +238,7 @@ public class InstallSourceMojo extends AbstractMojo {
         } else {
             if (project.getPackaging().equals("pom")) {
                 // add dependencies from root appfuse pom
-                newDependencies = addModuleDependencies(newDependencies, "root", "");
+                newDependencies = addModuleDependencies(newDependencies, "root", "", "");
 
                 createFullSourcePom(newDependencies);
             }
@@ -247,16 +247,16 @@ public class InstallSourceMojo extends AbstractMojo {
                 newDependencies.clear();
 
                 // Add dependencies from appfuse-data
-                newDependencies = addModuleDependencies(newDependencies, "data", "data");
+                newDependencies = addModuleDependencies(newDependencies, "data", "data", "");
 
                 // Add dependencies from appfuse-data-common
-                newDependencies = addModuleDependencies(newDependencies, "data-common", "data/common");
+                newDependencies = addModuleDependencies(newDependencies, "data-common", "data/common", "appfuse-data");
 
                 // Add dependencies from appfuse-${dao.framework}
-                newDependencies = addModuleDependencies(newDependencies, daoFramework, "data/" + daoFramework);
+                newDependencies = addModuleDependencies(newDependencies, daoFramework, "data/" + daoFramework, "appfuse-data");
 
                 // Add dependencies from appfuse-service
-                newDependencies = addModuleDependencies(newDependencies, "service", "service");
+                newDependencies = addModuleDependencies(newDependencies, "service", "service", "service");
 
                 createFullSourcePom(newDependencies);
             }
@@ -273,7 +273,7 @@ public class InstallSourceMojo extends AbstractMojo {
 
     private List<Dependency> addWebDependencies(String appfuseVersion, List<Dependency> newDependencies, String webFramework) {
         // Add dependencies from appfuse-common-web
-        newDependencies = addModuleDependencies(newDependencies, "web", "web");
+        newDependencies = addModuleDependencies(newDependencies, "web", "web", "web");
 
         Double appfuseVersionAsDouble = new Double(appfuseVersion.substring(0, appfuseVersion.lastIndexOf(".")));
 
@@ -282,16 +282,16 @@ public class InstallSourceMojo extends AbstractMojo {
         if (isAppFuse() && appfuseVersionAsDouble < 2.1) {
 
             // Add dependencies from appfuse-common-web
-            newDependencies = addModuleDependencies(newDependencies, "web-common", "web/common");
+            newDependencies = addModuleDependencies(newDependencies, "web-common", "web/common", "common");
 
             //newDependencies = addModuleDependencies(newDependencies, webFramework, "web/" + webFramework);
         }
 
         // modular archetypes still seem to need these - todo: figure out why
         if (isAppFuse() && project.getPackaging().equals("war") && project.hasParent()) {
-            newDependencies = addModuleDependencies(newDependencies, "web-common", "web/common");
+            newDependencies = addModuleDependencies(newDependencies, "web-common", "web/common", "common");
 
-            newDependencies = addModuleDependencies(newDependencies, webFramework, "web/" + webFramework);
+            newDependencies = addModuleDependencies(newDependencies, webFramework, "web/" + webFramework, webFramework);
         }
         return newDependencies;
     }
@@ -366,15 +366,15 @@ public class InstallSourceMojo extends AbstractMojo {
                 newDependencies.add(jsp21);
 
                 // replace jsp.version property as well
-                project.getOriginalModel().getProperties().setProperty("jsp.version", "2.1");
+                project.getProperties().setProperty("jsp.version", "2.1");
             }
         }
 
         Collections.sort(newDependencies, new BeanComparator("groupId"));
 
-        project.getOriginalModel().setDependencies(newDependencies);
+        project.setDependencies(newDependencies);
 
-        Properties currentProperties = project.getOriginalModel().getProperties();
+        Properties currentProperties = project.getProperties();
 
         Set<String> currentKeys = new LinkedHashSet<String>();
         for (Object key : currentProperties.keySet()) {
@@ -527,7 +527,7 @@ public class InstallSourceMojo extends AbstractMojo {
 
             for (String key : propertiesToAdd) {
                 // don't add property if it already exists in project
-                Set<Object> keysInProject = project.getParent().getOriginalModel().getProperties().keySet();
+                Set<Object> keysInProject = project.getParent().getProperties().keySet();
                 if (!keysInProject.contains(key)) {
                     String value = getAppFuseProperties().getProperty(key);
 
@@ -613,8 +613,9 @@ public class InstallSourceMojo extends AbstractMojo {
     private Properties getAppFuseProperties() {
         // should only happen when executing full-source on modular modules (b/c they don't export root).
         if (appfuseProperties == null) {
-            File pom = new File("target/appfuse-root/pom.xml");
-            appfuseProperties = createProjectFromPom(pom).getOriginalModel().getProperties();
+            log("create appfuse-root/pom.xml");
+            File pom = new File(project.getFile().getParent(),"target/appfuse-root/pom.xml");
+            appfuseProperties = createProjectFromPom(pom).getProperties();
         }
         return appfuseProperties;
     }
@@ -652,18 +653,19 @@ public class InstallSourceMojo extends AbstractMojo {
         getLog().info("[AppFuse] " + msg);
     }
 
-    private List<Dependency> addModuleDependencies(List<Dependency> dependencies, String moduleName, String moduleLocation) {
+    private List<Dependency> addModuleDependencies(List<Dependency> dependencies, String moduleName, String moduleLocation, String parentModule) {
         log("Adding dependencies from " + moduleName + " module...");
 
         // Read dependencies from module's pom.xml
         URL pomLocation = null;
-        File newDir = new File("target", "appfuse-" + moduleName);
+
+        File newDir = new File(project.getFile().getParent(), "target/"+ parentModule +"/appfuse-" + moduleName);
 
         if (!newDir.exists()) {
             newDir.mkdirs();
         }
 
-        File pom = new File("target/appfuse-" + moduleName + "/pom.xml");
+        File pom = new File(project.getFile().getParent(),"target/" + parentModule +"/appfuse-" + moduleName + "/pom.xml");
 
         try {
             // replace github.com with raw.github.com and trunk with master
@@ -681,11 +683,11 @@ public class InstallSourceMojo extends AbstractMojo {
 
         MavenProject p = createProjectFromPom(pom);
 
-        List moduleDependencies = p.getOriginalModel().getDependencies();
+        List moduleDependencies = p.getDependencies();//  p.getOriginalModel().getDependencies();
 
         // set the properties for appfuse if root module
         if (moduleName.equalsIgnoreCase("root")) {
-            appfuseProperties = p.getOriginalModel().getProperties();
+            appfuseProperties = p.getProperties();
         }
 
         // create a list of artifactIds to check for duplicates (there's no equals() on Dependency)
@@ -737,9 +739,9 @@ public class InstallSourceMojo extends AbstractMojo {
         // olamy: this catch Exception and returns is IMHO crappy !
         // an exception must be throw and handle by caller !!
         try {
-        return mavenProjectBuilder.buildWithDependencies( pom, local, null );
+            return mavenProjectBuilder.buildWithDependencies( pom, local, null );
         } catch (Exception e) {
-            e.printStackTrace();
+            getLog().warn( "skip error reading maven project: " + e.getMessage(), e );
         }
         return null;
     }

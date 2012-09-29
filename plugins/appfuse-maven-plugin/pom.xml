@@ -163,6 +163,7 @@
 
     <properties>
         <hibernate3.plugin.version>2.2</hibernate3.plugin.version>
+        <invoker.debug>false</invoker.debug>
     </properties>
 
     <profiles>
@@ -173,15 +174,66 @@
           <plugins>
             <plugin>
               <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-clean-plugin</artifactId>
+              <executions>
+                <execution>
+                  <id>cleanup-archetype-project</id>
+                  <phase>package</phase>
+                  <goals>
+                    <goal>clean</goal>
+                  </goals>
+                  <configuration>
+                    <excludeDefaultDirectories>true</excludeDefaultDirectories>
+                    <filesets>
+                      <fileset>
+                        <directory>${project.build.directory}/it/myproject</directory>
+                        <includes>
+                          <include>myproject/**</include>
+                          <include>pom.xml</include>
+                        </includes>
+                      </fileset>
+                    </filesets>
+                  </configuration>
+                </execution>
+              </executions>
+            </plugin>
+            <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>exec-maven-plugin</artifactId>
+              <version>1.2.1</version>
+              <executions>
+                <execution>
+                  <id>generate-project</id>
+                  <phase>pre-integration-test</phase>
+                  <goals>
+                    <goal>exec</goal>
+                  </goals>
+                  <configuration>
+                    <executable>mvn</executable>
+                    <arguments>
+                      <argument>archetype:generate</argument>
+                      <argument>-B</argument>
+                      <argument>-DarchetypeGroupId=org.appfuse.archetypes</argument>
+                      <argument>-DarchetypeArtifactId=appfuse-basic-tapestry-archetype</argument>
+                      <argument>-DarchetypeVersion=${project.version}</argument>
+                      <argument>-DgroupId=com.mycompany</argument>
+                      <argument>-DartifactId=myproject</argument>
+                      <!-- probably not needed as the archetype has been installed previously by the build -->
+                      <argument>-DarchetypeRepository=http://oss.sonatype.org/content/repositories/appfuse</argument>
+                    </arguments>
+                    <workingDirectory>${project.build.directory}/it/myproject</workingDirectory>
+                  </configuration>
+                </execution>
+              </executions>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-invoker-plugin</artifactId>
-              <version>1.6</version>
+              <version>1.7</version>
               <configuration>
-                <debug>true</debug>
+                <debug>${invoker.debug}</debug>
                 <projectsDirectory>src/it</projectsDirectory>
                 <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
-                <pomIncludes>
-                  <pomInclude>*/pom.xml</pomInclude>
-                </pomIncludes>
                 <preBuildHookScript>setup</preBuildHookScript>
                 <postBuildHookScript>validate</postBuildHookScript>
                 <localRepositoryPath>${project.build.directory}/local-repo</localRepositoryPath>
