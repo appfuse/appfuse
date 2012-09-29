@@ -1,1 +1,0 @@
-This file exists so that a unit test which tests sending email with an attachment succeeds.

@@ -1,6 +1,0 @@
-<invoke description="get Login Page" url="/"/>
-<verifytitle description="we should see the login title" text=".*${login.title}.*" regex="true"/>
-<setinputfield description="set user name" name="j_username" value="admin"/>
-<setinputfield description="set password" name="j_password" value="admin"/>
-<clickbutton label="${button.login}" description="Click the submit button"/>
-<verifytitle description="Home Page follows if login ok" text=".*${mainMenu.title}.*" regex="true"/>
