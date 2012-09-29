@@ -15,6 +15,7 @@ import org.apache.maven.plugin.testing.stubs.MavenProjectStub;
 import org.apache.maven.project.MavenProject;
 import org.appfuse.mojo.installer.InstallArtifactsMojo;
 import org.codehaus.plexus.util.FileUtils;
+import org.codehaus.plexus.util.StringUtils;
 
 public abstract class AbstractAppFuseMojoTestCase extends AbstractMojoTestCase {
     private boolean genericCore = false;
@@ -106,8 +107,15 @@ public abstract class AbstractAppFuseMojoTestCase extends AbstractMojoTestCase {
 
         Archetype archetype = (Archetype) lookup(Archetype.ROLE);
 
-        String mavenRepoLocal = "file://" + System.getProperty("user.home") + System.getProperty("file.separator") +
-                ".m2" + System.getProperty("file.separator") + "repository";
+        String localRepoPath = System.getProperty( "localRepoPath" );
+
+        if ( StringUtils.isEmpty( localRepoPath ) )
+        {
+            localRepoPath =  System.getProperty("user.home") + System.getProperty("file.separator") +
+                            ".m2" + System.getProperty("file.separator") + "repository";
+        }
+
+        String mavenRepoLocal = "file://" + localRepoPath;
 
         ArtifactRepositoryLayout layout =
                 (ArtifactRepositoryLayout) container.lookup(ArtifactRepositoryLayout.ROLE, "default");
