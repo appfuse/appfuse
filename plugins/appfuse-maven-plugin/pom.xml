@@ -168,9 +168,8 @@
 
     <profiles>
       <profile>
-        <id>run-its</id>
+        <id>itest</id>
         <build>
-
           <plugins>
             <plugin>
               <groupId>org.apache.maven.plugins</groupId>
