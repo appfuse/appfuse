@@ -549,7 +549,7 @@
         <jdbc.password />
 
         <!-- Search index settings -->
-        <search.index.basedir>${project.build.testOutputDirectory}</search.index.basedir>
+        <search.index.basedir>${project.build.directory}/index</search.index.basedir>
 
         <cargo.container>tomcat7x</cargo.container>
         <cargo.container.url>
