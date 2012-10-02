@@ -553,7 +553,7 @@
 
         <cargo.container>tomcat7x</cargo.container>
         <cargo.container.url>
-            http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.29/bin/apache-tomcat-7.0.29.zip
+            http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.30/bin/apache-tomcat-7.0.30.zip
         </cargo.container.url>
         <cargo.container.home>${env.CATALINA_HOME}</cargo.container.home>
         <cargo.host>localhost</cargo.host>
@@ -564,7 +564,7 @@
         <ajax4jsf.version>1.0.6</ajax4jsf.version>
         <asm.version>2.2.3</asm.version>
         <aspectj.version>1.6.10</aspectj.version>
-        <cargo.version>1.2.3</cargo.version>
+        <cargo.version>1.2.4</cargo.version>
         <commons.lang.version>2.6</commons.lang.version>
         <commons.beanutils.version>1.8.3</commons.beanutils.version>
         <commons.collections.version>3.2.1</commons.collections.version>
@@ -589,7 +589,7 @@
         <jpa.version>2.0-cr-1</jpa.version>
         <jsp.version>2.1</jsp.version>
         <jstl.version>1.2</jstl.version>
-        <junit.version>4.8.2</junit.version>
+        <junit.version>4.10</junit.version>
         <log4j.version>1.2.16</log4j.version>
         <myfaces.version>2.1.5</myfaces.version>
         <myfaces.tomahawk.version>1.1.11</myfaces.tomahawk.version>
