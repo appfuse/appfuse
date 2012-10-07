@@ -140,6 +140,11 @@ public class InstallSourceMojo extends AbstractMojo {
             log("Installing source from data-common module...");
             export("data/common/src", (modular) ? "core/src" : destinationDirectory);
 
+            // Keep web project original testing hibernate.properties instead of overwriting it: rename
+            File orig = new File((modular ? "core/" : "") + "src/test/resources/hibernate.properties");
+            File dest = new File((modular ? "core/" : "") + "src/test/resources/hibernate.properties.orig");
+            orig.renameTo(dest);
+
             // export persistence framework
             log("Installing source from " + daoFramework + " module...");
             export("data/" + daoFramework + "/src", (modular) ? "core/src" : destinationDirectory);
@@ -162,6 +167,11 @@ public class InstallSourceMojo extends AbstractMojo {
             if ("jpa".equalsIgnoreCase(daoFramework)) {
                 deleteFile("main/resources/hibernate.cfg.xml");
             }
+
+            // Keep web project original testing hibernate.properties instead of overwriting it: delete copied and rename back
+            orig.delete();
+            dest.renameTo(orig);
+
         }
 
         // it's OK if a project created with appfuse-ws doesn't have a web framework defined
