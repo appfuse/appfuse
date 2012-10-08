@@ -141,9 +141,11 @@ public class InstallSourceMojo extends AbstractMojo {
             export("data/common/src", (modular) ? "core/src" : destinationDirectory);
 
             // Keep web project original testing hibernate.properties instead of overwriting it: rename
-            File orig = new File((modular ? "core/" : "") + "src/test/resources/hibernate.properties");
-            File dest = new File((modular ? "core/" : "") + "src/test/resources/hibernate.properties.orig");
-            orig.renameTo(dest);
+            File orig = new File((modular ? "core/src" : destinationDirectory) + "/test/resources/hibernate.properties");
+            File dest = new File((modular ? "core/src" : destinationDirectory) + "/test/resources/hibernate.properties.orig");
+            if (webFramework != null && !webFramework.isEmpty()) {
+                renameFile(orig, dest);
+            }
 
             // export persistence framework
             log("Installing source from " + daoFramework + " module...");
@@ -169,9 +171,10 @@ public class InstallSourceMojo extends AbstractMojo {
             }
 
             // Keep web project original testing hibernate.properties instead of overwriting it: delete copied and rename back
-            orig.delete();
-            dest.renameTo(orig);
-
+            if (webFramework != null && !webFramework.isEmpty()) {
+                deleteFile(orig.getPath());
+                renameFile(dest, orig);
+            }
         }
 
         // it's OK if a project created with appfuse-ws doesn't have a web framework defined
@@ -790,4 +793,19 @@ public class InstallSourceMojo extends AbstractMojo {
         moveTask.addFileset(fileSet);
         moveTask.execute();
     }
+    /**
+     * This method will movie files from the source directory to the destination directory based on
+     * the pattern.
+     *
+     * @param from      The source file to rename.
+     * @param to        The file to rename to.
+     */
+    protected void renameFile(final File from, final File to) {
+        Move moveTask = (Move) antProject.createTask("move");
+
+        moveTask.setFile(from);
+        moveTask.setTofile(to);
+        moveTask.execute();
+    }
+
 }
