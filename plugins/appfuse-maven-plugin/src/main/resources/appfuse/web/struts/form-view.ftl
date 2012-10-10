@@ -76,7 +76,9 @@
 <#if dateExists><#rt/>
 <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/scripts/datepicker/css/datepicker.css'/>" />
 <script type="text/javascript" src="<c:url value='/scripts/datepicker/js/bootstrap-datepicker.js'/>"></script>
+<c:if test="${'$'}{pageContext.request.locale.language != 'en'}">
 <script type="text/javascript" src="<c:url value='/scripts/datepicker/js/locales/bootstrap-datepicker.${r"${pageContext.request.locale.language}"}.js'/>"></script>
+</c:if>
 </#if><#rt/>
 <script type="text/javascript">
     $(document).ready(function() {
