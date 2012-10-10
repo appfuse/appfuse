@@ -70,7 +70,3 @@
         </a>
     </div>
 </div>
-
-<script type="text/javascript">
-    highlightTableRows("${pojoNameLower}List");
-</script>

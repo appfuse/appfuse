@@ -59,10 +59,6 @@
     <ui:param name="tableName" value="${util.getPluralForWord(pojoNameLower)}"/>
 </ui:include>
 
-<script type="text/javascript">
-    highlightTableRows("edit${pojo.shortName}:${util.getPluralForWord(pojoNameLower)}");
-</script>
-
 </h:form>
 </body>
 </f:view>

@@ -86,8 +86,4 @@ public class UserList {
     Object onSubmit() {
         return this;
     }
-
-    void afterRender() {
-       // jsSupport.addScript("Event.observe(window, 'load', function() {highlightTableRows('userList');})");
-    }
 }
