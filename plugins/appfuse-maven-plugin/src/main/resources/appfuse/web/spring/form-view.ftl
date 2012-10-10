@@ -73,7 +73,6 @@
 <script type="text/javascript" src="<c:url value='/scripts/calendar/lang/calendar-en.js'/>"></script>
 </#if><#rt/>
 <script type="text/javascript">
-    Form.focusFirstElement($('${pojoNameLower}Form'));
 <#foreach field in pojo.getAllPropertiesIterator()>
     <#if !c2h.isCollection(field) && !c2h.isManyToOne(field) && field.value.typeName == "java.util.Date">
     Calendar.setup({inputField: "${field.name}", ifFormat: "%m/%d/%Y", button: "${field.name}DatePicker"});
