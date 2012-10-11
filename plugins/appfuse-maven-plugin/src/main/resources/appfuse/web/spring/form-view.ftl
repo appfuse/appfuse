@@ -34,7 +34,7 @@
     <li>
         <appfuse:label styleClass="desc" key="${pojoNameLower}.${field.name}"/>
         <form:errors path="${field.name}" cssClass="fieldError"/>
-        <#if field.value.typeName == "java.util.Date">
+        <#if field.value.typeName == "java.util.Date" || field.value.typeName == "date">
         <#assign dateExists = true/>
         <form:input path="${field.name}" id="${field.name}" cssClass="text" size="11"/>
         <img src="<c:url value='/images/iconCalendar.gif'/>" alt="" id="${field.name}DatePicker" class="calIcon"/>
@@ -74,7 +74,7 @@
 </#if><#rt/>
 <script type="text/javascript">
 <#foreach field in pojo.getAllPropertiesIterator()>
-    <#if !c2h.isCollection(field) && !c2h.isManyToOne(field) && field.value.typeName == "java.util.Date">
+    <#if !c2h.isCollection(field) && !c2h.isManyToOne(field) && (field.value.typeName == "java.util.Date" || field.value.typeName == "date">
     Calendar.setup({inputField: "${field.name}", ifFormat: "%m/%d/%Y", button: "${field.name}DatePicker"});
     </#if>
 </#foreach>

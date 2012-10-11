@@ -43,7 +43,7 @@
             <f:param name="from" value="list"/>
         </h:commandLink>
 <#elseif !c2h.isCollection(field) && !c2h.isManyToOne(field) && !c2j.isComponent(field)>
-    <#if field.value.typeName == "java.util.Date">
+    <#if field.value.typeName == "java.util.Date" || field.value.typeName == "date">
         <#lt/>    <h:outputText value="${'#'}{${pojoNameLower}.${field.name}}" escape="true"/>
     <#elseif field.value.typeName == "boolean">
         <#lt/>    <h:selectBooleanCheckbox value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}" id="${field.name}" disabled="disabled"/>

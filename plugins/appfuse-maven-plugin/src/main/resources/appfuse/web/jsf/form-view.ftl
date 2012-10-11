@@ -39,7 +39,7 @@
     <h:outputLabel styleClass="desc" for="${field.name}" value="${'#'}{text['${pojoNameLower}.${field.name}']}"/>
     <t:message for="${field.name}" styleClass="fieldError"/>
     <#foreach column in field.getColumnIterator()>
-        <#if field.value.typeName == "java.util.Date">
+        <#if field.value.typeName == "java.util.Date" || field.value.typeName == "date">
             <#lt/>    <h:inputText styleClass="text medium" id="${field.name}" value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}" required="${(!column.nullable)?string}">
         <#if !column.nullable>
         <v:commonsValidator client="true" type="required" arg="${'#'}{text['${pojoNameLower}.${field.name}']}"/>

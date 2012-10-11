@@ -38,7 +38,7 @@
             paramId="${field.name}" paramProperty="${field.name}" titleKey="${pojoNameLower}.${field.name}"/>
         <display:column property="${field.name}" media="csv excel xml pdf" titleKey="${pojoNameLower}.${field.name}"/>
 <#elseif !c2h.isCollection(field) && !c2h.isManyToOne(field) && !c2j.isComponent(field)>
-    <#if field.value.typeName == "java.util.Date">
+    <#if field.value.typeName == "java.util.Date" || field.value.typeName == "date">
         <#lt/>        <display:column sortProperty="${field.name}" sortable="true" titleKey="${pojoNameLower}.${field.name}">
         <#lt/>             <fmt:formatDate value="${'$'}{${pojoNameLower}List.${field.name}}" pattern="${'$'}{datePattern}"/>
         <#lt/>        </display:column>
