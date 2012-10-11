@@ -31,7 +31,7 @@
 
     <!-- Logout of the application -->
     <target name="Logout" description="Runs logout test and verifies Login's Title">
-        <webtest name="login">
+        <webtest name="logout">
             &config;
             <steps>
                 &login;
