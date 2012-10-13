@@ -20,6 +20,10 @@
  * under the License.
  */
 -->
+<#if datepicker?default(false) == true>
+<span class="add-on btn"><i class="icon-th"></i></span>
+</div>
+</#if>
 ${parameters.after?if_exists}<#t/>
 <#if hasFieldErrors>
 <span class="help-inline">

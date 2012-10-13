@@ -1,6 +1,6 @@
 <#--
 /*
- * $Id: controlheader.ftl 720258 2008-11-24 19:05:16Z musachy $
+ * $Id: dynamic-attributes.ftl 1144250 2011-07-08 10:54:01Z lukaszlenart $
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -20,11 +20,11 @@
  * under the License.
  */
 -->
-<#assign hasFieldErrors = parameters.name?? && fieldErrors?? && fieldErrors[parameters.name]??/>
-<fieldset class="control-group<#if hasFieldErrors> error</#if>">
-<#include "/${parameters.templateDir}/css_xhtml/controlheader-core.ftl">
-<div class="controls">
-<#include "/${parameters.templateDir}/css_xhtml/datepicker-check.ftl">
-<#if datepicker?default(false) == true>
-<div class="input-append date">
+<#if (parameters.dynamicAttributes?? && parameters.dynamicAttributes?size > 0)><#rt/>
+<#assign aKeys = parameters.dynamicAttributes.keySet()><#rt/>
+<#list aKeys as aKey><#rt/>
+<#if aKey = "datepicker">
+<#assign datepicker = true>
 </#if>
+</#list><#rt/>
+</#if><#rt/>

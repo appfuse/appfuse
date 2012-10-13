@@ -34,7 +34,7 @@
     <#foreach column in field.getColumnIterator()>
         <#if field.value.typeName == "java.util.Date" || field.value.typeName == "date">
             <#assign dateExists = true>
-            <#lt/>        <s:textfield key="${pojoNameLower}.${field.name}" required="${(!column.nullable)?string}" <#if (column.length > 0)>maxlength="${column.length?c}" </#if>cssClass="text" size="11" title="date"/>
+            <#lt/>        <s:textfield key="${pojoNameLower}.${field.name}" required="${(!column.nullable)?string}" <#if (column.length > 0)>maxlength="${column.length?c}" </#if>cssClass="text" size="11" title="date" datepicker="true"/>
         <#elseif field.value.typeName == "boolean" || field.value.typeName == "java.lang.Boolean">
             <#lt/>    <li>
             <#lt/>        <s:checkbox key="${pojoNameLower}.${field.name}" cssClass="checkbox" theme="simple"/>
@@ -83,10 +83,8 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $("input[type='text']:visible:enabled:first", document.forms['${pojoNameLower}Form']).focus();
-<#foreach field in pojo.getAllPropertiesIterator()>
-    <#if !c2h.isCollection(field) && !c2h.isManyToOne(field) && !c2j.isComponent(field) && (field.value.typeName == "java.util.Date" || field.value.typeName == "date")>
-        ${'$'}('${'#'}${pojoNameLower}Form_${pojoNameLower}_${field.name}').datepicker({format: "<fmt:message key="calendar.format"/>", weekStart: "<fmt:message key="calendar.weekstart"/>", language: '${r"${pageContext.request.locale.language}"}'});    
-    </#if>
-</#foreach>
+<#if dateExists>
+        ${'$'}('.input-append.date').datepicker({format: "<fmt:message key='calendar.format'/>", weekStart: "<fmt:message key='calendar.weekstart'/>", language: '${r"${pageContext.request.locale.language}"}'});
+</#if>
     });
 </script>
