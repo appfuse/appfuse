@@ -74,7 +74,7 @@
 </#if><#rt/>
 <script type="text/javascript">
 <#foreach field in pojo.getAllPropertiesIterator()>
-    <#if !c2h.isCollection(field) && !c2h.isManyToOne(field) && (field.value.typeName == "java.util.Date" || field.value.typeName == "date">
+    <#if !c2h.isCollection(field) && !c2h.isManyToOne(field) && (field.value.typeName == "java.util.Date" || field.value.typeName == "date")>
     Calendar.setup({inputField: "${field.name}", ifFormat: "%m/%d/%Y", button: "${field.name}DatePicker"});
     </#if>
 </#foreach>
