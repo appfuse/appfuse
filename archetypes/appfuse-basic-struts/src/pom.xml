@@ -683,7 +683,7 @@
         <commons.io.version>2.0.1</commons.io.version>
         <displaytag.version>1.2</displaytag.version>
         <spring.version>3.1.0.RELEASE</spring.version>
-        <struts.version>2.3.3</struts.version>
+        <struts.version>2.3.4.1</struts.version>
 
         <!-- Testing dependency versions -->
         <cargo.version>1.2.4</cargo.version>
