@@ -6,7 +6,7 @@
 <div class="span10">
     <div id="search">
     <form t:type="form" method="get" t:id="searchForm" autofocus="false" class="form-search">
-        <t:textfield size="20" name="q" t:id="q" placeholder="Enter search terms..." class="input-medium search-query"/>
+        <t:textfield size="20" name="q" t:id="q" placeholder="${'$'}{message:search.enterTerms}" class="input-medium search-query"/>
         <input t:type="submit" value="${'$'}{message:button.search}" class="btn"/>
     </form>
     </div>

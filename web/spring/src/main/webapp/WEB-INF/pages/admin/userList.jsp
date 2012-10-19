@@ -11,7 +11,7 @@
     <div id="search">
         <form method="get" action="${ctx}/admin/users" id="searchForm" class="form-search">
             <input type="text" size="20" name="q" id="query" value="${param.q}"
-                   placeholder="Enter search terms..." class="input-medium search-query"/>
+                   placeholder="<fmt:message key="search.enterTerms"/>" class="input-medium search-query"/>
             <input type="submit" value="<fmt:message key="button.search"/>" class="btn"/>
         </form>
     </div>
