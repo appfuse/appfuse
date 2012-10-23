@@ -163,11 +163,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>native2ascii-maven-plugin</artifactId>
-                <version>1.0-alpha-1</version>
-                <configuration>
-                    <dest>target/resources</dest>
-                    <src>src/main/resources</src>
-                </configuration>
+                <version>1.0-beta-1</version>
                 <executions>
                     <execution>
                         <id>native2ascii-utf8</id>
@@ -177,15 +173,15 @@
                         <configuration>
                             <encoding>UTF8</encoding>
                             <includes>
-                                ApplicationResources_*.properties
+                                <include>ApplicationResources_*.properties</include>
                             </includes>
                             <excludes>
-                                ApplicationResources.properties,
-                                ApplicationResources_de*.properties,
-                                ApplicationResources_fr*.properties,
-                                ApplicationResources_nl*.properties,
-                                ApplicationResources_pt*.properties,
-                                ApplicationResources_es*.properties
+                                <exclude>ApplicationResources.properties</exclude>
+                                <exclude>ApplicationResources_de*.properties</exclude>
+                                <exclude>ApplicationResources_fr*.properties</exclude>
+                                <exclude>ApplicationResources_nl*.properties</exclude>
+                                <exclude>ApplicationResources_pt*.properties</exclude>
+                                <exclude>ApplicationResources_es*.properties</exclude>
                             </excludes>
                         </configuration>
                     </execution>
@@ -197,12 +193,12 @@
                         <configuration>
                             <encoding>8859_1</encoding>
                             <includes>
-                                ApplicationResources.properties,
-                                ApplicationResources_de.properties,
-                                ApplicationResources_fr.properties,
-                                ApplicationResources_nl.properties,
-                                ApplicationResources_pt*.properties,
-                                ApplicationResources_es*.properties
+                                <include>ApplicationResources.properties</include>
+                                <include>ApplicationResources_de.properties</include>
+                                <include>ApplicationResources_fr.properties</include>
+                                <include>ApplicationResources_nl.properties</include>
+                                <include>ApplicationResources_pt*.properties</include>
+                                <include>ApplicationResources_es*.properties</include>
                             </includes>
                         </configuration>
                     </execution>
@@ -212,13 +208,6 @@
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
-                <excludes>
-                    <exclude>ApplicationResources*.properties</exclude>
-                </excludes>
-                <filtering>true</filtering>
-            </resource>
-            <resource>
-                <directory>target/resources</directory>
                 <filtering>true</filtering>
             </resource>
         </resources>

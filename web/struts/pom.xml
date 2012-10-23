@@ -100,11 +100,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>native2ascii-maven-plugin</artifactId>
-                <version>1.0-alpha-1</version>
-                <configuration>
-                    <dest>target/classes</dest>
-                    <src>src/main/resources</src>
-                </configuration>
+                <version>1.0-beta-1</version>
                 <executions>
                     <execution>
                         <id>native2ascii-utf8</id>
@@ -113,7 +109,11 @@
                         </goals>
                         <configuration>
                             <encoding>UTF8</encoding>
-                            <includes>errors_ko*,errors_tr*,errors_zh*</includes>
+                            <includes>
+                                <include>errors_ko*</include>
+                                <include>errors_tr*</include>
+                                <include>errors_zh*</include>
+                            </includes>
                         </configuration>
                     </execution>
                     <execution>
@@ -124,10 +124,10 @@
                         <configuration>
                             <encoding>8859_1</encoding>
                             <includes>
-                                errors_de.properties,
-                                errors_fr.properties,
-                                errors_nl.properties,
-                                errors_pt*.properties
+                                <include>errors_de.properties</include>
+                                <include>errors_fr.properties</include>
+                                <include>errors_nl.properties</include>
+                                <include>errors_pt*.properties</include>
                             </includes>
                         </configuration>
                     </execution>
@@ -137,15 +137,6 @@
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
-                <excludes>
-                    <exclude>errors_de.properties</exclude>
-                    <exclude>errors_fr.properties</exclude>
-                    <exclude>errors_ko.properties</exclude>
-                    <exclude>errors_nl.properties</exclude>
-                    <exclude>errors_pt*.properties</exclude>
-                    <exclude>errors_tr.properties</exclude>
-                    <exclude>errors_zh*.properties</exclude>
-                </excludes>
                 <filtering>true</filtering>
             </resource>
             <resource>

@@ -68,11 +68,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>native2ascii-maven-plugin</artifactId>
-                <version>1.0-alpha-1</version>
-                <configuration>
-                    <dest>target/classes</dest>
-                    <src>src/main/resources</src>
-                </configuration>
+                <version>1.0-beta-1</version>
                 <executions>
                     <execution>
                         <id>native2ascii-utf8</id>
@@ -82,12 +78,12 @@
                         <configuration>
                             <encoding>UTF8</encoding>
                             <includes>
-                                ApplicationResources_ko.properties,
-                                ApplicationResources_no.properties,
-                                ApplicationResources_tr.properties,
-                                ApplicationResources_zh*.properties,
-                                displaytag_tr.properties,
-                                displaytag_zh*.properties
+                                <include>ApplicationResources_ko.properties</include>
+                                <include>ApplicationResources_no.properties</include>
+                                <include>ApplicationResources_tr.properties</include>
+                                <include>ApplicationResources_zh*.properties</include>
+                                <include>displaytag_tr.properties</include>
+                                <include>displaytag_zh*.properties</include>
                             </includes>
                         </configuration>
                     </execution>
@@ -99,10 +95,10 @@
                         <configuration>
                             <encoding>8859_1</encoding>
                             <includes>
-                                ApplicationResources_de.properties,
-                                ApplicationResources_fr.properties,
-                                ApplicationResources_nl.properties,
-                                ApplicationResources_pt*.properties
+                                <include>ApplicationResources_de.properties</include>
+                                <include>ApplicationResources_fr.properties</include>
+                                <include>ApplicationResources_nl.properties</include>
+                                <include>ApplicationResources_pt*.properties</include>
                             </includes>
                         </configuration>
                     </execution>
@@ -113,16 +109,6 @@
             <resource>
                 <directory>src/main/resources</directory>
                 <excludes>
-                    <exclude>ApplicationResources_de.properties</exclude>
-                    <exclude>ApplicationResources_fr.properties</exclude>
-                    <exclude>ApplicationResources_ko.properties</exclude>
-                    <exclude>ApplicationResources_nl.properties</exclude>
-                    <exclude>ApplicationResources_no.properties</exclude>
-                    <exclude>ApplicationResources_pt*.properties</exclude>
-                    <exclude>ApplicationResources_tr.properties</exclude>
-                    <exclude>ApplicationResources_zh*.properties</exclude>
-                    <exclude>displaytag_tr.properties</exclude>
-                    <exclude>displaytag_zh*.properties</exclude>
                     <exclude>applicationContext-resources.xml</exclude>
                 </excludes>
                 <filtering>true</filtering>
