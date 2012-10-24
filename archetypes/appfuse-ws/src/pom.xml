@@ -49,6 +49,11 @@
                 <artifactId>appfuse-maven-plugin</artifactId>
                 <version>${appfuse.version}</version>
                 <configuration>
+                    <!-- Fix annotation detection issue for Java 7. Thanks Shred! -->
+                    <!-- http://www.shredzone.de/cilla/page/352/hibernate3-maven-plugin-fails-with-java-17.html -->
+                    <componentProperties>
+                        <implementation>annotationconfiguration</implementation>
+                    </componentProperties>
                     <genericCore>${amp.genericCore}</genericCore>
                     <fullSource>${amp.fullSource}</fullSource>
                 </configuration>

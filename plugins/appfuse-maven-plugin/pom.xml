@@ -146,13 +146,6 @@
             <artifactId>svnkit</artifactId>
             <version>1.1.2</version>
         </dependency>
-        <!-- full text search. TO BE REMOVED when removing ibatis -->
-        <dependency>
-            <groupId>org.compass-project</groupId>
-            <artifactId>compass</artifactId>
-            <version>2.2.0</version>
-            <scope>test</scope>
-        </dependency>
         <!-- full text search -->
         <dependency>
             <groupId>org.hibernate</groupId>

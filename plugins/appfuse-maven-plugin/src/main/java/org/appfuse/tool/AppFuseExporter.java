@@ -1,10 +1,8 @@
 package org.appfuse.tool;
 
-import org.apache.maven.plugin.MojoExecutionException;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.tool.hbm2x.GenericExporter;
 import org.hibernate.tool.hbm2x.pojo.POJOClass;
-import org.hibernate.util.StringHelper;
 
 import java.io.File;
 import java.util.Map;
@@ -243,20 +241,20 @@ public class AppFuseExporter extends GenericExporter {
             @Override
             protected String resolveFilename(POJOClass element) {
                 String filename = super.resolveFilename(element);
-                String packageLocation = StringHelper.replace(getPackageNameForFile(element), ".", "/");
+                String packageLocation = getPackageNameForFile(element).replace(".", "/");
 
                 String pojoName = System.getProperty("entity");
 
                 // A dot in the entity name means the person is specifying the package.
                 if (System.getProperty("entity").contains(".")) {
                     packageLocation = pojoName.substring(0, pojoName.indexOf(".model"));
-                    packageLocation = StringHelper.replace(packageLocation, ".", "/");
+                    packageLocation = packageLocation.replace(".", "/");
                 }
 
                 if (packageLocation.endsWith("model") && packageLocation.indexOf('/') > -1) {
                     packageLocation = packageLocation.substring(0, packageLocation.lastIndexOf('/'));
                 }
-                filename = StringHelper.replace(filename, "{basepkg-name}", packageLocation);
+                filename = filename.replace("{basepkg-name}", packageLocation);
                 return filename;
             }
         };
