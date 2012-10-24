@@ -4,3 +4,5 @@ target
 *.iws
 *.ipr
 web/tapestry/src/main/webapp/WEB-INF/app*.properties
+
+*.log
