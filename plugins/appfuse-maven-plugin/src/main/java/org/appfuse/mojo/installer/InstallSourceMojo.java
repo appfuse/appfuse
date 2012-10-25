@@ -214,7 +214,7 @@ public class InstallSourceMojo extends AbstractMojo {
 
         log("Source successfully exported, modifying pom.xml...");
 
-        List dependencies = project.getDependencies();
+        List dependencies = project.getOriginalModel().getDependencies();
         List<Dependency> newDependencies = new ArrayList<Dependency>();
 
         // remove all appfuse dependencies
@@ -379,15 +379,15 @@ public class InstallSourceMojo extends AbstractMojo {
                 newDependencies.add(jsp21);
 
                 // replace jsp.version property as well
-                project.getProperties().setProperty("jsp.version", "2.1");
+                project.getOriginalModel().getProperties().setProperty("jsp.version", "2.1");
             }
         }
 
         Collections.sort(newDependencies, new BeanComparator("groupId"));
 
-        project.setDependencies(newDependencies);
+        project.getOriginalModel().setDependencies(newDependencies);
 
-        Properties currentProperties = project.getProperties();
+        Properties currentProperties = project.getOriginalModel().getProperties();
 
         Set<String> currentKeys = new LinkedHashSet<String>();
         for (Object key : currentProperties.keySet()) {
@@ -540,7 +540,7 @@ public class InstallSourceMojo extends AbstractMojo {
 
             for (String key : propertiesToAdd) {
                 // don't add property if it already exists in project
-                Set<Object> keysInProject = project.getParent().getProperties().keySet();
+                Set<Object> keysInProject = project.getParent().getOriginalModel().getProperties().keySet();
                 if (!keysInProject.contains(key)) {
                     String value = getAppFuseProperties().getProperty(key);
 
@@ -627,8 +627,8 @@ public class InstallSourceMojo extends AbstractMojo {
         // should only happen when executing full-source on modular modules (b/c they don't export root).
         if (appfuseProperties == null) {
             log("create appfuse-root/pom.xml");
-            File pom = new File(project.getFile().getParent(),"target/appfuse-root/pom.xml");
-            appfuseProperties = createProjectFromPom(pom).getProperties();
+            File pom = new File("target/appfuse-root/pom.xml");
+            appfuseProperties = createProjectFromPom(pom).getOriginalModel().getProperties();
         }
         return appfuseProperties;
     }
@@ -671,14 +671,13 @@ public class InstallSourceMojo extends AbstractMojo {
 
         // Read dependencies from module's pom.xml
         URL pomLocation = null;
-
-        File newDir = new File(project.getFile().getParent(), "target/"+ parentModule +"/appfuse-" + moduleName);
+        File newDir = new File("target", "appfuse-" + moduleName);
 
         if (!newDir.exists()) {
             newDir.mkdirs();
         }
 
-        File pom = new File(project.getFile().getParent(),"target/" + parentModule +"/appfuse-" + moduleName + "/pom.xml");
+        File pom = new File("target/appfuse-" + moduleName + "/pom.xml");
 
         try {
             // replace github.com with raw.github.com and trunk with master
@@ -696,11 +695,11 @@ public class InstallSourceMojo extends AbstractMojo {
 
         MavenProject p = createProjectFromPom(pom);
 
-        List moduleDependencies = p.getDependencies();//  p.getOriginalModel().getDependencies();
+        List moduleDependencies = p.getOriginalModel().getDependencies();
 
         // set the properties for appfuse if root module
         if (moduleName.equalsIgnoreCase("root")) {
-            appfuseProperties = p.getProperties();
+            appfuseProperties = p.getOriginalModel().getProperties();
         }
 
         // create a list of artifactIds to check for duplicates (there's no equals() on Dependency)
@@ -730,27 +729,6 @@ public class InstallSourceMojo extends AbstractMojo {
     }
 
     private MavenProject createProjectFromPom(File pom) {
-        /*MavenEmbedder maven = new MavenEmbedder();
-        maven.setOffline(settings.isOffline());
-        maven.setClassLoader(Thread.currentThread().getContextClassLoader());
-        maven.setLogger(new MavenEmbedderConsoleLogger());
-
-        MavenProject p = null;
-
-        try {
-            maven.setAlignWithUserInstallation( true );
-            maven.setLocalRepositoryDirectory( new File(settings.getLocalRepository() ));
-
-            maven.start();
-            p = maven.readProjectWithDependencies(pom);
-            maven.stop();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return p;*/
-        // olamy: this catch Exception and returns is IMHO crappy !
-        // an exception must be throw and handle by caller !!
         try {
             return mavenProjectBuilder.buildWithDependencies( pom, local, null );
         } catch (Exception e) {
