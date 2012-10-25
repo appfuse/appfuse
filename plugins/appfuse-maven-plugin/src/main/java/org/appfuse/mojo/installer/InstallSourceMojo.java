@@ -107,7 +107,7 @@ public class InstallSourceMojo extends AbstractMojo {
     /**
      * @parameter default-value= "${localRepository}"
      */
-     private ArtifactRepository local;
+    private ArtifactRepository local;
 
     public void execute() throws MojoExecutionException, MojoFailureException {
         // http://issues.appfuse.org/browse/APF-1025
@@ -626,7 +626,6 @@ public class InstallSourceMojo extends AbstractMojo {
     private Properties getAppFuseProperties() {
         // should only happen when executing full-source on modular modules (b/c they don't export root).
         if (appfuseProperties == null) {
-            log("create appfuse-root/pom.xml");
             File pom = new File("target/appfuse-root/pom.xml");
             appfuseProperties = createProjectFromPom(pom).getOriginalModel().getProperties();
         }
@@ -671,13 +670,13 @@ public class InstallSourceMojo extends AbstractMojo {
 
         // Read dependencies from module's pom.xml
         URL pomLocation = null;
-        File newDir = new File("target", "appfuse-" + moduleName);
+        File newDir = new File(project.getFile().getParent(), "target/"+ parentModule +"/appfuse-" + moduleName);
 
         if (!newDir.exists()) {
             newDir.mkdirs();
         }
 
-        File pom = new File("target/appfuse-" + moduleName + "/pom.xml");
+        File pom = new File(project.getFile().getParent(),"target/" + parentModule +"/appfuse-" + moduleName + "/pom.xml");
 
         try {
             // replace github.com with raw.github.com and trunk with master
@@ -713,7 +712,7 @@ public class InstallSourceMojo extends AbstractMojo {
         for (Object moduleDependency : moduleDependencies) {
             Dependency dep = (Dependency) moduleDependency;
 
-            if (dep.getGroupId().equals("javax.servlet") && dep.getArtifactId().equals("jsp-api")
+            if (dep.getGroupId().equals("javax.servlet.jsp") && dep.getArtifactId().equals("jsp-api")
                     && "jsf".equals(project.getProperties().getProperty("web.framework"))) {
                 // skip adding dependency for old group id of jsp-api
                 continue;
@@ -730,7 +729,7 @@ public class InstallSourceMojo extends AbstractMojo {
 
     private MavenProject createProjectFromPom(File pom) {
         try {
-            return mavenProjectBuilder.buildWithDependencies( pom, local, null );
+            return mavenProjectBuilder.buildWithDependencies(pom, local, null);
         } catch (Exception e) {
             getLog().warn( "skip error reading maven project: " + e.getMessage(), e );
         }
