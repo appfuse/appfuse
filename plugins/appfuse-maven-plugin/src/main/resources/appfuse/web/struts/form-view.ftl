@@ -36,11 +36,7 @@
             <#assign dateExists = true>
             <#lt/>        <s:textfield key="${pojoNameLower}.${field.name}" required="${(!column.nullable)?string}" <#if (column.length > 0)>maxlength="${column.length?c}" </#if>cssClass="text" size="11" title="date" datepicker="true"/>
         <#elseif field.value.typeName == "boolean" || field.value.typeName == "java.lang.Boolean">
-            <#lt/>    <li>
-            <#lt/>        <s:checkbox key="${pojoNameLower}.${field.name}" cssClass="checkbox" theme="simple"/>
-            <#lt/>        <!-- For some reason, key prints out the raw value for the label (i.e. true) instead of the i18n key: https://issues.apache.org/struts/browse/WW-1958-->
-            <#lt/>        <s:label for="${pojoNameLower}Form_${pojoNameLower}_${field.name}" value="%{getText('${pojoNameLower}.${field.name}')}" cssClass="choice desc" theme="simple"/>
-            <#lt/>    </li>
+            <#lt/>        <s:checkbox key="${pojoNameLower}.${field.name}" cssClass="checkbox" theme="css_xhtml"/>
         <#else>
             <#lt/>        <s:textfield key="${pojoNameLower}.${field.name}" required="${(!column.nullable)?string}" <#if (column.length > 0)>maxlength="${column.length?c}" </#if>cssClass="text medium"/>
         </#if>
