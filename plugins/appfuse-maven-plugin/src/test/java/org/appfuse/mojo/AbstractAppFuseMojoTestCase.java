@@ -133,6 +133,7 @@ public abstract class AbstractAppFuseMojoTestCase extends AbstractMojoTestCase {
         request.setLocalRepository(localRepository);
         request.setRemoteArtifactRepositories(remoteRepositories);
         request.setOutputDirectory(getTestFile("target").getAbsolutePath());
+        System.out.println("Setting output directory to: " + getTestFile("target").getAbsolutePath());
 
         archetype.generateProjectFromArchetype(request);
     }
