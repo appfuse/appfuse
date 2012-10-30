@@ -115,19 +115,22 @@ public abstract class AbstractAppFuseMojoTestCase extends AbstractMojoTestCase {
                             ".m2" + System.getProperty("file.separator") + "repository";
         }
 
+        System.out.println("localRepoPath: " + localRepoPath);
+
         String mavenRepoLocal = "file://" + localRepoPath;
 
         ArtifactRepositoryLayout layout =
                 (ArtifactRepositoryLayout) container.lookup(ArtifactRepositoryLayout.ROLE, "default");
         
         ArtifactRepository localRepository = new DefaultArtifactRepository("local", mavenRepoLocal, layout);
+        System.out.println("localRepository.baseDir " + localRepository.getBasedir());
 
         List<ArtifactRepository> remoteRepositories = new ArrayList<ArtifactRepository>();
 
         String archetypeGroupId = "org.appfuse.archetypes";
 
         ArchetypeGenerationRequest request = new ArchetypeGenerationRequest();
-        request.setGroupId(project.getGroupId()).setArtifactId(project.getArtifactId()).setVersion("1.0");
+        request.setGroupId(project.getGroupId()).setArtifactId(project.getArtifactId()).setVersion("1.0-SNAPSHOT");
         request.setArchetypeGroupId(archetypeGroupId).setArchetypeArtifactId(archetypeArtifactId);
         request.setArchetypeVersion(archetypeVersion);
         request.setLocalRepository(localRepository);
