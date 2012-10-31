@@ -121,24 +121,12 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-ehcache</artifactId>
             <version>${hibernate.version}</version>
-            <!-- Exclude old EhCache (artifactId changed) -->
-            <exclusions>
-                <exclusion>
-                    <groupId>net.sf.ehcache</groupId>
-                    <artifactId>ehcache</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
+        <!-- Upgrade version of EhCache used -->
         <dependency>
             <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache-core</artifactId>
             <version>${ehcache.version}</version>
         </dependency>
-        <!-- The dependency below fixes http://issues.appfuse.org/browse/APF-1109 -->
-        <dependency>
-          <groupId>xerces</groupId>
-            <artifactId>xercesImpl</artifactId>
-          <version>2.9.1</version>
-        </dependency>        
     </dependencies>
 </project>
