@@ -109,13 +109,10 @@ public abstract class AbstractAppFuseMojoTestCase extends AbstractMojoTestCase {
 
         String localRepoPath = System.getProperty( "localRepoPath" );
 
-        if ( StringUtils.isEmpty( localRepoPath ) )
-        {
+        if (StringUtils.isEmpty(localRepoPath)) {
             localRepoPath =  System.getProperty("user.home") + System.getProperty("file.separator") +
                             ".m2" + System.getProperty("file.separator") + "repository";
         }
-
-        System.out.println("localRepoPath: " + localRepoPath);
 
         String mavenRepoLocal = "file://" + localRepoPath;
 
@@ -123,7 +120,6 @@ public abstract class AbstractAppFuseMojoTestCase extends AbstractMojoTestCase {
                 (ArtifactRepositoryLayout) container.lookup(ArtifactRepositoryLayout.ROLE, "default");
         
         ArtifactRepository localRepository = new DefaultArtifactRepository("local", mavenRepoLocal, layout);
-        System.out.println("localRepository.baseDir " + localRepository.getBasedir());
 
         List<ArtifactRepository> remoteRepositories = new ArrayList<ArtifactRepository>();
 
@@ -136,7 +132,6 @@ public abstract class AbstractAppFuseMojoTestCase extends AbstractMojoTestCase {
         request.setLocalRepository(localRepository);
         request.setRemoteArtifactRepositories(remoteRepositories);
         request.setOutputDirectory(getTestFile("target").getAbsolutePath());
-        System.out.println("Setting output directory to: " + getTestFile("target").getAbsolutePath());
 
         archetype.generateProjectFromArchetype(request);
     }
