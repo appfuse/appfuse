@@ -58,9 +58,9 @@ public class Login extends AbstractWebPage {
         //TODO: MZA: Take a look at FormComponentFeedbackBorder markup (its wicket:body) as a hint for required label
         //TODO: MZA: How to change a background color of an input with validation error?
         loginForm.add(new FormComponentFeedbackBorder("border").add(
-                (usernameField = new RequiredTextField<String>("username", new Model<String>("")))));
+                (usernameField = new RequiredTextField<String>("username", Model.of("")))));
         loginForm.add(new RequiredLabel("passwordLabel", getString("label.password")));
-        loginForm.add(passwordField = new PasswordTextField("password", new Model<String>("")));
+        loginForm.add(passwordField = new PasswordTextField("password", Model.of("")));
     }
 
     private Form<Void> createLoginForm() {
