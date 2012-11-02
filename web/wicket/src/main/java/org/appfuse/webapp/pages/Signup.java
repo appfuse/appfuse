@@ -2,13 +2,13 @@ package org.appfuse.webapp.pages;
 
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.RestartResponseException;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.protocol.http.RequestUtils;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.service.MailEngine;
-import org.appfuse.service.RoleManager;
 import org.appfuse.service.UserExistsException;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
@@ -29,6 +29,10 @@ public class Signup extends AbstractUserEdit {
 
     @SpringBean
     private MailEngine mailEngine;
+
+    public Signup() {
+        super(EMPTY_BACK_PAGE, new Model<User>(new User()));
+    }
 
     @Override
     protected void onInitialize() {
@@ -101,7 +105,7 @@ public class Signup extends AbstractUserEdit {
         sendMessage(messageToSend);
     }
 
-    //TODO: MZA: Should be moved to businnes layer
+    //TODO: MZA: Should be moved to business layer
     private SimpleMailMessage prepareMailMessage(User user) {
         log.debug("Preparing message for user '{}' with an account information", user.getUsername());
         SimpleMailMessage message = new SimpleMailMessage();    //serviceFacade.getMailMessage();

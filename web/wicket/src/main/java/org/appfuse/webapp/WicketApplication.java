@@ -39,6 +39,11 @@ import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
  *  - Clickstream - LATER
  *  - move pages to resources directory (currently together with Java classes),
  *    try: https://cwiki.apache.org/WICKET/control-where-html-files-are-loaded-from.html#ControlwhereHTMLfilesareloadedfrom-InWicket1.4
+ *  - on "mvn clean package" WicketApplication.properties isn't copied to target which causes:
+ *    'Unable to find property: 'user.password' for component: userEditForm:userEditPanel' in tests. When run from IDE
+ *    file is copied and tests from Maven works fine
+ *  - broken acceptance test: web/wicket/src/test/resources/login.xmlf:1: HTTP error 400: 400 Bad Request for http://localhost:9876/scripts/login.js
+ *  - assign roles doesn't work when editing an user from a list
  *
  * @author Marcin Zajączkowski, 2010-09-02
  */
@@ -55,7 +60,7 @@ public class WicketApplication extends AuthenticatedWebApplication {
         addComponentInstantiationListener(new SpringComponentInjector(this, getContext(), true));
         initPageMounting();
 
-        //MZA: Redirect after post causes page to be shrinked (probably) due to SiteMesh bug:
+        //MZA: Redirect after post causes page to be shrunk (probably) due to SiteMesh bug:
         //http://jira.opensymphony.com/browse/SIM-217
         getRequestCycleSettings().setRenderStrategy(IRequestCycleSettings.ONE_PASS_RENDER);
 

@@ -5,7 +5,6 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.appfuse.model.User;
 import org.appfuse.service.RoleManager;
@@ -22,6 +21,8 @@ import org.appfuse.webapp.pages.components.UserEditPanel;
  */
 public abstract class AbstractUserEdit extends AbstractWebPage {
 
+    protected static Page EMPTY_BACK_PAGE = null;
+
     @SpringBean(name = "userManager")
     private UserManager userManager;
 
@@ -32,14 +33,6 @@ public abstract class AbstractUserEdit extends AbstractWebPage {
     private final IModel<User> userModel;
 
     private Form<User> userEditForm;
-
-    protected AbstractUserEdit() {
-        this(null);
-    }
-
-    protected AbstractUserEdit(Page backPage) {
-        this(backPage, new Model<User>(new User()));
-    }
 
     protected AbstractUserEdit(Page backPage, IModel<User> userModel) {
         super();

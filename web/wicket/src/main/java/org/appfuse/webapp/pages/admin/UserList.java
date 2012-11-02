@@ -118,7 +118,7 @@ public class UserList extends AbstractWebPage {
             super(id, userModel);
 
             //TODO: MZA: The whole row should be clickable
-            //TODO: MZA: Curson isn't changed when on link
+            //TODO: MZA: A cursor isn't changed when on link
             final Link<User> editLink = new Link<User>("editLink", userModel) {
                 @Override
                 public void onClick() {

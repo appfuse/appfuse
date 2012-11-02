@@ -21,6 +21,7 @@ public class FromListUserEdit extends AbstractUserEdit {
      *
      * @param backPage page to come back
      */
+    @Deprecated //rather user and proper model should be created in the place which calls that action
     public FromListUserEdit(Page backPage) {
         super(backPage, new Model<User>());
         //TODO: MZA: Here or in onInitialize?
