@@ -2,7 +2,9 @@ package org.appfuse.webapp.pages;
 
 import org.apache.wicket.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.model.StringResourceModel;
 import org.appfuse.model.User;
+import org.appfuse.service.UserExistsException;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**
@@ -15,7 +17,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 public class CurrentUserEdit extends AbstractUserEdit {
 
     public CurrentUserEdit() {
-        super(null, new Model<User>());
+        super(EMPTY_BACK_PAGE, new Model<User>());
     }
 
     @Override
@@ -38,9 +40,24 @@ public class CurrentUserEdit extends AbstractUserEdit {
         return username;
     }
 
+    //TODO: MZA: Duplication with FromListUserEdit
     @Override
     protected void onSaveButtonSubmit() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        User user = getUser();
+
+        log.info("(current) onSubmit: {}", user);
+        log.info("(current) onSubmit (address): {}", user.getAddress());
+
+        try {
+            getUserManager().saveUser(user);
+            getSession().info(new StringResourceModel(
+                    "user.added", this, null, new Object[] {user.getUsername()}).getString());
+            resolveAndSetResponsePage();
+        } catch (UserExistsException e) {
+            log.warn("User already exists", e);
+            error(new StringResourceModel("errors.existing.user", this, null, new Object[] {
+                    user.getUsername(), user.getEmail()}).getString());
+        }
     }
 
     @Override
