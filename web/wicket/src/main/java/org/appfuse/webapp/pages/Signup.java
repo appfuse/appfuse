@@ -31,7 +31,7 @@ public class Signup extends AbstractUserEdit {
     private MailEngine mailEngine;
 
     public Signup() {
-        super(EMPTY_BACK_PAGE, new Model<User>(new User()));
+        super(NO_RESPONSE_PAGE, new Model<User>(new User()));
     }
 
     @Override

@@ -17,7 +17,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 public class CurrentUserEdit extends AbstractUserEdit {
 
     public CurrentUserEdit() {
-        super(EMPTY_BACK_PAGE, new Model<User>());
+        super(NO_RESPONSE_PAGE, new Model<User>());
     }
 
     @Override

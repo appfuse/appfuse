@@ -19,11 +19,11 @@ public class FromListUserEdit extends AbstractUserEdit {
     /**
      * Constructor for adding a new user.
      *
-     * @param backPage page to come back
+     * @param responsePage page to come back
      */
     @Deprecated //rather user and proper model should be created in the place which calls that action
-    public FromListUserEdit(Page backPage) {
-        super(backPage, new Model<User>());
+    public FromListUserEdit(Page responsePage) {
+        super(responsePage, new Model<User>());
         //TODO: MZA: Here or in onInitialize?
         setUser(new User());
     }
@@ -31,11 +31,11 @@ public class FromListUserEdit extends AbstractUserEdit {
     /**
      * Constructor for editing an existing user.
      *
-     * @param backPage page to come back
+     * @param responsePage page to come back
      * @param userModel model for editing user
      */
-    public FromListUserEdit(Page backPage, IModel<User> userModel) {
-        super(backPage, userModel);
+    public FromListUserEdit(Page responsePage, IModel<User> userModel) {
+        super(responsePage, userModel);
     }
 
     protected void onSaveButtonSubmit() {

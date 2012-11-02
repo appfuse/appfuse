@@ -21,7 +21,7 @@ import org.appfuse.webapp.pages.components.UserEditPanel;
  */
 public abstract class AbstractUserEdit extends AbstractWebPage {
 
-    protected static Page EMPTY_BACK_PAGE = null;
+    protected static Page NO_RESPONSE_PAGE = null;
 
     @SpringBean(name = "userManager")
     private UserManager userManager;
@@ -29,14 +29,14 @@ public abstract class AbstractUserEdit extends AbstractWebPage {
     @SpringBean(name = "roleManager")
     private RoleManager roleManager;
 
-    private final Page backPage;
+    private final Page responsePage;
     private final IModel<User> userModel;
 
     private Form<User> userEditForm;
 
-    protected AbstractUserEdit(Page backPage, IModel<User> userModel) {
+    protected AbstractUserEdit(Page responsePage, IModel<User> userModel) {
         super();
-        this.backPage = backPage;
+        this.responsePage = responsePage;
         this.userModel = userModel;
     }
 
@@ -99,10 +99,10 @@ public abstract class AbstractUserEdit extends AbstractWebPage {
     }
 
     protected void resolveAndSetResponsePage() {
-        if (backPage == null) {
+        if (responsePage == null) {
             setResponsePage(getApplication().getHomePage());
         } else {
-            setResponsePage(backPage);
+            setResponsePage(responsePage);
         }
     }
 
