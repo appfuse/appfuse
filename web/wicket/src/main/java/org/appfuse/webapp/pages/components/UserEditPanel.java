@@ -10,6 +10,7 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.ResourceModel;
 import org.appfuse.model.Address;
 import org.appfuse.model.Role;
@@ -38,8 +39,9 @@ public abstract class UserEditPanel extends Panel {
 
     private final List<Role> allAvailableRoles;
 
-    public UserEditPanel(String id, IModel<User> userIModel, List<Role> allAvailableRoles) {
-        super(id, userIModel);
+    //TODO: wrap allAvailableRoles into detacheable model
+    public UserEditPanel(String id, IModel<User> userModel, List<Role> allAvailableRoles) {
+        super(id, userModel);
         this.allAvailableRoles = allAvailableRoles;
     }
 
@@ -72,8 +74,8 @@ public abstract class UserEditPanel extends Panel {
 
         User user = (User)getDefaultModelObject();
 
-        add(new AddressFragment("mainAddress", "address",
-               new CompoundPropertyModel<Address>(user.getAddress())));
+        PropertyModel addressModel = new PropertyModel(getDefaultModel(), "address");
+        add(new AddressFragment("mainAddress", "address", new CompoundPropertyModel<Address>(addressModel)));
 
         add(createAccountSettingsGroup(user));
         add(createDisplayRolesGroup(user));
@@ -175,6 +177,7 @@ public abstract class UserEditPanel extends Panel {
     }
 
     public class AddressFragment extends Fragment {
+
         public AddressFragment(String id, String markupId, IModel<Address> model) {
             super(id, markupId, UserEditPanel.this, model);
         }

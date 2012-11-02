@@ -38,7 +38,7 @@ public class FromListUserEdit extends AbstractUserEdit {
     }
 
     protected void onSaveButtonSubmit() {
-        User user = getUserEditForm().getModelObject();
+        User user = getUser();
 
         log.info("onSubmit: {}", user);
         log.info("onSubmit (address): {}", user.getAddress());

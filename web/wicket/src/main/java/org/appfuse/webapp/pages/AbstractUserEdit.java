@@ -38,7 +38,7 @@ public abstract class AbstractUserEdit extends AbstractWebPage {
     }
 
     protected AbstractUserEdit(Page backPage) {
-        this(backPage, new Model<User>());
+        this(backPage, new Model<User>(new User()));
     }
 
     protected AbstractUserEdit(Page backPage, IModel<User> userModel) {
@@ -54,12 +54,14 @@ public abstract class AbstractUserEdit extends AbstractWebPage {
         FeedbackPanel feedbackPanel = new FeedbackPanel("feedback");
         add(feedbackPanel);
 
-        User user = userModel.getObject();
-        userEditForm = new Form<User>("userEditForm", new CompoundPropertyModel<User>(user));
+        CompoundPropertyModel<User> userCompoundPropertyModel = new CompoundPropertyModel<User>(userModel);
+
+        userEditForm = new Form<User>("userEditForm", userCompoundPropertyModel);
         add(userEditForm);
 
         //TODO: MZA: Extract concrete class and pass interface to avoid Foo.this.on... duplication
-        UserEditPanel userEditPanel = new UserEditPanel("userEditPanel", userModel, roleManager.getAll()) {
+        UserEditPanel userEditPanel = new UserEditPanel("userEditPanel", userCompoundPropertyModel,
+                roleManager.getAll()) {
 
             @Override
             protected void onSaveButtonSubmit() {
