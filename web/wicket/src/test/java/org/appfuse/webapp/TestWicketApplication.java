@@ -1,9 +1,13 @@
 package org.appfuse.webapp;
 
 import org.apache.wicket.authentication.AuthenticatedWebSession;
+import org.appfuse.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class TestWicketApplication extends WicketApplication {
 
@@ -15,7 +19,23 @@ public class TestWicketApplication extends WicketApplication {
         this.testContext = testContext;
     }
 
-    //ApplicationContext has to be created completely before WicketApplication class (cannot be created here) 
+    @Override
+    protected void init() {
+        super.init();
+        setTestConfigInServletContext();
+    }
+
+    @SuppressWarnings("unchecked")
+    private void setTestConfigInServletContext() {
+        Map<String, Object> config = (Map<String, Object>) getServletContext().getAttribute(Constants.CONFIG);
+        if (config == null) {
+            config = new HashMap<String, Object>();
+            getServletContext().setAttribute(Constants.CONFIG, config);
+        }
+        config.put(Constants.CSS_THEME, "simplicity");
+    }
+
+    //ApplicationContext has to be created completely before WicketApplication class (cannot be created here)
     @Override
     protected ApplicationContext getContext() {
         return testContext;

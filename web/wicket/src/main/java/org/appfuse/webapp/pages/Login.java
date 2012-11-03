@@ -36,7 +36,7 @@ public class Login extends AbstractWebPage {
     protected void onInitialize() {
         super.onInitialize();
 
-        addLayou1ColCssToHeader();
+        addLayoutColCssToHeader();
         add(createLoginJavaScriptHeaderContribution());
         add(createInitDataOnLoadBehavior());
 
@@ -81,17 +81,27 @@ public class Login extends AbstractWebPage {
         };
     }
 
-    //TODO: MZA: Move to util?
-    //TODO: MZA: It generates warning in tests with WicketTester as it doesn't support reading web.xml
-    //           https://issues.apache.org/jira/browse/WICKET-3099
-    private void addLayou1ColCssToHeader() {
-        String cssTheme = getServletContext().getInitParameter(Constants.CSS_THEME);
+    //TODO: MZA: Move to is needed somewhere else
+    private void addLayoutColCssToHeader() {
+        String cssTheme = (String)getValueForKeyFromConfigOrReturnNullIfNoConfig(Constants.CSS_THEME);
         if (cssTheme == null) {
             //TODO: MZA: Problem with return object to add (NPE) - is there any Null Object to add?
             log.warn("{} parameter not set in web.xml. Additional CSS can be missing.", Constants.CSS_THEME);
         } else {
             String layout1ColCss = "/styles/" + cssTheme + "/layout-1col.css";
             add(CSSPackageResource.getHeaderContribution(layout1ColCss));
+        }
+    }
+
+    //TODO: MZA: Move to is needed somewhere else
+    @SuppressWarnings("unchecked")
+    private Object getValueForKeyFromConfigOrReturnNullIfNoConfig(String configProperty) {
+        Map<String, Object> config = (Map<String, Object>)getServletContext().getAttribute(Constants.CONFIG);
+        if (config == null) {
+            log.warn("{} context attribute is null.", Constants.CONFIG);
+            return null;
+        } else {
+            return config.get(configProperty);
         }
     }
 
@@ -122,6 +132,11 @@ public class Login extends AbstractWebPage {
         return rememberMeGroup;
     }
 
+    private boolean isRememberMeEnabled() {
+        Boolean isRememberMeEnabled = (Boolean)getValueForKeyFromConfigOrReturnNullIfNoConfig("rememberMeEnabled");
+        return isRememberMeEnabled != null ? isRememberMeEnabled : false;
+    }
+
     private Label createSignupLabel() {
         String absoluteSignupLink = RequestUtils.toAbsolutePath(urlFor(Signup.class, null).toString());
         //TODO: MZA: There should be some better way to use URL inside a label (if not, make it an util method)
@@ -130,17 +145,6 @@ public class Login extends AbstractWebPage {
         Label signupLabel = new Label("signupLabel", signupLabelText);
         signupLabel.setEscapeModelStrings(false);
         return signupLabel;
-    }
-
-    private boolean isRememberMeEnabled() {
-        boolean returnValue = false;
-        Map config = (HashMap)getServletContext().getAttribute(Constants.CONFIG);
-        if (config == null) {
-            log.warn("{} context attribute is null.", Constants.CONFIG);
-        } else {
-            returnValue = (config.get("rememberMeEnabled") != null);
-        }
-        return returnValue;
     }
 
     private void authenticateUser() {
