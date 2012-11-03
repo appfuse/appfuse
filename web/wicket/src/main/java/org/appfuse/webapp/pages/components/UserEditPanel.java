@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Resusable form for editing users.
@@ -72,13 +73,12 @@ public abstract class UserEditPanel extends Panel {
         add(new RequiredLabel("websiteLabel", getString("user.website")));
         add(new RequiredTextField("website"));
 
-        User user = (User)getDefaultModelObject();
-
         PropertyModel addressModel = new PropertyModel(getDefaultModel(), "address");
         add(new AddressFragment("mainAddress", "address", new CompoundPropertyModel<Address>(addressModel)));
 
-        add(createAccountSettingsGroup(user));
-        add(createDisplayRolesGroup(user));
+        PropertyModel<Set<Role>> rolesModel = new PropertyModel<Set<Role>>(getDefaultModel(), "roles");
+        add(createAccountSettingsGroup(rolesModel));
+        add(createDisplayRolesGroup(rolesModel));
         add(createGroupWithTopButtons());
         add(createGroupWithBottomButtons());
         
@@ -93,7 +93,7 @@ public abstract class UserEditPanel extends Panel {
         return passwordGroup;
     }
 
-    private WebMarkupContainer createAccountSettingsGroup(User user) {
+    private WebMarkupContainer createAccountSettingsGroup(IModel<Set<Role>> rolesModel) {
         final WebMarkupContainer accountSettingsGroup = new WebMarkupContainer("accountSettingsGroup");
         accountSettingsGroup.setVisible(getAccountSettingsGroupVisibility());
 
@@ -101,19 +101,19 @@ public abstract class UserEditPanel extends Panel {
         accountSettingsGroup.add(new CheckBox("accountExpired"));
         accountSettingsGroup.add(new CheckBox("accountLocked"));
         accountSettingsGroup.add(new CheckBox("credentialsExpired"));
-        accountSettingsGroup.add(createRolesCheckGroup(user));
+        accountSettingsGroup.add(createRolesCheckGroup(rolesModel));
         return accountSettingsGroup;
     }
 
-    private WebMarkupContainer createDisplayRolesGroup(User user) {
+    private WebMarkupContainer createDisplayRolesGroup(IModel<Set<Role>> rolesModel) {
         WebMarkupContainer displayRolesGroup = new WebMarkupContainer("displayRolesGroup");
         displayRolesGroup.setVisible(getDisplayRolesGroupVisibility());
-        displayRolesGroup.add(createRolesRepeater(user));
+        displayRolesGroup.add(createRolesRepeater(rolesModel));
         return displayRolesGroup;
     }
 
-    private CheckGroup<Role> createRolesCheckGroup(User user) {
-        CheckGroup<Role> rolesCheckGroup = new CheckGroup<Role>("rolesGroup", user.getRoles());
+    private CheckGroup<Role> createRolesCheckGroup(IModel<Set<Role>> rolesModel) {
+        CheckGroup<Role> rolesCheckGroup = new CheckGroup<Role>("rolesGroup", rolesModel);
 
         ListView<Role> roles = new ListView<Role>("roles", allAvailableRoles) {
             @Override
@@ -126,9 +126,10 @@ public abstract class UserEditPanel extends Panel {
         return rolesCheckGroup;
     }
 
-    private RepeatingView createRolesRepeater(User user) {
+    private RepeatingView createRolesRepeater(IModel<Set<Role>> rolesModel) {
         RepeatingView rolesRepeater = new RepeatingView("rolesRepeater");
-        for (Role role : user.getRoles()) {
+        Set<Role> roles = rolesModel.getObject();
+        for (Role role : roles) {
             WebMarkupContainer roleItem = new WebMarkupContainer(rolesRepeater.newChildId());
             rolesRepeater.add(roleItem);
             roleItem.add(new Label("roleName", role.toString()));

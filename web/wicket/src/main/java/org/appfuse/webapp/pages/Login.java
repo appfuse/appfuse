@@ -82,6 +82,8 @@ public class Login extends AbstractWebPage {
     }
 
     //TODO: MZA: Move to util?
+    //TODO: MZA: It generates warning in tests with WicketTester as it doesn't support reading web.xml
+    //           https://issues.apache.org/jira/browse/WICKET-3099
     private void addLayou1ColCssToHeader() {
         String cssTheme = getServletContext().getInitParameter(Constants.CSS_THEME);
         if (cssTheme == null) {

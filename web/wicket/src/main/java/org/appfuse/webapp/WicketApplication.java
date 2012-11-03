@@ -43,7 +43,7 @@ import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
  *    'Unable to find property: 'user.password' for component: userEditForm:userEditPanel' in tests. When run from IDE
  *    file is copied and tests from Maven works fine
  *  - broken acceptance test: web/wicket/src/test/resources/login.xmlf:1: HTTP error 400: 400 Bad Request for http://localhost:9876/scripts/login.js
- *  - assign roles doesn't work when editing an user from a list
+ *  - assign roles doesn't work when editing an user from a list - #14 - DONE
  *
  * @author Marcin Zajączkowski, 2010-09-02
  */
