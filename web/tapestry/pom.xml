@@ -133,6 +133,8 @@
                                         <filter token="4" value="%5$s" />
                                         <filter token="5" value="%6$s" />
                                         <filter token="6" value="%7$s" />
+                                    </filterset>
+                                    <filterset begintoken="${" endtoken="}">
                                        <!-- Tapestry interpret these as symbols -->
                                         <filter token="pom.version" value="${project.version}" />
                                         <filter token="copyright.year" value="${copyright.year}" />
