@@ -1,0 +1,8 @@
+<t:container xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
+
+    <t:unless test="english">
+        <div id="switchLocale">
+            <a t:type="actionlink" t:id="switch">${message:webapp.name} in English</a></div>
+    </t:unless>
+
+</t:container>

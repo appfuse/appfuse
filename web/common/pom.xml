@@ -1,12 +1,11 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.appfuse</groupId>
         <artifactId>appfuse-web</artifactId>
-        <version>2.1.0-SNAPSHOT</version>
+        <version>2.1.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>appfuse-web-common</artifactId>
@@ -20,8 +19,8 @@
     </description>
 
     <scm>
-        <connection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/web/common</connection>
-        <developerConnection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/web/common</developerConnection>
+        <connection>scm:svn:https://github.com/appfuse/appfuse/trunk/web/common</connection>
+        <developerConnection>scm:svn:https://github.com/appfuse/appfuse/trunk/web/common</developerConnection>
         <url>http://source.appfuse.org/browse/appfuse/trunk/web/common</url>
     </scm>
 
@@ -61,7 +60,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.1.1</version>
+                <version>2.2</version>
                 <configuration>
                     <warSourceExcludes>WEB-INF/lib/**</warSourceExcludes>
                 </configuration>
@@ -69,11 +68,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>native2ascii-maven-plugin</artifactId>
-                <version>1.0-alpha-1</version>
-                <configuration>
-                    <dest>target/classes</dest>
-                    <src>src/main/resources</src>
-                </configuration>
+                <version>1.0-beta-1</version>
                 <executions>
                     <execution>
                         <id>native2ascii-utf8</id>
@@ -83,12 +78,12 @@
                         <configuration>
                             <encoding>UTF8</encoding>
                             <includes>
-                                ApplicationResources_ko.properties,
-                                ApplicationResources_no.properties,
-                                ApplicationResources_tr.properties,
-                                ApplicationResources_zh*.properties,
-                                displaytag_tr.properties,
-                                displaytag_zh*.properties
+                                <include>ApplicationResources_ko.properties</include>
+                                <include>ApplicationResources_no.properties</include>
+                                <include>ApplicationResources_tr.properties</include>
+                                <include>ApplicationResources_zh*.properties</include>
+                                <include>displaytag_tr.properties</include>
+                                <include>displaytag_zh*.properties</include>
                             </includes>
                         </configuration>
                     </execution>
@@ -100,10 +95,10 @@
                         <configuration>
                             <encoding>8859_1</encoding>
                             <includes>
-                                ApplicationResources_de.properties,
-                                ApplicationResources_fr.properties,
-                                ApplicationResources_nl.properties,
-                                ApplicationResources_pt*.properties
+                                <include>ApplicationResources_de.properties</include>
+                                <include>ApplicationResources_fr.properties</include>
+                                <include>ApplicationResources_nl.properties</include>
+                                <include>ApplicationResources_pt*.properties</include>
                             </includes>
                         </configuration>
                     </execution>
@@ -114,16 +109,6 @@
             <resource>
                 <directory>src/main/resources</directory>
                 <excludes>
-                    <exclude>ApplicationResources_de.properties</exclude>
-                    <exclude>ApplicationResources_fr.properties</exclude>
-                    <exclude>ApplicationResources_ko.properties</exclude>
-                    <exclude>ApplicationResources_nl.properties</exclude>
-                    <exclude>ApplicationResources_no.properties</exclude>
-                    <exclude>ApplicationResources_pt*.properties</exclude>
-                    <exclude>ApplicationResources_tr.properties</exclude>
-                    <exclude>ApplicationResources_zh*.properties</exclude>
-                    <exclude>displaytag_tr.properties</exclude>
-                    <exclude>displaytag_zh*.properties</exclude>
                     <exclude>applicationContext-resources.xml</exclude>
                 </excludes>
                 <filtering>true</filtering>

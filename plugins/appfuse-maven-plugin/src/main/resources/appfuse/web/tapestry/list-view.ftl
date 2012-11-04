@@ -1,44 +1,29 @@
 <#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
-<t:layout title="message:${pojoNameLower}List.title"
-          heading="message:${pojoNameLower}List.heading" menu="literal:${pojo.shortName}Menu"
-          xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+<html t:type="layout" title="message:${pojoNameLower}List.title"
+          heading="message:${pojoNameLower}List.heading" menu="${pojo.shortName}Menu"
+          xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
 
-    <t:messagebanner t:id="message" type="type"/>
-
+<div class="span10">
     <div id="search">
-    <t:form method="get" t:id="searchForm">
-        <t:textfield size="20" name="q" t:id="q"/>
-        <input t:type="submit" value="${'$'}{message:button.search}" class="button"/>
-    </t:form>
+    <form t:type="form" method="get" t:id="searchForm" autofocus="false" class="form-search">
+        <t:textfield size="20" name="q" t:id="q" placeholder="${'$'}{message:search.enterTerms}" class="input-medium search-query"/>
+        <input t:type="submit" value="${'$'}{message:button.search}" class="btn"/>
+    </form>
     </div>
 
-    <p>
-        <t:eventlink t:id="addTop">
-            <input type="button" class="button" value="${'$'}{message:button.add}"/>
-        </t:eventlink>
-        <t:eventlink t:id="doneTop">
-            <input type="button" class="button" value="${'$'}{message:button.done}"/>
-        </t:eventlink>
-    </p>
+    <a t:type="eventlink" t:id="add" id="add">
+        <input type="button" style="margin-right: 5px" class="btn" value="${'$'}{message:button.add}"/>
+    </a>
+    <a t:type="eventlink" t:id="done" id="done">
+        <input type="button" class="btn" value="${'$'}{message:button.done}"/>
+    </a>
 
     <t:grid source="${util.getPluralForWord(pojoNameLower)}" row="${pojoNameLower}" id="${pojoNameLower}List" class="table">
-        <t:parameter name="${pojo.identifierProperty.name}Cell">
-            <t:pagelink page="${pojoNameLower}form" context="${pojoNameLower}.${pojo.identifierProperty.name}" id="${pojoNameLower}-${'$'}{${pojoNameLower}.${pojo.identifierProperty.name}}">
+        <p:${pojo.identifierProperty.name}cell>
+            <a t:type="actionlink" t:id="edit" context="${pojoNameLower}.${pojo.identifierProperty.name}" id="${pojoNameLower}-${'$'}{${pojoNameLower}.${pojo.identifierProperty.name}}">
                 ${'$'}{${pojoNameLower}.${pojo.identifierProperty.name}}
-            </t:pagelink>
-        </t:parameter>
+            </a>
+        </p:${pojo.identifierProperty.name}cell>
     </t:grid>
-
-    <p>
-        <t:eventlink t:id="addBottom">
-            <input type="button" class="button" value="${'$'}{message:button.add}"/>
-        </t:eventlink>
-        <t:eventlink t:id="doneBottom">
-            <input type="button" class="button" value="${'$'}{message:button.done}"/>
-        </t:eventlink>
-    </p>
-
-    <script type="text/javascript">
-        highlightTableRows("${pojoNameLower}List");
-    </script>
-</t:layout>
+</div>
+</html>

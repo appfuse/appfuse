@@ -15,8 +15,11 @@ import org.apache.shale.test.mock.MockRenderKit;
 import org.apache.shale.test.mock.MockServletConfig;
 import org.apache.shale.test.mock.MockServletContext;
 import org.appfuse.Constants;
+import org.junit.After;
+import org.junit.Before;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.ApplicationFactory;
@@ -62,9 +65,14 @@ import java.util.Locale;
  * except it extends Spring's AbstractTransactionalDataSourceSpringContextTests
  * instead of JUnit's TestCase.</p>
  */
-public abstract class BasePageTestCase extends AbstractTransactionalDataSourceSpringContextTests {
+@ContextConfiguration(
+        locations = {"classpath:/applicationContext-resources.xml",
+                "classpath:/applicationContext-dao.xml",
+                "classpath:/applicationContext-service.xml",
+                "classpath*:/applicationContext.xml",
+                "classpath:**/applicationContext*.xml"})
+public abstract class BasePageTestCase extends AbstractTransactionalJUnit4SpringContextTests {
     protected final Log log = LogFactory.getLog(getClass());
-    protected static final String MESSAGES = Constants.BUNDLE_KEY;
     
     protected MockApplication application = null;
     protected MockServletConfig config = null;
@@ -86,9 +94,8 @@ public abstract class BasePageTestCase extends AbstractTransactionalDataSourceSp
     /**
      * <p>Set up instance variables required by this test case.</p>
      */
-    @Override
-    protected void onSetUp() throws Exception {
-        super.onSetUp();
+    @Before
+    public void onSetUp() {
         smtpPort = smtpPort + (int) (Math.random() * 100);
         
         // Set up a new thread context class loader
@@ -163,9 +170,8 @@ public abstract class BasePageTestCase extends AbstractTransactionalDataSourceSp
     /**
      * <p>Tear down instance variables required by this test case.</p>
      */
-    @Override
-    protected void onTearDown() throws Exception {
-        super.onTearDown();
+    @After
+    public void onTearDown() {
         application = null;
         config = null;
         externalContext = null;
@@ -182,15 +188,5 @@ public abstract class BasePageTestCase extends AbstractTransactionalDataSourceSp
 
         Thread.currentThread().setContextClassLoader(threadContextClassLoader);
         threadContextClassLoader = null;
-    }
-
-    protected String[] getConfigLocations() {
-        setAutowireMode(AUTOWIRE_BY_NAME);
-        return new String[] {
-            "classpath:/applicationContext-resources.xml",
-            "classpath:/applicationContext-dao.xml",
-            "classpath:/applicationContext-service.xml",
-            "classpath*:/applicationContext.xml", // for modular archetypes
-            "/WEB-INF/applicationContext*.xml"};
     }
 }

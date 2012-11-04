@@ -48,8 +48,8 @@ public class Index {
             logger.debug("Redirecting to PageNotFound");
             return NotFound.class;
         }
-        // Redirect to MainMenu
-        return MainMenu.class;
+        // Redirect to Home
+        return Home.class;
 
     }
 }

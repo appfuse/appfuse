@@ -72,7 +72,7 @@ public class SubversionUtils {
     public void export() throws SVNException {
         SVNURL url = SVNURL.parseURIEncoded(this.url);
         String userName = "guest";
-        String userPassword = "";
+        String userPassword = "guest";
 
         /*
          * Prepare filesystem directory (export destination).

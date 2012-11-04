@@ -49,7 +49,7 @@ public class ${pojo.shortName}FormController extends BaseFormController {
     }
 
     @ModelAttribute
-    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(method = RequestMethod.GET)
     protected ${pojo.shortName} showForm(HttpServletRequest request)
     throws Exception {
         String ${pojo.identifierProperty.name} = request.getParameter("${pojo.identifierProperty.name}");

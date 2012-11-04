@@ -4,6 +4,10 @@
 <#assign identifierType = pojo.getJavaTypeName(pojo.identifierProperty, jdk5)>
 package ${basepackage}.webapp.pages;
 
+import org.apache.tapestry5.alerts.AlertManager;
+import org.apache.tapestry5.alerts.Duration;
+import org.apache.tapestry5.alerts.Severity;
+import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.InjectPage;
@@ -13,6 +17,7 @@ import org.apache.tapestry5.annotations.Service;
 import org.apache.tapestry5.corelib.components.EventLink;
 import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.PersistenceConstants;
+import org.apache.tapestry5.EventContext;
 
 <#if genericcore>
 import ${appfusepackage}.service.GenericManager;
@@ -25,7 +30,7 @@ import org.slf4j.Logger;
 
 import java.util.List;
 
-public class ${pojo.shortName}Form extends BasePage {
+public class ${pojo.shortName}Form {
     @Inject
     private Logger log;
 
@@ -37,12 +42,19 @@ public class ${pojo.shortName}Form extends BasePage {
     private ${pojo.shortName}Manager ${pojoNameLower}Manager;
 </#if>
 
+    @Inject
+    private AlertManager alertManager;
+
+    @Inject
+    private Messages messages;
+
+    @Property(write = false)
     @Persist
     private ${pojo.shortName} ${pojoNameLower};
 
-    public ${pojo.shortName} get${pojo.shortName}() {
-        return ${pojoNameLower};
-    }
+    <#--public ${pojo.shortName} get${pojo.shortName}() {-->
+        <#--return ${pojoNameLower};-->
+    <#--}-->
 
     /**
      * Allows setting ${pojoNameLower} object from another class (i.e. ${pojo.shortName}List)
@@ -71,10 +83,41 @@ public class ${pojo.shortName}Form extends BasePage {
         }
     }
 
-    void onActivate(${identifierType} ${pojo.identifierProperty.name}) {
-        if (${pojo.identifierProperty.name} != null) {
-            ${pojoNameLower} = ${pojoNameLower}Manager.get(${pojo.identifierProperty.name});
+    void onActivate(EventContext ec) {
+        if (ec.getCount() == 0) {
+            ${pojoNameLower} = null;
         }
+        else if (ec.getCount() == 1) {
+            ${pojoNameLower} = ${pojoNameLower}Manager.get(ec.get(${identifierType}.class, 0));
+        }
+        else {
+            throw new IllegalStateException("Invalid Request");
+        }
+
+    }
+
+    <#--void onActivate(${identifierType} ${pojo.identifierProperty.name}) {-->
+        <#--if (${pojo.identifierProperty.name} != null) {-->
+            <#--${pojoNameLower} = ${pojoNameLower}Manager.get(${pojo.identifierProperty.name});-->
+        <#--}-->
+    <#--}-->
+
+    Long onPassivate() {
+        return   ${pojoNameLower} != null ? ${pojoNameLower}.getId() : null;
+    }
+
+
+
+    void onPrepare() {
+        if (${pojoNameLower} == null) {
+            ${pojoNameLower} = new ${pojo.shortName}();
+        }
+    }
+
+    Object onException(Throwable cause) {
+        log.error("Exception: " +  cause.getMessage());
+
+        return this;
     }
 
     Object onSuccess() {
@@ -83,17 +126,16 @@ public class ${pojo.shortName}Form extends BasePage {
 
         log.debug("Saving ${pojoNameLower}...");
 
-        boolean isNew = (get${pojo.shortName}().${getIdMethodName}() == null);
+        boolean isNew = (${pojoNameLower}.${getIdMethodName}() == null);
 
         ${pojoNameLower}Manager.save(${pojoNameLower});
 
         String key = (isNew) ? "${pojoNameLower}.added" : "${pojoNameLower}.updated";
+        alertManager.alert(Duration.TRANSIENT, Severity.INFO,  messages.get(key));
 
         if (isNew) {
-            ${pojoNameLower}List.addInfo(key, true);
             return ${pojoNameLower}List;
         } else {
-            addInfo(key, true);
             return this;
         }
     }
@@ -110,7 +152,7 @@ public class ${pojo.shortName}Form extends BasePage {
 
     Object onDelete() {
         ${pojoNameLower}Manager.remove(${pojoNameLower}.${getIdMethodName}());
-        ${pojoNameLower}List.addInfo("${pojoNameLower}.deleted", true);
+        alertManager.alert(Duration.TRANSIENT, Severity.INFO, messages.format("${pojoNameLower}.deleted"));
         return ${pojoNameLower}List;
     }
 

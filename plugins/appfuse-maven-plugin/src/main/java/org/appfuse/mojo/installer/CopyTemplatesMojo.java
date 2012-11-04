@@ -34,7 +34,7 @@ public class CopyTemplatesMojo extends AbstractMojo {
     /**
      * The directory containing the source code.
      *
-     * @parameter expression="${appfuse.trunk}" default-value="https://svn.java.net/svn/appfuse~svn/"
+     * @parameter expression="${appfuse.trunk}" default-value="https://github.com/appfuse/appfuse/"
      */
     private String trunk;
 

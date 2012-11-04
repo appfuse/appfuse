@@ -12,7 +12,7 @@ import java.util.List;
  * persistence layer.
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
- *  Modified by <a href="mailto:dan@getrolling.com">Dan Kibler </a> 
+ *  Modified by <a href="mailto:dan@getrolling.com">Dan Kibler </a>
  */
 public interface UserManager extends GenericManager<User, Long> {
     /**
@@ -52,6 +52,13 @@ public interface UserManager extends GenericManager<User, Long> {
      * @return user the updated user object
      */
     User saveUser(User user) throws UserExistsException;
+
+    /**
+     * Removes a user from the database
+     *
+     * @param user the user to remove
+     */
+    void removeUser(User user);
 
     /**
      * Removes a user from the database by their userId

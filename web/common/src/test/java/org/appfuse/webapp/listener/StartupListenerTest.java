@@ -26,12 +26,11 @@ public class StartupListenerTest extends TestCase {
     protected void setUp() throws Exception {
         super.setUp();
         sc = new MockServletContext("");
-        sc.addInitParameter(Constants.CSS_THEME, "simplicity");
-        
+
         // initialize Spring
         sc.addInitParameter(ContextLoader.CONFIG_LOCATION_PARAM,
                 "classpath:/applicationContext-dao.xml, " +
-                "classpath:/applicationContext-service.xml, " + 
+                "classpath:/applicationContext-service.xml, " +
                 "classpath:/applicationContext-resources.xml");
 
         springListener = new ContextLoaderListener();
@@ -41,6 +40,8 @@ public class StartupListenerTest extends TestCase {
 
     protected void tearDown() throws Exception {
         super.tearDown();
+        // cleanup: close sessionFactory and related resources (search index locks)
+        springListener.closeWebApplicationContext(sc);
         springListener = null;
         listener = null;
         sc = null;
@@ -49,10 +50,6 @@ public class StartupListenerTest extends TestCase {
     public void testContextInitialized() {
         listener.contextInitialized(new ServletContextEvent(sc));
 
-        assertTrue(sc.getAttribute(Constants.CONFIG) != null);
-        Map config = (Map) sc.getAttribute(Constants.CONFIG);
-        assertEquals(config.get(Constants.CSS_THEME), "simplicity");
-        
         assertTrue(sc.getAttribute(WebApplicationContext
                 .ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE) != null);
         assertTrue(sc.getAttribute(Constants.AVAILABLE_ROLES) != null);

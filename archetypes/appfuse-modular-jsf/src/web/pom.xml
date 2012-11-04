@@ -60,34 +60,21 @@
             </plugin>
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
+                <!-- conflict with jsf tag libs and newest jetty-maven-plugin -->
+                <!-- 
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>8.1.3.v20120416</version>
+                -->
                 <artifactId>maven-jetty-plugin</artifactId>
                 <version>6.1.26</version>
                 <configuration>
                     <contextPath>/</contextPath>
-                    <scanIntervalSeconds>3</scanIntervalSeconds>
-                    <scanTargetPatterns>
-                        <scanTargetPattern>
-                            <directory>src/main/webapp/WEB-INF</directory>
-                            <excludes>
-                                <exclude>**/*.jsp</exclude>
-                                <exclude>**/*.xhtml</exclude>
-                            </excludes>
-                            <includes>
-                                <include>**/*.properties</include>
-                                <include>**/*.xml</include>
-                            </includes>
-                        </scanTargetPattern>
-                    </scanTargetPatterns>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>native2ascii-maven-plugin</artifactId>
-                <version>1.0-alpha-1</version>
-                <configuration>
-                    <dest>target/resources</dest>
-                    <src>src/main/resources</src>
-                </configuration>
+                <version>1.0-beta-1</version>
                 <executions>
                     <execution>
                         <id>native2ascii-utf8</id>
@@ -97,15 +84,15 @@
                         <configuration>
                             <encoding>UTF8</encoding>
                             <includes>
-                                ApplicationResources_*.properties
+                                <include>ApplicationResources_*.properties</include>
                             </includes>
                             <excludes>
-                                ApplicationResources.properties,
-                                ApplicationResources_de*.properties,
-                                ApplicationResources_fr*.properties,
-                                ApplicationResources_nl*.properties,
-                                ApplicationResources_pt*.properties,
-                                ApplicationResources_es*.properties
+                                <exclude>ApplicationResources.properties</exclude>
+                                <exclude>ApplicationResources_de*.properties</exclude>
+                                <exclude>ApplicationResources_fr*.properties</exclude>
+                                <exclude>ApplicationResources_nl*.properties</exclude>
+                                <exclude>ApplicationResources_pt*.properties</exclude>
+                                <exclude>ApplicationResources_es*.properties</exclude>
                             </excludes>
                         </configuration>
                     </execution>
@@ -117,12 +104,12 @@
                         <configuration>
                             <encoding>8859_1</encoding>
                             <includes>
-                                ApplicationResources.properties,
-                                ApplicationResources_de.properties,
-                                ApplicationResources_fr.properties,
-                                ApplicationResources_nl.properties,
-                                ApplicationResources_pt*.properties,
-                                ApplicationResources_es*.properties
+                                <include>ApplicationResources.properties</include>
+                                <include>ApplicationResources_de.properties</include>
+                                <include>ApplicationResources_fr.properties</include>
+                                <include>ApplicationResources_nl.properties</include>
+                                <include>ApplicationResources_pt*.properties</include>
+                                <include>ApplicationResources_es*.properties</include>
                             </includes>
                         </configuration>
                     </execution>
@@ -132,9 +119,6 @@
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
-                <excludes>
-                    <exclude>ApplicationResources*.properties</exclude>
-                </excludes>
                 <filtering>true</filtering>
             </resource>
             <resource>
@@ -277,7 +261,7 @@
                                 <home>${cargo.container.home}</home>
                                 <zipUrlInstaller>
                                     <url>${cargo.container.url}</url>
-                                    <installDir>${installDir}</installDir>
+                                    <extractDir>${installDir}</extractDir>
                                 </zipUrlInstaller>
                             </container>
                             <configuration>
@@ -285,6 +269,8 @@
                                 <properties>
                                     <cargo.hostname>${cargo.host}</cargo.hostname>
                                     <cargo.servlet.port>${cargo.port}</cargo.servlet.port>
+                                    <!-- To prevent conflicts with already running instances -->
+                                    <cargo.tomcat.ajp.port>8123</cargo.tomcat.ajp.port>
                                 </properties>
                             </configuration>
                         </configuration>
@@ -343,6 +329,24 @@
                                 <version>${webtest.version}</version>
                             </dependency>
                         </dependencies>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <!-- ================= Production Settings Profile ================= -->
+        <!-- Use "-P prod" when you want to use the settings in this profile -->
+        <!-- =============================================================== -->
+        <profile>
+            <id>prod</id>
+            <build>
+                <plugins>
+                    <!-- Override location of data file for DbUnit to load (doesn't have negative keys) -->
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>dbunit-maven-plugin</artifactId>
+                        <configuration>
+                            <src>src/main/resources/default-data.xml</src>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>

@@ -16,8 +16,11 @@ ${pojoNameLower}List.title=${pojo.shortName} List
 ${pojoNameLower}List.heading=${util.getPluralForWord(pojo.shortName)}
 ${pojoNameLower}List.${pojoNameLower}=${pojoNameLower}
 ${pojoNameLower}List.${util.getPluralForWord(pojoNameLower)}=${util.getPluralForWord(pojoNameLower)}
+${pojoNameLower}List.message=This is the list of your ${util.getPluralForWord(pojo.shortName)}. You can add ${util.getPluralForWord(pojo.shortName)}. To view a ${pojoNameLower}'s details, edit or delete it, click on one of the ${util.getPluralForWord(pojoNameLower)} from the list.
+
 
 # -- ${pojoNameLower} detail page --
 ${pojoNameLower}Detail.title=${pojo.shortName} Detail
 ${pojoNameLower}Detail.heading=${pojo.shortName} Information
+${pojoNameLower}Detail.message=Please enter your ${pojo.shortName} information
 # -- ${pojo.shortName}-END

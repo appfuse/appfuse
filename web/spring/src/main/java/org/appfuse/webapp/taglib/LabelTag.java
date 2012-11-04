@@ -28,7 +28,7 @@ import java.util.Locale;
  * <p>This class is designed to render a <label> tag for labeling your forms and
  * adds an asterik (*) for required fields.  It was originally written by Erik
  * Hatcher (http://www.ehatchersolutions.com/JavaDevWithAnt/).
- *
+ * <p/>
  * <p>It is designed to be used as follows:
  * <pre>&lt;tag:label key="userForm.username"/&gt;</pre>
  *
@@ -44,30 +44,28 @@ public class LabelTag extends TagSupport {
     protected boolean colon = false;
 
     public int doStartTag() throws JspException {
-        
+
         try {
-            this.requestContext =   
-                new RequestContext((HttpServletRequest) this.pageContext.getRequest());
-        }
-        catch (RuntimeException ex) {
+            this.requestContext =
+                    new RequestContext((HttpServletRequest) this.pageContext.getRequest());
+        } catch (RuntimeException ex) {
             throw ex;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             pageContext.getServletContext().log("Exception in custom tag", ex);
         }
-        
+
         // Look up this key to see if its a field of the current form
         boolean requiredField = false;
         boolean validationError = false;
 
         ValidatorResources resources = getValidatorResources();
-        
+
         Locale locale = pageContext.getRequest().getLocale();
 
         if (locale == null) {
             locale = Locale.getDefault();
         }
-        
+
         // get the name of the bean from the key
         String formName = key.substring(0, key.indexOf('.'));
         String fieldName = key.substring(formName.length() + 1);
@@ -92,7 +90,7 @@ public class LabelTag extends TagSupport {
             fes = errors.getFieldErrors(fieldName);
             //String errorMsg = getErrorMessages(fes);
         }
-        
+
         if (fes != null && fes.size() > 0) {
             validationError = true;
         }
@@ -104,7 +102,7 @@ public class LabelTag extends TagSupport {
         } catch (NoSuchMessageException nsm) {
             message = "???" + key + "???";
         }
-        
+
         String cssClass = null;
         if (styleClass != null) {
             cssClass = styleClass;
@@ -113,35 +111,24 @@ public class LabelTag extends TagSupport {
         }
 
         String cssErrorClass = (errorClass != null) ? errorClass : "error";
-        StringBuffer label = new StringBuffer();
+        StringBuilder label = new StringBuilder();
 
         if ((message == null) || "".equals(message.trim())) {
             label.append("");
         } else {
             label.append("<label for=\"").append(fieldName).append("\"");
 
-            if (validationError) {
-                label.append(" class=\"").append(cssErrorClass).append("\"");
-            } else if (cssClass != null) {
-                label.append(" class=\"").append(cssClass).append("\"");
+            if (cssClass != null) {
+                label.append(" class=\"").append(cssClass);
+                if (validationError) {
+                    label.append(" ").append(cssErrorClass);
+                }
             }
 
-            label.append(">").append(message);
-            label.append((requiredField) ? " <span class=\"req\">*</span>" : "");
+            label.append("\">").append(message);
+            label.append((requiredField) ? " <span class=\"required\">*</span>" : "");
             label.append((colon) ? ":" : "");
             label.append("</label>");
-            
-            if (validationError) {
-                label.append("<img class=\"validationWarning\" alt=\"");
-                label.append(getMessageSource().getMessage("icon.warning", null, locale));
-                label.append("\"");
-
-                String context = ((HttpServletRequest) pageContext.getRequest()).getContextPath();
-
-                label.append(" src=\"").append(context);
-                label.append(getMessageSource().getMessage("icon.warning.img", null, locale));
-                label.append("\" />");
-            }
         }
 
         // Print the retrieved message to our output writer
@@ -170,13 +157,15 @@ public class LabelTag extends TagSupport {
 
     /**
      * Write the message to the page.
+     *
      * @param msg the message to write
      * @throws IOException if writing failed
      */
+
     protected void writeMessage(String msg) throws IOException {
         pageContext.getOut().write(msg);
     }
-    
+
     /**
      * @jsp.attribute required="true" rtexprvalue="true"
      */
@@ -186,6 +175,7 @@ public class LabelTag extends TagSupport {
 
     /**
      * Setter for specifying whether to include colon
+     *
      * @jsp.attribute required="false" rtexprvalue="true"
      */
     public void setColon(boolean colon) {
@@ -210,7 +200,7 @@ public class LabelTag extends TagSupport {
     public void setErrorClass(String errorClass) {
         this.errorClass = errorClass;
     }
-    
+
     /**
      * Release all allocated resources.
      */
@@ -221,7 +211,7 @@ public class LabelTag extends TagSupport {
         styleClass = null;
         errorClass = null;
     }
-    
+
     /**
      * Get the validator resources from a ValidatorFactory defined in the
      * web application context or one of its parent contexts.
@@ -232,7 +222,7 @@ public class LabelTag extends TagSupport {
     private ValidatorResources getValidatorResources() {
         // look in servlet beans definition (i.e. action-servlet.xml)
         WebApplicationContext ctx = (WebApplicationContext) pageContext.getRequest()
-            .getAttribute(DispatcherServlet.WEB_APPLICATION_CONTEXT_ATTRIBUTE);
+                .getAttribute(DispatcherServlet.WEB_APPLICATION_CONTEXT_ATTRIBUTE);
         ValidatorFactory factory = null;
         try {
             factory = (ValidatorFactory) BeanFactoryUtils
@@ -246,7 +236,7 @@ public class LabelTag extends TagSupport {
         }
         return factory.getValidatorResources();
     }
-    
+
 
     /**
      * Use the application context itself for default message resolution.

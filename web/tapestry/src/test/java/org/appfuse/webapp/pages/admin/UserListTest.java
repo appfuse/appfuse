@@ -1,19 +1,16 @@
 package org.appfuse.webapp.pages.admin;
 
+import java.util.Locale;
 import org.apache.tapestry5.dom.Element;
 import org.appfuse.webapp.pages.BasePageTestCase;
-import org.compass.gps.CompassGps;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ResourceBundle;
+import org.appfuse.service.UserManager;
 
 import static org.junit.Assert.*;
 
 public class UserListTest extends BasePageTestCase {
-
-    @Autowired
-    private CompassGps compassGps;
 
     @Test
     public void testListUsers() {
@@ -25,17 +22,21 @@ public class UserListTest extends BasePageTestCase {
     @Test
     public void testEditUser() {
         doc = tester.renderPage("admin/userList");
-        doc = tester.clickLink(doc.getElementById("user-user"));
+        doc = tester.clickLink(doc.getElementById("user-admin"));
 
-        ResourceBundle rb = ResourceBundle.getBundle(MESSAGES);
+        ResourceBundle rb = ResourceBundle.getBundle(MESSAGES, new Locale("en"));
 
         assertTrue(doc.toString().contains("<title>" +
-                rb.getString("userProfile.title") + "</title>"));
+                rb.getString("userProfile.title") + " | " +
+                rb.getString("webapp.name") + "</title>"));
     }
 
     @Test
     public void testSearch() {
-        compassGps.index();
+        // regenerate search index
+        UserManager userManager = (UserManager) applicationContext.getBean("userManager");
+        userManager.reindex();
+
         doc = tester.renderPage("admin/userList");
 
         Element form = doc.getElementById("searchForm");

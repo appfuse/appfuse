@@ -3,20 +3,19 @@ package org.appfuse.webapp.action;
 import com.opensymphony.xwork2.Action;
 import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.subethamail.wiser.Wiser;
 
+import static org.junit.Assert.*;
+
 public class PasswordHintActionTest extends BaseActionTestCase {
+    @Autowired
     private PasswordHintAction action;
+    @Autowired
     private UserManager userManager;
 
-    public void setUserManager(final UserManager userManager) {
-        this.userManager = userManager;
-    }
-
-    public void setPasswordHintAction(final PasswordHintAction action) {
-        this.action = action;
-    }
-
+    @Test
     public void testExecute() throws Exception {
         // start SMTP Server
         Wiser wiser = new Wiser();
@@ -34,19 +33,22 @@ public class PasswordHintActionTest extends BaseActionTestCase {
         // verify that success messages are in the request
         assertNotNull(action.getSession().getAttribute("messages"));
     }
-    
+
+    @Test
     public void testExecuteNoUserName() throws Exception {
         action.setUsername(null);
         assertEquals(Action.INPUT, action.execute());
         assertTrue(action.hasActionErrors());
     }
 
+    @Test
     public void testExecuteWrongUserName() throws Exception {
         action.setUsername("UNKNOWN123");
         assertEquals(Action.INPUT, action.execute());
         assertTrue(action.hasActionErrors());
     }
 
+    @Test
     public void testExecuteNoPasswordHintUserName() throws Exception {
         action.setUsername("manager");
         final User user = userManager.getUserByUsername("admin");

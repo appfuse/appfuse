@@ -34,8 +34,6 @@ public interface UserService {
      * @param username the user's username used to login
      * @return User a populated user object
      */
-    @GET
-    @Path("/{username}")
     User getUserByUsername(@PathParam("username") String username);
 
     /**

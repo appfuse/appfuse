@@ -20,8 +20,7 @@ public class PasswordHintTest extends BasePageTestCase {
         wiser.stop();
         assertTrue(wiser.getMessages().size() == 1);
 
-        assertTrue(doc.getElementById("successMessages").toString()
-                .contains("The password hint for admin has been sent to"));
+        assertTrue(doc.toString().contains("The password hint for admin has been sent to"));
     }
 
 }

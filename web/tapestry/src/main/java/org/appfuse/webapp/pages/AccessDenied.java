@@ -6,7 +6,6 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
-import org.appfuse.webapp.util.MessageUtil;
 
 /**
  * Page to handle 403 errors 
@@ -25,11 +24,10 @@ public class AccessDenied {
     private Messages messages;
 
     @Inject
-    private PageRenderLinkSource linker;
+    private PageRenderLinkSource pageRendererLinkSource;
 
     public String getaccessDeniedMessage() {
-        String message = MessageUtil.convert(messages.get("403.message"));
-        String url = linker.createPageRenderLink("Index").toURI();
-        return String.format(message, url);
+        String url = pageRendererLinkSource.createPageRenderLink(Index.class).toURI();
+        return messages.format("403.message", url);
     }
 }

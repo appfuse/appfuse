@@ -1,58 +1,44 @@
-<t:layout title="message:userList.title"
-    heading="message:userList.heading" menu="literal:AdminMenu"
-    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+<html t:type="layout" title="userList.title"
+    heading="message:userList.heading" menu="AdminMenu"
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
 
-    <t:messagebanner t:id="message" type="type"/>
+<div class="span10">
+    <h2>${message:userList.heading}</h2>
 
     <div id="search">
-    <t:form method="get" t:id="searchForm">
-        <t:textfield size="20" name="q" t:id="q"/>
-        <input t:type="submit" value="${message:button.search}"/>
-    </t:form>
+    <form t:type="form" t:id="searchForm" autofocus="false" class="form-search">
+        <input t:type="textfield" size="20" name="q" t:id="q" placeholder="${message:search.enterTerms}" class="input-medium search-query"/>
+        <input t:type="submit" value="${message:button.search}" class="btn"/>
+    </form>
     </div>
 
-    <p>
-        <t:eventlink t:id="addTop">
-            <input type="button" class="button" value="${message:button.add}" />
-        </t:eventlink>
-        <t:eventlink t:id="doneTop">
-            <input type="button" class="button" value="${message:button.done}" />
-        </t:eventlink>
-    </p>
+    <a t:type="eventlink" t:id="add" id="add">
+        <input type="button" style="margin-right: 5px" class="btn" value="${message:button.add}" />
+    </a>
+    <a t:type="eventlink" t:id="done" id="done">
+        <input type="button" class="btn" value="${message:button.done}" />
+    </a>
 
-    <t:grid source="users" row="user" model="model" reorder="username,fullname,email,enabled" t:id="userList" id="userList" class="table">
-        <t:parameter name="usernamecell">
-            <t:actionlink t:id="edit" context="user.id" id="user-${user.username}">
-                ${user.username}
-            </t:actionlink>
-        </t:parameter>
-        <t:parameter name="fullnamecell">${user.fullName}</t:parameter>
-        <t:parameter name="emailcell">
-            <a href="mailto:${user.email}" t:type="any">
-                ${user.email}
+    <t:grid source="users" row="currentUser" model="model" reorder="username,fullname,email,enabled" t:id="userList" id="userList" class="table table-condensed">
+        <p:usernamecell>
+            <a t:type="actionlink" t:id="edit" context="currentUser" id="user-${currentUser.username}">  ${currentUser.username} </a>
+        </p:usernamecell>
+        <p:fullnamecell>${currentUser.fullName}</p:fullnamecell>
+        <p:emailcell>
+            <a href="mailto:${currentUser.email}" t:type="any">
+                ${currentUser.email}
             </a>
-        </t:parameter>
-        <t:parameter name="enabledcell">
-            <t:if test="user.enabled">
+        </p:emailcell>
+        <p:enabledcell>
+            <t:if test="currentUser.enabled">
                 <input type="checkbox" disabled="disabled" style="margin-left: 15px" checked="checked" />
-                <t:parameter name="else">
+                <p:else>
                     <input type="checkbox" disabled="disabled" style="margin-left: 15px"/>
-                </t:parameter>
+                </p:else>
             </t:if>
-        </t:parameter>
+        </p:enabledcell>
     </t:grid>
 
-    <p>
-        <t:eventlink t:id="addBottom">
-            <input type="button" class="button" value="${message:button.add}" />
-        </t:eventlink>
-        <t:eventlink t:id="doneBottom">
-            <input type="button" class="button" value="${message:button.done}" />
-        </t:eventlink>
-    </p>
+  </div>
 
-    <script type="text/javascript">
-        highlightTableRows("userList");
-    </script>
-
-</t:layout>
+</html>

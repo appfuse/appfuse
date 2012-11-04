@@ -33,7 +33,7 @@
         <property name="transactionManager" ref="transactionManager"/>
         <property name="settings">
             <map>
-                <entry key="compass.engine.connection" value="target/test-index"/>
+                <entry key="compass.engine.connection" value="ram://index"/>
             </map>
         </property>
     </bean>

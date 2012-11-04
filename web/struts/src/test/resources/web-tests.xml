@@ -2,10 +2,11 @@
     <!ENTITY config SYSTEM "./config.xmlf">
     <!ENTITY login SYSTEM "./login.xmlf">
 ]>
-<project basedir="." default="run-all-tests"> 
+<project basedir="." default="run-all-tests">
+    <taskdef resource="webtestTaskdefs.properties" />
     <!-- Use i18n bundle, 2nd one listed is the default -->
-    <property file="${i18n.classpath}/ApplicationResources_${user.language}.properties"/>
-    <property file="${i18n.classpath}/ApplicationResources.properties"/>
+    <property file="../../../../common/target/classes/ApplicationResources_${user.language}.properties"/>
+    <property file="../../../../common/target/classes/ApplicationResources.properties"/>
 
     <!-- runs all targets -->
     <target name="run-all-tests" 
@@ -30,7 +31,7 @@
 
     <!-- Logout of the application -->
     <target name="Logout" description="Runs logout test and verifies Login's Title">
-        <webtest name="login">
+        <webtest name="logout">
             &config;
             <steps>
                 &login;
@@ -118,7 +119,7 @@
             <steps>
                 &login;
                 <invoke description="click Add Button" url="/editUser?from=list"/>
-                <verifytitle description="we should see the user profile title"
+                <verifytitle description="view the user profile title"
                     text=".*${userProfile.title}.*" regex="true"/>
                     
                 <setinputfield description="set username" name="user.username" value="newuser"/>
@@ -135,19 +136,19 @@
                 <setinputfield description="set passwordHint" name="user.passwordHint" value="test"/>
                 <setselectfield description="Select roles" name="userRoles" value="ROLE_USER"/>
                 <clickbutton label="${button.save}" description="Click button 'Save'"/>
-                
+
                 <verifytitle description="view user list screen" text=".*${userList.title}.*" regex="true"/>
                 <verifytext description="verify success message" regex="true"
-                    text='&lt;div class="message.*&gt;.*Test Name.*&lt;/div&gt;'/>
+                    text='&lt;div class="alert alert-success.*&gt;.*Test Name.*&lt;/div&gt;'/>
                     
                 <!-- Delete user -->
-                <clicklink description="Click edit user link" label="newuser"/>
+                <clickLink description="Click edit user link" label="newuser"/>
                 <enableJavaScript enable="false"/>
                 <!--prepareDialogResponse description="Confirm delete" dialogType="confirm" response="true"/-->
                 <clickbutton label="${button.delete}" description="Click button 'Delete'"/>
                 <!--verifyNoDialogResponses/-->
                 <verifytext description="verify success message" regex="true"
-                    text='&lt;div class="message.*&gt;.*Test Name.*&lt;/div&gt;'/>
+                    text='&lt;div class="alert alert-success.*&gt;.*Test Name.*&lt;/div&gt;'/>
                 <verifytitle description="display user list" text=".*${userList.title}.*" regex="true"/>
             </steps>
         </webtest>
@@ -175,7 +176,7 @@
                 <setinputfield description="set passwordHint" name="user.passwordHint" value="test"/>
                 
                 <enableJavaScript enable="false"/> <!-- HtmlUnit doesn't understand table.rows.length -->
-                <clickbutton name="button.register"  description="Click button 'Signup'"/>
+                <clickbutton label="${button.register}"  description="Click button 'Signup'"/>
                 
                 <verifytitle description="view main menu" text=".*${mainMenu.title}.*" regex="true"/>
                 <verifytext description="verify success message" text="${user.registered}"/>
@@ -203,12 +204,12 @@
             <steps>
                 &login;
                 <invoke description="click Upload a File link" url="/uploadFile"/>
-                <verifytitle description="we should see file upload form" text=".*${upload.title}.*" regex="true"/>
+                <verifytitle description="should see file upload form" text=".*${upload.title}.*" regex="true"/>
                 <setinputfield description="set name" name="name" value="Canoo Test File"/>
-                <setFileField description="set file" name="file" fileName="pom.xml"/>
+                <setFileField description="set file" name="file" fileName="web-tests.xml"/>
                 <clickbutton label="${button.upload}" description="Click Upload"/>
                 <verifytitle description="show file data if upload OK" text=".*${display.title}.*" regex="true"/>
-                <verifytext description="verify original filename displayed on page" text="pom.xml"/>
+                <verifytext description="verify original filename displayed on page" text="web-tests.xml"/>
             </steps>
         </webtest>
     </target>

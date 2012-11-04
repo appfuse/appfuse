@@ -72,10 +72,8 @@
         <span title="Project Name">&nbsp;(?)</span><br/>
         <label for="version" title="AppFuse Version">Version:</label>
         <select id="version" onchange="changeIt();">
-            <option value="2.1.0-SNAPSHOT">2.1.0-SNAPSHOT</option>
-            <option value="2.1.0-M2" selected="selected">2.1.0-M2</option>
-            <option value="2.1.0-M1">2.1.0-M1</option>
-            <option value="2.0.2">2.0.2</option>
+            <option value="2.1.1-SNAPSHOT">2.1.1-SNAPSHOT</option>
+            <option value="2.1.0" selected="selected">2.1.0</option>
         </select><span title="AppFuse Version">&nbsp;(?)</span><br/>
         <label for="webFramework" title="Web Framework">Web Framework:</label>
         <select id="webFramework" onchange="changeIt();">
@@ -117,7 +115,7 @@
             //console.log('version: ' + parseFloat(version.substring(0,3)));
             if (version.match(/.*SNAPSHOT/) || parseFloat(version.substring(0,3)) >= 2.1) archetypeArtifactId += "-archetype";
             var cmd = 'mvn archetype:generate -B -DarchetypeGroupId=org.appfuse.archetypes -DarchetypeArtifactId=' + archetypeArtifactId + ' -DarchetypeVersion=' + version + ' -DgroupId=' + groupId + ' -DartifactId=' + artifactId;
-            if (version.match(/.*SNAPSHOT/)) cmd += ' -DarchetypeRepository=http://oss.sonatype.org/content/repositories/appfuse';
+            cmd += ' -DarchetypeRepository=http://oss.sonatype.org/content/repositories/appfuse';
             document.getElementById("cmdLine").value = cmd;
         }
         

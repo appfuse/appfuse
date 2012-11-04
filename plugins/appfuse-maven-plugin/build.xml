@@ -13,10 +13,11 @@
     
     <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="classpath"/>
 
-    <property name="version" value="2.1.0-SNAPSHOT"/>
+    <property name="version" value="2.1.1-SNAPSHOT"/>
     <property name="archetype" value="${archetype}"/>
     <property name="test.dir" value="${basedir}/target"/>
 
+    <!-- Basic Archetypes -->
     <target name="test-jsf-basic" description="tests plugin with jsf basic archetype">
         <create-gen-basic archetype="appfuse-basic-jsf" name="basic-jsf"/>
     </target>
@@ -40,6 +41,7 @@
         <antcall target="test-tapestry-basic"/>
     </target>
 
+    <!-- Modular Archetypes -->
     <target name="test-jsf-modular" description="tests plugin with jsf modular archetype">
         <create-gen-modular archetype="appfuse-modular-jsf" name="modular-jsf"/>
     </target>
@@ -56,6 +58,34 @@
         <create-gen-modular archetype="appfuse-modular-tapestry" name="modular-tapestry"/>
     </target>
 
+    <!-- Light Archetypes -->
+    <target name="test-jsf-light" description="tests plugin with jsf light archetype">
+        <create-gen-basic archetype="appfuse-light-jsf" name="light-jsf"/>
+    </target>
+
+    <target name="test-spring-light" description="tests plugin with spring light archetype">
+        <create-gen-basic archetype="appfuse-light-spring" name="light-spring"/>
+    </target>
+
+    <target name="test-struts-light" description="tests plugin with struts light archetype">
+        <create-gen-basic archetype="appfuse-light-struts" name="light-struts"/>
+    </target>
+
+    <target name="test-tapestry-light" description="tests plugin with tapestry light archetype">
+        <create-gen-basic archetype="appfuse-light-tapestry" name="light-tapestry"/>
+    </target>
+    
+    <target name="test-wicket-light" description="tests plugin with wicket light archetype">
+        <create-gen-basic archetype="appfuse-light-wicket" name="light-wicket"/>
+    </target>
+
+    <target name="test-light" description="Runs all light archetype tests using Ant">
+        <antcall target="test-jsf-light"/>
+        <antcall target="test-spring-light"/>
+        <antcall target="test-struts-light"/>
+        <antcall target="test-tapestry-light"/>
+    </target>
+
     <target name="test-modular" description="Runs all modular archetype tests using Ant">
         <antcall target="test-jsf-modular"/>
         <antcall target="test-spring-modular"/>
@@ -63,13 +93,18 @@
         <antcall target="test-tapestry-modular"/>
     </target>
 
-    <target name="test-all">
+    <target name="test-all" description="Tests AMP, Full Source and JPA with AppFuse archetypes">
         <antcall target="test-basic"/>
         <antcall target="test-modular"/>
         <antcall target="test-basic-source"/>
         <antcall target="test-modular-source"/>
-        <antcall target="test-ibatis"/>
+        <!--antcall target="test-ibatis"/-->
         <antcall target="test-jpa"/>
+    </target>
+    
+    <target name="test-all-light" description="Tests AMP and Full Source with AppFuse Light">
+        <antcall target="test-light"/>
+        <antcall target="test-light-source"/>
     </target>
 
     <macrodef name="create-gen-basic">
@@ -96,12 +131,24 @@
 
             <echo level="info">Generating Generic CRUD for Person entity...</echo>
             <!-- run gen install integration-test -->
+            <if>
+                <contains string="@{name}" substring="light"/>
+                <then>
+                    <property name="test-command" value="verify -Duser.language=en -Djdbc.username=sa -Djdbc.password="/>
+                </then>
+                <else>
+                    <property name="test-command" value="verify -Duser.language=en"/>
+                </else>
+            </if>
+ 
+            <echo message="Using test command: ${test-command}"/>
+            
             <maven dir="${test.dir}/@{name}" command="appfuse:gen -Dentity=Person"/>
-            <maven dir="${test.dir}/@{name}" command="integration-test"/>
+            <maven dir="${test.dir}/@{name}" command="${test-command}"/>
 
             <echo level="info">Removing Person entity...</echo>
             <maven dir="${test.dir}/@{name}" command="appfuse:remove -Dentity=Person -Dskip.areyousure=true"/>
-            <maven dir="${test.dir}/@{name}" command="clean integration-test"/>
+            <maven dir="${test.dir}/@{name}" command="clean ${test-command}"/>
 
             <!-- copy Person.java to src -->
             <copy todir="${test.dir}/@{name}/src/main/java/com">
@@ -112,9 +159,10 @@
             <!-- hibernate.cfg.xml by doing nothing to add it ourselves. -->
 
             <echo level="info">Generating CRUD for Person entity...</echo>
+
             <!-- test w/o generic core -->
             <maven dir="${test.dir}/@{name}" command="appfuse:gen -Dentity=Person -Damp.genericCore=false"/>
-            <maven dir="${test.dir}/@{name}" command="integration-test"/>
+            <maven dir="${test.dir}/@{name}" command="${test-command}"/>
         </sequential>
     </macrodef>
 
@@ -144,11 +192,11 @@
 
             <!-- gen and test core -->
             <maven dir="${test.dir}/@{name}/core" command="appfuse:gen -Dentity=Person -Damp.genericCore=false"/>
-            <maven dir="${test.dir}/@{name}/core" command="install -Dsurefire.useFile=false"/>
+            <maven dir="${test.dir}/@{name}/core" command="install -Duser.language=en -Dsurefire.useFile=false"/>
 
             <!-- get and test web -->
             <maven dir="${test.dir}/@{name}/web" command="appfuse:gen -Dentity=Person -Damp.genericCore=false"/>
-            <maven dir="${test.dir}/@{name}/web" command="install -Dsurefire.useFile=false"/>
+            <maven dir="${test.dir}/@{name}/web" command="install -Duser.language=en -Dsurefire.useFile=false"/>
         </sequential>
     </macrodef>
 
@@ -158,6 +206,7 @@
         <antcall target="test-struts-basic-source"/>
         <antcall target="test-tapestry-basic-source"/>
         <antcall target="test-core-source"/>
+        <antcall target="test-ws-source"/>
     </target>
 
     <target name="test-modular-source" description="Tests extracting source into modular archetypes">
@@ -167,6 +216,15 @@
         <antcall target="test-tapestry-modular-source"/>
     </target>
 
+    <target name="test-light-source" description="Tests extracting source into light archetypes">
+        <antcall target="test-jsf-light-source"/>
+        <antcall target="test-spring-light-source"/>
+        <antcall target="test-struts-light-source"/>
+        <antcall target="test-stripes-light-source"/>
+        <antcall target="test-tapestry-light-source"/>
+        <antcall target="test-wicket-light-source"/>
+    </target>
+    
     <target name="test-jsf-basic-source" description="tests full-source plugin with jsf basic archetype">
         <full-source archetype="appfuse-basic-jsf" name="basic-jsf-source"/>
     </target>
@@ -185,32 +243,60 @@
 
     <target name="test-core-source" description="tests full-source plugin with core archetype">
         <full-source archetype="appfuse-core" name="core-source"/>
-        <full-source archetype="appfuse-core" name="core-ibatis-source" daoFramework="ibatis" hibernate3Config="jpaconfiguration" modular="false"/>
+        <!--full-source archetype="appfuse-core" name="core-ibatis-source" daoFramework="ibatis" hibernate3Config="jpaconfiguration" modular="false"/-->
         <full-source archetype="appfuse-core" name="core-jpa-source" daoFramework="jpa" hibernate3Config="jpaconfiguration" modular="false"/>
     </target>
 
+    <target name="test-ws-source" description="tests full-source plugin with ws archetype">
+        <full-source archetype="appfuse-ws" name="ws-source"/>
+    </target>
+    
     <target name="test-jsf-modular-source" description="tests full-source plugin with jsf modular archetype">
         <full-source archetype="appfuse-modular-jsf" name="modular-jsf-source"/>
-        <full-source archetype="appfuse-modular-jsf" name="modular-jsf-ibatis-source" daoFramework="ibatis" hibernate3Config="annotationconfiguration"/>
+        <!--full-source archetype="appfuse-modular-jsf" name="modular-jsf-ibatis-source" daoFramework="ibatis" hibernate3Config="annotationconfiguration"/-->
         <full-source archetype="appfuse-modular-jsf" name="modular-jsf-jpa-source" daoFramework="jpa" hibernate3Config="jpaconfiguration"/>
     </target>
 
      <target name="test-spring-modular-source" description="tests full-source plugin with spring modular archetype">
         <full-source archetype="appfuse-modular-spring" name="modular-spring-source"/>
-        <full-source archetype="appfuse-modular-spring" name="modular-spring-ibatis-source" daoFramework="ibatis" hibernate3Config="annotationconfiguration"/>
+        <!--full-source archetype="appfuse-modular-spring" name="modular-spring-ibatis-source" daoFramework="ibatis" hibernate3Config="annotationconfiguration"/-->
         <full-source archetype="appfuse-modular-spring" name="modular-spring-jpa-source" daoFramework="jpa" hibernate3Config="jpaconfiguration"/>
     </target>
 
      <target name="test-struts-modular-source" description="tests full-source plugin with struts modular archetype">
         <full-source archetype="appfuse-modular-struts" name="modular-struts-source"/>
-        <full-source archetype="appfuse-modular-struts" name="modular-struts-ibatis-source" daoFramework="ibatis" hibernate3Config="annotationconfiguration"/>
+        <!--full-source archetype="appfuse-modular-struts" name="modular-struts-ibatis-source" daoFramework="ibatis" hibernate3Config="annotationconfiguration"/-->
         <full-source archetype="appfuse-modular-struts" name="modular-struts-jpa-source" daoFramework="jpa" hibernate3Config="jpaconfiguration"/>
     </target>
 
      <target name="test-tapestry-modular-source" description="tests full-source plugin with tapestry modular archetype">
         <full-source archetype="appfuse-modular-tapestry" name="modular-tapestry-source"/>
-        <full-source archetype="appfuse-modular-tapestry" name="modular-tapestry-ibatis-source" daoFramework="ibatis" hibernate3Config="annotationconfiguration"/>
+        <!--full-source archetype="appfuse-modular-tapestry" name="modular-tapestry-ibatis-source" daoFramework="ibatis" hibernate3Config="annotationconfiguration"/-->
         <full-source archetype="appfuse-modular-tapestry" name="modular-tapestry-source" daoFramework="jpa" hibernate3Config="jpaconfiguration"/>
+    </target>
+    
+    <target name="test-jsf-light-source" description="tests full-source plugin with jsf light archetype">
+        <full-source archetype="appfuse-light-jsf" name="light-jsf-source"/>
+    </target>
+
+     <target name="test-spring-light-source" description="tests full-source plugin with spring light archetype">
+        <full-source archetype="appfuse-light-spring" name="light-spring-source"/>
+    </target>
+
+     <target name="test-struts-light-source" description="tests full-source plugin with struts light archetype">
+        <full-source archetype="appfuse-light-struts" name="light-struts-source"/>
+    </target>
+
+    <target name="test-stripes-light-source" description="tests full-source plugin with stripes light archetype">
+        <full-source archetype="appfuse-light-stripes" name="light-stripes-source"/>
+    </target>
+    
+    <target name="test-tapestry-light-source" description="tests full-source plugin with tapestry light archetype">
+        <full-source archetype="appfuse-light-tapestry" name="light-tapestry-source"/>
+    </target>
+    
+    <target name="test-wicket-light-source" description="tests full-source plugin with wicket light archetype">
+        <full-source archetype="appfuse-light-wicket" name="light-wicket-source"/>
     </target>
     
     <macrodef name="full-source">
@@ -241,9 +327,20 @@
                 </then>
             </if>
             
-            <!-- run full-source integration-test -->
+            <!-- Don't use db profile (in Bamboo) for AppFuse Light -->
+            <if>
+                <contains string="@{name}" substring="light"/>
+                <then>
+                    <property name="test-command" value="integration-test -Duser.language=en -Dsurefire.useFile=false -Djdbc.username=sa -Djdbc.password="/>
+                </then>
+                <else>
+                    <property name="test-command" value="verify -Duser.language=en -Dsurefire.useFile=false"/>
+                </else>
+            </if>
+            
+            <!-- run full-source verify -->
             <maven dir="${test.dir}/@{name}" command="appfuse:full-source"/>
-            <maven dir="${test.dir}/@{name}" command="integration-test -Dsurefire.useFile=false"/>
+            <maven dir="${test.dir}/@{name}" command="${test-command}"/>
         </sequential>
     </macrodef>
 
@@ -317,12 +414,12 @@
 
             <!-- test with generic core -->
             <maven dir="${test.dir}/@{name}" command="appfuse:gen -Dentity=Person -e"/>
-            <maven dir="${test.dir}/@{name}" command="integration-test -Dsurefire.useFile=false"/>
+            <maven dir="${test.dir}/@{name}" command="verify -Duser.language=en -Dsurefire.useFile=false"/>
             <maven dir="${test.dir}/@{name}" command="appfuse:remove -Dentity=Person -Dskip.areyousure=true"/>
             
             <!-- test w/o generic core -->
             <maven dir="${test.dir}/@{name}" command="appfuse:gen -Dentity=Person -Damp.genericCore=false"/>
-            <maven dir="${test.dir}/@{name}" command="integration-test -Dsurefire.useFile=false"/>
+            <maven dir="${test.dir}/@{name}" command="verify -Duser.language=en -Dsurefire.useFile=false"/>
         </sequential>
     </macrodef>
     
@@ -375,6 +472,6 @@
         </sql>
         <maven dir="${test.dir}/${name}" command="appfuse:gen-model"/>
         <maven dir="${test.dir}/${name}" command="appfuse:gen -Dentity=Cat"/>
-        <maven dir="${test.dir}/${name}" command="integration-test -Dsurefire.useFile=false"/>
+        <maven dir="${test.dir}/${name}" command="verify -Duser.language=en -Dsurefire.useFile=false"/>
     </target>
 </project>

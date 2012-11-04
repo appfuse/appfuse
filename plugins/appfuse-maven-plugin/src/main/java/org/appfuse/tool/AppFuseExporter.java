@@ -1,10 +1,8 @@
 package org.appfuse.tool;
 
-import org.apache.maven.plugin.MojoExecutionException;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.tool.hbm2x.GenericExporter;
 import org.hibernate.tool.hbm2x.pojo.POJOClass;
-import org.hibernate.util.StringHelper;
 
 import java.io.File;
 import java.util.Map;
@@ -100,6 +98,10 @@ public class AppFuseExporter extends GenericExporter {
                 "src/main/resources/{class-name}-sql-map-config.xml").start();
             configureExporter("appfuse/dao/ibatis/sql-map.ftl",
                 "src/main/resources/sqlmaps/{class-name}SQL.xml").start();
+            configureExporter("appfuse/dao/ibatis/compass-gps.ftl",
+                "src/main/resources/compass-gps.xml").start();
+            configureExporter("appfuse/dao/ibatis/select-ids.ftl",
+                "src/main/resources/{class-name}-select-ids.xml").start();
         }
 
         // Manager Bean Definition - only used when genericCore == true
@@ -181,17 +183,25 @@ public class AppFuseExporter extends GenericExporter {
             // views
             configureExporter("appfuse/web/tapestry/list-view.ftl", "src/main/webapp/{class-name}List.tml").start();
             configureExporter("appfuse/web/tapestry/form-view.ftl", "src/main/webapp/{class-name}Form.tml").start();
+        } else {
+            log.warn("Your project's web framework '" + webFramework + "' is not supported by AMP at this time.");
+            log.warn("See http://issues.appfuse.org/browse/EQX-211 for more information.");
+
         }
 
         // menu
         configureExporter("appfuse/web/menu.ftl", "src/main/webapp/common/{class-name}-menu.jsp").start();
+        configureExporter("appfuse/web/menu-light.ftl", "src/main/webapp/common/{class-name}-menu-light.jsp").start();
         configureExporter("appfuse/web/menu-config.ftl", "src/main/webapp/WEB-INF/{class-name}-menu-config.xml").start();
 
         // i18n
         configureExporter("appfuse/web/ApplicationResources.ftl", "src/main/resources/{class-name}-ApplicationResources.properties").start();
 
         // ui tests
-        configureExporter("appfuse/web/" + webFramework + "/web-tests.ftl", "src/test/resources/{class-name}-web-tests.xml").start();
+        if (!webFramework.equals("wicket") && !webFramework.equals("spring-security") &&
+                !webFramework.equals("spring-freemarker") && !webFramework.equals("stripes")) {
+            configureExporter("appfuse/web/" + webFramework + "/web-tests.ftl", "src/test/resources/{class-name}-web-tests.xml").start();
+        }
     }
 
     private String getDaoFilename(String daoFramework) {
@@ -231,20 +241,20 @@ public class AppFuseExporter extends GenericExporter {
             @Override
             protected String resolveFilename(POJOClass element) {
                 String filename = super.resolveFilename(element);
-                String packageLocation = StringHelper.replace(getPackageNameForFile(element), ".", "/");
+                String packageLocation = getPackageNameForFile(element).replace(".", "/");
 
                 String pojoName = System.getProperty("entity");
 
                 // A dot in the entity name means the person is specifying the package.
                 if (System.getProperty("entity").contains(".")) {
                     packageLocation = pojoName.substring(0, pojoName.indexOf(".model"));
-                    packageLocation = StringHelper.replace(packageLocation, ".", "/");
+                    packageLocation = packageLocation.replace(".", "/");
                 }
 
                 if (packageLocation.endsWith("model") && packageLocation.indexOf('/') > -1) {
                     packageLocation = packageLocation.substring(0, packageLocation.lastIndexOf('/'));
                 }
-                filename = StringHelper.replace(filename, "{basepkg-name}", packageLocation);
+                filename = filename.replace("{basepkg-name}", packageLocation);
                 return filename;
             }
         };

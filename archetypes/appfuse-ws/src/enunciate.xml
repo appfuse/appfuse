@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <enunciate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:noNamespaceSchemaLocation="http://enunciate.codehaus.org/schemas/enunciate-1.21.xsd">
+           xsi:noNamespaceSchemaLocation="http://enunciate.codehaus.org/schemas/enunciate-1.26.xsd">
     <api-import pattern="org.appfuse.model.*"/>
     <api-import pattern="org.appfuse.service.*Service"/>
     <api-import pattern="org.appfuse.service.**.*ManagerImpl"/>

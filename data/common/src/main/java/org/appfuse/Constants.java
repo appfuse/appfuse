@@ -79,6 +79,7 @@ public final class Constants {
 
     /**
      * The name of the CSS Theme setting.
+     * @deprecated No longer used to set themes.
      */
     public static final String CSS_THEME = "csstheme";
 }

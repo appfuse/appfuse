@@ -45,45 +45,4 @@
             <message key="errors.email"/>
         </field-validator>
     </field>
-    <!-- Can't get regex validation to work -->
-    <!--field name="user.phoneNumber">
-        <field-validator type="fieldexpression">
-            <param name="expression">
-                (user.phoneNumber.matches('^\(?(\d{3})\)?[-| ]?(\d{3})[-| ]?(\d{4})$'))
-            </param>
-            <message key="errors.phone"/>
-        </field-validator>
-    </field-->
-    <field name="user.website">
-        <field-validator type="requiredstring">
-            <message key="errors.required"/>
-        </field-validator>
-    </field>
-    <field name="user.address.city">
-        <field-validator type="requiredstring">
-            <message key="errors.required"/>
-        </field-validator>
-    </field>
-    <field name="user.address.province">
-        <field-validator type="requiredstring">
-            <message key="errors.required"/>
-        </field-validator>
-    </field>
-    <field name="user.address.postalCode">
-        <field-validator type="requiredstring">
-            <message key="errors.required"/>
-        </field-validator>
-        <!-- Can't get regex validation to work -->
-        <!--field-validator type="fieldexpression">
-            <param name="expression">
-                user.postalCode.matches('^\d{5}\d*$'))
-            </param> 
-            <message key="errors.zip"/>
-        </field-validator-->
-    </field>
-    <field name="user.address.country">
-        <field-validator type="requiredstring">
-            <message key="errors.required"/>
-        </field-validator>
-    </field>
 </validators>

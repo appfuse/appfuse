@@ -1,14 +1,20 @@
 package org.appfuse.webapp.pages;
 
-import org.apache.tapestry5.annotations.InjectPage;
+import org.apache.tapestry5.EventContext;
+import org.apache.tapestry5.alerts.AlertManager;
+import org.apache.tapestry5.alerts.Duration;
+import org.apache.tapestry5.alerts.Severity;
+import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.appfuse.model.User;
-import org.appfuse.webapp.services.ServiceFacade;
+import org.appfuse.service.UserManager;
+import org.appfuse.webapp.services.EmailService;
 import org.appfuse.webapp.util.RequestUtil;
 import org.slf4j.Logger;
 import org.springframework.mail.MailException;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Managed Bean to send password hints to registered users.
@@ -17,54 +23,68 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
  * @author Serge Eby
  * @version $Id: PasswordHint.java 5 2008-08-30 09:59:21Z serge.eby $
  */
-public class PasswordHint extends BasePage {
-
+public class PasswordHint {
     @Inject
     private Logger logger;
 
     @Inject
-    private ServiceFacade serviceFacade;
+    private Messages messages;
 
-    @InjectPage
-    private Login login;
+    @Inject
+    private UserManager userManager;
 
-    Object onActivate(String username) {
-        // ensure that the username has been sent
-        if (username == null || "".equals(username)) {
+    @Inject
+    private EmailService emailService;
+
+    @Inject
+    private AlertManager alertManager;
+
+    @Inject
+    private HttpServletRequest request;
+
+    private String username;
+
+    Object onActivate(EventContext ctx) {
+        // ensure that the username has been set
+        if (ctx == null || ctx.getCount() == 0) {
             logger.warn("Username not specified, notifying user that it's a required field.");
-            login.addError("errors.required", true, getText("user.username"));
-            return login;
+            alertManager.alert(Duration.TRANSIENT,
+                    Severity.ERROR,
+                    messages.format("errors.required", messages.get("user.username")));
+
+            return Login.class;
         }
 
-        if (logger.isDebugEnabled()) {
-            logger.debug("Processing Password Hint for username: " + username);
-        }
+        // Expect username is the first item in the context
+        int userIdx = 0;
+        this.username = ctx.get(String.class, userIdx).trim();
+        logger.debug("Processing Password Hint for username: " + username);
 
         // look up the user's information
         try {
-            User user = serviceFacade.getUserManager().getUserByUsername(username);
+            User user = userManager.getUserByUsername(username);
 
-            StringBuffer msg = new StringBuffer();
+            StringBuilder msg = new StringBuilder();
             msg.append("Your password hint is: ").append(user.getPasswordHint());
-            msg.append("\n\nLogin at: ").append(RequestUtil.getAppURL(getRequest()));
+            String subject = '[' + messages.get("webapp.name") + "] " + messages.get("user.passwordHint");
 
-            SimpleMailMessage message = serviceFacade.getMailMessage();
-            message.setTo(user.getEmail());
+            emailService.send(user, subject, msg.toString(), RequestUtil.getAppURL(request), true);
 
-            String subject = '[' + getText("webapp.name") + "] " + getText("user.passwordHint");
-            message.setSubject(subject);
-            message.setText(msg.toString());
-            serviceFacade.getMailEngine().send(message);
-            
-            login.addInfo("login.passwordHint.sent", true, username, user.getEmail());
+            alertManager.alert(Duration.TRANSIENT,
+                    Severity.INFO,
+                    messages.format("login.passwordHint.sent", username, user.getEmail()));
         } catch (UsernameNotFoundException e) {
             logger.warn(e.getMessage());
             // If exception is expected do not rethrow
-            login.addError("login.passwordHint.error", true, username);
+            alertManager.error(messages.format("login.passwordHint.error", username));
+
         } catch (MailException me) {
-            login.addError(me.getCause().getLocalizedMessage(), false);
+            alertManager.error(me.getCause().getLocalizedMessage());
         }
 
-        return login;
+
+        return Login.class;
     }
+
+
 }

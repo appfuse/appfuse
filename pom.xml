@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -6,7 +7,7 @@
     <artifactId>appfuse</artifactId>
     <packaging>pom</packaging>
     <name>AppFuse</name>
-    <version>2.1.0-SNAPSHOT</version>
+    <version>2.1.1-SNAPSHOT</version>
     <inceptionYear>2003</inceptionYear>
     <url>http://appfuse.org</url>
 
@@ -18,7 +19,7 @@
         can choose between Struts 2, JSF, Spring MVC and Tapestry. Test-first
         development is promoted when using AppFuse, and all the infrastructure
         is in place to do integration testing, unit/mock testing, as well as UI
-        testing. Features include Authentication (using Acegi Security),
+        testing. Features include Authentication (using Spring Security),
         Remember Me, Self Registration, Password Hint and GZip Compression.
         The fuse to start your apps.
     </description>
@@ -28,8 +29,8 @@
     </prerequisites>
 
     <scm>
-        <connection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk</connection>
-        <developerConnection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk</developerConnection>
+        <connection>scm:svn:https://github.com/appfuse/appfuse/trunk</connection>
+        <developerConnection>scm:svn:https://github.com/appfuse/appfuse/trunk</developerConnection>
         <url>http://source.appfuse.org/browse/appfuse/trunk</url>
     </scm>
 
@@ -76,7 +77,7 @@
             <unsubscribe>dev-unsubscribe@appfuse.java.net</unsubscribe>
             <post>dev@appfuse.java.net</post>
             <archive>http://appfuse.org/display/APF/Forum</archive>
-        </mailingList>                                         
+        </mailingList>
         <mailingList>
             <name>User List</name>
             <subscribe>user-subscribe@appfuse.java.net</subscribe>
@@ -150,10 +151,10 @@
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
+                <version>2.5.1</version>
                 <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
+                    <source>1.6</source>
+                    <target>1.6</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -165,6 +166,38 @@
                 </configuration>
             </plugin>
         </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>2.5</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>3.2</version>
+                    <dependencies>
+                        <!-- add support for ssh/scp -->
+                        <dependency>
+                            <groupId>org.apache.maven.wagon</groupId>
+                            <artifactId>wagon-ssh</artifactId>
+                            <version>1.0</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.12.4</version>
+                    <configuration>
+                        <systemPropertyVariables>
+                            <localRepoPath>${settings.localRepository}</localRepoPath>
+                        </systemPropertyVariables>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 
     <distributionManagement>
@@ -229,11 +262,51 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
             <version>${spring.security.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-aop</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-beans</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-context</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-expression</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-config</artifactId>
             <version>${spring.security.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-aop</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-beans</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-context</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-core</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!-- Upgrade version of AspectJ used by Spring Security -->
         <dependency>
@@ -309,7 +382,7 @@
         <plugins>
             <plugin>
                 <artifactId>maven-changes-plugin</artifactId>
-                <version>2.4</version>
+                <version>2.8</version>
                 <reportSets>
                     <reportSet>
                         <reports>
@@ -322,36 +395,36 @@
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <configuration>
                     <consoleOutput>true</consoleOutput>
-                    <configLocation>https://svn.java.net/svn/appfuse~svn/trunk/www/checkstyle.xml</configLocation>
+                    <configLocation>https://raw.github.com/appfuse/appfuse/master/www/checkstyle.xml</configLocation>
                     <failsOnError>false</failsOnError>
                     <maxAllowedViolations>3</maxAllowedViolations>
                 </configuration>
-                <version>2.6</version>
+                <version>2.9.1</version>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
-                <version>2.4</version>
+                <version>2.5.2</version>
             </plugin>
             <plugin>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.7</version>
+                <version>2.9</version>
             </plugin>
             <plugin>
                 <artifactId>maven-jxr-plugin</artifactId>
-                <version>2.2</version>
+                <version>2.3</version>
             </plugin>
             <plugin>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>2.5</version>
+                <version>2.7.1</version>
                 <configuration>
                     <linkXRef>true</linkXRef>
-                    <targetJdk>1.5</targetJdk>
+                    <targetJdk>1.6</targetJdk>
                 </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>2.7.2</version>
+                <version>2.12.4</version>
             </plugin>
         </plugins>
     </reporting>
@@ -383,7 +456,7 @@
                 <jdbc.driverClassName>org.h2.Driver</jdbc.driverClassName>
                 <jdbc.url><![CDATA[jdbc:h2:/tmp/appfuse;MVCC=TRUE]]></jdbc.url>
                 <jdbc.username>sa</jdbc.username>
-                <jdbc.password />
+                <jdbc.password/>
             </properties>
         </profile>
         <profile>
@@ -505,7 +578,7 @@
         <hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
         <jdbc.groupId>mysql</jdbc.groupId>
         <jdbc.artifactId>mysql-connector-java</jdbc.artifactId>
-        <jdbc.version>5.1.14</jdbc.version>
+        <jdbc.version>5.1.21</jdbc.version>
         <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
         <jdbc.url>
             <![CDATA[jdbc:mysql://localhost/appfuse?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true]]>
@@ -513,63 +586,66 @@
         <jdbc.username>root</jdbc.username>
         <jdbc.password />
 
-        <cargo.container>tomcat6x</cargo.container>
+        <!-- Search index settings -->
+        <search.index.basedir>${project.build.directory}/index</search.index.basedir>
+
+        <cargo.container>tomcat7x</cargo.container>
         <cargo.container.url>
-            http://archive.apache.org/dist/tomcat/tomcat-6/v6.0.29/bin/apache-tomcat-6.0.29.zip
+            http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.30/bin/apache-tomcat-7.0.30.zip
         </cargo.container.url>
         <cargo.container.home>${env.CATALINA_HOME}</cargo.container.home>
         <cargo.host>localhost</cargo.host>
-        <cargo.port>9876</cargo.port>
+        <cargo.port>8888</cargo.port>
         <cargo.wait>false</cargo.wait>
 
         <acegijsf.version>1.1.3</acegijsf.version>
         <ajax4jsf.version>1.0.6</ajax4jsf.version>
         <asm.version>2.2.3</asm.version>
         <aspectj.version>1.6.10</aspectj.version>
-        <cargo.version>1.0.6</cargo.version>
+        <cargo.version>1.2.4</cargo.version>
         <commons.lang.version>2.6</commons.lang.version>
         <commons.beanutils.version>1.8.3</commons.beanutils.version>
         <commons.collections.version>3.2.1</commons.collections.version>
         <commons.dbcp.version>1.3</commons.dbcp.version>
         <commons.fileupload.version>1.2.2</commons.fileupload.version>
         <commons.io.version>2.0.1</commons.io.version>
-        <compass.version>2.2.0</compass.version>
-        <cxf.version>2.3.3</cxf.version>
+        <cxf.version>2.6.0</cxf.version>
         <displaytag.version>1.2</displaytag.version>
         <dwr.version>2.0.3</dwr.version>
-        <ehcache.version>2.3.1</ehcache.version>
-        <ehcache.web.version>2.0.3</ehcache.web.version>
+        <ehcache.version>2.6.0</ehcache.version>
+        <ehcache.web.version>2.0.4</ehcache.web.version>
         <el.version>1.2</el.version>
         <facelets.version>1.1.14</facelets.version>
-        <hibernate.version>3.6.1.Final</hibernate.version>
-        <hibernate.entitymanager.version>3.6.1.Final</hibernate.entitymanager.version>
+        <hibernate.version>4.1.7.Final</hibernate.version>
+        <hibernate.entitymanager.version>4.1.7.Final</hibernate.entitymanager.version>
+        <hibernate.search.version>4.1.1.Final</hibernate.search.version>
         <ibatis.version>2.3.4.726</ibatis.version>
         <javamail.version>1.4.1</javamail.version>
-        <jetty.version>6.1.26</jetty.version>
+        <jetty.version>8.1.3.v20120416</jetty.version>
         <jmock.version>2.5.1</jmock.version>
         <jpa.version>2.0-cr-1</jpa.version>
         <jsp.version>2.1</jsp.version>
-        <jstl.version>1.1.2</jstl.version>
-        <junit.version>4.8.2</junit.version>
+        <jstl.version>1.2</jstl.version>
+        <junit.version>4.10</junit.version>
         <log4j.version>1.2.16</log4j.version>
-        <myfaces.version>2.0.4</myfaces.version>
-        <myfaces.tomahawk.version>1.1.10</myfaces.tomahawk.version>
+        <myfaces.version>2.1.5</myfaces.version>
+        <myfaces.tomahawk.version>1.1.11</myfaces.tomahawk.version>
         <servlet.version>2.5</servlet.version>
         <shale.version>1.0.5</shale.version>
         <sitemesh.version>2.4.2</sitemesh.version>
         <slf4j.version>1.6.1</slf4j.version>
-        <spring.version>3.0.5.RELEASE</spring.version>
-        <spring.security.version>3.0.5.RELEASE</spring.security.version>
+        <spring.version>3.1.3.RELEASE</spring.version>
+        <spring.security.version>3.1.3.RELEASE</spring.security.version>
         <springmodules.validation.version>0.8</springmodules.validation.version>
-        <struts.version>2.1.8</struts.version>
+        <struts.version>2.3.4.1</struts.version>
         <struts.menu.version>2.4.3</struts.menu.version>
-        <tapestry.version>5.2.4</tapestry.version>
+        <tapestry.version>5.3.5</tapestry.version>
         <urlrewrite.version>3.1.0</urlrewrite.version>
         <velocity.version>1.4</velocity.version>
         <webtest.version>3.0</webtest.version>
         <wiser.version>1.2</wiser.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <copyright.year>2003-2011</copyright.year>
+        <copyright.year>2003-2012</copyright.year>
     </properties>
 </project>

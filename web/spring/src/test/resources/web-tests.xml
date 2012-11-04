@@ -2,10 +2,11 @@
     <!ENTITY config SYSTEM "./config.xmlf">
     <!ENTITY login SYSTEM "./login.xmlf">
 ]>
-<project basedir="." default="run-all-tests"> 
+<project basedir="." default="run-all-tests">
+    <taskdef resource="webtestTaskdefs.properties" />
     <!-- Use i18n bundle, 2nd one listed is the default -->
-    <property file="${i18n.classpath}/ApplicationResources_${user.language}.properties"/>
-    <property file="${i18n.classpath}/ApplicationResources.properties"/>
+    <property file="../../../../common/target/classes/ApplicationResources_${user.language}.properties"/>
+    <property file="../../../../common/target/classes/ApplicationResources.properties"/>
 
     <!-- runs all targets -->
     <target name="run-all-tests" 
@@ -30,7 +31,7 @@
 
     <!-- Logout of the application -->
     <target name="Logout" description="Runs logout test and verifies Login's Title">
-        <webtest name="login">
+        <webtest name="logout">
             &config;
             <steps>
                 &login;
@@ -48,8 +49,7 @@
                 <invoke description="get Login Page" url="/"/>
                 <verifytitle description="we should see the login title" text=".*${login.title}.*" regex="true"/>
                 <invoke description="click password hint link" url="/passwordHint?username=admin"/>
-                <verifytitle description="we should see the login title again"
-                    text=".*${login.title}.*" regex="true"/>
+                <verifytitle description="show login title again" text=".*${login.title}.*" regex="true"/>
             </steps>
         </webtest>
     </target>
@@ -139,7 +139,7 @@
 
                 <verifytitle description="view user list screen" text=".*${userList.title}.*" regex="true"/>
                 <verifytext description="verify success message" regex="true"
-                    text='&lt;div class="message.*&gt;.*Test Name.*&lt;/div&gt;'/>
+                    text='&lt;div class="alert alert-success.*&gt;.*Test Name.*&lt;/div&gt;'/>
                     
                 <!-- Delete user -->
                 <clickLink description="Click edit user link" label="newuser"/>
@@ -147,7 +147,7 @@
                 <clickbutton label="${button.delete}" description="Click button 'Delete'"/>
                 <verifyNoDialogResponses/>
                 <verifytext description="verify success message" regex="true"
-                    text='&lt;div class="message.*&gt;.*Test Name.*&lt;/div&gt;'/>
+                    text='&lt;div class="alert alert-success.*&gt;.*Test Name.*&lt;/div&gt;'/>
                 <verifytitle description="display user list" text=".*${userList.title}.*" regex="true"/>
             </steps>
         </webtest>
@@ -203,10 +203,10 @@
                 <invoke description="click Upload a File link" url="/fileupload"/>
                 <verifytitle description="we should see file upload form" text=".*${upload.title}.*" regex="true"/>
                 <setinputfield description="set name" name="name" value="Canoo Test File"/>
-                <setFileField description="set file" name="file" fileName="pom.xml"/>
+                <setFileField description="set file" name="file" fileName="web-tests.xml"/>
                 <clickbutton label="${button.upload}" description="Click Upload"/>
                 <verifytitle description="show file data if upload OK" text=".*${display.title}.*" regex="true"/>
-                <verifytext description="verify original filename displayed on page" text="pom.xml"/>
+                <verifytext description="verify original filename displayed on page" text="web-tests.xml"/>
             </steps>
         </webtest>
     </target>

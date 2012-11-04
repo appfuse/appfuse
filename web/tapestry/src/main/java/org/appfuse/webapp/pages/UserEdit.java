@@ -1,34 +1,33 @@
 package org.appfuse.webapp.pages;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.tapestry5.Link;
-import org.apache.tapestry5.annotations.Component;
-import org.apache.tapestry5.annotations.InjectPage;
-import org.apache.tapestry5.annotations.Persist;
-import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.PersistenceConstants;
+import org.apache.tapestry5.alerts.AlertManager;
+import org.apache.tapestry5.alerts.Duration;
+import org.apache.tapestry5.alerts.Severity;
+import org.apache.tapestry5.annotations.*;
+import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 import org.appfuse.Constants;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
+import org.appfuse.service.RoleManager;
 import org.appfuse.service.UserExistsException;
+import org.appfuse.service.UserManager;
 import org.appfuse.webapp.components.UserForm;
 import org.appfuse.webapp.pages.admin.UserList;
-import org.appfuse.webapp.services.ServiceFacade;
+import org.appfuse.webapp.services.EmailService;
+import org.appfuse.webapp.services.SecurityContext;
 import org.appfuse.webapp.util.RequestUtil;
 import org.slf4j.Logger;
 import org.springframework.mail.MailException;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.authentication.AuthenticationTrustResolver;
-import org.springframework.security.authentication.AuthenticationTrustResolverImpl;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -37,224 +36,251 @@ import java.util.List;
  * @author Serge Eby
  * @version $Id: UserEdit.java 5 2008-08-30 09:59:21Z serge.eby $
  */
-public class UserEdit extends BasePage {
+public class UserEdit {
+
     @Inject
     private Logger logger;
 
-    @Persist
+    @PageActivationContext(passivate = false)
+    @Property(write = false)
     private User user;
 
-    @Property @Persist
-    private List<String> selectedRoles;
-
-    private List<String> userRoles;
-
-    @Inject
-    private PageRenderLinkSource linker;
+    @Property
+    @Persist
+    private List<Role> selectedRoles;
 
     @Inject
-    private ServiceFacade serviceFacade;
+    private PageRenderLinkSource pageRenderLinkSource;
+
+    @Inject
+    private Messages messages;
+
+    @Inject
+    private SecurityContext securityContext;
+
+
+    @Inject
+    private UserManager userManager;
+
+    @Inject
+    private RoleManager roleManager;
+
+    @Inject
+    private HttpServletRequest request;
+
+    @Inject
+    private AlertManager alertManager;
+
+
+    @Inject
+    private EmailService emailService;
 
     @InjectPage
     private UserList userList;
 
     @InjectPage
-    private MainMenu mainMenu;
+    private Home home;
+
+    @Persist(PersistenceConstants.FLASH)
+    @Property
+    private Class goBack;
 
     @Persist
+    @Property(write = false)
     private String from;
 
-    @Persist
-    private Link linkBack;
+
+    @Persist(PersistenceConstants.FLASH)
+    @Property(write = false)
+    private String infoMessage;
 
     @Component(id = "edit")
     private UserForm form;
 
     private boolean delete = false;
 
-    public User getUser() {
-        return user;
-    }
+    private boolean cancel = false;
 
     public void setUser(User user) {
         this.user = user;
     }
 
-    public List<String> getUserRoles() {
-        return userRoles;
+    public void set(User user, String from) {
+        this.user = user;
+        this.from = from;
     }
 
-    public void setUserRoles(List<String> userRoles) {
-        this.userRoles = userRoles;
+    public Object initialize(User user, String from, String infoMessage) {
+        this.user = user;
+        this.from = from;
+        this.infoMessage = infoMessage;
+
+        return this;
     }
 
-    public Boolean isRememberMe() {
-        AuthenticationTrustResolver resolver = new AuthenticationTrustResolverImpl();
-        SecurityContext ctx = SecurityContextHolder.getContext();
+    public void setInfoMessage(String infoMessage) {
+        this.infoMessage = infoMessage;
+    }
 
-        if (ctx != null) {
-            Authentication auth = ctx.getAuthentication();
-            return resolver.isRememberMe(auth);
+    Object[] onPassivate() {
+        if (user != null && user.getId() != null) {
+            return new Object[]{user};
         }
-        return false;
+        return new User[]{};
     }
 
-    public Boolean getCookieLogin() {
-        return isRememberMe();
-    }
-
-    void beginRender() {
+    void setupRender() {
         if (user == null) {
-            logger.debug("Initializing user object");
             user = new User();
             // Add default role
             user.addRole(new Role(Constants.USER_ROLE));
         }
 
-        selectedRoles = new ArrayList<String>(user.getRoles().size());
-
-        for (Role role : user.getRoles()) {
-            logger.debug("Adding Role: " + role.getName());
-            selectedRoles.add(role.getName());
-        }
-
-        setUserRoles(selectedRoles);
+        selectedRoles = new ArrayList<Role>(user.getRoles());
 
         // if user logged in with remember me, display a warning that they
         // can't change passwords
         logger.debug("checking for remember me login...");
 
-        if (isRememberMe()) {
+        if (securityContext.isRememberMe()) {
             // add warning message
-            setMessage(getText("userProfile.cookieLogin"));
+            alertManager.info(messages.get("userProfile.cookieLogin"));
         }
+
+        // Set info message
+        form.setInfoMessage(infoMessage);
     }
 
+
+    public boolean isCookieLogin() {
+        return securityContext.isRememberMe();
+    }
 
     // ~ --- Event Handlers
 
-    Object onCancel() {
-        logger.debug("Entering 'cancel' method");
+    @Log
+    @DiscardAfter
+    Object onCanceledFromEdit() {
+        //  return pageRenderLinkSource.createPageRenderLink(goBack);
 
         if (from != null && from.equalsIgnoreCase("list")) {
-            return linker.createPageRenderLink("admin/UserList");
+            return pageRenderLinkSource.createPageRenderLink(UserList.class);
         } else {
-            return linker.createPageRenderLink("MainMenu");
+            return pageRenderLinkSource.createPageRenderLink(Home.class);
         }
     }
 
-    void onValidateForm() {
-        if (!StringUtils.equals(user.getPassword(), user.getConfirmPassword())) {
-            addError(form.getForm(), form.getConfirmPasswordField(), "errors.twofields", true,
-                    getMessageText("user.confirmPassword"), getMessageText("user.password"));
+    @Log
+    void onValidatePasswordFromEdit() {
+        // Ensure the password fields match
+        if (form.isValid()) {
+            if (!StringUtils.equals(user.getPassword(), user.getConfirmPassword())) {
+
+                String errorMessage = messages.format("errors.twofields",
+                        messages.get("user.confirmPassword"),
+                        messages.get("user.password"));
+
+                // form.recordError(passwordField, errorMessage);
+
+                alertManager.alert(Duration.TRANSIENT, Severity.ERROR, errorMessage);
+            }
         }
     }
 
+    void onPrepare() {
+        if (user == null) {
+            user = new User();
+        }
+    }
+
+    @Log
+    @DiscardAfter
     Object onSuccess() throws UserExistsException, IOException {
-        logger.debug("*** entering onSuccess method ***");
 
         // Delete Button Clicked
         if (delete) {
             return onDelete();
         }
 
-        HttpServletRequest request = getRequest();
-
-        if (selectedRoles != null && !selectedRoles.isEmpty()) {
-            user.getRoles().clear();
-            for (String roleName : selectedRoles) {
-                logger.debug("Adding Role --> " + roleName);
-                user.addRole(serviceFacade.getRoleManager().getRole(roleName));
+        // Only Admins can update roles for other users
+        if (securityContext.isAdmin()) {
+            if (selectedRoles != null && !selectedRoles.isEmpty()) {
+                user.getRoles().clear();
+                for (int i = 0; selectedRoles != null && i < selectedRoles.size(); i++) {
+                    String roleName = selectedRoles.get(i).getName();
+                    user.addRole(roleManager.getRole(roleName));
+                }
             }
         }
+
         Integer originalVersion = user.getVersion();
 
         try {
-            user = serviceFacade.getUserManager().saveUser(user);
+            user = userManager.saveUser(user);
         } catch (AccessDeniedException ade) {
             // thrown by UserSecurityAdvice configured in aop:advisor userManagerSecurity
             logger.warn(ade.getMessage());
             return AccessDenied.class;
         } catch (UserExistsException e) {
-            addError(form.getForm(), form.getEmailField(), "errors.existing.user", true,
-                    user.getUsername(), user.getEmail());
+            // TODO
+            //form.recordError(form.getEmailField(), "User exits");
+            alertManager.alert(Duration.TRANSIENT, Severity.ERROR,
+                    messages.format("errors.existing.user", user.getUsername(), user.getEmail())
+            );
+
             user.setPassword(user.getConfirmPassword());
             user.setVersion(originalVersion);
             return null;
         }
 
-        if (!form.isFromList() &&
-                (request != null && user.getUsername().equals(request.getRemoteUser()))) {
+        if (!"list".equalsIgnoreCase(from)) {
             // add success messages
-            mainMenu.addInfo("user.saved", true, user.getFullName());
-            return mainMenu;
+            alertManager.alert(
+                    Duration.TRANSIENT,
+                    Severity.INFO,
+                    messages.format("user.saved", user.getFullName()));
+            return Home.class;
         } else {
             // add success messages
             if (originalVersion == null) {
-                sendNewUserEmail(request, user);
-                userList.addInfo("user.added", true, user.getFullName());
-                return userList;
+                alertManager.alert(Duration.TRANSIENT, Severity.INFO,
+                        messages.format("user.added", user.getFullName()));
+
+                try {
+                    String msg = messages.format("newuser.email.message", user.getFullName());
+                    String subject = messages.get("signup.email.subject");
+                    emailService.send(user, subject, msg, RequestUtil.getAppURL(request), false);
+                } catch (MailException me) {
+                    alertManager.alert(
+                            Duration.TRANSIENT,
+                            Severity.ERROR,
+                            me.getCause().getLocalizedMessage());
+                }
+                return UserList.class;
             } else {
-                addInfo("user.updated.byAdmin", true, user.getFullName());
-                return null; // return to current pages
+                alertManager.alert(Duration.TRANSIENT, Severity.INFO,
+                        messages.format("user.updated.byAdmin", user.getFullName()));
             }
         }
+
+        return this;
     }
 
-    void onSelectedFromEdit() {
-        delete = true;
-    }
-
+    @Log
     Object onDelete() {
-        logger.debug("entered delete method");
         // Save full name before deletion
         String fullName = user.getFullName();
-        serviceFacade.getUserManager().removeUser(user.getId().toString());
-        userList.addInfo("user.deleted", true, fullName);
+        userManager.removeUser(user.getId().toString());
+        alertManager.alert(Duration.TRANSIENT, Severity.INFO,
+                messages.format("user.deleted", fullName)
+        );
         logger.debug("After deletion.. ready to return userList object");
-        return userList;
-    }
-
-    void cleanupRender() {
-        //user = null;
-//         validationError = null;
-    }
-
-    // ~ Helper methods
-    private void sendNewUserEmail(HttpServletRequest request, User user) {
-        // Send user an e-mail
-        if (logger.isDebugEnabled()) {
-            logger.debug("Sending user '" + user.getUsername()
-                    + "' an account information e-mail");
-        }
-
-        SimpleMailMessage message = serviceFacade.getMailMessage();
-        message.setTo(user.getFullName() + "<" + user.getEmail() + ">");
-
-        StringBuffer msg = new StringBuffer();
-        msg.append(getText("newuser.email.message", user.getFullName()));
-        msg.append("\n\n").append(getText("user.username"));
-        msg.append(": ").append(user.getUsername()).append("\n");
-        msg.append(getText("user.password")).append(": ");
-        msg.append(user.getPassword());
-        msg.append("\n\nLogin at: ").append(RequestUtil.getAppURL(request));
-        message.setText(msg.toString());
-
-        message.setSubject(getText("signup.email.subject"));
-
-        try {
-            serviceFacade.getMailEngine().send(message);
-        } catch (MailException me) {
-            //getSession().setAttribute("error", me.getCause().getLocalizedMessage());
-            addError(me.getCause().getLocalizedMessage(), false);
-        }
-    }
-
-    public String getFrom() {
-        return from;
+        return UserList.class;
     }
 
     public void setFrom(String from) {
         this.from = from;
     }
+
+
 }

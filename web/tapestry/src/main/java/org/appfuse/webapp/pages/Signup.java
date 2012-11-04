@@ -1,26 +1,31 @@
 package org.appfuse.webapp.pages;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.tapestry5.alerts.AlertManager;
+import org.apache.tapestry5.alerts.Duration;
+import org.apache.tapestry5.alerts.Severity;
 import org.apache.tapestry5.annotations.Component;
-import org.apache.tapestry5.annotations.Persist;
+import org.apache.tapestry5.annotations.Log;
+import org.apache.tapestry5.annotations.PageActivationContext;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.apache.tapestry5.services.Request;
+import org.apache.tapestry5.services.HttpError;
 import org.apache.tapestry5.services.Response;
 import org.appfuse.Constants;
 import org.appfuse.model.User;
+import org.appfuse.service.RoleManager;
 import org.appfuse.service.UserExistsException;
+import org.appfuse.service.UserManager;
 import org.appfuse.webapp.components.UserForm;
-import org.appfuse.webapp.services.ServiceFacade;
+import org.appfuse.webapp.services.EmailService;
+import org.appfuse.webapp.services.SecurityContext;
 import org.appfuse.webapp.util.RequestUtil;
 import org.slf4j.Logger;
 import org.springframework.mail.MailException;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
@@ -30,19 +35,31 @@ import java.io.IOException;
  * @author Serge Eby
  * @version $Id: Signup.java 5 2008-08-30 09:59:21Z serge.eby $
  */
-public class Signup extends BasePage {
+public class Signup {
     @Inject
     private Logger logger;
 
     @Inject
-    private ServiceFacade serviceFacade;
+    private UserManager userManager;
+
+    @Inject
+    private RoleManager roleManager;
+
+    @Inject
+    private AlertManager alertManager;
+
+    @Inject
+    private EmailService emailService;
 
     @Property
-    @Persist
+    @PageActivationContext
     private User user;
 
     @Inject
-    private Request request;
+    private HttpServletRequest request;
+
+    @Inject
+    private SecurityContext securityContext;
 
     @Inject
     private Response response;
@@ -56,97 +73,93 @@ public class Signup extends BasePage {
     @Property
     private Boolean cookieLogin;
 
-    void beginRender() {
+    void onPrepare() {
         if (user == null) {
             user = new User();
         }
-    }
-
-    // ~ Event Handlers
-
-    Object onCancel() {
-        if (logger.isDebugEnabled()) {
-            logger.debug("entered cancel method");
-        }
-        return Login.class;
-    }
-
-    void onValidateForm() {
-        // make sure the password fields match
-        if (!StringUtils.equals(user.getPassword(), user.getConfirmPassword())) {
-            addError(form.getForm(), form.getConfirmPasswordField(),
-                    "errors.twofields", true,
-                    getMessageText("user.confirmPassword"),
-                    getMessageText("user.password"));
-        }
-    }
-
-    Object onSuccess() throws IOException {
-        logger.debug("entered save method");
-
         // Enable user;
         user.setEnabled(true);
 
         // Set the default user role on this new user
-        user.addRole(serviceFacade.getRoleManager().getRole(Constants.USER_ROLE));
+        user.addRole(roleManager.getRole(Constants.USER_ROLE));
+    }
 
+    void setupRender() {
+        form.setInfoMessage(messages.get("signup.message"));
+    }
+
+    // ~ Event Handlers
+
+    @Log
+    Object onCanceledFromSignup() {
+        return Login.class;
+    }
+
+    @Log
+    void onValidatePasswordFromSignup() {
+        // Ensure the password fields match
+        if (form.isValid()) {
+            if (!StringUtils.equals(user.getPassword(), user.getConfirmPassword())) {
+
+                String errorMessage = messages.format("errors.twofields",
+                        messages.get("user.confirmPassword"),
+                        messages.get("user.password"));
+
+                form.recordError(errorMessage);
+
+                alertManager.alert(
+                        Duration.TRANSIENT,
+                        Severity.ERROR,
+                        errorMessage);
+            }
+        }
+    }
+
+    @Log
+    Object onSuccess() throws IOException {
         try {
-            user = serviceFacade.getUserManager().saveUser(user);
+            user = userManager.saveUser(user);
         } catch (AccessDeniedException ade) {
             // thrown by UserSecurityAdvice configured in aop:advisor
-            // userManagerSecurity
             logger.warn(ade.getMessage());
-            getResponse().sendError(HttpServletResponse.SC_FORBIDDEN);
-            return null; // FIXME
+            return new HttpError(HttpServletResponse.SC_FORBIDDEN, "Resource not available");
         } catch (UserExistsException e) {
-            // addError("usernameField",
-            // getMessages().format("errors.existing.user", user.getUsername(),
-            // user.getEmail()), ValidationConstraint.CONSISTENCY);
+            // TODO #1: FIXME: only username should be highlighted.. move to onValidate()?
+
+            alertManager.error(
+                    messages.format("errors.existing.user", user.getUsername(), user.getEmail())
+            );
             // redisplay the unencrypted passwords
             user.setPassword(user.getConfirmPassword());
-            return null; // FIXME
-        }
+            //TODO: somehow returning current page doesn't work
+            //return this;
 
-        getSession().setAttribute(Constants.REGISTERED, Boolean.TRUE);
+            response.sendRedirect("signup");
+        }
 
         // log user in automatically
-        UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
-                user.getUsername(), user.getConfirmPassword(), user
-                        .getAuthorities());
-        auth.setDetails(user);
-        SecurityContextHolder.getContext().setAuthentication(auth);
+        securityContext.login(user);
 
         // Send user an e-mail
-        if (logger.isDebugEnabled()) {
-            logger.debug("Sending user '" + user.getUsername()
-                    + "' an account information e-mail");
-        }
-
-        SimpleMailMessage message = serviceFacade.getMailMessage();
-        message.setTo(user.getFullName() + "<" + user.getEmail() + ">");
-
-        StringBuffer msg = new StringBuffer();
-        msg.append(getText("signup.email.message"));
-        msg.append("\n\n").append(getText("user.username"));
-        msg.append(": ").append(user.getUsername()).append("\n");
-        msg.append(getText("user.password")).append(": ");
-        msg.append(user.getPassword());
-        msg.append("\n\nLogin at: ")
-                .append(RequestUtil.getAppURL(getRequest()));
-        message.setText(msg.toString());
-        message.setSubject(getText("signup.email.subject"));
-
+        logger.debug(String.format("Sending user '%s' an account information e-mail", user.getUsername()));
         try {
-            serviceFacade.getMailEngine().send(message);
+            String msg = messages.get("signup.email.message");
+            String subject = messages.get("signup.email.subject");
+            emailService.send(user, subject, msg, RequestUtil.getAppURL(request), false);
         } catch (MailException me) {
-            getSession().setAttribute("error",
+            request.getSession(true).setAttribute("error",
                     me.getMostSpecificCause().getMessage());
         }
 
-        getSession().setAttribute("message", getText("user.registered"));
-        if (getRequest() != null) { // needed for testing
-            response.sendRedirect(getRequest().getContextPath());
+        alertManager.alert(Duration.TRANSIENT, Severity.INFO,  messages.get("user.registered"));
+        if (request != null) { // needed for testing
+            response.sendRedirect(request.getContextPath());
         }
         return null;
+    }
+
+    @Log
+    void onFailure() throws IOException {
+        response.sendRedirect("signup");
     }
 }

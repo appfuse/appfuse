@@ -9,16 +9,20 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.DataBinder;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 public class ${pojo.shortName}FormControllerTest extends BaseControllerTestCase {
+    @Autowired
     private ${pojo.shortName}FormController form;
     private ${pojo.shortName} ${pojoNameLower};
     private MockHttpServletRequest request;
 
-    public void set${pojo.shortName}FormController(${pojo.shortName}FormController form) {
-        this.form = form;
-    }
-
+    @Test
     public void testEdit() throws Exception {
         log.debug("testing edit...");
         request = newGet("/${pojoNameLower}form");
@@ -28,6 +32,7 @@ public class ${pojo.shortName}FormControllerTest extends BaseControllerTestCase 
         assertNotNull(${pojoNameLower});
     }
 
+    @Test
     public void testSave() throws Exception {
         request = newGet("/${pojoNameLower}form");
         request.addParameter("${pojo.identifierProperty.name}", "-1");
@@ -53,6 +58,7 @@ public class ${pojo.shortName}FormControllerTest extends BaseControllerTestCase 
         assertNotNull(request.getSession().getAttribute("successMessages"));
     }
 
+    @Test
     public void testRemove() throws Exception {
         request = newPost("/${pojoNameLower}form");
         request.addParameter("delete", "");

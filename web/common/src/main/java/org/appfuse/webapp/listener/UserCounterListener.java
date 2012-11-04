@@ -6,13 +6,15 @@ import org.springframework.security.authentication.AuthenticationTrustResolverIm
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.context.HttpSessionContextIntegrationFilter;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionBindingEvent;
+import javax.servlet.http.HttpSessionEvent;
+import javax.servlet.http.HttpSessionListener;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -25,7 +27,7 @@ import java.util.Set;
  *
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
-public class UserCounterListener implements ServletContextListener, HttpSessionAttributeListener {
+public class UserCounterListener implements ServletContextListener, HttpSessionAttributeListener, HttpSessionListener {
     /**
      * Name of user counter variable
      */
@@ -37,7 +39,7 @@ public class UserCounterListener implements ServletContextListener, HttpSessionA
     /**
      * The default event we're looking to trap.
      */
-    public static final String EVENT_KEY = HttpSessionContextIntegrationFilter.SPRING_SECURITY_CONTEXT_KEY;
+    public static final String EVENT_KEY = HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY;
     private transient ServletContext servletContext;
     private int counter;
     private Set<User> users;
@@ -116,7 +118,7 @@ public class UserCounterListener implements ServletContextListener, HttpSessionA
     public void attributeAdded(HttpSessionBindingEvent event) {
         if (event.getName().equals(EVENT_KEY) && !isAnonymous()) {
             SecurityContext securityContext = (SecurityContext) event.getValue();
-            if (securityContext.getAuthentication().getPrincipal() instanceof User) {
+            if (securityContext != null && securityContext.getAuthentication().getPrincipal() instanceof User) {
                 User user = (User) securityContext.getAuthentication().getPrincipal();
                 addUsername(user);
             }
@@ -165,6 +167,16 @@ public class UserCounterListener implements ServletContextListener, HttpSessionA
                 final User user = (User) securityContext.getAuthentication().getPrincipal();
                 addUsername(user);
             }
+        }
+    }
+    
+    public void sessionCreated(HttpSessionEvent se) { 
+    }
+    
+    public void sessionDestroyed(HttpSessionEvent se) {
+        Object obj = se.getSession().getAttribute(EVENT_KEY);
+        if (obj != null) {
+            se.getSession().removeAttribute(EVENT_KEY);
         }
     }
 }

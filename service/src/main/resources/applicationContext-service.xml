@@ -3,33 +3,33 @@
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
-            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
-            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd"
        default-lazy-init="true">
 
     <!-- =================================================================== -->
     <!-- AOP: Configuration and Aspects                                      -->
     <!-- =================================================================== -->
     <aop:config>
-        <aop:advisor id="userManagerTx" advice-ref="userManagerTxAdvice" pointcut="execution(* *..service.UserManager.*(..))" order="0"/>        
+        <aop:advisor id="userManagerTx" advice-ref="userManagerTxAdvice" pointcut="execution(* *..service.UserManager.*(..))" order="0"/>
         <aop:advisor id="userManagerSecurity" advice-ref="userSecurityAdvice" pointcut="execution(* *..service.UserManager.saveUser(..))" order="1"/>
         <aop:advisor id="managerTx" advice-ref="txAdvice" pointcut="execution(* *..service.*Manager.*(..))" order="2"/>
     </aop:config>
-    
+
     <!-- Enable @Transactional support -->
     <tx:annotation-driven/>
-    
+
     <!-- Enable @AspectJ support -->
     <aop:aspectj-autoproxy/>
 
     <!-- Activates scanning of @Autowired -->
     <context:annotation-config/>
-    
+
     <!-- Activates scanning of @Service -->
     <context:component-scan base-package="org.appfuse.service"/>
-    
+
     <tx:advice id="txAdvice">
         <tx:attributes>
             <!-- Read-only commented out to make things easier for end-users -->
@@ -44,9 +44,9 @@
             <tx:method name="save*" rollback-for="UserExistsException"/>
         </tx:attributes>
     </tx:advice>
-    
+
     <bean id="userSecurityAdvice" class="org.appfuse.service.UserSecurityAdvice"/>
-    
+
     <!-- =================================================================== -->
     <!-- Mail: Sender and Velocity configuration                             -->
     <!-- =================================================================== -->
@@ -58,7 +58,7 @@
 
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <property name="host" value="${mail.host}"/>
-        <property name="defaultEncoding" value="UTF-8"/> 
+        <property name="defaultEncoding" value="UTF-8"/>
         <!-- Uncomment if you need to authenticate with your SMTP Server -->
         <!--property name="username" value="${mail.username}"/>
         <property name="password" value="${mail.password}"/>

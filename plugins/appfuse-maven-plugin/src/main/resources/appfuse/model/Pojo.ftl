@@ -22,10 +22,10 @@ ${pojo.getPackageDeclaration()}
 </#assign>
 import ${appfusepackage}.model.BaseObject;
 
-import org.compass.annotations.Searchable;
-import org.compass.annotations.SearchableComponent;
-import org.compass.annotations.SearchableId;
-import org.compass.annotations.SearchableProperty;
+import org.hibernate.search.annotations.DocumentId;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 
 ${pojo.generateImports()}
 import javax.persistence.GeneratedValue;

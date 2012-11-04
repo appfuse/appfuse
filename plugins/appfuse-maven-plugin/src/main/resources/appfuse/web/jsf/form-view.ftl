@@ -12,6 +12,11 @@
     </head>
 <body id="${pojoNameLower}Form">
 
+<c:set var="delObject" value="${'#'}{text['${pojoNameLower}List.${pojoNameLower}']}"/>
+<script type="text/javascript">var msgDelConfirm =
+   "<h:outputFormat value="${'#'}{text['delete.confirm']}"><f:param value="${'#'}{delObject}" /></h:outputFormat>";
+</script>
+
 <h:form id="${pojoNameLower}Form" onsubmit="return validate${pojo.shortName}Form(this)">
 <#rt/>
 <#foreach field in pojo.getAllPropertiesIterator()>
@@ -34,7 +39,7 @@
     <h:outputLabel styleClass="desc" for="${field.name}" value="${'#'}{text['${pojoNameLower}.${field.name}']}"/>
     <t:message for="${field.name}" styleClass="fieldError"/>
     <#foreach column in field.getColumnIterator()>
-        <#if field.value.typeName == "java.util.Date">
+        <#if field.value.typeName == "java.util.Date" || field.value.typeName == "date">
             <#lt/>    <h:inputText styleClass="text medium" id="${field.name}" value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}" required="${(!column.nullable)?string}">
         <#if !column.nullable>
         <v:commonsValidator client="true" type="required" arg="${'#'}{text['${pojoNameLower}.${field.name}']}"/>
@@ -69,7 +74,7 @@
 
         <c:if test="${'$'}{not empty ${pojoNameLower}Form.${pojoNameLower}.${idFieldName}}">
         <h:commandButton value="${'#'}{text['button.delete']}" action="${'#'}{${pojoNameLower}Form.delete}"
-            id="delete" styleClass="button" onclick="bCancel=true; return confirmDelete('${pojo.shortName}')"/>
+            id="delete" styleClass="button" onclick="bCancel=true; return confirmMessage(msgDelConfirm)"/>
         </c:if>
 
         <h:commandButton value="${'#'}{text['button.cancel']}" action="cancel" immediate="true"

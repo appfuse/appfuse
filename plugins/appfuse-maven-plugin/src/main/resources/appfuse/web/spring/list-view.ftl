@@ -10,7 +10,7 @@
 <div id="search">
 <form method="get" action="${'$'}{ctx}/${util.getPluralForWord(pojoNameLower)}" id="searchForm">
     <input type="text" size="20" name="q" id="query" value="${'$'}{param.q}"
-           placeholder="Enter search terms"/>
+           placeholder="<fmt:message key="search.enterTerms"/>"/>
     <input type="submit" value="<fmt:message key="button.search"/>"/>
 </form>
 </div>
@@ -25,7 +25,7 @@
         paramId="${field.name}" paramProperty="${field.name}" titleKey="${pojoNameLower}.${field.name}"/>
     <display:column property="${field.name}" media="csv excel xml pdf" titleKey="${pojoNameLower}.${field.name}"/>
 <#elseif !c2h.isCollection(field) && !c2h.isManyToOne(field) && !c2j.isComponent(field)>
-    <#if field.value.typeName == "java.util.Date">
+    <#if field.value.typeName == "java.util.Date" || field.value.typeName == "date">
         <#lt/>    <display:column sortProperty="${field.name}" sortable="true" titleKey="${pojoNameLower}.${field.name}">
         <#lt/>         <fmt:formatDate value="${'$'}{${pojoNameLower}List.${field.name}}" pattern="${'$'}{datePattern}"/>
         <#lt/>    </display:column>
@@ -49,7 +49,3 @@
 
 <input type="button" style="margin-right: 5px" onclick="location.href='<c:url value="/${pojoNameLower}form"/>'" value="<fmt:message key="button.add"/>"/>
 <input type="button" onclick="location.href='<c:url value="/mainMenu"/>'" value="<fmt:message key="button.done"/>"/>
-
-<script type="text/javascript">
-    highlightTableRows("${pojoNameLower}List");
-</script> 

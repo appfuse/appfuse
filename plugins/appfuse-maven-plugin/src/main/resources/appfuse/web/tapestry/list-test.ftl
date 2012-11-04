@@ -1,10 +1,17 @@
 <#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
+<#assign identifierType = pojo.getJavaTypeName(pojo.identifierProperty, jdk5)>
 package ${basepackage}.webapp.pages;
+
+<#if genericcore>
+import ${appfusepackage}.service.GenericManager;
+<#else>
+import ${basepackage}.service.${pojo.shortName}Manager;
+</#if>
+import ${pojo.packageName}.${pojo.shortName};
 
 import org.apache.tapestry5.dom.Element;
 import org.apache.tapestry5.dom.Node;
 
-import org.compass.gps.CompassGps;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.Assert.*;
@@ -14,9 +21,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class ${pojo.shortName}ListTest extends BasePageTestCase {
-
-    @Autowired
-    private CompassGps compassGps;
 
     @Test
     public void testList() {
@@ -29,9 +33,9 @@ public class ${pojo.shortName}ListTest extends BasePageTestCase {
     public void testEdit() {
         doc = tester.renderPage("${pojoNameLower}List");
 
-		Element table = doc.getElementById("${pojoNameLower}List");
+        Element table = doc.getElementById("${pojoNameLower}List");
         List<Node> rows = table.find("tbody").getChildren();
-		String id = ((Element) rows.get(0)).find("td/a").getChildMarkup().trim();
+        String id = ((Element) rows.get(0)).find("td/a").getChildMarkup().trim();
         Element editLink = table.getElementById("${pojoNameLower}-" + id);
         doc = tester.clickLink(editLink);
 
@@ -43,7 +47,14 @@ public class ${pojo.shortName}ListTest extends BasePageTestCase {
 
     @Test
     public void testSearch() {
-        compassGps.index();
+        // regenerate indexes
+<#if genericcore>
+        GenericManager<${pojo.shortName}, ${identifierType}> ${pojoNameLower}Manager = (GenericManager<${pojo.shortName}, ${identifierType}>) applicationContext.getBean(${'"'}${pojoNameLower}Manager${'"'});
+<#else>
+        ${pojo.shortName}Manager ${pojoNameLower}Manager = (${pojo.shortName}Manager) applicationContext.getBean(${'"'}${pojoNameLower}Manager${'"'});
+</#if>
+        ${pojoNameLower}Manager.reindex();
+
         doc = tester.renderPage("${pojoNameLower}List");
 
         Element form = doc.getElementById("searchForm");
@@ -51,6 +62,6 @@ public class ${pojo.shortName}ListTest extends BasePageTestCase {
 
         fieldValues.put("q", "*");
         doc = tester.submitForm(form, fieldValues);
-        assertTrue(doc.getElementById("${pojoNameLower}List").find("tbody").getChildren().size() == 3);
+        assertEquals(3, doc.getElementById("${pojoNameLower}List").find("tbody").getChildren().size());
     }
 }

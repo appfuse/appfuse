@@ -5,7 +5,7 @@
         <#foreach column in field.getColumnIterator()>
             <#if !field.equals(pojo.identifierProperty) && !column.nullable && !c2h.isCollection(field) && !c2h.isManyToOne(field) && !c2j.isComponent(field) && !column.nullable>
             <field property="${field.name}" depends="required">
-                <arg0 key="${pojoNameLower}.${field.name}"/>
+                <arg key="${pojoNameLower}.${field.name}"/>
             </field>
             </#if>
         </#foreach>

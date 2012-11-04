@@ -1,12 +1,11 @@
 package org.appfuse.webapp.pages;
 
 import org.apache.tapestry5.Asset;
-import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.annotations.Path;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.appfuse.webapp.util.MessageUtil;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 
 /**
  * Page to be displayed whenever a page is not found (404 error)
@@ -22,15 +21,14 @@ public class NotFound {
     private Asset notFoundImage;
 
     @Inject
-    private Messages messages;
+    private PageRenderLinkSource pageRenderLinkSource;
 
     @Inject
-    private ComponentResources resources;
+    private Messages messages;
 
     public String getNotFoundMessage() {
-        String message = MessageUtil.convert(messages.get("404.message"));
-        String url = resources.createPageLink("MainMenu", false).toURI();
-        return String.format(message, url);
+        String url = pageRenderLinkSource.createPageRenderLink(Home.class).toURI();
+        return messages.format("404.message", url);
     }
 
 

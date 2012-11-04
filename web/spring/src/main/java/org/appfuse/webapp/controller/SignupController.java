@@ -54,9 +54,14 @@ public class SignupController extends BaseFormController {
             return getCancelView();
         }
 
-        if (log.isDebugEnabled()) {
-            log.debug("entering 'onSubmit' method...");
+        if (validator != null) { // validator is null during testing
+            validator.validate(user, errors);
+
+            if (errors.hasErrors()) {
+                return "signup";
+            }
         }
+
         Locale locale = request.getLocale();
         
         user.setEnabled(true);

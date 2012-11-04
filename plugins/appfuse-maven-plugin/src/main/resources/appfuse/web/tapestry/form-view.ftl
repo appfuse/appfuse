@@ -1,11 +1,9 @@
 <#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
-<t:layout title="message:${pojoNameLower}Detail.title"
-          heading="message:${pojoNameLower}Detail.heading" menu="literal:${pojo.shortName}Menu"
-          xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+<html t:type="layout" title="message:${pojoNameLower}Detail.title"
+          heading="message:${pojoNameLower}Detail.heading" menu="${pojo.shortName}Menu"
+          xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 
-    <t:messagebanner t:id="message" type="type"/>
-
-    <form t:id="${pojoNameLower}Form" clientValidation="true">
+    <form t:type="form" t:id="${pojoNameLower}Form" clientValidation="true">
         <t:errors/>
 
         <div class="t-beaneditor">
@@ -20,8 +18,4 @@
         </div>
     </form>
 
-    <script type="text/javascript">
-        Form.focusFirstElement($("${pojoNameLower}Form"));
-    </script>
-
-</t:layout>
+</html>

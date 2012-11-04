@@ -3,6 +3,8 @@ package org.appfuse.webapp.controller;
 import org.appfuse.Constants;
 import org.appfuse.model.Address;
 import org.appfuse.model.User;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,18 +14,19 @@ import org.subethamail.wiser.Wiser;
 
 import javax.servlet.http.HttpServletResponse;
 
+import static org.junit.Assert.*;
+
 public class SignupControllerTest extends BaseControllerTestCase {
+    @Autowired
     private SignupController c = null;
 
-    public void setSignupController(SignupController signup) {
-        this.c = signup;
-    }
-
+    @Test
     public void testDisplayForm() throws Exception {
         User user = c.showForm();
         assertNotNull(user);
     }
 
+    @Test
     public void testSignupUser() throws Exception {
         MockHttpServletRequest request = newPost("/signup.html");
 

@@ -7,6 +7,11 @@
     <meta name="heading" content="<fmt:message key='${pojoNameLower}Detail.heading'/>"/>
 </head>
 
+<c:set var="delObject" scope="request"><fmt:message key="${pojoNameLower}List.${pojoNameLower}"/></c:set>
+<script type="text/javascript">var msgDelConfirm =
+   "<fmt:message key="delete.confirm"><fmt:param value=${'"'}${r"${delObject}"}${'"'}/></fmt:message>";
+</script>
+
 <form:form commandName="${pojoNameLower}" method="post" action="${pojoNameLower}form" id="${pojoNameLower}Form" onsubmit="return validate${pojo.shortName}(this)">
 <form:errors path="*" cssClass="error" element="div"/>
 <#rt/>
@@ -29,7 +34,7 @@
     <li>
         <appfuse:label styleClass="desc" key="${pojoNameLower}.${field.name}"/>
         <form:errors path="${field.name}" cssClass="fieldError"/>
-        <#if field.value.typeName == "java.util.Date">
+        <#if field.value.typeName == "java.util.Date" || field.value.typeName == "date">
         <#assign dateExists = true/>
         <form:input path="${field.name}" id="${field.name}" cssClass="text" size="11"/>
         <img src="<c:url value='/images/iconCalendar.gif'/>" alt="" id="${field.name}DatePicker" class="calIcon"/>
@@ -51,7 +56,7 @@
     <li class="buttonBar bottom">
         <input type="submit" class="button" name="save" value="<fmt:message key="button.save"/>"/>
         <c:if test="${'$'}{not empty ${pojoNameLower}.${idFieldName}}">
-        <input type="submit" class="button" name="delete" onclick="bCancel=true;return confirmDelete('${pojoNameLower}')"
+        <input type="submit" class="button" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)"
             value="<fmt:message key="button.delete"/>" />
         </c:if>
         <input type="submit" class="button" name="cancel" value="<fmt:message key="button.cancel"/>" onclick="bCancel=true"/>
@@ -68,9 +73,8 @@
 <script type="text/javascript" src="<c:url value='/scripts/calendar/lang/calendar-en.js'/>"></script>
 </#if><#rt/>
 <script type="text/javascript">
-    Form.focusFirstElement($('${pojoNameLower}Form'));
 <#foreach field in pojo.getAllPropertiesIterator()>
-    <#if !c2h.isCollection(field) && !c2h.isManyToOne(field) && field.value.typeName == "java.util.Date">
+    <#if !c2h.isCollection(field) && !c2h.isManyToOne(field) && (field.value.typeName == "java.util.Date" || field.value.typeName == "date")>
     Calendar.setup({inputField: "${field.name}", ifFormat: "%m/%d/%Y", button: "${field.name}DatePicker"});
     </#if>
 </#foreach>

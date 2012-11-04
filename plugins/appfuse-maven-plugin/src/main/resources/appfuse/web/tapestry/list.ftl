@@ -10,18 +10,15 @@ import ${appfusepackage}.service.GenericManager;
 import ${basepackage}.service.${pojo.shortName}Manager;
 </#if>
 import ${pojo.packageName}.${pojo.shortName};
-import ${basepackage}.webapp.pages.BasePage;
-import ${basepackage}.webapp.pages.MainMenu;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.Service;
-import org.apache.tapestry5.corelib.components.EventLink;
 import org.slf4j.Logger;
 
-public class ${pojo.shortName}List extends BasePage {
+public class ${pojo.shortName}List {
     @Inject
     private Logger log;
 
@@ -39,12 +36,6 @@ public class ${pojo.shortName}List extends BasePage {
     @InjectPage
     private ${pojo.shortName}Form form;
 
-    @Component(parameters = {"event=add"})
-    private EventLink addTop, addBottom;
-
-    @Component(parameters = {"event=done"})
-    private EventLink doneTop, doneBottom;
-
     @Property
     @Persist
     private String q;
@@ -59,11 +50,13 @@ public class ${pojo.shortName}List extends BasePage {
     }
 
     Object onDone() {
-        return MainMenu.class;
+        return <#if useMainMenu>MainMenu<#else>Home</#if>.class;
     }
 
     Object onActionFromEdit(${identifierType} ${pojo.identifierProperty.name}) {
         log.debug("fetching ${pojoNameLower} with ${pojo.identifierProperty.name}: {}", ${pojo.identifierProperty.name});
+        ${pojoNameLower} =  ${pojoNameLower}Manager.get(new ${identifierType} (${pojo.identifierProperty.name}));
+        form.set${pojo.shortName}(${pojoNameLower});
         return form;
     }
 

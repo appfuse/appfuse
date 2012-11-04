@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.appfuse</groupId>
         <artifactId>appfuse-web</artifactId>
-        <version>2.1.0-SNAPSHOT</version>
+        <version>2.1.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>appfuse-jsf</artifactId>
@@ -34,8 +34,8 @@
     </description>
 
     <scm>
-        <connection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/web/jsf</connection>
-        <developerConnection>scm:svn:https://svn.java.net/svn/appfuse~svn/trunk/web/jsf</developerConnection>
+        <connection>scm:svn:https://github.com/appfuse/appfuse/trunk/web/jsf</connection>
+        <developerConnection>scm:svn:https://github.com/appfuse/appfuse/trunk/web/jsf</developerConnection>
         <url>http://source.appfuse.org/browse/appfuse/trunk/web/jsf</url>
     </scm>
 
@@ -84,13 +84,15 @@
             </plugin>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.1.1</version>
+                <version>2.2</version>
                 <configuration>
                     <webResources>
                         <resource>
                             <directory>../common/src/main/webapp</directory>
                             <excludes>
+                                <exclude>common/menu.jsp</exclude>
                                 <exclude>decorators/**</exclude>
+                                <exclude>login.jsp</exclude>
                             </excludes>
                         </resource>
                         <resource>
@@ -99,19 +101,6 @@
                         </resource>
                     </webResources>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>skinny-war</id>
-                        <goals>
-                            <goal>war</goal>
-                        </goals>
-                        <phase>post-integration-test</phase>
-                        <inherited>false</inherited>
-                        <configuration>
-                            <warSourceExcludes>WEB-INF/lib/**</warSourceExcludes>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
         <resources>
@@ -123,6 +112,17 @@
         <testResources>
             <testResource>
                 <directory>src/test/resources</directory>
+                <excludes>
+                    <exclude>hibernate.properties</exclude>
+                </excludes>
+                <filtering>false</filtering>
+            </testResource>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <includes>
+                    <include>hibernate.properties</include>
+                </includes>
+                <filtering>true</filtering>
             </testResource>
             <testResource>
                 <directory>src/main/webapp</directory>
@@ -235,9 +235,10 @@
                             <container>
                                 <containerId>${cargo.container}</containerId>
                                 <home>${cargo.container.home}</home>
+                                <timeout>180000</timeout>
                                 <zipUrlInstaller>
                                     <url>${cargo.container.url}</url>
-                                    <installDir>${installDir}</installDir>
+                                    <extractDir>${installDir}</extractDir>
                                 </zipUrlInstaller>
                             </container>
                             <configuration>
@@ -245,6 +246,8 @@
                                 <properties>
                                     <cargo.hostname>${cargo.host}</cargo.hostname>
                                     <cargo.servlet.port>${cargo.port}</cargo.servlet.port>
+                                    <!-- To prevent conflicts with already running instances -->
+                                    <cargo.tomcat.ajp.port>8123</cargo.tomcat.ajp.port>
                                 </properties>
                             </configuration>
                         </configuration>

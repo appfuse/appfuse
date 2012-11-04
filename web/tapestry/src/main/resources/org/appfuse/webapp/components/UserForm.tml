@@ -1,0 +1,238 @@
+<t:container xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
+
+<div class="span3">
+    <h2>${heading}</h2>
+    ${infoMessage}
+</div>
+
+<div class="span7">
+<!-- Add Error Block Here -->
+
+<form t:type="form" t:id="form" class="well form-horizontal">
+
+<t:if test="userPersisted">
+
+    <input name="from" type="hidden" value="${from}"/>
+    <input name="id" type="hidden" value="${user.id}"/>
+    <input name="version" type="hidden" value="${user.version}"/>
+    <input name="originalPassword" type="hidden" value="${user.password}"/>
+
+    <t:if test="userVersionNull">
+        <input type="hidden" name="encryptPass" value="true"/>
+    </t:if>
+
+</t:if>
+
+
+<fieldset class="control-group">
+    <label t:type="label" class="control-label" for="username">${message:user.username}</label>
+
+    <div class="controls">
+        <input t:type="textfield" t:id="username" value="user.username" validate="required" class="text large"/>
+    </div>
+</fieldset>
+
+<t:if test="cookieLogin" negate="true">
+    <fieldset class="control-group">
+
+        <label t:type="label" class="control-label" for="password">${message:user.password}</label>
+
+        <div class="controls">
+            <input t:type="hashedpasswordfield" t:id="password" value="user.password" validate="required"/>
+        </div>
+    </fieldset>
+    <fieldset class="control-group">
+        <label t:type="label" class="control-label" for="confirmPassword">${message:user.confirmPassword}</label>
+
+        <div class="controls">
+            <input t:type="hashedpasswordfield" t:id="confirmPassword" value="user.confirmPassword"
+                   validate="required"/>
+        </div>
+    </fieldset>
+    <p:else>
+        <input type="hidden" name="password" value="${user.password}"/>
+        <input type="hidden" name="confirmPassword" value="${user.confirmPassword}"/>
+    </p:else>
+</t:if>
+
+<fieldset class="control-group">
+    <label t:type="label" class="control-label" for="passwordHint">${message:user.passwordHint}</label>
+
+    <div class="controls">
+        <input t:type="textfield" t:id="passwordHint" value="user.passwordHint" validate="required"/>
+    </div>
+</fieldset>
+
+<fieldset class="control-group">
+
+    <label t:type="label" class="control-label" for="firstName">${message:user.firstName}</label>
+
+    <div class="controls">
+        <input t:type="textfield" t:id="firstName" value="user.firstName" validate="required"/>
+    </div>
+</fieldset>
+
+<fieldset class="control-group">
+    <label t:type="label" class="control-label" for="lastName">${message:user.lastName}</label>
+
+    <div class="controls">
+        <input class="text medium" t:type="textfield" t:id="lastName" value="user.lastName" validate="required"/>
+    </div>
+</fieldset>
+
+
+<fieldset class="control-group">
+    <label t:type="label" class="control-label" for="email">${message:user.email}</label>
+
+    <div class="controls">
+        <input t:type="textfield" t:id="email" value="user.email" validate="required,email"/>
+    </div>
+
+</fieldset>
+
+<fieldset class="control-group">
+
+    <label t:type="label" class="control-label" for="phoneNumber">${message:user.phoneNumber}</label>
+
+    <div class="controls">
+        <input class="text medium" t:type="textfield" t:id="phoneNumber" value="user.phoneNumber"
+               validate="minlength=11"/>
+    </div>
+
+</fieldset>
+
+<fieldset class="control-group">
+    <label t:type="label" class="control-label" for="website">${message:user.website}</label>
+
+    <div class="controls">
+        <input t:type="textfield" t:id="website" value="user.website"/>
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend class="accordion-heading">
+
+        <a data-toggle="collapse" href="#collapse-address">${message:user.address.address}</a>
+    </legend>
+
+    <div id="collapse-address" class="accordion-body collapse">
+
+        <fieldset class="control-group">
+            <label class="control-label" t:type="label" for="address">${message:user.address.address}</label>
+
+            <div class="controls">
+                <input t:type="textfield" t:id="address" value="user.address?.address"/>
+            </div>
+        </fieldset>
+
+        <fieldset class="control-group">
+            <label class="control-label" t:type="label" for="city">${message:user.address.city}</label>
+
+            <div class="controls">
+                <input t:type="textfield" t:id="city" value="user.address?.city"/>
+            </div>
+        </fieldset>
+
+
+        <fieldset class="control-group">
+            <label class="control-label" t:type="label" for="state">${message:user.address.province}</label>
+
+            <div class="controls">
+                <input t:type="textfield" t:id="state" value="user.address?.province"/>
+            </div>
+        </fieldset>
+
+
+        <fieldset class="control-group">
+            <label class="control-label" t:type="label" for="postalCode">${message:user.address.postalCode}</label>
+
+            <div class="controls">
+                <input t:type="textfield" t:id="postalCode" value="user.address?.postalCode"/>
+            </div>
+        </fieldset>
+
+        <fieldset class="control-group">
+            <label t:type="label" for="country" class="control-label">${message:user.address.country}</label>
+
+            <div class="controls">
+                <select t:type="select" t:id="country" model="countryModel" value="user.address?.country"
+                        encoder="countryEncoder"
+                        blankOption="always"
+                        size="1" class="select"/>
+            </div>
+        </fieldset>
+    </div>
+</fieldset>
+
+
+<t:unless test="${signup}">
+    <t:if test="fromList">
+        <fieldset class="control-group">
+            <label class="control-label">${message:userProfile.accountSettings}</label>
+
+            <div class="controls">
+                <label class="checkbox inline">
+                    <input t:type="checkbox" value="user.enabled" t:id="enabled"/>
+                    <label t:type="label" for="enabled">${message:user.enabled}</label>
+                </label>
+                <label class="checkbox inline">
+                    <input class="checkbox" t:type="checkbox" value="user.accountExpired"
+                           t:id="accountExpired"/>
+                    <label t:type="label" for="accountExpired">${message:user.accountExpired}</label>
+                </label>
+                <label class="checkbox inline">
+                    <input class="checkbox" t:type="checkbox" value="user.accountLocked" t:id="accountLocked"/>
+                    <label t:type="label" for="accountLocked">${message:user.accountLocked}</label>
+                </label>
+                <label class="checkbox inline">
+                    <input class="checkbox" t:type="checkbox" value="user.credentialsExpired"
+                           t:id="credentialsExpired"/>
+                    <label t:type="label" for="credentialsExpired">${message:user.credentialsExpired}
+                    </label>
+                </label>
+            </div>
+        </fieldset>
+
+        <fieldset class="control-group">
+
+            <label for="selectedRoles" class="control-label">${message:userProfile.assignRoles}</label>
+
+            <div class="controls">
+                <t:checklist t:id="selectedRoles" model="roleModel" encoder="roleEncoder"
+                             selected="selectedRoles" class="checkbox"/>
+            </div>
+        </fieldset>
+    </t:if>
+
+    <t:if test="user?.username">
+        <fieldset class="control-group">
+            <label class="control-label">${message:user.roles}:</label>
+
+            <div class="controls readonly">
+                ${userRoles}
+            </div>
+            <input type="hidden" name="enabled" value="${user.enabled}"/>
+            <input type="hidden" name="accountExpired" value="${user.accountExpired}"/>
+            <input type="hidden" name="accountLocked" value="${prop:user.accountLocked}"/>
+            <input type="hidden" name="credentialsExpired" value="${prop:user.credentialsExpired}"/>
+        </fieldset>
+    </t:if>
+
+</t:unless>
+
+<fieldset class="form-actions">
+    <input type="submit" id="save" name="save" class="btn btn-primary" value="${submitLabel}"/>
+    <t:unless test="${signup}">
+        <t:if test="fromList">
+            <input t:type="submit" t:id="delete" event="delete" class="btn" value="${message:button.delete}"
+                   onclick="form.onsubmit = null; return confirmDelete('user: ${user.username}')"/>
+        </t:if>
+    </t:unless>
+    <input t:type="submit" t:id="cancel" mode="cancel"
+           class="btn" value="${message:button.cancel}"/>
+</fieldset>
+
+</form>
+
+</div>
+</t:container>

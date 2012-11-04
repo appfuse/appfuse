@@ -1,5 +1,26 @@
 package org.appfuse.mojo.installer;
 
+import org.apache.commons.beanutils.BeanComparator;
+import org.apache.commons.io.FileUtils;
+import org.apache.maven.artifact.Artifact;
+import org.apache.maven.artifact.repository.ArtifactRepository;
+import org.apache.maven.model.Dependency;
+import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.project.MavenProject;
+import org.apache.maven.project.MavenProjectBuilder;
+import org.apache.maven.settings.Settings;
+import org.apache.tools.ant.Project;
+import org.apache.tools.ant.taskdefs.Get;
+import org.apache.tools.ant.taskdefs.LoadFile;
+import org.apache.tools.ant.taskdefs.Move;
+import org.apache.tools.ant.types.FileSet;
+import org.appfuse.tool.RenamePackages;
+import org.appfuse.tool.SubversionUtils;
+import org.tmatesoft.svn.core.SVNErrorMessage;
+import org.tmatesoft.svn.core.SVNException;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,26 +36,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.regex.Pattern;
-
-import org.apache.commons.beanutils.BeanComparator;
-import org.apache.commons.io.FileUtils;
-import org.apache.maven.embedder.MavenEmbedder;
-import org.apache.maven.embedder.MavenEmbedderConsoleLogger;
-import org.apache.maven.model.Dependency;
-import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
-import org.apache.maven.project.MavenProject;
-import org.apache.tools.ant.Project;
-import org.apache.tools.ant.taskdefs.Get;
-import org.apache.tools.ant.taskdefs.LoadFile;
-import org.apache.tools.ant.taskdefs.Move;
-import org.apache.tools.ant.types.FileSet;
-import org.appfuse.tool.RenamePackages;
-import org.appfuse.tool.SubversionUtils;
-import org.tmatesoft.svn.core.SVNErrorMessage;
-import org.tmatesoft.svn.core.SVNException;
 
 
 /**
@@ -68,7 +69,7 @@ public class InstallSourceMojo extends AbstractMojo {
     /**
      * The directory containing the source code.
      *
-     * @parameter expression="${appfuse.trunk}" default-value="https://svn.java.net/svn/appfuse~svn/"
+     * @parameter expression="${appfuse.trunk}" default-value="https://github.com/appfuse/appfuse/"
      */
     private String trunk;
 
@@ -88,6 +89,25 @@ public class InstallSourceMojo extends AbstractMojo {
      * @noinspection UnusedDeclaration
      */
     private MavenProject project;
+
+    /**
+     *
+     * @parameter expression="${settings}"
+     * @required
+     * @readonly
+     *
+     */
+    private Settings settings;
+
+    /**
+     * @component
+     */
+    private MavenProjectBuilder mavenProjectBuilder;
+
+    /**
+     * @parameter default-value= "${localRepository}"
+     */
+    private ArtifactRepository local;
 
     public void execute() throws MojoExecutionException, MojoFailureException {
         // http://issues.appfuse.org/browse/APF-1025
@@ -120,6 +140,13 @@ public class InstallSourceMojo extends AbstractMojo {
             log("Installing source from data-common module...");
             export("data/common/src", (modular) ? "core/src" : destinationDirectory);
 
+            // Keep web project original testing hibernate.properties instead of overwriting it: rename
+            File orig = new File((modular ? "core/src" : destinationDirectory) + "/test/resources/hibernate.properties");
+            File dest = new File((modular ? "core/src" : destinationDirectory) + "/test/resources/hibernate.properties.orig");
+            if (webFramework != null && !webFramework.isEmpty()) {
+                renameFile(orig, dest);
+            }
+
             // export persistence framework
             log("Installing source from " + daoFramework + " module...");
             export("data/" + daoFramework + "/src", (modular) ? "core/src" : destinationDirectory);
@@ -142,10 +169,27 @@ public class InstallSourceMojo extends AbstractMojo {
             if ("jpa".equalsIgnoreCase(daoFramework)) {
                 deleteFile("main/resources/hibernate.cfg.xml");
             }
+
+            // Keep web project original testing hibernate.properties instead of overwriting it: delete copied and rename back
+            if (webFramework != null && !webFramework.isEmpty()) {
+                deleteFile(orig.getPath());
+                renameFile(dest, orig);
+            }
+        }
+
+        // it's OK if a project created with appfuse-ws doesn't have a web framework defined
+        // currently, a project with appfuse-ws can be identified by enunciate
+        boolean isWebServicesProject = false;
+        for (Object pluginArtifact : project.getPluginArtifacts()) {
+            if (((Artifact) pluginArtifact).getArtifactId().contains("enunciate")) {
+                isWebServicesProject = true;
+                break;
+            }
         }
 
         if (project.getPackaging().equalsIgnoreCase("war")) {
-            if (webFramework == null) {
+
+            if (webFramework == null && !isWebServicesProject) {
                 getLog().error("The web.framework property is not specified - please modify your pom.xml to add " +
                         " this property. For example: <web.framework>struts</web.framework>.");
                 throw new MojoExecutionException("No web.framework property specified, please modify pom.xml to add it.");
@@ -160,6 +204,9 @@ public class InstallSourceMojo extends AbstractMojo {
                 deleteFile("main/resources/META-INF");
                 deleteFile("main/resources/sql-map-config.xml");
 
+                // there's a jdbc.properties in test/resources that shouldn't be there
+                deleteFile("test/resources/jdbc.properties");
+            } else if (!isAppFuse()) {
                 // there's a jdbc.properties in test/resources that shouldn't be there
                 deleteFile("test/resources/jdbc.properties");
             }
@@ -182,36 +229,29 @@ public class InstallSourceMojo extends AbstractMojo {
         if (!project.getPackaging().equals("pom") && !project.hasParent()) {
 
             // add dependencies from root appfuse pom
-            newDependencies = addModuleDependencies(newDependencies, "root", "");
+            newDependencies = addModuleDependencies(newDependencies, "root", "", "");
 
             // Add dependencies from appfuse-data
-            newDependencies = addModuleDependencies(newDependencies, "data", "data");
+            newDependencies = addModuleDependencies(newDependencies, "data", "data", "");
 
             // Add dependencies from appfuse-data-common
-            newDependencies = addModuleDependencies(newDependencies, "data-common", "data/common");
+            newDependencies = addModuleDependencies(newDependencies, "data-common", "data/common", "appfuse-data");
 
             // Add dependencies from appfuse-${dao.framework}
-            newDependencies = addModuleDependencies(newDependencies, daoFramework, "data/" + daoFramework);
+            newDependencies = addModuleDependencies(newDependencies, daoFramework, "data/" + daoFramework, "appfuse-data");
 
             // Add dependencies from appfuse-service
-            newDependencies = addModuleDependencies(newDependencies, "service", "service");
+            newDependencies = addModuleDependencies(newDependencies, "service", "service", "");
 
-            if (project.getPackaging().equals("war")) {
-                // Add dependencies from appfuse-web
-                newDependencies = addModuleDependencies(newDependencies, "web", "web");
-
-                // Add dependencies from appfuse-common-web
-                newDependencies = addModuleDependencies(newDependencies, "web-common", "web/common");
-
-                // Add dependencies from appfuse-${web.framework}
-                newDependencies = addModuleDependencies(newDependencies, webFramework, "web/" + webFramework);
+            if (!isWebServicesProject && project.getPackaging().equals("war")) {
+                newDependencies = addWebDependencies(appfuseVersion, newDependencies, webFramework);
             }
 
             createFullSourcePom(newDependencies);
         } else {
             if (project.getPackaging().equals("pom")) {
                 // add dependencies from root appfuse pom
-                newDependencies = addModuleDependencies(newDependencies, "root", "");
+                newDependencies = addModuleDependencies(newDependencies, "root", "", "");
 
                 createFullSourcePom(newDependencies);
             }
@@ -220,16 +260,16 @@ public class InstallSourceMojo extends AbstractMojo {
                 newDependencies.clear();
 
                 // Add dependencies from appfuse-data
-                newDependencies = addModuleDependencies(newDependencies, "data", "data");
+                newDependencies = addModuleDependencies(newDependencies, "data", "data", "");
 
                 // Add dependencies from appfuse-data-common
-                newDependencies = addModuleDependencies(newDependencies, "data-common", "data/common");
+                newDependencies = addModuleDependencies(newDependencies, "data-common", "data/common", "appfuse-data");
 
                 // Add dependencies from appfuse-${dao.framework}
-                newDependencies = addModuleDependencies(newDependencies, daoFramework, "data/" + daoFramework);
+                newDependencies = addModuleDependencies(newDependencies, daoFramework, "data/" + daoFramework, "appfuse-data");
 
                 // Add dependencies from appfuse-service
-                newDependencies = addModuleDependencies(newDependencies, "service", "service");
+                newDependencies = addModuleDependencies(newDependencies, "service", "service", "service");
 
                 createFullSourcePom(newDependencies);
             }
@@ -237,18 +277,40 @@ public class InstallSourceMojo extends AbstractMojo {
             if (project.getPackaging().equals("war")) {
                 newDependencies.clear();
 
-                // Add dependencies from appfuse-common-web
-                newDependencies = addModuleDependencies(newDependencies, "web", "web");
-
-                // Add dependencies from appfuse-common-web
-                newDependencies = addModuleDependencies(newDependencies, "web-common", "web/common");
-
-                // Add dependencies from appfuse-${web.framework}
-                newDependencies = addModuleDependencies(newDependencies, webFramework, "web/" + webFramework);
+                newDependencies = addWebDependencies(appfuseVersion, newDependencies, webFramework);
 
                 createFullSourcePom(newDependencies);
             }
         }
+    }
+
+    private List<Dependency> addWebDependencies(String appfuseVersion, List<Dependency> newDependencies, String webFramework) {
+        // Add dependencies from appfuse-common-web
+        newDependencies = addModuleDependencies(newDependencies, "web", "web", "web");
+
+        Double appfuseVersionAsDouble = new Double(appfuseVersion.substring(0, appfuseVersion.lastIndexOf(".")));
+
+        getLog().debug("Detected AppFuse version: " + appfuseVersionAsDouble);
+
+        if (isAppFuse() && appfuseVersionAsDouble < 2.1) {
+
+            // Add dependencies from appfuse-common-web
+            newDependencies = addModuleDependencies(newDependencies, "web-common", "web/common", "common");
+
+            //newDependencies = addModuleDependencies(newDependencies, webFramework, "web/" + webFramework);
+        }
+
+        // modular archetypes still seem to need these - todo: figure out why
+        if (isAppFuse() && project.getPackaging().equals("war") && project.hasParent()) {
+            newDependencies = addModuleDependencies(newDependencies, "web-common", "web/common", "common");
+
+            newDependencies = addModuleDependencies(newDependencies, webFramework, "web/" + webFramework, webFramework);
+        }
+        return newDependencies;
+    }
+
+    private boolean isAppFuse() {
+        return (project.getProperties().getProperty("copyright.year") != null);
     }
 
     private void deleteFile(String filePath) {
@@ -603,20 +665,23 @@ public class InstallSourceMojo extends AbstractMojo {
         getLog().info("[AppFuse] " + msg);
     }
 
-    private List<Dependency> addModuleDependencies(List<Dependency> dependencies, String moduleName, String moduleLocation) {
+    private List<Dependency> addModuleDependencies(List<Dependency> dependencies, String moduleName, String moduleLocation, String parentModule) {
         log("Adding dependencies from " + moduleName + " module...");
 
         // Read dependencies from module's pom.xml
         URL pomLocation = null;
-        File newDir = new File("target", "appfuse-" + moduleName);
+        File newDir = new File(project.getFile().getParent(), "target/"+ parentModule +"/appfuse-" + moduleName);
 
         if (!newDir.exists()) {
             newDir.mkdirs();
         }
 
-        File pom = new File("target/appfuse-" + moduleName + "/pom.xml");
+        File pom = new File(project.getFile().getParent(),"target/" + parentModule +"/appfuse-" + moduleName + "/pom.xml");
 
         try {
+            // replace github.com with raw.github.com and trunk with master
+            trunk = trunk.replace("https://github.com", "https://raw.github.com");
+            tag = tag.replace("trunk", "master");
             pomLocation = new URL(trunk + tag + moduleLocation + "/pom.xml");
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -625,8 +690,6 @@ public class InstallSourceMojo extends AbstractMojo {
         Get get = (Get) AntUtils.createProject().createTask("get");
         get.setSrc(pomLocation);
         get.setDest(pom);
-        get.setUsername("guest");
-        get.setPassword("");
         get.execute();
 
         MavenProject p = createProjectFromPom(pom);
@@ -649,7 +712,7 @@ public class InstallSourceMojo extends AbstractMojo {
         for (Object moduleDependency : moduleDependencies) {
             Dependency dep = (Dependency) moduleDependency;
 
-            if (dep.getGroupId().equals("javax.servlet") && dep.getArtifactId().equals("jsp-api")
+            if (dep.getGroupId().equals("javax.servlet.jsp") && dep.getArtifactId().equals("jsp-api")
                     && "jsf".equals(project.getProperties().getProperty("web.framework"))) {
                 // skip adding dependency for old group id of jsp-api
                 continue;
@@ -665,23 +728,12 @@ public class InstallSourceMojo extends AbstractMojo {
     }
 
     private MavenProject createProjectFromPom(File pom) {
-        MavenEmbedder maven = new MavenEmbedder();
-        maven.setOffline(true);
-        maven.setClassLoader(Thread.currentThread().getContextClassLoader());
-        maven.setLogger(new MavenEmbedderConsoleLogger());
-
-        MavenProject p = null;
-
         try {
-            maven.setAlignWithUserInstallation(true);
-            maven.start();
-            p = maven.readProjectWithDependencies(pom);
-            maven.stop();
+            return mavenProjectBuilder.buildWithDependencies(pom, local, null);
         } catch (Exception e) {
-            e.printStackTrace();
+            getLog().warn( "skip error reading maven project: " + e.getMessage(), e );
         }
-
-        return p;
+        return null;
     }
 
     /**
@@ -718,4 +770,19 @@ public class InstallSourceMojo extends AbstractMojo {
         moveTask.addFileset(fileSet);
         moveTask.execute();
     }
+    /**
+     * This method will movie files from the source directory to the destination directory based on
+     * the pattern.
+     *
+     * @param from      The source file to rename.
+     * @param to        The file to rename to.
+     */
+    protected void renameFile(final File from, final File to) {
+        Move moveTask = (Move) antProject.createTask("move");
+
+        moveTask.setFile(from);
+        moveTask.setTofile(to);
+        moveTask.execute();
+    }
+
 }

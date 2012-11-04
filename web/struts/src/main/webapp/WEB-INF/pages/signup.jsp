@@ -1,95 +1,64 @@
-<%@ include file="/common/taglibs.jsp"%>
+<%@ include file="/common/taglibs.jsp" %>
 
 <head>
     <title><fmt:message key="signup.title"/></title>
-    <meta name="heading" content="<fmt:message key='signup.heading'/>"/>
 </head>
 
-<body id="signup"/>
+<body class="signup"/>
 
-<div class="separator"></div>
+<div class="span3">
+    <h2><fmt:message key="signup.heading"/></h2>
+    <fmt:message key="signup.message"/>
+</div>
+<div class="span7">
+    <s:form name="signupForm" action="saveSignup" method="post" validate="true" cssClass="well form-horizontal">
 
-<s:form name="signupForm" action="signup" method="post" validate="true">
-    <li class="info">
-        <fmt:message key="signup.message"/>
-    </li>
+        <s:textfield key="user.username" required="true"/>
+        <s:password key="user.password" showPassword="true" required="true"/>
+        <s:password key="user.confirmPassword" required="true" showPassword="true"/>
+        <s:textfield key="user.passwordHint" required="true"/>
+        <s:textfield key="user.firstName" required="true"/>
+        <s:textfield key="user.lastName" required="true"/>
+        <s:textfield key="user.email" required="true"/>
+        <s:textfield key="user.phoneNumber"/>
+        <s:textfield key="user.website"/>
 
-    <s:textfield key="user.username" cssClass="text large" required="true"/>
+    <fieldset>
+        <legend class="accordion-heading">
+            <a data-toggle="collapse" href="#collapse-address"><fmt:message key="user.address.address"/></a>
+        </legend>
+        <div id="collapse-address" class="accordion-body collapse">
+            <s:textfield key="user.address.address"/>
+            <s:textfield key="user.address.city"/>
+            <s:textfield key="user.address.province"/>
+            <s:textfield key="user.address.postalCode"/>
+            <s:set name="country" value="user.address.country" scope="page"/>
+            <fieldset class="control-group">
+                <label class="control-label" for="user.address.country">
+                    <fmt:message key="user.address.country"/>
+                </label>
 
-    <li>
-        <div>
-            <div class="left">
-                <s:password key="user.password" showPassword="true" theme="xhtml" required="true" 
-                    cssClass="text medium"/>
-            </div>
-            <div>
-                <s:password key="user.confirmPassword" theme="xhtml" required="true" 
-                    showPassword="true" cssClass="text medium"/>
-            </div>
+                <div class="controls">
+                    <appfuse:country name="user.address.country" prompt="" default="${country}"/>
+                </div>
+            </fieldset>
         </div>
-    </li>
-
-    <s:textfield key="user.passwordHint" required="true" cssClass="text large"/>
-
-    <li>
-        <div>
-            <div class="left">
-                <s:textfield key="user.firstName" theme="xhtml" required="true" cssClass="text medium"/>
-            </div>
-            <div>
-                <s:textfield key="user.lastName" theme="xhtml" required="true" cssClass="text medium"/>
-            </div>
-        </div>
-    </li>
-
-    <li>
-        <div>
-            <div class="left">
-                <s:textfield key="user.email" theme="xhtml" required="true" cssClass="text medium"/>
-            </div>
-            <div>
-                <s:textfield key="user.phoneNumber" theme="xhtml" cssClass="text medium"/>
-            </div>
-        </div>
-    </li>
-
-    <s:textfield key="user.website" required="true" cssClass="text large"/>
-
-    <li>
-        <label class="desc"><fmt:message key="user.address.address"/></label>
-        <div class="group">
-            <div>
-                <s:textfield key="user.address.address" theme="xhtml" cssClass="text large" labelposition="bottom"/>
-            </div>
-            <div class="left">
-                <s:textfield key="user.address.city" theme="xhtml" required="true" cssClass="text medium" 
-                    labelposition="bottom"/>
-            </div>
-            <div>
-                <s:textfield key="user.address.province" theme="xhtml" required="true" cssClass="text state" 
-                    labelposition="bottom"/>
-            </div>
-            <div class="left">
-                <s:textfield key="user.address.postalCode" theme="xhtml" required="true" cssClass="text medium" 
-                    labelposition="bottom"/>
-            </div>
-            <div>
-                <s:set name="country" value="user.address.country" scope="page"/>
-                <appfuse:country name="user.address.country" prompt="" default="${country}"/>
-                <p>
-                    <label for="user.address.country">
-                        <fmt:message key="user.address.country"/> <span class="req">*</span>
-                    </label>
-                </p>
-            </div>
-        </div>
-    </li>
-    <li class="buttonBar bottom">
-        <s:submit key="button.register" cssClass="button"/>
-        <s:submit key="button.cancel" name="cancel" cssClass="button"/>
-    </li>
-</s:form>
+    </fieldset>
+    <div id="actions" class="form-actions">
+        <s:submit type="button" cssClass="btn btn-primary" key="button.register" theme="simple">
+            <i class="icon-ok"></i>
+            <fmt:message key="button.register"/>
+        </s:submit>
+        <s:submit type="button" cssClass="btn" method="cancel" key="button.cancel" theme="simple">
+            <i class="icon-remove"></i>
+            <fmt:message key="button.cancel"/>
+        </s:submit>
+    </div>
+    </s:form>
+</div>
 
 <script type="text/javascript">
-    Form.focusFirstElement(document.forms["signupForm"]);
+    $(document).ready(function() {
+        $("input[type='text']:visible:enabled:first", document.forms['signupForm']).focus();
+    });
 </script>

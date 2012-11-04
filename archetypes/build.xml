@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="archetypes" basedir=".">
 
-    <property name="version" value="2.1.0-SNAPSHOT"/>
+    <property name="version" value="2.1.1-SNAPSHOT"/>
     <property name="archetype" value="${archetype}"/>
     <property name="test.dir" value="${basedir}/target"/>
 
@@ -31,14 +31,14 @@
         <!-- Fix bug that happens in Bamboo -->
         <delete dir="${dir}" includes="main/**"/>
 
-        <mvn command="archetype:create-from-project" dir="${dir}"/>
+        <mvn command="archetype:create-from-project -DpackageName=org.appfuse.webapp" dir="${dir}"/>
 
         <!-- Change the version number of the generated archetype -->
         <replace file="${dir}/target/generated-sources/archetype/pom.xml" value="${version}" token="1.0-SNAPSHOT"/>
 
         <replace file="${dir}/target/generated-sources/archetype/pom.xml">
-                <replacetoken><![CDATA[</name>]]></replacetoken>
-                <replacevalue><![CDATA[</name>
+            <replacetoken><![CDATA[</name>]]></replacetoken>
+            <replacevalue><![CDATA[</name>
         <distributionManagement>
         <repository>
             <id>appfuse-releases</id>
@@ -56,13 +56,13 @@
             <url>scp://static.appfuse.org/var/www/appfuse-site</url>
         </site>
     </distributionManagement>]]></replacevalue>
-            </replace>
+        </replace>
 
         <!-- Add jdbc.password back in since archetype plugin strips it out -->
         <replace file="${dir}/target/generated-sources/archetype/src/main/resources/archetype-resources/pom.xml">
             <replacetoken><![CDATA[<jdbc.username>root</jdbc.username>]]></replacetoken>
             <replacevalue><![CDATA[<jdbc.username>root</jdbc.username>
-    <jdbc.password></jdbc.password>]]></replacevalue>
+        <jdbc.password></jdbc.password>]]></replacevalue>
         </replace>
 
         <mvn command="install" dir="target/${module}-archetype/target/generated-sources/archetype"/>
@@ -81,7 +81,8 @@
         <sequential>
             <delete dir="${test.dir}/@{archetype}"/>
             <maven dir="${test.dir}" archetype="@{archetype}" version="@{version}"/>
-            <mvn dir="${test.dir}/@{archetype}" command="integration-test -Ddao.framework=@{dao.framework}"/>
+            <!-- verify: runs webtest and verifies result. locale=en as otherwise there are webtests that fail -->
+            <mvn dir="${test.dir}/@{archetype}" command="verify -Duser.language=en -Ddao.framework=@{dao.framework}"/>
         </sequential>
     </macrodef>
 
@@ -91,9 +92,9 @@
         <attribute name="archetype" default=""/>
         <attribute name="version" default=""/>
         <attribute name="command"
-                   default="archetype:generate -B -DarchetypeGroupId=org.appfuse.archetypes -DarchetypeArtifactId=@{archetype}
-                   -DarchetypeVersion=@{version} -DgroupId=com.mycompany -DartifactId=@{archetype} -DpackageName=com.mycompany
-                   -DarchetypeRepository=local"/>
+                default="archetype:generate -B -DarchetypeGroupId=org.appfuse.archetypes -DarchetypeArtifactId=@{archetype}
+            -DarchetypeVersion=@{version} -DgroupId=com.mycompany -DartifactId=@{archetype} -DpackageName=com.mycompany
+            -DarchetypeCatalog=local"/>
 
         <sequential>
             <mkdir dir="${test.dir}"/>
@@ -130,6 +131,8 @@
                     <exclude name="**/.svn/**"/>
                     <exclude name="*.iml"/>
                     <exclude name="*.ipr"/>
+                    <exclude name="*.iws"/>
+                    <exclude name="*.log"/>
                 </fileset>
             </copy>
             <!-- Fix bug that happens in Bamboo -->
@@ -158,16 +161,19 @@
                     </delete>
                 </then>
             </if>
-            
+
             <!-- Remove JSPs and generated i18n files in Tapestry -->
             <if>
                 <equals arg1="@{module}" arg2="tapestry"/>
                 <then>
                     <delete dir="@{dir}" includes="**/40*.jsp,**/index.jsp,**/login.jsp,**/logout.jsp,**/app*.properties"/>
+                    <move file="@{dir}/@{dest}/src/main/resources/org/appfuse/webapp"
+                            tofile="@{dir}/@{dest}/src/main/resources/webapp"/>
+                    <delete dir="@{dir}/@{dest}/src/main/resources/org"/>
                 </then>
             </if>
 
-            <mvn dir="@{dir}" command="archetype:create-from-project"/>
+            <mvn dir="@{dir}" command="archetype:create-from-project -DpackageName=org.appfuse.webapp"/>
 
             <!-- Change the version number of the generated archetype -->
             <replace file="@{dir}/target/generated-sources/archetype/pom.xml" value="${version}" token="1.0-SNAPSHOT"/>
@@ -279,15 +285,65 @@
                 <replacevalue>org.appfuse</replacevalue>
             </replace>
 
+            <!-- This will cause core java files to not be included in the archetype,
+                 but I think that's OK, as long as the web project is golden. -->
+            <replace dir="@{dir}/target/generated-sources/archetype">
+                <include name="**/archetype-metadata.xml"/>
+                <replacetoken><![CDATA[<include>**/*.java</include>]]></replacetoken>
+                <replacevalue><![CDATA[<include>webapp/**/*.java</include>]]></replacevalue>
+            </replace>
+
             <if>
                 <equals arg1="@{dest}" arg2=""/>
                 <then>
+                    <!-- For Struts and its Model-validation.xml files -->
                     <replace dir="@{dir}/target/generated-sources/archetype">
                         <include name="**/archetype-metadata.xml"/>
-                        <replacetoken><![CDATA[<include>**/*.java</include>]]></replacetoken>
-                        <replacevalue><![CDATA[<include>webapp/**/*.java</include>]]></replacevalue>
+                        <replacetoken><![CDATA[<include>**/*.xml</include>
+        <include>webapp/**/*.java</include>]]></replacetoken>
+                        <replacevalue><![CDATA[<include>webapp/**/*.xml</include>
+        <include>webapp/**/*.java</include>]]></replacevalue>
                     </replace>
+                    <!-- Fix for APF-1324: previous replace does not work in win -->
+                    <replaceregexp byline="false" flags="gim">
+                        <regexp pattern="&lt;include&gt;\*\*/\*.xml&lt;/include&gt;(\s+)&lt;include&gt;webapp/\*\*/\*.java&lt;/include&gt;"/>
+                        <substitution expression="&lt;include&gt;webapp/**/*.xml&lt;/include&gt;${line.separator}        &lt;include&gt;webapp/**/*.java&lt;/include&gt;"/>
+                        <fileset dir="@{dir}/target/generated-sources/archetype">
+                            <include name="**/archetype-metadata.xml"/>
+                        </fileset>
+                    </replaceregexp>
                 </then>
+                <else>
+                    <!-- For Struts and its Model-validation.xml files -->
+                    <replace dir="@{dir}/target/generated-sources/archetype">
+                        <include name="**/archetype-metadata.xml"/>
+                        <replacetoken><![CDATA[<include>**/*.xml</include>
+            <include>webapp/**/*.java</include>]]></replacetoken>
+                        <replacevalue><![CDATA[<include>webapp/**/*.xml</include>
+            <include>webapp/**/*.java</include>]]></replacevalue>
+                    </replace>
+                    <!-- Fix for APF-1324: previous replace does not work in win -->
+                    <replaceregexp byline="false" flags="gim">
+                        <regexp pattern="&lt;include&gt;\*\*/\*.xml&lt;/include&gt;(\s+)&lt;include&gt;webapp/\*\*/\*.java&lt;/include&gt;"/>
+                        <substitution expression="&lt;include&gt;webapp/**/*.xml&lt;/include&gt;${line.separator}        &lt;include&gt;webapp/**/*.java&lt;/include&gt;"/>
+                        <fileset dir="@{dir}/target/generated-sources/archetype">
+                            <include name="**/archetype-metadata.xml"/>
+                        </fileset>
+                    </replaceregexp>
+                    <!-- Add .webapp to the package name -->
+                    <replace dir="@{dir}/target/generated-sources/archetype/src/main/resources/archetype-resources/web">
+                        <replacetoken>package ${package}</replacetoken>
+                        <replacevalue>package ${package}.webapp</replacevalue>
+                    </replace>
+                    <replace dir="@{dir}/target/generated-sources/archetype/src/main/resources/archetype-resources/web">
+                        <replacetoken>import ${package}</replacetoken>
+                        <replacevalue>import ${package}.webapp</replacevalue>
+                    </replace>
+                    <replace dir="@{dir}/target/generated-sources/archetype/src/main/resources/archetype-resources/web">
+                        <replacetoken>webapp.webapp</replacetoken>
+                        <replacevalue>webapp</replacevalue>
+                    </replace>
+                </else>
             </if>
 
             <if>
@@ -308,6 +364,14 @@
       </includes>
     </fileSet>]]></replacevalue>
                     </replace>
+                    <!-- Fix for APF-1324: previous replace does not work in win -->
+                    <replaceregexp byline="false" flags="gim">
+                        <regexp pattern="&lt;fileSet encoding=&quot;UTF-8&quot;&gt;(\s+)&lt;directory&gt;src/main/resources&lt;/directory&gt;(\s+)&lt;includes&gt;(\s+)&lt;include&gt;\*\*/\*.tml&lt;/include&gt;(\s+)&lt;/includes&gt;(\s+)&lt;/fileSet&gt;"/>
+                        <substitution expression="&lt;fileSet packaged=&quot;true&quot; encoding=&quot;UTF-8&quot;&gt;${line.separator}      &lt;directory&gt;src/main/resources&lt;/directory&gt;${line.separator}      &lt;includes&gt;${line.separator}        &lt;include&gt;**/*.tml&lt;/include&gt;${line.separator}     &lt;/includes&gt;${line.separator}    &lt;/fileSet&gt;"/>
+                        <fileset dir="@{dir}/target/generated-sources/archetype">
+                            <include name="**/archetype-metadata.xml"/>
+                        </fileset>
+                    </replaceregexp>
                 </then>
                 <else>
                     <replace dir="@{dir}/target/generated-sources/archetype">
@@ -325,6 +389,14 @@
           </includes>
         </fileSet>]]></replacevalue>
                     </replace>
+                    <!-- Fix for APF-1324: previous replace does not work in win -->
+                    <replaceregexp byline="false" flags="gim">
+                        <regexp pattern="&lt;fileSet encoding=&quot;UTF-8&quot;&gt;(\s+)&lt;directory&gt;src/main/resources&lt;/directory&gt;(\s+)&lt;includes&gt;(\s+)&lt;include&gt;\*\*/\*.tml&lt;/include&gt;(\s+)&lt;/includes&gt;(\s+)&lt;/fileSet&gt;"/>
+                        <substitution expression="&lt;fileSet packaged=&quot;true&quot; encoding=&quot;UTF-8&quot;&gt;${line.separator}      &lt;directory&gt;src/main/resources&lt;/directory&gt;${line.separator}      &lt;includes&gt;${line.separator}        &lt;include&gt;**/*.tml&lt;/include&gt;${line.separator}     &lt;/includes&gt;${line.separator}    &lt;/fileSet&gt;"/>
+                        <fileset dir="@{dir}/target/generated-sources/archetype">
+                            <include name="**/archetype-metadata.xml"/>
+                        </fileset>
+                    </replaceregexp>
                 </else>
             </if>
 
@@ -363,13 +435,22 @@
                     </replace>
 
                     <property name="web.root"
-                              value="@{dir}/target/generated-sources/archetype/src/main/resources/archetype-resources"/>
+                            value="@{dir}/target/generated-sources/archetype/src/main/resources/archetype-resources"/>
 
                     <!-- sources -->
                     <move file="${web.root}/src/main/java" tofile="${web.root}/src/main/java/webapp"/>
                     <!-- tests -->
                     <move file="${web.root}/src/test/java" tofile="${web.root}/src/test/java/webapp"/>
                 </then>
+                <else>
+                    <property name="web.root"
+                            value="@{dir}/target/generated-sources/archetype/src/main/resources/archetype-resources/web"/>
+
+                    <!-- sources -->
+                    <move file="${web.root}/src/main/java" tofile="${web.root}/src/main/java/webapp"/>
+                    <!-- tests -->
+                    <move file="${web.root}/src/test/java" tofile="${web.root}/src/test/java/webapp"/>
+                </else>
             </if>
 
             <!-- Fix ${artifactId}app replacement bug -->
@@ -442,7 +523,29 @@
                 <replacevalue>!rootPackage.equals("org.appfuse")</replacevalue>
             </replace>
 
+            <if>
+                <equals arg1="@{dest}" arg2="web"/>
+                <then>
+                    <replace dir="@{dir}/target/generated-sources/archetype">
+                        <include name="**/*.xml"/>
+                        <include name="**/*.properties"/>
+                        <replacetoken>${package}</replacetoken>
+                        <replacevalue>${groupId}.webapp</replacevalue>
+                    </replace>
+                    <replace dir="@{dir}/target/generated-sources/archetype">
+                        <include name="**/BasePageTestCase.java"/>
+                        <replacetoken>appPackage = "${package}";</replacetoken>
+                        <replacevalue>appPackage = "${package}.webapp";</replacevalue>
+                    </replace>
+                </then>
+            </if>
 
+            <!-- Fix WebTest path to ApplicationResources.properties -->
+            <replace dir="@{dir}/target/generated-sources/archetype/src">
+                <include name="**/web-tests.xml"/>
+                <replacetoken>../../../../common/target/</replacetoken>
+                <replacevalue>../../../target/</replacevalue>
+            </replace>
             <mvn command="install" dir="@{dir}/target/generated-sources/archetype"/>
         </sequential>
     </macrodef>

@@ -4,12 +4,7 @@ import org.appfuse.Constants;
 import org.appfuse.model.Address;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
-import org.compass.core.CompassCallbackWithoutResult;
-import org.compass.core.CompassException;
-import org.compass.core.CompassHits;
-import org.compass.core.CompassSession;
-import org.compass.core.CompassTemplate;
-import org.compass.gps.CompassGps;
+import java.util.List;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ObjectRetrievalFailureException;
@@ -23,15 +18,11 @@ import static org.junit.Assert.*;
 public class UserDaoTest extends BaseDaoTestCase {
     @PersistenceContext
     private EntityManager entityManager;
-    
+
     @Autowired
     private UserDao dao;
     @Autowired
     private RoleDao rdao;
-    @Autowired
-    private CompassTemplate compassTemplate;
-    @Autowired
-    private CompassGps compassGps;
 
     @Test
     @ExpectedException(ObjectRetrievalFailureException.class)
@@ -69,7 +60,7 @@ public class UserDaoTest extends BaseDaoTestCase {
         user = dao.get(-1L);
         assertEquals(user.getAddress(), address);
         assertEquals("new address", user.getAddress().getAddress());
-        
+
         //verify that violation occurs when adding new user with same username
         user.setId(null);
 
@@ -115,7 +106,7 @@ public class UserDaoTest extends BaseDaoTestCase {
         user.setAddress(address);
         user.setEmail("testuser@appfuse.org");
         user.setWebsite("http://raibledesigns.com");
-        
+
         Role role = rdao.getRoleByName(Constants.USER_ROLE);
         assertNotNull(role.getId());
         user.addRole(role);
@@ -130,55 +121,29 @@ public class UserDaoTest extends BaseDaoTestCase {
         // should throw EntityNotFoundException
         dao.get(user.getId());
     }
-    
+
+    @Test
     public void testUserExists() throws Exception {
         boolean b = dao.exists(-1L);
         assertTrue(b);
     }
-    
+
+    @Test
     public void testUserNotExists() throws Exception {
         boolean b = dao.exists(111L);
         assertFalse(b);
     }
 
+
     @Test
-    public void testUserSearch() throws Exception {
-        // reindex all the data
-        compassGps.index();
+    public void testSearch() throws Exception {
+        // reindexAll all the data
+        dao.reindex();
 
-        User user = compassTemplate.get(User.class, -2);
-        assertNotNull(user);
-        assertEquals("Matt", user.getFirstName());
+        List<User> found = dao.search("*");
+        assertEquals(2, found.size());
 
-        compassTemplate.execute(new CompassCallbackWithoutResult() {
-            @Override
-            protected void doInCompassWithoutResult(CompassSession compassSession) throws CompassException {
-                CompassHits hits = compassSession.find("Matt");
-                assertEquals(1, hits.length());
-                assertEquals("Matt", ((User) hits.data(0)).getFirstName());
-                assertEquals("Matt", hits.resource(0).getValue("firstName"));
-            }
-        });
-
-        // test mirroring
-        user = dao.get(-2L);
-        user.setFirstName("MattX");
-        dao.saveUser(user);
-        entityManager.flush();
-        entityManager.clear();
-
-        // now verify it is reflected in the index
-        user = compassTemplate.get(User.class, -2);
-        assertNotNull(user);
-        assertEquals("MattX", user.getFirstName());
-
-        compassTemplate.execute(new CompassCallbackWithoutResult() {
-            @Override
-            protected void doInCompassWithoutResult(CompassSession compassSession) throws CompassException {
-                CompassHits hits = compassSession.find("MattX");
-                assertEquals(1, hits.length());
-                assertEquals("MattX", ((User) hits.data(0)).getFirstName());
-            }
-        });
+        found = dao.search("Tomcat");
+        assertEquals(1, found.size());
     }
 }
