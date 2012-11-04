@@ -60,6 +60,9 @@ public class AppModule {
         // Maximum upload size is 2MB (size is in bytes)
         configuration.add(UploadSymbols.FILESIZE_MAX, "2048000");
 
+        // HHAC recommended for better security as of Tapestry 5.3.6
+        configuration.add(SymbolConstants.HMAC_PASSPHRASE, "AppFuse Tapestry is Great");
+
         // Spring Security
         configuration.add(AppFuseSymbolConstants.SECURITY_URL, "/j_security_check");
 
