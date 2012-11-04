@@ -37,7 +37,7 @@ public class AppTestModule {
                 return handler.service(request, response);
             }
         };
-        config.add("SpringMockHttpRequestAndResponse", filter, "before:*");
+        config.add("SpringMockHttpRequestAndResponse", filter, "after:CheckForUpdates","before:URLRewriter");
     }
 
 }
