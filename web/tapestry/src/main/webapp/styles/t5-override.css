@@ -89,7 +89,7 @@ DIV.t-alert-container div.t-error {
 }
 
 
-/* Remove the 'Dismill all' message */
+/* Remove the 'Dismiss all' message */
 body DIV.t-dismiss {
     display: none;
 }
@@ -105,4 +105,15 @@ body DIV.t-checklist-row {
 
 .t-checklist-row label {
     display: inline;
+}
+
+
+body DIV.t-beaneditor {
+    background: none;
+    border: none;
+}
+
+body DL.t-beandisplay {
+    background: none;
+    border: none;
 }

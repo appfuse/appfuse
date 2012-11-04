@@ -25,10 +25,10 @@ public class UserEditTest extends BasePageTestCase {
         Element idLink = table.getElementById("user-" + username);
         doc = tester.clickLink(idLink);
 
-        Element root = doc.getRootElement();
-        Element cancelButton = root.getElementByAttributeValue("name", "cancel");
 
-        doc = tester.clickSubmit(cancelButton, fieldValues);
+        Element cancelButton = doc.getElementById("cancel");
+
+        doc = tester.clickLink(cancelButton);
 
         // force locale=en (APF-1324)
         ResourceBundle rb = ResourceBundle.getBundle(MESSAGES, new Locale("en"));

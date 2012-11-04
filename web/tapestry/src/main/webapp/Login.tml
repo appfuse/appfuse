@@ -14,7 +14,7 @@
                 </div>
             </t:if>
 
-            <fieldset class="control-group">
+            <div class="control-group">
                 <label for="j_username" class="required control-label">
                     ${message:label.username} <span class="required">*</span>
                 </label>
@@ -22,9 +22,9 @@
                 <div class="controls">
                     <input type="text" class="text medium" name="j_username" id="j_username" tabindex="1" value=""/>
                 </div>
-            </fieldset>
+            </div>
 
-            <fieldset class="control-group">
+            <div class="control-group">
                 <label for="j_password" class="required control-label">
                     ${message:label.password} <span class="required">*</span>
                 </label>
@@ -32,10 +32,10 @@
                 <div class="controls">
                     <input type="password" class="text medium" name="j_password" id="j_password" tabindex="2"/>
                 </div>
-            </fieldset>
+            </div>
 
             <t:if test="rememberMeEnabled">
-                <fieldset class="control-group">
+                <div class="control-group">
                     <div class="controls">
 
                         <label for="rememberMe" class="checkbox">
@@ -43,12 +43,12 @@
                         ${message:login.rememberMe}
                         </label>
                     </div>
-                </fieldset>
+                </div>
             </t:if>
 
-            <fieldset class="form-actions">
+            <div class="form-actions">
                 <input type="submit" class="btn btn-primary" name="login" value="${message:button.login}" tabindex="4"/>
-            </fieldset>
+            </div>
 
         </form>
     </div>

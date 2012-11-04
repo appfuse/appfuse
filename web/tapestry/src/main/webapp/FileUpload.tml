@@ -9,31 +9,33 @@
 <div class="span7">
 
     <form t:type="form" t:id="upload" clientValidation="none" class="well form-horizontal">
-
-        <fieldset class="control-group">
+     <fieldset>
+        <div class="control-group">
             <label t:type="label" class="control-label" for="name">${message:uploadForm.name}</label>
 
             <div class="controls">
                 <input t:type="textfield" t:id="name" value="fileData.friendlyName"
                        validate="required"/>
             </div>
-        </fieldset>
+        </div>
 
-        <fieldset class="control-group">
+        <div class="control-group">
             <label t:type="label" class="control-label" for="file">${message:uploadForm.file} <span class="required">*</span></label>
 
             <div class="controls">
                 <input t:type="upload" t:id="file" value="fileData.file" validate="required"/>
             </div>
-        </fieldset>
+        </div>
 
-        <fieldset class="form-actions">
-            <input t:type="submit" class="btn btn-primary" theme="simple" onclick="bCancel=false" value="${message:button.upload}"
-                   t:id="save"/>
-            <a t:type="eventlink" t:id="cancel">
-                <input type="button" class="btn" onclick="bCancel=true" value="${message:button.cancel}"/>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary"  id="save">
+		<i class="icon-upload icon-white"></i> ${message:button.upload}
+	    </button>
+            <a t:type="eventlink" t:id="cancel" class="btn">
+		<i class="icon-remove"></i> ${message:button.cancel}
             </a>
-        </fieldset>
+        </div>
+     </fieldset>
     </form>
 
 </div>

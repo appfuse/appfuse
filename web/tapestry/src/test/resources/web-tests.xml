@@ -147,8 +147,9 @@
                 <!-- Delete user -->
                 <clicklink description="Click edit user link" label="newuser"/>
                 <prepareDialogResponse description="Confirm delete" dialogType="confirm" response="true"/>
-                <clickbutton label="${button.delete}" description="Click button 'Delete'"/>
-                <verifyNoDialogResponses/>
+                <clicklink label="${button.delete}" description="Click button 'Delete'"/>
+                <clicklink label="${button.save}" description="Click button 'Save'"/>
+                <!--<verifyNoDialogResponses/>-->
                 <verifytext description="verify success message" regex="true" text='.*Test Name.*'/>
                 <verifytitle description="display user list" text=".*${userList.title}.*" regex="true"/>
             </steps>

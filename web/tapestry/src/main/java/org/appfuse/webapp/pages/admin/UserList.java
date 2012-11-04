@@ -1,5 +1,6 @@
 package org.appfuse.webapp.pages.admin;
 
+import org.apache.tapestry5.PersistenceConstants;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
@@ -43,7 +44,7 @@ public class UserList {
     private User currentUser;
 
     @Property
-    @Persist
+    @Persist(PersistenceConstants.FLASH)
     private String q;
 
     private String infoMessage;
@@ -65,7 +66,7 @@ public class UserList {
         return model;
     }
 
-    void onActivate() {
+    void setupRender() {
         users = userManager.search(q);
     }
 
