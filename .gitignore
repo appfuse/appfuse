@@ -6,3 +6,5 @@ target
 web/tapestry/src/main/webapp/WEB-INF/app*.properties
 
 *.log
+
+web/tapestry/src/main/webapp/styles/style.css
