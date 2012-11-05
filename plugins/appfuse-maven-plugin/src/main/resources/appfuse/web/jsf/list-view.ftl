@@ -18,7 +18,7 @@
     <h:form id="searchForm" styleClass="form-search">
     <div id="search" class="input-append">
         <h:inputText id="q" name="q" size="20" value="${'#'}{${pojoNameLower}List.query}" styleClass="span6 search-query"/>
-        <h:commandButton value="#{text['button.search']}" styleClass="btn" action="${'#'}{${pojoNameLower}List.search}"/>
+        <h:commandButton value="${'#'}{text['button.search']}" styleClass="btn" action="${'#'}{${pojoNameLower}List.search}"/>
     </div>
     </h:form>
 

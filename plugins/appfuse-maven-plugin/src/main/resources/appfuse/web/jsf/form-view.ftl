@@ -20,65 +20,66 @@
     <h2>${'#'}{text['${pojoNameLower}Detail.heading']}</h2>
 </div>
 <div class="span7">
-
 <h:form id="${pojoNameLower}Form">
 <#rt/>
 <#foreach field in pojo.getAllPropertiesIterator()>
+<div class="control-group">
 <#if field.equals(pojo.identifierProperty)>
     <#foreach column in field.getColumnIterator()>
     <#assign idFieldName = field.name>
     <#if field.value.identifierGeneratorStrategy == "assigned">
-<div class="control-group">
     <h:outputLabel styleClass="control-label" for="${field.name}" value="${'#'}{text['${pojoNameLower}.${field.name}']}"/>
     <div class="controls">
         <h:inputText id="${field.name}" value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}" required="${(!column.nullable)?string}"/>
         <t:message for="${field.name}" styleClass="help-inline"/>
-    <#else>
-        <#lt/><h:inputHidden value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}" id="${field.name}"/>
     </div>
+    <#else>
+        <#lt/>    <h:inputHidden value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}" id="${field.name}"/>
     </#if>
     </#foreach>
 <#elseif !c2h.isCollection(field) && !c2h.isManyToOne(field) && !c2j.isComponent(field)>
     <h:outputLabel styleClass="control-label" for="${field.name}" value="${'#'}{text['${pojoNameLower}.${field.name}']}"/>
-    <div class="controls">
     <#foreach column in field.getColumnIterator()>
+    <div class="controls">
         <#if field.value.typeName == "java.util.Date" || field.value.typeName == "date">
-            <#lt/>    <h:inputText id="${field.name}" value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}" required="${(!column.nullable)?string}">
-        <f:convertDateTime pattern="${'#'}{text['date.format']}"/>
-    </h:inputText>
+            <#lt/>        <h:inputText id="${field.name}" value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}" required="${(!column.nullable)?string}">
+            <f:convertDateTime pattern="${'#'}{text['date.format']}"/>
+        </h:inputText>
         <#elseif field.value.typeName == "boolean" || field.value.typeName == "java.lang.Boolean">
-            <#lt/>    <h:selectBooleanCheckbox value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}" id="${field.name}"/>
+            <#lt/>        <h:selectBooleanCheckbox value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}" id="${field.name}"/>
         <#else>
-            <#lt/>    <h:inputText id="${field.name}" value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}" required="${(!column.nullable)?string}"<#if (column.length > 0)> maxlength="${column.length?c}"</#if>>
-    </h:inputText>
+            <#lt/>        <h:inputText id="${field.name}" value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}" required="${(!column.nullable)?string}"<#if (column.length > 0)> maxlength="${column.length?c}"</#if>/>
         </#if>
+        <t:message for="${field.name}" styleClass="help-inline"/>
+    </div>
     </#foreach>
 <#elseif c2h.isManyToOne(field)>
     <#foreach column in field.getColumnIterator()>
-            <#lt/>    <!-- todo: change this to read the identifier field from the other pojo -->
-            <#lt/>    <h:selectOneMenu value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}" id="${field.name}" required="${(!column.nullable)?string}" styleClass="select">
-        <f:selectItems value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}"/>
-    </h:selectOneMenu>
-    </#foreach>
-    <t:message for="${field.name}" styleClass="help-inline"/>
-</#if>
-</#foreach>
+    <div class="controls">
+            <#lt/>        <!-- todo: change this to read the identifier field from the other pojo -->
+            <#lt/>        <h:selectOneMenu value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}" id="${field.name}" required="${(!column.nullable)?string}" styleClass="select">
+            <f:selectItems value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}"/>
+        </h:selectOneMenu>
+        <t:message for="${field.name}" styleClass="help-inline"/>
     </div>
-
+    </#foreach>
+</#if>
+</div>
+</#foreach>
     <div class="form-actions">
-        <h:commandButton value="${'#'}{text['button.save']}" action="${'#'}{${pojoNameLower}Form.save}" id="save" styleClass="btn btn-primary"/>
+        <h:commandButton value="${'#'}{text['button.save']}" action="${'#'}{${pojoNameLower}Form.save}"
+            id="save" styleClass="btn btn-primary"/>
 
         <c:if test="${'$'}{not empty ${pojoNameLower}Form.${pojoNameLower}.${idFieldName}}">
-        <h:commandButton value="${'#'}{text['button.delete']}" action="${'#'}{${pojoNameLower}Form.delete}"
-            id="delete" styleClass="btn" onclick="bCancel=true; return confirmMessage(msgDelConfirm)"/>
+            <h:commandButton value="${'#'}{text['button.delete']}" action="${'#'}{${pojoNameLower}Form.delete}"
+                id="delete" styleClass="btn" onclick="return confirmMessage(msgDelConfirm)"/>
         </c:if>
 
         <h:commandButton value="${'#'}{text['button.cancel']}" action="cancel" immediate="true"
-            id="cancel" styleClass="btn" onclick="bCancel=true"/>
+            id="cancel" styleClass="btn"/>
     </div>
-</div>
 </h:form>
-
+</div>
 </body>
 </f:view>
 </html>
