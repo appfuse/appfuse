@@ -90,8 +90,6 @@
                         <resource>
                             <directory>../common/src/main/webapp</directory>
                             <excludes>
-                                <exclude>common/menu.jsp</exclude>
-                                <exclude>decorators/**</exclude>
                                 <exclude>login.jsp</exclude>
                             </excludes>
                         </resource>
@@ -170,11 +168,6 @@
             <groupId>com.sun.facelets</groupId>
             <artifactId>jsf-facelets</artifactId>
             <version>${facelets.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.shale</groupId>
-          <artifactId>shale-validator</artifactId>
-          <version>${shale.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.myfaces.core</groupId>

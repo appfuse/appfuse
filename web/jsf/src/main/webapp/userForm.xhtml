@@ -1,7 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core"
       xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" 
-      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk"
-      xmlns:v="http://shale.apache.org/validator">
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk">
 
 <f:view>
 <f:loadBundle var="text" basename="#{userForm.bundleName}"/>
@@ -16,242 +15,211 @@
    "<h:outputFormat value="#{text['delete.confirm']}"><f:param value="#{delObject}" /></h:outputFormat>";
 </script>
 
-<div class="separator"></div>
+<div class="span3">
+    <h2>#{text['userProfile.heading']}</h2>
+    <c:choose>
+        <c:when test="${param.from == 'list' or empty userForm.user.id}">
+            <h:outputText value="#{text['userProfile.admin.message']}"/>
+        </c:when>
+        <c:otherwise><h:outputText value="#{text['userProfile.message']}"/></c:otherwise>
+    </c:choose>
+</div>
+<div class="span7">
 
-<h:form id="userForm" onsubmit="return validateUserForm(this)">
-<h:inputHidden value="#{userForm.user.id}" id="id"/>
-<h:inputHidden value="#{userForm.user.version}" id="version"/>
+    <h:form id="userForm" styleClass="well form-horizontal">
+        <h:inputHidden value="#{userForm.user.id}" id="id"/>
+        <h:inputHidden value="#{userForm.user.version}" id="version"/>
 
-<h:inputHidden value="#{userForm.user.password}" id="originalPassword"/>
-<input type="hidden" name="from" value="#{userForm.from}" />
+        <h:inputHidden value="#{userForm.user.password}" id="originalPassword"/>
+        <input type="hidden" name="from" value="#{userForm.from}" />
 
-<c:if test="${userForm.rememberMe}">
-    <h:inputHidden value="#{userForm.user.password}" id="password"/>
-    <h:inputHidden value="#{userForm.user.confirmPassword}" id="confirmPassword"/>
-</c:if>
-
-<c:if test="${empty userForm.user.version}">
-    <input type="hidden" name="encryptPass" value="true" />
-</c:if>
-
-<c:set var="addText" value="#{text['button.add']}"/>
-
-<h:panelGrid columns="3">
-
-    <h:panelGroup styleClass="buttonBar right">
-        <h:commandButton value="#{text['button.save']}" action="#{userForm.save}" styleClass="button"/>
-        <c:if test="${not empty userForm.user.id}">
-        <h:commandButton value="#{text['button.delete']}" action="#{userForm.delete}"
-            styleClass="button" onclick="bCancel=true; return confirmMessage(msgDelConfirm)"/>
+        <c:if test="${userForm.rememberMe}">
+            <h:inputHidden value="#{userForm.user.password}" id="password"/>
+            <h:inputHidden value="#{userForm.user.confirmPassword}" id="confirmPassword"/>
         </c:if>
-        <h:commandButton value="#{text['button.cancel']}" action="#{userForm.cancel}" immediate="true"
-            styleClass="button" onclick="bCancel=true"/>
-    </h:panelGroup>
-    <h:outputText/><h:outputText/>
 
-    <h:panelGroup styleClass="info">
-        <c:choose>
-            <c:when test="${param.from == 'list' or empty userForm.user.id}">
-                <h:outputText value="#{text['userProfile.admin.message']}"/>
-            </c:when>
-            <c:otherwise><h:outputText value="#{text['userProfile.message']}"/></c:otherwise>
-        </c:choose>
-    </h:panelGroup>
-    <h:outputText/><h:outputText/>
+        <c:if test="${empty userForm.user.version}">
+            <input type="hidden" name="encryptPass" value="true" />
+        </c:if>
 
-    <h:outputLabel for="username" styleClass="desc" value="#{text['user.username']}"/>
-    <t:message for="username" styleClass="fieldError"/>
-    <h:inputText value="#{userForm.user.username}" id="username" required="true" styleClass="text large">
-        <v:commonsValidator client="true" type="required" arg="#{text['user.username']}"/>
-    </h:inputText>
+        <c:set var="addText" value="#{text['button.add']}"/>
 
-    <c:if test="${!userForm.rememberMe}">
-    <h:panelGroup>
-        <div>
-            <div class="left">
-                <h:outputLabel for="password" value="#{text['user.password']}" styleClass="desc"/>
-                <t:message for="password" styleClass="fieldError"/>
-                <h:inputSecret value="#{userForm.user.password}" id="password"
-                    redisplay="true" required="true" styleClass="text medium">
-                    <v:commonsValidator client="true" type="required" arg="#{text['user.password']}"/>
-                </h:inputSecret>
-            </div>
-            <div>
-                <h:outputLabel for="confirmPassword" value="#{text['user.confirmPassword']}" styleClass="desc"/>
-                <t:message for="confirmPassword" styleClass="fieldError"/>
-                <h:inputSecret value="#{userForm.user.confirmPassword}" id="confirmPassword"
-                    redisplay="true" required="true" styleClass="text medium">
-                    <v:commonsValidator client="true" type="required" arg="#{text['user.confirmPassword']}"/>
-                    <t:validateEqual for="password"/>
-                </h:inputSecret>
+        <div class="control-group">
+            <h:outputLabel styleClass="control-label" for="username" value="#{text['user.username']}"/>
+            <div class="controls">
+                <h:inputText value="#{userForm.user.username}" id="username" required="true"/>
+                <t:message for="username" styleClass="help-inline"/>
             </div>
         </div>
-    </h:panelGroup>
-    <h:outputText/><h:outputText/>
+
+    <c:if test="${!userForm.rememberMe}">
+        <div class="control-group">
+            <h:outputLabel styleClass="control-label" for="password" value="#{text['user.password']}"/>
+            <div class="controls">
+                <h:inputSecret value="#{userForm.user.password}" id="password" redisplay="true" required="true"/>
+                <t:message for="password" styleClass="help-inline"/>
+            </div>
+        </div>
+        <div class="control-group">
+            <h:outputLabel styleClass="control-label" for="confirmPassword" value="#{text['user.confirmPassword']}"/>
+            <div class="controls">
+                <h:inputSecret value="#{userForm.user.confirmPassword}" id="confirmPassword" redisplay="true" required="true">
+                    <t:validateEqual for="password"/>
+                </h:inputSecret>
+                <t:message for="confirmPassword" styleClass="help-inline"/>
+            </div>
+        </div>
     </c:if>
 
-    <h:outputLabel for="passwordHint" value="#{text['user.passwordHint']}" styleClass="desc"/>
-    <t:message for="passwordHint" styleClass="fieldError"/>
-    <h:inputText value="#{userForm.user.passwordHint}" id="passwordHint" required="true" styleClass="text large">
-        <v:commonsValidator client="true" type="required" arg="#{text['user.passwordHint']}"/>
-    </h:inputText>
+        <div class="control-group">
+            <h:outputLabel styleClass="control-label" for="passwordHint" value="#{text['user.passwordHint']}"/>
+            <div class="controls">
+                <h:inputText value="#{userForm.user.passwordHint}" id="passwordHint" required="true"/>
+                <t:message for="passwordHint" styleClass="help-inline"/>
+            </div>
+        </div>
 
-    <h:panelGroup>
-        <t:htmlTag value="div">
-            <t:htmlTag value="div" styleClass="left">
-                <h:outputLabel for="firstName" value="#{text['user.firstName']}" styleClass="desc"/>
-                <t:message for="firstName" styleClass="fieldError"/>
-                <h:inputText id="firstName" value="#{userForm.user.firstName}" maxlength="50" required="true" styleClass="text medium">
-                    <v:commonsValidator client="true" type="required" arg="#{text['user.firstName']}"/>
-                </h:inputText>
-            </t:htmlTag>
-            <t:htmlTag value="div">
-                <h:outputLabel for="lastName" value="#{text['user.lastName']}" styleClass="desc"/>
-                <t:message for="lastName" styleClass="fieldError"/>
-                <h:inputText value="#{userForm.user.lastName}" id="lastName" maxlength="50" required="true" styleClass="text medium">
-                    <v:commonsValidator client="true" type="required" arg="#{text['user.lastName']}"/>
-                </h:inputText>
-            </t:htmlTag>
-        </t:htmlTag>
-    </h:panelGroup>
-    <h:outputText/><h:outputText/>
+        <div class="control-group">
+            <h:outputLabel styleClass="control-label" for="firstName" value="#{text['user.firstName']}"/>
+            <div class="controls">
+                <h:inputText id="firstName" value="#{userForm.user.firstName}" maxlength="50" required="true"/>
+                <t:message for="firstName" styleClass="help-inline"/>
+            </div>
+        </div>
 
-    <h:panelGroup>
-        <t:htmlTag value="div">
-            <t:htmlTag value="div" styleClass="left">
-                <h:outputLabel for="email" value="#{text['user.email']}" styleClass="desc"/>
-                <t:message for="email" styleClass="fieldError"/>
-                <h:inputText value="#{userForm.user.email}" id="email" required="true" styleClass="text medium">
+        <div class="control-group">
+            <h:outputLabel styleClass="control-label" for="lastName" value="#{text['user.lastName']}"/>
+            <div class="controls">
+                <h:inputText value="#{userForm.user.lastName}" id="lastName" maxlength="50" required="true"/>
+                <t:message for="lastName" styleClass="help-inline"/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <h:outputLabel styleClass="control-label" for="email" value="#{text['user.email']}"/>
+            <div class="controls">
+                <h:inputText value="#{userForm.user.email}" id="email" required="true">
                     <f:validator validatorId="org.apache.myfaces.validator.Email"/>
-                    <v:commonsValidator client="true" type="required" arg="#{text['user.email']}"/>
-                    <v:commonsValidator client="true" type="email" arg="#{text['user.email']}"/>
                 </h:inputText>
-            </t:htmlTag>
-            <t:htmlTag value="div">
-                <h:outputLabel for="phoneNumber" value="#{text['user.phoneNumber']}" styleClass="desc"/>
-                <t:message for="phoneNumber" styleClass="fieldError"/>
+                <t:message for="email" styleClass="help-inline"/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <h:outputLabel styleClass="control-label" for="phoneNumber" value="#{text['user.phoneNumber']}"/>
+            <div class="controls">
                 <h:inputText value="#{userForm.user.phoneNumber}" id="phoneNumber" styleClass="text medium">
                     <t:validateRegExpr pattern="^\(?(\d{3})\)?[-| ]?(\d{3})[-| ]?(\d{4})$"/>
                 </h:inputText>
-            </t:htmlTag>
-        </t:htmlTag>
-    </h:panelGroup>
-    <h:outputText/><h:outputText/>
+                <t:message for="phoneNumber" styleClass="help-inline"/>
+            </div>
+        </div>
 
-    <h:outputLabel for="website" value="#{text['user.website']}" styleClass="desc"/>
-    <t:message for="website" styleClass="fieldError"/>
-    <h:inputText value="#{userForm.user.website}" id="website" required="true" styleClass="text large">
-        <v:commonsValidator client="true" type="required" arg="#{text['user.website']}"/>
-    </h:inputText>
+        <div class="control-group">
+            <h:outputLabel styleClass="control-label" for="website" value="#{text['user.website']}"/>
+            <div class="controls">
+                <h:inputText value="#{userForm.user.website}" id="website" required="true"/>
+                <t:message for="website" styleClass="help-inline"/>
+            </div>
+        </div>
 
-    <h:panelGroup>
-        <t:htmlTag value="label" styleClass="desc"><h:outputText value="#{text['user.address.address']}"/></t:htmlTag>
-        <t:htmlTag value="div" styleClass="group">
-            <t:htmlTag value="div">
-                <h:inputText value="#{userForm.user.address.address}" id="address" styleClass="text large"/>
-                <t:message for="address" styleClass="fieldError"/>
-                <t:htmlTag value="p"><h:outputLabel for="address" value="#{text['user.address.address']}"/></t:htmlTag>
-            </t:htmlTag>
-            <t:htmlTag value="div" styleClass="left">
-                <h:inputText value="#{userForm.user.address.city}" id="city" required="true" styleClass="text medium">
-                    <v:commonsValidator client="true" type="required" arg="#{text['user.address.city']}"/>
-                </h:inputText>
-                <t:message for="city" styleClass="fieldError"/>
-                <t:htmlTag value="p"><h:outputLabel for="city" value="#{text['user.address.city']}"/></t:htmlTag>
-            </t:htmlTag>
-            <t:htmlTag value="div">
-                <h:inputText value="#{userForm.user.address.province}" id="province" required="true" styleClass="text state">
-                    <v:commonsValidator client="true" type="required" arg="#{text['user.address.province']}"/>
-                </h:inputText>
-                <t:message for="province" styleClass="fieldError"/>
-                <t:htmlTag value="p"><h:outputLabel for="province" value="#{text['user.address.province']}"/></t:htmlTag>
-            </t:htmlTag>
-            <t:htmlTag value="div" styleClass="left">
-                <h:inputText value="#{userForm.user.address.postalCode}" id="postalCode" required="true" styleClass="text medium">
-                    <v:commonsValidator client="true" type="required" arg="#{text['user.address.postalCode']}"/>
-                    <t:validateRegExpr pattern="^\d{5}\d*$"/>
-                </h:inputText>
-                <t:message for="postalCode" styleClass="fieldError"/>
-                <t:htmlTag value="p"><h:outputLabel for="postalCode" value="#{text['user.address.postalCode']}"/></t:htmlTag>
-            </t:htmlTag>
-            <t:htmlTag value="div">
-                <h:selectOneMenu value="#{userForm.country}" id="country" required="true" styleClass="select">
-                    <f:selectItems value="#{userForm.countries}"/>
-                    <v:commonsValidator client="true" type="required" arg="#{text['user.address.country']}"/>
-                </h:selectOneMenu>
-                <t:message for="country" styleClass="fieldError"/>
-                <t:htmlTag value="p"><h:outputLabel for="country" value="#{text['user.address.country']}"/></t:htmlTag>
-            </t:htmlTag>
-        </t:htmlTag>
-    </h:panelGroup>
-    <h:outputText/><h:outputText/>
+        <fieldset>
+            <legend class="accordion-heading">
+                <a data-toggle="collapse" href="#collapse-address"><h:outputText value="#{text['user.address.address']}"/></a>
+            </legend>
+            <div id="collapse-address" class="accordion-body collapse">
+                <div class="control-group">
+                    <h:outputLabel styleClass="control-label" for="address" value="#{text['user.address.address']}"/>
+                    <h:inputText value="#{userForm.user.address.address}" id="address"/>
+                    <t:message for="address" styleClass="help-inline"/>
+                </div>
+                <div class="control-group">
+                    <h:outputLabel styleClass="control-label" for="city" value="#{text['user.address.city']}"/>
+                    <h:inputText value="#{userForm.user.address.city}" id="city"/>
+                    <t:message for="city" styleClass="help-inline"/>
+                </div>
+                <div class="control-group">
+                    <h:outputLabel styleClass="control-label" for="province" value="#{text['user.address.province']}"/>
+                    <h:inputText value="#{userForm.user.address.province}" id="province"/>
+                    <t:message for="province" styleClass="help-inline"/>
+                </div>
+                <div class="control-group">
+                    <h:outputLabel styleClass="control-label" for="postalCode" value="#{text['user.address.postalCode']}"/>
+                    <h:inputText value="#{userForm.user.address.postalCode}" id="postalCode">
+                        <t:validateRegExpr pattern="^\d{5}\d*$"/>
+                    </h:inputText>
+                    <t:message for="postalCode" styleClass="help-inline"/>
+                </div>
+                <div class="control-group">
+                    <h:outputLabel styleClass="control-label" for="country" value="#{text['user.address.country']}"/>
+                    <h:selectOneMenu value="#{userForm.country}" id="country">
+                        <f:selectItems value="#{userForm.countries}"/>
+                    </h:selectOneMenu>
+                    <t:message for="country" styleClass="help-inline"/>
+                </div>
+            </div>
+        </fieldset>
 
-<c:choose>
-    <c:when test="${param.from == 'list' or param['editUser:add'] == addText}">
-        <h:panelGroup>
-            <t:htmlTag value="fieldset">
-                <t:htmlTag value="legend"><h:outputText value="#{text['userProfile.accountSettings']}"/></t:htmlTag>
-                <h:selectBooleanCheckbox value="#{userForm.user.enabled}" id="enabled" styleClass="checkbox"/>
-                <h:outputLabel for="enabled" styleClass="choice" value="#{text['user.enabled']}"/>
-    
-                <h:selectBooleanCheckbox value="#{userForm.user.accountExpired}" id="accountExpired" styleClass="checkbox"/>
-                <h:outputLabel for="accountExpired" styleClass="choice" value="#{text['user.accountExpired']}"/>
-    
-                <h:selectBooleanCheckbox value="#{userForm.user.accountLocked}" id="accountLocked" styleClass="checkbox"/>
-                <h:outputLabel for="accountLocked" styleClass="choice" value="#{text['user.accountLocked']}"/>
-    
-                <h:selectBooleanCheckbox value="#{userForm.user.credentialsExpired}" id="credentialsExpired" styleClass="checkbox"/>
-                <h:outputLabel for="credentialsExpired" styleClass="choice" value="#{text['user.credentialsExpired']}"/>
-            </t:htmlTag>
-        </h:panelGroup>
-        <h:outputText/><h:outputText/>
-        <h:panelGroup>
-            <fieldset>
-                <legend>#{text['userProfile.assignRoles']}</legend>
-                <h:selectManyCheckbox value="#{userForm.userRoles}" id="userRoles">
-                    <f:selectItems value="#{userForm.availableRoles}"/>
-                </h:selectManyCheckbox>
-            </fieldset>
-        </h:panelGroup>
-        <h:outputText/><h:outputText/>
-    </c:when>
-    <c:otherwise>
-        <h:panelGroup>
-            <t:htmlTag value="strong">#{text['user.roles']}:</t:htmlTag>
-            <c:if test="${not empty param['userForm:userRoles']}">
-                ${param['userForm:userRoles']}
-                <input type="hidden" name="userForm:userRoles" value="${param['userForm:userRoles']}" />
+    <c:choose>
+        <c:when test="${param.from == 'list' or param['editUser:add'] == addText}">
+            <h:panelGroup>
+                <t:htmlTag value="fieldset">
+                    <t:htmlTag value="legend"><h:outputText value="#{text['userProfile.accountSettings']}"/></t:htmlTag>
+                    <h:outputLabel styleClass="checkbox" for="enabled" value="#{text['user.enabled']}">
+                        <h:selectBooleanCheckbox value="#{userForm.user.enabled}" id="enabled" styleClass="checkbox"/>
+                    </h:outputLabel>
+
+                    <h:outputLabel styleClass="checkbox" for="accountExpired" value="#{text['user.accountExpired']}">
+                        <h:selectBooleanCheckbox value="#{userForm.user.accountExpired}" id="accountExpired" styleClass="checkbox"/>
+                    </h:outputLabel>
+
+                    <h:outputLabel styleClass="checkbox" for="accountLocked" value="#{text['user.accountLocked']}">
+                        <h:selectBooleanCheckbox value="#{userForm.user.accountLocked}" id="accountLocked" styleClass="checkbox"/>
+                    </h:outputLabel>
+
+                    <h:outputLabel styleClass="checkbox" for="credentialsExpired" value="#{text['user.credentialsExpired']}">
+                        <h:selectBooleanCheckbox value="#{userForm.user.credentialsExpired}" id="credentialsExpired" styleClass="checkbox"/>
+                    </h:outputLabel>
+                </t:htmlTag>
+            </h:panelGroup>
+            <h:panelGroup>
+                <fieldset>
+                    <legend>#{text['userProfile.assignRoles']}</legend>
+                    <h:selectManyCheckbox value="#{userForm.userRoles}" id="userRoles">
+                        <f:selectItems value="#{userForm.availableRoles}"/>
+                    </h:selectManyCheckbox>
+                </fieldset>
+            </h:panelGroup>
+        </c:when>
+        <c:otherwise>
+            <h:panelGroup>
+                <t:htmlTag value="strong">#{text['user.roles']}:</t:htmlTag>
+                <c:if test="${not empty param['userForm:userRoles']}">
+                    ${param['userForm:userRoles']}
+                    <input type="hidden" name="userForm:userRoles" value="${param['userForm:userRoles']}" />
+                </c:if>
+                <c:forEach var="role" items="#{userForm.userRoles}" varStatus="status">
+                   ${role}<c:if test="${!status.last}">,</c:if>
+                   <input type="hidden" name="userForm:userRoles" value="${role}" />
+               </c:forEach>
+                <h:inputHidden value="#{userForm.user.enabled}"/>
+                <h:inputHidden value="#{userForm.user.accountExpired}"/>
+                <h:inputHidden value="#{userForm.user.accountLocked}"/>
+                <h:inputHidden value="#{userForm.user.credentialsExpired}"/>
+            </h:panelGroup>
+        </c:otherwise>
+    </c:choose>
+        <div class="form-actions">
+            <h:commandButton value="#{text['button.save']}" action="#{userForm.save}" styleClass="btn btn-primary"/>
+            <c:if test="${not empty userForm.user.id}">
+            <h:commandButton value="#{text['button.delete']}" action="#{userForm.delete}"
+                styleClass="btn" onclick="bCancel=true; return confirmMessage(msgDelConfirm)"/>
             </c:if>
-            <c:forEach var="role" items="#{userForm.userRoles}" varStatus="status">
-               ${role}<c:if test="${!status.last}">,</c:if>
-               <input type="hidden" name="userForm:userRoles" value="${role}" />
-           </c:forEach>
-            <h:inputHidden value="#{userForm.user.enabled}"/>
-            <h:inputHidden value="#{userForm.user.accountExpired}"/>
-            <h:inputHidden value="#{userForm.user.accountLocked}"/>
-            <h:inputHidden value="#{userForm.user.credentialsExpired}"/>
-        </h:panelGroup>
-        <h:outputText/><h:outputText/>
-    </c:otherwise>
-</c:choose>
-    <h:panelGroup styleClass="buttonBar bottom">
-        <h:commandButton value="#{text['button.save']}" action="#{userForm.save}" styleClass="button"/>
-        <c:if test="${not empty userForm.user.id}">
-        <h:commandButton value="#{text['button.delete']}" action="#{userForm.delete}"
-            styleClass="button" onclick="bCancel=true; return confirmMessage(msgDelConfirm)"/>
-        </c:if>
-        <h:commandButton value="#{text['button.cancel']}" action="#{userForm.cancel}" immediate="true"
-            styleClass="button" onclick="bCancel=true"/>
-    </h:panelGroup>
-    <h:outputText/><h:outputText/>
-</h:panelGrid>
-</h:form>
-
-<v:validatorScript functionName="validateUserForm"/>
-<script type="text/javascript">
-    Form.focusFirstElement($('userForm'));
-    highlightFormElements();
-</script>
+            <h:commandButton value="#{text['button.cancel']}" action="#{userForm.cancel}" immediate="true"
+                styleClass="btn" onclick="bCancel=true"/>
+        </div>
+    </h:form>
+</div>
 
 </f:view>
 </html>

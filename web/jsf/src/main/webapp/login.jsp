@@ -5,51 +5,75 @@
     <meta name="heading" content="<fmt:message key='login.heading'/>"/>
     <meta name="menu" content="Login"/>
     <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/${appConfig["csstheme"]}/layout-1col.css'/>" />
+
+
+    <style type="text/css">
+      body {
+        padding-bottom: 40px;
+      }
+
+      .form-signin {
+        max-width: 300px;
+        padding: 19px 29px 29px;
+        margin: 0 auto 20px;
+        background-color: #fff;
+        border: 1px solid #e5e5e5;
+        -webkit-border-radius: 5px;
+           -moz-border-radius: 5px;
+                border-radius: 5px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                box-shadow: 0 1px 2px rgba(0,0,0,.05);
+      }
+      .form-signin .form-signin-heading,
+      .form-signin .checkbox {
+        margin-bottom: 10px;
+      }
+      .form-signin input[type="text"],
+      .form-signin input[type="password"] {
+        font-size: 16px;
+        height: auto;
+        margin-bottom: 15px;
+        padding: 7px 9px;
+      }
+
+        #login p {
+            text-align: center
+        }
+
+    </style>
+
 </head>
 <body id="login">
 
 <form method="post" id="loginForm" action="<c:url value='/j_security_check'/>"
-    onsubmit="saveUsername(this);return validateForm(this)">
-<fieldset style="padding-bottom: 0">
-<ul>
+    onsubmit="saveUsername(this);return validateForm(this)" class="form-signin">
 <c:if test="${param.error != null}">
-    <li class="error">
-        <img src="${ctx}/images/iconWarning.gif" alt="<fmt:message key='icon.warning'/>" class="icon"/>
+    <div class="alert alert-error fade in">
         <fmt:message key="errors.password.mismatch"/>
-        <%--${sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message}--%>
-    </li>
+    </div>
 </c:if>
-    <li>
-       <label for="j_username" class="required desc">
-            <fmt:message key="label.username"/> <span class="req">*</span>
-        </label>
-        <input type="text" class="text medium" name="j_username" id="j_username" tabindex="1" />
-    </li>
-
-    <li>
-        <label for="j_password" class="required desc">
-            <fmt:message key="label.password"/> <span class="req">*</span>
-        </label>
-        <input type="password" class="text medium" name="j_password" id="j_password" tabindex="2" />
-    </li>
+    <input type="text" name="j_username" id="j_username" class="input-block-level"
+           placeholder="<fmt:message key="label.username"/>" required tabindex="1">
+    <input type="password" class="input-block-level" name="j_password" id="j_password" tabindex="2"
+           placeholder="<fmt:message key="label.password"/>" required>
 
 <c:if test="${appConfig['rememberMeEnabled']}">
-    <li>
+    <label class="checkbox" for="rememberMe">
         <input type="checkbox" class="checkbox" name="_spring_security_remember_me" id="rememberMe" tabindex="3"/>
-        <label for="rememberMe" class="choice"><fmt:message key="login.rememberMe"/></label>
-    </li>
+        <fmt:message key="login.rememberMe"/></label>
 </c:if>
-    <li>
-        <input type="submit" class="button" name="login" value="<fmt:message key='button.login'/>" tabindex="4" />
-        <p>
-            <fmt:message key="login.signup">
-                <fmt:param><c:url value="/signup"/></fmt:param>
-            </fmt:message>
-        </p>
-    </li>
-</ul>
-</fieldset>
+
+    <button type="submit" class="btn btn-large btn-primary" name="login" tabindex="4">
+        <fmt:message key='button.login'/>
+    </button>
 </form>
+
+<p>
+    <fmt:message key="login.signup">
+        <fmt:param><c:url value="/signup"/></fmt:param>
+    </fmt:message>
+</p>
 
 <%@ include file="/scripts/login.js"%>
 

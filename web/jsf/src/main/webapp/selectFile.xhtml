@@ -1,7 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core" 
       xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" 
-      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk"
-      xmlns:v="http://shale.apache.org/validator">
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk">
 
 <f:view>
 <f:loadBundle var="text" basename="#{basePage.bundleName}"/>
@@ -11,40 +10,32 @@
     <meta name="heading" content="#{text['upload.heading']}"/>
 </head>
 
-<h:form id="uploadForm" enctype="multipart/form-data" onsubmit="return validateUploadForm(this)">
+<div class="span3">
+    <h2><h:outputText value="#{text['upload.heading']}"/></h2>
+    <p><h:outputText value="#{text['upload.message']}"/></p>
+</div>
+<div class="span7">
+    <h:form id="uploadForm" enctype="multipart/form-data">
 
-<h:panelGrid columns="3">
+        <div class="control-group">
+            <h:outputLabel styleClass="control-label" for="name" value="#{text['uploadForm.name']}"/>
+            <h:inputText value="#{fileUpload.name}" id="name" required="true"/>
+            <t:message for="name" styleClass="help-inline"/>
+        </div>
 
-    <h:panelGroup styleClass="info"><h:outputText value="#{text['upload.message']}"/></h:panelGroup>
-    <h:outputText/><h:outputText/>
-    
-    <h:outputLabel styleClass="desc" for="name" value="#{text['uploadForm.name']}"/>
-    <t:message for="name" styleClass="fieldError"/>
-    <h:inputText value="#{fileUpload.name}" id="name" required="true" styleClass="text medium">
-        <v:commonsValidator client="true" type="required" arg="#{text['uploadForm.name']}"/>
-    </h:inputText>
+        <div class="control-group">
+            <h:outputLabel styleClass="control-label" for="file" value="#{text['uploadForm.file']}"/>
+            <t:inputFileUpload id="file" value="#{fileUpload.file}" storage="file" required="true"/>
+            <t:message for="file" styleClass="help-inline"/>
+        </div>
 
-    <h:outputLabel styleClass="desc" for="file" value="#{text['uploadForm.file']}"/>
-    <t:message for="file" styleClass="fieldError"/>
-    <t:inputFileUpload id="file" value="#{fileUpload.file}" storage="file" required="true" styleClass="file medium">
-        <v:commonsValidator client="true" type="required" arg="#{text['uploadForm.file']}"/>
-    </t:inputFileUpload>
-
-    <h:panelGroup styleClass="buttonBar bottom">
-        <h:commandButton value="#{text['button.upload']}" action="#{fileUpload.upload}"
-            id="upload" styleClass="button"/>
-        <h:commandButton value="#{text['button.cancel']}" action="mainMenu" immediate="true"
-            id="cancel" styleClass="button" onclick="bCancel=true"/>
-    </h:panelGroup>
-</h:panelGrid>
-</h:form>
-
-<v:validatorScript functionName="validateUploadForm"/>
-
-<script type="text/javascript">
-    Form.focusFirstElement($('uploadForm'));
-    highlightFormElements();
-</script>
-
+        <div class="form-actions">
+            <h:commandButton value="#{text['button.upload']}" action="#{fileUpload.upload}"
+                id="upload" styleClass="btn btn-primary"/>
+            <h:commandButton value="#{text['button.cancel']}" action="mainMenu" immediate="true"
+                id="cancel" styleClass="btn" onclick="bCancel=true"/>
+        </div>
+    </h:form>
+</div>
 </f:view>
 </html>

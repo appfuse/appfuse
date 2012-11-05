@@ -272,8 +272,8 @@
             </replace>
             <replace dir="@{dir}/target/generated-sources/archetype">
                 <include name="**/archetype-metadata.xml"/>
-                <replacetoken><![CDATA[<include>**/*.txt</include>]]></replacetoken>
-                <replacevalue><![CDATA[<include>**/*.txt</include>
+                <replacetoken><![CDATA[<include>**/*.html</include>]]></replacetoken>
+                <replacevalue><![CDATA[<include>**/*.html</include>
         <include>**/*.tld</include>]]></replacevalue>
             </replace>
 

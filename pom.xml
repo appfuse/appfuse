@@ -629,7 +629,7 @@
         <junit.version>4.10</junit.version>
         <log4j.version>1.2.16</log4j.version>
         <myfaces.version>2.1.9</myfaces.version>
-        <myfaces.tomahawk.version>1.1.11</myfaces.tomahawk.version>
+        <myfaces.tomahawk.version>1.1.14</myfaces.tomahawk.version>
         <servlet.version>2.5</servlet.version>
         <shale.version>1.0.5</shale.version>
         <sitemesh.version>2.4.2</sitemesh.version>

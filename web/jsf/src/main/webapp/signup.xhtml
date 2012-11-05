@@ -1,7 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core" 
       xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" 
-      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk"
-      xmlns:v="http://shale.apache.org/validator">
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk">
 
 <f:view>
 <f:loadBundle var="text" basename="#{signupForm.bundleName}"/>
@@ -11,154 +10,135 @@
 </head>
 <body id="signup">
 
-<div class="separator"></div>
+<div class="span3">
+    <h2>#{text['signup.heading']}</h2>
+    #{text['signup.message']}
+</div>
+<div class="span7">
 
-<h:form id="signupForm" onsubmit="return validateSignupForm(this)">
+<h:form id="signupForm" styleClass="well form-horizontal">
 
-<h:panelGrid columns="3">
-    <h:panelGroup styleClass="info">
-        <h:outputText value="#{text['signup.message']}"/>
-    </h:panelGroup>
-    <h:outputText/><h:outputText/>
+    <div class="control-group">
+        <h:outputLabel styleClass="control-label" for="username" value="#{text['user.username']}"/>
+        <div class="controls">
+            <h:inputText value="#{signupForm.user.username}" id="username" required="true"/>
+            <t:message for="username" styleClass="help-inline"/>
+        </div>
+    </div>
 
-    <h:outputLabel for="username" styleClass="desc" value="#{text['user.username']}"/>
-    <t:message for="username" styleClass="fieldError"/>
-    <h:inputText value="#{signupForm.user.username}" id="username" required="true" styleClass="text large">
-        <v:commonsValidator client="true" type="required" arg="#{text['user.username']}"/>
-    </h:inputText>
+    <div class="control-group">
+        <h:outputLabel styleClass="control-label" for="password" value="#{text['user.password']}"/>
+        <div class="controls">
+            <h:inputSecret value="#{signupForm.user.password}" id="password"
+                redisplay="true" required="true"/>
+            <t:message for="password" styleClass="help-inline"/>
+        </div>
+    </div>
+    <div class="control-group">
+        <h:outputLabel styleClass="control-label" for="confirmPassword" value="#{text['user.confirmPassword']}"/>
+        <div class="controls">
+            <h:inputSecret value="#{signupForm.user.confirmPassword}" id="confirmPassword"
+                redisplay="true" required="true">
+                <t:validateEqual for="password"/>
+            </h:inputSecret>
+            <t:message for="confirmPassword" styleClass="help-inline"/>
+        </div>
+    </div>
 
-    <h:panelGroup>
-        <t:htmlTag value="div">
-            <t:htmlTag value="div" styleClass="left">
-                <h:outputLabel for="password" value="#{text['user.password']}" styleClass="desc"/>
-                <t:message for="password" styleClass="fieldError"/>
-                <h:inputSecret value="#{signupForm.user.password}" id="password"
-                    redisplay="true" required="true" styleClass="text medium">
-                    <v:commonsValidator client="true" type="required" arg="#{text['user.password']}"/>
-                </h:inputSecret>
-            </t:htmlTag>
-            <t:htmlTag value="div">
-                <h:outputLabel for="confirmPassword" value="#{text['user.confirmPassword']}" styleClass="desc"/>
-                <t:message for="confirmPassword" styleClass="fieldError"/>
-                <h:inputSecret value="#{signupForm.user.confirmPassword}" id="confirmPassword"
-                    redisplay="true" required="true" styleClass="text medium">
-                    <v:commonsValidator client="true" type="required" arg="#{text['user.confirmPassword']}"/>
-                    <t:validateEqual for="password"/>
-                </h:inputSecret>
-            </t:htmlTag>
-        </t:htmlTag>
-    </h:panelGroup>
-    <h:outputText/><h:outputText/>
+    <div class="control-group">
+        <h:outputLabel styleClass="control-label" for="passwordHint" value="#{text['user.passwordHint']}"/>
+        <div class="controls">
+            <h:inputText value="#{signupForm.user.passwordHint}" id="passwordHint" required="true"/>
+            <t:message for="passwordHint" styleClass="help-inline"/>
+        </div>
+    </div>
 
-    <h:outputLabel for="passwordHint" value="#{text['user.passwordHint']}" styleClass="desc"/>
-    <t:message for="passwordHint" styleClass="fieldError"/>
-    <h:inputText value="#{signupForm.user.passwordHint}" id="passwordHint" required="true" styleClass="text large">
-        <v:commonsValidator client="true" type="required" arg="#{text['user.passwordHint']}"/>
-    </h:inputText>
+    <div class="control-group">
+        <h:outputLabel styleClass="control-label" for="firstName" value="#{text['user.firstName']}"/>
+        <div class="controls">
+            <h:inputText id="firstName" value="#{signupForm.user.firstName}" maxlength="50" required="true"/>
+            <t:message for="firstName" styleClass="help-inline"/>
+        </div>
+    </div>
 
-    <h:panelGroup>
-        <t:htmlTag value="div">
-            <t:htmlTag value="div" styleClass="left">
-                <h:outputLabel for="firstName" value="#{text['user.firstName']}" styleClass="desc"/>
-                <t:message for="firstName" styleClass="fieldError"/>
-                <h:inputText id="firstName" value="#{signupForm.user.firstName}" maxlength="50" required="true" styleClass="text medium">
-                    <v:commonsValidator client="true" type="required" arg="#{text['user.firstName']}"/>
-                </h:inputText>
-            </t:htmlTag>
-            <t:htmlTag value="div">
-                <h:outputLabel for="lastName" value="#{text['user.lastName']}" styleClass="desc"/>
-                <t:message for="lastName" styleClass="fieldError"/>
-                <h:inputText value="#{signupForm.user.lastName}" id="lastName" maxlength="50" required="true" styleClass="text medium">
-                    <v:commonsValidator client="true" type="required" arg="#{text['user.lastName']}"/>
-                </h:inputText>
-            </t:htmlTag>
-        </t:htmlTag>
-    </h:panelGroup>
-    <h:outputText/><h:outputText/>
+    <div class="control-group">
+        <h:outputLabel styleClass="control-label" for="lastName" value="#{text['user.lastName']}"/>
+        <div class="controls">
+            <h:inputText value="#{signupForm.user.lastName}" id="lastName" maxlength="50" required="true"/>
+            <t:message for="lastName" styleClass="help-inline"/>
+        </div>
+    </div>
 
-    <h:panelGroup>
-        <t:htmlTag value="div">
-            <t:htmlTag value="div" styleClass="left">
-                <h:outputLabel for="email" value="#{text['user.email']}" styleClass="desc"/>
-                <t:message for="email" styleClass="fieldError"/>
-                <h:inputText value="#{signupForm.user.email}" id="email" required="true" styleClass="text medium">
-                    <f:validator validatorId="org.apache.myfaces.validator.Email"/>
-                    <v:commonsValidator client="true" type="required" arg="#{text['user.email']}"/>
-                    <v:commonsValidator client="true" type="email" arg="#{text['user.email']}"/>
-                </h:inputText>
-            </t:htmlTag>
-            <t:htmlTag value="div">
-                <h:outputLabel for="phoneNumber" value="#{text['user.phoneNumber']}" styleClass="desc"/>
-                <t:message for="phoneNumber" styleClass="fieldError"/>
-                <h:inputText value="#{signupForm.user.phoneNumber}" id="phoneNumber" styleClass="text medium">
-                    <t:validateRegExpr pattern="^\(?(\d{3})\)?[-| ]?(\d{3})[-| ]?(\d{4})$"/>
-                </h:inputText>
-            </t:htmlTag>
-        </t:htmlTag>
-    </h:panelGroup>
-    <h:outputText/><h:outputText/>
+    <div class="control-group">
+        <h:outputLabel styleClass="control-label" for="email" value="#{text['user.email']}"/>
+        <div class="controls">
+            <h:inputText value="#{signupForm.user.email}" id="email" required="true"/>
+            <t:message for="email" styleClass="help-inline"/>
+        </div>
+    </div>
 
-    <h:outputLabel for="website" value="#{text['user.website']}" styleClass="desc"/>
-    <t:message for="website" styleClass="fieldError"/>
-    <h:inputText value="#{signupForm.user.website}" id="website" required="true" styleClass="text large">
-        <v:commonsValidator client="true" type="required" arg="#{text['user.website']}"/>
-    </h:inputText>
+    <div class="control-group">
+        <h:outputLabel styleClass="control-label" for="phoneNumber" value="#{text['user.phoneNumber']}"/>
+        <div class="controls">
+            <h:inputText value="#{signupForm.user.phoneNumber}" id="phoneNumber" styleClass="text medium">
+                <t:validateRegExpr pattern="^\(?(\d{3})\)?[-| ]?(\d{3})[-| ]?(\d{4})$"/>
+            </h:inputText>
+            <t:message for="phoneNumber" styleClass="help-inline"/>
+        </div>
+    </div>
 
-    <h:panelGroup>
-        <t:htmlTag value="label" styleClass="desc"><h:outputText value="#{text['user.address.address']}"/></t:htmlTag>
-        <t:htmlTag value="div" styleClass="group">
-            <t:htmlTag value="div">
-                <h:inputText value="#{signupForm.user.address.address}" id="address" styleClass="text large"/>
-                <t:message for="address" styleClass="fieldError"/>
-                <t:htmlTag value="p"><h:outputLabel for="address" value="#{text['user.address.address']}"/></t:htmlTag>
-            </t:htmlTag>
-            <t:htmlTag value="div" styleClass="left">
-                <h:inputText value="#{signupForm.user.address.city}" id="city" required="true" styleClass="text medium">
-                    <v:commonsValidator client="true" type="required" arg="#{text['user.address.city']}"/>
-                </h:inputText>
-                <t:message for="city" styleClass="fieldError"/>
-                <t:htmlTag value="p"><h:outputLabel for="city" value="#{text['user.address.city']}"/></t:htmlTag>
-            </t:htmlTag>
-            <t:htmlTag value="div">
-                <h:inputText value="#{signupForm.user.address.province}" id="province" required="true" styleClass="text state">
-                    <v:commonsValidator client="true" type="required" arg="#{text['user.address.province']}"/>
-                </h:inputText>
-                <t:message for="province" styleClass="fieldError"/>
-                <t:htmlTag value="p"><h:outputLabel for="province" value="#{text['user.address.province']}"/></t:htmlTag>
-            </t:htmlTag>
-            <t:htmlTag value="div" styleClass="left">
-                <h:inputText value="#{signupForm.user.address.postalCode}" id="postalCode" required="true" styleClass="text medium">
-                    <v:commonsValidator client="true" type="required" arg="#{text['user.address.postalCode']}"/>
+    <div class="control-group">
+        <h:outputLabel styleClass="control-label" for="website" value="#{text['user.website']}"/>
+        <div class="controls">
+            <h:inputText value="#{signupForm.user.website}" id="website" required="true"/>
+            <t:message for="website" styleClass="help-inline"/>
+        </div>
+    </div>
+
+    <fieldset>
+        <legend class="accordion-heading">
+            <a data-toggle="collapse" href="#collapse-address"><h:outputText value="#{text['user.address.address']}"/></a>
+        </legend>
+        <div id="collapse-address" class="accordion-body collapse">
+            <div class="control-group">
+                <h:outputLabel styleClass="control-label" for="address" value="#{text['user.address.address']}"/>
+                <h:inputText value="#{signupForm.user.address.address}" id="address"/>
+                <t:message for="address" styleClass="help-inline"/>
+            </div>
+            <div class="control-group">
+                <h:outputLabel styleClass="control-label" for="city" value="#{text['user.address.city']}"/>
+                <h:inputText value="#{signupForm.user.address.city}" id="city"/>
+                <t:message for="city" styleClass="help-inline"/>
+            </div>
+            <div class="control-group">
+                <h:outputLabel styleClass="control-label" for="province" value="#{text['user.address.province']}"/>
+                <h:inputText value="#{signupForm.user.address.province}" id="province"/>
+                <t:message for="province" styleClass="help-inline"/>
+            </div>
+            <div class="control-group">
+                <h:outputLabel styleClass="control-label" for="postalCode" value="#{text['user.address.postalCode']}"/>
+                <h:inputText value="#{signupForm.user.address.postalCode}" id="postalCode">
                     <t:validateRegExpr pattern="^\d{5}\d*$"/>
                 </h:inputText>
-                <t:message for="postalCode" styleClass="fieldError"/>
-                <t:htmlTag value="p"><h:outputLabel for="postalCode" value="#{text['user.address.postalCode']}"/></t:htmlTag>
-            </t:htmlTag>
-            <t:htmlTag value="div">
-                <h:selectOneMenu value="#{signupForm.country}" id="country" required="true" styleClass="select">
+                <t:message for="postalCode" styleClass="help-inline"/>
+            </div>
+            <div class="control-group">
+                <h:outputLabel styleClass="control-label" for="country" value="#{text['user.address.country']}"/>
+                <h:selectOneMenu value="#{signupForm.country}" id="country">
                     <f:selectItems value="#{signupForm.countries}"/>
-                    <v:commonsValidator client="true" type="required" arg="#{text['user.address.country']}"/>
                 </h:selectOneMenu>
-                <t:message for="country" styleClass="fieldError"/>
-                <t:htmlTag value="p"><h:outputLabel for="country" value="#{text['user.address.country']}"/></t:htmlTag>
-            </t:htmlTag>
-        </t:htmlTag>
-    </h:panelGroup>
-    <h:outputText/><h:outputText/>
+                <t:message for="country" styleClass="help-inline"/>
+            </div>
+        </div>
+    </fieldset>
 
-    <h:panelGroup styleClass="buttonBar bottom">
-        <h:commandButton value="#{text['button.register']}" action="#{signupForm.save}" id="save" styleClass="button"/>
-        <h:commandButton value="#{text['button.cancel']}" action="cancel" immediate="true" id="cancel" styleClass="button" onclick="bCancel=true"/>
-    </h:panelGroup>
-    <h:outputText/><h:outputText/>
-</h:panelGrid>
+    <div class="form-actions">
+        <h:commandButton value="#{text['button.register']}" action="#{signupForm.save}" id="save" styleClass="btn btn-primary"/>
+        <h:commandButton value="#{text['button.cancel']}" action="cancel" immediate="true" id="cancel" styleClass="btn" onclick="bCancel=true"/>
+    </div>
 </h:form>
+</div>
 
-<v:validatorScript functionName="validateSignupForm"/>
-
-<script type="text/javascript">
-    Form.focusFirstElement($('signupForm'));
-</script>
 </body>
 </f:view>
 </html>
