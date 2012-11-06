@@ -2,10 +2,11 @@
     <!ENTITY config SYSTEM "./config.xmlf">
     <!ENTITY login SYSTEM "./login.xmlf">
 ]>
-<project basedir="." default="run-all-tests"> 
+<project basedir="." default="run-all-tests">
+    <taskdef resource="webtestTaskdefs.properties" />
     <!-- Use i18n bundle, 2nd one listed is the default -->
-    <property file="${i18n.classpath}/ApplicationResources_${user.language}.properties"/>
-    <property file="${i18n.classpath}/ApplicationResources.properties"/>
+    <property file="../../../../common/target/classes/ApplicationResources_${user.language}.properties"/>
+    <property file="../../../../common/target/classes/ApplicationResources.properties"/>
 
     <!-- runs all targets -->
     <target name="run-all-tests" 
@@ -205,10 +206,10 @@
                 <invoke description="click Upload a File link" url="/selectFile"/>
                 <verifytitle description="we should see file upload form" text=".*${upload.title}.*" regex="true"/>
                 <setinputfield description="set name" name="uploadForm:name" value="Canoo Test File"/>
-                <setFileField description="set file" name="uploadForm:file" fileName="pom.xml"/>
+                <setFileField description="set file" name="uploadForm:file" fileName="web-tests.xml"/>
                 <clickbutton label="${button.upload}" description="Click Upload"/>
                 <verifytitle description="show file data if upload OK" text=".*${display.title}.*" regex="true"/>
-                <verifytext description="verify original filename displayed on page" text="pom.xml" />
+                <verifytext description="verify original filename displayed on page" text="web-tests.xml"/>
             </steps>
         </webtest>
     </target>

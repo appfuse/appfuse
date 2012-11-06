@@ -154,15 +154,12 @@
             </plugin>
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
-                <!-- conflict with jsf tag libs and newest jetty-maven-plugin -->
-                <!-- 
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>8.1.3.v20120416</version>
-                -->
-                <artifactId>maven-jetty-plugin</artifactId>
-                <version>6.1.26</version>
                 <configuration>
-                    <contextPath>/</contextPath>
+                    <webApp>
+                        <contextPath>/</contextPath>
+                    </webApp>
                 </configuration>
             </plugin>
             <plugin>
@@ -329,7 +326,7 @@
             <artifactId>prettyfaces-jsf2</artifactId>
             <version>3.3.3</version>
         </dependency>
-        <!-- Upgrade version of commons-io used -->
+        <!-- Upgrade version of commons-io used by Tomahawk -->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
@@ -446,6 +443,11 @@
                 <artifactId>maven-surefire-report-plugin</artifactId>
                 <version>2.12.4</version>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>webtest-maven-plugin</artifactId>
+                <version>1.0.0</version>
+            </plugin>
         </plugins>
     </reporting>
 
@@ -501,48 +503,48 @@
                         </executions>
                     </plugin>
                     <plugin>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <version>1.3</version>
-                        <configuration>
-                            <tasks>
-                                <taskdef resource="webtest_base_relaxed.taskdef">
-                                    <classpath refid="maven.test.classpath"/>
-                                </taskdef>
-                                <mkdir dir="target/webtest-data"/>
-                                <!-- Delete old results file if it exists -->
-                                <delete file="target/webtest-data/web-tests-result.xml"/>
-                                <!-- This is so the default will be used if no test case is specified -->
-                                <property name="test" value="run-all-tests"/>
-                                <property name="i18n.classpath" value="${basedir}/target/classes"/>
-                                <echo level="info">Testing '${project.build.finalName}' with locale '${user.language}'</echo>
-                                <ant antfile="src/test/resources/web-tests.xml" target="${test}">
-                                    <property name="user.language" value="${user.language}"/>
-                                    <property name="webapp.name" value="${project.build.finalName}"/>
-                                    <property name="host" value="${cargo.host}"/>
-                                    <property name="port" value="${cargo.port}"/>
-                                </ant>
-                            </tasks>
-                        </configuration>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>webtest-maven-plugin</artifactId>
+                        <version>1.0.0</version>
                         <executions>
                             <execution>
+                                <id>webtest-test</id>
                                 <phase>integration-test</phase>
                                 <goals>
-                                    <goal>run</goal>
+                                    <goal>test</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>webtest-verify</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>verify-result</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>webtest-report-html</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>report</goal>
                                 </goals>
                             </execution>
                         </executions>
-                        <dependencies>
-                            <dependency>
-                                <groupId>com.canoo.webtest</groupId>
-                                <artifactId>webtest</artifactId>
-                                <version>${webtest.version}</version>
-                            </dependency>
-                        </dependencies>
+                        <configuration>
+                            <host>${cargo.host}</host>
+                            <port>${cargo.port}</port>
+                            <sourcedirectory>src/test/resources</sourcedirectory>
+                            <sourcefile>web-tests.xml</sourcefile>
+                            <target>run-all-tests</target>
+                            <basepath>${project.build.finalName}</basepath>
+                            <resultpath>target/webtest/webtest-results</resultpath>
+                            <haltonfailure>false</haltonfailure>
+                            <haltonerror>false</haltonerror>
+                            <loglevel>fatal</loglevel>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
         </profile>
-
         <!-- ================= Production Settings Profile ================= -->
         <!-- Use "-P prod" when you want to use the settings in this profile -->
         <!-- =============================================================== -->
@@ -687,7 +689,7 @@
         <el.version>1.2</el.version>
         <facelets.version>1.1.14</facelets.version>
         <myfaces.version>2.1.9</myfaces.version>
-        <myfaces.tomahawk.version>1.1.10</myfaces.tomahawk.version>
+        <myfaces.tomahawk.version>1.1.14</myfaces.tomahawk.version>
         <spring.version>3.1.3.RELEASE</spring.version>
 
         <!-- Testing dependency versions -->
