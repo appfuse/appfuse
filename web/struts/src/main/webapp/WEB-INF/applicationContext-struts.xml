@@ -7,6 +7,8 @@
         <property name="authorizedRoles" value="ROLE_ADMIN"/>
     </bean>
     
+    <bean id="accessDeniedInterceptor" class="org.appfuse.webapp.interceptor.AccessDeniedInterceptor" />
+
     <bean id="signupAction" class="org.appfuse.webapp.action.SignupAction" scope="prototype">
         <property name="userManager" ref="userManager"/>
         <property name="roleManager" ref="roleManager"/>
@@ -14,7 +16,7 @@
         <property name="mailMessage" ref="mailMessage"/>
         <property name="templateName" value="accountCreated.vm"/>
     </bean>
-    
+
     <bean id="userAction" class="org.appfuse.webapp.action.UserAction" scope="prototype">
         <property name="userManager" ref="userManager"/>
         <property name="roleManager" ref="roleManager"/>
@@ -22,7 +24,7 @@
         <property name="mailMessage" ref="mailMessage"/>
         <property name="templateName" value="accountCreated.vm"/>
     </bean>
-    
+
     <bean id="passwordHintAction" class="org.appfuse.webapp.action.PasswordHintAction" scope="prototype">
         <property name="userManager" ref="userManager"/>
         <property name="mailEngine" ref="mailEngine"/>
