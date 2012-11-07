@@ -60,12 +60,23 @@ public class AppModule {
         // Maximum upload size is 2MB (size is in bytes)
         configuration.add(UploadSymbols.FILESIZE_MAX, "2048000");
 
+        // HHAC recommended for better security as of Tapestry 5.3.6
+        configuration.add(SymbolConstants.HMAC_PASSPHRASE, "AppFuse Tapestry is Great");
+
+        // Workaround for Bootstrap buttons tied together
+        // See thread on SO here: http://stackoverflow.com/questions/9689584/buttons-run-together-in-bootstrap-2-0-1
+        // Commented out as this break the unit tests
+        // configuration.add(SymbolConstants.COMPRESS_WHITESPACE, "false");
+
         // Spring Security
         configuration.add(AppFuseSymbolConstants.SECURITY_URL, "/j_security_check");
 
     }
 
-
+    @Contribute(ClasspathAssetAliasManager.class)
+    public static void provideClasspathAssetAliases(MappedConfiguration<String, String> configuration) {
+        configuration.add("webjars", "META-INF/resources/webjars");
+    }
 
     @Contribute(ValueEncoderSource.class)
     public static void provideEncoders(

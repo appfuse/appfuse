@@ -9,7 +9,7 @@
     <form jsfc="h:form" id="helloForm">
         <h:panelGrid columns="2">
 
-            <h:outputLabel for="input" styleClass="desc" value="Type the Text:"/>
+            <h:outputLabel for="input" value="Type the Text:"/>
             <input jsfc="h:inputText" id="input" class="text large" value="#{userForm.user.username}">
                 <a4j:support event="onkeyup" reRender="repeater"/>
             </input>

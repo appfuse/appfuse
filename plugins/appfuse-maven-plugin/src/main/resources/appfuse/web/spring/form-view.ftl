@@ -21,7 +21,7 @@
     <#if field.value.identifierGeneratorStrategy == "assigned">
         <#lt/><ul>
     <li>
-        <appfuse:label styleClass="desc" key="${pojoNameLower}.${field.name}"/>
+        <appfuse:label key="${pojoNameLower}.${field.name}"/>
         <form:errors path="${field.name}" cssClass="fieldError"/>
         <form:input path="${field.name}" id="${field.name}" cssClass="text medium"/>
     </li>
@@ -32,7 +32,7 @@
 <#elseif !c2h.isCollection(field) && !c2h.isManyToOne(field) && !c2j.isComponent(field)>
     <#foreach column in field.getColumnIterator()>
     <li>
-        <appfuse:label styleClass="desc" key="${pojoNameLower}.${field.name}"/>
+        <appfuse:label key="${pojoNameLower}.${field.name}"/>
         <form:errors path="${field.name}" cssClass="fieldError"/>
         <#if field.value.typeName == "java.util.Date" || field.value.typeName == "date">
         <#assign dateExists = true/>

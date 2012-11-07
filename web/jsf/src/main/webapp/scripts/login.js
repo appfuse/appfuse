@@ -1,20 +1,22 @@
 <script type="text/javascript">
-    if (getCookie("username") != null && getCookie("username") != "") {
-        $("j_username").value = getCookie("username");
-        $("j_password").focus();
+    if ($.cookie("username") != null && $.cookie("username") != "") {
+        $("#j_username").val($.cookie("username"));
+        $("#j_password").focus();
     } else {
-        $("j_username").focus();
+        $("#j_username").focus();
     }
-    
+
     function saveUsername(theForm) {
-        var expires = new Date();
-        expires.setTime(expires.getTime() + 24 * 30 * 60 * 60 * 1000); // sets it for approx 30 days.
-        setCookie("username",theForm.j_username.value,expires,"<c:url value="/"/>");
+        $.cookie("username",theForm.j_username.value, { expires: 30, path: "<c:url value="/"/>"});
     }
-    
-    function validateForm(form) {                                                               
-        return validateRequired(form); 
-    } 
+
+    function validateForm(form) {
+        var valid = validateRequired(form);
+        if (valid == false) {
+            $(".control-group").addClass('error');
+        }
+        return valid;
+    }
     
     function passwordHint() {
         if ($("j_username").value.length == 0) {

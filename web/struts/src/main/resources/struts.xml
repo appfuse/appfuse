@@ -21,8 +21,11 @@
         <interceptors>
             <!-- Interceptor to handle allowing only admins to certain actions -->
             <interceptor name="adminOnly" class="adminInterceptor"/>
+            <!-- Interceptor to handle accessDenied exceptions thrown from service/model layer called from within actions -->
+            <interceptor name="accessDenied" class="accessDeniedInterceptor"/>
             <!-- Copied from struts-default.xml and changed validation exclude methods -->
             <interceptor-stack name="defaultStack">
+                <interceptor-ref name="accessDenied"/>
                 <interceptor-ref name="exception"/>
                 <interceptor-ref name="alias"/>
                 <interceptor-ref name="servletConfig"/>
@@ -117,7 +120,7 @@
         <action name="activeUsers" class="com.opensymphony.xwork2.ActionSupport">
             <result name="success">/WEB-INF/pages/admin/activeUsers.jsp</result>
         </action>
-        
+
         <action name="reload" class="org.appfuse.webapp.action.ReloadAction">
             <interceptor-ref name="adminCheck"/>
             <!-- this should never be used, it's here to prevent warnings -->

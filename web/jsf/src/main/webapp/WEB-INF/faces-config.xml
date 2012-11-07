@@ -237,7 +237,7 @@
             <renderer-class>org.appfuse.webapp.jsf.LabelRenderer</renderer-class>
         </renderer>
         <renderer>
-            <description>Replacement renderer for h:panelGrid that uses lists instead of tables</description>
+            <description>Replacement renderer for h:panelGrid that uses divs instead of tables</description>
             <component-family>javax.faces.Panel</component-family>
             <renderer-type>javax.faces.Grid</renderer-type>
             <renderer-class>org.appfuse.webapp.jsf.PanelGridRenderer</renderer-class>

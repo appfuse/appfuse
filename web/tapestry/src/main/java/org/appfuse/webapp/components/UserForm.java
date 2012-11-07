@@ -5,6 +5,7 @@ import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.internal.services.StringValueEncoder;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.services.javascript.JavaScriptSupport;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
@@ -49,9 +50,6 @@ public class UserForm implements ClientElement, FormValidationControl {
     @Property
     private boolean cookieLogin;
 
-    @Parameter(value = "false")
-    private boolean clientValidation;
-
     @Property
     @Parameter
     private String heading;
@@ -66,6 +64,9 @@ public class UserForm implements ClientElement, FormValidationControl {
 
     @Inject
     private ComponentResources resources;
+
+    @Inject
+    private Messages messages;
 
     @Inject
     private JavaScriptSupport jsSupport;
@@ -172,9 +173,9 @@ public class UserForm implements ClientElement, FormValidationControl {
         this.infoMessage = infoMessage;
     }
 
-//
-//    void afterRender() {
-//        jsSupport.addScript("$F.focusFirstElement('%s'); highlightFormElements();", getClientId());
-//
-//    }
+
+    public String getConfirmDeletion() {
+        return messages.format("delete.confirm", "user: " + user.getUsername());
+    }
+
 }

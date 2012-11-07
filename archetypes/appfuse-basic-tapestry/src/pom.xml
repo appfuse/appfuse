@@ -231,6 +231,8 @@
                                         <filter token="4" value="%5$s" />
                                         <filter token="5" value="%6$s" />
                                         <filter token="6" value="%7$s" />
+                                    </filterset>
+                                    <filterset begintoken="${" endtoken="}">
                                        <!-- Tapestry interpret these as symbols -->
                                         <filter token="pom.version" value="${project.version}" />
                                         <filter token="copyright.year" value="${copyright.year}" />
@@ -381,6 +383,12 @@
                     <artifactId>testng</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <!-- Add Bootstrap via WebJars -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>${bootstrap.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jmock</groupId>
@@ -703,7 +711,8 @@
         <!-- Framework dependency versions -->
         <appfuse.version>2.1.1-SNAPSHOT</appfuse.version>
         <spring.version>3.1.3.RELEASE</spring.version>
-        <tapestry.version>5.3.5</tapestry.version>
+        <tapestry.version>5.3.6</tapestry.version>
+        <bootstrap.version>2.1.1</bootstrap.version>
 
         <!-- Testing dependency versions -->
         <cargo.version>1.2.4</cargo.version>

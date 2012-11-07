@@ -12,54 +12,58 @@
     </head>
 <body id="${pojoNameLower}List">
 
-<div id="search">
-<h:form id="searchForm">
-    <h:inputText id="q" name="q" size="20" value="${'#'}{${pojoNameLower}List.query}"/>
-    <h:commandButton value="${'#'}{text['button.search']}" action="${'#'}{${pojoNameLower}List.search}"/>
-</h:form>
-</div>
+<div class="span10">
+    <h2>${'#'}{text['${pojoNameLower}List.heading']}</h2>
 
-<h:form id="edit${pojo.shortName}">
+    <h:form id="searchForm" styleClass="form-search">
+    <div id="search" class="input-append">
+        <h:inputText id="q" name="q" size="20" value="${'#'}{${pojoNameLower}List.query}" styleClass="span6 search-query"/>
+        <h:commandButton value="${'#'}{text['button.search']}" styleClass="btn" action="${'#'}{${pojoNameLower}List.search}"/>
+    </div>
+    </h:form>
 
-<h:commandButton value="${'#'}{text['button.add']}" action="add" id="add" immediate="true" styleClass="button"/>
-<h:commandButton value="${'#'}{text['button.done']}" action="mainMenu" id="cancel" immediate="true" styleClass="button" style="margin-left: 5px"/>
+    <h:form id="edit${pojo.shortName}">
 
-<t:dataTable id="${util.getPluralForWord(pojoNameLower)}" var="${pojoNameLower}" style="margin-top: 10px"
-    value="${'#'}{${pojoNameLower}List.${util.getPluralForWord(pojoNameLower)}}" rows="25" sortColumn="${'#'}{${pojoNameLower}List.sortColumn}"
-    sortAscending="${'#'}{${pojoNameLower}List.ascending}" styleClass="scrollerTable table"
-    headerClass="standardTable_Header" rowClasses="standardTable_Row1,standardTable_Row2"
-    columnClasses="standardTable_Column,standardTable_Column,standardTable_Column,standardTable_Column,standardTable_ColumnCentered">
+    <h:commandButton value="${'#'}{text['button.add']}" action="add" id="add" immediate="true" styleClass="btn"/>
+    <h:commandButton value="${'#'}{text['button.done']}" action="mainMenu" id="cancel" immediate="true" styleClass="btn" style="margin-left: 5px"/>
 
-<#foreach field in pojo.getAllPropertiesIterator()>
-    <t:column>
-        <f:facet name="header">
-            <t:commandSortHeader columnName="${field.name}" arrow="true">
-                <h:outputText value="${'#'}{text['${pojoNameLower}.${field.name}']}" />
-            </t:commandSortHeader>
-        </f:facet>
-<#if field.equals(pojo.identifierProperty)>
-        <h:commandLink action="${'#'}{${pojoNameLower}Form.edit}" value="${'#'}{${pojoNameLower}.${field.name}}">
-            <f:param name="${field.name}" value="${'#'}{${pojoNameLower}.${field.name}}"/>
-            <f:param name="from" value="list"/>
-        </h:commandLink>
-<#elseif !c2h.isCollection(field) && !c2h.isManyToOne(field) && !c2j.isComponent(field)>
-    <#if field.value.typeName == "java.util.Date" || field.value.typeName == "date">
-        <#lt/>    <h:outputText value="${'#'}{${pojoNameLower}.${field.name}}" escape="true"/>
-    <#elseif field.value.typeName == "boolean">
-        <#lt/>    <h:selectBooleanCheckbox value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}" id="${field.name}" disabled="disabled"/>
-    <#else>
-        <#lt/>    <h:outputText value="${'#'}{${pojoNameLower}.${field.name}}" escape="true"/>
+    <t:dataTable id="${util.getPluralForWord(pojoNameLower)}" var="${pojoNameLower}" style="margin-top: 10px"
+        value="${'#'}{${pojoNameLower}List.${util.getPluralForWord(pojoNameLower)}}" rows="25" sortColumn="${'#'}{${pojoNameLower}List.sortColumn}"
+        sortAscending="${'#'}{${pojoNameLower}List.ascending}" styleClass="scrollerTable table"
+        headerClass="standardTable_Header" rowClasses="standardTable_Row1,standardTable_Row2"
+        columnClasses="standardTable_Column,standardTable_Column,standardTable_Column,standardTable_Column,standardTable_ColumnCentered">
+
+    <#foreach field in pojo.getAllPropertiesIterator()>
+        <t:column>
+            <f:facet name="header">
+                <t:commandSortHeader columnName="${field.name}" arrow="true">
+                    <h:outputText value="${'#'}{text['${pojoNameLower}.${field.name}']}" />
+                </t:commandSortHeader>
+            </f:facet>
+    <#if field.equals(pojo.identifierProperty)>
+            <h:commandLink action="${'#'}{${pojoNameLower}Form.edit}" value="${'#'}{${pojoNameLower}.${field.name}}">
+                <f:param name="${field.name}" value="${'#'}{${pojoNameLower}.${field.name}}"/>
+                <f:param name="from" value="list"/>
+            </h:commandLink>
+    <#elseif !c2h.isCollection(field) && !c2h.isManyToOne(field) && !c2j.isComponent(field)>
+        <#if field.value.typeName == "java.util.Date" || field.value.typeName == "date">
+            <#lt/>    <h:outputText value="${'#'}{${pojoNameLower}.${field.name}}" escape="true"/>
+        <#elseif field.value.typeName == "boolean">
+            <#lt/>    <h:selectBooleanCheckbox value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}" id="${field.name}" disabled="disabled"/>
+        <#else>
+            <#lt/>    <h:outputText value="${'#'}{${pojoNameLower}.${field.name}}" escape="true"/>
+        </#if>
     </#if>
-</#if>
-    </t:column>
-</#foreach>
-</t:dataTable>
+        </t:column>
+    </#foreach>
+    </t:dataTable>
 
-<ui:include src="/common/tableFooter.xhtml">
-    <ui:param name="tableName" value="${util.getPluralForWord(pojoNameLower)}"/>
-</ui:include>
+    <ui:include src="/common/tableFooter.xhtml">
+        <ui:param name="tableName" value="${util.getPluralForWord(pojoNameLower)}"/>
+    </ui:include>
 
-</h:form>
+    </h:form>
+</div>
 </body>
 </f:view>
 </html> 

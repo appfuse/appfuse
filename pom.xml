@@ -616,8 +616,8 @@
         <ehcache.web.version>2.0.4</ehcache.web.version>
         <el.version>1.2</el.version>
         <facelets.version>1.1.14</facelets.version>
-        <hibernate.version>4.1.7.Final</hibernate.version>
-        <hibernate.entitymanager.version>4.1.7.Final</hibernate.entitymanager.version>
+        <hibernate.version>4.1.8.Final</hibernate.version>
+        <hibernate.entitymanager.version>4.1.8.Final</hibernate.entitymanager.version>
         <hibernate.search.version>4.1.1.Final</hibernate.search.version>
         <ibatis.version>2.3.4.726</ibatis.version>
         <javamail.version>1.4.1</javamail.version>
@@ -628,8 +628,8 @@
         <jstl.version>1.2</jstl.version>
         <junit.version>4.10</junit.version>
         <log4j.version>1.2.16</log4j.version>
-        <myfaces.version>2.1.5</myfaces.version>
-        <myfaces.tomahawk.version>1.1.11</myfaces.tomahawk.version>
+        <myfaces.version>2.1.9</myfaces.version>
+        <myfaces.tomahawk.version>1.1.14</myfaces.tomahawk.version>
         <servlet.version>2.5</servlet.version>
         <shale.version>1.0.5</shale.version>
         <sitemesh.version>2.4.2</sitemesh.version>
@@ -639,11 +639,12 @@
         <springmodules.validation.version>0.8</springmodules.validation.version>
         <struts.version>2.3.4.1</struts.version>
         <struts.menu.version>2.4.3</struts.menu.version>
-        <tapestry.version>5.3.5</tapestry.version>
+        <tapestry.version>5.3.6</tapestry.version>
         <urlrewrite.version>3.1.0</urlrewrite.version>
         <velocity.version>1.4</velocity.version>
         <webtest.version>3.0</webtest.version>
         <wiser.version>1.2</wiser.version>
+        <bootstrap.version>2.1.1</bootstrap.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <copyright.year>2003-2012</copyright.year>

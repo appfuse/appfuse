@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.Iterator;
 
 /**
- * Override HtmlGridRendererBase (http://tinyurl.com/oqbxh) so &lt;h:panelGrid&gt; spits out &lt;ul&gt; and &lt;li&gt;
+ * Override HtmlGridRendererBase (http://tinyurl.com/oqbxh) so &lt;h:panelGrid&gt; spits out divs
  * instead of &lt;table> and &lt;tr&gt;&lt;td&gt;.
  *
  * @author Matt Raible
@@ -60,15 +60,15 @@ public class PanelGridRenderer extends HtmlRenderer {
         }
 
         ResponseWriter writer = facesContext.getResponseWriter();
-        writer.startElement(HTML.UL_ELEM, component);
+        writer.startElement(HTML.DIV_ELEM, component);
         HtmlRendererUtils.writeIdIfNecessary(writer, component, facesContext);
-        HtmlRendererUtils.renderHTMLAttributes(writer, component, HTML.UL_PASSTHROUGH_ATTRIBUTES);
+        HtmlRendererUtils.renderHTMLAttributes(writer, component, HTML.COMMON_PASSTROUGH_ATTRIBUTES);
 
         writer.flush();
 
         renderChildren(facesContext, writer, component, columns);
 
-        writer.endElement(HTML.UL_ELEM);
+        writer.endElement(HTML.DIV_ELEM);
     }
 
     protected void renderChildren(FacesContext context,
@@ -101,10 +101,10 @@ public class PanelGridRenderer extends HtmlRenderer {
                         //start of new/next row
                         if (rowStarted) {
                             //do we have to close the last row?
-                            writer.endElement(HTML.LI_ELEM);
+                            writer.endElement(HTML.DIV_ELEM);
                             HtmlRendererUtils.writePrettyLineSeparator(context);
                         }
-                        writer.startElement(HTML.LI_ELEM, component);
+                        writer.startElement(HTML.DIV_ELEM, component);
                         if (rowClassIndex < rowClassesCount) {
                             writer.writeAttribute(HTML.CLASS_ATTR, rowClassesArray[rowClassIndex], null);
                         }
@@ -125,7 +125,7 @@ public class PanelGridRenderer extends HtmlRenderer {
             }
 
             if (rowStarted) {
-                writer.endElement(HTML.LI_ELEM);
+                writer.endElement(HTML.DIV_ELEM);
                 HtmlRendererUtils.writePrettyLineSeparator(context);
             }
         }

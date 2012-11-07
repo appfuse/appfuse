@@ -105,10 +105,6 @@ public class UserEdit {
         this.user = user;
     }
 
-    public void set(User user, String from) {
-        this.user = user;
-        this.from = from;
-    }
 
     public Object initialize(User user, String from, String infoMessage) {
         this.user = user;
