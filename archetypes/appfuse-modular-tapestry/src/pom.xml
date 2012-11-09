@@ -355,8 +355,5 @@
         <jdbc.url><![CDATA[jdbc:mysql://localhost/${db.name}?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true]]></jdbc.url>
         <jdbc.username>root</jdbc.username>
         <jdbc.password/>
-
-        <!-- Search index settings -->
-        <search.index.basedir>${project.build.directory}/index</search.index.basedir>
     </properties>
 </project>

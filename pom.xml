@@ -586,9 +586,6 @@
         <jdbc.username>root</jdbc.username>
         <jdbc.password />
 
-        <!-- Search index settings -->
-        <search.index.basedir>${project.build.directory}/index</search.index.basedir>
-
         <cargo.container>tomcat7x</cargo.container>
         <cargo.container.url>
             http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.30/bin/apache-tomcat-7.0.30.zip
