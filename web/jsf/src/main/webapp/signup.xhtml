@@ -10,11 +10,11 @@
 </head>
 <body id="signup">
 
-<div class="span3">
+<div class="span2">
     <h2>#{text['signup.heading']}</h2>
     #{text['signup.message']}
 </div>
-<div class="span7">
+<div class="span5">
 
 <h:form id="signupForm" styleClass="well form-horizontal">
 
@@ -102,42 +102,59 @@
         <div id="collapse-address" class="accordion-body collapse">
             <div class="control-group">
                 <h:outputLabel styleClass="control-label" for="address" value="#{text['user.address.address']}"/>
-                <h:inputText value="#{signupForm.user.address.address}" id="address"/>
-                <t:message for="address" styleClass="help-inline"/>
+                <div class="controls">
+                    <h:inputText value="#{signupForm.user.address.address}" id="address"/>
+                    <t:message for="address" styleClass="help-inline"/>
+                </div>
             </div>
             <div class="control-group">
                 <h:outputLabel styleClass="control-label" for="city" value="#{text['user.address.city']}"/>
-                <h:inputText value="#{signupForm.user.address.city}" id="city"/>
-                <t:message for="city" styleClass="help-inline"/>
+                <div class="controls">
+                    <h:inputText value="#{signupForm.user.address.city}" id="city"/>
+                    <t:message for="city" styleClass="help-inline"/>
+                </div>
             </div>
             <div class="control-group">
                 <h:outputLabel styleClass="control-label" for="province" value="#{text['user.address.province']}"/>
-                <h:inputText value="#{signupForm.user.address.province}" id="province"/>
-                <t:message for="province" styleClass="help-inline"/>
+                <div class="controls">
+                    <h:inputText value="#{signupForm.user.address.province}" id="province"/>
+                    <t:message for="province" styleClass="help-inline"/>
+                </div>
             </div>
             <div class="control-group">
                 <h:outputLabel styleClass="control-label" for="postalCode" value="#{text['user.address.postalCode']}"/>
-                <h:inputText value="#{signupForm.user.address.postalCode}" id="postalCode">
-                    <t:validateRegExpr pattern="^\d{5}\d*$"/>
-                </h:inputText>
-                <t:message for="postalCode" styleClass="help-inline"/>
+                <div class="controls">
+                    <h:inputText value="#{signupForm.user.address.postalCode}" id="postalCode">
+                        <t:validateRegExpr pattern="^\d{5}\d*$"/>
+                    </h:inputText>
+                    <t:message for="postalCode" styleClass="help-inline"/>
+                </div>
+
             </div>
             <div class="control-group">
                 <h:outputLabel styleClass="control-label" for="country" value="#{text['user.address.country']}"/>
-                <h:selectOneMenu value="#{signupForm.country}" id="country">
-                    <f:selectItems value="#{signupForm.countries}"/>
-                </h:selectOneMenu>
-                <t:message for="country" styleClass="help-inline"/>
+                <div class="controls">
+                    <h:selectOneMenu value="#{signupForm.country}" id="country">
+                        <f:selectItems value="#{signupForm.countries}"/>
+                    </h:selectOneMenu>
+                    <t:message for="country" styleClass="help-inline"/>
+                </div>
             </div>
         </div>
     </fieldset>
 
     <div class="form-actions">
         <h:commandButton value="#{text['button.register']}" action="#{signupForm.save}" id="save" styleClass="btn btn-primary"/>
-        <h:commandButton value="#{text['button.cancel']}" action="cancel" immediate="true" id="cancel" styleClass="btn" onclick="bCancel=true"/>
+        <h:commandButton value="#{text['button.cancel']}" action="cancel" immediate="true" id="cancel" styleClass="btn"/>
     </div>
 </h:form>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("input[type='text']:visible:enabled:first", document.forms['signupForm']).focus();
+    });
+</script>
 
 </body>
 </f:view>

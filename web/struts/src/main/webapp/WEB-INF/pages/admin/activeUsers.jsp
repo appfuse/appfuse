@@ -4,7 +4,7 @@
     <title><fmt:message key="activeUsers.title"/></title>
     <meta name="menu" content="AdminMenu"/>
 </head>
-<body id="activeUsers"/>
+<body id="activeUsers">
 
 <div class="span10">
     <h2><fmt:message key="activeUsers.heading"/></h2>
@@ -12,13 +12,13 @@
     <p><fmt:message key="activeUsers.message"/></p>
 
     <div id="actions" class="form-actions">
-        <a class="btn btn-primary" href="../mainMenu" >
-            <fmt:message key="button.done"/>
+        <a class="btn btn-primary" href="${ctx}/mainMenu" >
+            <i class="icon-ok icon-white"></i> <fmt:message key="button.done"/>
         </a>
     </div>
 
     <display:table name="applicationScope.userNames" id="user" cellspacing="0" cellpadding="0"
-                   defaultsort="1" class="table table-condensed" pagesize="50" requestURI="">
+                   defaultsort="1" class="table table-condensed table-striped table-hover" pagesize="50" requestURI="">
         <display:column property="username" escapeXml="true" style="width: 30%" titleKey="user.username"
                         sortable="true"/>
         <display:column titleKey="activeUsers.fullName" sortable="true">
@@ -33,10 +33,5 @@
         <display:setProperty name="paging.banner.item_name" value="user"/>
         <display:setProperty name="paging.banner.items_name" value="users"/>
     </display:table>
-
-    <div id="actions" class="form-actions">
-        <a class="btn btn-primary" href="../mainMenu" >
-            <fmt:message key="button.done"/>
-        </a>
-    </div>
 </div>
+</body>

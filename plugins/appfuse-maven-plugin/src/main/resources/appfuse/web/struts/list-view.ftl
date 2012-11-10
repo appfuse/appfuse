@@ -3,35 +3,34 @@
 
 <head>
     <title><fmt:message key="${pojoNameLower}List.title"/></title>
-    <meta name="heading" content="<fmt:message key='${pojoNameLower}List.heading'/>"/>
     <meta name="menu" content="${pojo.shortName}Menu"/>
 </head>
 
 <div class="span10">
     <h2><fmt:message key="${pojoNameLower}List.heading"/></h2>
-    <div id="search">
-        <form method="get" action="${'$'}{ctx}/${util.getPluralForWord(pojoNameLower)}" id="searchForm" class="form-search">
-            <input type="text" size="20" name="q" id="query" value="${'$'}{param.q}"
-                   placeholder="<fmt:message key="search.enterTerms"/>" class="input-medium search-query"/>
-            <button id="button.search" class="btn" type="submit">
-                <i class="icon-search"></i>
-                <fmt:message key="button.search"/>
-            </button>
-        </form>
+
+    <form method="get" action="${'$'}{ctx}/${util.getPluralForWord(pojoNameLower)}" id="searchForm" class="form-search">
+    <div id="search" class="input-append">
+        <input type="text" size="20" name="q" id="query" value="${'$'}{param.q}"
+               placeholder="<fmt:message key="search.enterTerms"/>" class="input-medium search-query"/>
+        <button id="button.search" class="btn" type="submit">
+            <i class="icon-search"></i> <fmt:message key="button.search"/>
+        </button>
     </div>
+    </form>
+
     <fmt:message key="${pojoNameLower}List.message"/>
 
     <div id="actions" class="form-actions">
         <a class="btn btn-primary" href="<c:url value='/edit${pojo.shortName}'/>" >
-            <i class="icon-plus"></i>
-            <fmt:message key="button.add"/>
+            <i class="icon-plus icon-white"></i> <fmt:message key="button.add"/>
         </a>
         <a class="btn" href="<c:url value="/mainMenu"/>" >
-            <fmt:message key="button.done"/>
+            <i class="icon-ok"></i> <fmt:message key="button.done"/>
         </a>
     </div>
 
-    <display:table name="${util.getPluralForWord(pojoNameLower)}" class="table" requestURI="" id="${pojoNameLower}List" export="true" pagesize="25">
+    <display:table name="${util.getPluralForWord(pojoNameLower)}" class="table table-condensed table-striped table-hover" requestURI="" id="${pojoNameLower}List" export="true" pagesize="25">
 <#foreach field in pojo.getAllPropertiesIterator()>
 <#if field.equals(pojo.identifierProperty)>
         <display:column property="${field.name}" sortable="true" href="edit${pojo.shortName}" media="html"
@@ -59,14 +58,4 @@
         <display:setProperty name="export.csv.filename"><fmt:message key="${pojoNameLower}List.title"/>.csv</display:setProperty>
         <display:setProperty name="export.pdf.filename"><fmt:message key="${pojoNameLower}List.title"/>.pdf</display:setProperty>
     </display:table>
-
-    <div id="actions" class="form-actions">
-        <a class="btn btn-primary" href="<c:url value='/edit${pojo.shortName}'/>" >
-            <i class="icon-plus"></i>
-            <fmt:message key="button.add"/>
-        </a>
-        <a class="btn" href="<c:url value="/mainMenu"/>" >
-            <fmt:message key="button.done"/>
-        </a>
-    </div>
 </div>

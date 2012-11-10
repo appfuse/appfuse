@@ -12,70 +12,92 @@
    "<fmt:message key="delete.confirm"><fmt:param value=${'"'}${r"${delObject}"}${'"'}/></fmt:message>";
 </script>
 
-<form:form commandName="${pojoNameLower}" method="post" action="${pojoNameLower}form" id="${pojoNameLower}Form" onsubmit="return validate${pojo.shortName}(this)">
-<form:errors path="*" cssClass="error" element="div"/>
+<div class="span2">
+    <h2><fmt:message key="${pojoNameLower}Detail.heading"/></h2>
+    <fmt:message key="${pojoNameLower}Detail.message"/>
+</div>
+
+<div class="span5">
+<form:form commandName="${pojoNameLower}" method="post" action="${pojoNameLower}form" cssClass="well form-horizontal"
+           id="${pojoNameLower}Form" onsubmit="return validate${pojo.shortName}(this)">
+<form:errors path="*" cssClass="alert alert-error fade in" element="div">
 <#rt/>
 <#foreach field in pojo.getAllPropertiesIterator()>
 <#if field.equals(pojo.identifierProperty)>
     <#assign idFieldName = field.name>
     <#if field.value.identifierGeneratorStrategy == "assigned">
         <#lt/><ul>
-    <li>
-        <appfuse:label key="${pojoNameLower}.${field.name}"/>
-        <form:errors path="${field.name}" cssClass="fieldError"/>
-        <form:input path="${field.name}" id="${field.name}" cssClass="text medium"/>
-    </li>
+    <spring:bind path="${pojoNameLower}.${field.name}">
+    <div class="control-group${'$'}{(not empty status.errorMessage) ? ' error' : ''}">
+    </spring:bind>
+        <appfuse:label key="${pojoNameLower}.${field.name}" styleClass="control-label"/>
+        <div class="controls">
+            <form:input path="${field.name}" id="${field.name}"/>
+            <form:errors path="${field.name}" cssClass="help-inline"/>
+        </div>
+    </div>
     <#else>
         <#lt/><form:hidden path="${field.name}"/>
-        <#lt/><ul>
     </#if>
 <#elseif !c2h.isCollection(field) && !c2h.isManyToOne(field) && !c2j.isComponent(field)>
     <#foreach column in field.getColumnIterator()>
-    <li>
-        <appfuse:label key="${pojoNameLower}.${field.name}"/>
-        <form:errors path="${field.name}" cssClass="fieldError"/>
-        <#if field.value.typeName == "java.util.Date" || field.value.typeName == "date">
-        <#assign dateExists = true/>
-        <form:input path="${field.name}" id="${field.name}" cssClass="text" size="11"/>
-        <img src="<c:url value='/images/iconCalendar.gif'/>" alt="" id="${field.name}DatePicker" class="calIcon"/>
-        <#elseif field.value.typeName == "boolean" || field.value.typeName == "java.lang.Boolean">
-        <form:checkbox path="${field.name}" id="${field.name}" cssClass="checkbox"/>
-        <#else>
-        <form:input path="${field.name}" id="${field.name}" cssClass="text medium" cssErrorClass="text medium error"<#if (column.length > 0)> maxlength="${column.length?c}"</#if>/>
-        </#if>
-    </li>
+    <spring:bind path="${pojoNameLower}.${field.name}">
+    <div class="control-group${'$'}{(not empty status.errorMessage) ? ' error' : ''}">
+    </spring:bind>
+        <appfuse:label key="${pojoNameLower}.${field.name}" styleClass="control-label"/>
+        <div class="controls">
+            <#if field.value.typeName == "java.util.Date" || field.value.typeName == "date">
+            <#assign dateExists = true/>
+            <form:input path="${field.name}" id="${field.name}" size="11" title="date" datepicker="true"/>
+            <#elseif field.value.typeName == "boolean" || field.value.typeName == "java.lang.Boolean">
+            <form:checkbox path="${field.name}" id="${field.name}" cssClass="checkbox"/>
+            <#else>
+            <form:input path="${field.name}" id="${field.name}" <#if (column.length > 0)> maxlength="${column.length?c}"</#if>/>
+            </#if>
+            <form:errors path="${field.name}" cssClass="help-inline"/>
+        </div>
+    </div>
     </#foreach>
 <#elseif c2h.isManyToOne(field)>
     <#foreach column in field.getColumnIterator()>
             <#lt/>    <!-- todo: change this to read the identifier field from the other pojo -->
-            <#lt/>    <s:select name="${pojoNameLower}.${field.name}.id" list="${field.name}List" listKey="id" listValue="id"></s:select>
+            <#lt/>    <form:select path="${field.name}" items="${field.name}List" itemLabel="label" itemValue="value"/>
     </#foreach>
 </#if>
 </#foreach>
 
-    <li class="buttonBar bottom">
-        <input type="submit" class="button" name="save" value="<fmt:message key="button.save"/>"/>
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
+            <i class="icon-ok icon-white"></i> <fmt:message key="button.save"/>
+        </button>
         <c:if test="${'$'}{not empty ${pojoNameLower}.${idFieldName}}">
-        <input type="submit" class="button" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)"
-            value="<fmt:message key="button.delete"/>" />
+            <button type="submit" class="btn btn-warning" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)">
+                <i class="icon-trash icon-white"></i> <fmt:message key="button.delete"/>
+            </button>
         </c:if>
-        <input type="submit" class="button" name="cancel" value="<fmt:message key="button.cancel"/>" onclick="bCancel=true"/>
-    </li>
-</ul>
+
+        <button type="submit" class="btn" name="cancel" onclick="bCancel=true">
+            <i class="icon-remove"></i> <fmt:message key="button.cancel"/>
+        </button>
+    </div>
 </form:form>
+</div>
 
 <v:javascript formName="${pojoNameLower}" cdata="false" dynamicJavascript="true" staticJavascript="false"/>
 <script type="text/javascript" src="<c:url value='/scripts/validator.jsp'/>"></script>
 
 <#if dateExists><#rt/>
-<script type="text/javascript" src="<c:url value='/scripts/calendar/calendar.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/scripts/calendar/calendar-setup.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/scripts/calendar/lang/calendar-en.js'/>"></script>
+<link rel="stylesheet" type="text/css" media="all" href="<c:url value='/scripts/datepicker/css/datepicker.css'/>" />
+<script type="text/javascript" src="<c:url value='/scripts/datepicker/js/bootstrap-datepicker.js'/>"></script>
+<c:if test="${'$'}{pageContext.request.locale.language != 'en'}">
+<script type="text/javascript" src="<c:url value='/scripts/datepicker/js/locales/bootstrap-datepicker.${r"${pageContext.request.locale.language}"}.js'/>"></script>
+</c:if>
 </#if><#rt/>
 <script type="text/javascript">
-<#foreach field in pojo.getAllPropertiesIterator()>
-    <#if !c2h.isCollection(field) && !c2h.isManyToOne(field) && (field.value.typeName == "java.util.Date" || field.value.typeName == "date")>
-    Calendar.setup({inputField: "${field.name}", ifFormat: "%m/%d/%Y", button: "${field.name}DatePicker"});
-    </#if>
-</#foreach>
+    $(document).ready(function() {
+        $("input[type='text']:visible:enabled:first", document.forms['${pojoNameLower}Form']).focus();
+<#if dateExists>
+        ${'$'}('.input-append.date').datepicker({format: "<fmt:message key='calendar.format'/>", weekStart: "<fmt:message key='calendar.weekstart'/>", language: '${r"${pageContext.request.locale.language}"}'});
+</#if>
+    });
 </script>

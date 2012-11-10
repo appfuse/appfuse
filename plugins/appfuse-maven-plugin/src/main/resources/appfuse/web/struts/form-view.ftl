@@ -12,33 +12,31 @@
    "<fmt:message key="delete.confirm"><fmt:param value=${'"'}${r"${delObject}"}${'"'}/></fmt:message>";
 </script>
 
-<div class="span3">
+<div class="span2">
     <h2><fmt:message key="${pojoNameLower}Detail.heading"/></h2>
     <fmt:message key="${pojoNameLower}Detail.message"/>
 </div>
 
-<div class="span7">
+<div class="span5">
     <s:form id="${pojoNameLower}Form" action="save${pojo.shortName}" method="post" validate="true" cssClass="well form-horizontal">
 <#rt/>
 <#foreach field in pojo.getAllPropertiesIterator()>
 <#if field.equals(pojo.identifierProperty)>
     <#assign idFieldName = field.name>
     <#if field.value.identifierGeneratorStrategy == "assigned">
-        <#lt/>        <s:textfield key="${pojoNameLower}.${field.name}" required="true" cssClass="text medium"/>
+        <#lt/>        <s:textfield key="${pojoNameLower}.${field.name}" required="true"/>
     <#else>
-        <li style="display: none">
             <s:hidden key="${pojoNameLower}.${field.name}"/>
-        </li>
     </#if>
 <#elseif !c2h.isCollection(field) && !c2h.isManyToOne(field) && !c2j.isComponent(field)>
     <#foreach column in field.getColumnIterator()>
         <#if field.value.typeName == "java.util.Date" || field.value.typeName == "date">
             <#assign dateExists = true>
-            <#lt/>        <s:textfield key="${pojoNameLower}.${field.name}" required="${(!column.nullable)?string}" <#if (column.length > 0)>maxlength="${column.length?c}" </#if>cssClass="text" size="11" title="date" datepicker="true"/>
+            <#lt/>        <s:textfield key="${pojoNameLower}.${field.name}" required="${(!column.nullable)?string}" <#if (column.length > 0)>maxlength="${column.length?c}" </#if>size="11" title="date" datepicker="true"/>
         <#elseif field.value.typeName == "boolean" || field.value.typeName == "java.lang.Boolean">
-            <#lt/>        <s:checkbox key="${pojoNameLower}.${field.name}" cssClass="checkbox" theme="css_xhtml"/>
+            <#lt/>        <s:checkbox key="${pojoNameLower}.${field.name}" theme="css_xhtml"/>
         <#else>
-            <#lt/>        <s:textfield key="${pojoNameLower}.${field.name}" required="${(!column.nullable)?string}" <#if (column.length > 0)>maxlength="${column.length?c}" </#if>cssClass="text medium"/>
+            <#lt/>        <s:textfield key="${pojoNameLower}.${field.name}" required="${(!column.nullable)?string}" <#if (column.length > 0)>maxlength="${column.length?c}" </#if>/>
         </#if>
     </#foreach>
 <#elseif c2h.isManyToOne(field)>
@@ -51,19 +49,16 @@
 
         <div id="actions" class="form-actions">
             <s:submit type="button" cssClass="btn btn-primary" method="save" key="button.save" theme="simple">
-                <i class="icon-ok"></i>
-                <fmt:message key="button.save"/>
+                <i class="icon-ok icon-white"></i> <fmt:message key="button.save"/>
             </s:submit>
             <c:if test="${'$'}{not empty ${pojoNameLower}.${idFieldName}}">
-                <s:submit type="button" cssClass="btn btn-danger" method="delete" key="button.delete"
+                <s:submit type="button" cssClass="btn btn-warning" method="delete" key="button.delete"
                     onclick="return confirmMessage(msgDelConfirm)" theme="simple">
-                <i class="icon-trash"></i>
-                <fmt:message key="button.delete"/>
+                    <i class="icon-trash icon-white"></i> <fmt:message key="button.delete"/>
                 </s:submit>
             </c:if>
             <s:submit type="button" cssClass="btn" method="cancel" key="button.cancel" theme="simple">
-                <i class="icon-remove"></i>
-                <fmt:message key="button.cancel"/>
+                <i class="icon-remove"></i> <fmt:message key="button.cancel"/>
             </s:submit>
         </div>
     </s:form>

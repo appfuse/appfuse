@@ -1,11 +1,11 @@
 <t:container xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
 
-<div class="span3">
+<div class="span2">
     <h2>${heading}</h2>
     ${infoMessage}
 </div>
 
-<div class="span7">
+<div class="span5">
 <!-- Add Error Block Here -->
 
 <form t:type="form" t:id="form" class="well form-horizontal">
@@ -21,9 +21,7 @@
     <t:if test="userVersionNull">
         <input type="hidden" name="encryptPass" value="true"/>
     </t:if>
-
 </t:if>
-
 
 <div class="control-group">
     <label t:type="label" class="control-label" for="username">${message:user.username}</label>

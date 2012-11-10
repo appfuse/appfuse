@@ -10,7 +10,7 @@
    "<fmt:message key="delete.confirm"><fmt:param value="${delObject}"/></fmt:message>";
 </script>
 
-<div class="span3">
+<div class="span2">
     <h2><fmt:message key="userProfile.heading"/></h2>
     <c:choose>
         <c:when test="${param.from == 'list'}">
@@ -21,7 +21,7 @@
         </c:otherwise>
     </c:choose>
 </div>
-<div class="span7">
+<div class="span5">
     <spring:bind path="user.*">
         <c:if test="${not empty status.errorMessages}">
             <div class="alert alert-error fade in">
@@ -216,14 +216,19 @@
     </c:when>
 </c:choose>
         <fieldset class="form-actions">
-            <input type="submit" class="btn btn-primary" name="save" onclick="bCancel=false" value="<fmt:message key="button.save"/>"/>
+            <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
+                <i class="icon-ok icon-white"></i> <fmt:message key="button.save"/>
+            </button>
 
             <c:if test="${param.from == 'list' and param.method != 'Add'}">
-              <input type="submit" class="btn" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)"
-                  value="<fmt:message key="button.delete"/>"/>
+              <button type="submit" class="btn" name="delete" onclick="bCancel=true;return confirmMessage(msgDelConfirm)">
+                  <i class="icon-trash"></i> <fmt:message key="button.delete"/>
+              </button>
             </c:if>
 
-            <input type="submit" class="btn" name="cancel" onclick="bCancel=true" value="<fmt:message key="button.cancel"/>"/>
+            <button type="submit" class="btn" name="cancel" onclick="bCancel=true">
+                <i class="icon-remove"></i> <fmt:message key="button.cancel"/>
+            </button>
         </fieldset>
     </form:form>
 </div>

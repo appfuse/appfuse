@@ -15,7 +15,7 @@
    "<h:outputFormat value="#{text['delete.confirm']}"><f:param value="#{delObject}" /></h:outputFormat>";
 </script>
 
-<div class="span3">
+<div class="span2">
     <h2>#{text['userProfile.heading']}</h2>
     <c:choose>
         <c:when test="${param.from == 'list' or empty userForm.user.id}">
@@ -24,7 +24,7 @@
         <c:otherwise><h:outputText value="#{text['userProfile.message']}"/></c:otherwise>
     </c:choose>
 </div>
-<div class="span7">
+<div class="span5">
 
     <h:form id="userForm" styleClass="well form-horizontal">
         <h:inputHidden value="#{userForm.user.id}" id="id"/>
@@ -130,32 +130,42 @@
             <div id="collapse-address" class="accordion-body collapse">
                 <div class="control-group">
                     <h:outputLabel styleClass="control-label" for="address" value="#{text['user.address.address']}"/>
-                    <h:inputText value="#{userForm.user.address.address}" id="address"/>
-                    <t:message for="address" styleClass="help-inline"/>
+                    <div class="controls">
+                        <h:inputText value="#{userForm.user.address.address}" id="address"/>
+                        <t:message for="address" styleClass="help-inline"/>
+                    </div>
                 </div>
                 <div class="control-group">
                     <h:outputLabel styleClass="control-label" for="city" value="#{text['user.address.city']}"/>
-                    <h:inputText value="#{userForm.user.address.city}" id="city"/>
-                    <t:message for="city" styleClass="help-inline"/>
+                    <div class="controls">
+                        <h:inputText value="#{userForm.user.address.city}" id="city"/>
+                        <t:message for="city" styleClass="help-inline"/>
+                    </div>
                 </div>
                 <div class="control-group">
                     <h:outputLabel styleClass="control-label" for="province" value="#{text['user.address.province']}"/>
-                    <h:inputText value="#{userForm.user.address.province}" id="province"/>
-                    <t:message for="province" styleClass="help-inline"/>
+                    <div class="controls">
+                        <h:inputText value="#{userForm.user.address.province}" id="province"/>
+                        <t:message for="province" styleClass="help-inline"/>
+                    </div>
                 </div>
                 <div class="control-group">
                     <h:outputLabel styleClass="control-label" for="postalCode" value="#{text['user.address.postalCode']}"/>
-                    <h:inputText value="#{userForm.user.address.postalCode}" id="postalCode">
-                        <t:validateRegExpr pattern="^\d{5}\d*$"/>
-                    </h:inputText>
-                    <t:message for="postalCode" styleClass="help-inline"/>
+                    <div class="controls">
+                        <h:inputText value="#{userForm.user.address.postalCode}" id="postalCode">
+                            <t:validateRegExpr pattern="^\d{5}\d*$"/>
+                        </h:inputText>
+                        <t:message for="postalCode" styleClass="help-inline"/>
+                    </div>
                 </div>
                 <div class="control-group">
                     <h:outputLabel styleClass="control-label" for="country" value="#{text['user.address.country']}"/>
-                    <h:selectOneMenu value="#{userForm.country}" id="country">
-                        <f:selectItems value="#{userForm.countries}"/>
-                    </h:selectOneMenu>
-                    <t:message for="country" styleClass="help-inline"/>
+                    <div class="controls">
+                        <h:selectOneMenu value="#{userForm.country}" id="country">
+                            <f:selectItems value="#{userForm.countries}"/>
+                        </h:selectOneMenu>
+                        <t:message for="country" styleClass="help-inline"/>
+                    </div>
                 </div>
             </div>
         </fieldset>

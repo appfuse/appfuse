@@ -6,11 +6,11 @@
 
 <body class="signup"/>
 
-<div class="span3">
+<div class="span2">
     <h2><fmt:message key="signup.heading"/></h2>
     <fmt:message key="signup.message"/>
 </div>
-<div class="span7">
+<div class="span5">
     <s:form name="signupForm" action="saveSignup" method="post" validate="true" cssClass="well form-horizontal">
 
         <s:textfield key="user.username" required="true"/>
@@ -46,7 +46,7 @@
     </fieldset>
     <div id="actions" class="form-actions">
         <s:submit type="button" cssClass="btn btn-primary" key="button.register" theme="simple">
-            <i class="icon-ok"></i>
+            <i class="icon-ok icon-white"></i>
             <fmt:message key="button.register"/>
         </s:submit>
         <s:submit type="button" cssClass="btn" method="cancel" key="button.cancel" theme="simple">

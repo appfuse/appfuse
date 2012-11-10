@@ -5,14 +5,12 @@
 <div class="span10">
     <h2>${message:userList.heading}</h2>
 
-    <div id="search">
     <form t:type="form" t:id="searchForm" autofocus="false" class="form-search">
-        <div class="input-append">
+    <div id="search" class="input-append">
         <input t:type="textfield" size="20" name="q" t:id="q" placeholder="${message:search.enterTerms}" class="input-medium search-query"/>
         <button type="submit" class="btn"><i class="icon-search"></i> ${message:button.search}</button>
-        </div>
-    </form>
     </div>
+    </form>
 
     <div id="actions" class="form-actions">
         <a t:type="eventlink" event="add" id="add" class="btn btn-primary"><i class="icon-plus icon-white"></i> ${message:button.add}</a>
@@ -38,8 +36,5 @@
             </t:if>
         </p:enabledcell>
     </table>
-
-
   </div>
-
 </html>

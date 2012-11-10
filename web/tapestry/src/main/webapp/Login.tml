@@ -2,65 +2,42 @@
       menu="Login" bodyId="login" bodyClass="login"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 
-<div class="login">
-    <div class="span5">
+<body id="login">
+    <form method="post" id="loginForm" action="${springSecurityUrl}"
+          onsubmit="saveUsername(this)" class="form-signin">
 
-        <form method="post" id="loginForm" action="${springSecurityUrl}"
-              onsubmit="saveUsername(this)" class="form-horizontal">
+        <h2 class="form-signin-heading">
+            ${message:login.heading}
+        </h2>
 
-            <t:if test="${errorMessage}">
-                <div class="alert alert-error fade in">
-                    ${message:errors.password.mismatch}
-                </div>
-            </t:if>
-
-            <div class="control-group">
-                <label for="j_username" class="required control-label">
-                    ${message:label.username} <span class="required">*</span>
-                </label>
-
-                <div class="controls">
-                    <input type="text" class="text medium" name="j_username" id="j_username" tabindex="1" value=""/>
-                </div>
+        <t:if test="${errorMessage}">
+            <div class="alert alert-error fade in">
+                ${message:errors.password.mismatch}
             </div>
+        </t:if>
 
-            <div class="control-group">
-                <label for="j_password" class="required control-label">
-                    ${message:label.password} <span class="required">*</span>
-                </label>
+        <input type="text" class="input-block-level" name="j_username" id="j_username"
+               placeholder="${message:label.username}" required="true" tabindex="1"/>
+        <input type="password" class="input-block-level" name="j_password" id="j_password" tabindex="2"
+               placeholder="${message:label.password}" required="true"/>
 
-                <div class="controls">
-                    <input type="password" class="text medium" name="j_password" id="j_password" tabindex="2"/>
-                </div>
-            </div>
+        <t:if test="rememberMeEnabled">
+            <label for="rememberMe" class="checkbox">
+                <input type="checkbox" name="_spring_security_remember_me" id="rememberMe" tabindex="3"/>
+                ${message:login.rememberMe}
+            </label>
+        </t:if>
 
-            <t:if test="rememberMeEnabled">
-                <div class="control-group">
-                    <div class="controls">
+        <input type="submit" class="btn btn-large btn-primary" name="login" value="${message:button.login}" tabindex="4"/>
 
-                        <label for="rememberMe" class="checkbox">
-                            <input type="checkbox" name="_spring_security_remember_me" id="rememberMe" tabindex="3"/>
-                        ${message:login.rememberMe}
-                        </label>
-                    </div>
-                </div>
-            </t:if>
+    </form>
 
-            <div class="form-actions">
-                <input type="submit" class="btn btn-primary" name="login" value="${message:button.login}" tabindex="4"/>
-            </div>
+    <p>
+        <t:outputraw value="${signupLink}"/>
+    </p>
 
-        </form>
-    </div>
-
-    <div class="span3">
-        <p>
-            <t:outputraw value="${signupLink}"/>
-        </p>
-
-        <p>
-            <t:outputraw value="${message:login.passwordHint}"/>
-        </p>
-    </div>
-</div>
+    <p>
+        <t:outputraw value="${message:login.passwordHint}"/>
+    </p>
+</body>
 </html>
