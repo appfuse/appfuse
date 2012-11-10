@@ -1,18 +1,20 @@
 package org.appfuse.webapp.pages;
 
-import org.apache.wicket.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.appfuse.model.User;
 import org.appfuse.service.UserExistsException;
 import org.wicketstuff.annotation.mount.MountPath;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * Page for editing current user.
  *
  * @author Marcin Zajączkowski, 2011-03-13
  */
-@MountPath(path = "userEdit")
+@MountPath("userEdit")
 @AuthorizeInstantiation({"ROLE_ADMIN", "ROLE_USER"})
 public class CurrentUserEdit extends AbstractUserEdit {
 
@@ -33,7 +35,7 @@ public class CurrentUserEdit extends AbstractUserEdit {
     }
 
     private String getCurrentUserUsername() {
-        String username = getWebRequestCycle().getWebRequest().getHttpServletRequest().getRemoteUser();
+        String username = ((HttpServletRequest)getRequest().getContainerRequest()).getRemoteUser();
         if (username == null) {
             throw new IllegalStateException("Unable to get login of current user");
         }

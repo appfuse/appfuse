@@ -1,6 +1,6 @@
 package org.appfuse.webapp;
 
-import org.apache.wicket.authentication.AuthenticatedWebSession;
+import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.appfuse.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

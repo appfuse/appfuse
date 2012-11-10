@@ -1,10 +1,11 @@
 package org.appfuse.webapp.pages;
 
-import org.apache.wicket.PageParameters;
 import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
-import org.apache.wicket.protocol.http.RequestUtils;
+import org.apache.wicket.request.Url;
+import org.apache.wicket.request.cycle.RequestCycle;
+import org.apache.wicket.request.http.WebResponse;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.appfuse.Constants;
 import org.appfuse.model.User;
@@ -24,7 +25,7 @@ import javax.servlet.http.Cookie;
  *
  * @author Marcin Zajączkowski, 2010-09-03
  */
-@MountPath(path = "signup")
+@MountPath("signup")
 public class Signup extends AbstractUserEdit {
 
     @SpringBean
@@ -111,14 +112,15 @@ public class Signup extends AbstractUserEdit {
         SimpleMailMessage message = new SimpleMailMessage();    //serviceFacade.getMailMessage();
         message.setTo(user.getFullName() + "<" + user.getEmail() + ">");
 
-        StringBuffer msg = new StringBuffer();
+        StringBuilder msg = new StringBuilder();
         msg.append(getString("signup.email.message"));
         msg.append("\n\n").append(getString("user.username"));
         msg.append(": ").append(user.getUsername()).append("\n");
         msg.append(getString("user.password")).append(": ");
         msg.append(user.getPassword());
         msg.append("\n\nLogin at: ")
-                .append(RequestUtils.toAbsolutePath(urlFor(Login.class, new PageParameters()).toString()));
+                .append(RequestCycle.get().getUrlRenderer().renderFullUrl(
+                        Url.parse(urlFor(Login.class, null).toString())));
         message.setText(msg.toString());
         message.setSubject(getString("signup.email.subject"));
 
@@ -135,8 +137,7 @@ public class Signup extends AbstractUserEdit {
     }
 
     private void setUserNameCookieAndSetResponsePage(String userName) {
-        getWebRequestCycle().getWebResponse().addCookie(new Cookie("username", userName));
-        setRedirect(true);
+        ((WebResponse)getResponse()).addCookie(new Cookie("username", userName));
         setResponsePage(Login.class);
     }
 
@@ -150,7 +151,6 @@ public class Signup extends AbstractUserEdit {
         //MZA: getSignInPage would be better, but it has protected visibility modifier.
         //MZA: getHomePage should be ok - not authorized user should be redirected to login page
         setResponsePage(Login.class);
-        setRedirect(true);
     }
 
     @Override

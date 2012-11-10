@@ -1,8 +1,6 @@
 package org.appfuse.webapp.pages;
 
-import org.apache.wicket.authentication.AuthenticatedWebSession;
-import org.apache.wicket.behavior.AbstractBehavior;
-import org.apache.wicket.behavior.HeaderContributor;
+import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.markup.html.*;
 import org.apache.wicket.markup.html.basic.Label;
@@ -11,13 +9,13 @@ import org.apache.wicket.markup.html.form.validation.FormComponentFeedbackBorder
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
-import org.apache.wicket.protocol.http.RequestUtils;
+import org.apache.wicket.request.Url;
+import org.apache.wicket.request.cycle.RequestCycle;
 import org.appfuse.Constants;
 import org.appfuse.webapp.AbstractWebPage;
 import org.appfuse.webapp.pages.components.RequiredLabel;
 import org.wicketstuff.annotation.mount.MountPath;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -25,7 +23,7 @@ import java.util.Map;
  *
  * @author Marcin Zajączkowski, 2010-09-02
  */
-@MountPath(path = "login")
+@MountPath("login")
 public class Login extends AbstractWebPage {
 
     private TextField<String> usernameField;
@@ -35,10 +33,6 @@ public class Login extends AbstractWebPage {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-
-        addLayoutColCssToHeader();
-        add(createLoginJavaScriptHeaderContribution());
-        add(createInitDataOnLoadBehavior());
 
         //TODO: MZA: Add login hint with: http://code.google.com/p/visural-wicket/
 
@@ -82,18 +76,6 @@ public class Login extends AbstractWebPage {
     }
 
     //TODO: MZA: Move to is needed somewhere else
-    private void addLayoutColCssToHeader() {
-        String cssTheme = (String)getValueForKeyFromConfigOrReturnNullIfNoConfig(Constants.CSS_THEME);
-        if (cssTheme == null) {
-            //TODO: MZA: Problem with return object to add (NPE) - is there any Null Object to add?
-            log.warn("{} parameter not set in web.xml. Additional CSS can be missing.", Constants.CSS_THEME);
-        } else {
-            String layout1ColCss = "/styles/" + cssTheme + "/layout-1col.css";
-            add(CSSPackageResource.getHeaderContribution(layout1ColCss));
-        }
-    }
-
-    //TODO: MZA: Move to is needed somewhere else
     @SuppressWarnings("unchecked")
     private Object getValueForKeyFromConfigOrReturnNullIfNoConfig(String configProperty) {
         Map<String, Object> config = (Map<String, Object>)getServletContext().getAttribute(Constants.CONFIG);
@@ -105,19 +87,33 @@ public class Login extends AbstractWebPage {
         }
     }
 
-    private HeaderContributor createLoginJavaScriptHeaderContribution() {
-        String loginJs = "/scripts/login.js";
-        return JavascriptPackageResource.getHeaderContribution(loginJs);
+    @Override
+    public void renderHead(IHeaderResponse response) {
+        super.renderHead(response);
+        addLayoutColCssReferenceToResponse(response);
+        addLoginJavaScriptToResponse(response);
+        addInitDataOnLoadJavaScriptToResponse(response);
     }
 
-    private AbstractBehavior createInitDataOnLoadBehavior() {
-        return new AbstractBehavior() {
-            @Override
-            public void renderHead(IHeaderResponse response) {
-                super.renderHead(response);
-                response.renderOnLoadJavascript("initDataOnLoad()");
-            }
-        };
+    private void addLayoutColCssReferenceToResponse(IHeaderResponse response) {
+        String cssTheme = (String)getValueForKeyFromConfigOrReturnNullIfNoConfig(Constants.CSS_THEME);
+        if (cssTheme == null) {
+            //TODO: MZA: Problem with return object to add (NPE) - is there any Null Object to add?
+            log.warn("{} parameter not set in web.xml. Additional CSS can be missing.", Constants.CSS_THEME);
+        } else {
+            String layout1ColCss = "styles/" + cssTheme + "/layout-1col.css";
+            response.renderCSSReference(layout1ColCss);
+        }
+    }
+
+    private void addLoginJavaScriptToResponse(IHeaderResponse response) {
+        //TODO: MZA: Maybe it is worth to integrate those scripts with Wicket resources?
+        String loginJs = "scripts/login.js";
+        response.renderJavaScriptReference(loginJs);
+    }
+
+    private void addInitDataOnLoadJavaScriptToResponse(IHeaderResponse response) {
+        response.renderOnLoadJavaScript("initDataOnLoad()");
     }
 
     private WebMarkupContainer createRememberMeGroup() {
@@ -138,7 +134,8 @@ public class Login extends AbstractWebPage {
     }
 
     private Label createSignupLabel() {
-        String absoluteSignupLink = RequestUtils.toAbsolutePath(urlFor(Signup.class, null).toString());
+        String absoluteSignupLink = RequestCycle.get().getUrlRenderer().renderFullUrl(
+                Url.parse(urlFor(Signup.class, null).toString()));
         //TODO: MZA: There should be some better way to use URL inside a label (if not, make it an util method)
         String signupLabelText = new StringResourceModel("login.signup", this, null, new Object[] {
                 absoluteSignupLink}).getString();
@@ -160,7 +157,6 @@ public class Login extends AbstractWebPage {
     private void setDefaultResponsePageIfNecessary() {
         if(!continueToOriginalDestination()) {
             setResponsePage(getApplication().getHomePage());
-            setRedirect(true);
         }
     }
 }

@@ -1,8 +1,9 @@
 package org.appfuse.webapp.pages;
 
 import org.apache.wicket.RestartResponseException;
-import org.apache.wicket.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.request.http.WebResponse;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -13,7 +14,7 @@ import javax.servlet.http.Cookie;
  *
  * @author Marcin Zajączkowski, 2011-02-06
  */
-@MountPath(path = "logout")
+@MountPath("logout")
 @AuthorizeInstantiation({"ROLE_ADMIN", "ROLE_USER"})
 public class Logout extends WebPage {
 
@@ -25,12 +26,11 @@ public class Logout extends WebPage {
 
         removeRememberMeCookie();
 
-        setRedirect(true);
         throw new RestartResponseException(Login.class);
     }
 
     private void removeRememberMeCookie() {
-        getWebRequestCycle().getWebResponse().clearCookie(
+        ((WebResponse)getResponse()).clearCookie(
                 new Cookie(TokenBasedRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY, null));
     }
 }

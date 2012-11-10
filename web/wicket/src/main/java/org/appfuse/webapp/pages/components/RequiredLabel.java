@@ -33,7 +33,7 @@ public class RequiredLabel extends Label {
     }
 
     @Override
-    protected void onComponentTagBody(MarkupStream markupStream, ComponentTag openTag) {
+    public void onComponentTagBody(MarkupStream markupStream, ComponentTag openTag) {
 
         if (required) {
             replaceComponentTagBody(markupStream, openTag,

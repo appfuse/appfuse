@@ -35,7 +35,7 @@ public class LoginPageTest extends BasePageTest {
 
         //then
         tester.assertRenderedPage(Login.class);
-        tester.assertErrorMessages(new String[] {"Invalid username and/or password, please try again."});
+        tester.assertErrorMessages("Invalid username and/or password, please try again.");
     }
 
     @Test
@@ -77,7 +77,8 @@ public class LoginPageTest extends BasePageTest {
 
     private void submitLoginFormWithUsernameAndPassword(String username, String password) {
         FormTester loginForm = tester.newFormTester("loginForm");
-        loginForm.setValue("border:username", username);
+        //MZA: Strange construction required after upgrade to Wicket 1.5
+        loginForm.setValue("border:border_body:username", username);
         loginForm.setValue("password", password);
         loginForm.submit();
     }

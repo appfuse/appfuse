@@ -1,8 +1,10 @@
 package org.appfuse.webapp.pages;
 
-import org.apache.wicket.PageParameters;
 import org.apache.wicket.RestartResponseException;
-import org.apache.wicket.protocol.http.RequestUtils;
+import org.apache.wicket.model.StringResourceModel;
+import org.apache.wicket.request.Url;
+import org.apache.wicket.request.cycle.RequestCycle;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
@@ -11,15 +13,13 @@ import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.wicketstuff.annotation.mount.MountPath;
-import org.wicketstuff.annotation.strategy.MountIndexedParam;
 
 /**
  * Service page used for sending password hint.
  *
  * @author Marcin Zajączkowski, 2011-02-11
  */
-@MountPath(path = "passwordHint")
-@MountIndexedParam
+@MountPath("passwordHint/${username}")
 public class PasswordHint extends AbstractWebPage {
 
     @SpringBean(name = "userManager")
@@ -35,8 +35,7 @@ public class PasswordHint extends AbstractWebPage {
     protected void onInitialize() {
         super.onInitialize();
 
-//        String username = parameters.getString("username");
-        String username = parameters.getString("0");
+        String username = parameters.get("username").toString();
         log.debug("username {}", username);
 
         if (username == null || "".equals(username)) {
@@ -53,11 +52,11 @@ public class PasswordHint extends AbstractWebPage {
         try {
             User user = userManager.getUserByUsername(username);
 
-            StringBuffer msg = new StringBuffer();
+            StringBuilder msg = new StringBuilder();
             msg.append("Your password hint is: ").append(user.getPasswordHint());
-            //FIXME: MZA: urlFor doesn't work as expected - "Login at: ../login"
-            msg.append("\n\nLogin at: ").append(RequestUtils.toAbsolutePath(urlFor(Login.class, new PageParameters()).toString()));
-//            msg.append("\n\nLogin at: ").append(RequestUtil.getAppURL(getRequest()));
+            msg.append("\n\nLogin at: ")
+                    .append(RequestCycle.get().getUrlRenderer().renderFullUrl(
+                            Url.parse(urlFor(Login.class, null).toString())));
 
             SimpleMailMessage message = new SimpleMailMessage();    //serviceFacade.getMailMessage();
             message.setTo(user.getEmail());
@@ -69,19 +68,18 @@ public class PasswordHint extends AbstractWebPage {
             log.debug("message: {}", message);
 //            serviceFacade.getMailEngine().send(message);
 
-//            info("login.passwordHint.sent", true, username, user.getEmail());
-            getSession().info(getString("login.passwordHint.sent"));
+            getSession().info(new StringResourceModel(
+                    "login.passwordHint.sent", this, null, new Object[] {username, user.getEmail()}).getString());
         } catch (UsernameNotFoundException e) {
             log.warn(e.getMessage());
-            // If exception is expected do not rethrow
-//            error("login.passwordHint.error", true, username);
-            getSession().error(getString("login.passwordHint.error"));
+            // This exception is expected to not be rethrown
+            getSession().error(new StringResourceModel(
+                    "login.passwordHint.error", this, null, new Object[] {username}).getString());
         } catch (MailException me) {
             getSession().error(me.getCause().getLocalizedMessage());
         }
 
-        setRedirect(true);
+        //TODO: MZA: It generated http://.../passwordHint/../login which works in Firefox, but breaks acceptance tests
         throw new RestartResponseException(Login.class);
-
     }
 }

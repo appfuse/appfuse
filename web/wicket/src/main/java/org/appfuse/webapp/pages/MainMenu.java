@@ -1,6 +1,6 @@
 package org.appfuse.webapp.pages;
 
-import org.apache.wicket.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.wicketstuff.annotation.mount.MountPath;
@@ -10,7 +10,7 @@ import org.wicketstuff.annotation.mount.MountPath;
  *
  * @author Marcin Zajączkowski, 2010-09-05
  */
-@MountPath(path = "mainMenu")
+@MountPath("mainMenu")
 @AuthorizeInstantiation({"ROLE_ADMIN", "ROLE_USER"})
 public class MainMenu extends WebPage {
 

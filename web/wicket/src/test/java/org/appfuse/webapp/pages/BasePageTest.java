@@ -5,6 +5,8 @@ import org.apache.wicket.util.tester.WicketTester;
 import org.appfuse.webapp.TestWicketApplication;
 import org.junit.Before;
 import org.mockito.MockitoAnnotations;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.context.support.StaticWebApplicationContext;
 
 import java.util.Locale;
@@ -16,6 +18,8 @@ import java.util.Locale;
  */
 public abstract class BasePageTest {
 
+    protected final Logger log = LoggerFactory.getLogger(getClass());
+
     protected WicketTester tester;
 
     @Before
@@ -24,8 +28,7 @@ public abstract class BasePageTest {
 
         tester = new WicketTester(new TestWicketApplication(mockedContext));
         //ensure english locale regardless of local system locale
-        tester.setupRequestAndResponse();
-        tester.getWicketSession().setLocale(Locale.ENGLISH);
+        tester.getSession().setLocale(Locale.ENGLISH);
 
         initSpringBeans(mockedContext);
     }

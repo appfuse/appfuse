@@ -13,8 +13,10 @@
         <intercept-url pattern="/styles*/**" filters="none"/>
         <intercept-url pattern="/scripts*/**" filters="none"/>
         <intercept-url pattern="/assets*/**" filters="none"/>
-        <!-- others JS scripts, like internal Wicket scripts -->
-        <intercept-url pattern="/resources/**/*.js" filters="none"/>
+        <!-- Wicket managed resources (java scripts and css) -->
+        <intercept-url pattern="/wicket/resource/**/*.js" filters="none"/>
+        <intercept-url pattern="/wicket/resource/**/*.css" filters="none"/>
+
         <intercept-url pattern="/login*/**" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>
         <intercept-url pattern="/admin/*" access="ROLE_ADMIN"/>
         <intercept-url pattern="/passwordhint*/**" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>

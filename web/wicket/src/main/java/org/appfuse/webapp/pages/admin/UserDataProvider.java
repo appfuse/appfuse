@@ -1,5 +1,6 @@
 package org.appfuse.webapp.pages.admin;
 
+import org.apache.wicket.extensions.markup.html.repeater.data.sort.SortOrder;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
@@ -30,7 +31,7 @@ public class UserDataProvider extends SortableDataProvider<User> {
         notNull(userManager);
         this.userManager = userManager;
 
-        setSort("username", true);
+        setSort("username", SortOrder.ASCENDING);
     }
 
     private User createUser(String username, String lastName, String email, boolean isEnabled) {

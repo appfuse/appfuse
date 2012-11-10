@@ -10,7 +10,7 @@ import org.wicketstuff.annotation.mount.MountPath;
  *
  * @author Marcin Zajączkowski, 2011-02-12
  */
-@MountPath(path = "admin/reload")
+@MountPath("admin/reload")
 public class Reload extends AbstractWebPage {
 
     @Override
@@ -20,7 +20,6 @@ public class Reload extends AbstractWebPage {
         StartupListener.setupContext(getServletContext());
         
         getSession().info(getString("reload.succeeded"));
-        setRedirect(true);
         throw new RestartResponseException(getApplication().getHomePage());
     }
 }

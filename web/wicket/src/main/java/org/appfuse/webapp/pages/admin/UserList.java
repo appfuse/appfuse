@@ -1,6 +1,6 @@
 package org.appfuse.webapp.pages.admin;
 
-import org.apache.wicket.authorization.strategies.role.annotations.AuthorizeInstantiation;
+import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.extensions.ajax.markup.html.repeater.data.table.AjaxFallbackDefaultDataTable;
 import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
 import org.apache.wicket.markup.html.basic.Label;
@@ -29,7 +29,7 @@ import java.util.*;
  *
  * @author Marcin Zajączkowski, 2010-09-11
  */
-@MountPath(path = "admin/userList")
+@MountPath("admin/userList")
 @AuthorizeInstantiation("ROLE_ADMIN")
 public class UserList extends AbstractWebPage {
 
