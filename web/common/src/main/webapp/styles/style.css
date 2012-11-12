@@ -188,6 +188,7 @@ span.pagelinks {
 #footer a {
     color: #808080;
     text-decoration: none;
+    margin-left: 5px;
 }
 
 #footer a:hover {
