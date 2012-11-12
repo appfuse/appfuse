@@ -37,9 +37,9 @@
     </description>
 
     <scm>
-        <connection>scm:svn:https://github.com/appfuse/appfuse/trunk/service</connection>
-        <developerConnection>scm:svn:https://github.com/appfuse/appfuse/trunk/service</developerConnection>
-        <url>http://source.appfuse.org/browse/appfuse/trunk/service</url>
+        <connection>scm:git:git@github.com:appfuse/appfuse.git</connection>
+        <developerConnection>scm:git:git@github.com:appfuse/appfuse.git</developerConnection>
+        <url>http://source.appfuse.org/browse/appfuse/service</url>
     </scm>
 
     <build>

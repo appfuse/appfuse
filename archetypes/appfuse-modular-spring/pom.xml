@@ -40,7 +40,7 @@
         </connection>
         <developerConnection>scm:svn:https://github.com/appfuse/appfuse/trunk/archetypes/appfuse-modular-spring
         </developerConnection>
-        <url>http://source.appfuse.org/browse/appfuse/trunk/archetypes/appfuse-modular-spring</url>
+        <url>http://source.appfuse.org/browse/appfuse/archetypes/appfuse-modular-spring</url>
     </scm>
 
     <build>

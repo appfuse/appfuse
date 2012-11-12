@@ -29,9 +29,9 @@
     </prerequisites>
 
     <scm>
-        <connection>scm:svn:https://github.com/appfuse/appfuse/trunk</connection>
-        <developerConnection>scm:svn:https://github.com/appfuse/appfuse/trunk</developerConnection>
-        <url>http://source.appfuse.org/browse/appfuse/trunk</url>
+        <connection>scm:git:git@github.com:appfuse/appfuse.git</connection>
+        <developerConnection>scm:git:git@github.com:appfuse/appfuse.git</developerConnection>
+        <url>http://source.appfuse.org/browse/appfuse</url>
     </scm>
 
     <issueManagement>

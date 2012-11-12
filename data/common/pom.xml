@@ -34,9 +34,9 @@
     </description>
 
     <scm>
-        <connection>scm:svn:https://github.com/appfuse/appfuse/trunk/data/common</connection>
-        <developerConnection>scm:svn:https://github.com/appfuse/appfuse/trunk/data/common</developerConnection>
-        <url>http://source.appfuse.org/browse/appfuse/trunk/data/common</url>
+        <connection>scm:git:git@github.com:appfuse/appfuse.git</connection>
+        <developerConnection>scm:git:git@github.com:appfuse/appfuse.git</developerConnection>
+        <url>http://source.appfuse.org/browse/appfuse/data/common</url>
     </scm>
 
     <dependencies>

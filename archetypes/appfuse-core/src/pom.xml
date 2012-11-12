@@ -22,8 +22,8 @@
     </licenses>
 
     <scm>
-        <connection></connection>
-        <developerConnection></developerConnection>
+        <connection>scm:git:git@github.com:appfuse/appfuse.git</connection>
+        <developerConnection>scm:git:git@github.com:appfuse/appfuse.git</developerConnection>
         <url></url>
     </scm>
 

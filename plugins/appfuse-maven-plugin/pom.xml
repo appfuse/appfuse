@@ -18,9 +18,9 @@
     </prerequisites>
 
     <scm>
-        <connection>scm:svn:https://github.com/appfuse/appfuse/trunk/plugins/appfuse-maven-plugin</connection>
-        <developerConnection>scm:svn:https://github.com/appfuse/appfuse/trunk/plugins/appfuse-maven-plugin</developerConnection>
-        <url>http://source.appfuse.org/browse/appfuse/trunk/plugins/appfuse-maven-plugin</url>
+        <connection>scm:git:git@github.com:appfuse/appfuse.git</connection>
+        <developerConnection>scm:git:git@github.com:appfuse/appfuse.git</developerConnection>
+        <url>http://source.appfuse.org/browse/appfuse/plugins/appfuse-maven-plugin</url>
     </scm>
 
     <build>
