@@ -8,7 +8,7 @@
     ${'$'}{message:${pojoNameLower}Detail.message}
 </div>
 
-<div class="span5">
+<div class="span7">
     <form t:type="form" t:id="${pojoNameLower}Form" clientValidation="true" class="well form-horizontal">
         <t:errors/>
 

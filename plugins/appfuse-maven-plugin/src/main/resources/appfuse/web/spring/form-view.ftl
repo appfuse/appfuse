@@ -17,7 +17,7 @@
     <fmt:message key="${pojoNameLower}Detail.message"/>
 </div>
 
-<div class="span5">
+<div class="span7">
 <form:form commandName="${pojoNameLower}" method="post" action="${pojoNameLower}form" cssClass="well form-horizontal"
            id="${pojoNameLower}Form" onsubmit="return validate${pojo.shortName}(this)">
 <form:errors path="*" cssClass="alert alert-error fade in" element="div">

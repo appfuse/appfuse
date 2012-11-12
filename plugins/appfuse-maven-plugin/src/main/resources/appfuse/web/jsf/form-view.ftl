@@ -19,7 +19,7 @@
 <div class="span2">
     <h2>${'#'}{text['${pojoNameLower}Detail.heading']}</h2>
 </div>
-<div class="span5">
+<div class="span7">
 <h:form id="${pojoNameLower}Form" styleClass="well form-horizontal">
 <#rt/>
 <#foreach field in pojo.getAllPropertiesIterator()>

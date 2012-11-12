@@ -94,7 +94,7 @@ legend {
     text-align: center
 }
 
-.span5 > form.well, .span7 > form.well {
+.span7 > form.well, .span7 > form.well {
     margin-top: 20px;
 }
 

@@ -21,7 +21,7 @@
         </c:otherwise>
     </c:choose>
 </div>
-<div class="span5">
+<div class="span7">
     <s:form name="userForm" action="saveUser" method="post" validate="true" cssClass="well form-horizontal" autocomplete="off">
         <s:hidden key="user.id"/>
         <s:hidden key="user.version"/>

@@ -17,7 +17,7 @@
     <fmt:message key="${pojoNameLower}Detail.message"/>
 </div>
 
-<div class="span5">
+<div class="span7">
     <s:form id="${pojoNameLower}Form" action="save${pojo.shortName}" method="post" validate="true" cssClass="well form-horizontal">
 <#rt/>
 <#foreach field in pojo.getAllPropertiesIterator()>

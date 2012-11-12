@@ -10,7 +10,7 @@
     <h2><fmt:message key="signup.heading"/></h2>
     <fmt:message key="signup.message"/>
 </div>
-<div class="span5">
+<div class="span7">
     <s:form name="signupForm" action="saveSignup" method="post" validate="true" cssClass="well form-horizontal">
 
         <s:textfield key="user.username" required="true"/>

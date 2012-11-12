@@ -5,7 +5,7 @@
     ${infoMessage}
 </div>
 
-<div class="span5">
+<div class="span7">
 <!-- Add Error Block Here -->
 
 <form t:type="form" t:id="form" class="well form-horizontal">

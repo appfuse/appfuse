@@ -10,7 +10,7 @@
     <h2><fmt:message key="signup.heading"/></h2>
     <p><fmt:message key="signup.message"/></p>
 </div>
-<div class="span5">
+<div class="span7">
     <spring:bind path="user.*">
         <c:if test="${not empty status.errorMessages}">
             <div class="alert alert-error fade in">

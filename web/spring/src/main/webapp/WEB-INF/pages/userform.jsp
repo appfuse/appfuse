@@ -21,7 +21,7 @@
         </c:otherwise>
     </c:choose>
 </div>
-<div class="span5">
+<div class="span7">
     <spring:bind path="user.*">
         <c:if test="${not empty status.errorMessages}">
             <div class="alert alert-error fade in">
