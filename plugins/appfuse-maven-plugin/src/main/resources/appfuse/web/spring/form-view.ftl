@@ -20,7 +20,7 @@
 <div class="span7">
 <form:form commandName="${pojoNameLower}" method="post" action="${pojoNameLower}form" cssClass="well form-horizontal"
            id="${pojoNameLower}Form" onsubmit="return validate${pojo.shortName}(this)">
-<form:errors path="*" cssClass="alert alert-error fade in" element="div">
+<form:errors path="*" cssClass="alert alert-error fade in" element="div"/>
 <#rt/>
 <#foreach field in pojo.getAllPropertiesIterator()>
 <#if field.equals(pojo.identifierProperty)>
