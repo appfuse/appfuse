@@ -2,6 +2,10 @@ package org.appfuse.webapp.pages;
 
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.feedback.FeedbackMessage;
+import org.apache.wicket.markup.head.CssHeaderItem;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.markup.head.OnLoadHeaderItem;
 import org.apache.wicket.markup.html.*;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.*;
@@ -11,6 +15,7 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.Url;
 import org.apache.wicket.request.cycle.RequestCycle;
+import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.appfuse.Constants;
 import org.appfuse.webapp.AbstractWebPage;
 import org.appfuse.webapp.pages.components.RequiredLabel;
@@ -102,18 +107,17 @@ public class Login extends AbstractWebPage {
             log.warn("{} parameter not set in web.xml. Additional CSS can be missing.", Constants.CSS_THEME);
         } else {
             String layout1ColCss = "styles/" + cssTheme + "/layout-1col.css";
-            response.renderCSSReference(layout1ColCss);
+            response.render(CssHeaderItem.forUrl(layout1ColCss));
         }
     }
 
     private void addLoginJavaScriptToResponse(IHeaderResponse response) {
-        //TODO: MZA: Maybe it is worth to integrate those scripts with Wicket resources?
-        String loginJs = "scripts/login.js";
-        response.renderJavaScriptReference(loginJs);
+        JavaScriptResourceReference loginJsReference = new JavaScriptResourceReference(Login.class, "scripts/login.js");
+        response.render(JavaScriptHeaderItem.forReference(loginJsReference));
     }
 
     private void addInitDataOnLoadJavaScriptToResponse(IHeaderResponse response) {
-        response.renderOnLoadJavaScript("initDataOnLoad()");
+        response.render(OnLoadHeaderItem.forScript("initDataOnLoad()"));
     }
 
     private WebMarkupContainer createRememberMeGroup() {
@@ -155,8 +159,7 @@ public class Login extends AbstractWebPage {
     }
 
     private void setDefaultResponsePageIfNecessary() {
-        if(!continueToOriginalDestination()) {
-            setResponsePage(getApplication().getHomePage());
-        }
+        continueToOriginalDestination();
+        setResponsePage(getApplication().getHomePage());
     }
 }

@@ -40,7 +40,8 @@
     </scm>
 
     <properties>
-        <wicket.version>1.5.9</wicket.version>
+        <wicket.version>6.2.0</wicket.version>
+        <wicketstuff.version>${wicket.version}</wicketstuff.version>
     </properties>
 
     <build>
@@ -274,7 +275,7 @@
         <dependency>
             <groupId>org.wicketstuff</groupId>
             <artifactId>wicketstuff-annotation</artifactId>
-            <version>1.5.8.1</version>
+            <version>${wicketstuff.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework</groupId>

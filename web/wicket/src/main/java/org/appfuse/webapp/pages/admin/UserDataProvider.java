@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import java.io.Serializable;
 import java.util.*;
 
+import static org.appfuse.webapp.util.NumberRangeUtil.checkIfLongWithinIntegerRange;
 import static org.springframework.util.Assert.notNull;
 
 /**
@@ -20,7 +21,7 @@ import static org.springframework.util.Assert.notNull;
  *
  * @author Marcin Zajączkowski, 2011-05-22
  */
-public class UserDataProvider extends SortableDataProvider<User> {
+public class UserDataProvider extends SortableDataProvider<User, String> {
 
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
@@ -42,17 +43,19 @@ public class UserDataProvider extends SortableDataProvider<User> {
         return user;
     }
 
-    public Iterator<? extends User> iterator(int first, int count) {
+    public Iterator<? extends User> iterator(long first, long count) {
         //TODO: MZA: How sorting works in Tapestry/Spring MVC? - also in Java?
         List<User> readUsers = userManager.getUsers();
 //            Comparator<User> userComparator = UserComparatorResolver.getComparatorBySoftProperty(
 //                    getSort().getProperty(), getSort().isAscending());
 //            Collections.sort(readUsers, userComparator);
         Collections.sort(readUsers, comparator);
-        return readUsers.subList(first, first + count).iterator();
+
+        checkIfLongWithinIntegerRange(first, count, first + count);
+        return readUsers.subList((int)first, (int)first + (int)count).iterator();
     }
 
-    public int size() {
+    public long size() {
         //TODO: MZA: Not very optimal...
         return userManager.getUsers().size();
     }

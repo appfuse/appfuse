@@ -82,13 +82,13 @@ public class UserList extends AbstractWebPage {
         };
     }
 
-    private AjaxFallbackDefaultDataTable<User> createUserListTable() {
-        return new AjaxFallbackDefaultDataTable<User>(
+    private AjaxFallbackDefaultDataTable<User, String> createUserListTable() {
+        return new AjaxFallbackDefaultDataTable<User, String>(
                 "userListTable", createColumns(), new UserDataProvider(userManager), ROWS_PER_PAGE);
     }
 
-    private List<IColumn<User>> createColumns() {
-        List<IColumn<User>> userListColumns = new ArrayList<IColumn<User>>();
+    private List<IColumn<User, String>> createColumns() {
+        List<IColumn<User, String>> userListColumns = new ArrayList<IColumn<User, String>>();
         userListColumns.add(createLinkableColumn("user.username", "username", "username"));
         userListColumns.add(createColumn("user.lastName", "lastName", "lastName"));
         userListColumns.add(createColumn("user.email", "email", "email"));
@@ -97,8 +97,8 @@ public class UserList extends AbstractWebPage {
         return userListColumns;
     }
 
-    private IColumn<User> createLinkableColumn(String key, String sortProperty, String propertyExpression) {
-        return new PropertyColumn<User>(new ResourceModel(key), sortProperty, propertyExpression) {
+    private IColumn<User, String> createLinkableColumn(String key, String sortProperty, String propertyExpression) {
+        return new PropertyColumn<User, String>(new ResourceModel(key), sortProperty, propertyExpression) {
             @Override
             public void populateItem(Item<ICellPopulator<User>> iCellPopulatorItem, String componentId,
                                      IModel<User> rowModel) {
@@ -107,8 +107,8 @@ public class UserList extends AbstractWebPage {
         };
     }
 
-    private PropertyColumn<User> createColumn(String key, String sortProperty, String propertyExpression) {
-        return new PropertyColumn<User>(new ResourceModel(key), sortProperty, propertyExpression);
+    private PropertyColumn<User, String> createColumn(String key, String sortProperty, String propertyExpression) {
+        return new PropertyColumn<User, String>(new ResourceModel(key), sortProperty, propertyExpression);
     }
 
     //TODO: MZA: Change to LinkPanel make more generic

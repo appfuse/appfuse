@@ -2,7 +2,10 @@ package org.appfuse.webapp;
 
 import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
+import org.apache.wicket.markup.head.JavaScriptReferenceHeaderItem;
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.request.resource.JavaScriptResourceReference;
+import org.apache.wicket.settings.IJavaScriptLibrarySettings;
 import org.apache.wicket.settings.IRequestCycleSettings;
 import org.appfuse.webapp.pages.Login;
 import org.apache.wicket.Page;
@@ -57,6 +60,10 @@ import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
  *  - password hint url is not properly generated - http://localhost:8080/login? - possible problem with injecting JavaScript - DONE
  *  - check if absolute url is properly created (3 places) - DONE
  *
+ * Migration to 6
+ *  - DataTable style has changed and the header takes two lines instead of one - LATER (when with Bootstrap)
+ *  - JavaScript on a login page doesn't work - a lot of error messages - probably Prototype conflicts with JQuery - DONE
+ *
  * @author Marcin Zajączkowski, 2010-09-02
  */
 public class WicketApplication extends AuthenticatedWebApplication {
@@ -68,6 +75,8 @@ public class WicketApplication extends AuthenticatedWebApplication {
     @Override
     protected void init() {
         super.init();
+
+        setNoConflictModeInJQuery();
 
         getComponentInstantiationListeners().add(new SpringComponentInjector(this, getContext(), true));
         initPageMounting();
@@ -85,6 +94,21 @@ public class WicketApplication extends AuthenticatedWebApplication {
           getResourceSettings().setResourcePollFrequency(Duration.ONE_SECOND);
         }
 */
+    }
+
+    private void setNoConflictModeInJQuery() {
+        IJavaScriptLibrarySettings jsSettings = getJavaScriptLibrarySettings();
+        JavaScriptResourceReference originalJQueryReference =
+                (JavaScriptResourceReference)jsSettings.getJQueryReference();
+
+        JavaScriptResourceReference jQueryNoConflictResourceReference =
+                new JavaScriptResourceReference(WicketApplication.class, "pages/scripts/jquery.noconflict.js");
+        JavaScriptReferenceHeaderItem jQueryNoConflictReferenceHeaderItem = getResourceBundles().addJavaScriptBundle(
+                WicketApplication.class, "jquery.plus.jquery.noconflict.js",
+                originalJQueryReference,
+                jQueryNoConflictResourceReference);
+
+        jsSettings.setJQueryReference(jQueryNoConflictReferenceHeaderItem.getReference());
     }
 
     private void initPageMounting() {
