@@ -9,7 +9,7 @@
     <form t:type="form" method="get" t:id="searchForm" autofocus="false" class="form-search">
     <div id="search" class="input-append">
         <t:textfield size="20" name="q" t:id="q" placeholder="${'$'}{message:search.enterTerms}" class="input-medium search-query"/>
-        <button t:type="submit" class="btn"><i class="icon-search"></i> ${'$'}{message:button.search}</button>
+        <button type="submit" class="btn"><i class="icon-search"></i> ${'$'}{message:button.search}</button>
     </div>
     </form>
 
