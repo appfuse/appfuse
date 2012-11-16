@@ -322,13 +322,26 @@
                             <port>${cargo.port}</port>
                             <sourcedirectory>src/test/resources</sourcedirectory>
                             <sourcefile>web-tests.xml</sourcefile>
-                            <target>run-all-tests</target>
+                            <target>${webtest.target}</target>
                             <basepath>${project.build.finalName}</basepath>
                             <resultpath>target/webtest/webtest-results</resultpath>
                             <haltonfailure>false</haltonfailure>
                             <haltonerror>false</haltonerror>
                             <loglevel>fatal</loglevel>
                         </configuration>
+                        <dependencies>
+                            <dependency>
+                                <groupId>ant-contrib</groupId>
+                                <artifactId>ant-contrib</artifactId>
+                                <version>1.0b3</version>
+                                <exclusions>
+                                    <exclusion>
+                                        <groupId>ant</groupId>
+                                        <artifactId>ant</artifactId>
+                                    </exclusion>
+                                </exclusions>
+                            </dependency>
+                        </dependencies>
                     </plugin>
                 </plugins>
             </build>
