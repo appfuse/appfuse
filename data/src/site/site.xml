@@ -12,6 +12,7 @@
         <version>1.3.0</version>
     </skin>
     <body>
+        <menu ref="modules"/>
         ${reports}
     </body>
 </project>
