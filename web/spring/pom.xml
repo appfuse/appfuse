@@ -307,24 +307,6 @@
                             <haltonerror>false</haltonerror>
                             <loglevel>fatal</loglevel>
                         </configuration>
-                        <dependencies>
-                            <dependency>
-                                <groupId>ant-contrib</groupId>
-                                <artifactId>ant-contrib</artifactId>
-                                <version>1.0b3</version>
-                                <exclusions>
-                                    <exclusion>
-                                        <groupId>ant</groupId>
-                                        <artifactId>ant</artifactId>
-                                    </exclusion>
-                                </exclusions>
-                            </dependency>
-                            <dependency>
-                                <groupId>ant</groupId>
-                                <artifactId>ant-nodeps</artifactId>
-                                <version>1.6.5</version>
-                            </dependency>
-                        </dependencies>
                     </plugin>
                 </plugins>
             </build>
