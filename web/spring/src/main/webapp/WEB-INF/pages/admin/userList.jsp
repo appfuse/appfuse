@@ -41,8 +41,8 @@
         </display:column>
         <display:column property="enabled" titleKey="user.enabled" media="csv xml excel pdf"/>
 
-        <display:setProperty name="paging.banner.item_name" value="user"/>
-        <display:setProperty name="paging.banner.items_name" value="users"/>
+        <display:setProperty name="paging.banner.item_name"><fmt:message key="userList.user"/></display:setProperty>
+        <display:setProperty name="paging.banner.items_name"><fmt:message key="userList.users"/></display:setProperty>
 
         <display:setProperty name="export.excel.filename" value="User List.xls"/>
         <display:setProperty name="export.csv.filename" value="User List.csv"/>

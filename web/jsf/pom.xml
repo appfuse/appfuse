@@ -299,6 +299,13 @@
                                     <goal>verify-result</goal>
                                 </goals>
                             </execution>
+                            <execution>
+                                <id>webtest-report-html</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                            </execution>
                         </executions>
                         <configuration>
                             <host>${cargo.host}</host>
@@ -312,19 +319,6 @@
                             <haltonerror>false</haltonerror>
                             <loglevel>fatal</loglevel>
                         </configuration>
-                        <dependencies>
-                            <dependency>
-                                <groupId>ant-contrib</groupId>
-                                <artifactId>ant-contrib</artifactId>
-                                <version>1.0b3</version>
-                                <exclusions>
-                                    <exclusion>
-                                        <groupId>ant</groupId>
-                                        <artifactId>ant</artifactId>
-                                    </exclusion>
-                                </exclusions>
-                            </dependency>
-                        </dependencies>
                     </plugin>
                 </plugins>
             </build>

@@ -104,6 +104,10 @@
                     text=".*${userList.title}.*" regex="true"/>
                 <setinputfield description="set search term" name="q" value="matt_raible"/>
                 <clickbutton label="${button.search}" description="Click Search"/>
+                <verifyXPath
+                     description="Count the number of users found"
+                     xpath="count(//table[@id='users']/tbody/tr)"
+                     text="1"/>
                 <propertyregex property="one.user.found"
                     input="${paging.banner.one_item_found}"
                     regexp="\{0\}"
