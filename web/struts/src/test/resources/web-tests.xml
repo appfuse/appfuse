@@ -4,17 +4,6 @@
 ]>
 <project basedir="." default="run-all-tests">
     <taskdef resource="webtestTaskdefs.properties" />
-    <!-- for propertyregex: allows to build a message string with parameter replacement: "User {0} successfully created" -->
-    <!-- usage example -->
-    <!--
-        <propertyregex property="updated.byAdmin"
-            input="${user.updated.byAdmin}"
-            regexp="\{0\}"
-            replace="${it_user_signup.fullname}"
-            global="false" />
-        <verifytext description="verify success message" text="${updated.byAdmin}"/>
-     -->
-    <taskdef resource="net/sf/antcontrib/antcontrib.properties" />
 
     <!-- Use i18n bundle, 2nd one listed is the default -->
     <property file="../../../../common/target/classes/ApplicationResources_${user.language}.properties"/>
@@ -108,12 +97,6 @@
                      description="Count the number of users found"
                      xpath="count(//table[@id='users']/tbody/tr)"
                      text="1"/>
-                <propertyregex property="one.user.found"
-                    input="${paging.banner.one_item_found}"
-                    regexp="\{0\}"
-                    replace="${userList.user}"
-                    global="false" />
-                <verifytext description="verify results" text="${one.user.found}"/>
             </steps>
         </webtest>
     </target>

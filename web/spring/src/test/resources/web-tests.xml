@@ -108,12 +108,6 @@
                      description="Count the number of users found"
                      xpath="count(//table[@id='users']/tbody/tr)"
                      text="1"/>
-                <propertyregex property="one.user.found"
-                    input="${paging.banner.one_item_found}"
-                    regexp="\{0\}"
-                    replace="${userList.user}"
-                    global="false" />
-                <verifytext description="verify results" text="${one.user.found}"/>
             </steps>
         </webtest>
     </target>
