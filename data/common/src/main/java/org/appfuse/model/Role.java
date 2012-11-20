@@ -121,11 +121,4 @@ public class Role extends BaseObject implements Serializable, GrantedAuthority {
                 .append(this.name)
                 .toString();
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    public int compareTo(Object o) {
-        return (equals(o) ? 0 : -1);
-    }
 }
