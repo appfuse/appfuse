@@ -29,7 +29,7 @@
     <name>AppFuse Data Modules</name>
 
     <description>
-        AppFuse domain objects (appfuse-data-common) and DAO frameworks (Hibernate, iBATIS, JPA). 
+        AppFuse domain objects (appfuse-data-common) and DAO frameworks (Hibernate and JPA).
     </description>
 
     <scm>
