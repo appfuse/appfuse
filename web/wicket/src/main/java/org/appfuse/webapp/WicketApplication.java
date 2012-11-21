@@ -101,10 +101,12 @@ public class WicketApplication extends AuthenticatedWebApplication {
         JavaScriptResourceReference originalJQueryReference =
                 (JavaScriptResourceReference)jsSettings.getJQueryReference();
 
+        //TODO: MZA: Script resources are placed in src/main/resources/ instead of webapp/ to make it visible also
+        // in tests with WicketTester
         JavaScriptResourceReference jQueryNoConflictResourceReference =
-                new JavaScriptResourceReference(WicketApplication.class, "pages/scripts/jquery.noconflict.js");
+                new JavaScriptResourceReference(WicketApplication.class, "pages/scripts/jquery-noconflict.js");
         JavaScriptReferenceHeaderItem jQueryNoConflictReferenceHeaderItem = getResourceBundles().addJavaScriptBundle(
-                WicketApplication.class, "jquery.plus.jquery.noconflict.js",
+                WicketApplication.class, "jquery.plus.jquery-noconflict.js",
                 originalJQueryReference,
                 jQueryNoConflictResourceReference);
 
