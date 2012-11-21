@@ -10,8 +10,12 @@
         <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/${appConfig["csstheme"]}/theme.css'/>" />
         <link rel="stylesheet" type="text/css" media="print" href="<c:url value='/styles/${appConfig["csstheme"]}/print.css'/>" />
 
-        <decorator:head/>
+        <!-- TODO: MZA: After add those imports there is currently no reason to keep separate default.jsp for Wicket.
+                        Remote it if not needed also after integration with Bootstrap -->
+        <script type="text/javascript" src="<c:url value='/scripts/prototype.js'/>"></script>
+        <script type="text/javascript" src="<c:url value='/scripts/scriptaculous.js'/>"></script>
         <script type="text/javascript" src="<c:url value='/scripts/global.js'/>"></script>
+        <decorator:head/>
     </head>
 <body<decorator:getProperty property="body.id" writeEntireProperty="true"/><decorator:getProperty property="body.class" writeEntireProperty="true"/>>
 

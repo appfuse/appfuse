@@ -40,7 +40,8 @@
     </scm>
 
     <properties>
-        <wicket.version>1.4.15</wicket.version>
+        <wicket.version>6.2.0</wicket.version>
+        <wicketstuff.version>${wicket.version}</wicketstuff.version>
     </properties>
 
     <build>
@@ -268,7 +269,7 @@
         <!-- Wicket -->
         <dependency>
             <groupId>org.apache.wicket</groupId>
-            <artifactId>wicket</artifactId>
+            <artifactId>wicket-core</artifactId>
             <version>${wicket.version}</version>
         </dependency>
         <dependency>
@@ -293,8 +294,8 @@
         </dependency>
         <dependency>
             <groupId>org.wicketstuff</groupId>
-            <artifactId>annotation</artifactId>
-            <version>1.4.14</version>
+            <artifactId>wicketstuff-annotation</artifactId>
+            <version>${wicketstuff.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework</groupId>

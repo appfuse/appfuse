@@ -1,8 +1,11 @@
 package org.appfuse.webapp;
 
-import org.apache.wicket.authentication.AuthenticatedWebApplication;
-import org.apache.wicket.authentication.AuthenticatedWebSession;
+import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
+import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
+import org.apache.wicket.markup.head.JavaScriptReferenceHeaderItem;
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.request.resource.JavaScriptResourceReference;
+import org.apache.wicket.settings.IJavaScriptLibrarySettings;
 import org.apache.wicket.settings.IRequestCycleSettings;
 import org.appfuse.webapp.pages.Login;
 import org.apache.wicket.Page;
@@ -42,8 +45,24 @@ import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
  *  - on "mvn clean package" WicketApplication.properties isn't copied to target which causes:
  *    'Unable to find property: 'user.password' for component: userEditForm:userEditPanel' in tests. When run from IDE
  *    file is copied and tests from Maven works fine
- *  - broken acceptance test: web/wicket/src/test/resources/login.xmlf:1: HTTP error 400: 400 Bad Request for http://localhost:9876/scripts/login.js
+ *  - broken acceptance tests (part 1): web/wicket/src/test/resources/login.xmlf:1: HTTP error 400: 400 Bad Request for http://localhost:9876/scripts/login.js - DONE
+ *  - broken acceptance tests (part 2): 400 Bad Request for http://localhost:9876/appfuse-wicket-2.1.0-SNAPSHOT/../../login
+ *    on password hint (web-tests.xml:52) - see comment PasswordHint class
+ *  - broken acceptance tests (part 3) - Sign up page has wrong title - AbstractUserEdit.html markup title should be change depending on
+ *    a concrete page (Sign up, Edit user, ...) and other broken tests
+ *  - decide if there should be page url passwordHint or passwordhint
  *  - assign roles doesn't work when editing an user from a list - #14 - DONE
+ *  - Java scripts on a Login page doesn't work. JS error: "ReferenceError: $ is not defined" in global.js could be a reason - DONE -
+ *    Tapestry had its own prototype.js import and it was removed also in Wicket default.jsp
+ *  - find some better way to create parametrized string messages than StringResourceModel
+ *
+ * Migration to 1.5
+ *  - password hint url is not properly generated - http://localhost:8080/login? - possible problem with injecting JavaScript - DONE
+ *  - check if absolute url is properly created (3 places) - DONE
+ *
+ * Migration to 6
+ *  - DataTable style has changed and the header takes two lines instead of one - LATER (when with Bootstrap)
+ *  - JavaScript on a login page doesn't work - a lot of error messages - probably Prototype conflicts with JQuery - DONE
  *
  * @author Marcin Zajączkowski, 2010-09-02
  */
@@ -57,12 +76,14 @@ public class WicketApplication extends AuthenticatedWebApplication {
     protected void init() {
         super.init();
 
-        addComponentInstantiationListener(new SpringComponentInjector(this, getContext(), true));
+        setNoConflictModeInJQuery();
+
+        getComponentInstantiationListeners().add(new SpringComponentInjector(this, getContext(), true));
         initPageMounting();
 
         //MZA: Redirect after post causes page to be shrunk (probably) due to SiteMesh bug:
         //http://jira.opensymphony.com/browse/SIM-217
-        getRequestCycleSettings().setRenderStrategy(IRequestCycleSettings.ONE_PASS_RENDER);
+        getRequestCycleSettings().setRenderStrategy(IRequestCycleSettings.RenderStrategy.ONE_PASS_RENDER);
 
         //TODO: MZA: Add app.properties
 /*
@@ -73,6 +94,23 @@ public class WicketApplication extends AuthenticatedWebApplication {
           getResourceSettings().setResourcePollFrequency(Duration.ONE_SECOND);
         }
 */
+    }
+
+    private void setNoConflictModeInJQuery() {
+        IJavaScriptLibrarySettings jsSettings = getJavaScriptLibrarySettings();
+        JavaScriptResourceReference originalJQueryReference =
+                (JavaScriptResourceReference)jsSettings.getJQueryReference();
+
+        //TODO: MZA: Script resources are placed in src/main/resources/ instead of webapp/ to make it visible also
+        // in tests with WicketTester
+        JavaScriptResourceReference jQueryNoConflictResourceReference =
+                new JavaScriptResourceReference(WicketApplication.class, "pages/scripts/jquery-noconflict.js");
+        JavaScriptReferenceHeaderItem jQueryNoConflictReferenceHeaderItem = getResourceBundles().addJavaScriptBundle(
+                WicketApplication.class, "jquery.plus.jquery-noconflict.js",
+                originalJQueryReference,
+                jQueryNoConflictResourceReference);
+
+        jsSettings.setJQueryReference(jQueryNoConflictReferenceHeaderItem.getReference());
     }
 
     private void initPageMounting() {

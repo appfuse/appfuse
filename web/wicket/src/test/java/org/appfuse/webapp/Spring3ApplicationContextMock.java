@@ -1,9 +1,7 @@
 package org.appfuse.webapp;
 
-import org.apache.wicket.spring.injection.annot.test.AnnotApplicationContextMock;
 import org.apache.wicket.spring.test.ApplicationContextMock;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.UnsatisfiedDependencyException;
 
 import java.lang.annotation.Annotation;
 import java.util.Collections;
@@ -31,7 +29,7 @@ public class Spring3ApplicationContextMock extends ApplicationContextMock {
 
     @SuppressWarnings("unchecked")
     public <T> T getBean(Class<T> tClass) throws BeansException {
-        Map<Class<T>, T> foundBeans = (Map<Class<T>, T>)getBeansOfType(tClass);
+        Map<String, T> foundBeans = getBeansOfType(tClass);
         final int numberOfBeans = foundBeans.size();
         if (numberOfBeans == 0 || numberOfBeans > 1) {
             //TODO: Find some better concrete exception

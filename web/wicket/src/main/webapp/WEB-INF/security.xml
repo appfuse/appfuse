@@ -8,8 +8,9 @@
     <http pattern="/styles*/**" security="none"/>
     <http pattern="/scripts*/**" security="none"/>
     <http pattern="/assets*/**" security="none"/>
-    <!-- others JS scripts, like internal Wicket scripts -->
-    <http pattern="/resources/**/*.js" security="none"/>
+    <!-- Wicket managed resources (java scripts and css) -->
+    <http pattern="/wicket/resource/**/*.js" security="none"/>
+    <http pattern="/wicket/resource/**/*.css" security="none"/>
 
     <!-- Securing at path level doesn't work well with Wicket, because after initial page visit Wicket uses custom
          url format, e.g. edit profile page could be:
