@@ -316,7 +316,7 @@
         <db.name>${artifactId.replaceAll('-','_')}</db.name>
 
         <!-- Framework dependency versions -->
-        <appfuse.version>2.1.1-SNAPSHOT</appfuse.version>
+        <appfuse.version>2.2-SNAPSHOT</appfuse.version>
         <commons.fileupload.version>1.2.1</commons.fileupload.version>
         <commons.io.version>1.3.2</commons.io.version>
         <displaytag.version>1.2</displaytag.version>
@@ -331,8 +331,8 @@
         <servlet.version>2.5</servlet.version>
         <wiser.version>1.2</wiser.version>
 
-        <!-- WebTest dependency versions  -->
-        <webtest.version>3.0</webtest.version>
+        <!-- WebTest default target -->
+        <webtest.target>run-all-tests</webtest.target>
 
         <cargo.container>tomcat7x</cargo.container>
         <cargo.container.home>${env.CATALINA_HOME}</cargo.container.home>
@@ -357,8 +357,5 @@
         <jdbc.url><![CDATA[jdbc:mysql://localhost/${db.name}?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true]]></jdbc.url>
         <jdbc.username>root</jdbc.username>
         <jdbc.password/>
-
-        <!-- Search index settings -->
-        <search.index.basedir>${project.build.directory}/index</search.index.basedir>
     </properties>
 </project>

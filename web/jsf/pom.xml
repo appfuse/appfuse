@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.appfuse</groupId>
         <artifactId>appfuse-web</artifactId>
-        <version>2.1.1-SNAPSHOT</version>
+        <version>2.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>appfuse-jsf</artifactId>
@@ -34,9 +34,9 @@
     </description>
 
     <scm>
-        <connection>scm:svn:https://github.com/appfuse/appfuse/trunk/web/jsf</connection>
-        <developerConnection>scm:svn:https://github.com/appfuse/appfuse/trunk/web/jsf</developerConnection>
-        <url>http://source.appfuse.org/browse/appfuse/trunk/web/jsf</url>
+        <connection>scm:git:git@github.com:appfuse/appfuse.git</connection>
+        <developerConnection>scm:git:git@github.com:appfuse/appfuse.git</developerConnection>
+        <url>http://source.appfuse.org/browse/appfuse/web/jsf</url>
     </scm>
 
     <build>
@@ -82,16 +82,36 @@
                     </dependency>
                 </dependencies>
             </plugin>
+            <!-- clean-up previous hibernate-search indexed from integration tests, as there could be a lock -->
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>${user.home}/${project.build.finalName}/index</directory>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.2</version>
+                <version>2.3</version>
                 <configuration>
+                    <!-- will package a ready-to-run app regarding hibernate-search index location -->
+                    <escapeString>\</escapeString>
                     <webResources>
+                        <!-- Need to overwrite. Cannot filter original with different values as filter cannot be escaped: MRESOURCES-126 -->
+                        <resource>
+                            <directory>src/main/resources/packaged</directory>
+                            <targetPath>WEB-INF/classes</targetPath>
+                            <filtering>true</filtering>
+                            <includes>
+                                <include>hibernate.properties</include>
+                            </includes>
+                        </resource>
                         <resource>
                             <directory>../common/src/main/webapp</directory>
-                            <excludes>
-                                <exclude>login.jsp</exclude>
-                            </excludes>
                         </resource>
                         <resource>
                             <directory>../common/target/classes</directory>
@@ -279,6 +299,13 @@
                                     <goal>verify-result</goal>
                                 </goals>
                             </execution>
+                            <execution>
+                                <id>webtest-report-html</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                            </execution>
                         </executions>
                         <configuration>
                             <host>${cargo.host}</host>
@@ -288,8 +315,8 @@
                             <target>run-all-tests</target>
                             <basepath>${project.build.finalName}</basepath>
                             <resultpath>target/webtest/webtest-results</resultpath>
-                            <haltonfailure>true</haltonfailure>
-                            <haltonerror>true</haltonerror>
+                            <haltonfailure>false</haltonfailure>
+                            <haltonerror>false</haltonerror>
                             <loglevel>fatal</loglevel>
                         </configuration>
                     </plugin>

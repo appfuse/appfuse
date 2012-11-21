@@ -6,12 +6,12 @@
     <parent>
         <groupId>org.appfuse</groupId>
         <artifactId>appfuse</artifactId>
-        <version>2.1.1-SNAPSHOT</version>
+        <version>2.2-SNAPSHOT</version>
     </parent>
 
     <groupId>org.appfuse.archetypes</groupId>
     <artifactId>appfuse-archetypes</artifactId>
-    <version>2.1.1-SNAPSHOT</version>
+    <version>2.2-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>AppFuse Archetype Modules</name>
 
@@ -20,9 +20,9 @@
     </description>
 
     <scm>
-        <connection>scm:svn:https://github.com/appfuse/appfuse/trunk/archetypes</connection>
-        <developerConnection>scm:svn:https://github.com/appfuse/appfuse/trunk/archetypes</developerConnection>
-        <url>http://source.appfuse.org/browse/appfuse/trunk/archetypes</url>
+        <connection>scm:git:git@github.com:appfuse/appfuse.git</connection>
+        <developerConnection>scm:git:git@github.com:appfuse/appfuse.git</developerConnection>
+        <url>http://source.appfuse.org/browse/appfuse/archetypes</url>
     </scm>
 
     <modules>

@@ -42,10 +42,12 @@
             </div>
         </fieldset>
         <fieldset class="form-actions">
-            <input type="submit" name="upload" class="btn btn-primary" onclick="bCancel=false"
-                value="<fmt:message key="button.upload"/>" />
-            <input type="submit" name="cancel" class="btn" onclick="bCancel=true"
-                value="<fmt:message key="button.cancel"/>" />
+            <button type="submit" name="upload" class="btn btn-primary" onclick="bCancel=false">
+                <i class="icon-upload icon-white"></i> <fmt:message key="button.upload"/>
+            </button>
+            <button type="submit" name="cancel" class="btn" onclick="bCancel=true">
+                <i class="icon-remove"></i> <fmt:message key="button.cancel"/>
+            </button>
         </fieldset>
     </form:form>
 </div>

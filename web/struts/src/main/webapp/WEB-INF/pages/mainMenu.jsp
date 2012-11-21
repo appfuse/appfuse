@@ -2,7 +2,6 @@
 
 <head>
     <title><fmt:message key="mainMenu.title"/></title>
-    <meta name="heading" content="<fmt:message key='mainMenu.heading'/>"/>
     <meta name="menu" content="MainMenu"/>
 </head>
 <body class="home">

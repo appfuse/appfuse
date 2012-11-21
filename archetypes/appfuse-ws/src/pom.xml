@@ -495,9 +495,9 @@
         <db.name>${artifactId.replaceAll('-','_')}</db.name>
 
         <!-- Framework dependency versions -->
-        <appfuse.version>2.1.1-SNAPSHOT</appfuse.version>
+        <appfuse.version>2.2-SNAPSHOT</appfuse.version>
         <commons.dbcp.version>1.3</commons.dbcp.version>
-        <cxf.version>2.6.0</cxf.version>
+        <cxf.version>2.7.0</cxf.version>
         <enunciate.version>1.26</enunciate.version>
         <spring.version>3.1.3.RELEASE</spring.version>
 
@@ -518,8 +518,5 @@
             <![CDATA[jdbc:mysql://localhost/${db.name}?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true]]></jdbc.url>
         <jdbc.username>root</jdbc.username>
         <jdbc.password></jdbc.password>
-
-        <!-- Search index settings -->
-        <search.index.basedir>${project.build.directory}/index</search.index.basedir>
     </properties>
 </project>

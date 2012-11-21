@@ -9,6 +9,7 @@
     <title><decorator:title/> | <fmt:message key="webapp.name"/></title>
 
     <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/lib/bootstrap-2.2.1.min.css'/>" />
+    <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/lib/bootstrap-responsive-2.2.1.min.css'/>" />
     <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/style.css'/>" />
     <decorator:head/>
 
@@ -23,21 +24,14 @@
     <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
             <div class="container-fluid">
+                <%-- For smartphones and smaller screens --%>
+                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
                 <a class="brand" href="<c:url value='/'/>"><fmt:message key="webapp.name"/></a>
-                <menu:useMenuDisplayer name="Velocity" config="navbarMenu.vm" permissions="rolesAdapter">
-                <ul class="nav">
-                    <c:if test="${empty pageContext.request.remoteUser}">
-                        <li class="active">
-                            <a href="<c:url value="/login"/>"><fmt:message key="login.title"/></a>
-                        </li>
-                    </c:if>
-                    <menu:displayMenu name="MainMenu"/>
-                    <menu:displayMenu name="UserMenu"/>
-                    <menu:displayMenu name="AdminMenu"/>
-                    <menu:displayMenu name="Logout"/>
-                </ul>
-                </menu:useMenuDisplayer>
-
+                <%@ include file="/common/menu.jsp" %>
                 <c:if test="${pageContext.request.locale.language ne 'en'}">
                     <div id="switchLocale"><a href="<c:url value='/?locale=en'/>">
                         <fmt:message key="webapp.name"/> in English</a>

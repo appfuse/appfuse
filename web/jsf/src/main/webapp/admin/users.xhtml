@@ -6,7 +6,6 @@
 <f:loadBundle var="text" basename="#{userList.bundleName}"/>
 <head>
     <title>#{text['userList.title']}</title>
-    <meta name="heading" content="#{text['userList.heading']}"/>
     <meta name="menu" content="AdminMenu"/>
 </head>
 
@@ -15,23 +14,26 @@
 
     <h:form id="searchForm" styleClass="form-search">
     <div id="search" class="input-append">
-        <h:inputText id="q" name="q" size="20" value="#{userList.query}" styleClass="span6 search-query"/>
-        <h:commandButton value="#{text['button.search']}" styleClass="btn" action="#{userList.search}"/>
+        <h:inputText id="q" name="q" size="20" value="#{userList.query}" styleClass="input-medium search-query"/>
+        <h:commandButton styleClass="btn" action="#{userList.search}" value="#{text['button.search']}"/>
     </div>
     </h:form>
 
     <h:form id="editUser">
 
-    <h:commandButton value="#{text['button.add']}" action="#{userForm.add}" id="add" styleClass="btn">
-        <f:param name="from" value="list"/>
-    </h:commandButton>
-    <h:commandButton value="#{text['button.done']}" action="mainMenu" id="cancel"
-        immediate="true" styleClass="btn" style="margin-left: 5px"/>
+    <div id="actions" class="form-actions">
+        <h:commandButton action="#{userForm.add}" value="#{text['button.add']}" id="add" styleClass="btn btn-primary">
+            <f:param name="from" value="list"/>
+        </h:commandButton>
+        <h:commandButton value="#{text['button.done']}" action="mainMenu" id="cancel"
+            immediate="true" styleClass="btn">
+        </h:commandButton>
+    </div>
 
     <!-- Error from this table is caused by http://issues.apache.org/jira/browse/TOMAHAWK-466 -->
     <t:dataTable id="users" var="user" style="margin-top: 10px"
         value="#{userList.users}" rows="25" sortColumn="#{userList.sortColumn}"
-        sortAscending="#{userList.ascending}" styleClass="scrollerTable table"
+        sortAscending="#{userList.ascending}" styleClass="table table-condensed table-striped table-hover"
         headerClass="standardTable_Header" rowClasses="standardTable_Row1,standardTable_Row2"
         columnClasses="standardTable_Column,standardTable_Column,standardTable_Column,standardTable_Column,standardTable_ColumnCentered">
         <t:column width="25%">

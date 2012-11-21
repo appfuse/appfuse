@@ -1,5 +1,5 @@
 body {
-    padding-top: 75px;
+    padding-top: 50px;
 }
 
 body > .navbar .brand {
@@ -10,6 +10,10 @@ body > .navbar .brand {
     padding-left: 0;
     padding-right: 0;
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 30px rgba(255, 255, 255, 0.125);
+}
+
+body#login {
+    padding-bottom: 40px;
 }
 
 .navbar .brand:hover {
@@ -39,7 +43,11 @@ legend {
     margin-bottom: 0;
 }
 
-.btn-group .btn {
+.btn-group {
+    margin-bottom: 10px;
+}
+
+.btn-group .btn, .form-actions .btn {
     margin-left: 5px;
 }
 
@@ -50,6 +58,52 @@ legend {
 
 #search input[type="text"] {
     display: inline-block;
+}
+
+.form-signin {
+    max-width: 300px;
+    padding: 19px 29px 29px;
+    margin: 20px auto 20px;
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+}
+
+.form-signin .form-signin-heading {
+    margin: 0 0 20px 0;
+}
+
+.form-signin .checkbox {
+    margin-bottom: 10px;
+}
+
+.form-signin input[type="text"],
+.form-signin input[type="password"] {
+    font-size: 16px;
+    height: auto;
+    margin-bottom: 15px;
+    padding: 7px 9px;
+}
+
+#login p {
+    text-align: center
+}
+
+.span7 > form.well, .span7 > form.well {
+    margin-top: 20px;
+}
+
+form input {
+    width: 90%;
+}
+
+.alert {
+    margin-bottom: 0;
 }
 
 /* TABLES */
@@ -134,6 +188,7 @@ span.pagelinks {
 #footer a {
     color: #808080;
     text-decoration: none;
+    margin-left: 5px;
 }
 
 #footer a:hover {
@@ -147,6 +202,7 @@ span.pagelinks {
 #footer span.left, #footer span.right {
     text-align: center;
     margin: 5px;
+    padding: 0 10px;
 }
 
 /* END FOOTER */
@@ -163,4 +219,54 @@ span.pagelinks {
 .right {
     margin: 10px 0 5px 10px;
     float: right;
+}
+
+/* Responsive
+-------------------------------------------------- */
+
+/* Desktop large
+------------------------- */
+@media (min-width: 1200px) {
+
+}
+
+/* Desktop
+------------------------- */
+@media (max-width: 980px) {
+
+}
+
+/* Tablet to desktop
+------------------------- */
+@media (min-width: 768px) and (max-width: 980px) {
+    /* Remove any padding from the body */
+    body {
+        padding-top: 0;
+    }
+}
+
+/* Tablet
+------------------------- */
+@media (max-width: 767px) {
+    /* Remove any padding from the body */
+    body {
+        padding-top: 0;
+    }
+}
+
+/* Landscape phones
+------------------------- */
+@media (max-width: 480px) {
+    body {
+        padding-top: 0;
+    }
+
+    body > .navbar .brand {
+        margin-left: 10px;
+    }
+
+    #search {
+        float: none;
+        margin-top: 0;
+    }
 }

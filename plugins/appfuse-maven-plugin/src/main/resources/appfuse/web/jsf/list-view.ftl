@@ -17,19 +17,23 @@
 
     <h:form id="searchForm" styleClass="form-search">
     <div id="search" class="input-append">
-        <h:inputText id="q" name="q" size="20" value="${'#'}{${pojoNameLower}List.query}" styleClass="span6 search-query"/>
+        <h:inputText id="q" name="q" size="20" value="${'#'}{${pojoNameLower}List.query}" styleClass="input-medium search-query"/>
         <h:commandButton value="${'#'}{text['button.search']}" styleClass="btn" action="${'#'}{${pojoNameLower}List.search}"/>
     </div>
     </h:form>
 
+    <p>${'#'}{text['${pojoNameLower}List.message']}</p>
+
     <h:form id="edit${pojo.shortName}">
 
-    <h:commandButton value="${'#'}{text['button.add']}" action="add" id="add" immediate="true" styleClass="btn"/>
-    <h:commandButton value="${'#'}{text['button.done']}" action="mainMenu" id="cancel" immediate="true" styleClass="btn" style="margin-left: 5px"/>
+    <div id="actions" class="form-actions">
+        <h:commandButton value="${'#'}{text['button.add']}" action="add" id="add" immediate="true" styleClass="btn btn-primary"/>
+        <h:commandButton value="${'#'}{text['button.done']}" action="mainMenu" id="cancel" immediate="true" styleClass="btn"/>
+    </div>
 
-    <t:dataTable id="${util.getPluralForWord(pojoNameLower)}" var="${pojoNameLower}" style="margin-top: 10px"
+    <t:dataTable id="${util.getPluralForWord(pojoNameLower)}" var="${pojoNameLower}"
         value="${'#'}{${pojoNameLower}List.${util.getPluralForWord(pojoNameLower)}}" rows="25" sortColumn="${'#'}{${pojoNameLower}List.sortColumn}"
-        sortAscending="${'#'}{${pojoNameLower}List.ascending}" styleClass="scrollerTable table"
+        sortAscending="${'#'}{${pojoNameLower}List.ascending}" styleClass="table table-condensed table-striped table-hover"
         headerClass="standardTable_Header" rowClasses="standardTable_Row1,standardTable_Row2"
         columnClasses="standardTable_Column,standardTable_Column,standardTable_Column,standardTable_Column,standardTable_ColumnCentered">
 

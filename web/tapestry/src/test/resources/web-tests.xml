@@ -4,9 +4,12 @@
 ]>
 <project basedir="." default="run-all-tests">
     <taskdef resource="webtestTaskdefs.properties" />
+
     <!-- Use i18n bundle, 2nd one listed is the default -->
     <property file="../../../../common/target/classes/ApplicationResources_${user.language}.properties"/>
     <property file="../../../../common/target/classes/ApplicationResources.properties"/>
+    <property file="../../../../common/target/classes/displaytag_${user.language}.properties"/>
+    <property file="../../../../common/target/classes/displaytag.properties"/>
 
     <!-- runs all targets -->
     <target name="run-all-tests" 
@@ -92,7 +95,10 @@
                     text=".*${userList.title}.*" regex="true"/>
                 <setinputfield description="set search term" name="q" value="tomcat"/>
                 <clickbutton label="${button.search}" description="Click Search"/>
-                <verifytext description="verify results" text="Tomcat User"/>
+                <verifyXPath
+                     description="Count the number of users found"
+                     xpath="count(//table[@id='userList']/tbody/tr)"
+                     text="1"/>
             </steps>
         </webtest>
     </target>

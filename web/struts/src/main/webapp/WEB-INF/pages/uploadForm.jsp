@@ -16,7 +16,7 @@
         <s:file name="file" label="%{getText('uploadForm.file')}" required="true"/>
         <div id="actions" class="form-actions">
             <s:submit type="button" key="button.upload" name="upload" cssClass="btn btn-primary" theme="simple">
-                <i class="icon-ok"></i>
+                <i class="icon-upload icon-white"></i>
                 <fmt:message key="button.upload"/>
             </s:submit>
 

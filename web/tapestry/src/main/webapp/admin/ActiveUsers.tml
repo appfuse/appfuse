@@ -1,17 +1,19 @@
 <html t:type="layout" title="message:activeUsers.title"
-          heading="message:activeUsers.heading" menu="AdminMenu" bodyId="activeUsers"
-          xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
+      heading="message:activeUsers.heading" menu="AdminMenu" bodyId="activeUsers"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
 
 <div class="span10">
-   <h2>${message:activeUsers.heading}</h2>
+    <h2>${message:activeUsers.heading}</h2>
+
     <p>${message:activeUsers.message}</p>
 
-
     <div id="actions" class="form-actions">
-       <a t:type="pagelink" page="home" class="btn  btn-primary"><i class="icon-ok icon-white"></i> ${message:button.done}</a>
+        <a t:type="pagelink" page="home" class="btn btn-primary"><i
+                class="icon-ok icon-white"></i> ${message:button.done}</a>
     </div>
 
-    <table t:type="grid" source="activeUsers" row="currentUser" model="model" reorder="username,fullname" class="table table-striped table-hover">
+    <table t:type="grid" source="activeUsers" row="currentUser" model="model" reorder="username,fullname"
+           class="table table-striped table-hover">
         <p:fullnamecell>
             ${currentUser.fullName}
         </p:fullnamecell>

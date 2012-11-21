@@ -17,38 +17,27 @@ import java.util.List;
  */
 public class BootstrapJavaScriptStack implements JavaScriptStack {
 
-
     private final List<Asset> jsStack;
-
     private final List<StylesheetLink> cssStack;
-
     private SymbolSource symbolSource;
 
-
-    public BootstrapJavaScriptStack(
-            final AssetSource assetSource,
-
-            final SymbolSource symbolSource) {
-
-
+    public BootstrapJavaScriptStack(final AssetSource assetSource, final SymbolSource symbolSource) {
         this.jsStack = CollectionFactory.newList();
         jsStack.add(0, assetSource.getContextAsset("scripts/jquery.noconflict.js", null));
         jsStack.add(0, assetSource.getClasspathAsset("classpath:/META-INF/resources/webjars/jquery/1.8.2/jquery.min.js"));
-        jsStack.add(assetSource.getClasspathAsset("classpath:/META-INF/resources/webjars/bootstrap/2.1.1/js/bootstrap.min.js"));
+        jsStack.add(assetSource.getClasspathAsset("classpath:/META-INF/resources/webjars/bootstrap/2.2.1/js/bootstrap.min.js"));
+        jsStack.add(assetSource.getContextAsset("scripts/lib/plugins/jquery.cookie.js", null));
         jsStack.add(assetSource.getContextAsset("scripts/script.js", null));
 
-
         this.cssStack = CollectionFactory.newList();
-        cssStack.add(new StylesheetLink(assetSource.getClasspathAsset("classpath:/META-INF/resources/webjars/bootstrap/2.1.1/css/bootstrap.min.css")));
-        cssStack.add(new StylesheetLink(assetSource.getClasspathAsset("classpath:/META-INF/resources/webjars/bootstrap/2.1.1/css/bootstrap-responsive.min.css")));
+        cssStack.add(new StylesheetLink(assetSource.getClasspathAsset("classpath:/META-INF/resources/webjars/bootstrap/2.2.1/css/bootstrap.min.css")));
+        cssStack.add(new StylesheetLink(assetSource.getClasspathAsset("classpath:/META-INF/resources/webjars/bootstrap/2.2.1/css/bootstrap-responsive.min.css")));
         cssStack.add(new StylesheetLink(assetSource.getContextAsset("styles/style.css", null)));
         cssStack.add(new StylesheetLink(assetSource.getContextAsset("styles/t5-override.css", null)));
-
     }
 
     public List<String> getStacks() {
         return Collections.emptyList();
-
     }
 
     public List<Asset> getJavaScriptLibraries() {

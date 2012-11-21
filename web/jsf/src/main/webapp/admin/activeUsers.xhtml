@@ -6,24 +6,25 @@
 <f:loadBundle var="text" basename="#{basePage.bundleName}"/>
 <head>
     <title>#{text['activeUsers.title']}</title>
-    <meta name="heading" content="#{text['activeUsers.heading']}"/>
     <meta name="menu" content="AdminMenu"/>
 </head>
 
 <body id="activeUsers">
-    
+<div class="span10">
+    <h2>#{text['activeUsers.heading']}</h2>
+
     <p>#{text['activeUsers.message']}</p>
-    
-    <div class="separator"></div>
-    
-    <input type="button" onclick="location.href='mainMenu'" value="#{text['button.done']}"/>
-    
+
+    <div id="actions" class="form-actions">
+        <input type="button" class="btn" onclick="location.href='../mainMenu'" value="#{text['button.done']}"/>
+    </div>
+
     <h:form id="activeUsersForm">
     <!-- Error from this table is caused by http://issues.apache.org/jira/browse/TOMAHAWK-466 -->
     <t:buffer into="#{table}">
     <t:dataTable id="activeUsers" var="user" value="#{activeUserList.users}" rows="20"
          sortColumn="#{activeUserList.sortColumn}" sortAscending="#{activeUserList.ascending}"
-         styleClass="table activeUserList" rowClasses="standardTable_Row1,standardTable_Row2"
+         styleClass="table table-condensed table-striped table-hover" rowClasses="standardTable_Row1,standardTable_Row2"
          columnClasses="standardTable_Column,standardTable_Column">
         <t:column width="135px"
             headerstyleClass="#{activeUserList.sortColumn == 'username' ? 'standardTable_SortHeader' : 'standardTable_Header'}">
@@ -103,6 +104,7 @@
     <h:outputText value="#{scroller}" escape="false"/>
 
 </h:form>
+</div>
 </body>
 </f:view>
 </html>   

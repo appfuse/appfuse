@@ -15,18 +15,22 @@
     <p><h:outputText value="#{text['upload.message']}"/></p>
 </div>
 <div class="span7">
-    <h:form id="uploadForm" enctype="multipart/form-data">
+    <h:form id="uploadForm" enctype="multipart/form-data" styleClass="well form-horizontal">
 
         <div class="control-group">
             <h:outputLabel styleClass="control-label" for="name" value="#{text['uploadForm.name']}"/>
-            <h:inputText value="#{fileUpload.name}" id="name" required="true"/>
-            <t:message for="name" styleClass="help-inline"/>
+            <div class="controls">
+                <h:inputText value="#{fileUpload.name}" id="name" required="true"/>
+                <t:message for="name" styleClass="help-inline"/>
+            </div>
         </div>
 
         <div class="control-group">
             <h:outputLabel styleClass="control-label" for="file" value="#{text['uploadForm.file']}"/>
-            <t:inputFileUpload id="file" value="#{fileUpload.file}" storage="file" required="true"/>
-            <t:message for="file" styleClass="help-inline"/>
+            <div class="controls">
+                <t:inputFileUpload id="file" value="#{fileUpload.file}" storage="file" required="true"/>
+                <t:message for="file" styleClass="help-inline"/>
+            </div>
         </div>
 
         <div class="form-actions">

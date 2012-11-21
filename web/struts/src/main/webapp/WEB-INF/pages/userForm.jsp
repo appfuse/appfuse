@@ -10,7 +10,7 @@
    "<fmt:message key="delete.confirm"><fmt:param value="${delObject}"/></fmt:message>";
 </script>
 
-<div class="span3">
+<div class="span2">
     <h2><fmt:message key="userProfile.heading"/></h2>
     <c:choose>
         <c:when test="${param.from == 'list'}">
@@ -126,7 +126,7 @@
 </c:choose>
         <div id="actions" class="form-actions">
             <s:submit type="button" cssClass="btn btn-primary" method="save" key="button.save" theme="simple">
-                <i class="icon-ok"></i>
+                <i class="icon-ok icon-white"></i>
                 <fmt:message key="button.save"/>
             </s:submit>
             <c:if test="${param.from == 'list' and not empty user.id}">

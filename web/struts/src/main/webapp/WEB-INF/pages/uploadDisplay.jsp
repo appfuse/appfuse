@@ -36,10 +36,10 @@
     </table>
     <div id="actions" class="form-actions">
         <a class="btn btn-primary" href="mainMenu" >
-            <i class="icon-ok"></i>
+            <i class="icon-ok icon-white"></i>
             <fmt:message key="button.done"/>
         </a>
-        <a class="btn" href="uploadFile!default" >
+        <a class="btn" href="uploadFile" >
             <i class="icon-upload"></i>
             Upload Another
         </a>

@@ -6,7 +6,7 @@
 
 <body class="signup"/>
 
-<div class="span3">
+<div class="span2">
     <h2><fmt:message key="signup.heading"/></h2>
     <p><fmt:message key="signup.message"/></p>
 </div>
@@ -137,8 +137,12 @@
             </div>
         </fieldset>
         <fieldset class="form-actions">
-            <input type="submit" class="btn btn-primary" name="save" onclick="bCancel=false" value="<fmt:message key="button.register"/>"/>
-            <input type="submit" class="btn" name="cancel" onclick="bCancel=true" value="<fmt:message key="button.cancel"/>"/>
+            <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false">
+                <i class="icon-ok icon-white"></i> <fmt:message key="button.register"/>
+            </button>
+            <button type="submit" class="btn" name="cancel" onclick="bCancel=true">
+                <i class="icon-remove"></i> <fmt:message key="button.cancel"/>
+            </button>
         </fieldset>
     </form:form>
 </div>
@@ -146,4 +150,9 @@
 <c:set var="scripts" scope="request">
 <v:javascript formName="user" staticJavascript="false"/>
 <script type="text/javascript" src="<c:url value="/scripts/validator.jsp"/>"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("input[type='text']:visible:enabled:first", document.forms['signupForm']).focus();
+    });
+</script>
 </c:set>
