@@ -38,7 +38,6 @@ public class LookupDaoHibernate implements LookupDao {
     public List<Role> getRoles() {
         log.debug("Retrieving all role names...");
         Session session = sessionFactory.getCurrentSession();
-        List roles = session.createCriteria(Role.class).list();
-        return roles;
+        return session.createCriteria(Role.class).list();
     }
 }

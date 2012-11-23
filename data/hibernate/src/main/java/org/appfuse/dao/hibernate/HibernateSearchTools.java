@@ -25,7 +25,6 @@ import org.hibernate.search.indexes.IndexReaderAccessor;
 class HibernateSearchTools {
     protected static final Log log = LogFactory.getLog(HibernateSearchTools.class);
 
-
     /**
      * Generates a lucene query to search for a given term in all the indexed fields of a class
      *
@@ -112,7 +111,7 @@ class HibernateSearchTools {
         MassIndexer massIndexer = txtSession.createIndexer();
         massIndexer.purgeAllOnStart(true);
         try {
-            if (async == false) {
+            if (!async) {
                 massIndexer.startAndWait();
             } else {
                 massIndexer.start();

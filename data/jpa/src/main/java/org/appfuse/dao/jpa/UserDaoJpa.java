@@ -4,6 +4,7 @@ import org.appfuse.dao.UserDao;
 import org.appfuse.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -78,7 +79,7 @@ public class UserDaoJpa extends GenericDaoJpa<User, Long> implements UserDao, Us
      * {@inheritDoc}
      */
     public String getUserPassword(String username) {
-        SimpleJdbcTemplate jdbcTemplate = new SimpleJdbcTemplate(dataSource);
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
         Table table = AnnotationUtils.findAnnotation(User.class, Table.class);
         return jdbcTemplate.queryForObject(
                 "select password from " + table.name() + " where username=?", String.class, username);

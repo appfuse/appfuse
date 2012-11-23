@@ -82,6 +82,14 @@ public class GenericDaoHibernate<T, PK extends Serializable> implements GenericD
         return this.sessionFactory;
     }
 
+    public Session getSession() throws HibernateException {
+        Session sess = getSessionFactory().getCurrentSession();
+        if (sess == null) {
+            sess = getSessionFactory().openSession();
+        }
+        return sess;
+    }
+
     @Autowired
     @Required
     public void setSessionFactory(SessionFactory sessionFactory) {
@@ -102,8 +110,8 @@ public class GenericDaoHibernate<T, PK extends Serializable> implements GenericD
      */
     @SuppressWarnings("unchecked")
     public List<T> getAllDistinct() {
-        Collection result = new LinkedHashSet(getAll());
-        return new ArrayList(result);
+        Collection<T> result = new LinkedHashSet<T>(getAll());
+        return new ArrayList<T>(result);
     }
 
     /**
@@ -207,13 +215,5 @@ public class GenericDaoHibernate<T, PK extends Serializable> implements GenericD
      */
     public void reindexAll(boolean async) {
         HibernateSearchTools.reindexAll(async, getSessionFactory().getCurrentSession());
-    }
-
-    private Session getSession() throws HibernateException {
-        Session sess = getSessionFactory().getCurrentSession();
-        if (sess == null) {
-            sess = getSessionFactory().openSession();
-        }
-        return sess;
     }
 }
