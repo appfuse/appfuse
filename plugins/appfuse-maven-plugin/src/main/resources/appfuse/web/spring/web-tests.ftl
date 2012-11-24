@@ -17,7 +17,7 @@
                 <invoke description="click View ${pojo.shortName} link" url="/${util.getPluralForWord(pojoNameLower)}"/>
                 <verifytitle description="we should see the ${pojoNameLower}List title"
                     text=".*${'$'}{${pojoNameLower}List.title}.*" regex="true"/>
-                <setinputfield description="set search term" name="q" value="*:*"/>
+                <setinputfield description="set search term" name="q" value="*"/>
                 <clickbutton label="${'$'}{button.search}" description="Click Search"/>
                 <verifytitle description="we should see the ${pojoNameLower}List title"
                     text=".*${'$'}{${pojoNameLower}List.title}.*" regex="true"/>
