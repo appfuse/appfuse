@@ -1,5 +1,7 @@
 package org.appfuse.webapp;
 
+import de.agilecoders.wicket.Bootstrap;
+import de.agilecoders.wicket.settings.BootstrapSettings;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.markup.head.JavaScriptReferenceHeaderItem;
@@ -64,6 +66,15 @@ import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
  *  - DataTable style has changed and the header takes two lines instead of one - LATER (when with Bootstrap)
  *  - JavaScript on a login page doesn't work - a lot of error messages - probably Prototype conflicts with JQuery - DONE
  *
+ * Integration with Bootstrap and Wicket 2.2
+ *  - remove (probably) not needed references to prototype.js and friends - DONE
+ *  - add Required and Placeholder behavior - http://tom.hombergs.de/2011/12/wicket-html5-required-and-placeholder.html - DONE
+ *  - move all required common JS/CSS imports from default.jsp to base WebPage
+ *  - why #login p from style doesn't work on a login page? - DONE
+ *  - make 'decorator:getProperty property="body.class"' works - DONE
+ *  - maybe it is worth to get rid of default.jsp and use some template mechanism from Wicket?
+ *  - fix problem with remaining red div after dismiss an error message
+ *
  * @author Marcin Zajączkowski, 2010-09-02
  */
 public class WicketApplication extends AuthenticatedWebApplication {
@@ -75,8 +86,6 @@ public class WicketApplication extends AuthenticatedWebApplication {
     @Override
     protected void init() {
         super.init();
-
-        setNoConflictModeInJQuery();
 
         getComponentInstantiationListeners().add(new SpringComponentInjector(this, getContext(), true));
         initPageMounting();
@@ -94,23 +103,8 @@ public class WicketApplication extends AuthenticatedWebApplication {
           getResourceSettings().setResourcePollFrequency(Duration.ONE_SECOND);
         }
 */
-    }
-
-    private void setNoConflictModeInJQuery() {
-        IJavaScriptLibrarySettings jsSettings = getJavaScriptLibrarySettings();
-        JavaScriptResourceReference originalJQueryReference =
-                (JavaScriptResourceReference)jsSettings.getJQueryReference();
-
-        //TODO: MZA: Script resources are placed in src/main/resources/ instead of webapp/ to make it visible also
-        // in tests with WicketTester
-        JavaScriptResourceReference jQueryNoConflictResourceReference =
-                new JavaScriptResourceReference(WicketApplication.class, "pages/scripts/jquery-noconflict.js");
-        JavaScriptReferenceHeaderItem jQueryNoConflictReferenceHeaderItem = getResourceBundles().addJavaScriptBundle(
-                WicketApplication.class, "jquery.plus.jquery-noconflict.js",
-                originalJQueryReference,
-                jQueryNoConflictResourceReference);
-
-        jsSettings.setJQueryReference(jQueryNoConflictReferenceHeaderItem.getReference());
+        BootstrapSettings settings = new BootstrapSettings();
+        Bootstrap.install(this, settings);
     }
 
     private void initPageMounting() {

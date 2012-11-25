@@ -1,57 +1,67 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
+<!DOCTYPE html>
 <%@ include file="/common/taglibs.jsp"%>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-    <head>
-        <%@ include file="/common/meta.jsp" %>
-        <title><decorator:title/> | <fmt:message key="webapp.name"/></title>
+<html lang="en">
+<head>
+    <meta http-equiv="Cache-Control" content="no-store"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="<c:url value="/images/favicon.ico"/>"/>
+    <title><decorator:title/> | <fmt:message key="webapp.name"/></title>
 
-        <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/${appConfig["csstheme"]}/theme.css'/>" />
-        <link rel="stylesheet" type="text/css" media="print" href="<c:url value='/styles/${appConfig["csstheme"]}/print.css'/>" />
+    <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/style.css'/>" />
+    <decorator:head/>
 
-        <!-- TODO: MZA: After add those imports there is currently no reason to keep separate default.jsp for Wicket.
-                        Remote it if not needed also after integration with Bootstrap -->
-        <script type="text/javascript" src="<c:url value='/scripts/prototype.js'/>"></script>
-        <script type="text/javascript" src="<c:url value='/scripts/scriptaculous.js'/>"></script>
-        <script type="text/javascript" src="<c:url value='/scripts/global.js'/>"></script>
-        <decorator:head/>
-    </head>
-<body<decorator:getProperty property="body.id" writeEntireProperty="true"/><decorator:getProperty property="body.class" writeEntireProperty="true"/>>
+    <script type="text/javascript" src="<c:url value='/scripts/lib/plugins/jquery.cookie.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/scripts/script.js'/>"></script>
+</head>
+<body id="<decorator:getProperty property="meta.bodyId" writeEntireProperty="false"/>" class="<decorator:getProperty property="meta.bodyClass" writeEntireProperty="false"/>">
+<c:set var="currentMenu" scope="request"><decorator:getProperty property="meta.menu"/></c:set>
 
-    <div id="page">
-        <div id="header" class="clearfix">
-            <jsp:include page="/common/header.jsp"/>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <%-- For smartphones and smaller screens --%>
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="brand" href="<c:url value='/'/>"><fmt:message key="webapp.name"/></a>
+            <%@ include file="/common/menu.jsp" %>
+            <c:if test="${pageContext.request.locale.language ne 'en'}">
+                <div id="switchLocale"><a href="<c:url value='/?locale=en'/>">
+                    <fmt:message key="webapp.name"/> in English</a>
+                </div>
+            </c:if>
         </div>
+    </div>
+</div>
 
-        <div id="content" class="clearfix">
-            <div id="main">
-                <%@ include file="/common/messages.jsp" %>
-                <h1><decorator:getProperty property="meta.heading"/></h1>
-                <decorator:body/>
-            </div>
+<div class="container-fluid">
+    <%@ include file="/common/messages.jsp" %>
+    <div class="row-fluid">
+        <decorator:body/>
 
-            <c:set var="currentMenu" scope="request"><decorator:getProperty property="meta.menu"/></c:set>
-            <c:if test="${currentMenu == 'AdminMenu'}">
-            <div id="sub">
-                <menu:useMenuDisplayer name="Velocity" config="cssVerticalMenu.vm" permissions="rolesAdapter">
+        <c:if test="${currentMenu == 'AdminMenu'}">
+            <div class="span2">
+                <menu:useMenuDisplayer name="Velocity" config="navlistMenu.vm" permissions="rolesAdapter">
                     <menu:displayMenu name="AdminMenu"/>
                 </menu:useMenuDisplayer>
             </div>
-            </c:if>
-
-            <div id="nav">
-                <div class="wrapper">
-                    <h2 class="accessibility">Navigation</h2>
-                    <jsp:include page="/common/menu.jsp"/>
-                </div>
-                <hr/>
-            </div><!-- end nav -->
-        </div>
-
-        <div id="footer" class="clearfix">
-            <jsp:include page="/common/footer.jsp"/>
-        </div>
+        </c:if>
     </div>
+</div>
+
+<div id="footer">
+        <span class="left"><fmt:message key="webapp.version"/>
+            <c:if test="${pageContext.request.remoteUser != null}">
+                | <fmt:message key="user.status"/> ${pageContext.request.remoteUser}
+            </c:if>
+        </span>
+        <span class="right">
+            &copy; <fmt:message key="copyright.year"/> <a href="<fmt:message key="company.url"/>"><fmt:message key="company.name"/></a>
+        </span>
+</div>
+<%= (request.getAttribute("scripts") != null) ?  request.getAttribute("scripts") : "" %>
 </body>
 </html>

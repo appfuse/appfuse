@@ -147,9 +147,17 @@
                         <configuration>
                             <tasks>
                                 <echo>Copying i18n files...</echo>
+                                <!-- TODO: Extend it as well as in Tapestry module? -->
                                 <copy todir="src/main/webapp/WEB-INF" overwrite="true">
                                     <globmapper from="ApplicationResources*" to="app*" />
                                     <fileset dir="../common/src/main/resources" includes="ApplicationResources*" />
+                                </copy>
+
+                                <echo message="Copying CSS and JavaScript resources..."/>
+                                <copy todir="src/main/webapp" overwrite="true">
+                                    <fileset dir="../common/src/main/webapp">
+                                        <include name="styles/style.css"/>
+                                    </fileset>
                                 </copy>
                             </tasks>
                         </configuration>
@@ -302,6 +310,11 @@
                     <artifactId>spring-core</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>de.agilecoders.wicket</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>0.6.7</version>
         </dependency>
 
         <dependency>

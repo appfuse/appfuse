@@ -11,7 +11,10 @@ import org.apache.wicket.model.IModel;
  * By default red asterisk is added. Requirement can depend on external state.
  *
  * @author Marcin Zajączkowski, 2011-01-11
+ *
+ * @deprecated placeholder attribute in an input component can be used instread of a label
  */
+@Deprecated
 public class RequiredLabel extends Label {
 
     private boolean required = true;

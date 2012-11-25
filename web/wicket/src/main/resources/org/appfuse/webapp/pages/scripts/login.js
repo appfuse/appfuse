@@ -1,16 +1,14 @@
 function initDataOnLoad() {
-    if (getCookie("username") != null && getCookie("username") != "") {
-        $("j_username").value = getCookie("username");
-        $("j_password").focus();
+    if ($.cookie("username") != null && $.cookie("username") != "") {
+        $("#j_username").val($.cookie("username"));
+        $("#j_password").focus();
     } else {
-        $("j_username").focus();
+        $("#j_username").focus();
     }
 }
 
 function saveUsername(theForm) {
-    var expires = new Date();
-    expires.setTime(expires.getTime() + 24 * 30 * 60 * 60 * 1000); // sets it for approx 30 days.
-    setCookie("username", theForm.j_username.value, expires, "/");
+    $.cookie("username",theForm.j_username.value, { expires: 30, path: "/"});
 }
 
 function passwordHint() {
@@ -18,6 +16,5 @@ function passwordHint() {
     if (document.location.toString().indexOf("error") > -1) {
         prefix = "../";
     }
-    location.href = prefix + "passwordHint/" + $("j_username").value;
-//    location.href = prefix + "passwordHint?username=" + $("j_username").value;
+    location.href = prefix + "passwordHint/" + $("#j_username").val();
 }
