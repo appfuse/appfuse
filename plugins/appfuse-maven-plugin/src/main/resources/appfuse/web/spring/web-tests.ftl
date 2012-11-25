@@ -3,7 +3,7 @@
     <!--${pojo.shortName}-START-->
     <!-- runs ${pojoNameLower}-related tests -->
     <target name="${pojo.shortName}Tests"
-            depends="Search${util.getPluralForWord(pojo.shortName)},Edit${pojo.shortName},Save${pojo.shortName},Add${pojo.shortName},Delete${pojo.shortName}"
+            depends="Edit${pojo.shortName},Save${pojo.shortName},Add${pojo.shortName},Delete${pojo.shortName}"
             description="Call and executes all ${pojoNameLower} test cases (targets)">
         <echo>Successfully ran all ${pojo.shortName} UI tests!</echo>
     </target>
