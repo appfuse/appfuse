@@ -14,7 +14,6 @@ import ${pojo.packageName}.${pojo.shortName};
 
 import org.apache.tapestry5.PersistenceConstants;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
@@ -48,7 +47,7 @@ public class ${pojo.shortName}List {
 
     public List<${pojo.shortName}> get${util.getPluralForWord(pojo.shortName)}() {
         try {
-            return ${pojoNameLower}Manager.search(query, ${pojo.shortName}.class);
+            return ${pojoNameLower}Manager.search(q, ${pojo.shortName}.class);
         } catch (SearchException se) {
             errorMessage = se.getMessage();
             return ${pojoNameLower}Manager.getAll();
