@@ -2,7 +2,7 @@
 <!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 3.0//EN"
         "http://www.tuckey.org/res/dtds/urlrewrite3.0.dtd">
 
-<urlrewrite default-match-type="wildcard" use-query-string="true">
+<urlrewrite default-match-type="wildcard">
     <rule match-type="regex">
         <from>^/admin/user/(.*)\$</from>
         <to type="forward">/app/admin/userform?id=$1&amp;from=list</to>
