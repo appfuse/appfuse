@@ -3,6 +3,13 @@
           heading="message:${pojoNameLower}List.heading" menu="${pojo.shortName}Menu"
           xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
 
+<t:if test="errorMessage">
+    <div class="alert alert-error fade in">
+        <a href="#" data-dismiss="alert" class="close">&times;</a>
+        ${'$'}{errorMessage}
+    </div>
+</t:if>
+
 <div class="span10">
     <h2>${'$'}{message:${pojoNameLower}List.heading}</h2>
 

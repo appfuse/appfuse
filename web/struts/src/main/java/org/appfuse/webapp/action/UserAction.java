@@ -3,6 +3,7 @@ package org.appfuse.webapp.action;
 import com.opensymphony.xwork2.Preparable;
 import org.apache.struts2.ServletActionContext;
 import org.appfuse.Constants;
+import org.appfuse.dao.SearchException;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
 import org.appfuse.service.UserExistsException;
@@ -226,7 +227,12 @@ public class UserAction extends BaseAction implements Preparable {
      * @return "success" if no exceptions thrown
      */
     public String list() {
-        users = userManager.search(query);
+        try {
+            users = userManager.search(query);
+        } catch (SearchException se) {
+            addActionError(se.getMessage());
+            users = userManager.getUsers();
+        }
         return SUCCESS;
     }
 

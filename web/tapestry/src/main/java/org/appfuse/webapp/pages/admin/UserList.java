@@ -9,6 +9,7 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.BeanModelSource;
 import org.apache.tapestry5.services.javascript.JavaScriptSupport;
+import org.appfuse.dao.SearchException;
 import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
 import org.appfuse.webapp.pages.Home;
@@ -50,6 +51,9 @@ public class UserList {
     private String infoMessage;
 
     @Property
+    private String errorMessage;
+
+    @Property
     private List<User> users;
 
     public BeanModel<User> getModel() {
@@ -67,7 +71,12 @@ public class UserList {
     }
 
     void setupRender() {
-        users = userManager.search(q);
+        try {
+            users = userManager.search(q);
+        } catch (SearchException se) {
+            errorMessage = se.getMessage();
+            users = userManager.getUsers();
+        }
     }
 
     Object onAdd() {

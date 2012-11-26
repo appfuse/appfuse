@@ -61,7 +61,6 @@ public class UserForm implements ClientElement, FormValidationControl {
     @Property(write = false)
     private String infoMessage;
 
-
     @Inject
     private ComponentResources resources;
 
@@ -99,7 +98,6 @@ public class UserForm implements ClientElement, FormValidationControl {
         return form.getClientId();
     }
 
-
     public void clearErrors() {
         form.clearErrors();
     }
@@ -124,7 +122,6 @@ public class UserForm implements ClientElement, FormValidationControl {
     public Map<String, String> getCountryModel() {
         return countryService.getAvailableCountries();
     }
-
 
     public ValueEncoder<String> getCountryEncoder() {
         return new StringValueEncoder();
@@ -173,9 +170,7 @@ public class UserForm implements ClientElement, FormValidationControl {
         this.infoMessage = infoMessage;
     }
 
-
     public String getConfirmDeletion() {
         return messages.format("delete.confirm", "user: " + user.getUsername());
     }
-
 }

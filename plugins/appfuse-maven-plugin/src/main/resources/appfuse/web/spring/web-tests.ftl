@@ -3,13 +3,13 @@
     <!--${pojo.shortName}-START-->
     <!-- runs ${pojoNameLower}-related tests -->
     <target name="${pojo.shortName}Tests"
-            depends="Edit${pojo.shortName},Save${pojo.shortName},Add${pojo.shortName},Delete${pojo.shortName}"
+            depends="Search${util.getPluralForWord(pojo.shortName)},Edit${pojo.shortName},Save${pojo.shortName},Add${pojo.shortName},Delete${pojo.shortName}"
             description="Call and executes all ${pojoNameLower} test cases (targets)">
         <echo>Successfully ran all ${pojo.shortName} UI tests!</echo>
     </target>
 
     <!-- Verify the ${util.getPluralForWord(pojoNameLower)} list screen displays without errors -->
-    <!--target name="Search${util.getPluralForWord(pojo.shortName)}" description="Tests search for and displaying all ${util.getPluralForWord(pojoNameLower)}">
+    <target name="Search${util.getPluralForWord(pojo.shortName)}" description="Tests search for and displaying all ${util.getPluralForWord(pojoNameLower)}">
         <webtest name="search${util.getPluralForWord(pojo.shortName)}">
             &config;
             <steps>
@@ -23,7 +23,7 @@
                     text=".*${'$'}{${pojoNameLower}List.title}.*" regex="true"/>
             </steps>
         </webtest>
-    </target-->
+    </target>
 
     <!-- Verify the edit ${pojoNameLower} screen displays without errors -->
     <target name="Edit${pojo.shortName}" description="Tests editing an existing ${pojo.shortName}'s information">

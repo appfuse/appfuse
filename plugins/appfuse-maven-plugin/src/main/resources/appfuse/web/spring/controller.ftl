@@ -1,6 +1,7 @@
 <#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
 package ${basepackage}.webapp.controller;
 
+import ${appfusepackage}.dao.SearchException;
 <#if genericcore>
 import ${appfusepackage}.service.GenericManager;
 <#else>
@@ -11,10 +12,11 @@ import ${basepackage}.model.${pojo.shortName};
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ExtendedModelMap;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/${util.getPluralForWord(pojoNameLower)}*")
@@ -35,8 +37,15 @@ public class ${pojo.shortName}Controller {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView handleRequest(@RequestParam(required = false, value = "q") String query)
+    public Model handleRequest(@RequestParam(required = false, value = "q") String query)
     throws Exception {
-        return new ModelAndView().addObject(${pojoNameLower}Manager.search(query, ${pojo.shortName}.class));
+        Model model = new ExtendedModelMap();
+        try {
+            model.addAttribute(${pojoNameLower}Manager.search(query, ${pojo.shortName}.class));
+        } catch (SearchException se) {
+            model.addAttribute("searchError", se.getMessage());
+            model.addAttribute(${pojoNameLower}Manager.getAll());
+        }
+        return model;
     }
 }
