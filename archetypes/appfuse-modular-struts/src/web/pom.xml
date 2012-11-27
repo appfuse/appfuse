@@ -11,7 +11,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>web</artifactId>
+    <artifactId>appfuse-modular-struts-web</artifactId>
     <packaging>war</packaging>
     <name>AppFuse Modular Application - Web (Struts 2)</name>
 
@@ -174,7 +174,7 @@
     <dependencies>
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
-            <artifactId>core</artifactId>
+            <artifactId>appfuse-modular-struts-core</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>

@@ -11,7 +11,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>web</artifactId>
+    <artifactId>appfuse-modular-tapestry-web</artifactId>
     <packaging>war</packaging>
     <name>AppFuse Modular Application - Web (Tapestry)</name>
 
@@ -212,7 +212,7 @@
     <dependencies>
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
-            <artifactId>core</artifactId>
+            <artifactId>appfuse-modular-tapestry-core</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>

@@ -11,7 +11,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     
-    <artifactId>core</artifactId>
+    <artifactId>appfuse-modular-jsf-core</artifactId>
     <packaging>jar</packaging>
     <name>AppFuse Modular Application - Core</name>
     

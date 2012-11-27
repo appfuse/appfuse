@@ -11,7 +11,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     
-    <artifactId>web</artifactId>
+    <artifactId>appfuse-modular-spring-web</artifactId>
     <packaging>war</packaging>
     <name>AppFuse Modular Application - Web (Spring MVC)</name>
 
@@ -167,7 +167,7 @@
     <dependencies>
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
-            <artifactId>core</artifactId>
+            <artifactId>appfuse-modular-spring-core</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>

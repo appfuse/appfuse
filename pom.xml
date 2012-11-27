@@ -135,6 +135,12 @@
             <email>bwnoll@gmail.com</email>
             <timezone>-7</timezone>
         </developer>
+        <developer>
+            <id>jogaco</id>
+            <name>J. Garcia</name>
+            <email>jogaco.en@gmail.com</email>
+            <timezone>+1</timezone>
+        </developer>
     </developers>
 
     <build>
