@@ -8,7 +8,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
 import java.util.List;
 
 /**
@@ -16,7 +15,6 @@ import java.util.List;
  */
 @WebService
 @Path("/users")
-@Produces({"application/json", "application/xml", "application/atom+xml"})
 public interface UserService {
     /**
      * Retrieves a user by userId.  An exception is thrown if user not found
