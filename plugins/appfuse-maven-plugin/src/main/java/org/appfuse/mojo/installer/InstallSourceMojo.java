@@ -138,26 +138,27 @@ public class InstallSourceMojo extends AbstractMojo {
         if (project.getPackaging().equals("jar") || (project.getPackaging().equals("war") && !project.hasParent())) {
             // export data-common
             log("Installing source from data-common module...");
-            export("data/common/src", (modular) ? "core/src" : destinationDirectory);
+            String coreSource = project.getBuild().getSourceDirectory();
+            export("data/common/src", (modular) ? coreSource : destinationDirectory);
 
             // Keep web project original testing hibernate.properties instead of overwriting it: rename
-            File orig = new File((modular ? "core/src" : destinationDirectory) + "/test/resources/hibernate.properties");
-            File dest = new File((modular ? "core/src" : destinationDirectory) + "/test/resources/hibernate.properties.orig");
+            File orig = new File((modular ? coreSource : destinationDirectory) + "/test/resources/hibernate.properties");
+            File dest = new File((modular ? coreSource : destinationDirectory) + "/test/resources/hibernate.properties.orig");
             if (webFramework != null && !webFramework.isEmpty()) {
                 renameFile(orig, dest);
             }
 
             // export persistence framework
             log("Installing source from " + daoFramework + " module...");
-            export("data/" + daoFramework + "/src", (modular) ? "core/src" : destinationDirectory);
+            export("data/" + daoFramework + "/src", (modular) ? coreSource : destinationDirectory);
 
             // export service module
             log("Installing source from service module...");
-            export("service/src", (modular) ? "core/src" : destinationDirectory);
+            export("service/src", (modular) ? coreSource : destinationDirectory);
 
             // move Base*TestCase to test directory
-            moveFiles((modular) ? "core/src/main" : destinationDirectory + "/main",
-                    (modular) ? "core/src/test" : destinationDirectory + "/test", "**/Base*TestCase.java");
+            moveFiles((modular) ? coreSource + "/main" : destinationDirectory + "/main",
+                    (modular) ? coreSource + "/test" : destinationDirectory + "/test", "**/Base*TestCase.java");
 
             // delete dao.framework related files from test directory
             deleteFile("test/resources/hibernate.cfg.xml");
@@ -196,9 +197,6 @@ public class InstallSourceMojo extends AbstractMojo {
             }
 
             if (project.hasParent()) {
-                // copy jdbc.properties to core/src/test/resources
-                //FileUtils.copyFileToDirectory(new File("src/main/resources/jdbc.properties"), new File("../core/src/test/resources"));
-
                 // delete hibernate, ibatis and jpa files from web project
                 deleteFile("main/resources/hibernate.cfg.xml");
                 deleteFile("main/resources/META-INF");
@@ -293,11 +291,8 @@ public class InstallSourceMojo extends AbstractMojo {
         getLog().debug("Detected AppFuse version: " + appfuseVersionAsDouble);
 
         if (isAppFuse() && appfuseVersionAsDouble < 2.1) {
-
             // Add dependencies from appfuse-common-web
             newDependencies = addModuleDependencies(newDependencies, "web-common", "web/common", "common");
-
-            //newDependencies = addModuleDependencies(newDependencies, webFramework, "web/" + webFramework);
         }
 
         // modular archetypes still seem to need these - todo: figure out why
@@ -365,7 +360,8 @@ public class InstallSourceMojo extends AbstractMojo {
         if (project.getPackaging().equals("war") && project.hasParent()) {
             Dependency core = new Dependency();
             core.setGroupId("${project.parent.groupId}");
-            core.setArtifactId("core");
+            // This assumes you're following conventions of ${project.artifactId}-core
+            core.setArtifactId("${project.parent.artifactId}-core");
             core.setVersion("${project.parent.version}");
             newDependencies.add(core);
 
@@ -519,11 +515,7 @@ public class InstallSourceMojo extends AbstractMojo {
             log("Renaming packages to '" + project.getGroupId() + "'...");
             RenamePackages renamePackagesTool = new RenamePackages(project.getGroupId());
             if (project.hasParent()) {
-                if (project.getPackaging().equals("jar")) {
-                    renamePackagesTool.setBaseDir("core/src");
-                } else {
-                    renamePackagesTool.setBaseDir("web/src");
-                }
+                renamePackagesTool.setBaseDir(project.getBasedir() + "/src");
             }
 
             renamePackagesTool.execute();
@@ -564,7 +556,6 @@ public class InstallSourceMojo extends AbstractMojo {
 
                 // Move modules to build section.
                 originalPom = originalPom.replaceAll("  <modules>", "");
-                // Because I hate fucking regex.
                 originalPom = originalPom.replaceAll("    <module>.*?</module>", "");
                 originalPom = originalPom.replaceAll("  </modules>", "");
 
