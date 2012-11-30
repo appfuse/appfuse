@@ -24,10 +24,10 @@ public class UserList extends BasePage implements Serializable {
 
     public List getUsers() {
         try {
-            return userManager.search(query);
+            return sort(userManager.search(query));
         } catch (SearchException se) {
             addError(se.getMessage());
-            return userManager.getUsers();
+            return sort(userManager.search(query));
         }
     }
 
