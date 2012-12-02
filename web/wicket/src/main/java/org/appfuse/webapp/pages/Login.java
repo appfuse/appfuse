@@ -1,7 +1,6 @@
 package org.appfuse.webapp.pages;
 
-import de.agilecoders.wicket.Bootstrap;
-import de.agilecoders.wicket.markup.html.bootstrap.common.NotificationPanel;
+import de.agilecoders.wicket.markup.html.bootstrap.common.NotificationMessage;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
@@ -15,6 +14,7 @@ import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.Url;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
+import org.apache.wicket.util.time.Duration;
 import org.appfuse.Constants;
 import org.appfuse.webapp.AbstractWebPage;
 import org.appfuse.webapp.pages.components.PlaceholderBehavior;
@@ -73,10 +73,6 @@ public class Login extends AbstractWebPage {
         };
     }
 
-    private NotificationPanel createFeedbackPanel() {
-        return new NotificationPanel("feedback");
-    }
-
     //TODO: MZA: Move to is needed somewhere else
     @SuppressWarnings("unchecked")
     private Object getValueForKeyFromConfigOrReturnNullIfNoConfig(String configProperty) {
@@ -94,8 +90,6 @@ public class Login extends AbstractWebPage {
         super.renderHead(response);
         addLoginJavaScriptToResponse(response);
         addInitDataOnLoadJavaScriptToResponse(response);
-        //TODO: MZA: Move to a base page
-        Bootstrap.renderHead(response);
     }
 
     private void addLoginJavaScriptToResponse(IHeaderResponse response) {
@@ -152,6 +146,7 @@ public class Login extends AbstractWebPage {
         AuthenticatedWebSession session = AuthenticatedWebSession.get();
         if (session.signIn(usernameField.getModelObject(), passwordField.getModelObject())) {
             setDefaultResponsePageIfNecessary();
+            getSession().info(new NotificationMessage(Model.of("Welcome!")).hideAfter(Duration.seconds(5)));
         } else {
             error(getString("errors.password.mismatch"));
         }

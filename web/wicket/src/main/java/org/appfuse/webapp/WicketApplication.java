@@ -66,6 +66,11 @@ import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
  *  - DataTable style has changed and the header takes two lines instead of one - LATER (when with Bootstrap)
  *  - JavaScript on a login page doesn't work - a lot of error messages - probably Prototype conflicts with JQuery - DONE
  *
+ * Files copied from web-common to make some Wicket specific changes (should be unified):
+ *  - default.jsp
+ *  - style.css (changes in common)
+ *  - login.js
+ *
  * Integration with Bootstrap and Wicket 2.2
  *  - remove (probably) not needed references to prototype.js and friends - DONE
  *  - add Required and Placeholder behavior - http://tom.hombergs.de/2011/12/wicket-html5-required-and-placeholder.html - DONE
@@ -74,6 +79,11 @@ import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
  *  - make 'decorator:getProperty property="body.class"' works - DONE
  *  - maybe it is worth to get rid of default.jsp and use some template mechanism from Wicket?
  *  - fix problem with remaining red div after dismiss an error message
+ *  - adjust style.css to Wicket styles for table header - DONE
+ *  - take a look on some nice looking classes available in wicket-bootstrap library
+ *  - why empty wicket:message from <title> is rendered inside body (and by the way breaks layout on "Current User" page)
+ *  - sync localized messages with upstream - DONE
+ *  - icons on button - <a><i class="icon-plus icon-white"></i> Add</a>
  *
  * @author Marcin Zajączkowski, 2010-09-02
  */

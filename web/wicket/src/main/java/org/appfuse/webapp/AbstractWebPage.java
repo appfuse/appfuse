@@ -1,5 +1,8 @@
 package org.appfuse.webapp;
 
+import de.agilecoders.wicket.Bootstrap;
+import de.agilecoders.wicket.markup.html.bootstrap.common.NotificationPanel;
+import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.slf4j.Logger;
@@ -18,5 +21,15 @@ public abstract class AbstractWebPage extends WebPage {
 
     protected ServletContext getServletContext() {
         return ((WebApplication)getApplication()).getServletContext();
+    }
+
+    protected NotificationPanel createFeedbackPanel() {
+        return new NotificationPanel("feedback");
+    }
+
+    @Override
+    public void renderHead(IHeaderResponse response) {
+        super.renderHead(response);
+        Bootstrap.renderHead(response);
     }
 }

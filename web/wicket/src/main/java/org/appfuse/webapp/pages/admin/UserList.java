@@ -4,6 +4,8 @@ import org.apache.wicket.authroles.authorization.strategies.role.annotations.Aut
 import org.apache.wicket.extensions.ajax.markup.html.repeater.data.table.AjaxFallbackDefaultDataTable;
 import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.Item;
@@ -14,12 +16,11 @@ import org.appfuse.model.User;
 import org.appfuse.service.UserManager;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
-import org.apache.wicket.feedback.FeedbackMessage;
-import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.appfuse.webapp.AbstractWebPage;
 import org.appfuse.webapp.pages.FromListUserEdit;
 import org.appfuse.webapp.pages.MainMenu;
+import org.appfuse.webapp.pages.components.PlaceholderBehavior;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import java.util.*;
@@ -37,27 +38,33 @@ public class UserList extends AbstractWebPage {
 
     @SpringBean(name = "userManager")
     private UserManager userManager;
+    private TextField<String> searchQuery;
+    private UserDataProvider userDataProvider;
 
     @Override
     protected void onInitialize() {
         super.onInitialize();
 
-        //TODO: MZA: Externalize to separate class
-        FeedbackPanel feedbackPanel = new FeedbackPanel("feedback") {
-            @Override
-            protected String getCSSClass(final FeedbackMessage message) {
-                return message.getLevelAsString().toLowerCase();
-            }
-        };
-        add(feedbackPanel);
-
+        add(createFeedbackPanel());
+        add(createSearchForm());
         add(createAddButton("addButtonTop"));
         add(createDoneButton("doneButtonTop"));
         
-        add(createAddButton("addButtonBottom"));
-        add(createDoneButton("doneButtonBottom"));
-
         add(createUserListTable());
+    }
+
+    private Form createSearchForm() {
+        Form<Void> searchForm = new Form<Void>("searchForm") {
+            @Override
+            protected void onSubmit() {
+                //TODO: MZA: Could be done without refreshing the whole page?
+                userDataProvider.setSearchFilter(searchQuery.getModelObject());
+            }
+        };
+        searchQuery = new TextField<String>("searchQuery", Model.of(""));
+        searchQuery.add(new PlaceholderBehavior(getString("search.enterTerms")));
+        searchForm.add(searchQuery);
+        return searchForm;
     }
 
     private Link createDoneButton(String buttonId) {
@@ -83,8 +90,9 @@ public class UserList extends AbstractWebPage {
     }
 
     private AjaxFallbackDefaultDataTable<User, String> createUserListTable() {
+        userDataProvider = new UserDataProvider(userManager);
         return new AjaxFallbackDefaultDataTable<User, String>(
-                "userListTable", createColumns(), new UserDataProvider(userManager), ROWS_PER_PAGE);
+                "userListTable", createColumns(), userDataProvider, ROWS_PER_PAGE);
     }
 
     private List<IColumn<User, String>> createColumns() {

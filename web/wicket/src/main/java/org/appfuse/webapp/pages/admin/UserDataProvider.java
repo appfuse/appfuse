@@ -23,29 +23,34 @@ import static org.springframework.util.Assert.notNull;
  */
 public class UserDataProvider extends SortableDataProvider<User, String> {
 
+    private static final String NO_SEARCH_FILTER = null;
+
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
     private final UserManager userManager;
-    private SortableDataProviderComparator comparator = new SortableDataProviderComparator();
+    private final SortableDataProviderComparator comparator;
+    private String searchFilter;
 
     public UserDataProvider(UserManager userManager) {
+        this(userManager, NO_SEARCH_FILTER);
+    }
+
+    public UserDataProvider(UserManager userManager, String searchFilter) {
         notNull(userManager);
         this.userManager = userManager;
+        this.comparator = new SortableDataProviderComparator();
+        this.searchFilter = searchFilter;
 
         setSort("username", SortOrder.ASCENDING);
     }
 
-    private User createUser(String username, String lastName, String email, boolean isEnabled) {
-        User user = new User(username);
-        user.setLastName(lastName);
-        user.setEmail(email);
-        user.setEnabled(isEnabled);
-        return user;
+    public void setSearchFilter(String searchFilter) {
+        this.searchFilter = searchFilter;
     }
 
     public Iterator<? extends User> iterator(long first, long count) {
         //TODO: MZA: How sorting works in Tapestry/Spring MVC? - also in Java?
-        List<User> readUsers = userManager.getUsers();
+        List<User> readUsers = userManager.search(searchFilter);
 //            Comparator<User> userComparator = UserComparatorResolver.getComparatorBySoftProperty(
 //                    getSort().getProperty(), getSort().isAscending());
 //            Collections.sort(readUsers, userComparator);
@@ -57,7 +62,7 @@ public class UserDataProvider extends SortableDataProvider<User, String> {
 
     public long size() {
         //TODO: MZA: Not very optimal...
-        return userManager.getUsers().size();
+        return userManager.search(searchFilter).size();
     }
 
     public IModel<User> model(final User user) {

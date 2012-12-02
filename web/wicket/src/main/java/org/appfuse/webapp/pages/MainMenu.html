@@ -1,11 +1,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
-	xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+	xmlns:wicket="https://git-wip-us.apache.org/repos/asf/wicket/repo?p=wicket.git;a=blob_plain;f=wicket-core/src/main/resources/META-INF/wicket-1.5.xsd;hb=master">
 <head>
     <meta name="title" content="Main Menu"/>
     <meta name="heading" content="Welcome!"/>
     <meta name="menu" content="MainMenu"/>
+    <meta name="bodyClass" content="home"/>
 
     <title>
         <wicket:message key="mainMenu.title">[Title]</wicket:message>
@@ -14,12 +15,18 @@
 <body>
     <div wicket:id="feedback"></div>
 
-    <wicket:message key="mainMenu.message">mainMenu message</wicket:message>
-    
+    <h2>
+        <wicket:message key="mainMenu.heading">mainMenu heading</wicket:message>
+    </h2>
+    <p>
+        <wicket:message key="mainMenu.message">mainMenu message</wicket:message>
+    </p>
+
+    <div class="separator"></div>
+
     <wicket:link>
         <ul class="glassList">
             <li>
-                <!-- TODO: MZA: Why it doesn't work? -->
                 <a href="userEdit">
                     <wicket:message key="menu.user"/>
                 </a>
@@ -34,4 +41,3 @@
     </wicket:link>
 </body>
 </html>
-

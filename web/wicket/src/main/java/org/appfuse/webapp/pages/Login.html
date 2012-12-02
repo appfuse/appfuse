@@ -6,7 +6,6 @@
     <meta name="title" content="Meta title"/>
     <meta name="heading" wicket:message="content:login.heading"/>
     <meta name="menu" content="AdminMenu"/>
-    <meta name="bodyId" content="login"/>
     <meta name="bodyClass" content="login"/>
 
     <title>
@@ -15,7 +14,7 @@
 </head>
 <body>
 
-    <!-- form:action is overriden by Wicket, so action="j_security_check" cannot be used. Possible workaround
+    <!-- form:action is overridden by Wicket, so action="j_security_check" cannot be used. Possible workaround
          is to manually forward to that URL from Wicket class -->
     <form wicket:id="loginForm" class="form-signin" onsubmit="saveUsername(this)">
         <h2 class="form-signin-heading">
@@ -35,8 +34,7 @@
                 <span wicket:id="rememberMeLabelSpan">[Remember me]</span>
             </label>
         </div>
-        <!--<input wicket:id="submit" type="submit" class="button" value="Login" tabindex="4"/>-->
-        <input type="submit" class="btn btn-large btn-primary" value="Login" tabindex="4"/>
+        <input type="submit" class="btn btn-large btn-primary" wicket:message="value:button.login" tabindex="4"/>
     </form>
     <p>
         <label wicket:id="signupLabel"/>

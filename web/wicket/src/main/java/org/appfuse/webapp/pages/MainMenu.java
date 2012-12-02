@@ -1,8 +1,7 @@
 package org.appfuse.webapp.pages;
 
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
-import org.apache.wicket.markup.html.WebPage;
-import org.apache.wicket.markup.html.panel.FeedbackPanel;
+import org.appfuse.webapp.AbstractWebPage;
 import org.wicketstuff.annotation.mount.MountPath;
 
 /**
@@ -12,13 +11,12 @@ import org.wicketstuff.annotation.mount.MountPath;
  */
 @MountPath("mainMenu")
 @AuthorizeInstantiation({"ROLE_ADMIN", "ROLE_USER"})
-public class MainMenu extends WebPage {
+public class MainMenu extends AbstractWebPage {
 
     @Override
     protected void onInitialize() {
         super.onInitialize();
 
-        FeedbackPanel feedbackPanel = new FeedbackPanel("feedback");
-        add(feedbackPanel);
+        add(createFeedbackPanel());
     }
 }

@@ -1,33 +1,38 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
-	xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+	xmlns:wicket="https://git-wip-us.apache.org/repos/asf/wicket/repo?p=wicket.git;a=blob_plain;f=wicket-core/src/main/resources/META-INF/wicket-1.5.xsd;hb=master">
 <head>
     <meta name="title" wicket:message="content:userList.title"/>
     <meta name="heading" wicket:message="content:userList.heading"/>
     <meta name="menu" content="AdminMenu"/>
+    <!--<meta name="bodyClass" content="???"/>-->
 
     <title>
         <wicket:message key="userList.title">[Title]</wicket:message>
     </title>
 </head>
 <body>
-    <div wicket:id="feedback"></div>
+    <div class="span10">
+        <div wicket:id="feedback"></div>
+        <h2><wicket:message key="userList.heading"/></h2>
 
-    <p>
-        <input wicket:id="addButtonTop" type="button" class="button" wicket:message="value:button.add" />
-        <input wicket:id="doneButtonTop" type="button" class="button" wicket:message="value:button.done" />
-    </p>
+        <form wicket:id="searchForm" autofocus="false" class="form-search">
+            <div id="search" class="input-append">
+                <input wicket:id="searchQuery" type="text" size="20" class="input-medium search-query"/>
+                <input type="submit" class="btn" wicket:message="value:button.search"/>
+            </div>
+        </form>
 
-    <!-- wicket:extend? -->
-    <!-- TODO: MZA: Row highlight with highlightTableRows()? -->
-    <table wicket:id="userListTable" class="table"/>
+        <div class="form-actions">
+            <!-- TODO: MZA: How to add icon? -->
+            <input wicket:id="addButtonTop" type="button" class="btn btn-primary" wicket:message="value:button.add" />
+            <input wicket:id="doneButtonTop" type="button" class="btn" wicket:message="value:button.done" />
+        </div>
 
-    <p>
-        <input wicket:id="addButtonBottom" type="button" class="button" wicket:message="value:button.add" />
-        <input wicket:id="doneButtonBottom" type="button" class="button" wicket:message="value:button.done" />
-    </p>
-
+        <!-- wicket:extend? -->
+        <!-- TODO: MZA: Row highlight with highlightTableRows()? -->
+        <table wicket:id="userListTable" class="table table-striped table-hover"></table>
+    </div>
 </body>
 </html>
-

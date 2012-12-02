@@ -14,7 +14,7 @@
     <script type="text/javascript" src="<c:url value='/scripts/lib/plugins/jquery.cookie.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/scripts/script.js'/>"></script>
 </head>
-<body id="<decorator:getProperty property="meta.bodyId" writeEntireProperty="false"/>" class="<decorator:getProperty property="meta.bodyClass" writeEntireProperty="false"/>">
+<body class="<decorator:getProperty property="meta.bodyClass" writeEntireProperty="false"/>">
 <c:set var="currentMenu" scope="request"><decorator:getProperty property="meta.menu"/></c:set>
 
 <div class="navbar navbar-fixed-top">
