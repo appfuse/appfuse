@@ -2,6 +2,7 @@ package org.appfuse.mojo.installer;
 
 import org.apache.commons.beanutils.BeanComparator;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.model.Dependency;
@@ -230,16 +231,16 @@ public class InstallSourceMojo extends AbstractMojo {
             newDependencies = addModuleDependencies(newDependencies, "root", "", "");
 
             // Add dependencies from appfuse-data
-            newDependencies = addModuleDependencies(newDependencies, "data", "data", "");
+            newDependencies = addModuleDependencies(newDependencies, "data", "data", "appfuse-root");
 
             // Add dependencies from appfuse-data-common
-            newDependencies = addModuleDependencies(newDependencies, "data-common", "data/common", "appfuse-data");
+            newDependencies = addModuleDependencies(newDependencies, "data-common", "data/common", "appfuse-root/appfuse-data");
 
             // Add dependencies from appfuse-${dao.framework}
-            newDependencies = addModuleDependencies(newDependencies, daoFramework, "data/" + daoFramework, "appfuse-data");
+            newDependencies = addModuleDependencies(newDependencies, daoFramework, "data/" + daoFramework, "appfuse-root/appfuse-data");
 
             // Add dependencies from appfuse-service
-            newDependencies = addModuleDependencies(newDependencies, "service", "service", "");
+            newDependencies = addModuleDependencies(newDependencies, "service", "service", "appfuse-root");
 
             if (!isWebServicesProject && project.getPackaging().equals("war")) {
                 newDependencies = addWebDependencies(appfuseVersion, newDependencies, webFramework);
@@ -257,23 +258,29 @@ public class InstallSourceMojo extends AbstractMojo {
             if (project.getPackaging().equals("jar")) {
                 newDependencies.clear();
 
+                // add dependencies from root appfuse pom
+                newDependencies = addModuleDependencies(newDependencies, "root", "", "");
+
                 // Add dependencies from appfuse-data
-                newDependencies = addModuleDependencies(newDependencies, "data", "data", "");
+                newDependencies = addModuleDependencies(newDependencies, "data", "data", "appfuse-root");
 
                 // Add dependencies from appfuse-data-common
-                newDependencies = addModuleDependencies(newDependencies, "data-common", "data/common", "appfuse-data");
+                newDependencies = addModuleDependencies(newDependencies, "data-common", "data/common", "appfuse-root/appfuse-data");
 
                 // Add dependencies from appfuse-${dao.framework}
-                newDependencies = addModuleDependencies(newDependencies, daoFramework, "data/" + daoFramework, "appfuse-data");
+                newDependencies = addModuleDependencies(newDependencies, daoFramework, "data/" + daoFramework, "appfuse-root/appfuse-data");
 
                 // Add dependencies from appfuse-service
-                newDependencies = addModuleDependencies(newDependencies, "service", "service", "service");
+                newDependencies = addModuleDependencies(newDependencies, "service", "service", "appfuse-root");
 
                 createFullSourcePom(newDependencies);
             }
 
             if (project.getPackaging().equals("war")) {
                 newDependencies.clear();
+
+                // add dependencies from root appfuse pom
+                newDependencies = addModuleDependencies(newDependencies, "root", "", "");
 
                 newDependencies = addWebDependencies(appfuseVersion, newDependencies, webFramework);
 
@@ -284,23 +291,27 @@ public class InstallSourceMojo extends AbstractMojo {
 
     private List<Dependency> addWebDependencies(String appfuseVersion, List<Dependency> newDependencies, String webFramework) {
         // Add dependencies from appfuse-common-web
-        newDependencies = addModuleDependencies(newDependencies, "web", "web", "web");
+        newDependencies = addModuleDependencies(newDependencies, "web", "web", "appfuse-root");
 
         Double appfuseVersionAsDouble = new Double(appfuseVersion.substring(0, appfuseVersion.lastIndexOf(".")));
+        if (StringUtils.countMatches(".", appfuseVersion) == 1) {
+            appfuseVersionAsDouble = new Double(appfuseVersion);
+        } else if (appfuseVersion.contains("-")) {
+            appfuseVersionAsDouble = new Double(appfuseVersion.substring(0, appfuseVersion.indexOf("-")));
+        }
 
         getLog().debug("Detected AppFuse version: " + appfuseVersionAsDouble);
 
         if (isAppFuse() && appfuseVersionAsDouble < 2.1) {
             // Add dependencies from appfuse-common-web
-            newDependencies = addModuleDependencies(newDependencies, "web-common", "web/common", "common");
+            newDependencies = addModuleDependencies(newDependencies, "web-common", "web/common", "appfuse-root/appfuse-web");
         }
 
-        // modular archetypes still seem to need these - todo: figure out why
         if (isAppFuse() && project.getPackaging().equals("war") && project.hasParent()) {
-            newDependencies = addModuleDependencies(newDependencies, "web-common", "web/common", "common");
-
-            newDependencies = addModuleDependencies(newDependencies, webFramework, "web/" + webFramework, webFramework);
+            newDependencies = addModuleDependencies(newDependencies, "web-common", "web/common", "appfuse-root/appfuse-web");
+            newDependencies = addModuleDependencies(newDependencies, webFramework, "web/" + webFramework, "appfuse-root/appfuse-web");
         }
+
         return newDependencies;
     }
 
