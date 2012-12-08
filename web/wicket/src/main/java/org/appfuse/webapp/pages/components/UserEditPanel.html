@@ -68,7 +68,7 @@
             </div>
         </div>
     </div>
-    <div wicket:id="mainAddress" class="group"></div>
+    <div wicket:id="collapsibleAddress"></div>
 
     <div wicket:id="accountSettingsGroup">
         <div class="control-group">
@@ -124,10 +124,6 @@
 </wicket:panel>
 
 <wicket:fragment wicket:id="address">
-    <legend class="accordion-heading">
-        <!-- TODO: MZA: Make collapsible -->
-        <label wicket:id="addressLabel" class="desc">[Address]</label>
-    </legend>
     <div class="accordion-body in collapse">
         <div class="control-group">
             <label class="control-label" for="address">Address</label>

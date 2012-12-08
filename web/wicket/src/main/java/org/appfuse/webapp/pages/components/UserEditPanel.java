@@ -1,10 +1,14 @@
 package org.appfuse.webapp.pages.components;
 
+import com.google.common.collect.Lists;
 import de.agilecoders.wicket.markup.html.bootstrap.button.ButtonType;
 import de.agilecoders.wicket.markup.html.bootstrap.button.DefaultButton;
 import de.agilecoders.wicket.markup.html.bootstrap.button.TypedButton;
 import de.agilecoders.wicket.markup.html.bootstrap.image.IconType;
+import de.agilecoders.wicket.markup.html.bootstrap.tabs.Collapsible;
 import org.apache.wicket.behavior.AttributeAppender;
+import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
+import org.apache.wicket.extensions.markup.html.tabs.ITab;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.*;
@@ -13,10 +17,7 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Fragment;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.RepeatingView;
-import org.apache.wicket.model.CompoundPropertyModel;
-import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.PropertyModel;
-import org.apache.wicket.model.ResourceModel;
+import org.apache.wicket.model.*;
 import org.appfuse.model.Address;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
@@ -78,8 +79,7 @@ public abstract class UserEditPanel extends Panel {
         add(new RequiredLabel("websiteLabel", getString("user.website")));
         add(new RequiredTextField("website"));
 
-        PropertyModel addressModel = new PropertyModel(getDefaultModel(), "address");
-        add(new AddressFragment("mainAddress", "address", new CompoundPropertyModel<Address>(addressModel)));
+        add(createCollapsibleAddress());
 
         PropertyModel<Set<Role>> rolesModel = new PropertyModel<Set<Role>>(getDefaultModel(), "roles");
         add(createAccountSettingsGroup(rolesModel));
@@ -95,6 +95,19 @@ public abstract class UserEditPanel extends Panel {
         passwordGroup.add(new RequiredLabel("confirmPasswordLabel", getString("user.confirmPassword")));
         passwordGroup.add(new PasswordTextField("confirmPassword"));
         return passwordGroup;
+    }
+
+    private Collapsible createCollapsibleAddress() {
+        final PropertyModel<Address> addressModel = new PropertyModel<Address>(getDefaultModel(), "address");
+        AbstractTab addressTab = new AbstractTab(new ResourceModel("user.address.address")) {
+            @Override
+            public WebMarkupContainer getPanel(String panelId) {
+                return new AddressFragment(panelId, "address", new CompoundPropertyModel<Address>(addressModel));
+            }
+        };
+        //TODO: MZA: Could be moved to Collapsible, but model is mutable and a reference shouldn't leak out to re reusable
+        Model<Integer> allTabClosed = Model.of(-1);
+        return new Collapsible("collapsibleAddress", Lists.<ITab>newArrayList(addressTab), allTabClosed);
     }
 
     private WebMarkupContainer createAccountSettingsGroup(IModel<Set<Role>> rolesModel) {
@@ -181,7 +194,6 @@ public abstract class UserEditPanel extends Panel {
             super.onInitialize();
             //moved to onInitilize to prevent:
             // "Make sure you are not calling Component#getString() inside your Component's constructor."
-            add(new Label("addressLabel", getString("user.address.address")));
             add(new TextField("address"));
             add(new RequiredTextField("city"));
             add(new RequiredTextField("province"));

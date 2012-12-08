@@ -84,7 +84,7 @@ import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
  *  - why empty wicket:message from <title> is rendered inside body (and by the way breaks layout on "Current User" page)
  *  - sync localized messages with upstream - DONE
  *  - icons on button - <a><i class="icon-plus icon-white"></i> Add</a> - DONE
- *  - collapsible address section
+ *  - collapsible address section - DONE
  *  - input inside label for "Account Settings" - a new component?
  *
  * @author Marcin Zajączkowski, 2010-09-02
