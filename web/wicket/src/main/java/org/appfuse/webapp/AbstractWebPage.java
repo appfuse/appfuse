@@ -1,10 +1,13 @@
 package org.appfuse.webapp;
 
 import de.agilecoders.wicket.Bootstrap;
+import de.agilecoders.wicket.markup.html.bootstrap.common.NotificationMessage;
 import de.agilecoders.wicket.markup.html.bootstrap.common.NotificationPanel;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.protocol.http.WebApplication;
+import org.apache.wicket.util.time.Duration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,5 +34,10 @@ public abstract class AbstractWebPage extends WebPage {
     public void renderHead(IHeaderResponse response) {
         super.renderHead(response);
         Bootstrap.renderHead(response);
+    }
+
+    protected NotificationMessage createDefaultInfoNotificationMessage(IModel<String> messageModel) {
+        return new NotificationMessage(messageModel)
+                .hideAfter(Duration.seconds(5));
     }
 }

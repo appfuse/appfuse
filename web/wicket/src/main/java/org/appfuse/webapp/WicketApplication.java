@@ -4,10 +4,7 @@ import de.agilecoders.wicket.Bootstrap;
 import de.agilecoders.wicket.settings.BootstrapSettings;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
-import org.apache.wicket.markup.head.JavaScriptReferenceHeaderItem;
 import org.apache.wicket.markup.html.WebPage;
-import org.apache.wicket.request.resource.JavaScriptResourceReference;
-import org.apache.wicket.settings.IJavaScriptLibrarySettings;
 import org.apache.wicket.settings.IRequestCycleSettings;
 import org.appfuse.webapp.pages.Login;
 import org.apache.wicket.Page;
@@ -86,6 +83,7 @@ import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
  *  - icons on button - <a><i class="icon-plus icon-white"></i> Add</a> - DONE
  *  - collapsible address section - DONE
  *  - input inside label for "Account Settings" - a new component?
+ *  - add placeholder and required behavior to TextField on UserEditPanel (a new component?)
  *
  * @author Marcin Zajączkowski, 2010-09-02
  */

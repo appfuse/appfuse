@@ -1,6 +1,5 @@
 package org.appfuse.webapp.pages;
 
-import de.agilecoders.wicket.markup.html.bootstrap.common.NotificationMessage;
 import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
@@ -8,7 +7,6 @@ import org.apache.wicket.request.Url;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.http.WebResponse;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.apache.wicket.util.time.Duration;
 import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.service.MailEngine;
@@ -63,8 +61,7 @@ public class Signup extends AbstractUserEdit {
 
         prepareAndSendNewUserEmail(user);
 
-        getSession().info(new NotificationMessage(Model.of(getString("user.registered")))
-                .hideAfter(Duration.seconds(5)));
+        getSession().info(createDefaultInfoNotificationMessage(Model.of(getString("user.registered"))));
 
         setUserNameCookieAndSetResponsePage(user.getUsername());
     }
