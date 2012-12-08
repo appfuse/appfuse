@@ -1,5 +1,10 @@
 package org.appfuse.webapp.pages.components;
 
+import de.agilecoders.wicket.markup.html.bootstrap.button.ButtonType;
+import de.agilecoders.wicket.markup.html.bootstrap.button.DefaultButton;
+import de.agilecoders.wicket.markup.html.bootstrap.button.TypedButton;
+import de.agilecoders.wicket.markup.html.bootstrap.image.IconType;
+import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.*;
@@ -150,14 +155,12 @@ public abstract class UserEditPanel extends Panel {
     }
 
     private Button createCancelButton(String buttonId) {
-        Button cancelButton = new Button(buttonId) {
+        return new DefaultButton(buttonId, new ResourceModel("button.cancel")) {
             @Override
             public void onSubmit() {
                 onCancelButtonSubmit();
             }
-        };
-        cancelButton.setDefaultFormProcessing(false);
-        return cancelButton;
+        }.setIconType(IconType.remove).setInverted(false).setDefaultFormProcessing(false);
     }
 
     //TODO: MZA: Rename to createButtonsGroup
@@ -188,10 +191,11 @@ public abstract class UserEditPanel extends Panel {
         }
     }
 
-    private final /*static*/ class SaveButton extends Button {
+    private final /*static*/ class SaveButton extends TypedButton {
 
         private SaveButton(String buttonId) {
-            super(buttonId, new ResourceModel("button.save"));
+            super(buttonId, new ResourceModel("button.save"), ButtonType.Primary);
+            setIconType(IconType.ok);
         }
 
         @Override
@@ -200,11 +204,13 @@ public abstract class UserEditPanel extends Panel {
         }
     }
 
-    private class DeleteButton extends Button {
+    private class DeleteButton extends TypedButton {
         public DeleteButton(String buttonId) {
-            super(buttonId);
+            super(buttonId, new ResourceModel("button.delete"), ButtonType.Danger);
+            setIconType(IconType.trash);
             setDefaultFormProcessing(false);
             setVisible(getDeleteButtonVisibility());
+            add(new AttributeAppender("onclick", "return confirmDelete('User')"));
         }
 
         @Override

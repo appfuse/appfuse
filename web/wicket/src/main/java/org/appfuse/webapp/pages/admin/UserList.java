@@ -70,7 +70,7 @@ public class UserList extends AbstractWebPage {
     }
 
     private TypedLink<String> createDoneButton() {
-        return new TypedLink<String>("doneButton", Model.of(getString("button.done")), ButtonType.Default) {
+        return new TypedLink<String>("doneButton", new ResourceModel("button.done"), ButtonType.Default) {
             @Override
             public void onClick() {
                 setResponsePage(MainMenu.class);
@@ -79,7 +79,7 @@ public class UserList extends AbstractWebPage {
     }
 
     private TypedLink<String> createAddButton() {
-        return new TypedLink<String>("addButton", Model.of(getString("button.add")), ButtonType.Primary) {
+        return new TypedLink<String>("addButton", new ResourceModel("button.add"), ButtonType.Primary) {
 
             @Override
             public void onClick() {
