@@ -80,8 +80,7 @@ public abstract class UserEditPanel extends Panel {
         add(createAccountSettingsGroup(rolesModel));
         add(createDisplayRolesGroup(rolesModel));
         add(createGroupWithTopButtons());
-        add(createGroupWithBottomButtons());
-        
+
     }
 
     private WebMarkupContainer createPasswordGroup() {
@@ -132,7 +131,7 @@ public abstract class UserEditPanel extends Panel {
         for (Role role : roles) {
             WebMarkupContainer roleItem = new WebMarkupContainer(rolesRepeater.newChildId());
             rolesRepeater.add(roleItem);
-            roleItem.add(new Label("roleName", role.toString()));
+            roleItem.add(new Label("roleName", "[" + role.toString() + "]"));
 //            //MZA: WebMarkupContainer could be removed when ugly hack with " " was used
 //            rolesRepeater.add(new Label(rolesRepeater.newChildId(), role + " "));
         }
@@ -166,15 +165,6 @@ public abstract class UserEditPanel extends Panel {
         WebMarkupContainer buttonsGroup = new WebMarkupContainer(groupId);
         buttonsGroup.setVisible(getButtonsGroupVisibility());
         return buttonsGroup;
-    }
-
-    private WebMarkupContainer createGroupWithBottomButtons() {
-        WebMarkupContainer buttonsBottomGroup = createInvisibleAtSignupGroup("buttonsBottomGroup");
-
-        buttonsBottomGroup.add(new SaveButton("saveButtonBottom"));
-        buttonsBottomGroup.add(new DeleteButton("deleteButtonBottom"));
-        buttonsBottomGroup.add(createCancelButton("cancelButtonBottom"));
-        return buttonsBottomGroup;
     }
 
     public class AddressFragment extends Fragment {

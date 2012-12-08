@@ -1,5 +1,7 @@
 package org.appfuse.webapp.pages.admin;
 
+import de.agilecoders.wicket.markup.html.bootstrap.button.*;
+import de.agilecoders.wicket.markup.html.bootstrap.image.IconType;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.extensions.ajax.markup.html.repeater.data.table.AjaxFallbackDefaultDataTable;
 import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
@@ -47,8 +49,8 @@ public class UserList extends AbstractWebPage {
 
         add(createFeedbackPanel());
         add(createSearchForm());
-        add(createAddButton("addButtonTop"));
-        add(createDoneButton("doneButtonTop"));
+        add(createAddButton());
+        add(createDoneButton());
         
         add(createUserListTable());
     }
@@ -67,17 +69,18 @@ public class UserList extends AbstractWebPage {
         return searchForm;
     }
 
-    private Link createDoneButton(String buttonId) {
-        return new Link(buttonId) {
+    private TypedLink<String> createDoneButton() {
+        return new TypedLink<String>("doneButton", Model.of(getString("button.done")), ButtonType.Default) {
             @Override
             public void onClick() {
                 setResponsePage(MainMenu.class);
             }
-        };
+        }.setIconType(IconType.ok).setInverted(false);
     }
 
-    private Link createAddButton(String buttonId) {
-        return new Link(buttonId) {
+    private TypedLink<String> createAddButton() {
+        return new TypedLink<String>("addButton", Model.of(getString("button.add")), ButtonType.Primary) {
+
             @Override
             public void onClick() {
                 log.info("addButton submitted");
@@ -86,7 +89,7 @@ public class UserList extends AbstractWebPage {
                 //TODO: MZA: Is it the best way to create that Model here?
                 setResponsePage(new FromListUserEdit(getPage(), new Model<User>(user)));
             }
-        };
+        }.setIconType(IconType.plus);
     }
 
     private AjaxFallbackDefaultDataTable<User, String> createUserListTable() {

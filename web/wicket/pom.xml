@@ -314,7 +314,7 @@
         <dependency>
             <groupId>de.agilecoders.wicket</groupId>
             <artifactId>bootstrap</artifactId>
-            <version>0.6.7</version>
+            <version>0.7.5</version>
         </dependency>
 
         <dependency>
