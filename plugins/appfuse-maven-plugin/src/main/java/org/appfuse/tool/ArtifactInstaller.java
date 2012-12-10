@@ -307,6 +307,11 @@ public class ArtifactInstaller {
 
         copy.setFile(new File(sourceDirectory + "/src/main/webapp/" + pojoName + "List.tml"));
         copy.execute();
+        // menu
+        createLoadFileTask("src/main/webapp/" + pojoName + "-menu.tml", "tapestry-menu").execute();
+        File existingFile = new File(destinationDirectory + "/src/main/resources/" +
+                project.getGroupId().replace(".", "/") + "/webapp/components/Layout.tml");
+        parseXMLFile(existingFile, pojoName, "<!-- Add new menu items here -->", "tapestry-menu");
     }
 
     // =================== End of Views ===================

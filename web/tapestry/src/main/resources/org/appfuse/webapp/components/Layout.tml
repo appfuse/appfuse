@@ -28,6 +28,7 @@
                     <t:menuitem name="MainMenu" title="mainMenu.title" page="home" roles="ROLE_ADMIN,ROLE_USER"/>
                     <t:menuitem name="UserMenu" title="menu.user" page="home.editprofile"
                                 roles="ROLE_ADMIN,ROLE_USER"/>
+                    <!-- Add new menu items here -->
                     <t:menuitem name="AdminMenu" title="menu.admin" roles="ROLE_ADMIN"
                                 class="dropdown" data-toggle="dropdown">
                         <ul class="dropdown-menu">

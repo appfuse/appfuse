@@ -113,7 +113,7 @@
                 <invoke description="View ${pojo.shortName} List" url="/${pojo.shortName}List"/>
                 <clicklink description="click on first record in list" label="-1"/>
                 <prepareDialogResponse description="Confirm delete" dialogType="confirm" response="true"/>
-                <clickbutton label="${'$'}{button.delete}" description="Click button 'Delete'"/>
+                <clicklink label="${'$'}{button.delete}" description="Click button 'Delete'"/>
                 <verifyNoDialogResponses/>
                 <verifytitle description="display ${pojo.shortName} List" text=".*${'$'}{${pojoNameLower}List.title}.*" regex="true"/>
                 <verifytext description="verify success message" text="${'$'}{${pojoNameLower}.deleted}"/>
