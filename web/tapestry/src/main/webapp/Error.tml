@@ -3,9 +3,6 @@
 
     <h1>An Error Occurred</h1>
 
-    <div style="overflow:auto">${error}</div>
-
     <p>You may attempt to <t:pagelink page="index">try again</t:pagelink>.</p>
-
 
 </html>

@@ -7,7 +7,7 @@
 <body id="login">
 
 <form method="post" id="loginForm" action="<c:url value='/j_security_check'/>"
-    onsubmit="saveUsername(this);return validateForm(this)" class="form-signin">
+    onsubmit="saveUsername(this);return validateForm(this)" class="form-signin" autocomplete="off">
     <h2 class="form-signin-heading">
         <fmt:message key="login.heading"/>
     </h2>

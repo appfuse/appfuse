@@ -22,7 +22,7 @@
         </c:if>
     </spring:bind>
 
-    <form:form commandName="user" method="post" action="signup" id="signupForm"
+    <form:form commandName="user" method="post" action="signup" id="signupForm" autocomplete="off"
                cssClass="well form-horizontal" onsubmit="return validateUser(this)">
         <spring:bind path="user.username">
         <fieldset class="control-group${(not empty status.errorMessage) ? ' error' : ''}">
