@@ -8,6 +8,7 @@ import org.appfuse.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.jpa.JpaSystemException;
+import org.springframework.security.authentication.dao.SaltSource;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,8 @@ import java.util.List;
 public class UserManagerImpl extends GenericManagerImpl<User, Long> implements UserManager, UserService {
     private PasswordEncoder passwordEncoder;
     private UserDao userDao;
+    @Autowired(required = false)
+    private SaltSource saltSource;
 
     @Autowired
     public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
@@ -83,7 +86,14 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
 
             // If password was changed (or new user), encrypt it
             if (passwordChanged) {
-                user.setPassword(passwordEncoder.encodePassword(user.getPassword(), null));
+                if (saltSource == null) {
+                    // backwards compatibility
+                    user.setPassword(passwordEncoder.encodePassword(user.getPassword(), null));
+                    log.warn("SaltSource not set, encrypting password w/o salt");
+                } else {
+                    user.setPassword(passwordEncoder.encodePassword(user.getPassword(),
+                            saltSource.getSalt(user)));
+                }
             }
         } else {
             log.warn("PasswordEncoder not set, skipping password encryption...");

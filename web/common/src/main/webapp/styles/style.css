@@ -102,10 +102,6 @@ form input {
     width: 90%;
 }
 
-.alert {
-    margin-bottom: 0;
-}
-
 /* TABLES */
 
 th.sorted a, th.sortable a {

@@ -23,7 +23,7 @@
         <row>
             <value description="id">-1</value>
             <value description="username">user</value>
-            <value description="password">12dea96fec20593566ab75692c9949596833adc9</value>
+            <value description="password">b6b1f4781776979c0775c71ebdd8bdc084aac5fe</value>
             <value description="first_name">Tomcat</value>
             <value description="last_name">User</value>
             <value description="address"></value>
@@ -44,7 +44,7 @@
         <row>
             <value description="id">-2</value>
             <value description="username">admin</value>
-            <value description="password">d033e22ae348aeb5660fc2140aec35850c4da997</value>
+            <value description="password">a40546cc4fd6a12572828bb803380888ad1bfdab</value>
             <value description="first_name">Matt</value>
             <value description="last_name">Raible</value>
             <value description="address"></value>
