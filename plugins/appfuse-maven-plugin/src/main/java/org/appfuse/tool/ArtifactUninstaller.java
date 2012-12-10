@@ -204,16 +204,24 @@ public class ArtifactUninstaller {
     // =================== End of Views ===================
 
     private void removeMenu() {
-        File existingFile = new File(installedDirectory + "/src/main/webapp/common/menu.jsp");
+        File existingFile = new File(installedDirectory + "/src/main/webapp/WEB-INF/menu-config.xml");
         if (existingFile.exists()) { // no menu in AppFuse Light
             parseXMLFile(existingFile, pojoName);
 
             existingFile = new File(installedDirectory + "/src/main/webapp/WEB-INF/menu-config.xml");
             parseXMLFile(existingFile, pojoName);
+        } else if (isAppFuse()) { // Tapestry
+            existingFile = new File(installedDirectory + "/src/main/resources/" +
+                    project.getGroupId().replace(".", "/") + "/webapp/components/Layout.tml");
+            parseXMLFile(existingFile, pojoName);
         } else {
             existingFile = new File(installedDirectory + "/src/main/webapp/decorators/default.jsp");
             parseXMLFile(existingFile, pojoName);
         }
+    }
+
+    private boolean isAppFuse() {
+        return (project.getProperties().getProperty("copyright.year") != null);
     }
 
     private void removeInternationalizationKeys() {

@@ -21,8 +21,8 @@
     </form>
 
     <div id="actions" class="form-actions">
-        <a t:type="eventlink" event="add" id="add" class="btn btn-primary"><i class="icon-plus icon-white"></i> ${message:button.add}</a>
-        <a t:type="eventlink" event="done" id="done" class="btn"><i class="icon-ok"></i> ${message:button.done}</a>
+        <a t:type="eventlink" event="add" id="add" class="btn btn-primary"><i class="icon-plus icon-white"></i> ${'$'}{message:button.add}</a>
+        <a t:type="eventlink" event="done" id="done" class="btn"><i class="icon-ok"></i> ${'$'}{message:button.done}</a>
     </div>
 
     <t:grid source="${util.getPluralForWord(pojoNameLower)}" row="${pojoNameLower}" id="${pojoNameLower}List" class="table table-condensed table-striped table-hover">

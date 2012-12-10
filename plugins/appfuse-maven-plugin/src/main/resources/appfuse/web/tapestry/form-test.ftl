@@ -59,7 +59,7 @@ public class ${pojo.shortName}FormTest extends BasePageTestCase {
 
         assertNull(doc.getElementById("errorMessages"));
 
-        assertTrue(doc.contains("added successfully"));
+        assertTrue(doc.toString().contains("added successfully"));
         Element table = doc.getElementById("${pojoNameLower}List");
     }
 

@@ -104,8 +104,10 @@ public class ArtifactInstaller {
             log("Installing i18n messages...");
             installInternationalizationKeys(webFramework);
 
-            log("Installing menu...");
-            installMenu();
+            if (!"tapestry".equalsIgnoreCase(webFramework)) {
+                log("Installing menu...");
+                installMenu();
+            }
 
             log("Installing UI tests...");
             installUITests();
@@ -307,7 +309,8 @@ public class ArtifactInstaller {
 
         copy.setFile(new File(sourceDirectory + "/src/main/webapp/" + pojoName + "List.tml"));
         copy.execute();
-        // menu
+
+        log("Installing menu...");
         createLoadFileTask("src/main/webapp/" + pojoName + "-menu.tml", "tapestry-menu").execute();
         File existingFile = new File(destinationDirectory + "/src/main/resources/" +
                 project.getGroupId().replace(".", "/") + "/webapp/components/Layout.tml");
