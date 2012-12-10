@@ -237,7 +237,7 @@ public class AppFuseExporter extends GenericExporter {
         GenericExporter exporter = new GenericExporter(getConfiguration(), getOutputDirectory()) {
             @Override
             protected void exportPOJO(Map map, POJOClass element) {
-                if (element.getShortName().contains(System.getProperty("appfuse.entity"))) {
+                if (element.getShortName().equals(System.getProperty("appfuse.entity"))) {
                     super.exportPOJO(map, element);
                 }
             }
