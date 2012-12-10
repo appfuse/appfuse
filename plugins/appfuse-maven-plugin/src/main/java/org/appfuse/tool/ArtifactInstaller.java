@@ -310,11 +310,19 @@ public class ArtifactInstaller {
         copy.setFile(new File(sourceDirectory + "/src/main/webapp/" + pojoName + "List.tml"));
         copy.execute();
 
-        log("Installing menu...");
-        createLoadFileTask("src/main/webapp/" + pojoName + "-menu.tml", "tapestry-menu").execute();
-        File existingFile = new File(destinationDirectory + "/src/main/resources/" +
-                project.getGroupId().replace(".", "/") + "/webapp/components/Layout.tml");
-        parseXMLFile(existingFile, pojoName, "<!-- Add new menu items here -->", "tapestry-menu");
+        if (isAppFuse()) {
+            log("Installing menu...");
+            createLoadFileTask("src/main/webapp/" + pojoName + "-menu.tml", "tapestry-menu").execute();
+            File existingFile = new File(destinationDirectory + "/src/main/resources/" +
+                    project.getGroupId().replace(".", "/") + "/webapp/components/Layout.tml");
+            parseXMLFile(existingFile, pojoName, "<!-- Add new menu items here -->", "tapestry-menu");
+        } else {
+            installMenu();
+        }
+    }
+
+    private boolean isAppFuse() {
+        return (project.getProperties().getProperty("copyright.year") != null);
     }
 
     // =================== End of Views ===================
@@ -349,12 +357,6 @@ public class ArtifactInstaller {
         // if ApplicationResources doesn't exist, assume appfuse-light and use messages instead
         if (!existingFile.exists()) {
             existingFile = new File(destinationDirectory + "/src/main/resources/messages.properties");
-            /*
-            if ("tapestry".equals(webFramework)) {
-                existingFile = new File(destinationDirectory + "/src/main/webapp/WEB-INF/app.properties");
-            } else {
-                existingFile = new File(destinationDirectory + "/src/main/resources/messages.properties");
-            }*/
         }
 
         parsePropertiesFile(existingFile, pojoName);
