@@ -91,7 +91,7 @@
                     <componentProperties>
                         <drop>true</drop>
                         <jdk5>true</jdk5>
-                        <propertyfile>target/classes/jdbc.properties</propertyfile>
+                        <propertyfile>${project.build.outputDirectory}/jdbc.properties</propertyfile>
                         <skip>${skipTests}</skip>
                     </componentProperties>
                 </configuration>

@@ -131,7 +131,7 @@
                                 <echo>Copying i18n files...</echo>
                                 <copy todir="src/main/webapp/WEB-INF" overwrite="true">
                                     <globmapper from="ApplicationResources*" to="app*" />
-                                    <fileset dir="target/classes" includes="ApplicationResources*" />
+                                    <fileset dir="${project.build.outputDirectory}" includes="ApplicationResources*" />
                                     <!-- Tapestry specific customizations -->
                                     <filterset begintoken="{" endtoken="}">
                                        <!-- Convert {i} to %s -->
