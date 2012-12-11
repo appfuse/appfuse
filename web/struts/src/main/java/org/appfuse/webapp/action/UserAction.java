@@ -211,6 +211,7 @@ public class UserAction extends BaseAction implements Preparable {
                 }
                 return SUCCESS;
             } else {
+                user.setConfirmPassword(user.getPassword());
                 saveMessage(getText("user.updated.byAdmin", args));
                 return INPUT;
             }
