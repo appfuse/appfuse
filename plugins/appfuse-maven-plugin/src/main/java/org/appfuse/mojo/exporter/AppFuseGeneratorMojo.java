@@ -446,9 +446,9 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
 
             SAXParserFactory spf = SAXParserFactory.newInstance();
             try {
-                SAXParser sp = spf.newSAXParser();
-                //sp.setProperty("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+                spf.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
 
+                SAXParser sp = spf.newSAXParser();
                 sp.parse(new InputSource(new StringReader(xmlString)), this);
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
