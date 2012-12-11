@@ -8,6 +8,7 @@ import org.appfuse.model.Role;
 import org.appfuse.model.User;
 import org.appfuse.service.UserExistsException;
 import org.appfuse.webapp.util.RequestUtil;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.mail.MailException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
@@ -89,7 +90,7 @@ public class UserAction extends BaseAction implements Preparable {
      */
     public String edit() throws IOException {
         HttpServletRequest request = getRequest();
-        boolean editProfile = (request.getRequestURI().indexOf("editProfile") > -1);
+        boolean editProfile = request.getRequestURI().contains("editProfile");
 
         // if URL is "editProfile" - make sure it's the current user
         if (editProfile && ((request.getParameter("id") != null) || (request.getParameter("from") != null))) {
@@ -172,7 +173,11 @@ public class UserAction extends BaseAction implements Preparable {
 
             for (int i = 0; userRoles != null && i < userRoles.length; i++) {
                 String roleName = userRoles[i];
-                user.addRole(roleManager.getRole(roleName));
+                try {
+                    user.addRole(roleManager.getRole(roleName));
+                } catch (DataIntegrityViolationException e) {
+                    return showUserExistsException(originalVersion);
+                }
             }
         }
 
@@ -184,16 +189,7 @@ public class UserAction extends BaseAction implements Preparable {
             getResponse().sendError(HttpServletResponse.SC_FORBIDDEN);
             return null;
         } catch (UserExistsException e) {
-            List<Object> args = new ArrayList<Object>();
-            args.add(user.getUsername());
-            args.add(user.getEmail());
-            addActionError(getText("errors.existing.user", args));
-
-            // reset the version # to what was passed in
-            user.setVersion(originalVersion);
-            // redisplay the unencrypted passwords
-            user.setPassword(user.getConfirmPassword());
-            return INPUT;
+            return showUserExistsException(originalVersion);
         }
 
         if (!"list".equals(from)) {
@@ -219,6 +215,19 @@ public class UserAction extends BaseAction implements Preparable {
                 return INPUT;
             }
         }
+    }
+
+    private String showUserExistsException(Integer originalVersion) {
+        List<Object> args = new ArrayList<Object>();
+        args.add(user.getUsername());
+        args.add(user.getEmail());
+        addActionError(getText("errors.existing.user", args));
+
+        // reset the version # to what was passed in
+        user.setVersion(originalVersion);
+        // redisplay the unencrypted passwords
+        user.setPassword(user.getConfirmPassword());
+        return INPUT;
     }
 
     /**

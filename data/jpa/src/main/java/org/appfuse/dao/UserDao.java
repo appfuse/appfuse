@@ -40,9 +40,9 @@ public interface UserDao extends GenericDao<User, Long> {
 
     /**
      * Retrieves the password in DB for a user
-     * @param username the user's username
+     * @param userId the user's id
      * @return the password in DB, if the user is already persisted
      */
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
-    String getUserPassword(String username);
+    String getUserPassword(Long userId);
 }

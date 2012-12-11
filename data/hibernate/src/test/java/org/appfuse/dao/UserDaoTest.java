@@ -39,7 +39,7 @@ public class UserDaoTest extends BaseDaoTestCase {
     @Test
     public void testGetUserPassword() throws Exception {
         User user = dao.get(-1L);
-        String password = dao.getUserPassword(user.getUsername());
+        String password = dao.getUserPassword(user.getId());
         assertNotNull(password);
         log.debug("password: " + password);
     }

@@ -89,11 +89,11 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
     /**
      * {@inheritDoc}
     */
-    public String getUserPassword(String username) {
+    public String getUserPassword(Long userId) {
         JdbcTemplate jdbcTemplate =
                 new JdbcTemplate(SessionFactoryUtils.getDataSource(getSessionFactory()));
         Table table = AnnotationUtils.findAnnotation(User.class, Table.class);
         return jdbcTemplate.queryForObject(
-                "select password from " + table.name() + " where username=?", String.class, username);
+                "select password from " + table.name() + " where id=?", String.class, userId);
     }
 }

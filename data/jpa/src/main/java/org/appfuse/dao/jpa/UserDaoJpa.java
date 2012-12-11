@@ -78,10 +78,10 @@ public class UserDaoJpa extends GenericDaoJpa<User, Long> implements UserDao, Us
     /**
      * {@inheritDoc}
      */
-    public String getUserPassword(String username) {
+    public String getUserPassword(Long userId) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
         Table table = AnnotationUtils.findAnnotation(User.class, Table.class);
         return jdbcTemplate.queryForObject(
-                "select password from " + table.name() + " where username=?", String.class, username);
+                "select password from " + table.name() + " where id=?", String.class, userId);
     }
 }
