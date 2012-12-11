@@ -163,7 +163,7 @@
     <!-- For Struts debugging console -->
     <filter-mapping>
         <filter-name>struts</filter-name>
-        <url-pattern>*.html</url-pattern>
+        <url-pattern>/struts/*</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>exportFilter</filter-name>
