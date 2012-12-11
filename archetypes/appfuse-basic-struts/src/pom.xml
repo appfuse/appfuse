@@ -78,7 +78,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>hibernate3-maven-plugin</artifactId>
-                <version>2.2</version>
+                <version>2.3-SNAPSHOT</version>
                 <configuration>
                     <components>
                         <component>
@@ -681,7 +681,7 @@
         <db.name>${artifactId.replaceAll('-','_')}</db.name>
 
         <!-- Framework dependency versions -->
-        <appfuse.version>2.2</appfuse.version>
+        <appfuse.version>2.3-SNAPSHOT</appfuse.version>
         <commons.fileupload.version>1.2.1</commons.fileupload.version>
         <commons.io.version>2.0.1</commons.io.version>
         <displaytag.version>1.2</displaytag.version>
