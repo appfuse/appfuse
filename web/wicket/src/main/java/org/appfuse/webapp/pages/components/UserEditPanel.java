@@ -158,7 +158,7 @@ public abstract class UserEditPanel extends Panel {
     }
 
     private WebMarkupContainer createGroupWithTopButtons() {
-        WebMarkupContainer buttonsGroup = createInvisibleAtSignupGroup("buttonsGroup");
+        WebMarkupContainer buttonsGroup = createButtonsGroup("buttonsGroup");
 
         buttonsGroup.add(new SaveButton("saveButton"));
         //TODO: MZA: Find a better way to control visibility on the page
@@ -177,12 +177,8 @@ public abstract class UserEditPanel extends Panel {
         }.setIconType(IconType.remove).setInverted(false);
     }
 
-    //???
-    //TODO: MZA: Rename to createButtonsGroup
-    private WebMarkupContainer createInvisibleAtSignupGroup(String groupId) {
-        WebMarkupContainer buttonsGroup = new WebMarkupContainer(groupId);
-        buttonsGroup.setVisible(getButtonsGroupVisibility());
-        return buttonsGroup;
+    private WebMarkupContainer createButtonsGroup(String groupId) {
+        return new WebMarkupContainer(groupId);
     }
 
     public class AddressFragment extends Fragment {
@@ -245,6 +241,4 @@ public abstract class UserEditPanel extends Panel {
     protected abstract boolean getDisplayRolesGroupVisibility();
 
     protected abstract boolean getDeleteButtonVisibility();
-
-    protected abstract boolean getButtonsGroupVisibility();
 }

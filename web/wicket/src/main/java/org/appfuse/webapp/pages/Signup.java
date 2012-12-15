@@ -164,11 +164,6 @@ public class Signup extends AbstractUserEdit {
     }
 
     @Override
-    protected boolean getButtonsGroupVisibility() {
-        return true;
-    }
-
-    @Override
     protected boolean getDeleteButtonVisibility() {
         return false;
     }

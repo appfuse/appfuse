@@ -2,7 +2,6 @@ package org.appfuse.webapp.pages;
 
 import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -87,11 +86,6 @@ public abstract class AbstractUserEdit extends AbstractWebPage {
             protected boolean getDeleteButtonVisibility() {
                 return AbstractUserEdit.this.getDeleteButtonVisibility();
             }
-
-            @Override
-            protected boolean getButtonsGroupVisibility() {
-                return AbstractUserEdit.this.getButtonsGroupVisibility();
-            }
         };
 
         userEditForm.add(userEditPanel);
@@ -144,6 +138,4 @@ public abstract class AbstractUserEdit extends AbstractWebPage {
     protected abstract boolean getAccountSettingsGroupVisibility();
 
     protected abstract boolean getDeleteButtonVisibility();
-
-    protected abstract boolean getButtonsGroupVisibility();
 }
