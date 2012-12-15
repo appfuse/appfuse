@@ -2,11 +2,10 @@ package org.appfuse.webapp.pages.components;
 
 import com.google.common.collect.Lists;
 import de.agilecoders.wicket.markup.html.bootstrap.button.ButtonType;
-import de.agilecoders.wicket.markup.html.bootstrap.button.TypedBookmarkablePageLink;
 import de.agilecoders.wicket.markup.html.bootstrap.button.TypedButton;
+import de.agilecoders.wicket.markup.html.bootstrap.button.TypedLink;
 import de.agilecoders.wicket.markup.html.bootstrap.image.IconType;
 import de.agilecoders.wicket.markup.html.bootstrap.tabs.Collapsible;
-import org.apache.wicket.Page;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
 import org.apache.wicket.extensions.markup.html.tabs.ITab;
@@ -23,7 +22,6 @@ import org.apache.wicket.model.*;
 import org.appfuse.model.Address;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
-import org.appfuse.webapp.AbstractWebPage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -171,10 +169,12 @@ public abstract class UserEditPanel extends Panel {
     }
 
     private Link createCancelButton(String buttonId) {
-        return new TypedBookmarkablePageLink<AbstractWebPage>(buttonId, getOnCancelResponsePage(), ButtonType.Default)
-                .setLabel(new ResourceModel("button.cancel"))
-                .setIconType(IconType.remove)
-                .setInverted(false);
+        return new TypedLink<String>(buttonId, new ResourceModel("button.cancel"), ButtonType.Default) {
+            @Override
+            public void onClick() {
+                onCancelButtonSubmit();
+            }
+        }.setIconType(IconType.remove).setInverted(false);
     }
 
     //???
@@ -238,6 +238,8 @@ public abstract class UserEditPanel extends Panel {
 
     protected abstract void onDeleteButtonSubmit();
 
+    protected abstract void onCancelButtonSubmit();
+
     protected abstract boolean getAccountSettingsGroupVisibility();
 
     protected abstract boolean getDisplayRolesGroupVisibility();
@@ -245,6 +247,4 @@ public abstract class UserEditPanel extends Panel {
     protected abstract boolean getDeleteButtonVisibility();
 
     protected abstract boolean getButtonsGroupVisibility();
-
-    protected abstract Class<? extends Page> getOnCancelResponsePage();
 }

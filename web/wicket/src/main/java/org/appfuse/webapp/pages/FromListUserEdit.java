@@ -87,11 +87,6 @@ public class FromListUserEdit extends AbstractUserEdit {
         return isExistingUserEdited();
     }
 
-    @Override
-    protected Class<? extends Page> getOnCancelResponsePage() {
-        return resolveAndReturnRestlessResponsePage();
-    }
-
     private boolean isExistingUserEdited() {
         //Quite not elegant, but it seems there is not better way to determine if User is a new user (after add button)
         return getUser().getFirstName() != null;

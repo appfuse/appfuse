@@ -1,6 +1,5 @@
 package org.appfuse.webapp.pages;
 
-import org.apache.wicket.Page;
 import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
@@ -148,6 +147,13 @@ public class Signup extends AbstractUserEdit {
     }
 
     @Override
+    protected void onCancelButtonSubmit() {
+        //MZA: getSignInPage would be better, but it has protected visibility modifier.
+        //MZA: getHomePage should be ok - not authorized user should be redirected to login page
+        setResponsePage(Login.class);
+    }
+
+    @Override
     protected boolean getDisplayRolesGroupVisibility() {
         return false;
     }
@@ -165,12 +171,5 @@ public class Signup extends AbstractUserEdit {
     @Override
     protected boolean getDeleteButtonVisibility() {
         return false;
-    }
-
-    @Override
-    protected Class<? extends Page> getOnCancelResponsePage() {
-        //MZA: getSignInPage would be better, but it has protected visibility modifier.
-        //MZA: getHomePage should be ok - not authorized user should be redirected to login page
-        return Login.class;
     }
 }

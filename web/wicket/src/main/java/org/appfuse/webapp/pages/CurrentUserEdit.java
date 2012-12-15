@@ -1,7 +1,6 @@
 package org.appfuse.webapp.pages;
 
 import de.agilecoders.wicket.markup.html.bootstrap.common.NotificationMessage;
-import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
@@ -87,10 +86,5 @@ public class CurrentUserEdit extends AbstractUserEdit {
     @Override
     protected boolean getDeleteButtonVisibility() {
         return false;
-    }
-
-    @Override
-    protected Class<? extends Page> getOnCancelResponsePage() {
-        return resolveAndReturnRestlessResponsePage();
     }
 }
