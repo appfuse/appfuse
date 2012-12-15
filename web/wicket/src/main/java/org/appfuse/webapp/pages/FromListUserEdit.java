@@ -68,11 +68,6 @@ public class FromListUserEdit extends AbstractUserEdit {
     }
 
     @Override
-    protected void onCancelButtonSubmit() {
-        resolveAndSetResponsePage();
-    }
-
-    @Override
     protected boolean getDisplayRolesGroupVisibility() {
         return false;
     }
@@ -90,6 +85,11 @@ public class FromListUserEdit extends AbstractUserEdit {
     @Override
     protected boolean getDeleteButtonVisibility() {
         return isExistingUserEdited();
+    }
+
+    @Override
+    protected Class<? extends Page> getOnCancelResponsePage() {
+        return resolveAndReturnRestlessResponsePage();
     }
 
     private boolean isExistingUserEdited() {

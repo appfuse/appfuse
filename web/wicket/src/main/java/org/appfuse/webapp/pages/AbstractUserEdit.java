@@ -44,8 +44,7 @@ public abstract class AbstractUserEdit extends AbstractWebPage {
     protected void onInitialize() {
         super.onInitialize();
 
-        FeedbackPanel feedbackPanel = new FeedbackPanel("feedback");
-        add(feedbackPanel);
+        add(createFeedbackPanel());
 
         CompoundPropertyModel<User> userCompoundPropertyModel = new CompoundPropertyModel<User>(userModel);
 
@@ -69,12 +68,6 @@ public abstract class AbstractUserEdit extends AbstractWebPage {
             }
 
             @Override
-            protected void onCancelButtonSubmit() {
-                log.info("onCancelButtonSubmit");
-                AbstractUserEdit.this.onCancelButtonSubmit();
-            }
-
-            @Override
             protected boolean getAccountSettingsGroupVisibility() {
                 return AbstractUserEdit.this.getAccountSettingsGroupVisibility();
             }
@@ -93,9 +86,23 @@ public abstract class AbstractUserEdit extends AbstractWebPage {
             protected boolean getButtonsGroupVisibility() {
                 return AbstractUserEdit.this.getButtonsGroupVisibility();
             }
+
+            @Override
+            protected Class<? extends Page> getOnCancelResponsePage() {
+                return AbstractUserEdit.this.getOnCancelResponsePage();
+            }
         };
 
         userEditForm.add(userEditPanel);
+    }
+
+    //Needed to get a return page on Cancel (where a Link is used)
+    protected Class<? extends Page> resolveAndReturnRestlessResponsePage() {
+        if (responsePage == null) {
+            return getApplication().getHomePage();
+        } else {
+            return responsePage.getClass();
+        }
     }
 
     protected void resolveAndSetResponsePage() {
@@ -131,8 +138,6 @@ public abstract class AbstractUserEdit extends AbstractWebPage {
 
     protected abstract void onDeleteButtonSubmit();
 
-    protected abstract void onCancelButtonSubmit();
-
     protected abstract boolean getDisplayRolesGroupVisibility();
 
     protected abstract boolean getAccountSettingsGroupVisibility();
@@ -140,4 +145,6 @@ public abstract class AbstractUserEdit extends AbstractWebPage {
     protected abstract boolean getDeleteButtonVisibility();
 
     protected abstract boolean getButtonsGroupVisibility();
+
+    protected abstract Class<? extends Page> getOnCancelResponsePage();
 }

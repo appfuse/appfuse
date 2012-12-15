@@ -84,6 +84,9 @@ import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
  *  - collapsible address section - DONE
  *  - input inside label for "Account Settings" - a new component?
  *  - add placeholder and required behavior to TextField on UserEditPanel (a new component?)
+ *  - Cancel button doesn't work with HTML5 required attribute (remove it and use back button in a browser?) - DONE
+ *  (workaround with TypedBookmarkablePageLink - missing statefulness)
+ *  - setRequired(true) is not compatible with NotificationPanel - DONE (fixed upstream)
  *
  * @author Marcin Zajączkowski, 2010-09-02
  */

@@ -2,16 +2,18 @@ package org.appfuse.webapp.pages.components;
 
 import com.google.common.collect.Lists;
 import de.agilecoders.wicket.markup.html.bootstrap.button.ButtonType;
-import de.agilecoders.wicket.markup.html.bootstrap.button.DefaultButton;
+import de.agilecoders.wicket.markup.html.bootstrap.button.TypedBookmarkablePageLink;
 import de.agilecoders.wicket.markup.html.bootstrap.button.TypedButton;
 import de.agilecoders.wicket.markup.html.bootstrap.image.IconType;
 import de.agilecoders.wicket.markup.html.bootstrap.tabs.Collapsible;
+import org.apache.wicket.Page;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
 import org.apache.wicket.extensions.markup.html.tabs.ITab;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.*;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Fragment;
@@ -21,6 +23,7 @@ import org.apache.wicket.model.*;
 import org.appfuse.model.Address;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
+import org.appfuse.webapp.AbstractWebPage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,28 +59,28 @@ public abstract class UserEditPanel extends Panel {
     protected void onInitialize() {
         super.onInitialize();
         
-        add(new RequiredLabel("usernameLabel", new ResourceModel("user.username")));
-        add(new RequiredTextField<String>("username"));
+        add(new Label("usernameLabel", new ResourceModel("user.username")));
+        add(new RequiredTextField<String>("username").add(new AutofocusBehavior()).add(new RequiredBehavior()));
 
         add(createPasswordGroup());
 
-        add(new RequiredLabel("passwordHintLabel", getString("user.passwordHint")));
-        add(new RequiredTextField("passwordHint"));
+        add(new Label("passwordHintLabel", getString("user.passwordHint")));
+        add(new RequiredTextField("passwordHint").add(new RequiredBehavior()));
 
-        add(new RequiredLabel("firstNameLabel", getString("user.firstName")));
-        add(new RequiredTextField("firstName"));
+        add(new Label("firstNameLabel", getString("user.firstName")));
+        add(new RequiredTextField("firstName").add(new RequiredBehavior()));
 
-        add(new RequiredLabel("lastNameLabel", getString("user.lastName")));
-        add(new RequiredTextField("lastName"));
+        add(new Label("lastNameLabel", getString("user.lastName")));
+        add(new RequiredTextField("lastName").add(new RequiredBehavior()));
 
-        add(new RequiredLabel("emailLabel", getString("user.email")));
-        add(new RequiredTextField("email"));
+        add(new Label("emailLabel", getString("user.email")));
+        add(new RequiredTextField("email").add(new RequiredBehavior()));
 
         add(new Label("phoneNumberLabel", getString("user.phoneNumber")));
         add(new TextField("phoneNumber"));
 
-        add(new RequiredLabel("websiteLabel", getString("user.website")));
-        add(new RequiredTextField("website"));
+        add(new Label("websiteLabel", getString("user.website")));
+        add(new RequiredTextField("website").add(new RequiredBehavior()));
 
         add(createCollapsibleAddress());
 
@@ -90,10 +93,10 @@ public abstract class UserEditPanel extends Panel {
 
     private WebMarkupContainer createPasswordGroup() {
         final WebMarkupContainer passwordGroup = new WebMarkupContainer("passwordGroup");
-        passwordGroup.add(new RequiredLabel("passwordLabel", getString("user.password")));
-        passwordGroup.add(new PasswordTextField("password"));
-        passwordGroup.add(new RequiredLabel("confirmPasswordLabel", getString("user.confirmPassword")));
-        passwordGroup.add(new PasswordTextField("confirmPassword"));
+        passwordGroup.add(new Label("passwordLabel", getString("user.password")));
+        passwordGroup.add(new PasswordTextField("password").add(new RequiredBehavior()));
+        passwordGroup.add(new Label("confirmPasswordLabel", getString("user.confirmPassword")));
+        passwordGroup.add(new PasswordTextField("confirmPassword").add(new RequiredBehavior()));
         return passwordGroup;
     }
 
@@ -167,15 +170,14 @@ public abstract class UserEditPanel extends Panel {
         return buttonsGroup;
     }
 
-    private Button createCancelButton(String buttonId) {
-        return new DefaultButton(buttonId, new ResourceModel("button.cancel")) {
-            @Override
-            public void onSubmit() {
-                onCancelButtonSubmit();
-            }
-        }.setIconType(IconType.remove).setInverted(false).setDefaultFormProcessing(false);
+    private Link createCancelButton(String buttonId) {
+        return new TypedBookmarkablePageLink<AbstractWebPage>(buttonId, getOnCancelResponsePage(), ButtonType.Default)
+                .setLabel(new ResourceModel("button.cancel"))
+                .setIconType(IconType.remove)
+                .setInverted(false);
     }
 
+    //???
     //TODO: MZA: Rename to createButtonsGroup
     private WebMarkupContainer createInvisibleAtSignupGroup(String groupId) {
         WebMarkupContainer buttonsGroup = new WebMarkupContainer(groupId);
@@ -195,11 +197,12 @@ public abstract class UserEditPanel extends Panel {
             //moved to onInitilize to prevent:
             // "Make sure you are not calling Component#getString() inside your Component's constructor."
             add(new TextField("address"));
-            add(new RequiredTextField("city"));
-            add(new RequiredTextField("province"));
-            add(new RequiredTextField("postalCode"));
+            add(new RequiredTextField("city").add(new RequiredBehavior()));
+            add(new RequiredTextField("province").add(new RequiredBehavior()));
+            add(new RequiredTextField("postalCode").add(new RequiredBehavior()));
             //TODO: MZA: How to play with IDs? Is it needed? - IChoiceRenderer
-            add(new DropDownChoice<String>("country", countryList));
+            DropDownChoice<String> country = new DropDownChoice<String>("country", countryList);
+            add(country.setRequired(true).add(new RequiredBehavior()));
         }
     }
 
@@ -235,8 +238,6 @@ public abstract class UserEditPanel extends Panel {
 
     protected abstract void onDeleteButtonSubmit();
 
-    protected abstract void onCancelButtonSubmit();
-
     protected abstract boolean getAccountSettingsGroupVisibility();
 
     protected abstract boolean getDisplayRolesGroupVisibility();
@@ -244,4 +245,6 @@ public abstract class UserEditPanel extends Panel {
     protected abstract boolean getDeleteButtonVisibility();
 
     protected abstract boolean getButtonsGroupVisibility();
+
+    protected abstract Class<? extends Page> getOnCancelResponsePage();
 }

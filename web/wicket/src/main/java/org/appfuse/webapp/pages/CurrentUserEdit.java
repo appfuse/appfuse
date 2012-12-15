@@ -1,5 +1,7 @@
 package org.appfuse.webapp.pages;
 
+import de.agilecoders.wicket.markup.html.bootstrap.common.NotificationMessage;
+import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
@@ -57,19 +59,14 @@ public class CurrentUserEdit extends AbstractUserEdit {
             resolveAndSetResponsePage();
         } catch (UserExistsException e) {
             log.warn("User already exists", e);
-            error(new StringResourceModel("errors.existing.user", this, null, new Object[] {
-                    user.getUsername(), user.getEmail()}).getString());
+            error(new NotificationMessage(new StringResourceModel("errors.existing.user", this, null, new Object[] {
+                    user.getUsername(), user.getEmail()})));
         }
     }
 
     @Override
     protected void onDeleteButtonSubmit() {
         throw new IllegalStateException("Delete button should not be able to use on edit current user page");
-    }
-
-    @Override
-    protected void onCancelButtonSubmit() {
-        resolveAndSetResponsePage();
     }
 
     @Override
@@ -90,5 +87,10 @@ public class CurrentUserEdit extends AbstractUserEdit {
     @Override
     protected boolean getDeleteButtonVisibility() {
         return false;
+    }
+
+    @Override
+    protected Class<? extends Page> getOnCancelResponsePage() {
+        return resolveAndReturnRestlessResponsePage();
     }
 }
