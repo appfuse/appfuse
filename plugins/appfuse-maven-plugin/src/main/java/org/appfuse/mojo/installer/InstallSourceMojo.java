@@ -296,8 +296,6 @@ public class InstallSourceMojo extends AbstractMojo {
         Double appfuseVersionAsDouble = new Double(appfuseVersion.substring(0, appfuseVersion.lastIndexOf(".")));
         if (StringUtils.countMatches(".", appfuseVersion) == 1) {
             appfuseVersionAsDouble = new Double(appfuseVersion);
-        } else if (appfuseVersion.contains("-")) {
-            appfuseVersionAsDouble = new Double(appfuseVersion.substring(0, appfuseVersion.indexOf("-")));
         }
 
         getLog().debug("Detected AppFuse version: " + appfuseVersionAsDouble);
