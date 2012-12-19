@@ -1,5 +1,7 @@
 package org.appfuse.webapp.pages;
 
+import de.agilecoders.wicket.markup.html.bootstrap.common.NotificationMessage;
+import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.util.tester.FormTester;
 import org.appfuse.model.User;
 import org.appfuse.service.MailEngine;
@@ -14,6 +16,9 @@ import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.springframework.web.context.support.StaticWebApplicationContext;
+
+import java.io.Serializable;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -67,7 +72,6 @@ public class SignupPageTest extends BasePageTest {
         //then
         tester.assertRenderedPage(Signup.class);
         tester.assertInvisible("userEditForm:userEditPanel:buttonsGroup:deleteButton");
-        tester.assertInvisible("userEditForm:userEditPanel:buttonsBottomGroup:deleteButtonBottom");
         tester.assertInvisible("userEditForm:userEditPanel:accountSettingsGroup");
         tester.assertInvisible("userEditForm:userEditPanel:displayRolesGroup");
     }
@@ -118,8 +122,9 @@ public class SignupPageTest extends BasePageTest {
 
         //then
         tester.assertNoErrorMessage();
-        //Note: there is an additional space at the end of a setence in *.properties file
-        tester.assertInfoMessages(new String[] {"You have successfully registered for access to this application. "});
+//        Note: there is an additional space at the end of a setence in *.properties file
+        assertInfoMessage("You have successfully registered for access to this application. ");
+
         tester.assertRenderedPage(Login.class);
         ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
         verify(userManager).saveUser(userCaptor.capture());
@@ -128,6 +133,16 @@ public class SignupPageTest extends BasePageTest {
         verifyEqualityOnOptionalFields(savedUser);
 //        //Temporarily disabled in code to prevent sending spam
 //        verify(mailEngine).sendMessage(...);
+    }
+
+    private void assertInfoMessage(String expectedMessage) {
+//        //assertInfoMessages cannot be used with NotificationMessage messages - a quick hack can be made more generic
+//        tester.assertInfoMessages("You have successfully registered for access to this application.");
+        List<Serializable> actualMessages = tester.getMessages(FeedbackMessage.INFO);
+        assertEquals(1, actualMessages.size());
+        assertEquals(NotificationMessage.class, actualMessages.get(0).getClass());
+        NotificationMessage actualMessage = (NotificationMessage) actualMessages.get(0);
+        assertEquals(expectedMessage, actualMessage.message().getObject());
     }
 
     private Answer<User> createAnswerThatJustReturnPassedUser() {
@@ -147,15 +162,17 @@ public class SignupPageTest extends BasePageTest {
         signupForm.setValue("userEditPanel:lastName", TEST_LAST_NAME);
         signupForm.setValue("userEditPanel:email", TEST_EMAIL);
         signupForm.setValue("userEditPanel:website", TEST_WEBSITE);
-        signupForm.setValue("userEditPanel:mainAddress:city", TEST_CITY);
-        signupForm.setValue("userEditPanel:mainAddress:province", TEST_PROVINCE);
-        signupForm.setValue("userEditPanel:mainAddress:postalCode", TEST_POSTAL_CODE);
-        signupForm.select("userEditPanel:mainAddress:country", 1);
+
+        String addressFormIdPrefix = "userEditPanel:collapsibleAddress:tabs:0:body:content:";
+        signupForm.setValue(addressFormIdPrefix + "city", TEST_CITY);
+        signupForm.setValue(addressFormIdPrefix + "province", TEST_PROVINCE);
+        signupForm.setValue(addressFormIdPrefix + "postalCode", TEST_POSTAL_CODE);
+        signupForm.select(addressFormIdPrefix + "country", 1);
     }
 
     private void fillOptionalFields(FormTester signupForm) {
         signupForm.setValue("userEditPanel:phoneNumber", TEST_PHONE_NUMBER);
-        signupForm.setValue("userEditPanel:mainAddress:address", TEST_ADDRESS_STREET);
+        signupForm.setValue("userEditPanel:collapsibleAddress:tabs:0:body:content:" + "address", TEST_ADDRESS_STREET);
     }
 
     private void verifyEqualityOnRequiredFields(User savedUser) {
