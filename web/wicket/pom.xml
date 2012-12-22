@@ -40,7 +40,7 @@
     </scm>
 
     <properties>
-        <wicket.version>6.2.0</wicket.version>
+        <wicket.version>6.3.0</wicket.version>
         <wicketstuff.version>${wicket.version}</wicketstuff.version>
     </properties>
 
@@ -232,11 +232,6 @@
                     <artifactId>appfuse-hibernate</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.appfuse</groupId>
-            <artifactId>appfuse-${dao.framework}</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.tapestry</groupId>
