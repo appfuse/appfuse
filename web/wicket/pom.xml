@@ -168,18 +168,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <!-- Temporarily - allow to browse original tapestry sources to compare -->
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
-                <configuration>
-                     <source>1.5</source>
-                     <target>1.5</target>
-                     <excludes>
-                         <exclude>org/appfuse/webapp-tapestry/**</exclude>
-                     </excludes>
-                </configuration>
-            </plugin>
         </plugins>
         <resources>
             <resource>
