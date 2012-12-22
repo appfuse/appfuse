@@ -1,0 +1,67 @@
+<!DOCTYPE form-validation PUBLIC
+     "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.3.0//EN"
+     "http://jakarta.apache.org/commons/dtds/validator_1_3_0.dtd">
+
+<form-validation>
+
+   <global>
+
+      <validator name="twofields"
+         classname="org.appfuse.webapp.util.ValidationUtil"
+         method="validateTwoFields"
+         methodParams="java.lang.Object,
+                       org.apache.commons.validator.ValidatorAction,
+                       org.apache.commons.validator.Field,
+                       org.springframework.validation.Errors"
+         depends="required"
+         msg="errors.twofields">
+         <javascript><![CDATA[
+            function validateTwoFields(form) {
+                var bValid = true;
+                var focusField = null;
+                var i = 0;
+                var fields = new Array();
+                oTwoFields = new twofields();
+                for (x in oTwoFields) {
+                    var field = form[oTwoFields[x][0]];
+                    var secondField = form[oTwoFields[x][2]("secondProperty")];
+                    
+                    if (field.type == 'text' ||
+                        field.type == 'textarea' ||
+                        field.type == 'select-one' ||
+                        field.type == 'radio' ||
+                        field.type == 'password') {
+                        
+                        var value;
+                        var secondValue;
+                        // get field's value
+                        if (field.type == "select-one") {
+                            var si = field.selectedIndex;
+                            value = field.options[si].value;
+                            secondValue = secondField.options[si].value;
+                        } else {
+                            value = field.value;
+                            secondValue = secondField.value;
+                        }
+                        
+                        if (value != secondValue) {
+                        
+                            if (i == 0) {
+                                focusField = field;
+                            }
+                            fields[i++] = oTwoFields[x][1];
+                            bValid = false;
+                        }
+                    }
+                }
+                if (fields.length > 0) {
+                   focusField.focus();
+                   alert(fields.join('\n'));
+                }
+                return bValid;
+            }]]>
+         </javascript>
+       </validator>
+   </global>
+
+</form-validation>

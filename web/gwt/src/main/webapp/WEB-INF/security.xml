@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:beans="http://www.springframework.org/schema/beans" xmlns:p="http://www.springframework.org/schema/p"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+              http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+    <http pattern="/images/**" security="none"/>
+    <http pattern="/styles/**" security="none"/>
+    <http pattern="/scripts/**" security="none"/>
+
+    <http auto-config="true">
+        <intercept-url pattern="/app/admin/**" access="ROLE_ADMIN"/>
+        <intercept-url pattern="/app/passwordHint*" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>
+        <intercept-url pattern="/app/signup*" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>
+        <intercept-url pattern="/app/**" access="ROLE_ADMIN,ROLE_USER"/>
+        <form-login login-page="/login" authentication-failure-url="/login?error=true" login-processing-url="/j_security_check"/>
+        <remember-me user-service-ref="userDao" key="e37f4b31-0c45-11dd-bd0b-0800200c9a66"/>
+    </http>
+
+    <authentication-manager>
+        <authentication-provider user-service-ref="userDao">
+            <password-encoder ref="passwordEncoder">
+                <salt-source ref="saltSource"/>
+            </password-encoder>
+        </authentication-provider>
+    </authentication-manager>
+
+    <beans:bean id="saltSource" class="org.springframework.security.authentication.dao.ReflectionSaltSource"
+        p:userPropertyToUse="username"/>
+
+    <!-- Override the default password-encoder (SHA) by uncommenting the following and changing the class -->
+    <!-- <bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.ShaPasswordEncoder"/> -->
+
+    <global-method-security>
+        <protect-pointcut expression="execution(* *..service.UserManager.getUsers(..))" access="ROLE_ADMIN"/>
+        <protect-pointcut expression="execution(* *..service.UserManager.removeUser(..))" access="ROLE_ADMIN"/>
+    </global-method-security>
+</beans:beans>
