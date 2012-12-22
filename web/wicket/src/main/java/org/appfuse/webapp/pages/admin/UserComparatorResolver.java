@@ -6,7 +6,9 @@ import java.io.Serializable;
 import java.util.Comparator;
 
 /**
- * org.appfuse.webapp.pages.admin.UserComparatorResolver
+ * A smarter way to compare elements in UserDataProvider.
+ *
+ * Not fully implemented. Currently not used.
  *
  * @author Marcin Zajączkowski, 2011-05-22
  */

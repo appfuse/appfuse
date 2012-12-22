@@ -115,14 +115,7 @@ public class WicketApplication extends AuthenticatedWebApplication {
         getRequestCycleSettings().setRenderStrategy(IRequestCycleSettings.RenderStrategy.ONE_PASS_RENDER);
 
         //TODO: MZA: Add app.properties
-/*
-        String configurationType = getConfigurationType();
-        if (DEVELOPMENT.equalsIgnoreCase(configurationType)) {
-            System.out.println("devel");
-//          log.info("You are in DEVELOPMENT mode");
-          getResourceSettings().setResourcePollFrequency(Duration.ONE_SECOND);
-        }
-*/
+
         BootstrapSettings settings = new BootstrapSettings();
         Bootstrap.install(this, settings);
     }
