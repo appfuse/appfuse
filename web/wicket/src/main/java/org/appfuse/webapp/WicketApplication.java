@@ -87,6 +87,13 @@ import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
  *  (just added required behavior, placeholder is not used there)
  *  - Cancel button doesn't work with HTML5 required attribute (remove it and use back button in a browser?) - DONE - Link used instead of Button
  *  - setRequired(true) is not compatible with NotificationPanel - DONE (fixed upstream)
+ *  - fix acceptance tests: 404 Not Found for http://localhost:8888/AppFuse - login.xmlf:1 - DONE (old config.xmlf)
+ *  - what is missing in maven build that "MissingResourceException: Unable to find property: 'label.username' for component:"
+ *      on app startup (even tests with WicketTester) is thrown then the exploded dir is not created by Idea - DONE (added resources from /src/main/java/ in pom.xml)
+ *  - fix acceptance test: setselectfield - country - DONE - workaround with optionIndex
+ *  - change button name on Signup page: Save -> Signup
+ *  - change page title on Signup page: User Settings -> Signup
+ *  - fix acceptance test: signup - doesn't move to a login page and others - currently disabled in Maven
  *
  * @author Marcin Zajączkowski, 2010-09-02
  */
