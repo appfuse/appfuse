@@ -29,7 +29,7 @@ public class HibernateSearchJpaTools {
      *
      * @param searchTerm the term to search for
      * @param searchedEntity the class searched
-     * @param sess the hibernate session
+     * @param entityManager the entity manager
      * @param defaultAnalyzer the default analyzer for parsing the search terms
      * @return
      * @throws ParseException
@@ -86,7 +86,7 @@ public class HibernateSearchJpaTools {
      * Regenerates the index for a given class
      *
      * @param clazz the class
-     * @param sess the hibernate session
+     * @param entityManager the entity manager
      */
     public static void reindex(Class clazz, EntityManager entityManager) {
         FullTextEntityManager txtentityManager = Search.getFullTextEntityManager(entityManager);
@@ -104,14 +104,14 @@ public class HibernateSearchJpaTools {
      * Regenerates all the indexed class indexes
      *
      * @param async true if the reindexing will be done as a background thread
-     * @param sess the hibernate session
+     * @param entityManager the entity manager
      */
     public static void reindexAll(boolean async, EntityManager entityManager) {
         FullTextEntityManager txtentityManager = Search.getFullTextEntityManager(entityManager);
         MassIndexer massIndexer = txtentityManager.createIndexer();
         massIndexer.purgeAllOnStart(true);
         try {
-            if (async == false) {
+            if (!async) {
                 massIndexer.startAndWait();
             } else {
                 massIndexer.start();

@@ -4,13 +4,14 @@ package ${basepackage}.webapp.action;
 import java.io.Serializable;
 import java.util.List;
 
-import ${basepackage}.webapp.action.BasePage;
+import ${appfusepackage}.dao.SearchException;
 import ${pojo.packageName}.${pojo.shortName};
 <#if genericcore>
 import ${appfusepackage}.service.GenericManager;
 <#else>
 import ${basepackage}.service.${pojo.shortName}Manager;
 </#if>
+import ${basepackage}.webapp.action.BasePage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -49,9 +50,10 @@ public class ${pojo.shortName}List extends BasePage implements Serializable {
     }
 
     public List<${pojo.shortName}> get${util.getPluralForWord(pojo.shortName)}() {
-        if (query != null && !"".equals(query.trim())) {
+        try {
             return ${pojoNameLower}Manager.search(query, ${pojo.shortName}.class);
-        } else {
+        } catch (SearchException se) {
+            addError(se.getMessage());
             return sort(${pojoNameLower}Manager.getAll());
         }
     }

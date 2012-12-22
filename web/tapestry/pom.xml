@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.appfuse</groupId>
         <artifactId>appfuse-web</artifactId>
-        <version>2.2-SNAPSHOT</version>
+        <version>2.2.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>appfuse-tapestry</artifactId>
@@ -116,6 +116,7 @@
                             <excludes>
                                 <exclude>*.jsp</exclude>
                                 <exclude>decorators/**</exclude>
+                                <exclude>WEB-INF/menu-config.xml</exclude>
                             </excludes>
                         </resource>
                         <resource>
@@ -148,7 +149,7 @@
                                     <fileset dir="../common/src/main/resources" includes="ApplicationResources*" />
                                     <!-- Tapestry specific customizations -->
                                     <filterset begintoken="{" endtoken="}">
-                                       <!-- Convert {i} to %s -->
+                                        <!-- Convert {i} to %s -->
                                         <filter token="0" value="%1$s" />
                                         <filter token="1" value="%2$s" />
                                         <filter token="2" value="%3$s" />
@@ -158,18 +159,17 @@
                                         <filter token="6" value="%7$s" />
                                     </filterset>
                                     <filterset begintoken="${" endtoken="}">
-                                       <!-- Tapestry interpret these as symbols -->
+                                        <!-- Tapestry interpret these as symbols -->
                                         <filter token="pom.version" value="${project.version}" />
                                         <filter token="copyright.year" value="${copyright.year}" />
                                     </filterset>
                                 </copy>
 
-
-                               <echo message="Copying CSS and JavaScript resources..."/>
+                                <echo message="Copying CSS and JavaScript resources..." />
                                 <copy todir="src/main/webapp" overwrite="true">
-                                  <fileset dir="../common/src/main/webapp">
-                                    <include name="styles/style.css"/>
-                                  </fileset>
+                                    <fileset dir="../common/src/main/webapp">
+                                        <include name="styles/style.css" />
+                                    </fileset>
                                 </copy>
                             </tasks>
                         </configuration>
@@ -227,6 +227,10 @@
                     <groupId>org.appfuse</groupId>
                     <artifactId>appfuse-hibernate</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>struts-menu</groupId>
+                    <artifactId>struts-menu</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
@@ -243,14 +247,6 @@
             <groupId>org.apache.tapestry</groupId>
             <artifactId>tapestry-spring</artifactId>
             <version>${tapestry.version}</version>
-<!--
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-web</artifactId>
-                </exclusion>
-            </exclusions>
--->
         </dependency>
         <dependency>
             <groupId>org.apache.tapestry</groupId>

@@ -5,9 +5,11 @@ import org.appfuse.model.User;
 import org.appfuse.service.UserExistsException;
 import org.appfuse.service.UserManager;
 import org.appfuse.service.UserService;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.orm.jpa.JpaSystemException;
+import org.springframework.security.authentication.dao.SaltSource;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,8 @@ import java.util.List;
 public class UserManagerImpl extends GenericManagerImpl<User, Long> implements UserManager, UserService {
     private PasswordEncoder passwordEncoder;
     private UserDao userDao;
+    @Autowired(required = false)
+    private SaltSource saltSource;
 
     @Autowired
     public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
@@ -71,7 +75,7 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
                 passwordChanged = true;
             } else {
                 // Existing user, check password in DB
-                String currentPassword = userDao.getUserPassword(user.getUsername());
+                String currentPassword = userDao.getUserPassword(user.getId());
                 if (currentPassword == null) {
                     passwordChanged = true;
                 } else {
@@ -83,7 +87,14 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
 
             // If password was changed (or new user), encrypt it
             if (passwordChanged) {
-                user.setPassword(passwordEncoder.encodePassword(user.getPassword(), null));
+                if (saltSource == null) {
+                    // backwards compatibility
+                    user.setPassword(passwordEncoder.encodePassword(user.getPassword(), null));
+                    log.warn("SaltSource not set, encrypting password w/o salt");
+                } else {
+                    user.setPassword(passwordEncoder.encodePassword(user.getPassword(),
+                            saltSource.getSalt(user)));
+                }
             }
         } else {
             log.warn("PasswordEncoder not set, skipping password encryption...");
@@ -91,12 +102,8 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
 
         try {
             return userDao.saveUser(user);
-        } catch (DataIntegrityViolationException e) {
-            //e.printStackTrace();
-            log.warn(e.getMessage());
-            throw new UserExistsException("User '" + user.getUsername() + "' already exists!");
-        } catch (JpaSystemException e) { // needed for JPA
-            //e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
             log.warn(e.getMessage());
             throw new UserExistsException("User '" + user.getUsername() + "' already exists!");
         }

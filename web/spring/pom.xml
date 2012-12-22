@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.appfuse</groupId>
         <artifactId>appfuse-web</artifactId>
-        <version>2.2-SNAPSHOT</version>
+        <version>2.2.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>appfuse-spring</artifactId>

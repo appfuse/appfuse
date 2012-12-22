@@ -1,0 +1,16 @@
+            ------
+            About
+            ------
+
+  <<AppFuse>> is a full-stack framework for building web applications on the JVM. It takes care of integrating many
+open source projects for you. For example: Spring, Hibernate, Maven, MySQL, Struts 2, Bootstrap and jQuery.
+In addition to Hibernate, you can also use JPA as your backend. For your web framework, you can choose between
+Struts 2, JSF, Spring MVC and Tapestry or just use AppFuse WS and REST services.
+
+  Test-first development is encouraged when using AppFuse, and all the infrastructure is in place to do integration testing, unit/mock
+testing, as well as UI testing. Features include Authentication/Remember Me (using Spring Security),
+Registration, User Management, File Upload, Password Hint and GZip Compression.
+
+  <The fuse to start your apps.>
+
+  To get started, see the {{{http://appfuse.org/display/APF/AppFuse+QuickStart} QuickStart Guide}}.

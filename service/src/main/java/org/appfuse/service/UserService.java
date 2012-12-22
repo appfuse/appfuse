@@ -8,15 +8,13 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
 import java.util.List;
 
 /**
  * Web Service interface so hierarchy of Generic Manager isn't carried through.
  */
 @WebService
-@Path("/")
-@Produces({"application/json", "application/xml"})
+@Path("/users")
 public interface UserService {
     /**
      * Retrieves a user by userId.  An exception is thrown if user not found
@@ -25,7 +23,7 @@ public interface UserService {
      * @return User
      */
     @GET
-    @Path("/user/{id}")
+    @Path("{id}")
     User getUser(@PathParam("id") String userId);
 
     /**
@@ -42,7 +40,6 @@ public interface UserService {
      * @return List
      */
     @GET
-    @Path("/users")
     List<User> getUsers();
 
     /**
@@ -53,7 +50,6 @@ public interface UserService {
      * @throws UserExistsException thrown when user already exists
      */
     @POST
-    @Path("/user")
     User saveUser(User user) throws UserExistsException;
 
     /**
@@ -62,6 +58,5 @@ public interface UserService {
      * @param userId the user's id
      */
     @DELETE
-    @Path("/user")
     void removeUser(String userId);
 }

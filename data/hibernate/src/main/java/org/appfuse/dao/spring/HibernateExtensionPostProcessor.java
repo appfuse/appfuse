@@ -13,7 +13,7 @@ import java.util.Properties;
 
 /**
  * <p>Adds Hibernate persistent class definitions to an existing Spring Session Factory bean, possibly defined
- * within a seperate Spring configuration file in a seperate jar file. By using this extension factory developers can
+ * within a separate Spring configuration file in a separate jar file. By using this extension factory developers can
  * add persistent classes to an AppFuse application without modifying any of the existing AppFuse Spring configuration
  * or jar distribution files.
  * 

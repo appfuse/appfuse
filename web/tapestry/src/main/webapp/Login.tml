@@ -4,7 +4,7 @@
 
 <body id="login">
     <form method="post" id="loginForm" action="${springSecurityUrl}"
-          onsubmit="saveUsername(this)" class="form-signin">
+          onsubmit="saveUsername(this)" class="form-signin" autocomplete="off">
 
         <h2 class="form-signin-heading">
             ${message:login.heading}

@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -7,21 +6,12 @@
     <artifactId>appfuse</artifactId>
     <packaging>pom</packaging>
     <name>AppFuse</name>
-    <version>2.2-SNAPSHOT</version>
+    <version>2.2.2-SNAPSHOT</version>
     <inceptionYear>2003</inceptionYear>
     <url>http://static.appfuse.org</url>
 
     <description>
-        AppFuse is a project that helps you start developing an application quickly.
-        It takes care of integrating many open source projects for you. For example:
-        Spring, Hibernate, Maven, MySQL and Struts. In addition to Hibernate, you
-        can also use JPA or iBATIS as your backend. For your web framework, you
-        can choose between Struts 2, JSF, Spring MVC and Tapestry. Test-first
-        development is promoted when using AppFuse, and all the infrastructure
-        is in place to do integration testing, unit/mock testing, as well as UI
-        testing. Features include Authentication (using Spring Security),
-        Remember Me, Self Registration, Password Hint and GZip Compression.
-        The fuse to start your apps.
+        AppFuse is a full-stack framework for building web applications on the JVM.
     </description>
 
     <prerequisites>
@@ -143,6 +133,12 @@
             <name>Bryan Noll</name>
             <email>bwnoll@gmail.com</email>
             <timezone>-7</timezone>
+        </developer>
+        <developer>
+            <id>jogaco</id>
+            <name>J. Garcia</name>
+            <email>jogaco.en@gmail.com</email>
+            <timezone>+1</timezone>
         </developer>
     </developers>
 
@@ -452,11 +448,11 @@
                 <hibernate.dialect>org.hibernate.dialect.H2Dialect</hibernate.dialect>
                 <jdbc.groupId>com.h2database</jdbc.groupId>
                 <jdbc.artifactId>h2</jdbc.artifactId>
-                <jdbc.version>1.2.134</jdbc.version>
+                <jdbc.version>1.3.170</jdbc.version>
                 <jdbc.driverClassName>org.h2.Driver</jdbc.driverClassName>
                 <jdbc.url><![CDATA[jdbc:h2:/tmp/appfuse;MVCC=TRUE]]></jdbc.url>
                 <jdbc.username>sa</jdbc.username>
-                <jdbc.password/>
+                <jdbc.password />
             </properties>
         </profile>
         <profile>
@@ -464,9 +460,9 @@
             <properties>
                 <dbunit.dataTypeFactoryName>org.dbunit.ext.hsqldb.HsqldbDataTypeFactory</dbunit.dataTypeFactoryName>
                 <hibernate.dialect>org.hibernate.dialect.HSQLDialect</hibernate.dialect>
-                <jdbc.groupId>hsqldb</jdbc.groupId>
+                <jdbc.groupId>org.hsqldb</jdbc.groupId>
                 <jdbc.artifactId>hsqldb</jdbc.artifactId>
-                <jdbc.version>1.8.0.7</jdbc.version>
+                <jdbc.version>2.2.9</jdbc.version>
                 <jdbc.driverClassName>org.hsqldb.jdbcDriver</jdbc.driverClassName>
                 <jdbc.url><![CDATA[jdbc:hsqldb:/tmp/appfuse;shutdown=true]]></jdbc.url>
                 <jdbc.username>sa</jdbc.username>
@@ -578,7 +574,7 @@
         <hibernate.dialect>org.hibernate.dialect.MySQL5InnoDBDialect</hibernate.dialect>
         <jdbc.groupId>mysql</jdbc.groupId>
         <jdbc.artifactId>mysql-connector-java</jdbc.artifactId>
-        <jdbc.version>5.1.21</jdbc.version>
+        <jdbc.version>5.1.22</jdbc.version>
         <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
         <jdbc.url>
             <![CDATA[jdbc:mysql://localhost/appfuse?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true]]>
@@ -588,7 +584,7 @@
 
         <cargo.container>tomcat7x</cargo.container>
         <cargo.container.url>
-            http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.30/bin/apache-tomcat-7.0.30.zip
+            http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.34/bin/apache-tomcat-7.0.34.zip
         </cargo.container.url>
         <cargo.container.home>${env.CATALINA_HOME}</cargo.container.home>
         <cargo.host>localhost</cargo.host>
@@ -606,10 +602,10 @@
         <commons.dbcp.version>1.3</commons.dbcp.version>
         <commons.fileupload.version>1.2.2</commons.fileupload.version>
         <commons.io.version>2.0.1</commons.io.version>
-        <cxf.version>2.7.0</cxf.version>
+        <cxf.version>2.7.1</cxf.version>
         <displaytag.version>1.2</displaytag.version>
         <dwr.version>2.0.3</dwr.version>
-        <ehcache.version>2.6.0</ehcache.version>
+        <ehcache.version>2.6.2</ehcache.version>
         <ehcache.web.version>2.0.4</ehcache.web.version>
         <el.version>1.2</el.version>
         <facelets.version>1.1.14</facelets.version>
@@ -624,17 +620,17 @@
         <jsp.version>2.1</jsp.version>
         <jstl.version>1.2</jstl.version>
         <junit.version>4.10</junit.version>
-        <log4j.version>1.2.16</log4j.version>
-        <myfaces.version>2.1.9</myfaces.version>
+        <log4j.version>1.2.17</log4j.version>
+        <myfaces.version>2.1.10</myfaces.version>
         <myfaces.tomahawk.version>1.1.14</myfaces.tomahawk.version>
         <servlet.version>2.5</servlet.version>
         <shale.version>1.0.5</shale.version>
         <sitemesh.version>2.4.2</sitemesh.version>
         <slf4j.version>1.6.1</slf4j.version>
-        <spring.version>3.1.3.RELEASE</spring.version>
+        <spring.version>3.2.0.RELEASE</spring.version>
         <spring.security.version>3.1.3.RELEASE</spring.security.version>
         <springmodules.validation.version>0.8</springmodules.validation.version>
-        <struts.version>2.3.4.1</struts.version>
+        <struts.version>2.3.8</struts.version>
         <struts.menu.version>2.4.3</struts.menu.version>
         <tapestry.version>5.3.6</tapestry.version>
         <urlrewrite.version>3.1.0</urlrewrite.version>

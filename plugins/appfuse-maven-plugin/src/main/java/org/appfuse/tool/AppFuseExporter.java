@@ -190,9 +190,13 @@ public class AppFuseExporter extends GenericExporter {
         }
 
         // menu
-        configureExporter("appfuse/web/menu.ftl", "src/main/webapp/common/{class-name}-menu.jsp").start();
-        configureExporter("appfuse/web/menu-light.ftl", "src/main/webapp/common/{class-name}-menu-light.jsp").start();
-        configureExporter("appfuse/web/menu-config.ftl", "src/main/webapp/WEB-INF/{class-name}-menu-config.xml").start();
+        if (!webFramework.equalsIgnoreCase("tapestry")) {
+            configureExporter("appfuse/web/menu.ftl", "src/main/webapp/common/{class-name}-menu.jsp").start();
+            configureExporter("appfuse/web/menu-light.ftl", "src/main/webapp/common/{class-name}-menu-light.jsp").start();
+            configureExporter("appfuse/web/menu-config.ftl", "src/main/webapp/WEB-INF/{class-name}-menu-config.xml").start();
+        } else {
+            configureExporter("appfuse/web/tapestry/menu.ftl", "src/main/webapp/{class-name}-menu.tml").start();
+        }
 
         // i18n
         configureExporter("appfuse/web/ApplicationResources.ftl", "src/main/resources/{class-name}-ApplicationResources.properties").start();
@@ -233,7 +237,7 @@ public class AppFuseExporter extends GenericExporter {
         GenericExporter exporter = new GenericExporter(getConfiguration(), getOutputDirectory()) {
             @Override
             protected void exportPOJO(Map map, POJOClass element) {
-                if (element.getShortName().contains(System.getProperty("appfuse.entity"))) {
+                if (element.getShortName().equals(System.getProperty("appfuse.entity"))) {
                     super.exportPOJO(map, element);
                 }
             }

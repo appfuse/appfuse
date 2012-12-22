@@ -24,87 +24,84 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 package org.appfuse.webapp.jsp;
 
+import javax.el.ELContext;
+import javax.el.ELResolver;
+import javax.servlet.jsp.JspContext;
 import java.beans.FeatureDescriptor;
 import java.util.Iterator;
-import javax.el.ELContext;
-import javax.el.ELException;
-import javax.el.ELResolver;
-import javax.el.PropertyNotFoundException;
-import javax.el.PropertyNotWritableException;
 
 /**
- * {@link ELResolver} which escapes XML in String values.
+ * {@link javax.el.ELResolver} which escapes XML in String values.
  */
 public class EscapeXmlELResolver extends ELResolver {
 
-    private ELResolver originalResolver;
-    private ThreadLocal<Boolean> gettingValue = new ThreadLocal<Boolean>() {
+    /**
+     * pageContext attribute name for flag to enable XML escaping
+     */
+    public static final String ESCAPE_XML_ATTRIBUTE =
+            EscapeXmlELResolver.class.getName() + ".escapeXml";
+
+    private ThreadLocal<Boolean> excludeMe = new ThreadLocal<Boolean>() {
         @Override
         protected Boolean initialValue() {
             return Boolean.FALSE;
         }
     };
-    
-    private ELResolver getOriginalResolver(ELContext context) {
-        if (originalResolver == null) {
-            originalResolver = context.getELResolver();
-        }
-        return originalResolver;
-    }
-    
+
     @Override
     public Class<?> getCommonPropertyType(ELContext context, Object base) {
-        return getOriginalResolver(context).getCommonPropertyType(context, base);
+        return null;
     }
 
     @Override
     public Iterator<FeatureDescriptor> getFeatureDescriptors(
-            ELContext context, Object base)
-    {
-        return getOriginalResolver(context).getFeatureDescriptors(context, base);
+            ELContext context, Object base) {
+        return null;
     }
 
     @Override
-    public Class<?> getType(ELContext context, Object base, Object property)
-        throws NullPointerException, PropertyNotFoundException, ELException
-    {
-        return getOriginalResolver(context).getType(context, base, property);
+    public Class<?> getType(ELContext context, Object base, Object property) {
+        return null;
     }
 
     @Override
-    public Object getValue(ELContext context, Object base, Object property)
-        throws NullPointerException, PropertyNotFoundException, ELException
-    {
-        if (gettingValue.get()) {
+    public Object getValue(ELContext context, Object base, Object property) {
+        JspContext pageContext = (JspContext) context.getContext(JspContext.class);
+        Boolean escapeXml = (Boolean) pageContext.getAttribute(ESCAPE_XML_ATTRIBUTE);
+        if (escapeXml != null && !escapeXml) {
             return null;
         }
-        
-        // This resolver is in the original resolver chain.  When this resolver
-        // invokes the original resolver chain, set a flag so when execution
-        // reaches this resolver, act like this resolver is not in the chain.
-        gettingValue.set(true);
-        Object value =
-                getOriginalResolver(context).getValue(context, base, property);
-        gettingValue.set(false);
 
-        if (value instanceof String) {
-            value = EscapeXml.escape((String) value);
+        try {
+            if (excludeMe.get()) {
+                return null;
+            }
+
+            // This resolver is in the original resolver chain. To prevent
+            // infinite recursion, set a flag to prevent this resolver from
+            // invoking the original resolver chain again when its turn in the
+            // chain comes around.
+            excludeMe.set(Boolean.TRUE);
+            Object value = context.getELResolver().getValue(
+                    context, base, property);
+
+            if (value instanceof String) {
+                value = EscapeXml.escape((String) value);
+            }
+            return value;
+
+        } finally {
+            excludeMe.set(Boolean.FALSE);
         }
-        return value;
     }
 
     @Override
-    public boolean isReadOnly(ELContext context, Object base, Object property)
-        throws NullPointerException, PropertyNotFoundException, ELException
-    {
-        return getOriginalResolver(context).isReadOnly(context, base, property);
+    public boolean isReadOnly(ELContext context, Object base, Object property) {
+        return false;
     }
 
     @Override
-    public void setValue(
-            ELContext context, Object base, Object property, Object value)
-        throws NullPointerException, PropertyNotFoundException, PropertyNotWritableException, ELException
-    {
-        getOriginalResolver(context).setValue(context, base, property, value);
+    public void setValue(ELContext context, Object base, Object property, Object value) {
+
     }
 }

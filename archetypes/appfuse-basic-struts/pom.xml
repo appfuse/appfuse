@@ -20,14 +20,14 @@
     <parent>
         <groupId>org.appfuse.archetypes</groupId>
         <artifactId>appfuse-archetypes</artifactId>
-        <version>2.2-SNAPSHOT</version>
+        <version>2.2.2-SNAPSHOT</version>
     </parent>
 
     <groupId>org.appfuse.archetypes</groupId>
     <artifactId>appfuse-basic-struts</artifactId>
     <name>AppFuse Basic Archetype - Struts</name>
     <packaging>pom</packaging>
-    <version>2.2-SNAPSHOT</version>
+    <version>2.2.2-SNAPSHOT</version>
 
     <description>
         Maven 2 project that creates the AppFuse Basic Struts Archetype.

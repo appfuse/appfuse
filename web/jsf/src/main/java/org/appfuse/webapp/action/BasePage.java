@@ -34,7 +34,7 @@ public class BasePage {
     protected String templateName;
     protected FacesContext facesContext;
     protected String sortColumn;
-    protected boolean ascending;
+    protected boolean ascending = true;
     protected boolean nullsAreHigh;
     
     public FacesContext getFacesContext() {

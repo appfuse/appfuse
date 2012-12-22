@@ -8,7 +8,7 @@
 <div class="span7">
 <!-- Add Error Block Here -->
 
-<form t:type="form" t:id="form" class="well form-horizontal">
+<form t:type="form" t:id="form" class="well form-horizontal" autocomplete="off">
 
 <fieldset>
 <t:if test="userPersisted">

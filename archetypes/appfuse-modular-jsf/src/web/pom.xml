@@ -11,7 +11,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>web</artifactId>
+    <artifactId>appfuse-modular-jsf-web</artifactId>
     <packaging>war</packaging>
     <name>AppFuse Modular Application - Web (JSF)</name>
 
@@ -111,32 +111,8 @@
                         <configuration>
                             <encoding>UTF8</encoding>
                             <includes>
-                                <include>ApplicationResources_*.properties</include>
-                            </includes>
-                            <excludes>
-                                <exclude>ApplicationResources.properties</exclude>
-                                <exclude>ApplicationResources_de*.properties</exclude>
-                                <exclude>ApplicationResources_fr*.properties</exclude>
-                                <exclude>ApplicationResources_nl*.properties</exclude>
-                                <exclude>ApplicationResources_pt*.properties</exclude>
-                                <exclude>ApplicationResources_es*.properties</exclude>
-                            </excludes>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>native2ascii-8859_1</id>
-                        <goals>
-                            <goal>native2ascii</goal>
-                        </goals>
-                        <configuration>
-                            <encoding>8859_1</encoding>
-                            <includes>
-                                <include>ApplicationResources.properties</include>
-                                <include>ApplicationResources_de.properties</include>
-                                <include>ApplicationResources_fr.properties</include>
-                                <include>ApplicationResources_nl.properties</include>
-                                <include>ApplicationResources_pt*.properties</include>
-                                <include>ApplicationResources_es*.properties</include>
+                                <include>ApplicationResources_zh*.properties</include>
+                                <include>ApplicationResources_ko*.properties</include>
                             </includes>
                         </configuration>
                     </execution>
@@ -167,7 +143,7 @@
     <dependencies>
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
-            <artifactId>core</artifactId>
+            <artifactId>appfuse-modular-jsf-core</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>

@@ -3,6 +3,7 @@ package org.appfuse.dao.hibernate;
 import org.appfuse.dao.UserDao;
 import org.appfuse.model.User;
 import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 import org.springframework.orm.hibernate4.SessionFactoryUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -43,8 +44,7 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
      */
     @SuppressWarnings("unchecked")
     public List<User> getUsers() {
-        Session session = getSessionFactory().getCurrentSession();
-        Query qry = session.createQuery("from User u order by upper(u.username)");
+        Query qry = getSession().createQuery("from User u order by upper(u.username)");
         return qry.list();
     }
 
@@ -55,15 +55,14 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
         if (log.isDebugEnabled()) {
             log.debug("user's id: " + user.getId());
         }
-        Session session = getSessionFactory().getCurrentSession();
-        session.saveOrUpdate(user);
+        getSession().saveOrUpdate(user);
         // necessary to throw a DataIntegrityViolation and catch it in UserManager
-        session.flush();
+        getSession().flush();
         return user;
     }
 
     /**
-     * Overridden simply to call the saveUser method. This is happenening
+     * Overridden simply to call the saveUser method. This is happening
      * because saveUser flushes the session and saveObject of BaseDaoHibernate
      * does not.
      *
@@ -79,8 +78,7 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
      * {@inheritDoc}
     */
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Session session = getSessionFactory().getCurrentSession();
-        List users = session.createCriteria(User.class).add(Restrictions.eq("username", username)).list();
+        List users = getSession().createCriteria(User.class).add(Restrictions.eq("username", username)).list();
         if (users == null || users.isEmpty()) {
             throw new UsernameNotFoundException("user '" + username + "' not found...");
         } else {
@@ -91,11 +89,11 @@ public class UserDaoHibernate extends GenericDaoHibernate<User, Long> implements
     /**
      * {@inheritDoc}
     */
-    public String getUserPassword(String username) {
-        SimpleJdbcTemplate jdbcTemplate =
-                new SimpleJdbcTemplate(SessionFactoryUtils.getDataSource(getSessionFactory()));
+    public String getUserPassword(Long userId) {
+        JdbcTemplate jdbcTemplate =
+                new JdbcTemplate(SessionFactoryUtils.getDataSource(getSessionFactory()));
         Table table = AnnotationUtils.findAnnotation(User.class, Table.class);
         return jdbcTemplate.queryForObject(
-                "select password from " + table.name() + " where username=?", String.class, username);
+                "select password from " + table.name() + " where id=?", String.class, userId);
     }
 }

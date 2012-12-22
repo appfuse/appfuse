@@ -10,7 +10,8 @@ import ${appfusepackage}.service.GenericManager;
 <#else>
 import ${basepackage}.service.${pojo.shortName}Manager;
 </#if>
-import ${basepackage}.model.${pojo.shortName};
+import ${appfusepackage}.dao.SearchException;
+import ${pojo.packageName}.${pojo.shortName};
 import ${basepackage}.webapp.action.BaseAction;
 
 import java.util.List;
@@ -56,7 +57,12 @@ public class ${pojo.shortName}Action extends BaseAction implements Preparable {
     }
 
     public String list() {
-        ${util.getPluralForWord(pojoNameLower)} = ${pojoNameLower}Manager.search(query, ${pojo.shortName}.class);
+        try {
+            ${util.getPluralForWord(pojoNameLower)} = ${pojoNameLower}Manager.search(query, ${pojo.shortName}.class);
+        } catch (SearchException se) {
+            addActionError(se.getMessage());
+            ${util.getPluralForWord(pojoNameLower)} = ${pojoNameLower}Manager.getAll();
+        }
         return SUCCESS;
     }
 

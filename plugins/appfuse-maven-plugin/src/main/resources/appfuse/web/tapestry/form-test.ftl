@@ -24,8 +24,8 @@ public class ${pojo.shortName}FormTest extends BasePageTestCase {
         Element editLink = table.getElementById("${pojoNameLower}-" + ${pojo.identifierProperty.name});
         doc = tester.clickLink(editLink);
 
-        Element cancelButton = doc.getElementById("cancel_0");
-        doc = tester.clickSubmit(cancelButton, fieldValues);
+        Element cancelButton = doc.getElementById("cancel");
+        doc = tester.clickLink(cancelButton);
 
         ResourceBundle rb = ResourceBundle.getBundle(MESSAGES);
 
@@ -57,12 +57,10 @@ public class ${pojo.shortName}FormTest extends BasePageTestCase {
             System.out.println(errors);
         }
 
-        //assertNull(doc.getElementById("errorMessages"));
+        assertNull(doc.getElementById("errorMessages"));
 
-        //Element successMessages = doc.getElementById("successMessages");
-        //assertNotNull(successMessages);
         assertTrue(doc.toString().contains("added successfully"));
-        //Element table = doc.getElementById("${pojoNameLower}List");
+        Element table = doc.getElementById("${pojoNameLower}List");
     }
 
     @Test
@@ -76,7 +74,7 @@ public class ${pojo.shortName}FormTest extends BasePageTestCase {
         doc = tester.clickLink(editLink);
 
         Element deleteButton = doc.getElementById("delete");
-        doc = tester.clickSubmit(deleteButton, fieldValues);
+        doc = tester.clickLink(deleteButton);
         assertTrue(doc.toString().contains("deleted successfully"));
     }
 }

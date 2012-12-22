@@ -33,7 +33,7 @@
         </c:if>
     </spring:bind>
 
-    <form:form commandName="user" method="post" action="userform" id="userForm"
+    <form:form commandName="user" method="post" action="userform" id="userForm" autocomplete="off"
                cssClass="well form-horizontal" onsubmit="return validateUser(this)">
         <form:hidden path="id"/>
         <form:hidden path="version"/>

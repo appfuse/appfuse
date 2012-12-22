@@ -69,6 +69,14 @@ public class ${pojo.shortName}FormController extends BaseFormController {
             return getCancelView();
         }
 
+        if (validator != null) { // validator is null during testing
+            validator.validate(${pojoNameLower}, errors);
+
+            if (errors.hasErrors() && request.getParameter("delete") == null) { // don't validate when deleting
+                return "${pojoNameLower}form";
+            }
+        }
+
         log.debug("entering 'onSubmit' method...");
 
         boolean isNew = (${pojoNameLower}.${getIdMethodName}() == null);

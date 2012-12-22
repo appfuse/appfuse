@@ -1,5 +1,7 @@
 package org.appfuse.webapp.action;
 
+import org.appfuse.dao.SearchException;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -21,10 +23,11 @@ public class UserList extends BasePage implements Serializable {
     }
 
     public List getUsers() {
-        if (query != null && !"".equals(query.trim())) {
-            return userManager.search(query);
-        } else {
-            return sort(userManager.getUsers());
+        try {
+            return sort(userManager.search(query));
+        } catch (SearchException se) {
+            addError(se.getMessage());
+            return sort(userManager.search(query));
         }
     }
 

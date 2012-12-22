@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import java.util.Date;
 
 /**
@@ -29,12 +30,18 @@ public class Person implements java.io.Serializable {
     private Date modificationDate;
     private String username;
     private boolean active;
+    private Integer version;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @DocumentId
     public Long getId() {
         return id;
+    }
+
+    @Version
+    public Integer getVersion() {
+        return version;
     }
 
     @Column(name = "creation_date", nullable = false)
@@ -69,6 +76,10 @@ public class Person implements java.io.Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 
     public void setAge(Integer age) {

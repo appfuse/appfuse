@@ -1,15 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
-    "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
+<?xml version="1.0" encoding="UTF-8" ?>
+<taglib
+        xmlns="http://java.sun.com/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+        version="2.1">
 
-<taglib>
     <tlib-version>1.0</tlib-version>
-    <jsp-version>1.2</jsp-version>
     <short-name>appfuse-spring</short-name>
     <uri>http://www.appfuse.org/tags/spring</uri>
     <tag>
         <name>label</name>
         <tag-class>org.appfuse.webapp.taglib.LabelTag</tag-class>
+        <body-content>JSP</body-content>
         <attribute>
             <name>key</name>
             <required>true</required>
@@ -35,6 +37,7 @@
         <name>constants</name>
         <tag-class>org.appfuse.webapp.taglib.ConstantsTag</tag-class>
         <tei-class>org.appfuse.webapp.taglib.ConstantsTei</tei-class>
+        <body-content>empty</body-content>
         <attribute>
             <name>className</name>
         </attribute>
@@ -48,6 +51,7 @@
     <tag>
         <name>country</name>
         <tag-class>org.appfuse.webapp.taglib.CountryTag</tag-class>
+        <body-content>empty</body-content>
         <attribute>
             <name>name</name>
             <required>false</required>
@@ -65,6 +69,24 @@
         </attribute>
         <attribute>
             <name>toScope</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+    <tag>
+        <description>
+            Tag surrounds JSP code in which EL expressions should not be XML-escaped.
+        </description>
+        <name>out</name>
+        <tag-class>org.appfuse.webapp.taglib.OutTag</tag-class>
+        <body-content>JSP</body-content>
+        <attribute>
+            <description>
+                Determines whether characters &lt;,&gt;,&amp;,'," in EL expression values
+                will be converted to their corresponding character entity codes.
+                Default value is true.
+            </description>
+            <name>escapeXml</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>

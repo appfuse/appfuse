@@ -7,7 +7,7 @@
     </#foreach>
 <#elseif c2h.isManyToOne(field)>
     <#foreach column in field.getColumnIterator()>
-        <column>${column.name}</column>    
+        <column>${column.name}</column>
     </#foreach>
 </#if>
 </#foreach>
@@ -24,7 +24,7 @@
             <#if field.value.typeName.equals("timestamp")>
                 2000-01-01 00:00:00<#t/>
             <#else>
-                1<#rt/>
+                1<#t/>
             </#if>
         <#else>
             <#lt/>${data.getTestValueForDbUnit(column)}<#rt/>

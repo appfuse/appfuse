@@ -6,6 +6,13 @@
     <meta name="menu" content="${pojo.shortName}Menu"/>
 </head>
 
+<c:if test="{'$'}{not empty searchError}">
+    <div class="alert alert-error fade in">
+        <a href="#" data-dismiss="alert" class="close">&times;</a>
+        <c:out value="{'$'}{searchError}"/>
+    </div>
+</c:if>
+
 <div class="span10">
     <h2><fmt:message key="${pojoNameLower}List.heading"/></h2>
 

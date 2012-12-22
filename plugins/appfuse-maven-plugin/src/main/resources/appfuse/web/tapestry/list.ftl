@@ -4,14 +4,16 @@ package ${basepackage}.webapp.pages;
 
 import java.util.List;
 
+import ${appfusepackage}.dao.SearchException;
 <#if genericcore>
 import ${appfusepackage}.service.GenericManager;
 <#else>
 import ${basepackage}.service.${pojo.shortName}Manager;
 </#if>
 import ${pojo.packageName}.${pojo.shortName};
+
+import org.apache.tapestry5.PersistenceConstants;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
@@ -37,11 +39,19 @@ public class ${pojo.shortName}List {
     private ${pojo.shortName}Form form;
 
     @Property
-    @Persist
+    @Persist(PersistenceConstants.FLASH)
     private String q;
 
+    @Property
+    private String errorMessage;
+
     public List<${pojo.shortName}> get${util.getPluralForWord(pojo.shortName)}() {
-        return ${pojoNameLower}Manager.search(q, ${pojo.shortName}.class);
+        try {
+            return ${pojoNameLower}Manager.search(q, ${pojo.shortName}.class);
+        } catch (SearchException se) {
+            errorMessage = se.getMessage();
+            return ${pojoNameLower}Manager.getAll();
+        }
     }
 
     Object onAdd() {

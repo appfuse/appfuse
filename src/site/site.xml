@@ -12,10 +12,14 @@
         <version>1.3.0</version>
     </skin>
     <body>
+        <links>
+          <item name="appfuse.org" href="http://appfuse.org"/>
+        </links>
         <menu name="Documentation" inherit="top">
           <item name="QuickStart" href="http://appfuse.org/display/APF/AppFuse+QuickStart"/>
           <item name="Tutorials" href="http://appfuse.org/display/APF/Tutorials"/>
         </menu>
+        <menu ref="parent" inherit="top"/>
         <menu ref="modules" inherit="top"/>
         <menu ref="reports" inherit="top"/>
     </body>

@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.appfuse</groupId>
         <artifactId>appfuse-web</artifactId>
-        <version>2.2-SNAPSHOT</version>
+        <version>2.2.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>appfuse-web-common</artifactId>
@@ -59,13 +59,6 @@
                 </dependencies>
             </plugin>
             <plugin>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.2</version>
-                <configuration>
-                    <warSourceExcludes>WEB-INF/lib/**</warSourceExcludes>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>native2ascii-maven-plugin</artifactId>
                 <version>1.0-beta-1</version>
@@ -78,27 +71,9 @@
                         <configuration>
                             <encoding>UTF8</encoding>
                             <includes>
-                                <include>ApplicationResources_ko.properties</include>
-                                <include>ApplicationResources_no.properties</include>
-                                <include>ApplicationResources_tr.properties</include>
                                 <include>ApplicationResources_zh*.properties</include>
-                                <include>displaytag_tr.properties</include>
+                                <include>ApplicationResources_ko*.properties</include>
                                 <include>displaytag_zh*.properties</include>
-                            </includes>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>native2ascii-8859_1</id>
-                        <goals>
-                            <goal>native2ascii</goal>
-                        </goals>
-                        <configuration>
-                            <encoding>8859_1</encoding>
-                            <includes>
-                                <include>ApplicationResources_de.properties</include>
-                                <include>ApplicationResources_fr.properties</include>
-                                <include>ApplicationResources_nl.properties</include>
-                                <include>ApplicationResources_pt*.properties</include>
                             </includes>
                         </configuration>
                     </execution>

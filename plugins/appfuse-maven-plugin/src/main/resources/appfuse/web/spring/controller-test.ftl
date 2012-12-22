@@ -10,8 +10,8 @@ import ${basepackage}.service.${pojo.shortName}Manager;
 import ${pojo.packageName}.${pojo.shortName};
 
 import ${basepackage}.webapp.controller.BaseControllerTestCase;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -26,8 +26,8 @@ public class ${pojo.shortName}ControllerTest extends BaseControllerTestCase {
 
     @Test
     public void testHandleRequest() throws Exception {
-        ModelAndView mav = controller.handleRequest(null);
-        ModelMap m = mav.getModelMap();
+        Model model = controller.handleRequest(null);
+        Map m = model.asMap();
         assertNotNull(m.get("${pojoNameLower}List"));
         assertTrue(((List) m.get("${pojoNameLower}List")).size() > 0);
     }
@@ -42,8 +42,8 @@ public class ${pojo.shortName}ControllerTest extends BaseControllerTestCase {
 </#if>
         ${pojoNameLower}Manager.reindex();
 
-        ModelAndView mav = controller.handleRequest("*");
-        Map m = mav.getModel();
+        Model model = controller.handleRequest("*");
+        Map m = model.asMap();
         List results = (List) m.get("${pojoNameLower}List");
         assertNotNull(results);
         assertEquals(3, results.size());
