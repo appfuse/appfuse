@@ -16,7 +16,7 @@
 
     <!-- form:action is overridden by Wicket, so action="j_security_check" cannot be used. Possible workaround
          is to manually forward to that URL from Wicket class -->
-    <form wicket:id="loginForm" class="form-signin" onsubmit="saveUsername(this)">
+    <form wicket:id="loginForm" class="form-signin" onsubmit="saveUsername(this)" autocomplete="off">
         <h2 class="form-signin-heading">
             <wicket:message key="login.heading">[Heading]</wicket:message>
         </h2>
