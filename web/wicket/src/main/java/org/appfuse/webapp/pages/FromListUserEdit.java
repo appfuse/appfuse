@@ -16,6 +16,8 @@ import org.appfuse.service.UserExistsException;
 @AuthorizeInstantiation({"ROLE_ADMIN"})
 public class FromListUserEdit extends AbstractUserEdit {
 
+    private static final String USER_PROFILE_PROPERTY_PREFIX = "userProfile.admin";
+
     /**
      * Constructor for adding a new user.
      *
@@ -23,7 +25,7 @@ public class FromListUserEdit extends AbstractUserEdit {
      */
     @Deprecated //rather user and proper model should be created in the place which calls that action
     public FromListUserEdit(Page responsePage) {
-        super(responsePage, new Model<User>());
+        super(responsePage, USER_PROFILE_PROPERTY_PREFIX, new Model<User>());
         //TODO: MZA: Here or in onInitialize?
         setUser(new User());
     }
@@ -35,7 +37,7 @@ public class FromListUserEdit extends AbstractUserEdit {
      * @param userModel model for editing user
      */
     public FromListUserEdit(Page responsePage, IModel<User> userModel) {
-        super(responsePage, userModel);
+        super(responsePage, USER_PROFILE_PROPERTY_PREFIX, userModel);
     }
 
     protected void onSaveButtonSubmit() {

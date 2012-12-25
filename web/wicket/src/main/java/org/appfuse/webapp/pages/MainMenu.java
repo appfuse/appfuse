@@ -18,5 +18,8 @@ public class MainMenu extends AbstractWebPage {
         super.onInitialize();
 
         add(createFeedbackPanel());
+        add(createPageTitleTag("mainMenu.title"));
+        add(createPageHeading("mainMenu.heading"));
+        add(createPageMessage("mainMenu.message"));
     }
 }

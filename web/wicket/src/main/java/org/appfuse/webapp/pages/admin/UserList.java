@@ -47,7 +47,9 @@ public class UserList extends AbstractWebPage {
     protected void onInitialize() {
         super.onInitialize();
 
+        add(createPageTitleTag("userList.title"));
         add(createFeedbackPanel());
+        add(createPageHeading("userList.heading"));
         add(createSearchForm());
         add(createAddButton());
         add(createDoneButton());

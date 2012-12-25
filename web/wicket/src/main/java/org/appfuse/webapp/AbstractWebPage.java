@@ -5,7 +5,9 @@ import de.agilecoders.wicket.markup.html.bootstrap.common.NotificationMessage;
 import de.agilecoders.wicket.markup.html.bootstrap.common.NotificationPanel;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.util.time.Duration;
 import org.slf4j.Logger;
@@ -39,5 +41,17 @@ public abstract class AbstractWebPage extends WebPage {
     protected NotificationMessage createDefaultInfoNotificationMessage(IModel<String> messageModel) {
         return new NotificationMessage(messageModel)
                 .hideAfter(Duration.seconds(5));
+    }
+
+    protected Label createPageTitleTag(String resourceKey) {
+        return new Label("pageTitle", new ResourceModel(resourceKey));
+    }
+
+    protected Label createPageHeading(String resourceKey) {
+        return new Label("pageHeading", new ResourceModel(resourceKey));
+    }
+
+    protected Label createPageMessage(String resourceKey) {
+        return new Label("pageMessage", new ResourceModel(resourceKey));
     }
 }

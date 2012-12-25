@@ -29,19 +29,25 @@ public abstract class AbstractUserEdit extends AbstractWebPage {
     private RoleManager roleManager;
 
     private final Page responsePage;
+    private final String propertyPrefix;
     private final IModel<User> userModel;
 
     private Form<User> userEditForm;
 
-    protected AbstractUserEdit(Page responsePage, IModel<User> userModel) {
+    protected AbstractUserEdit(Page responsePage, String propertyPrefix, IModel<User> userModel) {
         super();
         this.responsePage = responsePage;
+        this.propertyPrefix = propertyPrefix;
         this.userModel = userModel;
     }
 
     @Override
     protected void onInitialize() {
         super.onInitialize();
+
+        add(createPageTitleTag(propertyPrefix + ".title"));
+        add(createPageHeading(propertyPrefix + ".heading"));
+        add(createPageMessage(propertyPrefix + ".message"));
 
         add(createFeedbackPanel());
 

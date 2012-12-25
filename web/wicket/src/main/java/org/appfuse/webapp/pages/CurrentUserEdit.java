@@ -19,8 +19,10 @@ import javax.servlet.http.HttpServletRequest;
 @AuthorizeInstantiation({"ROLE_ADMIN", "ROLE_USER"})
 public class CurrentUserEdit extends AbstractUserEdit {
 
+    private static final String USER_PROFILE_PROPERTY_PREFIX = "userProfile";
+
     public CurrentUserEdit() {
-        super(NO_RESPONSE_PAGE, new Model<User>());
+        super(NO_RESPONSE_PAGE, USER_PROFILE_PROPERTY_PREFIX, new Model<User>());
     }
 
     @Override

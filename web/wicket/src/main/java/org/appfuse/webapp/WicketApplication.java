@@ -54,6 +54,7 @@ import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
  *  - Java scripts on a Login page doesn't work. JS error: "ReferenceError: $ is not defined" in global.js could be a reason - DONE -
  *    Tapestry had its own prototype.js import and it was removed also in Wicket default.jsp
  *  - find some better way to create parametrized string messages than StringResourceModel
+ *  - "checkbox column" in a table - PhoneBook sample application has that one
  *
  * Migration to 1.5
  *  - password hint url is not properly generated - http://localhost:8080/login? - possible problem with injecting JavaScript - DONE
@@ -92,7 +93,7 @@ import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
  *      on app startup (even tests with WicketTester) is thrown then the exploded dir is not created by Idea - DONE (added resources from /src/main/java/ in pom.xml)
  *  - fix acceptance test: setselectfield - country - DONE - workaround with optionIndex
  *  - change button name on Signup page: Save -> Signup
- *  - change page title on Signup page: User Settings -> Signup
+ *  - change page title on Signup page: User Settings -> Signup - DONE
  *  - fix acceptance test: signup - doesn't move to a login page and others - currently disabled in Maven
  *
  * @author Marcin Zajączkowski, 2010-09-02

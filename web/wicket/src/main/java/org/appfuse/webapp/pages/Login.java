@@ -37,12 +37,15 @@ public class Login extends AbstractWebPage {
     protected void onInitialize() {
         super.onInitialize();
 
+        add(createPageTitleTag("login.title"));
+
         //TODO: MZA: Add login hint with: http://code.google.com/p/visural-wicket/
 
         Form<Void> loginForm = createLoginForm();
         add(loginForm);
 
         loginForm.add(createFeedbackPanel());
+        loginForm.add(createPageHeading("login.heading"));
         createAndAddToLoginFormUsernameAndPasswordFields(loginForm);
         loginForm.add(createRememberMeGroup());
         add(createSignupLabel());

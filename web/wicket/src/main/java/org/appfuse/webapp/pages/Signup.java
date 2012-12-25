@@ -28,11 +28,13 @@ import javax.servlet.http.Cookie;
 @MountPath("signup")
 public class Signup extends AbstractUserEdit {
 
+    private static final String SIGNUP_PROPERTY_PREFIX = "signup";
+
     @SpringBean
     private MailEngine mailEngine;
 
     public Signup() {
-        super(NO_RESPONSE_PAGE, new Model<User>(new User()));
+        super(NO_RESPONSE_PAGE, SIGNUP_PROPERTY_PREFIX, new Model<User>(new User()));
     }
 
     @Override
