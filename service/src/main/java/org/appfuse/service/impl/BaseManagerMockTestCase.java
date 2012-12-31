@@ -8,6 +8,8 @@ import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Map;
 import java.util.MissingResourceException;
@@ -18,7 +20,7 @@ import java.util.ResourceBundle;
  *
  * @author mraible
  */
-@RunWith(JMock.class)
+@RunWith(MockitoJUnitRunner.class)
 public abstract class BaseManagerMockTestCase {
     /**
      * A logger
@@ -28,10 +30,6 @@ public abstract class BaseManagerMockTestCase {
      * The resourceBundle
      */
     protected ResourceBundle rb;
-    /**
-     * The junit 4 context
-     */
-    protected Mockery context = new JUnit4Mockery();
 
     /**
      * Default constructor will set the ResourceBundle if needed.

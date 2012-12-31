@@ -285,6 +285,12 @@
             <artifactId>jackson-xc</artifactId>
             <version>1.7.1</version>
         </dependency>
+       <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.jmock</groupId>
             <artifactId>jmock</artifactId>
@@ -502,6 +508,7 @@
         <spring.version>3.2.0.RELEASE</spring.version>
 
         <!-- Testing dependency versions -->
+        <mockito.version>1.9.5</mockito.version>
         <jmock.version>2.5.1</jmock.version>
         <junit.version>4.10</junit.version>
         <wiser.version>1.2</wiser.version>

@@ -616,6 +616,7 @@
         <javamail.version>1.4.1</javamail.version>
         <jetty.version>8.1.3.v20120416</jetty.version>
         <jmock.version>2.5.1</jmock.version>
+        <mockito.version>1.9.5</mockito.version>
         <jpa.version>2.0-cr-1</jpa.version>
         <jsp.version>2.1</jsp.version>
         <jstl.version>1.2</jstl.version>
