@@ -13,8 +13,8 @@ import static org.junit.Assert.assertNotNull;
 
 @ContextConfiguration(
         locations = {"/applicationContext-service.xml",
-                "/applicationContext-resources.xml",
-                "classpath:/applicationContext-dao.xml"})
+                     "/applicationContext-resources.xml",
+                     "classpath:/applicationContext-dao.xml"})
 public class UserExistsExceptionTest extends AbstractTransactionalJUnit4SpringContextTests {
     @Autowired
     private UserManager manager;

@@ -105,8 +105,10 @@ public class UserManagerImplTest extends BaseManagerMockTestCase {
 
         //when
         user = userManager.getUser("5");
+
         //then
         assertNull(user);
+        verify(userDao).remove(5L);
     }
 
     @Test
