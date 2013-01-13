@@ -1,0 +1,16 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+			 xmlns:g='urn:import:com.google.gwt.user.client.ui'
+			 xmlns:b="urn:import:com.github.gwtbootstrap.client.ui">
+
+<ui:with type="org.appfuse.webapp.client.application.ApplicationResources" field="i18n" />
+
+<g:HTMLPanel styleName="container-fluid">
+    <div style="height:3em;"/>
+    <b:CellTable pageSize="8" ui:field="table" width="100%"/>
+    <div>      
+      <b:Button ui:field="addButton" text="{i18n.button_add}" />
+      <b:SimplePager display="{table}" location="RIGHT"/>
+    </div>
+ </g:HTMLPanel>
+</ui:UiBinder>

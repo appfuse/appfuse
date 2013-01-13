@@ -120,6 +120,72 @@
                     </webResources>
                 </configuration>
             </plugin>
+        	<plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>gwt-maven-plugin</artifactId>
+                <version>2.5.0</version>
+                <configuration>
+                    <style>PRETTY</style>
+                    <runTarget>/</runTarget>
+             		<noServer>true</noServer>
+             		<debugPort>8001</debugPort>
+					<debugSuspend>false</debugSuspend>
+					<compileSourcesArtifacts>
+						<artifact>javax.validation:validation-api</artifact>
+						<artifact>org.hibernate:hibernate-validator</artifact>
+					</compileSourcesArtifacts>                    
+                    <modules>
+                        <module>${gwtModuleName}</module>
+                    </modules>
+                   	<i18nMessagesBundle>${project.groupId}.webapp.client.ApplicationResources</i18nMessagesBundle>
+                   	<generateDirectory>${basedir}/src/main/java</generateDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>gwtcompile</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.google.gwt</groupId>
+                        <artifactId>gwt-dev</artifactId>
+                        <version>${gwt.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.google.gwt</groupId>
+                        <artifactId>gwt-user</artifactId>
+                        <version>${gwt.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        	<plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.2</version>
+                <executions>
+                    <execution>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <id>VerifyRequestFactoryInterfaces</id>
+                            <executable>java</executable>
+                            <arguments>
+                                <argument>-cp</argument>
+                                <classpath/>
+                                <argument>com.google.web.bindery.requestfactory.apt.ValidationTool</argument>
+                                <argument>${project.build.outputDirectory}</argument>
+                                <argument>${project.groupId}.webapp.requests.ApplicationRequestFactory</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>            
         </plugins>
         <resources>
             <resource>
@@ -179,42 +245,45 @@
             <artifactId>commons-io</artifactId>
             <version>${commons.io.version}</version>
         </dependency>
-        <dependency>
-            <groupId>displaytag</groupId>
-            <artifactId>displaytag</artifactId>
-            <version>${displaytag.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>jcl104-over-slf4j</artifactId>
-                </exclusion>
-            </exclusions>
+
+		<!-- gwt dependencies -->
+    	<dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-servlet</artifactId>
+            <version>${gwt.version}</version>
         </dependency>
         <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
-            <version>${jsp.version}</version>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-user</artifactId>
+            <version>${gwt.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.springmodules</groupId>
-            <artifactId>spring-modules-validation</artifactId>
-            <version>${springmodules.validation.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework</groupId>
-                    <artifactId>spring-support</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>xml-apis</groupId>
-                    <artifactId>xml-apis</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>${json.version}</version>
+        </dependency>        
+        <dependency>
+            <groupId>com.google.gwt.inject</groupId>
+            <artifactId>gin</artifactId>
+            <version>${gin.version}</version>
         </dependency>
+		<dependency>
+			<groupId>com.github.gwtbootstrap</groupId>
+			<artifactId>gwt-bootstrap</artifactId>
+			<version>${gwtbootstrap.version}</version>
+		</dependency>        
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>${javax.validation.version}</version>
+        </dependency>
+        <dependency>
+        	<groupId>org.hibernate</groupId>
+        	<artifactId>hibernate-validator</artifactId>
+        	<version>${hibernate-validator.version}</version>
+        </dependency>
+		
     </dependencies>
 
     <profiles>
@@ -311,7 +380,48 @@
                 </plugins>
             </build>
         </profile>
+		<profile>
+			<id>gen-proxies</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+					    <groupId>org.codehaus.groovy.maven</groupId>
+					    <artifactId>gmaven-plugin</artifactId>
+					    <version>1.0</version>
+					    <configuration>
+					        <source>
+import java.util.*;
+
+def Map toMap(object) { 
+	return object?.properties
+}
+
+println toMap(new ${entityName}())
+
+					        </source>
+					    </configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+        
+        <profile>
+        	<id>gwtDebug</id>
+        	<properties>
+        		<skipTests>true</skipTests>
+				<gwt.draftCompile>true</gwt.draftCompile>
+  				<gwtModuleSuffix>Debug</gwtModuleSuffix>
+        	</properties>
+        </profile>
     </profiles>
+
+	<properties>
+		<gwtModuleSuffix></gwtModuleSuffix>
+		<gwtModuleName>${project.groupId}.webapp.MainModule${gwtModuleSuffix}</gwtModuleName>
+	</properties>
 
     <reporting>
         <plugins>

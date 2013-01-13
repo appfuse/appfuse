@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to="clientApp">
+	<inherits name="org.appfuse.webapp.BaseModule"/>
+
+
+	<!-- Logging Configuration -->
+	<set-property name="gwt.logging.enabled" value="TRUE"/>
+	<set-property name="gwt.logging.logLevel" value="INFO"/>
+	<set-property name="gwt.logging.consoleHandler" value="ENABLED"/>
+	<set-property name="gwt.logging.developmentModeHandler" value="ENABLED"/>
+	<set-property name="gwt.logging.firebugHandler" value="ENABLED"/>
+	<set-property name="gwt.logging.hasWidgetsHandler" value="DISABLED"/>
+	<set-property name="gwt.logging.popupHandler" value="DISABLED"/>
+	<set-property name="gwt.logging.systemHandler" value="ENABLED"/>
+	<set-property name="gwt.logging.simpleRemoteHandler" value="DISABLED"/>
+
+
+
+	<!-- Uncomment if you are enabling server side deobfuscation of StackTraces
+		<set-property name="compiler.emulatedStack" value="true" />
+		<set-configuration-property name="compiler.emulatedStack.recordLineNumbers" value="true" />
+		<set-configuration-property name="compiler.emulatedStack.recordFileNames" value="true" />
+		-->
+
+	<extend-property name="locale" values="ca"/>
+	<extend-property name="locale" values="de"/>
+	<extend-property name="locale" values="en"/>
+	<extend-property name="locale" values="es"/>
+	<extend-property name="locale" values="fr"/>
+	<extend-property name="locale" values="it"/>
+	<extend-property name="locale" values="ko"/>
+	<extend-property name="locale" values="nl"/>
+	<extend-property name="locale" values="no"/>
+	<extend-property name="locale" values="pl"/>
+	<extend-property name="locale" values="pt_BR"/>
+	<extend-property name="locale" values="pt"/>
+	<extend-property name="locale" values="tr"/>
+	<extend-property name="locale" values="zh_CN"/>
+	<extend-property name="locale" values="zh"/>
+	<extend-property name="locale" values="zh_TW"/>
+
+</module>
