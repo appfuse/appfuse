@@ -137,7 +137,9 @@
                     <modules>
                         <module>${gwtModuleName}</module>
                     </modules>
-                   	<i18nMessagesBundle>${project.groupId}.webapp.client.ApplicationResources</i18nMessagesBundle>
+                    <!-- To generate gwt Messages profile 'gwtI18n' (see bellow) -->
+                    <!-- Usage: mvn clean -P gwtI18n process-resources gwt:i18n clean -->
+                   	<i18nMessagesBundle>${project.groupId}.webapp.client.application.ApplicationResources</i18nMessagesBundle>
                    	<generateDirectory>${basedir}/src/main/java</generateDirectory>
                 </configuration>
                 <executions>
@@ -192,6 +194,14 @@
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
             </resource>
+			<resource>
+				<directory>../common/src/main/resources</directory>
+        		<includes>
+          			<include>ApplicationResources*.properties</include>
+          		</includes>
+          		<targetPath>${project.build.outputDirectory}/org/appfuse/webapp/client/application</targetPath>
+				<filtering>true</filtering>
+			</resource>            
         </resources>
         <testResources>
             <testResource>
@@ -380,33 +390,39 @@
                 </plugins>
             </build>
         </profile>
-		<profile>
-			<id>gen-proxies</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-					    <groupId>org.codehaus.groovy.maven</groupId>
-					    <artifactId>gmaven-plugin</artifactId>
-					    <version>1.0</version>
-					    <configuration>
-					        <source>
-import java.util.*;
-
-def Map toMap(object) { 
-	return object?.properties
-}
-
-println toMap(new ${entityName}())
-
-					        </source>
-					    </configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
+        
+        <!-- Escape single quotes so gwt:i18n MessageFormat can parse the properties file -->
+        <!-- FIXME: it should be improved to match only apostrophes alone and not 'two matching' single quotes -->
+        <!-- http://docs.oracle.com/javase/6/docs/api/java/text/MessageFormat.html -->
+        <profile>
+        	<id>gwtI18n</id>
+        	<build>
+        		<plugins>
+			       <plugin>
+			           <groupId>com.google.code.maven-replacer-plugin</groupId>
+			           <artifactId>replacer</artifactId>
+			           <version>1.5.2</version>
+			           <executions>
+			               <execution>
+			                   <phase>process-resources</phase>
+			                   <goals>
+			                       <goal>replace</goal>
+			                   </goals>                   
+			               </execution>
+			           </executions>
+			           <configuration>
+			               <file>${project.build.outputDirectory}/org/appfuse/webapp/client/application/ApplicationResources.properties</file>
+			               <replacements>
+			                   <replacement>
+			                       <token>'</token>
+			                       <value>"''"</value>
+			                   </replacement>         
+			               </replacements>
+			           </configuration>
+			       </plugin>
+        		</plugins>
+        	</build>
+        </profile>
         
         <profile>
         	<id>gwtDebug</id>
@@ -415,7 +431,7 @@ println toMap(new ${entityName}())
 				<gwt.draftCompile>true</gwt.draftCompile>
   				<gwtModuleSuffix>Debug</gwtModuleSuffix>
         	</properties>
-        </profile>
+        </profile>        
     </profiles>
 
 	<properties>
