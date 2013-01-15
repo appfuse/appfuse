@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<%
+String contextPath = request.getContextPath();
+pageContext.setAttribute("ctxPath", contextPath);
+%>
 <html lang="en">
 <head>
     <meta http-equiv="Cache-Control" content="no-store"/>
@@ -11,11 +15,11 @@
 <%--
     <link rel="stylesheet" type="text/css" media="all" href="styles/lib/bootstrap-2.2.1.min.css" />
     <link rel="stylesheet" type="text/css" media="all" href="styles/lib/bootstrap-responsive-2.2.1.min.css" />
-    <link rel="stylesheet" type="text/css" media="all" href="/styles/style.css" />
 --%>
+    <link rel="stylesheet" type="text/css" media="all" href="${ctxPath}/styles/style.css" />
     <script type="text/javascript" language="javascript" src="clientApp/clientApp.nocache.js"></script>
 </head>
-<body style="-webkit-text-size-adjust: none;">
+<body>
 	<iframe src="javascript:''" id="__gwt_historyFrame" tabIndex='-1' style="position:absolute;width:0;height:0;border:0"></iframe>
 
 	<div id="loading" class="progress progress-info">

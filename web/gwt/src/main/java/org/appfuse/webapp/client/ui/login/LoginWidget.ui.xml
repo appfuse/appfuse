@@ -6,6 +6,8 @@
 <ui:with type="org.appfuse.webapp.client.application.ApplicationResources" field="i18n" />
 
 <g:HTMLPanel>
+	<form autocomplete="off" class="form-signin" id="loginForm" action="j_security_check" method="post">
+
 	    <h2 ui:field="heading" class="form-signin-heading">
 	        <ui:text from="{i18n.login_heading}"/>
 	    </h2>
@@ -21,6 +23,7 @@
 	   </label>
 	
 		<b:Button ui:field="loginButton" styleName="btn btn-large btn-primary" text="{i18n.button_login}" />
+	</form>
 
 </g:HTMLPanel>
 </ui:UiBinder>

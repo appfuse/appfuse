@@ -125,7 +125,23 @@ public class DesktopApplication extends Application {
 		loading.getParentElement().removeChild(loading);
 		
 		/* And show the user the shell */
-		RootLayoutPanel.get().add(shell);		
+		RootLayoutPanel.get().add(shell);
+		
+		//remove gwt positioning and overflow from extra divs, and hope for the best..
+		shell.getElement().setId("shell");
+		__fixPositioningAndOverflow(Document.get().getElementById("shell"));
+	}
+	
+	/**
+	 * remove gwt positioning and overflow from extra divs, and hope for the best..
+	 */
+	private Element __fixPositioningAndOverflow(Element element) {
+		if("body".equalsIgnoreCase(element.getTagName())){
+			return element;
+		} else {
+			element.removeAttribute("style");
+			return __fixPositioningAndOverflow(element.getParentElement());
+		}
 	}
 
 	protected void initHandlers() {

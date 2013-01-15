@@ -5,7 +5,7 @@
 
 	<ui:with type="org.appfuse.webapp.client.application.ApplicationResources" field="i18n" />
 
-	<b:ResponsiveNavbar>
+	<b:ResponsiveNavbar position="TOP">
 		<b:Brand text="{i18n.webapp_name}" />
 		<b:Nav>
 			<b:NavLink href="#mainMenu:" text="{i18n.mainMenu_title}"/>
