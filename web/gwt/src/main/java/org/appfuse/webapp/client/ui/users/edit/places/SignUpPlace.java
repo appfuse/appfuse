@@ -3,9 +3,7 @@
  */
 package org.appfuse.webapp.client.ui.users.edit.places;
 
-import org.appfuse.webapp.client.application.base.place.EntityProxyPlace;
-import org.appfuse.webapp.proxies.UserProxy;
-
+import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceTokenizer;
 import com.google.gwt.place.shared.Prefix;
 
@@ -13,17 +11,14 @@ import com.google.gwt.place.shared.Prefix;
  * @author ivangsa
  *
  */
-public class SignUpPlace extends EntityProxyPlace {
+public class SignUpPlace extends Place {
 
 	@Prefix("signup")
     public static class Tokenizer implements PlaceTokenizer<SignUpPlace> {
 
 		@Override
 		public SignUpPlace getPlace(String token) {
-			SignUpPlace place = new SignUpPlace();
-			place.proxyClass = UserProxy.class;
-			place.operation = Operation.CREATE;
-			return place;
+			return new SignUpPlace();
 		}
 
 		@Override

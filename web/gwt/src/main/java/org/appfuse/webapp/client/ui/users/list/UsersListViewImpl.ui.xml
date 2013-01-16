@@ -6,11 +6,12 @@
 <ui:with type="org.appfuse.webapp.client.application.ApplicationResources" field="i18n" />
 
 <g:HTMLPanel styleName="container-fluid">
-    <div style="height:3em;"/>
-    <b:CellTable pageSize="8" ui:field="table" width="100%"/>
     <div>      
-      <b:Button ui:field="addButton" text="{i18n.button_add}" />
-      <b:SimplePager display="{table}" location="RIGHT"/>
+      <b:Button ui:field="addButton" text="{i18n.button_add}" styleName="primary" />
     </div>
- </g:HTMLPanel>
+
+    <b:CellTable pageSize="25" ui:field="table" width="100%"/>
+	<b:SimplePager display="{table}" location="RIGHT" fastForwardRows="50"/>
+
+</g:HTMLPanel>
 </ui:UiBinder>

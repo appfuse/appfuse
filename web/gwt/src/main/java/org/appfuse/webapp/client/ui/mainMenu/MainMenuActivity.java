@@ -17,7 +17,7 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 public class MainMenuActivity extends AbstractBaseActivity {
 
 
-	public MainMenuActivity(MainMenuPlace currentPlace, Application application) {
+	public MainMenuActivity(Application application) {
 		super(application);
 	}
 

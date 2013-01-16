@@ -3,6 +3,7 @@
  */
 package org.appfuse.webapp.client.ui.login;
 
+import com.github.gwtbootstrap.client.ui.base.AlertBase;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.editor.client.Editor;
 import com.google.gwt.editor.client.EditorDriver;
@@ -22,7 +23,7 @@ public class LoginViewImpl extends Composite implements LoginView, Editor<LoginV
 	
 	private Delegate delegate;
 	
-	@UiField LoginWidget loginWidget;
+	@UiField LoginForm loginForm;
 	
 	/**
 	 * 
@@ -35,13 +36,16 @@ public class LoginViewImpl extends Composite implements LoginView, Editor<LoginV
 	@Override
 	public void setDelegate(Delegate delegate) {
 		this.delegate = delegate;
-		loginWidget.setDelegate(delegate);
+		loginForm.setDelegate(delegate);
 	}
 	
+	public void setMessage(AlertBase alert) {
+		loginForm.setMessage(alert);
+	}
 
 	@Override
 	public EditorDriver<LoginView.LoginDetails> getEditorDriver() {
-		return loginWidget.getEditorDriver();
+		return loginForm.getEditorDriver();
 	}
 	
 	

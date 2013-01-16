@@ -1,5 +1,8 @@
 package org.appfuse.webapp.client.ui;
 
+import org.appfuse.webapp.client.ui.login.events.LoginEvent;
+import org.appfuse.webapp.client.ui.login.events.LogoutEvent;
+
 import com.github.gwtbootstrap.client.ui.base.AlertBase;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
@@ -72,6 +75,18 @@ public class MobileShell extends Shell {
 
 	@Override
 	public void addMessage(AlertBase alert) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onLoginEvent(LoginEvent loginEvent) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onLogoutEvent(LogoutEvent logoutEvent) {
 		// TODO Auto-generated method stub
 		
 	}

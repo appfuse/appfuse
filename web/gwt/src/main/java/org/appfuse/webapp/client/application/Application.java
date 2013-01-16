@@ -3,8 +3,6 @@
  */
 package org.appfuse.webapp.client.application;
 
-import javax.validation.Validation;
-
 import org.appfuse.webapp.client.ui.Shell;
 import org.appfuse.webapp.proxies.LookupConstantsProxy;
 import org.appfuse.webapp.proxies.RoleProxy;
@@ -47,6 +45,7 @@ public abstract class Application {
 		this.placeController = placeController;
 		this.viewFactory = viewFactory;
 		this.validatorFactory = validatorFactory;
+		shell.setApplication(this);
 	}
 
 	public abstract void run();
@@ -92,7 +91,7 @@ public abstract class Application {
 	}
 
 	public boolean isUserInRole(String role) {
-		if(currentUser != null && role != null) {
+		if(currentUser != null && currentUser.getRoles() != null && role != null) {
 			for (RoleProxy roleProxy : currentUser.getRoles()) {
 				if(role.equalsIgnoreCase(roleProxy.getName())) {
 					return true;

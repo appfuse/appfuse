@@ -89,7 +89,7 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 	 * @param currentPlace
 	 * @param view
 	 */
-	public AbstractProxyEditActivity(EntityProxyPlace currentPlace, Application application) {
+	public AbstractProxyEditActivity(Application application) {
 		super(application);
 	}
 
@@ -112,7 +112,7 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 		EntityProxyPlace entityProxyPlace = (EntityProxyPlace) currentPlace;
 		EntityProxyId<P> proxyId = (EntityProxyId<P>)entityProxyPlace.getProxyId();
 		if(proxyId == null) {
-			entityProxy = (P) requests.userRequest().create(((EntityProxyPlace)currentPlace).getProxyClass());
+			entityProxy = (P) requests.userRequest().create(((EntityProxyPlace)currentPlace).getProxyClass());//FIXME
 			editorDriver.edit(entityProxy, createSaveRequest(entityProxy));			
 		} else {
 			requests.find(proxyId).with(editorDriver.getPaths()).fire(new Receiver<P>() {
@@ -134,6 +134,7 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 	public void saveClicked() {
 		if (!changed()) {
 			placeController.goTo(nextPlace(false));
+			return;
 		}
 
 		setWaiting(true);
@@ -237,7 +238,7 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 	 * @return
 	 */
 	private boolean changed() {
-		return false;
+		return true;
 		//return editorDriver != null && editorDriver.flush().isChanged();
 	}
 

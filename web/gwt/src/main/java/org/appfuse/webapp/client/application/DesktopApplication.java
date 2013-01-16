@@ -6,9 +6,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.appfuse.webapp.client.ui.DesktopShell;
-import org.appfuse.webapp.client.ui.login.AuthRequiredEvent;
 import org.appfuse.webapp.client.ui.login.LoginActivity;
 import org.appfuse.webapp.client.ui.login.LoginPlace;
+import org.appfuse.webapp.client.ui.login.events.AuthRequiredEvent;
+import org.appfuse.webapp.client.ui.login.events.LoginEvent;
+import org.appfuse.webapp.client.ui.login.events.LogoutEvent;
 import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
 import org.appfuse.webapp.proxies.LookupConstantsProxy;
 import org.appfuse.webapp.proxies.UserProxy;
@@ -27,6 +29,7 @@ import com.google.gwt.logging.client.LogConfiguration;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.inject.Inject;
@@ -41,7 +44,7 @@ import com.google.web.bindery.requestfactory.shared.ServerFailure;
 /**
  * Application for browsing entities.
  */
-public class DesktopApplication extends Application {
+public class DesktopApplication extends Application implements LoginEvent.Handler, LogoutEvent.Handler {
 	private static final Logger LOGGER = Logger.getLogger(DesktopApplication.class.getName());
 
 	@Inject
@@ -75,7 +78,7 @@ public class DesktopApplication extends Application {
         
         /* Authentication */
 		setProgress(50);
-        requestFactory.userRequest().getCurrentUser().fire(new Receiver<UserProxy>() {
+        requestFactory.userRequest().getCurrentUser().with("roles").fire(new Receiver<UserProxy>() {
 
 			@Override
 			public void onSuccess(UserProxy currentUser) {
@@ -86,8 +89,8 @@ public class DesktopApplication extends Application {
 					/* load application constants */
 					requestFactory.lookupRequest().getApplicationConstants().fire(new Receiver<LookupConstantsProxy>() {
 						@Override
-						public void onSuccess(LookupConstantsProxy response) {
-							setLookupConstants(response);
+						public void onSuccess(LookupConstantsProxy lookupConstants) {
+							setLookupConstants(lookupConstants);
 
 							setProgress(80);
 							showShell();
@@ -103,7 +106,7 @@ public class DesktopApplication extends Application {
 					showShell();
 					
 					/* Register home place and parse url for current place token */
-					Place defaultPlace = new LoginPlace();
+					Place defaultPlace = new LoginPlace(History.getToken());
 					historyHandler.register(placeController, eventBus, defaultPlace);
 					placeController.goTo(defaultPlace);
 				}
@@ -180,6 +183,50 @@ public class DesktopApplication extends Application {
 			}
 		});
 
+		LoginEvent.register(eventBus, this);
+		LogoutEvent.register(eventBus, this);
+
+	}
+	
+	@Override
+	public void onLoginEvent(final LoginEvent loginEvent) {
+
+        requestFactory.userRequest().getCurrentUser().with("roles").fire(new Receiver<UserProxy>() {
+			@Override
+			public void onSuccess(UserProxy currentUser) {
+				if(currentUser != null) {
+					setCurrentUser(currentUser);
+					/* load application constants */
+					requestFactory.lookupRequest().getApplicationConstants().fire(new Receiver<LookupConstantsProxy>() {
+						@Override
+						public void onSuccess(LookupConstantsProxy lookupConstants) {
+							setLookupConstants(lookupConstants);
+							shell.onLoginEvent(loginEvent);
+
+							Place currentPlace = placeController.getWhere();
+							if(currentPlace instanceof LoginPlace) {// explicit login
+								LoginPlace loginPlace = (LoginPlace) currentPlace;
+								if(loginPlace.getHistoryToken() != null && !"".equals(loginPlace.getHistoryToken())) {
+									History.newItem(loginPlace.getHistoryToken());
+								} else {
+									placeController.goTo(new MainMenuPlace());
+								}
+							}else {
+								//this was an intercepted login so we leave user on current page
+							}
+						}
+					});
+				}
+			}
+        });
+	}
+	
+	@Override
+	public void onLogoutEvent(LogoutEvent logoutEvent) {
+		setCurrentUser(null);
+		setLookupConstants(null);
+		shell.onLogoutEvent(logoutEvent);
+		placeController.goTo(new LoginPlace());
 	}
 	
 	/* The progressbar */
@@ -190,6 +237,7 @@ public class DesktopApplication extends Application {
 		}
 		progressbar.setAttribute("style", "width: " + progress + "%;");
 	}
+
 }
 class CustomDefaultRequestTransport extends DefaultRequestTransport {
 

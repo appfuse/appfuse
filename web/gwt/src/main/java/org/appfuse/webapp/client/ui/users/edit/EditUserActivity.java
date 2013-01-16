@@ -27,8 +27,8 @@ import com.google.web.bindery.requestfactory.shared.RequestContext;
  */
 public class EditUserActivity extends AbstractProxyEditActivity<UserProxy> implements EditUserView.Delegate {
 
-	public EditUserActivity(EntityProxyPlace place, Application application) {
-		super(place, application);
+	public EditUserActivity(Application application) {
+		super(application);
 	}
 	
 	@Override

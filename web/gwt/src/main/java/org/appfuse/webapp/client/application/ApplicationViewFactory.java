@@ -8,7 +8,7 @@ import java.util.Map;
 
 import org.appfuse.webapp.client.ui.login.LoginView;
 import org.appfuse.webapp.client.ui.login.LoginViewImpl;
-import org.appfuse.webapp.client.ui.login.LoginWidget;
+import org.appfuse.webapp.client.ui.login.LoginForm;
 import org.appfuse.webapp.client.ui.mainMenu.MainMenuView;
 import org.appfuse.webapp.client.ui.mainMenu.MainMenuViewDesktop;
 import org.appfuse.webapp.client.ui.users.edit.views.EditProfileViewImpl;
@@ -47,8 +47,8 @@ public class ApplicationViewFactory {
 			view = GWT.create(LoginViewImpl.class);
 			reusableViews.put(viewClass, view);
 		}
-		if(LoginWidget.class.equals(viewClass)) {
-			view = GWT.create(LoginWidget.class);
+		if(LoginForm.class.equals(viewClass)) {
+			view = GWT.create(LoginForm.class);
 			reusableViews.put(viewClass, view);
 		}
 		else if(MainMenuView.class.equals(viewClass)) {

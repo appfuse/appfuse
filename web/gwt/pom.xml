@@ -137,8 +137,6 @@
                     <modules>
                         <module>${gwtModuleName}</module>
                     </modules>
-                    <!-- To generate gwt Messages profile 'gwtI18n' (see bellow) -->
-                    <!-- Usage: mvn clean -P gwtI18n process-resources gwt:i18n clean -->
                    	<i18nMessagesBundle>${project.groupId}.webapp.client.application.ApplicationResources</i18nMessagesBundle>
                    	<generateDirectory>${basedir}/src/main/java</generateDirectory>
                 </configuration>
@@ -164,6 +162,34 @@
                     </dependency>
                 </dependencies>
             </plugin>
+	        <!-- Escape single quotes so gwt:i18n MessageFormat can parse the properties file -->
+	        <!-- FIXME: it should be improved to match only apostrophes alone and not 'two matching' single quotes -->
+	        <!-- http://docs.oracle.com/javase/6/docs/api/java/text/MessageFormat.html -->
+			<plugin>
+				<groupId>com.google.code.maven-replacer-plugin</groupId>
+				<artifactId>replacer</artifactId>
+				<version>1.5.2</version>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>replace</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<basedir>${project.build.outputDirectory}</basedir>
+					<includes>
+                    	<include>/org/appfuse/webapp/client/application/ApplicationResources*.properties</include>
+	                </includes>
+					<replacements>
+						<replacement>
+							<token>'</token>
+							<value>''</value>
+						</replacement>
+					</replacements>
+				</configuration>
+			</plugin>
         	<plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -389,39 +415,6 @@
                     </plugin>
                 </plugins>
             </build>
-        </profile>
-        
-        <!-- Escape single quotes so gwt:i18n MessageFormat can parse the properties file -->
-        <!-- FIXME: it should be improved to match only apostrophes alone and not 'two matching' single quotes -->
-        <!-- http://docs.oracle.com/javase/6/docs/api/java/text/MessageFormat.html -->
-        <profile>
-        	<id>gwtI18n</id>
-        	<build>
-        		<plugins>
-			       <plugin>
-			           <groupId>com.google.code.maven-replacer-plugin</groupId>
-			           <artifactId>replacer</artifactId>
-			           <version>1.5.2</version>
-			           <executions>
-			               <execution>
-			                   <phase>process-resources</phase>
-			                   <goals>
-			                       <goal>replace</goal>
-			                   </goals>                   
-			               </execution>
-			           </executions>
-			           <configuration>
-			               <file>${project.build.outputDirectory}/org/appfuse/webapp/client/application/ApplicationResources.properties</file>
-			               <replacements>
-			                   <replacement>
-			                       <token>'</token>
-			                       <value>"''"</value>
-			                   </replacement>         
-			               </replacements>
-			           </configuration>
-			       </plugin>
-        		</plugins>
-        	</build>
         </profile>
         
         <profile>

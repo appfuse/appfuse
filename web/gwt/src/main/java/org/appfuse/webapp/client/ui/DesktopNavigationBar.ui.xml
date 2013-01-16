@@ -6,19 +6,21 @@
 	<ui:with type="org.appfuse.webapp.client.application.ApplicationResources" field="i18n" />
 
 	<b:ResponsiveNavbar position="TOP">
-		<b:Brand text="{i18n.webapp_name}" />
+		<b:Brand ui:field="brand" text="{i18n.webapp_name}" />
 		<b:Nav>
-			<b:NavLink href="#mainMenu:" text="{i18n.mainMenu_title}"/>
-			<b:NavLink href="#editProfile:" text="{i18n.menu_user}"/>
-			<b:Dropdown text="{i18n.menu_admin}" >
-				<b:NavLink href="#users:" text="{i18n.menu_admin_users}"/>
-				<b:NavLink href="#activeUsers:" text="{i18n.mainMenu_activeUsers}"/>
-				<b:NavLink href="#reload:" text="{i18n.menu_admin_reload}"/>
-				<b:NavLink href="#upload:" text="{i18n.menu_selectFile}"/>
+			<b:NavLink ui:field="login" text="{i18n.login_title}"/>
+		
+			<b:NavLink ui:field="mainMenu" text="{i18n.mainMenu_title}"/>
+			<b:NavLink ui:field="editProfile" text="{i18n.menu_user}"/>
+			<b:Dropdown ui:field="adminMenu" text="{i18n.menu_admin}" >
+				<b:NavLink ui:field="users" text="{i18n.menu_admin_users}"/>
+				<b:NavLink ui:field="activeUsers" text="{i18n.mainMenu_activeUsers}"/>
+				<b:NavLink ui:field="reload" text="{i18n.menu_admin_reload}"/>
+				<b:NavLink ui:field="upload" text="{i18n.menu_selectFile}"/>
 			</b:Dropdown>
 		</b:Nav>
 		<b:Nav alignment="RIGHT">
-			<b:NavLink href="#logout:" text="{i18n.user_logout}"/>
+			<b:NavLink ui:field="logout" text="{i18n.user_logout}"/>
 		</b:Nav>
 	</b:ResponsiveNavbar>
 </ui:UiBinder>

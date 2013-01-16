@@ -5,6 +5,7 @@ package org.appfuse.webapp.client.ui.login;
 
 import javax.validation.constraints.NotNull;
 
+import com.github.gwtbootstrap.client.ui.base.AlertBase;
 import com.google.gwt.editor.client.EditorDriver;
 import com.google.gwt.user.client.ui.IsWidget;
 
@@ -55,6 +56,8 @@ public interface LoginView extends IsWidget {
 	}
 
 	void setDelegate(Delegate delegate);
+	
+	void setMessage(AlertBase alert);
 
 	EditorDriver<LoginDetails> getEditorDriver();
 }

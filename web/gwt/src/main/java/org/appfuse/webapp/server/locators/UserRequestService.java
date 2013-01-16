@@ -210,8 +210,9 @@ public class UserRequestService extends AbstractBaseLocator<User, Long> {
     public List<User> searchUsers(UsersSearchCriteria searchCriteria, int firstResult, int maxResults){
     	String searchTerm = searchCriteria != null? searchCriteria.getSearchTerm() : null;
     	List<User> users = userManager.search(searchTerm);
-    	int fromIndex = Math.min(firstResult, users.size() -1);
-    	int toIndex = Math.min(fromIndex + maxResults, users.size() -1);
+    	int fromIndex = Math.min(firstResult, users.size());
+    	int toIndex = Math.min(fromIndex + maxResults, users.size());
+    	log.warn(String.format("searchUsers(%d,%d) %d-%d [%d]", new Object[] {firstResult, maxResults, fromIndex, toIndex, users.size()}));
     	return users.subList(fromIndex, toIndex);
     }
 

@@ -36,8 +36,6 @@ public interface UserProxy extends EntityProxy {
 
 	String getWebsite();
 
-	String getFullName();
-
 	AddressProxy getAddress();
 
 	Set<RoleProxy> getRoles();
@@ -48,15 +46,9 @@ public interface UserProxy extends EntityProxy {
 
 	boolean isAccountExpired();
 
-	boolean isAccountNonExpired();
-
 	boolean isAccountLocked();
 
-	boolean isAccountNonLocked();
-
 	boolean isCredentialsExpired();
-
-	boolean isCredentialsNonExpired();
 
 	void setId(Long id);
 

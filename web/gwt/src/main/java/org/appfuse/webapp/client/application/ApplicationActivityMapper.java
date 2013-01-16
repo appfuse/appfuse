@@ -53,18 +53,18 @@ public class ApplicationActivityMapper implements ActivityMapper {
 			activity = new LogoutActivity(application);
 		}
 		else if(place instanceof SignUpPlace) {
-			activity = new EditUserActivity((EntityProxyPlace) place, application);
+			activity = new EditUserActivity(application);
 		}
 		else if(place instanceof MainMenuPlace) {
-			activity = new MainMenuActivity((MainMenuPlace) place, application);
+			activity = new MainMenuActivity(application);
 		}
 		else if(place instanceof EditProfilePlace) {
-			activity = new EditUserActivity((EntityProxyPlace) place, application);
+			activity = new EditUserActivity(application);
 		}
 		else if(place instanceof EntityProxyPlace) {
 			EntityProxyPlace proxyPlace = (EntityProxyPlace) place;
 			if(UserProxy.class.equals(proxyPlace.getProxyClass())) {
-				activity = new EditUserActivity(proxyPlace, application);
+				activity = new EditUserActivity(application);
 			}
 		}
 		else if(place instanceof EntityListPlace) {

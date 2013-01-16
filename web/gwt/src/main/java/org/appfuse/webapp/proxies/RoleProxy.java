@@ -8,6 +8,9 @@ import com.google.web.bindery.requestfactory.shared.ValueProxy;
 @ProxyFor(value=Role.class)
 public interface RoleProxy extends ValueProxy {
 
+	public static final String ROLE_USER = "ROLE_USER";
+	public static final String ROLE_ADMIN = "ROLE_ADMIN";
+	
 	Long getId();
 
 	String getName();

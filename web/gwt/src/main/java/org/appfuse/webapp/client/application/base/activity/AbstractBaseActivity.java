@@ -9,12 +9,14 @@ import org.appfuse.webapp.requests.ApplicationRequestFactory;
 import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceController;
+import com.google.web.bindery.event.shared.EventBus;
 
 public abstract class AbstractBaseActivity extends AbstractActivity {
 
 	protected final Place currentPlace;
 	protected final Shell shell;
 	protected final Application application;
+	protected final EventBus eventBus;
     protected final ApplicationRequestFactory requests;
     protected final PlaceController placeController;
     protected final ApplicationViewFactory viewFactory;
@@ -26,6 +28,7 @@ public abstract class AbstractBaseActivity extends AbstractActivity {
 		super();
 		this.application = application;
 		this.shell = application.getShell();
+		this.eventBus = application.getEventBus();
 		this.requests = application.getRequestFactory();
 		this.placeController = application.getPlaceController();
 		this.currentPlace = placeController.getWhere();

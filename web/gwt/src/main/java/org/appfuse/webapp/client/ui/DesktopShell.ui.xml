@@ -7,9 +7,8 @@
 	<ui:with type="org.appfuse.webapp.client.application.ApplicationResources" field="i18n" />
 
 	<g:HTMLPanel>
-		<g:NotificationMole animationDuration="0" message="loading..." ui:field="mole"></g:NotificationMole>
    		
-   		<nav:DesktopNavigationBar />
+   		<nav:DesktopNavigationBar ui:field="navigationBar" />
 		
 		
 		<div class="container-fluid">
@@ -18,6 +17,8 @@
 			<g:SimplePanel styleName="row-fluid" ui:field="contentsPanel" />
 		</div>
 	
+		<g:NotificationMole animationDuration="0" message="loading..." ui:field="mole"></g:NotificationMole>
+
 	    <div id="footer">
 	        <span class="left"><ui:text from="{i18n.webapp_version}"/> <span id="currentUserInfo">| USER XXX</span></span>
 	        <span class="right">

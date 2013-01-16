@@ -11,6 +11,8 @@ import javax.validation.Validation;
 import org.appfuse.webapp.client.application.Application;
 import org.appfuse.webapp.client.application.base.activity.AbstractBaseActivity;
 import org.appfuse.webapp.client.ui.login.LoginView.LoginDetails;
+import org.appfuse.webapp.client.ui.login.events.AuthRequiredEvent;
+import org.appfuse.webapp.client.ui.login.events.LoginEvent;
 import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
 
 import com.github.gwtbootstrap.client.ui.Alert;
@@ -22,6 +24,7 @@ import com.google.gwt.http.client.RequestCallback;
 import com.google.gwt.http.client.RequestException;
 import com.google.gwt.http.client.Response;
 import com.google.gwt.http.client.URL;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.DialogBox;
@@ -56,16 +59,19 @@ public class LoginActivity extends AbstractBaseActivity implements LoginView.Del
 
 	@Override
 	public void onAuthRequiredEvent(AuthRequiredEvent authRequiredEvent) {
-		view = viewFactory.getView(LoginWidget.class);
+		view = viewFactory.getView(LoginForm.class);
 		view.setDelegate(this);
 
 		dialog = new DialogBox();
+		dialog.setGlassEnabled(true);
+		dialog.setAutoHideEnabled(true);
 		dialog.add(view);
 		dialog.center();
 	}
 
 	@Override
 	public void onLoginClick() {
+		view.setMessage(null);
 		EditorDriver<LoginDetails> editorDriver = view.getEditorDriver();
 		LoginDetails login = editorDriver.flush();
 		 Set<ConstraintViolation<LoginDetails>> violations = Validation.buildDefaultValidatorFactory().getValidator().validate(login);
@@ -83,13 +89,19 @@ public class LoginActivity extends AbstractBaseActivity implements LoginView.Del
 				
 				@Override
 				public void onResponseReceived(Request request, Response response) {
-					if(response.getStatusCode() == Response.SC_OK) {
+					int statusCode = response.getStatusCode();
+					if(statusCode == Response.SC_OK) {
 						if(dialog != null) {
 							dialog.hide();
-							Window.Location.reload();
-						} else {
-							placeController.goTo(new MainMenuPlace(true));
+							shell.addMessage(new Alert("you are back in XXX"));
 						}
+						eventBus.fireEvent(new LoginEvent());
+					} 
+					else if(statusCode == Response.SC_FORBIDDEN || statusCode == Response.SC_UNAUTHORIZED) {
+						view.setMessage(new Alert("login failedXX"));
+					}
+					else {
+						throw new RuntimeException("Login could not understand response code: " + statusCode);
 					}
 				}
 				
