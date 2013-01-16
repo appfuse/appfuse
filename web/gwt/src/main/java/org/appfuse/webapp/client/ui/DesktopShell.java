@@ -6,6 +6,8 @@ import org.appfuse.webapp.client.ui.login.events.LogoutEvent;
 
 import com.github.gwtbootstrap.client.ui.base.AlertBase;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.FlowPanel;
@@ -24,6 +26,8 @@ public class DesktopShell extends Shell implements LoginEvent.Handler, LogoutEve
 
 	@UiField FlowPanel messages;
 	@UiField NotificationMole mole;
+	
+	@UiField Element currentUserInfo;
 
 	public DesktopShell() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -59,11 +63,13 @@ public class DesktopShell extends Shell implements LoginEvent.Handler, LogoutEve
 	@Override
 	public void onLoginEvent(LoginEvent loginEvent) {
 		navigationBar.load();
+		currentUserInfo.setInnerSafeHtml(SafeHtmlUtils.fromString(application.getCurrentUsername()));
 	}
 
 
 	@Override
 	public void onLogoutEvent(LogoutEvent logoutEvent) {
 		navigationBar.load();
+		currentUserInfo.setInnerHTML("");
 	}
 }

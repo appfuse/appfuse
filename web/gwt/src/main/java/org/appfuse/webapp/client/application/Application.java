@@ -90,6 +90,13 @@ public abstract class Application {
 		this.lookupConstants = lookupConstants;
 	}
 
+	public String getCurrentUsername() {
+		if(getCurrentUser() == null) {
+			return null;
+		}
+		return getCurrentUser().getFirstName() + ' ' + getCurrentUser().getLastName();
+	}
+	
 	public boolean isUserInRole(String role) {
 		if(currentUser != null && currentUser.getRoles() != null && role != null) {
 			for (RoleProxy roleProxy : currentUser.getRoles()) {
