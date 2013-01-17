@@ -1,6 +1,7 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
 			 xmlns:g='urn:import:com.google.gwt.user.client.ui'
+			 xmlns:c='urn:import:com.google.gwt.user.cellview.client'
 			 xmlns:b="urn:import:com.github.gwtbootstrap.client.ui">
 
 <ui:with type="org.appfuse.webapp.client.application.ApplicationResources" field="i18n" />
@@ -17,134 +18,90 @@
 
     <b:LongBox ui:field="id" visible="false" />
     <b:IntegerBox ui:field="version" visible="false" />
-    
-	<fieldset class="control-group">
-        <label class="control-label" for="username"><ui:text from="{i18n.user_username}" /> <span class="required">*</span></label>
-        <div class="controls">
-        	<b:TextBox ui:field="username" />
-        </div>
-    </fieldset>
-	<fieldset class="control-group">
-        <label class="control-label" for="password"><ui:text from="{i18n.user_password}" /> <span class="required">*</span></label>
-        <div class="controls">
-        	<b:PasswordTextBox ui:field="password" />
-        </div>
-    </fieldset>	
-	<fieldset class="control-group">
-        <label class="control-label" for="confirmPassword"><ui:text from="{i18n.user_confirmPassword}" /> <span class="required">*</span></label>
-        <div class="controls">
-        	<b:PasswordTextBox ui:field="confirmPassword" />
-        </div>
-    </fieldset>	
-	<fieldset class="control-group">
-        <label class="control-label" for="passwordHint"><ui:text from="{i18n.user_passwordHint}" /> <span class="required">*</span></label>
-        <div class="controls">
-        	<b:TextBox ui:field="passwordHint" />
-        </div>
-    </fieldset>
-	<fieldset class="control-group">
-        <label class="control-label" for="firstName"><ui:text from="{i18n.user_firstName}" /> <span class="required">*</span></label>
-        <div class="controls">
-        	<b:TextBox ui:field="firstName" />
-        </div>
-    </fieldset>
-	<fieldset class="control-group">
-        <label class="control-label" for="lastName"><ui:text from="{i18n.user_lastName}" /> <span class="required">*</span></label>
-        <div class="controls">
-        	<b:TextBox ui:field="lastName" />
-        </div>
-    </fieldset>
-	<fieldset class="control-group">
-        <label class="control-label" for="email"><ui:text from="{i18n.user_email}" /> <span class="required">*</span></label>
-        <div class="controls">
-        	<b:TextBox ui:field="email" />
-        </div>
-    </fieldset>
-	<fieldset class="control-group">
-        <label class="control-label" for="phoneNumber"><ui:text from="{i18n.user_phoneNumber}" /> <span class="required">*</span></label>
-        <div class="controls">
-        	<b:TextBox ui:field="phoneNumber" />
-        </div>
-    </fieldset>
-	<fieldset class="control-group">
-        <label class="control-label" for="website"><ui:text from="{i18n.user_website}" /> <span class="required">*</span></label>
-        <div class="controls">
-        	<b:TextBox ui:field="website" />
-        </div>
-    </fieldset>
 
-	<fieldset ui:field="addressFieldset">
+	<b:ControlGroup>
+        <b:ControlLabel for="username"><ui:text from="{i18n.user_username}" /> <span class="required">*</span></b:ControlLabel>
+       	<b:Controls><b:TextBox ui:field="username" /></b:Controls>
+    </b:ControlGroup>
+	<b:ControlGroup>
+        <b:ControlLabel for="password"><ui:text from="{i18n.user_password}" /> <span class="required">*</span></b:ControlLabel>
+       	<b:Controls><b:PasswordTextBox ui:field="password" /></b:Controls>
+    </b:ControlGroup>	
+	<b:ControlGroup>
+        <b:ControlLabel for="confirmPassword"><ui:text from="{i18n.user_confirmPassword}" /> <span class="required">*</span></b:ControlLabel>
+       	<b:Controls><b:PasswordTextBox ui:field="confirmPassword" /></b:Controls>
+    </b:ControlGroup>	
+	<b:ControlGroup>
+        <b:ControlLabel for="passwordHint"><ui:text from="{i18n.user_passwordHint}" /> <span class="required">*</span></b:ControlLabel>
+       	<b:Controls><b:TextBox ui:field="passwordHint" /></b:Controls>
+    </b:ControlGroup>
+	<b:ControlGroup>
+        <b:ControlLabel for="firstName"><ui:text from="{i18n.user_firstName}" /> <span class="required">*</span></b:ControlLabel>
+       	<b:Controls><b:TextBox ui:field="firstName" /></b:Controls>
+    </b:ControlGroup>
+	<b:ControlGroup>
+        <b:ControlLabel for="lastName"><ui:text from="{i18n.user_lastName}" /> <span class="required">*</span></b:ControlLabel>
+       	<b:Controls><b:TextBox ui:field="lastName" /></b:Controls>
+    </b:ControlGroup>
+	<b:ControlGroup>
+        <b:ControlLabel for="email"><ui:text from="{i18n.user_email}" /> <span class="required">*</span></b:ControlLabel>
+       	<b:Controls><b:TextBox ui:field="email" /></b:Controls>
+    </b:ControlGroup>
+	<b:ControlGroup>
+        <b:ControlLabel for="phoneNumber"><ui:text from="{i18n.user_phoneNumber}" /> <span class="required">*</span></b:ControlLabel>
+       	<b:Controls><b:TextBox ui:field="phoneNumber" /></b:Controls>
+    </b:ControlGroup>
+	<b:ControlGroup>
+        <b:ControlLabel for="website"><ui:text from="{i18n.user_website}" /> <span class="required">*</span></b:ControlLabel>
+       	<b:Controls><b:TextBox ui:field="website" /></b:Controls>
+    </b:ControlGroup>
+
+	<b:ControlGroup ui:field="addressFieldset">
 		<legend class="accordion-heading">
 		    <a href="#collapse-address" data-toggle="collapse">Address</a>
 		</legend>
 		<div class="accordion-body collapse" id="collapse-address">
-		    <fieldset class="control-group">
-		        <label class="control-label" for="address">Address</label>
-		        <div class="controls">
-		            <b:TextBox ui:field="address" />
-		        </div>
-		    </fieldset>
-		    <fieldset class="control-group">
-		        <label class="control-label" for="city">City</label>
-		        <div class="controls">
-		            <b:TextBox ui:field="city" />
-		        </div>
-		    </fieldset>
-		    <fieldset class="control-group">
-		        <label class="control-label" for="province">State</label>
-		        <div class="controls">
-		            <b:TextBox ui:field="province" />
-		        </div>
-		    </fieldset>
-		    <fieldset class="control-group">
-		        <label class="control-label" for="postalCode">Zip</label>
-		        <div class="controls">
-		            <b:TextBox ui:field="postalCode" />
-		        </div>
-		    </fieldset>
-		    <fieldset class="control-group">
-		        <label class="control-label" for="country">Country</label>
-		        <div class="controls">
-		            <b:ListBox  ui:field="country" />
-		        </div>
-		    </fieldset>
+		    <b:ControlGroup>
+		        <b:ControlLabel for="address">Address</b:ControlLabel>
+	            <b:Controls><b:TextBox ui:field="address" /></b:Controls>
+		    </b:ControlGroup>
+		    <b:ControlGroup>
+		        <b:ControlLabel for="city">City</b:ControlLabel>
+	            <b:Controls><b:TextBox ui:field="city" /></b:Controls>
+		    </b:ControlGroup>
+		    <b:ControlGroup>
+		        <b:ControlLabel for="province">State</b:ControlLabel>
+	            <b:Controls><b:TextBox ui:field="province" /></b:Controls>
+		    </b:ControlGroup>
+		    <b:ControlGroup>
+		        <b:ControlLabel for="postalCode">Zip</b:ControlLabel>
+	            <b:Controls><b:TextBox ui:field="postalCode" /></b:Controls>
+		    </b:ControlGroup>
+		    <b:ControlGroup>
+		        <b:ControlLabel for="country">Country</b:ControlLabel>
+	            <b:Controls><b:ListBox  ui:field="country" /></b:Controls>
+		    </b:ControlGroup>
 		</div>
-	</fieldset>
+	</b:ControlGroup>
 
-	<fieldset ui:field="accountSettings" class="control-group">
-	    <label class="control-label">Account Settings</label>
-	    <div class="controls">
-	        <label class="checkbox inline">
-	           <b:CheckBox ui:field="enabled" /><ui:text from="{i18n.user_enabled}" />
-	        </label>
+	<b:ControlGroup ui:field="accountSettings">
+	    <b:ControlLabel>Account Settings</b:ControlLabel>
+		<b:CheckBox ui:field="enabled" inline="true" /><ui:text from="{i18n.user_enabled}" />
+		<b:CheckBox ui:field="accountExpired" inline="true" /><ui:text from="{i18n.user_accountExpired}" />
+		<b:CheckBox ui:field="accountLocked" inline="true" /><ui:text from="{i18n.user_accountLocked}" />
+		<b:CheckBox ui:field="credentialsExpired" inline="true" /><ui:text from="{i18n.user_credentialsExpired}" />
+	</b:ControlGroup>
 	
-	        <label class="checkbox inline">
-	            <b:CheckBox ui:field="accountExpired" /><ui:text from="{i18n.user_accountExpired}" />
-	        </label>
-	
-	        <label class="checkbox inline">
-	            <b:CheckBox ui:field="accountLocked" /><ui:text from="{i18n.user_accountLocked}" />
-	        </label>
-	
-	        <label class="checkbox inline">
-	            <b:CheckBox ui:field="credentialsExpired" /><ui:text from="{i18n.user_credentialsExpired}" />
-	        </label>
-	    </div>
-	</fieldset>
-	
-	<fieldset class="control-group">
-	    <label class="control-label" for="userRoles">Assign Roles</label>
-	    <div class="controls">
-	    	<b:ListBox ui:field="roles" />
-	    </div>
-	</fieldset>	
+	<b:ControlGroup>
+	    <b:ControlLabel for="userRoles">Assign Roles</b:ControlLabel>
+	    <c:CellList ui:field="roles"/>
+	</b:ControlGroup>	
 
-
-	<fieldset class="form-actions">
+	<b:FormActions>
 		<b:Button ui:field="saveButton" styleName="btn btn-primary" customIconStyle="icon-ok icon-white" text="{i18n.button_save}" />
 		<b:Button ui:field="deleteButton" styleName="btn" customIconStyle="icon-remove" text="{i18n.button_delete}" />
 		<b:Button ui:field="cancelButton" styleName="btn" customIconStyle="icon-remove" text="{i18n.button_cancel}" />
-	</fieldset>
+	</b:FormActions>
 </form>	
 </div>
 </g:HTMLPanel>

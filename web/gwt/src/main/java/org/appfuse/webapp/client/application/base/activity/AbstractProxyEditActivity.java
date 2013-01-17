@@ -16,6 +16,8 @@
 package org.appfuse.webapp.client.application.base.activity;
 
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.validation.ConstraintViolation;
 
@@ -32,6 +34,7 @@ import com.google.web.bindery.requestfactory.gwt.client.RequestFactoryEditorDriv
 import com.google.web.bindery.requestfactory.shared.EntityProxy;
 import com.google.web.bindery.requestfactory.shared.EntityProxyId;
 import com.google.web.bindery.requestfactory.shared.Receiver;
+import com.google.web.bindery.requestfactory.shared.Request;
 import com.google.web.bindery.requestfactory.shared.RequestContext;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
@@ -58,19 +61,39 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 	protected abstract ProxyEditView<P, ?> createView(Place place);
 	
 	/**
-	 * Called once to create the appropriate request to save changes.
+	 * Called once to create the appropriate request to create/find and edit this entity and 
+	 * that will be fired when the save button is clicked.
 	 * 
-	 * @return the request context to fire when the save button is clicked
+	 * @return the request context to edit this entity proxy.
 	 */
-	protected abstract RequestContext createSaveRequest(P proxy);
+	protected abstract RequestContext createProxyRequest();
 
+	/**
+	 * 
+	 * @param requestContext
+	 * @param proxyId
+	 * @return
+	 */
+	protected Request<P> findProxyRequest(RequestContext requestContext, EntityProxyId<P> proxyId) {
+		return requestContext.find(proxyId);		
+	}
+
+	/**
+	 * 
+	 * @param requestContext
+	 * @param proxy
+	 * @return
+	 */
+	protected abstract RequestContext saveOrUpdateRequest(RequestContext requestContext, P proxy);
+	
 	/**
 	 * Called on {@link #deleteClicked()} to create the appropriate request to delete entity.
 	 * 
 	 * @return the request context to fire when the delete button is clicked
 	 */
-	protected abstract RequestContext createDeleteRequest(P proxy);
+	protected abstract RequestContext deleteRequest(RequestContext requestContext, P proxy);
 
+	
 	/**
 	 * Creates the {@link Place} to go after successfully saved or deleted this entity.
 	 * @param saved 
@@ -93,6 +116,7 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 		super(application);
 	}
 
+	
 	/**
 	 * 
 	 */
@@ -105,6 +129,8 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 		loadEntityProxy();
 	}
 	
+
+	
 	/**
 	 * 
 	 */
@@ -112,16 +138,17 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 		EntityProxyPlace entityProxyPlace = (EntityProxyPlace) currentPlace;
 		EntityProxyId<P> proxyId = (EntityProxyId<P>)entityProxyPlace.getProxyId();
 		if(proxyId == null) {
-			entityProxy = (P) requests.userRequest().create(((EntityProxyPlace)currentPlace).getProxyClass());//FIXME
-			editorDriver.edit(entityProxy, createSaveRequest(entityProxy));			
+			RequestContext requestContext = createProxyRequest();
+			entityProxy = (P) requestContext.create(((EntityProxyPlace)currentPlace).getProxyClass());//FIXME
+			editorDriver.edit(entityProxy, saveOrUpdateRequest(requestContext, entityProxy));
 		} else {
-			requests.find(proxyId).with(editorDriver.getPaths()).fire(new Receiver<P>() {
+			findProxyRequest(createProxyRequest(), proxyId).fire(new Receiver<P>() {
 				@Override
 				public void onSuccess(P response) {
 					entityProxy = response;
-					editorDriver.edit(entityProxy, createSaveRequest(entityProxy));
+					editorDriver.edit(entityProxy, saveOrUpdateRequest(createProxyRequest(), entityProxy));
 				}
-			});	
+			});
 		}
 	}
 
@@ -132,10 +159,6 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 	 */
 	@Override
 	public void saveClicked() {
-		if (!changed()) {
-			placeController.goTo(nextPlace(false));
-			return;
-		}
 
 		setWaiting(true);
 		editorDriver.flush().fire(new Receiver<Void>() {
@@ -183,7 +206,7 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 	 */
 	@Override
 	public void deleteClicked() {
-		createDeleteRequest(entityProxy).fire(new Receiver<Void>() {
+		deleteRequest(createProxyRequest(), entityProxy).fire(new Receiver<Void>() {
 			@Override
 			public void onSuccess(Void response) {
 				placeController.goTo(nextPlace(false));
@@ -238,8 +261,12 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 	 * @return
 	 */
 	private boolean changed() {
-		return true;
-		//return editorDriver != null && editorDriver.flush().isChanged();
+		try {
+			return editorDriver != null && editorDriver.flush().isChanged();
+		} catch (Exception e) {
+			Logger.getLogger("").log(Level.SEVERE, e.getMessage(), e);
+			return false;
+		}
 	}
 
 	/**

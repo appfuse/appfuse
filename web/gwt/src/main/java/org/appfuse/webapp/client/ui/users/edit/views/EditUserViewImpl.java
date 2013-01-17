@@ -5,6 +5,7 @@ package org.appfuse.webapp.client.ui.users.edit.views;
 
 import java.util.List;
 
+import org.appfuse.webapp.proxies.LabelValueProxy;
 import org.appfuse.webapp.proxies.RoleProxy;
 import org.appfuse.webapp.proxies.UserProxy;
 
@@ -15,16 +16,19 @@ import com.github.gwtbootstrap.client.ui.ListBox;
 import com.github.gwtbootstrap.client.ui.LongBox;
 import com.github.gwtbootstrap.client.ui.PasswordTextBox;
 import com.github.gwtbootstrap.client.ui.TextBox;
+import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.Element;
 import com.google.gwt.editor.client.EditorError;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
+import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.web.bindery.requestfactory.gwt.client.RequestFactoryEditorDriver;
 
@@ -53,7 +57,7 @@ public class EditUserViewImpl extends Composite implements EditUserView {
     @UiField TextBox  phoneNumber;
     @UiField TextBox  website;
 
-    @UiField Element addressFieldset;
+    @UiField UIObject addressFieldset;
     @UiField @Path("address.address")
     TextBox address;
     @UiField @Path("address.city")
@@ -65,9 +69,15 @@ public class EditUserViewImpl extends Composite implements EditUserView {
     @UiField  @Path("address.postalCode")
     TextBox postalCode;    
     
-    @UiField ListBox roles;
+    @UiField(provided=true) CellList<RoleProxy> roles = new CellList<RoleProxy>(new AbstractCell<RoleProxy>(){
+
+		@Override
+		public void render(com.google.gwt.cell.client.Cell.Context context, RoleProxy value, SafeHtmlBuilder sb) {
+			sb.append(SafeHtmlUtils.fromString(value.getName()));
+		}});
+
     
-    @UiField Element accountSettings;
+    @UiField UIObject accountSettings;
     @UiField CheckBox enabled;
     @UiField CheckBox accountExpired;
     @UiField CheckBox accountLocked;
@@ -97,9 +107,15 @@ public class EditUserViewImpl extends Composite implements EditUserView {
 	}
 
 	@Override
+	public void setCountries(List<LabelValueProxy> countries) {
+		for (LabelValueProxy labelValue : countries) {
+			country.addItem(labelValue.getLabel(), labelValue.getValue());
+		}
+	}
+	
+	@Override
 	public void setAvailableRoles(List<RoleProxy> roles) {
-		// TODO Auto-generated method stub
-		
+		this.roles.setRowData(roles);
 	}
 
 	@Override

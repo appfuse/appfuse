@@ -17,5 +17,89 @@
 	        <a href="#upload:"><ui:text from="{i18n.menu_selectFile}"/></a>
 	    </li>
 	</ul>
+			<b:Form type="HORIZONTAL">
+				<b:Fieldset>
+					<b:Legend>Legend can include any widget and tag <b:Strong> Strong </b:Strong><small> small </small></b:Legend>
+					<b:ControlGroup>
+						<b:ControlLabel>controlLabel can include any widget ang tag <a>href</a> <b:Code>code</b:Code></b:ControlLabel>
+						<b:Controls>
+							<b:RadioButton name="radio">radio 1</b:RadioButton>
+							<b:RadioButton name="radio">radio 2</b:RadioButton>
+							<b:RadioButton name="radio">radio 3</b:RadioButton>
+							<b:HelpBlock>Help Block can include any widget and tag <b:Strong> Strong </b:Strong> and <a>a tag</a></b:HelpBlock>
+						</b:Controls>
+					</b:ControlGroup>
+					<b:ControlGroup>
+						<b:ControlLabel>inline checkboxes</b:ControlLabel>
+						<b:Controls>
+							<b:RadioButton name="radio2" inline="true">1</b:RadioButton>
+							<b:RadioButton name="radio2" inline="true">2</b:RadioButton>
+							<b:RadioButton name="radio2" inline="true">3</b:RadioButton>
+							<b:HelpBlock>Help Block can include any widget and tag <b:Strong> Strong </b:Strong> and <a>a tag</a></b:HelpBlock>
+						</b:Controls>
+					</b:ControlGroup>
+					<b:ControlGroup>
+						<b:ControlLabel>controlLabel can include any widget ang tag <a>href</a> <b:Code>code</b:Code></b:ControlLabel>
+						<b:Controls>
+							<b:CheckBox>checkbox 1</b:CheckBox>
+							<b:CheckBox>checkbox 2</b:CheckBox>
+							<b:CheckBox>checkbox 3</b:CheckBox>
+							<b:HelpBlock>Help Block can include any widget and tag <b:Strong> Strong </b:Strong> and <a>a tag</a></b:HelpBlock>
+						</b:Controls>
+					</b:ControlGroup>
+					<b:ControlGroup>
+						<b:ControlLabel>inline checkboxes</b:ControlLabel>
+						<b:Controls>
+							<b:CheckBox inline="true">1</b:CheckBox>
+							<b:CheckBox inline="true">2</b:CheckBox>
+							<b:CheckBox inline="true">3</b:CheckBox>
+							<b:HelpBlock>Help Block can include any widget and tag <b:Strong> Strong </b:Strong> and <a>a tag</a></b:HelpBlock>
+						</b:Controls>
+					</b:ControlGroup>
+					<b:ControlGroup>
+						<b:ControlLabel>controlLabel can include any widget ang tag <a>href</a> <b:Code>code</b:Code></b:ControlLabel>
+						<b:Controls>
+							<b:TextBox placeholder="can set placeholder"/>
+							<b:HelpBlock>Help Block can include any widget and tag <b:Strong> Strong </b:Strong> and <a>a tag</a></b:HelpBlock>
+						</b:Controls>
+					</b:ControlGroup>
+					<b:ControlGroup>
+						<b:ControlLabel>controlLabel</b:ControlLabel>
+						<b:Controls>
+							<b:TextBox placeholder="set a placeholder text"/>
+							<b:HelpInline>Help Inline can not include any widget and tag(only text)</b:HelpInline>
+						</b:Controls>
+					</b:ControlGroup>
+					<b:ControlGroup type="ERROR">
+						<b:ControlLabel>control error type</b:ControlLabel>
+						<b:Controls>
+							<b:TextBox placeholder="error design"/>
+							<b:HelpInline>on error</b:HelpInline>
+						</b:Controls>
+					</b:ControlGroup>
+					<b:ControlGroup type="SUCCESS">
+						<b:ControlLabel>control success type</b:ControlLabel>
+						<b:Controls>
+							<b:InputAddOn prependIcon="STAR" appendIcon="STAR">
+								<b:TextBox placeholder="add on style"/>
+							</b:InputAddOn>
+							<b:HelpInline>on success</b:HelpInline>
+						</b:Controls>
+					</b:ControlGroup>
+					<b:ControlGroup type="WARNING">
+						<b:ControlLabel>control warning type</b:ControlLabel>
+						<b:Controls>
+							<b:InputAddOn prependText="@" appendText="@">
+								<b:TextBox placeholder="add on style"/>
+							</b:InputAddOn>
+							<b:HelpBlock>help block on warning</b:HelpBlock>
+						</b:Controls>
+					</b:ControlGroup>
+					<b:FormActions>
+						<b:Button>button</b:Button>
+						<b:Button>button</b:Button>
+					</b:FormActions>
+				</b:Fieldset>
+			</b:Form>	
 </g:HTMLPanel>
 </ui:UiBinder>

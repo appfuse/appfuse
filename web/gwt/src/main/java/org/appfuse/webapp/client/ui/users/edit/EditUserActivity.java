@@ -6,7 +6,6 @@ package org.appfuse.webapp.client.ui.users.edit;
 import org.appfuse.webapp.client.application.Application;
 import org.appfuse.webapp.client.application.base.activity.AbstractProxyEditActivity;
 import org.appfuse.webapp.client.application.base.place.EntityListPlace;
-import org.appfuse.webapp.client.application.base.place.EntityProxyPlace;
 import org.appfuse.webapp.client.application.base.view.ProxyEditView;
 import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
 import org.appfuse.webapp.client.ui.users.edit.places.EditProfilePlace;
@@ -18,7 +17,8 @@ import org.appfuse.webapp.proxies.UserProxy;
 import org.appfuse.webapp.requests.UserRequest;
 
 import com.google.gwt.place.shared.Place;
-import com.google.web.bindery.requestfactory.shared.Receiver;
+import com.google.web.bindery.requestfactory.shared.EntityProxyId;
+import com.google.web.bindery.requestfactory.shared.Request;
 import com.google.web.bindery.requestfactory.shared.RequestContext;
 
 /**
@@ -33,62 +33,52 @@ public class EditUserActivity extends AbstractProxyEditActivity<UserProxy> imple
 	
 	@Override
 	protected ProxyEditView<UserProxy, ?> createView(Place place) {
+		EditUserView editUserView = null;
 		if(place instanceof SignUpPlace) {
-			return viewFactory.getView(SignUpViewImpl.class);
+			editUserView = viewFactory.getView(SignUpViewImpl.class);
 		} else if(place instanceof EditProfilePlace) {
-			return viewFactory.getView(EditProfileViewImpl.class);
+			editUserView = viewFactory.getView(EditProfileViewImpl.class);
 		} else {
-			return viewFactory.getView(EditUserView.class);
+			editUserView = viewFactory.getView(EditUserView.class);
 		}
+		if(editUserView != null) {
+			editUserView.setAvailableRoles(application.getLookupConstants().getAvailableRoles());
+			editUserView.setCountries(application.getLookupConstants().getCountries());
+		}
+		return editUserView;
+	}
+
+
+	@Override
+	protected RequestContext createProxyRequest() {
+		return requests.userRequest();
 	}
 	
-	/**
-	 * 
-	 */
-	protected void loadEntityProxy() {
+	@Override
+	protected Request<UserProxy> findProxyRequest(RequestContext requestContext, EntityProxyId<UserProxy> proxyId) {
 		if(currentPlace instanceof SignUpPlace) {
-			requests.userRequest().signUp().fire(new Receiver<UserProxy>() {
-				@Override
-				public void onSuccess(UserProxy response) {
-					entityProxy = response;
-					editorDriver.edit(entityProxy, requests.userRequest());
-				}
-				
-			});
+			return ((UserRequest) requestContext).signUp();
 		}
 		else if(currentPlace instanceof EditProfilePlace) {
-			requests.userRequest().editProfile().fire(new Receiver<UserProxy>() {
-				@Override
-				public void onSuccess(UserProxy response) {
-					entityProxy = response;
-					UserRequest userRequest = requests.userRequest();
-					try {
-						userRequest.editProfile(entityProxy);
-					} catch (Exception e) {
-						throw new RuntimeException(e);
-					}
-					editorDriver.edit(entityProxy, userRequest);
-				}
-			});
+			return ((UserRequest) requestContext).editProfile();
 		} 
 		else {
-			super.loadEntityProxy();
+			return super.findProxyRequest(requestContext, proxyId);
 		}
-	}
-
-
-	@Override
-	protected RequestContext createSaveRequest(UserProxy proxy) {
-		UserRequest userRequest = requests.userRequest();
-		userRequest.saveUser(proxy);
-		return userRequest;
+		
 	}
 	
+
 	@Override
-	protected RequestContext createDeleteRequest(UserProxy proxy) {
-		UserRequest userRequest = requests.userRequest();
-		userRequest.removeUser(proxy);
-		return userRequest;
+	protected RequestContext saveOrUpdateRequest(RequestContext requestContext, UserProxy proxy) {
+		((UserRequest) requestContext).saveUser(proxy);
+		return requestContext;
+	}	
+	
+	@Override
+	protected RequestContext deleteRequest(RequestContext requestContext, UserProxy proxy) {
+		((UserRequest) requestContext).removeUser(proxy);
+		return requestContext;
 	}
 
 	@Override
@@ -114,4 +104,5 @@ public class EditUserActivity extends AbstractProxyEditActivity<UserProxy> imple
 			return new MainMenuPlace();
 		}
 	}
+
 }

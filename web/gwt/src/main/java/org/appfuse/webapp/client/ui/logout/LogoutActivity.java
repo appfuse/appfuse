@@ -5,7 +5,6 @@ package org.appfuse.webapp.client.ui.logout;
 
 import org.appfuse.webapp.client.application.Application;
 import org.appfuse.webapp.client.application.base.activity.AbstractBaseActivity;
-import org.appfuse.webapp.client.ui.login.LoginPlace;
 import org.appfuse.webapp.client.ui.login.events.LogoutEvent;
 
 import com.google.gwt.event.shared.EventBus;

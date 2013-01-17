@@ -120,7 +120,10 @@ public class UsersListViewImpl extends AbstractProxyListView<UserProxy> implemen
 
             @Override
             public String getValue(UserProxy object) {
-                return renderer.render(object.getAddress().getAddress());
+            	if(object.getAddress() != null) {
+            		return renderer.render(object.getAddress().getAddress());
+            	}
+            	return null;
             }
         }, "Address");
 

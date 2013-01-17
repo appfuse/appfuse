@@ -6,9 +6,9 @@ package org.appfuse.webapp.client.application;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.appfuse.webapp.client.ui.login.LoginForm;
 import org.appfuse.webapp.client.ui.login.LoginView;
 import org.appfuse.webapp.client.ui.login.LoginViewImpl;
-import org.appfuse.webapp.client.ui.login.LoginForm;
 import org.appfuse.webapp.client.ui.mainMenu.MainMenuView;
 import org.appfuse.webapp.client.ui.mainMenu.MainMenuViewDesktop;
 import org.appfuse.webapp.client.ui.users.edit.views.EditProfileViewImpl;
