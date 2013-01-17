@@ -20,6 +20,7 @@ import com.google.gwt.place.shared.Place;
 import com.google.web.bindery.requestfactory.shared.EntityProxyId;
 import com.google.web.bindery.requestfactory.shared.Request;
 import com.google.web.bindery.requestfactory.shared.RequestContext;
+import com.google.web.bindery.requestfactory.shared.impl.SimpleProxyId;
 
 /**
  * @author ivangsa
@@ -27,6 +28,7 @@ import com.google.web.bindery.requestfactory.shared.RequestContext;
  */
 public class EditUserActivity extends AbstractProxyEditActivity<UserProxy> implements EditUserView.Delegate {
 
+	
 	public EditUserActivity(Application application) {
 		super(application);
 	}
@@ -48,6 +50,21 @@ public class EditUserActivity extends AbstractProxyEditActivity<UserProxy> imple
 		return editUserView;
 	}
 
+	@Override
+	protected EntityProxyId<UserProxy> getProxyId() {
+		if(currentPlace instanceof SignUpPlace || currentPlace instanceof EditProfilePlace) {
+			//return a bogus entityId as it won't be used in findProxyRequest and it will be resolved on the server
+			return  new EntityProxyId<UserProxy>() {
+				@Override
+				public Class<UserProxy> getProxyClass() {
+					return UserProxy.class;
+				}
+			};
+		}
+		else {
+			return super.getProxyId();
+		}
+	}
 
 	@Override
 	protected RequestContext createProxyRequest() {
@@ -84,7 +101,7 @@ public class EditUserActivity extends AbstractProxyEditActivity<UserProxy> imple
 	@Override
 	protected Place previousPlace() {
 		if(currentPlace instanceof SignUpPlace || currentPlace instanceof EditProfilePlace ) {
-			return new EntityListPlace(UserProxy.class);//XXX
+			return new EntityListPlace(UserProxy.class);
 		} else {
 			return new EntityListPlace(UserProxy.class);
 		}

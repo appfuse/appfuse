@@ -129,17 +129,23 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 		loadEntityProxy();
 	}
 	
+	protected EntityProxyId<P> getProxyId(){
+		return (EntityProxyId<P>) ((EntityProxyPlace) currentPlace).getProxyId();
+	}
+	
+	protected Class<? extends EntityProxy> getProxyClass(){
+		return (Class<? extends EntityProxy>) ((EntityProxyPlace) currentPlace).getProxyClass();
+	}
 
 	
 	/**
 	 * 
 	 */
 	protected void loadEntityProxy() {
-		EntityProxyPlace entityProxyPlace = (EntityProxyPlace) currentPlace;
-		EntityProxyId<P> proxyId = (EntityProxyId<P>)entityProxyPlace.getProxyId();
+		EntityProxyId<P> proxyId = getProxyId();
 		if(proxyId == null) {
 			RequestContext requestContext = createProxyRequest();
-			entityProxy = (P) requestContext.create(((EntityProxyPlace)currentPlace).getProxyClass());//FIXME
+			entityProxy = (P) requestContext.create(getProxyClass());
 			editorDriver.edit(entityProxy, saveOrUpdateRequest(requestContext, entityProxy));
 		} else {
 			findProxyRequest(createProxyRequest(), proxyId).fire(new Receiver<P>() {

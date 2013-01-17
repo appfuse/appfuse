@@ -59,19 +59,19 @@ class DesktopNavigationBar extends Composite {
 	}
 
 	public void updateVisibility() {
+		boolean isAuthenticated = application.getCurrentUser() != null; 
 		boolean isUser = application.isUserInRole(RoleProxy.ROLE_USER);
 		boolean isAdmin = application.isUserInRole(RoleProxy.ROLE_ADMIN);
-		boolean isAnonymous = !isUser && !isAdmin; 
 		
-		login.setVisible(isAnonymous);
-		mainMenu.setVisible(!isAnonymous);
-		editProfile.setVisible(!isAnonymous);
+		login.setVisible(!isAuthenticated);
+		mainMenu.setVisible(isAuthenticated);
+		editProfile.setVisible(isAuthenticated);
 		adminMenu.setVisible(isAdmin);
 		users.setVisible(isAdmin);
 		activeUsers.setVisible(isAdmin);
 		reload.setVisible(isAdmin);
 		upload.setVisible(isAdmin);
-		logout.setVisible(!isAnonymous);
+		logout.setVisible(isAuthenticated);
 	}
 	
 	private void registerTargetPlaces() {
