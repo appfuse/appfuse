@@ -5,7 +5,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.util.ConvertUtil;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Map;
@@ -13,7 +12,7 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 /**
- * A mock class for testing using JMock. This test class can be moved to the test tree.
+ * A mock class for testing using Mockito.
  *
  * @author mraible
  */
