@@ -285,19 +285,12 @@
             <artifactId>jackson-xc</artifactId>
             <version>1.7.1</version>
         </dependency>
-        <dependency>
-            <groupId>org.jmock</groupId>
-            <artifactId>jmock</artifactId>
-            <version>${jmock.version}</version>
+       <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.jmock</groupId>
-            <artifactId>jmock-junit4</artifactId>
-            <version>${jmock.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <!-- Upgrade junit-dep used by jmock -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit-dep</artifactId>
@@ -502,7 +495,7 @@
         <spring.version>3.2.0.RELEASE</spring.version>
 
         <!-- Testing dependency versions -->
-        <jmock.version>2.5.1</jmock.version>
+        <mockito.version>1.9.5</mockito.version>
         <junit.version>4.10</junit.version>
         <wiser.version>1.2</wiser.version>
 

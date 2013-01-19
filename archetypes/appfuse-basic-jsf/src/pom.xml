@@ -351,18 +351,11 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.jmock</groupId>
-            <artifactId>jmock</artifactId>
-            <version>${jmock.version}</version>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.jmock</groupId>
-            <artifactId>jmock-junit4</artifactId>
-            <version>${jmock.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <!-- Upgrade junit-dep used by jmock -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit-dep</artifactId>
@@ -701,6 +694,7 @@
         <!-- Testing dependency versions -->
         <cargo.version>1.2.4</cargo.version>
         <jmock.version>2.5.1</jmock.version>
+        <mockito.version>1.9.5</mockito.version>
         <jsp.version>2.1</jsp.version>
         <junit.version>4.10</junit.version>
         <servlet.version>2.5</servlet.version>

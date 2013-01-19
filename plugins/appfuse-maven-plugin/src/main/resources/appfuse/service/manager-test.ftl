@@ -11,57 +11,49 @@ import ${basepackage}.dao.${pojo.shortName}Dao;
 import ${basepackage}.model.${pojo.shortName};
 import ${appfusepackage}.service.impl.BaseManagerMockTestCase;
 
-import org.jmock.Expectations;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.junit.Before;
 import org.junit.After;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static org.mockito.BDDMockito.*;
 
 public class ${pojo.shortName}ManagerImplTest extends BaseManagerMockTestCase {
-    private ${pojo.shortName}ManagerImpl manager = null;
-    private ${pojo.shortName}Dao dao = null;
 
-    @Before
-    public void setUp() {
-        dao = context.mock(${pojo.shortName}Dao.class);
-        manager = new ${pojo.shortName}ManagerImpl(dao);
-    }
+    @InjectMocks
+    private ${pojo.shortName}ManagerImpl manager;
 
-    @After
-    public void tearDown() {
-        manager = null;
-    }
+    @Mock
+    private ${pojo.shortName}Dao dao;
+
 
     @Test
     public void testGet${pojo.shortName}() {
         log.debug("testing get...");
-
+        //given
         final ${identifierType} ${pojo.identifierProperty.name} = 7L;
         final ${pojo.shortName} ${pojoNameLower} = new ${pojo.shortName}();
+        given(dao.get(${pojo.identifierProperty.name})).willReturn(${pojoNameLower});
 
-        // set expected behavior on dao
-        context.checking(new Expectations() {{
-            one(dao).get(with(equal(${pojo.identifierProperty.name})));
-            will(returnValue(${pojoNameLower}));
-        }});
-
+        //when
         ${pojo.shortName} result = manager.get(${pojo.identifierProperty.name});
+
+        //then
         assertSame(${pojoNameLower}, result);
     }
 
     @Test
     public void testGet${util.getPluralForWord(pojo.shortName)}() {
         log.debug("testing getAll...");
-
+        //given
         final List ${util.getPluralForWord(pojoNameLower)} = new ArrayList();
+        given(dao.getAll()).willReturn(${util.getPluralForWord(pojoNameLower)});
 
-        // set expected behavior on dao
-        context.checking(new Expectations() {{
-            one(dao).getAll();
-            will(returnValue(${util.getPluralForWord(pojoNameLower)}));
-        }});
-
+        //when
         List result = manager.getAll();
+
+        //then
         assertSame(${util.getPluralForWord(pojoNameLower)}, result);
     }
 
@@ -69,6 +61,7 @@ public class ${pojo.shortName}ManagerImplTest extends BaseManagerMockTestCase {
     public void testSave${pojo.shortName}() {
         log.debug("testing save...");
 
+        //given
         final ${pojo.shortName} ${pojoNameLower} = new ${pojo.shortName}();
         // enter all required fields
 <#foreach field in pojo.getAllPropertiesIterator()>
@@ -79,25 +72,29 @@ public class ${pojo.shortName}ManagerImplTest extends BaseManagerMockTestCase {
     </#foreach>
 </#foreach>
         
-        // set expected behavior on dao
-        context.checking(new Expectations() {{
-            one(dao).save(with(same(${pojoNameLower})));
-        }});
 
+
+        given(dao.save(${pojoNameLower})).willReturn(${pojoNameLower});
+
+        //when
         manager.save(${pojoNameLower});
+
+        //then
+        verify(dao).save(${pojoNameLower});
     }
 
     @Test
     public void testRemove${pojo.shortName}() {
         log.debug("testing remove...");
 
+        //given
         final ${identifierType} ${pojo.identifierProperty.name} = -11L;
+        willDoNothing().given(dao).remove(${pojo.identifierProperty.name});
 
-        // set expected behavior on dao
-        context.checking(new Expectations() {{
-            one(dao).remove(with(equal(${pojo.identifierProperty.name})));
-        }});
-
+        //when
         manager.remove(${pojo.identifierProperty.name});
+
+        //then
+        verify(dao).remove(${pojo.identifierProperty.name});
     }
 }
