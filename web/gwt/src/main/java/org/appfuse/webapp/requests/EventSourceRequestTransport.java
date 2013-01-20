@@ -14,10 +14,10 @@ public class EventSourceRequestTransport implements RequestTransport {
 	private final RequestTransport wrapped;
 
 	public EventSourceRequestTransport(EventBus eventBus) {
-		this(eventBus, new DefaultRequestTransport());
+		this(eventBus, new CustomDefaultRequestTransport(eventBus));
 	}
 
-	public EventSourceRequestTransport(EventBus eventBus, RequestTransport wrapped) {
+	private EventSourceRequestTransport(EventBus eventBus, RequestTransport wrapped) {
 		this.eventBus = eventBus;
 		this.wrapped = wrapped;
 	}

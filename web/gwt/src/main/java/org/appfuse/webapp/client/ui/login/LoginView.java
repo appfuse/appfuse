@@ -21,11 +21,9 @@ public interface LoginView extends IsWidget {
 	}
 
 	public static class LoginDetails {
-		@NotNull
-		String username;
-		@NotNull
-		String password;
-		boolean spring_security_remember_me;
+		@NotNull String username;
+		@NotNull String password;
+		boolean rememberMe;
 		
 		public String getUsername() {
 			return username;
@@ -39,21 +37,23 @@ public interface LoginView extends IsWidget {
 		public void setPassword(String password) {
 			this.password = password;
 		}
-		public boolean isSpring_security_remember_me() {
-			return spring_security_remember_me;
+		public boolean isRememberMe() {
+			return rememberMe;
 		}
 		
-		public void setSpring_security_remember_me(boolean spring_security_remember_me) {
-			this.spring_security_remember_me = spring_security_remember_me;
+		public void setRememberMe(boolean spring_security_remember_me) {
+			this.rememberMe = spring_security_remember_me;
 		}
 		
 		@Override
 		public String toString() {
-			return "LoginDetails [username=" + username + ", password=" + password + ", spring_security_remember_me=" + spring_security_remember_me + "]";
+			return "LoginDetails [username=" + username + ", password=" + password + ", spring_security_remember_me=" + rememberMe + "]";
 		}
 		
 		
 	}
+	
+	void setRememberMeEnabled(boolean rememberMeEnabled);
 
 	void setDelegate(Delegate delegate);
 	

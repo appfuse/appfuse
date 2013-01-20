@@ -4,13 +4,15 @@
 			 xmlns:b="urn:import:com.github.gwtbootstrap.client.ui">
 
 <ui:with type="org.appfuse.webapp.client.application.ApplicationResources" field="i18n" />
+<ui:with type="java.lang.Integer" field="pageSize" />
+
 
 <g:HTMLPanel styleName="container-fluid">
     <div>      
       <b:Button ui:field="addButton" text="{i18n.button_add}" styleName="primary" />
     </div>
 
-    <b:CellTable pageSize="25" ui:field="table" width="100%"/>
+    <b:CellTable pageSize="{pageSize}" ui:field="table" width="100%"/>
 	<b:SimplePager display="{table}" location="RIGHT" fastForwardRows="50"/>
 
 </g:HTMLPanel>

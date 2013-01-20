@@ -22,11 +22,9 @@ import com.google.gwt.activity.shared.ActivityMapper;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.http.client.Request;
-import com.google.gwt.http.client.RequestCallback;
-import com.google.gwt.http.client.Response;
 import com.google.gwt.logging.client.LogConfiguration;
 import com.google.gwt.place.shared.Place;
+import com.google.gwt.place.shared.PlaceChangeEvent;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
 import com.google.gwt.user.client.History;
@@ -34,7 +32,6 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
-import com.google.web.bindery.requestfactory.gwt.client.DefaultRequestTransport;
 import com.google.web.bindery.requestfactory.gwt.client.RequestFactoryLogHandler;
 import com.google.web.bindery.requestfactory.shared.LoggingRequest;
 import com.google.web.bindery.requestfactory.shared.Receiver;
@@ -148,8 +145,6 @@ public class DesktopApplication extends Application implements LoginEvent.Handle
 	}
 
 	protected void initHandlers() {
-		//Custom request transport
-		requestFactory.initialize(eventBus, new CustomDefaultRequestTransport(eventBus));
 		
 		AuthRequiredEvent.register(eventBus, new LoginActivity(this));
 
@@ -183,6 +178,10 @@ public class DesktopApplication extends Application implements LoginEvent.Handle
 			}
 		});
 
+		if(shell instanceof PlaceChangeEvent.Handler) {
+			eventBus.addHandler(PlaceChangeEvent.TYPE, (PlaceChangeEvent.Handler)shell);
+		}
+		
 		LoginEvent.register(eventBus, this);
 		LogoutEvent.register(eventBus, this);
 
@@ -238,46 +237,4 @@ public class DesktopApplication extends Application implements LoginEvent.Handle
 		progressbar.setAttribute("style", "width: " + progress + "%;");
 	}
 
-}
-class CustomDefaultRequestTransport extends DefaultRequestTransport {
-
-	private static final String SERVER_ERROR = "Server Error";
-	private static final Logger wireLogger = Logger.getLogger("WireActivityLogger");
-	
-	private final EventBus eventBus;
-	
-	/**
-	 * @param eventBus
-	 */
-	public CustomDefaultRequestTransport(EventBus eventBus) {
-		super();
-		this.eventBus = eventBus;
-	}
-
-
-
-	@Override
-	protected RequestCallback createRequestCallback(final TransportReceiver receiver) {
-	    return new RequestCallback() {
-
-	        public void onError(Request request, Throwable exception) {
-	          wireLogger.log(Level.SEVERE, SERVER_ERROR, exception);
-	          receiver.onTransportFailure(new ServerFailure(exception.getMessage()));
-	        }
-
-	        public void onResponseReceived(Request request, Response response) {
-	          wireLogger.finest("Response received");
-	          if (Response.SC_UNAUTHORIZED == response.getStatusCode()) {
-	        	  eventBus.fireEvent(new AuthRequiredEvent());
-	          } else if (Response.SC_OK == response.getStatusCode()) {
-	            String text = response.getText();
-	            receiver.onTransportSuccess(text);
-	          } else {
-	            String message = SERVER_ERROR + " " + response.getStatusCode() + " " + response.getText();
-	            wireLogger.severe(message);
-	            receiver.onTransportFailure(new ServerFailure(message));
-	          }
-	        }
-	      };
-	}
 }

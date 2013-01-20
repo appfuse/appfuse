@@ -6,32 +6,32 @@
     <bean class="User" ignore-annotations="true">
         <field name="username">
             <constraint annotation="javax.validation.constraints.NotNull"/>
-            <constraint annotation="javax.validation.constraints.Max">
-                <element name="value">150</element>
+            <constraint annotation="javax.validation.constraints.Size">
+                <element name="max">150</element>
             </constraint>           
         </field>
         <field name="password">
             <constraint annotation="javax.validation.constraints.NotNull"/>
-            <constraint annotation="javax.validation.constraints.Max">
-                <element name="value">150</element>
+            <constraint annotation="javax.validation.constraints.Size">
+                <element name="max">150</element>
             </constraint>           
         </field>
         <field name="firstName">
             <constraint annotation="javax.validation.constraints.NotNull"/>
-            <constraint annotation="javax.validation.constraints.Max">
-                <element name="value">150</element>
+            <constraint annotation="javax.validation.constraints.Size">
+                <element name="max">150</element>
             </constraint>           
         </field>
         <field name="lastName">
             <constraint annotation="javax.validation.constraints.NotNull"/>
-            <constraint annotation="javax.validation.constraints.Max">
-                <element name="value">150</element>
+            <constraint annotation="javax.validation.constraints.Size">
+                <element name="max">150</element>
             </constraint>           
         </field>
         <field name="email">
             <constraint annotation="javax.validation.constraints.NotNull"/>
-            <constraint annotation="javax.validation.constraints.Max">
-                <element name="value">150</element>
+            <constraint annotation="javax.validation.constraints.Size">
+                <element name="max">150</element>
             </constraint>           
         </field>
         <field name="address">
@@ -40,28 +40,28 @@
     </bean>
     <bean class="Address" ignore-annotations="true">
         <field name="address">
-            <constraint annotation="javax.validation.constraints.Max">
-                <element name="value">150</element>
+            <constraint annotation="javax.validation.constraints.Size">
+                <element name="max">150</element>
             </constraint>
         </field>
         <field name="city">
-            <constraint annotation="javax.validation.constraints.Max">
-                <element name="value">50</element>
+            <constraint annotation="javax.validation.constraints.Size">
+                <element name="max">50</element>
             </constraint>
         </field>
         <field name="province">
-            <constraint annotation="javax.validation.constraints.Max">
-                <element name="value">100</element>
+            <constraint annotation="javax.validation.constraints.Size">
+                <element name="max">100</element>
             </constraint>
         </field>
         <field name="country">
-            <constraint annotation="javax.validation.constraints.Max">
-                <element name="value">100</element>
+            <constraint annotation="javax.validation.constraints.Size">
+                <element name="max">100</element>
             </constraint>
         </field>
         <field name="postalCode">
-            <constraint annotation="javax.validation.constraints.Max">
-                <element name="value">15</element>
+            <constraint annotation="javax.validation.constraints.Size">
+                <element name="max">15</element>
             </constraint>
         </field>
     </bean>

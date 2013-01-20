@@ -25,6 +25,7 @@ import org.appfuse.webapp.client.application.Application;
 import org.appfuse.webapp.client.application.base.place.EntityProxyPlace;
 import org.appfuse.webapp.client.application.base.view.ProxyEditView;
 
+import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
@@ -44,6 +45,26 @@ import com.google.web.bindery.requestfactory.shared.ServerFailure;
  * <p>
  * Instances are not reusable. Once an activity is stoped, it cannot be
  * restarted.
+ * 
+ * Required methods are:
+ * <ol>
+ * 	<li> {@link #createView(Place)}</li>
+ * 	<li> {@link #createProxyRequest()}</li>
+ * 	<li> {@link #saveOrUpdateRequest(RequestContext, EntityProxy)}</li>
+ * 	<li> {@link #deleteRequest(RequestContext, EntityProxy)}</li>
+ * 	<li> {@link #nextPlace(boolean)}</li>
+ * 	<li> {@link #previousPlace()}</li>
+ * </ol>
+ * 
+ * Customization:
+ * <ol>
+ * 	<li> {@link #createProxy(RequestContext)}</li>
+ * 	<li> {@link #getProxyId()}</li>
+ * 	<li> {@link #getProxyClass()}</li>
+ * 	<li> {@link #findProxyRequest(RequestContext, EntityProxyId)}</li>
+ * 	<li> {@link #getSavedMessage()}</li>
+ * 	<li> {@link #getDeletedMessage()}</li>
+ * </ol>
  * 
  * @param <P> the type of Proxy being edited
  */
@@ -68,6 +89,14 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 	 */
 	protected abstract RequestContext createProxyRequest();
 
+	/**
+	 * 
+	 * @param requestContext
+	 * @return
+	 */
+	protected P createProxy(RequestContext requestContext) {
+		return (P) requestContext.create(getProxyClass());
+	}
 	/**
 	 * 
 	 * @param requestContext
@@ -145,10 +174,11 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 		EntityProxyId<P> proxyId = getProxyId();
 		if(proxyId == null) {
 			RequestContext requestContext = createProxyRequest();
-			entityProxy = (P) requestContext.create(getProxyClass());
+			entityProxy = createProxy(requestContext);
 			editorDriver.edit(entityProxy, saveOrUpdateRequest(requestContext, entityProxy));
 		} else {
-			findProxyRequest(createProxyRequest(), proxyId).fire(new Receiver<P>() {
+			findProxyRequest(createProxyRequest(), proxyId).with(editorDriver.getPaths())
+			.fire(new Receiver<P>() {
 				@Override
 				public void onSuccess(P response) {
 					entityProxy = response;
@@ -191,6 +221,8 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 					// Defeat call-in-flight check
 					setWaiting(false);
 
+					addMessage(getSavedMessage(), AlertType.SUCCESS);
+					
 					placeController.goTo(nextPlace(true));
 				}
 			}
@@ -206,6 +238,7 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 		});
 	}
 	
+
 	/**
 	 * 
 	 * @see org.appfuse.webapp.client.application.base.view.ProxyEditView.Delegate#deleteClicked()
@@ -215,6 +248,8 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 		deleteRequest(createProxyRequest(), entityProxy).fire(new Receiver<Void>() {
 			@Override
 			public void onSuccess(Void response) {
+				clearMessages();
+				addMessage(getDeletedMessage(), AlertType.SUCCESS);
 				placeController.goTo(nextPlace(false));
 			}
 		});
@@ -231,6 +266,22 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 			editorDriver = null;
 			placeController.goTo(previousPlace());
 		}
+	}
+
+	protected void clearMessages() {
+		shell.clearMessages();
+	}
+	
+	protected void addMessage(String html, AlertType alertType) {
+		shell.addMessage(html, alertType);
+	}
+	
+	protected String getSavedMessage() {
+		return "saved ok";//FIXME
+	}
+
+	protected String getDeletedMessage() {
+		return "deleted ok";//FIXME
 	}
 
 	/**
@@ -278,7 +329,7 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 	/**
 	 * @return true if we're waiting for an rpc response.
 	 */
-	private boolean isWaiting() {
+	protected boolean isWaiting() {
 		return waiting;
 	}
 
@@ -287,7 +338,7 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 	 * (that is, we cannot call editorDriver.flush). So we set the waiting flag to
 	 * warn ourselves not to, and to disable the view.
 	 */
-	private void setWaiting(boolean wait) {
+	protected void setWaiting(boolean wait) {
 		this.waiting = wait;
 		view.setEnabled(!wait);
 	}

@@ -32,7 +32,8 @@ public class RpcAuthenticationSuccessHandler extends SavedRequestAwareAuthentica
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 		if(isRpcRequest(request, response, authentication)) {
-			response.sendError(HttpServletResponse.SC_OK);
+			response.setStatus(HttpServletResponse.SC_OK);
+			response.getWriter().flush();
 		}else {
 			super.onAuthenticationSuccess(request, response, authentication);
 		}

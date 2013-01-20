@@ -24,7 +24,6 @@ public class UsersListViewImpl extends AbstractProxyListView<UserProxy> implemen
     interface Binder extends UiBinder<HTMLPanel, UsersListViewImpl> { }
     private static final Binder uiBinder = GWT.create(Binder.class);
 
-    
     @UiField
     CellTable<UserProxy> table;
     Set<String> paths = new HashSet<String>();

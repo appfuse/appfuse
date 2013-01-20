@@ -9,6 +9,10 @@ import org.appfuse.webapp.proxies.RoleProxy;
 import org.appfuse.webapp.proxies.UserProxy;
 import org.appfuse.webapp.requests.ApplicationRequestFactory;
 
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.MetaElement;
+import com.google.gwt.dom.client.NodeList;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
@@ -27,6 +31,7 @@ public abstract class Application {
 	protected final ApplicationViewFactory viewFactory;
 	protected final ApplicationValidatorFactory validatorFactory;
 
+	private boolean rememberMeEnabled = false;
 	private UserProxy currentUser;
 	private LookupConstantsProxy lookupConstants;
 	
@@ -46,6 +51,14 @@ public abstract class Application {
 		this.viewFactory = viewFactory;
 		this.validatorFactory = validatorFactory;
 		shell.setApplication(this);
+		
+		NodeList<Element> metas = Document.get().getElementsByTagName("meta");
+		for (int i = 0; i < metas.getLength(); i++) {
+			MetaElement meta = (MetaElement) metas.getItem(i);
+			if("rememberMeEnabled".equals(meta.getName())) {
+				rememberMeEnabled = "true".equals(meta.getContent());
+			}
+		}
 	}
 
 	public abstract void run();
@@ -74,6 +87,14 @@ public abstract class Application {
 		return validatorFactory;
 	}
 	
+	public boolean isRememberMeEnabled() {
+		return rememberMeEnabled;
+	}
+
+	public void setRememberMeEnabled(boolean rememberMeEnabled) {
+		this.rememberMeEnabled = rememberMeEnabled;
+	}
+
 	public UserProxy getCurrentUser() {
 		return currentUser;
 	}

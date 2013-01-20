@@ -7,10 +7,12 @@ import java.util.logging.Logger;
 
 import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.CheckBox;
+import com.github.gwtbootstrap.client.ui.ControlGroup;
 import com.github.gwtbootstrap.client.ui.PasswordTextBox;
 import com.github.gwtbootstrap.client.ui.TextBox;
 import com.github.gwtbootstrap.client.ui.base.AlertBase;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.editor.client.Editor;
 import com.google.gwt.editor.client.EditorDriver;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;
@@ -42,7 +44,9 @@ public class LoginForm extends Composite implements LoginView, Editor<LoginView.
 	
 	@UiField TextBox username;
 	@UiField PasswordTextBox password;
-	@UiField CheckBox spring_security_remember_me;
+	
+	@UiField ControlGroup rememberMeControl;
+	@UiField CheckBox rememberMe;
 	
 	@UiField Button loginButton;
 	
@@ -86,6 +90,9 @@ public class LoginForm extends Composite implements LoginView, Editor<LoginView.
 		return driver;
 	}
 	
-	
+	@Override
+	public void setRememberMeEnabled(boolean rememberMeEnabled) {
+		rememberMeControl.setVisible(rememberMeEnabled);
+	}
 }
 

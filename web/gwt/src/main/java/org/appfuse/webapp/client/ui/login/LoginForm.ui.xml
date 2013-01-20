@@ -17,10 +17,12 @@
 		<b:TextBox ui:field="username" placeholder="{i18n.user_username}" />
 		<b:PasswordTextBox ui:field="password" placeholder="{i18n.user_password}" />
 	
-	    <label ui:field="rememberMeLabel" class="checkbox" for="spring_security_remember_me" >
-	    	<b:CheckBox ui:field="spring_security_remember_me" />
-	        <ui:text from="{i18n.login_rememberMe}"/>
-	   </label>
+		<b:ControlGroup ui:field="rememberMeControl">
+		    <b:ControlLabel  styleName="checkbox" for="spring_security_remember_me" >
+		    	<b:CheckBox ui:field="rememberMe" inline="true"/>
+		        <ui:text from="{i18n.login_rememberMe}"/>
+		   </b:ControlLabel>
+		</b:ControlGroup>
 	
 		<b:Button ui:field="loginButton" styleName="btn btn-large btn-primary" text="{i18n.button_login}" />
 	</form>

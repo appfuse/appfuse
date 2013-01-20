@@ -8,8 +8,8 @@
 
 	<g:HTMLPanel>
    		
+		<g:NotificationMole animationDuration="0" message="loading..." ui:field="mole"></g:NotificationMole>
    		<nav:DesktopNavigationBar ui:field="navigationBar" />
-		
 		
 		<div class="container-fluid">
 			<g:FlowPanel  ui:field="messages"/>
@@ -17,7 +17,6 @@
 			<g:SimplePanel styleName="row-fluid" ui:field="contentsPanel" />
 		</div>
 	
-		<g:NotificationMole animationDuration="0" message="loading..." ui:field="mole"></g:NotificationMole>
 
 	    <div id="footer">
 	        <span class="left"><ui:text from="{i18n.webapp_version}"/> <span ui:field="currentUserInfo">| USER XXX</span></span>

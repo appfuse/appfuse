@@ -48,6 +48,9 @@ public class LoginViewImpl extends Composite implements LoginView, Editor<LoginV
 		return loginForm.getEditorDriver();
 	}
 	
-	
+	@Override
+	public void setRememberMeEnabled(boolean rememberMeEnabled) {
+		loginForm.setRememberMeEnabled(rememberMeEnabled);
+	}
 }
 

@@ -3,6 +3,11 @@
  */
 package org.appfuse.webapp.client.application.base.place;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.appfuse.webapp.proxies.UserProxy;
+import org.appfuse.webapp.proxies.UsersSearchCriteriaProxy;
 import org.appfuse.webapp.requests.ApplicationRequestFactory;
 
 import com.google.gwt.core.shared.GWT;
@@ -20,9 +25,22 @@ import com.google.web.bindery.requestfactory.shared.RequestFactory;
  *
  */
 public class EntityListPlace extends Place {
+	private static final String PREFIX = "l";
 
+	private static final Map<Class<? extends EntityProxy>,Class<? extends BaseProxy>> 
+		SEARCH_CRITERIA_ENTITIES_MAP = new HashMap<Class<? extends EntityProxy>,Class<? extends BaseProxy>>();
+	
+	static {
+		// You need to map proxyClass - searchCriteria.getClass() here 
+		// for automatic serialization of the search criteria to the history token, as
+		// there is no way to re-generate a class object, that is not an EntityProxy.class, from a token string 
+		SEARCH_CRITERIA_ENTITIES_MAP.put(UserProxy.class, UsersSearchCriteriaProxy.class);
+	}
+	
 	private final Class<? extends EntityProxy> proxyClass;
-	private final BaseProxy searchCriteria;
+	private BaseProxy searchCriteria;
+	private int firstResult = 0;
+	private int maxResults = 25;
 
 	/**
 	 * @param proxyType
@@ -42,6 +60,19 @@ public class EntityListPlace extends Place {
 		this.searchCriteria = searchCriteria;
 	}
 
+	/**
+	 * @param proxyClass
+	 * @param searchCriteria
+	 * @param firstResult
+	 * @param maxResults
+	 */
+	public EntityListPlace(Class<? extends EntityProxy> proxyClass, BaseProxy searchCriteria, int firstResult, int maxResults) {
+		super();
+		this.proxyClass = proxyClass;
+		this.searchCriteria = searchCriteria;
+		this.firstResult = firstResult;
+		this.maxResults = maxResults;
+	}
 
 	public Class<? extends EntityProxy> getProxyClass() {
 		return proxyClass;
@@ -51,10 +82,32 @@ public class EntityListPlace extends Place {
 		return searchCriteria;
 	}
 	
+	public int getFirstResult() {
+		return firstResult;
+	}
+
+	public void setSearchCriteria(BaseProxy searchCriteria) {
+		this.searchCriteria = searchCriteria;
+	}
+	
+	public void setFirstResult(int firstResult) {
+		this.firstResult = firstResult;
+	}
+
+	public int getMaxResults() {
+		return maxResults;
+	}
+
+	public void setMaxResults(int maxResults) {
+		this.maxResults = maxResults;
+	}
+
+
+
 	/**
 	 * Tokenizer.
 	 */
-	@Prefix("l")
+	@Prefix(PREFIX)
 	public static class Tokenizer implements PlaceTokenizer<EntityListPlace> {
 		private static final String SEPARATOR = "!";
 		private static final RequestFactory requests = GWT.create(ApplicationRequestFactory.class);//FIXME inject this
@@ -64,20 +117,43 @@ public class EntityListPlace extends Place {
 			String tokens[] = token.split(SEPARATOR);
 			Class<? extends EntityProxy> proxyType = requests.getProxyClass(tokens[0]);
 			BaseProxy searchCriteria = null;
-			if(tokens.length > 1) {
-				searchCriteria = serializer.deserialize(proxyType, tokens[1]);
+			int firstResult = 0;
+			int maxResults = 0;
+			if(tokens.length > 2) {
+				firstResult = parseInt(tokens[1]);
+				maxResults = parseInt(tokens[2]);
 			}
-			return new EntityListPlace(proxyType, searchCriteria);
+			if(tokens.length > 3) {
+				Class<? extends BaseProxy> searchCriteriaClass = SEARCH_CRITERIA_ENTITIES_MAP.get(proxyType);
+				searchCriteria = serializer.deserialize(searchCriteriaClass, tokens[3]);
+			}
+			return new EntityListPlace(proxyType, searchCriteria, firstResult, maxResults);
 		}
 
 		public String getToken(EntityListPlace place) {
 			StringBuilder sb = new StringBuilder();
 			sb.append(requests.getHistoryToken(place.getProxyClass()));
+			sb.append(SEPARATOR);
+			sb.append(place.getFirstResult());
+			sb.append(SEPARATOR);
+			sb.append(place.getMaxResults());
 			if(place.getSearchCriteria() != null) {
 				sb.append(SEPARATOR);
 				sb.append(serializer.serialize(place.getSearchCriteria()));
 			}
 			return sb.toString();
+		}
+		
+		public String getFullHistoryToken(EntityListPlace place) {
+			return PREFIX + ":" + getToken(place);
+		}
+		
+		private int parseInt(String text) {
+			try {
+				return Integer.parseInt(text);
+			} catch (NumberFormatException e) {
+				return 0;
+			}
 		}
 	}
 

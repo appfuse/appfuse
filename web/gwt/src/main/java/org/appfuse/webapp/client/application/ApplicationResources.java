@@ -2,7 +2,7 @@ package org.appfuse.webapp.client.application;
 
 /**
  * Interface to represent the messages contained in resource bundle:
- * 	/home/opt/workspaces/AppFuse/appfuse.git/web/gwt/src/main/resources/org/appfuse/webapp/client/ApplicationResources.properties'.
+ * 	/home/opt/workspaces/AppFuse/appfuse.git/web/gwt/target/classes/org/appfuse/webapp/client/application/ApplicationResources.properties'.
  */
 public interface ApplicationResources extends com.google.gwt.i18n.client.Messages {
   
@@ -241,11 +241,11 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
   String company_url();
 
   /**
-   * Translated "${copyright.year}".
+   * Translated "2003-2012".
    * 
-   * @return translated "${copyright.year}"
+   * @return translated "2003-2012"
    */
-  @DefaultMessage("${copyright.year}")
+  @DefaultMessage("2003-2012")
   @Key("copyright.year")
   String copyright_year();
 
@@ -628,11 +628,11 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
   String login_heading();
 
   /**
-   * Translated "Forgot your password?  Have your <a href=\"?\" onmouseover=\"window.status='Have your password hint sent to you.'; return true\" onmouseout=\"window.status=''; return true\" title=\"Have your password hint sent to you.\" onclick=\"passwordHint(); return false\" id=\"passwordHint\">password hint e-mailed to you</a>.".
+   * Translated "Forgot your password?  Have your <a href=\"?\" onmouseover=\"window.status=''Have your password hint sent to you.''; return true\" onmouseout=\"window.status=''''; return true\" title=\"Have your password hint sent to you.\" onclick=\"passwordHint(); return false\" id=\"passwordHint\">password hint e-mailed to you</a>.".
    * 
-   * @return translated "Forgot your password?  Have your <a href=\"?\" onmouseover=\"window.status='Have your password hint sent to you.'; return true\" onmouseout=\"window.status=''; return true\" title=\"Have your password hint sent to you.\" onclick=\"passwordHint(); return false\" id=\"passwordHint\">password hint e-mailed to you</a>."
+   * @return translated "Forgot your password?  Have your <a href=\"?\" onmouseover=\"window.status=''Have your password hint sent to you.''; return true\" onmouseout=\"window.status=''''; return true\" title=\"Have your password hint sent to you.\" onclick=\"passwordHint(); return false\" id=\"passwordHint\">password hint e-mailed to you</a>."
    */
-  @DefaultMessage("Forgot your password?  Have your <a href=\"?\" onmouseover=\"window.status='Have your password hint sent to you.'; return true\" onmouseout=\"window.status=''; return true\" title=\"Have your password hint sent to you.\" onclick=\"passwordHint(); return false\" id=\"passwordHint\">password hint e-mailed to you</a>.")
+  @DefaultMessage("Forgot your password?  Have your <a href=\"?\" onmouseover=\"window.status=''Have your password hint sent to you.''; return true\" onmouseout=\"window.status=''''; return true\" title=\"Have your password hint sent to you.\" onclick=\"passwordHint(); return false\" id=\"passwordHint\">password hint e-mailed to you</a>.")
   @Key("login.passwordHint")
   String login_passwordHint();
 
@@ -700,11 +700,11 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
   String mainMenu_heading();
 
   /**
-   * Translated "Congratulations, you have logged in successfully!  Now that you\"''\"ve logged in, you have the following options:".
+   * Translated "Congratulations, you have logged in successfully!  Now that you''ve logged in, you have the following options:".
    * 
-   * @return translated "Congratulations, you have logged in successfully!  Now that you\"''\"ve logged in, you have the following options:"
+   * @return translated "Congratulations, you have logged in successfully!  Now that you''ve logged in, you have the following options:"
    */
-  @DefaultMessage("Congratulations, you have logged in successfully!  Now that you\"''\"ve logged in, you have the following options:")
+  @DefaultMessage("Congratulations, you have logged in successfully!  Now that you''ve logged in, you have the following options:")
   @Key("mainMenu.message")
   String mainMenu_message();
 
@@ -1213,11 +1213,11 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
   String userProfile_accountSettings();
 
   /**
-   * Translated "Please update this user\"''\"s information.".
+   * Translated "Please update this user''s information.".
    * 
-   * @return translated "Please update this user\"''\"s information."
+   * @return translated "Please update this user''s information."
    */
-  @DefaultMessage("Please update this user\"''\"s information.")
+  @DefaultMessage("Please update this user''s information.")
   @Key("userProfile.admin.message")
   String userProfile_admin_message();
 
@@ -1294,11 +1294,11 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
   String webapp_tagline();
 
   /**
-   * Translated "Version ${pom.version}".
+   * Translated "Version 2.2.2-SNAPSHOT".
    * 
-   * @return translated "Version ${pom.version}"
+   * @return translated "Version 2.2.2-SNAPSHOT"
    */
-  @DefaultMessage("Version ${pom.version}")
+  @DefaultMessage("Version 2.2.2-SNAPSHOT")
   @Key("webapp.version")
   String webapp_version();
 }

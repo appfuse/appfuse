@@ -52,6 +52,7 @@ public class LoginActivity extends AbstractBaseActivity implements LoginView.Del
 		}else {
 			view = viewFactory.getView(LoginView.class);
 			view.setDelegate(this);
+			view.setRememberMeEnabled(application.isRememberMeEnabled());
 			panel.setWidget(view);
 		}
 	}
@@ -60,6 +61,7 @@ public class LoginActivity extends AbstractBaseActivity implements LoginView.Del
 	public void onAuthRequiredEvent(AuthRequiredEvent authRequiredEvent) {
 		view = viewFactory.getView(LoginForm.class);
 		view.setDelegate(this);
+		view.setRememberMeEnabled(application.isRememberMeEnabled());
 
 		dialog = new DialogBox();
 		dialog.setGlassEnabled(true);
@@ -124,6 +126,6 @@ public class LoginActivity extends AbstractBaseActivity implements LoginView.Del
 	private String createLoginPostData(LoginView.LoginDetails login) {
 		return "j_username=" + URL.encodeQueryString(login.getUsername()) + 
 				"&j_password=" + URL.encodeQueryString(login.getPassword()) +
-				(login.isSpring_security_remember_me()? "&_spring_security_remember_me=true" : "");
+				(login.isRememberMe()? "&_spring_security_remember_me=true" : "");
 	}
 }

@@ -13,6 +13,7 @@ import org.appfuse.webapp.client.ui.users.edit.places.SignUpPlace;
 import org.appfuse.webapp.client.ui.users.edit.views.EditProfileViewImpl;
 import org.appfuse.webapp.client.ui.users.edit.views.EditUserView;
 import org.appfuse.webapp.client.ui.users.edit.views.SignUpViewImpl;
+import org.appfuse.webapp.proxies.AddressProxy;
 import org.appfuse.webapp.proxies.UserProxy;
 import org.appfuse.webapp.requests.UserRequest;
 
@@ -43,6 +44,7 @@ public class EditUserActivity extends AbstractProxyEditActivity<UserProxy> imple
 		} else {
 			editUserView = viewFactory.getView(EditUserView.class);
 		}
+		
 		if(editUserView != null) {
 			editUserView.setAvailableRoles(application.getLookupConstants().getAvailableRoles());
 			editUserView.setCountries(application.getLookupConstants().getCountries());
@@ -53,7 +55,7 @@ public class EditUserActivity extends AbstractProxyEditActivity<UserProxy> imple
 	@Override
 	protected EntityProxyId<UserProxy> getProxyId() {
 		if(currentPlace instanceof SignUpPlace || currentPlace instanceof EditProfilePlace) {
-			//return a bogus entityId as it won't be used in findProxyRequest and it will be resolved on the server
+			//return a empty entityId as it won't be used in findProxyRequest and it will be resolved on the server
 			return  new EntityProxyId<UserProxy>() {
 				@Override
 				public Class<UserProxy> getProxyClass() {
@@ -69,6 +71,14 @@ public class EditUserActivity extends AbstractProxyEditActivity<UserProxy> imple
 	@Override
 	protected RequestContext createProxyRequest() {
 		return requests.userRequest();
+	}
+	
+	@Override
+	protected UserProxy createProxy(RequestContext requestContext) {
+		UserProxy user = requestContext.create(UserProxy.class);
+		AddressProxy address = requestContext.create(AddressProxy.class);
+		user.setAddress(address);
+		return user;
 	}
 	
 	@Override

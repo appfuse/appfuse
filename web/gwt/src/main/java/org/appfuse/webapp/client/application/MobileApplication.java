@@ -128,7 +128,7 @@ public class MobileApplication extends Application {
 
 	protected void initHandlers() {
 		//Custom request transport
-		requestFactory.initialize(eventBus, new CustomDefaultRequestTransport(eventBus));
+		//requestFactory.initialize(eventBus, new CustomDefaultRequestTransport(eventBus));
 		
 		AuthRequiredEvent.register(eventBus, new LoginActivity(this));
 

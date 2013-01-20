@@ -1,7 +1,8 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
-<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
-			 xmlns:g='urn:import:com.google.gwt.user.client.ui'
-			 xmlns:c='urn:import:com.google.gwt.user.cellview.client'
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+			 xmlns:g="urn:import:com.google.gwt.user.client.ui"
+			 xmlns:c="urn:import:com.google.gwt.user.cellview.client"
+			 xmlns:e="urn:import:com.google.gwt.editor.ui.client"
 			 xmlns:b="urn:import:com.github.gwtbootstrap.client.ui">
 
 <ui:with type="org.appfuse.webapp.client.application.ApplicationResources" field="i18n" />
@@ -14,7 +15,7 @@
 </div>
      
 <div class="span7">
-<form id="userForm" class="well form-horizontal" autocomplete="off" >
+<b:Form type="HORIZONTAL" styleName="well form-horizontal">
 
     <b:LongBox ui:field="id" visible="false" />
     <b:IntegerBox ui:field="version" visible="false" />
@@ -86,10 +87,12 @@
 
 	<b:ControlGroup ui:field="accountSettings">
 	    <b:ControlLabel>Account Settings</b:ControlLabel>
-		<b:CheckBox ui:field="enabled" inline="true" /><ui:text from="{i18n.user_enabled}" />
-		<b:CheckBox ui:field="accountExpired" inline="true" /><ui:text from="{i18n.user_accountExpired}" />
-		<b:CheckBox ui:field="accountLocked" inline="true" /><ui:text from="{i18n.user_accountLocked}" />
-		<b:CheckBox ui:field="credentialsExpired" inline="true" /><ui:text from="{i18n.user_credentialsExpired}" />
+	    <b:Controls>
+			<b:CheckBox ui:field="enabled" inline="true" /><ui:text from="{i18n.user_enabled}" />
+			<b:CheckBox ui:field="accountExpired" inline="true" /><ui:text from="{i18n.user_accountExpired}" />
+			<b:CheckBox ui:field="accountLocked" inline="true" /><ui:text from="{i18n.user_accountLocked}" />
+			<b:CheckBox ui:field="credentialsExpired" inline="true" /><ui:text from="{i18n.user_credentialsExpired}" />
+		</b:Controls>
 	</b:ControlGroup>
 	
 	<b:ControlGroup>
@@ -102,7 +105,8 @@
 		<b:Button ui:field="deleteButton" styleName="btn" customIconStyle="icon-remove" text="{i18n.button_delete}" />
 		<b:Button ui:field="cancelButton" styleName="btn" customIconStyle="icon-remove" text="{i18n.button_cancel}" />
 	</b:FormActions>
-</form>	
+
+</b:Form>
 </div>
 </g:HTMLPanel>
 </ui:UiBinder>

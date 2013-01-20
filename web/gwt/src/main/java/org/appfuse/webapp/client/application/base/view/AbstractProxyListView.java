@@ -1,5 +1,6 @@
 package org.appfuse.webapp.client.application.base.view;
 
+import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.HasData;
@@ -14,6 +15,9 @@ public abstract class AbstractProxyListView<P extends EntityProxy> extends Compo
 	private HasData<P> display;
 	protected ProxyListView.Delegate<P> delegate;
 
+	
+	@UiField(provided=true)
+	public Integer pageSize = 25;
 
 	@Override
 	public AbstractProxyListView<P> asWidget() {
@@ -24,8 +28,14 @@ public abstract class AbstractProxyListView<P extends EntityProxy> extends Compo
 		return display;
 	}
 
+	@Override
 	public void setDelegate(final Delegate<P> delegate) {
 		this.delegate = delegate;
+	}
+	
+	@Override
+	public void setPageSize(Integer pageSize) {
+		display.setVisibleRange(display.getVisibleRange().getStart(), pageSize);
 	}
 
 	protected void init(Widget root, HasData<P> display) {

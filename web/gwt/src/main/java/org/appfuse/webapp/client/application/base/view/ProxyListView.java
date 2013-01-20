@@ -39,4 +39,6 @@ public interface ProxyListView<P extends EntityProxy> extends IsWidget {
 	 * Sets the delegate.
 	 */
 	void setDelegate(Delegate<P> delegate);
+
+	void setPageSize(Integer pageSize);
 }

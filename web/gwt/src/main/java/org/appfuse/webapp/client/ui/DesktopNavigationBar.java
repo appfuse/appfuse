@@ -8,6 +8,8 @@ import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
 import org.appfuse.webapp.client.ui.users.edit.places.EditProfilePlace;
 import org.appfuse.webapp.proxies.RoleProxy;
 import org.appfuse.webapp.proxies.UserProxy;
+import org.appfuse.webapp.proxies.UsersSearchCriteriaProxy;
+import org.appfuse.webapp.requests.UserRequest;
 
 import com.github.gwtbootstrap.client.ui.Brand;
 import com.github.gwtbootstrap.client.ui.Dropdown;
@@ -75,10 +77,14 @@ class DesktopNavigationBar extends Composite {
 	}
 	
 	private void registerTargetPlaces() {
+		UserRequest userRequest = application.getRequestFactory().userRequest();
+		UsersSearchCriteriaProxy usersSearchCriteria = userRequest.create(UsersSearchCriteriaProxy.class);
+		usersSearchCriteria.setSearchTerm("Tomcat");
+		userRequest.fire();
 		registerTargetPlace(login, new LoginPlace());
 		registerTargetPlace(mainMenu, new MainMenuPlace());
 		registerTargetPlace(editProfile, new EditProfilePlace());
-		registerTargetPlace(users, new EntityListPlace(UserProxy.class));
+		registerTargetPlace(users, new EntityListPlace(UserProxy.class, usersSearchCriteria));
 		registerTargetPlace(activeUsers, new EntityListPlace(UserProxy.class));
 		registerTargetPlace(logout, new LogoutPlace());
 	}

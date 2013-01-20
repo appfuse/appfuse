@@ -171,7 +171,7 @@
 				<version>1.5.2</version>
 				<executions>
 					<execution>
-						<phase>compile</phase>
+						<phase>process-resources</phase>
 						<goals>
 							<goal>replace</goal>
 						</goals>
@@ -180,7 +180,7 @@
 				<configuration>
 					<basedir>${project.build.outputDirectory}</basedir>
 					<includes>
-                    	<include>/org/appfuse/webapp/client/application/ApplicationResources*.properties</include>
+                    	<include>org/appfuse/webapp/client/application/ApplicationResources*.properties</include>
 	                </includes>
 					<replacements>
 						<replacement>

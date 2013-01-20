@@ -11,6 +11,7 @@ import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.cellview.client.AbstractHasData;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.view.client.HasData;
@@ -63,11 +64,14 @@ public abstract class AbstractProxyListActivity<P extends EntityProxy> extends A
 		this.panel = panel;
 		view = createView();
 		view.setDelegate(this);
+		if(currentPlace.getMaxResults() > 0) {
+			view.setPageSize(currentPlace.getMaxResults());
+		}
 		
 		final HasData<P> hasData = view.asHasData();
 		rangeChangeHandler = hasData.addRangeChangeHandler(new RangeChangeEvent.Handler() {
 			public void onRangeChange(RangeChangeEvent event) {
-				AbstractProxyListActivity.this.onRangeChanged(hasData);
+				AbstractProxyListActivity.this.onRangeChanged(hasData, hasData.getVisibleRange());
 			}
 		});
 
@@ -85,13 +89,20 @@ public abstract class AbstractProxyListActivity<P extends EntityProxy> extends A
 			}
 		});		
 
-		loadListItems();
+		// Select the current page range to load (by default or from place tokens)
+		Range range = hasData.getVisibleRange();
+		if(currentPlace.getFirstResult() > 0 || 
+				(currentPlace.getMaxResults() != range.getLength() && currentPlace.getMaxResults() > 0)) 
+		{
+			range = new Range(currentPlace.getFirstResult(), currentPlace.getMaxResults());			
+		}
+		loadListItems(range);
 	}	
 
 	/**
 	 * Load items on start.
 	 */
-	protected void loadListItems() {
+	protected void loadListItems(final Range range) {
 		fireCountRequest(new Receiver<Long>() {
 			@Override
 			public void onSuccess(Long response) {
@@ -100,7 +111,7 @@ public abstract class AbstractProxyListActivity<P extends EntityProxy> extends A
 					return;
 				}
 				view.asHasData().setRowCount(response.intValue(), true);
-				onRangeChanged(view.asHasData());
+				onRangeChanged(view.asHasData(), range);
 			}
 		});
 	}
@@ -108,8 +119,7 @@ public abstract class AbstractProxyListActivity<P extends EntityProxy> extends A
 	/**
 	 * Called by the table as it needs data.
 	 */
-	protected void onRangeChanged(HasData<P> listView) {
-		final Range range = listView.getVisibleRange();
+	protected void onRangeChanged(final HasData<P> listView, final Range range) {
 
 		final Receiver<List<P>> callback = new Receiver<List<P>>() {
 			@Override
@@ -122,6 +132,11 @@ public abstract class AbstractProxyListActivity<P extends EntityProxy> extends A
 				if (panel != null) {
 					panel.setWidget(view);
 				}
+				//create a new history token for this range
+				currentPlace.setFirstResult(range.getStart());
+				currentPlace.setMaxResults(range.getLength());
+				String historyToken = new EntityListPlace.Tokenizer().getFullHistoryToken(currentPlace);
+				History.newItem(historyToken, false);
 			}
 		};
 

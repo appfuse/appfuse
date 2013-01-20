@@ -13,16 +13,28 @@ import com.google.gwt.place.shared.Prefix;
  */
 public class LoginPlace extends Place {
 
+	private static final String TOKEN_PREFIX = "login";
+	private static final String FULL_TOKEN_PREFIX = TOKEN_PREFIX + ":";
+	
 	private String historyToken = "";
 
 	public LoginPlace() {
 		super();
 	}
 
+	/**
+	 * Constructor with a history token to redirect after successful login.
+	 * 
+	 * @param loginHistoryToken history token to redirect after successful login.
+	 */
 	public LoginPlace(String loginHistoryToken) {
 		super();
 		if(loginHistoryToken != null) {
-			this.historyToken = loginHistoryToken;
+			if(loginHistoryToken.startsWith(FULL_TOKEN_PREFIX)) {
+				this.historyToken = loginHistoryToken.replaceFirst(FULL_TOKEN_PREFIX, "");
+			} else {
+				this.historyToken = loginHistoryToken;
+			}
 		}
 	}
 
@@ -30,7 +42,7 @@ public class LoginPlace extends Place {
 		return historyToken;
 	}
 
-	@Prefix("login")
+	@Prefix(TOKEN_PREFIX)
     public static class Tokenizer implements PlaceTokenizer<LoginPlace> {
         @Override
         public String getToken(LoginPlace place) {
