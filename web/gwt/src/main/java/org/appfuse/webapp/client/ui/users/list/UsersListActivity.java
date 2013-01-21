@@ -20,7 +20,7 @@ import com.google.web.bindery.requestfactory.shared.Request;
  * @author ivangsa
  *
  */
-public class UsersListActivity extends AbstractProxyListActivity<UserProxy> {
+public class UsersListActivity extends AbstractProxyListActivity<UserProxy> implements UsersListView.SearchDelegate {
 
 	public UsersListActivity(EntityListPlace currentPlace, Application application) {
 		super(currentPlace, application);
@@ -47,4 +47,17 @@ public class UsersListActivity extends AbstractProxyListActivity<UserProxy> {
 		
 	}
 
+
+	@Override
+	public void doneClicked() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void searchClicked() {
+		// TODO Auto-generated method stub
+		
+	}
 }

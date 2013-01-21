@@ -24,6 +24,7 @@ public class UsersListViewImpl extends AbstractProxyListView<UserProxy> implemen
     interface Binder extends UiBinder<HTMLPanel, UsersListViewImpl> { }
     private static final Binder uiBinder = GWT.create(Binder.class);
 
+    private SearchDelegate searchDelegate;
     @UiField
     CellTable<UserProxy> table;
     Set<String> paths = new HashSet<String>();
@@ -37,6 +38,11 @@ public class UsersListViewImpl extends AbstractProxyListView<UserProxy> implemen
         createTableColumns();
     }
 
+    @Override
+    public void setSearchDelegate(SearchDelegate searchDelegate) {
+		this.searchDelegate = searchDelegate;
+	}
+    
     public String[] getPaths() {
     	return paths.toArray(new String[paths.size()]);
     }
