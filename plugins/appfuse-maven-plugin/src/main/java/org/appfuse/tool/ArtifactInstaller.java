@@ -310,15 +310,11 @@ public class ArtifactInstaller {
         copy.setFile(new File(sourceDirectory + "/src/main/webapp/" + pojoName + "List.tml"));
         copy.execute();
 
-        if (isAppFuse()) {
-            log("Installing menu...");
-            createLoadFileTask("src/main/webapp/" + pojoName + "-menu.tml", "tapestry-menu").execute();
-            File existingFile = new File(destinationDirectory + "/src/main/resources/" +
-                    project.getGroupId().replace(".", "/") + "/webapp/components/Layout.tml");
-            parseXMLFile(existingFile, pojoName, "<!-- Add new menu items here -->", "tapestry-menu");
-        } else {
-            installMenu();
-        }
+        log("Installing menu...");
+        createLoadFileTask("src/main/webapp/" + pojoName + "-menu.tml", "tapestry-menu").execute();
+        File existingFile = new File(destinationDirectory + "/src/main/resources/" +
+                project.getGroupId().replace(".", "/") + "/webapp/components/Layout.tml");
+        parseXMLFile(existingFile, pojoName, "<!-- Add new menu items here -->", "tapestry-menu");
     }
 
     private boolean isAppFuse() {

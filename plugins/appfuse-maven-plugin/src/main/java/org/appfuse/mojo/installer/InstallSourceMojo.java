@@ -338,21 +338,10 @@ public class InstallSourceMojo extends AbstractMojo {
     }
 
     private void createFullSourcePom(List<Dependency> newDependencies) throws MojoFailureException {
-        // Change spring-test and mockito dependencies to use <optional>true</option> instead of <scope>test</scope>.
-        // This is necessary because Base*TestCase classes are in src/main/java. If we move these classes to their
-        // own test module, this will no longer be necessary. For the first version of this mojo, it seems easier
-        // to follow the convention used in AppFuse rather than creating a test module and changing all modules to
-        // depend on it.
-
-        // create properties based on dependencies while we're at it
+        // create properties based on dependencies
         Set<String> projectProperties = new TreeSet<String>();
 
         for (Dependency dep : newDependencies) {
-            if (dep.getArtifactId().equals("spring-test") || dep.getArtifactId().contains("mockito") ||
-                    dep.getArtifactId().equals("junit") || dep.getArtifactId().equals("shale-test")) {
-                dep.setOptional(true);
-                dep.setScope(null);
-            }
             String version = dep.getVersion();
             // trim off ${}
             if (version.startsWith("${")) {
