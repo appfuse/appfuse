@@ -13,24 +13,6 @@ import com.google.gwt.place.shared.Prefix;
  */
 public class MainMenuPlace extends Place {
 
-	private boolean reload = false;
-	
-	public MainMenuPlace() {
-		super();
-	}
-
-	/**
-	 * @param reload
-	 */
-	public MainMenuPlace(boolean reload) {
-		super();
-		this.reload = reload;
-	}
-
-	public boolean isReload() {
-		return reload;
-	}
-
 
 	@Prefix("mainMenu")
     public static class Tokenizer implements PlaceTokenizer<MainMenuPlace> {

@@ -196,10 +196,10 @@
     
     
 
-<!--     <servlet-mapping> -->
-<!--         <servlet-name>dispatcher</servlet-name> -->
-<!--         <url-pattern>/app/*</url-pattern> -->
-<!--     </servlet-mapping> -->
+    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>/app/*</url-pattern>
+    </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>requestFactory</servlet-name>

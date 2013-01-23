@@ -7,7 +7,6 @@ import org.appfuse.webapp.client.application.Application;
 import org.appfuse.webapp.client.application.base.activity.AbstractBaseActivity;
 
 import com.google.gwt.event.shared.EventBus;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
 /**
@@ -26,12 +25,8 @@ public class MainMenuActivity extends AbstractBaseActivity {
 	 */
 	@Override
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
-		if(((MainMenuPlace)currentPlace).isReload()) {
-			Window.Location.reload();
-		}else {
-			MainMenuView view = viewFactory.getView(MainMenuView.class);
-			panel.setWidget(view);
-		}
+		MainMenuView view = viewFactory.getView(MainMenuView.class);
+		panel.setWidget(view);
 	}
 
 }

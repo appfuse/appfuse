@@ -1,12 +1,14 @@
 package org.appfuse.webapp.client.application.base.activity;
 
 import org.appfuse.webapp.client.application.Application;
+import org.appfuse.webapp.client.application.ApplicationResources;
 import org.appfuse.webapp.client.application.ApplicationValidatorFactory;
 import org.appfuse.webapp.client.application.ApplicationViewFactory;
 import org.appfuse.webapp.client.ui.Shell;
 import org.appfuse.webapp.requests.ApplicationRequestFactory;
 
 import com.google.gwt.activity.shared.AbstractActivity;
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.web.bindery.event.shared.EventBus;
@@ -21,6 +23,7 @@ public abstract class AbstractBaseActivity extends AbstractActivity {
     protected final PlaceController placeController;
     protected final ApplicationViewFactory viewFactory;
     protected final ApplicationValidatorFactory validatorFactory;
+    protected final ApplicationResources i18n = GWT.create(ApplicationResources.class);
     
 	/**
 	 */

@@ -5,6 +5,7 @@ import org.appfuse.webapp.client.application.base.place.EntityListPlace;
 import org.appfuse.webapp.client.ui.login.LoginPlace;
 import org.appfuse.webapp.client.ui.logout.LogoutPlace;
 import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
+import org.appfuse.webapp.client.ui.upload.FileUploadPlace;
 import org.appfuse.webapp.client.ui.users.edit.places.EditProfilePlace;
 import org.appfuse.webapp.proxies.RoleProxy;
 import org.appfuse.webapp.proxies.UserProxy;
@@ -72,7 +73,7 @@ class DesktopNavigationBar extends Composite {
 		users.setVisible(isAdmin);
 		activeUsers.setVisible(isAdmin);
 		reload.setVisible(isAdmin);
-		upload.setVisible(isAdmin);
+		upload.setVisible(isAuthenticated);
 		logout.setVisible(isAuthenticated);
 	}
 	
@@ -86,6 +87,7 @@ class DesktopNavigationBar extends Composite {
 		registerTargetPlace(editProfile, new EditProfilePlace());
 		registerTargetPlace(users, new EntityListPlace(UserProxy.class, usersSearchCriteria));
 		registerTargetPlace(activeUsers, new EntityListPlace(UserProxy.class));
+		registerTargetPlace(upload, new FileUploadPlace());
 		registerTargetPlace(logout, new LogoutPlace());
 	}
 

@@ -11,6 +11,10 @@ import org.appfuse.webapp.client.ui.login.LoginView;
 import org.appfuse.webapp.client.ui.login.LoginViewImpl;
 import org.appfuse.webapp.client.ui.mainMenu.MainMenuView;
 import org.appfuse.webapp.client.ui.mainMenu.MainMenuViewDesktop;
+import org.appfuse.webapp.client.ui.upload.views.FileUploadView;
+import org.appfuse.webapp.client.ui.upload.views.FileUploadViewImpl;
+import org.appfuse.webapp.client.ui.upload.views.UploadedFileView;
+import org.appfuse.webapp.client.ui.upload.views.UploadedFileViewImpl;
 import org.appfuse.webapp.client.ui.users.edit.views.EditProfileViewImpl;
 import org.appfuse.webapp.client.ui.users.edit.views.EditUserView;
 import org.appfuse.webapp.client.ui.users.edit.views.EditUserViewImpl;
@@ -63,6 +67,14 @@ public class ApplicationViewFactory {
 			view = GWT.create(EditProfileViewImpl.class);
 			reusableViews.put(viewClass, view);
 		} 
+		else if(FileUploadView.class.equals(viewClass)) {
+			view = GWT.create(FileUploadViewImpl.class);
+			reusableViews.put(viewClass, view);
+		}		
+		else if(UploadedFileView.class.equals(viewClass)) {
+			view = GWT.create(UploadedFileViewImpl.class);
+			reusableViews.put(viewClass, view);
+		}		
 		else if(EditUserView.class.equals(viewClass)) {
 			view = GWT.create(EditUserViewImpl.class);
 			reusableViews.put(viewClass, view);

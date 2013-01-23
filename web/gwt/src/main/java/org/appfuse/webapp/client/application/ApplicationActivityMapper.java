@@ -11,6 +11,8 @@ import org.appfuse.webapp.client.ui.logout.LogoutActivity;
 import org.appfuse.webapp.client.ui.logout.LogoutPlace;
 import org.appfuse.webapp.client.ui.mainMenu.MainMenuActivity;
 import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
+import org.appfuse.webapp.client.ui.upload.FileUploadActivity;
+import org.appfuse.webapp.client.ui.upload.FileUploadPlace;
 import org.appfuse.webapp.client.ui.users.edit.EditUserActivity;
 import org.appfuse.webapp.client.ui.users.edit.places.EditProfilePlace;
 import org.appfuse.webapp.client.ui.users.edit.places.SignUpPlace;
@@ -60,6 +62,9 @@ public class ApplicationActivityMapper implements ActivityMapper {
 		}
 		else if(place instanceof EditProfilePlace) {
 			activity = new EditUserActivity(application);
+		}
+		else if(place instanceof FileUploadPlace) {
+			activity = new FileUploadActivity(application);
 		}
 		else if(place instanceof EntityProxyPlace) {
 			EntityProxyPlace proxyPlace = (EntityProxyPlace) place;

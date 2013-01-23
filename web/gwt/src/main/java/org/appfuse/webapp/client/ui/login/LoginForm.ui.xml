@@ -14,8 +14,18 @@
 	    
 	    <g:SimplePanel ui:field="messages" />
 	
-		<b:TextBox ui:field="username" placeholder="{i18n.user_username}" />
-		<b:PasswordTextBox ui:field="password" placeholder="{i18n.user_password}" />
+		<b:ControlGroup ui:field="usernameGroup">
+	       	<b:Controls>
+	       		<b:TextBox ui:field="username" placeholder="{i18n.user_username}" controlGroup="{usernameGroup}" errorLabel="{usernameErrors}" />
+	       		<b:HelpInline ui:field="usernameErrors"></b:HelpInline>
+	       	</b:Controls>
+	    </b:ControlGroup>
+		<b:ControlGroup ui:field="passwordGroup">
+	       	<b:Controls>
+	       		<b:PasswordTextBox ui:field="password" placeholder="{i18n.user_password}" controlGroup="{passwordGroup}" errorLabel="{passwordErrors}" />
+	       		<b:HelpInline ui:field="passwordErrors"></b:HelpInline>
+	       	</b:Controls>
+	    </b:ControlGroup>
 	
 		<b:ControlGroup ui:field="rememberMeControl">
 		    <b:ControlLabel  styleName="checkbox" for="spring_security_remember_me" >

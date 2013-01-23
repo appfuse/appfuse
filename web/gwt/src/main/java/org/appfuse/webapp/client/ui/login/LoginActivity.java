@@ -16,6 +16,7 @@ import org.appfuse.webapp.client.ui.login.events.LoginEvent;
 import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
 
 import com.github.gwtbootstrap.client.ui.Alert;
+import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.gwt.editor.client.EditorDriver;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.http.client.Request;
@@ -27,6 +28,7 @@ import com.google.gwt.http.client.URL;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.user.client.ui.DialogBox;
+import com.google.web.bindery.requestfactory.shared.Receiver;
 
 /**
  * @author ivangsa
@@ -75,7 +77,8 @@ public class LoginActivity extends AbstractBaseActivity implements LoginView.Del
 		view.setMessage(null);
 		EditorDriver<LoginDetails> editorDriver = view.getEditorDriver();
 		LoginDetails login = editorDriver.flush();
-		 Set<ConstraintViolation<LoginDetails>> violations = Validation.buildDefaultValidatorFactory().getValidator().validate(login);
+		Set<ConstraintViolation<LoginDetails>> violations = Validation.buildDefaultValidatorFactory().getValidator().validate(login);
+		editorDriver.setConstraintViolations((Set) violations);
 		if(!violations.isEmpty()) {
 			for (ConstraintViolation<LoginDetails> violation : violations) {
 				shell.addMessage(new Alert("Violation on " + violation.getPropertyPath()));
@@ -127,5 +130,29 @@ public class LoginActivity extends AbstractBaseActivity implements LoginView.Del
 		return "j_username=" + URL.encodeQueryString(login.getUsername()) + 
 				"&j_password=" + URL.encodeQueryString(login.getPassword()) +
 				(login.isRememberMe()? "&_spring_security_remember_me=true" : "");
+	}
+
+	@Override
+	public void onPasswordHintClick() {
+		LoginDetails login = view.getEditorDriver().flush();
+		final String username = login.getUsername(); 
+		if(username == null || "".equals(username.trim())) {
+			Window.alert(i18n.errors_required(i18n.user_username()));
+			return;
+		}
+		requests.userRequest().sendPasswordHint(login.getUsername()).fire(new Receiver<String>() {
+			@Override
+			public void onSuccess(String userEmail) {
+				Alert message = null;
+				if(userEmail != null) {
+					message = new Alert(i18n.login_passwordHint_sent(username, userEmail), AlertType.SUCCESS);
+				} else {
+					message = new Alert(i18n.login_passwordHint_error(username), AlertType.ERROR);
+				}
+				if(message != null) {
+					shell.addMessage(message);
+				}
+			}
+		});
 	}
 }

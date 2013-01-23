@@ -1,7 +1,9 @@
 package org.appfuse.webapp.requests;
 
 import java.util.List;
+import java.util.Set;
 
+import org.appfuse.model.User;
 import org.appfuse.webapp.proxies.UserProxy;
 import org.appfuse.webapp.proxies.UsersSearchCriteriaProxy;
 import org.appfuse.webapp.server.GwtServiceLocator;
@@ -33,6 +35,10 @@ public interface UserRequest extends RequestContext {
     abstract Request<List<UserProxy>> searchUsers(UsersSearchCriteriaProxy searchCriteria, int firstResult, int maxResults);
 
     abstract Request<Void> removeUser(UserProxy user);
+    
+    abstract Request<String> sendPasswordHint(String username);
+    
+    abstract Request<Set<UserProxy>> getActiveUsers();
     
     abstract Request<Boolean> logout();
 

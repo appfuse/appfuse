@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -21,6 +22,7 @@ import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.context.ServletContextAware;
 
 import com.google.web.bindery.requestfactory.server.RequestFactoryServlet;
 import com.google.web.bindery.requestfactory.shared.Locator;
@@ -29,18 +31,21 @@ import com.google.web.bindery.requestfactory.shared.Locator;
  * @author ivangsa
  *
  */
-public abstract class AbstractBaseLocator<T, I> extends Locator<T, I>  {
+public abstract class AbstractBaseLocator<T, I> extends Locator<T, I> implements ServletContextAware {
 
     protected final transient Log log = LogFactory.getLog(getClass());
 
     protected MailEngine mailEngine = null;
     protected SimpleMailMessage message = null;
     //protected String templateName = "accountCreated.vm";
-    protected String cancelView;
-    protected String successView;
 
-    private MessageSourceAccessor messages;
-
+    private ServletContext servletContext;
+    protected MessageSourceAccessor messages;
+	
+    public void setServletContext(ServletContext servletContext) {
+        this.servletContext = servletContext;
+    }
+    
     @Autowired
     public void setMessages(MessageSource messageSource) {
         messages = new MessageSourceAccessor(messageSource);
@@ -143,5 +148,9 @@ public abstract class AbstractBaseLocator<T, I> extends Locator<T, I>  {
      */
     protected HttpServletResponse getServletResponse() {
     	return RequestFactoryServlet.getThreadLocalResponse();    
+    }
+    
+    protected ServletContext getServletContext() {
+    	return servletContext;
     }
 }

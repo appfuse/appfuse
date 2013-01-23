@@ -6,6 +6,7 @@ package org.appfuse.webapp.client.application;
 import javax.validation.Validator;
 
 import org.appfuse.webapp.client.ui.login.LoginView;
+import org.appfuse.webapp.client.ui.upload.FileUploadBean;
 import org.appfuse.webapp.proxies.UserProxy;
 
 import com.google.gwt.core.client.GWT;
@@ -21,7 +22,8 @@ public class ApplicationValidatorFactory extends AbstractGwtValidatorFactory {
 
 	  @GwtValidation({
 			  LoginView.LoginDetails.class,
-			  UserProxy.class
+			  UserProxy.class,
+			  FileUploadBean.class,
 			  })
 	  public interface GwtValidator extends Validator {}
 

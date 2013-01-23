@@ -2,6 +2,7 @@ package org.appfuse.webapp.server.locators;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,8 @@ import org.appfuse.model.User;
 import org.appfuse.service.RoleManager;
 import org.appfuse.service.UserExistsException;
 import org.appfuse.service.UserManager;
+import org.appfuse.webapp.client.ui.login.LoginActivity;
+import org.appfuse.webapp.listener.UserCounterListener;
 import org.appfuse.webapp.util.RequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -21,6 +24,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 import org.springframework.stereotype.Component;
 
@@ -224,6 +228,54 @@ public class UserRequestService extends AbstractBaseLocator<User, Long> {
     public void removeUser(User user) {
     	userManager.removeUser(user.getId().toString());
     }
+
+    /**
+     * 
+     * @param username
+     * @return
+     */
+    public String sendPasswordHint(String username) {
+    	Locale locale = getServletRequest().getLocale();
+    	
+        // ensure that the username has been sent
+        if (username == null) {
+            log.warn("Username not specified, notifying user that it's a required field.");
+            return null;
+        }
+
+        log.debug("Processing Password Hint...");
+
+        // look up the user's information
+        try {
+            User user = userManager.getUserByUsername(username);
+
+            StringBuffer msg = new StringBuffer();
+            msg.append("Your password hint is: ").append(user.getPasswordHint());
+            msg.append("\n\nLogin at: ").append(RequestUtil.getAppURL(getServletRequest()));
+
+            message.setTo(user.getEmail());
+            String subject = '[' + messages.getMessage("webapp.name", locale) + "] " + 
+            		messages.getMessage("user.passwordHint", locale);
+            message.setSubject(subject);
+            message.setText(msg.toString());
+            mailEngine.send(message);
+            return user.getEmail();
+        } catch (UsernameNotFoundException e) {
+            log.warn(e.getMessage());
+        } catch (MailException me) {
+            log.warn(me.getMessage());
+        }
+        return null;
+    }
+    
+    /**
+     * 
+     * @return
+     */
+    public Set<User> getActiveUsers(){
+    	return (Set<User>) getServletContext().getAttribute(UserCounterListener.USERS_KEY);    	
+    }
+    
     
     /**
      * 

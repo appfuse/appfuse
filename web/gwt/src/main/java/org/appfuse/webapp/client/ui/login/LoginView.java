@@ -18,6 +18,7 @@ public interface LoginView extends IsWidget {
 	public interface Delegate {
 		void onLoginClick();
 		void onCancelClick();
+		void onPasswordHintClick();
 	}
 
 	public static class LoginDetails {
