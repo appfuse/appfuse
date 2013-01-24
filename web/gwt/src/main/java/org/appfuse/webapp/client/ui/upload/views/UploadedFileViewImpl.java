@@ -3,18 +3,21 @@
  */
 package org.appfuse.webapp.client.ui.upload.views;
 
-import org.appfuse.webapp.client.ui.upload.FileUploadBean;
 import org.appfuse.webapp.client.ui.upload.UploadedFileBean;
 
-import com.github.gwtbootstrap.client.ui.Label;
+import com.github.gwtbootstrap.client.ui.Button;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.AnchorElement;
 import com.google.gwt.editor.client.Editor;
 import com.google.gwt.editor.client.EditorDriver;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -35,8 +38,11 @@ public class UploadedFileViewImpl extends Composite implements UploadedFileView,
 	@UiField Label fileName;
 	@UiField Label contentType;
 	@UiField Label size;
-	@UiField Label location;
-	@UiField Label link;
+	@UiField AnchorElement location;
+	
+	@UiField Button doneButton;
+	@UiField Button uploadAnotherFileButton;
+	
 	
 	/**
 	 * 
@@ -53,8 +59,10 @@ public class UploadedFileViewImpl extends Composite implements UploadedFileView,
 	}
 	
 	@Override
-	public void edit(UploadedFileBean object) {
+	public void display(UploadedFileBean object) {
 		driver.edit(object);
+		location.setHref(object.getLink());
+		location.setInnerSafeHtml(SafeHtmlUtils.fromSafeConstant(object.getLocation()));
 	}
 
 	@Override
@@ -62,4 +70,14 @@ public class UploadedFileViewImpl extends Composite implements UploadedFileView,
 		return driver;
 	}
 	
+	@UiHandler("doneButton")
+	public void onDoneClick(ClickEvent event) {
+		delegate.onDoneClick();
+	}
+
+	@UiHandler("uploadAnotherFileButton")
+	public void onUploadAnotherFileClick(ClickEvent event) {
+		delegate.onUploadAnotherFileClick();
+	}
+
 }

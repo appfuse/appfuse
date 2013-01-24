@@ -13,6 +13,6 @@ public interface UploadedFileView extends IsWidget {
 	}
 	
 	void setDelegate(Delegate delegate);
-	void edit(UploadedFileBean object);
+	void display(UploadedFileBean object);
 	EditorDriver<UploadedFileBean> getEditorDriver();
 }

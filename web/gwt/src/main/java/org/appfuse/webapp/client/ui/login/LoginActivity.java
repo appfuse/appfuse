@@ -77,7 +77,7 @@ public class LoginActivity extends AbstractBaseActivity implements LoginView.Del
 		view.setMessage(null);
 		EditorDriver<LoginDetails> editorDriver = view.getEditorDriver();
 		LoginDetails login = editorDriver.flush();
-		Set<ConstraintViolation<LoginDetails>> violations = Validation.buildDefaultValidatorFactory().getValidator().validate(login);
+		Set<ConstraintViolation<LoginDetails>> violations = getValidator().validate(login);
 		editorDriver.setConstraintViolations((Set) violations);
 		if(!violations.isEmpty()) {
 			for (ConstraintViolation<LoginDetails> violation : violations) {

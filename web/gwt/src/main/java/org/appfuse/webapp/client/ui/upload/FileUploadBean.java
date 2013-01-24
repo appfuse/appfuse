@@ -13,7 +13,7 @@ public class FileUploadBean {
 
 	@NotNull
 	private String name;
-	@NotNull
+	//@NotNull
 	private String file;
 	
 	public String getName() {

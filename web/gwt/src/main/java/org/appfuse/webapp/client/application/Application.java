@@ -3,6 +3,9 @@
  */
 package org.appfuse.webapp.client.application;
 
+import javax.validation.Validation;
+import javax.validation.ValidatorFactory;
+
 import org.appfuse.webapp.client.ui.Shell;
 import org.appfuse.webapp.proxies.LookupConstantsProxy;
 import org.appfuse.webapp.proxies.RoleProxy;
@@ -29,7 +32,7 @@ public abstract class Application {
 	protected final PlaceController placeController;
 	protected final ApplicationRequestFactory requestFactory;
 	protected final ApplicationViewFactory viewFactory;
-	protected final ApplicationValidatorFactory validatorFactory;
+	protected final ValidatorFactory validatorFactory;
 
 	private boolean rememberMeEnabled = false;
 	private UserProxy currentUser;
@@ -49,7 +52,7 @@ public abstract class Application {
 		this.eventBus = eventBus;
 		this.placeController = placeController;
 		this.viewFactory = viewFactory;
-		this.validatorFactory = validatorFactory;
+		this.validatorFactory = Validation.buildDefaultValidatorFactory();
 		shell.setApplication(this);
 		
 		NodeList<Element> metas = Document.get().getElementsByTagName("meta");
@@ -83,7 +86,7 @@ public abstract class Application {
 		return viewFactory;
 	}
 	
-	public ApplicationValidatorFactory getValidatorFactory() {
+	public ValidatorFactory getValidatorFactory() {
 		return validatorFactory;
 	}
 	

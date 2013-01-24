@@ -69,7 +69,7 @@ public class ApplicationViewFactory {
 		} 
 		else if(FileUploadView.class.equals(viewClass)) {
 			view = GWT.create(FileUploadViewImpl.class);
-			reusableViews.put(viewClass, view);
+			//reusableViews.put(viewClass, view); no way to clear FileUpload
 		}		
 		else if(UploadedFileView.class.equals(viewClass)) {
 			view = GWT.create(UploadedFileViewImpl.class);

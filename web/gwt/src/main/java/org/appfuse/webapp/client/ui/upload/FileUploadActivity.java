@@ -5,10 +5,9 @@ package org.appfuse.webapp.client.ui.upload;
 
 import java.util.Set;
 
-import javax.validation.ConstraintViolation;
-
 import org.appfuse.webapp.client.application.Application;
 import org.appfuse.webapp.client.application.base.activity.AbstractBaseActivity;
+import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
 import org.appfuse.webapp.client.ui.upload.views.FileUploadView;
 import org.appfuse.webapp.client.ui.upload.views.UploadedFileView;
 
@@ -54,7 +53,7 @@ public class FileUploadActivity extends AbstractBaseActivity implements FileUplo
 	public void onSubmit(SubmitEvent event) {
 		if(formView != null) {
 			FileUploadBean fileUpload = formView.getEditorDriver().flush();
-			Set violations = validatorFactory.getValidator().validate(fileUpload);
+			Set violations = getValidator().validate(fileUpload);
 			formView.getEditorDriver().setConstraintViolations(violations);
 			if(!violations.isEmpty()) {
 				event.cancel();
@@ -79,20 +78,19 @@ public class FileUploadActivity extends AbstractBaseActivity implements FileUplo
 	private void showResults(UploadedFileBean uploadedFile) {
 		resultsView = viewFactory.getView(UploadedFileView.class);
 		resultsView.setDelegate(this);
-		resultsView.edit(uploadedFile);
+		resultsView.display(uploadedFile);
 		panel.setWidget(resultsView);
 	}
 	
 	@Override
 	public void onDoneClick() {
-		// TODO Auto-generated method stub
-		
+		shell.clearMessages();
+		placeController.goTo(new MainMenuPlace());
 	}
 
 	@Override
 	public void onUploadAnotherFileClick() {
-		// TODO Auto-generated method stub
-		
+		showForm();
 	}
 
 	private final native UploadedFileBean parseResponse(String json) /*-{
