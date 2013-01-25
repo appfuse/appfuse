@@ -19,6 +19,7 @@ import com.github.gwtbootstrap.client.ui.TextBox;
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.editor.client.EditorError;
+import com.google.gwt.editor.ui.client.ValueBoxEditorDecorator;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
@@ -50,12 +51,12 @@ public class EditUserViewImpl extends Composite implements EditUserView {
     @UiField TextBox username;
     @UiField PasswordTextBox password;
     @UiField PasswordTextBox confirmPassword;
-    @UiField TextBox  passwordHint;
-    @UiField TextBox  firstName;
-    @UiField TextBox  lastName;
-    @UiField TextBox  email;
-    @UiField TextBox  phoneNumber;
-    @UiField TextBox  website;
+    @UiField TextBox passwordHint;
+    @UiField TextBox firstName;
+    @UiField TextBox lastName;
+    @UiField TextBox email;
+    @UiField TextBox phoneNumber;
+    @UiField TextBox website;
 
     @UiField UIObject addressFieldset;
     @UiField @Path("address.address")
@@ -123,8 +124,8 @@ public class EditUserViewImpl extends Composite implements EditUserView {
 		if(errors != null && !errors.isEmpty()) {
 	        SafeHtmlBuilder b = new SafeHtmlBuilder();
 	        for (EditorError error : errors) {
-	            b.appendEscaped(error.getPath()).appendEscaped(": ");
-	            b.appendEscaped(error.getMessage()).appendEscaped("\n");
+        		b.appendEscaped(error.getPath()).appendEscaped(": ");
+        		b.appendEscaped(error.getMessage()).appendEscaped("\n");
 	        }
 			Window.alert(b.toSafeHtml().asString());
 		}

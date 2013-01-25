@@ -23,7 +23,7 @@ public class ApplicationValidatorFactory extends AbstractGwtValidatorFactory {
 	  @GwtValidation({
 			  LoginView.LoginDetails.class,
 			  UserProxy.class,
-			  FileUploadBean.class,
+			  FileUploadBean.class
 			  })
 	  public interface GwtValidator extends Validator {}
 
