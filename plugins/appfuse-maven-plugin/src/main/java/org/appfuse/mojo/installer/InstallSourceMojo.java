@@ -38,6 +38,8 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
 
+import static java.lang.String.format;
+
 
 /**
  * This mojo is used to "install" source artifacts from Subversion into an AppFuse project.
@@ -342,16 +344,7 @@ public class InstallSourceMojo extends AbstractMojo {
         Set<String> projectProperties = new TreeSet<String>();
 
         for (Dependency dep : newDependencies) {
-            String version = dep.getVersion();
-            // trim off ${}
-            if (version.startsWith("${")) {
-                version = version.substring(2);
-            }
-
-            if (version.endsWith("}")) {
-                version = version.substring(0, version.length() - 1);
-            }
-            projectProperties.add(version);
+            projectProperties.add(getDependencyVersionOrThrowExceptionIfNotAvailable(dep));
         }
 
         // add core as a dependency for modular wars
@@ -578,6 +571,37 @@ public class InstallSourceMojo extends AbstractMojo {
         if (pom.exists()) {
             pom.delete();
         }
+    }
+
+    private String getDependencyVersionOrThrowExceptionIfNotAvailable(Dependency dep) {
+        String version = dep.getVersion();
+
+        if (version == null) {
+            version = getDependencyVersionFromDependencyManagementOrThrowExceptionIfNotAvailable(dep);
+        }
+
+        // trim off ${}
+        if (version.startsWith("${")) {
+            version = version.substring(2);
+        }
+
+        if (version.endsWith("}")) {
+            version = version.substring(0, version.length() - 1);
+        }
+        return version;
+    }
+
+    @SuppressWarnings("unchecked")
+    private String getDependencyVersionFromDependencyManagementOrThrowExceptionIfNotAvailable(Dependency dep) {
+        List<Dependency> managedDeps = project.getDependencyManagement().getDependencies();
+        for (Dependency managedDep : managedDeps) {
+            if (managedDep.getArtifactId().equals(dep.getArtifactId()) &&
+                    managedDep.getGroupId().equals(dep.getGroupId())) {
+                return managedDep.getVersion();
+            }
+        }
+        throw new IllegalArgumentException(format(
+                "Unable to determine version for dependency: %s:%s", dep.getGroupId(), dep.getArtifactId()));
     }
 
     private static String addPropertiesToPom(String existingPomXmlAsString, StringBuffer sortedProperties) {
