@@ -12,6 +12,7 @@
 			<b:Paragraph><ui:text from="{i18n.upload_message}" /></b:Paragraph>
 		</b:Column>
 		<b:Column size="7">
+			<g:FlowPanel ui:field="errorsPanel" />
 			<b:WellForm ui:field="form" type="HORIZONTAL" action="app/fileupload" method="POST" encoding="multipart/form-data">
 				<b:ControlGroup ui:field="nameControlGroup">
 					<b:ControlLabel><span class="required">*</span> <ui:text from="{i18n.uploadForm_name}" />:</b:ControlLabel>

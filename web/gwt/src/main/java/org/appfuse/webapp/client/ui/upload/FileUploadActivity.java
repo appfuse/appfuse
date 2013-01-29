@@ -3,6 +3,8 @@
  */
 package org.appfuse.webapp.client.ui.upload;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import org.appfuse.webapp.client.application.Application;
@@ -66,10 +68,11 @@ public class FileUploadActivity extends AbstractBaseActivity implements FileUplo
 	public void onSubmitComplete(SubmitCompleteEvent event) {
 		UploadedFileBean uploadedFile = parseResponse(event.getResults());
 		if(uploadedFile.getErrorMessages() != null && uploadedFile.getErrorMessages().length() > 0) {
+			List<String> errorMessages = new ArrayList<String>();
 			for (int i = 0; i < uploadedFile.getErrorMessages().length(); i++) {
-				String error = uploadedFile.getErrorMessages().get(i);
-				shell.addMessage(error, AlertType.ERROR);
+				errorMessages.add(uploadedFile.getErrorMessages().get(i));
 			}
+			formView.showErrorsMessages(errorMessages);
 		} else {
 			shell.addMessage(uploadedFile.getLocation(), AlertType.SUCCESS);
 			showResults(uploadedFile);
