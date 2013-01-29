@@ -124,7 +124,7 @@ public abstract class Application {
 		if(getCurrentUser() == null) {
 			return null;
 		}
-		return getCurrentUser().getFirstName() + ' ' + getCurrentUser().getLastName();
+		return getCurrentUser().getUsername();
 	}
 	
 	public boolean isUserInRole(String role) {

@@ -13,6 +13,7 @@ import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.place.shared.PlaceChangeEvent;
+import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -91,7 +92,11 @@ public class DesktopShell extends Shell implements LoginEvent.Handler, LogoutEve
 	@Override
 	public void onLoginEvent(LoginEvent loginEvent) {
 		navigationBar.load();
-		currentUserInfo.setInnerSafeHtml(SafeHtmlUtils.fromString(application.getCurrentUsername()));
+		SafeHtmlBuilder sb = new SafeHtmlBuilder();
+		sb.appendEscaped(application.getI18n().user_status());
+		sb.append(' ');
+		sb.appendEscaped(application.getCurrentUsername());
+		currentUserInfo.setInnerSafeHtml(sb.toSafeHtml());
 	}
 
 
