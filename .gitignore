@@ -1,10 +1,10 @@
 .idea
 target
+*.log
 *.iml
 *.iws
 *.ipr
 web/tapestry/src/main/webapp/WEB-INF/app*.properties
-
-*.log
-
 web/tapestry/src/main/webapp/styles/style.css
+web/wicket/src/main/webapp/WEB-INF/app*.properties
+web/wicket/src/main/webapp/styles/style.css
