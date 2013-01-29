@@ -133,7 +133,7 @@ public class DesktopApplication extends Application implements LoginEvent.Handle
 	}
 	
 	/**
-	 * remove gwt positioning and overflow from extra divs, and hope for the best..
+	 * remove gwt positioning and overflow from extra divs, and hope for the best about xbrowser compatibility..
 	 */
 	private Element __fixPositioningAndOverflow(Element element) {
 		if("body".equalsIgnoreCase(element.getTagName())){
