@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%
 String contextPath = request.getContextPath();
 pageContext.setAttribute("ctxPath", contextPath);
@@ -11,7 +12,7 @@ pageContext.setAttribute("ctxPath", contextPath);
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="rememberMeEnabled" content="${appConfig.rememberMeEnabled}" />
     <link rel="icon" href="images/favicon.ico"/>
-    <title>TODO XXX</title>
+    <title><fmt:message key="webapp.name" /></title>
 
 <%--
     <link rel="stylesheet" type="text/css" media="all" href="styles/lib/bootstrap-2.2.1.min.css" />

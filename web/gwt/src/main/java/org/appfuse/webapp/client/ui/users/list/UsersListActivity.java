@@ -24,6 +24,7 @@ public class UsersListActivity extends AbstractProxyListActivity<UserProxy> impl
 
 	public UsersListActivity(EntityListPlace currentPlace, Application application) {
 		super(currentPlace, application);
+		setTitle(i18n.userList_title());
 	}
 
 

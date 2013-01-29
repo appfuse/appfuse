@@ -41,6 +41,9 @@ public class LoginActivity extends AbstractBaseActivity implements LoginView.Del
 
 	public LoginActivity(Application application) {
 		super(application);
+		setTitle(i18n.login_title());
+		setBodyId("login");
+		setBodyClassname("login");
 	}
 
 	/**

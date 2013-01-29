@@ -27,6 +27,10 @@ public abstract class AbstractBaseActivity extends AbstractActivity {
     protected final ValidatorFactory validatorFactory;
     protected final ApplicationResources i18n;
     
+    private String title;
+    private String bodyId;
+    private String bodyClassname;
+    
 	/**
 	 */
 	public AbstractBaseActivity(Application application) {
@@ -43,18 +47,37 @@ public abstract class AbstractBaseActivity extends AbstractActivity {
 	}
 	
 	public String getTitle() {
-		return i18n.webapp_name();
+		return title;
 	}
 	
 	public String getBodyId() {
-		return null;
+		return bodyId;
 	}
 
 	public String getBodyClassName() {
-		return null;
+		return bodyClassname;
 	}
 	
-	
+	public String getBodyClassname() {
+		return bodyClassname;
+	}
+
+	public void setBodyClassname(String bodyClassname) {
+		this.bodyClassname = bodyClassname;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public void setBodyId(String bodyId) {
+		this.bodyId = bodyId;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
 	protected Validator getValidator() {
 		return validatorFactory.getValidator();
 	}

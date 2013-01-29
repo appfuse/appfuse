@@ -18,6 +18,9 @@ public class MainMenuActivity extends AbstractBaseActivity {
 
 	public MainMenuActivity(Application application) {
 		super(application);
+		setTitle(i18n.mainMenu_title());
+		setBodyId("home");
+		setBodyClassname("home");
 	}
 
 	/* (non-Javadoc)

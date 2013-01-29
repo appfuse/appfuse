@@ -32,7 +32,17 @@ public class EditUserActivity extends AbstractProxyEditActivity<UserProxy> imple
 	
 	public EditUserActivity(Application application) {
 		super(application);
+		Place place = placeController.getWhere();
+		if(place instanceof SignUpPlace) {
+			setTitle(i18n.signup_title());
+			setBodyClassname("signup");
+		} else if(place instanceof EditProfilePlace) {
+			setTitle(i18n.userProfile_title());
+		} else {
+			setTitle(i18n.userProfile_title());
+		}
 	}
+	
 	
 	@Override
 	protected ProxyEditView<UserProxy, ?> createView(Place place) {

@@ -29,6 +29,7 @@ public class FileUploadActivity extends AbstractBaseActivity implements FileUplo
 
 	public FileUploadActivity(Application application) {
 		super(application);
+		setTitle(i18n.upload_title());
 	}
 
 	/* (non-Javadoc)
