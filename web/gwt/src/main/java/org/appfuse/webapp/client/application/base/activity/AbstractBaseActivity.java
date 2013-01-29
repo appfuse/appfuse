@@ -25,7 +25,7 @@ public abstract class AbstractBaseActivity extends AbstractActivity {
     protected final PlaceController placeController;
     protected final ApplicationViewFactory viewFactory;
     protected final ValidatorFactory validatorFactory;
-    protected final ApplicationResources i18n = GWT.create(ApplicationResources.class);
+    protected final ApplicationResources i18n;
     
 	/**
 	 */
@@ -39,9 +39,42 @@ public abstract class AbstractBaseActivity extends AbstractActivity {
 		this.currentPlace = placeController.getWhere();
 		this.viewFactory = application.getViewFactory();
 		this.validatorFactory = application.getValidatorFactory();
+		this.i18n = application.getI18n();
 	}
+	
+	public String getTitle() {
+		return i18n.webapp_name();
+	}
+	
+	public String getBodyId() {
+		return null;
+	}
+
+	public String getBodyClassName() {
+		return null;
+	}
+	
 	
 	protected Validator getValidator() {
 		return validatorFactory.getValidator();
 	}
+	
+	//Mobile interface
+	
+	protected Place getBackButtonPlace() {
+		return null;
+	}
+
+	protected String getBackButtonText() {
+		return null;
+	}
+
+	protected Place getEditButtonPlace() {
+		return null;
+	}
+
+	protected boolean hasEditButton() {
+		return false;
+	}
+	
 }

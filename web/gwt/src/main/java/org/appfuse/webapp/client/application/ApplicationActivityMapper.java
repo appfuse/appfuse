@@ -3,6 +3,7 @@
  */
 package org.appfuse.webapp.client.application;
 
+import org.appfuse.webapp.client.application.base.activity.AbstractBaseActivity;
 import org.appfuse.webapp.client.application.base.place.EntityListPlace;
 import org.appfuse.webapp.client.application.base.place.EntityProxyPlace;
 import org.appfuse.webapp.client.ui.login.LoginActivity;
@@ -21,6 +22,7 @@ import org.appfuse.webapp.proxies.UserProxy;
 
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.activity.shared.ActivityMapper;
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.place.shared.Place;
 import com.google.inject.Inject;
 
@@ -79,7 +81,38 @@ public class ApplicationActivityMapper implements ActivityMapper {
 			}
 		}
 		
+		if(activity instanceof AbstractBaseActivity) {
+			decorateDocument((AbstractBaseActivity) activity);
+
+			
+		}
+		
 		return activity;
+	}
+	
+	/**
+	 * Sets document title, and body class and id attributes.
+	 * @param baseActivity
+	 */
+	private void decorateDocument(AbstractBaseActivity baseActivity) {
+		
+		if(baseActivity.getTitle() != null) {
+			Document.get().setTitle(baseActivity.getTitle() + " | " + application.getI18n().webapp_name());
+		} else {
+			Document.get().setTitle(application.getI18n().webapp_name());
+		}
+		
+		if(baseActivity.getBodyId() != null) {
+			Document.get().getBody().setId(baseActivity.getBodyId());
+		}else {
+			Document.get().getBody().removeAttribute("id");
+		}
+		
+		if(baseActivity.getBodyClassName() != null) {
+			Document.get().getBody().setClassName(baseActivity.getBodyClassName());
+		} else {
+			Document.get().getBody().removeAttribute("class");
+		}
 	}
 
 }

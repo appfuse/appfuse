@@ -12,6 +12,7 @@ import org.appfuse.webapp.proxies.RoleProxy;
 import org.appfuse.webapp.proxies.UserProxy;
 import org.appfuse.webapp.requests.ApplicationRequestFactory;
 
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.MetaElement;
@@ -33,6 +34,7 @@ public abstract class Application {
 	protected final ApplicationRequestFactory requestFactory;
 	protected final ApplicationViewFactory viewFactory;
 	protected final ValidatorFactory validatorFactory;
+	protected final ApplicationResources i18n = GWT.create(ApplicationResources.class);
 
 	private boolean rememberMeEnabled = false;
 	private UserProxy currentUser;
@@ -88,6 +90,10 @@ public abstract class Application {
 	
 	public ValidatorFactory getValidatorFactory() {
 		return validatorFactory;
+	}
+	
+	public ApplicationResources getI18n() {
+		return i18n;
 	}
 	
 	public boolean isRememberMeEnabled() {
