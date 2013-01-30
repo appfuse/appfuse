@@ -7,108 +7,108 @@
 
 <ui:with type="org.appfuse.webapp.client.application.ApplicationResources" field="i18n" />
 
-<g:HTMLPanel styleName="container-fluid">
 
-<div class="span2">
-	<h2 ui:field="heading"><ui:text from="{i18n.userProfile_heading}"/></h2>
-       <p ui:field="subheading"><ui:text from="{i18n.userProfile_title}"/></p>
-</div>
+<g:HTMLPanel>
+	<b:Column size="3">
+		<b:Heading size="2"  ui:field="heading" text="{i18n.userProfile_heading}" />
+		<b:Paragraph ui:field="subheading"><ui:text from="{i18n.userProfile_title}"/></b:Paragraph>
+	</b:Column>
      
-<div class="span7">
-<b:Form type="HORIZONTAL" styleName="well form-horizontal">
-
-    <b:LongBox ui:field="id" visible="false" />
-    <b:IntegerBox ui:field="version" visible="false" />
-
-	<b:ControlGroup>
-        <b:ControlLabel for="username"><ui:text from="{i18n.user_username}" /> <span class="required">*</span></b:ControlLabel>
-       	<b:Controls><b:TextBox ui:field="username" /></b:Controls>
-    </b:ControlGroup>
-	<b:ControlGroup>
-        <b:ControlLabel for="password"><ui:text from="{i18n.user_password}" /> <span class="required">*</span></b:ControlLabel>
-       	<b:Controls><b:PasswordTextBox ui:field="password" /></b:Controls>
-    </b:ControlGroup>	
-	<b:ControlGroup>
-        <b:ControlLabel for="confirmPassword"><ui:text from="{i18n.user_confirmPassword}" /> <span class="required">*</span></b:ControlLabel>
-       	<b:Controls><b:PasswordTextBox ui:field="confirmPassword" /></b:Controls>
-    </b:ControlGroup>	
-	<b:ControlGroup>
-        <b:ControlLabel for="passwordHint"><ui:text from="{i18n.user_passwordHint}" /> <span class="required">*</span></b:ControlLabel>
-       	<b:Controls><b:TextBox ui:field="passwordHint" /></b:Controls>
-    </b:ControlGroup>
-	<b:ControlGroup>
-        <b:ControlLabel for="firstName"><ui:text from="{i18n.user_firstName}" /> <span class="required">*</span></b:ControlLabel>
-       	<b:Controls><b:TextBox ui:field="firstName" /></b:Controls>
-    </b:ControlGroup>
-	<b:ControlGroup>
-        <b:ControlLabel for="lastName"><ui:text from="{i18n.user_lastName}" /> <span class="required">*</span></b:ControlLabel>
-       	<b:Controls><b:TextBox ui:field="lastName" /></b:Controls>
-    </b:ControlGroup>
-	<b:ControlGroup>
-        <b:ControlLabel for="email"><ui:text from="{i18n.user_email}" /> <span class="required">*</span></b:ControlLabel>
-       	<b:Controls><b:TextBox ui:field="email" /></b:Controls>
-    </b:ControlGroup>
-	<b:ControlGroup>
-        <b:ControlLabel for="phoneNumber"><ui:text from="{i18n.user_phoneNumber}" /> <span class="required">*</span></b:ControlLabel>
-       	<b:Controls><b:TextBox ui:field="phoneNumber" /></b:Controls>
-    </b:ControlGroup>
-	<b:ControlGroup>
-        <b:ControlLabel for="website"><ui:text from="{i18n.user_website}" /> <span class="required">*</span></b:ControlLabel>
-       	<b:Controls><b:TextBox ui:field="website" /></b:Controls>
-    </b:ControlGroup>
-
-	<b:ControlGroup ui:field="addressFieldset">
-		<legend class="accordion-heading">
-		    <a href="#collapse-address" data-toggle="collapse">Address</a>
-		</legend>
-		<div class="accordion-body collapse" id="collapse-address">
-		    <b:ControlGroup>
-		        <b:ControlLabel for="address">Address</b:ControlLabel>
-	            <b:Controls><b:TextBox ui:field="address" /></b:Controls>
+	<b:Column size="7">
+		<b:Form type="HORIZONTAL" styleName="well form-horizontal">
+		
+		    <b:LongBox ui:field="id" visible="false" />
+		    <b:IntegerBox ui:field="version" visible="false" />
+		
+			<b:ControlGroup>
+		        <b:ControlLabel for="username"><ui:text from="{i18n.user_username}" /> <span class="required">*</span></b:ControlLabel>
+		       	<b:Controls><b:TextBox ui:field="username" /></b:Controls>
 		    </b:ControlGroup>
-		    <b:ControlGroup>
-		        <b:ControlLabel for="city">City</b:ControlLabel>
-	            <b:Controls><b:TextBox ui:field="city" /></b:Controls>
+			<b:ControlGroup>
+		        <b:ControlLabel for="password"><ui:text from="{i18n.user_password}" /> <span class="required">*</span></b:ControlLabel>
+		       	<b:Controls><b:PasswordTextBox ui:field="password" /></b:Controls>
+		    </b:ControlGroup>	
+			<b:ControlGroup>
+		        <b:ControlLabel for="confirmPassword"><ui:text from="{i18n.user_confirmPassword}" /> <span class="required">*</span></b:ControlLabel>
+		       	<b:Controls><b:PasswordTextBox ui:field="confirmPassword" /></b:Controls>
+		    </b:ControlGroup>	
+			<b:ControlGroup>
+		        <b:ControlLabel for="passwordHint"><ui:text from="{i18n.user_passwordHint}" /> <span class="required">*</span></b:ControlLabel>
+		       	<b:Controls><b:TextBox ui:field="passwordHint" /></b:Controls>
 		    </b:ControlGroup>
-		    <b:ControlGroup>
-		        <b:ControlLabel for="province">State</b:ControlLabel>
-	            <b:Controls><b:TextBox ui:field="province" /></b:Controls>
+			<b:ControlGroup>
+		        <b:ControlLabel for="firstName"><ui:text from="{i18n.user_firstName}" /> <span class="required">*</span></b:ControlLabel>
+		       	<b:Controls><b:TextBox ui:field="firstName" /></b:Controls>
 		    </b:ControlGroup>
-		    <b:ControlGroup>
-		        <b:ControlLabel for="postalCode">Zip</b:ControlLabel>
-	            <b:Controls><b:TextBox ui:field="postalCode" /></b:Controls>
+			<b:ControlGroup>
+		        <b:ControlLabel for="lastName"><ui:text from="{i18n.user_lastName}" /> <span class="required">*</span></b:ControlLabel>
+		       	<b:Controls><b:TextBox ui:field="lastName" /></b:Controls>
 		    </b:ControlGroup>
-		    <b:ControlGroup>
-		        <b:ControlLabel for="country">Country</b:ControlLabel>
-	            <b:Controls><b:ListBox  ui:field="country" /></b:Controls>
+			<b:ControlGroup>
+		        <b:ControlLabel for="email"><ui:text from="{i18n.user_email}" /> <span class="required">*</span></b:ControlLabel>
+		       	<b:Controls><b:TextBox ui:field="email" /></b:Controls>
 		    </b:ControlGroup>
-		</div>
-	</b:ControlGroup>
-
-	<b:ControlGroup ui:field="accountSettings">
-	    <b:ControlLabel>Account Settings</b:ControlLabel>
-	    <b:Controls>
-			<b:CheckBox ui:field="enabled" inline="true" /><ui:text from="{i18n.user_enabled}" />
-			<b:CheckBox ui:field="accountExpired" inline="true" /><ui:text from="{i18n.user_accountExpired}" />
-			<b:CheckBox ui:field="accountLocked" inline="true" /><ui:text from="{i18n.user_accountLocked}" />
-			<b:CheckBox ui:field="credentialsExpired" inline="true" /><ui:text from="{i18n.user_credentialsExpired}" />
-		</b:Controls>
-	</b:ControlGroup>
-	
-	<b:ControlGroup>
-	    <b:ControlLabel for="userRoles">Assign Roles</b:ControlLabel>
-	    <b:Controls>
-	    	<c:CellList ui:field="roles"/>
-	    </b:Controls>
-	</b:ControlGroup>	
-
-	<b:FormActions>
-		<b:Button ui:field="saveButton" styleName="btn btn-primary" customIconStyle="icon-ok icon-white" text="{i18n.button_save}" />
-		<b:Button ui:field="deleteButton" styleName="btn" customIconStyle="icon-remove" text="{i18n.button_delete}" />
-		<b:Button ui:field="cancelButton" styleName="btn" customIconStyle="icon-remove" text="{i18n.button_cancel}" />
-	</b:FormActions>
-
-</b:Form>
-</div>
+			<b:ControlGroup>
+		        <b:ControlLabel for="phoneNumber"><ui:text from="{i18n.user_phoneNumber}" /> <span class="required">*</span></b:ControlLabel>
+		       	<b:Controls><b:TextBox ui:field="phoneNumber" /></b:Controls>
+		    </b:ControlGroup>
+			<b:ControlGroup>
+		        <b:ControlLabel for="website"><ui:text from="{i18n.user_website}" /> <span class="required">*</span></b:ControlLabel>
+		       	<b:Controls><b:TextBox ui:field="website" /></b:Controls>
+		    </b:ControlGroup>
+		
+			<b:ControlGroup ui:field="addressFieldset">
+				<legend class="accordion-heading">
+				    <a href="#collapse-address" data-toggle="collapse">Address</a>
+				</legend>
+				<div class="accordion-body collapse" id="collapse-address">
+				    <b:ControlGroup>
+				        <b:ControlLabel for="address">Address</b:ControlLabel>
+			            <b:Controls><b:TextBox ui:field="address" /></b:Controls>
+				    </b:ControlGroup>
+				    <b:ControlGroup>
+				        <b:ControlLabel for="city">City</b:ControlLabel>
+			            <b:Controls><b:TextBox ui:field="city" /></b:Controls>
+				    </b:ControlGroup>
+				    <b:ControlGroup>
+				        <b:ControlLabel for="province">State</b:ControlLabel>
+			            <b:Controls><b:TextBox ui:field="province" /></b:Controls>
+				    </b:ControlGroup>
+				    <b:ControlGroup>
+				        <b:ControlLabel for="postalCode">Zip</b:ControlLabel>
+			            <b:Controls><b:TextBox ui:field="postalCode" /></b:Controls>
+				    </b:ControlGroup>
+				    <b:ControlGroup>
+				        <b:ControlLabel for="country">Country</b:ControlLabel>
+			            <b:Controls><b:ListBox  ui:field="country" /></b:Controls>
+				    </b:ControlGroup>
+				</div>
+			</b:ControlGroup>
+		
+			<b:ControlGroup ui:field="accountSettings">
+			    <b:ControlLabel>Account Settings</b:ControlLabel>
+			    <b:Controls>
+					<b:CheckBox ui:field="enabled" inline="true" /><ui:text from="{i18n.user_enabled}" />
+					<b:CheckBox ui:field="accountExpired" inline="true" /><ui:text from="{i18n.user_accountExpired}" />
+					<b:CheckBox ui:field="accountLocked" inline="true" /><ui:text from="{i18n.user_accountLocked}" />
+					<b:CheckBox ui:field="credentialsExpired" inline="true" /><ui:text from="{i18n.user_credentialsExpired}" />
+				</b:Controls>
+			</b:ControlGroup>
+			
+			<b:ControlGroup>
+			    <b:ControlLabel for="userRoles">Assign Roles</b:ControlLabel>
+			    <b:Controls>
+			    	<c:CellList ui:field="roles"/>
+			    </b:Controls>
+			</b:ControlGroup>	
+		
+			<b:FormActions>
+				<b:Button ui:field="saveButton" styleName="btn btn-primary" customIconStyle="icon-ok icon-white" text="{i18n.button_save}" />
+				<b:Button ui:field="deleteButton" styleName="btn" customIconStyle="icon-remove" text="{i18n.button_delete}" />
+				<b:Button ui:field="cancelButton" styleName="btn" customIconStyle="icon-remove" text="{i18n.button_cancel}" />
+			</b:FormActions>
+		
+		</b:Form>
+	</b:Column>
 </g:HTMLPanel>
 </ui:UiBinder>

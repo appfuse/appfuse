@@ -18,10 +18,11 @@ import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.KeyboardSelectionPolicy;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.HTMLPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 public class UsersListViewImpl extends AbstractProxyListView<UserProxy> implements UsersListView {
 
-    interface Binder extends UiBinder<HTMLPanel, UsersListViewImpl> { }
+    interface Binder extends UiBinder<Widget, UsersListViewImpl> { }
     private static final Binder uiBinder = GWT.create(Binder.class);
 
     private SearchDelegate searchDelegate;

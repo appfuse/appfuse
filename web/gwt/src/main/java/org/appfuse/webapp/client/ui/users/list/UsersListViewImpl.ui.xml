@@ -7,13 +7,15 @@
 <ui:with type="java.lang.Integer" field="pageSize" />
 
 
-<g:HTMLPanel styleName="container-fluid">
-    <div>      
+<b:Column size="10">
+	<b:Heading size="2"  ui:field="heading" text="{i18n.userList_heading}" />
+	<b:Paragraph ui:field="subheading"><ui:text from="{i18n.userList_heading}"/></b:Paragraph>
+	
+	<b:FormActions>
       <b:Button ui:field="addButton" text="{i18n.button_add}" styleName="primary" />
-    </div>
+	</b:FormActions>     
 
     <b:CellTable pageSize="{pageSize}" ui:field="table" width="100%"/>
 	<b:SimplePager display="{table}" location="RIGHT" fastForwardRows="50"/>
-
-</g:HTMLPanel>
+</b:Column>
 </ui:UiBinder>
