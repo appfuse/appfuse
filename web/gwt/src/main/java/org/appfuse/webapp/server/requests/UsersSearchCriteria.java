@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.appfuse.webapp.server.locators;
+package org.appfuse.webapp.server.requests;
 
 /**
  * @author ivangsa

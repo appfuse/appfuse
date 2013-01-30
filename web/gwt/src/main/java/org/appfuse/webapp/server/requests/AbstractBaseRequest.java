@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.appfuse.webapp.server.locators;
+package org.appfuse.webapp.server.requests;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -31,7 +31,7 @@ import com.google.web.bindery.requestfactory.shared.Locator;
  * @author ivangsa
  *
  */
-public abstract class AbstractBaseLocator<T, I> extends Locator<T, I> implements ServletContextAware {
+public abstract class AbstractBaseRequest<T, I> implements ServletContextAware {
 
     protected final transient Log log = LogFactory.getLog(getClass());
 

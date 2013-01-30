@@ -3,11 +3,10 @@ package org.appfuse.webapp.requests;
 import java.util.List;
 import java.util.Set;
 
-import org.appfuse.model.User;
 import org.appfuse.webapp.proxies.UserProxy;
 import org.appfuse.webapp.proxies.UsersSearchCriteriaProxy;
 import org.appfuse.webapp.server.GwtServiceLocator;
-import org.appfuse.webapp.server.locators.UserRequestService;
+import org.appfuse.webapp.server.requests.UserRequestService;
 
 import com.google.web.bindery.requestfactory.shared.Request;
 import com.google.web.bindery.requestfactory.shared.RequestContext;

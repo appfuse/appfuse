@@ -78,14 +78,10 @@ class DesktopNavigationBar extends Composite {
 	}
 	
 	private void registerTargetPlaces() {
-		UserRequest userRequest = application.getRequestFactory().userRequest();
-		UsersSearchCriteriaProxy usersSearchCriteria = userRequest.create(UsersSearchCriteriaProxy.class);
-		usersSearchCriteria.setSearchTerm("Tomcat");
-		userRequest.fire();
 		registerTargetPlace(login, new LoginPlace());
 		registerTargetPlace(mainMenu, new MainMenuPlace());
 		registerTargetPlace(editProfile, new EditProfilePlace());
-		registerTargetPlace(users, new EntityListPlace(UserProxy.class, usersSearchCriteria));
+		registerTargetPlace(users, new EntityListPlace(UserProxy.class));
 		registerTargetPlace(activeUsers, new EntityListPlace(UserProxy.class));
 		registerTargetPlace(upload, new FileUploadPlace());
 		registerTargetPlace(logout, new LogoutPlace());

@@ -1,4 +1,4 @@
-package org.appfuse.webapp.server.locators;
+package org.appfuse.webapp.server.requests;
 
 import java.util.List;
 import java.util.Locale;
@@ -29,45 +29,13 @@ import org.springframework.security.web.authentication.rememberme.TokenBasedReme
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserRequestService extends AbstractBaseLocator<User, Long> {
+public class UserRequestService extends AbstractBaseRequest<User, Long> {
 
 	
     @Autowired
     private UserManager userManager;
     @Autowired
     private RoleManager roleManager;
-    
-    //-----------------------
-    // Locator Methods
-    //-----------------------
-    
-    public User create(Class<? extends User> clazz) {
-        return new User();
-    }
-
-    public User find(Class<? extends User> clazz, Long id) {
-        return userManager.get(id);
-    }
-
-    public Class<User> getDomainType() {
-        return User.class;
-    }
-
-    public Long getId(User user) {
-        return user.getId();
-    }
-
-    public Class<Long> getIdType() {
-        return Long.class;
-    }
-
-    public Object getVersion(User user) {
-        return user.getVersion();
-    }
-    
-    //-----------------------
-    // Application Methods
-    //-----------------------
     
     public String getCurrentUserName() {
     	if(SecurityContextHolder.getContext() != null 

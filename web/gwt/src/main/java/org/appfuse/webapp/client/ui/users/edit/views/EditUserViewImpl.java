@@ -70,12 +70,8 @@ public class EditUserViewImpl extends Composite implements EditUserView {
     @UiField  @Path("address.postalCode")
     TextBox postalCode;    
     
-    @UiField(provided=true) CellList<RoleProxy> roles = new CellList<RoleProxy>(new AbstractCell<RoleProxy>(){
-
-		@Override
-		public void render(com.google.gwt.cell.client.Cell.Context context, RoleProxy value, SafeHtmlBuilder sb) {
-			sb.append(SafeHtmlUtils.fromString(value.getName()));
-		}});
+    @UiField(provided=true) 
+    RolesListBox roles = new RolesListBox();
 
     
     @UiField UIObject accountSettings;

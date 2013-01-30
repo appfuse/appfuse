@@ -1,4 +1,4 @@
-package org.appfuse.webapp.server.locators;
+package org.appfuse.webapp.server.controllers;
 
 import java.io.File;
 import java.io.FileOutputStream;

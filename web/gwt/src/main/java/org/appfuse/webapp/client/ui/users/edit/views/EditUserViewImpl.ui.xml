@@ -97,7 +97,9 @@
 	
 	<b:ControlGroup>
 	    <b:ControlLabel for="userRoles">Assign Roles</b:ControlLabel>
-	    <c:CellList ui:field="roles"/>
+	    <b:Controls>
+	    	<c:CellList ui:field="roles"/>
+	    </b:Controls>
 	</b:ControlGroup>	
 
 	<b:FormActions>

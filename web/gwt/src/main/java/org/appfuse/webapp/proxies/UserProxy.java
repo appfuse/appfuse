@@ -5,13 +5,13 @@ import java.util.Set;
 import javax.validation.constraints.NotNull;
 
 import org.appfuse.model.User;
-import org.appfuse.webapp.server.locators.UserRequestService;
+import org.appfuse.webapp.server.locators.UserLocator;
 
 import com.google.web.bindery.requestfactory.shared.EntityProxy;
 import com.google.web.bindery.requestfactory.shared.ProxyFor;
 
 
-@ProxyFor(value=User.class, locator=UserRequestService.class)
+@ProxyFor(value=User.class, locator=UserLocator.class)
 public interface UserProxy extends EntityProxy {
 
 	Long getId();

@@ -5,7 +5,7 @@ package org.appfuse.webapp.proxies;
 
 import java.util.List;
 
-import org.appfuse.webapp.server.locators.LookupRequestService.LookupConstants;
+import org.appfuse.webapp.server.requests.LookupRequestService.LookupConstants;
 
 import com.google.web.bindery.requestfactory.shared.ProxyFor;
 import com.google.web.bindery.requestfactory.shared.ValueProxy;
