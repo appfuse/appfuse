@@ -143,12 +143,12 @@
  
             <echo message="Using test command: ${test-command}"/>
             
-            <maven dir="${test.dir}/@{name}" command="appfuse:gen -Dentity=Person"/>
-            <maven dir="${test.dir}/@{name}" command="${test-command}"/>
+            <maven dir="${test.dir}/@{name}" command="appfuse:gen -Dentity=Person -e"/>
+            <maven dir="${test.dir}/@{name}" command="${test-command}  -e"/>
 
             <echo level="info">Removing Person entity...</echo>
-            <maven dir="${test.dir}/@{name}" command="appfuse:remove -Dentity=Person -Dskip.areyousure=true"/>
-            <maven dir="${test.dir}/@{name}" command="clean ${test-command}"/>
+            <maven dir="${test.dir}/@{name}" command="appfuse:remove -Dentity=Person -Dskip.areyousure=true -e"/>
+            <maven dir="${test.dir}/@{name}" command="clean ${test-command} -e"/>
 
             <!-- copy Person.java to src -->
             <copy todir="${test.dir}/@{name}/src/main/java/com">
@@ -161,8 +161,8 @@
             <echo level="info">Generating CRUD for Person entity...</echo>
 
             <!-- test w/o generic core -->
-            <maven dir="${test.dir}/@{name}" command="appfuse:gen -Dentity=Person -Damp.genericCore=false"/>
-            <maven dir="${test.dir}/@{name}" command="${test-command}"/>
+            <maven dir="${test.dir}/@{name}" command="appfuse:gen -Dentity=Person -Damp.genericCore=false -e"/>
+            <maven dir="${test.dir}/@{name}" command="${test-command} -e"/>
         </sequential>
     </macrodef>
 
@@ -188,15 +188,15 @@
         <mapping class="com.company.model.Person"/>]]></replacevalue>
             </replace>
 
-            <maven dir="${test.dir}/@{name}" command="install -N"/>
+            <maven dir="${test.dir}/@{name}" command="install -N -e"/>
 
             <!-- gen and test core -->
-            <maven dir="${test.dir}/@{name}/core" command="appfuse:gen -Dentity=Person -Damp.genericCore=false"/>
-            <maven dir="${test.dir}/@{name}/core" command="install -Duser.language=en -Dsurefire.useFile=false"/>
+            <maven dir="${test.dir}/@{name}/core" command="appfuse:gen -Dentity=Person -Damp.genericCore=false -e"/>
+            <maven dir="${test.dir}/@{name}/core" command="install -Duser.language=en -Dsurefire.useFile=false -e"/>
 
             <!-- get and test web -->
-            <maven dir="${test.dir}/@{name}/web" command="appfuse:gen -Dentity=Person -Damp.genericCore=false"/>
-            <maven dir="${test.dir}/@{name}/web" command="install -Duser.language=en -Dsurefire.useFile=false"/>
+            <maven dir="${test.dir}/@{name}/web" command="appfuse:gen -Dentity=Person -Damp.genericCore=false -e"/>
+            <maven dir="${test.dir}/@{name}/web" command="install -Duser.language=en -Dsurefire.useFile=false -e"/>
         </sequential>
     </macrodef>
 
@@ -339,8 +339,8 @@
             </if>
             
             <!-- run full-source verify -->
-            <maven dir="${test.dir}/@{name}" command="appfuse:full-source"/>
-            <maven dir="${test.dir}/@{name}" command="${test-command}"/>
+            <maven dir="${test.dir}/@{name}" command="appfuse:full-source -e"/>
+            <maven dir="${test.dir}/@{name}" command="${test-command} -e"/>
         </sequential>
     </macrodef>
 
@@ -350,7 +350,7 @@
         <attribute name="archetype" default=""/>
         <attribute name="version" default=""/>
         <attribute name="command" default="archetype:generate -B -DarchetypeGroupId=org.appfuse.archetypes -DarchetypeArtifactId=@{archetype}
-                                           -DarchetypeVersion=@{version} -DgroupId=com.company -DartifactId=@{name} -DarchetypeCatalog=local"/>
+                                           -DarchetypeVersion=@{version} -DgroupId=com.company -DartifactId=@{name} -DarchetypeCatalog=local -e"/>
 
         <sequential>
             <exec dir="@{dir}" executable="mvn.bat" os="Windows 7" failonerror="true" errorproperty="command.failed">

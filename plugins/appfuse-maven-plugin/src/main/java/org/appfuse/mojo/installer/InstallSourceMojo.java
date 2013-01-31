@@ -6,6 +6,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.model.Dependency;
+import org.apache.maven.model.DependencyManagement;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -593,15 +594,22 @@ public class InstallSourceMojo extends AbstractMojo {
 
     @SuppressWarnings("unchecked")
     private String getDependencyVersionFromDependencyManagementOrThrowExceptionIfNotAvailable(Dependency dep) {
-        List<Dependency> managedDeps = project.getDependencyManagement().getDependencies();
-        for (Dependency managedDep : managedDeps) {
-            if (managedDep.getArtifactId().equals(dep.getArtifactId()) &&
-                    managedDep.getGroupId().equals(dep.getGroupId())) {
-                return managedDep.getVersion();
+        DependencyManagement dependencyManagement = project.getDependencyManagement();
+        if (dependencyManagement != null) {
+            List<Dependency> managedDeps = dependencyManagement.getDependencies();
+            for (Dependency managedDep : managedDeps) {
+                if (managedDep.getArtifactId().equals(dep.getArtifactId()) &&
+                        managedDep.getGroupId().equals(dep.getGroupId())) {
+                    return managedDep.getVersion();
+                }
             }
+            throw new IllegalArgumentException(format(
+                    "Unable to determine version for dependency: %s:%s", dep.getGroupId(), dep.getArtifactId()));
+        } else {
+            throw new IllegalArgumentException(format(
+                    "Unable to determine version for dependency: %s:%s. DependencyManagement is null",
+                    dep.getGroupId(), dep.getArtifactId()));
         }
-        throw new IllegalArgumentException(format(
-                "Unable to determine version for dependency: %s:%s", dep.getGroupId(), dep.getArtifactId()));
     }
 
     private static String addPropertiesToPom(String existingPomXmlAsString, StringBuffer sortedProperties) {
