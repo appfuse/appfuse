@@ -22,7 +22,7 @@
     </bean>
 
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-        <property name="basename" value="ApplicationResources"/>
+        <property name="basename" value="/org/appfuse/webapp/client/application/ApplicationResources"/>
         <property name="useCodeAsDefaultMessage" value="true"/>
     </bean> 
 

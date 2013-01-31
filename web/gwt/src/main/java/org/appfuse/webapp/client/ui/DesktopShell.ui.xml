@@ -15,7 +15,7 @@
 		<g:SimplePanel ui:field="contentsPanel" />
 
 	    <div id="footer">
-	        <span class="left"><ui:text from="{i18n.webapp_version}"/> <span ui:field="currentUserInfo">| USER XXX</span></span>
+	        <span class="left"><ui:text from="{i18n.webapp_version}"/> <span ui:field="currentUserInfo"></span></span>
 	        <span class="right">
 	            <ui:text from="{i18n.copyright_year}"/> <a href="{i18n.company_url}"><ui:text from="{i18n.company_name}"/></a>
 	        </span>

@@ -13,7 +13,9 @@ import com.google.gwt.place.shared.Prefix;
  */
 public class SignUpPlace extends Place {
 
-	@Prefix("signup")
+	public static final String PREFIX = "signup";
+	
+	@Prefix(PREFIX)
     public static class Tokenizer implements PlaceTokenizer<SignUpPlace> {
 
 		@Override

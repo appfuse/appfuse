@@ -73,49 +73,44 @@ public class DesktopApplication extends Application implements LoginEvent.Handle
 		masterActivityManager.setDisplay(shell.getContentsPanel());
         
         
-        /* Authentication */
 		setProgress(50);
-        requestFactory.userRequest().getCurrentUser().with("roles").fire(new Receiver<UserProxy>() {
-
+		/* load application constants */
+		requestFactory.lookupRequest().getApplicationConstants().fire(new Receiver<LookupConstantsProxy>() {
 			@Override
-			public void onSuccess(UserProxy currentUser) {
+			public void onSuccess(LookupConstantsProxy lookupConstants) {
+				setLookupConstants(lookupConstants);
+				setProgress(70);
 
-				if(currentUser != null) {
-					setProgress(70);
-					setCurrentUser(currentUser);
-					/* load application constants */
-					requestFactory.lookupRequest().getApplicationConstants().fire(new Receiver<LookupConstantsProxy>() {
-						@Override
-						public void onSuccess(LookupConstantsProxy lookupConstants) {
-							setLookupConstants(lookupConstants);
+				/* Authentication */
+				requestFactory.userRequest().getCurrentUser().with("roles").fire(new Receiver<UserProxy>() {
+					
+					@Override
+					public void onSuccess(UserProxy currentUser) {
+						
+						if(currentUser != null) {
+							setCurrentUser(currentUser);
 
 							setProgress(80);
 							showShell();
-
+							
 							/* Register home place and parse url for current place token */
 							Place defaultPlace = new MainMenuPlace();
 							historyHandler.register(placeController, eventBus, defaultPlace);
 							historyHandler.handleCurrentHistory();
-
+							shell.onLoginEvent(new LoginEvent());
+						} else {
+							showShell();
+							
+							/* Register home place and parse url for current place token */
+							Place defaultPlace = new LoginPlace(History.getToken());
+							historyHandler.register(placeController, eventBus, defaultPlace);
+							placeController.goTo(defaultPlace);
 						}
-					});
-				} else {
-					showShell();
-					
-					/* Register home place and parse url for current place token */
-					Place defaultPlace = new LoginPlace(History.getToken());
-					historyHandler.register(placeController, eventBus, defaultPlace);
-					placeController.goTo(defaultPlace);
-				}
+					}
+				});
+				
 			}
-			
-			@Override
-			public void onFailure(ServerFailure error) {
-				Window.alert("Error " + error.getMessage());
-				super.onFailure(error);
-			}
-    	   
-       });
+		});
 		
 	}
 
@@ -195,7 +190,7 @@ public class DesktopApplication extends Application implements LoginEvent.Handle
 			public void onSuccess(UserProxy currentUser) {
 				if(currentUser != null) {
 					setCurrentUser(currentUser);
-					/* load application constants */
+					/* re-load application constants */
 					requestFactory.lookupRequest().getApplicationConstants().fire(new Receiver<LookupConstantsProxy>() {
 						@Override
 						public void onSuccess(LookupConstantsProxy lookupConstants) {
@@ -223,7 +218,6 @@ public class DesktopApplication extends Application implements LoginEvent.Handle
 	@Override
 	public void onLogoutEvent(LogoutEvent logoutEvent) {
 		setCurrentUser(null);
-		setLookupConstants(null);
 		shell.onLogoutEvent(logoutEvent);
 		placeController.goTo(new LoginPlace());
 	}

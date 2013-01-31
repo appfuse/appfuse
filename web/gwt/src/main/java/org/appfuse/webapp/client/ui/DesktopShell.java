@@ -93,6 +93,7 @@ public class DesktopShell extends Shell implements LoginEvent.Handler, LogoutEve
 	public void onLoginEvent(LoginEvent loginEvent) {
 		navigationBar.load();
 		SafeHtmlBuilder sb = new SafeHtmlBuilder();
+		sb.appendEscaped(" | ");
 		sb.appendEscaped(application.getI18n().user_status());
 		sb.append(' ');
 		sb.appendEscaped(application.getCurrentUsername());

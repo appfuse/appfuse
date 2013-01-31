@@ -9,8 +9,9 @@
 <g:HTMLPanel>
 
 	<l:LoginForm ui:field="loginForm" />
-	
-	<p>para para para</p>
+
+	<p ui:field="signupParaElement"></p>
+	<p ui:field="passwordHingParaElement"></p>
 
 </g:HTMLPanel>
 </ui:UiBinder>

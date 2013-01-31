@@ -40,7 +40,7 @@ public abstract class AbstractBaseRequest<T, I> implements ServletContextAware {
     //protected String templateName = "accountCreated.vm";
 
     private ServletContext servletContext;
-    protected MessageSourceAccessor messages;
+    protected MessageSource messages;
 	
     public void setServletContext(ServletContext servletContext) {
         this.servletContext = servletContext;
@@ -48,7 +48,7 @@ public abstract class AbstractBaseRequest<T, I> implements ServletContextAware {
     
     @Autowired
     public void setMessages(MessageSource messageSource) {
-        messages = new MessageSourceAccessor(messageSource);
+        messages = messageSource;
     }
 
     @Autowired
@@ -72,7 +72,7 @@ public abstract class AbstractBaseRequest<T, I> implements ServletContextAware {
      * @return
      */
     public String getText(String msgKey, Locale locale) {
-        return messages.getMessage(msgKey, locale);
+        return messages.getMessage(msgKey, null, locale);
     }
 
     /**

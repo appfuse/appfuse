@@ -222,8 +222,9 @@ public class UserRequestService extends AbstractBaseRequest<User, Long> {
             msg.append("\n\nLogin at: ").append(RequestUtil.getAppURL(getServletRequest()));
 
             message.setTo(user.getEmail());
-            String subject = '[' + messages.getMessage("webapp.name", locale) + "] " + 
-            		messages.getMessage("user.passwordHint", locale);
+            String subject = 
+            		'[' +getText("webapp.name", locale) + "] " + 
+            		getText("user.passwordHint", locale);
             message.setSubject(subject);
             message.setText(msg.toString());
             mailEngine.send(message);
