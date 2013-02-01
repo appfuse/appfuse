@@ -5,8 +5,9 @@ package org.appfuse.webapp.client.ui.users.list;
 
 import org.appfuse.webapp.client.application.base.view.ProxyListView;
 import org.appfuse.webapp.proxies.UserProxy;
+import org.appfuse.webapp.proxies.UsersSearchCriteriaProxy;
 
-import com.google.web.bindery.requestfactory.shared.EntityProxy;
+import com.google.gwt.editor.client.EditorDriver;
 
 /**
  * @author ivangsa
@@ -15,12 +16,14 @@ import com.google.web.bindery.requestfactory.shared.EntityProxy;
 public interface UsersListView extends ProxyListView<UserProxy> {
 
 
-	interface SearchDelegate {
+	interface SearchDelegate extends ProxyListView.Delegate<UserProxy>{
 
 		void doneClicked();
 		void searchClicked();
 	}
 	
 	void setSearchDelegate(SearchDelegate searchDelegate);
-	
+
+	UsersSearchCriteriaProxy getSearchCriteria();	
+	void setSearchCriteria(UsersSearchCriteriaProxy searchCriteria);
 }

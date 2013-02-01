@@ -120,7 +120,7 @@ public class EditUserActivity extends AbstractProxyEditActivity<UserProxy> imple
 	
 	@Override
 	protected RequestContext deleteRequest(RequestContext requestContext, UserProxy proxy) {
-		((UserRequest) requestContext).removeUser(proxy);
+		((UserRequest) requestContext).removeUser(proxy.getId());
 		return requestContext;
 	}
 

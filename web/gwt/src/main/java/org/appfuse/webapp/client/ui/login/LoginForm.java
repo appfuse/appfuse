@@ -3,8 +3,6 @@
  */
 package org.appfuse.webapp.client.ui.login;
 
-import java.util.logging.Logger;
-
 import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.CheckBox;
 import com.github.gwtbootstrap.client.ui.ControlGroup;
@@ -12,13 +10,12 @@ import com.github.gwtbootstrap.client.ui.PasswordTextBox;
 import com.github.gwtbootstrap.client.ui.TextBox;
 import com.github.gwtbootstrap.client.ui.base.AlertBase;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.Element;
 import com.google.gwt.editor.client.Editor;
 import com.google.gwt.editor.client.EditorDriver;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyPressEvent;
+import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -78,9 +75,8 @@ public class LoginForm extends Composite implements LoginView, Editor<LoginView.
 	}
 
 	@UiHandler({"username", "password"})
-	void defaultAction(KeyPressEvent event) {
-		Logger.getLogger(LoginForm.class.getName()).info("KeyPressEvent " + event + " " + (event.getCharCode() == KeyCodes.KEY_ENTER));
-		if (event.getCharCode() == KeyCodes.KEY_ENTER) {
+	void defaultAction(KeyDownEvent event) {
+		if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
 			delegate.onLoginClick();
 		}
 	}

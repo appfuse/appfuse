@@ -123,6 +123,7 @@ public class UserRequestService extends AbstractBaseRequest<User, Long> {
     public User editProfile() {
     	String username = getCurrentUsername();
     	User user = userManager.getUserByUsername(username);
+    	user.setConfirmPassword(user.getPassword());
     	return user;
     }
     
@@ -193,8 +194,8 @@ public class UserRequestService extends AbstractBaseRequest<User, Long> {
      * @param user
      */
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void removeUser(User user) {
-    	userManager.removeUser(user.getId().toString());
+    public void removeUser(Long userId) {
+    	userManager.removeUser(userId.toString());
     }
 
     /**

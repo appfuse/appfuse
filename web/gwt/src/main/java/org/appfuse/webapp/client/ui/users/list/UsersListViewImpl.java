@@ -4,10 +4,16 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.appfuse.webapp.client.application.base.view.AbstractProxyListView;
+import org.appfuse.webapp.client.ui.login.LoginView;
 import org.appfuse.webapp.proxies.UserProxy;
+import org.appfuse.webapp.proxies.UsersSearchCriteriaProxy;
 
 import com.github.gwtbootstrap.client.ui.Button;
+import com.github.gwtbootstrap.client.ui.TextBox;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.editor.client.Editor;
+import com.google.gwt.editor.client.EditorDriver;
+import com.google.gwt.editor.client.SimpleBeanEditorDriver;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.text.shared.AbstractRenderer;
 import com.google.gwt.text.shared.Renderer;
@@ -17,42 +23,69 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.KeyboardSelectionPolicy;
 import com.google.gwt.user.cellview.client.TextColumn;
-import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-public class UsersListViewImpl extends AbstractProxyListView<UserProxy> implements UsersListView {
+public class UsersListViewImpl extends AbstractProxyListView<UserProxy> implements UsersListView, Editor<UsersSearchCriteriaProxy> {
 
     interface Binder extends UiBinder<Widget, UsersListViewImpl> { }
     private static final Binder uiBinder = GWT.create(Binder.class);
 
+	interface Driver extends SimpleBeanEditorDriver<UsersSearchCriteriaProxy, UsersListViewImpl> { }	
+	private Driver driver = GWT.create(Driver.class);
+    
     private SearchDelegate searchDelegate;
-    @UiField
-    CellTable<UserProxy> table;
-    Set<String> paths = new HashSet<String>();
+    
+    @UiField TextBox searchTerm;
+    
+    @UiField Button addButton;
+    @UiField Button doneButton;
+    @UiField Button searchButton;
 
-    @UiField
-    Button addButton;
+    @UiField CellTable<UserProxy> table;
+    Set<String> paths = new HashSet<String>();
 
     public UsersListViewImpl() {
         init(uiBinder.createAndBindUi(this), table);
+        driver.initialize(this);
         table.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.DISABLED);        
         createTableColumns();
     }
 
     @Override
     public void setSearchDelegate(SearchDelegate searchDelegate) {
+    	setDelegate(searchDelegate);
 		this.searchDelegate = searchDelegate;
 	}
     
     public String[] getPaths() {
     	return paths.toArray(new String[paths.size()]);
     }
+
+    @Override
+    public void setSearchCriteria(UsersSearchCriteriaProxy searchCriteria) {
+    	driver.edit(searchCriteria);
+    }
+    
+    @Override
+    public UsersSearchCriteriaProxy getSearchCriteria() {
+    	return driver.flush();
+    }   
     
     @UiHandler("addButton")
     public void addButtonClicked(ClickEvent event) {
-    	delegate.addClicked();
+    	searchDelegate.addClicked();
     }
 
+    @UiHandler("doneButton")
+    public void doneClicked(ClickEvent event) {
+    	searchDelegate.doneClicked();
+    }
+    
+    @UiHandler("searchButton")
+    public void searchButtonClicked(ClickEvent event) {
+    	searchDelegate.searchClicked();
+    }
+    
     public void createTableColumns() {
         paths.add("id");
         table.addColumn(new TextColumn<UserProxy>() {

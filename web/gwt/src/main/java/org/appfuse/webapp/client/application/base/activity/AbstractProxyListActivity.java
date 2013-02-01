@@ -20,9 +20,11 @@ import com.google.gwt.view.client.Range;
 import com.google.gwt.view.client.RangeChangeEvent;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
+import com.google.web.bindery.requestfactory.shared.BaseProxy;
 import com.google.web.bindery.requestfactory.shared.EntityProxy;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.Request;
+import com.google.web.bindery.requestfactory.shared.RequestContext;
 
 /**
  * Abstract activity for displaying a list of {@link EntityProxy}. These
@@ -89,16 +91,20 @@ public abstract class AbstractProxyListActivity<P extends EntityProxy> extends A
 			}
 		});		
 
+		loadListItems();
+	}	
+
+	protected void loadListItems() {
 		// Select the current page range to load (by default or from place tokens)
-		Range range = hasData.getVisibleRange();
+		Range range = view.asHasData().getVisibleRange();
 		if(currentPlace.getFirstResult() > 0 || 
 				(currentPlace.getMaxResults() != range.getLength() && currentPlace.getMaxResults() > 0)) 
 		{
 			range = new Range(currentPlace.getFirstResult(), currentPlace.getMaxResults());			
 		}
 		loadListItems(range);
-	}	
-
+	}
+	
 	/**
 	 * Load items on start.
 	 */

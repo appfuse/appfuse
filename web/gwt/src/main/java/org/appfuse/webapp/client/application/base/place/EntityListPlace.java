@@ -103,7 +103,6 @@ public class EntityListPlace extends Place {
 	}
 
 
-
 	/**
 	 * Tokenizer.
 	 */
@@ -155,6 +154,11 @@ public class EntityListPlace extends Place {
 				return 0;
 			}
 		}
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return false;//allow reloading by changing place
 	}
 
 }
