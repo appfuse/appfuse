@@ -22,7 +22,7 @@
     </bean>
 
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-        <property name="basename" value="/org/appfuse/webapp/client/application/ApplicationResources"/>
+        <property name="basename" value="org.appfuse.webapp.client.application.ApplicationResources"/>
         <property name="useCodeAsDefaultMessage" value="true"/>
     </bean> 
 
@@ -30,10 +30,6 @@
 
     <!-- Configures the @Controller programming model -->
     <mvc:annotation-driven/>
-
-    <!-- Convenient way to map URLs to JSPs w/o having a Controller -->
-    <mvc:view-controller path="/admin/activeUsers" view-name="admin/activeUsers"/>
-    <mvc:view-controller path="/mainMenu" view-name="mainMenu"/>
 
     <!-- View Resolver for JSPs -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">

@@ -17,15 +17,14 @@ import org.apache.commons.logging.LogFactory;
 import org.appfuse.model.User;
 import org.appfuse.service.MailEngine;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
-import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.context.ServletContextAware;
 
 import com.google.web.bindery.requestfactory.server.RequestFactoryServlet;
-import com.google.web.bindery.requestfactory.shared.Locator;
 
 /**
  * @author ivangsa
@@ -35,32 +34,20 @@ public abstract class AbstractBaseRequest<T, I> implements ServletContextAware {
 
     protected final transient Log log = LogFactory.getLog(getClass());
 
-    protected MailEngine mailEngine = null;
-    protected SimpleMailMessage message = null;
+    @Autowired @Qualifier("messageSource")
+    protected MessageSource messages;
+    @Autowired
+    protected MailEngine mailEngine;
+    @Autowired
+    protected SimpleMailMessage message;
     //protected String templateName = "accountCreated.vm";
 
     private ServletContext servletContext;
-    protected MessageSource messages;
+    
 	
     public void setServletContext(ServletContext servletContext) {
         this.servletContext = servletContext;
     }
-    
-    @Autowired
-    public void setMessages(MessageSource messageSource) {
-        messages = messageSource;
-    }
-
-    @Autowired
-    public void setMailEngine(MailEngine mailEngine) {
-        this.mailEngine = mailEngine;
-    }
-
-    @Autowired
-    public void setMessage(SimpleMailMessage message) {
-        this.message = message;
-    }
-
 
     /**
      * Convenience method for getting a i18n key's value.  Calling
