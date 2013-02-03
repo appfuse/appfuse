@@ -107,6 +107,12 @@
             <artifactId>subethasmtp-wiser</artifactId>
             <version>${wiser.version}</version>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>servlet-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.directwebremoting</groupId>
