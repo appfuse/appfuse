@@ -1,10 +1,9 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core" 
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jsp/jstl/core" 
       xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" 
-      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk">
-
-<head><meta name="menu" content="AdminMenu"/></head>
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 
 <f:view>
+    <h:head><meta name="menu" content="AdminMenu"/></h:head>
 
     <h:form id="reloadForm">
         <h:commandLink action="#{reload.execute}" id="execute">
@@ -13,7 +12,7 @@
     </h:form>
     
     <script type="text/javascript">
-        myfaces.oam.submitForm('reloadForm','reloadForm:execute',null,[['referrer','${header.referer}']]);
+        mojarra.jsfcljs(document.getElementById('reloadForm'),{'reloadForm:execute':'reloadForm:execute','referrer':'${header.referer}'},'');
     </script>
 
 </f:view>

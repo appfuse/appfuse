@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <faces-config xmlns="http://java.sun.com/xml/ns/javaee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd"
-    version="1.2">
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+              version="2.0">
 
     <application>
         <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
@@ -26,13 +26,6 @@
         <message-bundle>ApplicationResources</message-bundle>
     </application>
 
-    <navigation-rule>
-        <from-view-id>/mainMenu.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>ajax4jsf</from-outcome>
-            <to-view-id>/ajax4jsf.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
     <navigation-rule>
         <from-view-id>/mainMenu.xhtml</from-view-id>
         <navigation-case>
@@ -108,6 +101,7 @@
             <redirect/>
         </navigation-case>
     </navigation-rule>
+
     <!-- Add additional rules here -->
 
     <managed-bean>
@@ -227,26 +221,5 @@
     </managed-bean>
 
     <!-- Add additional beans here -->
-
-    <render-kit>
-        <description>Some replacements for the standard renderers</description>
-        <renderer>
-            <description>Replacement renderer for h:outputLabel</description>
-            <component-family>javax.faces.Output</component-family>
-            <renderer-type>javax.faces.Label</renderer-type>
-            <renderer-class>org.appfuse.webapp.jsf.LabelRenderer</renderer-class>
-        </renderer>
-        <renderer>
-            <description>Replacement renderer for h:panelGrid that uses divs instead of tables</description>
-            <component-family>javax.faces.Panel</component-family>
-            <renderer-type>javax.faces.Grid</renderer-type>
-            <renderer-class>org.appfuse.webapp.jsf.PanelGridRenderer</renderer-class>
-        </renderer>
-    </render-kit>
-
-    <validator>
-        <validator-id>org.apache.shale.validator.CommonsValidator</validator-id>
-        <validator-class>org.apache.shale.validator.CommonsValidator</validator-class>
-    </validator>
 
 </faces-config>

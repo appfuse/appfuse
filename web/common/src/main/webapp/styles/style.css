@@ -287,3 +287,10 @@ span.pagelinks {
     background-repeat: no-repeat;
     display: block;
 }
+
+/* Fix for Bootstrap theme errors in PrimeFaces: http://forum.primefaces.org/viewtopic.php?f=9&t=19250&start=10 */
+.ui-state-error, .ui-widget-content .ui-state-error, .ui-widget-header .ui-state-error {
+    background: url("") repeat-x scroll 50% 50% #CD0A0A;
+    border: 1px solid #CD0A0A;
+    color: #FFFFFF;
+}

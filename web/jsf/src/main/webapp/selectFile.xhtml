@@ -1,14 +1,14 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core" 
-      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" 
-      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"  xmlns:p="http://primefaces.org/ui">
 
 <f:view>
 <f:loadBundle var="text" basename="#{basePage.bundleName}"/>
-<head>
+<h:head>
     <title>#{text['upload.title']}</title>
     <meta name="menu" content="AdminMenu"/>
     <meta name="heading" content="#{text['upload.heading']}"/>
-</head>
+    <c:set var="jqueryProvided" value="true" scope="request"/>
+</h:head>
 
 <div class="span3">
     <h2><h:outputText value="#{text['upload.heading']}"/></h2>
@@ -21,21 +21,22 @@
             <h:outputLabel styleClass="control-label" for="name" value="#{text['uploadForm.name']}"/>
             <div class="controls">
                 <h:inputText value="#{fileUpload.name}" id="name" required="true"/>
-                <t:message for="name" styleClass="help-inline"/>
+                <p:message for="name" />
             </div>
         </div>
 
         <div class="control-group">
             <h:outputLabel styleClass="control-label" for="file" value="#{text['uploadForm.file']}"/>
             <div class="controls">
-                <t:inputFileUpload id="file" value="#{fileUpload.file}" storage="file" required="true"/>
-                <t:message for="file" styleClass="help-inline"/>
+                <p:fileUpload id="file" value="#{fileUpload.file}" mode="simple" required="true"
+                        fileUploadListener="#{fileUpload.upload}"/>
+                <p:message for="file" />
             </div>
         </div>
 
         <div class="form-actions">
             <h:commandButton value="#{text['button.upload']}" action="#{fileUpload.upload}"
-                id="upload" styleClass="btn btn-primary"/>
+                id="upload" styleClass="btn btn-primary" ajax="false"/>
             <h:commandButton value="#{text['button.cancel']}" action="mainMenu" immediate="true"
                 id="cancel" styleClass="btn" onclick="bCancel=true"/>
         </div>

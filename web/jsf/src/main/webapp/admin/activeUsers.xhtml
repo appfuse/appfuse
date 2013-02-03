@@ -1,15 +1,13 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core"
-    xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" 
-    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk">
-
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 <f:view>
 <f:loadBundle var="text" basename="#{basePage.bundleName}"/>
-<head>
+<h:head>
     <title>#{text['activeUsers.title']}</title>
     <meta name="menu" content="AdminMenu"/>
-</head>
+</h:head>
 
-<body id="activeUsers">
 <div class="span10">
     <h2>#{text['activeUsers.heading']}</h2>
 
@@ -20,91 +18,33 @@
     </div>
 
     <h:form id="activeUsersForm">
-    <!-- Error from this table is caused by http://issues.apache.org/jira/browse/TOMAHAWK-466 -->
-    <t:buffer into="#{table}">
-    <t:dataTable id="activeUsers" var="user" value="#{activeUserList.users}" rows="20"
-         sortColumn="#{activeUserList.sortColumn}" sortAscending="#{activeUserList.ascending}"
-         styleClass="table table-condensed table-striped table-hover" rowClasses="standardTable_Row1,standardTable_Row2"
-         columnClasses="standardTable_Column,standardTable_Column">
-        <t:column width="135px"
-            headerstyleClass="#{activeUserList.sortColumn == 'username' ? 'standardTable_SortHeader' : 'standardTable_Header'}">
+
+    <p:dataTable id="activeUsers" var="user" value="#{activeUserList.users}" sortBy="#{activeUserList.sortColumn}" paginator="true" rows="25" 
+                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                 rowsPerPageTemplate="5,10,15">
+        <p:column style="width: 25%">
             <f:facet name="header">
-                <t:commandSortHeader columnName="username" arrow="false">
-                    <f:facet name="ascending">
-                        <t:graphicImage value="/images/arrow_up.png" rendered="true"
-                            style="position: relative; left: -7px" alt="Sort Ascending"/>
-                    </f:facet>
-                    <f:facet name="descending">
-                        <t:graphicImage value="/images/arrow_down.png" rendered="true" 
-                            style="position: relative; left: -7px" alt="Sort Descending"/>
-                    </f:facet>
-                    <h:outputText value="#{text['user.username']}" /> 
-                    <t:graphicImage value="/images/arrow_off.png" rendered="true" 
-                        style="padding-left: 5px;" alt="Not Sorted"/>
-                </t:commandSortHeader>
+                <p:column sortBy="username" >
+                    <h:outputText value="#{text['user.username']}" />
+                </p:column>
             </f:facet>
-            <h:outputText value="#{user.username}" />
-        </t:column>
-        <t:column
-            headerstyleClass="#{activeUserList.sortColumn == 'fullName' ? 'standardTable_SortHeader' : 'standardTable_Header'}">
+            <h:outputText value="#{user.fullName}" />
+        </p:column>
+        <p:column style="width: 34%">
             <f:facet name="header">
-                <t:commandSortHeader columnName="fullName" arrow="false">
-                    <f:facet name="ascending">
-                        <t:graphicImage value="/images/arrow_up.png" rendered="true"
-                            style="position: relative; left: -7px" alt="Sort Ascending"/>
-                    </f:facet>
-                    <f:facet name="descending">
-                        <t:graphicImage value="/images/arrow_down.png" rendered="true" 
-                            style="position: relative; left: -7px" alt="Sort Descending"/>
-                    </f:facet>
+                <p:column sortBy="fullName" >
                     <h:outputText value="#{text['activeUsers.fullName']}" />
-                    <t:graphicImage value="/images/arrow_off.png" rendered="true" 
-                        style="padding-left: 5px;" alt="Not Sorted"/>              
-                </t:commandSortHeader>
+                </p:column>
             </f:facet>
             <h:outputText value="#{user.fullName}" />
             <h:outputLink value="mailto:#{user.email}" rendered="#{not empty user.email}">
-            <h:graphicImage style="padding-left: 10px;" alt="#{text['icon.email']}" 
+            <h:graphicImage style="padding-lefp: 10px;" alt="#{text['icon.email']}" 
                 url="/images/iconEmail.gif" />
             </h:outputLink> 
-        </t:column>
-    </t:dataTable>
-    </t:buffer>
-    
-    <t:buffer into="#{scroller}"> 
-        <ui:include src="/common/tableFooter.xhtml">
-            <ui:param name="tableName" value="activeUsers"/> 
-        </ui:include>
-    </t:buffer>
-    
-    <t:buffer into="#{summary}"> 
-    <h:panelGrid columns="1" styleClass="summary" columnClasses="standardTable_ColumnCentered" >
-    <t:dataScroller id="summary"
-            for="activeUsers"
-            rowsCountVar="rowsCount"
-            displayedRowsCountVar="displayedRowsCountVar"
-            firstRowIndexVar="firstRowIndex"
-            lastRowIndexVar="lastRowIndex"
-            pageCountVar="pageCount"
-            pageIndexVar="pageIndex">
-        <h:outputFormat value="#{text['activeUsers.summary']}">
-            <f:param value="#{rowsCount}" />
-            <f:param value="#{displayedRowsCountVar}" />
-            <f:param value="#{firstRowIndex}" />
-            <f:param value="#{lastRowIndex}" />
-            <f:param value="#{pageIndex}" />
-            <f:param value="#{pageCount}" />
-        </h:outputFormat>
-    </t:dataScroller>  
-    </h:panelGrid>
-    </t:buffer>
-    
-    <h:outputText value="#{summary}" escape="false"/>
-    <h:outputText value="#{table}" escape="false"/>
-    <h:outputText value="#{scroller}" escape="false"/>
-
-</h:form>
+        </p:column>
+    </p:dataTable>
+   
+    </h:form>
 </div>
-</body>
 </f:view>
 </html>   
