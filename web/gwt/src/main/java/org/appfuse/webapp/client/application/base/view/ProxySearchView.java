@@ -2,6 +2,7 @@ package org.appfuse.webapp.client.application.base.view;
 
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.view.client.HasData;
+import com.google.web.bindery.requestfactory.shared.BaseProxy;
 import com.google.web.bindery.requestfactory.shared.EntityProxy;
 
 /**
@@ -14,7 +15,7 @@ import com.google.web.bindery.requestfactory.shared.EntityProxy;
  *
  * @param <P> the type of the records to display
  */
-public interface ProxyListView<P extends EntityProxy> extends IsWidget {
+public interface ProxySearchView<P extends EntityProxy, S extends BaseProxy> extends IsWidget {
 	
 	/**
 	 * Implemented by the owner of a RecordTableView.
@@ -24,10 +25,25 @@ public interface ProxyListView<P extends EntityProxy> extends IsWidget {
 	interface Delegate<P> {
 
 		void addClicked();
+		void searchClicked();		
+		void cancelClicked();
+
 		void showDetails(P record);
-		void deleteClicked();
+		void deleteClicked(P record);
 	}
 
+	/**
+	 * Sets the delegate.
+	 */
+	void setDelegate(Delegate<P> delegate);
+	
+	S getSearchCriteria();
+	void setSearchCriteria(S searchCriteria);
+	
+	/**
+	 * 
+	 * @return
+	 */
 	HasData<P> asHasData();
 
 	/**
@@ -35,10 +51,10 @@ public interface ProxyListView<P extends EntityProxy> extends IsWidget {
 	 */
 	String[] getPaths();
 
-	/**
-	 * Sets the delegate.
-	 */
-	void setDelegate(Delegate<P> delegate);
 
+	/**
+	 * 
+	 * @param pageSize
+	 */
 	void setPageSize(Integer pageSize);
 }

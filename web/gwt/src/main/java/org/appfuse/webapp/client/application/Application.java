@@ -34,6 +34,7 @@ public abstract class Application {
 	protected final ApplicationRequestFactory requestFactory;
 	protected final ApplicationViewFactory viewFactory;
 	protected final ValidatorFactory validatorFactory;
+	protected final ApplicationProxyFactory proxyFactory;
 	protected final ApplicationResources i18n = GWT.create(ApplicationResources.class);
 
 	private boolean rememberMeEnabled = false;
@@ -47,6 +48,7 @@ public abstract class Application {
 			EventBus eventBus,
 			PlaceController placeController,
 			ApplicationViewFactory viewFactory,
+			ApplicationProxyFactory proxyFactory, 
 			ApplicationValidatorFactory validatorFactory) {
 		super();
 		this.shell = shell;
@@ -54,6 +56,7 @@ public abstract class Application {
 		this.eventBus = eventBus;
 		this.placeController = placeController;
 		this.viewFactory = viewFactory;
+		this.proxyFactory = proxyFactory;
 		this.validatorFactory = Validation.buildDefaultValidatorFactory();
 		shell.setApplication(this);
 		
@@ -86,6 +89,10 @@ public abstract class Application {
 	
 	public ApplicationViewFactory getViewFactory() {
 		return viewFactory;
+	}
+	
+	public ApplicationProxyFactory getProxyFactory() {
+		return proxyFactory;
 	}
 	
 	public ValidatorFactory getValidatorFactory() {

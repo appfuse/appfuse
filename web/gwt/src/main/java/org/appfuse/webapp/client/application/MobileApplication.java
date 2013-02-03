@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.appfuse.webapp.client.application.base.request.RequestEvent;
 import org.appfuse.webapp.client.ui.MobileShell;
 import org.appfuse.webapp.client.ui.login.LoginActivity;
 import org.appfuse.webapp.client.ui.login.LoginPlace;
@@ -13,7 +14,6 @@ import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
 import org.appfuse.webapp.proxies.LookupConstantsProxy;
 import org.appfuse.webapp.proxies.UserProxy;
 import org.appfuse.webapp.requests.ApplicationRequestFactory;
-import org.appfuse.webapp.requests.RequestEvent;
 
 import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.activity.shared.ActivityMapper;
@@ -47,8 +47,9 @@ public class MobileApplication extends Application {
 			EventBus eventBus,
 			PlaceController placeController,
 			ApplicationViewFactory viewFactory,
+			ApplicationProxyFactory proxyFactory,
 			ApplicationValidatorFactory validatorFactory) {
-		super(shell, requestFactory, eventBus, placeController, viewFactory, validatorFactory);
+		super(shell, requestFactory, eventBus, placeController, viewFactory, proxyFactory, validatorFactory);
 	}
 
 	

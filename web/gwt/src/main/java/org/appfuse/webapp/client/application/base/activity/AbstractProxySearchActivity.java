@@ -1,17 +1,18 @@
 package org.appfuse.webapp.client.application.base.activity;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.appfuse.webapp.client.application.Application;
 import org.appfuse.webapp.client.application.base.place.EntityListPlace;
 import org.appfuse.webapp.client.application.base.place.EntityProxyPlace;
-import org.appfuse.webapp.client.application.base.view.ProxyListView;
+import org.appfuse.webapp.client.application.base.view.ProxySearchView;
+import org.appfuse.webapp.proxies.UsersSearchCriteriaProxy;
 
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.cellview.client.AbstractHasData;
-import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 import com.google.gwt.view.client.HasData;
@@ -34,7 +35,7 @@ import com.google.web.bindery.requestfactory.shared.RequestContext;
  * Subclasses must:
  * <p/>
  * <ul>
- * <li>provide a {@link ProxyListView}
+ * <li>provide a {@link ProxySearchView}
  * <li>implement method to request a full count
  * <li>implement method to find a range of entities
  * <li>respond to "show details" commands
@@ -44,28 +45,47 @@ import com.google.web.bindery.requestfactory.shared.RequestContext;
  *
  * @param <P> the type of {@link EntityProxy} listed
  */
-public abstract class AbstractProxyListActivity<P extends EntityProxy> extends AbstractBaseActivity implements Activity, ProxyListView.Delegate<P> {
+public abstract class AbstractProxySearchActivity<P extends EntityProxy, S extends BaseProxy> extends AbstractBaseActivity implements Activity, ProxySearchView.Delegate<P> {
 
+	protected final Logger logger = Logger.getLogger(getClass().getName());
+	
+	protected final Class<S> searchCriteriaType;
 	protected final EntityListPlace currentPlace;
-	protected ProxyListView<P> view;
+	protected ProxySearchView<P, S> view;
 	
 	private SingleSelectionModel<P> selectionModel;
 	private HandlerRegistration rangeChangeHandler;
 	private AcceptsOneWidget panel;
+	private S searchCriteria;
 
-	protected abstract ProxyListView<P> createView();
-	protected abstract Request<List<P>> createRangeRequest(Range range);
-	protected abstract void fireCountRequest(Receiver<Long> callback);	
+	protected abstract ProxySearchView<P, S> createView();
 	
-	public AbstractProxyListActivity(EntityListPlace currentPlace, Application application) {
+	protected abstract RequestContext createRequestContext();
+	protected abstract Request<Long> createCountRequest(RequestContext requestContext, S searchCriteria);
+	protected abstract Request<List<P>> createSearchRequest(RequestContext requestContext, S searchCriteria, int firsResult, int maxResults);
+	
+	
+	public AbstractProxySearchActivity(Application application, Class<S> searchCriteriaType) {
 		super(application);
-		this.currentPlace = currentPlace;
+		this.currentPlace = (EntityListPlace) application.getPlaceController().getWhere();
+		this.searchCriteriaType = searchCriteriaType;
 	}
 	
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
 		this.panel = panel;
 		view = createView();
 		view.setDelegate(this);
+		
+		searchCriteria = (S) currentPlace.getSearchCriteria();
+		if(searchCriteria == null) {
+			//searchCriteria = proxyFactory.create(searchCriteriaType);
+			RequestContext requestContext = createRequestContext();
+			searchCriteria = requestContext.create(searchCriteriaType);
+			requestContext.fire();
+			logger.info("Created new UsersSearchCriteriaProxy " + searchCriteria);
+		}
+		view.setSearchCriteria(searchCriteria);
+		
 		if(currentPlace.getMaxResults() > 0) {
 			view.setPageSize(currentPlace.getMaxResults());
 		}
@@ -73,7 +93,7 @@ public abstract class AbstractProxyListActivity<P extends EntityProxy> extends A
 		final HasData<P> hasData = view.asHasData();
 		rangeChangeHandler = hasData.addRangeChangeHandler(new RangeChangeEvent.Handler() {
 			public void onRangeChange(RangeChangeEvent event) {
-				AbstractProxyListActivity.this.onRangeChanged(hasData, hasData.getVisibleRange());
+				AbstractProxySearchActivity.this.onRangeChanged(hasData, hasData.getVisibleRange());
 			}
 		});
 
@@ -91,10 +111,6 @@ public abstract class AbstractProxyListActivity<P extends EntityProxy> extends A
 			}
 		});		
 
-		loadListItems();
-	}	
-
-	protected void loadListItems() {
 		// Select the current page range to load (by default or from place tokens)
 		Range range = view.asHasData().getVisibleRange();
 		if(currentPlace.getFirstResult() > 0 || 
@@ -102,14 +118,21 @@ public abstract class AbstractProxyListActivity<P extends EntityProxy> extends A
 		{
 			range = new Range(currentPlace.getFirstResult(), currentPlace.getMaxResults());			
 		}
-		loadListItems(range);
+
+		loadItems(searchCriteria, range);
+	}	
+
+	
+	protected void loadItems(final S searchCriteria) {
+		loadItems(searchCriteria, new Range(0, currentPlace.getMaxResults()));
 	}
 	
 	/**
 	 * Load items on start.
 	 */
-	protected void loadListItems(final Range range) {
-		fireCountRequest(new Receiver<Long>() {
+	protected void loadItems(final S searchCriteria, final Range range) {
+		RequestContext requestContext = createRequestContext();
+		createCountRequest(requestContext, searchCriteria).fire(new Receiver<Long>() {
 			@Override
 			public void onSuccess(Long response) {
 				if (view == null) {
@@ -126,28 +149,41 @@ public abstract class AbstractProxyListActivity<P extends EntityProxy> extends A
 	 * Called by the table as it needs data.
 	 */
 	protected void onRangeChanged(final HasData<P> listView, final Range range) {
-
-		final Receiver<List<P>> callback = new Receiver<List<P>>() {
-			@Override
-			public void onSuccess(List<P> values) {
-				if (view == null) {
-					// This activity is dead
-					return;
+		RequestContext requestContext = createRequestContext();
+		createSearchRequest(requestContext, searchCriteria, range.getStart(), range.getLength())
+			.with(view.getPaths()).fire( new Receiver<List<P>>() {
+				@Override
+				public void onSuccess(List<P> values) {
+					if (view == null) {
+						// This activity is dead
+						return;
+					}
+					view.asHasData().setRowData(range.getStart(), values);
+					if (panel != null) {
+						panel.setWidget(view);
+					}
+					//create a new history token for this range
+					newHistoryToken(searchCriteria, range.getStart(), range.getLength());
 				}
-				view.asHasData().setRowData(range.getStart(), values);
-				if (panel != null) {
-					panel.setWidget(view);
-				}
-				//create a new history token for this range
-				currentPlace.setFirstResult(range.getStart());
-				currentPlace.setMaxResults(range.getLength());
-				String historyToken = new EntityListPlace.Tokenizer().getFullHistoryToken(currentPlace);
-				History.newItem(historyToken, false);
-			}
-		};
-
-		createRangeRequest(range).with(view.getPaths()).fire(callback);
+			});
 	}
+
+	protected void setSearchCriteria(S searchCriteria) {
+//		if(searchCriteria != null) {
+//			this.frozenSearchCriteria = proxyFactory.clone(searchCriteria);
+//			proxyFactory.setFrozen(frozenSearchCriteria, true);
+//		} else {
+//			this.frozenSearchCriteria = null;
+//		}
+		this.searchCriteria = searchCriteria;
+	}
+	
+	protected void newHistoryToken(S searchCriteria, int firstResult, int maxResults) {
+		//TODO				
+//					String historyToken = new EntityListPlace.Tokenizer().getFullHistoryToken(currentPlace);
+//					History.newItem(historyToken, false);
+	}
+
 	
 	@Override
 	public void addClicked() {
@@ -160,7 +196,7 @@ public abstract class AbstractProxyListActivity<P extends EntityProxy> extends A
 	}
 	
 	@Override
-	public void deleteClicked() {
+	public void deleteClicked(P record) {
 		Window.alert("deleteClicked");
 	}
 	

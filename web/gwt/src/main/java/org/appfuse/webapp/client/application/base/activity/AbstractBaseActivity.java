@@ -4,6 +4,7 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
 import org.appfuse.webapp.client.application.Application;
+import org.appfuse.webapp.client.application.ApplicationProxyFactory;
 import org.appfuse.webapp.client.application.ApplicationResources;
 import org.appfuse.webapp.client.application.ApplicationViewFactory;
 import org.appfuse.webapp.client.ui.Shell;
@@ -24,6 +25,7 @@ public abstract class AbstractBaseActivity extends AbstractActivity {
     protected final ApplicationRequestFactory requests;
     protected final PlaceController placeController;
     protected final ApplicationViewFactory viewFactory;
+    protected final ApplicationProxyFactory proxyFactory;
     protected final ValidatorFactory validatorFactory;
     protected final ApplicationResources i18n;
     
@@ -42,6 +44,7 @@ public abstract class AbstractBaseActivity extends AbstractActivity {
 		this.placeController = application.getPlaceController();
 		this.currentPlace = placeController.getWhere();
 		this.viewFactory = application.getViewFactory();
+		this.proxyFactory = application.getProxyFactory();
 		this.validatorFactory = application.getValidatorFactory();
 		this.i18n = application.getI18n();
 	}

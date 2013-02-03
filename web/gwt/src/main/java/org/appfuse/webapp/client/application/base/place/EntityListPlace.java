@@ -6,6 +6,7 @@ package org.appfuse.webapp.client.application.base.place;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.appfuse.webapp.client.application.ApplicationProxyFactory;
 import org.appfuse.webapp.proxies.UserProxy;
 import org.appfuse.webapp.proxies.UsersSearchCriteriaProxy;
 import org.appfuse.webapp.requests.ApplicationRequestFactory;
@@ -109,8 +110,17 @@ public class EntityListPlace extends Place {
 	@Prefix(PREFIX)
 	public static class Tokenizer implements PlaceTokenizer<EntityListPlace> {
 		private static final String SEPARATOR = "!";
-		private static final RequestFactory requests = GWT.create(ApplicationRequestFactory.class);//FIXME inject this
-		private static final ProxySerializer serializer = requests.getSerializer(new DefaultProxyStore());
+		private final ApplicationProxyFactory proxyFactory;
+		private final RequestFactory requests;
+
+		/**
+		 * @param proxyFactory
+		 */
+		public Tokenizer(ApplicationProxyFactory proxyFactory, RequestFactory requests) {
+			super();
+			this.proxyFactory = proxyFactory;
+			this.requests = requests;
+		}
 
 		public EntityListPlace getPlace(String token) {
 			String tokens[] = token.split(SEPARATOR);
@@ -124,7 +134,7 @@ public class EntityListPlace extends Place {
 			}
 			if(tokens.length > 3) {
 				Class<? extends BaseProxy> searchCriteriaClass = SEARCH_CRITERIA_ENTITIES_MAP.get(proxyType);
-				searchCriteria = serializer.deserialize(searchCriteriaClass, tokens[3]);
+				searchCriteria = proxyFactory.deserialize(searchCriteriaClass, tokens[3]);
 			}
 			return new EntityListPlace(proxyType, searchCriteria, firstResult, maxResults);
 		}
@@ -138,7 +148,7 @@ public class EntityListPlace extends Place {
 			sb.append(place.getMaxResults());
 			if(place.getSearchCriteria() != null) {
 				sb.append(SEPARATOR);
-				sb.append(serializer.serialize(place.getSearchCriteria()));
+				sb.append(proxyFactory.serialize(place.getSearchCriteria()));
 			}
 			return sb.toString();
 		}
@@ -154,11 +164,6 @@ public class EntityListPlace extends Place {
 				return 0;
 			}
 		}
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		return false;//allow reloading by changing place
 	}
 
 }

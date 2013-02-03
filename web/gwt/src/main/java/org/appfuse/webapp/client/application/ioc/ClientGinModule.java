@@ -3,8 +3,8 @@ package org.appfuse.webapp.client.application.ioc;
 
 import org.appfuse.webapp.client.application.Application;
 import org.appfuse.webapp.client.application.DesktopApplication;
+import org.appfuse.webapp.client.application.base.request.EventSourceRequestTransport;
 import org.appfuse.webapp.requests.ApplicationRequestFactory;
-import org.appfuse.webapp.requests.EventSourceRequestTransport;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.inject.client.AbstractGinModule;

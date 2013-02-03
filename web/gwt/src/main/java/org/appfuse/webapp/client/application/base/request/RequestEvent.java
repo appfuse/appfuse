@@ -1,4 +1,4 @@
-package org.appfuse.webapp.requests;
+package org.appfuse.webapp.client.application.base.request;
 
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;

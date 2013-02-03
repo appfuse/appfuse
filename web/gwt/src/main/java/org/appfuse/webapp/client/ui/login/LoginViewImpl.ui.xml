@@ -11,7 +11,7 @@
 	<l:LoginForm ui:field="loginForm" />
 
 	<p ui:field="signupParaElement"></p>
-	<p ui:field="passwordHingParaElement"></p>
+	<p ui:field="passwordHintParaElement"></p>
 
 </g:HTMLPanel>
 </ui:UiBinder>

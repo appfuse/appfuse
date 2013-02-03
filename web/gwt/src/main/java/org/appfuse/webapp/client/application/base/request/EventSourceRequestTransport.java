@@ -1,7 +1,6 @@
-package org.appfuse.webapp.requests;
+package org.appfuse.webapp.client.application.base.request;
 
 import com.google.web.bindery.event.shared.EventBus;
-import com.google.web.bindery.requestfactory.gwt.client.DefaultRequestTransport;
 import com.google.web.bindery.requestfactory.shared.RequestTransport;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
 

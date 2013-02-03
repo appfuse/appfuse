@@ -17,7 +17,7 @@ import org.appfuse.webapp.client.ui.upload.FileUploadPlace;
 import org.appfuse.webapp.client.ui.users.edit.EditUserActivity;
 import org.appfuse.webapp.client.ui.users.edit.places.EditProfilePlace;
 import org.appfuse.webapp.client.ui.users.edit.places.SignUpPlace;
-import org.appfuse.webapp.client.ui.users.list.UsersListActivity;
+import org.appfuse.webapp.client.ui.users.search.UsersSearchActivity;
 import org.appfuse.webapp.proxies.UserProxy;
 
 import com.google.gwt.activity.shared.Activity;
@@ -77,7 +77,7 @@ public class ApplicationActivityMapper implements ActivityMapper {
 		else if(place instanceof EntityListPlace) {
 			EntityListPlace listPlace = (EntityListPlace) place;
 			if(UserProxy.class.equals(listPlace.getProxyClass())) {
-				activity = new UsersListActivity(listPlace, application);
+				activity = new UsersSearchActivity(listPlace, application);
 			}
 		}
 		

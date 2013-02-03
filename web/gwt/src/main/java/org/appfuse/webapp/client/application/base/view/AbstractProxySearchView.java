@@ -4,6 +4,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.view.client.HasData;
+import com.google.web.bindery.requestfactory.shared.BaseProxy;
 import com.google.web.bindery.requestfactory.shared.EntityProxy;
 
 /**
@@ -11,16 +12,16 @@ import com.google.web.bindery.requestfactory.shared.EntityProxy;
  *
  * @param <P> the type of the proxy
  */
-public abstract class AbstractProxyListView<P extends EntityProxy> extends Composite implements ProxyListView<P> {
+public abstract class AbstractProxySearchView<P extends EntityProxy, S extends BaseProxy> extends Composite implements ProxySearchView<P, S> {
 	private HasData<P> display;
-	protected ProxyListView.Delegate<P> delegate;
+	protected ProxySearchView.Delegate<P> delegate;
 
 	
 	@UiField(provided=true)
 	public Integer pageSize = 25;
 
 	@Override
-	public AbstractProxyListView<P> asWidget() {
+	public AbstractProxySearchView<P, S> asWidget() {
 		return this;
 	}
 

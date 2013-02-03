@@ -1,9 +1,9 @@
-package org.appfuse.webapp.client.ui.users.list;
+package org.appfuse.webapp.client.ui.users.search;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import org.appfuse.webapp.client.application.base.view.AbstractProxyListView;
+import org.appfuse.webapp.client.application.base.view.AbstractProxySearchView;
 import org.appfuse.webapp.client.ui.login.LoginView;
 import org.appfuse.webapp.proxies.UserProxy;
 import org.appfuse.webapp.proxies.UsersSearchCriteriaProxy;
@@ -25,16 +25,15 @@ import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.KeyboardSe
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.ui.Widget;
 
-public class UsersListViewImpl extends AbstractProxyListView<UserProxy> implements UsersListView, Editor<UsersSearchCriteriaProxy> {
+public class UsersSearchViewImpl extends AbstractProxySearchView<UserProxy, UsersSearchCriteriaProxy> implements UsersSearchView, Editor<UsersSearchCriteriaProxy> {
 
-    interface Binder extends UiBinder<Widget, UsersListViewImpl> { }
+    interface Binder extends UiBinder<Widget, UsersSearchViewImpl> { }
     private static final Binder uiBinder = GWT.create(Binder.class);
 
-	interface Driver extends SimpleBeanEditorDriver<UsersSearchCriteriaProxy, UsersListViewImpl> { }	
+	interface Driver extends SimpleBeanEditorDriver<UsersSearchCriteriaProxy, UsersSearchViewImpl> { }	
 	private Driver driver = GWT.create(Driver.class);
     
-    private SearchDelegate searchDelegate;
-    
+  
     @UiField TextBox searchTerm;
     
     @UiField Button addButton;
@@ -44,7 +43,7 @@ public class UsersListViewImpl extends AbstractProxyListView<UserProxy> implemen
     @UiField CellTable<UserProxy> table;
     Set<String> paths = new HashSet<String>();
 
-    public UsersListViewImpl() {
+    public UsersSearchViewImpl() {
         init(uiBinder.createAndBindUi(this), table);
         driver.initialize(this);
         table.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.DISABLED);        
@@ -52,11 +51,6 @@ public class UsersListViewImpl extends AbstractProxyListView<UserProxy> implemen
     }
 
     @Override
-    public void setSearchDelegate(SearchDelegate searchDelegate) {
-    	setDelegate(searchDelegate);
-		this.searchDelegate = searchDelegate;
-	}
-    
     public String[] getPaths() {
     	return paths.toArray(new String[paths.size()]);
     }
@@ -73,17 +67,17 @@ public class UsersListViewImpl extends AbstractProxyListView<UserProxy> implemen
     
     @UiHandler("addButton")
     public void addButtonClicked(ClickEvent event) {
-    	searchDelegate.addClicked();
+    	delegate.addClicked();
     }
 
     @UiHandler("doneButton")
     public void doneClicked(ClickEvent event) {
-    	searchDelegate.doneClicked();
+    	delegate.cancelClicked();
     }
     
     @UiHandler("searchButton")
     public void searchButtonClicked(ClickEvent event) {
-    	searchDelegate.searchClicked();
+    	delegate.searchClicked();
     }
     
     public void createTableColumns() {

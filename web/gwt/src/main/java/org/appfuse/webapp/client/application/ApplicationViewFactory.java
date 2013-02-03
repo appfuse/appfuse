@@ -19,8 +19,8 @@ import org.appfuse.webapp.client.ui.users.edit.views.EditProfileViewImpl;
 import org.appfuse.webapp.client.ui.users.edit.views.EditUserView;
 import org.appfuse.webapp.client.ui.users.edit.views.EditUserViewImpl;
 import org.appfuse.webapp.client.ui.users.edit.views.SignUpViewImpl;
-import org.appfuse.webapp.client.ui.users.list.UsersListView;
-import org.appfuse.webapp.client.ui.users.list.UsersListViewImpl;
+import org.appfuse.webapp.client.ui.users.search.UsersSearchView;
+import org.appfuse.webapp.client.ui.users.search.UsersSearchViewImpl;
 
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.ui.IsWidget;
@@ -79,8 +79,8 @@ public class ApplicationViewFactory {
 			view = GWT.create(EditUserViewImpl.class);
 			reusableViews.put(viewClass, view);
 		}
-		else if(UsersListView.class.equals(viewClass)) {
-			view = GWT.create(UsersListViewImpl.class);
+		else if(UsersSearchView.class.equals(viewClass)) {
+			view = GWT.create(UsersSearchViewImpl.class);
 			reusableViews.put(viewClass, view);
 		}
 		

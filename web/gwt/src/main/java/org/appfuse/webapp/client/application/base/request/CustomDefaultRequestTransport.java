@@ -1,4 +1,4 @@
-package org.appfuse.webapp.requests;
+package org.appfuse.webapp.client.application.base.request;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

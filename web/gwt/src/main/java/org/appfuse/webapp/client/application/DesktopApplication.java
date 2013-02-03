@@ -2,9 +2,12 @@ package org.appfuse.webapp.client.application;
 
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.appfuse.webapp.client.application.ApplicationProxyFactory.ProxyFactory;
+import org.appfuse.webapp.client.application.base.request.RequestEvent;
 import org.appfuse.webapp.client.ui.DesktopShell;
 import org.appfuse.webapp.client.ui.login.LoginActivity;
 import org.appfuse.webapp.client.ui.login.LoginPlace;
@@ -14,8 +17,8 @@ import org.appfuse.webapp.client.ui.login.events.LogoutEvent;
 import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
 import org.appfuse.webapp.proxies.LookupConstantsProxy;
 import org.appfuse.webapp.proxies.UserProxy;
+import org.appfuse.webapp.proxies.UsersSearchCriteriaProxy;
 import org.appfuse.webapp.requests.ApplicationRequestFactory;
-import org.appfuse.webapp.requests.RequestEvent;
 
 import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.activity.shared.ActivityMapper;
@@ -31,11 +34,13 @@ import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.inject.Inject;
+import com.google.web.bindery.autobean.shared.AutoBean;
 import com.google.web.bindery.event.shared.EventBus;
 import com.google.web.bindery.requestfactory.gwt.client.RequestFactoryLogHandler;
 import com.google.web.bindery.requestfactory.shared.LoggingRequest;
 import com.google.web.bindery.requestfactory.shared.Receiver;
-import com.google.web.bindery.requestfactory.shared.ServerFailure;
+import com.google.web.bindery.requestfactory.shared.impl.AbstractRequestFactory;
+import com.google.web.bindery.requestfactory.shared.impl.Constants;
 
 
 /**
@@ -51,20 +56,46 @@ public class DesktopApplication extends Application implements LoginEvent.Handle
 			EventBus eventBus,
 			PlaceController placeController,
 			ApplicationViewFactory viewFactory,
+			ApplicationProxyFactory proxyFactory,
 			ApplicationValidatorFactory validatorFactory) {
-		super(shell, requestFactory, eventBus, placeController, viewFactory, validatorFactory);
+		super(shell, requestFactory, eventBus, placeController, viewFactory, proxyFactory, validatorFactory);
 	}
 
 	
 	
 	public void run() {
+		{
+			ProxyFactory proxyFactory = GWT.create(ProxyFactory.class);
+			AutoBean<UsersSearchCriteriaProxy> autoBean = proxyFactory.searchCriteria();
+			Object	id =((AbstractRequestFactory)requestFactory).allocateId(UsersSearchCriteriaProxy.class);
+			autoBean.setTag(Constants.STABLE_ID, id);			
+			final UsersSearchCriteriaProxy searchCriteria = autoBean.as();
+			searchCriteria.setSearchTerm("Matt");
+			autoBean.setFrozen(true);//
+			requestFactory.userRequest().countUsers(searchCriteria).fire(new Receiver<Long>() {
+				@Override
+				public void onSuccess(Long response) {
+					System.out.println("search total: " + response);
+					//
+					requestFactory.userRequest().searchUsers(searchCriteria, 0, 25).fire(new Receiver<List<UserProxy>>() {
+						@Override
+						public void onSuccess(List<UserProxy> response) {
+							System.out.println("search: " + response.size());
+						}
+					});
+					
+				}
+			});
+		}
+		
 		setProgress(30);
 
 		/* Add handlers */
 		initHandlers();
 
 		/* Browser history integration */
-		ApplicationPlaceHistoryMapper historyMapper = GWT.create(ApplicationPlaceHistoryMapper.class);
+		ApplicationPlaceHistoryMapper historyMapper = GWT.create(ApplicationPlaceHistoryMapper.class);//TODO move this to gin ioc
+		historyMapper.setFactory(new ApplicationPlaceHistoryFactory(requestFactory, proxyFactory));
         final PlaceHistoryHandler historyHandler = new PlaceHistoryHandler(historyMapper);
         
 		/* setup activities and display */
