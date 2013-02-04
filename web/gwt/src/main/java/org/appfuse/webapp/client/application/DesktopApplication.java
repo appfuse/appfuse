@@ -64,30 +64,6 @@ public class DesktopApplication extends Application implements LoginEvent.Handle
 	
 	
 	public void run() {
-		{
-			ProxyFactory proxyFactory = GWT.create(ProxyFactory.class);
-			AutoBean<UsersSearchCriteriaProxy> autoBean = proxyFactory.searchCriteria();
-			Object	id =((AbstractRequestFactory)requestFactory).allocateId(UsersSearchCriteriaProxy.class);
-			autoBean.setTag(Constants.STABLE_ID, id);			
-			final UsersSearchCriteriaProxy searchCriteria = autoBean.as();
-			searchCriteria.setSearchTerm("Matt");
-			autoBean.setFrozen(true);//
-			requestFactory.userRequest().countUsers(searchCriteria).fire(new Receiver<Long>() {
-				@Override
-				public void onSuccess(Long response) {
-					System.out.println("search total: " + response);
-					//
-					requestFactory.userRequest().searchUsers(searchCriteria, 0, 25).fire(new Receiver<List<UserProxy>>() {
-						@Override
-						public void onSuccess(List<UserProxy> response) {
-							System.out.println("search: " + response.size());
-						}
-					});
-					
-				}
-			});
-		}
-		
 		setProgress(30);
 
 		/* Add handlers */

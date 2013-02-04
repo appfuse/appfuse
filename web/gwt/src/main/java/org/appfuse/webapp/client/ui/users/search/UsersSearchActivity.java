@@ -43,29 +43,15 @@ public class UsersSearchActivity extends AbstractProxySearchActivity<UserProxy, 
 	protected RequestContext createRequestContext() {
 		return requests.userRequest();
 	}
-	
-	@Override
-	protected Request<List<UserProxy>> createSearchRequest(RequestContext requestContext, UsersSearchCriteriaProxy searchCriteria, int firstResult, int maxResults) {
-		return ((UserRequest) requestContext).searchUsers(searchCriteria,	firstResult, maxResults);
-	}
 
 	@Override
 	protected Request<Long> createCountRequest(RequestContext requestContext, UsersSearchCriteriaProxy searchCriteria) {
 		return ((UserRequest) requestContext).countUsers(searchCriteria);
 	}
-
-
+	
 	@Override
-	public void cancelClicked() {
-		placeController.goTo(new MainMenuPlace());
-	}
-
-
-	@Override
-	public void searchClicked() {
-		UsersSearchCriteriaProxy searchCriteria = ((UsersSearchView)view).getSearchCriteria();
-		logger.info("searchClicked " + searchCriteria);
-		loadItems(searchCriteria);
+	protected Request<List<UserProxy>> createSearchRequest(RequestContext requestContext, UsersSearchCriteriaProxy searchCriteria, int firstResult, int maxResults) {
+		return ((UserRequest) requestContext).searchUsers(searchCriteria,	firstResult, maxResults);
 	}
 
 }

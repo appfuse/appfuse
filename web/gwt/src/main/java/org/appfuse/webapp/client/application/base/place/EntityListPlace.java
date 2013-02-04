@@ -5,6 +5,7 @@ package org.appfuse.webapp.client.application.base.place;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import org.appfuse.webapp.client.application.ApplicationProxyFactory;
 import org.appfuse.webapp.proxies.UserProxy;
@@ -28,16 +29,6 @@ import com.google.web.bindery.requestfactory.shared.RequestFactory;
 public class EntityListPlace extends Place {
 	private static final String PREFIX = "l";
 
-	private static final Map<Class<? extends EntityProxy>,Class<? extends BaseProxy>> 
-		SEARCH_CRITERIA_ENTITIES_MAP = new HashMap<Class<? extends EntityProxy>,Class<? extends BaseProxy>>();
-	
-	static {
-		// You need to map proxyClass - searchCriteria.getClass() here 
-		// for automatic serialization of the search criteria to the history token, as
-		// there is no way to re-generate a class object, that is not an EntityProxy.class, from a token string 
-		SEARCH_CRITERIA_ENTITIES_MAP.put(UserProxy.class, UsersSearchCriteriaProxy.class);
-	}
-	
 	private final Class<? extends EntityProxy> proxyClass;
 	private BaseProxy searchCriteria;
 	private int firstResult = 0;
@@ -67,12 +58,12 @@ public class EntityListPlace extends Place {
 	 * @param firstResult
 	 * @param maxResults
 	 */
-	public EntityListPlace(Class<? extends EntityProxy> proxyClass, BaseProxy searchCriteria, int firstResult, int maxResults) {
+	public EntityListPlace(Class<? extends EntityProxy> proxyClass, int firstResult, int maxResults, BaseProxy searchCriteria) {
 		super();
 		this.proxyClass = proxyClass;
-		this.searchCriteria = searchCriteria;
 		this.firstResult = firstResult;
 		this.maxResults = maxResults;
+		this.searchCriteria = searchCriteria;
 	}
 
 	public Class<? extends EntityProxy> getProxyClass() {
@@ -109,6 +100,8 @@ public class EntityListPlace extends Place {
 	 */
 	@Prefix(PREFIX)
 	public static class Tokenizer implements PlaceTokenizer<EntityListPlace> {
+		protected final Logger logger = Logger.getLogger(getClass().getName());
+		
 		private static final String SEPARATOR = "!";
 		private final ApplicationProxyFactory proxyFactory;
 		private final RequestFactory requests;
@@ -123,6 +116,7 @@ public class EntityListPlace extends Place {
 		}
 
 		public EntityListPlace getPlace(String token) {
+			logger.fine("Slicing token: " + token);
 			String tokens[] = token.split(SEPARATOR);
 			Class<? extends EntityProxy> proxyType = requests.getProxyClass(tokens[0]);
 			BaseProxy searchCriteria = null;
@@ -133,10 +127,10 @@ public class EntityListPlace extends Place {
 				maxResults = parseInt(tokens[2]);
 			}
 			if(tokens.length > 3) {
-				Class<? extends BaseProxy> searchCriteriaClass = SEARCH_CRITERIA_ENTITIES_MAP.get(proxyType);
+				Class<? extends BaseProxy> searchCriteriaClass = proxyFactory.getSearchCriteriaTypeForProxy(proxyType);
 				searchCriteria = proxyFactory.deserialize(searchCriteriaClass, tokens[3]);
 			}
-			return new EntityListPlace(proxyType, searchCriteria, firstResult, maxResults);
+			return new EntityListPlace(proxyType, firstResult, maxResults, searchCriteria);
 		}
 
 		public String getToken(EntityListPlace place) {

@@ -3,10 +3,12 @@
  */
 package org.appfuse.webapp.client.application;
 
-import static com.google.web.bindery.requestfactory.shared.impl.Constants.STABLE_ID;
+import static com.google.web.bindery.autobean.shared.AutoBeanUtils.getAutoBean;
 
+import java.util.HashMap;
 import java.util.Map;
 
+import org.appfuse.webapp.proxies.UserProxy;
 import org.appfuse.webapp.proxies.UsersSearchCriteriaProxy;
 import org.appfuse.webapp.requests.ApplicationRequestFactory;
 
@@ -15,23 +17,26 @@ import com.google.inject.Inject;
 import com.google.web.bindery.autobean.shared.AutoBean;
 import com.google.web.bindery.autobean.shared.AutoBeanCodex;
 import com.google.web.bindery.autobean.shared.AutoBeanFactory;
-import com.google.web.bindery.autobean.shared.AutoBeanUtils;
-import com.google.web.bindery.autobean.shared.AutoBeanVisitor;
-import com.google.web.bindery.autobean.shared.AutoBeanVisitor.PropertyContext;
 import com.google.web.bindery.requestfactory.shared.BaseProxy;
-import com.google.web.bindery.requestfactory.shared.DefaultProxyStore;
-import com.google.web.bindery.requestfactory.shared.ProxySerializer;
+import com.google.web.bindery.requestfactory.shared.EntityProxy;
 import com.google.web.bindery.requestfactory.shared.impl.AbstractRequestFactory;
-import com.google.web.bindery.requestfactory.shared.impl.BaseProxyCategory;
 import com.google.web.bindery.requestfactory.shared.impl.Constants;
-import com.google.web.bindery.requestfactory.shared.impl.SimpleProxyId;
 
 /**
  * @author ivangsa
  *
  */
 public class ApplicationProxyFactory {
-
+	private static final Map<Class<? extends EntityProxy>,Class<? extends BaseProxy>> 
+		SEARCH_CRITERIA_TYPES_MAP = new HashMap<Class<? extends EntityProxy>,Class<? extends BaseProxy>>();
+	
+	static {
+		// You need to map proxyClass - searchCriteria.getClass() here 
+		// for automatic serialization of the search criteria to the history token, as
+		// there is no way to re-generate a class object, that is not an EntityProxy.class, from a token string 
+		SEARCH_CRITERIA_TYPES_MAP.put(UserProxy.class, UsersSearchCriteriaProxy.class);
+	}
+	
 	public interface ProxyFactory extends AutoBeanFactory {
 		  AutoBean<UsersSearchCriteriaProxy> searchCriteria();
 		  AutoBean<UsersSearchCriteriaProxy> searchCriteria(UsersSearchCriteriaProxy toWrap);
@@ -39,7 +44,6 @@ public class ApplicationProxyFactory {
 	
 	private ProxyFactory autoBeanFactory = GWT.create(ProxyFactory.class);
 	private final ApplicationRequestFactory requests;
-	private final ProxySerializer serializer;
 	
 	/**
 	 * @param requests
@@ -48,98 +52,41 @@ public class ApplicationProxyFactory {
 	public ApplicationProxyFactory(ApplicationRequestFactory requests) {
 		super();
 		this.requests = requests;
-		this.serializer = requests.getSerializer(new DefaultProxyStore());
 	}
 
+	public Class<? extends BaseProxy> getSearchCriteriaTypeForProxy(Class<? extends EntityProxy> proxyType) {
+		return SEARCH_CRITERIA_TYPES_MAP.get(proxyType);
+	};
+	
 	/**
 	 * 
 	 * @param proxyType
 	 * @return
 	 */
 	public  <T extends BaseProxy> T create(Class<T> proxyType) {
-		AutoBean<T> autoBean = (AutoBean<T>) autoBeanFactory.searchCriteria();
+		AutoBean<T> autoBean = autoBeanFactory.create(proxyType);
 		allocateId(autoBean);
 		return autoBean.as();
 	}
 	
-	/**
-	 * 
-	 * @param proxy
-	 * @return
-	 */
-	public <T extends BaseProxy> AutoBean<T> wrap(T proxy) {
-		return autoBeanFactory.create(getProxyType(proxy), proxy);
-	}	
-	
-	/**
-	 * 
-	 * @param proxy
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
 	public <T extends BaseProxy> T clone(T proxy) {
-		
-		final AutoBean<T> toClone = AutoBeanUtils.getAutoBean(proxy);
-		final AutoBean<T> clone = autoBeanFactory.create(getProxyType(proxy)); 
-	    clone.setTag(STABLE_ID, toClone.getTag(STABLE_ID));
-	    clone.setTag(Constants.VERSION_PROPERTY_B64, toClone.getTag(Constants.VERSION_PROPERTY_B64));		
-		clone.accept(new AutoBeanVisitor() {
-			final Map<String, Object> values = AutoBeanUtils.getAllProperties(toClone);
-			@Override
-			public boolean visitValueProperty(String propertyName, Object value, PropertyContext ctx) {
-				ctx.set(values.get(propertyName));
-				return false;
-			}			
-		});
-		return clone.as();
-//		AutoBean<T> toClone = AutoBeanUtils.getAutoBean(proxy);
-//		AutoBean<T> clone = toClone.getFactory().create(toClone.getType());
-//		toClone.getFactory().create(toClone.getType());
-//	    clone.setTag(STABLE_ID, toClone.getTag(STABLE_ID));
-//	    clone.setTag(Constants.VERSION_PROPERTY_B64, toClone.getTag(Constants.VERSION_PROPERTY_B64));
-//	    if(clone.isWrapper()) {
-//	    	return clone.unwrap();
-//	    }else {
-//	    	return clone.as();
-//	    }
-		
-//		AutoBean<T> autoBean = (AutoBean<T>) 
-//					AutoBeanCodex.decode(autoBeanFactory, getProxyType(proxy), 
-//						AutoBeanCodex.encode(AutoBeanUtils.getAutoBean(proxy)));
-//		Object	id =((AbstractRequestFactory)requests).allocateId(UsersSearchCriteriaProxy.class);
-//		autoBean.setTag(Constants.STABLE_ID, id);
-//		T clonedProxy = autoBean.as();
-//		final SimpleProxyId<?> id2 = BaseProxyCategory.stableId(autoBean);
-//		final SimpleProxyId<?> id3 = BaseProxyCategory.stableId(AutoBeanUtils.getAutoBean(clonedProxy));
-//		if(id != id2) {
-//			System.out.println("id != id2");
-//		}
-//		if(id2 != id3) {
-//			System.out.println("id2 != id3");
-//		}
-//		
-//		return clonedProxy;
+		Class<T> proxyType = getAutoBean(proxy).getType();
+		return deserialize(proxyType, serialize(proxy));
 	}
 	
-	/**
-	 * 
-	 * @param proxy
-	 * @param frozen
-	 */
-	public <T extends BaseProxy> void setFrozen(T proxy, boolean frozen) {
-		wrap(proxy).setFrozen(frozen);
-	}
-	
-
 	/**
 	 * 
 	 * @param proxy
 	 * @return
 	 */
 	public <T extends BaseProxy> String serialize(T proxy) {
-		//return AutoBeanCodex.encode(AutoBeanUtils.getAutoBean(proxy)).getPayload();
-		//return this.serializer.serialize(proxy);
-		return null;
+		try {
+			String serialized = AutoBeanCodex.encode(getAutoBean(proxy)).getPayload();
+			return base64encode(serialized);
+		} catch (Exception e) {
+			e.printStackTrace();//for dev mode
+			return "";
+		}
 	}
 	
 	/**
@@ -149,11 +96,15 @@ public class ApplicationProxyFactory {
 	 * @return
 	 */
 	public <T extends BaseProxy> T deserialize(Class<T> proxyType, String key) {
-		//return AutoBeanCodex.decode(autoBeanFactory, proxyType, key).as();
-		//return this.serializer.deserialize(proxyType, key);
-		return null;
+		try {
+			T proxy = AutoBeanCodex.decode(autoBeanFactory, proxyType, base64decode(key)).as();
+			allocateId(getAutoBean(proxy));
+			return proxy;
+		} catch (Exception e) {
+			e.printStackTrace();//for dev mode
+			return null;
+		}
 	}
-
 	
 	public AutoBean<?> allocateId(AutoBean<?> autoBean) {
 		Object	id = ((AbstractRequestFactory)requests).allocateId(UsersSearchCriteriaProxy.class);
@@ -161,22 +112,224 @@ public class ApplicationProxyFactory {
 		return autoBean;
 	}
 	
-	private Class getProxyType(BaseProxy baseProxy) {
-		if(true) return UsersSearchCriteriaProxy.class;
-//		for (Class proxyType : baseProxy.getClass().getInterfaces()) {
-//			if(isBaseProxy(proxyType)) {
-//				return proxyType;
-//			}
-//		}
-		return null;
+	/**
+	 * 
+	 * @param proxy
+	 * @param frozen
+	 */
+	public <T extends BaseProxy> void setFrozen(T proxy, boolean frozen) {
+		getAutoBean(proxy).setFrozen(frozen);
 	}
+
+// these don't work on <= IE8	
+//	private static native String base64encode(String a) /*-{
+//	  return window.btoa(a);
+//	}-*/;
+//	
+//	private static native String base64decode(String b) /*-{
+//	  return window.atob(b);
+//	}-*/;
 	
-	private boolean isBaseProxy(Class<?> type) {
-		if(type.getSuperclass() == null) {
-			return type.isInterface() && type.getSuperclass().equals(BaseProxy.class); 
-		} else {
-			return isBaseProxy(type.getSuperclass());
-		}
-		
+	private static String base64encode(String a){
+	  return Base64Coder.encodeString(a);
+	};
+	
+	private static String base64decode(String b) {
+	  return Base64Coder.decodeString(b);
 	}
+
 }
+//
+//http://www.source-code.biz/base64coder/java/Base64Coder.java.txt
+//
+//Copyright 2003-2010 Christian d'Heureuse, Inventec Informatik AG, Zurich, Switzerland
+//www.source-code.biz, www.inventec.ch/chdh
+//
+//This module is multi-licensed and may be used under the terms
+//of any of the following licenses:
+//
+//EPL, Eclipse Public License, V1.0 or later, http://www.eclipse.org/legal
+//LGPL, GNU Lesser General Public License, V2.1 or later, http://www.gnu.org/licenses/lgpl.html
+//GPL, GNU General Public License, V2 or later, http://www.gnu.org/licenses/gpl.html
+//AL, Apache License, V2.0 or later, http://www.apache.org/licenses
+//BSD, BSD License, http://www.opensource.org/licenses/bsd-license.php
+//MIT, MIT License, http://www.opensource.org/licenses/MIT
+//
+//Please contact the author if you need another license.
+//This module is provided "as is", without warranties of any kind.
+
+/**
+* A Base64 encoder/decoder.
+*
+* <p>
+* This class is used to encode and decode data in Base64 format as described in RFC 1521.
+*
+* <p>
+* Project home page: <a href="http://www.source-code.biz/base64coder/java/">www.source-code.biz/base64coder/java</a><br>
+* Author: Christian d'Heureuse, Inventec Informatik AG, Zurich, Switzerland<br>
+* Multi-licensed: EPL / LGPL / GPL / AL / BSD / MIT.
+*/
+class Base64Coder {
+
+	//Mapping table from 6-bit nibbles to Base64 characters.
+	private static final char[] map1 = new char[64];
+	static {
+		int i=0;
+		for (char c='A'; c<='Z'; c++) map1[i++] = c;
+		for (char c='a'; c<='z'; c++) map1[i++] = c;
+		for (char c='0'; c<='9'; c++) map1[i++] = c;
+		map1[i++] = '+'; map1[i++] = '/'; }
+
+	//Mapping table from Base64 characters to 6-bit nibbles.
+	private static final byte[] map2 = new byte[128];
+	static {
+		for (int i=0; i<map2.length; i++) map2[i] = -1;
+		for (int i=0; i<64; i++) map2[map1[i]] = (byte)i; }
+
+	/**
+	 * Encodes a string into Base64 format.
+	 * No blanks or line breaks are inserted.
+	 * @param s  A String to be encoded.
+	 * @return   A String containing the Base64 encoded data.
+	 */
+	public static String encodeString (String s) {
+		return new String(encode(s.getBytes())); }
+
+
+	/**
+	 * Encodes a byte array into Base64 format.
+	 * No blanks or line breaks are inserted in the output.
+	 * @param in  An array containing the data bytes to be encoded.
+	 * @return    A character array containing the Base64 encoded data.
+	 */
+	public static char[] encode (byte[] in) {
+		return encode(in, 0, in.length); }
+
+	/**
+	 * Encodes a byte array into Base64 format.
+	 * No blanks or line breaks are inserted in the output.
+	 * @param in    An array containing the data bytes to be encoded.
+	 * @param iLen  Number of bytes to process in <code>in</code>.
+	 * @return      A character array containing the Base64 encoded data.
+	 */
+	public static char[] encode (byte[] in, int iLen) {
+		return encode(in, 0, iLen); }
+
+	/**
+	 * Encodes a byte array into Base64 format.
+	 * No blanks or line breaks are inserted in the output.
+	 * @param in    An array containing the data bytes to be encoded.
+	 * @param iOff  Offset of the first byte in <code>in</code> to be processed.
+	 * @param iLen  Number of bytes to process in <code>in</code>, starting at <code>iOff</code>.
+	 * @return      A character array containing the Base64 encoded data.
+	 */
+	public static char[] encode (byte[] in, int iOff, int iLen) {
+		int oDataLen = (iLen*4+2)/3;       // output length without padding
+		int oLen = ((iLen+2)/3)*4;         // output length including padding
+		char[] out = new char[oLen];
+		int ip = iOff;
+		int iEnd = iOff + iLen;
+		int op = 0;
+		while (ip < iEnd) {
+			int i0 = in[ip++] & 0xff;
+			int i1 = ip < iEnd ? in[ip++] & 0xff : 0;
+			int i2 = ip < iEnd ? in[ip++] & 0xff : 0;
+			int o0 = i0 >>> 2;
+			int o1 = ((i0 &   3) << 4) | (i1 >>> 4);
+			int o2 = ((i1 & 0xf) << 2) | (i2 >>> 6);
+			int o3 = i2 & 0x3F;
+			out[op++] = map1[o0];
+			out[op++] = map1[o1];
+			out[op] = op < oDataLen ? map1[o2] : '='; op++;
+			out[op] = op < oDataLen ? map1[o3] : '='; op++; }
+		return out; }
+
+	/**
+	 * Decodes a string from Base64 format.
+	 * No blanks or line breaks are allowed within the Base64 encoded input data.
+	 * @param s  A Base64 String to be decoded.
+	 * @return   A String containing the decoded data.
+	 * @throws   IllegalArgumentException If the input is not valid Base64 encoded data.
+	 */
+	public static String decodeString (String s) {
+		return new String(decode(s)); }
+
+	/**
+	 * Decodes a byte array from Base64 format and ignores line separators, tabs and blanks.
+	 * CR, LF, Tab and Space characters are ignored in the input data.
+	 * This method is compatible with <code>sun.misc.BASE64Decoder.decodeBuffer(String)</code>.
+	 * @param s  A Base64 String to be decoded.
+	 * @return   An array containing the decoded data bytes.
+	 * @throws   IllegalArgumentException If the input is not valid Base64 encoded data.
+	 */
+	public static byte[] decodeLines (String s) {
+		char[] buf = new char[s.length()];
+		int p = 0;
+		for (int ip = 0; ip < s.length(); ip++) {
+			char c = s.charAt(ip);
+			if (c != ' ' && c != '\r' && c != '\n' && c != '\t')
+				buf[p++] = c; }
+		return decode(buf, 0, p); }
+
+	/**
+	 * Decodes a byte array from Base64 format.
+	 * No blanks or line breaks are allowed within the Base64 encoded input data.
+	 * @param s  A Base64 String to be decoded.
+	 * @return   An array containing the decoded data bytes.
+	 * @throws   IllegalArgumentException If the input is not valid Base64 encoded data.
+	 */
+	public static byte[] decode (String s) {
+		return decode(s.toCharArray()); }
+
+	/**
+	 * Decodes a byte array from Base64 format.
+	 * No blanks or line breaks are allowed within the Base64 encoded input data.
+	 * @param in  A character array containing the Base64 encoded data.
+	 * @return    An array containing the decoded data bytes.
+	 * @throws    IllegalArgumentException If the input is not valid Base64 encoded data.
+	 */
+	public static byte[] decode (char[] in) {
+		return decode(in, 0, in.length); }
+
+	/**
+	 * Decodes a byte array from Base64 format.
+	 * No blanks or line breaks are allowed within the Base64 encoded input data.
+	 * @param in    A character array containing the Base64 encoded data.
+	 * @param iOff  Offset of the first character in <code>in</code> to be processed.
+	 * @param iLen  Number of characters to process in <code>in</code>, starting at <code>iOff</code>.
+	 * @return      An array containing the decoded data bytes.
+	 * @throws      IllegalArgumentException If the input is not valid Base64 encoded data.
+	 */
+	public static byte[] decode (char[] in, int iOff, int iLen) {
+		if (iLen%4 != 0) throw new IllegalArgumentException ("Length of Base64 encoded input string is not a multiple of 4.");
+		while (iLen > 0 && in[iOff+iLen-1] == '=') iLen--;
+		int oLen = (iLen*3) / 4;
+		byte[] out = new byte[oLen];
+		int ip = iOff;
+		int iEnd = iOff + iLen;
+		int op = 0;
+		while (ip < iEnd) {
+			int i0 = in[ip++];
+			int i1 = in[ip++];
+			int i2 = ip < iEnd ? in[ip++] : 'A';
+			int i3 = ip < iEnd ? in[ip++] : 'A';
+			if (i0 > 127 || i1 > 127 || i2 > 127 || i3 > 127)
+				throw new IllegalArgumentException ("Illegal character in Base64 encoded data.");
+			int b0 = map2[i0];
+			int b1 = map2[i1];
+			int b2 = map2[i2];
+			int b3 = map2[i3];
+			if (b0 < 0 || b1 < 0 || b2 < 0 || b3 < 0)
+				throw new IllegalArgumentException ("Illegal character in Base64 encoded data.");
+			int o0 = ( b0       <<2) | (b1>>>4);
+			int o1 = ((b1 & 0xf)<<4) | (b2>>>2);
+			int o2 = ((b2 &   3)<<6) |  b3;
+			out[op++] = (byte)o0;
+			if (op<oLen) out[op++] = (byte)o1;
+			if (op<oLen) out[op++] = (byte)o2; }
+		return out; }
+
+	//Dummy constructor.
+	private Base64Coder() {}
+
+} // end class Base64Coder

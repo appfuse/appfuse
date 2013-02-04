@@ -1,5 +1,8 @@
 package org.appfuse.webapp.client.application.base.view;
 
+import org.appfuse.webapp.proxies.UsersSearchCriteriaProxy;
+
+import com.google.gwt.editor.client.EditorDriver;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.view.client.HasData;
 import com.google.web.bindery.requestfactory.shared.BaseProxy;
@@ -37,8 +40,8 @@ public interface ProxySearchView<P extends EntityProxy, S extends BaseProxy> ext
 	 */
 	void setDelegate(Delegate<P> delegate);
 	
-	S getSearchCriteria();
 	void setSearchCriteria(S searchCriteria);
+	EditorDriver<S> getEditorDriver();
 	
 	/**
 	 * 
