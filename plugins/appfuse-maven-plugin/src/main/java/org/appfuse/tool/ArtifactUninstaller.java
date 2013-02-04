@@ -210,6 +210,9 @@ public class ArtifactUninstaller {
 
             existingFile = new File(installedDirectory + "/src/main/webapp/WEB-INF/menu-config.xml");
             parseXMLFile(existingFile, pojoName);
+
+            existingFile = new File(installedDirectory + "/src/main/webapp/common/menu.jsp");
+            parseXMLFile(existingFile, pojoName);
         } else if (isAppFuse()) { // Tapestry
             existingFile = new File(installedDirectory + "/src/main/resources/" +
                     project.getGroupId().replace(".", "/") + "/webapp/components/Layout.tml");
