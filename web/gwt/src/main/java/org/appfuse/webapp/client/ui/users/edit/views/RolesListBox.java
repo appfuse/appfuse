@@ -11,6 +11,7 @@ import java.util.Set;
 import org.appfuse.webapp.proxies.RoleProxy;
 
 import com.google.gwt.cell.client.AbstractCell;
+import com.google.gwt.cell.client.AbstractEditableCell;
 import com.google.gwt.cell.client.Cell;
 import com.google.gwt.cell.client.CheckboxCell;
 import com.google.gwt.cell.client.CompositeCell;
@@ -23,6 +24,7 @@ import com.google.gwt.editor.client.LeafValueEditor;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.cellview.client.CellList;
+import com.google.gwt.user.client.ui.CheckBox;
 
 
 
@@ -60,6 +62,10 @@ public class RolesListBox extends CellList<RoleProxy> implements Editor<Set<Role
 	public Set<RoleProxy> getValue() {
 		return roleCheckboxCell.getRolesSet();
 	}
+	
+	public void setReadonly(boolean readonly) {
+		roleCheckboxCell.setReadonly(readonly);
+	}
 }
 class RoleCell extends CompositeCell<RoleProxy> {
 
@@ -91,27 +97,50 @@ class RoleCell extends CompositeCell<RoleProxy> {
 
 class RoleCheckboxCell implements HasCell<RoleProxy, Boolean> {
 
+	private boolean readonly = false;
 	private final Set<RoleProxy> rolesSet = new HashSet<RoleProxy>();
-	private final CheckboxCell cell = new CheckboxCell(true, false);
-
+	private final CheckboxCell cell = new CheckboxCell(true, true);
+	private final AbstractCell<Boolean> readonlyCell = new AbstractCell<Boolean>() {
+		@Override
+		public void render(com.google.gwt.cell.client.Cell.Context context, Boolean value, SafeHtmlBuilder sb) {
+			CheckBox checkBox = new CheckBox();
+			checkBox.setValue(value);
+			checkBox.setEnabled(false);
+			sb.append(SafeHtmlUtils.fromTrustedString(checkBox.toString()));
+			
+		}
+	};
+	
 	public Cell<Boolean> getCell() {
-		return cell;
+		if(readonly) {
+			return readonlyCell;
+		} else {
+			return cell;
+		}
 	}
 
 	public FieldUpdater<RoleProxy, Boolean> getFieldUpdater() {
-		return new FieldUpdater<RoleProxy, Boolean>() {
-
-			@Override
-			public void update(int index, RoleProxy role, Boolean checked) {
-				if(checked) {
-					rolesSet.add(role);
-				} else {
-					remove(role);
+		if(readonly) {
+			return null;
+		} else {
+			return new FieldUpdater<RoleProxy, Boolean>() {
+	
+				@Override
+				public void update(int index, RoleProxy role, Boolean checked) {
+					if(checked) {
+						rolesSet.add(role);
+					} else {
+						remove(role);
+					}
 				}
-			}
-		};
+			};
+		}
 	}
 
+	public void setReadonly(boolean readonly) {
+		this.readonly = readonly;
+	}
+	
 	public Boolean getValue(RoleProxy role) {
 		return contains(role);
 	}

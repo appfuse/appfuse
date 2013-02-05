@@ -59,34 +59,34 @@
 		
 			<b:ControlGroup ui:field="addressFieldset">
 				<legend class="accordion-heading">
-				    <a href="#collapse-address" data-toggle="collapse">Address</a>
+				    <a href="#collapse-address" data-toggle="collapse"><ui:text from="{i18n.user_address_address}" /></a>
 				</legend>
 				<div class="accordion-body collapse" id="collapse-address">
 				    <b:ControlGroup>
-				        <b:ControlLabel for="address">Address</b:ControlLabel>
+				        <b:ControlLabel for="address"><ui:text from="{i18n.user_address_address}" /></b:ControlLabel>
 			            <b:Controls><b:TextBox ui:field="address" /></b:Controls>
 				    </b:ControlGroup>
 				    <b:ControlGroup>
-				        <b:ControlLabel for="city">City</b:ControlLabel>
+				        <b:ControlLabel for="city"><ui:text from="{i18n.user_address_city}" /></b:ControlLabel>
 			            <b:Controls><b:TextBox ui:field="city" /></b:Controls>
 				    </b:ControlGroup>
 				    <b:ControlGroup>
-				        <b:ControlLabel for="province">State</b:ControlLabel>
+				        <b:ControlLabel for="province"><ui:text from="{i18n.user_address_province}" /></b:ControlLabel>
 			            <b:Controls><b:TextBox ui:field="province" /></b:Controls>
 				    </b:ControlGroup>
 				    <b:ControlGroup>
-				        <b:ControlLabel for="postalCode">Zip</b:ControlLabel>
+				        <b:ControlLabel for="postalCode"><ui:text from="{i18n.user_address_postalCode}" /></b:ControlLabel>
 			            <b:Controls><b:TextBox ui:field="postalCode" /></b:Controls>
 				    </b:ControlGroup>
 				    <b:ControlGroup>
-				        <b:ControlLabel for="country">Country</b:ControlLabel>
+				        <b:ControlLabel for="country"><ui:text from="{i18n.user_address_country}" /></b:ControlLabel>
 			            <b:Controls><b:ListBox  ui:field="country" /></b:Controls>
 				    </b:ControlGroup>
 				</div>
 			</b:ControlGroup>
 		
 			<b:ControlGroup ui:field="accountSettings">
-			    <b:ControlLabel>Account Settings</b:ControlLabel>
+			    <b:ControlLabel><ui:text from="{i18n.userProfile_assignRoles}" /></b:ControlLabel>
 			    <b:Controls>
 					<b:CheckBox ui:field="enabled" inline="true" /><ui:text from="{i18n.user_enabled}" />
 					<b:CheckBox ui:field="accountExpired" inline="true" /><ui:text from="{i18n.user_accountExpired}" />
@@ -96,7 +96,7 @@
 			</b:ControlGroup>
 			
 			<b:ControlGroup>
-			    <b:ControlLabel for="userRoles">Assign Roles</b:ControlLabel>
+			    <b:ControlLabel for="userRoles"><ui:text from="{i18n.userProfile_accountSettings}" /></b:ControlLabel>
 			    <b:Controls>
 			    	<c:CellList ui:field="roles"/>
 			    </b:Controls>
@@ -104,7 +104,7 @@
 		
 			<b:FormActions>
 				<b:Button ui:field="saveButton" styleName="btn btn-primary" customIconStyle="icon-ok icon-white" text="{i18n.button_save}" />
-				<b:Button ui:field="deleteButton" styleName="btn" customIconStyle="icon-remove" text="{i18n.button_delete}" />
+				<b:Button ui:field="deleteButton" styleName="btn" customIconStyle="icon-trash" text="{i18n.button_delete}" />
 				<b:Button ui:field="cancelButton" styleName="btn" customIconStyle="icon-remove" text="{i18n.button_cancel}" />
 			</b:FormActions>
 		

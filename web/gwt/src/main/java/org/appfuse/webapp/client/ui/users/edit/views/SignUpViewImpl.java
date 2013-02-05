@@ -14,7 +14,9 @@ public class SignUpViewImpl extends EditUserViewImpl {
 	 */
 	public SignUpViewImpl() {
 		super();
-		// TODO Auto-generated constructor stub
+		accountSettings.removeFromParent();
+		roles.removeFromParent();
+		deleteButton.removeFromParent();
 	}
 
 

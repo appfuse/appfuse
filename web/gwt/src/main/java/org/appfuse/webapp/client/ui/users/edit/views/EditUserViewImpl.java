@@ -16,17 +16,13 @@ import com.github.gwtbootstrap.client.ui.ListBox;
 import com.github.gwtbootstrap.client.ui.LongBox;
 import com.github.gwtbootstrap.client.ui.PasswordTextBox;
 import com.github.gwtbootstrap.client.ui.TextBox;
-import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.editor.client.EditorError;
-import com.google.gwt.editor.ui.client.ValueBoxEditorDecorator;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
-import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.UIObject;
@@ -74,7 +70,7 @@ public class EditUserViewImpl extends Composite implements EditUserView {
     RolesListBox roles = new RolesListBox();
 
     
-    @UiField UIObject accountSettings;
+    @UiField Widget accountSettings;
     @UiField CheckBox enabled;
     @UiField CheckBox accountExpired;
     @UiField CheckBox accountLocked;
