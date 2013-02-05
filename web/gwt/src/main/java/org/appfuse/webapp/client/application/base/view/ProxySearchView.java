@@ -1,10 +1,8 @@
 package org.appfuse.webapp.client.application.base.view;
 
-import org.appfuse.webapp.proxies.UsersSearchCriteriaProxy;
-
 import com.google.gwt.editor.client.EditorDriver;
+import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.client.ui.IsWidget;
-import com.google.gwt.view.client.HasData;
 import com.google.web.bindery.requestfactory.shared.BaseProxy;
 import com.google.web.bindery.requestfactory.shared.EntityProxy;
 
@@ -47,7 +45,7 @@ public interface ProxySearchView<P extends EntityProxy, S extends BaseProxy> ext
 	 * 
 	 * @return
 	 */
-	HasData<P> asHasData();
+	CellTable<P> getCellTable();
 
 	/**
 	 * @return the set of properties this view displays

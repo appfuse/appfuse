@@ -25,7 +25,8 @@
       <b:Button ui:field="doneButton" text="{i18n.button_done}" styleName="primary" />
 	</b:FormActions>     
 
-	<c:SimplePager display="{table}" location="RIGHT" />
+	<c:SimplePager display="{table}" location="LEFT" />
     <c:CellTable pageSize="{pageSize}" ui:field="table" width="100%"/>
+	<c:SimplePager display="{table}" location="LEFT" />
 </b:Column>
 </ui:UiBinder>
