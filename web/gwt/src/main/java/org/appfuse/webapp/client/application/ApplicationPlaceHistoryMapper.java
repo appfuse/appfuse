@@ -4,6 +4,7 @@ import org.appfuse.webapp.client.ui.login.LoginPlace;
 import org.appfuse.webapp.client.ui.logout.LogoutPlace;
 import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
 import org.appfuse.webapp.client.ui.upload.FileUploadPlace;
+import org.appfuse.webapp.client.ui.users.active.ActiveUsersPlace;
 import org.appfuse.webapp.client.ui.users.edit.places.EditProfilePlace;
 import org.appfuse.webapp.client.ui.users.edit.places.SignUpPlace;
 
@@ -16,6 +17,7 @@ import com.google.gwt.place.shared.WithTokenizers;
 	LogoutPlace.Tokenizer.class,
 	EditProfilePlace.Tokenizer.class,
 	SignUpPlace.Tokenizer.class,
+	ActiveUsersPlace.Tokenizer.class,
 	FileUploadPlace.Tokenizer.class
 	})
 public interface ApplicationPlaceHistoryMapper extends PlaceHistoryMapperWithFactory<ApplicationPlaceHistoryFactory> {}

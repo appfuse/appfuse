@@ -1,5 +1,6 @@
 package org.appfuse.webapp.server.requests;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -13,7 +14,6 @@ import org.appfuse.model.User;
 import org.appfuse.service.RoleManager;
 import org.appfuse.service.UserExistsException;
 import org.appfuse.service.UserManager;
-import org.appfuse.webapp.client.ui.login.LoginActivity;
 import org.appfuse.webapp.listener.UserCounterListener;
 import org.appfuse.webapp.util.RequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 @Controller
@@ -243,8 +242,8 @@ public class UserRequestService extends AbstractBaseRequest<User, Long> {
      * 
      * @return
      */
-    public Set<User> getActiveUsers(){
-    	return (Set<User>) getServletContext().getAttribute(UserCounterListener.USERS_KEY);    	
+    public List<User> getActiveUsers(){
+    	return new ArrayList((Set) getServletContext().getAttribute(UserCounterListener.USERS_KEY));    	
     }
     
     

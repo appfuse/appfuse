@@ -37,7 +37,7 @@ public interface UserRequest extends RequestContext {
     
     abstract Request<String> sendPasswordHint(String username);
     
-    abstract Request<Set<UserProxy>> getActiveUsers();
+    abstract Request<List<UserProxy>> getActiveUsers();
     
     abstract Request<Boolean> logout();
 

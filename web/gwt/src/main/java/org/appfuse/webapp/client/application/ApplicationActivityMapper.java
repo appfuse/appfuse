@@ -14,6 +14,8 @@ import org.appfuse.webapp.client.ui.mainMenu.MainMenuActivity;
 import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
 import org.appfuse.webapp.client.ui.upload.FileUploadActivity;
 import org.appfuse.webapp.client.ui.upload.FileUploadPlace;
+import org.appfuse.webapp.client.ui.users.active.ActiveUsersActivity;
+import org.appfuse.webapp.client.ui.users.active.ActiveUsersPlace;
 import org.appfuse.webapp.client.ui.users.edit.EditUserActivity;
 import org.appfuse.webapp.client.ui.users.edit.places.EditProfilePlace;
 import org.appfuse.webapp.client.ui.users.edit.places.SignUpPlace;
@@ -65,6 +67,9 @@ public class ApplicationActivityMapper implements ActivityMapper {
 		else if(place instanceof EditProfilePlace) {
 			activity = new EditUserActivity(application);
 		}
+		else if(place instanceof ActiveUsersPlace) {
+			activity = new ActiveUsersActivity(application);
+		}		
 		else if(place instanceof FileUploadPlace) {
 			activity = new FileUploadActivity(application);
 		}

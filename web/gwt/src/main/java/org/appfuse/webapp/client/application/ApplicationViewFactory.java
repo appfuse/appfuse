@@ -15,6 +15,8 @@ import org.appfuse.webapp.client.ui.upload.views.FileUploadView;
 import org.appfuse.webapp.client.ui.upload.views.FileUploadViewImpl;
 import org.appfuse.webapp.client.ui.upload.views.UploadedFileView;
 import org.appfuse.webapp.client.ui.upload.views.UploadedFileViewImpl;
+import org.appfuse.webapp.client.ui.users.active.ActiveUsersView;
+import org.appfuse.webapp.client.ui.users.active.ActiveUsersViewImpl;
 import org.appfuse.webapp.client.ui.users.edit.views.EditProfileViewImpl;
 import org.appfuse.webapp.client.ui.users.edit.views.EditUserView;
 import org.appfuse.webapp.client.ui.users.edit.views.EditUserViewImpl;
@@ -66,10 +68,14 @@ public class ApplicationViewFactory {
 		else if(EditProfileViewImpl.class.equals(viewClass)) {
 			view = GWT.create(EditProfileViewImpl.class);
 			reusableViews.put(viewClass, view);
-		} 
+		}
+		else if(ActiveUsersView.class.equals(viewClass)) {
+			view = GWT.create(ActiveUsersViewImpl.class);
+			reusableViews.put(viewClass, view);
+		} 		
 		else if(FileUploadView.class.equals(viewClass)) {
 			view = GWT.create(FileUploadViewImpl.class);
-			//reusableViews.put(viewClass, view); no way to clear FileUpload
+			//reusableViews.put(viewClass, view); //no way to clear FileUpload
 		}		
 		else if(UploadedFileView.class.equals(viewClass)) {
 			view = GWT.create(UploadedFileViewImpl.class);

@@ -27,7 +27,6 @@ import com.google.web.bindery.requestfactory.shared.RequestContext;
  */
 public class UsersSearchActivity extends AbstractProxySearchActivity<UserProxy, UsersSearchCriteriaProxy> {
 
-	private RequestFactoryEditorDriver<UsersSearchCriteriaProxy,?> editorDriver;
 	private Handler clientSideSortHandler;
 	
 	public UsersSearchActivity(EntityListPlace currentPlace, Application application) {

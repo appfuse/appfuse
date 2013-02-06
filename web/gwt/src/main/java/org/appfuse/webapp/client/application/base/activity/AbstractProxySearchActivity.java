@@ -57,7 +57,6 @@ public abstract class AbstractProxySearchActivity<P extends EntityProxy, S exten
 	protected final EntityListPlace currentPlace;
 	protected ProxySearchView<P, S> view;
 	
-	private SingleSelectionModel<P> selectionModel;
 	private HandlerRegistration rangeChangeHandler;
 	private S searchCriteria;
 
