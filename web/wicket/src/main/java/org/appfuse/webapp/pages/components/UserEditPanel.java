@@ -56,7 +56,7 @@ public abstract class UserEditPanel extends Panel {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        
+
         add(new Label("usernameLabel", new ResourceModel("user.username")));
         add(new RequiredTextField<String>("username").add(new AutofocusBehavior()).add(new RequiredBehavior()));
 
@@ -92,9 +92,11 @@ public abstract class UserEditPanel extends Panel {
     private WebMarkupContainer createPasswordGroup() {
         final WebMarkupContainer passwordGroup = new WebMarkupContainer("passwordGroup");
         passwordGroup.add(new Label("passwordLabel", getString("user.password")));
-        passwordGroup.add(new PasswordTextField("password").add(new RequiredBehavior()));
+        //TODO: setResetPassword() disabled temporarily to allow user edition without entering password each time
+        // See APF-1370
+        passwordGroup.add(new PasswordTextField("password").setResetPassword(false).add(new RequiredBehavior()));
         passwordGroup.add(new Label("confirmPasswordLabel", getString("user.confirmPassword")));
-        passwordGroup.add(new PasswordTextField("confirmPassword").add(new RequiredBehavior()));
+        passwordGroup.add(new PasswordTextField("confirmPassword").setResetPassword(false).add(new RequiredBehavior()));
         return passwordGroup;
     }
 

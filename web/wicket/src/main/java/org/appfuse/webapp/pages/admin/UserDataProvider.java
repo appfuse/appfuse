@@ -70,7 +70,11 @@ public class UserDataProvider extends SortableDataProvider<User, String> {
         return new LoadableDetachableModel<User>(user) {
             @Override
             protected User load() {
-                return userManager.getUser(user.getId().toString());
+                User loadedUser = userManager.getUser(user.getId().toString());
+                //TODO: An ugly hack required to not force user to enter his password on each edition.
+                // Will be fixed in APF-1370
+                loadedUser.setConfirmPassword(loadedUser.getPassword());
+                return loadedUser;
             }
         };
     }

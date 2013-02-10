@@ -95,6 +95,7 @@ import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
  *  - change button name on Signup page: Save -> Signup
  *  - change page title on Signup page: User Settings -> Signup - DONE
  *  - fix acceptance test: signup - doesn't move to a login page and others - currently disabled in Maven
+ *  - resolve problem with sending password hash to an user on edit - APF-1370
  *
  * @author Marcin Zajączkowski, 2010-09-02
  */
