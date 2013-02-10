@@ -70,8 +70,8 @@ public class ApplicationProxyFactory {
 	}
 	
 	public <T extends BaseProxy> T clone(T proxy) {
-		Class<T> proxyType = getAutoBean(proxy).getType();
-		return deserialize(proxyType, serialize(proxy));
+		Class proxyType = getAutoBean(proxy).getType();
+		return (T) deserialize(proxyType, serialize(proxy));
 	}
 	
 	/**

@@ -187,6 +187,10 @@
 							<token>'</token>
 							<value>''</value>
 						</replacement>
+						<replacement>
+							<token>javax.faces</token>
+							<value>#javax.faces</value>
+						</replacement>						
 					</replacements>
 				</configuration>
 			</plugin>

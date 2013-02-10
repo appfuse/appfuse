@@ -241,11 +241,11 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
   String company_url();
 
   /**
-   * Translated "2003-2012".
+   * Translated "2003-2013".
    * 
-   * @return translated "2003-2012"
+   * @return translated "2003-2013"
    */
-  @DefaultMessage("2003-2012")
+  @DefaultMessage("2003-2013")
   @Key("copyright.year")
   String copyright_year();
 
@@ -592,15 +592,6 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
   String icon_warning_img();
 
   /**
-   * Translated "This is a required field.".
-   * 
-   * @return translated "This is a required field."
-   */
-  @DefaultMessage("This is a required field.")
-  @Key("javax.faces.component.UIInput.REQUIRED")
-  String javax_faces_component_UIInput_REQUIRED();
-
-  /**
    * Translated "Password".
    * 
    * @return translated "Password"
@@ -628,11 +619,11 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
   String login_heading();
 
   /**
-   * Translated "Forgot your password?  Have your <a href=\"?\" onmouseover=\"window.status=''Have your password hint sent to you.''; return true\" onmouseout=\"window.status=''''; return true\" title=\"Have your password hint sent to you.\" onclick=\"passwordHint(); return false\" id=\"passwordHint\">password hint e-mailed to you</a>.".
+   * Translated "Forgot your password?  Have your <a href=\"?\" onmouseover=\"window.status='Have your password hint sent to you.'; return true\" onmouseout=\"window.status=''; return true\" title=\"Have your password hint sent to you.\" onclick=\"passwordHint(); return false\" id=\"passwordHint\">password hint e-mailed to you</a>.".
    * 
-   * @return translated "Forgot your password?  Have your <a href=\"?\" onmouseover=\"window.status=''Have your password hint sent to you.''; return true\" onmouseout=\"window.status=''''; return true\" title=\"Have your password hint sent to you.\" onclick=\"passwordHint(); return false\" id=\"passwordHint\">password hint e-mailed to you</a>."
+   * @return translated "Forgot your password?  Have your <a href=\"?\" onmouseover=\"window.status='Have your password hint sent to you.'; return true\" onmouseout=\"window.status=''; return true\" title=\"Have your password hint sent to you.\" onclick=\"passwordHint(); return false\" id=\"passwordHint\">password hint e-mailed to you</a>."
    */
-  @DefaultMessage("Forgot your password?  Have your <a href=\"?\" onmouseover=\"window.status=''Have your password hint sent to you.''; return true\" onmouseout=\"window.status=''''; return true\" title=\"Have your password hint sent to you.\" onclick=\"passwordHint(); return false\" id=\"passwordHint\">password hint e-mailed to you</a>.")
+  @DefaultMessage("Forgot your password?  Have your <a href=\"?\" onmouseover=\"window.status='Have your password hint sent to you.'; return true\" onmouseout=\"window.status=''; return true\" title=\"Have your password hint sent to you.\" onclick=\"passwordHint(); return false\" id=\"passwordHint\">password hint e-mailed to you</a>.")
   @Key("login.passwordHint")
   String login_passwordHint();
 
