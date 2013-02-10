@@ -82,8 +82,8 @@
                 <configuration>
                     <!-- This piece of configuration is a workaround for this bug:
                          http://jira.codehaus.org/browse/SUREFIRE-519 -->
-                     <junitArtifactName>junit:junit-dep</junitArtifactName>
-                     <parallel>true</parallel>
+                    <junitArtifactName>junit:junit-dep</junitArtifactName>
+                    <parallel>true</parallel>
                 </configuration>
             </plugin>
         </plugins>
@@ -116,11 +116,9 @@
             <artifactId>mail</artifactId>
             <version>${javamail.version}</version>
         </dependency>
-       <dependency>
+        <dependency>
             <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <version>${mockito.version}</version>
-            <optional>true</optional>
+            <artifactId>mockito-core</artifactId>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

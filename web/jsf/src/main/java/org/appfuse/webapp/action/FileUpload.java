@@ -1,15 +1,10 @@
 package org.appfuse.webapp.action;
 
-import org.apache.myfaces.custom.fileupload.UploadedFile;
 import org.appfuse.Constants;
+import org.primefaces.model.UploadedFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.Serializable;
+import java.io.*;
 
 public class FileUpload extends BasePage implements Serializable {
     private static final long serialVersionUID = 6932775516007291334L;
@@ -33,12 +28,16 @@ public class FileUpload extends BasePage implements Serializable {
     }
 
     public String upload() throws IOException {
-
         HttpServletRequest request = getRequest();
 
         // write the file to the filesystem
         // the directory to upload to
-        String uploadDir = getServletContext().getRealPath("/resources") + "/" + request.getRemoteUser() + "/";
+        String uploadDir = getFacesContext().getExternalContext().getRealPath("/resources");
+        // The following seems to happen when running jetty:run
+        if (uploadDir == null) {
+            uploadDir = new File("src/main/webapp/resources").getAbsolutePath();
+        }
+        uploadDir += "/" + request.getRemoteUser() + "/";
 
         // Create the directory if it doesn't exist
         File dirPath = new File(uploadDir);
@@ -48,16 +47,16 @@ public class FileUpload extends BasePage implements Serializable {
         }
 
         //retrieve the file data
-        InputStream stream = file.getInputStream();
-        String filename = file.getName();
+        InputStream stream = file.getInputstream();
+        String filename = file.getFileName();
 
         // APF-946: Canoo Web Tests R_1702 sets full path as name instead of only file name
-        if (filename.indexOf("/") > -1) {
+        if (filename.contains("/")) {
             filename = filename.substring(filename.lastIndexOf("/") + 1);
         }
 
         // APF-758: Fix for Internet Explorer's shortcomings
-        if (filename.indexOf("\\") != -1) {
+        if (filename.contains("\\")) {
             int slash = filename.lastIndexOf("\\");
             if (slash != -1) {
                 filename = filename.substring(slash + 1);
@@ -97,7 +96,7 @@ public class FileUpload extends BasePage implements Serializable {
 
         String link = request.getContextPath() + "/resources" + "/" + request.getRemoteUser() + "/";
         request.setAttribute("link", link + filename);
-        
+
         return "success";
     }
 }

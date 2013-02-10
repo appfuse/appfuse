@@ -61,7 +61,7 @@
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>8.1.3.v20120416</version>
+                <version>8.1.8.v20121106</version>
                 <configuration>
                     <webApp>
                         <contextPath>/</contextPath>
@@ -215,7 +215,7 @@
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
+            <artifactId>javax.servlet-api</artifactId>
             <version>${servlet.version}</version>
             <scope>provided</scope>
         </dependency>

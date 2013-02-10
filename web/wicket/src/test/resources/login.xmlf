@@ -1,0 +1,7 @@
+<invoke description="get Login Page" url="/"/>
+<verifytitle description="we should see the login title" text=".*${login.title}.*" regex="true"/>
+<!-- Is it possible to prevent Wicket from changing a field name? j_username -> border:border_body:username -->
+<setinputfield description="set user name" name="border:border_body:username" value="admin"/>
+<setinputfield description="set password" name="password" value="admin"/>
+<clickbutton label="${button.login}" description="Click the submit button"/>
+<verifytitle description="Home Page follows if login ok" text=".*${mainMenu.title}.*" regex="true"/>

@@ -1,13 +1,13 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core" 
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jsp/jstl/core" 
       xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" 
-      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk">
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 
 <f:view>
 <f:loadBundle var="text" basename="#{signupForm.bundleName}"/>
-<head>
+<h:head>
     <title>#{text['signup.title']}</title>
     <meta name="heading" content="#{text['signup.heading']}"/>
-</head>
+</h:head>
 <body id="signup">
 
 <div class="span2">
@@ -22,7 +22,7 @@
         <h:outputLabel styleClass="control-label" for="username" value="#{text['user.username']}"/>
         <div class="controls">
             <h:inputText value="#{signupForm.user.username}" id="username" required="true"/>
-            <t:message for="username" styleClass="help-inline"/>
+            <p:message for="username" />
         </div>
     </div>
 
@@ -31,7 +31,7 @@
         <div class="controls">
             <h:inputSecret value="#{signupForm.user.password}" id="password"
                 redisplay="true" required="true"/>
-            <t:message for="password" styleClass="help-inline"/>
+            <p:message for="password" />
         </div>
     </div>
     <div class="control-group">
@@ -39,9 +39,9 @@
         <div class="controls">
             <h:inputSecret value="#{signupForm.user.confirmPassword}" id="confirmPassword"
                 redisplay="true" required="true">
-                <t:validateEqual for="password"/>
+                <!--p:validateEqual for="password"/-->
             </h:inputSecret>
-            <t:message for="confirmPassword" styleClass="help-inline"/>
+            <p:message for="confirmPassword" />
         </div>
     </div>
 
@@ -49,7 +49,7 @@
         <h:outputLabel styleClass="control-label" for="passwordHint" value="#{text['user.passwordHint']}"/>
         <div class="controls">
             <h:inputText value="#{signupForm.user.passwordHint}" id="passwordHint" required="true"/>
-            <t:message for="passwordHint" styleClass="help-inline"/>
+            <p:message for="passwordHint" />
         </div>
     </div>
 
@@ -57,7 +57,7 @@
         <h:outputLabel styleClass="control-label" for="firstName" value="#{text['user.firstName']}"/>
         <div class="controls">
             <h:inputText id="firstName" value="#{signupForm.user.firstName}" maxlength="50" required="true"/>
-            <t:message for="firstName" styleClass="help-inline"/>
+            <p:message for="firstName" />
         </div>
     </div>
 
@@ -65,7 +65,7 @@
         <h:outputLabel styleClass="control-label" for="lastName" value="#{text['user.lastName']}"/>
         <div class="controls">
             <h:inputText value="#{signupForm.user.lastName}" id="lastName" maxlength="50" required="true"/>
-            <t:message for="lastName" styleClass="help-inline"/>
+            <p:message for="lastName" />
         </div>
     </div>
 
@@ -73,7 +73,7 @@
         <h:outputLabel styleClass="control-label" for="email" value="#{text['user.email']}"/>
         <div class="controls">
             <h:inputText value="#{signupForm.user.email}" id="email" required="true"/>
-            <t:message for="email" styleClass="help-inline"/>
+            <p:message for="email" />
         </div>
     </div>
 
@@ -81,9 +81,9 @@
         <h:outputLabel styleClass="control-label" for="phoneNumber" value="#{text['user.phoneNumber']}"/>
         <div class="controls">
             <h:inputText value="#{signupForm.user.phoneNumber}" id="phoneNumber" styleClass="text medium">
-                <t:validateRegExpr pattern="^\(?(\d{3})\)?[-| ]?(\d{3})[-| ]?(\d{4})$"/>
+                <f:validateRegex pattern="^\(?(\d{3})\)?[-| ]?(\d{3})[-| ]?(\d{4})$"/>
             </h:inputText>
-            <t:message for="phoneNumber" styleClass="help-inline"/>
+            <p:message for="phoneNumber" />
         </div>
     </div>
 
@@ -91,7 +91,7 @@
         <h:outputLabel styleClass="control-label" for="website" value="#{text['user.website']}"/>
         <div class="controls">
             <h:inputText value="#{signupForm.user.website}" id="website" required="true"/>
-            <t:message for="website" styleClass="help-inline"/>
+            <p:message for="website" />
         </div>
     </div>
 
@@ -104,30 +104,30 @@
                 <h:outputLabel styleClass="control-label" for="address" value="#{text['user.address.address']}"/>
                 <div class="controls">
                     <h:inputText value="#{signupForm.user.address.address}" id="address"/>
-                    <t:message for="address" styleClass="help-inline"/>
+                    <p:message for="address" />
                 </div>
             </div>
             <div class="control-group">
                 <h:outputLabel styleClass="control-label" for="city" value="#{text['user.address.city']}"/>
                 <div class="controls">
                     <h:inputText value="#{signupForm.user.address.city}" id="city"/>
-                    <t:message for="city" styleClass="help-inline"/>
+                    <p:message for="city" />
                 </div>
             </div>
             <div class="control-group">
                 <h:outputLabel styleClass="control-label" for="province" value="#{text['user.address.province']}"/>
                 <div class="controls">
                     <h:inputText value="#{signupForm.user.address.province}" id="province"/>
-                    <t:message for="province" styleClass="help-inline"/>
+                    <p:message for="province" />
                 </div>
             </div>
             <div class="control-group">
                 <h:outputLabel styleClass="control-label" for="postalCode" value="#{text['user.address.postalCode']}"/>
                 <div class="controls">
                     <h:inputText value="#{signupForm.user.address.postalCode}" id="postalCode">
-                        <t:validateRegExpr pattern="^\d{5}\d*$"/>
+                        <f:validateRegex pattern="^\d{5}\d*$"/>
                     </h:inputText>
-                    <t:message for="postalCode" styleClass="help-inline"/>
+                    <p:message for="postalCode" />
                 </div>
 
             </div>
@@ -137,7 +137,7 @@
                     <h:selectOneMenu value="#{signupForm.country}" id="country">
                         <f:selectItems value="#{signupForm.countries}"/>
                     </h:selectOneMenu>
-                    <t:message for="country" styleClass="help-inline"/>
+                    <p:message for="country" />
                 </div>
             </div>
         </div>

@@ -1,15 +1,14 @@
 <#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core"
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk">
+      xmlns:p="http://primefaces.org/ui">
 
 <f:view>
 <f:loadBundle var="text" basename="${'#'}{${pojoNameLower}Form.bundleName}"/>
-    <head>
-        <title>${'#'}{text['${pojoNameLower}Detail.title']}</title>
-        <meta name="heading" content="${'#'}{text['${pojoNameLower}Detail.heading']}"/>
-    </head>
-<body id="${pojoNameLower}Form">
+<h:head>
+    <title>${'#'}{text['${pojoNameLower}Detail.title']}</title>
+    <meta name="heading" content="${'#'}{text['${pojoNameLower}Detail.heading']}"/>
+</h:head>
 
 <c:set var="delObject" value="${'#'}{text['${pojoNameLower}List.${pojoNameLower}']}"/>
 <script type="text/javascript">var msgDelConfirm =
@@ -50,7 +49,7 @@
         <#else>
             <#lt/>        <h:inputText id="${field.name}" value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}" required="${(!column.nullable)?string}"<#if (column.length > 0)> maxlength="${column.length?c}"</#if>/>
         </#if>
-        <t:message for="${field.name}" styleClass="help-inline"/>
+        <p:message for="${field.name}"/>
     </div>
     </#foreach>
 <#elseif c2h.isManyToOne(field)>
@@ -60,7 +59,7 @@
             <#lt/>        <h:selectOneMenu value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}" id="${field.name}" required="${(!column.nullable)?string}" styleClass="select">
             <f:selectItems value="${'#'}{${pojoNameLower}Form.${pojoNameLower}.${field.name}}"/>
         </h:selectOneMenu>
-        <t:message for="${field.name}" styleClass="help-inline"/>
+        <p:message for="${field.name}"/>
     </div>
     </#foreach>
 </#if>
@@ -70,16 +69,16 @@
         <h:commandButton value="${'#'}{text['button.save']}" action="${'#'}{${pojoNameLower}Form.save}"
             id="save" styleClass="btn btn-primary"/>
 
-        <c:if test="${'$'}{not empty ${pojoNameLower}Form.${pojoNameLower}.${idFieldName}}">
+        <#-- Todo: hide this button when the id is not assigned. -->
+        <#--<c:if test="${'$'}{not empty ${pojoNameLower}Form.${pojoNameLower}.${idFieldName}}">-->
             <h:commandButton value="${'#'}{text['button.delete']}" action="${'#'}{${pojoNameLower}Form.delete}"
                 id="delete" styleClass="btn" onclick="return confirmMessage(msgDelConfirm)"/>
-        </c:if>
+        <#--</c:if>-->
 
         <h:commandButton value="${'#'}{text['button.cancel']}" action="cancel" immediate="true"
             id="cancel" styleClass="btn"/>
     </div>
 </h:form>
 </div>
-</body>
 </f:view>
 </html>

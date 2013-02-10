@@ -5,7 +5,7 @@
 <urlrewrite default-match-type="wildcard" use-query-string="true">
     <rule match-type="regex">
         <from>^/admin/user/(.*)\$</from>
-        <to type="forward">/admin/userform.jsf?id=$1&amp;from=list</to>
+        <to type="forward">/admin/userform.xhtml?id=$1&amp;from=list</to>
     </rule>
     <!-- The following fixes a CSS bug in CXF. -->
     <rule match-type="regex">
@@ -67,12 +67,12 @@
     <!-- JSF -->
     <rule match-type="regex">
         <from>^([^?]*)/([^?/\.]+)(\?.*)?$</from>
-        <to last="true">$1/$2.jsf</to>
+        <to last="true">$1/$2.xhtml</to>
     </rule>
     <outbound-rule match-type="regex">
-        <!-- TODO: Figure out how to make file upload work w/o using *.jsf -->
+        <!-- TODO: Figure out how to make file upload work w/o using *.xhtml -->
         <condition type="path-info">selectFile</condition>
-        <from>^(.*)\.jsf(\?.*)?$</from>
+        <from>^(.*)\.xhtml(\?.*)?$</from>
         <to last="false">$1$2</to>
     </outbound-rule>
     <!-- Remove JSESSIONID from URLs when cookies disabled -->

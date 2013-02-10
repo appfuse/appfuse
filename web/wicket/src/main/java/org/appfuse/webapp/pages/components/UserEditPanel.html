@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+      xmlns:wicket="https://git-wip-us.apache.org/repos/asf/wicket/repo?p=wicket.git;a=blob_plain;f=wicket-core/src/main/resources/META-INF/wicket-1.5.xsd;hb=master">
+
+<!-- TODO: MZA: Where to put feedback? -->
+
+<wicket:panel>
+    <div class="control-group">
+        <!-- TODO: MZA: maybe one component to display label with edit? -->
+        <label wicket:id="usernameLabel" class="control-label">[Username]</label>
+        <div class="controls">
+            <input wicket:id="username" type="text"/>
+        </div>
+    </div>
+    <div wicket:id="passwordGroup">
+        <div class="control-group">
+            <label wicket:id="passwordLabel" class="control-label">[Password]</label>
+            <div class="controls">
+                <input wicket:id="password" type="password"/><br/>
+            </div>
+        </div>
+        <div class="control-group">
+            <label wicket:id="confirmPasswordLabel" class="control-label">[Confirm password]</label>
+            <div class="controls">
+                <input wicket:id="confirmPassword" type="password"/><br/>
+            </div>
+        </div>
+    </div>
+    <div class="control-group">
+        <label wicket:id="passwordHintLabel" class="control-label">[Password Hint]</label>
+        <div class="controls">
+            <input wicket:id="passwordHint" type="text"/><br/>
+        </div>
+    </div>
+    <div>
+        <div class="control-group">
+            <label wicket:id="firstNameLabel" class="control-label">[First Name]</label>
+            <div class="controls">
+                <input wicket:id="firstName" type="text"/><br/>
+            </div>
+        </div>
+        <div class="control-group">
+            <label wicket:id="lastNameLabel" class="control-label">[Last Name]</label>
+            <div class="controls">
+                <input wicket:id="lastName" type="text"/><br/>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="control-group">
+            <label wicket:id="emailLabel" class="control-label">[Email]</label>
+            <div class="controls">
+                <input wicket:id="email" type="text"/><br/>
+            </div>
+        </div>
+        <div class="control-group">
+            <label wicket:id="phoneNumberLabel" class="control-label">[Phone Number]</label>
+            <div class="controls">
+                <input wicket:id="phoneNumber" type="text"/><br/>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="control-group">
+            <label wicket:id="websiteLabel" class="control-label">[Website]</label>
+            <div class="controls">
+                <input wicket:id="website" type="text"/><br/>
+            </div>
+        </div>
+    </div>
+    <div wicket:id="collapsibleAddress"></div>
+
+    <div wicket:id="accountSettingsGroup">
+        <div class="control-group">
+            <label class="control-label"><wicket:message key="userProfile.accountSettings">[Account Settings]</wicket:message></label>
+
+            <div class="controls">
+                <!-- TODO: MZA: Przerobic na inputa w labelu -->
+                <input type="checkbox" wicket:id="enabled"/>
+                <label class="choice"><wicket:message key="user.enabled">[Enabled]</wicket:message></label>
+
+                <input type="checkbox" wicket:id="accountExpired"/>
+                <label class="choice"><wicket:message key="user.accountExpired">[Expired]</wicket:message></label>
+
+                <input type="checkbox" wicket:id="accountLocked"/>
+                <label class="choice"><wicket:message key="user.accountLocked">[Locked]</wicket:message></label>
+
+                <input type="checkbox" wicket:id="credentialsExpired"/>
+                <label class="choice"><wicket:message key="user.credentialsExpired">[Password Expired]</wicket:message></label>
+
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">
+                <wicket:message key="userProfile.assignRoles">[Assign Roles]</wicket:message>
+            </label>
+            <div class="controls">
+                <span wicket:id="rolesGroup">
+                    <div wicket:id="roles">
+                        <input type="checkbox" wicket:id="value"/>
+                        <span wicket:id="label">[Role name]</span>
+                    </div>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div wicket:id="displayRolesGroup" class="control-group">
+        <label class="control-label">
+            <wicket:message key="user.roles">[Current Roles]</wicket:message>
+        </label>
+        <div class="controls readonly">
+            <span wicket:id="rolesRepeater">
+                <span wicket:id="roleName">[Role name]</span>
+            </span>
+        </div>
+    </div>
+
+    <div wicket:id="buttonsGroup" class="form-actions">
+        <button wicket:id="saveButton"></button>
+        <button wicket:id="deleteButton"></button>
+        <button wicket:id="cancelButton"></button>
+    </div>
+</wicket:panel>
+
+<wicket:fragment wicket:id="address">
+    <div class="accordion-body in collapse">
+        <div class="control-group">
+            <label class="control-label" for="address">Address</label>
+            <div class="controls">
+                <input wicket:id="address" type="text"/>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="city">City</label>
+            <div class="controls">
+                <input wicket:id="city" type="text"/>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="province">State</label>
+            <div class="controls">
+                <input wicket:id="province" type="text"/>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="postalCode">Zip</label>
+            <div class="controls">
+                <input wicket:id="postalCode" type="text"/>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="country">Country</label>
+            <div class="controls">
+                <select wicket:id="country" class="select">
+                    <option>[Country One]</option>
+                    <option>[Country Two]</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</wicket:fragment>
+
+</html>

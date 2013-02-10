@@ -155,7 +155,7 @@
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>8.1.3.v20120416</version>
+                <version>8.1.8.v20121106</version>
                 <configuration>
                     <webApp>
                         <contextPath>/</contextPath>
@@ -354,7 +354,7 @@
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
+            <artifactId>javax.servlet-api</artifactId>
             <version>${servlet.version}</version>
             <scope>provided</scope>
         </dependency>
@@ -396,7 +396,7 @@
         </dependency>
        <dependency>
             <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
+            <artifactId>mockito-core</artifactId>
             <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
@@ -423,6 +423,12 @@
             <artifactId>subethasmtp-wiser</artifactId>
             <version>${wiser.version}</version>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>servlet-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 
@@ -600,10 +606,10 @@
         <profile>
             <id>derby</id>
             <properties>
-                <hibernate.dialect>org.hibernate.dialect.DerbyDialect</hibernate.dialect>
+                <hibernate.dialect>org.hibernate.dialect.DerbyTenSevenDialect</hibernate.dialect>
                 <jdbc.groupId>org.apache.derby</jdbc.groupId>
                 <jdbc.artifactId>derbyclient</jdbc.artifactId>
-                <jdbc.version>10.2.2.0</jdbc.version>
+                <jdbc.version>10.9.1.0</jdbc.version>
                 <jdbc.driverClassName>org.apache.derby.jdbc.ClientDriver</jdbc.driverClassName>
                 <jdbc.url><![CDATA[jdbc:derby://localhost/${db.name};create=true]]></jdbc.url>
                 <jdbc.username>any</jdbc.username>
@@ -659,7 +665,7 @@
                 <hibernate.dialect>org.hibernate.dialect.PostgreSQLDialect</hibernate.dialect>
                 <jdbc.groupId>postgresql</jdbc.groupId>
                 <jdbc.artifactId>postgresql</jdbc.artifactId>
-                <jdbc.version>8.1-407.jdbc3</jdbc.version>
+                <jdbc.version>9.1-901-1.jdbc4</jdbc.version>
                 <jdbc.driverClassName>org.postgresql.Driver</jdbc.driverClassName>
                 <jdbc.url><![CDATA[jdbc:postgresql://localhost/${db.name}]]></jdbc.url>
                 <jdbc.username>postgres</jdbc.username>
@@ -676,7 +682,7 @@
                 <hibernate.dialect>org.hibernate.dialect.SQLServerDialect</hibernate.dialect>
                 <jdbc.groupId>net.sourceforge.jtds</jdbc.groupId>
                 <jdbc.artifactId>jtds</jdbc.artifactId>
-                <jdbc.version>1.2</jdbc.version>
+                <jdbc.version>1.3.0</jdbc.version>
                 <jdbc.driverClassName>net.sourceforge.jtds.jdbc.Driver</jdbc.driverClassName>
                 <jdbc.url><![CDATA[jdbc:jtds:sqlserver://localhost:3683/${db.name}]]></jdbc.url>
                 <jdbc.username>sa</jdbc.username>
@@ -716,7 +722,7 @@
         <mockito.version>1.9.5</mockito.version>
         <jsp.version>2.1</jsp.version>
         <junit.version>4.10</junit.version>
-        <servlet.version>2.5</servlet.version>
+        <servlet.version>3.0.1</servlet.version>
         <wiser.version>1.2</wiser.version>
 
         <!-- WebTest default target -->

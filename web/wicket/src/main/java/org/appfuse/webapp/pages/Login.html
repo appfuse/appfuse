@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+	xmlns:wicket="https://git-wip-us.apache.org/repos/asf/wicket/repo?p=wicket.git;a=blob_plain;f=wicket-core/src/main/resources/META-INF/wicket-1.5.xsd;hb=master">
+<head>
+    <meta name="menu" content="AdminMenu"/>
+    <meta name="bodyClass" content="login"/>
+
+    <title wicket:id="pageTitle"></title>
+</head>
+<body>
+
+    <!-- form:action is overridden by Wicket, so action="j_security_check" cannot be used. Possible workaround
+         is to manually forward to that URL from Wicket class -->
+    <form wicket:id="loginForm" class="form-signin" onsubmit="saveUsername(this)" autocomplete="off">
+        <h2 wicket:id="pageHeading" class="form-signin-heading"></h2>
+        <div wicket:id="feedback"></div>
+
+        <span wicket:id="border">
+            <input wicket:id="username" id="j_username" name="j_username" type="text" class="input-block-level" tabindex="1"/>
+        </span>
+        <input wicket:id="password" id="j_password" name="j_password" type="password" class="input-block-level" tabindex="2"/>
+
+        <div wicket:id="rememberMeGroup">
+            <label wicket:id="rememberMeLabel" for="rememberMe" class="choice">
+                <input wicket:id="rememberMe" type="checkbox" class="checkbox" name="_spring_security_remember_me" id="rememberMe" tabindex="3"/>
+                <span wicket:id="rememberMeLabelSpan">[Remember me]</span>
+            </label>
+        </div>
+        <input type="submit" class="btn btn-large btn-primary" wicket:message="value:button.login" tabindex="4"/>
+    </form>
+    <p>
+        <label wicket:id="signupLabel"/>
+    </p>
+    <p>
+        <!-- TODO: MZA: Maybe normal "url" would be better? Check implementation in something else than Tapestry -->
+        <wicket:message key="login.passwordHint">[Password hint]</wicket:message>
+    </p>
+</body>
+</html>

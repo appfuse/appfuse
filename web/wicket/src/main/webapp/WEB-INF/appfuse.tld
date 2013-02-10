@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<taglib
+        xmlns="http://java.sun.com/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+        version="2.1">
+
+    <tlib-version>1.0</tlib-version>
+    <short-name>appfuse-tapestry</short-name>
+    <uri>http://www.appfuse.org/tags/tapestry</uri>
+    <tag>
+        <name>constants</name>
+        <tag-class>org.appfuse.webapp.taglib.ConstantsTag</tag-class>
+        <tei-class>org.appfuse.webapp.taglib.ConstantsTei</tei-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>className</name>
+        </attribute>
+        <attribute>
+            <name>scope</name>
+        </attribute>
+        <attribute>
+            <name>var</name>
+        </attribute>
+    </tag>
+    <tag>
+        <description>
+            Tag surrounds JSP code in which EL expressions should not be XML-escaped.
+        </description>
+        <name>out</name>
+        <tag-class>org.appfuse.webapp.taglib.OutTag</tag-class>
+        <body-content>JSP</body-content>
+        <attribute>
+            <description>
+                Determines whether characters &lt;,&gt;,&amp;,'," in EL expression values
+                will be converted to their corresponding character entity codes.
+                Default value is true.
+            </description>
+            <name>escapeXml</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+</taglib>

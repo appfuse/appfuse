@@ -6,6 +6,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.model.Dependency;
+import org.apache.maven.model.DependencyManagement;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -37,6 +38,8 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
+
+import static java.lang.String.format;
 
 
 /**
@@ -338,31 +341,11 @@ public class InstallSourceMojo extends AbstractMojo {
     }
 
     private void createFullSourcePom(List<Dependency> newDependencies) throws MojoFailureException {
-        // Change spring-test and mockito dependencies to use <optional>true</option> instead of <scope>test</scope>.
-        // This is necessary because Base*TestCase classes are in src/main/java. If we move these classes to their
-        // own test module, this will no longer be necessary. For the first version of this mojo, it seems easier
-        // to follow the convention used in AppFuse rather than creating a test module and changing all modules to
-        // depend on it.
-
-        // create properties based on dependencies while we're at it
+        // create properties based on dependencies
         Set<String> projectProperties = new TreeSet<String>();
 
         for (Dependency dep : newDependencies) {
-            if (dep.getArtifactId().equals("spring-test") || dep.getArtifactId().contains("mockito") ||
-                    dep.getArtifactId().equals("junit") || dep.getArtifactId().equals("shale-test")) {
-                dep.setOptional(true);
-                dep.setScope(null);
-            }
-            String version = dep.getVersion();
-            // trim off ${}
-            if (version.startsWith("${")) {
-                version = version.substring(2);
-            }
-
-            if (version.endsWith("}")) {
-                version = version.substring(0, version.length() - 1);
-            }
-            projectProperties.add(version);
+            projectProperties.add(getDependencyVersionOrThrowExceptionIfNotAvailable(dep));
         }
 
         // add core as a dependency for modular wars
@@ -588,6 +571,44 @@ public class InstallSourceMojo extends AbstractMojo {
 
         if (pom.exists()) {
             pom.delete();
+        }
+    }
+
+    private String getDependencyVersionOrThrowExceptionIfNotAvailable(Dependency dep) {
+        String version = dep.getVersion();
+
+        if (version == null) {
+            version = getDependencyVersionFromDependencyManagementOrThrowExceptionIfNotAvailable(dep);
+        }
+
+        // trim off ${}
+        if (version.startsWith("${")) {
+            version = version.substring(2);
+        }
+
+        if (version.endsWith("}")) {
+            version = version.substring(0, version.length() - 1);
+        }
+        return version;
+    }
+
+    @SuppressWarnings("unchecked")
+    private String getDependencyVersionFromDependencyManagementOrThrowExceptionIfNotAvailable(Dependency dep) {
+        DependencyManagement dependencyManagement = project.getDependencyManagement();
+        if (dependencyManagement != null) {
+            List<Dependency> managedDeps = dependencyManagement.getDependencies();
+            for (Dependency managedDep : managedDeps) {
+                if (managedDep.getArtifactId().equals(dep.getArtifactId()) &&
+                        managedDep.getGroupId().equals(dep.getGroupId())) {
+                    return managedDep.getVersion();
+                }
+            }
+            throw new IllegalArgumentException(format(
+                    "Unable to determine version for dependency: %s:%s", dep.getGroupId(), dep.getArtifactId()));
+        } else {
+            throw new IllegalArgumentException(format(
+                    "Unable to determine version for dependency: %s:%s. DependencyManagement is null",
+                    dep.getGroupId(), dep.getArtifactId()));
         }
     }
 

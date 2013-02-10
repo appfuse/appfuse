@@ -1,15 +1,13 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core"
-      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" 
-      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk"
-      xmlns:acegi="http://sourceforge.net/projects/jsf-comp/acegijsf">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
 
 <f:view>
 <f:loadBundle var="text" basename="#{basePage.bundleName}"/>
-<head>
+<h:head>
     <title>#{text['mainMenu.title']}</title>
     <meta name="menu" content="MainMenu"/>
     <meta name="heading" content="#{text['mainMenu.heading']}"/>
-</head>
+</h:head>
 
 <h2>#{text['mainMenu.heading']}</h2>
 <p>#{text['mainMenu.message']}</p>
@@ -21,9 +19,6 @@
     </li>
     <li>
         <h:commandLink value="#{text['menu.selectFile']}" action="selectFile"/>
-    </li>
-    <li>
-        <h:commandLink value="Ajax4JSF Demo" action="ajax4jsf"/>
     </li>
 </ul>
 </h:form>

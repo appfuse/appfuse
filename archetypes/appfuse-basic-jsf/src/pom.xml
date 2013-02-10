@@ -155,7 +155,7 @@
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>8.1.3.v20120416</version>
+                <version>8.1.8.v20121106</version>
                 <configuration>
                     <webApp>
                         <contextPath>/</contextPath>
@@ -245,6 +245,11 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
+        <repository>
+            <id>prime-repo</id>
+            <name>Prime Repo</name>
+            <url>http://repository.primefaces.org</url>
+        </repository>        
     </repositories>
 
     <pluginRepositories>
@@ -287,11 +292,6 @@
             <version>${jdbc.version}</version>
         </dependency>
         <dependency>
-            <groupId>net.java.dev.ajax4jsf</groupId>
-            <artifactId>ajax4jsf</artifactId>
-            <version>${ajax4jsf.version}</version>
-        </dependency>
-        <dependency>
             <groupId>net.sourceforge.jsf-comp</groupId>
             <artifactId>acegi-jsf</artifactId>
             <version>${acegijsf.version}</version>
@@ -303,36 +303,32 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>com.sun.facelets</groupId>
-            <artifactId>jsf-facelets</artifactId>
-            <version>${facelets.version}</version>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>${commons.fileupload.version}</version>
         </dependency>
         <dependency>
-          <groupId>org.apache.shale</groupId>
-          <artifactId>shale-validator</artifactId>
-          <version>${shale.version}</version>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-api</artifactId>
+            <version>${jsf.version}</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.myfaces.core</groupId>
-            <artifactId>myfaces-api</artifactId>
-            <version>${myfaces.version}</version>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-impl</artifactId>
+            <version>${jsf.version}</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.myfaces.core</groupId>
-            <artifactId>myfaces-impl</artifactId>
-            <version>${myfaces.version}</version>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>${primefaces.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.myfaces.tomahawk</groupId>
-            <artifactId>tomahawk20</artifactId>
-            <version>${myfaces.tomahawk.version}</version>
+        	<groupId>org.primefaces.themes</groupId>
+        	<artifactId>bootstrap</artifactId>
+        	<version>1.0.9</version>
         </dependency>
-        <dependency>
-            <groupId>com.ocpsoft</groupId>
-            <artifactId>prettyfaces-jsf2</artifactId>
-            <version>3.3.3</version>
-        </dependency>
-        <!-- Upgrade version of commons-io used by Tomahawk -->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
@@ -346,13 +342,13 @@
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
+            <artifactId>javax.servlet-api</artifactId>
             <version>${servlet.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
+            <artifactId>mockito-core</artifactId>
             <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
@@ -385,6 +381,12 @@
             <artifactId>subethasmtp-wiser</artifactId>
             <version>${wiser.version}</version>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>servlet-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>javax.el</groupId>
@@ -567,10 +569,10 @@
         <profile>
             <id>derby</id>
             <properties>
-                <hibernate.dialect>org.hibernate.dialect.DerbyDialect</hibernate.dialect>
+                <hibernate.dialect>org.hibernate.dialect.DerbyTenSevenDialect</hibernate.dialect>
                 <jdbc.groupId>org.apache.derby</jdbc.groupId>
                 <jdbc.artifactId>derbyclient</jdbc.artifactId>
-                <jdbc.version>10.2.2.0</jdbc.version>
+                <jdbc.version>10.9.1.0</jdbc.version>
                 <jdbc.driverClassName>org.apache.derby.jdbc.ClientDriver</jdbc.driverClassName>
                 <jdbc.url><![CDATA[jdbc:derby://localhost/${db.name};create=true]]></jdbc.url>
                 <jdbc.username>any</jdbc.username>
@@ -610,11 +612,11 @@
             <properties>
                 <dbunit.dataTypeFactoryName>org.dbunit.ext.oracle.OracleDataTypeFactory</dbunit.dataTypeFactoryName>
                 <dbunit.schema>SYSTEM</dbunit.schema> <!-- Make sure to capitalize the schema name -->
-                <hibernate.dialect>org.hibernate.dialect.Oracle9Dialect</hibernate.dialect>
+                <hibernate.dialect>org.hibernate.dialect.Oracle10gDialect</hibernate.dialect>
                 <jdbc.groupId>com.oracle</jdbc.groupId>
                 <jdbc.artifactId>ojdbc14</jdbc.artifactId>
                 <jdbc.version>10.2.0.2.0</jdbc.version>
-                <jdbc.driverClassName>oracle.jdbc.OracleDriver</jdbc.driverClassName>
+                <jdbc.driverClassName>oracle.jdbc.driver.OracleDriver</jdbc.driverClassName>
                 <jdbc.url><![CDATA[jdbc:oracle:thin:@localhost:1521:XE]]></jdbc.url>
                 <jdbc.username>system</jdbc.username>
                 <jdbc.password>system</jdbc.password>
@@ -626,7 +628,7 @@
                 <hibernate.dialect>org.hibernate.dialect.PostgreSQLDialect</hibernate.dialect>
                 <jdbc.groupId>postgresql</jdbc.groupId>
                 <jdbc.artifactId>postgresql</jdbc.artifactId>
-                <jdbc.version>8.1-407.jdbc3</jdbc.version>
+                <jdbc.version>9.1-901-1.jdbc4</jdbc.version>
                 <jdbc.driverClassName>org.postgresql.Driver</jdbc.driverClassName>
                 <jdbc.url><![CDATA[jdbc:postgresql://localhost/${db.name}]]></jdbc.url>
                 <jdbc.username>postgres</jdbc.username>
@@ -643,7 +645,7 @@
                 <hibernate.dialect>org.hibernate.dialect.SQLServerDialect</hibernate.dialect>
                 <jdbc.groupId>net.sourceforge.jtds</jdbc.groupId>
                 <jdbc.artifactId>jtds</jdbc.artifactId>
-                <jdbc.version>1.2</jdbc.version>
+                <jdbc.version>1.3.0</jdbc.version>
                 <jdbc.driverClassName>net.sourceforge.jtds.jdbc.Driver</jdbc.driverClassName>
                 <jdbc.url><![CDATA[jdbc:jtds:sqlserver://localhost:3683/${db.name}]]></jdbc.url>
                 <jdbc.username>sa</jdbc.username>
@@ -682,13 +684,13 @@
 
         <!-- Framework dependency versions -->
         <acegijsf.version>1.1.3</acegijsf.version>
-        <ajax4jsf.version>1.0.6</ajax4jsf.version>
         <appfuse.version>2.2.2-SNAPSHOT</appfuse.version>
-        <commons.io.version>2.0.1</commons.io.version>
+        <commons.fileupload.version>1.2.2</commons.fileupload.version>
+        <commons.io.version>2.4</commons.io.version>
         <el.version>1.2</el.version>
-        <facelets.version>1.1.14</facelets.version>
-        <myfaces.version>2.1.10</myfaces.version>
-        <myfaces.tomahawk.version>1.1.14</myfaces.tomahawk.version>
+        <jsf.version>2.1.2</jsf.version>
+        <primefaces.version>3.4</primefaces.version>
+        <servlet.version>3.0.1</servlet.version>
         <spring.version>3.2.0.RELEASE</spring.version>
 
         <!-- Testing dependency versions -->
@@ -697,7 +699,6 @@
         <mockito.version>1.9.5</mockito.version>
         <jsp.version>2.1</jsp.version>
         <junit.version>4.10</junit.version>
-        <servlet.version>2.5</servlet.version>
         <shale.version>1.0.5</shale.version>
         <wiser.version>1.2</wiser.version>
 

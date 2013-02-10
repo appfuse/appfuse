@@ -1,20 +1,19 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core"
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" 
-      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk">
-
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 <f:view>
 <f:loadBundle var="text" basename="#{userList.bundleName}"/>
-<head>
+<h:head>
     <title>#{text['userList.title']}</title>
     <meta name="menu" content="AdminMenu"/>
-</head>
-
+</h:head>
+<h:body>
 <div class="span10">
     <h2>#{text['userList.heading']}</h2>
 
     <h:form id="searchForm" styleClass="form-search">
     <div id="search" class="input-append">
-        <h:inputText id="q" name="q" size="20" value="#{userList.query}" styleClass="input-medium search-query"/>
+        <h:inputText id="q" size="20" value="#{userList.query}" styleClass="input-medium search-query"/>
         <h:commandButton styleClass="btn" action="#{userList.search}" value="#{text['button.search']}"/>
     </div>
     </h:form>
@@ -30,56 +29,49 @@
         </h:commandButton>
     </div>
 
-    <!-- Error from this table is caused by http://issues.apache.org/jira/browse/TOMAHAWK-466 -->
-    <t:dataTable id="users" var="user" style="margin-top: 10px"
-        value="#{userList.users}" rows="25" sortColumn="#{userList.sortColumn}"
-        sortAscending="#{userList.ascending}" styleClass="table table-condensed table-striped table-hover"
-        headerClass="standardTable_Header" rowClasses="standardTable_Row1,standardTable_Row2"
-        columnClasses="standardTable_Column,standardTable_Column,standardTable_Column,standardTable_Column,standardTable_ColumnCentered">
-        <t:column width="25%">
+    <p:dataTable id="users" var="user" value="#{userList.users}" sortBy="#{userList.sortColumn}" paginator="true" rows="25" 
+                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                 rowsPerPageTemplate="5,10,15">
+        <p:column style="width: 25%">
             <f:facet name="header">
-                <t:commandSortHeader columnName="username" arrow="true">
+                <p:column sortBy="username" >
                     <h:outputText value="#{text['user.username']}" />
-                </t:commandSortHeader>
+                </p:column>
             </f:facet>
             <h:commandLink action="#{userForm.edit}" value="#{user.username}" >
                 <f:param name="id" value="#{user.id}"/>
                 <f:param name="from" value="list"/>
             </h:commandLink>
-        </t:column>
-        <t:column width="34%">
+        </p:column>
+        <p:column style="width: 34%">
             <f:facet name="header">
-                <t:commandSortHeader columnName="fullName" arrow="true">
+                <p:column sortBy="fullName" >
                     <h:outputText value="#{text['activeUsers.fullName']}" />
-                </t:commandSortHeader>
+                </p:column>
             </f:facet>
             <h:outputText value="#{user.fullName}" />
-        </t:column>
-        <t:column width="25%">
+        </p:column>
+        <p:column style="width: 25%">
             <f:facet name="header">
-                <t:commandSortHeader columnName="email" arrow="true">
+                <p:column sortBy="email" >
                     <h:outputText value="#{text['user.email']}" />
-                </t:commandSortHeader>
+                </p:column>
             </f:facet>
             <h:outputLink value="mailto:#{user.email}">
                 <h:outputText value="#{user.email}" />
             </h:outputLink>
-        </t:column>
-        <t:column width="16%">
+        </p:column>
+        <p:column style="width: 16%">
             <f:facet name="header">
-                <t:commandSortHeader columnName="enabled" arrow="true">
+                <p:column sortBy="enabled" >
                     <h:outputText value="#{text['user.enabled']}" />
-                </t:commandSortHeader>
+                </p:column>
             </f:facet>
             <h:selectBooleanCheckbox value="#{user.enabled}" disabled="true"/>
-        </t:column>
-    </t:dataTable>
-
-    <ui:include src="/common/tableFooter.xhtml">
-        <ui:param name="tableName" value="users"/>
-    </ui:include>
-
+        </p:column>
+    </p:dataTable>
     </h:form>
 </div>
+</h:body>
 </f:view>
 </html>

@@ -94,6 +94,11 @@ legend {
     text-align: center
 }
 
+/* When using Wicket tag id can be overridden - using class here seems to more universal */
+.login p {
+    text-align: center
+}
+
 .span7 > form.well, .span7 > form.well {
     margin-top: 20px;
 }
@@ -265,4 +270,27 @@ span.pagelinks {
         float: none;
         margin-top: 0;
     }
+}
+
+/* Wicket */
+.table thead tr th.wicket_orderDown a {
+    background-image: url(../images/arrow_down.png) !important;
+    background-position: right center;
+    background-repeat: no-repeat;
+    display: block;
+    /*padding-right: 15px;*/
+}
+
+.table thead tr th.wicket_orderUp a {
+    background-image: url(../images/arrow_up.png) !important;
+    background-position: right center;
+    background-repeat: no-repeat;
+    display: block;
+}
+
+/* Fix for Bootstrap theme errors in PrimeFaces: http://forum.primefaces.org/viewtopic.php?f=9&t=19250&start=10 */
+.ui-state-error, .ui-widget-content .ui-state-error, .ui-widget-header .ui-state-error {
+    background: url("") repeat-x scroll 50% 50% #CD0A0A;
+    border: 1px solid #CD0A0A;
+    color: #FFFFFF;
 }

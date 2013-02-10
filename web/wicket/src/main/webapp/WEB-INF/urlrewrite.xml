@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 3.0//EN"
+    "http://tuckey.org/res/dtds/urlrewrite3.0.dtd">
+
+<urlrewrite default-match-type="wildcard">
+    <rule>
+        <from>/login.jsp</from>
+        <to type="redirect">login</to>
+    </rule>
+
+    <!-- The following fixes a CSS bug in CXF. -->
+    <rule match-type="regex">
+        <from>^/services//(.*)$</from>
+        <to type="forward">/services/$1</to>
+    </rule>
+
+    <rule>
+        <from>/dwr/**</from>
+        <to>/dwr/$1</to>
+    </rule>
+    <rule>
+        <from>/services/**</from>
+        <to>/services/$1</to>
+    </rule>
+</urlrewrite>

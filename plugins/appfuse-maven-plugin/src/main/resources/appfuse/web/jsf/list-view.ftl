@@ -1,15 +1,15 @@
 <#assign pojoNameLower = pojo.shortName.substring(0,1).toLowerCase()+pojo.shortName.substring(1)>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core"
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk">
+      xmlns:p="http://primefaces.org/ui">
 
 <f:view>
 <f:loadBundle var="text" basename="${'#'}{${pojoNameLower}List.bundleName}"/>
-    <head>
-        <title>${'#'}{text['${pojoNameLower}List.title']}</title>
-        <meta name="heading" content="${'#'}{text['${pojoNameLower}List.heading']}"/>
-        <meta name="menu" content="${pojo.shortName}Menu"/>
-    </head>
+<h:head>
+    <title>${'#'}{text['${pojoNameLower}List.title']}</title>
+    <meta name="heading" content="${'#'}{text['${pojoNameLower}List.heading']}"/>
+    <meta name="menu" content="${pojo.shortName}Menu"/>
+</h:head>
 <body id="${pojoNameLower}List">
 
 <div class="span10">
@@ -31,18 +31,16 @@
         <h:commandButton value="${'#'}{text['button.done']}" action="mainMenu" id="cancel" immediate="true" styleClass="btn"/>
     </div>
 
-    <t:dataTable id="${util.getPluralForWord(pojoNameLower)}" var="${pojoNameLower}"
-        value="${'#'}{${pojoNameLower}List.${util.getPluralForWord(pojoNameLower)}}" rows="25" sortColumn="${'#'}{${pojoNameLower}List.sortColumn}"
-        sortAscending="${'#'}{${pojoNameLower}List.ascending}" styleClass="table table-condensed table-striped table-hover"
-        headerClass="standardTable_Header" rowClasses="standardTable_Row1,standardTable_Row2"
-        columnClasses="standardTable_Column,standardTable_Column,standardTable_Column,standardTable_Column,standardTable_ColumnCentered">
-
+    <p:dataTable id="${util.getPluralForWord(pojoNameLower)}" var="${pojoNameLower}" value="${'#'}{${pojoNameLower}List.${util.getPluralForWord(pojoNameLower)}}"
+                 sortBy="${'#'}{${pojoNameLower}List.sortColumn}" paginator="true" rows="25"
+                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                 rowsPerPageTemplate="5,10,15">
     <#foreach field in pojo.getAllPropertiesIterator()>
-        <t:column>
+        <p:column>
             <f:facet name="header">
-                <t:commandSortHeader columnName="${field.name}" arrow="true">
+                <p:column sortBy="${field.name}">
                     <h:outputText value="${'#'}{text['${pojoNameLower}.${field.name}']}" />
-                </t:commandSortHeader>
+                </p:column>
             </f:facet>
     <#if field.equals(pojo.identifierProperty)>
             <h:commandLink action="${'#'}{${pojoNameLower}Form.edit}" value="${'#'}{${pojoNameLower}.${field.name}}">
@@ -58,14 +56,9 @@
             <#lt/>    <h:outputText value="${'#'}{${pojoNameLower}.${field.name}}" escape="true"/>
         </#if>
     </#if>
-        </t:column>
+        </p:column>
     </#foreach>
-    </t:dataTable>
-
-    <ui:include src="/common/tableFooter.xhtml">
-        <ui:param name="tableName" value="${util.getPluralForWord(pojoNameLower)}"/>
-    </ui:include>
-
+    </p:dataTable>
     </h:form>
 </div>
 </body>
