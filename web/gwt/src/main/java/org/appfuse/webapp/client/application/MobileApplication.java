@@ -43,13 +43,14 @@ public class MobileApplication extends Application {
 	@Inject
 	public MobileApplication(
 			MobileShell shell,
+			ApplicationMenu menu,
 			ApplicationRequestFactory requestFactory, 
 			EventBus eventBus,
 			PlaceController placeController,
 			ApplicationViewFactory viewFactory,
 			ApplicationProxyFactory proxyFactory,
 			ApplicationValidatorFactory validatorFactory) {
-		super(shell, requestFactory, eventBus, placeController, viewFactory, proxyFactory, validatorFactory);
+		super(shell, menu, requestFactory, eventBus, placeController, viewFactory, proxyFactory, validatorFactory);
 	}
 
 	

@@ -6,6 +6,8 @@ import java.util.List;
 import org.appfuse.webapp.client.application.Application;
 import org.appfuse.webapp.client.ui.login.events.LoginEvent;
 import org.appfuse.webapp.client.ui.login.events.LogoutEvent;
+import org.appfuse.webapp.client.ui.navigation.DesktopNavigationBar;
+import org.appfuse.webapp.client.ui.navigation.DesktopSideNavigationBar;
 
 import com.github.gwtbootstrap.client.ui.Alert;
 import com.github.gwtbootstrap.client.ui.base.AlertBase;
@@ -30,6 +32,7 @@ public class DesktopShell extends Shell implements LoginEvent.Handler, LogoutEve
 	private static final Binder uiBinder = GWT.create(Binder.class);
 
 	@UiField DesktopNavigationBar navigationBar;
+	@UiField DesktopSideNavigationBar sideNavigationBar;
 
 	@UiField FlowPanel messages;
 	@UiField NotificationMole mole;
@@ -44,6 +47,7 @@ public class DesktopShell extends Shell implements LoginEvent.Handler, LogoutEve
 	public void setApplication(Application application) {
 		super.setApplication(application);
 		navigationBar.setApplication(application);
+		sideNavigationBar.setApplication(application);
 	}
 
 	/**

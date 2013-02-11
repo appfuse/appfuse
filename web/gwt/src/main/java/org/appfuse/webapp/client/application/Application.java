@@ -3,6 +3,9 @@
  */
 package org.appfuse.webapp.client.application;
 
+import java.io.File;
+import java.net.URL;
+
 import javax.validation.Validation;
 import javax.validation.ValidatorFactory;
 
@@ -12,7 +15,7 @@ import org.appfuse.webapp.proxies.RoleProxy;
 import org.appfuse.webapp.proxies.UserProxy;
 import org.appfuse.webapp.requests.ApplicationRequestFactory;
 
-import com.google.gwt.core.shared.GWT;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.MetaElement;
@@ -30,6 +33,7 @@ public abstract class Application {
 
 	protected final Shell shell;
 	protected final EventBus eventBus;
+	protected final ApplicationMenu menu;
 	protected final PlaceController placeController;
 	protected final ApplicationRequestFactory requestFactory;
 	protected final ApplicationViewFactory viewFactory;
@@ -37,6 +41,7 @@ public abstract class Application {
 	protected final ApplicationProxyFactory proxyFactory;
 	protected final ApplicationResources i18n = GWT.create(ApplicationResources.class);
 
+	private String contextPath = "/";
 	private boolean rememberMeEnabled = false;
 	private UserProxy currentUser;
 	private LookupConstantsProxy lookupConstants;
@@ -44,6 +49,7 @@ public abstract class Application {
 	@Inject
 	public Application(
 			Shell shell,
+			ApplicationMenu menu,
 			ApplicationRequestFactory requestFactory, 
 			EventBus eventBus,
 			PlaceController placeController,
@@ -52,6 +58,7 @@ public abstract class Application {
 			ApplicationValidatorFactory validatorFactory) {
 		super();
 		this.shell = shell;
+		this.menu = menu;
 		this.requestFactory = requestFactory;
 		this.eventBus = eventBus;
 		this.placeController = placeController;
@@ -67,12 +74,20 @@ public abstract class Application {
 				rememberMeEnabled = "true".equals(meta.getContent());
 			}
 		}
+		
+		contextPath = GWT.getModuleBaseURL()
+				.replace(GWT.getModuleName() + "/" , "");
+		
 	}
 
 	public abstract void run();
 
 	public Shell getShell() {
 		return shell;
+	}
+	
+	public ApplicationMenu getMenu() {
+		return menu;
 	}
 	
 	public EventBus getEventBus() {
@@ -103,12 +118,12 @@ public abstract class Application {
 		return i18n;
 	}
 	
+	public String getContextPath() {
+		return contextPath;
+	}
+	
 	public boolean isRememberMeEnabled() {
 		return rememberMeEnabled;
-	}
-
-	public void setRememberMeEnabled(boolean rememberMeEnabled) {
-		this.rememberMeEnabled = rememberMeEnabled;
 	}
 
 	public UserProxy getCurrentUser() {
@@ -135,9 +150,25 @@ public abstract class Application {
 	}
 	
 	public boolean isUserInRole(String role) {
-		if(currentUser != null && currentUser.getRoles() != null && role != null) {
+		if(RoleProxy.ANONYMOUS.equals(role)) {
+			return currentUser == null;
+		} else if(RoleProxy.AUTHENTICATED.equals(role)) {
+			return currentUser != null;
+		}
+		else if(currentUser != null && currentUser.getRoles() != null && role != null) {
 			for (RoleProxy roleProxy : currentUser.getRoles()) {
 				if(role.equalsIgnoreCase(roleProxy.getName())) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	public boolean hasAnyRole(String[] roles) {
+		if(roles != null) {
+			for (String role : roles) {
+				if(isUserInRole(role)) {
 					return true;
 				}
 			}
