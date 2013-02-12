@@ -96,6 +96,7 @@ import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
  *  - change page title on Signup page: User Settings -> Signup - DONE
  *  - fix acceptance test: signup - doesn't move to a login page and others - currently disabled in Maven
  *  - resolve problem with sending password hash to an user on edit - APF-1370
+ *  - arrows in a table should be next to a header label (not at the end of a column on the right side)
  *
  * @author Marcin Zajączkowski, 2010-09-02
  */

@@ -143,7 +143,6 @@ public class Login extends AbstractWebPage {
     }
 
     private void authenticateUser() {
-        //TODO: MZA: Why the first login user is redirected again to login page?
         AuthenticatedWebSession session = AuthenticatedWebSession.get();
         if (session.signIn(usernameField.getModelObject(), passwordField.getModelObject())) {
             setDefaultResponsePageIfNecessary();
