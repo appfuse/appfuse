@@ -20,6 +20,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.NotificationMole;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -70,9 +71,9 @@ public class DesktopShell extends Shell implements LoginEvent.Handler, LogoutEve
 	 */
 	@Override
 	public void addMessage(AlertBase alert) {
-		messages.getElement().scrollIntoView();
 		alert.getElement().setAttribute(TTL_ATTRIBUTE, "1");
 		messages.add(alert);
+		getElement().setScrollTop(0);
 	}
 	
 	/**
