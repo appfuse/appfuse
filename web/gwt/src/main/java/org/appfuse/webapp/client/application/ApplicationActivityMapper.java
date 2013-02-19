@@ -4,8 +4,8 @@
 package org.appfuse.webapp.client.application;
 
 import org.appfuse.webapp.client.application.base.activity.AbstractBaseActivity;
-import org.appfuse.webapp.client.application.base.place.EntitySearchPlace;
 import org.appfuse.webapp.client.application.base.place.EntityProxyPlace;
+import org.appfuse.webapp.client.application.base.place.EntitySearchPlace;
 import org.appfuse.webapp.client.ui.login.LoginActivity;
 import org.appfuse.webapp.client.ui.login.LoginPlace;
 import org.appfuse.webapp.client.ui.logout.LogoutActivity;

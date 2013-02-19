@@ -1,16 +1,10 @@
 package org.appfuse.webapp.client.application.base.place;
 
-import org.appfuse.webapp.client.application.ApplicationProxyFactory;
-import org.appfuse.webapp.requests.ApplicationRequestFactory;
-
-import com.google.gwt.core.shared.GWT;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceTokenizer;
 import com.google.gwt.place.shared.Prefix;
-import com.google.web.bindery.requestfactory.shared.DefaultProxyStore;
 import com.google.web.bindery.requestfactory.shared.EntityProxy;
 import com.google.web.bindery.requestfactory.shared.EntityProxyId;
-import com.google.web.bindery.requestfactory.shared.ProxySerializer;
 import com.google.web.bindery.requestfactory.shared.RequestFactory;
 
 /**

@@ -22,7 +22,6 @@ import com.google.gwt.place.shared.Place;
 import com.google.web.bindery.requestfactory.shared.EntityProxyId;
 import com.google.web.bindery.requestfactory.shared.Request;
 import com.google.web.bindery.requestfactory.shared.RequestContext;
-import com.google.web.bindery.requestfactory.shared.impl.SimpleProxyId;
 
 /**
  * @author ivangsa

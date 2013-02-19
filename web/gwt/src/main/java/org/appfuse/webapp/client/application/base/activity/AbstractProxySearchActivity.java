@@ -7,8 +7,8 @@ import java.util.logging.Logger;
 import javax.validation.ConstraintViolation;
 
 import org.appfuse.webapp.client.application.Application;
-import org.appfuse.webapp.client.application.base.place.EntitySearchPlace;
 import org.appfuse.webapp.client.application.base.place.EntityProxyPlace;
+import org.appfuse.webapp.client.application.base.place.EntitySearchPlace;
 import org.appfuse.webapp.client.application.base.view.ProxySearchView;
 import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
 

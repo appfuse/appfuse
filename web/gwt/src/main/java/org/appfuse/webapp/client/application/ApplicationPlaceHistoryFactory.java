@@ -1,7 +1,7 @@
 package org.appfuse.webapp.client.application;
 
-import org.appfuse.webapp.client.application.base.place.EntitySearchPlace;
 import org.appfuse.webapp.client.application.base.place.EntityProxyPlace;
+import org.appfuse.webapp.client.application.base.place.EntitySearchPlace;
 import org.appfuse.webapp.requests.ApplicationRequestFactory;
 
 import com.google.inject.Inject;

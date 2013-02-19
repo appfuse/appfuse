@@ -11,7 +11,6 @@ import com.google.gwt.http.client.Response;
 import com.google.web.bindery.event.shared.EventBus;
 import com.google.web.bindery.requestfactory.gwt.client.DefaultRequestTransport;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
-import com.google.web.bindery.requestfactory.shared.RequestTransport.TransportReceiver;
 
 class CustomDefaultRequestTransport extends DefaultRequestTransport {
 

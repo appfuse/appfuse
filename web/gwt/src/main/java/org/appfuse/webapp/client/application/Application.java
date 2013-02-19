@@ -3,9 +3,6 @@
  */
 package org.appfuse.webapp.client.application;
 
-import java.io.File;
-import java.net.URL;
-
 import javax.validation.Validation;
 import javax.validation.ValidatorFactory;
 

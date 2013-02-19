@@ -6,8 +6,8 @@ package org.appfuse.webapp.client.ui.navigation;
 import org.appfuse.webapp.client.application.Application;
 import org.appfuse.webapp.client.application.ApplicationMenu;
 import org.appfuse.webapp.client.application.ApplicationResources;
-import org.appfuse.webapp.client.application.base.place.EntitySearchPlace;
 import org.appfuse.webapp.client.application.base.place.EntityProxyPlace;
+import org.appfuse.webapp.client.application.base.place.EntitySearchPlace;
 import org.appfuse.webapp.client.application.utils.menu.MenuItem;
 
 import com.google.gwt.core.client.GWT;

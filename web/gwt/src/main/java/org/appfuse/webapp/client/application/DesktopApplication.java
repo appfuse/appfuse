@@ -2,11 +2,9 @@ package org.appfuse.webapp.client.application;
 
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.appfuse.webapp.client.application.ApplicationProxyFactory.ProxyFactory;
 import org.appfuse.webapp.client.application.base.request.RequestEvent;
 import org.appfuse.webapp.client.ui.DesktopShell;
 import org.appfuse.webapp.client.ui.login.LoginActivity;
@@ -17,7 +15,6 @@ import org.appfuse.webapp.client.ui.login.events.LogoutEvent;
 import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
 import org.appfuse.webapp.proxies.LookupConstantsProxy;
 import org.appfuse.webapp.proxies.UserProxy;
-import org.appfuse.webapp.proxies.UsersSearchCriteriaProxy;
 import org.appfuse.webapp.requests.ApplicationRequestFactory;
 
 import com.google.gwt.activity.shared.ActivityManager;
@@ -34,13 +31,10 @@ import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.inject.Inject;
-import com.google.web.bindery.autobean.shared.AutoBean;
 import com.google.web.bindery.event.shared.EventBus;
 import com.google.web.bindery.requestfactory.gwt.client.RequestFactoryLogHandler;
 import com.google.web.bindery.requestfactory.shared.LoggingRequest;
 import com.google.web.bindery.requestfactory.shared.Receiver;
-import com.google.web.bindery.requestfactory.shared.impl.AbstractRequestFactory;
-import com.google.web.bindery.requestfactory.shared.impl.Constants;
 
 
 /**

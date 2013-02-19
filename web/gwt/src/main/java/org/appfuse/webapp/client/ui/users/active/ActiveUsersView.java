@@ -7,7 +7,6 @@ import org.appfuse.webapp.proxies.UserProxy;
 
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.client.ui.IsWidget;
-import com.google.gwt.view.client.HasData;
 
 /**
  * @author ivangsa

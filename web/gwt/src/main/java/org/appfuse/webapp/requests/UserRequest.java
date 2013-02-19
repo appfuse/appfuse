@@ -1,7 +1,6 @@
 package org.appfuse.webapp.requests;
 
 import java.util.List;
-import java.util.Set;
 
 import org.appfuse.webapp.proxies.UserProxy;
 import org.appfuse.webapp.proxies.UsersSearchCriteriaProxy;

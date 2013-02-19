@@ -11,7 +11,6 @@ import org.appfuse.webapp.client.ui.Shell;
 import org.appfuse.webapp.requests.ApplicationRequestFactory;
 
 import com.google.gwt.activity.shared.AbstractActivity;
-import com.google.gwt.core.shared.GWT;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.web.bindery.event.shared.EventBus;
