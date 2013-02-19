@@ -95,6 +95,8 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
                     user.setPassword(passwordEncoder.encodePassword(user.getPassword(),
                             saltSource.getSalt(user)));
                 }
+                //copy to confirmPassword so JSR-303 BeanValidators can compare these two fields
+                user.setConfirmPassword(user.getPassword()); 
             }
         } else {
             log.warn("PasswordEncoder not set, skipping password encryption...");
