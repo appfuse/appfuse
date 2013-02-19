@@ -26,7 +26,7 @@ import com.google.web.bindery.requestfactory.shared.RequestFactory;
  * @author ivangsa
  *
  */
-public class EntityListPlace extends Place {
+public class EntitySearchPlace extends Place {
 	private static final String PREFIX = "l";
 
 	private final Class<? extends EntityProxy> proxyClass;
@@ -37,7 +37,7 @@ public class EntityListPlace extends Place {
 	/**
 	 * @param proxyType
 	 */
-	public EntityListPlace(Class<? extends EntityProxy> proxyClass) {
+	public EntitySearchPlace(Class<? extends EntityProxy> proxyClass) {
 		this.proxyClass = proxyClass;
 		this.searchCriteria = null;
 	}
@@ -46,7 +46,7 @@ public class EntityListPlace extends Place {
 	 * @param proxyType
 	 * @param searchCriteria
 	 */
-	public EntityListPlace(Class<? extends EntityProxy> proxyClass, BaseProxy searchCriteria) {
+	public EntitySearchPlace(Class<? extends EntityProxy> proxyClass, BaseProxy searchCriteria) {
 		super();
 		this.proxyClass = proxyClass;
 		this.searchCriteria = searchCriteria;
@@ -58,7 +58,7 @@ public class EntityListPlace extends Place {
 	 * @param firstResult
 	 * @param maxResults
 	 */
-	public EntityListPlace(Class<? extends EntityProxy> proxyClass, int firstResult, int maxResults, BaseProxy searchCriteria) {
+	public EntitySearchPlace(Class<? extends EntityProxy> proxyClass, int firstResult, int maxResults, BaseProxy searchCriteria) {
 		super();
 		this.proxyClass = proxyClass;
 		this.firstResult = firstResult;
@@ -99,7 +99,7 @@ public class EntityListPlace extends Place {
 	 * Tokenizer.
 	 */
 	@Prefix(PREFIX)
-	public static class Tokenizer implements PlaceTokenizer<EntityListPlace> {
+	public static class Tokenizer implements PlaceTokenizer<EntitySearchPlace> {
 		protected final Logger logger = Logger.getLogger(getClass().getName());
 		
 		private static final String SEPARATOR = "!";
@@ -115,7 +115,7 @@ public class EntityListPlace extends Place {
 			this.requests = requests;
 		}
 
-		public EntityListPlace getPlace(String token) {
+		public EntitySearchPlace getPlace(String token) {
 			logger.fine("Slicing token: " + token);
 			String tokens[] = token.split(SEPARATOR);
 			Class<? extends EntityProxy> proxyType = requests.getProxyClass(tokens[0]);
@@ -130,10 +130,10 @@ public class EntityListPlace extends Place {
 				Class<? extends BaseProxy> searchCriteriaClass = proxyFactory.getSearchCriteriaTypeForProxy(proxyType);
 				searchCriteria = proxyFactory.deserialize(searchCriteriaClass, tokens[3]);
 			}
-			return new EntityListPlace(proxyType, firstResult, maxResults, searchCriteria);
+			return new EntitySearchPlace(proxyType, firstResult, maxResults, searchCriteria);
 		}
 
-		public String getToken(EntityListPlace place) {
+		public String getToken(EntitySearchPlace place) {
 			StringBuilder sb = new StringBuilder();
 			sb.append(requests.getHistoryToken(place.getProxyClass()));
 			sb.append(SEPARATOR);
@@ -147,7 +147,7 @@ public class EntityListPlace extends Place {
 			return sb.toString();
 		}
 		
-		public String getFullHistoryToken(EntityListPlace place) {
+		public String getFullHistoryToken(EntitySearchPlace place) {
 			return PREFIX + ":" + getToken(place);
 		}
 		

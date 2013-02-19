@@ -4,7 +4,7 @@
 package org.appfuse.webapp.client.application;
 
 import org.appfuse.webapp.client.application.base.activity.AbstractBaseActivity;
-import org.appfuse.webapp.client.application.base.place.EntityListPlace;
+import org.appfuse.webapp.client.application.base.place.EntitySearchPlace;
 import org.appfuse.webapp.client.application.base.place.EntityProxyPlace;
 import org.appfuse.webapp.client.ui.login.LoginActivity;
 import org.appfuse.webapp.client.ui.login.LoginPlace;
@@ -79,8 +79,8 @@ public class ApplicationActivityMapper implements ActivityMapper {
 				activity = new EditUserActivity(application);
 			}
 		}
-		else if(place instanceof EntityListPlace) {
-			EntityListPlace listPlace = (EntityListPlace) place;
+		else if(place instanceof EntitySearchPlace) {
+			EntitySearchPlace listPlace = (EntitySearchPlace) place;
 			if(UserProxy.class.equals(listPlace.getProxyClass())) {
 				activity = new UsersSearchActivity(listPlace, application);
 			}

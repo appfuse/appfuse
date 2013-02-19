@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 import javax.validation.ConstraintViolation;
 
 import org.appfuse.webapp.client.application.Application;
-import org.appfuse.webapp.client.application.base.place.EntityListPlace;
+import org.appfuse.webapp.client.application.base.place.EntitySearchPlace;
 import org.appfuse.webapp.client.application.base.place.EntityProxyPlace;
 import org.appfuse.webapp.client.application.base.view.ProxySearchView;
 import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
@@ -20,10 +20,8 @@ import com.google.gwt.user.cellview.client.ColumnSortList;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
-import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.Range;
 import com.google.gwt.view.client.RangeChangeEvent;
-import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.web.bindery.requestfactory.shared.BaseProxy;
 import com.google.web.bindery.requestfactory.shared.EntityProxy;
 import com.google.web.bindery.requestfactory.shared.Receiver;
@@ -35,13 +33,13 @@ import com.google.web.bindery.requestfactory.shared.RequestContext;
  * activities are not re-usable. Once they are stopped, they cannot be
  * restarted.
  * <p/>
- * Subclasses must:
+ * Subclasses must provide:
  * <p/>
  * <ul>
- * <li>provide a {@link ProxySearchView}
- * <li>implement method to request a full count
- * <li>implement method to find a range of entities
- * <li>respond to "show details" commands
+ * <li>{@link #createView()}
+ * <li>{@link #createRequestContext()}
+ * <li>{@link #createCountRequest(RequestContext, BaseProxy)}
+ * <li>{@link #createSearchRequest(RequestContext, BaseProxy, Range, ColumnSortList)}
  * </ul>
  * <p/>
  * Only the properties required by the view will be requested.
@@ -53,15 +51,14 @@ public abstract class AbstractProxySearchActivity<P extends EntityProxy, S exten
 
 	protected final Logger logger = Logger.getLogger(getClass().getName());
 	
-	protected final Class<S> searchCriteriaType;
-	protected final EntityListPlace currentPlace;
-	protected ProxySearchView<P, S> view;
-	
-	private HandlerRegistration rangeChangeHandler;
 	private S searchCriteria;
+	protected final Class<S> searchCriteriaType;
+	protected final EntitySearchPlace currentPlace;
+
+	protected ProxySearchView<P, S> view;
+	private HandlerRegistration rangeChangeHandler;
 
 	protected abstract ProxySearchView<P, S> createView();
-	
 	protected abstract RequestContext createRequestContext();
 	protected abstract Request<Long> createCountRequest(RequestContext requestContext, S searchCriteria);
 	protected abstract Request<List<P>> createSearchRequest(RequestContext requestContext, S searchCriteria, Range range, ColumnSortList columnSortList);
@@ -69,7 +66,7 @@ public abstract class AbstractProxySearchActivity<P extends EntityProxy, S exten
 	
 	public AbstractProxySearchActivity(Application application, Class<S> searchCriteriaType) {
 		super(application);
-		this.currentPlace = (EntityListPlace) application.getPlaceController().getWhere();
+		this.currentPlace = (EntitySearchPlace) application.getPlaceController().getWhere();
 		this.searchCriteriaType = searchCriteriaType;
 	}
 	
@@ -152,8 +149,8 @@ public abstract class AbstractProxySearchActivity<P extends EntityProxy, S exten
 	}
 	
 	protected void newHistoryToken(S searchCriteria, int firstResult, int maxResults) {
-		String historyToken = new EntityListPlace.Tokenizer(proxyFactory, requests)
-			.getFullHistoryToken(new EntityListPlace(currentPlace.getProxyClass(), firstResult, maxResults, searchCriteria));
+		String historyToken = new EntitySearchPlace.Tokenizer(proxyFactory, requests)
+			.getFullHistoryToken(new EntitySearchPlace(currentPlace.getProxyClass(), firstResult, maxResults, searchCriteria));
 		History.newItem(historyToken, false);
 	}
 
@@ -175,9 +172,9 @@ public abstract class AbstractProxySearchActivity<P extends EntityProxy, S exten
 		if(view.getEditorDriver().hasErrors()) {
 			return;
 		}
-		Set<ConstraintViolation<?>> violations = validate(searchCriteria);
+		Set<ConstraintViolation<S>> violations = validate(searchCriteria);
 		if(violations != null && !violations.isEmpty()) {
-			view.getEditorDriver().setConstraintViolations(violations);
+			view.getEditorDriver().setConstraintViolations((Set)violations);
 		}
 		loadItems(searchCriteria);
 	}
@@ -187,14 +184,14 @@ public abstract class AbstractProxySearchActivity<P extends EntityProxy, S exten
 	 * 
 	 * Override if you want to apply validation, example:
 	 * <code><pre>
-	 * protected Set<ConstraintViolation<?>> validate(S searchCriteria){
-	 * 	(Set) getValidator().validate(searchCriteria);
+	 * protected Set<ConstraintViolation<S>> validate(S searchCriteria){
+	 * 	return getValidator().validate(searchCriteria);
 	 * }
 	 * </pre></code>
 	 * @param searchCriteria
 	 * @return
 	 */
-	protected Set<ConstraintViolation<?>> validate(S searchCriteria){
+	protected Set<ConstraintViolation<S>> validate(S searchCriteria){
 		return null;//
 	}
 	

@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.appfuse.webapp.client.application.Application;
 import org.appfuse.webapp.client.application.base.activity.AbstractProxySearchActivity;
-import org.appfuse.webapp.client.application.base.place.EntityListPlace;
+import org.appfuse.webapp.client.application.base.place.EntitySearchPlace;
 import org.appfuse.webapp.client.application.base.view.ProxySearchView;
 import org.appfuse.webapp.client.application.utils.tables.LocalColumnSortHandler;
 import org.appfuse.webapp.proxies.UserProxy;
@@ -29,7 +29,7 @@ public class UsersSearchActivity extends AbstractProxySearchActivity<UserProxy, 
 
 	private Handler clientSideSortHandler;
 	
-	public UsersSearchActivity(EntityListPlace currentPlace, Application application) {
+	public UsersSearchActivity(EntitySearchPlace currentPlace, Application application) {
 		super(application, UsersSearchCriteriaProxy.class);
 		setTitle(i18n.userList_title());
 	}

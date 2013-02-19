@@ -6,7 +6,7 @@ package org.appfuse.webapp.client.ui.navigation;
 import org.appfuse.webapp.client.application.Application;
 import org.appfuse.webapp.client.application.ApplicationMenu;
 import org.appfuse.webapp.client.application.ApplicationResources;
-import org.appfuse.webapp.client.application.base.place.EntityListPlace;
+import org.appfuse.webapp.client.application.base.place.EntitySearchPlace;
 import org.appfuse.webapp.client.application.base.place.EntityProxyPlace;
 import org.appfuse.webapp.client.application.utils.menu.MenuItem;
 
@@ -50,9 +50,9 @@ public abstract class BaseNavigationBar extends Composite implements PlaceChange
 			EntityProxyPlace menuEntityPlace = (EntityProxyPlace) menuPlace;
 			return newEntityPlace.getProxyClass().equals(menuEntityPlace.getProxyClass());
 		}
-		else if(newPlace instanceof EntityListPlace && menuPlace instanceof EntityListPlace) {
-			EntityListPlace newEntityPlace = (EntityListPlace) newPlace;
-			EntityListPlace menuEntityPlace = (EntityListPlace) menuPlace;
+		else if(newPlace instanceof EntitySearchPlace && menuPlace instanceof EntitySearchPlace) {
+			EntitySearchPlace newEntityPlace = (EntitySearchPlace) newPlace;
+			EntitySearchPlace menuEntityPlace = (EntitySearchPlace) menuPlace;
 			return newEntityPlace.getProxyClass().equals(menuEntityPlace.getProxyClass());
 		}
 		return newPlace.getClass().equals(menuPlace.getClass());
