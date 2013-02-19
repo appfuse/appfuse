@@ -62,11 +62,11 @@ public class LoginViewImpl extends Composite implements LoginView, Editor<LoginV
 			}
 		});
 	    passwordHintHtml.addAndReplaceElement(link, a);
-//	    try {//fails on dev mode..
-//			HTMLPanel.wrap(passwordHintParaElement).add(passwordHintHtml);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+	    try {//fails on dev mode..
+			HTMLPanel.wrap(passwordHintParaElement).add(passwordHintHtml);
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
@@ -87,6 +87,11 @@ public class LoginViewImpl extends Composite implements LoginView, Editor<LoginV
 	@Override
 	public void setRememberMeEnabled(boolean rememberMeEnabled) {
 		loginForm.setRememberMeEnabled(rememberMeEnabled);
+	}
+	
+	@Override
+	public void setWaiting(boolean wait) {
+		loginForm.setWaiting(wait);
 	}
 }
 

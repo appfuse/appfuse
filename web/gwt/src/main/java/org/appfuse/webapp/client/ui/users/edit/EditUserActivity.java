@@ -41,6 +41,29 @@ public class EditUserActivity extends AbstractProxyEditActivity<UserProxy> imple
 		} else {
 			setTitle(i18n.userProfile_title());
 		}
+		setDeleteConfirmation(i18n.delete_confirm(i18n.userList_user()));
+	}
+	
+
+	@Override
+	public String getSavedMessage() {
+		Place place = placeController.getWhere();
+		if(place instanceof SignUpPlace) {
+			return application.getI18n().user_registered();
+		} else if(place instanceof EditProfilePlace) {
+			return application.getI18n().user_saved();
+		} else {
+			if(entityProxy.getVersion() == 0) {
+				return application.getI18n().user_added(getFullName(entityProxy));
+			} else {
+				return application.getI18n().user_updated_byAdmin(getFullName(entityProxy));
+			}
+		}		
+	}
+	
+	@Override
+	public String getDeletedMessage() {
+		return application.getI18n().user_deleted(entityProxy.getUsername());
 	}
 	
 	
@@ -109,11 +132,12 @@ public class EditUserActivity extends AbstractProxyEditActivity<UserProxy> imple
 	@Override
 	protected RequestContext saveOrUpdateRequest(RequestContext requestContext, UserProxy proxy) {
 		if(currentPlace instanceof SignUpPlace) {
-			((UserRequest) requestContext).signUp(proxy);		}
-		else if(currentPlace instanceof EditProfilePlace) {
-			((UserRequest) requestContext).editProfile(proxy);		} 
-		else {
-			((UserRequest) requestContext).saveUser(proxy);		}		
+			((UserRequest) requestContext).signUp(proxy);		
+		} else if(currentPlace instanceof EditProfilePlace) {
+			((UserRequest) requestContext).editProfile(proxy);
+		} else {
+			((UserRequest) requestContext).saveUser(proxy);
+		}		
 		return requestContext;
 	}	
 	
@@ -148,4 +172,7 @@ public class EditUserActivity extends AbstractProxyEditActivity<UserProxy> imple
 		}
 	}
 
+	private String getFullName(UserProxy userProxy) {//XXX this is already duplicated
+		return userProxy.getFirstName()  + " " + userProxy.getLastName();
+	}
 }

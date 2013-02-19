@@ -5,7 +5,6 @@ package org.appfuse.webapp.client.ui.login;
 
 import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.CheckBox;
-import com.github.gwtbootstrap.client.ui.ControlGroup;
 import com.github.gwtbootstrap.client.ui.PasswordTextBox;
 import com.github.gwtbootstrap.client.ui.TextBox;
 import com.github.gwtbootstrap.client.ui.base.AlertBase;
@@ -42,7 +41,7 @@ public class LoginForm extends Composite implements LoginView, Editor<LoginView.
 	@UiField TextBox username;
 	@UiField PasswordTextBox password;
 	
-	@UiField ControlGroup rememberMeControl;
+	@UiField Widget rememberMeControl;
 	@UiField CheckBox rememberMe;
 	
 	@UiField Button loginButton;
@@ -54,6 +53,7 @@ public class LoginForm extends Composite implements LoginView, Editor<LoginView.
 		super();
 		initWidget(uiBinder.createAndBindUi(this));
 		username.getElement().setAttribute("required", "required");
+		username.getElement().setAttribute("autofocus", "autofocus");
 		password.getElement().setAttribute("required", "required");
 		driver.initialize(this);
 	}
@@ -89,6 +89,11 @@ public class LoginForm extends Composite implements LoginView, Editor<LoginView.
 	@Override
 	public void setRememberMeEnabled(boolean rememberMeEnabled) {
 		rememberMeControl.setVisible(rememberMeEnabled);
+	}
+	
+	@Override
+	public void setWaiting(boolean wait) {
+		loginButton.setEnabled(!wait);
 	}
 }
 

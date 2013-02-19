@@ -68,9 +68,10 @@ public class EditUserViewImpl extends Composite implements EditUserView {
     
     @UiField(provided=true) 
     RolesListBox roles = new RolesListBox();
-
     
-    @UiField Widget accountSettings;
+    @UiField Widget userRoles;//control group for
+    @UiField Widget accountSettings;//control group for
+
     @UiField CheckBox enabled;
     @UiField CheckBox accountExpired;
     @UiField CheckBox accountLocked;

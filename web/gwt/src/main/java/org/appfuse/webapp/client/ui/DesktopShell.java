@@ -70,6 +70,7 @@ public class DesktopShell extends Shell implements LoginEvent.Handler, LogoutEve
 	 */
 	@Override
 	public void addMessage(AlertBase alert) {
+		messages.getElement().scrollIntoView();
 		alert.getElement().setAttribute(TTL_ATTRIBUTE, "1");
 		messages.add(alert);
 	}
@@ -122,7 +123,12 @@ public class DesktopShell extends Shell implements LoginEvent.Handler, LogoutEve
 		}
 		
 		for (Widget widget : toRemove) {
-			widget.removeFromParent();
+				try {
+					widget.removeFromParent();
+				} catch (Throwable e) {
+					//already removed
+					//XXX null in native method Node.removeChild:L291
+				}
 		}
 	}
 	

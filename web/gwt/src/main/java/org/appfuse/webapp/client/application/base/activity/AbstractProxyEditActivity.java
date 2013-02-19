@@ -59,6 +59,35 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 	protected RequestFactoryEditorDriver<P, ?> editorDriver;
 	protected P entityProxy;
 	private boolean waiting;
+	
+	private String savedMessage = i18n.entity_saved();
+	private String deletedMessage = i18n.entity_deleted();
+	private String deleteConfirmation = i18n.delete_confirm("");
+
+	public String getSavedMessage() {
+		return savedMessage;
+	}
+
+	public void setSavedMessage(String savedMessage) {
+		this.savedMessage = savedMessage;
+	}
+
+	public String getDeletedMessage() {
+		return deletedMessage;
+	}
+
+	public void setDeletedMessage(String deletedMessage) {
+		this.deletedMessage = deletedMessage;
+	}
+	
+	public String getDeleteConfirmation() {
+		return deleteConfirmation;
+	}
+
+	public void setDeleteConfirmation(String deleteConfirmation) {
+		this.deleteConfirmation = deleteConfirmation;
+	}
+
 
 	/**
 	 * Called on {@link #start(AcceptsOneWidget, EventBus)}.
@@ -198,16 +227,9 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 			@Override
 			public void onSuccess(Void ignore) {
 				if (editorDriver != null) {
-					// We want no warnings from mayStop, so:
-
-					// Defeat isChanged check
 					editorDriver = null;
-
-					// Defeat call-in-flight check
 					setWaiting(false);
-
 					addMessage(getSavedMessage(), AlertType.SUCCESS);
-					
 					placeController.goTo(nextPlace(true));
 				}
 			}
@@ -230,6 +252,9 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 	 */
 	@Override
 	public void deleteClicked() {
+		if(!Window.confirm(getDeleteConfirmation())) {
+			return;
+		}
 		deleteRequest(createProxyRequest(), entityProxy).fire(new Receiver<Void>() {
 			@Override
 			public void onSuccess(Void response) {
@@ -261,14 +286,6 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 		shell.addMessage(html, alertType);
 	}
 	
-	protected String getSavedMessage() {
-		return "saved ok";//FIXME
-	}
-
-	protected String getDeletedMessage() {
-		return "deleted ok";//FIXME
-	}
-
 	/**
 	 * 
 	 * @see com.google.gwt.activity.shared.AbstractActivity#mayStop()

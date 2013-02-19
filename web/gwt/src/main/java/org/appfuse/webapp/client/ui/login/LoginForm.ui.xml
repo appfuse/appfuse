@@ -14,25 +14,19 @@
 	    
 	    <g:SimplePanel ui:field="messages" />
 	
-		<b:ControlGroup ui:field="usernameGroup">
-	       	<b:Controls>
-	       		<b:TextBox ui:field="username" placeholder="{i18n.user_username}" controlGroup="{usernameGroup}" errorLabel="{usernameErrors}" />
-	       		<b:HelpInline ui:field="usernameErrors"></b:HelpInline>
-	       	</b:Controls>
-	    </b:ControlGroup>
-		<b:ControlGroup ui:field="passwordGroup">
-	       	<b:Controls>
-	       		<b:PasswordTextBox ui:field="password" placeholder="{i18n.user_password}" controlGroup="{passwordGroup}" errorLabel="{passwordErrors}" />
-	       		<b:HelpInline ui:field="passwordErrors"></b:HelpInline>
-	       	</b:Controls>
-	    </b:ControlGroup>
+       	<b:Controls ui:field="usernameGroup">
+       		<b:TextBox ui:field="username" placeholder="{i18n.user_username}" controlGroup="{usernameGroup}" errorLabel="{usernameErrors}" />
+       		<b:HelpInline ui:field="usernameErrors"></b:HelpInline>
+       	</b:Controls>
+       	<b:Controls  ui:field="passwordGroup">
+       		<b:PasswordTextBox ui:field="password" placeholder="{i18n.user_password}" controlGroup="{passwordGroup}" errorLabel="{passwordErrors}" />
+       		<b:HelpInline ui:field="passwordErrors"></b:HelpInline>
+       	</b:Controls>
 	
-		<b:ControlGroup ui:field="rememberMeControl">
-		    <b:ControlLabel  styleName="checkbox" for="spring_security_remember_me" >
-		    	<b:CheckBox ui:field="rememberMe" inline="true"/>
-		        <ui:text from="{i18n.login_rememberMe}"/>
-		   </b:ControlLabel>
-		</b:ControlGroup>
+	    <b:ControlLabel ui:field="rememberMeControl" styleName="checkbox" for="spring_security_remember_me" >
+	    	<b:CheckBox ui:field="rememberMe" inline="true"/>
+	        <ui:text from="{i18n.login_rememberMe}"/>
+	   </b:ControlLabel>
 	
 		<b:Button ui:field="loginButton" styleName="btn btn-large btn-primary" text="{i18n.button_login}" />
 	</form>

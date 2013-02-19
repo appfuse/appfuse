@@ -27,6 +27,7 @@ import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceChangeEvent;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
@@ -168,8 +169,10 @@ public class DesktopApplication extends Application implements LoginEvent.Handle
 
 			public void onRequestEvent(RequestEvent requestEvent) {
 				if (requestEvent.getState() == RequestEvent.State.SENT) {
+					DOM.setStyleAttribute(shell.getElement(), "cursor", "wait");
 					shell.getMole().showDelayed(LOADING_TIMEOUT);
 				} else {
+					DOM.setStyleAttribute(shell.getElement(), "cursor", "default");
 					shell.getMole().hide();
 				}
 			}

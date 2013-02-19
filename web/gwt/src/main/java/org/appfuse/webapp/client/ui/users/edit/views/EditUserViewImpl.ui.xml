@@ -131,8 +131,8 @@
 				</b:Controls>
 			</b:ControlGroup>
 			
-			<b:ControlGroup>
-			    <b:ControlLabel for="userRoles"><ui:text from="{i18n.userProfile_assignRoles}" /></b:ControlLabel>
+			<b:ControlGroup ui:field="userRoles">
+			    <b:ControlLabel for="roles"><ui:text from="{i18n.userProfile_assignRoles}" /></b:ControlLabel>
 			    <b:Controls>
 			    	<c:CellList ui:field="roles"/>
 			    </b:Controls>

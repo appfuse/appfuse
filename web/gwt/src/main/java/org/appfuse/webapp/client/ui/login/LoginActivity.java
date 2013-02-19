@@ -57,6 +57,8 @@ public class LoginActivity extends AbstractBaseActivity implements LoginView.Del
 			view = viewFactory.getView(LoginView.class);
 			view.setDelegate(this);
 			view.setRememberMeEnabled(application.isRememberMeEnabled());
+			view.setWaiting(false);
+			view.setMessage(null);
 			panel.setWidget(view);
 		}
 	}
@@ -66,6 +68,8 @@ public class LoginActivity extends AbstractBaseActivity implements LoginView.Del
 		view = viewFactory.getView(LoginForm.class);
 		view.setDelegate(this);
 		view.setRememberMeEnabled(application.isRememberMeEnabled());
+		view.setMessage(null);
+		view.setWaiting(false);
 
 		dialog = new DialogBox();
 		dialog.setGlassEnabled(true);
@@ -80,17 +84,15 @@ public class LoginActivity extends AbstractBaseActivity implements LoginView.Del
 		EditorDriver<LoginDetails> editorDriver = view.getEditorDriver();
 		LoginDetails login = editorDriver.flush();
 		Set<ConstraintViolation<LoginDetails>> violations = getValidator().validate(login);
-		editorDriver.setConstraintViolations((Set) violations);
 		if(!violations.isEmpty()) {
-			for (ConstraintViolation<LoginDetails> violation : violations) {
-				shell.addMessage(new Alert("Violation on " + violation.getPropertyPath()));
-			}
+			editorDriver.setConstraintViolations((Set) violations);
 			return;
 		}
 		RequestBuilder requestBuilder = new RequestBuilder(RequestBuilder.POST, "j_security_check");
 		requestBuilder.setHeader("Content-Type","application/x-www-form-urlencoded");
 		requestBuilder.setHeader("X-Requested-With","XMLHttpRequest");
 		try {
+			view.setWaiting(true);
 			requestBuilder.sendRequest(createLoginPostData(login), new RequestCallback() {
 				
 				@Override
@@ -104,7 +106,8 @@ public class LoginActivity extends AbstractBaseActivity implements LoginView.Del
 						eventBus.fireEvent(new LoginEvent());
 					} 
 					else if(statusCode == Response.SC_FORBIDDEN || statusCode == Response.SC_UNAUTHORIZED) {
-						view.setMessage(new Alert("login failedXX"));
+						view.setWaiting(false);	
+						view.setMessage(new Alert(i18n.errors_password_mismatch(), AlertType.ERROR, false));
 					}
 					else {
 						throw new RuntimeException("Login could not understand response code: " + statusCode);
@@ -113,6 +116,7 @@ public class LoginActivity extends AbstractBaseActivity implements LoginView.Del
 				
 				@Override
 				public void onError(Request request, Throwable exception) {
+					view.setWaiting(false);					
 					Window.alert("Response error " + exception.getMessage());
 				}
 			});
@@ -131,7 +135,7 @@ public class LoginActivity extends AbstractBaseActivity implements LoginView.Del
 	private String createLoginPostData(LoginView.LoginDetails login) {
 		return "j_username=" + URL.encodeQueryString(login.getUsername()) + 
 				"&j_password=" + URL.encodeQueryString(login.getPassword()) +
-				(login.isRememberMe()? "&_spring_security_remember_me=true" : "");
+				(login.isRememberMe()? "&_spring_security_remember_me=on" : "");
 	}
 
 	@Override

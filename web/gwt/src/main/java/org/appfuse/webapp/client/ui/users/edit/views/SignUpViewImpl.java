@@ -15,7 +15,7 @@ public class SignUpViewImpl extends EditUserViewImpl {
 	public SignUpViewImpl() {
 		super();
 		accountSettings.removeFromParent();
-		roles.removeFromParent();
+		userRoles.removeFromParent();
 		deleteButton.removeFromParent();
 	}
 

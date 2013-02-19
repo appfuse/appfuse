@@ -286,6 +286,24 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
   String display_title();
 
   /**
+   * Translated "Form information was deleted successfully.".
+   * 
+   * @return translated "Form information was deleted successfully."
+   */
+  @DefaultMessage("Form information was deleted successfully.")
+  @Key("entity.deleted")
+  String entity_deleted();
+
+  /**
+   * Translated "Form information was saved successfully.".
+   * 
+   * @return translated "Form information was saved successfully."
+   */
+  @DefaultMessage("Form information was saved successfully.")
+  @Key("entity.saved")
+  String entity_saved();
+
+  /**
    * Translated "Yikes!".
    * 
    * @return translated "Yikes!"

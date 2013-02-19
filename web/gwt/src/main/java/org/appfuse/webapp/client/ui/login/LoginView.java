@@ -59,6 +59,8 @@ public interface LoginView extends IsWidget {
 	void setDelegate(Delegate delegate);
 	
 	void setMessage(AlertBase alert);
+	
+	void setWaiting(boolean wait);
 
 	EditorDriver<LoginDetails> getEditorDriver();
 }
