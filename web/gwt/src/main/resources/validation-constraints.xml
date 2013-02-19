@@ -4,6 +4,13 @@
     <default-package>org.appfuse.model</default-package>
 
     <bean class="User" ignore-annotations="true">
+    	<class>
+    		<constraint annotation="org.hibernate.validator.constraints.ScriptAssert">
+    			<message>{errors.user.confirmPasswordMismatch}</message>
+    			<element name="lang">javascript</element><!-- requires jdk 1.6 -->
+    			<element name="script">_this.password == _this.confirmPassword</element>
+    		</constraint> 
+    	</class>
         <field name="username">
             <constraint annotation="javax.validation.constraints.NotNull"/>
             <constraint annotation="javax.validation.constraints.Size">
@@ -30,6 +37,7 @@
         </field>
         <field name="email">
             <constraint annotation="javax.validation.constraints.NotNull"/>
+            <constraint annotation="org.hibernate.validator.constraints.Email" />
             <constraint annotation="javax.validation.constraints.Size">
                 <element name="max">150</element>
             </constraint>           

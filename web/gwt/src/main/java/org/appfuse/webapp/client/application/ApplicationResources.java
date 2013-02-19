@@ -529,6 +529,15 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
   String errors_twofields(String arg0,  String arg1);
 
   /**
+   * Translated "The {user.password} field has to have the same value as the {user.confirmPassword} field.".
+   * 
+   * @return translated "The {user.password} field has to have the same value as the {user.confirmPassword} field."
+   */
+  @DefaultMessage("The {user.password} field has to have the same value as the {user.confirmPassword} field.")
+  @Key("errors.user.confirmPasswordMismatch")
+  String errors_user_confirmPasswordMismatch();
+
+  /**
    * Translated "{0} is an invalid zip code.".
    * 
    * @return translated "{0} is an invalid zip code."
@@ -619,11 +628,11 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
   String login_heading();
 
   /**
-   * Translated "Forgot your password?  Have your <a href=\"?\" onmouseover=\"window.status='Have your password hint sent to you.'; return true\" onmouseout=\"window.status=''; return true\" title=\"Have your password hint sent to you.\" onclick=\"passwordHint(); return false\" id=\"passwordHint\">password hint e-mailed to you</a>.".
+   * Translated "Forgot your password?  Have your <a href=\"?\" onmouseover=\"window.status=''Have your password hint sent to you.''; return true\" onmouseout=\"window.status=''''; return true\" title=\"Have your password hint sent to you.\" onclick=\"passwordHint(); return false\" id=\"passwordHint\">password hint e-mailed to you</a>.".
    * 
-   * @return translated "Forgot your password?  Have your <a href=\"?\" onmouseover=\"window.status='Have your password hint sent to you.'; return true\" onmouseout=\"window.status=''; return true\" title=\"Have your password hint sent to you.\" onclick=\"passwordHint(); return false\" id=\"passwordHint\">password hint e-mailed to you</a>."
+   * @return translated "Forgot your password?  Have your <a href=\"?\" onmouseover=\"window.status=''Have your password hint sent to you.''; return true\" onmouseout=\"window.status=''''; return true\" title=\"Have your password hint sent to you.\" onclick=\"passwordHint(); return false\" id=\"passwordHint\">password hint e-mailed to you</a>."
    */
-  @DefaultMessage("Forgot your password?  Have your <a href=\"?\" onmouseover=\"window.status='Have your password hint sent to you.'; return true\" onmouseout=\"window.status=''; return true\" title=\"Have your password hint sent to you.\" onclick=\"passwordHint(); return false\" id=\"passwordHint\">password hint e-mailed to you</a>.")
+  @DefaultMessage("Forgot your password?  Have your <a href=\"?\" onmouseover=\"window.status=''Have your password hint sent to you.''; return true\" onmouseout=\"window.status=''''; return true\" title=\"Have your password hint sent to you.\" onclick=\"passwordHint(); return false\" id=\"passwordHint\">password hint e-mailed to you</a>.")
   @Key("login.passwordHint")
   String login_passwordHint();
 

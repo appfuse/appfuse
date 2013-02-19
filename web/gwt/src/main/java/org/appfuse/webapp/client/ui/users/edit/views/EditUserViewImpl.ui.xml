@@ -20,41 +20,65 @@
 		    <b:LongBox ui:field="id" visible="false" />
 		    <b:IntegerBox ui:field="version" visible="false" />
 		
-			<b:ControlGroup>
+			<b:ControlGroup ui:field="usernameControlGroup">
 		        <b:ControlLabel for="username"><ui:text from="{i18n.user_username}" /> <span class="required">*</span></b:ControlLabel>
-		       	<b:Controls><b:TextBox ui:field="username" /></b:Controls>
+		       	<b:Controls>
+		       		<b:TextBox ui:field="username" controlGroup="{usernameControlGroup}" errorLabel="{usernameErrors}" />
+		       		<b:HelpInline ui:field="usernameErrors" />
+		       	</b:Controls>
 		    </b:ControlGroup>
-			<b:ControlGroup>
+			<b:ControlGroup ui:field="passwordControlGroup">
 		        <b:ControlLabel for="password"><ui:text from="{i18n.user_password}" /> <span class="required">*</span></b:ControlLabel>
-		       	<b:Controls><b:PasswordTextBox ui:field="password" /></b:Controls>
-		    </b:ControlGroup>	
-			<b:ControlGroup>
+		       	<b:Controls>
+		       		<b:PasswordTextBox ui:field="password" controlGroup="{passwordControlGroup}" errorLabel="{passwordErrors}" />
+		       		<b:HelpInline ui:field="passwordErrors" />
+		       	</b:Controls>
+		    </b:ControlGroup>
+			<b:ControlGroup ui:field="confirmPasswordControlGroup">
 		        <b:ControlLabel for="confirmPassword"><ui:text from="{i18n.user_confirmPassword}" /> <span class="required">*</span></b:ControlLabel>
-		       	<b:Controls><b:PasswordTextBox ui:field="confirmPassword" /></b:Controls>
-		    </b:ControlGroup>	
-			<b:ControlGroup>
+		       	<b:Controls>
+		       		<b:PasswordTextBox ui:field="confirmPassword" controlGroup="{confirmPasswordControlGroup}" errorLabel="{confirmPasswordErrors}" />
+		       		<b:HelpInline ui:field="confirmPasswordErrors" />
+		       	</b:Controls>
+		    </b:ControlGroup>
+			<b:ControlGroup ui:field="passwordHintControlGroup">
 		        <b:ControlLabel for="passwordHint"><ui:text from="{i18n.user_passwordHint}" /> <span class="required">*</span></b:ControlLabel>
 		       	<b:Controls><b:TextBox ui:field="passwordHint" /></b:Controls>
 		    </b:ControlGroup>
-			<b:ControlGroup>
+			<b:ControlGroup ui:field="firstNameControlGroup">
 		        <b:ControlLabel for="firstName"><ui:text from="{i18n.user_firstName}" /> <span class="required">*</span></b:ControlLabel>
-		       	<b:Controls><b:TextBox ui:field="firstName" /></b:Controls>
+		       	<b:Controls>
+		       		<b:TextBox ui:field="firstName" controlGroup="{firstNameControlGroup}" errorLabel="{firstNameErrors}" />
+		       		<b:HelpInline ui:field="firstNameErrors" />
+		       	</b:Controls>
 		    </b:ControlGroup>
-			<b:ControlGroup>
+			<b:ControlGroup ui:field="lastNameControlGroup">
 		        <b:ControlLabel for="lastName"><ui:text from="{i18n.user_lastName}" /> <span class="required">*</span></b:ControlLabel>
-		       	<b:Controls><b:TextBox ui:field="lastName" /></b:Controls>
+		       	<b:Controls>
+		       		<b:TextBox ui:field="lastName" controlGroup="{lastNameControlGroup}" errorLabel="{lastNameErrors}" />
+		       		<b:HelpInline ui:field="lastNameErrors" />
+		       	</b:Controls>
 		    </b:ControlGroup>
-			<b:ControlGroup>
+			<b:ControlGroup ui:field="emailControlGroup">
 		        <b:ControlLabel for="email"><ui:text from="{i18n.user_email}" /> <span class="required">*</span></b:ControlLabel>
-		       	<b:Controls><b:TextBox ui:field="email" /></b:Controls>
+		       	<b:Controls>
+		       		<b:TextBox ui:field="email" controlGroup="{emailControlGroup}" errorLabel="{emailErrors}" />
+		       		<b:HelpInline ui:field="emailErrors" />
+		       	</b:Controls>
 		    </b:ControlGroup>
-			<b:ControlGroup>
+			<b:ControlGroup ui:field="phoneNumberControlGroup">
 		        <b:ControlLabel for="phoneNumber"><ui:text from="{i18n.user_phoneNumber}" /> <span class="required">*</span></b:ControlLabel>
-		       	<b:Controls><b:TextBox ui:field="phoneNumber" /></b:Controls>
+		       	<b:Controls>
+		       		<b:TextBox ui:field="phoneNumber" controlGroup="{phoneNumberControlGroup}" errorLabel="{phoneNumberErrors}" />
+		       		<b:HelpInline ui:field="phoneNumberErrors" />
+		       	</b:Controls>
 		    </b:ControlGroup>
-			<b:ControlGroup>
+			<b:ControlGroup ui:field="websiteControlGroup">
 		        <b:ControlLabel for="website"><ui:text from="{i18n.user_website}" /> <span class="required">*</span></b:ControlLabel>
-		       	<b:Controls><b:TextBox ui:field="website" /></b:Controls>
+		       	<b:Controls>
+		       		<b:TextBox ui:field="website" controlGroup="{websiteControlGroup}" errorLabel="{websiteErrors}" />
+		       		<b:HelpInline ui:field="websiteErrors" />
+		       	</b:Controls>
 		    </b:ControlGroup>
 		
 			<b:ControlGroup ui:field="addressFieldset">
@@ -62,23 +86,35 @@
 				    <a href="#collapse-address" data-toggle="collapse"><ui:text from="{i18n.user_address_address}" /></a>
 				</legend>
 				<div class="accordion-body collapse" id="collapse-address">
-				    <b:ControlGroup>
+				    <b:ControlGroup ui:field="addressControlGroup">
 				        <b:ControlLabel for="address"><ui:text from="{i18n.user_address_address}" /></b:ControlLabel>
-			            <b:Controls><b:TextBox ui:field="address" /></b:Controls>
+				       	<b:Controls>
+				       		<b:TextBox ui:field="address" controlGroup="{addressControlGroup}" errorLabel="{addressErrors}" />
+				       		<b:HelpInline ui:field="addressErrors" />
+				       	</b:Controls>
 				    </b:ControlGroup>
-				    <b:ControlGroup>
+				    <b:ControlGroup ui:field="cityControlGroup">
 				        <b:ControlLabel for="city"><ui:text from="{i18n.user_address_city}" /></b:ControlLabel>
-			            <b:Controls><b:TextBox ui:field="city" /></b:Controls>
+				       	<b:Controls>
+				       		<b:TextBox ui:field="city" controlGroup="{cityControlGroup}" errorLabel="{cityErrors}" />
+				       		<b:HelpInline ui:field="cityErrors" />
+				       	</b:Controls>
 				    </b:ControlGroup>
-				    <b:ControlGroup>
+				    <b:ControlGroup ui:field="provinceControlGroup">
 				        <b:ControlLabel for="province"><ui:text from="{i18n.user_address_province}" /></b:ControlLabel>
-			            <b:Controls><b:TextBox ui:field="province" /></b:Controls>
+				       	<b:Controls>
+				       		<b:TextBox ui:field="province" controlGroup="{provinceControlGroup}" errorLabel="{provinceErrors}" />
+				       		<b:HelpInline ui:field="provinceErrors" />
+				       	</b:Controls>
 				    </b:ControlGroup>
-				    <b:ControlGroup>
+				    <b:ControlGroup ui:field="postalCodeControlGroup">
 				        <b:ControlLabel for="postalCode"><ui:text from="{i18n.user_address_postalCode}" /></b:ControlLabel>
-			            <b:Controls><b:TextBox ui:field="postalCode" /></b:Controls>
+				       	<b:Controls>
+				       		<b:TextBox ui:field="postalCode" controlGroup="{postalCodeControlGroup}" errorLabel="{postalCodeErrors}" />
+				       		<b:HelpInline ui:field="postalCodeErrors" />
+				       	</b:Controls>
 				    </b:ControlGroup>
-				    <b:ControlGroup>
+				    <b:ControlGroup ui:field="countryControlGroup">
 				        <b:ControlLabel for="country"><ui:text from="{i18n.user_address_country}" /></b:ControlLabel>
 			            <b:Controls><b:ListBox  ui:field="country" /></b:Controls>
 				    </b:ControlGroup>
@@ -86,7 +122,7 @@
 			</b:ControlGroup>
 		
 			<b:ControlGroup ui:field="accountSettings">
-			    <b:ControlLabel><ui:text from="{i18n.userProfile_assignRoles}" /></b:ControlLabel>
+			    <b:ControlLabel><ui:text from="{i18n.userProfile_accountSettings}" /></b:ControlLabel>
 			    <b:Controls>
 					<b:CheckBox ui:field="enabled" inline="true" /><ui:text from="{i18n.user_enabled}" />
 					<b:CheckBox ui:field="accountExpired" inline="true" /><ui:text from="{i18n.user_accountExpired}" />
@@ -96,7 +132,7 @@
 			</b:ControlGroup>
 			
 			<b:ControlGroup>
-			    <b:ControlLabel for="userRoles"><ui:text from="{i18n.userProfile_accountSettings}" /></b:ControlLabel>
+			    <b:ControlLabel for="userRoles"><ui:text from="{i18n.userProfile_assignRoles}" /></b:ControlLabel>
 			    <b:Controls>
 			    	<c:CellList ui:field="roles"/>
 			    </b:Controls>

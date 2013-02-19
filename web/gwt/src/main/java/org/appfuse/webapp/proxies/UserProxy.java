@@ -2,7 +2,9 @@ package org.appfuse.webapp.proxies;
 
 import java.util.Set;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.appfuse.model.User;
 import org.appfuse.webapp.server.locators.UserLocator;
@@ -16,26 +18,34 @@ public interface UserProxy extends EntityProxy {
 
 	Long getId();
 
-	@NotNull
+	@NotNull @Size(max=150)
 	String getUsername();
 
+	@NotNull @Size(max=150)
 	String getPassword();
 
+	@NotNull @Size(max=150)
 	String getConfirmPassword();
 
+	@NotNull @Size(max=150)
 	String getPasswordHint();
 
+	@NotNull @Size(max=150)
 	String getFirstName();
 
+	@NotNull @Size(max=150)
 	String getLastName();
 
-	@NotNull
+	@NotNull @Size(max=150)
 	String getEmail();
 
+	@NotNull @Size(max=150)
 	String getPhoneNumber();
 
+	@NotNull @Size(max=150)
 	String getWebsite();
 
+	//@Valid
 	AddressProxy getAddress();
 
 	Set<RoleProxy> getRoles();

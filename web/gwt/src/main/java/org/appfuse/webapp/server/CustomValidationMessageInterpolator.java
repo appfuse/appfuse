@@ -13,7 +13,7 @@ import org.hibernate.validator.resourceloading.PlatformResourceBundleLocator;
  */
 public class CustomValidationMessageInterpolator extends ResourceBundleMessageInterpolator {
 
-	private static final String APPLICATION_RESOURCES_NAME = ApplicationResources.class.getName() + ".kk";
+	private static final String APPLICATION_RESOURCES_NAME = ApplicationResources.class.getName();
 	/**
 	 * @param userResourceBundleLocator
 	 * @param cacheMessages
@@ -21,7 +21,5 @@ public class CustomValidationMessageInterpolator extends ResourceBundleMessageIn
 	public CustomValidationMessageInterpolator() {
 		super(new PlatformResourceBundleLocator(APPLICATION_RESOURCES_NAME));
 	}
-
-	
 	
 }

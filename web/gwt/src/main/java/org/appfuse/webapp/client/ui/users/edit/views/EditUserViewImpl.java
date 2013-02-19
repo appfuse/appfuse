@@ -116,7 +116,10 @@ public class EditUserViewImpl extends Composite implements EditUserView {
 		if(errors != null && !errors.isEmpty()) {
 	        SafeHtmlBuilder b = new SafeHtmlBuilder();
 	        for (EditorError error : errors) {
-        		b.appendEscaped(error.getPath()).appendEscaped(": ");
+	        	if(error.getPath() != null && !"".equals(error.getPath())) {
+	        		Object userData = error.getUserData();
+	        		b.appendEscaped(error.getPath()).appendEscaped(": ");
+	        	}
         		b.appendEscaped(error.getMessage()).appendEscaped("\n");
 	        }
 			Window.alert(b.toSafeHtml().asString());
