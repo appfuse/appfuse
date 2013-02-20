@@ -18,9 +18,9 @@ import com.google.gwt.place.shared.PlaceChangeEvent;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.NotificationMole;
-import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -71,9 +71,8 @@ public class DesktopShell extends Shell implements LoginEvent.Handler, LogoutEve
 	 */
 	@Override
 	public void addMessage(AlertBase alert) {
-		alert.getElement().setAttribute(TTL_ATTRIBUTE, "1");
 		messages.add(alert);
-		getElement().setScrollTop(0);
+		Window.scrollTo(0 ,0);
 	}
 	
 	/**
@@ -114,24 +113,14 @@ public class DesktopShell extends Shell implements LoginEvent.Handler, LogoutEve
 
 	@Override
 	public void onPlaceChange(PlaceChangeEvent event) {
-		List<Widget> toRemove = new ArrayList<Widget>();
-		for(Widget message : messages) {
-			if("1".equals(message.getElement().getAttribute(TTL_ATTRIBUTE))) {
-				message.getElement().removeAttribute(TTL_ATTRIBUTE);
-			} else {
-				toRemove.add(message);
+		Window.scrollTo(0 ,0);
+		for (Widget widget : messages) {
+			try {
+				widget.removeFromParent();
+			} catch (Throwable e) {
+				//already removed
+				//XXX null in native method Node.removeChild:L291
 			}
 		}
-		
-		for (Widget widget : toRemove) {
-				try {
-					widget.removeFromParent();
-				} catch (Throwable e) {
-					//already removed
-					//XXX null in native method Node.removeChild:L291
-				}
-		}
 	}
-	
-	private static final String TTL_ATTRIBUTE = "TTL";
 }

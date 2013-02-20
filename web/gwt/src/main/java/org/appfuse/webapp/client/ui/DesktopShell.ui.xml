@@ -11,7 +11,7 @@
 		<g:NotificationMole animationDuration="0" message="loading..." ui:field="mole"></g:NotificationMole>
    		<nav:DesktopNavigationBar ui:field="navigationBar" />
 
-		<b:Container>
+		<b:FluidContainer>
 			<g:FlowPanel  ui:field="messages"/>
 			<b:FluidRow>
 				<g:SimplePanel ui:field="contentsPanel" />
@@ -19,7 +19,7 @@
 					<nav:DesktopSideNavigationBar ui:field="sideNavigationBar" />
 				</b:Column>
 			</b:FluidRow>
-		</b:Container>
+		</b:FluidContainer>
 		
 
 	    <div id="footer">

@@ -9,24 +9,34 @@
 
 
 <b:Column size="10">
-	<b:Heading size="2"  ui:field="heading" text="{i18n.userList_heading}" />
+	<b:Heading size="2" ui:field="heading"><ui:text from="{i18n.userList_heading}" /></b:Heading>
 	
-	<b:WellForm type="SEARCH" styleName="searchForm">
-		<b:InputAddOn>
-			<b:TextBox ui:field="searchTerm" searchQuery="true" placeholder="search our site..." />
-			<b:appendWidget>
-				<b:Button ui:field="searchButton">Search</b:Button>
-			</b:appendWidget>
-		</b:InputAddOn>
-	</b:WellForm>
+	<g:HTMLPanel>
+		<form class="form-search" id="searchForm" >
+		    <div class="input-append" id="search">
+		        <b:TextBox ui:field="searchTerm" styleName="input-medium search-query" searchQuery="true" placeholder="{i18n.search_enterTerms}" />
+		        <g:Button ui:field="searchButton" styleName="btn" >
+		            <i class="icon-search"></i> <ui:text from="{i18n.button_search}" />
+		        </g:Button>
+		    </div>
+	    </form>	
+	</g:HTMLPanel>
 	
 	<b:FormActions>
-      <b:Button ui:field="addButton" text="{i18n.button_add}" styleName="primary" />
-      <b:Button ui:field="doneButton" text="{i18n.button_done}" styleName="primary" />
+      <b:Button ui:field="addButton" text="{i18n.button_add}" type="PRIMARY" icon="PLUS" customIconStyle="icon-white" />
+      <b:Button ui:field="doneButton" text="{i18n.button_done}" icon="OK"/>
 	</b:FormActions>     
 
 	<c:SimplePager display="{table}" location="LEFT" />
     <c:CellTable pageSize="{pageSize}" ui:field="table" width="100%"/>
 	<c:SimplePager display="{table}" location="LEFT" />
+	
+	<b:Well styleName="exportlinks well">
+		Export options (TODO): 
+		<a href="javascript:;"><span class="export csv">CSV </span></a>|
+		<a href="javascript:;"><span class="export excel">Excel </span></a>|
+		<a href="javascript:;"><span class="export xml">XML </span></a>|
+		<a href="javascript:;"><span class="export pdf">PDF </span></a>		
+	</b:Well>
 </b:Column>
 </ui:UiBinder>

@@ -16,9 +16,12 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.editor.client.Editor;
 import com.google.gwt.editor.client.EditorDriver;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -35,11 +38,15 @@ public class FileUploadViewImpl extends Composite implements FileUploadView, Edi
 	interface Driver extends SimpleBeanEditorDriver<FileUploadBean, FileUploadViewImpl> { }	
 	private Driver driver = GWT.create(Driver.class);	
 	
+	private Delegate delegate;
+	
 	@UiField FlowPanel errorsPanel;
 
 	@UiField Form form;
 	@UiField TextBox name;
 	@UiField FileUpload file;
+	
+	@UiField HasClickHandlers cancelButton;
 	
 	/**
 	 * 
@@ -52,6 +59,7 @@ public class FileUploadViewImpl extends Composite implements FileUploadView, Edi
 	
 	@Override
 	public void setDelegate(Delegate delegate) {
+		this.delegate = delegate;
 		form.addSubmitHandler(delegate);
 		form.addSubmitCompleteHandler(delegate);
 	}
@@ -75,5 +83,10 @@ public class FileUploadViewImpl extends Composite implements FileUploadView, Edi
 			sb.appendHtmlConstant("<br />");
 		}
 		errorsPanel.add(new Alert(sb.toSafeHtml().asString(), AlertType.ERROR));
-	}	
+	}
+	
+	@UiHandler("cancelButton")
+	void onCancelClick(ClickEvent event) {
+		delegate.onCancelClick();
+	}
 }

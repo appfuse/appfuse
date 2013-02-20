@@ -14,10 +14,12 @@ import com.github.gwtbootstrap.client.ui.TextBox;
 import com.google.gwt.cell.client.Cell.Context;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.ButtonElement;
 import com.google.gwt.editor.client.Editor;
 import com.google.gwt.editor.client.EditorDriver;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -43,7 +45,7 @@ public class UsersSearchViewImpl extends AbstractProxySearchView<UserProxy, User
     
     @UiField Button addButton;
     @UiField Button doneButton;
-    @UiField Button searchButton;
+    @UiField com.google.gwt.user.client.ui.Button searchButton;
 
     @UiField CellTable<UserProxy> table;
     Set<String> paths = new HashSet<String>();

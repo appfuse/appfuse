@@ -5,6 +5,7 @@ package org.appfuse.webapp.client.ui.users.edit.views;
 
 import java.util.List;
 
+import org.appfuse.webapp.client.application.ApplicationResources;
 import org.appfuse.webapp.proxies.LabelValueProxy;
 import org.appfuse.webapp.proxies.RoleProxy;
 import org.appfuse.webapp.proxies.UserProxy;
@@ -14,6 +15,7 @@ import com.github.gwtbootstrap.client.ui.CheckBox;
 import com.github.gwtbootstrap.client.ui.IntegerBox;
 import com.github.gwtbootstrap.client.ui.ListBox;
 import com.github.gwtbootstrap.client.ui.LongBox;
+import com.github.gwtbootstrap.client.ui.Paragraph;
 import com.github.gwtbootstrap.client.ui.PasswordTextBox;
 import com.github.gwtbootstrap.client.ui.TextBox;
 import com.google.gwt.core.client.GWT;
@@ -40,7 +42,11 @@ public class EditUserViewImpl extends Composite implements EditUserView {
 
 	interface Driver extends RequestFactoryEditorDriver<UserProxy, EditUserViewImpl> { }
 	
+	@UiField(provided=true) ApplicationResources i18n = GWT.create(ApplicationResources.class);
+	
 	private EditUserView.Delegate delegate;
+	
+	@UiField Paragraph subheading;
 	
     @UiField LongBox id;
     @UiField IntegerBox version;

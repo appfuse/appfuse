@@ -88,7 +88,11 @@ public class FileUploadActivity extends AbstractBaseActivity implements FileUplo
 	
 	@Override
 	public void onDoneClick() {
-		shell.clearMessages();
+		placeController.goTo(new MainMenuPlace());
+	}
+	
+	@Override
+	public void onCancelClick() {
 		placeController.goTo(new MainMenuPlace());
 	}
 

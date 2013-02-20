@@ -229,8 +229,8 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 				if (editorDriver != null) {
 					editorDriver = null;
 					setWaiting(false);
-					addMessage(getSavedMessage(), AlertType.SUCCESS);
 					placeController.goTo(nextPlace(true));
+					addMessage(getSavedMessage(), AlertType.SUCCESS);
 				}
 			}
 
@@ -258,9 +258,8 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 		deleteRequest(createProxyRequest(), entityProxy).fire(new Receiver<Void>() {
 			@Override
 			public void onSuccess(Void response) {
-				clearMessages();
-				addMessage(getDeletedMessage(), AlertType.SUCCESS);
 				placeController.goTo(nextPlace(false));
+				addMessage(getDeletedMessage(), AlertType.SUCCESS);
 			}
 		});
 	}

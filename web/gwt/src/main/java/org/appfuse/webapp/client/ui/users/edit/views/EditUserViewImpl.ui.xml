@@ -9,9 +9,9 @@
 
 
 <g:HTMLPanel>
-	<b:Column size="3">
+	<b:Column size="2">
 		<b:Heading size="2"  ui:field="heading" text="{i18n.userProfile_heading}" />
-		<b:Paragraph ui:field="subheading"><ui:text from="{i18n.userProfile_title}"/></b:Paragraph>
+		<b:Paragraph ui:field="subheading"><ui:text from="{i18n.userProfile_admin_message}"/></b:Paragraph>
 	</b:Column>
      
 	<b:Column size="7">

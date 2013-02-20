@@ -53,7 +53,7 @@ public class EditUserActivity extends AbstractProxyEditActivity<UserProxy> imple
 		} else if(place instanceof EditProfilePlace) {
 			return application.getI18n().user_saved();
 		} else {
-			if(entityProxy.getVersion() == 0) {
+			if(entityProxy.getVersion() == null) {
 				return application.getI18n().user_added(getFullName(entityProxy));
 			} else {
 				return application.getI18n().user_updated_byAdmin(getFullName(entityProxy));
