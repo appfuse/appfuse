@@ -23,6 +23,6 @@ pageContext.setAttribute("ctxPath", contextPath);
 		<div id="progressbar" class="bar" style="width: 10%">Loading...</div>
 	</div>
   	
-    <script type="text/javascript" language="javascript" src="clientApp/clientApp.nocache.js"></script>
+    <script type="text/javascript" language="javascript" src="script/script.nocache.js"></script>
 </body>
 </html>

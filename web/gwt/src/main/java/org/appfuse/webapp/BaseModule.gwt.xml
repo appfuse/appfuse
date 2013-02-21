@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module rename-to="clientApp">
+<module rename-to="script">
 	<inherits name="com.google.gwt.activity.Activity"/>
 	<inherits name="com.google.gwt.place.Place"/>
 	<inherits name="com.google.gwt.user.User"/>
