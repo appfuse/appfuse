@@ -421,6 +421,7 @@
             </build>
         </profile>
         
+        <!-- GWT Development/Debug Profile -->
         <profile>
         	<id>gwtDebug</id>
         	<properties>

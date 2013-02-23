@@ -138,7 +138,7 @@
             <!-- Fix bug that happens in Bamboo -->
             <delete dir="@{dir}" includes="main/**"/>
 
-            <!-- Remove displaytag for JSF and Tapestry -->
+            <!-- Remove displaytag for JSF, Tapestry and GWT-->
             <if>
                 <equals arg1="@{module}" arg2="jsf"/>
                 <then>
@@ -147,6 +147,12 @@
             </if>
             <if>
                 <equals arg1="@{module}" arg2="tapestry"/>
+                <then>
+                    <delete dir="@{dir}" includes="**/displaytag*.properties"/>
+                </then>
+            </if>
+            <if>
+                <equals arg1="@{module}" arg2="gwt"/>
                 <then>
                     <delete dir="@{dir}" includes="**/displaytag*.properties"/>
                 </then>
@@ -170,6 +176,29 @@
                     <move file="@{dir}/@{dest}/src/main/resources/org/appfuse/webapp"
                             tofile="@{dir}/@{dest}/src/main/resources/webapp"/>
                     <delete dir="@{dir}/@{dest}/src/main/resources/org"/>
+                </then>
+            </if>
+        	
+        	<!-- Remove unused files in GWT -->
+            <if>
+                <equals arg1="@{module}" arg2="gwt"/>
+                <then>
+                    <delete dir="@{dir}" includes="**/app*.properties,**/menu-config.xml,**/navbarMenu.vm,**/navlistMenu.vm" />
+                    <delete dir="@{dir}" includes="**/*.jsp" excludes="**/index.jsp" />
+                    <delete dir="@{dir}/@{dest}/src/main/webapp/common/" />
+                    <delete dir="@{dir}/@{dest}/src/main/webapp/decorators/" />
+                    <delete dir="@{dir}/@{dest}/src/main/webapp/scripts/" />
+                    <move todir="@{dir}/@{dest}/src/main/resources/webapp/client/application">
+                    	<fileset dir="@{dir}/@{dest}/src/main/resources/" includes="ApplicationResources**.properties" />
+                    </move>
+					<!-- escape unmatched single quotes -->
+                    <replaceregexp byline="false" flags="gim">
+                        <regexp pattern="'"/>
+                        <substitution expression="''"/>
+                        <fileset dir="@{dir}/@{dest}/src/main/resources/webapp/client/application">
+                            <include name="ApplicationResources**.properties"/>
+                        </fileset>
+                    </replaceregexp>
                 </then>
             </if>
 
@@ -400,6 +429,37 @@
                 </else>
             </if>
 
+            <!-- Set packaged="true" for ApplicationResources.properties in gwt -->
+            <replace dir="@{dir}/target/generated-sources/archetype">
+                <include name="**/archetype-metadata.xml"/>
+                <replacetoken><![CDATA[<fileSet filtered="true" encoding="UTF-8">
+      <directory>src/main/resources</directory>
+      <includes>
+        <include>**/*.vm</include>
+        <include>**/*.xml</include>
+        <include>**/*.properties</include>
+      </includes>
+    </fileSet>]]></replacetoken>
+                <replacevalue><![CDATA[<fileSet filtered="true" encoding="UTF-8">
+      <directory>src/main/resources</directory>
+      <includes>
+        <include>**/*.vm</include>
+        <include>**/*.xml</include>
+        <include>**/*.properties</include>
+      </includes>
+      <excludes>
+      	<exclude>**/ApplicationResources*.properties</exclude>
+      </excludes>
+    </fileSet>
+    <fileSet filtered="true" packaged="true" encoding="UTF-8">
+      <directory>src/main/resources</directory>
+      <includes>
+        <include>**/ApplicationResources*.properties</include>
+      </includes>
+    </fileSet>]]></replacevalue>
+            </replace>
+
+                	
             <if>
                 <equals arg1="@{dest}" arg2=""/>
                 <then>
