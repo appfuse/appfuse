@@ -429,10 +429,16 @@
                 </else>
             </if>
 
-            <!-- Set packaged="true" for ApplicationResources.properties in gwt -->
-            <replace dir="@{dir}/target/generated-sources/archetype">
-                <include name="**/archetype-metadata.xml"/>
-                <replacetoken><![CDATA[<fileSet filtered="true" encoding="UTF-8">
+            <if>
+                <equals arg1="@{module}" arg2="gwt"/>
+                <then>
+				    <!-- Set packaged="true" for ApplicationResources.properties in gwt -->
+				    <if>
+				        <equals arg1="@{dest}" arg2=""/>
+				        <then>
+							<replace dir="@{dir}/target/generated-sources/archetype">
+								<include name="**/archetype-metadata.xml"/>
+								<replacetoken><![CDATA[<fileSet filtered="true" encoding="UTF-8">
       <directory>src/main/resources</directory>
       <includes>
         <include>**/*.vm</include>
@@ -440,7 +446,7 @@
         <include>**/*.properties</include>
       </includes>
     </fileSet>]]></replacetoken>
-                <replacevalue><![CDATA[<fileSet filtered="true" encoding="UTF-8">
+		                		<replacevalue><![CDATA[<fileSet filtered="true" encoding="UTF-8">
       <directory>src/main/resources</directory>
       <includes>
         <include>**/*.vm</include>
@@ -457,9 +463,43 @@
         <include>**/ApplicationResources*.properties</include>
       </includes>
     </fileSet>]]></replacevalue>
-            </replace>
+						    </replace>
+				        </then>
+				        <else>
+				            <replace dir="@{dir}/target/generated-sources/archetype">
+				                <include name="**/archetype-metadata.xml"/>
+								<replacetoken><![CDATA[<fileSet filtered="true" encoding="UTF-8">
+          <directory>src/main/resources</directory>
+          <includes>
+            <include>**/*.vm</include>
+            <include>**/*.xml</include>
+            <include>**/*.properties</include>
+          </includes>
+        </fileSet>]]></replacetoken>
+                		<replacevalue><![CDATA[<fileSet filtered="true" encoding="UTF-8">
+          <directory>src/main/resources</directory>
+          <includes>
+            <include>**/*.vm</include>
+            <include>**/*.xml</include>
+            <include>**/*.properties</include>
+          </includes>
+          <excludes>
+          	<exclude>**/ApplicationResources*.properties</exclude>
+          </excludes>
+        </fileSet>
+        <fileSet filtered="true" packaged="true" encoding="UTF-8">
+          <directory>src/main/resources</directory>
+          <includes>
+            <include>**/ApplicationResources*.properties</include>
+          </includes>
+        </fileSet>]]></replacevalue>
+						    </replace>
+				        </else>
+				    </if>
 
-                	
+                </then>
+            </if>
+
             <if>
                 <equals arg1="@{dest}" arg2=""/>
                 <then>
