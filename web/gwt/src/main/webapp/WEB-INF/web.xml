@@ -12,7 +12,7 @@
     <!-- Define the basename for a resource bundle for I18N -->
     <context-param>
         <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
-        <param-value>ApplicationResources</param-value>
+        <param-value>org.appfuse.webapp.client.application.ApplicationResources</param-value>
     </context-param>
     <!-- Fallback locale if no bundles found for browser's preferred locale -->
     <!-- Force a single locale using param-name 'javax.servlet.jsp.jstl.fmt.locale' -->

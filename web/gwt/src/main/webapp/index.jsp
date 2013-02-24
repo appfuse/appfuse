@@ -1,18 +1,20 @@
 <!DOCTYPE html>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@page import="org.springframework.context.i18n.LocaleContextHolder"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%
 String contextPath = request.getContextPath();
 pageContext.setAttribute("ctxPath", contextPath);
 %>
-<html lang="en">
+<html lang="<%= LocaleContextHolder.getLocale() %>">
 <head>
     <meta http-equiv="Cache-Control" content="no-store"/>
     <meta http-equiv="Pragma" content="no-cache"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="rememberMeEnabled" content="${appConfig.rememberMeEnabled}" />
+	<meta name="gwt:property" content="locale=<%= LocaleContextHolder.getLocale() %>">    
     <link rel="icon" href="images/favicon.ico"/>
-    <title><spring:message code="webapp.name" /></title>
+    <title><fmt:message key="webapp.name" /></title>
 
     <link rel="stylesheet" type="text/css" media="all" href="${ctxPath}/styles/style.css" />
 </head>
