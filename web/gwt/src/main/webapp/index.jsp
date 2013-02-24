@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%
 String contextPath = request.getContextPath();
 pageContext.setAttribute("ctxPath", contextPath);
@@ -12,7 +12,7 @@ pageContext.setAttribute("ctxPath", contextPath);
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="rememberMeEnabled" content="${appConfig.rememberMeEnabled}" />
     <link rel="icon" href="images/favicon.ico"/>
-    <title><fmt:message key="webapp.name" /></title>
+    <title><spring:message code="webapp.name" /></title>
 
     <link rel="stylesheet" type="text/css" media="all" href="${ctxPath}/styles/style.css" />
 </head>

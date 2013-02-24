@@ -38,6 +38,24 @@
         <property name="prefix" value="/WEB-INF/pages/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
+
+	<!-- GWT Request Factory Servlet Config -->
+	<bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+		    <props>
+		        <prop key="/gwtRequest">gwtRequestFactoryWrappingController</prop>
+		    </props>
+		</property>
+	</bean>
     
+	 <bean id="gwtRequestFactoryWrappingController" class="org.springframework.web.servlet.mvc.ServletWrappingController" scope="singleton">
+	   <property name="servletClass">
+	     <value>org.appfuse.webapp.server.CustomRequestFactoryServlet</value>
+	   </property>
+	   <property name="servletName">
+	     <value>requestFactory</value>
+	   </property>
+	 </bean>    
+	 
     <!-- Add additional controller beans here -->
 </beans>

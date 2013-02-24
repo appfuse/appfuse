@@ -46,10 +46,6 @@
             <param-value>true</param-value>
         </init-param>
     </filter>
-<!--     <filter> -->
-<!--         <filter-name>exportFilter</filter-name> -->
-<!--         <filter-class>org.displaytag.filter.ResponseOverrideFilter</filter-class> -->
-<!--     </filter> -->
     <!-- GZipFilter has issues with XFire's service-listing servlet. -->
     <!-- http://issues.appfuse.org/browse/APF-863 -->
     <!-- And showing blank pages. http://issues.appfuse.org/browse/APF-1037 -->
@@ -68,24 +64,6 @@
         <filter-name>localeFilter</filter-name>
         <filter-class>org.appfuse.webapp.filter.LocaleFilter</filter-class>
     </filter>
-<!--     <filter> -->
-<!--         <filter-name>rewriteFilter</filter-name> -->
-<!--         <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class> -->
-<!--         sets up log level (will be logged to context log) -->
-<!--             can be: TRACE, DEBUG, INFO (default), WARN, ERROR, FATAL, log4j, commons, sysout:{level} (ie, sysout:DEBUG) -->
-<!--             if you are having trouble using normal levels use sysout:DEBUG --> 
-<!--         <init-param> -->
-<!--             <param-name>logLevel</param-name> -->
-<!--             <param-value>commons</param-value> -->
-<!--         </init-param> -->
-<!--         set the amount of seconds the conf file will be checked for reload -->
-<!--             can be a valid integer (0 denotes check every time, -->
-<!--             -1 denotes no reload check, default -1) --> 
-<!--         <init-param> -->
-<!--             <param-name>confReloadCheckInterval</param-name> -->
-<!--             <param-value>-1</param-value> -->
-<!--         </init-param> -->
-<!--     </filter> -->
     <filter>
         <filter-name>securityFilter</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
@@ -94,17 +72,6 @@
             <param-value>springSecurityFilterChain</param-value>
         </init-param>
     </filter>
-<!--     <filter> -->
-<!--         <filter-name>sitemesh</filter-name> -->
-<!--         <filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class> -->
-<!--     </filter> -->
-
-<!--     <filter-mapping> -->
-<!--         <filter-name>sitemesh</filter-name> -->
-<!--         <url-pattern>/*</url-pattern> -->
-<!--         <dispatcher>REQUEST</dispatcher> -->
-<!--         <dispatcher>FORWARD</dispatcher> -->
-<!--     </filter-mapping> -->
     <filter-mapping>
         <filter-name>encodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
@@ -121,10 +88,6 @@
         <filter-name>gzipFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping-->
-<!--     <filter-mapping> -->
-<!--         <filter-name>rewriteFilter</filter-name> -->
-<!--         <url-pattern>/*</url-pattern> -->
-<!--     </filter-mapping> -->
     <filter-mapping>
         <filter-name>securityFilter</filter-name>
         <url-pattern>/*</url-pattern>
@@ -132,10 +95,6 @@
         <dispatcher>FORWARD</dispatcher>
         <dispatcher>INCLUDE</dispatcher>
     </filter-mapping>
-<!--     <filter-mapping> -->
-<!--         <filter-name>exportFilter</filter-name> -->
-<!--         <url-pattern>/app/*</url-pattern> -->
-<!--     </filter-mapping> -->
 
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -155,9 +114,6 @@
     <listener>
         <listener-class>org.appfuse.webapp.jsp.EscapeXmlELResolverListener</listener-class>
     </listener>
-<!--     <listener> -->
-<!--         <listener-class>net.sf.navigator.menu.MenuContextListener</listener-class> -->
-<!--     </listener> -->
 
     <servlet>
         <servlet-name>dispatcher</servlet-name>
@@ -165,45 +121,37 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
 
-<!--     <servlet> -->
-<!--         <servlet-name>dwr-invoker</servlet-name> -->
-<!--         <servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class> -->
-<!--         <init-param> -->
-<!--             <param-name>debug</param-name> -->
-<!--             <param-value>true</param-value> -->
-<!--         </init-param> -->
-<!--     </servlet> -->
-
-<!--     <servlet> -->
-<!--         <servlet-name>CXFServlet</servlet-name> -->
-<!--         <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class> -->
-<!--     </servlet> -->
-
-<!--     <servlet-mapping> -->
-<!--         <servlet-name>dwr-invoker</servlet-name> -->
-<!--         <url-pattern>/dwr/*</url-pattern> -->
-<!--     </servlet-mapping> -->
-
-<!--     <servlet-mapping> -->
-<!--         <servlet-name>CXFServlet</servlet-name> -->
-<!--         <url-pattern>/services/*</url-pattern> -->
-<!--     </servlet-mapping> -->
+    <servlet>
+        <servlet-name>dwr-invoker</servlet-name>
+        <servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class>
+        <init-param>
+            <param-name>debug</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </servlet>
 
     <servlet>
-        <servlet-name>requestFactory</servlet-name>
-        <servlet-class>org.appfuse.webapp.server.CustomRequestFactoryServlet</servlet-class>
+        <servlet-name>CXFServlet</servlet-name>
+        <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
     </servlet>
-    
-    
 
     <servlet-mapping>
-        <servlet-name>dispatcher</servlet-name>
-        <url-pattern>/app/*</url-pattern>
+        <servlet-name>dwr-invoker</servlet-name>
+        <url-pattern>/dwr/*</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
-        <servlet-name>requestFactory</servlet-name>
+        <servlet-name>CXFServlet</servlet-name>
+        <url-pattern>/services/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
         <url-pattern>/gwtRequest</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>/app/*</url-pattern>
     </servlet-mapping>
 
     <welcome-file-list>
