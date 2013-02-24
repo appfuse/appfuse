@@ -3,6 +3,7 @@
  */
 package org.appfuse.webapp.client.ui.users.search;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.appfuse.webapp.client.application.Application;
@@ -38,13 +39,13 @@ public class UsersSearchActivity extends AbstractProxySearchActivity<UserProxy, 
 	protected ProxySearchView<UserProxy, UsersSearchCriteriaProxy> createView() {
 		final UsersSearchView view = viewFactory.getView(UsersSearchView.class);
 		view.setDelegate(this);
-        clientSideSortHandler = new LocalColumnSortHandler<UserProxy>(view.getCellTable()) {
+        clientSideSortHandler = new LocalColumnSortHandler<UserProxy>(view.asHasData()) {
 			@Override
 			public List<UserProxy> getList() {
-				return view.getCellTable().getVisibleItems();
+				return (List<UserProxy>) view.asHasData().getVisibleItems();
 			}
         };
-        view.getCellTable().addColumnSortHandler(clientSideSortHandler);
+        view.addColumnSortHandler(clientSideSortHandler);
 		return view;
 	}
 

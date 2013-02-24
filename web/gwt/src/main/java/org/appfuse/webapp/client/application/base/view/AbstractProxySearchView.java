@@ -30,6 +30,6 @@ public abstract class AbstractProxySearchView<P extends EntityProxy, S extends B
 	
 	@Override
 	public void setPageSize(Integer pageSize) {
-		getCellTable().setVisibleRange(getCellTable().getVisibleRange().getStart(), pageSize);
+		asHasData().setVisibleRange(asHasData().getVisibleRange().getStart(), pageSize);
 	}
 }

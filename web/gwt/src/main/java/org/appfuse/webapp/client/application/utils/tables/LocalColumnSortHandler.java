@@ -11,6 +11,7 @@ import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.ColumnSortEvent;
 import com.google.gwt.user.cellview.client.ColumnSortEvent.Handler;
+import com.google.gwt.view.client.HasData;
 
 /**
  * 
@@ -20,15 +21,15 @@ import com.google.gwt.user.cellview.client.ColumnSortEvent.Handler;
  */
 public abstract class LocalColumnSortHandler<T> implements Handler {
 	
-	private final CellTable<T> cellTable;
+	private final HasData<T> hasData;
 	private final Map<Column<?, ?>, Comparator<T>> comparators = new HashMap<Column<?, ?>, Comparator<T>>();
 
 	/**
 	 * @param cellTable
 	 */
-	public LocalColumnSortHandler(CellTable<T> cellTable) {
+	public LocalColumnSortHandler(HasData<T> hasData) {
 		super();
-		this.cellTable = cellTable;
+		this.hasData = hasData;
 	}
 
 	/**
@@ -89,7 +90,7 @@ public abstract class LocalColumnSortHandler<T> implements Handler {
 				}
 			});
 		}
-		cellTable.setRowData(sortedList);
+		hasData.setRowData(0, sortedList);
 	}
 
 	/**

@@ -2,7 +2,10 @@ package org.appfuse.webapp.client.application.base.view;
 
 import com.google.gwt.editor.client.EditorDriver;
 import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.cellview.client.ColumnSortList;
+import com.google.gwt.user.cellview.client.ColumnSortEvent.Handler;
 import com.google.gwt.user.client.ui.IsWidget;
+import com.google.gwt.view.client.HasData;
 import com.google.web.bindery.requestfactory.shared.BaseProxy;
 import com.google.web.bindery.requestfactory.shared.EntityProxy;
 
@@ -41,11 +44,15 @@ public interface ProxySearchView<P extends EntityProxy, S extends BaseProxy> ext
 	void setSearchCriteria(S searchCriteria);
 	EditorDriver<S> getEditorDriver();
 	
-	/**
-	 * 
-	 * @return
-	 */
-	CellTable<P> getCellTable();
+//	/**
+//	 * 
+//	 * @return
+//	 */
+//	CellTable<P> getCellTable();
+	
+	HasData<P> asHasData();
+	ColumnSortList getColumnSortList();
+	void addColumnSortHandler(Handler clientSideSortHandler);
 
 	/**
 	 * @return the set of properties this view displays

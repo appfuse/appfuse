@@ -20,6 +20,7 @@ import com.google.gwt.user.cellview.client.ColumnSortList;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
+import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.Range;
 import com.google.gwt.view.client.RangeChangeEvent;
 import com.google.web.bindery.requestfactory.shared.BaseProxy;
@@ -85,15 +86,15 @@ public abstract class AbstractProxySearchActivity<P extends EntityProxy, S exten
 			view.setPageSize(currentPlace.getMaxResults());
 		}
 		
-		final CellTable<P> cellTable = view.getCellTable();
-		rangeChangeHandler = cellTable.addRangeChangeHandler(new RangeChangeEvent.Handler() {
+		final HasData<P> hasData = view.asHasData();
+		rangeChangeHandler = hasData.addRangeChangeHandler(new RangeChangeEvent.Handler() {
 			public void onRangeChange(RangeChangeEvent event) {
-				AbstractProxySearchActivity.this.onRangeChanged(cellTable, cellTable.getVisibleRange());
+				AbstractProxySearchActivity.this.onRangeChanged(hasData, hasData.getVisibleRange(), view.getColumnSortList());
 			}
 		});
 		
 		// Select the current page range to load (by default or from place tokens)
-		Range range = view.getCellTable().getVisibleRange();
+		Range range = hasData.getVisibleRange();
 		if(currentPlace.getFirstResult() > 0 || 
 				(currentPlace.getMaxResults() != range.getLength() && currentPlace.getMaxResults() > 0)) 
 		{
@@ -106,7 +107,7 @@ public abstract class AbstractProxySearchActivity<P extends EntityProxy, S exten
 	
 	protected void loadItems(final S searchCriteria) {
 		// Select the current page size to load
-		Range currentRange = view.getCellTable().getVisibleRange();
+		Range currentRange = view.asHasData().getVisibleRange();
 		loadItems(searchCriteria, new Range(0, currentRange.getLength()));
 	}
 	
@@ -123,8 +124,8 @@ public abstract class AbstractProxySearchActivity<P extends EntityProxy, S exten
 					// This activity is dead
 					return;
 				}
-				view.getCellTable().setRowCount(response.intValue(), true);
-				onRangeChanged(view.getCellTable(), range);
+				view.asHasData().setRowCount(response.intValue(), true);
+				onRangeChanged(view.asHasData(), range, view.getColumnSortList());
 			}
 		});
 	}
@@ -132,9 +133,9 @@ public abstract class AbstractProxySearchActivity<P extends EntityProxy, S exten
 	/**
 	 * Called by the table as it needs data.
 	 */
-	protected void onRangeChanged(final CellTable<P> cellTable, final Range range) {
+	protected void onRangeChanged(final HasData<P> hasData, final Range range, ColumnSortList columnSortList) {
 		final RequestContext requestContext = createRequestContext();
-		createSearchRequest(requestContext, searchCriteria, range, cellTable.getColumnSortList())
+		createSearchRequest(requestContext, searchCriteria, range, columnSortList)
 			.with(view.getPaths()).fire( new Receiver<List<P>>() {
 				@Override
 				public void onSuccess(List<P> results) {
@@ -142,7 +143,7 @@ public abstract class AbstractProxySearchActivity<P extends EntityProxy, S exten
 						// This activity is dead
 						return;
 					}
-					cellTable.setRowData(range.getStart(), results);
+					hasData.setRowData(range.getStart(), results);
 					newHistoryToken(searchCriteria, range.getStart(), range.getLength());
 				}
 			});

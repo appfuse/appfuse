@@ -14,12 +14,10 @@ import com.github.gwtbootstrap.client.ui.TextBox;
 import com.google.gwt.cell.client.Cell.Context;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.ButtonElement;
 import com.google.gwt.editor.client.Editor;
 import com.google.gwt.editor.client.EditorDriver;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
@@ -28,10 +26,13 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.cellview.client.ColumnSortList;
+import com.google.gwt.user.cellview.client.ColumnSortEvent.Handler;
 import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.KeyboardSelectionPolicy;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.view.client.HasData;
 
 public class UsersSearchViewImpl extends AbstractProxySearchView<UserProxy, UsersSearchCriteriaProxy> implements UsersSearchView, Editor<UsersSearchCriteriaProxy> {
 
@@ -60,8 +61,18 @@ public class UsersSearchViewImpl extends AbstractProxySearchView<UserProxy, User
     }
 
     @Override
-    public CellTable<UserProxy> getCellTable() {
+    public HasData<UserProxy> asHasData() {
     	return table;
+    }
+    
+    @Override
+    public ColumnSortList getColumnSortList() {
+    	return table.getColumnSortList();
+    }
+    
+    @Override
+    public void addColumnSortHandler(Handler clientSideSortHandler) {
+    	table.addColumnSortHandler(clientSideSortHandler);
     }
     
     @Override
