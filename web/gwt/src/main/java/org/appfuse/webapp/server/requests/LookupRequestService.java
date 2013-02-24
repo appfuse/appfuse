@@ -12,9 +12,11 @@ import java.util.Locale;
 import org.appfuse.model.LabelValue;
 import org.appfuse.model.Role;
 import org.appfuse.service.RoleManager;
+import org.appfuse.webapp.listener.StartupListener;
 import org.appfuse.webapp.proxies.LookupConstantsProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 
 /**
@@ -22,7 +24,7 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
-public class LookupRequestService {
+public class LookupRequestService extends AbstractBaseRequest {
 
 	@Autowired
 	private RoleManager roleManager;
@@ -66,6 +68,16 @@ public class LookupRequestService {
 		return applicationConstants;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	public LookupConstants reloadOptions() {
+		StartupListener.setupContext(getServletContext());
+		return getApplicationConstants();
+	}
+	
     protected List<LabelValue> buildCountryList(final Locale locale) {
         final String EMPTY = "";
         final Locale[] available = Locale.getAvailableLocales();
@@ -94,5 +106,5 @@ public class LookupRequestService {
         });
 
         return countries;
-    }	
+    }
 }

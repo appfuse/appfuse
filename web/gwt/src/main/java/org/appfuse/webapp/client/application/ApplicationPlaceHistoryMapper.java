@@ -3,6 +3,7 @@ package org.appfuse.webapp.client.application;
 import org.appfuse.webapp.client.ui.login.LoginPlace;
 import org.appfuse.webapp.client.ui.logout.LogoutPlace;
 import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
+import org.appfuse.webapp.client.ui.reloadOptions.ReloadOptionsPlace;
 import org.appfuse.webapp.client.ui.upload.FileUploadPlace;
 import org.appfuse.webapp.client.ui.users.active.ActiveUsersPlace;
 import org.appfuse.webapp.client.ui.users.edit.places.EditProfilePlace;
@@ -18,6 +19,7 @@ import com.google.gwt.place.shared.WithTokenizers;
 	EditProfilePlace.Tokenizer.class,
 	SignUpPlace.Tokenizer.class,
 	ActiveUsersPlace.Tokenizer.class,
-	FileUploadPlace.Tokenizer.class
+	FileUploadPlace.Tokenizer.class,
+	ReloadOptionsPlace.Tokenizer.class	
 	})
 public interface ApplicationPlaceHistoryMapper extends PlaceHistoryMapperWithFactory<ApplicationPlaceHistoryFactory> {}

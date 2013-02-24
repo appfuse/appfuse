@@ -77,6 +77,7 @@ public class FileUploadViewImpl extends Composite implements FileUploadView, Edi
 	
 	@Override
 	public void showErrorsMessages(List<String> errors) {
+		errorsPanel.clear();
 		SafeHtmlBuilder sb = new SafeHtmlBuilder();
 		for (String error : errors) {
 			sb.appendEscaped(error);

@@ -60,9 +60,18 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 	protected P entityProxy;
 	private boolean waiting;
 	
+	private String abandonChangesMessage = "Are you sure you want to abandon your changes?";//FIXME i18n
 	private String savedMessage = i18n.entity_saved();
 	private String deletedMessage = i18n.entity_deleted();
 	private String deleteConfirmation = i18n.delete_confirm("");
+
+	public String getAbandonChangesMessage() {
+		return abandonChangesMessage;
+	}
+
+	public void setAbandonChangesMessage(String abandonChangesMessage) {
+		this.abandonChangesMessage = abandonChangesMessage;
+	}
 
 	public String getSavedMessage() {
 		return savedMessage;
@@ -291,7 +300,7 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 	 */
 	public String mayStop() {
 		if (isWaiting() || changed()) {
-			return "Are you sure you want to abandon your changes? FIXME i18n"; //FIXME
+			return getAbandonChangesMessage();
 		}
 
 		return null;
@@ -320,7 +329,7 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 	 */
 	private boolean changed() {
 		try {
-			return editorDriver != null && editorDriver.flush().isChanged();
+			return editorDriver != null && editorDriver.isDirty();
 		} catch (Exception e) {
 			Logger.getLogger("").log(Level.SEVERE, e.getMessage(), e);
 			return false;

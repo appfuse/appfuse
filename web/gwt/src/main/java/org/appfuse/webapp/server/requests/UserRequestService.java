@@ -10,18 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.appfuse.Constants;
+import org.appfuse.model.Role;
 import org.appfuse.model.User;
 import org.appfuse.service.RoleManager;
 import org.appfuse.service.UserExistsException;
 import org.appfuse.service.UserManager;
 import org.appfuse.webapp.listener.UserCounterListener;
+import org.appfuse.webapp.proxies.RoleProxy;
 import org.appfuse.webapp.util.RequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.mail.MailException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -29,7 +30,7 @@ import org.springframework.security.web.authentication.rememberme.TokenBasedReme
 import org.springframework.stereotype.Controller;
 
 @Controller
-public class UserRequestService extends AbstractBaseRequest<User, Long> {
+public class UserRequestService extends AbstractBaseRequest {
 
 	
     @Autowired
@@ -37,24 +38,18 @@ public class UserRequestService extends AbstractBaseRequest<User, Long> {
     @Autowired
     private RoleManager roleManager;
     
-    public String getCurrentUserName() {
-    	if(SecurityContextHolder.getContext() != null 
-    			&& SecurityContextHolder.getContext().getAuthentication() != null
-    			&& !(SecurityContextHolder.getContext().getAuthentication() 
-    					instanceof AnonymousAuthenticationToken)) 
-    	{
-    		return SecurityContextHolder.getContext().getAuthentication().getName();
-    	}
-    	return null;
-    }
     /**
      * 
      * @return
      */
     public User getCurrentUser() {
-    	String username = getCurrentUserName();
+    	String username = getCurrentUsername();
     	if(username != null) {
-    		return userManager.getUserByUsername(username);
+    		User user = userManager.getUserByUsername(username);
+    		if(isFullyAuthenticated()) {
+    			user.getRoles().add(new Role(RoleProxy.FULLY_AUTHENTICATED));
+    		}
+    		return user;
     	}
     	return null;
     }
@@ -185,7 +180,7 @@ public class UserRequestService extends AbstractBaseRequest<User, Long> {
     	List<User> users = userManager.search(searchTerm);
     	int fromIndex = Math.min(firstResult, users.size());
     	int toIndex = Math.min(fromIndex + maxResults, users.size());
-    	log.warn(String.format("searchUsers(%d,%d) %d-%d [%d]", new Object[] {firstResult, maxResults, fromIndex, toIndex, users.size()}));
+    	log.debug(String.format("searchUsers(%d,%d) %d-%d [%d]", new Object[] {firstResult, maxResults, fromIndex, toIndex, users.size()}));
     	return users.subList(fromIndex, toIndex);
     }
 

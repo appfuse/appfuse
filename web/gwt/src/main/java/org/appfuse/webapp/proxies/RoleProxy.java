@@ -11,6 +11,7 @@ public interface RoleProxy extends EntityProxy {
 
 	public static final String ANONYMOUS = "ANONYMOUS";
 	public static final String AUTHENTICATED = "AUTHENTICATED";
+	public static final String FULLY_AUTHENTICATED = "FULLY_AUTHENTICATED";
 	public static final String ROLE_USER = "ROLE_USER";
 	public static final String ROLE_ADMIN = "ROLE_ADMIN";
 	

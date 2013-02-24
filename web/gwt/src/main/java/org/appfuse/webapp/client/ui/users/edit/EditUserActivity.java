@@ -15,9 +15,11 @@ import org.appfuse.webapp.client.ui.users.edit.views.EditProfileViewImpl;
 import org.appfuse.webapp.client.ui.users.edit.views.EditUserView;
 import org.appfuse.webapp.client.ui.users.edit.views.SignUpViewImpl;
 import org.appfuse.webapp.proxies.AddressProxy;
+import org.appfuse.webapp.proxies.RoleProxy;
 import org.appfuse.webapp.proxies.UserProxy;
 import org.appfuse.webapp.requests.UserRequest;
 
+import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.gwt.place.shared.Place;
 import com.google.web.bindery.requestfactory.shared.EntityProxyId;
 import com.google.web.bindery.requestfactory.shared.Request;
@@ -73,6 +75,10 @@ public class EditUserActivity extends AbstractProxyEditActivity<UserProxy> imple
 		if(place instanceof SignUpPlace) {
 			editUserView = viewFactory.getView(SignUpViewImpl.class);
 		} else if(place instanceof EditProfilePlace) {
+			if(!application.isUserInRole(RoleProxy.FULLY_AUTHENTICATED)) {
+				shell.addMessage(i18n.userProfile_cookieLogin(), AlertType.WARNING);
+				//TODO disable passwords in view
+			}
 			editUserView = viewFactory.getView(EditProfileViewImpl.class);
 		} else {
 			editUserView = viewFactory.getView(EditUserView.class);

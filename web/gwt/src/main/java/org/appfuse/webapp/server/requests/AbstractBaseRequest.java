@@ -20,6 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.authentication.AuthenticationTrustResolver;
+import org.springframework.security.authentication.AuthenticationTrustResolverImpl;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.context.ServletContextAware;
@@ -30,7 +32,7 @@ import com.google.web.bindery.requestfactory.server.RequestFactoryServlet;
  * @author ivangsa
  *
  */
-public abstract class AbstractBaseRequest<T, I> implements ServletContextAware {
+public abstract class AbstractBaseRequest implements ServletContextAware {
 
     protected final transient Log log = LogFactory.getLog(getClass());
 
@@ -43,6 +45,7 @@ public abstract class AbstractBaseRequest<T, I> implements ServletContextAware {
     //protected String templateName = "accountCreated.vm";
 
     private ServletContext servletContext;
+    private AuthenticationTrustResolver authenticationTrustResolver = new AuthenticationTrustResolverImpl();
     
 	
     public void setServletContext(ServletContext servletContext) {
@@ -115,11 +118,26 @@ public abstract class AbstractBaseRequest<T, I> implements ServletContextAware {
 
     protected String getCurrentUsername() {
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    	if(authentication != null) {
+    	if(authentication != null && !isAnonymousLogin()) {
     		return authentication.getName();
     	}
     	return null;
     }
+    
+    protected boolean isAnonymousLogin() {
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	return authenticationTrustResolver.isAnonymous(authentication);
+    }
+
+    protected boolean isRememberMeLogin() {
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	return authenticationTrustResolver.isRememberMe(authentication);
+    }
+
+    protected boolean isFullyAuthenticated() {
+    	return !isAnonymousLogin() && !isRememberMeLogin();
+    }
+
     
 	/**
 	 * 

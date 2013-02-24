@@ -19,4 +19,6 @@ import com.google.web.bindery.requestfactory.shared.Service;
 public interface LookupRequest extends RequestContext {
 
 	public Request<LookupConstantsProxy> getApplicationConstants();
+
+	public Request<LookupConstantsProxy> reloadOptions();
 }

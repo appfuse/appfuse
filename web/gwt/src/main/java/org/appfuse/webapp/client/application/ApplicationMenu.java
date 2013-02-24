@@ -16,6 +16,7 @@ import org.appfuse.webapp.client.application.utils.menu.MenuItem;
 import org.appfuse.webapp.client.ui.login.LoginPlace;
 import org.appfuse.webapp.client.ui.logout.LogoutPlace;
 import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
+import org.appfuse.webapp.client.ui.reloadOptions.ReloadOptionsPlace;
 import org.appfuse.webapp.client.ui.upload.FileUploadPlace;
 import org.appfuse.webapp.client.ui.users.active.ActiveUsersPlace;
 import org.appfuse.webapp.client.ui.users.edit.places.EditProfilePlace;
@@ -43,7 +44,7 @@ public class ApplicationMenu {
 		rootMenu.add(adminMenu);
 		adminMenu.add(new MenuItem(i18n.menu_admin_users(), new EntitySearchPlace(UserProxy.class), ROLE_ADMIN));
 		adminMenu.add(new MenuItem(i18n.mainMenu_activeUsers(), new ActiveUsersPlace(), ROLE_ADMIN));
-		adminMenu.add(new MenuItem(i18n.menu_admin_reload(), ROLE_ADMIN));
+		adminMenu.add(new MenuItem(i18n.menu_admin_reload(), new ReloadOptionsPlace(), ROLE_ADMIN));
 		adminMenu.add(new MenuItem(i18n.menu_selectFile(), new FileUploadPlace(), ROLE_ADMIN));
 		
 		rootMenu.add(new MenuItem(i18n.login_title(), new LoginPlace(), ANONYMOUS));
@@ -52,10 +53,6 @@ public class ApplicationMenu {
 	
 	public MenuItem getRootMenu() {
 		return rootMenu;
-	}
-	
-	public MenuItem getAdminMenu() {
-		return adminMenu;
 	}
 	
 	public List<MenuItem> asList() {

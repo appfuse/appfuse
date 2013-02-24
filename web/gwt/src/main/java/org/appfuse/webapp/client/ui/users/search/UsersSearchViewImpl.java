@@ -20,6 +20,8 @@ import com.google.gwt.editor.client.EditorDriver;
 import com.google.gwt.editor.client.SimpleBeanEditorDriver;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.dom.client.KeyCodes;
+import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -91,6 +93,13 @@ public class UsersSearchViewImpl extends AbstractProxySearchView<UserProxy, User
     public void searchButtonClicked(ClickEvent event) {
     	delegate.searchClicked();
     }
+    
+	@UiHandler("searchTerm")
+	void defaultAction(KeyDownEvent event) {
+		if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
+			delegate.searchClicked();
+		}
+	}
     
     public void createTableColumns() {
     	FieldUpdater<UserProxy, String> showDetails = new FieldUpdater<UserProxy, String>() {

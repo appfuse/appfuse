@@ -12,6 +12,8 @@ import org.appfuse.webapp.client.ui.logout.LogoutActivity;
 import org.appfuse.webapp.client.ui.logout.LogoutPlace;
 import org.appfuse.webapp.client.ui.mainMenu.MainMenuActivity;
 import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
+import org.appfuse.webapp.client.ui.reloadOptions.ReloadOptionsActivity;
+import org.appfuse.webapp.client.ui.reloadOptions.ReloadOptionsPlace;
 import org.appfuse.webapp.client.ui.upload.FileUploadActivity;
 import org.appfuse.webapp.client.ui.upload.FileUploadPlace;
 import org.appfuse.webapp.client.ui.users.active.ActiveUsersActivity;
@@ -73,6 +75,9 @@ public class ApplicationActivityMapper implements ActivityMapper {
 		else if(place instanceof FileUploadPlace) {
 			activity = new FileUploadActivity(application);
 		}
+		else if(place instanceof ReloadOptionsPlace) {
+			activity = new ReloadOptionsActivity(application);
+		}		
 		else if(place instanceof EntityProxyPlace) {
 			EntityProxyPlace proxyPlace = (EntityProxyPlace) place;
 			if(UserProxy.class.equals(proxyPlace.getProxyClass())) {
