@@ -125,7 +125,7 @@ public class DesktopApplication extends Application implements LoginEvent.Handle
 		/* And show the user the shell */
 		RootLayoutPanel.get().add(shell);
 		
-		//remove gwt positioning and overflow from extra divs, and hope for the best..
+		//remove gwt positioning and overflow from extra divs, and hope for the best about xbrowser compatibility..
 		shell.getElement().setId("shell");
 		__fixPositioningAndOverflow(Document.get().getElementById("shell"));
 	}
@@ -137,7 +137,7 @@ public class DesktopApplication extends Application implements LoginEvent.Handle
 		if("body".equalsIgnoreCase(element.getTagName())){
 			return element;
 		} else {
-			element.removeAttribute("style");
+			element.setAttribute("style", "");
 			return __fixPositioningAndOverflow(element.getParentElement());
 		}
 	}
