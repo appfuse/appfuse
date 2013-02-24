@@ -192,8 +192,8 @@
                     	<fileset dir="@{dir}/@{dest}/src/main/resources/" includes="ApplicationResources**.properties" />
                     </move>
 					<!-- escape unmatched single quotes -->
-                    <replaceregexp byline="false" flags="gim">
-                        <regexp pattern="'"/>
+                    <replaceregexp byline="true" flags="gim">
+                        <regexp pattern="'"/><!-- FIXME provide a regexp just for an unmatched single quote -->
                         <substitution expression="''"/>
                         <fileset dir="@{dir}/@{dest}/src/main/resources/webapp/client/application">
                             <include name="ApplicationResources**.properties"/>
