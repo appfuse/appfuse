@@ -348,8 +348,8 @@
         <servlet.version>3.0.1</servlet.version>
         <wiser.version>1.2</wiser.version>
 
-        <!-- WebTest default target -->
-        <webtest.target>run-all-tests</webtest.target>
+<!--         WebTest default target -->
+<!--         <webtest.target>run-all-tests</webtest.target> -->
 
         <cargo.container>tomcat7x</cargo.container>
         <cargo.container.home>${env.CATALINA_HOME}</cargo.container.home>

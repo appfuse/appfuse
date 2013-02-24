@@ -377,46 +377,6 @@
                             </execution>
                         </executions>
                     </plugin>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>webtest-maven-plugin</artifactId>
-                        <version>1.0.0</version>
-                        <executions>
-                            <execution>
-                                <id>webtest-test</id>
-                                <phase>integration-test</phase>
-                                <goals>
-                                    <goal>test</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>webtest-verify</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>verify-result</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>webtest-report-html</id>
-                                <phase>post-integration-test</phase>
-                                <goals>
-                                    <goal>report</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <host>${cargo.host}</host>
-                            <port>${cargo.port}</port>
-                            <sourcedirectory>src/test/resources</sourcedirectory>
-                            <sourcefile>web-tests.xml</sourcefile>
-                            <target>run-all-tests</target>
-                            <basepath>${project.build.finalName}</basepath>
-                            <resultpath>target/webtest/webtest-results</resultpath>
-                            <haltonfailure>false</haltonfailure>
-                            <haltonerror>false</haltonerror>
-                            <loglevel>fatal</loglevel>
-                        </configuration>
-                    </plugin>
                 </plugins>
             </build>
         </profile>
