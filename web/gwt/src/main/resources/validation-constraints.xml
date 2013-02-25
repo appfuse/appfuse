@@ -8,7 +8,7 @@
     		<constraint annotation="org.hibernate.validator.constraints.ScriptAssert">
     			<message>{errors.user.confirmPasswordMismatch}</message>
     			<element name="lang">javascript</element><!-- requires jdk 1.6 -->
-    			<element name="script">_this.password == _this.confirmPassword</element>
+    			<element name="script">new String(_this.password).valueOf() == new String(_this.confirmPassword).valueOf()</element>
     		</constraint> 
     	</class>
         <field name="username">
