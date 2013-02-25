@@ -138,9 +138,12 @@ public class DesktopApplication extends Application implements LoginEvent.Handle
 			return element;
 		} else {
 			element.setAttribute("style", "");
+			element.removeAttribute("style");// does not work on chrome
+			element.setId("extradiv_" + index++);
 			return __fixPositioningAndOverflow(element.getParentElement());
 		}
 	}
+	private int index = 0;
 
 	protected void initHandlers() {
 		
