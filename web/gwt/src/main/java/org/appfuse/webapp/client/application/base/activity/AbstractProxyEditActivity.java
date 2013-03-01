@@ -229,7 +229,7 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 			public void onFailure(ServerFailure error) {
 				if (editorDriver != null) {
 					setWaiting(false);
-					super.onFailure(error);
+					throw new RuntimeException(error.getMessage());//FIXME
 				}
 			}
 
