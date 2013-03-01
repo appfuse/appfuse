@@ -181,7 +181,7 @@ public class UserRequestService extends AbstractBaseRequest {
     	List<User> users = userManager.search(searchTerm);
     	int fromIndex = Math.min(firstResult, users.size());
     	int toIndex = Math.min(fromIndex + maxResults, users.size());
-    	log.debug(String.format("searchUsers(%d,%d) %d-%d [%d]", new Object[] {firstResult, maxResults, fromIndex, toIndex, users.size()}));
+    	log.debug(String.format("searchUsers(%d,%d) %d-%d [%d]", firstResult, maxResults, fromIndex, toIndex, users.size()));
     	return users.subList(fromIndex, toIndex);
     }
 

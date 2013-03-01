@@ -172,13 +172,19 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 	/**
 	 * 
 	 */
-	public void start(AcceptsOneWidget display, EventBus eventBus) {
+	public void start(final AcceptsOneWidget display, EventBus eventBus) {
 		view = createView(currentPlace);
 		view.setDelegate(this);
 		editorDriver = view.createEditorDriver();
-		display.setWidget(view);
 		
-		loadEntityProxy();
+		loadEntityProxy(new Receiver<P>() {
+			@Override
+			public void onSuccess(P response) {
+				entityProxy = response;
+				editorDriver.edit(entityProxy, saveOrUpdateRequest(createProxyRequest(), entityProxy));
+				display.setWidget(view);
+			}
+		});
 	}
 	
 	protected EntityProxyId<P> getProxyId(){
@@ -193,21 +199,15 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 	/**
 	 * 
 	 */
-	protected void loadEntityProxy() {
+	protected void loadEntityProxy(Receiver<P> onLoadCallback) {
 		EntityProxyId<P> proxyId = getProxyId();
 		if(proxyId == null) {
-			RequestContext requestContext = createProxyRequest();
-			entityProxy = createProxy(requestContext);
-			editorDriver.edit(entityProxy, saveOrUpdateRequest(requestContext, entityProxy));
+			P proxy = createProxy(createProxyRequest());
+			onLoadCallback.onSuccess(proxy);
 		} else {
-			findProxyRequest(createProxyRequest(), proxyId).with(editorDriver.getPaths())
-			.fire(new Receiver<P>() {
-				@Override
-				public void onSuccess(P response) {
-					entityProxy = response;
-					editorDriver.edit(entityProxy, saveOrUpdateRequest(createProxyRequest(), entityProxy));
-				}
-			});
+			findProxyRequest(createProxyRequest(), proxyId)
+				.with(editorDriver.getPaths())
+				.fire(onLoadCallback);
 		}
 	}
 
