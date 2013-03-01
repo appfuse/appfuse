@@ -21,10 +21,11 @@
         <property name="maxUploadSize" value="2097152"/>
     </bean>
 
-    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-        <property name="basename" value="org.appfuse.webapp.client.application.ApplicationResources"/>
-        <property name="useCodeAsDefaultMessage" value="true"/>
-    </bean> 
+<!-- MessageSource: moved to applicationContext.xml for beans that are not controllers (e.g. GWT RequestFactory Services) -->
+<!--     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"> -->
+<!--         <property name="basename" value="org.appfuse.webapp.client.application.ApplicationResources"/> -->
+<!--         <property name="useCodeAsDefaultMessage" value="true"/> -->
+<!--     </bean>  -->
 
     <context:component-scan base-package="org.appfuse.webapp"/>
 
