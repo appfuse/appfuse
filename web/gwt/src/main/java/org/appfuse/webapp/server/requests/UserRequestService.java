@@ -28,7 +28,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 
 @Component
 public class UserRequestService extends AbstractBaseRequest {
@@ -118,9 +117,7 @@ public class UserRequestService extends AbstractBaseRequest {
     @PreAuthorize("isAuthenticated()")
     public User editProfile() {
     	String username = getCurrentUsername();
-    	User user = userManager.getUserByUsername(username);
-    	user.setConfirmPassword(user.getPassword());
-    	return user;
+    	return userManager.getUserByUsername(username);
     }
     
     /**
@@ -164,6 +161,7 @@ public class UserRequestService extends AbstractBaseRequest {
      * @param searchCriteria
      * @return
      */
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public long countUsers(UsersSearchCriteria searchCriteria) {
     	String searchTerm = searchCriteria != null? searchCriteria.getSearchTerm() : null;
    		return userManager.search(searchTerm).size();
@@ -176,6 +174,7 @@ public class UserRequestService extends AbstractBaseRequest {
      * @param maxResults
      * @return
      */
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<User> searchUsers(UsersSearchCriteria searchCriteria, int firstResult, int maxResults){
     	String searchTerm = searchCriteria != null? searchCriteria.getSearchTerm() : null;
     	List<User> users = userManager.search(searchTerm);
@@ -225,7 +224,7 @@ public class UserRequestService extends AbstractBaseRequest {
             message.setSubject(subject);
             message.setText(msg.toString());
             mailEngine.send(message);
-            return user.getEmail();
+            return user.getFullName();//XXX disabling returning user.getEmail();
         } catch (UsernameNotFoundException e) {
             log.warn(e.getMessage());
         } catch (MailException me) {
@@ -238,6 +237,7 @@ public class UserRequestService extends AbstractBaseRequest {
      * 
      * @return
      */
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<User> getActiveUsers(){
     	return new ArrayList((Set) getServletContext().getAttribute(UserCounterListener.USERS_KEY));    	
     }
@@ -246,6 +246,7 @@ public class UserRequestService extends AbstractBaseRequest {
     /**
      * 
      */
+    @PreAuthorize("isAuthenticated()")
     public boolean logout() {
     	HttpServletRequest request = getServletRequest();
     	HttpServletResponse response = getServletResponse();
