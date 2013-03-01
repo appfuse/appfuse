@@ -17,12 +17,12 @@ import org.appfuse.webapp.client.ui.upload.views.UploadedFileView;
 import org.appfuse.webapp.client.ui.upload.views.UploadedFileViewImpl;
 import org.appfuse.webapp.client.ui.users.active.ActiveUsersView;
 import org.appfuse.webapp.client.ui.users.active.ActiveUsersViewImpl;
-import org.appfuse.webapp.client.ui.users.edit.views.EditProfileViewImpl;
-import org.appfuse.webapp.client.ui.users.edit.views.EditUserView;
-import org.appfuse.webapp.client.ui.users.edit.views.EditUserViewImpl;
-import org.appfuse.webapp.client.ui.users.edit.views.SignUpViewImpl;
+import org.appfuse.webapp.client.ui.users.editProfile.EditProfileViewImpl;
+import org.appfuse.webapp.client.ui.users.editUser.EditUserView;
+import org.appfuse.webapp.client.ui.users.editUser.EditUserViewImpl;
 import org.appfuse.webapp.client.ui.users.search.UsersSearchView;
 import org.appfuse.webapp.client.ui.users.search.UsersSearchViewImpl;
+import org.appfuse.webapp.client.ui.users.signUp.SignUpViewImpl;
 
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.ui.IsWidget;

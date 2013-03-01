@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.appfuse.webapp.client.ui.users.edit.places;
+package org.appfuse.webapp.client.ui.users.signUp;
 
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceTokenizer;

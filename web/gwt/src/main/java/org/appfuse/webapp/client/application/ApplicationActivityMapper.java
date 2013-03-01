@@ -18,10 +18,12 @@ import org.appfuse.webapp.client.ui.upload.FileUploadActivity;
 import org.appfuse.webapp.client.ui.upload.FileUploadPlace;
 import org.appfuse.webapp.client.ui.users.active.ActiveUsersActivity;
 import org.appfuse.webapp.client.ui.users.active.ActiveUsersPlace;
-import org.appfuse.webapp.client.ui.users.edit.EditUserActivity;
-import org.appfuse.webapp.client.ui.users.edit.places.EditProfilePlace;
-import org.appfuse.webapp.client.ui.users.edit.places.SignUpPlace;
+import org.appfuse.webapp.client.ui.users.editProfile.EditProfileActivity;
+import org.appfuse.webapp.client.ui.users.editProfile.EditProfilePlace;
+import org.appfuse.webapp.client.ui.users.editUser.EditUserActivity;
 import org.appfuse.webapp.client.ui.users.search.UsersSearchActivity;
+import org.appfuse.webapp.client.ui.users.signUp.SignUpActivity;
+import org.appfuse.webapp.client.ui.users.signUp.SignUpPlace;
 import org.appfuse.webapp.proxies.UserProxy;
 
 import com.google.gwt.activity.shared.Activity;
@@ -61,13 +63,13 @@ public class ApplicationActivityMapper implements ActivityMapper {
 			activity = new LogoutActivity(application);
 		}
 		else if(place instanceof SignUpPlace) {
-			activity = new EditUserActivity(application);
+			activity = new SignUpActivity(application);
 		}
 		else if(place instanceof MainMenuPlace) {
 			activity = new MainMenuActivity(application);
 		}
 		else if(place instanceof EditProfilePlace) {
-			activity = new EditUserActivity(application);
+			activity = new EditProfileActivity(application);
 		}
 		else if(place instanceof ActiveUsersPlace) {
 			activity = new ActiveUsersActivity(application);

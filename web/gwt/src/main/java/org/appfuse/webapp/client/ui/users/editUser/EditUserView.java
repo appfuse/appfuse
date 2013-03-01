@@ -1,4 +1,4 @@
-package org.appfuse.webapp.client.ui.users.edit.views;
+package org.appfuse.webapp.client.ui.users.editUser;
 
 import java.util.List;
 

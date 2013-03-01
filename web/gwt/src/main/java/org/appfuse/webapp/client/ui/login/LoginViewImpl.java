@@ -4,7 +4,7 @@
 package org.appfuse.webapp.client.ui.login;
 
 import org.appfuse.webapp.client.application.ApplicationResources;
-import org.appfuse.webapp.client.ui.users.edit.places.SignUpPlace;
+import org.appfuse.webapp.client.ui.users.signUp.SignUpPlace;
 
 import com.github.gwtbootstrap.client.ui.base.AlertBase;
 import com.google.gwt.core.client.GWT;

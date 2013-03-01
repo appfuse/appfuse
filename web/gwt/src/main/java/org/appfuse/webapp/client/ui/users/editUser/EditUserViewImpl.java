@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.appfuse.webapp.client.ui.users.edit.views;
+package org.appfuse.webapp.client.ui.users.editUser;
 
 import java.util.List;
 
@@ -42,11 +42,13 @@ public class EditUserViewImpl extends Composite implements EditUserView {
 
 	interface Driver extends RequestFactoryEditorDriver<UserProxy, EditUserViewImpl> { }
 	
-	@UiField(provided=true) ApplicationResources i18n = GWT.create(ApplicationResources.class);
+	@UiField(provided=true) 
+	protected ApplicationResources i18n = GWT.create(ApplicationResources.class);
 	
 	private EditUserView.Delegate delegate;
 	
-	@UiField Paragraph subheading;
+	@UiField
+	protected Paragraph subheading;
 	
     @UiField LongBox id;
     @UiField IntegerBox version;
@@ -72,11 +74,11 @@ public class EditUserViewImpl extends Composite implements EditUserView {
     @UiField  @Path("address.postalCode")
     TextBox postalCode;    
     
-    @UiField(provided=true) 
-    RolesListBox roles = new RolesListBox();
+    @UiField(provided=true)
+	protected RolesListBox roles = new RolesListBox();
     
-    @UiField Widget userRoles;//control group for
-    @UiField Widget accountSettings;//control group for
+    @UiField protected Widget userRoles;//control group for
+    @UiField protected Widget accountSettings;//control group for
 
     @UiField CheckBox enabled;
     @UiField CheckBox accountExpired;
@@ -84,7 +86,7 @@ public class EditUserViewImpl extends Composite implements EditUserView {
     @UiField CheckBox credentialsExpired;
     
     @UiField Button saveButton;
-    @UiField Button deleteButton;
+    @UiField protected Button deleteButton;
     @UiField Button cancelButton;
 	
 	/**

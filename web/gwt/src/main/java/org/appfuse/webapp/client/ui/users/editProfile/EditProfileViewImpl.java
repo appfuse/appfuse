@@ -1,7 +1,9 @@
 /**
  * 
  */
-package org.appfuse.webapp.client.ui.users.edit.views;
+package org.appfuse.webapp.client.ui.users.editProfile;
+
+import org.appfuse.webapp.client.ui.users.editUser.EditUserViewImpl;
 
 
 /**

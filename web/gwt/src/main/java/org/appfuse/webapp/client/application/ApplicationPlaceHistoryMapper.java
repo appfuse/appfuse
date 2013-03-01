@@ -6,8 +6,8 @@ import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
 import org.appfuse.webapp.client.ui.reloadOptions.ReloadOptionsPlace;
 import org.appfuse.webapp.client.ui.upload.FileUploadPlace;
 import org.appfuse.webapp.client.ui.users.active.ActiveUsersPlace;
-import org.appfuse.webapp.client.ui.users.edit.places.EditProfilePlace;
-import org.appfuse.webapp.client.ui.users.edit.places.SignUpPlace;
+import org.appfuse.webapp.client.ui.users.editProfile.EditProfilePlace;
+import org.appfuse.webapp.client.ui.users.signUp.SignUpPlace;
 
 import com.google.gwt.place.shared.PlaceHistoryMapperWithFactory;
 import com.google.gwt.place.shared.WithTokenizers;
