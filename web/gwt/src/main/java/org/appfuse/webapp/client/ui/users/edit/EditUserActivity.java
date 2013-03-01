@@ -7,6 +7,7 @@ import org.appfuse.webapp.client.application.Application;
 import org.appfuse.webapp.client.application.base.activity.AbstractProxyEditActivity;
 import org.appfuse.webapp.client.application.base.place.EntitySearchPlace;
 import org.appfuse.webapp.client.application.base.view.ProxyEditView;
+import org.appfuse.webapp.client.ui.login.LoginPlace;
 import org.appfuse.webapp.client.ui.login.events.LoginEvent;
 import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
 import org.appfuse.webapp.client.ui.users.edit.places.EditProfilePlace;
@@ -155,8 +156,10 @@ public class EditUserActivity extends AbstractProxyEditActivity<UserProxy> imple
 
 	@Override
 	protected Place previousPlace() {
-		if(currentPlace instanceof SignUpPlace || currentPlace instanceof EditProfilePlace ) {
-			return new EntitySearchPlace(UserProxy.class);
+		if(currentPlace instanceof SignUpPlace) {
+			return new LoginPlace();
+		} else if (currentPlace instanceof EditProfilePlace ) {
+			return new MainMenuPlace();
 		} else {
 			return new EntitySearchPlace(UserProxy.class);
 		}

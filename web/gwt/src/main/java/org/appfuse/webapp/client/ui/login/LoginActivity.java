@@ -72,6 +72,7 @@ public class LoginActivity extends AbstractBaseActivity implements LoginView.Del
 		view.setWaiting(false);
 
 		dialog = new DialogBox();
+		dialog.setTitle(i18n.login_title());
 		dialog.setGlassEnabled(true);
 		dialog.setAutoHideEnabled(true);
 		dialog.add(view);
@@ -101,7 +102,7 @@ public class LoginActivity extends AbstractBaseActivity implements LoginView.Del
 					if(statusCode == Response.SC_OK) {
 						if(dialog != null) {
 							dialog.hide();
-							shell.addMessage(new Alert("you are back in XXX"));
+							shell.addMessage(new Alert("You are back in, you may need to reload this page XXX"));
 						}
 						eventBus.fireEvent(new LoginEvent());
 					} 
