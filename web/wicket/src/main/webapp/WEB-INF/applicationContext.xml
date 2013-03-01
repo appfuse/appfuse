@@ -16,6 +16,6 @@
     <!-- Add new Managers here -->
 
     <!-- Wicket application -->
-    <bean id="wicketApplication" class="org.appfuse.webapp.WicketApplication"/>
+    <bean id="appFuseWicketApplication" class="org.appfuse.webapp.AppFuseWicketApplication"/>
 
 </beans>

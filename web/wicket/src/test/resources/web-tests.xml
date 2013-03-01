@@ -52,7 +52,7 @@
 
     <!-- Retrieve Password Hint -->
     <!-- TODO: MZA: Decide if there should be passwordHint or passwordhint -->
-    <!-- TODO: MZA: Temporarily disabled due to a problem with ../../login - see WicketApplication -->
+    <!-- TODO: MZA: Temporarily disabled due to a problem with ../../login - see AppFuseWicketApplication -->
 <!--
     <target name="PasswordHint" description="Gets the user's password hint">
         <webtest name="passwordHint">
@@ -182,7 +182,7 @@
             &config;
             <steps>
                 <invoke description="click signup link" url="/signup"/>
-                <!-- TODO: MZA: Temporarily disabled - AbstractUserEdit.html title should be customized, see WicketApplication -->
+                <!-- TODO: MZA: Temporarily disabled - AbstractUserEdit.html title should be customized, see AppFuseWicketApplication -->
                 <!--<verifytitle description="view signup title" text=".*${signup.title}.*" regex="true"/>-->
                 
                 <setinputfield name="userEditPanel:username" value="signup-user"/>

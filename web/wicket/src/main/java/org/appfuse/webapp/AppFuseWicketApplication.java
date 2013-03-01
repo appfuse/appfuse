@@ -96,11 +96,11 @@ import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
  *  - fix acceptance test: signup - doesn't move to a login page and others - currently disabled in Maven
  *  - resolve problem with sending password hash to an user on edit - APF-1370
  *  - arrows in a table should be next to a header label (not at the end of a column on the right side)
- *  - rename WicketApplication to AppFuseWicketApplication
+ *  - rename AppFuseWicketApplication to AppFuseWicketApplication - DONE
  *
  * @author Marcin Zajączkowski, 2010-09-02
  */
-public class WicketApplication extends AuthenticatedWebApplication {
+public class AppFuseWicketApplication extends AuthenticatedWebApplication {
 
     private static final String BASE_PACKAGE_FOR_PAGES = "org.appfuse.webapp.pages";
 

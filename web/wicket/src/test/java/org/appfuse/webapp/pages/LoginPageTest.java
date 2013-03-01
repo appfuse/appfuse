@@ -1,6 +1,5 @@
 package org.appfuse.webapp.pages;
 
-import org.apache.wicket.Page;
 import org.apache.wicket.util.tester.FormTester;
 import org.junit.Test;
 
