@@ -147,10 +147,11 @@
                         <phase>process-resources</phase>
                         <configuration>
                             <tasks>
+                                <!-- TODO: MZA: Quite ugly - it requires mvn build to run an application from IDEA.
+                                                A custom ResourceLoaders using app*.properties should be written. -->
                                 <echo>Copying i18n files...</echo>
-                                <!-- TODO: Extend it as well as in Tapestry module? -->
-                                <copy todir="src/main/webapp/WEB-INF" overwrite="true">
-                                    <globmapper from="ApplicationResources*" to="app*" />
+                                <copy todir="src/main/java/org/appfuse/webapp/" overwrite="true">
+                                    <globmapper from="ApplicationResources*" to="WicketApplication*" />
                                     <fileset dir="../common/src/main/resources" includes="ApplicationResources*" />
                                 </copy>
 

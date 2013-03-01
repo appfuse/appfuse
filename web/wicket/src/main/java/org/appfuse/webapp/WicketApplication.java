@@ -22,28 +22,29 @@ import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
  * Main TODO:
  *  - getting data of current user (UserEdit) - DONE
  *  - sorting efficiency (UserList)
- *  - add using i18n resources from standard AppFuse directory
+ *  - add using i18n resources from standard AppFuse directory - a workaround in pom.xml - a custom ResourceLoader
+ * using app*.properties should be written
  *  - reusable component for editing user data - with subclassing for Sing up and others? - DONE
  *  - roles support during editing user (UserEdit) - DONE
- *  - full support for save and delete in diffrent modes - WIP (what with password?)
- *  - activeUsers? - LATER
+ *  - full support for save and delete in different modes - WIP (what with password?)
+ *  - activeUsers? - DONE
  *  - add integration with j_security_check - action in a wicket form cannot be used - Wicket overrides it -
  * workaround with redirect?
  *  - RememberMe feature from Spring security - does it work?
  *  - removing rememberMe cookie during Logout - DONE
  *  - file upload - looks strange to upload files to application directory - LATER
  *  - change mouse cursor over link in a table (UserList)
- *  - RequiredLabel enhancements (label with text component?)
+ *  - RequiredLabel enhancements (label with text component?) - OBSOLETE
  *  - mainMenu -> home - LATER - requires changes in web-common
  *  - the same buttons twice (UserEdit) - DONE
- *  - some tests
+ *  - some tests - DONE
  *  - add "Are you sure?" question on delete user (JS alert?) - DONE
  *  - Clickstream - LATER
  *  - move pages to resources directory (currently together with Java classes),
  *    try: https://cwiki.apache.org/WICKET/control-where-html-files-are-loaded-from.html#ControlwhereHTMLfilesareloadedfrom-InWicket1.4
- *  - on "mvn clean package" WicketApplication.properties isn't copied to target which causes:
+ *  - on "mvn clean package" fooWicketApplication.properties isn't copied to target which causes:
  *    'Unable to find property: 'user.password' for component: userEditForm:userEditPanel' in tests. When run from IDE
- *    file is copied and tests from Maven works fine
+ *    file is copied and tests from Maven works fine - DONE (added resources from /src/main/java/ in pom.xml)
  *  - broken acceptance tests (part 1): web/wicket/src/test/resources/login.xmlf:1: HTTP error 400: 400 Bad Request for http://localhost:9876/scripts/login.js - DONE
  *  - broken acceptance tests (part 2): 400 Bad Request for http://localhost:9876/appfuse-wicket-2.1.0-SNAPSHOT/../../login
  *    on password hint (web-tests.xml:52) - see comment PasswordHint class
@@ -61,7 +62,7 @@ import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
  *  - check if absolute url is properly created (3 places) - DONE
  *
  * Migration to 6
- *  - DataTable style has changed and the header takes two lines instead of one - LATER (when with Bootstrap)
+ *  - DataTable style has changed and the header takes two lines instead of one - LATER (when with Bootstrap) - DONE
  *  - JavaScript on a login page doesn't work - a lot of error messages - probably Prototype conflicts with JQuery - DONE
  *
  * Files copied from web-common to make some Wicket specific changes (should be unified):
@@ -79,7 +80,7 @@ import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
  *  - fix problem with remaining red div after dismiss an error message
  *  - adjust style.css to Wicket styles for table header - DONE
  *  - take a look on some nice looking classes available in wicket-bootstrap library
- *  - why empty wicket:message from <title> is rendered inside body (and by the way breaks layout on "Current User" page)
+ *  - why empty wicket:message from <title> is rendered inside body (and by the way breaks layout on "Current User" page) - OBSOLETE
  *  - sync localized messages with upstream - DONE
  *  - icons on button - <a><i class="icon-plus icon-white"></i> Add</a> - DONE
  *  - collapsible address section - DONE
@@ -89,14 +90,13 @@ import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
  *  - Cancel button doesn't work with HTML5 required attribute (remove it and use back button in a browser?) - DONE - Link used instead of Button
  *  - setRequired(true) is not compatible with NotificationPanel - DONE (fixed upstream)
  *  - fix acceptance tests: 404 Not Found for http://localhost:8888/AppFuse - login.xmlf:1 - DONE (old config.xmlf)
- *  - what is missing in maven build that "MissingResourceException: Unable to find property: 'label.username' for component:"
- *      on app startup (even tests with WicketTester) is thrown then the exploded dir is not created by Idea - DONE (added resources from /src/main/java/ in pom.xml)
  *  - fix acceptance test: setselectfield - country - DONE - workaround with optionIndex
  *  - change button name on Signup page: Save -> Signup
  *  - change page title on Signup page: User Settings -> Signup - DONE
  *  - fix acceptance test: signup - doesn't move to a login page and others - currently disabled in Maven
  *  - resolve problem with sending password hash to an user on edit - APF-1370
  *  - arrows in a table should be next to a header label (not at the end of a column on the right side)
+ *  - rename WicketApplication to AppFuseWicketApplication
  *
  * @author Marcin Zajączkowski, 2010-09-02
  */
@@ -117,7 +117,8 @@ public class WicketApplication extends AuthenticatedWebApplication {
         //http://jira.opensymphony.com/browse/SIM-217
         getRequestCycleSettings().setRenderStrategy(IRequestCycleSettings.RenderStrategy.ONE_PASS_RENDER);
 
-        //TODO: MZA: Add app.properties
+        //TODO: MZA: Add a custom ResourceLoader to use app.properties from web-common
+//        getResourceSettings().getStringResourceLoaders().add(...)
 
         BootstrapSettings settings = new BootstrapSettings();
         Bootstrap.install(this, settings);
