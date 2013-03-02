@@ -39,11 +39,6 @@
         <url>http://source.appfuse.org/browse/appfuse/web/wicket</url>
     </scm>
 
-    <properties>
-        <wicket.version>6.3.0</wicket.version>
-        <wicketstuff.version>${wicket.version}</wicketstuff.version>
-    </properties>
-
     <build>
         <plugins>
             <plugin>

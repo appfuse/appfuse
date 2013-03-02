@@ -655,6 +655,8 @@
         <webtest.version>3.0</webtest.version>
         <wiser.version>1.2</wiser.version>
         <bootstrap.version>2.2.1</bootstrap.version>
+        <wicket.version>6.3.0</wicket.version>
+        <wicketstuff.version>${wicket.version}</wicketstuff.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <copyright.year>2003-2013</copyright.year>
