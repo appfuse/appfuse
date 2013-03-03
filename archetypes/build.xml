@@ -173,6 +173,19 @@
                 </then>
             </if>
 
+            <if>
+                <equals arg1="@{module}" arg2="wicket"/>
+                <then>
+                    <delete dir="@{dir}/src/main/webapp/styles/lib"/>
+                    <delete dir="@{dir}/src/main/webapp/styles/img"/>
+                    <delete dir="@{dir}/src/main/webapp/styles/img"/>
+
+                    <!-- TODO: MZA: Why deleting scripts directory removes includes for */*.html and */*.tld for
+                         src/main/webapp in maven-archetype-metadata.xml ? -->
+                    <!--<delete dir="@{dir}/src/main/webapp/scripts"/>-->
+                </then>
+            </if>
+
             <mvn dir="@{dir}" command="archetype:create-from-project -DpackageName=org.appfuse.webapp"/>
 
             <!-- Change the version number of the generated archetype -->

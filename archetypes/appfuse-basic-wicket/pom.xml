@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.appfuse.archetypes</groupId>
+        <artifactId>appfuse-archetypes</artifactId>
+        <version>2.2.2-SNAPSHOT</version>
+    </parent>
+
+    <groupId>org.appfuse.archetypes</groupId>
+    <artifactId>appfuse-basic-wicket</artifactId>
+    <name>AppFuse Basic Archetype - Wicket</name>
+    <packaging>pom</packaging>
+    <version>2.2.2-SNAPSHOT</version>
+
+    <description>
+        Maven 2 project that creates the AppFuse Basic Wicket Archetype.
+    </description>
+
+    <scm>
+        <connection>scm:git:git@github.com:appfuse/appfuse.git</connection>
+        <developerConnection>scm:git:git@github.com:appfuse/appfuse.git</developerConnection>
+        <url>http://source.appfuse.org/browse/appfuse/archetypes/appfuse-basic-wicket</url>
+    </scm>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
+                    <execution>
+                        <id>build-archetype</id>
+                        <phase>package</phase>
+                        <configuration>
+                            <tasks>
+                                <delete dir="target/${module}-archetype" />
+                                <ant antfile="../build.xml" dir="." target="build-archetype">
+                                    <property name="module" value="${module}" />
+                                </ant>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>test-archetype</id>
+                        <phase>integration-test</phase>
+                        <configuration>
+                            <tasks>
+                                <ant antfile="../build.xml" dir="." target="test">
+                                    <property name="archetype" value="${project.artifactId}-archetype" />
+                                </ant>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>deploy-archetype</id>
+                        <phase>deploy</phase>
+                        <configuration>
+                            <tasks>
+                                <ant antfile="../build.xml" dir="." target="deploy">
+                                    <property name="module" value="${module}" />
+                                </ant>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <properties>
+        <module>wicket</module>
+    </properties>
+</project>
+
