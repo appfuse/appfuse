@@ -9,7 +9,6 @@ import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.resource.loader.ClassStringResourceLoader;
-import org.apache.wicket.resource.loader.IStringResourceLoader;
 import org.apache.wicket.settings.IRequestCycleSettings;
 import org.appfuse.webapp.pages.Login;
 import org.apache.wicket.Page;
@@ -101,12 +100,15 @@ import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
  *  - fix acceptance test: signup - doesn't move to a login page and others - currently disabled in Maven
  *  - resolve problem with sending password hash to an user on edit - APF-1370
  *  - arrows in a table should be next to a header label (not at the end of a column on the right side)
+ *
  *  - rename AppFuseWicketApplication to AppFuseWicketApplication - DONE
  *  - Archetype: missing scripts/login.js
  *  - Archetype: html files are pages directory in addition to webapp/pages
  *  - Archetype: remove bootstrap and jquery related files (webapp/styles/lib/*) - DONE
  *  - are common/*.jsp, appfuse.tld, EscapeXml*.java, taglib/* really needed
  *  - UserCounterListener could be used instead of Spring Security to count and display active users
+ *  - Archetype: remove src/test/resources/target and remove src/test/java-tapestry
+ *  - Archetype: src/main/webapp/scripts cannot be deleted - it removes includes *\/*.html and *\/*.tld for src/main/webapp in maven-archetype-metadata.xml
  *
  * @author Marcin Zajączkowski, 2010-09-02
  */
@@ -120,20 +122,15 @@ public class AppFuseWicketApplication extends AuthenticatedWebApplication {
     @Override
     protected void init() {
         super.init();
-
-        getComponentInstantiationListeners().add(new SpringComponentInjector(this, getContext(), true));
+        registerSpringComponentInjector();
         initPageMounting();
+        setOnePassRenderStrategy();
+        registerAppFuseSpecificStringResourceLoader();
+        initBootstrap();
+    }
 
-        //MZA: Redirect after post causes page to be shrunk (probably) due to SiteMesh bug:
-        //http://jira.opensymphony.com/browse/SIM-217
-        getRequestCycleSettings().setRenderStrategy(IRequestCycleSettings.RenderStrategy.ONE_PASS_RENDER);
-
-        //add AppFuse specific IStringResourceLoader at the end to use ApplicationResources.properties
-        // for unhandled keys
-        getResourceSettings().getStringResourceLoaders().add(createAppFuseSpecificStringResourceLoader());
-
-        BootstrapSettings settings = new BootstrapSettings();
-        Bootstrap.install(this, settings);
+    private void registerSpringComponentInjector() {
+        getComponentInstantiationListeners().add(new SpringComponentInjector(this, getContext(), true));
     }
 
     private void initPageMounting() {
@@ -142,9 +139,21 @@ public class AppFuseWicketApplication extends AuthenticatedWebApplication {
         new AnnotatedMountScanner().scanPackage(BASE_PACKAGE_FOR_PAGES).mount(this);
     }
 
-    private IStringResourceLoader createAppFuseSpecificStringResourceLoader() {
+    /**
+     * Redirects after post causes page to be shrunk (probably) due to SiteMesh bug:
+     * http://jira.opensymphony.com/browse/SIM-217
+     */
+    private void setOnePassRenderStrategy() {
+        getRequestCycleSettings().setRenderStrategy(IRequestCycleSettings.RenderStrategy.ONE_PASS_RENDER);
+    }
+
+    /**
+     * Registers AppFuse specific IStringResourceLoader at the end to use ApplicationResources.properties
+     * for unhandled keys.
+     */
+    private void registerAppFuseSpecificStringResourceLoader() {
         Class applicationResourcesClass = getOrCreateArtificialApplicationResourcesClass();
-        return new ClassStringResourceLoader(applicationResourcesClass);
+        getResourceSettings().getStringResourceLoaders().add(new ClassStringResourceLoader(applicationResourcesClass));
     }
 
     private Class<?> getOrCreateArtificialApplicationResourcesClass() {
@@ -160,9 +169,14 @@ public class AppFuseWicketApplication extends AuthenticatedWebApplication {
             ClassPool classPool = ClassPool.getDefault();
             CtClass applicationResourcesCtClass = classPool.makeClass(APP_FUSE_RESOURCE_FILE_NAME);
             return applicationResourcesCtClass.toClass();
-        } catch (CannotCompileException ee) {
-            throw new RuntimeException("Unable to instantiate Wicket application", ee);
+        } catch (CannotCompileException e) {
+            throw new RuntimeException("Unable to instantiate Wicket application", e);
         }
+    }
+
+    private void initBootstrap() {
+        BootstrapSettings settings = new BootstrapSettings();
+        Bootstrap.install(this, settings);
     }
 
     @Override
