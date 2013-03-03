@@ -6,6 +6,5 @@ target
 *.ipr
 web/tapestry/src/main/webapp/WEB-INF/app*.properties
 web/tapestry/src/main/webapp/styles/style.css
-web/wicket/src/main/java/org/appfuse/webapp/AppFuseWicketApplication*.properties
 web/wicket/src/main/webapp/styles/style.css
 .gradle/

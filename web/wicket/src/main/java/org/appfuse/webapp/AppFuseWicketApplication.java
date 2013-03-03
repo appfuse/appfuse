@@ -2,9 +2,14 @@ package org.appfuse.webapp;
 
 import de.agilecoders.wicket.Bootstrap;
 import de.agilecoders.wicket.settings.BootstrapSettings;
+import javassist.CannotCompileException;
+import javassist.ClassPool;
+import javassist.CtClass;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.resource.loader.ClassStringResourceLoader;
+import org.apache.wicket.resource.loader.IStringResourceLoader;
 import org.apache.wicket.settings.IRequestCycleSettings;
 import org.appfuse.webapp.pages.Login;
 import org.apache.wicket.Page;
@@ -103,6 +108,7 @@ import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
 public class AppFuseWicketApplication extends AuthenticatedWebApplication {
 
     private static final String BASE_PACKAGE_FOR_PAGES = "org.appfuse.webapp.pages";
+    public static final String APP_FUSE_RESOURCE_FILE_NAME = "ApplicationResources";
 
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
@@ -117,8 +123,9 @@ public class AppFuseWicketApplication extends AuthenticatedWebApplication {
         //http://jira.opensymphony.com/browse/SIM-217
         getRequestCycleSettings().setRenderStrategy(IRequestCycleSettings.RenderStrategy.ONE_PASS_RENDER);
 
-        //TODO: MZA: Add a custom ResourceLoader to use app.properties from web-common
-//        getResourceSettings().getStringResourceLoaders().add(...)
+        //add AppFuse specific IStringResourceLoader at the end to use ApplicationResources.properties
+        // for unhandled keys
+        getResourceSettings().getStringResourceLoaders().add(createAppFuseSpecificStringResourceLoader());
 
         BootstrapSettings settings = new BootstrapSettings();
         Bootstrap.install(this, settings);
@@ -128,6 +135,29 @@ public class AppFuseWicketApplication extends AuthenticatedWebApplication {
         //Hint from:
         //http://blog.xebia.com/2008/10/09/readable-url%E2%80%99s-in-wicket-an-introduction-to-wicketstuff-annotation/
         new AnnotatedMountScanner().scanPackage(BASE_PACKAGE_FOR_PAGES).mount(this);
+    }
+
+    private IStringResourceLoader createAppFuseSpecificStringResourceLoader() {
+        Class applicationResourcesClass = getOrCreateArtificialApplicationResourcesClass();
+        return new ClassStringResourceLoader(applicationResourcesClass);
+    }
+
+    private Class<?> getOrCreateArtificialApplicationResourcesClass() {
+        try {
+            return Class.forName(APP_FUSE_RESOURCE_FILE_NAME);
+        } catch (ClassNotFoundException e) {
+            return createArtificialApplicationResourcesClass();
+        }
+    }
+
+    private Class<?> createArtificialApplicationResourcesClass() {
+        try {
+            ClassPool classPool = ClassPool.getDefault();
+            CtClass applicationResourcesCtClass = classPool.makeClass(APP_FUSE_RESOURCE_FILE_NAME);
+            return applicationResourcesCtClass.toClass();
+        } catch (CannotCompileException ee) {
+            throw new RuntimeException("Unable to instantiate Wicket application", ee);
+        }
     }
 
     @Override

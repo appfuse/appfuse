@@ -139,17 +139,9 @@
                 <executions>
                     <execution>
                         <id>web-common-resources</id>
-                        <phase>generate-resources</phase>
+                        <phase>process-resources</phase>
                         <configuration>
                             <tasks>
-                                <!-- TODO: MZA: Quite ugly - it requires mvn build to run an application from IDEA.
-                                                A custom ResourceLoaders using app*.properties should be written. -->
-                                <echo>Copying i18n files...</echo>
-                                <copy todir="src/main/java/org/appfuse/webapp/" overwrite="true">
-                                    <globmapper from="ApplicationResources*" to="AppFuseWicketApplication*" />
-                                    <fileset dir="../common/src/main/resources" includes="ApplicationResources*" />
-                                </copy>
-
                                 <echo message="Copying CSS and JavaScript resources..."/>
                                 <copy todir="src/main/webapp" overwrite="true">
                                     <fileset dir="../common/src/main/webapp">
@@ -271,6 +263,12 @@
             <groupId>de.agilecoders.wicket</groupId>
             <artifactId>bootstrap</artifactId>
             <version>0.7.6</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>3.17.1-GA</version>
         </dependency>
 
         <dependency>
