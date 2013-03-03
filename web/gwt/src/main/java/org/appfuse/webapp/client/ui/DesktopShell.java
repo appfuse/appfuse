@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.appfuse.webapp.client.application.Application;
-import org.appfuse.webapp.client.ui.login.events.LoginEvent;
-import org.appfuse.webapp.client.ui.login.events.LogoutEvent;
+import org.appfuse.webapp.client.application.base.security.LoginEvent;
+import org.appfuse.webapp.client.application.base.security.LogoutEvent;
 import org.appfuse.webapp.client.ui.navigation.DesktopNavigationBar;
 import org.appfuse.webapp.client.ui.navigation.DesktopSideNavigationBar;
 

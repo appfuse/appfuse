@@ -27,7 +27,7 @@ public class RpcAuthenticationFailureHandler extends SimpleUrlAuthenticationFail
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
 		if(isRpcRequest(request, response)) {
-			response.sendError(HttpServletResponse.SC_FORBIDDEN);
+			response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
 		}else {
 			super.onAuthenticationFailure(request, response, exception);
 		}

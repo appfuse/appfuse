@@ -4,8 +4,8 @@
 package org.appfuse.webapp.client.ui;
 
 import org.appfuse.webapp.client.application.Application;
-import org.appfuse.webapp.client.ui.login.events.LoginEvent;
-import org.appfuse.webapp.client.ui.login.events.LogoutEvent;
+import org.appfuse.webapp.client.application.base.security.LoginEvent;
+import org.appfuse.webapp.client.application.base.security.LogoutEvent;
 
 import com.github.gwtbootstrap.client.ui.base.AlertBase;
 import com.github.gwtbootstrap.client.ui.constants.AlertType;

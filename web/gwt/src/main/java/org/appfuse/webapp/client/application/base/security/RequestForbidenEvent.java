@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.appfuse.webapp.client.ui.login.events;
+package org.appfuse.webapp.client.application.base.security;
 
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
@@ -12,7 +12,7 @@ import com.google.web.bindery.event.shared.HandlerRegistration;
  * @author ivangsa
  *
  */
-public class LogoutEvent extends GwtEvent<LogoutEvent.Handler> {
+public class RequestForbidenEvent extends GwtEvent<RequestForbidenEvent.Handler> {
 
 	private static final Type<Handler> TYPE = new Type<Handler>();
 
@@ -22,11 +22,11 @@ public class LogoutEvent extends GwtEvent<LogoutEvent.Handler> {
 	public interface Handler extends EventHandler {
 		
 		/**
-		 * Called when a {@link LogoutEvent} is fired.
+		 * Called when a {@link RequestForbidenEvent} is fired.
 		 *
-		 * @param authRequiredEvent a {@link LogoutEvent} instance
+		 * @param requestForbidenEvent a {@link RequestForbidenEvent} instance
 		 */
-		void onLogoutEvent(LogoutEvent logoutEvent);
+		void onRequestForbidenEvent(RequestForbidenEvent requestForbidenEvent);
 	}
 
 
@@ -37,13 +37,13 @@ public class LogoutEvent extends GwtEvent<LogoutEvent.Handler> {
 
 
 	/**
-	 * Register a {@link LogoutEvent.Handler} on an {@link EventBus}.
+	 * Register a {@link RequestForbidenEvent.Handler} on an {@link EventBus}.
 	 *
 	 * @param eventBus the {@link EventBus}
-	 * @param handler  a {@link LogoutEvent.Handler}
+	 * @param handler  a {@link RequestForbidenEvent.Handler}
 	 * @return a {@link HandlerRegistration} instance
 	 */
-	public static HandlerRegistration register(EventBus eventBus, LogoutEvent.Handler handler) {
+	public static HandlerRegistration register(EventBus eventBus, RequestForbidenEvent.Handler handler) {
 		return eventBus.addHandler(TYPE, handler);
 	}
 
@@ -52,6 +52,6 @@ public class LogoutEvent extends GwtEvent<LogoutEvent.Handler> {
 
 	@Override
 	protected void dispatch(Handler handler) {
-		handler.onLogoutEvent(this);
+		handler.onRequestForbidenEvent(this);
 	}
 }

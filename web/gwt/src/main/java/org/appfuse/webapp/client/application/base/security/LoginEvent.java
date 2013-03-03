@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.appfuse.webapp.client.ui.login.events;
+package org.appfuse.webapp.client.application.base.security;
 
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
@@ -12,7 +12,7 @@ import com.google.web.bindery.event.shared.HandlerRegistration;
  * @author ivangsa
  *
  */
-public class AuthRequiredEvent extends GwtEvent<AuthRequiredEvent.Handler> {
+public class LoginEvent extends GwtEvent<LoginEvent.Handler> {
 
 	private static final Type<Handler> TYPE = new Type<Handler>();
 
@@ -22,11 +22,11 @@ public class AuthRequiredEvent extends GwtEvent<AuthRequiredEvent.Handler> {
 	public interface Handler extends EventHandler {
 		
 		/**
-		 * Called when a {@link AuthRequiredEvent} is fired.
+		 * Called when a {@link LoginEvent} is fired.
 		 *
-		 * @param authRequiredEvent a {@link AuthRequiredEvent} instance
+		 * @param authRequiredEvent a {@link LoginEvent} instance
 		 */
-		void onAuthRequiredEvent(AuthRequiredEvent authRequiredEvent);
+		void onLoginEvent(LoginEvent loginEvent);
 	}
 
 
@@ -37,13 +37,13 @@ public class AuthRequiredEvent extends GwtEvent<AuthRequiredEvent.Handler> {
 
 
 	/**
-	 * Register a {@link AuthRequiredEvent.Handler} on an {@link EventBus}.
+	 * Register a {@link LoginEvent.Handler} on an {@link EventBus}.
 	 *
 	 * @param eventBus the {@link EventBus}
-	 * @param handler  a {@link AuthRequiredEvent.Handler}
+	 * @param handler  a {@link LoginEvent.Handler}
 	 * @return a {@link HandlerRegistration} instance
 	 */
-	public static HandlerRegistration register(EventBus eventBus, AuthRequiredEvent.Handler handler) {
+	public static HandlerRegistration register(EventBus eventBus, LoginEvent.Handler handler) {
 		return eventBus.addHandler(TYPE, handler);
 	}
 
@@ -52,6 +52,6 @@ public class AuthRequiredEvent extends GwtEvent<AuthRequiredEvent.Handler> {
 
 	@Override
 	protected void dispatch(Handler handler) {
-		handler.onAuthRequiredEvent(this);
+		handler.onLoginEvent(this);
 	}
 }

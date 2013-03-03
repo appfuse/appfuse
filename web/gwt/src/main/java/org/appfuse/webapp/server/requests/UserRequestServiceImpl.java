@@ -25,7 +25,6 @@ import org.springframework.beans.support.PropertyComparator;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.mail.MailException;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -117,7 +116,6 @@ public class UserRequestServiceImpl extends AbstractBaseRequest implements UserR
      * 
      * @return
      */
-    @PreAuthorize("isAuthenticated()")
     public User editProfile() {
     	String username = getCurrentUsername();
     	return userManager.getUserByUsername(username);
@@ -129,7 +127,6 @@ public class UserRequestServiceImpl extends AbstractBaseRequest implements UserR
      * @return
      * @throws Exception
      */
-    @PreAuthorize("isFullyAuthenticated()")
     public User editProfile(User user) throws Exception {
     	String username = getCurrentUsername();
     	if(!username.equals(user.getUsername())) {
@@ -143,7 +140,6 @@ public class UserRequestServiceImpl extends AbstractBaseRequest implements UserR
      * @param userId
      * @return
      */
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public User getUser(Long userId) {
     	return userManager.get(userId);
     }
@@ -154,7 +150,6 @@ public class UserRequestServiceImpl extends AbstractBaseRequest implements UserR
      * @return
      * @throws Exception
      */
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public User saveUser(User user) throws Exception {
     	return userManager.saveUser(user);
     }
@@ -164,7 +159,6 @@ public class UserRequestServiceImpl extends AbstractBaseRequest implements UserR
      * @param searchCriteria
      * @return
      */
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public long countUsers(UsersSearchCriteria searchCriteria) {
     	String searchTerm = searchCriteria != null? searchCriteria.getSearchTerm() : null;
    		return userManager.search(searchTerm).size();
@@ -177,7 +171,6 @@ public class UserRequestServiceImpl extends AbstractBaseRequest implements UserR
      * @param maxResults
      * @return
      */
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<User> searchUsers(UsersSearchCriteria searchCriteria, int firstResult, int maxResults){
     	return searchUsers(searchCriteria, firstResult, maxResults, null, true);
     }
@@ -189,7 +182,6 @@ public class UserRequestServiceImpl extends AbstractBaseRequest implements UserR
      * @param maxResults
      * @return
      */
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<User> searchUsers(UsersSearchCriteria searchCriteria, int firstResult, int maxResults, String sortProperty, boolean ascending){
     	String searchTerm = searchCriteria != null? searchCriteria.getSearchTerm() : null;
     	List<User> users = userManager.search(searchTerm);
@@ -207,7 +199,6 @@ public class UserRequestServiceImpl extends AbstractBaseRequest implements UserR
      * 
      * @param user
      */
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void removeUser(Long userId) {
     	userManager.removeUser(userId.toString());
     }
@@ -256,7 +247,6 @@ public class UserRequestServiceImpl extends AbstractBaseRequest implements UserR
      * 
      * @return
      */
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<User> getActiveUsers(){
     	return new ArrayList((Set) getServletContext().getAttribute(UserCounterListener.USERS_KEY));    	
     }
@@ -265,7 +255,6 @@ public class UserRequestServiceImpl extends AbstractBaseRequest implements UserR
     /**
      * 
      */
-    @PreAuthorize("isAuthenticated()")
     public boolean logout() {
     	HttpServletRequest request = getServletRequest();
     	HttpServletResponse response = getServletResponse();

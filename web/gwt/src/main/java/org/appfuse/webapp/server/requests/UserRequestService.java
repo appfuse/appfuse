@@ -111,10 +111,6 @@ public interface UserRequestService {
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	abstract List<User> getActiveUsers();
 
-	/**
-	 * 
-	 */
-	@PreAuthorize("isAuthenticated()")
 	abstract boolean logout();
 
 }

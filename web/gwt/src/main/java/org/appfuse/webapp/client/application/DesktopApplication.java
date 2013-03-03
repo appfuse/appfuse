@@ -6,17 +6,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.appfuse.webapp.client.application.base.request.RequestEvent;
+import org.appfuse.webapp.client.application.base.security.AuthRequiredEvent;
+import org.appfuse.webapp.client.application.base.security.LoginEvent;
+import org.appfuse.webapp.client.application.base.security.LogoutEvent;
+import org.appfuse.webapp.client.application.base.security.RequestForbidenEvent;
 import org.appfuse.webapp.client.ui.DesktopShell;
 import org.appfuse.webapp.client.ui.login.LoginActivity;
 import org.appfuse.webapp.client.ui.login.LoginPlace;
-import org.appfuse.webapp.client.ui.login.events.AuthRequiredEvent;
-import org.appfuse.webapp.client.ui.login.events.LoginEvent;
-import org.appfuse.webapp.client.ui.login.events.LogoutEvent;
 import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
 import org.appfuse.webapp.proxies.LookupConstantsProxy;
 import org.appfuse.webapp.proxies.UserProxy;
 import org.appfuse.webapp.requests.ApplicationRequestFactory;
 
+import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.activity.shared.ActivityMapper;
 import com.google.gwt.core.client.GWT;
@@ -191,6 +193,14 @@ public class DesktopApplication extends Application implements LoginEvent.Handle
 			@Override
 			public void onAuthRequiredEvent(AuthRequiredEvent authRequiredEvent) {
 				placeController.goTo(new LoginPlace());
+			}
+		});
+		
+		RequestForbidenEvent.register(eventBus, new RequestForbidenEvent.Handler() {
+			
+			@Override
+			public void onRequestForbidenEvent(RequestForbidenEvent requestForbidenEvent) {
+				shell.addMessage(i18n._03_title(), AlertType.ERROR);
 			}
 		});
 	}

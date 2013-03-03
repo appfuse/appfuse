@@ -9,9 +9,9 @@ import javax.validation.ConstraintViolation;
 
 import org.appfuse.webapp.client.application.Application;
 import org.appfuse.webapp.client.application.base.activity.AbstractBaseActivity;
+import org.appfuse.webapp.client.application.base.security.AuthRequiredEvent;
+import org.appfuse.webapp.client.application.base.security.LoginEvent;
 import org.appfuse.webapp.client.ui.login.LoginView.LoginDetails;
-import org.appfuse.webapp.client.ui.login.events.AuthRequiredEvent;
-import org.appfuse.webapp.client.ui.login.events.LoginEvent;
 import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
 
 import com.github.gwtbootstrap.client.ui.Alert;

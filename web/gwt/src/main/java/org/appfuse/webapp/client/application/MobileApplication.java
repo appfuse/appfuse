@@ -6,11 +6,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.appfuse.webapp.client.application.base.request.RequestEvent;
+import org.appfuse.webapp.client.application.base.security.AuthRequiredEvent;
+import org.appfuse.webapp.client.application.base.security.LoginEvent;
+import org.appfuse.webapp.client.application.base.security.LogoutEvent;
 import org.appfuse.webapp.client.ui.MobileShell;
 import org.appfuse.webapp.client.ui.login.LoginPlace;
-import org.appfuse.webapp.client.ui.login.events.AuthRequiredEvent;
-import org.appfuse.webapp.client.ui.login.events.LoginEvent;
-import org.appfuse.webapp.client.ui.login.events.LogoutEvent;
 import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
 import org.appfuse.webapp.proxies.LookupConstantsProxy;
 import org.appfuse.webapp.proxies.UserProxy;
