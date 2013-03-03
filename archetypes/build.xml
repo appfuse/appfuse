@@ -306,6 +306,20 @@
                 <replacevalue><![CDATA[<include>webapp/**/*.java</include>]]></replacevalue>
             </replace>
 
+            <!-- This eliminates duplicated html file in src/main/java/pages and src/main/java/webapp/pages - see APF-1378.
+                 Could not work with every archetype as it changes also a value in src/main/webapp (for Wicket it is
+                 safe as long as there is no html file). Any better idea is welcome. -->
+            <if>
+                <equals arg1="@{module}" arg2="wicket"/>
+                <then>
+                    <replace dir="@{dir}/target/generated-sources/archetype">
+                        <include name="**/archetype-metadata.xml"/>
+                        <replacetoken><![CDATA[<include>**/*.html</include>]]></replacetoken>
+                        <replacevalue><![CDATA[<include>webapp/**/*.html</include>]]></replacevalue>
+                    </replace>
+                </then>
+            </if>
+
             <if>
                 <equals arg1="@{dest}" arg2=""/>
                 <then>

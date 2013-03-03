@@ -103,11 +103,11 @@ import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
  *
  *  - rename AppFuseWicketApplication to AppFuseWicketApplication - DONE
  *  - Archetype: missing scripts/login.js - DONE - moved it to webapp/scripts/
- *  - Archetype: html files are pages directory in addition to webapp/pages
+ *  - Archetype: html files are pages directory in addition to webapp/pages - DONE - an ugly hack required due to APF-1378
  *  - Archetype: remove bootstrap and jquery related files (webapp/styles/lib/*) - DONE
  *  - are common/*.jsp, appfuse.tld, EscapeXml*.java, taglib/* really needed
  *  - UserCounterListener could be used instead of Spring Security to count and display active users
- *  - Archetype: remove src/test/resources/target and remove src/test/java-tapestry
+ *  - Archetype: remove src/test/resources/target and remove src/test/java-tapestry - DONE
  *  - Archetype: src/main/webapp/scripts cannot be deleted - it removes includes *\/*.html and *\/*.tld for src/main/webapp in maven-archetype-metadata.xml
  *
  * @author Marcin Zajączkowski, 2010-09-02
