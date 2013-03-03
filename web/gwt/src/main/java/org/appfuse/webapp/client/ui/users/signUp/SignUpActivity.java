@@ -41,7 +41,6 @@ public class SignUpActivity extends AbstractProxyEditActivity<UserProxy> impleme
 
 	@Override
 	public String getSavedMessage() {
-		Place place = placeController.getWhere();
 		return application.getI18n().user_registered();
 	}
 	
@@ -63,21 +62,25 @@ public class SignUpActivity extends AbstractProxyEditActivity<UserProxy> impleme
 	}
 
 	@Override
+	protected EntityProxyId<UserProxy> getProxyId() {
+		//return a bogus proxyId so it will be resolved on the server
+		return  new EntityProxyId<UserProxy>() {
+			@Override
+			public Class<UserProxy> getProxyClass() {
+				return UserProxy.class;
+			}
+		};
+	}
+
+	@Override
 	protected RequestContext createProxyRequest() {
 		return requests.userRequest();
 	}
-	
-	@Override
-	protected UserProxy createProxy(RequestContext requestContext) {
-		UserProxy user = requestContext.create(UserProxy.class);
-		AddressProxy address = requestContext.create(AddressProxy.class);
-		user.setAddress(address);
-		return user;
-	}
+
 	
 	@Override
 	protected Request<UserProxy> findProxyRequest(RequestContext requestContext, EntityProxyId<UserProxy> proxyId) {
-		throw new UnsupportedOperationException();
+		return ((UserRequest)requestContext).signUp();
 	}
 	
 

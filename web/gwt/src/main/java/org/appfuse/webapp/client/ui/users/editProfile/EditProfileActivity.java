@@ -60,7 +60,7 @@ public class EditProfileActivity extends AbstractProxyEditActivity<UserProxy> im
 
 	@Override
 	protected EntityProxyId<UserProxy> getProxyId() {
-		//return a null entityId so it won't be used in findProxyRequest and will be resolved on the server
+		//return a bogus proxyId so it will be resolved on the server
 		return  new EntityProxyId<UserProxy>() {
 			@Override
 			public Class<UserProxy> getProxyClass() {
@@ -72,11 +72,6 @@ public class EditProfileActivity extends AbstractProxyEditActivity<UserProxy> im
 	@Override
 	protected RequestContext createProxyRequest() {
 		return requests.userRequest();
-	}
-	
-	@Override
-	protected UserProxy createProxy(RequestContext requestContext) {
-		throw new UnsupportedOperationException();
 	}
 	
 	@Override
@@ -103,11 +98,7 @@ public class EditProfileActivity extends AbstractProxyEditActivity<UserProxy> im
 	
 	@Override
 	protected Place nextPlace(boolean saved) {
-		if(saved) {
-			return new EditProfilePlace();
-		} else {//delete is not supported..
-			return new MainMenuPlace();
-		}
+		return new EditProfilePlace();
 	}
 
 	private String getFullName(UserProxy userProxy) {//XXX this is already duplicated

@@ -7,9 +7,10 @@ import java.util.logging.Logger;
 
 import org.appfuse.webapp.client.application.base.request.RequestEvent;
 import org.appfuse.webapp.client.ui.MobileShell;
-import org.appfuse.webapp.client.ui.login.LoginActivity;
 import org.appfuse.webapp.client.ui.login.LoginPlace;
 import org.appfuse.webapp.client.ui.login.events.AuthRequiredEvent;
+import org.appfuse.webapp.client.ui.login.events.LoginEvent;
+import org.appfuse.webapp.client.ui.login.events.LogoutEvent;
 import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
 import org.appfuse.webapp.proxies.LookupConstantsProxy;
 import org.appfuse.webapp.proxies.UserProxy;
@@ -22,8 +23,11 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.logging.client.LogConfiguration;
 import com.google.gwt.place.shared.Place;
+import com.google.gwt.place.shared.PlaceChangeEvent;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.inject.Inject;
@@ -31,13 +35,12 @@ import com.google.web.bindery.event.shared.EventBus;
 import com.google.web.bindery.requestfactory.gwt.client.RequestFactoryLogHandler;
 import com.google.web.bindery.requestfactory.shared.LoggingRequest;
 import com.google.web.bindery.requestfactory.shared.Receiver;
-import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
 
 /**
  * Application for browsing entities.
  */
-public class MobileApplication extends Application {
+public class MobileApplication extends Application implements LoginEvent.Handler, LogoutEvent.Handler {
 	private static final Logger LOGGER = Logger.getLogger(MobileApplication.class.getName());
 
 	@Inject
@@ -55,85 +58,93 @@ public class MobileApplication extends Application {
 
 	
 	public void run() {
-		setProgress(10);
+		setProgress(30);
 
 		/* Add handlers */
 		initHandlers();
-		setProgress(30);
-		
-
 
 		/* Browser history integration */
-		ApplicationPlaceHistoryMapper historyMapper = GWT.create(ApplicationPlaceHistoryMapper.class);
+		ApplicationPlaceHistoryMapper historyMapper = GWT.create(ApplicationPlaceHistoryMapper.class);//TODO move this to gin ioc
+		historyMapper.setFactory(new ApplicationPlaceHistoryFactory(requestFactory, proxyFactory));
         final PlaceHistoryHandler historyHandler = new PlaceHistoryHandler(historyMapper);
         
-        /* Authentication */
-        requestFactory.userRequest().getCurrentUser().fire(new Receiver<UserProxy>() {
-
+		/* setup activities and display */
+		final ActivityMapper activityMapper = new ApplicationActivityMapper(this);
+		final ActivityManager masterActivityManager = new ActivityManager(activityMapper, eventBus);
+		masterActivityManager.setDisplay(shell.getContentsPanel());
+        
+        
+		setProgress(50);
+		/* load application constants */
+		requestFactory.lookupRequest().getApplicationConstants().fire(new Receiver<LookupConstantsProxy>() {
 			@Override
-			public void onSuccess(UserProxy currentUser) {
-				setProgress(50);
+			public void onSuccess(LookupConstantsProxy lookupConstants) {
+				setLookupConstants(lookupConstants);
+				setProgress(70);
 
-				if(currentUser != null) {
-					setCurrentUser(currentUser);
-					/* load application constants */
-					requestFactory.lookupRequest().getApplicationConstants().fire(new Receiver<LookupConstantsProxy>() {
-						@Override
-						public void onSuccess(LookupConstantsProxy response) {
-							setLookupConstants(response);
-							
+				/* Authentication */
+				requestFactory.userRequest().getCurrentUser().with("roles").fire(new Receiver<UserProxy>() {
+					
+					@Override
+					public void onSuccess(UserProxy currentUser) {
+						
+						if(currentUser != null) {
+							setCurrentUser(currentUser);
+
+							setProgress(80);
 							showShell();
-
+							
 							/* Register home place and parse url for current place token */
 							Place defaultPlace = new MainMenuPlace();
 							historyHandler.register(placeController, eventBus, defaultPlace);
 							historyHandler.handleCurrentHistory();
-
+							shell.onLoginEvent(new LoginEvent());
+						} else {
+							showShell();
+							
+							/* Register home place and parse url for current place token */
+							Place defaultPlace = new LoginPlace(History.getToken());
+							historyHandler.register(placeController, eventBus, defaultPlace);
+							placeController.goTo(defaultPlace);
 						}
-					});
-				} else {
-					showShell();
-					
-					/* Register home place and parse url for current place token */
-					Place defaultPlace = new LoginPlace();
-					historyHandler.register(placeController, eventBus, defaultPlace);
-					placeController.goTo(defaultPlace);
-				}
+					}
+				});
+				
 			}
-			
-			@Override
-			public void onFailure(ServerFailure error) {
-				Window.alert("Error " + error.getMessage());
-				super.onFailure(error);
-			}
-    	   
-       });
+		});
 		
 	}
 
 	
 	protected void showShell() {
-		setProgress(80);
-
-		/* setup activities and display */
-		final ActivityMapper activityMapper = new ApplicationActivityMapper(this);
-		final ActivityManager masterActivityManager = new ActivityManager(activityMapper, eventBus);
-		masterActivityManager.setDisplay(shell.getContentsPanel());
-		
-		setProgress(95);
 		Element loading = Document.get().getElementById("loading");
 		loading.getParentElement().removeChild(loading);
 		
 		/* And show the user the shell */
-		RootLayoutPanel.get().add(shell);		
+		RootLayoutPanel.get().add(shell);
+		
+		//remove gwt positioning and overflow from extra divs, and hope for the best about xbrowser compatibility..
+		shell.getElement().setId("shell");
+		__fixPositioningAndOverflow(Document.get().getElementById("shell"));
 	}
+	
+	/**
+	 * remove gwt positioning and overflow from extra divs, and hope for the best about xbrowser compatibility..
+	 */
+	private Element __fixPositioningAndOverflow(Element element) {
+		if("body".equalsIgnoreCase(element.getTagName())){
+			return element;
+		} else {
+			element.setAttribute("style", "");
+			element.removeAttribute("style");// does not work on chrome
+			element.setId("extradiv_" + index++);
+			return __fixPositioningAndOverflow(element.getParentElement());
+		}
+	}
+	private int index = 0;
 
 	protected void initHandlers() {
-		//Custom request transport
-		//requestFactory.initialize(eventBus, new CustomDefaultRequestTransport(eventBus));
 		
-		AuthRequiredEvent.register(eventBus, new LoginActivity(this));
-
 		GWT.setUncaughtExceptionHandler(new GWT.UncaughtExceptionHandler() {
 			public void onUncaughtException(Throwable e) {
 				Window.alert("Error: " + e.getMessage());
@@ -156,16 +167,70 @@ public class MobileApplication extends Application {
 			private static final int LOADING_TIMEOUT = 250;
 
 			public void onRequestEvent(RequestEvent requestEvent) {
-				if(shell != null && shell.getMole() != null) {
-					if (requestEvent.getState() == RequestEvent.State.SENT) {
-						shell.getMole().showDelayed(LOADING_TIMEOUT);
-					} else {
-						shell.getMole().hide();
-					}
+				if (requestEvent.getState() == RequestEvent.State.SENT) {
+					DOM.setStyleAttribute(shell.getElement(), "cursor", "wait");
+					shell.getMole().showDelayed(LOADING_TIMEOUT);
+				} else {
+					DOM.setStyleAttribute(shell.getElement(), "cursor", "default");
+					shell.getMole().hide();
 				}
 			}
 		});
 
+		if(shell instanceof PlaceChangeEvent.Handler) {
+			eventBus.addHandler(PlaceChangeEvent.TYPE, (PlaceChangeEvent.Handler)shell);
+		}
+		
+		
+		LoginEvent.register(eventBus, this);
+		LogoutEvent.register(eventBus, this);
+
+		AuthRequiredEvent.register(eventBus, new AuthRequiredEvent.Handler() {
+			@Override
+			public void onAuthRequiredEvent(AuthRequiredEvent authRequiredEvent) {
+				placeController.goTo(new LoginPlace());
+			}
+		});
+	}
+	
+	@Override
+	public void onLoginEvent(final LoginEvent loginEvent) {
+
+        requestFactory.userRequest().getCurrentUser().with("roles").fire(new Receiver<UserProxy>() {
+			@Override
+			public void onSuccess(UserProxy currentUser) {
+				if(currentUser != null) {
+					setCurrentUser(currentUser);
+					/* re-load application constants */
+					requestFactory.lookupRequest().getApplicationConstants().fire(new Receiver<LookupConstantsProxy>() {
+						@Override
+						public void onSuccess(LookupConstantsProxy lookupConstants) {
+							setLookupConstants(lookupConstants);
+							shell.onLoginEvent(loginEvent);
+
+							Place currentPlace = placeController.getWhere();
+							if(currentPlace instanceof LoginPlace) {// explicit login
+								LoginPlace loginPlace = (LoginPlace) currentPlace;
+								if(loginPlace.getHistoryToken() != null && !"".equals(loginPlace.getHistoryToken())) {
+									History.newItem(loginPlace.getHistoryToken());
+								} else {
+									placeController.goTo(new MainMenuPlace());
+								}
+							}else {
+								//this was an intercepted login so we leave user on current page
+							}
+						}
+					});
+				}
+			}
+        });
+	}
+	
+	@Override
+	public void onLogoutEvent(LogoutEvent logoutEvent) {
+		setCurrentUser(null);
+		shell.onLogoutEvent(logoutEvent);
+		placeController.goTo(new LoginPlace());
 	}
 	
 	/* The progressbar */

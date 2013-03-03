@@ -3,7 +3,6 @@
  */
 package org.appfuse.webapp.client.ui.users.search;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.appfuse.webapp.client.application.Application;
@@ -15,8 +14,10 @@ import org.appfuse.webapp.proxies.UserProxy;
 import org.appfuse.webapp.proxies.UsersSearchCriteriaProxy;
 import org.appfuse.webapp.requests.UserRequest;
 
+import com.google.gwt.user.cellview.client.ColumnSortEvent;
 import com.google.gwt.user.cellview.client.ColumnSortEvent.Handler;
 import com.google.gwt.user.cellview.client.ColumnSortList;
+import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.Range;
 import com.google.web.bindery.requestfactory.shared.Request;
 import com.google.web.bindery.requestfactory.shared.RequestContext;
@@ -27,7 +28,7 @@ import com.google.web.bindery.requestfactory.shared.RequestContext;
  */
 public class UsersSearchActivity extends AbstractProxySearchActivity<UserProxy, UsersSearchCriteriaProxy> {
 
-	private Handler clientSideSortHandler;
+	private Handler sortHandler;
 	
 	public UsersSearchActivity(EntitySearchPlace currentPlace, Application application) {
 		super(application, UsersSearchCriteriaProxy.class);
@@ -39,14 +40,23 @@ public class UsersSearchActivity extends AbstractProxySearchActivity<UserProxy, 
 	protected ProxySearchView<UserProxy, UsersSearchCriteriaProxy> createView() {
 		final UsersSearchView view = viewFactory.getView(UsersSearchView.class);
 		view.setDelegate(this);
-        clientSideSortHandler = new LocalColumnSortHandler<UserProxy>(view.asHasData()) {
+		sortHandler = createLocalColumnSortHandler(view.asHasData());
+        //sortHandler = new ColumnSortEvent.AsyncHandler(view.asHasData());
+        view.addColumnSortHandler(sortHandler);
+		return view;
+	}
+
+
+	/**
+	 * @param hasData
+	 */
+	private Handler createLocalColumnSortHandler(final HasData hasData) {
+		return new LocalColumnSortHandler<UserProxy>(hasData) {
 			@Override
 			public List<UserProxy> getList() {
-				return (List<UserProxy>) view.asHasData().getVisibleItems();
+				return (List<UserProxy>) hasData.getVisibleItems();
 			}
         };
-        view.addColumnSortHandler(clientSideSortHandler);
-		return view;
 	}
 
 	@Override
@@ -66,8 +76,8 @@ public class UsersSearchActivity extends AbstractProxySearchActivity<UserProxy, 
 	
 	@Override
 	public void onStop() {
-		//XXX view.getCellTable().removeColumnSortHandler(clientColumnSortHandler);
-		clientSideSortHandler = null;
+		//XXX view.removeColumnSortHandler(sortHandle);
+		sortHandler = null;
 		super.onStop();
 	}
 }

@@ -40,15 +40,9 @@ public interface ProxySearchView<P extends EntityProxy, S extends BaseProxy> ext
 	 * Sets the delegate.
 	 */
 	void setDelegate(Delegate<P> delegate);
-	
 	void setSearchCriteria(S searchCriteria);
 	EditorDriver<S> getEditorDriver();
 	
-//	/**
-//	 * 
-//	 * @return
-//	 */
-//	CellTable<P> getCellTable();
 	
 	HasData<P> asHasData();
 	ColumnSortList getColumnSortList();

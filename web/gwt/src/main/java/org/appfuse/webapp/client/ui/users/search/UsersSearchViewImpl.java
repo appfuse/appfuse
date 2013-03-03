@@ -122,7 +122,7 @@ public class UsersSearchViewImpl extends AbstractProxySearchView<UserProxy, User
     	
 		int columnNumber = 0;
         paths.add("username");
-        table.addColumn(new CustomColumn<UserProxy, String>(showDetails, true) {
+        table.addColumn(new CustomColumn<UserProxy, String>("username", true, showDetails) {
 			@Override
 			public String getValue(UserProxy user) {
 				return user.getUsername();
@@ -137,7 +137,7 @@ public class UsersSearchViewImpl extends AbstractProxySearchView<UserProxy, User
         
         paths.add("firstName");
         paths.add("lastName");
-        table.addColumn(new CustomColumn<UserProxy, String>(true) {
+        table.addColumn(new CustomColumn<UserProxy, String>("firstName", true) {
 
 			@Override
 			public String getValue(UserProxy user) {
@@ -147,7 +147,7 @@ public class UsersSearchViewImpl extends AbstractProxySearchView<UserProxy, User
         table.setColumnWidth(columnNumber++, "34%");
         
         paths.add("email");
-        table.addColumn(new CustomColumn<UserProxy, String>(true) {
+        table.addColumn(new CustomColumn<UserProxy, String>("email", true) {
 
 			@Override
 			public String getValue(UserProxy user) {
@@ -163,7 +163,7 @@ public class UsersSearchViewImpl extends AbstractProxySearchView<UserProxy, User
         table.setColumnWidth(columnNumber++, "25%");
         
         paths.add("enabled");
-        table.addColumn(new CustomColumn<UserProxy, Boolean>(true) {
+        table.addColumn(new CustomColumn<UserProxy, Boolean>("enabled", true) {
 			@Override
 			public Boolean getValue(UserProxy user) {
 				return user.isEnabled();

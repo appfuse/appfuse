@@ -147,8 +147,6 @@ public class DesktopApplication extends Application implements LoginEvent.Handle
 
 	protected void initHandlers() {
 		
-		AuthRequiredEvent.register(eventBus, new LoginActivity(this));
-
 		GWT.setUncaughtExceptionHandler(new GWT.UncaughtExceptionHandler() {
 			public void onUncaughtException(Throwable e) {
 				Window.alert("Error: " + e.getMessage());
@@ -185,9 +183,16 @@ public class DesktopApplication extends Application implements LoginEvent.Handle
 			eventBus.addHandler(PlaceChangeEvent.TYPE, (PlaceChangeEvent.Handler)shell);
 		}
 		
+		
 		LoginEvent.register(eventBus, this);
 		LogoutEvent.register(eventBus, this);
 
+		AuthRequiredEvent.register(eventBus, new AuthRequiredEvent.Handler() {
+			@Override
+			public void onAuthRequiredEvent(AuthRequiredEvent authRequiredEvent) {
+				placeController.goTo(new LoginPlace());
+			}
+		});
 	}
 	
 	@Override

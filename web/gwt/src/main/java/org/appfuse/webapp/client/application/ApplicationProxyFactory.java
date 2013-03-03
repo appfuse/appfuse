@@ -36,13 +36,13 @@ public class ApplicationProxyFactory {
 		// there is no way to re-generate a class object, that is not an EntityProxy.class, from a token string 
 		SEARCH_CRITERIA_TYPES_MAP.put(UserProxy.class, UsersSearchCriteriaProxy.class);
 	}
-	
-	public interface ProxyFactory extends AutoBeanFactory {
+
+	//
+	public interface NonPublicProxyFactory extends AutoBeanFactory {
 		  AutoBean<UsersSearchCriteriaProxy> searchCriteria();
-		  AutoBean<UsersSearchCriteriaProxy> searchCriteria(UsersSearchCriteriaProxy toWrap);
 	}
 	
-	private ProxyFactory autoBeanFactory = GWT.create(ProxyFactory.class);
+	private NonPublicProxyFactory autoBeanFactory = GWT.create(NonPublicProxyFactory.class);
 	private final ApplicationRequestFactory requests;
 	
 	/**

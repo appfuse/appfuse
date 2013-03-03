@@ -26,17 +26,15 @@ import com.google.gwt.http.client.Response;
 import com.google.gwt.http.client.URL;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
-import com.google.gwt.user.client.ui.DialogBox;
 import com.google.web.bindery.requestfactory.shared.Receiver;
 
 /**
  * @author ivangsa
  *
  */
-public class LoginActivity extends AbstractBaseActivity implements LoginView.Delegate, AuthRequiredEvent.Handler {
+public class LoginActivity extends AbstractBaseActivity implements LoginView.Delegate {
 
 	private LoginView view;
-	private DialogBox dialog;
 
 	public LoginActivity(Application application) {
 		super(application);
@@ -50,34 +48,14 @@ public class LoginActivity extends AbstractBaseActivity implements LoginView.Del
 	 */
 	@Override
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
-		if(application.getCurrentUser() != null) {//we are already loged in
-			//TODO inform the user
-			placeController.goTo(new MainMenuPlace());
-		}else {
-			view = viewFactory.getView(LoginView.class);
-			view.setDelegate(this);
-			view.setRememberMeEnabled(application.isRememberMeEnabled());
-			view.setWaiting(false);
-			view.setMessage(null);
-			panel.setWidget(view);
-		}
-	}
-
-	@Override
-	public void onAuthRequiredEvent(AuthRequiredEvent authRequiredEvent) {
-		view = viewFactory.getView(LoginForm.class);
+		view = viewFactory.getView(LoginView.class);
 		view.setDelegate(this);
 		view.setRememberMeEnabled(application.isRememberMeEnabled());
-		view.setMessage(null);
 		view.setWaiting(false);
-
-		dialog = new DialogBox();
-		dialog.setTitle(i18n.login_title());
-		dialog.setGlassEnabled(true);
-		dialog.setAutoHideEnabled(true);
-		dialog.add(view);
-		dialog.center();
+		view.setMessage(null);
+		panel.setWidget(view);
 	}
+
 
 	@Override
 	public void onLoginClick() {
@@ -100,10 +78,6 @@ public class LoginActivity extends AbstractBaseActivity implements LoginView.Del
 				public void onResponseReceived(Request request, Response response) {
 					int statusCode = response.getStatusCode();
 					if(statusCode == Response.SC_OK) {
-						if(dialog != null) {
-							dialog.hide();
-							shell.addMessage(new Alert("You are back in, you may need to reload this page XXX"));
-						}
 						eventBus.fireEvent(new LoginEvent());
 					} 
 					else if(statusCode == Response.SC_FORBIDDEN || statusCode == Response.SC_UNAUTHORIZED) {
@@ -126,12 +100,6 @@ public class LoginActivity extends AbstractBaseActivity implements LoginView.Del
 		}
 	}
 
-	@Override
-	public void onCancelClick() {
-		if(dialog != null) {
-			dialog.hide();
-		}
-	}
 
 	private String createLoginPostData(LoginView.LoginDetails login) {
 		return "j_username=" + URL.encodeQueryString(login.getUsername()) + 
@@ -161,5 +129,10 @@ public class LoginActivity extends AbstractBaseActivity implements LoginView.Del
 				}
 			}
 		});
+	}
+
+	@Override
+	public void onCancelClick() {
+		
 	}
 }

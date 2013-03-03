@@ -181,33 +181,52 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 			@Override
 			public void onSuccess(P response) {
 				entityProxy = response;
-				editorDriver.edit(entityProxy, saveOrUpdateRequest(createProxyRequest(), entityProxy));
 				display.setWidget(view);
 			}
 		});
 	}
 	
 	protected EntityProxyId<P> getProxyId(){
-		return (EntityProxyId<P>) ((EntityProxyPlace) currentPlace).getProxyId();
+		if(currentPlace instanceof EntityProxyPlace) {
+			return (EntityProxyId<P>) ((EntityProxyPlace) currentPlace).getProxyId();
+		}
+		return null;
 	}
 	
 	protected Class<? extends EntityProxy> getProxyClass(){
-		return (Class<? extends EntityProxy>) ((EntityProxyPlace) currentPlace).getProxyClass();
+		if(currentPlace instanceof EntityProxyPlace) {
+			return (Class<? extends EntityProxy>) ((EntityProxyPlace) currentPlace).getProxyClass();
+		}
+		return null;
 	}
 
 	
 	/**
 	 * 
 	 */
-	protected void loadEntityProxy(Receiver<P> onLoadCallback) {
+	protected void loadEntityProxy(final Receiver<P> onloadCallback) {
 		EntityProxyId<P> proxyId = getProxyId();
 		if(proxyId == null) {
-			P proxy = createProxy(createProxyRequest());
-			onLoadCallback.onSuccess(proxy);
+			//create a brand new proxy entity
+			RequestContext requestContext = createProxyRequest();
+			P proxy = createProxy(requestContext);
+			//edit this entity proxy on the same request it was created
+			editorDriver.edit(proxy, saveOrUpdateRequest(requestContext, proxy));
+			//finish loading
+			onloadCallback.onSuccess(proxy);
 		} else {
+			//find this entity proxy on the server
 			findProxyRequest(createProxyRequest(), proxyId)
 				.with(editorDriver.getPaths())
-				.fire(onLoadCallback);
+				.fire(new Receiver<P>() {
+					@Override
+					public void onSuccess(P response) {
+						//edit this entity proxy on a new request
+						editorDriver.edit(response, saveOrUpdateRequest(createProxyRequest(), response));
+						//finish loading
+						onloadCallback.onSuccess(response);
+					}
+				});
 		}
 	}
 

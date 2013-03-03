@@ -26,22 +26,20 @@ public abstract class CustomColumn<T,V> extends Column<T,V>{
 	
 	private SafeHtmlRenderer<V> renderer = (SafeHtmlRenderer<V>) SAFE_HTML_RENDERER;
 	private FieldUpdater<T,V> fieldUpdater;
+	private String propertyName;
 	private boolean sortable = false;
 
-	
-	/**
-	 * 
-	 */
-	public CustomColumn() {
-		this(null, false);
+
+	public CustomColumn(String propertyName) {
+		this(propertyName, false, null);
 	}
-	
+
 	/**
 	 * @param headerText
 	 * @param sortable
 	 */
-	public CustomColumn(boolean sortable) {
-		this(null, sortable);
+	public CustomColumn(String propertyName, boolean sortable) {
+		this(propertyName, sortable, null);
 	}
 
 	/**
@@ -50,10 +48,11 @@ public abstract class CustomColumn<T,V> extends Column<T,V>{
 	 * @param valueUpdater
 	 * @param sortable
 	 */
-	public CustomColumn(FieldUpdater<T,V> fieldUpdater, boolean sortable) {
+	public CustomColumn(String propertyName, boolean sortable, FieldUpdater<T,V> fieldUpdater) {
 		super((Cell)new ClickableTextCell());
 		this.fieldUpdater = fieldUpdater;
 		this.sortable = sortable;
+		this.propertyName = propertyName;
 
 		setSortable(isSortable());
 		if(fieldUpdater != null) {
@@ -70,6 +69,10 @@ public abstract class CustomColumn<T,V> extends Column<T,V>{
 
 	public FieldUpdater<T,V> getFieldUpdater() {
 		return fieldUpdater;
+	}
+	
+	public String getPropertyName() {
+		return propertyName;
 	}
 
 	public boolean isSortable() {
