@@ -102,7 +102,7 @@ import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
  *  - arrows in a table should be next to a header label (not at the end of a column on the right side)
  *
  *  - rename AppFuseWicketApplication to AppFuseWicketApplication - DONE
- *  - Archetype: missing scripts/login.js
+ *  - Archetype: missing scripts/login.js - DONE - moved it to webapp/scripts/
  *  - Archetype: html files are pages directory in addition to webapp/pages
  *  - Archetype: remove bootstrap and jquery related files (webapp/styles/lib/*) - DONE
  *  - are common/*.jsp, appfuse.tld, EscapeXml*.java, taglib/* really needed
