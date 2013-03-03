@@ -4,6 +4,7 @@
 package org.appfuse.webapp.server.locators;
 
 import org.appfuse.model.Role;
+import org.appfuse.model.User;
 import org.appfuse.service.RoleManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -42,5 +43,10 @@ public class RoleLocator extends Locator<Role, Long> {
 
     public Object getVersion(Role role) {
         return 0;
+    }
+    
+    @Override
+    public boolean isLive(Role domainObject) {
+    	return true;
     }
 }

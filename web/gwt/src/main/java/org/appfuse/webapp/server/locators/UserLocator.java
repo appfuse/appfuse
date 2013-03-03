@@ -39,4 +39,9 @@ public class UserLocator extends Locator<User, Long> {
     public Object getVersion(User user) {
         return user.getVersion();
     }
+    
+    @Override
+    public boolean isLive(User domainObject) {
+    	return true;
+    }
 }

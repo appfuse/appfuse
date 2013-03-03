@@ -127,7 +127,7 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 	 * @return
 	 */
 	protected Request<P> findProxyRequest(RequestContext requestContext, EntityProxyId<P> proxyId) {
-		return requestContext.find(proxyId);		
+		return requestContext.find(proxyId);//XXX security threat (you may load something you don't have the right to do so)	
 	}
 
 	/**
