@@ -9,11 +9,13 @@ import org.appfuse.webapp.client.application.Application;
 import org.appfuse.webapp.client.application.base.activity.AbstractProxySearchActivity;
 import org.appfuse.webapp.client.application.base.place.EntitySearchPlace;
 import org.appfuse.webapp.client.application.base.view.ProxySearchView;
+import org.appfuse.webapp.client.application.utils.tables.CustomColumn;
 import org.appfuse.webapp.client.application.utils.tables.LocalColumnSortHandler;
 import org.appfuse.webapp.proxies.UserProxy;
 import org.appfuse.webapp.proxies.UsersSearchCriteriaProxy;
 import org.appfuse.webapp.requests.UserRequest;
 
+import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.ColumnSortEvent;
 import com.google.gwt.user.cellview.client.ColumnSortEvent.Handler;
 import com.google.gwt.user.cellview.client.ColumnSortList;
@@ -40,8 +42,11 @@ public class UsersSearchActivity extends AbstractProxySearchActivity<UserProxy, 
 	protected ProxySearchView<UserProxy, UsersSearchCriteriaProxy> createView() {
 		final UsersSearchView view = viewFactory.getView(UsersSearchView.class);
 		view.setDelegate(this);
-		sortHandler = createLocalColumnSortHandler(view.asHasData());
-        //sortHandler = new ColumnSortEvent.AsyncHandler(view.asHasData());
+		
+		// Configure local/remote sorting
+		//sortHandler = createLocalColumnSortHandler(view.asHasData());
+        sortHandler = new ColumnSortEvent.AsyncHandler(view.asHasData());
+        
         view.addColumnSortHandler(sortHandler);
 		return view;
 	}
@@ -58,6 +63,13 @@ public class UsersSearchActivity extends AbstractProxySearchActivity<UserProxy, 
 			}
         };
 	}
+	
+	private String getPropertyNameForColumn(Column column) {
+		if(column instanceof CustomColumn) {
+			return ((CustomColumn) column).getPropertyName();
+		}
+		return null;
+	}
 
 	@Override
 	protected RequestContext createRequestContext() {
@@ -70,8 +82,21 @@ public class UsersSearchActivity extends AbstractProxySearchActivity<UserProxy, 
 	}
 	
 	@Override
-	protected Request<List<UserProxy>> createSearchRequest(RequestContext requestContext, UsersSearchCriteriaProxy searchCriteria, Range range, ColumnSortList columnSortList) {
-		return ((UserRequest) requestContext).searchUsers(searchCriteria, range.getStart(), range.getLength());
+	protected Request<List<UserProxy>> createSearchRequest(
+			RequestContext requestContext, UsersSearchCriteriaProxy searchCriteria, 
+			Range range, ColumnSortList columnSortList) {
+
+		String sortProperty = null;
+		boolean ascending = true;
+		if(columnSortList.size() > 0) {
+			Column sortColumn = columnSortList.get(0).getColumn();
+			sortProperty = getPropertyNameForColumn(sortColumn);
+			ascending = columnSortList.get(0).isAscending();
+		}
+		
+		return ((UserRequest) requestContext).searchUsers(searchCriteria, 
+				range.getStart(), range.getLength(), 
+				sortProperty, ascending);
 	}
 	
 	@Override

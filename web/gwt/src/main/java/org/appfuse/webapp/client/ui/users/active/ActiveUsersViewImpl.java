@@ -67,7 +67,7 @@ public class ActiveUsersViewImpl extends Composite implements ActiveUsersView{
 
 		int columnNumber = 0;
         paths.add("username");
-        table.addColumn(new CustomColumn<UserProxy, String>(true) {
+        table.addColumn(new CustomColumn<UserProxy, String>("username", true) {
 			@Override
 			public String getValue(UserProxy user) {
 				return user.getUsername();
@@ -78,7 +78,7 @@ public class ActiveUsersViewImpl extends Composite implements ActiveUsersView{
         paths.add("email");
         paths.add("firstName");
         paths.add("lastName");
-        table.addColumn(new CustomColumn<UserProxy, String>(true) {
+        table.addColumn(new CustomColumn<UserProxy, String>("firstName", true) {
 
 			@Override
 			public String getValue(UserProxy user) {

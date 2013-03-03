@@ -80,6 +80,18 @@ public interface UserRequestService {
 
 	/**
 	 * 
+	 * @param searchCriteria
+	 * @param firstResult
+	 * @param maxResults
+	 * @param sortProperty
+	 * @param ascending
+	 * @return
+	 */
+	@PreAuthorize("hasRole('ROLE_ADMIN')")	
+	abstract List<User> searchUsers(UsersSearchCriteria searchCriteria, int firstResult, int maxResults, String sortProperty, boolean ascending);
+	
+	/**
+	 * 
 	 * @param user
 	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN')")

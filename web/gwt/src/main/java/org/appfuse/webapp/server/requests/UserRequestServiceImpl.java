@@ -1,6 +1,7 @@
 package org.appfuse.webapp.server.requests;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -9,6 +10,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.appfuse.Constants;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
@@ -19,8 +21,7 @@ import org.appfuse.webapp.listener.UserCounterListener;
 import org.appfuse.webapp.proxies.RoleProxy;
 import org.appfuse.webapp.util.RequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Scope;
+import org.springframework.beans.support.PropertyComparator;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.mail.MailException;
 import org.springframework.security.access.AccessDeniedException;
@@ -30,7 +31,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 
 @Component("userRequestService")
 public class UserRequestServiceImpl extends AbstractBaseRequest implements UserRequestService {
@@ -179,8 +179,24 @@ public class UserRequestServiceImpl extends AbstractBaseRequest implements UserR
      */
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<User> searchUsers(UsersSearchCriteria searchCriteria, int firstResult, int maxResults){
+    	return searchUsers(searchCriteria, firstResult, maxResults, null, true);
+    }
+
+    /**
+     * 
+     * @param searchCriteria
+     * @param firstResult
+     * @param maxResults
+     * @return
+     */
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public List<User> searchUsers(UsersSearchCriteria searchCriteria, int firstResult, int maxResults, String sortProperty, boolean ascending){
     	String searchTerm = searchCriteria != null? searchCriteria.getSearchTerm() : null;
     	List<User> users = userManager.search(searchTerm);
+    	if(StringUtils.isNotEmpty(sortProperty)) {
+    		log.debug(String.format("Sorting usersList by property='%s', ascending='%s'", sortProperty, ascending));
+    		Collections.sort(users, new PropertyComparator(sortProperty, true, ascending));
+    	}
     	int fromIndex = Math.min(firstResult, users.size());
     	int toIndex = Math.min(fromIndex + maxResults, users.size());
     	log.debug(String.format("searchUsers(%d,%d) %d-%d [%d]", firstResult, maxResults, fromIndex, toIndex, users.size()));

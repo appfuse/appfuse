@@ -32,6 +32,8 @@ public interface UserRequest extends RequestContext {
 
     abstract Request<List<UserProxy>> searchUsers(UsersSearchCriteriaProxy searchCriteria, int firstResult, int maxResults);
 
+    abstract Request<List<UserProxy>> searchUsers(UsersSearchCriteriaProxy searchCriteria, int firstResult, int maxResults, String sortProperty, boolean ascending);
+
     abstract Request<Void> removeUser(Long userId);
     
     abstract Request<String> sendPasswordHint(String username);
