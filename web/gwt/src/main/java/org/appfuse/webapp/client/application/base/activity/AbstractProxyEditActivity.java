@@ -35,6 +35,7 @@ import com.google.web.bindery.requestfactory.shared.ServerFailure;
  * <ol>
  * 	<li> {@link #createView(Place)}</li>
  * 	<li> {@link #createProxyRequest()}</li>
+ *	<li> {@link #loadProxyRequest(RequestContext, EntityProxyId)}</li>
  * 	<li> {@link #saveOrUpdateRequest(RequestContext, EntityProxy)}</li>
  * 	<li> {@link #deleteRequest(RequestContext, EntityProxy)}</li>
  * 	<li> {@link #nextPlace(boolean)}</li>
@@ -44,9 +45,9 @@ import com.google.web.bindery.requestfactory.shared.ServerFailure;
  * Customization:
  * <ol>
  * 	<li> {@link #createProxy(RequestContext)}</li>
- * 	<li> {@link #getProxyId()}</li>
+ * 	<li> {@link #getEntityId()}</li>
  * 	<li> {@link #getProxyClass()}</li>
- * 	<li> {@link #findProxyRequest(RequestContext, EntityProxyId)}</li>
+ * 	<li> {@link #loadProxyRequest(RequestContext, EntityProxyId)}</li>
  * 	<li> {@link #getSavedMessage()}</li>
  * 	<li> {@link #getDeletedMessage()}</li>
  * </ol>
@@ -120,15 +121,17 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 	protected P createProxy(RequestContext requestContext) {
 		return (P) requestContext.create(getProxyClass());
 	}
+	
 	/**
+	 * Create are Request to load this entity proxy.
+	 * 
+	 * Note: Request.find() method is disabled in the server for security reasons.
 	 * 
 	 * @param requestContext
 	 * @param proxyId
 	 * @return
 	 */
-	protected Request<P> findProxyRequest(RequestContext requestContext, EntityProxyId<P> proxyId) {
-		return requestContext.find(proxyId);//XXX security threat (you may load something you don't have the right to do so)	
-	}
+	protected abstract Request<P> loadProxyRequest(RequestContext requestContext, String proxyId);
 
 	/**
 	 * 
@@ -177,7 +180,7 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 		view.setDelegate(this);
 		editorDriver = view.createEditorDriver();
 		
-		loadEntityProxy(new Receiver<P>() {
+		doLoadEntityProxy(new Receiver<P>() {
 			@Override
 			public void onSuccess(P response) {
 				entityProxy = response;
@@ -186,9 +189,9 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 		});
 	}
 	
-	protected EntityProxyId<P> getProxyId(){
+	protected String getEntityId(){
 		if(currentPlace instanceof EntityProxyPlace) {
-			return (EntityProxyId<P>) ((EntityProxyPlace) currentPlace).getProxyId();
+			return ((EntityProxyPlace) currentPlace).getEntityId();
 		}
 		return null;
 	}
@@ -204,8 +207,8 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 	/**
 	 * 
 	 */
-	protected void loadEntityProxy(final Receiver<P> onloadCallback) {
-		EntityProxyId<P> proxyId = getProxyId();
+	protected void doLoadEntityProxy(final Receiver<P> onloadCallback) {
+		String proxyId = getEntityId();
 		if(proxyId == null) {
 			//create a brand new proxy entity
 			RequestContext requestContext = createProxyRequest();
@@ -216,7 +219,7 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 			onloadCallback.onSuccess(proxy);
 		} else {
 			//find this entity proxy on the server
-			findProxyRequest(createProxyRequest(), proxyId)
+			loadProxyRequest(createProxyRequest(), proxyId)
 				.with(editorDriver.getPaths())
 				.fire(new Receiver<P>() {
 					@Override

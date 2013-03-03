@@ -165,8 +165,8 @@ public abstract class AbstractProxySearchActivity<P extends EntityProxy, S exten
 	}
 
 	@Override
-	public void showDetails(P record) {
-		placeController.goTo(new EntityProxyPlace(record.stableId(), EntityProxyPlace.Operation.EDIT));		
+	public void showDetails(Class<? extends EntityProxy> proxyClass, String entityId) {
+		placeController.goTo(new EntityProxyPlace(proxyClass, entityId, EntityProxyPlace.Operation.EDIT));		
 	}
 	
 	@Override
@@ -200,7 +200,7 @@ public abstract class AbstractProxySearchActivity<P extends EntityProxy, S exten
 	}
 	
 	@Override
-	public void deleteClicked(P record) {
+	public void deleteClicked(Class<? extends EntityProxy> proxyClass, String entityId) {
 		Window.alert("deleteClicked");
 	}
 	

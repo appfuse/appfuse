@@ -21,17 +21,11 @@ public class EntityProxyPlace extends Place {
 		DETAILS
 	}
 	
-	protected EntityProxyId<?> proxyId;
+	protected String entityId;
 	protected Class<? extends EntityProxy> proxyClass;
 	protected Operation operation;
 	
-	public EntityProxyPlace() {
-		super();
-	}
-
 	/**
-	 * @param operation
-	 * @param proxyId
 	 * @param proxyClass
 	 */
 	public EntityProxyPlace(Class<? extends EntityProxy> proxyClass) {
@@ -41,14 +35,15 @@ public class EntityProxyPlace extends Place {
 	}
 
 	/**
-	 * @param operation
-	 * @param proxyId
 	 * @param proxyClass
+	 * @param entityId
+	 * @param operation
 	 */
-	public EntityProxyPlace(EntityProxyId<?> proxyId, Operation operation) {
+	public EntityProxyPlace(Class<? extends EntityProxy> proxyClass, String entityId, Operation operation) {
 		super();
+		this.proxyClass = proxyClass;
+		this.entityId = entityId;
 		this.operation = operation;
-		this.proxyId = proxyId;
 	}
 	
 
@@ -56,16 +51,14 @@ public class EntityProxyPlace extends Place {
 		return operation;
 	}
 
-	public Class<? extends EntityProxy> getProxyClass() {
-		return proxyId != null ? proxyId.getProxyClass() : proxyClass;
+	public String getEntityId() {
+		return entityId;
 	}
 
-	/**
-	 * @return the proxyId, or null if the operation is {@link Operation#CREATE}
-	 */
-	public EntityProxyId<?> getProxyId() {
-		return proxyId;
+	public Class<? extends EntityProxy> getProxyClass() {
+		return proxyClass;
 	}
+
 	
 	
 	/**
@@ -89,65 +82,63 @@ public class EntityProxyPlace extends Place {
 
 		public EntityProxyPlace getPlace(String token) {
 			String bits[] = token.split(SEPARATOR);
-			Operation operation = Operation.valueOf(bits[1]);
-			if (Operation.CREATE == operation) {
-				return new EntityProxyPlace(requests.getProxyClass(bits[0]));
-			}
-			return new EntityProxyPlace(requests.getProxyId(bits[0]), operation);
+			Class<? extends EntityProxy> proxyClass = requests.getProxyClass(bits[0]);
+			String entityId = bits[1];
+			Operation operation = Operation.valueOf(bits[2]);
+			return new EntityProxyPlace(proxyClass, entityId, operation);
 		}
 
 		public String getToken(EntityProxyPlace place) {
-			if (Operation.CREATE == place.getOperation()) {
-				return requests.getHistoryToken(place.getProxyClass()) + SEPARATOR + place.getOperation();
-			}
-			return requests.getHistoryToken(place.getProxyId()) + SEPARATOR + place.getOperation();
+			return requests.getHistoryToken(
+					place.getProxyClass()) + 
+					SEPARATOR + place.getEntityId() + 
+					SEPARATOR + place.getOperation();
 		}
 	}
 	
 
-// XXX figure out how to reload the same place (i.e after saving) if Places are equal?	
-//	@Override
-//	public boolean equals(Object obj) {
-//		if (!(obj instanceof EntityProxyPlace)) {
-//			return false;
-//		}
-//		if (this == obj) {
-//			return true;
-//		}
-//
-//		EntityProxyPlace other = (EntityProxyPlace) obj;
-//		if (operation != other.operation) {
-//			return false;
-//		}
-//		if (proxyClass == null) {
-//			if (other.proxyClass != null) {
-//				return false;
-//			}
-//		} else if (!proxyClass.equals(other.proxyClass)) {
-//			return false;
-//		}
-//		if (proxyId == null) {
-//			if (other.proxyId != null) {
-//				return false;
-//			}
-//		} else if (!proxyId.equals(other.proxyId)) {
-//			return false;
-//		}
-//		return true;
-//	}
-//
-//	@Override
-//	public int hashCode() {
-//		final int prime = 31;
-//		int result = 1;
-//		result = prime * result + ((operation == null) ? 0 : operation.hashCode());
-//		result = prime * result + ((proxyClass == null) ? 0 : proxyClass.hashCode());
-//		result = prime * result + ((proxyId == null) ? 0 : proxyId.hashCode());
-//		return result;
-//	}
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof EntityProxyPlace)) {
+			return false;
+		}
+		if (this == obj) {
+			return true;
+		}
+
+		EntityProxyPlace other = (EntityProxyPlace) obj;
+		if (operation != other.operation) {
+			return false;
+		}
+		if (proxyClass == null) {
+			if (other.proxyClass != null) {
+				return false;
+			}
+		} else if (!proxyClass.equals(other.proxyClass)) {
+			return false;
+		}
+		if (entityId == null) {
+			if (other.entityId != null) {
+				return false;
+			}
+		} else if (!entityId.equals(other.entityId)) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((operation == null) ? 0 : operation.hashCode());
+		result = prime * result + ((proxyClass == null) ? 0 : proxyClass.hashCode());
+		result = prime * result + ((entityId == null) ? 0 : entityId.hashCode());
+		return result;
+	}
 
 	@Override
 	public String toString() {
-		return "ProxyPlace [operation=" + operation + ", proxy=" + proxyId + ", proxyClass=" + proxyClass + "]";
+		return "ProxyPlace [operation=" + operation + ", proxy=" + entityId + ", proxyClass=" + proxyClass + "]";
 	}
 }

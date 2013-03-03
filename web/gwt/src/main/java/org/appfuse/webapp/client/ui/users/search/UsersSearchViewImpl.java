@@ -116,7 +116,7 @@ public class UsersSearchViewImpl extends AbstractProxySearchView<UserProxy, User
     	FieldUpdater<UserProxy, String> showDetails = new FieldUpdater<UserProxy, String>() {
 			@Override
 			public void update(int index, UserProxy object, String value) {
-				delegate.showDetails(object);
+				delegate.showDetails(UserProxy.class, object.getId().toString());
 			}
 		};
     	

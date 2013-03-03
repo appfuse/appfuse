@@ -13,7 +13,6 @@ import org.appfuse.webapp.proxies.UserProxy;
 import org.appfuse.webapp.requests.UserRequest;
 
 import com.google.gwt.place.shared.Place;
-import com.google.web.bindery.requestfactory.shared.EntityProxyId;
 import com.google.web.bindery.requestfactory.shared.Request;
 import com.google.web.bindery.requestfactory.shared.RequestContext;
 
@@ -70,8 +69,8 @@ public class EditUserActivity extends AbstractProxyEditActivity<UserProxy> imple
 	}
 	
 	@Override
-	protected Request<UserProxy> findProxyRequest(RequestContext requestContext, EntityProxyId<UserProxy> proxyId) {
-		return super.findProxyRequest(requestContext, proxyId);
+	protected Request<UserProxy> loadProxyRequest(RequestContext requestContext, String entityId) {
+		return ((UserRequest) requestContext).getUser(Long.parseLong(entityId));
 	}
 	
 

@@ -1,9 +1,8 @@
 package org.appfuse.webapp.client.application.base.view;
 
 import com.google.gwt.editor.client.EditorDriver;
-import com.google.gwt.user.cellview.client.CellTable;
-import com.google.gwt.user.cellview.client.ColumnSortList;
 import com.google.gwt.user.cellview.client.ColumnSortEvent.Handler;
+import com.google.gwt.user.cellview.client.ColumnSortList;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.view.client.HasData;
 import com.google.web.bindery.requestfactory.shared.BaseProxy;
@@ -32,8 +31,8 @@ public interface ProxySearchView<P extends EntityProxy, S extends BaseProxy> ext
 		void searchClicked();		
 		void cancelClicked();
 
-		void showDetails(P record);
-		void deleteClicked(P record);
+		void showDetails(Class<? extends EntityProxy> proxyClass, String entityId);
+		void deleteClicked(Class<? extends EntityProxy> proxyClass, String entityId);
 	}
 
 	/**
