@@ -3,7 +3,7 @@
  */
 package org.appfuse.webapp.proxies;
 
-import org.appfuse.webapp.server.requests.UsersSearchCriteria;
+import org.appfuse.webapp.server.services.UsersSearchCriteria;
 
 import com.google.web.bindery.requestfactory.shared.ProxyFor;
 import com.google.web.bindery.requestfactory.shared.ValueProxy;

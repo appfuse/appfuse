@@ -1,4 +1,4 @@
-package org.appfuse.webapp.server.requests;
+package org.appfuse.webapp.server.services.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import javax.jws.WebService;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +20,8 @@ import org.appfuse.service.UserExistsException;
 import org.appfuse.service.UserManager;
 import org.appfuse.webapp.listener.UserCounterListener;
 import org.appfuse.webapp.proxies.RoleProxy;
+import org.appfuse.webapp.server.services.UserRequestService;
+import org.appfuse.webapp.server.services.UsersSearchCriteria;
 import org.appfuse.webapp.util.RequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PropertyComparator;
@@ -118,7 +121,9 @@ public class UserRequestServiceImpl extends AbstractBaseRequest implements UserR
      */
     public User editProfile() {
     	String username = getCurrentUsername();
-    	return userManager.getUserByUsername(username);
+    	User user = userManager.getUserByUsername(username);
+    	user.setConfirmPassword(user.getPassword());
+    	return user;
     }
     
     /**
@@ -141,7 +146,9 @@ public class UserRequestServiceImpl extends AbstractBaseRequest implements UserR
      * @return
      */
     public User getUser(Long userId) {
-    	return userManager.get(userId);
+    	User user = userManager.get(userId);
+    	user.setConfirmPassword(user.getPassword());
+    	return user;
     }
     
     /**

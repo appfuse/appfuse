@@ -77,7 +77,11 @@ public class CustomRequestFactoryServlet extends RequestFactoryServlet {
 				return null; 
 			}
 			if(throwable instanceof AccessDeniedException) {
-				//TODO check if session has expired and send 401 instead of 403
+				if(!RequestFactoryServlet.getThreadLocalRequest().isRequestedSessionIdValid()) {
+					// if session has expired send a 401 error code instead of 403
+					getServletResponse().sendError(HttpServletResponse.SC_UNAUTHORIZED);
+					return null; 
+				}
 				getServletResponse().sendError(HttpServletResponse.SC_FORBIDDEN);
 				return null; 
 			}

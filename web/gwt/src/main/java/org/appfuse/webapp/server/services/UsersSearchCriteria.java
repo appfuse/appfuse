@@ -1,9 +1,13 @@
 /**
  * 
  */
-package org.appfuse.webapp.server.requests;
+package org.appfuse.webapp.server.services;
 
 /**
+ * Users search criteria fields.
+ * 
+ * (TODO: move to model)
+ * 
  * @author ivangsa
  *
  */

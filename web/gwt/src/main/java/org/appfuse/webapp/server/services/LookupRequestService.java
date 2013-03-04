@@ -1,6 +1,6 @@
-package org.appfuse.webapp.server.requests;
+package org.appfuse.webapp.server.services;
 
-import org.appfuse.webapp.server.requests.LookupRequestServiceImpl.LookupConstants;
+import org.appfuse.webapp.server.services.impl.LookupRequestServiceImpl.LookupConstants;
 import org.springframework.security.access.annotation.Secured;
 
 public interface LookupRequestService {

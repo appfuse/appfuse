@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.appfuse.webapp.server.requests;
+package org.appfuse.webapp.server.services.impl;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -11,9 +11,11 @@ import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.core.Context;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.cxf.jaxrs.ext.MessageContext;
 import org.appfuse.model.User;
 import org.appfuse.service.MailEngine;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +34,9 @@ import com.google.web.bindery.requestfactory.server.RequestFactoryServlet;
  * @author ivangsa
  *
  */
-public abstract class AbstractBaseRequest implements ServletContextAware {
+public abstract class AbstractBaseRequest implements ServletContextAware, CxfMessageContextAware {
 
-    protected final transient Log log = LogFactory.getLog(getClass());
+	protected final transient Log log = LogFactory.getLog(getClass());
 
     @Autowired @Qualifier("messageSource")
     protected MessageSource messages;
@@ -42,15 +44,23 @@ public abstract class AbstractBaseRequest implements ServletContextAware {
     protected MailEngine mailEngine;
     @Autowired
     protected SimpleMailMessage message;
-    //protected String templateName = "accountCreated.vm";
 
     private ServletContext servletContext;
     private AuthenticationTrustResolver authenticationTrustResolver = new AuthenticationTrustResolverImpl();
     
+    /**
+     * CXF JAX-RS MessageContext
+     */
+    public MessageContext messageContext;
 	
     public void setServletContext(ServletContext servletContext) {
         this.servletContext = servletContext;
     }
+
+    @Context
+    public void setMessageContext(MessageContext messageContext) {
+		this.messageContext = messageContext;
+	}
 
     /**
      * Convenience method for getting a i18n key's value.  Calling
@@ -144,7 +154,11 @@ public abstract class AbstractBaseRequest implements ServletContextAware {
 	 * @return
 	 */
     protected HttpServletRequest getServletRequest() {
-    	return RequestFactoryServlet.getThreadLocalRequest();    
+    	HttpServletRequest request = RequestFactoryServlet.getThreadLocalRequest(); 
+    	if(request == null) { // jax-rs
+    		return messageContext.getHttpServletRequest();
+    	}
+    	return request;    
     }
     
     /**
@@ -152,7 +166,11 @@ public abstract class AbstractBaseRequest implements ServletContextAware {
      * @return
      */
     protected HttpServletResponse getServletResponse() {
-    	return RequestFactoryServlet.getThreadLocalResponse();    
+    	HttpServletResponse response = RequestFactoryServlet.getThreadLocalResponse();    
+    	if(response == null) { // jax-rs
+    		return messageContext.getHttpServletResponse();
+    	}
+    	return response;
     }
     
     protected ServletContext getServletContext() {

@@ -1,38 +1,34 @@
-package org.appfuse.webapp.server.requests;
+package org.appfuse.webapp.server.services;
 
 import java.util.List;
+
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 
 import org.appfuse.model.User;
 import org.springframework.security.access.prepost.PreAuthorize;
 
+@Path("/usersService")
 public interface UserRequestService {
 
 	/**
 	 * 
 	 * @return
 	 */
-	abstract User getCurrentUser();
+	@GET
+	@Path("currentUser")
+	User getCurrentUser();
 
 	/**
 	 * 
 	 * @return
 	 */
-	abstract User signUp();
-
-	/**
-	 * 
-	 * @param user
-	 * @return
-	 * @throws Exception
-	 */
-	abstract User signUp(User user) throws Exception;
-
-	/**
-	 * 
-	 * @return
-	 */
-	@PreAuthorize("isAuthenticated()")
-	abstract User editProfile();
+	@GET
+	@Path("signUp")
+	User signUp();
 
 	/**
 	 * 
@@ -40,16 +36,39 @@ public interface UserRequestService {
 	 * @return
 	 * @throws Exception
 	 */
+	@POST
+	@Path("signUp")
+	User signUp(User user) throws Exception;
+
+	/**
+	 * 
+	 * @return
+	 */
+	@GET
+	@Path("editProfile")
 	@PreAuthorize("isAuthenticated()")
-	abstract User editProfile(User user) throws Exception;
+	User editProfile();
+
+	/**
+	 * 
+	 * @param user
+	 * @return
+	 * @throws Exception
+	 */
+	@POST
+	@Path("editProfile")
+	@PreAuthorize("isAuthenticated()")
+	User editProfile(User user) throws Exception;
 
 	/**
 	 * 
 	 * @param userId
 	 * @return
 	 */
+	@GET
+	@Path("user/{id}")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	abstract User getUser(Long userId);
+	User getUser(@PathParam("id") Long userId);
 
 	/**
 	 * 
@@ -57,16 +76,20 @@ public interface UserRequestService {
 	 * @return
 	 * @throws Exception
 	 */
+	@POST
+	@Path("saveUser")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	abstract User saveUser(User user) throws Exception;
+	User saveUser(User user) throws Exception;
 
 	/**
 	 * 
 	 * @param searchCriteria
 	 * @return
 	 */
+	@POST
+	@Path("countUsers")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	abstract long countUsers(UsersSearchCriteria searchCriteria);
+	long countUsers(UsersSearchCriteria searchCriteria);
 
 	/**
 	 * 
@@ -75,8 +98,10 @@ public interface UserRequestService {
 	 * @param maxResults
 	 * @return
 	 */
+	@POST
+	@Path("searchUsers")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	abstract List<User> searchUsers(UsersSearchCriteria searchCriteria, int firstResult, int maxResults);
+	List<User> searchUsers(UsersSearchCriteria searchCriteria, int firstResult, int maxResults);
 
 	/**
 	 * 
@@ -87,30 +112,40 @@ public interface UserRequestService {
 	 * @param ascending
 	 * @return
 	 */
+	@POST
+	@Path("searchUsers")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")	
-	abstract List<User> searchUsers(UsersSearchCriteria searchCriteria, int firstResult, int maxResults, String sortProperty, boolean ascending);
+	List<User> searchUsers(UsersSearchCriteria searchCriteria, int firstResult, int maxResults, String sortProperty, boolean ascending);
 	
 	/**
 	 * 
 	 * @param user
 	 */
+	@DELETE
+	@Path("removeUser/{id}")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	abstract void removeUser(Long userId);
+	void removeUser(@PathParam("id")Long userId);
 
 	/**
 	 * 
 	 * @param username
 	 * @return
 	 */
-	abstract String sendPasswordHint(String username);
+	@POST
+	@Path("passwordHint")
+	String sendPasswordHint(String username);
 
 	/**
 	 * 
 	 * @return
 	 */
+	@GET
+	@Path("activeUsers")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	abstract List<User> getActiveUsers();
+	List<User> getActiveUsers();
 
-	abstract boolean logout();
+	@GET
+	@Path("/logout")
+	boolean logout();
 
 }

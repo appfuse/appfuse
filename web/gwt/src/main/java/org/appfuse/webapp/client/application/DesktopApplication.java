@@ -192,7 +192,7 @@ public class DesktopApplication extends Application implements LoginEvent.Handle
 		AuthRequiredEvent.register(eventBus, new AuthRequiredEvent.Handler() {
 			@Override
 			public void onAuthRequiredEvent(AuthRequiredEvent authRequiredEvent) {
-				placeController.goTo(new LoginPlace());
+				placeController.goTo(new LoginPlace(History.getToken()));
 			}
 		});
 		

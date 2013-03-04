@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.appfuse.webapp.server.requests;
+package org.appfuse.webapp.server.services.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,6 +14,7 @@ import org.appfuse.model.Role;
 import org.appfuse.service.RoleManager;
 import org.appfuse.webapp.listener.StartupListener;
 import org.appfuse.webapp.proxies.LookupConstantsProxy;
+import org.appfuse.webapp.server.services.LookupRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.access.annotation.Secured;
