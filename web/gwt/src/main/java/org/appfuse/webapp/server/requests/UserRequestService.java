@@ -40,7 +40,7 @@ public interface UserRequestService {
 	 * @return
 	 * @throws Exception
 	 */
-	@PreAuthorize("isFullyAuthenticated()")
+	@PreAuthorize("isAuthenticated()")
 	abstract User editProfile(User user) throws Exception;
 
 	/**

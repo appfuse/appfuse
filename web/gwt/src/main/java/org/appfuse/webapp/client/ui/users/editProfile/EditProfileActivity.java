@@ -45,9 +45,10 @@ public class EditProfileActivity extends AbstractProxyEditActivity<UserProxy> im
 	@Override
 	protected ProxyEditView<UserProxy, ?> createView(Place place) {
 		EditUserView editUserView = viewFactory.getView(EditProfileViewImpl.class);
-		if(!application.isUserInRole(RoleProxy.FULLY_AUTHENTICATED)) {
+		boolean isFullyAuthenticated = application.isUserInRole(RoleProxy.FULLY_AUTHENTICATED); 
+		editUserView.hidePasswordFields(!isFullyAuthenticated);
+		if(!isFullyAuthenticated) {
 			shell.addMessage(i18n.userProfile_cookieLogin(), AlertType.WARNING);
-			//TODO disable passwords in view
 		}
 		
 		if(editUserView != null) {

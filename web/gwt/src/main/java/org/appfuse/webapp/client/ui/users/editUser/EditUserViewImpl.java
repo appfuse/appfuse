@@ -77,6 +77,8 @@ public class EditUserViewImpl extends Composite implements EditUserView {
     @UiField(provided=true)
 	protected RolesListBox roles = new RolesListBox();
     
+    @UiField Widget passwordControlGroup;
+    @UiField Widget confirmPasswordControlGroup;
     @UiField protected Widget userRoles;//control group for
     @UiField protected Widget accountSettings;//control group for
 
@@ -150,6 +152,11 @@ public class EditUserViewImpl extends Composite implements EditUserView {
 		delegate.cancelClicked();
 	}
 
+	@Override
+	public void hidePasswordFields(boolean hide) {
+		passwordControlGroup.setVisible(!hide);
+		confirmPasswordControlGroup.setVisible(!hide);
+	}
 
 	@Override
 	public void setEnabled(boolean b) {

@@ -125,7 +125,7 @@
                 <artifactId>gwt-maven-plugin</artifactId>
                 <version>2.5.0</version>
                 <configuration>
-                    <style>PRETTY</style>
+                    <style>OBF</style>
                     <runTarget>/</runTarget>
              		<noServer>true</noServer>
              		<debugPort>8001</debugPort>

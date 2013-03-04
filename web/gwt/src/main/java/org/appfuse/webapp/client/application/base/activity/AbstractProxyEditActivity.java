@@ -224,10 +224,12 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 				.fire(new Receiver<P>() {
 					@Override
 					public void onSuccess(P response) {
-						//edit this entity proxy on a new request
-						editorDriver.edit(response, saveOrUpdateRequest(createProxyRequest(), response));
-						//finish loading
-						onloadCallback.onSuccess(response);
+						if(editorDriver != null) {
+							//edit this entity proxy on a new request
+							editorDriver.edit(response, saveOrUpdateRequest(createProxyRequest(), response));
+							//finish loading
+							onloadCallback.onSuccess(response);
+						}
 					}
 				});
 		}
