@@ -18,7 +18,7 @@ import com.google.gwt.user.client.ui.SimplePanel;
  * @author ivangsa
  *
  */
-public abstract class Shell extends Composite implements LoginEvent.Handler, LogoutEvent.Handler {
+public abstract class AbstractShell extends Composite implements LoginEvent.Handler, LogoutEvent.Handler {
 
 	protected Application application;
 

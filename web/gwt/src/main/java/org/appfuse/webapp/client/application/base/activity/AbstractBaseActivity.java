@@ -7,7 +7,7 @@ import org.appfuse.webapp.client.application.Application;
 import org.appfuse.webapp.client.application.ApplicationProxyFactory;
 import org.appfuse.webapp.client.application.ApplicationResources;
 import org.appfuse.webapp.client.application.ApplicationViewFactory;
-import org.appfuse.webapp.client.ui.Shell;
+import org.appfuse.webapp.client.ui.AbstractShell;
 import org.appfuse.webapp.requests.ApplicationRequestFactory;
 
 import com.google.gwt.activity.shared.AbstractActivity;
@@ -18,7 +18,7 @@ import com.google.web.bindery.event.shared.EventBus;
 public abstract class AbstractBaseActivity extends AbstractActivity {
 
 	protected final Place currentPlace;
-	protected final Shell shell;
+	protected final AbstractShell shell;
 	protected final Application application;
 	protected final EventBus eventBus;
     protected final ApplicationRequestFactory requests;

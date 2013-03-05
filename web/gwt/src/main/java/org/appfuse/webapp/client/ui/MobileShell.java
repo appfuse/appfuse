@@ -13,7 +13,7 @@ import com.google.gwt.user.client.ui.Widget;
 /**
  * Top level UI for the mobile version of the application.
  */
-public class MobileShell extends Shell {
+public class MobileShell extends AbstractShell {
 
 	interface Binder extends UiBinder<Widget, MobileShell> {}
 	private static final Binder uiBinder = GWT.create(Binder.class);

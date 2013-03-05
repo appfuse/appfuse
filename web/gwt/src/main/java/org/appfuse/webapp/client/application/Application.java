@@ -6,7 +6,7 @@ package org.appfuse.webapp.client.application;
 import javax.validation.Validation;
 import javax.validation.ValidatorFactory;
 
-import org.appfuse.webapp.client.ui.Shell;
+import org.appfuse.webapp.client.ui.AbstractShell;
 import org.appfuse.webapp.proxies.LookupConstantsProxy;
 import org.appfuse.webapp.proxies.RoleProxy;
 import org.appfuse.webapp.proxies.UserProxy;
@@ -28,7 +28,7 @@ import com.google.web.bindery.event.shared.EventBus;
  */
 public abstract class Application {
 
-	protected final Shell shell;
+	protected final AbstractShell shell;
 	protected final EventBus eventBus;
 	protected final ApplicationMenu menu;
 	protected final PlaceController placeController;
@@ -45,7 +45,7 @@ public abstract class Application {
 	
 	@Inject
 	public Application(
-			Shell shell,
+			AbstractShell shell,
 			ApplicationMenu menu,
 			ApplicationRequestFactory requestFactory, 
 			EventBus eventBus,
@@ -79,7 +79,7 @@ public abstract class Application {
 
 	public abstract void run();
 
-	public Shell getShell() {
+	public AbstractShell getShell() {
 		return shell;
 	}
 	
