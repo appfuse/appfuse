@@ -10,10 +10,8 @@ import java.util.List;
 import java.util.Locale;
 
 import org.appfuse.model.LabelValue;
-import org.appfuse.model.Role;
 import org.appfuse.service.RoleManager;
 import org.appfuse.webapp.listener.StartupListener;
-import org.appfuse.webapp.proxies.LookupConstantsProxy;
 import org.appfuse.webapp.server.services.LookupRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -31,31 +29,6 @@ public class LookupRequestServiceImpl extends AbstractBaseRequest implements Loo
 	@Autowired
 	private RoleManager roleManager;
 
-	/**
-	 * Application wide constants to be sent to the client.
-	 * 
-	 * @see LookupConstantsProxy
-	 */
-	public static class LookupConstants {
-		
-		private List<Role> availableRoles = new ArrayList<Role>();
-		private List<LabelValue> countries = new ArrayList<LabelValue>();
-		
-		public List<Role> getAvailableRoles() {
-			return availableRoles;
-		}
-		public void setAvailableRoles(List<Role> availableRoles) {
-			this.availableRoles = availableRoles;
-		}
-		public List<LabelValue> getCountries() {
-			return countries;
-		}
-		public void setCountries(List<LabelValue> countries) {
-			this.countries = countries;
-		}
-		
-	}
-	
 	/**
 	 * 
 	 * @return

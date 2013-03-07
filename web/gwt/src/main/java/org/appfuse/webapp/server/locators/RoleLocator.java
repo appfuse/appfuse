@@ -4,7 +4,6 @@
 package org.appfuse.webapp.server.locators;
 
 import org.appfuse.model.Role;
-import org.appfuse.model.User;
 import org.appfuse.service.RoleManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
