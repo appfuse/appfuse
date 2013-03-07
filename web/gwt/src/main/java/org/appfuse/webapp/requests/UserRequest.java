@@ -5,13 +5,13 @@ import java.util.List;
 import org.appfuse.webapp.proxies.UserProxy;
 import org.appfuse.webapp.proxies.UsersSearchCriteriaProxy;
 import org.appfuse.webapp.server.GwtServiceLocator;
-import org.appfuse.webapp.server.services.impl.UserRequestServiceImpl;
+import org.appfuse.webapp.server.services.UserRequestService;
 
 import com.google.web.bindery.requestfactory.shared.Request;
 import com.google.web.bindery.requestfactory.shared.RequestContext;
 import com.google.web.bindery.requestfactory.shared.Service;
 
-@Service(value = UserRequestServiceImpl.class, locator=GwtServiceLocator.class)
+@Service(value = UserRequestService.class, locator=GwtServiceLocator.class)
 public interface UserRequest extends RequestContext {
 
 	abstract Request<UserProxy> getCurrentUser();
