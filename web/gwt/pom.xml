@@ -152,6 +152,7 @@
                     </modules>
                    	<i18nMessagesBundle>${project.groupId}.webapp.client.application.ApplicationResources</i18nMessagesBundle>
                    	<generateDirectory>${basedir}/src/main/java</generateDirectory>
+                   	<persistentunitcachedir>${project.build.directory}</persistentunitcachedir>
                 </configuration>
                 <executions>
                     <execution>
