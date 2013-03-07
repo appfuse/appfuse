@@ -168,7 +168,6 @@
         <!-- See http://checkstyle.sf.net/config_coding.html -->
         <!-- MR: Removed AvoidInlineConditionals because they're cool. -->
         <!--<module name="AvoidInlineConditionals"/>-->
-        <module name="DoubleCheckedLocking"/>
         <module name="EmptyStatement"/>
         <module name="EqualsHashCode"/>
         <!--module name="HiddenField"/-->
