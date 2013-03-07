@@ -39,6 +39,19 @@
         <url>http://source.appfuse.org/browse/appfuse/web/gwt</url>
     </scm>
 
+	<repositories>
+		<repository>
+			<id>sonatype</id>
+			<url>http://oss.sonatype.org/content/repositories/snapshots</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+		</repository>
+	</repositories>
+
     <build>
         <plugins>
             <plugin>
