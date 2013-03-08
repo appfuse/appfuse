@@ -8,3 +8,4 @@ web/tapestry/src/main/webapp/WEB-INF/app*.properties
 web/tapestry/src/main/webapp/styles/style.css
 web/wicket/src/main/webapp/styles/style.css
 .gradle/
+web/wicket/src/main/webapp/WEB-INF/app*.properties
