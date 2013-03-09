@@ -54,15 +54,11 @@ public class CustomRequestFactoryServlet extends RequestFactoryServlet {
 		@Override
 		public ServerFailure createServerFailure(Throwable throwable) {
 			try {
-				ServerFailure customServerFailure = createCustomServerFailure(throwable);
-				if(customServerFailure != null) {
-					return customServerFailure;
-				}
+				return createCustomServerFailure(throwable);
 			} 
 			catch (Exception e) {
-				return createServerFailure(throwable);
+				return super.createServerFailure(throwable);
 			}
-			return super.createServerFailure(throwable);
 		}
 		
 		/**
@@ -71,7 +67,7 @@ public class CustomRequestFactoryServlet extends RequestFactoryServlet {
 		 * @return
 		 * @throws Exception
 		 */
-		private ServerFailure createCustomServerFailure(Throwable throwable) throws Exception{
+		private ServerFailure createCustomServerFailure(Throwable throwable) throws Exception {
 			if(throwable instanceof AuthenticationException) {
 				getServletResponse().sendError(HttpServletResponse.SC_UNAUTHORIZED);
 				return null; 
@@ -85,7 +81,7 @@ public class CustomRequestFactoryServlet extends RequestFactoryServlet {
 				getServletResponse().sendError(HttpServletResponse.SC_FORBIDDEN);
 				return null; 
 			}
-			return null;
+			return super.createServerFailure(throwable);
 		}
 		
 		private HttpServletResponse getServletResponse() {
