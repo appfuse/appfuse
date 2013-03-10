@@ -6,5 +6,7 @@ target
 *.ipr
 web/tapestry/src/main/webapp/WEB-INF/app*.properties
 web/tapestry/src/main/webapp/styles/style.css
-web/wicket/src/main/webapp/WEB-INF/app*.properties
 web/wicket/src/main/webapp/styles/style.css
+.gradle/
+#Those files are not needed anymore - please remove them from your src/main/java folder to not override files from web-common
+#web/wicket/src/main/webapp/WEB-INF/app*.properties

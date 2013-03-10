@@ -31,6 +31,7 @@
 		<module>appfuse-basic-spring</module>
 		<module>appfuse-basic-struts</module>
 		<module>appfuse-basic-tapestry</module>
+        <module>appfuse-basic-wicket</module>
 		<module>appfuse-basic-gwt</module>
 		<module>appfuse-modular-jsf</module>
 		<module>appfuse-modular-struts</module>

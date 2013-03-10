@@ -9,13 +9,13 @@ import org.springframework.context.ApplicationContext;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TestWicketApplication extends WicketApplication {
+public class TestAppFuseWicketApplication extends AppFuseWicketApplication {
 
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
     private final ApplicationContext testContext;
 
-    public TestWicketApplication(ApplicationContext testContext) {
+    public TestAppFuseWicketApplication(ApplicationContext testContext) {
         this.testContext = testContext;
     }
 
@@ -35,7 +35,7 @@ public class TestWicketApplication extends WicketApplication {
         config.put(Constants.CSS_THEME, "simplicity");
     }
 
-    //ApplicationContext has to be created completely before WicketApplication class (cannot be created here)
+    //ApplicationContext has to be created completely before AppFuseWicketApplication class (cannot be created here)
     @Override
     protected ApplicationContext getContext() {
         return testContext;

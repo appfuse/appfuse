@@ -12,7 +12,6 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.Url;
 import org.apache.wicket.request.cycle.RequestCycle;
-import org.apache.wicket.request.resource.JavaScriptResourceReference;
 import org.appfuse.Constants;
 import org.appfuse.webapp.AbstractWebPage;
 import org.appfuse.webapp.pages.components.PlaceholderBehavior;
@@ -94,9 +93,7 @@ public class Login extends AbstractWebPage {
     }
 
     private void addLoginJavaScriptToResponse(IHeaderResponse response) {
-        //TODO: MZA: Could be simplified to forUrl("scripts/login.js") when .js move to webapp
-        JavaScriptResourceReference loginJsReference = new JavaScriptResourceReference(Login.class, "scripts/login.js");
-        response.render(JavaScriptHeaderItem.forReference(loginJsReference));
+        response.render(JavaScriptHeaderItem.forUrl("scripts/login.js"));
     }
 
     private void addInitDataOnLoadJavaScriptToResponse(IHeaderResponse response) {
@@ -143,7 +140,6 @@ public class Login extends AbstractWebPage {
     }
 
     private void authenticateUser() {
-        //TODO: MZA: Why the first login user is redirected again to login page?
         AuthenticatedWebSession session = AuthenticatedWebSession.get();
         if (session.signIn(usernameField.getModelObject(), passwordField.getModelObject())) {
             setDefaultResponsePageIfNecessary();

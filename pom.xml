@@ -254,7 +254,7 @@
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>
                 <version>${mockito.version}</version>
-                <scope>test</scope>
+                <optional>true</optional>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -655,6 +655,8 @@
         <webtest.version>3.0</webtest.version>
         <wiser.version>1.2</wiser.version>
         <bootstrap.version>2.2.1</bootstrap.version>
+        <wicket.version>6.3.0</wicket.version>
+        <wicketstuff.version>${wicket.version}</wicketstuff.version>        
         <gwt.version>2.5.0</gwt.version>
         <json.version>20090211</json.version>
         <gin.version>2.0.0</gin.version>

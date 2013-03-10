@@ -202,6 +202,19 @@
                 </then>
             </if>
 
+            <if>
+                <equals arg1="@{module}" arg2="wicket"/>
+                <then>
+                    <delete dir="@{dir}/src/main/webapp/styles/lib"/>
+                    <delete dir="@{dir}/src/main/webapp/styles/img"/>
+                    <delete dir="@{dir}/src/main/webapp/styles/img"/>
+
+                    <!-- TODO: MZA: Why deleting scripts directory removes includes for */*.html and */*.tld for
+                         src/main/webapp in maven-archetype-metadata.xml ? -->
+                    <!--<delete dir="@{dir}/src/main/webapp/scripts"/>-->
+                </then>
+            </if>
+
             <mvn dir="@{dir}" command="archetype:create-from-project -DpackageName=org.appfuse.webapp"/>
 
             <!-- Change the version number of the generated archetype -->
@@ -321,6 +334,20 @@
                 <replacetoken><![CDATA[<include>**/*.java</include>]]></replacetoken>
                 <replacevalue><![CDATA[<include>webapp/**/*.java</include>]]></replacevalue>
             </replace>
+
+            <!-- This eliminates duplicated html file in src/main/java/pages and src/main/java/webapp/pages - see APF-1378.
+                 Could not work with every archetype as it changes also a value in src/main/webapp (for Wicket it is
+                 safe as long as there is no html file). Any better idea is welcome. -->
+            <if>
+                <equals arg1="@{module}" arg2="wicket"/>
+                <then>
+                    <replace dir="@{dir}/target/generated-sources/archetype">
+                        <include name="**/archetype-metadata.xml"/>
+                        <replacetoken><![CDATA[<include>**/*.html</include>]]></replacetoken>
+                        <replacevalue><![CDATA[<include>webapp/**/*.html</include>]]></replacevalue>
+                    </replace>
+                </then>
+            </if>
 
             <if>
                 <equals arg1="@{dest}" arg2=""/>

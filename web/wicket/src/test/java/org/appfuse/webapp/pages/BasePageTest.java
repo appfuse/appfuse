@@ -2,7 +2,7 @@ package org.appfuse.webapp.pages;
 
 import org.apache.wicket.Page;
 import org.apache.wicket.util.tester.WicketTester;
-import org.appfuse.webapp.TestWicketApplication;
+import org.appfuse.webapp.TestAppFuseWicketApplication;
 import org.junit.Before;
 import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;
@@ -26,7 +26,7 @@ public abstract class BasePageTest {
     public void initTester() {
         StaticWebApplicationContext mockedContext = new StaticWebApplicationContext();
 
-        tester = new WicketTester(new TestWicketApplication(mockedContext));
+        tester = new WicketTester(new TestAppFuseWicketApplication(mockedContext));
         //ensure english locale regardless of local system locale
         tester.getSession().setLocale(Locale.ENGLISH);
 

@@ -39,11 +39,6 @@
         <url>http://source.appfuse.org/browse/appfuse/web/wicket</url>
     </scm>
 
-    <properties>
-        <wicket.version>6.3.0</wicket.version>
-        <wicketstuff.version>${wicket.version}</wicketstuff.version>
-    </properties>
-
     <build>
         <plugins>
             <plugin>
@@ -143,17 +138,10 @@
                 <version>1.7</version>
                 <executions>
                     <execution>
-                        <id>default-resources</id>
+                        <id>web-common-resources</id>
                         <phase>process-resources</phase>
                         <configuration>
                             <tasks>
-                                <echo>Copying i18n files...</echo>
-                                <!-- TODO: Extend it as well as in Tapestry module? -->
-                                <copy todir="src/main/webapp/WEB-INF" overwrite="true">
-                                    <globmapper from="ApplicationResources*" to="app*" />
-                                    <fileset dir="../common/src/main/resources" includes="ApplicationResources*" />
-                                </copy>
-
                                 <echo message="Copying CSS and JavaScript resources..."/>
                                 <copy todir="src/main/webapp" overwrite="true">
                                     <fileset dir="../common/src/main/webapp">
@@ -275,6 +263,12 @@
             <groupId>de.agilecoders.wicket</groupId>
             <artifactId>bootstrap</artifactId>
             <version>0.7.6</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>3.17.1-GA</version>
         </dependency>
 
         <dependency>

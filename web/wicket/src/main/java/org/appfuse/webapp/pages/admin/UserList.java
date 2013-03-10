@@ -103,7 +103,7 @@ public class UserList extends AbstractWebPage {
     private List<IColumn<User, String>> createColumns() {
         List<IColumn<User, String>> userListColumns = new ArrayList<IColumn<User, String>>();
         userListColumns.add(createLinkableColumn("user.username", "username", "username"));
-        userListColumns.add(createColumn("user.lastName", "lastName", "lastName"));
+        userListColumns.add(createColumn("activeUsers.fullName", "fullName", "fullName"));
         userListColumns.add(createColumn("user.email", "email", "email"));
         //TODO: MZA: Is there a "boolean" column? Check version from PhoneBook
         userListColumns.add(createColumn("user.enabled", "enabled", "enabled"));

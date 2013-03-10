@@ -204,6 +204,10 @@ org.springframework.beans.factory.BeanCreationException: Error creating bean wit
     <listener>
         <listener-class>net.sf.navigator.menu.MenuContextListener</listener-class>
     </listener>
+    <listener>
+        <!-- http://static.springsource.org/spring-security/site/docs/3.1.x/reference/session-mgmt.html#concurrent-sessions -->
+        <listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
+    </listener>
 
 <!--
     <servlet>

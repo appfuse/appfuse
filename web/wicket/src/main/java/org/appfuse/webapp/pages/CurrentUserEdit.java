@@ -31,6 +31,8 @@ public class CurrentUserEdit extends AbstractUserEdit {
         //TODO: MZA: Here or in constructor?
         //TODO: Quite odd - before super
         User user = getUserManager().getUserByUsername(getCurrentUserUsername());
+        //TODO: An ugly hack required to not force user to enter his password on each edition. Will be fixed in APF-1370
+        user.setConfirmPassword(user.getPassword());
         setUser(user);
 
         super.onInitialize();
