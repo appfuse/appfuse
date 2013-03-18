@@ -117,6 +117,7 @@ public class Signup {
 
     @Log
     Object onSuccess() throws IOException {
+    	String password = user.getPassword();
         try {
             user = userManager.saveUser(user);
         } catch (AccessDeniedException ade) {
@@ -130,7 +131,8 @@ public class Signup {
                     messages.format("errors.existing.user", user.getUsername(), user.getEmail())
             );
             // redisplay the unencrypted passwords
-            user.setPassword(user.getConfirmPassword());
+            user.setPassword(password);
+            user.setConfirmPassword(password);
             //TODO: somehow returning current page doesn't work
             //return this;
 

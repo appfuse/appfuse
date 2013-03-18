@@ -112,7 +112,6 @@ public class UserAction extends BaseAction implements Preparable {
         }
 
         if (user.getUsername() != null) {
-            user.setConfirmPassword(user.getPassword());
 
             // if user logged in with remember me, display a warning that they can't change passwords
             log.debug("checking for remember me login...");
@@ -162,6 +161,7 @@ public class UserAction extends BaseAction implements Preparable {
      */
     public String save() throws Exception {
 
+    	String password = user.getPassword();
         Integer originalVersion = user.getVersion();
 
         boolean isNew = ("".equals(getRequest().getParameter("user.version")));
@@ -176,6 +176,9 @@ public class UserAction extends BaseAction implements Preparable {
                 try {
                     user.addRole(roleManager.getRole(roleName));
                 } catch (DataIntegrityViolationException e) {
+                    // redisplay the unencrypted passwords
+                    user.setPassword(password);
+                    user.setConfirmPassword(password);
                     return showUserExistsException(originalVersion);
                 }
             }
@@ -189,6 +192,9 @@ public class UserAction extends BaseAction implements Preparable {
             getResponse().sendError(HttpServletResponse.SC_FORBIDDEN);
             return null;
         } catch (UserExistsException e) {
+            // redisplay the unencrypted passwords
+            user.setPassword(password);
+            user.setConfirmPassword(password);        	
             return showUserExistsException(originalVersion);
         }
 
@@ -205,7 +211,8 @@ public class UserAction extends BaseAction implements Preparable {
                 // Send an account information e-mail
                 mailMessage.setSubject(getText("signup.email.subject"));
                 try {
-                    sendUserMessage(user, getText("newuser.email.message", args), RequestUtil.getAppURL(getRequest()));
+                    sendUserMessage(user, getText("newuser.email.message", args), 
+                    		RequestUtil.getAppURL(getRequest()), password);
                 } catch (MailException me) {
                     addActionError(me.getCause().getLocalizedMessage());
                 }
@@ -226,8 +233,6 @@ public class UserAction extends BaseAction implements Preparable {
 
         // reset the version # to what was passed in
         user.setVersion(originalVersion);
-        // redisplay the unencrypted passwords
-        user.setPassword(user.getConfirmPassword());
         return INPUT;
     }
 
