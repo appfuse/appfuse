@@ -69,6 +69,8 @@ public class SignupController extends BaseFormController {
         // Set the default user role on this new user
         user.addRole(roleManager.getRole(Constants.USER_ROLE));
 
+        String password = user.getPassword();
+        
         try {
             this.getUserManager().saveUser(user);
         } catch (AccessDeniedException ade) {
@@ -81,7 +83,8 @@ public class SignupController extends BaseFormController {
                     new Object[]{user.getUsername(), user.getEmail()}, "duplicate user");
 
             // redisplay the unencrypted passwords
-            user.setPassword(user.getConfirmPassword());
+            user.setPassword(password);
+            user.setConfirmPassword(password);
             return "signup";
         }
 
@@ -103,7 +106,8 @@ public class SignupController extends BaseFormController {
         message.setSubject(getText("signup.email.subject", locale));
 
         try {
-            sendUserMessage(user, getText("signup.email.message", locale), RequestUtil.getAppURL(request));
+            sendUserMessage(user, getText("signup.email.message", locale), 
+            		RequestUtil.getAppURL(request), password);
         } catch (MailException me) {
             saveError(request, me.getMostSpecificCause().getMessage());
         }

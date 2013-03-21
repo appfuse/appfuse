@@ -100,6 +100,7 @@ public class UserFormController extends BaseFormController {
                 user.setRoles(cleanUser.getRoles());
             }
 
+            String password = user.getPassword();
             Integer originalVersion = user.getVersion();
 
             try {
@@ -114,7 +115,8 @@ public class UserFormController extends BaseFormController {
                         new Object[]{user.getUsername(), user.getEmail()}, "duplicate user");
 
                 // redisplay the unencrypted passwords
-                user.setPassword(user.getConfirmPassword());
+                user.setPassword(password);
+                user.setConfirmPassword(password);
                 // reset the version # to what was passed in
                 user.setVersion(originalVersion);
 
@@ -135,7 +137,7 @@ public class UserFormController extends BaseFormController {
 
                     try {
                         sendUserMessage(user, getText("newuser.email.message", user.getFullName(), locale),
-                                RequestUtil.getAppURL(request));
+                                RequestUtil.getAppURL(request), password);
                     } catch (MailException me) {
                         saveError(request, me.getCause().getLocalizedMessage());
                     }

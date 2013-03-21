@@ -1,21 +1,19 @@
 package org.appfuse.service.impl;
 
+import java.util.List;
+
+import javax.jws.WebService;
+
 import org.appfuse.dao.UserDao;
 import org.appfuse.model.User;
 import org.appfuse.service.UserExistsException;
 import org.appfuse.service.UserManager;
 import org.appfuse.service.UserService;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.security.authentication.dao.SaltSource;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import javax.jws.WebService;
-import java.util.List;
 
 
 /**
@@ -46,7 +44,11 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
      * {@inheritDoc}
      */
     public User getUser(String userId) {
-        return userDao.get(new Long(userId));
+    	User user = userDao.get(new Long(userId));
+    	if(user != null) {
+    		user.setConfirmPassword(user.getPassword());
+    	}
+        return user;
     }
 
     /**
@@ -95,6 +97,8 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
                     user.setPassword(passwordEncoder.encodePassword(user.getPassword(),
                             saltSource.getSalt(user)));
                 }
+                //copy to confirmPassword so JSR-303 BeanValidators can compare these two fields
+                user.setConfirmPassword(user.getPassword()); 
             }
         } else {
             log.warn("PasswordEncoder not set, skipping password encryption...");
@@ -133,7 +137,11 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
      * @throws UsernameNotFoundException thrown when username not found
      */
     public User getUserByUsername(String username) throws UsernameNotFoundException {
-        return (User) userDao.loadUserByUsername(username);
+    	User user = (User) userDao.loadUserByUsername(username);
+    	if(user != null) {
+    		user.setConfirmPassword(user.getPassword());
+    	}
+        return user;
     }
 
     /**

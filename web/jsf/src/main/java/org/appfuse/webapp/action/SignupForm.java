@@ -41,6 +41,7 @@ public class SignupForm extends BasePage implements Serializable {
         // Set the default user role on this new user
         user.addRole(roleManager.getRole(Constants.USER_ROLE));
 
+        String password = user.getPassword();
         try {
             user = userManager.saveUser(user);
         } catch (AccessDeniedException ade) {
@@ -52,7 +53,8 @@ public class SignupForm extends BasePage implements Serializable {
             addMessage("errors.existing.user", new Object[]{user.getUsername(), user.getEmail()});
 
             // redisplay the unencrypted passwords
-            user.setPassword(user.getConfirmPassword());
+            user.setPassword(password);
+            user.setConfirmPassword(password);
             return null;
         }
 
@@ -70,7 +72,8 @@ public class SignupForm extends BasePage implements Serializable {
 
         try {
             sendUserMessage(user, getText("signup.email.message"),
-                    RequestUtil.getAppURL(getRequest()));
+                    RequestUtil.getAppURL(getRequest()),
+                    password);
         } catch (MailException me) {
             addError(me.getMostSpecificCause().getMessage());
             return null;

@@ -173,7 +173,7 @@ public class BaseFormController implements ServletContextAware {
      * @param msg the message to send.
      * @param url the URL of the application.
      */
-    protected void sendUserMessage(User user, String msg, String url) {
+    protected void sendUserMessage(User user, String msg, String url, String password) {
         if (log.isDebugEnabled()) {
             log.debug("sending e-mail to user [" + user.getEmail() + "]...");
         }
@@ -189,6 +189,7 @@ public class BaseFormController implements ServletContextAware {
         // model.put("bundle", getTexts());
         model.put("message", msg);
         model.put("applicationURL", url);
+        model.put("password", password);
         mailEngine.sendMessage(message, templateName, model);
     }
 

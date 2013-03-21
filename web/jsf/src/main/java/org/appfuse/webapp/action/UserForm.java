@@ -83,7 +83,6 @@ public class UserForm extends BasePage implements Serializable {
         } 
 
         if (user.getUsername() != null) {
-            user.setConfirmPassword(user.getPassword());
             if (isRememberMe()) {
                 // if user logged in with remember me, display a warning that they can't change passwords
                 log.debug("checking for remember me login...");
@@ -129,6 +128,7 @@ public class UserForm extends BasePage implements Serializable {
             user.setVersion(null);
         }
 
+        String password = user.getPassword();
         Integer originalVersion = user.getVersion();
 
         try {
@@ -159,7 +159,8 @@ public class UserForm extends BasePage implements Serializable {
 
                 try {
                     sendUserMessage(user, getText("newuser.email.message",
-                                    user.getFullName()), RequestUtil.getAppURL(getRequest()));
+                                    user.getFullName()), RequestUtil.getAppURL(getRequest()), 
+                                    password);
                 } catch (MailException me) {
                     addError(me.getCause().getLocalizedMessage());
                 }

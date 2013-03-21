@@ -159,7 +159,7 @@ public class BaseAction extends ActionSupport {
      * @param msg the message to send
      * @param url the URL to the application (or where ever you'd like to send them)
      */
-    protected void sendUserMessage(User user, String msg, String url) {
+    protected void sendUserMessage(User user, String msg, String url, String password) {
         if (log.isDebugEnabled()) {
             log.debug("sending e-mail to user [" + user.getEmail() + "]...");
         }
@@ -172,6 +172,7 @@ public class BaseAction extends ActionSupport {
         // model.put("bundle", getTexts());
         model.put("message", msg);
         model.put("applicationURL", url);
+        model.put("password", password);
         mailEngine.sendMessage(mailMessage, templateName, model);
     }
 

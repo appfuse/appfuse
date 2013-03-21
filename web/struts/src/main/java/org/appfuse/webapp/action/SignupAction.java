@@ -72,6 +72,7 @@ public class SignupAction extends BaseAction {
         // Set the default user role on this new user
         user.addRole(roleManager.getRole(Constants.USER_ROLE));
 
+        String password = user.getPassword();
         try {
             user = userManager.saveUser(user);
         } catch (AccessDeniedException ade) {
@@ -87,7 +88,8 @@ public class SignupAction extends BaseAction {
             addActionError(getText("errors.existing.user", args));
 
             // redisplay the unencrypted passwords
-            user.setPassword(user.getConfirmPassword());
+            user.setPassword(password);
+            user.setConfirmPassword(password);
             return INPUT;
         }
 
@@ -104,7 +106,9 @@ public class SignupAction extends BaseAction {
         mailMessage.setSubject(getText("signup.email.subject"));
 
         try {
-            sendUserMessage(user, getText("signup.email.message"), RequestUtil.getAppURL(getRequest()));
+            sendUserMessage(user, getText("signup.email.message"), 
+            		RequestUtil.getAppURL(getRequest()),
+            		password);
         } catch (MailException me) {
             addActionError(me.getMostSpecificCause().getMessage());
         }
