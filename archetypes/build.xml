@@ -183,6 +183,9 @@
             <if>
                 <equals arg1="@{module}" arg2="gwt"/>
                 <then>
+                	<delete dir="@{dir}/@{dest}/src/main/java/org/appfuse/webapp/jsp" />
+                	<delete dir="@{dir}/@{dest}/src/main/java/org/appfuse/webapp/taglib" />
+                	<delete dir="@{dir}/@{dest}/src/test/resources/" includes="config.xmlf,login.xmlf,web-tests.xml"/>
                     <delete dir="@{dir}" includes="**/app*.properties,**/menu-config.xml,**/navbarMenu.vm,**/navlistMenu.vm" />
                     <delete dir="@{dir}" includes="**/*.jsp" excludes="**/index.jsp" />
                     <delete dir="@{dir}/@{dest}/src/main/webapp/common/" />
