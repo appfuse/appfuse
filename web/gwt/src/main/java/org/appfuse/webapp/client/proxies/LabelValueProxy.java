@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.appfuse.webapp.proxies;
+package org.appfuse.webapp.client.proxies;
 
 import org.appfuse.model.LabelValue;
 

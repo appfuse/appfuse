@@ -13,10 +13,6 @@
     <inherits name="com.github.gwtbootstrap.datepicker.Datepicker" />
 	<inherits name="org.hibernate.validator.HibernateValidator" />
 
-	<source path="client" />
-	<source path="proxies" />
-	<source path="requests" />
-
 
 	<!--UiBinder Configuration -->
 	<set-configuration-property name="UiBinder.useSafeHtmlTemplates" value="true"/>

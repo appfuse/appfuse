@@ -6,6 +6,7 @@ package org.appfuse.webapp.client.application;
 import org.appfuse.webapp.client.application.base.activity.AbstractBaseActivity;
 import org.appfuse.webapp.client.application.base.place.EntityProxyPlace;
 import org.appfuse.webapp.client.application.base.place.EntitySearchPlace;
+import org.appfuse.webapp.client.proxies.UserProxy;
 import org.appfuse.webapp.client.ui.login.LoginActivity;
 import org.appfuse.webapp.client.ui.login.LoginPlace;
 import org.appfuse.webapp.client.ui.logout.LogoutActivity;
@@ -24,7 +25,6 @@ import org.appfuse.webapp.client.ui.users.editUser.EditUserActivity;
 import org.appfuse.webapp.client.ui.users.search.UsersSearchActivity;
 import org.appfuse.webapp.client.ui.users.signUp.SignUpActivity;
 import org.appfuse.webapp.client.ui.users.signUp.SignUpPlace;
-import org.appfuse.webapp.proxies.UserProxy;
 
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.activity.shared.ActivityMapper;

@@ -7,8 +7,8 @@ import org.appfuse.webapp.client.application.Application;
 import org.appfuse.webapp.client.application.ApplicationProxyFactory;
 import org.appfuse.webapp.client.application.ApplicationResources;
 import org.appfuse.webapp.client.application.ApplicationViewFactory;
+import org.appfuse.webapp.client.requests.ApplicationRequestFactory;
 import org.appfuse.webapp.client.ui.AbstractShell;
-import org.appfuse.webapp.requests.ApplicationRequestFactory;
 
 import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.place.shared.Place;

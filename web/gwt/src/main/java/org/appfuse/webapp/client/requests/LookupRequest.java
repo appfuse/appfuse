@@ -1,12 +1,11 @@
 /**
  * 
  */
-package org.appfuse.webapp.requests;
+package org.appfuse.webapp.client.requests;
 
-import org.appfuse.webapp.proxies.LookupConstantsProxy;
+import org.appfuse.webapp.client.proxies.LookupConstantsProxy;
 import org.appfuse.webapp.server.GwtServiceLocator;
 import org.appfuse.webapp.server.services.LookupRequestService;
-import org.appfuse.webapp.server.services.impl.LookupRequestServiceImpl;
 
 import com.google.web.bindery.requestfactory.shared.Request;
 import com.google.web.bindery.requestfactory.shared.RequestContext;

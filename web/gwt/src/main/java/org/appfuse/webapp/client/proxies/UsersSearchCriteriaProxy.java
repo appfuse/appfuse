@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.appfuse.webapp.proxies;
+package org.appfuse.webapp.client.proxies;
 
 import com.google.web.bindery.requestfactory.shared.ProxyFor;
 import com.google.web.bindery.requestfactory.shared.ValueProxy;

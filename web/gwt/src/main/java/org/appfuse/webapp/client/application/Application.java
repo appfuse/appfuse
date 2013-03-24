@@ -6,11 +6,11 @@ package org.appfuse.webapp.client.application;
 import javax.validation.Validation;
 import javax.validation.ValidatorFactory;
 
+import org.appfuse.webapp.client.proxies.LookupConstantsProxy;
+import org.appfuse.webapp.client.proxies.RoleProxy;
+import org.appfuse.webapp.client.proxies.UserProxy;
+import org.appfuse.webapp.client.requests.ApplicationRequestFactory;
 import org.appfuse.webapp.client.ui.AbstractShell;
-import org.appfuse.webapp.proxies.LookupConstantsProxy;
-import org.appfuse.webapp.proxies.RoleProxy;
-import org.appfuse.webapp.proxies.UserProxy;
-import org.appfuse.webapp.requests.ApplicationRequestFactory;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;

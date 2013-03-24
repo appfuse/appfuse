@@ -1,9 +1,9 @@
-package org.appfuse.webapp.requests;
+package org.appfuse.webapp.client.requests;
 
 import java.util.List;
 
-import org.appfuse.webapp.proxies.UserProxy;
-import org.appfuse.webapp.proxies.UsersSearchCriteriaProxy;
+import org.appfuse.webapp.client.proxies.UserProxy;
+import org.appfuse.webapp.client.proxies.UsersSearchCriteriaProxy;
 import org.appfuse.webapp.server.GwtServiceLocator;
 import org.appfuse.webapp.server.services.UserRequestService;
 

@@ -10,16 +10,12 @@ import org.appfuse.webapp.client.application.Application;
 import org.appfuse.webapp.client.application.base.place.EntityProxyPlace;
 import org.appfuse.webapp.client.application.base.place.EntitySearchPlace;
 import org.appfuse.webapp.client.application.base.view.ProxySearchView;
-import org.appfuse.webapp.client.application.utils.tables.CustomColumn;
 import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
 
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.cellview.client.CellTable;
-import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.ColumnSortList;
-import com.google.gwt.user.cellview.client.ColumnSortList.ColumnSortInfo;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
@@ -51,7 +47,7 @@ import com.google.web.bindery.requestfactory.shared.RequestContext;
  * @param <P> the type of {@link EntityProxy} listed
  * @param <S> the type of {@link BaseProxy} acting as search criteria
  */
-public abstract class AbstractProxySearchActivity<P extends EntityProxy, S extends BaseProxy> extends AbstractBaseActivity implements Activity, ProxySearchView.Delegate<P> {
+public abstract class AbstractProxySearchActivity<P extends EntityProxy, S> extends AbstractBaseActivity implements Activity, ProxySearchView.Delegate<P> {
 
 	protected final Logger logger = Logger.getLogger(getClass().getName());
 	
@@ -81,7 +77,7 @@ public abstract class AbstractProxySearchActivity<P extends EntityProxy, S exten
 		
 		searchCriteria = (S) currentPlace.getSearchCriteria();
 		if(searchCriteria == null) {
-			searchCriteria = proxyFactory.create(searchCriteriaType);
+			searchCriteria = createSearchCriteria();
 		}
 		view.setSearchCriteria(searchCriteria);
 		
@@ -107,6 +103,12 @@ public abstract class AbstractProxySearchActivity<P extends EntityProxy, S exten
 		loadItems(searchCriteria, range);
 	}	
 
+	protected S createSearchCriteria() {
+		if(!String.class.equals(searchCriteriaType)) {
+			return  (S) proxyFactory.create((Class<BaseProxy>)searchCriteriaType);
+		}
+		return null;
+	}
 	
 	protected void loadItems(final S searchCriteria) {
 		// Select the current page size to load
@@ -118,7 +120,9 @@ public abstract class AbstractProxySearchActivity<P extends EntityProxy, S exten
 	 * Load items on start.
 	 */
 	protected void loadItems(final S searchCriteria, final Range range) {
-		proxyFactory.setFrozen(searchCriteria, true);
+		if(searchCriteria instanceof BaseProxy) {
+			proxyFactory.setFrozen((BaseProxy) searchCriteria, true);
+		}
 		final RequestContext requestContext = createRequestContext();
 		createCountRequest(requestContext, searchCriteria).fire(new Receiver<Long>() {
 			@Override
@@ -171,16 +175,15 @@ public abstract class AbstractProxySearchActivity<P extends EntityProxy, S exten
 	
 	@Override
 	public void searchClicked() {
-		proxyFactory.setFrozen(searchCriteria, false);
-		searchCriteria = view.getEditorDriver().flush();
-		if(view.getEditorDriver().hasErrors()) {
-			return;
+		if(searchCriteria instanceof BaseProxy) {
+			proxyFactory.setFrozen((BaseProxy) searchCriteria, false);
 		}
+		searchCriteria = view.getSearchCriteria();
 		Set<ConstraintViolation<S>> violations = validate(searchCriteria);
-		if(violations != null && !violations.isEmpty()) {
-			view.getEditorDriver().setConstraintViolations((Set)violations);
+		view.setConstraintViolations((Set)violations);
+		if(violations == null || violations.isEmpty()) {
+			loadItems(searchCriteria);
 		}
-		loadItems(searchCriteria);
 	}
 	
 	/**

@@ -6,11 +6,11 @@ package org.appfuse.webapp.client.ui.users.editProfile;
 import org.appfuse.webapp.client.application.Application;
 import org.appfuse.webapp.client.application.base.activity.AbstractProxyEditActivity;
 import org.appfuse.webapp.client.application.base.view.ProxyEditView;
+import org.appfuse.webapp.client.proxies.RoleProxy;
+import org.appfuse.webapp.client.proxies.UserProxy;
+import org.appfuse.webapp.client.requests.UserRequest;
 import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
 import org.appfuse.webapp.client.ui.users.editUser.EditUserView;
-import org.appfuse.webapp.proxies.RoleProxy;
-import org.appfuse.webapp.proxies.UserProxy;
-import org.appfuse.webapp.requests.UserRequest;
 
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.gwt.place.shared.Place;

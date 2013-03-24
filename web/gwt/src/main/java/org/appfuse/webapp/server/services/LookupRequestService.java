@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.appfuse.model.LabelValue;
 import org.appfuse.model.Role;
-import org.appfuse.webapp.proxies.LookupConstantsProxy;
+import org.appfuse.webapp.client.proxies.LookupConstantsProxy;
 import org.springframework.security.access.annotation.Secured;
 
 public interface LookupRequestService {

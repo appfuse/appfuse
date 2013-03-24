@@ -5,7 +5,7 @@ import java.util.Set;
 
 import org.appfuse.webapp.client.application.ApplicationResources;
 import org.appfuse.webapp.client.application.utils.tables.CustomColumn;
-import org.appfuse.webapp.proxies.UserProxy;
+import org.appfuse.webapp.client.proxies.UserProxy;
 
 import com.github.gwtbootstrap.client.ui.Button;
 import com.google.gwt.cell.client.Cell.Context;

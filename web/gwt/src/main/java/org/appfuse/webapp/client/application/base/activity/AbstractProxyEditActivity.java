@@ -8,7 +8,9 @@ import javax.validation.ConstraintViolation;
 
 import org.appfuse.webapp.client.application.Application;
 import org.appfuse.webapp.client.application.base.place.EntityProxyPlace;
+import org.appfuse.webapp.client.application.base.place.EntitySearchPlace;
 import org.appfuse.webapp.client.application.base.view.ProxyEditView;
+import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
 
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.gwt.activity.shared.Activity;
@@ -38,8 +40,6 @@ import com.google.web.bindery.requestfactory.shared.ServerFailure;
  *	<li> {@link #loadProxyRequest(RequestContext, EntityProxyId)}</li>
  * 	<li> {@link #saveOrUpdateRequest(RequestContext, EntityProxy)}</li>
  * 	<li> {@link #deleteRequest(RequestContext, EntityProxy)}</li>
- * 	<li> {@link #nextPlace(boolean)}</li>
- * 	<li> {@link #previousPlace()}</li>
  * </ol>
  * 
  * Customization:
@@ -50,6 +50,8 @@ import com.google.web.bindery.requestfactory.shared.ServerFailure;
  * 	<li> {@link #loadProxyRequest(RequestContext, EntityProxyId)}</li>
  * 	<li> {@link #getSavedMessage()}</li>
  * 	<li> {@link #getDeletedMessage()}</li>
+ * 	<li> {@link #nextPlace(boolean)}</li>
+ * 	<li> {@link #previousPlace()}</li>
  * </ol>
  * 
  * @param <P> the type of Proxy being edited
@@ -148,20 +150,6 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 	 */
 	protected abstract RequestContext deleteRequest(RequestContext requestContext, P proxy);
 
-	
-	/**
-	 * Creates the {@link Place} to go after successfully saved or deleted this entity.
-	 * @param saved 
-	 * @return
-	 */
-	protected abstract Place nextPlace(boolean saved);
-
-	/**
-	 * Creates the {@link Place} to go when this activity is canceled.
-	 * @param saved 
-	 * @return
-	 */
-	protected abstract Place previousPlace();
 	
 	/**
 	 * @param currentPlace
@@ -309,6 +297,29 @@ public abstract class AbstractProxyEditActivity<P extends EntityProxy> extends A
 			placeController.goTo(previousPlace());
 		}
 	}
+	
+	
+	/**
+	 * Creates the {@link Place} to go when this activity is canceled.
+	 * @param saved 
+	 * @return
+	 */
+	protected Place previousPlace() {
+		return new EntitySearchPlace(getProxyClass());
+	}
+	
+	/**
+	 * Creates the {@link Place} to go after successfully saved or deleted this entity.
+	 * @param saved 
+	 * @return
+	 */
+	protected Place nextPlace(boolean saved) {
+		if(saved) {
+			return new EntitySearchPlace(getProxyClass());
+		} else { // deleted
+			return new MainMenuPlace();
+		}
+	}	
 
 	protected void clearMessages() {
 		shell.clearMessages();

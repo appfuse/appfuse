@@ -226,7 +226,7 @@
                                 <classpath/>
                                 <argument>com.google.web.bindery.requestfactory.apt.ValidationTool</argument>
                                 <argument>${project.build.outputDirectory}</argument>
-                                <argument>${project.groupId}.webapp.requests.ApplicationRequestFactory</argument>
+                                <argument>${project.groupId}.webapp.client.requests.ApplicationRequestFactory</argument>
                             </arguments>
                         </configuration>
                     </execution>

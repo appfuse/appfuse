@@ -1,4 +1,4 @@
-package org.appfuse.webapp.proxies;
+package org.appfuse.webapp.client.proxies;
 
 import javax.validation.constraints.Size;
 

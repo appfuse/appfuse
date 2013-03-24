@@ -10,7 +10,6 @@ import org.appfuse.webapp.client.application.ApplicationProxyFactory;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceTokenizer;
 import com.google.gwt.place.shared.Prefix;
-import com.google.web.bindery.requestfactory.shared.BaseProxy;
 import com.google.web.bindery.requestfactory.shared.EntityProxy;
 import com.google.web.bindery.requestfactory.shared.RequestFactory;
 
@@ -22,7 +21,7 @@ public class EntitySearchPlace extends Place {
 	private static final String PREFIX = "l";
 
 	private final Class<? extends EntityProxy> proxyClass;
-	private BaseProxy searchCriteria;
+	private Object searchCriteria;
 	private int firstResult = 0;
 	private int maxResults = 25;
 
@@ -38,7 +37,7 @@ public class EntitySearchPlace extends Place {
 	 * @param proxyType
 	 * @param searchCriteria
 	 */
-	public EntitySearchPlace(Class<? extends EntityProxy> proxyClass, BaseProxy searchCriteria) {
+	public EntitySearchPlace(Class<? extends EntityProxy> proxyClass, Object searchCriteria) {
 		super();
 		this.proxyClass = proxyClass;
 		this.searchCriteria = searchCriteria;
@@ -50,7 +49,7 @@ public class EntitySearchPlace extends Place {
 	 * @param firstResult
 	 * @param maxResults
 	 */
-	public EntitySearchPlace(Class<? extends EntityProxy> proxyClass, int firstResult, int maxResults, BaseProxy searchCriteria) {
+	public EntitySearchPlace(Class<? extends EntityProxy> proxyClass, int firstResult, int maxResults, Object searchCriteria) {
 		super();
 		this.proxyClass = proxyClass;
 		this.firstResult = firstResult;
@@ -62,7 +61,7 @@ public class EntitySearchPlace extends Place {
 		return proxyClass;
 	}
 	
-	public BaseProxy getSearchCriteria() {
+	public Object getSearchCriteria() {
 		return searchCriteria;
 	}
 	
@@ -70,7 +69,7 @@ public class EntitySearchPlace extends Place {
 		return firstResult;
 	}
 
-	public void setSearchCriteria(BaseProxy searchCriteria) {
+	public void setSearchCriteria(Object searchCriteria) {
 		this.searchCriteria = searchCriteria;
 	}
 	
@@ -111,7 +110,7 @@ public class EntitySearchPlace extends Place {
 			logger.fine("Slicing token: " + token);
 			String tokens[] = token.split(SEPARATOR);
 			Class<? extends EntityProxy> proxyType = requests.getProxyClass(tokens[0]);
-			BaseProxy searchCriteria = null;
+			Object searchCriteria = null;
 			int firstResult = 0;
 			int maxResults = 0;
 			if(tokens.length > 2) {
@@ -119,7 +118,7 @@ public class EntitySearchPlace extends Place {
 				maxResults = parseInt(tokens[2]);
 			}
 			if(tokens.length > 3) {
-				Class<? extends BaseProxy> searchCriteriaClass = proxyFactory.getSearchCriteriaTypeForProxy(proxyType);
+				Class<? extends Object> searchCriteriaClass = proxyFactory.getSearchCriteriaTypeForProxy(proxyType);
 				searchCriteria = proxyFactory.deserialize(searchCriteriaClass, tokens[3]);
 			}
 			return new EntitySearchPlace(proxyType, firstResult, maxResults, searchCriteria);

@@ -8,9 +8,9 @@ import static com.google.web.bindery.autobean.shared.AutoBeanUtils.getAutoBean;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.appfuse.webapp.proxies.UserProxy;
-import org.appfuse.webapp.proxies.UsersSearchCriteriaProxy;
-import org.appfuse.webapp.requests.ApplicationRequestFactory;
+import org.appfuse.webapp.client.proxies.UserProxy;
+import org.appfuse.webapp.client.proxies.UsersSearchCriteriaProxy;
+import org.appfuse.webapp.client.requests.ApplicationRequestFactory;
 
 import com.google.gwt.core.shared.GWT;
 import com.google.inject.Inject;
@@ -27,8 +27,8 @@ import com.google.web.bindery.requestfactory.shared.impl.Constants;
  *
  */
 public class ApplicationProxyFactory {
-	private static final Map<Class<? extends EntityProxy>,Class<? extends BaseProxy>> 
-		SEARCH_CRITERIA_TYPES_MAP = new HashMap<Class<? extends EntityProxy>,Class<? extends BaseProxy>>();
+	private static final Map<Class<? extends EntityProxy>,Class<?>> 
+		SEARCH_CRITERIA_TYPES_MAP = new HashMap<Class<? extends EntityProxy>,Class<?>>();
 	
 	static {
 		// You need to map proxyClass - searchCriteria.getClass() here 
@@ -54,7 +54,7 @@ public class ApplicationProxyFactory {
 		this.requests = requests;
 	}
 
-	public Class<? extends BaseProxy> getSearchCriteriaTypeForProxy(Class<? extends EntityProxy> proxyType) {
+	public Class<?> getSearchCriteriaTypeForProxy(Class<? extends EntityProxy> proxyType) {
 		return SEARCH_CRITERIA_TYPES_MAP.get(proxyType);
 	};
 	
@@ -75,11 +75,46 @@ public class ApplicationProxyFactory {
 	}
 	
 	/**
+	 * Serialized an object into a string.
+	 * 
+	 * It only provides serialization out-of-the-box for {@link BaseProxy} objects.
+	 * You may need to provide your own serialization for your custom types.
+	 * @param object
+	 * @return
+	 */
+	public String serialize(Object object) {
+		if(object instanceof BaseProxy) {
+			return serializeProxy((BaseProxy) object);
+		}
+		//Provide here your own serialization
+		return "";
+	}	
+	
+	/**
+	 * Deserializes a string, previously serialized by {@link #serialize(Object)}, into its object form.
+	 * 
+	 * It only provides out-of-the-box deserialization for configured {@link BaseProxy} objects.
+	 * You may need to provide your own serialization for your custom types.
+	 * @param type
+	 * @param key
+	 * @return
+	 */
+	public Object deserialize(Class<?> type, String key) {
+		if(String.class.equals(type)) {
+			return key;
+		}else if(autoBeanFactory.create(type) != null) {
+			return deserializeProxy((Class<BaseProxy>) type, key);
+		}
+		//Provide here your own serialization
+		return null;
+	}	
+	
+	/**
 	 * 
 	 * @param proxy
 	 * @return
 	 */
-	public <T extends BaseProxy> String serialize(T proxy) {
+	public <T extends BaseProxy> String serializeProxy(T proxy) {
 		try {
 			String serialized = AutoBeanCodex.encode(getAutoBean(proxy)).getPayload();
 			return base64encode(serialized);
@@ -95,10 +130,10 @@ public class ApplicationProxyFactory {
 	 * @param key
 	 * @return
 	 */
-	public <T extends BaseProxy> T deserialize(Class<T> proxyType, String key) {
+	public <T extends BaseProxy> T deserializeProxy(Class<T> proxyType, String key) {
 		try {
 			T proxy = AutoBeanCodex.decode(autoBeanFactory, proxyType, base64decode(key)).as();
-			allocateId(getAutoBean(proxy));
+			allocateId((AutoBean)getAutoBean(proxy));
 			return proxy;
 		} catch (Exception e) {
 			e.printStackTrace();//for dev mode
@@ -106,8 +141,8 @@ public class ApplicationProxyFactory {
 		}
 	}
 	
-	public AutoBean<?> allocateId(AutoBean<?> autoBean) {
-		Object	id = ((AbstractRequestFactory)requests).allocateId(UsersSearchCriteriaProxy.class);
+	public <T extends BaseProxy> AutoBean<T> allocateId(AutoBean<T> autoBean) {
+		Object	id = ((AbstractRequestFactory)requests).allocateId(autoBean.getType());
 		autoBean.setTag(Constants.STABLE_ID, id);
 		return autoBean;
 	}
@@ -120,7 +155,7 @@ public class ApplicationProxyFactory {
 	public <T extends BaseProxy> void setFrozen(T proxy, boolean frozen) {
 		getAutoBean(proxy).setFrozen(frozen);
 	}
-
+	
 // these don't work on <= IE8	
 //	private static native String base64encode(String a) /*-{
 //	  return window.btoa(a);

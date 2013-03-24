@@ -1,4 +1,4 @@
-package org.appfuse.webapp.requests;
+package org.appfuse.webapp.client.requests;
 
 import com.google.web.bindery.requestfactory.shared.LoggingRequest;
 import com.google.web.bindery.requestfactory.shared.RequestFactory;

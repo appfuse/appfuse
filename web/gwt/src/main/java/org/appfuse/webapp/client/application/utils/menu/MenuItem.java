@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-import org.appfuse.webapp.proxies.RoleProxy;
+import org.appfuse.webapp.client.proxies.RoleProxy;
 
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.user.client.ui.Widget;

@@ -7,10 +7,10 @@ import org.appfuse.webapp.client.application.Application;
 import org.appfuse.webapp.client.application.base.activity.AbstractProxyEditActivity;
 import org.appfuse.webapp.client.application.base.place.EntitySearchPlace;
 import org.appfuse.webapp.client.application.base.view.ProxyEditView;
+import org.appfuse.webapp.client.proxies.AddressProxy;
+import org.appfuse.webapp.client.proxies.UserProxy;
+import org.appfuse.webapp.client.requests.UserRequest;
 import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
-import org.appfuse.webapp.proxies.AddressProxy;
-import org.appfuse.webapp.proxies.UserProxy;
-import org.appfuse.webapp.requests.UserRequest;
 
 import com.google.gwt.place.shared.Place;
 import com.google.web.bindery.requestfactory.shared.Request;

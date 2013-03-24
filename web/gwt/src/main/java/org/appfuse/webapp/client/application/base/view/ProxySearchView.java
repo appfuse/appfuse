@@ -1,5 +1,7 @@
 package org.appfuse.webapp.client.application.base.view;
 
+import javax.validation.ConstraintViolation;
+
 import com.google.gwt.editor.client.EditorDriver;
 import com.google.gwt.user.cellview.client.ColumnSortEvent.Handler;
 import com.google.gwt.user.cellview.client.ColumnSortList;
@@ -18,7 +20,7 @@ import com.google.web.bindery.requestfactory.shared.EntityProxy;
  *
  * @param <P> the type of the records to display
  */
-public interface ProxySearchView<P extends EntityProxy, S extends BaseProxy> extends IsWidget {
+public interface ProxySearchView<P extends EntityProxy, S> extends IsWidget {
 	
 	/**
 	 * Implemented by the owner of a RecordTableView.
@@ -40,7 +42,9 @@ public interface ProxySearchView<P extends EntityProxy, S extends BaseProxy> ext
 	 */
 	void setDelegate(Delegate<P> delegate);
 	void setSearchCriteria(S searchCriteria);
-	EditorDriver<S> getEditorDriver();
+	S getSearchCriteria();
+	
+	boolean setConstraintViolations(Iterable<ConstraintViolation<S>> violations);
 	
 	
 	HasData<P> asHasData();

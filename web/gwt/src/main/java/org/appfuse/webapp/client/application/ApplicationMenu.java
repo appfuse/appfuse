@@ -3,16 +3,17 @@
  */
 package org.appfuse.webapp.client.application;
 
-import static org.appfuse.webapp.proxies.RoleProxy.ANONYMOUS;
-import static org.appfuse.webapp.proxies.RoleProxy.AUTHENTICATED;
-import static org.appfuse.webapp.proxies.RoleProxy.ROLE_ADMIN;
-import static org.appfuse.webapp.proxies.RoleProxy.ROLE_USER;
+import static org.appfuse.webapp.client.proxies.RoleProxy.ANONYMOUS;
+import static org.appfuse.webapp.client.proxies.RoleProxy.AUTHENTICATED;
+import static org.appfuse.webapp.client.proxies.RoleProxy.ROLE_ADMIN;
+import static org.appfuse.webapp.client.proxies.RoleProxy.ROLE_USER;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.appfuse.webapp.client.application.base.place.EntitySearchPlace;
 import org.appfuse.webapp.client.application.utils.menu.MenuItem;
+import org.appfuse.webapp.client.proxies.UserProxy;
 import org.appfuse.webapp.client.ui.login.LoginPlace;
 import org.appfuse.webapp.client.ui.logout.LogoutPlace;
 import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
@@ -20,7 +21,6 @@ import org.appfuse.webapp.client.ui.reloadOptions.ReloadOptionsPlace;
 import org.appfuse.webapp.client.ui.upload.FileUploadPlace;
 import org.appfuse.webapp.client.ui.users.active.ActiveUsersPlace;
 import org.appfuse.webapp.client.ui.users.editProfile.EditProfilePlace;
-import org.appfuse.webapp.proxies.UserProxy;
 
 import com.google.gwt.core.client.GWT;
 

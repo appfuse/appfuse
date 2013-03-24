@@ -5,8 +5,8 @@ package org.appfuse.webapp.client.ui.reloadOptions;
 
 import org.appfuse.webapp.client.application.Application;
 import org.appfuse.webapp.client.application.base.activity.AbstractBaseActivity;
+import org.appfuse.webapp.client.proxies.LookupConstantsProxy;
 import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
-import org.appfuse.webapp.proxies.LookupConstantsProxy;
 
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.gwt.event.shared.EventBus;

@@ -11,9 +11,9 @@ import org.appfuse.webapp.client.application.base.place.EntitySearchPlace;
 import org.appfuse.webapp.client.application.base.view.ProxySearchView;
 import org.appfuse.webapp.client.application.utils.tables.CustomColumn;
 import org.appfuse.webapp.client.application.utils.tables.LocalColumnSortHandler;
-import org.appfuse.webapp.proxies.UserProxy;
-import org.appfuse.webapp.proxies.UsersSearchCriteriaProxy;
-import org.appfuse.webapp.requests.UserRequest;
+import org.appfuse.webapp.client.proxies.UserProxy;
+import org.appfuse.webapp.client.proxies.UsersSearchCriteriaProxy;
+import org.appfuse.webapp.client.requests.UserRequest;
 
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.ColumnSortEvent;

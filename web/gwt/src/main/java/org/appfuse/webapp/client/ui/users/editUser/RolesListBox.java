@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.appfuse.webapp.proxies.RoleProxy;
+import org.appfuse.webapp.client.proxies.RoleProxy;
 
 import com.google.gwt.cell.client.AbstractCell;
 import com.google.gwt.cell.client.Cell;

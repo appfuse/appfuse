@@ -6,9 +6,9 @@ package org.appfuse.webapp.client.ui.users.editUser;
 import java.util.List;
 
 import org.appfuse.webapp.client.application.ApplicationResources;
-import org.appfuse.webapp.proxies.LabelValueProxy;
-import org.appfuse.webapp.proxies.RoleProxy;
-import org.appfuse.webapp.proxies.UserProxy;
+import org.appfuse.webapp.client.proxies.LabelValueProxy;
+import org.appfuse.webapp.client.proxies.RoleProxy;
+import org.appfuse.webapp.client.proxies.UserProxy;
 
 import com.github.gwtbootstrap.client.ui.Button;
 import com.github.gwtbootstrap.client.ui.CheckBox;

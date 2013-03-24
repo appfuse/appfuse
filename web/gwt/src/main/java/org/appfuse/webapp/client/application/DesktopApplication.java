@@ -10,13 +10,13 @@ import org.appfuse.webapp.client.application.base.security.AuthRequiredEvent;
 import org.appfuse.webapp.client.application.base.security.LoginEvent;
 import org.appfuse.webapp.client.application.base.security.LogoutEvent;
 import org.appfuse.webapp.client.application.base.security.RequestForbidenEvent;
+import org.appfuse.webapp.client.proxies.LookupConstantsProxy;
+import org.appfuse.webapp.client.proxies.UserProxy;
+import org.appfuse.webapp.client.requests.ApplicationRequestFactory;
 import org.appfuse.webapp.client.ui.DesktopShell;
 import org.appfuse.webapp.client.ui.login.LoginActivity;
 import org.appfuse.webapp.client.ui.login.LoginPlace;
 import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
-import org.appfuse.webapp.proxies.LookupConstantsProxy;
-import org.appfuse.webapp.proxies.UserProxy;
-import org.appfuse.webapp.requests.ApplicationRequestFactory;
 
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.gwt.activity.shared.ActivityManager;
