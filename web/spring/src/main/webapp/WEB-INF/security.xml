@@ -12,6 +12,7 @@
     <http auto-config="true">
         <intercept-url pattern="/app/admin/**" access="ROLE_ADMIN"/>
         <intercept-url pattern="/app/passwordHint*" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>
+        <intercept-url pattern="/app/updatePassword*" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER" />
         <intercept-url pattern="/app/signup*" access="ROLE_ANONYMOUS,ROLE_ADMIN,ROLE_USER"/>
         <intercept-url pattern="/app/**" access="ROLE_ADMIN,ROLE_USER"/>
         <form-login login-page="/login" authentication-failure-url="/login?error=true" login-processing-url="/j_security_check"/>
