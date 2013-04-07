@@ -4,9 +4,14 @@
 package org.appfuse.webapp.util;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.model.User;
@@ -39,6 +44,9 @@ public class PasswordRecoveryManager {
 
 	private String passwordRecoveryTemplate = "passwordRecovery.vm";
 	private String passwordUpdatedTemplate = "passwordUpdated.vm";
+	
+	private SimpleDateFormat expirationTimeFormat = new SimpleDateFormat("yyyyMMddHHmm");
+	private int expirationTimeTokenLength = expirationTimeFormat.toPattern().length();
 
 
 	/**
@@ -64,10 +72,25 @@ public class PasswordRecoveryManager {
 		return false;
 	}
 
+	/**
+	 * 
+	 * @param username
+	 * @param token
+	 * @return
+	 */
 	public boolean isRecoveryTokenValid(String username, String token) {
 		return isRecoveryTokenValid(userManager.getUserByUsername(username), token);
 	}
 
+	/**
+	 * 
+	 * @param username
+	 * @param token
+	 * @param newPassword
+	 * @param applicationUrl
+	 * @return
+	 * @throws UserExistsException
+	 */
 	public User updatePassword(String username, String token, String newPassword, String applicationUrl) throws UserExistsException {
 		User user = userManager.getUserByUsername(username);
 		if (isRecoveryTokenValid(user, token)) {
@@ -82,25 +105,74 @@ public class PasswordRecoveryManager {
 		return null;
 	}
 
+	/**
+	 * 
+	 * @param user
+	 * @param token
+	 * @return
+	 */
 	public boolean isRecoveryTokenValid(User user, String token) {
-		if (user != null) {
-			return passwordEncoder.isPasswordValid(token, getTokenSource(user), saltSource);
+		if (user != null && token != null) {
+			String expirationTimeStamp = getTimestamp(token);
+			String tokenWithoutTimestamp = getTokenWithoutTimestamp(token);
+			String tokenSource = expirationTimeStamp + getTokenSource(user);
+			Date expirationTime = parseTimestamp(expirationTimeStamp);
+			
+			return expirationTime != null && expirationTime.after(new Date()) 
+					&& passwordEncoder.isPasswordValid(tokenWithoutTimestamp, tokenSource, saltSource);
 		}
 		return false;
 	}
 	
+	/**
+	 * 
+	 * @param user
+	 * @return
+	 */
 	public String generateRecoveryToken(User user) {
 		if (user != null) {
 			String tokenSource = getTokenSource(user);
-			return passwordEncoder.encodePassword(tokenSource, saltSource);
+			String expirationTimeStamp = expirationTimeFormat.format(getExpirationTime());
+			return expirationTimeStamp + passwordEncoder.encodePassword(
+						expirationTimeStamp + tokenSource, saltSource);
 		}
 		return null;
 	}
 
+	/**
+	 * Return tokens expiration time, now + 1 day.
+	 * @return
+	 */
+	private Date getExpirationTime() {
+		return DateUtils.addDays(new Date(), 1);
+	}
+
+	/**
+	 * 
+	 * @param user
+	 * @return
+	 */
 	private String getTokenSource(User user) {
 		return user.getEmail() + user.getVersion() + user.getPassword();
 	}
+	
+	
+	private String getTimestamp(String token) {
+		return StringUtils.substring(token, 0, expirationTimeTokenLength);
+	}
 
+	private String getTokenWithoutTimestamp(String token) {
+		return StringUtils.substring(token, expirationTimeTokenLength, token.length());
+	}
+	
+	private Date parseTimestamp(String timestamp) {
+		try {
+			return expirationTimeFormat.parse(timestamp);
+		} catch (ParseException e) {
+			return null;
+		}
+	}
+	
 	private void sendUserEmail(User user, String template, String url) {
 		message.setTo(user.getFullName() + "<" + user.getEmail() + ">");
 
