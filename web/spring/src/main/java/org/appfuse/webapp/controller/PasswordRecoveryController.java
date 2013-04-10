@@ -7,14 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.cxf.interceptor.security.AccessDeniedException;
-import org.appfuse.model.User;
-import org.appfuse.service.UserExistsException;
 import org.appfuse.webapp.util.PasswordRecoveryManager;
 import org.appfuse.webapp.util.RequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,9 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * Simple class to retrieve and send a password hint to users.
+ * Simple class for password reset functionality.
  * 
- * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
+ * @author ivangsa
  */
 @Controller
 @RequestMapping("/updatePassword*")
