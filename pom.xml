@@ -639,7 +639,7 @@
         <jstl.version>1.2</jstl.version>
         <junit.version>4.10</junit.version>
         <log4j.version>1.2.17</log4j.version>
-        <primefaces.version>3.4</primefaces.version>
+        <primefaces.version>3.5</primefaces.version>
         <servlet.version>3.0.1</servlet.version>
         <shale.version>1.0.5</shale.version>
         <sitemesh.version>2.4.2</sitemesh.version>

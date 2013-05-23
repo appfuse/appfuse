@@ -325,9 +325,9 @@
             <version>${primefaces.version}</version>
         </dependency>
         <dependency>
-        	<groupId>org.primefaces.themes</groupId>
-        	<artifactId>bootstrap</artifactId>
-        	<version>1.0.9</version>
+            <groupId>org.primefaces.themes</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>1.0.10</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
@@ -689,7 +689,7 @@
         <commons.io.version>2.4</commons.io.version>
         <el.version>1.2</el.version>
         <jsf.version>2.1.2</jsf.version>
-        <primefaces.version>3.4</primefaces.version>
+        <primefaces.version>3.5.4</primefaces.version>
         <servlet.version>3.0.1</servlet.version>
         <spring.version>3.2.0.RELEASE</spring.version>
 

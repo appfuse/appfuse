@@ -96,7 +96,7 @@
                 <clickbutton label="${button.search}" description="Click Search"/>
                 <verifyXPath
                      description="Count the number of users found"
-                     xpath="count(//div[@id='editUser:users']/table/tbody/tr)"
+                     xpath="count(//tbody[@id='editUser:users_data']/tr)"
                      text="1"/>
             </steps>
         </webtest>
