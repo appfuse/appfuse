@@ -9,7 +9,7 @@
     </target>
 
     <!-- Verify the ${util.getPluralForWord(pojoNameLower)} list screen displays without errors -->
-    <target name="Search${util.getPluralForWord(pojo.shortName)}" description="Tests search for and displaying all people">
+    <target name="Search${util.getPluralForWord(pojo.shortName)}" description="Tests searching for ${util.getPluralForWord(pojoNameLower)}">
         <webtest name="search${util.getPluralForWord(pojo.shortName)}">
             &config;
             <steps>
