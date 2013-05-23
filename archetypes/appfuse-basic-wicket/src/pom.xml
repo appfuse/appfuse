@@ -723,7 +723,7 @@
 
         <!-- Framework dependency versions -->
         <appfuse.version>2.2.2-SNAPSHOT</appfuse.version>
-        <spring.version>3.2.0.RELEASE</spring.version>
+        <spring.version>3.2.3.RELEASE</spring.version>
         <wicket.version>6.3.0</wicket.version>
         <wicketstuff.version>${wicket.version}</wicketstuff.version>
 
