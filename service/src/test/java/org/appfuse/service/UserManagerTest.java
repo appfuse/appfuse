@@ -73,11 +73,11 @@ public class UserManagerTest extends BaseManagerTestCase {
         assertEquals(3, found.size());
     }
     
-    @Test
-    public void testUserSearch() throws Exception {
-    	mgr.reindex();
-        List<User> found = mgr.search("Two Roles");
-        assertEquals(1, found.size());
-    }
+//    @Test
+//    public void testUserSearch() throws Exception {
+//    	mgr.reindex();
+//        List<User> found = mgr.search("Two Roles");
+//        assertEquals(1, found.size());
+//    }
 
 }

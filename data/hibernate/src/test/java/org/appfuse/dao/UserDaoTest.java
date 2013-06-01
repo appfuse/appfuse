@@ -154,7 +154,7 @@ public class UserDaoTest extends BaseDaoTestCase {
     @Test
     public void testUserSearch() throws Exception {
         // reindex all the data
-        //dao.reindex();
+        dao.reindex();
 
         List<User> found = dao.search("Matt");
         assertEquals(1, found.size());
