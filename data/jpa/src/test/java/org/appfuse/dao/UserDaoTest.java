@@ -141,7 +141,7 @@ public class UserDaoTest extends BaseDaoTestCase {
         dao.reindex();
 
         List<User> found = dao.search("*");
-        assertEquals(2, found.size());
+        assertEquals(3, found.size());
 
         found = dao.search("Tomcat");
         assertEquals(1, found.size());

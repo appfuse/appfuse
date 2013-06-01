@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dataset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:noNamespaceSchemaLocation="sample-data.xsd">
+<dataset>
     <table name="app_user">
         <column>id</column>
         <column>username</column>
@@ -63,6 +62,27 @@ xsi:noNamespaceSchemaLocation="sample-data.xsd">
             <value description="account_locked">0</value>
             <value description="credentials_expired">0</value>
         </row>
+        <row>
+            <value description="id">-3</value>
+            <value description="username">two_roles_user</value>
+            <value description="password">a40546cc4fd6a12572828bb803380888ad1bfdab</value>
+            <value description="first_name">Two Roles</value>
+            <value description="last_name">User</value>
+            <value description="address"></value>
+            <value description="city">Denver</value>
+            <value description="country">US</value>
+            <value description="email">two_roles_user@appfuse.org</value>
+            <value description="phone_number"></value>
+            <value description="postal_code">80210</value>
+            <value description="province">CO</value>
+            <value description="website">http://raibledesigns.com</value>
+            <value description="password_hint"><![CDATA[Not a female kitty.]]></value>
+            <value description="version">1</value>
+            <value description="account_enabled">1</value>
+            <value description="account_expired">0</value>
+            <value description="account_locked">0</value>
+            <value description="credentials_expired">0</value>
+        </row>        
     </table>
     <table name="role">
         <column>id</column>
@@ -89,6 +109,14 @@ xsi:noNamespaceSchemaLocation="sample-data.xsd">
         <row>
             <value description="user_id">-2</value>
             <value description="role_id">-1</value>
+        </row>
+        <row>
+            <value description="user_id">-3</value>
+            <value description="role_id">-1</value>
+        </row>
+        <row>
+            <value description="user_id">-3</value>
+            <value description="role_id">-2</value>
         </row>
     </table>
 </dataset>
