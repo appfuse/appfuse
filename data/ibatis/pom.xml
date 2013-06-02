@@ -88,7 +88,7 @@
                     <username>${jdbc.username}</username>
                     <password>${jdbc.password}</password>
                     <url>${jdbc.url}</url>
-                    <src>src/test/resources/sample-data.xml</src>
+                    <src>../common/src/test/resources/sample-data.xml</src>
                     <type>${dbunit.operation.type}</type>
                     <schema>${dbunit.schema}</schema>
                     <skip>${skipTests}</skip>
