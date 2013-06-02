@@ -4,6 +4,8 @@
     <property name="version" value="2.2.2-SNAPSHOT"/>
     <property name="archetype" value="${archetype}"/>
     <property name="test.dir" value="${basedir}/target"/>
+    <property name="dbunit.sample-data.xml" 
+    	value="${basedir}/../../data/common/src/test/resources/sample-data.xml" />
 
     <taskdef resource="net/sf/antcontrib/antcontrib.properties">
         <classpath>
@@ -135,6 +137,17 @@
                     <exclude name="*.log"/>
                 </fileset>
             </copy>
+            
+            <if>
+                <equals arg1="@{dest}" arg2="web"/>
+                <then>
+                   <copy file="${dbunit.sample-data.xml}" todir="@{dir}/core/src/test/resources/" />
+                   <copy file="${dbunit.sample-data.xml}" todir="@{dir}/web/src/test/resources/" />
+                </then>
+	            <else>
+                   <copy file="${dbunit.sample-data.xml}" todir="@{dir}/src/test/resources/" />
+                </else>
+            </if>
             <!-- Fix bug that happens in Bamboo -->
             <delete dir="@{dir}" includes="main/**"/>
 

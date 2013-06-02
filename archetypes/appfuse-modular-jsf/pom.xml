@@ -60,11 +60,6 @@
                                         <exclude name="README.txt" />
                                     </fileset>
                                 </copy>
-								<copy todir="${project.build.directory}/${module}-archetype/core/src/test/resources/" 
-										file="${project.basedir}/../../data/common/src/test/resources/sample-data.xml" />
-								<copy todir="${project.build.directory}/${module}-archetype/web/src/test/resources/" 
-										file="${project.basedir}/../../data/common/src/test/resources/sample-data.xml" />
-
                                 <!-- Fix bug that happens in Bamboo -->
                                 <delete dir="target/${module}-archetype/core" includes="main/**" />
 

@@ -51,8 +51,6 @@
                         <configuration>
                             <tasks>
                                 <delete dir="target/${module}-archetype" />
-                                <copy todir="${project.build.directory}/${module}-archetype/src/test/resources/" 
-                                    file="${project.basedir}/../../data/common/src/test/resources/sample-data.xml" />
                                 <ant antfile="../build.xml" dir="." target="build-archetype">
                                     <property name="module" value="${module}" />
                                 </ant>
