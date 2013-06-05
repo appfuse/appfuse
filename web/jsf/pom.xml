@@ -215,6 +215,11 @@
             <artifactId>bootstrap</artifactId>
             <version>1.0.10</version>
         </dependency>
+        <dependency>
+            <groupId>com.ocpsoft</groupId>
+            <artifactId>prettyfaces-jsf2</artifactId>
+            <version>3.3.3</version>
+        </dependency>
         <!-- Upgrade version of commons-io used -->
         <dependency>
             <groupId>commons-io</groupId>
