@@ -1,11 +1,13 @@
-package org.appfuse.webapp.util;
+package org.appfuse.service.impl;
 
 import static org.junit.Assert.assertTrue;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.model.User;
+import org.appfuse.service.PasswordRecoveryManager;
 import org.appfuse.service.UserManager;
+import org.appfuse.service.impl.PasswordRecoveryManagerImpl;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +21,7 @@ import org.subethamail.wiser.Wiser;
         locations = {"classpath:/applicationContext-resources.xml",
                 "classpath:/applicationContext-dao.xml",
                 "classpath:/applicationContext-service.xml"})
-public class PasswordRecoveryManagerTest extends AbstractTransactionalJUnit4SpringContextTests {
+public class PasswordRecoveryManagerImplTest extends AbstractTransactionalJUnit4SpringContextTests {
     protected transient final Log log = LogFactory.getLog(getClass());
     private int smtpPort = 25250;
 
@@ -37,7 +39,7 @@ public class PasswordRecoveryManagerTest extends AbstractTransactionalJUnit4Spri
         mailSender.setPort(smtpPort);
         mailSender.setHost("localhost");
         
-        passwordRecoveryManager = new PasswordRecoveryManager();
+        passwordRecoveryManager = new PasswordRecoveryManagerImpl();
         applicationContext.getAutowireCapableBeanFactory().autowireBean(passwordRecoveryManager);
     }
 
