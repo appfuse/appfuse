@@ -32,18 +32,6 @@
             <field property="username" depends="required">
                 <arg key="user.username"/>
             </field>
-            <field property="password" depends="required,twofields">
-                <msg name="twofields" key="errors.twofields"/>
-                <arg key="user.password"/>
-                <arg key="user.confirmPassword" position="1"/>
-                <var>
-                    <var-name>secondProperty</var-name>
-                    <var-value>confirmPassword</var-value>
-                </var>
-            </field>
-            <field property="confirmPassword" depends="required">
-                <arg key="user.confirmPassword"/>
-            </field>
             <field property="firstName" depends="required">
                 <arg key="user.firstName"/>
             </field>
