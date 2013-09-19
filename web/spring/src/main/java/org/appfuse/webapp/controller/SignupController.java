@@ -20,6 +20,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.tuckey.web.filters.urlrewrite.utils.StringUtils;
 
 /**
  * Controller to signup new users.
@@ -32,83 +33,88 @@ public class SignupController extends BaseFormController {
     private RoleManager roleManager;
 
     @Autowired
-    public void setRoleManager(RoleManager roleManager) {
-        this.roleManager = roleManager;
+    public void setRoleManager(final RoleManager roleManager) {
+	this.roleManager = roleManager;
     }
 
     public SignupController() {
-        setCancelView("redirect:login");
-        setSuccessView("redirect:mainMenu");
+	setCancelView("redirect:login");
+	setSuccessView("redirect:mainMenu");
     }
 
     @ModelAttribute
     @RequestMapping(method = RequestMethod.GET)
     public User showForm() {
-        return new User();  
+	return new User();
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String onSubmit(User user, BindingResult errors, HttpServletRequest request, HttpServletResponse response)
-            throws Exception {
-        if (request.getParameter("cancel") != null) {
-            return getCancelView();
-        }
+    public String onSubmit(final User user, final BindingResult errors, final HttpServletRequest request, final HttpServletResponse response)
+	    throws Exception {
+	if (request.getParameter("cancel") != null) {
+	    return getCancelView();
+	}
 
-        if (validator != null) { // validator is null during testing
-            validator.validate(user, errors);
+	if (validator != null) { // validator is null during testing
+	    validator.validate(user, errors);
 
-            if (errors.hasErrors()) {
-                return "signup";
-            }
-        }
+	    if(StringUtils.isBlank(user.getPassword())) {
+		errors.rejectValue("password", "errors.required", new Object[] { getText("user.password", request.getLocale()) },
+			"Password is a required field.");
+	    }
 
-        Locale locale = request.getLocale();
-        
-        user.setEnabled(true);
+	    if (errors.hasErrors()) {
+		return "signup";
+	    }
+	}
 
-        // Set the default user role on this new user
-        user.addRole(roleManager.getRole(Constants.USER_ROLE));
+	final Locale locale = request.getLocale();
 
-        // unencrypted users password to log in user automatically
-        String password = user.getPassword();
+	user.setEnabled(true);
 
-        try {
-            this.getUserManager().saveUser(user);
-        } catch (AccessDeniedException ade) {
-            // thrown by UserSecurityAdvice configured in aop:advisor userManagerSecurity
-            log.warn(ade.getMessage());
-            response.sendError(HttpServletResponse.SC_FORBIDDEN);
-            return null; 
-        } catch (UserExistsException e) {
-            errors.rejectValue("username", "errors.existing.user",
-                    new Object[]{user.getUsername(), user.getEmail()}, "duplicate user");
+	// Set the default user role on this new user
+	user.addRole(roleManager.getRole(Constants.USER_ROLE));
 
-            return "signup";
-        }
+	// unencrypted users password to log in user automatically
+	final String password = user.getPassword();
 
-        saveMessage(request, getText("user.registered", user.getUsername(), locale));
-        request.getSession().setAttribute(Constants.REGISTERED, Boolean.TRUE);
+	try {
+	    this.getUserManager().saveUser(user);
+	} catch (final AccessDeniedException ade) {
+	    // thrown by UserSecurityAdvice configured in aop:advisor userManagerSecurity
+	    log.warn(ade.getMessage());
+	    response.sendError(HttpServletResponse.SC_FORBIDDEN);
+	    return null;
+	} catch (final UserExistsException e) {
+	    errors.rejectValue("username", "errors.existing.user",
+		    new Object[]{user.getUsername(), user.getEmail()}, "duplicate user");
 
-        // log user in automatically
-        UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
-                user.getUsername(), password, user.getAuthorities());
-        auth.setDetails(user);
-        SecurityContextHolder.getContext().setAuthentication(auth);
+	    return "signup";
+	}
 
-        // Send user an e-mail
-        if (log.isDebugEnabled()) {
-            log.debug("Sending user '" + user.getUsername() + "' an account information e-mail");
-        }
+	saveMessage(request, getText("user.registered", user.getUsername(), locale));
+	request.getSession().setAttribute(Constants.REGISTERED, Boolean.TRUE);
 
-        // Send an account information e-mail
-        message.setSubject(getText("signup.email.subject", locale));
+	// log user in automatically
+	final UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
+		user.getUsername(), password, user.getAuthorities());
+	auth.setDetails(user);
+	SecurityContextHolder.getContext().setAuthentication(auth);
 
-        try {
-            sendUserMessage(user, getText("signup.email.message", locale), RequestUtil.getAppURL(request));
-        } catch (MailException me) {
-            saveError(request, me.getMostSpecificCause().getMessage());
-        }
-        
-        return getSuccessView();
+	// Send user an e-mail
+	if (log.isDebugEnabled()) {
+	    log.debug("Sending user '" + user.getUsername() + "' an account information e-mail");
+	}
+
+	// Send an account information e-mail
+	message.setSubject(getText("signup.email.subject", locale));
+
+	try {
+	    sendUserMessage(user, getText("signup.email.message", locale), RequestUtil.getAppURL(request));
+	} catch (final MailException me) {
+	    saveError(request, me.getMostSpecificCause().getMessage());
+	}
+
+	return getSuccessView();
     }
 }
