@@ -43,9 +43,4 @@
 </c:set>
 
 <p><fmt:message key="login.passwordHint"/></p>
-
-<c:if test="${true}"><%-- FIXME find out a better way to switch this --%>
-	<p><fmt:message key="updatePassword.requestRecoveryTokenLink"/></p>
-</c:if>
-
 </body>

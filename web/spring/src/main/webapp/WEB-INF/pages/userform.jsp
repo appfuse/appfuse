@@ -39,6 +39,15 @@
         <form:hidden path="version"/>
         <input type="hidden" name="from" value="<c:out value="${param.from}"/>"/>
 
+        <c:if test="${cookieLogin == 'true'}">
+            <form:hidden path="password"/>
+            <form:hidden path="confirmPassword"/>
+        </c:if>
+
+        <c:if test="${empty user.version}">
+            <input type="hidden" name="encryptPass" value="true"/>
+        </c:if>
+
         <spring:bind path="user.username">
         <fieldset class="control-group${(not empty status.errorMessage) ? ' error' : ''}">
         </spring:bind>
@@ -46,14 +55,28 @@
             <div class="controls">
                 <form:input path="username" id="username"/>
                 <form:errors path="username" cssClass="help-inline"/>
-                <c:if test="${pageContext.request.remoteUser == user.username}">
-	                <span class="help-block">
-	                	<a href="<c:url value="/updatePassword" />"><fmt:message key='updatePassword.changePasswordLink'/></a>
-	                </span>
-                </c:if>
             </div>
         </fieldset>
-
+    <c:if test="${cookieLogin != 'true'}">
+        <spring:bind path="user.password">
+        <fieldset class="control-group${(not empty status.errorMessage) ? ' error' : ''}">
+        </spring:bind>
+            <appfuse:label styleClass="control-label" key="user.password"/>
+            <div class="controls">
+                <form:password path="password" id="password" showPassword="true"/>
+                <form:errors path="password" cssClass="help-inline"/>
+            </div>
+        </fieldset>
+        <spring:bind path="user.confirmPassword">
+        <fieldset class="control-group${(not empty status.errorMessage) ? ' error' : ''}">
+        </spring:bind>
+            <appfuse:label styleClass="control-label" key="user.confirmPassword"/>
+            <div class="controls">
+                <form:password path="confirmPassword" id="confirmPassword" showPassword="true"/>
+                <form:errors path="confirmPassword" cssClass="help-inline"/>
+            </div>
+        </fieldset>
+    </c:if>
         <spring:bind path="user.passwordHint">
         <fieldset class="control-group${(not empty status.errorMessage) ? ' error' : ''}">
         </spring:bind>
@@ -212,6 +235,19 @@
 
 <c:set var="scripts" scope="request">
 <script type="text/javascript">
+    function passwordChanged(passwordField) {
+        if (passwordField.id == "password") {
+            var origPassword = "${user.password}";
+        } else if (passwordField.id == "confirmPassword") {
+            var origPassword = "${user.confirmPassword}";
+        }
+
+        if (passwordField.value != origPassword) {
+            createFormElement("input", "hidden",  "encryptPass", "encryptPass",
+                              "true", passwordField.form);
+        }
+    }
+
 <!-- This is here so we can exclude the selectAll call when roles is hidden -->
 function onFormSubmit(theForm) {
     return validateUser(theForm);

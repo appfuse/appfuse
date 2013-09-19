@@ -25,7 +25,6 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Analyze;
@@ -100,14 +99,11 @@ public class User extends BaseObject implements Serializable, UserDetails {
 
     @Column(nullable = false)
     @XmlTransient
-    @JsonIgnore
     public String getPassword() {
         return password;
     }
 
-    @Transient
-    @XmlTransient
-    @JsonIgnore
+    @Transient @XmlTransient
     public String getConfirmPassword() {
         return confirmPassword;
     }

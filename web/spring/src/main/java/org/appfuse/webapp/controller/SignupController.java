@@ -1,10 +1,6 @@
 package org.appfuse.webapp.controller;
 
-import java.util.Locale;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import org.apache.commons.lang.StringUtils;
 import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.service.RoleManager;
@@ -20,6 +16,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Locale;
 
 /**
  * Controller to signup new users.
@@ -69,9 +69,6 @@ public class SignupController extends BaseFormController {
         // Set the default user role on this new user
         user.addRole(roleManager.getRole(Constants.USER_ROLE));
 
-        // unencrypted users password to log in user automatically
-        String password = user.getPassword();
-
         try {
             this.getUserManager().saveUser(user);
         } catch (AccessDeniedException ade) {
@@ -83,6 +80,8 @@ public class SignupController extends BaseFormController {
             errors.rejectValue("username", "errors.existing.user",
                     new Object[]{user.getUsername(), user.getEmail()}, "duplicate user");
 
+            // redisplay the unencrypted passwords
+            user.setPassword(user.getConfirmPassword());
             return "signup";
         }
 
@@ -91,7 +90,7 @@ public class SignupController extends BaseFormController {
 
         // log user in automatically
         UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
-                user.getUsername(), password, user.getAuthorities());
+                user.getUsername(), user.getConfirmPassword(), user.getAuthorities());
         auth.setDetails(user);
         SecurityContextHolder.getContext().setAuthentication(auth);
 

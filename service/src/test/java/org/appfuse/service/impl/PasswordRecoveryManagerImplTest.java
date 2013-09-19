@@ -5,8 +5,9 @@ import static org.junit.Assert.assertTrue;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.model.User;
+import org.appfuse.service.PasswordRecoveryManager;
 import org.appfuse.service.UserManager;
-import org.appfuse.service.UserPasswordManager;
+import org.appfuse.service.impl.PasswordRecoveryManagerImpl;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,56 +21,58 @@ import org.subethamail.wiser.Wiser;
         locations = {"classpath:/applicationContext-resources.xml",
                 "classpath:/applicationContext-dao.xml",
                 "classpath:/applicationContext-service.xml"})
-public class UserPasswordManagerImplTest extends AbstractTransactionalJUnit4SpringContextTests {
-
+public class PasswordRecoveryManagerImplTest extends AbstractTransactionalJUnit4SpringContextTests {
     protected transient final Log log = LogFactory.getLog(getClass());
     private int smtpPort = 25250;
 
     @Autowired
     private UserManager userManager;
-    @Autowired
-    private UserPasswordManager userPasswordManager;
-
+    //@Autowired
+    private PasswordRecoveryManager passwordRecoveryManager;
+    
     @Before
     public void onSetUp() {
         smtpPort = smtpPort + (int) (Math.random() * 100);
         // change the port on the mailSender so it doesn't conflict with an
         // existing SMTP server on localhost
-        final JavaMailSenderImpl mailSender = (JavaMailSenderImpl) applicationContext.getBean("mailSender");
+        JavaMailSenderImpl mailSender = (JavaMailSenderImpl) applicationContext.getBean("mailSender");
         mailSender.setPort(smtpPort);
         mailSender.setHost("localhost");
+        
+        passwordRecoveryManager = new PasswordRecoveryManagerImpl();
+        applicationContext.getAutowireCapableBeanFactory().autowireBean(passwordRecoveryManager);
     }
 
 
     @Test
     public void testGenerateRecoveryToken() {
-    	final User user = userManager.getUserByUsername("admin");
-    	final String token = userPasswordManager.generateRecoveryToken(user);
+    	User user = userManager.getUserByUsername("admin");
+    	String token = passwordRecoveryManager.generateRecoveryToken(user);
     	Assert.assertNotNull(token);
-    	Assert.assertTrue(userPasswordManager.isRecoveryTokenValid(user, token));
+    	Assert.assertTrue(passwordRecoveryManager.isRecoveryTokenValid(user, token));
     }
-
+    
     @Test
     public void testConsumeRecoveryToken() throws Exception {
-    	final User user = userManager.getUserByUsername("admin");
-    	final Integer version = user.getVersion();
-
-    	final String token = userPasswordManager.generateRecoveryToken(user);
+    	User user = userManager.getUserByUsername("admin");
+    	Integer version = user.getVersion();
+    	
+    	String token = passwordRecoveryManager.generateRecoveryToken(user);
     	Assert.assertNotNull(token);
-    	Assert.assertTrue(userPasswordManager.isRecoveryTokenValid(user, token));
-
+    	Assert.assertTrue(passwordRecoveryManager.isRecoveryTokenValid(user, token));
+    	
         // start SMTP Server
-        final Wiser wiser = new Wiser();
+        Wiser wiser = new Wiser();
         wiser.setPort(smtpPort);
-        wiser.start();
-
-    	userPasswordManager.updatePassword(user.getUsername(), null, token, "admin", "");
-
+        wiser.start();     
+    	
+    	passwordRecoveryManager.updatePassword(user.getUsername(), token, "admin", "");
+    	
         wiser.stop();
         assertTrue(wiser.getMessages().size() == 1);
-
+    	
     	Assert.assertTrue(user.getVersion() > version);
-    	Assert.assertFalse(userPasswordManager.isRecoveryTokenValid(user, token));
+    	Assert.assertFalse(passwordRecoveryManager.isRecoveryTokenValid(user, token));
     }
-
+    
 }
