@@ -140,8 +140,8 @@
                 <verifytitle description="view the user profile title" text=".*${userProfile.title}.*" regex="true"/>
                     
                 <setinputfield description="set username" name="username" value="newuser"/>
-                <setinputfield description="set password" name="password" value="test"/>
-                <setinputfield description="set confirmPassword" name="confirmPassword" value="test"/>
+<!--                 <setinputfield description="set password" name="password" value="test"/> -->
+<!--                 <setinputfield description="set confirmPassword" name="confirmPassword" value="test"/> -->
                 <setinputfield description="set firstName" name="firstName" value="Test"/>
                 <setinputfield description="set lastName" name="lastName" value="Name"/>
                 <setinputfield description="set city" name="address.city" value="Denver"/>
@@ -180,7 +180,7 @@
                 
                 <setinputfield description="set username" name="username" value="signup-user"/>
                 <setinputfield description="set password" name="password" value="test"/>
-                <setinputfield description="set confirmPassword" name="confirmPassword" value="test"/>
+<!--                 <setinputfield description="set confirmPassword" name="confirmPassword" value="test"/> -->
                 <setinputfield description="set firstName" name="firstName" value="Test"/>
                 <setinputfield description="set lastName" name="lastName" value="Name"/>
                 <setinputfield description="set city" name="address.city" value="Denver"/>

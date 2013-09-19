@@ -42,15 +42,6 @@
                 <form:errors path="password" cssClass="help-inline"/>
             </div>
         </fieldset>
-        <spring:bind path="user.confirmPassword">
-        <fieldset class="control-group${(not empty status.errorMessage) ? ' error' : ''}">
-        </spring:bind>
-            <appfuse:label styleClass="control-label" key="user.confirmPassword"/>
-            <div class="controls">
-                <form:password path="confirmPassword" id="confirmPassword" showPassword="true"/>
-                <form:errors path="confirmPassword" cssClass="help-inline"/>
-            </div>
-        </fieldset>
         <spring:bind path="user.passwordHint">
         <fieldset class="control-group${(not empty status.errorMessage) ? ' error' : ''}">
         </spring:bind>
