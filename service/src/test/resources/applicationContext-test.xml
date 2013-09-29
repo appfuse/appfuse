@@ -15,10 +15,10 @@
     <!-- Advice Class -->
     <bean id="userSecurityAdvice" class="org.appfuse.service.UserSecurityAdvice"/>
 
+    <bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.ShaPasswordEncoder"/>
+   
     <bean id="userManager" class="org.appfuse.service.impl.UserManagerImpl">
-        <property name="passwordEncoder">
-            <bean class="org.springframework.security.authentication.encoding.ShaPasswordEncoder"/>
-        </property>
+        <property name="passwordEncoder" ref="passwordEncoder" />
     </bean>
 
     <bean id="target" class="org.springframework.aop.framework.ProxyFactoryBean">

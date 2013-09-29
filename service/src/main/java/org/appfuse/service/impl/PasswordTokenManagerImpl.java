@@ -16,12 +16,12 @@ import org.appfuse.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.dao.SaltSource;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 /**
  * @author ivangsa
  */
-@Service("userPasswordManager")
+@Component("passwordTokenManager")
 public class PasswordTokenManagerImpl implements PasswordTokenManager {
     private final Log log = LogFactory.getLog(PasswordTokenManagerImpl.class);
 

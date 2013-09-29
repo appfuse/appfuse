@@ -35,11 +35,10 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
     @Autowired(required = false)
     private SaltSource saltSource;
 
-    @Autowired
     private MailEngine mailEngine;
-    @Autowired
     private SimpleMailMessage message;
     private PasswordTokenManager passwordTokenManager;
+
     private String passwordRecoveryTemplate = "passwordRecovery.vm";
     private String passwordUpdatedTemplate = "passwordUpdated.vm";
 
@@ -55,9 +54,19 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
 	this.userDao = userDao;
     }
 
-    @Autowired
-    public void setPasswordResetTokenManager(final PasswordTokenManager passwordResetTokenManager) {
-	this.passwordTokenManager = passwordResetTokenManager;
+    @Autowired(required = false)
+    public void setMailEngine(final MailEngine mailEngine) {
+	this.mailEngine = mailEngine;
+    }
+
+    @Autowired(required = false)
+    public void setMailMessage(final SimpleMailMessage message) {
+	this.message = message;
+    }
+
+    @Autowired(required = false)
+    public void setPasswordTokenManager(final PasswordTokenManager passwordTokenManager) {
+	this.passwordTokenManager = passwordTokenManager;
     }
 
     /**
