@@ -13,7 +13,6 @@ import org.appfuse.model.User;
 import org.appfuse.service.RoleManager;
 import org.appfuse.service.UserExistsException;
 import org.appfuse.service.UserManager;
-import org.appfuse.service.UserPasswordManager;
 import org.appfuse.webapp.util.RequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
@@ -39,16 +38,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class UserFormController extends BaseFormController {
 
     private RoleManager roleManager;
-    private UserPasswordManager userPasswordManager;
 
     @Autowired
     public void setRoleManager(final RoleManager roleManager) {
 	this.roleManager = roleManager;
-    }
-
-    @Autowired
-    public void setUserPasswordManager(final UserPasswordManager userPasswordManager) {
-	this.userPasswordManager = userPasswordManager;
     }
 
     public UserFormController() {
@@ -134,9 +127,9 @@ public class UserFormController extends BaseFormController {
 	    // set a random password if user is added by admin
 	    if (originalVersion == null && StringUtils.isBlank(user.getPassword())) {
 		user.setPassword(UUID.randomUUID().toString()); // XXX review if
-								// UUID is a
-								// good choice
-								// here
+		// UUID is a
+		// good choice
+		// here
 	    }
 
 	    try {
@@ -169,7 +162,7 @@ public class UserFormController extends BaseFormController {
 		    message.setSubject(getText("signup.email.subject", locale));
 
 		    try {
-			final String resetPasswordUrl = userPasswordManager.buildRecoveryPasswordUrl(user,
+			final String resetPasswordUrl = getUserManager().buildRecoveryPasswordUrl(user,
 				UpdatePasswordController.RECOVERY_PASSWORD_TEMPLATE);
 			sendUserMessage(user, getText("newuser.email.message", user.getFullName(), locale),
 				RequestUtil.getAppURL(request) + resetPasswordUrl);
