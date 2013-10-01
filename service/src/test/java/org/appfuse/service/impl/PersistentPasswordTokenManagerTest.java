@@ -1,9 +1,3 @@
-/**
- * PersistentPasswordTokenManagerTest.java 01/10/2013
- *
- * Copyright 2013 INDITEX.
- * Departamento de Sistemas
- */
 package org.appfuse.service.impl;
 
 import org.junit.Ignore;
