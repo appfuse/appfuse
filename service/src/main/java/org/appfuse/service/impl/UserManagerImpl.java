@@ -44,29 +44,29 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
 
     @Autowired
     public void setPasswordEncoder(final PasswordEncoder passwordEncoder) {
-	this.passwordEncoder = passwordEncoder;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     @Autowired
     public void setUserDao(final UserDao userDao) {
-	this.dao = userDao;
-	this.userDao = userDao;
+        this.dao = userDao;
+        this.userDao = userDao;
     }
 
     @Autowired(required = false)
     public void setMailEngine(final MailEngine mailEngine) {
-	this.mailEngine = mailEngine;
+        this.mailEngine = mailEngine;
     }
 
     @Autowired(required = false)
     public void setMailMessage(final SimpleMailMessage message) {
-	this.message = message;
+        this.message = message;
     }
 
     @Autowired(required = false)
     public void setPasswordTokenManager(final PasswordTokenManager passwordTokenManager) {
-	this.passwordTokenManager = passwordTokenManager;
+        this.passwordTokenManager = passwordTokenManager;
     }
 
     /**
@@ -78,7 +78,7 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
      * @see MailEngine#sendMessage(SimpleMailMessage, String, Map)
      */
     public void setPasswordRecoveryTemplate(final String passwordRecoveryTemplate) {
-	this.passwordRecoveryTemplate = passwordRecoveryTemplate;
+        this.passwordRecoveryTemplate = passwordRecoveryTemplate;
     }
 
     /**
@@ -90,7 +90,7 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
      * @see MailEngine#sendMessage(SimpleMailMessage, String, Map)
      */
     public void setPasswordUpdatedTemplate(final String passwordUpdatedTemplate) {
-	this.passwordUpdatedTemplate = passwordUpdatedTemplate;
+        this.passwordUpdatedTemplate = passwordUpdatedTemplate;
     }
 
     /**
@@ -98,7 +98,7 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
      */
     @Override
     public User getUser(final String userId) {
-	return userDao.get(new Long(userId));
+        return userDao.get(new Long(userId));
     }
 
     /**
@@ -106,7 +106,7 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
      */
     @Override
     public List<User> getUsers() {
-	return userDao.getAllDistinct();
+        return userDao.getAllDistinct();
     }
 
     /**
@@ -115,52 +115,52 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
     @Override
     public User saveUser(final User user) throws UserExistsException {
 
-	if (user.getVersion() == null) {
-	    // if new user, lowercase userId
-	    user.setUsername(user.getUsername().toLowerCase());
-	}
+        if (user.getVersion() == null) {
+            // if new user, lowercase userId
+            user.setUsername(user.getUsername().toLowerCase());
+        }
 
-	// Get and prepare password management-related artifacts
-	boolean passwordChanged = false;
-	if (passwordEncoder != null) {
-	    // Check whether we have to encrypt (or re-encrypt) the password
-	    if (user.getVersion() == null) {
-		// New user, always encrypt
-		passwordChanged = true;
-	    } else {
-		// Existing user, check password in DB
-		final String currentPassword = userDao.getUserPassword(user.getId());
-		if (currentPassword == null) {
-		    passwordChanged = true;
-		} else {
-		    if (!currentPassword.equals(user.getPassword())) {
-			passwordChanged = true;
-		    }
-		}
-	    }
+        // Get and prepare password management-related artifacts
+        boolean passwordChanged = false;
+        if (passwordEncoder != null) {
+            // Check whether we have to encrypt (or re-encrypt) the password
+            if (user.getVersion() == null) {
+                // New user, always encrypt
+                passwordChanged = true;
+            } else {
+                // Existing user, check password in DB
+                final String currentPassword = userDao.getUserPassword(user.getId());
+                if (currentPassword == null) {
+                    passwordChanged = true;
+                } else {
+                    if (!currentPassword.equals(user.getPassword())) {
+                        passwordChanged = true;
+                    }
+                }
+            }
 
-	    // If password was changed (or new user), encrypt it
-	    if (passwordChanged) {
-		if (saltSource == null) {
-		    // backwards compatibility
-		    user.setPassword(passwordEncoder.encodePassword(user.getPassword(), null));
-		    log.warn("SaltSource not set, encrypting password w/o salt");
-		} else {
-		    user.setPassword(passwordEncoder.encodePassword(user.getPassword(),
-			    saltSource.getSalt(user)));
-		}
-	    }
-	} else {
-	    log.warn("PasswordEncoder not set, skipping password encryption...");
-	}
+            // If password was changed (or new user), encrypt it
+            if (passwordChanged) {
+                if (saltSource == null) {
+                    // backwards compatibility
+                    user.setPassword(passwordEncoder.encodePassword(user.getPassword(), null));
+                    log.warn("SaltSource not set, encrypting password w/o salt");
+                } else {
+                    user.setPassword(passwordEncoder.encodePassword(user.getPassword(),
+                            saltSource.getSalt(user)));
+                }
+            }
+        } else {
+            log.warn("PasswordEncoder not set, skipping password encryption...");
+        }
 
-	try {
-	    return userDao.saveUser(user);
-	} catch (final Exception e) {
-	    e.printStackTrace();
-	    log.warn(e.getMessage());
-	    throw new UserExistsException("User '" + user.getUsername() + "' already exists!");
-	}
+        try {
+            return userDao.saveUser(user);
+        } catch (final Exception e) {
+            e.printStackTrace();
+            log.warn(e.getMessage());
+            throw new UserExistsException("User '" + user.getUsername() + "' already exists!");
+        }
     }
 
     /**
@@ -168,8 +168,8 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
      */
     @Override
     public void removeUser(final User user) {
-	log.debug("removing user: " + user);
-	userDao.remove(user);
+        log.debug("removing user: " + user);
+        userDao.remove(user);
     }
 
     /**
@@ -177,8 +177,8 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
      */
     @Override
     public void removeUser(final String userId) {
-	log.debug("removing user: " + userId);
-	userDao.remove(new Long(userId));
+        log.debug("removing user: " + userId);
+        userDao.remove(new Long(userId));
     }
 
     /**
@@ -190,7 +190,7 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
      */
     @Override
     public User getUserByUsername(final String username) throws UsernameNotFoundException {
-	return (User) userDao.loadUserByUsername(username);
+        return (User) userDao.loadUserByUsername(username);
     }
 
     /**
@@ -198,21 +198,21 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
      */
     @Override
     public List<User> search(final String searchTerm) {
-	return super.search(searchTerm, User.class);
+        return super.search(searchTerm, User.class);
     }
 
     @Override
     public String buildRecoveryPasswordUrl(final User user, final String urlTemplate) {
-	final String token = generateRecoveryToken(user);
-	final String username = user.getUsername();
-	return StringUtils.replaceEach(urlTemplate,
-		new String[] { "{username}", "{token}" },
-		new String[] { username, token });
+        final String token = generateRecoveryToken(user);
+        final String username = user.getUsername();
+        return StringUtils.replaceEach(urlTemplate,
+                new String[] { "{username}", "{token}" },
+                new String[] { username, token });
     }
 
     @Override
     public String generateRecoveryToken(final User user) {
-	return passwordTokenManager.generateRecoveryToken(user);
+        return passwordTokenManager.generateRecoveryToken(user);
     }
 
     /**
@@ -220,12 +220,12 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
      */
     @Override
     public boolean isRecoveryTokenValid(final String username, final String token) {
-	return isRecoveryTokenValid(getUserByUsername(username), token);
+        return isRecoveryTokenValid(getUserByUsername(username), token);
     }
 
     @Override
     public boolean isRecoveryTokenValid(final User user, final String token) {
-	return passwordTokenManager.isRecoveryTokenValid(user, token);
+        return passwordTokenManager.isRecoveryTokenValid(user, token);
     }
 
     /**
@@ -233,22 +233,22 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
      */
     @Override
     public void sendPasswordRecoveryEmail(final String username, final String urlTemplate) {
-	log.debug("Sending password recovery token to user: " + username);
+        log.debug("Sending password recovery token to user: " + username);
 
-	final User user = getUserByUsername(username);
-	final String url = buildRecoveryPasswordUrl(user, urlTemplate);
+        final User user = getUserByUsername(username);
+        final String url = buildRecoveryPasswordUrl(user, urlTemplate);
 
-	sendUserEmail(user, passwordRecoveryTemplate, url);
+        sendUserEmail(user, passwordRecoveryTemplate, url);
     }
 
     private void sendUserEmail(final User user, final String template, final String url) {
-	message.setTo(user.getFullName() + "<" + user.getEmail() + ">");
+        message.setTo(user.getFullName() + "<" + user.getEmail() + ">");
 
-	final Map<String, Serializable> model = new HashMap<String, Serializable>();
-	model.put("user", user);
-	model.put("applicationURL", url);
+        final Map<String, Serializable> model = new HashMap<String, Serializable>();
+        model.put("user", user);
+        model.put("applicationURL", url);
 
-	mailEngine.sendMessage(message, template, model);
+        mailEngine.sendMessage(message, template, model);
     }
 
 
@@ -257,25 +257,25 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
      */
     @Override
     public User updatePassword(final String username, final String currentPassword, final String recoveryToken, final String newPassword, final String applicationUrl) throws UserExistsException {
-	User user = getUserByUsername(username);
-	if (isRecoveryTokenValid(user, recoveryToken)) {
-	    log.debug("Updating password from recovery token for user:" + username);
-	    user.setPassword(newPassword);
-	    user = saveUser(user);
+        User user = getUserByUsername(username);
+        if (isRecoveryTokenValid(user, recoveryToken)) {
+            log.debug("Updating password from recovery token for user:" + username);
+            user.setPassword(newPassword);
+            user = saveUser(user);
 
-	    sendUserEmail(user, passwordUpdatedTemplate, applicationUrl);
+            sendUserEmail(user, passwordUpdatedTemplate, applicationUrl);
 
-	    return user;
-	} else if (StringUtils.isNotBlank(currentPassword)) {
-	    final Object salt = saltSource != null ? saltSource.getSalt(user) : null;
-	    if (passwordEncoder.isPasswordValid(user.getPassword(), currentPassword, salt)) {
-		log.debug("Updating password (providing current password) for user:" + username);
-		user.setPassword(newPassword);
-		user = saveUser(user);
-		return user;
-	    }
-	}
-	// or throw exception
-	return null;
+            return user;
+        } else if (StringUtils.isNotBlank(currentPassword)) {
+            final Object salt = saltSource != null ? saltSource.getSalt(user) : null;
+            if (passwordEncoder.isPasswordValid(user.getPassword(), currentPassword, salt)) {
+                log.debug("Updating password (providing current password) for user:" + username);
+                user.setPassword(newPassword);
+                user = saveUser(user);
+                return user;
+            }
+        }
+        // or throw exception
+        return null;
     }
 }

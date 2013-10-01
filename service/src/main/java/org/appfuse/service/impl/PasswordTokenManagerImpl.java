@@ -39,13 +39,13 @@ public class PasswordTokenManagerImpl implements PasswordTokenManager {
      */
     @Override
     public String generateRecoveryToken(final User user) {
-	if (user != null) {
-	    final String tokenSource = getTokenSource(user);
-	    final String expirationTimeStamp = expirationTimeFormat.format(getExpirationTime());
-	    final Object salt = saltSource != null ? saltSource.getSalt(user) : null;
-	    return expirationTimeStamp + passwordEncoder.encodePassword(expirationTimeStamp + tokenSource, salt);
-	}
-	return null;
+        if (user != null) {
+            final String tokenSource = getTokenSource(user);
+            final String expirationTimeStamp = expirationTimeFormat.format(getExpirationTime());
+            final Object salt = saltSource != null ? saltSource.getSalt(user) : null;
+            return expirationTimeStamp + passwordEncoder.encodePassword(expirationTimeStamp + tokenSource, salt);
+        }
+        return null;
     }
 
 
@@ -54,17 +54,17 @@ public class PasswordTokenManagerImpl implements PasswordTokenManager {
      */
     @Override
     public boolean isRecoveryTokenValid(final User user, final String token) {
-	if (user != null && token != null) {
-	    final String expirationTimeStamp = getTimestamp(token);
-	    final String tokenWithoutTimestamp = getTokenWithoutTimestamp(token);
-	    final String tokenSource = expirationTimeStamp + getTokenSource(user);
-	    final Object salt = saltSource != null ? saltSource.getSalt(user) : null;
-	    final Date expirationTime = parseTimestamp(expirationTimeStamp);
+        if (user != null && token != null) {
+            final String expirationTimeStamp = getTimestamp(token);
+            final String tokenWithoutTimestamp = getTokenWithoutTimestamp(token);
+            final String tokenSource = expirationTimeStamp + getTokenSource(user);
+            final Object salt = saltSource != null ? saltSource.getSalt(user) : null;
+            final Date expirationTime = parseTimestamp(expirationTimeStamp);
 
-	    return expirationTime != null && expirationTime.after(new Date())
-		    && passwordEncoder.isPasswordValid(tokenWithoutTimestamp, tokenSource, salt);
-	}
-	return false;
+            return expirationTime != null && expirationTime.after(new Date())
+                    && passwordEncoder.isPasswordValid(tokenWithoutTimestamp, tokenSource, salt);
+        }
+        return false;
     }
 
     /**
@@ -73,11 +73,11 @@ public class PasswordTokenManagerImpl implements PasswordTokenManager {
      * @return
      */
     private Date getExpirationTime() {
-	return DateUtils.addDays(new Date(), 1);
+        return DateUtils.addDays(new Date(), 1);
     }
 
     private String getTimestamp(final String token) {
-	return StringUtils.substring(token, 0, expirationTimeTokenLength);
+        return StringUtils.substring(token, 0, expirationTimeTokenLength);
     }
 
     /**
@@ -86,19 +86,19 @@ public class PasswordTokenManagerImpl implements PasswordTokenManager {
      * @return
      */
     private String getTokenSource(final User user) {
-	return user.getEmail() + user.getVersion() + user.getPassword();
+        return user.getEmail() + user.getVersion() + user.getPassword();
     }
 
     private String getTokenWithoutTimestamp(final String token) {
-	return StringUtils.substring(token, expirationTimeTokenLength, token.length());
+        return StringUtils.substring(token, expirationTimeTokenLength, token.length());
     }
 
     private Date parseTimestamp(final String timestamp) {
-	try {
-	    return expirationTimeFormat.parse(timestamp);
-	} catch (final ParseException e) {
-	    return null;
-	}
+        try {
+            return expirationTimeFormat.parse(timestamp);
+        } catch (final ParseException e) {
+            return null;
+        }
     }
 
 }
