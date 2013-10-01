@@ -15,4 +15,5 @@ public interface PasswordTokenManager {
      */
     boolean isRecoveryTokenValid(User user, String token);
 
+    void invalidateRecoveryToken(User user, String token);
 }

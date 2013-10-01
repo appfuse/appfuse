@@ -68,6 +68,15 @@ public class PasswordTokenManagerImpl implements PasswordTokenManager {
     }
 
     /**
+     * 
+     * {@inheritDoc}
+     */
+    @Override
+    public void invalidateRecoveryToken(User user, String token) {
+        // NOP
+    }
+
+    /**
      * Return tokens expiration time, now + 1 day.
      * 
      * @return

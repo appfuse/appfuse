@@ -72,6 +72,15 @@ public class PersistentPasswordTokenManagerImpl extends PasswordTokenManagerImpl
         return isValid && isRecoveryTokenPersisted(user, token);
     }
 
+    /**
+     * 
+     * @see org.appfuse.service.impl.PasswordTokenManager#invalidateRecoveryToken(User, String)
+     */
+    @Override
+    public void invalidateRecoveryToken(User user, String token) {
+        jdbcTemplate.update(deleteTokenSql, user.getUsername());
+    }
+
     protected void persistToken(User user, String token) {
         jdbcTemplate.update(deleteTokenSql, user.getUsername());
         jdbcTemplate.update(insertTokenSql, user.getUsername(), token);

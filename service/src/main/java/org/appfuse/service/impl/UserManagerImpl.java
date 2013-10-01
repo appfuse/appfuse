@@ -262,6 +262,7 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
             log.debug("Updating password from recovery token for user:" + username);
             user.setPassword(newPassword);
             user = saveUser(user);
+            passwordTokenManager.invalidateRecoveryToken(user, recoveryToken);
 
             sendUserEmail(user, passwordUpdatedTemplate, applicationUrl);
 
