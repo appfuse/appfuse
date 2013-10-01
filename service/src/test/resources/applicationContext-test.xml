@@ -32,4 +32,8 @@
     </bean>
     
     <bean id="persistentPasswordTokenManager" class="org.appfuse.service.impl.PersistentPasswordTokenManagerImpl" autowire="default" />
+    
+    <bean id="persistentPasswordTokenManager.userManager" parent="userManager">
+    	<property name="passwordTokenManager" ref="persistentPasswordTokenManager"></property>
+    </bean>
 </beans>    

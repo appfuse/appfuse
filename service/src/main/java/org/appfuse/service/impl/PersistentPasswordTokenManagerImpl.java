@@ -3,14 +3,20 @@
  */
 package org.appfuse.service.impl;
 
+import java.security.SecureRandom;
+import java.util.Date;
+
 import javax.sql.DataSource;
 
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang.time.DateUtils;
 import org.appfuse.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
- * Provides {@link PasswordTokenManager} functionality persisting tokens to the db as an extra security check.
+ * Provides {@link PasswordTokenManager} functionality generating and persisting
+ * random tokens to the db as an extra security check.
  * 
  * You will need to create a db table with the following structure:
  * 
@@ -19,22 +25,26 @@ import org.springframework.jdbc.core.JdbcTemplate;
  * create table password_reset_token (
  *     username varchar(50) NOT NULL,
  *     token varchar(255) NOT NULL,
+ *     expiration_time timestamp NOT NULL,
  *     PRIMARY KEY (username, token)
  * )
  * </code>
  * </pre>
  * 
- * and configure this alternative PasswordTokenManager in the spring BeanFactory.
+ * and configure this alternative PasswordTokenManager in the spring
+ * BeanFactory.
  * 
  * @author ivangsa
  */
-public class PersistentPasswordTokenManagerImpl extends PasswordTokenManagerImpl implements PasswordTokenManager {
+public class PersistentPasswordTokenManagerImpl implements PasswordTokenManager {
+
+    private SecureRandom numberGenerator = new SecureRandom();
 
     private JdbcTemplate jdbcTemplate;
 
     private String deleteTokenSql = "delete from password_reset_token where username=?";
-    private String insertTokenSql = "insert into password_reset_token (username, token) values (?, ?)";
-    private String selectTokenSql = "select count(token) from password_reset_token where username=? and token=?";
+    private String insertTokenSql = "insert into password_reset_token (username, token, expiration_time) values (?, ?, ?)";
+    private String selectTokenSql = "select count(token) from password_reset_token where username=? and token=? and expiration_time > NOW()";
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
@@ -58,7 +68,9 @@ public class PersistentPasswordTokenManagerImpl extends PasswordTokenManagerImpl
      */
     @Override
     public String generateRecoveryToken(final User user) {
-        String token = super.generateRecoveryToken(user);
+        byte[] bytes = new byte[16];
+        numberGenerator.nextBytes(bytes);
+        String token = Base64.encodeBase64String(bytes);
         persistToken(user, token);
         return token;
     }
@@ -68,8 +80,7 @@ public class PersistentPasswordTokenManagerImpl extends PasswordTokenManagerImpl
      */
     @Override
     public boolean isRecoveryTokenValid(final User user, final String token) {
-        boolean isValid = super.isRecoveryTokenValid(user, token);
-        return isValid && isRecoveryTokenPersisted(user, token);
+        return isRecoveryTokenPersisted(user, token);
     }
 
     /**
@@ -83,7 +94,7 @@ public class PersistentPasswordTokenManagerImpl extends PasswordTokenManagerImpl
 
     protected void persistToken(User user, String token) {
         jdbcTemplate.update(deleteTokenSql, user.getUsername());
-        jdbcTemplate.update(insertTokenSql, user.getUsername(), token);
+        jdbcTemplate.update(insertTokenSql, user.getUsername(), token, getExpirationTime());
     }
 
     protected boolean isRecoveryTokenPersisted(final User user, final String token) {
@@ -93,4 +104,12 @@ public class PersistentPasswordTokenManagerImpl extends PasswordTokenManagerImpl
         return count != null && count.intValue() == 1;
     }
 
+    /**
+     * Return tokens expiration time, now + 1 day.
+     * 
+     * @return
+     */
+    private Date getExpirationTime() {
+        return DateUtils.addDays(new Date(), 1);
+    }
 }

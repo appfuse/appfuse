@@ -27,10 +27,15 @@ public class PasswordTokenManagerTest extends AbstractTransactionalJUnit4SpringC
     protected transient final Log log = LogFactory.getLog(getClass());
     private int smtpPort = 25250;
 
-    @Autowired
     private UserManager userManager;
 
     private PasswordTokenManager passwordTokenManager;
+
+    @Autowired
+    @Qualifier("userManager")
+    public void setUserManager(UserManager userManager) {
+	this.userManager = userManager;
+    }
 
     @Autowired
     @Qualifier("passwordTokenManager")
