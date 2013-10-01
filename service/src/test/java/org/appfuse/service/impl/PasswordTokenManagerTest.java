@@ -10,6 +10,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
@@ -18,16 +19,23 @@ import org.subethamail.wiser.Wiser;
 @ContextConfiguration(
 	locations = {"classpath:/applicationContext-resources.xml",
 		"classpath:/applicationContext-dao.xml",
-	"classpath:/applicationContext-service.xml"})
-public class UserPasswordManagerImplTest extends AbstractTransactionalJUnit4SpringContextTests {
+                "classpath:/applicationContext-service.xml",
+		"classpath:/applicationContext-test.xml"})
+public class PasswordTokenManagerTest extends AbstractTransactionalJUnit4SpringContextTests {
 
     protected transient final Log log = LogFactory.getLog(getClass());
     private int smtpPort = 25250;
 
     @Autowired
     private UserManager userManager;
-    @Autowired
+
     private PasswordTokenManager passwordTokenManager;
+
+    @Autowired
+    @Qualifier("passwordTokenManager")
+    public void setPasswordTokenManager(PasswordTokenManager passwordTokenManager) {
+        this.passwordTokenManager = passwordTokenManager;
+    }
 
     @Before
     public void onSetUp() {

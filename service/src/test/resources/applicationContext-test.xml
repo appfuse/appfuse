@@ -30,4 +30,6 @@
             </list>
         </property>
     </bean>
+    
+    <bean id="persistentPasswordTokenManager" class="org.appfuse.service.impl.PersistentPasswordTokenManagerImpl" autowire="default" />
 </beans>    
