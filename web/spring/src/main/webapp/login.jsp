@@ -43,4 +43,7 @@
 </c:set>
 
 <p><fmt:message key="login.passwordHint"/></p>
+
+<p><fmt:message key="updatePassword.requestRecoveryTokenLink"/></p>
+
 </body>
