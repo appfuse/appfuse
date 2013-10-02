@@ -3,12 +3,12 @@
  */
 package org.appfuse.service.impl;
 
-import java.security.SecureRandom;
 import java.util.Date;
 
 import javax.sql.DataSource;
 
-import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang.math.RandomUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.appfuse.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +38,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
  */
 public class PersistentPasswordTokenManagerImpl implements PasswordTokenManager {
 
-    private SecureRandom numberGenerator = new SecureRandom();
-
     private JdbcTemplate jdbcTemplate;
 
     private String deleteTokenSql = "delete from password_reset_token where username=?";
@@ -68,9 +66,8 @@ public class PersistentPasswordTokenManagerImpl implements PasswordTokenManager 
      */
     @Override
     public String generateRecoveryToken(final User user) {
-        byte[] bytes = new byte[16];
-        numberGenerator.nextBytes(bytes);
-        String token = Base64.encodeBase64String(bytes);
+	int length = RandomUtils.nextInt(16) + 16;
+	String token = RandomStringUtils.randomAlphanumeric(length);
         persistToken(user, token);
         return token;
     }
