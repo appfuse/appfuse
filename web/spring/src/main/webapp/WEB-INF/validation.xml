@@ -45,5 +45,10 @@
                 <arg key="user.passwordHint"/>
             </field>
         </form>
+        <form name="signup" extends="user">
+            <field property="password" depends="required">
+                <arg key="user.password"/>
+            </field>
+        </form>
     </formset>
 </form-validation>
