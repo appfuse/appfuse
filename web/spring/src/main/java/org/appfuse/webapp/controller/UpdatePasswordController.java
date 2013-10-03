@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang.StringUtils;
 import org.appfuse.model.User;
 import org.appfuse.webapp.util.RequestUtil;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -88,6 +89,10 @@ public class UpdatePasswordController extends BaseFormController {
     {
         log.debug("PasswordRecoveryController onSubmit for username: " + username);
         final Locale locale = request.getLocale();
+        
+        if(!username.equals(request.getRemoteUser())) {
+            throw new AccessDeniedException("You do not have permission to modify other users password.");
+        }
 
         if (StringUtils.isEmpty(password)) {
             saveError(request, getText("errors.required", getText("updatePassword.newPassword.label", locale), locale));
