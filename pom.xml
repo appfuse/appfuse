@@ -15,7 +15,7 @@
     </description>
 
     <prerequisites>
-        <maven>2.2.1</maven>
+        <maven>3.1.0</maven>
     </prerequisites>
 
     <scm>
@@ -147,10 +147,10 @@
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.5.1</version>
+                <version>3.1</version>
                 <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
+                    <source>1.7</source>
+                    <target>1.7</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -603,7 +603,7 @@
 
         <cargo.container>tomcat7x</cargo.container>
         <cargo.container.url>
-            http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.34/bin/apache-tomcat-7.0.34.zip
+            http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.42/bin/apache-tomcat-7.0.42.zip
         </cargo.container.url>
         <cargo.container.home>${env.CATALINA_HOME}</cargo.container.home>
         <cargo.host>localhost</cargo.host>
@@ -614,7 +614,7 @@
         <ajax4jsf.version>1.0.6</ajax4jsf.version>
         <asm.version>2.2.3</asm.version>
         <aspectj.version>1.6.10</aspectj.version>
-        <cargo.version>1.2.4</cargo.version>
+        <cargo.version>1.4.4</cargo.version>
         <commons.lang.version>2.6</commons.lang.version>
         <commons.beanutils.version>1.8.3</commons.beanutils.version>
         <commons.collections.version>3.2.1</commons.collections.version>
