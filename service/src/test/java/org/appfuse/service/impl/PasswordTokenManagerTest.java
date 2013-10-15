@@ -1,7 +1,5 @@
 package org.appfuse.service.impl;
 
-import static org.junit.Assert.assertTrue;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.model.User;
@@ -15,6 +13,8 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.subethamail.wiser.Wiser;
+
+import static org.junit.Assert.assertTrue;
 
 @ContextConfiguration(
         locations = {
@@ -56,7 +56,7 @@ public class PasswordTokenManagerTest extends AbstractTransactionalJUnit4SpringC
 
     @Test
     public void testGenerateRecoveryToken() {
-        final User user = userManager.getUserByUsername("admin");
+        final User user = userManager.getUserByUsername("user");
         final String token = passwordTokenManager.generateRecoveryToken(user);
         Assert.assertNotNull(token);
         Assert.assertTrue(passwordTokenManager.isRecoveryTokenValid(user, token));
@@ -64,7 +64,7 @@ public class PasswordTokenManagerTest extends AbstractTransactionalJUnit4SpringC
 
     @Test
     public void testConsumeRecoveryToken() throws Exception {
-        final User user = userManager.getUserByUsername("admin");
+        final User user = userManager.getUserByUsername("user");
         final Integer version = user.getVersion();
 
         final String token = passwordTokenManager.generateRecoveryToken(user);
@@ -76,7 +76,7 @@ public class PasswordTokenManagerTest extends AbstractTransactionalJUnit4SpringC
         wiser.setPort(smtpPort);
         wiser.start();
 
-        userManager.updatePassword(user.getUsername(), null, token, "admin", "");
+        userManager.updatePassword(user.getUsername(), null, token, "user", "");
 
         wiser.stop();
         assertTrue(wiser.getMessages().size() == 1);
