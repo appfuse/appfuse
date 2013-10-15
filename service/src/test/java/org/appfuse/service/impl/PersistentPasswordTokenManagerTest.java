@@ -16,12 +16,12 @@ public class PersistentPasswordTokenManagerTest extends PasswordTokenManagerTest
     @Autowired
     @Qualifier("persistentPasswordTokenManager.userManager")
     public void setUserManager(UserManager userManager) {
-	super.setUserManager(userManager);
+	    super.setUserManager(userManager);
     }
 
     @Autowired
     @Qualifier("persistentPasswordTokenManager")
     public void setPasswordTokenManager(PasswordTokenManager passwordTokenManager) {
         super.setPasswordTokenManager(passwordTokenManager);
-    };
+    }
 }
