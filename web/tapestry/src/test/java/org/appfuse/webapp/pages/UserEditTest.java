@@ -101,9 +101,7 @@ public class UserEditTest extends BasePageTestCase {
 
         Element deleteButton = doc.getElementById("delete");
 
-        // TODO: Figure out how to get Tapestry to rollback transactions after tests,
-        // which should be done by extending AbstractTransactionalJUnit4SpringContextTests
-        // doc = tester.clickSubmit(deleteButton, fieldValues);
-        // assertTrue(doc.toString().contains("deleted successfully"));
+        doc = tester.clickLink(deleteButton);
+        assertTrue(doc.toString().contains("deleted successfully"));
     }
 }

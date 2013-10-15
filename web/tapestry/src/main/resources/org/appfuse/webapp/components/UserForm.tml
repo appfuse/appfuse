@@ -218,26 +218,28 @@
     <t:unless test="${signup}">
         <t:if test="fromList">
 
-         <t:if test="userPersisted">
-            <a data-toggle="modal" data-target="#confirmModal" class="btn btn-danger">
-		<i class="icon-trash icon-white"></i> ${message:button.delete}
-	    </a>
+            <t:if test="userPersisted">
+                <a data-toggle="modal" data-target="#confirmModal" class="btn btn-danger">
+                    <i class="icon-trash icon-white"></i> ${message:button.delete}
+                </a>
 
-            <div class="modal hide" id="confirmModal">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">×</button>
-                <h3>Confirmation</h3>
-              </div>
-              <div class="modal-body">
-                 <p>${confirmDeletion}</p>
-              </div>
-              <div class="modal-footer">
-              <a href="#" t:type="eventlink" t:id="delete" event="delete" class="btn btn-primary"><i class="icon-ok icon-white"></i> ${message:button.save}</a>
-              <a href="#" class="btn" data-dismiss="modal"><i class="icon-remove"></i> ${message:button.cancel}</a>
-            </div>
-           </div>
+                <div class="modal hide" id="confirmModal">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <h3>Confirmation</h3>
+                    </div>
+                    <div class="modal-body">
+                        <p>${confirmDeletion}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" t:type="eventlink" t:id="delete" id="delete" event="delete" class="btn btn-primary">
+                            <i class="icon-ok icon-white"></i> ${message:button.delete}</a>
+                        <a href="#" class="btn" data-dismiss="modal">
+                            <i class="icon-remove"></i> ${message:button.cancel}</a>
+                    </div>
+                </div>
 
-         </t:if>
+            </t:if>
         </t:if>
     </t:unless>
 
