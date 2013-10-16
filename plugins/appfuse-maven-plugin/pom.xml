@@ -14,7 +14,7 @@
     <name>AppFuse Maven Plugin</name>
 
     <prerequisites>
-        <maven>2.2.1</maven>
+        <maven>3.1.0</maven>
     </prerequisites>
 
     <scm>
