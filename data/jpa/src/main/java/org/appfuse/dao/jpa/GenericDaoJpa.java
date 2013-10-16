@@ -134,8 +134,8 @@ public class GenericDaoJpa<T, PK extends Serializable> implements GenericDao<T, 
      * {@inheritDoc}
      */
     public void remove(T object) {
-        this.entityManager.remove(object);
-    }
+        entityManager.remove(entityManager.contains(object) ? object : entityManager.merge(object)); 
+    } 
 
     /**
      * {@inheritDoc}
