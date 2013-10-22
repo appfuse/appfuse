@@ -20,6 +20,11 @@ body#login {
     color: #0099ff;
 }
 
+/* added to fix non clickable dropdown nested menus on mobile browsers APF-1384 */
+.navbar .dropdown-backdrop {
+	position: static;
+}
+
 #switchLocale {
     position: absolute;
     right: 10px;

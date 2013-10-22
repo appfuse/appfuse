@@ -52,7 +52,7 @@
                     <username>${jdbc.username}</username>
                     <password>${jdbc.password}</password>
                     <url>${jdbc.url}</url>
-                    <src>src/test/resources/sample-data.xml</src>
+                    <src>../../data/common/src/test/resources/sample-data.xml</src>
                     <type>${dbunit.operation.type}</type>
                     <schema>${dbunit.schema}</schema>
                     <skip>${skipTests}</skip>
@@ -213,7 +213,12 @@
         <dependency>
             <groupId>org.primefaces.themes</groupId>
             <artifactId>bootstrap</artifactId>
-            <version>1.0.9</version>
+            <version>1.0.10</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ocpsoft</groupId>
+            <artifactId>prettyfaces-jsf2</artifactId>
+            <version>3.3.3</version>
         </dependency>
         <!-- Upgrade version of commons-io used -->
         <dependency>

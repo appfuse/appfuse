@@ -52,8 +52,8 @@
                 <invoke description="get Login Page" url="/"/>
                 <verifytitle description="we should see the login title" text=".*${login.title}.*" regex="true"/>
                 <invoke description="click password hint link" url="/passwordHint/admin" saveResponse="false"/>
-                <verifytitle description="we should see the login title again"
-                    text=".*${login.title}.*" regex="true"/>
+                <verifytext description="verify success message" regex="true"
+                            text='&lt;div class="alert alert-success.*&gt;.*admin.*&lt;/div&gt;'/>
             </steps>
         </webtest>
     </target>
@@ -96,7 +96,7 @@
                 <clickbutton label="${button.search}" description="Click Search"/>
                 <verifyXPath
                      description="Count the number of users found"
-                     xpath="count(//div[@id='editUser:users']/table/tbody/tr)"
+                     xpath="count(//tbody[@id='editUser:users_data']/tr)"
                      text="1"/>
             </steps>
         </webtest>

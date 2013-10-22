@@ -39,15 +39,9 @@ public class AppModule {
         binder.bind(EmailService.class, EmailServiceImpl.class);
     }
 
-
-
-    //@Contribute(SymbolProvider.class)
-    //@ApplicationDefaults
-    //public static void enableDevelopmentMode(MappedConfiguration<String, Object> configuration) {
     public static void contributeApplicationDefaults(MappedConfiguration<String, String> configuration) {
         configuration.add(SymbolConstants.SUPPORTED_LOCALES,
                 "de,en,es,fr,it,ko,nl,no,pt_BR,pt,tr,zh_CN,zh_TW,en_US");
-
 
         // Turn off GZip Compression since it causes issues with SiteMesh
         configuration.add(SymbolConstants.GZIP_COMPRESSION_ENABLED, "false");
@@ -108,26 +102,17 @@ public class AppModule {
         configuration.add(clazz, factory);
     }
 
-
-
-
     public void contributeMarkupRenderer(OrderedConfiguration<MarkupRendererFilter> configuration,
-                                         final Environment environment
-
-    ) {
+                                         final Environment environment) {
         MarkupRendererFilter bootstrapValidationDecorator = new MarkupRendererFilter() {
 
             public void renderMarkup(MarkupWriter writer, MarkupRenderer renderer) {
-
-
                 environment.push(ValidationDecorator.class, new BootstrapValidationDecorator(environment, writer));
-
                 renderer.renderMarkup(writer);
-
                 environment.pop(ValidationDecorator.class);
             }
         };
-        //configuration.add("BootstrapValidationDecorator", bootstrapValidationDecorator, "after:ValidationDecorator");
+
         configuration.override("ValidationDecorator", bootstrapValidationDecorator);
 
     }

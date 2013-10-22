@@ -40,8 +40,9 @@ import java.util.Map;
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
 public class BaseFormController implements ServletContextAware {
-    protected final transient Log log = LogFactory.getLog(getClass());
     public static final String MESSAGES_KEY = "successMessages";
+    public static final String ERRORS_MESSAGES_KEY = "errors";
+    protected final transient Log log = LogFactory.getLog(getClass());
     private UserManager userManager = null;
     protected MailEngine mailEngine = null;
     protected SimpleMailMessage message = null;
@@ -71,12 +72,12 @@ public class BaseFormController implements ServletContextAware {
 
     @SuppressWarnings("unchecked")
     public void saveError(HttpServletRequest request, String error) {
-        List errors = (List) request.getSession().getAttribute("errors");
+        List errors = (List) request.getSession().getAttribute(ERRORS_MESSAGES_KEY);
         if (errors == null) {
             errors = new ArrayList();
         }
         errors.add(error);
-        request.getSession().setAttribute("errors", errors);
+        request.getSession().setAttribute(ERRORS_MESSAGES_KEY, errors);
     }
     
     @SuppressWarnings("unchecked")

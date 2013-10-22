@@ -34,6 +34,12 @@ import javax.servlet.jsp.JspFactory;
 public class EscapeXmlELResolverListener implements ServletContextListener {
 
     public void contextInitialized(ServletContextEvent event) {
+        // APF-1379: Prevent NPE when using Tomcat Maven Plugin
+        try {
+            Class.forName("org.apache.jasper.compiler.JspRuntimeContext");
+        } catch (ClassNotFoundException cnfe) {
+            // ignore
+        }
         JspFactory.getDefaultFactory()
                 .getJspApplicationContext(event.getServletContext())
                 .addELResolver(new EscapeXmlELResolver());

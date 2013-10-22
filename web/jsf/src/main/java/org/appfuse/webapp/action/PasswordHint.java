@@ -30,8 +30,8 @@ public class PasswordHint extends BasePage {
 
             addError("errors.required", getText("user.username"));
             return null;
-        } else if (username.endsWith(".jsf")) {
-            username = username.substring(0, username.indexOf(".jsf"));
+        } else if (username.endsWith(".xhtml")) {
+            username = username.substring(0, username.indexOf(".xhtml"));
         }
         
         if (log.isDebugEnabled()) {
@@ -42,7 +42,7 @@ public class PasswordHint extends BasePage {
         try {
             User user = userManager.getUserByUsername(username);
 
-            StringBuffer msg = new StringBuffer();
+            StringBuilder msg = new StringBuilder();
             msg.append("Your password hint is: ").append(user.getPasswordHint());
             msg.append("\n\nLogin at: ").append(RequestUtil.getAppURL(getRequest()));
 

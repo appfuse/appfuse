@@ -1,5 +1,11 @@
 package org.appfuse.webapp.controller;
 
+import java.util.Locale;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang.StringUtils;
 import org.appfuse.Constants;
 import org.appfuse.model.Role;
@@ -11,20 +17,13 @@ import org.appfuse.webapp.util.RequestUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.authentication.AuthenticationTrustResolver;
-import org.springframework.security.authentication.AuthenticationTrustResolverImpl;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Locale;
 
 /**
  * Implementation of <strong>SimpleFormController</strong> that interacts with
@@ -37,10 +36,11 @@ import java.util.Locale;
 @Controller
 @RequestMapping("/userform*")
 public class UserFormController extends BaseFormController {
+
     private RoleManager roleManager;
 
     @Autowired
-    public void setRoleManager(RoleManager roleManager) {
+    public void setRoleManager(final RoleManager roleManager) {
         this.roleManager = roleManager;
     }
 
@@ -49,9 +49,31 @@ public class UserFormController extends BaseFormController {
         setSuccessView("redirect:/admin/users");
     }
 
+    @Override
+    @InitBinder
+    protected void initBinder(final HttpServletRequest request, final ServletRequestDataBinder binder) {
+        super.initBinder(request, binder);
+        binder.setDisallowedFields("password", "confirmPassword");
+    }
+
+    /**
+     * Load user object from db before web data binding in order to keep properties not populated from web post.
+     * 
+     * @param request
+     * @return
+     */
+    @ModelAttribute("user")
+    protected User loadUser(final HttpServletRequest request) {
+        final String userId = request.getParameter("id");
+        if (isFormSubmission(request) && StringUtils.isNotBlank(userId)) {
+            return getUserManager().getUser(userId);
+        }
+        return new User();
+    }
+
     @RequestMapping(method = RequestMethod.POST)
-    public String onSubmit(User user, BindingResult errors, HttpServletRequest request,
-                           HttpServletResponse response)
+    public String onSubmit(@ModelAttribute("user") final User user, final BindingResult errors, final HttpServletRequest request,
+            final HttpServletResponse response)
             throws Exception {
         if (request.getParameter("cancel") != null) {
             if (!StringUtils.equals(request.getParameter("from"), "list")) {
@@ -71,7 +93,7 @@ public class UserFormController extends BaseFormController {
 
         log.debug("entering 'onSubmit' method...");
 
-        Locale locale = request.getLocale();
+        final Locale locale = request.getLocale();
 
         if (request.getParameter("delete") != null) {
             getUserManager().removeUser(user.getId().toString());
@@ -83,38 +105,44 @@ public class UserFormController extends BaseFormController {
             // only attempt to change roles if user is admin for other users,
             // showForm() method will handle populating
             if (request.isUserInRole(Constants.ADMIN_ROLE)) {
-                String[] userRoles = request.getParameterValues("userRoles");
+                final String[] userRoles = request.getParameterValues("userRoles");
 
                 if (userRoles != null) {
                     user.getRoles().clear();
-                    for (String roleName : userRoles) {
+                    for (final String roleName : userRoles) {
                         user.addRole(roleManager.getRole(roleName));
                     }
                 }
             } else {
                 // if user is not an admin then load roles from the database
-                // (or any other user properties that should not be editable 
-                // by users without admin role) 
-                User cleanUser = getUserManager().getUserByUsername(
+                // (or any other user properties that should not be editable
+                // by users without admin role)
+                final User cleanUser = getUserManager().getUserByUsername(
                         request.getRemoteUser());
                 user.setRoles(cleanUser.getRoles());
             }
 
-            Integer originalVersion = user.getVersion();
+            final Integer originalVersion = user.getVersion();
+
+            // set a random password if user is added by admin
+            if (originalVersion == null && StringUtils.isBlank(user.getPassword())) {
+                user.setPassword(UUID.randomUUID().toString()); // XXX review if
+                // UUID is a
+                // good choice
+                // here
+            }
 
             try {
                 getUserManager().saveUser(user);
-            } catch (AccessDeniedException ade) {
+            } catch (final AccessDeniedException ade) {
                 // thrown by UserSecurityAdvice configured in aop:advisor userManagerSecurity
                 log.warn(ade.getMessage());
                 response.sendError(HttpServletResponse.SC_FORBIDDEN);
                 return null;
-            } catch (UserExistsException e) {
+            } catch (final UserExistsException e) {
                 errors.rejectValue("username", "errors.existing.user",
-                        new Object[]{user.getUsername(), user.getEmail()}, "duplicate user");
+                        new Object[] { user.getUsername(), user.getEmail() }, "duplicate user");
 
-                // redisplay the unencrypted passwords
-                user.setPassword(user.getConfirmPassword());
                 // reset the version # to what was passed in
                 user.setVersion(originalVersion);
 
@@ -134,9 +162,11 @@ public class UserFormController extends BaseFormController {
                     message.setSubject(getText("signup.email.subject", locale));
 
                     try {
+                        final String resetPasswordUrl = getUserManager().buildRecoveryPasswordUrl(user,
+                                UpdatePasswordController.RECOVERY_PASSWORD_TEMPLATE);
                         sendUserMessage(user, getText("newuser.email.message", user.getFullName(), locale),
-                                RequestUtil.getAppURL(request));
-                    } catch (MailException me) {
+                                RequestUtil.getAppURL(request) + resetPasswordUrl);
+                    } catch (final MailException me) {
                         saveError(request, me.getCause().getLocalizedMessage());
                     }
 
@@ -152,7 +182,7 @@ public class UserFormController extends BaseFormController {
 
     @ModelAttribute
     @RequestMapping(method = RequestMethod.GET)
-    protected User showForm(HttpServletRequest request, HttpServletResponse response)
+    protected User showForm(final HttpServletRequest request, final HttpServletResponse response)
             throws Exception {
         // If not an administrator, make sure user is not trying to add or edit another user
         if (!request.isUserInRole(Constants.ADMIN_ROLE) && !isFormSubmission(request)) {
@@ -166,24 +196,7 @@ public class UserFormController extends BaseFormController {
         }
 
         if (!isFormSubmission(request)) {
-            String userId = request.getParameter("id");
-
-            // if user logged in with remember me, display a warning that they can't change passwords
-            log.debug("checking for remember me login...");
-
-            AuthenticationTrustResolver resolver = new AuthenticationTrustResolverImpl();
-            SecurityContext ctx = SecurityContextHolder.getContext();
-
-            if (ctx.getAuthentication() != null) {
-                Authentication auth = ctx.getAuthentication();
-
-                if (resolver.isRememberMe(auth)) {
-                    request.getSession().setAttribute("cookieLogin", "true");
-
-                    // add warning message
-                    saveMessage(request, getText("userProfile.cookieLogin", request.getLocale()));
-                }
-            }
+            final String userId = request.getParameter("id");
 
             User user;
             if (userId == null && !isAdd(request)) {
@@ -195,8 +208,6 @@ public class UserFormController extends BaseFormController {
                 user.addRole(new Role(Constants.USER_ROLE));
             }
 
-            user.setConfirmPassword(user.getPassword());
-
             return user;
         } else {
             // populate user object from database, so all fields don't need to be hidden fields in form
@@ -204,12 +215,12 @@ public class UserFormController extends BaseFormController {
         }
     }
 
-    private boolean isFormSubmission(HttpServletRequest request) {
+    private boolean isFormSubmission(final HttpServletRequest request) {
         return request.getMethod().equalsIgnoreCase("post");
     }
 
-    protected boolean isAdd(HttpServletRequest request) {
-        String method = request.getParameter("method");
+    protected boolean isAdd(final HttpServletRequest request) {
+        final String method = request.getParameter("method");
         return (method != null && method.equalsIgnoreCase("add"));
     }
 }

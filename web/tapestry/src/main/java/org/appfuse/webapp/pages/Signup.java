@@ -4,10 +4,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.alerts.AlertManager;
 import org.apache.tapestry5.alerts.Duration;
 import org.apache.tapestry5.alerts.Severity;
-import org.apache.tapestry5.annotations.Component;
-import org.apache.tapestry5.annotations.Log;
-import org.apache.tapestry5.annotations.PageActivationContext;
-import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.HttpError;
@@ -116,7 +113,7 @@ public class Signup {
     }
 
     @Log
-    Object onSuccess() throws IOException {
+    Object onSuccess() throws UserExistsException, IOException {
         try {
             user = userManager.saveUser(user);
         } catch (AccessDeniedException ade) {
@@ -135,6 +132,7 @@ public class Signup {
             //return this;
 
             response.sendRedirect("signup");
+            return null;
         }
 
         // log user in automatically
@@ -152,10 +150,7 @@ public class Signup {
         }
 
         alertManager.alert(Duration.TRANSIENT, Severity.INFO,  messages.get("user.registered"));
-        if (request != null) { // needed for testing
-            response.sendRedirect(request.getContextPath());
-        }
-        return null;
+        return Home.class;
     }
 
     @Log

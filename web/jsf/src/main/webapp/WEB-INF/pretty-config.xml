@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pretty-config xmlns="http://ocpsoft.com/prettyfaces/3.2.0"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="http://ocpsoft.com/prettyfaces/3.2.0
+                                   		http://ocpsoft.com/xml/ns/prettyfaces/ocpsoft-pretty-faces-3.2.0.xsd">
+
+    <!--url-mapping>
+        <pattern value="/editProfile"/>
+        <view-id value="/userForm.jsf"/>
+        <action>#{userForm.edit}</action>
+    </url-mapping-->
+
+    <url-mapping>
+        <pattern value="/passwordHint/#{username}"/>
+        <view-id value="/passwordHint.xhtml"/>
+        <action>#{passwordHint.execute}</action>
+    </url-mapping>
+
+</pretty-config>

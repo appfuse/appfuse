@@ -1,21 +1,25 @@
 package org.appfuse.service.impl;
 
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.jws.WebService;
+
+import org.apache.commons.lang.StringUtils;
 import org.appfuse.dao.UserDao;
 import org.appfuse.model.User;
+import org.appfuse.service.MailEngine;
 import org.appfuse.service.UserExistsException;
 import org.appfuse.service.UserManager;
 import org.appfuse.service.UserService;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.orm.jpa.JpaSystemException;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.authentication.dao.SaltSource;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import javax.jws.WebService;
-import java.util.List;
 
 
 /**
@@ -31,27 +35,76 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
     @Autowired(required = false)
     private SaltSource saltSource;
 
+    private MailEngine mailEngine;
+    private SimpleMailMessage message;
+    private PasswordTokenManager passwordTokenManager;
+
+    private String passwordRecoveryTemplate = "passwordRecovery.vm";
+    private String passwordUpdatedTemplate = "passwordUpdated.vm";
+
     @Autowired
-    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+    public void setPasswordEncoder(final PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @Override
     @Autowired
-    public void setUserDao(UserDao userDao) {
+    public void setUserDao(final UserDao userDao) {
         this.dao = userDao;
         this.userDao = userDao;
+    }
+
+    @Autowired(required = false)
+    public void setMailEngine(final MailEngine mailEngine) {
+        this.mailEngine = mailEngine;
+    }
+
+    @Autowired(required = false)
+    public void setMailMessage(final SimpleMailMessage message) {
+        this.message = message;
+    }
+
+    @Autowired(required = false)
+    public void setPasswordTokenManager(final PasswordTokenManager passwordTokenManager) {
+        this.passwordTokenManager = passwordTokenManager;
+    }
+
+    /**
+     * Velocity template name to send users a password recovery mail (default
+     * passwordRecovery.vm).
+     * 
+     * @param passwordRecoveryTemplate
+     *            the Velocity template to use (relative to classpath)
+     * @see MailEngine#sendMessage(SimpleMailMessage, String, Map)
+     */
+    public void setPasswordRecoveryTemplate(final String passwordRecoveryTemplate) {
+        this.passwordRecoveryTemplate = passwordRecoveryTemplate;
+    }
+
+    /**
+     * Velocity template name to inform users their password was updated
+     * (default passwordUpdated.vm).
+     * 
+     * @param passwordUpdatedTemplate
+     *            the Velocity template to use (relative to classpath)
+     * @see MailEngine#sendMessage(SimpleMailMessage, String, Map)
+     */
+    public void setPasswordUpdatedTemplate(final String passwordUpdatedTemplate) {
+        this.passwordUpdatedTemplate = passwordUpdatedTemplate;
     }
 
     /**
      * {@inheritDoc}
      */
-    public User getUser(String userId) {
+    @Override
+    public User getUser(final String userId) {
         return userDao.get(new Long(userId));
     }
 
     /**
      * {@inheritDoc}
      */
+    @Override
     public List<User> getUsers() {
         return userDao.getAllDistinct();
     }
@@ -59,7 +112,8 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
     /**
      * {@inheritDoc}
      */
-    public User saveUser(User user) throws UserExistsException {
+    @Override
+    public User saveUser(final User user) throws UserExistsException {
 
         if (user.getVersion() == null) {
             // if new user, lowercase userId
@@ -75,7 +129,7 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
                 passwordChanged = true;
             } else {
                 // Existing user, check password in DB
-                String currentPassword = userDao.getUserPassword(user.getId());
+                final String currentPassword = userDao.getUserPassword(user.getId());
                 if (currentPassword == null) {
                     passwordChanged = true;
                 } else {
@@ -104,7 +158,7 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
 
         try {
             return userDao.saveUser(user);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace();
             log.warn(e.getMessage());
             throw new UserExistsException("User '" + user.getUsername() + "' already exists!");
@@ -114,7 +168,8 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
     /**
      * {@inheritDoc}
      */
-    public void removeUser(User user) {
+    @Override
+    public void removeUser(final User user) {
         log.debug("removing user: " + user);
         userDao.remove(user);
     }
@@ -122,7 +177,8 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
     /**
      * {@inheritDoc}
      */
-    public void removeUser(String userId) {
+    @Override
+    public void removeUser(final String userId) {
         log.debug("removing user: " + userId);
         userDao.remove(new Long(userId));
     }
@@ -134,14 +190,95 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
      * @return User the populated user object
      * @throws UsernameNotFoundException thrown when username not found
      */
-    public User getUserByUsername(String username) throws UsernameNotFoundException {
+    @Override
+    public User getUserByUsername(final String username) throws UsernameNotFoundException {
         return (User) userDao.loadUserByUsername(username);
     }
 
     /**
      * {@inheritDoc}
      */
-    public List<User> search(String searchTerm) {
+    @Override
+    public List<User> search(final String searchTerm) {
         return super.search(searchTerm, User.class);
+    }
+
+    @Override
+    public String buildRecoveryPasswordUrl(final User user, final String urlTemplate) {
+        final String token = generateRecoveryToken(user);
+        final String username = user.getUsername();
+        return StringUtils.replaceEach(urlTemplate,
+                new String[] { "{username}", "{token}" },
+                new String[] { username, token });
+    }
+
+    @Override
+    public String generateRecoveryToken(final User user) {
+        return passwordTokenManager.generateRecoveryToken(user);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isRecoveryTokenValid(final String username, final String token) {
+        return isRecoveryTokenValid(getUserByUsername(username), token);
+    }
+
+    @Override
+    public boolean isRecoveryTokenValid(final User user, final String token) {
+        return passwordTokenManager.isRecoveryTokenValid(user, token);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void sendPasswordRecoveryEmail(final String username, final String urlTemplate) {
+        log.debug("Sending password recovery token to user: " + username);
+
+        final User user = getUserByUsername(username);
+        final String url = buildRecoveryPasswordUrl(user, urlTemplate);
+
+        sendUserEmail(user, passwordRecoveryTemplate, url);
+    }
+
+    private void sendUserEmail(final User user, final String template, final String url) {
+        message.setTo(user.getFullName() + "<" + user.getEmail() + ">");
+
+        final Map<String, Serializable> model = new HashMap<String, Serializable>();
+        model.put("user", user);
+        model.put("applicationURL", url);
+
+        mailEngine.sendMessage(message, template, model);
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public User updatePassword(final String username, final String currentPassword, final String recoveryToken, final String newPassword, final String applicationUrl) throws UserExistsException {
+        User user = getUserByUsername(username);
+        if (isRecoveryTokenValid(user, recoveryToken)) {
+            log.debug("Updating password from recovery token for user:" + username);
+            user.setPassword(newPassword);
+            user = saveUser(user);
+            passwordTokenManager.invalidateRecoveryToken(user, recoveryToken);
+
+            sendUserEmail(user, passwordUpdatedTemplate, applicationUrl);
+
+            return user;
+        } else if (StringUtils.isNotBlank(currentPassword)) {
+            final Object salt = saltSource != null ? saltSource.getSalt(user) : null;
+            if (passwordEncoder.isPasswordValid(user.getPassword(), currentPassword, salt)) {
+                log.debug("Updating password (providing current password) for user:" + username);
+                user.setPassword(newPassword);
+                user = saveUser(user);
+                return user;
+            }
+        }
+        // or throw exception
+        return null;
     }
 }

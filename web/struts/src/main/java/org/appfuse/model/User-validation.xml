@@ -1,5 +1,5 @@
-<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0.2//EN"
-    "http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<!DOCTYPE validators PUBLIC "-//Apache Struts//XWork Validator 1.0.3//EN"
+        "http://struts.apache.org/dtds/xwork-validator-1.0.3.dtd">
 <validators>
     <field name="user.username">
         <field-validator type="requiredstring">
@@ -18,7 +18,7 @@
         <field-validator type="fieldexpression">
             <param name="expression">
                 (user.confirmPassword.equals(user.password))
-            </param> 
+            </param>
             <message key="errors.twofields"/>
         </field-validator>
     </field>

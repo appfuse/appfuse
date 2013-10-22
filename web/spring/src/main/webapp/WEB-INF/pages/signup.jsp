@@ -23,7 +23,7 @@
     </spring:bind>
 
     <form:form commandName="user" method="post" action="signup" id="signupForm" autocomplete="off"
-               cssClass="well form-horizontal" onsubmit="return validateUser(this)">
+               cssClass="well form-horizontal" onsubmit="return validateSignup(this)">
         <spring:bind path="user.username">
         <fieldset class="control-group${(not empty status.errorMessage) ? ' error' : ''}">
         </spring:bind>
@@ -40,15 +40,6 @@
             <div class="controls">
                 <form:password path="password" id="password" showPassword="true"/>
                 <form:errors path="password" cssClass="help-inline"/>
-            </div>
-        </fieldset>
-        <spring:bind path="user.confirmPassword">
-        <fieldset class="control-group${(not empty status.errorMessage) ? ' error' : ''}">
-        </spring:bind>
-            <appfuse:label styleClass="control-label" key="user.confirmPassword"/>
-            <div class="controls">
-                <form:password path="confirmPassword" id="confirmPassword" showPassword="true"/>
-                <form:errors path="confirmPassword" cssClass="help-inline"/>
             </div>
         </fieldset>
         <spring:bind path="user.passwordHint">
@@ -148,7 +139,7 @@
 </div>
 
 <c:set var="scripts" scope="request">
-<v:javascript formName="user" staticJavascript="false"/>
+<v:javascript formName="signup" staticJavascript="false"/>
 <script type="text/javascript" src="<c:url value="/scripts/validator.jsp"/>"></script>
 <script type="text/javascript">
     $(document).ready(function() {

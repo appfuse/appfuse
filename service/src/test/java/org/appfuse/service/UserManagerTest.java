@@ -7,6 +7,8 @@ import org.appfuse.model.User;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class UserManagerTest extends BaseManagerTestCase {
@@ -64,4 +66,13 @@ public class UserManagerTest extends BaseManagerTestCase {
             assertNotNull(e);
         }
     }
+    
+    @Test
+    public void testGetAll() throws Exception {
+        List<User> found = mgr.getAll();
+        log.debug("Users found: " + found);
+        assertEquals(3, found.size());
+    }
+
+
 }

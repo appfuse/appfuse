@@ -19,9 +19,9 @@
     }
     
     function passwordHint() {
-        if ($("j_username").value.length == 0) {
+        if ($("#j_username").val().length == 0) {
             alert("<fmt:message key="errors.required"><fmt:param><fmt:message key="label.username"/></fmt:param></fmt:message>");
-            $("j_username").focus();
+            $("#j_username").focus();
         } else {
             location.href="<c:url value="/passwordHint"/>/" + $("#j_username").val();
         }
