@@ -1,11 +1,12 @@
 package org.appfuse.webapp.client.proxies;
 
 import org.appfuse.model.Role;
+import org.appfuse.webapp.server.locators.RoleLocator;
 
 import com.google.web.bindery.requestfactory.shared.EntityProxy;
 import com.google.web.bindery.requestfactory.shared.ProxyFor;
 
-@ProxyFor(value=Role.class, locator=org.appfuse.webapp.server.locators.RoleLocator.class)
+@ProxyFor(value=Role.class, locator=RoleLocator.class)
 public interface RoleProxy extends EntityProxy {
 
 	public static final String ANONYMOUS = "ANONYMOUS";

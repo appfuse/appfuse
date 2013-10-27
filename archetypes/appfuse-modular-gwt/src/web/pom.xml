@@ -180,7 +180,7 @@
                                 <classpath/>
                                 <argument>com.google.web.bindery.requestfactory.apt.ValidationTool</argument>
                                 <argument>${project.build.outputDirectory}</argument>
-                                <argument>${project.groupId}.webapp.requests.ApplicationRequestFactory</argument>
+                                <argument>${project.groupId}.webapp.client.requests.ApplicationRequestFactory</argument>
                             </arguments>
                         </configuration>
                     </execution>
@@ -211,7 +211,7 @@
     <dependencies>
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
-            <artifactId>appfuse-modular-spring-core</artifactId>
+            <artifactId>appfuse-modular-gwt-core</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
