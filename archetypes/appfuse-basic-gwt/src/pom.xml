@@ -694,7 +694,7 @@
         	<id>gwtDebug</id>
         	<properties>
 				<gwt.draftCompile>true</gwt.draftCompile>
-  				<gwtModuleSuffix>Debug</gwtModuleSuffix>
+				<gwtModuleName>${project.groupId}.webapp.MainModuleDebug</gwtModuleName>        
         	</properties>
         </profile>           
     </profiles>
@@ -708,8 +708,7 @@
         <amp.genericCore>true</amp.genericCore>
         <amp.fullSource>false</amp.fullSource>
         <db.name>${artifactId.replaceAll('-','_')}</db.name>
-		<gwtModuleSuffix></gwtModuleSuffix>
-		<gwtModuleName>${project.groupId}.webapp.MainModule${gwtModuleSuffix}</gwtModuleName>        
+		<gwtModuleName>${project.groupId}.webapp.MainModule</gwtModuleName>        
 
         <!-- Framework dependency versions -->
         <appfuse.version>2.2.2-SNAPSHOT</appfuse.version>

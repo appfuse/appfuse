@@ -371,7 +371,7 @@
         	<id>gwtDebug</id>
         	<properties>
 				<gwt.draftCompile>true</gwt.draftCompile>
-  				<gwtModuleSuffix>Debug</gwtModuleSuffix>
+            	<gwtModuleName>${project.groupId}.webapp.MainModuleDebug</gwtModuleName>  				
         	</properties>
         </profile>           
     </profiles>

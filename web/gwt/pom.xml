@@ -401,14 +401,14 @@
         	<properties>
         		<skipTests>true</skipTests>
 				<gwt.draftCompile>true</gwt.draftCompile>
-  				<gwtModuleSuffix>Debug</gwtModuleSuffix>
+				<gwtModuleName>${project.groupId}.webapp.MainModule</gwtModuleName>        
         	</properties>
         </profile>        
     </profiles>
 
 	<properties>
 		<gwtModuleSuffix></gwtModuleSuffix>
-		<gwtModuleName>${project.groupId}.webapp.MainModule${gwtModuleSuffix}</gwtModuleName>
+		<gwtModuleName>${project.groupId}.webapp.MainModule</gwtModuleName>
 	</properties>
 
     <reporting>
