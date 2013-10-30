@@ -645,7 +645,7 @@
         <jstl.version>1.2</jstl.version>
         <junit.version>4.10</junit.version>
         <log4j.version>1.2.17</log4j.version>
-        <primefaces.version>3.5</primefaces.version>
+        <primefaces.version>4.0</primefaces.version>
         <servlet.version>3.0.1</servlet.version>
         <shale.version>1.0.5</shale.version>
         <sitemesh.version>2.4.2</sitemesh.version>
@@ -656,7 +656,7 @@
         <struts.version>2.3.14.2</struts.version>
         <struts.menu.version>2.4.3</struts.menu.version>
         <tapestry.version>5.3.7</tapestry.version>
-        <urlrewrite.version>3.1.0</urlrewrite.version>
+        <urlrewrite.version>4.0.3</urlrewrite.version>
         <velocity.version>1.4</velocity.version>
         <webtest.version>3.0</webtest.version>
         <wiser.version>1.2</wiser.version>
