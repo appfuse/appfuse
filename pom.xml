@@ -315,6 +315,12 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-ldap</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+
         <!-- Upgrade version of AspectJ used by Spring Security -->
         <dependency>
             <groupId>org.aspectj</groupId>
