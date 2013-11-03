@@ -70,7 +70,7 @@
 	  <when-type-is class="javax.validation.ValidatorFactory" />
 	</replace-with>	
 
-	<!-- Shell (deferred binding) (remove?) -->
+	<!-- Shell (deferred binding) -->
 	<replace-with class="org.appfuse.webapp.client.ui.DesktopShell">
 		<when-type-is class="org.appfuse.webapp.client.ui.Shell"/>
 	</replace-with>	

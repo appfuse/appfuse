@@ -18,6 +18,7 @@ import com.github.gwtbootstrap.client.ui.Form.SubmitEvent;
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
+import com.google.inject.Inject;
 
 /**
  * @author ivangsa
@@ -25,83 +26,85 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
  */
 public class FileUploadActivity extends AbstractBaseActivity implements FileUploadView.Delegate, UploadedFileView.Delegate{
 
-	private FileUploadView formView;
-	private UploadedFileView resultsView;
-	private AcceptsOneWidget panel;
+    private final FileUploadView formView;
+    private final UploadedFileView resultsView;
+    private AcceptsOneWidget panel;
 
-	public FileUploadActivity(Application application) {
-		super(application);
-		setTitle(i18n.upload_title());
-	}
+    @Inject
+    public FileUploadActivity(final Application application, final FileUploadView formView, final UploadedFileView resultsView) {
+        super(application);
+        this.formView = formView;
+        this.resultsView = resultsView;
+        setTitle(i18n.upload_title());
+    }
 
-	/* (non-Javadoc)
-	 * @see com.google.gwt.activity.shared.Activity#start(com.google.gwt.user.client.ui.AcceptsOneWidget, com.google.gwt.event.shared.EventBus)
-	 */
-	@Override
-	public void start(AcceptsOneWidget panel, EventBus eventBus) {
-		this.panel = panel;
-		showForm();
-	}
+    /* (non-Javadoc)
+     * @see com.google.gwt.activity.shared.Activity#start(com.google.gwt.user.client.ui.AcceptsOneWidget, com.google.gwt.event.shared.EventBus)
+     */
+    @Override
+    public void start(final AcceptsOneWidget panel, final EventBus eventBus) {
+        this.panel = panel;
+        showForm();
+        setDocumentTitleAndBodyAttributtes();
+    }
 
-	private void showForm() {
-		formView = viewFactory.getView(FileUploadView.class);
-		formView.setDelegate(this);
-		formView.edit(new FileUploadBean());
-		panel.setWidget(formView);
-	}
-	
+    private void showForm() {
+        formView.setDelegate(this);
+        formView.edit(new FileUploadBean());
+        panel.setWidget(formView);
+    }
 
-	
-	@Override
-	public void onSubmit(SubmitEvent event) {
-		if(formView != null) {
-			FileUploadBean fileUpload = formView.getEditorDriver().flush();
-			Set violations = getValidator().validate(fileUpload);
-			formView.getEditorDriver().setConstraintViolations(violations);
-			if(!violations.isEmpty()) {
-				event.cancel();
-			}
-		}
-	}
 
-	@Override
-	public void onSubmitComplete(SubmitCompleteEvent event) {
-		UploadedFileBean uploadedFile = parseResponse(event.getResults());
-		if(uploadedFile.getErrorMessages() != null && uploadedFile.getErrorMessages().length() > 0) {
-			List<String> errorMessages = new ArrayList<String>();
-			for (int i = 0; i < uploadedFile.getErrorMessages().length(); i++) {
-				errorMessages.add(uploadedFile.getErrorMessages().get(i));
-			}
-			formView.showErrorsMessages(errorMessages);
-		} else {
-			shell.addMessage(uploadedFile.getLocation(), AlertType.SUCCESS);
-			showResults(uploadedFile);
-		}
-	}
 
-	private void showResults(UploadedFileBean uploadedFile) {
-		resultsView = viewFactory.getView(UploadedFileView.class);
-		resultsView.setDelegate(this);
-		resultsView.display(uploadedFile);
-		panel.setWidget(resultsView);
-	}
-	
-	@Override
-	public void onDoneClick() {
-		placeController.goTo(new MainMenuPlace());
-	}
-	
-	@Override
-	public void onCancelClick() {
-		placeController.goTo(new MainMenuPlace());
-	}
+    @Override
+    public void onSubmit(final SubmitEvent event) {
+        if(formView != null) {
+            final FileUploadBean fileUpload = formView.getEditorDriver().flush();
+            final Set violations = getValidator().validate(fileUpload);
+            formView.getEditorDriver().setConstraintViolations(violations);
+            if(!violations.isEmpty()) {
+                event.cancel();
+            }
+        }
+    }
 
-	@Override
-	public void onUploadAnotherFileClick() {
-		showForm();
-	}
+    @Override
+    public void onSubmitComplete(final SubmitCompleteEvent event) {
+        final UploadedFileBean uploadedFile = parseResponse(event.getResults());
+        if(uploadedFile.getErrorMessages() != null && uploadedFile.getErrorMessages().length() > 0) {
+            final List<String> errorMessages = new ArrayList<String>();
+            for (int i = 0; i < uploadedFile.getErrorMessages().length(); i++) {
+                errorMessages.add(uploadedFile.getErrorMessages().get(i));
+            }
+            formView.showErrorsMessages(errorMessages);
+        } else {
+            shell.addMessage(uploadedFile.getLocation(), AlertType.SUCCESS);
+            showResults(uploadedFile);
+        }
+    }
 
-	private final native UploadedFileBean parseResponse(String json) /*-{
-	    return eval('(' + json + ')');
-	}-*/;
+    private void showResults(final UploadedFileBean uploadedFile) {
+        resultsView.setDelegate(this);
+        resultsView.display(uploadedFile);
+        panel.setWidget(resultsView);
+    }
+
+    @Override
+    public void onDoneClick() {
+        placeController.goTo(new MainMenuPlace());
+    }
+
+    @Override
+    public void onCancelClick() {
+        placeController.goTo(new MainMenuPlace());
+    }
+
+    @Override
+    public void onUploadAnotherFileClick() {
+        showForm();
+    }
+
+    private final native UploadedFileBean parseResponse(String json) /*-{
+		return eval('(' + json + ')');
+    }-*/;
 }

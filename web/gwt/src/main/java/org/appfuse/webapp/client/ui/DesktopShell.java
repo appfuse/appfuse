@@ -26,7 +26,7 @@ import com.google.gwt.user.client.ui.Widget;
 /**
  * The outermost UI of the application.
  */
-public class DesktopShell extends AbstractShell implements LoginEvent.Handler, LogoutEvent.Handler, PlaceChangeEvent.Handler {
+public class DesktopShell extends Shell implements LoginEvent.Handler, LogoutEvent.Handler, PlaceChangeEvent.Handler {
 	
 	interface Binder extends UiBinder<Widget, DesktopShell> {	}
 	private static final Binder uiBinder = GWT.create(Binder.class);

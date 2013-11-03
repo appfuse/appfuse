@@ -3,7 +3,7 @@
  */
 package org.appfuse.webapp.client.application;
 
-import org.appfuse.webapp.client.application.base.activity.AbstractBaseActivity;
+import org.appfuse.webapp.client.application.base.activity.AsyncActivityProxy;
 import org.appfuse.webapp.client.application.base.place.EntityProxyPlace;
 import org.appfuse.webapp.client.application.base.place.EntitySearchPlace;
 import org.appfuse.webapp.client.proxies.UserProxy;
@@ -28,7 +28,7 @@ import org.appfuse.webapp.client.ui.users.signUp.SignUpPlace;
 
 import com.google.gwt.activity.shared.Activity;
 import com.google.gwt.activity.shared.ActivityMapper;
-import com.google.gwt.dom.client.Document;
+import com.google.gwt.inject.client.AsyncProvider;
 import com.google.gwt.place.shared.Place;
 import com.google.inject.Inject;
 
@@ -38,93 +38,71 @@ import com.google.inject.Inject;
  */
 public class ApplicationActivityMapper implements ActivityMapper {
 
-    protected final Application application;
+    @Inject
+    private AsyncProvider<MainMenuActivity> mainMenuActivityProvider;
+    @Inject
+    private AsyncProvider<LoginActivity> loginActivityProvider;
+    @Inject
+    private AsyncProvider<LogoutActivity> logoutActivityProvider;
+    @Inject
+    private AsyncProvider<ReloadOptionsActivity> reloadOptionsActivityProvider;
+    @Inject
+    private AsyncProvider<SignUpActivity> signUpActivityProvider;
+    @Inject
+    private AsyncProvider<EditProfileActivity> editProfileActivityProvider;
+    @Inject
+    private AsyncProvider<ActiveUsersActivity> activeUsersActivityProvider;
+    @Inject
+    private AsyncProvider<FileUploadActivity> fileUploadActivityProvider;
+    @Inject
+    private AsyncProvider<EditUserActivity> editUserActivityProvider;
+    @Inject
+    private AsyncProvider<UsersSearchActivity> usersSearchActivityProvider;
 
 
-    /**
-     * @param application
-     */
-	@Inject
-	public ApplicationActivityMapper(Application application) {
-		super();
-		this.application = application;
-	}
 
+    @Override
+    public Activity getActivity(final Place place) {
+        Activity activity = null;
 
+        if(place instanceof LoginPlace) {
+            activity = new AsyncActivityProxy<LoginActivity>(loginActivityProvider);
+        }
+        else if (place instanceof MainMenuPlace) {
+            activity = new AsyncActivityProxy<MainMenuActivity>(mainMenuActivityProvider);
+        }
+        else if (place instanceof LogoutPlace) {
+            activity = new AsyncActivityProxy<LogoutActivity>(logoutActivityProvider);
+        }
+        else if (place instanceof SignUpPlace) {
+            activity = new AsyncActivityProxy<SignUpActivity>(signUpActivityProvider);
+        }
+        else if (place instanceof EditProfilePlace) {
+            activity = new AsyncActivityProxy<EditProfileActivity>(editProfileActivityProvider);
+        }
+        else if (place instanceof ActiveUsersPlace) {
+            activity = new AsyncActivityProxy<ActiveUsersActivity>(activeUsersActivityProvider);
+        }
+        else if (place instanceof FileUploadPlace) {
+            activity = new AsyncActivityProxy<FileUploadActivity>(fileUploadActivityProvider);
+        }
+        else if (place instanceof ReloadOptionsPlace) {
+            activity = new AsyncActivityProxy<ReloadOptionsActivity>(reloadOptionsActivityProvider);
+        }
+        else if (place instanceof EntityProxyPlace) {
+            final EntityProxyPlace proxyPlace = (EntityProxyPlace) place;
+            if (UserProxy.class.equals(proxyPlace.getProxyClass())) {
+                activity = new AsyncActivityProxy<EditUserActivity>(editUserActivityProvider);
+            }
+        }
+        else if (place instanceof EntitySearchPlace) {
+            final EntitySearchPlace listPlace = (EntitySearchPlace) place;
+            if (UserProxy.class.equals(listPlace.getProxyClass())) {
+                activity = new AsyncActivityProxy<UsersSearchActivity>(usersSearchActivityProvider);
+            }
+        }
 
-	@Override
-	public Activity getActivity(Place place) {
-		Activity activity = null;
-		
-		if(place instanceof LoginPlace) {
-			activity = new LoginActivity(application);
-		}
-		else if(place instanceof LogoutPlace) {
-			activity = new LogoutActivity(application);
-		}
-		else if(place instanceof SignUpPlace) {
-			activity = new SignUpActivity(application);
-		}
-		else if(place instanceof MainMenuPlace) {
-			activity = new MainMenuActivity(application);
-		}
-		else if(place instanceof EditProfilePlace) {
-			activity = new EditProfileActivity(application);
-		}
-		else if(place instanceof ActiveUsersPlace) {
-			activity = new ActiveUsersActivity(application);
-		}		
-		else if(place instanceof FileUploadPlace) {
-			activity = new FileUploadActivity(application);
-		}
-		else if(place instanceof ReloadOptionsPlace) {
-			activity = new ReloadOptionsActivity(application);
-		}		
-		else if(place instanceof EntityProxyPlace) {
-			EntityProxyPlace proxyPlace = (EntityProxyPlace) place;
-			if(UserProxy.class.equals(proxyPlace.getProxyClass())) {
-				activity = new EditUserActivity(application);
-			}
-		}
-		else if(place instanceof EntitySearchPlace) {
-			EntitySearchPlace listPlace = (EntitySearchPlace) place;
-			if(UserProxy.class.equals(listPlace.getProxyClass())) {
-				activity = new UsersSearchActivity(listPlace, application);
-			}
-		}
-		
-		if(activity instanceof AbstractBaseActivity) {
-			decorateDocument((AbstractBaseActivity) activity);
-
-			
-		}
-		
-		return activity;
-	}
-	
-	/**
-	 * Sets document title, and body class and id attributes.
-	 * @param baseActivity
-	 */
-	private void decorateDocument(AbstractBaseActivity baseActivity) {
-		
-		if(baseActivity.getTitle() != null) {
-			Document.get().setTitle(baseActivity.getTitle() + " | " + application.getI18n().webapp_name());
-		} else {
-			Document.get().setTitle(application.getI18n().webapp_name());
-		}
-		
-		if(baseActivity.getBodyId() != null) {
-			Document.get().getBody().setId(baseActivity.getBodyId());
-		}else {
-			Document.get().getBody().removeAttribute("id");
-		}
-		
-		if(baseActivity.getBodyClassName() != null) {
-			Document.get().getBody().setClassName(baseActivity.getBodyClassName());
-		} else {
-			Document.get().getBody().removeAttribute("class");
-		}
-	}
+        return activity;
+    }
 
 }

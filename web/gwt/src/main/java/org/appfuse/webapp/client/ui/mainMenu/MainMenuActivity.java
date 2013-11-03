@@ -8,6 +8,7 @@ import org.appfuse.webapp.client.application.base.activity.AbstractBaseActivity;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
+import com.google.inject.Inject;
 
 /**
  * @author ivangsa
@@ -16,20 +17,24 @@ import com.google.gwt.user.client.ui.AcceptsOneWidget;
 public class MainMenuActivity extends AbstractBaseActivity {
 
 
-	public MainMenuActivity(Application application) {
-		super(application);
-		setTitle(i18n.mainMenu_title());
-		setBodyId("home");
-		setBodyClassname("home");
-	}
+    private final MainMenuView view;
 
-	/* (non-Javadoc)
-	 * @see com.google.gwt.activity.shared.Activity#start(com.google.gwt.user.client.ui.AcceptsOneWidget, com.google.gwt.event.shared.EventBus)
-	 */
-	@Override
-	public void start(AcceptsOneWidget panel, EventBus eventBus) {
-		MainMenuView view = viewFactory.getView(MainMenuView.class);
-		panel.setWidget(view);
-	}
+    @Inject
+    public MainMenuActivity(final Application application, final MainMenuView view) {
+        super(application);
+        this.view = view;
+        setTitle(i18n.mainMenu_title());
+        setBodyId("home");
+        setBodyClassname("home");
+    }
+
+    /* (non-Javadoc)
+     * @see com.google.gwt.activity.shared.Activity#start(com.google.gwt.user.client.ui.AcceptsOneWidget, com.google.gwt.event.shared.EventBus)
+     */
+    @Override
+    public void start(final AcceptsOneWidget panel, final EventBus eventBus) {
+        panel.setWidget(view);
+        setDocumentTitleAndBodyAttributtes();
+    }
 
 }

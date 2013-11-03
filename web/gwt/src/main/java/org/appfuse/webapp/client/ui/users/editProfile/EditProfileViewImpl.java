@@ -10,7 +10,7 @@ import org.appfuse.webapp.client.ui.users.editUser.EditUserViewImpl;
  * @author ivangsa
  *
  */
-public class EditProfileViewImpl extends EditUserViewImpl {
+public class EditProfileViewImpl extends EditUserViewImpl implements EditProfileView {
 
 	/**
 	 * 
