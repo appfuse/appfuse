@@ -133,6 +133,7 @@
                         <configuration>
                             <encoding>UTF8</encoding>
                             <includes>
+                                <include>errors_el*</include>
                                 <include>errors_ko*</include>
                                 <include>errors_tr*</include>
                                 <include>errors_zh*</include>
