@@ -205,6 +205,7 @@
                         <configuration>
                             <encoding>UTF8</encoding>
                             <includes>
+                                <include>ApplicationResources_el*.properties</include>
                                 <include>ApplicationResources_zh*.properties</include>
                                 <include>ApplicationResources_ko*.properties</include>
                             </includes>
@@ -212,31 +213,6 @@
                     </execution>
                 </executions>
             </plugin>
-<!--
-            <plugin>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.7</version>
-                <executions>
-                    <execution>
-                        <id>web-common-resources</id>
-                        <phase>process-resources</phase>
-                        <configuration>
-                            <tasks>
-                                <echo message="Copying CSS and JavaScript resources..."/>
-                                <copy todir="src/main/webapp" overwrite="true">
-                                    <fileset dir="${project.build.outputDirectory}">
-                                        <include name="styles/style.css"/>
-                                    </fileset>
-                                </copy>
-                            </tasks>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
--->
         </plugins>
         <resources>
             <resource>

@@ -71,8 +71,10 @@
                         <configuration>
                             <encoding>UTF8</encoding>
                             <includes>
+                                <include>ApplicationResources_el*.properties</include>
                                 <include>ApplicationResources_zh*.properties</include>
                                 <include>ApplicationResources_ko*.properties</include>
+                                <include>displaytag_el*.properties</include>
                                 <include>displaytag_zh*.properties</include>
                             </includes>
                         </configuration>
