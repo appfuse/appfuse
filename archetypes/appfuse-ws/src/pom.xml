@@ -179,7 +179,7 @@
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>8.1.8.v20121106</version>
+                <version>8.1.14.v20131031</version>
                 <configuration>
                     <webApp>
                         <contextPath>/</contextPath>
@@ -498,11 +498,11 @@
         <commons.dbcp.version>1.3</commons.dbcp.version>
         <cxf.version>2.7.1</cxf.version>
         <enunciate.version>1.27</enunciate.version>
-        <spring.version>3.2.3.RELEASE</spring.version>
+        <spring.version>3.2.4.RELEASE</spring.version>
 
         <!-- Testing dependency versions -->
         <mockito.version>1.9.5</mockito.version>
-        <junit.version>4.10</junit.version>
+        <junit.version>4.11</junit.version>
         <wiser.version>1.2</wiser.version>
 
         <!-- Database settings -->

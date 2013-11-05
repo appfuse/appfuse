@@ -61,7 +61,7 @@
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>8.1.8.v20121106</version>
+                <version>8.1.14.v20131031</version>
                 <configuration>
                     <webApp>
                         <contextPath>/</contextPath>
@@ -246,7 +246,7 @@
         <dependency>
             <groupId>javax.el</groupId>
             <artifactId>el-api</artifactId>
-            <version>1.0</version>
+            <version>${el.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
