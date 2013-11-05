@@ -135,10 +135,10 @@
         <filter-class>ro.isdc.wro.http.WroFilter</filter-class>
     </filter>
 
-    <filter-mapping>
+    <!--<filter-mapping>
         <filter-name>sitemesh</filter-name>
         <url-pattern>/*</url-pattern>
-    </filter-mapping>
+    </filter-mapping>-->
     <filter-mapping>
         <filter-name>encodingFilter</filter-name>
         <url-pattern>/*</url-pattern>

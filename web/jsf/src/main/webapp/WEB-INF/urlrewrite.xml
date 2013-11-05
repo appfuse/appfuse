@@ -55,13 +55,13 @@
         <to>/favicon.ico</to>
     </rule>
     <!-- Solve an issue when redirecting from passwordHint -->
-    <rule match-type="regex">
+ <!--   <rule match-type="regex">
         <from>^/login.xhtml$</from>
         <to type="redirect">%{context-path}/login</to>
-    </rule>
+    </rule>-->
     <rule>
         <from>/login*</from>
-        <to>/login.jsp</to>
+        <to>/login.xhtml</to>
     </rule>
     <rule>
         <from>/logout*</from>
