@@ -14,6 +14,10 @@ public final class Constants {
     //~ Static fields/initializers =============================================
 
     /**
+     * Assets Version constant
+     */
+    public static final String ASSETS_VERSION = "assetsVersion";
+    /**
      * The name of the ResourceBundle used in this application
      */
     public static final String BUNDLE_KEY = "ApplicationResources";

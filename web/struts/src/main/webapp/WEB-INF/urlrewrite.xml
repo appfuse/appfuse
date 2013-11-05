@@ -38,6 +38,10 @@
         <to>/services/$1</to>
     </rule>
     <rule>
+        <from>/assets/**</from>
+        <to>/assets/$1</to>
+    </rule>
+    <rule>
         <from>/images/**</from>
         <to>/images/$1</to>
     </rule>

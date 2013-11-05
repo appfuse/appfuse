@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<groups xmlns="http://www.isdc.ro/wro">
+
+    <group name="main">
+        <css>/styles/lib/bootstrap-2.3.2.min.css</css>
+        <css>/styles/lib/bootstrap-responsive-2.3.2.min.css</css>
+        <css>/styles/style.css</css>
+        <js>/scripts/lib/jquery-1.8.2.min.js</js>
+        <js>/scripts/lib/bootstrap-2.3.2.min.js</js>
+        <js>/scripts/lib/plugins/jquery.cookie.js</js>
+        <js>/scripts/script.js</js>
+    </group>
+</groups>

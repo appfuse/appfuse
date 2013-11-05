@@ -114,6 +114,10 @@
             <param-value>org.appfuse.webapp.action</param-value>
         </init-param>
     </filter>
+    <filter>
+        <filter-name>wroFilter</filter-name>
+        <filter-class>ro.isdc.wro.http.WroFilter</filter-class>
+    </filter>
 
     <filter-mapping>
         <filter-name>encodingFilter</filter-name>
@@ -134,6 +138,12 @@
     <filter-mapping>
         <filter-name>rewriteFilter</filter-name>
         <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>wroFilter</filter-name>
+        <url-pattern>/assets/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
     </filter-mapping>
     <filter-mapping>
         <filter-name>securityFilter</filter-name>

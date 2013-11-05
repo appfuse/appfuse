@@ -22,4 +22,8 @@
         <from>/services/**</from>
         <to>/services/$1</to>
     </rule>
+    <rule>
+        <from>/assets/**</from>
+        <to>/assets/$1</to>
+    </rule>
 </urlrewrite>

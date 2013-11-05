@@ -130,6 +130,10 @@
         <filter-name>sitemesh</filter-name>
         <filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class>
     </filter>
+    <filter>
+        <filter-name>wroFilter</filter-name>
+        <filter-class>ro.isdc.wro.http.WroFilter</filter-class>
+    </filter>
 
     <filter-mapping>
         <filter-name>sitemesh</filter-name>
@@ -162,6 +166,12 @@
     <filter-mapping>
         <filter-name>prettyFilter</filter-name>
         <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>wroFilter</filter-name>
+        <url-pattern>/assets/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>
         <dispatcher>FORWARD</dispatcher>
     </filter-mapping>

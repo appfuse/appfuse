@@ -119,6 +119,14 @@
                             <targetPath>WEB-INF/classes</targetPath>
                         </resource>
                     </webResources>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                        <manifestEntries>
+                            <Implementation-Version>${project.version}</Implementation-Version>
+                        </manifestEntries>
+                    </archive>
                 </configuration>
             </plugin>
         </plugins>
@@ -197,13 +205,11 @@
             <groupId>com.sun.faces</groupId>
             <artifactId>jsf-api</artifactId>
             <version>${jsf.version}</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.sun.faces</groupId>
             <artifactId>jsf-impl</artifactId>
             <version>${jsf.version}</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.primefaces</groupId>

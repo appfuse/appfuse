@@ -3,6 +3,7 @@ package org.appfuse.webapp.listener;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.Constants;
+import org.appfuse.service.GenericManager;
 import org.appfuse.service.LookupManager;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
@@ -15,9 +16,13 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
-import org.appfuse.service.GenericManager;
+import java.util.Random;
+import java.util.jar.Attributes;
+import java.util.jar.Manifest;
 
 /**
  * <p>StartupListener class used to initialize and database settings
@@ -81,6 +86,33 @@ public class StartupListener implements ServletContextListener {
         }
 
         setupContext(context);
+        
+        // Determine version number for CSS and JS Assets
+        String appVersion = null;
+        try {
+            InputStream is = context.getResourceAsStream("/META-INF/MANIFEST.MF");
+            if (is == null) {
+                log.warn("META-INF/MANIFEST.MF not found.");
+            } else {
+                Manifest mf = new Manifest();
+                mf.read(is);
+                Attributes atts = mf.getMainAttributes();
+                appVersion = atts.getValue("Implementation-Version");
+            }
+        } catch (IOException e) {
+            log.error("I/O Exception reading manifest: " + e.getMessage());
+        }
+
+        // If there was a build number defined in the war, then use it for
+        // the cache buster. Otherwise, assume we are in development mode
+        // and use a random cache buster so developers don't have to clear
+        // their browser cache.
+        if (appVersion == null || appVersion.contains("SNAPSHOT")) {
+            appVersion = "" + new Random().nextInt(100000);
+        }
+
+        log.info("Application version set to: " + appVersion);
+        context.setAttribute(Constants.ASSETS_VERSION, appVersion);
     }
 
     /**
