@@ -211,6 +211,11 @@
             <version>1.0.10</version>
         </dependency>
         <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons.io.version}</version>
+        </dependency>
+        <dependency>
             <groupId>com.ocpsoft</groupId>
             <artifactId>prettyfaces-jsf2</artifactId>
             <version>${prettyfaces.version}</version>
@@ -219,11 +224,6 @@
             <groupId>org.omnifaces</groupId>
             <artifactId>omnifaces</artifactId>
             <version>${omnifaces.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>${commons.io.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
