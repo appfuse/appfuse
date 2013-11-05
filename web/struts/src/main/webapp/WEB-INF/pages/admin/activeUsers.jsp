@@ -2,7 +2,7 @@
 
 <head>
     <title><fmt:message key="activeUsers.title"/></title>
-    <ui:define name="menu">AdminMenu</ui:define>
+    <meta name="menu" content="AdminMenu"/>
 </head>
 <body id="activeUsers">
 
