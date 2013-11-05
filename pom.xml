@@ -630,7 +630,7 @@
         <cxf.version>2.7.7</cxf.version>
         <displaytag.version>1.2</displaytag.version>
         <dwr.version>2.0.10</dwr.version>
-        <ehcache.version>2.6.2</ehcache.version>
+        <ehcache.version>2.6.6</ehcache.version>
         <ehcache.web.version>2.0.4</ehcache.web.version>
         <el.version>2.2</el.version>
         <hibernate.version>4.2.7.Final</hibernate.version>
@@ -645,6 +645,8 @@
         <jstl.version>1.2</jstl.version>
         <junit.version>4.11</junit.version>
         <log4j.version>1.2.17</log4j.version>
+        <omnifaces.version>1.6.3</omnifaces.version>
+        <prettyfaces.version>3.3.3</prettyfaces.version>
         <primefaces.version>4.0</primefaces.version>
         <servlet.version>3.1.0</servlet.version>
         <shale.version>1.0.5</shale.version>

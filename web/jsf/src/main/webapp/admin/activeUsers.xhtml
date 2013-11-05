@@ -1,50 +1,50 @@
-<html xmlns="http://www.w3.org/1999/xhtml" 
-      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
-<f:view>
-<f:loadBundle var="text" basename="#{basePage.bundleName}"/>
-<h:head>
-    <title>#{text['activeUsers.title']}</title>
-    <meta name="menu" content="AdminMenu"/>
-</h:head>
+<ui:composition template="/layouts/default.xhtml">
+    <ui:define name="title">#{text['activeUsers.title']}</ui:define>
+    <ui:define name="menu">AdminMenu</ui:define>
 
-<div class="span10">
-    <h2>#{text['activeUsers.heading']}</h2>
+    <ui:define name="body">
+        <div class="span10">
+            <h2>#{text['activeUsers.heading']}</h2>
 
-    <p>#{text['activeUsers.message']}</p>
+            <p>#{text['activeUsers.message']}</p>
 
-    <div id="actions" class="form-actions">
-        <input type="button" class="btn" onclick="location.href='../mainMenu'" value="#{text['button.done']}"/>
-    </div>
+            <div id="actions" class="form-actions">
+                <input type="button" class="btn" onclick="location.href='../mainMenu'" value="#{text['button.done']}"/>
+            </div>
 
-    <h:form id="activeUsersForm">
+            <h:form id="activeUsersForm">
 
-    <p:dataTable id="activeUsers" var="user" value="#{activeUserList.users}" sortBy="#{activeUserList.sortColumn}" paginator="true" rows="25" 
-                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                 rowsPerPageTemplate="5,10,15">
-        <p:column style="width: 25%">
-            <f:facet name="header">
-                <p:column sortBy="username" >
-                    <h:outputText value="#{text['user.username']}" />
-                </p:column>
-            </f:facet>
-            <h:outputText value="#{user.fullName}" />
-        </p:column>
-        <p:column style="width: 34%">
-            <f:facet name="header">
-                <p:column sortBy="fullName" >
-                    <h:outputText value="#{text['activeUsers.fullName']}" />
-                </p:column>
-            </f:facet>
-            <h:outputText value="#{user.fullName}" />
-            <h:outputLink value="mailto:#{user.email}" rendered="#{not empty user.email}">
-            <h:graphicImage style="padding-lefp: 10px;" alt="#{text['icon.email']}" 
-                url="/images/iconEmail.gif" />
-            </h:outputLink> 
-        </p:column>
-    </p:dataTable>
-   
-    </h:form>
-</div>
-</f:view>
+                <p:dataTable id="activeUsers" var="user" value="#{activeUserList.users}"
+                             sortBy="#{activeUserList.sortColumn}" paginator="true" rows="25"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15">
+                    <p:column style="width: 25%">
+                        <f:facet name="header">
+                            <p:column sortBy="username">
+                                <h:outputText value="#{text['user.username']}"/>
+                            </p:column>
+                        </f:facet>
+                        <h:outputText value="#{user.fullName}"/>
+                    </p:column>
+                    <p:column style="width: 34%">
+                        <f:facet name="header">
+                            <p:column sortBy="fullName">
+                                <h:outputText value="#{text['activeUsers.fullName']}"/>
+                            </p:column>
+                        </f:facet>
+                        <h:outputText value="#{user.fullName}"/>
+                        <h:outputLink value="mailto:#{user.email}" rendered="#{not empty user.email}">
+                            <h:graphicImage style="padding-lefp: 10px;" alt="#{text['icon.email']}"
+                                            url="/images/iconEmail.gif"/>
+                        </h:outputLink>
+                    </p:column>
+                </p:dataTable>
+
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>
 </html>   

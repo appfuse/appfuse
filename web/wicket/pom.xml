@@ -30,7 +30,6 @@
 
     <description>
         Wicket Module for AppFuse.
-        Include this module in your dependencies if you want to use Wicket as your web framework.
     </description>
 
     <scm>

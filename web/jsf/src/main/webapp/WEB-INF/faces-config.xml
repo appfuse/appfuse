@@ -9,6 +9,7 @@
         <locale-config>
             <default-locale>en</default-locale>
             <supported-locale>de</supported-locale>
+            <supported-locale>el</supported-locale>
             <supported-locale>en</supported-locale>
             <supported-locale>es</supported-locale>
             <supported-locale>fr</supported-locale>
@@ -24,6 +25,10 @@
             <supported-locale>zh_TW</supported-locale>
         </locale-config>
         <message-bundle>ApplicationResources</message-bundle>
+        <resource-bundle>
+            <base-name>ApplicationResources</base-name>
+            <var>text</var>
+        </resource-bundle>
     </application>
 
     <navigation-rule>

@@ -345,6 +345,8 @@
         <commons.fileupload.version>1.3</commons.fileupload.version>
         <el.version>1.2</el.version>
         <jsf.version>2.2.4</jsf.version>
+        <omnifaces.version>1.6.3</omnifaces.version>
+        <prettyfaces.version>3.3.3</prettyfaces.version>
         <primefaces.version>4.0</primefaces.version>
         <servlet.version>3.1.0</servlet.version>
         <spring.version>3.2.4.RELEASE</spring.version>
@@ -354,7 +356,6 @@
         <mockito.version>1.9.5</mockito.version>
         <jsp.version>2.1</jsp.version>
         <junit.version>4.11</junit.version>
-        <servlet.version>3.1.0</servlet.version>
         <shale.version>1.0.5</shale.version>
         <wiser.version>1.2</wiser.version>
 
