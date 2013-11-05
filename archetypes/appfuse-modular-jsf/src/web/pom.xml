@@ -239,7 +239,7 @@
         <dependency>
             <groupId>javax.el</groupId>
             <artifactId>el-api</artifactId>
-            <version>1.0</version>
+            <version>${el.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
