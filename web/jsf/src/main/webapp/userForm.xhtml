@@ -223,10 +223,8 @@
         <div class="form-actions">
             <h:commandButton value="#{text['button.save']}" action="#{userForm.save}" styleClass="btn btn-primary"/>
 
-            <!-- Todo: hide this button when the user's id is not assigned. Wrapping it with <c:if test="${not empty userForm.user.id}"> or
-                 rendered="${not empty userForm.user.id}" doesn't work.  -->
             <h:commandButton value="#{text['button.delete']}" action="#{userForm.delete}"
-                styleClass="btn" onclick="return confirmMessage(msgDelConfirm)"/>
+                styleClass="btn" onclick="return confirmMessage(msgDelConfirm)" rendered="${not empty userForm.user.id}"/>
 
             <h:commandButton value="#{text['button.cancel']}" action="#{userForm.cancel}" immediate="true"
                 styleClass="btn"/>

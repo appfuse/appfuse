@@ -638,14 +638,14 @@
         <hibernate.search.version>4.1.1.Final</hibernate.search.version>
         <javamail.version>1.4.1</javamail.version>
         <jetty.version>8.1.8.v20121106</jetty.version>
-        <jsf.version>2.1.9</jsf.version>
+        <jsf.version>2.2.4</jsf.version>
         <mockito.version>1.9.5</mockito.version>
         <jpa.version>2.0-cr-1</jpa.version>
         <jsp.version>2.1</jsp.version>
         <jstl.version>1.2</jstl.version>
         <junit.version>4.10</junit.version>
         <log4j.version>1.2.17</log4j.version>
-        <primefaces.version>3.5</primefaces.version>
+        <primefaces.version>4.0</primefaces.version>
         <servlet.version>3.0.1</servlet.version>
         <shale.version>1.0.5</shale.version>
         <sitemesh.version>2.4.2</sitemesh.version>
