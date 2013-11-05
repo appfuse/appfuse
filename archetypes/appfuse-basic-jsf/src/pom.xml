@@ -155,7 +155,7 @@
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>8.1.8.v20121106</version>
+                <version>8.1.14.v20131031</version>
                 <configuration>
                     <webApp>
                         <contextPath>/</contextPath>
@@ -689,7 +689,7 @@
     <properties>
         <!-- Application settings -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <copyright.year>2013</copyright.year>
+        <copyright.year>2014</copyright.year>
         <dao.framework>hibernate</dao.framework>
         <web.framework>jsf</web.framework>
         <amp.genericCore>true</amp.genericCore>
@@ -702,8 +702,8 @@
         <commons.fileupload.version>1.3</commons.fileupload.version>
         <commons.io.version>2.4</commons.io.version>
         <el.version>2.2</el.version>
-        <jsf.version>2.1.2</jsf.version>
-        <primefaces.version>3.5</primefaces.version>
+        <jsf.version>2.2.4</jsf.version>
+        <primefaces.version>4.0</primefaces.version>
         <servlet.version>3.1.0</servlet.version>
         <spring.version>3.2.4.RELEASE</spring.version>
 
