@@ -23,7 +23,6 @@
         <version>2.2.2-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.appfuse.archetypes</groupId>
     <artifactId>appfuse-ws</artifactId>
     <name>AppFuse Web Services Archetype</name>
     <packaging>pom</packaging>

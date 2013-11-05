@@ -23,7 +23,6 @@
         <version>2.2.2-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.appfuse.archetypes</groupId>
     <artifactId>appfuse-basic-jsf</artifactId>
     <name>AppFuse Basic Archetype - JSF</name>
     <packaging>pom</packaging>

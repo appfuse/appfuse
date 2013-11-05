@@ -420,7 +420,7 @@
     <properties>
         <!-- Application settings -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <copyright.year>2013</copyright.year>
+        <copyright.year>2014</copyright.year>
         <dao.framework>hibernate</dao.framework>
         <amp.genericCore>true</amp.genericCore>
         <amp.fullSource>false</amp.fullSource>

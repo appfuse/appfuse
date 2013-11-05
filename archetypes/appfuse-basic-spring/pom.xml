@@ -23,7 +23,6 @@
         <version>2.2.2-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.appfuse.archetypes</groupId>
     <artifactId>appfuse-basic-spring</artifactId>
     <name>AppFuse Basic Archetype - Spring MVC</name>
     <packaging>pom</packaging>

@@ -665,7 +665,7 @@
         <bootstrap.version>2.2.1</bootstrap.version>
         <wicket.version>6.3.0</wicket.version>
         <wicketstuff.version>${wicket.version}</wicketstuff.version>
-        <wro4j.version>1.7.1</wro4j.version>
+        <wro4j.version>1.7.2</wro4j.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <copyright.year>2003-2014</copyright.year>

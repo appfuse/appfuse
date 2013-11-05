@@ -23,7 +23,6 @@
         <version>2.2.2-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.appfuse.archetypes</groupId>
     <artifactId>appfuse-modular-struts</artifactId>
     <name>AppFuse Modular Archetype - Struts</name>
     <packaging>pom</packaging>
