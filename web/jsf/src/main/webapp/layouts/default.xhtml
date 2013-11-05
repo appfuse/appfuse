@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:o="http://omnifaces.org/ui">
+<f:view>
+    <h:head>
+        <meta http-equiv="Cache-Control" content="no-store"/>
+        <meta http-equiv="Pragma" content="no-cache"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="icon" href="#{request.contextPath}/images/favicon.ico"/>
+        <title><ui:insert name="title">Home</ui:insert> | #{text['webapp.name']}</title>
+        <ui:include src="/common/assets.xhtml"/>
+    </h:head>
+
+    <body id="#{bodyId}">
+    <c:set var="currentMenu" scope="request"><ui:insert title="menu"/></c:set>
+
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="brand" href="#{request.contextPath}">#{text['webapp.name']}</a>
+                <o:resourceInclude path="/common/menu.jsp"/>
+                <c:if test="${facesContext.externalContext.requestLocale ne 'en'}">
+                    <div id="switchLocale"><a href="#{request.contextPath}/?locale=en">
+                        #{text['webapp.name']} in English</a>
+                    </div>
+                </c:if>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <o:resourceInclude path="/common/messages.jsp"/>
+        <div class="row-fluid">
+            <ui:insert name="body"/>
+
+            <c:if test="${currentMenu == 'AdminMenu'}">
+                <div class="span2">
+                    <o:resourceInclude path="/common/menu-admin.jsp"/>
+                </div>
+            </c:if>
+        </div>
+    </div>
+
+    <div id="footer">
+        <span class="left">#{text['webapp.version']}
+            <c:if test="${pageContext.request.remoteUser != null}">
+                | #{text['user.status']} ${pageContext.request.remoteUser}
+            </c:if>
+        </span>
+        <span class="right">
+            <c:set var="companyLink">#{text['company.url']}</c:set>
+            <!--&copy;--> #{text['copyright.year']} <a href="${companyLink}">#{text['company.name']}</a>
+        </span>
+    </div>
+
+    <ui:insert name="scripts"/>
+    </body>
+</f:view>
+</html>

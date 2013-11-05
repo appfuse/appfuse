@@ -155,13 +155,27 @@
             <if>
                 <equals arg1="@{module}" arg2="jsf"/>
                 <then>
-                    <delete dir="@{dir}" includes="**/displaytag*.properties"/>
+                    <delete dir="@{dir}">
+                        <include name="**/displaytag*.properties"/>
+                        <include name="**/decorators.xml"/>
+                        <include name="**/sitemesh.xml"/>
+                        <include name="**/login.jsp"/>
+                    </delete>
+                    <delete dir="@{dir}/src/main/webapp/decorators"/>
+                    <delete dir="@{dir}/src/main/webapp/WEB-INF/tags"/>
                 </then>
             </if>
             <if>
                 <equals arg1="@{module}" arg2="tapestry"/>
                 <then>
-                    <delete dir="@{dir}" includes="**/displaytag*.properties"/>
+                    <delete dir="@{dir}">
+                        <include name="**/displaytag*.properties"/>
+                        <include name="**/decorators.xml"/>
+                        <include name="**/sitemesh.xml"/>
+                        <include name="**/login.jsp"/>
+                    </delete>
+                    <delete dir="@{dir}/src/main/webapp/decorators"/>
+                    <delete dir="@{dir}/src/main/webapp/WEB-INF/tags"/>
                 </then>
             </if>
 

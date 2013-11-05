@@ -30,7 +30,6 @@
 
     <description>
         Spring MVC Module for AppFuse: includes Spring MVC, Display Tag and Spring Modules for validation.
-        Include this module in your dependencies if you want to use Spring MVC as your web framework.
     </description>
 
     <scm>

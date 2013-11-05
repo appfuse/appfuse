@@ -2,7 +2,7 @@
 
 <head>
     <title><fmt:message key="userList.title"/></title>
-    <meta name="menu" content="AdminMenu"/>
+    <ui:define name="menu">AdminMenu</ui:define>
 </head>
 
 <div class="span10">

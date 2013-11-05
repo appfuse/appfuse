@@ -344,8 +344,10 @@
         <commons.io.version>2.4</commons.io.version>
         <commons.fileupload.version>1.2.2</commons.fileupload.version>
         <el.version>1.2</el.version>
-        <jsf.version>2.1.2</jsf.version>
-        <primefaces.version>3.5</primefaces.version>
+        <jsf.version>2.2.4</jsf.version>
+        <omnifaces.version>1.6.3</omnifaces.version>
+        <prettyfaces.version>3.3.3</prettyfaces.version>
+        <primefaces.version>4.0</primefaces.version>
         <servlet.version>3.0.1</servlet.version>
         <spring.version>3.2.3.RELEASE</spring.version>
 

@@ -1,18 +1,18 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jsp/jstl/core" 
-      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" 
-      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <f:view>
-    <h:head><meta name="menu" content="AdminMenu"/></h:head>
+    <h:head><ui:define name="menu">AdminMenu</ui:define></h:head>
 
     <h:form id="reloadForm">
         <h:commandLink action="#{reload.execute}" id="execute">
             <f:param name="referrer" value="${header.referer}"/>
         </h:commandLink>
     </h:form>
-    
+
     <script type="text/javascript">
-        mojarra.jsfcljs(document.getElementById('reloadForm'),{'reloadForm:execute':'reloadForm:execute','referrer':'${header.referer}'},'');
+        mojarra.jsfcljs(document.getElementById('reloadForm'), {'reloadForm:execute': 'reloadForm:execute', 'referrer': '${header.referer}'}, '');
     </script>
 
 </f:view>

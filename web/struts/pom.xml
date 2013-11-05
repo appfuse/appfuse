@@ -29,8 +29,7 @@
     <name>AppFuse Struts 2 Module</name>
 
     <description>
-        Struts 2 Module for AppFuse: includes Struts 2 and Display Tag. Include this module in your
-        dependencies if you want to use Struts 2 as your web framework.
+        Struts 2 Module for AppFuse: includes Struts 2 and Display Tag.
     </description>
 
     <scm>
