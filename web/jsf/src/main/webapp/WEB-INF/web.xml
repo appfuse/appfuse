@@ -53,7 +53,10 @@
         <param-name>primefaces.THEME</param-name>
         <param-value>bootstrap</param-value>
     </context-param>
-
+    <context-param>
+        <param-name>org.omnifaces.FACES_VIEWS_SCAN_PATHS</param-name>
+        <param-value>/*.xhtml</param-value>
+    </context-param>
     <filter>
         <filter-name>encodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -127,18 +130,10 @@
         </init-param>
     </filter>
     <filter>
-        <filter-name>sitemesh</filter-name>
-        <filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class>
-    </filter>
-    <filter>
         <filter-name>wroFilter</filter-name>
         <filter-class>ro.isdc.wro.http.WroFilter</filter-class>
     </filter>
 
-    <!--<filter-mapping>
-        <filter-name>sitemesh</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>-->
     <filter-mapping>
         <filter-name>encodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
@@ -208,9 +203,6 @@
     </listener>
     <listener>
         <listener-class>org.appfuse.webapp.listener.UserCounterListener</listener-class>
-    </listener>
-    <listener>
-        <listener-class>org.appfuse.webapp.jsp.EscapeXmlELResolverListener</listener-class>
     </listener>
     <listener>
         <listener-class>net.sf.navigator.menu.MenuContextListener</listener-class>

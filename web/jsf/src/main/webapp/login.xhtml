@@ -6,7 +6,7 @@
     <ui:define name="menu">Login</ui:define>
     <ui:param name="bodyId" value="login"/>
     <ui:define name="body">
-        <form method="post" id="loginForm" action="${pageContext.request.contextPath}/j_security_check"
+        <form method="post" id="loginForm" action="#{request.contextPath}/j_security_check"
               onsubmit="saveUsername(this);return validateForm(this)" class="form-signin" autocomplete="off">
             <h2 class="form-signin-heading">
                 #{text['login.heading']}
@@ -35,7 +35,7 @@
 
         <p>
             <h:outputFormat value="#{text['login.signup']}" escape="false">
-                <f:param value="${pageContext.request.contextPath}/signup"/>
+                <f:param value="#{request.contextPath}/signup"/>
             </h:outputFormat>
         </p>
 

@@ -1,77 +1,77 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jsp/jstl/core"
-      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
-<f:view>
-<f:loadBundle var="text" basename="#{userList.bundleName}"/>
-<h:head>
-    <title>#{text['userList.title']}</title>
-    <meta name="menu" content="AdminMenu"/>
-</h:head>
-<h:body>
-<div class="span10">
-    <h2>#{text['userList.heading']}</h2>
+<ui:composition template="/layouts/default.xhtml">
+    <ui:define name="title">#{text['userList.title']}</ui:define>
+    <ui:define name="menu">AdminMenu</ui:define>
 
-    <h:form id="searchForm" styleClass="form-search">
-    <div id="search" class="input-append">
-        <h:inputText id="q" size="20" value="#{userList.query}" styleClass="input-medium search-query"/>
-        <h:commandButton styleClass="btn" action="#{userList.search}" value="#{text['button.search']}"/>
-    </div>
-    </h:form>
+    <ui:define name="body">
+        <div class="span10">
+            <h2>#{text['userList.heading']}</h2>
 
-    <h:form id="editUser">
+            <h:form id="searchForm" styleClass="form-search">
+                <div id="search" class="input-append">
+                    <h:inputText id="q" size="20" value="#{userList.query}" styleClass="input-medium search-query"/>
+                    <h:commandButton styleClass="btn" action="#{userList.search}" value="#{text['button.search']}"/>
+                </div>
+            </h:form>
 
-    <div id="actions" class="form-actions">
-        <h:commandButton action="#{userForm.add}" value="#{text['button.add']}" id="add" styleClass="btn btn-primary">
-            <f:param name="from" value="list"/>
-        </h:commandButton>
-        <h:commandButton value="#{text['button.done']}" action="mainMenu" id="cancel"
-            immediate="true" styleClass="btn">
-        </h:commandButton>
-    </div>
+            <h:form id="editUser">
 
-    <p:dataTable id="users" var="user" value="#{userList.users}" sortBy="#{userList.sortColumn}" paginator="true" rows="25" 
-                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                 rowsPerPageTemplate="5,10,15">
-        <p:column style="width: 25%">
-            <f:facet name="header">
-                <p:column sortBy="username" >
-                    <h:outputText value="#{text['user.username']}" />
-                </p:column>
-            </f:facet>
-            <h:commandLink action="#{userForm.edit}" value="#{user.username}" >
-                <f:param name="id" value="#{user.id}"/>
-                <f:param name="from" value="list"/>
-            </h:commandLink>
-        </p:column>
-        <p:column style="width: 34%">
-            <f:facet name="header">
-                <p:column sortBy="fullName" >
-                    <h:outputText value="#{text['activeUsers.fullName']}" />
-                </p:column>
-            </f:facet>
-            <h:outputText value="#{user.fullName}" />
-        </p:column>
-        <p:column style="width: 25%">
-            <f:facet name="header">
-                <p:column sortBy="email" >
-                    <h:outputText value="#{text['user.email']}" />
-                </p:column>
-            </f:facet>
-            <h:outputLink value="mailto:#{user.email}">
-                <h:outputText value="#{user.email}" />
-            </h:outputLink>
-        </p:column>
-        <p:column style="width: 16%">
-            <f:facet name="header">
-                <p:column sortBy="enabled" >
-                    <h:outputText value="#{text['user.enabled']}" />
-                </p:column>
-            </f:facet>
-            <h:selectBooleanCheckbox value="#{user.enabled}" disabled="true"/>
-        </p:column>
-    </p:dataTable>
-    </h:form>
-</div>
-</h:body>
-</f:view>
+                <div id="actions" class="form-actions">
+                    <h:commandButton action="#{userForm.add}" value="#{text['button.add']}" id="add"
+                                     styleClass="btn btn-primary">
+                        <f:param name="from" value="list"/>
+                    </h:commandButton>
+                    <h:commandButton value="#{text['button.done']}" action="mainMenu" id="cancel"
+                                     immediate="true" styleClass="btn">
+                    </h:commandButton>
+                </div>
+
+                <p:dataTable id="users" var="user" value="#{userList.users}" sortBy="#{userList.sortColumn}"
+                             paginator="true" rows="25"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15">
+                    <p:column style="width: 25%">
+                        <f:facet name="header">
+                            <p:column sortBy="username">
+                                <h:outputText value="#{text['user.username']}"/>
+                            </p:column>
+                        </f:facet>
+                        <h:commandLink action="#{userForm.edit}" value="#{user.username}">
+                            <f:param name="id" value="#{user.id}"/>
+                            <f:param name="from" value="list"/>
+                        </h:commandLink>
+                    </p:column>
+                    <p:column style="width: 34%">
+                        <f:facet name="header">
+                            <p:column sortBy="fullName">
+                                <h:outputText value="#{text['activeUsers.fullName']}"/>
+                            </p:column>
+                        </f:facet>
+                        <h:outputText value="#{user.fullName}"/>
+                    </p:column>
+                    <p:column style="width: 25%">
+                        <f:facet name="header">
+                            <p:column sortBy="email">
+                                <h:outputText value="#{text['user.email']}"/>
+                            </p:column>
+                        </f:facet>
+                        <h:outputLink value="mailto:#{user.email}">
+                            <h:outputText value="#{user.email}"/>
+                        </h:outputLink>
+                    </p:column>
+                    <p:column style="width: 16%">
+                        <f:facet name="header">
+                            <p:column sortBy="enabled">
+                                <h:outputText value="#{text['user.enabled']}"/>
+                            </p:column>
+                        </f:facet>
+                        <h:selectBooleanCheckbox value="#{user.enabled}" disabled="true"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>
 </html>

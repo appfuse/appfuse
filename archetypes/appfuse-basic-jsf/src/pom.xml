@@ -288,6 +288,10 @@
                     <groupId>org.appfuse</groupId>
                     <artifactId>appfuse-hibernate</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>opensymphony</groupId>
+                    <artifactId>sitemesh</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
@@ -320,13 +324,11 @@
             <groupId>com.sun.faces</groupId>
             <artifactId>jsf-api</artifactId>
             <version>${jsf.version}</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.sun.faces</groupId>
             <artifactId>jsf-impl</artifactId>
             <version>${jsf.version}</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.primefaces</groupId>
@@ -346,7 +348,12 @@
         <dependency>
             <groupId>com.ocpsoft</groupId>
             <artifactId>prettyfaces-jsf2</artifactId>
-            <version>3.3.3</version>
+            <version>${prettyfaces.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.omnifaces</groupId>
+            <artifactId>omnifaces</artifactId>
+            <version>${omnifaces.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
@@ -702,8 +709,10 @@
         <commons.fileupload.version>1.2.2</commons.fileupload.version>
         <commons.io.version>2.4</commons.io.version>
         <el.version>1.2</el.version>
-        <jsf.version>2.1.2</jsf.version>
-        <primefaces.version>3.5</primefaces.version>
+        <jsf.version>2.2.4</jsf.version>
+        <omnifaces.version>1.6.3</omnifaces.version>
+        <prettyfaces.version>3.3.3</prettyfaces.version>
+        <primefaces.version>4.0</primefaces.version>
         <servlet.version>3.0.1</servlet.version>
         <spring.version>3.2.3.RELEASE</spring.version>
 

@@ -238,6 +238,10 @@
                     <groupId>struts-menu</groupId>
                     <artifactId>struts-menu</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>opensymphony</groupId>
+                    <artifactId>sitemesh</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>

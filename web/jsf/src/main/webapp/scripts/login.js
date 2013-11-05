@@ -1,5 +1,6 @@
-<html xmlns:c="http://java.sun.com/jsp/jstl/core"
+<html xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
+<ui:composition>
 <script type="text/javascript">
     var usernameRequired = '<h:outputFormat value="#{text['errors.required']}"><f:param value="#{text['label.username']}"/></h:outputFormat>';
     var passwordRequired = '<h:outputFormat value="#{text['errors.required']}"><f:param value="#{text['label.password']}"/></h:outputFormat>';
@@ -38,4 +39,5 @@
     }
 //]]>
 </script>
+</ui:composition>
 </html>

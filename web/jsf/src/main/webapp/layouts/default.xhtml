@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:o="http://omnifaces.org/ui">
 <f:view>
     <h:head>
         <meta http-equiv="Cache-Control" content="no-store"/>
         <meta http-equiv="Pragma" content="no-cache"/>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <link rel="icon" href="${pageContext.request.contextPath}/images/favicon.ico"/>
+        <link rel="icon" href="#{request.contextPath}/images/favicon.ico"/>
         <title><ui:insert name="title">Home</ui:insert> | #{text['webapp.name']}</title>
         <ui:include src="/common/assets.xhtml"/>
     </h:head>
@@ -25,10 +24,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="brand" href="${pageContext.request.contextPath}">#{text['webapp.name']}</a>
-                <!--<ui:include src="/common/menu.jsp"/>-->
+                <a class="brand" href="#{request.contextPath}">#{text['webapp.name']}</a>
+                <o:resourceInclude path="/common/menu.jsp"/>
                 <c:if test="${facesContext.externalContext.requestLocale ne 'en'}">
-                    <div id="switchLocale"><a href="${pageContext.request.contextPath}/?locale=en">
+                    <div id="switchLocale"><a href="#{request.contextPath}/?locale=en">
                         #{text['webapp.name']} in English</a>
                     </div>
                 </c:if>
@@ -37,15 +36,13 @@
     </div>
 
     <div class="container-fluid">
-        <!--<ui:include src="/common/messages.jsp"/>-->
+        <o:resourceInclude path="/common/messages.jsp"/>
         <div class="row-fluid">
             <ui:insert name="body"/>
 
             <c:if test="${currentMenu == 'AdminMenu'}">
                 <div class="span2">
-                    <!--<menu:useMenuDisplayer name="Velocity" config="navlistMenu.vm" permissions="rolesAdapter">
-                        <menu:displayMenu name="AdminMenu"/>
-                    </menu:useMenuDisplayer>-->
+                    <o:resourceInclude path="/common/menu-admin.jsp"/>
                 </div>
             </c:if>
         </div>
