@@ -9,17 +9,17 @@ import org.wicketstuff.annotation.mount.MountPath;
  *
  * @author Marcin Zajączkowski, 2010-09-05
  */
-@MountPath("mainMenu")
+@MountPath("home")
 @AuthorizeInstantiation({"ROLE_ADMIN", "ROLE_USER"})
-public class MainMenu extends AbstractWebPage {
+public class Home extends AbstractWebPage {
 
     @Override
     protected void onInitialize() {
         super.onInitialize();
 
         add(createFeedbackPanel());
-        add(createPageTitleTag("mainMenu.title"));
-        add(createPageHeading("mainMenu.heading"));
-        add(createPageMessage("mainMenu.message"));
+        add(createPageTitleTag("home.title"));
+        add(createPageHeading("home.heading"));
+        add(createPageMessage("home.message"));
     }
 }

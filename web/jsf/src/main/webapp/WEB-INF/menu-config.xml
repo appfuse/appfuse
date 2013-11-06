@@ -4,11 +4,11 @@
         <Displayer name="Velocity" type="net.sf.navigator.displayer.VelocityMenuDisplayer"/>
     </Displayers>
     <Menus>
-        <Menu name="MainMenu" title="mainMenu.title" page="/mainMenu" roles="ROLE_ADMIN,ROLE_USER"/>
+        <Menu name="Home" title="home.title" page="/home" roles="ROLE_ADMIN,ROLE_USER"/>
         <Menu name="UserMenu" title="menu.user" description="User Menu" page="/editProfile" roles="ROLE_ADMIN,ROLE_USER"/>
         <Menu name="AdminMenu" title="menu.admin" description="Admin Menu" roles="ROLE_ADMIN" width="120" page="/admin/users">
             <Item name="ViewUsers" title="menu.admin.users" page="/admin/users"/>
-            <Item name="ActiveUsers" title="mainMenu.activeUsers" page="/admin/activeUsers"/>
+            <Item name="ActiveUsers" title="home.activeUsers" page="/admin/activeUsers"/>
             <Item name="ReloadContext" title="menu.admin.reload" page="/admin/reload"/>
             <Item name="FileUpload" title="menu.selectFile" page="/selectFile"/>
         </Menu>

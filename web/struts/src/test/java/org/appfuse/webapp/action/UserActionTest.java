@@ -15,7 +15,7 @@ public class UserActionTest extends BaseActionTestCase {
 
     @Test
     public void testCancel() throws Exception {
-        assertEquals(action.cancel(), "mainMenu");
+        assertEquals(action.cancel(), "home");
         assertFalse(action.hasActionErrors());
 
         action.setFrom("list");

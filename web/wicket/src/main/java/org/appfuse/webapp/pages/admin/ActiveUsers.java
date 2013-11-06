@@ -10,7 +10,7 @@ import org.apache.wicket.model.ResourceModel;
 import org.appfuse.model.User;
 import org.appfuse.webapp.AbstractWebPage;
 import org.appfuse.webapp.SSAuthenticatedWebSession;
-import org.appfuse.webapp.pages.MainMenu;
+import org.appfuse.webapp.pages.Home;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class ActiveUsers extends AbstractWebPage {
     }
 
     private TypedBookmarkablePageLink<String> createDoneButton() {
-        return new TypedBookmarkablePageLink<String>("doneButton", MainMenu.class, ButtonType.Primary)
+        return new TypedBookmarkablePageLink<String>("doneButton", Home.class, ButtonType.Primary)
                 .setLabel(new ResourceModel("button.done"))
                 .setIconType(IconType.ok)
                 .setInverted(true);

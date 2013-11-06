@@ -282,17 +282,17 @@ public class AppFuseGeneratorMojo extends HibernateExporterMojo {
 
         exporter.getProperties().setProperty("hasSecurity", String.valueOf(hasSecurity));
 
-        // determine if using Home or MainMenu for Tapestry
+        // determine if using Home or Home for Tapestry
         if (webFramework.equals("tapestry")) {
-            boolean useMainMenu = true;
+            boolean useHome = true;
             Collection<File> sourceFiles = FileUtils.listFiles(getProject().getBasedir(),new String[]{"java"}, true);
             for (File file : sourceFiles) {
                 if (file.getPath().contains("Home.java")) {
-                    useMainMenu = false;
+                    useHome = false;
                     break;
                 }
             }
-            exporter.getProperties().setProperty("useMainMenu", String.valueOf(useMainMenu));
+            exporter.getProperties().setProperty("useHome", String.valueOf(useHome));
         }
 
         return exporter;

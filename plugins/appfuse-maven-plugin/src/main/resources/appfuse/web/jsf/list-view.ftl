@@ -25,7 +25,7 @@
 
             <div id="actions" class="form-actions">
                 <h:commandButton value="${'#'}{text['button.add']}" action="add" id="add" immediate="true" styleClass="btn btn-primary"/>
-                <h:commandButton value="${'#'}{text['button.done']}" action="mainMenu" id="cancel" immediate="true" styleClass="btn"/>
+                <h:commandButton value="${'#'}{text['button.done']}" action="home" id="cancel" immediate="true" styleClass="btn"/>
             </div>
 
             <p:dataTable id="${util.getPluralForWord(pojoNameLower)}" var="${pojoNameLower}" value="${'#'}{${pojoNameLower}List.${util.getPluralForWord(pojoNameLower)}}"

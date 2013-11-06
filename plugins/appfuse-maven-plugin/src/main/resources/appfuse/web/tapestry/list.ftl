@@ -60,7 +60,7 @@ public class ${pojo.shortName}List {
     }
 
     Object onDone() {
-        return <#if useMainMenu>MainMenu<#else>Home</#if>.class;
+        return <#if useHome>Home<#else>Home</#if>.class;
     }
 
     Object onActionFromEdit(${identifierType} ${pojo.identifierProperty.name}) {

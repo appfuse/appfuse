@@ -21,7 +21,7 @@ import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColu
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.appfuse.webapp.AbstractWebPage;
 import org.appfuse.webapp.pages.FromListUserEdit;
-import org.appfuse.webapp.pages.MainMenu;
+import org.appfuse.webapp.pages.Home;
 import org.appfuse.webapp.pages.components.PlaceholderBehavior;
 import org.wicketstuff.annotation.mount.MountPath;
 
@@ -75,7 +75,7 @@ public class UserList extends AbstractWebPage {
         return new TypedLink<String>("doneButton", new ResourceModel("button.done"), ButtonType.Default) {
             @Override
             public void onClick() {
-                setResponsePage(MainMenu.class);
+                setResponsePage(Home.class);
             }
         }.setIconType(IconType.ok).setInverted(false);
     }

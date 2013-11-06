@@ -64,7 +64,7 @@ public class UserForm extends BasePage implements Serializable {
         }
 
         if (!"list".equals(getParameter("from"))) {
-            return "mainMenu";
+            return "home";
         } else {
             return "cancel";
         }
@@ -151,7 +151,7 @@ public class UserForm extends BasePage implements Serializable {
             addMessage("user.saved");
 
             // return to main Menu
-            return "mainMenu";
+            return "home";
         } else {
             // add success messages
             if ("".equals(getParameter("userForm:version"))) {

@@ -31,7 +31,7 @@
     <div id="actions" class="form-actions">
         <a href='<c:url value="/${pojoNameLower}form"/>' class="btn btn-primary">
             <i class="icon-plus icon-white"></i> <fmt:message key="button.add"/></a>
-        <a href='<c:url value="/mainMenu"/>' class="btn"><i class="icon-ok"></i> <fmt:message key="button.done"/></a>
+        <a href='<c:url value="/home"/>' class="btn"><i class="icon-ok"></i> <fmt:message key="button.done"/></a>
     </div>
 
 <display:table name="${pojoNameLower}List" class="table table-condensed table-striped table-hover" requestURI="" id="${pojoNameLower}List" export="true" pagesize="25">

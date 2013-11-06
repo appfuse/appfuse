@@ -20,7 +20,7 @@
                 <fmt:message key="button.upload"/>
             </s:submit>
 
-            <a class="btn" href="mainMenu" >
+            <a class="btn" href="home" >
                 <i class="icon-remove"></i>
                 <fmt:message key="button.cancel"/>
             </a>

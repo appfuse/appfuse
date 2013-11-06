@@ -25,7 +25,7 @@
         <a class="btn btn-primary" href="<c:url value='/edit${pojo.shortName}'/>" >
             <i class="icon-plus icon-white"></i> <fmt:message key="button.add"/>
         </a>
-        <a class="btn" href="<c:url value="/mainMenu"/>" >
+        <a class="btn" href="<c:url value="/home"/>" >
             <i class="icon-ok"></i> <fmt:message key="button.done"/>
         </a>
     </div>

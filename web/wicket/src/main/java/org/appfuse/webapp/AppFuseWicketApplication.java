@@ -10,10 +10,10 @@ import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.resource.loader.ClassStringResourceLoader;
 import org.apache.wicket.settings.IRequestCycleSettings;
+import org.appfuse.webapp.pages.Home;
 import org.appfuse.webapp.pages.Login;
 import org.apache.wicket.Page;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
-import org.appfuse.webapp.pages.MainMenu;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -39,7 +39,7 @@ import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
  *  - file upload - looks strange to upload files to application directory - LATER
  *  - change mouse cursor over link in a table (UserList)
  *  - RequiredLabel enhancements (label with text component?) - OBSOLETE
- *  - mainMenu -> home - LATER - requires changes in web-common
+ *  - home -> home - LATER - requires changes in web-common
  *  - the same buttons twice (UserEdit) - DONE
  *  - some tests - DONE
  *  - add "Are you sure?" question on delete user (JS alert?) - DONE
@@ -181,7 +181,7 @@ public class AppFuseWicketApplication extends AuthenticatedWebApplication {
 
     @Override
     public Class<? extends Page> getHomePage() {
-        return MainMenu.class;
+        return Home.class;
     }
 
     @Override

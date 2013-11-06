@@ -23,7 +23,7 @@
     <!-- Add rules here for anything that shouldn't be served up by Struts. -->
     <rule>
         <from>/</from>
-        <to type="redirect" last="true">mainMenu</to>
+        <to type="redirect" last="true">home</to>
     </rule>
     <rule>
         <from>/j_security_check</from>

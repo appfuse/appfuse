@@ -1,9 +1,9 @@
-<html t:type="layout" title="mainMenu.title"
-          heading="message:mainMenu.heading" menu="MainMenu" bodyClass="home"
+<html t:type="layout" title="home.title"
+          heading="message:home.heading" menu="Home" bodyClass="home"
           xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 
-    <h2>${message:mainMenu.heading}</h2>
-    <p>${message:mainMenu.message}</p>
+    <h2>${message:home.heading}</h2>
+    <p>${message:home.message}</p>
 
     <div class="separator"></div>
 

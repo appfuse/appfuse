@@ -15,4 +15,4 @@
 %>
 -->
 
-<a href="mainMenu" onclick="history.back();return false">&#171; Back</a>
+<a href="home" onclick="history.back();return false">&#171; Back</a>

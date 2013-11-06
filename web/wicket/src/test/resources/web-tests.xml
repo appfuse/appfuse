@@ -29,7 +29,7 @@
     </target>
     
     <!-- Login to the application -->
-    <target name="Login" description="Runs login test and verifies Main Menu's Title">
+    <target name="Login" description="Runs login test and verifies Home's Title">
         <webtest name="login">
             &config;
             <steps>
@@ -129,8 +129,8 @@
                 <!--<clickbutton label="${button.save}" description="Click Save"/>-->
                 <clickbutton name="userEditPanel:buttonsGroup:saveButton" description="Click Save"/>
                 <!-- TODO: MZA: Wypelnienie pol password(s) jest obecnie wymagane -->
-                <verifytitle description="display Main Menu if save OK"
-                     text=".*${mainMenu.title}.*" regex="true"/>
+                <verifytitle description="display Home if save OK"
+                     text=".*${home.title}.*" regex="true"/>
             </steps>
         </webtest>
     </target>

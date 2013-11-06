@@ -52,7 +52,7 @@ public class ActiveUsers {
         return (Set<User>) context.getAttribute("userNames");
     }
 
-    public String getMainMenuLink() {
+    public String getHomeLink() {
         return pageRenderLinkSource.createPageRenderLink(Home.class).toURI();
     }
 }
