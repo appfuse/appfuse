@@ -219,6 +219,10 @@ public class ArtifactUninstaller {
             parseXMLFile(existingFile, pojoName);
         } else {
             existingFile = new File(installedDirectory + "/src/main/webapp/decorators/default.jsp");
+            File jsfConfig = new File(installedDirectory + "/src/main/webapp/WEB-INF/faces-config.xml");
+            if (jsfConfig.exists()) {
+                existingFile = new File(installedDirectory + "/src/main/webapp/layouts/default.xhtml");
+            }
             parseXMLFile(existingFile, pojoName);
         }
     }
