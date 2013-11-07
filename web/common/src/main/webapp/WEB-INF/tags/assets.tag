@@ -10,13 +10,13 @@
 <c:choose>
 
     <c:when test="${sessionScope.debugAssets}">
-        <link rel="stylesheet" type="text/css" href="${base}/styles/lib/bootstrap-2.3.2.min.css"/>
-        <link rel="stylesheet" type="text/css" href="${base}/styles/lib/bootstrap-responsive-2.3.2.min.css"/>
+        <link rel="stylesheet" type="text/css" href="${base}/webjars/bootstrap/2.3.2/css/bootstrap.min.css"/>
+        <link rel="stylesheet" type="text/css" href="${base}/webjars/bootstrap/2.3.2/css/bootstrap-responsive.min.css"/>
         <link rel="stylesheet" type="text/css" href="${base}/styles/style.css"/>
 
-        <script type="text/javascript" src="${base}/scripts/lib/jquery-1.8.2.min.js"></script>
-        <script type="text/javascript" src="${base}/scripts/lib/bootstrap-2.3.2.min.js"></script>
-        <script type="text/javascript" src="${base}/scripts/lib/plugins/jquery.cookie.js"></script>
+        <script type="text/javascript" src="${base}/webjars/jquery/1.8.3/jquery.min.js"></script>
+        <script type="text/javascript" src="${base}/webjars/bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="${base}/webjars/jquery-cookie/1.3.1/jquery.cookie.js"></script>
         <script type="text/javascript" src="${base}/scripts/script.js"></script>
     </c:when>
     <c:otherwise>

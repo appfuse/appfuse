@@ -662,7 +662,7 @@
         <velocity.version>1.4</velocity.version>
         <webtest.version>3.0</webtest.version>
         <wiser.version>1.2</wiser.version>
-        <bootstrap.version>2.2.1</bootstrap.version>
+        <bootstrap.version>2.3.2</bootstrap.version>
         <wicket.version>6.3.0</wicket.version>
         <wicketstuff.version>${wicket.version}</wicketstuff.version>
         <wro4j.version>1.7.2</wro4j.version>
