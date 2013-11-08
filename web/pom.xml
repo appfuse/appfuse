@@ -203,11 +203,13 @@
             <artifactId>wro4j-core</artifactId>
             <version>${wro4j.version}</version>
         </dependency>
-        <dependency>
+        <!-- The following is not needed yes since webjars locator has issues with url rewriting. -->
+        <!-- When it is added, there's issues with asm and wicket. -->
+        <!--<dependency>
             <groupId>ro.isdc.wro4j</groupId>
             <artifactId>wro4j-extensions</artifactId>
             <version>${wro4j.version}</version>
-        </dependency>
+        </dependency>-->
         <!-- Add Bootstrap via WebJars -->
         <dependency>
             <groupId>org.webjars</groupId>
