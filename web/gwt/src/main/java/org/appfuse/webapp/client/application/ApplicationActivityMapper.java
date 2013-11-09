@@ -31,6 +31,7 @@ import com.google.gwt.activity.shared.ActivityMapper;
 import com.google.gwt.inject.client.AsyncProvider;
 import com.google.gwt.place.shared.Place;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 /**
  * @author ivangsa
@@ -39,9 +40,9 @@ import com.google.inject.Inject;
 public class ApplicationActivityMapper implements ActivityMapper {
 
     @Inject
-    private AsyncProvider<MainMenuActivity> mainMenuActivityProvider;
+    private Provider<MainMenuActivity> mainMenuActivityProvider;
     @Inject
-    private AsyncProvider<LoginActivity> loginActivityProvider;
+    private Provider<LoginActivity> loginActivityProvider;
     @Inject
     private AsyncProvider<LogoutActivity> logoutActivityProvider;
     @Inject
@@ -66,10 +67,10 @@ public class ApplicationActivityMapper implements ActivityMapper {
         Activity activity = null;
 
         if(place instanceof LoginPlace) {
-            activity = new AsyncActivityProxy<LoginActivity>(loginActivityProvider);
+            activity = loginActivityProvider.get();
         }
         else if (place instanceof MainMenuPlace) {
-            activity = new AsyncActivityProxy<MainMenuActivity>(mainMenuActivityProvider);
+            activity = mainMenuActivityProvider.get();
         }
         else if (place instanceof LogoutPlace) {
             activity = new AsyncActivityProxy<LogoutActivity>(logoutActivityProvider);
