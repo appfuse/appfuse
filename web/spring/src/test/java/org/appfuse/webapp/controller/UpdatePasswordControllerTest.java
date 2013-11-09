@@ -98,7 +98,6 @@ public class UpdatePasswordControllerTest extends BaseControllerTestCase {
         String password = "new-pass";
 
         MockHttpServletRequest request = newGet("/updatePassword");
-        request.setRemoteUser(username);
         request.addParameter("username", username);
         request.addParameter("token", token);
         request.addParameter("password", password);
@@ -123,7 +122,6 @@ public class UpdatePasswordControllerTest extends BaseControllerTestCase {
         String password = "new-pass";
 
         MockHttpServletRequest request = newGet("/updatePassword");
-        request.setRemoteUser(username);
         request.addParameter("username", username);
         request.addParameter("token", badToken);
         request.addParameter("password", password);
@@ -141,7 +139,7 @@ public class UpdatePasswordControllerTest extends BaseControllerTestCase {
         String password = "new-pass";
 
         MockHttpServletRequest request = newGet("/updatePassword");
-        request.setRemoteUser(username);
+        request.setRemoteUser(username);// user must ge logged in
         request.addParameter("username", username);
         request.addParameter("currentPassword", currentPassword);
         request.addParameter("password", password);
@@ -159,7 +157,7 @@ public class UpdatePasswordControllerTest extends BaseControllerTestCase {
         String password = "new-pass";
 
         MockHttpServletRequest request = newGet("/updatePassword");
-        request.setRemoteUser(username);
+        request.setRemoteUser(username);// user must ge logged in
         request.addParameter("username", username);
         request.addParameter("currentPassword", currentPassword);
         request.addParameter("password", password);
