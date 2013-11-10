@@ -2,6 +2,8 @@ package org.appfuse.webapp;
 
 import de.agilecoders.wicket.core.Bootstrap;
 import de.agilecoders.wicket.core.settings.BootstrapSettings;
+import de.agilecoders.wicket.webjars.collectors.VfsJarAssetPathCollector;
+import de.agilecoders.wicket.webjars.util.WicketWebjars;
 import javassist.CannotCompileException;
 import javassist.ClassPool;
 import javassist.CtClass;
@@ -40,6 +42,13 @@ public class AppFuseWicketApplication extends AuthenticatedWebApplication {
         setOnePassRenderStrategy();
         registerAppFuseSpecificStringResourceLoader();
         initBootstrap();
+        initWebjars();
+    }
+
+    private void initWebjars() {
+        WicketWebjars.install(this);
+        //register vfs collector to use webjars on jboss - should be enabled by default?
+        WicketWebjars.registerCollector(new VfsJarAssetPathCollector());
     }
 
     private void registerSpringComponentInjector() {

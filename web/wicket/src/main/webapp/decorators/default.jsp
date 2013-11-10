@@ -11,7 +11,6 @@
     <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/style.css'/>" />
     <decorator:head/>
 
-    <script type="text/javascript" src="<c:url value='/scripts/lib/plugins/jquery.cookie.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/scripts/script.js'/>"></script>
 </head>
 <body class="<decorator:getProperty property="meta.bodyClass" writeEntireProperty="false"/>">

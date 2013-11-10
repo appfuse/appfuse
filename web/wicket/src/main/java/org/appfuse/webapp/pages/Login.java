@@ -1,5 +1,6 @@
 package org.appfuse.webapp.pages;
 
+import de.agilecoders.wicket.webjars.request.resource.WebjarsJavaScriptResourceReference;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
@@ -93,6 +94,8 @@ public class Login extends AbstractWebPage {
     }
 
     private void addLoginJavaScriptToResponse(IHeaderResponse response) {
+        response.render(JavaScriptHeaderItem.forReference(
+                new WebjarsJavaScriptResourceReference("jquery-cookie/current/jquery.cookie.js")));
         response.render(JavaScriptHeaderItem.forUrl("scripts/login.js"));
     }
 

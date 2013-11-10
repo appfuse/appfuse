@@ -86,6 +86,7 @@ Integration with Bootstrap and Wicket 2.2
  - Archetype: src/main/webapp/scripts cannot be deleted - it removes includes *\/*.html and *\/*.tld for src/main/webapp in maven-archetype-metadata.xml
  - Idea: why exploded archetype isn't updated before deploy (build on make shouldn't be necessary) - DONE -only with ajc - with javac works fine
  - Autumn update: failing tests - changed markup? changed default error messages? - DONE
- - Autumn update: LockObtainFailedException: Lock obtain timed out: SimpleFSLock@target/index/org.appfuse.model.User/write.lock
+ - Autumn update: LockObtainFailedException: Lock obtain timed out: SimpleFSLock@target/index/org.appfuse.model.User/write.lock - DONE - target is create
+in $CATALINA_HOME/bin/
  - Autumn update: exclude jquery and bootstrap from web/pom.xml - a hack with provided or move it to dependencyManagement
- - Autumn update: integrate jquery.cookie.js moved to webjar
+ - Autumn update: integrate jquery.cookie.js moved to webjar - DONE
