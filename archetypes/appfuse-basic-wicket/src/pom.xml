@@ -357,8 +357,18 @@
         </dependency>
         <dependency>
             <groupId>de.agilecoders.wicket</groupId>
-            <artifactId>bootstrap</artifactId>
-            <version>0.7.6</version>
+            <artifactId>wicket-bootstrap-core</artifactId>
+            <version>${wicket.bootstrap.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>de.agilecoders.wicket.webjars</groupId>
+          <artifactId>wicket-webjars</artifactId>
+          <version>${wicket.webjars.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>de.agilecoders.wicket.webjars</groupId>
+          <artifactId>vfs-support</artifactId>
+          <version>${wicket.webjars.version}</version>
         </dependency>
 
         <dependency>
@@ -702,8 +712,10 @@
         <!-- Framework dependency versions -->
         <appfuse.version>2.2.2-SNAPSHOT</appfuse.version>
         <spring.version>3.2.4.RELEASE</spring.version>
-        <wicket.version>6.3.0</wicket.version>
-        <wicketstuff.version>${wicket.version}</wicketstuff.version>
+        <wicket.version>6.12.0</wicket.version>
+        <wicketstuff.version>6.11.1</wicketstuff.version>
+        <wicket.bootstrap.version>0.8.4</wicket.bootstrap.version>
+        <wicket.webjars.version>0.3.2</wicket.webjars.version>
 
         <!-- Testing dependency versions -->
         <cargo.version>1.4.4</cargo.version>

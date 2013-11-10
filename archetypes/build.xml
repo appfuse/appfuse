@@ -206,6 +206,7 @@
                     <delete dir="@{dir}/src/main/webapp/styles/lib"/>
                     <delete dir="@{dir}/src/main/webapp/styles/img"/>
                     <delete dir="@{dir}/src/main/webapp/styles/img"/>
+                    <delete file="@{dir}/TODO-Wicket.txt"/>
 
                     <!-- TODO: MZA: Why deleting scripts directory removes includes for */*.html and */*.tld for
                          src/main/webapp in maven-archetype-metadata.xml ? -->
