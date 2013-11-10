@@ -1,6 +1,6 @@
 package org.appfuse.webapp.pages;
 
-import de.agilecoders.wicket.markup.html.bootstrap.common.NotificationMessage;
+import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
 import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.util.tester.FormTester;
 import org.appfuse.model.User;

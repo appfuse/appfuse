@@ -1,7 +1,8 @@
 package org.appfuse.webapp.pages.admin;
 
-import de.agilecoders.wicket.markup.html.bootstrap.button.*;
-import de.agilecoders.wicket.markup.html.bootstrap.image.IconType;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.*;
+import de.agilecoders.wicket.core.markup.html.bootstrap.image.IconType;
+import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.extensions.ajax.markup.html.repeater.data.table.AjaxFallbackDefaultDataTable;
 import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
@@ -71,27 +72,26 @@ public class UserList extends AbstractWebPage {
         return searchForm;
     }
 
-    private TypedLink<String> createDoneButton() {
-        return new TypedLink<String>("doneButton", new ResourceModel("button.done"), ButtonType.Default) {
+    private BootstrapLink<Page> createDoneButton() {
+        return new BootstrapLink<Page>("doneButton", Model.<Page>of(this), Buttons.Type.Default) {
             @Override
             public void onClick() {
                 setResponsePage(Home.class);
             }
-        }.setIconType(IconType.ok).setInverted(false);
+        }.setIconType(IconType.ok).setInverted(false).setLabel(new ResourceModel("button.done"));
     }
 
-    private TypedLink<String> createAddButton() {
-        return new TypedLink<String>("addButton", new ResourceModel("button.add"), ButtonType.Primary) {
-
+    private BootstrapLink<Page> createAddButton() {
+        return new BootstrapLink<Page>("addButton", Model.<Page>of(this), Buttons.Type.Primary) {
             @Override
             public void onClick() {
                 log.info("addButton submitted");
                 User user = new User();
                 user.addRole(new Role(Constants.USER_ROLE));
-                //TODO: MZA: Is it the best way to create that Model here?
+                //TODO: MZA: Is it the best way to create this model here?
                 setResponsePage(new FromListUserEdit(getPage(), new Model<User>(user)));
             }
-        }.setIconType(IconType.plus);
+        }.setIconType(IconType.plus).setLabel(new ResourceModel("button.add"));
     }
 
     private AjaxFallbackDefaultDataTable<User, String> createUserListTable() {

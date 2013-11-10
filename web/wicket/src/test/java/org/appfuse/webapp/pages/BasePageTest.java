@@ -46,7 +46,7 @@ public abstract class BasePageTest {
     }
 
     protected String getRequiredErrorMessageByField(String field) {
-        return "Field '" + field + "' is required.";
+        return "'" + field + "' is required.";
     }
 
     protected void assertRenderedLoginPageWithErrorMessages(Class<? extends Page> pageClass, String... errorMessage) {

@@ -1,18 +1,17 @@
 package org.appfuse.webapp.pages.components;
 
 import com.google.common.collect.Lists;
-import de.agilecoders.wicket.markup.html.bootstrap.button.ButtonType;
-import de.agilecoders.wicket.markup.html.bootstrap.button.TypedButton;
-import de.agilecoders.wicket.markup.html.bootstrap.button.TypedLink;
-import de.agilecoders.wicket.markup.html.bootstrap.image.IconType;
-import de.agilecoders.wicket.markup.html.bootstrap.tabs.Collapsible;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapButton;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.BootstrapLink;
+import de.agilecoders.wicket.core.markup.html.bootstrap.button.Buttons;
+import de.agilecoders.wicket.core.markup.html.bootstrap.image.IconType;
+import de.agilecoders.wicket.core.markup.html.bootstrap.tabs.Collapsible;
 import org.apache.wicket.behavior.AttributeAppender;
 import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
 import org.apache.wicket.extensions.markup.html.tabs.ITab;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.*;
-import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Fragment;
@@ -170,13 +169,13 @@ public abstract class UserEditPanel extends Panel {
         return buttonsGroup;
     }
 
-    private Link createCancelButton(String buttonId) {
-        return new TypedLink<String>(buttonId, new ResourceModel("button.cancel"), ButtonType.Default) {
+    private BootstrapLink<Panel> createCancelButton(String buttonId) {
+        return new BootstrapLink<Panel>(buttonId, Model.<Panel>of(this), Buttons.Type.Default) {
             @Override
             public void onClick() {
                 onCancelButtonSubmit();
             }
-        }.setIconType(IconType.remove).setInverted(false);
+        }.setIconType(IconType.remove).setInverted(false).setLabel(new ResourceModel("button.cancel"));
     }
 
     private WebMarkupContainer createButtonsGroup(String groupId) {
@@ -204,10 +203,10 @@ public abstract class UserEditPanel extends Panel {
         }
     }
 
-    private final /*static*/ class SaveButton extends TypedButton {
+    private final /*static*/ class SaveButton extends BootstrapButton {
 
         private SaveButton(String buttonId) {
-            super(buttonId, new ResourceModel("button.save"), ButtonType.Primary);
+            super(buttonId, new ResourceModel("button.save"), Buttons.Type.Primary);
             setIconType(IconType.ok);
         }
 
@@ -217,9 +216,9 @@ public abstract class UserEditPanel extends Panel {
         }
     }
 
-    private class DeleteButton extends TypedButton {
+    private class DeleteButton extends BootstrapButton {
         public DeleteButton(String buttonId) {
-            super(buttonId, new ResourceModel("button.delete"), ButtonType.Danger);
+            super(buttonId, new ResourceModel("button.delete"), Buttons.Type.Danger);
             setIconType(IconType.trash);
             setDefaultFormProcessing(false);
             setVisible(getDeleteButtonVisibility());

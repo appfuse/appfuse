@@ -1,7 +1,7 @@
 package org.appfuse.webapp;
 
-import de.agilecoders.wicket.Bootstrap;
-import de.agilecoders.wicket.settings.BootstrapSettings;
+import de.agilecoders.wicket.core.Bootstrap;
+import de.agilecoders.wicket.core.settings.BootstrapSettings;
 import javassist.CannotCompileException;
 import javassist.ClassPool;
 import javassist.CtClass;
@@ -109,6 +109,11 @@ import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
  *  - UserCounterListener could be used instead of Spring Security to count and display active users
  *  - Archetype: remove src/test/resources/target and remove src/test/java-tapestry - DONE
  *  - Archetype: src/main/webapp/scripts cannot be deleted - it removes includes *\/*.html and *\/*.tld for src/main/webapp in maven-archetype-metadata.xml
+ *  - Idea: why exploded archetype isn't updated before deploy (build on make shouldn't be necessary) - DONE -only with ajc - with javac works fine
+ *  - Autumn update: failing tests - changed markup? changed default error messages? - DONE
+ *  - Autumn update: LockObtainFailedException: Lock obtain timed out: SimpleFSLock@target/index/org.appfuse.model.User/write.lock
+ *  - Autumn update: exclude jquery and bootstrap from web/pom.xml - a hack with provided or move it to dependencyManagement
+ *  - Autumn update: integrate jquery.cookie.js moved to webjar
  *
  * @author Marcin Zajączkowski, 2010-09-02
  */
@@ -147,6 +152,7 @@ public class AppFuseWicketApplication extends AuthenticatedWebApplication {
         getRequestCycleSettings().setRenderStrategy(IRequestCycleSettings.RenderStrategy.ONE_PASS_RENDER);
     }
 
+    //TODO: MZA: Move to a separate class
     /**
      * Registers AppFuse specific IStringResourceLoader at the end to use ApplicationResources.properties
      * for unhandled keys.
