@@ -26,7 +26,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 /**
- * org.appfuse.webapp.pages.SignupPageTest
+ * Integrations tests with WicketTester for Signup page.
  *
  * @author Marcin Zajączkowski, 2011-06-19
  */

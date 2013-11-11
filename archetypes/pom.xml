@@ -36,6 +36,7 @@
         <module>appfuse-modular-struts</module>
         <module>appfuse-modular-spring</module>
         <module>appfuse-modular-tapestry</module>
+        <module>appfuse-modular-wicket</module>
         <module>appfuse-ws</module>
     </modules>
 

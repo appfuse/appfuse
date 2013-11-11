@@ -207,6 +207,7 @@
                     <delete dir="@{dir}/src/main/webapp/styles/img"/>
                     <delete dir="@{dir}/src/main/webapp/styles/img"/>
                     <delete file="@{dir}/TODO-Wicket.txt"/>
+                    <delete file="@{dir}/web/TODO-Wicket.txt"/>
 
                     <!-- TODO: MZA: Why deleting scripts directory removes includes for */*.html and */*.tld for
                          src/main/webapp in maven-archetype-metadata.xml ? -->
@@ -279,6 +280,26 @@
                 <replacetoken>import org.appfuse.webapp.util.RequestUtil</replacetoken>
                 <replacevalue>import ${package}.webapp.util.RequestUtil</replacevalue>
             </replace>
+
+            <if>
+                <equals arg1="@{module}" arg2="wicket"/>
+                <then>
+                    <!-- TODO: MZA: Can it be done automatically for all static imports? -->
+                    <replace dir="@{dir}/target/generated-sources/archetype/src">
+                        <replacetoken>import static ${package}.util.NumberRangeUtil</replacetoken>
+                        <replacevalue>import static ${package}.webapp.util.NumberRangeUtil</replacevalue>
+                    </replace>
+                    <replace dir="@{dir}/target/generated-sources/archetype/src">
+                        <replacetoken>import static ${package}.StaticAuthenticatedWebSession</replacetoken>
+                        <replacevalue>import static ${package}.webapp.StaticAuthenticatedWebSession</replacevalue>
+                    </replace>
+
+                    <replace dir="@{dir}/target/generated-sources/archetype/src">
+                        <replacetoken>${package}.pages</replacetoken>
+                        <replacevalue>${package}.webapp.pages</replacevalue>
+                    </replace>
+                </then>
+            </if>
 
             <replace dir="@{dir}/target/generated-sources/archetype/src">
                 <replacetoken>import org.appfuse.util.MessageUtil</replacetoken>

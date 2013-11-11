@@ -6,7 +6,7 @@ import org.junit.Test;
 import static org.appfuse.webapp.StaticAuthenticatedWebSession.*;
 
 /**
- * org.appfuse.webapp.pages.LoginPageTest
+ * Integrations tests with WicketTester for Login page.
  *
  * @author Marcin Zajączkowski, 2011-06-18
  */
