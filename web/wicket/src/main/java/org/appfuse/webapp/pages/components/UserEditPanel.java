@@ -28,6 +28,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
+import static java.lang.String.format;
+
 /**
  * Resusable form for editing users.
  *
@@ -164,9 +166,18 @@ public abstract class UserEditPanel extends Panel {
         buttonsGroup.add(new SaveButton("saveButton"));
         //TODO: MZA: Find a better way to control visibility on the page
         //TODO: MZA: DeleteButton visible only when from list and not new user
-        buttonsGroup.add(new DeleteButton("deleteButton"));
+        buttonsGroup.add(new DeleteButton("deleteButton", generateDeleteConfirmMessage()));
         buttonsGroup.add(createCancelButton("cancelButton"));
         return buttonsGroup;
+    }
+
+    private WebMarkupContainer createButtonsGroup(String groupId) {
+        return new WebMarkupContainer(groupId);
+    }
+
+    private String generateDeleteConfirmMessage() {
+        return new StringResourceModel(
+                    "delete.confirm", this, null, new Object[]{getString("userList.user")}).getString();
     }
 
     private BootstrapLink<Panel> createCancelButton(String buttonId) {
@@ -176,10 +187,6 @@ public abstract class UserEditPanel extends Panel {
                 onCancelButtonSubmit();
             }
         }.setIconType(IconType.remove).setInverted(false).setLabel(new ResourceModel("button.cancel"));
-    }
-
-    private WebMarkupContainer createButtonsGroup(String groupId) {
-        return new WebMarkupContainer(groupId);
     }
 
     public class AddressFragment extends Fragment {
@@ -217,12 +224,13 @@ public abstract class UserEditPanel extends Panel {
     }
 
     private class DeleteButton extends BootstrapButton {
-        public DeleteButton(String buttonId) {
+        public DeleteButton(String buttonId, String confirmMessage) {
             super(buttonId, new ResourceModel("button.delete"), Buttons.Type.Danger);
             setIconType(IconType.trash);
             setDefaultFormProcessing(false);
             setVisible(getDeleteButtonVisibility());
-            add(new AttributeAppender("onclick", "return confirmDelete('User')"));
+
+            add(new AttributeAppender("onclick", format("return confirmMessage('%s')", confirmMessage)));
         }
 
         @Override

@@ -3,7 +3,9 @@ package org.appfuse.webapp;
 import de.agilecoders.wicket.core.Bootstrap;
 import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
 import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel;
+import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.IModel;
@@ -36,6 +38,16 @@ public abstract class AbstractWebPage extends WebPage {
     public void renderHead(IHeaderResponse response) {
         super.renderHead(response);
         Bootstrap.renderHead(response);
+        addCommonStyles(response);
+        addCommonScripts(response);
+    }
+
+    private void addCommonStyles(IHeaderResponse response) {
+        response.render(CssHeaderItem.forUrl("styles/style.css"));
+    }
+
+    private void addCommonScripts(IHeaderResponse response) {
+        response.render(JavaScriptHeaderItem.forUrl("scripts/script.js"));
     }
 
     protected NotificationMessage createDefaultInfoNotificationMessage(IModel<String> messageModel) {

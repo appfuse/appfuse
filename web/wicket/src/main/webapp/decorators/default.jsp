@@ -8,10 +8,7 @@
     <link rel="icon" href="<c:url value="/images/favicon.ico"/>"/>
     <title><decorator:title/> | <fmt:message key="webapp.name"/></title>
 
-    <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/style.css'/>" />
     <decorator:head/>
-
-    <script type="text/javascript" src="<c:url value='/scripts/script.js'/>"></script>
 </head>
 <body class="<decorator:getProperty property="meta.bodyClass" writeEntireProperty="false"/>">
 <c:set var="currentMenu" scope="request"><decorator:getProperty property="meta.menu"/></c:set>

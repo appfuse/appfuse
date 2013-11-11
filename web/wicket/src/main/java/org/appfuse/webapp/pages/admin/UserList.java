@@ -37,7 +37,7 @@ import java.util.*;
 @AuthorizeInstantiation("ROLE_ADMIN")
 public class UserList extends AbstractWebPage {
 
-    private static final int ROWS_PER_PAGE = 3; //10 - 3 is for paging test
+    private static final int ROWS_PER_PAGE = 25;
 
     @SpringBean(name = "userManager")
     private UserManager userManager;
