@@ -710,7 +710,7 @@
 
         <!-- Framework dependency versions -->
         <appfuse.version>2.2.2-SNAPSHOT</appfuse.version>
-        <spring.version>3.2.4.RELEASE</spring.version>
+        <spring.version>3.2.5.RELEASE</spring.version>
         <tapestry.version>5.3.6</tapestry.version>
         <bootstrap.version>2.2.1</bootstrap.version>
 
