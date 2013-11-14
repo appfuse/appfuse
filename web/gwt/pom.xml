@@ -204,6 +204,10 @@
 						<replacement>
 							<token>javax.faces</token>
 							<value>#javax.faces</value>
+						</replacement>
+						<replacement>
+							<token>null=</token>
+							<value>#null=</value>
 						</replacement>						
 					</replacements>
 				</configuration>

@@ -871,6 +871,123 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
   String signup_title();
 
   /**
+   * Translated "Please input your new password.".
+   * 
+   * @return translated "Please input your new password."
+   */
+  @DefaultMessage("Please input your new password.")
+  @Key("updatePassword.changePassword.message")
+  String updatePassword_changePassword_message();
+
+  /**
+   * Translated "Change Password".
+   * 
+   * @return translated "Change Password"
+   */
+  @DefaultMessage("Change Password")
+  @Key("updatePassword.changePasswordButton")
+  String updatePassword_changePasswordButton();
+
+  /**
+   * Translated "Change Password".
+   * 
+   * @return translated "Change Password"
+   */
+  @DefaultMessage("Change Password")
+  @Key("updatePassword.changePasswordLink")
+  String updatePassword_changePasswordLink();
+
+  /**
+   * Translated "Current Password".
+   * 
+   * @return translated "Current Password"
+   */
+  @DefaultMessage("Current Password")
+  @Key("updatePassword.currentPassword.label")
+  String updatePassword_currentPassword_label();
+
+  /**
+   * Translated "Update your Password".
+   * 
+   * @return translated "Update your Password"
+   */
+  @DefaultMessage("Update your Password")
+  @Key("updatePassword.heading")
+  String updatePassword_heading();
+
+  /**
+   * Translated "Password provided does not match your current password.".
+   * 
+   * @return translated "Password provided does not match your current password."
+   */
+  @DefaultMessage("Password provided does not match your current password.")
+  @Key("updatePassword.invalidPassword")
+  String updatePassword_invalidPassword();
+
+  /**
+   * Translated "Password reset token is not valid or has expired.".
+   * 
+   * @return translated "Password reset token is not valid or has expired."
+   */
+  @DefaultMessage("Password reset token is not valid or has expired.")
+  @Key("updatePassword.invalidToken")
+  String updatePassword_invalidToken();
+
+  /**
+   * Translated "New Password".
+   * 
+   * @return translated "New Password"
+   */
+  @DefaultMessage("New Password")
+  @Key("updatePassword.newPassword.label")
+  String updatePassword_newPassword_label();
+
+  /**
+   * Translated "You have requested a password reset. Please input your new password.".
+   * 
+   * @return translated "You have requested a password reset. Please input your new password."
+   */
+  @DefaultMessage("You have requested a password reset. Please input your new password.")
+  @Key("updatePassword.passwordReset.message")
+  String updatePassword_passwordReset_message();
+
+  /**
+   * Translated "A password reset link was sent to your registered email address.".
+   * 
+   * @return translated "A password reset link was sent to your registered email address."
+   */
+  @DefaultMessage("A password reset link was sent to your registered email address.")
+  @Key("updatePassword.recoveryToken.sent")
+  String updatePassword_recoveryToken_sent();
+
+  /**
+   * Translated "Request a <a href=\"?\" onclick=\"requestRecoveryToken(); return false\">password reset</a> e-mailed to you.".
+   * 
+   * @return translated "Request a <a href=\"?\" onclick=\"requestRecoveryToken(); return false\">password reset</a> e-mailed to you."
+   */
+  @DefaultMessage("Request a <a href=\"?\" onclick=\"requestRecoveryToken(); return false\">password reset</a> e-mailed to you.")
+  @Key("updatePassword.requestRecoveryTokenLink")
+  String updatePassword_requestRecoveryTokenLink();
+
+  /**
+   * Translated "Your password has been updated successfully.".
+   * 
+   * @return translated "Your password has been updated successfully."
+   */
+  @DefaultMessage("Your password has been updated successfully.")
+  @Key("updatePassword.success")
+  String updatePassword_success();
+
+  /**
+   * Translated "Update your Password".
+   * 
+   * @return translated "Update your Password"
+   */
+  @DefaultMessage("Update your Password")
+  @Key("updatePassword.title")
+  String updatePassword_title();
+
+  /**
    * Translated "Upload A File".
    * 
    * @return translated "Upload A File"
@@ -1231,6 +1348,15 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
   String userProfile_accountSettings();
 
   /**
+   * Translated "User Profile".
+   * 
+   * @return translated "User Profile"
+   */
+  @DefaultMessage("User Profile")
+  @Key("userProfile.admin.heading")
+  String userProfile_admin_heading();
+
+  /**
    * Translated "Please update this user''s information.".
    * 
    * @return translated "Please update this user''s information."
@@ -1238,6 +1364,15 @@ public interface ApplicationResources extends com.google.gwt.i18n.client.Message
   @DefaultMessage("Please update this user''s information.")
   @Key("userProfile.admin.message")
   String userProfile_admin_message();
+
+  /**
+   * Translated "User Settings".
+   * 
+   * @return translated "User Settings"
+   */
+  @DefaultMessage("User Settings")
+  @Key("userProfile.admin.title")
+  String userProfile_admin_title();
 
   /**
    * Translated "Assign Roles".
