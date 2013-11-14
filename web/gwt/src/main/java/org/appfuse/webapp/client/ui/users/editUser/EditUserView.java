@@ -9,7 +9,6 @@ import org.appfuse.webapp.client.proxies.UserProxy;
 
 public interface EditUserView extends ProxyEditView<UserProxy, EditUserView> {
 
-	void hidePasswordFields(boolean hide);
 	void setCountries(List<LabelValueProxy> countries);
 	void setAvailableRoles(List<RoleProxy> roles);
 }

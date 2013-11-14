@@ -13,24 +13,26 @@ import com.google.web.bindery.requestfactory.shared.EntityProxy;
  */
 public interface ProxyEditView<P extends EntityProxy, V extends ProxyEditView<P, V>> extends IsWidget, HasEditorErrors<P> {
 
-	/**
-	 * @return a new {@link RequestFactoryEditorDriver} initialized to run this editor
-	 */
-	RequestFactoryEditorDriver<P, ? extends V> createEditorDriver();
+    /**
+     * @return a new {@link RequestFactoryEditorDriver} initialized to run this editor
+     */
+    RequestFactoryEditorDriver<P, ? extends V> createEditorDriver();
 
-	/**
-	 * Implemented by the owner of the view.
-	 */
-	interface Delegate {
-		
-		void cancelClicked();
-		
-		void deleteClicked();
-		
-		void saveClicked();
-	}
+    /**
+     * Implemented by the owner of the view.
+     */
+    interface Delegate {
 
-	<D extends Delegate> void setDelegate(D delegate);
+        void updatePasswordClicked();
 
-	void setEnabled(boolean b);
+        void cancelClicked();
+
+        void deleteClicked();
+
+        void saveClicked();
+    }
+
+    <D extends Delegate> void setDelegate(D delegate);
+
+    void setEnabled(boolean b);
 }

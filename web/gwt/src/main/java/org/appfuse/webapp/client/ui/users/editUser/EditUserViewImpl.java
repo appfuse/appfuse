@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.appfuse.webapp.client.ui.users.editUser;
 
@@ -26,6 +26,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
@@ -37,24 +38,24 @@ import com.google.web.bindery.requestfactory.gwt.client.RequestFactoryEditorDriv
  */
 public class EditUserViewImpl extends Composite implements EditUserView {
 
-	interface Binder extends UiBinder<Widget, EditUserViewImpl> {}
-	private static final Binder BINDER = GWT.create(Binder.class);
+    interface Binder extends UiBinder<Widget, EditUserViewImpl> {}
+    private static final Binder BINDER = GWT.create(Binder.class);
 
-	interface Driver extends RequestFactoryEditorDriver<UserProxy, EditUserViewImpl> { }
-	
-	@UiField(provided=true) 
-	protected ApplicationResources i18n = GWT.create(ApplicationResources.class);
-	
-	private EditUserView.Delegate delegate;
-	
-	@UiField
-	protected Paragraph subheading;
-	
+    interface Driver extends RequestFactoryEditorDriver<UserProxy, EditUserViewImpl> { }
+
+    @UiField(provided=true)
+    protected ApplicationResources i18n = GWT.create(ApplicationResources.class);
+
+    private EditUserView.Delegate delegate;
+
+    @UiField
+    protected Paragraph subheading;
+
     @UiField LongBox id;
     @UiField IntegerBox version;
     @UiField TextBox username;
     @UiField PasswordTextBox password;
-    @UiField PasswordTextBox confirmPassword;
+    @UiField Anchor updatePasswordButton;
     @UiField TextBox passwordHint;
     @UiField TextBox firstName;
     @UiField TextBox lastName;
@@ -72,13 +73,13 @@ public class EditUserViewImpl extends Composite implements EditUserView {
     @UiField @Path("address.country")
     ListBox country;
     @UiField  @Path("address.postalCode")
-    TextBox postalCode;    
-    
+    TextBox postalCode;
+
     @UiField(provided=true)
-	protected RolesListBox roles = new RolesListBox();
-    
-    @UiField Widget passwordControlGroup;
-    @UiField Widget confirmPasswordControlGroup;
+    protected RolesListBox roles = new RolesListBox();
+
+    @UiField protected Widget passwordControlGroup;
+    @UiField protected Widget updatePasswordControl;
     @UiField protected Widget userRoles;//control group for
     @UiField protected Widget accountSettings;//control group for
 
@@ -86,81 +87,83 @@ public class EditUserViewImpl extends Composite implements EditUserView {
     @UiField CheckBox accountExpired;
     @UiField CheckBox accountLocked;
     @UiField CheckBox credentialsExpired;
-    
+
     @UiField Button saveButton;
     @UiField protected Button deleteButton;
     @UiField Button cancelButton;
-	
-	/**
-	 * 
-	 */
-	public EditUserViewImpl() {
-		super();
-		initWidget(BINDER.createAndBindUi(this));
-	}
-	
-	public void setDelegate(EditUserView.Delegate delegate) {
-		this.delegate = delegate;
-	}
-	
-	@Override
-	public RequestFactoryEditorDriver<UserProxy, ? extends EditUserView> createEditorDriver() {
-		RequestFactoryEditorDriver<UserProxy, EditUserViewImpl> editorDriver = GWT.create(Driver.class);
-		editorDriver.initialize(this);		
-		return editorDriver;
-	}
 
-	@Override
-	public void setCountries(List<LabelValueProxy> countries) {
-		for (LabelValueProxy labelValue : countries) {
-			country.addItem(labelValue.getLabel(), labelValue.getValue());
-		}
-	}
-	
-	@Override
-	public void setAvailableRoles(List<RoleProxy> roles) {
-		this.roles.setRowData(roles);
-	}
+    /**
+     *
+     */
+    public EditUserViewImpl() {
+        super();
+        initWidget(BINDER.createAndBindUi(this));
+        passwordControlGroup.setVisible(false);
+        updatePasswordControl.setVisible(false);
+    }
 
-	@Override
-	public void showErrors(List<EditorError> errors) {
-		if(errors != null && !errors.isEmpty()) {
-	        SafeHtmlBuilder b = new SafeHtmlBuilder();
-	        for (EditorError error : errors) {
-	        	if(error.getPath() != null && !"".equals(error.getPath())) {
-	        		Object userData = error.getUserData();
-	        		b.appendEscaped(error.getPath()).appendEscaped(": ");
-	        	}
-        		b.appendEscaped(error.getMessage()).appendEscaped("\n");
-	        }
-			Window.alert(b.toSafeHtml().asString());
-		}
-	}
-	
-	@UiHandler("saveButton")
-	public void onSaveButtonClick(ClickEvent event) {
-		delegate.saveClicked();
-	}
+    @Override
+    public void setDelegate(final EditUserView.Delegate delegate) {
+        this.delegate = delegate;
+    }
 
-	@UiHandler("deleteButton")
-	public void onDeleteButtonClick(ClickEvent event) {
-		delegate.deleteClicked();
-	}
+    @Override
+    public RequestFactoryEditorDriver<UserProxy, ? extends EditUserView> createEditorDriver() {
+        final RequestFactoryEditorDriver<UserProxy, EditUserViewImpl> editorDriver = GWT.create(Driver.class);
+        editorDriver.initialize(this);
+        return editorDriver;
+    }
 
-	@UiHandler("cancelButton")
-	public void onCancelButtonClick(ClickEvent event) {
-		delegate.cancelClicked();
-	}
+    @Override
+    public void setCountries(final List<LabelValueProxy> countries) {
+        for (final LabelValueProxy labelValue : countries) {
+            country.addItem(labelValue.getLabel(), labelValue.getValue());
+        }
+    }
 
-	@Override
-	public void hidePasswordFields(boolean hide) {
-		passwordControlGroup.setVisible(!hide);
-		confirmPasswordControlGroup.setVisible(!hide);
-	}
+    @Override
+    public void setAvailableRoles(final List<RoleProxy> roles) {
+        this.roles.setRowData(roles);
+    }
 
-	@Override
-	public void setEnabled(boolean b) {
-		//TODO
-	}
+    @Override
+    public void showErrors(final List<EditorError> errors) {
+        if(errors != null && !errors.isEmpty()) {
+            final SafeHtmlBuilder b = new SafeHtmlBuilder();
+            for (final EditorError error : errors) {
+                if(error.getPath() != null && !"".equals(error.getPath())) {
+                    final Object userData = error.getUserData();
+                    b.appendEscaped(error.getPath()).appendEscaped(": ");
+                }
+                b.appendEscaped(error.getMessage()).appendEscaped("\n");
+            }
+            Window.alert(b.toSafeHtml().asString());
+        }
+    }
+
+    @UiHandler("saveButton")
+    public void onSaveButtonClick(final ClickEvent event) {
+        delegate.saveClicked();
+    }
+
+    @UiHandler("deleteButton")
+    public void onDeleteButtonClick(final ClickEvent event) {
+        delegate.deleteClicked();
+    }
+
+    @UiHandler("cancelButton")
+    public void onCancelButtonClick(final ClickEvent event) {
+        delegate.cancelClicked();
+    }
+
+    @UiHandler("updatePasswordButton")
+    public void onUpdatePasswordClick(final ClickEvent event) {
+        delegate.updatePasswordClicked();
+    }
+
+    @Override
+    public void setEnabled(final boolean b) {
+        //TODO
+    }
 
 }

@@ -153,6 +153,7 @@
                    	<i18nMessagesBundle>${project.groupId}.webapp.client.application.ApplicationResources</i18nMessagesBundle>
                    	<generateDirectory>${basedir}/src/main/java</generateDirectory>
                    	<persistentunitcachedir>${project.build.directory}</persistentunitcachedir>
+                   	<fragmentCount>1</fragmentCount><!-- enable fragment merging, for less tiny split  -->
                 </configuration>
                 <executions>
                     <execution>

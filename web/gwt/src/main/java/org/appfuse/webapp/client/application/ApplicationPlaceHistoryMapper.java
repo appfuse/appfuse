@@ -8,6 +8,7 @@ import org.appfuse.webapp.client.ui.upload.FileUploadPlace;
 import org.appfuse.webapp.client.ui.users.active.ActiveUsersPlace;
 import org.appfuse.webapp.client.ui.users.editProfile.EditProfilePlace;
 import org.appfuse.webapp.client.ui.users.signUp.SignUpPlace;
+import org.appfuse.webapp.client.ui.users.updatePassword.UpdatePasswordPlace;
 
 import com.google.gwt.place.shared.PlaceHistoryMapperWithFactory;
 import com.google.gwt.place.shared.WithTokenizers;
@@ -15,6 +16,7 @@ import com.google.gwt.place.shared.WithTokenizers;
 @WithTokenizers({
 	MainMenuPlace.Tokenizer.class,
 	LoginPlace.Tokenizer.class,
+	UpdatePasswordPlace.Tokenizer.class,
 	LogoutPlace.Tokenizer.class,
 	EditProfilePlace.Tokenizer.class,
 	SignUpPlace.Tokenizer.class,

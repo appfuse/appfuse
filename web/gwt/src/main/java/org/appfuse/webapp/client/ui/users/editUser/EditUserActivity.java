@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.appfuse.webapp.client.ui.users.editUser;
 
@@ -10,6 +10,7 @@ import org.appfuse.webapp.client.proxies.AddressProxy;
 import org.appfuse.webapp.client.proxies.UserProxy;
 import org.appfuse.webapp.client.requests.UserRequest;
 import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
+import org.appfuse.webapp.client.ui.users.updatePassword.UpdatePasswordPlace;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
@@ -30,38 +31,43 @@ public class EditUserActivity extends AbstractProxyEditActivity<UserProxy> imple
     public EditUserActivity(final Application application, final EditUserView editUserView) {
 	super(application, editUserView);
 	this.editUserView = editUserView;
-	setTitle(i18n.userProfile_title());
-	setDeleteConfirmation(i18n.delete_confirm(i18n.userList_user()));
+	this.setTitle(this.i18n.userProfile_title());
+	this.setDeleteConfirmation(this.i18n.delete_confirm(this.i18n.userList_user()));
     }
 
 
     @Override
     public String getSavedMessage() {
-	if(entityProxy.getVersion() == null) {
-	    return application.getI18n().user_added(getFullName(entityProxy));
+	if(this.entityProxy.getVersion() == null) {
+	    return this.application.getI18n().user_added(this.getFullName(this.entityProxy));
 	} else {
-	    return application.getI18n().user_updated_byAdmin(getFullName(entityProxy));
+	    return this.application.getI18n().user_updated_byAdmin(this.getFullName(this.entityProxy));
 	}
     }
 
     @Override
     public String getDeletedMessage() {
-	return application.getI18n().user_deleted(entityProxy.getUsername());
+	return this.application.getI18n().user_deleted(this.entityProxy.getUsername());
     }
 
 
     @Override
     public void start(final AcceptsOneWidget display, final EventBus eventBus) {
-	if (editUserView != null) {
-	    editUserView.setAvailableRoles(application.getLookupConstants().getAvailableRoles());
-	    editUserView.setCountries(application.getLookupConstants().getCountries());
+	if (this.editUserView != null) {
+	    this.editUserView.setAvailableRoles(this.application.getLookupConstants().getAvailableRoles());
+	    this.editUserView.setCountries(this.application.getLookupConstants().getCountries());
 	}
 	super.start(display, eventBus);
     }
 
     @Override
+    public void updatePasswordClicked() {
+        this.placeController.goTo(new UpdatePasswordPlace(this.entityProxy.getUsername()));
+    }
+
+    @Override
     protected RequestContext createProxyRequest() {
-	return requests.userRequest();
+	return this.requests.userRequest();
     }
 
     @Override

@@ -36,101 +36,136 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class LoginViewImpl extends Composite implements LoginView, Editor<LoginView.LoginDetails> {
 
-	interface Binder extends UiBinder<Widget, LoginViewImpl> {}
-	private static Binder uiBinder = GWT.create(Binder.class);
-	
-	interface Driver extends SimpleBeanEditorDriver<LoginView.LoginDetails, LoginViewImpl> { }	
-	private Driver driver = GWT.create(Driver.class);
-	
-	ApplicationResources i18n = GWT.create(ApplicationResources.class);
-	
-	
-	private Delegate delegate;
-	
-	@UiField SimplePanel messages;
-	
-	@UiField TextBox username;
-	@UiField PasswordTextBox password;
-	
-	@UiField Widget rememberMeControl;
-	@UiField CheckBox rememberMe;
-	
-	@UiField Button loginButton;
-	
-	@UiField Element signupParaElement;
-	@UiField Element passwordHintParaElement;
-	
-	/**
-	 * 
-	 */
-	public LoginViewImpl() {
-		super();
-		initWidget(uiBinder.createAndBindUi(this));
-		driver.initialize(this);
-		
-		username.getElement().setAttribute("required", "required");
-		username.getElement().setAttribute("autofocus", "autofocus");
-		password.getElement().setAttribute("required", "required");
-		
-		//
-		signupParaElement.setInnerHTML(i18n.login_signup("#" + SignUpPlace.PREFIX + ":"));
+    interface Binder extends UiBinder<Widget, LoginViewImpl> {
+    }
 
-		//
-		HTMLPanel passwordHintHtml = new HTMLPanel(i18n.login_passwordHint());
-		NodeList<Element> anchors = passwordHintHtml.getElement().getElementsByTagName("a");
-	    Element a = anchors.getItem(0);
-	    Anchor link = new Anchor(a.getInnerHTML());
-	    link.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				delegate.onPasswordHintClick();
-			}
-		});
-	    passwordHintHtml.addAndReplaceElement(link, a);
-	    try {//fails on dev mode..
-			HTMLPanel.wrap(passwordHintParaElement).add(passwordHintHtml);
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
-	}
-	
-	@Override
-	public void setDelegate(Delegate delegate) {
-		driver.edit(new LoginDetails());
-		this.delegate = delegate;
-	}
-	
-	public void setMessage(AlertBase alert) {
-		messages.clear();
-		messages.add(alert);
-	}
-	
-	@UiHandler("loginButton")
-	void onLoginClick(ClickEvent event) {
-		delegate.onLoginClick();
-	}
+    private static Binder uiBinder = GWT.create(Binder.class);
 
-	@UiHandler({"username", "password"})
-	void defaultAction(KeyDownEvent event) {
-		if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-			delegate.onLoginClick();
-		}
-	}
-	
-	@Override
-	public EditorDriver<LoginView.LoginDetails> getEditorDriver() {
-		return driver;
-	}
-	
-	@Override
-	public void setRememberMeEnabled(boolean rememberMeEnabled) {
-		rememberMeControl.setVisible(rememberMeEnabled);
-	}
-	
-	@Override
-	public void setWaiting(boolean wait) {
-		loginButton.setEnabled(!wait);
-	}
+    interface Driver extends SimpleBeanEditorDriver<LoginView.LoginDetails, LoginViewImpl> {
+    }
+
+    private final Driver driver = GWT.create(Driver.class);
+
+    ApplicationResources i18n = GWT.create(ApplicationResources.class);
+
+    private Delegate delegate;
+
+    @UiField
+    SimplePanel messages;
+
+    @UiField
+    TextBox username;
+    @UiField
+    PasswordTextBox password;
+
+    @UiField
+    Widget rememberMeControl;
+    @UiField
+    CheckBox rememberMe;
+
+    @UiField
+    Button loginButton;
+
+    @UiField
+    Element signupParaElement;
+    @UiField
+    Element passwordHintParaElement;
+    @UiField
+    Element requestRecoveryTokenElement;
+
+    /**
+     * 
+     */
+    public LoginViewImpl() {
+        super();
+        initWidget(uiBinder.createAndBindUi(this));
+        driver.initialize(this);
+
+        username.getElement().setAttribute("required", "required");
+        username.getElement().setAttribute("autofocus", "autofocus");
+        password.getElement().setAttribute("required", "required");
+
+        //
+        signupParaElement.setInnerHTML(i18n.login_signup("#" + SignUpPlace.PREFIX + ":"));
+
+        //
+        {
+            final HTMLPanel passwordHintHtml = new HTMLPanel(i18n.login_passwordHint());
+            final NodeList<Element> anchors = passwordHintHtml.getElement().getElementsByTagName("a");
+            final Element a = anchors.getItem(0);
+            final Anchor link = new Anchor(a.getInnerHTML());
+            link.addClickHandler(new ClickHandler() {
+
+                @Override
+                public void onClick(final ClickEvent event) {
+                    delegate.onPasswordHintClick();
+                }
+            });
+            passwordHintHtml.addAndReplaceElement(link, a);
+            try {// fails on dev mode..
+                HTMLPanel.wrap(passwordHintParaElement).add(passwordHintHtml);
+            } catch (final Throwable e) {
+                e.printStackTrace();
+            }
+        }
+
+        final HTMLPanel passwordRecoveryParaHtml = new HTMLPanel(i18n.updatePassword_requestRecoveryTokenLink());
+        final Element passwordRecoveryA = passwordRecoveryParaHtml.getElement().getElementsByTagName("a").getItem(0);
+        final Anchor passwordRecoveryLink = new Anchor(passwordRecoveryA.getInnerHTML());
+        passwordRecoveryLink.addClickHandler(new ClickHandler() {
+
+            @Override
+            public void onClick(final ClickEvent event) {
+                delegate.onRequestPasswordRecoveryClick();
+            }
+        });
+        passwordRecoveryParaHtml.addAndReplaceElement(passwordRecoveryLink, passwordRecoveryA);
+
+        try {// fails on dev mode..
+            HTMLPanel.wrap(requestRecoveryTokenElement).add(passwordRecoveryParaHtml);
+        } catch (final Throwable e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void setDelegate(final Delegate delegate) {
+        driver.edit(new LoginDetails());
+        this.delegate = delegate;
+    }
+
+    @Override
+    public void setMessage(final AlertBase alert) {
+        messages.clear();
+        messages.add(alert);
+    }
+
+    @UiHandler("loginButton")
+    void onLoginClick(final ClickEvent event) {
+        delegate.onLoginClick();
+    }
+
+    @UiHandler({ "username", "password" })
+    void defaultAction(final KeyDownEvent event) {
+        if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
+            delegate.onLoginClick();
+        }
+    }
+
+    @Override
+    public EditorDriver<LoginView.LoginDetails> getEditorDriver() {
+        return driver;
+    }
+
+    @Override
+    public void setRememberMeEnabled(final boolean rememberMeEnabled) {
+        rememberMeControl.setVisible(rememberMeEnabled);
+    }
+
+    @Override
+    public void setWaiting(final boolean wait) {
+        loginButton.setEnabled(!wait);
+    }
 }
 

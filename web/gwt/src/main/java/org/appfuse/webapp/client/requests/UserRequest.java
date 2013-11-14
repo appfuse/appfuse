@@ -14,8 +14,8 @@ import com.google.web.bindery.requestfactory.shared.Service;
 @Service(value = UserRequestService.class, locator=GwtServiceLocator.class)
 public interface UserRequest extends RequestContext {
 
-	abstract Request<UserProxy> getCurrentUser();
-	
+    abstract Request<UserProxy> getCurrentUser();
+
     abstract Request<UserProxy> signUp();
 
     abstract Request<UserProxy> signUp(UserProxy user);
@@ -35,11 +35,15 @@ public interface UserRequest extends RequestContext {
     abstract Request<List<UserProxy>> searchUsers(UsersSearchCriteriaProxy searchCriteria, int firstResult, int maxResults, String sortProperty, boolean ascending);
 
     abstract Request<Void> removeUser(Long userId);
-    
+
     abstract Request<String> sendPasswordHint(String username);
-    
+
+    abstract Request<String> requestRecoveryToken(String username);
+
+    abstract Request<UserProxy> updatePassword(String username, String token, String currentPassword, String password);
+
     abstract Request<List<UserProxy>> getActiveUsers();
-    
+
     abstract Request<Boolean> logout();
 
 }

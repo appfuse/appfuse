@@ -36,6 +36,6 @@
 
 	<p ui:field="signupParaElement"></p>
 	<p ui:field="passwordHintParaElement"></p>
-
+	<p ui:field="requestRecoveryTokenElement"></p>
 </g:HTMLPanel>
 </ui:UiBinder>

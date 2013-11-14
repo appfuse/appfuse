@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.appfuse.webapp.client.ui.users.signUp;
 
@@ -31,29 +31,33 @@ public class SignUpActivity extends AbstractProxyEditActivity<UserProxy> impleme
     public SignUpActivity(final Application application, final SignUpView editUserView) {
 	super(application, editUserView);
 	this.signUpView = editUserView;
-	setTitle(i18n.signup_title());
-	setBodyClassname("signup");
-	setDeleteConfirmation(i18n.delete_confirm(i18n.userList_user()));
+	this.setTitle(this.i18n.signup_title());
+	this.setBodyClassname("signup");
+	this.setDeleteConfirmation(this.i18n.delete_confirm(this.i18n.userList_user()));
     }
 
 
     @Override
     public String getSavedMessage() {
-	return application.getI18n().user_registered();
+	return this.application.getI18n().user_registered();
     }
 
     @Override
     public String getDeletedMessage() {
-	return application.getI18n().user_deleted(entityProxy.getUsername());
+	return this.application.getI18n().user_deleted(this.entityProxy.getUsername());
     }
 
     @Override
     public void start(final AcceptsOneWidget display, final EventBus eventBus) {
-	if(signUpView != null) {
-	    signUpView.setAvailableRoles(application.getLookupConstants().getAvailableRoles());
-	    signUpView.setCountries(application.getLookupConstants().getCountries());
+	if(this.signUpView != null) {
+	    this.signUpView.setAvailableRoles(this.application.getLookupConstants().getAvailableRoles());
+	    this.signUpView.setCountries(this.application.getLookupConstants().getCountries());
 	}
 	super.start(display, eventBus);
+    }
+
+    @Override
+    public void updatePasswordClicked() {
     }
 
     @Override
@@ -64,7 +68,7 @@ public class SignUpActivity extends AbstractProxyEditActivity<UserProxy> impleme
 
     @Override
     protected RequestContext createProxyRequest() {
-	return requests.userRequest();
+	return this.requests.userRequest();
     }
 
 
@@ -92,7 +96,7 @@ public class SignUpActivity extends AbstractProxyEditActivity<UserProxy> impleme
 
     @Override
     protected Place nextPlace(final boolean saved) {
-	eventBus.fireEvent(new LoginEvent());
+	this.eventBus.fireEvent(new LoginEvent());
 	return new MainMenuPlace();
     }
 

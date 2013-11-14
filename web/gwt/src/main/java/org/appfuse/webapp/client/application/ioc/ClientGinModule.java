@@ -37,6 +37,8 @@ import org.appfuse.webapp.client.ui.users.search.UsersSearchViewImpl;
 import org.appfuse.webapp.client.ui.users.signUp.SignUpActivity;
 import org.appfuse.webapp.client.ui.users.signUp.SignUpView;
 import org.appfuse.webapp.client.ui.users.signUp.SignUpViewImpl;
+import org.appfuse.webapp.client.ui.users.updatePassword.UpdatePasswordView;
+import org.appfuse.webapp.client.ui.users.updatePassword.UpdatePasswordViewImpl;
 
 import com.google.gwt.activity.shared.ActivityManager;
 import com.google.gwt.activity.shared.ActivityMapper;
@@ -72,6 +74,7 @@ public class ClientGinModule extends AbstractGinModule {
 
         bind(MainMenuView.class).to(MainMenuViewDesktop.class).in(Singleton.class);
         bind(LoginView.class).to(LoginViewImpl.class).in(Singleton.class);
+        bind(UpdatePasswordView.class).to(UpdatePasswordViewImpl.class).in(Singleton.class);
         bind(SignUpView.class).to(SignUpViewImpl.class).in(Singleton.class);
         bind(EditProfileView.class).to(EditProfileViewImpl.class).in(Singleton.class);
         bind(ActiveUsersView.class).to(ActiveUsersViewImpl.class).in(Singleton.class);

@@ -10,6 +10,7 @@ import org.appfuse.webapp.client.proxies.UserProxy;
 import org.appfuse.webapp.client.requests.UserRequest;
 import org.appfuse.webapp.client.ui.mainMenu.MainMenuPlace;
 import org.appfuse.webapp.client.ui.users.editUser.EditUserView;
+import org.appfuse.webapp.client.ui.users.updatePassword.UpdatePasswordPlace;
 
 import com.github.gwtbootstrap.client.ui.constants.AlertType;
 import com.google.gwt.event.shared.EventBus;
@@ -29,76 +30,79 @@ public class EditProfileActivity extends AbstractProxyEditActivity<UserProxy> im
 
     @Inject
     public EditProfileActivity(final Application application, final EditProfileView editUserView) {
-	super(application, editUserView);
-	this.editProfileView = editUserView;
-	setTitle(i18n.userProfile_title());
-	setDeleteConfirmation(i18n.delete_confirm(i18n.userList_user()));
+        super(application, editUserView);
+        editProfileView = editUserView;
+        setTitle(i18n.userProfile_title());
+        setDeleteConfirmation(i18n.delete_confirm(i18n.userList_user()));
     }
 
 
     @Override
     public String getSavedMessage() {
-	return application.getI18n().user_saved();
+        return application.getI18n().user_saved();
     }
 
     @Override
     public String getDeletedMessage() {
-	return application.getI18n().user_deleted(entityProxy.getUsername());
+        return application.getI18n().user_deleted(entityProxy.getUsername());
     }
 
     @Override
     public void start(final AcceptsOneWidget display, final EventBus eventBus) {
-	final boolean isFullyAuthenticated = application.isUserInRole(RoleProxy.FULLY_AUTHENTICATED);
-	editProfileView.hidePasswordFields(!isFullyAuthenticated);
-	if (!isFullyAuthenticated) {
-	    shell.addMessage(i18n.userProfile_cookieLogin(), AlertType.WARNING);
-	}
+        final boolean isFullyAuthenticated = application.isUserInRole(RoleProxy.FULLY_AUTHENTICATED);
+        if (!isFullyAuthenticated) {
+            shell.addMessage(i18n.userProfile_cookieLogin(), AlertType.WARNING);
+        }
 
-	if (editProfileView != null) {
-	    editProfileView.setAvailableRoles(application.getLookupConstants().getAvailableRoles());
-	    editProfileView.setCountries(application.getLookupConstants().getCountries());
-	}
+        if (editProfileView != null) {
+            editProfileView.setAvailableRoles(application.getLookupConstants().getAvailableRoles());
+            editProfileView.setCountries(application.getLookupConstants().getCountries());
+        }
 
-	super.start(display, eventBus);
+        super.start(display, eventBus);
     }
 
 
     @Override
     protected String getEntityId() {
-	//return a not null entityId so super does not try to create a new profile
-	return "x";
+        //return a not null entityId so super does not try to create a new profile
+        return "x";
     }
 
     @Override
     protected RequestContext createProxyRequest() {
-	return requests.userRequest();
+        return requests.userRequest();
     }
 
     @Override
     protected Request<UserProxy> loadProxyRequest(final RequestContext requestContext, final String proxyId) {
-	return ((UserRequest) requestContext).editProfile();
+        return ((UserRequest) requestContext).editProfile();
     }
 
 
     @Override
     protected RequestContext saveOrUpdateRequest(final RequestContext requestContext, final UserProxy proxy) {
-	((UserRequest) requestContext).editProfile(proxy);
-	return requestContext;
+        ((UserRequest) requestContext).editProfile(proxy);
+        return requestContext;
     }
 
     @Override
     protected RequestContext deleteRequest(final RequestContext requestContext, final UserProxy proxy) {
-	throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     protected Place previousPlace() {
-	return new MainMenuPlace();
+        return new MainMenuPlace();
     }
 
     @Override
     protected Place nextPlace(final boolean saved) {
-	return new EditProfilePlace();
+        return new EditProfilePlace();
+    }
+
+    @Override public void updatePasswordClicked() {
+        placeController.goTo(new UpdatePasswordPlace(entityProxy.getUsername()));
     }
 
 }

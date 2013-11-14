@@ -101,7 +101,6 @@ public class LoginActivity extends AbstractBaseActivity implements LoginView.Del
         }
     }
 
-
     private String createLoginPostData(final LoginView.LoginDetails login) {
         return "j_username=" + URL.encodeQueryString(login.getUsername()) +
                 "&j_password=" + URL.encodeQueryString(login.getPassword()) +
@@ -131,6 +130,25 @@ public class LoginActivity extends AbstractBaseActivity implements LoginView.Del
             }
         });
     }
+
+    @Override
+    public void onRequestPasswordRecoveryClick() {
+        final LoginDetails login = view.getEditorDriver().flush();
+        final String username = login.getUsername();
+        if (username == null || "".equals(username.trim())) {
+            Window.alert(i18n.errors_required(i18n.user_username()));
+            return;
+        }
+        requests.userRequest().requestRecoveryToken(login.getUsername()).fire(new Receiver<String>() {
+            @Override
+            public void onSuccess(final String message) {
+                if (message != null) {
+                    shell.addMessage(message, AlertType.SUCCESS);
+                }
+            }
+        });
+    }
+
 
     @Override
     public void onCancelClick() {

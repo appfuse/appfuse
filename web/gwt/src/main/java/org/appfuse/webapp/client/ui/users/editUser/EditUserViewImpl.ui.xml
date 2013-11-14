@@ -25,6 +25,9 @@
 		       	<b:Controls>
 		       		<b:TextBox ui:field="username" controlGroup="{usernameControlGroup}" errorLabel="{usernameErrors}" />
 		       		<b:HelpInline ui:field="usernameErrors" />
+		       		<b:HelpBlock ui:field="updatePasswordControl" >
+		       			<g:Anchor ui:field="updatePasswordButton"><ui:text from="{i18n.updatePassword_changePasswordLink}" /></g:Anchor>
+		       		</b:HelpBlock>
 		       	</b:Controls>
 		    </b:ControlGroup>
 			<b:ControlGroup ui:field="passwordControlGroup">
@@ -32,13 +35,6 @@
 		       	<b:Controls>
 		       		<b:PasswordTextBox ui:field="password" controlGroup="{passwordControlGroup}" errorLabel="{passwordErrors}" />
 		       		<b:HelpInline ui:field="passwordErrors" />
-		       	</b:Controls>
-		    </b:ControlGroup>
-			<b:ControlGroup ui:field="confirmPasswordControlGroup">
-		        <b:ControlLabel for="confirmPassword"><ui:text from="{i18n.user_confirmPassword}" /> <span class="required">*</span></b:ControlLabel>
-		       	<b:Controls>
-		       		<b:PasswordTextBox ui:field="confirmPassword" controlGroup="{confirmPasswordControlGroup}" errorLabel="{confirmPasswordErrors}" />
-		       		<b:HelpInline ui:field="confirmPasswordErrors" />
 		       	</b:Controls>
 		    </b:ControlGroup>
 			<b:ControlGroup ui:field="passwordHintControlGroup">
