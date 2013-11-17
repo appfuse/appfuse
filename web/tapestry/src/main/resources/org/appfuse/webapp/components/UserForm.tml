@@ -28,18 +28,24 @@
 
     <div class="controls">
         <input t:type="textfield" t:id="username" value="user.username" validate="required" class="text large"/>
+        <t:if test="self">
+            <span class="help-block">
+                  <a href="#" t:type="eventlink" t:id="updatePassword" id="updatePassword" event="updatePassword">
+                      ${message:updatePassword.changePasswordLink}</a>
+             </span>
+        </t:if>
     </div>
 </div>
 
-<t:if test="cookieLogin" negate="true">
+<t:if test="! self">
     <div class="control-group">
-
         <label t:type="label" class="control-label" for="password">${message:user.password}</label>
 
         <div class="controls">
             <input t:type="hashedpasswordfield" t:id="password" value="user.password" validate="required"/>
         </div>
     </div>
+
     <div class="control-group">
         <label t:type="label" class="control-label" for="confirmPassword">${message:user.confirmPassword}</label>
 
@@ -48,19 +54,20 @@
                    validate="required"/>
         </div>
     </div>
+    <div class="control-group">
+
+        <label t:type="label" class="control-label" for="passwordHint">${message:user.passwordHint}</label>
+
+        <div class="controls">
+            <input t:type="textfield" t:id="passwordHint" value="user.passwordHint" validate="required"/>
+        </div>
+    </div>
+
     <p:else>
         <input type="hidden" name="password" value="${user.password}"/>
         <input type="hidden" name="confirmPassword" value="${user.confirmPassword}"/>
     </p:else>
 </t:if>
-
-<div class="control-group">
-    <label t:type="label" class="control-label" for="passwordHint">${message:user.passwordHint}</label>
-
-    <div class="controls">
-        <input t:type="textfield" t:id="passwordHint" value="user.passwordHint" validate="required"/>
-    </div>
-</div>
 
 <div class="control-group">
 
@@ -174,13 +181,16 @@
                     <input t:type="checkbox" value="user.enabled" t:id="enabled"/>${message:user.enabled}
                 </label>
                 <label t:type="label" for="accountExpired" class="checkbox inline">
-                    <input class="checkbox" t:type="checkbox" value="user.accountExpired" t:id="accountExpired"/>${message:user.accountExpired}
+                    <input class="checkbox" t:type="checkbox" value="user.accountExpired"
+                           t:id="accountExpired"/>${message:user.accountExpired}
                 </label>
                 <label t:type="label" for="accountLocked" class="checkbox inline">
-                    <input class="checkbox" t:type="checkbox" value="user.accountLocked" t:id="accountLocked"/>${message:user.accountLocked}
+                    <input class="checkbox" t:type="checkbox" value="user.accountLocked"
+                           t:id="accountLocked"/>${message:user.accountLocked}
                 </label>
                 <label t:type="label" for="credentialsExpired" class="checkbox inline">
-                    <input class="checkbox" t:type="checkbox" value="user.credentialsExpired" t:id="credentialsExpired"/>${message:user.credentialsExpired}
+                    <input class="checkbox" t:type="checkbox" value="user.credentialsExpired"
+                           t:id="credentialsExpired"/>${message:user.credentialsExpired}
                 </label>
             </div>
         </div>
@@ -214,7 +224,8 @@
 </t:unless>
 
 <div class="form-actions">
-    <button type="submit" id="save" name="save" class="btn btn-primary"><i class="icon-ok icon-white"></i> ${submitLabel}</button>
+    <button type="submit" id="save" name="save" class="btn btn-primary"><i
+            class="icon-ok icon-white"></i> ${submitLabel}</button>
     <t:unless test="${signup}">
         <t:if test="fromList">
 
@@ -243,7 +254,8 @@
         </t:if>
     </t:unless>
 
-    <a t:type="eventlink" id="cancel" event="canceled" class="btn"><i class="icon-remove"></i> ${message:button.cancel}</a>
+    <a t:type="eventlink" id="cancel" event="canceled" class="btn"><i class="icon-remove"></i> ${message:button.cancel}
+    </a>
 
 </div>
 
