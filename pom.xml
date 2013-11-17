@@ -464,6 +464,7 @@
                 <jdbc.url><![CDATA[jdbc:derby://localhost/appfuse;create=true]]></jdbc.url>
                 <jdbc.username>any</jdbc.username>
                 <jdbc.password>value</jdbc.password>
+                <jdbc.validationQuery><![CDATA[SELECT 1 + 1]]></jdbc.validationQuery>
             </properties>
         </profile>
         <profile>
@@ -478,6 +479,7 @@
                 <jdbc.url><![CDATA[jdbc:h2:/tmp/appfuse;MVCC=TRUE]]></jdbc.url>
                 <jdbc.username>sa</jdbc.username>
                 <jdbc.password />
+                <jdbc.validationQuery><![CDATA[SELECT 1 + 1]]></jdbc.validationQuery>
             </properties>
         </profile>
         <profile>
@@ -492,6 +494,7 @@
                 <jdbc.url><![CDATA[jdbc:hsqldb:/tmp/appfuse;shutdown=true]]></jdbc.url>
                 <jdbc.username>sa</jdbc.username>
                 <jdbc.password />
+                <jdbc.validationQuery><![CDATA[SELECT 1 + 1]]></jdbc.validationQuery>
             </properties>
         </profile>
         <profile>
@@ -508,6 +511,7 @@
                 <jdbc.url><![CDATA[jdbc:oracle:thin:@localhost:1521:XE]]></jdbc.url>
                 <jdbc.username>system</jdbc.username>
                 <jdbc.password>system</jdbc.password>
+                <jdbc.validationQuery><![CDATA[SELECT 1 + 1 from DUAL]]></jdbc.validationQuery>
             </properties>
         </profile>
         <profile>
@@ -521,6 +525,7 @@
                 <jdbc.url><![CDATA[jdbc:postgresql://localhost/appfuse]]></jdbc.url>
                 <jdbc.username>postgres</jdbc.username>
                 <jdbc.password>postgres</jdbc.password>
+                <jdbc.validationQuery><![CDATA[SELECT 1 + 1]]></jdbc.validationQuery>
             </properties>
         </profile>
         <profile>
@@ -538,6 +543,7 @@
                 <jdbc.url><![CDATA[jdbc:jtds:sqlserver://localhost:1433/appfuse]]></jdbc.url>
                 <jdbc.username>sa</jdbc.username>
                 <jdbc.password>appfuse</jdbc.password>
+                <jdbc.validationQuery><![CDATA[SELECT 1 + 1]]></jdbc.validationQuery>
             </properties>
         </profile>
 
@@ -606,6 +612,7 @@
         </jdbc.url>
         <jdbc.username>root</jdbc.username>
         <jdbc.password />
+        <jdbc.validationQuery><![CDATA[SELECT 1 + 1]]></jdbc.validationQuery>
 
         <cargo.container>tomcat7x</cargo.container>
         <cargo.container.url>

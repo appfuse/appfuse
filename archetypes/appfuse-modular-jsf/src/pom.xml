@@ -227,6 +227,7 @@
                 <jdbc.url><![CDATA[jdbc:derby://localhost/${db.name};create=true]]></jdbc.url>
                 <jdbc.username>any</jdbc.username>
                 <jdbc.password>value</jdbc.password>
+                <jdbc.validationQuery><![CDATA[SELECT 1 + 1]]></jdbc.validationQuery>
             </properties>
         </profile>
         <profile>
@@ -241,6 +242,7 @@
                 <jdbc.url><![CDATA[jdbc:h2:/tmp/${db.name};MVCC=TRUE]]></jdbc.url>
                 <jdbc.username>sa</jdbc.username>
                 <jdbc.password></jdbc.password>
+                <jdbc.validationQuery><![CDATA[SELECT 1 + 1]]></jdbc.validationQuery>
             </properties>
         </profile>
         <profile>
@@ -255,6 +257,7 @@
                 <jdbc.url><![CDATA[jdbc:hsqldb:/tmp/${db.name};shutdown=true]]></jdbc.url>
                 <jdbc.username>sa</jdbc.username>
                 <jdbc.password></jdbc.password>
+                <jdbc.validationQuery><![CDATA[SELECT 1 + 1]]></jdbc.validationQuery>
             </properties>
         </profile>
         <profile>
@@ -270,6 +273,7 @@
                 <jdbc.url><![CDATA[jdbc:oracle:thin:@localhost:1521:XE]]></jdbc.url>
                 <jdbc.username>system</jdbc.username>
                 <jdbc.password>system</jdbc.password>
+                <jdbc.validationQuery><![CDATA[SELECT 1 + 1 from DUAL]]></jdbc.validationQuery>
             </properties>
         </profile>
         <profile>
@@ -283,6 +287,7 @@
                 <jdbc.url><![CDATA[jdbc:postgresql://localhost/${db.name}]]></jdbc.url>
                 <jdbc.username>postgres</jdbc.username>
                 <jdbc.password>postgres</jdbc.password>
+                <jdbc.validationQuery><![CDATA[SELECT 1 + 1]]></jdbc.validationQuery>
             </properties>
         </profile>
         <profile>
@@ -300,6 +305,7 @@
                 <jdbc.url><![CDATA[jdbc:jtds:sqlserver://localhost:3683/${db.name}]]></jdbc.url>
                 <jdbc.username>sa</jdbc.username>
                 <jdbc.password>appfuse</jdbc.password>
+                <jdbc.validationQuery><![CDATA[SELECT 1 + 1]]></jdbc.validationQuery>
             </properties>
         </profile>
 
@@ -379,5 +385,6 @@
         <jdbc.url><![CDATA[jdbc:mysql://localhost/${db.name}?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true]]></jdbc.url>
         <jdbc.username>root</jdbc.username>
         <jdbc.password/>
+        <jdbc.validationQuery><![CDATA[SELECT 1 + 1]]></jdbc.validationQuery>
     </properties>
 </project>
