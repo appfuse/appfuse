@@ -21,10 +21,10 @@ import org.apache.wicket.model.*;
 import org.appfuse.model.Address;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
+import org.appfuse.webapp.pages.components.country.CountryDropDownChoice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -42,9 +42,6 @@ import static java.lang.String.format;
 public abstract class UserEditPanel extends Panel {
 
     protected final Logger log = LoggerFactory.getLogger(getClass());
-
-    //TODO: MZA: User @Cacheable to cache countries
-    private static final List<String> countryList = Arrays.asList("USA", "Poland", "Japan");
 
     private final List<Role> allAvailableRoles;
 
@@ -87,7 +84,6 @@ public abstract class UserEditPanel extends Panel {
         add(createAccountSettingsGroup(rolesModel));
         add(createDisplayRolesGroup(rolesModel));
         add(createGroupWithTopButtons());
-
     }
 
     private WebMarkupContainer createPasswordGroup() {
@@ -109,7 +105,7 @@ public abstract class UserEditPanel extends Panel {
                 return new AddressFragment(panelId, "address", new CompoundPropertyModel<Address>(addressModel));
             }
         };
-        //TODO: MZA: Could be moved to Collapsible, but model is mutable and a reference shouldn't leak out to re reusable
+        //TODO: MZA: Could be moved to Collapsible, but model is mutable and a reference shouldn't leak out to be reusable
         Model<Integer> allTabClosed = Model.of(-1);
         return new Collapsible("collapsibleAddress", Lists.<ITab>newArrayList(addressTab), allTabClosed);
     }
@@ -204,9 +200,9 @@ public abstract class UserEditPanel extends Panel {
             add(new RequiredTextField("city").add(new RequiredBehavior()));
             add(new RequiredTextField("province").add(new RequiredBehavior()));
             add(new RequiredTextField("postalCode").add(new RequiredBehavior()));
-            //TODO: MZA: How to play with IDs? Is it needed? - IChoiceRenderer
-            DropDownChoice<String> country = new DropDownChoice<String>("country", countryList);
-            add(country.setRequired(true).add(new RequiredBehavior()));
+            CountryDropDownChoice countries = new CountryDropDownChoice("country",
+                    new PropertyModel<String>(getDefaultModel(), "country"), getLocale());
+            add(countries.setRequired(true).add(new RequiredBehavior()));
         }
     }
 
