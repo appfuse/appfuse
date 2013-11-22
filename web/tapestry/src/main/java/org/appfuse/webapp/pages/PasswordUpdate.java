@@ -97,7 +97,7 @@ public class PasswordUpdate {
                 RequestUtil.getAppURL(request));
         if (user != null) {
             alertManager.alert(Duration.TRANSIENT,
-                    Severity.INFO,
+                    Severity.SUCCESS,
                     messages.format("updatePassword.success", username));
 
         } else {

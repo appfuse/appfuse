@@ -234,13 +234,13 @@ public class UserEdit {
             // add success messages
             alertManager.alert(
                     Duration.TRANSIENT,
-                    Severity.INFO,
+                    Severity.SUCCESS,
                     messages.format("user.saved", user.getFullName()));
             return Home.class;
         } else {
             // add success messages
             if (originalVersion == null) {
-                alertManager.alert(Duration.TRANSIENT, Severity.INFO,
+                alertManager.alert(Duration.TRANSIENT, Severity.SUCCESS,
                         messages.format("user.added", user.getFullName()));
 
                 try {
@@ -255,7 +255,7 @@ public class UserEdit {
                 }
                 return UserList.class;
             } else {
-                alertManager.alert(Duration.TRANSIENT, Severity.INFO,
+                alertManager.alert(Duration.TRANSIENT, Severity.SUCCESS,
                         messages.format("user.updated.byAdmin", user.getFullName()));
             }
         }
@@ -268,7 +268,7 @@ public class UserEdit {
         // Save full name before deletion
         String fullName = user.getFullName();
         userManager.removeUser(user.getId().toString());
-        alertManager.alert(Duration.TRANSIENT, Severity.INFO,
+        alertManager.alert(Duration.TRANSIENT, Severity.SUCCESS,
                 messages.format("user.deleted", fullName)
         );
         logger.debug("After deletion.. ready to return userList object");

@@ -149,7 +149,7 @@ public class Signup {
                     me.getMostSpecificCause().getMessage());
         }
 
-        alertManager.alert(Duration.TRANSIENT, Severity.INFO,  messages.get("user.registered"));
+        alertManager.alert(Duration.TRANSIENT, Severity.SUCCESS,  messages.get("user.registered"));
         return Home.class;
     }
 
