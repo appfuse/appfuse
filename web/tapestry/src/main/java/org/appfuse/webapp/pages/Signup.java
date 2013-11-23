@@ -153,8 +153,4 @@ public class Signup {
         return Home.class;
     }
 
-    @Log
-    void onFailure() throws IOException {
-        response.sendRedirect("signup");
-    }
 }
