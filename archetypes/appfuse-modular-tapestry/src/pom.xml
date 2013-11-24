@@ -89,6 +89,11 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
+        <!-- Temp Repository for Tapestry Staging -->
+        <repository>
+            <id>tapestry-staging</id>
+            <url>https://repository.apache.org/content/repositories/staging/</url>
+        </repository>
     </repositories>
 
     <pluginRepositories>
@@ -329,7 +334,7 @@
         <appfuse.version>2.2.2-SNAPSHOT</appfuse.version>
         <bootstrap.version>2.3.2</bootstrap.version>
         <spring.version>3.2.5.RELEASE</spring.version>
-        <tapestry.version>5.3.7</tapestry.version>
+        <tapestry.version>5.4-alpha-25</tapestry.version>
 
         <!-- Testing dependency versions -->
         <cargo.version>1.4.4</cargo.version>
