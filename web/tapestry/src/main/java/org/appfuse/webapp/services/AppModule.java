@@ -67,6 +67,9 @@ public class AppModule {
         // Spring Security
         configuration.add(AppFuseSymbolConstants.SECURITY_URL, "/j_security_check");
 
+        // Combine JS
+        configuration.add(SymbolConstants.COMBINE_SCRIPTS, "true");
+
     }
 
 
