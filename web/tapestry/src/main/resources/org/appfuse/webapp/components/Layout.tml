@@ -12,48 +12,52 @@
 </head>
 <body id="${bodyId}" class="${bodyClass}">
 
-<div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container-fluid">
-            <!-- For smartphones and smaller screens -->
-            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="brand" t:type="pagelink" page="index">${message:webapp.name}</a>
-            <div class="nav-collapse collapse">
-            <t:menu class="nav" active="${menu}">
-                <t:if test="prop:loggedIn">
-                    <t:menuitem name="Home" title="home.title" page="home" roles="ROLE_ADMIN,ROLE_USER"/>
-                    <t:menuitem name="UserMenu" title="menu.user" page="home.editprofile"
-                                roles="ROLE_ADMIN,ROLE_USER"/>
-                    <!-- Add new menu items here -->
-                    <t:menuitem name="AdminMenu" title="menu.admin" roles="ROLE_ADMIN"
-                                class="dropdown" data-toggle="dropdown">
-                        <ul class="dropdown-menu">
-                            <t:delegate to="block:adminItemsBlock"/>
-                        </ul>
-                    </t:menuitem>
-                    <t:menuitem name="Logout" title="user.logout" page="logout" roles="ROLE_ADMIN,ROLE_USER"/>
+<nav class="navbar navbar-default" role="navigation">
 
-                    <p:else>
-                        <li class="active">
-                            <a t:type="pagelink" page="Login">${message:login.title}</a>
-                        </li>
-                    </p:else>
-                </t:if>
-            </t:menu>
-            </div>
-            <t:header/>
-        </div>
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
     </div>
-</div>
+    <a class="navbar-brand" t:type="pagelink" page="index">${message:webapp.name}</a>
 
-<div class="container-fluid">
+    <div class="collapse navbar-collapse">
+        <t:menu class="nav navbar-nav" active="${menu}">
+            <t:if test="prop:loggedIn">
+                <t:menuitem name="Home" title="home.title" page="home" roles="ROLE_ADMIN,ROLE_USER"/>
+                <t:menuitem name="UserMenu" title="menu.user" page="home.editprofile"
+                            roles="ROLE_ADMIN,ROLE_USER"/>
+                <!-- Add new menu items here -->
+                <t:menuitem name="AdminMenu" title="menu.admin" roles="ROLE_ADMIN"
+                            class="dropdown" data-toggle="dropdown">
+                    <ul class="dropdown-menu">
+                        <t:delegate to="block:adminItemsBlock"/>
+                    </ul>
+                </t:menuitem>
+                <t:menuitem name="Logout" title="user.logout" page="logout" roles="ROLE_ADMIN,ROLE_USER"/>
+
+                <p:else>
+                    <li class="active">
+                        <a t:type="pagelink" page="Login">${message:login.title}</a>
+                    </li>
+                </p:else>
+            </t:if>
+        </t:menu>
+    </div>
+    <t:header/>
+
+
+</nav>
+
+<div class="container">
     <!-- messages here  -->
     <div t:type="alerts"/>
-    <div class="row-fluid">
+    <div class="row">
+
         <t:body/>
 
         <t:if test="sidebar">
@@ -63,8 +67,8 @@
 </div>
 
 <t:block id="adminMenuBlock">
-    <div class="span2">
-        <t:menu class="nav nav-list" active="${menu}">
+    <div class="col-md-2">
+        <t:menu class="nav nav-pills nav-stacked" active="${menu}">
             <li class="nav-header">Administration</li>
             <t:delegate to="block:adminItemsBlock"/>
         </t:menu>

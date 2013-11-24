@@ -4,21 +4,21 @@
 
 <body id="login">
     <form method="post" id="loginForm" action="${springSecurityUrl}"
-          onsubmit="saveUsername(this)" class="form-signin" autocomplete="off">
+          class="form-signin" autocomplete="off">
 
         <h2 class="form-signin-heading">
             ${message:login.heading}
         </h2>
 
         <t:if test="${errorMessage}">
-            <div class="alert alert-error fade in">
+            <div class="alert alert-danger fade in">
                 ${message:errors.password.mismatch}
             </div>
         </t:if>
 
-        <input type="text" class="input-block-level" name="j_username" id="j_username"
+        <input type="text" class="form-control" name="j_username" id="j_username"
                placeholder="${message:label.username}" required="true" tabindex="1"/>
-        <input type="password" class="input-block-level" name="j_password" id="j_password" tabindex="2"
+        <input type="password" class="form-control" name="j_password" id="j_password" tabindex="2"
                placeholder="${message:label.password}" required="true"/>
 
         <t:if test="rememberMeEnabled">
@@ -28,7 +28,8 @@
             </label>
         </t:if>
 
-        <input type="submit" class="btn btn-large btn-primary" name="login" value="${message:button.login}" tabindex="4"/>
+        <input type="submit" class="btn btn-large btn-primary btn-block"
+               name="login" value="${message:button.login}" tabindex="4"/>
 
     </form>
 
@@ -37,11 +38,11 @@
     </p>
 
     <p>
-        <t:outputraw value="${message:login.passwordHint}"/>
+        <t:outputraw value="${message:login.passwordHint.new}"/>
     </p>
 
     <p>
-        <t:outputraw value="${message:updatePassword.requestRecoveryTokenLink}"/>
+        <t:outputraw value="${message:updatePassword.requestRecoveryTokenLink.new}"/>
     </p>
 
 </body>

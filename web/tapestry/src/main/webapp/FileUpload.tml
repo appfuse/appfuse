@@ -1,37 +1,29 @@
 <html t:type="layout" title="message:upload.title" heading="message:upload.heading"
       menu="AdminMenu" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
 
-<div class="span3">
+<div class="col-lg-3">
     <h2>${message:upload.heading}</h2>
     ${message:upload.message}
 </div>
 
-<div class="span7">
+<div class="col-lg-7">
 
-    <form t:type="form" t:id="upload" clientValidation="none" class="well form-horizontal">
-        <div class="control-group">
-            <label t:type="label" class="control-label" for="name">${message:uploadForm.name}</label>
+    <form t:type="form" t:id="upload" class="well form-horizontal">
 
-            <div class="controls">
-                <input t:type="textfield" t:id="name" value="fileData.friendlyName"
-                       validate="required"/>
-            </div>
-        </div>
+        <input t:type="textfield" t:id="name" value="fileData.friendlyName" validate="required"
+               t:mixins="formgroup" t:label="${message:uploadForm.name}" />
 
-        <div class="control-group">
-            <label t:type="label" class="control-label" for="file">${message:uploadForm.file} <span class="required">*</span></label>
 
-            <div class="controls">
-                <input t:type="upload" t:id="file" value="fileData.file" validate="required"/>
-            </div>
-        </div>
+        <input t:type="upload" t:id="file" value="fileData.file" validate="required"
+               t:mixins="formgroup" t:label="${message:uploadForm.file}" />
 
-        <div class="form-actions">
+
+        <div class="form-group">
             <button type="submit" class="btn btn-primary" id="save">
-                <i class="icon-upload icon-white"></i> ${message:button.upload}
+                ${message:button.upload}
             </button>
-            <a t:type="eventlink" t:id="cancel" class="btn">
-		        <i class="icon-remove"></i> ${message:button.cancel}
+            <a t:type="eventlink" t:id="cancel" class="btn btn-default">
+		       ${message:button.cancel}
             </a>
         </div>
     </form>
