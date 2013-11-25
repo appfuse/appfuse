@@ -11,6 +11,7 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.protocol.http.WebApplication;
+import org.apache.wicket.request.IRequestParameters;
 import org.apache.wicket.util.time.Duration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +24,8 @@ import javax.servlet.ServletContext;
  * @author Marcin Zajączkowski, 2011-02-07
  */
 public abstract class AbstractWebPage extends WebPage {
+
+    private static final String LOCALE_REQUEST_PARAMETER_NAME = "locale";
 
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
@@ -50,6 +53,20 @@ public abstract class AbstractWebPage extends WebPage {
         response.render(JavaScriptHeaderItem.forUrl("scripts/script.js"));
     }
 
+    @Override
+    protected void onConfigure() {
+        super.onConfigure();
+        changeLocaleIfRequestedByRequestParameter();
+    }
+
+    private void changeLocaleIfRequestedByRequestParameter() {
+        IRequestParameters queryParameters = getRequest().getQueryParameters();
+        if (queryParameters.getParameterNames().contains(LOCALE_REQUEST_PARAMETER_NAME)) {
+            //with "locale" GET parameter available LocaleFilter overrides getLocale() for request with that value
+            getSession().setLocale(getRequest().getLocale());
+        }
+    }
+
     protected NotificationMessage createDefaultInfoNotificationMessage(IModel<String> messageModel) {
         return new NotificationMessage(messageModel)
                 .hideAfter(Duration.seconds(5));
@@ -66,4 +83,6 @@ public abstract class AbstractWebPage extends WebPage {
     protected Label createPageMessage(String resourceKey) {
         return new Label("pageMessage", new ResourceModel(resourceKey));
     }
+
+
 }
