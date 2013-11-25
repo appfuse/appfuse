@@ -9,11 +9,6 @@
 
     <!-- precompiled jsp mappings -->
 
-    <!-- Define the default CSS Theme -->
-    <context-param>
-        <param-name>csstheme</param-name>
-        <param-value>simplicity</param-value>
-    </context-param>
     <!-- Define the basename for a resource bundle for I18N -->
     <context-param>
         <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
@@ -44,19 +39,6 @@ org.springframework.beans.factory.BeanCreationException: Error creating bean wit
         </param-value>
     </context-param>
 
-    <!-- Context Configuration for Tapestry 5 -->
-<!--
-    <context-param>
-        <param-name>tapestry.app-package</param-name>
-        <param-value>org.appfuse.webapp</param-value>
-    </context-param>
-    <context-param>
-        <param-name>tapestry.use-external-spring-context</param-name>
-        <param-value>true</param-value>
-    </context-param>
--->
-
-<!--
     <filter>
         <filter-name>encodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -69,13 +51,15 @@ org.springframework.beans.factory.BeanCreationException: Error creating bean wit
             <param-value>true</param-value>
         </init-param>
     </filter>
--->
-<!--
-    <filter>
+    <!-- GZipFilter has issues with XFire's service-listing servlet. -->
+    <!-- http://issues.appfuse.org/browse/APF-863 -->
+    <!-- And showing blank pages. http://issues.appfuse.org/browse/APF-1037 -->
+    <!-- We recommend you configure gzipping in your servlet container.
+         web server, or load balancer. -->
+    <!--filter>
         <filter-name>gzipFilter</filter-name>
         <filter-class>net.sf.ehcache.constructs.web.filter.GzipFilter</filter-class>
-    </filter>
--->
+    </filter-->
     <!--<filter>
         <filter-name>lazyLoadingFilter</filter-name>
         <filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class>
@@ -85,17 +69,8 @@ org.springframework.beans.factory.BeanCreationException: Error creating bean wit
         <filter-name>localeFilter</filter-name>
         <filter-class>org.appfuse.webapp.filter.LocaleFilter</filter-class>
     </filter>
-<!--
-    <filter>
-        <filter-name>rewriteFilter</filter-name>
-        <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
-        <init-param>
-            <param-name>logLevel</param-name>
-            <param-value>log4j</param-value>
-        </init-param>
-    </filter>
--->
-    <!-- Wicket page are secured at page lavel, filter can secure resources (not used) and is required to for menu --> 
+
+    <!-- Wicket page are secured at page level, filter can secure resources (not used) and is required to for menu -->
     <filter>
         <filter-name>securityFilter</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
@@ -109,14 +84,6 @@ org.springframework.beans.factory.BeanCreationException: Error creating bean wit
         <filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class>
     </filter>
 
-    <!-- T5/Spring Filter -->
-<!--
-    <filter>
-        <filter-name>app</filter-name>
-        <filter-class>org.apache.tapestry5.spring.TapestrySpringFilter</filter-class>
-    </filter>
--->
-
     <filter>
         <filter-name>wicket.WicketWarp</filter-name>
         <filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
@@ -126,39 +93,23 @@ org.springframework.beans.factory.BeanCreationException: Error creating bean wit
         </init-param>
     </filter>
 
-<!--
     <filter-mapping>
         <filter-name>encodingFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
--->
-    <!-- FIXME: MZA: Temporarly disabled for Wicket -->
-    <filter-mapping>
-        <filter-name>securityFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>localeFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    <!-- GZipFilter has issues with XFire's service-listing servlet. -->
-    <!-- http://issues.appfuse.org/browse/APF-863 -->
-    <!-- And showing blank pages. http://issues.appfuse.org/browse/APF-1037 -->
-    <!-- We recommend you configure gzipping in your servlet container.
-         web server, or load balancer. -->
     <!--filter-mapping>
         <filter-name>gzipFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping-->
-
-<!--
     <filter-mapping>
-        <filter-name>rewriteFilter</filter-name>
+        <filter-name>securityFilter</filter-name>
         <url-pattern>/*</url-pattern>
-        <dispatcher>REQUEST</dispatcher>
-        <dispatcher>FORWARD</dispatcher>
     </filter-mapping>
--->
+
     <filter-mapping>
         <filter-name>sitemesh</filter-name>
         <url-pattern>/*</url-pattern>
@@ -166,21 +117,10 @@ org.springframework.beans.factory.BeanCreationException: Error creating bean wit
         <dispatcher>FORWARD</dispatcher>
     </filter-mapping>
 
-    <!-- T5 Filter Mapping -->
-<!--
-    <filter-mapping>
-        <filter-name>app</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
--->
-
-    <!-- Wicket Filter -->
-
     <filter-mapping>
         <filter-name>wicket.WicketWarp</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    <!-- End of Wicket filer -->
 
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -233,7 +173,6 @@ org.springframework.beans.factory.BeanCreationException: Error creating bean wit
 -->
 
     <welcome-file-list>
-        <!--<welcome-file>/index</welcome-file>-->
         <welcome-file>/login</welcome-file>
     </welcome-file-list>
 
