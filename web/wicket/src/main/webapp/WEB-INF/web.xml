@@ -29,12 +29,7 @@
             classpath:/applicationContext-service.xml
             classpath*:/applicationContext.xml
             /WEB-INF/applicationContext*.xml
-<!-- Temporarly disabled due to strange error after merge with Wicket trunk from SVN:
-org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.apache.cxf.jaxrs.spring.JAXRSServerFactoryBeanDefinitionParser$SpringJAXRSServerFactoryBean': Invocation of init method failed; nested exception is org.apache.cxf.service.factory.ServiceConstructionException
--->
-<!--
             /WEB-INF/cxf-servlet.xml
--->
             /WEB-INF/security.xml
         </param-value>
     </context-param>
@@ -145,7 +140,6 @@ org.springframework.beans.factory.BeanCreationException: Error creating bean wit
         <listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
     </listener>
 
-<!--
     <servlet>
         <servlet-name>dwr-invoker</servlet-name>
         <servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class>
@@ -170,7 +164,6 @@ org.springframework.beans.factory.BeanCreationException: Error creating bean wit
         <servlet-name>CXFServlet</servlet-name>
         <url-pattern>/services/*</url-pattern>
     </servlet-mapping>
--->
 
     <welcome-file-list>
         <welcome-file>/login</welcome-file>
