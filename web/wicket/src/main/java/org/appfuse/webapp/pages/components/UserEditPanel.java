@@ -21,7 +21,7 @@ import org.apache.wicket.model.*;
 import org.appfuse.model.Address;
 import org.appfuse.model.Role;
 import org.appfuse.model.User;
-import org.appfuse.webapp.pages.components.country.CountryDropDownChoice;
+import org.appfuse.webapp.pages.components.country.SimpleCountryDropDownChoice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -200,8 +200,8 @@ public abstract class UserEditPanel extends Panel {
             add(new RequiredTextField("city").add(new RequiredBehavior()));
             add(new RequiredTextField("province").add(new RequiredBehavior()));
             add(new RequiredTextField("postalCode").add(new RequiredBehavior()));
-            CountryDropDownChoice countries = new CountryDropDownChoice("country",
-                    new PropertyModel<String>(getDefaultModel(), "country"), getLocale());
+            SimpleCountryDropDownChoice countries = new SimpleCountryDropDownChoice("country",
+                    new PropertyModel<String>(getDefaultModel(), "country"));
             add(countries.setRequired(true).add(new RequiredBehavior()));
         }
     }
