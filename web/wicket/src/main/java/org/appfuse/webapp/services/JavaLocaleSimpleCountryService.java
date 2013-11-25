@@ -1,4 +1,4 @@
-package org.appfuse.webapp.service;
+package org.appfuse.webapp.services;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

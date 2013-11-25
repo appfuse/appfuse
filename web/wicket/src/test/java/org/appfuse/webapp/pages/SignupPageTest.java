@@ -8,7 +8,7 @@ import org.appfuse.service.MailEngine;
 import org.appfuse.service.RoleManager;
 import org.appfuse.service.UserExistsException;
 import org.appfuse.service.UserManager;
-import org.appfuse.webapp.service.SimpleCountryService;
+import org.appfuse.webapp.services.SimpleCountryService;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;

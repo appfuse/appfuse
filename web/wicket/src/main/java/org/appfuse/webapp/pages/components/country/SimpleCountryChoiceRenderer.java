@@ -3,7 +3,7 @@ package org.appfuse.webapp.pages.components.country;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.markup.html.form.IChoiceRenderer;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.appfuse.webapp.service.SimpleCountryService;
+import org.appfuse.webapp.services.SimpleCountryService;
 
 import java.util.Locale;
 

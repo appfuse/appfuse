@@ -1,4 +1,4 @@
-package org.appfuse.webapp.service;
+package org.appfuse.webapp.services;
 
 import java.util.List;
 import java.util.Locale;

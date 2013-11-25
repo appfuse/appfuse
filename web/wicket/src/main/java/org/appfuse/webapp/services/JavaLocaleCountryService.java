@@ -1,4 +1,4 @@
-package org.appfuse.webapp.service;
+package org.appfuse.webapp.services;
 
 import org.appfuse.webapp.pages.components.country.Country;
 import org.slf4j.Logger;
