@@ -204,14 +204,14 @@
                     <delete dir="@{dir}/@{dest}/src/main/webapp/common/" />
                     <delete dir="@{dir}/@{dest}/src/main/webapp/decorators/" />
                     <delete dir="@{dir}/@{dest}/src/main/webapp/scripts/" />
-                    <move todir="@{dir}/@{dest}/src/main/resources/webapp/client/application">
+                    <move todir="@{dir}/@{dest}/src/main/resources/client/application">
                     	<fileset dir="@{dir}/@{dest}/src/main/resources/" includes="ApplicationResources**.properties" />
                     </move>
 					<!-- escape unmatched single quotes -->
                     <replaceregexp byline="true" flags="gim">
                         <regexp pattern="'"/><!-- FIXME provide a regexp just for an unmatched single quote -->
                         <substitution expression="''"/>
-                        <fileset dir="@{dir}/@{dest}/src/main/resources/webapp/client/application">
+                        <fileset dir="@{dir}/@{dest}/src/main/resources/client/application">
                             <include name="ApplicationResources**.properties"/>
                         </fileset>
                     </replaceregexp>
