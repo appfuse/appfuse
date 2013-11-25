@@ -3,7 +3,7 @@ package org.appfuse.webapp.pages.components.country;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.markup.html.form.IChoiceRenderer;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.appfuse.webapp.service.JavaLocaleSimpleCountryService;
+import org.appfuse.webapp.service.SimpleCountryService;
 
 import java.util.Locale;
 
@@ -17,7 +17,7 @@ public class SimpleCountryChoiceRenderer implements IChoiceRenderer<String> {
     private final Locale locale;
 
     @SpringBean(name = "simpleCountryService")
-    private JavaLocaleSimpleCountryService countryService;
+    private SimpleCountryService countryService;
 
     public SimpleCountryChoiceRenderer(Locale locale) {
         this.locale = locale;

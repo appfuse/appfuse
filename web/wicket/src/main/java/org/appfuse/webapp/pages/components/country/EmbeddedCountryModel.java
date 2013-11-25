@@ -3,7 +3,7 @@ package org.appfuse.webapp.pages.components.country;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.appfuse.webapp.service.JavaLocaleCountryService;
+import org.appfuse.webapp.service.CountryService;
 
 import java.util.Locale;
 
@@ -18,7 +18,7 @@ public class EmbeddedCountryModel implements IModel<Country> {
     private final Locale locale;
 
     @SpringBean
-    private JavaLocaleCountryService countryService;
+    private CountryService countryService;
 
     public EmbeddedCountryModel(IModel<String> nestedModel, Locale locale) {
         this.nestedModel = nestedModel;

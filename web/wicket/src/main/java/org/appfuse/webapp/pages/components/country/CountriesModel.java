@@ -3,7 +3,7 @@ package org.appfuse.webapp.pages.components.country;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.appfuse.webapp.service.JavaLocaleCountryService;
+import org.appfuse.webapp.service.CountryService;
 
 import java.util.List;
 import java.util.Locale;
@@ -17,7 +17,7 @@ import java.util.Locale;
 public class CountriesModel extends LoadableDetachableModel<List<? extends Country>> {
 
     @SpringBean
-    private JavaLocaleCountryService countryService;
+    private CountryService countryService;
 
     private final Locale locale;
 

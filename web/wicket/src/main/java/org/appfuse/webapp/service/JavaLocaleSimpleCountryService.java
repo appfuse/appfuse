@@ -20,7 +20,7 @@ import java.util.*;
 @Service("simpleCountryService")
 public class JavaLocaleSimpleCountryService implements SimpleCountryService {
 
-    private final static Logger log = LoggerFactory.getLogger(JavaLocaleCountryService.class);
+    private final static Logger log = LoggerFactory.getLogger(JavaLocaleSimpleCountryService.class);
 
     private final static Map<String, Map<String, String>> mmm = new HashMap<>(Locale.getAvailableLocales().length);
 

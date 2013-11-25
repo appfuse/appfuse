@@ -8,6 +8,8 @@ import org.appfuse.service.MailEngine;
 import org.appfuse.service.RoleManager;
 import org.appfuse.service.UserExistsException;
 import org.appfuse.service.UserManager;
+import org.appfuse.webapp.service.SimpleCountryService;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -19,10 +21,13 @@ import org.springframework.web.context.support.StaticWebApplicationContext;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Locale;
 
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
 
 /**
@@ -45,6 +50,7 @@ public class SignupPageTest extends BasePageTest {
     private static final String TEST_POSTAL_CODE = "Postal code";
     private static final String TEST_PHONE_NUMBER = "Phone number";
     private static final String TEST_ADDRESS_STREET = "Address";
+    private static final String TEST_COUNTRY_CODE = "PL";
 
     @Mock
     private RoleManager roleManager;
@@ -52,6 +58,21 @@ public class SignupPageTest extends BasePageTest {
     private MailEngine mailEngine;
     @Mock
     private UserManager userManager;
+    @Mock
+    private SimpleCountryService countryService;
+
+    @Before
+    public void init() {
+        given(countryService.getAvailableCountryCodesInLocale(Matchers.<Locale>anyObject()))
+                .willReturn(asList("JP", "PL", "US"));
+        stubCountryNameByCode("Japan", "JP");
+        stubCountryNameByCode("Poland", "PL");
+        stubCountryNameByCode("Unites States of America", "US");
+    }
+
+    private void stubCountryNameByCode(String name, String code) {
+        given(countryService.getCountryNameInLocaleByCode(eq(code), Matchers.<Locale>anyObject())).willReturn(name);
+    }
 
     @Override
     protected void initSpringBeans(StaticWebApplicationContext context) {
@@ -60,6 +81,7 @@ public class SignupPageTest extends BasePageTest {
         context.getBeanFactory().registerSingleton("roleManager", roleManager);
         context.getBeanFactory().registerSingleton("mailEngine", mailEngine);
         context.getBeanFactory().registerSingleton("userManager", userManager);
+        context.getBeanFactory().registerSingleton("simpleCountryService", countryService);
     }
 
     @Test
@@ -188,8 +210,7 @@ public class SignupPageTest extends BasePageTest {
         assertEquals(TEST_CITY, savedUser.getAddress().getCity());
         assertEquals(TEST_PROVINCE, savedUser.getAddress().getProvince());
         assertEquals(TEST_POSTAL_CODE, savedUser.getAddress().getPostalCode());
-        //TODO: MZA: Currently taken from UserEditPanel - change to new value when read from database
-        assertEquals("Poland", savedUser.getAddress().getCountry());
+        assertEquals(TEST_COUNTRY_CODE, savedUser.getAddress().getCountry());
     }
 
     private void verifyEqualityOnOptionalFields(User savedUser) {
