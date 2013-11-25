@@ -16,6 +16,7 @@ import java.util.*;
  *
  * @author Marcin Zajączkowski, 2013-11-18
  */
+@Deprecated //not needed with SimpleCountryDropDownChoice
 @Service("countryService")
 public class JavaLocaleCountryService implements CountryService {
 

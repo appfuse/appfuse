@@ -10,6 +10,7 @@ import java.util.Locale;
  *
  * @author Marcin Zajączkowski, 2013-11-18
  */
+@Deprecated //not needed with SimpleCountryDropDownChoice
 public interface CountryService {
 
     List<Country> getAvailableCountriesInLocale(Locale locale);

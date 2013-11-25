@@ -11,6 +11,7 @@ import java.util.Locale;
  *
  * @author Marcin Zajączkowski, 2013-11-18
  */
+@Deprecated //use SimpleCountryDropDownChoice
 public class CountryDropDownChoice extends DropDownChoice<Country> {
 
     public CountryDropDownChoice(String id, PropertyModel<String> country, Locale locale) {

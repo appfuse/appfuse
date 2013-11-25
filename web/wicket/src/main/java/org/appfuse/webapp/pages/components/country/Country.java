@@ -10,6 +10,7 @@ import java.io.Serializable;
  *
  * @author Marcin Zajączkowski, 2013-11-18
  */
+@Deprecated //not needed with SimpleCountryDropDownChoice
 public class Country implements Serializable {
     private final String locale;
     private final String name;

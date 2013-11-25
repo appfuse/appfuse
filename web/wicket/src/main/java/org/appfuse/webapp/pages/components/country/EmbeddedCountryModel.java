@@ -12,6 +12,7 @@ import java.util.Locale;
  *
  * @author Marcin Zajączkowski, 2013-11-18
  */
+@Deprecated //not needed with SimpleCountryDropDownChoice
 public class EmbeddedCountryModel implements IModel<Country> {
     private final IModel<String> nestedModel;
     private final Locale locale;

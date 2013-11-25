@@ -13,6 +13,7 @@ import java.util.Locale;
  *
  * @author Marcin Zajączkowski, 2013-11-18
  */
+@Deprecated //not needed with SimpleCountryDropDownChoice
 public class CountriesModel extends LoadableDetachableModel<List<? extends Country>> {
 
     @SpringBean
