@@ -68,8 +68,8 @@ public class PasswordHint extends AbstractWebPage {
             log.debug("message: {}", message);
 //            serviceFacade.getMailEngine().send(message);
 
-            getSession().info(new StringResourceModel(
-                    "login.passwordHint.sent", this, null, new Object[] {username, user.getEmail()}).getString());
+            getSession().info(createDefaultInfoNotificationMessage(new StringResourceModel(
+                    "login.passwordHint.sent", this, null, new Object[] {username, "provided email address"})));
         } catch (UsernameNotFoundException e) {
             log.warn(e.getMessage());
             // This exception is expected to not be rethrown

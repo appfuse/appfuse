@@ -2,10 +2,10 @@ Main TODO in AppFuse-Wicket:
  - getting data of current user (UserEdit) - DONE
  - sorting efficiency (UserList)
  - add using i18n resources from standard AppFuse directory - a workaround in pom.xml - a custom ResourceLoader
-using app*.properties should be written
+using app*.properties should be written - DONE - hack with custom class crated using Javassist
  - reusable component for editing user data - with subclassing for Sing up and others? - DONE
  - roles support during editing user (UserEdit) - DONE
- - full support for save and delete in different modes - WIP (what with password?)
+ - full support for save and delete in different modes - DONE
  - activeUsers? - DONE
  - add integration with j_security_check - action in a wicket form cannot be used - Wicket overrides it -
 workaround with redirect?
@@ -49,7 +49,7 @@ Files copied from web-common to make some Wicket specific changes (should be uni
  - style.css (changes in common)
  - login.js
 
-Integration with Bootstrap and Wicket 2.2
+Integration with Bootstrap and AppFuse 2.2
  - remove (probably) not needed references to prototype.js and friends - DONE
  - add Required and Placeholder behavior - http://tom.hombergs.de/2011/12/wicket-html5-required-and-placeholder.html - DONE
  - move all required common JS/CSS imports from default.jsp to base WebPage - DONE
@@ -91,6 +91,35 @@ in $CATALINA_HOME/bin/
  - Autumn update: exclude jquery and bootstrap from web/pom.xml - a hack with provided or move it to dependencyManagement
  - Autumn update: integrate jquery.cookie.js moved to webjar - DONE
 
+ - generated list of countries - should be sorted by country name, not code
+ - generated list of countries - should use data from http://cldr.unicode.org/
+ - generated list of countries - cacheable with @Cacheable from Spring?
+ - /dwr and /services don't have css and scripts (and looks quite raw) - there were moved from default.jsp to Wicket itself
+
 Before 3.0:
- - generated list of countries
- - fix acceptance test: signup - doesn't move to a login page and others - currently disabled in Maven
+ - generated list of countries - DONE - with some limitations
+ - content is always in English - DONE - added support for ?locale=pl request parameter
+ - ensure "mvn appfuse:full-source" works fine with the Wicket archetype - NO - why after "mvn appfuse:full-source" integration tests try to run?
+ - fix acceptance test: signup - doesn't move to a login page and others - DONE - problem with understanding Bootstrap buttons
+ - resources from /appfuse/wicket/resource/... are not accessible before login
+ - address should not be collapsed on a Signup form
+ - password hint without given an username causes: MarkupNotFoundException: Can not determine Markup. Component is not yet connected to a parent.
+
+Best before 3.0:
+ - decide if there should be page url passwordHint or passwordhint
+ - Files copied from web-common to make some Wicket specific changes (should be unified) - *.jsp
+ - fix problem with remaining red div after dismiss an error message
+ - input inside label for "Account Settings" - a new component? - 3.0?
+ - change button name on Signup page: Save -> Signup
+ - enable passwordHint acceptance tests (before or after chenge to the new implementation?)
+
+ - file upload - looks strange to upload files to application directory - LATER - 3.0?
+ - change mouse cursor over link in a table (UserList)
+ - maybe it is worth to get rid of default.jsp and use some template mechanism from Wicket?
+ - resolve problem with sending password hash to an user on edit - APF-1370
+ - arrows in a table should be next to a header label (not at the end of a column on the right side)
+ - integration with new password recovery mechanism
+
+ - add integration with j_security_check - action in a wicket form cannot be used - Wicket overrides it -
+workaround with redirect? - HOW TO DO IT?
+ - RememberMe feature from Spring security - does it work?

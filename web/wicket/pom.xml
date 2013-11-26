@@ -13,7 +13,8 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -271,14 +272,14 @@
             <version>${wicket.bootstrap.version}</version>
         </dependency>
         <dependency>
-          <groupId>de.agilecoders.wicket.webjars</groupId>
-          <artifactId>wicket-webjars</artifactId>
-          <version>${wicket.webjars.version}</version>
+            <groupId>de.agilecoders.wicket.webjars</groupId>
+            <artifactId>wicket-webjars</artifactId>
+            <version>${wicket.webjars.version}</version>
         </dependency>
         <dependency>
-          <groupId>de.agilecoders.wicket.webjars</groupId>
-          <artifactId>vfs-support</artifactId>
-          <version>${wicket.webjars.version}</version>
+            <groupId>de.agilecoders.wicket.webjars</groupId>
+            <artifactId>vfs-support</artifactId>
+            <version>${wicket.webjars.version}</version>
         </dependency>
 
         <dependency>
@@ -305,9 +306,7 @@
             <id>integration-test</id>
             <activation>
                 <property>
-                    <!-- TODO: MZA: Enable when all ITs are fixed -->
-                    <!--<name>!skipTests</name>-->
-                    <name>artificial-property-to-temporarily-disable-integration-tests</name>
+                    <name>!skipTests</name>
                 </property>
             </activation>
             <build>
@@ -359,6 +358,24 @@
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>webtest-maven-plugin</artifactId>
                         <version>1.0.0</version>
+                        <dependencies>
+                            <!-- Older version hangs on Wicket application, other dependency are required -->
+                            <dependency>
+                                <groupId>net.sourceforge.htmlunit</groupId>
+                                <artifactId>htmlunit</artifactId>
+                                <version>2.12</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>xml-apis</groupId>
+                                <artifactId>xml-apis</artifactId>
+                                <version>1.4.01</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>commons-lang</groupId>
+                                <artifactId>commons-lang</artifactId>
+                                <version>2.6</version>
+                            </dependency>
+                        </dependencies>
                         <executions>
                             <execution>
                                 <id>webtest-test</id>

@@ -12,15 +12,17 @@
     <property file="../../../../common/target/classes/displaytag.properties"/>
 
     <!-- runs all targets -->
-    <!-- TODO: MZA: PasswordHint temporarily disabled - see below -->
+    <!-- TODO: MZA: PasswordHint and FileUpload currently are disabled -->
+    <!-- TODO: MZA: StaticPages tests are disabled due to APF-1378 - dojo.html is removed in archetypes -->
 <!--
     <target name="run-all-tests"
         depends="Login,Logout,PasswordHint,Signup,UserTests,StaticPages,WebServices,DWR,FileUpload"
         description="Call and executes all test cases (targets)"/>
 -->
     <target name="run-all-tests"
-        depends="Login,Logout,Signup,UserTests,StaticPages,WebServices,DWR,FileUpload"
-        description="Call and executes all test cases (targets)"/>
+        depends="Login,Logout,Signup,UserTests,WebServices,DWR"
+        description="Call and executes all test cases (targets)">
+    </target>
 
     <!-- runs user-related tests -->
     <target name="UserTests" depends="EditUser,SearchUser,SaveUser,AddUser,ActiveUsers"
@@ -53,21 +55,19 @@
     <!-- Retrieve Password Hint -->
     <!-- TODO: MZA: Decide if there should be passwordHint or passwordhint -->
     <!-- TODO: MZA: Temporarily disabled due to a problem with ../../login - see AppFuseWicketApplication -->
-<!--
     <target name="PasswordHint" description="Gets the user's password hint">
         <webtest name="passwordHint">
             &config;
             <steps>
                 <invoke description="get Login Page" url="/"/>
                 <verifytitle description="check login title" text=".*${login.title}.*" regex="true"/>
-                <enableJavaScript enable="false"/> &lt;!&ndash; temporary workaround until we remove SiteMesh &ndash;&gt;
+                <enableJavaScript enable="false"/> <!-- temporary workaround until we remove SiteMesh -->
                 <invoke description="click password hint link" url="/passwordHint/admin"/>
                 <verifytitle description="show login title again" text=".*${login.title}.*" regex="true"/>
                 <enableJavaScript enable="true"/>
             </steps>
         </webtest>
     </target>
--->
 
     <target name="StaticPages" description="Ensures that StaticFilter is working">
         <webtest name="staticPages">
@@ -125,12 +125,10 @@
                 <verifytitle description="we should see the user profile title" 
                     text=".*${userProfile.title}.*" regex="true"/>
                 <setinputfield name="userEditPanel:collapsibleAddress:tabs:0:body:content:address" value="2255 Lane Avenue"/>
-                <setinputfield name="userEditPanel:collapsibleAddress:tabs:0:body:content:postalCode"  value="59826"/>
+                <setinputfield name="userEditPanel:collapsibleAddress:tabs:0:body:content:postalCode" value="59826"/>
                 <!--<clickbutton label="${button.save}" description="Click Save"/>-->
                 <clickbutton name="userEditPanel:buttonsGroup:saveButton" description="Click Save"/>
-                <!-- TODO: MZA: Wypelnienie pol password(s) jest obecnie wymagane -->
-                <verifytitle description="display Home if save OK"
-                     text=".*${home.title}.*" regex="true"/>
+                <verifytitle description="display Home if save OK" text=".*${home.title}.*" regex="true"/>
             </steps>
         </webtest>
     </target>
@@ -141,37 +139,42 @@
             &config;
             <steps>
                 &login;
-                <invoke description="Click 'Add' button" url="/useredit"/>
+                <invoke description="click View Users link" url="/admin/userList"/>
+                <clicklink xpath="//a[contains(@class,'btn')][1]" description="Click 'Add' button"/>
                 <verifytitle text=".*${userProfile.title}.*" regex="true"/>
 
-                <setinputfield name="username" value="newuser"/>
-                <setinputfield name="password" value="test"/>
-                <setinputfield name="confirmPassword" value="test"/>
-                <setinputfield name="firstName" value="Test"/>
-                <setinputfield name="lastName" value="Name"/>
-                <setinputfield name="city" value="Denver"/>
-                <setinputfield name="state" value="CO"/>
-                <setselectfield name="country" value="US"/>
-                <setinputfield name="postalCode" value="80210"/>
-                <setinputfield name="email" value="newuser@raibledesigns.com"/>
-                <setinputfield name="website" value="http://raibledesigns.com"/>
-                <setinputfield name="passwordHint" value="test"/>
-                <!--setcheckbox description="Select roles" name="userRoles" checked="ROLE_USER"/-->
+                <setinputfield name="userEditPanel:username" value="newuser"/>
+                <setinputfield name="userEditPanel:passwordGroup:password" value="test"/>
+                <setinputfield name="userEditPanel:passwordGroup:confirmPassword" value="test"/>
+                <setinputfield name="userEditPanel:passwordHint" value="test"/>
+                <setinputfield name="userEditPanel:firstName" value="Test"/>
+                <setinputfield name="userEditPanel:lastName" value="Name"/>
+                <setinputfield name="userEditPanel:email" value="newuser@raibledesigns.com"/>
+                <setinputfield name="userEditPanel:website" value="http://raibledesigns.com"/>
+                <setinputfield name="userEditPanel:collapsibleAddress:tabs:0:body:content:city" value="Denver"/>
+                <setinputfield name="userEditPanel:collapsibleAddress:tabs:0:body:content:province" value="CO"/>
+                <setselectfield name="userEditPanel:collapsibleAddress:tabs:0:body:content:country" value="US"/>
+                <setinputfield name="userEditPanel:collapsibleAddress:tabs:0:body:content:postalCode" value="80210"/>
+                <setcheckbox description="Select roles" name="userEditPanel:accountSettingsGroup:enabled" checked="true"/>
 
-                <clickbutton label="${button.save}" description="Click button 'Save'"/>
+                <clickbutton name="userEditPanel:buttonsGroup:saveButton" description="Click button 'Save'"/>
 
                 <verifytitle text=".*${userList.title}.*" regex="true"/>
                 <verifytext description="verify add success message" regex="true"
-                    text='&lt;div id="successMessages" class="message.*&gt;.*Test Name.*&lt;/div&gt;'/>
+                    text='User information for Test Name has been added successfully.'/>
+                <verifytext description="added user on user list" text="Test Name"/>
 
                 <!-- Delete user -->
-                <clicklink description="Click edit user link" label="newuser"/>
+                <clicklink label="newuser"/>
                 <prepareDialogResponse description="Confirm delete" dialogType="confirm" response="true"/>
-                <clickbutton label="${button.delete}" description="Click button 'Delete'"/>
+                <clickbutton name="userEditPanel:buttonsGroup:deleteButton" description="Click button 'Delete'"/>
                 <verifyNoDialogResponses/>
                 <verifytext description="verify success message" regex="true"
-                    text='&lt;div id="successMessages" class="message.*&gt;.*Test Name.*&lt;/div&gt;'/>
+                    text='User Profile for Test Name has been deleted successfully.'/>
                 <verifytitle description="display user list" text=".*${userList.title}.*" regex="true"/>
+                <not>
+                    <verifytext description="no delete user on user list" text="newuser"/>
+                </not>
             </steps>
         </webtest>
     </target>
@@ -188,6 +191,7 @@
                 <setinputfield name="userEditPanel:username" value="signup-user"/>
                 <setinputfield name="userEditPanel:passwordGroup:password" value="test"/>
                 <setinputfield name="userEditPanel:passwordGroup:confirmPassword" value="test"/>
+                <setinputfield name="userEditPanel:passwordHint" value="test"/>
                 <setinputfield name="userEditPanel:firstName" value="Test"/>
                 <setinputfield name="userEditPanel:lastName" value="Name"/>
                 <setinputfield name="userEditPanel:collapsibleAddress:tabs:0:body:content:city" value="Denver"/>
@@ -198,14 +202,11 @@
                 <setselectfield name="userEditPanel:collapsibleAddress:tabs:0:body:content:country" optionIndex="1"/>
                 <setinputfield name="userEditPanel:email" value="signup-user@raibledesigns.com"/>
                 <setinputfield name="userEditPanel:website" value="http://raibledesigns.com"/>
-                <setinputfield name="userEditPanel:passwordHint" value="test"/>
                 <clickbutton name="userEditPanel:buttonsGroup:saveButton" description="Click button 'Signup'"/>
 
-                <!-- TODO: MZA: It seems there is some validation error and WebTests doesn't recognise html5 required error messages -->
-                <!-- In Wicket frontend user has to login to his/her just register account -->
-                <!--<verifytitle description="view login page" text=".*${login.title}.*" regex="true"/>-->
-                <!-- WebTest problem with message generated by JavaScript? -->
-                <!--<verifytext description="verify success message" text="${user.registered}"/>-->
+                <!-- In Wicket frontend user has to login to his/her just registered account -->
+                <verifytitle description="view login page" text=".*${login.title}.*" regex="true"/>
+                <verifytext description="verify success message" text="${user.registered}"/>
             </steps>
         </webtest>
     </target>
@@ -216,7 +217,7 @@
             &config;
             <steps>
                 &login;
-                <invoke description="get activeUsers URL" url="/admin/activeusers"/>
+                <invoke description="get activeUsers URL" url="/admin/activeUsers"/>
                 <verifytitle description="we should see the activeUsers title" 
                     text=".*${activeUsers.title}.*" regex="true"/>
             </steps>
@@ -224,6 +225,7 @@
     </target>
     
     <!-- File Upload -->
+    <!-- TODO: MZA: Not implemented in Wicket -->
     <target name="FileUpload" description="Tests uploading a file">
         <webtest name="fileUpload">
             &config;

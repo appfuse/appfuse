@@ -75,7 +75,7 @@
             <label class="control-label"><wicket:message key="userProfile.accountSettings">[Account Settings]</wicket:message></label>
 
             <div class="controls">
-                <!-- TODO: MZA: Przerobic na inputa w labelu -->
+                <!-- TODO: MZA: Change to an input inside a label -->
                 <input type="checkbox" wicket:id="enabled"/>
                 <label class="choice"><wicket:message key="user.enabled">[Enabled]</wicket:message></label>
 
@@ -117,8 +117,8 @@
     </div>
 
     <div wicket:id="buttonsGroup" class="form-actions">
-        <button wicket:id="saveButton">[Save]</button>
-        <button wicket:id="deleteButton">[Delete]</button>
+        <button type="submit" wicket:id="saveButton">[Save]</button>
+        <button type="submit" wicket:id="deleteButton">[Delete]</button>
         <button wicket:id="cancelButton">[Cancel]</button>
     </div>
 </wicket:panel>

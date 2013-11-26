@@ -83,7 +83,7 @@ public class Signup extends AbstractUserEdit {
             // userManagerSecurity
             log.warn(ade.getMessage());
 //            getWebRequestCycle().getWebResponse().getHttpServletResponse().sendError(HttpServletResponse.SC_FORBIDDEN);
-            throw new SecurityException("AccessDenied on saving new user");
+            throw new SecurityException("AccessDenied on saving new user", ade);
         } catch (UserExistsException e) {
             error(new StringResourceModel("errors.existing.user", this, null, new Object[] {
                     user.getUsername(), user.getEmail()}).getString());

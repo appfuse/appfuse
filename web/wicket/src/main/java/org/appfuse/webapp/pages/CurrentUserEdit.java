@@ -58,12 +58,13 @@ public class CurrentUserEdit extends AbstractUserEdit {
         try {
             getUserManager().saveUser(user);
             getSession().info(createDefaultInfoNotificationMessage(
-                    new StringResourceModel("user.added", this, null, new Object[]{user.getUsername()})));
+                    new StringResourceModel("user.added", this, null, new Object[]{user.getFullName()})));
             resolveAndSetResponsePage();
         } catch (UserExistsException e) {
             log.warn("User already exists", e);
             error(new NotificationMessage(new StringResourceModel("errors.existing.user", this, null, new Object[] {
-                    user.getUsername(), user.getEmail()})));
+                    user.getUsername(), user.getEmail()})
+            ));
         }
     }
 

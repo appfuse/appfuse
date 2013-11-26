@@ -311,9 +311,7 @@
             <id>integration-test</id>
             <activation>
                 <property>
-                    <!-- TODO: MZA: Enable when all ITs are fixed -->
-                    <!--<name>!skipTests</name>-->
-                    <name>artificial-property-to-temporarily-disable-integration-tests</name>
+                    <name>!skipTests</name>
                 </property>
             </activation>
             <build>
@@ -363,6 +361,24 @@
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>webtest-maven-plugin</artifactId>
                         <version>1.0.0</version>
+                        <dependencies>
+                            <!-- Older version hangs on Wicket application, other dependency are required -->
+                            <dependency>
+                                <groupId>net.sourceforge.htmlunit</groupId>
+                                <artifactId>htmlunit</artifactId>
+                                <version>2.12</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>xml-apis</groupId>
+                                <artifactId>xml-apis</artifactId>
+                                <version>1.4.01</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>commons-lang</groupId>
+                                <artifactId>commons-lang</artifactId>
+                                <version>2.6</version>
+                            </dependency>
+                        </dependencies>
                         <executions>
                             <execution>
                                 <id>webtest-test</id>
