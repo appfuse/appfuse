@@ -103,10 +103,8 @@
                 <invoke description="click View Users link" url="/admin/userList"/>
                 <verifytitle description="we should see the user list title"
                     text=".*${userList.title}.*" regex="true"/>
-                <!--<setinputfield description="set search term" name="q" value="tomcat"/>-->
                 <setinputfield description="set search term" name="searchQuery" value="tomcat"/>
                 <clickbutton label="${button.search}" description="Click Search"/>
-                <!--<verifytext description="verify results" text="Tomcat User"/>-->
                 <verifytext description="verify results" text="matt_raible@yahoo.com"/>
                 <not>
                     <verifytext description="verify results" text="matt@raibledesigns.com"/>
@@ -126,7 +124,6 @@
                     text=".*${userProfile.title}.*" regex="true"/>
                 <setinputfield name="userEditPanel:collapsibleAddress:tabs:0:body:content:address" value="2255 Lane Avenue"/>
                 <setinputfield name="userEditPanel:collapsibleAddress:tabs:0:body:content:postalCode" value="59826"/>
-                <!--<clickbutton label="${button.save}" description="Click Save"/>-->
                 <clickbutton name="userEditPanel:buttonsGroup:saveButton" description="Click Save"/>
                 <verifytitle description="display Home if save OK" text=".*${home.title}.*" regex="true"/>
             </steps>
@@ -185,9 +182,7 @@
             &config;
             <steps>
                 <invoke description="click signup link" url="/signup"/>
-                <!-- TODO: MZA: Temporarily disabled - AbstractUserEdit.html title should be customized, see AppFuseWicketApplication -->
-                <!--<verifytitle description="view signup title" text=".*${signup.title}.*" regex="true"/>-->
-                
+                <verifytitle description="view signup title" text=".*${signup.title}.*" regex="true"/>
                 <setinputfield name="userEditPanel:username" value="signup-user"/>
                 <setinputfield name="userEditPanel:passwordGroup:password" value="test"/>
                 <setinputfield name="userEditPanel:passwordGroup:confirmPassword" value="test"/>
@@ -197,9 +192,7 @@
                 <setinputfield name="userEditPanel:collapsibleAddress:tabs:0:body:content:city" value="Denver"/>
                 <setinputfield name="userEditPanel:collapsibleAddress:tabs:0:body:content:province" value="CO"/>
                 <setinputfield name="userEditPanel:collapsibleAddress:tabs:0:body:content:postalCode" value="80210"/>
-                <!-- TODO: MZA: No option found matching criteria in select HtmlSelect[<select wicket:id="country" class="select" name="userEditPanel:collapsibleAddress:tabs:0:body:content:country" required="required">] -->
-                <!--<setselectfield name="userEditPanel:collapsibleAddress:tabs:0:body:content:country" value="USA"/>-->
-                <setselectfield name="userEditPanel:collapsibleAddress:tabs:0:body:content:country" optionIndex="1"/>
+                <setselectfield name="userEditPanel:collapsibleAddress:tabs:0:body:content:country" value="US"/>
                 <setinputfield name="userEditPanel:email" value="signup-user@raibledesigns.com"/>
                 <setinputfield name="userEditPanel:website" value="http://raibledesigns.com"/>
                 <clickbutton name="userEditPanel:buttonsGroup:saveButton" description="Click button 'Signup'"/>

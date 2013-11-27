@@ -95,6 +95,7 @@ in $CATALINA_HOME/bin/
  - generated list of countries - should use data from http://cldr.unicode.org/
  - generated list of countries - cacheable with @Cacheable from Spring?
  - /dwr and /services don't have css and scripts (and looks quite raw) - there were moved from default.jsp to Wicket itself
+ - search query component placeholder needs a page refresh to apply new locale
 
 Before 3.0:
  - generated list of countries - DONE - with some limitations
