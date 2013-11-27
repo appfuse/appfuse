@@ -361,6 +361,24 @@
             <groupId>de.agilecoders.wicket</groupId>
             <artifactId>wicket-bootstrap-core</artifactId>
             <version>${wicket.bootstrap.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.wicket</groupId>
+                    <artifactId>wicket-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.wicket</groupId>
+                    <artifactId>wicket-extensions</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.wicket</groupId>
+                    <artifactId>wicket-request</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.wicket</groupId>
+                    <artifactId>wicket-util</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
           <groupId>de.agilecoders.wicket.webjars</groupId>
@@ -736,7 +754,7 @@
         <appfuse.version>2.2.2-SNAPSHOT</appfuse.version>
         <spring.version>3.2.5.RELEASE</spring.version>
         <wicket.version>6.12.0</wicket.version>
-        <wicketstuff.version>6.11.1</wicketstuff.version>
+        <wicketstuff.version>6.12.0</wicketstuff.version>
         <wicket.bootstrap.version>0.8.4</wicket.bootstrap.version>
         <wicket.webjars.version>0.3.2</wicket.webjars.version>
 

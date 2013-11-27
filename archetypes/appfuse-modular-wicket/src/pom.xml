@@ -329,7 +329,7 @@
         <appfuse.version>2.2.2-SNAPSHOT</appfuse.version>
         <spring.version>3.2.5.RELEASE</spring.version>
         <wicket.version>6.12.0</wicket.version>
-        <wicketstuff.version>6.11.1</wicketstuff.version>
+        <wicketstuff.version>6.12.0</wicketstuff.version>
         <wicket.bootstrap.version>0.8.4</wicket.bootstrap.version>
         <wicket.webjars.version>0.3.2</wicket.webjars.version>
 

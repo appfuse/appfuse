@@ -671,7 +671,7 @@
         <wiser.version>1.2</wiser.version>
         <bootstrap.version>2.3.2</bootstrap.version>
         <wicket.version>6.12.0</wicket.version>
-        <wicketstuff.version>6.11.1</wicketstuff.version>
+        <wicketstuff.version>6.12.0</wicketstuff.version>
         <wicket.bootstrap.version>0.8.4</wicket.bootstrap.version>
         <wicket.webjars.version>0.3.2</wicket.webjars.version>
         <wro4j.version>1.7.2</wro4j.version>

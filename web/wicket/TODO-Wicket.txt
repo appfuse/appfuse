@@ -99,9 +99,9 @@ in $CATALINA_HOME/bin/
 Before 3.0:
  - generated list of countries - DONE - with some limitations
  - content is always in English - DONE - added support for ?locale=pl request parameter
- - ensure "mvn appfuse:full-source" works fine with the Wicket archetype - NO - why after "mvn appfuse:full-source" integration tests try to run?
+ - ensure "mvn appfuse:full-source" works fine with the Wicket archetype - DONE
  - fix acceptance test: signup - doesn't move to a login page and others - DONE - problem with understanding Bootstrap buttons
- - resources from /appfuse/wicket/resource/... are not accessible before login
+ - resources from /appfuse/wicket/resource/... are not accessible before login - DONE
  - address should not be collapsed on a Signup form
  - password hint without given an username causes: MarkupNotFoundException: Can not determine Markup. Component is not yet connected to a parent.
 
