@@ -342,6 +342,14 @@
         	<artifactId>hibernate-validator</artifactId>
         	<version>${hibernate-validator.version}</version>
         </dependency>
+        
+        <!-- Selenium web tests -->
+	    <dependency>
+	        <groupId>org.seleniumhq.selenium</groupId>
+	        <artifactId>selenium-firefox-driver</artifactId>
+	        <version>2.37.1</version>
+	        <scope>test</scope>
+	    </dependency>
 		
     </dependencies>
 

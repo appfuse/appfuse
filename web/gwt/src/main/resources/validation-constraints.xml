@@ -10,12 +10,12 @@
                 <element name="max">150</element>
             </constraint>           
         </field>
-        <field name="password">
-            <constraint annotation="javax.validation.constraints.NotNull"/>
-            <constraint annotation="javax.validation.constraints.Size">
-                <element name="max">150</element>
-            </constraint>           
-        </field>
+<!--         <field name="password"> -->
+<!--             <constraint annotation="javax.validation.constraints.NotNull" /> -->
+<!--             <constraint annotation="javax.validation.constraints.Size"> -->
+<!--                 <element name="max">150</element> -->
+<!--             </constraint>            -->
+<!--         </field> -->
         <field name="firstName">
             <constraint annotation="javax.validation.constraints.NotNull"/>
             <constraint annotation="javax.validation.constraints.Size">

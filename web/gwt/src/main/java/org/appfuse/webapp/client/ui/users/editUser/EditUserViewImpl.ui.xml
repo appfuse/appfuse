@@ -23,7 +23,7 @@
 			<b:ControlGroup ui:field="usernameControlGroup">
 		        <b:ControlLabel for="username"><ui:text from="{i18n.user_username}" /> <span class="required">*</span></b:ControlLabel>
 		       	<b:Controls>
-		       		<b:TextBox ui:field="username" controlGroup="{usernameControlGroup}" errorLabel="{usernameErrors}" />
+		       		<b:TextBox ui:field="username" name="username" controlGroup="{usernameControlGroup}" errorLabel="{usernameErrors}" />
 		       		<b:HelpInline ui:field="usernameErrors" />
 		       		<b:HelpBlock ui:field="updatePasswordControl" >
 		       			<g:Anchor ui:field="updatePasswordButton"><ui:text from="{i18n.updatePassword_changePasswordLink}" /></g:Anchor>
@@ -33,46 +33,46 @@
 			<b:ControlGroup ui:field="passwordControlGroup">
 		        <b:ControlLabel for="password"><ui:text from="{i18n.user_password}" /> <span class="required">*</span></b:ControlLabel>
 		       	<b:Controls>
-		       		<b:PasswordTextBox ui:field="password" controlGroup="{passwordControlGroup}" errorLabel="{passwordErrors}" />
+		       		<b:PasswordTextBox ui:field="password" name="password" controlGroup="{passwordControlGroup}" errorLabel="{passwordErrors}" />
 		       		<b:HelpInline ui:field="passwordErrors" />
 		       	</b:Controls>
 		    </b:ControlGroup>
 			<b:ControlGroup ui:field="passwordHintControlGroup">
 		        <b:ControlLabel for="passwordHint"><ui:text from="{i18n.user_passwordHint}" /> <span class="required">*</span></b:ControlLabel>
-		       	<b:Controls><b:TextBox ui:field="passwordHint" /></b:Controls>
+		       	<b:Controls><b:TextBox ui:field="passwordHint" name="passwordHint" /></b:Controls>
 		    </b:ControlGroup>
 			<b:ControlGroup ui:field="firstNameControlGroup">
 		        <b:ControlLabel for="firstName"><ui:text from="{i18n.user_firstName}" /> <span class="required">*</span></b:ControlLabel>
 		       	<b:Controls>
-		       		<b:TextBox ui:field="firstName" controlGroup="{firstNameControlGroup}" errorLabel="{firstNameErrors}" />
+		       		<b:TextBox ui:field="firstName" name="firstName" controlGroup="{firstNameControlGroup}" errorLabel="{firstNameErrors}" />
 		       		<b:HelpInline ui:field="firstNameErrors" />
 		       	</b:Controls>
 		    </b:ControlGroup>
 			<b:ControlGroup ui:field="lastNameControlGroup">
 		        <b:ControlLabel for="lastName"><ui:text from="{i18n.user_lastName}" /> <span class="required">*</span></b:ControlLabel>
 		       	<b:Controls>
-		       		<b:TextBox ui:field="lastName" controlGroup="{lastNameControlGroup}" errorLabel="{lastNameErrors}" />
+		       		<b:TextBox ui:field="lastName" name="lastName" controlGroup="{lastNameControlGroup}" errorLabel="{lastNameErrors}" />
 		       		<b:HelpInline ui:field="lastNameErrors" />
 		       	</b:Controls>
 		    </b:ControlGroup>
 			<b:ControlGroup ui:field="emailControlGroup">
 		        <b:ControlLabel for="email"><ui:text from="{i18n.user_email}" /> <span class="required">*</span></b:ControlLabel>
 		       	<b:Controls>
-		       		<b:TextBox ui:field="email" controlGroup="{emailControlGroup}" errorLabel="{emailErrors}" />
+		       		<b:TextBox ui:field="email" name="email" controlGroup="{emailControlGroup}" errorLabel="{emailErrors}" />
 		       		<b:HelpInline ui:field="emailErrors" />
 		       	</b:Controls>
 		    </b:ControlGroup>
 			<b:ControlGroup ui:field="phoneNumberControlGroup">
 		        <b:ControlLabel for="phoneNumber"><ui:text from="{i18n.user_phoneNumber}" /> <span class="required">*</span></b:ControlLabel>
 		       	<b:Controls>
-		       		<b:TextBox ui:field="phoneNumber" controlGroup="{phoneNumberControlGroup}" errorLabel="{phoneNumberErrors}" />
+		       		<b:TextBox ui:field="phoneNumber" name="phoneNumber" controlGroup="{phoneNumberControlGroup}" errorLabel="{phoneNumberErrors}" />
 		       		<b:HelpInline ui:field="phoneNumberErrors" />
 		       	</b:Controls>
 		    </b:ControlGroup>
 			<b:ControlGroup ui:field="websiteControlGroup">
 		        <b:ControlLabel for="website"><ui:text from="{i18n.user_website}" /> <span class="required">*</span></b:ControlLabel>
 		       	<b:Controls>
-		       		<b:TextBox ui:field="website" controlGroup="{websiteControlGroup}" errorLabel="{websiteErrors}" />
+		       		<b:TextBox ui:field="website" name="website" controlGroup="{websiteControlGroup}" errorLabel="{websiteErrors}" />
 		       		<b:HelpInline ui:field="websiteErrors" />
 		       	</b:Controls>
 		    </b:ControlGroup>
@@ -85,28 +85,28 @@
 				    <b:ControlGroup ui:field="addressControlGroup">
 				        <b:ControlLabel for="address"><ui:text from="{i18n.user_address_address}" /></b:ControlLabel>
 				       	<b:Controls>
-				       		<b:TextBox ui:field="address" controlGroup="{addressControlGroup}" errorLabel="{addressErrors}" />
+				       		<b:TextBox ui:field="address" name="address" controlGroup="{addressControlGroup}" errorLabel="{addressErrors}" />
 				       		<b:HelpInline ui:field="addressErrors" />
 				       	</b:Controls>
 				    </b:ControlGroup>
 				    <b:ControlGroup ui:field="cityControlGroup">
 				        <b:ControlLabel for="city"><ui:text from="{i18n.user_address_city}" /></b:ControlLabel>
 				       	<b:Controls>
-				       		<b:TextBox ui:field="city" controlGroup="{cityControlGroup}" errorLabel="{cityErrors}" />
+				       		<b:TextBox ui:field="city" name="city" controlGroup="{cityControlGroup}" errorLabel="{cityErrors}" />
 				       		<b:HelpInline ui:field="cityErrors" />
 				       	</b:Controls>
 				    </b:ControlGroup>
 				    <b:ControlGroup ui:field="provinceControlGroup">
 				        <b:ControlLabel for="province"><ui:text from="{i18n.user_address_province}" /></b:ControlLabel>
 				       	<b:Controls>
-				       		<b:TextBox ui:field="province" controlGroup="{provinceControlGroup}" errorLabel="{provinceErrors}" />
+				       		<b:TextBox ui:field="province" name="province" controlGroup="{provinceControlGroup}" errorLabel="{provinceErrors}" />
 				       		<b:HelpInline ui:field="provinceErrors" />
 				       	</b:Controls>
 				    </b:ControlGroup>
 				    <b:ControlGroup ui:field="postalCodeControlGroup">
 				        <b:ControlLabel for="postalCode"><ui:text from="{i18n.user_address_postalCode}" /></b:ControlLabel>
 				       	<b:Controls>
-				       		<b:TextBox ui:field="postalCode" controlGroup="{postalCodeControlGroup}" errorLabel="{postalCodeErrors}" />
+				       		<b:TextBox ui:field="postalCode" name="postalCode" controlGroup="{postalCodeControlGroup}" errorLabel="{postalCodeErrors}" />
 				       		<b:HelpInline ui:field="postalCodeErrors" />
 				       	</b:Controls>
 				    </b:ControlGroup>
@@ -120,10 +120,10 @@
 			<b:ControlGroup ui:field="accountSettings">
 			    <b:ControlLabel><ui:text from="{i18n.userProfile_accountSettings}" /></b:ControlLabel>
 			    <b:Controls>
-					<b:CheckBox ui:field="enabled" inline="true" /><ui:text from="{i18n.user_enabled}" />
-					<b:CheckBox ui:field="accountExpired" inline="true" /><ui:text from="{i18n.user_accountExpired}" />
-					<b:CheckBox ui:field="accountLocked" inline="true" /><ui:text from="{i18n.user_accountLocked}" />
-					<b:CheckBox ui:field="credentialsExpired" inline="true" /><ui:text from="{i18n.user_credentialsExpired}" />
+					<b:CheckBox ui:field="enabled" name="enabled" inline="true" /><ui:text from="{i18n.user_enabled}" />
+					<b:CheckBox ui:field="accountExpired" name="accountExpired" inline="true" /><ui:text from="{i18n.user_accountExpired}" />
+					<b:CheckBox ui:field="accountLocked" name="accountLocked" inline="true" /><ui:text from="{i18n.user_accountLocked}" />
+					<b:CheckBox ui:field="credentialsExpired" name="credentialsExpired" inline="true" /><ui:text from="{i18n.user_credentialsExpired}" />
 				</b:Controls>
 			</b:ControlGroup>
 			
