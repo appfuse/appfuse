@@ -1,7 +1,9 @@
 package org.appfuse.webapp.pages;
 
+import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationMessage;
 import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.Url;
 import org.apache.wicket.request.cycle.RequestCycle;
@@ -11,11 +13,11 @@ import org.appfuse.Constants;
 import org.appfuse.model.User;
 import org.appfuse.service.MailEngine;
 import org.appfuse.service.UserExistsException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import javax.servlet.http.Cookie;
@@ -27,6 +29,8 @@ import javax.servlet.http.Cookie;
  */
 @MountPath("signup")
 public class Signup extends AbstractUserEdit {
+
+    private final static Logger log = LoggerFactory.getLogger(Signup.class);
 
     private static final String SIGNUP_PROPERTY_PREFIX = "signup";
 
@@ -49,22 +53,10 @@ public class Signup extends AbstractUserEdit {
 
     @Override
     protected void onSaveButtonSubmit() {
-
         User user = prepareNewUser();
-
         user = saveUser(user);
-
-//        //TODO: MZA: Why should I need it?
-//        getSession().setAttribute(Constants.REGISTERED, Boolean.TRUE);
-
-//        //TODO: MZA: Is it needed (besides it doesn't work properly)
-//        authenticateNewUser(user);
-
-
         prepareAndSendNewUserEmail(user);
-
-        getSession().info(createDefaultInfoNotificationMessage(Model.of(getString("user.registered"))));
-
+        getSession().info(createDefaultInfoNotificationMessage(new ResourceModel("user.registered")));
         setUserNameCookieAndSetResponsePage(user.getUsername());
     }
 
@@ -80,27 +72,14 @@ public class Signup extends AbstractUserEdit {
             user = getUserManager().saveUser(user);
         } catch (AccessDeniedException ade) {
             // thrown by UserSecurityAdvice configured in aop:advisor
-            // userManagerSecurity
             log.warn(ade.getMessage());
-//            getWebRequestCycle().getWebResponse().getHttpServletResponse().sendError(HttpServletResponse.SC_FORBIDDEN);
             throw new SecurityException("AccessDenied on saving new user", ade);
         } catch (UserExistsException e) {
             error(new StringResourceModel("errors.existing.user", this, null, new Object[] {
                     user.getUsername(), user.getEmail()}).getString());
-//            //TODO: MZA: It doesn't look good
-//            user.setPassword(user.getConfirmPassword());
             throw new RestartResponseException(getPage());
         }
         return user;
-    }
-
-    @Deprecated
-    private void authenticateNewUser(User user) {
-        // log user in automatically
-        UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
-                user.getUsername(), user.getConfirmPassword(), user.getAuthorities());
-        auth.setDetails(user);
-        SecurityContextHolder.getContext().setAuthentication(auth);
     }
 
     private void prepareAndSendNewUserEmail(User user) {
@@ -131,10 +110,10 @@ public class Signup extends AbstractUserEdit {
 
     private void sendMessage(SimpleMailMessage message) {
         try {
-//            //TODO: MZA: Temporarly disabled for internal use
-//            mailEngine.send(message);
+            mailEngine.send(message);
         } catch (MailException me) {
-            getSession().error(me.getMostSpecificCause().getMessage());
+            log.error(me.getMostSpecificCause().getMessage(), me);
+            getSession().warn(new NotificationMessage(new ResourceModel("errors.sending.email")));
         }
     }
 
