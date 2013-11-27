@@ -67,7 +67,8 @@ public class PasswordRecoveryToken {
             userManager.sendPasswordRecoveryEmail(username, RequestUtil.getAppURL(request) + getLink());
         } catch (final UsernameNotFoundException ignored) {
             // lets ignore this
-            logger.error(ignored.getCause().getLocalizedMessage());
+            Throwable exceptionToLog = ignored.getCause() != null ? ignored.getCause() : ignored;
+            logger.error(exceptionToLog.getLocalizedMessage());
         }
 
         alertManager.alert(Duration.TRANSIENT,
