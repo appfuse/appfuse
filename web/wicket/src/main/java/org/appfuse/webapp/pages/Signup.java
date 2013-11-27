@@ -169,4 +169,9 @@ public class Signup extends AbstractUserEdit {
     protected boolean getDeleteButtonVisibility() {
         return false;
     }
+
+    @Override
+    protected boolean isCollapsedAddressTab() {
+        return false;
+    }
 }

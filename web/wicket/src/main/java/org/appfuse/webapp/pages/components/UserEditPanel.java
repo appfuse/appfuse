@@ -105,9 +105,11 @@ public abstract class UserEditPanel extends Panel {
                 return new AddressFragment(panelId, "address", new CompoundPropertyModel<Address>(addressModel));
             }
         };
-        //TODO: MZA: Could be moved to Collapsible, but model is mutable and a reference shouldn't leak out to be reusable
-        Model<Integer> allTabClosed = Model.of(-1);
-        return new Collapsible("collapsibleAddress", Lists.<ITab>newArrayList(addressTab), allTabClosed);
+        return new Collapsible("collapsibleAddress", Lists.<ITab>newArrayList(addressTab), shouldAddressTabBeCollapsed());
+    }
+
+    private Model<Integer> shouldAddressTabBeCollapsed() {
+        return isCollapsedAddressTab() ? Model.of(-1) : Model.of(0);
     }
 
     private WebMarkupContainer createAccountSettingsGroup(IModel<Set<Role>> rolesModel) {
@@ -246,4 +248,6 @@ public abstract class UserEditPanel extends Panel {
     protected abstract boolean getDisplayRolesGroupVisibility();
 
     protected abstract boolean getDeleteButtonVisibility();
+
+    protected abstract boolean isCollapsedAddressTab();
 }

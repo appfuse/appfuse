@@ -102,7 +102,7 @@ Before 3.0:
  - ensure "mvn appfuse:full-source" works fine with the Wicket archetype - DONE
  - fix acceptance test: signup - doesn't move to a login page and others - DONE - problem with understanding Bootstrap buttons
  - resources from /appfuse/wicket/resource/... are not accessible before login - DONE
- - address should not be collapsed on a Signup form
+ - address should not be collapsed on a Signup form - DONE
  - password hint without given an username causes: MarkupNotFoundException: Can not determine Markup. Component is not yet connected to a parent.
 
 Best before 3.0:
