@@ -26,7 +26,7 @@ workaround with redirect?
    file is copied and tests from Maven works fine - DONE (added resources from /src/main/java/ in pom.xml) - OBSOLETE
  - broken acceptance tests (part 1): web/wicket/src/test/resources/login.xmlf:1: HTTP error 400: 400 Bad Request for http://localhost:9876/scripts/login.js - DONE
  - broken acceptance tests (part 2): 400 Bad Request for http://localhost:9876/appfuse-wicket-2.1.0-SNAPSHOT/../../login
-   on password hint (web-tests.xml:52) - see comment PasswordHint class
+   on password hint (web-tests.xml:52) - see comment PasswordHint class - OBSOLETE - url looks ok in 6.12.0
  - broken acceptance tests (part 3) - Sign up page has wrong title - AbstractUserEdit.html markup title should be change depending on
    a concrete page (Sign up, Edit user, ...) and other broken tests
  - decide if there should be page url passwordHint or passwordhint
@@ -104,15 +104,15 @@ Before 3.0:
  - fix acceptance test: signup - doesn't move to a login page and others - DONE - problem with understanding Bootstrap buttons
  - resources from /appfuse/wicket/resource/... are not accessible before login - DONE
  - address should not be collapsed on a Signup form - DONE
- - password hint without given an username causes: MarkupNotFoundException: Can not determine Markup. Component is not yet connected to a parent.
+ - password hint without given an username causes: MarkupNotFoundException: Can not determine Markup. Component is not yet connected to a parent. - DONE
 
 Best before 3.0:
- - decide if there should be page url passwordHint or passwordhint
- - Files copied from web-common to make some Wicket specific changes (should be unified) - *.jsp
- - fix problem with remaining red div after dismiss an error message
+ - decide if there should be page url passwordHint or passwordhint - DONE - passwordHint
+ - Files copied from web-common to make some Wicket specific changes (should be unified) - *.jsp - DONE - 2 files left
+ - fix problem with remaining red div after dismiss an error message - OBSOLETE
  - input inside label for "Account Settings" - a new component? - 3.0?
  - change button name on Signup page: Save -> Signup
- - enable passwordHint acceptance tests (before or after chenge to the new implementation?)
+ - enable passwordHint acceptance tests - DONE
 
  - file upload - looks strange to upload files to application directory - LATER - 3.0?
  - change mouse cursor over link in a table (UserList)

@@ -12,7 +12,7 @@
     <property file="../../../../common/target/classes/displaytag.properties"/>
 
     <!-- runs all targets -->
-    <!-- TODO: MZA: PasswordHint and FileUpload currently are disabled -->
+    <!-- TODO: MZA: FileUpload test case is currently disabled -->
     <!-- TODO: MZA: StaticPages tests are disabled due to APF-1378 - dojo.html is removed in archetypes -->
 <!--
     <target name="run-all-tests"
@@ -20,7 +20,7 @@
         description="Call and executes all test cases (targets)"/>
 -->
     <target name="run-all-tests"
-        depends="Login,Logout,Signup,UserTests,WebServices,DWR"
+        depends="Login,Logout,PasswordHint,Signup,UserTests,WebServices,DWR"
         description="Call and executes all test cases (targets)">
     </target>
 
