@@ -239,19 +239,7 @@
             <exclusions>
                 <exclusion>
                     <groupId>org.apache.wicket</groupId>
-                    <artifactId>wicket-core</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.wicket</groupId>
-                    <artifactId>wicket-extensions</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.wicket</groupId>
-                    <artifactId>wicket-request</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.wicket</groupId>
-                    <artifactId>wicket-util</artifactId>
+                    <artifactId>*</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
