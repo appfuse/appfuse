@@ -280,7 +280,17 @@
                     </execution>
                 </executions>
             </plugin>
-	
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.16</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/*Selenium*.java</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>	
         </plugins>
         <resources>
             <resource>
@@ -317,13 +327,7 @@
 
 		<repository>
 			<id>sonatype</id><!-- for gwt-bootstrap -->
-			<url>http://oss.sonatype.org/content/repositories/snapshots</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
+			<url>http://oss.sonatype.org/content/repositories/releases</url>
 		</repository>
 	</repositories>
 
@@ -464,6 +468,14 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        
+        <!-- Selenium web tests -->
+	    <dependency>
+	        <groupId>org.seleniumhq.selenium</groupId>
+	        <artifactId>selenium-firefox-driver</artifactId>
+	        <version>${selenium.version}</version>
+	        <scope>test</scope>
+	    </dependency>        
     </dependencies>
 
     <reporting>
@@ -568,6 +580,20 @@
                             </execution>
                         </executions>
                     </plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<version>2.12</version>
+						<executions>
+							<execution>
+								<id>default</id>
+								<goals>
+									<goal>integration-test</goal>
+									<goal>verify</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
                 </plugins>
             </build>
         </profile>
@@ -719,7 +745,7 @@
         <gwt.version>2.5.0</gwt.version>
         <json.version>20090211</json.version>
         <gin.version>2.0.0</gin.version>
-        <gwtbootstrap.version>2.2.1.0-SNAPSHOT</gwtbootstrap.version>
+        <gwtbootstrap.version>2.2.1.0</gwtbootstrap.version>
         <javax.validation.version>1.0.0.GA</javax.validation.version>
         <hibernate-validator.version>4.2.0.Final</hibernate-validator.version>
 
@@ -730,6 +756,7 @@
         <junit.version>4.10</junit.version>
         <servlet.version>3.0.1</servlet.version>
         <wiser.version>1.2</wiser.version>
+        <selenium.version>2.37.1</selenium.version>
 
         <!-- WebTest default target -->
         <webtest.target>run-all-tests</webtest.target>

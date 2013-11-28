@@ -10,7 +10,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.tuckey.web.filters.urlrewrite.utils.StringUtils;
 
-public class SeleniumBaseTestCase {
+public abstract class SeleniumBaseTestCase {
 
     protected final Log log = LogFactory.getLog(getClass());
 

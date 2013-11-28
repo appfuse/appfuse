@@ -89,6 +89,17 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
+        
+		<repository>
+			<id>sonatype</id><!-- for gwt-bootstrap -->
+			<url>http://oss.sonatype.org/content/repositories/releases</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>        
     </repositories>
 
     <pluginRepositories>
@@ -335,7 +346,7 @@
         <gwt.version>2.5.0</gwt.version>
         <json.version>20090211</json.version>
         <gin.version>2.0.0</gin.version>
-        <gwtbootstrap.version>2.2.1.0-SNAPSHOT</gwtbootstrap.version>
+        <gwtbootstrap.version>2.2.1.0</gwtbootstrap.version>
         <javax.validation.version>1.0.0.GA</javax.validation.version>
         <hibernate-validator.version>4.2.0.Final</hibernate-validator.version>
 

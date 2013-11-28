@@ -13,7 +13,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class SeleniumTestCase extends SeleniumBaseTestCase {
+public class SeleniumITCase extends SeleniumBaseTestCase {
 
     private String baseUrl;
 
@@ -22,7 +22,7 @@ public class SeleniumTestCase extends SeleniumBaseTestCase {
         log.debug("");
         setDriver(new FirefoxDriver());
         log.debug("");
-        baseUrl = "http://localhost:8080/";
+        baseUrl = "http://localhost:8888/";
         getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         getDriver().manage().window().setSize(new Dimension(1024, 900));
     }
