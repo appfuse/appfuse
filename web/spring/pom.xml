@@ -226,12 +226,7 @@
 
     <profiles>
         <profile>
-            <id>integration-test</id>
-            <activation>
-                <property>
-                    <name>!skipTests</name>
-                </property>
-            </activation>
+            <id>itest</id>
             <build>
                 <plugins>
                     <plugin>
