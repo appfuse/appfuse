@@ -204,14 +204,14 @@
                     <delete dir="@{dir}/@{dest}/src/main/webapp/common/" />
                     <delete dir="@{dir}/@{dest}/src/main/webapp/decorators/" />
                     <delete dir="@{dir}/@{dest}/src/main/webapp/scripts/" />
-                    <move todir="@{dir}/@{dest}/src/main/resources/client/application">
+                    <move todir="@{dir}/@{dest}/src/main/resources/webapp/client/application">
                     	<fileset dir="@{dir}/@{dest}/src/main/resources/" includes="ApplicationResources**.properties" />
                     </move>
 					<!-- escape unmatched single quotes -->
                     <replaceregexp byline="true" flags="gim">
                         <regexp pattern="'"/><!-- FIXME provide a regexp just for an unmatched single quote -->
                         <substitution expression="''"/>
-                        <fileset dir="@{dir}/@{dest}/src/main/resources/client/application">
+                        <fileset dir="@{dir}/@{dest}/src/main/resources/webapp/client/application">
                             <include name="ApplicationResources**.properties"/>
                         </fileset>
                     </replaceregexp>
@@ -475,71 +475,26 @@
             <if>
                 <equals arg1="@{module}" arg2="gwt"/>
                 <then>
+                	<!-- scripts to generate regexp and substitution from xml: -->
+                	<!-- sed -e ':a;N;$!ba;s/\n//g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' -e 's/"/\&quot;/g' -e 's/  \+/(\\s+)/g' -e 's/\*/\\*/g' -->
+                	<!-- sed -e ':a;N;$!ba;s/\n/${line.separator}/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' -e 's/"/\&quot;/g' -->
+                	
 				    <!-- Set packaged="true" for ApplicationResources.properties in gwt -->
-				    <if>
-				        <equals arg1="@{dest}" arg2=""/>
-				        <then>
-							<replace dir="@{dir}/target/generated-sources/archetype">
-								<include name="**/archetype-metadata.xml"/>
-								<replacetoken><![CDATA[<fileSet filtered="true" encoding="UTF-8">
-      <directory>src/main/resources</directory>
-      <includes>
-        <include>**/*.vm</include>
-        <include>**/*.xml</include>
-        <include>**/*.properties</include>
-      </includes>
-    </fileSet>]]></replacetoken>
-		                		<replacevalue><![CDATA[<fileSet filtered="true" encoding="UTF-8">
-      <directory>src/main/resources</directory>
-      <includes>
-        <include>**/*.vm</include>
-        <include>**/*.xml</include>
-        <include>**/*.properties</include>
-      </includes>
-      <excludes>
-      	<exclude>**/ApplicationResources*.properties</exclude>
-      </excludes>
-    </fileSet>
-    <fileSet filtered="true" packaged="true" encoding="UTF-8">
-      <directory>src/main/resources</directory>
-      <includes>
-        <include>**/ApplicationResources*.properties</include>
-      </includes>
-    </fileSet>]]></replacevalue>
-						    </replace>
-				        </then>
-				        <else>
-				            <replace dir="@{dir}/target/generated-sources/archetype">
-				                <include name="**/archetype-metadata.xml"/>
-								<replacetoken><![CDATA[<fileSet filtered="true" encoding="UTF-8">
-          <directory>src/main/resources</directory>
-          <includes>
-            <include>**/*.vm</include>
-            <include>**/*.xml</include>
-            <include>**/*.properties</include>
-          </includes>
-        </fileSet>]]></replacetoken>
-                		<replacevalue><![CDATA[<fileSet filtered="true" encoding="UTF-8">
-          <directory>src/main/resources</directory>
-          <includes>
-            <include>**/*.vm</include>
-            <include>**/*.xml</include>
-            <include>**/*.properties</include>
-          </includes>
-          <excludes>
-          	<exclude>**/ApplicationResources*.properties</exclude>
-          </excludes>
-        </fileSet>
-        <fileSet filtered="true" packaged="true" encoding="UTF-8">
-          <directory>src/main/resources</directory>
-          <includes>
-            <include>**/ApplicationResources*.properties</include>
-          </includes>
-        </fileSet>]]></replacevalue>
-						    </replace>
-				        </else>
-				    </if>
-
+                    <replaceregexp byline="false" flags="gm">
+                        <regexp pattern="&lt;fileSet filtered=&quot;true&quot; encoding=&quot;UTF-8&quot;&gt;(\s+)&lt;directory&gt;src/main/resources&lt;/directory&gt;(\s+)&lt;includes&gt;(\s+)&lt;include&gt;\*\*/\*.vm&lt;/include&gt;(\s+)&lt;include&gt;\*\*/\*.xml&lt;/include&gt;(\s+)&lt;include&gt;\*\*/\*.properties&lt;/include&gt;(\s+)&lt;/includes&gt;(\s+)&lt;/fileSet&gt;"/>
+                        <substitution expression="&lt;fileSet filtered=&quot;true&quot; encoding=&quot;UTF-8&quot;&gt;${line.separator}      &lt;directory&gt;src/main/resources&lt;/directory&gt;${line.separator}      &lt;includes&gt;${line.separator}        &lt;include&gt;**/*.vm&lt;/include&gt;${line.separator}        &lt;include&gt;**/*.xml&lt;/include&gt;${line.separator}        &lt;include&gt;**/*.properties&lt;/include&gt;${line.separator}      &lt;/includes&gt;${line.separator}      &lt;excludes&gt;${line.separator}           &lt;exclude&gt;**/ApplicationResources*.properties&lt;/exclude&gt;${line.separator}      &lt;/excludes&gt;${line.separator}    &lt;/fileSet&gt;${line.separator}    &lt;fileSet filtered=&quot;true&quot; packaged=&quot;true&quot; encoding=&quot;UTF-8&quot;&gt;${line.separator}      &lt;directory&gt;src/main/resources&lt;/directory&gt;${line.separator}      &lt;includes&gt;${line.separator}        &lt;include&gt;**/ApplicationResources*.properties&lt;/include&gt;${line.separator}      &lt;/includes&gt;${line.separator}    &lt;/fileSet&gt;"/>
+                        <fileset dir="@{dir}/target/generated-sources/archetype">
+                            <include name="**/archetype-metadata.xml"/>
+                        </fileset>
+                    </replaceregexp>
+                	<!-- replace <include>**/*.xml</include> by <include>webapp/**/*.xml</include> in src/main/java -->
+                    <replaceregexp byline="false" flags="gm">
+                        <regexp pattern="&lt;include&gt;webapp/\*\*/\*.java&lt;/include&gt;(\s+)&lt;include&gt;\*\*/\*.xml&lt;/include&gt;"/>
+                        <substitution expression="&lt;include&gt;webapp/**/*.java&lt;/include&gt;${line.separator}        &lt;include&gt;webapp/**/*.xml&lt;/include&gt;"/>
+                        <fileset dir="@{dir}/target/generated-sources/archetype">
+                            <include name="**/archetype-metadata.xml"/>
+                        </fileset>
+                    </replaceregexp>                	
                 </then>
             </if>
 
