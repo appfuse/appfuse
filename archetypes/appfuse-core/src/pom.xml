@@ -428,6 +428,7 @@
 
         <!-- Framework dependency versions -->
         <appfuse.version>2.2.2-SNAPSHOT</appfuse.version>
+        <bootstrap.version>2.3.2</bootstrap.version>
         <commons.dbcp.version>1.3</commons.dbcp.version>
         <spring.version>3.2.5.RELEASE</spring.version>
 
