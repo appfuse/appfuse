@@ -1,12 +1,5 @@
 package org.appfuse.service.impl;
 
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.jws.WebService;
-
 import org.apache.commons.lang.StringUtils;
 import org.appfuse.dao.UserDao;
 import org.appfuse.model.User;
@@ -16,10 +9,15 @@ import org.appfuse.service.UserManager;
 import org.appfuse.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.security.authentication.dao.SaltSource;
-import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import javax.jws.WebService;
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -32,8 +30,7 @@ import org.springframework.stereotype.Service;
 public class UserManagerImpl extends GenericManagerImpl<User, Long> implements UserManager, UserService {
     private PasswordEncoder passwordEncoder;
     private UserDao userDao;
-    @Autowired(required = false)
-    private SaltSource saltSource;
+
 
     private MailEngine mailEngine;
     private SimpleMailMessage message;
@@ -72,9 +69,8 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
     /**
      * Velocity template name to send users a password recovery mail (default
      * passwordRecovery.vm).
-     * 
-     * @param passwordRecoveryTemplate
-     *            the Velocity template to use (relative to classpath)
+     *
+     * @param passwordRecoveryTemplate the Velocity template to use (relative to classpath)
      * @see MailEngine#sendMessage(SimpleMailMessage, String, Map)
      */
     public void setPasswordRecoveryTemplate(final String passwordRecoveryTemplate) {
@@ -84,9 +80,8 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
     /**
      * Velocity template name to inform users their password was updated
      * (default passwordUpdated.vm).
-     * 
-     * @param passwordUpdatedTemplate
-     *            the Velocity template to use (relative to classpath)
+     *
+     * @param passwordUpdatedTemplate the Velocity template to use (relative to classpath)
      * @see MailEngine#sendMessage(SimpleMailMessage, String, Map)
      */
     public void setPasswordUpdatedTemplate(final String passwordUpdatedTemplate) {
@@ -141,14 +136,9 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
 
             // If password was changed (or new user), encrypt it
             if (passwordChanged) {
-                if (saltSource == null) {
-                    // backwards compatibility
-                    user.setPassword(passwordEncoder.encodePassword(user.getPassword(), null));
-                    log.warn("SaltSource not set, encrypting password w/o salt");
-                } else {
-                    user.setPassword(passwordEncoder.encodePassword(user.getPassword(),
-                            saltSource.getSalt(user)));
-                }
+
+                user.setPassword(passwordEncoder.encode(user.getPassword()));
+
             }
         } else {
             log.warn("PasswordEncoder not set, skipping password encryption...");
@@ -206,8 +196,8 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
         final String token = generateRecoveryToken(user);
         final String username = user.getUsername();
         return StringUtils.replaceEach(urlTemplate,
-                new String[] { "{username}", "{token}" },
-                new String[] { username, token });
+                new String[]{"{username}", "{token}"},
+                new String[]{username, token});
     }
 
     @Override
@@ -268,8 +258,7 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
 
             return user;
         } else if (StringUtils.isNotBlank(currentPassword)) {
-            final Object salt = saltSource != null ? saltSource.getSalt(user) : null;
-            if (passwordEncoder.isPasswordValid(user.getPassword(), currentPassword, salt)) {
+            if (passwordEncoder.matches(user.getPassword(), currentPassword)) {
                 log.debug("Updating password (providing current password) for user:" + username);
                 user.setPassword(newPassword);
                 user = saveUser(user);

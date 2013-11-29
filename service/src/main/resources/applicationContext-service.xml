@@ -90,5 +90,6 @@
     <!-- Security class from Spring Security - used to configure Password    -->
     <!-- Encryption in UserManagerImpl. Can override in security.xml.        -->
     <!-- =================================================================== -->
-    <bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.ShaPasswordEncoder"/>
+    <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+
 </beans>

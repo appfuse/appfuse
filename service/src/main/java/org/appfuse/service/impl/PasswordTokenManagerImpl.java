@@ -4,19 +4,18 @@
 package org.appfuse.service.impl;
 
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.dao.SaltSource;
-import org.springframework.security.authentication.encoding.PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * @author ivangsa
@@ -31,9 +30,6 @@ public class PasswordTokenManagerImpl implements PasswordTokenManager {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Autowired(required = false)
-    private SaltSource saltSource;
-
     /**
      * {@inheritDoc}
      */
@@ -42,8 +38,7 @@ public class PasswordTokenManagerImpl implements PasswordTokenManager {
         if (user != null) {
             final String tokenSource = getTokenSource(user);
             final String expirationTimeStamp = expirationTimeFormat.format(getExpirationTime());
-            final Object salt = saltSource != null ? saltSource.getSalt(user) : null;
-            return expirationTimeStamp + passwordEncoder.encodePassword(expirationTimeStamp + tokenSource, salt);
+            return expirationTimeStamp + passwordEncoder.encode(expirationTimeStamp + tokenSource);
         }
         return null;
     }
@@ -58,17 +53,15 @@ public class PasswordTokenManagerImpl implements PasswordTokenManager {
             final String expirationTimeStamp = getTimestamp(token);
             final String tokenWithoutTimestamp = getTokenWithoutTimestamp(token);
             final String tokenSource = expirationTimeStamp + getTokenSource(user);
-            final Object salt = saltSource != null ? saltSource.getSalt(user) : null;
             final Date expirationTime = parseTimestamp(expirationTimeStamp);
 
             return expirationTime != null && expirationTime.after(new Date())
-                    && passwordEncoder.isPasswordValid(tokenWithoutTimestamp, tokenSource, salt);
+                    && passwordEncoder.matches(tokenWithoutTimestamp, tokenSource);
         }
         return false;
     }
 
     /**
-     * 
      * {@inheritDoc}
      */
     @Override
@@ -78,7 +71,7 @@ public class PasswordTokenManagerImpl implements PasswordTokenManager {
 
     /**
      * Return tokens expiration time, now + 1 day.
-     * 
+     *
      * @return
      */
     private Date getExpirationTime() {
@@ -90,7 +83,6 @@ public class PasswordTokenManagerImpl implements PasswordTokenManager {
     }
 
     /**
-     * 
      * @param user
      * @return
      */
