@@ -1,8 +1,6 @@
 package org.appfuse.webapp.components;
 
-import com.sun.org.apache.bcel.internal.generic.LoadClass;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.apache.tapestry5.ioc.services.ThreadLocale;
 import org.apache.tapestry5.services.PersistentLocale;
 
 import java.util.Locale;
@@ -21,8 +19,8 @@ public class Header {
     private PersistentLocale persistentLocale;
 
     public boolean isEnglish() {
-         return locale.getLanguage().
-               equals(new Locale("en", "", "").getLanguage());
+        return locale.getLanguage().
+                equals(new Locale("en", "", "").getLanguage());
     }
 
     Object onActionFromSwitch() {
