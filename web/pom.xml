@@ -203,30 +203,6 @@
             <artifactId>wro4j-core</artifactId>
             <version>${wro4j.version}</version>
         </dependency>
-        <!-- The following is not needed yes since webjars locator has issues with url rewriting. -->
-        <!-- When it is added, there's issues with asm and wicket. -->
-        <!--<dependency>
-            <groupId>ro.isdc.wro4j</groupId>
-            <artifactId>wro4j-extensions</artifactId>
-            <version>${wro4j.version}</version>
-        </dependency>-->
-        <!-- Add Bootstrap via WebJars -->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>bootstrap</artifactId>
-            <version>${bootstrap.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>bootstrap-datepicker</artifactId>
-            <version>1.2.0</version>
-        </dependency>
-        <!-- Downgrade jQuery so it works with HtmlUnit -->
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>jquery</artifactId>
-            <version>1.8.3</version>
-        </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>jquery-cookie</artifactId>
