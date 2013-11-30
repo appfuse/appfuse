@@ -10,6 +10,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.appfuse.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -27,8 +28,9 @@ public class PasswordTokenManagerImpl implements PasswordTokenManager {
     private final SimpleDateFormat expirationTimeFormat = new SimpleDateFormat("yyyyMMddHHmm");
     private final int expirationTimeTokenLength = expirationTimeFormat.toPattern().length();
 
+    @Qualifier("passwordTokenEncoder")
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordTokenEncoder;
 
     /**
      * {@inheritDoc}
@@ -38,7 +40,7 @@ public class PasswordTokenManagerImpl implements PasswordTokenManager {
         if (user != null) {
             final String tokenSource = getTokenSource(user);
             final String expirationTimeStamp = expirationTimeFormat.format(getExpirationTime());
-            return expirationTimeStamp + passwordEncoder.encode(expirationTimeStamp + tokenSource);
+            return expirationTimeStamp + passwordTokenEncoder.encode(expirationTimeStamp + tokenSource);
         }
         return null;
     }
@@ -56,7 +58,7 @@ public class PasswordTokenManagerImpl implements PasswordTokenManager {
             final Date expirationTime = parseTimestamp(expirationTimeStamp);
 
             return expirationTime != null && expirationTime.after(new Date())
-                    && passwordEncoder.matches(tokenWithoutTimestamp, tokenSource);
+                    && passwordTokenEncoder.matches(tokenSource, tokenWithoutTimestamp);
         }
         return false;
     }

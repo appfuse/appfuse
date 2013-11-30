@@ -8,6 +8,7 @@ import org.appfuse.service.UserExistsException;
 import org.appfuse.service.UserManager;
 import org.appfuse.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -40,7 +41,7 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
     private String passwordUpdatedTemplate = "passwordUpdated.vm";
 
     @Autowired
-    public void setPasswordEncoder(final PasswordEncoder passwordEncoder) {
+    public void setPasswordEncoder(@Qualifier("passwordEncoder") final PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -71,7 +72,7 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
      * passwordRecovery.vm).
      *
      * @param passwordRecoveryTemplate the Velocity template to use (relative to classpath)
-     * @see MailEngine#sendMessage(SimpleMailMessage, String, Map)
+     * @see org.appfuse.service.MailEngine#sendMessage(org.springframework.mail.SimpleMailMessage, String, java.util.Map)
      */
     public void setPasswordRecoveryTemplate(final String passwordRecoveryTemplate) {
         this.passwordRecoveryTemplate = passwordRecoveryTemplate;
@@ -82,7 +83,7 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
      * (default passwordUpdated.vm).
      *
      * @param passwordUpdatedTemplate the Velocity template to use (relative to classpath)
-     * @see MailEngine#sendMessage(SimpleMailMessage, String, Map)
+     * @see org.appfuse.service.MailEngine#sendMessage(org.springframework.mail.SimpleMailMessage, String, java.util.Map)
      */
     public void setPasswordUpdatedTemplate(final String passwordUpdatedTemplate) {
         this.passwordUpdatedTemplate = passwordUpdatedTemplate;
@@ -136,9 +137,7 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
 
             // If password was changed (or new user), encrypt it
             if (passwordChanged) {
-
                 user.setPassword(passwordEncoder.encode(user.getPassword()));
-
             }
         } else {
             log.warn("PasswordEncoder not set, skipping password encryption...");
@@ -176,7 +175,7 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
      *
      * @param username the login name of the human
      * @return User the populated user object
-     * @throws UsernameNotFoundException thrown when username not found
+     * @throws org.springframework.security.core.userdetails.UsernameNotFoundException thrown when username not found
      */
     @Override
     public User getUserByUsername(final String username) throws UsernameNotFoundException {
@@ -258,7 +257,7 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
 
             return user;
         } else if (StringUtils.isNotBlank(currentPassword)) {
-            if (passwordEncoder.matches(user.getPassword(), currentPassword)) {
+            if (passwordEncoder.matches(currentPassword, user.getPassword())) {
                 log.debug("Updating password (providing current password) for user:" + username);
                 user.setPassword(newPassword);
                 user = saveUser(user);
