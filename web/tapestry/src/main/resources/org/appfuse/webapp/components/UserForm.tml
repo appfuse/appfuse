@@ -37,7 +37,7 @@
     </div>
 </div>
 
-<t:if test="! self">
+<t:if test="! userPersisted">
     <div class="control-group">
         <label t:type="label" class="control-label" for="password">${message:user.password}</label>
 
