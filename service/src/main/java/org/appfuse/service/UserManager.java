@@ -3,6 +3,7 @@ package org.appfuse.service;
 import org.appfuse.dao.UserDao;
 import org.appfuse.model.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 
@@ -20,6 +21,13 @@ public interface UserManager extends GenericManager<User, Long> {
      * @param userDao the UserDao implementation to use
      */
     void setUserDao(UserDao userDao);
+
+    /**
+     * Convenience method for testing - allows you to mock the PasswordEncoder and set it on an interface.
+     * @param passwordEncoder the PasswordEncoder implementation to use
+     */
+    void setPasswordEncoder(PasswordEncoder passwordEncoder);
+
 
     /**
      * Retrieves a user by userId.  An exception is thrown if user not found

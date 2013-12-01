@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.junit.Assert.*;
 import static org.mockito.BDDMockito.*;
@@ -21,13 +22,14 @@ public class UserManagerImplTest extends BaseManagerMockTestCase {
     private UserDao userDao;
 
     @Mock
-    private RoleDao roleDao;
+    private PasswordEncoder passwordEncoder;
+
+    @Mock
+    private PasswordTokenManager passwordTokenManager;
+
 
     @InjectMocks
     private UserManagerImpl userManager = new UserManagerImpl();
-
-    @InjectMocks
-    private RoleManagerImpl roleManager;
 
 
     //~ Methods ================================================================
@@ -81,9 +83,8 @@ public class UserManagerImplTest extends BaseManagerMockTestCase {
         // from a properties file matching this class name
         user = (User) populate(user);
 
-        given(roleDao.getRoleByName("ROLE_USER")).willReturn(new Role("ROLE_USER"));
 
-        Role role = roleManager.getRole(Constants.USER_ROLE);
+        Role role = new Role(Constants.USER_ROLE);
         user.addRole(role);
 
         final User user1 = user;

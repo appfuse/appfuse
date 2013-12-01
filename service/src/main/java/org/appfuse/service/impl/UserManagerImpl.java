@@ -41,7 +41,8 @@ public class UserManagerImpl extends GenericManagerImpl<User, Long> implements U
     private String passwordUpdatedTemplate = "passwordUpdated.vm";
 
     @Autowired
-    public void setPasswordEncoder(@Qualifier("passwordEncoder") final PasswordEncoder passwordEncoder) {
+    @Qualifier("passwordEncoder")
+    public void setPasswordEncoder(final PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
 
