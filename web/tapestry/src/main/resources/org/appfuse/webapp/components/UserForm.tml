@@ -183,7 +183,7 @@
                                             <a href="#" t:type="eventlink" t:id="delete" id="delete" event="delete"
                                                class="btn btn-primary">
                                                 ${message:button.delete}</a>
-                                            <a href="#" class="btn" data-dismiss="modal">
+                                            <a href="#" class="btn btn-default" data-dismiss="modal">
                                                 ${message:button.cancel}</a>
                                         </div>
                                     </div> <!-- /.modal-content -->
